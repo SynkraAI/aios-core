@@ -1,8 +1,10 @@
-# The BMAaDd Method
+# The BMad Code Method for Pairing Human-Agentic Workflow for Product Realization and Software Development
 
-**Breakthrough Method AgileAi Driven Development (BMAaDd)**
+**Breakthrough Method Agile-Ai Driven-Development (BMAD)**
 
 Join in on the [Community Discussion Forum](https://github.com/bmadcode/BMAD-METHOD/discussions), help contribute, evolve, and advance the ideas laid out here. This is IDE Agnostic, works great with Cursor, Cline, RooCode, Augment and Aider! If it has an intelligent agent, this will help you tame it and keep the good vibes flowing!
+
+Also check out [Part 1 on the BMad Code YouTube channel](https://youtu.be/JbhiLUY_V2U) - feel free to comment, like, and subscribe also for future videos and updates.
 
 ## Overview
 
