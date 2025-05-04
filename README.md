@@ -52,6 +52,20 @@ Join the [Community Discussion Forum](https://github.com/bmadcode/BMAD-METHOD/di
 
 [View Diagram](./workflow-diagram.md)
 
+## Custom Agent Overview
+
+### Analyst (Business Analyst (BA), Research Assistant (RA), Brainstorming Coach)
+
+The Analyst agent is a versatile entry point into the BMad Method, operating in three distinct modes: Brainstorming Coach, Deep Research, and Project Briefing. It helps transform initial ideas or vague concepts into well-defined project briefs through creative ideation techniques, market analysis, or structured requirement gathering. In Brainstorming mode, it uses proven techniques like SCAMPER and "What if" scenarios to expand possibilities. The Deep Research mode generates comprehensive research prompts to explore market needs, competitors, and target users. Finally, the Project Briefing mode collaboratively builds a structured brief document with a dedicated PM Agent Handoff Prompt section that provides strategic guidance for the next phase. This agent is ideal for users who need help refining their vision before moving to detailed product definition.
+
+### Product Manager (PM)
+
+### Product Owner (PO)
+
+## Scrum Master (SM)
+
+### Dev Agent (Dev)
+
 ## Step-by-Step Process
 
 ### Phase 0: Ideation (Optional)
