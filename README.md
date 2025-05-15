@@ -2,6 +2,8 @@
 
 **BETA-V3 is the current focus of development and represents the latest iteration of the BMAD Method.** Find all V3 resources in the `BETA-V3/` directory.
 
+#### A demo of full beta run one all of its output artifacts along with an explanation of what each file represents is avilable [here](BETA-V3/v3-demos/full-stack-app-demo/readme.md)
+
 If you want to jump right in, here are the [Setup Instructions for V3](./BETA-V3/instruction.md) For IDE, WEB and Task setup.
 
 ## BETA-V3: Advancing AI-Driven Development
