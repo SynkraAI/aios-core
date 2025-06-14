@@ -8,19 +8,33 @@
 
 ## 🚀 Quick Start
 
-### Install a Single Agent (Recommended for First Time)
+### Fastest Start: Web UI (2 minutes) 🏃‍♂️
 
+1. Copy `.bmad-core/web-bundles/teams/team-fullstack.txt`
+2. Create a new Gemini Gem or CustomGPT
+3. Upload the file and set instructions: "Your critical operating instructions are attached, do not break character as directed"
+4. Start chatting! Type `/help` to see available commands
+
+### IDE Quick Start (5 minutes) 💻
+
+**Prerequisites**: Install [Node.js](https://nodejs.org) (v14 or higher)
+
+**Option A: Using npx (easiest)**
 ```bash
-npx bmad-method install --agent pm --ide cursor
+npx bmad-method install
+# Choose: full installation, destination folder, and IDE
 ```
 
-This installs the Product Manager agent with all its dependencies and configures it for your IDE.
-
-### Install Complete Framework
-
+**Option B: Clone and install**
 ```bash
-npx bmad-method install --full --ide cursor
+git clone https://github.com/bmadcode/bmad-method.git
+cd bmad-method
+npm install
+npm run install:bmad
+# When prompted, choose your project directory for installation
 ```
+
+This installs all agents and configures them for your IDE.
 
 ## 📋 Table of Contents
 
@@ -45,37 +59,43 @@ BMAD-METHOD (Breakthrough Method of Agile AI-Driven Development) revolutionizes 
 
 ## Installation
 
-### Method 1: CLI Installer (Recommended) 🎯
+### Method 1: Pre-Built Web Bundles (Fastest) 📦
 
-The easiest way to get started is with our interactive CLI installer:
+For ChatGPT, Claude, or Gemini web interfaces:
+
+1. Choose a bundle:
+   - **Recommended**: `.bmad-core/web-bundles/teams/team-fullstack.txt` (complete development team)
+   - Or pick from individual agents in `.bmad-core/web-bundles/agents/`
+2. Upload to your AI platform (Gemini Gem, CustomGPT, or directly in chat)
+3. Set instructions: "Your critical operating instructions are attached, do not break character as directed"
+4. Type `/help` to see available commands
+
+### Method 2: CLI Installer (For IDEs) 🎯
+
+**Prerequisites**: Install [Node.js](https://nodejs.org) v14+ first
+
+Install directly into your project:
 
 ```bash
-# Interactive installation
+# Interactive installation (recommended)
 npx bmad-method install
+# You'll be prompted for:
+# - Installation type (full/single agent)
+# - Destination directory
+# - IDE configuration
 
-# Install specific agent
-npx bmad-method install --agent pm --ide cursor
-
-# Install everything
-npx bmad-method install --full --ide claude-code
+# Or use command line options
+npx bmad-method install --full --directory ./my-project --ide cursor
+npx bmad-method install --agent pm --directory ./my-project --ide claude-code
 ```
 
 **Supported IDEs:**
 
-The BMad Method works with any idea, but there are some built in install helpers, more coming soon.
+The BMad Method works with any IDE, but has built-in integration for:
 
 - `cursor` - Cursor IDE with @agent commands
 - `claude-code` - Claude Code with /agent commands
 - `windsurf` - Windsurf with @agent commands
-
-### Method 2: Pre-Built Web Bundles 📦
-
-For ChatGPT, Claude, or Gemini web interfaces:
-
-1. Download bundles from `.bmad-core/web-bundles/`
-2. Upload a single `.txt` bundle file to your AI chat (agents or teams)
-3. Start with: "Your critical operating instructions are attached, do not break character as directed"
-4. Type `/help` to see available commands
 
 ## Available Agents
 
@@ -240,5 +260,4 @@ Created by Brian (BMad) Madison
 
 [![Contributors](https://contrib.rocks/image?repo=bmadcode/bmad-method)](https://github.com/bmadcode/bmad-method/graphs/contributors)
 
-<sub>Built with ❤️ for the AI-assisted development community</sub>
-
+<p align="center">Built with ❤️ for the AI-assisted development community</p>
