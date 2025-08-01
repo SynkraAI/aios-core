@@ -44,4 +44,4 @@ aios-fullstack/
 *   **Núcleo (****`aios-core/`****):** O coração do framework, contendo as definições para todos os `agents`, `tasks`, `workflows`, `templates`, e `checklists` que compõem a lógica do sistema.
 *   **Comum (****`common/`****):** Abriga tasks e utilitários reutilizáveis que são compartilhados por múltiplos componentes do núcleo.
 *   **Ferramentas (****`tools/`****):** Contém os scripts operacionais, incluindo o `installer` CLI interativo e o `web-builder` para compilar os pacotes para plataformas web.
-*   **Pacotes de Expansão (****`expansion-packs/`****):** Diretório que contém módulos para estender a funcionalidade do BMAD-METHOD para domínios específicos, como desenvolvimento de jogos ou DevOps.
+*   **Pacotes de Expansão (****`expansion-packs/`****):** Diretório que contém módulos para estender a funcionalidade do AIOS-FULLSTACK para domínios específicos, como desenvolvimento de jogos ou DevOps.

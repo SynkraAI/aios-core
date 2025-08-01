@@ -1,10 +1,10 @@
 # Introdução
 
-Este documento captura o estado atual do codebase do **BMAD-METHOD**, servindo como a arquitetura de referência para o desenvolvimento da **Fase 1 do AIOS-FULLSTACK (MVP até o FR4)**. Ele descreve os padrões, componentes e tecnologias existentes sobre os quais as novas funcionalidades serão construídas.
+Este documento captura o estado atual do codebase do **AIOS-FULLSTACK**, servindo como a arquitetura de referência para o desenvolvimento da **Fase 1 do AIOS-FULLSTACK (MVP até o FR4)**. Ele descreve os padrões, componentes e tecnologias existentes sobre os quais as novas funcionalidades serão construídas.
 
 ## Escopo do Documento
 
-Documentação abrangente do framework BMAD-METHOD para servir como baseline para o MVP do AIOS, que inclui: Rebranding, Workflow de Setup de IDE, Camada de Memória com LlamaIndex e o Meta-Agente `aios-developer`.
+Documentação abrangente do framework AIOS-FULLSTACK para servir como baseline para o MVP do AIOS, que inclui: Rebranding, Workflow de Setup de IDE, Camada de Memória com LlamaIndex e o Meta-Agente `aios-developer`.
 
 ## Registro de Alterações
 

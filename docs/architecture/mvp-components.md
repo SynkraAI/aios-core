@@ -1,6 +1,6 @@
 # Novos Componentes para o MVP do AIOS
 
-As seções a seguir descrevem as novas funcionalidades que serão construídas sobre a arquitetura base do BMAD-METHOD para criar o MVP do AIOS-FULLSTACK.
+As seções a seguir descrevem as novas funcionalidades que serão construídas sobre a arquitetura base do AIOS-FULLSTACK para criar o MVP do AIOS-FULLSTACK.
 
 ## Cliente de Memória LlamaIndex (`aios-memory-client`)
 

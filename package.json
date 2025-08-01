@@ -1,18 +1,43 @@
 {
-  "name": "aios-fullstack",
+  "name": "@aios-fullstack/workspace",
   "version": "4.31.0",
-  "description": "AIOS-FULLSTACK: AI-Orchestrated System for Full Stack Development",
-  "main": "tools/cli.js",
+  "description": "AIOS-FULLSTACK: AI-Orchestrated System for Full Stack Development - Complete Workspace",
+  "main": "index.js",
+  "module": "index.esm.js",
+  "types": "index.d.ts",
   "bin": {
     "aios": "tools/aios-npx-wrapper.js",
     "aios-fullstack": "tools/aios-npx-wrapper.js",
     "bmad-method": "tools/aios-npx-wrapper.js",
     "bmad": "tools/aios-npx-wrapper.js"
   },
+  "workspaces": [
+    "aios-core",
+    "memory",
+    "security", 
+    "performance",
+    "telemetry"
+  ],
+  "files": [
+    "lib/",
+    "tools/",
+    "templates/",
+    "aios-core/",
+    "memory/",
+    "security/",
+    "performance/",
+    "telemetry/",
+    "index.js",
+    "index.esm.js",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "build": "node tools/cli.js build",
+    "build": "node tools/package-builder.js",
     "build:agents": "node tools/cli.js build --agents-only",
     "build:teams": "node tools/cli.js build --teams-only",
+    "build:packages": "node tools/package-builder.js",
     "list:agents": "node tools/cli.js list:agents",
     "validate": "node tools/cli.js validate",
     "install:aios": "node tools/installer/bin/aios.js install",
@@ -20,6 +45,10 @@
     "setup:github": "node tools/setup-github-cli.js",
     "setup": "npm run setup:github && npm run install:aios",
     "format": "prettier --write \"**/*.md\"",
+    "publish:dry-run": "node tools/npm-publish.js --dry-run",
+    "publish:preview": "node tools/npm-publish.js --tag preview",
+    "publish:stable": "node tools/npm-publish.js --tag latest",
+    "publish:interactive": "node tools/npm-publish.js --interactive",
     "version:patch": "node tools/version-bump.js patch",
     "version:minor": "node tools/version-bump.js minor",
     "version:major": "node tools/version-bump.js major",
@@ -45,7 +74,9 @@
     "glob": "^11.0.3",
     "inquirer": "^8.2.6",
     "js-yaml": "^4.1.0",
-    "ora": "^5.4.1"
+    "ora": "^5.4.1",
+    "semver": "^7.7.2",
+    "validator": "^13.15.15"
   },
   "keywords": [
     "agile",

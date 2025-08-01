@@ -1,0 +1,192 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag'
+        required: true
+        default: 'v4.31.0'
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    outputs:
+      release_id: ${{ steps.create_release.outputs.id }}
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG="${{ github.event.inputs.tag }}"
+          else
+            TAG="${{ github.ref_name }}"
+          fi
+          VERSION=${TAG#v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          # Create a changelog based on recent commits
+          echo "## 📋 What's New in v${{ steps.version.outputs.version }}" > CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          
+          # Get commits since last tag
+          LAST_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -n "$LAST_TAG" ]; then
+            echo "### 🔄 Changes since $LAST_TAG:" >> CHANGELOG.md
+            git log --pretty=format:"* %s (%h)" $LAST_TAG..HEAD >> CHANGELOG.md
+          else
+            echo "### 🎉 Initial Release Features:" >> CHANGELOG.md
+            echo "* ✅ Complete Meta-Agent MVP and Framework Distribution" >> CHANGELOG.md
+            echo "* 🔒 Security hardening with penetration testing" >> CHANGELOG.md
+            echo "* ⚡ Performance optimization framework" >> CHANGELOG.md
+            echo "* 📊 Privacy-conscious telemetry system" >> CHANGELOG.md
+            echo "* 📦 Modular NPM package distribution" >> CHANGELOG.md
+          fi
+          
+          echo "" >> CHANGELOG.md
+          echo "## 📦 NPM Packages" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "| Package | Description | Installation |" >> CHANGELOG.md
+          echo "|---------|-------------|--------------|" >> CHANGELOG.md
+          echo "| [@aios-fullstack/workspace](https://www.npmjs.com/package/@aios-fullstack/workspace) | Complete workspace with all components | \`npm install @aios-fullstack/workspace\` |" >> CHANGELOG.md
+          echo "| [@aios-fullstack/core](https://www.npmjs.com/package/@aios-fullstack/core) | Meta-agent orchestration and task management | \`npm install @aios-fullstack/core\` |" >> CHANGELOG.md
+          echo "| [@aios-fullstack/memory](https://www.npmjs.com/package/@aios-fullstack/memory) | Vector storage and semantic search | \`npm install @aios-fullstack/memory\` |" >> CHANGELOG.md
+          echo "| [@aios-fullstack/security](https://www.npmjs.com/package/@aios-fullstack/security) | Input sanitization and vulnerability scanning | \`npm install @aios-fullstack/security\` |" >> CHANGELOG.md
+          echo "| [@aios-fullstack/performance](https://www.npmjs.com/package/@aios-fullstack/performance) | Monitoring, profiling, and optimization | \`npm install @aios-fullstack/performance\` |" >> CHANGELOG.md
+          echo "| [@aios-fullstack/telemetry](https://www.npmjs.com/package/@aios-fullstack/telemetry) | Analytics, error reporting, and metrics | \`npm install @aios-fullstack/telemetry\` |" >> CHANGELOG.md
+          
+          echo "" >> CHANGELOG.md
+          echo "## 🚀 Quick Start" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "\`\`\`javascript" >> CHANGELOG.md
+          echo "const { AIOS } = require('@aios-fullstack/workspace');" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "const aios = new AIOS({" >> CHANGELOG.md
+          echo "  // Optional configuration" >> CHANGELOG.md
+          echo "  security: { sanitizeInputs: true }," >> CHANGELOG.md
+          echo "  performance: { enableProfiling: true }," >> CHANGELOG.md
+          echo "  telemetry: { enabled: false } // Privacy by default" >> CHANGELOG.md
+          echo "});" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "await aios.initialize();" >> CHANGELOG.md
+          echo "const agent = await aios.createAgent({ name: 'MyAgent' });" >> CHANGELOG.md
+          echo "\`\`\`" >> CHANGELOG.md
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          release_name: AIOS-FullStack ${{ steps.version.outputs.tag }}
+          body_path: CHANGELOG.md
+          draft: false
+          prerelease: false
+
+  build-and-upload:
+    needs: create-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build packages
+        run: npm run build:packages
+
+      - name: Create distribution archive
+        run: |
+          VERSION=$(echo "${{ github.ref_name }}" | sed 's/^v//')
+          tar -czf aios-fullstack-${VERSION}.tar.gz \
+            --exclude=node_modules \
+            --exclude=.git \
+            --exclude=tests \
+            --exclude='*.log' \
+            --exclude='.github' \
+            .
+          
+          # Create source code zip
+          zip -r aios-fullstack-${VERSION}-source.zip . \
+            -x "node_modules/*" ".git/*" "tests/*" "*.log" ".github/*"
+
+      - name: Upload Release Assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
+          asset_path: ./aios-fullstack-*.tar.gz
+          asset_name: aios-fullstack-${{ github.ref_name }}.tar.gz
+          asset_content_type: application/gzip
+
+      - name: Upload Source Code
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
+          asset_path: ./aios-fullstack-*-source.zip
+          asset_name: aios-fullstack-${{ github.ref_name }}-source.zip
+          asset_content_type: application/zip
+
+  trigger-npm-publish:
+    needs: [create-release, build-and-upload]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger NPM Publication
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            
+            await github.rest.actions.createWorkflowDispatch({
+              owner,
+              repo,
+              workflow_id: 'npm-publish.yml',
+              ref: 'main',
+              inputs: {
+                publish_mode: 'stable',
+                packages: 'all'
+              }
+            });
+            
+            console.log('✅ Triggered NPM publication workflow');
+
+  notify:
+    needs: [create-release, build-and-upload, trigger-npm-publish]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify completion
+        run: |
+          if [ "${{ needs.trigger-npm-publish.result }}" = "success" ]; then
+            echo "🎉 Release ${{ github.ref_name }} created successfully!"
+            echo "📦 NPM publication has been triggered"
+            echo "🔗 Release URL: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"
+          else
+            echo "❌ Release process encountered issues"
+            exit 1
+          fi

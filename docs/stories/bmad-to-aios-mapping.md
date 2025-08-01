@@ -16,7 +16,7 @@ This document provides a comprehensive mapping of all "bmad" references that nee
 - `aios-core/` → `aios-core/` (main directory - COMPLETED)
 
 ### 3. Package/Module Names
-- `bmad-method` → `aios-fullstack` (COMPLETED)
+- `aios-fullstack` → `aios-fullstack` (COMPLETED)
 - `bmad` (npm package) → `aios`
 
 ### 4. CLI Commands/Files

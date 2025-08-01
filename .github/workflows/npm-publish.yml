@@ -1,0 +1,297 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      publish_mode:
+        description: 'Publishing mode'
+        required: true
+        default: 'preview'
+        type: choice
+        options:
+          - preview
+          - stable
+          - beta
+      packages:
+        description: 'Packages to publish (comma-separated, or "all")'
+        required: false
+        default: 'all'
+
+env:
+  NODE_VERSION: '20'
+  NPM_REGISTRY: 'https://registry.npmjs.org/'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run security audit
+        run: npm audit --audit-level=moderate
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.package-version.outputs.version }}
+      packages: ${{ steps.detect-packages.outputs.packages }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Get package version
+        id: package-version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Detect packages to publish
+        id: detect-packages
+        run: |
+          if [ "${{ github.event.inputs.packages }}" = "all" ] || [ -z "${{ github.event.inputs.packages }}" ]; then
+            PACKAGES="core,memory,security,performance,telemetry,workspace"
+          else
+            PACKAGES="${{ github.event.inputs.packages }}"
+          fi
+          echo "packages=$PACKAGES" >> $GITHUB_OUTPUT
+
+      - name: Build all packages
+        run: |
+          npm run build || true
+          
+          # Build individual packages
+          for pkg in aios-core memory security performance telemetry; do
+            if [ -d "$pkg" ]; then
+              cd "$pkg"
+              npm run build || echo "Build failed for $pkg, continuing..."
+              cd ..
+            fi
+          done
+
+      - name: Create distribution archive
+        run: |
+          mkdir -p dist
+          tar -czf dist/aios-fullstack-${{ steps.package-version.outputs.version }}.tar.gz \
+            --exclude=node_modules \
+            --exclude=.git \
+            --exclude=dist \
+            --exclude=tests \
+            --exclude='*.log' \
+            .
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            dist/
+            aios-core/lib/
+            memory/lib/
+            security/lib/
+            performance/lib/
+            telemetry/lib/
+          retention-days: 7
+
+  publish:
+    needs: [test, build]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: ${{ fromJson(format('[{0}]', join(fromJson(format('["{0}"]', replace(needs.build.outputs.packages, ',', '", "')))))) }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          registry-url: ${{ env.NPM_REGISTRY }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+
+      - name: Set publishing tag
+        id: publish-tag
+        run: |
+          if [ "${{ github.event.inputs.publish_mode }}" = "stable" ] || [ "${{ github.event_name }}" = "release" ]; then
+            echo "tag=latest" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.inputs.publish_mode }}" = "beta" ]; then
+            echo "tag=beta" >> $GITHUB_OUTPUT
+          else
+            echo "tag=preview" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Prepare package for publishing
+        run: |
+          PACKAGE="${{ matrix.package }}"
+          
+          case "$PACKAGE" in
+            "workspace")
+              PKG_DIR="."
+              PKG_NAME="@aios-fullstack/workspace"
+              ;;
+            "core")
+              PKG_DIR="aios-core"
+              PKG_NAME="@aios-fullstack/core"
+              ;;
+            *)
+              PKG_DIR="$PACKAGE"
+              PKG_NAME="@aios-fullstack/$PACKAGE"
+              ;;
+          esac
+          
+          echo "PKG_DIR=$PKG_DIR" >> $GITHUB_ENV
+          echo "PKG_NAME=$PKG_NAME" >> $GITHUB_ENV
+
+      - name: Check if package should be published
+        id: should-publish
+        run: |
+          cd "$PKG_DIR"
+          
+          # Check if package exists in registry
+          if npm view "$PKG_NAME@${{ needs.build.outputs.version }}" version > /dev/null 2>&1; then
+            echo "Version ${{ needs.build.outputs.version }} already exists for $PKG_NAME"
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          else
+            echo "Package $PKG_NAME@${{ needs.build.outputs.version }} not found in registry"
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish package to NPM
+        if: steps.should-publish.outputs.should_publish == 'true'
+        run: |
+          cd "$PKG_DIR"
+          
+          # Create npmrc for authentication
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          
+          # Publish with appropriate tag
+          npm publish --tag ${{ steps.publish-tag.outputs.tag }} --access public
+          
+          echo "✅ Published $PKG_NAME@${{ needs.build.outputs.version }} with tag ${{ steps.publish-tag.outputs.tag }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Verify publication
+        if: steps.should-publish.outputs.should_publish == 'true'
+        run: |
+          sleep 10  # Wait for npm registry to update
+          
+          if npm view "$PKG_NAME@${{ needs.build.outputs.version }}" version > /dev/null 2>&1; then
+            echo "✅ Verified: $PKG_NAME@${{ needs.build.outputs.version }} is available on NPM"
+          else
+            echo "❌ Verification failed: $PKG_NAME@${{ needs.build.outputs.version }} not found"
+            exit 1
+          fi
+
+  notify:
+    needs: [build, publish]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify completion
+        run: |
+          if [ "${{ needs.publish.result }}" = "success" ]; then
+            echo "🎉 Successfully published AIOS-FullStack packages:"
+            echo "   Version: ${{ needs.build.outputs.version }}"
+            echo "   Packages: ${{ needs.build.outputs.packages }}"
+            echo "   Registry: ${{ env.NPM_REGISTRY }}"
+          else
+            echo "❌ Publishing failed for some packages"
+            exit 1
+          fi
+
+  create-release-notes:
+    needs: [build, publish]
+    if: github.event_name == 'release' && needs.publish.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate release notes
+        run: |
+          cat > release-notes.md << EOF
+          # AIOS-FullStack v${{ needs.build.outputs.version }}
+          
+          ## 📦 Published Packages
+          
+          | Package | NPM Link | Description |
+          |---------|----------|-------------|
+          | @aios-fullstack/workspace | [npmjs.com](https://www.npmjs.com/package/@aios-fullstack/workspace) | Complete workspace with all components |
+          | @aios-fullstack/core | [npmjs.com](https://www.npmjs.com/package/@aios-fullstack/core) | Meta-agent orchestration and task management |
+          | @aios-fullstack/memory | [npmjs.com](https://www.npmjs.com/package/@aios-fullstack/memory) | Vector storage and semantic search |
+          | @aios-fullstack/security | [npmjs.com](https://www.npmjs.com/package/@aios-fullstack/security) | Input sanitization and vulnerability scanning |
+          | @aios-fullstack/performance | [npmjs.com](https://www.npmjs.com/package/@aios-fullstack/performance) | Monitoring, profiling, and optimization |
+          | @aios-fullstack/telemetry | [npmjs.com](https://www.npmjs.com/package/@aios-fullstack/telemetry) | Analytics, error reporting, and metrics |
+          
+          ## 🚀 Installation
+          
+          \`\`\`bash
+          # Install complete workspace
+          npm install @aios-fullstack/workspace
+          
+          # Or install individual packages
+          npm install @aios-fullstack/core @aios-fullstack/memory
+          \`\`\`
+          
+          ## 📋 What's New
+          
+          * ✅ Complete Meta-Agent MVP and Framework Distribution
+          * 🔒 Security hardening with penetration testing
+          * ⚡ Performance optimization framework
+          * 📊 Privacy-conscious telemetry system
+          * 📦 Modular NPM package distribution
+          
+          ## 🔗 Links
+          
+          * [GitHub Repository](https://github.com/allfluenceinc/aios-fullstack)
+          * [Documentation](https://github.com/allfluenceinc/aios-fullstack#readme)
+          * [Issues](https://github.com/allfluenceinc/aios-fullstack/issues)
+          EOF
+
+      - name: Update release with notes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const releaseNotes = fs.readFileSync('release-notes.md', 'utf8');
+            
+            await github.rest.repos.updateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: context.payload.release.id,
+              body: releaseNotes
+            });

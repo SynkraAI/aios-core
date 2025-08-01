@@ -80,10 +80,10 @@ A implementação será dividida em duas fases com diferentes restrições técn
 
 #### **Fase 1: Desenvolvimento do MVP (Até a conclusão do FR4)**
 
-*   **Framework Base:** O desenvolvimento será feito utilizando a arquitetura e as ferramentas existentes do **BMAD-METHOD**.
-*   **Agentes:** Usaremos os agentes padrão do BMAD-METHOD (`pm`, `architect`, `dev`, etc.).
-*   **Memória (FR3 MVP):** A camada de memória com `LlamaIndex` será implementada como um pacote dentro da estrutura atual do BMAD-METHOD.
-*   **Restrições:** As restrições técnicas do BMAD-METHOD atual se aplicam. Não introduziremos LangGraph, Hetzner, ou a arquitetura de microserviços nesta fase.
+*   **Framework Base:** O desenvolvimento será feito utilizando a arquitetura e as ferramentas existentes do **AIOS-FULLSTACK**.
+*   **Agentes:** Usaremos os agentes padrão do AIOS-FULLSTACK (`pm`, `architect`, `dev`, etc.).
+*   **Memória (FR3 MVP):** A camada de memória com `LlamaIndex` será implementada como um pacote dentro da estrutura atual do AIOS-FULLSTACK.
+*   **Restrições:** As restrições técnicas do AIOS-FULLSTACK atual se aplicam. Não introduziremos LangGraph, Hetzner, ou a arquitetura de microserviços nesta fase.
 *   **Resultado Final da Fase:** Uma versão do framework, rebatizada como **AIOS-FULLSTACK**, que inclui o `aios-developer` (FR4) e está pronta para ser distribuída via `npx`.
 
 #### **Fase 2: Desenvolvimento Pós-MVP (Do FR5 em diante)**

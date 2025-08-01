@@ -1,11 +1,12 @@
-# AIOS-FULLSTACK: Universal AI Agent Framework
+# AIOS-FULLSTACK: Universal AI Agent Framework 🚀
 
-[![Version](https://img.shields.io/npm/v/aios-fullstack?color=blue&label=version)](https://www.npmjs.com/package/aios-fullstack)
+[![NPM Version](https://img.shields.io/npm/v/aios-fullstack.svg)](https://www.npmjs.com/package/aios-fullstack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen)](https://nodejs.org)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg)](https://nodejs.org/)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289da?logo=discord&logoColor=white)](https://discord.gg/gk8jAdXWmj)
+[![Documentation](https://img.shields.io/badge/docs-available-orange.svg)](https://aios-fullstack.dev)
 
-AI-Orchestrated System for Full Stack Development. Foundations in Agentic Agile Driven Development, delivering breakthrough capabilities for AI-driven development and beyond. Transform any domain with specialized AI expertise: software development, entertainment, creative writing, business strategy to personal wellness just to name a few.
+AI-Powered Self-Modifying Development Framework. Foundations in Agentic Agile Driven Development, delivering breakthrough capabilities for AI-driven development and beyond. Transform any domain with specialized AI expertise: software development, entertainment, creative writing, business strategy to personal wellness just to name a few.
 
 **[Subscribe to AIOS Team on YouTube](https://www.youtube.com/@BMadCode?sub_confirmation=1)**
 
@@ -77,28 +78,35 @@ This makes it easy to benefit from the latest improvements, bug fixes, and new a
 
 ## Quick Start
 
-### One Command for Everything (IDE Installation)
+### 🚀 NPX Installation (Recommended)
 
-**Install AIOS directly from GitHub:**
+**Install AIOS-FULLSTACK with a single command:**
 
 ```bash
-# Enter your project directory
-cd your-project
+# Create a new project
+npx aios-fullstack init my-project
 
-# Run the installer directly from GitHub
-npx github:Pedrovaleriolopez/aios-fullstack install
+# Or install in existing project
+cd your-project
+npx aios-fullstack install
+
+# Or use a specific version
+npx aios-fullstack@latest init my-project
 ```
 
 This single command:
 
-- ✅ Downloads the latest version from GitHub
+- ✅ Downloads the latest version from NPM
+- ✅ Runs interactive installation wizard
 - ✅ Configures your IDE automatically (Windsurf, Cursor, or Claude Code)
 - ✅ Sets up all AIOS agents and workflows
 - ✅ Creates the necessary configuration files
+- ✅ Initializes the meta-agent system
+- ✅ Runs system health checks
 
 > **That's it!** No cloning, no manual setup - just one command and you're ready to go.
 
-**Prerequisites**: [Node.js](https://nodejs.org) v20+ required
+**Prerequisites**: [Node.js](https://nodejs.org) v14+ required
 
 ### Updating an Existing Installation
 
@@ -137,6 +145,31 @@ These rules provide:
 4. **Start Ideating and Planning**: Start chatting! Type `*help` to see available commands or pick an agent like `*analyst` to start right in on creating a brief.
 5. **CRITICAL**: Talk to AIOS Orchestrator in the web at ANY TIME (#aios-orchestrator command) and ask it questions about how this all works!
 6. **When to move to the IDE**: Once you have your PRD, Architecture, optional UX and Briefs - its time to switch over to the IDE to shard your docs, and start implementing the actual code! See the [User guide](aios-core/user-guide.md) for more details
+
+### NPX Commands Reference
+
+```bash
+# Project Management
+npx aios-fullstack init <project-name> [options]
+  --force              Force creation in non-empty directory
+  --skip-install       Skip npm dependency installation
+  --template <name>    Use specific template (default, minimal, enterprise)
+
+# Installation & Setup
+npx aios-fullstack install [options]
+  --force              Overwrite existing configuration
+  --quiet              Minimal output during installation
+
+# System Commands
+npx aios-fullstack info        Display system information
+npx aios-fullstack doctor      Run system diagnostics
+npx aios-fullstack doctor --fix Auto-fix detected issues
+npx aios-fullstack demo        Run interactive demo
+
+# Maintenance
+npx aios-fullstack update      Update to latest version
+npx aios-fullstack uninstall   Remove AIOS-FULLSTACK
+```
 
 ### Alternative: Clone and Build
 

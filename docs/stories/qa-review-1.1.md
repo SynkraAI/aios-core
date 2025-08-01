@@ -10,7 +10,7 @@
 
 ### ✅ Acceptance Criteria Verification
 
-1. **AC1: All references to "bmad-method" in package.json files renamed to "aios-fullstack"**
+1. **AC1: All references to "aios-fullstack" in package.json files renamed to "aios-fullstack"**
    - Status: PASS
    - Root package.json: ✓ Updated
    - Installer package.json: ✓ Updated (bin entries still use bmad for compatibility)
@@ -20,12 +20,12 @@
    - Directory renamed using git mv: ✓
    - Git history preserved: ✓
 
-3. **AC3: All references to "BMad Method" or "BMAD-METHOD" in documentation updated**
+3. **AC3: All references to "BMad Method" or "AIOS-FULLSTACK" in documentation updated**
    - Status: PARTIAL PASS
    - Main documentation files updated: ✓
    - Some references remain in expansion packs and dist files
 
-4. **AC4: NPM package name updated from "bmad-method" to "aios-fullstack"**
+4. **AC4: NPM package name updated from "aios-fullstack" to "aios-fullstack"**
    - Status: PASS
    - Package name in both package.json files: ✓
 

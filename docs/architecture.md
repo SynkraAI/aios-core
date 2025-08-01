@@ -1,14 +1,14 @@
 # architecture.md
 
-# BMAD-METHOD - Arquitetura de Base para o MVP do AIOS (v3 Final)
+# AIOS-FULLSTACK - Arquitetura de Base para o MVP do AIOS (v3 Final)
 
 ## Introdução
 
-Este documento captura o estado atual do codebase do **BMAD-METHOD**, servindo como a arquitetura de referência para o desenvolvimento da **Fase 1 do AIOS-FULLSTACK (MVP até o FR4)**. Ele descreve os padrões, componentes e tecnologias existentes sobre os quais as novas funcionalidades serão construídas.
+Este documento captura o estado atual do codebase do **AIOS-FULLSTACK**, servindo como a arquitetura de referência para o desenvolvimento da **Fase 1 do AIOS-FULLSTACK (MVP até o FR4)**. Ele descreve os padrões, componentes e tecnologias existentes sobre os quais as novas funcionalidades serão construídas.
 
 ### Escopo do Documento
 
-Documentação abrangente do framework BMAD-METHOD para servir como baseline para o MVP do AIOS, que inclui: Rebranding, Workflow de Setup de IDE, Camada de Memória com LlamaIndex e o Meta-Agente `aios-developer`.
+Documentação abrangente do framework AIOS-FULLSTACK para servir como baseline para o MVP do AIOS, que inclui: Rebranding, Workflow de Setup de IDE, Camada de Memória com LlamaIndex e o Meta-Agente `aios-developer`.
 
 ### Registro de Alterações
 
@@ -64,11 +64,11 @@ aios-fullstack/
 *   **Núcleo (****`aios-core/`****):** O coração do framework, contendo as definições para todos os `agents`, `tasks`, `workflows`, `templates`, e `checklists` que compõem a lógica do sistema.
 *   **Comum (****`common/`****):** Abriga tasks e utilitários reutilizáveis que são compartilhados por múltiplos componentes do núcleo.
 *   **Ferramentas (****`tools/`****):** Contém os scripts operacionais, incluindo o `installer` CLI interativo e o `web-builder` para compilar os pacotes para plataformas web.
-*   **Pacotes de Expansão (****`expansion-packs/`****):** Diretório que contém módulos para estender a funcionalidade do BMAD-METHOD para domínios específicos, como desenvolvimento de jogos ou DevOps.
+*   **Pacotes de Expansão (****`expansion-packs/`****):** Diretório que contém módulos para estender a funcionalidade do AIOS-FULLSTACK para domínios específicos, como desenvolvimento de jogos ou DevOps.
 
 ## Novos Componentes para o MVP do AIOS
 
-As seções a seguir descrevem as novas funcionalidades que serão construídas sobre a arquitetura base do BMAD-METHOD para criar o MVP do AIOS-FULLSTACK.
+As seções a seguir descrevem as novas funcionalidades que serão construídas sobre a arquitetura base do AIOS-FULLSTACK para criar o MVP do AIOS-FULLSTACK.
 
 ### Cliente de Memória LlamaIndex (`aios-memory-client`)
 
