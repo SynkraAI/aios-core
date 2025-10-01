@@ -1,0 +1,47 @@
+{
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "skipped": 0,
+    "total": 6,
+    "successRate": 100
+  },
+  "results": [
+    {
+      "test": "file-structure",
+      "status": "passed",
+      "details": "7/7 files found"
+    },
+    {
+      "test": "package-json-validation",
+      "status": "passed",
+      "details": "6/6 packages valid"
+    },
+    {
+      "test": "module-loading",
+      "status": "passed",
+      "details": "5/5 packages have proper exports"
+    },
+    {
+      "test": "security-features",
+      "status": "passed",
+      "details": "3/4 security features found"
+    },
+    {
+      "test": "performance-features",
+      "status": "passed",
+      "details": "3/3 performance tools found"
+    },
+    {
+      "test": "telemetry-features",
+      "status": "passed",
+      "details": "3/3 telemetry tools found"
+    }
+  ],
+  "environment": {
+    "nodeVersion": "v22.16.0",
+    "platform": "win32",
+    "arch": "x64",
+    "timestamp": "2025-08-01T09:56:15.808Z"
+  }
+}
