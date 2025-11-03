@@ -1,6 +1,6 @@
 {
   "name": "aios-fullstack",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "AIOS-FULLSTACK: AI-Orchestrated System for Full Stack Development - Modern cross-platform CLI with interactive wizard",
   "main": "index.js",
   "bin": {
