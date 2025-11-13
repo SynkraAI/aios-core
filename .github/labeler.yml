@@ -1,0 +1,31 @@
+# Labeler configuration for GitHub Actions
+# Automatically labels PRs based on files changed
+
+expansion-pack:
+  - expansion-packs/**/*
+  - expansion-packs/expansion-creator/**/*
+  - expansion-packs/etl/**/*
+
+needs-po-review:
+  - expansion-packs/expansion-creator/**/*
+  - '**/*expansion-pack*.md'
+  - '.github/ISSUE_TEMPLATE/expansion-pack*.md'
+  - '.github/PULL_REQUEST_TEMPLATE/expansion-pack.md'
+
+core-framework:
+  - aios-core/**/*
+  - '.aios-core/**/*'
+
+documentation:
+  - docs/**/*
+  - '**/*.md'
+  - '!node_modules/**/*'
+
+tools:
+  - tools/**/*
+  - bin/**/*
+
+ci-cd:
+  - '.github/**/*'
+  - '.github/workflows/**/*'
+

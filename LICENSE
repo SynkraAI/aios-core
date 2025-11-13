@@ -1,164 +1,21 @@
-PROPRIETARY SOFTWARE LICENSE AGREEMENT
+MIT License
 
 Copyright (c) 2025 AllFluence Inc. - AIOS Framework
-All Rights Reserved.
 
-================================================================================
-IMPORTANT - READ CAREFULLY
-================================================================================
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-This software and associated documentation files (the "Software") are the
-proprietary and confidential property of AllFluence Inc. ("AllFluence").
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-BY ACCESSING, DOWNLOADING, OR USING THIS SOFTWARE, YOU ACKNOWLEDGE THAT YOU
-HAVE READ THIS LICENSE AGREEMENT, UNDERSTAND IT, AND AGREE TO BE BOUND BY ITS
-TERMS AND CONDITIONS.
-
-================================================================================
-1. OWNERSHIP AND COPYRIGHT
-================================================================================
-
-The Software, including all code, algorithms, documentation, design, graphics,
-compilation, magnetic translation, digital conversion, and other elements
-thereof, is owned by AllFluence and is protected by copyright laws and
-international treaty provisions. AllFluence retains all rights, title, and
-interest in and to the Software.
-
-================================================================================
-2. RESTRICTIONS ON USE
-================================================================================
-
-Without express written authorization from AllFluence, you MAY NOT:
-
-a) Use, copy, modify, merge, publish, distribute, sublicense, sell, or
-   transfer the Software or any portion thereof;
-
-b) Reverse engineer, decompile, disassemble, or attempt to derive the source
-   code of the Software;
-
-c) Remove, alter, or obscure any proprietary notices (including copyright
-   and trademark notices) from the Software;
-
-d) Create derivative works based on the Software;
-
-e) Use the Software for any commercial purpose;
-
-f) Use the Software for any purpose whatsoever without explicit written
-   permission from AllFluence;
-
-g) Grant access to the Software to any third party;
-
-h) Transfer, rent, lease, loan, or otherwise make the Software available
-   to others.
-
-================================================================================
-3. AUTHORIZED COLLABORATORS
-================================================================================
-
-Modifications and contributions to the Software are ONLY permitted by:
-
-a) Individuals or entities who have been explicitly invited by AllFluence;
-
-b) Individuals or entities who have executed a valid Non-Disclosure Agreement
-   (NDA) with AllFluence;
-
-c) Individuals or entities who have received express written authorization
-   from AllFluence.
-
-All contributions, modifications, and derivative works created by authorized
-collaborators automatically become the exclusive property of AllFluence.
-
-================================================================================
-4. CONFIDENTIALITY
-================================================================================
-
-The Software contains valuable trade secrets and proprietary information of
-AllFluence. You agree to maintain the confidentiality of the Software and not
-to disclose it to any third party without the prior written consent of
-AllFluence.
-
-================================================================================
-5. NO WARRANTY
-================================================================================
-
-THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. ALLFLUENCE DOES NOT
-WARRANT THAT THE SOFTWARE WILL MEET YOUR REQUIREMENTS OR THAT THE OPERATION
-OF THE SOFTWARE WILL BE UNINTERRUPTED OR ERROR-FREE.
-
-================================================================================
-6. LIMITATION OF LIABILITY
-================================================================================
-
-IN NO EVENT SHALL ALLFLUENCE BE LIABLE FOR ANY SPECIAL, INCIDENTAL, INDIRECT,
-OR CONSEQUENTIAL DAMAGES WHATSOEVER (INCLUDING, WITHOUT LIMITATION, DAMAGES
-FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS
-INFORMATION, OR ANY OTHER PECUNIARY LOSS) ARISING OUT OF THE USE OF OR
-INABILITY TO USE THE SOFTWARE, EVEN IF ALLFLUENCE HAS BEEN ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGES.
-
-================================================================================
-7. TERMINATION
-================================================================================
-
-This license is effective until terminated. AllFluence may terminate this
-license at any time if you fail to comply with any term or condition of this
-agreement. Upon termination, you must immediately cease all use of the
-Software and destroy all copies in your possession or control.
-
-================================================================================
-8. ENFORCEMENT AND LEGAL REMEDIES
-================================================================================
-
-Unauthorized use, reproduction, or distribution of this Software, or any
-portion of it, may result in:
-
-a) Severe civil and criminal penalties;
-b) Legal prosecution to the maximum extent possible under the law;
-c) Injunctive relief;
-d) Monetary damages;
-e) Recovery of legal costs and attorney fees.
-
-AllFluence reserves the right to seek all available legal remedies for any
-breach of this license agreement.
-
-================================================================================
-9. GOVERNING LAW
-================================================================================
-
-This license agreement shall be governed by and construed in accordance with
-the laws of the Federative Republic of Brazil, without regard to its conflict
-of law provisions.
-
-================================================================================
-10. ENTIRE AGREEMENT
-================================================================================
-
-This license agreement constitutes the entire agreement between you and
-AllFluence concerning the Software and supersedes all prior or contemporaneous
-oral or written communications, proposals, and representations with respect to
-the Software or any other subject matter covered by this agreement.
-
-================================================================================
-11. CONTACT INFORMATION
-================================================================================
-
-For licensing inquiries, authorization requests, or questions about this
-license agreement, please contact:
-
-AllFluence Inc.
-Email: legal@allfluence.com
-Website: https://allfluence.com
-
-================================================================================
-
-BY USING THIS SOFTWARE, YOU ACKNOWLEDGE THAT YOU HAVE READ THIS LICENSE
-AGREEMENT, UNDERSTAND IT, AND AGREE TO BE BOUND BY ITS TERMS AND CONDITIONS.
-
-IF YOU DO NOT AGREE TO THE TERMS OF THIS LICENSE AGREEMENT, DO NOT USE,
-COPY, OR DISTRIBUTE THE SOFTWARE.
-
-================================================================================
-Copyright (c) 2025 AllFluence Inc.
-All Rights Reserved.
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

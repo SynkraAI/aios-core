@@ -12,11 +12,7 @@
     "aios-minimal": "./bin/aios-minimal.js"
   },
   "workspaces": [
-    "aios-core",
-    "memory",
-    "security",
-    "performance",
-    "telemetry"
+    "aios-core"
   ],
   "files": [
     "bin/",
@@ -26,10 +22,6 @@
     "aios-core/",
     "common/",
     "expansion-packs/",
-    "memory/",
-    "security/",
-    "performance/",
-    "telemetry/",
     "index.js",
     "index.esm.js",
     "index.d.ts",

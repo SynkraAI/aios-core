@@ -1,0 +1,23 @@
+# CODEOWNERS file for AIOS-Fullstack
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global owner - all files require approval from PO
+* @Pedrovaleriolopez
+
+# Expansion packs require PO approval (especially expansion-creator for community contributions)
+/expansion-packs/expansion-creator/ @Pedrovaleriolopez
+/expansion-packs/etl/ @Pedrovaleriolopez
+
+# Core framework requires PO approval
+/aios-core/ @Pedrovaleriolopez
+
+# Documentation requires PO approval
+/docs/ @Pedrovaleriolopez
+
+# GitHub configuration requires PO approval
+/.github/ @Pedrovaleriolopez
+
+# Package configuration requires PO approval
+/package.json @Pedrovaleriolopez
+/LICENSE @Pedrovaleriolopez
+
