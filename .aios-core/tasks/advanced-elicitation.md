@@ -27,44 +27,44 @@
 
 ```yaml
 task: advancedElicitation()
-responsável: Atlas (Decoder)
-responsavel_type: Agente
+responsible: Atlas (Decoder)
+responsible_type: Agent
 atomic_layer: Strategy
 
-**Entrada:**
-- campo: task
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Must be registered task
+inputs:
+  - field: task
+    type: string
+    source: User Input
+    required: true
+    validation: Must be registered task
 
-- campo: parameters
-  tipo: object
-  origem: User Input
-  obrigatório: false
-  validação: Valid task parameters
+  - field: parameters
+    type: object
+    source: User Input
+    required: false
+    validation: Valid task parameters
 
-- campo: mode
-  tipo: string
-  origem: User Input
-  obrigatório: false
-  validação: yolo|interactive|pre-flight
+  - field: mode
+    type: string
+    source: User Input
+    required: false
+    validation: yolo|interactive|pre-flight
 
-**Saída:**
-- campo: execution_result
-  tipo: object
-  destino: Memory
-  persistido: false
+outputs:
+  - field: execution_result
+    type: object
+    destination: Memory
+    persisted: false
 
-- campo: logs
-  tipo: array
-  destino: File (.ai/logs/*)
-  persistido: true
+  - field: logs
+    type: array
+    destination: File (.ai/logs/*)
+    persisted: true
 
-- campo: state
-  tipo: object
-  destino: State management
-  persistido: true
+  - field: state
+    type: object
+    destination: State management
+    persisted: true
 ```
 
 ---

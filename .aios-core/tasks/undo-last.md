@@ -34,22 +34,33 @@
 ## Task Definition (AIOS Task Format V1.0)
 
 ```yaml
-task: {TODO: task identifier}
-responsável: {TODO: Agent Name}
+task: undoLast()
+responsável: Dex (Builder)
 responsavel_type: Agente
-atomic_layer: {TODO: Atom|Molecule|Organism}
+atomic_layer: Atom
 
 **Entrada:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: string|number|boolean}
-  origem: {TODO: User Input | config | Step X}
+- campo: target
+  tipo: string
+  origem: User Input
   obrigatório: true
-  validação: {TODO: validation rule}
+  validação: Must exist
+
+- campo: version
+  tipo: string
+  origem: User Input
+  obrigatório: false
+  validação: Target version or timestamp
 
 **Saída:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: type}
-  destino: {TODO: output | state | Step Y}
+- campo: restored_state
+  tipo: object
+  destino: File system
+  persistido: true
+
+- campo: rollback_log
+  tipo: array
+  destino: File (.ai/rollback/*)
   persistido: true
 ```
 
@@ -63,12 +74,12 @@ atomic_layer: {TODO: Atom|Molecule|Organism}
 
 ```yaml
 pre-conditions:
-  - [ ] {TODO: condition description}
+  - [ ] Backup exists; rollback target valid
     tipo: pre-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Check backup exists; rollback target valid
+    error_message: "Pre-condition failed: Backup exists; rollback target valid"
 ```
 
 ---
@@ -81,12 +92,12 @@ pre-conditions:
 
 ```yaml
 post-conditions:
-  - [ ] {TODO: verification step}
+  - [ ] State restored; integrity verified; no data loss
     tipo: post-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Verify state restored; integrity verified; no data loss
+    error_message: "Post-condition failed: State restored; integrity verified; no data loss"
 ```
 
 ---
@@ -99,12 +110,12 @@ post-conditions:
 
 ```yaml
 acceptance-criteria:
-  - [ ] {TODO: acceptance criterion}
+  - [ ] Original state restored; no residual changes
     tipo: acceptance-criterion
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Assert original state restored; no residual changes
+    error_message: "Acceptance criterion not met: Original state restored; no residual changes"
 ```
 
 ---
@@ -113,9 +124,13 @@ acceptance-criteria:
 
 **External/shared resources used by this task:**
 
-- **Tool:** N/A
-  - **Purpose:** {TODO: what this tool does}
-  - **Source:** {TODO: where to find it}
+- **Tool:** backup-manager
+  - **Purpose:** Backup and restore operations
+  - **Source:** .aios-core/utils/backup-manager.js
+
+- **Tool:** version-control
+  - **Purpose:** Git operations for rollback
+  - **Source:** npm: simple-git
 
 ---
 
@@ -123,23 +138,28 @@ acceptance-criteria:
 
 **Agent-specific code for this task:**
 
-- **Script:** N/A
-  - **Purpose:** {TODO: what this script does}
-  - **Language:** {TODO: JavaScript | Python | Bash}
-  - **Location:** {TODO: file path}
+- **Script:** rollback-changes.js
+  - **Purpose:** Rollback to previous state
+  - **Language:** JavaScript
+  - **Location:** .aios-core/scripts/rollback-changes.js
 
 ---
 
 ## Error Handling
 
-**Strategy:** {TODO: Fail-fast | Graceful degradation | Retry with backoff}
+**Strategy:** retry
 
 **Common Errors:**
 
-1. **Error:** {TODO: error type}
-   - **Cause:** {TODO: why it happens}
-   - **Resolution:** {TODO: how to fix}
-   - **Recovery:** {TODO: automated recovery steps}
+1. **Error:** Backup Not Found
+   - **Cause:** No backup exists for target version
+   - **Resolution:** Verify backup location and version
+   - **Recovery:** List available backups, abort if none
+
+2. **Error:** Rollback Failed
+   - **Cause:** Error restoring previous state
+   - **Resolution:** Check backup integrity and permissions
+   - **Recovery:** Preserve current state, log failure
 
 ---
 
@@ -148,26 +168,26 @@ acceptance-criteria:
 **Expected Metrics:**
 
 ```yaml
-duration_expected: {TODO: X minutes}
-cost_estimated: {TODO: $X}
-token_usage: {TODO: ~X tokens}
+duration_expected: 0.5-2 min (estimated)
+cost_estimated: $0.0001-0.0005
+token_usage: ~500-1,000 tokens
 ```
 
 **Optimization Notes:**
-- {TODO: performance tips}
+- Minimize external dependencies; cache results if reusable; validate inputs early
 
 ---
 
 ## Metadata
 
 ```yaml
-story: {TODO: Story ID or N/A}
+story: N/A
 version: 1.0.0
 dependencies:
-  - {TODO: dependency file or N/A}
+  - N/A
 tags:
-  - {TODO: tag1}
-  - {TODO: tag2}
+  - automation
+  - workflow
 updated_at: 2025-11-17
 ```
 

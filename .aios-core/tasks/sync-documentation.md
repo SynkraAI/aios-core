@@ -1,3 +1,15 @@
+# sync-documentation
+
+**Task ID:** `sync-documentation`  
+**Version:** 2.0.0  
+**Status:** Active
+
+---
+
+## Purpose
+
+Automatically synchronize documentation with code changes to ensure documentation stays up-to-date with implementation.
+
 ---
 
 ## Execution Modes
@@ -21,27 +33,51 @@
 
 **Parameter:** `mode` (optional, default: `interactive`)
 
+**Valid values:** `yolo`, `interactive`, `preflight`
+
 ---
 
 ## Task Definition (AIOS Task Format V1.0)
 
 ```yaml
-task: {TODO: task identifier}
-responsável: {TODO: Agent Name}
+task: syncDocumentation()
+responsável: Morgan (Strategist)
 responsavel_type: Agente
-atomic_layer: {TODO: Atom|Molecule|Organism}
+atomic_layer: Molecule
 
 **Entrada:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: string|number|boolean}
-  origem: {TODO: User Input | config | Step X}
+- campo: task
+  tipo: string
+  origem: User Input
   obrigatório: true
-  validação: {TODO: validation rule}
+  validação: Must be registered task
+
+- campo: parameters
+  tipo: object
+  origem: User Input
+  obrigatório: false
+  validação: Valid task parameters
+
+- campo: mode
+  tipo: string
+  origem: User Input
+  obrigatório: false
+  validação: yolo|interactive|pre-flight
 
 **Saída:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: type}
-  destino: {TODO: output | state | Step Y}
+- campo: execution_result
+  tipo: object
+  destino: Memory
+  persistido: false
+
+- campo: logs
+  tipo: array
+  destino: File (.ai/logs/*)
+  persistido: true
+
+- campo: state
+  tipo: object
+  destino: State management
   persistido: true
 ```
 
@@ -55,13 +91,66 @@ atomic_layer: {TODO: Atom|Molecule|Organism}
 
 ```yaml
 pre-conditions:
-  - [ ] {TODO: condition description}
+  - [ ] Task is registered; required parameters provided; dependencies met
     tipo: pre-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Check task is registered; required parameters provided; dependencies met
+    error_message: "Pre-condition failed: Task is registered; required parameters provided; dependencies met"
 ```
+
+---
+
+## Step-by-Step Execution
+
+### Step 1: Parse Parameters
+
+**Purpose:** Parse and validate command-line parameters
+
+**Actions:**
+1. Parse command-line options (--component, --all, --check, etc.)
+2. Validate sync strategies
+3. Set default values
+4. Validate file paths if provided
+
+**Validation:**
+- Parameters are valid
+- Strategies are supported
+- File paths exist (if specified)
+
+---
+
+### Step 2: Initialize Dependencies
+
+**Purpose:** Set up documentation synchronizer and required tools
+
+**Actions:**
+1. Load DocumentationSynchronizer module
+2. Initialize synchronizer with root path
+3. Set up event listeners
+4. Verify all dependencies available
+
+**Validation:**
+- Synchronizer initialized successfully
+- Event listeners registered
+- Dependencies available
+
+---
+
+### Step 3: Execute Requested Action
+
+**Purpose:** Execute the requested synchronization action
+
+**Actions:**
+1. Determine action type (check, sync, auto-sync, report)
+2. Execute corresponding method
+3. Handle errors gracefully
+4. Return results
+
+**Validation:**
+- Action executed successfully
+- Results returned
+- Errors handled appropriately
 
 ---
 
@@ -73,65 +162,97 @@ pre-conditions:
 
 ```yaml
 post-conditions:
-  - [ ] {TODO: verification step}
+  - [ ] Task completed; exit code 0; expected outputs created
     tipo: post-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Verify task completed; exit code 0; expected outputs created
+    rollback: false
+    error_message: "Post-condition failed: Task completed; exit code 0; expected outputs created"
 ```
 
 ---
 
 ## Acceptance Criteria
 
-**Purpose:** Definitive pass/fail criteria for task completion
+**Purpose:** Validate story requirements AFTER workflow (non-blocking, can be manual)
 
 **Checklist:**
 
 ```yaml
 acceptance-criteria:
-  - [ ] {TODO: acceptance criterion}
+  - [ ] Task completed as expected; side effects documented
     tipo: acceptance-criterion
-    blocker: true
+    blocker: false
+    story: N/A
+    manual_check: false
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Assert task completed as expected; side effects documented
+    error_message: "Acceptance criterion not met: Task completed as expected; side effects documented"
 ```
 
 ---
 
-## Tools
+## Tools (External/Shared)
 
-**External/shared resources used by this task:**
+**Purpose:** Catalog reusable tools used by multiple agents
 
-- **Tool:** N/A
-  - **Purpose:** {TODO: what this tool does}
-  - **Source:** {TODO: where to find it}
+```yaml
+**Tools:**
+- task-runner:
+    version: latest
+    used_for: Task execution and orchestration
+    shared_with: [dev, qa, po]
+    cost: $0
+
+- logger:
+    version: latest
+    used_for: Execution logging and error tracking
+    shared_with: [dev, qa, po, sm]
+    cost: $0
+```
 
 ---
 
-## Scripts
+## Scripts (Agent-Specific)
 
-**Agent-specific code for this task:**
+**Purpose:** Agent-specific code for this task
 
-- **Script:** N/A
-  - **Purpose:** {TODO: what this script does}
-  - **Language:** {TODO: JavaScript | Python | Bash}
-  - **Location:** {TODO: file path}
+```yaml
+**Scripts:**
+- execute-task.js:
+    description: Generic task execution wrapper
+    language: JavaScript
+    location: .aios-core/scripts/execute-task.js
+
+- documentation-synchronizer.js:
+    description: Core documentation synchronization engine
+    language: JavaScript
+    location: .aios-core/scripts/documentation-synchronizer.js
+```
 
 ---
 
 ## Error Handling
 
-**Strategy:** {TODO: Fail-fast | Graceful degradation | Retry with backoff}
+**Strategy:** fallback
 
 **Common Errors:**
 
-1. **Error:** {TODO: error type}
-   - **Cause:** {TODO: why it happens}
-   - **Resolution:** {TODO: how to fix}
-   - **Recovery:** {TODO: automated recovery steps}
+1. **Error:** Task Not Found
+   - **Cause:** Specified task not registered in system
+   - **Resolution:** Verify task name and registration
+   - **Recovery:** List available tasks, suggest similar
+
+2. **Error:** Invalid Parameters
+   - **Cause:** Task parameters do not match expected schema
+   - **Resolution:** Validate parameters against task definition
+   - **Recovery:** Provide parameter template, reject execution
+
+3. **Error:** Execution Timeout
+   - **Cause:** Task exceeds maximum execution time
+   - **Resolution:** Optimize task or increase timeout
+   - **Recovery:** Kill task, cleanup resources, log state
 
 ---
 
@@ -140,39 +261,28 @@ acceptance-criteria:
 **Expected Metrics:**
 
 ```yaml
-duration_expected: {TODO: X minutes}
-cost_estimated: {TODO: $X}
-token_usage: {TODO: ~X tokens}
+duration_expected: 2-5 min (estimated)
+cost_estimated: $0.001-0.003
+token_usage: ~1,000-3,000 tokens
 ```
 
 **Optimization Notes:**
-- {TODO: performance tips}
+- Parallelize independent operations; reuse atom results; implement early exits
 
 ---
 
 ## Metadata
 
 ```yaml
-story: {TODO: Story ID or N/A}
-version: 1.0.0
+story: STORY-6.1.7.2
+version: 2.0.0
 dependencies:
-  - {TODO: dependency file or N/A}
+  - N/A
 tags:
-  - {TODO: tag1}
-  - {TODO: tag2}
-updated_at: 2025-11-17
+  - automation
+  - workflow
+updated_at: 2025-01-17
 ```
-
----
-
-checklists:
-  - dev-master-checklist.md
----
-
-# Sync Documentation - AIOS Developer Task
-
-## Purpose
-Automatically synchronize documentation with code changes to ensure documentation stays up-to-date with implementation.
 
 ## Command Pattern
 ```

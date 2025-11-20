@@ -33,44 +33,44 @@
 
 ```yaml
 task: dbBootstrap()
-responsável: Dara (Sage)
-responsavel_type: Agente
+responsible: Dara (Sage)
+responsible_type: Agent
 atomic_layer: Organism
 
-**Entrada:**
-- campo: query
-  tipo: string
-  origem: User Input
-  obrigatório: true
-  validação: Valid Cypher query
+inputs:
+  - field: query
+    type: string
+    source: User Input
+    required: true
+    validation: Valid SQL query
 
-- campo: params
-  tipo: object
-  origem: User Input
-  obrigatório: false
-  validação: Query parameters
+  - field: params
+    type: object
+    source: User Input
+    required: false
+    validation: Query parameters
 
-- campo: connection
-  tipo: object
-  origem: config
-  obrigatório: true
-  validação: Valid Neo4j connection
+  - field: connection
+    type: object
+    source: config
+    required: true
+    validation: Valid PostgreSQL connection via Supabase
 
-**Saída:**
-- campo: query_result
-  tipo: array
-  destino: Memory
-  persistido: false
+outputs:
+  - field: query_result
+    type: array
+    destination: Memory
+    persisted: false
 
-- campo: records_affected
-  tipo: number
-  destino: Return value
-  persistido: false
+  - field: records_affected
+    type: number
+    destination: Return value
+    persisted: false
 
-- campo: execution_time
-  tipo: number
-  destino: Memory
-  persistido: false
+  - field: execution_time
+    type: number
+    destination: Memory
+    persisted: false
 ```
 
 ---

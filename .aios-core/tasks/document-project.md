@@ -26,22 +26,44 @@
 ## Task Definition (AIOS Task Format V1.0)
 
 ```yaml
-task: {TODO: task identifier}
-responsável: {TODO: Agent Name}
+task: documentProject()
+responsável: Morgan (Strategist)
 responsavel_type: Agente
-atomic_layer: {TODO: Atom|Molecule|Organism}
+atomic_layer: Template
 
 **Entrada:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: string|number|boolean}
-  origem: {TODO: User Input | config | Step X}
+- campo: task
+  tipo: string
+  origem: User Input
   obrigatório: true
-  validação: {TODO: validation rule}
+  validação: Must be registered task
+
+- campo: parameters
+  tipo: object
+  origem: User Input
+  obrigatório: false
+  validação: Valid task parameters
+
+- campo: mode
+  tipo: string
+  origem: User Input
+  obrigatório: false
+  validação: yolo|interactive|pre-flight
 
 **Saída:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: type}
-  destino: {TODO: output | state | Step Y}
+- campo: execution_result
+  tipo: object
+  destino: Memory
+  persistido: false
+
+- campo: logs
+  tipo: array
+  destino: File (.ai/logs/*)
+  persistido: true
+
+- campo: state
+  tipo: object
+  destino: State management
   persistido: true
 ```
 
@@ -55,12 +77,12 @@ atomic_layer: {TODO: Atom|Molecule|Organism}
 
 ```yaml
 pre-conditions:
-  - [ ] {TODO: condition description}
+  - [ ] Task is registered; required parameters provided; dependencies met
     tipo: pre-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Check task is registered; required parameters provided; dependencies met
+    error_message: "Pre-condition failed: Task is registered; required parameters provided; dependencies met"
 ```
 
 ---
@@ -73,12 +95,12 @@ pre-conditions:
 
 ```yaml
 post-conditions:
-  - [ ] {TODO: verification step}
+  - [ ] Task completed; exit code 0; expected outputs created
     tipo: post-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Verify task completed; exit code 0; expected outputs created
+    error_message: "Post-condition failed: Task completed; exit code 0; expected outputs created"
 ```
 
 ---
@@ -91,12 +113,12 @@ post-conditions:
 
 ```yaml
 acceptance-criteria:
-  - [ ] {TODO: acceptance criterion}
+  - [ ] Task completed as expected; side effects documented
     tipo: acceptance-criterion
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Assert task completed as expected; side effects documented
+    error_message: "Acceptance criterion not met: Task completed as expected; side effects documented"
 ```
 
 ---
@@ -105,9 +127,13 @@ acceptance-criteria:
 
 **External/shared resources used by this task:**
 
-- **Tool:** N/A
-  - **Purpose:** {TODO: what this tool does}
-  - **Source:** {TODO: where to find it}
+- **Tool:** task-runner
+  - **Purpose:** Task execution and orchestration
+  - **Source:** .aios-core/core/task-runner.js
+
+- **Tool:** logger
+  - **Purpose:** Execution logging and error tracking
+  - **Source:** .aios-core/utils/logger.js
 
 ---
 
@@ -115,23 +141,33 @@ acceptance-criteria:
 
 **Agent-specific code for this task:**
 
-- **Script:** N/A
-  - **Purpose:** {TODO: what this script does}
-  - **Language:** {TODO: JavaScript | Python | Bash}
-  - **Location:** {TODO: file path}
+- **Script:** execute-task.js
+  - **Purpose:** Generic task execution wrapper
+  - **Language:** JavaScript
+  - **Location:** .aios-core/scripts/execute-task.js
 
 ---
 
 ## Error Handling
 
-**Strategy:** {TODO: Fail-fast | Graceful degradation | Retry with backoff}
+**Strategy:** retry
 
 **Common Errors:**
 
-1. **Error:** {TODO: error type}
-   - **Cause:** {TODO: why it happens}
-   - **Resolution:** {TODO: how to fix}
-   - **Recovery:** {TODO: automated recovery steps}
+1. **Error:** Task Not Found
+   - **Cause:** Specified task not registered in system
+   - **Resolution:** Verify task name and registration
+   - **Recovery:** List available tasks, suggest similar
+
+2. **Error:** Invalid Parameters
+   - **Cause:** Task parameters do not match expected schema
+   - **Resolution:** Validate parameters against task definition
+   - **Recovery:** Provide parameter template, reject execution
+
+3. **Error:** Execution Timeout
+   - **Cause:** Task exceeds maximum execution time
+   - **Resolution:** Optimize task or increase timeout
+   - **Recovery:** Kill task, cleanup resources, log state
 
 ---
 
@@ -140,26 +176,26 @@ acceptance-criteria:
 **Expected Metrics:**
 
 ```yaml
-duration_expected: {TODO: X minutes}
-cost_estimated: {TODO: $X}
-token_usage: {TODO: ~X tokens}
+duration_expected: 3-8 min (estimated)
+cost_estimated: $0.002-0.005
+token_usage: ~1,500-5,000 tokens
 ```
 
 **Optimization Notes:**
-- {TODO: performance tips}
+- Cache template compilation; minimize data transformations; lazy load resources
 
 ---
 
 ## Metadata
 
 ```yaml
-story: {TODO: Story ID or N/A}
+story: N/A
 version: 1.0.0
 dependencies:
-  - {TODO: dependency file or N/A}
+  - N/A
 tags:
-  - {TODO: tag1}
-  - {TODO: tag2}
+  - automation
+  - workflow
 updated_at: 2025-11-17
 ```
 

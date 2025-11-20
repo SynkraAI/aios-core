@@ -26,23 +26,45 @@
 ## Task Definition (AIOS Task Format V1.0)
 
 ```yaml
-task: {TODO: task identifier}
-responsável: {TODO: Agent Name}
+task: updateManifest()
+responsável: Dex (Builder)
 responsavel_type: Agente
-atomic_layer: {TODO: Atom|Molecule|Organism}
+atomic_layer: Molecule
 
 **Entrada:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: string|number|boolean}
-  origem: {TODO: User Input | config | Step X}
+- campo: target
+  tipo: string
+  origem: User Input
   obrigatório: true
-  validação: {TODO: validation rule}
+  validação: Must exist in system
+
+- campo: changes
+  tipo: object
+  origem: User Input
+  obrigatório: true
+  validação: Valid modification object
+
+- campo: backup
+  tipo: boolean
+  origem: User Input
+  obrigatório: false
+  validação: Default: true
 
 **Saída:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: type}
-  destino: {TODO: output | state | Step Y}
+- campo: modified_file
+  tipo: string
+  destino: File system
   persistido: true
+
+- campo: backup_path
+  tipo: string
+  destino: File system
+  persistido: true
+
+- campo: changes_applied
+  tipo: object
+  destino: Memory
+  persistido: false
 ```
 
 ---
@@ -55,12 +77,12 @@ atomic_layer: {TODO: Atom|Molecule|Organism}
 
 ```yaml
 pre-conditions:
-  - [ ] {TODO: condition description}
+  - [ ] Target exists; backup created; valid modification parameters
     tipo: pre-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Check target exists; backup created; valid modification parameters
+    error_message: "Pre-condition failed: Target exists; backup created; valid modification parameters"
 ```
 
 ---
@@ -73,12 +95,12 @@ pre-conditions:
 
 ```yaml
 post-conditions:
-  - [ ] {TODO: verification step}
+  - [ ] Modification applied; backup preserved; integrity verified
     tipo: post-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Verify modification applied; backup preserved; integrity verified
+    error_message: "Post-condition failed: Modification applied; backup preserved; integrity verified"
 ```
 
 ---
@@ -91,12 +113,12 @@ post-conditions:
 
 ```yaml
 acceptance-criteria:
-  - [ ] {TODO: acceptance criterion}
+  - [ ] Changes applied correctly; original backed up; rollback possible
     tipo: acceptance-criterion
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Assert changes applied correctly; original backed up; rollback possible
+    error_message: "Acceptance criterion not met: Changes applied correctly; original backed up; rollback possible"
 ```
 
 ---
@@ -105,9 +127,13 @@ acceptance-criteria:
 
 **External/shared resources used by this task:**
 
-- **Tool:** N/A
-  - **Purpose:** {TODO: what this tool does}
-  - **Source:** {TODO: where to find it}
+- **Tool:** file-system
+  - **Purpose:** File reading, modification, and backup
+  - **Source:** Node.js fs module
+
+- **Tool:** ast-parser
+  - **Purpose:** Parse and modify code safely
+  - **Source:** .aios-core/utils/ast-parser.js
 
 ---
 
@@ -115,23 +141,33 @@ acceptance-criteria:
 
 **Agent-specific code for this task:**
 
-- **Script:** N/A
-  - **Purpose:** {TODO: what this script does}
-  - **Language:** {TODO: JavaScript | Python | Bash}
-  - **Location:** {TODO: file path}
+- **Script:** modify-file.js
+  - **Purpose:** Safe file modification with backup
+  - **Language:** JavaScript
+  - **Location:** .aios-core/scripts/modify-file.js
 
 ---
 
 ## Error Handling
 
-**Strategy:** {TODO: Fail-fast | Graceful degradation | Retry with backoff}
+**Strategy:** retry
 
 **Common Errors:**
 
-1. **Error:** {TODO: error type}
-   - **Cause:** {TODO: why it happens}
-   - **Resolution:** {TODO: how to fix}
-   - **Recovery:** {TODO: automated recovery steps}
+1. **Error:** Target Not Found
+   - **Cause:** Specified resource does not exist
+   - **Resolution:** Verify target exists before modification
+   - **Recovery:** Suggest similar resources or create new
+
+2. **Error:** Backup Failed
+   - **Cause:** Unable to create backup before modification
+   - **Resolution:** Check disk space and permissions
+   - **Recovery:** Abort modification, preserve original state
+
+3. **Error:** Concurrent Modification
+   - **Cause:** Resource modified by another process
+   - **Resolution:** Implement file locking or retry logic
+   - **Recovery:** Retry with exponential backoff or merge changes
 
 ---
 
@@ -140,26 +176,26 @@ acceptance-criteria:
 **Expected Metrics:**
 
 ```yaml
-duration_expected: {TODO: X minutes}
-cost_estimated: {TODO: $X}
-token_usage: {TODO: ~X tokens}
+duration_expected: 2-5 min (estimated)
+cost_estimated: $0.001-0.003
+token_usage: ~1,000-3,000 tokens
 ```
 
 **Optimization Notes:**
-- {TODO: performance tips}
+- Parallelize independent operations; reuse atom results; implement early exits
 
 ---
 
 ## Metadata
 
 ```yaml
-story: {TODO: Story ID or N/A}
+story: N/A
 version: 1.0.0
 dependencies:
-  - {TODO: dependency file or N/A}
+  - N/A
 tags:
-  - {TODO: tag1}
-  - {TODO: tag2}
+  - automation
+  - workflow
 updated_at: 2025-11-17
 ```
 

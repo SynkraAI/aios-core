@@ -42,7 +42,7 @@ atomic_layer: Strategy
   tipo: string
   origem: User Input
   obrigatório: true
-  validação: Valid Cypher query
+  validação: Valid SQL query
 
 - campo: params
   tipo: object
@@ -54,7 +54,7 @@ atomic_layer: Strategy
   tipo: object
   origem: config
   obrigatório: true
-  validação: Valid Neo4j connection
+  validação: Valid PostgreSQL connection via Supabase
 
 **Saída:**
 - campo: query_result

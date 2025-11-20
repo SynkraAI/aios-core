@@ -37,12 +37,12 @@ responsável: Dara (Sage)
 responsavel_type: Agente
 atomic_layer: Organism
 
-**Entrada:**
-- campo: query
+inputs:
+  - field: query
   tipo: string
   origem: User Input
   obrigatório: true
-  validação: Valid Cypher query
+  validação: Valid SQL query
 
 - campo: params
   tipo: object
@@ -54,10 +54,10 @@ atomic_layer: Organism
   tipo: object
   origem: config
   obrigatório: true
-  validação: Valid Neo4j connection
+  validação: Valid PostgreSQL connection via Supabase
 
-**Saída:**
-- campo: query_result
+outputs:
+  - field: query_result
   tipo: array
   destino: Memory
   persistido: false

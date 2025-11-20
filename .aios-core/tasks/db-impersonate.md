@@ -32,23 +32,45 @@
 ## Task Definition (AIOS Task Format V1.0)
 
 ```yaml
-task: {TODO: task identifier}
-responsável: {TODO: Agent Name}
+task: dbImpersonate()
+responsável: Dara (Sage)
 responsavel_type: Agente
-atomic_layer: {TODO: Atom|Molecule|Organism}
+atomic_layer: Config
 
 **Entrada:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: string|number|boolean}
-  origem: {TODO: User Input | config | Step X}
+- campo: query
+  tipo: string
+  origem: User Input
   obrigatório: true
-  validação: {TODO: validation rule}
+  validação: Valid SQL query
+
+- campo: params
+  tipo: object
+  origem: User Input
+  obrigatório: false
+  validação: Query parameters
+
+- campo: connection
+  tipo: object
+  origem: config
+  obrigatório: true
+  validação: Valid PostgreSQL connection via Supabase
 
 **Saída:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: type}
-  destino: {TODO: output | state | Step Y}
-  persistido: true
+- campo: query_result
+  tipo: array
+  destino: Memory
+  persistido: false
+
+- campo: records_affected
+  tipo: number
+  destino: Return value
+  persistido: false
+
+- campo: execution_time
+  tipo: number
+  destino: Memory
+  persistido: false
 ```
 
 ---
@@ -61,12 +83,12 @@ atomic_layer: {TODO: Atom|Molecule|Organism}
 
 ```yaml
 pre-conditions:
-  - [ ] {TODO: condition description}
+  - [ ] Database connection established; query syntax valid
     tipo: pre-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Check database connection established; query syntax valid
+    error_message: "Pre-condition failed: Database connection established; query syntax valid"
 ```
 
 ---
@@ -79,12 +101,12 @@ pre-conditions:
 
 ```yaml
 post-conditions:
-  - [ ] {TODO: verification step}
+  - [ ] Query executed; results returned; transaction committed
     tipo: post-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Verify query executed; results returned; transaction committed
+    error_message: "Post-condition failed: Query executed; results returned; transaction committed"
 ```
 
 ---
@@ -97,12 +119,12 @@ post-conditions:
 
 ```yaml
 acceptance-criteria:
-  - [ ] {TODO: acceptance criterion}
+  - [ ] Data persisted correctly; constraints respected; no orphaned data
     tipo: acceptance-criterion
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Assert data persisted correctly; constraints respected; no orphaned data
+    error_message: "Acceptance criterion not met: Data persisted correctly; constraints respected; no orphaned data"
 ```
 
 ---
@@ -111,9 +133,13 @@ acceptance-criteria:
 
 **External/shared resources used by this task:**
 
-- **Tool:** N/A
-  - **Purpose:** {TODO: what this tool does}
-  - **Source:** {TODO: where to find it}
+- **Tool:** neo4j-driver
+  - **Purpose:** Neo4j database connection and query execution
+  - **Source:** npm: neo4j-driver
+
+- **Tool:** query-validator
+  - **Purpose:** Cypher query syntax validation
+  - **Source:** .aios-core/utils/db-query-validator.js
 
 ---
 
@@ -121,23 +147,33 @@ acceptance-criteria:
 
 **Agent-specific code for this task:**
 
-- **Script:** N/A
-  - **Purpose:** {TODO: what this script does}
-  - **Language:** {TODO: JavaScript | Python | Bash}
-  - **Location:** {TODO: file path}
+- **Script:** db-query.js
+  - **Purpose:** Execute Neo4j queries with error handling
+  - **Language:** JavaScript
+  - **Location:** .aios-core/scripts/db-query.js
 
 ---
 
 ## Error Handling
 
-**Strategy:** {TODO: Fail-fast | Graceful degradation | Retry with backoff}
+**Strategy:** retry
 
 **Common Errors:**
 
-1. **Error:** {TODO: error type}
-   - **Cause:** {TODO: why it happens}
-   - **Resolution:** {TODO: how to fix}
-   - **Recovery:** {TODO: automated recovery steps}
+1. **Error:** Connection Failed
+   - **Cause:** Unable to connect to Neo4j database
+   - **Resolution:** Check connection string, credentials, network
+   - **Recovery:** Retry with exponential backoff (max 3 attempts)
+
+2. **Error:** Query Syntax Error
+   - **Cause:** Invalid Cypher query syntax
+   - **Resolution:** Validate query syntax before execution
+   - **Recovery:** Return detailed syntax error, suggest fix
+
+3. **Error:** Transaction Rollback
+   - **Cause:** Query violates constraints or timeout
+   - **Resolution:** Review query logic and constraints
+   - **Recovery:** Automatic rollback, preserve data integrity
 
 ---
 
@@ -146,26 +182,26 @@ acceptance-criteria:
 **Expected Metrics:**
 
 ```yaml
-duration_expected: {TODO: X minutes}
-cost_estimated: {TODO: $X}
-token_usage: {TODO: ~X tokens}
+duration_expected: 2-10 min (estimated)
+cost_estimated: $0.001-0.008
+token_usage: ~800-2,500 tokens
 ```
 
 **Optimization Notes:**
-- {TODO: performance tips}
+- Validate configuration early; use atomic writes; implement rollback checkpoints
 
 ---
 
 ## Metadata
 
 ```yaml
-story: {TODO: Story ID or N/A}
+story: N/A
 version: 1.0.0
 dependencies:
-  - {TODO: dependency file or N/A}
+  - N/A
 tags:
-  - {TODO: tag1}
-  - {TODO: tag2}
+  - database
+  - infrastructure
 updated_at: 2025-11-17
 ```
 

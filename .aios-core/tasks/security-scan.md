@@ -1,13 +1,18 @@
----
-tools:
-  - github-cli        # Para criar issues de segurança se necessário
----
-
 # security-scan
 
-Executa análise estática de segurança (SAST) no código do projeto/story.
+**Task ID:** `security-scan`  
+**Version:** 2.0.0  
+**Status:** Active
 
-**Estratégia**: Automação total, zero intervenção manual, CLI-first.
+---
+
+## Purpose
+
+Executa análise estática de segurança (SAST) no código do projeto/story. Automação total, zero intervenção manual, CLI-first.
+
+**Estratégia:** Automação total, zero intervenção manual, CLI-first.
+
+---
 
 ## Execution Modes
 
@@ -16,42 +21,68 @@ Executa análise estática de segurança (SAST) no código do projeto/story.
 ### 1. YOLO Mode - Fast, Autonomous (0-1 prompts)
 - Autonomous decision making with logging
 - Minimal user interaction
-- **Best for:** Simple, deterministic tasks
+- **Best for:** Experienced developers, simple tasks, time-sensitive work
 
 ### 2. Interactive Mode - Balanced, Educational (5-10 prompts) **[DEFAULT]**
 - Explicit decision checkpoints
 - Educational explanations
-- **Best for:** Learning, complex decisions
+- **Best for:** Learning, complex decisions, collaborative work
 
 ### 3. Pre-Flight Planning - Comprehensive Upfront Planning
 - Task analysis phase (identify all ambiguities)
+- Questionnaire before execution
 - Zero ambiguity execution
-- **Best for:** Ambiguous requirements, critical work
+- **Best for:** Ambiguous requirements, critical work, team consensus needed
 
 **Parameter:** `mode` (optional, default: `interactive`)
+
+**Valid values:** `yolo`, `interactive`, `preflight`
 
 ---
 
 ## Task Definition (AIOS Task Format V1.0)
 
 ```yaml
-task: {TODO: task identifier}
-responsável: {TODO: Agent Name}
+task: securityScan()
+responsável: Quinn (Guardian)
 responsavel_type: Agente
-atomic_layer: {TODO: Atom|Molecule|Organism}
+atomic_layer: Strategy
 
 **Entrada:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: string|number|boolean}
-  origem: {TODO: User Input | config | Step X}
+- campo: target
+  tipo: string
+  origem: User Input
   obrigatório: true
-  validação: {TODO: validation rule}
+  validação: Valid path or resource
+
+- campo: scan_depth
+  tipo: number
+  origem: config
+  obrigatório: false
+  padrão: 2
+  validação: Default: 2 (1-5)
+
+- campo: rules
+  tipo: array
+  origem: config
+  obrigatório: true
+  validação: Security rule set
 
 **Saída:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: type}
-  destino: {TODO: output | state | Step Y}
+- campo: scan_report
+  tipo: object
+  destino: File (.ai/security/*)
   persistido: true
+
+- campo: vulnerabilities
+  tipo: array
+  destino: Memory
+  persistido: false
+
+- campo: risk_score
+  tipo: number
+  destino: Memory
+  persistido: false
 ```
 
 ---
@@ -64,13 +95,100 @@ atomic_layer: {TODO: Atom|Molecule|Organism}
 
 ```yaml
 pre-conditions:
-  - [ ] {TODO: condition description}
+  - [ ] Scanner available; target accessible; rules configured
     tipo: pre-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Check scanner available; target accessible; rules configured
+    error_message: "Pre-condition failed: Scanner available; target accessible; rules configured"
 ```
+
+---
+
+## Step-by-Step Execution
+
+### Step 1: Setup Security Tools
+
+**Purpose:** Ensure all required security scanning tools are installed and configured
+
+**Actions:**
+1. Check for npm audit availability
+2. Install ESLint security plugins if missing
+3. Configure ESLint security rules
+4. Verify secretlint availability (optional)
+
+**Validation:**
+- npm audit command available
+- ESLint security plugins installed
+- Configuration files created
+
+---
+
+### Step 2: Dependency Vulnerability Scan
+
+**Purpose:** Scan npm dependencies for known vulnerabilities
+
+**Actions:**
+1. Execute `npm audit --audit-level=moderate --json`
+2. Parse audit results
+3. Categorize vulnerabilities by severity
+4. Determine gate impact
+
+**Validation:**
+- Audit report generated
+- Vulnerabilities categorized correctly
+- Gate impact calculated
+
+---
+
+### Step 3: Code Security Pattern Scan
+
+**Purpose:** Analyze code for insecure patterns using ESLint security plugins
+
+**Actions:**
+1. Run ESLint with security plugins
+2. Parse ESLint results
+3. Identify security issues by severity
+4. Determine gate impact
+
+**Validation:**
+- ESLint scan completed
+- Security issues identified
+- Gate impact calculated
+
+---
+
+### Step 4: Secret Detection
+
+**Purpose:** Detect exposed secrets, API keys, and passwords in codebase
+
+**Actions:**
+1. Run secretlint scan
+2. Parse secret detection results
+3. Categorize findings
+4. Determine gate impact
+
+**Validation:**
+- Secret scan completed
+- Secrets identified (if any)
+- Gate impact calculated
+
+---
+
+### Step 5: Generate Security Report
+
+**Purpose:** Create comprehensive security scan report
+
+**Actions:**
+1. Aggregate all scan results
+2. Calculate overall risk score
+3. Generate markdown report
+4. Save report to `.ai/security/` directory
+
+**Validation:**
+- Report file created
+- All sections included
+- Gate decision documented
 
 ---
 
@@ -82,12 +200,13 @@ pre-conditions:
 
 ```yaml
 post-conditions:
-  - [ ] {TODO: verification step}
+  - [ ] Scan completed; vulnerabilities reported; no scan errors
     tipo: post-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Verify scan completed; vulnerabilities reported; no scan errors
+    rollback: false
+    error_message: "Post-condition failed: Scan completed; vulnerabilities reported; no scan errors"
 ```
 
 ---
@@ -100,47 +219,85 @@ post-conditions:
 
 ```yaml
 acceptance-criteria:
-  - [ ] {TODO: acceptance criterion}
+  - [ ] No critical vulnerabilities; all checks passed
     tipo: acceptance-criterion
-    blocker: true
+    blocker: false
+    story: N/A
+    manual_check: false
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Assert no critical vulnerabilities; all checks passed
+    error_message: "Acceptance criterion not met: No critical vulnerabilities; all checks passed"
 ```
 
 ---
 
-## Tools
+## Tools (External/Shared)
 
-**External/shared resources used by this task:**
+**Purpose:** Catalog reusable tools used by multiple agents
 
-- **Tool:** N/A
-  - **Purpose:** {TODO: what this tool does}
-  - **Source:** {TODO: where to find it}
+```yaml
+**Tools:**
+- github-cli:
+    version: latest
+    used_for: Create security issues if necessary
+    shared_with: [qa, dev]
+    cost: $0
+
+- npm-audit:
+    version: built-in
+    used_for: Dependency vulnerability scanning
+    shared_with: [qa, dev]
+    cost: $0
+
+- eslint-plugin-security:
+    version: ^1.7.1
+    used_for: Code security pattern detection
+    shared_with: [qa, dev]
+    cost: $0
+
+- secretlint:
+    version: latest
+    used_for: Secret detection in codebase
+    shared_with: [qa, dev]
+    cost: $0
+```
 
 ---
 
-## Scripts
+## Scripts (Agent-Specific)
 
-**Agent-specific code for this task:**
+**Purpose:** Agent-specific code for this task
 
-- **Script:** N/A
-  - **Purpose:** {TODO: what this script does}
-  - **Language:** {TODO: JavaScript | Python | Bash}
-  - **Location:** {TODO: file path}
+```yaml
+**Scripts:**
+- security-scan.js:
+    description: Run security scans and generate reports
+    language: JavaScript
+    location: .aios-core/scripts/security-scan.js
+```
 
 ---
 
 ## Error Handling
 
-**Strategy:** {TODO: Fail-fast | Graceful degradation | Retry with backoff}
+**Strategy:** fallback
 
 **Common Errors:**
 
-1. **Error:** {TODO: error type}
-   - **Cause:** {TODO: why it happens}
-   - **Resolution:** {TODO: how to fix}
-   - **Recovery:** {TODO: automated recovery steps}
+1. **Error:** Scanner Unavailable
+   - **Cause:** Security scanner not installed or failed
+   - **Resolution:** Install scanner or check configuration
+   - **Recovery:** Skip scan with high-risk warning
+
+2. **Error:** Critical Vulnerability Detected
+   - **Cause:** High-severity security issue found
+   - **Resolution:** Review vulnerability report, apply patches
+   - **Recovery:** Block deployment, alert team
+
+3. **Error:** Scan Timeout
+   - **Cause:** Large codebase exceeds scan time limit
+   - **Resolution:** Reduce scope or increase timeout
+   - **Recovery:** Partial scan results with warning
 
 ---
 
@@ -149,31 +306,32 @@ acceptance-criteria:
 **Expected Metrics:**
 
 ```yaml
-duration_expected: {TODO: X minutes}
-cost_estimated: {TODO: $X}
-token_usage: {TODO: ~X tokens}
+duration_expected: 5-20 min
+cost_estimated: $0.003-0.015
+token_usage: ~2,000-8,000 tokens
 ```
 
 **Optimization Notes:**
-- {TODO: performance tips}
+- Iterative analysis with depth limits
+- Cache intermediate results
+- Batch similar operations
 
 ---
 
 ## Metadata
 
 ```yaml
-story: {TODO: Story ID or N/A}
-version: 1.0.0
+story: STORY-6.1.7.2
+version: 2.0.0
 dependencies:
-  - {TODO: dependency file or N/A}
+  - N/A
 tags:
-  - {TODO: tag1}
-  - {TODO: tag2}
-updated_at: 2025-11-17
+  - security
+  - audit
+updated_at: 2025-01-17
 ```
 
 ---
-
 
 ## Inputs
 
@@ -196,14 +354,12 @@ required:
 3. **Semgrep** (via npx) - Análise estática avançada (opcional)
 4. **secretlint** (via npx) - Detecção de secrets vazados
 
-
 ## Configuration Dependencies
 
 This task requires the following configuration keys from `core-config.yaml`:
 
 - **`devStoryLocation`**: Location of story files (typically docs/stories)
-
-- **`architectureShardedLocation`**: Location for sharded architecture documents (typically docs/architecture) - Required to read/write architecture documentation
+- **`architectureShardedLocation`**: Location for sharded architecture documents (typically docs/architecture)
 - **`utils.registry`**: Utility registry location for framework utilities
 
 **Loading Config:**
@@ -216,8 +372,8 @@ const configPath = path.join(__dirname, '../../.aios-core/core-config.yaml');
 const config = yaml.load(fs.readFileSync(configPath, 'utf8'));
 
 const dev_story_location = config.devStoryLocation;
-const architectureShardedLocation = config.architectureShardedLocation || 'docs/architecture'; // architectureShardedLocation
-const utils_registry = config.utils?.registry || config['utils.registry'] || '.aios-core/utils'; // utils.registry
+const architectureShardedLocation = config.architectureShardedLocation || 'docs/architecture';
+const utils_registry = config.utils?.registry || config['utils.registry'] || '.aios-core/utils';
 ```
 
 ## Processo de Scan

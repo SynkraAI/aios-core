@@ -26,23 +26,45 @@
 ## Task Definition (AIOS Task Format V1.0)
 
 ```yaml
-task: {TODO: task identifier}
-responsável: {TODO: Agent Name}
+task: generateAiFrontendPrompt()
+responsável: Uma (Empathizer)
 responsavel_type: Agente
-atomic_layer: {TODO: Atom|Molecule|Organism}
+atomic_layer: Template
 
 **Entrada:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: string|number|boolean}
-  origem: {TODO: User Input | config | Step X}
+- campo: name
+  tipo: string
+  origem: User Input
   obrigatório: true
-  validação: {TODO: validation rule}
+  validação: Must be non-empty, lowercase, kebab-case
+
+- campo: options
+  tipo: object
+  origem: User Input
+  obrigatório: false
+  validação: Valid JSON object with allowed keys
+
+- campo: force
+  tipo: boolean
+  origem: User Input
+  obrigatório: false
+  validação: Default: false
 
 **Saída:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: type}
-  destino: {TODO: output | state | Step Y}
+- campo: created_file
+  tipo: string
+  destino: File system
   persistido: true
+
+- campo: validation_report
+  tipo: object
+  destino: Memory
+  persistido: false
+
+- campo: success
+  tipo: boolean
+  destino: Return value
+  persistido: false
 ```
 
 ---
@@ -55,12 +77,12 @@ atomic_layer: {TODO: Atom|Molecule|Organism}
 
 ```yaml
 pre-conditions:
-  - [ ] {TODO: condition description}
+  - [ ] Target does not already exist; required inputs provided; permissions granted
     tipo: pre-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Check target does not already exist; required inputs provided; permissions granted
+    error_message: "Pre-condition failed: Target does not already exist; required inputs provided; permissions granted"
 ```
 
 ---
@@ -73,12 +95,12 @@ pre-conditions:
 
 ```yaml
 post-conditions:
-  - [ ] {TODO: verification step}
+  - [ ] Resource created successfully; validation passed; no errors logged
     tipo: post-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Verify resource created successfully; validation passed; no errors logged
+    error_message: "Post-condition failed: Resource created successfully; validation passed; no errors logged"
 ```
 
 ---
@@ -91,12 +113,12 @@ post-conditions:
 
 ```yaml
 acceptance-criteria:
-  - [ ] {TODO: acceptance criterion}
+  - [ ] Resource exists and is valid; no duplicate resources created
     tipo: acceptance-criterion
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Assert resource exists and is valid; no duplicate resources created
+    error_message: "Acceptance criterion not met: Resource exists and is valid; no duplicate resources created"
 ```
 
 ---
@@ -105,9 +127,13 @@ acceptance-criteria:
 
 **External/shared resources used by this task:**
 
-- **Tool:** N/A
-  - **Purpose:** {TODO: what this tool does}
-  - **Source:** {TODO: where to find it}
+- **Tool:** component-generator
+  - **Purpose:** Generate new components from templates
+  - **Source:** .aios-core/scripts/component-generator.js
+
+- **Tool:** file-system
+  - **Purpose:** File creation and validation
+  - **Source:** Node.js fs module
 
 ---
 
@@ -115,23 +141,33 @@ acceptance-criteria:
 
 **Agent-specific code for this task:**
 
-- **Script:** N/A
-  - **Purpose:** {TODO: what this script does}
-  - **Language:** {TODO: JavaScript | Python | Bash}
-  - **Location:** {TODO: file path}
+- **Script:** create-component.js
+  - **Purpose:** Component creation workflow
+  - **Language:** JavaScript
+  - **Location:** .aios-core/scripts/create-component.js
 
 ---
 
 ## Error Handling
 
-**Strategy:** {TODO: Fail-fast | Graceful degradation | Retry with backoff}
+**Strategy:** retry
 
 **Common Errors:**
 
-1. **Error:** {TODO: error type}
-   - **Cause:** {TODO: why it happens}
-   - **Resolution:** {TODO: how to fix}
-   - **Recovery:** {TODO: automated recovery steps}
+1. **Error:** Resource Already Exists
+   - **Cause:** Target file/resource already exists in system
+   - **Resolution:** Use force flag or choose different name
+   - **Recovery:** Prompt user for alternative name or force overwrite
+
+2. **Error:** Invalid Input
+   - **Cause:** Input name contains invalid characters or format
+   - **Resolution:** Validate input against naming rules (kebab-case, lowercase, no special chars)
+   - **Recovery:** Sanitize input or reject with clear error message
+
+3. **Error:** Permission Denied
+   - **Cause:** Insufficient permissions to create resource
+   - **Resolution:** Check file system permissions, run with elevated privileges if needed
+   - **Recovery:** Log error, notify user, suggest permission fix
 
 ---
 
@@ -140,26 +176,26 @@ acceptance-criteria:
 **Expected Metrics:**
 
 ```yaml
-duration_expected: {TODO: X minutes}
-cost_estimated: {TODO: $X}
-token_usage: {TODO: ~X tokens}
+duration_expected: 3-8 min (estimated)
+cost_estimated: $0.002-0.005
+token_usage: ~1,500-5,000 tokens
 ```
 
 **Optimization Notes:**
-- {TODO: performance tips}
+- Cache template compilation; minimize data transformations; lazy load resources
 
 ---
 
 ## Metadata
 
 ```yaml
-story: {TODO: Story ID or N/A}
+story: N/A
 version: 1.0.0
 dependencies:
-  - {TODO: dependency file or N/A}
+  - N/A
 tags:
-  - {TODO: tag1}
-  - {TODO: tag2}
+  - automation
+  - workflow
 updated_at: 2025-11-17
 ```
 

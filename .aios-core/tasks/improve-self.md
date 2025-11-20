@@ -1,3 +1,15 @@
+# improve-self
+
+**Task ID:** `improve-self`  
+**Version:** 2.0.0  
+**Status:** Active
+
+---
+
+## Purpose
+
+Enable the meta-agent to improve its own capabilities with comprehensive safeguards. This task allows self-modification with mandatory safety checks, backups, and user approval.
+
 ---
 
 ## Execution Modes
@@ -21,27 +33,53 @@
 
 **Parameter:** `mode` (optional, default: `interactive`)
 
+**Valid values:** `yolo`, `interactive`, `preflight`
+
+**Note:** For self-improvement tasks, interactive mode is strongly recommended to ensure user awareness and approval of changes.
+
 ---
 
 ## Task Definition (AIOS Task Format V1.0)
 
 ```yaml
-task: {TODO: task identifier}
-responsável: {TODO: Agent Name}
+task: improveSelf()
+responsável: Orion (Commander)
 responsavel_type: Agente
-atomic_layer: {TODO: Atom|Molecule|Organism}
+atomic_layer: Molecule
 
 **Entrada:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: string|number|boolean}
-  origem: {TODO: User Input | config | Step X}
+- campo: task
+  tipo: string
+  origem: User Input
   obrigatório: true
-  validação: {TODO: validation rule}
+  validação: Must be registered task
+
+- campo: parameters
+  tipo: object
+  origem: User Input
+  obrigatório: false
+  validação: Valid task parameters
+
+- campo: mode
+  tipo: string
+  origem: User Input
+  obrigatório: false
+  validação: yolo|interactive|pre-flight
 
 **Saída:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: type}
-  destino: {TODO: output | state | Step Y}
+- campo: execution_result
+  tipo: object
+  destino: Memory
+  persistido: false
+
+- campo: logs
+  tipo: array
+  destino: File (.ai/logs/*)
+  persistido: true
+
+- campo: state
+  tipo: object
+  destino: State management
   persistido: true
 ```
 
@@ -55,13 +93,159 @@ atomic_layer: {TODO: Atom|Molecule|Organism}
 
 ```yaml
 pre-conditions:
-  - [ ] {TODO: condition description}
+  - [ ] Task is registered; required parameters provided; dependencies met
     tipo: pre-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Check task is registered; required parameters provided; dependencies met
+    error_message: "Pre-condition failed: Task is registered; required parameters provided; dependencies met"
 ```
+
+---
+
+## Step-by-Step Execution
+
+### Step 1: Request Validation
+
+**Purpose:** Validate improvement request against safety rules
+
+**Actions:**
+1. Parse improvement request
+2. Check against safety rules
+3. Verify scope limitations
+4. Detect recursive improvements
+
+**Validation:**
+- Request is valid
+- No safety violations
+- Scope within limits
+- No recursive improvements detected
+
+---
+
+### Step 2: Capability Analysis
+
+**Purpose:** Analyze current implementation and identify improvement opportunities
+
+**Actions:**
+1. Analyze current implementation
+2. Identify improvement opportunities
+3. Assess feasibility and risks
+4. Generate capability report
+
+**Validation:**
+- Analysis completed
+- Opportunities identified
+- Risks assessed
+- Report generated
+
+---
+
+### Step 3: Improvement Planning
+
+**Purpose:** Generate specific improvement plan with implementation details
+
+**Actions:**
+1. Generate specific changes
+2. Create implementation plan
+3. Identify affected components
+4. Estimate impact and benefits
+
+**Validation:**
+- Plan generated
+- Changes specified
+- Components identified
+- Impact estimated
+
+---
+
+### Step 4: Safety Validation
+
+**Purpose:** Validate improvement plan against safety constraints
+
+**Actions:**
+1. Check for breaking changes
+2. Verify interface preservation
+3. Validate security implications
+4. Ensure rollback capability
+
+**Validation:**
+- No breaking changes
+- Interfaces preserved
+- Security validated
+- Rollback available
+
+---
+
+### Step 5: Backup Creation
+
+**Purpose:** Create full backup before applying changes
+
+**Actions:**
+1. Full backup of affected files
+2. State snapshot for recovery
+3. Version control checkpoint
+4. Recovery plan documentation
+
+**Validation:**
+- Backup created
+- State saved
+- Checkpoint created
+- Recovery plan documented
+
+---
+
+### Step 6: Sandbox Testing
+
+**Purpose:** Test improvements in isolated environment
+
+**Actions:**
+1. Create isolated test environment
+2. Apply changes in sandbox
+3. Run comprehensive test suite
+4. Validate functionality
+
+**Validation:**
+- Sandbox created
+- Changes applied
+- Tests passed
+- Functionality validated
+
+---
+
+### Step 7: User Approval
+
+**Purpose:** Request explicit user approval before applying changes
+
+**Actions:**
+1. Present improvement plan
+2. Show test results
+3. Display risk assessment
+4. Request explicit approval
+
+**Validation:**
+- Plan presented
+- Results shown
+- Risks disclosed
+- Approval obtained
+
+---
+
+### Step 8: Change Application
+
+**Purpose:** Apply approved improvements to production
+
+**Actions:**
+1. Apply approved changes
+2. Monitor for issues
+3. Validate in production
+4. Track performance metrics
+
+**Validation:**
+- Changes applied
+- No issues detected
+- Production validated
+- Metrics tracked
 
 ---
 
@@ -73,65 +257,118 @@ pre-conditions:
 
 ```yaml
 post-conditions:
-  - [ ] {TODO: verification step}
+  - [ ] Task completed; exit code 0; expected outputs created
     tipo: post-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Verify task completed; exit code 0; expected outputs created
+    rollback: true
+    error_message: "Post-condition failed: Task completed; exit code 0; expected outputs created"
 ```
 
 ---
 
 ## Acceptance Criteria
 
-**Purpose:** Definitive pass/fail criteria for task completion
+**Purpose:** Validate story requirements AFTER workflow (non-blocking, can be manual)
 
 **Checklist:**
 
 ```yaml
 acceptance-criteria:
-  - [ ] {TODO: acceptance criterion}
+  - [ ] Task completed as expected; side effects documented
     tipo: acceptance-criterion
-    blocker: true
+    blocker: false
+    story: N/A
+    manual_check: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Assert task completed as expected; side effects documented
+    error_message: "Acceptance criterion not met: Task completed as expected; side effects documented"
 ```
 
 ---
 
-## Tools
+## Tools (External/Shared)
 
-**External/shared resources used by this task:**
+**Purpose:** Catalog reusable tools used by multiple agents
 
-- **Tool:** N/A
-  - **Purpose:** {TODO: what this tool does}
-  - **Source:** {TODO: where to find it}
+```yaml
+**Tools:**
+- github-cli:
+    version: latest
+    used_for: Version control operations and issue creation
+    shared_with: [dev, qa, po]
+    cost: $0
+
+- task-runner:
+    version: latest
+    used_for: Task execution and orchestration
+    shared_with: [dev, qa, po]
+    cost: $0
+
+- logger:
+    version: latest
+    used_for: Execution logging and error tracking
+    shared_with: [dev, qa, po]
+    cost: $0
+```
 
 ---
 
-## Scripts
+## Scripts (Agent-Specific)
 
-**Agent-specific code for this task:**
+**Purpose:** Agent-specific code for this task
 
-- **Script:** N/A
-  - **Purpose:** {TODO: what this script does}
-  - **Language:** {TODO: JavaScript | Python | Bash}
-  - **Location:** {TODO: file path}
+```yaml
+**Scripts:**
+- capability-analyzer.js:
+    description: Analyze current capabilities and identify improvements
+    language: JavaScript
+    location: .aios-core/scripts/capability-analyzer.js
+
+- improvement-validator.js:
+    description: Validate improvement plans against safety rules
+    language: JavaScript
+    location: .aios-core/scripts/improvement-validator.js
+
+- sandbox-tester.js:
+    description: Test improvements in isolated sandbox environment
+    language: JavaScript
+    location: .aios-core/scripts/sandbox-tester.js
+
+- backup-manager.js:
+    description: Manage backups and rollback operations
+    language: JavaScript
+    location: .aios-core/scripts/backup-manager.js
+```
 
 ---
 
 ## Error Handling
 
-**Strategy:** {TODO: Fail-fast | Graceful degradation | Retry with backoff}
+**Strategy:** abort
 
 **Common Errors:**
 
-1. **Error:** {TODO: error type}
-   - **Cause:** {TODO: why it happens}
-   - **Resolution:** {TODO: how to fix}
-   - **Recovery:** {TODO: automated recovery steps}
+1. **Error:** Safety Validation Failed
+   - **Cause:** Improvement plan violates safety rules
+   - **Resolution:** Review safety constraints, modify plan
+   - **Recovery:** Reject improvement, log reason, suggest alternatives
+
+2. **Error:** Sandbox Testing Failed
+   - **Cause:** Tests fail in sandbox environment
+   - **Resolution:** Fix issues in improvement plan
+   - **Recovery:** Rollback sandbox, restore backup, reject improvement
+
+3. **Error:** User Rejected Improvement
+   - **Cause:** User did not approve improvement plan
+   - **Resolution:** Accept user decision, log feedback
+   - **Recovery:** Cleanup temporary files, exit gracefully
+
+4. **Error:** Emergency Rollback Required
+   - **Cause:** Critical failure during change application
+   - **Resolution:** Immediately restore backup
+   - **Recovery:** Restore all files from backup, log incident, alert user
 
 ---
 
@@ -140,40 +377,34 @@ acceptance-criteria:
 **Expected Metrics:**
 
 ```yaml
-duration_expected: {TODO: X minutes}
-cost_estimated: {TODO: $X}
-token_usage: {TODO: ~X tokens}
+duration_expected: 5-15 min (estimated)
+cost_estimated: $0.002-0.008
+token_usage: ~2,000-5,000 tokens
 ```
 
 **Optimization Notes:**
-- {TODO: performance tips}
+- Cache capability analysis results
+- Parallelize sandbox tests where possible
+- Implement early exits on safety violations
 
 ---
 
 ## Metadata
 
 ```yaml
-story: {TODO: Story ID or N/A}
-version: 1.0.0
+story: STORY-6.1.7.2
+version: 2.0.0
 dependencies:
-  - {TODO: dependency file or N/A}
+  - capability-analyzer.js
+  - improvement-validator.js
+  - sandbox-tester.js
+  - backup-manager.js
 tags:
-  - {TODO: tag1}
-  - {TODO: tag2}
-updated_at: 2025-11-17
+  - automation
+  - meta-improvement
+  - self-modification
+updated_at: 2025-01-17
 ```
-
----
-
-# No checklists needed - this task is meta-improvement with built-in safety validation
-tools:
-  - github-cli
----
-
-# *improve-self
-
-## Purpose
-Enable the meta-agent to improve its own capabilities with comprehensive safeguards
 
 ## Task Flow
 

@@ -26,23 +26,45 @@
 ## Task Definition (AIOS Task Format V1.0)
 
 ```yaml
-task: {TODO: task identifier}
-responsável: {TODO: Agent Name}
+task: indexDocs()
+responsável: Morgan (Strategist)
 responsavel_type: Agente
-atomic_layer: {TODO: Atom|Molecule|Organism}
+atomic_layer: Molecule
 
 **Entrada:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: string|number|boolean}
-  origem: {TODO: User Input | config | Step X}
+- campo: source
+  tipo: string
+  origem: User Input
   obrigatório: true
-  validação: {TODO: validation rule}
+  validação: Valid path or URL
+
+- campo: format
+  tipo: string
+  origem: User Input
+  obrigatório: false
+  validação: markdown|html|json
+
+- campo: template
+  tipo: string
+  origem: config
+  obrigatório: false
+  validação: Template name
 
 **Saída:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: type}
-  destino: {TODO: output | state | Step Y}
+- campo: generated_doc
+  tipo: string
+  destino: File (docs/*)
   persistido: true
+
+- campo: metadata
+  tipo: object
+  destino: File (frontmatter)
+  persistido: true
+
+- campo: toc
+  tipo: array
+  destino: Memory
+  persistido: false
 ```
 
 ---
@@ -55,12 +77,12 @@ atomic_layer: {TODO: Atom|Molecule|Organism}
 
 ```yaml
 pre-conditions:
-  - [ ] {TODO: condition description}
+  - [ ] Template exists; source data available
     tipo: pre-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Check template exists; source data available
+    error_message: "Pre-condition failed: Template exists; source data available"
 ```
 
 ---
@@ -73,12 +95,12 @@ pre-conditions:
 
 ```yaml
 post-conditions:
-  - [ ] {TODO: verification step}
+  - [ ] Documentation generated; format valid; links working
     tipo: post-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Verify documentation generated; format valid; links working
+    error_message: "Post-condition failed: Documentation generated; format valid; links working"
 ```
 
 ---
@@ -91,12 +113,12 @@ post-conditions:
 
 ```yaml
 acceptance-criteria:
-  - [ ] {TODO: acceptance criterion}
+  - [ ] Documentation readable; examples work; links valid
     tipo: acceptance-criterion
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Assert documentation readable; examples work; links valid
+    error_message: "Acceptance criterion not met: Documentation readable; examples work; links valid"
 ```
 
 ---
@@ -105,9 +127,13 @@ acceptance-criteria:
 
 **External/shared resources used by this task:**
 
-- **Tool:** N/A
-  - **Purpose:** {TODO: what this tool does}
-  - **Source:** {TODO: where to find it}
+- **Tool:** markdown-renderer
+  - **Purpose:** Markdown parsing and rendering
+  - **Source:** npm: marked or similar
+
+- **Tool:** template-engine
+  - **Purpose:** Document template processing
+  - **Source:** .aios-core/templates/
 
 ---
 
@@ -115,23 +141,33 @@ acceptance-criteria:
 
 **Agent-specific code for this task:**
 
-- **Script:** N/A
-  - **Purpose:** {TODO: what this script does}
-  - **Language:** {TODO: JavaScript | Python | Bash}
-  - **Location:** {TODO: file path}
+- **Script:** generate-docs.js
+  - **Purpose:** Documentation generation from templates
+  - **Language:** JavaScript
+  - **Location:** .aios-core/scripts/generate-docs.js
 
 ---
 
 ## Error Handling
 
-**Strategy:** {TODO: Fail-fast | Graceful degradation | Retry with backoff}
+**Strategy:** fallback
 
 **Common Errors:**
 
-1. **Error:** {TODO: error type}
-   - **Cause:** {TODO: why it happens}
-   - **Resolution:** {TODO: how to fix}
-   - **Recovery:** {TODO: automated recovery steps}
+1. **Error:** Template Not Found
+   - **Cause:** Specified template does not exist
+   - **Resolution:** Verify template path in config
+   - **Recovery:** Use default template, log warning
+
+2. **Error:** Invalid Markdown
+   - **Cause:** Source contains invalid markdown syntax
+   - **Resolution:** Validate markdown before processing
+   - **Recovery:** Sanitize markdown, continue processing
+
+3. **Error:** Generation Failed
+   - **Cause:** Template rendering error or missing data
+   - **Resolution:** Check template syntax and data availability
+   - **Recovery:** Fallback to simple template, log error
 
 ---
 
@@ -140,26 +176,26 @@ acceptance-criteria:
 **Expected Metrics:**
 
 ```yaml
-duration_expected: {TODO: X minutes}
-cost_estimated: {TODO: $X}
-token_usage: {TODO: ~X tokens}
+duration_expected: 2-5 min (estimated)
+cost_estimated: $0.001-0.003
+token_usage: ~1,000-3,000 tokens
 ```
 
 **Optimization Notes:**
-- {TODO: performance tips}
+- Parallelize independent operations; reuse atom results; implement early exits
 
 ---
 
 ## Metadata
 
 ```yaml
-story: {TODO: Story ID or N/A}
+story: N/A
 version: 1.0.0
 dependencies:
-  - {TODO: dependency file or N/A}
+  - N/A
 tags:
-  - {TODO: tag1}
-  - {TODO: tag2}
+  - automation
+  - workflow
 updated_at: 2025-11-17
 ```
 

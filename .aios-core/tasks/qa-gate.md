@@ -25,22 +25,44 @@
 ## Task Definition (AIOS Task Format V1.0)
 
 ```yaml
-task: {TODO: task identifier}
-responsável: {TODO: Agent Name}
+task: qaGate()
+responsável: Quinn (Guardian)
 responsavel_type: Agente
-atomic_layer: {TODO: Atom|Molecule|Organism}
+atomic_layer: Organism
 
 **Entrada:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: string|number|boolean}
-  origem: {TODO: User Input | config | Step X}
+- campo: target
+  tipo: string
+  origem: User Input
   obrigatório: true
-  validação: {TODO: validation rule}
+  validação: Must exist
+
+- campo: criteria
+  tipo: array
+  origem: config
+  obrigatório: true
+  validação: Non-empty validation criteria
+
+- campo: strict
+  tipo: boolean
+  origem: User Input
+  obrigatório: false
+  validação: Default: true
 
 **Saída:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: type}
-  destino: {TODO: output | state | Step Y}
+- campo: validation_result
+  tipo: boolean
+  destino: Return value
+  persistido: false
+
+- campo: errors
+  tipo: array
+  destino: Memory
+  persistido: false
+
+- campo: report
+  tipo: object
+  destino: File (.ai/*.json)
   persistido: true
 ```
 
@@ -54,12 +76,12 @@ atomic_layer: {TODO: Atom|Molecule|Organism}
 
 ```yaml
 pre-conditions:
-  - [ ] {TODO: condition description}
+  - [ ] Validation rules loaded; target available for validation
     tipo: pre-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Check validation rules loaded; target available for validation
+    error_message: "Pre-condition failed: Validation rules loaded; target available for validation"
 ```
 
 ---
@@ -72,12 +94,12 @@ pre-conditions:
 
 ```yaml
 post-conditions:
-  - [ ] {TODO: verification step}
+  - [ ] Validation executed; results accurate; report generated
     tipo: post-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Verify validation executed; results accurate; report generated
+    error_message: "Post-condition failed: Validation executed; results accurate; report generated"
 ```
 
 ---
@@ -90,12 +112,12 @@ post-conditions:
 
 ```yaml
 acceptance-criteria:
-  - [ ] {TODO: acceptance criterion}
+  - [ ] Validation rules applied; pass/fail accurate; actionable feedback
     tipo: acceptance-criterion
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Assert validation rules applied; pass/fail accurate; actionable feedback
+    error_message: "Acceptance criterion not met: Validation rules applied; pass/fail accurate; actionable feedback"
 ```
 
 ---
@@ -104,9 +126,13 @@ acceptance-criteria:
 
 **External/shared resources used by this task:**
 
-- **Tool:** N/A
-  - **Purpose:** {TODO: what this tool does}
-  - **Source:** {TODO: where to find it}
+- **Tool:** validation-engine
+  - **Purpose:** Rule-based validation and reporting
+  - **Source:** .aios-core/utils/validation-engine.js
+
+- **Tool:** schema-validator
+  - **Purpose:** JSON/YAML schema validation
+  - **Source:** ajv or similar
 
 ---
 
@@ -114,23 +140,33 @@ acceptance-criteria:
 
 **Agent-specific code for this task:**
 
-- **Script:** N/A
-  - **Purpose:** {TODO: what this script does}
-  - **Language:** {TODO: JavaScript | Python | Bash}
-  - **Location:** {TODO: file path}
+- **Script:** run-validation.js
+  - **Purpose:** Execute validation rules and generate report
+  - **Language:** JavaScript
+  - **Location:** .aios-core/scripts/run-validation.js
 
 ---
 
 ## Error Handling
 
-**Strategy:** {TODO: Fail-fast | Graceful degradation | Retry with backoff}
+**Strategy:** abort
 
 **Common Errors:**
 
-1. **Error:** {TODO: error type}
-   - **Cause:** {TODO: why it happens}
-   - **Resolution:** {TODO: how to fix}
-   - **Recovery:** {TODO: automated recovery steps}
+1. **Error:** Validation Criteria Missing
+   - **Cause:** Required validation rules not defined
+   - **Resolution:** Ensure validation criteria loaded from config
+   - **Recovery:** Use default validation rules, log warning
+
+2. **Error:** Invalid Schema
+   - **Cause:** Target does not match expected schema
+   - **Resolution:** Update schema or fix target structure
+   - **Recovery:** Detailed validation error report
+
+3. **Error:** Dependency Missing
+   - **Cause:** Required dependency for validation not found
+   - **Resolution:** Install missing dependencies
+   - **Recovery:** Abort with clear dependency list
 
 ---
 
@@ -139,26 +175,26 @@ acceptance-criteria:
 **Expected Metrics:**
 
 ```yaml
-duration_expected: {TODO: X minutes}
-cost_estimated: {TODO: $X}
-token_usage: {TODO: ~X tokens}
+duration_expected: 5-15 min (estimated)
+cost_estimated: $0.003-0.010
+token_usage: ~3,000-10,000 tokens
 ```
 
 **Optimization Notes:**
-- {TODO: performance tips}
+- Break into smaller workflows; implement checkpointing; use async processing where possible
 
 ---
 
 ## Metadata
 
 ```yaml
-story: {TODO: Story ID or N/A}
+story: N/A
 version: 1.0.0
 dependencies:
-  - {TODO: dependency file or N/A}
+  - N/A
 tags:
-  - {TODO: tag1}
-  - {TODO: tag2}
+  - quality-assurance
+  - testing
 updated_at: 2025-11-17
 ```
 

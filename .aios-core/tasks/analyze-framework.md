@@ -29,23 +29,45 @@ Performs comprehensive analysis of the AIOS-FULLSTACK framework to identify impr
 ## Task Definition (AIOS Task Format V1.0)
 
 ```yaml
-task: {TODO: task identifier}
-responsável: {TODO: Agent Name}
+task: analyzeFramework()
+responsável: Aria (Visionary)
 responsavel_type: Agente
-atomic_layer: {TODO: Atom|Molecule|Organism}
+atomic_layer: Strategy
 
 **Entrada:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: string|number|boolean}
-  origem: {TODO: User Input | config | Step X}
+- campo: target
+  tipo: string
+  origem: User Input
   obrigatório: true
-  validação: {TODO: validation rule}
+  validação: Valid path or identifier
+
+- campo: options
+  tipo: object
+  origem: config
+  obrigatório: false
+  validação: Analysis configuration
+
+- campo: depth
+  tipo: number
+  origem: User Input
+  obrigatório: false
+  validação: Default: 1 (0-3)
 
 **Saída:**
-- campo: {TODO: fieldName}
-  tipo: {TODO: type}
-  destino: {TODO: output | state | Step Y}
+- campo: analysis_report
+  tipo: object
+  destino: File (.ai/*.json)
   persistido: true
+
+- campo: findings
+  tipo: array
+  destino: Memory
+  persistido: false
+
+- campo: metrics
+  tipo: object
+  destino: Memory
+  persistido: false
 ```
 
 ---
@@ -58,12 +80,12 @@ atomic_layer: {TODO: Atom|Molecule|Organism}
 
 ```yaml
 pre-conditions:
-  - [ ] {TODO: condition description}
+  - [ ] Target exists and is accessible; analysis tools available
     tipo: pre-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Check target exists and is accessible; analysis tools available
+    error_message: "Pre-condition failed: Target exists and is accessible; analysis tools available"
 ```
 
 ---
@@ -76,12 +98,12 @@ pre-conditions:
 
 ```yaml
 post-conditions:
-  - [ ] {TODO: verification step}
+  - [ ] Analysis complete; report generated; no critical issues
     tipo: post-condition
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Verify analysis complete; report generated; no critical issues
+    error_message: "Post-condition failed: Analysis complete; report generated; no critical issues"
 ```
 
 ---
@@ -94,12 +116,12 @@ post-conditions:
 
 ```yaml
 acceptance-criteria:
-  - [ ] {TODO: acceptance criterion}
+  - [ ] Analysis accurate; all targets covered; report complete
     tipo: acceptance-criterion
     blocker: true
     validação: |
-      {TODO: validation logic}
-    error_message: "{TODO: error message}"
+      Assert analysis accurate; all targets covered; report complete
+    error_message: "Acceptance criterion not met: Analysis accurate; all targets covered; report complete"
 ```
 
 ---
@@ -108,9 +130,13 @@ acceptance-criteria:
 
 **External/shared resources used by this task:**
 
-- **Tool:** N/A
-  - **Purpose:** {TODO: what this tool does}
-  - **Source:** {TODO: where to find it}
+- **Tool:** code-analyzer
+  - **Purpose:** Static code analysis and metrics
+  - **Source:** .aios-core/utils/code-analyzer.js
+
+- **Tool:** file-system
+  - **Purpose:** Recursive directory traversal
+  - **Source:** Node.js fs module
 
 ---
 
@@ -118,23 +144,33 @@ acceptance-criteria:
 
 **Agent-specific code for this task:**
 
-- **Script:** N/A
-  - **Purpose:** {TODO: what this script does}
-  - **Language:** {TODO: JavaScript | Python | Bash}
-  - **Location:** {TODO: file path}
+- **Script:** analyze-codebase.js
+  - **Purpose:** Codebase analysis and reporting
+  - **Language:** JavaScript
+  - **Location:** .aios-core/scripts/analyze-codebase.js
 
 ---
 
 ## Error Handling
 
-**Strategy:** {TODO: Fail-fast | Graceful degradation | Retry with backoff}
+**Strategy:** fallback
 
 **Common Errors:**
 
-1. **Error:** {TODO: error type}
-   - **Cause:** {TODO: why it happens}
-   - **Resolution:** {TODO: how to fix}
-   - **Recovery:** {TODO: automated recovery steps}
+1. **Error:** Target Not Accessible
+   - **Cause:** Path does not exist or permissions denied
+   - **Resolution:** Verify path and check permissions
+   - **Recovery:** Skip inaccessible paths, continue with accessible ones
+
+2. **Error:** Analysis Timeout
+   - **Cause:** Analysis exceeds time limit for large codebases
+   - **Resolution:** Reduce analysis depth or scope
+   - **Recovery:** Return partial results with timeout warning
+
+3. **Error:** Memory Limit Exceeded
+   - **Cause:** Large codebase exceeds memory allocation
+   - **Resolution:** Process in batches or increase memory limit
+   - **Recovery:** Graceful degradation to summary analysis
 
 ---
 
@@ -143,26 +179,26 @@ acceptance-criteria:
 **Expected Metrics:**
 
 ```yaml
-duration_expected: {TODO: X minutes}
-cost_estimated: {TODO: $X}
-token_usage: {TODO: ~X tokens}
+duration_expected: 5-20 min (estimated)
+cost_estimated: $0.003-0.015
+token_usage: ~2,000-8,000 tokens
 ```
 
 **Optimization Notes:**
-- {TODO: performance tips}
+- Iterative analysis with depth limits; cache intermediate results; batch similar operations
 
 ---
 
 ## Metadata
 
 ```yaml
-story: {TODO: Story ID or N/A}
+story: N/A
 version: 1.0.0
 dependencies:
-  - {TODO: dependency file or N/A}
+  - N/A
 tags:
-  - {TODO: tag1}
-  - {TODO: tag2}
+  - analysis
+  - metrics
 updated_at: 2025-11-17
 ```
 
