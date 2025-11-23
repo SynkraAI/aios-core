@@ -16,6 +16,7 @@ const {
 } = require('./feedback');
 const { generateIDEConfigs, showSuccessSummary } = require('./ide-config-generator');
 const { configureEnvironment } = require('../../packages/installer/src/config/configure-environment');
+const { installDependencies } = require('../installer/dependency-installer');
 
 /**
  * Handle Ctrl+C gracefully
@@ -164,6 +165,65 @@ async function runWizard() {
       console.log('\n⚠️  Continuing without environment configuration...');
     }
 
+    // Story 1.7: Dependency Installation
+    console.log('\n📦 Installing dependencies...');
+
+    try {
+      const depsResult = await installDependencies({
+        packageManager: answers.packageManager,
+        projectPath: process.cwd()
+      });
+
+      if (depsResult.success) {
+        if (depsResult.offlineMode) {
+          console.log('✅ Using existing dependencies (offline mode)');
+        } else {
+          console.log(`✅ Dependencies installed with ${depsResult.packageManager}!`);
+        }
+        answers.depsInstalled = true;
+        answers.depsResult = depsResult;
+      } else {
+        console.error('\n⚠️  Dependency installation failed:');
+        console.error(`  ${depsResult.errorMessage}`);
+        console.error(`  Solution: ${depsResult.solution}`);
+
+        // Ask user if they want to retry
+        const { retryDeps } = await inquirer.prompt([
+          {
+            type: 'confirm',
+            name: 'retryDeps',
+            message: 'Retry dependency installation?',
+            default: true
+          }
+        ]);
+
+        if (retryDeps) {
+          // Recursive retry with exponential backoff (built into installDependencies)
+          const retryResult = await installDependencies({
+            packageManager: answers.packageManager,
+            projectPath: process.cwd()
+          });
+
+          if (retryResult.success) {
+            console.log(`\n✅ Dependencies installed with ${retryResult.packageManager}!`);
+            answers.depsInstalled = true;
+            answers.depsResult = retryResult;
+          } else {
+            console.log('\n⚠️  Installation still failed. You can run `npm install` manually later.');
+            answers.depsInstalled = false;
+            answers.depsResult = retryResult;
+          }
+        } else {
+          console.log('\n⚠️  Skipping dependency installation. Run manually with `npm install`.');
+          answers.depsInstalled = false;
+          answers.depsResult = depsResult;
+        }
+      }
+    } catch (error) {
+      console.error('\n⚠️  Dependency installation error:', error.message);
+      answers.depsInstalled = false;
+    }
+
     // Show completion
     showCompletion();
 
@@ -192,6 +252,13 @@ async function runWizard() {
  * @property {boolean} envResult.coreConfigCreated - core-config.yaml created
  * @property {boolean} envResult.gitignoreUpdated - .gitignore updated
  * @property {Array<string>} envResult.errors - Any errors encountered
+ * @property {string} packageManager - Selected package manager (Story 1.7)
+ * @property {boolean} [depsInstalled] - Whether dependencies installed successfully (Story 1.7)
+ * @property {Object} [depsResult] - Dependency installation result (Story 1.7)
+ * @property {boolean} depsResult.success - Installation succeeded
+ * @property {boolean} [depsResult.offlineMode] - Used existing node_modules
+ * @property {string} depsResult.packageManager - Package manager used
+ * @property {string} [depsResult.error] - Error message if failed
  */
 
 module.exports = {

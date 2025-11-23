@@ -47,6 +47,47 @@ function getIDEQuestions() {
 }
 
 /**
+ * Get package manager selection question (Story 1.7)
+ *
+ * @param {string} detectedPM - Auto-detected package manager
+ * @returns {Object} Inquirer question object
+ */
+function getPackageManagerQuestion(detectedPM = 'npm') {
+  return {
+    type: 'list',
+    name: 'packageManager',
+    message: colors.primary('Which package manager should be used?'),
+    choices: [
+      {
+        name: detectedPM === 'npm'
+          ? colors.highlight('npm') + colors.dim(' (detected)')
+          : 'npm',
+        value: 'npm'
+      },
+      {
+        name: detectedPM === 'yarn'
+          ? colors.highlight('yarn') + colors.dim(' (detected)')
+          : 'yarn',
+        value: 'yarn'
+      },
+      {
+        name: detectedPM === 'pnpm'
+          ? colors.highlight('pnpm') + colors.dim(' (detected)')
+          : 'pnpm',
+        value: 'pnpm'
+      },
+      {
+        name: detectedPM === 'bun'
+          ? colors.highlight('bun') + colors.dim(' (detected)')
+          : 'bun',
+        value: 'bun'
+      }
+    ],
+    default: ['npm', 'yarn', 'pnpm', 'bun'].indexOf(detectedPM) || 0
+  };
+}
+
+/**
  * Get MCP selection questions (Story 1.5)
  * This is a placeholder - full implementation in Story 1.5
  * 
@@ -96,6 +137,12 @@ function buildQuestionSequence(_context = {}) {
   // Story 1.5: MCP Selection (when implemented)
   // questions.push(...getMCPQuestions());
 
+  // Story 1.7: Package Manager Selection
+  // Note: Detection happens in wizard, we pass detected PM to highlight it
+  const { detectPackageManager } = require('../installer/dependency-installer');
+  const detectedPM = detectPackageManager();
+  questions.push(getPackageManagerQuestion(detectedPM));
+
   // Story 1.6: Environment Configuration
   // Note: Env config prompts handled directly in configureEnvironment()
   // See src/wizard/index.js integration (after IDE config step)
@@ -127,6 +174,7 @@ module.exports = {
   getIDEQuestions,
   getMCPQuestions,
   getEnvironmentQuestions,
+  getPackageManagerQuestion,
   buildQuestionSequence,
   getQuestionById
 };
