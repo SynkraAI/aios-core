@@ -375,8 +375,8 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
           spinner.start(`Configuring ${ide.name}...`);
         }
 
-        // Load template from .aios-core/templates/
-        const templatePath = path.join(__dirname, '..', '..', '.aios-core', 'templates', ide.template);
+        // Load template from .aios-core/product/templates/
+        const templatePath = path.join(__dirname, '..', '..', '.aios-core', 'product', 'templates', ide.template);
 
         if (!await fs.pathExists(templatePath)) {
           throw new Error(`Template file not found: ${ide.template}`);

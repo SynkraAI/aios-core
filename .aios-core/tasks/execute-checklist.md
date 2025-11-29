@@ -221,10 +221,10 @@ If the user asks or does not specify a specific checklist, list the checklists a
    - If user or the task being run provides a checklist name:
      - Try fuzzy matching (e.g. "architecture checklist" -> "architect-checklist")
      - If multiple matches found, ask user to clarify
-     - Load the appropriate checklist from .aios-core/checklists/
+     - Load the appropriate checklist from .aios-core/product/checklists/
    - If no checklist specified:
      - Ask the user which checklist they want to use
-     - Present the available options from the files in the checklists folder
+     - Present the available options from the files in the .aios-core/product/checklists/ folder
    - Confirm if they want to work through the checklist:
      - Section by section (interactive mode - very time consuming)
      - All at once (YOLO mode - recommended for checklists, there will be a summary of sections at the end to discuss)

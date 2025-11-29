@@ -242,7 +242,7 @@ related:
   tasks:
     - .aios-core/tasks/{task1}.md
   templates:
-    - .aios-core/templates/{related-template}.yaml
+    - .aios-core/product/templates/{related-template}.yaml
 
 ---
 

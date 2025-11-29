@@ -38,15 +38,22 @@ AIOS uses a **dual-layer architecture**:
 ```
 aios-fullstack/                        # Root (brownfield project)
 ├── .aios-core/                        # Framework core (portable)
+│   ├── core/                          # Framework essentials (v2.1)
+│   │   ├── config/                    # Configuration system
+│   │   ├── data/                      # Core knowledge base
+│   │   ├── docs/                      # Core documentation
+│   │   ├── elicitation/               # Interactive prompting engine
+│   │   ├── session/                   # Runtime state management
+│   │   └── utils/                     # Core utilities
+│   ├── product/                       # PM/PO assets (v2.1)
+│   │   ├── templates/                 # Document templates (52+ files)
+│   │   ├── checklists/                # Validation checklists (6 files)
+│   │   └── data/                      # PM-specific data (6 files)
 │   ├── agents/                        # Agent definitions
 │   ├── tasks/                         # Task workflows
-│   ├── templates/                     # Document templates
 │   ├── workflows/                     # Multi-step workflows
-│   ├── checklists/                    # Validation checklists
-│   ├── data/                          # Knowledge base
-│   ├── scripts/                         # Utility scripts
+│   ├── scripts/                       # Utility scripts
 │   ├── tools/                         # Tool integrations
-│   ├── elicitation/                   # Elicitation engines
 │   └── core-config.yaml               # Framework configuration
 │
 ├── docs/                              # Documentation
@@ -218,7 +225,7 @@ Tasks:
   Example: create-next-story.md, develop-story.md
 
 Templates:
-  Location: .aios-core/templates/
+  Location: .aios-core/product/templates/
   Format: YAML or Markdown
   Naming: {template-name}-tmpl.{yaml|md}
   Example: story-tmpl.yaml, prd-tmpl.md
@@ -230,7 +237,7 @@ Workflows:
   Example: greenfield-fullstack.yaml, brownfield-service.yaml
 
 Checklists:
-  Location: .aios-core/checklists/
+  Location: .aios-core/product/checklists/
   Format: Markdown
   Naming: {checklist-name}-checklist.md
   Example: story-draft-checklist.md, architect-checklist.md
@@ -570,8 +577,8 @@ Location: .aios-core/workflows/{workflow-name}.yaml
 Example: .aios-core/workflows/continuous-deployment.yaml
 
 # I'm creating a new template:
-Location: .aios-core/templates/{template-name}-tmpl.{yaml|md}
-Example: .aios-core/templates/deployment-plan-tmpl.yaml
+Location: .aios-core/product/templates/{template-name}-tmpl.{yaml|md}
+Example: .aios-core/product/templates/deployment-plan-tmpl.yaml
 
 # I'm writing a story:
 Location: docs/stories/{epic-context}/{story-file}.md

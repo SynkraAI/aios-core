@@ -230,7 +230,7 @@ After completing checklist, generate report using standardized format:
 
 1. All tasks and subtasks marked [x]
 2. All tests pass
-3. Execute `.aios-core/checklists/story-dod-checklist.md`
+3. Execute `.aios-core/product/checklists/story-dod-checklist.md`
 4. Generate checklist report
 5. Set story status: "Ready for Review"
 ```

@@ -1,6 +1,6 @@
 ---
 # Template selection determined dynamically during task execution
-# User selects from available templates in .aios-core/templates/
+# User selects from available templates in .aios-core/product/templates/
 tools:
   - github-cli        # For file operations
 utils:
@@ -230,7 +230,7 @@ When this task is invoked:
 
 ## Critical: Template Discovery
 
-If a YAML Template has not been provided, list all templates from .aios-core/templates or ask the user to provide another.
+If a YAML Template has not been provided, list all templates from .aios-core/product/templates or ask the user to provide another.
 
 ## CRITICAL: Mandatory Elicitation Format
 

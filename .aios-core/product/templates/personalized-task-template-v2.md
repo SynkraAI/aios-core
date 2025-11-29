@@ -342,13 +342,13 @@ acceptance-criteria:
 
 ```yaml
 **Template:**
-- path: .aios-core/templates/task-execution-report.md
+- path: .aios-core/product/templates/task-execution-report.md
   type: output
   version: 1.0
   variables: [agent_name, task_name, duration, tokens, status_message]
   schema: schemas/task-execution-report.schema.json
 
-- path: .aios-core/templates/story-tmpl.yaml
+- path: .aios-core/product/templates/story-tmpl.yaml
   type: input
   version: 2.1
   variables: [story_id, title, description, acceptance_criteria]
@@ -525,7 +525,7 @@ acceptance-criteria:
 - fallback: |
     If template not found:
     1. Check alternative template paths
-    2. Use generic template from .aios-core/templates/
+    2. Use generic template from .aios-core/product/templates/
     3. If no generic template, create minimal output structure
 - retry:
     max_attempts: 2

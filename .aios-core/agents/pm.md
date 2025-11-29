@@ -172,7 +172,7 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 
 ### Prerequisites
 1. Project brief from @analyst (if available)
-2. PRD templates in `.aios-core/templates/`
+2. PRD templates in `.aios-core/product/templates/`
 3. Understanding of project goals and constraints
 4. Access to research tools (exa, context7)
 

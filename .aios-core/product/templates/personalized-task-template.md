@@ -137,10 +137,10 @@ Eu recomendo #3 pra começar - facilita construir rápido e depois separar se ne
 - `.aios-core/tasks/{dependency2}.md`
 
 **Templates:**
-- `.aios-core/templates/{template1}.yaml`
+- `.aios-core/product/templates/{template1}.yaml`
 
 **Checklists:**
-- `.aios-core/checklists/{checklist1}.md`
+- `.aios-core/product/checklists/{checklist1}.md`
 
 **Tools:**
 - `{tool1}` - {Usage description}

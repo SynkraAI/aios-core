@@ -44,7 +44,7 @@ const TOOLS_BY_CATEGORY = {
   ],
   DOCUMENTATION: [
     { tool: 'markdown-renderer', purpose: 'Markdown parsing and rendering', source: 'npm: marked or similar' },
-    { tool: 'template-engine', purpose: 'Document template processing', source: '.aios-core/templates/' }
+    { tool: 'template-engine', purpose: 'Document template processing', source: '.aios-core/product/templates/' }
   ],
   SECURITY: [
     { tool: 'security-scanner', purpose: 'Static security analysis and vulnerability detection', source: 'npm: eslint-plugin-security or similar' },

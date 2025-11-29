@@ -459,9 +459,162 @@ const {
 3. All validations pass
 4. Full regression test suite passes
 5. File List is complete
-6. Execute `.aios-core/checklists/story-dod-checklist.md`
-7. Set story status: "Ready for Review"
-8. HALT (do not proceed further)
+6. **Execute CodeRabbit Self-Healing Loop** (see below)
+7. Execute `.aios-core/product/checklists/story-dod-checklist.md`
+8. Set story status: "Ready for Review"
+9. HALT (do not proceed further)
+
+---
+
+## CodeRabbit Self-Healing Loop (Story 6.3.3)
+
+**Purpose**: Catch and auto-fix code quality issues before marking story as "Ready for Review"
+
+**Configuration**: Light self-healing (max 2 iterations, CRITICAL issues only)
+
+### When to Execute
+
+Execute **AFTER** all tasks are complete but **BEFORE** running the DOD checklist.
+
+### Self-Healing Workflow
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                  CODERABBIT SELF-HEALING                     │
+│                   (Light Mode - @dev)                        │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  iteration = 0                                               │
+│  max_iterations = 2                                          │
+│                                                              │
+│  WHILE iteration < max_iterations:                           │
+│    ┌────────────────────────────────────────────────────┐   │
+│    │ 1. Run CodeRabbit CLI                              │   │
+│    │    wsl bash -c 'cd /mnt/c/.../aios-fullstack &&    │   │
+│    │    ~/.local/bin/coderabbit --prompt-only           │   │
+│    │    -t uncommitted'                                  │   │
+│    │                                                     │   │
+│    │ 2. Parse output for severity levels                │   │
+│    └────────────────────────────────────────────────────┘   │
+│                         │                                    │
+│                         ▼                                    │
+│    ┌────────────────────────────────────────────────────┐   │
+│    │ IF no CRITICAL issues:                             │   │
+│    │   - Document HIGH issues in story Dev Notes        │   │
+│    │   - Log: "✅ CodeRabbit passed"                    │   │
+│    │   - BREAK → Proceed to DOD checklist               │   │
+│    └────────────────────────────────────────────────────┘   │
+│                         │                                    │
+│                         ▼                                    │
+│    ┌────────────────────────────────────────────────────┐   │
+│    │ IF CRITICAL issues found:                          │   │
+│    │   - Attempt auto-fix for each issue                │   │
+│    │   - iteration++                                    │   │
+│    │   - CONTINUE loop                                  │   │
+│    └────────────────────────────────────────────────────┘   │
+│                         │                                    │
+│                         ▼                                    │
+│  IF iteration == 2 AND CRITICAL issues remain:              │
+│    - Log: "❌ CRITICAL issues remain"                       │
+│    - HALT and report to user                                │
+│    - DO NOT mark story complete                             │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Implementation Code
+
+```javascript
+async function runCodeRabbitSelfHealing(storyPath) {
+  const maxIterations = 2;
+  let iteration = 0;
+
+  console.log('🐰 Starting CodeRabbit Self-Healing Loop...');
+  console.log(`   Mode: Light (CRITICAL only)`);
+  console.log(`   Max Iterations: ${maxIterations}\n`);
+
+  while (iteration < maxIterations) {
+    console.log(`📋 Iteration ${iteration + 1}/${maxIterations}`);
+
+    // Run CodeRabbit CLI
+    const output = await runCodeRabbitCLI('uncommitted');
+    const issues = parseCodeRabbitOutput(output);
+
+    const criticalIssues = issues.filter(i => i.severity === 'CRITICAL');
+    const highIssues = issues.filter(i => i.severity === 'HIGH');
+
+    console.log(`   Found: ${criticalIssues.length} CRITICAL, ${highIssues.length} HIGH`);
+
+    // No CRITICAL issues = success
+    if (criticalIssues.length === 0) {
+      if (highIssues.length > 0) {
+        console.log(`\n📝 Documenting ${highIssues.length} HIGH issues in story Dev Notes...`);
+        await documentIssuesInStory(storyPath, highIssues);
+      }
+      console.log('\n✅ CodeRabbit Self-Healing: PASSED');
+      return { success: true, iterations: iteration + 1 };
+    }
+
+    // Attempt auto-fix for CRITICAL issues
+    console.log(`\n🔧 Attempting auto-fix for ${criticalIssues.length} CRITICAL issues...`);
+    for (const issue of criticalIssues) {
+      await attemptAutoFix(issue);
+    }
+
+    iteration++;
+  }
+
+  // Max iterations reached with CRITICAL issues
+  console.log('\n❌ CodeRabbit Self-Healing: FAILED');
+  console.log(`   CRITICAL issues remain after ${maxIterations} iterations.`);
+  console.log('   HALTING - Please fix manually before marking story complete.');
+
+  return { success: false, iterations: maxIterations };
+}
+```
+
+### Severity Handling
+
+| Severity | Behavior | Notes |
+|----------|----------|-------|
+| **CRITICAL** | Auto-fix (max 2 attempts) | Security vulnerabilities, breaking bugs |
+| **HIGH** | Document in story Dev Notes | Recommend fix before QA |
+| **MEDIUM** | Ignore | @qa will handle |
+| **LOW** | Ignore | Nits, not blocking |
+
+### Timeout
+
+- **Default**: 15 minutes per CodeRabbit run
+- **Total max**: ~30 minutes (2 iterations)
+
+### Error Handling
+
+```javascript
+// If CodeRabbit fails
+try {
+  await runCodeRabbitSelfHealing(storyPath);
+} catch (error) {
+  if (error.message.includes('command not found')) {
+    console.warn('⚠️  CodeRabbit not installed in WSL');
+    console.warn('   Skipping self-healing. Manual review required.');
+    return; // Continue without self-healing
+  }
+  if (error.message.includes('timeout')) {
+    console.warn('⚠️  CodeRabbit review timed out');
+    console.warn('   Skipping self-healing. Manual review required.');
+    return;
+  }
+  throw error; // Re-throw unknown errors
+}
+```
+
+### Integration with Execution Modes
+
+| Mode | Self-Healing Behavior |
+|------|----------------------|
+| **YOLO** | Automatic, no prompts |
+| **Interactive** | Shows progress, no prompts |
+| **Pre-Flight** | Included in execution plan |
 
 ---
 
@@ -676,7 +829,7 @@ Found 5 technical decisions needed.
 
 ## Dependencies
 
-- `.aios-core/checklists/story-dod-checklist.md` - Definition of Done checklist
+- `.aios-core/product/checklists/story-dod-checklist.md` - Definition of Done checklist
 
 ## Tools
 

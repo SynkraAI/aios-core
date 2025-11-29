@@ -53,7 +53,31 @@ sections:
 
   - id: coderabbit-integration
     title: 🤖 CodeRabbit Integration
+    # CONDITIONAL SECTION - Story 6.3.3 Self-Healing Integration
+    conditional:
+      config_path: ".aios-core/core-config.yaml"
+      config_key: "coderabbit_integration.enabled"
+      behavior:
+        when_true: render_full_section
+        when_false: render_skip_notice
+      skip_notice: |
+        > **CodeRabbit Integration**: Disabled
+        >
+        > CodeRabbit CLI is not enabled in `core-config.yaml`.
+        > Quality validation will use manual review process only.
+        > To enable, set `coderabbit_integration.enabled: true` in core-config.yaml
     instruction: |
+      **CONDITIONAL SECTION** - Check core-config.yaml `coderabbit_integration.enabled`
+
+      **IF enabled=true:**
+        Populate this section with story type analysis, quality gates,
+        specialized agent assignments, and self-healing configuration.
+        This section is auto-generated during story creation.
+
+      **IF enabled=false:**
+        SKIP this entire section. Render only the skip_notice above.
+        Quality validation falls back to manual review process.
+
       Based on story type analysis, document the predicted quality gates and
       specialized agent assignments. This section is auto-generated during story
       creation but can be manually adjusted if needed.
@@ -126,6 +150,41 @@ sections:
           - [ ] Pre-Commit (@dev): Run before marking story complete
           - [ ] Pre-PR (@github-devops): Run before creating pull request
           - [ ] Pre-Deployment (@github-devops): Run before production deploy (if applicable)
+        elicit: true
+        owner: scrum-master
+        editors: [scrum-master]
+
+      - id: self-healing-config
+        title: Self-Healing Configuration
+        instruction: |
+          **Story 6.3.3 - Self-Healing Integration**
+
+          Document the expected self-healing behavior for this story based on
+          agent-specific configurations in core-config.yaml.
+
+          **Severity Handling by Agent**:
+
+          | Severity | @dev (light) | @qa (full) | @github-devops (check) |
+          |----------|--------------|------------|------------------------|
+          | CRITICAL | auto_fix (2 iter, 15min) | auto_fix (3 iter, 30min) | report_only |
+          | HIGH     | document_only | auto_fix | report_only |
+          | MEDIUM   | ignore | document_as_debt | report_only |
+          | LOW      | ignore | ignore | ignore |
+
+          **Workflow Triggers**:
+          - @dev: story_completion (before marking "Ready for Review")
+          - @qa: review_start (at beginning of QA review)
+          - @github-devops: pr_creation (before creating PR)
+        template: |
+          **Expected Self-Healing**:
+          - Primary Agent: @{{primary_agent}} ({{self_healing_type}} mode)
+          - Max Iterations: {{max_iterations}}
+          - Timeout: {{timeout_minutes}} minutes
+          - Severity Filter: {{severity_filter}}
+
+          **Predicted Behavior**:
+          - CRITICAL issues: {{critical_behavior}}
+          - HIGH issues: {{high_behavior}}
         elicit: true
         owner: scrum-master
         editors: [scrum-master]

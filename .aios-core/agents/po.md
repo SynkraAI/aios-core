@@ -230,7 +230,7 @@ Type `*help` to see all commands.
 ### Prerequisites
 1. PRD available from @pm (Morgan)
 2. PM tool configured (or using local-only mode)
-3. Story templates available in `.aios-core/templates/`
+3. Story templates available in `.aios-core/product/templates/`
 4. PO master checklist accessible
 
 ### Typical Workflow

@@ -1,7 +1,7 @@
 ---
 # No checklists needed - this task facilitates brainstorming sessions, validation is through user interaction
 docOutputLocation: docs/brainstorming-session-results.md
-template: ".aios-core/templates/brainstorming-output-tmpl.yaml"
+template: ".aios-core/product/templates/brainstorming-output-tmpl.yaml"
 tools:
   - github-cli
 ---

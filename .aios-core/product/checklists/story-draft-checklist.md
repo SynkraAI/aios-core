@@ -110,6 +110,64 @@ Note: We don't need every file listed - just the important ones.]]
 - [ ] Success criteria are defined
 - [ ] Special testing considerations are noted (if applicable)
 
+## 6. CODERABBIT INTEGRATION (CONDITIONAL)
+
+[[LLM: CONDITIONAL SECTION - Check `coderabbit_integration.enabled` in `.aios-core/core-config.yaml`
+
+**IF `coderabbit_integration.enabled: false`:**
+- SKIP this entire section (6)
+- Verify the story contains the skip notice:
+  > **CodeRabbit Integration**: Disabled
+- Mark section as N/A in validation result
+- Log: "ℹ️ CodeRabbit validation skipped - disabled in core-config.yaml"
+
+**IF `coderabbit_integration.enabled: true`:**
+- Validate ALL items below
+- Story must have complete CodeRabbit section including Story 6.3.3 Self-Healing
+
+CodeRabbit integration ensures automated code review and quality gates. Verify:
+
+1. The 🤖 CodeRabbit Integration section is present
+2. Story type is correctly identified (Database, API, Frontend, Deployment, Security, Architecture, Integration)
+3. Specialized agents are assigned appropriately (@dev required, type-specific agents as needed)
+4. Quality gates are defined (Pre-Commit required, Pre-PR/Pre-Deployment as applicable)
+5. Self-Healing Configuration (Story 6.3.3) is present with correct mode
+6. Focus areas match the story type]]
+
+**Section Presence:**
+- [ ] 🤖 CodeRabbit Integration section exists
+- [ ] All subsections are populated (Story Type Analysis, Specialized Agents, Quality Gates, Self-Healing, Focus Areas)
+
+**Story Type Analysis:**
+- [ ] Primary story type is correctly identified
+- [ ] Complexity level matches story scope
+- [ ] Secondary types listed if applicable
+
+**Specialized Agent Assignment:**
+- [ ] @dev listed as primary agent (required for all stories)
+- [ ] Type-specific agents assigned appropriately:
+  - Database stories → @db-sage
+  - Frontend stories → @ux-expert
+  - Deployment stories → @github-devops
+  - Security stories → @architect
+
+**Quality Gate Tasks:**
+- [ ] Pre-Commit (@dev) defined - REQUIRED for all stories
+- [ ] Pre-PR (@github-devops) defined if PR will be created
+- [ ] Pre-Deployment (@github-devops) defined for production stories
+
+**Self-Healing Configuration (Story 6.3.3):**
+- [ ] Self-healing configuration section is present
+- [ ] Mode matches primary agent:
+  - @dev: light mode (2 iterations, 15 min, CRITICAL only)
+  - @qa: full mode (3 iterations, 30 min, CRITICAL+HIGH)
+  - @github-devops: check mode (report only)
+- [ ] Severity behavior is documented
+
+**Focus Areas:**
+- [ ] Focus areas match the story type
+- [ ] Type-specific validations are listed
+
 ## VALIDATION RESULT
 
 [[LLM: FINAL STORY VALIDATION REPORT
@@ -148,6 +206,7 @@ Be pragmatic - perfect documentation doesn't exist, but it must be enough to pro
 | 3. Reference Effectiveness           | _TBD_  |        |
 | 4. Self-Containment Assessment       | _TBD_  |        |
 | 5. Testing Guidance                  | _TBD_  |        |
+| 6. CodeRabbit Integration (conditional) | _TBD_ or N/A |        |
 
 **Final Assessment:**
 

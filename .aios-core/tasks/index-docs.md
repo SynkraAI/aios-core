@@ -133,7 +133,7 @@ acceptance-criteria:
 
 - **Tool:** template-engine
   - **Purpose:** Document template processing
-  - **Source:** .aios-core/templates/
+  - **Source:** .aios-core/product/templates/
 
 ---
 

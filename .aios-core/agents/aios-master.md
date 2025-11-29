@@ -316,7 +316,7 @@ Type `*help` to see all commands, or `*kb` to enable KB mode.
 
 ### Prerequisites
 1. Understanding of AIOS framework structure
-2. Templates available in `.aios-core/templates/`
+2. Templates available in `.aios-core/product/templates/`
 3. Knowledge Base access (toggle with `*kb`)
 
 ### Typical Workflow

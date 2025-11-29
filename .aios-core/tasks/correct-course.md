@@ -211,7 +211,7 @@ checklists:
 
 ## Purpose
 
-- Guide a structured response to a change trigger using the `.aios-core/checklists/change-checklist`.
+- Guide a structured response to a change trigger using the `.aios-core/product/checklists/change-checklist.md`.
 - Analyze the impacts of the change on epics, project artifacts, and the MVP, guided by the checklist's structure.
 - Explore potential solutions (e.g., adjust scope, rollback elements, re-scope features) as prompted by the checklist.
 - Draft specific, actionable proposed updates to any affected project artifacts (e.g., epics, user stories, PRD sections, architecture document sections) based on the analysis.
@@ -225,7 +225,7 @@ checklists:
 - **Acknowledge Task & Inputs:**
   - Confirm with the user that the "Correct Course Task" (Change Navigation & Integration) is being initiated.
   - Verify the change trigger and ensure you have the user's initial explanation of the issue and its perceived impact.
-  - Confirm access to all relevant project artifacts (e.g., PRD, Epics/Stories, Architecture Documents, UI/UX Specifications) and, critically, the `.aios-core/checklists/change-checklist`.
+  - Confirm access to all relevant project artifacts (e.g., PRD, Epics/Stories, Architecture Documents, UI/UX Specifications) and, critically, the `.aios-core/product/checklists/change-checklist.md`.
 - **Establish Interaction Mode:**
   - Ask the user their preferred interaction mode for this task:
     - **"Incrementally (Default & Recommended):** Shall we work through the change-checklist section by section, discussing findings and collaboratively drafting proposed changes for each relevant part before moving to the next? This allows for detailed, step-by-step refinement."
