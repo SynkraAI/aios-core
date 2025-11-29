@@ -1,0 +1,171 @@
+# Quality Gate Decision - Story 2.7
+# Discovery CLI - Search
+
+schema: 1
+story: "2.7"
+story_title: "Discovery CLI - Search"
+gate: PENDING
+status_reason: "Story validated and ready for development. Dependency 2.6 complete."
+reviewer: "Pax (PO)"
+updated: "2025-11-29T22:00:00Z"
+
+waiver:
+  active: false
+
+# Pre-implementation validation
+pre_validation:
+  story_format: PASS
+  acceptance_criteria: PASS
+  definition_of_done: PASS
+  dependencies_clear: PASS
+  estimates_reasonable: PASS
+  rollback_plan: PASS
+
+# Required tests (from story smoke tests)
+required_tests:
+  p0_critical:
+    - id: SEARCH-01
+      name: "Basic Search"
+      description: "`aios workers search \"json\"` returns results (results array not empty)"
+      status: PENDING
+
+    - id: SEARCH-02
+      name: "Search Speed"
+      description: "Search completes in < 30s (duration < 30000ms)"
+      status: PENDING
+
+    - id: SEARCH-03
+      name: "Exact Match"
+      description: "Search for exact worker ID returns it first (results[0].id === query)"
+      status: PENDING
+
+  p1_important:
+    - id: SEARCH-04
+      name: "Category Filter"
+      description: "--category filters correctly (all results match category)"
+      status: PENDING
+
+    - id: SEARCH-05
+      name: "Tag Filter"
+      description: "--tags filters correctly (all results have at least one tag)"
+      status: PENDING
+
+    - id: SEARCH-06
+      name: "JSON Output"
+      description: "--format=json returns valid JSON (JSON.parse succeeds)"
+      status: PENDING
+
+# Deliverables scope
+deliverables:
+  files_to_create:
+    - ".aios-core/cli/commands/workers/search.js"
+    - ".aios-core/cli/commands/workers/search-semantic.js"
+    - ".aios-core/cli/commands/workers/search-keyword.js"
+    - ".aios-core/cli/commands/workers/search-filters.js"
+    - ".aios-core/cli/utils/score-calculator.js"
+    - "tests/unit/search-cli.test.js"
+    - "tests/integration/search-performance.test.js"
+  files_to_update:
+    - ".aios-core/cli/index.js"
+    - "package.json"
+  search_modes:
+    - name: "semantic"
+      description: "OpenAI embeddings-based search"
+      requires: "OPENAI_API_KEY"
+    - name: "keyword"
+      description: "Fuzzy match on name/description/tags"
+      requires: null
+
+# Risk assessment (pre-implementation)
+risk_summary:
+  totals:
+    critical: 0
+    high: 2
+    medium: 2
+    low: 1
+  highest: high
+  identified_risks:
+    - id: "PERF-001"
+      severity: high
+      finding: "Search must complete in < 30s with 200+ workers"
+      mitigation: "Implement caching, optimize scoring algorithm"
+      status: PLANNED
+
+    - id: "AI-001"
+      severity: high
+      finding: "Semantic search depends on external OpenAI API"
+      mitigation: "Graceful fallback to keyword search when API unavailable"
+      status: PLANNED
+
+    - id: "CLI-001"
+      severity: medium
+      finding: "CLI structure needs to be created from scratch"
+      mitigation: "Use Commander.js for robust argument parsing"
+      status: PLANNED
+
+    - id: "SCORE-001"
+      severity: medium
+      finding: "Search relevance scoring algorithm complexity"
+      mitigation: "Start with simple TF-IDF, iterate based on results"
+      status: PLANNED
+
+    - id: "OUTPUT-001"
+      severity: low
+      finding: "Multiple output formats (table/json/yaml)"
+      mitigation: "Reuse output-formatter from core module"
+      status: PLANNED
+
+  recommendations:
+    must_fix: []
+    before_start:
+      - "Verify Story 2.6 registry is accessible"
+      - "Decide on OpenAI vs local embeddings approach"
+      - "Design scoring algorithm"
+    during_implementation:
+      - "Implement keyword search first (no external deps)"
+      - "Add semantic search as enhancement"
+      - "Test with full registry (200+ workers)"
+    before_completion:
+      - "All 6 SEARCH tests must pass"
+      - "Performance benchmark < 30s documented"
+      - "Help text verified"
+
+# Quality scoring (pre-implementation baseline)
+quality_score: 92  # Story quality score (format, clarity, completeness)
+# Score breakdown:
+# - Format compliance: 20/20
+# - Acceptance criteria clarity: 20/20
+# - Task breakdown: 19/20
+# - Risk mitigation: 18/20
+# - Documentation: 15/20
+
+# Gate criteria for PASS
+pass_criteria:
+  - "All P0 tests (SEARCH-01, SEARCH-02, SEARCH-03) must pass"
+  - "All P1 tests (SEARCH-04, SEARCH-05, SEARCH-06) must pass"
+  - "Search returns relevant results for common queries"
+  - "Keyword fallback works without API key"
+  - "Search completes in < 30s (target < 5s)"
+  - "All output formats work (table, json, yaml)"
+  - "Help text shows usage examples"
+
+expires: "2025-12-15T00:00:00Z"  # 2 weeks from approval
+
+evidence:
+  story_validated: true
+  po_approved: true
+  dependencies_met:
+    - story: "2.6"
+      status: "Complete"
+      artifact: ".aios-core/core/registry/service-registry.json"
+  adr_reference: "ADR-002-migration-map.md"
+  blocking_stories:
+    - "2.14 (Migration Script)"
+
+# QA Verification Results (to be filled after implementation)
+qa_verification:
+  reviewer: null
+  date: null
+  acceptance_criteria: {}
+  regression_tests: {}
+  notes: []
