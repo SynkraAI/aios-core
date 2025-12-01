@@ -1,14 +1,14 @@
 # STORY 2.14: Migration Script v2.0 → v2.1
 
 **ID:** 2.14 | **Épico:** [EPIC-S2](../../../epics/epic-s2-modular-architecture.md)
-**Sprint:** 2 | **Points:** 8 | **Priority:** 🔴 Critical | **Created:** 2025-01-19
-**Updated:** 2025-11-30
-**Status:** ⏸️ Blocked
+**Sprint:** 2 | **Points:** 13 | **Priority:** 🔴 Critical | **Created:** 2025-01-19
+**Updated:** 2025-12-01
+**Status:** 🟢 Ready for Dev
 
 **Reference:** [ADR-002 Migration Map](../../architecture/decisions/ADR-002-migration-map.md)
 **Quality Gate:** [2.14-migration-script.yml](../../qa/gates/2.14-migration-script.yml)
 
-**Blocked by:** All other Sprint 2 stories must be complete first
+**Unblocked:** 2025-12-01 - All Sprint 2 dependencies complete (Stories 2.2-2.13 Done)
 
 ---
 
@@ -433,6 +433,7 @@ _To be filled by @qa agent_
 |------|---------|-------------|--------|
 | 2025-01-19 | 0.1 | Story created (bundled in 2.10-2.16) | River |
 | 2025-11-30 | 1.0 | Sharded to individual file, full enrichment | Pax |
+| 2025-12-01 | 1.1 | Unblocked - All Sprint 2 dependencies complete, Ready for Dev | Pax |
 
 ---
 
