@@ -18,6 +18,7 @@ const { createWorkersCommand } = require('./commands/workers');
 const { createManifestCommand } = require('./commands/manifest');
 const { createQaCommand } = require('./commands/qa');
 const { createMcpCommand } = require('./commands/mcp');
+const { createMigrateCommand } = require('./commands/migrate');
 
 // Read package.json for version
 const packageJsonPath = path.join(__dirname, '..', '..', 'package.json');
@@ -46,6 +47,7 @@ Commands:
   manifest          Manage manifest files (validate, regenerate)
   qa                Quality Gate Manager (run, status)
   mcp               Manage global MCP configuration
+  migrate           Migrate from v2.0 to v2.1 structure
   install           Install AIOS in current project
   init <name>       Create new AIOS project
   info              Show system information
@@ -64,6 +66,8 @@ Examples:
   $ aios mcp setup --with-defaults
   $ aios mcp link
   $ aios mcp status
+  $ aios migrate --dry-run
+  $ aios migrate --from=2.0 --to=2.1
   $ aios install
   $ aios doctor
 `);
@@ -79,6 +83,9 @@ Examples:
 
   // Add mcp command (Story 2.11)
   program.addCommand(createMcpCommand());
+
+  // Add migrate command (Story 2.14)
+  program.addCommand(createMigrateCommand());
 
   return program;
 }
