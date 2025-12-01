@@ -3,7 +3,7 @@
 **ID:** 2.16 | **Épico:** [EPIC-S2](../../../epics/epic-s2-modular-architecture.md)
 **Sprint:** 2 | **Points:** 5 | **Priority:** 🟡 Medium | **Created:** 2025-11-19
 **Updated:** 2025-12-01
-**Status:** 🟢 Ready for Review
+**Status:** ✅ Done
 
 **Reference:** [ADR-002 Migration Map](../../architecture/decisions/ADR-002-migration-map.md)
 **Quality Gate:** [2.16-documentation.yml](../../qa/gates/2.16-documentation.yml)
@@ -335,7 +335,7 @@ git revert --no-commit HEAD~N
 - [x] All P2 smoke tests pass (DOC-09 to DOC-10)
 - [x] Story checkboxes updated to [x]
 - [x] QA Review passed
-- [ ] PR created and approved
+- [x] PR created and approved (PR #18 merged)
 
 ---
 
@@ -383,7 +383,7 @@ Claude Opus 4.5 (claude-opus-4-5-20251101)
 - All internal links validated and reference existing files
 - README.md updated with v2.1 Framework Documentation section
 
-**Status: Ready for PR**
+**Status: Done** (PR #18 merged to main)
 
 ---
 
@@ -396,6 +396,7 @@ Claude Opus 4.5 (claude-opus-4-5-20251101)
 | 2025-12-01 | 1.1 | Unblocked: All Sprint 2 dependencies complete, updated status to Ready for Dev | Pax |
 | 2025-12-01 | 2.0 | Implementation complete: All 5 guides created, smoke tests passed, Ready for Review | Dex |
 | 2025-12-01 | 2.1 | QA Review passed: All acceptance criteria validated, gate decision PASS | Quinn |
+| 2025-12-01 | 3.0 | PR #18 created, CodeRabbit approved, merged to main - Story DONE | Gage |
 
 ---
 
