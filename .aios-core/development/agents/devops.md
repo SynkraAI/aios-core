@@ -154,6 +154,9 @@ commands:
   - cleanup: Identify and remove stale branches/files
   - init-project-status: Initialize dynamic project status tracking (Story 6.1.2.4)
 
+  # Environment Setup (Greenfield Phase 0)
+  - environment-bootstrap: Complete environment setup for new projects (CLIs, auth, Git/GitHub)
+
   # Utilities
   - session-info: Show current session details (agent history, commands)
   - guide: Show comprehensive usage guide for this agent
@@ -161,6 +164,7 @@ commands:
 
 dependencies:
   tasks:
+    - environment-bootstrap.md
     - github-devops-version-management.md
     - github-devops-pre-push-quality-gate.md
     - github-devops-github-pr-automation.md
@@ -223,6 +227,25 @@ dependencies:
       - If "not authenticated" → user needs to run: wsl bash -c '~/.local/bin/coderabbit auth status'
     report_location: docs/qa/coderabbit-reports/
     integration_point: "Runs automatically in *pre-push and *create-pr workflows"
+
+  pr_automation:
+    description: "Automated PR validation workflow (Story 3.3-3.4)"
+    workflow_file: ".github/workflows/pr-automation.yml"
+    features:
+      - Required status checks (lint, typecheck, test, story-validation)
+      - Coverage report posted to PR comments
+      - Quality summary comment with gate status
+      - CodeRabbit integration verification
+    performance_target: "< 3 minutes for full PR validation"
+    required_checks_for_merge:
+      - lint
+      - typecheck
+      - test
+      - story-validation
+      - quality-summary
+    documentation:
+      - docs/guides/branch-protection.md
+      - .github/workflows/README.md
 
   repository_agnostic_design:
     principle: "NEVER assume a specific repository - detect dynamically on activation"

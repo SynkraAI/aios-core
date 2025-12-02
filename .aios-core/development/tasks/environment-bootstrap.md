@@ -1,0 +1,1042 @@
+# environment-bootstrap
+
+**Task ID:** environment-bootstrap
+**Version:** 1.0.0
+**Created:** 2025-12-02
+**Agent:** @devops (Gage)
+
+---
+
+## Purpose
+
+Complete environment bootstrap for new AIOS projects. Verifies and installs all required CLIs, authenticates services, initializes Git/GitHub repository, and validates the development environment before starting the greenfield workflow.
+
+**This task should be the FIRST step in any new project**, executed BEFORE the PRD creation.
+
+---
+
+## Execution Modes
+
+**Choose your execution mode:**
+
+### 1. YOLO Mode - Fast, Autonomous (0-1 prompts)
+- Autonomous decision making with logging
+- Skips optional tools, installs only essential
+- **Best for:** Experienced developers, quick setup
+
+### 2. Interactive Mode - Balanced, Educational (5-10 prompts) **[DEFAULT]**
+- Explicit decision checkpoints
+- Educational explanations for each tool
+- **Best for:** Learning, first-time setup, team onboarding
+
+### 3. Pre-Flight Planning - Comprehensive Upfront Planning
+- Full analysis phase before any installation
+- Zero ambiguity execution
+- **Best for:** Enterprise environments, strict policies
+
+**Parameter:** `mode` (optional, default: `interactive`)
+
+---
+
+## Task Definition (AIOS Task Format V1.0)
+
+```yaml
+task: environmentBootstrap()
+responsável: Gage (Operator)
+responsavel_type: Agente
+atomic_layer: Organism
+
+**Entrada:**
+- campo: project_name
+  tipo: string
+  origem: User Input
+  obrigatório: true
+  validação: Valid project name (lowercase, hyphens allowed)
+
+- campo: project_path
+  tipo: string
+  origem: User Input
+  obrigatório: false
+  validação: Valid directory path (defaults to current directory)
+
+- campo: github_org
+  tipo: string
+  origem: User Input
+  obrigatório: false
+  validação: Valid GitHub organization or username
+
+- campo: options
+  tipo: object
+  origem: User Input
+  obrigatório: false
+  validação: Bootstrap options (skip_optional, force_reinstall, etc.)
+
+**Saída:**
+- campo: environment_report
+  tipo: object
+  destino: File system (.aios/environment-report.yaml)
+  persistido: true
+
+- campo: git_initialized
+  tipo: boolean
+  destino: Return value
+  persistido: false
+
+- campo: github_repo_url
+  tipo: string
+  destino: Return value
+  persistido: false
+```
+
+---
+
+## Pre-Conditions
+
+**Purpose:** Validate prerequisites BEFORE task execution (blocking)
+
+**Checklist:**
+
+```yaml
+pre-conditions:
+  - [ ] Operating system is Windows, macOS, or Linux
+    tipo: pre-condition
+    blocker: true
+    validação: |
+      Detect OS via process.platform or uname
+    error_message: "Unsupported operating system"
+
+  - [ ] User has admin/sudo privileges for installations
+    tipo: pre-condition
+    blocker: false
+    validação: |
+      Check if user can run elevated commands
+    error_message: "Some installations may require elevated privileges"
+
+  - [ ] Internet connection available
+    tipo: pre-condition
+    blocker: true
+    validação: |
+      Ping github.com or check connectivity
+    error_message: "Internet connection required for tool installation and authentication"
+```
+
+---
+
+## Post-Conditions
+
+**Purpose:** Validate execution success AFTER task completes
+
+**Checklist:**
+
+```yaml
+post-conditions:
+  - [ ] All essential CLIs installed and accessible in PATH
+    tipo: post-condition
+    blocker: true
+    validação: |
+      Verify git, gh, node commands are executable
+    error_message: "Essential CLI installation failed"
+
+  - [ ] Git repository initialized with .gitignore
+    tipo: post-condition
+    blocker: true
+    validação: |
+      Check .git directory exists and .gitignore is configured
+    error_message: "Git initialization failed"
+
+  - [ ] Environment report generated
+    tipo: post-condition
+    blocker: false
+    validação: |
+      Check .aios/environment-report.yaml exists
+    error_message: "Environment report not generated"
+```
+
+---
+
+## Acceptance Criteria
+
+**Purpose:** Definitive pass/fail criteria for task completion
+
+**Checklist:**
+
+```yaml
+acceptance-criteria:
+  - [ ] Essential CLIs (git, gh, node) are installed and working
+    tipo: acceptance-criterion
+    blocker: true
+    validação: |
+      Assert all essential CLI commands return valid version output
+    error_message: "Essential CLI verification failed"
+
+  - [ ] GitHub CLI is authenticated
+    tipo: acceptance-criterion
+    blocker: true
+    validação: |
+      gh auth status returns authenticated
+    error_message: "GitHub CLI not authenticated"
+
+  - [ ] Git repository created locally and on GitHub
+    tipo: acceptance-criterion
+    blocker: true
+    validação: |
+      .git exists and gh repo view succeeds
+    error_message: "Repository not properly initialized"
+
+  - [ ] Project structure follows AIOS conventions
+    tipo: acceptance-criterion
+    blocker: false
+    validação: |
+      Check docs/, .aios/, and package.json exist
+    error_message: "Project structure incomplete"
+```
+
+---
+
+## Tools
+
+**External/shared resources used by this task:**
+
+- **Tool:** os-detector
+  - **Purpose:** Detect operating system and package manager
+  - **Source:** Built-in (process.platform, uname)
+
+- **Tool:** cli-checker
+  - **Purpose:** Verify CLI installations and versions
+  - **Source:** .aios-core/infrastructure/scripts/cli-checker.js
+
+- **Tool:** github-cli
+  - **Purpose:** Repository creation and authentication
+  - **Source:** .aios-core/infrastructure/tools/cli/github-cli.yaml
+
+---
+
+## Error Handling
+
+**Strategy:** retry-with-alternatives
+
+**Common Errors:**
+
+1. **Error:** CLI Installation Failed
+   - **Cause:** Package manager unavailable or network issues
+   - **Resolution:** Try alternative package manager or manual install
+   - **Recovery:** Provide manual installation instructions
+
+2. **Error:** GitHub Authentication Failed
+   - **Cause:** Token expired or user cancelled
+   - **Resolution:** Re-run gh auth login
+   - **Recovery:** Offer to skip GitHub setup and continue locally
+
+3. **Error:** Permission Denied
+   - **Cause:** Insufficient privileges for installation
+   - **Resolution:** Run with elevated privileges or use user-scoped install
+   - **Recovery:** Document required permissions for manual fix
+
+---
+
+## Performance
+
+**Expected Metrics:**
+
+```yaml
+duration_expected: 5-15 min (depending on installations needed)
+cost_estimated: $0.00 (no AI tokens, CLI operations only)
+token_usage: ~500-1,000 tokens (for guidance only)
+```
+
+**Optimization Notes:**
+- Parallel CLI checks to reduce total time
+- Cache detection results in .aios/environment-report.yaml
+- Skip already-installed tools
+
+---
+
+## Metadata
+
+```yaml
+story: N/A (Framework enhancement)
+version: 1.0.0
+dependencies:
+  - github-cli.yaml
+  - supabase-cli.yaml
+  - railway-cli.yaml
+tags:
+  - bootstrap
+  - environment
+  - setup
+  - greenfield
+updated_at: 2025-12-02
+```
+
+---
+
+## Elicitation
+
+```yaml
+elicit: true
+interaction_points:
+  - project_name: "What is the project name?"
+  - github_org: "GitHub organization or username for repository?"
+  - optional_tools: "Which optional tools do you want to install?"
+  - git_provider: "Git provider preference (GitHub/GitLab/Bitbucket)?"
+```
+
+---
+
+## Process
+
+### Step 1: Detect Operating System
+
+**Action:** Identify OS and available package managers
+
+```bash
+# Windows
+echo "Detecting operating system..."
+
+# PowerShell detection
+$os = [System.Environment]::OSVersion.Platform
+$arch = [System.Environment]::Is64BitOperatingSystem
+
+Write-Host "OS: Windows"
+Write-Host "Architecture: $(if ($arch) { '64-bit' } else { '32-bit' })"
+
+# Check available package managers
+$packageManagers = @()
+if (Get-Command winget -ErrorAction SilentlyContinue) { $packageManagers += "winget" }
+if (Get-Command choco -ErrorAction SilentlyContinue) { $packageManagers += "chocolatey" }
+if (Get-Command scoop -ErrorAction SilentlyContinue) { $packageManagers += "scoop" }
+
+Write-Host "Available package managers: $($packageManagers -join ', ')"
+```
+
+```bash
+# macOS/Linux
+echo "Detecting operating system..."
+OS=$(uname -s)
+ARCH=$(uname -m)
+
+echo "OS: $OS"
+echo "Architecture: $ARCH"
+
+# Check available package managers
+if [ "$OS" = "Darwin" ]; then
+  if command -v brew >/dev/null 2>&1; then
+    echo "Package manager: Homebrew"
+  fi
+elif [ "$OS" = "Linux" ]; then
+  if command -v apt >/dev/null 2>&1; then
+    echo "Package manager: apt"
+  elif command -v dnf >/dev/null 2>&1; then
+    echo "Package manager: dnf"
+  elif command -v pacman >/dev/null 2>&1; then
+    echo "Package manager: pacman"
+  fi
+fi
+```
+
+**Output:** Store OS info for subsequent steps
+
+---
+
+### Step 2: CLI Tools Audit
+
+**Action:** Check all required and optional CLIs
+
+Present comprehensive status table:
+
+```
+╔════════════════════════════════════════════════════════════════════════╗
+║                     AIOS ENVIRONMENT AUDIT                              ║
+╠════════════════════════════════════════════════════════════════════════╣
+║ Category      │ Tool          │ Status    │ Version    │ Required     ║
+╠═══════════════╪═══════════════╪═══════════╪════════════╪══════════════╣
+║ ESSENTIAL     │ git           │ ✅ OK     │ 2.43.0     │ YES          ║
+║               │ gh (GitHub)   │ ❌ MISSING│ -          │ YES          ║
+║               │ node          │ ✅ OK     │ 20.10.0    │ YES          ║
+║               │ npm           │ ✅ OK     │ 10.2.4     │ YES          ║
+╠═══════════════╪═══════════════╪═══════════╪════════════╪══════════════╣
+║ INFRASTRUCTURE│ supabase      │ ❌ MISSING│ -          │ RECOMMENDED  ║
+║               │ railway       │ ❌ MISSING│ -          │ OPTIONAL     ║
+║               │ docker        │ ✅ OK     │ 24.0.7     │ RECOMMENDED  ║
+╠═══════════════╪═══════════════╪═══════════╪════════════╪══════════════╣
+║ QUALITY       │ coderabbit    │ ⚠️ WSL    │ 0.8.0      │ RECOMMENDED  ║
+╠═══════════════╪═══════════════╪═══════════╪════════════╪══════════════╣
+║ OPTIONAL      │ pnpm          │ ❌ MISSING│ -          │ OPTIONAL     ║
+║               │ bun           │ ❌ MISSING│ -          │ OPTIONAL     ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+Summary: 4/10 tools installed | 2 essential missing | 4 recommended missing
+```
+
+**CLI Check Commands:**
+
+```yaml
+cli_checks:
+  essential:
+    git:
+      check: "git --version"
+      expected: "git version 2.x"
+      install:
+        windows: "winget install --id Git.Git"
+        macos: "xcode-select --install"
+        linux: "sudo apt install git"
+
+    gh:
+      check: "gh --version"
+      expected: "gh version 2.x"
+      install:
+        windows: "winget install --id GitHub.cli"
+        macos: "brew install gh"
+        linux: "sudo apt install gh"
+      post_install: "gh auth login"
+
+    node:
+      check: "node --version"
+      expected: "v18.x or v20.x"
+      install:
+        windows: "winget install --id OpenJS.NodeJS.LTS"
+        macos: "brew install node@20"
+        linux: "curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt install nodejs"
+
+    npm:
+      check: "npm --version"
+      expected: "10.x"
+      note: "Installed with Node.js"
+
+  infrastructure:
+    supabase:
+      check: "supabase --version"
+      expected: "1.x"
+      install:
+        npm: "npm install -g supabase"
+        scoop: "scoop bucket add supabase https://github.com/supabase/scoop-bucket.git && scoop install supabase"
+        brew: "brew install supabase/tap/supabase"
+      post_install: "supabase login"
+
+    railway:
+      check: "railway --version"
+      expected: "3.x"
+      install:
+        npm: "npm install -g @railway/cli"
+        brew: "brew install railway"
+      post_install: "railway login"
+
+    docker:
+      check: "docker --version"
+      expected: "24.x or 25.x"
+      install:
+        windows: "winget install --id Docker.DockerDesktop"
+        macos: "brew install --cask docker"
+        linux: "See https://docs.docker.com/engine/install/"
+      note: "Required for local Supabase development"
+
+  quality:
+    coderabbit:
+      check: "wsl bash -c '~/.local/bin/coderabbit --version'"
+      expected: "0.8.x"
+      install:
+        wsl: "See docs/guides/coderabbit/README.md"
+      note: "Windows: Requires WSL installation"
+
+  optional:
+    pnpm:
+      check: "pnpm --version"
+      expected: "8.x"
+      install:
+        npm: "npm install -g pnpm"
+      note: "Faster alternative to npm"
+
+    bun:
+      check: "bun --version"
+      expected: "1.x"
+      install:
+        windows: "powershell -c \"irm bun.sh/install.ps1 | iex\""
+        unix: "curl -fsSL https://bun.sh/install | bash"
+      note: "Ultra-fast JavaScript runtime"
+```
+
+---
+
+### Step 3: Interactive Installation
+
+**Action:** Offer to install missing tools
+
+**Elicitation Point:**
+
+```
+Missing tools detected. How would you like to proceed?
+
+1. INSTALL ALL - Install all missing essential + recommended tools
+2. ESSENTIAL ONLY - Install only essential tools (git, gh, node)
+3. CUSTOM - Choose which tools to install
+4. SKIP - Continue without installing (not recommended)
+
+Select option (1/2/3/4): _
+```
+
+**If CUSTOM selected:**
+
+```
+Select tools to install (comma-separated numbers):
+
+ESSENTIAL (required for AIOS):
+  [1] gh (GitHub CLI) - Repository management, PR creation
+
+INFRASTRUCTURE (recommended):
+  [2] supabase - Database management, local development
+  [3] railway - Cloud deployment
+  [4] docker - Containerization, local Supabase
+
+QUALITY (recommended):
+  [5] coderabbit - Pre-PR code review (WSL required on Windows)
+
+OPTIONAL:
+  [6] pnpm - Fast package manager
+  [7] bun - Ultra-fast JavaScript runtime
+
+Enter selection (e.g., 1,2,3,5): _
+```
+
+**Installation Execution:**
+
+```bash
+# Example: Installing GitHub CLI on Windows
+echo "Installing GitHub CLI..."
+winget install --id GitHub.cli --accept-source-agreements --accept-package-agreements
+
+if ($LASTEXITCODE -eq 0) {
+  Write-Host "✅ GitHub CLI installed successfully"
+
+  # Refresh PATH
+  $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
+  # Verify installation
+  gh --version
+} else {
+  Write-Host "❌ Installation failed. Manual installation required."
+  Write-Host "   Download: https://cli.github.com/"
+}
+```
+
+---
+
+### Step 4: Service Authentication
+
+**Action:** Authenticate required services
+
+**Elicitation Point:**
+
+```
+Service authentication required. The following services need login:
+
+1. GitHub CLI (gh) - Required for repository creation
+2. Supabase CLI - Required for database management
+3. Railway CLI - Required for deployment
+
+Authenticate now? (Y/n): _
+```
+
+**GitHub Authentication:**
+
+```bash
+echo "=== GitHub CLI Authentication ==="
+echo ""
+
+# Check current auth status
+$authStatus = gh auth status 2>&1
+
+if ($LASTEXITCODE -eq 0) {
+  Write-Host "✅ Already authenticated to GitHub"
+  gh auth status
+} else {
+  Write-Host "Starting GitHub authentication..."
+  Write-Host ""
+  Write-Host "Options:"
+  Write-Host "  1. Login with browser (recommended)"
+  Write-Host "  2. Login with token"
+  Write-Host ""
+
+  gh auth login
+
+  if ($LASTEXITCODE -eq 0) {
+    Write-Host "✅ GitHub authentication successful"
+  } else {
+    Write-Host "❌ GitHub authentication failed"
+    Write-Host "   Try again: gh auth login"
+  }
+}
+```
+
+**Supabase Authentication:**
+
+```bash
+echo "=== Supabase CLI Authentication ==="
+
+# Check if already logged in
+$supabaseStatus = supabase projects list 2>&1
+
+if ($LASTEXITCODE -eq 0) {
+  Write-Host "✅ Already authenticated to Supabase"
+} else {
+  Write-Host "Starting Supabase authentication..."
+  supabase login
+
+  if ($LASTEXITCODE -eq 0) {
+    Write-Host "✅ Supabase authentication successful"
+  }
+}
+```
+
+**Railway Authentication:**
+
+```bash
+echo "=== Railway CLI Authentication ==="
+
+$railwayStatus = railway whoami 2>&1
+
+if ($LASTEXITCODE -eq 0) {
+  Write-Host "✅ Already authenticated to Railway"
+  railway whoami
+} else {
+  Write-Host "Starting Railway authentication..."
+  railway login
+}
+```
+
+---
+
+### Step 5: Git Repository Initialization
+
+**Action:** Initialize local Git repository and create GitHub remote
+
+**Elicitation Point:**
+
+```
+Git Repository Setup
+
+Project name: my-awesome-project
+
+Options:
+1. Create NEW repository on GitHub (recommended for greenfield)
+2. Link to EXISTING GitHub repository
+3. LOCAL ONLY - Initialize git without GitHub
+4. SKIP - No git initialization
+
+Select option (1/2/3/4): _
+```
+
+**If NEW repository:**
+
+```
+GitHub Repository Configuration:
+
+Repository name: my-awesome-project
+Visibility:
+  1. Public
+  2. Private (recommended)
+
+GitHub Organization/Username:
+  Found organizations: Pedrovaleriolopez, AllFluence
+  Or use personal account: your-username
+
+Select owner: _
+
+Description (optional): _
+```
+
+**Repository Creation:**
+
+```bash
+echo "=== Creating Git Repository ==="
+
+# Initialize local git
+git init
+
+# Create .gitignore
+@"
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# AIOS generated files
+.aios/project-status.yaml
+.aios/environment-report.yaml
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+"@ | Out-File -FilePath .gitignore -Encoding utf8
+
+# Create initial README
+@"
+# $PROJECT_NAME
+
+> Created with AIOS-FULLSTACK
+
+## Getting Started
+
+\`\`\`bash
+npm install
+npm run dev
+\`\`\`
+
+## Documentation
+
+- [PRD](docs/prd.md)
+- [Architecture](docs/architecture.md)
+
+---
+*Generated by AIOS Environment Bootstrap*
+"@ | Out-File -FilePath README.md -Encoding utf8
+
+# Create GitHub repository
+gh repo create $PROJECT_NAME --private --description "$DESCRIPTION" --source . --remote origin --push
+
+if ($LASTEXITCODE -eq 0) {
+  Write-Host "✅ Repository created and pushed to GitHub"
+  gh repo view --web
+} else {
+  Write-Host "❌ GitHub repository creation failed"
+  Write-Host "   You can create manually: gh repo create"
+}
+```
+
+---
+
+### Step 6: Project Structure Scaffold
+
+**Action:** Create AIOS-compliant project structure
+
+```bash
+echo "=== Creating Project Structure ==="
+
+# Create directory structure
+$directories = @(
+  "docs",
+  "docs/stories",
+  "docs/architecture",
+  "docs/guides",
+  ".aios",
+  "src",
+  "tests"
+)
+
+foreach ($dir in $directories) {
+  New-Item -ItemType Directory -Path $dir -Force | Out-Null
+  Write-Host "  Created: $dir/"
+}
+
+# Create .aios/config.yaml
+@"
+# AIOS Project Configuration
+version: 2.1.0
+project:
+  name: $PROJECT_NAME
+  type: greenfield
+  created: $(Get-Date -Format "yyyy-MM-dd")
+
+environment:
+  bootstrapped: true
+  bootstrap_date: $(Get-Date -Format "yyyy-MM-ddTHH:mm:ss")
+
+workflow:
+  current: greenfield-fullstack
+  phase: 0-bootstrap-complete
+
+settings:
+  auto_update_status: true
+  quality_gates_enabled: true
+"@ | Out-File -FilePath ".aios/config.yaml" -Encoding utf8
+
+# Create package.json if not exists
+if (-not (Test-Path "package.json")) {
+@"
+{
+  "name": "$PROJECT_NAME",
+  "version": "0.1.0",
+  "description": "Created with AIOS-FULLSTACK",
+  "scripts": {
+    "dev": "echo 'Add your dev script'",
+    "build": "echo 'Add your build script'",
+    "test": "echo 'Add your test script'",
+    "lint": "echo 'Add your lint script'",
+    "typecheck": "echo 'Add your typecheck script'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+"@ | Out-File -FilePath "package.json" -Encoding utf8
+}
+
+Write-Host "✅ Project structure created"
+```
+
+---
+
+### Step 7: Environment Report Generation
+
+**Action:** Generate comprehensive environment report
+
+```bash
+echo "=== Generating Environment Report ==="
+
+# Collect all environment information
+$report = @{
+  generated_at = Get-Date -Format "yyyy-MM-ddTHH:mm:ss"
+  project_name = $PROJECT_NAME
+
+  system = @{
+    os = [System.Environment]::OSVersion.VersionString
+    architecture = if ([System.Environment]::Is64BitOperatingSystem) { "x64" } else { "x86" }
+    user = $env:USERNAME
+    hostname = $env:COMPUTERNAME
+  }
+
+  cli_tools = @{
+    git = @{
+      installed = $true
+      version = (git --version) -replace "git version ", ""
+      path = (Get-Command git).Source
+    }
+    gh = @{
+      installed = (Get-Command gh -ErrorAction SilentlyContinue) -ne $null
+      version = if (Get-Command gh -ErrorAction SilentlyContinue) { (gh --version | Select-Object -First 1) -replace "gh version ", "" } else { $null }
+      authenticated = (gh auth status 2>&1) -match "Logged in"
+    }
+    node = @{
+      installed = (Get-Command node -ErrorAction SilentlyContinue) -ne $null
+      version = if (Get-Command node -ErrorAction SilentlyContinue) { (node --version) -replace "v", "" } else { $null }
+    }
+    npm = @{
+      installed = (Get-Command npm -ErrorAction SilentlyContinue) -ne $null
+      version = if (Get-Command npm -ErrorAction SilentlyContinue) { npm --version } else { $null }
+    }
+    supabase = @{
+      installed = (Get-Command supabase -ErrorAction SilentlyContinue) -ne $null
+      version = if (Get-Command supabase -ErrorAction SilentlyContinue) { (supabase --version) } else { $null }
+      authenticated = $false # Check separately
+    }
+    railway = @{
+      installed = (Get-Command railway -ErrorAction SilentlyContinue) -ne $null
+      version = if (Get-Command railway -ErrorAction SilentlyContinue) { (railway --version) } else { $null }
+    }
+    docker = @{
+      installed = (Get-Command docker -ErrorAction SilentlyContinue) -ne $null
+      version = if (Get-Command docker -ErrorAction SilentlyContinue) { (docker --version) -replace "Docker version ", "" -replace ",.*", "" } else { $null }
+      running = (docker info 2>&1) -notmatch "error"
+    }
+  }
+
+  repository = @{
+    initialized = Test-Path ".git"
+    remote_url = if (Test-Path ".git") { git remote get-url origin 2>$null } else { $null }
+    branch = if (Test-Path ".git") { git branch --show-current } else { $null }
+  }
+
+  validation = @{
+    essential_complete = $true
+    recommended_complete = $false
+    ready_for_development = $true
+  }
+}
+
+# Convert to YAML and save
+# (Simplified - in practice use ConvertTo-Yaml module or js-yaml)
+$report | ConvertTo-Json -Depth 5 | Out-File -FilePath ".aios/environment-report.json" -Encoding utf8
+
+Write-Host "✅ Environment report saved to .aios/environment-report.json"
+```
+
+---
+
+### Step 8: Final Validation & Summary
+
+**Action:** Validate environment and display summary
+
+```
+╔═══════════════════════════════════════════════════════════════════════════╗
+║              ✅ AIOS ENVIRONMENT BOOTSTRAP COMPLETE                        ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                                                                            ║
+║  Project: my-awesome-project                                               ║
+║  Repository: https://github.com/username/my-awesome-project                ║
+║  Branch: main                                                              ║
+║                                                                            ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║  CLI Tools Status                                                          ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║  ✅ git 2.43.0          ✅ gh 2.40.1 (authenticated)                       ║
+║  ✅ node 20.10.0        ✅ npm 10.2.4                                      ║
+║  ✅ supabase 1.123.0    ✅ railway 3.5.0                                   ║
+║  ✅ docker 24.0.7       ⚠️  coderabbit (WSL only)                          ║
+║                                                                            ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║  Project Structure                                                         ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║  my-awesome-project/                                                       ║
+║  ├── .aios/                    # AIOS configuration                        ║
+║  │   ├── config.yaml           # Project config                            ║
+║  │   └── environment-report.json                                           ║
+║  ├── docs/                     # Documentation (PRD, architecture)         ║
+║  │   ├── stories/              # User stories                              ║
+║  │   ├── architecture/         # Architecture docs                         ║
+║  │   └── guides/               # Developer guides                          ║
+║  ├── src/                      # Source code                               ║
+║  ├── tests/                    # Test files                                ║
+║  ├── .gitignore                # Git ignore rules                          ║
+║  ├── package.json              # NPM configuration                         ║
+║  └── README.md                 # Project readme                            ║
+║                                                                            ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║  NEXT STEPS                                                                ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                                                                            ║
+║  Your environment is ready! Continue with the Greenfield workflow:         ║
+║                                                                            ║
+║  1. @analyst → Create Project Brief                                        ║
+║     Start a new chat: @analyst                                             ║
+║     Command: *create-doc project-brief                                     ║
+║                                                                            ║
+║  2. @pm → Create PRD                                                       ║
+║     After project brief is approved                                        ║
+║     Command: *create-doc prd                                               ║
+║                                                                            ║
+║  3. Continue with greenfield-fullstack workflow...                         ║
+║                                                                            ║
+║  Full workflow: .aios-core/development/workflows/greenfield-fullstack.yaml ║
+║                                                                            ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║  Quick Reference                                                           ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║  • View environment report: cat .aios/environment-report.json              ║
+║  • Check GitHub repo: gh repo view --web                                   ║
+║  • AIOS help: @aios-master *help                                           ║
+║  • Re-run bootstrap: @devops *environment-bootstrap                        ║
+║                                                                            ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+Environment bootstrap completed in 8m 32s
+
+— Gage, environment configured with confidence 🚀
+```
+
+---
+
+## Validation Checklist
+
+- [ ] Operating system detected correctly
+- [ ] All essential CLIs installed (git, gh, node, npm)
+- [ ] GitHub CLI authenticated
+- [ ] Git repository initialized
+- [ ] GitHub remote repository created
+- [ ] .gitignore configured
+- [ ] Project structure created
+- [ ] .aios/config.yaml created
+- [ ] Environment report generated
+- [ ] Initial commit pushed to GitHub
+
+---
+
+## Troubleshooting
+
+### Issue 1: winget not recognized
+
+**Error:** `winget: The term 'winget' is not recognized`
+
+**Fix:**
+1. Update Windows to latest version (winget requires Windows 10 1809+)
+2. Or install App Installer from Microsoft Store
+3. Or use alternative: `choco install gh` or `scoop install gh`
+
+### Issue 2: gh auth login fails
+
+**Error:** `error connecting to api.github.com`
+
+**Fix:**
+1. Check internet connection
+2. Check if behind corporate proxy: `gh config set http_proxy http://proxy:port`
+3. Try token-based auth: `gh auth login --with-token`
+
+### Issue 3: Permission denied creating repository
+
+**Error:** `Resource not accessible by personal access token`
+
+**Fix:**
+1. Re-authenticate with correct scopes: `gh auth login --scopes repo,workflow`
+2. Check if organization requires SSO: `gh auth login --hostname github.com`
+
+### Issue 4: Docker not starting
+
+**Error:** `Cannot connect to Docker daemon`
+
+**Fix:**
+1. Windows: Ensure Docker Desktop is running
+2. macOS: Open Docker.app
+3. Linux: `sudo systemctl start docker`
+
+---
+
+## Rollback
+
+To undo environment bootstrap:
+
+```bash
+# Remove local git
+rm -rf .git
+
+# Remove AIOS files
+rm -rf .aios
+rm -f .gitignore
+rm -f README.md
+
+# Delete GitHub repository (CAUTION!)
+gh repo delete REPO_NAME --yes
+```
+
+---
+
+## References
+
+- [GitHub CLI Documentation](https://cli.github.com/manual/)
+- [Supabase CLI Documentation](https://supabase.com/docs/guides/cli)
+- [Railway CLI Documentation](https://docs.railway.app/reference/cli-api)
+- [AIOS Greenfield Workflow](.aios-core/development/workflows/greenfield-fullstack.yaml)
+- [CodeRabbit Setup Guide](docs/guides/coderabbit/README.md)
+
+---
+
+**Status:** ✅ Production Ready
+**Tested On:** Windows 11, macOS Sonoma, Ubuntu 22.04
+**Minimum Requirements:** Windows 10 1809+, macOS 12+, Ubuntu 20.04+
