@@ -159,7 +159,7 @@ jobs:
           case "$PACKAGE" in
             "workspace")
               PKG_DIR="."
-              PKG_NAME="@aios-fullstack/workspace"
+              PKG_NAME="aios-fullstack"
               ;;
             "core")
               PKG_DIR=".aios-core"
