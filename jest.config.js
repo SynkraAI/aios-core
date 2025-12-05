@@ -8,6 +8,15 @@ module.exports = {
     '**/tests/**/*.spec.js'
   ],
 
+  // Ignore patterns - exclude incompatible test frameworks
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    // Playwright e2e tests (use ESM imports, run with Playwright not Jest)
+    'tools/quality-dashboard/tests/e2e/',
+    // Node.js native test runner tests (use node:test module)
+    'tests/installer/v21-path-validation.test.js'
+  ],
+
   // Coverage collection from LOCAL (paths atualizados com Story 4.5.2)
   collectCoverageFrom: [
     'common/**/*.js',

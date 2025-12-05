@@ -181,6 +181,24 @@ describe('decision-log-generator', () => {
       expect(generateDecisionsList(null)).toBe('*No autonomous decisions recorded.*');
       expect(generateDecisionsList(undefined)).toBe('*No autonomous decisions recorded.*');
     });
+
+    test('should include type and priority fields when present (AC7)', () => {
+      const decisions = [
+        {
+          timestamp: 1705406400000,
+          description: 'Architecture decision',
+          type: 'architecture',
+          priority: 'high',
+          reason: 'Better scalability',
+          alternatives: ['Monolith']
+        }
+      ];
+
+      const result = generateDecisionsList(decisions);
+
+      expect(result).toContain('**Type:** architecture');
+      expect(result).toContain('**Priority:** high');
+    });
   });
 
   describe('generateFilesList', () => {

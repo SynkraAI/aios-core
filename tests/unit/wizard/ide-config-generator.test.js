@@ -162,7 +162,8 @@ describe('IDE Config Generator', () => {
       // Now includes config file + agent files
       expect(result.files.length).toBeGreaterThanOrEqual(1);
 
-      const configPath = path.join(testDir, '.cursorrules');
+      // v2.1: Cursor uses .cursor/rules.md (not .cursorrules)
+      const configPath = path.join(testDir, '.cursor', 'rules.md');
       expect(await fs.pathExists(configPath)).toBe(true);
 
       // Agent folder should also exist
@@ -182,7 +183,8 @@ describe('IDE Config Generator', () => {
       // Now includes config files + agent files for each IDE
       expect(result.files.length).toBeGreaterThanOrEqual(2);
 
-      expect(await fs.pathExists(path.join(testDir, '.cursorrules'))).toBe(true);
+      // v2.1: Cursor uses .cursor/rules.md, Windsurf uses .windsurfrules
+      expect(await fs.pathExists(path.join(testDir, '.cursor', 'rules.md'))).toBe(true);
       expect(await fs.pathExists(path.join(testDir, '.windsurfrules'))).toBe(true);
 
       // Agent folders should also exist
@@ -213,7 +215,8 @@ describe('IDE Config Generator', () => {
         projectRoot: testDir
       });
 
-      const configPath = path.join(testDir, '.cursorrules');
+      // v2.1: Cursor uses .cursor/rules.md (not .cursorrules)
+      const configPath = path.join(testDir, '.cursor', 'rules.md');
       const content = await fs.readFile(configPath, 'utf8');
 
       // v2.1 templates use static content from .aios-core/templates/ide-rules/

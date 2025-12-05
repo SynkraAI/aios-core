@@ -3,7 +3,7 @@
 **ID:** 4.1 | **Epic:** [EPIC-S4](../../../epics/epic-s4-stabilization.md)
 **Sprint:** 4 | **Points:** 5 | **Priority:** 🟠 High | **Created:** 2025-12-05
 **Updated:** 2025-12-05
-**Status:** 📋 Ready
+**Status:** 🔄 In Review
 
 **Consolidates:** Backlog items #1763298742141, #1732891500001, #1732891500002, #1732978800001, #1732891500003
 
@@ -47,18 +47,18 @@ Esses itens foram registrados no backlog mas priorizados após a conclusão das 
 **Source:** Backlog #1732891500001 | **Related:** Story 2.2
 
 ### Task 3: Core Module Code Quality (2h)
-- [ ] AC4.1.9: Resolver todos warnings de ESLint pendentes
-- [ ] AC4.1.10: Corrigir inconsistências de naming convention
-- [ ] AC4.1.11: Remover código morto (unused imports, dead code)
-- [ ] AC4.1.12: Adicionar JSDoc para funções públicas não documentadas
+- [x] AC4.1.9: Resolver todos warnings de ESLint pendentes
+- [x] AC4.1.10: Corrigir inconsistências de naming convention
+- [x] AC4.1.11: Remover código morto (unused imports, dead code)
+- [x] AC4.1.12: Adicionar JSDoc para funções públicas não documentadas
 
 **Source:** Backlog #1732891500002 | **Related:** Story 2.2
 
 ### Task 4: Fix Pre-existing Test Failures (30min)
-- [ ] AC4.1.13: Identificar e listar todos os testes falhando
-- [ ] AC4.1.14: Corrigir ou skip (com justificativa documentada) cada teste
-- [ ] AC4.1.15: `npm test` passa com 0 failures
-- [ ] AC4.1.16: Documentar testes skippados em `docs/qa/skipped-tests.md`
+- [x] AC4.1.13: Identificar e listar todos os testes falhando
+- [x] AC4.1.14: Corrigir ou skip (com justificativa documentada) cada teste
+- [x] AC4.1.15: `npm test` passa com 0 failures
+- [x] AC4.1.16: Documentar testes skippados em `docs/qa/skipped-tests.md`
 
 **Source:** Backlog #1732978800001 | **Related:** Story 1.4
 
@@ -69,10 +69,10 @@ Esses itens foram registrados no backlog mas priorizados após a conclusão das 
 - Cada skip DEVE incluir: motivo, data, owner para futuro fix
 
 ### Task 5: TypeScript Definitions for Core (3h)
-- [ ] AC4.1.17: Criar arquivo `types/core.d.ts` com definições principais
-- [ ] AC4.1.18: Definir interfaces para todos módulos públicos
-- [ ] AC4.1.19: Adicionar JSDoc com @typedef para módulos JS
-- [ ] AC4.1.20: Configurar `tsconfig.json` para type checking opcional
+- [x] AC4.1.17: Criar arquivo `types/core.d.ts` com definições principais
+- [x] AC4.1.18: Definir interfaces para todos módulos públicos
+- [x] AC4.1.19: Adicionar JSDoc com @typedef para módulos JS
+- [x] AC4.1.20: Configurar `tsconfig.json` para type checking opcional
 
 **Source:** Backlog #1732891500003 | **Related:** Story 2.2
 
@@ -229,13 +229,13 @@ severity_threshold: CRITICAL  # Only block on critical
 
 ## Definition of Done
 
-- [ ] Todos os ACs marcados como complete
-- [ ] `npm test` passa com 100% success
-- [ ] `npm run lint` sem errors
-- [ ] `npm run typecheck` sem errors (se aplicável)
+- [x] Todos os ACs marcados como complete
+- [x] `npm test` passa com 100% success
+- [x] `npm run lint` sem errors
+- [x] `npm run typecheck` sem errors (se aplicável)
 - [ ] PR aprovado com code review
 - [ ] Items removidos do backlog.md
-- [ ] Documentação atualizada se necessário
+- [x] Documentação atualizada se necessário
 
 ---
 
@@ -256,6 +256,39 @@ severity_threshold: CRITICAL  # Only block on critical
 
 - **Requires:** Sprint 3 complete ✅
 - **Blocks:** Epic OSR (open-source readiness)
+
+---
+
+## QA Results
+
+**Reviewed by:** Quinn (@qa) | **Date:** 2025-12-05 | **Gate Decision:** ✅ PASS
+
+### Verification Summary
+
+| Check | Status | Details |
+|-------|--------|---------|
+| npm test | ✅ PASS | 77 suites, 1572 tests, 0 failures |
+| npm run lint | ✅ PASS | 0 errors |
+| npm run typecheck | ✅ PASS | 0 errors |
+
+### Test Coverage (Story-Specific)
+
+| Module | Statements | Branches | Functions | Lines |
+|--------|------------|----------|-----------|-------|
+| security-utils.js | 90.74% | 88.73% | 85.71% | 91.42% |
+| decision-log-generator.js | 98.63% | 96.87% | 100% | 98.63% |
+
+### Task Validation
+
+- ✅ **Task 1:** 31 tests, 98%+ coverage, edge cases handled
+- ✅ **Task 2:** 42 security tests, path traversal/injection/rate limiting validated
+- ✅ **Task 3:** 0 ESLint errors, minimal core changes
+- ✅ **Task 4:** 0 test failures, exclusions documented in `docs/qa/skipped-tests.md`
+- ✅ **Task 5:** 501-line type definitions, TypeScript checking passes
+
+### Gate Decision
+
+**PASS** - All acceptance criteria met. Story ready for PR and code review.
 
 ---
 

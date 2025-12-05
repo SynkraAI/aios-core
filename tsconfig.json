@@ -12,12 +12,26 @@
     "allowJs": true,
     "checkJs": false,
     "noEmit": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@aios-fullstack/core": ["./.aios-core/core"],
+      "@aios-fullstack/core/*": ["./.aios-core/core/*"]
+    }
   },
   "include": [
+    "types/**/*.d.ts",
     ".aios-core/**/*",
     "tools/**/*",
     "scripts/**/*",
+    "src/**/*",
+    "common/**/*",
+    "bin/**/*",
     "*.js"
   ],
   "exclude": [
@@ -25,6 +39,7 @@
     "dist",
     ".tsbuildinfo",
     "coverage",
+    ".test-temp",
     "**/*-tmpl.*",
     "**/*.tmpl.*",
     ".aios-core.backup*/**",
