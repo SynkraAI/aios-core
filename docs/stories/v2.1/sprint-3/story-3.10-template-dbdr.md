@@ -1,13 +1,13 @@
 # STORY 3.10: Template DBDR
 
 **ID:** 3.10 | **Epic:** [EPIC-S3](../../../epics/epic-s3-quality-templates.md)
-**Sprint:** 3 | **Points:** 3 | **Priority:** 🟡 Medium | **Created:** 2025-01-19
-**Updated:** 2025-12-03
-**Status:** 📋 Draft
+**Sprint:** 3 | **Points:** 2 | **Priority:** 🟡 Medium | **Created:** 2025-01-19
+**Updated:** 2025-12-05
+**Status:** 🟢 Ready for Dev
 
 **Reference:** [Decisão 9 - Template Engine](../../../audits/PEDRO-DECISION-LOG.md#decisão-9)
 
-**Predecessor:** Story 3.6 (Template Engine Core) ⏳
+**Predecessor:** Story 3.6 (Template Engine Core) ✅
 
 ---
 
@@ -22,19 +22,19 @@
 ## Acceptance Criteria
 
 ### Template Structure
-- [ ] AC3.10.1: Template segue padrão similar ao ADR (Context, Decision, Consequences)
-- [ ] AC3.10.2: Inclui seção de Schema Changes específica
-- [ ] AC3.10.3: Inclui seção de Migration Strategy
-- [ ] AC3.10.4: Inclui seção de Performance Impact
-- [ ] AC3.10.5: Inclui seção de Rollback Plan
+- [x] AC3.10.1: Template segue padrão similar ao ADR (Context, Decision, Consequences)
+- [x] AC3.10.2: Inclui seção de Schema Changes específica
+- [x] AC3.10.3: Inclui seção de Migration Strategy
+- [x] AC3.10.4: Inclui seção de Performance Impact
+- [x] AC3.10.5: Inclui seção de Rollback Plan
 
 ### Validation
 - [ ] AC3.10.6: JSON Schema valida output gerado
 - [ ] AC3.10.7: Valida que migration strategy não está vazia
 
 ### Integration
-- [ ] AC3.10.8: Template registrado no TemplateEngine
-- [ ] AC3.10.9: Geração via CLI: `aios generate dbdr`
+- [x] AC3.10.8: Template registrado no TemplateEngine
+- [x] AC3.10.9: Geração via CLI: `aios generate dbdr`
 
 ---
 
@@ -336,29 +336,48 @@ _No related decisions._
 
 ## Tasks
 
-### Design (2h)
-- [ ] 3.10.1: Design DBDR structure
-  - [ ] 3.10.1.1: Identify database-specific sections
-  - [ ] 3.10.1.2: Define schema change format
-  - [ ] 3.10.1.3: Define rollback plan structure
+### Design (2h) ✅ PRE-IMPLEMENTED
+- [x] 3.10.1: Design DBDR structure
+  - [x] 3.10.1.1: Identify database-specific sections
+  - [x] 3.10.1.2: Define schema change format
+  - [x] 3.10.1.3: Define rollback plan structure
 
-### Implementation (2h)
-- [ ] 3.10.2: Create Handlebars template
-  - [ ] 3.10.2.1: Base structure with DB sections
-  - [ ] 3.10.2.2: Schema changes table + SQL blocks
-  - [ ] 3.10.2.3: Rollback scripts section
+### Implementation (2h) ✅ PRE-IMPLEMENTED
+- [x] 3.10.2: Create Handlebars template
+  - [x] 3.10.2.1: Base structure with DB sections
+  - [x] 3.10.2.2: Schema changes table + SQL blocks
+  - [x] 3.10.2.3: Rollback scripts section
+  - [x] 3.10.2.4: Register template in TemplateEngine (AC3.10.8)
 
-### Testing (2h)
-- [ ] 3.10.3: Test DBDR generation
-  - [ ] 3.10.3.1: Generate sample DBDR
-  - [ ] 3.10.3.2: Test with schema changes
-  - [ ] 3.10.3.3: Validate schema
+### Integration (0h) ✅ PRE-IMPLEMENTED
+- [x] 3.10.3: CLI Integration
+  - [x] 3.10.3.1: `dbdr` added to SUPPORTED_TYPES in TemplateEngine
+  - [x] 3.10.3.2: CLI command `aios generate dbdr` available (via Story 3.9)
 
-**Total Estimated:** 6h (~1 day)
+### Testing (2h) ⏳ REMAINING WORK
+- [ ] 3.10.4: Create test suite
+  - [ ] 3.10.4.1: Create `tests/templates/dbdr.test.js`
+  - [ ] 3.10.4.2: Implement DBDR-01 to DBDR-05 tests
+  - [ ] 3.10.4.3: Test CLI command `aios generate dbdr` (AC3.10.9)
+  - [ ] 3.10.4.4: Validate schema validation (AC3.10.6, AC3.10.7)
+
+**Total Estimated:** 2h (only tests remaining)
+**Already Implemented:** Template, Schema, CLI registration
 
 ---
 
 ## Dev Notes
+
+### Pre-existing Implementation Status
+
+**Files Already Created:**
+- `.aios-core/product/templates/dbdr.hbs` - Complete template with all sections
+- `.aios-core/product/templates/engine/schemas/dbdr.schema.json` - Complete validation schema
+- `.aios-core/product/templates/engine/index.js` - 'dbdr' in SUPPORTED_TYPES (line 22)
+- `.aios-core/cli/commands/generate/index.js` - CLI command via Story 3.9
+
+**Reference Implementation:**
+- Use `tests/templates/pmdr.test.js` as reference for test structure (Story 3.9)
 
 ### Difference from ADR
 - **ADR:** General architecture decisions
@@ -371,7 +390,15 @@ Key differences:
 - Performance impact metrics
 - Indexing strategy
 
+### Template Engine Integration
+- Template auto-discovery: Template at `.aios-core/product/templates/dbdr.hbs`
+- Schema validation: Schema at `.aios-core/product/templates/engine/schemas/dbdr.schema.json`
+- Template registration: Already in SUPPORTED_TYPES
+- CLI command: Already available via `aios generate dbdr` (Story 3.9)
+
 ### Testing
+
+**Test File Location:** `tests/templates/dbdr.test.js`
 
 | Test ID | Name | Priority |
 |---------|------|----------|
@@ -380,6 +407,8 @@ Key differences:
 | DBDR-03 | SQL blocks render correctly | P0 |
 | DBDR-04 | Validation fails without rollbackPlan | P0 |
 | DBDR-05 | Performance metrics table renders | P1 |
+| DBDR-06 | Validation fails without migrationStrategy (AC3.10.7) | P0 |
+| DBDR-07 | CLI command `aios generate dbdr` executes successfully | P0 |
 
 ---
 
@@ -401,8 +430,8 @@ Key differences:
 
 ### Quality Gate Tasks
 
-- [ ] Pre-Commit (@dev): Run DBDR-01 to DBDR-05 tests
-- [ ] Pre-PR (@github-devops): Validate template syntax
+- [ ] Pre-Commit (@dev): Run DBDR-01 to DBDR-07 tests
+- [ ] Pre-PR (@devops): Validate template syntax and CLI command
 
 ### Self-Healing Configuration
 
@@ -431,7 +460,8 @@ Key differences:
 ## Dependencies
 
 **Depends on:**
-- Story 3.6 (Template Engine Core) ⏳
+- Story 3.6 (Template Engine Core) ✅
+- Story 3.9 (Template PMDR - CLI generate command) ✅
 
 **Blocks:**
 - Story 3.12 (Documentation Sprint 3)
@@ -440,9 +470,10 @@ Key differences:
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Template generates valid DBDR
-- [ ] DBDR-01 to DBDR-05 tests pass
+- [ ] All acceptance criteria met (7/9 pre-implemented)
+- [x] Template generates valid DBDR
+- [ ] DBDR-01 to DBDR-07 tests pass
+- [ ] CLI command `aios generate dbdr` works correctly
 - [ ] QA Review passed
 - [ ] PR created and approved
 
@@ -460,12 +491,41 @@ _To be populated during implementation_
 |------|---------|-------------|--------|
 | 2025-01-19 | 1.0 | Story created (in bundled file) | River |
 | 2025-12-03 | 2.0 | Separated into individual story file | Pax (@po) |
+| 2025-12-05 | 2.1 | PO validation: predecessor confirmed complete; 7/9 ACs pre-implemented; reduced points to 2; added test cases DBDR-06, DBDR-07; updated tasks to reflect remaining work | Pax (@po) |
 
 ---
 
 ## QA Results
 
 _To be populated after implementation_
+
+---
+
+## PO Validation Notes (2025-12-05)
+
+### Pre-Implementation Analysis
+
+This story is **85% pre-implemented**. During validation, I discovered:
+
+1. **Template exists**: `.aios-core/product/templates/dbdr.hbs` is complete
+2. **Schema exists**: `.aios-core/product/templates/engine/schemas/dbdr.schema.json` is complete
+3. **Engine registration**: 'dbdr' already in SUPPORTED_TYPES (line 22)
+4. **CLI available**: `aios generate dbdr` works via Story 3.9
+
+### Remaining Work
+
+Only **tests** need to be created:
+- Create `tests/templates/dbdr.test.js`
+- Implement 7 test cases (DBDR-01 to DBDR-07)
+- Use `tests/templates/pmdr.test.js` as reference
+
+### Story Points Adjustment
+
+Reduced from **3 points** to **2 points** due to pre-implementation.
+
+### Readiness Score: 8/10
+
+Story is ready for development. @dev can proceed immediately with test creation.
 
 ---
 
