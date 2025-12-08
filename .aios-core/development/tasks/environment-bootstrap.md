@@ -919,6 +919,161 @@ Write-Host "✅ Project structure created"
 
 ---
 
+### Step 6.5: Docker MCP Setup (Optional but Recommended)
+
+**Condition:** Docker Desktop 4.50+ is installed AND Docker MCP Toolkit is available
+
+**Action:** Configure Docker MCP Toolkit with HTTP transport for Claude Code integration
+
+**Elicitation Point:**
+
+```
+╔════════════════════════════════════════════════════════════════════════╗
+║                     DOCKER MCP SETUP                                    ║
+╠════════════════════════════════════════════════════════════════════════╣
+║                                                                         ║
+║  Docker Desktop detected with MCP Toolkit!                              ║
+║                                                                         ║
+║  Configure MCP servers for Claude Code?                                 ║
+║                                                                         ║
+║  1. MINIMAL - context7 + desktop-commander + playwright (no API keys)   ║
+║  2. FULL - minimal + exa (requires EXA_API_KEY)                         ║
+║  3. SKIP - Configure later with *setup-mcp-docker                       ║
+║                                                                         ║
+║  Select option (1/2/3): _                                               ║
+║                                                                         ║
+╚════════════════════════════════════════════════════════════════════════╝
+```
+
+**YOLO Mode Behavior:** Auto-select MINIMAL (no API keys required)
+
+**If MINIMAL or FULL selected:**
+
+**Step 6.5.1: Start Gateway Service**
+
+```powershell
+# Windows
+Write-Host "Starting MCP Gateway service..."
+
+# Create gateway service file if not exists
+if (-not (Test-Path ".docker/mcp/gateway-service.yml")) {
+  # Copy from template or create
+  New-Item -ItemType Directory -Path ".docker/mcp" -Force | Out-Null
+  # Gateway service will be started by Docker Compose
+}
+
+# Start gateway as persistent service
+docker compose -f .docker/mcp/gateway-service.yml up -d
+
+# Wait for gateway to be healthy
+$maxRetries = 12
+$retryCount = 0
+do {
+  Start-Sleep -Seconds 5
+  $health = Invoke-WebRequest -Uri "http://localhost:8080/health" -UseBasicParsing -ErrorAction SilentlyContinue
+  $retryCount++
+} while ($health.StatusCode -ne 200 -and $retryCount -lt $maxRetries)
+
+if ($health.StatusCode -eq 200) {
+  Write-Host "✅ MCP Gateway is healthy"
+} else {
+  Write-Host "⚠️ MCP Gateway health check failed - continuing anyway"
+}
+```
+
+**Step 6.5.2: Enable Default MCPs**
+
+```powershell
+# Enable minimal preset MCPs (no API keys required)
+Write-Host "Enabling MCP servers..."
+
+docker mcp server enable context7
+docker mcp server enable desktop-commander
+docker mcp server enable playwright
+
+# If FULL preset selected and EXA_API_KEY exists
+if ($PRESET -eq "FULL" -and $env:EXA_API_KEY) {
+  docker mcp server enable exa
+  Write-Host "✅ Exa MCP enabled (web search)"
+}
+
+# Configure desktop-commander with user home path
+$userHome = $env:USERPROFILE
+docker mcp config write "desktop-commander:`n  paths:`n    - $userHome"
+
+Write-Host "✅ MCP servers enabled"
+docker mcp server ls
+```
+
+**Step 6.5.3: Configure Claude Code (HTTP Transport)**
+
+```powershell
+Write-Host "Configuring Claude Code for MCP Gateway..."
+
+$claudeConfigPath = Join-Path $env:USERPROFILE ".claude.json"
+
+if (Test-Path $claudeConfigPath) {
+  # Read existing config
+  $claudeConfig = Get-Content $claudeConfigPath | ConvertFrom-Json
+
+  # Add or update docker-gateway with HTTP transport
+  if (-not $claudeConfig.mcpServers) {
+    $claudeConfig | Add-Member -NotePropertyName "mcpServers" -NotePropertyValue @{} -Force
+  }
+
+  $claudeConfig.mcpServers.'docker-gateway' = @{
+    type = "http"
+    url = "http://localhost:8080/mcp"
+  }
+
+  # Save config
+  $claudeConfig | ConvertTo-Json -Depth 10 | Set-Content $claudeConfigPath -Encoding UTF8
+  Write-Host "✅ Claude Code configured with HTTP transport"
+} else {
+  Write-Host "⚠️ ~/.claude.json not found - please configure manually"
+  Write-Host "   Add to mcpServers: { 'docker-gateway': { 'type': 'http', 'url': 'http://localhost:8080/mcp' } }"
+}
+```
+
+**Step 6.5.4: Verify MCP Setup**
+
+```powershell
+Write-Host "Verifying MCP setup..."
+
+# Check gateway health
+$health = Invoke-WebRequest -Uri "http://localhost:8080/health" -UseBasicParsing -ErrorAction SilentlyContinue
+if ($health.StatusCode -eq 200) {
+  Write-Host "✅ Gateway: Healthy"
+} else {
+  Write-Host "❌ Gateway: Not responding"
+}
+
+# Check enabled servers
+$servers = docker mcp server ls
+Write-Host "✅ Enabled servers: $servers"
+
+# Summary
+Write-Host ""
+Write-Host "═══════════════════════════════════════════════════════════════"
+Write-Host "  MCP SETUP COMPLETE"
+Write-Host "═══════════════════════════════════════════════════════════════"
+Write-Host "  Gateway: http://localhost:8080 (HTTP/SSE)"
+Write-Host "  MCPs: context7, desktop-commander, playwright"
+Write-Host "  Claude Config: ~/.claude.json (HTTP transport)"
+Write-Host ""
+Write-Host "  ⚠️ IMPORTANT: Restart Claude Code to connect to MCP Gateway"
+Write-Host "═══════════════════════════════════════════════════════════════"
+```
+
+**Skip Conditions:**
+- Docker not installed or not running
+- Docker MCP Toolkit not available
+- User selected SKIP option
+
+**Output:** MCP setup status added to environment report
+
+---
+
 ### Step 7: Environment Report Generation
 
 **Action:** Generate comprehensive environment report

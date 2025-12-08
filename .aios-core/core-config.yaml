@@ -90,7 +90,103 @@ ide:
 mcp:
   enabled: true
   configLocation: .claude/mcp.json
-  servers: []
+
+  # Docker MCP Toolkit Configuration (Story 5.11)
+  # Updated: 2025-12-08 - Changed from stdio to HTTP transport to fix timeout
+  docker_mcp:
+    enabled: true
+
+    # Gateway Configuration - HTTP Transport (fixes 30s timeout issue)
+    # IMPORTANT: Use HTTP, NOT stdio - gateway must be pre-started as service
+    gateway:
+      transport: http  # HTTP/SSE transport for persistent service
+      url: "http://localhost:8080/mcp"
+      port: 8080
+      watch: true
+      service_file: ".docker/mcp/gateway-service.yml"
+
+    # AIOS Default Presets
+    # minimal: No API keys required (default for new installations)
+    # full: Requires EXA_API_KEY for web search
+    presets:
+      minimal:
+        servers: [context7, desktop-commander, playwright]
+        description: "Core MCPs - no API keys required"
+        api_keys_required: false
+        estimated_tokens: "10-15k"
+
+      full:
+        servers: [context7, desktop-commander, playwright, exa]
+        description: "All MCPs - requires EXA_API_KEY for exa"
+        api_keys_required: true
+        estimated_tokens: "20-25k"
+
+    defaultPreset: minimal  # No API keys needed for quick start
+
+    # Default MCPs for AIOS Installation
+    defaultServers:
+      - name: context7
+        description: "Up-to-date library documentation for LLMs"
+        config: {}
+        required: true
+        api_key_required: false
+
+      - name: desktop-commander
+        description: "File management, terminal commands, and system operations"
+        config:
+          paths:
+            - "${USER_HOME}"  # Resolves to user's home directory
+        required: true
+        api_key_required: false
+
+      - name: playwright
+        description: "Browser automation for testing and web interaction"
+        config: {}
+        required: true
+        api_key_required: false
+
+      - name: exa
+        description: "AI-powered web search and content extraction"
+        config:
+          apiKeys:
+            EXA_API_KEY: "${EXA_API_KEY}"
+        required: false  # Only in 'full' preset
+        api_key_required: true
+
+    # Commands reference
+    commands:
+      # Gateway management
+      start_gateway: "docker compose -f .docker/mcp/gateway-service.yml up -d"
+      stop_gateway: "docker compose -f .docker/mcp/gateway-service.yml down"
+      gateway_health: "curl http://localhost:8080/health"
+
+      # Server management
+      list_servers: "docker mcp server ls"
+      enable_server: "docker mcp server enable {name}"
+      disable_server: "docker mcp server disable {name}"
+
+      # Configuration
+      read_config: "docker mcp config read"
+      write_config: "docker mcp config write"
+
+    # Troubleshooting reference
+    troubleshooting:
+      timeout_issue: |
+        If Claude Code shows "Failed to connect to docker-gateway":
+        1. Ensure gateway is running: docker compose -f .docker/mcp/gateway-service.yml up -d
+        2. Check health: curl http://localhost:8080/health
+        3. Verify ~/.claude.json uses HTTP transport, NOT stdio
+      gateway_not_starting: |
+        1. Check Docker Desktop is running
+        2. Check port 8080 is available: netstat -an | grep 8080
+        3. Try alternate port in gateway-service.yml
+
+  # Legacy 1MCP Configuration (DEPRECATED - Story 5.11)
+  # Rollback: See docs/architecture/mcp-optimization-1mcp.md#rollback
+  # onemp:
+  #   enabled: false
+  #   port: 3050
+  #   presets: [aios-dev, aios-research, aios-pm, aios-full]
 
 # ============================================
 # SECTION 6: Performance & Caching

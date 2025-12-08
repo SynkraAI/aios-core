@@ -1,8 +1,27 @@
 # MCP Context Optimization with 1MCP - Installation & Configuration Guide
 
+> **⚠️ DEPRECATED (2025-12-08)**
+>
+> This document describes the **1MCP** approach which has been superseded by **Docker MCP Toolkit**.
+>
+> **Migration:**
+> - See [Story 5.11: Docker MCP Toolkit Migration](../stories/v2.1/sprint-5/story-5.11-docker-mcp-migration.md)
+> - New configuration: `.docker/mcp/gordon-mcp.yml`
+> - Rollback: `scripts/mcp-workflows/rollback-to-1mcp.sh`
+>
+> **Why Docker MCP?**
+> - **98.7% token reduction** (vs 85% with 1MCP) via Code Mode
+> - **Dynamic MCP loading** at runtime (mcp-find, mcp-add)
+> - **270+ MCP catalog** vs 9 configured MCPs
+> - **Sandbox execution** in containers vs npx processes
+>
+> This document is preserved for reference and rollback purposes only.
+
+---
+
 **Story:** 3.26 - MCP Context Optimization Phase 1
 **Created:** 2025-10-26
-**Status:** Fully Implemented (9/9 MCPs functional) - Updated by Story 3.26.1
+**Status:** ⚠️ DEPRECATED - Superseded by Docker MCP Toolkit (Story 5.11)
 **Author:** James (@dev)
 
 ---
