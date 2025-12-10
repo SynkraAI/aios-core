@@ -438,7 +438,7 @@ AND maintainers can:
 - [x] `docs/guides/community-to-backlog.md` - Transition process guide
 
 ### GitHub Configuration
-- [ ] Category "Feature Proposals" created in Discussions (requires GitHub UI)
+- [~] Category "Feature Proposals" created in Discussions *(manual step - requires GitHub UI after merge)*
 - [x] Label `idea` created (color: #d4c5f9)
 - [x] Label `community` created (color: #bfd4f2)
 - [x] Label `community-approved` created (color: #2ea44f)

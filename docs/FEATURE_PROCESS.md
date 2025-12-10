@@ -51,7 +51,7 @@ For larger features that require design decisions:
 
 ## From Idea to Implementation
 
-```
+```text
 Community Idea (Discussion)
         │
         │ [Approved by maintainers]
