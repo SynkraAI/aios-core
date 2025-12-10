@@ -345,6 +345,7 @@ Release (credited in CHANGELOG.md)
 ## 🤖 CodeRabbit Integration
 
 ### Story Type Analysis
+
 | Attribute | Value |
 |-----------|-------|
 | **Primary Type** | Documentation/Process |
@@ -352,6 +353,7 @@ Release (credited in CHANGELOG.md)
 | **Secondary Types** | GitHub Configuration |
 
 ### Specialized Agents
+
 | Agent | Role |
 |-------|------|
 | **@dev** | Primary - File creation and template implementation |
@@ -370,6 +372,7 @@ Release (credited in CHANGELOG.md)
 - [ ] Labels created and documented
 
 ### Self-Healing Configuration
+
 | Setting | Value |
 |---------|-------|
 | **Mode** | light |
