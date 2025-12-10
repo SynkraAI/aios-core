@@ -605,6 +605,7 @@ Explore o diretório [expansion-packs/](expansion-packs/) para mais inspiração
 - 💡 [Processo de Features](docs/FEATURE_PROCESS.md) - Como propor novas funcionalidades
 - 🐛 [Rastreador de Issues](https://github.com/allfluence/aios-core/issues)
 - 📋 [Como Contribuir](CONTRIBUTING.md)
+- 🗺️ [Roadmap](ROADMAP.md) - Veja o que estamos construindo
 
 ## Git Workflow e Validação
 

@@ -358,6 +358,7 @@ gh pr checks  # View PR checks
 - 📖 [Git Workflow Guide](docs/git-workflow-guide.md) - Detailed workflow documentation
 - 📖 [User Guide](aios-core/user-guide.md) - Complete user guide
 - 📖 [Architecture](docs/architecture.md) - System architecture
+- 🗺️ [Roadmap](ROADMAP.md) - See what's planned and influence our direction
 - 💬 [GitHub Discussions](https://github.com/allfluence/aios-core/discussions) - Community hub
 
 ## Questions?

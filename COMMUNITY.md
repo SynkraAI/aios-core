@@ -159,6 +159,21 @@ Report violations to: conduct@allfluence.com
 2. If new, [share your idea](https://github.com/allfluence/aios-core/discussions/new?category=ideas)
 3. Read our [Feature Request Process](docs/FEATURE_PROCESS.md) for detailed guidelines
 
+## Project Roadmap
+
+Want to know where AIOS is headed? Check out our public roadmap:
+
+- [ROADMAP.md](ROADMAP.md) - High-level vision and planned features
+- [GitHub Project](https://github.com/orgs/SynkraAI/projects) - Detailed tracking (when available)
+
+The roadmap is updated monthly and reflects community input. You can influence our direction by:
+
+1. **Voting** on ideas in [Discussions](https://github.com/SynkraAI/aios-core/discussions/categories/ideas)
+2. **Proposing** new features via the [RFC process](/.github/RFC_TEMPLATE.md)
+3. **Contributing** directly to planned features
+
+> Roadmap items are plans, not commitments. Priorities may shift based on community needs and technical constraints.
+
 ### Feature Request Process
 
 We have a structured process for proposing new features:
