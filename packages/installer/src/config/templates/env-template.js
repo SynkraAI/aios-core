@@ -118,7 +118,7 @@ VERCEL_TOKEN=
 # AIOS Core Configuration
 # --------------------------------------------
 NODE_ENV=development
-AIOS_VERSION=2.1.2
+AIOS_VERSION=2.1.3
 
 # --------------------------------------------
 # Custom Configuration
@@ -230,7 +230,7 @@ VERCEL_TOKEN=
 # AIOS Core Configuration
 # --------------------------------------------
 NODE_ENV=development
-AIOS_VERSION=2.1.2
+AIOS_VERSION=2.1.3
 
 # --------------------------------------------
 # Custom Configuration
