@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-14T17:30:05.094Z",
+  "lastUpdated": "2025-12-14T17:46:41.759Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-12T20:26:34.928Z"
     },
     "layer2": {
-      "passRate": 0.96,
-      "avgTimeMs": 151200,
-      "totalRuns": 25,
-      "lastRun": "2025-12-14T17:30:05.092Z",
+      "passRate": 0.9230769230769231,
+      "avgTimeMs": 152308,
+      "totalRuns": 26,
+      "lastRun": "2025-12-14T17:46:41.757Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -892,6 +892,23 @@
     },
     {
       "timestamp": "2025-12-14T17:30:05.092Z",
+      "layer": 2,
+      "passed": false,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 3,
+        "branchName": "feat/story-6.7-llm-routing-migration",
+        "author": "Pedrovaleriolopez",
+        "lintResult": "failure",
+        "typecheckResult": "success",
+        "testResult": "success",
+        "storyResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-14T17:46:41.757Z",
       "layer": 2,
       "passed": false,
       "durationMs": 180000,
