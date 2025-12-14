@@ -1,0 +1,39 @@
+# Docker Compose for AIOS LLM Routing
+# Version: 1.0.0
+# Usage: docker compose up -d
+
+services:
+  litellm-proxy:
+    # Pin to stable version for reproducible builds
+    image: ghcr.io/berriai/litellm:v1.55.10-stable
+    container_name: aios-litellm-proxy
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+    environment:
+      # API Keys (from .env file)
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+
+      # LiteLLM Settings
+      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY:-sk-aios-litellm-default}
+      - LITELLM_DROP_PARAMS=true
+
+      # Logging
+      - LITELLM_LOG_LEVEL=${LITELLM_LOG_LEVEL:-INFO}
+    command: ["--config", "/app/config.yaml", "--port", "4000", "--host", "0.0.0.0"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - aios-network
+
+networks:
+  aios-network:
+    driver: bridge

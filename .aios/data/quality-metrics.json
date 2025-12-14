@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-12T20:26:34.938Z",
+  "lastUpdated": "2025-12-14T18:17:58.342Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-12T20:26:34.928Z"
     },
     "layer2": {
-      "passRate": 1,
-      "avgTimeMs": 150000,
-      "totalRuns": 24,
-      "lastRun": "2025-12-12T20:26:34.491Z",
+      "passRate": 0.8888888888888888,
+      "avgTimeMs": 153333,
+      "totalRuns": 27,
+      "lastRun": "2025-12-14T18:17:58.340Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -50,6 +50,10 @@
       {
         "date": "2025-12-12",
         "value": 0.9
+      },
+      {
+        "date": "2025-12-14",
+        "value": 0
       }
     ]
   },
@@ -884,6 +888,57 @@
       "findingsCount": 0,
       "metadata": {
         "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-14T17:30:05.092Z",
+      "layer": 2,
+      "passed": false,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 3,
+        "branchName": "feat/story-6.7-llm-routing-migration",
+        "author": "Pedrovaleriolopez",
+        "lintResult": "failure",
+        "typecheckResult": "success",
+        "testResult": "success",
+        "storyResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-14T17:46:41.757Z",
+      "layer": 2,
+      "passed": false,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 3,
+        "branchName": "feat/story-6.7-llm-routing-migration",
+        "author": "Pedrovaleriolopez",
+        "lintResult": "failure",
+        "typecheckResult": "success",
+        "testResult": "success",
+        "storyResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-14T18:17:58.340Z",
+      "layer": 2,
+      "passed": false,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 3,
+        "branchName": "feat/story-6.7-llm-routing-migration",
+        "author": "Pedrovaleriolopez",
+        "lintResult": "failure",
+        "typecheckResult": "success",
+        "testResult": "success",
+        "storyResult": "success"
       }
     }
   ]

@@ -27,6 +27,11 @@ const {
   displayValidationReport,
   provideTroubleshooting,
 } = require('./validation');
+const {
+  installLLMRouting,
+  isLLMRoutingInstalled,
+  getInstallationSummary
+} = require('../../.aios-core/infrastructure/scripts/llm-routing/install-llm-routing');
 
 /**
  * Generate AntiGravity workflow content for expansion pack agents
@@ -465,6 +470,40 @@ async function runWizard() {
         console.error('\n⚠️  MCP installation error:', error.message);
         answers.mcpsInstalled = false;
       }
+    }
+
+    // Story 6.7: LLM Routing Installation
+    console.log('\n🚀 Installing LLM Routing commands...');
+    try {
+      // Check if already installed
+      if (isLLMRoutingInstalled()) {
+        console.log('   ℹ️  LLM Routing already installed');
+        answers.llmRoutingInstalled = true;
+        answers.llmRoutingResult = { success: true, alreadyInstalled: true };
+      } else {
+        const llmResult = installLLMRouting({
+          projectRoot: process.cwd(),
+          onProgress: (msg) => console.log(`   ${msg}`),
+          onError: (msg) => console.error(`   ${msg}`)
+        });
+
+        if (llmResult.success) {
+          console.log('\n✅ LLM Routing installed!');
+          console.log('   • claude-max  → Uses Claude Max subscription');
+          console.log('   • claude-free → Uses DeepSeek (~$0.14/M tokens)');
+          console.log('\n   💡 For claude-free, add DEEPSEEK_API_KEY to your .env');
+          answers.llmRoutingInstalled = true;
+          answers.llmRoutingResult = llmResult;
+        } else {
+          console.error('\n⚠️  LLM Routing installation had errors:');
+          llmResult.errors.forEach(err => console.error(`   - ${err}`));
+          answers.llmRoutingInstalled = false;
+          answers.llmRoutingResult = llmResult;
+        }
+      }
+    } catch (error) {
+      console.error('\n⚠️  LLM Routing error:', error.message);
+      answers.llmRoutingInstalled = false;
     }
 
     // Story 1.8: Installation Validation
