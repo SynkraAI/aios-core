@@ -1,5 +1,7 @@
 # AIOS Roadmap
 
+> 🇧🇷 [Versão em Português](ROADMAP-PT.md)
+
 This document outlines the planned development direction for AIOS.
 
 > For detailed tracking, see our [GitHub Project](https://github.com/orgs/SynkraAI/projects/1)

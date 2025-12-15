@@ -1,5 +1,7 @@
 # Contributing to Synkra AIOS
 
+> 🇧🇷 [Versão em Português](CONTRIBUTING-PT.md)
+
 Thank you for your interest in contributing to Synkra AIOS! This guide will help you understand our development workflow and validation process.
 
 ## 📋 Table of Contents

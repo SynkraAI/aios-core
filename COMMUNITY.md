@@ -1,5 +1,7 @@
 # Synkra AIOS Community
 
+> 🇧🇷 [Versão em Português](COMMUNITY-PT.md)
+
 Welcome to the Synkra AIOS community!
 
 We're building the future of AI-orchestrated development together.
