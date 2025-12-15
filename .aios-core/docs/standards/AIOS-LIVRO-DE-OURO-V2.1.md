@@ -17,7 +17,7 @@
 
 **Released:** March 2026  
 **Status:** Production-ready  
-**Install:** `npx @allfluence/aios@latest init`
+**Install:** `npx @SynkraAI/aios@latest init`
 
 ### Major Features Delivered
 
@@ -39,7 +39,7 @@
 
 ⚠️ **Installation Method:**
 - Old: Manual clone + configuration
-- New: `npx @allfluence/aios@latest init` (5 minutes)
+- New: `npx @SynkraAI/aios@latest init` (5 minutes)
 
 ⚠️ **Project Structure:**
 - Old: Flat `.aios-core/` directory
@@ -52,7 +52,7 @@
 $ cp -r .aios-core .aios-core.backup
 
 # Run migration script
-$ npx @allfluence/aios migrate v2.0-to-v2.1
+$ npx @SynkraAI/aios migrate v2.0-to-v2.1
 
 # Follow interactive prompts
 # Migration takes ~15 minutes

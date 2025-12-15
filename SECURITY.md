@@ -1,5 +1,7 @@
 # Security Policy
 
+> 🇧🇷 [Versão em Português](SECURITY-PT.md)
+
 ## Supported Versions
 
 We release patches for security vulnerabilities in the following versions:

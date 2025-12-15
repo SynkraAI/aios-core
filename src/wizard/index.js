@@ -180,7 +180,7 @@ async function runWizard() {
       const possibleSourceDirs = [
         path.join(__dirname, '..', '..', 'expansion-packs'),
         path.join(__dirname, '..', '..', '..', 'expansion-packs'),
-        path.join(process.cwd(), 'node_modules', 'aios-fullstack', 'expansion-packs'),
+        path.join(process.cwd(), 'node_modules', '@synkra/aios-core', 'expansion-packs'),
       ];
 
       let sourceExpansionDir = null;

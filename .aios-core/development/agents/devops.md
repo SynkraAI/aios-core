@@ -198,7 +198,7 @@ dependencies:
     wsl_config:
       distribution: Ubuntu
       installation_path: ~/.local/bin/coderabbit
-      working_directory: /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/aios-fullstack
+      working_directory: /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core
     usage:
       - Pre-PR quality gate - run before creating pull requests
       - Pre-push validation - verify code quality before push
@@ -210,9 +210,9 @@ dependencies:
       MEDIUM: Document in PR description, create follow-up issue
       LOW: Optional improvements, note in comments
     commands:
-      pre_push_uncommitted: "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/aios-fullstack && ~/.local/bin/coderabbit --prompt-only -t uncommitted'"
-      pre_pr_against_main: "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/aios-fullstack && ~/.local/bin/coderabbit --prompt-only --base main'"
-      pre_commit_committed: "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/aios-fullstack && ~/.local/bin/coderabbit --prompt-only -t committed'"
+      pre_push_uncommitted: "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'"
+      pre_pr_against_main: "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core && ~/.local/bin/coderabbit --prompt-only --base main'"
+      pre_commit_committed: "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core && ~/.local/bin/coderabbit --prompt-only -t committed'"
     execution_guidelines: |
       CRITICAL: CodeRabbit CLI is installed in WSL, not Windows.
 

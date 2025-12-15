@@ -1,6 +1,6 @@
 # AIOS Utils - Utility Scripts Library
 
-This directory contains 68+ utility scripts that provide automation, validation, and helper functions for AIOS-FULLSTACK agents and workflows.
+This directory contains 68+ utility scripts that provide automation, validation, and helper functions for Synkra AIOS agents and workflows.
 
 ## Categories
 

@@ -1578,7 +1578,7 @@ focus_areas:
 
 **Current State:**
 ```
-aios-fullstack/
+@synkra/aios-core/
 ├── .aios-core/              # Framework embedded in project
 ├── frontend/
 ├── backend/
@@ -1594,7 +1594,7 @@ aios/
 │   ├── templates/
 │   └── ...
 │
-└── aios-fullstack/          # Project repository
+└── @synkra/aios-core/          # Project repository
     ├── frontend/
     ├── backend/
     └── .aios/               # Framework reference (git submodule)

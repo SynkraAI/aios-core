@@ -46,7 +46,7 @@ function resolveAiosCoreModule(modulePath) {
     throw new Error(
       `Cannot find AIOS Core module: ${modulePath}\n` +
       `Searched: ${aiosCoreModule}\n` +
-      'Please ensure aios-fullstack is installed correctly.',
+      'Please ensure @synkra/aios-core is installed correctly.',
     );
   }
 
@@ -443,7 +443,7 @@ See .aios-core/user-guide.md for complete documentation.
     // Secondary: context-based framework location
     path.join(context.frameworkLocation, 'expansion-packs'),
     // Tertiary: installed in project's node_modules
-    path.join(context.projectRoot, 'node_modules', 'aios-fullstack', 'expansion-packs'),
+    path.join(context.projectRoot, 'node_modules', '@synkra/aios-core', 'expansion-packs'),
     path.join(context.projectRoot, 'node_modules', '@aios', 'fullstack', 'expansion-packs'),
   ];
 
@@ -666,7 +666,7 @@ See .aios-core/user-guide.md for complete documentation.
   }
 
   console.log('  ' + chalk.yellow('General:'));
-  console.log('    • Run ' + chalk.yellow('"aios-fullstack doctor"') + ' to verify installation');
+  console.log('    • Run ' + chalk.yellow('"@synkra/aios-core doctor"') + ' to verify installation');
   console.log('    • Check .aios-core/user-guide.md for complete documentation');
   console.log('    • Explore expansion-packs/ for additional capabilities');
   console.log('');

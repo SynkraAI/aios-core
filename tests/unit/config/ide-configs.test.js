@@ -4,7 +4,7 @@
  * Story 1.4: IDE Selection
  * Tests IDE configuration metadata structure
  *
- * AIOS-FULLSTACK v2.1 supports 9 IDEs:
+ * Synkra AIOS v2.1 supports 9 IDEs:
  * - Claude Code, Cursor, Windsurf, Trae, Roo Code, Cline, Gemini CLI, GitHub Copilot, AntiGravity
  */
 

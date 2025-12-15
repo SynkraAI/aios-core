@@ -419,7 +419,7 @@ After executing migration scripts:
 2. Review migration-pitfalls.md for common issues
 3. Do NOT commit until validation passes
 
-See: expansion-packs/super-agentes/checklists/migration-validation-checklist.md
+See: Squads/super-agentes/checklists/migration-validation-checklist.md
 ```
 
 ## Success Criteria

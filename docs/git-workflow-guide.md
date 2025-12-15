@@ -15,7 +15,7 @@
 
 ## Overview
 
-AIOS-FULLSTACK implements a **Defense in Depth** validation strategy with three progressive layers that catch issues early and ensure code quality before merge.
+Synkra AIOS implements a **Defense in Depth** validation strategy with three progressive layers that catch issues early and ensure code quality before merge.
 
 ### Why Three Layers?
 
@@ -935,5 +935,5 @@ strategy:
 ---
 
 **Questions? Issues?**
-- [Open an Issue](https://github.com/Pedrovaleriolopez/aios-fullstack/issues)
+- [Open an Issue](https://github.com/SynkraAI/aios-core/issues)
 - [Join Discord](https://discord.gg/gk8jAdXWmj)

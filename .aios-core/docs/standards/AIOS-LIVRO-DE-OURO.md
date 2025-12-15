@@ -2462,7 +2462,7 @@ Expansion Packs são **domínios completos** que estendem o AIOS.
 
 **Quando Usar:** Criar carrosséis ou stories profissionais
 
-**Path:** `expansion-packs/instagram-content-creator/`
+**Path:** `Squads/instagram-content-creator/`
 
 **Status:** 🏢 Service (Proprietary)
 
@@ -2480,7 +2480,7 @@ Expansion Packs são **domínios completos** que estendem o AIOS.
 
 **Quando Usar:** Gerenciar infraestrutura e deploys
 
-**Path:** `expansion-packs/aios-infrastructure-devops/`
+**Path:** `Squads/aios-infrastructure-devops/`
 
 **Status:** 🔓 Open Source
 
@@ -2557,7 +2557,7 @@ ai_config:
 | Validar qualidade | Agent: Quinn + Checklist: qa-checklist | `.aios-core/agents/qa.md` |
 | Criar story | Agent: Pax + Template: story-template | `.aios-core/agents/po.md` |
 | Desenhar arquitetura | Agent: Sage + Template: adr-template | `.aios-core/agents/architect.md` |
-| Criar conteúdo visual | Expansion Pack: Instagram Creator | `expansion-packs/instagram-content-creator/` |
+| Criar conteúdo visual | Expansion Pack: Instagram Creator | `Squads/instagram-content-creator/` |
 | Validar Atomic Design | Clone: Brad Frost | `clones/brad_frost/` |
 
 ---
@@ -2571,7 +2571,7 @@ ai_config:
 - [Checklists](#checklists) - Validações sistemáticas
 - [Workflows](#workflows) - Processos completos
 - [Archetypes](#archetypes) - Personalidades base
-- [Expansion Packs](#expansion-packs) - Domínios completos
+- [Expansion Packs](#Squads) - Domínios completos
 - [Clone Architecture](#clone-architecture) - Metodologias codificadas
 
 **Por Necessidade:**

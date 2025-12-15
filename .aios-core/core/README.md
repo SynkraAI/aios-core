@@ -1,6 +1,6 @@
 # AIOS Core Module
 
-> Central runtime module providing essential framework functionality for AIOS-FULLSTACK.
+> Central runtime module providing essential framework functionality for Synkra AIOS.
 
 **Version:** 2.0.0
 **Created:** Story 2.2 - Core Module Creation
@@ -12,7 +12,7 @@ The Core module contains the foundational runtime components that all other AIOS
 
 ## Installation
 
-The core module is automatically available within the AIOS-FULLSTACK framework:
+The core module is automatically available within the Synkra AIOS framework:
 
 ```javascript
 // CommonJS
@@ -226,4 +226,4 @@ Scripts that import these modules have been updated to reference the new paths.
 
 ---
 
-*AIOS-FULLSTACK Core Module v2.0.0*
+*Synkra AIOS Core Module v2.0.0*

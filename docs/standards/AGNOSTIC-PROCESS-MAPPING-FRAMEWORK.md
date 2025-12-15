@@ -1539,7 +1539,7 @@ processo:
 | `EXECUTOR-DECISION-TREE.md` | Decision Tree de Executores |
 | `AIOS-TASK-SYSTEM-UNIFIED-STANDARD.md` | Standard Unificado AIOS |
 
-### Mind Expansion Pack - Pedro Valério
+### Mind Squad - Pedro Valério
 
 | Chunk | Conteúdo |
 |:------|:---------|

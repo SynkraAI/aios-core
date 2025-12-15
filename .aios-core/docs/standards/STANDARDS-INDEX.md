@@ -76,7 +76,7 @@
 | Old Term | New Term | Affected Documents |
 |----------|----------|-------------------|
 | Expansion Pack | **Squad** | All standards |
-| expansion-packs/ | **squads/** | Directory references |
+| Squads/ | **squads/** | Directory references |
 | pack.yaml | **squad.yaml** | Manifest references |
 | @expansion/* | **@aios/squad-*** | npm scope |
 | 16 Agents | **11 Agents** | Agent counts |

@@ -1,6 +1,6 @@
-# AIOS-FULLSTACK Security Best Practices
+# Synkra AIOS Security Best Practices
 
-This guide provides comprehensive security recommendations for deploying and maintaining AIOS-FULLSTACK in production environments.
+This guide provides comprehensive security recommendations for deploying and maintaining Synkra AIOS in production environments.
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@ This guide provides comprehensive security recommendations for deploying and mai
 
 ## Security Architecture Overview
 
-AIOS-FULLSTACK implements a multi-layered security approach:
+Synkra AIOS implements a multi-layered security approach:
 
 ```
 ┌─────────────────────────────────────────┐
@@ -600,4 +600,4 @@ const emergencyConfig = {
 
 **Remember**: Security is not a one-time implementation but an ongoing process. Regular reviews, updates, and improvements are essential for maintaining a secure system.
 
-For questions or security concerns, contact: security@aios-fullstack.dev
+For questions or security concerns, contact: security@synkra/aios-core.dev

@@ -23,11 +23,11 @@ This document clarifies which features apply to which context.
 
 | Repository | License | Type | Contains |
 |------------|---------|------|----------|
-| `allfluence/aios-core` | Commons Clause | Public | Core framework, 11 agents, Quality Gates |
-| `allfluence/aios-squads` | MIT | Public | ETL, Creator, MMOS-Mapper squads |
-| `allfluence/mcp-ecosystem` | Apache 2.0 | Public | Docker MCP, IDE configs, MCP presets |
-| `allfluence/mmos` | Proprietary + NDA | Private | MMOS Minds, DNA Mental |
-| `allfluence/certified-partners` | Proprietary | Private | Premium squads, partner portal |
+| `SynkraAI/aios-core` | Commons Clause | Public | Core framework, 11 agents, Quality Gates |
+| `SynkraAI/aios-squads` | MIT | Public | ETL, Creator, MMOS-Mapper squads |
+| `SynkraAI/mcp-ecosystem` | Apache 2.0 | Public | Docker MCP, IDE configs, MCP presets |
+| `SynkraAI/mmos` | Proprietary + NDA | Private | MMOS Minds, DNA Mental |
+| `SynkraAI/certified-partners` | Proprietary | Private | Premium squads, partner portal |
 
 ### npm Package Scoping
 
@@ -45,7 +45,7 @@ This document clarifies which features apply to which context.
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                    OPEN-SOURCE (Public Repos)                           │
 │                                                                         │
-│   allfluence/aios-core        allfluence/aios-squads                   │
+│   SynkraAI/aios-core        SynkraAI/aios-squads                   │
 │   ┌─────────────────────┐     ┌─────────────────────┐                  │
 │   │ • Core Framework    │     │ • ETL Squad         │                  │
 │   │ • 11 Base Agents    │     │ • Creator Squad     │                  │
@@ -53,7 +53,7 @@ This document clarifies which features apply to which context.
 │   │ • Standards Docs    │     │ • squad.yaml format │                  │
 │   └─────────────────────┘     └─────────────────────┘                  │
 │                                                                         │
-│   allfluence/mcp-ecosystem                                             │
+│   SynkraAI/mcp-ecosystem                                             │
 │   ┌─────────────────────┐                                              │
 │   │ • Docker MCP        │                                              │
 │   │ • IDE Configurations│                                              │
@@ -65,7 +65,7 @@ This document clarifies which features apply to which context.
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                    SERVICE (Private Repos)                              │
 │                                                                         │
-│   allfluence/mmos             allfluence/certified-partners            │
+│   SynkraAI/mmos             SynkraAI/certified-partners            │
 │   ┌─────────────────────┐     ┌─────────────────────┐                  │
 │   │ • MMOS Minds        │     │ • Premium Squads    │                  │
 │   │ • DNA Mental™       │     │ • Partner Portal    │                  │

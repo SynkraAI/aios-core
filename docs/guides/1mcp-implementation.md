@@ -1032,7 +1032,7 @@ In `docs/agents/README.md`:
 
 ### Community
 
-- GitHub Issues: `aios-fullstack/issues`
+- GitHub Issues: `@synkra/aios-core/issues`
 - Slack: #aios-support
 - Roundtable Notes: `docs/planning/roundtable-mcp-strategy-*.md`
 

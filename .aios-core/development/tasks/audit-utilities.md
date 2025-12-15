@@ -272,7 +272,7 @@ Run integration scan to find utility usage:
 # For each utility, count references in agents and tasks
 for util in .aios-core/scripts/*.js; do
   name=$(basename $util .js)
-  count=$(grep -r "$name" .aios-core/agents .aios-core/tasks expansion-packs 2>/dev/null | wc -l)
+  count=$(grep -r "$name" .aios-core/agents .aios-core/tasks Squads 2>/dev/null | wc -l)
   echo "$name: $count references"
 done
 ```

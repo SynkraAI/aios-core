@@ -3,7 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 
 /**
- * Component search utility for AIOS-FULLSTACK framework
+ * Component search utility for Synkra AIOS framework
  * Finds and searches components across the framework
  */
 class ComponentSearch {

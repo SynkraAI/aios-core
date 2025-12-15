@@ -1,4 +1,4 @@
-# AIOS-FULLSTACK FAQ
+# Synkra AIOS FAQ
 
 **Version:** 2.1.0
 **Last Updated:** 2025-01-24
@@ -12,7 +12,7 @@
 - [Offline & Air-Gapped Usage](#offline--air-gapped-usage)
 - [IDE & Configuration](#ide--configuration)
 - [Agents & Workflows](#agents--workflows)
-- [Expansion Packs](#expansion-packs)
+- [Squads](#Squads)
 - [Advanced Usage](#advanced-usage)
 
 ---
@@ -21,7 +21,7 @@
 
 ### Q1: Why npx instead of npm install -g?
 
-**Answer:** We recommend `npx aios-fullstack install` over global installation for several reasons:
+**Answer:** We recommend `npx @synkra/aios-core install` over global installation for several reasons:
 
 1. **Always Latest Version**: npx fetches the latest version automatically
 2. **No Global Pollution**: Doesn't add to your global npm packages
@@ -32,8 +32,8 @@
 **If you prefer global installation:**
 
 ```bash
-npm install -g aios-fullstack
-aios-fullstack install
+npm install -g @synkra/aios-core
+@synkra/aios-core install
 ```
 
 ---
@@ -67,7 +67,7 @@ npm --version   # Should be 9+
 
 ```bash
 cd /path/to/existing-project
-npx aios-fullstack install
+npx @synkra/aios-core install
 ```
 
 The installer will:
@@ -125,7 +125,7 @@ your-project/
 │   ├── architecture/           # Architecture docs
 │   └── prd/                    # Product requirements
 │
-└── expansion-packs/            # (if installed)
+└── Squads/            # (if installed)
     └── hybrid-ops/             # HybridOps pack
 ```
 
@@ -139,13 +139,13 @@ your-project/
 
 ```bash
 # Update via npx (recommended)
-npx aios-fullstack update
+npx @synkra/aios-core update
 
 # Or reinstall latest
-npx aios-fullstack install --force-upgrade
+npx @synkra/aios-core install --force-upgrade
 
 # Check current version
-npx aios-fullstack status
+npx @synkra/aios-core status
 ```
 
 **What gets updated:**
@@ -168,15 +168,15 @@ npx aios-fullstack status
 
 | Update Type          | Frequency   | Command                     |
 | -------------------- | ----------- | --------------------------- |
-| **Security patches** | Immediately | `npx aios-fullstack update` |
-| **Minor updates**    | Monthly     | `npx aios-fullstack update` |
+| **Security patches** | Immediately | `npx @synkra/aios-core update` |
+| **Minor updates**    | Monthly     | `npx @synkra/aios-core update` |
 | **Major versions**   | Quarterly   | Review changelog first      |
 
 **Check for updates:**
 
 ```bash
-npm show aios-fullstack version
-npx aios-fullstack status
+npm show @synkra/aios-core version
+npx @synkra/aios-core status
 ```
 
 ---
@@ -188,7 +188,7 @@ npx aios-fullstack status
 **Option 1: Reinstall specific version**
 
 ```bash
-npx aios-fullstack@1.1.0 install --force-upgrade
+npx @synkra/aios-core@1.1.0 install --force-upgrade
 ```
 
 **Option 2: Use Git to restore**
@@ -218,7 +218,7 @@ mv .aios-core.backup .aios-core
 
 ```bash
 # Install once with internet
-npx aios-fullstack install
+npx @synkra/aios-core install
 
 # Package for offline use
 tar -czvf aios-offline.tar.gz .aios-core/ .claude/ .cursor/
@@ -250,7 +250,7 @@ tar -xzvf aios-offline.tar.gz
 
    ```bash
    # Install and package
-   npx aios-fullstack install
+   npx @synkra/aios-core install
    cd your-project
    tar -czvf aios-transfer.tar.gz .aios-core/ .claude/ .cursor/ docs/
    ```
@@ -305,7 +305,7 @@ tar -xzvf aios-offline.tar.gz
 **Command line:**
 
 ```bash
-npx aios-fullstack install --ide cursor claude-code windsurf
+npx @synkra/aios-core install --ide cursor claude-code windsurf
 ```
 
 Each IDE gets its own configuration directory:
@@ -328,7 +328,7 @@ git clone your-repo
 cd your-repo
 
 # Optionally configure their preferred IDE
-npx aios-fullstack install --ide cursor
+npx @synkra/aios-core install --ide cursor
 ```
 
 If `.aios-core/` is not committed:
@@ -336,7 +336,7 @@ If `.aios-core/` is not committed:
 ```bash
 git clone your-repo
 cd your-repo
-npx aios-fullstack install
+npx @synkra/aios-core install
 ```
 
 **Best practice:** Commit `.aios-core/` to share consistent agent configurations.
@@ -392,7 +392,7 @@ npx aios-fullstack install
 3. **Add to IDE configuration:**
 
    ```bash
-   npx aios-fullstack install --ide claude-code
+   npx @synkra/aios-core install --ide claude-code
    ```
 
 4. **Activate:** `/my-agent` or `@my-agent`
@@ -429,9 +429,9 @@ npx aios-fullstack install
 
 ---
 
-## Expansion Packs
+## Squads
 
-### Q17: What are expansion packs?
+### Q17: What are Squads?
 
 **Answer:** Expansion packs are optional add-ons that extend AIOS capabilities:
 
@@ -439,21 +439,21 @@ npx aios-fullstack install
 | -------------- | -------------------------------------------------------------- |
 | **hybrid-ops** | ClickUp integration, process automation, specialized workflows |
 
-**Install an expansion pack:**
+**Install an Squad:**
 
 ```bash
-npx aios-fullstack install --expansion-packs hybrid-ops
+npx @synkra/aios-core install --Squads hybrid-ops
 ```
 
 **List available packs:**
 
 ```bash
-npx aios-fullstack list:expansions
+npx @synkra/aios-core list:expansions
 ```
 
 ---
 
-### Q18: Can I create my own expansion pack?
+### Q18: Can I create my own Squad?
 
 **Answer:** Yes! Expansion packs follow this structure:
 
@@ -476,7 +476,7 @@ my-expansion/
 ```yaml
 name: my-expansion
 version: 1.0.0
-description: My custom expansion pack
+description: My custom Squad
 dependencies:
   aios-core: ">=1.0.0"
 agents:
@@ -506,7 +506,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18"
-      - run: npx aios-fullstack install --full --ide claude-code
+      - run: npx @synkra/aios-core install --full --ide claude-code
       - run: npm test
 ```
 
@@ -516,7 +516,7 @@ jobs:
 test:
   image: node:18
   script:
-    - npx aios-fullstack install --full
+    - npx @synkra/aios-core install --full
     - npm test
 ```
 
@@ -559,7 +559,7 @@ projectStatus:
 
 **Answer:**
 
-1. **Fork the repository:** https://github.com/Pedrovaleriolopez/aios-fullstack
+1. **Fork the repository:** https://github.com/SynkraAI/aios-core
 
 2. **Create a feature branch:**
 
@@ -595,8 +595,8 @@ projectStatus:
 | ------------------- | ---------------------------------------------------------- |
 | **Documentation**   | `docs/` in your project                                    |
 | **Troubleshooting** | [troubleshooting.md](./troubleshooting.md)                 |
-| **GitHub Issues**   | https://github.com/Pedrovaleriolopez/aios-fullstack/issues |
-| **Source Code**     | https://github.com/Pedrovaleriolopez/aios-fullstack        |
+| **GitHub Issues**   | https://github.com/SynkraAI/aios-core/issues |
+| **Source Code**     | https://github.com/SynkraAI/aios-core        |
 
 **Before asking for help:**
 

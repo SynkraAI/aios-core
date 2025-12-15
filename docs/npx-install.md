@@ -2,20 +2,20 @@
 
 ## Overview
 
-AIOS-FULLSTACK can be installed via NPX for quick setup without global installation. This guide covers proper usage and troubleshooting for NPX-based installations.
+Synkra AIOS can be installed via NPX for quick setup without global installation. This guide covers proper usage and troubleshooting for NPX-based installations.
 
 ## Quick Start
 
 ### Correct Usage
 
-Always run `npx aios-fullstack install` **from your project directory**:
+Always run `npx @synkra/aios-core install` **from your project directory**:
 
 ```bash
 # Navigate to your project first
 cd /path/to/your/project
 
 # Then run the installer
-npx aios-fullstack install
+npx @synkra/aios-core install
 ```
 
 ### ⚠️ Common Mistake
@@ -25,16 +25,16 @@ npx aios-fullstack install
 ```bash
 # ❌ INCORRECT - Will fail with NPX temporary directory error
 cd ~
-npx aios-fullstack install
+npx @synkra/aios-core install
 
 # ✅ CORRECT - Navigate to project first
 cd ~/my-project
-npx aios-fullstack install
+npx @synkra/aios-core install
 ```
 
 ## Why This Matters
 
-NPX executes packages in **temporary directories** (e.g., `/private/var/folders/.../npx-xxx/` on macOS). When AIOS-FULLSTACK runs from these temporary locations, it cannot:
+NPX executes packages in **temporary directories** (e.g., `/private/var/folders/.../npx-xxx/` on macOS). When Synkra AIOS runs from these temporary locations, it cannot:
 
 - Detect your IDE configuration correctly
 - Install files to the right project directory
@@ -42,7 +42,7 @@ NPX executes packages in **temporary directories** (e.g., `/private/var/folders/
 
 ## NPX Temporary Directory Detection
 
-As of version 4.31.1, AIOS-FULLSTACK automatically detects when it's running from an NPX temporary directory and displays a helpful error message:
+As of version 4.31.1, Synkra AIOS automatically detects when it's running from an NPX temporary directory and displays a helpful error message:
 
 ```
 ⚠️  NPX Temporary Directory Detected
@@ -52,9 +52,9 @@ AIOS from detecting your IDE correctly.
 
 Solution:
   cd /path/to/your/project
-  npx aios-fullstack install
+  npx @synkra/aios-core install
 
-See: https://aios-fullstack.dev/docs/npx-install
+See: https://@synkra/aios-core.dev/docs/npx-install
 ```
 
 ## Installation Steps
@@ -73,14 +73,14 @@ Your project directory should contain:
 ### Step 2: Run Installer
 
 ```bash
-npx aios-fullstack install
+npx @synkra/aios-core install
 ```
 
 ### Step 3: Follow Interactive Prompts
 
 The installer will ask you to:
 1. Confirm installation directory (should be current directory)
-2. Select components to install (Core + Expansion Packs)
+2. Select components to install (Core + Squads)
 3. Configure IDE integrations
 4. Set up documentation organization
 
@@ -92,7 +92,7 @@ NPX temporary directories typically appear at:
 - `/private/var/folders/[hash]/T/npx-[random]/`
 - `/Users/[user]/.npm/_npx/[hash]/`
 
-AIOS-FULLSTACK detects these patterns and prevents incorrect installation.
+Synkra AIOS detects these patterns and prevents incorrect installation.
 
 ### Linux
 
@@ -119,7 +119,7 @@ Windows users typically don't encounter this issue, but similar detection patter
    ```
 2. Re-run the installer:
    ```bash
-   npx aios-fullstack install
+   npx @synkra/aios-core install
    ```
 
 ### Wrong Installation Directory
@@ -141,16 +141,16 @@ If your IDE isn't detected after installation:
 If you prefer not to use NPX, you can install globally:
 
 ```bash
-npm install -g aios-fullstack
+npm install -g @synkra/aios-core
 cd /path/to/your/project
-aios-fullstack install
+@synkra/aios-core install
 ```
 
 ## Technical Details
 
 ### Defense in Depth Architecture
 
-AIOS-FULLSTACK v4.31.1+ implements two-layer detection:
+Synkra AIOS v4.31.1+ implements two-layer detection:
 
 1. **PRIMARY Layer** (`tools/aios-npx-wrapper.js`):
    - Checks `__dirname` (where NPX extracts the package)
@@ -174,8 +174,8 @@ const patterns = [
 ## Support
 
 For additional help:
-- GitHub Issues: https://github.com/allfluenceinc/aios-fullstack/issues
-- Documentation: https://aios-fullstack.dev/docs
+- GitHub Issues: https://github.com/SynkraAIinc/@synkra/aios-core/issues
+- Documentation: https://@synkra/aios-core.dev/docs
 - Story Reference: 2.3 - NPX Installation Context Detection
 
 ---

@@ -92,7 +92,7 @@ async function generateReport(validationResults) {
     lines.push(chalk.bold.red('❌ Next Steps:'));
     lines.push(chalk.red('  1. Review errors above'));
     lines.push(chalk.red('  2. Fix critical issues'));
-    lines.push(chalk.red('  3. Re-run installation: npx @allfluence/aios@latest init'));
+    lines.push(chalk.red('  3. Re-run installation: npx @SynkraAI/aios@latest init'));
   }
 
   lines.push('');

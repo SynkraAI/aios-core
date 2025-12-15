@@ -537,7 +537,7 @@ pkill -f "1mcp serve"
 
 ### Community Support
 
-- **GitHub Issues:** `aios-fullstack/issues`
+- **GitHub Issues:** `@synkra/aios-core/issues`
   - Tag: `mcp`, `1mcp`, `troubleshooting`
 
 - **Slack:** `#aios-support`

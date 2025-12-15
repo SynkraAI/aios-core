@@ -2,7 +2,7 @@
 
 ## Overview
 
-AIOS-FULLSTACK now automatically translates Portuguese documentation into English filenames when sharding documents. This ensures consistency across all projects and compatibility with hardcoded English filenames in configuration files.
+Synkra AIOS now automatically translates Portuguese documentation into English filenames when sharding documents. This ensures consistency across all projects and compatibility with hardcoded English filenames in configuration files.
 
 ## Problem Solved
 

@@ -3,7 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 
 /**
- * Dependency impact analyzer for AIOS-FULLSTACK framework
+ * Dependency impact analyzer for Synkra AIOS framework
  * Analyzes how component modifications affect dependent components
  */
 class DependencyImpactAnalyzer {

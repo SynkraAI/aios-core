@@ -6,7 +6,7 @@
 **Status:** Living Document
 **Última Atualização:** 2025-12-09
 **Mantido Por:** AIOS Framework Team + Community
-**Repositório Principal:** `allfluence/aios-core`
+**Repositório Principal:** `SynkraAI/aios-core`
 
 ---
 
@@ -58,7 +58,7 @@ Este documento é a **versão consolidada v2.1** que incorpora todas as mudança
 │   ═══════════════════════                                               │
 │                                                                         │
 │   ┌────────────────────────────────────────────────────────────────┐   │
-│   │  allfluence/aios-core (Commons Clause)                         │   │
+│   │  SynkraAI/aios-core (Commons Clause)                         │   │
 │   │  ─────────────────────────────────────                         │   │
 │   │  • Core Framework & Orchestration Engine                       │   │
 │   │  • 11 Base Agents (Dex, Luna, Aria, Quinn, etc.)              │   │
@@ -74,7 +74,7 @@ Este documento é a **versão consolidada v2.1** que incorpora todas as mudança
 │   │                          │                          │              │
 │   ▼                          │                          ▼              │
 │   ┌─────────────────────┐    │    ┌─────────────────────────────┐     │
-│   │ allfluence/         │    │    │ allfluence/mcp-ecosystem    │     │
+│   │ SynkraAI/         │    │    │ SynkraAI/mcp-ecosystem    │     │
 │   │ aios-squads (MIT)   │    │    │ (Apache 2.0)                │     │
 │   │ ─────────────────   │    │    │ ──────────────────────────  │     │
 │   │ • ETL Squad         │    │    │ • Docker MCP Toolkit        │     │
@@ -87,7 +87,7 @@ Este documento é a **versão consolidada v2.1** que incorpora todas as mudança
 │   ════════════════════════   │                                         │
 │                              │                                         │
 │   ┌─────────────────────┐    │    ┌─────────────────────────────┐     │
-│   │ allfluence/mmos     │    │    │ allfluence/certified-       │     │
+│   │ SynkraAI/mmos     │    │    │ SynkraAI/certified-       │     │
 │   │ (Proprietary + NDA) │    │    │ partners (Proprietary)      │     │
 │   │ ─────────────────   │    │    │ ──────────────────────────  │     │
 │   │ • MMOS Minds        │    │    │ • Premium Squads            │     │
@@ -342,7 +342,7 @@ Regras:
 | Termo Antigo | Termo Novo | Descrição |
 |--------------|------------|-----------|
 | Expansion Pack | **Squad** | Modular AI agent teams |
-| expansion-packs/ | **squads/** | Diretório de Squads |
+| Squads/ | **squads/** | Diretório de Squads |
 | pack.yaml | **squad.yaml** | Manifesto do Squad |
 | @expansion/* | **@aios/squad-*** | npm scope |
 
@@ -590,10 +590,10 @@ npm install @aios/mcp-presets
 
 ```bash
 # New project (Greenfield)
-$ npx @allfluence/aios@latest init
+$ npx @SynkraAI/aios@latest init
 
 # Existing project (Brownfield)
-$ npx @allfluence/aios migrate v2.0-to-v2.1
+$ npx @SynkraAI/aios migrate v2.0-to-v2.1
 ```
 
 ### First Steps
@@ -617,9 +617,9 @@ $ aios task develop-story --story=1.1
 ```bash
 # Clone all repos
 mkdir -p ~/Workspaces/AIOS && cd ~/Workspaces/AIOS
-gh repo clone allfluence/aios-core
-gh repo clone allfluence/aios-squads
-gh repo clone allfluence/mcp-ecosystem
+gh repo clone SynkraAI/aios-core
+gh repo clone SynkraAI/aios-squads
+gh repo clone SynkraAI/mcp-ecosystem
 
 # Link for local development
 cd aios-core && npm install && npm link
@@ -687,7 +687,7 @@ $ aios workflow brownfield-integration --target=./existing-project
 ## Source Tree v2.1 (Current)
 
 ```
-aios-fullstack/                        # Root project
+@synkra/aios-core/                        # Root project
 ├── .aios-core/                        # Framework layer
 │   ├── core/                          # Core module
 │   │   ├── config/                    # Configuration

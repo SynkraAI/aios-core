@@ -95,7 +95,7 @@ jobs:
       - name: Create distribution archive
         run: |
           mkdir -p dist
-          tar -czf dist/aios-fullstack-${{ steps.package-version.outputs.version }}.tar.gz \
+          tar -czf dist/@synkra/aios-core-${{ steps.package-version.outputs.version }}.tar.gz \
             --exclude=node_modules \
             --exclude=.git \
             --exclude=dist \

@@ -116,8 +116,8 @@ files:
   - tasks\db-dry-run.v1-backup.md
   - tasks\db-env-check.md
   - tasks\db-env-check.v1-backup.md
-  - tasks\db-expansion-pack-integration.md
-  - tasks\db-expansion-pack-integration.v1-backup.md
+  - tasks\db-Squad-integration.md
+  - tasks\db-Squad-integration.v1-backup.md
   - tasks\db-explain.md
   - tasks\db-explain.v1-backup.md
   - tasks\db-impersonate.md
@@ -194,8 +194,8 @@ files:
   - tasks\index-docs.v1-backup.md
   - tasks\init-project-status.md
   - tasks\init-project-status.v1-backup.md
-  - tasks\integrate-expansion-pack.md
-  - tasks\integrate-expansion-pack.v1-backup.md
+  - tasks\integrate-Squad.md
+  - tasks\integrate-Squad.v1-backup.md
   - tasks\kb-mode-interaction.md
   - tasks\kb-mode-interaction.v1-backup.md
   - tasks\learn-patterns.md

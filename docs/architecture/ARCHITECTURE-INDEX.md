@@ -25,8 +25,8 @@ docs/architecture/
 │   ├── mcp-solution-comparison-checklist.md
 │   ├── tools-system-analysis-log.md
 │   ├── tools-system-gap-analysis.md
-│   ├── expansion-packs-dependency-analysis.md
-│   ├── expansion-packs-structure-inventory.md
+│   ├── Squads-dependency-analysis.md
+│   ├── Squads-structure-inventory.md
 │   ├── scripts-consolidation-analysis.md
 │   ├── subdirectory-migration-impact-analysis.md
 │   └── repository-strategy-analysis.md
@@ -75,13 +75,13 @@ docs/architecture/
 | [Scripts Consolidation](./analysis/scripts-consolidation-analysis.md) | Scripts analysis | ✅ Current |
 | [Internal Tools Analysis](./internal-tools-analysis.md) | Tools analysis | ✅ Current |
 
-### Squad System (formerly Expansion Packs)
+### Squad System (formerly Squads)
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [Expansion Packs Structure](./analysis/expansion-packs-structure-inventory.md) | Structure inventory | ⚠️ Update terminology |
-| [Expansion Packs Dependencies](./analysis/expansion-packs-dependency-analysis.md) | Dependency analysis | ⚠️ Update terminology |
-| [Architect Validation](./architect-expansion-pack-rearchitecture.md) | Rearchitecture | ⚠️ Update terminology |
+| [Squads Structure](./analysis/Squads-structure-inventory.md) | Structure inventory | ⚠️ Update terminology |
+| [Squads Dependencies](./analysis/Squads-dependency-analysis.md) | Dependency analysis | ⚠️ Update terminology |
+| [Architect Validation](./architect-Squad-rearchitecture.md) | Rearchitecture | ⚠️ Update terminology |
 
 ### Migration & Strategy
 
@@ -141,7 +141,7 @@ docs/architecture/
 │   ┌─────────────────────────────────────────────────────────────────┐   │
 │   │                    MULTI-REPO STRUCTURE                          │   │
 │   │                                                                  │   │
-│   │   allfluence/aios-core ◄───── Central Hub                       │   │
+│   │   SynkraAI/aios-core ◄───── Central Hub                       │   │
 │   │          │                    - Framework core                   │   │
 │   │          │                    - 11 base agents                   │   │
 │   │          │                    - Discussions hub                  │   │

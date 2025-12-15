@@ -1,6 +1,6 @@
-# AIOS-FULLSTACK Troubleshooting Guide
+# Synkra AIOS Troubleshooting Guide
 
-This comprehensive guide helps you diagnose and resolve common issues with AIOS-FULLSTACK.
+This comprehensive guide helps you diagnose and resolve common issues with Synkra AIOS.
 
 ## Table of Contents
 
@@ -23,16 +23,16 @@ Always start with the built-in diagnostics:
 
 ```bash
 # Basic diagnostic
-npx aios-fullstack doctor
+npx @synkra/aios-core doctor
 
 # Auto-fix common issues
-npx aios-fullstack doctor --fix
+npx @synkra/aios-core doctor --fix
 
 # Verbose output
-npx aios-fullstack doctor --verbose
+npx @synkra/aios-core doctor --verbose
 
 # Check specific component
-npx aios-fullstack doctor --component memory-layer
+npx @synkra/aios-core doctor --component memory-layer
 ```
 
 ### Common Quick Fixes
@@ -48,7 +48,7 @@ npx aios-fullstack doctor --component memory-layer
 *config --reset
 
 # Update to latest version
-npx aios-fullstack update
+npx @synkra/aios-core update
 ```
 
 ## Installation Issues
@@ -69,7 +69,7 @@ npm --version
 npm install -g npx
 
 # Or use npm directly
-npm exec aios-fullstack init my-project
+npm exec @synkra/aios-core init my-project
 ```
 
 ### Issue: Installation fails with permission errors
@@ -100,7 +100,7 @@ source ~/.bashrc
 ```bash
 # Install in user directory
 cd ~
-npx aios-fullstack init my-project
+npx @synkra/aios-core init my-project
 ```
 
 ### Issue: Node.js version error
@@ -150,7 +150,7 @@ npm cache clean --force
 npm config set fetch-timeout 60000
 
 # Skip dependency installation
-npx aios-fullstack init my-project --skip-install
+npx @synkra/aios-core init my-project --skip-install
 
 # Then install manually
 cd my-project
@@ -200,11 +200,11 @@ Error: Failed to initialize meta-agent
 ls -la .aios/config.json
 
 # Validate configuration
-npx aios-fullstack doctor --component config
+npx @synkra/aios-core doctor --component config
 
 # Reset if corrupted
 rm .aios/config.json
-npx aios-fullstack doctor --fix
+npx @synkra/aios-core doctor --fix
 ```
 
 2. **Check dependencies:**
@@ -260,7 +260,7 @@ create-agent my-agent   # ✗ Wrong
 
 # Or restart meta-agent
 exit
-npx aios-fullstack
+npx @synkra/aios-core
 ```
 
 ### Issue: Agent creation fails
@@ -372,7 +372,7 @@ cat .aios/memory-config.json
 export NODE_OPTIONS="--max-old-space-size=1024"
 
 # Run with limited memory
-npx aios-fullstack
+npx @synkra/aios-core
 ```
 
 ### Issue: LlamaIndex errors
@@ -658,7 +658,7 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" `
 
 # Or use shorter paths
 cd C:\
-npx aios-fullstack init myapp
+npx @synkra/aios-core init myapp
 ```
 
 #### Issue: Scripts disabled
@@ -687,7 +687,7 @@ xcode-select --install
 
 #### Issue: Gatekeeper blocks execution
 ```
-Error: "aios-fullstack" cannot be opened
+Error: "@synkra/aios-core" cannot be opened
 ```
 
 **Solution:**
@@ -696,7 +696,7 @@ Error: "aios-fullstack" cannot be opened
 sudo spctl --master-disable
 
 # Or remove quarantine
-xattr -d com.apple.quarantine /usr/local/bin/aios-fullstack
+xattr -d com.apple.quarantine /usr/local/bin/@synkra/aios-core
 ```
 
 ### Linux Issues
@@ -726,7 +726,7 @@ sudo pacman -S openssl
 ```bash
 # Full debug output
 export DEBUG=aios:*
-npx aios-fullstack
+npx @synkra/aios-core
 
 # Specific components
 export DEBUG=aios:memory,aios:agent
@@ -749,10 +749,10 @@ grep -i error .aios/logs/*.log
 
 ```bash
 # Generate full diagnostic
-npx aios-fullstack doctor --report diagnostic.json
+npx @synkra/aios-core doctor --report diagnostic.json
 
 # Include system info
-npx aios-fullstack info --detailed >> diagnostic.json
+npx @synkra/aios-core info --detailed >> diagnostic.json
 
 # Create support bundle
 tar -czf aios-support.tar.gz .aios/logs diagnostic.json
@@ -794,18 +794,18 @@ tar -czf aios-support.tar.gz .aios/logs diagnostic.json
 
 1. **Run diagnostics:**
    ```bash
-   npx aios-fullstack doctor --verbose > diagnostic.log
+   npx @synkra/aios-core doctor --verbose > diagnostic.log
    ```
 
 2. **Collect information:**
    - Node.js version: `node --version`
    - NPM version: `npm --version`
    - OS and version: `uname -a` or `ver`
-   - AIOS version: `npx aios-fullstack version`
+   - AIOS version: `npx @synkra/aios-core version`
 
 3. **Check existing issues:**
-   - [GitHub Issues](https://github.com/aios-fullstack/aios-fullstack/issues)
-   - [Discussions](https://github.com/aios-fullstack/aios-fullstack/discussions)
+   - [GitHub Issues](https://github.com/@synkra/aios-core/@synkra/aios-core/issues)
+   - [Discussions](https://github.com/@synkra/aios-core/@synkra/aios-core/discussions)
 
 ### Community Support
 
@@ -816,7 +816,7 @@ tar -czf aios-support.tar.gz .aios/logs diagnostic.json
 
 - **GitHub Discussions**: Technical questions and feature requests
 
-- **Stack Overflow**: Tag questions with `aios-fullstack`
+- **Stack Overflow**: Tag questions with `@synkra/aios-core`
 
 ### Reporting Bugs
 
@@ -829,7 +829,7 @@ Create detailed bug reports:
 - AIOS: 1.0.0
 
 ## Steps to Reproduce
-1. Run `npx aios-fullstack init test`
+1. Run `npx @synkra/aios-core init test`
 2. Select "enterprise" template
 3. Error occurs during installation
 
@@ -860,7 +860,7 @@ npm cache clean --force
 
 # Fresh install
 npm install
-npx aios-fullstack doctor --fix
+npx @synkra/aios-core doctor --fix
 
 # Restore data if needed
 cp .aios.backup/memory.db .aios/
@@ -869,7 +869,7 @@ cp .aios.backup/memory.db .aios/
 ---
 
 **Remember**: Most issues can be resolved with:
-1. `npx aios-fullstack doctor --fix`
+1. `npx @synkra/aios-core doctor --fix`
 2. Clearing caches
 3. Updating to latest version
 4. Checking permissions

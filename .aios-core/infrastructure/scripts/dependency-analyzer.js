@@ -1,5 +1,5 @@
 /**
- * Dependency Analyzer for AIOS-FULLSTACK
+ * Dependency Analyzer for Synkra AIOS
  * Analyzes and resolves dependencies between components
  * @module dependency-analyzer
  */

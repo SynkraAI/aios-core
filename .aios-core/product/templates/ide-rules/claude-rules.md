@@ -1,10 +1,10 @@
-# AIOS-FULLSTACK Development Rules for Claude Code
+# Synkra AIOS Development Rules for Claude Code
 
-You are working with AIOS-FULLSTACK, an AI-Orchestrated System for Full Stack Development.
+You are working with Synkra AIOS, an AI-Orchestrated System for Full Stack Development.
 
 ## Core Framework Understanding
 
-AIOS-FULLSTACK is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
+Synkra AIOS is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
 
 ## Agent System
 
@@ -218,4 +218,4 @@ npm run trace -- workflow-name
 - Document breaking changes prominently
 
 ---
-*AIOS-FULLSTACK Claude Code Configuration v2.0* 
+*Synkra AIOS Claude Code Configuration v2.0* 

@@ -1,4 +1,4 @@
-# AIOS-FULLSTACK Installation Documentation
+# Synkra AIOS Installation Documentation
 
 **Version:** 2.1.0
 **Last Updated:** 2025-01-24
@@ -7,7 +7,7 @@
 
 ## Overview
 
-This directory contains comprehensive installation and setup documentation for AIOS-FULLSTACK.
+This directory contains comprehensive installation and setup documentation for Synkra AIOS.
 
 ---
 
@@ -27,7 +27,7 @@ This directory contains comprehensive installation and setup documentation for A
 ### New Installation
 
 ```bash
-npx aios-fullstack install
+npx @synkra/aios-core install
 ```
 
 See [Quick Start Guide](./v2.1-quick-start.md) for detailed instructions.
@@ -35,7 +35,7 @@ See [Quick Start Guide](./v2.1-quick-start.md) for detailed instructions.
 ### Upgrading
 
 ```bash
-npx aios-fullstack install --force-upgrade
+npx @synkra/aios-core install --force-upgrade
 ```
 
 See [Migration Guide](./migration-v2.0-to-v2.1.md) for breaking changes and upgrade procedure.
@@ -44,7 +44,7 @@ See [Migration Guide](./migration-v2.0-to-v2.1.md) for breaking changes and upgr
 
 1. Check [Troubleshooting Guide](./troubleshooting.md)
 2. Search [FAQ](./faq.md)
-3. Open a [GitHub Issue](https://github.com/Pedrovaleriolopez/aios-fullstack/issues)
+3. Open a [GitHub Issue](https://github.com/SynkraAI/aios-core/issues)
 
 ---
 
@@ -93,5 +93,5 @@ See [Migration Guide](./migration-v2.0-to-v2.1.md) for breaking changes and upgr
 
 ## Support
 
-- **GitHub Issues**: [aios-fullstack/issues](https://github.com/Pedrovaleriolopez/aios-fullstack/issues)
+- **GitHub Issues**: [@synkra/aios-core/issues](https://github.com/SynkraAI/aios-core/issues)
 - **Documentation**: [docs/](../)

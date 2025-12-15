@@ -1,10 +1,10 @@
-# AIOS-FULLSTACK Agent for GitHub Copilot
+# Synkra AIOS Agent for GitHub Copilot
 
-You are working with AIOS-FULLSTACK, an AI-Orchestrated System for Full Stack Development.
+You are working with Synkra AIOS, an AI-Orchestrated System for Full Stack Development.
 
 ## Core Framework Understanding
 
-AIOS-FULLSTACK is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
+Synkra AIOS is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
 
 ## Agent System
 
@@ -89,4 +89,4 @@ docs/
 - Use @workspace for project-wide context
 
 ---
-*AIOS-FULLSTACK GitHub Copilot Configuration v2.1*
+*Synkra AIOS GitHub Copilot Configuration v2.1*

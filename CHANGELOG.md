@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to AIOS-FULLSTACK will be documented in this file.
+All notable changes to Synkra AIOS will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -71,19 +71,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Removed `expansion-packs/mmos-mapper/`
   - Removed `expansion-packs/aios-infrastructure-devops/`
   - Removed `expansion-packs/meeting-notes/`
-  - Repository: https://github.com/Pedrovaleriolopez/aios-expansion-packs (PRIVATE)
+  - Repository: https://github.com/SynkraAI/aios-expansion-packs (PRIVATE)
 - **Internal development tools** - Moved to separate private repository (`aios-dev-tools`)
   - Removed analysis scripts: `analyze-batches.js`, `analyze-decision-patterns.js`, `analyze-epic3.js`, etc.
   - Removed consolidation scripts: `consolidate-entities.js`, `consolidate-results.js`, etc.
   - Removed extraction scripts: `extract-all-claude-backups.js`, `extract-claude-history.js`
   - Removed generation scripts: `generate-entity-summary.js`, `generate-entity-table.js`
-  - Repository: https://github.com/Pedrovaleriolopez/aios-dev-tools (PRIVATE)
+  - Repository: https://github.com/SynkraAI/aios-dev-tools (PRIVATE)
 - **hybrid-ops expansion pack** - Moved to separate repository for independent maintenance
   - Removed `expansion-packs/hybrid-ops/` directory
   - Removed `.hybrid-ops/` directory
   - Updated `core-config.yaml` to reference external repository
   - Updated `install-manifest.yaml` (removed 47 file entries)
-  - Repository: https://github.com/Pedrovaleriolopez/aios-hybrid-ops-pedro-valerio
+  - Repository: https://github.com/SynkraAI/aios-hybrid-ops-pedro-valerio
 
 ### Changed
 - README.md - hybrid-ops now listed under "Expansion Packs Externos"
@@ -100,7 +100,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Technical
 - Story: 4.6 - Move Hybrid-Ops to Separate Repository
-- Breaking Change: hybrid-ops no longer bundled with aios-fullstack
+- Breaking Change: hybrid-ops no longer bundled with @synkra/aios-core
 - Migration: Users can install from external repo to `expansion-packs/hybrid-ops/`
 - Story: 4.7 - Removed `expansion-packs/hybrid-ops.legacy/` directory (legacy backup no longer needed)
 - Story: 4.5.3 - Expansion-Packs Naming Convention Migration
@@ -122,11 +122,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - NPX installation from temporary directory no longer attempts IDE detection
 - Clear error message guides users to correct installation directory
-- Prevents confusion when running `npx aios-fullstack install` from home directory
+- Prevents confusion when running `npx @synkra/aios-core install` from home directory
 
 ### Changed
 - Early exit with `process.exit(1)` when NPX temporary context detected
-- Help message provides actionable solution: `cd /path/to/your/project && npx aios-fullstack install`
+- Help message provides actionable solution: `cd /path/to/your/project && npx @synkra/aios-core install`
 
 ### Technical
 - Story: 2.3 - NPX Installation Context Detection & Help Text (macOS)

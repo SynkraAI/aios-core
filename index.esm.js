@@ -1,9 +1,9 @@
-// AIOS-FullStack Workspace - ES Module Entry Point
-import * as core from '@aios-fullstack/core';
-import * as memory from '@aios-fullstack/memory';
-import * as security from '@aios-fullstack/security';
-import * as performance from '@aios-fullstack/performance';
-import * as telemetry from '@aios-fullstack/telemetry';
+// Synkra AIOS - ES Module Entry Point
+import * as core from '@synkra/aios-core/core';
+import * as memory from '@synkra/aios-core/memory';
+import * as security from '@synkra/aios-core/security';
+import * as performance from '@synkra/aios-core/performance';
+import * as telemetry from '@synkra/aios-core/telemetry';
 
 // Re-export the AIOS class from CommonJS version
 import workspace from './index.js';

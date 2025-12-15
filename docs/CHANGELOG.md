@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to AIOS-FULLSTACK will be documented in this file.
+All notable changes to Synkra AIOS will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Interactive Installation Wizard**: Step-by-step guided setup with component selection
 - **Multi-IDE Support**: Added support for 8 IDEs (Claude Code, Cursor, Windsurf, Trae, Roo Code, Cline, Gemini CLI, GitHub Copilot)
-- **Expansion Packs System**: Modular add-ons including HybridOps for ClickUp integration
+- **Squads System**: Modular add-ons including HybridOps for ClickUp integration
 - **Cross-Platform Testing**: Full test coverage for Windows, macOS, and Linux
 - **Error Handling & Rollback**: Automatic rollback on installation failure with recovery suggestions
 - **Agent Improvements**:
@@ -47,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
-- Manual installation process (use `npx aios-fullstack install` instead)
+- Manual installation process (use `npx @synkra/aios-core install` instead)
 - `.bmad-core/` directory name (automatically migrated)
 
 ### Security
@@ -61,7 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial public release of AIOS-FULLSTACK
+- Initial public release of Synkra AIOS
 - 11 specialized AI agents (dev, qa, architect, pm, po, sm, analyst, ux-expert, data-engineer, devops, db-sage)
 - Task workflow system with 60+ pre-built tasks
 - Template system with 20+ document templates
@@ -95,7 +95,7 @@ See [Migration Guide](./installation/migration-v2.0-to-v2.1.md) for detailed ins
 **Quick upgrade:**
 
 ```bash
-npx aios-fullstack install --force-upgrade
+npx @synkra/aios-core install --force-upgrade
 ```
 
 **Key changes:**
@@ -110,5 +110,5 @@ npx aios-fullstack install --force-upgrade
 - [Installation Guide](./installation/v2.1-quick-start.md)
 - [Troubleshooting](./installation/troubleshooting.md)
 - [FAQ](./installation/faq.md)
-- [GitHub Repository](https://github.com/Pedrovaleriolopez/aios-fullstack)
-- [Issue Tracker](https://github.com/Pedrovaleriolopez/aios-fullstack/issues)
+- [GitHub Repository](https://github.com/SynkraAI/aios-core)
+- [Issue Tracker](https://github.com/SynkraAI/aios-core/issues)

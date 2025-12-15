@@ -70,7 +70,7 @@ ls -la "$HOME/.aios.backup"*
 ### 2. Navigate to Test Directory
 
 ```bash
-cd path/to/aios-fullstack/tests/macos
+cd path/to/@synkra/aios-core/tests/macos
 chmod +x *.sh
 ```
 

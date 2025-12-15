@@ -48,6 +48,13 @@ nul                           # Windows temporary file
 # Secrets and credentials directories
 secrets/
 credentials/
+
+# Private local commands (not for repository)
+.claude/commands/mmosMapper/
+.claude/commands/hybridOps/
+
+# Private local expansion packs/squads (not for repository)
+expansion-packs/
 keys/
 *.secret
 *.credentials

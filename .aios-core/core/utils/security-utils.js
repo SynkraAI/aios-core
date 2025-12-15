@@ -1,5 +1,5 @@
 /**
- * Security Utilities for AIOS-FULLSTACK
+ * Security Utilities for Synkra AIOS
  * Provides centralized security functions for input validation and sanitization
  *
  * @module security-utils

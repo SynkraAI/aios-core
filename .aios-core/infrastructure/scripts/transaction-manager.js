@@ -1,5 +1,5 @@
 /**
- * Transaction Manager for AIOS-FULLSTACK
+ * Transaction Manager for Synkra AIOS
  * Manages component operations with rollback support
  * @module transaction-manager
  */

@@ -25,7 +25,7 @@ const path = require('path');
 /**
  * IDE Configuration Metadata
  *
- * AIOS-FULLSTACK v2.1 supports 9 IDEs:
+ * Synkra AIOS v2.1 supports 9 IDEs:
  * - Claude Code (Anthropic's official CLI)
  * - Cursor (AI-first code editor)
  * - Windsurf (AI-powered development)

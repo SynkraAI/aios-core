@@ -203,7 +203,7 @@ updated_at: 2025-11-17
 alyze Impact - AIOS Developer Task
 
 ## Purpose
-Analyze the potential impact of proposed component modifications on the broader AIOS-FULLSTACK framework.
+Analyze the potential impact of proposed component modifications on the broader Synkra AIOS framework.
 
 ## Command Pattern
 ```

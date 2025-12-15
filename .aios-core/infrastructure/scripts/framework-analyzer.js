@@ -4,7 +4,7 @@ const yaml = require('js-yaml');
 const chalk = require('chalk');
 
 /**
- * Framework structure analyzer for AIOS-FULLSTACK
+ * Framework structure analyzer for Synkra AIOS
  * Discovers and catalogs all framework components
  */
 class FrameworkAnalyzer {

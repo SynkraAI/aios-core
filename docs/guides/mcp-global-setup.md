@@ -1,6 +1,6 @@
 # AIOS MCP Global Setup Guide
 
-> Configure global MCP (Model Context Protocol) servers for AIOS-FULLSTACK.
+> Configure global MCP (Model Context Protocol) servers for Synkra AIOS.
 
 **Version:** 2.1.0
 **Last Updated:** 2025-12-01
@@ -610,4 +610,4 @@ Create `.mcp.json` in project root to override global settings:
 
 ---
 
-*AIOS-FULLSTACK v2.1 MCP Global Setup Guide*
+*Synkra AIOS v2.1 MCP Global Setup Guide*

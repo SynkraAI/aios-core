@@ -32,7 +32,7 @@ The AIOS Method is a natural language framework for AI-assisted software develop
 - Doesn't bloat dev agent contexts
 - Follows existing agent/task/template patterns
 
-### When to Create Expansion Packs
+### When to Create Squads
 
 - Domain-specific needs beyond software development
 - Non-technical domains (business, wellness, education, creative)
@@ -40,7 +40,7 @@ The AIOS Method is a natural language framework for AI-assisted software develop
 - Heavy documentation or knowledge bases
 - Anything that would bloat core agents
 
-See [Expansion Packs Guide](../docs/expansion-packs.md) for detailed examples and ideas.
+See [Squads Guide](../docs/Squads.md) for detailed examples and ideas.
 
 ### Agent Design Rules
 

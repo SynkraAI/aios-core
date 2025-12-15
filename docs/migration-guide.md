@@ -1,6 +1,6 @@
-# AIOS-FULLSTACK Upgrade Guide
+# Synkra AIOS Upgrade Guide
 
-This guide helps you upgrade between versions of AIOS-FULLSTACK.
+This guide helps you upgrade between versions of Synkra AIOS.
 
 ## Table of Contents
 
@@ -16,7 +16,7 @@ This guide helps you upgrade between versions of AIOS-FULLSTACK.
 
 ### Current Version
 
-**AIOS-FULLSTACK v4.4.0** (Current Stable Release)
+**Synkra AIOS v4.4.0** (Current Stable Release)
 
 ### Upgrade Paths
 
@@ -75,7 +75,7 @@ cp -r .aios-core/tasks/custom ../backups/custom-tasks/
 
 ```bash
 # Record current version
-npm list @aios-fullstack/core > ../backups/version-info.txt
+npm list @synkra/aios-core/core > ../backups/version-info.txt
 
 # List custom files
 find .aios-core -name "*.custom.*" -type f > ../backups/custom-files.txt
@@ -90,7 +90,7 @@ find .aios-core -name "*.custom.*" -type f > ../backups/custom-files.txt
 # Close all IDE integrations and active agents
 
 # 2. Update to latest version
-npm install -g aios-fullstack@latest
+npm install -g @synkra/aios-core@latest
 
 # 3. Run upgrade command
 aios upgrade
@@ -103,13 +103,13 @@ aios --version
 
 ```bash
 # 1. Remove old installation
-npm uninstall -g aios-fullstack
+npm uninstall -g @synkra/aios-core
 
 # 2. Clear cache
 npm cache clean --force
 
 # 3. Install latest version
-npm install -g aios-fullstack@latest
+npm install -g @synkra/aios-core@latest
 
 # 4. Reinitialize project
 cd your-project
@@ -121,13 +121,13 @@ aios init --upgrade
 ```bash
 # Update project dependencies
 cd your-project
-npm update @aios-fullstack/core
+npm update @synkra/aios-core/core
 
 # Reinstall dependencies
 npm install
 
 # Verify upgrade
-npm list @aios-fullstack/core
+npm list @synkra/aios-core/core
 ```
 
 ## Post-Upgrade Verification
@@ -191,7 +191,7 @@ rm -rf current-project
 tar -xzf backups/aios-backup-YYYYMMDD-HHMMSS.tar.gz
 
 # Reinstall previous version
-npm install -g aios-fullstack@<previous-version>
+npm install -g @synkra/aios-core@<previous-version>
 
 # Verify rollback
 aios --version
@@ -219,7 +219,7 @@ npm install
 npm cache clean --force
 
 # Try with verbose logging
-npm install -g aios-fullstack@latest --verbose
+npm install -g @synkra/aios-core@latest --verbose
 
 # Check npm permissions
 npm config get prefix
@@ -269,7 +269,7 @@ aios memory reset
 If you encounter issues not covered here:
 
 1. **Check Logs**: Review `.aios-core/logs/upgrade.log`
-2. **GitHub Issues**: [github.com/Pedrovaleriolopez/aios-fullstack/issues](https://github.com/Pedrovaleriolopez/aios-fullstack/issues)
+2. **GitHub Issues**: [github.com/SynkraAI/aios-core/issues](https://github.com/SynkraAI/aios-core/issues)
 3. **Discord Community**: [discord.gg/gk8jAdXWmj](https://discord.gg/gk8jAdXWmj)
 4. **Documentation**: [docs directory](./README.md)
 

@@ -16,9 +16,9 @@ checklists:
 
 ## Purpose
 
-To help users contribute to the AIOS open-source project (`aios-fullstack`) by automating the PR creation process, ensuring contributions follow project standards, pass quality checks, and have proper formatting before submission.
+To help users contribute to the AIOS open-source project (`@synkra/aios-core`) by automating the PR creation process, ensuring contributions follow project standards, pass quality checks, and have proper formatting before submission.
 
-**Target Repository**: `aios-fullstack` (open-source framework)
+**Target Repository**: `@synkra/aios-core` (open-source framework)
 
 **Contribution Types Supported**:
 - Expansion packs (new agents, tasks, workflows)
@@ -34,12 +34,12 @@ To help users contribute to the AIOS open-source project (`aios-fullstack`) by a
 
 - **contribution_type**: `string`
   - **Description**: Type of contribution
-  - **Options**: `"expansion-pack"`, `"agent"`, `"task"`, `"tool"`, `"bug-fix"`, `"documentation"`, `"improvement"`
+  - **Options**: `"Squad"`, `"agent"`, `"task"`, `"tool"`, `"bug-fix"`, `"documentation"`, `"improvement"`
   - **Required**: true
 
 - **contribution_path**: `string`
   - **Description**: Path to new/modified files
-  - **Example**: `"expansion-packs/my-new-pack/"` or `"aios-core/agents/improved-agent.md"`
+  - **Example**: `"Squads/my-new-pack/"` or `"aios-core/agents/improved-agent.md"`
   - **Validation**: Path must exist locally
 
 ### Optional Parameters
@@ -47,7 +47,7 @@ To help users contribute to the AIOS open-source project (`aios-fullstack`) by a
 - **title**: `string`
   - **Description**: PR title (auto-generated if not provided)
   - **Format**: `"{type}: {brief description}"`
-  - **Example**: `"feat(expansion-pack): Add content-creator pack with Instagram agent"`
+  - **Example**: `"feat(Squad): Add content-creator pack with Instagram agent"`
 
 - **description**: `string`
   - **Description**: PR description (auto-generated from template if not provided)
@@ -71,7 +71,7 @@ To help users contribute to the AIOS open-source project (`aios-fullstack`) by a
 
 - **pr_url**: `string`
   - **Description**: URL of created pull request
-  - **Example**: `"https://github.com/allfluence/aios-fullstack/pull/123"`
+  - **Example**: `"https://github.com/SynkraAI/aios-core/pull/123"`
 
 - **pr_number**: `number`
   - **Description**: PR number
@@ -79,7 +79,7 @@ To help users contribute to the AIOS open-source project (`aios-fullstack`) by a
 
 - **branch_name**: `string`
   - **Description**: Created feature branch
-  - **Example**: `"contrib/expansion-pack-content-creator"`
+  - **Example**: `"contrib/Squad-content-creator"`
 
 - **coderabbit_report**: `object` (if run_coderabbit=true)
   - **Structure**: `{ issues_found, security_warnings, suggestions, review_url }`
@@ -102,13 +102,13 @@ To help users contribute to the AIOS open-source project (`aios-fullstack`) by a
    - Ensure naming conventions followed
 
 2. **Validate Repository State**
-   - Check if `aios-fullstack` repository is set as upstream
+   - Check if `@synkra/aios-core` repository is set as upstream
    - Verify fork exists (or create one)
    - Ensure main branch is up-to-date
 
 3. **Detect Contribution Type** (if not provided)
    - Scan modified files:
-     - `expansion-packs/*` → "expansion-pack"
+     - `Squads/*` → "Squad"
      - `aios-core/agents/*` → "agent"
      - `aios-core/tasks/*` → "task"
      - `aios-core/tools/*` → "tool"
@@ -161,7 +161,7 @@ To help users contribute to the AIOS open-source project (`aios-fullstack`) by a
 
 10. **Create Feature Branch**
     - Branch name format: `contrib/{contribution_type}-{brief-name}`
-    - Example: `contrib/expansion-pack-content-creator`
+    - Example: `contrib/Squad-content-creator`
     - Ensure branch doesn't already exist
 
 11. **Stage Changes**
@@ -178,10 +178,10 @@ To help users contribute to the AIOS open-source project (`aios-fullstack`) by a
       {footer}
       ```
     - **type**: `feat` (new feature), `fix` (bug fix), `docs` (documentation), `refactor`, etc.
-    - **scope**: `expansion-pack`, `agent`, `task`, `tool`, etc.
+    - **scope**: `Squad`, `agent`, `task`, `tool`, etc.
     - **Example**:
       ```
-      feat(expansion-pack): add content-creator pack with Instagram agent
+      feat(Squad): add content-creator pack with Instagram agent
       
       Implements a complete content creation expansion pack with:
       - Instagram content specialist agent
@@ -253,7 +253,7 @@ To help users contribute to the AIOS open-source project (`aios-fullstack`) by a
     - Use GitHub CLI:
       ```bash
       gh pr create \
-        --repo allfluence/aios-fullstack \
+        --repo SynkraAI/aios-core \
         --title "{title}" \
         --body "{description}" \
         --base main \
@@ -303,8 +303,8 @@ To help users contribute to the AIOS open-source project (`aios-fullstack`) by a
   - **Validation**: Files at `contribution_path` exist
   - **Error**: "Files not found at {contribution_path}"
 
-- [ ] Fork of aios-fullstack exists
-  - **Validation**: `gh repo view {user}/aios-fullstack` succeeds
+- [ ] Fork of @synkra/aios-core exists
+  - **Validation**: `gh repo view {user}/@synkra/aios-core` succeeds
   - **Action**: If not found, create fork automatically
 
 - [ ] Main branch is up-to-date
@@ -637,8 +637,8 @@ updated_at: 2025-11-17
 ```bash
 aios activate Otto  # github-devops agent
 aios pr create \
-  --type="expansion-pack" \
-  --path="expansion-packs/content-creator/" \
+  --type="Squad" \
+  --path="Squads/content-creator/" \
   --issue=42
 ```
 

@@ -1,16 +1,16 @@
 # Environment Variables
 
-This document lists all environment variables used by AIOS-FULLSTACK and its components.
+This document lists all environment variables used by Synkra AIOS and its components.
 
 ## Overview
 
-AIOS-FULLSTACK uses environment variables for configuration, API keys, and sensitive information. **Never commit environment variables to the repository.**
+Synkra AIOS uses environment variables for configuration, API keys, and sensitive information. **Never commit environment variables to the repository.**
 
 ## Required Environment Variables
 
 ### Core Framework
 
-Currently, AIOS-FULLSTACK does not require any mandatory environment variables for basic operation. All configuration is done through `core-config.yaml` and expansion pack configuration files.
+Currently, Synkra AIOS does not require any mandatory environment variables for basic operation. All configuration is done through `core-config.yaml` and Squad configuration files.
 
 ## Optional Environment Variables
 
@@ -24,11 +24,11 @@ GITHUB_TOKEN=your_github_token_here
 
 **Note:** GitHub CLI (`gh`) handles authentication automatically. This variable is only needed if you're using GitHub API directly.
 
-### Expansion Packs
+### Squads
 
-Some expansion packs may require environment variables. Check each pack's README for specific requirements.
+Some Squads may require environment variables. Check each pack's README for specific requirements.
 
-#### ETL Expansion Pack
+#### ETL Squad
 
 ```bash
 # Optional: API keys for data sources
@@ -37,9 +37,9 @@ TWITTER_API_KEY=your_twitter_api_key
 # ... other service API keys
 ```
 
-#### Private Expansion Packs
+#### Private Squads
 
-Private expansion packs (in `aios-expansion-packs` repository) may require additional environment variables. Refer to each pack's documentation.
+Private Squads (in `aios-Squads` repository) may require additional environment variables. Refer to each pack's documentation.
 
 ## Environment File Setup
 
@@ -64,7 +64,7 @@ Private expansion packs (in `aios-expansion-packs` repository) may require addit
 
 ### Loading Environment Variables
 
-AIOS-FULLSTACK uses `dotenv` (if installed) or Node.js built-in environment variable support. Environment variables are automatically loaded from `.env` files in the project root.
+Synkra AIOS uses `dotenv` (if installed) or Node.js built-in environment variable support. Environment variables are automatically loaded from `.env` files in the project root.
 
 **Important:** The `.env` file is gitignored and will never be committed to the repository.
 
@@ -112,7 +112,7 @@ Refer to your platform's documentation for secret management:
 
 If you see errors about missing environment variables:
 1. Check this document for required variables
-2. Check expansion pack documentation
+2. Check Squad documentation
 3. Verify `.env` file contains all necessary variables
 4. Ensure `.env` file is in the correct location (project root)
 

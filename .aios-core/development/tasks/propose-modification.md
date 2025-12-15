@@ -208,7 +208,7 @@ checklists:
 # Propose Modification - AIOS Developer Task
 
 ## Purpose
-Create and submit modification proposals for collaborative review and approval within the AIOS-FULLSTACK framework.
+Create and submit modification proposals for collaborative review and approval within the Synkra AIOS framework.
 
 ## Command Pattern
 ```

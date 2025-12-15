@@ -1,6 +1,6 @@
 # README Community Section - aios-squads
 
-> **Purpose:** Copy this snippet into the README.md of `allfluence/aios-squads` repository.
+> **Purpose:** Copy this snippet into the README.md of `SynkraAI/aios-squads` repository.
 
 ---
 
@@ -8,15 +8,15 @@
 
 For discussions, questions, and community interaction, visit our central hub:
 
-👉 **[AIOS Community Discussions](https://github.com/allfluence/aios-core/discussions)**
+👉 **[AIOS Community Discussions](https://github.com/SynkraAI/aios-core/discussions)**
 
 | Need | Where to Go |
 |------|-------------|
-| 📦 **Squad questions?** | Use the ["Squads" category](https://github.com/allfluence/aios-core/discussions/categories/squads) |
-| 💡 **Feature ideas?** | Start a [Discussion in "Ideas"](https://github.com/allfluence/aios-core/discussions/categories/ideas) |
-| 🐛 **Found a bug?** | [Open an issue](https://github.com/allfluence/aios-squads/issues/new/choose) in **this repository** |
-| 🙏 **Need help?** | Ask in ["Q&A"](https://github.com/allfluence/aios-core/discussions/categories/q-a) |
-| 🙌 **Built something cool?** | Share in ["Show and Tell"](https://github.com/allfluence/aios-core/discussions/categories/show-and-tell) |
+| 📦 **Squad questions?** | Use the ["Squads" category](https://github.com/SynkraAI/aios-core/discussions/categories/squads) |
+| 💡 **Feature ideas?** | Start a [Discussion in "Ideas"](https://github.com/SynkraAI/aios-core/discussions/categories/ideas) |
+| 🐛 **Found a bug?** | [Open an issue](https://github.com/SynkraAI/aios-squads/issues/new/choose) in **this repository** |
+| 🙏 **Need help?** | Ask in ["Q&A"](https://github.com/SynkraAI/aios-core/discussions/categories/q-a) |
+| 🙌 **Built something cool?** | Share in ["Show and Tell"](https://github.com/SynkraAI/aios-core/discussions/categories/show-and-tell) |
 
 ### Available Squads
 
@@ -29,8 +29,8 @@ For discussions, questions, and community interaction, visit our central hub:
 
 Have an idea for a new AIOS Squad? We'd love to hear it!
 
-1. Check existing [Squad proposals](https://github.com/allfluence/aios-squads/labels/new-squad)
-2. Open a [Squad Proposal issue](https://github.com/allfluence/aios-squads/issues/new?template=squad-proposal.md)
+1. Check existing [Squad proposals](https://github.com/SynkraAI/aios-squads/labels/new-squad)
+2. Open a [Squad Proposal issue](https://github.com/SynkraAI/aios-squads/issues/new?template=squad-proposal.md)
 3. Discuss in the community
 
 ---

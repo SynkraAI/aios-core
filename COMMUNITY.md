@@ -1,6 +1,8 @@
-# AIOS Community
+# Synkra AIOS Community
 
-Welcome to the AIOS community!
+> 🇧🇷 [Versão em Português](COMMUNITY-PT.md)
+
+Welcome to the Synkra AIOS community!
 
 We're building the future of AI-orchestrated development together.
 
@@ -18,13 +20,13 @@ We're building the future of AI-orchestrated development together.
 1. Star the repository
 2. Read the [README](README.md)
 3. Set up your [development environment](CONTRIBUTING.md#getting-started)
-4. Introduce yourself in [Discussions](https://github.com/allfluence/aios-core/discussions)
+4. Introduce yourself in [Discussions](https://github.com/SynkraAI/aios-core/discussions)
 
 ### Find Your First Contribution
 
-- Look for issues labeled [`good-first-issue`](https://github.com/allfluence/aios-core/labels/good-first-issue)
-- Check [`help-wanted`](https://github.com/allfluence/aios-core/labels/help-wanted) for more complex tasks
-- Browse [open Discussions](https://github.com/allfluence/aios-core/discussions) to help others
+- Look for issues labeled [`good-first-issue`](https://github.com/SynkraAI/aios-core/labels/good-first-issue)
+- Check [`help-wanted`](https://github.com/SynkraAI/aios-core/labels/help-wanted) for more complex tasks
+- Browse [open Discussions](https://github.com/SynkraAI/aios-core/discussions) to help others
 
 ## Communication Channels
 
@@ -41,15 +43,15 @@ Our main communication hub for all AIOS repositories:
 - **Squads** - Discussions about AIOS Squads (modular agent teams)
 - **MCP Ecosystem** - Discussions about MCP tools and integrations
 
-[Join the Discussion](https://github.com/allfluence/aios-core/discussions)
+[Join the Discussion](https://github.com/SynkraAI/aios-core/discussions)
 
 ### Issue Tracker
 
 For bug reports and feature requests:
 
-- [aios-core Issues](https://github.com/allfluence/aios-core/issues) - Core framework
-- [aios-squads Issues](https://github.com/allfluence/aios-squads/issues) - AIOS Squads
-- [mcp-ecosystem Issues](https://github.com/allfluence/mcp-ecosystem/issues) - MCP tools
+- [aios-core Issues](https://github.com/SynkraAI/aios-core/issues) - Core framework
+- [aios-squads Issues](https://github.com/SynkraAI/aios-squads/issues) - AIOS Squads
+- [mcp-ecosystem Issues](https://github.com/SynkraAI/mcp-ecosystem/issues) - MCP tools
 
 ## How to Contribute
 
@@ -82,21 +84,21 @@ Squads are specialized teams of AI agents that work together on specific domains
 - **ETL Squad** - Data collection and transformation
 - **Creator Squad** - Content generation
 
-See [docs/expansion-packs.md](docs/expansion-packs.md) for details on creating your own Squad.
+See [docs/Squads.md](docs/Squads.md) for details on creating your own Squad.
 
 ## Community Roles
 
 ### Contributors
 
 Anyone who has contributed to AIOS in any way.
-- Listed in our [Contributors page](https://github.com/allfluence/aios-core/graphs/contributors)
+- Listed in our [Contributors page](https://github.com/SynkraAI/aios-core/graphs/contributors)
 - Mentioned in release notes for significant contributions
 
 ### Maintainers
 
 Core team members who review PRs and guide the project:
 
-- [@Pedrovaleriolopez](https://github.com/Pedrovaleriolopez) - Project Lead
+- [@SynkraAI](https://github.com/SynkraAI) - Project Lead
 
 ### Becoming a Maintainer
 
@@ -109,7 +111,7 @@ Active contributors may be invited to become maintainers. We look for:
 
 ### Contributors Wall
 
-All contributors are recognized in our [Contributors page](https://github.com/allfluence/aios-core/graphs/contributors).
+All contributors are recognized in our [Contributors page](https://github.com/SynkraAI/aios-core/graphs/contributors).
 
 ### Release Credits
 
@@ -136,26 +138,26 @@ For significant changes:
 
 We follow the [Contributor Covenant](CODE_OF_CONDUCT.md). Please read and respect it.
 
-Report violations to: conduct@allfluence.com
+Report violations to: conduct@SynkraAI.com
 
 ## Getting Help
 
 ### Stuck on something?
 
 1. Check the [Documentation](docs/)
-2. Search [existing Discussions](https://github.com/allfluence/aios-core/discussions)
+2. Search [existing Discussions](https://github.com/SynkraAI/aios-core/discussions)
 3. Ask in Q&A Discussions
 4. Open a Troubleshooting discussion
 
 ### Found a bug?
 
-1. Search [existing issues](https://github.com/allfluence/aios-core/issues)
-2. If new, [open a bug report](https://github.com/allfluence/aios-core/issues/new?template=bug_report.md)
+1. Search [existing issues](https://github.com/SynkraAI/aios-core/issues)
+2. If new, [open a bug report](https://github.com/SynkraAI/aios-core/issues/new?template=bug_report.md)
 
 ### Have an idea?
 
-1. Check if it exists in [Ideas](https://github.com/allfluence/aios-core/discussions/categories/ideas)
-2. If new, [share your idea](https://github.com/allfluence/aios-core/discussions/new?category=ideas)
+1. Check if it exists in [Ideas](https://github.com/SynkraAI/aios-core/discussions/categories/ideas)
+2. If new, [share your idea](https://github.com/SynkraAI/aios-core/discussions/new?category=ideas)
 3. Read our [Feature Request Process](docs/FEATURE_PROCESS.md) for detailed guidelines
 
 ## Project Roadmap
@@ -194,7 +196,7 @@ See [Feature Request Process](docs/FEATURE_PROCESS.md) for complete details.
 
 ### External Resources
 
-- [AIOS GitHub Organization](https://github.com/allfluence)
+- [AIOS GitHub Organization](https://github.com/SynkraAI)
 - [Changelog](CHANGELOG.md)
 
 ## Internationalization
@@ -207,7 +209,7 @@ We welcome contributions in all languages!
 
 ## Project Status
 
-- Current Version: See [releases](https://github.com/allfluence/aios-core/releases)
+- Current Version: See [releases](https://github.com/SynkraAI/aios-core/releases)
 - Changelog: [CHANGELOG.md](CHANGELOG.md)
 
 ---

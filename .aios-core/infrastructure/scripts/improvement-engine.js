@@ -3,7 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 
 /**
- * Framework improvement suggestion engine for AIOS-FULLSTACK
+ * Framework improvement suggestion engine for Synkra AIOS
  * Generates actionable improvement recommendations based on analysis results
  */
 class ImprovementEngine {

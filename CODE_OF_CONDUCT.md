@@ -1,5 +1,7 @@
 # Contributor Covenant Code of Conduct
 
+> 🇧🇷 [Versão em Português](CODE_OF_CONDUCT-PT.md)
+
 ## Our Pledge
 
 We as members, contributors, and leaders pledge to make participation in our
@@ -58,7 +60,7 @@ representative at an online or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at
-conduct@allfluence.com. All complaints will be reviewed and investigated promptly
+conduct@SynkraAI.com. All complaints will be reviewed and investigated promptly
 and fairly.
 
 All community leaders are obligated to respect the privacy and security of the

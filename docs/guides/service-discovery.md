@@ -510,4 +510,4 @@ await registry.load(true);
 
 ---
 
-*AIOS-FULLSTACK v2.1 Service Discovery Guide*
+*Synkra AIOS v2.1 Service Discovery Guide*

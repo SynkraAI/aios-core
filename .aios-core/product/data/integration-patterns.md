@@ -149,7 +149,7 @@ const minimalTokens = {
 ### Step 1: Define Pack-Specific Tokens
 
 ```yaml
-# expansion-packs/mmos/.design-system/tokens/
+# Squads/mmos/.design-system/tokens/
 formal-personality.yaml
 casual-personality.yaml
 technical-personality.yaml

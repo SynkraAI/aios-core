@@ -66,18 +66,18 @@ jobs:
           echo "" >> CHANGELOG.md
           echo "| Package | Description | Installation |" >> CHANGELOG.md
           echo "|---------|-------------|--------------|" >> CHANGELOG.md
-          echo "| [@aios-fullstack/workspace](https://www.npmjs.com/package/@aios-fullstack/workspace) | Complete workspace with all components | \`npm install @aios-fullstack/workspace\` |" >> CHANGELOG.md
-          echo "| [@aios-fullstack/core](https://www.npmjs.com/package/@aios-fullstack/core) | Meta-agent orchestration and task management | \`npm install @aios-fullstack/core\` |" >> CHANGELOG.md
-          echo "| [@aios-fullstack/memory](https://www.npmjs.com/package/@aios-fullstack/memory) | Vector storage and semantic search | \`npm install @aios-fullstack/memory\` |" >> CHANGELOG.md
-          echo "| [@aios-fullstack/security](https://www.npmjs.com/package/@aios-fullstack/security) | Input sanitization and vulnerability scanning | \`npm install @aios-fullstack/security\` |" >> CHANGELOG.md
-          echo "| [@aios-fullstack/performance](https://www.npmjs.com/package/@aios-fullstack/performance) | Monitoring, profiling, and optimization | \`npm install @aios-fullstack/performance\` |" >> CHANGELOG.md
-          echo "| [@aios-fullstack/telemetry](https://www.npmjs.com/package/@aios-fullstack/telemetry) | Analytics, error reporting, and metrics | \`npm install @aios-fullstack/telemetry\` |" >> CHANGELOG.md
+          echo "| [@synkra/aios-core/workspace](https://www.npmjs.com/package/@synkra/aios-core/workspace) | Complete workspace with all components | \`npm install @synkra/aios-core/workspace\` |" >> CHANGELOG.md
+          echo "| [@synkra/aios-core/core](https://www.npmjs.com/package/@synkra/aios-core/core) | Meta-agent orchestration and task management | \`npm install @synkra/aios-core/core\` |" >> CHANGELOG.md
+          echo "| [@synkra/aios-core/memory](https://www.npmjs.com/package/@synkra/aios-core/memory) | Vector storage and semantic search | \`npm install @synkra/aios-core/memory\` |" >> CHANGELOG.md
+          echo "| [@synkra/aios-core/security](https://www.npmjs.com/package/@synkra/aios-core/security) | Input sanitization and vulnerability scanning | \`npm install @synkra/aios-core/security\` |" >> CHANGELOG.md
+          echo "| [@synkra/aios-core/performance](https://www.npmjs.com/package/@synkra/aios-core/performance) | Monitoring, profiling, and optimization | \`npm install @synkra/aios-core/performance\` |" >> CHANGELOG.md
+          echo "| [@synkra/aios-core/telemetry](https://www.npmjs.com/package/@synkra/aios-core/telemetry) | Analytics, error reporting, and metrics | \`npm install @synkra/aios-core/telemetry\` |" >> CHANGELOG.md
           
           echo "" >> CHANGELOG.md
           echo "## 🚀 Quick Start" >> CHANGELOG.md
           echo "" >> CHANGELOG.md
           echo "\`\`\`javascript" >> CHANGELOG.md
-          echo "const { AIOS } = require('@aios-fullstack/workspace');" >> CHANGELOG.md
+          echo "const { AIOS } = require('@synkra/aios-core/workspace');" >> CHANGELOG.md
           echo "" >> CHANGELOG.md
           echo "const aios = new AIOS({" >> CHANGELOG.md
           echo "  // Optional configuration" >> CHANGELOG.md
@@ -136,7 +136,7 @@ jobs:
           VERSION=$(echo "${{ github.ref_name }}" | sed 's/^v//')
 
           # Use tar with || true to ignore "file changed" warnings
-          tar -czf aios-fullstack-${VERSION}.tar.gz \
+          tar -czf @synkra/aios-core-${VERSION}.tar.gz \
             --exclude=node_modules \
             --exclude=.git \
             --exclude=tests \
@@ -147,13 +147,13 @@ jobs:
             . || true
 
           # Verify tar was created
-          if [ ! -f "aios-fullstack-${VERSION}.tar.gz" ]; then
+          if [ ! -f "@synkra/aios-core-${VERSION}.tar.gz" ]; then
             echo "❌ Failed to create tar archive"
             exit 1
           fi
 
           # Create source code zip
-          zip -r aios-fullstack-${VERSION}-source.zip . \
+          zip -r @synkra/aios-core-${VERSION}-source.zip . \
             -x "node_modules/*" ".git/*" "tests/*" "*.log" ".github/*" "*.tar.gz" "*.zip"
 
       - name: Upload Release Assets
@@ -164,12 +164,12 @@ jobs:
           
           # Upload tar.gz file
           gh release upload "${{ github.ref_name }}" \
-            "aios-fullstack-${VERSION}.tar.gz" \
+            "@synkra/aios-core-${VERSION}.tar.gz" \
             --clobber
           
           # Upload source zip file
           gh release upload "${{ github.ref_name }}" \
-            "aios-fullstack-${VERSION}-source.zip" \
+            "@synkra/aios-core-${VERSION}-source.zip" \
             --clobber
 
   trigger-npm-publish:

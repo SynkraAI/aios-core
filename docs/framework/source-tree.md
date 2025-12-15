@@ -70,7 +70,7 @@ aios-core/                             # Root (brownfield project)
 │   └── squad/                         # Squad template for extensions (see docs/guides/squads-guide.md)
 │
 ├── bin/                               # CLI executables
-│   ├── aios-fullstack.js              # Main CLI entry point
+│   ├── @synkra/aios-core.js              # Main CLI entry point
 │   └── aios-minimal.js                # Minimal CLI
 │
 ├── tools/                             # Build and utility tools
@@ -343,11 +343,11 @@ docs/
 
 ## Squads System
 
-> **Note:** Squads replaced the legacy "expansion-packs" system in OSR-8. See [Squads Guide](../guides/squads-guide.md) for complete documentation.
+> **Note:** Squads replaced the legacy "Squads" system in OSR-8. See [Squads Guide](../guides/squads-guide.md) for complete documentation.
 
 ### Overview
 
-Squads are modular extensions that add specialized capabilities to AIOS. Unlike the deprecated expansion-packs, Squads follow a standardized template structure.
+Squads are modular extensions that add specialized capabilities to AIOS. Unlike the deprecated Squads, Squads follow a standardized template structure.
 
 ### Squad Template Location
 
@@ -407,11 +407,11 @@ dependencies:
   aios-core: ">=2.1.0"
 ```
 
-### Migration from Expansion Packs
+### Migration from Squads
 
 | Legacy (Deprecated) | Current (Squads) |
 |---------------------|------------------|
-| `expansion-packs/` directory | `templates/squad/` template |
+| `Squads/` directory | `templates/squad/` template |
 | `expansionPacksLocation` config | `squadsTemplateLocation` config |
 | `pack.yaml` manifest | `squad.yaml` manifest |
 | Direct loading | Template-based creation |
@@ -505,7 +505,7 @@ mcp-ecosystem/
 
 ```
 certified-partners/
-├── premium-packs/                     # Premium expansion packs
+├── premium-packs/                     # Premium Squads
 │   ├── enterprise-deployment/
 │   └── advanced-devops/
 │
@@ -544,7 +544,7 @@ mmos/
 ```yaml
 Directories: kebab-case (lowercase, hyphen-separated)
   ✅ .aios-core/
-  ✅ expansion-packs/
+  ✅ Squads/
   ❌ .AIOS-Core/
   ❌ expansionPacks/
 
@@ -689,7 +689,7 @@ outputs/                               # Runtime outputs (gitignored)
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
 | 1.0 | 2025-01-15 | Initial source tree documentation | Aria (architect) |
-| 1.1 | 2025-12-14 | Updated org to SynkraAI, replaced expansion-packs with Squads system [Story 6.10] | Dex (dev) |
+| 1.1 | 2025-12-14 | Updated org to SynkraAI, replaced Squads with Squads system [Story 6.10] | Dex (dev) |
 
 ---
 

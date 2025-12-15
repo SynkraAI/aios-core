@@ -1,6 +1,6 @@
-# AIOS-FULLSTACK Development Rules for Cursor
+# Synkra AIOS Development Rules for Cursor
 
-You are working with AIOS-FULLSTACK, an AI-Orchestrated System for Full Stack Development.
+You are working with Synkra AIOS, an AI-Orchestrated System for Full Stack Development.
 
 ## Core Development Rules
 
@@ -112,4 +112,4 @@ async function operation() {
 ```
 
 ---
-*AIOS-FULLSTACK Cursor Configuration v1.0* 
+*Synkra AIOS Cursor Configuration v1.0* 

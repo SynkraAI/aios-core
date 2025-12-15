@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide walks you through creating components in AIOS-FULLSTACK using the meta-agent's enhanced template system and interactive workflows.
+This guide walks you through creating components in Synkra AIOS using the meta-agent's enhanced template system and interactive workflows.
 
 ## Table of Contents
 

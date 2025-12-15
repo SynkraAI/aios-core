@@ -490,7 +490,7 @@ Execute **AFTER** all tasks are complete but **BEFORE** running the DOD checklis
 │  WHILE iteration < max_iterations:                           │
 │    ┌────────────────────────────────────────────────────┐   │
 │    │ 1. Run CodeRabbit CLI                              │   │
-│    │    wsl bash -c 'cd /mnt/c/.../aios-fullstack &&    │   │
+│    │    wsl bash -c 'cd /mnt/c/.../@synkra/aios-core &&    │   │
 │    │    ~/.local/bin/coderabbit --prompt-only           │   │
 │    │    -t uncommitted'                                  │   │
 │    │                                                     │   │

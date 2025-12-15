@@ -117,10 +117,10 @@ console.log('\n\n👥 TEST 4: Agent Load Test (4 agents)\n');
 console.log('-'.repeat(60));
 
 const agents = [
-  { name: 'qa', path: 'aios-fullstack/aios-core/agents/qa.md' },
-  { name: 'po', path: 'aios-fullstack/aios-core/agents/po.md' },
+  { name: 'qa', path: '@synkra/aios-core/aios-core/agents/qa.md' },
+  { name: 'po', path: '@synkra/aios-core/aios-core/agents/po.md' },
   { name: 'github-devops', path: '.aios-core/agents/github-devops.md' },
-  { name: 'dev', path: 'aios-fullstack/aios-core/agents/dev.md' },
+  { name: 'dev', path: '@synkra/aios-core/aios-core/agents/dev.md' },
 ];
 
 let agentCheckCount = 0;

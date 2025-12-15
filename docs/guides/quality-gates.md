@@ -1,6 +1,6 @@
 # AIOS Quality Gate System Guide
 
-> Comprehensive guide to the 3-layer quality gate system for AIOS-FULLSTACK.
+> Comprehensive guide to the 3-layer quality gate system for Synkra AIOS.
 
 **Version:** 2.1.0
 **Last Updated:** 2025-12-01
@@ -595,4 +595,4 @@ verbose:
 
 ---
 
-*AIOS-FULLSTACK v2.1 Quality Gate System Guide*
+*Synkra AIOS v2.1 Quality Gate System Guide*

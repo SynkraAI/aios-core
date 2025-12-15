@@ -144,7 +144,7 @@
 │   ═══════════════════                                                   │
 │                                                                         │
 │   ┌────────────────────┐     ┌────────────────────┐                    │
-│   │  allfluence/       │     │  allfluence/       │                    │
+│   │  SynkraAI/       │     │  SynkraAI/       │                    │
 │   │  aios-core         │     │  aios-squads       │                    │
 │   │  (Commons Clause)  │◄────│  (MIT)             │                    │
 │   │                    │     │                    │                    │
@@ -157,7 +157,7 @@
 │            │ optional dependency                                        │
 │            ▼                                                            │
 │   ┌────────────────────┐                                               │
-│   │  allfluence/       │                                               │
+│   │  SynkraAI/       │                                               │
 │   │  mcp-ecosystem     │                                               │
 │   │  (Apache 2.0)      │                                               │
 │   │                    │                                               │
@@ -170,7 +170,7 @@
 │   ════════════════════                                                  │
 │                                                                         │
 │   ┌────────────────────┐     ┌────────────────────┐                    │
-│   │  allfluence/mmos   │     │  allfluence/       │                    │
+│   │  SynkraAI/mmos   │     │  SynkraAI/       │                    │
 │   │  (Proprietary+NDA) │     │  certified-partners│                    │
 │   │                    │     │  (Proprietary)     │                    │
 │   │  • MMOS Minds      │     │  • Premium Squads  │                    │
@@ -211,7 +211,7 @@
 ### Current Structure (v2.1)
 
 ```
-aios-fullstack/
+@synkra/aios-core/
 ├── .aios-core/                    # Framework layer
 │   ├── core/                      # Core module (foundation)
 │   │   ├── config/                # Configuration management

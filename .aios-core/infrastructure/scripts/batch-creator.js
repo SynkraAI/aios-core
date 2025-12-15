@@ -1,5 +1,5 @@
 /**
- * Batch Component Creator for AIOS-FULLSTACK
+ * Batch Component Creator for Synkra AIOS
  * Creates multiple related components in a single operation
  * @module batch-creator
  */

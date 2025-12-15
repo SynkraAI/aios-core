@@ -1,6 +1,6 @@
-# Getting Started with AIOS-FULLSTACK
+# Getting Started with Synkra AIOS
 
-Welcome to AIOS-FULLSTACK! This guide will walk you through your first steps with the AI-powered self-modifying development framework.
+Welcome to Synkra AIOS! This guide will walk you through your first steps with the AI-powered self-modifying development framework.
 
 ## Table of Contents
 
@@ -19,7 +19,7 @@ Welcome to AIOS-FULLSTACK! This guide will walk you through your first steps wit
 
 ### Prerequisites
 
-Before installing AIOS-FULLSTACK, ensure you have:
+Before installing Synkra AIOS, ensure you have:
 
 - **Node.js** version 14.0.0 or higher
 - **npm** version 6.0.0 or higher
@@ -32,32 +32,32 @@ The fastest way to get started is using npx:
 
 ```bash
 # Create a new project
-npx aios-fullstack init my-first-project
+npx @synkra/aios-core init my-first-project
 
 # Navigate to your project
 cd my-first-project
 
 # Start the meta-agent
-npx aios-fullstack
+npx @synkra/aios-core
 ```
 
 ### Installation Options
 
-AIOS-FULLSTACK offers flexible installation options:
+Synkra AIOS offers flexible installation options:
 
 ```bash
 # 1. Create new project with custom template
-npx aios-fullstack init my-project --template enterprise
+npx @synkra/aios-core init my-project --template enterprise
 
 # 2. Install in existing project
 cd existing-project
-npx aios-fullstack install
+npx @synkra/aios-core install
 
 # 3. Force installation in non-empty directory
-npx aios-fullstack init my-project --force
+npx @synkra/aios-core init my-project --force
 
 # 4. Skip dependency installation (manual install later)
-npx aios-fullstack init my-project --skip-install
+npx @synkra/aios-core init my-project --skip-install
 ```
 
 ## Your First Project
@@ -122,7 +122,7 @@ AIOS_TELEMETRY=enabled
 
 ## Understanding the Meta-Agent
 
-The meta-agent is the core of AIOS-FULLSTACK - an AI that understands and can modify its own codebase.
+The meta-agent is the core of Synkra AIOS - an AI that understands and can modify its own codebase.
 
 ### Key Capabilities
 
@@ -156,7 +156,7 @@ graph TD
 
 ```bash
 # Start in current directory
-npx aios-fullstack
+npx @synkra/aios-core
 
 # Or use the shorthand
 npx aios
@@ -497,7 +497,7 @@ examples:
 - **[Meta-Agent Commands Reference](./meta-agent-commands.md)**: Complete command list
 - **[Architecture Overview](./architecture.md)**: Technical deep dive
 - **[Troubleshooting Guide](./troubleshooting.md)**: Common issues and solutions
-- **[Video Tutorials](https://aios-fullstack.dev/tutorials)**: Visual learning
+- **[Video Tutorials](https://@synkra/aios-core.dev/tutorials)**: Visual learning
 
 ### Advanced Topics
 
@@ -526,10 +526,10 @@ Join our community for support and updates:
 node --version  # Should be >= 14.0.0
 
 # Verify installation
-npx aios-fullstack doctor
+npx @synkra/aios-core doctor
 
 # Fix common issues
-npx aios-fullstack doctor --fix
+npx @synkra/aios-core doctor --fix
 ```
 
 **API Key errors**
@@ -557,6 +557,6 @@ ls -la .env
 
 **Ready to build something amazing?** The meta-agent is waiting to help you create, improve, and evolve your code. Start with `*help` and explore the possibilities!
 
-Remember: AIOS-FULLSTACK learns and improves with use. The more you interact with it, the better it understands your development style and needs.
+Remember: Synkra AIOS learns and improves with use. The more you interact with it, the better it understands your development style and needs.
 
-Happy coding with AIOS-FULLSTACK! 🚀
+Happy coding with Synkra AIOS! 🚀

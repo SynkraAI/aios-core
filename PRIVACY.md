@@ -6,13 +6,13 @@
 
 ## Overview
 
-AIOS (AI-Orchestrated System) is an open-source project maintained by AllFluence Inc. This privacy policy explains how we handle any data that may be collected when you use AIOS-FULLSTACK.
+AIOS (AI-Orchestrated System) is an open-source project maintained by AllFluence Inc. This privacy policy explains how we handle any data that may be collected when you use Synkra AIOS.
 
 ## Data Collection
 
 ### What We Don't Collect
 
-AIOS-FULLSTACK does **NOT** collect:
+Synkra AIOS does **NOT** collect:
 - Personal identification information
 - Usage analytics or telemetry data
 - Code or project content from your repositories
@@ -21,7 +21,7 @@ AIOS-FULLSTACK does **NOT** collect:
 
 ### What May Be Collected (Consent-Based)
 
-AIOS-FULLSTACK uses a **consent-based telemetry system**. The system is designed as follows:
+Synkra AIOS uses a **consent-based telemetry system**. The system is designed as follows:
 
 - **Consent Manager**: A consent management component is initialized by default to handle user preferences
 - **No automatic collection**: No data is collected until you explicitly grant consent
@@ -46,7 +46,7 @@ You can also revoke consent at any time through the consent management interface
 
 ## Local Data Storage
 
-AIOS-FULLSTACK stores some data locally on your machine:
+Synkra AIOS stores some data locally on your machine:
 - Configuration files (`.aios/`, `.aios-core/`)
 - Project status cache (`.aios/project-status.yaml`)
 - Decision logs (`.ai/` directory)
@@ -56,7 +56,7 @@ This data never leaves your local machine unless you explicitly share it (e.g., 
 
 ## Third-Party Services
 
-When using AIOS-FULLSTACK, you may interact with third-party services:
+When using Synkra AIOS, you may interact with third-party services:
 
 | Service | Purpose | Privacy Policy |
 |---------|---------|----------------|
@@ -65,7 +65,7 @@ When using AIOS-FULLSTACK, you may interact with third-party services:
 | **AI Providers** | Claude, OpenAI, etc. (configured by user) | See respective provider policies |
 | **MCP Servers** | Tool integrations (user-configured) | Varies by server |
 
-**Important:** Your interactions with these services are governed by their respective privacy policies. AIOS-FULLSTACK does not control or have access to data you share with these services.
+**Important:** Your interactions with these services are governed by their respective privacy policies. Synkra AIOS does not control or have access to data you share with these services.
 
 ## Your Rights
 
@@ -78,13 +78,13 @@ You have the right to:
 ## Open Source Transparency
 
 As an open-source project, all code is publicly available for inspection:
-- Repository: [github.com/Pedrovaleriolopez/aios-fullstack](https://github.com/Pedrovaleriolopez/aios-fullstack)
+- Repository: [github.com/SynkraAI/aios-core](https://github.com/SynkraAI/aios-core)
 - No hidden data collection mechanisms
 - All configuration options are documented
 
 ## Children's Privacy
 
-AIOS-FULLSTACK is a development tool intended for professional use. We do not knowingly collect any information from children under 13 years of age.
+Synkra AIOS is a development tool intended for professional use. We do not knowingly collect any information from children under 13 years of age.
 
 ## Security
 
@@ -94,13 +94,13 @@ We take security seriously:
 - API keys and credentials are never stored by AIOS (users manage their own)
 - Regular security audits of the codebase
 
-For security vulnerabilities, please [open an issue](https://github.com/Pedrovaleriolopez/aios-fullstack/issues) or email security@allfluence.com.
+For security vulnerabilities, please [open an issue](https://github.com/SynkraAI/aios-core/issues) or email security@SynkraAI.com.
 
 ## Contact
 
 For privacy concerns or questions:
-- **GitHub Issues:** [Open an issue](https://github.com/Pedrovaleriolopez/aios-fullstack/issues)
-- **Email:** privacy@allfluence.com
+- **GitHub Issues:** [Open an issue](https://github.com/SynkraAI/aios-core/issues)
+- **Email:** privacy@SynkraAI.com
 - **Discord:** [Community Server](https://discord.gg/gk8jAdXWmj)
 
 ## Changes to This Policy

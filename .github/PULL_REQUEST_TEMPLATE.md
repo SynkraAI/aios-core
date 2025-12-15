@@ -93,7 +93,7 @@ Add screenshots to help explain your changes.
 
 ## 👥 Reviewers
 Tag relevant reviewers:
-- @Pedrovaleriolopez (PO - required for expansion-pack changes)
+- @SynkraAI (PO - required for expansion-pack changes)
 
 ## 🚀 Deployment Notes
 Any special deployment considerations or migration steps needed?

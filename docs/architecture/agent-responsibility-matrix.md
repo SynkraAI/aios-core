@@ -411,8 +411,8 @@ If approved after utilities audit (Story 3.17):
 - Memory layer needs no git restrictions (utility, not agent)
 - Integration with agents doesn't change responsibility boundaries
 
-### Expansion Packs
-If new agents added via expansion packs:
+### Squads
+If new agents added via Squads:
 - **Default**: NO git push capability
 - **Exception Process**: Must be explicitly approved by PO and justified
 - **Enforcement**: Pre-push hook automatically blocks unless agent ID whitelisted

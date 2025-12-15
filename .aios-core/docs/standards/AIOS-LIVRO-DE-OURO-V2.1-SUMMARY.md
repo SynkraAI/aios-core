@@ -24,18 +24,18 @@ For complete content that remained unchanged (Layer 0, most of Layer 1), refer t
 ### Installation Revolution
 
 **v2.0:** Manual clone + 2-4 hours configuration  
-**v2.1:** `npx @allfluence/aios@latest init` + 5 minutes
+**v2.1:** `npx @SynkraAI/aios@latest init` + 5 minutes
 
 ```bash
 # Old way (v2.0)
-$ git clone https://github.com/allfluence/aios-fullstack
-$ cd aios-fullstack
+$ git clone https://github.com/SynkraAI/aios-core
+$ cd @synkra/aios-core
 $ npm install
 $ cp .env.example .env
 $ # ... 2 hours of configuration ...
 
 # New way (v2.1)
-$ npx @allfluence/aios@latest init
+$ npx @SynkraAI/aios@latest init
 # Interactive wizard handles everything
 # 5 minutes to working project
 ```
@@ -543,7 +543,7 @@ Result: Final 20% of issues caught (100% total)
 
 ```bash
 # Step 1: Install AIOS
-$ npx @allfluence/aios@latest init
+$ npx @SynkraAI/aios@latest init
 
 Welcome to AIOS v2.1! Let's set up your project.
 
@@ -601,7 +601,7 @@ Time elapsed: 4m 32s
 $ cp -r .aios-core .aios-core.backup
 
 # Step 2: Run migration script
-$ npx @allfluence/aios migrate v2.0-to-v2.1
+$ npx @SynkraAI/aios migrate v2.0-to-v2.1
 
 AIOS Migration Wizard (v2.0 → v2.1)
 
@@ -715,7 +715,7 @@ Time elapsed: 12m 18s
 3. → Read [v2.0 Layer 1](#layer-1) (Understanding)
 4. → Read [v2.1 Essay 3](#essay-3-v21) (Business Model)
 5. → Read [v2.1 Essay 5](#essay-5-v21) (Task-First)
-6. → Install: `npx @allfluence/aios@latest init`
+6. → Install: `npx @SynkraAI/aios@latest init`
 
 ### If You're Migrating from v2.0
 
@@ -723,14 +723,14 @@ Time elapsed: 12m 18s
 2. → Read [Breaking Changes](#breaking-changes)
 3. → Read [Migration Guide](#migration-guide)
 4. → Backup: `cp -r .aios-core .aios-core.backup`
-5. → Migrate: `npx @allfluence/aios migrate v2.0-to-v2.1`
+5. → Migrate: `npx @SynkraAI/aios migrate v2.0-to-v2.1`
 
 ### If You Want to Contribute
 
 1. ✅ Read this summary (done!)
 2. → Read [Worker Contribution Guide](#worker-contribution)
 3. → Read [Architecture Deep Dive](#architecture-v21)
-4. → Browse [Open Issues](https://github.com/allfluence/aios-fullstack/issues)
+4. → Browse [Open Issues](https://github.com/SynkraAI/aios-core/issues)
 5. → Join [Discord Community](https://discord.gg/aios)
 
 ---
@@ -748,7 +748,7 @@ Time elapsed: 12m 18s
 ### Complete Project Structure
 
 ```
-aios-fullstack/                        # Root project
+@synkra/aios-core/                        # Root project
 ├── .aios-core/                        # ⭐ NEW: Modular Architecture
 │   │
 │   ├── core/                          # ⭐ NEW: Core Framework Module
@@ -965,7 +965,7 @@ aios-fullstack/                        # Root project
 │   ├── audits/                        # Audit reports
 │   └── guides/                        # How-to guides
 │
-├── expansion-packs/                   # ⭐ UPDATED: Only 2 packs in open-source
+├── Squads/                   # ⭐ UPDATED: Only 2 packs in open-source
 │   ├── expansion-creator/             # Create custom packs
 │   └── data-engineering/              # Data pipelines
 │
@@ -1074,7 +1074,7 @@ NEW: .aios-core/infrastructure/cli/installer/
   - environment-detector.js
   - migration-scripts/ (v2.0 → v2.1)
 
-NEW: npx @allfluence/aios@latest init
+NEW: npx @SynkraAI/aios@latest init
 
 Impact: 5 minutes install vs. 2-4 hours
 ```
@@ -1144,8 +1144,8 @@ Impact: Clear roadmap, easy to track progress
 **v2.0 Installation:**
 ```bash
 # 1. Clone repository
-$ git clone https://github.com/allfluence/aios-fullstack
-$ cd aios-fullstack
+$ git clone https://github.com/SynkraAI/aios-core
+$ cd @synkra/aios-core
 
 # 2. Install dependencies
 $ npm install  # 5-10 minutes
@@ -1171,7 +1171,7 @@ Success Rate: 60%
 **v2.1 Installation:**
 ```bash
 # One command
-$ npx @allfluence/aios@latest init
+$ npx @SynkraAI/aios@latest init
 
 # Interactive wizard handles everything:
 # - Project type detection

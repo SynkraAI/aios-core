@@ -1,9 +1,9 @@
-# AIOS-FULLSTACK: Framework Universal de Agentes IA 🚀
+# Synkra AIOS: Framework Universal de Agentes IA 🚀
 
-[![Versão NPM](https://img.shields.io/npm/v/aios-fullstack.svg)](https://www.npmjs.com/package/aios-fullstack)
+[![Versão NPM](https://img.shields.io/npm/v/@synkra/aios-core.svg)](https://www.npmjs.com/package/@synkra/aios-core)
 [![Licença: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Versão Node.js](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/)
-[![Documentação](https://img.shields.io/badge/docs-disponível-orange.svg)](https://aios-fullstack.dev)
+[![Documentação](https://img.shields.io/badge/docs-disponível-orange.svg)](https://synkra.ai)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Yes-success.svg)](LICENSE)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-Contributor%20Covenant-blue.svg)](CODE_OF_CONDUCT.md)
@@ -12,7 +12,7 @@ Framework de Desenvolvimento Auto-Modificável Alimentado por IA. Fundado em Des
 
 ## Visão Geral
 
-**As Duas Inovações Chave do AIOS-FULLSTACK:**
+**As Duas Inovações Chave do Synkra AIOS:**
 
 **1. Planejamento Agêntico:** Agentes dedicados (analyst, pm, architect) colaboram com você para criar documentos de PRD e Arquitetura detalhados e consistentes. Através de engenharia avançada de prompts e refinamento com human-in-the-loop, estes agentes de planejamento produzem especificações abrangentes que vão muito além da geração genérica de tarefas de IA.
 
@@ -42,16 +42,16 @@ Esta abordagem de duas fases elimina tanto a **inconsistência de planejamento**
 1. **[Fluxo de Planejamento (Interface Web)](aios-core/user-guide.md#the-planning-workflow-web-ui)** - Como criar documentos de PRD e Arquitetura
 2. **[Ciclo Principal de Desenvolvimento (IDE)](aios-core/user-guide.md#the-core-development-cycle-ide)** - Como os agentes sm, dev e qa colaboram através de arquivos de histórias
 
-> ⚠️ **Estes diagramas explicam 90% da confusão sobre o fluxo AIOS-FULLSTACK Agentic Agile** - Entender a criação de PRD+Arquitetura e o fluxo de trabalho sm/dev/qa e como os agentes passam notas através de arquivos de histórias é essencial - e também explica por que isto NÃO é taskmaster ou apenas um simples executor de tarefas!
+> ⚠️ **Estes diagramas explicam 90% da confusão sobre o fluxo Synkra AIOS Agentic Agile** - Entender a criação de PRD+Arquitetura e o fluxo de trabalho sm/dev/qa e como os agentes passam notas através de arquivos de histórias é essencial - e também explica por que isto NÃO é taskmaster ou apenas um simples executor de tarefas!
 
 ### O que você gostaria de fazer?
 
 - **[Instalar e Construir software com Equipe Ágil Full Stack de IA](#início-rápido)** → Instruções de Início Rápido
 - **[Aprender como usar o AIOS](aios-core/user-guide.md)** → Guia completo do usuário e passo a passo
 - **[Ver agentes IA disponíveis](#agentes-disponíveis)** → Papéis especializados para sua equipe
-- **[Explorar usos não técnicos](#-além-do-desenvolvimento-de-software---expansion-packs)** → Escrita criativa, negócios, bem-estar, educação
+- **[Explorar usos não técnicos](#-além-do-desenvolvimento-de-software---squads)** → Escrita criativa, negócios, bem-estar, educação
 - **[Criar meus próprios agentes IA](#criando-seu-próprio-expansion-pack)** → Construir agentes para seu domínio
-- **[Navegar expansion packs prontos](expansion-packs/)** → Game dev, DevOps, infraestrutura e inspire-se com ideias e exemplos
+- **[Navegar Squads prontos](squads/)** → Game dev, DevOps, infraestrutura e inspire-se com ideias e exemplos
 - **[Hybrid-Ops 2.0 Migration Guide](docs/migration-guide.md)** → Upgrade para PV Mode com cognitive architecture executável
 - **[Entender a arquitetura](docs/core-architecture.md)** → Mergulho técnico profundo
 - **[Juntar-se à comunidade](https://discord.gg/gk8jAdXWmj)** → Obter ajuda e compartilhar ideias
@@ -61,7 +61,7 @@ Esta abordagem de duas fases elimina tanto a **inconsistência de planejamento**
 **Mantenha-se atualizado sem esforço!** Para atualizar sua instalação AIOS existente:
 
 ```bash
-npx github:Pedrovaleriolopez/aios-fullstack install
+npx github:SynkraAI/aios-core install
 ```
 
 Isto vai:
@@ -77,23 +77,23 @@ Isto facilita beneficiar-se das últimas melhorias, correções de bugs e novos 
 
 ### 🚀 Instalação via NPX (Recomendado)
 
-**Instale o AIOS-FULLSTACK com um único comando:**
+**Instale o Synkra AIOS com um único comando:**
 
 ```bash
 # Criar um novo projeto com assistente interativo moderno
-npx aios-fullstack init meu-projeto
+npx @synkra/aios-core init meu-projeto
 
 # Ou instalar em projeto existente
 cd seu-projeto
-npx aios-fullstack install
+npx @synkra/aios-core install
 
 # Ou usar uma versão específica
-npx aios-fullstack@latest init meu-projeto
+npx @synkra/aios-core@latest init meu-projeto
 ```
 
 ### ✨ Assistente de Instalação Moderno
 
-O AIOS-FULLSTACK agora inclui uma experiência de instalação interativa de última geração, inspirada em ferramentas modernas como Vite e Next.js:
+O Synkra AIOS agora inclui uma experiência de instalação interativa de última geração, inspirada em ferramentas modernas como Vite e Next.js:
 
 **Recursos do Instalador Interativo:**
 - 🎨 **Interface Moderna**: Prompts coloridos e visuais com @clack/prompts
@@ -125,13 +125,13 @@ O AIOS-FULLSTACK agora inclui uma experiência de instalação interativa de úl
 Se você já tem o AIOS instalado:
 
 ```bash
-npx github:Pedrovaleriolopez/aios-fullstack install
+npx github:SynkraAI/aios-core install
 # O instalador detectará sua instalação existente e a atualizará
 ```
 
 ### Configure Seu IDE para Desenvolvimento AIOS
 
-O AIOS-FULLSTACK inclui regras pré-configuradas para IDE para melhorar sua experiência de desenvolvimento:
+O Synkra AIOS inclui regras pré-configuradas para IDE para melhorar sua experiência de desenvolvimento:
 
 #### Para Windsurf ou Cursor:
 1. Abra as configurações do seu IDE
@@ -160,31 +160,31 @@ Estas regras fornecem:
 
 ### Referência de Comandos CLI
 
-O AIOS-FULLSTACK oferece uma CLI moderna e cross-platform com comandos intuitivos:
+O Synkra AIOS oferece uma CLI moderna e cross-platform com comandos intuitivos:
 
 ```bash
 # Gerenciamento de Projeto (com assistente interativo)
-npx aios-fullstack init <nome-projeto> [opções]
+npx @synkra/aios-core init <nome-projeto> [opções]
   --force              Forçar criação em diretório não vazio
   --skip-install       Pular instalação de dependências npm
   --template <nome>    Usar template específico (default, minimal, enterprise)
 
 # Instalação e Configuração (com prompts modernos)
-npx aios-fullstack install [opções]
+npx @synkra/aios-core install [opções]
   --force              Sobrescrever configuração existente
   --quiet              Saída mínima durante instalação
   --dry-run            Simular instalação sem modificar arquivos
 
 # Comandos do Sistema
-npx aios-fullstack --version   Exibir versão instalada
-npx aios-fullstack --help      Exibir ajuda detalhada
-npx aios-fullstack info        Exibir informações do sistema
-npx aios-fullstack doctor      Executar diagnósticos do sistema
-npx aios-fullstack doctor --fix Corrigir problemas detectados automaticamente
+npx @synkra/aios-core --version   Exibir versão instalada
+npx @synkra/aios-core --help      Exibir ajuda detalhada
+npx @synkra/aios-core info        Exibir informações do sistema
+npx @synkra/aios-core doctor      Executar diagnósticos do sistema
+npx @synkra/aios-core doctor --fix Corrigir problemas detectados automaticamente
 
 # Manutenção
-npx aios-fullstack update      Atualizar para versão mais recente
-npx aios-fullstack uninstall   Remover AIOS-FULLSTACK
+npx @synkra/aios-core update      Atualizar para versão mais recente
+npx @synkra/aios-core uninstall   Remover Synkra AIOS
 ```
 
 **Recursos da CLI:**
@@ -199,9 +199,9 @@ npx aios-fullstack uninstall   Remover AIOS-FULLSTACK
 #### Instalação Interativa Completa
 
 ```bash
-$ npx aios-fullstack install
+$ npx @synkra/aios-core install
 
-🚀 AIOS-FULLSTACK Installation
+🚀 Synkra AIOS Installation
 
 ◆ What is your project name?
 │  my-awesome-project
@@ -212,7 +212,7 @@ $ npx aios-fullstack install
 ◆ Choose components to install:
 │  ● Core Framework (Required)
 │  ● Agent System (Required)
-│  ● Expansion Packs (optional)
+│  ● Squads (optional)
 │  ○ Example Projects (optional)
 │
 ◇ Select package manager:
@@ -237,23 +237,23 @@ $ npx aios-fullstack install
 
 Next steps:
   cd my-awesome-project
-  aios-fullstack doctor     # Verify installation
-  aios-fullstack --help     # See available commands
+  @synkra/aios-core doctor     # Verify installation
+  @synkra/aios-core --help     # See available commands
 ```
 
 #### Instalação Silenciosa (CI/CD)
 
 ```bash
 # Instalação automatizada sem prompts
-$ npx aios-fullstack install --quiet --force
-✔ AIOS-FULLSTACK installed successfully
+$ npx @synkra/aios-core install --quiet --force
+✔ Synkra AIOS installed successfully
 ```
 
 #### Simulação de Instalação (Dry-Run)
 
 ```bash
 # Testar instalação sem modificar arquivos
-$ npx aios-fullstack install --dry-run
+$ npx @synkra/aios-core install --dry-run
 
 [DRY RUN] Would create: ./my-project/
 [DRY RUN] Would copy: .aios-core/ (45 files)
@@ -265,7 +265,7 @@ $ npx aios-fullstack install --dry-run
 #### Diagnóstico do Sistema
 
 ```bash
-$ npx aios-fullstack doctor
+$ npx @synkra/aios-core doctor
 
 🏥 AIOS System Diagnostics
 
@@ -273,7 +273,7 @@ $ npx aios-fullstack doctor
 ✔ npm version: 10.2.3
 ✔ Git installed: version 2.43.0
 ✔ GitHub CLI: gh 2.40.1
-✔ AIOS-FULLSTACK: v1.0.0
+✔ Synkra AIOS: v1.0.0
 
 Configuration:
 ✔ .aios-core/ directory exists
@@ -294,11 +294,11 @@ Dependencies:
 #### Obter Ajuda
 
 ```bash
-$ npx aios-fullstack --help
+$ npx @synkra/aios-core --help
 
-Usage: aios-fullstack [options] [command]
+Usage: @synkra/aios-core [options] [command]
 
-AIOS-FULLSTACK: AI-Orchestrated System for Full Stack Development
+Synkra AIOS: AI-Orchestrated System for Full Stack Development
 
 Options:
   -V, --version                output the version number
@@ -311,7 +311,7 @@ Commands:
   doctor [options]             Run system diagnostics and health checks
   help [command]               display help for command
 
-Run 'aios-fullstack <command> --help' for detailed information about each command.
+Run '@synkra/aios-core <command> --help' for detailed information about each command.
 ```
 
 ### Alternativa: Clonar e Construir
@@ -320,8 +320,8 @@ Para contribuidores ou usuários avançados que queiram modificar o código font
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/Pedrovaleriolopez/aios-fullstack.git
-cd aios-fullstack
+git clone https://github.com/SynkraAI/aios-core.git
+cd aios-core
 
 # Instalar dependências
 npm install
@@ -336,7 +336,7 @@ Para membros da equipe ingressando no projeto:
 
 ```bash
 # Instalar AIOS com configuração GitHub
-npx github:Pedrovaleriolopez/aios-fullstack setup
+npx github:SynkraAI/aios-core setup
 
 # Isto vai:
 # 1. Verificar/instalar GitHub CLI
@@ -344,18 +344,17 @@ npx github:Pedrovaleriolopez/aios-fullstack setup
 # 3. Executar o instalador AIOS
 ```
 
-## 🌟 Além do Desenvolvimento de Software - Expansion Packs
+## 🌟 Além do Desenvolvimento de Software - Squads
 
-O framework de linguagem natural do AIOS funciona em QUALQUER domínio. Os expansion packs fornecem agentes IA especializados para escrita criativa, estratégia de negócios, saúde e bem-estar, educação e muito mais. Além disso, os expansion packs podem expandir o núcleo do AIOS-FULLSTACK com funcionalidade específica que não é genérica para todos os casos. [Veja o Guia de Expansion Packs](docs/expansion-packs.md) e aprenda a criar os seus próprios!
+O framework de linguagem natural do AIOS funciona em QUALQUER domínio. Os Squads fornecem agentes IA especializados para escrita criativa, estratégia de negócios, saúde e bem-estar, educação e muito mais. Além disso, os Squads podem expandir o núcleo do Synkra AIOS com funcionalidade específica que não é genérica para todos os casos. [Veja o Guia de Squads](docs/squads.md) e aprenda a criar os seus próprios!
 
 ## Agentes Disponíveis
 
-O AIOS-FULLSTACK vem com 11 agentes especializados:
+O Synkra AIOS vem com 11 agentes especializados:
 
 ### Agentes Meta
-- **aios-master** - Agente mestre de orquestração
+- **aios-master** - Agente mestre de orquestração (inclui capacidades de desenvolvimento de framework)
 - **aios-orchestrator** - Orquestrador de fluxo de trabalho e coordenação de equipe
-- **aios-developer** - Meta-agente para criar e modificar componentes do framework
 
 ### Agentes de Planejamento (Interface Web)
 - **analyst** - Especialista em análise de negócios e criação de PRD
@@ -375,7 +374,7 @@ O AIOS-FULLSTACK vem com 11 agentes especializados:
 
 - 📖 **[Guia do Usuário](aios-core/user-guide.md)** - Passo a passo completo desde a concepção até a conclusão do projeto
 - 🏗️ **[Arquitetura Principal](docs/architecture.md)** - Mergulho técnico profundo e design do sistema
-- 🚀 **[Guia de Expansion Packs](docs/expansion-packs.md)** - Estenda o AIOS para qualquer domínio além do desenvolvimento de software
+- 🚀 **[Guia de Squads](docs/squads.md)** - Estenda o AIOS para qualquer domínio além do desenvolvimento de software
 
 ### Documentação Adicional
 
@@ -393,7 +392,7 @@ O AIOS-FULLSTACK vem com 11 agentes especializados:
 
 ## 📊 Architecture Mapping & Visualization System
 
-O AIOS-FULLSTACK v1.0.0 inclui um sistema completo de mapeamento e visualização de arquitetura construído nos Epics 2 & 3. Este sistema oferece **visibilidade total** da sua arquitetura através de múltiplos formatos e detecção automática de gaps.
+O Synkra AIOS v1.0.0 inclui um sistema completo de mapeamento e visualização de arquitetura construído nos Epics 2 & 3. Este sistema oferece **visibilidade total** da sua arquitetura através de múltiplos formatos e detecção automática de gaps.
 
 ### 🎯 O Que é o Sistema de Mapeamento?
 
@@ -569,12 +568,12 @@ cp outputs/architecture-map/mermaid/synthesis-layered-view.mmd docs/
 - [ ] Real-time Neo4j updates on code changes
 - [ ] VSCode extension for inline visualization
 
-## Criando Seu Próprio Expansion Pack
+## Criando Seu Próprio Squad
 
 Expansion packs permitem estender o AIOS para qualquer domínio. Estrutura básica:
 
 ```
-expansion-packs/seu-pack/
+squads/seu-pack/
 ├── config.yaml           # Configuração do pack
 ├── agents/              # Agentes especializados
 ├── tasks/               # Fluxos de trabalho de tarefas
@@ -585,19 +584,19 @@ expansion-packs/seu-pack/
 └── user-guide.md        # Guia do usuário
 ```
 
-Veja o [Guia de Expansion Packs](docs/expansion-packs.md) para instruções detalhadas.
+Veja o [Guia de Squads](docs/squads.md) para instruções detalhadas.
 
-## Expansion Packs Disponíveis
+## Squads Disponíveis
 
 - **aios-infrastructure-devops** - Infraestrutura e DevOps
-- **expansion-creator** - Criador de expansion packs
+- **expansion-creator** - Criador de Squads
 - **meeting-notes** - Notas e atas de reuniões
 
-### Expansion Packs Externos
+### Squads Externos
 
-- **[hybrid-ops](https://github.com/Pedrovaleriolopez/aios-hybrid-ops-pedro-valerio)** - Operações híbridas humano-agente (repositório separado)
+- **[hybrid-ops](https://github.com/SynkraAI/aios-hybrid-ops-pedro-valerio)** - Operações híbridas humano-agente (repositório separado)
 
-Explore o diretório [expansion-packs/](expansion-packs/) para mais inspiração!
+Explore o diretório [squads/](squads/) para mais inspiração!
 
 ## Suporte & Comunidade
 
@@ -611,7 +610,7 @@ Explore o diretório [expansion-packs/](expansion-packs/) para mais inspiração
 
 ## Git Workflow e Validação
 
-O AIOS-FULLSTACK implementa um sistema de validação de múltiplas camadas para garantir qualidade do código e consistência:
+O Synkra AIOS implementa um sistema de validação de múltiplas camadas para garantir qualidade do código e consistência:
 
 ### 🛡️ Defense in Depth - 3 Camadas de Validação
 
@@ -666,7 +665,7 @@ Requer:
 
 ## Contribuindo
 
-**Estamos empolgados com contribuições e acolhemos suas ideias, melhorias e expansion packs!** 🎉
+**Estamos empolgados com contribuições e acolhemos suas ideias, melhorias e Squads!** 🎉
 
 Para contribuir:
 
@@ -694,10 +693,10 @@ Veja também:
 
 ## Reconhecimentos
 
-[![Contributors](https://contrib.rocks/image?repo=Pedrovaleriolopez/aios-fullstack)](https://github.com/Pedrovaleriolopez/aios-fullstack/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=SynkraAI/aios-core)](https://github.com/SynkraAI/aios-core/graphs/contributors)
 
 <sub>Construído com ❤️ para a comunidade de desenvolvimento assistido por IA</sub>
 
 ---
 
-**[⬆ Voltar ao topo](#aios-fullstack-framework-universal-de-agentes-ia-)**
+**[⬆ Voltar ao topo](#@synkra/aios-core-framework-universal-de-agentes-ia-)**

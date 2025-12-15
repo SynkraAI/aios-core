@@ -1,5 +1,5 @@
 /**
- * Template Validator for AIOS-FULLSTACK
+ * Template Validator for Synkra AIOS
  * Validates component templates for required structure and placeholders
  * @module template-validator
  */

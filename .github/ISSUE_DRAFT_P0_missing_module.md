@@ -24,9 +24,9 @@ The AIOS installer fails immediately on Linux systems with a module not found er
 ### Error Message
 ```
 Error: Cannot find AIOS Core module: utils/repository-detector
-Searched: /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/aios-fullstack/.aios-core/utils/repository-detector
-Please ensure aios-fullstack is installed correctly.
-    at loadAIOSCore (/mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/aios-fullstack/bin/aios-init.js:43:11)
+Searched: /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core/.aios-core/utils/repository-detector
+Please ensure @synkra/aios-core is installed correctly.
+    at loadAIOSCore (/mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core/bin/aios-init.js:43:11)
 ```
 
 ### Stack Trace Location
@@ -53,7 +53,7 @@ Please ensure aios-fullstack is installed correctly.
 
 3. Execute installer:
    ```bash
-   node /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/aios-fullstack/bin/aios-init.js --help
+   node /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core/bin/aios-init.js --help
    ```
 
 4. **Observe:** Installation fails with module not found error

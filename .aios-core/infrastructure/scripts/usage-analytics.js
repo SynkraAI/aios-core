@@ -3,7 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 
 /**
- * Usage pattern analyzer for AIOS-FULLSTACK framework components
+ * Usage pattern analyzer for Synkra AIOS framework components
  * Analyzes how components are used throughout the codebase
  */
 class UsageAnalytics {

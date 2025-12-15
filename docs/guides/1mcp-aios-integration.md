@@ -662,7 +662,7 @@ See `docs/guides/1mcp-troubleshooting.md` for complete troubleshooting guide.
 - **Full Guide:** `docs/guides/1mcp-implementation.md`
 - **Quick Start:** `docs/guides/1mcp-quickstart.md`
 - **Troubleshooting:** `docs/guides/1mcp-troubleshooting.md`
-- **GitHub Issues:** `aios-fullstack/issues` (tag: `1mcp`)
+- **GitHub Issues:** `@synkra/aios-core/issues` (tag: `1mcp`)
 
 ---
 

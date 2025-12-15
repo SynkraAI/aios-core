@@ -10,8 +10,8 @@ const path = require('path');
  *
  * Package structure is consistent:
  * - Development: bin/aios-init.js → ../.aios-core/
- * - NPM Global: node_modules/aios-fullstack/bin/aios-init.js → ../.aios-core/
- * - NPM Local: node_modules/aios-fullstack/bin/aios-init.js → ../.aios-core/
+ * - NPM Global: node_modules/@synkra/aios-core/bin/aios-init.js → ../.aios-core/
+ * - NPM Local: node_modules/@synkra/aios-core/bin/aios-init.js → ../.aios-core/
  *
  * @param {string} modulePath - Relative path within .aios-core (e.g., 'utils/repository-detector')
  * @returns {any} - Required module
@@ -30,7 +30,7 @@ function resolveAiosCoreModule(modulePath) {
       `Cannot find AIOS Core module: ${modulePath}\n` +
       `Searched: ${aiosCoreModule}\n` +
       `__dirname: ${__dirname}\n` +
-      'Please ensure aios-fullstack is installed correctly.',
+      'Please ensure @synkra/aios-core is installed correctly.',
     );
   }
 

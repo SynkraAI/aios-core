@@ -1,8 +1,8 @@
-# AIOS-FULLSTACK Meta-Agent Troubleshooting Guide
+# Synkra AIOS Meta-Agent Troubleshooting Guide
 
 ## Overview
 
-This guide helps diagnose and resolve common issues when using the AIOS-FULLSTACK meta-agent for component creation and management.
+This guide helps diagnose and resolve common issues when using the Synkra AIOS meta-agent for component creation and management.
 
 ## Table of Contents
 
@@ -103,7 +103,7 @@ This guide helps diagnose and resolve common issues when using the AIOS-FULLSTAC
 3. Check working directory:
    ```bash
    pwd
-   # Should be in aios-fullstack root
+   # Should be in @synkra/aios-core root
    ```
 
 ## Template Processing Problems

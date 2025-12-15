@@ -1,15 +1,13 @@
 {
-  "name": "aios-core",
+  "name": "@synkra/aios-core",
   "version": "2.1.6",
-  "description": "AIOS: AI-Orchestrated System for Full Stack Development - Core Framework",
+  "description": "Synkra AIOS: AI-Orchestrated System for Full Stack Development - Core Framework",
   "main": "index.js",
   "module": "index.esm.js",
   "types": "index.d.ts",
   "bin": {
     "aios": "./bin/aios.js",
     "aios-core": "./bin/aios.js",
-    "aios-fullstack": "./bin/aios.js",
-    "aios-fullstack-minimal": "./bin/aios-minimal.js",
     "aios-minimal": "./bin/aios-minimal.js"
   },
   "preferGlobal": false,
@@ -33,7 +31,7 @@
     ".claude/CLAUDE.md",
     ".claude/rules/",
     "common/",
-    "expansion-packs/",
+    "squads/",
     "index.js",
     "index.esm.js",
     "index.d.ts",
@@ -119,7 +117,7 @@
     "vite-style",
     "automation"
   ],
-  "author": "AIOS Fullstack Team",
+  "author": "Synkra AIOS Team",
   "license": "MIT",
   "repository": {
     "type": "git",

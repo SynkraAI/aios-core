@@ -1,6 +1,6 @@
 /**
  * MCP Workflow Template
- * AIOS-FULLSTACK Framework
+ * Synkra AIOS Framework
  * Version: 1.0.0
  *
  * This template demonstrates how to create Code Mode workflows

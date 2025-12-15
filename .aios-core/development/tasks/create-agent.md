@@ -211,7 +211,7 @@ tools:
 # Create Agent Task
 
 ## Purpose
-To create a new agent definition file following AIOS-FULLSTACK standards using the template system with progressive disclosure elicitation.
+To create a new agent definition file following Synkra AIOS standards using the template system with progressive disclosure elicitation.
 
 ## Prerequisites
 - User authorization verified

@@ -94,15 +94,15 @@ jobs:
           case "$PACKAGE" in
             "workspace")
               PKG_DIR="."
-              PKG_NAME="aios-fullstack"
+              PKG_NAME="@synkra/aios-core"
               ;;
             "core")
               PKG_DIR=".aios-core"
-              PKG_NAME="@aios-fullstack/core"
+              PKG_NAME="@synkra/aios-core/core"
               ;;
             *)
               PKG_DIR="$PACKAGE"
-              PKG_NAME="@aios-fullstack/$PACKAGE"
+              PKG_NAME="@synkra/aios-core/$PACKAGE"
               ;;
           esac
           

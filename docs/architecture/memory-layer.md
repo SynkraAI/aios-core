@@ -10,7 +10,7 @@ The implementation successfully uses local file-based storage with LlamaIndex's 
 
 **N/A - Greenfield MVP project**
 
-This is a new MVP implementation of the memory layer for AIOS-FULLSTACK, designed as a lightweight proof of concept that can be easily integrated with the existing agent system. The MVP uses LlamaIndex with local storage to minimize setup complexity.
+This is a new MVP implementation of the memory layer for Synkra AIOS, designed as a lightweight proof of concept that can be easily integrated with the existing agent system. The MVP uses LlamaIndex with local storage to minimize setup complexity.
 
 ### Change Log
 

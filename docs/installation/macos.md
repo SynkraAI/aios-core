@@ -1,4 +1,4 @@
-# macOS Installation Guide for AIOS-FULLSTACK
+# macOS Installation Guide for Synkra AIOS
 
 ## Prerequisites
 
@@ -57,7 +57,7 @@ Download from [cli.github.com](https://cli.github.com/)
 
 3. Run the installer:
    ```bash
-   npx github:Pedrovaleriolopez/aios-fullstack install
+   npx github:SynkraAI/aios-core install
    ```
 
 ### What the Installer Does
@@ -136,14 +136,14 @@ macOS filesystems can be case-insensitive by default. If you experience issues:
    diskutil info / | grep "File System"
    ```
 
-2. AIOS-FULLSTACK handles both case-sensitive and case-insensitive filesystems automatically
+2. Synkra AIOS handles both case-sensitive and case-insensitive filesystems automatically
 
 ## Updating
 
 To update an existing installation:
 
 ```bash
-npx github:Pedrovaleriolopez/aios-fullstack install
+npx github:SynkraAI/aios-core install
 ```
 
 The updater will:

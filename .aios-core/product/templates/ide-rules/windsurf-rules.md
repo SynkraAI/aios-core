@@ -1,4 +1,4 @@
-# AIOS-FULLSTACK Development Rules for Windsurf
+# Synkra AIOS Development Rules for Windsurf
 
 ## AIOS Agent Integration
 
@@ -77,4 +77,4 @@ project/
 - Reference story IDs in commits
 
 ---
-*AIOS-FULLSTACK Configuration v1.0* 
+*Synkra AIOS Configuration v1.0* 

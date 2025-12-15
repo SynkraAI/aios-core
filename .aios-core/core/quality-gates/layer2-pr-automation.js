@@ -96,7 +96,7 @@ class Layer2PRAutomation extends BaseLayer {
     try {
       // Check if CodeRabbit is available
       const command = this.coderabbit.command ||
-        "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/aios-fullstack && ~/.local/bin/coderabbit --prompt-only -t uncommitted'";
+        "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'";
 
       const result = await this.runCommand(command, timeout);
 

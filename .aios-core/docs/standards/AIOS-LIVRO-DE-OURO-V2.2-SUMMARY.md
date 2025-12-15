@@ -761,7 +761,7 @@ Features:
 1. ✅ Read this summary (done!)
 2. → Review [Memory Layer Architecture](#memory-layer)
 3. → Review [Agent Lightning Details](#agent-lightning)
-4. → Upgrade: `npx @allfluence/aios upgrade v2.2`
+4. → Upgrade: `npx @SynkraAI/aios upgrade v2.2`
 5. → Configure: `aios memory setup`
 6. → Enable: `aios lightning enable`
 
@@ -795,7 +795,7 @@ Features:
 ### Complete Project Structure
 
 ```
-aios-fullstack/                        # Root project
+@synkra/aios-core/                        # Root project
 ├── .aios-core/                        # Modular Architecture
 │   │
 │   ├── core/                          # Core Framework Module
@@ -1008,7 +1008,7 @@ aios-fullstack/                        # Root project
 │   ├── audits/
 │   └── guides/
 │
-├── expansion-packs/                   # Expansion packs (open-source)
+├── Squads/                   # Expansion packs (open-source)
 │   ├── expansion-creator/
 │   └── data-engineering/
 │

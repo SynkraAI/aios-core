@@ -220,8 +220,8 @@ describe('IDE Config Generator', () => {
       const content = await fs.readFile(configPath, 'utf8');
 
       // v2.1 templates use static content from .aios-core/templates/ide-rules/
-      // They contain AIOS-FULLSTACK standard rules
-      expect(content).toContain('AIOS-FULLSTACK');
+      // They contain Synkra AIOS standard rules
+      expect(content).toContain('Synkra AIOS');
       expect(content).toContain('Development Rules');
     });
 
@@ -241,7 +241,7 @@ describe('IDE Config Generator', () => {
 
       const content = await fs.readFile(configPath, 'utf8');
       // Should contain AIOS rules content
-      expect(content).toContain('AIOS-FULLSTACK');
+      expect(content).toContain('Synkra AIOS');
     });
 
     it('should create text config files successfully', async () => {

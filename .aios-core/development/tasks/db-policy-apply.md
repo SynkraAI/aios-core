@@ -214,12 +214,12 @@ updated_at: 2025-11-17
 
 ```bash
 # Use the rls-policy-installer script
-./expansion-packs/super-agentes/scripts/database-operations/rls-policy-installer.sh {table} {mode}
+./Squads/super-agentes/scripts/database-operations/rls-policy-installer.sh {table} {mode}
 
 # Examples:
-./expansion-packs/super-agentes/scripts/database-operations/rls-policy-installer.sh minds kiss
-./expansion-packs/super-agentes/scripts/database-operations/rls-policy-installer.sh sources read-only
-./expansion-packs/super-agentes/scripts/database-operations/rls-policy-installer.sh fragments private
+./Squads/super-agentes/scripts/database-operations/rls-policy-installer.sh minds kiss
+./Squads/super-agentes/scripts/database-operations/rls-policy-installer.sh sources read-only
+./Squads/super-agentes/scripts/database-operations/rls-policy-installer.sh fragments private
 
 # Available modes: kiss, read-only, private, team, custom
 

@@ -20,8 +20,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@aios-fullstack/core": ["./.aios-core/core"],
-      "@aios-fullstack/core/*": ["./.aios-core/core/*"]
+      "@synkra/aios-core": ["./.aios-core/core"],
+      "@synkra/aios-core/*": ["./.aios-core/core/*"]
     }
   },
   "include": [

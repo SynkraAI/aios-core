@@ -1,6 +1,6 @@
 # AIOS Module System Architecture
 
-> Comprehensive guide to the v2.1 modular architecture for AIOS-FULLSTACK.
+> Comprehensive guide to the v2.1 modular architecture for Synkra AIOS.
 
 **Version:** 2.1.0
 **Last Updated:** 2025-12-01
@@ -34,7 +34,7 @@ The v2.1 modular architecture addresses several challenges from the v2.0 flat st
 
 ## Module Structure
 
-AIOS-FULLSTACK organizes the `.aios-core/` directory into four primary modules:
+Synkra AIOS organizes the `.aios-core/` directory into four primary modules:
 
 ```
 .aios-core/
@@ -373,4 +373,4 @@ See [Migration Guide](../migration/v2.0-to-v2.1.md) for detailed instructions.
 
 ---
 
-*AIOS-FULLSTACK v2.1 Module System Architecture*
+*Synkra AIOS v2.1 Module System Architecture*

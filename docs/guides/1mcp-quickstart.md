@@ -145,7 +145,7 @@ curl http://127.0.0.1:3050/health
 
 - Full docs: `docs/guides/1mcp-implementation.md`
 - Troubleshooting: `docs/guides/1mcp-troubleshooting.md`
-- Issues: GitHub `aios-fullstack/issues`
+- Issues: GitHub `@synkra/aios-core/issues`
 
 ---
 

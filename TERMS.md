@@ -6,11 +6,11 @@
 
 ## Acceptance of Terms
 
-By using AIOS-FULLSTACK ("the Software"), you agree to be bound by these Terms of Use. If you do not agree to these terms, do not use the Software.
+By using Synkra AIOS ("the Software"), you agree to be bound by these Terms of Use. If you do not agree to these terms, do not use the Software.
 
 ## License
 
-AIOS-FULLSTACK is released under the **MIT License**. See the [LICENSE](LICENSE) file for the full license text.
+Synkra AIOS is released under the **MIT License**. See the [LICENSE](LICENSE) file for the full license text.
 
 ### Summary of MIT License Rights
 
@@ -60,7 +60,7 @@ This limitation applies to:
 
 ## Contributions
 
-By contributing to AIOS-FULLSTACK, you agree that:
+By contributing to Synkra AIOS, you agree that:
 
 1. **License Grant:** Your contributions will be licensed under the same MIT License
 2. **Original Work:** Your contributions are your original work or you have the right to submit them
@@ -73,7 +73,7 @@ For detailed contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 The following are trademarks or registered trademarks of AllFluence Inc.:
 - "AIOS"
-- "AIOS-FULLSTACK"
+- "Synkra AIOS"
 - "Synkra"
 - Associated logos and branding
 
@@ -90,11 +90,11 @@ You may **NOT**:
 - Use trademarks in a way suggesting endorsement
 - Register similar trademarks
 
-For trademark licensing inquiries, contact: legal@allfluence.com
+For trademark licensing inquiries, contact: legal@SynkraAI.com
 
 ## Third-Party Dependencies
 
-AIOS-FULLSTACK includes third-party open-source components. Each component is subject to its own license terms:
+Synkra AIOS includes third-party open-source components. Each component is subject to its own license terms:
 
 - See `package.json` for a list of dependencies
 - Run `npm ls` to view the complete dependency tree
@@ -102,7 +102,7 @@ AIOS-FULLSTACK includes third-party open-source components. Each component is su
 
 ## AI-Generated Content
 
-When using AI providers (Claude, OpenAI, etc.) through AIOS-FULLSTACK:
+When using AI providers (Claude, OpenAI, etc.) through Synkra AIOS:
 
 1. **User Responsibility:** You are responsible for content generated
 2. **Provider Terms:** AI interactions are subject to provider terms of service
@@ -137,14 +137,14 @@ If any provision of these terms is found to be unenforceable, the remaining prov
 
 ## Entire Agreement
 
-These Terms of Use, together with the [LICENSE](LICENSE), [Privacy Policy](PRIVACY.md), and [Code of Conduct](CODE_OF_CONDUCT.md), constitute the entire agreement between you and AllFluence Inc. regarding use of AIOS-FULLSTACK.
+These Terms of Use, together with the [LICENSE](LICENSE), [Privacy Policy](PRIVACY.md), and [Code of Conduct](CODE_OF_CONDUCT.md), constitute the entire agreement between you and AllFluence Inc. regarding use of Synkra AIOS.
 
 ## Contact
 
 For questions about these terms:
 
-- **GitHub Issues:** [Open an issue](https://github.com/Pedrovaleriolopez/aios-fullstack/issues)
-- **Email:** legal@allfluence.com
+- **GitHub Issues:** [Open an issue](https://github.com/SynkraAI/aios-core/issues)
+- **Email:** legal@SynkraAI.com
 - **Discord:** [Community Server](https://discord.gg/gk8jAdXWmj)
 
 ---

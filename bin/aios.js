@@ -53,13 +53,13 @@ AIOS-FullStack v${packageJson.version}
 AI-Orchestrated System for Full Stack Development
 
 USAGE:
-  npx aios-fullstack@latest              # Run installation wizard
-  npx aios-fullstack@latest install      # Install in current project
-  npx aios-fullstack@latest init <name>  # Create new project
-  npx aios-fullstack@latest info         # Show system info
-  npx aios-fullstack@latest doctor       # Run diagnostics
-  npx aios-fullstack@latest --version    # Show version
-  npx aios-fullstack@latest --help       # Show this help
+  npx @synkra/aios-core@latest              # Run installation wizard
+  npx @synkra/aios-core@latest install      # Install in current project
+  npx @synkra/aios-core@latest init <name>  # Create new project
+  npx @synkra/aios-core@latest info         # Show system info
+  npx @synkra/aios-core@latest doctor       # Run diagnostics
+  npx @synkra/aios-core@latest --version    # Show version
+  npx @synkra/aios-core@latest --help       # Show this help
 
 SERVICE DISCOVERY:
   aios workers search <query>            # Search for workers
@@ -69,18 +69,18 @@ SERVICE DISCOVERY:
 
 EXAMPLES:
   # Install in current directory
-  npx aios-fullstack@latest
+  npx @synkra/aios-core@latest
 
   # Install with minimal mode (only expansion-creator)
-  npx aios-fullstack-minimal@latest
+  npx @synkra/aios-core-minimal@latest
 
   # Create new project
-  npx aios-fullstack@latest init my-project
+  npx @synkra/aios-core@latest init my-project
 
   # Search for workers
   aios workers search "json csv"
 
-For more information, visit: https://github.com/Pedrovaleriolopez/aios-fullstack
+For more information, visit: https://github.com/SynkraAI/aios-core
 `);
 }
 
@@ -167,10 +167,10 @@ function runDoctor() {
   // Check AIOS installation
   const aiosCoreDir = path.join(__dirname, '..', '.aios-core');
   if (fs.existsSync(aiosCoreDir)) {
-    console.log(`✔ AIOS-FULLSTACK: v${packageJson.version}`);
+    console.log(`✔ Synkra AIOS: v${packageJson.version}`);
   } else {
     console.log('✗ AIOS Core not installed');
-    console.log('  Run: npx aios-fullstack@latest');
+    console.log('  Run: npx @synkra/aios-core@latest');
     hasErrors = true;
   }
 
@@ -188,7 +188,7 @@ function runDoctor() {
 async function initProject(projectName) {
   if (!projectName) {
     console.error('❌ Project name is required');
-    console.log('\nUsage: npx aios-fullstack@latest init <project-name>');
+    console.log('\nUsage: npx @synkra/aios-core@latest init <project-name>');
     process.exit(1);
   }
 

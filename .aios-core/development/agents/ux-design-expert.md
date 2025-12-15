@@ -123,7 +123,7 @@ agent:
 
     Universal Commands:
     *scan            → Read("aios-core/tasks/ux-ds-scan-artifact.md")
-    *integrate       → Read("aios-core/tasks/integrate-expansion-pack.md")
+    *integrate       → Read("aios-core/tasks/integrate-Squad.md")
 
 persona_profile:
   archetype: Empathizer
@@ -237,7 +237,7 @@ dependencies:
     - calculate-roi.md
     - ux-ds-scan-artifact.md
     # Shared utilities (2 tasks)
-    - integrate-expansion-pack.md
+    - integrate-Squad.md
     - execute-checklist.md
 
   templates:

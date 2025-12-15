@@ -58,7 +58,7 @@ describe('CLI Entry Point', () => {
       child.on('close', (code) => {
         expect(code).toBe(0);
         expect(output).toContain('USAGE');
-        expect(output).toContain('npx aios-fullstack');
+        expect(output).toContain('npx @synkra/aios-core');
         done();
       });
     });

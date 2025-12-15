@@ -98,13 +98,13 @@ For each deprecated utility, check for active references:
 **2.1 Automated Dependency Check**
 ```bash
 # Check for require() statements
-grep -r "require.*utility-name" .aios-core/agents .aios-core/tasks .aios-core/workflows expansion-packs/
+grep -r "require.*utility-name" .aios-core/agents .aios-core/tasks .aios-core/workflows Squads/
 
 # Check for string references (utility mentioned in docs/configs)
 grep -r "utility-name" .aios-core/agents/ .aios-core/tasks/ .aios-core/core-config.yaml
 
 # Count total references
-count=$(grep -r "utility-name" .aios-core/ expansion-packs/ 2>/dev/null | wc -l)
+count=$(grep -r "utility-name" .aios-core/ Squads/ 2>/dev/null | wc -l)
 echo "References found: $count"
 ```
 

@@ -211,7 +211,7 @@ tools:
 # Create Workflow
 
 ## Purpose
-To create a new workflow definition that orchestrates multiple agents and tasks for complex multi-step processes in AIOS-FULLSTACK.
+To create a new workflow definition that orchestrates multiple agents and tasks for complex multi-step processes in Synkra AIOS.
 
 ## Prerequisites
 - User authorization verified

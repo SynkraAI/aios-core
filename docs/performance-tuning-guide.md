@@ -1,8 +1,8 @@
-# AIOS-FULLSTACK Performance Tuning Guide
+# Synkra AIOS Performance Tuning Guide
 
 ## 📊 Overview
 
-This comprehensive guide provides strategies, tools, and best practices for optimizing AIOS-FULLSTACK performance across all critical components.
+This comprehensive guide provides strategies, tools, and best practices for optimizing Synkra AIOS performance across all critical components.
 
 ## 🎯 Performance Targets
 

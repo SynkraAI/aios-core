@@ -1,6 +1,6 @@
 # Meta-Agent Commands Reference
 
-Complete reference guide for all AIOS-FULLSTACK meta-agent commands.
+Complete reference guide for all Synkra AIOS meta-agent commands.
 
 ## Table of Contents
 
@@ -705,7 +705,7 @@ Examples:
 
 ### *update
 
-Update AIOS-FULLSTACK.
+Update Synkra AIOS.
 
 ```bash
 *update [options]

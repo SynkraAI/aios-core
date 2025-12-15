@@ -1,5 +1,5 @@
 /**
- * Component Metadata Manager for AIOS-FULLSTACK
+ * Component Metadata Manager for Synkra AIOS
  * Manages detailed metadata for all framework components
  * @module component-metadata
  */

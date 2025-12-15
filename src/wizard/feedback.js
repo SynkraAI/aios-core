@@ -112,7 +112,7 @@ function completeProgress(progressBar) {
 }
 
 /**
- * ASCII Art Banner for AIOS-FULLSTACK
+ * ASCII Art Banner for Synkra AIOS
  */
 const BANNER = `
   █████╗ ██╗ ██████╗ ███████╗      ███████╗██╗   ██╗██╗     ██╗     ███████╗████████╗ █████╗  ██████╗██╗  ██╗
@@ -171,7 +171,7 @@ function showSection(title) {
  */
 function showCancellation() {
   console.log('\n' + colors.warning('Installation cancelled.'));
-  console.log(colors.info('Run `npx aios-fullstack@latest init` to try again.\n'));
+  console.log(colors.info('Run `npx @synkra/aios-core@latest init` to try again.\n'));
 }
 
 /**

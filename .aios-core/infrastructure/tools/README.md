@@ -1,6 +1,6 @@
 # AIOS Tools - Integrations Directory
 
-This directory contains tool integration definitions for AIOS-FULLSTACK agents. Tools are external capabilities that agents can discover and use to accomplish tasks.
+This directory contains tool integration definitions for Synkra AIOS agents. Tools are external capabilities that agents can discover and use to accomplish tasks.
 
 ## Directory Structure
 

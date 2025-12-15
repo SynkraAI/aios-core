@@ -3,7 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 
 /**
- * Visual impact generator for AIOS-FULLSTACK framework
+ * Visual impact generator for Synkra AIOS framework
  * Creates visual representations of impact analysis results
  */
 class VisualImpactGenerator {
@@ -499,7 +499,7 @@ class VisualImpactGenerator {
         </div>
 
         <div class="footer">
-            Generated on ${new Date().toLocaleString()} | AIOS-FULLSTACK Impact Analysis
+            Generated on ${new Date().toLocaleString()} | Synkra AIOS Impact Analysis
         </div>
     </div>
 </body>

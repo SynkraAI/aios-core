@@ -1,6 +1,6 @@
 # Database Integration Analysis for Expansion Pack
 
-> Task ID: db-expansion-pack-integration
+> Task ID: db-Squad-integration
 > Agent: DB Sage (Database Architect)
 > Version: 1.0.0
 
@@ -531,7 +531,7 @@ LIMIT 10;
 
 ### Step 8: Output Integration Report
 
-**Generate expansion-packs/{pack-name}/database-integration-report.yaml:**
+**Generate Squads/{pack-name}/database-integration-report.yaml:**
 
 ```yaml
 integration_analysis:
@@ -591,7 +591,7 @@ next_steps:
 ## Output Files
 
 ```
-expansion-packs/{pack-name}/
+Squads/{pack-name}/
 ├── database-integration-report.yaml  ← Main output
 ├── data-flow-audit.yaml              ← Step 2 findings
 └── schema-design.yaml                ← Step 4 design

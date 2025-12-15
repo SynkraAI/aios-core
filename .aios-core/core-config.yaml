@@ -72,7 +72,7 @@ toolsLocation: .aios-core/tools
 scriptsLocation: .aios-core/scripts
 dataLocation: .aios-core/data
 elicitationLocation: .aios-core/elicitation
-# Squads replaced expansion-packs in OSR-8 - see docs/guides/squads-guide.md
+# Squads replaced Squads in OSR-8 - see docs/guides/squads-guide.md
 squadsTemplateLocation: templates/squad
 mindsLocation: outputs/minds
 

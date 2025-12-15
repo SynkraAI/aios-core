@@ -10,8 +10,8 @@
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-org/aios-fullstack.git
-cd aios-fullstack
+git clone https://github.com/your-org/@synkra/aios-core.git
+cd @synkra/aios-core
 
 # 2. Run the installer
 npm run install:aios
@@ -126,8 +126,8 @@ The installer creates a **startup service** that auto-starts 1MCP with your envi
 
 ```powershell
 # Automatically configured during installation
-nssm install aios-1mcp "C:\path\to\aios-fullstack\scripts\start-1mcp-with-env.cmd"
-nssm set aios-1mcp AppDirectory "C:\path\to\aios-fullstack"
+nssm install aios-1mcp "C:\path\to\@synkra/aios-core\scripts\start-1mcp-with-env.cmd"
+nssm set aios-1mcp AppDirectory "C:\path\to\@synkra/aios-core"
 nssm set aios-1mcp Start SERVICE_AUTO_START
 nssm start aios-1mcp
 ```
@@ -507,8 +507,8 @@ sudo systemctl restart aios-1mcp  # Linux
 
 5. **Join the Community:**
    - Discord: https://discord.gg/aios
-   - GitHub: https://github.com/your-org/aios-fullstack
-   - Docs: https://docs.aios-fullstack.com
+   - GitHub: https://github.com/your-org/@synkra/aios-core
+   - Docs: https://docs.@synkra/aios-core.com
 
 ---
 
@@ -530,9 +530,9 @@ sudo systemctl restart aios-1mcp  # Linux
 - API Keys: [docs/architecture/mcp-api-keys-management.md](../architecture/mcp-api-keys-management.md)
 
 **Community:**
-- GitHub Issues: https://github.com/your-org/aios-fullstack/issues
+- GitHub Issues: https://github.com/your-org/@synkra/aios-core/issues
 - Discord: https://discord.gg/aios
-- Email: support@aios-fullstack.com
+- Email: support@synkra/aios-core.com
 
 ---
 

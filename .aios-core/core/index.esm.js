@@ -3,7 +3,7 @@
  *
  * Provides ES module exports for all core framework functionality.
  *
- * @module @aios-fullstack/core
+ * @module @synkra/aios-core/core
  * @version 2.0.0
  * @created Story 2.2 - Core Module Creation
  */

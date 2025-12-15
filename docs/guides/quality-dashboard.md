@@ -353,4 +353,4 @@ The auto-refresh pauses when:
 
 ---
 
-*AIOS-FULLSTACK Quality Dashboard v1.0*
+*Synkra AIOS Quality Dashboard v1.0*

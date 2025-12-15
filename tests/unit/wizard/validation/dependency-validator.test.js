@@ -22,7 +22,7 @@ describeIntegration('Dependency Validator', () => {
       // Given
       fs.existsSync.mockReturnValue(true);
       fs.readFileSync.mockReturnValue(JSON.stringify({
-        name: 'aios-fullstack',
+        name: '@synkra/aios-core',
         version: '1.0.0',
         dependencies: {
           express: '^4.18.0',

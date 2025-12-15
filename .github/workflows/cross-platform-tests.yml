@@ -50,21 +50,21 @@ jobs:
         run: npm link
 
       - name: Test CLI version
-        run: aios-fullstack --version
+        run: @synkra/aios-core --version
 
       - name: Test CLI help
-        run: aios-fullstack --help
+        run: @synkra/aios-core --help
 
       - name: Test install command (dry-run)
-        run: aios-fullstack install --dry-run
+        run: @synkra/aios-core install --dry-run
         continue-on-error: true
 
       - name: Test doctor command
-        run: aios-fullstack doctor
+        run: @synkra/aios-core doctor
         continue-on-error: true
 
       - name: Test info command
-        run: aios-fullstack info
+        run: @synkra/aios-core info
 
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4

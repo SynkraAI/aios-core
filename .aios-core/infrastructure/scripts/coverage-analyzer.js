@@ -3,7 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 
 /**
- * Coverage analyzer for AIOS-FULLSTACK test generation
+ * Coverage analyzer for Synkra AIOS test generation
  * Analyzes existing test coverage and identifies gaps
  */
 class CoverageAnalyzer {

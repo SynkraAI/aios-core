@@ -44,7 +44,7 @@ function resolveAiosCoreModule(modulePath) {
     throw new Error(
       `Cannot find AIOS Core module: ${modulePath}\n` +
       `Searched: ${aiosCoreModule}\n` +
-      'Please ensure aios-fullstack is installed correctly.',
+      'Please ensure @synkra/aios-core is installed correctly.',
     );
   }
 

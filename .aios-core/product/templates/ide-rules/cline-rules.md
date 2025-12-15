@@ -1,10 +1,10 @@
-# AIOS-FULLSTACK Development Rules for Cline
+# Synkra AIOS Development Rules for Cline
 
-You are working with AIOS-FULLSTACK, an AI-Orchestrated System for Full Stack Development.
+You are working with Synkra AIOS, an AI-Orchestrated System for Full Stack Development.
 
 ## Core Framework Understanding
 
-AIOS-FULLSTACK is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
+Synkra AIOS is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
 
 ## Agent System
 
@@ -81,4 +81,4 @@ Cline requires explicit approval for:
 - Configure in Cline settings for additional tools
 
 ---
-*AIOS-FULLSTACK Cline Configuration v2.1*
+*Synkra AIOS Cline Configuration v2.1*

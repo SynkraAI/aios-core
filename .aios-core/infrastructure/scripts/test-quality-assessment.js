@@ -3,7 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 
 /**
- * Test quality assessment for AIOS-FULLSTACK test generation
+ * Test quality assessment for Synkra AIOS test generation
  * Evaluates generated test quality and provides improvement recommendations
  */
 class TestQualityAssessment {

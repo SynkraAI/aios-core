@@ -443,7 +443,7 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
 |------|---------|---------|
 | `input` | Validates input schema | `templates/input-schemas/analyze-brief.json` |
 | `output` | Validates output schema | `templates/output-schemas/analyze-brief.json` |
-| `prompt` | AI agent prompt structure | `expansion-packs/.../analyze-ad-brief.md` |
+| `prompt` | AI agent prompt structure | `Squads/.../analyze-ad-brief.md` |
 | `ui` | Human interface form | `templates/ui-forms/manual-approval.html` |
 | `script` | Worker script template | `templates/scripts/image-processor.sh` |
 
@@ -452,11 +452,11 @@ atomic_layer: Strategy   # Step 3: Analyze Brief
 ```yaml
 # Agente executor with prompt template
 **Template:**
-- path: expansion-packs/instagram-content-creator/tasks/ads/analyze-ad-brief.md
+- path: Squads/instagram-content-creator/tasks/ads/analyze-ad-brief.md
   type: prompt
   version: 2.1.0
   variables: [brief_text, brand_id, campaign_goal, ready_copy]
-  schema: expansion-packs/instagram-content-creator/schemas/analyze-brief-output.json
+  schema: Squads/instagram-content-creator/schemas/analyze-brief-output.json
 
 # Worker executor with script template
 **Template:**
@@ -884,7 +884,7 @@ atomic_layer: Strategy
       test: "tests/brief-analysis-brand-alignment.test.js"
 
 **Template:**
-- path: expansion-packs/instagram-content-creator/tasks/ads/analyze-ad-brief.md
+- path: Squads/instagram-content-creator/tasks/ads/analyze-ad-brief.md
   type: prompt
   version: 2.1.0
   variables: [brief_text, brand_id, campaign_goal, ready_copy]

@@ -1,6 +1,6 @@
 # AIOS Workflows
 
-This directory contains workflow definitions for the AIOS-FULLSTACK framework. Workflows define multi-step processes that can be executed by AIOS agents.
+This directory contains workflow definitions for the Synkra AIOS framework. Workflows define multi-step processes that can be executed by AIOS agents.
 
 ## Available Workflows
 

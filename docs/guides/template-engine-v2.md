@@ -1,6 +1,6 @@
 # Template Engine v2.0
 
-> Document generation and variable substitution engine for AIOS-FULLSTACK.
+> Document generation and variable substitution engine for Synkra AIOS.
 
 **Version:** 2.0
 **Last Updated:** 2025-12-05
@@ -458,4 +458,4 @@ console.log('Validation result:', validation);
 
 ---
 
-*AIOS-FULLSTACK Template Engine v2.0*
+*Synkra AIOS Template Engine v2.0*
