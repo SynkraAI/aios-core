@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-15T13:37:53.133Z",
+  "lastUpdated": "2025-12-17T14:30:41.635Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-15T00:53:18.237Z"
     },
     "layer2": {
-      "passRate": 0.8793103448275862,
-      "avgTimeMs": 153621,
-      "totalRuns": 58,
-      "lastRun": "2025-12-15T13:37:53.132Z",
+      "passRate": 0.864406779661017,
+      "avgTimeMs": 154068,
+      "totalRuns": 59,
+      "lastRun": "2025-12-17T14:30:41.633Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -58,6 +58,10 @@
       {
         "date": "2025-12-15",
         "value": 0.8571428571428571
+      },
+      {
+        "date": "2025-12-17",
+        "value": 0
       }
     ]
   },
@@ -1942,6 +1946,23 @@
         "triggeredBy": "pr",
         "prNumber": 5,
         "branchName": "docs/story-6.13-documentation-audit",
+        "author": "Pedrovaleriolopez",
+        "lintResult": "failure",
+        "typecheckResult": "success",
+        "testResult": "failure",
+        "storyResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T14:30:41.633Z",
+      "layer": 2,
+      "passed": false,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 6,
+        "branchName": "feature/deepseek-usage-tracking",
         "author": "Pedrovaleriolopez",
         "lintResult": "failure",
         "typecheckResult": "success",
