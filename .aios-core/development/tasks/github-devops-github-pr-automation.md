@@ -262,21 +262,85 @@ function extractStoryInfo(storyPath) {
 }
 ```
 
-### Step 4: Generate PR Title
+### Step 4: Generate PR Title (Conventional Commits Format)
+
+> **CRITICAL for Semantic-Release:** PR titles MUST follow Conventional Commits format.
+> When merged via "Squash and merge", the PR title becomes the commit message that triggers releases.
 
 ```javascript
+/**
+ * Generate PR title in Conventional Commits format for semantic-release compatibility.
+ *
+ * Format: {type}({scope}): {description} [Story {id}]
+ *
+ * Examples:
+ * - feat(auth): implement OAuth2 login [Story 6.17]
+ * - fix(cli): resolve path parsing on Windows [Story 6.18]
+ * - docs: update installation guide
+ */
 function generatePRTitle(branchName, storyInfo) {
-  if (storyInfo && storyInfo.id && storyInfo.title) {
-    return `[Story ${storyInfo.id}] ${storyInfo.title}`;
+  // Detect commit type from branch prefix
+  const branchTypeMap = {
+    'feature/': 'feat',
+    'feat/': 'feat',
+    'fix/': 'fix',
+    'bugfix/': 'fix',
+    'hotfix/': 'fix',
+    'docs/': 'docs',
+    'chore/': 'chore',
+    'refactor/': 'refactor',
+    'test/': 'test',
+    'perf/': 'perf',
+    'ci/': 'ci',
+    'style/': 'style',
+    'build/': 'build'
+  };
+
+  let type = 'feat'; // default
+  for (const [prefix, commitType] of Object.entries(branchTypeMap)) {
+    if (branchName.startsWith(prefix)) {
+      type = commitType;
+      break;
+    }
   }
 
-  // Fallback: convert branch name to title
-  return branchName
-    .replace(/^feature\//, '')
+  // Extract scope from branch name if present (e.g., feat/auth/login -> scope=auth)
+  const scopeMatch = branchName.match(/^[a-z-]+\/([a-z-]+)\//);
+  const scope = scopeMatch ? scopeMatch[1] : null;
+  const scopeStr = scope ? `(${scope})` : '';
+
+  // Generate description
+  if (storyInfo && storyInfo.id && storyInfo.title) {
+    // Clean title: remove "Story X.Y:" prefix if present, lowercase first char
+    let cleanTitle = storyInfo.title
+      .replace(/^Story\s*\d+\.\d+[:\s-]*/i, '')
+      .trim();
+
+    // Lowercase first character for conventional commit style
+    cleanTitle = cleanTitle.charAt(0).toLowerCase() + cleanTitle.slice(1);
+
+    return `${type}${scopeStr}: ${cleanTitle} [Story ${storyInfo.id}]`;
+  }
+
+  // Fallback: convert branch name to description
+  const description = branchName
+    .replace(/^(feature|feat|fix|bugfix|hotfix|docs|chore|refactor|test|perf|ci|style|build)\//, '')
+    .replace(/^[a-z-]+\//, '') // Remove scope if present
     .replace(/-/g, ' ')
-    .replace(/\b\w/g, c => c.toUpperCase());
+    .toLowerCase()
+    .trim();
+
+  return `${type}${scopeStr}: ${description}`;
 }
 ```
+
+**Semantic-Release Trigger Rules:**
+| PR Title Prefix | Release Type | Example |
+|-----------------|--------------|---------|
+| `feat:` or `feat(scope):` | Minor (2.3.0 → 2.4.0) | `feat(auth): add SSO support` |
+| `fix:` or `fix(scope):` | Patch (2.3.0 → 2.3.1) | `fix(cli): resolve Windows paths` |
+| `feat!:` or `BREAKING CHANGE:` | Major (2.3.0 → 3.0.0) | `feat!: redesign API` |
+| `docs:`, `chore:`, `test:`, etc. | No release | `docs: update README` |
 
 ### Step 5: Generate PR Description
 
@@ -415,9 +479,25 @@ Called by `@github-devops` via `*create-pr` command.
 ## Validation
 
 - PR created in correct repository (detected URL)
-- PR title includes story ID if available
+- PR title follows Conventional Commits format (required for semantic-release)
+- PR title includes story ID if available (e.g., `[Story 6.17]`)
 - PR description includes repository context
 - Base branch is correct (usually main/master)
+
+## Semantic-Release Integration
+
+**IMPORTANT:** When PRs are merged using "Squash and merge" on GitHub, the PR title becomes the merge commit message. This triggers semantic-release:
+
+| Branch Pattern | Generated Title | Release |
+|---------------|-----------------|---------|
+| `feature/user-auth` | `feat: user auth` | ✅ Minor |
+| `feat/auth/sso-login` | `feat(auth): sso login` | ✅ Minor |
+| `fix/cli-parsing` | `fix: cli parsing` | ✅ Patch |
+| `docs/readme-update` | `docs: readme update` | ❌ None |
+| `chore/deps-update` | `chore: deps update` | ❌ None |
+
+For breaking changes, manually edit the PR title to include `!`:
+- `feat!: redesign authentication API [Story 7.1]`
 
 ## Notes
 
