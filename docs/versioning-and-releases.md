@@ -75,3 +75,62 @@ git push && git push --tags
 ### Manual GitHub Actions Trigger
 
 You can also trigger releases manually through GitHub Actions workflow dispatch if needed.
+
+---
+
+## Troubleshooting
+
+### Release Not Triggered
+
+If your merge to `main` didn't trigger a release:
+
+1. **Check commit messages** - Only `fix:` and `feat:` prefixes trigger releases
+2. **Verify CI passed** - Release only runs if lint, typecheck, and test pass
+3. **Check workflow logs** - Go to Actions → Semantic Release to see details
+
+### Release Failed
+
+Common issues and solutions:
+
+| Error | Solution |
+|-------|----------|
+| `ENOGHTOKEN` | GITHUB_TOKEN secret missing or expired |
+| `ENOPKGAUTH` | NPM_TOKEN secret missing or invalid |
+| `ENOTINHISTORY` | Branch doesn't have proper history (use `fetch-depth: 0`) |
+| `EINVALIDNPMTOKEN` | Regenerate NPM token with publish permissions |
+
+### Skip a Release
+
+To merge without triggering a release, use one of these:
+
+```bash
+# Method 1: Use non-release prefix
+git commit -m "chore: update dependencies"
+
+# Method 2: Add [skip ci] to commit message
+git commit -m "feat: new feature [skip ci]"
+```
+
+### Force a Manual Release
+
+If automatic release fails, you can manually release:
+
+```bash
+npm run version:patch   # or minor/major
+git push && git push --tags
+npm publish
+```
+
+---
+
+## Configuration Files
+
+| File | Purpose |
+|------|---------|
+| `.releaserc.json` | Semantic release configuration |
+| `.github/workflows/semantic-release.yml` | GitHub Actions workflow |
+| `package.json` | Version source, npm scripts |
+
+---
+
+*Last updated: Story 6.17 - Semantic Release Automation*
