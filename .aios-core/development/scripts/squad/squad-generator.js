@@ -183,6 +183,20 @@ function extractSlashPrefix(name) {
   return name.replace(/-squad$/, '');
 }
 
+/**
+ * Safely quote YAML values that may contain special characters
+ * @param {string} val - Value to quote
+ * @returns {string} Safely quoted value
+ */
+function safeYamlValue(val) {
+  if (!val) return '""';
+  // Quote if contains special YAML characters or leading/trailing spaces
+  if (/[:\n\r"']/.test(val) || val.startsWith(' ') || val.endsWith(' ')) {
+    return `"${val.replace(/"/g, '\\"')}"`;
+  }
+  return val;
+}
+
 // =============================================================================
 // TEMPLATES
 // =============================================================================
@@ -232,8 +246,8 @@ function generateSquadYaml(config) {
 
   const yaml = `name: ${config.name}
 version: 1.0.0
-description: ${config.description || 'Custom squad'}
-author: ${config.author || 'Unknown'}
+description: ${safeYamlValue(config.description || 'Custom squad')}
+author: ${safeYamlValue(config.author || 'Unknown')}
 license: ${config.license || 'MIT'}
 slashPrefix: ${extractSlashPrefix(config.name)}
 
@@ -779,8 +793,8 @@ module.exports = { formatData };
 
     // Add .gitkeep to empty directories
     const emptyDirs = ['workflows', 'checklists', 'templates', 'tools', 'data'];
-    if (!fullConfig.includeAgent || fullConfig.template === 'basic') {
-      // Only add .gitkeep if no agents were created
+    if (!fullConfig.includeAgent) {
+      emptyDirs.push('agents');
     }
     if (!fullConfig.includeTask || fullConfig.template === 'agent-only') {
       emptyDirs.push('tasks');

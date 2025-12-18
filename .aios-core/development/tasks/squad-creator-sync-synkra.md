@@ -26,7 +26,7 @@ Syncs a local squad to the Synkra API marketplace for distribution and monetizat
 
 ## Planned Usage
 
-```
+```bash
 @squad-creator
 
 *sync-squad-synkra meu-squad
@@ -63,7 +63,7 @@ Syncs a local squad to the Synkra API marketplace for distribution and monetizat
 
 ## Synkra API Endpoints
 
-```
+```http
 POST   /api/v1/squads           # Create new squad
 PUT    /api/v1/squads/{id}      # Update existing
 GET    /api/v1/squads/{id}      # Get squad info

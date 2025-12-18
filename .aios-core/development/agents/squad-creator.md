@@ -210,7 +210,7 @@ Type `*help` to see all commands, or `*guide` for detailed usage.
    - Sync to Synkra API (marketplace)
 
 ### Squad Structure
-```
+```text
 ./squads/my-squad/
 ├── squad.yaml              # Manifest (required)
 ├── README.md               # Documentation
