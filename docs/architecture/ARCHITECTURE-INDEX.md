@@ -19,22 +19,17 @@ This index provides navigation to all architecture documentation for AIOS v2.1.
 ```
 docs/architecture/
 ├── ARCHITECTURE-INDEX.md     # This file
-├── analysis/                 # Technical analysis documents
-│   ├── mcp-optimization-1mcp.md
-│   ├── mcp-context-optimization-strategy.md
-│   ├── mcp-solution-comparison-checklist.md
-│   ├── tools-system-analysis-log.md
-│   ├── tools-system-gap-analysis.md
-│   ├── Squads-dependency-analysis.md
-│   ├── Squads-structure-inventory.md
-│   ├── scripts-consolidation-analysis.md
-│   ├── subdirectory-migration-impact-analysis.md
-│   └── repository-strategy-analysis.md
+├── mcp-system-diagrams.md    # MCP architecture diagrams
+├── mcp-api-keys-management.md # API key management
+├── high-level-architecture.md # System overview
+├── module-system.md          # 4-module architecture
+├── multi-repo-strategy.md    # Repository structure
 ├── decisions/                # Architectural decisions (ADRs)
-├── [other docs]              # Project-specific documentation
 └── [deprecated]              # source-tree.md, coding-standards.md, tech-stack.md
                               # (use docs/framework/ versions instead)
 ```
+
+> **Archived Analysis:** Legacy MCP optimization docs (1MCP) moved to `.github/deprecated-docs/architecture/analysis/`
 
 ---
 
@@ -54,10 +49,9 @@ docs/architecture/
 | Document | Description | Status |
 |----------|-------------|--------|
 | [MCP System Diagrams](./mcp-system-diagrams.md) | MCP architecture diagrams | ✅ Current |
-| [MCP Optimization (1MCP)](./analysis/mcp-optimization-1mcp.md) | Token optimization with 1MCP | ✅ Current |
 | [MCP API Keys Management](./mcp-api-keys-management.md) | API key management | ✅ Current |
-| [MCP Context Optimization](./analysis/mcp-context-optimization-strategy.md) | Context optimization | ✅ Current |
-| [MCP Solution Comparison](./analysis/mcp-solution-comparison-checklist.md) | Solution checklist | ✅ Current |
+
+> **Note:** MCP management is handled via Docker MCP Toolkit (Story 5.11). Use `@devops` agent with `*setup-mcp-docker` for configuration. Legacy 1MCP docs archived in `.github/deprecated-docs/`.
 
 ### Agent System
 

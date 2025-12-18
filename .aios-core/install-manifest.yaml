@@ -188,6 +188,10 @@ files:
   - tasks\github-devops-repository-cleanup.v1-backup.md
   - tasks\github-devops-version-management.md
   - tasks\github-devops-version-management.v1-backup.md
+  - tasks\add-mcp.md
+  - tasks\mcp-workflow.md
+  - tasks\search-mcp.md
+  - tasks\setup-mcp-docker.md
   - tasks\improve-self.md
   - tasks\improve-self.v1-backup.md
   - tasks\index-docs.md
@@ -277,7 +281,6 @@ files:
   - tasks\ux-user-research.v1-backup.md
   - tasks\validate-next-story.md
   - tasks\validate-next-story.v1-backup.md
-  - templates\1mcp-config.yaml
   - templates\activation-instructions-inline-greeting.yaml
   - templates\activation-instructions-template.md
   - templates\agent-template.yaml

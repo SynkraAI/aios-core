@@ -4,58 +4,43 @@ Complete documentation index for AIOS system guides.
 
 ---
 
-## 🚀 1MCP Implementation (Production-Ready)
+## MCP Configuration (Docker MCP Toolkit)
 
-**Status:** ✅ Complete & Ready to Deploy
-**Token Reduction:** 85% (280K → 40K)
-**Setup Time:** 5 minutes
+**Status:** Production-Ready
+**Token Reduction:** 85%+ (vs direct MCPs)
+**Setup Time:** 10-20 minutes
 
 ### Quick Start
 
-**Want 85% token reduction in 5 minutes?**
-→ Read: [`1mcp-quickstart.md`](./1mcp-quickstart.md)
+**Want optimized MCP configuration?**
+Use the DevOps agent: `@devops` then `*setup-mcp-docker`
 
-### Complete Documentation
+### MCP Management Commands
+
+| Command | Description | Agent |
+|---------|-------------|-------|
+| `*setup-mcp-docker` | Initial Docker MCP Toolkit setup | @devops |
+| `*search-mcp` | Search available MCPs in catalog | @devops |
+| `*add-mcp` | Add MCP server to Docker gateway | @devops |
+| `*list-mcps` | List currently enabled MCPs | @devops |
+| `*remove-mcp` | Remove MCP from Docker gateway | @devops |
+
+### Architecture Reference
 
 | Guide | Purpose | Time | Audience |
 |-------|---------|------|----------|
-| **[1MCP Implementation](./1mcp-implementation.md)** | Full comprehensive guide | 20 min | All users |
-| **[Quick Start](./1mcp-quickstart.md)** | Fast 5-minute setup | 5 min | Developers |
-| **[Troubleshooting](./1mcp-troubleshooting.md)** | Complete diagnostic reference | 15 min | Support teams |
-| **[AIOS Integration](./1mcp-aios-integration.md)** | Agent workflows & presets | 15 min | AIOS developers |
-| **[Implementation Summary](./1MCP-IMPLEMENTATION-SUMMARY.md)** | Executive overview | 5 min | Decision makers |
+| **[MCP Global Setup Guide](./mcp-global-setup.md)** | Global MCP server configuration | 10 min | All users |
+| **[MCP API Keys Management](../architecture/mcp-api-keys-management.md)** | Secure credential handling | 10 min | DevOps |
 
-### Configuration Templates
-
-- **[1MCP Config Template](../../aios-core/templates/1mcp-config.yaml)** - Production-ready YAML config
+> **Note:** 1MCP documentation has been deprecated. AIOS now uses Docker MCP Toolkit exclusively (Story 5.11). Archived docs available in `.github/deprecated-docs/guides/`.
 
 ---
 
-## 🧪 TOON Benchmark (Phase 2)
+## v2.1 Framework Documentation
 
-**Status:** Ready to Execute (Requires Validation)
-**Location:** `benchmarks/toon-parsing/`
-**Purpose:** Validate if TOON can reduce tokens further (40K → 12K)
-
-**Next Step:** Run benchmark to decide if TOON should be implemented.
-
-```bash
-cd benchmarks/toon-parsing
-npm run benchmark
-```
-
-**Decision Criteria:**
-- ≥ 90% accuracy → Implement TOON (Phase 2)
-- 80-90% accuracy → Caution (limited rollout)
-- < 80% accuracy → Stick with 1MCP only
-
----
-
-## 📦 v2.1 Framework Documentation
-
-**Status:** ✅ Complete (Story 2.16)
+**Status:** Complete (Story 2.16)
 **Version:** 2.1.0
-**Last Updated:** 2025-12-01
+**Last Updated:** 2025-12-17
 
 ### Core Architecture
 
@@ -108,66 +93,33 @@ npm run benchmark
 
 ---
 
-## 📚 Other Guides
+## Other Guides
 
 - [Agent Reference Guide](../agent-reference-guide.md)
 - [Git Workflow Guide](../git-workflow-guide.md)
 - [Getting Started](../getting-started.md)
+- [Installation Troubleshooting](./installation-troubleshooting.md)
 - [Troubleshooting](../troubleshooting.md)
 
 ---
 
-## Quick Navigation
-
-### I want to...
-
-**...reduce token usage by 85%**
-→ [`1mcp-quickstart.md`](./1mcp-quickstart.md) (5 min)
-
-**...understand how 1MCP works**
-→ [`1mcp-implementation.md`](./1mcp-implementation.md) (20 min)
-
-**...fix 1MCP issues**
-→ [`1mcp-troubleshooting.md`](./1mcp-troubleshooting.md) (15 min)
-
-**...integrate 1MCP with AIOS agents**
-→ [`1mcp-aios-integration.md`](./1mcp-aios-integration.md) (15 min)
-
-**...see executive summary**
-→ [`1MCP-IMPLEMENTATION-SUMMARY.md`](./1MCP-IMPLEMENTATION-SUMMARY.md) (5 min)
-
-**...validate TOON optimization**
-→ `../../benchmarks/toon-parsing/README.md` (Phase 2)
-
----
-
-## Documentation Stats
-
-**Total Documentation:** ~3500 lines
-**Guides Created:** 9 comprehensive documents
-**Coverage:** Installation, Configuration, Integration, Troubleshooting, Quality Gates, Dashboard, Templates
-**Production Status:** ✅ Ready to deploy
-
----
-
-## Sprint 3 Documentation (New)
+## Sprint 3 Documentation
 
 | Document | Lines | Status |
 |----------|-------|--------|
-| [Quality Gates Guide](./quality-gates.md) | ~600 | ✅ Complete |
-| [Quality Dashboard Guide](./quality-dashboard.md) | ~350 | ✅ Complete |
-| [Template Engine v2](./template-engine-v2.md) | ~400 | ✅ Complete |
-| [CodeRabbit Integration](./coderabbit/) | ~1000 | ✅ Complete |
+| [Quality Gates Guide](./quality-gates.md) | ~600 | Complete |
+| [Quality Dashboard Guide](./quality-dashboard.md) | ~350 | Complete |
+| [Template Engine v2](./template-engine-v2.md) | ~400 | Complete |
+| [CodeRabbit Integration](./coderabbit/) | ~1000 | Complete |
 
 ---
 
 ## Support
 
-- **GitHub Issues:** Tag `1mcp`, `documentation`, `guides`
-- **Slack:** `#aios-support`
-- **Experts:** @pedro, @mitchell, @andrej, @guillermo
+- **GitHub Issues:** Tag `documentation`, `guides`, `mcp`
+- **Experts:** See CODEOWNERS file
 
 ---
 
-**Last Updated:** 2025-12-05
-**Version:** 2.0 (Sprint 3)
+**Last Updated:** 2025-12-17
+**Version:** 2.1 (Story 6.14)

@@ -1,10 +1,10 @@
 # Setup Docker MCP Toolkit
 
 **Task ID:** setup-mcp-docker
-**Version:** 2.0.0
+**Version:** 2.1.0
 **Created:** 2025-12-08
-**Updated:** 2025-12-08
-**Agent:** @devops (Gage) / @dev (Dex)
+**Updated:** 2025-12-17
+**Agent:** @devops (Gage)
 
 ---
 
@@ -63,7 +63,7 @@ Configure Docker MCP Toolkit as the primary MCP infrastructure for AIOS, using *
 
 ```yaml
 task: setupMcpDocker()
-responsável: DevOps Agent / Dev Agent
+responsável: DevOps Agent
 responsavel_type: Agente
 atomic_layer: Infrastructure
 
@@ -556,8 +556,8 @@ token_usage: ~500-1,000 tokens (this task only)
 ## Metadata
 
 ```yaml
-story: Docker MCP Migration (Story 5.11)
-version: 2.0.0
+story: Story 6.14 - MCP Governance Consolidation
+version: 2.1.0
 dependencies:
   - Docker Desktop 4.50+
   - Docker MCP Toolkit
@@ -568,11 +568,14 @@ tags:
   - docker
   - setup
   - http-transport
-updated_at: 2025-12-08
+created_at: 2025-12-08
+updated_at: 2025-12-17
 agents:
   - devops
-  - dev
 changelog:
+  2.1.0:
+    - Changed: DevOps Agent now exclusive responsible (Story 6.14)
+    - Removed: Dev Agent from agents list
   2.0.0:
     - BREAKING: Changed from stdio to HTTP transport
     - Added: gateway-service.yml for persistent gateway

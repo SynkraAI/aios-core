@@ -69,7 +69,18 @@ slashPrefix: AIOS
 # SECTION 3: Resource Locations
 # ============================================
 toolsLocation: .aios-core/tools
-scriptsLocation: .aios-core/scripts
+
+# Scripts are organized into modules by domain (Story 6.16)
+# - core: Core framework modules (elicitation, session)
+# - development: Development scripts (greeting, workflow, exit hooks)
+# - infrastructure: Infrastructure scripts (git config, project status, validators)
+# - legacy: Migration utilities only (deprecated scripts have been removed)
+scriptsLocation:
+  core: .aios-core/core
+  development: .aios-core/development/scripts
+  infrastructure: .aios-core/infrastructure/scripts
+  legacy: .aios-core/scripts
+
 dataLocation: .aios-core/data
 elicitationLocation: .aios-core/elicitation
 # Squads replaced Squads in OSR-8 - see docs/guides/squads-guide.md

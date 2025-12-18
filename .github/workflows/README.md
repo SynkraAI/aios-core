@@ -12,7 +12,7 @@ This directory contains automated workflows for the AIOS project.
 
 ### Purpose
 
-Automatically audits architecture gaps on a quarterly basis and generates trend reports with 1MCP adoption metrics.
+Automatically audits architecture gaps on a quarterly basis and generates trend reports with MCP adoption metrics.
 
 ### Schedule
 
@@ -29,7 +29,7 @@ Automatically audits architecture gaps on a quarterly basis and generates trend 
    - Gap count comparison vs previous quarter
    - Gap breakdown by category
    - Top 10 entities with most gaps
-   - 1MCP adoption metrics
+   - MCP adoption metrics (Docker MCP Toolkit)
    - Token savings estimates
    - Story suggestions for remediation
 6. **Creates GitHub issue** with the trend report
@@ -64,13 +64,15 @@ The workflow automatically creates a GitHub issue with:
 - Labels: `architecture`, `gap-remediation`, `quarterly-audit`
 - Body: Complete trend report with metrics and recommendations
 
-### 1MCP Metrics
+### MCP Metrics
 
-If 1MCP is detected (~/.1mcp/config.json exists), the report includes:
-- Tools via 1MCP vs direct count
+The report includes Docker MCP Toolkit metrics:
+- Tools via Docker gateway vs direct count
 - Adoption rate percentage
 - Token savings estimate
-- Migration status
+- MCP governance status
+
+> **Note:** Legacy 1MCP metrics have been deprecated. AIOS now uses Docker MCP Toolkit exclusively (Story 5.11).
 
 ### Maintenance
 

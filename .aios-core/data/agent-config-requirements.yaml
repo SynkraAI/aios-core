@@ -64,10 +64,10 @@ agents:
       - path: .aios-core/data/technical-preferences.md
         lazy: false
         size: 15KB
-      - path: .aios-core/data/test-levels-framework.md
+      - path: .aios-core/product/data/test-levels-framework.md
         lazy: false
         size: 8KB
-      - path: .aios-core/data/test-priorities-matrix.md
+      - path: .aios-core/product/data/test-priorities-matrix.md
         lazy: false
         size: 6KB
     lazy_loading:
@@ -120,7 +120,7 @@ agents:
       - storyBacklog
       - templatesLocation
     files_loaded:
-      - path: .aios-core/data/elicitation-methods.md
+      - path: .aios-core/product/data/elicitation-methods.md
         lazy: false
         size: 5KB
     lazy_loading:
@@ -134,7 +134,7 @@ agents:
       - storyBacklog
       - dataLocation
     files_loaded:
-      - path: .aios-core/data/mode-selection-best-practices.md
+      - path: .aios-core/product/data/mode-selection-best-practices.md
         lazy: false
         size: 10KB
       - path: .aios-core/data/workflow-patterns.yaml
@@ -182,7 +182,7 @@ agents:
       - dataLocation
       - analyticsLocation
     files_loaded:
-      - path: .aios-core/data/brainstorming-techniques.md
+      - path: .aios-core/product/data/brainstorming-techniques.md
         lazy: false
         size: 2KB
     lazy_loading: {}

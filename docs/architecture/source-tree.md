@@ -493,7 +493,7 @@ squads/
 
 ```
 mcp-ecosystem/
-├── presets/                           # 1MCP presets
+├── presets/                           # MCP presets (Docker MCP Toolkit)
 │   ├── aios-dev/
 │   ├── aios-research/
 │   └── aios-docker/

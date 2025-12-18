@@ -1,354 +1,122 @@
-# AIOS Utils - Utility Scripts Library
+# AIOS Scripts - Legacy Directory
 
-This directory contains 68+ utility scripts that provide automation, validation, and helper functions for Synkra AIOS agents and workflows.
+> **Note**: This directory now contains only legacy/migration scripts and a few active utilities.
+> Most scripts have been migrated to the modular structure (Story 6.16).
 
-## Categories
+## Current Structure
 
-### 🔍 **Core Validation & Analysis**
-Scripts for validating AIOS structures and analyzing code quality.
+Scripts are now organized by domain across three locations:
 
-- **aios-validator.js** - Validates AIOS structures (agents, tasks, workflows, stories)
-- **capability-analyzer.js** - Analyzes agent capabilities and requirements
-- **compatibility-checker.js** - Checks compatibility between components
-- **coverage-analyzer.js** - Analyzes test coverage metrics
-- **dependency-analyzer.js** - Analyzes dependencies and their impacts
-- **dependency-impact-analyzer.js** - Predicts impact of dependency changes
+| Location | Purpose |
+|----------|---------|
+| `.aios-core/core/` | Core framework modules (elicitation, session) |
+| `.aios-core/development/scripts/` | Development scripts (greeting, workflow, hooks) |
+| `.aios-core/infrastructure/scripts/` | Infrastructure scripts (git config, validators) |
+| `.aios-core/scripts/` (this directory) | Legacy utilities and migration scripts |
 
-### 📋 **Story & Task Management**
-Tools for managing development stories, tasks, and workflows.
+## Scripts in This Directory
 
-- **story-manager.js** - Complete story lifecycle management
-  - Create, update, delete stories
-  - Track progress and status
-  - Manage checkboxes and file lists
-  - Integration with ClickUp
+### Active Scripts
 
-- **batch-creator.js** - Batch creation of stories/tasks
-- **task-router.js** - Routes tasks to appropriate agents
-- **workflow-orchestrator.js** - Orchestrates multi-step workflows
+| Script | Description |
+|--------|-------------|
+| `session-context-loader.js` | Loads session context for agents |
+| `command-execution-hook.js` | Hook for command execution |
+| `test-template-system.js` | Internal test utility for templates |
 
-### 🔧 **Tool & Integration Management**
-Scripts for managing tools, MCPs, and external integrations.
+### Migration Scripts
 
-- **tool-resolver.js** - Discovers and validates available tools
-  - CLI tools detection
-  - MCP server validation
-  - Capability matching
-  - Environment verification
+| Script | Description |
+|--------|-------------|
+| `batch-migrate-*.ps1` | Batch migration utilities |
+| `migrate-framework-docs.sh` | Documentation migration script |
+| `validate-phase1.ps1` | Phase 1 validation script |
 
-- **clickup-helpers.js** - ClickUp API utility functions
-  - Task operations
-  - Sprint management
-  - Custom fields handling
-  - Webhook utilities
+## Script Path Mapping
 
-### 🧩 **Component Generation**
-Generators for creating various component types.
+If you're looking for a script that was previously here, use this mapping:
 
-- **component-generator.js** - Generates React/Vue/Angular components
-- **component-metadata.js** - Extracts component metadata
-- **component-preview.js** - Generates component previews
-- **component-search.js** - Searches for components in codebase
-- **test-generator.js** - Generates test suites
-- **migration-generator.js** - Generates database migrations
-- **schema-generator.js** - Generates schema definitions
+```text
+OLD PATH                                      NEW PATH
+-----------------------------------------     ------------------------------------------
+.aios-core/scripts/context-detector.js      → .aios-core/core/session/context-detector.js
+.aios-core/scripts/elicitation-engine.js    → .aios-core/core/elicitation/elicitation-engine.js
+.aios-core/scripts/elicitation-session-manager.js → .aios-core/core/elicitation/session-manager.js
+.aios-core/scripts/greeting-builder.js      → .aios-core/development/scripts/greeting-builder.js
+.aios-core/scripts/workflow-navigator.js    → .aios-core/development/scripts/workflow-navigator.js
+.aios-core/scripts/agent-exit-hooks.js      → .aios-core/development/scripts/agent-exit-hooks.js
+.aios-core/scripts/git-config-detector.js   → .aios-core/infrastructure/scripts/git-config-detector.js
+.aios-core/scripts/project-status-loader.js → .aios-core/infrastructure/scripts/project-status-loader.js
+.aios-core/scripts/aios-validator.js        → .aios-core/infrastructure/scripts/aios-validator.js
+.aios-core/scripts/tool-resolver.js         → .aios-core/infrastructure/scripts/tool-resolver.js
+.aios-core/scripts/output-formatter.js      → .aios-core/infrastructure/scripts/output-formatter.js
+```
 
-### 📝 **Documentation & Code Quality**
-Tools for maintaining documentation and code quality.
+## Configuration
 
-- **documentation-synchronizer.js** - Syncs documentation with code
-- **code-quality-improver.js** - Suggests code quality improvements
-- **commit-message-generator.js** - Generates semantic commit messages
-- **changelog-generator.js** - Generates CHANGELOG entries
-- **diff-generator.js** - Generates structured diffs
+The `scriptsLocation` in `core-config.yaml` now uses a modular structure:
 
-### 🔄 **Version Control & Git**
-Git workflow automation and version control helpers.
-
-- **branch-manager.js** - Manages Git branches
-- **conflict-manager.js** - Handles merge conflicts
-- **conflict-resolver.js** - Resolves common conflict patterns
-- **pr-validator.js** - Validates pull requests
-- **release-manager.js** - Manages releases and versioning
-
-### 💾 **Backup & Recovery**
-Data backup and recovery utilities.
-
-- **backup-manager.js** - Automated backups
-  - Story backups
-  - Configuration backups
-  - Code snapshots
-  - Rollback capabilities
-
-- **recovery-manager.js** - Recovery operations
-- **snapshot-manager.js** - Manages code snapshots
-
-### 🎯 **Workflow Automation**
-Scripts for automating development workflows.
-
-- **approval-workflow.js** - Handles approval workflows
-- **change-propagation-predictor.js** - Predicts change impacts
-- **elicitation-engine.js** - Interactive requirement gathering
-- **qa-automation.js** - Automated QA workflows
-- **test-orchestrator.js** - Orchestrates test execution
-
-### 🔌 **API & Integration**
-API helpers and integration utilities.
-
-- **api-client-generator.js** - Generates API clients
-- **webhook-manager.js** - Manages webhooks
-- **supabase-helpers.js** - Supabase utility functions
-- **railway-helpers.js** - Railway deployment helpers
-
-### 🧪 **Testing Utilities**
-Testing support and test data management.
-
-- **test-data-generator.js** - Generates test data
-- **mock-generator.js** - Generates mocks and stubs
-- **performance-profiler.js** - Profiles performance
-- **security-scanner.js** - Scans for security issues
-
-### 🗄️ **Data Management**
-Data transformation and management tools.
-
-- **yaml-parser.js** - YAML parsing with validation
-- **json-transformer.js** - JSON transformation utilities
-- **markdown-processor.js** - Markdown processing
-- **template-engine.js** - Template rendering engine
-
-### 🔐 **Security & Validation**
-Security scanning and input validation.
-
-- **secret-scanner.js** - Scans for exposed secrets
-- **input-validator.js** - Validates user inputs
-- **permission-checker.js** - Checks permissions
-- **rate-limiter.js** - Rate limiting utilities
-
-### 📊 **Monitoring & Logging**
-Logging, monitoring, and observability tools.
-
-- **logger.js** - Structured logging
-- **metrics-collector.js** - Collects metrics
-- **health-checker.js** - Health check utilities
-- **error-tracker.js** - Error tracking and reporting
-
-### 🎨 **UI & Presentation**
-UI generation and formatting utilities.
-
-- **markdown-renderer.js** - Renders Markdown to HTML
-- **syntax-highlighter.js** - Syntax highlighting
-- **diagram-generator.js** - Generates diagrams
-- **report-formatter.js** - Formats reports
+```yaml
+scriptsLocation:
+  core: .aios-core/core
+  development: .aios-core/development/scripts
+  infrastructure: .aios-core/infrastructure/scripts
+  legacy: .aios-core/scripts  # This directory
+```
 
 ## Usage Examples
 
-### Story Management
+### Loading Core Scripts
 
 ```javascript
-const { StoryManager } = require('./story-manager');
+// Elicitation Engine (from core)
+const ElicitationEngine = require('./.aios-core/core/elicitation/elicitation-engine');
 
-// Create new story
-const story = await StoryManager.create({
-  title: 'Implement user authentication',
-  epic: 'User Management',
-  assignee: '@dev'
-});
-
-// Update story progress
-await story.updateTask(taskId, { status: 'completed' });
-
-// Get story status
-const status = await story.getStatus();
+// Context Detector (from core)
+const ContextDetector = require('./.aios-core/core/session/context-detector');
 ```
 
-### Tool Discovery
+### Loading Development Scripts
 
 ```javascript
-const { resolveTools } = require('./tool-resolver');
+// Greeting Builder
+const GreetingBuilder = require('./.aios-core/development/scripts/greeting-builder');
 
-// Get all available tools
-const tools = await resolveTools();
-
-// Get specific tool category
-const mcpServers = await resolveTools({
-  category: 'mcp',
-  required: true
-});
-
-// Check tool availability
-const isAvailable = await resolveTools.checkTool('gh');
+// Workflow Navigator
+const WorkflowNavigator = require('./.aios-core/development/scripts/workflow-navigator');
 ```
 
-### Component Generation
+### Loading Infrastructure Scripts
 
 ```javascript
-const { generateComponent } = require('./component-generator');
+// Project Status Loader
+const { loadProjectStatus } = require('./.aios-core/infrastructure/scripts/project-status-loader');
 
-// Generate React component
-await generateComponent({
-  name: 'UserProfile',
-  type: 'react',
-  props: ['user', 'onEdit'],
-  features: ['typescript', 'tests']
-});
+// Git Config Detector
+const GitConfigDetector = require('./.aios-core/infrastructure/scripts/git-config-detector');
 ```
 
-### Validation
+### Loading Legacy Scripts (this directory)
 
 ```javascript
-const { validate } = require('./aios-validator');
-
-// Validate agent definition
-const result = await validate.agent('path/to/agent.yaml');
-
-// Validate story structure
-const storyValid = await validate.story('docs/stories/1.1-feature.md');
-
-// Validate workflow
-const workflowValid = await validate.workflow('workflows/deploy.yaml');
-```
-
-## Best Practices
-
-### 1. Error Handling
-
-All utilities use consistent error handling:
-
-```javascript
-try {
-  const result = await utility.operation();
-  return result;
-} catch (error) {
-  if (error.code === 'VALIDATION_ERROR') {
-    // Handle validation errors
-  }
-  throw error;
-}
-```
-
-### 2. Configuration
-
-Utilities read configuration from `core-config.yaml`:
-
-```javascript
-const config = require('../core-config.yaml');
-const utilsLocation = config.utilsLocation;
-```
-
-### 3. Logging
-
-Use the built-in logger for consistent output:
-
-```javascript
-const logger = require('./logger');
-
-logger.info('Operation started', { context });
-logger.error('Operation failed', { error });
-```
-
-### 4. Testing
-
-Each utility should have corresponding tests:
-
-```javascript
-// Example: aios-validator.test.js
-describe('aios-validator', () => {
-  it('validates agent structure', async () => {
-    const result = await validate.agent(validAgent);
-    expect(result.valid).toBe(true);
-  });
-});
-```
-
-## Adding New Utilities
-
-### Structure
-
-```javascript
-/**
- * @file utility-name.js
- * @description Brief description of what this utility does
- */
-
-const config = require('../core-config.yaml');
-const logger = require('./logger');
-
-class UtilityName {
-  constructor(options = {}) {
-    this.options = options;
-  }
-
-  async mainOperation(params) {
-    try {
-      // Implementation
-      logger.info('Operation successful');
-      return result;
-    } catch (error) {
-      logger.error('Operation failed', { error });
-      throw error;
-    }
-  }
-}
-
-module.exports = UtilityName;
-```
-
-### Documentation
-
-1. Add JSDoc comments
-2. Include usage examples
-3. Document all parameters
-4. List error codes
-5. Update this README
-
-### Testing
-
-1. Create corresponding `.test.js` file
-2. Test happy path
-3. Test error cases
-4. Test edge cases
-5. Run: `npm test utils/utility-name.test.js`
-
-## Troubleshooting
-
-### Utility Not Found
-
-```bash
-# Verify utility exists
-ls -la .aios-core/scripts/utility-name.js
-
-# Check require path
-node -e "require('./.aios-core/scripts/utility-name')"
-```
-
-### Permission Errors
-
-```bash
-# Check file permissions
-chmod +x .aios-core/scripts/*.js
-
-# Check directory permissions
-ls -ld .aios-core/scripts/
-```
-
-### Configuration Issues
-
-```bash
-# Validate core-config.yaml
-node .aios-core/scripts/aios-validator.js --config
-
-# Check utilsLocation setting
-grep utilsLocation .aios-core/core-config.yaml
+// Session Context Loader
+const sessionLoader = require('./.aios-core/scripts/session-context-loader');
 ```
 
 ## Related Documentation
 
-- [Tools Directory](../tools/README.md)
-- [Agent Development Guide](../../docs/agent-guide.md)
-- [Core Configuration](../core-config.yaml)
-- [Testing Guide](../../docs/testing-guide.md)
+- [Core Config](../core-config.yaml) - scriptsLocation configuration
+- [Core Module](../core/README.md) - Core framework modules
+- [Development Scripts](../development/scripts/README.md) - Development utilities
+- [Infrastructure Scripts](../infrastructure/scripts/README.md) - Infrastructure utilities
+
+## Migration History
+
+| Date | Story | Change |
+|------|-------|--------|
+| 2025-12-18 | 6.16 | Deleted deprecated scripts, updated documentation |
+| 2025-01-15 | 2.2 | Initial script reorganization to modular structure |
 
 ---
 
-*Last updated: 2025-10-22 - Documentation Sync Initiative*
-*Total utilities: 68 scripts*
+**Last updated:** 2025-12-18 - Story 6.16 Scripts Path Consolidation

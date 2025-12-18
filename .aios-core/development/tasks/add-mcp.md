@@ -8,7 +8,7 @@
 
 ```yaml
 task: addMcp()
-responsavel: Dev Agent / DevOps Agent
+responsavel: DevOps Agent
 responsavel_type: Agente
 atomic_layer: Infrastructure
 elicit: true
@@ -302,8 +302,8 @@ Next steps:
 
 ```yaml
 task: add-mcp
-version: 1.0.0
-story: Story 5.11 - Docker MCP Migration
+version: 1.1.0
+story: Story 6.14 - MCP Governance Consolidation
 dependencies:
   - Docker MCP Toolkit
   - docker mcp gateway running
@@ -312,8 +312,14 @@ tags:
   - mcp
   - docker
   - dynamic
-updated_at: 2025-12-08
+created_at: 2025-12-08
+updated_at: 2025-12-17
 agents:
-  - dev
   - devops
+changelog:
+  1.1.0:
+    - Changed: DevOps Agent now exclusive responsible (Story 6.14)
+    - Removed: Dev Agent from agents list
+  1.0.0:
+    - Initial version (Story 5.11)
 ```

@@ -60,10 +60,11 @@ async function switchAgent(fromAgent, toAgent) {
 The greeting system automatically uses session state:
 
 ```javascript
-const { generateGreeting } = require('./.aios-core/scripts/generate-greeting');
+const GreetingBuilder = require('./.aios-core/development/scripts/greeting-builder');
+const builder = new GreetingBuilder();
 
 // Session context is loaded automatically
-const greeting = await generateGreeting('dev');
+const greeting = await builder.buildGreeting(agentDef, { conversationHistory: [] });
 console.log(greeting);
 ```
 
@@ -151,7 +152,9 @@ await updateSessionAfterCommand('dev', 'develop-yolo');
 // → sessionType: 'existing'
 
 // Next activation shows abbreviated greeting
-const greeting = await generateGreeting('dev');
+const GreetingBuilder = require('./.aios-core/development/scripts/greeting-builder');
+const builder = new GreetingBuilder();
+const greeting = await builder.buildGreeting(devAgent, { conversationHistory });
 // Uses 'existing' session type
 ```
 
@@ -177,7 +180,9 @@ await updateSessionAfterCommand('dev', 'apply-qa-fixes');
 // → sessionType: 'workflow'
 
 // Next greeting shows workflow context
-const greeting = await generateGreeting('dev');
+const GreetingBuilder = require('./.aios-core/development/scripts/greeting-builder');
+const builder = new GreetingBuilder();
+const greeting = await builder.buildGreeting(devAgent, { conversationHistory });
 // Includes: "Continuing from @qa review..."
 ```
 
@@ -218,14 +223,14 @@ node tests/integration/session-workflow.test.js
 # Clear session
 rm .aios-core/.session/current-session.json
 
-# Test new session
-node .aios-core/scripts/generate-greeting.js dev
+# Test new session greeting
+node .aios-core/development/scripts/test-greeting-system.js
 
 # Simulate command
 node -e "require('./.aios-core/scripts/command-execution-hook').updateSessionAfterCommand('dev', 'develop-yolo')"
 
-# Test existing session
-node .aios-core/scripts/generate-greeting.js dev
+# Test existing session (command history exists)
+node .aios-core/development/scripts/test-greeting-system.js
 ```
 
 ## Troubleshooting
@@ -273,8 +278,10 @@ Old approach (deprecated):
 
 New approach (Story 6.1.4):
 ```javascript
-// STEP 3: Execute unified greeting generator
-node .aios-core/scripts/generate-greeting.js [agent-id]
+// STEP 3: Build intelligent greeting using GreetingBuilder
+const GreetingBuilder = require('./.aios-core/development/scripts/greeting-builder');
+const builder = new GreetingBuilder();
+const greeting = await builder.buildGreeting(agentDef, { conversationHistory });
 ```
 
 ### Backward Compatibility

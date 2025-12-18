@@ -14,22 +14,22 @@ O Sistema de Greeting Contextual é uma melhoria de UX que torna os greetings do
 
 ### ✅ Componentes Core (Story 6.1.2.5)
 
-1. **ContextDetector** (`.aios-core/scripts/context-detector.js`)
+1. **ContextDetector** (`.aios-core/core/session/context-detector.js`)
    - Detecta tipo de sessão: `new`, `existing`, ou `workflow`
    - Abordagem híbrida: histórico de conversação (preferido) + arquivo de sessão (fallback)
    - TTL de 1 hora para sessões inativas
 
-2. **GitConfigDetector** (`.aios-core/scripts/git-config-detector.js`)
+2. **GitConfigDetector** (`.aios-core/infrastructure/scripts/git-config-detector.js`)
    - Detecta configuração do git do projeto
    - Cache com TTL de 5 minutos
    - Timeout protection de 1000ms
 
-3. **GreetingBuilder** (`.aios-core/scripts/greeting-builder.js`)
+3. **GreetingBuilder** (`.aios-core/development/scripts/greeting-builder.js`)
    - Monta greetings contextuais baseados no tipo de sessão
    - Filtra comandos por visibilidade (full/quick/key)
    - Timeout de 150ms com fallback gracioso
 
-4. **WorkflowNavigator** (`.aios-core/scripts/workflow-navigator.js`)
+4. **WorkflowNavigator** (`.aios-core/development/scripts/workflow-navigator.js`)
    - Detecta estado do workflow atual
    - Sugere próximos comandos baseado no estado
    - Pre-popula comandos com contexto (story path, branch)
@@ -233,7 +233,7 @@ story_development:
 ### Opção 1: Script de Teste Automático
 
 ```bash
-node .aios-core/scripts/test-greeting-system.js
+node .aios-core/development/scripts/test-greeting-system.js
 ```
 
 Este script testa os 4 cenários:
@@ -245,7 +245,7 @@ Este script testa os 4 cenários:
 ### Opção 2: Teste Manual via Node REPL
 
 ```javascript
-const GreetingBuilder = require('./.aios-core/scripts/greeting-builder');
+const GreetingBuilder = require('./.aios-core/development/scripts/greeting-builder');
 const builder = new GreetingBuilder();
 
 // Mock agent
@@ -281,11 +281,11 @@ Quando a integração com o processo de ativação estiver implementada (Story 6
 ## 📁 Arquivos Relacionados
 
 ### Scripts Core
-- `.aios-core/scripts/context-detector.js` - Detecção de tipo de sessão
-- `.aios-core/scripts/git-config-detector.js` - Detecção de git config
-- `.aios-core/scripts/greeting-builder.js` - Montagem do greeting
-- `.aios-core/scripts/workflow-navigator.js` - Navegação de workflow
-- `.aios-core/scripts/agent-exit-hooks.js` - Hooks de saída (para persistência)
+- `.aios-core/core/session/context-detector.js` - Detecção de tipo de sessão
+- `.aios-core/infrastructure/scripts/git-config-detector.js` - Detecção de git config
+- `.aios-core/development/scripts/greeting-builder.js` - Montagem do greeting
+- `.aios-core/development/scripts/workflow-navigator.js` - Navegação de workflow
+- `.aios-core/development/scripts/agent-exit-hooks.js` - Hooks de saída (para persistência)
 
 ### Data Files
 - `.aios-core/data/workflow-patterns.yaml` - Definições de workflows
@@ -359,7 +359,7 @@ A: A integração com o processo de ativação ainda não foi implementada. Os c
 A: Em uma story futura (provavelmente 6.1.4 ou 6.1.6). Depende do sistema de configuração de agentes.
 
 **Q: Como posso testar agora?**
-A: Use o script de teste: `node .aios-core/scripts/test-greeting-system.js`
+A: Use o script de teste: `node .aios-core/development/scripts/test-greeting-system.js`
 
 **Q: O que acontece se um agente não tiver metadata de visibilidade?**
 A: Fallback: mostra todos os comandos (max 12). Não quebra nada.

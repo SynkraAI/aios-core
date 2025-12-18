@@ -510,7 +510,7 @@ Sistema automatizado de detecção de gaps em **7 categorias**:
    node outputs/architecture-map/schemas/validate-tool-references.js
    ```
    - Valida ferramentas MCP/CLI/Local
-   - Suporta dual-mode (Legacy/1MCP)
+   - Integração com Docker MCP Toolkit
 
 ### 📈 Epic 2 & 3 Achievements
 
@@ -525,8 +525,8 @@ Sistema automatizado de detecção de gaps em **7 categorias**:
 - ✅ **88 Orphaned Active gaps resolvidos** (Stories 3.1.1-3.1.4)
 - ✅ 54 utilities ativas documentadas em `core-config.yaml`
 - ✅ 19 utilities arquivadas com rationale
-- ✅ **85% token reduction** via 1MCP integration (280k → 40k tokens)
-- ✅ Dual-mode validation (Legacy/1MCP)
+- ✅ **85% token reduction** via Docker MCP Toolkit (280k → 40k tokens)
+- ✅ MCP governance consolidated under DevOps Agent (Story 6.14)
 - ✅ Pre-commit hooks + Quarterly audit
 
 ### 🚀 Quick Start
@@ -565,7 +565,6 @@ cp outputs/architecture-map/mermaid/synthesis-layered-view.mmd docs/
 
 ### 🎯 Roadmap v1.1
 
-- [ ] Story 3.31 - 1MCP preset relationship synthesis
 - [ ] Interactive Miro board export
 - [ ] Real-time Neo4j updates on code changes
 - [ ] VSCode extension for inline visualization

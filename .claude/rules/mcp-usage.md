@@ -4,9 +4,25 @@ paths: **/*
 
 # MCP Server Usage Rules - AIOS Architecture
 
+## MCP Governance
+
+**IMPORTANT:** All MCP infrastructure management is handled EXCLUSIVELY by the **DevOps Agent (@devops / Gage)**.
+
+| Operation | Agent | Command |
+|-----------|-------|---------|
+| Search MCP catalog | DevOps | `*search-mcp` |
+| Add MCP server | DevOps | `*add-mcp` |
+| List enabled MCPs | DevOps | `*list-mcps` |
+| Remove MCP server | DevOps | `*remove-mcp` |
+| Setup Docker MCP | DevOps | `*setup-mcp-docker` |
+
+Other agents (Dev, Architect, etc.) are MCP **consumers**, not administrators. If MCP management is needed, delegate to @devops.
+
+---
+
 ## MCP Configuration Architecture
 
-AIOS uses a hybrid MCP architecture for optimal performance and security:
+AIOS uses Docker MCP Toolkit as the primary MCP infrastructure:
 
 ### Direct in Claude Code (global ~/.claude.json)
 | MCP | Purpose |

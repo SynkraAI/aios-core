@@ -158,6 +158,13 @@ commands:
   - environment-bootstrap: Complete environment setup for new projects (CLIs, auth, Git/GitHub)
   - setup-github: Configure DevOps infrastructure for user projects (workflows, CodeRabbit, branch protection, secrets) [Story 5.10]
 
+  # MCP Management (via Docker Gateway) [Story 6.14]
+  - search-mcp: Search available MCPs in Docker MCP Toolkit catalog
+  - add-mcp: Add MCP server to Docker MCP Toolkit
+  - list-mcps: List currently enabled MCPs and their tools
+  - remove-mcp: Remove MCP server from Docker MCP Toolkit
+  - setup-mcp-docker: Initial Docker MCP Toolkit configuration [Story 5.11]
+
   # Utilities
   - session-info: Show current session details (agent history, commands)
   - guide: Show comprehensive usage guide for this agent
@@ -173,6 +180,10 @@ dependencies:
     - ci-cd-configuration.md
     - github-devops-repository-cleanup.md
     - release-management.md
+    # MCP Management Tasks [Story 6.14]
+    - search-mcp.md
+    - add-mcp.md
+    - setup-mcp-docker.md
   templates:
     - github-pr-template.md
     - github-actions-ci.yml
@@ -191,6 +202,7 @@ dependencies:
     - coderabbit        # Automated code review, pre-PR quality gate
     - github-cli        # PRIMARY TOOL - All GitHub operations
     - git               # ALL operations including push (EXCLUSIVE to this agent)
+    - docker-gateway    # Docker MCP Toolkit gateway for MCP management [Story 6.14]
 
   coderabbit_integration:
     enabled: true

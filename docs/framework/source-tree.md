@@ -1,20 +1,20 @@
 # AIOS Source Tree Structure
 
-**Version:** 1.1
-**Last Updated:** 2025-12-14
+**Version:** 2.0
+**Last Updated:** 2025-12-15
 **Status:** Official Framework Standard
-**Migration Notice:** This document will migrate to `SynkraAI/aios-core` repository in Q2 2026 (see Decision 005)
+**Repository:** SynkraAI/aios-core
 
 ---
 
 ## 📋 Table of Contents
 
 - [Overview](#overview)
-- [Current Structure (aios-core Brownfield)](#current-structure-aios-core-brownfield)
+- [Modular Architecture](#modular-architecture)
 - [Framework Core (.aios-core/)](#framework-core-aios-core)
+- [Module Details](#module-details)
 - [Documentation (docs/)](#documentation-docs)
 - [Squads System](#squads-system)
-- [Future Structure (Post-Migration Q2 2026)](#future-structure-post-migration-q2-2026)
 - [File Naming Conventions](#file-naming-conventions)
 - [Where to Put New Files](#where-to-put-new-files)
 
@@ -22,60 +22,51 @@
 
 ## Overview
 
-AIOS uses a **dual-layer architecture**:
-1. **Framework Core** (`.aios-core/`) - Portable framework components
+AIOS uses a **modular architecture** with clear separation of concerns:
+
+1. **Framework Core** (`.aios-core/`) - Portable framework components organized by domain
 2. **Project Workspace** (root) - Project-specific implementation
 
 **Philosophy:**
-- Framework components are **portable** (move between projects)
-- Project files are **specific** (brownfield implementation)
-- Clear **separation of concerns** (framework vs project)
+- **Domain-driven organization** - Components grouped by function
+- **Portability** - Framework components work across projects
+- **Separation of concerns** - Clear boundaries between modules
 
 ---
 
-## Current Structure (aios-core Brownfield)
+## Modular Architecture
 
 ```
-aios-core/                             # Root (brownfield project)
-├── .aios-core/                        # Framework core (portable)
-│   ├── core/                          # Framework essentials (v2.1)
-│   │   ├── config/                    # Configuration system
-│   │   ├── data/                      # Core knowledge base
-│   │   ├── docs/                      # Core documentation
-│   │   ├── elicitation/               # Interactive prompting engine
-│   │   ├── session/                   # Runtime state management
-│   │   └── utils/                     # Core utilities
-│   ├── product/                       # PM/PO assets (v2.1)
-│   │   ├── templates/                 # Document templates (52+ files)
-│   │   ├── checklists/                # Validation checklists (6 files)
-│   │   └── data/                      # PM-specific data (6 files)
-│   ├── agents/                        # Agent definitions
-│   ├── tasks/                         # Task workflows
-│   ├── workflows/                     # Multi-step workflows
+aios-core/                             # Root project
+├── .aios-core/                        # Framework core (modular)
+│   ├── cli/                           # CLI commands and utilities
+│   ├── core/                          # Framework essentials
+│   ├── data/                          # Shared data files
+│   ├── development/                   # Development assets (agents, tasks, workflows)
+│   ├── docs/                          # Internal framework docs
+│   ├── elicitation/                   # Elicitation engines
+│   ├── infrastructure/                # Infrastructure tools and scripts
+│   ├── manifests/                     # Installation manifests
+│   ├── product/                       # PM/PO assets (templates, checklists)
+│   ├── quality/                       # Quality gate schemas
 │   ├── scripts/                       # Utility scripts
-│   ├── tools/                         # Tool integrations
 │   └── core-config.yaml               # Framework configuration
 │
-├── docs/                              # Documentation
-│   ├── architecture/                  # Architecture decisions + official docs
-│   ├── framework/                     # ⭐ NEW: Official framework docs
-│   ├── stories/                       # Development stories
-│   ├── epics/                         # Epic planning
-│   ├── decisions/                     # ADRs (Architecture Decision Records)
+├── docs/                              # Public documentation
+│   ├── architecture/                  # Architecture docs
+│   ├── framework/                     # Official framework standards
 │   ├── guides/                        # How-to guides
-│   ├── qa/                            # QA reports
-│   └── prd/                           # Product requirements
+│   ├── installation/                  # Installation guides
+│   └── community/                     # Community docs
 │
 ├── templates/                         # Project templates
-│   └── squad/                         # Squad template for extensions (see docs/guides/squads-guide.md)
+│   └── squad/                         # Squad template (see docs/guides/squads-guide.md)
 │
 ├── bin/                               # CLI executables
-│   ├── @synkra/aios-core.js              # Main CLI entry point
-│   └── aios-minimal.js                # Minimal CLI
+│   └── aios.js                        # Main CLI entry point
 │
 ├── tools/                             # Build and utility tools
 │   ├── cli.js                         # CLI builder
-│   ├── package-builder.js             # Package builder
 │   └── installer/                     # Installation scripts
 │
 ├── tests/                             # Test suites
@@ -83,25 +74,13 @@ aios-core/                             # Root (brownfield project)
 │   ├── integration/                   # Integration tests
 │   └── e2e/                           # End-to-end tests
 │
-├── .claude/                           # Claude Code IDE configuration
-│   ├── settings.json                  # Project settings
+├── .claude/                           # Claude Code configuration
 │   ├── CLAUDE.md                      # Project instructions
-│   └── commands/                      # Slash commands (agents)
+│   ├── commands/                      # Agent slash commands
+│   └── rules/                         # IDE rules
 │
-├── outputs/                           # Runtime outputs
-│   ├── minds/                         # MMOS cognitive clones
-│   └── architecture-map/              # Architecture analysis
-│
-├── .ai/                               # ⭐ NEW: AI session artifacts
-│   └── decision-log-{story-id}.md     # Yolo mode decision logs
-│
-├── index.js                           # Main entry point (CommonJS)
-├── index.esm.js                       # ES Module entry point
-├── index.d.ts                         # TypeScript type definitions
+├── index.js                           # Main entry point
 ├── package.json                       # Package manifest
-├── tsconfig.json                      # TypeScript configuration
-├── .eslintrc.json                     # ESLint configuration
-├── .prettierrc                        # Prettier configuration
 └── README.md                          # Project README
 ```
 
@@ -109,117 +88,122 @@ aios-core/                             # Root (brownfield project)
 
 ## Framework Core (.aios-core/)
 
-**Purpose:** Portable framework components that work across any AIOS project.
+**Purpose:** Portable framework components organized by domain for clear separation of concerns.
 
-### Directory Structure
+### Directory Structure (v2.0 Modular)
 
 ```
 .aios-core/
-├── agents/                            # 145 agent definitions
-│   ├── aios-master.md                 # Master orchestrator
-│   ├── dev.md                         # Developer agent
-│   ├── qa.md                          # QA engineer agent
-│   ├── architect.md                   # System architect agent
-│   ├── po.md                          # Product Owner agent
-│   ├── pm.md                          # Product Manager agent
-│   ├── sm.md                          # Scrum Master agent
-│   ├── analyst.md                     # Business Analyst agent
-│   ├── ux-expert.md                   # UX Designer agent
-│   ├── data-engineer.md               # Data Engineer agent
-│   ├── devops.md                      # DevOps agent
-│   ├── db-sage.md                     # Database architect agent
-│   └── .deprecated/                   # Archived agents
+├── cli/                               # CLI System
+│   ├── commands/                      # CLI command implementations
+│   │   ├── generate/                  # Code generation commands
+│   │   ├── manifest/                  # Manifest management
+│   │   ├── mcp/                       # MCP tool commands
+│   │   ├── metrics/                   # Quality metrics
+│   │   ├── migrate/                   # Migration tools
+│   │   ├── qa/                        # QA commands
+│   │   └── workers/                   # Background workers
+│   └── utils/                         # CLI utilities
 │
-├── tasks/                             # 60 task workflows
-│   ├── create-next-story.md           # Story creation workflow
-│   ├── develop-story.md               # Story development workflow
-│   ├── validate-next-story.md         # Story validation workflow
-│   ├── review-story.md                # Story review workflow
-│   ├── apply-qa-fixes.md              # QA fix workflow
-│   ├── execute-checklist.md           # Checklist execution
-│   ├── document-project.md            # Project documentation
-│   ├── create-doc.md                  # Document creation
-│   ├── shard-doc.md                   # Document sharding
-│   └── ...                            # 50+ more tasks
+├── core/                              # Framework Essentials
+│   ├── config/                        # Configuration system
+│   ├── data/                          # Core knowledge base
+│   ├── docs/                          # Core documentation
+│   ├── elicitation/                   # Interactive prompting engine
+│   ├── manifest/                      # Manifest processing
+│   ├── mcp/                           # MCP orchestration
+│   ├── migration/                     # Migration utilities
+│   ├── quality-gates/                 # Quality gate validators
+│   ├── registry/                      # Service registry
+│   ├── session/                       # Runtime state management
+│   └── utils/                         # Core utilities
 │
-├── templates/                         # 20 document templates
-│   ├── story-tmpl.yaml                # Story template v2.0
-│   ├── design-story-tmpl.yaml         # Design story template v1.0
-│   ├── prd-tmpl.yaml                  # PRD template
-│   ├── epic-tmpl.md                   # Epic template
-│   ├── architecture-tmpl.yaml         # Architecture template
-│   ├── fullstack-architecture-tmpl.yaml  # Full-stack arch template
-│   ├── brownfield-architecture-tmpl.yaml # Brownfield arch template
-│   ├── schema-design-tmpl.yaml        # Database schema template
-│   └── ...                            # 12+ more templates
+├── data/                              # Shared Data
+│   └── aios-kb.md                     # AIOS knowledge base
 │
-├── workflows/                         # 6 multi-step workflows
-│   ├── greenfield-fullstack.yaml      # Greenfield full-stack workflow
-│   ├── greenfield-service.yaml        # Greenfield service workflow
-│   ├── greenfield-ui.yaml             # Greenfield UI workflow
-│   ├── brownfield-fullstack.yaml      # Brownfield full-stack workflow
-│   ├── brownfield-service.yaml        # Brownfield service workflow
-│   └── brownfield-ui.yaml             # Brownfield UI workflow
+├── development/                       # Development Assets
+│   ├── agents/                        # Agent definitions (11 core agents)
+│   │   ├── aios-master.md             # Master orchestrator
+│   │   ├── dev.md                     # Developer agent
+│   │   ├── qa.md                      # QA engineer agent
+│   │   ├── architect.md               # System architect agent
+│   │   ├── po.md                      # Product Owner agent
+│   │   ├── pm.md                      # Product Manager agent
+│   │   ├── sm.md                      # Scrum Master agent
+│   │   ├── analyst.md                 # Business Analyst agent
+│   │   ├── ux-design-expert.md        # UX Designer agent
+│   │   ├── data-engineer.md           # Data Engineer agent
+│   │   └── devops.md                  # DevOps agent
+│   ├── agent-teams/                   # Agent team configurations
+│   ├── tasks/                         # Task workflows (60+ tasks)
+│   ├── workflows/                     # Multi-step workflows
+│   └── scripts/                       # Development scripts
 │
-├── checklists/                        # 6 validation checklists
-│   ├── po-master-checklist.md         # PO validation checklist
-│   ├── story-draft-checklist.md       # Story draft validation
-│   ├── architect-checklist.md         # Architecture review checklist
-│   ├── qa-checklist.md                # QA checklist
-│   ├── pm-checklist.md                # PM checklist
-│   └── change-checklist.md            # Change management checklist
+├── docs/                              # Internal Documentation
+│   └── standards/                     # Framework standards
 │
-├── data/                              # 6 knowledge base files
-│   ├── aios-kb.md                     # AIOS knowledge base
-│   ├── technical-preferences.md       # Tech stack preferences
-│   ├── elicitation-methods.md         # Elicitation techniques
-│   ├── brainstorming-techniques.md    # Brainstorming methods
-│   ├── test-levels-framework.md       # Testing levels
-│   └── test-priorities-matrix.md      # Test prioritization
-│
-├── scripts/                             # 54 utility scripts
-│   ├── component-generator.js         # Component scaffolding
-│   ├── elicitation-engine.js          # Interactive elicitation
-│   ├── story-manager.js               # Story lifecycle management
-│   ├── yaml-validator.js              # YAML validation
-│   ├── usage-analytics.js             # Framework usage analytics
-│   └── ...                            # 49+ more utilities
-│
-├── tools/                             # Tool integrations
-│   ├── mcp/                           # MCP server configs
-│   │   ├── clickup-direct.yaml        # ClickUp integration
-│   │   ├── context7.yaml              # Context7 integration
-│   │   └── exa-direct.yaml            # Exa search integration
-│   ├── cli/                           # CLI tool wrappers
-│   │   ├── github-cli.yaml            # GitHub CLI wrapper
-│   │   └── railway-cli.yaml           # Railway CLI wrapper
-│   └── local/                         # Local tools
-│
-├── elicitation/                       # 3 elicitation engines
+├── elicitation/                       # Elicitation Engines
 │   ├── agent-elicitation.js           # Agent creation elicitation
 │   ├── task-elicitation.js            # Task creation elicitation
 │   └── workflow-elicitation.js        # Workflow creation elicitation
 │
-├── agent-teams/                       # Agent team configurations
-│   └── ...                            # Team definitions
+├── infrastructure/                    # Infrastructure
+│   ├── integrations/                  # External integrations
+│   │   └── pm-adapters/               # PM tool adapters (ClickUp, GitHub, Jira)
+│   ├── scripts/                       # Infrastructure scripts
+│   │   ├── documentation-integrity/   # Doc integrity system
+│   │   └── llm-routing/               # LLM routing utilities
+│   ├── templates/                     # Infrastructure templates
+│   │   ├── core-config/               # Config templates
+│   │   ├── github-workflows/          # CI/CD templates
+│   │   ├── gitignore/                 # Gitignore templates
+│   │   └── project-docs/              # Project documentation templates
+│   ├── tests/                         # Infrastructure tests
+│   └── tools/                         # Tool integrations
+│       ├── cli/                       # CLI tool wrappers
+│       ├── local/                     # Local tools
+│       └── mcp/                       # MCP server configs
 │
-├── core-config.yaml                   # ⭐ Framework configuration
+├── manifests/                         # Installation Manifests
+│   └── schema/                        # Manifest schemas
+│
+├── product/                           # PM/PO Assets
+│   ├── checklists/                    # Validation checklists
+│   │   ├── po-master-checklist.md     # PO validation
+│   │   ├── story-draft-checklist.md   # Story draft validation
+│   │   ├── architect-checklist.md     # Architecture review
+│   │   └── change-checklist.md        # Change management
+│   ├── data/                          # PM-specific data
+│   └── templates/                     # Document templates
+│       ├── engine/                    # Template engine
+│       ├── ide-rules/                 # IDE rule templates
+│       ├── story-tmpl.yaml            # Story template
+│       ├── prd-tmpl.yaml              # PRD template
+│       └── epic-tmpl.md               # Epic template
+│
+├── quality/                           # Quality System
+│   └── schemas/                       # Quality gate schemas
+│
+├── scripts/                           # Root Scripts
+│   └── ...                            # Utility scripts
+│
+├── core-config.yaml                   # Framework configuration
 ├── install-manifest.yaml              # Installation manifest
 ├── user-guide.md                      # User guide
-└── working-in-the-brownfield.md       # Brownfield development guide
+└── working-in-the-brownfield.md       # Brownfield guide
 ```
 
 ### File Patterns
 
 ```yaml
 Agents:
-  Location: .aios-core/agents/
+  Location: .aios-core/development/agents/
   Format: Markdown with YAML frontmatter
   Naming: {agent-name}.md (kebab-case)
-  Example: developer.md, qa-engineer.md
+  Example: dev.md, qa.md, architect.md
 
 Tasks:
-  Location: .aios-core/tasks/
+  Location: .aios-core/development/tasks/
   Format: Markdown workflow
   Naming: {task-name}.md (kebab-case)
   Example: create-next-story.md, develop-story.md
@@ -231,7 +215,7 @@ Templates:
   Example: story-tmpl.yaml, prd-tmpl.md
 
 Workflows:
-  Location: .aios-core/workflows/
+  Location: .aios-core/development/workflows/
   Format: YAML
   Naming: {workflow-type}-{scope}.yaml
   Example: greenfield-fullstack.yaml, brownfield-service.yaml
@@ -242,11 +226,23 @@ Checklists:
   Naming: {checklist-name}-checklist.md
   Example: story-draft-checklist.md, architect-checklist.md
 
-Utilities:
-  Location: .aios-core/utils/
+Core Utilities:
+  Location: .aios-core/core/utils/
   Format: JavaScript (CommonJS)
   Naming: {utility-name}.js (kebab-case)
   Example: component-generator.js, story-manager.js
+
+CLI Commands:
+  Location: .aios-core/cli/commands/{category}/
+  Format: JavaScript (CommonJS)
+  Naming: {command-name}.js (kebab-case)
+  Example: generate/agent.js, manifest/install.js
+
+Infrastructure Scripts:
+  Location: .aios-core/infrastructure/scripts/{category}/
+  Format: JavaScript
+  Naming: {script-name}.js (kebab-case)
+  Example: documentation-integrity/link-verifier.js
 ```
 
 ---
@@ -426,37 +422,50 @@ dependencies:
 
 ```
 aios-core/
-├── src/                               # Source code
-│   ├── core/                          # Core orchestration engine
-│   │   ├── agent-executor.js
-│   │   ├── task-runner.js
-│   │   └── workflow-orchestrator.js
-│   ├── integrations/                  # External integrations
-│   │   ├── mcp/                       # MCP orchestration
-│   │   └── ide/                       # IDE integration
-│   └── cli/                           # CLI interface
-│
-├── .aios-core/                        # Framework assets (current structure)
-│   ├── agents/
-│   ├── tasks/
-│   ├── templates/
+├── .aios-core/                        # Framework assets (modular v2.0)
+│   ├── cli/                           # CLI commands and utilities
+│   ├── core/                          # Framework essentials
+│   │   ├── config/                    # Configuration system
+│   │   ├── quality-gates/             # Quality validators
+│   │   └── utils/                     # Core utilities
+│   ├── development/                   # Development assets
+│   │   ├── agents/                    # Agent definitions (11 core)
+│   │   ├── tasks/                     # Task workflows (60+)
+│   │   └── workflows/                 # Multi-step workflows
+│   ├── infrastructure/                # Infrastructure tools
+│   │   ├── integrations/              # PM adapters, tools
+│   │   ├── scripts/                   # Automation scripts
+│   │   └── templates/                 # Infrastructure templates
+│   ├── product/                       # PM/PO assets
+│   │   ├── checklists/                # Validation checklists
+│   │   └── templates/                 # Document templates
 │   └── ...
 │
+├── bin/                               # CLI entry points
+│   └── aios.js                        # Main CLI
+│
+├── tools/                             # Build and utility tools
+│   ├── cli.js                         # CLI builder
+│   └── installer/                     # Installation scripts
+│
 ├── docs/                              # Framework documentation
-│   ├── getting-started/
-│   ├── core-concepts/
-│   ├── integrations/
-│   └── api/
+│   ├── framework/                     # Official standards
+│   ├── guides/                        # How-to guides
+│   ├── installation/                  # Setup guides
+│   └── architecture/                  # Architecture docs
 │
-├── examples/                          # Example projects
-│   ├── basic-agent/
-│   ├── vibecoder-demo/
-│   └── multi-agent-workflow/
+├── templates/                         # Project templates
+│   └── squad/                         # Squad template
 │
-└── tests/                             # Test suites
-    ├── unit/
-    ├── integration/
-    └── e2e/
+├── tests/                             # Test suites
+│   ├── unit/
+│   ├── integration/
+│   └── e2e/
+│
+└── examples/                          # Example projects
+    ├── basic-agent/
+    ├── vibecoder-demo/
+    └── multi-agent-workflow/
 ```
 
 ### REPO 2: SynkraAI/squads (MIT)
@@ -485,7 +494,7 @@ squads/
 
 ```
 mcp-ecosystem/
-├── presets/                           # 1MCP presets
+├── presets/                           # MCP presets (Docker MCP Toolkit)
 │   ├── aios-dev/
 │   ├── aios-research/
 │   └── aios-docker/
@@ -599,36 +608,48 @@ Checklists:
 
 ```yaml
 # I'm creating a new agent:
-Location: .aios-core/agents/{agent-name}.md
-Example: .aios-core/agents/security-expert.md
+Location: .aios-core/development/agents/{agent-name}.md
+Example: .aios-core/development/agents/security-expert.md
 
 # I'm creating a new task:
-Location: .aios-core/tasks/{task-name}.md
-Example: .aios-core/tasks/deploy-to-production.md
+Location: .aios-core/development/tasks/{task-name}.md
+Example: .aios-core/development/tasks/deploy-to-production.md
 
 # I'm creating a new workflow:
-Location: .aios-core/workflows/{workflow-name}.yaml
-Example: .aios-core/workflows/continuous-deployment.yaml
+Location: .aios-core/development/workflows/{workflow-name}.yaml
+Example: .aios-core/development/workflows/continuous-deployment.yaml
 
 # I'm creating a new template:
 Location: .aios-core/product/templates/{template-name}-tmpl.{yaml|md}
 Example: .aios-core/product/templates/deployment-plan-tmpl.yaml
 
-# I'm writing a story:
-Location: docs/stories/{epic-context}/{story-file}.md
-Example: docs/stories/aios migration/story-6.1.2.6.md
+# I'm creating a new checklist:
+Location: .aios-core/product/checklists/{checklist-name}-checklist.md
+Example: .aios-core/product/checklists/security-review-checklist.md
 
-# I'm documenting an architecture decision:
-Location: docs/architecture/project-decisions/{decision-file}.md
-Example: docs/architecture/project-decisions/decision-006-auth-strategy.md
+# I'm creating a CLI command:
+Location: .aios-core/cli/commands/{category}/{command-name}.js
+Example: .aios-core/cli/commands/generate/workflow.js
+
+# I'm creating a core utility:
+Location: .aios-core/core/utils/{utility-name}.js
+Example: .aios-core/core/utils/performance-monitor.js
+
+# I'm creating an infrastructure script:
+Location: .aios-core/infrastructure/scripts/{category}/{script-name}.js
+Example: .aios-core/infrastructure/scripts/llm-routing/router.js
+
+# I'm adding a PM tool adapter:
+Location: .aios-core/infrastructure/integrations/pm-adapters/{adapter-name}.js
+Example: .aios-core/infrastructure/integrations/pm-adapters/monday-adapter.js
+
+# I'm writing a story (internal dev docs - gitignored):
+Location: docs/stories/{sprint-context}/{story-file}.md
+Example: docs/stories/v2.1/sprint-6/story-6.14-new-feature.md
 
 # I'm creating official framework documentation:
 Location: docs/framework/{doc-name}.md
 Example: docs/framework/agent-development-guide.md
-
-# I'm creating a utility script:
-Location: .aios-core/utils/{utility-name}.js
-Example: .aios-core/utils/performance-monitor.js
 
 # I'm creating a test:
 Location: tests/{type}/{test-name}.test.js
@@ -690,6 +711,7 @@ outputs/                               # Runtime outputs (gitignored)
 |---------|------|---------|--------|
 | 1.0 | 2025-01-15 | Initial source tree documentation | Aria (architect) |
 | 1.1 | 2025-12-14 | Updated org to SynkraAI, replaced Squads with Squads system [Story 6.10] | Dex (dev) |
+| 2.0 | 2025-12-15 | Major update to reflect modular architecture (cli/, core/, development/, infrastructure/, product/) [Story 6.13] | Pax (PO) |
 
 ---
 

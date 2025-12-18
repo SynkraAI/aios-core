@@ -1,32 +1,32 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-17T14:40:26.299Z",
+  "lastUpdated": "2025-12-18T19:05:47.075Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
       "passRate": 0.8333333333333334,
       "avgTimeMs": 1000,
-      "totalRuns": 102,
-      "lastRun": "2025-12-15T00:53:18.237Z"
+      "totalRuns": 192,
+      "lastRun": "2025-12-18T18:35:33.357Z"
     },
     "layer2": {
-      "passRate": 0.85,
-      "avgTimeMs": 154500,
-      "totalRuns": 60,
-      "lastRun": "2025-12-17T14:40:26.297Z",
+      "passRate": 0.9056603773584906,
+      "avgTimeMs": 152830,
+      "totalRuns": 106,
+      "lastRun": "2025-12-18T19:05:47.073Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
-        "findingsCount": 85,
+        "findingsCount": 160,
         "severityBreakdown": {
           "critical": 0,
-          "high": 17,
-          "medium": 34,
-          "low": 34
+          "high": 32,
+          "medium": 64,
+          "low": 64
         }
       },
       "quinn": {
-        "findingsCount": 51,
+        "findingsCount": 96,
         "topCategories": [
           "test-coverage",
           "documentation"
@@ -36,8 +36,8 @@
     "layer3": {
       "passRate": 1,
       "avgTimeMs": 600000,
-      "totalRuns": 17,
-      "lastRun": "2025-12-15T00:53:18.054Z"
+      "totalRuns": 32,
+      "lastRun": "2025-12-18T18:35:33.096Z"
     }
   },
   "trends": {
@@ -61,7 +61,11 @@
       },
       {
         "date": "2025-12-17",
-        "value": 0
+        "value": 0.8852459016393442
+      },
+      {
+        "date": "2025-12-18",
+        "value": 0.8709677419354839
       }
     ]
   },
@@ -1984,6 +1988,1583 @@
         "lintResult": "failure",
         "typecheckResult": "success",
         "testResult": "failure",
+        "storyResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:32:56.241Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:32:56.288Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:32:56.340Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:32:56.366Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:32:56.404Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:32:56.442Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:32:56.468Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:32:56.497Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:32:56.524Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:32:56.582Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:12.701Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:12.742Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:12.806Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:12.845Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:12.873Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:12.900Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:12.947Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:12.995Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:13.029Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:13.085Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:45.653Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:45.701Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:45.774Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:45.823Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:45.854Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:45.886Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:45.908Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:45.932Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:45.965Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:46.025Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:57.354Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:57.391Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:57.457Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:57.483Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:57.529Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:57.551Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:57.585Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:57.606Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:57.634Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:38:57.726Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:04.724Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:04.769Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:04.835Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:04.857Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:04.885Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:04.915Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:04.937Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:04.966Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:05.033Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:05.097Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:25.571Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:25.611Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:25.693Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:25.730Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:25.762Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:25.805Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:25.845Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:25.945Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 1,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:25.982Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:40:26.040Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:41:31.027Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:41:31.076Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:41:31.158Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:41:31.187Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:41:31.217Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:41:31.272Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:41:31.306Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:41:31.360Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:41:31.403Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:41:31.498Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:43:47.476Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:43:47.511Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:43:47.607Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:43:47.645Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:43:47.679Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:43:47.741Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:43:47.788Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:43:47.865Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:43:47.912Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-17T15:43:47.971Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:04:34.771Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:04:34.811Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:04:34.867Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:04:34.894Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:04:34.929Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:04:34.958Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:04:34.983Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:04:35.010Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:04:35.047Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:04:35.142Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:01.447Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:01.506Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:01.565Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:01.594Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:01.632Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:01.679Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:01.708Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:01.764Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 1,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:01.790Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:01.865Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:50.915Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:50.961Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:51.016Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:51.040Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:51.075Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:51.112Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:51.141Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:51.174Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:51.214Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:32:51.267Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:43:19.329Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:43:19.370Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:43:19.452Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:43:19.480Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:43:19.510Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:43:19.540Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:43:19.563Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:43:19.593Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:43:19.618Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-17T18:43:19.679Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:20:36.359Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:20:36.411Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:20:36.471Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:20:36.502Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:20:36.531Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:20:36.555Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:20:36.583Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:20:36.610Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:20:36.669Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:20:36.721Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:32:51.755Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:32:51.800Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:32:51.850Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:32:51.876Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:32:51.906Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:32:51.929Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:32:51.977Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:32:52.034Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:32:52.078Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:32:52.130Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:35:32.683Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:35:32.726Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:35:32.835Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:35:32.952Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:35:32.988Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:35:33.096Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:35:33.168Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:35:33.218Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:35:33.246Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2025-12-18T18:35:33.357Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-18T19:05:47.073Z",
+      "layer": 2,
+      "passed": false,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 7,
+        "branchName": "fix/story-6.16-scripts-path-consolidation",
+        "author": "Pedrovaleriolopez",
+        "lintResult": "failure",
+        "typecheckResult": "success",
+        "testResult": "success",
         "storyResult": "success"
       }
     }
