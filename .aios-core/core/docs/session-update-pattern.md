@@ -152,7 +152,9 @@ await updateSessionAfterCommand('dev', 'develop-yolo');
 // → sessionType: 'existing'
 
 // Next activation shows abbreviated greeting
-const greeting = await generateGreeting('dev');
+const GreetingBuilder = require('./.aios-core/development/scripts/greeting-builder');
+const builder = new GreetingBuilder();
+const greeting = await builder.buildGreeting(devAgent, { conversationHistory });
 // Uses 'existing' session type
 ```
 
@@ -178,7 +180,9 @@ await updateSessionAfterCommand('dev', 'apply-qa-fixes');
 // → sessionType: 'workflow'
 
 // Next greeting shows workflow context
-const greeting = await generateGreeting('dev');
+const GreetingBuilder = require('./.aios-core/development/scripts/greeting-builder');
+const builder = new GreetingBuilder();
+const greeting = await builder.buildGreeting(devAgent, { conversationHistory });
 // Includes: "Continuing from @qa review..."
 ```
 

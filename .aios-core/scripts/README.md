@@ -36,7 +36,7 @@ Scripts are now organized by domain across three locations:
 
 If you're looking for a script that was previously here, use this mapping:
 
-```
+```text
 OLD PATH                                      NEW PATH
 -----------------------------------------     ------------------------------------------
 .aios-core/scripts/context-detector.js      → .aios-core/core/session/context-detector.js
@@ -118,4 +118,4 @@ const sessionLoader = require('./.aios-core/scripts/session-context-loader');
 
 ---
 
-*Last updated: 2025-12-18 - Story 6.16 Scripts Path Consolidation*
+**Last updated:** 2025-12-18 - Story 6.16 Scripts Path Consolidation
