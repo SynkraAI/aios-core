@@ -30,7 +30,7 @@
               ↓
 ┌─────────────────────────────────────┐
 │   LAYER 2: Output Formatter         │  ← Template engine (JS)
-│   (.aios-core/scripts/)             │
+│   (.aios-core/infrastructure/scripts/)│
 └─────────────────────────────────────┘
               ↓
 ┌─────────────────────────────────────┐
@@ -156,7 +156,7 @@ archetypes:
 ### Template Engine Architecture
 
 ```javascript
-// .aios-core/scripts/output-formatter.js
+// .aios-core/infrastructure/scripts/output-formatter.js
 
 class PersonalizedOutputFormatter {
   constructor(agent, task, results) {
@@ -238,7 +238,7 @@ class PersonalizedOutputFormatter {
 ### Pattern Validation
 
 ```javascript
-// .aios-core/scripts/validate-output-pattern.js
+// .aios-core/infrastructure/scripts/validate-output-pattern.js
 
 /**
  * Ensures all task outputs follow standard structure

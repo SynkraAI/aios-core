@@ -234,7 +234,7 @@ All 11 AIOS agents display project status:
 **Check:**
 1. Is `projectStatus.enabled: true` in core-config.yaml?
 2. Is this a git repository? (`git rev-parse --is-inside-work-tree`)
-3. Does `.aios-core/scripts/project-status-loader.js` exist?
+3. Does `.aios-core/infrastructure/scripts/project-status-loader.js` exist?
 4. Any errors in agent activation output?
 
 **Solution:**
@@ -322,7 +322,7 @@ Don't forget to update `.gitignore`.
 ### Programmatic Access
 
 ```javascript
-const { loadProjectStatus, formatStatusDisplay } = require('./.aios-core/scripts/project-status-loader.js');
+const { loadProjectStatus, formatStatusDisplay } = require('./.aios-core/infrastructure/scripts/project-status-loader.js');
 
 // Get raw status object
 const status = await loadProjectStatus();
@@ -333,7 +333,7 @@ const display = formatStatusDisplay(status);
 console.log(display);
 
 // Clear cache manually
-const { clearCache } = require('./.aios-core/scripts/project-status-loader.js');
+const { clearCache } = require('./.aios-core/infrastructure/scripts/project-status-loader.js');
 await clearCache();
 ```
 
@@ -362,7 +362,7 @@ To fully remove the feature:
 
 ```bash
 # Remove script
-rm .aios-core/scripts/project-status-loader.js
+rm .aios-core/infrastructure/scripts/project-status-loader.js
 
 # Remove task
 rm .aios-core/tasks/init-project-status.md
@@ -371,7 +371,7 @@ rm .aios-core/tasks/init-project-status.md
 rm .aios/project-status.yaml
 
 # Remove tests
-rm .aios-core/scripts/__tests__/project-status-loader.test.js
+rm .aios-core/infrastructure/scripts/__tests__/project-status-loader.test.js
 
 # Remove config section from core-config.yaml
 # (manually edit file)
@@ -452,9 +452,9 @@ A: Yes, all agents use the same cache file (`.aios/project-status.yaml`).
 
 - **Story:** `docs/stories/aios migration/story-6.1.2.4-project-status-context.md`
 - **Config:** `.aios-core/core-config.yaml` (projectStatus section)
-- **Script:** `.aios-core/scripts/project-status-loader.js`
+- **Script:** `.aios-core/infrastructure/scripts/project-status-loader.js`
 - **Init Task:** `.aios-core/tasks/init-project-status.md`
-- **Tests:** `.aios-core/scripts/__tests__/project-status-loader.test.js`
+- **Tests:** `.aios-core/infrastructure/scripts/__tests__/project-status-loader.test.js`
 
 ---
 

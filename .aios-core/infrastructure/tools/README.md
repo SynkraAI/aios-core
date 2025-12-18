@@ -193,7 +193,7 @@ ls -la .aios-core/tools/local/
 ls -la .aios-core/tools/mcp/
 
 # Test tool resolver
-node .aios-core/scripts/tool-resolver.js
+node .aios-core/infrastructure/scripts/tool-resolver.js
 ```
 
 ### Authentication Issues
