@@ -89,6 +89,9 @@ commands:
   - name: help
     visibility: [full, quick, key]
     description: "Show all available commands with descriptions"
+  - name: design-squad
+    visibility: [full, quick, key]
+    description: "Design squad from documentation with intelligent recommendations"
   - name: create-squad
     visibility: [full, quick, key]
     description: "Create new squad following task-first architecture"
@@ -123,6 +126,7 @@ commands:
 
 dependencies:
   tasks:
+    - squad-creator-design.md
     - squad-creator-create.md
     - squad-creator-validate.md
     - squad-creator-list.md
@@ -133,8 +137,10 @@ dependencies:
     - squad/squad-loader.js
     - squad/squad-validator.js
     - squad/squad-generator.js
+    - squad/squad-designer.js
   schemas:
     - squad-schema.json
+    - squad-design-schema.json
   tools:
     - git               # For checking author info
     - context7          # Look up library documentation
@@ -159,8 +165,11 @@ squad_distribution:
 
 ## Quick Commands
 
-**Squad Management:**
+**Squad Design & Creation:**
+- `*design-squad` - Design squad from documentation (guided)
+- `*design-squad --docs ./path/to/docs.md` - Design from specific files
 - `*create-squad {name}` - Create new squad
+- `*create-squad {name} --from-design ./path/to/blueprint.yaml` - Create from blueprint
 - `*validate-squad {name}` - Validate existing squad
 - `*list-squads` - List local squads
 
@@ -190,6 +199,7 @@ Type `*help` to see all commands, or `*guide` for detailed usage.
 ## 🏗️ Squad Creator Guide (*guide command)
 
 ### When to Use Me
+- **Designing squads from documentation** (PRDs, specs, requirements)
 - Creating new squads for your project
 - Validating existing squad structure
 - Preparing squads for distribution
@@ -201,6 +211,15 @@ Type `*help` to see all commands, or `*guide` for detailed usage.
 3. For publishing: GitHub authentication configured
 
 ### Typical Workflow
+
+**Option A: Guided Design (Recommended for new users)**
+1. **Design squad** → `*design-squad --docs ./docs/prd/my-project.md`
+2. **Review recommendations** → Accept/modify agents and tasks
+3. **Generate blueprint** → Saved to `./squads/.designs/`
+4. **Create from blueprint** → `*create-squad my-squad --from-design`
+5. **Validate** → `*validate-squad my-squad`
+
+**Option B: Direct Creation (For experienced users)**
 1. **Create squad** → `*create-squad my-domain-squad`
 2. **Customize** → Edit agents/tasks in the generated structure
 3. **Validate** → `*validate-squad my-domain-squad`

@@ -7,6 +7,7 @@
  * @see {@link ./squad-loader.js} - Load and resolve squad manifests
  * @see {@link ./squad-validator.js} - Validate squad structure (SQS-3)
  * @see {@link ./squad-generator.js} - Generate new squads (SQS-4)
+ * @see {@link ./squad-designer.js} - Design squads from documentation (SQS-9)
  */
 
 const {
@@ -30,9 +31,17 @@ const {
   AVAILABLE_TEMPLATES,
   AVAILABLE_LICENSES,
   CONFIG_MODES,
+  DEFAULT_DESIGNS_PATH,
+  SQUAD_DESIGN_SCHEMA_PATH,
   isValidSquadName,
   getGitUserName,
 } = require('./squad-generator');
+
+const {
+  SquadDesigner,
+  SquadDesignerError,
+  DesignerErrorCodes,
+} = require('./squad-designer');
 
 module.exports = {
   // Squad Loader (SQS-2)
@@ -54,6 +63,13 @@ module.exports = {
   AVAILABLE_TEMPLATES,
   AVAILABLE_LICENSES,
   CONFIG_MODES,
+  DEFAULT_DESIGNS_PATH,
+  SQUAD_DESIGN_SCHEMA_PATH,
   isValidSquadName,
   getGitUserName,
+
+  // Squad Designer (SQS-9)
+  SquadDesigner,
+  SquadDesignerError,
+  DesignerErrorCodes,
 };
