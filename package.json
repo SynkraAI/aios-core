@@ -80,6 +80,12 @@
     "release:test": "semantic-release --dry-run --no-ci || echo 'Config test complete - authentication errors are expected locally'",
     "generate:manifest": "node scripts/generate-install-manifest.js",
     "validate:manifest": "node scripts/validate-manifest.js",
+    "sync:ide": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync",
+    "sync:ide:validate": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate",
+    "sync:ide:check": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --strict",
+    "sync:ide:cursor": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide cursor",
+    "sync:ide:windsurf": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide windsurf",
+    "sync:ide:trae": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide trae",
     "prepublishOnly": "npm run generate:manifest && npm run validate:manifest",
     "prepare": "echo 'Skipping husky - not needed for NPM publish'"
   },
@@ -156,6 +162,9 @@
     ],
     "*.md": [
       "prettier --write"
+    ],
+    ".aios-core/development/agents/*.md": [
+      "npm run sync:ide"
     ]
   }
 }

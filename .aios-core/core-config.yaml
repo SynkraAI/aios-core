@@ -454,3 +454,47 @@ utils:
     - transaction-manager
     - usage-analytics
     - usage-tracker
+
+# ============================================
+# SECTION 12: IDE Sync System (Story 6.19)
+# Automatically syncs agents to IDE command files
+# ============================================
+ideSync:
+  enabled: true
+  source: .aios-core/development/agents
+
+  # Target IDE configurations
+  targets:
+    claude-code:
+      enabled: true
+      path: .claude/commands/AIOS/agents
+      format: full-markdown-yaml
+    cursor:
+      enabled: true
+      path: .cursor/rules/agents
+      format: condensed-rules
+    windsurf:
+      enabled: true
+      path: .windsurf/rules/agents
+      format: xml-tagged-markdown
+    trae:
+      enabled: true
+      path: .trae/rules/agents
+      format: project-rules
+    antigravity:
+      enabled: true
+      path: .antigravity/rules/agents
+      format: cursor-style
+
+  # Redirects for deprecated/renamed agents
+  redirects:
+    aios-developer: aios-master
+    aios-orchestrator: aios-master
+    db-sage: data-engineer
+    github-devops: devops
+
+  # Validation settings
+  validation:
+    strictMode: true
+    failOnDrift: true
+    failOnOrphaned: false

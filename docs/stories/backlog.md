@@ -13,7 +13,7 @@
 ## 📊 Summary by Type
 
 - 📌 **Follow-up**: 1
-- 🔧 **Technical Debt**: 8
+- 🔧 **Technical Debt**: 11 (+3 from Story 6.19 QA)
 - ✨ **Enhancement**: 2
 - 🔴 **Critical**: 0
 - ✅ **Resolved**: 22 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.18**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, Story SQS-9, Tech Debt 1734220200001)
@@ -110,10 +110,13 @@
 
 ---
 
-## 🔧 Technical Debt (10 items)
+## 🔧 Technical Debt (13 items)
 
 | ID | Type | Title | Priority | Related Story | Effort | Tags | Created By |
 |----|------|-------|----------|---------------|--------|------|------------|
+| 1734912000004 | 🔧 Technical Debt | IDE Sync Pre-commit Auto-Stage (Husky Setup) | 🟡 Medium | [6.19](v2.1/sprint-6/story-6.19-ide-command-auto-sync.md) | 1-2 hours | `ide-sync`, `husky`, `pre-commit`, `dx` | @qa |
+| 1734912000005 | 🔧 Technical Debt | Fix YAML Parse Warnings in Agent Files | 🟢 Low | [6.19](v2.1/sprint-6/story-6.19-ide-command-auto-sync.md) | 2-3 hours | `yaml`, `agents`, `ide-sync`, `code-quality` | @qa |
+| 1734912000006 | 🔧 Technical Debt | Cleanup Orphaned Legacy IDE Command Files | 🟢 Low | [6.19](v2.1/sprint-6/story-6.19-ide-command-auto-sync.md) | 30 min | `cleanup`, `ide-sync`, `legacy` | @qa |
 | 1734530400001 | 🔧 Technical Debt | Scripts Path Consolidation & Documentation Fix | 🔴 High | [6.16](v2.1/sprint-6/story-6.16-scripts-path-consolidation.md) | 4-6 hours | `documentation`, `paths`, `scripts`, `technical-debt` | @architect |
 | 1734912000001 | 🔧 Technical Debt | ESLint `_error` Variable Warning Fix | 🟢 Low | [6.18](v2.1/sprint-6/story-6.18-dynamic-manifest-brownfield-upgrade.md) | 15 min | `eslint`, `code-quality`, `installer` | @qa |
 | 1734912000002 | 🔧 Technical Debt | YAML Library Standardization (js-yaml vs yaml) | 🟢 Low | [6.18](v2.1/sprint-6/story-6.18-dynamic-manifest-brownfield-upgrade.md) | 1-2 hours | `dependencies`, `standardization`, `yaml` | @qa |
@@ -124,6 +127,111 @@
 | 1732891500002 | 🔧 Technical Debt | ~~Core Module Code Quality Fixes~~ | ✅ Done | [4.1 Task 3](v2.1/sprint-4/story-4.1-technical-debt-cleanup.md) | 2 hours | `quality`, `core`, `coderabbit` | @qa |
 | 1732978800001 | 🔧 Technical Debt | ~~Fix Pre-existing Test Suite Failures~~ | ✅ Done | [4.1 Task 4](v2.1/sprint-4/story-4.1-technical-debt-cleanup.md) | 30 min | `testing`, `technical-debt` | @github-devops |
 | 1733427600001 | 🔧 Technical Debt | ~~Fix Flaky CI Tests (migration-backup, environment-configuration)~~ | ✅ Done | [PR #27](https://github.com/Pedrovaleriolopez/aios-fullstack/pull/27) | 2-4 hours | `testing`, `ci`, `flaky-tests`, `infrastructure` | @github-devops | **Sprint 4** |
+
+### IDE Sync Pre-commit Auto-Stage (ID: 1734912000004) - 🆕 NEW
+
+**Created:** 2025-12-22 | **Priority:** 🟡 Medium | **Sprint:** TBD
+**Source:** QA Review Story 6.19 (AC6.19.8 Partial)
+
+**Problem:** O lint-staged está configurado para executar `npm run sync:ide` quando agentes são modificados, mas os arquivos gerados não são automaticamente adicionados ao staging area do git.
+
+**Comportamento Atual:**
+```json
+".aios-core/development/agents/*.md": [
+  "npm run sync:ide"
+]
+```
+
+**Comportamento Desejado:**
+```json
+".aios-core/development/agents/*.md": [
+  "npm run sync:ide",
+  "git add .claude/commands/AIOS/agents/*.md .cursor/rules/agents/*.md ..."
+]
+```
+
+**Problema:** O segundo comando no lint-staged pode falhar se os arquivos não existirem ainda. Requer configuração mais robusta do husky.
+
+**Opções de Correção:**
+1. Adicionar script wrapper que faz sync + git add com error handling
+2. Usar husky hook separado (`post-commit` ou `prepare-commit-msg`)
+3. Modificar o script `sync:ide` para fazer git add automaticamente
+
+**Action Items:**
+- [ ] Criar script `scripts/sync-ide-and-stage.js`
+- [ ] Atualizar lint-staged para usar o novo script
+- [ ] Testar fluxo de commit completo
+- [ ] Documentar no README.md
+
+---
+
+### Fix YAML Parse Warnings in Agent Files (ID: 1734912000005) - 🆕 NEW
+
+**Created:** 2025-12-22 | **Priority:** 🟢 Low | **Sprint:** TBD
+**Source:** QA Review Story 6.19
+
+**Problem:** Durante o sync de IDEs, 2-3 agentes geram warnings de YAML parse devido a sintaxe complexa nos comandos. O sistema usa fallback extraction mas os warnings aparecem no output.
+
+**Agentes Afetados:**
+| Agente | Problema | Linha |
+|--------|----------|-------|
+| `ux-design-expert.md` | bad indentation of a mapping entry | 126 |
+| Outro agente | bad indentation (pattern: `"value1" \| "value2"`) | 320 |
+
+**Sintaxe Problemática:**
+```yaml
+# Exemplo de sintaxe que causa warning
+commands:
+  - code-review {scope}: Review code in specified scope
+  - workflow_type: "greenfield" | "brownfield" | "complete"
+```
+
+**Opções de Correção:**
+1. **Reformatar YAML nos agentes** - Converter sintaxe problemática para formato válido
+2. **Melhorar parser** - Adicionar mais casos no `parseYaml()` fixup
+3. **Suprimir warnings** - Adicionar flag `--quiet` ao sync
+
+**Recomendação:** Opção 1 - Reformatar YAML nos agentes afetados para usar sintaxe válida.
+
+**Action Items:**
+- [ ] Identificar todos os agentes com YAML warnings
+- [ ] Reformatar comandos para usar array syntax válida
+- [ ] Verificar que sync passa sem warnings
+- [ ] Atualizar testes se necessário
+
+---
+
+### Cleanup Orphaned Legacy IDE Command Files (ID: 1734912000006) - 🆕 NEW
+
+**Created:** 2025-12-22 | **Priority:** 🟢 Low | **Sprint:** TBD
+**Source:** QA Review Story 6.19
+
+**Problem:** O validator detectou 11 arquivos órfãos (orphaned) em diretórios de IDE que não são mais gerados pelo sync. Estes são arquivos legados de antes da implementação do sistema de sync automático.
+
+**Validação Output:**
+```
+Orphaned: 11 (legacy files, acceptable)
+```
+
+**Arquivos Potencialmente Órfãos:**
+- Arquivos de agentes que foram renomeados ou removidos
+- Arquivos de comandos antigos que não existem mais no source
+- Arquivos customizados que não fazem parte do sync
+
+**Opções de Correção:**
+1. **Cleanup manual** - Identificar e deletar arquivos órfãos
+2. **Flag `--clean`** - Adicionar opção ao sync para remover órfãos automaticamente
+3. **Manter órfãos** - Documentar como arquivos legados (status quo)
+
+**Recomendação:** Opção 2 - Adicionar flag `--clean` ao sync que remove arquivos não esperados.
+
+**Action Items:**
+- [ ] Listar todos os arquivos órfãos com `npm run sync:ide:validate --verbose`
+- [ ] Verificar se algum é customização intencional
+- [ ] Implementar flag `--clean` no sync
+- [ ] Documentar comportamento no help
+
+---
 
 ### Scripts Path Consolidation & Documentation Fix (ID: 1734530400001) - 🆕 NEW
 
@@ -923,5 +1031,5 @@ Esta inconsistência pode causar:
 ---
 
 *Auto-generated by AIOS Backlog Manager (Story 6.1.2.6)*
-*Last Updated: 2025-12-22 by @po (Pax)*
-*Update: Story 6.18 (Dynamic Manifest & Brownfield Upgrade) ✅ DONE - merged PR #11 | Epic SQS - 6/9 stories complete*
+*Last Updated: 2025-12-22 by @qa (Quinn)*
+*Update: Story 6.19 (IDE Command Auto-Sync) ✅ QA APPROVED - added 3 minor issues to backlog*
