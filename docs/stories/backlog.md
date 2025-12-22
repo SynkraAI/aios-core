@@ -13,7 +13,7 @@
 ## 📊 Summary by Type
 
 - 📌 **Follow-up**: 1
-- 🔧 **Technical Debt**: 6
+- 🔧 **Technical Debt**: 8
 - ✨ **Enhancement**: 2
 - 🔴 **Critical**: 0
 - ✅ **Resolved**: 21 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, Story SQS-9, Tech Debt 1734220200001)
@@ -115,6 +115,8 @@
 | ID | Type | Title | Priority | Related Story | Effort | Tags | Created By |
 |----|------|-------|----------|---------------|--------|------|------------|
 | 1734530400001 | 🔧 Technical Debt | Scripts Path Consolidation & Documentation Fix | 🔴 High | [6.16](v2.1/sprint-6/story-6.16-scripts-path-consolidation.md) | 4-6 hours | `documentation`, `paths`, `scripts`, `technical-debt` | @architect |
+| 1734912000001 | 🔧 Technical Debt | ESLint `_error` Variable Warning Fix | 🟢 Low | [6.18](v2.1/sprint-6/story-6.18-dynamic-manifest-brownfield-upgrade.md) | 15 min | `eslint`, `code-quality`, `installer` | @qa |
+| 1734912000002 | 🔧 Technical Debt | YAML Library Standardization (js-yaml vs yaml) | 🟢 Low | [6.18](v2.1/sprint-6/story-6.18-dynamic-manifest-brownfield-upgrade.md) | 1-2 hours | `dependencies`, `standardization`, `yaml` | @qa |
 | 1733679600001 | 🔧 Technical Debt | GitHub Actions Cost Optimization | 🟡 Medium | - | 4-6 hours | `ci-cd`, `github-actions`, `cost-optimization`, `devops` | @devops |
 | 1733682000001 | 🔧 Technical Debt | Increase Test Coverage to 80% | 🟡 Medium | - | 8-12 hours | `testing`, `coverage`, `quality` | @dev |
 | 1763298742141 | 🔧 Technical Debt | ~~Add unit tests for decision-log-generator~~ | ✅ Done | [4.1 Task 1](v2.1/sprint-4/story-4.1-technical-debt-cleanup.md) | 2 hours | `testing`, `decision-logging` | @dev |
@@ -150,6 +152,72 @@
 - [ ] Fix `scriptsLocation` in `core-config.yaml` to reflect modular structure
 - [ ] Remove references to non-existent scripts
 - [ ] Verify agent activations work correctly
+
+---
+
+### ESLint `_error` Variable Warning Fix (ID: 1734912000001) - 🆕 NEW
+
+**Created:** 2025-12-22 | **Priority:** 🟢 Low | **Sprint:** TBD
+**Source:** QA Review Story 6.18
+
+**Problem:** Em `src/installer/brownfield-upgrader.js` linha 102, a variável `_error` é usada para indicar que o erro foi intencionalmente ignorado, mas o ESLint ainda emite warning sobre variável não utilizada.
+
+**Arquivo Afetado:**
+- `src/installer/brownfield-upgrader.js:102`
+
+**Código Atual:**
+```javascript
+} catch (_error) {
+  // File doesn't exist or can't be read - will be detected as new
+}
+```
+
+**Opções de Correção:**
+1. Adicionar `// eslint-disable-next-line no-unused-vars` antes do catch
+2. Usar `catch { }` (ES2019+ syntax sem binding)
+3. Configurar ESLint para ignorar variáveis com prefixo `_`
+
+**Recomendação:** Opção 3 (configurar `argsIgnorePattern: "^_"` no `.eslintrc`)
+
+**Action Items:**
+- [ ] Atualizar `.eslintrc` com `argsIgnorePattern: "^_"` para `no-unused-vars`
+- [ ] Verificar se outros arquivos usam padrão similar
+
+---
+
+### YAML Library Standardization (ID: 1734912000002) - 🆕 NEW
+
+**Created:** 2025-12-22 | **Priority:** 🟢 Low | **Sprint:** TBD
+**Source:** QA Review Story 6.18
+
+**Problem:** O projeto utiliza duas bibliotecas YAML diferentes:
+- `js-yaml` (usada em generate-install-manifest.js, brownfield-upgrader.js)
+- `yaml` (usada em outros módulos do projeto)
+
+Esta inconsistência pode causar:
+- Comportamentos sutilmente diferentes de parsing/dumping
+- Aumento desnecessário do bundle size
+- Confusão para desenvolvedores sobre qual usar
+
+**Análise de Uso:**
+| Biblioteca | Locais |
+|------------|--------|
+| `js-yaml` | `scripts/generate-install-manifest.js`, `src/installer/brownfield-upgrader.js`, testes |
+| `yaml` | Outros módulos do projeto |
+
+**Opções de Correção:**
+1. **Padronizar em `js-yaml`** - Mais popular, API mais simples
+2. **Padronizar em `yaml`** - API mais moderna, melhor TypeScript support
+3. **Manter ambas** - Se houver razão técnica específica
+
+**Recomendação:** Padronizar em uma biblioteca apenas, preferencialmente `js-yaml` por ser a mais utilizada no projeto.
+
+**Action Items:**
+- [ ] Auditar uso de bibliotecas YAML no projeto inteiro
+- [ ] Decidir qual biblioteca manter como padrão
+- [ ] Migrar código para usar biblioteca única
+- [ ] Remover dependência não utilizada do `package.json`
+- [ ] Documentar padrão em coding-standards.md
 
 ---
 
