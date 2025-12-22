@@ -1,9 +1,9 @@
 # Backlog
 
 **Generated:** 2025-12-05T18:00:00.000Z
-**Updated:** 2025-12-22T21:30:00.000Z
+**Updated:** 2025-12-22T22:00:00.000Z
 **Total Items:** 8
-**Stories Completed:** 22 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, Story SQS-9)
+**Stories Completed:** 23 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.16**, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, Story SQS-9)
 **Latest Release:** [v2.2.3](https://github.com/SynkraAI/aios-core/releases/tag/v2.2.3) (2025-12-22)
 
 > **Roadmap Sync Reminder:** When completing sprints, update the [AIOS Public Roadmap](https://github.com/orgs/SynkraAI/projects/1) and [ROADMAP.md](../../ROADMAP.md). See sync checklist in ROADMAP.md.
@@ -13,10 +13,10 @@
 ## 📊 Summary by Type
 
 - 📌 **Follow-up**: 1
-- 🔧 **Technical Debt**: 11 (+3 from Story 6.19 QA)
+- 🔧 **Technical Debt**: 10 (+3 from Story 6.19 QA, -1 Story 6.16 resolved)
 - ✨ **Enhancement**: 2
 - 🔴 **Critical**: 0
-- ✅ **Resolved**: 23 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, Story SQS-9, Tech Debt 1734220200001)
+- ✅ **Resolved**: 24 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.16**, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, Story SQS-9, Tech Debt 1734220200001)
 - ❌ **Obsolete**: 1 (removed from active backlog)
 
 ---
@@ -117,7 +117,7 @@
 | 1734912000004 | 🔧 Technical Debt | IDE Sync Pre-commit Auto-Stage (Husky Setup) | 🟡 Medium | [6.19](v2.1/sprint-6/story-6.19-ide-command-auto-sync.md) | 1-2 hours | `ide-sync`, `husky`, `pre-commit`, `dx` | @qa |
 | 1734912000005 | 🔧 Technical Debt | Fix YAML Parse Warnings in Agent Files | 🟢 Low | [6.19](v2.1/sprint-6/story-6.19-ide-command-auto-sync.md) | 2-3 hours | `yaml`, `agents`, `ide-sync`, `code-quality` | @qa |
 | 1734912000006 | 🔧 Technical Debt | Cleanup Orphaned Legacy IDE Command Files | 🟢 Low | [6.19](v2.1/sprint-6/story-6.19-ide-command-auto-sync.md) | 30 min | `cleanup`, `ide-sync`, `legacy` | @qa |
-| 1734530400001 | 🔧 Technical Debt | Scripts Path Consolidation & Documentation Fix | 🔴 High | [6.16](v2.1/sprint-6/story-6.16-scripts-path-consolidation.md) | 4-6 hours | `documentation`, `paths`, `scripts`, `technical-debt` | @architect |
+| ~~1734530400001~~ | ~~🔧 Technical Debt~~ | ~~Scripts Path Consolidation & Documentation Fix~~ | ~~🔴 High~~ | [6.16](v2.1/sprint-6/story-6.16-scripts-path-consolidation.md) ✅ Done | ~~4-6 hours~~ | `documentation`, `paths`, `scripts`, `technical-debt` | @architect |
 | 1734912000001 | 🔧 Technical Debt | ESLint `_error` Variable Warning Fix | 🟢 Low | [6.18](v2.1/sprint-6/story-6.18-dynamic-manifest-brownfield-upgrade.md) | 15 min | `eslint`, `code-quality`, `installer` | @qa |
 | 1734912000002 | 🔧 Technical Debt | YAML Library Standardization (js-yaml vs yaml) | 🟢 Low | [6.18](v2.1/sprint-6/story-6.18-dynamic-manifest-brownfield-upgrade.md) | 1-2 hours | `dependencies`, `standardization`, `yaml` | @qa |
 | 1733679600001 | 🔧 Technical Debt | GitHub Actions Cost Optimization | 🟡 Medium | - | 4-6 hours | `ci-cd`, `github-actions`, `cost-optimization`, `devops` | @devops |
@@ -233,9 +233,9 @@ Orphaned: 11 (legacy files, acceptable)
 
 ---
 
-### Scripts Path Consolidation & Documentation Fix (ID: 1734530400001) - 🆕 NEW
+### ~~Scripts Path Consolidation & Documentation Fix (ID: 1734530400001)~~ ✅ RESOLVED
 
-**Created:** 2025-12-18 | **Priority:** 🔴 High | **Sprint:** 6
+**Created:** 2025-12-18 | **Resolved:** 2025-12-18 | **Sprint:** 6
 
 **Problem:** After Sprint 2 modular architecture restructuring, scripts were reorganized but:
 1. Deprecated scripts in `.aios-core/scripts/` were not deleted (duplicates exist)
@@ -664,6 +664,7 @@ Esta inconsistência pode causar:
 |----|------|-------|----------|---------------|----------|-----|
 | 1734920000001 | ✅ Resolved | IDE Command Auto-Sync System | 🔴 High | [6.19](v2.1/sprint-6/story-6.19-ide-command-auto-sync.md) ✅ Done | 2025-12-22 | [PR #12](https://github.com/SynkraAI/aios-core/pull/12) |
 | 1734912000003 | ✅ Resolved | Dynamic Manifest & Brownfield Upgrade System | 🟠 High | [6.18](v2.1/sprint-6/story-6.18-dynamic-manifest-brownfield-upgrade.md) ✅ Done | 2025-12-22 | [PR #11](https://github.com/SynkraAI/aios-core/pull/11) |
+| 1734530400001 | ✅ Resolved | Scripts Path Consolidation & Documentation Fix | 🔴 High | [6.16](v2.1/sprint-6/story-6.16-scripts-path-consolidation.md) ✅ Done | 2025-12-18 | - |
 | 1734540000001 | ✅ Resolved | Squad Designer - Guided Squad Creation | 🟠 High | [SQS-9](v2.1/sprint-8/story-sqs-9-squad-designer.md) ✅ Done | 2025-12-18 | [PR #10](https://github.com/SynkraAI/aios-core/pull/10) |
 | 1734230000001 | ✅ Resolved | Systematic Documentation Audit for OSR | 🔴 Critical | [6.13](v2.1/sprint-6/story-6.13-systematic-documentation-audit.md) ✅ Done | 2025-12-15 | [PR #5](https://github.com/SynkraAI/aios-core/pull/5) |
 | 1734225000001 | ✅ Resolved | Repository Cleanup for Open-Source Release | 🔴 Critical | [6.12](v2.1/sprint-6/story-6.12-repository-cleanup-osr.md) ✅ Done | 2025-12-15 | - |
@@ -1032,5 +1033,5 @@ Esta inconsistência pode causar:
 ---
 
 *Auto-generated by AIOS Backlog Manager (Story 6.1.2.6)*
-*Last Updated: 2025-12-22 by @qa (Quinn)*
-*Update: Story 6.19 (IDE Command Auto-Sync) ✅ QA APPROVED - added 3 minor issues to backlog*
+*Last Updated: 2025-12-22 by @po (Pax)*
+*Update: Story 6.16 moved to Resolved (was incorrectly in active backlog)*
