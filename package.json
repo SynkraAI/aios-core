@@ -78,6 +78,9 @@
     "version:expansion:all:patch": "node tools/bump-all-versions.js patch",
     "release": "semantic-release",
     "release:test": "semantic-release --dry-run --no-ci || echo 'Config test complete - authentication errors are expected locally'",
+    "generate:manifest": "node scripts/generate-install-manifest.js",
+    "validate:manifest": "node scripts/validate-manifest.js",
+    "prepublishOnly": "npm run generate:manifest && npm run validate:manifest",
     "prepare": "echo 'Skipping husky - not needed for NPM publish'"
   },
   "dependencies": {

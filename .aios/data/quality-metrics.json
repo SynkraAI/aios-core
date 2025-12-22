@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-19T00:02:49.004Z",
+  "lastUpdated": "2025-12-22T17:31:43.716Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-18T18:35:33.357Z"
     },
     "layer2": {
-      "passRate": 0.9,
-      "avgTimeMs": 153818,
-      "totalRuns": 110,
-      "lastRun": "2025-12-19T00:02:49.002Z",
+      "passRate": 0.9009009009009009,
+      "avgTimeMs": 154054,
+      "totalRuns": 111,
+      "lastRun": "2025-12-22T17:31:43.715Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -69,6 +69,10 @@
       },
       {
         "date": "2025-12-19",
+        "value": 1
+      },
+      {
+        "date": "2025-12-22",
         "value": 1
       }
     ]
@@ -3633,6 +3637,23 @@
         "triggeredBy": "pr",
         "prNumber": 10,
         "branchName": "feature/sqs-9-squad-designer",
+        "author": "Pedrovaleriolopez",
+        "lintResult": "success",
+        "typecheckResult": "success",
+        "testResult": "success",
+        "storyResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-22T17:31:43.715Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 11,
+        "branchName": "feat/story-6.18-brownfield-upgrade",
         "author": "Pedrovaleriolopez",
         "lintResult": "success",
         "typecheckResult": "success",

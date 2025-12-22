@@ -60,6 +60,15 @@ const { detectRepositoryContext } = resolveAiosCoreModule('scripts/repository-de
 // const { GitHubProjectsAdapter } = resolveAiosCoreModule('utils/pm-adapters/github-adapter');
 // const { JiraAdapter } = resolveAiosCoreModule('utils/pm-adapters/jira-adapter');
 
+// Brownfield upgrade module (Story 6.18)
+let brownfieldUpgrader;
+try {
+  brownfieldUpgrader = require('../src/installer/brownfield-upgrader');
+} catch (_err) {
+  // Module may not be available in older installations
+  brownfieldUpgrader = null;
+}
+
 async function main() {
   console.clear();
 
@@ -141,6 +150,108 @@ async function main() {
 
   console.log(chalk.cyan('📦 Package:') + ` ${context.packageName}`);
   console.log('');
+
+  // Check for existing installation (Story 6.18 - Brownfield Upgrade)
+  const installedManifestPath = path.join(projectRoot, '.aios-core', '.installed-manifest.yaml');
+  const hasExistingInstall = fs.existsSync(installedManifestPath);
+
+  if (hasExistingInstall && brownfieldUpgrader) {
+    console.log(chalk.yellow('🔄 Existing AIOS installation detected!'));
+    console.log('');
+
+    const sourceDir = path.join(context.frameworkLocation, '.aios-core');
+    const upgradeCheck = brownfieldUpgrader.checkUpgradeAvailable(sourceDir, projectRoot);
+
+    if (upgradeCheck.available) {
+      console.log(chalk.green(`   Upgrade available: ${upgradeCheck.from} → ${upgradeCheck.to}`));
+      console.log('');
+
+      // Generate upgrade report for display
+      const sourceManifest = brownfieldUpgrader.loadSourceManifest(sourceDir);
+      const installedManifest = brownfieldUpgrader.loadInstalledManifest(projectRoot);
+      const report = brownfieldUpgrader.generateUpgradeReport(sourceManifest, installedManifest, projectRoot);
+
+      console.log(chalk.gray('─'.repeat(80)));
+      const { upgradeChoice } = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'upgradeChoice',
+          message: chalk.white('What would you like to do?'),
+          choices: [
+            {
+              name: `  Upgrade to ${upgradeCheck.to} ` + chalk.gray(`(${report.newFiles.length} new, ${report.modifiedFiles.length} updated files)`),
+              value: 'upgrade',
+            },
+            {
+              name: '  Dry Run ' + chalk.gray('(Show what would be changed without applying)'),
+              value: 'dry-run',
+            },
+            {
+              name: '  Fresh Install ' + chalk.gray('(Reinstall everything, overwrite all files)'),
+              value: 'fresh',
+            },
+            {
+              name: '  Cancel ' + chalk.gray('(Exit without changes)'),
+              value: 'cancel',
+            },
+          ],
+        },
+      ]);
+
+      if (upgradeChoice === 'cancel') {
+        console.log(chalk.yellow('\nInstallation cancelled.'));
+        process.exit(0);
+      }
+
+      if (upgradeChoice === 'dry-run') {
+        console.log('');
+        console.log(brownfieldUpgrader.formatUpgradeReport(report));
+        console.log('');
+        console.log(chalk.yellow('This was a dry run. No files were changed.'));
+        console.log(chalk.gray('Run again and select "Upgrade" to apply changes.'));
+        process.exit(0);
+      }
+
+      if (upgradeChoice === 'upgrade') {
+        console.log('');
+        console.log(chalk.blue('📦 Applying upgrade...'));
+
+        const result = await brownfieldUpgrader.applyUpgrade(report, sourceDir, projectRoot, { dryRun: false });
+
+        if (result.success) {
+          // Update installed manifest
+          const packageJson = require(path.join(context.frameworkLocation, 'package.json'));
+          brownfieldUpgrader.updateInstalledManifest(projectRoot, sourceManifest, `aios-core@${packageJson.version}`);
+
+          console.log(chalk.green('✓') + ` Upgraded ${result.filesInstalled.length} files`);
+          if (result.filesSkipped.length > 0) {
+            console.log(chalk.yellow('⚠') + ` Preserved ${result.filesSkipped.length} user-modified files`);
+          }
+          console.log('');
+          console.log(chalk.green('✅ Upgrade complete!'));
+          console.log(chalk.gray(`   From: ${upgradeCheck.from}`));
+          console.log(chalk.gray(`   To:   ${upgradeCheck.to}`));
+          process.exit(0);
+        } else {
+          console.error(chalk.red('✗') + ' Upgrade failed with errors:');
+          for (const err of result.errors) {
+            console.error(chalk.red(`   - ${err.path}: ${err.error}`));
+          }
+          process.exit(1);
+        }
+      }
+
+      // If 'fresh' was selected, continue with normal installation flow below
+      if (upgradeChoice === 'fresh') {
+        console.log(chalk.yellow('\nProceeding with fresh installation...'));
+        console.log('');
+      }
+    } else {
+      console.log(chalk.green(`   Current version: ${upgradeCheck.from || 'unknown'}`));
+      console.log(chalk.gray('   No upgrade available. You can proceed with fresh install if needed.'));
+      console.log('');
+    }
+  }
 
   // Step 1: Installation Mode
   console.log(chalk.gray('─'.repeat(80)));
@@ -251,6 +362,21 @@ async function main() {
   if (fs.existsSync(sourceCoreDir)) {
     await fse.copy(sourceCoreDir, targetCoreDir);
     console.log(chalk.green('✓') + ' AIOS Core files installed ' + chalk.gray('(11 agents, 68 tasks, 23 templates)'));
+
+    // Create installed manifest for brownfield upgrades (Story 6.18)
+    if (brownfieldUpgrader) {
+      try {
+        const sourceManifest = brownfieldUpgrader.loadSourceManifest(sourceCoreDir);
+        if (sourceManifest) {
+          const packageJson = require(path.join(context.frameworkLocation, 'package.json'));
+          brownfieldUpgrader.updateInstalledManifest(context.projectRoot, sourceManifest, `aios-core@${packageJson.version}`);
+          console.log(chalk.green('✓') + ' Installation manifest created ' + chalk.gray('(enables future upgrades)'));
+        }
+      } catch (manifestErr) {
+        // Non-critical - just log warning
+        console.log(chalk.yellow('⚠') + ' Could not create installation manifest ' + chalk.gray('(brownfield upgrades may not work)'));
+      }
+    }
   } else {
     console.error(chalk.red('✗') + ' AIOS Core files not found');
     process.exit(1);
