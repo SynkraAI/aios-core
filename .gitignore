@@ -72,12 +72,20 @@ sync-*.sh                     # Agent sync scripts
 
 # IDE and editor configs
 .windsurf/
+!.windsurf/rules/
+!.windsurf/rules/agents/
 .trae/
+!.trae/rules/
+!.trae/rules/agents/
 .cursor/rules/                # Cursor IDE personal rules and configurations
+!.cursor/rules/agents/
 
 # AI assistant files
 CLAUDE.md
 .claude
+!.claude/commands/
+!.claude/commands/AIOS/
+!.claude/commands/AIOS/agents/
 !.claude/CLAUDE.md
 !.claude/rules/
 .gemini
