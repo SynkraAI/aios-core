@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-22T19:57:38.779Z",
+  "lastUpdated": "2025-12-22T21:59:02.046Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-22T19:57:38.772Z"
     },
     "layer2": {
-      "passRate": 0.9035087719298246,
-      "avgTimeMs": 153947,
-      "totalRuns": 114,
-      "lastRun": "2025-12-22T19:57:38.467Z",
+      "passRate": 0.9043478260869565,
+      "avgTimeMs": 154174,
+      "totalRuns": 115,
+      "lastRun": "2025-12-22T21:59:02.044Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -73,7 +73,7 @@
       },
       {
         "date": "2025-12-22",
-        "value": 0.9090909090909091
+        "value": 0.9166666666666666
       }
     ]
   },
@@ -3763,6 +3763,23 @@
       "findingsCount": 0,
       "metadata": {
         "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2025-12-22T21:59:02.044Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 12,
+        "branchName": "feature/story-6.19-ide-command-auto-sync",
+        "author": "Pedrovaleriolopez",
+        "lintResult": "success",
+        "typecheckResult": "success",
+        "testResult": "success",
+        "storyResult": "success"
       }
     }
   ]
