@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-23T14:49:23.817Z",
+  "lastUpdated": "2025-12-23T15:12:15.780Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-22T19:57:38.772Z"
     },
     "layer2": {
-      "passRate": 0.9098360655737705,
-      "avgTimeMs": 155656,
-      "totalRuns": 122,
-      "lastRun": "2025-12-23T14:49:23.815Z",
+      "passRate": 0.9083333333333333,
+      "avgTimeMs": 155250,
+      "totalRuns": 120,
+      "lastRun": "2025-12-23T15:12:15.778Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -3829,57 +3829,29 @@
       }
     },
     {
-      "timestamp": "2025-12-23T14:28:46.312Z",
+      "timestamp": "2025-12-23T15:02:35.264Z",
       "layer": 2,
       "passed": true,
       "durationMs": 180000,
       "findingsCount": 0,
       "metadata": {
         "triggeredBy": "pr",
-        "prNumber": 14,
-        "branchName": "fix/docker-mcp-secrets-workaround",
+        "prNumber": 15,
+        "branchName": "feat/sqs-5-synkra-sync-service",
         "author": "Pedrovaleriolopez",
         "coverageResult": "success"
       }
     },
     {
-      "timestamp": "2025-12-23T14:31:05.809Z",
+      "timestamp": "2025-12-23T15:12:15.778Z",
       "layer": 2,
       "passed": true,
       "durationMs": 180000,
       "findingsCount": 0,
       "metadata": {
         "triggeredBy": "pr",
-        "prNumber": 14,
-        "branchName": "fix/docker-mcp-secrets-workaround",
-        "author": "Pedrovaleriolopez",
-        "coverageResult": "success"
-      }
-    },
-    {
-      "timestamp": "2025-12-23T14:47:25.996Z",
-      "layer": 2,
-      "passed": true,
-      "durationMs": 180000,
-      "findingsCount": 0,
-      "metadata": {
-        "triggeredBy": "pr",
-        "prNumber": 14,
-        "branchName": "fix/docker-mcp-secrets-workaround",
-        "author": "Pedrovaleriolopez",
-        "coverageResult": "success"
-      }
-    },
-    {
-      "timestamp": "2025-12-23T14:49:23.815Z",
-      "layer": 2,
-      "passed": true,
-      "durationMs": 180000,
-      "findingsCount": 0,
-      "metadata": {
-        "triggeredBy": "pr",
-        "prNumber": 14,
-        "branchName": "fix/docker-mcp-secrets-workaround",
+        "prNumber": 15,
+        "branchName": "feat/sqs-5-synkra-sync-service",
         "author": "Pedrovaleriolopez",
         "coverageResult": "success"
       }
