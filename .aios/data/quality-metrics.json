@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-23T01:40:59.047Z",
+  "lastUpdated": "2025-12-23T01:47:37.746Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-22T19:57:38.772Z"
     },
     "layer2": {
-      "passRate": 0.905982905982906,
-      "avgTimeMs": 154615,
-      "totalRuns": 117,
-      "lastRun": "2025-12-23T01:40:59.045Z",
+      "passRate": 0.9067796610169492,
+      "avgTimeMs": 154831,
+      "totalRuns": 118,
+      "lastRun": "2025-12-23T01:47:37.744Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -3802,6 +3802,20 @@
     },
     {
       "timestamp": "2025-12-23T01:40:59.045Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 13,
+        "branchName": "feature/story-6.1-github-actions-optimization",
+        "author": "Pedrovaleriolopez",
+        "coverageResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-23T01:47:37.744Z",
       "layer": 2,
       "passed": true,
       "durationMs": 180000,
