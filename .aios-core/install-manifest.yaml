@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 2.2.3
-generated_at: "2025-12-23T14:28:56.377Z"
+generated_at: "2025-12-23T14:47:16.175Z"
 generator: scripts/generate-install-manifest.js
 file_count: 564
 files:
@@ -557,9 +557,9 @@ files:
     type: script
     size: 6348
   - path: development/tasks/add-mcp.md
-    hash: sha256:a768fb0bd8c5cd3d59bb7b8faee82e7d4782b2304762d150dd2b4b55ca358ae7
+    hash: sha256:8a19ae5f343b68d7aace6a8400a18349fb7b4ebc92cecdab33e2a7f4f0d88512
     type: task
-    size: 10197
+    size: 10205
   - path: development/tasks/advanced-elicitation.md
     hash: sha256:fbd55c3cbafb1336eafb8968c0f34035c2f352b22c45c150c7a327c7697438f9
     type: task
@@ -1033,9 +1033,9 @@ files:
     type: task
     size: 1905
   - path: development/tasks/squad-creator-sync-synkra.md
-    hash: sha256:d9f82aab934080d7ab9cbee2077d8536d5221426e374ad57f8b5e96a6086b835
+    hash: sha256:9e3cb982b6de771daf22788eb43d06bf7a197c32f15be4860946407b824ef150
     type: task
-    size: 1921
+    size: 8633
   - path: development/tasks/squad-creator-validate.md
     hash: sha256:c07c44217e882cae387d849658e091046e32735a62f6d28e496b4eb042121b98
     type: task
