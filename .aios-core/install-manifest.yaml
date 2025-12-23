@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 2.2.3
-generated_at: "2025-12-22T15:57:03.401Z"
+generated_at: "2025-12-23T14:47:16.175Z"
 generator: scripts/generate-install-manifest.js
-file_count: 555
+file_count: 564
 files:
   - path: cli/commands/generate/index.js
     hash: sha256:36f8e38ab767fa5478d8dabac548c66dc2c0fc521c216e954ac33fcea0ba597b
@@ -165,9 +165,9 @@ files:
     type: cli
     size: 5907
   - path: core-config.yaml
-    hash: sha256:5af2cf56303f66230e7fb1a106fcdaa10072b88fa3c9185a56d0b2e36c838839
+    hash: sha256:238af11d4bd06c600b65aec6bad627ecd87c1d4c037447bb5aa7befd474ad2f1
     type: config
-    size: 14289
+    size: 15370
   - path: core/config/config-cache.js
     hash: sha256:527a788cbe650aa6b13d1101ebc16419489bfef20b2ee93042f6eb6a51e898e9
     type: core
@@ -557,9 +557,9 @@ files:
     type: script
     size: 6348
   - path: development/tasks/add-mcp.md
-    hash: sha256:a77a71c540241affac9219f3d19cecd052db84d5b430a4ad7820b6034b3b9ba6
+    hash: sha256:8a19ae5f343b68d7aace6a8400a18349fb7b4ebc92cecdab33e2a7f4f0d88512
     type: task
-    size: 6559
+    size: 10205
   - path: development/tasks/advanced-elicitation.md
     hash: sha256:fbd55c3cbafb1336eafb8968c0f34035c2f352b22c45c150c7a327c7697438f9
     type: task
@@ -997,9 +997,9 @@ files:
     type: task
     size: 4700
   - path: development/tasks/setup-mcp-docker.md
-    hash: sha256:5acbcafde17dc8c9f020d47862fc4f72536c6d8a710d49c28856b515b5363230
+    hash: sha256:2d81956e164d5e62f2e5be6b0c25d37b85fded3dc25a8393fb1cdc44d1dfbddc
     type: task
-    size: 14913
+    size: 16304
   - path: development/tasks/setup-project-docs.md
     hash: sha256:61ddcbba5e7836480f65ad23ea2e8eb3f5347deff1e68610a2084b2c4a38b918
     type: task
@@ -1033,9 +1033,9 @@ files:
     type: task
     size: 1905
   - path: development/tasks/squad-creator-sync-synkra.md
-    hash: sha256:d9f82aab934080d7ab9cbee2077d8536d5221426e374ad57f8b5e96a6086b835
+    hash: sha256:9e3cb982b6de771daf22788eb43d06bf7a197c32f15be4860946407b824ef150
     type: task
-    size: 1921
+    size: 8633
   - path: development/tasks/squad-creator-validate.md
     hash: sha256:c07c44217e882cae387d849658e091046e32735a62f6d28e496b4eb042121b98
     type: task
@@ -1368,6 +1368,42 @@ files:
     hash: sha256:e4354cbceb1d3fe64f0a32b3b69e3f12e55f4a5770412b7cd31f92fe2cf3278c
     type: script
     size: 9735
+  - path: infrastructure/scripts/ide-sync/agent-parser.js
+    hash: sha256:f18531d68ffec3f661b81c528bff0929bac6fa26213f28affbfebb2faca091db
+    type: script
+    size: 7428
+  - path: infrastructure/scripts/ide-sync/index.js
+    hash: sha256:9e792b680a1ed19893d10fe27aa14f2ccf2235004d62f83bd052d2dde75c1aeb
+    type: script
+    size: 12879
+  - path: infrastructure/scripts/ide-sync/redirect-generator.js
+    hash: sha256:658725f2832d331ee83350e620e5a79a499492172fc8f44174749e3471feb77f
+    type: script
+    size: 4518
+  - path: infrastructure/scripts/ide-sync/transformers/antigravity.js
+    hash: sha256:f78399acdc7557f496abcffcd252e722e91f06afe16859b5066882954d9cd23e
+    type: script
+    size: 2687
+  - path: infrastructure/scripts/ide-sync/transformers/claude-code.js
+    hash: sha256:f028bdef022e54a5f70c92fa6d6b0dc0877c2fc87a9f8d2f477b29d09248dab7
+    type: script
+    size: 2225
+  - path: infrastructure/scripts/ide-sync/transformers/cursor.js
+    hash: sha256:957eb51c7c516f2a73ade0be38d25f97b5508f9816067bfe94ed23e7f17be265
+    type: script
+    size: 2321
+  - path: infrastructure/scripts/ide-sync/transformers/trae.js
+    hash: sha256:c3609987ed07d1c4959ef803548cbd224797db117affb8655c30c04ed524967a
+    type: script
+    size: 2895
+  - path: infrastructure/scripts/ide-sync/transformers/windsurf.js
+    hash: sha256:f0c6ad1cbab8618ea41572a4c667e13d471b49794f5508bc4f9184106f260342
+    type: script
+    size: 2636
+  - path: infrastructure/scripts/ide-sync/validator.js
+    hash: sha256:356c78125db7f88d14f4e521808e96593d729291c3d7a1c36cb02f78b4aef8fc
+    type: script
+    size: 7316
   - path: infrastructure/scripts/improvement-engine.js
     hash: sha256:2a132e285295fa9455f94c3b3cc2abf0c38a1dc2faa1197bdbe36d80dc69430c
     type: script

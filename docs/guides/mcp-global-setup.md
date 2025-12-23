@@ -2,8 +2,8 @@
 
 > Configure global MCP (Model Context Protocol) servers for Synkra AIOS.
 
-**Version:** 2.1.0
-**Last Updated:** 2025-12-01
+**Version:** 2.1.1
+**Last Updated:** 2025-12-23
 **Story:** [2.16 - Documentation Sprint 2](../stories/v2.1/sprint-2/story-2.16-documentation.md)
 
 ---
@@ -539,6 +539,44 @@ aios mcp status --verbose
 # Test server manually
 npx -y @modelcontextprotocol/server-github
 ```
+
+### Docker MCP Toolkit Issues
+
+| Issue | Solution |
+|-------|----------|
+| Secrets not passed to containers | Edit catalog file directly (see below) |
+| Template interpolation failing | Use hardcoded values in catalog |
+| Tools showing as "(N prompts)" | Token not being passed - apply workaround |
+
+#### Docker MCP Secrets Bug (Dec 2025)
+
+**Issue:** Docker MCP Toolkit's secrets store (`docker mcp secret set`) and template interpolation (`{{...}}`) do NOT work properly. Credentials are not passed to containers.
+
+**Symptoms:**
+- `docker mcp tools ls` shows "(N prompts)" instead of "(N tools)"
+- MCP server starts but fails authentication
+- Verbose output shows `-e ENV_VAR` without values
+
+**Workaround:** Edit `~/.docker/mcp/catalogs/docker-mcp.yaml` directly:
+
+```yaml
+{mcp-name}:
+  env:
+    - name: API_TOKEN
+      value: 'actual-token-value-here'
+```
+
+**Example - Apify:**
+```yaml
+apify-mcp-server:
+  env:
+    - name: TOOLS
+      value: 'actors,docs,apify/rag-web-browser'
+    - name: APIFY_TOKEN
+      value: 'apify_api_xxxxxxxxxxxxx'
+```
+
+**Note:** This exposes credentials in a local file. Secure file permissions and never commit this file.
 
 ---
 

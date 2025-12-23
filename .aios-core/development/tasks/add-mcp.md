@@ -166,11 +166,47 @@ docker mcp catalog info {mcp-name}
 ### 3. Add MCP Server
 
 ```bash
-# Add the server
-docker mcp server add {mcp-name}
+# Enable the server
+docker mcp server enable {mcp-name}
+```
 
-# With environment variable
-docker mcp server add {mcp-name} --env NOTION_API_KEY=${NOTION_API_KEY}
+### 3.1 Configure Credentials (CRITICAL - Known Bug Workaround)
+
+⚠️ **BUG:** Docker MCP Toolkit's secrets store and template interpolation (`{{...}}`) do NOT work properly. Credentials set via `docker mcp secret set` are not passed to containers.
+
+**WORKAROUND:** Edit the catalog file directly to hardcode env values.
+
+```yaml
+# Edit: ~/.docker/mcp/catalogs/docker-mcp.yaml
+# Find your MCP entry and add/modify the env section:
+
+{mcp-name}:
+  # ... other config ...
+  env:
+    - name: {ENV_VAR_NAME}
+      value: '{actual-api-key-value}'
+    - name: TOOLS
+      value: 'tool1,tool2,tool3'
+```
+
+**Example for Apify:**
+```yaml
+apify-mcp-server:
+  env:
+    - name: TOOLS
+      value: 'actors,docs,apify/rag-web-browser'
+    - name: APIFY_TOKEN
+      value: 'apify_api_xxxxxxxxxxxxx'
+```
+
+**Security Note:** This exposes credentials in a local file. Ensure:
+1. `~/.docker/mcp/catalogs/` is not committed to any repo
+2. File permissions restrict access to current user only
+
+**Alternative (if secrets work in future):**
+```bash
+# Set secret (currently NOT working)
+docker mcp secret set {mcp-name}.{credential_name}={value}
 ```
 
 ### 4. Update Gordon Config (Optional)
@@ -208,6 +244,50 @@ docker mcp preset update {preset-name} --add-server {mcp-name}
 docker mcp preset create {new-preset} --servers fs,github,{mcp-name}
 ```
 
+### 7. Update AIOS Documentation (REQUIRED)
+
+Add the new MCP to `.claude/rules/mcp-usage.md`:
+
+```markdown
+## {MCP-Name} MCP Usage (via Docker)
+
+### Use {MCP-Name} for:
+1. [Primary use case 1]
+2. [Primary use case 2]
+
+### Access pattern:
+\`\`\`
+mcp__docker-gateway__{tool-name-1}
+mcp__docker-gateway__{tool-name-2}
+\`\`\`
+```
+
+Also update the table in "Inside Docker Desktop (via docker-gateway)" section.
+
+### 8. Notify User About Session Restart (CRITICAL)
+
+⚠️ **The user MUST restart their Claude Code session** for new MCP tools to be available.
+
+```text
+IMPORTANT: New MCP tools will NOT be available until you:
+1. Close this Claude Code session
+2. Open a new Claude Code session: `claude`
+
+The docker-gateway caches tools at startup. New tools only appear after restart.
+```
+
+### 9. Verify Tools Available in New Session
+
+After user restarts Claude Code, verify tools are accessible:
+
+```bash
+# In new Claude Code session, ask an agent to use the new MCP
+@analyst Use the {mcp-name} tool to [perform some action]
+
+# Expected: Agent should see and use mcp__docker-gateway__{tool-name}
+# If not visible: Check docker mcp server list and docker mcp tools ls
+```
+
 ---
 
 ## Post-Conditions
@@ -220,12 +300,26 @@ post-conditions:
     validacao: docker mcp server list includes new MCP
     error_message: "MCP addition failed"
 
-  - [ ] Tools available
+  - [ ] Tools available in Docker MCP
     tipo: post-condition
     blocker: true
     validacao: docker mcp tools ls shows MCP tools
     error_message: "MCP tools not available - check credentials"
+
+  - [ ] AIOS documentation updated
+    tipo: post-condition
+    blocker: true
+    validacao: .claude/rules/mcp-usage.md includes new MCP
+    error_message: "Update mcp-usage.md with new MCP documentation"
+
+  - [ ] User notified about session restart
+    tipo: post-condition
+    blocker: true
+    validacao: User informed to restart Claude Code session
+    error_message: "Notify user: tools only available after session restart"
 ```
+
+**CRITICAL NOTE:** Tools added to Docker MCP Toolkit are NOT immediately available to AIOS agents. The docker-gateway caches tools at Claude Code startup. User MUST restart their Claude Code session for new tools to appear.
 
 ---
 
@@ -240,13 +334,19 @@ Resolution:
 3. Check if MCP is in the registry: https://github.com/modelcontextprotocol/registry
 ```
 
-### Error: Credentials Missing
+### Error: Credentials Missing / Tools Not Loading
 
-```
-Resolution:
-1. Set environment variable: export NOTION_API_KEY=your_key
-2. Add to .env file: NOTION_API_KEY=your_key
-3. Pass directly: docker mcp server add notion --env NOTION_API_KEY=key
+```text
+Resolution (Due to Known Bug):
+1. Edit catalog directly: ~/.docker/mcp/catalogs/docker-mcp.yaml
+2. Add hardcoded env values in the MCP's env section
+3. Verify with: docker mcp tools ls --verbose
+4. Check output shows "(N tools)" not "(N prompts)"
+
+If still showing only prompts:
+- Token may be invalid
+- TOOLS env var may be wrong
+- MCP may need specific configuration
 ```
 
 ### Error: MCP Fails to Start
@@ -302,7 +402,7 @@ Next steps:
 
 ```yaml
 task: add-mcp
-version: 1.1.0
+version: 1.3.0
 story: Story 6.14 - MCP Governance Consolidation
 dependencies:
   - Docker MCP Toolkit
@@ -313,10 +413,21 @@ tags:
   - docker
   - dynamic
 created_at: 2025-12-08
-updated_at: 2025-12-17
+updated_at: 2025-12-23
 agents:
   - devops
 changelog:
+  1.3.0:
+    - Added: Step 3.1 documenting Docker MCP secrets/template bug
+    - Added: Workaround using catalog file direct edit
+    - Updated: Error handling for credentials issues
+    - Fixed: Apify MCP now working with 7 tools
+    - Note: Bug affects all MCPs requiring authentication
+  1.2.0:
+    - Added: Steps 7-9 for AIOS documentation and session restart
+    - Added: Post-conditions for documentation update and user notification
+    - Added: Critical note about docker-gateway tool caching
+    - Fixed: Tools not appearing in AIOS agents after MCP addition
   1.1.0:
     - Changed: DevOps Agent now exclusive responsible (Story 6.14)
     - Removed: Dev Agent from agents list

@@ -1,9 +1,9 @@
 # Setup Docker MCP Toolkit
 
 **Task ID:** setup-mcp-docker
-**Version:** 2.1.0
+**Version:** 2.2.0
 **Created:** 2025-12-08
-**Updated:** 2025-12-17
+**Updated:** 2025-12-23
 **Agent:** @devops (Gage)
 
 ---
@@ -369,11 +369,46 @@ docker mcp server enable exa
 # Set user home directory for desktop-commander
 docker mcp config write "desktop-commander:
   paths:
-    - ${HOME}
+    - ${HOME}"
+```
+
+### 4.1 Configure API Keys (CRITICAL - Known Bug Workaround)
+
+⚠️ **BUG:** Docker MCP Toolkit's secrets store and template interpolation do NOT work properly. Credentials set via `docker mcp secret set` or `config.yaml apiKeys` are not passed to containers for MCPs with strict config schemas.
+
+**WORKAROUND:** Edit the catalog file directly to hardcode env values.
+
+```yaml
+# Edit: ~/.docker/mcp/catalogs/docker-mcp.yaml
+# Find the MCP entry and add/modify the env section:
+
+# Example for EXA (already working via apiKeys - no change needed):
 exa:
   apiKeys:
-    EXA_API_KEY: \${EXA_API_KEY}"
+    EXA_API_KEY: your-actual-api-key
+
+# Example for Apify (requires catalog edit):
+apify-mcp-server:
+  env:
+    - name: TOOLS
+      value: 'actors,docs,apify/rag-web-browser'
+    - name: APIFY_TOKEN
+      value: 'your-actual-apify-token'
 ```
+
+**Security Note:** This exposes credentials in a local file. Ensure:
+1. `~/.docker/mcp/catalogs/` is not committed to any repo
+2. File permissions restrict access to current user only
+
+**Alternative config.yaml (works for some MCPs like EXA):**
+```yaml
+# ~/.docker/mcp/config.yaml
+exa:
+  apiKeys:
+    EXA_API_KEY: your-api-key
+```
+
+See `*add-mcp` task (Step 3.1) for detailed instructions.
 
 ### 5. Configure Claude Code (HTTP Transport)
 
@@ -557,7 +592,7 @@ token_usage: ~500-1,000 tokens (this task only)
 
 ```yaml
 story: Story 6.14 - MCP Governance Consolidation
-version: 2.1.0
+version: 2.2.0
 dependencies:
   - Docker Desktop 4.50+
   - Docker MCP Toolkit
@@ -569,10 +604,15 @@ tags:
   - setup
   - http-transport
 created_at: 2025-12-08
-updated_at: 2025-12-17
+updated_at: 2025-12-23
 agents:
   - devops
 changelog:
+  2.2.0:
+    - Added: Step 4.1 documenting Docker MCP secrets bug
+    - Added: Workaround using catalog file direct edit
+    - Updated: Clarified which MCPs need catalog edit vs config.yaml
+    - Fixed: Apify and similar MCPs now configurable
   2.1.0:
     - Changed: DevOps Agent now exclusive responsible (Story 6.14)
     - Removed: Dev Agent from agents list

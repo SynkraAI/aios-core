@@ -30,11 +30,13 @@ AIOS uses Docker MCP Toolkit as the primary MCP infrastructure:
 | **playwright** | Browser automation, screenshots, web testing |
 | **desktop-commander** | Docker container operations via docker-gateway |
 
-### Inside Docker Desktop (via desktop-commander)
+### Inside Docker Desktop (via docker-gateway)
+
 | MCP | Purpose |
 |-----|---------|
 | **EXA** | Web search, research, company/competitor analysis |
 | **Context7** | Library documentation lookup |
+| **Apify** | Web scraping, Actors, social media data extraction |
 
 ## CRITICAL: Tool Selection Priority
 
@@ -106,11 +108,69 @@ mcp__docker-gateway__resolve-library-id
 mcp__docker-gateway__get-library-docs
 ```
 
+## Apify MCP Usage (via Docker)
+
+### Use Apify for:
+1. Searching Actors in Apify Store (web scrapers, automation tools)
+2. Running web scrapers for social media (Instagram, TikTok, LinkedIn, etc.)
+3. Extracting data from e-commerce sites
+4. Automated data collection from any website
+5. RAG-enabled web browsing for AI context
+
+### Access pattern (7 tools available):
+
+```text
+mcp__docker-gateway__apify-slash-rag-web-browser  # RAG-enabled web browsing
+mcp__docker-gateway__search-actors                 # Search for Actors
+mcp__docker-gateway__call-actor                    # Run an Actor
+mcp__docker-gateway__fetch-actor-details           # Get Actor info/schema
+mcp__docker-gateway__get-actor-output              # Get results from Actor run
+mcp__docker-gateway__search-apify-docs             # Search Apify documentation
+mcp__docker-gateway__fetch-apify-docs              # Fetch documentation page
+```
+
+### When to use Apify vs other tools:
+| Task | Tool |
+|------|------|
+| General web search | EXA (`web_search_exa`) |
+| Scrape specific website | Apify (`call-actor`) |
+| Social media data extraction | Apify (use specialized Actors) |
+| Library documentation | Context7 |
+
+---
+
 ## Rationale
 
 - **Native tools** execute on the LOCAL system (Windows/Mac/Linux)
 - **docker-gateway** executes inside Docker containers (Linux)
 - Using docker-gateway for local operations causes path mismatches and failures
 - Native tools are faster and more reliable for local file operations
-- EXA and Context7 run inside Docker for isolation and consistent environment
+- EXA, Context7, and Apify run inside Docker for isolation and consistent environment
 - playwright runs directly for better browser integration with host system
+
+---
+
+## Known Issues
+
+### Docker MCP Secrets Bug (Dec 2025)
+
+**Issue:** Docker MCP Toolkit's secrets store and template interpolation do not work properly. Credentials set via `docker mcp secret set` are NOT passed to containers.
+
+**Symptoms:**
+- `docker mcp tools ls` shows "(N prompts)" instead of "(N tools)"
+- MCP server starts but fails authentication
+- Verbose output shows `-e ENV_VAR` without values
+
+**Workaround:** Edit `~/.docker/mcp/catalogs/docker-mcp.yaml` directly with hardcoded env values:
+```yaml
+{mcp-name}:
+  env:
+    - name: API_TOKEN
+      value: 'actual-token-value'
+```
+
+**Affected MCPs:** Any MCP requiring authentication (Apify, Notion, Slack, etc.)
+
+**Working MCPs:** EXA works because its key is in `~/.docker/mcp/config.yaml` under `apiKeys`
+
+For detailed instructions, see `*add-mcp` task or ask @devops for assistance.
