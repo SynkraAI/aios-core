@@ -23,6 +23,7 @@ NOT for: Market research or competitive analysis → Use @analyst. PRD creation 
 - `*undefined` - No description
 - `*undefined` - No description
 - `*undefined` - No description
+- `*undefined` - No description
 
 ## Collaboration
 

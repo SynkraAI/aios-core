@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-23T16:03:56.094Z",
+  "lastUpdated": "2025-12-23T23:50:13.135Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-22T19:57:38.772Z"
     },
     "layer2": {
-      "passRate": 0.9090909090909091,
-      "avgTimeMs": 155455,
-      "totalRuns": 121,
-      "lastRun": "2025-12-23T16:03:56.092Z",
+      "passRate": 0.9105691056910569,
+      "avgTimeMs": 155854,
+      "totalRuns": 123,
+      "lastRun": "2025-12-23T23:50:13.133Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -3866,6 +3866,34 @@
         "triggeredBy": "pr",
         "prNumber": 16,
         "branchName": "feat/sqs-7-squad-migration-tool",
+        "author": "Pedrovaleriolopez",
+        "coverageResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-23T23:44:31.832Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 17,
+        "branchName": "feat/wis-15-analyze-project-structure",
+        "author": "Pedrovaleriolopez",
+        "coverageResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-23T23:50:13.133Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 17,
+        "branchName": "feat/wis-15-analyze-project-structure",
         "author": "Pedrovaleriolopez",
         "coverageResult": "success"
       }

@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 2.2.3
-generated_at: "2025-12-23T14:47:16.175Z"
+generated_at: "2025-12-23T23:48:55.731Z"
 generator: scripts/generate-install-manifest.js
-file_count: 564
+file_count: 569
 files:
   - path: cli/commands/generate/index.js
     hash: sha256:36f8e38ab767fa5478d8dabac548c66dc2c0fc521c216e954ac33fcea0ba597b
@@ -393,9 +393,9 @@ files:
     type: agent
     size: 8767
   - path: development/agents/architect.md
-    hash: sha256:16453d2a8816f59e25a285dde1adfc8b79b9524f8912f4129aceca66cff3156f
+    hash: sha256:c259c9f7e5293f8ffe72b7a265f30e49b4900e7b7e2196dbe2eafa20c9559d1d
     type: agent
-    size: 16519
+    size: 16776
   - path: development/agents/data-engineer.md
     hash: sha256:233f83bd856e84e58064aa20a6bfde8ea5bc74a88a6d9dafb10e6c9637b7c517
     type: agent
@@ -425,9 +425,9 @@ files:
     type: agent
     size: 9866
   - path: development/agents/squad-creator.md
-    hash: sha256:a7942dcbbe235784ebe9c3b69d1845c7ceed4c7519d33d77e9be8d585ebcd7d4
+    hash: sha256:b2d40ad818043acd04cb00eb2e5ff778498c65dc91bf81eb6675467fcd60c514
     type: agent
-    size: 9943
+    size: 10367
   - path: development/agents/ux-design-expert.md
     hash: sha256:ce2f28bbd7350f1ca7d1b01ae26924928e496314afb551cafb55604233117954
     type: agent
@@ -505,9 +505,9 @@ files:
     type: script
     size: 9449
   - path: development/scripts/squad/index.js
-    hash: sha256:dfbce334b3a0668f448dbaa7732a8827ade6a95ae15956da19c47d5eb92fa642
+    hash: sha256:e76b9c8be107210f33e7689bb8098e47e6970ce6816e6e9e4d0d5a948f7627f3
     type: script
-    size: 1592
+    size: 2649
   - path: development/scripts/squad/README.md
     hash: sha256:55e0226c3baffe16fd24f3d19179326c43e8dc525697c0b5c972cf15825f7c14
     type: script
@@ -516,6 +516,10 @@ files:
     hash: sha256:101cbb7d6ded0d6f991b29ac63dfee2c7bb86cbc8c4fefef728b7d12c3352829
     type: script
     size: 29548
+  - path: development/scripts/squad/squad-downloader.js
+    hash: sha256:a62dd5d40ef24426ffdabdcbe0a0a3a7e7e2b1757eba9749a41d3fd4c0e690f8
+    type: script
+    size: 15335
   - path: development/scripts/squad/squad-generator.js
     hash: sha256:6d47ee7e0c662ffd7a8c5975ceca3e71addb54f59fb771d55402d0d57ce3d7d8
     type: script
@@ -524,6 +528,14 @@ files:
     hash: sha256:7093b9457c93da6845722bf7eac660164963d5007c459afae2149340a7979f1f
     type: script
     size: 10549
+  - path: development/scripts/squad/squad-migrator.js
+    hash: sha256:883899cb84117b66074004fb683ba5f9cefebc57eeb9758f79784e0a92afcd90
+    type: script
+    size: 19520
+  - path: development/scripts/squad/squad-publisher.js
+    hash: sha256:329c00fb9d1085675a319e8314a5be9e1ee92c617691c47041f58d994982e029
+    type: script
+    size: 18724
   - path: development/scripts/squad/squad-validator.js
     hash: sha256:a19af336adf8caaa79f98e52ab78aee57a9a0a0041f3c4b6c9663a321c0a7f64
     type: script
@@ -580,6 +592,10 @@ files:
     hash: sha256:f6a7ac43c7834795e334062b70063ec4e6b4577090e0f3762dad0b4e3155c37f
     type: task
     size: 15464
+  - path: development/tasks/analyze-project-structure.md
+    hash: sha256:3336ea3c394e4746d65f999f3901c470bf21d17e0ae8faabd8b332482c04127b
+    type: task
+    size: 14542
   - path: development/tasks/apply-qa-fixes.md
     hash: sha256:9a7a3d6ab17732f22bae79257a8519d4e9175dd0f862b863185e03620d2753ce
     type: task
@@ -1021,17 +1037,21 @@ files:
     type: task
     size: 12698
   - path: development/tasks/squad-creator-download.md
-    hash: sha256:48c364b2709229d24b5b517e6b9f6894aad82d37613f1631445e94d3c6e1c581
+    hash: sha256:909088d7b585fbb8b465e0b0238ab49546c51876a6752a30f7bf7bf1bf22ef24
     type: task
-    size: 1503
+    size: 3856
   - path: development/tasks/squad-creator-list.md
     hash: sha256:c0b52c5a8a79b3ed757789e633f42a5458bac18bbcf1aa544fc1f5295151b446
     type: task
     size: 6555
-  - path: development/tasks/squad-creator-publish.md
-    hash: sha256:5bd5b1798dd375557b2279823b829973749d571b14b1ecb9a6e846b686b6bd96
+  - path: development/tasks/squad-creator-migrate.md
+    hash: sha256:c0f669b2d490c698d7b448408019558ff02a46c5232c8e6ce58cd7b5131d4565
     type: task
-    size: 1905
+    size: 8712
+  - path: development/tasks/squad-creator-publish.md
+    hash: sha256:f54cd24b45796ac9d3cee8876a1edca316f5560878201e828cad43d9e951ddc6
+    type: task
+    size: 4918
   - path: development/tasks/squad-creator-sync-synkra.md
     hash: sha256:9e3cb982b6de771daf22788eb43d06bf7a197c32f15be4860946407b824ef150
     type: task

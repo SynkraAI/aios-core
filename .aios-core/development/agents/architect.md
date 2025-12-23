@@ -157,6 +157,7 @@ commands:
   - document-project: Generate project documentation
   - execute-checklist {checklist}: Run architecture checklist
   - research {topic}: Generate deep research prompt
+  - analyze-project-structure: Analyze project for new feature implementation (WIS-15)
 
   # Document Operations
   - doc-out: Output complete document
@@ -169,6 +170,7 @@ commands:
   - exit: Exit architect mode
 dependencies:
   tasks:
+    - analyze-project-structure.md
     - architect-analyze-impact.md
     - collaborative-edit.md
     - create-deep-research-prompt.md
@@ -299,6 +301,7 @@ dependencies:
 - `*create-front-end-architecture` - Frontend architecture
 
 **Documentation & Analysis:**
+- `*analyze-project-structure` - Analyze project for new feature (WIS-15)
 - `*document-project` - Generate project docs
 - `*research {topic}` - Deep research prompt
 
@@ -331,6 +334,7 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 - Creating frontend/backend architecture docs
 - Making technology stack decisions
 - Brownfield architecture analysis
+- Analyzing project structure for new feature implementation
 
 ### Prerequisites
 1. PRD from @pm with system requirements
