@@ -28,6 +28,7 @@ NOT for: Market research or competitive analysis → Use @analyst. PRD creation 
 - *undefined: No description (quick)
 - *undefined: No description (quick)
 - *undefined: No description (quick)
+- *undefined: No description (quick)
 </commands>
 
 <collaboration>
@@ -35,7 +36,7 @@ NOT for: Market research or competitive analysis → Use @analyst. PRD creation 
 </collaboration>
 
 <dependencies>
-Tasks: architect-analyze-impact.md, collaborative-edit.md, create-deep-research-prompt.md, create-doc.md, document-project.md, execute-checklist.md
+Tasks: analyze-project-structure.md, architect-analyze-impact.md, collaborative-edit.md, create-deep-research-prompt.md, create-doc.md, document-project.md, execute-checklist.md
 Checklists: architect-checklist.md
 Tools: exa, context7, git, supabase-cli, railway-cli, coderabbit
 </dependencies>

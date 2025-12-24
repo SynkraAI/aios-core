@@ -36,9 +36,11 @@ NOT for: Market research or competitive analysis → Use @analyst. PRD creation 
 | `*undefined` | - |
 | `*undefined` | - |
 | `*undefined` | - |
+| `*undefined` | - |
 
 ## Quick Reference
 
+- `*undefined` - No description
 - `*undefined` - No description
 - `*undefined` - No description
 - `*undefined` - No description
@@ -70,10 +72,12 @@ NOT for: Market research or competitive analysis → Use @analyst. PRD creation 
 - `*undefined` - No description
 - `*undefined` - No description
 - `*undefined` - No description
+- `*undefined` - No description
 
 ## Dependencies
 
 ### Tasks
+- analyze-project-structure.md
 - architect-analyze-impact.md
 - collaborative-edit.md
 - create-deep-research-prompt.md

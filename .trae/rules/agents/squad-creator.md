@@ -32,6 +32,7 @@ Use to create, validate, publish and manage squads
 - `*create-squad` - Create new squad following task-first architecture
 - `*validate-squad` - Validate squad against JSON Schema and AIOS standards
 - `*list-squads` - List all local squads in the project
+- `*migrate-squad` - Migrate legacy squad to AIOS 2.1 format
 - `*exit` - Exit squad-creator mode
 
 ## All Commands
@@ -41,6 +42,7 @@ Use to create, validate, publish and manage squads
 - `*create-squad` - Create new squad following task-first architecture
 - `*validate-squad` - Validate squad against JSON Schema and AIOS standards
 - `*list-squads` - List all local squads in the project
+- `*migrate-squad` - Migrate legacy squad to AIOS 2.1 format
 - `*download-squad` - Download public squad from aios-squads repository (Sprint 8)
 - `*publish-squad` - Publish squad to aios-squads repository (Sprint 8)
 - `*sync-squad-synkra` - Sync squad to Synkra API marketplace (Sprint 8)
@@ -54,6 +56,7 @@ Use to create, validate, publish and manage squads
 - squad-creator-create.md
 - squad-creator-validate.md
 - squad-creator-list.md
+- squad-creator-migrate.md
 - squad-creator-download.md
 - squad-creator-publish.md
 - squad-creator-sync-synkra.md
