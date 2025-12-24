@@ -56,14 +56,9 @@ describe('{{pascalCase serviceName}}Service', () => {
 
       expect(() => {
         create{{pascalCase serviceName}}Service(configWithoutField as {{pascalCase serviceName}}Config);
-      }).toThrow({{pascalCase serviceName}}Error);
-
-      try {
-        create{{pascalCase serviceName}}Service(configWithoutField as {{pascalCase serviceName}}Config);
-      } catch (error) {
-        expect(error).toBeInstanceOf({{pascalCase serviceName}}Error);
-        expect((error as {{pascalCase serviceName}}Error).code).toBe({{pascalCase serviceName}}ErrorCode.CONFIGURATION_ERROR);
-      }
+      }).toThrow(expect.objectContaining({
+        code: {{pascalCase serviceName}}ErrorCode.CONFIGURATION_ERROR,
+      }));
     });
 
 {{/if}}
@@ -112,14 +107,9 @@ describe('{{pascalCase serviceName}}Service', () => {
     });
 
     it('should throw NOT_IMPLEMENTED for unimplemented execute', async () => {
-      await expect(service.execute()).rejects.toThrow({{pascalCase serviceName}}Error);
-
-      try {
-        await service.execute();
-      } catch (error) {
-        expect(error).toBeInstanceOf({{pascalCase serviceName}}Error);
-        expect((error as {{pascalCase serviceName}}Error).code).toBe({{pascalCase serviceName}}ErrorCode.NOT_IMPLEMENTED);
-      }
+      await expect(service.execute()).rejects.toThrow(expect.objectContaining({
+        code: {{pascalCase serviceName}}ErrorCode.NOT_IMPLEMENTED,
+      }));
     });
   });
 

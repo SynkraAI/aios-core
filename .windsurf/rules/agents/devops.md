@@ -11,26 +11,26 @@ Use for repository operations, version management, CI/CD, quality gates, and Git
 </when-to-use>
 
 <commands>
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
 </commands>
 
 <collaboration>

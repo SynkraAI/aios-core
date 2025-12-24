@@ -36,7 +36,6 @@ const DEFAULTS = {
 export class {{pascalCase serviceName}}Client {
   private readonly config: Required<Pick<{{pascalCase serviceName}}Config, 'baseUrl' | 'timeout' | 'maxRetries' | 'debug'>> & {{pascalCase serviceName}}Config;
   private rateLimit: {{pascalCase serviceName}}RateLimit | null = null;
-  private rateLimitQueue: Array<() => void> = [];
 
   constructor(config: {{pascalCase serviceName}}Config) {
     this.config = {
@@ -323,10 +322,19 @@ export class {{pascalCase serviceName}}Client {
     const reset = headers.get('x-ratelimit-reset');
 
     if (limit && remaining && reset) {
+      const parsedLimit = parseInt(limit, 10);
+      const parsedRemaining = parseInt(remaining, 10);
+      const parsedReset = parseInt(reset, 10);
+
+      if (isNaN(parsedLimit) || isNaN(parsedRemaining) || isNaN(parsedReset)) {
+        this.debug('Invalid rate limit headers received');
+        return;
+      }
+
       this.rateLimit = {
-        limit: parseInt(limit, 10),
-        remaining: parseInt(remaining, 10),
-        reset: parseInt(reset, 10) * 1000, // Convert to milliseconds
+        limit: parsedLimit,
+        remaining: parsedRemaining,
+        reset: parsedReset * 1000, // Convert to milliseconds
       };
     }
   }

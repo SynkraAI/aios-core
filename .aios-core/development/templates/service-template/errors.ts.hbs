@@ -112,6 +112,7 @@ export class {{pascalCase serviceName}}Error extends Error {
       code: this.code,
       message: this.message,
       details: this.details,
+      cause: this.cause ? { name: this.cause.name, message: this.cause.message } : undefined,
 {{#if isApiIntegration}}
       statusCode: this.statusCode,
       rateLimit: this.rateLimit,

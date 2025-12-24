@@ -22,13 +22,6 @@ Use for backlog management, story refinement, acceptance criteria, sprint planni
 | `*help` | Show all available commands with descriptions |
 | `*backlog-summary` | Quick backlog status summary |
 | `*validate-story-draft` | Validate story quality and completeness |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
 
 ## Quick Reference
 
@@ -40,13 +33,13 @@ Use for backlog management, story refinement, acceptance criteria, sprint planni
 - `*create-story` - Create user story from requirements
 - `*validate-story-draft` - Validate story quality and completeness
 - `*execute-checklist-po` - Run PO master checklist
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
+- `*correct-course` - Analyze and correct process deviations
+- `*shard-doc {document} {destination}` - Break document into smaller parts
+- `*doc-out` - Output complete document to file
+- `*session-info` - Show current session details (agent history, commands)
+- `*guide` - Show comprehensive usage guide for this agent
+- `*yolo` - Toggle confirmation skipping (on/off)
+- `*exit` - Exit PO mode
 
 ## All Commands
 

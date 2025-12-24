@@ -9,21 +9,21 @@ NOT for: Market research or competitive analysis → Use @analyst. PRD creation 
 
 ## Quick Commands
 
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
+- `*help` - Show all available commands with descriptions
+- `*create-full-stack-architecture` - Complete system architecture
+- `*create-backend-architecture` - Backend architecture design
+- `*create-front-end-architecture` - Frontend architecture design
+- `*create-brownfield-architecture` - Architecture for existing projects
+- `*document-project` - Generate project documentation
+- `*execute-checklist {checklist}` - Run architecture checklist
+- `*research {topic}` - Generate deep research prompt
+- `*analyze-project-structure` - Analyze project for new feature implementation (WIS-15)
+- `*doc-out` - Output complete document
+- `*shard-prd` - Break architecture into smaller parts
+- `*session-info` - Show current session details (agent history, commands)
+- `*guide` - Show comprehensive usage guide for this agent
+- `*yolo` - Toggle confirmation skipping
+- `*exit` - Exit architect mode
 
 ## Collaboration
 

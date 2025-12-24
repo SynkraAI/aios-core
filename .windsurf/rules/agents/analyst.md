@@ -14,18 +14,18 @@ NOT for: PRD creation or product strategy → Use @pm. Technical architecture de
 </when-to-use>
 
 <commands>
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
 </commands>
 
 <collaboration>

@@ -20,39 +20,21 @@ Epic/Story Delegation (Gate 1 Decision): PM creates epic structure, then delegat
 NOT for: Market research or competitive analysis → Use @analyst. Technical architecture design or technology selection → Use @architect. Detailed user story creation → Use @sm (PM creates epics, SM creates stories). Implementation work → Use @dev.
 
 
-## Core Commands
-
-| Command | Description |
-|---------|-------------|
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-| `*undefined` | - |
-
 ## Quick Reference
 
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
-- `*undefined` - No description
+- `*help` - Show all available commands with descriptions
+- `*create-prd` - Create product requirements document
+- `*create-brownfield-prd` - Create PRD for existing projects
+- `*create-epic` - Create epic for brownfield
+- `*create-story` - Create user story
+- `*doc-out` - Output complete document
+- `*shard-prd` - Break PRD into smaller parts
+- `*research {topic}` - Generate deep research prompt
+- `*correct-course` - Analyze and correct deviations
+- `*session-info` - Show current session details (agent history, commands)
+- `*guide` - Show comprehensive usage guide for this agent
+- `*yolo` - Toggle confirmation skipping
+- `*exit` - Exit PM mode
 
 ## All Commands
 

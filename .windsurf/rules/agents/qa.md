@@ -19,8 +19,8 @@ Use for comprehensive test architecture review, quality gate decisions, and code
 - *risk-profile {story}: Generate risk assessment matrix (quick)
 - *test-design {story}: Create comprehensive test scenarios (quick)
 - *trace {story}: Map requirements to tests (Given-When-Then) (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
+- *undefined: No description
+- *undefined: No description
 - *backlog-review: Generate backlog review for sprint planning (quick)
 - *session-info: Show current session details (agent history, commands) (quick)
 - *guide: Show comprehensive usage guide for this agent (quick)

@@ -105,7 +105,7 @@ function validateConfig(config: {{pascalCase serviceName}}Config): void {
 
 {{#each envVars}}
 {{#if this.required}}
-  if (!config.{{camelCase this.name}}) {
+  if (config.{{camelCase this.name}} === undefined || config.{{camelCase this.name}} === null) {
     throw new {{pascalCase serviceName}}Error(
       '{{this.name}} is required',
       {{pascalCase serviceName}}ErrorCode.CONFIGURATION_ERROR

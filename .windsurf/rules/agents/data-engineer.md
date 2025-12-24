@@ -11,34 +11,34 @@ Use for database design, schema architecture, Supabase configuration, RLS polici
 </when-to-use>
 
 <commands>
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
 </commands>
 
 <collaboration>

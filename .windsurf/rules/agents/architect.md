@@ -14,21 +14,21 @@ NOT for: Market research or competitive analysis → Use @analyst. PRD creation 
 </when-to-use>
 
 <commands>
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
 </commands>
 
 <collaboration>

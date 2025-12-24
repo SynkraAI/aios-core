@@ -24,13 +24,13 @@ Use for backlog management, story refinement, acceptance criteria, sprint planni
 - *sync-story: Sync story to PM tool (ClickUp, GitHub, Jira, local)
 - *pull-story: Pull story updates from PM tool
 - *execute-checklist-po: Run PO master checklist (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
-- *undefined: No description (quick)
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
+- *undefined: No description
 </commands>
 
 <collaboration>

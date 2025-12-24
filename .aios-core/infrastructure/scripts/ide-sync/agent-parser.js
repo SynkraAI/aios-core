@@ -210,6 +210,46 @@ function parseAllAgents(agentsDir) {
 }
 
 /**
+ * Normalize commands to consistent format
+ * Handles both { name, description } and { "cmd-name": "description" } formats
+ * @param {object[]} commands - Array of command objects (may be in various formats)
+ * @returns {object[]} - Normalized command objects with name, description, visibility
+ */
+function normalizeCommands(commands) {
+  if (!Array.isArray(commands)) return [];
+
+  return commands.map(cmd => {
+    // Already in proper format with name property
+    if (cmd.name && typeof cmd.name === 'string') {
+      return {
+        name: cmd.name,
+        description: cmd.description || 'No description',
+        visibility: cmd.visibility || ['full', 'quick'],
+      };
+    }
+
+    // Shorthand format: { "cmd-name": "description text" }
+    const keys = Object.keys(cmd);
+    if (keys.length === 1) {
+      const name = keys[0];
+      const description = cmd[name];
+      return {
+        name: name,
+        description: typeof description === 'string' ? description : 'No description',
+        visibility: ['full', 'quick'],
+      };
+    }
+
+    // Unknown format - try to extract what we can
+    return {
+      name: cmd.name || 'unknown',
+      description: cmd.description || 'No description',
+      visibility: cmd.visibility || ['full', 'quick'],
+    };
+  });
+}
+
+/**
  * Get visibility-filtered commands
  * @param {object[]} commands - Array of command objects
  * @param {string} visibility - Visibility level (full, quick, key)
@@ -218,7 +258,10 @@ function parseAllAgents(agentsDir) {
 function getVisibleCommands(commands, visibility) {
   if (!Array.isArray(commands)) return [];
 
-  return commands.filter(cmd => {
+  // First normalize the commands to ensure consistent format
+  const normalized = normalizeCommands(commands);
+
+  return normalized.filter(cmd => {
     if (!cmd.visibility) return true; // Include if no visibility defined
     return cmd.visibility.includes(visibility);
   });
@@ -246,6 +289,7 @@ module.exports = {
   extractSection,
   parseAgentFile,
   parseAllAgents,
+  normalizeCommands,
   getVisibleCommands,
   formatCommandsList,
 };
