@@ -1,9 +1,9 @@
 # Backlog
 
 **Generated:** 2025-12-05T18:00:00.000Z
-**Updated:** 2025-12-22T22:00:00.000Z
+**Updated:** 2025-12-23T14:00:00.000Z
 **Total Items:** 8
-**Stories Completed:** 23 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.16**, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, Story SQS-9)
+**Stories Completed:** 28 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.16**, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, **Story SQS-6**, **Story SQS-7**, Story SQS-9, **Story WIS-9**, **Story WIS-10**, **Story WIS-15**)
 **Latest Release:** [v2.2.3](https://github.com/SynkraAI/aios-core/releases/tag/v2.2.3) (2025-12-22)
 
 > **Roadmap Sync Reminder:** When completing sprints, update the [AIOS Public Roadmap](https://github.com/orgs/SynkraAI/projects/1) and [ROADMAP.md](../../ROADMAP.md). See sync checklist in ROADMAP.md.
@@ -16,7 +16,7 @@
 - 🔧 **Technical Debt**: 10 (+3 from Story 6.19 QA, -1 Story 6.16 resolved)
 - ✨ **Enhancement**: 2
 - 🔴 **Critical**: 0
-- ✅ **Resolved**: 24 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.16**, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, Story SQS-9, Tech Debt 1734220200001)
+- ✅ **Resolved**: 29 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.16**, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, **Story SQS-6**, **Story SQS-7**, Story SQS-9, **Story WIS-9**, **Story WIS-10**, **Story WIS-15**, Tech Debt 1734220200001)
 - ❌ **Obsolete**: 1 (removed from active backlog)
 
 ---
@@ -574,8 +574,8 @@ Esta inconsistência pode causar:
 | Sprint 7 - Foundation | Sprint 8 - Integration |
 |-----------------------|------------------------|
 | ✅ SQS-0: Repo Cleanup (2h) **DONE** | SQS-5: SquadSyncService (10-12h) |
-| ✅ SQS-1: Architecture Validation (4h) **DONE** | SQS-6: Registry & Cleanup (8-10h) |
-| ✅ SQS-2: Squad Loader (12-16h) **DONE** | SQS-7: Migration Tool (6-8h) |
+| ✅ SQS-1: Architecture Validation (4h) **DONE** | ✅ SQS-6: Download & Publish (8-10h) **DONE** |
+| ✅ SQS-2: Squad Loader (12-16h) **DONE** | ✅ SQS-7: Migration Tool (6-8h) **DONE** |
 | ✅ SQS-3: JSON Schema Validator (6-8h) **DONE** | SQS-8: Documentation (4-6h) |
 | ✅ SQS-4: Squad Creator Agent (8-12h) **DONE** | ✅ SQS-9: Squad Designer (8-12h) **DONE** |
 
@@ -588,7 +588,7 @@ Esta inconsistência pode causar:
 
 📄 **[Ver Epic Completo](../epics/current/epic-sqs-squad-system.md)**
 
-**Status:** 🚧 IN PROGRESS - 6/9 stories complete (SQS-0 ✅, SQS-1 ✅, SQS-2 ✅, SQS-3 ✅, SQS-4 ✅, SQS-9 ✅)
+**Status:** 🚧 IN PROGRESS - 8/9 stories complete (SQS-0 ✅, SQS-1 ✅, SQS-2 ✅, SQS-3 ✅, SQS-4 ✅, SQS-6 ✅, SQS-7 ✅, SQS-9 ✅)
 
 ---
 
@@ -603,13 +603,19 @@ Esta inconsistência pode causar:
 - Pattern Learning (interno + comunidade opt-in)
 - Integração com Agent Lightning (Story 1.10)
 
-**Stories Planejadas (8 Total, ~60h):**
+**Stories Planejadas (8+ Total, ~60h):**
 
-| Sprint 8 - MVP | Sprint 9-10 - Learning |
-|----------------|------------------------|
-| WIS-1: Investigation (8h) | WIS-4: Wave Analysis (8h) |
-| WIS-2: Workflow Registry (12h) | WIS-5: Pattern Capture (8h) |
-| WIS-3: `*next` Task (12h) | WIS-6: Community Opt-in (8h) |
+| Sprint 9-10 - Foundation | Sprint 11+ - Learning |
+|--------------------------|------------------------|
+| ✅ WIS-9: Investigation (17-25h) **DONE** | WIS-4: Wave Analysis (8h) |
+| ✅ WIS-10: Service Template (8-10h) **DONE** | WIS-5: Pattern Capture (8h) |
+| ✅ WIS-15: `*analyze-project-structure` (2h) **DONE** | WIS-6: Community Opt-in (8h) |
+| WIS-11: `*create-service` Task | |
+
+**Completed Stories:**
+- ✅ **WIS-9:** Incremental Feature Investigation (Sprint 9)
+- ✅ **WIS-10:** Service Template Implementation (Sprint 10)
+- ✅ **WIS-15:** `*analyze-project-structure` Task (PR #17, 2025-12-23)
 
 **Future:** WIS-7 (Agent Lightning), WIS-8 (Memory Layer)
 
@@ -619,7 +625,7 @@ Esta inconsistência pode causar:
 
 📄 **[Ver Epic Completo](epic-workflow-intelligence/EPIC-WIS-INDEX.md)**
 
-**Status:** Investigation story (WIS-1) pronto para execução no Sprint 8
+**Status:** 🚧 IN PROGRESS - 3/8 stories complete (WIS-9 ✅, WIS-10 ✅, WIS-15 ✅)
 
 ---
 
@@ -662,6 +668,11 @@ Esta inconsistência pode causar:
 
 | ID | Type | Title | Priority | Related Story | Resolved | PR |
 |----|------|-------|----------|---------------|----------|-----|
+| 1735010000001 | ✅ Resolved | `*analyze-project-structure` Task | 🔴 High | [WIS-15](v2.1/sprint-10/story-wis-15-analyze-project-structure.md) ✅ Done | 2025-12-23 | [PR #17](https://github.com/SynkraAI/aios-core/pull/17) |
+| 1735010000002 | ✅ Resolved | Service Template Implementation | 🔴 High | [WIS-10](v2.1/sprint-10/story-wis-10-service-template.md) ✅ Done | 2025-12-23 | - |
+| 1735010000003 | ✅ Resolved | Incremental Feature Investigation | 🟠 High | [WIS-9](v2.1/sprint-9/story-wis-9-incremental-feature-workflow.md) ✅ Done | 2025-12-23 | - |
+| 1735010000004 | ✅ Resolved | Squad Migration Tool | 🟠 High | [SQS-7](v2.1/sprint-8/story-sqs-7-migration-tool.md) ✅ Done | 2025-12-23 | [PR #16](https://github.com/SynkraAI/aios-core/pull/16) |
+| 1735010000005 | ✅ Resolved | Squad Download & Publish | 🟠 High | [SQS-6](v2.1/sprint-8/story-sqs-6-download-publish.md) ✅ Done | 2025-12-23 | [PR #17](https://github.com/SynkraAI/aios-core/pull/17) |
 | 1734920000001 | ✅ Resolved | IDE Command Auto-Sync System | 🔴 High | [6.19](v2.1/sprint-6/story-6.19-ide-command-auto-sync.md) ✅ Done | 2025-12-22 | [PR #12](https://github.com/SynkraAI/aios-core/pull/12) |
 | 1734912000003 | ✅ Resolved | Dynamic Manifest & Brownfield Upgrade System | 🟠 High | [6.18](v2.1/sprint-6/story-6.18-dynamic-manifest-brownfield-upgrade.md) ✅ Done | 2025-12-22 | [PR #11](https://github.com/SynkraAI/aios-core/pull/11) |
 | 1734530400001 | ✅ Resolved | Scripts Path Consolidation & Documentation Fix | 🔴 High | [6.16](v2.1/sprint-6/story-6.16-scripts-path-consolidation.md) ✅ Done | 2025-12-18 | - |
@@ -1033,5 +1044,5 @@ Esta inconsistência pode causar:
 ---
 
 *Auto-generated by AIOS Backlog Manager (Story 6.1.2.6)*
-*Last Updated: 2025-12-22 by @po (Pax)*
-*Update: Story 6.16 moved to Resolved (was incorrectly in active backlog)*
+*Last Updated: 2025-12-23 by @po (Pax)*
+*Update: Added SQS-6, SQS-7, WIS-9, WIS-10, WIS-15 to Resolved. Epic SQS: 8/9, Epic WIS: 3/8*

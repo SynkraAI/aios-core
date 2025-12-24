@@ -14,21 +14,21 @@ NOT for: Market research or competitive analysis → Use @analyst. PRD creation 
 </when-to-use>
 
 <commands>
-- *help: Show all available commands with descriptions (quick)
-- *create-full-stack-architecture: Complete system architecture (quick)
-- *create-backend-architecture: Backend architecture design (quick)
-- *create-front-end-architecture: Frontend architecture design (quick)
-- *create-brownfield-architecture: Architecture for existing projects (quick)
-- *document-project: Generate project documentation (quick)
-- *execute-checklist {checklist}: Run architecture checklist (quick)
-- *research {topic}: Generate deep research prompt (quick)
-- *analyze-project-structure: Analyze project for new feature implementation (WIS-15) (quick)
-- *doc-out: Output complete document (quick)
-- *shard-prd: Break architecture into smaller parts (quick)
-- *session-info: Show current session details (agent history, commands) (quick)
-- *guide: Show comprehensive usage guide for this agent (quick)
-- *yolo: Toggle confirmation skipping (quick)
-- *exit: Exit architect mode (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
+- *undefined: No description (quick)
 </commands>
 
 <collaboration>
