@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-23T23:50:13.135Z",
+  "lastUpdated": "2025-12-24T11:16:11.103Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-22T19:57:38.772Z"
     },
     "layer2": {
-      "passRate": 0.9105691056910569,
-      "avgTimeMs": 155854,
-      "totalRuns": 123,
-      "lastRun": "2025-12-23T23:50:13.133Z",
+      "passRate": 0.9112903225806451,
+      "avgTimeMs": 156048,
+      "totalRuns": 124,
+      "lastRun": "2025-12-24T11:16:11.100Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -77,6 +77,10 @@
       },
       {
         "date": "2025-12-23",
+        "value": 1
+      },
+      {
+        "date": "2025-12-24",
         "value": 1
       }
     ]
@@ -3894,6 +3898,20 @@
         "triggeredBy": "pr",
         "prNumber": 17,
         "branchName": "feat/wis-15-analyze-project-structure",
+        "author": "Pedrovaleriolopez",
+        "coverageResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-24T11:16:11.100Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 18,
+        "branchName": "feat/wis-10-service-template",
         "author": "Pedrovaleriolopez",
         "coverageResult": "success"
       }
