@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 2.2.3
-generated_at: "2025-12-25T13:10:54.250Z"
+generated_at: "2025-12-25T13:26:22.718Z"
 generator: scripts/generate-install-manifest.js
 file_count: 581
 files:
@@ -529,9 +529,9 @@ files:
     type: script
     size: 10549
   - path: development/scripts/squad/squad-migrator.js
-    hash: sha256:883899cb84117b66074004fb683ba5f9cefebc57eeb9758f79784e0a92afcd90
+    hash: sha256:7aa7c77f252853faa3230898f37f987713c02a21937da69bf0f0da4074884b4a
     type: script
-    size: 19520
+    size: 19517
   - path: development/scripts/squad/squad-publisher.js
     hash: sha256:329c00fb9d1085675a319e8314a5be9e1ee92c617691c47041f58d994982e029
     type: script
