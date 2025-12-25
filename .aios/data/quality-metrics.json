@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-25T13:12:53.918Z",
+  "lastUpdated": "2025-12-25T13:25:24.535Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-22T19:57:38.772Z"
     },
     "layer2": {
-      "passRate": 0.9147286821705426,
-      "avgTimeMs": 156977,
-      "totalRuns": 129,
-      "lastRun": "2025-12-25T13:12:53.915Z",
+      "passRate": 0.9153846153846154,
+      "avgTimeMs": 157154,
+      "totalRuns": 130,
+      "lastRun": "2025-12-25T13:25:24.533Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -3978,6 +3978,20 @@
     },
     {
       "timestamp": "2025-12-25T13:12:53.915Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 20,
+        "branchName": "feature/wis-3-next-task",
+        "author": "Pedrovaleriolopez",
+        "coverageResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-25T13:25:24.533Z",
       "layer": 2,
       "passed": true,
       "durationMs": 180000,
