@@ -17,6 +17,7 @@ const {
 
 describe('validator', () => {
   let tempDir;
+  let testCounter = 0;
 
   beforeAll(() => {
     tempDir = path.join(os.tmpdir(), 'validator-test-' + Date.now());
@@ -83,7 +84,8 @@ describe('validator', () => {
     let targetDir;
 
     beforeEach(() => {
-      targetDir = path.join(tempDir, 'target-' + Date.now());
+      testCounter++;
+      targetDir = path.join(tempDir, `target-${Date.now()}-${testCounter}`);
       fs.ensureDirSync(targetDir);
     });
 

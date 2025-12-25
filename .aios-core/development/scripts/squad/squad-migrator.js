@@ -192,10 +192,11 @@ class SquadMigrator {
       });
     }
 
-    // Check for flat structure (missing directories)
+    // Check for flat structure (missing required directories)
+    // Note: Only 'tasks' and 'agents' are required for task-first architecture
+    // 'config' directory is optional and not checked
     const hasTasksDir = await this._pathExists(path.join(squadPath, 'tasks'));
     const hasAgentsDir = await this._pathExists(path.join(squadPath, 'agents'));
-    const hasConfigDir = await this._pathExists(path.join(squadPath, 'config'));
 
     const missingDirs = [];
     if (!hasTasksDir) {
@@ -203,9 +204,6 @@ class SquadMigrator {
     }
     if (!hasAgentsDir) {
       missingDirs.push('agents');
-    }
-    if (!hasConfigDir) {
-      missingDirs.push('config');
     }
 
     if (missingDirs.length > 0) {

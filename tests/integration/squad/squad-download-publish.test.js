@@ -12,6 +12,23 @@
 
 const path = require('path');
 const fs = require('fs').promises;
+
+// Mock child_process for GitHub CLI auth in CI environments
+jest.mock('child_process', () => {
+  const actual = jest.requireActual('child_process');
+  return {
+    ...actual,
+    execSync: jest.fn((cmd, opts) => {
+      // Mock gh auth status to return authenticated
+      if (cmd === 'gh auth status') {
+        return 'Logged in to github.com as ci-test-user';
+      }
+      // Fall through to actual for other commands
+      return actual.execSync(cmd, opts);
+    }),
+  };
+});
+
 const {
   SquadDownloader,
   SquadPublisher,
@@ -132,20 +149,13 @@ This is a sample task for integration testing.
       expect(manifest.name).toBe('integration-test-squad');
       expect(manifest.version).toBeDefined();
 
-      // Step 4: Publish with dry-run
-      // Mock gh auth for dry-run
-      const originalExecSync = require('child_process').execSync;
-      require('child_process').execSync = jest.fn().mockReturnValue('Logged in to github.com as testuser');
-
+      // Step 4: Publish with dry-run (gh auth is mocked globally)
       const publishResult = await publisher.publish(squadPath);
 
       expect(publishResult.prUrl).toBe('[dry-run] PR would be created');
       expect(publishResult.branch).toContain('squad/integration-test-squad');
       expect(publishResult.manifest.name).toBe('integration-test-squad');
       expect(publishResult.preview).toBeDefined();
-
-      // Restore execSync
-      require('child_process').execSync = originalExecSync;
     });
   });
 
@@ -250,30 +260,18 @@ This is a sample task for testing.
 `,
         );
 
-        // Mock gh auth
-        const originalExecSync = require('child_process').execSync;
-        require('child_process').execSync = jest.fn().mockReturnValue('Logged in to github.com as testuser');
-
+        // gh auth is mocked globally
         const result = await publisher.publish(testSquadPath);
 
         expect(result.prUrl).toBe('[dry-run] PR would be created');
         expect(result.preview.title).toBe('Add squad: dry-run-test-squad');
         expect(result.preview.body).toContain('dry-run-test-squad');
-
-        // Restore execSync
-        require('child_process').execSync = originalExecSync;
       } else {
-        // Mock gh auth
-        const originalExecSync = require('child_process').execSync;
-        require('child_process').execSync = jest.fn().mockReturnValue('Logged in to github.com as testuser');
-
+        // gh auth is mocked globally
         const result = await publisher.publish(squadPath);
 
         expect(result.prUrl).toBe('[dry-run] PR would be created');
         expect(result.preview).toBeDefined();
-
-        // Restore execSync
-        require('child_process').execSync = originalExecSync;
       }
     });
   });
