@@ -99,7 +99,7 @@ jobs:
 
       - name: Create distribution archive
         run: |
-          mkdir -p dist
+          mkdir -p dist/@synkra
           tar -czf dist/@synkra/aios-core-${{ steps.package-version.outputs.version }}.tar.gz \
             --exclude=node_modules \
             --exclude=.git \
