@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-26T13:12:14.696Z",
+  "lastUpdated": "2025-12-26T19:45:56.277Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-22T19:57:38.772Z"
     },
     "layer2": {
-      "passRate": 0.917910447761194,
-      "avgTimeMs": 157836,
-      "totalRuns": 134,
-      "lastRun": "2025-12-26T13:12:14.694Z",
+      "passRate": 0.9185185185185185,
+      "avgTimeMs": 158000,
+      "totalRuns": 135,
+      "lastRun": "2025-12-26T19:45:56.275Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -4060,6 +4060,20 @@
         "triggeredBy": "pr",
         "prNumber": 22,
         "branchName": "feature/wis-5-pattern-capture",
+        "author": "Pedrovaleriolopez",
+        "coverageResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-26T19:45:56.275Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 23,
+        "branchName": "feat/sqs-10-project-config-reference",
         "author": "Pedrovaleriolopez",
         "coverageResult": "success"
       }
