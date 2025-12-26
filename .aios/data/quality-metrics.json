@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-26T20:04:45.324Z",
+  "lastUpdated": "2025-12-26T21:41:28.490Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-22T19:57:38.772Z"
     },
     "layer2": {
-      "passRate": 0.9191176470588235,
-      "avgTimeMs": 158162,
-      "totalRuns": 136,
-      "lastRun": "2025-12-26T20:04:45.322Z",
+      "passRate": 0.9197080291970803,
+      "avgTimeMs": 158321,
+      "totalRuns": 137,
+      "lastRun": "2025-12-26T21:41:28.488Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -4088,6 +4088,20 @@
         "triggeredBy": "pr",
         "prNumber": 23,
         "branchName": "feat/sqs-10-project-config-reference",
+        "author": "Pedrovaleriolopez",
+        "coverageResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-26T21:41:28.488Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 24,
+        "branchName": "feature/sqs-11-squad-analyze-extend",
         "author": "Pedrovaleriolopez",
         "coverageResult": "success"
       }
