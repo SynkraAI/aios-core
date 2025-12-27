@@ -181,8 +181,8 @@ Some content without proper metadata
   describe('addToIndex', () => {
     it('should create new index file if it does not exist', async () => {
       // Mock config
-      const yaml = require('yaml');
-      jest.spyOn(yaml, 'parse').mockReturnValue({
+      const yaml = require('js-yaml');
+      jest.spyOn(yaml, 'load').mockReturnValue({
         decisionLogging: {
           enabled: true,
           location: '.ai/',
@@ -234,8 +234,8 @@ Some content without proper metadata
     });
 
     it('should update existing index file', async () => {
-      const yaml = require('yaml');
-      jest.spyOn(yaml, 'parse').mockReturnValue({
+      const yaml = require('js-yaml');
+      jest.spyOn(yaml, 'load').mockReturnValue({
         decisionLogging: {
           enabled: true,
           location: '.ai/',
@@ -289,8 +289,8 @@ Total logs: 1
     });
 
     it('should replace existing entry for same story ID', async () => {
-      const yaml = require('yaml');
-      jest.spyOn(yaml, 'parse').mockReturnValue({
+      const yaml = require('js-yaml');
+      jest.spyOn(yaml, 'load').mockReturnValue({
         decisionLogging: {
           enabled: true,
           location: '.ai/',
@@ -347,8 +347,8 @@ Total logs: 1
     });
 
     it('should return null when decision logging is disabled', async () => {
-      const yaml = require('yaml');
-      jest.spyOn(yaml, 'parse').mockReturnValue({
+      const yaml = require('js-yaml');
+      jest.spyOn(yaml, 'load').mockReturnValue({
         decisionLogging: {
           enabled: false,
         },
@@ -369,8 +369,8 @@ Total logs: 1
 
   describe('rebuildIndex', () => {
     it('should rebuild index from all log files in directory', async () => {
-      const yaml = require('yaml');
-      jest.spyOn(yaml, 'parse').mockReturnValue({
+      const yaml = require('js-yaml');
+      jest.spyOn(yaml, 'load').mockReturnValue({
         decisionLogging: {
           enabled: true,
           location: '.ai/',

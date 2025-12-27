@@ -9,7 +9,7 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 const { globalConfigCache } = require('../../core/config/config-cache');
 const { trackConfigLoad } = require('../../infrastructure/scripts/performance-tracker');
 
@@ -32,7 +32,7 @@ async function loadAgentRequirements() {
 
   try {
     const content = await fs.readFile(requirementsPath, 'utf8');
-    agentRequirements = yaml.parse(content);
+    agentRequirements = yaml.load(content);
     return agentRequirements;
   } catch (error) {
     console.warn(`⚠️ Could not load agent requirements: ${error.message}`);
@@ -331,12 +331,12 @@ class AgentConfigLoader {
       
       let agentDef;
       try {
-        agentDef = yaml.parse(yamlMatch[1]);
+        agentDef = yaml.load(yamlMatch[1]);
       } catch (parseError) {
         // Try normalizing compact command format before parsing
         const normalizedYaml = this._normalizeCompactCommands(yamlMatch[1]);
         try {
-          agentDef = yaml.parse(normalizedYaml);
+          agentDef = yaml.load(normalizedYaml);
         } catch (secondError) {
           throw new Error(`Failed to parse agent definition YAML for ${this.agentId}: ${parseError.message}`);
         }
@@ -556,7 +556,7 @@ if (require.main === module) {
       // Load core config
       const coreConfigPath = path.join(process.cwd(), '.aios-core', 'core-config.yaml');
       const coreConfigContent = await fs.readFile(coreConfigPath, 'utf8');
-      const coreConfig = yaml.parse(coreConfigContent);
+      const coreConfig = yaml.load(coreConfigContent);
 
       switch (command) {
         case 'load':

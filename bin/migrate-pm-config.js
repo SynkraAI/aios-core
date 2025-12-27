@@ -11,7 +11,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 /**
  * Detect existing PM tool from environment variables
@@ -100,7 +100,7 @@ function savePMConfig(pmToolData, projectRoot) {
     console.log(`✓ Backed up existing config to ${path.basename(backupPath)}`);
   }
 
-  fs.writeFileSync(configPath, yaml.stringify(config));
+  fs.writeFileSync(configPath, yaml.dump(config));
   console.log(`✓ Created ${configPath}`);
 
   return configPath;
@@ -123,7 +123,7 @@ async function migrate() {
 
     // Read existing config
     try {
-      const existingConfig = yaml.parse(fs.readFileSync(configPath, 'utf8'));
+      const existingConfig = yaml.load(fs.readFileSync(configPath, 'utf8'));
       console.log(`Current PM tool: ${existingConfig.pm_tool?.type || 'unknown'}`);
       console.log('');
       console.log('To reconfigure, either:');

@@ -6,7 +6,7 @@
  */
 
 const fs = require('fs');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 /**
  * Validate configurations
@@ -148,7 +148,7 @@ async function validateCoreConfig(results, configPath = '.aios-core/core-config.
 
   try {
     const yamlContent = fs.readFileSync(configPath, 'utf8');
-    const parsed = yaml.parse(yamlContent);
+    const parsed = yaml.load(yamlContent);
 
     if (!parsed || typeof parsed !== 'object') {
       results.errors.push({

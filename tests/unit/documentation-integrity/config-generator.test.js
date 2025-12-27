@@ -8,7 +8,7 @@
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 const {
   buildConfigContext,
@@ -193,7 +193,7 @@ describe('Config Generator', () => {
       expect(result.content).toBeTruthy();
 
       // Verify YAML is valid
-      const parsed = yaml.parse(result.content);
+      const parsed = yaml.load(result.content);
       expect(parsed.project.name).toBe('test-project');
       expect(parsed.project.mode).toBe('greenfield');
       expect(parsed.deployment.workflow).toBe('staging-first');
@@ -210,7 +210,7 @@ describe('Config Generator', () => {
 
       expect(result.success).toBe(true);
 
-      const parsed = yaml.parse(result.content);
+      const parsed = yaml.load(result.content);
       expect(parsed.project.mode).toBe('brownfield');
       expect(parsed.project.analysis).toBeDefined();
     });
@@ -238,7 +238,7 @@ describe('Config Generator', () => {
       const context = buildConfigContext('test', 'greenfield', {});
 
       const result = generateConfig(tempDir, 'greenfield', context, { dryRun: true });
-      const parsed = yaml.parse(result.content);
+      const parsed = yaml.load(result.content);
 
       expect(parsed.devLoadAlwaysFiles).toContain('docs/architecture/coding-standards.md');
       expect(parsed.devLoadAlwaysFiles).toContain('docs/architecture/tech-stack.md');

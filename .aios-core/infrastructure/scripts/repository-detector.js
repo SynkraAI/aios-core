@@ -46,8 +46,8 @@ function detectRepositoryContext() {
   let installConfig = null;
   const configPath = path.join(cwd, '.aios-installation-config.yaml');
   if (fs.existsSync(configPath)) {
-    const yaml = require('yaml');
-    installConfig = yaml.parse(fs.readFileSync(configPath, 'utf8'));
+    const yaml = require('js-yaml');
+    installConfig = yaml.load(fs.readFileSync(configPath, 'utf8'));
   }
 
   return {

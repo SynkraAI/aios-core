@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const inquirer = require('inquirer');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 const fs = require('fs');
 const path = require('path');
 
@@ -212,7 +212,7 @@ async function init() {
 
   // Save config
   const configPath = path.join(context.projectRoot, '.aios-installation-config.yaml');
-  fs.writeFileSync(configPath, yaml.stringify(config));
+  fs.writeFileSync(configPath, yaml.dump(config));
   console.log(`\n✓ Created ${configPath}`);
 
   // Update .gitignore
@@ -522,7 +522,7 @@ function savePMConfig(pmTool, config, projectRoot) {
   };
 
   const configPath = path.join(projectRoot, '.aios-pm-config.yaml');
-  fs.writeFileSync(configPath, yaml.stringify(pmConfigData));
+  fs.writeFileSync(configPath, yaml.dump(pmConfigData));
   console.log(`✓ Created ${configPath}`);
 }
 

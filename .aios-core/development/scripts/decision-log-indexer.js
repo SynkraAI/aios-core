@@ -17,10 +17,10 @@ const path = require('path');
  * @returns {Promise<Object>} Configuration object
  */
 async function loadConfig() {
-  const yaml = require('yaml');
+  const yaml = require('js-yaml');
   try {
     const configContent = await fs.readFile('.aios-core/core-config.yaml', 'utf8');
-    return yaml.parse(configContent);
+    return yaml.load(configContent);
   } catch (error) {
     console.warn('Warning: Could not load core-config.yaml for indexing:', error.message);
     return {

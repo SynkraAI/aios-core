@@ -11,7 +11,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 // Template directory
 const TEMPLATES_DIR = path.join(__dirname, '..', '..', 'templates', 'core-config');
@@ -276,7 +276,7 @@ function generateConfig(targetDir, mode, context, options = {}) {
 
     // Validate YAML syntax
     try {
-      yaml.parse(rendered);
+      yaml.load(rendered);
     } catch (yamlError) {
       return {
         success: false,

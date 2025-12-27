@@ -12,7 +12,7 @@
 const path = require('path');
 const fs = require('fs');
 const fse = require('fs-extra');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 const { execSync } = require('child_process');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
@@ -295,7 +295,7 @@ async function main() {
   };
 
   const configPath = path.join(context.projectRoot, '.aios-installation-config.yaml');
-  fs.writeFileSync(configPath, yaml.stringify(config));
+  fs.writeFileSync(configPath, yaml.dump(config));
 
   // Update .gitignore
   updateGitIgnore(installMode, context.projectRoot);
@@ -855,7 +855,7 @@ function savePMConfig(pmTool, config, projectRoot) {
   };
 
   const configPath = path.join(projectRoot, '.aios-pm-config.yaml');
-  fs.writeFileSync(configPath, yaml.stringify(pmConfigData));
+  fs.writeFileSync(configPath, yaml.dump(pmConfigData));
 }
 
 // Run installer with error handling

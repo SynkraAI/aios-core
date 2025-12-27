@@ -76,10 +76,10 @@ describeIntegration('Unified Greeting System Integration', () => {
   describeIntegration('Agent Configuration Loading', () => {
     it('should load complete agent definition', async () => {
       const { AgentConfigLoader } = require('../../.aios-core/development/scripts/agent-config-loader');
-      const yaml = require('yaml');
+      const yaml = require('js-yaml');
       const fs = require('fs');
       
-      const coreConfig = yaml.parse(
+      const coreConfig = yaml.load(
         fs.readFileSync('.aios-core/core-config.yaml', 'utf8'),
       );
       
@@ -153,10 +153,10 @@ describeIntegration('Unified Greeting System Integration', () => {
   describeIntegration('Compact Command Format Normalization', () => {
     it('should normalize compact commands during parsing', async () => {
       const { AgentConfigLoader } = require('../../.aios-core/development/scripts/agent-config-loader');
-      const yaml = require('yaml');
+      const yaml = require('js-yaml');
       const fs = require('fs');
       
-      const coreConfig = yaml.parse(
+      const coreConfig = yaml.load(
         fs.readFileSync('.aios-core/core-config.yaml', 'utf8'),
       );
       

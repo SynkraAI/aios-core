@@ -25,7 +25,7 @@ const { loadProjectStatus } = require('../../infrastructure/scripts/project-stat
 const { AgentConfigLoader } = require('./agent-config-loader');
 const fs = require('fs').promises;
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 /**
  * Generate unified greeting for agent activation
@@ -45,7 +45,7 @@ async function generateGreeting(agentId) {
     // Load core config
     const coreConfigPath = path.join(process.cwd(), '.aios-core', 'core-config.yaml');
     const coreConfigContent = await fs.readFile(coreConfigPath, 'utf8');
-    const coreConfig = yaml.parse(coreConfigContent);
+    const coreConfig = yaml.load(coreConfigContent);
     
     // Load everything in parallel using expanded AgentConfigLoader
     const loader = new AgentConfigLoader(agentId);

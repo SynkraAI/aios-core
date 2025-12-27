@@ -12,7 +12,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 const { ClickUpAdapter } = require('../integrations/pm-adapters/clickup-adapter');
 const { GitHubProjectsAdapter } = require('../integrations/pm-adapters/github-adapter');
@@ -61,7 +61,7 @@ function getPMAdapter() {
   try {
     // Read and parse config file
     const configContent = fs.readFileSync(configPath, 'utf8');
-    const config = yaml.parse(configContent);
+    const config = yaml.load(configContent);
 
     if (!config || !config.pm_tool) {
       console.warn('⚠️  Invalid PM config file - using local-only mode');
@@ -148,7 +148,7 @@ function getPMToolType() {
 
   try {
     const configContent = fs.readFileSync(configPath, 'utf8');
-    const config = yaml.parse(configContent);
+    const config = yaml.load(configContent);
 
     return config?.pm_tool?.type || 'local';
   } catch (error) {

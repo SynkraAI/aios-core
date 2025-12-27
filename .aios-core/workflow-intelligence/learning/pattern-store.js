@@ -10,7 +10,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 /**
  * Default storage path for learned patterns
@@ -328,7 +328,7 @@ class PatternStore {
     try {
       if (fs.existsSync(this.storagePath)) {
         const content = fs.readFileSync(this.storagePath, 'utf8');
-        const data = yaml.parse(content) || {};
+        const data = yaml.load(content) || {};
         data.patterns = data.patterns || [];
         this._cache = data;
         this._cacheTime = Date.now();
@@ -363,7 +363,7 @@ class PatternStore {
         fs.mkdirSync(dir, { recursive: true });
       }
 
-      const content = yaml.stringify(data, { indent: 2, lineWidth: 120 });
+      const content = yaml.dump(data, { indent: 2, lineWidth: 120 });
       fs.writeFileSync(this.storagePath, content, 'utf8');
 
       // Invalidate cache

@@ -12,7 +12,7 @@ const parser = require('@babel/parser');
 const traverse = require('@babel/traverse').default;
 const generate = require('@babel/generator').default;
 const t = require('@babel/types');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 const marked = require('marked');
 
 class DocumentationSynchronizer extends EventEmitter {
@@ -210,7 +210,7 @@ class DocumentationSynchronizer extends EventEmitter {
     } else if (ext === '.yaml' || ext === '.yml') {
       // Extract YAML metadata
       try {
-        const data = yaml.parse(content);
+        const data = yaml.load(content);
         metadata.title = data.name || data.title || path.basename(filePath, ext);
         metadata.description = data.description;
         metadata.schemas.push(data);
@@ -814,7 +814,7 @@ class DocumentationSynchronizer extends EventEmitter {
       // Parse schema
       const schema = codePath.endsWith('.json') ? 
         JSON.parse(schemaContent) :
-        yaml.parse(schemaContent);
+        yaml.load(schemaContent);
       
       // Find schema documentation
       if (docPath.endsWith('.md')) {

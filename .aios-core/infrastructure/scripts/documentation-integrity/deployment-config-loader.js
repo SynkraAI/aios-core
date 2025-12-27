@@ -15,7 +15,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 /**
  * Default deployment configuration
@@ -83,7 +83,7 @@ function loadDeploymentConfig(projectRoot) {
 
   try {
     const configContent = fs.readFileSync(configPath, 'utf8');
-    const config = yaml.parse(configContent);
+    const config = yaml.load(configContent);
 
     if (!config || !config.deployment) {
       console.warn('[deployment-config-loader] No deployment section in core-config.yaml');
@@ -115,7 +115,7 @@ function loadProjectConfig(projectRoot) {
 
   try {
     const configContent = fs.readFileSync(configPath, 'utf8');
-    const config = yaml.parse(configContent);
+    const config = yaml.load(configContent);
     return config.project || null;
   } catch (error) {
     console.error(`[deployment-config-loader] Error loading project config: ${error.message}`);

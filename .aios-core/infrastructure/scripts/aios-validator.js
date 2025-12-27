@@ -12,7 +12,7 @@
 const { execaSync } = require('execa');
 const fs = require('fs');
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 // Terminal colors
 const colors = {
@@ -180,7 +180,7 @@ async function validateYAML(files = []) {
   for (const file of yamlFiles) {
     try {
       const content = fs.readFileSync(file, 'utf-8');
-      yaml.parse(content);
+      yaml.load(content);
       printSuccess(`Valid YAML: ${file}`);
     } catch (error) {
       printError(`Invalid YAML in ${file}: ${error.message}`);

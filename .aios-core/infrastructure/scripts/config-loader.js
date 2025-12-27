@@ -21,7 +21,7 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 /**
  * Config cache with TTL
@@ -95,7 +95,7 @@ async function loadFullConfig() {
 
   try {
     const content = await fs.readFile(configPath, 'utf8');
-    const config = yaml.parse(content);
+    const config = yaml.load(content);
 
     const loadTime = Date.now() - startTime;
 

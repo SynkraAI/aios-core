@@ -11,7 +11,7 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 /**
  * List of all AIOS agents
@@ -69,7 +69,7 @@ async function extractAgentDependencies(agentId) {
       return null;
     }
 
-    const agentConfig = yaml.parse(yamlMatch[1]);
+    const agentConfig = yaml.load(yamlMatch[1]);
 
     return {
       agentId,

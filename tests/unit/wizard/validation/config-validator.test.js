@@ -5,12 +5,12 @@
  */
 
 const fs = require('fs');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 const { validateConfigs } = require('../../../../src/wizard/validation/validators/config-validator');
 
 // Mock dependencies
 jest.mock('fs');
-jest.mock('yaml');
+jest.mock('js-yaml');
 
 describeIntegration('Config Validator', () => {
   beforeEach(() => {
@@ -34,7 +34,7 @@ describeIntegration('Config Validator', () => {
         return '';
       });
 
-      yaml.parse.mockReturnValue({
+      yaml.load.mockReturnValue({
         markdownExploder: {},
         qa: {},
         prd: {},
@@ -84,7 +84,7 @@ describeIntegration('Config Validator', () => {
         return '';
       });
 
-      yaml.parse.mockReturnValue({});
+      yaml.load.mockReturnValue({});
 
       // When
       const result = await validateConfigs({});
@@ -112,7 +112,7 @@ describeIntegration('Config Validator', () => {
         return '';
       });
 
-      yaml.parse.mockReturnValue({});
+      yaml.load.mockReturnValue({});
 
       // When
       const result = await validateConfigs({});
@@ -143,7 +143,7 @@ describeIntegration('Config Validator', () => {
         return '';
       });
 
-      yaml.parse.mockReturnValue({
+      yaml.load.mockReturnValue({
         markdownExploder: { enabled: true },
         qa: {},
         prd: {},
@@ -209,7 +209,7 @@ describeIntegration('Config Validator', () => {
         return '';
       });
 
-      yaml.parse.mockImplementation(() => {
+      yaml.load.mockImplementation(() => {
         throw new Error('Invalid YAML syntax');
       });
 
@@ -245,7 +245,7 @@ describeIntegration('Config Validator', () => {
         return '';
       });
 
-      yaml.parse.mockReturnValue({
+      yaml.load.mockReturnValue({
         markdownExploder: { enabled: true },
         // Missing: qa, prd, architecture
       });
@@ -286,7 +286,7 @@ describeIntegration('Config Validator', () => {
         return '';
       });
 
-      yaml.parse.mockReturnValue({});
+      yaml.load.mockReturnValue({});
 
       // When
       const result = await validateConfigs({});
@@ -311,7 +311,7 @@ describeIntegration('Config Validator', () => {
         return '';
       });
 
-      yaml.parse.mockReturnValue({});
+      yaml.load.mockReturnValue({});
 
       // When
       const result = await validateConfigs({});
@@ -339,7 +339,7 @@ describeIntegration('Config Validator', () => {
         return '';
       });
 
-      yaml.parse.mockReturnValue({});
+      yaml.load.mockReturnValue({});
 
       // When
       const result = await validateConfigs({});
@@ -367,7 +367,7 @@ describeIntegration('Config Validator', () => {
         return '';
       });
 
-      yaml.parse.mockReturnValue({});
+      yaml.load.mockReturnValue({});
 
       // When
       const result = await validateConfigs({});
@@ -391,7 +391,7 @@ describeIntegration('Config Validator', () => {
         return '';
       });
 
-      yaml.parse.mockReturnValue({});
+      yaml.load.mockReturnValue({});
 
       // When
       const result = await validateConfigs({});
@@ -425,7 +425,7 @@ describeIntegration('Config Validator', () => {
         return '';
       });
 
-      yaml.parse.mockReturnValue({});
+      yaml.load.mockReturnValue({});
 
       // When
       const result = await validateConfigs({});

@@ -12,7 +12,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 const { PMAdapter } = require('../../scripts/pm-adapter');
 
 /**
@@ -60,7 +60,7 @@ class LocalAdapter extends PMAdapter {
         };
       }
 
-      const story = yaml.parse(frontmatterMatch[1]);
+      const story = yaml.load(frontmatterMatch[1]);
 
       if (!story || !story.id) {
         return {

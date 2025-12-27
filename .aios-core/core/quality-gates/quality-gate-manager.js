@@ -13,7 +13,7 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 const { Layer1PreCommit } = require('./layer1-precommit');
 const { Layer2PRAutomation } = require('./layer2-pr-automation');
 const { Layer3HumanReview } = require('./layer3-human-review');
@@ -55,7 +55,7 @@ class QualityGateManager {
   static async load(configPath = DEFAULT_CONFIG_PATH) {
     try {
       const content = await fs.readFile(configPath, 'utf8');
-      const config = yaml.parse(content);
+      const config = yaml.load(content);
       return new QualityGateManager(config);
     } catch (error) {
       console.warn(`Could not load config from ${configPath}, using defaults`);

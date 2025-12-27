@@ -14,7 +14,7 @@
 
 const https = require('https');
 const fs = require('fs');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 const { PMAdapter } = require('../../scripts/pm-adapter');
 
 /**
@@ -72,7 +72,7 @@ class JiraAdapter extends PMAdapter {
       }
 
       const storyContent = fs.readFileSync(storyPath, 'utf8');
-      const story = yaml.parse(storyContent);
+      const story = yaml.load(storyContent);
 
       if (!story || !story.id) {
         return {

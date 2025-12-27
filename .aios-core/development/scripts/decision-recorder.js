@@ -11,7 +11,7 @@ const { DecisionContext } = require('./decision-context');
 const { generateDecisionLog } = require('./decision-log-generator');
 const fs = require('fs').promises;
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 // Global context instance (singleton pattern for yolo mode session)
 let globalContext = null;
@@ -31,7 +31,7 @@ async function initializeDecisionLogging(agentId, storyPath, options = {}) {
   let config = {};
   try {
     const configContent = await fs.readFile('.aios-core/core-config.yaml', 'utf8');
-    config = yaml.parse(configContent);
+    config = yaml.load(configContent);
   } catch (error) {
     console.warn('Warning: Could not load core-config.yaml:', error.message);
   }

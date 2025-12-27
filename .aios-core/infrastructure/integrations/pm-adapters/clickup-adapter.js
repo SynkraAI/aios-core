@@ -10,7 +10,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 const { PMAdapter } = require('../../scripts/pm-adapter');
 const {
   updateStoryStatus,
@@ -72,7 +72,7 @@ class ClickUpAdapter extends PMAdapter {
       }
 
       const storyContent = fs.readFileSync(storyPath, 'utf8');
-      const story = yaml.parse(storyContent);
+      const story = yaml.load(storyContent);
 
       if (!story || !story.id) {
         return {
