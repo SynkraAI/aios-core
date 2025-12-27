@@ -426,6 +426,8 @@ describe('SuggestionEngine Performance', () => {
     await engine.suggestNext(context);
     const warmDuration = Date.now() - start2;
 
-    expect(warmDuration).toBeLessThanOrEqual(coldDuration);
+    // Allow 5ms tolerance for timing noise (Date.now() has ~1ms resolution)
+    // In CI environments, timing can be inconsistent
+    expect(warmDuration).toBeLessThanOrEqual(coldDuration + 5);
   });
 });
