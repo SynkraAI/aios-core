@@ -185,14 +185,18 @@ jobs:
       - name: Verify publication
         if: steps.should-publish.outputs.should_publish == 'true'
         run: |
-          sleep 10  # Wait for npm registry to update
+          # Wait for npm registry to propagate (can take up to 60s)
+          for i in 1 2 3 4 5 6; do
+            sleep 15
+            if npm view "aios-core@${{ needs.build.outputs.version }}" version > /dev/null 2>&1; then
+              echo "✅ Verified: aios-core@${{ needs.build.outputs.version }} is available on NPM"
+              exit 0
+            fi
+            echo "⏳ Waiting for npm registry propagation... (attempt $i/6)"
+          done
 
-          if npm view "aios-core@${{ needs.build.outputs.version }}" version > /dev/null 2>&1; then
-            echo "✅ Verified: aios-core@${{ needs.build.outputs.version }} is available on NPM"
-          else
-            echo "❌ Verification failed: aios-core@${{ needs.build.outputs.version }} not found"
-            exit 1
-          fi
+          echo "❌ Verification failed: aios-core@${{ needs.build.outputs.version }} not found after 90s"
+          exit 1
 
   notify:
     needs: [build, publish]
