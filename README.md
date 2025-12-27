@@ -3,6 +3,8 @@
 [![Versão NPM](https://img.shields.io/npm/v/aios-core.svg)](https://www.npmjs.com/package/aios-core)
 [![Licença: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Versão Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
+[![CI](https://github.com/SynkraAI/aios-core/actions/workflows/ci.yml/badge.svg)](https://github.com/SynkraAI/aios-core/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/SynkraAI/aios-core/branch/main/graph/badge.svg)](https://codecov.io/gh/SynkraAI/aios-core)
 [![Documentação](https://img.shields.io/badge/docs-disponível-orange.svg)](https://synkra.ai)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Yes-success.svg)](LICENSE)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)

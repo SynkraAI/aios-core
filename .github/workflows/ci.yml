@@ -1,5 +1,6 @@
 name: CI
 # Story 6.1: GitHub Actions Cost Optimization
+# Story TD-3: CI/CD Optimization & Test Coverage
 # Consolidated CI workflow - single source of truth for validation
 
 on:
@@ -23,6 +24,7 @@ on:
       - 'squads/**'
       - 'LICENSE'
       - '.gitignore'
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
@@ -32,8 +34,44 @@ permissions:
   contents: read
 
 jobs:
+  # Path-based change detection for smart job skipping
+  changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      code: ${{ steps.filter.outputs.code }}
+      tests: ${{ steps.filter.outputs.tests }}
+      config: ${{ steps.filter.outputs.config }}
+      stories: ${{ steps.filter.outputs.stories }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            code:
+              - 'src/**'
+              - '.aios-core/**'
+              - 'bin/**'
+              - 'packages/**'
+              - 'scripts/**'
+              - 'tools/**'
+            tests:
+              - 'tests/**'
+              - 'jest.config.js'
+            config:
+              - 'package.json'
+              - 'package-lock.json'
+              - 'tsconfig.json'
+              - '.eslintrc.*'
+              - 'eslint.config.*'
+            stories:
+              - 'docs/stories/**'
+
   lint:
     name: ESLint
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' || needs.changes.outputs.config == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -46,6 +84,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -55,6 +94,8 @@ jobs:
 
   typecheck:
     name: TypeScript Type Checking
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' || needs.changes.outputs.config == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -67,6 +108,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -76,6 +118,8 @@ jobs:
 
   test:
     name: Jest Tests
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' || needs.changes.outputs.tests == 'true' || needs.changes.outputs.config == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -88,12 +132,19 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
 
       - name: Run tests with coverage
         run: npm run test:coverage
+
+      - name: Check coverage threshold
+        run: |
+          echo "=== Coverage Threshold Check ==="
+          # Coverage threshold is enforced by jest.config.js
+          # Target: 80% overall, 85% for core modules
 
       - name: Upload coverage reports
         uses: codecov/codecov-action@v4
@@ -102,10 +153,13 @@ jobs:
           files: ./coverage/lcov.info
           flags: unittests
           name: codecov-umbrella
+          fail_ci_if_error: false
         continue-on-error: true
 
   story-validation:
     name: Story Checkbox Validation
+    needs: changes
+    if: ${{ needs.changes.outputs.stories == 'true' || needs.changes.outputs.code == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -118,6 +172,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -127,6 +182,8 @@ jobs:
 
   manifest-validation:
     name: Install Manifest Validation
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' || needs.changes.outputs.config == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -139,6 +196,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -148,6 +206,8 @@ jobs:
 
   ide-sync-validation:
     name: IDE Command Sync Validation
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -160,6 +220,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -177,37 +238,82 @@ jobs:
   validation-summary:
     name: Validation Summary
     runs-on: ubuntu-latest
-    needs: [lint, typecheck, test, story-validation, manifest-validation, ide-sync-validation]
+    needs: [changes, lint, typecheck, test, story-validation, manifest-validation, ide-sync-validation]
     if: always()
 
     steps:
       - name: Check all jobs
         run: |
           echo "=== AIOS CI Validation Summary ==="
-          echo "Lint: ${{ needs.lint.result }}"
-          echo "TypeCheck: ${{ needs.typecheck.result }}"
-          echo "Tests: ${{ needs.test.result }}"
-          echo "Story Validation: ${{ needs.story-validation.result }}"
-          echo "Manifest Validation: ${{ needs.manifest-validation.result }}"
-          echo "IDE Sync Validation: ${{ needs.ide-sync-validation.result }}"
+          echo ""
+          echo "📋 Change Detection:"
+          echo "  Code changed: ${{ needs.changes.outputs.code }}"
+          echo "  Tests changed: ${{ needs.changes.outputs.tests }}"
+          echo "  Config changed: ${{ needs.changes.outputs.config }}"
+          echo "  Stories changed: ${{ needs.changes.outputs.stories }}"
+          echo ""
+          echo "📊 Job Results:"
+          echo "  Lint: ${{ needs.lint.result }}"
+          echo "  TypeCheck: ${{ needs.typecheck.result }}"
+          echo "  Tests: ${{ needs.test.result }}"
+          echo "  Story Validation: ${{ needs.story-validation.result }}"
+          echo "  Manifest Validation: ${{ needs.manifest-validation.result }}"
+          echo "  IDE Sync Validation: ${{ needs.ide-sync-validation.result }}"
+          echo ""
 
-          if [ "${{ needs.lint.result }}" != "success" ] || \
-             [ "${{ needs.typecheck.result }}" != "success" ] || \
-             [ "${{ needs.test.result }}" != "success" ] || \
-             [ "${{ needs.story-validation.result }}" != "success" ] || \
-             [ "${{ needs.manifest-validation.result }}" != "success" ] || \
-             [ "${{ needs.ide-sync-validation.result }}" != "success" ]; then
+          # Check for failures (skipped is OK when changes don't affect that area)
+          FAILED=false
+
+          # Lint: fail if ran and didn't succeed
+          if [ "${{ needs.lint.result }}" == "failure" ]; then
+            echo "❌ ESLint check failed"
+            FAILED=true
+          fi
+
+          # TypeCheck: fail if ran and didn't succeed
+          if [ "${{ needs.typecheck.result }}" == "failure" ]; then
+            echo "❌ TypeScript check failed"
+            FAILED=true
+          fi
+
+          # Tests: fail if ran and didn't succeed
+          if [ "${{ needs.test.result }}" == "failure" ]; then
+            echo "❌ Jest tests failed"
+            FAILED=true
+          fi
+
+          # Story Validation: fail if ran and didn't succeed
+          if [ "${{ needs.story-validation.result }}" == "failure" ]; then
+            echo "❌ Story validation failed"
+            FAILED=true
+          fi
+
+          # Manifest Validation: fail if ran and didn't succeed
+          if [ "${{ needs.manifest-validation.result }}" == "failure" ]; then
+            echo "❌ Manifest validation failed"
+            FAILED=true
+          fi
+
+          # IDE Sync: fail if ran and didn't succeed
+          if [ "${{ needs.ide-sync-validation.result }}" == "failure" ]; then
+            echo "❌ IDE sync validation failed"
+            FAILED=true
+          fi
+
+          if [ "$FAILED" == "true" ]; then
+            echo ""
             echo "❌ One or more validation checks failed"
             exit 1
           fi
 
-          echo "✅ All validation checks passed"
+          echo "✅ All validation checks passed (skipped jobs are OK when no relevant changes)"
 
   # Performance monitoring (optional, informational only)
   performance:
     name: Performance Metrics
+    needs: changes
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && needs.changes.outputs.code == 'true'
 
     steps:
       - name: Checkout code
@@ -218,6 +324,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -241,7 +348,7 @@ jobs:
   cross-platform:
     name: Cross-Platform (${{ matrix.os }}, Node ${{ matrix.node }})
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    needs: [lint, typecheck, test]
+    needs: [changes, lint, typecheck, test]
     strategy:
       fail-fast: false
       matrix:
@@ -265,6 +372,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci

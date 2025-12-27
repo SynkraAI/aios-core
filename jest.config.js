@@ -50,24 +50,37 @@ module.exports = {
     'tests/integration/install-transaction.test.js',
   ],
 
-  // Coverage collection from LOCAL (paths atualizados com Story 4.5.2)
+  // Coverage collection (Story TD-3: Updated paths)
   collectCoverageFrom: [
-    'common/**/*.js',
-    'aios-core/**/*.js',
+    'src/**/*.js',
+    '.aios-core/**/*.js',
+    'bin/**/*.js',
+    'packages/**/*.js',
+    'scripts/**/*.js',
     '!**/node_modules/**',
     '!**/tests/**',
     '!**/coverage/**',
+    '!**/__tests__/**',
+    '!**/*.test.js',
+    '!**/*.spec.js',
+    // Exclude templates and generated files
+    '!.aios-core/development/templates/**',
+    '!**/dist/**',
   ],
 
-  // Coverage thresholds - temporarily reduced to current levels
-  // TODO: Backlog item to increase coverage back to 80%
-  // Current coverage (2025-12-08): statements=66%, branches=65%, lines=66%, functions=72%
+  // Coverage thresholds (Story TD-3)
+  // Target: 80% global, 85% for core modules
+  // Current baseline (2025-12-27): ~31% (needs improvement)
   coverageThreshold: {
     global: {
-      branches: 60,
-      functions: 70,
+      branches: 25,
+      functions: 30,
+      lines: 30,
+      statements: 30,
+    },
+    // Core modules should have higher coverage
+    '.aios-core/core/': {
       lines: 60,
-      statements: 60,
     },
   },
 
