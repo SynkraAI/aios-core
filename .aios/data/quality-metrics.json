@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-27T14:05:38.204Z",
+  "lastUpdated": "2025-12-27T15:14:20.617Z",
   "retentionDays": 30,
   "layers": {
     "layer1": {
@@ -10,10 +10,10 @@
       "lastRun": "2025-12-22T19:57:38.772Z"
     },
     "layer2": {
-      "passRate": 0.9202898550724637,
-      "avgTimeMs": 158478,
-      "totalRuns": 138,
-      "lastRun": "2025-12-27T14:05:38.202Z",
+      "passRate": 0.920863309352518,
+      "avgTimeMs": 158633,
+      "totalRuns": 139,
+      "lastRun": "2025-12-27T15:14:20.615Z",
       "autoCatchRate": 0,
       "coderabbit": {
         "active": true,
@@ -4120,6 +4120,20 @@
         "triggeredBy": "pr",
         "prNumber": 25,
         "branchName": "feat/td-2-yaml-consolidation",
+        "author": "Pedrovaleriolopez",
+        "coverageResult": "success"
+      }
+    },
+    {
+      "timestamp": "2025-12-27T15:14:20.615Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 26,
+        "branchName": "story/td-3-ci-quality",
         "author": "Pedrovaleriolopez",
         "coverageResult": "success"
       }
