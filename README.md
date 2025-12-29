@@ -56,7 +56,6 @@ Esta abordagem de duas fases elimina tanto a **inconsistência de planejamento**
 - **[Explorar usos não técnicos](#-além-do-desenvolvimento-de-software---squads)** → Escrita criativa, negócios, bem-estar, educação
 - **[Criar meus próprios agentes IA](#criando-seu-próprio-expansion-pack)** → Construir agentes para seu domínio
 - **[Navegar Squads prontos](squads/)** → Game dev, DevOps, infraestrutura e inspire-se com ideias e exemplos
-- **[Hybrid-Ops 2.0 Migration Guide](docs/migration-guide.md)** → Upgrade para PV Mode com cognitive architecture executável
 - **[Entender a arquitetura](docs/core-architecture.md)** → Mergulho técnico profundo
 - **[Juntar-se à comunidade](https://discord.gg/gk8jAdXWmj)** → Obter ajuda e compartilhar ideias
 
@@ -588,18 +587,6 @@ squads/seu-pack/
 ```
 
 Veja o [Guia de Squads](docs/squads.md) para instruções detalhadas.
-
-## Squads Disponíveis
-
-- **aios-infrastructure-devops** - Infraestrutura e DevOps
-- **expansion-creator** - Criador de Squads
-- **meeting-notes** - Notas e atas de reuniões
-
-### Squads Externos
-
-- **[hybrid-ops](https://github.com/SynkraAI/aios-hybrid-ops-pedro-valerio)** - Operações híbridas humano-agente (repositório separado)
-
-Explore o diretório [squads/](squads/) para mais inspiração!
 
 ## Suporte & Comunidade
 
