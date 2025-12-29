@@ -1,10 +1,10 @@
 # Backlog
 
 **Generated:** 2025-12-05T18:00:00.000Z
-**Updated:** 2025-12-26T18:00:00.000Z
-**Total Items:** 8
+**Updated:** 2025-12-27T16:35:00.000Z
+**Total Items:** 7
 **Current Sprint:** 13 (Epic SQS Completion + Tech Debt Resolution)
-**Stories Completed:** 37 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.16**, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, **Story SQS-5**, **Story SQS-6**, **Story SQS-7**, **Story SQS-8**, Story SQS-9, **Story SQS-10**, **Story WIS-2**, **Story WIS-3**, **Story WIS-4**, **Story WIS-5**, **Story WIS-9**, **Story WIS-10**, **Story WIS-11**, **Story WIS-15**, **Story TD-1**)
+**Stories Completed:** 39 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.16**, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, **Story SQS-5**, **Story SQS-6**, **Story SQS-7**, **Story SQS-8**, Story SQS-9, **Story SQS-10**, **Story WIS-2**, **Story WIS-3**, **Story WIS-4**, **Story WIS-5**, **Story WIS-9**, **Story WIS-10**, **Story WIS-11**, **Story WIS-15**, **Story TD-1**, **Story TD-2**, **Story TD-3**)
 **Latest Release:** [v2.2.3](https://github.com/SynkraAI/aios-core/releases/tag/v2.2.3) (2025-12-22)
 
 > **Roadmap Sync Reminder:** When completing sprints, update the [AIOS Public Roadmap](https://github.com/orgs/SynkraAI/projects/1) and [ROADMAP.md](../../ROADMAP.md). See sync checklist in ROADMAP.md.
@@ -14,10 +14,10 @@
 ## 📊 Summary by Type
 
 - 📌 **Follow-up**: 1
-- 🔧 **Technical Debt**: 8 (+3 from Story 6.19 QA, -1 Story 6.16 resolved, -2 Story TD-1 resolved)
+- 🔧 **Technical Debt**: 7 (+3 from Story 6.19 QA, -1 Story 6.16 resolved, -2 Story TD-1 resolved, -1 Story TD-2 resolved)
 - ✨ **Enhancement**: 2
 - 🔴 **Critical**: 0
-- ✅ **Resolved**: 40 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.16**, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, **Story SQS-5**, **Story SQS-6**, **Story SQS-7**, **Story SQS-8**, Story SQS-9, **Story SQS-10**, **Story WIS-2**, **Story WIS-3**, **Story WIS-4**, **Story WIS-5**, **Story WIS-9**, **Story WIS-10**, **Story WIS-11**, **Story WIS-15**, Tech Debt 1734220200001, **Story TD-1**, Tech Debt 1734912000001, Tech Debt 1734912000006)
+- ✅ **Resolved**: 43 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.16**, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, **Story SQS-5**, **Story SQS-6**, **Story SQS-7**, **Story SQS-8**, Story SQS-9, **Story SQS-10**, **Story WIS-2**, **Story WIS-3**, **Story WIS-4**, **Story WIS-5**, **Story WIS-9**, **Story WIS-10**, **Story WIS-11**, **Story WIS-15**, Tech Debt 1734220200001, **Story TD-1**, **Story TD-2**, **Story TD-3**, Tech Debt 1734912000001, Tech Debt 1734912000006, Tech Debt 1733679600001)
 - ❌ **Obsolete**: 1 (removed from active backlog)
 
 ---
@@ -123,8 +123,8 @@
 | ~~1734530400001~~ | ~~🔧 Technical Debt~~ | ~~Scripts Path Consolidation & Documentation Fix~~ | ~~🔴 High~~ | [6.16](v2.1/sprint-6/story-6.16-scripts-path-consolidation.md) ✅ Done | ~~4-6 hours~~ | ✅ Done | @architect |
 | ~~1734912000001~~ | ~~🔧 Technical Debt~~ | ~~ESLint `_error` Variable Warning Fix~~ | ~~🟢 Low~~ | [TD-1](v2.1/sprint-13/story-td-1-code-cleanup.md) ✅ Done | ~~15 min~~ | ✅ Done | @qa |
 | 1734912000002 | 🔧 Technical Debt | YAML Library Standardization (js-yaml vs yaml) | 🟢 Low | [6.18](v2.1/sprint-6/story-6.18-dynamic-manifest-brownfield-upgrade.md) | 1-2 hours | **Sprint 13** | @qa |
-| 1733679600001 | 🔧 Technical Debt | GitHub Actions Cost Optimization | 🟡 Medium | - | 4-6 hours | **Sprint 13** | @devops |
-| 1733682000001 | 🔧 Technical Debt | Increase Test Coverage to 80% | 🟡 Medium | - | 8-12 hours | **Sprint 13** | @dev |
+| ~~1733679600001~~ | ~~🔧 Technical Debt~~ | ~~GitHub Actions Cost Optimization~~ | ~~🟡 Medium~~ | [TD-3](v2.1/sprint-13/story-td-3-ci-quality.md) ✅ Done | ~~4-6 hours~~ | ✅ Done | @devops |
+| ~~1733682000001~~ | ~~🔧 Technical Debt~~ | ~~Increase Test Coverage to 80%~~ | ~~🟡 Medium~~ | [TD-3](v2.1/sprint-13/story-td-3-ci-quality.md) ⏸️ Deferred | ~~8-12 hours~~ | ⏸️ Deferred to TD-4 | @dev |
 | 1763298742141 | 🔧 Technical Debt | ~~Add unit tests for decision-log-generator~~ | ✅ Done | [4.1 Task 1](v2.1/sprint-4/story-4.1-technical-debt-cleanup.md) | 2 hours | `testing`, `decision-logging` | @dev |
 | 1732891500001 | 🔧 Technical Debt | ~~Core Module Security Hardening~~ | ✅ Done | [4.1 Task 2](v2.1/sprint-4/story-4.1-technical-debt-cleanup.md) | 4 hours | `security`, `core`, `coderabbit` | @qa |
 | 1732891500002 | 🔧 Technical Debt | ~~Core Module Code Quality Fixes~~ | ✅ Done | [4.1 Task 3](v2.1/sprint-4/story-4.1-technical-debt-cleanup.md) | 2 hours | `quality`, `core`, `coderabbit` | @qa |
@@ -1050,7 +1050,9 @@ Esta inconsistência pode causar:
 ---
 
 *Auto-generated by AIOS Backlog Manager (Story 6.1.2.6)*
-*Last Updated: 2025-12-26 by @po (Pax)*
-*Sprint 13 Update: Story TD-1 DONE - Code Cleanup Quick Wins (9 ESLint fixes, 273 files removed)*
-*Tech Debt: 1734912000001 + 1734912000006 consolidated into TD-1 and resolved.*
+*Last Updated: 2025-12-27 by @po (Pax)*
+*Sprint 13 Update: Story TD-3 DONE - CI/CD Optimization (PR #26 merged)*
+*TD-3 Deliverables: Path-based job skipping, workflow_dispatch, codecov badges, coverage baseline (31%)*
+*TD-3 Deferred: Coverage improvement (31% → 80%) moved to follow-up Story TD-4*
+*Tech Debt: 1733679600001 (CI optimization) resolved via TD-3*
 *Epic SQS: 11/11 (100%) COMPLETE! Epic WIS: 8/11 stories complete.*

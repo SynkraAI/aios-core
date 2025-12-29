@@ -4,7 +4,7 @@
 <!-- Context: GitHub Actions optimization + Increase test coverage to 80% -->
 <!-- Type: Tech Debt -->
 
-## Status: In Progress
+## Status: Done
 
 **Priority:** MEDIUM
 **Sprint:** 13
@@ -304,7 +304,7 @@ If CI changes cause issues:
 - [ ] Test coverage >= 80% (DEFERRED to follow-up story - current ~31%)
 - [x] Coverage report in CI (codecov integration working)
 - [ ] No files below 60% coverage (DEFERRED - requires coverage improvement story)
-- [ ] PR approved and merged
+- [x] PR approved and merged (PR #26, merged 2025-12-27)
 
 ---
 
@@ -359,6 +359,7 @@ Files to be modified in this story:
 | 2025-12-27 | 1.2 | @dev (Dex) | Implementation: CI optimizations (path-based skipping, workflow dispatch), coverage audit, jest.config.js fixes |
 | 2025-12-27 | 1.3 | @qa (Quinn) | QA Review: PASS with CONCERNS - CI portion complete, coverage deferred with justification |
 | 2025-12-27 | 1.4 | @dev (Dex) | QA Fixes Applied: Updated Dev Notes thresholds, fixed paths-filter version |
+| 2025-12-27 | 1.5 | @po (Pax) | Story DONE: PR #26 merged, backlog updated, status changed to Done |
 
 ---
 
