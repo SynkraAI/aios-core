@@ -1,0 +1,109 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# AIOS CodeRabbit Configuration
+# Story: COLLAB-1
+# Created: 2025-12-30
+#
+# CodeRabbit provides AI-powered code review for pull requests
+# Documentation: https://docs.coderabbit.ai/getting-started/yaml-configuration
+
+language: "en-US"
+tone: professional
+early_access: false
+
+reviews:
+  # Automatic review settings
+  auto_review:
+    enabled: true
+    base_branches:
+      - main
+    drafts: false
+
+  # Review behavior
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+
+  # Path-specific review instructions
+  path_instructions:
+    # Agent definitions - strict validation
+    ".aios-core/development/agents/**":
+      - "Verify agent follows AIOS agent YAML structure (persona_profile, commands, dependencies)"
+      - "Check that persona_profile includes archetype, communication style, and greeting_levels"
+      - "Validate all commands listed have corresponding task dependencies"
+      - "Ensure agent has proper visibility metadata for commands"
+      - "Check for security: no hardcoded credentials or sensitive data"
+
+    # Task definitions
+    ".aios-core/development/tasks/**":
+      - "Verify task follows AIOS task format with clear elicitation points"
+      - "Check that deliverables are well-defined"
+      - "Validate any referenced dependencies exist in the codebase"
+      - "Ensure task has proper error handling guidance"
+
+    # Workflow definitions
+    ".aios-core/development/workflows/**":
+      - "Verify workflow YAML structure is valid"
+      - "Check step ordering and dependencies make logical sense"
+      - "Validate referenced agents and tasks exist"
+
+    # Template files
+    ".aios-core/product/templates/**":
+      - "Ensure template follows AIOS template conventions"
+      - "Check placeholder syntax is consistent"
+      - "Validate template produces valid output"
+
+    # CI/CD configurations
+    ".github/**":
+      - "Review for security implications"
+      - "Check for proper secret handling"
+      - "Validate workflow syntax"
+      - "Ensure consistent with existing CI patterns"
+
+    # JavaScript code
+    "**/*.js":
+      - "Check for async/await best practices"
+      - "Verify error handling is comprehensive"
+      - "Look for potential security vulnerabilities"
+      - "Ensure code follows AIOS coding standards (ES2022, single quotes, 2-space indent)"
+
+    # TypeScript code
+    "**/*.ts":
+      - "Verify TypeScript types are properly defined"
+      - "Check for any 'any' type usage that should be more specific"
+      - "Ensure exports are properly typed"
+
+# PR title validation (Conventional Commits)
+auto_title_instructions: |
+  Format: "<type>(<scope>): <description>"
+
+  Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build
+  Scope: Optional, indicates affected area (agent, task, workflow, ci, docs)
+  Description: Concise (<= 72 chars), imperative mood
+
+  Examples:
+  - feat(agent): add KISS validation to data-engineer
+  - fix(task): resolve elicitation timeout issue
+  - docs: update external contribution guide
+
+# Chat settings
+chat:
+  auto_reply: true
+
+# Tools configuration
+tools:
+  # Linting tools
+  eslint:
+    enabled: true
+  markdownlint:
+    enabled: true
+  yamllint:
+    enabled: true
+
+  # Security tools
+  gitleaks:
+    enabled: true
+
+# Behavior settings
+abort_on_close: true
