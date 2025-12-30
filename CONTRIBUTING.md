@@ -1,6 +1,8 @@
 # Contributing to Synkra AIOS
 
 > 🇧🇷 [Versão em Português](CONTRIBUTING-PT.md)
+>
+> 🌍 **External Contributors:** See our [External Contribution Guide](docs/guides/external-contribution-guide.md) for detailed instructions on contributing agents, tasks, and workflows.
 
 Thank you for your interest in contributing to Synkra AIOS! This guide will help you understand our development workflow and validation process.
 
