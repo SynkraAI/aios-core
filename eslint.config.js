@@ -43,6 +43,8 @@ module.exports = [
       'bin/migrate-*.js',
       // Template files with placeholder syntax
       '.aios-core/product/templates/**',
+      // Health Dashboard - uses Vite/React with ES modules
+      'tools/health-dashboard/**',
     ],
   },
 
@@ -87,21 +89,24 @@ module.exports = [
     },
     rules: {
       // Error prevention
-      'no-unused-vars': ['warn', {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-      }],
+      'no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
       'no-undef': 'error',
       'no-console': 'off', // We need console for CLI tool
 
       // Code style
-      'semi': ['error', 'always'],
-      'quotes': ['warn', 'single', { avoidEscape: true }],
-      'indent': ['warn', 2, { SwitchCase: 1 }],
+      semi: ['error', 'always'],
+      quotes: ['warn', 'single', { avoidEscape: true }],
+      indent: ['warn', 2, { SwitchCase: 1 }],
       'comma-dangle': ['warn', 'always-multiline'],
 
       // Best practices
-      'eqeqeq': ['error', 'always', { null: 'ignore' }],
+      eqeqeq: ['error', 'always', { null: 'ignore' }],
       'no-var': 'error',
       'prefer-const': 'warn',
       'no-throw-literal': 'error',
@@ -130,10 +135,13 @@ module.exports = [
     },
     rules: {
       ...tsPlugin.configs.recommended.rules,
-      '@typescript-eslint/no-unused-vars': ['warn', {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-      }],
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
     },

@@ -56,10 +56,25 @@ const EXCLUDE_PATTERNS = [
   /\.git/,
   /\.DS_Store/,
   /Thumbs\.db/,
-  /\.installed-manifest\.yaml$/,  // Don't include installed manifest
+  /\.installed-manifest\.yaml$/, // Don't include installed manifest
   /\.bak$/,
   /\.tmp$/,
   /~$/,
+  // Gitignored legacy docs (not tracked in repo)
+  /docs\/standards\/AIOS-LIVRO-DE-OURO/,
+  /docs\/standards\/AIOS-FRAMEWORK-MASTER\.md$/,
+  /docs\/standards\/V3-ARCHITECTURAL-DECISIONS\.md$/,
+  /docs\/SHARD-TRANSLATION-GUIDE\.md$/,
+  /docs\/component-creation-guide\.md$/,
+  /docs\/template-syntax\.md$/,
+  /docs\/troubleshooting-guide\.md$/,
+  /docs\/session-update-pattern\.md$/,
+  // Gitignored generated files
+  /infrastructure\/tests\/utilities-audit-results\.json$/,
+  /manifests\/agents\.csv$/,
+  /manifests\/tasks\.csv$/,
+  /manifests\/workers\.csv$/,
+  /index\.d\.ts$/, // Generated TypeScript definitions
 ];
 
 /**
@@ -68,7 +83,7 @@ const EXCLUDE_PATTERNS = [
  * @returns {boolean} - True if should be excluded
  */
 function shouldExclude(filePath) {
-  return EXCLUDE_PATTERNS.some(pattern => pattern.test(filePath));
+  return EXCLUDE_PATTERNS.some((pattern) => pattern.test(filePath));
 }
 
 /**

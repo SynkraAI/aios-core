@@ -33,6 +33,9 @@ const { validateYAML } = require('./utils/yaml-validator');
 // Service Registry
 const { ServiceRegistry, getRegistry, loadRegistry } = require('./registry/registry-loader');
 
+// Health Check System
+const healthCheck = require('./health-check');
+
 /**
  * Core module exports
  */
@@ -69,6 +72,15 @@ module.exports = {
   ServiceRegistry,
   getRegistry,
   loadRegistry,
+
+  // Health Check System
+  HealthCheck: healthCheck.HealthCheck,
+  HealthCheckEngine: healthCheck.HealthCheckEngine,
+  BaseCheck: healthCheck.BaseCheck,
+  CheckSeverity: healthCheck.CheckSeverity,
+  CheckStatus: healthCheck.CheckStatus,
+  CheckRegistry: healthCheck.CheckRegistry,
+  healthCheck,
 
   // Version info
   version: '2.0.0',
