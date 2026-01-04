@@ -246,18 +246,26 @@ class HealthCheckEngine {
     }
 
     const startTime = Date.now();
+    let timeoutId = null;
 
     try {
-      // Create timeout promise
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(
+      // Create timeout promise with clearable timeout
+      // Story TD-6: Fix Jest worker leak by properly clearing timeouts
+      const timeoutPromise = new Promise((_, reject) => {
+        timeoutId = setTimeout(
           () => reject(new Error('Check timeout')),
           Math.min(timeout, check.timeout || 5000)
-        )
-      );
+        );
+      });
 
       // Execute check with timeout
       const result = await Promise.race([check.execute(runConfig), timeoutPromise]);
+
+      // Clear timeout to prevent Jest worker leak (TD-6)
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
 
       const checkResult = {
         checkId: check.id,
@@ -282,6 +290,11 @@ class HealthCheckEngine {
 
       return checkResult;
     } catch (error) {
+      // Clear timeout on error as well (TD-6)
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
       return this.createErrorResult(check, error, Date.now() - startTime);
     }
   }
