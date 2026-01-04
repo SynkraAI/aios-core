@@ -1,0 +1,114 @@
+.tech-debt-list {
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+}
+
+.tech-debt-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.tech-debt-count {
+  font-size: 0.75rem;
+  padding: 2px var(--spacing-sm);
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+}
+
+.tech-debt-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xl);
+  color: var(--color-text-muted);
+}
+
+.tech-debt-empty .empty-icon {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.tech-debt-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tech-debt-item {
+  padding: var(--spacing-md);
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-sm);
+  border-left: 3px solid var(--color-severity-medium);
+}
+
+.tech-debt-item:last-child {
+  margin-bottom: 0;
+}
+
+.tech-debt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xs);
+}
+
+.tech-debt-id {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.tech-debt-name {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.tech-debt-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.tech-debt-domain {
+  text-transform: capitalize;
+}
+
+.tech-debt-effort {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.effort-icon {
+  font-size: 0.875rem;
+}
+
+.tech-debt-check {
+  font-family: monospace;
+}
+
+.tech-debt-description {
+  margin-top: var(--spacing-sm);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.tech-debt-more {
+  text-align: center;
+  padding-top: var(--spacing-md);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
