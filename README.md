@@ -520,6 +520,7 @@ Sistema automatizado de detecção de gaps em **7 categorias**:
    - Alertas para novos gaps
 
 4. **Tool Reference Validation** (Story 3.21)
+
    ```bash
    node outputs/architecture-map/schemas/validate-tool-references.js
    ```
@@ -628,6 +629,59 @@ Explore o diretório [squads/](squads/) para mais inspiração!
 - 📋 [Como Contribuir](CONTRIBUTING.md)
 - 🗺️ [Roadmap](ROADMAP.md) - Veja o que estamos construindo
 - 🤖 [Guia de Squads](docs/guides/squads-guide.md) - Crie equipes de agentes IA
+
+## 🔄 CI Pipeline
+
+O Synkra AIOS utiliza um pipeline de CI otimizado no GitHub Actions para validação rápida e eficiente.
+
+### Estrutura do CI
+
+| Workflow             | Trigger           | Jobs | Descrição                                       |
+| -------------------- | ----------------- | ---- | ----------------------------------------------- |
+| **ci.yml**           | PR/Push to main   | 8-9  | Consolidado: lint, typecheck, test, validations |
+| **cross-platform**   | Push to main only | 7    | Matrix: 3 OS × 3 Node (exceto macOS 18/20)      |
+| **pr-automation**    | PR                | 2    | Métricas e labels                               |
+| **semantic-release** | Push to main      | 4    | Versionamento automático                        |
+
+### Path Filters Inteligentes
+
+O CI **não executa** para alterações apenas em:
+
+- `docs/**` - Documentação
+- `*.md` - Arquivos Markdown na raiz
+- `.aios/**` - Configurações AIOS locais
+- `squads/**` - Squad definitions
+
+Isso reduz custos e acelera o feedback para PRs de documentação.
+
+### Jobs por Evento
+
+| Evento        | Jobs Esperados   | Tempo Médio |
+| ------------- | ---------------- | ----------- |
+| PR com código | ~8-9 jobs        | 5-8 min     |
+| PR docs-only  | 0 jobs (skipped) | <1 min      |
+| Push to main  | ~15 jobs         | 10-12 min   |
+
+### Concurrency
+
+Múltiplos pushes para o mesmo PR cancelam automaticamente runs anteriores, economizando recursos.
+
+```yaml
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+```
+
+### Validações Executadas
+
+- ✅ **ESLint** - Qualidade e estilo de código
+- ✅ **TypeScript** - Verificação de tipos
+- ✅ **Jest Tests** - Testes unitários com cobertura
+- ✅ **Story Validation** - Checkboxes e estrutura de histórias
+- ✅ **Manifest Validation** - Install manifest consistency
+- ✅ **IDE Sync** - Sincronização de comandos IDE
+
+---
 
 ## Git Workflow e Validação
 
