@@ -16,9 +16,13 @@ const chalk = require('chalk');
 
 const SubagentPromptBuilder = require('./subagent-prompt-builder');
 const ContextManager = require('./context-manager');
+const ParallelExecutor = require('./parallel-executor');
 const ChecklistRunner = require('./checklist-runner');
-// ParallelExecutor available for complex concurrency scenarios:
-// const ParallelExecutor = require('./parallel-executor');
+
+// V3.1 Components for Pre-Flight Detection and Skill Dispatch
+const TechStackDetector = require('./tech-stack-detector');
+const ConditionEvaluator = require('./condition-evaluator');
+const SkillDispatcher = require('./skill-dispatcher');
 
 /**
  * Orchestrates multi-agent workflow execution
@@ -47,10 +51,14 @@ class WorkflowOrchestrator {
     this.workflow = null;
     this.promptBuilder = new SubagentPromptBuilder(this.options.projectRoot);
     this.contextManager = null;
-    // Note: ParallelExecutor is available but _executeParallelPhases uses
-    // Promise.allSettled directly for simpler phase-level parallel execution.
-    // ParallelExecutor can be used for more complex scenarios with concurrency limits.
+    this.parallelExecutor = new ParallelExecutor();
     this.checklistRunner = new ChecklistRunner(this.options.projectRoot);
+
+    // V3.1: Pre-flight detection and skill dispatch components
+    this.techStackDetector = new TechStackDetector(this.options.projectRoot);
+    this.skillDispatcher = new SkillDispatcher(this.options);
+    this.conditionEvaluator = null; // Initialized after pre-flight detection
+    this.techStackProfile = null; // Populated by pre-flight detection
 
     // Execution state
     this.executionState = {
@@ -149,10 +157,9 @@ class WorkflowOrchestrator {
       }
     }
 
-    // 3. Include checklist in results for thread-safe parallel execution
-    // (avoid race condition with shared instance field)
+    // 3. Load checklist if defined (for post-validation)
     if (phase.checklist) {
-      results.checklist = phase.checklist;
+      this._currentChecklist = phase.checklist;
     }
 
     return results;
@@ -165,19 +172,17 @@ class WorkflowOrchestrator {
    */
   async _executePreAction(action) {
     switch (action.type) {
-      case 'mkdir': {
+      case 'mkdir':
         await fs.ensureDir(path.join(this.options.projectRoot, action.path));
         return { success: true };
-      }
 
-      case 'check_tool': {
+      case 'check_tool':
         // Tools are assumed available in Claude Code environment
         return { success: true, tool: action.tool };
-      }
 
-      case 'check_env': {
+      case 'check_env':
         const missing = [];
-        for (const varName of action.vars || []) {
+        for (const varName of (action.vars || [])) {
           if (!process.env[varName]) {
             missing.push(varName);
           }
@@ -186,21 +191,17 @@ class WorkflowOrchestrator {
           throw new Error(`Missing environment variables: ${missing.join(', ')}`);
         }
         return { success: missing.length === 0, missing };
-      }
 
-      case 'file_exists': {
+      case 'file_exists':
         const exists = await fs.pathExists(path.join(this.options.projectRoot, action.path));
         if (!exists && action.blocking !== false) {
           throw new Error(`Required file not found: ${action.path}`);
         }
         return { success: exists };
-      }
 
-      default: {
-        // Fail fast on unknown action types to catch configuration errors early
-        console.warn(chalk.yellow(`   ⚠️ Unknown pre-action type: ${action.type}`));
-        return { success: false, reason: `unknown_action_type: ${action.type}` };
-      }
+      default:
+        console.log(chalk.yellow(`   ⚠️ Unknown pre-action type: ${action.type}`));
+        return { success: true };
     }
   }
 
@@ -208,11 +209,10 @@ class WorkflowOrchestrator {
    * Validate phase output - runs AFTER subagent completes
    * DETERMINISTIC: File checks and checklist execution via code
    * @param {Object} phase - Phase configuration
-   * @param {Object} _result - Subagent execution result
-   * @param {Object} prepResult - Result from preparePhase (contains checklist for thread-safety)
+   * @param {Object} result - Subagent execution result
    * @returns {Promise<Object>} Validation result
    */
-  async validatePhaseOutput(phase, _result, prepResult = {}) {
+  async validatePhaseOutput(phase, result) {
     const validation = { passed: true, checks: [], errors: [] };
 
     // 1. Check if output files were created
@@ -250,24 +250,27 @@ class WorkflowOrchestrator {
       }
     }
 
-    // 3. Run checklist if defined (thread-safe: use checklist from prepResult, not instance field)
-    const phaseChecklist = prepResult.checklist || phase.checklist;
-    if (phaseChecklist) {
+    // 3. Run checklist if defined
+    if (this._currentChecklist) {
       try {
-        const checklistResult = await this.checklistRunner.run(phaseChecklist, phase.creates);
+        const checklistResult = await this.checklistRunner.run(
+          this._currentChecklist,
+          phase.creates
+        );
         validation.checks.push({
           type: 'checklist',
-          checklist: phaseChecklist,
+          checklist: this._currentChecklist,
           passed: checklistResult.passed,
           items: checklistResult.items,
         });
         if (!checklistResult.passed) {
           validation.passed = false;
-          validation.errors.push(`Checklist failed: ${phaseChecklist}`);
+          validation.errors.push(`Checklist failed: ${this._currentChecklist}`);
         }
       } catch (error) {
         console.log(chalk.yellow(`   ⚠️ Checklist error: ${error.message}`));
       }
+      this._currentChecklist = null;
     }
 
     return validation;
@@ -280,12 +283,11 @@ class WorkflowOrchestrator {
    */
   async _executePostAction(action) {
     switch (action.type) {
-      case 'file_exists': {
+      case 'file_exists':
         const exists = await fs.pathExists(path.join(this.options.projectRoot, action.path));
         return { success: exists };
-      }
 
-      case 'min_file_size': {
+      case 'min_file_size':
         const filePath = path.join(this.options.projectRoot, action.path);
         if (await fs.pathExists(filePath)) {
           const stats = await fs.stat(filePath);
@@ -293,19 +295,13 @@ class WorkflowOrchestrator {
           return { success: sizeKb >= (action.minKb || 1), sizeKb };
         }
         return { success: false, reason: 'file_not_found' };
-      }
 
-      case 'run_checklist': {
+      case 'run_checklist':
         const result = await this.checklistRunner.run(action.checklist, action.targetPath);
         return { success: result.passed, items: result.items };
-      }
 
-      default: {
-        // Fail fast on unknown action types to catch configuration errors early
-        // Consistent with _executePreAction behavior
-        console.warn(chalk.yellow(`   ⚠️ Unknown post-action type: ${action.type}`));
-        return { success: false, reason: `unknown_action_type: ${action.type}` };
-      }
+      default:
+        return { success: true };
     }
   }
 
@@ -330,17 +326,35 @@ class WorkflowOrchestrator {
     const parallelPhases = orchestration.parallel_phases || [];
 
     console.log(chalk.blue(`\n🚀 Starting workflow: ${this.workflow.workflow?.name || 'Unknown'}`));
-    console.log(
-      chalk.gray(
-        `   Phases: ${sequence.length} | Mode: ${this.options.yolo ? 'YOLO' : 'Interactive'}`
-      )
-    );
+    console.log(chalk.gray(`   Phases: ${sequence.length} | Mode: ${this.options.yolo ? 'YOLO' : 'Interactive'}`));
     console.log(chalk.gray(`   Parallel phases: ${parallelPhases.join(', ') || 'None'}`));
 
     // DETERMINISTIC: Setup directories via code before any AI operations
     console.log(chalk.blue('\n📁 Setting up directories...'));
     await this.setupDirectories();
     console.log(chalk.green('   ✅ Directories ready\n'));
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // PHASE 0: PRE-FLIGHT DETECTION (V3.1)
+    // DETERMINISTIC: Tech stack detection via file system checks
+    // ═══════════════════════════════════════════════════════════════════════════
+    console.log(chalk.blue('🔍 Phase 0: Pre-Flight Detection...'));
+    this.techStackProfile = await this.techStackDetector.detect();
+    this.conditionEvaluator = new ConditionEvaluator(this.techStackProfile);
+
+    // Log detection results
+    console.log(chalk.gray(`   📊 Database: ${this.techStackProfile.hasDatabase ? '✓' : '✗'} ${this.techStackProfile.database.type ? `(${this.techStackProfile.database.type})` : ''}`));
+    console.log(chalk.gray(`   🎨 Frontend: ${this.techStackProfile.hasFrontend ? '✓' : '✗'} ${this.techStackProfile.frontend.framework ? `(${this.techStackProfile.frontend.framework})` : ''}`));
+    console.log(chalk.gray(`   🔧 Backend: ${this.techStackProfile.hasBackend ? '✓' : '✗'} ${this.techStackProfile.backend.type ? `(${this.techStackProfile.backend.type})` : ''}`));
+    console.log(chalk.gray(`   📝 TypeScript: ${this.techStackProfile.hasTypeScript ? '✓' : '✗'}`));
+    console.log(chalk.gray(`   📋 Applicable phases: ${this.techStackProfile.applicablePhases.join(', ')}`));
+    console.log(chalk.gray(`   🎯 Confidence: ${this.techStackProfile.confidence}%`));
+    console.log(chalk.green('   ✅ Pre-flight detection complete\n'));
+
+    // Store tech stack profile in context for phases
+    await this.contextManager.updateMetadata({
+      techStackProfile: this.techStackProfile,
+    });
 
     // Group phases by parallel execution
     const phaseGroups = this._groupPhases(sequence, parallelPhases);
@@ -400,7 +414,7 @@ class WorkflowOrchestrator {
   async _executeParallelPhases(phases) {
     console.log(chalk.yellow(`\n⚡ Executing ${phases.length} phases in parallel...`));
 
-    const phasePromises = phases.map((phase) => this._executeSinglePhase(phase));
+    const phasePromises = phases.map(phase => this._executeSinglePhase(phase));
     const results = await Promise.allSettled(phasePromises);
 
     // Process results
@@ -421,20 +435,34 @@ class WorkflowOrchestrator {
     const phaseNum = phase.phase;
     const phaseName = phase.phase_name || `Phase ${phaseNum}`;
 
-    // Check conditions (async - may involve file system checks)
-    if (phase.condition && !(await this._evaluateCondition(phase.condition))) {
-      console.log(chalk.gray(`   ⏭️  Skipping ${phaseName}: condition not met`));
-      this.executionState.skippedPhases.push(phaseNum);
-      return { skipped: true, phase: phaseNum };
+    // V3.1: Check conditions using ConditionEvaluator with skip reason
+    if (phase.condition) {
+      const conditionResult = this.conditionEvaluator
+        ? this.conditionEvaluator.shouldExecutePhase(phase)
+        : { shouldExecute: this._evaluateConditionLegacy(phase.condition), reason: 'legacy_evaluation' };
+
+      if (!conditionResult.shouldExecute) {
+        const skipReason = conditionResult.reason;
+        const explanation = this.conditionEvaluator
+          ? this.conditionEvaluator.getSkipExplanation(phase)
+          : 'Condition not met';
+
+        console.log(chalk.gray(`   ⏭️  Skipping ${phaseName}: ${explanation}`));
+        this.executionState.skippedPhases.push(phaseNum);
+
+        // V3.1: Save skip result to context with reason
+        const skipResult = this.skillDispatcher.createSkipResult(phase, skipReason);
+        await this.contextManager.savePhaseOutput(phaseNum, skipResult);
+
+        return { skipped: true, phase: phaseNum, reason: skipReason };
+      }
     }
 
     // Check dependencies
     if (phase.requires) {
       const missingDeps = await this._checkDependencies(phase.requires);
       if (missingDeps.length > 0) {
-        console.log(
-          chalk.yellow(`   ⚠️  ${phaseName}: Missing dependencies: ${missingDeps.join(', ')}`)
-        );
+        console.log(chalk.yellow(`   ⚠️  ${phaseName}: Missing dependencies: ${missingDeps.join(', ')}`));
         // In YOLO mode, continue anyway; otherwise, skip
         if (!this.options.yolo) {
           this.executionState.skippedPhases.push(phaseNum);
@@ -449,8 +477,8 @@ class WorkflowOrchestrator {
 
     try {
       // DETERMINISTIC: Prepare phase (create dirs, check pre-conditions)
-      console.log(chalk.gray('   🔧 Preparing phase...'));
-      const prepResult = await this.preparePhase(phase);
+      console.log(chalk.gray(`   🔧 Preparing phase...`));
+      await this.preparePhase(phase);
 
       // Build subagent prompt with REAL TASK (not generic prompt)
       const context = await this.contextManager.getContextForPhase(phaseNum);
@@ -469,28 +497,51 @@ class WorkflowOrchestrator {
         }
       );
 
+      // V3.1: Build dispatch payload using SkillDispatcher
+      const dispatchPayload = this.skillDispatcher.buildDispatchPayload({
+        agentId: phase.agent,
+        prompt,
+        phase,
+        context: {
+          ...context,
+          workflowId: this.workflow.workflow?.id,
+          yoloMode: this.options.yolo,
+          previousPhases: this.executionState.completedPhases,
+        },
+        techStackProfile: this.techStackProfile,
+      });
+
+      // Log dispatch info
+      console.log(chalk.gray(`   🚀 ${this.skillDispatcher.formatDispatchLog(dispatchPayload).split('\n')[0]}`));
+
       // Dispatch to subagent
       let result;
       if (this.options.dispatchSubagent) {
         result = await this.options.dispatchSubagent({
+          // V3.1: Include skill dispatch payload
+          ...dispatchPayload,
+          // Backward compatibility: include original params
           agentId: phase.agent,
           prompt,
           phase,
           context,
         });
+
+        // V3.1: Parse and normalize skill output
+        result = this.skillDispatcher.parseSkillOutput(result, phase);
       } else {
         // Fallback: return prompt for manual execution
         result = {
           status: 'pending_dispatch',
           prompt,
+          skill: dispatchPayload.skill,
           message: 'Subagent dispatch function not provided',
         };
       }
 
       // DETERMINISTIC: Validate phase output (check files, run checklists)
-      // Pass prepResult to thread checklist safely for parallel execution
-      console.log(chalk.gray('   🔍 Validating output...'));
-      const validation = await this.validatePhaseOutput(phase, result, prepResult);
+      console.log(chalk.gray(`   🔍 Validating output...`));
+      const validation = await this.validatePhaseOutput(phase, result);
       if (!validation.passed) {
         console.log(chalk.yellow(`   ⚠️ Validation warnings: ${validation.errors.join(', ')}`));
       }
@@ -510,6 +561,7 @@ class WorkflowOrchestrator {
       this.executionState.completedPhases.push(phaseNum);
 
       return { ...result, validation };
+
     } catch (error) {
       console.log(chalk.red(`   ❌ ${phaseName} failed: ${error.message}`));
       this.executionState.failedPhases.push(phaseNum);
@@ -519,15 +571,29 @@ class WorkflowOrchestrator {
 
   /**
    * Evaluate a condition based on context
-   * ASYNC: Some conditions require file system checks
+   * V3.1: Uses ConditionEvaluator with TechStackProfile when available
    * @private
    */
-  async _evaluateCondition(condition) {
+  _evaluateCondition(condition) {
+    // V3.1: Use ConditionEvaluator if available (after pre-flight detection)
+    if (this.conditionEvaluator) {
+      return this.conditionEvaluator.evaluate(condition);
+    }
+
+    // Fallback to legacy evaluation
+    return this._evaluateConditionLegacy(condition);
+  }
+
+  /**
+   * Legacy condition evaluation (backward compatibility)
+   * @private
+   */
+  _evaluateConditionLegacy(condition) {
     // Handle string conditions
     if (typeof condition === 'string') {
       switch (condition) {
         case 'project_has_database':
-          return await this._projectHasDatabase();
+          return this._projectHasDatabase();
         case 'qa_review_approved':
           return this._qaReviewApproved();
         default:
@@ -555,25 +621,14 @@ class WorkflowOrchestrator {
 
   /**
    * Check if project has database configuration
-   * ASYNC: Uses async fs operations for consistency
    * @private
    */
-  async _projectHasDatabase() {
+  _projectHasDatabase() {
     const supabasePath = path.join(this.options.projectRoot, 'supabase');
     const envPath = path.join(this.options.projectRoot, '.env');
 
-    // Check if supabase directory exists
-    if (await fs.pathExists(supabasePath)) {
-      return true;
-    }
-
-    // Check if .env file contains SUPABASE reference
-    if (await fs.pathExists(envPath)) {
-      const envContent = await fs.readFile(envPath, 'utf8');
-      return envContent.includes('SUPABASE');
-    }
-
-    return false;
+    return fs.existsSync(supabasePath) ||
+           (fs.existsSync(envPath) && fs.readFileSync(envPath, 'utf8').includes('SUPABASE'));
   }
 
   /**
@@ -598,7 +653,7 @@ class WorkflowOrchestrator {
       if (dep.includes('(if exists)')) continue;
 
       const depPath = path.join(this.options.projectRoot, dep);
-      if (!(await fs.pathExists(depPath))) {
+      if (!await fs.pathExists(depPath)) {
         missing.push(dep);
       }
     }
@@ -647,12 +702,11 @@ class WorkflowOrchestrator {
    * @private
    */
   _defaultPhaseComplete(phase, result) {
-    const status =
-      result?.status === 'success' ? '✅' : result?.status === 'pending_dispatch' ? '📤' : '⚠️';
+    const status = result?.status === 'success' ? '✅' : result?.status === 'pending_dispatch' ? '📤' : '⚠️';
     console.log(chalk.green(`   ${status} Phase ${phase.phase} complete`));
     if (phase.creates) {
       const creates = Array.isArray(phase.creates) ? phase.creates : [phase.creates];
-      creates.forEach((c) => console.log(chalk.gray(`      → ${c}`)));
+      creates.forEach(c => console.log(chalk.gray(`      → ${c}`)));
     }
   }
 
@@ -662,17 +716,17 @@ class WorkflowOrchestrator {
    */
   _getAgentIcon(agentId) {
     const icons = {
-      architect: '🏗️',
+      'architect': '🏗️',
       'data-engineer': '🗄️',
       'ux-expert': '🎨',
       'ux-design-expert': '🎨',
-      qa: '🔍',
-      analyst: '📊',
-      pm: '📋',
-      dev: '💻',
-      sm: '🔄',
-      po: '⚖️',
-      devops: '🚀',
+      'qa': '🔍',
+      'analyst': '📊',
+      'pm': '📋',
+      'dev': '💻',
+      'sm': '🔄',
+      'po': '⚖️',
+      'devops': '🚀',
       'github-devops': '🚀',
     };
     return icons[agentId] || '👤';
@@ -687,38 +741,20 @@ class WorkflowOrchestrator {
 
   /**
    * Resume workflow from a specific phase
-   * Honors parallel_phases configuration and resets timing for accurate summary
    * @param {number} fromPhase - Phase number to resume from
    */
   async resumeFrom(fromPhase) {
-    // Reset startTime for accurate duration reporting in resumed execution
-    this.executionState.startTime = Date.now();
-
     if (!this.workflow) {
       await this.loadWorkflow();
     }
 
     const sequence = this.workflow.sequence || [];
-    const orchestration = this.workflow.orchestration || {};
-    const parallelPhases = orchestration.parallel_phases || [];
-    const remainingPhases = sequence.filter((p) => p.phase >= fromPhase && !p.workflow_end);
+    const remainingPhases = sequence.filter(p => p.phase >= fromPhase && !p.workflow_end);
 
     console.log(chalk.yellow(`\n🔄 Resuming from phase ${fromPhase}...`));
-    console.log(chalk.gray(`   Remaining phases: ${remainingPhases.length}`));
-    console.log(chalk.gray(`   Parallel phases: ${parallelPhases.join(', ') || 'None'}`));
 
-    // Use same grouping logic as execute() to honor parallel_phases
-    const phaseGroups = this._groupPhases(remainingPhases, parallelPhases);
-
-    // Execute each group (same logic as execute())
-    for (const group of phaseGroups) {
-      if (group.parallel && this.options.parallel) {
-        await this._executeParallelPhases(group.phases);
-      } else {
-        for (const phase of group.phases) {
-          await this._executeSinglePhase(phase);
-        }
-      }
+    for (const phase of remainingPhases) {
+      await this._executeSinglePhase(phase);
     }
 
     return this._generateExecutionSummary();

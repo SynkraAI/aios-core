@@ -82,7 +82,6 @@ class ContextManager {
 
   /**
    * Load state from disk (or cache)
-   * Persists initial state if no state file exists
    * @returns {Promise<Object>} Current state
    */
   async loadState() {
@@ -95,11 +94,7 @@ class ContextManager {
       return this._stateCache;
     }
 
-    // No state file exists - create, cache, and persist initial state
-    await this.ensureStateDir();
-    this._stateCache = this._createInitialState();
-    await fs.writeJson(this.statePath, this._stateCache, { spaces: 2 });
-    return this._stateCache;
+    return this._createInitialState();
   }
 
   /**
@@ -260,8 +255,7 @@ class ContextManager {
    * @param {boolean} keepMetadata - Whether to preserve metadata
    */
   async reset(keepMetadata = true) {
-    // Guard: ensure metadata is always an object, even if state not loaded yet
-    const metadata = keepMetadata ? this._stateCache?.metadata || {} : {};
+    const metadata = keepMetadata ? this._stateCache?.metadata : {};
     this._stateCache = this._createInitialState();
     this._stateCache.metadata = metadata;
     await this._saveState();
@@ -269,24 +263,18 @@ class ContextManager {
 
   /**
    * Export state for external use
-   * Uses deep copy to prevent external mutation of internal state
-   * @returns {Object} Complete state object (deep copy), empty object if state not loaded
+   * @returns {Object} Complete state object
    */
   exportState() {
-    // Guard against null/undefined _stateCache (called before state loaded)
-    if (!this._stateCache) {
-      return {};
-    }
-    return JSON.parse(JSON.stringify(this._stateCache));
+    return { ...this._stateCache };
   }
 
   /**
    * Import state from external source
-   * Uses deep copy to prevent external mutation after import
    * @param {Object} state - State to import
    */
   async importState(state) {
-    this._stateCache = JSON.parse(JSON.stringify(state));
+    this._stateCache = state;
     await this._saveState();
   }
 }

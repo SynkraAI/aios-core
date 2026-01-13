@@ -82,7 +82,10 @@ class SubagentPromptBuilder {
    */
   async loadAgentDefinition(agentId) {
     // Try different file naming patterns
-    const patterns = [`${agentId}.md`, `${agentId.replace(/-/g, '_')}.md`];
+    const patterns = [
+      `${agentId}.md`,
+      `${agentId.replace(/-/g, '_')}.md`,
+    ];
 
     for (const pattern of patterns) {
       const filePath = path.join(this.paths.agents, pattern);
@@ -110,10 +113,8 @@ class SubagentPromptBuilder {
       return await fs.readFile(filePath, 'utf8');
     }
 
-    // Try to find by action name (e.g., '*document-project' -> 'document-project.md')
-    // Strip leading '*' from task references - this convention allows workflow definitions
-    // to use action syntax (e.g., '*document-project') which maps to task files
-    const altPath = path.join(this.paths.tasks, `${taskFile.replace(/^\*/, '')}.md`);
+    // Try to find by action name (e.g., 'document-project' -> 'document-project.md')
+    const altPath = path.join(this.paths.tasks, `${taskFile.replace('*', '')}.md`);
     if (await fs.pathExists(altPath)) {
       return await fs.readFile(altPath, 'utf8');
     }
@@ -155,10 +156,7 @@ class SubagentPromptBuilder {
           }
         }
       } catch (e) {
-        // Invalid YAML frontmatter - log warning for debugging but continue
-        console.warn(
-          `[SubagentPromptBuilder] Invalid YAML frontmatter in task (checklists): ${e.message}`
-        );
+        // Invalid YAML frontmatter - continue
       }
     }
 
@@ -214,10 +212,7 @@ class SubagentPromptBuilder {
           }
         }
       } catch (e) {
-        // Invalid YAML frontmatter - log warning for debugging but continue
-        console.warn(
-          `[SubagentPromptBuilder] Invalid YAML frontmatter in task (templates): ${e.message}`
-        );
+        // Invalid YAML frontmatter - continue
       }
     }
 
@@ -276,8 +271,16 @@ class SubagentPromptBuilder {
    * @returns {string} Complete assembled prompt
    */
   assemblePrompt(components) {
-    const { agentId, agentDef, taskFile, taskDef, checklists, templates, context, contextSection } =
-      components;
+    const {
+      agentId,
+      agentDef,
+      taskFile,
+      taskDef,
+      checklists,
+      templates,
+      context,
+      contextSection,
+    } = components;
 
     let prompt = `# AGENT TRANSFORMATION
 

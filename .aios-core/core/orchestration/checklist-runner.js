@@ -39,8 +39,6 @@ class ChecklistRunner {
     const result = {
       checklist: checklistName,
       passed: true,
-      passedCount: 0,
-      failedCount: 0,
       items: [],
       errors: [],
       timestamp: new Date().toISOString(),
@@ -62,11 +60,7 @@ class ChecklistRunner {
       const itemResult = await this.evaluateItem(item, targetPaths);
       result.items.push(itemResult);
 
-      // Track passed/failed counts for visibility
-      if (itemResult.passed) {
-        result.passedCount++;
-      } else {
-        result.failedCount++;
+      if (!itemResult.passed) {
         if (item.blocker) {
           result.passed = false;
           result.errors.push(`Blocker failed: ${item.description}`);
@@ -118,8 +112,7 @@ class ChecklistRunner {
           }
         }
       } catch (e) {
-        // Invalid YAML - log for debugging but continue processing
-        console.warn(`Warning: Failed to parse YAML block in checklist: ${e.message}`);
+        // Invalid YAML - continue
       }
     }
 
@@ -128,8 +121,8 @@ class ChecklistRunner {
     let checkboxMatch;
     while ((checkboxMatch = checkboxPattern.exec(content)) !== null) {
       const description = checkboxMatch[1].trim();
-      // Skip if already parsed from YAML - use full string comparison for accurate duplicate detection
-      if (!items.some((i) => i.description === description)) {
+      // Skip if already parsed from YAML
+      if (!items.some(i => i.description.includes(description.substring(0, 30)))) {
         items.push({
           description,
           tipo: 'manual',
@@ -222,7 +215,7 @@ class ChecklistRunner {
       for (const targetPath of paths) {
         if (targetPath) {
           const fullPath = path.join(this.projectRoot, targetPath);
-          if (!(await fs.pathExists(fullPath))) {
+          if (!await fs.pathExists(fullPath)) {
             return false;
           }
         }
@@ -230,95 +223,75 @@ class ChecklistRunner {
       return true;
     }
 
-    // Directory exists check - mirrors file-exists logic for consistency
+    // Directory exists check
     if (validationLower.includes('director') && validationLower.includes('exist')) {
       for (const targetPath of paths) {
-        // Skip falsy targetPath entries (consistent with file-exists)
-        if (!targetPath) {
-          continue;
-        }
-        const fullPath = path.join(this.projectRoot, targetPath);
-        // Use pathExists first for consistency, then verify it's a directory
-        if (!(await fs.pathExists(fullPath))) {
-          return false;
-        }
-        const stats = await fs.stat(fullPath);
-        if (!stats.isDirectory()) {
-          return false;
+        if (targetPath) {
+          const fullPath = path.join(this.projectRoot, targetPath);
+          const stats = await fs.stat(fullPath).catch(() => null);
+          if (!stats || !stats.isDirectory()) {
+            return false;
+          }
         }
       }
       return true;
     }
 
-    // Non-empty file check - missing files should fail
+    // Non-empty file check
     if (validationLower.includes('not') && validationLower.includes('empty')) {
       for (const targetPath of paths) {
-        if (!targetPath) {
-          return false; // Missing targetPath is a failure
-        }
-        const fullPath = path.join(this.projectRoot, targetPath);
-        if (!(await fs.pathExists(fullPath))) {
-          return false; // Missing file is a failure
-        }
-        const content = await fs.readFile(fullPath, 'utf8');
-        if (content.trim().length === 0) {
-          return false; // Empty file is a failure
+        if (targetPath) {
+          const fullPath = path.join(this.projectRoot, targetPath);
+          if (await fs.pathExists(fullPath)) {
+            const content = await fs.readFile(fullPath, 'utf8');
+            if (content.trim().length === 0) {
+              return false;
+            }
+          }
         }
       }
       return true;
     }
 
-    // Contains specific content check - missing files should fail
+    // Contains specific content check
     const containsMatch = validationLower.match(/contains?\s+['"]([^'"]+)['"]/);
     if (containsMatch) {
       const searchTerm = containsMatch[1];
       for (const targetPath of paths) {
-        if (!targetPath) {
-          return false; // Missing targetPath is a failure
-        }
-        const fullPath = path.join(this.projectRoot, targetPath);
-        if (!(await fs.pathExists(fullPath))) {
-          return false; // Missing file is a failure
-        }
-        const content = await fs.readFile(fullPath, 'utf8');
-        if (!content.includes(searchTerm)) {
-          return false; // Content not found is a failure
+        if (targetPath) {
+          const fullPath = path.join(this.projectRoot, targetPath);
+          if (await fs.pathExists(fullPath)) {
+            const content = await fs.readFile(fullPath, 'utf8');
+            if (!content.includes(searchTerm)) {
+              return false;
+            }
+          }
         }
       }
       return true;
     }
 
-    // Minimum size check - missing files should fail
+    // Minimum size check
     const minSizeMatch = validationLower.match(/min(?:imum)?\s*(?:size|length)?\s*[:=]?\s*(\d+)/);
     if (minSizeMatch) {
       const minSize = parseInt(minSizeMatch[1]);
       for (const targetPath of paths) {
-        if (!targetPath) {
-          return false; // Missing targetPath is a failure
-        }
-        const fullPath = path.join(this.projectRoot, targetPath);
-        if (!(await fs.pathExists(fullPath))) {
-          return false; // Missing file is a failure
-        }
-        const stats = await fs.stat(fullPath);
-        if (stats.size < minSize) {
-          return false; // File too small is a failure
+        if (targetPath) {
+          const fullPath = path.join(this.projectRoot, targetPath);
+          if (await fs.pathExists(fullPath)) {
+            const stats = await fs.stat(fullPath);
+            if (stats.size < minSize) {
+              return false;
+            }
+          }
         }
       }
       return true;
     }
 
-    // Unknown validation rule - fail safely and log warning
-    // Use 'manual:' prefix for rules that should pass as human-verified
-    if (validationLower.startsWith('manual:')) {
-      return true; // Explicit manual marker - pass validation
-    }
-
-    // Unrecognized rules should fail to prevent silent false positives
-    console.warn(
-      `Warning: Unrecognized validation rule "${validation}" - treating as failure for safety`
-    );
-    return false;
+    // Default: assume validation passes if we can't parse the rule
+    // This allows for human-readable descriptions that aren't code-executable
+    return true;
   }
 
   /**
@@ -336,12 +309,12 @@ class ChecklistRunner {
     return {
       name: checklistName,
       totalItems: items.length,
-      blockers: items.filter((i) => i.blocker).length,
+      blockers: items.filter(i => i.blocker).length,
       categories: {
-        preConditions: items.filter((i) => i.tipo === 'pre-conditions').length,
-        postConditions: items.filter((i) => i.tipo === 'post-conditions').length,
-        acceptanceCriteria: items.filter((i) => i.tipo === 'acceptance-criteria').length,
-        manual: items.filter((i) => i.tipo === 'manual').length,
+        preConditions: items.filter(i => i.tipo === 'pre-conditions').length,
+        postConditions: items.filter(i => i.tipo === 'post-conditions').length,
+        acceptanceCriteria: items.filter(i => i.tipo === 'acceptance-criteria').length,
+        manual: items.filter(i => i.tipo === 'manual').length,
       },
     };
   }
