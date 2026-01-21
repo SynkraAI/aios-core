@@ -1,0 +1,87 @@
+#!/bin/bash
+# aios-pull - Atualiza o .aios-core do projeto atual a partir do master
+# Uso: aios-pull [--dry-run] [--force]
+
+set -e
+
+AIOS_MASTER="${AIOS_MASTER:-$HOME/dev/aios-core}"
+CURRENT_DIR="$(pwd)"
+CURRENT_AIOS="$CURRENT_DIR/.aios-core"
+
+# Cores
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Flags
+DRY_RUN=false
+FORCE=false
+
+for arg in "$@"; do
+  case $arg in
+    --dry-run)
+      DRY_RUN=true
+      shift
+      ;;
+    --force)
+      FORCE=true
+      shift
+      ;;
+  esac
+done
+
+echo -e "${BLUE}📥 AIOS Pull${NC}"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Verifica se o master existe
+if [ ! -d "$AIOS_MASTER" ]; then
+  echo -e "${RED}❌ Erro: Repositório master não encontrado${NC}"
+  echo "   Esperado em: $AIOS_MASTER"
+  exit 1
+fi
+
+PROJECT_NAME=$(basename "$CURRENT_DIR")
+echo -e "Projeto:  ${GREEN}$PROJECT_NAME${NC}"
+echo -e "Master:   $AIOS_MASTER"
+echo -e "Destino:  $CURRENT_AIOS"
+echo ""
+
+# Se não existe .aios-core no projeto atual
+if [ ! -d "$CURRENT_AIOS" ]; then
+  if [ "$FORCE" = true ]; then
+    echo -e "${YELLOW}⚠️  .aios-core não existe, criando...${NC}"
+    mkdir -p "$CURRENT_AIOS"
+  else
+    echo -e "${RED}❌ Erro: .aios-core não encontrado no projeto atual${NC}"
+    echo ""
+    echo "   Este projeto não tem AIOS instalado."
+    echo "   Use --force para instalar o AIOS neste projeto:"
+    echo "   aios-pull --force"
+    exit 1
+  fi
+fi
+
+if [ "$DRY_RUN" = true ]; then
+  echo -e "${YELLOW}🔍 Modo dry-run - mostrando mudanças:${NC}"
+  echo ""
+  rsync -avn --delete \
+    --exclude='.git' \
+    --exclude='node_modules' \
+    "$AIOS_MASTER/" "$CURRENT_AIOS/" | head -30
+  echo ""
+  echo -e "${YELLOW}(mostrando apenas os primeiros 30 itens)${NC}"
+else
+  echo -e "${YELLOW}🔄 Atualizando...${NC}"
+  rsync -av --delete \
+    --exclude='.git' \
+    --exclude='node_modules' \
+    "$AIOS_MASTER/" "$CURRENT_AIOS/" | tail -5
+
+  echo ""
+  echo -e "${GREEN}✅ Pull concluído!${NC}"
+  echo ""
+  echo "O projeto '$PROJECT_NAME' agora está com o AIOS atualizado."
+  echo "Reinicie o Claude Code para carregar as mudanças."
+fi

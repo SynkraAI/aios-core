@@ -1,0 +1,105 @@
+#!/bin/bash
+# aios-sync - Propaga o AIOS master para todos os projetos em ~/dev
+# Uso: aios-sync [--dry-run] [--project=nome]
+
+set -e
+
+AIOS_MASTER="${AIOS_MASTER:-$HOME/dev/aios-core}"
+PROJECTS_DIR="${AIOS_PROJECTS_DIR:-$HOME/dev}"
+
+# Cores
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+# Flags
+DRY_RUN=false
+TARGET_PROJECT=""
+
+for arg in "$@"; do
+  case $arg in
+    --dry-run)
+      DRY_RUN=true
+      shift
+      ;;
+    --project=*)
+      TARGET_PROJECT="${arg#*=}"
+      shift
+      ;;
+  esac
+done
+
+echo -e "${BLUE}🔄 AIOS Sync${NC}"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Verifica se o master existe
+if [ ! -d "$AIOS_MASTER" ]; then
+  echo -e "${RED}❌ Erro: Repositório master não encontrado${NC}"
+  echo "   Esperado em: $AIOS_MASTER"
+  echo ""
+  echo "   Use 'aios-push' primeiro para criar o master a partir de um projeto."
+  exit 1
+fi
+
+echo -e "Master:   ${GREEN}$AIOS_MASTER${NC}"
+echo -e "Projetos: $PROJECTS_DIR"
+echo ""
+
+if [ "$DRY_RUN" = true ]; then
+  echo -e "${YELLOW}🔍 Modo dry-run ativado${NC}"
+  echo ""
+fi
+
+# Contadores
+SYNCED=0
+SKIPPED=0
+
+# Itera sobre os projetos
+for proj in "$PROJECTS_DIR"/*/; do
+  proj_name=$(basename "$proj")
+
+  # Pula o próprio master
+  if [ "$proj" = "$AIOS_MASTER/" ] || [ "$proj_name" = "aios-core" ]; then
+    continue
+  fi
+
+  # Se especificou um projeto, pula os outros
+  if [ -n "$TARGET_PROJECT" ] && [ "$proj_name" != "$TARGET_PROJECT" ]; then
+    continue
+  fi
+
+  # Verifica se tem .aios-core
+  if [ -d "$proj/.aios-core" ]; then
+    if [ "$DRY_RUN" = true ]; then
+      echo -e "  ${CYAN}→${NC} $proj_name ${YELLOW}(dry-run)${NC}"
+      rsync -avn --delete \
+        --exclude='.git' \
+        --exclude='node_modules' \
+        "$AIOS_MASTER/" "$proj/.aios-core/" 2>/dev/null | grep -c "^" || true
+    else
+      echo -e "  ${CYAN}→${NC} $proj_name"
+      rsync -a --delete \
+        --exclude='.git' \
+        --exclude='node_modules' \
+        "$AIOS_MASTER/" "$proj/.aios-core/"
+    fi
+    SYNCED=$((SYNCED + 1))
+  else
+    SKIPPED=$((SKIPPED + 1))
+  fi
+done
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+if [ "$DRY_RUN" = true ]; then
+  echo -e "${YELLOW}🔍 Dry-run: $SYNCED projeto(s) seriam atualizados${NC}"
+  echo "   Execute sem --dry-run para aplicar."
+else
+  echo -e "${GREEN}✅ Sync concluído!${NC}"
+  echo -e "   Projetos atualizados: ${GREEN}$SYNCED${NC}"
+  echo -e "   Projetos sem AIOS:    $SKIPPED"
+fi

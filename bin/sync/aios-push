@@ -1,0 +1,82 @@
+#!/bin/bash
+# aios-push - Exporta .aios-core do projeto atual para o repositório master
+# Uso: aios-push [--dry-run]
+
+set -e
+
+AIOS_MASTER="${AIOS_MASTER:-$HOME/dev/aios-core}"
+CURRENT_DIR="$(pwd)"
+CURRENT_AIOS="$CURRENT_DIR/.aios-core"
+
+# Cores
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Flags
+DRY_RUN=false
+
+for arg in "$@"; do
+  case $arg in
+    --dry-run)
+      DRY_RUN=true
+      shift
+      ;;
+  esac
+done
+
+echo -e "${BLUE}📤 AIOS Push${NC}"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Verifica se está em um projeto com .aios-core
+if [ ! -d "$CURRENT_AIOS" ]; then
+  echo -e "${RED}❌ Erro: Não encontrei .aios-core/ no diretório atual${NC}"
+  echo "   Diretório: $CURRENT_DIR"
+  echo ""
+  echo "   Execute este comando dentro de um projeto que tenha AIOS instalado."
+  exit 1
+fi
+
+# Verifica se o master existe
+if [ ! -d "$AIOS_MASTER" ]; then
+  echo -e "${RED}❌ Erro: Repositório master não encontrado${NC}"
+  echo "   Esperado em: $AIOS_MASTER"
+  echo ""
+  echo "   Crie o repositório master primeiro:"
+  echo "   mkdir -p $AIOS_MASTER"
+  exit 1
+fi
+
+# Mostra info
+PROJECT_NAME=$(basename "$CURRENT_DIR")
+echo -e "Projeto:  ${GREEN}$PROJECT_NAME${NC}"
+echo -e "Origem:   $CURRENT_AIOS"
+echo -e "Destino:  $AIOS_MASTER"
+echo ""
+
+if [ "$DRY_RUN" = true ]; then
+  echo -e "${YELLOW}🔍 Modo dry-run - mostrando o que seria copiado:${NC}"
+  echo ""
+  rsync -avn --delete \
+    --exclude='.git' \
+    --exclude='node_modules' \
+    "$CURRENT_AIOS/" "$AIOS_MASTER/" | head -50
+  echo ""
+  echo -e "${YELLOW}(mostrando apenas os primeiros 50 itens)${NC}"
+else
+  echo -e "${YELLOW}🔄 Sincronizando...${NC}"
+  rsync -av --delete \
+    --exclude='.git' \
+    --exclude='node_modules' \
+    "$CURRENT_AIOS/" "$AIOS_MASTER/" | tail -5
+
+  echo ""
+  echo -e "${GREEN}✅ Push concluído!${NC}"
+  echo ""
+  echo "Próximos passos:"
+  echo "  1. cd $AIOS_MASTER"
+  echo "  2. git add . && git commit -m 'Update from $PROJECT_NAME'"
+  echo "  3. aios-sync  # para propagar para outros projetos"
+fi

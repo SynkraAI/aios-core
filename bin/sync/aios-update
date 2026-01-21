@@ -1,0 +1,164 @@
+#!/bin/bash
+# aios-update - Atualiza o aios-core local com as mudanças do repositório oficial
+# Uso: aios-update [--check] [--merge] [--tag=vX.X.X]
+
+set -e
+
+AIOS_MASTER="${AIOS_MASTER:-$HOME/dev/aios-core}"
+UPSTREAM_REMOTE="upstream"
+UPSTREAM_BRANCH="main"
+
+# Cores
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+# Flags
+CHECK_ONLY=false
+DO_MERGE=false
+TARGET_TAG=""
+
+for arg in "$@"; do
+  case $arg in
+    --check)
+      CHECK_ONLY=true
+      shift
+      ;;
+    --merge)
+      DO_MERGE=true
+      shift
+      ;;
+    --tag=*)
+      TARGET_TAG="${arg#*=}"
+      shift
+      ;;
+  esac
+done
+
+echo -e "${BLUE}🔄 AIOS Update${NC}"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Verifica se está no diretório correto
+if [ ! -d "$AIOS_MASTER/.git" ]; then
+  echo -e "${RED}❌ Erro: $AIOS_MASTER não é um repositório git${NC}"
+  exit 1
+fi
+
+cd "$AIOS_MASTER"
+
+# Verifica se upstream existe
+if ! git remote get-url "$UPSTREAM_REMOTE" &>/dev/null; then
+  echo -e "${RED}❌ Erro: Remote '$UPSTREAM_REMOTE' não configurado${NC}"
+  echo ""
+  echo "Configure com:"
+  echo "  cd $AIOS_MASTER"
+  echo "  git remote add upstream https://github.com/SynkraAI/aios-core.git"
+  exit 1
+fi
+
+UPSTREAM_URL=$(git remote get-url "$UPSTREAM_REMOTE")
+echo -e "Upstream: ${CYAN}$UPSTREAM_URL${NC}"
+echo ""
+
+# Fetch upstream
+echo -e "${YELLOW}📡 Buscando atualizações...${NC}"
+git fetch "$UPSTREAM_REMOTE" --tags
+
+# Mostra versão atual e disponível
+CURRENT_COMMIT=$(git rev-parse --short HEAD)
+UPSTREAM_COMMIT=$(git rev-parse --short "$UPSTREAM_REMOTE/$UPSTREAM_BRANCH")
+
+echo ""
+echo -e "Seu commit:      ${GREEN}$CURRENT_COMMIT${NC}"
+echo -e "Upstream commit: ${CYAN}$UPSTREAM_COMMIT${NC}"
+
+# Lista tags disponíveis
+echo ""
+echo -e "${BLUE}📦 Tags disponíveis:${NC}"
+git tag --sort=-v:refname | head -10 | while read tag; do
+  echo "  • $tag"
+done
+
+# Conta commits de diferença
+BEHIND=$(git rev-list --count HEAD.."$UPSTREAM_REMOTE/$UPSTREAM_BRANCH" 2>/dev/null || echo "0")
+AHEAD=$(git rev-list --count "$UPSTREAM_REMOTE/$UPSTREAM_BRANCH"..HEAD 2>/dev/null || echo "0")
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+if [ "$BEHIND" = "0" ] && [ "$AHEAD" = "0" ]; then
+  echo -e "${GREEN}✅ Você está sincronizado com o upstream!${NC}"
+  exit 0
+fi
+
+if [ "$BEHIND" != "0" ]; then
+  echo -e "${YELLOW}📥 Você está $BEHIND commit(s) atrás do upstream${NC}"
+fi
+
+if [ "$AHEAD" != "0" ]; then
+  echo -e "${CYAN}📤 Você está $AHEAD commit(s) à frente do upstream (suas customizações)${NC}"
+fi
+
+# Se é só check, para aqui
+if [ "$CHECK_ONLY" = true ]; then
+  echo ""
+  echo "Use 'aios-update --merge' para incorporar as atualizações."
+  exit 0
+fi
+
+# Se não pediu merge explícito, mostra preview
+if [ "$DO_MERGE" != true ] && [ -z "$TARGET_TAG" ]; then
+  echo ""
+  echo -e "${BLUE}📋 Mudanças do upstream:${NC}"
+  git log --oneline HEAD.."$UPSTREAM_REMOTE/$UPSTREAM_BRANCH" | head -15
+
+  TOTAL_CHANGES=$(git log --oneline HEAD.."$UPSTREAM_REMOTE/$UPSTREAM_BRANCH" | wc -l)
+  if [ "$TOTAL_CHANGES" -gt 15 ]; then
+    echo "  ... e mais $((TOTAL_CHANGES - 15)) commits"
+  fi
+
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "Opções:"
+  echo "  aios-update --merge          # Merge upstream/main"
+  echo "  aios-update --tag=v3.10.0    # Atualizar para tag específica"
+  echo "  aios-update --check          # Apenas verificar (sem merge)"
+  exit 0
+fi
+
+# Executa o merge
+echo ""
+
+if [ -n "$TARGET_TAG" ]; then
+  echo -e "${YELLOW}🔀 Fazendo merge da tag $TARGET_TAG...${NC}"
+  MERGE_TARGET="$TARGET_TAG"
+else
+  echo -e "${YELLOW}🔀 Fazendo merge de $UPSTREAM_REMOTE/$UPSTREAM_BRANCH...${NC}"
+  MERGE_TARGET="$UPSTREAM_REMOTE/$UPSTREAM_BRANCH"
+fi
+
+# Tenta o merge
+if git merge "$MERGE_TARGET" -m "Merge upstream updates from $MERGE_TARGET"; then
+  echo ""
+  echo -e "${GREEN}✅ Merge concluído com sucesso!${NC}"
+  echo ""
+  echo "Próximos passos:"
+  echo "  1. Revise as mudanças: git log --oneline -10"
+  echo "  2. Propague para projetos: aios-sync"
+  echo "  3. (Opcional) Push para seu fork: git push origin main"
+else
+  echo ""
+  echo -e "${RED}⚠️  Conflitos detectados!${NC}"
+  echo ""
+  echo "Resolva os conflitos manualmente:"
+  echo "  1. Edite os arquivos com conflito"
+  echo "  2. git add <arquivos>"
+  echo "  3. git commit"
+  echo ""
+  echo "Ou aborte o merge:"
+  echo "  git merge --abort"
+  exit 1
+fi
