@@ -180,7 +180,7 @@ class WorkflowOrchestrator {
         // Tools are assumed available in Claude Code environment
         return { success: true, tool: action.tool };
 
-      case 'check_env':
+      case 'check_env': {
         const missing = [];
         for (const varName of (action.vars || [])) {
           if (!process.env[varName]) {
@@ -191,13 +191,15 @@ class WorkflowOrchestrator {
           throw new Error(`Missing environment variables: ${missing.join(', ')}`);
         }
         return { success: missing.length === 0, missing };
+      }
 
-      case 'file_exists':
+      case 'file_exists': {
         const exists = await fs.pathExists(path.join(this.options.projectRoot, action.path));
         if (!exists && action.blocking !== false) {
           throw new Error(`Required file not found: ${action.path}`);
         }
         return { success: exists };
+      }
 
       default:
         console.log(chalk.yellow(`   ⚠️ Unknown pre-action type: ${action.type}`));
@@ -283,11 +285,12 @@ class WorkflowOrchestrator {
    */
   async _executePostAction(action) {
     switch (action.type) {
-      case 'file_exists':
+      case 'file_exists': {
         const exists = await fs.pathExists(path.join(this.options.projectRoot, action.path));
         return { success: exists };
+      }
 
-      case 'min_file_size':
+      case 'min_file_size': {
         const filePath = path.join(this.options.projectRoot, action.path);
         if (await fs.pathExists(filePath)) {
           const stats = await fs.stat(filePath);
@@ -295,10 +298,12 @@ class WorkflowOrchestrator {
           return { success: sizeKb >= (action.minKb || 1), sizeKb };
         }
         return { success: false, reason: 'file_not_found' };
+      }
 
-      case 'run_checklist':
+      case 'run_checklist': {
         const result = await this.checklistRunner.run(action.checklist, action.targetPath);
         return { success: result.passed, items: result.items };
+      }
 
       default:
         return { success: true };

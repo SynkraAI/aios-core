@@ -50,6 +50,7 @@ workflow:
     project_has_frontend: 'techStackProfile.hasFrontend'
     project_has_backend: 'techStackProfile.hasBackend'
     supabase_configured: 'techStackProfile.database.type === "supabase"'
+    qa_review_approved: 'phaseOutputs.7.approved === true'
 
   # ═══════════════════════════════════════════════════════════════════════════════════════
   #                              ORCHESTRATION CONFIGURATION
@@ -395,7 +396,7 @@ workflow:
     - step: ux_specialist_review
       phase: 6
       phase_name: "Validação: UX/Frontend"
-      agent: ux-expert
+      agent: ux-design-expert
       action: review_and_validate
       creates: docs/reviews/ux-specialist-review.md
       requires: docs/prd/technical-debt-DRAFT.md
@@ -887,7 +888,7 @@ workflow:
       duration: "20-40 min"
     fase_3:
       name: "Coleta: Frontend"
-      agent: "@ux-expert"
+      agent: "@ux-design-expert"
       command: "*create-front-end-spec"
       output: "docs/frontend/frontend-spec.md"
       duration: "30-45 min"
@@ -905,7 +906,7 @@ workflow:
       duration: "20-30 min"
     fase_6:
       name: "Validação UX"
-      agent: "@ux-expert"
+      agent: "@ux-design-expert"
       command: "(manual review)"
       output: "docs/reviews/ux-specialist-review.md"
       duration: "20-30 min"
