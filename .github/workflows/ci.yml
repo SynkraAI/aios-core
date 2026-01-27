@@ -353,13 +353,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node: ['18', '20', '22']
-        # Exclude macOS with Node 18.x and 20.x due to isolated-vm SIGSEGV crash
-        exclude:
-          - os: macos-latest
-            node: '18'
-          - os: macos-latest
-            node: '20'
+        node: ['18', '20', '22', '24']
+        # All combinations supported for Node.js 18-24 (isolated-vm removed in v3.11.0)
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
 
