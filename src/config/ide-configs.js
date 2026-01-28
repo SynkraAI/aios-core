@@ -25,21 +25,18 @@ const path = require('path');
 /**
  * IDE Configuration Metadata
  *
- * Synkra AIOS v2.1 supports 9 IDEs:
- * - Claude Code (Anthropic's official CLI)
+ * Synkra AIOS v2.1 supports 6 main IDEs:
+ * - Claude Code (Anthropic's official CLI) - Recommended
  * - Cursor (AI-first code editor)
  * - Windsurf (AI-powered development)
- * - Trae (Modern AI code editor)
- * - Roo Code (VS Code extension with modes)
- * - Cline (VS Code AI coding assistant)
  * - Gemini CLI (Google's AI assistant)
  * - GitHub Copilot (GitHub's AI pair programmer)
- * - AntiGravity (Modern AI-powered IDE)
+ * - AntiGravity (Google agentic platform)
  */
 const IDE_CONFIGS = {
   'claude-code': {
     name: 'Claude Code',
-    description: 'Anthropic official CLI - Recommended for AIOS',
+    description: '', // Simplified - no description needed
     configFile: path.join('.claude', 'CLAUDE.md'),
     template: 'ide-rules/claude-rules.md',
     requiresDirectory: true,
@@ -49,7 +46,7 @@ const IDE_CONFIGS = {
   },
   cursor: {
     name: 'Cursor',
-    description: 'AI-first code editor with built-in AI assistant',
+    description: '',
     configFile: path.join('.cursor', 'rules.md'),
     template: 'ide-rules/cursor-rules.md',
     requiresDirectory: true,
@@ -58,43 +55,16 @@ const IDE_CONFIGS = {
   },
   windsurf: {
     name: 'Windsurf',
-    description: 'AI-powered development environment',
+    description: '',
     configFile: '.windsurfrules',
     template: 'ide-rules/windsurf-rules.md',
     requiresDirectory: false,
     format: 'text',
     agentFolder: path.join('.windsurf', 'rules'),
   },
-  trae: {
-    name: 'Trae',
-    description: 'Modern AI code editor',
-    configFile: path.join('.trae', 'rules.md'),
-    template: 'ide-rules/trae-rules.md',
-    requiresDirectory: true,
-    format: 'text',
-    agentFolder: path.join('.trae', 'agents'),
-  },
-  'roo-code': {
-    name: 'Roo Code',
-    description: 'VS Code extension with mode-based AI assistance',
-    configFile: '.roo/rules.md',
-    template: 'ide-rules/roo-rules.md',
-    requiresDirectory: true,
-    format: 'text',
-    agentFolder: path.join('.roo', 'agents'),
-  },
-  cline: {
-    name: 'Cline',
-    description: 'VS Code AI coding assistant',
-    configFile: path.join('.cline', 'rules.md'),
-    template: 'ide-rules/cline-rules.md',
-    requiresDirectory: true,
-    format: 'text',
-    agentFolder: path.join('.cline', 'agents'),
-  },
   'gemini-cli': {
     name: 'Gemini CLI',
-    description: 'Google AI assistant for development',
+    description: '',
     configFile: path.join('.gemini', 'rules.md'),
     template: 'ide-rules/gemini-rules.md',
     requiresDirectory: true,
@@ -103,7 +73,7 @@ const IDE_CONFIGS = {
   },
   'github-copilot': {
     name: 'GitHub Copilot',
-    description: 'GitHub AI pair programmer',
+    description: '',
     configFile: path.join('.github', 'copilot-instructions.md'),
     template: 'ide-rules/copilot-rules.md',
     requiresDirectory: true,
@@ -112,19 +82,17 @@ const IDE_CONFIGS = {
   },
   antigravity: {
     name: 'AntiGravity',
-    description: 'Google agentic development platform',
+    description: '',
     configFile: path.join('.antigravity', 'rules.md'),
     template: 'ide-rules/antigravity-rules.md',
     requiresDirectory: true,
     format: 'text',
-    // AntiGravity uses .agent/workflows for agent activation (not .antigravity/agents)
     agentFolder: path.join('.agent', 'workflows'),
-    // Special config: needs antigravity.json and workflow files instead of direct agents
     specialConfig: {
       type: 'antigravity',
       configJsonPath: path.join('.antigravity', 'antigravity.json'),
       workflowsFolder: path.join('.agent', 'workflows'),
-      agentsFolder: path.join('.antigravity', 'agents'), // For reference in config, but workflows are used
+      agentsFolder: path.join('.antigravity', 'agents'),
     },
   },
 };
@@ -162,20 +130,20 @@ function isValidIDE(ideKey) {
 function getIDEChoices() {
   const { colors } = require('../utils/aios-colors');
 
-  return getIDEKeys().map(key => {
+  return getIDEKeys().map((key) => {
     const config = IDE_CONFIGS[key];
     const isRecommended = config.recommended === true;
 
-    // Format: "IDE Name - Description" with recommended highlight
+    // Simplified format: just "IDE Name" with optional (Recommended) tag
     let displayName = config.name;
     if (isRecommended) {
       displayName = colors.highlight(config.name) + colors.success(' (Recommended)');
     }
 
     return {
-      name: `${displayName} ${colors.dim('- ' + config.description)}`,
+      name: displayName,
       value: key,
-      checked: isRecommended, // Pre-select recommended IDEs
+      checked: isRecommended,
     };
   });
 }

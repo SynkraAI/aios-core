@@ -9,6 +9,21 @@
 
 const { colors } = require('../utils/aios-colors');
 const { createInquirerValidator, validateProjectType } = require('./validators');
+const { t, getLanguageChoices, setLanguage } = require('./i18n');
+
+/**
+ * Get language selection question (first question)
+ * @returns {Object} Inquirer question object
+ */
+function getLanguageQuestion() {
+  return {
+    type: 'list',
+    name: 'language',
+    message: '🌐 Language / Idioma / Idioma:',
+    choices: getLanguageChoices(),
+    default: 'en',
+  };
+}
 
 /**
  * Get project type question (Story 1.3)
@@ -189,6 +204,9 @@ function getExpansionPackQuestions() {
 function buildQuestionSequence(_context = {}) {
   const questions = [];
 
+  // Language selection (first question)
+  questions.push(getLanguageQuestion());
+
   // Story 1.2: Foundation (project type only)
   questions.push(getProjectTypeQuestion());
 
@@ -235,6 +253,7 @@ function getQuestionById(questionId) {
 }
 
 module.exports = {
+  getLanguageQuestion,
   getProjectTypeQuestion,
   getIDEQuestions,
   getMCPQuestions,
