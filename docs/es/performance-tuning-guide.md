@@ -6,6 +6,10 @@
 
 # Guía de Optimización de Rendimiento de Synkra AIOS
 
+> 🌐 [EN](../performance-tuning-guide.md) | [PT](../pt/performance-tuning-guide.md) | **ES**
+
+---
+
 ## Descripción General
 
 Esta guía completa proporciona estrategias, herramientas y mejores prácticas para optimizar el rendimiento de Synkra AIOS en todos los componentes críticos.

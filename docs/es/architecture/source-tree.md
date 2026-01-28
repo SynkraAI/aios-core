@@ -10,6 +10,10 @@
 
 # Estructura del Arbol de Codigo Fuente AIOS
 
+> 🌐 [EN](../../architecture/source-tree.md) | [PT](../../pt/architecture/source-tree.md) | **ES**
+
+---
+
 **Version:** 1.1
 **Ultima Actualizacion:** 2025-12-14
 **Estado:** OBSOLETO - Ver docs/framework/source-tree.md

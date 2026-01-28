@@ -6,6 +6,10 @@
 
 # Funcionalidad de Estado del Proyecto - Guía de Usuario
 
+> 🌐 [EN](../../guides/project-status-feature.md) | [PT](../../pt/guides/project-status-feature.md) | **ES**
+
+---
+
 **Funcionalidad:** Contexto Dinámico del Estado del Proyecto para Activación de Agentes
 **Versión:** 1.0
 **Story:** 6.1.2.4

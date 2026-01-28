@@ -6,6 +6,10 @@
 
 # Especificación de Nomenclatura de AIOS
 
+> 🌐 [EN](../aios-nomenclature-specification.md) | [PT](../pt/aios-nomenclature-specification.md) | **ES**
+
+---
+
 **Versión:** 1.0.0
 **Estado:** Borrador
 **Creado:** 2025-01-17

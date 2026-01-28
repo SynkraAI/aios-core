@@ -2,6 +2,10 @@
 
 # Guía AIOS para Roo Code
 
+> 🌐 [EN](../../platforms/roo-code.md) | [PT](../../pt/platforms/roo-code.md) | **ES**
+
+---
+
 > **Extensión de VS Code Basada en Modos** - Modos de Agente Especializados
 
 ---

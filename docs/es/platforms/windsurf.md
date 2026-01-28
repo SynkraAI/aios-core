@@ -2,6 +2,10 @@
 
 # Guía de AIOS para Windsurf
 
+> 🌐 [EN](../../platforms/windsurf.md) | [PT](../../pt/platforms/windsurf.md) | **ES**
+
+---
+
 > **Entorno de Desarrollo Impulsado por IA** - Innovación en Flujo Cascade
 
 ---

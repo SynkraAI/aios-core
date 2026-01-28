@@ -6,6 +6,10 @@
 
 # Guías de AIOS
 
+> 🌐 [EN](../../guides/README.md) | [PT](../../pt/guides/README.md) | **ES**
+
+---
+
 Índice completo de documentación para las guías del sistema AIOS.
 
 ---

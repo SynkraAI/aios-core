@@ -2,6 +2,10 @@
 
 # Arquitectura del Sistema de Módulos AIOS
 
+> 🌐 [EN](../../architecture/module-system.md) | [PT](../../pt/architecture/module-system.md) | **ES**
+
+---
+
 > Guía completa de la arquitectura modular v2.1 para Synkra AIOS.
 
 **Versión:** 2.1.0

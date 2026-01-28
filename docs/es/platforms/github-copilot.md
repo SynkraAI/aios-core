@@ -2,6 +2,10 @@
 
 # Guía de AIOS para GitHub Copilot
 
+> 🌐 [EN](../../platforms/github-copilot.md) | [PT](../../pt/platforms/github-copilot.md) | **ES**
+
+---
+
 > **El Asistente de Programación Emparejada de GitHub** - Integración Nativa con GitHub
 
 ---

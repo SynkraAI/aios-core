@@ -6,6 +6,10 @@
 
 # Estructura del Árbol de Código Fuente AIOS
 
+> 🌐 [EN](../../framework/source-tree.md) | [PT](../../pt/framework/source-tree.md) | **ES**
+
+---
+
 **Versión:** 2.0
 **Última Actualización:** 2025-12-15
 **Estado:** Estándar Oficial del Framework

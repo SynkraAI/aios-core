@@ -6,6 +6,10 @@
 
 # Primeros Pasos con Synkra AIOS
 
+> 🌐 [EN](../getting-started.md) | [PT](../pt/getting-started.md) | **ES**
+
+---
+
 Bienvenido a Synkra AIOS! Esta guia te llevara a traves de tus primeros pasos con el framework de desarrollo auto-modificable impulsado por IA.
 
 ## Tabla de Contenidos

@@ -6,6 +6,10 @@
 
 # Principios Rectores del Método AIOS
 
+> 🌐 [EN](../GUIDING-PRINCIPLES.md) | [PT](../pt/GUIDING-PRINCIPLES.md) | **ES**
+
+---
+
 El Método AIOS es un framework de lenguaje natural para el desarrollo de software asistido por IA. Estos principios aseguran que las contribuciones mantengan la efectividad del método.
 
 ## Principios Fundamentales

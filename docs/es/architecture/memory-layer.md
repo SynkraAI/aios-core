@@ -2,6 +2,10 @@
 
 # Documento de Arquitectura Fullstack de Capa de Memoria AIOS (MVP - Completo)
 
+> 🌐 [EN](../../architecture/memory-layer.md) | [PT](../../pt/architecture/memory-layer.md) | **ES**
+
+---
+
 ## Introducción
 
 Este documento representa la arquitectura completa para el MVP de la Capa de Memoria AIOS, un sistema de gestión de memoria completamente funcional construido sobre LlamaIndex con almacenamiento vectorial local. El MVP ha sido implementado y probado exitosamente, demostrando toda la funcionalidad principal de memoria con calidad lista para producción.

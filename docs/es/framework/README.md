@@ -6,6 +6,10 @@
 
 # Documentación del Framework AIOS
 
+> 🌐 [EN](../../framework/README.md) | [PT](../../pt/framework/README.md) | **ES**
+
+---
+
 **Estado:** Estándares Oficiales del Framework
 **Creado:** 2025-01-16 (Story 6.1.2.6)
 **Objetivo de Migración:** Q2 2026 → repositorio `SynkraAI/aios-core`

@@ -2,6 +2,10 @@
 
 # Guía de AIOS para Trae
 
+> 🌐 [EN](../../platforms/trae.md) | [PT](../../pt/platforms/trae.md) | **ES**
+
+---
+
 > **Editor de Código AI de ByteDance** - Desarrollo de Iteración Rápida
 
 ---

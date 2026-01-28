@@ -6,6 +6,10 @@
 
 # Guía de Solución de Problemas de Synkra AIOS
 
+> 🌐 [EN](../../installation/troubleshooting.md) | [PT](../../pt/installation/troubleshooting.md) | **ES**
+
+---
+
 **Versión:** 2.1.0
 **Última Actualización:** 2025-01-24
 

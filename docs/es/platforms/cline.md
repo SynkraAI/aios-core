@@ -2,6 +2,10 @@
 
 # Guía AIOS para Cline
 
+> 🌐 [EN](../../platforms/cline.md) | [PT](../../pt/platforms/cline.md) | **ES**
+
+---
+
 > **Asistente de Codificación IA de VS Code** - Integración Completa de VS Code
 
 ---

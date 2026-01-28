@@ -2,6 +2,10 @@
 
 # Guía de Integración de Utilidades
 
+> 🌐 [EN](../../architecture/utility-integration-guide.md) | [PT](../../pt/architecture/utility-integration-guide.md) | **ES**
+
+---
+
 **Versión:** 1.0.0
 **Creado:** 2025-10-29
 **Autores:** Sarah (@po), Winston (@architect)

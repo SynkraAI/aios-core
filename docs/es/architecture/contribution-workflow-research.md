@@ -2,6 +2,10 @@
 
 # Investigación de Flujo de Trabajo de Contribución Externa
 
+> 🌐 [EN](../../architecture/contribution-workflow-research.md) | [PT](../../pt/architecture/contribution-workflow-research.md) | **ES**
+
+---
+
 **Historia:** COLLAB-1
 **Fecha:** 2025-12-30
 **Autor:** @dev (Dex) + @devops (Gage)

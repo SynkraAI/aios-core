@@ -6,6 +6,10 @@
 
 # Guía del Sistema de Quality Gates de AIOS
 
+> 🌐 [EN](../../guides/quality-gates.md) | [PT](../../pt/guides/quality-gates.md) | **ES**
+
+---
+
 > Guía completa del sistema de quality gates de 3 capas para Synkra AIOS.
 
 **Versión:** 2.1.0

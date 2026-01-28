@@ -6,6 +6,10 @@
 
 # Cómo Publicar una Nueva Versión
 
+> 🌐 [EN](../versioning-and-releases.md) | [PT](../pt/versioning-and-releases.md) | **ES**
+
+---
+
 ## Publicaciones Automatizadas (Recomendado)
 
 La forma más fácil de publicar nuevas versiones es a través de **publicaciones semánticas automáticas**. Solo haga commit con el formato de mensaje correcto y haga push, y todo lo demás sucede automáticamente.

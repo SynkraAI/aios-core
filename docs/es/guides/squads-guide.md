@@ -6,6 +6,10 @@
 
 # Guia de Desarrollo de Squads
 
+> 🌐 [EN](../../guides/squads-guide.md) | [PT](../../pt/guides/squads-guide.md) | **ES**
+
+---
+
 Guia completa para crear, validar, publicar y gestionar Squads en AIOS.
 
 > **AIOS Squads:** Equipos de agentes de IA trabajando contigo

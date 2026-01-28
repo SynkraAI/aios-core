@@ -10,6 +10,10 @@
 
 # Stack Tecnologico AIOS
 
+> 🌐 [EN](../../architecture/tech-stack.md) | [PT](../../pt/architecture/tech-stack.md) | **ES**
+
+---
+
 **Version:** 1.1
 **Ultima Actualizacion:** 2025-12-14
 **Estado:** OBSOLETO - Ver docs/framework/tech-stack.md

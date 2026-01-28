@@ -6,6 +6,10 @@
 
 # Guía de Instalación y Solución de Problemas de AIOS-Core
 
+> 🌐 [EN](../../guides/installation-troubleshooting.md) | [PT](../../pt/guides/installation-troubleshooting.md) | **ES**
+
+---
+
 ## Inicio Rápido
 
 ```bash

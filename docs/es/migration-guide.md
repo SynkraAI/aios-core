@@ -6,6 +6,10 @@
 
 # Guia de Actualizacion de Synkra AIOS
 
+> 🌐 [EN](../migration-guide.md) | [PT](../pt/migration-guide.md) | **ES**
+
+---
+
 Esta guia te ayuda a actualizar entre versiones de Synkra AIOS.
 
 ## Tabla de Contenidos

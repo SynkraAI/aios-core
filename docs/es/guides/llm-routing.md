@@ -6,6 +6,10 @@
 
 # Guia de Enrutamiento de LLM
 
+> 🌐 [EN](../../guides/llm-routing.md) | [PT](../../pt/guides/llm-routing.md) | **ES**
+
+---
+
 **Version:** 1.0.0
 **Actualizado:** 2025-12-14
 

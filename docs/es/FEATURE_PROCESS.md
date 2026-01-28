@@ -6,6 +6,10 @@
 
 # Proceso de Solicitud de Características
 
+> 🌐 [EN](../FEATURE_PROCESS.md) | [PT](../pt/FEATURE_PROCESS.md) | **ES**
+
+---
+
 Este documento explica cómo proponer nuevas características para AIOS.
 
 ## Ideas Rápidas

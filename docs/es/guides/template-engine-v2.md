@@ -6,6 +6,10 @@
 
 # Motor de Plantillas v2.0
 
+> 🌐 [EN](../../guides/template-engine-v2.md) | [PT](../../pt/guides/template-engine-v2.md) | **ES**
+
+---
+
 > Motor de generación de documentos y sustitución de variables para Synkra AIOS.
 
 **Versión:** 2.0

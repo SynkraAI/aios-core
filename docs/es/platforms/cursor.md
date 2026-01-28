@@ -2,6 +2,10 @@
 
 # Guía de AIOS para Cursor
 
+> 🌐 [EN](../../platforms/cursor.md) | [PT](../../pt/platforms/cursor.md) | **ES**
+
+---
+
 > **Editor de Código Basado en IA** - IDE de IA Más Popular
 
 ---

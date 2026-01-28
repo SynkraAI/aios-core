@@ -10,6 +10,10 @@
 
 # Estandares de Codigo AIOS
 
+> 🌐 [EN](../../architecture/coding-standards.md) | [PT](../../pt/architecture/coding-standards.md) | **ES**
+
+---
+
 **Version:** 1.1
 **Ultima Actualizacion:** 2025-12-14
 **Estado:** OBSOLETO - Ver docs/framework/coding-standards.md

@@ -2,6 +2,10 @@
 
 # Registro de Cambios
 
+> 🌐 [EN](../CHANGELOG.md) | [PT](../pt/CHANGELOG.md) | **ES**
+
+---
+
 Todos los cambios notables en Synkra AIOS seran documentados en este archivo.
 
 El formato esta basado en [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),

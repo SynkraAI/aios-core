@@ -6,6 +6,10 @@
 
 # Documentación de Instalación de Synkra AIOS
 
+> 🌐 [EN](../../installation/README.md) | [PT](../../pt/installation/README.md) | **ES**
+
+---
+
 **Versión:** 2.1.0
 **Última Actualización:** 2025-01-24
 

@@ -2,6 +2,10 @@
 
 # Enfoque Recomendado: Sistema de Mejora de Squads
 
+> 🌐 [EN](../../architecture/squad-improvement-recommended-approach.md) | [PT](../../pt/architecture/squad-improvement-recommended-approach.md) | **ES**
+
+---
+
 **Generado:** 2025-12-26
 **Generado Por:** @architect (Aria)
 **Funcionalidad:** Analisis de Squads y Tareas de Mejora Continua

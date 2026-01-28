@@ -6,6 +6,10 @@
 
 # Variables de Entorno
 
+> 🌐 [EN](../ENVIRONMENT.md) | [PT](../pt/ENVIRONMENT.md) | **ES**
+
+---
+
 Este documento lista todas las variables de entorno utilizadas por Synkra AIOS y sus componentes.
 
 ## Descripción General

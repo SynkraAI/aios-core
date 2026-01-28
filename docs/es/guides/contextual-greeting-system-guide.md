@@ -6,6 +6,10 @@
 
 # Guía del Sistema de Saludo Contextual
 
+> 🌐 [EN](../../guides/contextual-greeting-system-guide.md) | [PT](../../pt/guides/contextual-greeting-system-guide.md) | **ES**
+
+---
+
 **Story:** 6.1.2.5 - Contextual Agent Load System
 **Estado:** Componentes Implementados, Integración Pendiente
 **Fecha:** 2025-01-15

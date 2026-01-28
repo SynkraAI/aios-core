@@ -2,6 +2,10 @@
 
 # Como Contribuir con Pull Requests
 
+> 🌐 [EN](../how-to-contribute-with-pull-requests.md) | [PT](../pt/how-to-contribute-with-pull-requests.md) | **ES**
+
+---
+
 **Nuevo en GitHub y en pull requests?** Esta guia te orientara a traves de los conceptos basicos paso a paso.
 
 ## Que es un Pull Request?
