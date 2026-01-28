@@ -31,6 +31,9 @@ const cursorTransformer = require('./transformers/cursor');
 const windsurfTransformer = require('./transformers/windsurf');
 const traeTransformer = require('./transformers/trae');
 const antigravityTransformer = require('./transformers/antigravity');
+const opencodeTransformer = require('./transformers/opencode');
+const { syncSkills } = require('./skill-converter');
+const { portRules } = require('./rule-porter');
 
 // ANSI colors for output
 const colors = {
@@ -82,6 +85,11 @@ function loadConfig(projectRoot) {
         path: '.antigravity/rules/agents',
         format: 'cursor-style',
       },
+      opencode: {
+        enabled: true,
+        path: '.opencode/agents',
+        format: 'markdown-frontmatter',
+      },
     },
     redirects: {
       'aios-developer': 'aios-master',
@@ -124,6 +132,7 @@ function getTransformer(format) {
     'xml-tagged-markdown': windsurfTransformer,
     'project-rules': traeTransformer,
     'cursor-style': antigravityTransformer,
+    'markdown-frontmatter': opencodeTransformer,
   };
 
   return transformers[format] || claudeCodeTransformer;
@@ -261,6 +270,42 @@ async function commandSync(options) {
 
     const result = syncIde(agents, ideConfig, ideName, projectRoot, options);
     results.push(result);
+
+    // If OpenCode, also sync skills and port rules
+    if (ideName === 'opencode') {
+      if (!options.quiet) {
+        console.log(`${colors.cyan}⚡ Syncing OpenCode Skills...${colors.reset}`);
+      }
+      const skillResult = await syncSkills(projectRoot, options);
+      if (skillResult.success) {
+        if (!options.quiet) {
+          console.log(`   ${colors.green}✓${colors.reset} ${skillResult.synced.length} skills synced`);
+        }
+      }
+
+      if (!options.quiet) {
+        console.log(`${colors.cyan}⚡ Porting Framework Rules to OpenCode...${colors.reset}`);
+      }
+      const ruleResult = await portRules(projectRoot, options);
+      if (ruleResult.success) {
+        if (!options.quiet) {
+          console.log(`   ${colors.green}✓${colors.reset} ${ruleResult.ported.length} rules ported and translated`);
+        }
+      }
+    }
+      const skillResult = await syncSkills(projectRoot, options);
+      if (skillResult.success) {
+        if (!options.quiet) {
+          console.log(
+            `   ${colors.green}✓${colors.reset} ${skillResult.synced.length} skills synced`
+          );
+        }
+      } else {
+        console.error(
+          `   ${colors.red}✗ Error syncing skills: ${skillResult.error}${colors.reset}`
+        );
+      }
+    }
 
     // Generate redirects for this IDE
     const redirects = generateAllRedirects(config.redirects, result.targetDir, ideConfig.format);

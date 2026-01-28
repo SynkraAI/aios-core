@@ -70,6 +70,17 @@ const IDE_CONFIGS = {
     format: 'text',
     agentFolder: path.join('.github', 'agents'),
   },
+  opencode: {
+    name: 'OpenCode',
+    description: 'Open source AI coding agent',
+    configFile: 'AGENTS.md',
+    template: 'ide-rules/opencode-rules.md',
+    requiresDirectory: false,
+    format: 'text',
+    agentFolder: path.join('.opencode', 'agents'),
+    skillFolder: path.join('.opencode', 'skills'),
+    rulesFolder: path.join('.opencode', 'rules'),
+  },
   antigravity: {
     name: 'AntiGravity',
     description: '',
