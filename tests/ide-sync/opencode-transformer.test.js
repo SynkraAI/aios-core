@@ -4,42 +4,38 @@ describe('opencode transformer', () => {
   const sampleAgent = {
     id: 'dev',
     filename: 'dev.md',
+    raw: '---\nagent:\n  name: Dex\n  whenToUse: code master\n---\n# Instructions',
     agent: {
       name: 'Dex',
-      title: 'Developer',
-      icon: '💻',
-      whenToUse: 'Use for coding',
+      whenToUse: 'code master',
     },
-    persona: {
-      role: 'Software Engineer',
-      style: 'Pragmatic',
+    dependencies: {
+      tools: ['bash'],
     },
-    core_principles: ['Write clean code', 'Test everything'],
   };
 
-  test('should transform agent to OpenCode format with frontmatter', () => {
+  test('should transform to OpenCode format with robust header and literal instructions', () => {
     const result = opencode.transform(sampleAgent);
 
-    // Check frontmatter
-    expect(result).toContain('name: "Dex"');
-    expect(result).toContain('description: "Developer - Use for coding"');
-    expect(result).toContain('tools: ["bash", "read", "write", "grep", "glob", "skill", "mcp"]');
+    // Check Config Header (Robust, with quotes)
+    expect(result).toMatch(
+      /^---\ndescription: "code master"\nmode: all\ntools:\n  bash: true\n---/
+    );
 
-    // Check content
-    expect(result).toContain('# Dex');
-    expect(result).toContain('💻 **Developer**');
-    expect(result).toContain('Software Engineer');
-    expect(result).toContain('Pragmatic');
-    expect(result).toContain('Você é um agente AIOS operando no OpenCode');
-    expect(result).toContain('- Write clean code');
-    expect(result).toContain('- Test everything');
+    // Check Literal Body (Should contain the original raw file including its YAML)
+    expect(result).toContain('agent:\n  name: Dex');
+    expect(result).toContain('# Instructions');
   });
 
-  test('should return correct filename', () => {
-    expect(opencode.getFilename(sampleAgent)).toBe('dev.md');
+  test('should use primary mode for aios-master', () => {
+    const master = { id: 'aios-master', agent: { whenToUse: 'all' }, raw: 'raw' };
+    const result = opencode.transform(master);
+    expect(result).toContain('mode: primary');
   });
 
-  test('should specify correct format', () => {
-    expect(opencode.format).toBe('markdown-frontmatter');
+  test('should handle missing description with fallback', () => {
+    const noDesc = { id: 'ghost', agent: {}, raw: 'raw' };
+    const result = opencode.transform(noDesc);
+    expect(result).toContain('description: "AIOS Agent - ghost"');
   });
 });

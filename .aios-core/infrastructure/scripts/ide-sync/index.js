@@ -34,6 +34,7 @@ const antigravityTransformer = require('./transformers/antigravity');
 const opencodeTransformer = require('./transformers/opencode');
 const { syncSkills } = require('./skill-converter');
 const { portRules } = require('./rule-porter');
+const { generateAgentsMd } = require('./agents-index-generator');
 
 // ANSI colors for output
 const colors = {
@@ -279,7 +280,9 @@ async function commandSync(options) {
       const skillResult = await syncSkills(projectRoot, options);
       if (skillResult.success) {
         if (!options.quiet) {
-          console.log(`   ${colors.green}✓${colors.reset} ${skillResult.synced.length} skills synced`);
+          console.log(
+            `   ${colors.green}✓${colors.reset} ${skillResult.synced.length} skills synced`
+          );
         }
       }
 
@@ -289,21 +292,22 @@ async function commandSync(options) {
       const ruleResult = await portRules(projectRoot, options);
       if (ruleResult.success) {
         if (!options.quiet) {
-          console.log(`   ${colors.green}✓${colors.reset} ${ruleResult.ported.length} rules ported and translated`);
-        }
-      }
-    }
-      const skillResult = await syncSkills(projectRoot, options);
-      if (skillResult.success) {
-        if (!options.quiet) {
           console.log(
-            `   ${colors.green}✓${colors.reset} ${skillResult.synced.length} skills synced`
+            `   ${colors.green}✓${colors.reset} ${ruleResult.ported.length} rules ported and translated`
           );
         }
-      } else {
-        console.error(
-          `   ${colors.red}✗ Error syncing skills: ${skillResult.error}${colors.reset}`
-        );
+      }
+
+      if (!options.quiet) {
+        console.log(`${colors.cyan}⚡ Generating AGENTS.md Index...${colors.reset}`);
+      }
+      const agentsMdResult = await generateAgentsMd(projectRoot, agents, options);
+      if (agentsMdResult) {
+        if (!options.quiet) {
+          console.log(
+            `   ${colors.green}✓${colors.reset} AGENTS.md updated with ${agentsMdResult.agentCount} agents`
+          );
+        }
       }
     }
 

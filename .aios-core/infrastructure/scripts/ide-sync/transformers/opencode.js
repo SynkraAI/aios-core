@@ -1,7 +1,10 @@
+const claudeTransformer = require('./claude-code');
+const { translateContent } = require('../rule-porter');
+
 /**
- * OpenCode Transformer - Standard Markdown with Frontmatter
+ * OpenCode Transformer - Structural Adaptation with Literal Body
  *
- * Format: Markdown file with specific Frontmatter for OpenCode
+ * Format: OpenCode Frontmatter (Config) + Literal AIOS Content (Instructions)
  * Target: .opencode/agents/*.md
  */
 
@@ -12,39 +15,47 @@
  */
 function transform(agentData) {
   const agent = agentData.agent || {};
-  const persona = agentData.persona || {};
   const id = agentData.id || 'agent';
 
-  // OpenCode Frontmatter
-  let content = `---
-name: "${agent.name || id}"
-description: "${agent.title || ''} - ${(agent.whenToUse || '').replace(/"/g, '\\"')}"
-model: "anthropic/claude-3-5-sonnet-latest"
-tools: ["bash", "read", "write", "grep", "glob", "skill", "mcp"]
----
+  // 1. OpenCode Frontmatter (Configuration only)
+  let description = agent.whenToUse || agent.description || agent.title || '';
 
-# ${agent.name || id}
+  // Strict mode: aios-master is the entry point (primary), others are specialized helpers (subagent)
+  const mode = id === 'aios-master' ? 'primary' : 'subagent';
 
-${agent.icon || '🤖'} **${agent.title || 'AIOS Agent'}**
+  let toolsStr = 'tools:\n  skill: true\n'; // Always enable skill tool for AIOS commands (*)
+  if (
+    agentData.dependencies &&
+    agentData.dependencies.tools &&
+    agentData.dependencies.tools.length > 0
+  ) {
+    for (const tool of agentData.dependencies.tools) {
+      if (tool !== 'skill') {
+        // Avoid duplication
+        toolsStr += `  ${tool}: true\n`;
+      }
+    }
+  }
 
-## Persona
-${persona.role || 'Expert assistant'}
+  // Header with quotes for safety (robust format)
+  let output = `---\n`;
+  if (description) {
+    output += `description: "${description.replace(/"/g, '\\"')}"\n`;
+  } else {
+    output += `description: "AIOS Agent - ${id}"\n`;
+  }
+  output += `mode: ${mode}\n`;
+  if (toolsStr) output += toolsStr;
+  output += `---\n\n`;
 
-**Style:** ${persona.style || 'Concise and pragmatic'}
+  // 2. Instructions (Inherited from Claude Code + Translated)
+  // Instead of inventing content, we take exactly what Claude Code uses and translate it
+  const claudeContent = claudeTransformer.transform(agentData);
+  const translatedBody = translateContent(claudeContent);
 
-## Instructions
-Você é um agente AIOS operando no OpenCode.
-Você reconhece comandos prefixados com \`*\`. Estes comandos são chamados 'Skills'.
-Ao receber um comando \`*<nome>\`, você DEVE utilizar a ferramenta \`skill\` nativa do OpenCode com o argumento \`<nome>\` para carregar o workflow correspondente.
+  output += translatedBody;
 
-### Core Principles
-${(agentData.core_principles || []).map((p) => `- ${p}`).join('\n')}
-
----
-*AIOS Agent - Synced from .aios-core/development/agents/${agentData.filename}*
-`;
-
-  return content;
+  return output;
 }
 
 /**
@@ -59,5 +70,5 @@ function getFilename(agentData) {
 module.exports = {
   transform,
   getFilename,
-  format: 'markdown-frontmatter',
+  format: 'full-markdown-yaml',
 };

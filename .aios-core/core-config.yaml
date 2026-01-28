@@ -11,8 +11,8 @@ markdownExploder: true
 
 project:
   type: EXISTING_AIOS
-  installedAt: "2025-01-14T00:00:00Z"
-  version: "2.1.0"
+  installedAt: '2025-01-14T00:00:00Z'
+  version: '2.1.0'
 
 # ============================================
 # SECTION 2: Documentation Paths
@@ -25,7 +25,7 @@ prd:
   prdVersion: v4
   prdSharded: true
   prdShardedLocation: docs/prd
-  epicFilePattern: "epic-{n}*.md"
+  epicFilePattern: 'epic-{n}*.md'
 
 architecture:
   architectureFile: docs/architecture.md
@@ -110,11 +110,11 @@ mcp:
     # Gateway Configuration - HTTP Transport (fixes 30s timeout issue)
     # IMPORTANT: Use HTTP, NOT stdio - gateway must be pre-started as service
     gateway:
-      transport: http  # HTTP/SSE transport for persistent service
-      url: "http://localhost:8080/mcp"
+      transport: http # HTTP/SSE transport for persistent service
+      url: 'http://localhost:8080/mcp'
       port: 8080
       watch: true
-      service_file: ".docker/mcp/gateway-service.yml"
+      service_file: '.docker/mcp/gateway-service.yml'
 
     # AIOS Default Presets
     # minimal: No API keys required (default for new installations)
@@ -122,63 +122,63 @@ mcp:
     presets:
       minimal:
         servers: [context7, desktop-commander, playwright]
-        description: "Core MCPs - no API keys required"
+        description: 'Core MCPs - no API keys required'
         api_keys_required: false
-        estimated_tokens: "10-15k"
+        estimated_tokens: '10-15k'
 
       full:
         servers: [context7, desktop-commander, playwright, exa]
-        description: "All MCPs - requires EXA_API_KEY for exa"
+        description: 'All MCPs - requires EXA_API_KEY for exa'
         api_keys_required: true
-        estimated_tokens: "20-25k"
+        estimated_tokens: '20-25k'
 
-    defaultPreset: minimal  # No API keys needed for quick start
+    defaultPreset: minimal # No API keys needed for quick start
 
     # Default MCPs for AIOS Installation
     defaultServers:
       - name: context7
-        description: "Up-to-date library documentation for LLMs"
+        description: 'Up-to-date library documentation for LLMs'
         config: {}
         required: true
         api_key_required: false
 
       - name: desktop-commander
-        description: "File management, terminal commands, and system operations"
+        description: 'File management, terminal commands, and system operations'
         config:
           paths:
-            - "${USER_HOME}"  # Resolves to user's home directory
+            - '${USER_HOME}' # Resolves to user's home directory
         required: true
         api_key_required: false
 
       - name: playwright
-        description: "Browser automation for testing and web interaction"
+        description: 'Browser automation for testing and web interaction'
         config: {}
         required: true
         api_key_required: false
 
       - name: exa
-        description: "AI-powered web search and content extraction"
+        description: 'AI-powered web search and content extraction'
         config:
           apiKeys:
-            EXA_API_KEY: "${EXA_API_KEY}"
-        required: false  # Only in 'full' preset
+            EXA_API_KEY: '${EXA_API_KEY}'
+        required: false # Only in 'full' preset
         api_key_required: true
 
     # Commands reference
     commands:
       # Gateway management
-      start_gateway: "docker compose -f .docker/mcp/gateway-service.yml up -d"
-      stop_gateway: "docker compose -f .docker/mcp/gateway-service.yml down"
-      gateway_health: "curl http://localhost:8080/health"
+      start_gateway: 'docker compose -f .docker/mcp/gateway-service.yml up -d'
+      stop_gateway: 'docker compose -f .docker/mcp/gateway-service.yml down'
+      gateway_health: 'curl http://localhost:8080/health'
 
       # Server management
-      list_servers: "docker mcp server ls"
-      enable_server: "docker mcp server enable {name}"
-      disable_server: "docker mcp server disable {name}"
+      list_servers: 'docker mcp server ls'
+      enable_server: 'docker mcp server enable {name}'
+      disable_server: 'docker mcp server disable {name}'
 
       # Configuration
-      read_config: "docker mcp config read"
-      write_config: "docker mcp config write"
+      read_config: 'docker mcp config read'
+      write_config: 'docker mcp config write'
 
     # Troubleshooting reference
     troubleshooting:
@@ -254,7 +254,7 @@ agentIdentity:
 # ============================================
 github:
   enabled: true
-  cli_required: false  # gh CLI enhances but not required
+  cli_required: false # gh CLI enhances but not required
   features:
     pr_creation: true
     issue_management: true
@@ -269,7 +269,7 @@ github:
     #   Example: "[Story 6.17] Implement OAuth Login"
     # - "branch-based": Converts branch name to title
     #   Example: "Feature User Auth"
-    title_format: conventional  # Options: conventional | story-first | branch-based
+    title_format: conventional # Options: conventional | story-first | branch-based
 
     # Include story ID in PR title when available
     include_story_id: true
@@ -306,7 +306,7 @@ github:
   # Semantic Release Integration (Story 6.17)
   # When enabled, PR titles follow Conventional Commits for automatic releases
   semantic_release:
-    enabled: true  # Set to false if project doesn't use semantic-release
+    enabled: true # Set to false if project doesn't use semantic-release
     # Release types triggered by commit prefixes:
     # - feat: → Minor release (2.3.0 → 2.4.0)
     # - fix: → Patch release (2.3.0 → 2.3.1)
@@ -318,7 +318,7 @@ github:
 # MASTER TOGGLE: When enabled=false, ALL CodeRabbit behavior is disabled
 # ============================================
 coderabbit_integration:
-  enabled: true  # CodeRabbit CLI installed on this machine
+  enabled: true # CodeRabbit CLI installed on this machine
   installation_mode: wsl
   wsl_config:
     distribution: Ubuntu
@@ -334,15 +334,15 @@ coderabbit_integration:
 
   # Severity handling by agent type
   severity_handling:
-    CRITICAL: auto_fix        # Block and auto-fix (must resolve)
-    HIGH: auto_fix            # Auto-fix (recommend fix)
-    MEDIUM: document_as_debt  # Create tech debt issue
-    LOW: ignore               # Note in review, no action
+    CRITICAL: auto_fix # Block and auto-fix (must resolve)
+    HIGH: auto_fix # Auto-fix (recommend fix)
+    MEDIUM: document_as_debt # Create tech debt issue
+    LOW: ignore # Note in review, no action
 
   # Graceful degradation for machines without CodeRabbit
   graceful_degradation:
     skip_if_not_installed: true
-    fallback_message: "CodeRabbit CLI not found. Skipping automated review. Install via: pip install coderabbit-cli"
+    fallback_message: 'CodeRabbit CLI not found. Skipping automated review. Install via: pip install coderabbit-cli'
 
   # CLI commands (WSL wrapper for Windows)
   commands:
@@ -386,7 +386,7 @@ utils:
     - batch-creator
     - capability-analyzer
     - change-propagation-predictor
-    - clickup-helpers  # Located at common/utils/clickup-helpers.js
+    - clickup-helpers # Located at common/utils/clickup-helpers.js
     - code-quality-improver
     - compatibility-checker
     - component-metadata
@@ -438,7 +438,7 @@ utils:
     - elicitation-engine
     - elicitation-session-manager
     - improvement-engine
-    - improvement-validator  # Mapped from util-aios-validator
+    - improvement-validator # Mapped from util-aios-validator
     - metrics-tracker
     - pattern-learner
     - template-engine
@@ -477,6 +477,10 @@ ideSync:
       enabled: true
       path: .antigravity/rules/agents
       format: cursor-style
+    opencode:
+      enabled: true
+      path: .opencode/agents
+      format: markdown-frontmatter
 
   # Redirects disabled - deprecated agents removed from repository
   # Users should use the current agent names directly

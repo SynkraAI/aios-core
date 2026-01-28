@@ -1,11 +1,6 @@
-# AGENTS.md - {{projectName}}
+# Synkra AIOS Development Rules for Opencode
 
 You are working with Synkra AIOS, an AI-Orchestrated System for Full Stack Development. This file defines the master guidelines for your operation in this project via OpenCode.
-
-## 🎯 Project Context
-
-**Installation Mode:** {{projectType}}
-{{projectContext}}
 
 ## Core Framework Understanding
 
