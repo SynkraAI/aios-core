@@ -39,27 +39,25 @@ customTechnicalDocuments: null
 # Prefer docs/framework/ for portable framework standards
 # docs/architecture/ contains project-specific analysis and decisions
 devLoadAlwaysFiles:
-  - docs/framework/coding-standards.md
-  - docs/framework/tech-stack.md
-  - docs/framework/source-tree.md
+  - docs/en/framework/coding-standards.md
+  - docs/en/framework/tech-stack.md
+  - docs/en/framework/source-tree.md
 
 # Fallback patterns for backward compatibility and alternative naming
 # These will be tried if the primary files above are not found
 devLoadAlwaysFilesFallback:
-  # Backward compatibility - old architecture location (deprecated)
-  - docs/architecture/coding-standards.md
-  - docs/architecture/tech-stack.md
-  - docs/architecture/source-tree.md
-  # Portuguese variants
-  - docs/architecture/padroes-de-codigo.md
-  - docs/architecture/pilha-tecnologica.md
-  - docs/architecture/arvore-de-origem.md
-  # Alternative English names
-  - docs/architecture/code-standards.md
-  - docs/architecture/technology-stack.md
-  - docs/architecture/project-structure.md
-  - docs/architecture/unified-project-structure.md
-  - docs/architecture/directory-structure.md
+  # Portuguese docs
+  - docs/pt-BR/framework/coding-standards.md
+  - docs/pt-BR/framework/tech-stack.md
+  - docs/pt-BR/framework/source-tree.md
+  # Spanish docs
+  - docs/es/framework/coding-standards.md
+  - docs/es/framework/tech-stack.md
+  - docs/es/framework/source-tree.md
+  # Legacy architecture location (deprecated)
+  - docs/en/architecture/coding-standards.md
+  - docs/en/architecture/tech-stack.md
+  - docs/en/architecture/source-tree.md
 
 devDebugLog: .ai/debug-log.md
 devStoryLocation: docs/stories
