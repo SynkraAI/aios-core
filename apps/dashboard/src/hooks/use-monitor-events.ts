@@ -34,8 +34,6 @@ export function useMonitorEvents() {
     setEvents,
   } = useMonitorStore();
 
-  const connectRef = useRef<() => void>();
-
   const connect = useCallback(() => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
       return;
@@ -88,9 +86,7 @@ export function useMonitorEvents() {
           console.log(
             `[Monitor] Reconnecting in ${RECONNECT_INTERVAL}ms (attempt ${reconnectAttemptsRef.current}/${MAX_RECONNECT_ATTEMPTS})`
           );
-          reconnectTimeoutRef.current = setTimeout(() => {
-            connectRef.current?.();
-          }, RECONNECT_INTERVAL);
+          reconnectTimeoutRef.current = setTimeout(connect, RECONNECT_INTERVAL);
         } else {
           setError('Connection lost. Max reconnect attempts reached.');
         }
@@ -103,11 +99,6 @@ export function useMonitorEvents() {
       setError('Failed to connect');
     }
   }, [setConnected, setConnecting, setError, addEvent, setEvents]);
-
-  // Keep connectRef in sync
-  useEffect(() => {
-    connectRef.current = connect;
-  }, [connect]);
 
   const disconnect = useCallback(() => {
     if (reconnectTimeoutRef.current) {
