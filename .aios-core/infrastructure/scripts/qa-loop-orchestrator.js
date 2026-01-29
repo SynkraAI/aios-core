@@ -54,10 +54,6 @@ const CONFIG = {
   // Retry configuration
   maxRetries: 2,
   retryDelay: 5000,
-
-  // Session persistence (AC4 enhancement)
-  abandonedThreshold: 3600000, // 1 hour - consider loop abandoned if no update
-  persistenceIndexPath: '.aios/qa-loops-index.json', // Track all active loops
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════════
@@ -196,104 +192,6 @@ class QALoopOrchestrator {
   }
 
   /**
-   * Check if loop was abandoned (no update for CONFIG.abandonedThreshold)
-   * @returns {boolean} True if abandoned
-   */
-  isAbandoned() {
-    if (!this.status) {
-      this.loadStatus();
-    }
-
-    if (!this.status || this.status.status !== LoopStatus.IN_PROGRESS) {
-      return false;
-    }
-
-    const lastUpdate = new Date(this.status.updatedAt).getTime();
-    const now = Date.now();
-    return now - lastUpdate > CONFIG.abandonedThreshold;
-  }
-
-  /**
-   * Recover from abandoned state
-   * @returns {Object} Updated status
-   */
-  recoverFromAbandoned() {
-    if (!this.status) {
-      throw new Error('No status to recover');
-    }
-
-    this._log(`\n⚠️  Detected abandoned QA loop for ${this.storyId}`);
-    this._log(`   Last update: ${this.status.updatedAt}`);
-    this._log(`   Recovering...`);
-
-    // Mark as interrupted and save
-    this.status.wasAbandoned = true;
-    this.status.recoveredAt = new Date().toISOString();
-
-    // Add recovery note to history
-    if (this.status.history.length > 0) {
-      const lastEntry = this.status.history[this.status.history.length - 1];
-      if (!lastEntry.fixedAt) {
-        lastEntry.interruptedAt = this.status.recoveredAt;
-        lastEntry.interruptReason = 'Session ended unexpectedly';
-      }
-    }
-
-    this.saveStatus();
-    this._updateLoopsIndex();
-
-    return this.status;
-  }
-
-  /**
-   * Update the global loops index for cross-session tracking
-   * @private
-   */
-  _updateLoopsIndex() {
-    const indexPath = path.join(this.rootPath, CONFIG.persistenceIndexPath);
-    let index = { version: '1.0', loops: {}, updatedAt: null };
-
-    // Load existing index
-    if (fs.existsSync(indexPath)) {
-      try {
-        index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-      } catch {
-        // Reset if corrupted
-        index = { version: '1.0', loops: {}, updatedAt: null };
-      }
-    }
-
-    // Update this loop's entry
-    index.loops[this.storyId] = {
-      status: this.status.status,
-      currentIteration: this.status.currentIteration,
-      maxIterations: this.status.maxIterations,
-      statusPath: this.statusPath,
-      updatedAt: this.status.updatedAt,
-      wasAbandoned: this.status.wasAbandoned || false,
-    };
-
-    // Clean up completed/old loops (keep last 50)
-    const loopEntries = Object.entries(index.loops);
-    if (loopEntries.length > 50) {
-      const sorted = loopEntries.sort(
-        (a, b) => new Date(b[1].updatedAt) - new Date(a[1].updatedAt)
-      );
-      index.loops = Object.fromEntries(sorted.slice(0, 50));
-    }
-
-    index.updatedAt = new Date().toISOString();
-
-    // Ensure directory exists
-    const dir = path.dirname(indexPath);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-
-    fs.writeFileSync(indexPath, JSON.stringify(index, null, 2), 'utf-8');
-  }
-
-  /**
    * Save loop status to file
    * @returns {string} Path to saved file
    */
@@ -405,23 +303,16 @@ class QALoopOrchestrator {
     this._log(`Max Iterations: ${this.maxIterations}`);
     this._log('');
 
-    // Initialize or load status with abandoned detection
+    // Initialize or load status
     const existingStatus = this.loadStatus();
     if (existingStatus && existingStatus.status === LoopStatus.IN_PROGRESS) {
-      // Check if abandoned (AC4 enhancement - session persistence)
-      if (this.isAbandoned()) {
-        this.recoverFromAbandoned();
-        this._log('⚠️  Recovered from abandoned session, resuming...');
-      } else {
-        this._log('⚠️  Resuming existing loop...');
-      }
+      this._log('⚠️  Resuming existing loop...');
     } else {
       this._initStatus();
     }
 
     this.status.status = LoopStatus.IN_PROGRESS;
     this.saveStatus();
-    this._updateLoopsIndex();
 
     try {
       // AC1: Loop until approved, max iterations, or stopped
@@ -972,65 +863,6 @@ async function resumeLoop(storyId, options = {}) {
   return orchestrator.resume();
 }
 
-/**
- * List all tracked QA loops (AC4 enhancement - session persistence)
- * @param {Object} options - Options
- * @param {string} [options.rootPath] - Project root path
- * @param {string} [options.filter] - Filter by status: 'active', 'abandoned', 'all'
- * @returns {Object} Loops index with filtered results
- */
-function listLoops(options = {}) {
-  const rootPath = options.rootPath || process.cwd();
-  const filter = options.filter || 'all';
-  const indexPath = path.join(rootPath, CONFIG.persistenceIndexPath);
-
-  if (!fs.existsSync(indexPath)) {
-    return { version: '1.0', loops: {}, count: 0, filtered: filter };
-  }
-
-  try {
-    const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    let loops = index.loops;
-
-    // Apply filter
-    if (filter === 'active') {
-      loops = Object.fromEntries(
-        Object.entries(loops).filter(([, v]) => v.status === LoopStatus.IN_PROGRESS)
-      );
-    } else if (filter === 'abandoned') {
-      const now = Date.now();
-      loops = Object.fromEntries(
-        Object.entries(loops).filter(([, v]) => {
-          if (v.status !== LoopStatus.IN_PROGRESS) return false;
-          const lastUpdate = new Date(v.updatedAt).getTime();
-          return now - lastUpdate > CONFIG.abandonedThreshold;
-        })
-      );
-    }
-
-    return {
-      version: index.version,
-      loops,
-      count: Object.keys(loops).length,
-      filtered: filter,
-      updatedAt: index.updatedAt,
-    };
-  } catch (error) {
-    console.error(`Error loading loops index: ${error.message}`);
-    return { version: '1.0', loops: {}, count: 0, filtered: filter, error: error.message };
-  }
-}
-
-/**
- * Check for and report abandoned loops
- * @param {Object} options - Options
- * @returns {Array} List of abandoned loop story IDs
- */
-function checkAbandonedLoops(options = {}) {
-  const result = listLoops({ ...options, filter: 'abandoned' });
-  return Object.keys(result.loops);
-}
-
 // ═══════════════════════════════════════════════════════════════════════════════════
 //                              CLI INTERFACE
 // ═══════════════════════════════════════════════════════════════════════════════════
@@ -1051,8 +883,6 @@ Commands:
   escalate        Force escalation to human (AC3)
   reset           Reset loop and start fresh
   summary         Show iteration summary (AC6)
-  list            List all tracked loops (--filter=active|abandoned|all)
-  check-abandoned Check for abandoned loops and report
 
 Options:
   --max-iterations <n>   Set max iterations (default: 5) (AC2)
@@ -1183,46 +1013,6 @@ async function main() {
         console.log(orchestrator.generateSummary());
         break;
 
-      case 'list': {
-        // Parse filter option
-        let filter = 'all';
-        const filterArg = args.find((a) => a.startsWith('--filter='));
-        if (filterArg) {
-          filter = filterArg.split('=')[1];
-        }
-        const listResult = listLoops({ filter });
-        console.log('\n📋 QA Loops Index');
-        console.log('─'.repeat(60));
-        console.log(`Filter: ${listResult.filtered} | Count: ${listResult.count}`);
-        console.log('');
-        for (const [id, loop] of Object.entries(listResult.loops)) {
-          const emoji = StatusEmoji[loop.status] || '❓';
-          const abandoned = loop.wasAbandoned ? ' (recovered)' : '';
-          console.log(
-            `  ${emoji} ${id}: ${loop.status} - ${loop.currentIteration}/${loop.maxIterations}${abandoned}`
-          );
-        }
-        if (listResult.count === 0) {
-          console.log('  No loops found');
-        }
-        console.log('');
-        break;
-      }
-
-      case 'check-abandoned': {
-        const abandoned = checkAbandonedLoops();
-        if (abandoned.length === 0) {
-          console.log('✅ No abandoned loops found');
-        } else {
-          console.log(`\n⚠️  Found ${abandoned.length} abandoned loop(s):`);
-          for (const id of abandoned) {
-            console.log(`   - ${id}`);
-          }
-          console.log('\nUse "resume <story-id>" to recover');
-        }
-        break;
-      }
-
       default:
         console.error(`Unknown command: ${command}`);
         printHelp();
@@ -1249,9 +1039,6 @@ module.exports = {
   startLoop,
   stopLoop,
   resumeLoop,
-  // Session persistence helpers (AC4 enhancement)
-  listLoops,
-  checkAbandonedLoops,
   // Config for external use
   CONFIG,
 };
