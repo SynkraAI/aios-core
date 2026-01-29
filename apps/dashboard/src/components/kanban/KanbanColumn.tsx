@@ -11,15 +11,15 @@ import { iconMap, type IconName } from '@/lib/icons';
 import { KANBAN_COLUMNS, type Story, type StoryStatus } from '@/types';
 import { SortableStoryCard } from './SortableStoryCard';
 
-// Column color styles
-const COLUMN_COLORS: Record<string, string> = {
-  gray: 'border-t-gray-500',
-  blue: 'border-t-blue-500',
-  purple: 'border-t-purple-500',
-  yellow: 'border-t-yellow-500',
-  cyan: 'border-t-cyan-500',
-  green: 'border-t-green-500',
-  red: 'border-t-red-500',
+// Column color styles - refined with left accent
+const COLUMN_COLORS: Record<string, { border: string; text: string; bg: string }> = {
+  gray: { border: 'border-l-[#6B6B5F]', text: 'text-[#6B6B5F]', bg: 'bg-[rgba(107,107,95,0.05)]' },
+  blue: { border: 'border-l-[#60A5FA]', text: 'text-[#60A5FA]', bg: 'bg-[rgba(96,165,250,0.05)]' },
+  purple: { border: 'border-l-[#A78BFA]', text: 'text-[#A78BFA]', bg: 'bg-[rgba(167,139,250,0.05)]' },
+  yellow: { border: 'border-l-[#FBBF24]', text: 'text-[#FBBF24]', bg: 'bg-[rgba(251,191,36,0.05)]' },
+  cyan: { border: 'border-l-[#22D3EE]', text: 'text-[#22D3EE]', bg: 'bg-[rgba(34,211,238,0.05)]' },
+  green: { border: 'border-l-[#4ADE80]', text: 'text-[#4ADE80]', bg: 'bg-[rgba(74,222,128,0.05)]' },
+  red: { border: 'border-l-[#F87171]', text: 'text-[#F87171]', bg: 'bg-[rgba(248,113,113,0.05)]' },
 };
 
 interface KanbanColumnProps {
@@ -46,27 +46,33 @@ export function KanbanColumn({
   const column = KANBAN_COLUMNS.find((c) => c.id === status);
   if (!column) return null;
 
+  const colorStyle = COLUMN_COLORS[column.color] || COLUMN_COLORS.gray;
+
   return (
     <div
       className={cn(
-        'flex flex-col min-w-[280px] max-w-[320px] bg-muted/30 rounded-lg border border-border',
-        'border-t-4',
-        COLUMN_COLORS[column.color] || 'border-t-gray-500',
-        isOver && 'ring-2 ring-primary/50'
+        'flex flex-col min-w-[280px] max-w-[320px] bg-[#0a0a0a]',
+        'border border-[rgba(255,255,255,0.04)] border-l-2',
+        colorStyle.border,
+        'transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
+        isOver && 'border-[rgba(201,178,152,0.3)] bg-[rgba(201,178,152,0.02)]'
       )}
     >
       {/* Column Header */}
-      <div className="flex items-center justify-between p-3 border-b border-border">
+      <div className={cn(
+        "flex items-center justify-between p-3 border-b border-[rgba(255,255,255,0.04)]",
+        colorStyle.bg
+      )}>
         <div className="flex items-center gap-2">
-          {/* Collapse Toggle (AC7) */}
+          {/* Collapse Toggle */}
           <button
             onClick={onToggleCollapse}
-            className="p-0.5 hover:bg-accent rounded transition-colors"
+            className="p-0.5 hover:bg-[rgba(255,255,255,0.05)] transition-colors"
           >
             {isCollapsed ? (
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              <ChevronRight className="h-3.5 w-3.5 text-[#4A4A42]" />
             ) : (
-              <ChevronDown className="h-4 w-4 text-muted-foreground" />
+              <ChevronDown className="h-3.5 w-3.5 text-[#4A4A42]" />
             )}
           </button>
 
@@ -74,28 +80,28 @@ export function KanbanColumn({
           {(() => {
             const IconComponent = iconMap[column.icon];
             return IconComponent ? (
-              <IconComponent className="h-4 w-4 text-muted-foreground" />
+              <IconComponent className={cn("h-3.5 w-3.5", colorStyle.text)} />
             ) : null;
           })()}
-          <span className="font-medium text-sm">{column.label}</span>
+          <span className="font-light text-sm text-[#A8A89C]">{column.label}</span>
 
-          {/* Count Badge (AC3) */}
-          <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full bg-muted text-xs font-medium">
+          {/* Count Badge */}
+          <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 bg-[rgba(255,255,255,0.04)] text-[10px] font-medium text-[#6B6B5F]">
             {stories.length}
           </span>
         </div>
 
-        {/* Add Button (only for backlog) */}
-        {status === 'backlog' && onAddStory && (
+        {/* Add Button */}
+        {onAddStory && (
           <button
             onClick={onAddStory}
             className={cn(
-              'p-1 rounded hover:bg-accent transition-colors',
-              'text-muted-foreground hover:text-foreground'
+              'p-1 hover:bg-[rgba(255,255,255,0.05)] transition-colors',
+              'text-[#4A4A42] hover:text-[#A8A89C]'
             )}
-            title="Add new story"
+            title={`Add new story to ${column.label}`}
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-3.5 w-3.5" />
           </button>
         )}
       </div>
@@ -104,7 +110,7 @@ export function KanbanColumn({
       {!isCollapsed && (
         <div
           ref={setNodeRef}
-          className="flex-1 p-2 space-y-2 overflow-y-auto min-h-[200px] max-h-[calc(100vh-220px)]"
+          className="flex-1 p-2 space-y-2 overflow-y-auto min-h-[200px] max-h-[calc(100vh-220px)] scrollbar-refined"
         >
           <SortableContext
             items={stories.map((s) => s.id)}
@@ -145,9 +151,9 @@ function EmptyColumnState({ status }: { status: StoryStatus }) {
   const IconComponent = iconMap[icon];
 
   return (
-    <div className="flex flex-col items-center justify-center py-8 text-muted-foreground">
-      {IconComponent && <IconComponent className="h-8 w-8 mb-2 opacity-50" />}
-      <span className="text-xs">{text}</span>
+    <div className="flex flex-col items-center justify-center py-8">
+      {IconComponent && <IconComponent className="h-6 w-6 mb-2 text-[#2A2A2A]" />}
+      <span className="text-[11px] text-[#4A4A42] font-light">{text}</span>
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Externalize native modules that can't be bundled
+  serverExternalPackages: ['chokidar'],
 };
 
 export default nextConfig;
