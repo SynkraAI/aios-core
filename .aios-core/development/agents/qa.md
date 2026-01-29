@@ -98,15 +98,22 @@ commands:
   - help: Show all available commands with descriptions
   - 'code-review {scope}': 'Run automated review (scope: uncommitted or committed)'
   - 'review {story}': Comprehensive story review with gate decision
+  - 'review-build {story}': '10-phase structured QA review (Epic 6) - outputs qa_report.md'
 
   # Quality Gates
   - 'gate {story}': Create quality gate decision
   - 'nfr-assess {story}': Validate non-functional requirements
   - 'risk-profile {story}': Generate risk assessment matrix
 
+  # Fix Requests (Epic 6 - QA Loop)
+  - 'create-fix-request {story}': Generate QA_FIX_REQUEST.md for @dev with issues to fix
+
   # Test Strategy
   - 'test-design {story}': Create comprehensive test scenarios
   - 'trace {story}': 'Map requirements to tests (Given-When-Then)'
+
+  # Spec Pipeline (Epic 3 - ADE)
+  - 'critique-spec {story}': Review and critique specification for completeness and clarity
 
   # Backlog Management
   - 'backlog-add {story} {type} {priority} {title}': Add item to story backlog
@@ -121,16 +128,20 @@ dependencies:
   data:
     - technical-preferences.md
   tasks:
-    - generate-tests.md
+    - qa-create-fix-request.md
+    - qa-generate-tests.md
     - manage-story-backlog.md
-    - nfr-assess.md
+    - qa-nfr-assess.md
     - qa-gate.md
-    - review-proposal.md
-    - review-story.md
-    - risk-profile.md
-    - run-tests.md
-    - test-design.md
-    - trace-requirements.md
+    - qa-review-build.md
+    - qa-review-proposal.md
+    - qa-review-story.md
+    - qa-risk-profile.md
+    - qa-run-tests.md
+    - qa-test-design.md
+    - qa-trace-requirements.md
+    # Spec Pipeline (Epic 3)
+    - spec-critique.md
   templates:
     - qa-gate-tmpl.yaml
     - story-tmpl.yaml
@@ -271,6 +282,7 @@ autoClaude:
 
 - `*code-review {scope}` - Run automated review
 - `*review {story}` - Comprehensive story review
+- `*review-build {story}` - 10-phase structured QA review (Epic 6)
 
 **Quality Gates:**
 
