@@ -182,7 +182,7 @@ class WorkflowOrchestrator {
 
       case 'check_env': {
         const missing = [];
-        for (const varName of (action.vars || [])) {
+        for (const varName of action.vars || []) {
           if (!process.env[varName]) {
             missing.push(varName);
           }
@@ -331,7 +331,11 @@ class WorkflowOrchestrator {
     const parallelPhases = orchestration.parallel_phases || [];
 
     console.log(chalk.blue(`\n🚀 Starting workflow: ${this.workflow.workflow?.name || 'Unknown'}`));
-    console.log(chalk.gray(`   Phases: ${sequence.length} | Mode: ${this.options.yolo ? 'YOLO' : 'Interactive'}`));
+    console.log(
+      chalk.gray(
+        `   Phases: ${sequence.length} | Mode: ${this.options.yolo ? 'YOLO' : 'Interactive'}`
+      )
+    );
     console.log(chalk.gray(`   Parallel phases: ${parallelPhases.join(', ') || 'None'}`));
 
     // DETERMINISTIC: Setup directories via code before any AI operations
@@ -348,11 +352,25 @@ class WorkflowOrchestrator {
     this.conditionEvaluator = new ConditionEvaluator(this.techStackProfile);
 
     // Log detection results
-    console.log(chalk.gray(`   📊 Database: ${this.techStackProfile.hasDatabase ? '✓' : '✗'} ${this.techStackProfile.database.type ? `(${this.techStackProfile.database.type})` : ''}`));
-    console.log(chalk.gray(`   🎨 Frontend: ${this.techStackProfile.hasFrontend ? '✓' : '✗'} ${this.techStackProfile.frontend.framework ? `(${this.techStackProfile.frontend.framework})` : ''}`));
-    console.log(chalk.gray(`   🔧 Backend: ${this.techStackProfile.hasBackend ? '✓' : '✗'} ${this.techStackProfile.backend.type ? `(${this.techStackProfile.backend.type})` : ''}`));
+    console.log(
+      chalk.gray(
+        `   📊 Database: ${this.techStackProfile.hasDatabase ? '✓' : '✗'} ${this.techStackProfile.database.type ? `(${this.techStackProfile.database.type})` : ''}`
+      )
+    );
+    console.log(
+      chalk.gray(
+        `   🎨 Frontend: ${this.techStackProfile.hasFrontend ? '✓' : '✗'} ${this.techStackProfile.frontend.framework ? `(${this.techStackProfile.frontend.framework})` : ''}`
+      )
+    );
+    console.log(
+      chalk.gray(
+        `   🔧 Backend: ${this.techStackProfile.hasBackend ? '✓' : '✗'} ${this.techStackProfile.backend.type ? `(${this.techStackProfile.backend.type})` : ''}`
+      )
+    );
     console.log(chalk.gray(`   📝 TypeScript: ${this.techStackProfile.hasTypeScript ? '✓' : '✗'}`));
-    console.log(chalk.gray(`   📋 Applicable phases: ${this.techStackProfile.applicablePhases.join(', ')}`));
+    console.log(
+      chalk.gray(`   📋 Applicable phases: ${this.techStackProfile.applicablePhases.join(', ')}`)
+    );
     console.log(chalk.gray(`   🎯 Confidence: ${this.techStackProfile.confidence}%`));
     console.log(chalk.green('   ✅ Pre-flight detection complete\n'));
 
@@ -419,7 +437,7 @@ class WorkflowOrchestrator {
   async _executeParallelPhases(phases) {
     console.log(chalk.yellow(`\n⚡ Executing ${phases.length} phases in parallel...`));
 
-    const phasePromises = phases.map(phase => this._executeSinglePhase(phase));
+    const phasePromises = phases.map((phase) => this._executeSinglePhase(phase));
     const results = await Promise.allSettled(phasePromises);
 
     // Process results
@@ -444,7 +462,10 @@ class WorkflowOrchestrator {
     if (phase.condition) {
       const conditionResult = this.conditionEvaluator
         ? this.conditionEvaluator.shouldExecutePhase(phase)
-        : { shouldExecute: this._evaluateConditionLegacy(phase.condition), reason: 'legacy_evaluation' };
+        : {
+            shouldExecute: this._evaluateConditionLegacy(phase.condition),
+            reason: 'legacy_evaluation',
+          };
 
       if (!conditionResult.shouldExecute) {
         const skipReason = conditionResult.reason;
@@ -467,7 +488,9 @@ class WorkflowOrchestrator {
     if (phase.requires) {
       const missingDeps = await this._checkDependencies(phase.requires);
       if (missingDeps.length > 0) {
-        console.log(chalk.yellow(`   ⚠️  ${phaseName}: Missing dependencies: ${missingDeps.join(', ')}`));
+        console.log(
+          chalk.yellow(`   ⚠️  ${phaseName}: Missing dependencies: ${missingDeps.join(', ')}`)
+        );
         // In YOLO mode, continue anyway; otherwise, skip
         if (!this.options.yolo) {
           this.executionState.skippedPhases.push(phaseNum);
@@ -482,7 +505,7 @@ class WorkflowOrchestrator {
 
     try {
       // DETERMINISTIC: Prepare phase (create dirs, check pre-conditions)
-      console.log(chalk.gray(`   🔧 Preparing phase...`));
+      console.log(chalk.gray('   🔧 Preparing phase...'));
       await this.preparePhase(phase);
 
       // Build subagent prompt with REAL TASK (not generic prompt)
@@ -517,7 +540,11 @@ class WorkflowOrchestrator {
       });
 
       // Log dispatch info
-      console.log(chalk.gray(`   🚀 ${this.skillDispatcher.formatDispatchLog(dispatchPayload).split('\n')[0]}`));
+      console.log(
+        chalk.gray(
+          `   🚀 ${this.skillDispatcher.formatDispatchLog(dispatchPayload).split('\n')[0]}`
+        )
+      );
 
       // Dispatch to subagent
       let result;
@@ -545,7 +572,7 @@ class WorkflowOrchestrator {
       }
 
       // DETERMINISTIC: Validate phase output (check files, run checklists)
-      console.log(chalk.gray(`   🔍 Validating output...`));
+      console.log(chalk.gray('   🔍 Validating output...'));
       const validation = await this.validatePhaseOutput(phase, result);
       if (!validation.passed) {
         console.log(chalk.yellow(`   ⚠️ Validation warnings: ${validation.errors.join(', ')}`));
@@ -566,7 +593,6 @@ class WorkflowOrchestrator {
       this.executionState.completedPhases.push(phaseNum);
 
       return { ...result, validation };
-
     } catch (error) {
       console.log(chalk.red(`   ❌ ${phaseName} failed: ${error.message}`));
       this.executionState.failedPhases.push(phaseNum);
@@ -632,8 +658,10 @@ class WorkflowOrchestrator {
     const supabasePath = path.join(this.options.projectRoot, 'supabase');
     const envPath = path.join(this.options.projectRoot, '.env');
 
-    return fs.existsSync(supabasePath) ||
-           (fs.existsSync(envPath) && fs.readFileSync(envPath, 'utf8').includes('SUPABASE'));
+    return (
+      fs.existsSync(supabasePath) ||
+      (fs.existsSync(envPath) && fs.readFileSync(envPath, 'utf8').includes('SUPABASE'))
+    );
   }
 
   /**
@@ -658,7 +686,7 @@ class WorkflowOrchestrator {
       if (dep.includes('(if exists)')) continue;
 
       const depPath = path.join(this.options.projectRoot, dep);
-      if (!await fs.pathExists(depPath)) {
+      if (!(await fs.pathExists(depPath))) {
         missing.push(dep);
       }
     }
@@ -707,11 +735,12 @@ class WorkflowOrchestrator {
    * @private
    */
   _defaultPhaseComplete(phase, result) {
-    const status = result?.status === 'success' ? '✅' : result?.status === 'pending_dispatch' ? '📤' : '⚠️';
+    const status =
+      result?.status === 'success' ? '✅' : result?.status === 'pending_dispatch' ? '📤' : '⚠️';
     console.log(chalk.green(`   ${status} Phase ${phase.phase} complete`));
     if (phase.creates) {
       const creates = Array.isArray(phase.creates) ? phase.creates : [phase.creates];
-      creates.forEach(c => console.log(chalk.gray(`      → ${c}`)));
+      creates.forEach((c) => console.log(chalk.gray(`      → ${c}`)));
     }
   }
 
@@ -721,17 +750,17 @@ class WorkflowOrchestrator {
    */
   _getAgentIcon(agentId) {
     const icons = {
-      'architect': '🏗️',
+      architect: '🏗️',
       'data-engineer': '🗄️',
       'ux-expert': '🎨',
       'ux-design-expert': '🎨',
-      'qa': '🔍',
-      'analyst': '📊',
-      'pm': '📋',
-      'dev': '💻',
-      'sm': '🔄',
-      'po': '⚖️',
-      'devops': '🚀',
+      qa: '🔍',
+      analyst: '📊',
+      pm: '📋',
+      dev: '💻',
+      sm: '🔄',
+      po: '⚖️',
+      devops: '🚀',
       'github-devops': '🚀',
     };
     return icons[agentId] || '👤';
@@ -754,7 +783,7 @@ class WorkflowOrchestrator {
     }
 
     const sequence = this.workflow.sequence || [];
-    const remainingPhases = sequence.filter(p => p.phase >= fromPhase && !p.workflow_end);
+    const remainingPhases = sequence.filter((p) => p.phase >= fromPhase && !p.workflow_end);
 
     console.log(chalk.yellow(`\n🔄 Resuming from phase ${fromPhase}...`));
 

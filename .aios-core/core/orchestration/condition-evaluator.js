@@ -76,8 +76,7 @@ class ConditionEvaluator {
 
       // Database-specific conditions
       supabase_configured: () =>
-        this.profile.database.type === 'supabase' &&
-        this.profile.database.envVarsConfigured,
+        this.profile.database.type === 'supabase' && this.profile.database.envVarsConfigured,
       database_has_rls: () => this.profile.database.hasRLS,
       database_has_migrations: () => this.profile.database.hasMigrations,
 
@@ -97,9 +96,7 @@ class ConditionEvaluator {
 
       // Composite conditions
       has_any_data_to_analyze: () =>
-        this.profile.hasDatabase ||
-        this.profile.hasFrontend ||
-        this.profile.hasBackend,
+        this.profile.hasDatabase || this.profile.hasFrontend || this.profile.hasBackend,
     };
 
     // Check for built-in evaluator
@@ -161,9 +158,7 @@ class ConditionEvaluator {
    */
   _evaluateDotNotation(condition) {
     // Handle equality checks
-    const eqMatch = condition.match(
-      /^(\w+(?:\.\w+)*)\s*===?\s*["']?(\w+)["']?$/
-    );
+    const eqMatch = condition.match(/^(\w+(?:\.\w+)*)\s*===?\s*["']?(\w+)["']?$/);
     if (eqMatch) {
       const [, path, value] = eqMatch;
       const actualValue = this._getProfileValue(path);
@@ -253,9 +248,7 @@ class ConditionEvaluator {
 
     return {
       shouldExecute: result,
-      reason: result
-        ? 'condition_met'
-        : `condition_not_met:${phase.condition}`,
+      reason: result ? 'condition_met' : `condition_not_met:${phase.condition}`,
     };
   }
 
@@ -345,9 +338,7 @@ class ConditionEvaluator {
       qa_review_approved: 'QA review not yet approved',
     };
 
-    const reasons = failed.map(
-      (c) => explanations[c] || `Condition not met: ${c}`
-    );
+    const reasons = failed.map((c) => explanations[c] || `Condition not met: ${c}`);
 
     return reasons.join('; ');
   }

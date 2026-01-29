@@ -203,10 +203,7 @@ class TechStackDetector {
           const migrations = await fs.readdir(migrationsPath);
           for (const file of migrations) {
             if (file.endsWith('.sql')) {
-              const content = await fs.readFile(
-                path.join(migrationsPath, file),
-                'utf8'
-              );
+              const content = await fs.readFile(path.join(migrationsPath, file), 'utf8');
               if (
                 content.includes('ENABLE ROW LEVEL SECURITY') ||
                 content.includes('CREATE POLICY')
@@ -229,9 +226,7 @@ class TechStackDetector {
       if (!profile.database.type) {
         profile.database.type = 'postgresql';
       }
-      profile.database.hasSchema = await fs.pathExists(
-        path.join(prismaPath, 'schema.prisma')
-      );
+      profile.database.hasSchema = await fs.pathExists(path.join(prismaPath, 'schema.prisma'));
     }
 
     // Check package.json dependencies
@@ -420,11 +415,7 @@ class TechStackDetector {
     }
 
     // Check for Supabase Edge Functions
-    const edgeFunctionsPath = path.join(
-      this.projectRoot,
-      'supabase',
-      'functions'
-    );
+    const edgeFunctionsPath = path.join(this.projectRoot, 'supabase', 'functions');
     if (await fs.pathExists(edgeFunctionsPath)) {
       profile.hasBackend = true;
       if (!profile.backend.type) {
@@ -582,9 +573,7 @@ class TechStackDetector {
 
     if (profile.hasFrontend) {
       const fw = profile.frontend.framework || 'unknown';
-      const style = profile.frontend.styling
-        ? ` + ${profile.frontend.styling}`
-        : '';
+      const style = profile.frontend.styling ? ` + ${profile.frontend.styling}` : '';
       parts.push(`Frontend: ${fw}${style}`);
     }
 
