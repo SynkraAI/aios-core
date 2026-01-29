@@ -38,7 +38,7 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
     }
   }
 
-  // Framework-owned instructions
+  // Framework-owned instructions - Using glob for agent rules as per documentation
   const frameworkInstructions = [
     '.opencode/rules/opencode-rules.md',
     '.opencode/rules/AGENTS.md',
@@ -63,42 +63,44 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
     }
   }
 
-  // Merge with existing config, preserving all user settings (MCPs, themes, etc.)
+  // Build the minimalist but robust permissions object
+  // OpenCode is permissive by default, so we only specify deviates or critical framework tools
+  const permissionConfig = {
+    ...(existingConfig.permission || {}),
+    skill: 'allow', // Critical for AIOS workflows (*)
+    task: 'allow', // Critical for AIOS subagent orchestration
+    bash: {
+      // Core protections (Deny always wins)
+      'rm -rf /': 'deny',
+      'rm -rf ~': 'deny',
+      'rm -rf /*': 'deny',
+      'sudo rm -rf *': 'deny',
+      'mkfs *': 'deny',
+      'dd if=/dev/zero *': 'deny',
+      'chmod -R 777 /': 'deny',
+
+      // Merge with user's existing bash permissions if any
+      ...(existingConfig.permission?.bash || {}),
+
+      // Explicit automation bypasses
+      'git pull *': 'allow',
+
+      // Framework autonomy (override restrictive global defaults)
+      '*': 'allow',
+    },
+  };
+
+  // Merge with existing config, preserving all user settings (MCPs, themes, models, etc.)
   const config = {
     ...existingConfig,
     $schema: 'https://opencode.ai/config.json',
 
-    // Sync mandatory framework paths without erasing user custom paths
+    // Infrastructure paths
     agentPaths: [...new Set(['.opencode/agents', ...(existingConfig.agentPaths || [])])],
     commandPaths: [...new Set(['.opencode/commands', ...(existingConfig.commandPaths || [])])],
 
     instructions: combinedInstructions,
-
-    // Permissions with high-precedence for safety and fluid operation
-    permission: {
-      ...existingConfig.permission,
-      bash: {
-        // Core protections (Deny always wins)
-        'rm -rf /': 'deny',
-        'rm -rf ~': 'deny',
-        'rm -rf /*': 'deny',
-        'sudo rm -rf *': 'deny',
-        'mkfs *': 'deny',
-        'dd if=/dev/zero *': 'deny',
-        'chmod -R 777 /': 'deny',
-
-        // Inherit user's existing bash permissions
-        ...(existingConfig.permission?.bash || {}),
-
-        // Explicit bypasses for automation
-        'git pull *': 'allow',
-
-        // Default catch-all (OpenCode is permissive, but we make it explicit here)
-        '*': 'allow',
-      },
-    },
-
-    // Updated MCP section
+    permission: permissionConfig,
     mcp: mcpConfig,
   };
 
