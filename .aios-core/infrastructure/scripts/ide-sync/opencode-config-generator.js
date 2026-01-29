@@ -63,37 +63,43 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
     }
   }
 
-  // Pure Translation Logic: Only framework paths, instructions, and critical terminal safety
-  // All other permissions (read, edit, skill, task, etc.) rely on IDE defaults or user global config
+  // Build the minimalist but robust permissions object
+  // We only specify Bash protections. Other tools (skill, task, read, etc.)
+  // use OpenCode's permissive defaults (allow) unless the user overrides them.
+  const permissionConfig = {
+    ...(existingConfig.permission || {}),
+    bash: {
+      // Core protections (Framework safety layer)
+      'rm -rf /': 'deny',
+      'rm -rf ~': 'deny',
+      'rm -rf /*': 'deny',
+      'sudo rm -rf *': 'deny',
+      'mkfs *': 'deny',
+      'dd if=/dev/zero *': 'deny',
+      'chmod -R 777 /': 'deny',
+
+      // Merge with user's existing bash permissions if any
+      ...(existingConfig.permission?.bash || {}),
+
+      // Explicit automation bypasses for AIOS workflows
+      'git pull *': 'allow',
+
+      // Default autonomy
+      '*': 'allow',
+    },
+  };
+
+  // Merge with existing config, preserving all user settings (MCPs, themes, etc.)
   const config = {
     ...existingConfig,
     $schema: 'https://opencode.ai/config.json',
 
-    // Essential Infrastructure
+    // Infrastructure paths
+    agentPaths: [...new Set(['.opencode/agents', ...(existingConfig.agentPaths || [])])],
+    commandPaths: [...new Set(['.opencode/commands', ...(existingConfig.commandPaths || [])])],
+
     instructions: combinedInstructions,
-
-    // Minimalist Permission Block (Safety + Terminal Autonomy only)
-    permission: {
-      ...existingConfig.permission,
-      bash: {
-        // Critical Denies (Framework Safety Guardrails)
-        'rm -rf /': 'deny',
-        'rm -rf ~': 'deny',
-        'rm -rf /*': 'deny',
-        'sudo rm -rf *': 'deny',
-        'mkfs *': 'deny',
-        'dd if=/dev/zero *': 'deny',
-        'chmod -R 777 /': 'deny',
-
-        // Explicit user preference for automation (if not already restricted)
-        'git pull *': 'allow',
-        '*': 'allow',
-
-        // Preserve any other user-defined bash permissions
-        ...(existingConfig.permission?.bash || {}),
-      },
-    },
-
+    permission: permissionConfig,
     mcp: mcpConfig,
   };
 
