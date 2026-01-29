@@ -13,6 +13,12 @@ const { translateContent } = require('./rule-porter');
  * @param {object[]} agents - List of parsed agents
  * @param {object} options - Generation options
  */
+/**
+ * Generate slash command files for agent activation and skill execution
+ * @param {string} projectRoot - Project root directory
+ * @param {object[]} agents - List of parsed agents
+ * @param {object} options - Generation options
+ */
 async function generateSlashCommands(projectRoot, agents, options = {}) {
   const { getIDEConfig } = require('../../../../src/config/ide-configs');
   const opencodeConfig = getIDEConfig('opencode');
@@ -24,36 +30,62 @@ async function generateSlashCommands(projectRoot, agents, options = {}) {
 
   const generated = [];
 
-  // Generate slash commands ONLY for Agent Activation (match Claude Code behavior: /dev, /qa, etc.)
+  // 1. Generate commands for Agent Activation (/dev, /qa, etc.)
   for (const agentData of agents) {
     const agentId = agentData.id;
     const agent = agentData.agent || {};
 
-    // We only create commands for top-level agents, matching the expected /name syntax
     const content = `---
-description: "Activate the @${agentId} (${agent.title || agentId}) agent"
+description: "Ativar agente @${agentId} (${agent.title || agentId})"
 agent: "${agentId}"
 ---
 
-Invoke the @${agentId} agent to handle your request: $ARGUMENTS
+Ative o agente @${agentId} para processar sua solicitação: $ARGUMENTS
 
-Instructions:
-1. Load @${agentId}
-2. Process the request: $ARGUMENTS
-3. Stay in character as defined by the agent's persona.
+Instruções:
+1. Carregar persona @${agentId}
+2. Processar a solicitação: $ARGUMENTS
+3. Manter o personagem conforme definido.
 
 ---
-*AIOS Agent Command - Synced for @${agentId}*
+*AIOS Agent Command - Sincronizado para @${agentId}*
 `;
 
     const filename = `${agentId}.md`;
-    const targetPath = path.join(targetDir, filename);
-
-    if (!options.dryRun) {
-      await fs.writeFile(targetPath, content, 'utf8');
-    }
-
+    await fs.writeFile(path.join(targetDir, filename), content, 'utf8');
     generated.push(filename);
+  }
+
+  // 2. Generate commands for Skills (/create-story, /develop-story, etc.)
+  if (options.skills && Array.isArray(options.skills)) {
+    for (const skill of options.skills) {
+      // Determine which agent should handle this skill based on original prefix
+      let targetAgent = 'aios-master'; // Default
+      const prefixMatch = skill.originalName.match(/^(dev|po|sm|pm|qa|architect|analyst)-/);
+      if (prefixMatch) {
+        targetAgent = prefixMatch[1];
+      }
+
+      const content = `---
+description: "${skill.description || 'Executar skill do AIOS'}"
+agent: "${targetAgent}"
+---
+
+Execute a skill **${skill.name}** com os seguintes argumentos: $ARGUMENTS
+
+Instruções:
+1. Usar a ferramenta nativa \`skill\` para executar: \`*${skill.name}\`
+2. Passar os argumentos: $ARGUMENTS
+3. Permanecer como @${targetAgent} durante a execução.
+
+---
+*AIOS Skill Command - Sincronizado para /${skill.name}*
+`;
+
+      const filename = `${skill.name}.md`;
+      await fs.writeFile(path.join(targetDir, filename), content, 'utf8');
+      generated.push(filename);
+    }
   }
 
   return {

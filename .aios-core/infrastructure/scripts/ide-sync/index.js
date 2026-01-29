@@ -281,6 +281,7 @@ async function commandSync(options) {
         console.log(`${colors.cyan}⚡ Syncing OpenCode Skills...${colors.reset}`);
       }
       const skillResult = await syncSkills(projectRoot, options);
+      const skills = skillResult.success ? skillResult.synced : [];
       if (skillResult.success) {
         if (!options.quiet) {
           console.log(
@@ -323,9 +324,14 @@ async function commandSync(options) {
       }
 
       if (!options.quiet) {
-        console.log(`${colors.cyan}⚡ Generating Slash Commands...${colors.reset}`);
+        console.log(
+          `${colors.cyan}⚡ Generating Slash Commands (Agents & Skills)...${colors.reset}`
+        );
       }
-      const slashCommandsResult = await generateSlashCommands(projectRoot, agents, options);
+      const slashCommandsResult = await generateSlashCommands(projectRoot, agents, {
+        ...options,
+        skills,
+      });
       if (slashCommandsResult) {
         if (!options.quiet) {
           console.log(

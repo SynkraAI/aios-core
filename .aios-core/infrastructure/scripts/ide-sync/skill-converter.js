@@ -73,8 +73,10 @@ ${content}
 
     synced.push({
       name: cleanSkillName,
-      original: file,
+      originalName: taskName,
+      originalFile: file,
       path: targetPath,
+      description,
     });
   }
 
