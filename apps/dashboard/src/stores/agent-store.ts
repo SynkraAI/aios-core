@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Agent, AgentId, AgentStatus } from '@/types';
+import type { Agent, AgentId, AgentStatus, AiosStatus } from '@/types';
 
 // ============ Listeners (outside Zustand to avoid re-renders) ============
 
@@ -40,6 +40,9 @@ interface AgentState {
   setPollingInterval: (ms: number) => void;
   setLastPolledAt: (timestamp: string) => void;
   setIsPolling: (isPolling: boolean) => void;
+
+  // Realtime
+  handleRealtimeUpdate: (status: AiosStatus) => void;
 
   // Selectors
   getActiveAgents: () => Agent[];
@@ -168,6 +171,57 @@ export const useAgentStore = create<AgentState>()((set, get) => ({
   setPollingInterval: (ms) => set({ pollingInterval: ms }),
   setLastPolledAt: (timestamp) => set({ lastPolledAt: timestamp }),
   setIsPolling: (isPolling) => set({ isPolling }),
+
+  // Realtime update handler - called by useRealtimeStatus hook
+  handleRealtimeUpdate: (status) =>
+    set((state) => {
+      const timestamp = new Date().toISOString();
+      const newAgents = { ...state.agents };
+      let newActiveAgentId = state.activeAgentId;
+
+      // Clear previous active agent if different
+      if (state.activeAgentId && (!status.activeAgent || status.activeAgent.id !== state.activeAgentId)) {
+        const prevAgent = newAgents[state.activeAgentId];
+        if (prevAgent) {
+          const oldStatus = prevAgent.status;
+          newAgents[state.activeAgentId] = {
+            ...prevAgent,
+            status: 'idle',
+            currentStoryId: undefined,
+          };
+          if (oldStatus !== 'idle') {
+            notifyAgentStatusChange(state.activeAgentId, oldStatus, 'idle');
+          }
+        }
+        newActiveAgentId = null;
+      }
+
+      // Set new active agent from status
+      if (status.activeAgent) {
+        const agentId = status.activeAgent.id as AgentId;
+        const agent = newAgents[agentId];
+        if (agent) {
+          const oldStatus = agent.status;
+          newAgents[agentId] = {
+            ...agent,
+            status: 'working',
+            currentStoryId: status.activeAgent.currentStory,
+            lastActivity: status.activeAgent.activatedAt,
+          };
+          newActiveAgentId = agentId;
+          if (oldStatus !== 'working') {
+            notifyAgentStatusChange(agentId, oldStatus, 'working');
+          }
+        }
+      }
+
+      return {
+        agents: newAgents,
+        activeAgentId: newActiveAgentId,
+        lastPolledAt: timestamp,
+        isPolling: true,
+      };
+    }),
 
   // Selectors
   getActiveAgents: () => {

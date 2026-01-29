@@ -218,6 +218,74 @@ function getMockStories(): Story[] {
   ];
 }
 
+// Generate story filename from title
+function generateStoryFilename(title: string): string {
+  const slug = title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 50);
+  const timestamp = Date.now();
+  return `${slug}-${timestamp}.md`;
+}
+
+// Generate frontmatter from story data
+function generateStoryContent(data: CreateStoryRequest): string {
+  const frontmatter = [
+    '---',
+    `title: "${data.title.replace(/"/g, '\\"')}"`,
+    `status: ${data.status || 'backlog'}`,
+  ];
+
+  if (data.priority) frontmatter.push(`priority: ${data.priority}`);
+  if (data.complexity) frontmatter.push(`complexity: ${data.complexity}`);
+  if (data.category) frontmatter.push(`category: ${data.category}`);
+  if (data.agent) frontmatter.push(`agent: ${data.agent}`);
+  if (data.epicId) frontmatter.push(`epicId: "${data.epicId}"`);
+
+  frontmatter.push(`createdAt: "${new Date().toISOString()}"`);
+  frontmatter.push('---');
+  frontmatter.push('');
+  frontmatter.push(`# ${data.title}`);
+  frontmatter.push('');
+
+  if (data.description) {
+    frontmatter.push(data.description);
+    frontmatter.push('');
+  }
+
+  if (data.acceptanceCriteria && data.acceptanceCriteria.length > 0) {
+    frontmatter.push('## Acceptance Criteria');
+    frontmatter.push('');
+    for (const criterion of data.acceptanceCriteria) {
+      frontmatter.push(`- [ ] ${criterion}`);
+    }
+    frontmatter.push('');
+  }
+
+  if (data.technicalNotes) {
+    frontmatter.push('## Technical Notes');
+    frontmatter.push('');
+    frontmatter.push(data.technicalNotes);
+    frontmatter.push('');
+  }
+
+  return frontmatter.join('\n');
+}
+
+interface CreateStoryRequest {
+  title: string;
+  description?: string;
+  status?: StoryStatus;
+  priority?: StoryPriority;
+  complexity?: StoryComplexity;
+  category?: StoryCategory;
+  agent?: AgentId;
+  epicId?: string;
+  acceptanceCriteria?: string[];
+  technicalNotes?: string;
+}
+
 export async function GET() {
   try {
     const projectRoot = getProjectRoot();
@@ -287,6 +355,68 @@ export async function GET() {
         source: 'error',
         error: 'Failed to load stories',
       },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json() as CreateStoryRequest;
+
+    // Validate required fields
+    if (!body.title || body.title.trim().length === 0) {
+      return NextResponse.json(
+        { error: 'Title is required' },
+        { status: 400 }
+      );
+    }
+
+    const projectRoot = getProjectRoot();
+    const storiesDir = path.join(projectRoot, 'docs', 'stories');
+
+    // Ensure stories directory exists
+    try {
+      await fs.mkdir(storiesDir, { recursive: true });
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'EEXIST') {
+        throw error;
+      }
+    }
+
+    // Generate filename and content
+    const filename = generateStoryFilename(body.title);
+    const filePath = path.join(storiesDir, filename);
+    const content = generateStoryContent(body);
+
+    // Write file
+    await fs.writeFile(filePath, content, 'utf-8');
+
+    // Get file stats and parse back to Story object
+    const stats = await fs.stat(filePath);
+    const relativePath = path.relative(projectRoot, filePath);
+    const story = parseStoryFromMarkdown(content, relativePath, {
+      mtime: stats.mtime,
+      birthtime: stats.birthtime,
+    });
+
+    if (!story) {
+      return NextResponse.json(
+        { error: 'Failed to create story' },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({
+      story,
+      filePath: relativePath,
+      message: 'Story created successfully',
+    }, { status: 201 });
+
+  } catch (error) {
+    console.error('Error creating story:', error);
+    return NextResponse.json(
+      { error: 'Failed to create story' },
       { status: 500 }
     );
   }

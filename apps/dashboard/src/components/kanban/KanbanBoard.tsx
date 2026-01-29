@@ -18,12 +18,11 @@ import { Plus, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useStoryStore } from '@/stores/story-store';
 import { KANBAN_COLUMNS, type Story, type StoryStatus } from '@/types';
-import { StoryCard } from '@/components/stories';
+import { StoryCard, StoryCreateModal, StoryEditModal } from '@/components/stories';
 import { KanbanColumn } from './KanbanColumn';
 
 interface KanbanBoardProps {
   onStoryClick?: (story: Story) => void;
-  onAddStory?: () => void;
   onRefresh?: () => void;
   isLoading?: boolean;
   className?: string;
@@ -31,18 +30,23 @@ interface KanbanBoardProps {
 
 export function KanbanBoard({
   onStoryClick,
-  onAddStory,
   onRefresh,
   isLoading = false,
   className,
 }: KanbanBoardProps) {
-  const { getStoriesByStatus, moveStory, reorderInColumn, getStoryById } =
+  const { getStoriesByStatus, moveStory, reorderInColumn, getStoryById, addStory, updateStory, deleteStory } =
     useStoryStore();
 
   const [activeStory, setActiveStory] = useState<Story | null>(null);
   const [collapsedColumns, setCollapsedColumns] = useState<Set<StoryStatus>>(
     new Set()
   );
+
+  // Modal states
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [createModalStatus, setCreateModalStatus] = useState<StoryStatus>('backlog');
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editingStory, setEditingStory] = useState<Story | null>(null);
 
   // DnD sensors
   const sensors = useSensors(
@@ -68,6 +72,45 @@ export function KanbanBoard({
       return next;
     });
   }, []);
+
+  // Open create modal with optional default status
+  const handleOpenCreateModal = useCallback((status: StoryStatus = 'backlog') => {
+    setCreateModalStatus(status);
+    setShowCreateModal(true);
+  }, []);
+
+  // Handle story created
+  const handleStoryCreated = useCallback((story: Story) => {
+    addStory(story);
+    onRefresh?.();
+  }, [addStory, onRefresh]);
+
+  // Open edit modal
+  const handleOpenEditModal = useCallback((story: Story) => {
+    setEditingStory(story);
+    setShowEditModal(true);
+  }, []);
+
+  // Handle story updated
+  const handleStoryUpdated = useCallback((story: Story) => {
+    updateStory(story.id, story);
+    onRefresh?.();
+  }, [updateStory, onRefresh]);
+
+  // Handle story deleted
+  const handleStoryDeleted = useCallback((storyId: string) => {
+    deleteStory(storyId);
+    onRefresh?.();
+  }, [deleteStory, onRefresh]);
+
+  // Handle story click - opens edit modal or calls onStoryClick
+  const handleStoryClick = useCallback((story: Story) => {
+    if (onStoryClick) {
+      onStoryClick(story);
+    } else {
+      handleOpenEditModal(story);
+    }
+  }, [onStoryClick, handleOpenEditModal]);
 
   // Drag handlers
   const handleDragStart = useCallback(
@@ -156,19 +199,17 @@ export function KanbanBoard({
             </button>
           )}
 
-          {/* Add Story Button (AC6) */}
-          {onAddStory && (
-            <button
-              onClick={onAddStory}
-              className={cn(
-                'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm',
-                'bg-primary text-primary-foreground hover:bg-primary/90 transition-colors'
-              )}
-            >
-              <Plus className="h-4 w-4" />
-              <span>New Story</span>
-            </button>
-          )}
+          {/* Add Story Button */}
+          <button
+            onClick={() => handleOpenCreateModal('backlog')}
+            className={cn(
+              'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm',
+              'bg-primary text-primary-foreground hover:bg-primary/90 transition-colors'
+            )}
+          >
+            <Plus className="h-4 w-4" />
+            <span>New Story</span>
+          </button>
         </div>
       </div>
 
@@ -189,8 +230,8 @@ export function KanbanBoard({
                 stories={getStoriesByStatus(column.id)}
                 isCollapsed={collapsedColumns.has(column.id)}
                 onToggleCollapse={() => toggleColumnCollapse(column.id)}
-                onStoryClick={onStoryClick}
-                onAddStory={column.id === 'backlog' ? onAddStory : undefined}
+                onStoryClick={handleStoryClick}
+                onAddStory={() => handleOpenCreateModal(column.id)}
               />
             ))}
           </div>
@@ -205,6 +246,23 @@ export function KanbanBoard({
           </DragOverlay>
         </DndContext>
       </div>
+
+      {/* Create Story Modal */}
+      <StoryCreateModal
+        open={showCreateModal}
+        onOpenChange={setShowCreateModal}
+        onCreated={handleStoryCreated}
+        defaultStatus={createModalStatus}
+      />
+
+      {/* Edit Story Modal */}
+      <StoryEditModal
+        story={editingStory}
+        open={showEditModal}
+        onOpenChange={setShowEditModal}
+        onUpdated={handleStoryUpdated}
+        onDeleted={handleStoryDeleted}
+      />
     </div>
   );
 }
