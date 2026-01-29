@@ -12,10 +12,10 @@
  * @type {Object}
  */
 const SCORING_WEIGHTS = {
-  COMMAND_MATCH: 0.40,
+  COMMAND_MATCH: 0.4,
   AGENT_MATCH: 0.25,
-  HISTORY_DEPTH: 0.20,
-  PROJECT_STATE: 0.15
+  HISTORY_DEPTH: 0.2,
+  PROJECT_STATE: 0.15,
 };
 
 /**
@@ -66,12 +66,11 @@ class ConfidenceScorer {
     const historyDepth = this.matchHistory(suggestion.keyCommands, context.lastCommands);
     const projectState = this.matchProjectState(suggestion, context.projectState);
 
-    const rawScore = (
+    const rawScore =
       commandMatch * this.weights.COMMAND_MATCH +
       agentMatch * this.weights.AGENT_MATCH +
       historyDepth * this.weights.HISTORY_DEPTH +
-      projectState * this.weights.PROJECT_STATE
-    );
+      projectState * this.weights.PROJECT_STATE;
 
     return this.normalize(rawScore);
   }
@@ -108,7 +107,7 @@ class ConfidenceScorer {
     // Partial word match
     const triggerWords = normalizedTrigger.split(/[\s-_]+/);
     const lastWords = normalizedLast.split(/[\s-_]+/);
-    const commonWords = triggerWords.filter(w => lastWords.includes(w));
+    const commonWords = triggerWords.filter((w) => lastWords.includes(w));
 
     if (commonWords.length > 0) {
       return 0.5 * (commonWords.length / Math.max(triggerWords.length, 1));
@@ -131,9 +130,7 @@ class ConfidenceScorer {
     const normalizedAgent = currentAgent.replace('@', '').toLowerCase();
 
     // Check if current agent is in the sequence
-    const agentIndex = agentSequence.findIndex(
-      agent => agent.toLowerCase() === normalizedAgent
-    );
+    const agentIndex = agentSequence.findIndex((agent) => agent.toLowerCase() === normalizedAgent);
 
     if (agentIndex === -1) {
       return 0;
@@ -144,7 +141,7 @@ class ConfidenceScorer {
 
     // Bonus for being the expected next agent
     if (agentIndex === 0) {
-      return 0.6 + (progressScore * 0.4);
+      return 0.6 + progressScore * 0.4;
     }
 
     return progressScore;
@@ -161,8 +158,8 @@ class ConfidenceScorer {
       return 0;
     }
 
-    const normalizedKeys = keyCommands.map(cmd => this.normalizeCommand(cmd));
-    const normalizedHistory = lastCommands.map(cmd => this.normalizeCommand(cmd));
+    const normalizedKeys = keyCommands.map((cmd) => this.normalizeCommand(cmd));
+    const normalizedHistory = lastCommands.map((cmd) => this.normalizeCommand(cmd));
 
     let matchCount = 0;
     let recentBonus = 0;
@@ -175,7 +172,7 @@ class ConfidenceScorer {
           matchCount++;
 
           // Recent commands get higher weight (decay factor)
-          const recency = 1 - (i / normalizedHistory.length);
+          const recency = 1 - i / normalizedHistory.length;
           recentBonus += recency * 0.1;
           break;
         }
@@ -197,7 +194,7 @@ class ConfidenceScorer {
       return 0.5; // Neutral score when state unknown
     }
 
-    let score = 0.5;
+    const score = 0.5;
     const factors = [];
 
     // Check if story is in progress
@@ -208,9 +205,11 @@ class ConfidenceScorer {
     // Check if uncommitted changes exist
     if (projectState.hasUncommittedChanges) {
       // Git-related suggestions get higher score
-      if (suggestion.trigger?.includes('git') ||
-          suggestion.trigger?.includes('commit') ||
-          suggestion.trigger?.includes('push')) {
+      if (
+        suggestion.trigger?.includes('git') ||
+        suggestion.trigger?.includes('commit') ||
+        suggestion.trigger?.includes('push')
+      ) {
         factors.push(0.3);
       }
     }
@@ -218,9 +217,11 @@ class ConfidenceScorer {
     // Check if tests are failing
     if (projectState.failingTests) {
       // QA-related suggestions get higher score
-      if (suggestion.trigger?.includes('test') ||
-          suggestion.trigger?.includes('qa') ||
-          suggestion.trigger?.includes('fix')) {
+      if (
+        suggestion.trigger?.includes('test') ||
+        suggestion.trigger?.includes('qa') ||
+        suggestion.trigger?.includes('fix')
+      ) {
         factors.push(0.3);
       }
     }
@@ -273,9 +274,9 @@ class ConfidenceScorer {
     }
 
     return suggestions
-      .map(suggestion => ({
+      .map((suggestion) => ({
         ...suggestion,
-        score: this.score(suggestion, context)
+        score: this.score(suggestion, context),
       }))
       .sort((a, b) => b.score - a.score);
   }
@@ -301,5 +302,5 @@ function createConfidenceScorer(options = {}) {
 module.exports = {
   ConfidenceScorer,
   createConfidenceScorer,
-  SCORING_WEIGHTS
+  SCORING_WEIGHTS,
 };

@@ -18,9 +18,12 @@ function analyzeText(text) {
     return { error: 'Invalid input: expected string' };
   }
 
-  const words = text.trim().split(/\s+/).filter(w => w.length > 0);
-  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
-  const paragraphs = text.split(/\n\n+/).filter(p => p.trim().length > 0);
+  const words = text
+    .trim()
+    .split(/\s+/)
+    .filter((w) => w.length > 0);
+  const sentences = text.split(/[.!?]+/).filter((s) => s.trim().length > 0);
+  const paragraphs = text.split(/\n\n+/).filter((p) => p.trim().length > 0);
 
   return {
     characters: text.length,
@@ -28,12 +31,11 @@ function analyzeText(text) {
     words: words.length,
     sentences: sentences.length,
     paragraphs: paragraphs.length,
-    averageWordLength: words.length > 0
-      ? (words.reduce((sum, w) => sum + w.length, 0) / words.length).toFixed(2)
-      : 0,
-    averageSentenceLength: sentences.length > 0
-      ? (words.length / sentences.length).toFixed(2)
-      : 0
+    averageWordLength:
+      words.length > 0
+        ? (words.reduce((sum, w) => sum + w.length, 0) / words.length).toFixed(2)
+        : 0,
+    averageSentenceLength: sentences.length > 0 ? (words.length / sentences.length).toFixed(2) : 0,
   };
 }
 
@@ -47,7 +49,7 @@ function findCommonWords(text, limit = 10) {
   const words = text.toLowerCase().match(/\b[a-z]+\b/g) || [];
   const counts = {};
 
-  words.forEach(word => {
+  words.forEach((word) => {
     counts[word] = (counts[word] || 0) + 1;
   });
 
@@ -78,5 +80,5 @@ module.exports = {
 
   // Exported utilities for direct use
   analyzeText,
-  findCommonWords
+  findCommonWords,
 };

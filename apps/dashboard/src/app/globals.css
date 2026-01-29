@@ -1,0 +1,647 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   AIOS DASHBOARD - DESIGN TOKENS v2.0
+   Consolidated token system for Tech Refined theme
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─────────────────────────────────────────────────────────────────────────
+     CORE TOKENS - Light mode (fallback)
+     ───────────────────────────────────────────────────────────────────────── */
+  --background: #ffffff;
+  --foreground: #0a0a0f;
+  --card: #ffffff;
+  --card-hover: #f4f4f5;
+  --card-foreground: #0a0a0f;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0f;
+  --border: #e4e4e7;
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-medium: rgba(0, 0, 0, 0.12);
+  --primary: #C9B298;
+  --primary-foreground: #0a0a0a;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #0a0a0f;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: rgba(201, 178, 152, 0.15);
+  --accent-foreground: #C9B298;
+  --destructive: #ef4444;
+  --input: rgba(0, 0, 0, 0.06);
+  --ring: rgba(201, 178, 152, 0.5);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     SEMANTIC TOKENS - Status System
+     ───────────────────────────────────────────────────────────────────────── */
+  --status-success: #4ADE80;
+  --status-success-bg: rgba(74, 222, 128, 0.1);
+  --status-success-border: rgba(74, 222, 128, 0.2);
+  --status-success-glow: rgba(74, 222, 128, 0.6);
+
+  --status-warning: #FBBF24;
+  --status-warning-bg: rgba(251, 191, 36, 0.1);
+  --status-warning-border: rgba(251, 191, 36, 0.2);
+  --status-warning-glow: rgba(251, 191, 36, 0.5);
+
+  --status-error: #F87171;
+  --status-error-bg: rgba(248, 113, 113, 0.1);
+  --status-error-border: rgba(248, 113, 113, 0.2);
+  --status-error-glow: rgba(248, 113, 113, 0.6);
+
+  --status-info: #60A5FA;
+  --status-info-bg: rgba(96, 165, 250, 0.1);
+  --status-info-border: rgba(96, 165, 250, 0.2);
+  --status-info-glow: rgba(96, 165, 250, 0.5);
+
+  --status-idle: #4A4A42;
+  --status-idle-bg: rgba(74, 74, 66, 0.1);
+  --status-idle-border: rgba(74, 74, 66, 0.2);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     AGENT TOKENS - Color system for agents
+     ───────────────────────────────────────────────────────────────────────── */
+  --agent-dev: #22c55e;
+  --agent-dev-bg: rgba(34, 197, 94, 0.15);
+  --agent-dev-border: rgba(34, 197, 94, 0.3);
+
+  --agent-qa: #eab308;
+  --agent-qa-bg: rgba(234, 179, 8, 0.15);
+  --agent-qa-border: rgba(234, 179, 8, 0.3);
+
+  --agent-architect: #8b5cf6;
+  --agent-architect-bg: rgba(139, 92, 246, 0.15);
+  --agent-architect-border: rgba(139, 92, 246, 0.3);
+
+  --agent-pm: #3b82f6;
+  --agent-pm-bg: rgba(59, 130, 246, 0.15);
+  --agent-pm-border: rgba(59, 130, 246, 0.3);
+
+  --agent-po: #f97316;
+  --agent-po-bg: rgba(249, 115, 22, 0.15);
+  --agent-po-border: rgba(249, 115, 22, 0.3);
+
+  --agent-analyst: #06b6d4;
+  --agent-analyst-bg: rgba(6, 182, 212, 0.15);
+  --agent-analyst-border: rgba(6, 182, 212, 0.3);
+
+  --agent-devops: #ec4899;
+  --agent-devops-bg: rgba(236, 72, 153, 0.15);
+  --agent-devops-border: rgba(236, 72, 153, 0.3);
+
+  --agent-sm: #f472b6;
+  --agent-sm-bg: rgba(244, 114, 182, 0.15);
+  --agent-sm-border: rgba(244, 114, 182, 0.3);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     GOLD ACCENT SYSTEM
+     ───────────────────────────────────────────────────────────────────────── */
+  --accent-gold: #C9B298;
+  --accent-gold-light: #E4D8CA;
+  --accent-gold-dim: rgba(201, 178, 152, 0.25);
+  --accent-gold-bg: rgba(201, 178, 152, 0.08);
+  --accent-gold-bg-hover: rgba(201, 178, 152, 0.12);
+  --border-gold: rgba(201, 178, 152, 0.25);
+  --border-gold-strong: rgba(201, 178, 152, 0.5);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     PRIORITY TOKENS - MoSCoW colors
+     ───────────────────────────────────────────────────────────────────────── */
+  --priority-must: #F87171;
+  --priority-must-bg: rgba(248, 113, 113, 0.08);
+  --priority-must-border: rgba(248, 113, 113, 0.2);
+
+  --priority-should: #FBBF24;
+  --priority-should-bg: rgba(251, 191, 36, 0.08);
+  --priority-should-border: rgba(251, 191, 36, 0.2);
+
+  --priority-could: #60A5FA;
+  --priority-could-bg: rgba(96, 165, 250, 0.08);
+  --priority-could-border: rgba(96, 165, 250, 0.2);
+
+  --priority-wont: #4A4A42;
+  --priority-wont-bg: rgba(255, 255, 255, 0.02);
+  --priority-wont-border: rgba(255, 255, 255, 0.04);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     COMPLEXITY TOKENS
+     ───────────────────────────────────────────────────────────────────────── */
+  --complexity-simple: #4ADE80;
+  --complexity-simple-bg: rgba(74, 222, 128, 0.08);
+  --complexity-simple-border: rgba(74, 222, 128, 0.15);
+
+  --complexity-standard: #FBBF24;
+  --complexity-standard-bg: rgba(251, 191, 36, 0.08);
+  --complexity-standard-border: rgba(251, 191, 36, 0.15);
+
+  --complexity-complex: #F87171;
+  --complexity-complex-bg: rgba(248, 113, 113, 0.08);
+  --complexity-complex-border: rgba(248, 113, 113, 0.15);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     CATEGORY TOKENS
+     ───────────────────────────────────────────────────────────────────────── */
+  --category-feature: #60A5FA;
+  --category-feature-bg: rgba(96, 165, 250, 0.08);
+
+  --category-fix: #FB923C;
+  --category-fix-bg: rgba(251, 146, 60, 0.08);
+
+  --category-refactor: #A78BFA;
+  --category-refactor-bg: rgba(167, 139, 250, 0.08);
+
+  --category-docs: #6B6B5F;
+  --category-docs-bg: rgba(255, 255, 255, 0.04);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     PHASE TOKENS - Development phases
+     ───────────────────────────────────────────────────────────────────────── */
+  --phase-planning: #A78BFA;
+  --phase-coding: #4ADE80;
+  --phase-testing: #FBBF24;
+  --phase-reviewing: #60A5FA;
+  --phase-deploying: #F472B6;
+
+  /* AI Review phase - purple */
+  --phase-review: #A78BFA;
+  --phase-review-bg: rgba(167, 139, 250, 0.1);
+  --phase-review-border: rgba(167, 139, 250, 0.2);
+
+  /* PR Created phase - cyan */
+  --phase-pr: #22D3EE;
+  --phase-pr-bg: rgba(34, 211, 238, 0.1);
+  --phase-pr-border: rgba(34, 211, 238, 0.2);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     RADIUS SCALE - Sharp edges
+     ───────────────────────────────────────────────────────────────────────── */
+  --radius: 0.25rem;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     ANIMATION TOKENS
+     ───────────────────────────────────────────────────────────────────────── */
+  --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     SPACING SCALE
+     ───────────────────────────────────────────────────────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     LAYOUT TOKENS
+     ───────────────────────────────────────────────────────────────────────── */
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 64px;
+  --status-bar-height: 32px;
+  --tabs-height: 40px;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     FOCUS TOKENS
+     ───────────────────────────────────────────────────────────────────────── */
+  --ring-color: rgba(201, 178, 152, 0.5);
+  --ring-width: 2px;
+
+  /* Chart colors */
+  --chart-1: #60A5FA;
+  --chart-2: #34D399;
+  --chart-3: #FBBF24;
+  --chart-4: #A78BFA;
+  --chart-5: #F87171;
+
+  /* Sidebar */
+  --sidebar: #fafafa;
+  --sidebar-foreground: #0a0a0f;
+  --sidebar-primary: #C9B298;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: rgba(201, 178, 152, 0.1);
+  --sidebar-accent-foreground: #0a0a0f;
+  --sidebar-border: #e4e4e7;
+  --sidebar-ring: rgba(201, 178, 152, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TECH REFINED - Dark Theme (Default)
+   Elegant, minimalist, premium dark experience
+   ═══════════════════════════════════════════════════════════════════════════ */
+.dark {
+  /* ─────────────────────────────────────────────────────────────────────────
+     BACKGROUND SCALE - Pure black depth
+     ───────────────────────────────────────────────────────────────────────── */
+  --bg-base: #000000;
+  --bg-elevated: #050505;
+  --bg-surface: #0a0a0a;
+  --bg-surface-hover: #0f0f0f;
+  --bg-overlay: #111111;
+  --bg-hover: rgba(255, 255, 255, 0.02);
+
+  /* Core overrides */
+  --background: var(--bg-base);
+  --foreground: #FAFAF8;
+  --card: var(--bg-surface);
+  --card-hover: var(--bg-surface-hover);
+  --card-foreground: #FAFAF8;
+  --popover: var(--bg-surface);
+  --popover-foreground: #FAFAF8;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     BORDER SCALE - Subtle whites
+     ───────────────────────────────────────────────────────────────────────── */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-medium: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.15);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     TEXT HIERARCHY (WCAG AA compliant - 4.5:1 min contrast)
+     ───────────────────────────────────────────────────────────────────────── */
+  --text-primary: #FAFAF8;    /* 19.5:1 on #0a0a0a */
+  --text-secondary: #B8B8AC;  /* 8.2:1 on #0a0a0a - improved from #A8A89C */
+  --text-tertiary: #8A8A7F;   /* 4.8:1 on #0a0a0a - improved from #6B6B5F */
+  --text-muted: #6A6A5E;      /* 3.2:1 on #0a0a0a - decorative only */
+  --text-disabled: #3A3A32;   /* 1.8:1 on #0a0a0a - disabled state */
+
+  /* Primary - Gold accent */
+  --primary: #C9B298;
+  --primary-foreground: var(--bg-surface);
+
+  /* Secondary */
+  --secondary: #141414;
+  --secondary-foreground: var(--text-secondary);
+
+  /* Muted */
+  --muted: #141414;
+  --muted-foreground: var(--text-tertiary);
+
+  /* Accent - Gold system */
+  --accent: var(--accent-gold-bg);
+  --accent-foreground: var(--accent-gold);
+
+  /* Destructive */
+  --destructive: var(--status-error);
+  --input: var(--border);
+  --ring: var(--border-gold-strong);
+
+  /* Sidebar - Deeper black */
+  --sidebar: var(--bg-elevated);
+  --sidebar-foreground: var(--text-secondary);
+  --sidebar-primary: var(--accent-gold);
+  --sidebar-primary-foreground: var(--bg-surface);
+  --sidebar-accent: var(--accent-gold-bg);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border-subtle);
+  --sidebar-ring: var(--border-gold-strong);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TAILWIND THEME MAPPING
+   ═══════════════════════════════════════════════════════════════════════════ */
+@theme inline {
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-medium: var(--border-medium);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Text colors */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-muted: var(--text-muted);
+  --color-text-disabled: var(--text-disabled);
+
+  /* Gold accent */
+  --color-gold: var(--accent-gold);
+  --color-gold-light: var(--accent-gold-light);
+  --color-gold-dim: var(--accent-gold-dim);
+
+  /* Status colors */
+  --color-status-success: var(--status-success);
+  --color-status-warning: var(--status-warning);
+  --color-status-error: var(--status-error);
+  --color-status-info: var(--status-info);
+  --color-status-idle: var(--status-idle);
+
+  /* Background scale */
+  --color-bg-base: var(--bg-base);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-surface-hover: var(--bg-surface-hover);
+
+  /* Charts */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Radius */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLBAR STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-medium);
+}
+
+.scrollbar-refined::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-refined::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-refined::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.scrollbar-refined::-webkit-scrollbar-thumb:hover {
+  background: var(--border-medium);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITY CLASSES - Tech Refined
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Focus ring */
+.focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  box-shadow: 0 0 0 var(--ring-width) var(--ring-color);
+}
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform var(--duration-normal) var(--ease-luxury),
+              box-shadow var(--duration-normal) var(--ease-luxury),
+              border-color var(--duration-normal) var(--ease-luxury);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Card refined */
+.card-refined {
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: all var(--duration-normal) var(--ease-luxury);
+}
+
+.card-refined:hover {
+  background: var(--card-hover);
+  border-color: var(--border-medium);
+  transform: translateY(-1px);
+}
+
+/* Gold accent utilities */
+.hover-gold:hover {
+  border-color: var(--border-gold);
+}
+
+.hover-gold-strong:hover {
+  border-color: var(--border-gold-strong);
+  box-shadow: 0 0 20px rgba(201, 178, 152, 0.1);
+}
+
+.active-gold {
+  border-color: var(--border-gold) !important;
+  background: var(--accent-gold-bg) !important;
+}
+
+/* Gold gradient line */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--accent-gold-dim) 20%,
+    var(--border-gold-strong) 50%,
+    var(--accent-gold-dim) 80%,
+    transparent 100%
+  );
+}
+
+/* Glow backgrounds */
+.bg-glow-gold {
+  background: radial-gradient(
+    ellipse 80% 50% at 50% 0%,
+    rgba(201, 178, 152, 0.03),
+    transparent
+  );
+}
+
+/* Text gradient - gold shimmer */
+.text-gold-gradient {
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 50%, var(--accent-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section label */
+.section-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent-gold);
+}
+
+/* Status dot with glow */
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-dot-glow {
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* Transition utilities */
+.transition-luxury {
+  transition: all var(--duration-normal) var(--ease-luxury);
+}
+
+.transition-fast {
+  transition: all var(--duration-fast) var(--ease-luxury);
+}
+
+/* Border utilities */
+.border-subtle {
+  border-color: var(--border-subtle);
+}
+
+.border-medium {
+  border-color: var(--border-medium);
+}
+
+/* Skeleton animation */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.skeleton {
+  animation: skeleton-pulse 1.5s var(--ease-luxury) infinite;
+  background: var(--border);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ACCESSIBILITY - Focus Styles
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Enhanced focus visible for all interactive elements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
+
+/* Remove default outline */
+button:focus,
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent-gold);
+  color: var(--bg-surface);
+  padding: 8px 16px;
+  z-index: 100;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hover-lift:hover {
+    transform: none;
+  }
+}

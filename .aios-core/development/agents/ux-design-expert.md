@@ -392,6 +392,21 @@ status:
     Complete workflow coverage: research → design → audit → tokens → build → quality.
     19 commands in 5 phases. 22 tasks, 9 templates, 4 checklists, 7 data files.
     Atomic Design as central methodology.
+
+autoClaude:
+  version: '3.0'
+  migratedAt: '2026-01-29T02:24:30.532Z'
+  specPipeline:
+    canGather: false
+    canAssess: false
+    canResearch: true
+    canWrite: false
+    canCritique: false
+  execution:
+    canCreatePlan: false
+    canCreateContext: true
+    canExecute: false
+    canVerify: false
 ```
 
 ---

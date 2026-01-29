@@ -76,11 +76,9 @@ describe('SquadMigrator', () => {
 
     it('should export SquadMigratorError class', () => {
       expect(SquadMigratorError).toBeDefined();
-      const error = new SquadMigratorError(
-        MigratorErrorCodes.SQUAD_NOT_FOUND,
-        'Test error',
-        { path: '/test' }
-      );
+      const error = new SquadMigratorError(MigratorErrorCodes.SQUAD_NOT_FOUND, 'Test error', {
+        path: '/test',
+      });
       expect(error.name).toBe('SquadMigratorError');
       expect(error.code).toBe(MigratorErrorCodes.SQUAD_NOT_FOUND);
       expect(error.message).toBe('Test error');
@@ -161,9 +159,9 @@ describe('SquadMigrator', () => {
 
       expect(analysis.needsMigration).toBe(true);
       expect(analysis.issues.some((i) => i.type === 'MISSING_AIOS_TYPE')).toBe(true);
-      expect(
-        analysis.actions.some((a) => a.type === 'ADD_FIELD' && a.path === 'aios.type')
-      ).toBe(true);
+      expect(analysis.actions.some((a) => a.type === 'ADD_FIELD' && a.path === 'aios.type')).toBe(
+        true
+      );
     });
 
     it('should detect missing aios.minVersion field (AC 5)', async () => {
@@ -193,11 +191,7 @@ describe('SquadMigrator', () => {
         version: '1.0.0',
         description: 'A fully compliant squad',
       };
-      await fs.writeFile(
-        path.join(testPath, 'squad.yaml'),
-        yaml.dump(manifest),
-        'utf-8'
-      );
+      await fs.writeFile(path.join(testPath, 'squad.yaml'), yaml.dump(manifest), 'utf-8');
 
       const analysis = await migrator.analyze(testPath);
 
@@ -276,11 +270,7 @@ describe('SquadMigrator', () => {
         version: '1.0.0',
         description: 'A fully compliant squad',
       };
-      await fs.writeFile(
-        path.join(testPath, 'squad.yaml'),
-        yaml.dump(manifest),
-        'utf-8'
-      );
+      await fs.writeFile(path.join(testPath, 'squad.yaml'), yaml.dump(manifest), 'utf-8');
 
       const result = await migrator.migrate(testPath);
 
@@ -446,9 +436,9 @@ describe('SquadMigrator', () => {
       await verboseMigrator.analyze(squadPath);
 
       expect(consoleLogSpy).toHaveBeenCalled();
-      expect(
-        consoleLogSpy.mock.calls.some((call) => call[0].includes('[SquadMigrator]'))
-      ).toBe(true);
+      expect(consoleLogSpy.mock.calls.some((call) => call[0].includes('[SquadMigrator]'))).toBe(
+        true
+      );
     });
 
     it('should not log when verbose is disabled', async () => {
@@ -589,9 +579,9 @@ describe('SquadMigrator', () => {
       const testPath = path.join(tempDir, 'unknown-action-test');
       await fs.mkdir(testPath, { recursive: true });
 
-      await expect(
-        migrator._executeAction(testPath, { type: 'UNKNOWN_ACTION' })
-      ).rejects.toThrow(SquadMigratorError);
+      await expect(migrator._executeAction(testPath, { type: 'UNKNOWN_ACTION' })).rejects.toThrow(
+        SquadMigratorError
+      );
     });
   });
 

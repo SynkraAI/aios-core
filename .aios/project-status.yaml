@@ -1,0 +1,18 @@
+status:
+  branch: feat/aios-dashboard
+  modifiedFiles:
+    - .aios-core/core/execution/build-state-manager.js
+    - .aios-core/core/health-check/check-registry.js
+    - .aios-core/core/health-check/checks/deployment/env-file.js
+    - .aios-core/core/health-check/checks/local/disk-space.js
+    - .aios-core/core/health-check/checks/local/environment-vars.js
+  modifiedFilesTotalCount: 227
+  recentCommits:
+    - 'feat(epic-12): implement Auto-Claude feature absorption'
+    - 'feat(ade): implement build recovery & resume system [Story 8.4]'
+  currentEpic: null
+  currentStory: null
+  lastUpdate: '2026-01-29T05:29:42.387Z'
+  isGitRepo: true
+timestamp: 1769664582388
+ttl: 60

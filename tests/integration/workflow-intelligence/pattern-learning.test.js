@@ -71,7 +71,7 @@ describe('Pattern Learning Integration', () => {
         agentSequence: ['sm', 'dev', 'qa'],
         success: true,
         timestamp: Date.now(),
-        sessionId: 'integration-test-1'
+        sessionId: 'integration-test-1',
       };
 
       const captureResult = capture.captureSession(sessionData);
@@ -100,7 +100,7 @@ describe('Pattern Learning Integration', () => {
 
       const sessionData = {
         commands: ['develop', 'review-qa', 'apply-qa-fixes'],
-        success: true
+        success: true,
       };
 
       // First capture
@@ -129,7 +129,7 @@ describe('Pattern Learning Integration', () => {
       // Capture session with low success rate
       const sessionData = {
         commands: ['unknown1', 'unknown2'],
-        success: true
+        success: true,
       };
 
       const captureResult = capture.captureSession(sessionData);
@@ -153,7 +153,7 @@ describe('Pattern Learning Integration', () => {
       const result = store.save({
         sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
         occurrences: 5,
-        successRate: 0.95
+        successRate: 0.95,
       });
 
       const patternId = result.pattern.id;
@@ -161,17 +161,17 @@ describe('Pattern Learning Integration', () => {
 
       // Promote to active
       store.updateStatus(patternId, PATTERN_STATUS.ACTIVE);
-      let pattern = store.load().patterns.find(p => p.id === patternId);
+      let pattern = store.load().patterns.find((p) => p.id === patternId);
       expect(pattern.status).toBe(PATTERN_STATUS.ACTIVE);
 
       // Promote to promoted
       store.updateStatus(patternId, PATTERN_STATUS.PROMOTED);
-      pattern = store.load().patterns.find(p => p.id === patternId);
+      pattern = store.load().patterns.find((p) => p.id === patternId);
       expect(pattern.status).toBe(PATTERN_STATUS.PROMOTED);
 
       // Deprecate
       store.updateStatus(patternId, PATTERN_STATUS.DEPRECATED);
-      pattern = store.load().patterns.find(p => p.id === patternId);
+      pattern = store.load().patterns.find((p) => p.id === patternId);
       expect(pattern.status).toBe(PATTERN_STATUS.DEPRECATED);
     });
 
@@ -179,7 +179,7 @@ describe('Pattern Learning Integration', () => {
       const { createPatternStore } = learningModule;
       const store = createPatternStore({
         storagePath: testStoragePath,
-        maxPatterns: 10
+        maxPatterns: 10,
       });
 
       // Add promoted pattern
@@ -206,11 +206,11 @@ describe('Pattern Learning Integration', () => {
       expect(remaining).toHaveLength(3);
 
       // Promoted and active should remain
-      expect(remaining.some(p => p.status === 'promoted')).toBe(true);
-      expect(remaining.some(p => p.status === 'active')).toBe(true);
+      expect(remaining.some((p) => p.status === 'promoted')).toBe(true);
+      expect(remaining.some((p) => p.status === 'active')).toBe(true);
 
       // Deprecated should be pruned
-      expect(remaining.some(p => p.status === 'deprecated')).toBe(false);
+      expect(remaining.some((p) => p.status === 'deprecated')).toBe(false);
     });
   });
 
@@ -222,15 +222,15 @@ describe('Pattern Learning Integration', () => {
       // Store some patterns
       store.save({
         sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
-        status: 'active'
+        status: 'active',
       });
       store.save({
         sequence: ['develop', 'run-tests', 'review-qa'],
-        status: 'active'
+        status: 'active',
       });
       store.save({
         sequence: ['create-story', 'validate-story-draft', 'develop'],
-        status: 'active'
+        status: 'active',
       });
 
       // Search for patterns starting with 'develop'
@@ -252,7 +252,7 @@ describe('Pattern Learning Integration', () => {
       const active = store.getActivePatterns();
 
       expect(active).toHaveLength(2);
-      expect(active.every(p => p.status === 'active' || p.status === 'promoted')).toBe(true);
+      expect(active.every((p) => p.status === 'active' || p.status === 'promoted')).toBe(true);
     });
   });
 
@@ -264,13 +264,13 @@ describe('Pattern Learning Integration', () => {
 
       const pattern1 = {
         sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
-        occurrences: 5
+        occurrences: 5,
       };
 
       store.save(pattern1);
 
       const pattern2 = {
-        sequence: ['develop', 'review-qa', 'apply-qa-fixes']
+        sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
       };
 
       const existing = store.load().patterns;
@@ -286,11 +286,11 @@ describe('Pattern Learning Integration', () => {
       const store = createPatternStore({ storagePath: testStoragePath });
 
       store.save({
-        sequence: ['develop', 'review-qa', 'apply-qa-fixes']
+        sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
       });
 
       const similarPattern = {
-        sequence: ['develop', 'review-qa', 'run-tests']
+        sequence: ['develop', 'review-qa', 'run-tests'],
       };
 
       const existing = store.load().patterns;
@@ -361,7 +361,7 @@ describe('Pattern Learning Integration', () => {
         commands: ['validate-story-draft', 'develop', 'review-qa', 'apply-qa-fixes', 'run-tests'],
         agentSequence: ['sm', 'dev', 'qa'],
         success: true,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
 
       const start = Date.now();
@@ -387,7 +387,7 @@ describe('Pattern Learning Integration', () => {
         store.save({
           sequence: [`cmd${i}a`, `cmd${i}b`, `cmd${i}c`],
           occurrences: Math.floor(Math.random() * 10) + 1,
-          successRate: 0.8 + Math.random() * 0.2
+          successRate: 0.8 + Math.random() * 0.2,
         });
       }
 
@@ -401,13 +401,13 @@ describe('Pattern Learning Integration', () => {
       const { createPatternStore } = learningModule;
       const store = createPatternStore({
         storagePath: testStoragePath,
-        maxPatterns: 100
+        maxPatterns: 100,
       });
 
       // Pre-populate store
       for (let i = 0; i < 50; i++) {
         store.save({
-          sequence: [`cmd${i}`, `next${i}`, `final${i}`]
+          sequence: [`cmd${i}`, `next${i}`, `final${i}`],
         });
       }
 
@@ -435,7 +435,13 @@ describe('Pattern Learning Integration', () => {
 
     it('should handle missing storage directory', () => {
       const { createPatternStore } = learningModule;
-      const deepPath = path.join(os.tmpdir(), 'deep', 'nested', 'dir', `patterns-${Date.now()}.yaml`);
+      const deepPath = path.join(
+        os.tmpdir(),
+        'deep',
+        'nested',
+        'dir',
+        `patterns-${Date.now()}.yaml`
+      );
 
       const store = createPatternStore({ storagePath: deepPath });
 

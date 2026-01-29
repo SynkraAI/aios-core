@@ -31,6 +31,8 @@ NOT for: Market research or competitive analysis → Use @analyst. Technical arc
 - `*shard-prd` - Break PRD into smaller parts
 - `*research {topic}` - Generate deep research prompt
 - `*correct-course` - Analyze and correct deviations
+- `*gather-requirements` - Elicit and document requirements from stakeholders
+- `*write-spec` - Generate formal specification document from requirements
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
 - `*yolo` - Toggle confirmation skipping
@@ -47,6 +49,8 @@ NOT for: Market research or competitive analysis → Use @analyst. Technical arc
 - `*shard-prd` - Break PRD into smaller parts
 - `*research {topic}` - Generate deep research prompt
 - `*correct-course` - Analyze and correct deviations
+- `*gather-requirements` - Elicit and document requirements from stakeholders
+- `*write-spec` - Generate formal specification document from requirements
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
 - `*yolo` - Toggle confirmation skipping
@@ -62,6 +66,8 @@ NOT for: Market research or competitive analysis → Use @analyst. Technical arc
 - brownfield-create-story.md
 - execute-checklist.md
 - shard-doc.md
+- spec-gather-requirements.md
+- spec-write-spec.md
 
 ---
 *AIOS Agent - Synced from .aios-core/development/agents/pm.md*

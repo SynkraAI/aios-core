@@ -323,7 +323,7 @@ coderabbit_integration:
   wsl_config:
     distribution: Ubuntu
     installation_path: ~/.local/bin/coderabbit
-    working_directory: /mnt/c/Users/AllFluence-User/Workspaces/AIOS/SynkraAI/aios-core
+    working_directory: ${PROJECT_ROOT}
 
   # Self-healing configuration
   self_healing:
@@ -347,9 +347,9 @@ coderabbit_integration:
   # CLI commands (WSL wrapper for Windows)
   commands:
     qa_pre_review_uncommitted: |
-      wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/SynkraAI/aios-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'
+      wsl bash -c 'cd ${PROJECT_ROOT} && ~/.local/bin/coderabbit --prompt-only -t uncommitted'
     qa_story_review_committed: |
-      wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/SynkraAI/aios-core && ~/.local/bin/coderabbit --prompt-only -t committed --base main'
+      wsl bash -c 'cd ${PROJECT_ROOT} && ~/.local/bin/coderabbit --prompt-only -t committed --base main'
 
   report_location: docs/qa/coderabbit-reports/
 
@@ -491,3 +491,49 @@ ideSync:
     strictMode: true
     failOnDrift: true
     failOnOrphaned: false
+
+# ============================================
+# SECTION 13: Auto-Claude Configuration (ADE)
+# Autonomous Development Engine settings
+# ============================================
+autoClaude:
+  enabled: true
+  version: "3.0"
+  migratedAt: "2026-01-29T02:25:00Z"
+
+  # Worktree Management (Story 1.4)
+  # Controls automatic worktree creation/cleanup for stories
+  worktree:
+    enabled: true
+    # When to auto-create worktree:
+    # - on_story_start: Auto-create when story moves to "In Progress"
+    # - manual: Only create via explicit command
+    # - never: Disable auto-creation
+    autoCreate: on_story_start
+
+    # When to auto-cleanup worktree:
+    # - on_story_done: Auto-cleanup when story moves to "Done" (if clean)
+    # - manual: Only cleanup via explicit command
+    # - never: Keep worktrees indefinitely
+    autoCleanup: manual
+
+    # Maximum concurrent worktrees (prevents disk bloat)
+    maxWorktrees: 10
+
+    # Days after which a worktree is considered stale
+    staleDays: 30
+
+    # Branch prefix for worktree branches
+    branchPrefix: "auto-claude/"
+
+  # Spec Pipeline (Story 3.x - Future)
+  specPipeline:
+    enabled: false
+
+  # Execution Engine (Story 4.x - Future)
+  execution:
+    enabled: false
+
+  # QA Integration (Story 5.x - Future)
+  qa:
+    enabled: false

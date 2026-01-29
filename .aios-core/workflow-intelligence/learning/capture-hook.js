@@ -71,20 +71,20 @@ async function onTaskComplete(taskName, context = {}) {
         return {
           success: true,
           action: 'stored',
-          patternId: result.pattern.id
+          patternId: result.pattern.id,
         };
       } else {
         return {
           success: false,
           reason: 'validation_failed',
-          errors: validation.errors
+          errors: validation.errors,
         };
       }
     }
 
     return {
       success: false,
-      reason: result.reason || 'not_captured'
+      reason: result.reason || 'not_captured',
     };
   } catch (error) {
     // Silent failure - capture is non-critical
@@ -94,7 +94,7 @@ async function onTaskComplete(taskName, context = {}) {
     return {
       success: false,
       reason: 'error',
-      error: error.message
+      error: error.message,
     };
   }
 }
@@ -143,5 +143,5 @@ module.exports = {
   markSessionFailed,
   clearSession,
   isEnabled,
-  reset
+  reset,
 };

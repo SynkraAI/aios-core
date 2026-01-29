@@ -61,7 +61,7 @@ describe('SuggestionEngine (Unit)', () => {
         lastCommands: [],
         storyPath: null,
         branch: null,
-        projectState: {}
+        projectState: {},
       };
 
       const result = await engine.suggestNext(context);
@@ -77,7 +77,7 @@ describe('SuggestionEngine (Unit)', () => {
         lastCommands: ['validate-story-draft', 'develop'],
         storyPath: 'docs/stories/test.md',
         branch: 'feature/test',
-        projectState: { activeStory: true }
+        projectState: { activeStory: true },
       };
 
       const result = await engine.suggestNext(context);
@@ -95,7 +95,7 @@ describe('SuggestionEngine (Unit)', () => {
         lastCommands: ['x', 'y', 'z'],
         storyPath: null,
         branch: null,
-        projectState: {}
+        projectState: {},
       };
 
       const result = await engine.suggestNext(context);
@@ -109,7 +109,7 @@ describe('SuggestionEngine (Unit)', () => {
 
       const context = await engine.buildContext({
         storyOverride: testStoryPath,
-        agentId: 'dev'
+        agentId: 'dev',
       });
 
       expect(context.storyPath).toBe(testStoryPath);

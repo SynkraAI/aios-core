@@ -176,16 +176,16 @@ commands:
       fs.ensureDirSync(agentsDir);
 
       // Create two agent files
-      const agent1 = `# agent1\n\n\`\`\`yaml\nagent:\n  name: Agent1\n  id: agent1\n\`\`\``;
-      const agent2 = `# agent2\n\n\`\`\`yaml\nagent:\n  name: Agent2\n  id: agent2\n\`\`\``;
+      const agent1 = '# agent1\n\n```yaml\nagent:\n  name: Agent1\n  id: agent1\n```';
+      const agent2 = '# agent2\n\n```yaml\nagent:\n  name: Agent2\n  id: agent2\n```';
 
       fs.writeFileSync(path.join(agentsDir, 'agent1.md'), agent1);
       fs.writeFileSync(path.join(agentsDir, 'agent2.md'), agent2);
 
       const agents = parseAllAgents(agentsDir);
       expect(agents).toHaveLength(2);
-      expect(agents.map(a => a.id)).toContain('agent1');
-      expect(agents.map(a => a.id)).toContain('agent2');
+      expect(agents.map((a) => a.id)).toContain('agent1');
+      expect(agents.map((a) => a.id)).toContain('agent2');
     });
 
     it('should return empty array for non-existent directory', () => {
@@ -217,23 +217,23 @@ commands:
     it('should filter by full visibility', () => {
       const result = getVisibleCommands(commands, 'full');
       expect(result).toHaveLength(3);
-      expect(result.map(c => c.name)).toContain('help');
-      expect(result.map(c => c.name)).toContain('run');
-      expect(result.map(c => c.name)).toContain('debug');
+      expect(result.map((c) => c.name)).toContain('help');
+      expect(result.map((c) => c.name)).toContain('run');
+      expect(result.map((c) => c.name)).toContain('debug');
     });
 
     it('should filter by quick visibility', () => {
       const result = getVisibleCommands(commands, 'quick');
       expect(result).toHaveLength(2);
-      expect(result.map(c => c.name)).toContain('help');
-      expect(result.map(c => c.name)).toContain('run');
+      expect(result.map((c) => c.name)).toContain('help');
+      expect(result.map((c) => c.name)).toContain('run');
     });
 
     it('should filter by key visibility', () => {
       const result = getVisibleCommands(commands, 'key');
       expect(result).toHaveLength(2);
-      expect(result.map(c => c.name)).toContain('help');
-      expect(result.map(c => c.name)).toContain('exit');
+      expect(result.map((c) => c.name)).toContain('help');
+      expect(result.map((c) => c.name)).toContain('exit');
     });
 
     it('should handle empty commands array', () => {
@@ -246,12 +246,9 @@ commands:
     });
 
     it('should include commands without visibility defined', () => {
-      const cmds = [
-        { name: 'novis' },
-        { name: 'withvis', visibility: ['full'] },
-      ];
+      const cmds = [{ name: 'novis' }, { name: 'withvis', visibility: ['full'] }];
       const result = getVisibleCommands(cmds, 'quick');
-      expect(result.map(c => c.name)).toContain('novis');
+      expect(result.map((c) => c.name)).toContain('novis');
     });
   });
 

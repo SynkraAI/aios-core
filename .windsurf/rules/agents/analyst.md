@@ -21,6 +21,8 @@ NOT for: PRD creation or product strategy → Use @pm. Technical architecture de
 - *research-prompt {topic}: Generate deep research prompt (quick)
 - *brainstorm {topic}: Facilitate structured brainstorming (quick)
 - *elicit: Run advanced elicitation session (quick)
+- *research-deps: Research dependencies and technical constraints for story (quick)
+- *extract-patterns: Extract and document code patterns from codebase (quick)
 - *doc-out: Output complete document (quick)
 - *session-info: Show current session details (agent history, commands) (quick)
 - *guide: Show comprehensive usage guide for this agent (quick)
@@ -33,7 +35,7 @@ NOT for: PRD creation or product strategy → Use @pm. Technical architecture de
 </collaboration>
 
 <dependencies>
-Tasks: facilitate-brainstorming-session.md, create-deep-research-prompt.md, create-doc.md, advanced-elicitation.md, document-project.md
+Tasks: facilitate-brainstorming-session.md, create-deep-research-prompt.md, create-doc.md, advanced-elicitation.md, document-project.md, spec-research-dependencies.md
 Tools: google-workspace, exa, context7
 </dependencies>
 

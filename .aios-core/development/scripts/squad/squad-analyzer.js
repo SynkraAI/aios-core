@@ -228,24 +228,17 @@ class SquadAnalyzer {
     // Agents coverage
     const agentCount = inventory.agents.length;
     const agentsWithTasks = this._countAgentsWithTasks(inventory);
-    const agentCoverage = agentCount > 0
-      ? Math.round((agentsWithTasks / agentCount) * 100)
-      : 0;
+    const agentCoverage = agentCount > 0 ? Math.round((agentsWithTasks / agentCount) * 100) : 0;
 
     // Tasks coverage (relative to agents)
     const taskCount = inventory.tasks.length;
     const expectedTasks = agentCount * 2; // Expect at least 2 tasks per agent
-    const taskCoverage = expectedTasks > 0
-      ? Math.min(100, Math.round((taskCount / expectedTasks) * 100))
-      : 0;
+    const taskCoverage =
+      expectedTasks > 0 ? Math.min(100, Math.round((taskCount / expectedTasks) * 100)) : 0;
 
     // Directory coverage
-    const populatedDirs = COMPONENT_DIRECTORIES.filter(
-      (dir) => inventory[dir].length > 0
-    ).length;
-    const dirCoverage = Math.round(
-      (populatedDirs / COMPONENT_DIRECTORIES.length) * 100
-    );
+    const populatedDirs = COMPONENT_DIRECTORIES.filter((dir) => inventory[dir].length > 0).length;
+    const dirCoverage = Math.round((populatedDirs / COMPONENT_DIRECTORIES.length) * 100);
 
     // Config coverage (check for common files)
     const configCoverage = this._calculateConfigCoverage(squadPath, inventory);
@@ -524,15 +517,15 @@ class SquadAnalyzer {
     lines.push('Coverage');
     lines.push(
       `  Agents: ${this._formatBar(coverage.agents.percentage)} ${coverage.agents.percentage}% ` +
-      `(${coverage.agents.withTasks}/${coverage.agents.total} with tasks)`
+        `(${coverage.agents.withTasks}/${coverage.agents.total} with tasks)`
     );
     lines.push(
       `  Tasks: ${this._formatBar(coverage.tasks.percentage)} ${coverage.tasks.percentage}% ` +
-      `(${coverage.tasks.total} tasks)`
+        `(${coverage.tasks.total} tasks)`
     );
     lines.push(
       `  Directories: ${this._formatBar(coverage.directories.percentage)} ${coverage.directories.percentage}% ` +
-      `(${coverage.directories.populated}/${coverage.directories.total} populated)`
+        `(${coverage.directories.populated}/${coverage.directories.total} populated)`
     );
     lines.push(
       `  Config: ${this._formatBar(coverage.config.percentage)} ${coverage.config.percentage}%`
@@ -543,8 +536,8 @@ class SquadAnalyzer {
     if (suggestions.length > 0) {
       lines.push('Suggestions');
       suggestions.forEach((suggestion, index) => {
-        const priorityIcon = suggestion.priority === 'high' ? '!' :
-          suggestion.priority === 'medium' ? '*' : '-';
+        const priorityIcon =
+          suggestion.priority === 'high' ? '!' : suggestion.priority === 'medium' ? '*' : '-';
         lines.push(`  ${index + 1}. [${priorityIcon}] ${suggestion.message}`);
       });
       lines.push('');
@@ -600,9 +593,13 @@ class SquadAnalyzer {
     lines.push('');
     lines.push('| Category | Percentage | Details |');
     lines.push('|----------|------------|---------|');
-    lines.push(`| Agents | ${coverage.agents.percentage}% | ${coverage.agents.withTasks}/${coverage.agents.total} with tasks |`);
+    lines.push(
+      `| Agents | ${coverage.agents.percentage}% | ${coverage.agents.withTasks}/${coverage.agents.total} with tasks |`
+    );
     lines.push(`| Tasks | ${coverage.tasks.percentage}% | ${coverage.tasks.total} total |`);
-    lines.push(`| Directories | ${coverage.directories.percentage}% | ${coverage.directories.populated}/${coverage.directories.total} populated |`);
+    lines.push(
+      `| Directories | ${coverage.directories.percentage}% | ${coverage.directories.populated}/${coverage.directories.total} populated |`
+    );
     lines.push(`| Config | ${coverage.config.percentage}% | - |`);
     lines.push('');
 
@@ -610,7 +607,9 @@ class SquadAnalyzer {
       lines.push('## Suggestions');
       lines.push('');
       suggestions.forEach((suggestion, index) => {
-        lines.push(`${index + 1}. **[${suggestion.priority.toUpperCase()}]** ${suggestion.message}`);
+        lines.push(
+          `${index + 1}. **[${suggestion.priority.toUpperCase()}]** ${suggestion.message}`
+        );
       });
       lines.push('');
     }

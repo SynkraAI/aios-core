@@ -27,6 +27,8 @@ NOT for: PRD creation or product strategy → Use @pm. Technical architecture de
 - `*research-prompt {topic}` - Generate deep research prompt
 - `*brainstorm {topic}` - Facilitate structured brainstorming
 - `*elicit` - Run advanced elicitation session
+- `*research-deps` - Research dependencies and technical constraints for story
+- `*extract-patterns` - Extract and document code patterns from codebase
 - `*doc-out` - Output complete document
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
@@ -42,6 +44,8 @@ NOT for: PRD creation or product strategy → Use @pm. Technical architecture de
 - `*research-prompt {topic}` - Generate deep research prompt
 - `*brainstorm {topic}` - Facilitate structured brainstorming
 - `*elicit` - Run advanced elicitation session
+- `*research-deps` - Research dependencies and technical constraints for story
+- `*extract-patterns` - Extract and document code patterns from codebase
 - `*doc-out` - Output complete document
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
@@ -56,6 +60,7 @@ NOT for: PRD creation or product strategy → Use @pm. Technical architecture de
 - create-doc.md
 - advanced-elicitation.md
 - document-project.md
+- spec-research-dependencies.md
 
 ### Tools
 - google-workspace

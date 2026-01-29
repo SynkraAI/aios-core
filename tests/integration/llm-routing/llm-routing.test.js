@@ -16,12 +16,15 @@ const {
   isLLMRoutingInstalled,
   getInstallDir,
   getInstallationSummary,
-  LLM_ROUTING_VERSION
+  LLM_ROUTING_VERSION,
 } = require('../../../.aios-core/infrastructure/scripts/llm-routing/install-llm-routing');
 
 describe('LLM Routing Module', () => {
   const isWindows = os.platform() === 'win32';
-  const testTemplatesDir = path.join(__dirname, '../../../.aios-core/infrastructure/scripts/llm-routing/templates');
+  const testTemplatesDir = path.join(
+    __dirname,
+    '../../../.aios-core/infrastructure/scripts/llm-routing/templates'
+  );
 
   describe('Module Exports', () => {
     test('should export all required functions', () => {
@@ -51,15 +54,12 @@ describe('LLM Routing Module', () => {
         // Windows: should be npm global or user profile
         expect(
           installDir.includes('npm') ||
-          installDir.includes('Users') ||
-          installDir.includes('USERPROFILE')
+            installDir.includes('Users') ||
+            installDir.includes('USERPROFILE')
         ).toBe(true);
       } else {
         // Unix: should be /usr/local/bin or ~/bin
-        expect(
-          installDir.includes('/usr/local/bin') ||
-          installDir.includes('/bin')
-        ).toBe(true);
+        expect(installDir.includes('/usr/local/bin') || installDir.includes('/bin')).toBe(true);
       }
     });
   });
@@ -117,7 +117,7 @@ describe('LLM Routing Module', () => {
       const result = installLLMRouting({
         templatesDir: '/nonexistent/templates',
         onProgress: mockProgress,
-        onError: mockError
+        onError: mockError,
       });
 
       expect(result.success).toBe(false);
@@ -133,7 +133,7 @@ describe('LLM Routing Module', () => {
       const result = installLLMRouting({
         templatesDir: testTemplatesDir,
         onProgress: mockProgress,
-        onError: mockError
+        onError: mockError,
       });
 
       // Should have expected properties
@@ -153,13 +153,13 @@ describe('LLM Routing Module', () => {
         installDir: '/test/dir',
         filesInstalled: ['claude-free', 'claude-max'],
         envCreated: false,
-        errors: []
+        errors: [],
       };
 
       const summary = getInstallationSummary(mockResult);
 
       expect(Array.isArray(summary)).toBe(true);
-      summary.forEach(line => {
+      summary.forEach((line) => {
         expect(typeof line).toBe('string');
       });
     });
@@ -170,7 +170,7 @@ describe('LLM Routing Module', () => {
         installDir: '/test/dir',
         filesInstalled: ['claude-free', 'claude-max'],
         envCreated: false,
-        errors: []
+        errors: [],
       };
 
       const summary = getInstallationSummary(mockResult);
@@ -187,7 +187,7 @@ describe('LLM Routing Module', () => {
         installDir: '/test/dir',
         filesInstalled: [],
         envCreated: false,
-        errors: ['Test error 1', 'Test error 2']
+        errors: ['Test error 1', 'Test error 2'],
       };
 
       const summary = getInstallationSummary(mockResult);
@@ -203,7 +203,10 @@ describe('LLM Routing Module', () => {
     test('should use path.join for cross-platform compatibility', () => {
       // The install script should use path.join() not string concatenation
       const installScript = fs.readFileSync(
-        path.join(__dirname, '../../../.aios-core/infrastructure/scripts/llm-routing/install-llm-routing.js'),
+        path.join(
+          __dirname,
+          '../../../.aios-core/infrastructure/scripts/llm-routing/install-llm-routing.js'
+        ),
         'utf8'
       );
 
@@ -218,7 +221,10 @@ describe('LLM Routing Module', () => {
 
 describe('Environment Variable Handling', () => {
   const isWindows = os.platform() === 'win32';
-  const testTemplatesDir = path.join(__dirname, '../../../.aios-core/infrastructure/scripts/llm-routing/templates');
+  const testTemplatesDir = path.join(
+    __dirname,
+    '../../../.aios-core/infrastructure/scripts/llm-routing/templates'
+  );
 
   test('claude-free should look for .env file', () => {
     const templateExt = isWindows ? '.cmd' : '.sh';

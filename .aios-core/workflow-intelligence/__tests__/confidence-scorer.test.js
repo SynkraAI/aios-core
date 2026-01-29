@@ -8,7 +8,7 @@
 const {
   ConfidenceScorer,
   createConfidenceScorer,
-  SCORING_WEIGHTS
+  SCORING_WEIGHTS,
 } = require('../engine/confidence-scorer');
 
 describe('ConfidenceScorer', () => {
@@ -21,34 +21,34 @@ describe('ConfidenceScorer', () => {
   describe('constructor', () => {
     it('should create scorer with default weights', () => {
       const weights = scorer.getWeights();
-      expect(weights.COMMAND_MATCH).toBe(0.40);
+      expect(weights.COMMAND_MATCH).toBe(0.4);
       expect(weights.AGENT_MATCH).toBe(0.25);
-      expect(weights.HISTORY_DEPTH).toBe(0.20);
+      expect(weights.HISTORY_DEPTH).toBe(0.2);
       expect(weights.PROJECT_STATE).toBe(0.15);
     });
 
     it('should accept custom weights', () => {
       const customScorer = createConfidenceScorer({
         weights: {
-          COMMAND_MATCH: 0.50,
-          AGENT_MATCH: 0.20,
+          COMMAND_MATCH: 0.5,
+          AGENT_MATCH: 0.2,
           HISTORY_DEPTH: 0.15,
-          PROJECT_STATE: 0.15
-        }
+          PROJECT_STATE: 0.15,
+        },
       });
       const weights = customScorer.getWeights();
-      expect(weights.COMMAND_MATCH).toBe(0.50);
+      expect(weights.COMMAND_MATCH).toBe(0.5);
     });
 
     it('should throw error if weights do not sum to 1.0', () => {
       expect(() => {
         createConfidenceScorer({
           weights: {
-            COMMAND_MATCH: 0.50,
-            AGENT_MATCH: 0.50,
-            HISTORY_DEPTH: 0.20,
-            PROJECT_STATE: 0.15
-          }
+            COMMAND_MATCH: 0.5,
+            AGENT_MATCH: 0.5,
+            HISTORY_DEPTH: 0.2,
+            PROJECT_STATE: 0.15,
+          },
         });
       }).toThrow('Scoring weights must sum to 1.0');
     });
@@ -69,53 +69,53 @@ describe('ConfidenceScorer', () => {
       const suggestion = {
         trigger: 'create-epic',
         agentSequence: ['po', 'sm'],
-        keyCommands: ['create-epic', 'create-story']
+        keyCommands: ['create-epic', 'create-story'],
       };
       const context = {
         lastCommand: 'create-epic',
         lastCommands: ['create-epic'],
         agentId: '@po',
-        projectState: {}
+        projectState: {},
       };
 
       const result = scorer.score(suggestion, context);
       // Score is composed of: command(40%) + agent(25%) + history(20%) + state(15%)
-      expect(result).toBeGreaterThanOrEqual(0.70);
+      expect(result).toBeGreaterThanOrEqual(0.7);
     });
 
     it('should return medium score for partial command match', () => {
       const suggestion = {
         trigger: 'create-epic',
         agentSequence: ['po', 'sm'],
-        keyCommands: ['create-epic', 'create-story']
+        keyCommands: ['create-epic', 'create-story'],
       };
       const context = {
         lastCommand: 'create-story',
         lastCommands: ['create-story'],
         agentId: '@sm',
-        projectState: {}
+        projectState: {},
       };
 
       const result = scorer.score(suggestion, context);
-      expect(result).toBeGreaterThan(0.40);
-      expect(result).toBeLessThan(0.80);
+      expect(result).toBeGreaterThan(0.4);
+      expect(result).toBeLessThan(0.8);
     });
 
     it('should return low score for no command match', () => {
       const suggestion = {
         trigger: 'create-epic',
         agentSequence: ['po', 'sm'],
-        keyCommands: ['create-epic', 'create-story']
+        keyCommands: ['create-epic', 'create-story'],
       };
       const context = {
         lastCommand: 'push',
         lastCommands: ['push'],
         agentId: '@devops',
-        projectState: {}
+        projectState: {},
       };
 
       const result = scorer.score(suggestion, context);
-      expect(result).toBeLessThanOrEqual(0.30);
+      expect(result).toBeLessThanOrEqual(0.3);
     });
 
     it('should return normalized score between 0 and 1', () => {
@@ -295,12 +295,12 @@ describe('ConfidenceScorer', () => {
     it('should rank suggestions by score descending', () => {
       const suggestions = [
         { trigger: 'push', agentSequence: ['devops'] },
-        { trigger: 'create-epic', agentSequence: ['po'] }
+        { trigger: 'create-epic', agentSequence: ['po'] },
       ];
       const context = {
         lastCommand: 'create-epic',
         lastCommands: ['create-epic'],
-        agentId: '@po'
+        agentId: '@po',
       };
 
       const result = scorer.rankSuggestions(suggestions, context);
@@ -320,9 +320,9 @@ describe('ConfidenceScorer', () => {
 
   describe('SCORING_WEIGHTS constant', () => {
     it('should have correct default weights', () => {
-      expect(SCORING_WEIGHTS.COMMAND_MATCH).toBe(0.40);
+      expect(SCORING_WEIGHTS.COMMAND_MATCH).toBe(0.4);
       expect(SCORING_WEIGHTS.AGENT_MATCH).toBe(0.25);
-      expect(SCORING_WEIGHTS.HISTORY_DEPTH).toBe(0.20);
+      expect(SCORING_WEIGHTS.HISTORY_DEPTH).toBe(0.2);
       expect(SCORING_WEIGHTS.PROJECT_STATE).toBe(0.15);
     });
 

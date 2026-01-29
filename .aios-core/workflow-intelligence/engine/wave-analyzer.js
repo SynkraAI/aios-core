@@ -48,13 +48,13 @@ class CircularDependencyError extends Error {
 const DEFAULT_TASK_DURATIONS = {
   'read-story': 5,
   'setup-branch': 2,
-  'implement': 30,
+  implement: 30,
   'write-tests': 10,
   'update-docs': 5,
   'run-tests': 5,
   'review-qa': 15,
   'apply-qa-fixes': 10,
-  'default': 10
+  default: 10,
 };
 
 /**
@@ -117,7 +117,7 @@ class WaveAnalyzer {
         waves: [],
         optimizationGain: '0%',
         criticalPath: [],
-        analysisTime: Date.now() - startTime
+        analysisTime: Date.now() - startTime,
       };
     }
 
@@ -147,15 +147,15 @@ class WaveAnalyzer {
         tasks: wave.tasks,
         parallel: wave.tasks.length > 1,
         dependsOn: wave.dependsOn || [],
-        estimatedDuration: this._formatDuration(wave.duration)
+        estimatedDuration: this._formatDuration(wave.duration),
       })),
       optimizationGain: `${optimizationGain}%`,
       criticalPath,
       metrics: {
         sequentialTime: this._formatDuration(sequentialTime),
         parallelTime: this._formatDuration(parallelTime),
-        analysisTime: Date.now() - startTime
-      }
+        analysisTime: Date.now() - startTime,
+      },
     };
   }
 
@@ -183,7 +183,7 @@ class WaveAnalyzer {
     // Extract tasks from workflow definition
     return {
       id: workflowId,
-      tasks: this._extractTasksFromWorkflow(workflowDef)
+      tasks: this._extractTasksFromWorkflow(workflowDef),
     };
   }
 
@@ -213,7 +213,7 @@ class WaveAnalyzer {
         const task = {
           id: state,
           name: state,
-          dependsOn: i > 0 ? [stateOrder[i - 1]] : []
+          dependsOn: i > 0 ? [stateOrder[i - 1]] : [],
         };
 
         // Add next_steps as parallel tasks within this state
@@ -223,8 +223,9 @@ class WaveAnalyzer {
               id: step.command,
               name: step.command,
               description: step.description,
-              duration: step.duration || this.taskDurations[step.command] || this.taskDurations.default,
-              dependsOn: [state] // Depends on the parent state
+              duration:
+                step.duration || this.taskDurations[step.command] || this.taskDurations.default,
+              dependsOn: [state], // Depends on the parent state
             };
             tasks.push(stepTask);
           }
@@ -242,7 +243,7 @@ class WaveAnalyzer {
           id: cmd,
           name: cmd,
           dependsOn: i > 0 ? [workflowDef.key_commands[i - 1]] : [],
-          duration: this.taskDurations[cmd] || this.taskDurations.default
+          duration: this.taskDurations[cmd] || this.taskDurations.default,
         });
       }
     }
@@ -258,9 +259,9 @@ class WaveAnalyzer {
   buildDependencyGraph(tasks) {
     const graph = {
       nodes: new Set(),
-      edges: new Map(),    // node -> Set of nodes it points to
-      inEdges: new Map(),  // node -> Set of nodes pointing to it
-      taskMap: new Map()   // node -> task object
+      edges: new Map(), // node -> Set of nodes it points to
+      inEdges: new Map(), // node -> Set of nodes pointing to it
+      taskMap: new Map(), // node -> task object
     };
 
     // Add all nodes
@@ -390,7 +391,8 @@ class WaveAnalyzer {
 
       for (const task of waveTasks) {
         const taskObj = graph.taskMap.get(task);
-        const duration = taskObj?.duration || this.taskDurations[task] || this.taskDurations.default;
+        const duration =
+          taskObj?.duration || this.taskDurations[task] || this.taskDurations.default;
         waveDuration = Math.max(waveDuration, duration);
 
         // Collect dependencies from previous waves
@@ -405,7 +407,7 @@ class WaveAnalyzer {
       waves.push({
         tasks: waveTasks,
         duration: waveDuration,
-        dependsOn: Array.from(dependencies)
+        dependsOn: Array.from(dependencies),
       });
 
       // Remove wave nodes and update in-degrees
@@ -448,7 +450,8 @@ class WaveAnalyzer {
     for (const wave of waves) {
       for (const node of wave.tasks) {
         const taskObj = graph.taskMap.get(node);
-        const duration = taskObj?.duration || this.taskDurations[node] || this.taskDurations.default;
+        const duration =
+          taskObj?.duration || this.taskDurations[node] || this.taskDurations.default;
 
         const neighbors = graph.edges.get(node) || new Set();
         for (const neighbor of neighbors) {
@@ -496,7 +499,11 @@ class WaveAnalyzer {
    */
   _calculateSequentialTime(tasks) {
     return tasks.reduce((sum, task) => {
-      const duration = task.duration || this.taskDurations[task.id] || this.taskDurations[task.name] || this.taskDurations.default;
+      const duration =
+        task.duration ||
+        this.taskDurations[task.id] ||
+        this.taskDurations[task.name] ||
+        this.taskDurations.default;
       return sum + duration;
     }, 0);
   }
@@ -550,7 +557,7 @@ class WaveAnalyzer {
       const analysis = this.analyzeWaves(workflowId);
 
       let currentWaveNumber = null;
-      let totalWaves = analysis.waves.length;
+      const totalWaves = analysis.waves.length;
       let currentWaveInfo = null;
       let nextWaveInfo = null;
 
@@ -574,8 +581,8 @@ class WaveAnalyzer {
         totalWaves,
         currentWave: currentWaveInfo,
         nextWave: nextWaveInfo,
-        parallelTasks: currentWaveInfo?.tasks.filter(t => t !== currentTask) || [],
-        canParallelize: currentWaveInfo?.parallel || false
+        parallelTasks: currentWaveInfo?.tasks.filter((t) => t !== currentTask) || [],
+        canParallelize: currentWaveInfo?.parallel || false,
       };
     } catch (error) {
       return {
@@ -583,7 +590,7 @@ class WaveAnalyzer {
         currentTask,
         currentWaveNumber: null,
         totalWaves: 0,
-        error: error.message
+        error: error.message,
       };
     }
   }
@@ -672,5 +679,5 @@ module.exports = {
   CircularDependencyError,
   createWaveAnalyzer,
   analyzeWaves,
-  DEFAULT_TASK_DURATIONS
+  DEFAULT_TASK_DURATIONS,
 };

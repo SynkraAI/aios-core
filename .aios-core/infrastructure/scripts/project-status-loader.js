@@ -1,7 +1,8 @@
-const { execa } = require('execa');
+const execa = require('execa');
 const fs = require('fs').promises;
 const path = require('path');
 const yaml = require('js-yaml');
+const WorktreeManager = require('./worktree-manager');
 
 /**
  * ProjectStatusLoader - Dynamic project status for agent activation context
@@ -82,14 +83,15 @@ class ProjectStatusLoader {
       return this.getNonGitStatus();
     }
 
-    const [branch, modifiedFilesResult, recentCommits, storyInfo] = await Promise.all([
+    const [branch, modifiedFilesResult, recentCommits, storyInfo, worktrees] = await Promise.all([
       this.getGitBranch(),
       this.getModifiedFiles(),
       this.getRecentCommits(),
       this.getCurrentStoryInfo(),
+      this.getWorktreesStatus(),
     ]);
 
-    return {
+    const status = {
       branch,
       modifiedFiles: modifiedFilesResult.files,
       modifiedFilesTotalCount: modifiedFilesResult.totalCount,
@@ -99,6 +101,13 @@ class ProjectStatusLoader {
       lastUpdate: new Date().toISOString(),
       isGitRepo: true,
     };
+
+    // Story 1.5: Include worktrees section if any exist
+    if (worktrees) {
+      status.worktrees = worktrees;
+    }
+
+    return status;
   }
 
   /**
@@ -159,8 +168,8 @@ class ProjectStatusLoader {
       // Parse porcelain output
       const allFiles = stdout
         .split('\n')
-        .filter(line => line.trim())
-        .map(line => {
+        .filter((line) => line.trim())
+        .map((line) => {
           // Remove status prefix (e.g., " M ", "A  ", "?? ")
           return line.substring(3).trim();
         });
@@ -181,17 +190,21 @@ class ProjectStatusLoader {
    */
   async getRecentCommits() {
     try {
-      const { stdout } = await execa('git', ['log', `-${this.maxRecentCommits}`, '--oneline', '--no-decorate'], {
-        cwd: this.rootPath,
-      });
+      const { stdout } = await execa(
+        'git',
+        ['log', `-${this.maxRecentCommits}`, '--oneline', '--no-decorate'],
+        {
+          cwd: this.rootPath,
+        }
+      );
 
       if (!stdout) return [];
 
       // Parse commit lines (remove hash, keep message)
       const commits = stdout
         .split('\n')
-        .filter(line => line.trim())
-        .map(line => {
+        .filter((line) => line.trim())
+        .map((line) => {
           // Remove commit hash (first 7-8 characters)
           return line.substring(8).trim();
         });
@@ -200,6 +213,42 @@ class ProjectStatusLoader {
     } catch (error) {
       // No commits yet or error
       return [];
+    }
+  }
+
+  /**
+   * Get worktrees status using WorktreeManager
+   *
+   * Story 1.5: Worktree Status Integration
+   *
+   * @returns {Promise<Object>} Worktrees status object
+   */
+  async getWorktreesStatus() {
+    try {
+      const worktreeManager = new WorktreeManager(this.rootPath);
+      const worktrees = await worktreeManager.list();
+
+      if (worktrees.length === 0) {
+        return null;
+      }
+
+      const worktreesStatus = {};
+
+      for (const wt of worktrees) {
+        worktreesStatus[wt.storyId] = {
+          path: wt.path,
+          branch: wt.branch,
+          createdAt: wt.createdAt instanceof Date ? wt.createdAt.toISOString() : wt.createdAt,
+          lastActivity: new Date().toISOString(), // Updated on status check
+          uncommittedChanges: wt.uncommittedChanges,
+          status: wt.status,
+        };
+      }
+
+      return worktreesStatus;
+    } catch (error) {
+      // WorktreeManager failed - likely not a git repo or git not available
+      return null;
     }
   }
 
@@ -228,7 +277,9 @@ class ProjectStatusLoader {
         const content = await fs.readFile(file, 'utf8');
 
         // Check for InProgress status
-        const statusMatch = content.match(/\*\*Status:\*\*\s*(InProgress|In Progress|🔄\s*InProgress|🔄\s*In Progress)/i);
+        const statusMatch = content.match(
+          /\*\*Status:\*\*\s*(InProgress|In Progress|🔄\s*InProgress|🔄\s*In Progress)/i
+        );
 
         if (statusMatch) {
           // Extract story ID and epic
@@ -303,7 +354,7 @@ class ProjectStatusLoader {
     const age = Date.now() - cache.timestamp;
     const ttl = cache.ttl || this.cacheTTL;
 
-    return age < (ttl * 1000);
+    return age < ttl * 1000;
   }
 
   /**
@@ -415,6 +466,23 @@ class ProjectStatusLoader {
       lines.push(`  - Story: ${status.currentStory}`);
     }
 
+    // Story 1.5: Display worktrees status
+    if (status.worktrees && Object.keys(status.worktrees).length > 0) {
+      const worktreeCount = Object.keys(status.worktrees).length;
+      const activeCount = Object.values(status.worktrees).filter(
+        (w) => w.status === 'active'
+      ).length;
+      const withChanges = Object.values(status.worktrees).filter(
+        (w) => w.uncommittedChanges > 0
+      ).length;
+
+      let worktreeInfo = `${activeCount}/${worktreeCount} active`;
+      if (withChanges > 0) {
+        worktreeInfo += `, ${withChanges} with changes`;
+      }
+      lines.push(`  - Worktrees: ${worktreeInfo}`);
+    }
+
     if (lines.length === 0) {
       return '  (No recent activity)';
     }
@@ -422,6 +490,16 @@ class ProjectStatusLoader {
     return lines.join('\n');
   }
 }
+
+/**
+ * @typedef {Object} WorktreeStatusInfo
+ * @property {string} path - Relative path to worktree (.aios/worktrees/{story-id})
+ * @property {string} branch - Branch name (auto-claude/{story-id})
+ * @property {string} createdAt - ISO timestamp when worktree was created
+ * @property {string} lastActivity - ISO timestamp of last activity check
+ * @property {number} uncommittedChanges - Number of uncommitted changes
+ * @property {'active'|'stale'} status - Worktree status (stale if > 30 days)
+ */
 
 /**
  * @typedef {Object} ProjectStatus
@@ -432,6 +510,7 @@ class ProjectStatusLoader {
  * @property {string|null} currentStory - Current story ID
  * @property {string} lastUpdate - ISO timestamp of last update
  * @property {boolean} isGitRepo - Whether this is a git repository
+ * @property {Object<string, WorktreeStatusInfo>} [worktrees] - Worktrees status by story ID (Story 1.5)
  */
 
 // Export singleton instance
