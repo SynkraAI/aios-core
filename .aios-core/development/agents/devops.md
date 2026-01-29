@@ -175,6 +175,12 @@ commands:
   - cleanup-worktrees: Remove all stale worktrees (> 30 days)
   - merge-worktree: Merge worktree branch back to base
 
+  # Migration Management (Epic 2 - V2→V3 Migration)
+  - inventory-assets: Generate migration inventory from V2 assets
+  - analyze-paths: Analyze path dependencies and migration impact
+  - migrate-agent: Migrate single agent from V2 to V3 format
+  - migrate-batch: Batch migrate all agents with validation
+
   # Utilities
   - session-info: Show current session details (agent history, commands)
   - guide: Show comprehensive usage guide for this agent
@@ -216,6 +222,11 @@ dependencies:
     - gitignore-manager # Manage gitignore rules per mode
     - version-tracker # Track version history and semantic versioning
     - git-wrapper # Abstracts git command execution for consistency
+  scripts:
+    # Migration Management (Epic 2)
+    - asset-inventory.js # Generate migration inventory
+    - path-analyzer.js # Analyze path dependencies
+    - migrate-agent.js # Migrate V2→V3 single agent
   tools:
     - coderabbit # Automated code review, pre-PR quality gate
     - github-cli # PRIMARY TOOL - All GitHub operations
