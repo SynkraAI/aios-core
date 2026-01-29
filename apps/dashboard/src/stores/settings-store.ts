@@ -8,6 +8,7 @@ export interface DashboardSettings {
   theme: Theme;
 
   // Data
+  useMockData: boolean; // Toggle for mock data visualization
   autoRefresh: boolean;
   refreshInterval: number; // seconds
   storiesPath: string;
@@ -18,6 +19,7 @@ export interface DashboardSettings {
 
 const DEFAULT_SETTINGS: DashboardSettings = {
   theme: 'dark',
+  useMockData: true, // Start with mock data for demo
   autoRefresh: true,
   refreshInterval: 30,
   storiesPath: 'docs/stories',
@@ -38,6 +40,7 @@ interface SettingsState {
   // Actions
   updateSettings: (updates: Partial<DashboardSettings>) => void;
   setTheme: (theme: Theme) => void;
+  setUseMockData: (enabled: boolean) => void;
   setAutoRefresh: (enabled: boolean) => void;
   setRefreshInterval: (seconds: number) => void;
   setStoriesPath: (path: string) => void;
@@ -58,6 +61,11 @@ export const useSettingsStore = create<SettingsState>()(
       setTheme: (theme) =>
         set((state) => ({
           settings: { ...state.settings, theme },
+        })),
+
+      setUseMockData: (useMockData) =>
+        set((state) => ({
+          settings: { ...state.settings, useMockData },
         })),
 
       setAutoRefresh: (autoRefresh) =>

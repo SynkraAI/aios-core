@@ -5,6 +5,8 @@ import useSWR from 'swr';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useSettingsStore } from '@/stores/settings-store';
+import { MOCK_PULL_REQUESTS, MOCK_ISSUES } from '@/lib/mock-data';
 
 interface GitHubIssue {
   number: number;
@@ -50,17 +52,53 @@ function formatDate(dateString: string): string {
   return date.toLocaleDateString();
 }
 
+// Transform mock data to match API format
+function getMockGitHubData(): GitHubData {
+  return {
+    issues: MOCK_ISSUES.filter(i => i.state === 'open').map(issue => ({
+      number: issue.number,
+      title: issue.title,
+      state: issue.state,
+      labels: issue.labels.map(l => ({ name: l })),
+      url: `https://github.com/synkra/aios-core/issues/${issue.number}`,
+      createdAt: issue.createdAt,
+      author: { login: issue.author },
+    })),
+    prs: MOCK_PULL_REQUESTS.filter(pr => pr.state === 'open').map(pr => ({
+      number: pr.number,
+      title: pr.title,
+      state: pr.state,
+      url: `https://github.com/synkra/aios-core/pull/${pr.number}`,
+      createdAt: pr.createdAt,
+      author: { login: pr.author },
+      headRefName: `feat/story-${pr.storyId?.split('-')[1] || 'main'}`,
+      isDraft: false,
+    })),
+    repo: {
+      name: 'aios-core',
+      owner: { login: 'synkra' },
+      url: 'https://github.com/synkra/aios-core',
+    },
+    updatedAt: new Date().toISOString(),
+  };
+}
+
 export function GitHubPanel() {
-  const { data, error, isLoading, mutate } = useSWR<GitHubData>(
-    '/api/github',
+  const { settings } = useSettingsStore();
+  const useMockData = settings.useMockData;
+
+  const { data: apiData, error, isLoading, mutate } = useSWR<GitHubData>(
+    useMockData ? null : '/api/github',
     fetcher,
     {
-      refreshInterval: 60000, // Refresh every minute
+      refreshInterval: 60000,
       revalidateOnFocus: true,
     }
   );
 
-  if (error || data?.error) {
+  const data = useMockData ? getMockGitHubData() : apiData;
+
+  if (!useMockData && (error || data?.error)) {
     return (
       <div className="h-full flex flex-col items-center justify-center p-8 text-center">
         <CircleDot className="h-12 w-12 text-muted-foreground mb-4" />
