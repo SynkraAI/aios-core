@@ -14,6 +14,29 @@ Framework de Desenvolvimento Auto-Modificável Alimentado por IA. Fundado em Des
 
 ## Visão Geral
 
+### Premissa Arquitetural: CLI First
+
+O Synkra AIOS segue uma hierarquia clara de prioridades:
+
+```
+CLI First → Observability Second → UI Third
+```
+
+| Camada            | Prioridade | Foco                                                                          | Exemplos                                     |
+| ----------------- | ---------- | ----------------------------------------------------------------------------- | -------------------------------------------- |
+| **CLI**           | Máxima     | Onde a inteligência vive. Toda execução, decisões e automação acontecem aqui. | Agentes (`@dev`, `@qa`), workflows, comandos |
+| **Observability** | Secundária | Observar e monitorar o que acontece no CLI em tempo real.                     | Dashboard SSE, logs, métricas, timeline      |
+| **UI**            | Terciária  | Gestão pontual e visualizações quando necessário.                             | Kanban, settings, story management           |
+
+**Princípios derivados:**
+
+- A CLI é a fonte da verdade - dashboards apenas observam
+- Funcionalidades novas devem funcionar 100% via CLI antes de ter UI
+- A UI nunca deve ser requisito para operação do sistema
+- Observabilidade serve para entender o que o CLI está fazendo, não para controlá-lo
+
+---
+
 **As Duas Inovações Chave do Synkra AIOS:**
 
 **1. Planejamento Agêntico:** Agentes dedicados (analyst, pm, architect) colaboram com você para criar documentos de PRD e Arquitetura detalhados e consistentes. Através de engenharia avançada de prompts e refinamento com human-in-the-loop, estes agentes de planejamento produzem especificações abrangentes que vão muito além da geração genérica de tarefas de IA.
