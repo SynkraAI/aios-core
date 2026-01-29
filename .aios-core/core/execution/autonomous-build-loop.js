@@ -35,6 +35,14 @@ try {
   RecoveryTracker = null;
 }
 
+// Import Epic 6 Permission Mode System
+let PermissionMode;
+try {
+  PermissionMode = require('../permissions').PermissionMode;
+} catch {
+  PermissionMode = null;
+}
+
 // Import Epic 8.2 Worktree Manager (Story 8.2 integration - AC8)
 let WorktreeManager;
 try {
@@ -129,6 +137,7 @@ class AutonomousBuildLoop extends EventEmitter {
     this.recoveryTracker = null;
     this.worktreeManager = null; // Story 8.2 integration
     this.worktreePath = null; // Story 8.2 integration
+    this.permissionMode = null; // Epic 6 integration
     this.startTime = null;
     this.isRunning = false;
     this.isPaused = false;
@@ -180,6 +189,30 @@ class AutonomousBuildLoop extends EventEmitter {
         storyId,
         rootPath: options.rootPath || process.cwd(),
       });
+    }
+
+    // Initialize permission mode (Epic 6 integration)
+    if (PermissionMode) {
+      this.permissionMode = new PermissionMode(options.rootPath || process.cwd());
+      await this.permissionMode.load();
+
+      // Check permission mode before proceeding
+      const mode = this.permissionMode.currentMode;
+      if (mode === 'explore') {
+        // In explore mode, only plan - don't execute
+        this.log('🔍 Explore mode: Planning only (no execution)', 'info');
+        const plan = await this.loadPlan(storyId, options);
+        return {
+          success: false,
+          mode: 'explore',
+          planOnly: true,
+          message:
+            'Build planned but not executed (Explore mode). Use *mode ask or *mode auto to enable execution.',
+          plan: plan,
+        };
+      }
+
+      this.log(`Permission mode: ${this.permissionMode.getBadge()}`, 'info');
     }
 
     // Initialize worktree manager (Story 8.2 - AC8)
@@ -290,7 +323,32 @@ class AutonomousBuildLoop extends EventEmitter {
     const completedSubtasks = new Set(state.completedSubtasks || []);
     const results = [];
 
+    // In 'ask' mode, request batch confirmation for each phase (Epic 6)
+    const isAskMode = this.permissionMode?.currentMode === 'ask';
+
     for (const phase of plan.phases || []) {
+      // Batch confirmation for phase in 'ask' mode
+      if (isAskMode && phase.subtasks?.length > 0) {
+        const pendingSubtasks = phase.subtasks.filter((st) => !completedSubtasks.has(st.id));
+        if (pendingSubtasks.length > 0) {
+          this.log(
+            `⚠️ Phase "${phase.name || phase.id}" has ${pendingSubtasks.length} subtasks pending approval`,
+            'info'
+          );
+          this.emit('phase_confirmation_required', {
+            phaseId: phase.id,
+            phaseName: phase.name,
+            subtasks: pendingSubtasks.map((st) => ({
+              id: st.id,
+              description: st.description,
+              files: st.files,
+            })),
+          });
+          // Note: In a full implementation, this would await user confirmation
+          // For now, we log and continue (confirmation handled by caller)
+        }
+      }
+
       for (const subtask of phase.subtasks || []) {
         // Check global timeout (AC4)
         if (this.isTimedOut()) {
