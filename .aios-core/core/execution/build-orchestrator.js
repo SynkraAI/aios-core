@@ -32,6 +32,14 @@ const { BuildStateManager: _BuildStateManager } = require('./build-state-manager
 // Epic 10: Parallel Execution Components (optional - loaded dynamically when needed)
 // These are available for future parallel execution features but not used in current pipeline
 
+// Semantic Merge Engine (Story 8.3 Enhanced)
+let SemanticMergeEngine;
+try {
+  SemanticMergeEngine = require('./semantic-merge-engine');
+} catch {
+  SemanticMergeEngine = null;
+}
+
 let WorktreeManager;
 try {
   WorktreeManager = require('../../infrastructure/scripts/worktree-manager');
@@ -677,6 +685,7 @@ The subtask is complete only when verification passes.
 
   /**
    * Phase 6: Merge to main
+   * Uses SemanticMergeEngine for intelligent conflict resolution when available
    */
   async phaseMerge(ctx) {
     if (ctx.config.dryRun || ctx.config.noMerge) {
@@ -692,19 +701,81 @@ The subtask is complete only when verification passes.
 
     const manager = new WorktreeManager(this.rootPath);
 
-    // Merge worktree branch to main
+    // Try standard merge first
     ctx.mergeResult = await manager.mergeToBase(ctx.storyId, {
-      cleanup: false, // We'll do cleanup in next phase
+      cleanup: false,
       message: `feat: implement ${ctx.storyId} [autonomous build]`,
     });
+
+    // If merge failed due to conflicts and SemanticMergeEngine is available, try semantic merge
+    if (!ctx.mergeResult.success && ctx.mergeResult.hasConflicts && SemanticMergeEngine) {
+      this.log('Standard merge failed with conflicts. Attempting semantic merge...', 'info');
+
+      const semanticEngine = new SemanticMergeEngine({
+        rootPath: this.rootPath,
+        enableAI: ctx.config.useSemanticAI !== false,
+        dryRun: ctx.config.dryRun,
+        confidenceThreshold: ctx.config.mergeConfidenceThreshold || 0.7,
+      });
+
+      // Listen to semantic merge events
+      semanticEngine.on('file_processing', ({ filePath }) => {
+        this.log(`Semantic analyzing: ${filePath}`, 'debug');
+      });
+      semanticEngine.on('file_merged', ({ filePath, decision }) => {
+        this.log(`Semantic merged: ${filePath} (${decision})`, 'info');
+      });
+
+      const semanticResult = await semanticEngine.merge(
+        [{ taskId: ctx.storyId, worktreePath: ctx.worktree.path, branch: 'main' }],
+        'main'
+      );
+
+      if (semanticResult.status === 'success') {
+        this.log(
+          `Semantic merge successful: ${semanticResult.autoMerged} auto, ${semanticResult.aiMerged} AI`,
+          'success'
+        );
+        ctx.mergeResult = {
+          success: true,
+          semanticMerge: true,
+          report: semanticResult,
+        };
+
+        // Commit the semantic merge
+        try {
+          const { execSync } = require('child_process');
+          execSync('git add -A && git commit -m "feat: semantic merge for ' + ctx.storyId + '"', {
+            cwd: this.rootPath,
+            encoding: 'utf8',
+          });
+        } catch (e) {
+          this.log(`Commit after semantic merge: ${e.message}`, 'warn');
+        }
+      } else if (semanticResult.needsHumanReview > 0) {
+        this.log(
+          `Semantic merge needs human review for ${semanticResult.needsHumanReview} files`,
+          'warn'
+        );
+        ctx.mergeResult = {
+          success: false,
+          needsHumanReview: true,
+          report: semanticResult,
+        };
+      } else {
+        this.log('Semantic merge also failed', 'error');
+        ctx.mergeResult.semanticMergeAttempted = true;
+      }
+    }
 
     this.emit(OrchestratorEvent.MERGE_COMPLETED, {
       storyId: ctx.storyId,
       success: ctx.mergeResult.success,
+      semanticMerge: ctx.mergeResult.semanticMerge || false,
     });
 
     if (!ctx.mergeResult.success) {
-      throw new Error(`Merge failed: ${ctx.mergeResult.error}`);
+      throw new Error(`Merge failed: ${ctx.mergeResult.error || 'conflicts unresolved'}`);
     }
 
     return ctx.mergeResult;
