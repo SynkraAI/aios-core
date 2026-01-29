@@ -520,6 +520,7 @@ Sistema automatizado de detecção de gaps em **7 categorias**:
    - Alertas para novos gaps
 
 4. **Tool Reference Validation** (Story 3.21)
+
    ```bash
    node outputs/architecture-map/schemas/validate-tool-references.js
    ```
@@ -588,6 +589,92 @@ cp outputs/architecture-map/mermaid/synthesis-layered-view.mmd docs/
 - [ ] Interactive Miro board export
 - [ ] Real-time Neo4j updates on code changes
 - [ ] VSCode extension for inline visualization
+
+## 🤖 AIOS Autonomous Development Engine (ADE)
+
+O Synkra AIOS v1.0.0 introduz o **Autonomous Development Engine (ADE)** - um sistema completo para desenvolvimento autônomo que transforma requisitos em código funcional.
+
+### 🎯 O Que é o ADE?
+
+O ADE é um conjunto de **7 Epics** que habilitam execução autônoma de desenvolvimento:
+
+| Epic  | Nome             | Descrição                                  |
+| ----- | ---------------- | ------------------------------------------ |
+| **1** | Worktree Manager | Isolamento de branches via Git worktrees   |
+| **2** | Migration V2→V3  | Migração para formato autoClaude V3        |
+| **3** | Spec Pipeline    | Transforma requisitos em specs executáveis |
+| **4** | Execution Engine | Executa specs com 13 steps + self-critique |
+| **5** | Recovery System  | Recuperação automática de falhas           |
+| **6** | QA Evolution     | Review estruturado em 10 fases             |
+| **7** | Memory Layer     | Memória persistente de padrões e insights  |
+
+### 🔄 Fluxo Principal
+
+```
+User Request → Spec Pipeline → Execution Engine → QA Review → Working Code
+                                      ↓
+                              Recovery System
+                                      ↓
+                               Memory Layer
+```
+
+### ⚡ Quick Start ADE
+
+```bash
+# 1. Criar spec a partir de requisito
+@pm *gather-requirements
+@architect *assess-complexity
+@analyst *research-deps
+@pm *write-spec
+@qa *critique-spec
+
+# 2. Executar spec aprovada
+@architect *create-plan
+@architect *create-context
+@dev *execute-subtask 1.1
+
+# 3. QA Review
+@qa *review-build STORY-42
+```
+
+### 📖 Documentação ADE
+
+- **[Guia Completo do ADE](docs/guides/ade-guide.md)** - Tutorial passo a passo
+- **[Alterações nos Agentes](docs/architecture/ADE-AGENT-CHANGES.md)** - Comandos e capabilities por agente
+- **[Epic 1 - Worktree Manager](docs/architecture/ADE-EPIC1-HANDOFF.md)**
+- **[Epic 2 - Migration V2→V3](docs/architecture/ADE-EPIC2-HANDOFF.md)**
+- **[Epic 3 - Spec Pipeline](docs/architecture/ADE-EPIC3-HANDOFF.md)**
+- **[Epic 4 - Execution Engine](docs/architecture/ADE-EPIC4-HANDOFF.md)**
+- **[Epic 5 - Recovery System](docs/architecture/ADE-EPIC5-HANDOFF.md)**
+- **[Epic 6 - QA Evolution](docs/architecture/ADE-EPIC6-HANDOFF.md)**
+- **[Epic 7 - Memory Layer](docs/architecture/ADE-EPIC7-HANDOFF.md)**
+
+### 🆕 Novos Comandos por Agente
+
+**@devops:**
+
+- `*create-worktree`, `*list-worktrees`, `*merge-worktree`, `*cleanup-worktrees`
+- `*inventory-assets`, `*analyze-paths`, `*migrate-agent`, `*migrate-batch`
+
+**@pm:**
+
+- `*gather-requirements`, `*write-spec`
+
+**@architect:**
+
+- `*assess-complexity`, `*create-plan`, `*create-context`, `*map-codebase`
+
+**@analyst:**
+
+- `*research-deps`, `*extract-patterns`
+
+**@qa:**
+
+- `*critique-spec`, `*review-build`, `*request-fix`, `*verify-fix`
+
+**@dev:**
+
+- `*execute-subtask`, `*track-attempt`, `*rollback`, `*capture-insights`, `*list-gotchas`, `*apply-qa-fix`
 
 ## Criando Seu Próprio Squad
 
