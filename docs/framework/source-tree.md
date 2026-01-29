@@ -2,8 +2,8 @@
 
 > 🌐 **EN** | [PT](../pt/framework/source-tree.md) | [ES](../es/framework/source-tree.md)
 
-**Version:** 2.0
-**Last Updated:** 2025-12-15
+**Version:** 3.0
+**Last Updated:** 2026-01-29
 **Status:** Official Framework Standard
 **Repository:** SynkraAI/aios-core
 
@@ -17,6 +17,7 @@
 - [Module Details](#module-details)
 - [Documentation (docs/)](#documentation-docs)
 - [Squads System](#squads-system)
+- [Autonomous Development Engine (ADE)](#autonomous-development-engine-ade)
 - [File Naming Conventions](#file-naming-conventions)
 - [Where to Put New Files](#where-to-put-new-files)
 
@@ -699,20 +700,146 @@ outputs/                               # Runtime outputs (gitignored)
 
 ---
 
+## Autonomous Development Engine (ADE)
+
+> **NEW in v3.0** - The ADE provides autonomous development capabilities through intelligent workflows, pattern learning, and self-healing loops.
+
+### ADE Architecture Overview
+
+```
+.aios-core/
+├── workflow-intelligence/             # WIS - Pattern Learning System
+│   ├── __tests__/                     # WIS test suite
+│   ├── engine/                        # Core WIS engines
+│   │   ├── confidence-scorer.js       # Pattern confidence scoring
+│   │   ├── output-formatter.js        # Output formatting
+│   │   ├── suggestion-engine.js       # Intelligent suggestions
+│   │   └── wave-analyzer.js           # Wave pattern analysis
+│   ├── learning/                      # Machine learning components
+│   │   ├── capture-hook.js            # Pattern capture hooks
+│   │   ├── index.js                   # Learning module entry
+│   │   ├── pattern-capture.js         # Pattern capture engine
+│   │   ├── pattern-store.js           # Pattern persistence
+│   │   └── pattern-validator.js       # Pattern validation
+│   ├── registry/                      # Workflow registry
+│   │   └── workflow-registry.js       # Workflow registration
+│   └── index.js                       # WIS entry point
+│
+├── infrastructure/scripts/            # ADE Infrastructure Scripts
+│   ├── worktree-manager.js            # Git worktree isolation (Epic 1)
+│   ├── project-status-loader.js       # Project status management (Epic 2)
+│   ├── spec-pipeline-runner.js        # Spec pipeline automation (Epic 3)
+│   ├── plan-tracker.js                # Plan progress tracking (Epic 4)
+│   ├── subtask-verifier.js            # Subtask verification (Epic 4)
+│   ├── approach-manager.js            # Approach management (Epic 5)
+│   ├── stuck-detector.js              # Stuck detection logic (Epic 5)
+│   ├── recovery-tracker.js            # Recovery tracking (Epic 5)
+│   ├── rollback-manager.js            # Rollback management (Epic 5)
+│   ├── qa-report-generator.js         # QA report generation (Epic 6)
+│   ├── qa-loop-orchestrator.js        # QA loop automation (Epic 6)
+│   ├── codebase-mapper.js             # Codebase mapping (Epic 7)
+│   ├── pattern-extractor.js           # Pattern extraction (Epic 7)
+│   └── gotchas-documenter.js          # Gotchas documentation (Epic 7)
+│
+├── development/workflows/             # ADE Workflows
+│   ├── spec-pipeline.yaml             # Requirements → Spec workflow (Epic 3)
+│   └── qa-loop.yaml                   # QA review → fix loop (Epic 6)
+│
+├── development/tasks/                 # ADE Tasks
+│   ├── spec-assess-complexity.md      # Complexity assessment (Epic 3)
+│   ├── spec-critique.md               # Specification critique (Epic 3)
+│   ├── spec-gather-requirements.md    # Requirements gathering (Epic 3)
+│   ├── spec-research-dependencies.md  # Dependency research (Epic 3)
+│   ├── spec-write-spec.md             # Specification writing (Epic 3)
+│   ├── plan-create-context.md         # Context generation (Epic 4)
+│   ├── plan-create-implementation.md  # Implementation planning (Epic 4)
+│   ├── plan-execute-subtask.md        # Subtask execution (Epic 4)
+│   ├── verify-subtask.md              # Subtask verification (Epic 4)
+│   ├── qa-review-build.md             # 10-phase QA review (Epic 6)
+│   ├── qa-create-fix-request.md       # Fix request generation (Epic 6)
+│   ├── qa-fix-issues.md               # Issue fixing workflow (Epic 6)
+│   ├── capture-session-insights.md    # Session insights capture (Epic 7)
+│   ├── extract-patterns.md            # Pattern extraction (Epic 7)
+│   └── document-gotchas.md            # Gotchas documentation (Epic 7)
+│
+└── product/                           # ADE Templates & Checklists
+    ├── templates/
+    │   ├── qa-report-tmpl.md          # QA report template (Epic 6)
+    │   └── current-approach-tmpl.md   # Current approach template (Epic 5)
+    └── checklists/
+        └── self-critique-checklist.md # Self-critique checklist (Epic 4)
+```
+
+### ADE Epics Summary
+
+| Epic       | Name                    | Key Components                                                     |
+| ---------- | ----------------------- | ------------------------------------------------------------------ |
+| **Epic 1** | Story Branch Isolation  | `worktree-manager.js` - Git worktree management                    |
+| **Epic 2** | Project Status System   | `project-status-loader.js` - YAML status tracking                  |
+| **Epic 3** | Spec Pipeline           | `spec-pipeline.yaml` + 5 spec tasks                                |
+| **Epic 4** | Implementation Planning | `plan-tracker.js`, `subtask-verifier.js`, context generators       |
+| **Epic 5** | Self-Healing Loops      | `stuck-detector.js`, `recovery-tracker.js`, `rollback-manager.js`  |
+| **Epic 6** | QA Evolution            | `qa-loop-orchestrator.js`, 10-phase review, fix request generation |
+| **Epic 7** | Memory Layer            | `codebase-mapper.js`, `pattern-extractor.js`, session insights     |
+
+### ADE Configuration
+
+The ADE is configured via `.aios-core/core-config.yaml`:
+
+```yaml
+ade:
+  enabled: true
+  worktrees:
+    enabled: true
+    baseDir: .worktrees
+  specPipeline:
+    enabled: true
+    maxIterations: 3
+  qaLoop:
+    enabled: true
+    maxIterations: 5
+  memoryLayer:
+    enabled: true
+    patternStore: .aios/patterns/
+```
+
+### ADE Runtime State
+
+Runtime state is persisted in `.aios/`:
+
+```
+.aios/
+├── project-status.yaml        # Current project status
+├── status.json                # Runtime status
+├── patterns/                  # Learned patterns (Epic 7)
+│   ├── code-patterns.json
+│   └── gotchas.json
+├── worktrees/                 # Worktree state (Epic 1)
+│   └── story-{id}.json
+└── qa-loops/                  # QA loop state (Epic 6)
+    └── {story-id}/
+        ├── iteration-1.json
+        └── qa-report.md
+```
+
+---
+
 ## Related Documents
 
 - [Coding Standards](./coding-standards.md)
 - [Tech Stack](./tech-stack.md)
+- [ADE Architecture](../architecture/ade-architecture.md) _(planned)_
 
 ---
 
 ## Version History
 
-| Version | Date       | Changes                                                                                                          | Author           |
-| ------- | ---------- | ---------------------------------------------------------------------------------------------------------------- | ---------------- |
-| 1.0     | 2025-01-15 | Initial source tree documentation                                                                                | Aria (architect) |
-| 1.1     | 2025-12-14 | Updated org to SynkraAI, replaced Squads with Squads system [Story 6.10]                                         | Dex (dev)        |
-| 2.0     | 2025-12-15 | Major update to reflect modular architecture (cli/, core/, development/, infrastructure/, product/) [Story 6.13] | Pax (PO)         |
+| Version | Date       | Changes                                                                                                                                                            | Author           |
+| ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- |
+| 1.0     | 2025-01-15 | Initial source tree documentation                                                                                                                                  | Aria (architect) |
+| 1.1     | 2025-12-14 | Updated org to SynkraAI, replaced Squads with Squads system [Story 6.10]                                                                                           | Dex (dev)        |
+| 2.0     | 2025-12-15 | Major update to reflect modular architecture (cli/, core/, development/, infrastructure/, product/) [Story 6.13]                                                   | Pax (PO)         |
+| 3.0     | 2026-01-29 | Added ADE (Autonomous Development Engine) section documenting Epics 1-7: workflow-intelligence, ADE scripts, workflows, tasks, and runtime state [ADE Integration] | Aria (architect) |
 
 ---
 
