@@ -114,7 +114,7 @@ export type SidebarView =
   | 'insights'
   | 'github'
   | 'worktrees'
-  | 'tools';
+  | 'settings';
 
 export interface SidebarItem {
   id: SidebarView;
@@ -166,5 +166,5 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   { id: 'insights', label: 'Insights', icon: '📊', href: '/insights' },
   { id: 'github', label: 'GitHub', icon: '🔗', href: '/github' },
   { id: 'worktrees', label: 'Worktrees', icon: '🌳', href: '/worktrees' },
-  { id: 'tools', label: 'Tools', icon: '🔧', href: '/tools' },
+  { id: 'settings', label: 'Settings', icon: '⚙️', href: '/settings' },
 ];
