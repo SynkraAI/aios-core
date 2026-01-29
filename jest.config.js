@@ -99,10 +99,10 @@ module.exports = {
     },
     // Core modules coverage threshold
     // TD-6: Adjusted to 45% to reflect current coverage (47.14%)
-    // TEMPORARY: Lowered to 38% for PR #53 - many new files without tests
+    // TEMPORARY: Lowered to 39% for PR #53 - many new files without tests
     // Many core modules are I/O-heavy orchestration that's difficult to unit test
     '.aios-core/core/': {
-      lines: 38,
+      lines: 39,
     },
   },
 
