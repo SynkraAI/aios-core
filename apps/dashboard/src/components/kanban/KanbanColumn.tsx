@@ -7,6 +7,7 @@ import {
 } from '@dnd-kit/sortable';
 import { ChevronDown, ChevronRight, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { iconMap, type IconName } from '@/lib/icons';
 import { KANBAN_COLUMNS, type Story, type StoryStatus } from '@/types';
 import { SortableStoryCard } from './SortableStoryCard';
 
@@ -70,7 +71,12 @@ export function KanbanColumn({
           </button>
 
           {/* Icon & Label */}
-          <span className="text-base">{column.icon}</span>
+          {(() => {
+            const IconComponent = iconMap[column.icon];
+            return IconComponent ? (
+              <IconComponent className="h-4 w-4 text-muted-foreground" />
+            ) : null;
+          })()}
           <span className="font-medium text-sm">{column.label}</span>
 
           {/* Count Badge (AC3) */}
@@ -123,23 +129,24 @@ export function KanbanColumn({
   );
 }
 
-// Empty state component
+// Empty state component with professional icons
 function EmptyColumnState({ status }: { status: StoryStatus }) {
-  const messages: Record<StoryStatus, { icon: string; text: string }> = {
-    backlog: { icon: '📋', text: 'No stories in backlog' },
-    in_progress: { icon: '🚀', text: 'No stories in progress' },
-    ai_review: { icon: '🤖', text: 'No stories for AI review' },
-    human_review: { icon: '👤', text: 'No stories for review' },
-    pr_created: { icon: '🔗', text: 'No PRs pending' },
-    done: { icon: '✅', text: 'No completed stories' },
-    error: { icon: '❌', text: 'No errors' },
+  const messages: Record<StoryStatus, { icon: IconName; text: string }> = {
+    backlog: { icon: 'file-text', text: 'No stories in backlog' },
+    in_progress: { icon: 'play', text: 'No stories in progress' },
+    ai_review: { icon: 'bot', text: 'No stories for AI review' },
+    human_review: { icon: 'user', text: 'No stories for review' },
+    pr_created: { icon: 'git-pull-request', text: 'No PRs pending' },
+    done: { icon: 'check-circle', text: 'No completed stories' },
+    error: { icon: 'x-circle', text: 'No errors' },
   };
 
   const { icon, text } = messages[status];
+  const IconComponent = iconMap[icon];
 
   return (
     <div className="flex flex-col items-center justify-center py-8 text-muted-foreground">
-      <span className="text-2xl mb-2">{icon}</span>
+      {IconComponent && <IconComponent className="h-8 w-8 mb-2 opacity-50" />}
       <span className="text-xs">{text}</span>
     </div>
   );

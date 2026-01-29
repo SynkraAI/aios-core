@@ -47,21 +47,27 @@ interface AgentState {
   getAgentById: (id: AgentId) => Agent | undefined;
 }
 
-// Default agents configuration
+// Default agents configuration - using IconName, no emojis
 const DEFAULT_AGENTS: Agent[] = [
-  { id: 'dev', name: 'Dev', icon: '💻', color: 'var(--agent-dev)', status: 'idle' },
-  { id: 'qa', name: 'QA', icon: '🧪', color: 'var(--agent-qa)', status: 'idle' },
+  { id: 'dev', name: 'Dev', icon: 'code', color: 'var(--agent-dev)', status: 'idle' },
+  { id: 'qa', name: 'QA', icon: 'test-tube', color: 'var(--agent-qa)', status: 'idle' },
   {
     id: 'architect',
     name: 'Architect',
-    icon: '🏛️',
+    icon: 'building',
     color: 'var(--agent-architect)',
     status: 'idle',
   },
-  { id: 'pm', name: 'PM', icon: '📊', color: 'var(--agent-pm)', status: 'idle' },
-  { id: 'po', name: 'PO', icon: '🎯', color: 'var(--agent-po)', status: 'idle' },
-  { id: 'analyst', name: 'Analyst', icon: '📈', color: 'var(--agent-analyst)', status: 'idle' },
-  { id: 'devops', name: 'DevOps', icon: '🔧', color: 'var(--agent-devops)', status: 'idle' },
+  { id: 'pm', name: 'PM', icon: 'bar-chart', color: 'var(--agent-pm)', status: 'idle' },
+  { id: 'po', name: 'PO', icon: 'target', color: 'var(--agent-po)', status: 'idle' },
+  {
+    id: 'analyst',
+    name: 'Analyst',
+    icon: 'line-chart',
+    color: 'var(--agent-analyst)',
+    status: 'idle',
+  },
+  { id: 'devops', name: 'DevOps', icon: 'wrench', color: 'var(--agent-devops)', status: 'idle' },
 ];
 
 function createAgentsMap(agents: Agent[]): Record<AgentId, Agent> {

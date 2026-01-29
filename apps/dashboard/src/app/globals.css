@@ -269,3 +269,116 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   TECH REFINED - Utility Classes
+   ═══════════════════════════════════════════════════════════ */
+
+/* Hover lift effect - elegant card interaction */
+.hover-lift {
+  transition: transform var(--duration-normal) var(--ease-luxury),
+              box-shadow var(--duration-normal) var(--ease-luxury),
+              border-color var(--duration-normal) var(--ease-luxury);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Gold glow on hover */
+.hover-gold:hover {
+  border-color: var(--border-gold);
+}
+
+.hover-gold-strong:hover {
+  border-color: var(--border-gold-strong);
+  box-shadow: 0 0 20px rgba(201, 178, 152, 0.1);
+}
+
+/* Gold gradient line divider */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201, 178, 152, 0.25) 20%,
+    rgba(201, 178, 152, 0.5) 50%,
+    rgba(201, 178, 152, 0.25) 80%,
+    transparent 100%
+  );
+}
+
+/* Subtle glow backgrounds */
+.bg-glow-gold {
+  background: radial-gradient(
+    ellipse 80% 50% at 50% 0%,
+    rgba(201, 178, 152, 0.03),
+    transparent
+  );
+}
+
+/* Text gradient - gold shimmer */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #C9B298 0%, #E4D8CA 50%, #C9B298 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card styles */
+.card-refined {
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: all var(--duration-normal) var(--ease-luxury);
+}
+
+.card-refined:hover {
+  background: var(--card-hover);
+  border-color: var(--border-medium);
+  transform: translateY(-1px);
+}
+
+/* Active/selected state with gold accent */
+.active-gold {
+  border-color: var(--border-gold) !important;
+  background: rgba(201, 178, 152, 0.05) !important;
+}
+
+/* Scrollbar refined */
+.scrollbar-refined::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-refined::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-refined::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+}
+
+.scrollbar-refined::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Section label - uppercase tracking */
+.section-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--accent-gold);
+}
+
+/* Subtle border bottom */
+.border-subtle {
+  border-color: rgba(255, 255, 255, 0.04);
+}
+
+/* Status dot with glow */
+.status-dot-glow {
+  box-shadow: 0 0 8px currentColor;
+}
