@@ -331,61 +331,6 @@ async function copyOpenCodeTools(projectRoot) {
 }
 
 /**
- * Create OpenCode configuration JSON file
- * @param {string} projectRoot - Project root directory
- * @param {Object} wizardState - Current wizard state
- * @returns {Promise<string>} Path to created file
- */
-async function createOpenCodeConfigJson(projectRoot, wizardState = {}) {
-  const configPath = path.join(projectRoot, 'opencode.json');
-  const projectName = path.basename(projectRoot);
-
-  // Map AIOS MCP selections to OpenCode MCP format
-  const mcpServers = {};
-  if (wizardState.selectedMCPs && Array.isArray(wizardState.selectedMCPs)) {
-    for (const mcp of wizardState.selectedMCPs) {
-      mcpServers[mcp] = {
-        enabled: true,
-        type: 'stdio',
-        command: `npx -y @synkra/mcp-${mcp}`,
-      };
-    }
-  }
-
-  const config = {
-    $schema: 'https://opencode.ai/config.json',
-    project: projectName,
-    permissions: {
-      bash: 'ask',
-      read: 'allow',
-      write: 'allow',
-      grep: 'allow',
-      glob: 'allow',
-      skill: 'allow',
-      mcp: 'allow',
-    },
-    agents: {
-      directory: '.opencode/agents',
-      default: 'aios-master',
-    },
-    rules: {
-      directory: '.opencode/rules',
-    },
-    skills: {
-      directory: '.opencode/skills',
-    },
-    mcp: mcpServers,
-  };
-
-  if (Object.keys(mcpServers).length > 0) {
-    config.mcp = mcpServers;
-  }
-
-  await fs.writeFile(configPath, JSON.stringify(config, null, 2), 'utf8');
-  return configPath;
-}
-
-/**
  * Generate AntiGravity workflow activation file content
  * @param {string} agentName - Name of the agent (e.g., 'dev', 'architect')
  * @returns {string} Workflow file content
@@ -560,8 +505,13 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
         if (ide.agentFolder) {
           if (ideKey === 'opencode') {
             spinner.start('Syncing AIOS agents and skills to OpenCode...');
-            await commandSync({ quiet: true, ide: 'opencode' });
-            spinner.succeed('Synced agents and skills to .opencode/');
+            // Pass selected MCPs from wizard to the sync command
+            await commandSync({
+              quiet: true,
+              ide: 'opencode',
+              selectedMCPs: wizardState.selectedMCPs,
+            });
+            spinner.succeed('Synced agents, skills and configuration to .opencode/');
           } else {
             spinner.start(`Copying agents to ${ide.agentFolder}...`);
             const agentFiles = await copyAgentFiles(projectRoot, ide.agentFolder, ide);
@@ -579,13 +529,8 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
           }
         }
 
-        // For OpenCode, also create the opencode.json config file
+        // For OpenCode, also copy OpenCode custom tools
         if (ideKey === 'opencode') {
-          spinner.start('Creating opencode.json config...');
-          const configJsonPath = await createOpenCodeConfigJson(projectRoot, wizardState);
-          createdFiles.push(configJsonPath);
-          spinner.succeed('Created opencode.json');
-
           spinner.start('Copying OpenCode custom tools...');
           const toolFiles = await copyOpenCodeTools(projectRoot);
           createdFiles.push(...toolFiles);

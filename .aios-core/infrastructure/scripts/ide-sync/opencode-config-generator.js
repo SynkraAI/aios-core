@@ -7,6 +7,21 @@ const fs = require('fs-extra');
 const path = require('path');
 
 /**
+ * Map AIOS MCP identifiers to OpenCode commands
+ * @param {string} mcpId - AIOS MCP ID
+ * @returns {string[]} - Command array
+ */
+function getMcpCommand(mcpId) {
+  const commands = {
+    browser: ['npx', '-y', '@modelcontextprotocol/server-playwright'],
+    context7: ['npx', '-y', '@synkra/mcp-context7'],
+    exa: ['npx', '-y', '@modelcontextprotocol/server-exa'],
+    'desktop-commander': ['npx', '-y', '@modelcontextprotocol/server-desktop-commander'],
+  };
+  return commands[mcpId] || ['npx', '-y', `@synkra/mcp-${mcpId}`];
+}
+
+/**
  * Generate opencode.json file
  * @param {string} projectRoot - Project root directory
  * @param {object} options - Generation options
@@ -27,12 +42,26 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
   const frameworkInstructions = [
     '.opencode/rules/opencode-rules.md',
     '.opencode/rules/AGENTS.md',
-    '.opencode/rules/agent-*.md', // Support all agent-specific rules
+    '.opencode/rules/agent-*.md',
   ];
   const existingInstructions = existingConfig.instructions || [];
 
   // Smart merge: preserve user instructions while ensuring framework ones exist
   const combinedInstructions = [...new Set([...frameworkInstructions, ...existingInstructions])];
+
+  // Map selected MCPs from wizard if provided
+  const mcpConfig = { ...(existingConfig.mcp || {}) };
+  if (options.selectedMCPs && Array.isArray(options.selectedMCPs)) {
+    for (const mcpId of options.selectedMCPs) {
+      if (!mcpConfig[mcpId]) {
+        mcpConfig[mcpId] = {
+          type: 'local',
+          command: getMcpCommand(mcpId),
+          enabled: true,
+        };
+      }
+    }
+  }
 
   // Merge with existing config, preserving all user settings (MCPs, themes, etc.)
   const config = {
@@ -68,6 +97,9 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
         '*': 'allow',
       },
     },
+
+    // Updated MCP section
+    mcp: mcpConfig,
   };
 
   if (!options.dryRun) {
