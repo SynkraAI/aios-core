@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { Sun, Moon, Monitor, RotateCcw } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { iconMap } from '@/lib/icons';
 import { useSettingsStore, type Theme } from '@/stores/settings-store';
 import { Button } from '@/components/ui/button';
 import { AGENT_CONFIG, type AgentId } from '@/types';
@@ -24,6 +25,7 @@ export function SettingsPanel() {
   const {
     settings,
     setTheme,
+    setUseMockData,
     setAutoRefresh,
     setRefreshInterval,
     setStoriesPath,
@@ -106,6 +108,30 @@ export function SettingsPanel() {
           </h3>
 
           <div className="space-y-4">
+            {/* Mock Data Toggle */}
+            <div className="flex items-center justify-between p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
+              <div>
+                <label className="text-sm font-medium text-amber-500">Demo Mode</label>
+                <p className="text-xs text-muted-foreground">
+                  Use mock data for visualization
+                </p>
+              </div>
+              <button
+                onClick={() => setUseMockData(!settings.useMockData)}
+                className={cn(
+                  'relative w-11 h-6 rounded-full transition-colors',
+                  settings.useMockData ? 'bg-amber-500' : 'bg-muted'
+                )}
+              >
+                <span
+                  className={cn(
+                    'absolute top-1 w-4 h-4 rounded-full bg-white transition-transform',
+                    settings.useMockData ? 'left-6' : 'left-1'
+                  )}
+                />
+              </button>
+            </div>
+
             {/* Stories Path */}
             <div>
               <label className="text-sm font-medium mb-2 block">
@@ -115,7 +141,11 @@ export function SettingsPanel() {
                 type="text"
                 value={settings.storiesPath}
                 onChange={(e) => setStoriesPath(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                disabled={settings.useMockData}
+                className={cn(
+                  'w-full px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary',
+                  settings.useMockData && 'opacity-50 cursor-not-allowed'
+                )}
                 placeholder="docs/stories"
               />
               <p className="text-xs text-muted-foreground mt-1">
@@ -185,7 +215,10 @@ export function SettingsPanel() {
                   key={agentId}
                   className="flex items-center gap-3 p-3 rounded-lg border border-border"
                 >
-                  <span className="text-lg">{config.icon}</span>
+                  {(() => {
+                    const IconComponent = iconMap[config.icon];
+                    return IconComponent ? <IconComponent className="h-5 w-5" style={{ color: config.color }} /> : null;
+                  })()}
                   <span className="flex-1 text-sm font-medium">@{agentId}</span>
                   <input
                     type="color"

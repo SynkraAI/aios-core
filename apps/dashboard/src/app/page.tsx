@@ -1,52 +1,120 @@
 'use client';
 
+import { useState, useCallback } from 'react';
 import { useUIStore } from '@/stores/ui-store';
-import { SIDEBAR_ITEMS } from '@/types';
+import { KanbanBoard } from '@/components/kanban';
+import { StoryDetailModal } from '@/components/stories';
+import { AgentMonitor } from '@/components/agents';
+import { SettingsPanel } from '@/components/settings';
+import { TerminalGrid } from '@/components/terminals';
+import { GitHubPanel } from '@/components/github';
+import { RoadmapView } from '@/components/roadmap';
+import { InsightsPanel } from '@/components/insights';
+import { ContextPanel } from '@/components/context';
+import { FAB, HelpFAB } from '@/components/ui/fab';
+import { useStories } from '@/hooks/use-stories';
+import type { Story, SidebarView } from '@/types';
 
 export default function Home() {
   const { activeView } = useUIStore();
-  const currentItem = SIDEBAR_ITEMS.find((item) => item.id === activeView);
+  const { isLoading, refresh } = useStories();
+  const [selectedStory, setSelectedStory] = useState<Story | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleStoryClick = useCallback((story: Story) => {
+    setSelectedStory(story);
+    setModalOpen(true);
+  }, []);
+
+  const handleNewStory = useCallback(() => {
+    // TODO: Open new story modal
+    console.log('Create new story');
+  }, []);
+
+  // Show FAB on views that support creation
+  const showFAB = activeView === 'kanban' || activeView === 'roadmap';
 
   return (
-    <div className="flex h-full flex-col">
-      {/* View Header */}
-      <div className="mb-6">
-        <h1 className="flex items-center gap-3 text-2xl font-semibold text-foreground">
-          <span className="text-3xl">{currentItem?.icon}</span>
-          {currentItem?.label}
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {getViewDescription(activeView)}
-        </p>
-      </div>
+    <div className="h-full relative">
+      <ViewContent
+        view={activeView}
+        onStoryClick={handleStoryClick}
+        onRefresh={refresh}
+        isLoading={isLoading}
+      />
 
-      {/* Placeholder Content */}
-      <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-border bg-card/50">
-        <div className="text-center">
-          <span className="text-6xl">{currentItem?.icon}</span>
-          <p className="mt-4 text-lg font-medium text-foreground">
-            {currentItem?.label} View
-          </p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Content coming in Epic 1+
-          </p>
-        </div>
-      </div>
+      <StoryDetailModal
+        story={selectedStory}
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+      />
+
+      {/* Floating Action Buttons */}
+      {showFAB && (
+        <FAB
+          icon="plus"
+          label={activeView === 'roadmap' ? 'New Feature' : 'New Story'}
+          onClick={handleNewStory}
+          position="bottom-left"
+        />
+      )}
+      <HelpFAB />
     </div>
   );
 }
 
-function getViewDescription(view: string): string {
-  const descriptions: Record<string, string> = {
-    kanban: 'Story board with 7 columns for tracking development progress',
-    terminals: 'Output from AIOS agents and command execution',
-    roadmap: 'Timeline of epics and milestones',
-    context: 'Context files and documentation',
-    ideas: 'Backlog of ideas and feature requests',
-    insights: 'Metrics, analytics and performance data',
-    github: 'Issues, PRs and repository activity',
-    worktrees: 'Git worktrees management',
-    tools: 'Settings and configuration',
-  };
-  return descriptions[view] || '';
+interface ViewContentProps {
+  view: SidebarView;
+  onStoryClick: (story: Story) => void;
+  onRefresh: () => void;
+  isLoading: boolean;
+}
+
+function ViewContent({ view, onStoryClick, onRefresh, isLoading }: ViewContentProps) {
+  switch (view) {
+    case 'kanban':
+      return (
+        <KanbanBoard
+          onStoryClick={onStoryClick}
+          onRefresh={onRefresh}
+          isLoading={isLoading}
+          className="h-full"
+        />
+      );
+
+    case 'agents':
+      return <AgentMonitor />;
+
+    case 'settings':
+      return <SettingsPanel />;
+
+    case 'terminals':
+      return <TerminalGrid />;
+
+    case 'roadmap':
+      return <RoadmapView />;
+
+    case 'github':
+      return <GitHubPanel />;
+
+    case 'insights':
+      return <InsightsPanel />;
+
+    case 'context':
+      return <ContextPanel />;
+
+    default:
+      return <PlaceholderView title={view} description="Coming soon" />;
+  }
+}
+
+function PlaceholderView({ title, description }: { title: string; description: string }) {
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="text-center">
+        <p className="text-lg font-medium text-foreground capitalize">{title}</p>
+        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+      </div>
+    </div>
+  );
 }
