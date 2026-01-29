@@ -51,15 +51,20 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
 
   // Map selected MCPs from wizard if provided
   const mcpConfig = { ...(existingConfig.mcp || {}) };
-  if (options.selectedMCPs && Array.isArray(options.selectedMCPs)) {
-    for (const mcpId of options.selectedMCPs) {
-      if (!mcpConfig[mcpId]) {
-        mcpConfig[mcpId] = {
-          type: 'local',
-          command: getMcpCommand(mcpId),
-          enabled: true,
-        };
-      }
+  const mcpsToInstall =
+    options.selectedMCPs && Array.isArray(options.selectedMCPs)
+      ? options.selectedMCPs
+      : Object.keys(mcpConfig).length === 0
+        ? ['browser', 'context7', 'exa', 'desktop-commander']
+        : [];
+
+  for (const mcpId of mcpsToInstall) {
+    if (!mcpConfig[mcpId]) {
+      mcpConfig[mcpId] = {
+        type: 'local',
+        command: getMcpCommand(mcpId),
+        enabled: true,
+      };
     }
   }
 

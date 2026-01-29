@@ -505,11 +505,12 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
         if (ide.agentFolder) {
           if (ideKey === 'opencode') {
             spinner.start('Syncing AIOS agents and skills to OpenCode...');
-            // Pass selected MCPs from wizard to the sync command
+            // Pass selected MCPs and project context from wizard to the sync command
             await commandSync({
               quiet: true,
               ide: 'opencode',
               selectedMCPs: wizardState.selectedMCPs,
+              projectContext: templateVars.projectContext,
             });
             spinner.succeed('Synced agents, skills and configuration to .opencode/');
           } else {

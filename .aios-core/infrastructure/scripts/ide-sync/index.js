@@ -300,6 +300,25 @@ async function commandSync(options) {
           );
         }
       }
+      const ruleResult = await portRules(projectRoot, options);
+      if (ruleResult.success) {
+        // Explicitly write the opencode-rules.md to .opencode/rules/
+        const rulesSource = path.join(
+          projectRoot,
+          '.aios-core/product/templates/ide-rules/opencode-rules.md'
+        );
+        const rulesTarget = path.join(projectRoot, '.opencode/rules/opencode-rules.md');
+        if (fs.existsSync(rulesSource)) {
+          const rulesContent = fs.readFileSync(rulesSource, 'utf8');
+          fs.writeFileSync(rulesTarget, translateContent(rulesContent), 'utf8');
+        }
+
+        if (!options.quiet) {
+          console.log(
+            `   ${colors.green}✓${colors.reset} ${ruleResult.ported.length} rules ported and translated`
+          );
+        }
+      }
 
       if (!options.quiet) {
         console.log(`${colors.cyan}⚡ Generating AGENTS.md Index...${colors.reset}`);

@@ -50,11 +50,13 @@ async function generateAgentsMd(projectRoot, agents, options = {}) {
     })
     .join('\n');
 
+  const finalContext = (options.projectContext || '') + `\n### Available Agents\n\n${agentList}\n`;
+
   content = content
     .replace(/{{projectName}}/g, projectName)
     .replace(/{{timestamp}}/g, timestamp)
     .replace(/{{projectType}}/g, projectType)
-    .replace(/{{projectContext}}/g, `\n### Available Agents\n\n${agentList}\n`);
+    .replace(/{{projectContext}}/g, finalContext);
 
   if (!options.dryRun) {
     await fs.writeFile(targetPath, content, 'utf8');
