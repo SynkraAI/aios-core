@@ -38,11 +38,11 @@ python scripts/check-markdown-links.py --fix
 
 ## Exit Codes
 
-| Code | Meaning |
-|------|---------|
-| 0 | Todos os links válidos (ou apenas "coming soon") |
-| 1 | Links quebrados encontrados |
-| 2 | Marcações incorretas encontradas |
+| Code | Meaning                                          |
+| ---- | ------------------------------------------------ |
+| 0    | Todos os links válidos (ou apenas "coming soon") |
+| 1    | Links quebrados encontrados                      |
+| 2    | Marcações incorretas encontradas                 |
 
 ## CI Integration
 
@@ -68,6 +68,7 @@ Adicionar ao GitHub Actions:
 ### Auto-fix
 
 O modo `--fix` automaticamente:
+
 - Adiciona ` *(coming soon)*` em links quebrados
 - Remove ` *(coming soon)*` de links para arquivos existentes
 

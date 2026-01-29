@@ -117,11 +117,14 @@ jobs:
         run: npm run typecheck
 
   test:
-    name: Jest Tests
+    name: Jest Tests (Node ${{ matrix.node }})
     needs: changes
     if: ${{ needs.changes.outputs.code == 'true' || needs.changes.outputs.tests == 'true' || needs.changes.outputs.config == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    strategy:
+      matrix:
+        node: ['18', '20']
 
     steps:
       - name: Checkout code
@@ -130,7 +133,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ matrix.node }}
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
@@ -353,13 +356,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node: ['18', '20', '22']
-        # Exclude macOS with Node 18.x and 20.x due to isolated-vm SIGSEGV crash
-        exclude:
-          - os: macos-latest
-            node: '18'
-          - os: macos-latest
-            node: '20'
+        node: ['18', '20', '22', '24']
+        # All combinations supported for Node.js 18-24 (isolated-vm removed in v3.11.0)
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
 

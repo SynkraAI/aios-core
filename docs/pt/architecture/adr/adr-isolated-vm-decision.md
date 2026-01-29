@@ -1,17 +1,45 @@
-<!-- Tradução: PT-BR | Original: /docs/en/architecture/adr/adr-isolated-vm-decision.md | Sincronização: 2026-01-26 -->
+<!-- Tradução: PT-BR | Original: /docs/en/architecture/adr/adr-isolated-vm-decision.md | Sincronização: 2026-01-27 -->
 
 # ADR: Compatibilidade isolated-vm com macOS
 
-**Status:** Aceito
+**Status:** Substituído
 **Data:** 2026-01-04
+**Atualizado:** 2026-01-27
 **Story:** TD-6 - Estabilidade de CI e Melhorias de Cobertura de Testes
 **Autor:** @devops (Gage)
+**Substituído Por:** Remoção da dependência (v3.11.0)
 
-## Contexto
+## Atualização (2026-01-27)
+
+**Decisão Alterada:** `isolated-vm` foi **removido das dependências** completamente.
+
+### Motivo da Remoção
+
+Após análise do código, descobrimos que `isolated-vm` nunca foi realmente usado no codebase. Foi adicionado como placeholder para futura execução de código em sandbox, mas nunca foi implementado.
+
+### Benefícios da Remoção
+
+1. **Compatibilidade total com Node.js 18-24** em todas as plataformas (macOS, Linux, Windows)
+2. **43 pacotes a menos** na árvore de dependências
+3. **6 vulnerabilidades a menos** (8 → 2)
+4. **Sem mais problemas de compilação de módulos nativos**
+5. **100% de cobertura da matriz de CI** (12 combinações: 3 OS × 4 versões Node)
+
+### Dependências Atualizadas
+
+| Pacote        | Antes   | Depois       | Node.js Min         |
+| ------------- | ------- | ------------ | ------------------- |
+| `isolated-vm` | ^5.0.4  | **REMOVIDO** | N/A                 |
+| `commander`   | ^14.0.1 | ^12.1.0      | >=18                |
+| `glob`        | ^11.0.3 | ^10.4.4      | 14, 16, 18, 20, 22+ |
+
+---
+
+## Contexto Original (Histórico)
 
 Durante testes de CI, observamos crashes SIGSEGV no macOS com Node.js 18.x e 20.x ao usar `isolated-vm`. Isso afeta a cobertura da matriz de CI.
 
-## Descobertas da Investigação
+## Descobertas da Investigação Original
 
 ### Configurações Afetadas
 
@@ -28,63 +56,13 @@ Durante testes de CI, observamos crashes SIGSEGV no macOS com Node.js 18.x e 20.
 
 **Issue GitHub:** [laverdet/isolated-vm#424](https://github.com/laverdet/isolated-vm/issues/424) - "Segmentation fault on Node 20 macos arm64"
 
-O problema é uma incompatibilidade conhecida entre os bindings nativos do `isolated-vm` e builds Node.js ARM64 no macOS para versões 18.x e 20.x. O crash ocorre durante a inicialização do módulo nativo.
+O problema é uma incompatibilidade conhecida entre os bindings nativos do `isolated-vm` e builds Node.js ARM64 no macOS para versões 18.x e 20.x.
 
-### Versão Atual
-
-- **Instalada:** `isolated-vm@5.0.4`
-- **Última Disponível:** `isolated-vm@6.0.2`
-
-## Decisão
+## Decisão Original (Agora Substituída)
 
 **Manter exclusão atual da matriz de CI** para macOS + Node 18/20.
 
-### Justificativa
-
-1. **Baixo Impacto:** macOS não é um alvo de deploy de produção; é apenas para estações de trabalho de desenvolvedores
-2. **Node 22 Funciona:** Desenvolvedores no macOS podem usar Node 22.x
-3. **Cobertura de CI Aceitável:** 7/9 combinações da matriz (78%) é suficiente
-4. **Risco de Upgrade:** v6.x é uma versão major com potenciais breaking changes
-5. **Workaround Não-Invasivo:** Simples exclusão na matriz em config de CI
-
-### Workaround Atual (ci.yml)
-
-```yaml
-matrix:
-  exclude:
-    - os: macos-latest
-      node: '18'
-    - os: macos-latest
-      node: '20'
-```
-
-## Alternativas Consideradas
-
-| Opção              | Esforço | Risco | Cobertura | Decisão             |
-| ------------------ | ------- | ----- | --------- | ------------------- |
-| Manter exclusão    | Nenhum  | Baixo | 78%       | ✅ **Selecionada**  |
-| Upgrade para v6.x  | Médio   | Médio | 100%?     | ❌ Testar primeiro  |
-| Substituir por vm2 | Alto    | Alto  | 100%      | ❌ Breaking changes |
-| Usar Node.js vm    | Médio   | Médio | 100%      | ❌ Menos seguro     |
-
-## Ações Futuras
-
-1. **Monitorar:** Acompanhar [isolated-vm#424](https://github.com/laverdet/isolated-vm/issues/424) para correções
-2. **Testar v6.x:** Quando houver tempo, testar `isolated-vm@6.0.2` no macOS ARM64
-3. **Reavaliar:** Se v6.x corrigir o problema, considerar upgrade em sprint futuro
-
-## Consequências
-
-### Positivas
-
-- Pipeline de CI permanece estável
-- Sem alterações de código necessárias
-- Workflow de desenvolvimento não afetado (Node 22 funciona)
-
-### Negativas
-
-- 2 combinações da matriz de CI indisponíveis
-- Desenvolvedores macOS devem usar Node 22.x para compatibilidade total
+Esta decisão foi substituída pela remoção completa do `isolated-vm` das dependências do projeto.
 
 ## Referências
 

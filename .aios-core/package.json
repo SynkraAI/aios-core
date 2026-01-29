@@ -32,9 +32,9 @@
   },
   "dependencies": {
     "chalk": "^4.1.2",
-    "commander": "^14.0.0",
+    "commander": "^12.1.0",
     "fs-extra": "^11.3.0",
-    "glob": "^11.0.3",
+    "glob": "^10.4.4",
     "js-yaml": "^4.1.0",
     "inquirer": "^8.2.6",
     "validator": "^13.15.15",
@@ -81,7 +81,7 @@
   },
   "homepage": "https://github.com/allfluenceinc/aios-fullstack/tree/main/aios-core#readme",
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=18.0.0",
     "npm": ">=9.0.0"
   },
   "publishConfig": {

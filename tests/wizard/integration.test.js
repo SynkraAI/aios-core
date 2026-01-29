@@ -55,10 +55,13 @@ describe('Wizard Integration - Story 1.7', () => {
     consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
 
     // Default mocks for successful flow
-    inquirer.prompt.mockResolvedValue({
-      projectType: 'greenfield',
-      selectedIDEs: ['vscode'],
-    });
+    // Wizard calls prompt twice: 1) language selection, 2) remaining questions
+    inquirer.prompt
+      .mockResolvedValueOnce({ language: 'en' }) // Language prompt
+      .mockResolvedValue({
+        projectType: 'greenfield',
+        selectedIDEs: ['vscode'],
+      });
 
     generateIDEConfigs.mockResolvedValue({
       success: true,
@@ -215,6 +218,10 @@ describe('Wizard Integration - Story 1.7', () => {
 
   describe('Error Handling (AC4, AC5)', () => {
     it('should offer retry on installation failure', async () => {
+      // Reset mocks for this specific test
+      inquirer.prompt.mockReset();
+      installDependencies.mockReset();
+
       installDependencies
         .mockResolvedValueOnce({
           success: false,
@@ -227,11 +234,10 @@ describe('Wizard Integration - Story 1.7', () => {
           packageManager: 'npm',
         });
 
-      // Mock prompt sequence: 1) language, 2) project type + IDEs, 3) retryDeps
       inquirer.prompt
-        .mockResolvedValueOnce({ language: 'en' })
+        .mockResolvedValueOnce({ language: 'en' }) // Language prompt
         .mockResolvedValueOnce({
-          projectType: 'greenfield',
+          projectType: 'brownfield', // Must be brownfield to trigger dep installation
           selectedIDEs: [],
         })
         .mockResolvedValueOnce({
@@ -245,17 +251,20 @@ describe('Wizard Integration - Story 1.7', () => {
     });
 
     it('should allow skipping installation on failure', async () => {
+      // Reset mocks for this specific test
+      inquirer.prompt.mockReset();
+      installDependencies.mockReset();
+
       installDependencies.mockResolvedValue({
         success: false,
         errorMessage: 'Network connection failed',
         solution: 'Check your internet connection',
       });
 
-      // Mock prompt sequence: 1) language, 2) project type + IDEs, 3) retryDeps
       inquirer.prompt
-        .mockResolvedValueOnce({ language: 'en' })
+        .mockResolvedValueOnce({ language: 'en' }) // Language prompt
         .mockResolvedValueOnce({
-          projectType: 'greenfield',
+          projectType: 'brownfield', // Must be brownfield to trigger dep installation
           selectedIDEs: [],
         })
         .mockResolvedValueOnce({
@@ -316,11 +325,12 @@ describe('Wizard Integration - Story 1.7', () => {
     });
 
     it('should handle environment config failure gracefully', async () => {
-      configureEnvironment.mockRejectedValue(new Error('Env config failed'));
+      // Reset mocks for this specific test
+      inquirer.prompt.mockReset();
 
-      // Mock prompt sequence: 1) language, 2) project type + IDEs, 3) continueWithoutEnv
+      configureEnvironment.mockRejectedValue(new Error('Env config failed'));
       inquirer.prompt
-        .mockResolvedValueOnce({ language: 'en' })
+        .mockResolvedValueOnce({ language: 'en' }) // Language prompt
         .mockResolvedValueOnce({
           projectType: 'greenfield',
           selectedIDEs: [],

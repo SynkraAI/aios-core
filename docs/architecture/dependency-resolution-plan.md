@@ -1,6 +1,6 @@
 # Dependency Resolution in AIOS
 
-> **EN** | PT *(coming soon)* | ES *(coming soon)*
+> **EN** | PT _(coming soon)_ | ES _(coming soon)_
 
 ---
 
@@ -155,6 +155,7 @@ node .aios-core/core/registry/build-registry.js
 ```
 
 The builder scans these locations:
+
 - `.aios-core/development/tasks/**/*.md` → task
 - `.aios-core/product/templates/**/*.md` → template
 - `.aios-core/infrastructure/scripts/**/*.js` → script
@@ -262,6 +263,7 @@ const task = await registry.getById('create-story');
 ### Rule 4: Cache with TTL
 
 Registry implements caching for performance:
+
 - **TTL:** 5 minutes
 - **Indexed lookups:** O(1) by ID, category, tag
 - **Manual refresh:** `registry.load(true)` forces reload

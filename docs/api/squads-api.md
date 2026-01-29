@@ -7,6 +7,7 @@ REST API for syncing squads to Synkra and discovering marketplace squads.
 ## Overview
 
 The Squads API enables:
+
 - **Sync**: Push local squads to Synkra cloud
 - **Marketplace**: Discover and browse public squads
 - **Management**: Update visibility, delete squads
@@ -45,16 +46,16 @@ POST /api/squads/sync
 
 **Request Body**:
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `squadData` | object | Yes | Squad manifest data |
-| `squadData.name` | string | Yes | Squad name |
-| `squadData.version` | string | Yes | Semantic version |
-| `squadData.description` | string | No | Squad description |
-| `squadData.author` | string | No | Author name |
-| `squadData.components` | object | No | Squad components |
-| `isPublic` | boolean | No | Make publicly visible (default: false) |
-| `isOfficial` | boolean | No | Mark as official (admin only) |
+| Field                   | Type    | Required | Description                            |
+| ----------------------- | ------- | -------- | -------------------------------------- |
+| `squadData`             | object  | Yes      | Squad manifest data                    |
+| `squadData.name`        | string  | Yes      | Squad name                             |
+| `squadData.version`     | string  | Yes      | Semantic version                       |
+| `squadData.description` | string  | No       | Squad description                      |
+| `squadData.author`      | string  | No       | Author name                            |
+| `squadData.components`  | object  | No       | Squad components                       |
+| `isPublic`              | boolean | No       | Make publicly visible (default: false) |
+| `isOfficial`            | boolean | No       | Mark as official (admin only)          |
 
 **Example Request**:
 
@@ -118,10 +119,10 @@ POST /api/squads/sync/batch
 
 **Request Body**:
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `squads` | array | Yes | Array of squad data objects |
-| `isPublic` | boolean | No | Make all squads public (default: false) |
+| Field      | Type    | Required | Description                             |
+| ---------- | ------- | -------- | --------------------------------------- |
+| `squads`   | array   | Yes      | Array of squad data objects             |
+| `isPublic` | boolean | No       | Make all squads public (default: false) |
 
 **Example Request**:
 
@@ -200,14 +201,14 @@ GET /api/squads
 
 **Query Parameters**:
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `page` | number | 1 | Page number |
-| `limit` | number | 20 | Items per page (max: 100) |
-| `tags` | string | - | Comma-separated tag filter |
-| `author` | string | - | Filter by author |
-| `search` | string | - | Search in name/description |
-| `official` | boolean | - | Filter official squads only |
+| Parameter  | Type    | Default | Description                 |
+| ---------- | ------- | ------- | --------------------------- |
+| `page`     | number  | 1       | Page number                 |
+| `limit`    | number  | 20      | Items per page (max: 100)   |
+| `tags`     | string  | -       | Comma-separated tag filter  |
+| `author`   | string  | -       | Filter by author            |
+| `search`   | string  | -       | Search in name/description  |
+| `official` | boolean | -       | Filter official squads only |
 
 **Example Request**:
 
@@ -263,10 +264,10 @@ GET /api/squads/mine
 
 **Query Parameters**:
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `page` | number | 1 | Page number |
-| `limit` | number | 20 | Items per page |
+| Parameter | Type   | Default | Description    |
+| --------- | ------ | ------- | -------------- |
+| `page`    | number | 1       | Page number    |
+| `limit`   | number | 20      | Items per page |
 
 **Example Request**:
 
@@ -317,9 +318,9 @@ GET /api/squads/:id
 
 **Path Parameters**:
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | string | Squad UUID or squad_id |
+| Parameter | Type   | Description            |
+| --------- | ------ | ---------------------- |
+| `id`      | string | Squad UUID or squad_id |
 
 **Example Request**:
 
@@ -389,14 +390,14 @@ PATCH /api/squads/:id
 
 **Path Parameters**:
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | string | Squad UUID or squad_id |
+| Parameter | Type   | Description            |
+| --------- | ------ | ---------------------- |
+| `id`      | string | Squad UUID or squad_id |
 
 **Request Body**:
 
-| Field | Type | Description |
-|-------|------|-------------|
+| Field      | Type    | Description           |
+| ---------- | ------- | --------------------- |
 | `isPublic` | boolean | Set public visibility |
 
 **Example Request**:
@@ -437,9 +438,9 @@ DELETE /api/squads/:id
 
 **Path Parameters**:
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | string | Squad UUID or squad_id |
+| Parameter | Type   | Description            |
+| --------- | ------ | ---------------------- |
+| `id`      | string | Squad UUID or squad_id |
 
 **Example Request**:
 
@@ -471,9 +472,9 @@ POST /api/squads/validate
 
 **Request Body**:
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `squadData` | object | Yes | Squad manifest to validate |
+| Field       | Type   | Required | Description                |
+| ----------- | ------ | -------- | -------------------------- |
+| `squadData` | object | Yes      | Squad manifest to validate |
 
 **Example Request**:
 
@@ -496,10 +497,7 @@ curl -X POST https://api.synkra.ai/api/squads/validate \
   "data": {
     "valid": true,
     "errors": [],
-    "warnings": [
-      "Missing recommended field: description",
-      "Missing aios.minVersion field"
-    ]
+    "warnings": ["Missing recommended field: description", "Missing aios.minVersion field"]
   }
 }
 ```
@@ -511,10 +509,7 @@ curl -X POST https://api.synkra.ai/api/squads/validate \
   "success": false,
   "data": {
     "valid": false,
-    "errors": [
-      "name is required",
-      "version must be valid semver"
-    ],
+    "errors": ["name is required", "version must be valid semver"],
     "warnings": []
   }
 }
@@ -524,14 +519,14 @@ curl -X POST https://api.synkra.ai/api/squads/validate \
 
 ## Error Codes
 
-| HTTP Code | Meaning |
-|-----------|---------|
-| 200 | Success |
-| 400 | Bad Request - Invalid input |
-| 401 | Unauthorized - Missing or invalid auth |
-| 403 | Forbidden - Insufficient permissions |
-| 404 | Not Found - Squad doesn't exist |
-| 500 | Internal Server Error |
+| HTTP Code | Meaning                                |
+| --------- | -------------------------------------- |
+| 200       | Success                                |
+| 400       | Bad Request - Invalid input            |
+| 401       | Unauthorized - Missing or invalid auth |
+| 403       | Forbidden - Insufficient permissions   |
+| 404       | Not Found - Squad doesn't exist        |
+| 500       | Internal Server Error                  |
 
 ### Error Response Format
 
@@ -546,11 +541,11 @@ curl -X POST https://api.synkra.ai/api/squads/validate \
 
 ## Rate Limits
 
-| Plan | Requests/min | Requests/day |
-|------|-------------|--------------|
-| Free | 60 | 1,000 |
-| Pro | 300 | 10,000 |
-| Enterprise | Unlimited | Unlimited |
+| Plan       | Requests/min | Requests/day |
+| ---------- | ------------ | ------------ |
+| Free       | 60           | 1,000        |
+| Pro        | 300          | 10,000       |
+| Enterprise | Unlimited    | Unlimited    |
 
 Rate limit headers:
 
@@ -663,11 +658,11 @@ Import this collection into Postman or Insomnia:
             "url": {
               "raw": "{{baseUrl}}/api/squads?page=1&limit=20",
               "query": [
-                {"key": "page", "value": "1"},
-                {"key": "limit", "value": "20"},
-                {"key": "tags", "value": "devops", "disabled": true},
-                {"key": "search", "value": "", "disabled": true},
-                {"key": "official", "value": "true", "disabled": true}
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "tags", "value": "devops", "disabled": true },
+                { "key": "search", "value": "", "disabled": true },
+                { "key": "official", "value": "true", "disabled": true }
               ]
             }
           }

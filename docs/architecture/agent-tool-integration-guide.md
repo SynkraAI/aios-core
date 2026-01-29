@@ -1,6 +1,6 @@
 # Agent Tool Integration Guide
 
-> **EN** | PT *(coming soon)* | ES *(coming soon)*
+> **EN** | PT _(coming soon)_ | ES _(coming soon)_
 
 ---
 
@@ -50,11 +50,11 @@ Agents declare their dependencies in the YAML block within their `.md` definitio
 
 ### Dependency Types
 
-| Type | Description | Location |
-|------|-------------|----------|
-| `tools` | CLI tools and external services | System PATH or MCP |
-| `tasks` | Task workflow files | `.aios-core/development/tasks/` |
-| `checklists` | Validation checklists | `.aios-core/product/checklists/` |
+| Type         | Description                     | Location                         |
+| ------------ | ------------------------------- | -------------------------------- |
+| `tools`      | CLI tools and external services | System PATH or MCP               |
+| `tasks`      | Task workflow files             | `.aios-core/development/tasks/`  |
+| `checklists` | Validation checklists           | `.aios-core/product/checklists/` |
 
 ### Example Declaration
 
@@ -69,13 +69,13 @@ dependencies:
     - dev-develop-story.md
     - execute-checklist.md
   tools:
-    - coderabbit        # Pre-commit code quality review
-    - git               # Local operations: add, commit, status, diff
-    - context7          # Library documentation lookup
-    - supabase          # Database operations
-    - n8n               # Workflow automation
-    - browser           # Web application testing
-    - ffmpeg            # Media file processing
+    - coderabbit # Pre-commit code quality review
+    - git # Local operations: add, commit, status, diff
+    - context7 # Library documentation lookup
+    - supabase # Database operations
+    - n8n # Workflow automation
+    - browser # Web application testing
+    - ffmpeg # Media file processing
 ```
 
 ---
@@ -84,49 +84,51 @@ dependencies:
 
 ### @dev (Dex - Developer Agent)
 
-| Tool | Type | Purpose |
-|------|------|---------|
-| `git` | CLI | Version control (local operations only) |
-| `coderabbit` | External | Pre-commit code quality review |
-| `context7` | MCP | Library documentation lookup |
-| `supabase` | External | Database operations and migrations |
-| `n8n` | External | Workflow automation |
-| `browser` | MCP | Web application testing |
-| `ffmpeg` | CLI | Media file processing |
+| Tool         | Type     | Purpose                                 |
+| ------------ | -------- | --------------------------------------- |
+| `git`        | CLI      | Version control (local operations only) |
+| `coderabbit` | External | Pre-commit code quality review          |
+| `context7`   | MCP      | Library documentation lookup            |
+| `supabase`   | External | Database operations and migrations      |
+| `n8n`        | External | Workflow automation                     |
+| `browser`    | MCP      | Web application testing                 |
+| `ffmpeg`     | CLI      | Media file processing                   |
 
 **Git Restrictions for @dev:**
+
 - Allowed: `git add`, `git commit`, `git status`, `git diff`, `git log`, `git branch`
 - Blocked: `git push`, `gh pr create`, `gh pr merge`
 - Push operations require @devops agent
 
 ### @devops (Gage - DevOps Agent)
 
-| Tool | Type | Purpose |
-|------|------|---------|
-| `git` | CLI | Full git operations including push |
-| `gh` | CLI | GitHub CLI for PR operations |
-| `docker` | CLI | Container operations |
-| `coderabbit` | External | Code review automation |
+| Tool         | Type     | Purpose                            |
+| ------------ | -------- | ---------------------------------- |
+| `git`        | CLI      | Full git operations including push |
+| `gh`         | CLI      | GitHub CLI for PR operations       |
+| `docker`     | CLI      | Container operations               |
+| `coderabbit` | External | Code review automation             |
 
 **Unique Capabilities:**
+
 - Only agent authorized to push to remote
 - Only agent authorized to create/merge PRs
 - MCP infrastructure management
 
 ### @qa (Quinn - QA Agent)
 
-| Tool | Type | Purpose |
-|------|------|---------|
-| `jest` | CLI | Unit testing |
-| `playwright` | MCP | E2E testing and browser automation |
-| `npm test` | CLI | Test runner |
+| Tool         | Type | Purpose                            |
+| ------------ | ---- | ---------------------------------- |
+| `jest`       | CLI  | Unit testing                       |
+| `playwright` | MCP  | E2E testing and browser automation |
+| `npm test`   | CLI  | Test runner                        |
 
 ### @architect (Aria - Architect Agent)
 
-| Tool | Type | Purpose |
-|------|------|---------|
-| `exa` | MCP | Research and analysis |
-| `context7` | MCP | Documentation reference |
+| Tool       | Type | Purpose                 |
+| ---------- | ---- | ----------------------- |
+| `exa`      | MCP  | Research and analysis   |
+| `context7` | MCP  | Documentation reference |
 
 ---
 
@@ -136,12 +138,12 @@ dependencies:
 
 MCP (Model Context Protocol) servers provide structured APIs for agent use.
 
-| MCP Server | Tools Provided | Used By |
-|------------|----------------|---------|
-| EXA | `web_search_exa`, `company_research_exa`, `get_code_context_exa` | @architect |
-| Context7 | `resolve-library-id`, `query-docs` | @dev, @architect |
-| Playwright | `browser_navigate`, `browser_screenshot`, `browser_click` | @qa |
-| Apify | `search-actors`, `call-actor`, `get-actor-output` | @devops |
+| MCP Server | Tools Provided                                                   | Used By          |
+| ---------- | ---------------------------------------------------------------- | ---------------- |
+| EXA        | `web_search_exa`, `company_research_exa`, `get_code_context_exa` | @architect       |
+| Context7   | `resolve-library-id`, `query-docs`                               | @dev, @architect |
+| Playwright | `browser_navigate`, `browser_screenshot`, `browser_click`        | @qa              |
+| Apify      | `search-actors`, `call-actor`, `get-actor-output`                | @devops          |
 
 ### MCP Configuration
 
@@ -168,7 +170,7 @@ The @dev agent includes CodeRabbit for pre-commit quality checks.
 ```yaml
 coderabbit_integration:
   enabled: true
-  installation_mode: wsl  # or 'native'
+  installation_mode: wsl # or 'native'
 
   self_healing:
     enabled: true
@@ -188,6 +190,7 @@ coderabbit_integration:
 ### Workflow
 
 Before marking story "Ready for Review":
+
 1. Run CodeRabbit on uncommitted changes
 2. If CRITICAL issues found, attempt auto-fix (max 2 iterations)
 3. Document HIGH issues in story Dev Notes
@@ -255,7 +258,7 @@ Add the tool to the agent's `dependencies.tools` list:
 dependencies:
   tools:
     - existing-tool
-    - new-tool  # Add here
+    - new-tool # Add here
 ```
 
 ### Step 2: Document Tool Usage
@@ -265,11 +268,11 @@ If the tool requires specific configuration or has special usage patterns, add d
 ```yaml
 tool_integration:
   new-tool:
-    purpose: "Brief description"
+    purpose: 'Brief description'
     common_commands:
-      - "new-tool --help"
-      - "new-tool run <args>"
-    when_to_use: "Use when X condition is met"
+      - 'new-tool --help'
+      - 'new-tool run <args>'
+    when_to_use: 'Use when X condition is met'
 ```
 
 ### Step 3: Test Integration

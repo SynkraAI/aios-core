@@ -36,9 +36,9 @@ const {
   SquadLoader,
 } = require('../../../.aios-core/development/scripts/squad');
 
-// Test paths
+// Test paths - use unique directory to avoid parallel test collisions
 const FIXTURES_PATH = path.join(__dirname, '..', 'fixtures', 'squad');
-const TEMP_PATH = path.join(__dirname, 'temp-integration');
+const TEMP_PATH = path.join(__dirname, 'temp-download-publish');
 
 // Check if network tests should run
 const RUN_NETWORK_TESTS = process.env.AIOS_INTEGRATION_TESTS === 'true';
@@ -85,9 +85,13 @@ describe('Squad Download & Publish Integration', () => {
 
   afterEach(async () => {
     // Clean temp directory between tests
-    const entries = await fs.readdir(TEMP_PATH);
-    for (const entry of entries) {
-      await fs.rm(path.join(TEMP_PATH, entry), { recursive: true, force: true });
+    try {
+      const entries = await fs.readdir(TEMP_PATH);
+      for (const entry of entries) {
+        await fs.rm(path.join(TEMP_PATH, entry), { recursive: true, force: true });
+      }
+    } catch {
+      // Directory may not exist, ignore
     }
   });
 
@@ -109,7 +113,7 @@ license: MIT
 components:
   tasks:
     - sample-task.md
-`,
+`
       );
 
       await fs.writeFile(
@@ -130,10 +134,15 @@ Checklist:
 # Sample Task
 
 This is a sample task for integration testing.
-`,
+`
       );
 
-      expect(await fs.access(squadPath).then(() => true).catch(() => false)).toBe(true);
+      expect(
+        await fs
+          .access(squadPath)
+          .then(() => true)
+          .catch(() => false)
+      ).toBe(true);
 
       // Step 2: Validate the created squad
       const validationResult = await validator.validate(squadPath);
@@ -163,53 +172,65 @@ This is a sample task for integration testing.
     // This test requires network access
     const conditionalTest = RUN_NETWORK_TESTS ? it : it.skip;
 
-    conditionalTest('should list squads from aios-squads registry', async () => {
-      const squads = await downloader.listAvailable();
+    conditionalTest(
+      'should list squads from aios-squads registry',
+      async () => {
+        const squads = await downloader.listAvailable();
 
-      expect(squads).toBeInstanceOf(Array);
-      // Registry should have at least some squads
-      // This may fail if registry is empty
-      expect(squads.length).toBeGreaterThanOrEqual(0);
+        expect(squads).toBeInstanceOf(Array);
+        // Registry should have at least some squads
+        // This may fail if registry is empty
+        expect(squads.length).toBeGreaterThanOrEqual(0);
 
-      // If there are squads, verify structure
-      if (squads.length > 0) {
-        const squad = squads[0];
-        expect(squad).toHaveProperty('name');
-        expect(squad).toHaveProperty('version');
-        expect(squad).toHaveProperty('type');
-      }
-    }, 30000); // 30 second timeout for network
+        // If there are squads, verify structure
+        if (squads.length > 0) {
+          const squad = squads[0];
+          expect(squad).toHaveProperty('name');
+          expect(squad).toHaveProperty('version');
+          expect(squad).toHaveProperty('type');
+        }
+      },
+      30000
+    ); // 30 second timeout for network
   });
 
   describe('Download squad from registry (Test 4.1)', () => {
     // This test requires network access
     const conditionalTest = RUN_NETWORK_TESTS ? it : it.skip;
 
-    conditionalTest('should download squad from registry', async () => {
-      // First, get available squads
-      const squads = await downloader.listAvailable();
+    conditionalTest(
+      'should download squad from registry',
+      async () => {
+        // First, get available squads
+        const squads = await downloader.listAvailable();
 
-      if (squads.length === 0) {
-        console.log('No squads available in registry, skipping download test');
-        return;
-      }
+        if (squads.length === 0) {
+          console.log('No squads available in registry, skipping download test');
+          return;
+        }
 
-      // Try to download the first available squad
-      const squadToDownload = squads[0].name;
-      const result = await downloader.download(squadToDownload, { validate: true });
+        // Try to download the first available squad
+        const squadToDownload = squads[0].name;
+        const result = await downloader.download(squadToDownload, { validate: true });
 
-      expect(result.path).toBeDefined();
-      expect(result.path).toContain(squadToDownload);
+        expect(result.path).toBeDefined();
+        expect(result.path).toContain(squadToDownload);
 
-      // Verify files were downloaded
-      const manifestExists = await fs.access(path.join(result.path, 'squad.yaml'))
-        .then(() => true)
-        .catch(() => fs.access(path.join(result.path, 'config.yaml'))
+        // Verify files were downloaded
+        const manifestExists = await fs
+          .access(path.join(result.path, 'squad.yaml'))
           .then(() => true)
-          .catch(() => false));
+          .catch(() =>
+            fs
+              .access(path.join(result.path, 'config.yaml'))
+              .then(() => true)
+              .catch(() => false)
+          );
 
-      expect(manifestExists).toBe(true);
-    }, 60000); // 60 second timeout for network
+        expect(manifestExists).toBe(true);
+      },
+      60000
+    ); // 60 second timeout for network
   });
 
   describe('Publish flow with dry-run (Test 4.2)', () => {
@@ -218,7 +239,10 @@ This is a sample task for integration testing.
       const squadPath = path.join(FIXTURES_PATH, 'valid-squad');
 
       // Check if fixture exists
-      const fixtureExists = await fs.access(squadPath).then(() => true).catch(() => false);
+      const fixtureExists = await fs
+        .access(squadPath)
+        .then(() => true)
+        .catch(() => false);
 
       if (!fixtureExists) {
         // Create a minimal squad for testing
@@ -236,7 +260,7 @@ author: Test Suite
 components:
   tasks:
     - sample-task.md
-`,
+`
         );
 
         await fs.writeFile(
@@ -257,7 +281,7 @@ Checklist:
 # Sample Task
 
 This is a sample task for testing.
-`,
+`
         );
 
         // gh auth is mocked globally
@@ -293,7 +317,7 @@ author: Registry
 components:
   tasks:
     - sample-task.md
-`,
+`
       );
 
       await fs.writeFile(
@@ -312,7 +336,7 @@ Checklist:
 ---
 
 # Sample Task
-`,
+`
       );
 
       // Validate the mock squad
@@ -346,7 +370,7 @@ Checklist:
 version: 1.0.0
 description: Test
 author: Test
-`,
+`
       );
 
       await fs.writeFile(
@@ -361,7 +385,7 @@ Saida: "test"
 Checklist: []
 ---
 # Test
-`,
+`
       );
 
       // Test that checkAuth method works
@@ -391,7 +415,12 @@ Checklist: []
           on: jest.fn((event, cb) => {
             if (event === 'data') {
               // Return Buffer to match actual HTTPS response behavior
-              cb(Buffer.from(JSON.stringify({ version: '1.0.0', squads: { official: [], community: [] } }), 'utf-8'));
+              cb(
+                Buffer.from(
+                  JSON.stringify({ version: '1.0.0', squads: { official: [], community: [] } }),
+                  'utf-8'
+                )
+              );
             }
             if (event === 'end') {
               cb();
@@ -429,7 +458,12 @@ Checklist: []
           on: jest.fn((event, cb) => {
             if (event === 'data') {
               // Return Buffer to match actual HTTPS response behavior
-              cb(Buffer.from(JSON.stringify({ version: '1.0.0', squads: { official: [], community: [] } }), 'utf-8'));
+              cb(
+                Buffer.from(
+                  JSON.stringify({ version: '1.0.0', squads: { official: [], community: [] } }),
+                  'utf-8'
+                )
+              );
             }
             if (event === 'end') {
               cb();

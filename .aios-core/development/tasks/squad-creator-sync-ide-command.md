@@ -1,6 +1,6 @@
 ---
 task: Sync Command to IDE Configurations
-responsavel: "@squad-creator"
+responsavel: '@squad-creator'
 responsavel_type: agent
 atomic_layer: task
 status: active
@@ -19,14 +19,14 @@ Saida: |
   - files_updated: Lista de arquivos atualizados
   - files_skipped: Lista de arquivos pulados
 Checklist:
-  - "[x] Carregar .aios-sync.yaml"
-  - "[x] Localizar arquivo fonte em squads/"
-  - "[x] Verificar arquivos existentes nos destinos"
-  - "[x] Sincronizar para cada IDE ativa"
-  - "[x] Validar arquivos criados"
+  - '[x] Carregar .aios-sync.yaml'
+  - '[x] Localizar arquivo fonte em squads/'
+  - '[x] Verificar arquivos existentes nos destinos'
+  - '[x] Sincronizar para cada IDE ativa'
+  - '[x] Validar arquivos criados'
 ---
 
-# *command
+# \*command
 
 Sincroniza agents, tasks, workflows ou squads inteiros para todas as configurações de IDE configuradas no projeto.
 
@@ -116,8 +116,8 @@ O sistema usa `.aios-sync.yaml` na raiz do projeto para configuração:
 ```yaml
 # IDEs ativas para sincronização
 active_ides:
-  - claude    # .claude/commands/
-  - cursor    # .cursor/rules/
+  - claude # .claude/commands/
+  - cursor # .cursor/rules/
   # - windsurf  # .windsurf/ (descomentar para ativar)
   # - gemini    # .gemini/
 
@@ -131,26 +131,26 @@ pack_aliases:
 # Mapeamentos de sincronização
 sync_mappings:
   squad_agents:
-    source: "squads/*/agents/"
+    source: 'squads/*/agents/'
     destinations:
       claude:
-        - path: ".claude/commands/{pack}/agents/"
-          format: "md"
+        - path: '.claude/commands/{pack}/agents/'
+          format: 'md'
       cursor:
-        - path: ".cursor/rules/"
-          format: "mdc"
-          wrapper: "cursor-rule"
+        - path: '.cursor/rules/'
+          format: 'mdc'
+          wrapper: 'cursor-rule'
 ```
 
 ### Pack Aliases
 
 O `pack_aliases` mapeia o nome do diretório do squad para o prefixo usado nos comandos:
 
-| Diretório | Alias | Comando Claude |
-|-----------|-------|----------------|
+| Diretório       | Alias   | Comando Claude              |
+| --------------- | ------- | --------------------------- |
 | `squads/legal/` | `Legal` | `/Legal:agents:legal-chief` |
-| `squads/copy/` | `Copy` | `/Copy:agents:copy-chief` |
-| `squads/hr/` | `HR` | `/HR:agents:hr-chief` |
+| `squads/copy/`  | `Copy`  | `/Copy:agents:copy-chief`   |
+| `squads/hr/`    | `HR`    | `/HR:agents:hr-chief`       |
 
 ## Workflow Interno
 
@@ -192,16 +192,19 @@ O `pack_aliases` mapeia o nome do diretório do squad para o prefixo usado nos c
 Cursor usa formato MDC com frontmatter YAML:
 
 **Entrada (MD):**
+
 ```markdown
 # legal-chief
 
 ACTIVATION-NOTICE: This file contains...
 
 ## COMPLETE AGENT DEFINITION
+
 ...
 ```
 
 **Saída (MDC):**
+
 ```markdown
 ---
 description: Diretor Jurídico & Orquestrador de Especialistas
@@ -218,25 +221,27 @@ ACTIVATION-NOTICE: This file contains...
 ### Extração de Description
 
 A description é extraída de:
+
 1. Campo `whenToUse` no YAML do agent
 2. Primeiro parágrafo após o título
 3. Campo `title` se disponível
 
 ## Flags
 
-| Flag | Descrição | Default |
-|------|-----------|---------|
-| `--dry-run` | Preview sem criar arquivos | false |
-| `--force` | Sobrescrever arquivos existentes | false |
-| `--verbose` | Output detalhado | false |
-| `--ide=X` | Sincronizar apenas para IDE específica | todas |
-| `--no-validate` | Pular validação pós-sync | false |
+| Flag            | Descrição                              | Default |
+| --------------- | -------------------------------------- | ------- |
+| `--dry-run`     | Preview sem criar arquivos             | false   |
+| `--force`       | Sobrescrever arquivos existentes       | false   |
+| `--verbose`     | Output detalhado                       | false   |
+| `--ide=X`       | Sincronizar apenas para IDE específica | todas   |
+| `--no-validate` | Pular validação pós-sync               | false   |
 
 ## Tipos de Componentes
 
 ### Agent (`*command agent {name}`)
 
 Sincroniza um arquivo de agent:
+
 - Source: `squads/{squad}/agents/{name}.md`
 - Claude: `.claude/commands/{Pack}/agents/{name}.md`
 - Cursor: `.cursor/rules/{name}.mdc`
@@ -244,18 +249,21 @@ Sincroniza um arquivo de agent:
 ### Task (`*command task {name}`)
 
 Sincroniza um arquivo de task:
+
 - Source: `squads/{squad}/tasks/{name}.md`
 - Claude: `.claude/commands/{Pack}/tasks/{name}.md`
 
 ### Workflow (`*command workflow {name}`)
 
 Sincroniza um arquivo de workflow:
+
 - Source: `squads/{squad}/workflows/{name}.yaml`
 - Claude: `.claude/commands/{Pack}/workflows/{name}.yaml`
 
 ### Squad (`*command squad {name}`)
 
 Sincroniza TODOS os componentes de um squad:
+
 - Agents (todos em `agents/`)
 - Tasks (todos em `tasks/`)
 - Workflows (todos em `workflows/`)
@@ -265,13 +273,13 @@ Sincroniza TODOS os componentes de um squad:
 
 ## Error Handling
 
-| Error | Causa | Solução |
-|-------|-------|---------|
-| `Source not found` | Arquivo não existe em squads/ | Verifique o nome e tipo |
-| `Pack alias not found` | Squad não está em pack_aliases | Adicione ao .aios-sync.yaml |
-| `File exists` | Destino já existe | Use --force ou escolha ação |
-| `IDE not active` | IDE não está em active_ides | Ative no .aios-sync.yaml |
-| `Invalid YAML` | Arquivo fonte com YAML inválido | Corrija o arquivo fonte |
+| Error                  | Causa                           | Solução                     |
+| ---------------------- | ------------------------------- | --------------------------- |
+| `Source not found`     | Arquivo não existe em squads/   | Verifique o nome e tipo     |
+| `Pack alias not found` | Squad não está em pack_aliases  | Adicione ao .aios-sync.yaml |
+| `File exists`          | Destino já existe               | Use --force ou escolha ação |
+| `IDE not active`       | IDE não está em active_ides     | Ative no .aios-sync.yaml    |
+| `Invalid YAML`         | Arquivo fonte com YAML inválido | Corrija o arquivo fonte     |
 
 ## Implementation Guide
 
@@ -363,7 +371,7 @@ if (syncConfig.behavior?.log_sync_operations) {
     timestamp: new Date().toISOString(),
     type,
     name,
-    results
+    results,
   });
 }
 
@@ -390,7 +398,7 @@ Summary:
 
 ## Changelog
 
-| Version | Date | Description |
-|---------|------|-------------|
-| 1.0.0 | 2026-01-27 | Full implementation with multi-IDE support |
-| 0.1.0 | 2026-01-27 | Initial spec |
+| Version | Date       | Description                                |
+| ------- | ---------- | ------------------------------------------ |
+| 1.0.0   | 2026-01-27 | Full implementation with multi-IDE support |
+| 0.1.0   | 2026-01-27 | Initial spec                               |

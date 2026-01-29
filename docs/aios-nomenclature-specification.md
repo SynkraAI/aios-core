@@ -15,6 +15,7 @@
 ## 📋 Executive Summary
 
 This document establishes clear nomenclature for AIOS to differentiate between:
+
 - **Task Workflow**: Internal execution steps within a single task
 - **Workflow**: Multi-task orchestration across agents with Fork/Join capabilities
 
@@ -29,6 +30,7 @@ This specification incorporates insights from Microsoft Research's AsyncThink pa
 **Definition:** The sequence of steps and actions **within a single task** that defines how that task executes.
 
 **Characteristics:**
+
 - **Scope:** Internal to a single task file (`.aios-core/tasks/*.md`)
 - **Execution:** Sequential or parallel steps within task boundaries
 - **Location:** Defined in `Step-by-Step Execution` section of task file
@@ -36,22 +38,27 @@ This specification incorporates insights from Microsoft Research's AsyncThink pa
 - **Example:** `security-scan.md` has 5 steps: Setup → Scan → Analyze → Detect → Report
 
 **Naming Convention:**
+
 - Use `task-workflow` or `task_workflow` in documentation
 - Referenced as "task execution steps" or "task workflow" in context
 - **NOT** called "workflow" alone (to avoid confusion)
 
 **Example Structure:**
+
 ```markdown
 ## Step-by-Step Execution
 
 ### Step 1: Setup Security Tools
+
 **Purpose:** Ensure all required security scanning tools are installed
 **Actions:**
+
 1. Check for npm audit availability
 2. Install ESLint security plugins if missing
-...
+   ...
 
 ### Step 2: Dependency Vulnerability Scan
+
 ...
 ```
 
@@ -62,6 +69,7 @@ This specification incorporates insights from Microsoft Research's AsyncThink pa
 **Definition:** A sequence of **multiple tasks** executed by **one or more agents**, where task outputs connect to task inputs sequentially or in parallel, supporting Fork and Join operations.
 
 **Characteristics:**
+
 - **Scope:** Cross-task orchestration across multiple agents
 - **Execution:** Can be sequential, parallel (Fork), or convergent (Join)
 - **Location:** Defined in `.aios-core/workflows/*.yaml` or story workflow sections
@@ -69,17 +77,19 @@ This specification incorporates insights from Microsoft Research's AsyncThink pa
 - **Example:** Story Development Workflow: `po-create-story` → `dev-develop-story` → `qa-gate`
 
 **Naming Convention:**
+
 - Use `workflow` for multi-task orchestration
 - Can be named descriptively: `story-development-workflow`, `pm-tool-integration-workflow`
 - Supports AsyncThink patterns: Organizer-Worker, Fork/Join
 
 **Example Structure:**
+
 ```yaml
 workflow:
   id: story-development-workflow
   name: Story Development Flow
   description: Complete story lifecycle from requirements to QA gate
-  
+
   stages:
     - id: create-story
       agent: po
@@ -88,22 +98,22 @@ workflow:
         - requirements_doc
       outputs:
         - story_file
-    
+
     - id: develop-story
       agent: dev
       task: dev-develop-story
       inputs:
-        - story_file  # Connected from previous stage
+        - story_file # Connected from previous stage
       outputs:
         - code_changes
         - test_results
-    
+
     - id: qa-gate
       agent: qa
       task: qa-gate
       inputs:
-        - story_file      # From create-story
-        - code_changes   # From develop-story
+        - story_file # From create-story
+        - code_changes # From develop-story
       outputs:
         - qa_report
 ```
@@ -131,15 +141,16 @@ workflow:
    - Can be specialized agents (dev, qa, po, etc.)
 
 **Example Workflow with Fork/Join:**
+
 ```yaml
 workflow:
   id: parallel-validation-workflow
   organizer: aios-master
-  
+
   stages:
     - id: fork-validation
       type: fork
-      organizer_decision: "Split validation into parallel tasks"
+      organizer_decision: 'Split validation into parallel tasks'
       workers:
         - agent: dev
           task: security-scan
@@ -147,21 +158,21 @@ workflow:
             - codebase
           outputs:
             - security_report
-        
+
         - agent: qa
           task: qa-run-tests
           inputs:
             - codebase
           outputs:
             - test_results
-        
+
         - agent: dev
           task: sync-documentation
           inputs:
             - codebase
           outputs:
             - docs_synced
-    
+
     - id: join-validation
       type: join
       organizer_merges:
@@ -200,13 +211,14 @@ workflow:
    - Error handling strategies
 
 **Example Integration:**
+
 ```yaml
 # .aios-core/core-config.yaml
 agent_lightning:
   enabled: true
   server_host: localhost
   server_port: 4747
-  
+
   optimization:
     - target: dev-develop-story
       algorithm: RL
@@ -214,9 +226,9 @@ agent_lightning:
         - execution_time
         - code_quality_score
         - test_coverage
-    
+
     - target: workflow-orchestration
-      algorithm: APO  # Automatic Prompt Optimization
+      algorithm: APO # Automatic Prompt Optimization
       metrics:
         - workflow_success_rate
         - parallelization_efficiency
@@ -229,18 +241,21 @@ agent_lightning:
 ### Rule 1: Task Workflow vs Workflow
 
 **When to use "Task Workflow" (or "task-workflow"):**
+
 - Referring to steps within a single task file
 - Documenting task execution flow
 - Describing internal task logic
 - In task file `Step-by-Step Execution` sections
 
 **When to use "Workflow":**
+
 - Referring to multi-task orchestration
 - Describing agent coordination
 - Documenting Fork/Join patterns
 - In workflow definition files (`.yaml`)
 
 **❌ NEVER:**
+
 - Use "workflow" to refer to task steps
 - Use "task workflow" to refer to multi-task orchestration
 - Mix terminology without context
@@ -250,16 +265,19 @@ agent_lightning:
 ### Rule 2: File Naming Conventions
 
 **Task Files:**
+
 - Location: `.aios-core/tasks/{task-name}.md`
 - Contains: Task workflow (Step-by-Step Execution)
 - Example: `.aios-core/tasks/security-scan.md`
 
 **Workflow Files:**
+
 - Location: `.aios-core/workflows/{workflow-name}.yaml`
 - Contains: Multi-task orchestration definition
 - Example: `.aios-core/workflows/story-development-workflow.yaml`
 
 **Documentation:**
+
 - Task workflow docs: `docs/tasks/{task-name}-workflow.md` (if needed)
 - Workflow docs: `docs/workflows/{workflow-name}.md`
 
@@ -268,6 +286,7 @@ agent_lightning:
 ### Rule 3: Code References
 
 **In Task Files:**
+
 ```markdown
 ## Step-by-Step Execution
 
@@ -276,6 +295,7 @@ Each step represents a sequential action within this task.
 ```
 
 **In Workflow Files:**
+
 ```yaml
 workflow:
   name: Story Development Workflow
@@ -285,10 +305,12 @@ workflow:
 ```
 
 **In Story Files:**
+
 ```markdown
 ## Workflow Execution
 
 **Workflow:** Story Development Flow
+
 - Task 1: `po-create-story` (task workflow: 3 steps)
 - Task 2: `dev-develop-story` (task workflow: 8 steps)
 - Task 3: `qa-gate` (task workflow: 5 steps)
@@ -303,21 +325,22 @@ workflow:
 **Definition:** Split workflow execution into parallel paths, where multiple tasks execute simultaneously.
 
 **Syntax:**
+
 ```yaml
 fork:
   id: parallel-validation
-  condition: "validation_needed"
+  condition: 'validation_needed'
   parallel_tasks:
     - agent: dev
       task: security-scan
       inputs:
         - codebase
-    
+
     - agent: qa
       task: qa-run-tests
       inputs:
         - codebase
-    
+
     - agent: dev
       task: sync-documentation
       inputs:
@@ -325,6 +348,7 @@ fork:
 ```
 
 **Characteristics:**
+
 - Multiple agents execute tasks in parallel
 - Each task has its own task workflow
 - Tasks can have different execution times
@@ -337,6 +361,7 @@ fork:
 **Definition:** Merge results from parallel tasks back into sequential workflow execution.
 
 **Syntax:**
+
 ```yaml
 join:
   id: merge-validation-results
@@ -344,12 +369,13 @@ join:
     - security-scan
     - qa-run-tests
     - sync-documentation
-  merge_strategy: "all_success"  # or "any_success", "majority"
+  merge_strategy: 'all_success' # or "any_success", "majority"
   outputs:
     - validation_complete
 ```
 
 **Characteristics:**
+
 - Waits for all parallel tasks to complete
 - Merges results according to strategy
 - Can have timeout/error handling
@@ -364,6 +390,7 @@ join:
 **Description:** Tasks execute one after another, with output → input connections.
 
 **Example:**
+
 ```yaml
 workflow:
   id: sequential-story-development
@@ -371,12 +398,12 @@ workflow:
     - task: create-story
       agent: po
       outputs: [story_file]
-    
+
     - task: develop-story
       agent: dev
-      inputs: [story_file]  # From previous task
+      inputs: [story_file] # From previous task
       outputs: [code_changes]
-    
+
     - task: qa-gate
       agent: qa
       inputs: [story_file, code_changes]
@@ -390,6 +417,7 @@ workflow:
 **Description:** Split into parallel tasks, then merge results.
 
 **Example:**
+
 ```yaml
 workflow:
   id: parallel-validation-workflow
@@ -397,25 +425,25 @@ workflow:
     - task: prepare-codebase
       agent: dev
       outputs: [codebase]
-    
+
     - type: fork
       parallel_tasks:
         - task: security-scan
           agent: dev
           inputs: [codebase]
-        
+
         - task: qa-run-tests
           agent: qa
           inputs: [codebase]
-        
+
         - task: sync-documentation
           agent: dev
           inputs: [codebase]
-    
+
     - type: join
       merge_strategy: all_success
       outputs: [validation_complete]
-    
+
     - task: deploy
       agent: dev
       inputs: [validation_complete]
@@ -428,6 +456,7 @@ workflow:
 **Description:** Workflow branches based on conditions.
 
 **Example:**
+
 ```yaml
 workflow:
   id: conditional-deployment
@@ -435,7 +464,7 @@ workflow:
     - task: build
       agent: dev
       outputs: [build_artifact]
-    
+
     - type: conditional
       condition: "environment == 'production'"
       if_true:
@@ -539,17 +568,21 @@ Workflow: Story Development
 ## Step-by-Step Execution
 
 ### Step 1: Setup Security Tools
+
 **Purpose:** Ensure all required security scanning tools are installed
 **Actions:**
+
 1. Check for npm audit availability
 2. Install ESLint security plugins if missing
-...
+   ...
 
 ### Step 2: Dependency Vulnerability Scan
+
 **Purpose:** Scan npm dependencies for known vulnerabilities
 **Actions:**
+
 1. Execute `npm audit --audit-level=moderate --json`
-...
+   ...
 ```
 
 **Note:** This is a **task workflow** - internal steps within the security-scan task.
@@ -563,7 +596,7 @@ Workflow: Story Development
 workflow:
   id: story-development-workflow
   name: Story Development Flow
-  
+
   stages:
     - id: create-story
       agent: po
@@ -572,7 +605,7 @@ workflow:
         - requirements_doc
       outputs:
         - story_file
-    
+
     - id: develop-story
       agent: dev
       task: dev-develop-story
@@ -580,7 +613,7 @@ workflow:
         - story_file
       outputs:
         - code_changes
-    
+
     - id: qa-gate
       agent: qa
       task: qa-gate
@@ -665,4 +698,3 @@ When creating or updating documentation:
 
 **Document Status:** ✅ Draft - Ready for Review  
 **Next Steps:** Review by PO, Dev, and QA agents for feedback and approval
-

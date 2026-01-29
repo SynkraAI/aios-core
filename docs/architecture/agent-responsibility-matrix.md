@@ -14,6 +14,7 @@
 ## Executive Summary
 
 This document defines clear responsibility boundaries for all AIOS agents, with particular focus on:
+
 1. **GitHub DevOps Centralization** - Only @github-devops can push to remote repository
 2. **Data Architecture Specialization** - @data-architect handles database/data science
 3. **Branch Management Split** - @sm (local) vs @github-devops (remote)
@@ -27,20 +28,20 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 
 ### Full Operation Authority
 
-| Operation | @github-devops | @dev | @sm | @qa | @architect | @po |
-|-----------|:--------------:|:----:|:---:|:---:|:----------:|:---:|
-| **git push** | ✅ ONLY | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **git push --force** | ✅ ONLY | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **gh pr create** | ✅ ONLY | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **gh pr merge** | ✅ ONLY | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **gh release create** | ✅ ONLY | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **git commit** | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **git add** | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **git checkout -b** | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **git merge** (local) | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **git status** | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| **git log** | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| **git diff** | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Operation             | @github-devops | @dev | @sm | @qa | @architect | @po |
+| --------------------- | :------------: | :--: | :-: | :-: | :--------: | :-: |
+| **git push**          |    ✅ ONLY     |  ❌  | ❌  | ❌  |     ❌     | ❌  |
+| **git push --force**  |    ✅ ONLY     |  ❌  | ❌  | ❌  |     ❌     | ❌  |
+| **gh pr create**      |    ✅ ONLY     |  ❌  | ❌  | ❌  |     ❌     | ❌  |
+| **gh pr merge**       |    ✅ ONLY     |  ❌  | ❌  | ❌  |     ❌     | ❌  |
+| **gh release create** |    ✅ ONLY     |  ❌  | ❌  | ❌  |     ❌     | ❌  |
+| **git commit**        |       ✅       |  ✅  | ❌  | ❌  |     ❌     | ❌  |
+| **git add**           |       ✅       |  ✅  | ❌  | ❌  |     ❌     | ❌  |
+| **git checkout -b**   |       ✅       |  ✅  | ✅  | ❌  |     ❌     | ❌  |
+| **git merge** (local) |       ✅       |  ✅  | ✅  | ❌  |     ❌     | ❌  |
+| **git status**        |       ✅       |  ✅  | ✅  | ✅  |     ✅     | ❌  |
+| **git log**           |       ✅       |  ✅  | ✅  | ✅  |     ✅     | ❌  |
+| **git diff**          |       ✅       |  ✅  | ✅  | ✅  |     ✅     | ❌  |
 
 ### Enforcement Mechanism
 
@@ -52,6 +53,7 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
    - Action: Blocks push if agent != "github-devops"
 
 2. **Environment Variables** (Runtime Detection)
+
    ```bash
    export AIOS_ACTIVE_AGENT="github-devops"
    export AIOS_GIT_PUSH_ALLOWED="true"
@@ -77,9 +79,11 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 ## Agent Responsibility Boundaries
 
 ### @architect (Winston) 🏗️
+
 **Role**: Holistic System Architect & Full-Stack Technical Leader
 
 **Primary Scope**:
+
 - System architecture (microservices, monolith, serverless, hybrid)
 - Technology stack selection (frameworks, languages, platforms)
 - Infrastructure planning (deployment, scaling, monitoring, CDN)
@@ -92,10 +96,12 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 **Git Operations**: Read-only (status, log, diff) - NO PUSH
 
 **Delegate To**:
+
 - **@data-architect**: Database schema design, query optimization, ETL pipelines
 - **@github-devops**: Git push, PR creation, CI/CD configuration
 
 **Retain**:
+
 - Database technology selection from system perspective
 - Data layer integration with application architecture
 - Git workflow design (branching strategy)
@@ -103,9 +109,11 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 ---
 
 ### @data-architect (DataArch) 🗄️
+
 **Role**: Database Architect & Data Science Workflow Specialist
 
 **Primary Scope**:
+
 - Database schema design (tables, relationships, indexes, constraints)
 - Data modeling (normalization, denormalization strategies)
 - Query optimization and performance tuning
@@ -117,6 +125,7 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 **Git Operations**: Local commits (add, commit) - NO PUSH
 
 **Collaborate With**:
+
 - **@architect**: Database technology selection, data layer integration
 - **@github-devops**: Push migration files after local commit
 
@@ -125,9 +134,11 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 ---
 
 ### @dev (James) 💻
+
 **Role**: Expert Senior Software Engineer & Implementation Specialist
 
 **Primary Scope**:
+
 - Code implementation from stories
 - Debugging and refactoring
 - Unit/integration testing
@@ -135,10 +146,12 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 - Story task execution
 
 **Git Operations**:
+
 - ✅ Allowed: add, commit, status, diff, log, branch, checkout, merge (local)
 - ❌ Blocked: push, gh pr create
 
 **Workflow After Story Complete**:
+
 1. Mark story status: "Ready for Review"
 2. Notify user: "Story complete. Activate @github-devops to push changes"
 3. DO NOT attempt git push
@@ -146,9 +159,11 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 ---
 
 ### @sm (Bob) 🏃
+
 **Role**: Technical Scrum Master - Story Preparation Specialist
 
 **Primary Scope**:
+
 - Story creation and refinement
 - Epic management and breakdown
 - Sprint planning assistance
@@ -156,10 +171,12 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 - Conflict resolution guidance (local merges)
 
 **Git Operations**:
+
 - ✅ Allowed: checkout -b (create feature branches), branch (list), merge (local)
 - ❌ Blocked: push, gh pr create, remote branch deletion
 
 **Branch Management Workflow**:
+
 1. Story starts → Create local feature branch: `git checkout -b feature/X.Y-story-name`
 2. Developer commits locally
 3. Story complete → Notify @github-devops to push and create PR
@@ -169,17 +186,20 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 ---
 
 ### @github-devops (DevOps) 🚀
+
 **Role**: GitHub Repository Manager & DevOps Specialist
 
 **PRIMARY AUTHORITY**: ONLY agent authorized to push to remote repository
 
 **Exclusive Operations**:
+
 - ✅ git push (ALL variants)
 - ✅ gh pr create, gh pr merge
 - ✅ gh release create
 - ✅ Remote branch deletion
 
 **Primary Scope**:
+
 - Repository integrity and governance
 - Pre-push quality gate execution (lint, test, typecheck, build)
 - Semantic versioning and release management
@@ -189,6 +209,7 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 - Changelog generation
 
 **Quality Gates (Mandatory Before Push)**:
+
 - npm run lint → PASS
 - npm test → PASS
 - npm run typecheck → PASS
@@ -199,6 +220,7 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 - **User confirmation required**
 
 **Semantic Versioning Logic**:
+
 - MAJOR (v4 → v5): Breaking changes, API redesign
 - MINOR (v4.31 → v4.32): New features, backward compatible
 - PATCH (v4.31.0 → v4.31.1): Bug fixes only
@@ -206,9 +228,11 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 ---
 
 ### @qa (Quinn) 🧪
+
 **Role**: Test Architect & Quality Advisor
 
 **Primary Scope**:
+
 - Comprehensive test architecture review
 - Quality gate decisions (PASS/CONCERNS/FAIL/WAIVED)
 - Risk assessment and test strategy
@@ -222,9 +246,11 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 ---
 
 ### @po (Sarah) 📝
+
 **Role**: Technical Product Owner & Process Steward
 
 **Primary Scope**:
+
 - Backlog management and story refinement
 - Acceptance criteria validation
 - Sprint planning and prioritization
@@ -310,26 +336,28 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 
 ### Comparison Matrix
 
-| Responsibility | @architect | @data-architect |
-|----------------|:----------:|:---------------:|
-| **Database technology selection (system view)** | ✅ | 🤝 Collaborate |
-| **Database schema design** | ❌ Delegate | ✅ Primary |
-| **Query optimization** | ❌ Delegate | ✅ Primary |
-| **ETL pipeline design** | ❌ Delegate | ✅ Primary |
-| **API design for data access** | ✅ Primary | 🤝 Collaborate |
-| **Application-level caching** | ✅ Primary | 🤝 Consult |
-| **Database-specific optimizations (RLS, triggers)** | ❌ Delegate | ✅ Primary |
-| **Data science workflows** | ❌ Delegate | ✅ Primary |
-| **Infrastructure for database (scaling, replication)** | ✅ Primary | 🤝 Consult |
+| Responsibility                                         | @architect  | @data-architect |
+| ------------------------------------------------------ | :---------: | :-------------: |
+| **Database technology selection (system view)**        |     ✅      | 🤝 Collaborate  |
+| **Database schema design**                             | ❌ Delegate |   ✅ Primary    |
+| **Query optimization**                                 | ❌ Delegate |   ✅ Primary    |
+| **ETL pipeline design**                                | ❌ Delegate |   ✅ Primary    |
+| **API design for data access**                         | ✅ Primary  | 🤝 Collaborate  |
+| **Application-level caching**                          | ✅ Primary  |   🤝 Consult    |
+| **Database-specific optimizations (RLS, triggers)**    | ❌ Delegate |   ✅ Primary    |
+| **Data science workflows**                             | ❌ Delegate |   ✅ Primary    |
+| **Infrastructure for database (scaling, replication)** | ✅ Primary  |   🤝 Consult    |
 
 ### Collaboration Pattern
 
 **Question**: "Which database should we use?"
+
 - **@architect answers**: System perspective (cost, deployment, team skills, infrastructure)
 - **@data-architect answers**: Data perspective (query patterns, scalability, data model fit)
 - **Result**: Combined recommendation
 
 **Question**: "Design database schema"
+
 - **@architect**: Delegates to @data-architect
 - **@data-architect**: Designs schema, creates migrations
 - **@architect**: Integrates schema into system (API, ORM, caching)
@@ -341,11 +369,13 @@ This document defines clear responsibility boundaries for all AIOS agents, with 
 ### Local Branches (@sm during development)
 
 **Responsibilities**:
+
 - Create feature branches when story starts
 - Manage developer's working branches
 - Local branch cleanup (delete merged local branches)
 
 **Commands**:
+
 ```bash
 # @sm can execute:
 git checkout -b feature/3.14-github-devops
@@ -356,12 +386,14 @@ git merge feature/branch-to-integrate
 ### Remote Branches (@github-devops for repository)
 
 **Responsibilities**:
+
 - Push branches to remote
 - Delete remote branches (cleanup)
 - Manage release branches
 - Protect main/master branch
 
 **Commands**:
+
 ```bash
 # ONLY @github-devops can execute:
 git push -u origin feature/3.14-github-devops
@@ -411,12 +443,16 @@ gh pr merge
 ## Future Considerations
 
 ### Story 3.19: Memory Layer (Conditional)
+
 If approved after utilities audit (Story 3.17):
+
 - Memory layer needs no git restrictions (utility, not agent)
 - Integration with agents doesn't change responsibility boundaries
 
 ### Squads
+
 If new agents added via Squads:
+
 - **Default**: NO git push capability
 - **Exception Process**: Must be explicitly approved by PO and justified
 - **Enforcement**: Pre-push hook automatically blocks unless agent ID whitelisted
@@ -426,6 +462,7 @@ If new agents added via Squads:
 ## Summary
 
 **Key Takeaways**:
+
 1. ✅ Only @github-devops can push to remote repository (enforced via git hooks)
 2. ✅ @architect handles system architecture, @data-architect handles data layer
 3. ✅ @sm manages local branches, @github-devops manages remote operations
@@ -438,5 +475,5 @@ If new agents added via Squads:
 
 ---
 
-*Document maintained by @architect (Winston) and @po (Sarah)*
-*Last reviewed: 2025-10-25*
+_Document maintained by @architect (Winston) and @po (Sarah)_
+_Last reviewed: 2025-10-25_

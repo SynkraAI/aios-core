@@ -6,11 +6,11 @@
 
 ## 🌐 Select Language / Selecione o Idioma / Seleccione el Idioma
 
-| Language | Status | Link |
-|----------|--------|------|
-| **English** | ✅ Complete | [📖 English Documentation](./getting-started.md) |
+| Language      | Status      | Link                                                    |
+| ------------- | ----------- | ------------------------------------------------------- |
+| **English**   | ✅ Complete | [📖 English Documentation](./getting-started.md)        |
 | **Português** | ✅ Complete | [📖 Documentação em Português](./pt/getting-started.md) |
-| **Español** | ✅ Complete | [📖 Documentación en Español](./es/getting-started.md) |
+| **Español**   | ✅ Complete | [📖 Documentación en Español](./es/getting-started.md)  |
 
 ---
 
@@ -88,14 +88,14 @@ We follow industry-standard i18n practices:
 
 ### Translation Status
 
-| Section | EN | PT | ES |
-|---------|-----|-----|-----|
-| Getting Started | ✅ | ✅ | ✅ |
-| Guides | ✅ | ✅ | ✅ |
-| Installation | ✅ | ✅ | ✅ |
-| Architecture | ✅ | ✅ | ✅ |
-| Framework | ✅ | ✅ | ✅ |
-| Platforms | ✅ | ✅ | ✅ |
+| Section         | EN  | PT  | ES  |
+| --------------- | --- | --- | --- |
+| Getting Started | ✅  | ✅  | ✅  |
+| Guides          | ✅  | ✅  | ✅  |
+| Installation    | ✅  | ✅  | ✅  |
+| Architecture    | ✅  | ✅  | ✅  |
+| Framework       | ✅  | ✅  | ✅  |
+| Platforms       | ✅  | ✅  | ✅  |
 
 ---
 
@@ -105,4 +105,4 @@ This documentation is part of Synkra AIOS, licensed under [MIT License](../LICEN
 
 ---
 
-*Synkra AIOS - Orchestrating AI for Better Software Development*
+_Synkra AIOS - Orchestrating AI for Better Software Development_

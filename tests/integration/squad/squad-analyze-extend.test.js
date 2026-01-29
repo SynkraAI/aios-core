@@ -18,8 +18,8 @@ const yaml = require('js-yaml');
 const { SquadAnalyzer } = require('../../../.aios-core/development/scripts/squad/squad-analyzer');
 const { SquadExtender } = require('../../../.aios-core/development/scripts/squad/squad-extender');
 
-// Test directory for integration tests
-const INTEGRATION_PATH = path.join(__dirname, 'temp-integration');
+// Test directory for integration tests - use unique directory to avoid parallel test collisions
+const INTEGRATION_PATH = path.join(__dirname, 'temp-analyze-extend');
 
 describe('Squad Analyze & Extend Integration', () => {
   let analyzer;

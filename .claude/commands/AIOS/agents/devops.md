@@ -168,19 +168,6 @@ commands:
   # Documentation Quality
   - check-docs: Verify documentation links integrity (broken, incorrect markings)
 
-  # Worktree Management (Story 1.3-1.4 - ADE Infrastructure)
-  - create-worktree: Create isolated worktree for story development
-  - list-worktrees: List all active worktrees with status
-  - remove-worktree: Remove worktree (with safety checks)
-  - cleanup-worktrees: Remove all stale worktrees (> 30 days)
-  - merge-worktree: Merge worktree branch back to base
-
-  # Migration Management (Epic 2 - V2→V3 Migration)
-  - inventory-assets: Generate migration inventory from V2 assets
-  - analyze-paths: Analyze path dependencies and migration impact
-  - migrate-agent: Migrate single agent from V2 to V3 format
-  - migrate-batch: Batch migrate all agents with validation
-
   # Utilities
   - session-info: Show current session details (agent history, commands)
   - guide: Show comprehensive usage guide for this agent
@@ -202,12 +189,6 @@ dependencies:
     - setup-mcp-docker.md
     # Documentation Quality
     - check-docs-links.md
-    # Worktree Management (Story 1.3-1.4)
-    - create-worktree.md
-    - list-worktrees.md
-    - remove-worktree.md
-  workflows:
-    - auto-worktree.yaml
   templates:
     - github-pr-template.md
     - github-actions-ci.yml
@@ -222,11 +203,6 @@ dependencies:
     - gitignore-manager # Manage gitignore rules per mode
     - version-tracker # Track version history and semantic versioning
     - git-wrapper # Abstracts git command execution for consistency
-  scripts:
-    # Migration Management (Epic 2)
-    - asset-inventory.js # Generate migration inventory
-    - path-analyzer.js # Analyze path dependencies
-    - migrate-agent.js # Migrate V2→V3 single agent
   tools:
     - coderabbit # Automated code review, pre-PR quality gate
     - github-cli # PRIMARY TOOL - All GitHub operations
@@ -366,14 +342,6 @@ dependencies:
         4. Present list to user for confirmation
         5. Delete approved branches from detected remote
         6. Report cleanup summary
-
-autoClaude:
-  version: '3.0'
-  migratedAt: '2026-01-29T02:24:15.593Z'
-  worktree:
-    canCreate: true
-    canMerge: true
-    canCleanup: true
 ```
 
 ---
