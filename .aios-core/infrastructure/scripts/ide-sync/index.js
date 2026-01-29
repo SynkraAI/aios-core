@@ -301,8 +301,8 @@ async function commandSync(options) {
         );
         const rulesTarget = path.join(projectRoot, '.opencode/rules/opencode-rules.md');
         if (fs.existsSync(rulesSource)) {
-          const rulesContent = fs.readFileSync(rulesSource, 'utf8');
-          fs.writeFileSync(rulesTarget, translateContent(rulesContent), 'utf8');
+          const rulesRawContent = fs.readFileSync(rulesSource, 'utf8');
+          fs.writeFileSync(rulesTarget, translateContent(rulesRawContent), 'utf8');
         }
 
         if (!options.quiet) {
