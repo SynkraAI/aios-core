@@ -36,14 +36,19 @@ const CONFIG = {
   gotchasJsonPath: '.aios/gotchas.json',
   gotchasMdPath: '.aios/gotchas.md',
   errorTrackingPath: '.aios/error-tracking.json',
+  feedbackPath: '.aios/feedback.json', // New: User feedback storage
 
   // Auto-capture settings
   repeatThreshold: 3, // Number of times error must repeat to become gotcha
   errorWindowMs: 24 * 60 * 60 * 1000, // 24 hours window for error counting
 
+  // Feedback settings
+  feedbackWindowMs: 7 * 24 * 60 * 60 * 1000, // 7 days for feedback analysis
+  minFeedbackForMetrics: 5, // Minimum feedback count for accuracy metrics
+
   // Version
-  version: '1.0.0',
-  schemaVersion: 'aios-gotchas-memory-v1',
+  version: '1.1.0',
+  schemaVersion: 'aios-gotchas-memory-v1.1',
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════════
@@ -167,6 +172,19 @@ const Events = {
   ERROR_TRACKED: 'error_tracked',
   AUTO_CAPTURED: 'auto_captured',
   CONTEXT_INJECTED: 'context_injected',
+  FEEDBACK_RECEIVED: 'feedback_received',
+  RULE_SUGGESTED: 'rule_suggested',
+};
+
+/**
+ * Feedback types
+ */
+const FeedbackType = {
+  HELPFUL: 'helpful', // Gotcha was helpful
+  NOT_HELPFUL: 'not_helpful', // Gotcha was not helpful
+  FALSE_POSITIVE: 'false_positive', // Gotcha detected incorrectly
+  MISSED: 'missed', // Should have detected but didn't
+  IMPROVED: 'improved', // User improved the workaround
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════════
@@ -193,14 +211,17 @@ class GotchasMemory extends EventEmitter {
     this.gotchasJsonPath = path.join(this.rootPath, CONFIG.gotchasJsonPath);
     this.gotchasMdPath = path.join(this.rootPath, CONFIG.gotchasMdPath);
     this.errorTrackingPath = path.join(this.rootPath, CONFIG.errorTrackingPath);
+    this.feedbackPath = path.join(this.rootPath, CONFIG.feedbackPath);
 
     // In-memory storage
     this.gotchas = new Map(); // id -> gotcha
     this.errorTracking = new Map(); // errorHash -> { count, firstSeen, lastSeen, samples }
+    this.feedback = []; // Array of feedback records
 
     // Load existing data
     this._loadGotchas();
     this._loadErrorTracking();
+    this._loadFeedback();
   }
 
   // ═══════════════════════════════════════════════════════════════════════════════
@@ -498,6 +519,489 @@ class GotchasMemory extends EventEmitter {
 
       return searchText.includes(lowerQuery);
     });
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════════
+  //                              FEEDBACK LOOP (Gap Implementation)
+  // ═══════════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Track user feedback on a gotcha or issue resolution
+   *
+   * @param {Object} feedbackData - Feedback data
+   * @param {string} feedbackData.issueId - Issue/gotcha ID (optional)
+   * @param {string} feedbackData.type - Feedback type (helpful, not_helpful, etc.)
+   * @param {boolean} feedbackData.wasCorrect - Was the resolution correct?
+   * @param {string} [feedbackData.userComment] - User's comment
+   * @param {string} [feedbackData.taskId] - Related task ID
+   * @param {string} [feedbackData.improvedWorkaround] - User-provided better workaround
+   * @returns {Object} Created feedback record
+   */
+  trackUserFeedback(feedbackData) {
+    const now = new Date().toISOString();
+
+    const record = {
+      id: this._generateId().replace('gotcha-', 'fb-'),
+      timestamp: now,
+      issueId: feedbackData.issueId || null,
+      gotchaId: feedbackData.gotchaId || feedbackData.issueId || null,
+      type:
+        feedbackData.type ||
+        (feedbackData.wasCorrect ? FeedbackType.HELPFUL : FeedbackType.NOT_HELPFUL),
+      wasCorrect: feedbackData.wasCorrect !== undefined ? feedbackData.wasCorrect : true,
+      userComment: feedbackData.userComment || null,
+      taskId: feedbackData.taskId || null,
+      improvedWorkaround: feedbackData.improvedWorkaround || null,
+      context: {
+        category: feedbackData.category || null,
+        severity: feedbackData.severity || null,
+        agent: feedbackData.agent || null,
+      },
+    };
+
+    // Add to feedback array
+    this.feedback.push(record);
+
+    // Update gotcha if exists
+    if (record.gotchaId) {
+      this._updateGotchaFromFeedback(record);
+    }
+
+    // Check if we should suggest a new rule
+    this._checkForRuleSuggestion(record);
+
+    // Save feedback
+    this._saveFeedback();
+
+    this.emit(Events.FEEDBACK_RECEIVED, record);
+    this._log(`Feedback recorded: ${record.type} for ${record.gotchaId || 'general'}`);
+
+    return record;
+  }
+
+  /**
+   * Get accuracy metrics based on feedback
+   *
+   * @param {Object} [options] - Options
+   * @param {string} [options.since] - Only consider feedback since this date
+   * @param {string} [options.category] - Filter by category
+   * @returns {Object} Accuracy metrics
+   */
+  getAccuracyMetrics(options = {}) {
+    let relevantFeedback = [...this.feedback];
+
+    // Filter by time
+    if (options.since) {
+      const sinceDate = new Date(options.since);
+      relevantFeedback = relevantFeedback.filter((f) => new Date(f.timestamp) >= sinceDate);
+    }
+
+    // Filter by category
+    if (options.category) {
+      relevantFeedback = relevantFeedback.filter((f) => f.context?.category === options.category);
+    }
+
+    // Calculate metrics
+    const total = relevantFeedback.length;
+    const helpful = relevantFeedback.filter(
+      (f) => f.type === FeedbackType.HELPFUL || f.wasCorrect
+    ).length;
+    const notHelpful = relevantFeedback.filter(
+      (f) => f.type === FeedbackType.NOT_HELPFUL || !f.wasCorrect
+    ).length;
+    const falsePositives = relevantFeedback.filter(
+      (f) => f.type === FeedbackType.FALSE_POSITIVE
+    ).length;
+    const missed = relevantFeedback.filter((f) => f.type === FeedbackType.MISSED).length;
+    const improved = relevantFeedback.filter((f) => f.type === FeedbackType.IMPROVED).length;
+
+    // Calculate accuracy (only if enough feedback)
+    const accuracy =
+      total >= CONFIG.minFeedbackForMetrics ? Math.round((helpful / total) * 100) : null;
+
+    // Calculate precision and recall
+    const precision =
+      helpful + notHelpful > 0 ? Math.round((helpful / (helpful + falsePositives)) * 100) : null;
+
+    const recall = helpful + missed > 0 ? Math.round((helpful / (helpful + missed)) * 100) : null;
+
+    // By category breakdown
+    const byCategory = {};
+    for (const feedback of relevantFeedback) {
+      const category = feedback.context?.category || 'general';
+      if (!byCategory[category]) {
+        byCategory[category] = { total: 0, helpful: 0, notHelpful: 0 };
+      }
+      byCategory[category].total++;
+      if (feedback.wasCorrect || feedback.type === FeedbackType.HELPFUL) {
+        byCategory[category].helpful++;
+      } else {
+        byCategory[category].notHelpful++;
+      }
+    }
+
+    // Calculate accuracy per category
+    for (const cat of Object.keys(byCategory)) {
+      byCategory[cat].accuracy =
+        byCategory[cat].total >= 3
+          ? Math.round((byCategory[cat].helpful / byCategory[cat].total) * 100)
+          : null;
+    }
+
+    // Trend analysis (last 7 days vs previous 7 days)
+    const now = Date.now();
+    const oneWeekAgo = now - 7 * 24 * 60 * 60 * 1000;
+    const twoWeeksAgo = now - 14 * 24 * 60 * 60 * 1000;
+
+    const recentFeedback = relevantFeedback.filter(
+      (f) => new Date(f.timestamp).getTime() >= oneWeekAgo
+    );
+    const previousFeedback = relevantFeedback.filter((f) => {
+      const time = new Date(f.timestamp).getTime();
+      return time >= twoWeeksAgo && time < oneWeekAgo;
+    });
+
+    const recentAccuracy =
+      recentFeedback.length > 0
+        ? Math.round(
+            (recentFeedback.filter((f) => f.wasCorrect).length / recentFeedback.length) * 100
+          )
+        : null;
+    const previousAccuracy =
+      previousFeedback.length > 0
+        ? Math.round(
+            (previousFeedback.filter((f) => f.wasCorrect).length / previousFeedback.length) * 100
+          )
+        : null;
+
+    const trend =
+      recentAccuracy !== null && previousAccuracy !== null
+        ? recentAccuracy - previousAccuracy
+        : null;
+
+    return {
+      totalFeedback: total,
+      accuracy,
+      precision,
+      recall,
+      breakdown: {
+        helpful,
+        notHelpful,
+        falsePositives,
+        missed,
+        improved,
+      },
+      byCategory,
+      trend: {
+        current: recentAccuracy,
+        previous: previousAccuracy,
+        change: trend,
+        direction:
+          trend === null ? 'unknown' : trend > 0 ? 'improving' : trend < 0 ? 'declining' : 'stable',
+      },
+      dataQuality: total >= CONFIG.minFeedbackForMetrics ? 'sufficient' : 'insufficient',
+      recommendations: this._generateAccuracyRecommendations({
+        accuracy,
+        falsePositives,
+        missed,
+        byCategory,
+        trend,
+      }),
+    };
+  }
+
+  /**
+   * Get recent feedback for a specific gotcha
+   *
+   * @param {string} gotchaId - Gotcha ID
+   * @param {number} [limit] - Max records to return
+   * @returns {Object[]} Feedback records
+   */
+  getFeedbackForGotcha(gotchaId, limit = 10) {
+    return this.feedback.filter((f) => f.gotchaId === gotchaId).slice(-limit);
+  }
+
+  /**
+   * Get all feedback
+   *
+   * @param {Object} [options] - Options
+   * @returns {Object[]} Feedback records
+   */
+  listFeedback(options = {}) {
+    let results = [...this.feedback];
+
+    if (options.type) {
+      results = results.filter((f) => f.type === options.type);
+    }
+
+    if (options.taskId) {
+      results = results.filter((f) => f.taskId === options.taskId);
+    }
+
+    if (options.limit) {
+      results = results.slice(-options.limit);
+    }
+
+    return results;
+  }
+
+  /**
+   * Suggest rules based on patterns in feedback
+   *
+   * @returns {Object[]} Suggested rules
+   */
+  getSuggestedRules() {
+    const suggestions = [];
+
+    // Analyze false positives for patterns
+    const falsePositives = this.feedback.filter((f) => f.type === FeedbackType.FALSE_POSITIVE);
+    const fpPatterns = this._findPatterns(falsePositives);
+
+    for (const pattern of fpPatterns) {
+      suggestions.push({
+        type: 'exclude_pattern',
+        reason: 'Frequent false positive',
+        pattern: pattern.pattern,
+        confidence: pattern.confidence,
+        affectedCount: pattern.count,
+        suggestion: `Consider excluding pattern: "${pattern.pattern}"`,
+      });
+    }
+
+    // Analyze missed detections
+    const missed = this.feedback.filter((f) => f.type === FeedbackType.MISSED);
+    const missedPatterns = this._findPatterns(missed);
+
+    for (const pattern of missedPatterns) {
+      suggestions.push({
+        type: 'add_detection',
+        reason: 'Frequently missed issue',
+        pattern: pattern.pattern,
+        confidence: pattern.confidence,
+        affectedCount: pattern.count,
+        suggestion: `Consider adding detection for: "${pattern.pattern}"`,
+      });
+    }
+
+    // Analyze improved workarounds
+    const improvements = this.feedback.filter(
+      (f) => f.type === FeedbackType.IMPROVED && f.improvedWorkaround
+    );
+    for (const improvement of improvements) {
+      if (improvement.gotchaId) {
+        suggestions.push({
+          type: 'update_workaround',
+          reason: 'User provided better workaround',
+          gotchaId: improvement.gotchaId,
+          newWorkaround: improvement.improvedWorkaround,
+          suggestion: `Update workaround for gotcha ${improvement.gotchaId}`,
+        });
+      }
+    }
+
+    return suggestions;
+  }
+
+  /**
+   * Update gotcha based on feedback
+   * @private
+   */
+  _updateGotchaFromFeedback(feedback) {
+    const gotcha = this.gotchas.get(feedback.gotchaId);
+    if (!gotcha) return;
+
+    // Initialize feedback stats if not present
+    if (!gotcha.feedbackStats) {
+      gotcha.feedbackStats = {
+        helpful: 0,
+        notHelpful: 0,
+        falsePositive: 0,
+        improved: 0,
+        lastFeedback: null,
+      };
+    }
+
+    // Update stats
+    switch (feedback.type) {
+      case FeedbackType.HELPFUL:
+        gotcha.feedbackStats.helpful++;
+        break;
+      case FeedbackType.NOT_HELPFUL:
+        gotcha.feedbackStats.notHelpful++;
+        break;
+      case FeedbackType.FALSE_POSITIVE:
+        gotcha.feedbackStats.falsePositive++;
+        break;
+      case FeedbackType.IMPROVED:
+        gotcha.feedbackStats.improved++;
+        // Update workaround if provided
+        if (feedback.improvedWorkaround) {
+          gotcha.workaround = feedback.improvedWorkaround;
+        }
+        break;
+    }
+
+    gotcha.feedbackStats.lastFeedback = feedback.timestamp;
+
+    // Calculate gotcha accuracy
+    const totalFeedback =
+      gotcha.feedbackStats.helpful +
+      gotcha.feedbackStats.notHelpful +
+      gotcha.feedbackStats.falsePositive;
+    if (totalFeedback > 0) {
+      gotcha.feedbackStats.accuracy = Math.round(
+        (gotcha.feedbackStats.helpful / totalFeedback) * 100
+      );
+    }
+
+    this._saveGotchas();
+  }
+
+  /**
+   * Check if feedback suggests a new rule
+   * @private
+   */
+  _checkForRuleSuggestion(feedback) {
+    // Count similar feedback
+    const recentSimilar = this.feedback.filter((f) => {
+      if (f.id === feedback.id) return false;
+      if (f.type !== feedback.type) return false;
+
+      const timeDiff = Math.abs(new Date(f.timestamp) - new Date(feedback.timestamp));
+      return timeDiff < CONFIG.feedbackWindowMs;
+    });
+
+    // If 3+ similar feedback, suggest a rule
+    if (recentSimilar.length >= 2) {
+      const suggestion = {
+        timestamp: new Date().toISOString(),
+        type: feedback.type,
+        pattern: feedback.userComment || 'Pattern detected',
+        count: recentSimilar.length + 1,
+      };
+
+      this.emit(Events.RULE_SUGGESTED, suggestion);
+      this._log(`Rule suggestion: ${suggestion.type} pattern (${suggestion.count} occurrences)`);
+    }
+  }
+
+  /**
+   * Find patterns in feedback records
+   * @private
+   */
+  _findPatterns(feedbackRecords) {
+    const patterns = new Map();
+
+    for (const record of feedbackRecords) {
+      // Use comment or category as pattern key
+      const key = record.userComment || record.context?.category || 'unknown';
+      const existing = patterns.get(key) || { pattern: key, count: 0 };
+      existing.count++;
+      patterns.set(key, existing);
+    }
+
+    // Filter to patterns with 2+ occurrences
+    return [...patterns.values()]
+      .filter((p) => p.count >= 2)
+      .map((p) => ({
+        ...p,
+        confidence: Math.min(p.count / 5, 1), // Max confidence at 5 occurrences
+      }))
+      .sort((a, b) => b.count - a.count);
+  }
+
+  /**
+   * Generate recommendations based on accuracy metrics
+   * @private
+   */
+  _generateAccuracyRecommendations(metrics) {
+    const recommendations = [];
+
+    if (metrics.accuracy !== null && metrics.accuracy < 70) {
+      recommendations.push({
+        type: 'low_accuracy',
+        message: `Overall accuracy is ${metrics.accuracy}%. Review gotcha definitions and thresholds.`,
+        priority: 'high',
+      });
+    }
+
+    if (metrics.falsePositives > 5) {
+      recommendations.push({
+        type: 'false_positives',
+        message: `${metrics.falsePositives} false positives detected. Consider refining error patterns.`,
+        priority: 'medium',
+      });
+    }
+
+    if (metrics.missed > 3) {
+      recommendations.push({
+        type: 'missed_detections',
+        message: `${metrics.missed} issues were missed. Consider lowering detection thresholds or adding new patterns.`,
+        priority: 'medium',
+      });
+    }
+
+    // Category-specific recommendations
+    for (const [category, stats] of Object.entries(metrics.byCategory)) {
+      if (stats.accuracy !== null && stats.accuracy < 50) {
+        recommendations.push({
+          type: 'category_accuracy',
+          message: `Category '${category}' has low accuracy (${stats.accuracy}%). Review category-specific patterns.`,
+          priority: 'medium',
+          category,
+        });
+      }
+    }
+
+    if (metrics.trend && metrics.trend.change !== null && metrics.trend.change < -10) {
+      recommendations.push({
+        type: 'declining_trend',
+        message: `Accuracy declining by ${Math.abs(metrics.trend.change)}% over last week. Investigate recent changes.`,
+        priority: 'high',
+      });
+    }
+
+    return recommendations;
+  }
+
+  /**
+   * Load feedback from file
+   * @private
+   */
+  _loadFeedback() {
+    try {
+      if (fs.existsSync(this.feedbackPath)) {
+        const content = fs.readFileSync(this.feedbackPath, 'utf-8');
+        const data = JSON.parse(content);
+        this.feedback = data.feedback || [];
+      }
+    } catch (error) {
+      this._log(`Warning: Could not load feedback: ${error.message}`, 'warn');
+    }
+  }
+
+  /**
+   * Save feedback to file
+   * @private
+   */
+  _saveFeedback() {
+    try {
+      const dir = path.dirname(this.feedbackPath);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+
+      const data = {
+        version: CONFIG.version,
+        updatedAt: new Date().toISOString(),
+        totalFeedback: this.feedback.length,
+        feedback: this.feedback,
+      };
+
+      fs.writeFileSync(this.feedbackPath, JSON.stringify(data, null, 2), 'utf-8');
+    } catch (error) {
+      this._log(`Error saving feedback: ${error.message}`, 'error');
+    }
   }
 
   /**
@@ -1142,6 +1646,7 @@ module.exports = {
   GotchaCategory,
   Severity,
   Events,
+  FeedbackType,
   // Config
   CONFIG,
 };
