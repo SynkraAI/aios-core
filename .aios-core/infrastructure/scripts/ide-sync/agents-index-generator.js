@@ -1,0 +1,74 @@
+/**
+ * AGENTS.md Generator - Creates the project-level rules file using a template
+ * @story 6.19 - IDE Command Auto-Sync System
+ */
+
+const fs = require('fs-extra');
+const path = require('path');
+const { translateContent } = require('./rule-porter');
+
+/**
+ * Generate AGENTS.md file
+ * @param {string} projectRoot - Project root directory
+ * @param {object[]} agents - List of parsed agents
+ * @param {object} options - Generation options
+ */
+async function generateAgentsMd(projectRoot, agents, options = {}) {
+  const templatePath = path.join(
+    projectRoot,
+    '.aios-core',
+    'product',
+    'templates',
+    'ide-rules',
+    'opencode-project-context.md'
+  );
+  const targetPath = path.join(projectRoot, '.opencode', 'rules', 'AGENTS.md');
+
+  if (!fs.existsSync(templatePath)) {
+    throw new Error(`Template not found: ${templatePath}`);
+  }
+
+  const rawContent = await fs.readFile(templatePath, 'utf8');
+
+  // Apply terminology translation (Claude Code -> OpenCode)
+  let translatedContent = translateContent(rawContent);
+
+  // Replace placeholders
+  const projectName = path.basename(projectRoot);
+  const timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+  const projectType = fs.existsSync(path.join(projectRoot, 'package.json'))
+    ? 'Node.js/NPM'
+    : 'Standard AIOS';
+
+  // Extract project context (summary of agents)
+  const agentList = agents
+    .map((a) => {
+      const title = a.agent?.title || a.id;
+      const desc = a.agent?.whenToUse || a.agent?.description || '';
+      return `- **@${a.id}**: ${title}${desc ? ' - ' + desc : ''}`;
+    })
+    .join('\n');
+
+  const finalContext = (options.projectContext || '') + `\n### Available Agents\n\n${agentList}\n`;
+
+  translatedContent = translatedContent
+    .replace(/{{projectName}}/g, projectName)
+    .replace(/{{timestamp}}/g, timestamp)
+    .replace(/{{projectType}}/g, projectType)
+    .replace(/{{projectContext}}/g, finalContext);
+
+  if (!options.dryRun) {
+    await fs.ensureDir(path.dirname(targetPath));
+    await fs.writeFile(targetPath, translatedContent, 'utf8');
+  }
+
+  return {
+    path: targetPath,
+    content: translatedContent,
+    agentCount: agents.length,
+  };
+}
+
+module.exports = {
+  generateAgentsMd,
+};

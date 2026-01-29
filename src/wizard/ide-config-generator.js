@@ -14,6 +14,10 @@ const inquirer = require('inquirer');
 const ora = require('ora');
 const { getIDEConfig } = require('../config/ide-configs');
 const { validateProjectName } = require('./validators');
+const { commandSync } = require('../../.aios-core/infrastructure/scripts/ide-sync/index');
+const {
+  analyzeProject,
+} = require('../../.aios-core/infrastructure/scripts/documentation-integrity/brownfield-analyzer');
 
 /**
  * Render template with variables
@@ -95,7 +99,7 @@ async function promptFileExists(filePath) {
 /**
  * Sanitize and validate a candidate project name
  * Converts unsafe directory names to safe project names
- * 
+ *
  * @param {string} candidate - Candidate project name (e.g., from path.basename)
  * @returns {string} Safe, validated project name
  */
@@ -114,7 +118,7 @@ function sanitizeProjectName(candidate) {
 
   // Step 2: Ensure it starts with alphanumeric
   sanitized = sanitized.replace(/^[^a-zA-Z0-9]+/, '');
-  
+
   // Step 3: Limit length (validateProjectName allows up to 100)
   if (sanitized.length > 100) {
     sanitized = sanitized.substring(0, 100);
@@ -124,7 +128,7 @@ function sanitizeProjectName(candidate) {
 
   // Step 4: Validate the sanitized name
   const validation = validateProjectName(sanitized);
-  
+
   if (validation === true && sanitized.length > 0) {
     return sanitized;
   }
@@ -194,14 +198,13 @@ async function copyAgentFiles(projectRoot, agentFolder, ideConfig = null) {
 
   // Get all agent files (excluding backup files)
   const files = await fs.readdir(sourceDir);
-  const agentFiles = files.filter(file =>
-    file.endsWith('.md') &&
-    !file.includes('.backup') &&
-    !file.startsWith('test-'),  // Exclude test agents
+  const agentFiles = files.filter(
+    (file) => file.endsWith('.md') && !file.includes('.backup') && !file.startsWith('test-') // Exclude test agents
   );
 
   // Check if this is AntiGravity - needs workflow files instead of direct copy
-  const isAntiGravity = ideConfig && ideConfig.specialConfig && ideConfig.specialConfig.type === 'antigravity';
+  const isAntiGravity =
+    ideConfig && ideConfig.specialConfig && ideConfig.specialConfig.type === 'antigravity';
 
   for (const file of agentFiles) {
     const sourcePath = path.join(sourceDir, file);
@@ -246,7 +249,7 @@ async function copyClaudeRulesFolder(projectRoot) {
   const copiedFiles = [];
 
   // Check if source exists
-  if (!await fs.pathExists(sourceDir)) {
+  if (!(await fs.pathExists(sourceDir))) {
     return copiedFiles;
   }
 
@@ -265,6 +268,42 @@ async function copyClaudeRulesFolder(projectRoot) {
       await fs.copy(sourcePath, targetPath);
       copiedFiles.push(targetPath);
     }
+  }
+
+  return copiedFiles;
+}
+
+/**
+ * Copy OpenCode tool templates
+ * @param {string} projectRoot - Project root directory
+ * @returns {Promise<string[]>} List of copied files
+ */
+async function copyOpenCodeTools(projectRoot) {
+  const sourceDir = path.join(
+    __dirname,
+    '..',
+    '..',
+    '.aios-core',
+    'product',
+    'templates',
+    'opencode',
+    'tools'
+  );
+  const targetDir = path.join(projectRoot, '.opencode', 'tools');
+  const copiedFiles = [];
+
+  if (!(await fs.pathExists(sourceDir))) {
+    return copiedFiles;
+  }
+
+  await fs.ensureDir(targetDir);
+  const files = await fs.readdir(sourceDir);
+
+  for (const file of files) {
+    const sourcePath = path.join(sourceDir, file);
+    const targetPath = path.join(targetDir, file);
+    await fs.copy(sourcePath, targetPath);
+    copiedFiles.push(targetPath);
   }
 
   return copiedFiles;
@@ -413,9 +452,17 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
         }
 
         // Load template from .aios-core/product/templates/
-        const templatePath = path.join(__dirname, '..', '..', '.aios-core', 'product', 'templates', ide.template);
+        const templatePath = path.join(
+          __dirname,
+          '..',
+          '..',
+          '.aios-core',
+          'product',
+          'templates',
+          ide.template
+        );
 
-        if (!await fs.pathExists(templatePath)) {
+        if (!(await fs.pathExists(templatePath))) {
           throw new Error(`Template file not found: ${ide.template}`);
         }
 
@@ -435,18 +482,42 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
 
         // Copy agent files to IDE-specific agent folder
         if (ide.agentFolder) {
-          spinner.start(`Copying agents to ${ide.agentFolder}...`);
-          const agentFiles = await copyAgentFiles(projectRoot, ide.agentFolder, ide);
-          createdFiles.push(...agentFiles);
-          createdFolders.push(path.join(projectRoot, ide.agentFolder));
-
-          // For AntiGravity, also create the antigravity.json config file
-          if (ide.specialConfig && ide.specialConfig.type === 'antigravity') {
-            const configJsonPath = await createAntiGravityConfigJson(projectRoot, ide);
-            createdFiles.push(configJsonPath);
-            spinner.succeed(`Created AntiGravity config and ${agentFiles.length} workflow files`);
+          if (ideKey === 'opencode') {
+            spinner.start('Syncing AIOS agents and skills to OpenCode...');
+            // Pass selected MCPs and project context from wizard to the sync command
+            await commandSync({
+              quiet: true,
+              ide: 'opencode',
+              selectedMCPs: wizardState.selectedMCPs,
+              projectContext: templateVars.projectContext,
+            });
+            spinner.succeed('Synced agents, skills and configuration to .opencode/');
           } else {
-            spinner.succeed(`Copied ${agentFiles.length} agent files to ${ide.agentFolder}`);
+            spinner.start(`Copying agents to ${ide.agentFolder}...`);
+            const agentFiles = await copyAgentFiles(projectRoot, ide.agentFolder, ide);
+            createdFiles.push(...agentFiles);
+            createdFolders.push(path.join(projectRoot, ide.agentFolder));
+
+            // For AntiGravity, also create the antigravity.json config file
+            if (ide.specialConfig && ide.specialConfig.type === 'antigravity') {
+              const configJsonPath = await createAntiGravityConfigJson(projectRoot, ide);
+              createdFiles.push(configJsonPath);
+              spinner.succeed(`Created AntiGravity config and ${agentFiles.length} workflow files`);
+            } else {
+              spinner.succeed(`Copied ${agentFiles.length} agent files to ${ide.agentFolder}`);
+            }
+          }
+        }
+
+        // For OpenCode, also copy OpenCode custom tools
+        if (ideKey === 'opencode') {
+          spinner.start('Copying OpenCode custom tools...');
+          const toolFiles = await copyOpenCodeTools(projectRoot);
+          createdFiles.push(...toolFiles);
+          if (toolFiles.length > 0) {
+            spinner.succeed(`Copied ${toolFiles.length} custom tools to .opencode/tools`);
+          } else {
+            spinner.info('No custom tools to copy');
           }
         }
 
@@ -462,7 +533,6 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
             spinner.info('No rule files to copy');
           }
         }
-
       } catch (error) {
         spinner.fail(`Failed to configure ${ide.name}`);
         errors.push({ ide: ide.name, error: error.message });
@@ -479,7 +549,10 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
 
         // Restore backups
         for (const backup of backupFiles) {
-          const original = backup.replace(/\.backup\.\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}-\d{3}Z$/, '');
+          const original = backup.replace(
+            /\.backup\.\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}-\d{3}Z$/,
+            ''
+          );
           await fs.move(backup, original, { overwrite: true }).catch(() => {});
         }
 
@@ -492,7 +565,6 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
       files: createdFiles,
       errors: errors.length > 0 ? errors : undefined,
     };
-
   } catch (error) {
     return {
       success: false,

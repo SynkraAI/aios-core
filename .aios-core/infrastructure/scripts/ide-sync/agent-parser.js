@@ -97,18 +97,22 @@ function extractAgentInfoFallback(content) {
 
   // Try to extract title
   const titleMatch = content.match(/title:\s*([^\n]+)/);
-  if (titleMatch) agent.title = titleMatch[1].trim();
+  if (titleMatch) agent.title = titleMatch[1].trim().replace(/^["']|["']$/g, '');
 
   // Try to extract icon
   const iconMatch = content.match(/icon:\s*([^\n]+)/);
-  if (iconMatch) agent.icon = iconMatch[1].trim();
+  if (iconMatch) agent.icon = iconMatch[1].trim().replace(/^["']|["']$/g, '');
 
   // Try to extract whenToUse - handle apostrophes within text (e.g., "don't")
   // First try quoted string, then unquoted to end of line
   const whenMatchQuoted = content.match(/whenToUse:\s*["'](.+?)["'](?:\n|$)/);
   const whenMatchUnquoted = content.match(/whenToUse:\s*([^\n]+)/);
   const whenMatch = whenMatchQuoted || whenMatchUnquoted;
-  if (whenMatch) agent.whenToUse = whenMatch[1].trim();
+  if (whenMatch) agent.whenToUse = whenMatch[1].trim().replace(/^["']|["']$/g, '');
+
+  // Try to extract description (fallback for whenToUse)
+  const descMatch = content.match(/description:\s*([^\n]+)/);
+  if (descMatch) agent.description = descMatch[1].trim().replace(/^["']|["']$/g, '');
 
   return Object.keys(agent).length > 0 ? agent : null;
 }
@@ -167,7 +171,11 @@ function parseAgentFile(filePath) {
 
       // Extract key sections
       result.agent = parsed.agent || null;
+      if (result.agent && parsed.description && !result.agent.description) {
+        result.agent.description = parsed.description;
+      }
       result.persona_profile = parsed.persona_profile || null;
+      result.persona = parsed.persona || null;
       result.commands = parsed.commands || [];
       result.dependencies = parsed.dependencies || null;
     }
@@ -175,9 +183,9 @@ function parseAgentFile(filePath) {
     // Extract markdown sections (always try)
     result.sections.quickCommands = extractSection(content, 'Quick Commands');
     result.sections.collaboration = extractSection(content, 'Agent Collaboration');
-    result.sections.guide = extractSection(content, 'Developer Guide') ||
-                           extractSection(content, '.*Guide \\(\\*guide command\\)');
-
+    result.sections.guide =
+      extractSection(content, 'Developer Guide') ||
+      extractSection(content, '.*Guide \\(\\*guide command\\)');
   } catch (error) {
     result.error = error.message;
   }
@@ -198,7 +206,7 @@ function parseAllAgents(agentsDir) {
     return agents;
   }
 
-  const files = fs.readdirSync(agentsDir).filter(f => f.endsWith('.md'));
+  const files = fs.readdirSync(agentsDir).filter((f) => f.endsWith('.md'));
 
   for (const file of files) {
     const filePath = path.join(agentsDir, file);
@@ -218,7 +226,7 @@ function parseAllAgents(agentsDir) {
 function normalizeCommands(commands) {
   if (!Array.isArray(commands)) return [];
 
-  return commands.map(cmd => {
+  return commands.map((cmd) => {
     // Already in proper format with name property
     if (cmd.name && typeof cmd.name === 'string') {
       return {
@@ -261,7 +269,7 @@ function getVisibleCommands(commands, visibility) {
   // First normalize the commands to ensure consistent format
   const normalized = normalizeCommands(commands);
 
-  return normalized.filter(cmd => {
+  return normalized.filter((cmd) => {
     if (!cmd.visibility) return true; // Include if no visibility defined
     return cmd.visibility.includes(visibility);
   });
@@ -279,7 +287,7 @@ function formatCommandsList(commands, prefix = '*') {
   }
 
   return commands
-    .map(cmd => `- \`${prefix}${cmd.name}\` - ${cmd.description || 'No description'}`)
+    .map((cmd) => `- \`${prefix}${cmd.name}\` - ${cmd.description || 'No description'}`)
     .join('\n');
 }
 

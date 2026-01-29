@@ -31,6 +31,13 @@ const cursorTransformer = require('./transformers/cursor');
 const windsurfTransformer = require('./transformers/windsurf');
 const traeTransformer = require('./transformers/trae');
 const antigravityTransformer = require('./transformers/antigravity');
+const opencodeTransformer = require('./transformers/opencode');
+const { syncSkills } = require('./skill-converter');
+const { portRules, translateContent } = require('./rule-porter');
+const { generateAgentsMd } = require('./agents-index-generator');
+const { generateOpencodeConfig } = require('./opencode-config-generator');
+const { generateAgentRules } = require('./agent-rule-generator');
+const { generateSlashCommands } = require('./command-generator');
 
 // ANSI colors for output
 const colors = {
@@ -82,6 +89,11 @@ function loadConfig(projectRoot) {
         path: '.antigravity/rules/agents',
         format: 'cursor-style',
       },
+      opencode: {
+        enabled: true,
+        path: '.opencode/agents',
+        format: 'markdown-frontmatter',
+      },
     },
     redirects: {
       'aios-developer': 'aios-master',
@@ -98,8 +110,8 @@ function loadConfig(projectRoot) {
 
   try {
     if (fs.existsSync(configPath)) {
-      const content = fs.readFileSync(configPath, 'utf8');
-      const config = yaml.load(content);
+      const configContent = fs.readFileSync(configPath, 'utf8');
+      const config = yaml.load(configContent);
 
       if (config && config.ideSync) {
         return { ...defaultConfig, ...config.ideSync };
@@ -124,6 +136,7 @@ function getTransformer(format) {
     'xml-tagged-markdown': windsurfTransformer,
     'project-rules': traeTransformer,
     'cursor-style': antigravityTransformer,
+    'markdown-frontmatter': opencodeTransformer,
   };
 
   return transformers[format] || claudeCodeTransformer;
@@ -177,19 +190,19 @@ function syncIde(agents, ideConfig, ideName, projectRoot, options) {
     }
 
     try {
-      const content = transformer.transform(agent);
+      const agentContent = transformer.transform(agent);
       const filename = transformer.getFilename(agent);
       const targetPath = path.join(result.targetDir, filename);
 
       if (!options.dryRun) {
-        fs.writeFileSync(targetPath, content, 'utf8');
+        fs.writeFileSync(targetPath, agentContent, 'utf8');
       }
 
       result.files.push({
         agent: agent.id,
         filename,
         path: targetPath,
-        content,
+        content: agentContent,
       });
     } catch (error) {
       result.errors.push({
@@ -261,6 +274,70 @@ async function commandSync(options) {
 
     const result = syncIde(agents, ideConfig, ideName, projectRoot, options);
     results.push(result);
+
+    // Special operations for OpenCode
+    if (ideName === 'opencode') {
+      if (!options.quiet) {
+        console.log(`${colors.cyan}⚡ Syncing OpenCode Skills...${colors.reset}`);
+      }
+      const skillResult = await syncSkills(projectRoot, options);
+      const skills = skillResult.success ? skillResult.synced : [];
+      if (skillResult.success) {
+        if (!options.quiet) {
+          console.log(
+            `   ${colors.green}✓${colors.reset} ${skillResult.synced.length} skills synced`
+          );
+        }
+      }
+
+      if (!options.quiet) {
+        console.log(`${colors.cyan}⚡ Porting Framework Rules to OpenCode...${colors.reset}`);
+      }
+      const ruleResult = await portRules(projectRoot, options);
+      if (ruleResult.success) {
+        // Explicitly write the opencode-rules.md to .opencode/rules/
+        const rulesSource = path.join(
+          projectRoot,
+          '.aios-core/product/templates/ide-rules/opencode-rules.md'
+        );
+        const rulesTarget = path.join(projectRoot, '.opencode/rules/opencode-rules.md');
+        if (fs.existsSync(rulesSource)) {
+          const rulesPortedContent = fs.readFileSync(rulesSource, 'utf8');
+          fs.writeFileSync(rulesTarget, translateContent(rulesPortedContent), 'utf8');
+        }
+
+        if (!options.quiet) {
+          console.log(
+            `   ${colors.green}✓${colors.reset} ${ruleResult.ported.length} rules ported and translated`
+          );
+        }
+      }
+
+      if (!options.quiet) {
+        console.log(`${colors.cyan}⚡ Generating opencode.json Configuration...${colors.reset}`);
+      }
+      const opencodeConfigResult = await generateOpencodeConfig(projectRoot, options);
+      if (opencodeConfigResult) {
+        if (!options.quiet) {
+          console.log(`   ${colors.green}✓${colors.reset} opencode.json updated`);
+        }
+      }
+
+      if (!options.quiet) {
+        console.log(`${colors.cyan}⚡ Generating Slash Commands (Agents & Skills)...${colors.reset}`);
+      }
+      const slashCommandsResult = await generateSlashCommands(projectRoot, agents, {
+        ...options,
+        skills,
+      });
+      if (slashCommandsResult) {
+        if (!options.quiet) {
+          console.log(
+            `   ${colors.green}✓${colors.reset} ${slashCommandsResult.files.length} slash commands generated`
+          );
+        }
+      }
+    }
 
     // Generate redirects for this IDE
     const redirects = generateAllRedirects(config.redirects, result.targetDir, ideConfig.format);
@@ -350,9 +427,9 @@ async function commandValidate(options) {
       if (agent.error) continue;
 
       try {
-        const content = transformer.transform(agent);
+        const expectedContent = transformer.transform(agent);
         const filename = transformer.getFilename(agent);
-        expectedFiles.push({ filename, content });
+        expectedFiles.push({ filename, content: expectedContent });
       } catch (error) {
         // Skip agents that fail to transform
       }
