@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { RefreshCw, Pause, Play, Moon } from 'lucide-react';
+import { RefreshCw, Pause, Moon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { iconMap } from '@/lib/icons';
 import { useAgents } from '@/hooks/use-agents';
 import { useAgentStore } from '@/stores/agent-store';
 import { AgentCard } from './AgentCard';
-import { Button } from '@/components/ui/button';
+import { SectionLabel } from '@/components/ui/section-label';
+import { StatusDot } from '@/components/ui/status-dot';
 
 export function AgentMonitor() {
   const { activeAgents, idleAgents, isLoading, refresh } = useAgents();
@@ -28,66 +29,72 @@ export function AgentMonitor() {
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col bg-[var(--background)]">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-border">
-        <div className="flex items-center gap-3">
-          <h2 className="text-lg font-semibold">Agent Monitor</h2>
-          <span className="text-sm text-muted-foreground">
-            ({activeAgents.length}/{activeAgents.length + idleAgents.length} active)
-          </span>
+      <div className="flex items-center justify-between p-4 border-b border-[var(--border-subtle)]">
+        <div className="flex items-center gap-4">
+          <div>
+            <span className="section-label block mb-1">Monitor</span>
+            <h2 className="text-sm font-light text-[var(--text-primary)]">Agent Activity</h2>
+          </div>
+          <div className="h-8 w-px bg-[var(--border-subtle)]" />
+          <div className="flex items-baseline gap-1">
+            <span className="text-2xl font-light text-[var(--text-primary)]">{activeAgents.length}</span>
+            <span className="text-[11px] text-[var(--text-muted)]">/ {activeAgents.length + idleAgents.length} active</span>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {/* Auto-refresh toggle */}
-          <Button
-            variant="ghost"
-            size="sm"
+          <button
             onClick={toggleAutoRefresh}
+            aria-label={autoRefresh ? 'Pause auto-refresh' : 'Enable auto-refresh'}
             className={cn(
-              'text-xs',
-              autoRefresh && 'text-green-500'
+              'flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium',
+              'border transition-luxury',
+              autoRefresh
+                ? 'bg-[var(--status-success-bg)] border-[var(--status-success-border)] text-[var(--status-success)]'
+                : 'bg-[var(--border)] border-[var(--border)] text-[var(--text-tertiary)]'
             )}
           >
             {autoRefresh ? (
               <>
-                <Pause className="h-3.5 w-3.5 mr-1" />
-                Auto
+                <StatusDot status="success" size="sm" glow />
+                Live
               </>
             ) : (
               <>
-                <Play className="h-3.5 w-3.5 mr-1" />
+                <Pause className="h-3 w-3" />
                 Paused
               </>
             )}
-          </Button>
+          </button>
 
           {/* Manual refresh */}
-          <Button
-            variant="outline"
-            size="sm"
+          <button
             onClick={handleManualRefresh}
             disabled={isLoading}
+            aria-label="Refresh agent data"
+            className={cn(
+              'flex items-center gap-1.5 px-3 py-1.5 text-[11px]',
+              'border border-[var(--border)] bg-[var(--border)]',
+              'text-[var(--text-secondary)] hover:text-[var(--text-primary)]',
+              'hover:bg-[var(--border-medium)] transition-luxury',
+              isLoading && 'opacity-50 cursor-not-allowed'
+            )}
           >
-            <RefreshCw
-              className={cn(
-                'h-4 w-4 mr-1.5',
-                isLoading && 'animate-spin'
-              )}
-            />
+            <RefreshCw className={cn('h-3 w-3', isLoading && 'animate-spin')} />
             Refresh
-          </Button>
+          </button>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-6 scrollbar-refined">
         {/* Active Agents Grid */}
         {activeAgents.length > 0 && (
-          <section className="mb-6">
-            <h3 className="text-sm font-medium text-muted-foreground mb-3">
-              Active Agents
-            </h3>
+          <section className="mb-8">
+            <SectionLabel withLine className="mb-4">Active</SectionLabel>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {activeAgents.map((agent) => (
                 <AgentCard key={agent.id} agent={agent} />
@@ -98,11 +105,11 @@ export function AgentMonitor() {
 
         {/* No active agents message */}
         {activeAgents.length === 0 && (
-          <div className="text-center py-8 text-muted-foreground">
-            <Moon className="h-10 w-10 mx-auto mb-2 opacity-50" />
-            <p>No agents currently active</p>
-            <p className="text-xs mt-1">
-              Agents will appear here when activated via CLI
+          <div className="flex flex-col items-center justify-center py-16">
+            <Moon className="h-8 w-8 text-[var(--text-disabled)] mb-4" />
+            <p className="text-[var(--text-tertiary)] font-light mb-1">All agents standing by</p>
+            <p className="text-[11px] text-[var(--text-muted)]">
+              Activate via CLI: <code className="text-[var(--accent-gold)]">@agent-name</code>
             </p>
           </div>
         )}
@@ -110,26 +117,24 @@ export function AgentMonitor() {
         {/* Idle Agents Section */}
         {idleAgents.length > 0 && (
           <section>
-            <h3 className="text-sm font-medium text-muted-foreground mb-3 flex items-center gap-2">
-              <span className="flex-1 h-px bg-border" />
-              <span>Idle Agents</span>
-              <span className="flex-1 h-px bg-border" />
-            </h3>
-            <div className="flex flex-wrap gap-3">
+            <SectionLabel variant="muted" withLine className="mb-4">Standby</SectionLabel>
+            <div className="flex flex-wrap gap-2">
               {idleAgents.map((agent) => (
                 <div
                   key={agent.id}
                   className={cn(
-                    'flex items-center gap-1.5 px-3 py-1.5 rounded-full',
-                    'bg-muted/50 text-muted-foreground text-sm'
+                    'flex items-center gap-2 px-3 py-2',
+                    'bg-[var(--border)] border border-[var(--border)]',
+                    'text-[11px] text-[var(--text-muted)]',
+                    'transition-luxury hover:bg-[var(--border-medium)] hover:text-[var(--text-tertiary)]'
                   )}
                 >
-                  <span className="h-2 w-2 rounded-full bg-gray-500" />
+                  <StatusDot status="idle" size="sm" glow={false} />
                   {(() => {
                     const IconComponent = iconMap[agent.icon];
-                    return IconComponent ? <IconComponent className="h-4 w-4" /> : null;
+                    return IconComponent ? <IconComponent className="h-3.5 w-3.5" /> : null;
                   })()}
-                  <span>@{agent.id}</span>
+                  <span className="font-light">@{agent.id}</span>
                 </div>
               ))}
             </div>
@@ -138,9 +143,12 @@ export function AgentMonitor() {
       </div>
 
       {/* Footer with polling info */}
-      <div className="p-2 border-t border-border text-xs text-muted-foreground text-center">
+      <div className="px-4 py-2 border-t border-[var(--border-subtle)] bg-[var(--bg-elevated)] text-[10px] text-[var(--text-muted)] flex items-center justify-center gap-2">
         {autoRefresh ? (
-          <span>Auto-refresh every {pollingInterval / 1000}s</span>
+          <>
+            <StatusDot status="success" size="sm" glow />
+            <span>Polling every {pollingInterval / 1000}s</span>
+          </>
         ) : (
           <span>Auto-refresh paused</span>
         )}

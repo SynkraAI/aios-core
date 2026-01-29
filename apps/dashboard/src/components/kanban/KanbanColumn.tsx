@@ -11,15 +11,15 @@ import { iconMap, type IconName } from '@/lib/icons';
 import { KANBAN_COLUMNS, type Story, type StoryStatus } from '@/types';
 import { SortableStoryCard } from './SortableStoryCard';
 
-// Column color styles - refined with left accent
+// Column color styles - using CSS variables
 const COLUMN_COLORS: Record<string, { border: string; text: string; bg: string }> = {
-  gray: { border: 'border-l-[#6B6B5F]', text: 'text-[#6B6B5F]', bg: 'bg-[rgba(107,107,95,0.05)]' },
-  blue: { border: 'border-l-[#60A5FA]', text: 'text-[#60A5FA]', bg: 'bg-[rgba(96,165,250,0.05)]' },
-  purple: { border: 'border-l-[#A78BFA]', text: 'text-[#A78BFA]', bg: 'bg-[rgba(167,139,250,0.05)]' },
-  yellow: { border: 'border-l-[#FBBF24]', text: 'text-[#FBBF24]', bg: 'bg-[rgba(251,191,36,0.05)]' },
-  cyan: { border: 'border-l-[#22D3EE]', text: 'text-[#22D3EE]', bg: 'bg-[rgba(34,211,238,0.05)]' },
-  green: { border: 'border-l-[#4ADE80]', text: 'text-[#4ADE80]', bg: 'bg-[rgba(74,222,128,0.05)]' },
-  red: { border: 'border-l-[#F87171]', text: 'text-[#F87171]', bg: 'bg-[rgba(248,113,113,0.05)]' },
+  gray: { border: 'var(--status-idle)', text: 'var(--status-idle)', bg: 'var(--status-idle-bg)' },
+  blue: { border: 'var(--status-info)', text: 'var(--status-info)', bg: 'var(--status-info-bg)' },
+  purple: { border: 'var(--phase-review)', text: 'var(--phase-review)', bg: 'var(--phase-review-bg)' },
+  yellow: { border: 'var(--status-warning)', text: 'var(--status-warning)', bg: 'var(--status-warning-bg)' },
+  cyan: { border: 'var(--phase-pr)', text: 'var(--phase-pr)', bg: 'var(--phase-pr-bg)' },
+  green: { border: 'var(--status-success)', text: 'var(--status-success)', bg: 'var(--status-success-bg)' },
+  red: { border: 'var(--status-error)', text: 'var(--status-error)', bg: 'var(--status-error-bg)' },
 };
 
 interface KanbanColumnProps {
@@ -51,28 +51,31 @@ export function KanbanColumn({
   return (
     <div
       className={cn(
-        'flex flex-col min-w-[280px] max-w-[320px] bg-[#0a0a0a]',
-        'border border-[rgba(255,255,255,0.04)] border-l-2',
-        colorStyle.border,
-        'transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
-        isOver && 'border-[rgba(201,178,152,0.3)] bg-[rgba(201,178,152,0.02)]'
+        'flex flex-col min-w-[280px] max-w-[320px] border border-l-2 transition-luxury',
+        isOver && 'border-[rgba(201,178,152,0.3)]'
       )}
+      style={{
+        backgroundColor: isOver ? 'var(--accent-gold-bg)' : 'var(--bg-surface)',
+        borderColor: 'var(--border-subtle)',
+        borderLeftColor: colorStyle.border,
+      }}
     >
       {/* Column Header */}
-      <div className={cn(
-        "flex items-center justify-between p-3 border-b border-[rgba(255,255,255,0.04)]",
-        colorStyle.bg
-      )}>
+      <div
+        className="flex items-center justify-between p-3 border-b"
+        style={{ borderColor: 'var(--border-subtle)', backgroundColor: colorStyle.bg }}
+      >
         <div className="flex items-center gap-2">
           {/* Collapse Toggle */}
           <button
             onClick={onToggleCollapse}
-            className="p-0.5 hover:bg-[rgba(255,255,255,0.05)] transition-colors"
+            className="p-0.5 transition-colors"
+            style={{ color: 'var(--text-muted)' }}
           >
             {isCollapsed ? (
-              <ChevronRight className="h-3.5 w-3.5 text-[#4A4A42]" />
+              <ChevronRight className="h-3.5 w-3.5" />
             ) : (
-              <ChevronDown className="h-3.5 w-3.5 text-[#4A4A42]" />
+              <ChevronDown className="h-3.5 w-3.5" />
             )}
           </button>
 
@@ -80,13 +83,16 @@ export function KanbanColumn({
           {(() => {
             const IconComponent = iconMap[column.icon];
             return IconComponent ? (
-              <IconComponent className={cn("h-3.5 w-3.5", colorStyle.text)} />
+              <IconComponent className="h-3.5 w-3.5" style={{ color: colorStyle.text }} />
             ) : null;
           })()}
-          <span className="font-light text-sm text-[#A8A89C]">{column.label}</span>
+          <span className="font-light text-sm" style={{ color: 'var(--text-secondary)' }}>{column.label}</span>
 
           {/* Count Badge */}
-          <span className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 bg-[rgba(255,255,255,0.04)] text-[10px] font-medium text-[#6B6B5F]">
+          <span
+            className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-[10px] font-medium"
+            style={{ backgroundColor: 'var(--border-subtle)', color: 'var(--text-tertiary)' }}
+          >
             {stories.length}
           </span>
         </div>
@@ -95,10 +101,8 @@ export function KanbanColumn({
         {onAddStory && (
           <button
             onClick={onAddStory}
-            className={cn(
-              'p-1 hover:bg-[rgba(255,255,255,0.05)] transition-colors',
-              'text-[#4A4A42] hover:text-[#A8A89C]'
-            )}
+            className="p-1 transition-colors hover:opacity-80"
+            style={{ color: 'var(--text-muted)' }}
             title={`Add new story to ${column.label}`}
           >
             <Plus className="h-3.5 w-3.5" />
@@ -152,8 +156,8 @@ function EmptyColumnState({ status }: { status: StoryStatus }) {
 
   return (
     <div className="flex flex-col items-center justify-center py-8">
-      {IconComponent && <IconComponent className="h-6 w-6 mb-2 text-[#2A2A2A]" />}
-      <span className="text-[11px] text-[#4A4A42] font-light">{text}</span>
+      {IconComponent && <IconComponent className="h-6 w-6 mb-2" style={{ color: 'var(--border)' }} />}
+      <span className="text-[11px] font-light" style={{ color: 'var(--text-muted)' }}>{text}</span>
     </div>
   );
 }
