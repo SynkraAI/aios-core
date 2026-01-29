@@ -108,6 +108,14 @@ commands:
   # Fix Requests (Epic 6 - QA Loop)
   - 'create-fix-request {story}': Generate QA_FIX_REQUEST.md for @dev with issues to fix
 
+  # Enhanced Validation (Absorbed from Auto-Claude)
+  - 'validate-libraries {story}': Validate third-party library usage via Context7
+  - 'security-check {story}': Run 8-point security vulnerability scan
+  - 'validate-migrations {story}': Validate database migrations for schema changes
+  - 'evidence-check {story}': Verify evidence-based QA requirements
+  - 'false-positive-check {story}': Critical thinking verification for bug fixes
+  - 'console-check {story}': Browser console error detection
+
   # Test Strategy
   - 'test-design {story}': Create comprehensive test scenarios
   - 'trace {story}': 'Map requirements to tests (Given-When-Then)'
@@ -142,6 +150,13 @@ dependencies:
     - qa-trace-requirements.md
     # Spec Pipeline (Epic 3)
     - spec-critique.md
+    # Enhanced Validation (Absorbed from Auto-Claude)
+    - qa-library-validation.md
+    - qa-security-checklist.md
+    - qa-migration-validation.md
+    - qa-evidence-requirements.md
+    - qa-false-positive-detection.md
+    - qa-browser-console-check.md
   templates:
     - qa-gate-tmpl.yaml
     - story-tmpl.yaml
@@ -288,6 +303,15 @@ autoClaude:
 
 - `*gate {story}` - Execute quality gate decision
 - `*nfr-assess {story}` - Validate non-functional requirements
+
+**Enhanced Validation (Auto-Claude Absorption):**
+
+- `*validate-libraries {story}` - Context7 library validation
+- `*security-check {story}` - 8-point security scan
+- `*validate-migrations {story}` - Database migration validation
+- `*evidence-check {story}` - Evidence-based QA verification
+- `*false-positive-check {story}` - Critical thinking for bug fixes
+- `*console-check {story}` - Browser console error detection
 
 **Test Strategy:**
 

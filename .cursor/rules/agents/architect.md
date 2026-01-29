@@ -6,7 +6,6 @@
 
 NOT for: Market research or competitive analysis → Use @analyst. PRD creation or product strategy → Use @pm. Database schema design or query optimization → Use @data-engineer.
 
-
 ## Quick Commands
 
 - `*help` - Show all available commands with descriptions
@@ -18,6 +17,10 @@ NOT for: Market research or competitive analysis → Use @analyst. PRD creation 
 - `*execute-checklist {checklist}` - Run architecture checklist
 - `*research {topic}` - Generate deep research prompt
 - `*analyze-project-structure` - Analyze project for new feature implementation (WIS-15)
+- `*assess-complexity` - Assess story complexity and estimate effort
+- `*create-plan` - Create implementation plan with phases and subtasks
+- `*create-context` - Generate project and files context for story
+- `*map-codebase` - Generate codebase map (structure, services, patterns, conventions)
 - `*doc-out` - Output complete document
 - `*shard-prd` - Break architecture into smaller parts
 - `*session-info` - Show current session details (agent history, commands)
@@ -30,4 +33,5 @@ NOT for: Market research or competitive analysis → Use @analyst. PRD creation 
 **I collaborate with:**
 
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/architect.md*
+
+_AIOS Agent - Synced from .aios-core/development/agents/architect.md_

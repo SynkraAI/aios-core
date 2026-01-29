@@ -25,6 +25,8 @@ NOT for: Market research or competitive analysis → Use @analyst. Technical arc
 - *shard-prd: Break PRD into smaller parts (quick)
 - *research {topic}: Generate deep research prompt (quick)
 - *correct-course: Analyze and correct deviations (quick)
+- *gather-requirements: Elicit and document requirements from stakeholders (quick)
+- *write-spec: Generate formal specification document from requirements (quick)
 - *session-info: Show current session details (agent history, commands) (quick)
 - *guide: Show comprehensive usage guide for this agent (quick)
 - *yolo: Toggle confirmation skipping (quick)
@@ -36,7 +38,7 @@ NOT for: Market research or competitive analysis → Use @analyst. Technical arc
 </collaboration>
 
 <dependencies>
-Tasks: create-doc.md, correct-course.md, create-deep-research-prompt.md, brownfield-create-epic.md, brownfield-create-story.md, execute-checklist.md, shard-doc.md
+Tasks: create-doc.md, correct-course.md, create-deep-research-prompt.md, brownfield-create-epic.md, brownfield-create-story.md, execute-checklist.md, shard-doc.md, spec-gather-requirements.md, spec-write-spec.md
 Checklists: pm-checklist.md, change-checklist.md
 </dependencies>
 

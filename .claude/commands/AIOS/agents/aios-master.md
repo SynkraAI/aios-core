@@ -270,6 +270,21 @@ dependencies:
     - po-master-checklist.md
     - story-dod-checklist.md
     - story-draft-checklist.md
+
+autoClaude:
+  version: '3.0'
+  migratedAt: '2026-01-29T02:24:08.199Z'
+  specPipeline:
+    canGather: true
+    canAssess: true
+    canResearch: true
+    canWrite: true
+    canCritique: true
+  execution:
+    canCreatePlan: true
+    canCreateContext: true
+    canExecute: false
+    canVerify: false
 ```
 
 ---

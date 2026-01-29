@@ -64,10 +64,14 @@ const nodeVersion = exec('node --version');
 if (nodeVersion) {
   const nodeVer = nodeVersion.replace('v', '');
   const nodeOk = compareVersions(nodeVer, REQUIRED_NODE) >= 0;
-  console.log(`  ${checkMark(nodeOk)} Version:     ${nodeVersion} (required: >= v${REQUIRED_NODE})`);
+  console.log(
+    `  ${checkMark(nodeOk)} Version:     ${nodeVersion} (required: >= v${REQUIRED_NODE})`
+  );
   if (!nodeOk) {
-    console.log(`    ⚠️  ERROR: Node.js version too old! Please upgrade to v${REQUIRED_NODE} or higher.`);
-    console.log(`    📥 Download: https://nodejs.org/`);
+    console.log(
+      `    ⚠️  ERROR: Node.js version too old! Please upgrade to v${REQUIRED_NODE} or higher.`
+    );
+    console.log('    📥 Download: https://nodejs.org/');
     hasErrors = true;
   }
   const nodePath = exec('where node') || exec('which node');
@@ -87,8 +91,8 @@ if (npmVersion) {
   const npmOk = compareVersions(npmVersion, REQUIRED_NPM) >= 0;
   console.log(`  ${checkMark(npmOk)} Version:     v${npmVersion} (required: >= v${REQUIRED_NPM})`);
   if (!npmOk) {
-    console.log(`    ⚠️  ERROR: npm version too old! Please upgrade.`);
-    console.log(`    📥 Run: npm install -g npm@latest`);
+    console.log('    ⚠️  ERROR: npm version too old! Please upgrade.');
+    console.log('    📥 Run: npm install -g npm@latest');
     hasErrors = true;
   }
   const npmPath = exec('where npm') || exec('which npm');
@@ -140,9 +144,11 @@ console.log(`  Registry:     ${npmRegistry || 'NOT SET'}`);
 if (npmPrefix) {
   const pathEnv = process.env.PATH || process.env.Path || '';
   const inPath = pathEnv.toLowerCase().includes(npmPrefix.toLowerCase());
-  console.log(`  ${checkMark(inPath)} In PATH:     ${inPath ? 'Yes' : 'NO - This may cause issues!'}`);
+  console.log(
+    `  ${checkMark(inPath)} In PATH:     ${inPath ? 'Yes' : 'NO - This may cause issues!'}`
+  );
   if (!inPath) {
-    console.log(`    ⚠️  WARNING: npm prefix is not in PATH!`);
+    console.log('    ⚠️  WARNING: npm prefix is not in PATH!');
     console.log(`    📝 Add this to your PATH: ${npmPrefix}`);
     hasWarnings = true;
   }
@@ -189,7 +195,9 @@ if (os.platform() === 'win32') {
     console.log(`  ${checkMark(policyOk)} PowerShell Execution Policy: ${psPolicy}`);
     if (!policyOk) {
       console.log('    ⚠️  WARNING: Restricted policy may block scripts.');
-      console.log('    📝 Run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser');
+      console.log(
+        '    📝 Run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser'
+      );
       hasWarnings = true;
     }
   }
@@ -257,7 +265,7 @@ const summary = {
   npmRegistry,
   hasErrors,
   hasWarnings,
-  npxTestResult: npxTest
+  npxTestResult: npxTest,
 };
 
 const summaryFile = path.join(os.tmpdir(), 'aios-diagnostic-result.json');

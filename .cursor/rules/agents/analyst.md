@@ -6,7 +6,6 @@
 
 NOT for: PRD creation or product strategy → Use @pm. Technical architecture decisions or technology selection → Use @architect. Story creation or sprint planning → Use @sm.
 
-
 ## Quick Commands
 
 - `*help` - Show all available commands with descriptions
@@ -16,6 +15,8 @@ NOT for: PRD creation or product strategy → Use @pm. Technical architecture de
 - `*research-prompt {topic}` - Generate deep research prompt
 - `*brainstorm {topic}` - Facilitate structured brainstorming
 - `*elicit` - Run advanced elicitation session
+- `*research-deps` - Research dependencies and technical constraints for story
+- `*extract-patterns` - Extract and document code patterns from codebase
 - `*doc-out` - Output complete document
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
@@ -27,4 +28,5 @@ NOT for: PRD creation or product strategy → Use @pm. Technical architecture de
 **I collaborate with:**
 
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/analyst.md*
+
+_AIOS Agent - Synced from .aios-core/development/agents/analyst.md_
