@@ -9,6 +9,51 @@ const fs = require('fs-extra');
 const path = require('path');
 
 /**
+ * Generate project context analysis for the index
+ * @param {string} projectRoot - Project root directory
+ * @returns {string} - Formatted context analysis
+ */
+async function analyzeProjectContext(projectRoot) {
+  let context = '';
+
+  // 1. Check package.json
+  const pkgPath = path.join(projectRoot, 'package.json');
+  if (fs.existsSync(pkgPath)) {
+    try {
+      const pkg = await fs.readJson(pkgPath);
+      if (pkg.description) {
+        context += `**Description:** ${pkg.description}\n\n`;
+      }
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  // 2. Check for AIOS specific context
+  const prdPath = path.join(projectRoot, 'docs', 'prd.md');
+  if (fs.existsSync(prdPath)) {
+    context += `- AIOS PRD detected: Comprehensive product requirements available in \`docs/prd.md\`\n`;
+  }
+
+  const archPath = path.join(projectRoot, 'docs', 'architecture.md');
+  if (fs.existsSync(archPath)) {
+    context += `- AIOS Architecture detected: System design and standards defined in \`docs/architecture.md\`\n`;
+  }
+
+  const storiesDir = path.join(projectRoot, 'docs', 'stories');
+  if (fs.existsSync(storiesDir)) {
+    const stories = fs.readdirSync(storiesDir).filter((f) => f.endsWith('.md'));
+    if (stories.length > 0) {
+      context += `- Story-Driven Development: ${stories.length} stories found in \`docs/stories/\`\n`;
+    }
+  }
+
+  return (
+    context || '_No specific project context found. Run `/init` or AIOS setup tasks to populate._'
+  );
+}
+
+/**
  * Generate AGENTS.md file
  * @param {string} projectRoot - Project root directory
  * @param {object[]} agents - List of parsed agents
@@ -38,8 +83,10 @@ async function generateAgentsMd(projectRoot, agents, options = {}) {
   const projectName = path.basename(projectRoot);
   const timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
   const projectType = fs.existsSync(path.join(projectRoot, 'package.json'))
-    ? 'Node.js/NPM'
-    : 'Standard AIOS';
+    ? 'Node.js/NPM (Brownfield)'
+    : 'Standard AIOS (Greenfield)';
+
+  const projectContext = await analyzeProjectContext(projectRoot);
 
   // Extract project context (summary of agents)
   const agentList = agents
@@ -54,7 +101,10 @@ async function generateAgentsMd(projectRoot, agents, options = {}) {
     .replace(/{{projectName}}/g, projectName)
     .replace(/{{timestamp}}/g, timestamp)
     .replace(/{{projectType}}/g, projectType)
-    .replace(/{{projectContext}}/g, `\n### Available Agents\n\n${agentList}\n`);
+    .replace(
+      /{{projectContext}}/g,
+      `\n${projectContext}\n\n### Available AIOS Agents\n\n${agentList}\n`
+    );
 
   if (!options.dryRun) {
     await fs.writeFile(targetPath, content, 'utf8');
