@@ -1,18 +1,18 @@
 <!--
   Tradução: PT-BR
-  Original: /docs/en/guides/agent-selection-guide.md
-  Última sincronização: 2026-01-26
+  Original: /docs/guides/agent-selection-guide.md
+  Última sincronização: 2026-01-29
 -->
 
 # Guia de Seleção de Agentes
 
-> 🌐 [EN](../../guides/agent-selection-guide.md) | **PT** | [ES](../../es/guides/agent-selection-guide.md)
+> [EN](../../guides/agent-selection-guide.md) | **PT** | [ES](../es/guides/agent-selection-guide.md)
 
 ---
 
 ## Referência Rápida para Escolher o Agente Correto
 
-**Última Atualização:** 2025-01-15 (Story 6.1.2.3)
+**Última Atualização:** 2026-01-29 (ADE v2.2.0)
 
 ---
 
@@ -31,99 +31,265 @@ Precisa de stories? → @sm
    ↓
 Precisa de implementação? → @dev
    ↓
-Precisa de testes? → @qa
+Precisa de testes/QA? → @qa
    ↓
-Precisa de deploy? → @github-devops
+Precisa de deploy? → @devops
 ```
 
 ---
 
 ## Referência Rápida de Agentes
 
-| Agente | Ícone | Use Para | NÃO Use Para |
-|--------|-------|----------|--------------|
-| **@analyst** (Atlas) | 🔍 | Pesquisa de mercado, análise competitiva, brainstorming | Criação de PRD, arquitetura, stories |
-| **@pm** (Morgan) | 📋 | PRD, epics, estratégia de produto, roadmap | Pesquisa, arquitetura, stories detalhadas |
-| **@architect** (Aria) | 🏛️ | Arquitetura de sistema, design de API, stack tecnológica | Pesquisa, PRD, schema de banco de dados |
-| **@data-engineer** (Dara) | 📊 | Schema de banco de dados, RLS, migrations, otimização de queries | Arquitetura de app, seleção de tecnologia de BD |
-| **@sm** (River) | 🌊 | User stories, planejamento de sprint, refinamento de backlog | PRD, epics, pesquisa, implementação |
-| **@dev** (Dex) | 💻 | Implementação de story, codificação, testes | Criação de story, deploy |
-| **@qa** (Quinn) | 🧪 | Code review, testes, garantia de qualidade | Implementação |
-| **@po** (Pax) | 🎯 | Gerenciamento de backlog, critérios de aceitação, priorização | Criação de epic, arquitetura |
-| **@ux-design-expert** (Nova) | 🎨 | Design UI/UX, wireframes, design systems | Implementação |
-| **@github-devops** (Gage) | ⚙️ | Git ops, criação de PR, deploy, CI/CD | Git local, implementação |
-| **@aios-master** (Orion) | 👑 | Desenvolvimento do framework, orquestração multi-agente | Tarefas rotineiras (use agentes especializados) |
+| Agente                       | Ícone | Use Para                                                                                                           | NÃO Use Para                                    |
+| ---------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
+| **@analyst** (Atlas)         | 🔍    | Pesquisa de mercado, análise competitiva, brainstorming, extração de padrões                                       | Criação de PRD, arquitetura, stories            |
+| **@pm** (Morgan)             | 📋    | PRD, epics, estratégia de produto, coleta de requisitos, escrita de specs                                          | Pesquisa, arquitetura, stories detalhadas       |
+| **@architect** (Aria)        | 🏛️    | Arquitetura de sistema, design de API, stack tecnológica, avaliação de complexidade, planejamento de implementação | Pesquisa, PRD, schema de banco de dados         |
+| **@data-engineer** (Dara)    | 📊    | Schema de banco de dados, RLS, migrations, otimização de queries                                                   | Arquitetura de app, seleção de tecnologia de BD |
+| **@sm** (River)              | 🌊    | User stories, planejamento de sprint, refinamento de backlog                                                       | PRD, epics, pesquisa, implementação             |
+| **@dev** (Dex)               | 💻    | Implementação de story, codificação, testes, execução de subtasks, recuperação                                     | Criação de story, deploy                        |
+| **@qa** (Quinn)              | 🧪    | Code review, testes, garantia de qualidade, crítica de spec, revisão estruturada                                   | Implementação                                   |
+| **@po** (Pax)                | 🎯    | Gerenciamento de backlog, critérios de aceitação, priorização                                                      | Criação de epic, arquitetura                    |
+| **@ux-design-expert** (Nova) | 🎨    | Design UI/UX, wireframes, design systems                                                                           | Implementação                                   |
+| **@devops** (Gage)           | ⚙️    | Git ops, criação de PR, deploy, CI/CD, gerenciamento de worktrees, migrações                                       | Git local, implementação                        |
+| **@aios-master** (Orion)     | 👑    | Desenvolvimento do framework, orquestração multi-agente                                                            | Tarefas rotineiras (use agentes especializados) |
+
+---
+
+## 🤖 Comandos ADE por Agente (v2.2.0)
+
+### @devops (Gage) - Infraestrutura & Operações
+
+**Gerenciamento de Worktrees:**
+| Comando | Descrição |
+|---------|-----------|
+| `*create-worktree {story}` | Criar worktree Git isolada para desenvolvimento de story |
+| `*list-worktrees` | Listar todas as worktrees ativas com status |
+| `*merge-worktree {story}` | Fazer merge da worktree concluída de volta ao main |
+| `*cleanup-worktrees` | Remover worktrees obsoletas/já mergeadas |
+
+**Gerenciamento de Migrações:**
+| Comando | Descrição |
+|---------|-----------|
+| `*inventory-assets` | Gerar inventário de migração dos assets V2 |
+| `*analyze-paths` | Analisar dependências de paths e impacto da migração |
+| `*migrate-agent` | Migrar um único agente do formato V2 para V3 |
+| `*migrate-batch` | Migração em lote de todos os agentes com validação |
+
+---
+
+### @pm (Morgan) - Gestão de Produto
+
+**Spec Pipeline:**
+| Comando | Descrição |
+|---------|-----------|
+| `*gather-requirements` | Elicitar e documentar requisitos dos stakeholders |
+| `*write-spec` | Gerar documento de especificação formal a partir dos requisitos |
+
+---
+
+### @architect (Aria) - Arquitetura de Sistema
+
+**Spec Pipeline:**
+| Comando | Descrição |
+|---------|-----------|
+| `*assess-complexity` | Avaliar complexidade da story e estimar esforço |
+
+**Execution Engine:**
+| Comando | Descrição |
+|---------|-----------|
+| `*create-plan` | Criar plano de implementação com fases e subtasks |
+| `*create-context` | Gerar contexto de projeto e arquivos para story |
+
+**Memory Layer:**
+| Comando | Descrição |
+|---------|-----------|
+| `*map-codebase` | Gerar mapa do codebase (estrutura, serviços, padrões) |
+
+---
+
+### @analyst (Atlas) - Pesquisa & Análise
+
+**Spec Pipeline:**
+| Comando | Descrição |
+|---------|-----------|
+| `*research-deps` | Pesquisar dependências e restrições técnicas |
+
+**Memory Layer:**
+| Comando | Descrição |
+|---------|-----------|
+| `*extract-patterns` | Extrair e documentar padrões de código do codebase |
+
+---
+
+### @qa (Quinn) - Garantia de Qualidade
+
+**Spec Pipeline:**
+| Comando | Descrição |
+|---------|-----------|
+| `*critique-spec {story}` | Revisar e criticar especificação quanto à completude |
+
+**QA Evolution (Revisão em 10 Fases):**
+| Comando | Descrição |
+|---------|-----------|
+| `*review-build {story}` | Revisão QA estruturada em 10 fases - gera qa_report.md |
+| `*request-fix {issue}` | Solicitar correção específica do @dev com contexto |
+| `*verify-fix {issue}` | Verificar se a correção foi implementada corretamente |
+
+---
+
+### @dev (Dex) - Desenvolvimento
+
+**Execution Engine:**
+| Comando | Descrição |
+|---------|-----------|
+| `*execute-subtask` | Executar subtask seguindo workflow de 13 passos com auto-crítica |
+
+**Recovery System:**
+| Comando | Descrição |
+|---------|-----------|
+| `*track-attempt` | Rastrear tentativa de implementação (registra em recovery/attempts.json) |
+| `*rollback` | Reverter para último estado bom (--hard para pular confirmação) |
+
+**QA Loop:**
+| Comando | Descrição |
+|---------|-----------|
+| `*apply-qa-fix` | Aplicar correção solicitada pelo QA (lê qa_report.md para contexto) |
+
+**Memory Layer:**
+| Comando | Descrição |
+|---------|-----------|
+| `*capture-insights` | Capturar insights da sessão (descobertas, padrões, gotchas) |
+| `*list-gotchas` | Listar gotchas conhecidos de .aios/gotchas.md |
 
 ---
 
 ## Cenários Comuns
 
-### "Quero construir uma nova funcionalidade"
+### "Quero construir uma nova funcionalidade" (Tradicional)
 
 ```
-1. @analyst *research - Pesquisa de mercado
+1. @analyst *brainstorm - Ideação
 2. @pm *create-prd - Requisitos de produto
 3. @architect *create-architecture - Design técnico
 4. @data-engineer *create-schema - Design de banco de dados
 5. @sm *create-next-story - User stories
 6. @dev *develop - Implementação
 7. @qa *review - Verificação de qualidade
-8. @github-devops *create-pr - Deploy
+8. @devops *create-pr - Deploy
 ```
 
-### "Preciso entender um sistema existente"
+### "Quero construir usando ADE Spec Pipeline" (Autônomo)
 
 ```
-1. @analyst *document-project - Documentação brownfield
-2. @pm *create-prd (brownfield) - Documentar como PRD
-3. @architect *create-architecture (brownfield) - Arquitetura técnica
+1. @pm *gather-requirements - Coletar e estruturar requisitos
+2. @architect *assess-complexity - Avaliar complexidade
+3. @analyst *research-deps - Pesquisar bibliotecas/APIs
+4. @pm *write-spec - Gerar especificação
+5. @qa *critique-spec - Validar qualidade da spec
+   ↓
+[Spec Aprovada]
+   ↓
+6. @architect *create-plan - Criar plano de implementação
+7. @architect *create-context - Gerar arquivos de contexto
+8. @dev *execute-subtask 1.1 - Executar com 13 passos + auto-crítica
+9. @qa *review-build - Revisão QA em 10 fases
+   ↓
+[Se encontrar problemas]
+   ↓
+10. @qa *request-fix - Solicitar correção
+11. @dev *apply-qa-fix - Aplicar correção
+12. @qa *verify-fix - Verificar
 ```
 
-### "Quero otimizar o banco de dados"
+### "Estou travado na implementação"
 
 ```
-1. @data-engineer *security-audit - Verificar RLS e schema
-2. @data-engineer *analyze-performance hotpaths - Encontrar gargalos
-3. @data-engineer *create-migration-plan - Planejar otimizações
-4. @data-engineer *apply-migration - Aplicar mudanças
+1. @dev *track-attempt - Registrar a tentativa falha
+2. @dev *rollback - Reverter para último estado bom
+3. @dev *list-gotchas - Verificar armadilhas conhecidas
+4. @dev *execute-subtask --approach alternative - Tentar abordagem diferente
+```
+
+### "Preciso entender o codebase existente"
+
+```
+1. @architect *map-codebase - Gerar mapa de estrutura/serviços/padrões
+2. @analyst *extract-patterns - Documentar padrões de código
+3. @dev *capture-insights - Registrar descobertas
+```
+
+### "Preciso de desenvolvimento paralelo de stories"
+
+```
+1. @devops *create-worktree STORY-42 - Isolar branch
+2. @dev *execute-subtask - Trabalhar em isolamento
+3. @devops *merge-worktree STORY-42 - Fazer merge quando concluído
+4. @devops *cleanup-worktrees - Limpar branches obsoletas
 ```
 
 ---
 
-## Padrões de Delegação (Story 6.1.2.3)
+## Padrões de Delegação
 
-### Criação de Epic/Story
+### Fluxo do Spec Pipeline
 
-- **PM cria epic** → **SM cria stories**
-  ```
-  @pm *create-epic         # Estrutura do epic
-  @sm *create-next-story   # Stories detalhadas
-  ```
+```
+@pm *gather-requirements
+    ↓
+@architect *assess-complexity
+    ↓
+@analyst *research-deps
+    ↓
+@pm *write-spec
+    ↓
+@qa *critique-spec
+```
 
-### Trabalho com Banco de Dados
+### Fluxo de Execução
 
-- **Architect seleciona BD** → **Data-engineer projeta schema**
-  ```
-  @architect *create-architecture  # Seleção de tecnologia de BD
-  @data-engineer *create-schema    # Design do schema
-  ```
+```
+@architect *create-plan
+    ↓
+@architect *create-context
+    ↓
+@dev *execute-subtask (loops)
+    ↓
+@qa *review-build
+```
 
-### Pesquisa → Produto
+### QA Loop
 
-- **Analyst pesquisa** → **PM cria PRD**
-  ```
-  @analyst *research               # Análise de mercado
-  @pm *create-prd                  # Documento de produto
-  ```
+```
+@qa *review-build
+    ↓ (problemas encontrados)
+@qa *request-fix
+    ↓
+@dev *apply-qa-fix
+    ↓
+@qa *verify-fix
+    ↓ (loop até limpo)
+```
+
+### Fluxo de Recuperação
+
+```
+@dev falha subtask
+    ↓
+@dev *track-attempt
+    ↓
+Retries < 3? → @dev tenta com variação
+    ↓
+@dev *rollback → tenta abordagem diferente
+```
 
 ---
 
 ## Documentação Completa
 
-Para limites detalhados e orientação de "NÃO use para", veja:
-- `docs/analysis/agent-responsibility-matrix.md` - Definições completas de limites
-- `docs/guides/command-migration-guide.md` - Mudanças de comandos e migrações
+- **[Guia Completo do ADE](./ade-guide.md)** - Tutorial completo do Autonomous Development Engine
+- **[Matriz de Responsabilidade de Agentes](../../architecture/agent-responsibility-matrix.md)** - Definições completas de limites
 
 ---
 
-**Versão:** 1.0 | **Story:** 6.1.2.3
+**Versão:** 2.0 | **ADE:** v2.2.0 | **Data:** 2026-01-29
