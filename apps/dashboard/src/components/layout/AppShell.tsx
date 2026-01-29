@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useUIStore } from '@/stores/ui-store';
 import { useProjectsStore } from '@/stores/projects-store';
 import { Sidebar } from './Sidebar';
@@ -13,9 +13,6 @@ interface AppShellProps {
 }
 
 export function AppShell({ children }: AppShellProps) {
-  // Prevent hydration mismatch from persisted stores
-  const [mounted, setMounted] = useState(false);
-
   const { toggleSidebar } = useUIStore();
   const {
     projects,
@@ -27,11 +24,6 @@ export function AppShell({ children }: AppShellProps) {
     closeOtherProjects,
     closeAllProjects,
   } = useProjectsStore();
-
-  // Mark as mounted after first render
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Keyboard shortcut for sidebar toggle: `[`
   useEffect(() => {
@@ -73,19 +65,6 @@ export function AppShell({ children }: AppShellProps) {
     const newIndex = newProjects.findIndex((p) => p.id === movedProject.id);
     reorderProjects(oldIndex, newIndex);
   };
-
-  // Show minimal shell during SSR to prevent hydration mismatch
-  if (!mounted) {
-    return (
-      <div className="flex h-screen flex-col bg-background text-foreground">
-        <div className="flex flex-1 overflow-hidden">
-          <div className="flex flex-1 flex-col overflow-hidden">
-            <main className="flex-1 overflow-auto p-4" />
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex h-screen flex-col bg-background text-foreground">

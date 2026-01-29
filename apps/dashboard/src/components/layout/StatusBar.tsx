@@ -4,7 +4,6 @@ import { useAiosStatus } from '@/hooks/use-aios-status';
 import { AGENT_CONFIG, type AgentId } from '@/types';
 import { cn } from '@/lib/utils';
 import { Bell } from 'lucide-react';
-import { iconMap } from '@/lib/icons';
 
 interface StatusBarProps {
   className?: string;
@@ -16,10 +15,9 @@ export function StatusBar({ className }: StatusBarProps) {
   return (
     <footer
       className={cn(
-        'flex h-7 items-center justify-between border-t px-4 text-[11px]',
+        'flex h-8 items-center justify-between border-t border-border bg-background px-4 text-xs',
         className
       )}
-      style={{ borderColor: 'var(--border-subtle)', backgroundColor: 'var(--bg-elevated)' }}
     >
       {/* Left section */}
       <div className="flex items-center gap-4">
@@ -88,10 +86,7 @@ function ActiveAgentBadge({ agentId }: ActiveAgentBadgeProps) {
       className="flex items-center gap-1.5 rounded-full px-2 py-0.5"
       style={{ backgroundColor: `${config.color}20` }}
     >
-      {(() => {
-        const IconComponent = iconMap[config.icon];
-        return IconComponent ? <IconComponent className="h-4 w-4" style={{ color: config.color }} /> : null;
-      })()}
+      <span>{config.icon}</span>
       <span style={{ color: config.color }}>@{agentId}</span>
     </div>
   );

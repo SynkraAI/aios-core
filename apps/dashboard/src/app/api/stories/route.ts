@@ -2,15 +2,7 @@ import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import type {
-  Story,
-  StoryStatus,
-  StoryComplexity,
-  StoryPriority,
-  StoryCategory,
-  StoryType,
-  AgentId,
-} from '@/types';
+import type { Story, StoryStatus, StoryComplexity, StoryPriority, StoryCategory, AgentId } from '@/types';
 
 // Get the project root path
 function getProjectRoot(): string {
@@ -23,104 +15,12 @@ function getProjectRoot(): string {
 
 // Valid values for type checking
 const VALID_STATUS: StoryStatus[] = [
-  'backlog',
-  'in_progress',
-  'ai_review',
-  'human_review',
-  'pr_created',
-  'done',
-  'error',
+  'backlog', 'in_progress', 'ai_review', 'human_review', 'pr_created', 'done', 'error'
 ];
 const VALID_COMPLEXITY: StoryComplexity[] = ['simple', 'standard', 'complex'];
 const VALID_PRIORITY: StoryPriority[] = ['low', 'medium', 'high', 'critical'];
 const VALID_CATEGORY: StoryCategory[] = ['feature', 'fix', 'refactor', 'docs'];
 const VALID_AGENTS: AgentId[] = ['dev', 'qa', 'architect', 'pm', 'po', 'analyst', 'devops'];
-
-// Priority mapping from P0/P1/P2/P3 format to enum
-const PRIORITY_MAP: Record<string, StoryPriority> = {
-  p0: 'critical',
-  p1: 'high',
-  p2: 'medium',
-  p3: 'low',
-};
-
-// Status mapping from document format to enum
-const STATUS_MAP: Record<string, StoryStatus> = {
-  draft: 'backlog',
-  ready: 'backlog',
-  'in progress': 'in_progress',
-  'in-progress': 'in_progress',
-  review: 'ai_review',
-  'ai review': 'ai_review',
-  'ready for review': 'human_review',
-  'human review': 'human_review',
-  'pr created': 'pr_created',
-  'pr ready': 'pr_created',
-  done: 'done',
-  complete: 'done',
-  completed: 'done',
-  implemented: 'done',
-  error: 'error',
-  blocked: 'error',
-};
-
-// Parse blockquote metadata format used in epic/story files
-// Format: > **Field:** Value
-function parseBlockquoteMetadata(content: string): Record<string, string> {
-  const metadata: Record<string, string> = {};
-
-  // Match blockquote lines with bold field names
-  // > **Priority:** P0 - Foundation
-  // > **Status:** Draft
-  const blockquoteRegex = /^>\s*\*\*([^*]+)\*\*:\s*(.+)$/gm;
-  let match;
-
-  while ((match = blockquoteRegex.exec(content)) !== null) {
-    const field = match[1].trim().toLowerCase();
-    const value = match[2].trim();
-    metadata[field] = value;
-  }
-
-  return metadata;
-}
-
-// Extract priority from blockquote format (e.g., "P0 - Foundation" -> "critical")
-function extractPriorityFromBlockquote(value: string): StoryPriority | undefined {
-  if (!value) return undefined;
-
-  // Extract P0, P1, P2, P3 from strings like "P0 - Foundation", "P1 - Core"
-  const pMatch = value.match(/^(p[0-3])/i);
-  if (pMatch) {
-    return PRIORITY_MAP[pMatch[1].toLowerCase()];
-  }
-
-  // Also support direct priority names
-  const lowerValue = value.toLowerCase();
-  if (VALID_PRIORITY.includes(lowerValue as StoryPriority)) {
-    return lowerValue as StoryPriority;
-  }
-
-  return undefined;
-}
-
-// Extract status from blockquote format
-function extractStatusFromBlockquote(value: string): StoryStatus | undefined {
-  if (!value) return undefined;
-
-  const lowerValue = value.toLowerCase().trim();
-
-  // Check direct mapping
-  if (STATUS_MAP[lowerValue]) {
-    return STATUS_MAP[lowerValue];
-  }
-
-  // Check if it's a valid status directly
-  if (VALID_STATUS.includes(lowerValue as StoryStatus)) {
-    return lowerValue as StoryStatus;
-  }
-
-  return undefined;
-}
 
 // Parse frontmatter to Story object
 function parseStoryFromMarkdown(
@@ -130,9 +30,6 @@ function parseStoryFromMarkdown(
 ): Story | null {
   try {
     const { data, content: markdownContent } = matter(content);
-
-    // Parse blockquote metadata as fallback for fields not in frontmatter
-    const blockquoteMeta = parseBlockquoteMetadata(markdownContent);
 
     // Extract title from first H1 or frontmatter
     let title = data.title;
@@ -144,85 +41,44 @@ function parseStoryFromMarkdown(
     // Generate ID from filename or frontmatter
     const id = data.id || path.basename(filePath, '.md');
 
-    // Detect type: epic vs story based on filename or frontmatter
-    const filename = path.basename(filePath).toLowerCase();
-    let storyType: StoryType = 'story';
-    if (data.type === 'epic' || data.type === 'story') {
-      storyType = data.type;
-    } else if (filename.startsWith('epic-') || filename.includes('-epic')) {
-      storyType = 'epic';
-    } else if (title.toLowerCase().startsWith('epic')) {
-      storyType = 'epic';
-    }
-
-    // Parse status - frontmatter first, then blockquote fallback
+    // Parse status
     let status: StoryStatus = 'backlog';
     if (data.status && VALID_STATUS.includes(data.status)) {
       status = data.status;
-    } else if (blockquoteMeta.status) {
-      const blockquoteStatus = extractStatusFromBlockquote(blockquoteMeta.status);
-      if (blockquoteStatus) {
-        status = blockquoteStatus;
-      }
     }
 
-    // Parse complexity - frontmatter first, then blockquote fallback
+    // Parse complexity
     let complexity: StoryComplexity | undefined;
     if (data.complexity && VALID_COMPLEXITY.includes(data.complexity)) {
       complexity = data.complexity;
-    } else if (blockquoteMeta.complexity) {
-      const lowerComplexity = blockquoteMeta.complexity.toLowerCase();
-      if (VALID_COMPLEXITY.includes(lowerComplexity as StoryComplexity)) {
-        complexity = lowerComplexity as StoryComplexity;
-      }
     }
 
-    // Parse priority - frontmatter first, then blockquote fallback
+    // Parse priority
     let priority: StoryPriority | undefined;
     if (data.priority && VALID_PRIORITY.includes(data.priority)) {
       priority = data.priority;
-    } else if (blockquoteMeta.priority) {
-      priority = extractPriorityFromBlockquote(blockquoteMeta.priority);
     }
 
-    // Parse category - frontmatter first, then blockquote fallback
+    // Parse category
     let category: StoryCategory | undefined;
     if (data.category && VALID_CATEGORY.includes(data.category)) {
       category = data.category;
-    } else if (blockquoteMeta.category || blockquoteMeta.type) {
-      const catValue = (blockquoteMeta.category || blockquoteMeta.type || '').toLowerCase();
-      if (VALID_CATEGORY.includes(catValue as StoryCategory)) {
-        category = catValue as StoryCategory;
-      }
     }
 
-    // Parse agent - frontmatter first, then blockquote fallback
+    // Parse agent
     let agentId: AgentId | undefined;
     if (data.agent && VALID_AGENTS.includes(data.agent)) {
       agentId = data.agent;
-    } else if (blockquoteMeta.agent || blockquoteMeta.owner) {
-      const agentValue = (blockquoteMeta.agent || blockquoteMeta.owner || '')
-        .toLowerCase()
-        .replace('@', '');
-      if (VALID_AGENTS.includes(agentValue as AgentId)) {
-        agentId = agentValue as AgentId;
-      }
     }
 
-    // Extract description from frontmatter, Epic Goal section, or first paragraph
+    // Extract description from frontmatter or first paragraph
     let description = data.description;
     if (!description) {
-      // Try to get Epic Goal section first
-      const epicGoalMatch = markdownContent.match(/## Epic Goal\n\n([\s\S]*?)(?=\n---|\n##|$)/i);
-      if (epicGoalMatch) {
-        description = epicGoalMatch[1].trim().split('\n\n')[0].slice(0, 200);
-      } else {
-        // Fall back to first non-blockquote paragraph after title
-        const paragraphs = markdownContent
-          .split('\n\n')
-          .filter((p) => p.trim() && !p.startsWith('#') && !p.startsWith('>'));
-        description = paragraphs[0]?.trim().slice(0, 200) || '';
-      }
+      // Try to get first paragraph after title
+      const paragraphs = markdownContent
+        .split('\n\n')
+        .filter((p) => p.trim() && !p.startsWith('#'));
+      description = paragraphs[0]?.trim().slice(0, 200) || '';
     }
 
     // Parse acceptance criteria from markdown
@@ -239,39 +95,17 @@ function parseStoryFromMarkdown(
     const techMatch = markdownContent.match(/## Technical Notes\n([\s\S]*?)(?=\n##|$)/i);
     const technicalNotes = techMatch ? techMatch[1].trim() : undefined;
 
-    // Extract epicId from frontmatter or filename pattern (epic-N-*)
-    let epicId = data.epicId || data.epic;
-    if (!epicId) {
-      const epicMatch = path.basename(filePath).match(/^epic-(\d+)/i);
-      if (epicMatch) {
-        epicId = `epic-${epicMatch[1]}`;
-      }
-    }
-
-    // Calculate progress from acceptance criteria completion
-    let progress = typeof data.progress === 'number' ? data.progress : undefined;
-    if (progress === undefined && acceptanceCriteria.length > 0) {
-      // Count completed criteria from original markdown
-      const completedMatch = markdownContent.match(/- \[x\]/gi);
-      const totalMatch = markdownContent.match(/- \[[ x]\]/gi);
-      if (totalMatch && totalMatch.length > 0) {
-        const completed = completedMatch?.length || 0;
-        progress = Math.round((completed / totalMatch.length) * 100);
-      }
-    }
-
     return {
       id,
       title,
       description,
       status,
-      type: storyType,
-      epicId,
+      epicId: data.epicId || data.epic,
       complexity,
       priority,
       category,
       agentId,
-      progress,
+      progress: typeof data.progress === 'number' ? data.progress : undefined,
       acceptanceCriteria,
       technicalNotes,
       filePath,
@@ -297,7 +131,7 @@ async function findMarkdownFiles(dir: string): Promise<string[]> {
       if (entry.isDirectory()) {
         // Skip hidden directories and node_modules
         if (!entry.name.startsWith('.') && entry.name !== 'node_modules') {
-          files.push(...(await findMarkdownFiles(fullPath)));
+          files.push(...await findMarkdownFiles(fullPath));
         }
       } else if (entry.isFile() && entry.name.endsWith('.md')) {
         // Skip files that are clearly not stories
@@ -322,7 +156,6 @@ function getMockStories(): Story[] {
       title: 'Implement User Authentication',
       description: 'Add JWT-based authentication with login/register flows',
       status: 'in_progress',
-      type: 'story',
       complexity: 'standard',
       priority: 'high',
       category: 'feature',
@@ -336,9 +169,8 @@ function getMockStories(): Story[] {
     {
       id: 'mock-2',
       title: 'Fix Navigation Bug',
-      description: "Sidebar doesn't collapse properly on mobile",
+      description: 'Sidebar doesn\'t collapse properly on mobile',
       status: 'ai_review',
-      type: 'story',
       complexity: 'simple',
       priority: 'medium',
       category: 'fix',
@@ -352,7 +184,6 @@ function getMockStories(): Story[] {
       title: 'Add Dark Mode Support',
       description: 'Implement system-aware dark mode toggle',
       status: 'backlog',
-      type: 'story',
       complexity: 'standard',
       priority: 'low',
       category: 'feature',
@@ -365,7 +196,6 @@ function getMockStories(): Story[] {
       title: 'Refactor API Routes',
       description: 'Consolidate duplicate API logic into shared utilities',
       status: 'human_review',
-      type: 'story',
       complexity: 'complex',
       priority: 'medium',
       category: 'refactor',
@@ -378,7 +208,6 @@ function getMockStories(): Story[] {
       title: 'Update Documentation',
       description: 'Add API reference documentation for new endpoints',
       status: 'done',
-      type: 'story',
       complexity: 'simple',
       priority: 'low',
       category: 'docs',
@@ -387,76 +216,6 @@ function getMockStories(): Story[] {
       updatedAt: now,
     },
   ];
-}
-
-// Generate story filename from title
-function generateStoryFilename(title: string): string {
-  const slug = title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
-    .slice(0, 50);
-  const timestamp = Date.now();
-  return `${slug}-${timestamp}.md`;
-}
-
-// Generate frontmatter from story data
-function generateStoryContent(data: CreateStoryRequest): string {
-  const frontmatter = [
-    '---',
-    `title: "${data.title.replace(/"/g, '\\"')}"`,
-    `status: ${data.status || 'backlog'}`,
-    `type: ${data.type || 'story'}`,
-  ];
-
-  if (data.priority) frontmatter.push(`priority: ${data.priority}`);
-  if (data.complexity) frontmatter.push(`complexity: ${data.complexity}`);
-  if (data.category) frontmatter.push(`category: ${data.category}`);
-  if (data.agent) frontmatter.push(`agent: ${data.agent}`);
-  if (data.epicId) frontmatter.push(`epicId: "${data.epicId}"`);
-
-  frontmatter.push(`createdAt: "${new Date().toISOString()}"`);
-  frontmatter.push('---');
-  frontmatter.push('');
-  frontmatter.push(`# ${data.title}`);
-  frontmatter.push('');
-
-  if (data.description) {
-    frontmatter.push(data.description);
-    frontmatter.push('');
-  }
-
-  if (data.acceptanceCriteria && data.acceptanceCriteria.length > 0) {
-    frontmatter.push('## Acceptance Criteria');
-    frontmatter.push('');
-    for (const criterion of data.acceptanceCriteria) {
-      frontmatter.push(`- [ ] ${criterion}`);
-    }
-    frontmatter.push('');
-  }
-
-  if (data.technicalNotes) {
-    frontmatter.push('## Technical Notes');
-    frontmatter.push('');
-    frontmatter.push(data.technicalNotes);
-    frontmatter.push('');
-  }
-
-  return frontmatter.join('\n');
-}
-
-interface CreateStoryRequest {
-  title: string;
-  description?: string;
-  status?: StoryStatus;
-  type?: StoryType;
-  priority?: StoryPriority;
-  complexity?: StoryComplexity;
-  category?: StoryCategory;
-  agent?: AgentId;
-  epicId?: string;
-  acceptanceCriteria?: string[];
-  technicalNotes?: string;
 }
 
 export async function GET() {
@@ -530,60 +289,5 @@ export async function GET() {
       },
       { status: 500 }
     );
-  }
-}
-
-export async function POST(request: Request) {
-  try {
-    const body = (await request.json()) as CreateStoryRequest;
-
-    // Validate required fields
-    if (!body.title || body.title.trim().length === 0) {
-      return NextResponse.json({ error: 'Title is required' }, { status: 400 });
-    }
-
-    const projectRoot = getProjectRoot();
-    const storiesDir = path.join(projectRoot, 'docs', 'stories');
-
-    // Ensure stories directory exists
-    try {
-      await fs.mkdir(storiesDir, { recursive: true });
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== 'EEXIST') {
-        throw error;
-      }
-    }
-
-    // Generate filename and content
-    const filename = generateStoryFilename(body.title);
-    const filePath = path.join(storiesDir, filename);
-    const content = generateStoryContent(body);
-
-    // Write file
-    await fs.writeFile(filePath, content, 'utf-8');
-
-    // Get file stats and parse back to Story object
-    const stats = await fs.stat(filePath);
-    const relativePath = path.relative(projectRoot, filePath);
-    const story = parseStoryFromMarkdown(content, relativePath, {
-      mtime: stats.mtime,
-      birthtime: stats.birthtime,
-    });
-
-    if (!story) {
-      return NextResponse.json({ error: 'Failed to create story' }, { status: 500 });
-    }
-
-    return NextResponse.json(
-      {
-        story,
-        filePath: relativePath,
-        message: 'Story created successfully',
-      },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.error('Error creating story:', error);
-    return NextResponse.json({ error: 'Failed to create story' }, { status: 500 });
   }
 }

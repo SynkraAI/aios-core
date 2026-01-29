@@ -45,11 +45,8 @@ export function SortableStoryCard({ story, onClick }: SortableStoryCardProps) {
       style={style}
       {...attributes}
       {...listeners}
-      aria-label={`Story: ${story.title}. Status: ${story.status}. Press Space to drag.`}
-      aria-describedby="dnd-instructions"
       className={cn(
-        'touch-none outline-none',
-        'focus-visible:ring-2 focus-visible:ring-[var(--accent-gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-surface)]',
+        'touch-none',
         isDragging && 'opacity-50 scale-105 z-50'
       )}
     >
