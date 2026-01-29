@@ -28,11 +28,24 @@
   --agent-analyst: #06b6d4;
   --agent-devops: #ec4899;
 
-  /* Radius Scale */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  /* Radius Scale - Refined (sharper) */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+
+  /* Gold Accent System */
+  --accent-gold: #C9B298;
+  --accent-gold-light: #E4D8CA;
+  --accent-gold-dim: rgba(201, 178, 152, 0.25);
+  --border-gold: rgba(201, 178, 152, 0.25);
+  --border-gold-strong: rgba(201, 178, 152, 0.5);
+
+  /* Animation */
+  --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
 
   /* Spacing Scale */
   --space-1: 4px;
@@ -143,40 +156,77 @@
   }
 }
 
-/* Force dark mode class */
+/* ═══════════════════════════════════════════════════════════
+   TECH REFINED - Elegant Dark Theme
+   Inspired by LUXE_MINIMAL but keeping tech identity
+   ═══════════════════════════════════════════════════════════ */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-hover: #161620;
-  --border: oklch(1 0 0 / 10%);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Backgrounds - Pure black depth */
+  --background: #000000;
+  --foreground: #FAFAF8;
+  --card: #0a0a0a;
+  --card-hover: #111111;
+  --card-foreground: #FAFAF8;
+  --popover: #0a0a0a;
+  --popover-foreground: #FAFAF8;
+
+  /* Borders - Subtle, refined */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-medium: rgba(255, 255, 255, 0.10);
+
+  /* Primary - Gold accent */
+  --primary: #C9B298;
+  --primary-foreground: #0a0a0a;
+
+  /* Secondary */
+  --secondary: #141414;
+  --secondary-foreground: #A8A89C;
+
+  /* Muted */
+  --muted: #141414;
+  --muted-foreground: #6B6B5F;
+
+  /* Accent - Gold system */
+  --accent: rgba(201, 178, 152, 0.15);
+  --accent-foreground: #C9B298;
+  --accent-gold: #C9B298;
+  --accent-gold-light: #E4D8CA;
+  --accent-gold-dim: rgba(201, 178, 152, 0.25);
+
+  /* Destructive */
+  --destructive: #F87171;
+  --input: rgba(255, 255, 255, 0.06);
+  --ring: rgba(201, 178, 152, 0.5);
+
+  /* Chart colors - Refined palette */
+  --chart-1: #60A5FA;
+  --chart-2: #34D399;
+  --chart-3: #FBBF24;
+  --chart-4: #A78BFA;
+  --chart-5: #F87171;
+
+  /* Sidebar - Deeper black */
+  --sidebar: #050505;
+  --sidebar-foreground: #A8A89C;
+  --sidebar-primary: #C9B298;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: rgba(201, 178, 152, 0.1);
+  --sidebar-accent-foreground: #FAFAF8;
+  --sidebar-border: rgba(255, 255, 255, 0.04);
+  --sidebar-ring: rgba(201, 178, 152, 0.5);
+
+  /* Text hierarchy */
+  --text-primary: #FAFAF8;
+  --text-secondary: #A8A89C;
+  --text-tertiary: #6B6B5F;
+  --text-muted: #4A4A42;
+
+  /* Refined radius - Sharper */
+  --radius: 0.25rem;
+
+  /* Animation easing */
+  --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 body {

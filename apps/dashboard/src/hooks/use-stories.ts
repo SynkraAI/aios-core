@@ -1,6 +1,8 @@
 import { useCallback, useEffect } from 'react';
 import useSWR from 'swr';
 import { useStoryStore } from '@/stores/story-store';
+import { useSettingsStore } from '@/stores/settings-store';
+import { MOCK_STORIES } from '@/lib/mock-data';
 import type { Story } from '@/types';
 
 interface StoriesResponse {
@@ -33,6 +35,8 @@ interface UseStoriesReturn {
   error: string | undefined;
   /** Data source (filesystem, mock, empty, error) */
   source: string | undefined;
+  /** Whether using mock data */
+  useMockData: boolean;
   /** Manually trigger refresh */
   refresh: () => Promise<void>;
 }
@@ -40,9 +44,12 @@ interface UseStoriesReturn {
 export function useStories(options: UseStoriesOptions = {}): UseStoriesReturn {
   const { refreshInterval = 0 } = options;
   const { setStories, setLoading, setError } = useStoryStore();
+  const { settings } = useSettingsStore();
+  const useMockData = settings.useMockData;
 
+  // SWR for API fetch (disabled when using mock data)
   const { data, error, isLoading, mutate } = useSWR<StoriesResponse>(
-    '/api/stories',
+    useMockData ? null : '/api/stories', // null key disables fetching
     fetcher,
     {
       refreshInterval: refreshInterval > 0 ? refreshInterval : undefined,
@@ -51,8 +58,19 @@ export function useStories(options: UseStoriesOptions = {}): UseStoriesReturn {
     }
   );
 
-  // Sync data to store
+  // Load mock data when enabled
   useEffect(() => {
+    if (useMockData) {
+      setStories(MOCK_STORIES);
+      setError(null);
+      setLoading(false);
+    }
+  }, [useMockData, setStories, setError, setLoading]);
+
+  // Sync API data to store (when not using mock)
+  useEffect(() => {
+    if (useMockData) return;
+
     setLoading(isLoading);
 
     if (error) {
@@ -61,22 +79,28 @@ export function useStories(options: UseStoriesOptions = {}): UseStoriesReturn {
       setStories(data.stories);
       setError(null);
     }
-  }, [data, error, isLoading, setStories, setLoading, setError]);
+  }, [data, error, isLoading, useMockData, setStories, setLoading, setError]);
 
   const refresh = useCallback(async () => {
+    if (useMockData) {
+      // Just re-set mock data
+      setStories(MOCK_STORIES);
+      return;
+    }
     setLoading(true);
     try {
       await mutate();
     } finally {
       setLoading(false);
     }
-  }, [mutate, setLoading]);
+  }, [mutate, setLoading, useMockData, setStories]);
 
   return {
-    isLoading,
-    isError: !!error || data?.source === 'error',
-    error: error?.message || data?.error,
-    source: data?.source,
+    isLoading: useMockData ? false : isLoading,
+    isError: useMockData ? false : (!!error || data?.source === 'error'),
+    error: useMockData ? undefined : (error?.message || data?.error),
+    source: useMockData ? 'mock' : data?.source,
+    useMockData,
     refresh,
   };
 }

@@ -1,4 +1,7 @@
 // AIOS Dashboard Types - PRD v1.4
+// Professional design system - no emojis, icon names only
+
+import type { IconName } from '@/lib/icons';
 
 // ============ Story Types ============
 
@@ -52,7 +55,7 @@ export type AgentPhase = 'planning' | 'coding' | 'testing' | 'reviewing' | 'depl
 export interface Agent {
   id: AgentId;
   name: string;
-  icon: string;
+  icon: IconName;
   color: string;
   status: AgentStatus;
   currentStoryId?: string;
@@ -94,13 +97,53 @@ export interface AiosStatus {
     inProgress: string[];
     completed: string[];
   };
-  // Rate limit info (optional - provided by CLI when available)
   rateLimit?: {
     used: number;
     limit: number;
     resetsAt?: string;
   };
 }
+
+// ============ Terminal Types ============
+
+export type TerminalStatus = 'idle' | 'running' | 'error';
+
+export interface TerminalSession {
+  id: string;
+  agentId: AgentId;
+  name: string;
+  model: string;
+  apiType: string;
+  workingDirectory: string;
+  status: TerminalStatus;
+  currentCommand?: string;
+  storyId?: string;
+}
+
+// ============ Roadmap Types ============
+
+export type RoadmapPriority = 'must_have' | 'should_have' | 'could_have' | 'wont_have';
+export type RoadmapImpact = 'low' | 'medium' | 'high';
+export type RoadmapEffort = 'low' | 'medium' | 'high';
+
+export interface RoadmapItem {
+  id: string;
+  title: string;
+  description?: string;
+  priority: RoadmapPriority;
+  impact: RoadmapImpact;
+  effort: RoadmapEffort;
+  category?: StoryCategory;
+  tags?: string[];
+  linkedStoryId?: string;
+}
+
+export const ROADMAP_PRIORITY_CONFIG: Record<RoadmapPriority, { label: string; color: string }> = {
+  must_have: { label: 'Must Have', color: 'red' },
+  should_have: { label: 'Should Have', color: 'yellow' },
+  could_have: { label: 'Could Have', color: 'blue' },
+  wont_have: { label: "Won't Have", color: 'gray' },
+};
 
 // ============ Sidebar Types ============
 
@@ -119,8 +162,9 @@ export type SidebarView =
 export interface SidebarItem {
   id: SidebarView;
   label: string;
-  icon: string;
+  icon: IconName;
   href: string;
+  shortcut?: string;
 }
 
 // ============ Kanban Column Types ============
@@ -128,43 +172,66 @@ export interface SidebarItem {
 export interface KanbanColumn {
   id: StoryStatus;
   label: string;
-  icon: string;
+  icon: IconName;
   color: string;
 }
 
 export const KANBAN_COLUMNS: KanbanColumn[] = [
-  { id: 'backlog', label: 'Backlog', icon: '📋', color: 'gray' },
-  { id: 'in_progress', label: 'In Progress', icon: '🚀', color: 'blue' },
-  { id: 'ai_review', label: 'AI Review', icon: '🤖', color: 'purple' },
-  { id: 'human_review', label: 'Human Review', icon: '👤', color: 'yellow' },
-  { id: 'pr_created', label: 'PR Created', icon: '🔗', color: 'cyan' },
-  { id: 'done', label: 'Done', icon: '✅', color: 'green' },
-  { id: 'error', label: 'Error', icon: '❌', color: 'red' },
+  { id: 'backlog', label: 'Backlog', icon: 'file-text', color: 'gray' },
+  { id: 'in_progress', label: 'In Progress', icon: 'play', color: 'blue' },
+  { id: 'ai_review', label: 'AI Review', icon: 'bot', color: 'purple' },
+  { id: 'human_review', label: 'Human Review', icon: 'user', color: 'yellow' },
+  { id: 'pr_created', label: 'PR Created', icon: 'git-pull-request', color: 'cyan' },
+  { id: 'done', label: 'Done', icon: 'check-circle', color: 'green' },
+  { id: 'error', label: 'Error', icon: 'x-circle', color: 'red' },
 ];
 
 // ============ Agent Config ============
 
-export const AGENT_CONFIG: Record<AgentId, { name: string; icon: string; color: string }> = {
-  dev: { name: 'Dev', icon: '💻', color: 'var(--agent-dev)' },
-  qa: { name: 'QA', icon: '🧪', color: 'var(--agent-qa)' },
-  architect: { name: 'Architect', icon: '🏛️', color: 'var(--agent-architect)' },
-  pm: { name: 'PM', icon: '📊', color: 'var(--agent-pm)' },
-  po: { name: 'PO', icon: '🎯', color: 'var(--agent-po)' },
-  analyst: { name: 'Analyst', icon: '📈', color: 'var(--agent-analyst)' },
-  devops: { name: 'DevOps', icon: '🔧', color: 'var(--agent-devops)' },
+export interface AgentConfig {
+  name: string;
+  icon: IconName;
+  color: string;
+}
+
+export const AGENT_CONFIG: Record<AgentId, AgentConfig> = {
+  dev: { name: 'Dev', icon: 'code', color: 'var(--agent-dev)' },
+  qa: { name: 'QA', icon: 'test-tube', color: 'var(--agent-qa)' },
+  architect: { name: 'Architect', icon: 'building', color: 'var(--agent-architect)' },
+  pm: { name: 'PM', icon: 'bar-chart', color: 'var(--agent-pm)' },
+  po: { name: 'PO', icon: 'target', color: 'var(--agent-po)' },
+  analyst: { name: 'Analyst', icon: 'line-chart', color: 'var(--agent-analyst)' },
+  devops: { name: 'DevOps', icon: 'wrench', color: 'var(--agent-devops)' },
 };
 
 // ============ Sidebar Config ============
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
-  { id: 'kanban', label: 'Kanban', icon: '📋', href: '/kanban' },
-  { id: 'agents', label: 'Agents', icon: '🤖', href: '/agents' },
-  { id: 'terminals', label: 'Terminals', icon: '💻', href: '/terminals' },
-  { id: 'roadmap', label: 'Roadmap', icon: '🗺️', href: '/roadmap' },
-  { id: 'context', label: 'Context', icon: '📚', href: '/context' },
-  { id: 'ideas', label: 'Ideas', icon: '💡', href: '/ideas' },
-  { id: 'insights', label: 'Insights', icon: '📊', href: '/insights' },
-  { id: 'github', label: 'GitHub', icon: '🔗', href: '/github' },
-  { id: 'worktrees', label: 'Worktrees', icon: '🌳', href: '/worktrees' },
-  { id: 'settings', label: 'Settings', icon: '⚙️', href: '/settings' },
+  { id: 'kanban', label: 'Kanban', icon: 'kanban', href: '/kanban', shortcut: 'K' },
+  { id: 'agents', label: 'Agents', icon: 'bot', href: '/agents', shortcut: 'A' },
+  { id: 'terminals', label: 'Terminals', icon: 'terminal', href: '/terminals', shortcut: 'T' },
+  { id: 'insights', label: 'Insights', icon: 'trending-up', href: '/insights', shortcut: 'I' },
+  { id: 'context', label: 'Context', icon: 'brain', href: '/context', shortcut: 'C' },
+  { id: 'roadmap', label: 'Roadmap', icon: 'map', href: '/roadmap', shortcut: 'R' },
+  { id: 'github', label: 'GitHub', icon: 'github', href: '/github', shortcut: 'G' },
+  { id: 'settings', label: 'Settings', icon: 'settings', href: '/settings', shortcut: 'S' },
 ];
+
+// ============ Status Colors (semantic) ============
+
+export const STATUS_COLORS: Record<StoryStatus, string> = {
+  backlog: 'text-muted-foreground',
+  in_progress: 'text-blue-500',
+  ai_review: 'text-purple-500',
+  human_review: 'text-yellow-500',
+  pr_created: 'text-cyan-500',
+  done: 'text-green-500',
+  error: 'text-red-500',
+};
+
+export const AGENT_STATUS_COLORS: Record<AgentStatus, string> = {
+  idle: 'bg-muted-foreground',
+  working: 'bg-green-500',
+  waiting: 'bg-yellow-500',
+  error: 'bg-red-500',
+};
