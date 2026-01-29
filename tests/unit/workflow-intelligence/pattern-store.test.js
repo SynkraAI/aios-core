@@ -71,7 +71,7 @@ describe('PatternStore (Unit)', () => {
       const store = createPatternStore({
         storagePath: testStoragePath,
         maxPatterns: 50,
-        pruneThreshold: 0.8
+        pruneThreshold: 0.8,
       });
       expect(store.maxPatterns).toBe(50);
       expect(store.pruneThreshold).toBe(0.8);
@@ -84,7 +84,7 @@ describe('PatternStore (Unit)', () => {
       const pattern = {
         sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
         agents: ['dev', 'qa'],
-        successRate: 1.0
+        successRate: 1.0,
       };
 
       const result = store.save(pattern);
@@ -98,7 +98,7 @@ describe('PatternStore (Unit)', () => {
       const store = createPatternStore({ storagePath: testStoragePath });
       const pattern = {
         sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
-        successRate: 1.0
+        successRate: 1.0,
       };
 
       store.save(pattern);
@@ -113,12 +113,12 @@ describe('PatternStore (Unit)', () => {
 
       store.save({
         sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
-        successRate: 1.0
+        successRate: 1.0,
       });
 
       const result = store.save({
         sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
-        successRate: 0.5
+        successRate: 0.5,
       });
 
       // Average of 1.0 and 0.5 = 0.75
@@ -221,7 +221,7 @@ describe('PatternStore (Unit)', () => {
     it('should include similarity score in results', () => {
       const matches = store.findSimilar(['develop', 'review-qa']);
 
-      matches.forEach(m => {
+      matches.forEach((m) => {
         expect(m.similarity).toBeDefined();
         expect(m.similarity).toBeGreaterThan(0);
         expect(m.similarity).toBeLessThanOrEqual(1);
@@ -277,7 +277,7 @@ describe('PatternStore (Unit)', () => {
     beforeEach(() => {
       store = createPatternStore({
         storagePath: testStoragePath,
-        maxPatterns: 10
+        maxPatterns: 10,
       });
 
       // Add 8 patterns
@@ -285,7 +285,7 @@ describe('PatternStore (Unit)', () => {
         store.save({
           sequence: [`cmd${i}a`, `cmd${i}b`, `cmd${i}c`],
           occurrences: i + 1,
-          successRate: 0.5 + (i * 0.05)
+          successRate: 0.5 + i * 0.05,
         });
       }
     });
@@ -308,13 +308,13 @@ describe('PatternStore (Unit)', () => {
       const result = store.prune({ keepCount: 3 });
       const data = store.load();
 
-      expect(data.patterns.some(p => p.status === 'promoted')).toBe(true);
+      expect(data.patterns.some((p) => p.status === 'promoted')).toBe(true);
     });
 
     it('should use lowest_success_rate strategy when specified', () => {
       const result = store.prune({
         keepCount: 4,
-        strategy: 'lowest_success_rate'
+        strategy: 'lowest_success_rate',
       });
 
       expect(result.remaining).toBe(4);
@@ -395,7 +395,7 @@ describe('PatternStore (Unit)', () => {
       const patterns = store.getActivePatterns();
 
       expect(patterns).toHaveLength(2);
-      expect(patterns.every(p => p.status === 'active' || p.status === 'promoted')).toBe(true);
+      expect(patterns.every((p) => p.status === 'active' || p.status === 'promoted')).toBe(true);
     });
   });
 
@@ -429,7 +429,7 @@ describe('PatternStore (Unit)', () => {
       const store = createPatternStore({
         storagePath: testStoragePath,
         maxPatterns: 10,
-        pruneThreshold: 0.8
+        pruneThreshold: 0.8,
       });
 
       // Add patterns to exceed 80% threshold
@@ -460,7 +460,7 @@ describe('PatternStore (Unit)', () => {
       const store = createPatternStore({ storagePath: testStoragePath });
       const pattern = {
         sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
-        agents: ['dev', 'qa']
+        agents: ['dev', 'qa'],
       };
 
       const start = Date.now();

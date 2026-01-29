@@ -51,7 +51,7 @@ describe('PatternValidator (Unit)', () => {
 
     it('should accept custom rules', () => {
       const validator = createPatternValidator({
-        rules: { minSequenceLength: 5, minSuccessRate: 0.9 }
+        rules: { minSequenceLength: 5, minSuccessRate: 0.9 },
       });
       expect(validator.rules.minSequenceLength).toBe(5);
       expect(validator.rules.minSuccessRate).toBe(0.9);
@@ -59,7 +59,7 @@ describe('PatternValidator (Unit)', () => {
 
     it('should merge custom rules with defaults', () => {
       const validator = createPatternValidator({
-        rules: { minSequenceLength: 5 }
+        rules: { minSequenceLength: 5 },
       });
       expect(validator.rules.minSequenceLength).toBe(5);
       expect(validator.rules.maxSequenceLength).toBe(10); // Default preserved
@@ -95,24 +95,24 @@ describe('PatternValidator (Unit)', () => {
     describe('Sequence Length Rules', () => {
       it('should reject sequences shorter than minimum', () => {
         const result = validator.validate({
-          sequence: ['develop', 'review-qa']
+          sequence: ['develop', 'review-qa'],
         });
         expect(result.valid).toBe(false);
-        expect(result.errors.some(e => e.includes('too short'))).toBe(true);
+        expect(result.errors.some((e) => e.includes('too short'))).toBe(true);
       });
 
       it('should accept sequences at minimum length', () => {
         const result = validator.validate({
-          sequence: ['develop', 'review-qa', 'apply-qa-fixes']
+          sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
         });
         expect(result.valid).toBe(true);
       });
 
       it('should warn for unusually long sequences', () => {
         const result = validator.validate({
-          sequence: Array(12).fill('develop')
+          sequence: Array(12).fill('develop'),
         });
-        expect(result.warnings.some(w => w.includes('unusually long'))).toBe(true);
+        expect(result.warnings.some((w) => w.includes('unusually long'))).toBe(true);
       });
     });
 
@@ -120,17 +120,17 @@ describe('PatternValidator (Unit)', () => {
       it('should warn for low occurrences', () => {
         const result = validator.validate({
           sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
-          occurrences: 1
+          occurrences: 1,
         });
-        expect(result.warnings.some(w => w.includes('Low occurrences'))).toBe(true);
+        expect(result.warnings.some((w) => w.includes('Low occurrences'))).toBe(true);
       });
 
       it('should not warn when occurrences meet minimum', () => {
         const result = validator.validate({
           sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
-          occurrences: 2
+          occurrences: 2,
         });
-        expect(result.warnings.some(w => w.includes('occurrences'))).toBe(false);
+        expect(result.warnings.some((w) => w.includes('occurrences'))).toBe(false);
       });
     });
 
@@ -138,16 +138,16 @@ describe('PatternValidator (Unit)', () => {
       it('should reject patterns with low success rate', () => {
         const result = validator.validate({
           sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
-          successRate: 0.5
+          successRate: 0.5,
         });
         expect(result.valid).toBe(false);
-        expect(result.errors.some(e => e.includes('Success rate too low'))).toBe(true);
+        expect(result.errors.some((e) => e.includes('Success rate too low'))).toBe(true);
       });
 
       it('should accept patterns with high success rate', () => {
         const result = validator.validate({
           sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
-          successRate: 0.9
+          successRate: 0.9,
         });
         expect(result.valid).toBe(true);
       });
@@ -156,50 +156,50 @@ describe('PatternValidator (Unit)', () => {
     describe('Key Command Rules', () => {
       it('should reject patterns without key workflow commands', () => {
         const result = validator.validate({
-          sequence: ['unknown1', 'unknown2', 'unknown3']
+          sequence: ['unknown1', 'unknown2', 'unknown3'],
         });
         expect(result.valid).toBe(false);
-        expect(result.errors.some(e => e.includes('key workflow command'))).toBe(true);
+        expect(result.errors.some((e) => e.includes('key workflow command'))).toBe(true);
       });
 
       it('should accept patterns with at least one key command', () => {
         const result = validator.validate({
-          sequence: ['develop', 'unknown1', 'unknown2']
+          sequence: ['develop', 'unknown1', 'unknown2'],
         });
         // May have warnings but should be valid
-        expect(result.errors.some(e => e.includes('key workflow command'))).toBe(false);
+        expect(result.errors.some((e) => e.includes('key workflow command'))).toBe(false);
       });
     });
 
     describe('Unknown Commands Warning', () => {
       it('should warn about unknown commands', () => {
         const result = validator.validate({
-          sequence: ['develop', 'totally-unknown-cmd', 'review-qa']
+          sequence: ['develop', 'totally-unknown-cmd', 'review-qa'],
         });
-        expect(result.warnings.some(w => w.includes('Unknown commands'))).toBe(true);
+        expect(result.warnings.some((w) => w.includes('Unknown commands'))).toBe(true);
       });
 
       it('should not warn for known commands', () => {
         const result = validator.validate({
-          sequence: ['develop', 'review-qa', 'run-tests']
+          sequence: ['develop', 'review-qa', 'run-tests'],
         });
-        expect(result.warnings.some(w => w.includes('Unknown commands'))).toBe(false);
+        expect(result.warnings.some((w) => w.includes('Unknown commands'))).toBe(false);
       });
     });
 
     describe('Duplicate Consecutive Commands', () => {
       it('should warn about duplicate consecutive commands', () => {
         const result = validator.validate({
-          sequence: ['develop', 'develop', 'review-qa']
+          sequence: ['develop', 'develop', 'review-qa'],
         });
-        expect(result.warnings.some(w => w.includes('duplicate consecutive'))).toBe(true);
+        expect(result.warnings.some((w) => w.includes('duplicate consecutive'))).toBe(true);
       });
 
       it('should not warn for non-consecutive duplicates', () => {
         const result = validator.validate({
-          sequence: ['develop', 'review-qa', 'develop']
+          sequence: ['develop', 'review-qa', 'develop'],
         });
-        expect(result.warnings.some(w => w.includes('duplicate consecutive'))).toBe(false);
+        expect(result.warnings.some((w) => w.includes('duplicate consecutive'))).toBe(false);
       });
     });
 
@@ -208,7 +208,7 @@ describe('PatternValidator (Unit)', () => {
         const result = validator.validate({
           sequence: ['develop', 'review-qa', 'apply-qa-fixes'],
           occurrences: 5,
-          successRate: 0.95
+          successRate: 0.95,
         });
 
         expect(result.valid).toBe(true);
@@ -226,18 +226,13 @@ describe('PatternValidator (Unit)', () => {
     });
 
     it('should return false for empty existing patterns', () => {
-      const result = validator.isDuplicate(
-        { sequence: ['a', 'b', 'c'] },
-        []
-      );
+      const result = validator.isDuplicate({ sequence: ['a', 'b', 'c'] }, []);
       expect(result.isDuplicate).toBe(false);
     });
 
     it('should detect exact duplicates', () => {
       const pattern = { sequence: ['develop', 'review-qa', 'apply-qa-fixes'] };
-      const existing = [
-        { id: 'p1', sequence: ['develop', 'review-qa', 'apply-qa-fixes'] }
-      ];
+      const existing = [{ id: 'p1', sequence: ['develop', 'review-qa', 'apply-qa-fixes'] }];
 
       const result = validator.isDuplicate(pattern, existing);
 
@@ -248,9 +243,7 @@ describe('PatternValidator (Unit)', () => {
 
     it('should detect similar patterns above threshold', () => {
       const pattern = { sequence: ['develop', 'review-qa', 'run-tests'] };
-      const existing = [
-        { id: 'p1', sequence: ['develop', 'review-qa', 'apply-qa-fixes'] }
-      ];
+      const existing = [{ id: 'p1', sequence: ['develop', 'review-qa', 'apply-qa-fixes'] }];
 
       const result = validator.isDuplicate(pattern, existing);
 
@@ -263,9 +256,7 @@ describe('PatternValidator (Unit)', () => {
 
     it('should not flag different patterns as duplicates', () => {
       const pattern = { sequence: ['create-story', 'validate-story-draft', 'develop'] };
-      const existing = [
-        { id: 'p1', sequence: ['develop', 'review-qa', 'apply-qa-fixes'] }
-      ];
+      const existing = [{ id: 'p1', sequence: ['develop', 'review-qa', 'apply-qa-fixes'] }];
 
       const result = validator.isDuplicate(pattern, existing);
 
@@ -283,7 +274,7 @@ describe('PatternValidator (Unit)', () => {
     it('should pass pattern meeting all thresholds', () => {
       const result = validator.meetsMinimumThreshold({
         occurrences: 5,
-        successRate: 0.95
+        successRate: 0.95,
       });
 
       expect(result.meetsThreshold).toBe(true);
@@ -294,7 +285,7 @@ describe('PatternValidator (Unit)', () => {
     it('should fail pattern not meeting occurrence threshold', () => {
       const result = validator.meetsMinimumThreshold({
         occurrences: 1,
-        successRate: 0.95
+        successRate: 0.95,
       });
 
       expect(result.meetsThreshold).toBe(false);
@@ -305,7 +296,7 @@ describe('PatternValidator (Unit)', () => {
     it('should fail pattern not meeting success rate threshold', () => {
       const result = validator.meetsMinimumThreshold({
         occurrences: 5,
-        successRate: 0.5
+        successRate: 0.5,
       });
 
       expect(result.meetsThreshold).toBe(false);
@@ -316,7 +307,7 @@ describe('PatternValidator (Unit)', () => {
     it('should return current and required values', () => {
       const result = validator.meetsMinimumThreshold({
         occurrences: 3,
-        successRate: 0.85
+        successRate: 0.85,
       });
 
       expect(result.currentOccurrences).toBe(3);
@@ -353,7 +344,7 @@ describe('PatternValidator (Unit)', () => {
       const pattern = {
         sequence: ['develop', 'review-qa', 'apply-qa-fixes', 'run-tests'],
         occurrences: 5,
-        successRate: 0.95
+        successRate: 0.95,
       };
 
       const start = Date.now();
@@ -366,10 +357,12 @@ describe('PatternValidator (Unit)', () => {
     it('should check duplicates in under 50ms for 100 patterns', () => {
       const validator = createPatternValidator();
       const pattern = { sequence: ['develop', 'review-qa', 'apply-qa-fixes'] };
-      const existing = Array(100).fill(null).map((_, i) => ({
-        id: `p${i}`,
-        sequence: [`cmd${i}`, `cmd${i + 1}`, `cmd${i + 2}`]
-      }));
+      const existing = Array(100)
+        .fill(null)
+        .map((_, i) => ({
+          id: `p${i}`,
+          sequence: [`cmd${i}`, `cmd${i + 1}`, `cmd${i + 2}`],
+        }));
 
       const start = Date.now();
       validator.isDuplicate(pattern, existing);

@@ -13,10 +13,7 @@ const path = require('path');
 const fs = require('fs').promises;
 const os = require('os');
 const yaml = require('js-yaml');
-const {
-  SquadMigrator,
-  SquadValidator,
-} = require('../../../.aios-core/development/scripts/squad');
+const { SquadMigrator, SquadValidator } = require('../../../.aios-core/development/scripts/squad');
 
 // Test fixtures path (reuse from unit tests)
 const FIXTURES_PATH = path.join(__dirname, '../../unit/squad/fixtures');
@@ -109,10 +106,7 @@ describe('Squad Migration Integration Tests', () => {
       await copyRecursive(srcPath, testPath);
 
       // Record initial state
-      const initialContent = await fs.readFile(
-        path.join(testPath, 'squad.yaml'),
-        'utf-8'
-      );
+      const initialContent = await fs.readFile(path.join(testPath, 'squad.yaml'), 'utf-8');
 
       // Create migrator
       const migrator = new SquadMigrator();
@@ -127,10 +121,7 @@ describe('Squad Migration Integration Tests', () => {
       expect(result.backupPath).toBeNull();
 
       // Verify file unchanged
-      const finalContent = await fs.readFile(
-        path.join(testPath, 'squad.yaml'),
-        'utf-8'
-      );
+      const finalContent = await fs.readFile(path.join(testPath, 'squad.yaml'), 'utf-8');
       expect(finalContent).toBe(initialContent);
     });
   });
@@ -143,10 +134,7 @@ describe('Squad Migration Integration Tests', () => {
       await copyRecursive(srcPath, testPath);
 
       // Record original config.yaml content
-      const originalContent = await fs.readFile(
-        path.join(testPath, 'config.yaml'),
-        'utf-8'
-      );
+      const originalContent = await fs.readFile(path.join(testPath, 'config.yaml'), 'utf-8');
 
       // Create migrator and execute migration
       const migrator = new SquadMigrator();
@@ -176,10 +164,7 @@ describe('Squad Migration Integration Tests', () => {
       expect(await pathExists(path.join(testPath, 'squad.yaml'))).toBe(false);
 
       // Verify content matches original
-      const restoredContent = await fs.readFile(
-        path.join(testPath, 'config.yaml'),
-        'utf-8'
-      );
+      const restoredContent = await fs.readFile(path.join(testPath, 'config.yaml'), 'utf-8');
       expect(restoredContent).toBe(originalContent);
     });
 

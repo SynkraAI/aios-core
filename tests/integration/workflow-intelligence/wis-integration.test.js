@@ -21,7 +21,7 @@ describe('WIS Integration', () => {
         lastCommand: 'develop',
         lastCommands: ['validate-story-draft', 'develop'],
         agentId: '@dev',
-        projectState: { activeStory: true }
+        projectState: { activeStory: true },
       };
 
       const suggestions = wis.getSuggestions(context);
@@ -68,7 +68,7 @@ describe('WIS Integration', () => {
 
     it('should build context and get suggestions', async () => {
       const context = await engine.buildContext({
-        agentId: 'dev'
+        agentId: 'dev',
       });
 
       const result = await engine.suggestNext(context);
@@ -117,12 +117,12 @@ describe('WIS Integration', () => {
 
       const suggestion = {
         trigger: 'develop',
-        agentSequence: ['po', 'dev', 'qa']
+        agentSequence: ['po', 'dev', 'qa'],
       };
 
       const context = {
         lastCommand: 'develop',
-        agentId: '@dev'
+        agentId: '@dev',
       };
 
       const score = scorer.score(suggestion, context);
@@ -219,7 +219,7 @@ describe('WIS Performance', () => {
       lastCommand: 'develop',
       lastCommands: ['develop'],
       agentId: '@dev',
-      projectState: {}
+      projectState: {},
     };
 
     const start = Date.now();

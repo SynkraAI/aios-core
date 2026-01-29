@@ -74,7 +74,7 @@ describe('PatternCapture (Unit)', () => {
         agentSequence: ['sm', 'dev', 'qa'],
         success: true,
         timestamp: Date.now(),
-        sessionId: 'test-session-1'
+        sessionId: 'test-session-1',
       };
 
       const result = capture.captureSession(sessionData);
@@ -92,7 +92,7 @@ describe('PatternCapture (Unit)', () => {
       const disabledCapture = createPatternCapture({ enabled: false });
       const result = disabledCapture.captureSession({
         commands: ['a', 'b', 'c'],
-        success: true
+        success: true,
       });
 
       expect(result.valid).toBe(false);
@@ -108,7 +108,7 @@ describe('PatternCapture (Unit)', () => {
     it('should reject unsuccessful workflows', () => {
       const result = capture.captureSession({
         commands: ['develop', 'review-qa', 'apply-qa-fixes'],
-        success: false
+        success: false,
       });
 
       expect(result.valid).toBe(false);
@@ -118,7 +118,7 @@ describe('PatternCapture (Unit)', () => {
     it('should reject sequences shorter than minimum length', () => {
       const result = capture.captureSession({
         commands: ['develop', 'review-qa'],
-        success: true
+        success: true,
       });
 
       expect(result.valid).toBe(false);
@@ -128,7 +128,7 @@ describe('PatternCapture (Unit)', () => {
     it('should normalize command names (remove * prefix)', () => {
       const result = capture.captureSession({
         commands: ['*develop', '*review-qa', '*apply-qa-fixes'],
-        success: true
+        success: true,
       });
 
       expect(result.valid).toBe(true);
@@ -138,7 +138,7 @@ describe('PatternCapture (Unit)', () => {
     it('should detect story_development workflow', () => {
       const result = capture.captureSession({
         commands: ['develop', 'review-qa', 'apply-qa-fixes'],
-        success: true
+        success: true,
       });
 
       expect(result.pattern.workflow).toBe('story_development');
@@ -147,7 +147,7 @@ describe('PatternCapture (Unit)', () => {
     it('should detect story_creation workflow', () => {
       const result = capture.captureSession({
         commands: ['create-story', 'validate-story-draft', 'develop'],
-        success: true
+        success: true,
       });
 
       expect(result.pattern.workflow).toBe('story_creation');
@@ -156,11 +156,11 @@ describe('PatternCapture (Unit)', () => {
     it('should generate unique pattern IDs', () => {
       const result1 = capture.captureSession({
         commands: ['a', 'b', 'c'],
-        success: true
+        success: true,
       });
       const result2 = capture.captureSession({
         commands: ['x', 'y', 'z'],
-        success: true
+        success: true,
       });
 
       expect(result1.pattern.id).not.toBe(result2.pattern.id);
@@ -192,7 +192,7 @@ describe('PatternCapture (Unit)', () => {
       const patterns = capture.extractPatterns(history);
 
       // Should find patterns of length 3 and 4
-      const lengths = patterns.map(p => p.length);
+      const lengths = patterns.map((p) => p.length);
       expect(lengths).toContain(3);
       expect(lengths).toContain(4);
     });
@@ -331,7 +331,7 @@ describe('PatternCapture (Unit)', () => {
         commands: ['develop', 'review-qa', 'apply-qa-fixes', 'run-tests', 'create-pr'],
         agentSequence: ['dev', 'qa'],
         success: true,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
 
       const start = Date.now();
@@ -343,9 +343,9 @@ describe('PatternCapture (Unit)', () => {
 
     it('should extract patterns in under 50ms', () => {
       const capture = createPatternCapture();
-      const history = Array(20).fill(null).map((_, i) =>
-        i % 3 === 0 ? 'develop' : i % 3 === 1 ? 'review-qa' : 'run-tests'
-      );
+      const history = Array(20)
+        .fill(null)
+        .map((_, i) => (i % 3 === 0 ? 'develop' : i % 3 === 1 ? 'review-qa' : 'run-tests'));
 
       const start = Date.now();
       capture.extractPatterns(history);
