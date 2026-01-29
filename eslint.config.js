@@ -45,6 +45,8 @@ module.exports = [
       '.aios-core/product/templates/**',
       // Health Dashboard - uses Vite/React with ES modules
       'tools/health-dashboard/**',
+      // Apps with their own ESLint configs
+      'apps/dashboard/**',
     ],
   },
 
