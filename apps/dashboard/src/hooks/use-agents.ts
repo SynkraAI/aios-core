@@ -1,10 +1,9 @@
 import useSWR from 'swr';
 import { useEffect } from 'react';
 import { useAgentStore } from '@/stores/agent-store';
-import { useSettingsStore } from '@/stores/settings-store';
-import { MOCK_AGENTS } from '@/lib/mock-data';
 import type { AiosStatus, AgentId } from '@/types';
 
+// eslint-disable-next-line no-undef
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function useAgents() {
@@ -12,7 +11,6 @@ export function useAgents() {
     agents,
     activeAgentId,
     pollingInterval,
-    setAgents,
     setActiveAgent,
     clearActiveAgent,
     updateAgent,
@@ -22,32 +20,16 @@ export function useAgents() {
     getIdleAgents,
   } = useAgentStore();
 
-  const { settings } = useSettingsStore();
-  const useMockData = settings.useMockData;
+  // Poll the status endpoint
+  const { data, error, isLoading, mutate } = useSWR<AiosStatus>('/api/status', fetcher, {
+    refreshInterval: pollingInterval,
+    revalidateOnFocus: true,
+    dedupingInterval: 2000,
+  });
 
-  // Poll the status endpoint (disabled when using mock data)
-  const { data, error, isLoading, mutate } = useSWR<AiosStatus>(
-    useMockData ? null : '/api/status',
-    fetcher,
-    {
-      refreshInterval: pollingInterval,
-      revalidateOnFocus: true,
-      dedupingInterval: 2000,
-    }
-  );
-
-  // Load mock agents when enabled
+  // Sync status data with agent store
   useEffect(() => {
-    if (useMockData) {
-      setAgents(MOCK_AGENTS);
-      setLastPolledAt(new Date().toISOString());
-      setIsPolling(false);
-    }
-  }, [useMockData, setAgents, setLastPolledAt, setIsPolling]);
-
-  // Sync status data with agent store (when not using mock)
-  useEffect(() => {
-    if (useMockData || !data) return;
+    if (!data) return;
 
     setLastPolledAt(new Date().toISOString());
     setIsPolling(true);
@@ -71,7 +53,6 @@ export function useAgents() {
   }, [
     data,
     activeAgentId,
-    useMockData,
     setActiveAgent,
     clearActiveAgent,
     updateAgent,
@@ -85,9 +66,8 @@ export function useAgents() {
     idleAgents: getIdleAgents(),
     activeAgentId,
     status: data,
-    isLoading: useMockData ? false : isLoading,
-    error: useMockData ? null : error,
-    useMockData,
+    isLoading,
+    error,
     refresh: mutate,
   };
 }

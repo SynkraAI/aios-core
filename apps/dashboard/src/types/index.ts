@@ -43,16 +43,11 @@ export interface Story {
 
 // ============ Agent Types ============
 
-export type AgentId =
-  | 'dev'
-  | 'qa'
-  | 'architect'
-  | 'pm'
-  | 'po'
-  | 'analyst'
-  | 'devops';
+export type AgentId = 'dev' | 'qa' | 'architect' | 'pm' | 'po' | 'analyst' | 'devops';
 
 export type AgentStatus = 'idle' | 'working' | 'waiting' | 'error';
+
+export type AgentPhase = 'planning' | 'coding' | 'testing' | 'reviewing' | 'deploying';
 
 export interface Agent {
   id: AgentId;
@@ -61,6 +56,9 @@ export interface Agent {
   color: string;
   status: AgentStatus;
   currentStoryId?: string;
+  phase?: AgentPhase;
+  progress?: number;
+  lastActivity?: string;
 }
 
 // ============ Project Types ============
@@ -108,6 +106,7 @@ export interface AiosStatus {
 
 export type SidebarView =
   | 'kanban'
+  | 'agents'
   | 'terminals'
   | 'roadmap'
   | 'context'
@@ -159,6 +158,7 @@ export const AGENT_CONFIG: Record<AgentId, { name: string; icon: string; color: 
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
   { id: 'kanban', label: 'Kanban', icon: '📋', href: '/kanban' },
+  { id: 'agents', label: 'Agents', icon: '🤖', href: '/agents' },
   { id: 'terminals', label: 'Terminals', icon: '💻', href: '/terminals' },
   { id: 'roadmap', label: 'Roadmap', icon: '🗺️', href: '/roadmap' },
   { id: 'context', label: 'Context', icon: '📚', href: '/context' },

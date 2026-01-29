@@ -4,3 +4,4 @@
 export * from './ui-store';
 export * from './projects-store';
 export * from './story-store';
+export * from './agent-store';
