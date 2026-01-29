@@ -38,7 +38,7 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
     }
   }
 
-  // Framework-owned instructions - Using glob for agent rules as per documentation
+  // Framework-owned instructions
   const frameworkInstructions = [
     '.opencode/rules/opencode-rules.md',
     '.opencode/rules/AGENTS.md',
@@ -63,44 +63,39 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
     }
   }
 
-  // Build the minimalist but robust permissions object
-  // OpenCode is permissive by default, so we only specify deviates or critical framework tools
-  const permissionConfig = {
-    ...(existingConfig.permission || {}),
-    skill: 'allow', // Critical for AIOS workflows (*)
-    task: 'allow', // Critical for AIOS subagent orchestration
-    bash: {
-      // Core protections (Deny always wins)
-      'rm -rf /': 'deny',
-      'rm -rf ~': 'deny',
-      'rm -rf /*': 'deny',
-      'sudo rm -rf *': 'deny',
-      'mkfs *': 'deny',
-      'dd if=/dev/zero *': 'deny',
-      'chmod -R 777 /': 'deny',
-
-      // Merge with user's existing bash permissions if any
-      ...(existingConfig.permission?.bash || {}),
-
-      // Explicit automation bypasses
-      'git pull *': 'allow',
-
-      // Framework autonomy (override restrictive global defaults)
-      '*': 'allow',
-    },
-  };
-
-  // Merge with existing config, preserving all user settings (MCPs, themes, models, etc.)
+  // Pure Translation Logic: Only framework paths, instructions, and critical terminal safety
+  // All other permissions (read, edit, skill, task, etc.) rely on IDE defaults or user global config
   const config = {
     ...existingConfig,
     $schema: 'https://opencode.ai/config.json',
 
-    // Infrastructure paths
+    // Essential Infrastructure
     agentPaths: [...new Set(['.opencode/agents', ...(existingConfig.agentPaths || [])])],
     commandPaths: [...new Set(['.opencode/commands', ...(existingConfig.commandPaths || [])])],
-
     instructions: combinedInstructions,
-    permission: permissionConfig,
+
+    // Minimalist Permission Block (Safety + Terminal Autonomy only)
+    permission: {
+      ...existingConfig.permission,
+      bash: {
+        // Critical Denies (Framework Safety Guardrails)
+        'rm -rf /': 'deny',
+        'rm -rf ~': 'deny',
+        'rm -rf /*': 'deny',
+        'sudo rm -rf *': 'deny',
+        'mkfs *': 'deny',
+        'dd if=/dev/zero *': 'deny',
+        'chmod -R 777 /': 'deny',
+
+        // Explicit user preference for automation (if not already restricted)
+        'git pull *': 'allow',
+        '*': 'allow',
+
+        // Preserve any other user-defined bash permissions
+        ...(existingConfig.permission?.bash || {}),
+      },
+    },
+
     mcp: mcpConfig,
   };
 
