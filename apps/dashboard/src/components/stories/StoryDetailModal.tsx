@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { iconMap } from '@/lib/icons';
 import { AGENT_CONFIG, KANBAN_COLUMNS, type Story } from '@/types';
 
 // Status badge variants
@@ -71,24 +72,33 @@ export function StoryDetailModal({
           <Badge
             variant="outline"
             className={cn(
-              'border',
+              'border flex items-center gap-1',
               STATUS_VARIANTS[story.status] || STATUS_VARIANTS.backlog
             )}
           >
-            {statusConfig?.icon} {statusConfig?.label || story.status}
+            {statusConfig && (() => {
+              const IconComponent = iconMap[statusConfig.icon];
+              return IconComponent ? <IconComponent className="h-3 w-3" /> : null;
+            })()}
+            {statusConfig?.label || story.status}
           </Badge>
 
           {/* Agent Badge */}
           {agentConfig && (
             <Badge
               variant="outline"
+              className="flex items-center gap-1"
               style={{
                 backgroundColor: `${agentConfig.color}20`,
                 borderColor: `${agentConfig.color}40`,
                 color: agentConfig.color,
               }}
             >
-              {agentConfig.icon} @{story.agentId}
+              {(() => {
+                const IconComponent = iconMap[agentConfig.icon];
+                return IconComponent ? <IconComponent className="h-3 w-3" /> : null;
+              })()}
+              @{story.agentId}
             </Badge>
           )}
 

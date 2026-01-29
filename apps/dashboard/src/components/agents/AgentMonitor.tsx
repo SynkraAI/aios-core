@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { RefreshCw, Pause, Play } from 'lucide-react';
+import { RefreshCw, Pause, Play, Moon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { iconMap } from '@/lib/icons';
 import { useAgents } from '@/hooks/use-agents';
 import { useAgentStore } from '@/stores/agent-store';
 import { AgentCard } from './AgentCard';
@@ -98,7 +99,7 @@ export function AgentMonitor() {
         {/* No active agents message */}
         {activeAgents.length === 0 && (
           <div className="text-center py-8 text-muted-foreground">
-            <span className="text-4xl mb-2 block">💤</span>
+            <Moon className="h-10 w-10 mx-auto mb-2 opacity-50" />
             <p>No agents currently active</p>
             <p className="text-xs mt-1">
               Agents will appear here when activated via CLI
@@ -124,7 +125,10 @@ export function AgentMonitor() {
                   )}
                 >
                   <span className="h-2 w-2 rounded-full bg-gray-500" />
-                  <span>{agent.icon}</span>
+                  {(() => {
+                    const IconComponent = iconMap[agent.icon];
+                    return IconComponent ? <IconComponent className="h-4 w-4" /> : null;
+                  })()}
                   <span>@{agent.id}</span>
                 </div>
               ))}
