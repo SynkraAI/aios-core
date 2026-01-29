@@ -105,79 +105,6 @@ commands:
     visibility: [full]
     description: 'Planning mode before implementation'
 
-  # Subtask Execution (ADE - Coder Agent)
-  - name: execute-subtask
-    visibility: [full, quick]
-    description: 'Execute a single subtask from implementation.yaml (13-step Coder Agent workflow)'
-  - name: verify-subtask
-    visibility: [full, quick]
-    description: 'Verify subtask completion using configured verification (command, api, browser, e2e)'
-
-  # Recovery System (Epic 5 - ADE)
-  - name: track-attempt
-    visibility: [full, quick]
-    description: 'Track implementation attempt for a subtask (registers in recovery/attempts.json)'
-  - name: rollback
-    visibility: [full, quick]
-    description: 'Rollback to last good state for a subtask (--hard to skip confirmation)'
-
-  # Build Recovery (Epic 8 - Story 8.4)
-  - name: build-resume
-    visibility: [full, quick]
-    description: 'Resume autonomous build from last checkpoint'
-  - name: build-status
-    visibility: [full, quick]
-    description: 'Show build status (--all for all builds)'
-  - name: build-log
-    visibility: [full]
-    description: 'View build attempt log for debugging'
-  - name: build-cleanup
-    visibility: [full]
-    description: 'Cleanup abandoned build state files'
-
-  # Autonomous Build (Epic 8 - Story 8.1)
-  - name: build-autonomous
-    visibility: [full, quick]
-    description: 'Start autonomous build loop for a story (Coder Agent Loop with retries)'
-
-  # Build Orchestrator (Epic 8 - Story 8.5)
-  - name: build
-    visibility: [full, quick]
-    description: 'Complete autonomous build: worktree → plan → execute → verify → merge (*build {story-id})'
-
-  # Memory Layer (Epic 7 - ADE)
-  - name: capture-insights
-    visibility: [full, quick]
-    description: 'Capture session insights (discoveries, patterns, gotchas, decisions)'
-  - name: list-gotchas
-    visibility: [full, quick]
-    description: 'List known gotchas from .aios/gotchas.md'
-
-  # Gotchas Memory (Epic 9 - Story 9.4)
-  - name: gotcha
-    visibility: [full, quick]
-    description: 'Add a gotcha manually (*gotcha {title} - {description})'
-  - name: gotchas
-    visibility: [full, quick]
-    description: 'List and search gotchas (*gotchas [--category X] [--severity Y])'
-  - name: gotcha-context
-    visibility: [full]
-    description: 'Get relevant gotchas for current task context'
-
-  # Worktree Isolation (Epic 8 - Story 8.2)
-  - name: worktree-create
-    visibility: [full, quick]
-    description: 'Create isolated worktree for story (*worktree-create {story-id})'
-  - name: worktree-list
-    visibility: [full, quick]
-    description: 'List active worktrees with status'
-  - name: worktree-cleanup
-    visibility: [full]
-    description: 'Remove completed/stale worktrees'
-  - name: worktree-merge
-    visibility: [full]
-    description: 'Merge worktree branch back to base (*worktree-merge {story-id})'
-
   # Service Generation (WIS-11)
   - name: create-service
     visibility: [full, quick]
@@ -192,9 +119,6 @@ commands:
   - name: apply-qa-fixes
     visibility: [quick, key]
     description: 'Apply QA feedback and fixes'
-  - name: fix-qa-issues
-    visibility: [full, quick]
-    description: 'Fix QA issues from QA_FIX_REQUEST.md (8-phase workflow)'
   - name: run-tests
     visibility: [quick, key]
     description: 'Execute linting and all tests'
@@ -236,15 +160,11 @@ develop-story:
 dependencies:
   checklists:
     - story-dod-checklist.md
-    - self-critique-checklist.md # ADE: Mandatory self-review for Coder Agent steps 5.5 & 6.5
   tasks:
     - apply-qa-fixes.md
-    - qa-fix-issues.md # Epic 6: QA fix loop (8-phase workflow)
     - create-service.md # WIS-11: Service scaffolding from templates
     - dev-develop-story.md
     - execute-checklist.md
-    - plan-execute-subtask.md # ADE: 13-step Coder Agent workflow for subtask execution
-    - verify-subtask.md # ADE: Verify subtask completion (command, api, browser, e2e)
     - dev-improve-code-quality.md
     - po-manage-story-backlog.md
     - dev-optimize-performance.md
@@ -252,36 +172,6 @@ dependencies:
     - sync-documentation.md
     - validate-next-story.md
     - waves.md # WIS-4: Wave analysis for parallel execution
-    # Memory Layer (Epic 7)
-    - capture-session-insights.md
-    # Build Recovery (Epic 8 - Story 8.4)
-    - build-resume.md
-    - build-status.md
-    # Autonomous Build (Epic 8 - Story 8.1)
-    - build-autonomous.md
-    # Gotchas Memory (Epic 9 - Story 9.4)
-    - gotcha.md
-    - gotchas.md
-    # Worktree Isolation (Epic 8 - Story 8.2)
-    - create-worktree.md
-    - list-worktrees.md
-    - remove-worktree.md
-  scripts:
-    # Recovery System (Epic 5)
-    - recovery-tracker.js # Track implementation attempts
-    - stuck-detector.js # Detect stuck conditions
-    - approach-manager.js # Manage current approach documentation
-    - rollback-manager.js # Rollback to last good state
-    # Build Recovery (Epic 8 - Story 8.4)
-    - build-state-manager.js # Autonomous build state and checkpoints
-    # Autonomous Build (Epic 8 - Story 8.1)
-    - autonomous-build-loop.js # Coder Agent Loop with retries
-    # Build Orchestrator (Epic 8 - Story 8.5)
-    - build-orchestrator.js # Complete pipeline orchestration
-    # Gotchas Memory (Epic 9 - Story 9.4)
-    - gotchas-memory.js # Enhanced gotchas with auto-capture
-    # Worktree Isolation (Epic 8 - Story 8.2)
-    - worktree-manager.js # Isolated worktree management
   tools:
     - coderabbit # Pre-commit code quality review, catches issues before commit
     - git # Local operations: add, commit, status, diff, log (NO PUSH)
@@ -467,14 +357,6 @@ autoClaude:
 - `*develop {story-id}` - Implement story tasks
 - `*run-tests` - Execute linting and tests
 - `*create-service` - Scaffold new service from template
-
-**Autonomous Build (Epic 8):**
-
-- `*build-autonomous {story-id}` - Start autonomous build loop
-- `*build-resume {story-id}` - Resume build from checkpoint
-- `*build-status {story-id}` - Show build status
-- `*build-status --all` - Show all active builds
-- `*build-log {story-id}` - View attempt log
 
 **Quality & Debt:**
 

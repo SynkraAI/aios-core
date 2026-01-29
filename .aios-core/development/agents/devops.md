@@ -175,12 +175,6 @@ commands:
   - cleanup-worktrees: Remove all stale worktrees (> 30 days)
   - merge-worktree: Merge worktree branch back to base
 
-  # Migration Management (Epic 2 - V2→V3 Migration)
-  - inventory-assets: Generate migration inventory from V2 assets
-  - analyze-paths: Analyze path dependencies and migration impact
-  - migrate-agent: Migrate single agent from V2 to V3 format
-  - migrate-batch: Batch migrate all agents with validation
-
   # Utilities
   - session-info: Show current session details (agent history, commands)
   - guide: Show comprehensive usage guide for this agent
@@ -222,11 +216,6 @@ dependencies:
     - gitignore-manager # Manage gitignore rules per mode
     - version-tracker # Track version history and semantic versioning
     - git-wrapper # Abstracts git command execution for consistency
-  scripts:
-    # Migration Management (Epic 2)
-    - asset-inventory.js # Generate migration inventory
-    - path-analyzer.js # Analyze path dependencies
-    - migrate-agent.js # Migrate V2→V3 single agent
   tools:
     - coderabbit # Automated code review, pre-PR quality gate
     - github-cli # PRIMARY TOOL - All GitHub operations
@@ -239,7 +228,7 @@ dependencies:
     wsl_config:
       distribution: Ubuntu
       installation_path: ~/.local/bin/coderabbit
-      working_directory: ${PROJECT_ROOT}
+      working_directory: /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core
     usage:
       - Pre-PR quality gate - run before creating pull requests
       - Pre-push validation - verify code quality before push
@@ -251,9 +240,9 @@ dependencies:
       MEDIUM: Document in PR description, create follow-up issue
       LOW: Optional improvements, note in comments
     commands:
-      pre_push_uncommitted: "wsl bash -c 'cd ${PROJECT_ROOT} && ~/.local/bin/coderabbit --prompt-only -t uncommitted'"
-      pre_pr_against_main: "wsl bash -c 'cd ${PROJECT_ROOT} && ~/.local/bin/coderabbit --prompt-only --base main'"
-      pre_commit_committed: "wsl bash -c 'cd ${PROJECT_ROOT} && ~/.local/bin/coderabbit --prompt-only -t committed'"
+      pre_push_uncommitted: "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'"
+      pre_pr_against_main: "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core && ~/.local/bin/coderabbit --prompt-only --base main'"
+      pre_commit_committed: "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core && ~/.local/bin/coderabbit --prompt-only -t committed'"
     execution_guidelines: |
       CRITICAL: CodeRabbit CLI is installed in WSL, not Windows.
 

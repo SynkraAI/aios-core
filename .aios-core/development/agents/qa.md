@@ -98,35 +98,15 @@ commands:
   - help: Show all available commands with descriptions
   - 'code-review {scope}': 'Run automated review (scope: uncommitted or committed)'
   - 'review {story}': Comprehensive story review with gate decision
-  - 'review-build {story}': '10-phase structured QA review (Epic 6) - outputs qa_report.md'
 
   # Quality Gates
   - 'gate {story}': Create quality gate decision
   - 'nfr-assess {story}': Validate non-functional requirements
   - 'risk-profile {story}': Generate risk assessment matrix
 
-  # Fix Requests (Epic 6 - QA Loop)
-  - 'create-fix-request {story}': Generate QA_FIX_REQUEST.md for @dev with issues to fix
-
-  # Enhanced Validation (Absorbed from Auto-Claude)
-  - 'validate-libraries {story}': Validate third-party library usage via Context7
-  - 'security-check {story}': Run 8-point security vulnerability scan
-  - 'validate-migrations {story}': Validate database migrations for schema changes
-  - 'evidence-check {story}': Verify evidence-based QA requirements
-  - 'false-positive-check {story}': Critical thinking verification for bug fixes
-  - 'console-check {story}': Browser console error detection
-
   # Test Strategy
   - 'test-design {story}': Create comprehensive test scenarios
   - 'trace {story}': 'Map requirements to tests (Given-When-Then)'
-
-  # Spec Pipeline (Epic 3 - ADE)
-  - 'critique-spec {story}': Review and critique specification for completeness and clarity
-
-  # Cross-Artifact Analysis (SDD Adoption)
-  - analyze: Cross-artifact analysis (coverage, consistency, ambiguity) - read-only report
-  - 'analyze --scope {scope}': Analyze specific scope (prd, architecture, stories, specs)
-  - 'analyze --story {id}': Analyze specific story artifacts
 
   # Backlog Management
   - 'backlog-add {story} {type} {priority} {title}': Add item to story backlog
@@ -141,28 +121,16 @@ dependencies:
   data:
     - technical-preferences.md
   tasks:
-    - analyze-cross-artifact.md
-    - qa-create-fix-request.md
-    - qa-generate-tests.md
+    - generate-tests.md
     - manage-story-backlog.md
-    - qa-nfr-assess.md
+    - nfr-assess.md
     - qa-gate.md
-    - qa-review-build.md
-    - qa-review-proposal.md
-    - qa-review-story.md
-    - qa-risk-profile.md
-    - qa-run-tests.md
-    - qa-test-design.md
-    - qa-trace-requirements.md
-    # Spec Pipeline (Epic 3)
-    - spec-critique.md
-    # Enhanced Validation (Absorbed from Auto-Claude)
-    - qa-library-validation.md
-    - qa-security-checklist.md
-    - qa-migration-validation.md
-    - qa-evidence-requirements.md
-    - qa-false-positive-detection.md
-    - qa-browser-console-check.md
+    - review-proposal.md
+    - review-story.md
+    - risk-profile.md
+    - run-tests.md
+    - test-design.md
+    - trace-requirements.md
   templates:
     - qa-gate-tmpl.yaml
     - story-tmpl.yaml
@@ -179,7 +147,7 @@ dependencies:
     wsl_config:
       distribution: Ubuntu
       installation_path: ~/.local/bin/coderabbit
-      working_directory: ${PROJECT_ROOT}
+      working_directory: /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core
     usage:
       - Pre-review automated scanning before human QA analysis
       - Security vulnerability detection (SQL injection, XSS, hardcoded secrets)
@@ -241,8 +209,8 @@ dependencies:
         - HALT and require human intervention
 
     commands:
-      qa_pre_review_uncommitted: "wsl bash -c 'cd ${PROJECT_ROOT} && ~/.local/bin/coderabbit --prompt-only -t uncommitted'"
-      qa_story_review_committed: "wsl bash -c 'cd ${PROJECT_ROOT} && ~/.local/bin/coderabbit --prompt-only -t committed --base main'"
+      qa_pre_review_uncommitted: "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'"
+      qa_story_review_committed: "wsl bash -c 'cd /mnt/c/Users/AllFluence-User/Workspaces/AIOS/AIOS-V4/@synkra/aios-core && ~/.local/bin/coderabbit --prompt-only -t committed --base main'"
     execution_guidelines: |
       CRITICAL: CodeRabbit CLI is installed in WSL, not Windows.
 
@@ -303,21 +271,11 @@ autoClaude:
 
 - `*code-review {scope}` - Run automated review
 - `*review {story}` - Comprehensive story review
-- `*review-build {story}` - 10-phase structured QA review (Epic 6)
 
 **Quality Gates:**
 
 - `*gate {story}` - Execute quality gate decision
 - `*nfr-assess {story}` - Validate non-functional requirements
-
-**Enhanced Validation (Auto-Claude Absorption):**
-
-- `*validate-libraries {story}` - Context7 library validation
-- `*security-check {story}` - 8-point security scan
-- `*validate-migrations {story}` - Database migration validation
-- `*evidence-check {story}` - Evidence-based QA verification
-- `*false-positive-check {story}` - Critical thinking for bug fixes
-- `*console-check {story}` - Browser console error detection
 
 **Test Strategy:**
 
