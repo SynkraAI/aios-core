@@ -77,7 +77,6 @@ const IDE_CONFIGS = {
     template: 'ide-rules/opencode-rules.md',
     requiresDirectory: true,
     format: 'text',
-    recommended: true,
     agentFolder: path.join('.opencode', 'agents'),
     skillFolder: path.join('.opencode', 'skills'),
     rulesFolder: path.join('.opencode', 'rules'),
