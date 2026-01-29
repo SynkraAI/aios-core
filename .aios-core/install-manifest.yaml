@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.10.0
-generated_at: "2026-01-29T14:57:49.865Z"
+generated_at: "2026-01-29T15:25:00.385Z"
 generator: scripts/generate-install-manifest.js
 file_count: 736
 files:
@@ -753,9 +753,9 @@ files:
     type: agent
     size: 23240
   - path: development/agents/devops.md
-    hash: sha256:880e7fdbcc27e396a94ca6d75daeaedde960366e2e6aea785bd6ead65332c20f
+    hash: sha256:8c774298dcde7c2342fbfbcb0fecb6bf99e35b08b84081d3f79c2090df5f0c09
     type: agent
-    size: 17710
+    size: 18886
   - path: development/agents/pm.md
     hash: sha256:d6a8ecb0c2cc7d67aa19bcf1d760650a5ccf25d722772e4d10624a2acad26b84
     type: agent
