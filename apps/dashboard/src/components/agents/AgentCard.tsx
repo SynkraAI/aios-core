@@ -2,6 +2,7 @@
 
 import { memo } from 'react';
 import { cn } from '@/lib/utils';
+import { iconMap, AlertTriangle } from '@/lib/icons';
 import type { Agent } from '@/types';
 
 // Status indicator colors
@@ -69,7 +70,7 @@ export const AgentCard = memo(function AgentCard({
           : undefined
       }
     >
-      {/* Header: Status dot + Name */}
+      {/* Header: Status dot + Icon + Name */}
       <div className="flex items-center gap-2 mb-3">
         <span
           className={cn(
@@ -77,7 +78,15 @@ export const AgentCard = memo(function AgentCard({
             STATUS_COLORS[agent.status]
           )}
         />
-        <span className="text-lg">{agent.icon}</span>
+        {(() => {
+          const IconComponent = iconMap[agent.icon];
+          return IconComponent ? (
+            <IconComponent
+              className="h-5 w-5"
+              style={{ color: agent.color }}
+            />
+          ) : null;
+        })()}
         <span className="font-semibold text-sm">@{agent.id}</span>
       </div>
 
@@ -123,11 +132,11 @@ export const AgentCard = memo(function AgentCard({
           {agent.lastActivity && (
             <div
               className={cn(
-                'text-xs',
+                'text-xs flex items-center gap-1',
                 stale ? 'text-yellow-500' : 'text-muted-foreground'
               )}
             >
-              {stale && <span className="mr-1">⚠</span>}
+              {stale && <AlertTriangle className="h-3 w-3" />}
               Last active: {getRelativeTime(agent.lastActivity)}
             </div>
           )}
