@@ -57,6 +57,11 @@ export function useMonitorEvents() {
 
       ws.onmessage = (event) => {
         try {
+          // Ignore pong responses (plain text, not JSON)
+          if (event.data === 'pong') {
+            return;
+          }
+
           const message: WebSocketMessage = JSON.parse(event.data);
 
           if (message.type === 'init' && message.events) {

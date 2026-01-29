@@ -110,11 +110,27 @@ export const useMonitorStore = create<MonitorState>((set) => ({
   setError: (error) => set({ error }),
 
   addEvent: (event) =>
-    set((state) => ({
-      events: [event, ...state.events].slice(0, MAX_EVENTS),
-    })),
+    set((state) => {
+      // Prevent duplicate events by checking ID
+      if (state.events.some((e) => e.id === event.id)) {
+        return state;
+      }
+      return {
+        events: [event, ...state.events].slice(0, MAX_EVENTS),
+      };
+    }),
 
-  setEvents: (events) => set({ events }),
+  setEvents: (events) =>
+    set((state) => {
+      // Merge with existing events, avoiding duplicates
+      const existingIds = new Set(state.events.map((e) => e.id));
+      const newEvents = events.filter((e) => !existingIds.has(e.id));
+      // Sort by timestamp descending (newest first)
+      const merged = [...newEvents, ...state.events]
+        .sort((a, b) => b.timestamp - a.timestamp)
+        .slice(0, MAX_EVENTS);
+      return { events: merged };
+    }),
   setSessions: (sessions) => set({ sessions }),
   setStats: (stats) => set({ stats }),
   setSelectedSessionId: (selectedSessionId) => set({ selectedSessionId }),
