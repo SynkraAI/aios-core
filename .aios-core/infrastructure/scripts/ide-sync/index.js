@@ -294,14 +294,6 @@ async function commandSync(options) {
       }
       const ruleResult = await portRules(projectRoot, options);
       if (ruleResult.success) {
-        if (!options.quiet) {
-          console.log(
-            `   ${colors.green}✓${colors.reset} ${ruleResult.ported.length} rules ported and translated`
-          );
-        }
-      }
-      const ruleResult = await portRules(projectRoot, options);
-      if (ruleResult.success) {
         // Explicitly write the opencode-rules.md to .opencode/rules/
         const rulesSource = path.join(
           projectRoot,
