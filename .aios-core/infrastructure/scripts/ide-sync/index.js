@@ -321,6 +321,18 @@ async function commandSync(options) {
           console.log(`   ${colors.green}✓${colors.reset} opencode.json updated`);
         }
       }
+
+      if (!options.quiet) {
+        console.log(`${colors.cyan}⚡ Generating Slash Commands...${colors.reset}`);
+      }
+      const slashCommandsResult = await generateSlashCommands(projectRoot, agents, options);
+      if (slashCommandsResult) {
+        if (!options.quiet) {
+          console.log(
+            `   ${colors.green}✓${colors.reset} ${slashCommandsResult.files.length} slash commands generated`
+          );
+        }
+      }
     }
 
     // Generate redirects for this IDE

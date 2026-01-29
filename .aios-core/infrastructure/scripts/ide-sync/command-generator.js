@@ -14,7 +14,12 @@ const { translateContent } = require('./rule-porter');
  * @param {object} options - Generation options
  */
 async function generateSlashCommands(projectRoot, agents, options = {}) {
-  const targetDir = path.join(projectRoot, '.opencode', 'commands');
+  const { getIDEConfig } = require('../../../../src/config/ide-configs');
+  const opencodeConfig = getIDEConfig('opencode');
+  const targetDir = opencodeConfig?.commandFolder
+    ? path.join(projectRoot, opencodeConfig.commandFolder)
+    : path.join(projectRoot, '.opencode', 'commands');
+
   await fs.ensureDir(targetDir);
 
   const generated = [];

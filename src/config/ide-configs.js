@@ -80,6 +80,7 @@ const IDE_CONFIGS = {
     agentFolder: path.join('.opencode', 'agents'),
     skillFolder: path.join('.opencode', 'skills'),
     rulesFolder: path.join('.opencode', 'rules'),
+    commandFolder: path.join('.opencode', 'commands'),
   },
   antigravity: {
     name: 'AntiGravity',
