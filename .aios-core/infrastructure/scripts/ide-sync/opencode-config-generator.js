@@ -95,9 +95,6 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
     $schema: 'https://opencode.ai/config.json',
 
     // Infrastructure paths
-    agentPaths: [...new Set(['.opencode/agents', ...(existingConfig.agentPaths || [])])],
-    commandPaths: [...new Set(['.opencode/commands', ...(existingConfig.commandPaths || [])])],
-
     instructions: combinedInstructions,
     permission: permissionConfig,
     mcp: mcpConfig,
