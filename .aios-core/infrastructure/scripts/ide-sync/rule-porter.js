@@ -18,6 +18,8 @@ function translateContent(content) {
     .replace(/Claude Code/g, 'OpenCode')
     .replace(/CLAUDE\.md/g, 'AGENTS.md')
     .replace(/\.claude\//g, '.opencode/')
+    .replace(/\.claude\.json/g, 'opencode.json')
+    .replace(/~\/\.claude/g, '~/.config/opencode')
     .replace(/@claude/g, '@opencode');
 }
 

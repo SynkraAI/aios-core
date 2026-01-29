@@ -175,6 +175,7 @@ function parseAgentFile(filePath) {
         result.agent.description = parsed.description;
       }
       result.persona_profile = parsed.persona_profile || null;
+      result.persona = parsed.persona || null;
       result.commands = parsed.commands || [];
       result.dependencies = parsed.dependencies || null;
     }

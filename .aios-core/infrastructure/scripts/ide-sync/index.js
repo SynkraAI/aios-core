@@ -36,6 +36,8 @@ const { syncSkills } = require('./skill-converter');
 const { portRules } = require('./rule-porter');
 const { generateAgentsMd } = require('./agents-index-generator');
 const { generateOpencodeConfig } = require('./opencode-config-generator');
+const { generateAgentRules } = require('./agent-rule-generator');
+const { generateSlashCommands } = require('./command-generator');
 
 // ANSI colors for output
 const colors = {
@@ -273,7 +275,7 @@ async function commandSync(options) {
     const result = syncIde(agents, ideConfig, ideName, projectRoot, options);
     results.push(result);
 
-    // If OpenCode, also sync skills and port rules
+    // Special operations for OpenCode
     if (ideName === 'opencode') {
       if (!options.quiet) {
         console.log(`${colors.cyan}⚡ Syncing OpenCode Skills...${colors.reset}`);
@@ -312,14 +314,36 @@ async function commandSync(options) {
       }
 
       if (!options.quiet) {
+        console.log(`${colors.cyan}⚡ Generating Agent-specific Rules...${colors.reset}`);
+      }
+      const agentRulesResult = await generateAgentRules(projectRoot, agents, options);
+      if (agentRulesResult) {
+        if (!options.quiet) {
+          console.log(
+            `   ${colors.green}✓${colors.reset} ${agentRulesResult.files.length} agent rules generated`
+          );
+        }
+      }
+
+      if (!options.quiet) {
+        console.log(`${colors.cyan}⚡ Generating Slash Commands...${colors.reset}`);
+      }
+      const slashCommandsResult = await generateSlashCommands(projectRoot, agents, options);
+      if (slashCommandsResult) {
+        if (!options.quiet) {
+          console.log(
+            `   ${colors.green}✓${colors.reset} ${slashCommandsResult.files.length} slash commands generated`
+          );
+        }
+      }
+
+      if (!options.quiet) {
         console.log(`${colors.cyan}⚡ Generating opencode.json Configuration...${colors.reset}`);
       }
       const opencodeConfigResult = await generateOpencodeConfig(projectRoot, options);
       if (opencodeConfigResult) {
         if (!options.quiet) {
-          console.log(
-            `   ${colors.green}✓${colors.reset} opencode.json generated with default MCPs`
-          );
+          console.log(`   ${colors.green}✓${colors.reset} opencode.json updated`);
         }
       }
     }

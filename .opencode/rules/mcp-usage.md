@@ -24,7 +24,7 @@ Other agents (Dev, Architect, etc.) are MCP **consumers**, not administrators. I
 
 AIOS uses Docker MCP Toolkit as the primary MCP infrastructure:
 
-### Direct in OpenCode (global ~/.claude.json)
+### Direct in OpenCode (global ~/opencode.json)
 | MCP | Purpose |
 |-----|---------|
 | **playwright** | Browser automation, screenshots, web testing |

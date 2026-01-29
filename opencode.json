@@ -8,7 +8,8 @@
   ],
   "instructions": [
     ".opencode/rules/opencode-rules.md",
-    ".opencode/rules/AGENTS.md"
+    ".opencode/rules/AGENTS.md",
+    ".opencode/rules/agent-*.md"
   ],
   "permission": {
     "edit": "allow",

@@ -24,7 +24,11 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
   }
 
   // Framework-owned instructions
-  const frameworkInstructions = ['.opencode/rules/opencode-rules.md', '.opencode/rules/AGENTS.md'];
+  const frameworkInstructions = [
+    '.opencode/rules/opencode-rules.md',
+    '.opencode/rules/AGENTS.md',
+    '.opencode/rules/agent-*.md', // Support all agent-specific rules
+  ];
   const existingInstructions = existingConfig.instructions || [];
 
   // Smart merge: preserve user instructions while ensuring framework ones exist
