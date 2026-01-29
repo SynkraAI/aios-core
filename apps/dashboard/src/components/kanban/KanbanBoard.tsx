@@ -213,6 +213,11 @@ export function KanbanBoard({
         </div>
       </div>
 
+      {/* Screen reader instructions for keyboard navigation */}
+      <div id="dnd-instructions" className="sr-only">
+        Press Space or Enter to pick up a story. Use arrow keys to move between columns. Press Space or Enter again to drop.
+      </div>
+
       {/* Board */}
       <div className="flex-1 overflow-x-auto overflow-y-hidden p-4">
         <DndContext
