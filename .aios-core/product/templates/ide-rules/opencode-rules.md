@@ -47,6 +47,14 @@ When an agent is active:
 - Add tests for new features
 - Test edge cases and error scenarios
 
+## Project Knowledge Management
+
+### Technical Context
+
+- Always maintain and update the project's technical context in `.opencode/rules/AGENTS.md`
+- This file should contain: Tech Stack, Architecture patterns, key dependencies, and active development focus
+- Update this file whenever significant architectural changes or new core technologies are introduced
+
 ## AIOS Framework Structure
 
 ```

@@ -73,7 +73,7 @@ const IDE_CONFIGS = {
   opencode: {
     name: 'OpenCode',
     description: '',
-    configFile: path.join('.opencode', 'rules', 'AGENTS.md'),
+    configFile: path.join('.opencode', 'rules', 'opencode-rules.md'),
     template: 'ide-rules/opencode-rules.md',
     requiresDirectory: true,
     format: 'text',

@@ -313,18 +313,6 @@ async function commandSync(options) {
       }
 
       if (!options.quiet) {
-        console.log(`${colors.cyan}⚡ Generating AGENTS.md Index...${colors.reset}`);
-      }
-      const agentsMdResult = await generateAgentsMd(projectRoot, agents, options);
-      if (agentsMdResult) {
-        if (!options.quiet) {
-          console.log(
-            `   ${colors.green}✓${colors.reset} AGENTS.md updated with ${agentsMdResult.agentCount} agents`
-          );
-        }
-      }
-
-      if (!options.quiet) {
         console.log(`${colors.cyan}⚡ Generating opencode.json Configuration...${colors.reset}`);
       }
       const opencodeConfigResult = await generateOpencodeConfig(projectRoot, options);
