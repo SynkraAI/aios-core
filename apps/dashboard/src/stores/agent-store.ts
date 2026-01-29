@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Agent, AgentId, AgentStatus, AiosStatus } from '@/types';
+import type { Agent, AgentId, AgentStatus } from '@/types';
 
 // ============ Listeners (outside Zustand to avoid re-renders) ============
 
@@ -41,36 +41,27 @@ interface AgentState {
   setLastPolledAt: (timestamp: string) => void;
   setIsPolling: (isPolling: boolean) => void;
 
-  // Realtime
-  handleRealtimeUpdate: (status: AiosStatus) => void;
-
   // Selectors
   getActiveAgents: () => Agent[];
   getIdleAgents: () => Agent[];
   getAgentById: (id: AgentId) => Agent | undefined;
 }
 
-// Default agents configuration - using IconName, no emojis
+// Default agents configuration
 const DEFAULT_AGENTS: Agent[] = [
-  { id: 'dev', name: 'Dev', icon: 'code', color: 'var(--agent-dev)', status: 'idle' },
-  { id: 'qa', name: 'QA', icon: 'test-tube', color: 'var(--agent-qa)', status: 'idle' },
+  { id: 'dev', name: 'Dev', icon: '💻', color: 'var(--agent-dev)', status: 'idle' },
+  { id: 'qa', name: 'QA', icon: '🧪', color: 'var(--agent-qa)', status: 'idle' },
   {
     id: 'architect',
     name: 'Architect',
-    icon: 'building',
+    icon: '🏛️',
     color: 'var(--agent-architect)',
     status: 'idle',
   },
-  { id: 'pm', name: 'PM', icon: 'bar-chart', color: 'var(--agent-pm)', status: 'idle' },
-  { id: 'po', name: 'PO', icon: 'target', color: 'var(--agent-po)', status: 'idle' },
-  {
-    id: 'analyst',
-    name: 'Analyst',
-    icon: 'line-chart',
-    color: 'var(--agent-analyst)',
-    status: 'idle',
-  },
-  { id: 'devops', name: 'DevOps', icon: 'wrench', color: 'var(--agent-devops)', status: 'idle' },
+  { id: 'pm', name: 'PM', icon: '📊', color: 'var(--agent-pm)', status: 'idle' },
+  { id: 'po', name: 'PO', icon: '🎯', color: 'var(--agent-po)', status: 'idle' },
+  { id: 'analyst', name: 'Analyst', icon: '📈', color: 'var(--agent-analyst)', status: 'idle' },
+  { id: 'devops', name: 'DevOps', icon: '🔧', color: 'var(--agent-devops)', status: 'idle' },
 ];
 
 function createAgentsMap(agents: Agent[]): Record<AgentId, Agent> {
@@ -171,57 +162,6 @@ export const useAgentStore = create<AgentState>()((set, get) => ({
   setPollingInterval: (ms) => set({ pollingInterval: ms }),
   setLastPolledAt: (timestamp) => set({ lastPolledAt: timestamp }),
   setIsPolling: (isPolling) => set({ isPolling }),
-
-  // Realtime update handler - called by useRealtimeStatus hook
-  handleRealtimeUpdate: (status) =>
-    set((state) => {
-      const timestamp = new Date().toISOString();
-      const newAgents = { ...state.agents };
-      let newActiveAgentId = state.activeAgentId;
-
-      // Clear previous active agent if different
-      if (state.activeAgentId && (!status.activeAgent || status.activeAgent.id !== state.activeAgentId)) {
-        const prevAgent = newAgents[state.activeAgentId];
-        if (prevAgent) {
-          const oldStatus = prevAgent.status;
-          newAgents[state.activeAgentId] = {
-            ...prevAgent,
-            status: 'idle',
-            currentStoryId: undefined,
-          };
-          if (oldStatus !== 'idle') {
-            notifyAgentStatusChange(state.activeAgentId, oldStatus, 'idle');
-          }
-        }
-        newActiveAgentId = null;
-      }
-
-      // Set new active agent from status
-      if (status.activeAgent) {
-        const agentId = status.activeAgent.id as AgentId;
-        const agent = newAgents[agentId];
-        if (agent) {
-          const oldStatus = agent.status;
-          newAgents[agentId] = {
-            ...agent,
-            status: 'working',
-            currentStoryId: status.activeAgent.currentStory,
-            lastActivity: status.activeAgent.activatedAt,
-          };
-          newActiveAgentId = agentId;
-          if (oldStatus !== 'working') {
-            notifyAgentStatusChange(agentId, oldStatus, 'working');
-          }
-        }
-      }
-
-      return {
-        agents: newAgents,
-        activeAgentId: newActiveAgentId,
-        lastPolledAt: timestamp,
-        isPolling: true,
-      };
-    }),
 
   // Selectors
   getActiveAgents: () => {
