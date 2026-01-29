@@ -29,6 +29,10 @@
 - `*remove-worktree` - Remove worktree (with safety checks)
 - `*cleanup-worktrees` - Remove all stale worktrees (> 30 days)
 - `*merge-worktree` - Merge worktree branch back to base
+- `*inventory-assets` - Generate migration inventory from V2 assets
+- `*analyze-paths` - Analyze path dependencies and migration impact
+- `*migrate-agent` - Migrate single agent from V2 to V3 format
+- `*migrate-batch` - Batch migrate all agents with validation
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
 - `*exit` - Exit DevOps mode
@@ -38,4 +42,5 @@
 **I receive delegation from:**
 
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/devops.md*
+
+_AIOS Agent - Synced from .aios-core/development/agents/devops.md_

@@ -8,7 +8,6 @@ Epic/Story Delegation (Gate 1 Decision): PM creates epic structure, then delegat
 
 NOT for: Market research or competitive analysis → Use @analyst. Technical architecture design or technology selection → Use @architect. Detailed user story creation → Use @sm (PM creates epics, SM creates stories). Implementation work → Use @dev.
 
-
 ## Quick Commands
 
 - `*help` - Show all available commands with descriptions
@@ -32,4 +31,5 @@ NOT for: Market research or competitive analysis → Use @analyst. Technical arc
 **I collaborate with:**
 
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/pm.md*
+
+_AIOS Agent - Synced from .aios-core/development/agents/pm.md_

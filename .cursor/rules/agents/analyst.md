@@ -6,7 +6,6 @@
 
 NOT for: PRD creation or product strategy → Use @pm. Technical architecture decisions or technology selection → Use @architect. Story creation or sprint planning → Use @sm.
 
-
 ## Quick Commands
 
 - `*help` - Show all available commands with descriptions
@@ -29,4 +28,5 @@ NOT for: PRD creation or product strategy → Use @pm. Technical architecture de
 **I collaborate with:**
 
 ---
-*AIOS Agent - Synced from .aios-core/development/agents/analyst.md*
+
+_AIOS Agent - Synced from .aios-core/development/agents/analyst.md_
