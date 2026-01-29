@@ -105,6 +105,12 @@ commands:
   - brainstorm {topic}: Facilitate structured brainstorming
   - elicit: Run advanced elicitation session
 
+  # Spec Pipeline (Epic 3 - ADE)
+  - research-deps: Research dependencies and technical constraints for story
+
+  # Memory Layer (Epic 7 - ADE)
+  - extract-patterns: Extract and document code patterns from codebase
+
   # Document Operations
   - doc-out: Output complete document
 
@@ -120,6 +126,11 @@ dependencies:
     - create-doc.md
     - advanced-elicitation.md
     - document-project.md
+    # Spec Pipeline (Epic 3)
+    - spec-research-dependencies.md
+  scripts:
+    # Memory Layer (Epic 7)
+    - pattern-extractor.js
   templates:
     - project-brief-tmpl.yaml
     - market-research-tmpl.yaml

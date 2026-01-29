@@ -108,6 +108,10 @@ commands:
   - research {topic}: Generate deep research prompt
   - correct-course: Analyze and correct deviations
 
+  # Spec Pipeline (Epic 3 - ADE)
+  - gather-requirements: Elicit and document requirements from stakeholders
+  - write-spec: Generate formal specification document from requirements
+
   # Utilities
   - session-info: Show current session details (agent history, commands)
   - guide: Show comprehensive usage guide for this agent
@@ -122,6 +126,9 @@ dependencies:
     - brownfield-create-story.md
     - execute-checklist.md
     - shard-doc.md
+    # Spec Pipeline (Epic 3)
+    - spec-gather-requirements.md
+    - spec-write-spec.md
   templates:
     - prd-tmpl.yaml
     - brownfield-prd-tmpl.yaml

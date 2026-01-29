@@ -140,6 +140,11 @@ commands:
     visibility: [full, quick]
     description: 'Start autonomous build loop for a story (Coder Agent Loop with retries)'
 
+  # Build Orchestrator (Epic 8 - Story 8.5)
+  - name: build
+    visibility: [full, quick]
+    description: 'Complete autonomous build: worktree → plan → execute → verify → merge (*build {story-id})'
+
   # Memory Layer (Epic 7 - ADE)
   - name: capture-insights
     visibility: [full, quick]
@@ -271,6 +276,8 @@ dependencies:
     - build-state-manager.js # Autonomous build state and checkpoints
     # Autonomous Build (Epic 8 - Story 8.1)
     - autonomous-build-loop.js # Coder Agent Loop with retries
+    # Build Orchestrator (Epic 8 - Story 8.5)
+    - build-orchestrator.js # Complete pipeline orchestration
     # Gotchas Memory (Epic 9 - Story 9.4)
     - gotchas-memory.js # Enhanced gotchas with auto-capture
     # Worktree Isolation (Epic 8 - Story 8.2)

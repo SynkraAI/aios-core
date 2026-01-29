@@ -158,6 +158,16 @@ commands:
   - research {topic}: Generate deep research prompt
   - analyze-project-structure: Analyze project for new feature implementation (WIS-15)
 
+  # Spec Pipeline (Epic 3 - ADE)
+  - assess-complexity: Assess story complexity and estimate effort
+
+  # Execution Engine (Epic 4 - ADE)
+  - create-plan: Create implementation plan with phases and subtasks
+  - create-context: Generate project and files context for story
+
+  # Memory Layer (Epic 7 - ADE)
+  - map-codebase: Generate codebase map (structure, services, patterns, conventions)
+
   # Document Operations
   - doc-out: Output complete document
   - shard-prd: Break architecture into smaller parts
@@ -176,6 +186,14 @@ dependencies:
     - create-doc.md
     - document-project.md
     - execute-checklist.md
+    # Spec Pipeline (Epic 3)
+    - spec-assess-complexity.md
+    # Execution Engine (Epic 4)
+    - plan-create-implementation.md
+    - plan-create-context.md
+  scripts:
+    # Memory Layer (Epic 7)
+    - codebase-mapper.js
   templates:
     - architecture-tmpl.yaml
     - front-end-architecture-tmpl.yaml
