@@ -155,50 +155,6 @@ function sanitizeProjectName(candidate) {
 function generateTemplateVariables(wizardState) {
   const timestamp = new Date().toISOString();
 
-  // Project context for AGENTS.md (OpenCode)
-  let projectContext = '';
-  if (wizardState.projectType === 'brownfield') {
-    try {
-      const {
-        analyzeProject,
-      } = require('../../.aios-core/infrastructure/scripts/documentation-integrity/brownfield-analyzer');
-      const analysis = analyzeProject(process.cwd());
-
-      // Build a rich, professional Markdown context
-      projectContext = `## 🏗️ Detected Project Context\n\n`;
-      projectContext += `**Tech Stack:** ${analysis.techStack.join(', ') || 'Standard'}\n`;
-      if (analysis.frameworks.length > 0) {
-        projectContext += `**Frameworks:** ${analysis.frameworks.join(', ')}\n`;
-      }
-
-      projectContext += `\n### ⚙️ Standards & Tooling\n`;
-      projectContext += `- **Linting:** ${analysis.linting}\n`;
-      projectContext += `- **Formatting:** ${analysis.formatting}\n`;
-      projectContext += `- **Testing:** ${analysis.testing}\n`;
-
-      if (analysis.recommendations.length > 0) {
-        projectContext += `\n### 💡 AIOS Recommendations\n`;
-        analysis.recommendations.forEach((rec) => {
-          projectContext += `- ${rec}\n`;
-        });
-      }
-
-      if (analysis.conflicts.length > 0) {
-        projectContext += `\n### ⚠️ Potential Conflicts\n`;
-        analysis.conflicts.forEach((conflict) => {
-          projectContext += `- ${conflict}\n`;
-        });
-      }
-
-      projectContext += `\n---\n`;
-    } catch (error) {
-      projectContext = '\n*(Project analysis unavailable)*\n';
-    }
-  } else {
-    projectContext =
-      '## 🚀 Greenfield Project\nStarting fresh development under AIOS methodology.\n\n---\n';
-  }
-
   // Safely get project name with validation
   // If provided, validate it; otherwise sanitize fallback from directory name
   let projectName;
@@ -218,7 +174,6 @@ function generateTemplateVariables(wizardState) {
   return {
     projectName,
     projectType: wizardState.projectType || 'greenfield',
-    projectContext,
     timestamp,
     aiosVersion: '2.1.0', // From package.json in real implementation
   };
