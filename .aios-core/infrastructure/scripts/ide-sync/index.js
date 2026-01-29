@@ -324,9 +324,7 @@ async function commandSync(options) {
       }
 
       if (!options.quiet) {
-        console.log(
-          `${colors.cyan}⚡ Generating Slash Commands (Agents & Skills)...${colors.reset}`
-        );
+        console.log(`${colors.cyan}⚡ Generating Slash Commands (Agents & Skills)...${colors.reset}`);
       }
       const slashCommandsResult = await generateSlashCommands(projectRoot, agents, {
         ...options,

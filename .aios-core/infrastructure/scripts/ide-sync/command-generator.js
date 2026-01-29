@@ -22,10 +22,10 @@ const { translateContent } = require('./rule-porter');
 async function generateSlashCommands(projectRoot, agents, options = {}) {
   const { getIDEConfig } = require('../../../../src/config/ide-configs');
   const opencodeConfig = getIDEConfig('opencode');
-  const targetDir = opencodeConfig?.commandFolder
+  const targetDir = opencodeConfig?.commandFolder 
     ? path.join(projectRoot, opencodeConfig.commandFolder)
     : path.join(projectRoot, '.opencode', 'commands');
-
+    
   await fs.ensureDir(targetDir);
 
   const generated = [];
@@ -60,7 +60,7 @@ Instruções:
   if (options.skills && Array.isArray(options.skills)) {
     for (const skill of options.skills) {
       // Determine which agent should handle this skill based on original prefix
-      let targetAgent = 'aios-master'; // Default
+      let targetAgent = "aios-master"; // Default
       const prefixMatch = skill.originalName.match(/^(dev|po|sm|pm|qa|architect|analyst)-/);
       if (prefixMatch) {
         targetAgent = prefixMatch[1];
