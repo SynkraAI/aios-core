@@ -161,17 +161,42 @@ function generateTemplateVariables(wizardState) {
     try {
       const {
         analyzeProject,
-        formatMigrationReport,
       } = require('../../.aios-core/infrastructure/scripts/documentation-integrity/brownfield-analyzer');
       const analysis = analyzeProject(process.cwd());
 
-      // Use the full professional migration report instead of just a few lines
-      projectContext = `\n${formatMigrationReport(analysis)}\n`;
+      // Build a rich, professional Markdown context
+      projectContext = `## 🏗️ Detected Project Context\n\n`;
+      projectContext += `**Tech Stack:** ${analysis.techStack.join(', ') || 'Standard'}\n`;
+      if (analysis.frameworks.length > 0) {
+        projectContext += `**Frameworks:** ${analysis.frameworks.join(', ')}\n`;
+      }
+
+      projectContext += `\n### ⚙️ Standards & Tooling\n`;
+      projectContext += `- **Linting:** ${analysis.linting}\n`;
+      projectContext += `- **Formatting:** ${analysis.formatting}\n`;
+      projectContext += `- **Testing:** ${analysis.testing}\n`;
+
+      if (analysis.recommendations.length > 0) {
+        projectContext += `\n### 💡 AIOS Recommendations\n`;
+        analysis.recommendations.forEach((rec) => {
+          projectContext += `- ${rec}\n`;
+        });
+      }
+
+      if (analysis.conflicts.length > 0) {
+        projectContext += `\n### ⚠️ Potential Conflicts\n`;
+        analysis.conflicts.forEach((conflict) => {
+          projectContext += `- ${conflict}\n`;
+        });
+      }
+
+      projectContext += `\n---\n`;
     } catch (error) {
       projectContext = '\n*(Project analysis unavailable)*\n';
     }
   } else {
-    projectContext = '\nStarting fresh greenfield project development.\n';
+    projectContext =
+      '## 🚀 Greenfield Project\nStarting fresh development under AIOS methodology.\n\n---\n';
   }
 
   // Safely get project name with validation

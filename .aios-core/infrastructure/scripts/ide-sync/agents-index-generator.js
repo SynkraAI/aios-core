@@ -21,12 +21,46 @@ async function generateAgentsMd(projectRoot, agents, options = {}) {
     'product',
     'templates',
     'ide-rules',
-    'opencode-project-context.md'
+    'opencode-agents-template.md'
   );
   const targetPath = path.join(projectRoot, '.opencode', 'rules', 'AGENTS.md');
 
   if (!fs.existsSync(templatePath)) {
-    throw new Error(`Template not found: ${templatePath}`);
+    // Fallback simple template if file missing
+    rawContent = `# AIOS Project Context\n\n{{projectContext}}\n\n### Available Agents\n\n{{agentList}}`;
+  } else {
+    rawContent = await fs.readFile(templatePath, 'utf8');
+  }
+
+  // Apply terminology translation (Claude Code -> OpenCode)
+  let content = translateContent(rawContent);
+
+  // Replace placeholders
+  const projectName = path.basename(projectRoot);
+  const timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+  const projectType = fs.existsSync(path.join(projectRoot, 'package.json'))
+    ? 'Node.js/NPM'
+    : 'Standard AIOS';
+
+  // Extract agent list
+  const agentList = agents
+    .map((a) => {
+      const title = a.agent?.title || a.id;
+      const desc = a.agent?.whenToUse || a.agent?.description || '';
+      return `- **@${a.id}**: ${title}${desc ? ' - ' + desc : ''}`;
+    })
+    .join('\n');
+
+  content = content
+    .replace(/{{projectName}}/g, projectName)
+    .replace(/{{timestamp}}/g, timestamp)
+    .replace(/{{projectType}}/g, projectType)
+    .replace(/{{agentList}}/g, agentList)
+    .replace(/{{projectContext}}/g, options.projectContext || '');
+
+  if (!options.dryRun) {
+    await fs.ensureDir(path.dirname(targetPath));
+    await fs.writeFile(targetPath, content, 'utf8');
   }
 
   let rawContent = await fs.readFile(templatePath, 'utf8');
