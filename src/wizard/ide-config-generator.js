@@ -159,15 +159,14 @@ function generateTemplateVariables(wizardState) {
   let projectContext = '';
   if (wizardState.projectType === 'brownfield') {
     try {
+      const {
+        analyzeProject,
+        formatMigrationReport,
+      } = require('../../.aios-core/infrastructure/scripts/documentation-integrity/brownfield-analyzer');
       const analysis = analyzeProject(process.cwd());
-      projectContext = `\n**Tech Stack:** ${analysis.techStack.join(', ') || 'Detected automatically'}\n`;
-      if (analysis.frameworks.length > 0) {
-        projectContext += `**Frameworks:** ${analysis.frameworks.join(', ')}\n`;
-      }
-      if (analysis.linting !== 'none') {
-        projectContext += `**Linting:** ${analysis.linting}\n`;
-      }
-      projectContext += `\n**Recommendations:**\n${analysis.recommendations.map((r) => `- ${r}`).join('\n')}\n`;
+
+      // Use the full professional migration report instead of just a few lines
+      projectContext = `\n${formatMigrationReport(analysis)}\n`;
     } catch (error) {
       projectContext = '\n*(Project analysis unavailable)*\n';
     }
