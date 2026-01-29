@@ -105,6 +105,14 @@ commands:
     visibility: [full]
     description: 'Planning mode before implementation'
 
+  # Subtask Execution (ADE - Coder Agent)
+  - name: execute-subtask
+    visibility: [full, quick]
+    description: 'Execute a single subtask from implementation.yaml (13-step Coder Agent workflow)'
+  - name: verify-subtask
+    visibility: [full, quick]
+    description: 'Verify subtask completion using configured verification (command, api, browser, e2e)'
+
   # Service Generation (WIS-11)
   - name: create-service
     visibility: [full, quick]
@@ -119,6 +127,9 @@ commands:
   - name: apply-qa-fixes
     visibility: [quick, key]
     description: 'Apply QA feedback and fixes'
+  - name: fix-qa-issues
+    visibility: [full, quick]
+    description: 'Fix QA issues from QA_FIX_REQUEST.md (8-phase workflow)'
   - name: run-tests
     visibility: [quick, key]
     description: 'Execute linting and all tests'
@@ -160,11 +171,15 @@ develop-story:
 dependencies:
   checklists:
     - story-dod-checklist.md
+    - self-critique-checklist.md # ADE: Mandatory self-review for Coder Agent steps 5.5 & 6.5
   tasks:
     - apply-qa-fixes.md
+    - qa-fix-issues.md # Epic 6: QA fix loop (8-phase workflow)
     - create-service.md # WIS-11: Service scaffolding from templates
     - dev-develop-story.md
     - execute-checklist.md
+    - plan-execute-subtask.md # ADE: 13-step Coder Agent workflow for subtask execution
+    - verify-subtask.md # ADE: Verify subtask completion (command, api, browser, e2e)
     - dev-improve-code-quality.md
     - po-manage-story-backlog.md
     - dev-optimize-performance.md
