@@ -56,7 +56,7 @@ export const FAB = forwardRef<HTMLButtonElement, FABProps>(
         ref={ref}
         className={cn(
           'fixed z-50 inline-flex items-center justify-center rounded-lg font-bold uppercase tracking-wide',
-          'transition-all duration-200 active:scale-95',
+          'transition-luxury active:scale-95',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
           variantStyles[variant],
           sizeStyles[size],
@@ -105,7 +105,7 @@ export const FABIcon = forwardRef<HTMLButtonElement, FABIconProps>(
         ref={ref}
         className={cn(
           'fixed z-50 inline-flex items-center justify-center rounded-full',
-          'transition-all duration-200 active:scale-95',
+          'transition-luxury active:scale-95',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
           variantStyles[variant],
           circularSizeStyles[size],
