@@ -804,6 +804,46 @@ See .aios-core/user-guide.md for complete documentation.
     }
   }
 
+  // Post-installation validation (Story 6.19)
+  console.log('');
+  console.log(chalk.blue('🔍 Validating installation integrity...'));
+
+  let validationPassed = true;
+  try {
+    const {
+      PostInstallValidator,
+      formatReport,
+    } = require('../src/installer/post-install-validator');
+    const validator = new PostInstallValidator(
+      context.projectRoot,
+      context.frameworkLocation,
+      { verifyHashes: false, verbose: false } // Quick validation without hash check
+    );
+
+    const report = await validator.validate();
+
+    if (report.status === 'failed' || report.stats.missingFiles > 0) {
+      validationPassed = false;
+      console.log(chalk.yellow('⚠') + ` Installation validation found issues:`);
+      console.log(chalk.dim(`   - Missing files: ${report.stats.missingFiles}`));
+      console.log(chalk.dim(`   - Corrupted files: ${report.stats.corruptedFiles}`));
+      console.log('');
+      console.log(
+        chalk.yellow('   Run ') +
+          chalk.cyan('aios validate --repair') +
+          chalk.yellow(' to fix issues')
+      );
+    } else {
+      console.log(chalk.green('✓') + ` Installation verified (${report.stats.validFiles} files)`);
+    }
+  } catch (validationError) {
+    // Non-critical - don't fail installation if validator has issues
+    console.log(chalk.yellow('⚠') + ' Could not run post-installation validation');
+    if (process.env.DEBUG) {
+      console.log(chalk.dim(`   ${validationError.message}`));
+    }
+  }
+
   // Summary
   console.log('');
   console.log(chalk.gray('═'.repeat(80)));
@@ -918,9 +958,8 @@ See .aios-core/user-guide.md for complete documentation.
   }
 
   console.log('  ' + chalk.yellow('General:'));
-  console.log(
-    '    • Run ' + chalk.yellow('"@synkra/aios-core doctor"') + ' to verify installation'
-  );
+  console.log('    • Run ' + chalk.yellow('aios validate') + ' to verify installation integrity');
+  console.log('    • Run ' + chalk.yellow('aios validate --repair') + ' to fix any missing files');
   console.log('    • Check .aios-core/user-guide.md for complete documentation');
   console.log('    • Explore expansion-packs/ for additional capabilities');
   console.log('');
