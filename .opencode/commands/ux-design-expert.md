@@ -1,14 +1,14 @@
 ---
-description: "Activate the @ux-design-expert (UX/UI Designer & Design System Architect) agent"
+description: "Ativar agente @ux-design-expert (UX/UI Designer & Design System Architect)"
 agent: "ux-design-expert"
 ---
 
-Invoke the @ux-design-expert agent to handle your request: $ARGUMENTS
+Ative o agente @ux-design-expert para processar sua solicitação: $ARGUMENTS
 
-Instructions:
-1. Load @ux-design-expert
-2. Process the request: $ARGUMENTS
-3. Stay in character as defined by the agent's persona.
+Instruções:
+1. Carregar persona @ux-design-expert
+2. Processar a solicitação: $ARGUMENTS
+3. Manter o personagem conforme definido.
 
 ---
-*AIOS Agent Command - Synced for @ux-design-expert*
+*AIOS Agent Command - Sincronizado para @ux-design-expert*

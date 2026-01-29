@@ -1,14 +1,14 @@
 ---
-description: "Activate the @po (Product Owner) agent"
+description: "Ativar agente @po (Product Owner)"
 agent: "po"
 ---
 
-Invoke the @po agent to handle your request: $ARGUMENTS
+Ative o agente @po para processar sua solicitação: $ARGUMENTS
 
-Instructions:
-1. Load @po
-2. Process the request: $ARGUMENTS
-3. Stay in character as defined by the agent's persona.
+Instruções:
+1. Carregar persona @po
+2. Processar a solicitação: $ARGUMENTS
+3. Manter o personagem conforme definido.
 
 ---
-*AIOS Agent Command - Synced for @po*
+*AIOS Agent Command - Sincronizado para @po*

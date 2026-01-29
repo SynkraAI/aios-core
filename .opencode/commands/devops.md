@@ -1,14 +1,14 @@
 ---
-description: "Activate the @devops (GitHub Repository Manager & DevOps Specialist) agent"
+description: "Ativar agente @devops (GitHub Repository Manager & DevOps Specialist)"
 agent: "devops"
 ---
 
-Invoke the @devops agent to handle your request: $ARGUMENTS
+Ative o agente @devops para processar sua solicitação: $ARGUMENTS
 
-Instructions:
-1. Load @devops
-2. Process the request: $ARGUMENTS
-3. Stay in character as defined by the agent's persona.
+Instruções:
+1. Carregar persona @devops
+2. Processar a solicitação: $ARGUMENTS
+3. Manter o personagem conforme definido.
 
 ---
-*AIOS Agent Command - Synced for @devops*
+*AIOS Agent Command - Sincronizado para @devops*

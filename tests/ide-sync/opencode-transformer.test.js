@@ -19,7 +19,7 @@ describe('opencode transformer', () => {
 
     // Check Config Header (Robust, with quotes)
     expect(result).toMatch(
-      /^---\ndescription: "code master"\nmode: all\ntools:\n  bash: true\n---/
+      /^---\ndescription: "code master"\nmode: all\ntools:\n[ ]{2}bash: true\n---/
     );
 
     // Check Literal Body (Should contain the original raw file including its YAML)

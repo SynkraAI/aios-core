@@ -20,20 +20,18 @@ function detectActiveIDE(projectRoot = process.cwd()) {
   }
 
   // Check for OpenCode specific files
-  if (fs.existsSync(path.join(projectRoot, 'opencode.json')) || fs.existsSync(path.join(projectRoot, '.opencode'))) {
+  if (
+    fs.existsSync(path.join(projectRoot, 'opencode.json')) ||
+    fs.existsSync(path.join(projectRoot, '.opencode'))
+  ) {
     return 'opencode';
   }
-  
+
   // Check for Claude Code specific files
   if (fs.existsSync(path.join(projectRoot, '.claude'))) {
     return 'claude-code';
   }
-  
-  return 'unknown';
-}
-  if (fs.existsSync(path.join(projectRoot, '.claude'))) {
-    return 'claude-code';
-  }
+
   return 'unknown';
 }
 

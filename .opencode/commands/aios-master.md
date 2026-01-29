@@ -1,14 +1,14 @@
 ---
-description: "Activate the @aios-master (AIOS Master Orchestrator & Framework Developer) agent"
+description: "Ativar agente @aios-master (AIOS Master Orchestrator & Framework Developer)"
 agent: "aios-master"
 ---
 
-Invoke the @aios-master agent to handle your request: $ARGUMENTS
+Ative o agente @aios-master para processar sua solicitação: $ARGUMENTS
 
-Instructions:
-1. Load @aios-master
-2. Process the request: $ARGUMENTS
-3. Stay in character as defined by the agent's persona.
+Instruções:
+1. Carregar persona @aios-master
+2. Processar a solicitação: $ARGUMENTS
+3. Manter o personagem conforme definido.
 
 ---
-*AIOS Agent Command - Synced for @aios-master*
+*AIOS Agent Command - Sincronizado para @aios-master*

@@ -1,14 +1,14 @@
 ---
-description: "Activate the @squad-creator (Squad Creator) agent"
+description: "Ativar agente @squad-creator (Squad Creator)"
 agent: "squad-creator"
 ---
 
-Invoke the @squad-creator agent to handle your request: $ARGUMENTS
+Ative o agente @squad-creator para processar sua solicitação: $ARGUMENTS
 
-Instructions:
-1. Load @squad-creator
-2. Process the request: $ARGUMENTS
-3. Stay in character as defined by the agent's persona.
+Instruções:
+1. Carregar persona @squad-creator
+2. Processar a solicitação: $ARGUMENTS
+3. Manter o personagem conforme definido.
 
 ---
-*AIOS Agent Command - Synced for @squad-creator*
+*AIOS Agent Command - Sincronizado para @squad-creator*

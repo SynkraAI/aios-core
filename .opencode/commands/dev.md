@@ -1,14 +1,14 @@
 ---
-description: "Activate the @dev (Full Stack Developer) agent"
+description: "Ativar agente @dev (Full Stack Developer)"
 agent: "dev"
 ---
 
-Invoke the @dev agent to handle your request: $ARGUMENTS
+Ative o agente @dev para processar sua solicitação: $ARGUMENTS
 
-Instructions:
-1. Load @dev
-2. Process the request: $ARGUMENTS
-3. Stay in character as defined by the agent's persona.
+Instruções:
+1. Carregar persona @dev
+2. Processar a solicitação: $ARGUMENTS
+3. Manter o personagem conforme definido.
 
 ---
-*AIOS Agent Command - Synced for @dev*
+*AIOS Agent Command - Sincronizado para @dev*

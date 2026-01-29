@@ -1,14 +1,14 @@
 ---
-description: "Activate the @data-engineer (Database Architect & Operations Engineer) agent"
+description: "Ativar agente @data-engineer (Database Architect & Operations Engineer)"
 agent: "data-engineer"
 ---
 
-Invoke the @data-engineer agent to handle your request: $ARGUMENTS
+Ative o agente @data-engineer para processar sua solicitação: $ARGUMENTS
 
-Instructions:
-1. Load @data-engineer
-2. Process the request: $ARGUMENTS
-3. Stay in character as defined by the agent's persona.
+Instruções:
+1. Carregar persona @data-engineer
+2. Processar a solicitação: $ARGUMENTS
+3. Manter o personagem conforme definido.
 
 ---
-*AIOS Agent Command - Synced for @data-engineer*
+*AIOS Agent Command - Sincronizado para @data-engineer*

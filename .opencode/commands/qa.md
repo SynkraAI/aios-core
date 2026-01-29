@@ -1,14 +1,14 @@
 ---
-description: "Activate the @qa (Test Architect & Quality Advisor) agent"
+description: "Ativar agente @qa (Test Architect & Quality Advisor)"
 agent: "qa"
 ---
 
-Invoke the @qa agent to handle your request: $ARGUMENTS
+Ative o agente @qa para processar sua solicitação: $ARGUMENTS
 
-Instructions:
-1. Load @qa
-2. Process the request: $ARGUMENTS
-3. Stay in character as defined by the agent's persona.
+Instruções:
+1. Carregar persona @qa
+2. Processar a solicitação: $ARGUMENTS
+3. Manter o personagem conforme definido.
 
 ---
-*AIOS Agent Command - Synced for @qa*
+*AIOS Agent Command - Sincronizado para @qa*

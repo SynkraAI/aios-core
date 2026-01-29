@@ -1,14 +1,14 @@
 ---
-description: "Activate the @architect (Architect) agent"
+description: "Ativar agente @architect (Architect)"
 agent: "architect"
 ---
 
-Invoke the @architect agent to handle your request: $ARGUMENTS
+Ative o agente @architect para processar sua solicitação: $ARGUMENTS
 
-Instructions:
-1. Load @architect
-2. Process the request: $ARGUMENTS
-3. Stay in character as defined by the agent's persona.
+Instruções:
+1. Carregar persona @architect
+2. Processar a solicitação: $ARGUMENTS
+3. Manter o personagem conforme definido.
 
 ---
-*AIOS Agent Command - Synced for @architect*
+*AIOS Agent Command - Sincronizado para @architect*
