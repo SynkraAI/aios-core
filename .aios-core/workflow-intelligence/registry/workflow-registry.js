@@ -21,10 +21,7 @@ const DEFAULT_CACHE_TTL = 5 * 60 * 1000;
  * Default path to workflow patterns file
  * @type {string}
  */
-const DEFAULT_PATTERNS_PATH = path.join(
-  __dirname,
-  '../../data/workflow-patterns.yaml'
-);
+const DEFAULT_PATTERNS_PATH = path.join(__dirname, '../../data/workflow-patterns.yaml');
 
 /**
  * WorkflowRegistry class for managing workflow patterns
@@ -82,7 +79,7 @@ class WorkflowRegistry {
     if (!this.cache || !this.cacheTimestamp) {
       return false;
     }
-    return (Date.now() - this.cacheTimestamp) < this.cacheTTL;
+    return Date.now() - this.cacheTimestamp < this.cacheTTL;
   }
 
   /**
@@ -123,7 +120,7 @@ class WorkflowRegistry {
     }
 
     const workflows = this.loadWorkflows();
-    const normalizedCommands = commands.map(cmd => this.normalizeCommand(cmd));
+    const normalizedCommands = commands.map((cmd) => this.normalizeCommand(cmd));
 
     let bestMatch = null;
     let bestScore = 0;
@@ -137,7 +134,7 @@ class WorkflowRegistry {
           name,
           workflow,
           score,
-          matchedCommands: this.getMatchedCommands(workflow, normalizedCommands)
+          matchedCommands: this.getMatchedCommands(workflow, normalizedCommands),
         };
       }
     }
@@ -156,7 +153,7 @@ class WorkflowRegistry {
       return 0;
     }
 
-    const keyCommands = workflow.key_commands.map(cmd => this.normalizeCommand(cmd));
+    const keyCommands = workflow.key_commands.map((cmd) => this.normalizeCommand(cmd));
     let matches = 0;
 
     for (const cmd of commands) {
@@ -182,7 +179,7 @@ class WorkflowRegistry {
       return [];
     }
 
-    const keyCommands = workflow.key_commands.map(cmd => this.normalizeCommand(cmd));
+    const keyCommands = workflow.key_commands.map((cmd) => this.normalizeCommand(cmd));
     const matched = [];
 
     for (const cmd of commands) {
@@ -262,8 +259,10 @@ class WorkflowRegistry {
     for (const [state, transition] of Object.entries(workflow.transitions)) {
       if (transition.trigger) {
         const normalizedTrigger = this.normalizeCommand(transition.trigger);
-        if (normalizedCmd.includes(normalizedTrigger) ||
-            normalizedTrigger.includes(normalizedCmd)) {
+        if (
+          normalizedCmd.includes(normalizedTrigger) ||
+          normalizedTrigger.includes(normalizedCmd)
+        ) {
           return state;
         }
       }
@@ -285,7 +284,7 @@ class WorkflowRegistry {
     for (const [name, workflow] of Object.entries(workflows)) {
       if (workflow.agent_sequence) {
         const hasAgent = workflow.agent_sequence.some(
-          agent => agent.toLowerCase() === normalizedAgent
+          (agent) => agent.toLowerCase() === normalizedAgent
         );
         if (hasAgent) {
           results.push({ name, workflow });
@@ -336,7 +335,7 @@ class WorkflowRegistry {
       workflowsWithTransitions,
       totalTransitions,
       cacheValid: this.isCacheValid(),
-      cacheAge: this.cacheTimestamp ? Date.now() - this.cacheTimestamp : null
+      cacheAge: this.cacheTimestamp ? Date.now() - this.cacheTimestamp : null,
     };
   }
 }
@@ -354,5 +353,5 @@ module.exports = {
   WorkflowRegistry,
   createWorkflowRegistry,
   DEFAULT_CACHE_TTL,
-  DEFAULT_PATTERNS_PATH
+  DEFAULT_PATTERNS_PATH,
 };

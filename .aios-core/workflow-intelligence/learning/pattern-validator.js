@@ -22,9 +22,9 @@ const DEFAULT_VALIDATION_RULES = {
     'create-story',
     'validate-story-draft',
     'apply-qa-fixes',
-    'run-tests'
+    'run-tests',
   ],
-  similarityThreshold: 0.85 // For fuzzy duplicate detection
+  similarityThreshold: 0.85, // For fuzzy duplicate detection
 };
 
 /**
@@ -53,7 +53,7 @@ const KNOWN_COMMANDS = new Set([
   'load-full',
   'clear-cache',
   'patterns',
-  'next'
+  'next',
 ]);
 
 /**
@@ -116,15 +116,15 @@ class PatternValidator {
     }
 
     // Rule 5: Must contain at least one key workflow command
-    const hasKeyCommand = pattern.sequence.some(cmd =>
-      this.rules.requiredKeyCommands.some(key => cmd.includes(key))
+    const hasKeyCommand = pattern.sequence.some((cmd) =>
+      this.rules.requiredKeyCommands.some((key) => cmd.includes(key))
     );
     if (!hasKeyCommand) {
       errors.push('Sequence must contain at least one key workflow command');
     }
 
     // Rule 6: All commands should exist in AIOS task registry
-    const unknownCommands = pattern.sequence.filter(cmd => !this._isKnownCommand(cmd));
+    const unknownCommands = pattern.sequence.filter((cmd) => !this._isKnownCommand(cmd));
     if (unknownCommands.length > 0) {
       warnings.push(`Unknown commands: ${unknownCommands.join(', ')}`);
     }
@@ -141,7 +141,7 @@ class PatternValidator {
       valid: errors.length === 0,
       errors: errors,
       warnings: warnings,
-      reason: errors.length > 0 ? errors.join('; ') : null
+      reason: errors.length > 0 ? errors.join('; ') : null,
     };
   }
 
@@ -163,7 +163,7 @@ class PatternValidator {
           isDuplicate: true,
           duplicateOf: existing.id,
           similarity: 1.0,
-          exact: true
+          exact: true,
         };
       }
 
@@ -174,7 +174,7 @@ class PatternValidator {
         return {
           isDuplicate: true,
           duplicateOf: existing.id,
-          similarity: similarity
+          similarity: similarity,
         };
       }
     }
@@ -198,7 +198,7 @@ class PatternValidator {
       currentOccurrences: pattern.occurrences,
       requiredOccurrences: this.rules.minOccurrences,
       currentSuccessRate: pattern.successRate,
-      requiredSuccessRate: this.rules.minSuccessRate
+      requiredSuccessRate: this.rules.minSuccessRate,
     };
   }
 
@@ -258,7 +258,7 @@ class PatternValidator {
     const set2 = new Set(seq2);
 
     // Jaccard similarity
-    const intersection = new Set([...set1].filter(x => set2.has(x)));
+    const intersection = new Set([...set1].filter((x) => set2.has(x)));
     const union = new Set([...set1, ...set2]);
 
     const jaccardSimilarity = intersection.size / union.size;
@@ -274,7 +274,7 @@ class PatternValidator {
     const orderSimilarity = orderScore / Math.max(seq1.length, seq2.length);
 
     // Combined score (weighted average)
-    return (jaccardSimilarity * 0.4) + (orderSimilarity * 0.6);
+    return jaccardSimilarity * 0.4 + orderSimilarity * 0.6;
   }
 
   /**
@@ -305,5 +305,5 @@ module.exports = {
   PatternValidator,
   createPatternValidator,
   DEFAULT_VALIDATION_RULES,
-  KNOWN_COMMANDS
+  KNOWN_COMMANDS,
 };

@@ -23,7 +23,7 @@ describe('Workflow Intelligence System Integration', () => {
         lastCommand: 'create-story',
         lastCommands: ['create-epic', 'create-story'],
         agentId: '@po',
-        projectState: {}
+        projectState: {},
       };
 
       const suggestions = wis.getSuggestions(context);
@@ -40,7 +40,7 @@ describe('Workflow Intelligence System Integration', () => {
         lastCommand: 'validate-story-draft',
         lastCommands: ['validate-story-draft', 'develop'],
         agentId: '@po',
-        projectState: {}
+        projectState: {},
       };
 
       const suggestions = wis.getSuggestions(context);
@@ -54,7 +54,7 @@ describe('Workflow Intelligence System Integration', () => {
         lastCommand: 'random-unknown-command',
         lastCommands: ['random-unknown-command'],
         agentId: '@unknown',
-        projectState: {}
+        projectState: {},
       };
 
       const suggestions = wis.getSuggestions(context);
@@ -66,7 +66,7 @@ describe('Workflow Intelligence System Integration', () => {
         lastCommand: 'create-story',
         lastCommands: ['create-epic', 'create-story'],
         agentId: '@sm',
-        projectState: {}
+        projectState: {},
       };
 
       const suggestions = wis.getSuggestions(context);
@@ -82,7 +82,7 @@ describe('Workflow Intelligence System Integration', () => {
         lastCommand: 'create-story',
         lastCommands: ['create-epic', 'create-story'],
         agentId: '@po',
-        projectState: {}
+        projectState: {},
       };
 
       const suggestions = wis.getSuggestions(context);
@@ -99,27 +99,29 @@ describe('Workflow Intelligence System Integration', () => {
         lastCommand: 'create-story',
         lastCommands: ['create-epic', 'create-story'],
         agentId: '@po',
-        projectState: {}
+        projectState: {},
       };
 
       const suggestions1 = wis.getSuggestions(context1);
       // Should suggest validation after stories created
-      expect(suggestions1.some(s =>
-        s.command === 'validate-story-draft' || s.command === 'create-next-story'
-      )).toBe(true);
+      expect(
+        suggestions1.some(
+          (s) => s.command === 'validate-story-draft' || s.command === 'create-next-story'
+        )
+      ).toBe(true);
 
       // Step 2: After validation
       const context2 = {
         lastCommand: 'validate-story-draft',
         lastCommands: ['create-epic', 'create-story', 'validate-story-draft'],
         agentId: '@sm',
-        projectState: {}
+        projectState: {},
       };
 
       const suggestions2 = wis.getSuggestions(context2);
-      expect(suggestions2.some(s =>
-        s.command === 'analyze-impact' || s.command === 'develop'
-      )).toBe(true);
+      expect(
+        suggestions2.some((s) => s.command === 'analyze-impact' || s.command === 'develop')
+      ).toBe(true);
     });
 
     it('should navigate through story development workflow', () => {
@@ -128,13 +130,13 @@ describe('Workflow Intelligence System Integration', () => {
         lastCommand: 'validate-story-draft',
         lastCommands: ['validate-story-draft', 'develop'],
         agentId: '@po',
-        projectState: {}
+        projectState: {},
       };
 
       const suggestions1 = wis.getSuggestions(context1);
       if (suggestions1.length > 0) {
-        const hasDevelopCommand = suggestions1.some(s =>
-          s.command.includes('develop') || s.command.includes('review')
+        const hasDevelopCommand = suggestions1.some(
+          (s) => s.command.includes('develop') || s.command.includes('review')
         );
         expect(hasDevelopCommand).toBe(true);
       }
@@ -146,7 +148,7 @@ describe('Workflow Intelligence System Integration', () => {
         lastCommand: 'db-schema-audit',
         lastCommands: ['db-domain-modeling', 'db-schema-audit'],
         agentId: '@data-engineer',
-        projectState: {}
+        projectState: {},
       };
 
       const suggestions = wis.getSuggestions(context);
@@ -160,8 +162,8 @@ describe('Workflow Intelligence System Integration', () => {
       const poWorkflows = wis.getWorkflowsByAgent('@po');
       const smWorkflows = wis.getWorkflowsByAgent('@sm');
 
-      const epicInPo = poWorkflows.some(w => w.name === 'epic_creation');
-      const epicInSm = smWorkflows.some(w => w.name === 'epic_creation');
+      const epicInPo = poWorkflows.some((w) => w.name === 'epic_creation');
+      const epicInSm = smWorkflows.some((w) => w.name === 'epic_creation');
 
       expect(epicInPo).toBe(true);
       expect(epicInSm).toBe(true);
@@ -173,7 +175,7 @@ describe('Workflow Intelligence System Integration', () => {
         lastCommand: 'validate-story-draft',
         lastCommands: ['validate-story-draft', 'develop'],
         agentId: '@po',
-        projectState: {}
+        projectState: {},
       };
 
       const poSuggestions = wis.getSuggestions(poContext);
@@ -184,7 +186,7 @@ describe('Workflow Intelligence System Integration', () => {
         lastCommand: 'develop',
         lastCommands: ['validate-story-draft', 'develop'],
         agentId: '@dev',
-        projectState: {}
+        projectState: {},
       };
 
       const devSuggestions = wis.getSuggestions(devContext);
@@ -304,10 +306,10 @@ describe('Workflow Intelligence System Integration', () => {
       'code_quality_workflow',
       'documentation_workflow',
       'ux_workflow',
-      'research_workflow'
+      'research_workflow',
     ];
 
-    workflows.forEach(workflowName => {
+    workflows.forEach((workflowName) => {
       it(`${workflowName} should have transitions defined`, () => {
         const workflow = wis.getWorkflow(workflowName);
         expect(workflow.transitions).toBeDefined();

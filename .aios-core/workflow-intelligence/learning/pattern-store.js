@@ -38,7 +38,7 @@ const PATTERN_STATUS = {
   PENDING: 'pending',
   ACTIVE: 'active',
   PROMOTED: 'promoted',
-  DEPRECATED: 'deprecated'
+  DEPRECATED: 'deprecated',
 };
 
 /**
@@ -74,8 +74,8 @@ class PatternStore {
     const normalizedPattern = this._normalizePattern(pattern);
 
     // Check for existing pattern with same sequence
-    const existingIndex = data.patterns.findIndex(
-      p => this._sequenceEquals(p.sequence, normalizedPattern.sequence)
+    const existingIndex = data.patterns.findIndex((p) =>
+      this._sequenceEquals(p.sequence, normalizedPattern.sequence)
     );
 
     if (existingIndex >= 0) {
@@ -87,9 +87,8 @@ class PatternStore {
       // Update success rate (weighted average)
       const totalOccurrences = existing.occurrences;
       const newSuccessRate = normalizedPattern.successRate || 1.0;
-      existing.successRate = (
-        (existing.successRate * (totalOccurrences - 1) + newSuccessRate) / totalOccurrences
-      );
+      existing.successRate =
+        (existing.successRate * (totalOccurrences - 1) + newSuccessRate) / totalOccurrences;
 
       data.patterns[existingIndex] = existing;
 
@@ -134,10 +133,11 @@ class PatternStore {
     for (const pattern of data.patterns) {
       const similarity = this._calculateSimilarity(sequence, pattern.sequence);
 
-      if (similarity > 0.3) { // Minimum threshold for consideration
+      if (similarity > 0.3) {
+        // Minimum threshold for consideration
         matches.push({
           ...pattern,
-          similarity: similarity
+          similarity: similarity,
         });
       }
     }
@@ -163,7 +163,7 @@ class PatternStore {
       pending: 0,
       active: 0,
       promoted: 0,
-      deprecated: 0
+      deprecated: 0,
     };
 
     let totalSuccessRate = 0;
@@ -175,9 +175,7 @@ class PatternStore {
       totalOccurrences += pattern.occurrences || 1;
     }
 
-    const avgSuccessRate = patterns.length > 0
-      ? totalSuccessRate / patterns.length
-      : 0;
+    const avgSuccessRate = patterns.length > 0 ? totalSuccessRate / patterns.length : 0;
 
     return {
       totalPatterns: patterns.length,
@@ -187,7 +185,7 @@ class PatternStore {
       avgSuccessRate: Math.round(avgSuccessRate * 100) / 100,
       totalOccurrences: totalOccurrences,
       storageFile: this.storagePath,
-      lastUpdated: data.lastUpdated || null
+      lastUpdated: data.lastUpdated || null,
     };
   }
 
@@ -219,7 +217,8 @@ class PatternStore {
         // Then by success rate
         return (b.successRate || 0) - (a.successRate || 0);
       });
-    } else { // oldest_low_occurrence (default)
+    } else {
+      // oldest_low_occurrence (default)
       sorted = [...data.patterns].sort((a, b) => {
         // Keep promoted patterns
         if (a.status === 'promoted') return -1;
@@ -243,7 +242,7 @@ class PatternStore {
 
     return {
       pruned: originalCount - data.patterns.length,
-      remaining: data.patterns.length
+      remaining: data.patterns.length,
     };
   }
 
@@ -255,7 +254,7 @@ class PatternStore {
    */
   updateStatus(patternId, newStatus) {
     const data = this._load();
-    const pattern = data.patterns.find(p => p.id === patternId);
+    const pattern = data.patterns.find((p) => p.id === patternId);
 
     if (!pattern) {
       return { success: false, error: 'Pattern not found' };
@@ -281,7 +280,7 @@ class PatternStore {
    */
   getByStatus(status) {
     const data = this._load();
-    return data.patterns.filter(p => p.status === status);
+    return data.patterns.filter((p) => p.status === status);
   }
 
   /**
@@ -291,7 +290,7 @@ class PatternStore {
   getActivePatterns() {
     const data = this._load();
     return data.patterns.filter(
-      p => p.status === PATTERN_STATUS.ACTIVE || p.status === PATTERN_STATUS.PROMOTED
+      (p) => p.status === PATTERN_STATUS.ACTIVE || p.status === PATTERN_STATUS.PROMOTED
     );
   }
 
@@ -302,7 +301,7 @@ class PatternStore {
    */
   delete(patternId) {
     const data = this._load();
-    const index = data.patterns.findIndex(p => p.id === patternId);
+    const index = data.patterns.findIndex((p) => p.id === patternId);
 
     if (index < 0) {
       return { success: false, error: 'Pattern not found' };
@@ -321,7 +320,7 @@ class PatternStore {
    */
   _load() {
     // Use cache if valid (within 5 seconds)
-    if (this._cache && this._cacheTime && (Date.now() - this._cacheTime) < 5000) {
+    if (this._cache && this._cacheTime && Date.now() - this._cacheTime < 5000) {
       return this._cache;
     }
 
@@ -391,7 +390,7 @@ class PatternStore {
       firstSeen: pattern.firstSeen || new Date().toISOString(),
       lastSeen: pattern.lastSeen || new Date().toISOString(),
       workflow: pattern.workflow || null,
-      status: pattern.status || PATTERN_STATUS.PENDING
+      status: pattern.status || PATTERN_STATUS.PENDING,
     };
   }
 
@@ -494,5 +493,5 @@ module.exports = {
   DEFAULT_STORAGE_PATH,
   DEFAULT_MAX_PATTERNS,
   DEFAULT_PRUNE_THRESHOLD,
-  PATTERN_STATUS
+  PATTERN_STATUS,
 };

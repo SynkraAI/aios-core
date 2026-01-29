@@ -9,7 +9,7 @@ const path = require('path');
 const {
   WorkflowRegistry,
   createWorkflowRegistry,
-  DEFAULT_CACHE_TTL
+  DEFAULT_CACHE_TTL,
 } = require('../registry/workflow-registry');
 
 describe('WorkflowRegistry', () => {
@@ -72,7 +72,7 @@ describe('WorkflowRegistry', () => {
 
     it('should throw error for invalid file path', () => {
       const badRegistry = createWorkflowRegistry({
-        patternsPath: '/nonexistent/path.yaml'
+        patternsPath: '/nonexistent/path.yaml',
       });
       expect(() => badRegistry.loadWorkflows()).toThrow('Workflow patterns file not found');
     });

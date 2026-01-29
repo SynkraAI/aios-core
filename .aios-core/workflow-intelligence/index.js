@@ -33,20 +33,20 @@ const {
   WorkflowRegistry,
   createWorkflowRegistry,
   DEFAULT_CACHE_TTL,
-  DEFAULT_PATTERNS_PATH
+  DEFAULT_PATTERNS_PATH,
 } = require('./registry/workflow-registry');
 
 const {
   ConfidenceScorer,
   createConfidenceScorer,
-  SCORING_WEIGHTS
+  SCORING_WEIGHTS,
 } = require('./engine/confidence-scorer');
 
 const {
   SuggestionEngine,
   createSuggestionEngine,
   SUGGESTION_CACHE_TTL,
-  LOW_CONFIDENCE_THRESHOLD
+  LOW_CONFIDENCE_THRESHOLD,
 } = require('./engine/suggestion-engine');
 
 const {
@@ -54,7 +54,7 @@ const {
   CircularDependencyError,
   createWaveAnalyzer,
   analyzeWaves,
-  DEFAULT_TASK_DURATIONS
+  DEFAULT_TASK_DURATIONS,
 } = require('./engine/wave-analyzer');
 
 const outputFormatter = require('./engine/output-formatter');
@@ -165,30 +165,32 @@ function formatSuggestions(nextSteps, match, state, scorer, context) {
   const transition = getDefaultRegistry().getTransitions(match.name, state);
   const baseConfidence = transition?.confidence || 0.5;
 
-  return nextSteps.map(step => {
-    const suggestion = {
-      command: step.command,
-      args_template: step.args_template,
-      description: step.description,
-      priority: step.priority,
-      workflow: match.name,
-      state: state,
-      trigger: transition?.trigger,
-      agentSequence: match.workflow.agent_sequence,
-      keyCommands: match.workflow.key_commands
-    };
+  return nextSteps
+    .map((step) => {
+      const suggestion = {
+        command: step.command,
+        args_template: step.args_template,
+        description: step.description,
+        priority: step.priority,
+        workflow: match.name,
+        state: state,
+        trigger: transition?.trigger,
+        agentSequence: match.workflow.agent_sequence,
+        keyCommands: match.workflow.key_commands,
+      };
 
-    // Calculate confidence score
-    const score = scorer.score(suggestion, context);
+      // Calculate confidence score
+      const score = scorer.score(suggestion, context);
 
-    // Blend base confidence with calculated score
-    const finalScore = (baseConfidence * 0.4) + (score * 0.6);
+      // Blend base confidence with calculated score
+      const finalScore = baseConfidence * 0.4 + score * 0.6;
 
-    return {
-      ...suggestion,
-      confidence: Math.round(finalScore * 100) / 100
-    };
-  }).sort((a, b) => b.confidence - a.confidence);
+      return {
+        ...suggestion,
+        confidence: Math.round(finalScore * 100) / 100,
+      };
+    })
+    .sort((a, b) => b.confidence - a.confidence);
 }
 
 /**
@@ -323,5 +325,5 @@ module.exports = {
   DEFAULT_PATTERNS_PATH,
   SUGGESTION_CACHE_TTL,
   LOW_CONFIDENCE_THRESHOLD,
-  DEFAULT_TASK_DURATIONS
+  DEFAULT_TASK_DURATIONS,
 };

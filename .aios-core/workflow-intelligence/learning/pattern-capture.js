@@ -27,7 +27,7 @@ const KEY_WORKFLOW_COMMANDS = [
   'create-story',
   'create-next-story',
   'run-tests',
-  'create-pr'
+  'create-pr',
 ];
 
 /**
@@ -76,7 +76,7 @@ class PatternCapture {
     if (sessionData.commands.length < this.minSequenceLength) {
       return {
         valid: false,
-        reason: `Sequence too short (${sessionData.commands.length} < ${this.minSequenceLength})`
+        reason: `Sequence too short (${sessionData.commands.length} < ${this.minSequenceLength})`,
       };
     }
 
@@ -95,13 +95,13 @@ class PatternCapture {
       lastSeen: new Date(sessionData.timestamp || Date.now()).toISOString(),
       sessionId: sessionData.sessionId || crypto.randomUUID(),
       workflow: this._detectWorkflow(sequence),
-      status: 'pending'
+      status: 'pending',
     };
 
     return {
       valid: true,
       pattern: pattern,
-      sequence: sequence
+      sequence: sequence,
     };
   }
 
@@ -128,7 +128,7 @@ class PatternCapture {
           patterns.push({
             sequence: subsequence,
             startIndex: i,
-            length: length
+            length: length,
           });
         }
       }
@@ -164,7 +164,7 @@ class PatternCapture {
         commands: [],
         agents: [],
         startTime: Date.now(),
-        success: true
+        success: true,
       });
     }
 
@@ -189,7 +189,7 @@ class PatternCapture {
         agentSequence: session.agents,
         success: session.success,
         timestamp: Date.now(),
-        sessionId: sessionId
+        sessionId: sessionId,
       });
 
       // Clear session buffer
@@ -198,7 +198,7 @@ class PatternCapture {
       return {
         captured: result.valid,
         pattern: result.pattern,
-        reason: result.reason
+        reason: result.reason,
       };
     }
 
@@ -237,8 +237,8 @@ class PatternCapture {
   _normalizeCommand(command) {
     if (!command) return '';
     return command
-      .replace(/^\*/, '')  // Remove * prefix
-      .replace(/-/g, '-')  // Keep hyphens
+      .replace(/^\*/, '') // Remove * prefix
+      .replace(/-/g, '-') // Keep hyphens
       .toLowerCase()
       .trim();
   }
@@ -250,9 +250,7 @@ class PatternCapture {
    * @private
    */
   _normalizeCommands(commands) {
-    return commands
-      .map(cmd => this._normalizeCommand(cmd))
-      .filter(cmd => cmd.length > 0);
+    return commands.map((cmd) => this._normalizeCommand(cmd)).filter((cmd) => cmd.length > 0);
   }
 
   /**
@@ -263,8 +261,8 @@ class PatternCapture {
    */
   _normalizeAgents(agents) {
     return agents
-      .map(agent => agent.replace('@', '').toLowerCase().trim())
-      .filter(agent => agent.length > 0);
+      .map((agent) => agent.replace('@', '').toLowerCase().trim())
+      .filter((agent) => agent.length > 0);
   }
 
   /**
@@ -274,9 +272,7 @@ class PatternCapture {
    * @private
    */
   _containsKeyCommand(sequence) {
-    return sequence.some(cmd =>
-      this.keyCommands.some(key => cmd.includes(key))
-    );
+    return sequence.some((cmd) => this.keyCommands.some((key) => cmd.includes(key)));
   }
 
   /**
@@ -311,15 +307,8 @@ class PatternCapture {
    * @private
    */
   _isWorkflowEnd(command) {
-    const endCommands = [
-      'create-pr',
-      'push',
-      'deploy',
-      'complete',
-      'done',
-      'finish'
-    ];
-    return endCommands.some(end => command.includes(end));
+    const endCommands = ['create-pr', 'push', 'deploy', 'complete', 'done', 'finish'];
+    return endCommands.some((end) => command.includes(end));
   }
 }
 
@@ -336,5 +325,5 @@ module.exports = {
   PatternCapture,
   createPatternCapture,
   DEFAULT_MIN_SEQUENCE_LENGTH,
-  KEY_WORKFLOW_COMMANDS
+  KEY_WORKFLOW_COMMANDS,
 };

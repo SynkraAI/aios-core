@@ -15,8 +15,8 @@ jest.mock('../../core/session/context-loader', () => {
       sessionType: 'existing',
       lastCommands: ['develop'],
       currentStory: 'docs/stories/test-story.md',
-      workflowActive: 'story_development'
-    })
+      workflowActive: 'story_development',
+    }),
   }));
 });
 
@@ -24,7 +24,7 @@ const {
   SuggestionEngine,
   createSuggestionEngine,
   SUGGESTION_CACHE_TTL,
-  LOW_CONFIDENCE_THRESHOLD
+  LOW_CONFIDENCE_THRESHOLD,
 } = require('../engine/suggestion-engine');
 
 describe('SuggestionEngine', () => {
@@ -76,7 +76,7 @@ describe('SuggestionEngine', () => {
 
       try {
         const context = await engine.buildContext({
-          storyOverride: testStoryPath
+          storyOverride: testStoryPath,
         });
 
         expect(context.storyPath).toBe(testStoryPath);
@@ -90,7 +90,7 @@ describe('SuggestionEngine', () => {
 
     it('should use provided agent ID', async () => {
       const context = await engine.buildContext({
-        agentId: 'qa'
+        agentId: 'qa',
       });
 
       expect(context.agentId).toBe('qa');
@@ -119,7 +119,7 @@ describe('SuggestionEngine', () => {
         lastCommands: ['develop'],
         storyPath: null,
         branch: 'main',
-        projectState: {}
+        projectState: {},
       };
 
       const result = await engine.suggestNext(context);
@@ -139,7 +139,7 @@ describe('SuggestionEngine', () => {
         lastCommands: ['validate-story-draft', 'develop'],
         storyPath: 'docs/stories/test.md',
         branch: 'feature/test',
-        projectState: {}
+        projectState: {},
       };
 
       const result = await engine.suggestNext(context);
@@ -162,7 +162,7 @@ describe('SuggestionEngine', () => {
         lastCommands: ['random-command'],
         storyPath: null,
         branch: null,
-        projectState: {}
+        projectState: {},
       };
 
       const result = await engine.suggestNext(context);
@@ -180,7 +180,7 @@ describe('SuggestionEngine', () => {
         lastCommands: ['develop'],
         storyPath: null,
         branch: 'main',
-        projectState: {}
+        projectState: {},
       };
 
       // First call
@@ -199,7 +199,7 @@ describe('SuggestionEngine', () => {
         lastCommands: ['develop'],
         storyPath: null,
         branch: 'main',
-        projectState: {}
+        projectState: {},
       };
 
       const context2 = {
@@ -208,7 +208,7 @@ describe('SuggestionEngine', () => {
         lastCommands: ['review-qa'],
         storyPath: null,
         branch: 'main',
-        projectState: {}
+        projectState: {},
       };
 
       await engine.suggestNext(context1);
@@ -225,28 +225,32 @@ describe('SuggestionEngine', () => {
 
       expect(result.suggestions.length).toBeGreaterThan(0);
       expect(result.isUncertain).toBe(true);
-      expect(result.suggestions.some(s => s.command === '*help')).toBe(true);
+      expect(result.suggestions.some((s) => s.command === '*help')).toBe(true);
     });
 
     it('should return fallback for po agent', () => {
       const result = engine.getFallbackSuggestions({ agentId: 'po' });
 
       expect(result.suggestions.length).toBeGreaterThan(0);
-      expect(result.suggestions.some(s => s.command.includes('backlog') || s.command.includes('story'))).toBe(true);
+      expect(
+        result.suggestions.some((s) => s.command.includes('backlog') || s.command.includes('story'))
+      ).toBe(true);
     });
 
     it('should return fallback for qa agent', () => {
       const result = engine.getFallbackSuggestions({ agentId: 'qa' });
 
       expect(result.suggestions.length).toBeGreaterThan(0);
-      expect(result.suggestions.some(s => s.command.includes('test') || s.command.includes('qa'))).toBe(true);
+      expect(
+        result.suggestions.some((s) => s.command.includes('test') || s.command.includes('qa'))
+      ).toBe(true);
     });
 
     it('should return default fallback for unknown agent', () => {
       const result = engine.getFallbackSuggestions({ agentId: 'unknown' });
 
       expect(result.suggestions.length).toBeGreaterThan(0);
-      expect(result.suggestions.some(s => s.command === '*help')).toBe(true);
+      expect(result.suggestions.some((s) => s.command === '*help')).toBe(true);
     });
   });
 
@@ -258,7 +262,7 @@ describe('SuggestionEngine', () => {
         lastCommands: ['develop'],
         storyPath: null,
         branch: 'main',
-        projectState: {}
+        projectState: {},
       };
 
       // Prime the cache
@@ -277,7 +281,7 @@ describe('SuggestionEngine', () => {
   describe('_interpolateArgs()', () => {
     it('should interpolate story_path variable', () => {
       const context = {
-        storyPath: 'docs/stories/test.md'
+        storyPath: 'docs/stories/test.md',
       };
 
       const result = engine._interpolateArgs('${story_path}', context);
@@ -286,7 +290,7 @@ describe('SuggestionEngine', () => {
 
     it('should interpolate branch variable', () => {
       const context = {
-        branch: 'feature/test'
+        branch: 'feature/test',
       };
 
       const result = engine._interpolateArgs('${branch}', context);
@@ -336,7 +340,7 @@ describe('SuggestionEngine', () => {
         lastCommand: 'develop',
         lastCommands: ['a', 'b', 'c'],
         storyPath: 'test.md',
-        branch: 'main'
+        branch: 'main',
       };
 
       const key1 = engine._generateCacheKey(context);
@@ -348,11 +352,11 @@ describe('SuggestionEngine', () => {
     it('should generate different key for different context', () => {
       const context1 = {
         agentId: 'dev',
-        lastCommand: 'develop'
+        lastCommand: 'develop',
       };
       const context2 = {
         agentId: 'qa',
-        lastCommand: 'review'
+        lastCommand: 'review',
       };
 
       const key1 = engine._generateCacheKey(context1);
@@ -368,7 +372,7 @@ describe('SuggestionEngine', () => {
     });
 
     it('should export LOW_CONFIDENCE_THRESHOLD', () => {
-      expect(LOW_CONFIDENCE_THRESHOLD).toBe(0.50);
+      expect(LOW_CONFIDENCE_THRESHOLD).toBe(0.5);
     });
   });
 });
@@ -388,7 +392,7 @@ describe('SuggestionEngine Performance', () => {
       lastCommands: ['develop'],
       storyPath: null,
       branch: 'main',
-      projectState: {}
+      projectState: {},
     };
 
     const start = Date.now();
@@ -413,7 +417,7 @@ describe('SuggestionEngine Performance', () => {
       lastCommands: ['develop'],
       storyPath: null,
       branch: 'main',
-      projectState: {}
+      projectState: {},
     };
 
     // Cold start

@@ -21,7 +21,7 @@ const colors = {
   magenta: '\x1b[35m',
   cyan: '\x1b[36m',
   white: '\x1b[37m',
-  gray: '\x1b[90m'
+  gray: '\x1b[90m',
 };
 
 /**
@@ -91,7 +91,7 @@ function formatWorkflowName(workflow) {
   // Convert snake_case to Title Case
   return workflow
     .split('_')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 }
 
@@ -108,7 +108,11 @@ function displaySuggestions(result) {
 
   if (result.currentState) {
     const stateDisplay = result.currentState.replace(/_/g, ' ');
-    output.push(colorize('  State: ', 'cyan') + stateDisplay + ` (confidence: ${formatConfidence(result.confidence)})`);
+    output.push(
+      colorize('  State: ', 'cyan') +
+        stateDisplay +
+        ` (confidence: ${formatConfidence(result.confidence)})`
+    );
   } else {
     output.push(colorize('  State: ', 'cyan') + colorize('N/A', 'gray'));
   }
@@ -136,7 +140,9 @@ function displaySuggestions(result) {
 
     // Confidence note for uncertain suggestions
     if (result.isUncertain) {
-      output.push(colorize('  Low confidence - context is unclear. Try providing --story flag.', 'yellow'));
+      output.push(
+        colorize('  Low confidence - context is unclear. Try providing --story flag.', 'yellow')
+      );
       output.push('');
     }
   } else {
@@ -202,9 +208,13 @@ function displayHelp() {
   output.push(`  ${colorize('--help', 'cyan')}          Show this help message`);
   output.push('');
   output.push(colorize('Examples:', 'bold'));
-  output.push(`  ${colorize('*next', 'green')}                                    ${colorize('# Auto-detect context', 'dim')}`);
+  output.push(
+    `  ${colorize('*next', 'green')}                                    ${colorize('# Auto-detect context', 'dim')}`
+  );
   output.push(`  ${colorize('*next --story docs/stories/v2.1/sprint-10/story-wis-3.md', 'green')}`);
-  output.push(`  ${colorize('*next --all', 'green')}                              ${colorize('# Show all suggestions', 'dim')}`);
+  output.push(
+    `  ${colorize('*next --all', 'green')}                              ${colorize('# Show all suggestions', 'dim')}`
+  );
   output.push('');
   output.push(colorize('How it works:', 'bold'));
   output.push('  1. Analyzes your recent commands and current agent');
@@ -235,14 +245,18 @@ function displayContext(context) {
   output.push(`  ${colorize('Last Command:', 'cyan')} ${context.lastCommand || 'none'}`);
 
   if (context.lastCommands && context.lastCommands.length > 0) {
-    output.push(`  ${colorize('Recent Commands:', 'cyan')} ${context.lastCommands.slice(-5).join(', ')}`);
+    output.push(
+      `  ${colorize('Recent Commands:', 'cyan')} ${context.lastCommands.slice(-5).join(', ')}`
+    );
   }
 
   output.push(`  ${colorize('Story:', 'cyan')} ${context.storyPath || 'none'}`);
   output.push(`  ${colorize('Branch:', 'cyan')} ${context.branch || 'none'}`);
 
   if (context.projectState) {
-    output.push(`  ${colorize('Workflow Phase:', 'cyan')} ${context.projectState.workflowPhase || 'unknown'}`);
+    output.push(
+      `  ${colorize('Workflow Phase:', 'cyan')} ${context.projectState.workflowPhase || 'unknown'}`
+    );
   }
 
   output.push('');
@@ -281,5 +295,5 @@ module.exports = {
   formatWorkflowName,
   colorize,
   supportsColors,
-  colors
+  colors,
 };

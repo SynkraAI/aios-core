@@ -10,7 +10,7 @@ const {
   CircularDependencyError,
   createWaveAnalyzer,
   analyzeWaves,
-  DEFAULT_TASK_DURATIONS
+  DEFAULT_TASK_DURATIONS,
 } = require('../engine/wave-analyzer');
 
 describe('WaveAnalyzer', () => {
@@ -46,7 +46,7 @@ describe('WaveAnalyzer', () => {
         { id: 'task-a', dependsOn: [] },
         { id: 'task-b', dependsOn: [] },
         { id: 'task-c', dependsOn: ['task-a', 'task-b'] },
-        { id: 'task-d', dependsOn: ['task-c'] }
+        { id: 'task-d', dependsOn: ['task-c'] },
       ];
 
       const graph = analyzer.buildDependencyGraph(tasks);
@@ -70,11 +70,7 @@ describe('WaveAnalyzer', () => {
     });
 
     it('should handle tasks without dependencies', () => {
-      const tasks = [
-        { id: 'task-a' },
-        { id: 'task-b' },
-        { id: 'task-c' }
-      ];
+      const tasks = [{ id: 'task-a' }, { id: 'task-b' }, { id: 'task-c' }];
 
       const graph = analyzer.buildDependencyGraph(tasks);
 
@@ -85,10 +81,7 @@ describe('WaveAnalyzer', () => {
     });
 
     it('should use task name if id is missing', () => {
-      const tasks = [
-        { name: 'task-a' },
-        { name: 'task-b', dependsOn: ['task-a'] }
-      ];
+      const tasks = [{ name: 'task-a' }, { name: 'task-b', dependsOn: ['task-a'] }];
 
       const graph = analyzer.buildDependencyGraph(tasks);
 
@@ -98,9 +91,7 @@ describe('WaveAnalyzer', () => {
     });
 
     it('should ignore dependencies to non-existent nodes', () => {
-      const tasks = [
-        { id: 'task-a', dependsOn: ['non-existent'] }
-      ];
+      const tasks = [{ id: 'task-a', dependsOn: ['non-existent'] }];
 
       const graph = analyzer.buildDependencyGraph(tasks);
 
@@ -114,7 +105,7 @@ describe('WaveAnalyzer', () => {
       const tasks = [
         { id: 'a', dependsOn: [] },
         { id: 'b', dependsOn: ['a'] },
-        { id: 'c', dependsOn: ['b'] }
+        { id: 'c', dependsOn: ['b'] },
       ];
 
       const graph = analyzer.buildDependencyGraph(tasks);
@@ -127,7 +118,7 @@ describe('WaveAnalyzer', () => {
       const tasks = [
         { id: 'a', dependsOn: ['c'] },
         { id: 'b', dependsOn: ['a'] },
-        { id: 'c', dependsOn: ['b'] }
+        { id: 'c', dependsOn: ['b'] },
       ];
 
       const graph = analyzer.buildDependencyGraph(tasks);
@@ -138,9 +129,7 @@ describe('WaveAnalyzer', () => {
     });
 
     it('should detect self-loop', () => {
-      const tasks = [
-        { id: 'a', dependsOn: ['a'] }
-      ];
+      const tasks = [{ id: 'a', dependsOn: ['a'] }];
 
       const graph = analyzer.buildDependencyGraph(tasks);
       const cycle = analyzer.findCycle(graph);
@@ -154,7 +143,7 @@ describe('WaveAnalyzer', () => {
         { id: 'a', dependsOn: ['d'] }, // Creates cycle: a -> b -> d -> a
         { id: 'b', dependsOn: ['a'] },
         { id: 'c', dependsOn: ['a'] },
-        { id: 'd', dependsOn: ['b', 'c'] }
+        { id: 'd', dependsOn: ['b', 'c'] },
       ];
 
       const graph = analyzer.buildDependencyGraph(tasks);
@@ -169,7 +158,7 @@ describe('WaveAnalyzer', () => {
       const tasks = [
         { id: 'a', dependsOn: [], duration: 5 },
         { id: 'b', dependsOn: [], duration: 3 },
-        { id: 'c', dependsOn: [], duration: 4 }
+        { id: 'c', dependsOn: [], duration: 4 },
       ];
 
       const result = analyzer.analyzeWaves('test-workflow', { customTasks: tasks });
@@ -184,7 +173,7 @@ describe('WaveAnalyzer', () => {
         { id: 'a', dependsOn: [], duration: 5 },
         { id: 'b', dependsOn: ['a'], duration: 10 },
         { id: 'c', dependsOn: ['b'], duration: 3 },
-        { id: 'd', dependsOn: ['c'], duration: 7 }
+        { id: 'd', dependsOn: ['c'], duration: 7 },
       ];
 
       const result = analyzer.analyzeWaves('test-workflow', { customTasks: tasks });
@@ -201,7 +190,7 @@ describe('WaveAnalyzer', () => {
         { id: 'a', dependsOn: [], duration: 5 },
         { id: 'b', dependsOn: ['a'], duration: 10 },
         { id: 'c', dependsOn: ['a'], duration: 8 },
-        { id: 'd', dependsOn: ['b', 'c'], duration: 5 }
+        { id: 'd', dependsOn: ['b', 'c'], duration: 5 },
       ];
 
       const result = analyzer.analyzeWaves('test-workflow', { customTasks: tasks });
@@ -219,7 +208,7 @@ describe('WaveAnalyzer', () => {
         { id: 'b', dependsOn: [], duration: 3 },
         { id: 'c', dependsOn: ['a'], duration: 10 },
         { id: 'd', dependsOn: ['b'], duration: 8 },
-        { id: 'e', dependsOn: ['c', 'd'], duration: 5 }
+        { id: 'e', dependsOn: ['c', 'd'], duration: 5 },
       ];
 
       const result = analyzer.analyzeWaves('test-workflow', { customTasks: tasks });
@@ -234,7 +223,7 @@ describe('WaveAnalyzer', () => {
       const tasks = [
         { id: 'a', dependsOn: [], duration: 10 },
         { id: 'b', dependsOn: [], duration: 10 },
-        { id: 'c', dependsOn: ['a', 'b'], duration: 10 }
+        { id: 'c', dependsOn: ['a', 'b'], duration: 10 },
       ];
 
       const result = analyzer.analyzeWaves('test-workflow', { customTasks: tasks });
@@ -267,7 +256,7 @@ describe('WaveAnalyzer', () => {
       const tasks = [
         { id: 'a', dependsOn: ['c'], duration: 5 },
         { id: 'b', dependsOn: ['a'], duration: 5 },
-        { id: 'c', dependsOn: ['b'], duration: 5 }
+        { id: 'c', dependsOn: ['b'], duration: 5 },
       ];
 
       expect(() => {
@@ -302,7 +291,7 @@ describe('WaveAnalyzer', () => {
         { id: 'a', dependsOn: [], duration: 5 },
         { id: 'b', dependsOn: ['a'], duration: 20 },
         { id: 'c', dependsOn: ['a'], duration: 3 },
-        { id: 'd', dependsOn: ['b', 'c'], duration: 5 }
+        { id: 'd', dependsOn: ['b', 'c'], duration: 5 },
       ];
 
       const result = analyzer.analyzeWaves('test-workflow', { customTasks: tasks });
@@ -324,7 +313,7 @@ describe('WaveAnalyzer', () => {
       const tasks = [
         { id: 'a', dependsOn: [], duration: 5 },
         { id: 'b', dependsOn: ['a'], duration: 10 },
-        { id: 'c', dependsOn: ['b'], duration: 5 }
+        { id: 'c', dependsOn: ['b'], duration: 5 },
       ];
 
       const context = analyzer.getCurrentWave('test-workflow', 'b');
@@ -341,14 +330,14 @@ describe('WaveAnalyzer', () => {
       totalTasks: 3,
       waves: [
         { waveNumber: 1, tasks: ['a', 'b'], parallel: true, estimatedDuration: '5min' },
-        { waveNumber: 2, tasks: ['c'], parallel: false, estimatedDuration: '10min' }
+        { waveNumber: 2, tasks: ['c'], parallel: false, estimatedDuration: '10min' },
       ],
       optimizationGain: '25%',
       criticalPath: ['a', 'c'],
       metrics: {
         sequentialTime: '20min',
-        parallelTime: '15min'
-      }
+        parallelTime: '15min',
+      },
     };
 
     it('should format as JSON when json option is true', () => {
@@ -379,7 +368,7 @@ describe('WaveAnalyzer', () => {
       const tasks = Array.from({ length: 5 }, (_, i) => ({
         id: `task-${i}`,
         dependsOn: i > 0 ? [`task-${i - 1}`] : [],
-        duration: 5
+        duration: 5,
       }));
 
       const start = Date.now();
@@ -394,7 +383,7 @@ describe('WaveAnalyzer', () => {
       const tasks = Array.from({ length: 20 }, (_, i) => ({
         id: `task-${i}`,
         dependsOn: i > 0 ? [`task-${Math.floor(i / 2)}`] : [],
-        duration: 5
+        duration: 5,
       }));
 
       const start = Date.now();
@@ -408,7 +397,7 @@ describe('WaveAnalyzer', () => {
       const tasks = Array.from({ length: 50 }, (_, i) => ({
         id: `task-${i}`,
         dependsOn: i > 0 ? [`task-${Math.max(0, i - 3)}`] : [],
-        duration: 5
+        duration: 5,
       }));
 
       const start = Date.now();
@@ -428,7 +417,7 @@ describe('Factory functions', () => {
     });
 
     it('should pass options to constructor', () => {
-      const customDurations = { 'custom': 15 };
+      const customDurations = { custom: 15 };
       const instance = createWaveAnalyzer({ taskDurations: customDurations });
       expect(instance.taskDurations.custom).toBe(15);
     });
@@ -438,7 +427,7 @@ describe('Factory functions', () => {
     it('should analyze waves without creating instance manually', () => {
       const tasks = [
         { id: 'a', dependsOn: [], duration: 5 },
-        { id: 'b', dependsOn: ['a'], duration: 10 }
+        { id: 'b', dependsOn: ['a'], duration: 10 },
       ];
 
       const result = analyzeWaves('test', { customTasks: tasks });
