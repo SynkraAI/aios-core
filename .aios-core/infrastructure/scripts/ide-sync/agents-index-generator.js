@@ -21,7 +21,7 @@ async function generateAgentsMd(projectRoot, agents, options = {}) {
     'product',
     'templates',
     'ide-rules',
-    'opencode-rules.md'
+    'opencode-project-context.md'
   );
   const targetPath = path.join(projectRoot, '.opencode', 'rules', 'AGENTS.md');
 
