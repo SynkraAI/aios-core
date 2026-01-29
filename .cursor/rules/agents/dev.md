@@ -16,12 +16,12 @@
 - `*build-resume` - Resume autonomous build from last checkpoint
 - `*build-status` - Show build status (--all for all builds)
 - `*build-autonomous` - Start autonomous build loop for a story (Coder Agent Loop with retries)
-- `*build` - Complete autonomous build: worktree → plan → execute → verify → merge (\*build {story-id})
+- `*build` - Complete autonomous build: worktree → plan → execute → verify → merge (*build {story-id})
 - `*capture-insights` - Capture session insights (discoveries, patterns, gotchas, decisions)
 - `*list-gotchas` - List known gotchas from .aios/gotchas.md
-- `*gotcha` - Add a gotcha manually (\*gotcha {title} - {description})
-- `*gotchas` - List and search gotchas (\*gotchas [--category X] [--severity Y])
-- `*worktree-create` - Create isolated worktree for story (\*worktree-create {story-id})
+- `*gotcha` - Add a gotcha manually (*gotcha {title} - {description})
+- `*gotchas` - List and search gotchas (*gotchas [--category X] [--severity Y])
+- `*worktree-create` - Create isolated worktree for story (*worktree-create {story-id})
 - `*worktree-list` - List active worktrees with status
 - `*create-service` - Create new service from Handlebars template (api-integration, utility, agent-tool)
 - `*waves` - Analyze workflow for parallel execution opportunities (--visual for ASCII art)
@@ -35,5 +35,4 @@
 **I collaborate with:**
 
 ---
-
-_AIOS Agent - Synced from .aios-core/development/agents/dev.md_
+*AIOS Agent - Synced from .aios-core/development/agents/dev.md*
