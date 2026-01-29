@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '@/lib/utils';
 import type { RoadmapImpact, RoadmapEffort, RoadmapPriority } from '@/types';
 
@@ -8,29 +10,90 @@ interface TagProps {
   className?: string;
 }
 
+// Using CSS variables for theming
 const variantStyles = {
-  default: 'bg-muted text-muted-foreground',
+  default: {
+    bg: 'var(--border)',
+    text: 'var(--text-tertiary)',
+    border: 'var(--border)',
+  },
   impact: {
-    low: 'bg-zinc-800 text-zinc-400 border-zinc-700',
-    medium: 'bg-yellow-900/30 text-yellow-500 border-yellow-800/50',
-    high: 'bg-purple-900/30 text-purple-400 border-purple-800/50',
+    low: {
+      bg: 'var(--status-idle-bg)',
+      text: 'var(--text-tertiary)',
+      border: 'var(--border)',
+    },
+    medium: {
+      bg: 'var(--status-warning-bg)',
+      text: 'var(--status-warning)',
+      border: 'var(--status-warning-border)',
+    },
+    high: {
+      bg: 'var(--phase-review-bg)',
+      text: 'var(--phase-review)',
+      border: 'var(--phase-review-border)',
+    },
   },
   effort: {
-    low: 'bg-green-900/30 text-green-400 border-green-800/50',
-    medium: 'bg-yellow-900/30 text-yellow-400 border-yellow-800/50',
-    high: 'bg-red-900/30 text-red-400 border-red-800/50',
+    low: {
+      bg: 'var(--status-success-bg)',
+      text: 'var(--status-success)',
+      border: 'var(--status-success-border)',
+    },
+    medium: {
+      bg: 'var(--status-warning-bg)',
+      text: 'var(--status-warning)',
+      border: 'var(--status-warning-border)',
+    },
+    high: {
+      bg: 'var(--status-error-bg)',
+      text: 'var(--status-error)',
+      border: 'var(--status-error-border)',
+    },
   },
   priority: {
-    must_have: 'bg-red-900/20 text-red-400 border-red-900/50',
-    should_have: 'bg-yellow-900/20 text-yellow-400 border-yellow-900/50',
-    could_have: 'bg-blue-900/20 text-blue-400 border-blue-900/50',
-    wont_have: 'bg-zinc-800 text-zinc-500 border-zinc-700',
+    must_have: {
+      bg: 'var(--priority-must-bg)',
+      text: 'var(--priority-must)',
+      border: 'var(--priority-must-border)',
+    },
+    should_have: {
+      bg: 'var(--priority-should-bg)',
+      text: 'var(--priority-should)',
+      border: 'var(--priority-should-border)',
+    },
+    could_have: {
+      bg: 'var(--priority-could-bg)',
+      text: 'var(--priority-could)',
+      border: 'var(--priority-could-border)',
+    },
+    wont_have: {
+      bg: 'var(--priority-wont-bg)',
+      text: 'var(--priority-wont)',
+      border: 'var(--priority-wont-border)',
+    },
   },
   category: {
-    feature: 'bg-blue-900/30 text-blue-400 border-blue-800/50',
-    fix: 'bg-red-900/30 text-red-400 border-red-800/50',
-    refactor: 'bg-purple-900/30 text-purple-400 border-purple-800/50',
-    docs: 'bg-green-900/30 text-green-400 border-green-800/50',
+    feature: {
+      bg: 'var(--category-feature-bg)',
+      text: 'var(--category-feature)',
+      border: 'transparent',
+    },
+    fix: {
+      bg: 'var(--category-fix-bg)',
+      text: 'var(--category-fix)',
+      border: 'transparent',
+    },
+    refactor: {
+      bg: 'var(--category-refactor-bg)',
+      text: 'var(--category-refactor)',
+      border: 'transparent',
+    },
+    docs: {
+      bg: 'var(--category-docs-bg)',
+      text: 'var(--category-docs)',
+      border: 'transparent',
+    },
   },
 };
 
@@ -40,30 +103,35 @@ const sizeStyles = {
 };
 
 export function Tag({ label, variant = 'default', size = 'md', className }: TagProps) {
-  let colorClass = variantStyles.default;
+  let style = variantStyles.default;
 
   if (variant === 'impact') {
     const key = label.toLowerCase() as RoadmapImpact;
-    colorClass = variantStyles.impact[key] || variantStyles.default;
+    style = variantStyles.impact[key] || variantStyles.default;
   } else if (variant === 'effort') {
     const key = label.toLowerCase() as RoadmapEffort;
-    colorClass = variantStyles.effort[key] || variantStyles.default;
+    style = variantStyles.effort[key] || variantStyles.default;
   } else if (variant === 'priority') {
     const key = label.toLowerCase().replace(/['\s]/g, '_') as RoadmapPriority;
-    colorClass = variantStyles.priority[key] || variantStyles.default;
+    style = variantStyles.priority[key] || variantStyles.default;
   } else if (variant === 'category') {
     const key = label.toLowerCase() as keyof typeof variantStyles.category;
-    colorClass = variantStyles.category[key] || variantStyles.default;
+    style = variantStyles.category[key] || variantStyles.default;
   }
 
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded border font-mono uppercase tracking-wider font-medium',
+        'inline-flex items-center font-mono uppercase tracking-wider font-medium',
         sizeStyles[size],
-        colorClass,
+        style.border !== 'transparent' && 'border',
         className
       )}
+      style={{
+        backgroundColor: style.bg,
+        color: style.text,
+        borderColor: style.border,
+      }}
     >
       {label}
     </span>

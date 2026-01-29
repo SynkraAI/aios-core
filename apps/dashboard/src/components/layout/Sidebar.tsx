@@ -15,20 +15,20 @@ export function Sidebar({ className }: SidebarProps) {
   return (
     <aside
       className={cn(
-        'flex flex-col border-r bg-sidebar transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
-        'border-[rgba(255,255,255,0.04)]',
+        'flex flex-col border-r bg-sidebar transition-luxury',
         sidebarCollapsed ? 'w-16' : 'w-60',
         className
       )}
+      style={{ borderColor: 'var(--border-subtle)' }}
     >
       {/* Logo/Brand */}
-      <div className="flex h-14 items-center border-b border-[rgba(255,255,255,0.04)] px-4">
+      <div className="flex h-14 items-center border-b px-4" style={{ borderColor: 'var(--border-subtle)' }}>
         {sidebarCollapsed ? (
-          <span className="text-xl font-light text-[#C9B298]">A</span>
+          <span className="text-xl font-light" style={{ color: 'var(--accent-gold)' }}>A</span>
         ) : (
           <div className="flex items-center gap-2">
-            <span className="text-sm font-light tracking-wide text-[#C9B298]">AIOS</span>
-            <span className="text-sm font-light text-[#6B6B5F]">Dashboard</span>
+            <span className="text-sm font-light tracking-wide" style={{ color: 'var(--accent-gold)' }}>AIOS</span>
+            <span className="text-sm font-light" style={{ color: 'var(--text-tertiary)' }}>Dashboard</span>
           </div>
         )}
       </div>
@@ -65,24 +65,36 @@ function SidebarNavItem({ item, isActive, isCollapsed, onClick }: SidebarNavItem
         onClick={onClick}
         className={cn(
           'group relative flex w-full items-center gap-3 px-3 py-2 text-sm font-light',
-          'transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
-          'hover:bg-[rgba(255,255,255,0.03)] hover:text-[#FAFAF8]',
-          'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[rgba(201,178,152,0.3)]',
-          isActive
-            ? 'bg-[rgba(201,178,152,0.08)] text-[#FAFAF8]'
-            : 'text-[#6B6B5F]',
+          'transition-luxury',
+          'focus-visible:outline-none focus-visible:ring-1',
           isCollapsed && 'justify-center px-2'
         )}
+        style={{
+          backgroundColor: isActive ? 'var(--accent-gold-bg)' : 'transparent',
+          color: isActive ? 'var(--text-primary)' : 'var(--text-tertiary)',
+        }}
+        onMouseEnter={(e) => {
+          if (!isActive) {
+            e.currentTarget.style.backgroundColor = 'var(--bg-hover)';
+            e.currentTarget.style.color = 'var(--text-primary)';
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (!isActive) {
+            e.currentTarget.style.backgroundColor = 'transparent';
+            e.currentTarget.style.color = 'var(--text-tertiary)';
+          }
+        }}
         title={isCollapsed ? `${item.label} (${item.shortcut})` : undefined}
       >
         {/* Icon */}
         {(() => {
           const IconComponent = iconMap[item.icon];
           return IconComponent ? (
-            <IconComponent className={cn(
-              "h-4 w-4 flex-shrink-0 transition-colors duration-300",
-              isActive ? "text-[#C9B298]" : "text-[#4A4A42] group-hover:text-[#6B6B5F]"
-            )} />
+            <IconComponent
+              className="h-4 w-4 flex-shrink-0 transition-luxury"
+              style={{ color: isActive ? 'var(--accent-gold)' : 'var(--text-muted)' }}
+            />
           ) : null;
         })()}
 
@@ -91,11 +103,14 @@ function SidebarNavItem({ item, isActive, isCollapsed, onClick }: SidebarNavItem
 
         {/* Keyboard shortcut hint */}
         {!isCollapsed && item.shortcut && (
-          <span className={cn(
-            "ml-auto text-[9px] px-1.5 py-0.5 font-mono tracking-wide",
-            "border border-[rgba(255,255,255,0.04)] bg-[rgba(0,0,0,0.3)]",
-            isActive ? "text-[#C9B298] border-[rgba(201,178,152,0.2)]" : "text-[#4A4A42]"
-          )}>
+          <span
+            className="ml-auto text-[9px] px-1.5 py-0.5 font-mono tracking-wide border"
+            style={{
+              borderColor: isActive ? 'var(--border-gold)' : 'var(--border-subtle)',
+              backgroundColor: 'rgba(0,0,0,0.3)',
+              color: isActive ? 'var(--accent-gold)' : 'var(--text-muted)',
+            }}
+          >
             {item.shortcut}
           </span>
         )}
@@ -104,9 +119,10 @@ function SidebarNavItem({ item, isActive, isCollapsed, onClick }: SidebarNavItem
         {isActive && (
           <span
             className={cn(
-              'absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 bg-[#C9B298]',
+              'absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2',
               isCollapsed && 'left-0'
             )}
+            style={{ backgroundColor: 'var(--accent-gold)' }}
           />
         )}
       </button>

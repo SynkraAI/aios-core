@@ -7,26 +7,25 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { iconMap } from '@/lib/icons';
 import { AGENT_CONFIG, KANBAN_COLUMNS, type Story } from '@/types';
 
-// Status badge variants
-const STATUS_VARIANTS: Record<string, string> = {
-  backlog: 'bg-gray-500/10 text-gray-400 border-gray-500/20',
-  in_progress: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  ai_review: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
-  human_review: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
-  pr_created: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-  done: 'bg-green-500/10 text-green-400 border-green-500/20',
-  error: 'bg-red-500/10 text-red-400 border-red-500/20',
+// Status badge variants - using CSS variables
+const STATUS_STYLES: Record<string, { bg: string; text: string; border: string }> = {
+  backlog: { bg: 'var(--status-idle-bg)', text: 'var(--text-tertiary)', border: 'var(--border)' },
+  in_progress: { bg: 'var(--status-info-bg)', text: 'var(--status-info)', border: 'var(--status-info-border)' },
+  ai_review: { bg: 'var(--phase-review-bg)', text: 'var(--phase-review)', border: 'var(--phase-review-border)' },
+  human_review: { bg: 'var(--status-warning-bg)', text: 'var(--status-warning)', border: 'var(--status-warning-border)' },
+  pr_created: { bg: 'var(--phase-pr-bg)', text: 'var(--phase-pr)', border: 'var(--phase-pr-border)' },
+  done: { bg: 'var(--status-success-bg)', text: 'var(--status-success)', border: 'var(--status-success-border)' },
+  error: { bg: 'var(--status-error-bg)', text: 'var(--status-error)', border: 'var(--status-error-border)' },
 };
 
-const COMPLEXITY_VARIANTS: Record<string, string> = {
-  simple: 'bg-green-500/10 text-green-400 border-green-500/20',
-  standard: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
-  complex: 'bg-red-500/10 text-red-400 border-red-500/20',
+const COMPLEXITY_STYLES: Record<string, { bg: string; text: string; border: string }> = {
+  simple: { bg: 'var(--complexity-simple-bg)', text: 'var(--complexity-simple)', border: 'var(--complexity-simple-border)' },
+  standard: { bg: 'var(--complexity-standard-bg)', text: 'var(--complexity-standard)', border: 'var(--complexity-standard-border)' },
+  complex: { bg: 'var(--complexity-complex-bg)', text: 'var(--complexity-complex)', border: 'var(--complexity-complex-border)' },
 };
 
 interface StoryDetailModalProps {
@@ -59,38 +58,41 @@ export function StoryDetailModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto" style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border)' }}>
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold pr-8">
-            {story.id}: {story.title}
+          <div className="mb-1">
+            <span className="text-[10px] uppercase tracking-[0.2em]" style={{ color: 'var(--accent-gold)' }}>{story.id}</span>
+          </div>
+          <DialogTitle className="text-base font-light pr-8" style={{ color: 'var(--text-primary)' }}>
+            {story.title}
           </DialogTitle>
         </DialogHeader>
 
-        {/* Badges Row (AC4) */}
-        <div className="flex flex-wrap items-center gap-2 mt-2">
+        {/* Badges Row */}
+        <div className="flex flex-wrap items-center gap-2 mt-3">
           {/* Status Badge */}
-          <Badge
-            variant="outline"
-            className={cn(
-              'border flex items-center gap-1',
-              STATUS_VARIANTS[story.status] || STATUS_VARIANTS.backlog
-            )}
+          <span
+            className="inline-flex items-center gap-1.5 px-2 py-1 text-[10px] font-medium uppercase tracking-wider border"
+            style={{
+              backgroundColor: (STATUS_STYLES[story.status] || STATUS_STYLES.backlog).bg,
+              color: (STATUS_STYLES[story.status] || STATUS_STYLES.backlog).text,
+              borderColor: (STATUS_STYLES[story.status] || STATUS_STYLES.backlog).border,
+            }}
           >
             {statusConfig && (() => {
               const IconComponent = iconMap[statusConfig.icon];
               return IconComponent ? <IconComponent className="h-3 w-3" /> : null;
             })()}
             {statusConfig?.label || story.status}
-          </Badge>
+          </span>
 
           {/* Agent Badge */}
           {agentConfig && (
-            <Badge
-              variant="outline"
-              className="flex items-center gap-1"
+            <span
+              className="inline-flex items-center gap-1.5 px-2 py-1 text-[10px] font-medium border"
               style={{
-                backgroundColor: `${agentConfig.color}20`,
-                borderColor: `${agentConfig.color}40`,
+                backgroundColor: `${agentConfig.color}15`,
+                borderColor: `${agentConfig.color}30`,
                 color: agentConfig.color,
               }}
             >
@@ -99,56 +101,61 @@ export function StoryDetailModal({
                 return IconComponent ? <IconComponent className="h-3 w-3" /> : null;
               })()}
               @{story.agentId}
-            </Badge>
+            </span>
           )}
 
           {/* Complexity Badge */}
           {story.complexity && (
-            <Badge
-              variant="outline"
-              className={cn(
-                'border',
-                COMPLEXITY_VARIANTS[story.complexity]
-              )}
+            <span
+              className="inline-flex items-center px-2 py-1 text-[10px] font-medium uppercase tracking-wider border"
+              style={{
+                backgroundColor: COMPLEXITY_STYLES[story.complexity]?.bg,
+                color: COMPLEXITY_STYLES[story.complexity]?.text,
+                borderColor: COMPLEXITY_STYLES[story.complexity]?.border,
+              }}
             >
-              {story.complexity.charAt(0).toUpperCase() + story.complexity.slice(1)}
-            </Badge>
+              {story.complexity}
+            </span>
           )}
 
           {/* Priority Badge */}
           {story.priority && (
-            <Badge variant="outline" className="border-muted">
-              Priority: {story.priority}
-            </Badge>
+            <span
+              className="inline-flex items-center px-2 py-1 text-[10px] font-medium uppercase tracking-wider border"
+              style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
+            >
+              P{story.priority}
+            </span>
           )}
         </div>
 
-        <div className="border-t border-border my-4" />
+        <div className="border-t my-4" style={{ borderColor: 'var(--border-subtle)' }} />
 
-        {/* Description (AC2, AC3) */}
+        {/* Description */}
         <section>
-          <h3 className="text-sm font-semibold text-muted-foreground mb-2">
+          <h3 className="text-[10px] uppercase tracking-[0.2em] mb-2" style={{ color: 'var(--accent-gold)' }}>
             Description
           </h3>
-          <p className="text-sm text-foreground whitespace-pre-wrap">
+          <p className="text-[13px] whitespace-pre-wrap leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             {story.description || 'No description provided.'}
           </p>
         </section>
 
-        {/* Acceptance Criteria (AC2, AC3) */}
+        {/* Acceptance Criteria */}
         {story.acceptanceCriteria && story.acceptanceCriteria.length > 0 && (
-          <section className="mt-4">
-            <h3 className="text-sm font-semibold text-muted-foreground mb-2">
+          <section className="mt-5">
+            <h3 className="text-[10px] uppercase tracking-[0.2em] mb-2" style={{ color: 'var(--accent-gold)' }}>
               Acceptance Criteria
             </h3>
-            <ul className="space-y-1.5">
+            <ul className="space-y-2">
               {story.acceptanceCriteria.map((criterion, index) => (
                 <li
                   key={index}
-                  className="flex items-start gap-2 text-sm text-foreground"
+                  className="flex items-start gap-2 text-[13px]"
+                  style={{ color: 'var(--text-secondary)' }}
                 >
-                  <span className="text-muted-foreground">•</span>
-                  <span>{criterion}</span>
+                  <span className="mt-0.5" style={{ color: 'var(--border)' }}>•</span>
+                  <span className="leading-relaxed">{criterion}</span>
                 </li>
               ))}
             </ul>
@@ -157,39 +164,50 @@ export function StoryDetailModal({
 
         {/* Technical Notes */}
         {story.technicalNotes && (
-          <section className="mt-4">
-            <h3 className="text-sm font-semibold text-muted-foreground mb-2">
+          <section className="mt-5">
+            <h3 className="text-[10px] uppercase tracking-[0.2em] mb-2" style={{ color: 'var(--accent-gold)' }}>
               Technical Notes
             </h3>
-            <div className="bg-muted/50 rounded-md p-3 text-sm font-mono whitespace-pre-wrap">
+            <div
+              className="border p-3 text-[11px] font-mono whitespace-pre-wrap"
+              style={{
+                backgroundColor: 'var(--bg-hover)',
+                borderColor: 'var(--border-subtle)',
+                color: 'var(--text-tertiary)',
+              }}
+            >
               {story.technicalNotes}
             </div>
           </section>
         )}
 
-        <div className="border-t border-border my-4" />
+        <div className="border-t my-4" style={{ borderColor: 'var(--border-subtle)' }} />
 
-        {/* Timestamps (AC5) */}
-        <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <div className="flex items-center gap-4">
-            <span>Created: {formatDate(story.createdAt)}</span>
-            <span>Updated: {formatDate(story.updatedAt)}</span>
+        {/* Timestamps */}
+        <div className="flex items-center justify-between text-[10px]">
+          <div className="flex items-center gap-4" style={{ color: 'var(--text-muted)' }}>
+            <span>Created: <span style={{ color: 'var(--text-tertiary)' }}>{formatDate(story.createdAt)}</span></span>
+            <span>Updated: <span style={{ color: 'var(--text-tertiary)' }}>{formatDate(story.updatedAt)}</span></span>
           </div>
 
-          {/* Open File Link (AC7) */}
+          {/* Open File Link */}
           {story.filePath && (
             <button
               onClick={() => {
-                // In a real implementation, this would open the file in the editor
                 console.log('Open file:', story.filePath);
               }}
-              className={cn(
-                'flex items-center gap-1.5 px-2 py-1 rounded',
-                'hover:bg-accent transition-colors',
-                'text-muted-foreground hover:text-foreground'
-              )}
+              className="flex items-center gap-1.5 px-2 py-1 transition-luxury hover:opacity-80"
+              style={{ color: 'var(--text-muted)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = 'var(--accent-gold)';
+                e.currentTarget.style.backgroundColor = 'var(--accent-gold-bg)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'var(--text-muted)';
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
             >
-              <ExternalLink className="h-3.5 w-3.5" />
+              <ExternalLink className="h-3 w-3" />
               <span>Open File</span>
             </button>
           )}

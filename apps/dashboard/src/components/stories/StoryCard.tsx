@@ -3,22 +3,8 @@
 import { memo } from 'react';
 import { cn } from '@/lib/utils';
 import { iconMap } from '@/lib/icons';
+import { ProgressBar } from '@/components/ui/progress-bar';
 import { AGENT_CONFIG, type Story, type StoryComplexity, type AgentId } from '@/types';
-
-// ============ Constants ============
-
-const COMPLEXITY_STYLES: Record<StoryComplexity, string> = {
-  simple: 'bg-[rgba(74,222,128,0.08)] text-[#4ADE80] border-[rgba(74,222,128,0.15)]',
-  standard: 'bg-[rgba(251,191,36,0.08)] text-[#FBBF24] border-[rgba(251,191,36,0.15)]',
-  complex: 'bg-[rgba(248,113,113,0.08)] text-[#F87171] border-[rgba(248,113,113,0.15)]',
-};
-
-const CATEGORY_STYLES: Record<string, string> = {
-  feature: 'bg-[rgba(96,165,250,0.08)] text-[#60A5FA]',
-  fix: 'bg-[rgba(251,146,60,0.08)] text-[#FB923C]',
-  refactor: 'bg-[rgba(167,139,250,0.08)] text-[#A78BFA]',
-  docs: 'bg-[rgba(255,255,255,0.04)] text-[#6B6B5F]',
-};
 
 // ============ Props ============
 
@@ -45,22 +31,24 @@ export const StoryCard = memo(function StoryCard({
     <div
       onClick={onClick}
       className={cn(
-        'group relative rounded-xl border border-border bg-card p-3',
-        'cursor-pointer transition-all duration-200',
-        'hover:border-border/80 hover:bg-accent/5',
-        isRunning && 'ring-2 ring-green-500/50 border-green-500/30',
-        isStuck && 'ring-2 ring-yellow-500/50 border-yellow-500/30',
+        'group relative border p-3',
+        'bg-[var(--card)] border-[var(--border)]',
+        'cursor-pointer transition-luxury hover-lift',
+        'hover:bg-[var(--card-hover)] hover:border-[var(--border-medium)]',
+        isRunning && 'border-[var(--status-success-border)] bg-[var(--status-success-bg)]',
+        isStuck && 'border-[var(--status-warning-border)] bg-[var(--status-warning-bg)]',
         className
       )}
     >
       {/* Header: Category & Complexity badges */}
-      <div className="flex items-center justify-between gap-2 mb-2">
+      <div className="flex items-center justify-between gap-2 mb-2.5">
         {category && (
           <span
-            className={cn(
-              'inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium',
-              CATEGORY_STYLES[category] || 'bg-muted text-muted-foreground'
-            )}
+            className="inline-flex items-center px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide"
+            style={{
+              backgroundColor: `var(--category-${category}-bg, var(--border))`,
+              color: `var(--category-${category}, var(--text-tertiary))`,
+            }}
           >
             {category}
           </span>
@@ -68,10 +56,12 @@ export const StoryCard = memo(function StoryCard({
 
         {complexity && (
           <span
-            className={cn(
-              'inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium',
-              COMPLEXITY_STYLES[complexity]
-            )}
+            className="inline-flex items-center border px-2 py-0.5 text-[10px] font-medium"
+            style={{
+              backgroundColor: `var(--complexity-${complexity}-bg)`,
+              color: `var(--complexity-${complexity})`,
+              borderColor: `var(--complexity-${complexity}-border)`,
+            }}
           >
             {complexity}
           </span>
@@ -79,13 +69,13 @@ export const StoryCard = memo(function StoryCard({
       </div>
 
       {/* Title */}
-      <h3 className="text-sm font-medium text-foreground line-clamp-2 mb-1">
+      <h3 className="text-sm font-normal text-[var(--text-primary)] line-clamp-2 mb-1 leading-snug group-hover:text-white transition-colors">
         {title}
       </h3>
 
       {/* Description */}
       {description && (
-        <p className="text-xs text-muted-foreground line-clamp-2 mb-2">
+        <p className="text-[11px] text-[var(--text-tertiary)] line-clamp-2 mb-2 leading-relaxed">
           {description}
         </p>
       )}
@@ -96,7 +86,7 @@ export const StoryCard = memo(function StoryCard({
 
         {typeof progress === 'number' && progress > 0 && (
           <div className="flex-1 max-w-[100px]">
-            <ProgressBar progress={progress} />
+            <ProgressBar progress={progress} showLabel size="sm" />
           </div>
         )}
       </div>
@@ -136,34 +126,12 @@ function AgentBadge({ agentId, isActive = false }: AgentBadgeProps) {
           {[0, 150, 300].map((delay) => (
             <span
               key={delay}
-              className="h-1 w-1 rounded-full bg-green-500 animate-bounce"
+              className="h-1 w-1 rounded-full bg-[var(--status-success)] animate-bounce"
               style={{ animationDelay: `${delay}ms` }}
             />
           ))}
         </span>
       )}
-    </div>
-  );
-}
-
-interface ProgressBarProps {
-  progress: number;
-}
-
-function ProgressBar({ progress }: ProgressBarProps) {
-  const clampedProgress = Math.min(100, Math.max(0, progress));
-
-  return (
-    <div className="flex items-center gap-2">
-      <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
-        <div
-          className="h-full bg-primary rounded-full transition-all duration-300"
-          style={{ width: `${clampedProgress}%` }}
-        />
-      </div>
-      <span className="text-[10px] text-muted-foreground tabular-nums">
-        {clampedProgress}%
-      </span>
     </div>
   );
 }

@@ -20,20 +20,24 @@ export const RoadmapCard = memo(function RoadmapCard({
     <div
       onClick={onClick}
       className={cn(
-        'bg-[#121214] border border-zinc-800 p-3 rounded-lg',
-        'hover:border-zinc-600 transition-colors group cursor-pointer',
-        item.priority === 'wont_have' && 'opacity-60 hover:opacity-100',
+        'card-refined p-3 group cursor-pointer hover-lift',
+        item.priority === 'wont_have' && 'opacity-50 hover:opacity-80',
         className
       )}
     >
       {/* Title */}
-      <h4 className="text-sm font-bold text-zinc-200 mb-2 leading-snug group-hover:text-white transition-colors">
+      <h4
+        className="text-[13px] font-normal mb-2 leading-snug transition-colors"
+        style={{ color: 'var(--text-primary)' }}
+      >
         {item.title}
       </h4>
 
       {/* Description */}
       {item.description && (
-        <p className="text-[11px] text-zinc-500 mb-3 line-clamp-2">{item.description}</p>
+        <p className="text-[11px] mb-3 line-clamp-2 leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+          {item.description}
+        </p>
       )}
 
       {/* Tags */}
@@ -44,7 +48,7 @@ export const RoadmapCard = memo(function RoadmapCard({
 
       {/* Category & custom tags */}
       {(item.category || (item.tags && item.tags.length > 0)) && (
-        <div className="flex flex-wrap gap-1 mt-2 pt-2 border-t border-zinc-800/50">
+        <div className="flex flex-wrap gap-1 mt-2.5 pt-2.5 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
           {item.category && <Tag label={item.category} variant="category" size="sm" />}
           {item.tags?.slice(0, 2).map((tag) => (
             <Tag key={tag} label={tag} size="sm" />
@@ -54,9 +58,9 @@ export const RoadmapCard = memo(function RoadmapCard({
 
       {/* Linked Story */}
       {item.linkedStoryId && (
-        <div className="mt-2 pt-2 border-t border-zinc-800/50">
-          <span className="text-[10px] text-zinc-600">
-            Linked: <span className="text-zinc-400">{item.linkedStoryId}</span>
+        <div className="mt-2.5 pt-2.5 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
+          <span className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
+            Linked: <span className="normal-case" style={{ color: 'var(--text-tertiary)' }}>{item.linkedStoryId}</span>
           </span>
         </div>
       )}

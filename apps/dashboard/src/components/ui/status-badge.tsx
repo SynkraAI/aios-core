@@ -1,43 +1,124 @@
+'use client';
+
 import { cn } from '@/lib/utils';
+import { StatusDot as StatusDotAtom, type StatusType as StatusDotType } from './status-dot';
 
 export type StatusType =
   | 'pending'
   | 'in_progress'
   | 'needs_review'
   | 'complete'
+  | 'completed'
   | 'error'
   | 'idle'
   | 'running'
-  | 'waiting';
+  | 'working'
+  | 'waiting'
+  | 'backlog'
+  | 'ai_review'
+  | 'human_review'
+  | 'pr_created'
+  | 'done';
 
 interface StatusBadgeProps {
   status: StatusType | string;
   size?: 'sm' | 'md';
+  showDot?: boolean;
   className?: string;
 }
 
-const statusStyles: Record<string, string> = {
+// Using CSS variables for theming
+const statusStyles: Record<string, { bg: string; text: string; border: string }> = {
   // Task/Story statuses
-  pending: 'bg-zinc-800 text-zinc-400 border-zinc-700',
-  in_progress: 'bg-blue-900/30 text-blue-400 border-blue-800/50',
-  needs_review: 'bg-purple-900/30 text-purple-400 border-purple-800/50',
-  complete: 'bg-green-900/30 text-green-400 border-green-800/50',
-  completed: 'bg-green-900/30 text-green-400 border-green-800/50',
-  error: 'bg-red-900/30 text-red-400 border-red-800/50',
-
-  // Terminal/Agent statuses
-  idle: 'bg-zinc-800 text-zinc-500 border-zinc-700',
-  running: 'bg-yellow-900/30 text-yellow-400 border-yellow-800/50',
-  working: 'bg-yellow-900/30 text-yellow-400 border-yellow-800/50',
-  waiting: 'bg-orange-900/30 text-orange-400 border-orange-800/50',
+  pending: {
+    bg: 'var(--status-idle-bg)',
+    text: 'var(--status-idle)',
+    border: 'var(--status-idle-border)',
+  },
+  backlog: {
+    bg: 'var(--status-idle-bg)',
+    text: 'var(--text-tertiary)',
+    border: 'var(--border)',
+  },
+  in_progress: {
+    bg: 'var(--status-info-bg)',
+    text: 'var(--status-info)',
+    border: 'var(--status-info-border)',
+  },
+  ai_review: {
+    bg: 'var(--phase-review-bg)',
+    text: 'var(--phase-review)',
+    border: 'var(--phase-review-border)',
+  },
+  human_review: {
+    bg: 'var(--status-warning-bg)',
+    text: 'var(--status-warning)',
+    border: 'var(--status-warning-border)',
+  },
+  needs_review: {
+    bg: 'var(--phase-review-bg)',
+    text: 'var(--phase-review)',
+    border: 'var(--phase-review-border)',
+  },
+  pr_created: {
+    bg: 'var(--phase-pr-bg)',
+    text: 'var(--phase-pr)',
+    border: 'var(--phase-pr-border)',
+  },
+  complete: {
+    bg: 'var(--status-success-bg)',
+    text: 'var(--status-success)',
+    border: 'var(--status-success-border)',
+  },
+  completed: {
+    bg: 'var(--status-success-bg)',
+    text: 'var(--status-success)',
+    border: 'var(--status-success-border)',
+  },
+  done: {
+    bg: 'var(--status-success-bg)',
+    text: 'var(--status-success)',
+    border: 'var(--status-success-border)',
+  },
+  error: {
+    bg: 'var(--status-error-bg)',
+    text: 'var(--status-error)',
+    border: 'var(--status-error-border)',
+  },
+  // Agent/Terminal statuses
+  idle: {
+    bg: 'var(--status-idle-bg)',
+    text: 'var(--status-idle)',
+    border: 'var(--status-idle-border)',
+  },
+  running: {
+    bg: 'var(--status-success-bg)',
+    text: 'var(--status-success)',
+    border: 'var(--status-success-border)',
+  },
+  working: {
+    bg: 'var(--status-success-bg)',
+    text: 'var(--status-success)',
+    border: 'var(--status-success-border)',
+  },
+  waiting: {
+    bg: 'var(--status-warning-bg)',
+    text: 'var(--status-warning)',
+    border: 'var(--status-warning-border)',
+  },
 };
 
 const statusLabels: Record<string, string> = {
   pending: 'Pending',
+  backlog: 'Backlog',
   in_progress: 'In Progress',
+  ai_review: 'AI Review',
+  human_review: 'Human Review',
   needs_review: 'Needs Review',
+  pr_created: 'PR Created',
   complete: 'Complete',
   completed: 'Completed',
+  done: 'Done',
   error: 'Error',
   idle: 'Idle',
   running: 'Running',
@@ -50,66 +131,49 @@ const sizeStyles = {
   md: 'text-[10px] px-2 py-1',
 };
 
-export function StatusBadge({ status, size = 'sm', className }: StatusBadgeProps) {
+// Map StatusType to StatusDotType
+const statusToDotType: Record<string, StatusDotType> = {
+  pending: 'idle',
+  backlog: 'idle',
+  idle: 'idle',
+  in_progress: 'info',
+  working: 'working',
+  running: 'working',
+  ai_review: 'info',
+  human_review: 'waiting',
+  needs_review: 'waiting',
+  waiting: 'waiting',
+  pr_created: 'info',
+  complete: 'success',
+  completed: 'success',
+  done: 'success',
+  error: 'error',
+};
+
+export function StatusBadge({ status, size = 'sm', showDot = false, className }: StatusBadgeProps) {
   const normalizedStatus = status.toLowerCase().replace(/\s+/g, '_');
-  const colorClass = statusStyles[normalizedStatus] || statusStyles.pending;
+  const style = statusStyles[normalizedStatus] || statusStyles.pending;
   const label = statusLabels[normalizedStatus] || status;
+  const dotType = statusToDotType[normalizedStatus] || 'idle';
 
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded border uppercase tracking-wider font-bold',
+        'inline-flex items-center gap-1.5 border uppercase tracking-wider font-medium',
         sizeStyles[size],
-        colorClass,
         className
       )}
+      style={{
+        backgroundColor: style.bg,
+        color: style.text,
+        borderColor: style.border,
+      }}
     >
+      {showDot && <StatusDotAtom status={dotType} size="sm" />}
       {label}
     </span>
   );
 }
 
-// Indicator dot component for inline status
-interface StatusDotProps {
-  status: StatusType | string;
-  size?: 'sm' | 'md' | 'lg';
-  pulse?: boolean;
-  className?: string;
-}
-
-const dotColorStyles: Record<string, string> = {
-  pending: 'bg-zinc-500',
-  in_progress: 'bg-blue-500',
-  needs_review: 'bg-purple-500',
-  complete: 'bg-green-500',
-  completed: 'bg-green-500',
-  error: 'bg-red-500',
-  idle: 'bg-zinc-600',
-  running: 'bg-yellow-500',
-  working: 'bg-yellow-500',
-  waiting: 'bg-orange-500',
-};
-
-const dotSizeStyles = {
-  sm: 'h-1.5 w-1.5',
-  md: 'h-2 w-2',
-  lg: 'h-2.5 w-2.5',
-};
-
-export function StatusDot({ status, size = 'md', pulse = false, className }: StatusDotProps) {
-  const normalizedStatus = status.toLowerCase().replace(/\s+/g, '_');
-  const colorClass = dotColorStyles[normalizedStatus] || dotColorStyles.pending;
-  const shouldPulse = pulse || normalizedStatus === 'running' || normalizedStatus === 'working';
-
-  return (
-    <span
-      className={cn(
-        'inline-block rounded-full',
-        dotSizeStyles[size],
-        colorClass,
-        shouldPulse && 'animate-pulse',
-        className
-      )}
-    />
-  );
-}
+// Re-export StatusDot from status-dot.tsx for backwards compatibility
+export { StatusDotAtom as StatusDot, type StatusDotType as DotStatusType };

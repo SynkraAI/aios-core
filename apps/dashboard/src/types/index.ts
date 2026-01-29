@@ -17,12 +17,14 @@ export type StoryStatus =
 export type StoryComplexity = 'simple' | 'standard' | 'complex';
 export type StoryPriority = 'low' | 'medium' | 'high' | 'critical';
 export type StoryCategory = 'feature' | 'fix' | 'refactor' | 'docs';
+export type StoryType = 'epic' | 'story';
 
 export interface Story {
   id: string;
   title: string;
   description: string;
   status: StoryStatus;
+  type?: StoryType; // 'story' if not specified
 
   // Classification
   epicId?: string;

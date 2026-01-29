@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { Story, StoryStatus } from '@/types';
+import type { Story, StoryStatus, StoryType } from '@/types';
 
 // ============ Listeners (outside Zustand to avoid re-renders) ============
 
@@ -17,14 +17,8 @@ export function registerStoryStatusListener(listener: StatusChangeListener) {
   return () => storyStatusChangeListeners.delete(listener);
 }
 
-function notifyStatusChange(
-  storyId: string,
-  oldStatus: StoryStatus,
-  newStatus: StoryStatus
-) {
-  storyStatusChangeListeners.forEach((listener) =>
-    listener(storyId, oldStatus, newStatus)
-  );
+function notifyStatusChange(storyId: string, oldStatus: StoryStatus, newStatus: StoryStatus) {
+  storyStatusChangeListeners.forEach((listener) => listener(storyId, oldStatus, newStatus));
 }
 
 // ============ Race Condition Protection ============
@@ -47,24 +41,18 @@ interface StoryState {
   deleteStory: (id: string) => void;
 
   // Status Actions
-  moveStory: (
-    storyId: string,
-    newStatus: StoryStatus,
-    newIndex?: number
-  ) => Promise<void>;
-  reorderInColumn: (
-    status: StoryStatus,
-    fromIndex: number,
-    toIndex: number
-  ) => void;
+  moveStory: (storyId: string, newStatus: StoryStatus, newIndex?: number) => Promise<void>;
+  reorderInColumn: (status: StoryStatus, fromIndex: number, toIndex: number) => void;
 
   // Loading State
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
 
   // Selectors (computed)
-  getStoriesByStatus: (status: StoryStatus) => Story[];
+  getStoriesByStatus: (status: StoryStatus, typeFilter?: StoryType) => Story[];
   getStoryById: (id: string) => Story | undefined;
+  getEpics: () => Story[];
+  getStoriesOnly: () => Story[];
 }
 
 // Default order for each column
@@ -126,9 +114,7 @@ export const useStoryStore = create<StoryState>()(
             const newOrder = { ...state.storyOrder };
 
             // Remove from old column
-            newOrder[existing.status] = newOrder[existing.status].filter(
-              (sid) => sid !== id
-            );
+            newOrder[existing.status] = newOrder[existing.status].filter((sid) => sid !== id);
 
             // Add to new column
             if (!newOrder[updates.status].includes(id)) {
@@ -153,9 +139,7 @@ export const useStoryStore = create<StoryState>()(
 
           const { [id]: _removed, ...remainingStories } = state.stories;
           const newOrder = { ...state.storyOrder };
-          newOrder[story.status] = newOrder[story.status].filter(
-            (sid) => sid !== id
-          );
+          newOrder[story.status] = newOrder[story.status].filter((sid) => sid !== id);
 
           return { stories: remainingStories, storyOrder: newOrder };
         }),
@@ -177,9 +161,7 @@ export const useStoryStore = create<StoryState>()(
             const newOrder = { ...state.storyOrder };
 
             // Remove from old position
-            newOrder[oldStatus] = newOrder[oldStatus].filter(
-              (id) => id !== storyId
-            );
+            newOrder[oldStatus] = newOrder[oldStatus].filter((id) => id !== storyId);
 
             // Add to new position
             if (newIndex !== undefined) {
@@ -224,14 +206,25 @@ export const useStoryStore = create<StoryState>()(
       setError: (error) => set({ error }),
 
       // Selectors
-      getStoriesByStatus: (status) => {
+      getStoriesByStatus: (status, typeFilter) => {
         const state = get();
         return state.storyOrder[status]
           .map((id) => state.stories[id])
-          .filter((s): s is Story => s !== undefined);
+          .filter((s): s is Story => s !== undefined)
+          .filter((s) => !typeFilter || s.type === typeFilter);
       },
 
       getStoryById: (id) => get().stories[id],
+
+      getEpics: () => {
+        const state = get();
+        return Object.values(state.stories).filter((s) => s.type === 'epic');
+      },
+
+      getStoriesOnly: () => {
+        const state = get();
+        return Object.values(state.stories).filter((s) => s.type === 'story' || !s.type);
+      },
     }),
     {
       name: 'aios-stories',

@@ -155,13 +155,13 @@ export function KanbanBoard({
         if (!overStory) return;
 
         targetStatus = overStory.status;
-        const targetStories = getStoriesByStatus(targetStatus);
+        const targetStories = getStoriesByStatus(targetStatus, 'story');
         targetIndex = targetStories.findIndex((s) => s.id === overId);
       }
 
       // Same column reorder
       if (activeStory.status === targetStatus) {
-        const stories = getStoriesByStatus(targetStatus);
+        const stories = getStoriesByStatus(targetStatus, 'story');
         const oldIndex = stories.findIndex((s) => s.id === activeId);
         if (oldIndex !== -1 && targetIndex !== undefined && oldIndex !== targetIndex) {
           reorderInColumn(targetStatus, oldIndex, targetIndex);
@@ -232,7 +232,7 @@ export function KanbanBoard({
               <KanbanColumn
                 key={column.id}
                 status={column.id}
-                stories={getStoriesByStatus(column.id)}
+                stories={getStoriesByStatus(column.id, 'story')}
                 isCollapsed={collapsedColumns.has(column.id)}
                 onToggleCollapse={() => toggleColumnCollapse(column.id)}
                 onStoryClick={handleStoryClick}
