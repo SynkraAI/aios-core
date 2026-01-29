@@ -41,14 +41,27 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
 
     instructions: combinedInstructions,
 
-    // Simplification based on OpenCode permissive defaults (mantendo apenas o deny crítico)
+    // Permissions with high-precedence for safety and fluid operation
     permission: {
-      ...(existingConfig.permission || {}),
+      ...existingConfig.permission,
       bash: {
-        ...(existingConfig.permission?.bash || {}),
+        // Core protections (Deny always wins)
         'rm -rf /': 'deny',
+        'rm -rf ~': 'deny',
         'rm -rf /*': 'deny',
         'sudo rm -rf *': 'deny',
+        'mkfs *': 'deny',
+        'dd if=/dev/zero *': 'deny',
+        'chmod -R 777 /': 'deny',
+
+        // Inherit user's existing bash permissions
+        ...(existingConfig.permission?.bash || {}),
+
+        // Explicit bypasses for automation
+        'git pull *': 'allow',
+
+        // Default catch-all (OpenCode is permissive, but we make it explicit here)
+        '*': 'allow',
       },
     },
   };
