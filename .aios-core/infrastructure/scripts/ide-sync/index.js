@@ -35,6 +35,7 @@ const opencodeTransformer = require('./transformers/opencode');
 const { syncSkills } = require('./skill-converter');
 const { portRules } = require('./rule-porter');
 const { generateAgentsMd } = require('./agents-index-generator');
+const { generateOpencodeConfig } = require('./opencode-config-generator');
 
 // ANSI colors for output
 const colors = {
@@ -306,6 +307,18 @@ async function commandSync(options) {
         if (!options.quiet) {
           console.log(
             `   ${colors.green}✓${colors.reset} AGENTS.md updated with ${agentsMdResult.agentCount} agents`
+          );
+        }
+      }
+
+      if (!options.quiet) {
+        console.log(`${colors.cyan}⚡ Generating opencode.json Configuration...${colors.reset}`);
+      }
+      const opencodeConfigResult = await generateOpencodeConfig(projectRoot, options);
+      if (opencodeConfigResult) {
+        if (!options.quiet) {
+          console.log(
+            `   ${colors.green}✓${colors.reset} opencode.json generated with default MCPs`
           );
         }
       }

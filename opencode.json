@@ -1,0 +1,40 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agentPaths": [
+    ".opencode/agents"
+  ],
+  "commandPaths": [
+    ".opencode/commands"
+  ],
+  "instructions": [
+    ".opencode/rules/opencode-rules.md",
+    ".opencode/rules/AGENTS.md"
+  ],
+  "permission": {
+    "edit": "allow",
+    "webfetch": "allow",
+    "skill": "allow",
+    "task": "allow",
+    "bash": {
+      "rm -rf /": "deny",
+      "rm -rf ~": "deny",
+      "rm -rf /*": "deny",
+      "sudo rm -rf *": "deny",
+      "mkfs *": "deny",
+      "dd if=/dev/zero *": "deny",
+      "chmod -R 777 /": "deny",
+      "git pull *": "allow",
+      "*": "allow"
+    }
+  },
+  "mcp": {
+    "my-custom-mcp": {
+      "type": "local",
+      "command": [
+        "echo",
+        "hello"
+      ],
+      "enabled": true
+    }
+  }
+}

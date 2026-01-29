@@ -1,6 +1,6 @@
 ---
 description: "Use when you need comprehensive expertise across all domains, framework component creation/modification, workflow orchestration, or running tasks that don't require a specialized persona."
-mode: subagent
+mode: primary
 tools:
   skill: true
 ---

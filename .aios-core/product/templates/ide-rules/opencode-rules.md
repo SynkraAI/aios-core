@@ -1,11 +1,6 @@
-# Synkra AIOS Development Rules for Opencode ({{projectName}})
+# Synkra AIOS Development Rules for Opencode
 
 You are working with Synkra AIOS, an AI-Orchestrated System for Full Stack Development. This file defines the master guidelines for your operation in this project via OpenCode.
-
-## 🎯 Project Context
-
-**Installation Mode:** {{projectType}}
-{{projectContext}}
 
 ## Core Framework Understanding
 
@@ -13,15 +8,7 @@ Synkra AIOS is a meta-framework that orchestrates AI agents to handle complex de
 
 ## Agent System
 
-### OpenCode Primary Agents (Build & Plan)
-
-- **Primary Agents** (Build/Plan) should delegate specialized work to the **AIOS Squad** via `@agent-name`.
-- Use `@aios-master` for high-level framework operations, task orchestration, and workflow planning.
-- Use `@dev` for complex code implementations that follow AIOS standards.
-- Use `@architect` for system design decisions.
-- Use `@qa` for technical reviews and quality gate validation.
-
-### AIOS Agent Activation
+### Agent Activation
 
 - Agents are activated with @agent-name syntax: @dev, @qa, @architect, @pm, @po, @sm, @analyst
 - The master agent is activated with @aios-master

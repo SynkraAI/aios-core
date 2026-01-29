@@ -20,8 +20,8 @@ function transform(agentData) {
   // 1. OpenCode Frontmatter (Configuration only)
   let description = agent.whenToUse || agent.description || agent.title || '';
 
-  // All AIOS agents act as specialized subagents to the OpenCode Primary Agents (Build/Plan)
-  const mode = 'subagent';
+  // Strict mode: aios-master is the entry point (primary), others are specialized helpers (subagent)
+  const mode = id === 'aios-master' ? 'primary' : 'subagent';
 
   let toolsStr = 'tools:\n  skill: true\n'; // Always enable skill tool for AIOS commands (*)
   if (
