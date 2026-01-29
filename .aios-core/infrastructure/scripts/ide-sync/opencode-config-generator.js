@@ -8,8 +8,6 @@ const path = require('path');
 
 /**
  * Map AIOS MCP identifiers to OpenCode commands
- * @param {string} mcpId - AIOS MCP ID
- * @returns {string[]} - Command array
  */
 function getMcpCommand(mcpId) {
   const commands = {
@@ -23,8 +21,6 @@ function getMcpCommand(mcpId) {
 
 /**
  * Generate opencode.json file
- * @param {string} projectRoot - Project root directory
- * @param {object} options - Generation options
  */
 async function generateOpencodeConfig(projectRoot, options = {}) {
   const targetPath = path.join(projectRoot, 'opencode.json');
@@ -33,23 +29,10 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
   if (fs.existsSync(targetPath)) {
     try {
       existingConfig = await fs.readJson(targetPath);
-    } catch (e) {
-      console.warn('Warning: Could not parse existing opencode.json, creating new one.');
-    }
+    } catch (e) {}
   }
 
-  // Framework-owned instructions
-  const frameworkInstructions = [
-    '.opencode/rules/opencode-rules.md',
-    '.opencode/rules/AGENTS.md',
-    '.opencode/rules/agent-*.md',
-  ];
-  const existingInstructions = existingConfig.instructions || [];
-
-  // Smart merge: preserve user instructions while ensuring framework ones exist
-  const combinedInstructions = [...new Set([...frameworkInstructions, ...existingInstructions])];
-
-  // Map selected MCPs from wizard if provided
+  // 1. Build dynamic MCP section from installation options
   const mcpConfig = { ...(existingConfig.mcp || {}) };
   if (options.selectedMCPs && Array.isArray(options.selectedMCPs)) {
     for (const mcpId of options.selectedMCPs) {
@@ -63,22 +46,18 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
     }
   }
 
-  // Pure Translation Logic: Only framework paths, instructions, and critical terminal safety
-  // All other permissions (read, edit, skill, task, etc.) rely on IDE defaults or user global config
+  // 2. The Final Config - Purist implementation based on user design
   const config = {
-    ...existingConfig,
     $schema: 'https://opencode.ai/config.json',
-
-    // Essential Infrastructure
-    agentPaths: [...new Set(['.opencode/agents', ...(existingConfig.agentPaths || [])])],
-    commandPaths: [...new Set(['.opencode/commands', ...(existingConfig.commandPaths || [])])],
-    instructions: combinedInstructions,
-
-    // Minimalist Permission Block (Safety + Terminal Autonomy only)
+    agentPaths: ['.opencode/agents'],
+    commandPaths: ['.opencode/commands'],
+    instructions: [
+      '.opencode/rules/opencode-rules.md',
+      '.opencode/rules/AGENTS.md',
+      '.opencode/rules/agent-*.md',
+    ],
     permission: {
-      ...existingConfig.permission,
       bash: {
-        // Critical Denies (Framework Safety Guardrails)
         'rm -rf /': 'deny',
         'rm -rf ~': 'deny',
         'rm -rf /*': 'deny',
@@ -86,27 +65,21 @@ async function generateOpencodeConfig(projectRoot, options = {}) {
         'mkfs *': 'deny',
         'dd if=/dev/zero *': 'deny',
         'chmod -R 777 /': 'deny',
-
-        // Explicit user preference for automation (if not already restricted)
         'git pull *': 'allow',
         '*': 'allow',
-
-        // Preserve any other user-defined bash permissions
-        ...(existingConfig.permission?.bash || {}),
       },
     },
-
     mcp: mcpConfig,
   };
 
+  // Preserve any other top-level user keys not managed by framework
+  const finalConfig = { ...existingConfig, ...config };
+
   if (!options.dryRun) {
-    await fs.writeJson(targetPath, config, { spaces: 2 });
+    await fs.writeJson(targetPath, finalConfig, { spaces: 2 });
   }
 
-  return {
-    path: targetPath,
-    config,
-  };
+  return { path: targetPath, config: finalConfig };
 }
 
 module.exports = {
