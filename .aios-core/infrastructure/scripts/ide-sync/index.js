@@ -110,8 +110,8 @@ function loadConfig(projectRoot) {
 
   try {
     if (fs.existsSync(configPath)) {
-      const content = fs.readFileSync(configPath, 'utf8');
-      const config = yaml.load(content);
+      const configContent = fs.readFileSync(configPath, 'utf8');
+      const config = yaml.load(configContent);
 
       if (config && config.ideSync) {
         return { ...defaultConfig, ...config.ideSync };
@@ -190,19 +190,19 @@ function syncIde(agents, ideConfig, ideName, projectRoot, options) {
     }
 
     try {
-      const content = transformer.transform(agent);
+      const agentContent = transformer.transform(agent);
       const filename = transformer.getFilename(agent);
       const targetPath = path.join(result.targetDir, filename);
 
       if (!options.dryRun) {
-        fs.writeFileSync(targetPath, content, 'utf8');
+        fs.writeFileSync(targetPath, agentContent, 'utf8');
       }
 
       result.files.push({
         agent: agent.id,
         filename,
         path: targetPath,
-        content,
+        content: agentContent,
       });
     } catch (error) {
       result.errors.push({
@@ -411,9 +411,9 @@ async function commandValidate(options) {
       if (agent.error) continue;
 
       try {
-        const content = transformer.transform(agent);
+        const expectedContent = transformer.transform(agent);
         const filename = transformer.getFilename(agent);
-        expectedFiles.push({ filename, content });
+        expectedFiles.push({ filename, content: expectedContent });
       } catch (error) {
         // Skip agents that fail to transform
       }

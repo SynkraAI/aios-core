@@ -1,5 +1,3 @@
-const { translateContent } = require('./rule-porter');
-
 /**
  * AGENTS.md Generator - Creates the project-level rules file using a template
  * @story 6.19 - IDE Command Auto-Sync System
@@ -7,6 +5,7 @@ const { translateContent } = require('./rule-porter');
 
 const fs = require('fs-extra');
 const path = require('path');
+const { translateContent } = require('./rule-porter');
 
 /**
  * Generate AGENTS.md file
@@ -21,52 +20,18 @@ async function generateAgentsMd(projectRoot, agents, options = {}) {
     'product',
     'templates',
     'ide-rules',
-    'opencode-agents-template.md'
+    'opencode-project-context.md'
   );
   const targetPath = path.join(projectRoot, '.opencode', 'rules', 'AGENTS.md');
 
   if (!fs.existsSync(templatePath)) {
-    // Fallback simple template if file missing
-    rawContent = `# AIOS Project Context\n\n{{projectContext}}\n\n### Available Agents\n\n{{agentList}}`;
-  } else {
-    rawContent = await fs.readFile(templatePath, 'utf8');
+    throw new Error(`Template not found: ${templatePath}`);
   }
 
-  // Apply terminology translation (Claude Code -> OpenCode)
-  let content = translateContent(rawContent);
-
-  // Replace placeholders
-  const projectName = path.basename(projectRoot);
-  const timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-  const projectType = fs.existsSync(path.join(projectRoot, 'package.json'))
-    ? 'Node.js/NPM'
-    : 'Standard AIOS';
-
-  // Extract agent list
-  const agentList = agents
-    .map((a) => {
-      const title = a.agent?.title || a.id;
-      const desc = a.agent?.whenToUse || a.agent?.description || '';
-      return `- **@${a.id}**: ${title}${desc ? ' - ' + desc : ''}`;
-    })
-    .join('\n');
-
-  content = content
-    .replace(/{{projectName}}/g, projectName)
-    .replace(/{{timestamp}}/g, timestamp)
-    .replace(/{{projectType}}/g, projectType)
-    .replace(/{{agentList}}/g, agentList)
-    .replace(/{{projectContext}}/g, options.projectContext || '');
-
-  if (!options.dryRun) {
-    await fs.ensureDir(path.dirname(targetPath));
-    await fs.writeFile(targetPath, content, 'utf8');
-  }
-
-  let rawContent = await fs.readFile(templatePath, 'utf8');
+  const rawContent = await fs.readFile(templatePath, 'utf8');
 
   // Apply terminology translation (Claude Code -> OpenCode)
-  let content = translateContent(rawContent);
+  let translatedContent = translateContent(rawContent);
 
   // Replace placeholders
   const projectName = path.basename(projectRoot);
@@ -86,19 +51,20 @@ async function generateAgentsMd(projectRoot, agents, options = {}) {
 
   const finalContext = (options.projectContext || '') + `\n### Available Agents\n\n${agentList}\n`;
 
-  content = content
+  translatedContent = translatedContent
     .replace(/{{projectName}}/g, projectName)
     .replace(/{{timestamp}}/g, timestamp)
     .replace(/{{projectType}}/g, projectType)
     .replace(/{{projectContext}}/g, finalContext);
 
   if (!options.dryRun) {
-    await fs.writeFile(targetPath, content, 'utf8');
+    await fs.ensureDir(path.dirname(targetPath));
+    await fs.writeFile(targetPath, translatedContent, 'utf8');
   }
 
   return {
     path: targetPath,
-    content,
+    content: translatedContent,
     agentCount: agents.length,
   };
 }
