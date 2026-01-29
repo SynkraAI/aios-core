@@ -128,6 +128,41 @@ name: 'Verify Subtasks Completed'
 description: 'Ensure all implementation subtasks are marked complete'
 blocking: true
 
+subphases:
+  # Phase 1.2: Evidence Requirements (Absorbed from Auto-Claude)
+  - id: 1.2
+    name: 'Evidence Requirements Check'
+    description: 'Verify required evidence is present for PR type'
+    task: qa-evidence-requirements.md
+    blocking: false
+    actions:
+      - id: detect-pr-type
+        action: detect_pr_type
+        sources: [story_title, commit_messages, acceptance_criteria]
+        types: [bug_fix, feature, refactor, performance, security, documentation]
+
+      - id: evaluate-evidence
+        action: evaluate_evidence_checklist
+        sources: [story_file, qa_report, test_results, screenshots, commits]
+
+    checks:
+      - id: minimum-score
+        condition: 'evidence_score >= minimum_for_type'
+        severity: HIGH
+        message: 'Insufficient evidence for ${pr_type}'
+
+      - id: no-blocking-missing
+        condition: 'no CRITICAL evidence items missing'
+        severity: CRITICAL
+        message: 'Missing critical evidence: ${missing_items}'
+
+    output:
+      evidenceCheck:
+        prType: '{detected_type}'
+        score: '{X/Y}'
+        passed: true|false
+        missing: '[list of missing items]'
+
 actions:
   - id: parse-subtasks
     action: extract_checklist
@@ -311,6 +346,47 @@ description: 'Manual or automated browser-based verification'
 blocking: false
 conditional: 'project has UI components'
 
+subphases:
+  # Phase 4.2: Browser Console Check (Absorbed from Auto-Claude)
+  - id: 4.2
+    name: 'Browser Console Check'
+    description: 'Detect runtime errors in browser console'
+    task: qa-browser-console-check.md
+    blocking: true
+    actions:
+      - id: start-dev-server
+        action: detect_dev_server
+        fallback: 'npm run dev'
+        wait_for: 'ready|compiled|listening'
+        timeout: 60000
+
+      - id: capture-console
+        action: playwright_console_listener
+        capture: [error, warn, uncaught_exception, unhandled_rejection]
+        pages: auto_detect_from_changes
+
+      - id: check-network
+        action: playwright_network_listener
+        capture: ['status >= 400', 'timeout', 'failed']
+
+    checks:
+      - id: no-critical-errors
+        condition: 'no Uncaught Error, TypeError, ReferenceError'
+        severity: CRITICAL
+        message: 'Critical console errors detected - BLOCKING'
+
+      - id: no-network-failures
+        condition: 'no 5xx errors, no failed requests'
+        severity: HIGH
+        message: 'Network failures detected'
+
+    output:
+      browserConsole:
+        critical: '{count}'
+        high: '{count}'
+        medium: '{count}'
+        blocking: true|false
+
 actions:
   - id: detect-ui-changes
     action: analyze_diff
@@ -372,6 +448,48 @@ description: 'Verify database schema and data integrity'
 blocking: false
 conditional: 'project has database components'
 
+subphases:
+  # Phase 5.3: False Positive Detection (Absorbed from Auto-Claude)
+  - id: 5.3
+    name: 'False Positive Detection'
+    description: 'Critical thinking to prevent confirmation bias'
+    task: qa-false-positive-detection.md
+    blocking: false
+    conditional: 'pr_type in [bug_fix, security]'
+    actions:
+      - id: 4-step-protocol
+        action: run_verification_protocol
+        steps:
+          - revert_test: 'Can we remove change and see problem return?'
+          - baseline_failure: 'Did we test OLD code actually fails?'
+          - success_verification: 'Did we test NEW code actually succeeds?'
+          - independent_variables: 'Problem doesnt fix itself independently?'
+
+      - id: bias-check
+        action: check_confirmation_bias
+        criteria:
+          - negative_cases_tested
+          - independent_verification_possible
+          - mechanism_explained
+          - alternatives_ruled_out
+
+    checks:
+      - id: minimum-confidence
+        condition: 'confidence in [HIGH, MEDIUM]'
+        severity: HIGH
+        message: 'Low confidence in fix effectiveness'
+
+      - id: no-critical-failures
+        condition: 'no step has FAIL with severity CRITICAL'
+        severity: CRITICAL
+        message: 'Critical verification step failed'
+
+    output:
+      falsePositiveCheck:
+        confidence: 'HIGH|MEDIUM|LOW'
+        falsePositiveRisk: 'LOW|MEDIUM|HIGH'
+        recommendations: '[list]'
+
 actions:
   - id: detect-db-changes
     action: analyze_diff
@@ -421,13 +539,179 @@ output:
     dataIntegrity: 'verified|unverified|not_applicable'
 ```
 
-### Phase 6: Code Review
+### Phase 6: Code Review (Enhanced with Auto-Claude Absorption)
 
 ```yaml
 phase: 6
 name: 'Code Review'
-description: 'Security review, pattern adherence, code quality'
+description: 'Security review, pattern adherence, code quality, library validation'
 blocking: true
+
+# Phase 6.0: Library Validation (Absorbed from Auto-Claude)
+subphases:
+  - id: 6.0
+    name: 'Library Validation'
+    description: 'Validate third-party library usage via Context7'
+    task: qa-library-validation.md
+    blocking: false
+    actions:
+      - id: extract-imports
+        action: grep_imports
+        patterns:
+          - 'import.*from [''"]([^''"./][^''"]*)[''"]'
+          - "require\\(['\"]([^'\"./][^'\"]*)['\"]\\)"
+        description: 'Extract all third-party imports'
+
+      - id: validate-context7
+        action: context7_validation
+        for_each: 'extracted_imports'
+        steps:
+          - resolve_library_id
+          - query_docs
+          - validate_signatures
+          - check_deprecated
+        description: 'Validate each library against Context7 docs'
+
+    checks:
+      - id: api-usage-correct
+        condition: 'all library APIs used correctly'
+        severity: CRITICAL
+        message: 'Incorrect library API usage detected'
+
+      - id: no-deprecated
+        condition: 'no deprecated APIs used'
+        severity: MAJOR
+        message: 'Deprecated API usage detected'
+
+    output:
+      libraryValidation:
+        checked: '{count}'
+        issues: '[list]'
+        unresolved: '[list]'
+
+  # Phase 6.1: Security Checklist (Absorbed from Auto-Claude)
+  - id: 6.1
+    name: 'Security Checklist'
+    description: '8-point security vulnerability scan'
+    task: qa-security-checklist.md
+    blocking: true
+    actions:
+      - id: check-eval
+        action: grep_pattern
+        pattern: 'eval\\(|new Function\\('
+        severity: CRITICAL
+        description: 'Check for eval() and dynamic code execution'
+
+      - id: check-innerHTML
+        action: grep_pattern
+        pattern: '\\.innerHTML\\s*=|\\.outerHTML\\s*='
+        severity: CRITICAL
+        description: 'Check for innerHTML XSS vectors'
+
+      - id: check-dangerouslySetInnerHTML
+        action: grep_pattern
+        pattern: 'dangerouslySetInnerHTML'
+        severity: CRITICAL
+        description: 'Check for React XSS vectors'
+
+      - id: check-shell-true
+        action: grep_pattern
+        pattern: 'shell\\s*=\\s*True|os\\.system\\(|os\\.popen\\('
+        severity: CRITICAL
+        description: 'Check for Python command injection'
+
+      - id: check-hardcoded-secrets
+        action: grep_pattern
+        pattern: 'api[_-]?key\\s*[=:]\\s*[''"][^''"]{10,}|password\\s*[=:]\\s*[''"][^''"]+'
+        severity: CRITICAL
+        description: 'Check for hardcoded secrets'
+
+      - id: check-sql-injection
+        action: grep_pattern
+        pattern: 'query\\s*\\(\\s*[''"`].*\\$\\{|execute\\s*\\(.*\\.format\\('
+        severity: CRITICAL
+        description: 'Check for SQL injection patterns'
+
+      - id: check-input-validation
+        action: grep_pattern
+        pattern: 'req\\.body\\.[a-zA-Z]+[^?]|req\\.query\\.[a-zA-Z]+[^?]'
+        severity: HIGH
+        description: 'Check for missing input validation'
+
+      - id: check-cors
+        action: grep_pattern
+        pattern: 'origin:\\s*[''"]\\*[''"]|Access-Control-Allow-Origin.*\\*'
+        severity: HIGH
+        description: 'Check for insecure CORS'
+
+    checks:
+      - id: no-critical-security
+        condition: 'no CRITICAL security issues'
+        severity: CRITICAL
+        message: 'Critical security vulnerability detected - BLOCKING'
+
+      - id: no-high-security
+        condition: 'no HIGH security issues'
+        severity: HIGH
+        message: 'High severity security issue detected'
+
+    output:
+      securityChecklist:
+        critical: '{count}'
+        high: '{count}'
+        issues: '[detailed list]'
+        blocking: true|false
+
+  # Phase 6.2: Migration Validation (Absorbed from Auto-Claude)
+  - id: 6.2
+    name: 'Migration Validation'
+    description: 'Validate database migrations for schema changes'
+    task: qa-migration-validation.md
+    blocking: false
+    conditional: 'schema_changes_detected'
+    actions:
+      - id: detect-framework
+        action: detect_db_framework
+        frameworks:
+          - supabase
+          - prisma
+          - drizzle
+          - django
+          - rails
+          - sequelize
+
+      - id: validate-migrations
+        action: validate_migrations
+        checks:
+          - migration_exists
+          - migration_matches_schema
+          - migration_reversible
+          - rls_policies_exist
+
+    checks:
+      - id: migrations-exist
+        condition: 'migration file exists for each schema change'
+        severity: CRITICAL
+        message: 'Missing migration for schema change'
+
+      - id: rls-policies
+        condition: 'RLS policies exist for new tables (Supabase)'
+        severity: HIGH
+        message: 'Missing RLS policies for new table'
+
+    output:
+      migrationValidation:
+        framework: '{detected}'
+        schemaChanges: '{count}'
+        migrationsFound: '{count}'
+        missing: '[list]'
+        issues: '[list]'
+
+  # Original Phase 6 actions (now Phase 6.3)
+  - id: 6.3
+    name: 'Code Quality & Patterns'
+    description: 'CodeRabbit, linting, dependency audit'
+    blocking: true
 
 actions:
   - id: security-scan
@@ -476,6 +760,21 @@ checks:
 
 output:
   codeReview:
+    # Phase 6.0 - Library Validation
+    libraryValidation:
+      checked: '{count}'
+      issues: '[list]'
+      unresolved: '[list]'
+    # Phase 6.1 - Security Checklist
+    securityChecklist:
+      critical: '{count}'
+      high: '{count}'
+      issues: '[detailed list]'
+    # Phase 6.2 - Migration Validation
+    migrationValidation:
+      framework: '{detected}'
+      issues: '[list]'
+    # Phase 6.3 - Code Quality
     security:
       secrets: '[list of potential secrets]'
       vulnerabilities:
