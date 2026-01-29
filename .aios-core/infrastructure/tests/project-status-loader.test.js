@@ -4,6 +4,7 @@
 
 const fs = require('fs').promises;
 const path = require('path');
+const os = require('os');
 const yaml = require('js-yaml');
 const { ProjectStatusLoader } = require('../scripts/project-status-loader');
 
@@ -12,8 +13,9 @@ describe('ProjectStatusLoader', () => {
   let testRoot;
   let cacheFile;
 
-  beforeEach(() => {
-    testRoot = path.join(__dirname, '.test-temp');
+  beforeEach(async () => {
+    // Use OS temp directory to ensure complete isolation from parent git repo
+    testRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'aios-test-'));
     loader = new ProjectStatusLoader(testRoot);
     cacheFile = path.join(testRoot, '.aios', 'project-status.yaml');
   });
@@ -29,14 +31,14 @@ describe('ProjectStatusLoader', () => {
 
   describe('isGitRepository', () => {
     it('should return false for non-git directory', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
       const isGit = await loader.isGitRepository();
       expect(isGit).toBe(false);
     });
 
     it('should return true for git repository', async () => {
       // This test requires actual git - skip in CI if git not available
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       // Try to initialize git
       try {
@@ -53,13 +55,13 @@ describe('ProjectStatusLoader', () => {
 
   describe('getGitBranch', () => {
     it('should return unknown on error', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
       const branch = await loader.getGitBranch();
       expect(branch).toBe('unknown');
     });
 
     it('should detect git branch', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       try {
         const { execa } = require('execa');
@@ -83,14 +85,14 @@ describe('ProjectStatusLoader', () => {
 
   describe('getModifiedFiles', () => {
     it('should return empty result for non-git repo', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
       const result = await loader.getModifiedFiles();
       // Implementation returns { files: [], totalCount: 0 } for non-git repos
       expect(result.files || result).toEqual([]);
     });
 
     it('should detect modified files', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       try {
         const { execa } = require('execa');
@@ -115,7 +117,7 @@ describe('ProjectStatusLoader', () => {
     });
 
     it('should limit to 5 files maximum', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       try {
         const { execa } = require('execa');
@@ -139,13 +141,13 @@ describe('ProjectStatusLoader', () => {
 
   describe('getRecentCommits', () => {
     it('should return empty array for non-git repo', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
       const commits = await loader.getRecentCommits();
       expect(commits).toEqual([]);
     });
 
     it('should return empty array for repo with no commits', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       try {
         const { execa } = require('execa');
@@ -160,7 +162,7 @@ describe('ProjectStatusLoader', () => {
     });
 
     it('should limit to 2 commits', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       try {
         const { execa } = require('execa');
@@ -186,7 +188,7 @@ describe('ProjectStatusLoader', () => {
 
   describe('getCurrentStoryInfo', () => {
     it('should return null when stories directory missing', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
       const info = await loader.getCurrentStoryInfo();
       expect(info).toEqual({ story: null, epic: null });
     });
@@ -233,7 +235,7 @@ Test story
 
   describe('Cache Management', () => {
     it('should create cache file on first load', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       const status = await loader.loadProjectStatus();
 
@@ -247,7 +249,7 @@ Test story
     });
 
     it('should return cached status within TTL', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       // First load
       const status1 = await loader.loadProjectStatus();
@@ -262,7 +264,7 @@ Test story
     });
 
     it('should invalidate cache after TTL expires', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       // Override TTL to 0 seconds for testing
       loader.cacheTTL = 0;
@@ -283,7 +285,7 @@ Test story
     });
 
     it('should clear cache successfully', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       // Create cache
       await loader.loadProjectStatus();
@@ -304,7 +306,7 @@ Test story
 
   describe('Edge Cases', () => {
     it('should handle detached HEAD state', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       try {
         const { execa } = require('execa');
@@ -332,7 +334,7 @@ Test story
     });
 
     it('should gracefully handle non-git project', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       const status = await loader.loadProjectStatus();
 
@@ -458,14 +460,14 @@ Test story
   // Story 1.5: Worktree Status Integration
   describe('getWorktreesStatus', () => {
     it('should return null when no worktrees exist', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       const worktrees = await loader.getWorktreesStatus();
       expect(worktrees).toBeNull();
     });
 
     it('should return worktree info with required fields', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       try {
         const { execa } = require('execa');
@@ -507,7 +509,7 @@ Test story
 
   describe('generateStatus with worktrees', () => {
     it('should include worktrees in generated status', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       try {
         const { execa } = require('execa');
@@ -541,7 +543,7 @@ Test story
     });
 
     it('should not include worktrees key when none exist', async () => {
-      await fs.mkdir(testRoot, { recursive: true });
+      // testRoot already created by mkdtemp in beforeEach
 
       try {
         const { execa } = require('execa');

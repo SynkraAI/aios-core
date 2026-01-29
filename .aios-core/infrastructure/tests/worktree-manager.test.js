@@ -4,6 +4,7 @@
 
 const fs = require('fs').promises;
 const path = require('path');
+const os = require('os');
 const WorktreeManager = require('../scripts/worktree-manager');
 
 describe('WorktreeManager', () => {
@@ -11,8 +12,8 @@ describe('WorktreeManager', () => {
   let testRoot;
 
   beforeEach(async () => {
-    testRoot = path.join(__dirname, '.test-temp-worktree');
-    await fs.mkdir(testRoot, { recursive: true });
+    // Use OS temp directory to ensure complete isolation from source tree
+    testRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'aios-worktree-test-'));
 
     // Initialize git repo for tests
     try {

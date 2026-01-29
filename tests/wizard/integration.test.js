@@ -7,8 +7,13 @@
 
 const inquirer = require('inquirer');
 const { runWizard } = require('../../src/wizard/index');
-const { installDependencies, detectPackageManager } = require('../../src/installer/dependency-installer');
-const { configureEnvironment } = require('../../packages/installer/src/config/configure-environment');
+const {
+  installDependencies,
+  detectPackageManager,
+} = require('../../src/installer/dependency-installer');
+const {
+  configureEnvironment,
+} = require('../../packages/installer/src/config/configure-environment');
 const { generateIDEConfigs } = require('../../src/wizard/ide-config-generator');
 const { installAiosCore, hasPackageJson } = require('../../src/installer/aios-core-installer');
 
@@ -204,9 +209,7 @@ describe('Wizard Integration - Story 1.7', () => {
 
       expect(answers.depsInstalled).toBe(true);
       expect(answers.depsResult.offlineMode).toBe(true);
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        expect.stringContaining('offline mode'),
-      );
+      expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('offline mode'));
     });
   });
 
@@ -224,7 +227,9 @@ describe('Wizard Integration - Story 1.7', () => {
           packageManager: 'npm',
         });
 
+      // Mock prompt sequence: 1) language, 2) project type + IDEs, 3) retryDeps
       inquirer.prompt
+        .mockResolvedValueOnce({ language: 'en' })
         .mockResolvedValueOnce({
           projectType: 'greenfield',
           selectedIDEs: [],
@@ -246,7 +251,9 @@ describe('Wizard Integration - Story 1.7', () => {
         solution: 'Check your internet connection',
       });
 
+      // Mock prompt sequence: 1) language, 2) project type + IDEs, 3) retryDeps
       inquirer.prompt
+        .mockResolvedValueOnce({ language: 'en' })
         .mockResolvedValueOnce({
           projectType: 'greenfield',
           selectedIDEs: [],
@@ -258,9 +265,7 @@ describe('Wizard Integration - Story 1.7', () => {
       const answers = await runWizard();
 
       expect(answers.depsInstalled).toBe(false);
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        expect.stringContaining('manually'),
-      );
+      expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('manually'));
     });
 
     it('should display clear error messages', async () => {
@@ -281,12 +286,8 @@ describe('Wizard Integration - Story 1.7', () => {
 
       await runWizard();
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Permission denied'),
-      );
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        expect.stringContaining('elevated permissions'),
-      );
+      expect(consoleErrorSpy).toHaveBeenCalledWith(expect.stringContaining('Permission denied'));
+      expect(consoleErrorSpy).toHaveBeenCalledWith(expect.stringContaining('elevated permissions'));
     });
   });
 
@@ -295,11 +296,9 @@ describe('Wizard Integration - Story 1.7', () => {
       await runWizard();
 
       expect(consoleLogSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Installing dependencies'),
+        expect.stringContaining('Installing dependencies')
       );
-      expect(consoleLogSpy).toHaveBeenCalledWith(
-        expect.stringContaining('installed'),
-      );
+      expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('installed'));
     });
   });
 
@@ -318,9 +317,13 @@ describe('Wizard Integration - Story 1.7', () => {
 
     it('should handle environment config failure gracefully', async () => {
       configureEnvironment.mockRejectedValue(new Error('Env config failed'));
+
+      // Mock prompt sequence: 1) language, 2) project type + IDEs, 3) continueWithoutEnv
       inquirer.prompt
+        .mockResolvedValueOnce({ language: 'en' })
         .mockResolvedValueOnce({
           projectType: 'greenfield',
+          selectedIDEs: [],
         })
         .mockResolvedValueOnce({
           continueWithoutEnv: true,
