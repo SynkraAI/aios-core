@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.10.0
-generated_at: "2026-01-29T15:25:00.385Z"
+generated_at: "2026-01-29T15:28:02.428Z"
 generator: scripts/generate-install-manifest.js
 file_count: 736
 files:
@@ -165,9 +165,9 @@ files:
     type: cli
     size: 5907
   - path: core-config.yaml
-    hash: sha256:33fe53ba8de27a4ddad5e19253c39f1b50617dc9207d633ebf46462813704f66
+    hash: sha256:7b60e35cb344784ba9d6e2e1840ac5212a7f8ac5edd002dd3d3547d43d9d444a
     type: config
-    size: 16122
+    size: 15978
   - path: core/config/config-cache.js
     hash: sha256:527a788cbe650aa6b13d1101ebc16419489bfef20b2ee93042f6eb6a51e898e9
     type: core
@@ -625,9 +625,9 @@ files:
     type: core
     size: 9393
   - path: core/quality-gates/layer2-pr-automation.js
-    hash: sha256:f3c9a55dda80af1d977d45f8d2b1f61dc006a585928f9a2ad91f3ea6cd2455eb
+    hash: sha256:1f6f613c8cceebe5d71ef11801d408765faee96d6361c824243639631a80ea8d
     type: core
-    size: 9163
+    size: 9171
   - path: core/quality-gates/layer3-human-review.js
     hash: sha256:76808c723aad89a94147de58fa40bcf2901b31acfe20fb3c0a13bad34ad8076b
     type: core
@@ -637,9 +637,9 @@ files:
     type: core
     size: 16371
   - path: core/quality-gates/quality-gate-config.yaml
-    hash: sha256:b70a95db37494094c2fd5f0f4b623dffb070fd5128d965b4bf710d91700072ed
+    hash: sha256:0ece89670f6db1b093f400112709b56ad94fe8bf610a0ae2ec21fd0f42dc63cb
     type: core
-    size: 2027
+    size: 1972
   - path: core/quality-gates/quality-gate-manager.js
     hash: sha256:6f251261ece693bdea0756335107df6ba9e0364589c85d47f8310065aad997d6
     type: core
@@ -741,21 +741,21 @@ files:
     type: agent
     size: 9392
   - path: development/agents/architect.md
-    hash: sha256:be37c130313deb7eb1b1ca285d310a608eef17609e9766481421dfc0669da16c
+    hash: sha256:797ee13c488ddd6d98af58ff8a408750d185d06046f1e481c0386e62ce9d96ba
     type: agent
-    size: 17593
+    size: 17483
   - path: development/agents/data-engineer.md
-    hash: sha256:b22d68247fbb00edc5ee69b190ce6633481f9d60ea78353d65136463ef4f0a11
+    hash: sha256:e1c3724a1b994e92d5f7bea0f994f27fa1b90be091f3c029198798711f27c010
     type: agent
-    size: 20358
+    size: 20303
   - path: development/agents/dev.md
-    hash: sha256:32d0b280f679731dfff116dbe42b5a4b84b046c5cbdf0f951739ed835505bf9c
+    hash: sha256:6dd5fd03200790262954437f3692a01b6269545852779e7d28cebdf3f3d91b3e
     type: agent
-    size: 23240
+    size: 23130
   - path: development/agents/devops.md
-    hash: sha256:8c774298dcde7c2342fbfbcb0fecb6bf99e35b08b84081d3f79c2090df5f0c09
+    hash: sha256:dd394167d42c7ff9ea475ed1b374a4339966c2c71d38b479d3f930849d83418c
     type: agent
-    size: 18886
+    size: 18666
   - path: development/agents/pm.md
     hash: sha256:d6a8ecb0c2cc7d67aa19bcf1d760650a5ccf25d722772e4d10624a2acad26b84
     type: agent
@@ -765,9 +765,9 @@ files:
     type: agent
     size: 10962
   - path: development/agents/qa.md
-    hash: sha256:9e5ab1e7577626c7f842a256c642c94ac1c063e116ed0dcbe869051ece656b95
+    hash: sha256:ba75516e82eb84023c7f49a3cb28dddbf3f1000def7b9197f0dec5a57649f205
     type: agent
-    size: 16103
+    size: 15938
   - path: development/agents/sm.md
     hash: sha256:a3199fb2710f315e32eb6f475e5dc56a132328dde65aa8b4730676dc98e7ce4d
     type: agent
@@ -1205,9 +1205,9 @@ files:
     type: task
     size: 18041
   - path: development/tasks/environment-bootstrap.md
-    hash: sha256:021d54f1c0194e33d00d5c152f460be0b5b5d7e7ecfec382a50611518470cf56
+    hash: sha256:f46dd33dd34675478346bbea326052fc18defd4e14c82a189851dfcfab9fa867
     type: task
-    size: 43824
+    size: 43822
   - path: development/tasks/execute-checklist.md
     hash: sha256:dcb6309bf68aa1f88d3271382c102662ef8b2cfb818f4020f85b276010108437
     type: task
@@ -2397,9 +2397,9 @@ files:
     type: manifest
     size: 5481
   - path: package.json
-    hash: sha256:6214cb6f4617f1b5d8228152ff0756459af87b2602d5a68ddf8da83fc5a0b194
+    hash: sha256:9998a56094f4a308c534d4dd9b29721ef50aabc0c50633763f5c1ac7b7f3da48
     type: other
-    size: 2458
+    size: 2378
   - path: product/checklists/accessibility-wcag-checklist.md
     hash: sha256:56126182b25e9b7bdde43f75315e33167eb49b1f9a9cb0e9a37bc068af40aeab
     type: checklist
