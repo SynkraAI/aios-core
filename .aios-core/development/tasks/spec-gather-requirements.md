@@ -88,8 +88,11 @@ steps:
 elicitation:
   enabled: true
   format: structured-questions
+  inspiration: GitHub Spec-Kit 9-category taxonomy
 
   questions:
+    # === Original 5 Categories ===
+
     - id: q1-what
       category: functional
       question: 'O que o sistema deve FAZER? (funcionalidades principais)'
@@ -122,6 +125,54 @@ elicitation:
       category: assumptions
       question: 'Quais SUPOSIÇÕES estamos fazendo?'
       note: 'Documentar para validação posterior'
+
+    # === New 4 Categories (SDD Adoption) ===
+
+    - id: q6-domain
+      category: domain-model
+      question: 'Quais ENTIDADES e RELACIONAMENTOS existem?'
+      follow_ups:
+        - 'Quais são os objetos principais do domínio?'
+        - 'Como eles se relacionam entre si?'
+        - 'Quais atributos são obrigatórios?'
+      examples:
+        - 'User has many Orders'
+        - 'Product belongs to Category'
+        - 'Invoice references Order'
+
+    - id: q7-interaction
+      category: interaction-ux
+      question: 'Como o USUÁRIO INTERAGE com o sistema?'
+      follow_ups:
+        - 'Qual o fluxo principal (happy path)?'
+        - 'Quais telas ou componentes estão envolvidos?'
+        - 'Existem estados de loading, erro, vazio?'
+      examples:
+        - 'User clicks button → modal opens → form submits → success toast'
+        - 'Page loads → fetches data → displays list or empty state'
+
+    - id: q8-edge-cases
+      category: edge-cases
+      question: 'O que acontece quando algo DÁ ERRADO?'
+      follow_ups:
+        - 'E se a rede falhar?'
+        - 'E se o usuário não tiver permissão?'
+        - 'E se os dados estiverem inválidos?'
+        - 'E se o serviço externo estiver indisponível?'
+      examples:
+        - 'Timeout após 30s → retry automático → fallback para cache'
+        - 'Validação falha → mostrar erros inline → não submeter'
+
+    - id: q9-terminology
+      category: terminology
+      question: 'Existe GLOSSÁRIO ou termos específicos do domínio?'
+      follow_ups:
+        - 'Algum termo tem significado específico neste contexto?'
+        - 'Existem sinônimos que devemos padronizar?'
+      examples:
+        - '"Cliente" vs "Usuário" vs "Account" - qual usar?'
+        - '"Pedido" significa Order ou Request neste contexto?'
+      note: 'Inconsistência terminológica causa bugs e confusão'
 ```
 
 ### Phase 3: PRD Extraction (if source=prd)
@@ -154,6 +205,7 @@ structuring:
       "gatheredAt": "{timestamp}",
       "source": "{source}",
       "gatheredBy": "@pm",
+      "elicitationVersion": "2.0",
 
       "functional": [
         {
@@ -192,6 +244,51 @@ structuring:
         }
       ],
 
+      "domainModel": [
+        {
+          "id": "DM-{n}",
+          "entity": "{entity_name}",
+          "attributes": ["{attr1}", "{attr2}"],
+          "relationships": [
+            {
+              "type": "has_many|belongs_to|has_one",
+              "target": "{other_entity}"
+            }
+          ]
+        }
+      ],
+
+      "interactions": [
+        {
+          "id": "INT-{n}",
+          "trigger": "{user_action}",
+          "flow": ["{step1}", "{step2}", "{step3}"],
+          "states": {
+            "loading": "{loading_behavior}",
+            "error": "{error_behavior}",
+            "empty": "{empty_state}"
+          }
+        }
+      ],
+
+      "edgeCases": [
+        {
+          "id": "EC-{n}",
+          "scenario": "{what_goes_wrong}",
+          "handling": "{how_to_handle}",
+          "severity": "critical|high|medium|low"
+        }
+      ],
+
+      "terminology": [
+        {
+          "term": "{term}",
+          "definition": "{meaning_in_this_context}",
+          "synonyms": ["{alt1}", "{alt2}"],
+          "avoid": ["{term_to_avoid}"]
+        }
+      ],
+
       "openQuestions": [
         {
           "id": "OQ-{n}",
@@ -217,6 +314,7 @@ structuring:
     "gatheredAt": { "type": "string", "format": "date-time" },
     "source": { "enum": ["prd", "user", "existing"] },
     "gatheredBy": { "type": "string", "default": "@pm" },
+    "elicitationVersion": { "type": "string", "default": "2.0" },
     "functional": {
       "type": "array",
       "minItems": 1,
@@ -235,6 +333,10 @@ structuring:
     "nonFunctional": { "type": "array" },
     "constraints": { "type": "array" },
     "assumptions": { "type": "array" },
+    "domainModel": { "type": "array", "description": "Entities and relationships (SDD q6)" },
+    "interactions": { "type": "array", "description": "UX flows and states (SDD q7)" },
+    "edgeCases": { "type": "array", "description": "Failure scenarios (SDD q8)" },
+    "terminology": { "type": "array", "description": "Domain glossary (SDD q9)" },
     "openQuestions": { "type": "array" }
   }
 }
@@ -330,11 +432,22 @@ metadata:
   story: '3.1'
   epic: 'Epic 3 - Spec Pipeline'
   created: '2026-01-28'
+  updated: '2025-01-30'
   author: '@architect (Aria)'
-  version: '1.0.0'
+  version: '2.0.0'
+  changelog:
+    - version: '2.0.0'
+      date: '2025-01-30'
+      changes:
+        - 'Expanded elicitation from 5 to 9 categories (SDD adoption)'
+        - 'Added: Domain Model (q6), Interaction/UX (q7), Edge Cases (q8), Terminology (q9)'
+        - 'Updated JSON template with new sections'
+        - 'Added elicitationVersion field for backwards compatibility'
   tags:
     - spec-pipeline
     - requirements
     - elicitation
     - prompt-engineering
+    - sdd-adoption
+  inspiration: GitHub Spec-Kit 9-category taxonomy
 ```
