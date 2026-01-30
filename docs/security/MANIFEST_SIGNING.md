@@ -6,9 +6,11 @@ This document explains how to set up and use the cryptographic signing system fo
 
 AIOS-Core uses **Ed25519 digital signatures** (via minisign format) to verify the integrity and authenticity of the `install-manifest.yaml` file. This ensures that:
 
-1. The manifest has not been tampered with after release
-2. The manifest was created by an authorized maintainer
-3. All file hashes in the manifest can be trusted
+1. The manifest has not been tampered with after signing
+2. The manifest was signed by a party in possession of the authorized signing key
+3. All file hashes in the manifest can be trusted as originating from the same signing authority
+
+**Trust Model**: The root of trust is the public key pinned in the source code. Package registries (npm, etc.) serve only as distribution channels and are explicitly excluded from the trust model. Verification relies solely on cryptographic proof against the pinned key.
 
 ## Architecture
 
@@ -17,7 +19,7 @@ AIOS-Core uses **Ed25519 digital signatures** (via minisign format) to verify th
 │                    SIGNING WORKFLOW (Offline)                    │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
-│  Maintainer's Secure Machine                                     │
+│  Signing Environment (Secure Machine)                            │
 │  ┌──────────────────┐    ┌───────────────────────────────────┐  │
 │  │ SECRET KEY       │───▶│ minisign -Sm install-manifest.yaml│  │
 │  │ (aios-core.key)  │    │         -s aios-core.key          │  │
@@ -31,9 +33,9 @@ AIOS-Core uses **Ed25519 digital signatures** (via minisign format) to verify th
 │                                          │                       │
 └──────────────────────────────────────────│───────────────────────┘
                                            │
-                                           ▼ Published to npm
+                                           ▼ Distributed via npm (untrusted channel)
 ┌─────────────────────────────────────────────────────────────────┐
-│                  VERIFICATION WORKFLOW (npm install)             │
+│                  VERIFICATION WORKFLOW (post-install)            │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
 │  User's Machine (post-install)                                   │
@@ -124,7 +126,7 @@ const PINNED_PUBLIC_KEY = {
 
 ## Release Workflow
 
-### Before Each npm Publish
+### Before Each Release
 
 1. **Generate/Update Manifest**
 
@@ -158,14 +160,14 @@ const PINNED_PUBLIC_KEY = {
    git commit -m "chore: update manifest and signature for vX.Y.Z"
    ```
 
-5. **Publish to npm**
+5. **Publish**
    ```bash
    npm publish
    ```
 
 ## Signature File Format
 
-The `.minisig` file follows the minisign format:
+The `.minisig` file follows the minisign format as specified at https://jedisct1.github.io/minisign/.
 
 ```
 untrusted comment: signature from minisign secret key
@@ -174,13 +176,15 @@ trusted comment: timestamp:1234567890 file:install-manifest.yaml
 ...base64-encoded-global-signature...
 ```
 
-### Signature Blob Structure (74 bytes)
+### Signature Blob Structure
 
-| Bytes | Content                      |
-| ----- | ---------------------------- |
-| 0-1   | Algorithm ("Ed" for Ed25519) |
-| 2-9   | Key ID (8 bytes)             |
-| 10-73 | Ed25519 signature (64 bytes) |
+The signature blob encoding follows the minisign specification. For reference, the structure contains:
+
+- Algorithm identifier (2 bytes)
+- Key ID (8 bytes)
+- Ed25519 signature (64 bytes)
+
+**Note**: Applications should use the verification module (`manifest-signature.js`) rather than parsing the signature format directly. The exact wire format is defined by the minisign specification and may vary in optional fields.
 
 ## Development Mode
 
@@ -193,7 +197,13 @@ const validator = new PostInstallValidator(projectRoot, frameworkRoot, {
 });
 ```
 
-**WARNING**: Never use `requireSignature: false` in production builds.
+**CRITICAL SECURITY WARNING**: Setting `requireSignature: false` completely disables signature verification and voids all cryptographic security guarantees provided by this system. With signature verification disabled:
+
+- Manifest authenticity cannot be verified
+- Tampered manifests will be accepted
+- The trust chain is broken
+
+This option exists **exclusively** for local development environments. Production builds **MUST** enforce signature verification (`requireSignature: true`). Any deployment with signature verification disabled should be considered insecure.
 
 ## Verification Behavior
 
@@ -206,7 +216,7 @@ const validator = new PostInstallValidator(projectRoot, frameworkRoot, {
 
 ### "Manifest signature file not found (.minisig)"
 
-The signature file is missing. Run:
+The signature file is missing. The party in possession of the signing key must sign the manifest:
 
 ```bash
 minisign -Sm .aios-core/install-manifest.yaml -s /path/to/aios-core.key
@@ -214,7 +224,7 @@ minisign -Sm .aios-core/install-manifest.yaml -s /path/to/aios-core.key
 
 ### "Key ID mismatch"
 
-The manifest was signed with a different key than the one pinned in the code. Ensure you're using the correct key pair.
+The manifest was signed with a different key than the one pinned in the code. Ensure the signing party is using the correct key pair that corresponds to the pinned public key.
 
 ### "Signature verification failed"
 
@@ -231,16 +241,16 @@ The signature file is not using Ed25519. Ensure you're using standard minisign (
 
 ## Security Considerations
 
-1. **Key Compromise**: If the secret key is compromised, generate a new key pair and release a new version with the updated public key. Users on older versions will need to update.
+1. **Key Compromise**: If the secret key is compromised, generate a new key pair and release a new version with the updated pinned public key. Users must upgrade to a release containing the new pinned public key to restore security guarantees. Releases signed with the compromised key should be considered untrusted.
 
-2. **Key Rotation**: Plan for periodic key rotation. Announce deprecation of old keys well in advance.
+2. **Key Rotation**: Plan for periodic key rotation. After rotation, users must upgrade to a release containing the new pinned public key. Announce deprecation of old keys well in advance to allow for upgrade windows.
 
 3. **CI/CD Signing**: For automated releases, consider:
    - Using a signing service
    - Storing the secret key in a secrets manager (e.g., AWS Secrets Manager, HashiCorp Vault)
    - Using GitHub Actions encrypted secrets (with caution)
 
-4. **Verification Bypass**: The `requireSignature: false` option should ONLY be used for local development. Production builds must always require signatures.
+4. **Verification Bypass**: The `requireSignature: false` option voids all security guarantees and must never be used in production. Any build distributed with signature verification disabled should be treated as insecure.
 
 ## API Reference
 
