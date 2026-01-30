@@ -95,6 +95,40 @@ const SecurityLimits = {
 const ALLOWED_MANIFEST_FIELDS = ['path', 'hash', 'size', 'type'];
 
 /**
+ * Allowed type values in manifest entries
+ * These represent file categories, not filesystem types
+ * Based on actual types used in install-manifest.yaml
+ */
+const ALLOWED_TYPE_VALUES = [
+  // General types
+  'file',
+  'other',
+  // Structural categories
+  'cli',
+  'core',
+  'development',
+  'infrastructure',
+  'product',
+  'workflow',
+  'workflow-intelligence',
+  'monitor',
+  'data',
+  'docs',
+  'documentation',
+  'template',
+  'script',
+  'config',
+  // Content types
+  'task',
+  'agent',
+  'tool',
+  'checklist',
+  'elicitation',
+  'code',
+  'manifest',
+];
+
+/**
  * Categorize a file path into its functional category
  * @param {string} filePath - Relative file path
  * @returns {FileCategory} - File category
@@ -156,9 +190,19 @@ function isPathContained(absolutePath, rootDir) {
     process.platform === 'win32' ? normalizedPath.toLowerCase() : normalizedPath;
 
   // SECURITY: Reject alternate data streams (Windows)
-  // Valid drive letter format is "X:\" only at the start
-  if (absolutePath.includes(':') && !absolutePath.match(/^[a-zA-Z]:[/\\]/)) {
-    return false;
+  // Valid format: drive letter at start only (e.g., "C:\")
+  // Reject any other ':' in the path (indicates ADS like "file.txt:stream")
+  const colonCount = (absolutePath.match(/:/g) || []).length;
+  if (process.platform === 'win32') {
+    // Windows: allow exactly one colon at position 1 (drive letter)
+    if (colonCount > 1 || (colonCount === 1 && !absolutePath.match(/^[a-zA-Z]:[/\\]/))) {
+      return false;
+    }
+  } else {
+    // Unix: reject any colon (could indicate ADS-like attacks)
+    if (colonCount > 0) {
+      return false;
+    }
   }
 
   // Path must be equal to root or start with root + separator
@@ -218,6 +262,16 @@ function validateManifestEntry(entry, index) {
     return { valid: false, error: `Entry ${index}: path exceeds maximum length`, sanitized: null };
   }
 
+  // SECURITY: Reject alternate data streams (Windows ADS) and colons in paths
+  // Colons are not valid in filenames on Windows and could indicate ADS attacks
+  if (pathVal.includes(':')) {
+    return {
+      valid: false,
+      error: `Entry ${index}: path contains ':' (potential ADS attack)`,
+      sanitized: null,
+    };
+  }
+
   // hash: optional, but if present must be valid format
   if (entry.hash !== undefined && entry.hash !== null) {
     if (typeof entry.hash !== 'string') {
@@ -239,12 +293,12 @@ function validateManifestEntry(entry, index) {
     }
   }
 
-  // type: optional, if present must be 'file'
+  // type: optional, if present must be from allowed list
   if (entry.type !== undefined && entry.type !== null) {
-    if (entry.type !== 'file') {
+    if (!ALLOWED_TYPE_VALUES.includes(entry.type)) {
       return {
         valid: false,
-        error: `Entry ${index}: only type 'file' is allowed`,
+        error: `Entry ${index}: invalid type '${entry.type}'`,
         sanitized: null,
       };
     }
@@ -444,8 +498,21 @@ class PostInstallValidator {
         continue;
       }
 
-      // Object format
-      const validation = validateManifestEntry(entry, i);
+      // Object format - convert FAILSAFE_SCHEMA strings to proper types
+      const normalizedEntry = {
+        path: entry.path,
+        hash: entry.hash,
+        // FAILSAFE_SCHEMA returns all values as strings, convert size to number
+        size: entry.size !== undefined && entry.size !== null ? parseInt(entry.size, 10) : null,
+        type: entry.type,
+      };
+
+      // Handle NaN from parseInt
+      if (normalizedEntry.size !== null && isNaN(normalizedEntry.size)) {
+        normalizedEntry.size = null;
+      }
+
+      const validation = validateManifestEntry(normalizedEntry, i);
       if (!validation.valid) {
         throw new Error(validation.error);
       }
