@@ -523,12 +523,15 @@ class PostInstallValidator {
         path: entry.path,
         hash: entry.hash,
         // FAILSAFE_SCHEMA returns all values as strings, convert size to number
-        size: entry.size !== undefined && entry.size !== null ? parseInt(entry.size, 10) : null,
+        size: entry.size !== undefined && entry.size !== null ? Number(entry.size) : null,
         type: entry.type,
       };
 
-      // Handle NaN from parseInt
-      if (normalizedEntry.size !== null && isNaN(normalizedEntry.size)) {
+      // Handle NaN or non-integer sizes as invalid
+      if (
+        normalizedEntry.size !== null &&
+        (Number.isNaN(normalizedEntry.size) || !Number.isInteger(normalizedEntry.size))
+      ) {
         normalizedEntry.size = null;
       }
 
