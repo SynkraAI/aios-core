@@ -507,6 +507,54 @@ files:
 
       expect(report.status).toBe('failed');
     });
+
+    test('should use byte length not character length for size check (DOS-4)', async () => {
+      // Create content with multibyte characters
+      // Each emoji is 4 bytes in UTF-8 but only 2 characters in JS string
+      // 🔒 = 4 bytes, but "🔒".length = 2 (surrogate pair)
+      const emojiCount = Math.floor(SecurityLimits.MAX_MANIFEST_SIZE / 4) + 1000;
+      const emojiContent = '🔒'.repeat(emojiCount);
+
+      // Verify our test setup: character count is less than byte limit
+      expect(emojiContent.length).toBeLessThan(SecurityLimits.MAX_MANIFEST_SIZE);
+      // But byte count exceeds limit
+      expect(Buffer.byteLength(emojiContent, 'utf8')).toBeGreaterThan(
+        SecurityLimits.MAX_MANIFEST_SIZE
+      );
+
+      await fs.writeFile(path.join(targetDir, '.aios-core', 'install-manifest.yaml'), emojiContent);
+
+      const validator = new PostInstallValidator(targetDir, null, {
+        requireSignature: false,
+      });
+
+      const report = await validator.validate();
+
+      // Should fail because byte size exceeds limit, even though char count doesn't
+      expect(report.status).toBe('failed');
+      const manifestIssue = report.issues.find((i) => i.type === IssueType.INVALID_MANIFEST);
+      expect(manifestIssue).toBeDefined();
+      expect(manifestIssue.details).toContain('bytes');
+    });
+
+    test('should check file size before reading (DOS-3)', async () => {
+      // This test verifies that pre-read size check works
+      // We create an oversized file and ensure it's rejected before full read
+      const bigContent = 'x'.repeat(SecurityLimits.MAX_MANIFEST_SIZE + 100);
+
+      await fs.writeFile(path.join(targetDir, '.aios-core', 'install-manifest.yaml'), bigContent);
+
+      const validator = new PostInstallValidator(targetDir, null, {
+        requireSignature: false,
+      });
+
+      const report = await validator.validate();
+
+      expect(report.status).toBe('failed');
+      const manifestIssue = report.issues.find((i) => i.type === IssueType.INVALID_MANIFEST);
+      expect(manifestIssue).toBeDefined();
+      expect(manifestIssue.message).toContain('exceeds maximum size');
+    });
   });
 
   describe('Issue Model (H4)', () => {
@@ -572,5 +620,66 @@ RWQBla1234567890`;
 short`;
 
     expect(() => parseMinisignSignature(invalidSig)).toThrow('signature too short');
+  });
+});
+
+describe('Manifest Signature DoS Protection', () => {
+  const {
+    loadAndVerifyManifest,
+    SignatureLimits,
+  } = require('../../src/installer/manifest-signature');
+
+  let testDir;
+
+  beforeEach(async () => {
+    testDir = path.join(os.tmpdir(), `sig-dos-test-${Date.now()}-${Math.random().toString(36)}`);
+    await fs.ensureDir(testDir);
+  });
+
+  afterEach(async () => {
+    await fs.remove(testDir);
+  });
+
+  test('should reject oversized manifest file before reading (DOS-1)', async () => {
+    const manifestPath = path.join(testDir, 'install-manifest.yaml');
+
+    // Create oversized manifest file
+    const bigContent = 'x'.repeat(SignatureLimits.MAX_MANIFEST_SIZE + 1000);
+    await fs.writeFile(manifestPath, bigContent);
+
+    const result = loadAndVerifyManifest(manifestPath, { requireSignature: false });
+
+    expect(result.error).toContain('exceeds maximum size');
+    expect(result.content).toBeNull();
+  });
+
+  test('should reject oversized signature file before reading (DOS-2)', async () => {
+    const manifestPath = path.join(testDir, 'install-manifest.yaml');
+    const sigPath = manifestPath + '.minisig';
+
+    // Create valid-sized manifest
+    await fs.writeFile(manifestPath, 'version: "1.0.0"\nfiles: []');
+
+    // Create oversized signature file
+    const bigSig = 'x'.repeat(SignatureLimits.MAX_SIGNATURE_SIZE + 1000);
+    await fs.writeFile(sigPath, bigSig);
+
+    const result = loadAndVerifyManifest(manifestPath, { requireSignature: true });
+
+    expect(result.error).toContain('Signature file exceeds maximum size');
+    expect(result.content).toBeNull();
+  });
+
+  test('should allow valid-sized manifest file', async () => {
+    const manifestPath = path.join(testDir, 'install-manifest.yaml');
+
+    // Create normal manifest
+    await fs.writeFile(manifestPath, 'version: "1.0.0"\nfiles: []');
+
+    const result = loadAndVerifyManifest(manifestPath, { requireSignature: false });
+
+    // Should succeed (no signature required)
+    expect(result.error).toBeNull();
+    expect(result.content).not.toBeNull();
   });
 });

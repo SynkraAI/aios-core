@@ -18,6 +18,17 @@ const crypto = require('crypto');
 const fs = require('fs');
 
 /**
+ * Security limits for signature verification
+ * @constant
+ */
+const SignatureLimits = {
+  // Maximum manifest file size (10MB) - prevents DoS via large file loading
+  MAX_MANIFEST_SIZE: 10 * 1024 * 1024,
+  // Maximum signature file size (10KB) - .minisig files are typically ~200 bytes
+  MAX_SIGNATURE_SIZE: 10 * 1024,
+};
+
+/**
  * PINNED PUBLIC KEY - MUST BE HARDCODED
  * This is the root of trust for manifest verification.
  * Generated with: minisign -G -p aios-core.pub -s aios-core.key
@@ -274,6 +285,27 @@ function loadAndVerifyManifest(manifestPath, options = {}) {
     };
   }
 
+  // SECURITY [DOS-1]: Check manifest file size BEFORE reading into memory
+  // This prevents DoS attacks via oversized manifest files
+  let manifestStat;
+  try {
+    manifestStat = fs.statSync(manifestPath);
+  } catch (error) {
+    return {
+      content: null,
+      verified: false,
+      error: `Cannot stat manifest file: ${error.message}`,
+    };
+  }
+
+  if (manifestStat.size > SignatureLimits.MAX_MANIFEST_SIZE) {
+    return {
+      content: null,
+      verified: false,
+      error: `Manifest file exceeds maximum size (${SignatureLimits.MAX_MANIFEST_SIZE} bytes)`,
+    };
+  }
+
   // Check signature exists
   if (!fs.existsSync(signaturePath)) {
     if (requireSignature) {
@@ -284,6 +316,7 @@ function loadAndVerifyManifest(manifestPath, options = {}) {
       };
     }
     // Allow unsigned in dev mode (requireSignature=false)
+    // Size already validated above
     return {
       content: fs.readFileSync(manifestPath),
       verified: false,
@@ -291,7 +324,28 @@ function loadAndVerifyManifest(manifestPath, options = {}) {
     };
   }
 
-  // Load files
+  // SECURITY [DOS-2]: Check signature file size BEFORE reading
+  // Signature files should be small (~200 bytes typical)
+  let signatureStat;
+  try {
+    signatureStat = fs.statSync(signaturePath);
+  } catch (error) {
+    return {
+      content: null,
+      verified: false,
+      error: `Cannot stat signature file: ${error.message}`,
+    };
+  }
+
+  if (signatureStat.size > SignatureLimits.MAX_SIGNATURE_SIZE) {
+    return {
+      content: null,
+      verified: false,
+      error: `Signature file exceeds maximum size (${SignatureLimits.MAX_SIGNATURE_SIZE} bytes)`,
+    };
+  }
+
+  // Load files - sizes validated above
   const manifestContent = fs.readFileSync(manifestPath);
   const signatureContent = fs.readFileSync(signaturePath, 'utf8');
 
@@ -320,4 +374,5 @@ module.exports = {
   isPlaceholderKey,
   parseMinisignSignature,
   PINNED_PUBLIC_KEY,
+  SignatureLimits,
 };

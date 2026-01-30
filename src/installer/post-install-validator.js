@@ -435,6 +435,20 @@ class PostInstallValidator {
     // Development mode: signature not required (NOT for production)
     this.log('WARNING: Signature verification disabled - development mode only');
     try {
+      // SECURITY [DOS-3]: Check file size BEFORE reading into memory
+      const manifestStat = fs.statSync(manifestPath);
+      if (manifestStat.size > SecurityLimits.MAX_MANIFEST_SIZE) {
+        this.issues.push({
+          type: IssueType.INVALID_MANIFEST,
+          severity: Severity.CRITICAL,
+          message: 'Manifest file exceeds maximum size',
+          details: `Size: ${manifestStat.size} bytes, Max: ${SecurityLimits.MAX_MANIFEST_SIZE} bytes`,
+          remediation: 'Use a valid manifest file from the official source',
+          relativePath: null,
+        });
+        return null;
+      }
+
       const content = fs.readFileSync(manifestPath, 'utf8');
       return this.parseManifestContent(content);
     } catch (error) {
@@ -459,9 +473,15 @@ class PostInstallValidator {
    * @returns {Object} Parsed and validated manifest
    */
   parseManifestContent(content) {
-    // SECURITY: Size limit
-    if (content.length > SecurityLimits.MAX_MANIFEST_SIZE) {
-      throw new Error(`Manifest exceeds maximum size (${SecurityLimits.MAX_MANIFEST_SIZE} bytes)`);
+    // SECURITY [DOS-4]: Size limit using byte length, not character length
+    // String.length counts Unicode characters, not bytes. A string with multibyte
+    // characters (emojis, CJK) would have fewer characters than bytes.
+    // Example: "🔒" has length 2 but is 4 bytes in UTF-8
+    const byteLength = Buffer.byteLength(content, 'utf8');
+    if (byteLength > SecurityLimits.MAX_MANIFEST_SIZE) {
+      throw new Error(
+        `Manifest exceeds maximum size (${byteLength} bytes > ${SecurityLimits.MAX_MANIFEST_SIZE} bytes)`
+      );
     }
 
     // SECURITY [C2]: Use FAILSAFE_SCHEMA - no custom types, no code execution
