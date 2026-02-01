@@ -386,9 +386,9 @@ aios rebuild
 ### Temas Avanzados
 
 - [Guia de Quality Gates](./quality-gates.md)
-- [Estrategia Multi-Repo](../architecture/multi-repo-strategy.md)
+- [Estrategia Multi-Repo](../../architecture/multi-repo-strategy.md)
 - [Integracion MCP](./mcp-global-setup.md)
-- [Integracion con IDE](../ide-integration.md)
+- [Integracion con IDE](../../ide-integration.md)
 
 ---
 

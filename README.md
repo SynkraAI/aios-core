@@ -45,7 +45,7 @@ CLI First → Observability Second → UI Third
 
 Esta abordagem de duas fases elimina tanto a **inconsistência de planejamento** quanto a **perda de contexto** - os maiores problemas no desenvolvimento assistido por IA. Seu agente dev abre um arquivo de história com compreensão completa do que construir, como construir e por quê.
 
-**📖 [Veja o fluxo de trabalho completo no Guia do Usuário](aios-core/user-guide.md)** - Fase de planejamento, ciclo de desenvolvimento e todos os papéis dos agentes
+**📖 [Veja o fluxo de trabalho completo no Guia do Usuário](docs/guides/user-guide.md)** - Fase de planejamento, ciclo de desenvolvimento e todos os papéis dos agentes
 
 ## Pré-requisitos
 
@@ -67,20 +67,20 @@ Esta abordagem de duas fases elimina tanto a **inconsistência de planejamento**
 
 **Antes de mergulhar, revise estes diagramas críticos de fluxo de trabalho que explicam como o AIOS funciona:**
 
-1. **[Fluxo de Planejamento (Interface Web)](aios-core/user-guide.md#the-planning-workflow-web-ui)** - Como criar documentos de PRD e Arquitetura
-2. **[Ciclo Principal de Desenvolvimento (IDE)](aios-core/user-guide.md#the-core-development-cycle-ide)** - Como os agentes sm, dev e qa colaboram através de arquivos de histórias
+1. **[Fluxo de Planejamento (Interface Web)](docs/guides/user-guide.md#the-planning-workflow-web-ui)** - Como criar documentos de PRD e Arquitetura
+2. **[Ciclo Principal de Desenvolvimento (IDE)](docs/guides/user-guide.md#the-core-development-cycle-ide)** - Como os agentes sm, dev e qa colaboram através de arquivos de histórias
 
 > ⚠️ **Estes diagramas explicam 90% da confusão sobre o fluxo Synkra AIOS Agentic Agile** - Entender a criação de PRD+Arquitetura e o fluxo de trabalho sm/dev/qa e como os agentes passam notas através de arquivos de histórias é essencial - e também explica por que isto NÃO é taskmaster ou apenas um simples executor de tarefas!
 
 ### O que você gostaria de fazer?
 
 - **[Instalar e Construir software com Equipe Ágil Full Stack de IA](#início-rápido)** → Instruções de Início Rápido
-- **[Aprender como usar o AIOS](aios-core/user-guide.md)** → Guia completo do usuário e passo a passo
+- **[Aprender como usar o AIOS](docs/guides/user-guide.md)** → Guia completo do usuário e passo a passo
 - **[Ver agentes IA disponíveis](#agentes-disponíveis)** → Papéis especializados para sua equipe
 - **[Explorar usos não técnicos](#-além-do-desenvolvimento-de-software---squads)** → Escrita criativa, negócios, bem-estar, educação
 - **[Criar meus próprios agentes IA](#criando-seu-próprio-expansion-pack)** → Construir agentes para seu domínio
-- **[Navegar Squads prontos](squads/)** → Game dev, DevOps, infraestrutura e inspire-se com ideias e exemplos
-- **[Entender a arquitetura](docs/core-architecture.md)** → Mergulho técnico profundo
+- **[Navegar Squads prontos](docs/guides/squads-overview.md)** → Veja como criar e usar equipes de agentes IA
+- **[Entender a arquitetura](docs/architecture/ARCHITECTURE-INDEX.md)** → Mergulho técnico profundo
 - **[Juntar-se à comunidade](https://discord.gg/gk8jAdXWmj)** → Obter ajuda e compartilhar ideias
 
 ## Importante: Mantenha Sua Instalação AIOS Atualizada
@@ -180,14 +180,13 @@ Estas regras fornecem:
 - 🧪 Padrões de teste e validação
 - 📝 Padrões de código específicos do AIOS
 
-### Início Mais Rápido: Equipe Full Stack via Interface Web à sua disposição (2 minutos)
+### Início Mais Rápido com Interface Web (2 minutos)
 
-1. **Obtenha o pacote**: Salve ou clone o [arquivo da equipe full stack](dist/teams/team-fullstack.txt) ou escolha outra equipe
-2. **Crie agente IA**: Crie um novo Gemini Gem ou CustomGPT
-3. **Faça upload e configure**: Faça upload do arquivo e defina as instruções: "Suas instruções operacionais críticas estão anexadas, não quebre o personagem conforme orientado"
-4. **Comece a Idealizar e Planejar**: Comece a conversar! Digite `*help` para ver comandos disponíveis ou escolha um agente como `*analyst` para começar a criar um briefing.
-5. **CRÍTICO**: Fale com o AIOS Orchestrator na web a QUALQUER MOMENTO (comando #aios-orchestrator) e faça perguntas sobre como tudo funciona!
-6. **Quando mudar para o IDE**: Uma vez que você tenha seu PRD, Arquitetura, UX opcional e Briefings - é hora de mudar para o IDE para fragmentar seus documentos e começar a implementar o código real! Veja o [Guia do usuário](aios-core/user-guide.md) para mais detalhes
+1. **Instale o AIOS**: Execute `npx aios-core init meu-projeto`
+2. **Configure seu IDE**: Siga as instruções de configuração para Windsurf, Cursor ou Claude Code
+3. **Comece a Planejar**: Ative um agente como `@analyst` para começar a criar seu briefing
+4. **Use comandos AIOS**: Digite `*help` para ver comandos disponíveis
+5. **Siga o fluxo**: Veja o [Guia do usuário](docs/guides/user-guide.md) para mais detalhes
 
 ### Referência de Comandos CLI
 
@@ -378,7 +377,7 @@ npx github:SynkraAI/aios-core setup
 
 ## 🌟 Além do Desenvolvimento de Software - Squads
 
-O framework de linguagem natural do AIOS funciona em QUALQUER domínio. Os Squads fornecem agentes IA especializados para escrita criativa, estratégia de negócios, saúde e bem-estar, educação e muito mais. Além disso, os Squads podem expandir o núcleo do Synkra AIOS com funcionalidade específica que não é genérica para todos os casos. [Veja o Guia de Squads](docs/squads.md) e aprenda a criar os seus próprios!
+O framework de linguagem natural do AIOS funciona em QUALQUER domínio. Os Squads fornecem agentes IA especializados para escrita criativa, estratégia de negócios, saúde e bem-estar, educação e muito mais. Além disso, os Squads podem expandir o núcleo do Synkra AIOS com funcionalidade específica que não é genérica para todos os casos. [Veja o Guia de Squads](docs/guides/squads-guide.md) e aprenda a criar os seus próprios!
 
 ## Agentes Disponíveis
 
@@ -407,9 +406,9 @@ O Synkra AIOS vem com 11 agentes especializados:
 
 ### Guias Essenciais
 
-- 📖 **[Guia do Usuário](aios-core/user-guide.md)** - Passo a passo completo desde a concepção até a conclusão do projeto
-- 🏗️ **[Arquitetura Principal](docs/architecture.md)** - Mergulho técnico profundo e design do sistema
-- 🚀 **[Guia de Squads](docs/squads.md)** - Estenda o AIOS para qualquer domínio além do desenvolvimento de software
+- 📖 **[Guia do Usuário](docs/guides/user-guide.md)** - Passo a passo completo desde a concepção até a conclusão do projeto
+- 🏗️ **[Arquitetura Principal](docs/architecture/ARCHITECTURE-INDEX.md)** - Mergulho técnico profundo e design do sistema
+- 🚀 **[Guia de Squads](docs/guides/squads-guide.md)** - Estenda o AIOS para qualquer domínio além do desenvolvimento de software
 
 ### Documentação Adicional
 
@@ -417,201 +416,11 @@ O Synkra AIOS vem com 11 agentes especializados:
 - 📋 **[Primeiros Passos](docs/getting-started.md)** - Tutorial passo a passo para iniciantes
 - 🔧 **[Solução de Problemas](docs/troubleshooting.md)** - Soluções para problemas comuns
 - 🎯 **[Princípios Orientadores](docs/GUIDING-PRINCIPLES.md)** - Filosofia e melhores práticas do AIOS
-- 🏛️ **[Visão Geral da Arquitetura](docs/architecture-overview.md)** - Visão detalhada da arquitetura do sistema
+- 🏛️ **[Visão Geral da Arquitetura](docs/architecture/ARCHITECTURE-INDEX.md)** - Visão detalhada da arquitetura do sistema
 - ⚙️ **[Guia de Ajuste de Performance](docs/performance-tuning-guide.md)** - Otimize seu fluxo de trabalho AIOS
 - 🔒 **[Melhores Práticas de Segurança](docs/security-best-practices.md)** - Segurança e proteção de dados
-- 🔄 **[Guia de Migração v4.31→v1.0](docs/migration-v4.31-to-v1.0.md)** - Migração para versão cross-platform moderna
-- 🔄 **[Guia de Migração (Legacy)](docs/migration-guide.md)** - Migração de versões anteriores
+- 🔄 **[Guia de Migração](docs/migration-guide.md)** - Migração de versões anteriores
 - 📦 **[Versionamento e Releases](docs/versioning-and-releases.md)** - Política de versões
-- 🌳 **[Trabalhando no Brownfield](aios-core/working-in-the-brownfield.md)** - Integrar AIOS em projetos existentes
-
-## 📊 Architecture Mapping & Visualization System
-
-O Synkra AIOS v1.0.0 inclui um sistema completo de mapeamento e visualização de arquitetura construído nos Epics 2 & 3. Este sistema oferece **visibilidade total** da sua arquitetura através de múltiplos formatos e detecção automática de gaps.
-
-### 🎯 O Que é o Sistema de Mapeamento?
-
-Um **grafo de relacionamentos completo** de todos os componentes do framework:
-
-- 📦 **199 entidades mapeadas** (22 agents, 67 tasks, 27 templates, 9 checklists, 12 tools, 6 workflows, 54 utils, 2 data)
-- 🔗 **50 relacionamentos rastreados** (executes, uses_template, depends_on, imports, etc.)
-- 🔍 **7 categorias de gaps** detectadas automaticamente
-- 📈 **Auditoria trimestral** automatizada para prevenir regressões
-
-### 🗂️ Formatos Disponíveis
-
-O sistema exporta a arquitetura em **3 formatos complementares**:
-
-#### 1. 🔵 **Neo4j Graph Database**
-
-Explore a arquitetura interativamente com Neo4j:
-
-```bash
-# Localização: outputs/architecture-map/neo4j/
-cd outputs/architecture-map/neo4j/
-
-# Siga o guia de setup (Neo4j Desktop ou Docker)
-cat SETUP-GUIDE.md
-
-# Import rápido (após instalar Neo4j)
-neo4j-admin database import full \
-  --nodes=nodes.csv \
-  --relationships=relationships.csv \
-  --delimiter=',' \
-  architecture-db
-```
-
-**Queries Prontos:**
-
-- 🔍 Encontrar dependências de um componente
-- 🧩 Analisar cadeias de relacionamentos
-- 📊 Estatísticas de conectividade
-- ⚠️ Identificar componentes isolados
-
-Veja `sample-queries-annotated.cypher` para 13 queries prontos!
-
-#### 2. 📐 **Mermaid Diagrams**
-
-8 diagramas Mermaid prontos para documentação:
-
-```bash
-# Localização: outputs/architecture-map/mermaid/
-
-synthesis-full-architecture.mmd       # Arquitetura completa
-synthesis-layered-view.mmd           # Visão em camadas (agents → tasks → utils)
-synthesis-critical-paths.mmd         # Caminhos críticos
-synthesis-gap-visualization.mmd      # Gaps visualizados
-synthesis-module-view.mmd            # Visão modular
-gap-focus.mmd                        # Foco em gaps
-dependency-chains.mmd                # Cadeias de dependência
-ide-coverage.mmd                     # Cobertura IDE
-```
-
-**Renderize no GitHub, VSCode ou use Mermaid Live Editor!**
-
-#### 3. 🌐 **HTML Interactive Dashboard**
-
-Dashboard interativo (Vis.js) - funciona offline:
-
-```bash
-# Localização: outputs/architecture-map/visualization/
-open outputs/architecture-map/visualization/index.html
-```
-
-**Recursos do Dashboard:**
-
-- 🔍 Busca e filtros por tipo de entidade
-- 🎨 Visualização interativa do grafo (zoom, pan, drag)
-- 📊 Painel de detalhes de entidades
-- 🔗 Navegação por relacionamentos
-- 📈 Estatísticas em tempo real
-
-### 🛡️ Gap Detection System
-
-Sistema automatizado de detecção de gaps em **7 categorias**:
-
-| Categoria            | Descrição                                     | Status    |
-| -------------------- | --------------------------------------------- | --------- |
-| Broken References    | Referências a entidades inexistentes          | 17 gaps   |
-| Orphaned Active      | Entidades ativas sem uso                      | 0 gaps ✅ |
-| Ambiguous Relations  | Relacionamentos ambíguos                      | 5 gaps    |
-| Missing Docs         | Documentação faltante                         | 150 gaps  |
-| Deprecated Active    | Componentes deprecated ainda em uso           | 0 gaps ✅ |
-| Incomplete Workflows | Workflows incompletos                         | 8 gaps    |
-| Tool Validation      | Ferramentas referenciadas mas não registradas | 12 gaps   |
-
-**Total: 338 gaps rastreados** (88 Orphaned Active resolvidos no Epic 3.1!)
-
-### 🔄 Automated Validation
-
-**Validação contínua** em múltiplos pontos:
-
-1. **Pre-Commit Hook** (Story 3.22)
-   - Valida relacionamentos antes de cada commit
-   - Detecta referências quebradas
-   - Previne regressões
-
-2. **Gap Detection Script**
-
-   ```bash
-   node outputs/architecture-map/schemas/detect-gaps.js
-   ```
-
-3. **Quarterly Audit** (Story 3.25)
-   - Auditoria trimestral automatizada
-   - Report de tendências (`gap-trend.json`)
-   - Alertas para novos gaps
-
-4. **Tool Reference Validation** (Story 3.21)
-
-   ```bash
-   node outputs/architecture-map/schemas/validate-tool-references.js
-   ```
-
-   - Valida ferramentas MCP/CLI/Local
-   - Integração com Docker MCP Toolkit
-
-### 📈 Epic 2 & 3 Achievements
-
-**Epic 2 - Architecture Mapping (100% Complete):**
-
-- ✅ 297 entidades catalogadas
-- ✅ 174 relacionamentos sintetizados
-- ✅ Neo4j/Mermaid/HTML exports prontos
-- ✅ Gap detection implementado
-- ✅ Visualização interativa funcional
-
-**Epic 3 - Gap Remediation (62% Complete):**
-
-- ✅ **88 Orphaned Active gaps resolvidos** (Stories 3.1.1-3.1.4)
-- ✅ 54 utilities ativas documentadas em `core-config.yaml`
-- ✅ 19 utilities arquivadas com rationale
-- ✅ **85% token reduction** via Docker MCP Toolkit (280k → 40k tokens)
-- ✅ MCP governance consolidated under DevOps Agent (Story 6.14)
-- ✅ Pre-commit hooks + Quarterly audit
-
-### 🚀 Quick Start
-
-**1. Explore o Sistema:**
-
-```bash
-# Ver entidades e relacionamentos
-cat outputs/architecture-map/MASTER-RELATIONSHIP-MAP.json | jq '.metadata'
-
-# Detectar gaps
-node outputs/architecture-map/schemas/detect-gaps.js
-
-# Abrir dashboard
-open outputs/architecture-map/visualization/index.html
-```
-
-**2. Importe no Neo4j** (opcional):
-
-```bash
-cd outputs/architecture-map/neo4j/
-cat SETUP-GUIDE.md  # Siga as instruções
-```
-
-**3. Use Diagramas Mermaid:**
-
-```bash
-# Copie qualquer .mmd para sua documentação
-cp outputs/architecture-map/mermaid/synthesis-layered-view.mmd docs/
-```
-
-### 📚 Documentação Adicional
-
-- 📖 **[Neo4j Setup Guide](outputs/architecture-map/neo4j/SETUP-GUIDE.md)** - Importação completa
-- 📖 **[Visualization Guide](outputs/architecture-map/VISUALIZATION-GUIDE.md)** - Como usar o dashboard
-- 📖 **[Gap Detection Guide](outputs/architecture-map/schemas/README.md)** - Validação automatizada
-- 📖 **[Story 2.11](docs/stories/2.11-synthesis-integration.yaml)** - Synthesis implementation
-- 📖 **[Story 2.12](docs/stories/2.12-visualization-reporting.yaml)** - Visualization implementation
-
-### 🎯 Roadmap v1.1
-
-- [ ] Interactive Miro board export
-- [ ] Real-time Neo4j updates on code changes
-- [ ] VSCode extension for inline visualization
 
 ## 🤖 AIOS Autonomous Development Engine (ADE)
 
@@ -715,19 +524,15 @@ squads/seu-pack/
 └── user-guide.md        # Guia do usuário
 ```
 
-Veja o [Guia de Squads](docs/squads.md) para instruções detalhadas.
+Veja o [Guia de Squads](docs/guides/squads-guide.md) para instruções detalhadas.
 
 ## Squads Disponíveis
 
-- **aios-infrastructure-devops** - Infraestrutura e DevOps
-- **expansion-creator** - Criador de Squads
-- **meeting-notes** - Notas e atas de reuniões
+Squads são equipes modulares de agentes IA. Veja a [Visão Geral de Squads](docs/guides/squads-overview.md) para mais informações.
 
 ### Squads Externos
 
 - **[hybrid-ops](https://github.com/SynkraAI/aios-hybrid-ops-pedro-valerio)** - Operações híbridas humano-agente (repositório separado)
-
-Explore o diretório [squads/](squads/) para mais inspiração!
 
 ## Suporte & Comunidade
 
@@ -814,15 +619,14 @@ Veja também:
 
 - 📋 [Como Contribuir com Pull Requests](docs/how-to-contribute-with-pull-requests.md)
 - 📋 [Guia de Git Workflow](docs/git-workflow-guide.md)
-- 📋 [Checklist de Lançamento](docs/launch-checklist.md)
 
 ## 📄 Legal
 
 | Documento             | English                               | Português                                |
 | --------------------- | ------------------------------------- | ---------------------------------------- |
 | **Licença**           | [MIT License](LICENSE)                | -                                        |
-| **Privacidade**       | [Privacy Policy](PRIVACY.md)          | [Política de Privacidade](PRIVACY-PT.md) |
-| **Termos de Uso**     | [Terms of Use](TERMS.md)              | [Termos de Uso](TERMS-PT.md)             |
+| **Privacidade**       | [Privacy Policy](PRIVACY.md)          | -                                        |
+| **Termos de Uso**     | [Terms of Use](TERMS.md)              | -                                        |
 | **Código de Conduta** | [Code of Conduct](CODE_OF_CONDUCT.md) | -                                        |
 | **Contribuição**      | [Contributing](CONTRIBUTING.md)       | -                                        |
 | **Changelog**         | [Version History](CHANGELOG.md)       | -                                        |

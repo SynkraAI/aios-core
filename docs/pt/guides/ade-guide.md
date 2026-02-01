@@ -60,7 +60,7 @@ O **AIOS Autonomous Development Engine (ADE)** é um sistema de desenvolvimento 
 - `*merge-worktree {story}` - Fazer merge do worktree
 - `*cleanup-worktrees` - Remover worktrees antigos
 
-**Documentação:** [ADE-EPIC1-HANDOFF.md](../architecture/ADE-EPIC1-HANDOFF.md)
+**Documentação:** [ADE-EPIC1-HANDOFF.md](../../architecture/ADE-EPIC1-HANDOFF.md)
 
 ---
 
@@ -75,7 +75,7 @@ O **AIOS Autonomous Development Engine (ADE)** é um sistema de desenvolvimento 
 - `*migrate-agent` - Migrar agente individual
 - `*migrate-batch` - Migrar todos em batch
 
-**Documentação:** [ADE-EPIC2-HANDOFF.md](../architecture/ADE-EPIC2-HANDOFF.md)
+**Documentação:** [ADE-EPIC2-HANDOFF.md](../../architecture/ADE-EPIC2-HANDOFF.md)
 
 ---
 
@@ -99,7 +99,7 @@ Requisição → Coletar → Avaliar → Pesquisar → Escrever → Criticar →
 | @pm        | `*write-spec`          | Escrever spec          |
 | @qa        | `*critique-spec`       | Criticar e aprovar     |
 
-**Documentação:** [ADE-EPIC3-HANDOFF.md](../architecture/ADE-EPIC3-HANDOFF.md)
+**Documentação:** [ADE-EPIC3-HANDOFF.md](../../architecture/ADE-EPIC3-HANDOFF.md)
 
 ---
 
@@ -134,7 +134,7 @@ Requisição → Coletar → Avaliar → Pesquisar → Escrever → Criticar →
 
 - `*execute-subtask` - Executar subtask
 
-**Documentação:** [ADE-EPIC4-HANDOFF.md](../architecture/ADE-EPIC4-HANDOFF.md)
+**Documentação:** [ADE-EPIC4-HANDOFF.md](../../architecture/ADE-EPIC4-HANDOFF.md)
 
 ---
 
@@ -153,7 +153,7 @@ Subtask Falha → Registrar Tentativa → Retry (<3) → Detectar Travamento →
 - `*track-attempt` - Registrar tentativa
 - `*rollback` - Voltar para estado anterior
 
-**Documentação:** [ADE-EPIC5-HANDOFF.md](../architecture/ADE-EPIC5-HANDOFF.md)
+**Documentação:** [ADE-EPIC5-HANDOFF.md](../../architecture/ADE-EPIC5-HANDOFF.md)
 
 ---
 
@@ -184,7 +184,7 @@ Subtask Falha → Registrar Tentativa → Retry (<3) → Detectar Travamento →
 
 - `*apply-qa-fix` - Aplicar correção do QA
 
-**Documentação:** [ADE-EPIC6-HANDOFF.md](../architecture/ADE-EPIC6-HANDOFF.md)
+**Documentação:** [ADE-EPIC6-HANDOFF.md](../../architecture/ADE-EPIC6-HANDOFF.md)
 
 ---
 
@@ -212,7 +212,7 @@ Subtask Falha → Registrar Tentativa → Retry (<3) → Detectar Travamento →
 
 - `*extract-patterns` - Extrair padrões do código
 
-**Documentação:** [ADE-EPIC7-HANDOFF.md](../architecture/ADE-EPIC7-HANDOFF.md)
+**Documentação:** [ADE-EPIC7-HANDOFF.md](../../architecture/ADE-EPIC7-HANDOFF.md)
 
 ---
 
@@ -437,15 +437,15 @@ cat docs/stories/STORY-42/spec-critique.json
 
 ## Documentação Relacionada
 
-- [ADE Architect Handoff](../architecture/ADE-ARCHITECT-HANDOFF.md) - Visão geral
-- [ADE Agent Changes](../architecture/ADE-AGENT-CHANGES.md) - Alterações em todos os agentes com matriz de capabilities
-- [Epic 1 - Worktree Manager](../architecture/ADE-EPIC1-HANDOFF.md)
-- [Epic 2 - Migração V2→V3](../architecture/ADE-EPIC2-HANDOFF.md)
-- [Epic 3 - Spec Pipeline](../architecture/ADE-EPIC3-HANDOFF.md)
-- [Epic 4 - Execution Engine](../architecture/ADE-EPIC4-HANDOFF.md)
-- [Epic 5 - Recovery System](../architecture/ADE-EPIC5-HANDOFF.md)
-- [Epic 6 - QA Evolution](../architecture/ADE-EPIC6-HANDOFF.md)
-- [Epic 7 - Memory Layer](../architecture/ADE-EPIC7-HANDOFF.md)
+- [ADE Architect Handoff](../../architecture/ADE-ARCHITECT-HANDOFF.md) - Visão geral
+- [ADE Agent Changes](../../architecture/ADE-AGENT-CHANGES.md) - Alterações em todos os agentes com matriz de capabilities
+- [Epic 1 - Worktree Manager](../../architecture/ADE-EPIC1-HANDOFF.md)
+- [Epic 2 - Migração V2→V3](../../architecture/ADE-EPIC2-HANDOFF.md)
+- [Epic 3 - Spec Pipeline](../../architecture/ADE-EPIC3-HANDOFF.md)
+- [Epic 4 - Execution Engine](../../architecture/ADE-EPIC4-HANDOFF.md)
+- [Epic 5 - Recovery System](../../architecture/ADE-EPIC5-HANDOFF.md)
+- [Epic 6 - QA Evolution](../../architecture/ADE-EPIC6-HANDOFF.md)
+- [Epic 7 - Memory Layer](../../architecture/ADE-EPIC7-HANDOFF.md)
 
 ---
 

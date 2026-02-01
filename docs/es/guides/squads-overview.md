@@ -217,7 +217,7 @@ User Request --> Task --> Agent Execution --> Output
              Workflow (si multi-paso)
 ```
 
-Las tasks deben seguir [TASK-FORMAT-SPECIFICATION-V1](../../.aios-core/docs/standards/TASK-FORMAT-SPECIFICATION-V1.md).
+Las tasks deben seguir [TASK-FORMAT-SPECIFICATION-V1](../../../.aios-core/docs/standards/TASK-FORMAT-SPECIFICATION-V1.md).
 
 ### 2. Usar Herencia de Config Sabiamente
 
@@ -278,7 +278,7 @@ Usar versionado semantico:
 - **Crear Tu Primer Squad:** Seguir la [Guia de Squads](./squads-guide.md) para instrucciones detalladas
 - **Explorar Squads Oficiales:** Revisar [repositorio aios-squads](https://github.com/SynkraAI/aios-squads)
 - **Contribuir:** Ver [Guia de Contribucion de Squads](./contributing-squads.md)
-- **Aprender Formato de Tasks:** Leer [TASK-FORMAT-SPECIFICATION-V1](../../.aios-core/docs/standards/TASK-FORMAT-SPECIFICATION-V1.md)
+- **Aprender Formato de Tasks:** Leer [TASK-FORMAT-SPECIFICATION-V1](../../../.aios-core/docs/standards/TASK-FORMAT-SPECIFICATION-V1.md)
 
 ---
 
@@ -286,8 +286,8 @@ Usar versionado semantico:
 
 - [Guia de Desarrollo de Squads](./squads-guide.md) - Guia completa para crear y gestionar squads
 - [Guia de Migracion de Squads](./squad-migration.md) - Migrar desde formato legacy
-- [Especificacion de Formato de Tasks](../../.aios-core/docs/standards/TASK-FORMAT-SPECIFICATION-V1.md)
-- [Agente @squad-creator](../../.aios-core/development/agents/squad-creator.md)
+- [Especificacion de Formato de Tasks](../../../.aios-core/docs/standards/TASK-FORMAT-SPECIFICATION-V1.md)
+- [Agente @squad-creator](../../../.aios-core/development/agents/squad-creator.md)
 
 ---
 
