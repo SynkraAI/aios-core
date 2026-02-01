@@ -151,28 +151,19 @@ acceptance-criteria:
 
 **External/shared resources used by this task:**
 
+> **Note:** The tools below are conceptual patterns executed by the AI agent at runtime (file reads, YAML parsing, state management). They are NOT standalone JS scripts — the agent implements this logic inline using its native tools (Read, Write, Glob, etc.).
+
 - **Tool:** workflow-state-manager
   - **Purpose:** Create, load, save, and query workflow state
-  - **Source:** .aios-core/development/scripts/workflow-state-manager.js
+  - **Implementation:** AI agent reads/writes `.aios/{instance-id}-state.yaml` files directly
 
 - **Tool:** workflow-validator
-  - **Purpose:** Validate workflow before starting
-  - **Source:** .aios-core/development/scripts/workflow-validator.js
+  - **Purpose:** Validate workflow YAML before starting
+  - **Implementation:** AI agent validates structure, sequence, and references inline
 
 - **Tool:** file-system
   - **Purpose:** YAML file reading and state persistence
-  - **Source:** Node.js fs module
-
----
-
-## Scripts
-
-**Agent-specific code for this task:**
-
-- **Script:** workflow-state-manager.js
-  - **Purpose:** WorkflowStateManager class for state CRUD and queries
-  - **Language:** JavaScript
-  - **Location:** .aios-core/development/scripts/workflow-state-manager.js
+  - **Implementation:** Native Read/Write/Glob tools
 
 ---
 
@@ -217,8 +208,7 @@ token_usage: ~500-1,500 tokens
 story: N/A
 version: 1.0.0
 dependencies:
-  - workflow-state-manager.js
-  - workflow-validator.js
+  - run-workflow-engine.md
 tags:
   - workflow
   - execution
@@ -237,9 +227,9 @@ To provide guided workflow automation with file-based state persistence. Tracks 
 
 ## Prerequisites
 
-- WorkflowStateManager available at `.aios-core/development/scripts/workflow-state-manager.js`
-- WorkflowValidator available at `.aios-core/development/scripts/workflow-validator.js`
-- Target workflow YAML must exist
+- Target workflow YAML must exist at the resolved path
+- For engine mode: `run-workflow-engine.md` task must exist at `.aios-core/development/tasks/run-workflow-engine.md`
+- State directory `.aios/` must be writable
 
 ## Task Execution
 

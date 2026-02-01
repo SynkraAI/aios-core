@@ -59,7 +59,7 @@ step_output:
     - name: "artifact-name.md"
       path: "relative/path/to/artifact"
       status: created|updated
-`` `
+```
 
 Execute the task now. Do NOT greet. Do NOT show commands. Do NOT ask questions (all inputs are provided above). Focus entirely on task execution and produce the output YAML block at the end.
 ```
