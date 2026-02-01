@@ -97,9 +97,11 @@ class Layer2PRAutomation extends BaseLayer {
 
     try {
       // Check if CodeRabbit is available
+      // Resolve PROJECT_ROOT from environment or use cwd (prevents shell injection)
+      const projectRoot = process.env.AIOS_PROJECT_ROOT || process.env.PROJECT_ROOT || process.cwd();
       const command =
         this.coderabbit.command ||
-        "wsl bash -c 'cd ${PROJECT_ROOT} && ~/.local/bin/coderabbit --prompt-only -t uncommitted'";
+        `wsl bash -c 'cd ${projectRoot} && ~/.local/bin/coderabbit --prompt-only -t uncommitted'`;
 
       const result = await this.runCommand(command, timeout);
 

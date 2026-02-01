@@ -717,7 +717,8 @@ function handleCancellation() {
 
 ```javascript
 function validateStoryFile(storyId) {
-  const storyPath = `docs/stories/${storyId}.yaml`;
+  // Story files are in nested directories: docs/stories/{storyId}/story.yaml
+  const storyPath = `docs/stories/${storyId}/story.yaml`;
 
   if (!fs.existsSync(storyPath)) {
     console.error(`Error: Story file not found at ${storyPath}`);

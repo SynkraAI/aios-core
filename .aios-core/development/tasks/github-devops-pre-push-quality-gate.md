@@ -197,24 +197,17 @@ acceptance-criteria:
 
 **External/shared resources used by this task:**
 
-- **Tool:** task-runner
-  - **Purpose:** Task execution and orchestration
-  - **Source:** .aios-core/core/task-runner.js
+- **Tool:** git
+  - **Purpose:** Version control operations
+  - **Source:** System CLI
 
-- **Tool:** logger
-  - **Purpose:** Execution logging and error tracking
-  - **Source:** .aios-core/utils/logger.js
+- **Tool:** npm
+  - **Purpose:** Run quality scripts (lint, test, typecheck, build)
+  - **Source:** System CLI
 
----
-
-## Scripts
-
-**Agent-specific code for this task:**
-
-- **Script:** execute-task.js
-  - **Purpose:** Generic task execution wrapper
-  - **Language:** JavaScript
-  - **Location:** .aios-core/scripts/execute-task.js
+- **Tool:** gh (GitHub CLI)
+  - **Purpose:** GitHub PR operations
+  - **Source:** System CLI
 
 ---
 

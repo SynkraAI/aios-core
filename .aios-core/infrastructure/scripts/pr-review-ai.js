@@ -13,7 +13,7 @@
  * Based on Auto-Claude's AI PR Reviewer architecture.
  */
 
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const EventEmitter = require('events');
@@ -574,11 +574,17 @@ Respond with a JSON object:
 }`;
   }
 
+  /**
+   * Call Claude CLI for AI review
+   * Uses execFileSync with args array to prevent command injection
+   */
   async callClaude(prompt) {
     return new Promise((resolve, reject) => {
       try {
-        const result = execSync(
-          `claude --print --dangerously-skip-permissions -p "${prompt.replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/`/g, '\\`')}"`,
+        // Use Claude CLI in print mode with safe argument passing (no shell interpolation)
+        const result = execFileSync(
+          'claude',
+          ['--print', '--dangerously-skip-permissions', '-p', prompt],
           {
             encoding: 'utf8',
             maxBuffer: 10 * 1024 * 1024,

@@ -832,6 +832,7 @@ class FileEvolutionTracker {
 
   /**
    * Compute diff summary between two versions
+   * Uses the actual commit/hash for the diff instead of hardcoded HEAD~1
    * @private
    */
   _computeDiffSummary(filePath, oldHash, newHash) {
@@ -840,12 +841,24 @@ class FileEvolutionTracker {
     }
 
     try {
-      // Try to get diff stats from git
-      const diffOutput = execSync(`git diff --stat HEAD~1 -- "${filePath}"`, {
-        cwd: this.rootPath,
-        encoding: 'utf-8',
-        stdio: ['pipe', 'pipe', 'pipe'],
-      });
+      // Try to get diff stats from git using the actual base reference
+      // Use oldHash if it's a valid commit reference, otherwise fall back to working tree diff
+      let diffOutput;
+      if (oldHash && oldHash.length >= 7) {
+        // oldHash looks like a commit hash, use it as base
+        diffOutput = execSync(`git diff --stat ${oldHash} -- "${filePath}"`, {
+          cwd: this.rootPath,
+          encoding: 'utf-8',
+          stdio: ['pipe', 'pipe', 'pipe'],
+        });
+      } else {
+        // Fall back to unstaged diff (current working tree vs index)
+        diffOutput = execSync(`git diff --stat -- "${filePath}"`, {
+          cwd: this.rootPath,
+          encoding: 'utf-8',
+          stdio: ['pipe', 'pipe', 'pipe'],
+        });
+      }
 
       // Parse diff output
       const match = diffOutput.match(/(\d+) insertion.+?(\d+) deletion/);

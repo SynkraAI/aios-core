@@ -330,14 +330,106 @@ structuring:
         }
       }
     },
-    "nonFunctional": { "type": "array" },
-    "constraints": { "type": "array" },
-    "assumptions": { "type": "array" },
-    "domainModel": { "type": "array", "description": "Entities and relationships (SDD q6)" },
-    "interactions": { "type": "array", "description": "UX flows and states (SDD q7)" },
-    "edgeCases": { "type": "array", "description": "Failure scenarios (SDD q8)" },
-    "terminology": { "type": "array", "description": "Domain glossary (SDD q9)" },
-    "openQuestions": { "type": "array" }
+    "nonFunctional": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "description", "category"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^NFR-\\d+$" },
+          "description": { "type": "string", "minLength": 10 },
+          "category": { "enum": ["performance", "security", "scalability", "usability", "reliability"] }
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "description"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^CON-\\d+$" },
+          "description": { "type": "string", "minLength": 10 },
+          "type": { "enum": ["technical", "business", "regulatory"] }
+        }
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "description"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^ASM-\\d+$" },
+          "description": { "type": "string", "minLength": 10 },
+          "risk": { "enum": ["low", "medium", "high"] }
+        }
+      }
+    },
+    "domainModel": {
+      "type": "array",
+      "description": "Entities and relationships (SDD q6)",
+      "items": {
+        "type": "object",
+        "required": ["entity", "description"],
+        "properties": {
+          "entity": { "type": "string" },
+          "description": { "type": "string" },
+          "relationships": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "interactions": {
+      "type": "array",
+      "description": "UX flows and states (SDD q7)",
+      "items": {
+        "type": "object",
+        "required": ["flow", "description"],
+        "properties": {
+          "flow": { "type": "string" },
+          "description": { "type": "string" },
+          "states": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "edgeCases": {
+      "type": "array",
+      "description": "Failure scenarios (SDD q8)",
+      "items": {
+        "type": "object",
+        "required": ["scenario", "handling"],
+        "properties": {
+          "scenario": { "type": "string" },
+          "handling": { "type": "string" },
+          "severity": { "enum": ["low", "medium", "high", "critical"] }
+        }
+      }
+    },
+    "terminology": {
+      "type": "array",
+      "description": "Domain glossary (SDD q9)",
+      "items": {
+        "type": "object",
+        "required": ["term", "definition"],
+        "properties": {
+          "term": { "type": "string" },
+          "definition": { "type": "string" },
+          "aliases": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "openQuestions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["question"],
+        "properties": {
+          "question": { "type": "string" },
+          "priority": { "enum": ["low", "medium", "high"] },
+          "blocksProgress": { "type": "boolean" }
+        }
+      }
+    }
   }
 }
 ```

@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Last updated:** 2025-12-08
+**Last updated:** 2026-02-01
 
 > 🇧🇷 [Versão em Português](PRIVACY-PT.md)
 
@@ -12,10 +12,10 @@ AIOS (AI-Orchestrated System) is an open-source project maintained by SynkraAI I
 
 ### What We Don't Collect
 
-Synkra AIOS does **NOT** collect:
+Synkra AIOS does **NOT** collect (without your explicit consent):
 
 - Personal identification information
-- Usage analytics or telemetry data
+- Usage analytics or telemetry data (unless consent is granted)
 - Code or project content from your repositories
 - API keys or credentials
 - Browsing history or tracking data
@@ -75,7 +75,7 @@ When using Synkra AIOS, you may interact with third-party services:
 You have the right to:
 
 - **Opt-out** of any data collection at any time
-- **Delete** all local data by removing the `.aios/` and `.ai/` directories
+- **Delete** all local data by removing the `.aios/`, `.aios-core/`, and `.ai/` directories
 - **Inspect** all stored data (it's stored in plain text/YAML format)
 - **Request information** about any data collected (if telemetry is enabled)
 

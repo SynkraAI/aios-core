@@ -16,7 +16,7 @@
  * Based on Auto-Claude's merge system architecture.
  */
 
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const EventEmitter = require('events');
@@ -811,13 +811,15 @@ Provide ONLY the merged code in a code block. No explanations outside the code b
 
   /**
    * Call Claude CLI for merge resolution
+   * Uses execFileSync with args array to prevent command injection
    */
   async callClaude(prompt) {
     return new Promise((resolve, reject) => {
       try {
-        // Use Claude CLI in print mode
-        const result = execSync(
-          `claude --print --dangerously-skip-permissions -p "${prompt.replace(/"/g, '\\"').replace(/\n/g, '\\n')}"`,
+        // Use Claude CLI in print mode with safe argument passing (no shell interpolation)
+        const result = execFileSync(
+          'claude',
+          ['--print', '--dangerously-skip-permissions', '-p', prompt],
           {
             encoding: 'utf8',
             maxBuffer: 10 * 1024 * 1024,

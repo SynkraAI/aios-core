@@ -11,7 +11,11 @@ import urllib.request
 from typing import Any
 
 SERVER_URL = os.environ.get("AIOS_MONITOR_URL", "http://localhost:4001")
-TIMEOUT_MS = int(os.environ.get("AIOS_MONITOR_TIMEOUT_MS", "500"))
+# Guard against invalid TIMEOUT_MS environment values
+try:
+    TIMEOUT_MS = int(os.environ.get("AIOS_MONITOR_TIMEOUT_MS", "500"))
+except ValueError:
+    TIMEOUT_MS = 500
 
 
 def send_event(event_type: str, data: dict[str, Any]) -> bool:
