@@ -31,12 +31,14 @@ workflow:
       agent: architect
       action: analyze existing project and use task document-project
       creates: multiple documents per the document-project template
+      duration_estimate: "30-60 min"
       notes: "Review existing frontend application, user feedback, analytics data, and identify improvement areas."
 
     - id: pm-create-prd
       agent: pm
       creates: prd.md
       uses: brownfield-prd-tmpl
+      duration_estimate: "30-60 min"
       requires: existing_ui_analysis
       notes: "Creates comprehensive PRD focused on UI enhancement with existing system analysis. SAVE OUTPUT: Copy final prd.md to your project's docs/ folder."
 
@@ -44,6 +46,7 @@ workflow:
       agent: ux-design-expert
       creates: front-end-spec.md
       uses: front-end-spec-tmpl
+      duration_estimate: "30-45 min"
       requires: prd.md
       notes: "Creates UI/UX specification that integrates with existing design patterns. SAVE OUTPUT: Copy final front-end-spec.md to your project's docs/ folder."
 
@@ -51,6 +54,7 @@ workflow:
       agent: architect
       creates: architecture.md
       uses: brownfield-architecture-tmpl
+      duration_estimate: "30-60 min"
       requires:
         - prd.md
         - front-end-spec.md
@@ -60,6 +64,7 @@ workflow:
       agent: po
       validates: all_artifacts
       uses: po-master-checklist
+      duration_estimate: "15-30 min"
       notes: "Validates all documents for UI integration safety and design consistency. May require updates to any document."
 
     - id: po-delegate-fixes
@@ -67,6 +72,7 @@ workflow:
       action: delegate_fixes
       delegates_to: [analyst, pm, architect, ux-design-expert]
       updates: any_flagged_documents
+      duration_estimate: "15-30 min"
       condition: po_checklist_issues
       notes: "If PO finds issues, PO delegates fixes to the relevant agent and re-validates updated documents in docs/ folder."
 
@@ -78,6 +84,7 @@ workflow:
       agent: po
       action: shard_documents
       creates: sharded_docs
+      duration_estimate: "15-30 min"
       requires: all_artifacts_in_project
       notes: |
         Shard documents for IDE development:
@@ -93,6 +100,7 @@ workflow:
       agent: sm
       action: create_story
       creates: story.md
+      duration_estimate: "15-30 min"
       requires: sharded_docs
       repeats: for_each_epic
       notes: |
@@ -106,6 +114,7 @@ workflow:
       alternative_agent: analyst
       action: review_draft_story
       updates: story.md
+      duration_estimate: "10-20 min"
       requires: story.md
       optional: true
       condition: user_wants_story_review
@@ -119,6 +128,7 @@ workflow:
       agent: dev
       action: implement_story
       creates: implementation_files
+      duration_estimate: "1-4 hours"
       requires: story.md
       notes: |
         Dev Agent (New Chat): @dev
@@ -130,6 +140,7 @@ workflow:
       agent: qa
       action: review_implementation
       updates: implementation_files
+      duration_estimate: "20-40 min"
       requires: implementation_files
       optional: true
       notes: |
@@ -143,6 +154,8 @@ workflow:
       agent: dev
       action: address_qa_feedback
       updates: implementation_files
+      requires: implementation_files
+      duration_estimate: "30-60 min"
       condition: qa_left_unchecked_items
       notes: |
         If QA left unchecked items:
@@ -160,6 +173,7 @@ workflow:
       agent: po
       action: epic_retrospective
       creates: epic-retrospective.md
+      duration_estimate: "15-30 min"
       condition: epic_complete
       optional: true
       notes: |
@@ -191,7 +205,7 @@ workflow:
 
         I --> J[sm: create story]
         J --> K{Review draft story?}
-        K -->|Yes| L[pm: review & approve story]
+        K -->|Yes| L[pm/analyst: review & approve story]
         K -->|No| M[dev: implement story]
         L --> M
         M --> N{QA review?}
@@ -233,7 +247,7 @@ workflow:
       - Technical debt assessment (use brownfield-discovery)
 
   handoff_prompts:
-    analyst_to_pm: "UI analysis complete. Create comprehensive PRD with UI integration strategy."
+    architect_to_pm: "UI analysis complete. Create comprehensive PRD with UI integration strategy."
     pm_to_ux: "PRD ready. Save it as docs/prd.md, then create the UI/UX specification."
     ux_to_architect: "UI/UX spec complete. Save it as docs/front-end-spec.md, then create the frontend architecture."
     architect_to_po: "Architecture complete. Save it as docs/architecture.md. Please validate all artifacts for UI integration safety."

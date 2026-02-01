@@ -34,28 +34,32 @@ workflow:
     - id: analyst-project-brief
       agent: analyst
       creates: project-brief.md
+      duration_estimate: "30-60 min"
       optional_steps:
-        - brainstorming_session
-        - market_research_prompt
+        - brainstorming-session
+        - market-research-prompt
       notes: "Can do brainstorming first, then optional deep research before creating project brief. SAVE OUTPUT: Copy final project-brief.md to your project's docs/ folder."
 
     - id: pm-create-prd
       agent: pm
       creates: prd.md
+      duration_estimate: "30-60 min"
       requires: project-brief.md
       notes: "Creates PRD from project brief using prd-tmpl, focused on API/service requirements. SAVE OUTPUT: Copy final prd.md to your project's docs/ folder."
 
     - id: architect-create-architecture
       agent: architect
       creates: architecture.md
+      duration_estimate: "30-60 min"
       requires: prd.md
       optional_steps:
-        - technical_research_prompt
+        - technical-research-prompt
       notes: "Creates backend/service architecture using architecture-tmpl. May suggest changes to PRD stories or new stories. SAVE OUTPUT: Copy final architecture.md to your project's docs/ folder."
 
     - id: pm-update-prd
       agent: pm
       updates: prd.md
+      duration_estimate: "15-30 min"
       requires: architecture.md
       condition: architecture_suggests_prd_changes
       notes: "If architect suggests story changes, update PRD and re-export the complete unredacted prd.md to docs/ folder."
@@ -64,6 +68,7 @@ workflow:
       agent: po
       validates: all_artifacts
       uses: po-master-checklist
+      duration_estimate: "15-30 min"
       notes: "Validates all documents for consistency and completeness. May require updates to any document."
 
     - id: po-delegate-fixes
@@ -71,6 +76,7 @@ workflow:
       action: delegate_fixes
       delegates_to: [analyst, pm, architect]
       updates: any_flagged_documents
+      duration_estimate: "15-30 min"
       condition: po_checklist_issues
       notes: "If PO finds issues, PO delegates fixes to the relevant agent and re-validates updated documents in docs/ folder."
 
@@ -85,6 +91,7 @@ workflow:
       agent: po
       action: shard_documents
       creates: sharded_docs
+      duration_estimate: "15-30 min"
       requires: all_artifacts_in_project
       notes: |
         Shard documents for IDE development:
@@ -103,6 +110,7 @@ workflow:
       agent: sm
       action: create_story
       creates: story.md
+      duration_estimate: "15-30 min"
       requires: sharded_docs
       repeats: for_each_epic
       notes: |
@@ -116,6 +124,7 @@ workflow:
       action: review_draft_story
       alternative_agent: analyst
       updates: story.md
+      duration_estimate: "10-20 min"
       requires: story.md
       optional: true
       condition: user_wants_story_review
@@ -129,6 +138,7 @@ workflow:
       agent: dev
       action: implement_story
       creates: implementation_files
+      duration_estimate: "1-4 hours"
       requires: story.md
       notes: |
         Dev Agent (New Chat): @dev
@@ -140,6 +150,7 @@ workflow:
       agent: qa
       action: review_implementation
       updates: implementation_files
+      duration_estimate: "20-40 min"
       requires: implementation_files
       optional: true
       notes: |
@@ -153,6 +164,8 @@ workflow:
       agent: dev
       action: address_qa_feedback
       updates: implementation_files
+      requires: implementation_files
+      duration_estimate: "30-60 min"
       condition: qa_left_unchecked_items
       notes: |
         If QA left unchecked items:
@@ -170,6 +183,7 @@ workflow:
       agent: po
       action: epic_retrospective
       creates: epic-retrospective.md
+      duration_estimate: "15-30 min"
       condition: epic_complete
       optional: true
       notes: |
@@ -183,7 +197,6 @@ workflow:
       notes: |
         All stories implemented and reviewed!
         Service development phase complete.
-
         Reference: .aios-core/data/aios-kb.md#IDE Development Workflow
 
   flow_diagram: |
@@ -203,7 +216,7 @@ workflow:
 
         J --> K[sm: create story]
         K --> L{Review draft story?}
-        L -->|Yes| M[pm: review & approve story]
+        L -->|Yes| M[pm/analyst: review & approve story]
         L -->|No| N[dev: implement story]
         M --> N
         N --> O{QA review?}

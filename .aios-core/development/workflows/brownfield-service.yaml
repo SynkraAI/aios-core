@@ -30,14 +30,16 @@ workflow:
     - id: architect-service-analysis
       step: service_analysis
       agent: architect
-      action: analyze existing project and use task document-project
-      creates: multiple documents per the document-project template
+      action: document-project  # task-reference
+      creates: [project-documentation.md]
+      duration_estimate: "30-60 min"
       notes: "Review existing service documentation, codebase, performance metrics, and identify integration dependencies."
 
     - id: pm-create-prd
       agent: pm
       creates: prd.md
       uses: brownfield-prd-tmpl
+      duration_estimate: "30-60 min"
       requires: existing_service_analysis
       notes: "Creates comprehensive PRD focused on service enhancement with existing system analysis. SAVE OUTPUT: Copy final prd.md to your project's docs/ folder."
 
@@ -45,6 +47,7 @@ workflow:
       agent: architect
       creates: architecture.md
       uses: brownfield-architecture-tmpl
+      duration_estimate: "30-60 min"
       requires: prd.md
       notes: "Creates architecture with service integration strategy and API evolution planning. SAVE OUTPUT: Copy final architecture.md to your project's docs/ folder."
 
@@ -52,6 +55,7 @@ workflow:
       agent: po
       validates: all_artifacts
       uses: po-master-checklist
+      duration_estimate: "15-30 min"
       notes: "Validates all documents for service integration safety and API compatibility. May require updates to any document."
 
     - id: po-delegate-fixes
@@ -59,6 +63,7 @@ workflow:
       action: delegate_fixes
       delegates_to: [analyst, pm, architect]
       updates: any_flagged_documents
+      duration_estimate: "15-30 min"
       condition: po_checklist_issues
       notes: "If PO finds issues, PO delegates fixes to the relevant agent and re-validates updated documents in docs/ folder."
 
@@ -70,7 +75,10 @@ workflow:
       agent: po
       action: shard_documents
       creates: sharded_docs
-      requires: all_artifacts_in_project
+      duration_estimate: "15-30 min"
+      requires:
+        - prd.md
+        - architecture.md
       notes: |
         Shard documents for IDE development:
         - Option A: Use PO agent to shard: @po then ask to shard docs/prd.md
@@ -85,6 +93,7 @@ workflow:
       agent: sm
       action: create_story
       creates: story.md
+      duration_estimate: "15-30 min"
       requires: sharded_docs
       repeats: for_each_epic
       notes: |
@@ -98,6 +107,7 @@ workflow:
       alternative_agent: analyst
       action: review_draft_story
       updates: story.md
+      duration_estimate: "10-20 min"
       requires: story.md
       optional: true
       condition: user_wants_story_review
@@ -111,6 +121,7 @@ workflow:
       agent: dev
       action: implement_story
       creates: implementation_files
+      duration_estimate: "1-4 hours"
       requires: story.md
       notes: |
         Dev Agent (New Chat): @dev
@@ -122,6 +133,7 @@ workflow:
       agent: qa
       action: review_implementation
       updates: implementation_files
+      duration_estimate: "20-40 min"
       requires: implementation_files
       optional: true
       notes: |
@@ -135,6 +147,8 @@ workflow:
       agent: dev
       action: address_qa_feedback
       updates: implementation_files
+      requires: implementation_files
+      duration_estimate: "30-60 min"
       condition: qa_left_unchecked_items
       notes: |
         If QA left unchecked items:
@@ -152,6 +166,7 @@ workflow:
       agent: po
       action: epic_retrospective
       creates: epic-retrospective.md
+      duration_estimate: "15-30 min"
       condition: epic_complete
       optional: true
       notes: |
@@ -165,7 +180,6 @@ workflow:
       notes: |
         All stories implemented and reviewed!
         Project development phase complete.
-
         Reference: .aios-core/data/aios-kb.md#IDE Development Workflow
 
   flow_diagram: |
@@ -182,7 +196,7 @@ workflow:
 
         H --> I[sm: create story]
         I --> J{Review draft story?}
-        J -->|Yes| K[pm: review & approve story]
+        J -->|Yes| K[pm/analyst: review & approve story]
         J -->|No| L[dev: implement story]
         K --> L
         L --> M{QA review?}
@@ -223,7 +237,7 @@ workflow:
       - Comprehensive technical debt audit (use brownfield-discovery)
 
   handoff_prompts:
-    analyst_to_pm: "Service analysis complete. Create comprehensive PRD with service integration strategy."
+    architect_to_pm: "Service analysis complete. Create comprehensive PRD with service integration strategy."
     pm_to_architect: "PRD ready. Save it as docs/prd.md, then create the service architecture."
     architect_to_po: "Architecture complete. Save it as docs/architecture.md. Please validate all artifacts for service integration safety."
     po_issues: "PO found issues with [document]. Please return to [agent] to fix and re-save the updated document."

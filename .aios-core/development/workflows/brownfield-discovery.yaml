@@ -17,6 +17,10 @@ workflow:
   metadata:
     elicit: true
     confirmation_required: true
+    action_types:
+      task-reference: "Action references an existing task file in .aios-core/development/tasks/"
+      agent-command: "Action references an agent-level command (e.g., *create-front-end-spec)"
+      workflow-action: "Action is a workflow orchestration step executed via manual prompt"
 
   # ═══════════════════════════════════════════════════════════════════════════════════════
   #                              WORKFLOW SEQUENCE
@@ -62,7 +66,7 @@ workflow:
       phase: 2
       phase_name: "Coleta: Database"
       agent: data-engineer
-      action: load-schema + security-audit
+      action: db-schema-audit  # task-reference: db-schema-audit.md + security-audit.md
       creates:
         - supabase/docs/SCHEMA.md
         - supabase/docs/DB-AUDIT.md
@@ -89,7 +93,7 @@ workflow:
         - Dados órfãos
 
         COMANDOS:
-        @data-engineer → *load-schema
+        @data-engineer → *db-schema-audit
         @data-engineer → *security-audit
 
         Se não houver banco, pular para FASE 3.
@@ -102,7 +106,7 @@ workflow:
       phase: 3
       phase_name: "Coleta: Frontend/UX"
       agent: ux-design-expert
-      action: create-front-end-spec
+      action: create-front-end-spec  # agent-command: @ux-design-expert → *create-front-end-spec
       creates: docs/frontend/frontend-spec.md
       elicit: true
       duration_estimate: "30-45 min"
@@ -140,7 +144,7 @@ workflow:
       phase: 4
       phase_name: "Consolidação Inicial"
       agent: architect
-      action: consolidate_findings_draft
+      action: consolidate_findings_draft  # workflow-action: manual prompt
       creates: docs/prd/technical-debt-DRAFT.md
       requires:
         - docs/architecture/system-architecture.md
@@ -204,7 +208,7 @@ workflow:
       phase: 5
       phase_name: "Validação: Database"
       agent: data-engineer
-      action: review_and_validate
+      action: review_and_validate  # workflow-action: manual prompt
       creates: docs/reviews/db-specialist-review.md
       requires: docs/prd/technical-debt-DRAFT.md
       elicit: true
@@ -270,7 +274,7 @@ workflow:
       phase: 6
       phase_name: "Validação: UX/Frontend"
       agent: ux-design-expert
-      action: review_and_validate
+      action: review_and_validate  # workflow-action: manual prompt
       creates: docs/reviews/ux-specialist-review.md
       requires: docs/prd/technical-debt-DRAFT.md
       elicit: true
@@ -336,7 +340,7 @@ workflow:
       phase: 7
       phase_name: "Validação: QA Review"
       agent: qa
-      action: review_assessment
+      action: review_assessment  # workflow-action: manual prompt
       creates: docs/reviews/qa-review.md
       requires:
         - docs/prd/technical-debt-DRAFT.md
@@ -422,7 +426,7 @@ workflow:
       phase: 8
       phase_name: "Assessment Final"
       agent: architect
-      action: finalize_assessment
+      action: finalize_assessment  # workflow-action: manual prompt
       creates: docs/prd/technical-debt-assessment.md
       requires:
         - docs/prd/technical-debt-DRAFT.md
@@ -487,7 +491,7 @@ workflow:
       phase: 9
       phase_name: "Relatório Executivo"
       agent: analyst
-      action: create_awareness_report
+      action: create_awareness_report  # workflow-action: manual prompt
       creates: docs/reports/TECHNICAL-DEBT-REPORT.md
       requires: docs/prd/technical-debt-assessment.md
       elicit: true
@@ -647,7 +651,7 @@ workflow:
       phase: 10
       phase_name: "Planning: Epic"
       agent: pm
-      action: create-epic
+      action: brownfield-create-epic  # task-reference: brownfield-create-epic.md
       creates: docs/stories/epic-technical-debt.md
       requires:
         - docs/prd/technical-debt-assessment.md
@@ -675,7 +679,7 @@ workflow:
       phase: 10
       phase_name: "Planning: Stories"
       agent: pm
-      action: create-story
+      action: brownfield-create-story  # task-reference: brownfield-create-story.md
       creates: docs/stories/story-X.X-*.md
       requires: docs/stories/epic-technical-debt.md
       repeats: for_each_prioritized_debt
@@ -766,8 +770,8 @@ workflow:
             G --> H[ux-design-expert: validate UX section]
             H --> I[qa: quality gate review]
             I --> J{QA Gate?}
-            J -->|NEEDS WORK| K[Return to consolidation]
-            K --> F
+            J -->|NEEDS WORK| K[Rework: apply fixes to DRAFT]
+            K -->|Re-consolidate| F
         end
 
         subgraph PHASE_8_9["PHASES 8-9: Final Reports"]
@@ -809,7 +813,7 @@ workflow:
     fase_2:
       name: "Coleta: Database"
       agent: "@data-engineer"
-      command: "*load-schema + *security-audit"
+      command: "*db-schema-audit + *security-audit"
       output: "supabase/docs/SCHEMA.md, DB-AUDIT.md"
       duration: "20-40 min"
     fase_3:
@@ -857,7 +861,7 @@ workflow:
     fase_10:
       name: "Planning"
       agent: "@pm"
-      command: "*create-epic + *create-story"
+      command: "*brownfield-create-epic + *brownfield-create-story"
       output: "docs/stories/epic-*.md, story-*.md"
       duration: "30-60 min"
 
@@ -876,7 +880,7 @@ workflow:
       - Due diligence técnica
     when_not_to_use:
       - New project development from scratch (use greenfield-* workflows)
-      - Small enhancement to existing project (use brownfield-* workflows)
+      - Small enhancement to existing project (use brownfield-service, brownfield-ui, or brownfield-fullstack)
       - Single story fix or bug (use brownfield-create-story task directly)
       - Project already has comprehensive documentation (skip to brownfield-* workflow)
 

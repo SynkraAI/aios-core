@@ -35,6 +35,7 @@ workflow:
     - id: devops-environment-bootstrap
       agent: devops
       action: environment_bootstrap
+      duration_estimate: "15-30 min"
       creates:
         - .aios/config.yaml
         - .aios/environment-report.json
@@ -66,6 +67,7 @@ workflow:
     - id: analyst-project-brief
       agent: analyst
       creates: project-brief.md
+      duration_estimate: "30-60 min"
       requires: environment_bootstrap_complete
       optional_steps:
         - brainstorming_session
@@ -75,12 +77,14 @@ workflow:
     - id: pm-create-prd
       agent: pm
       creates: prd.md
+      duration_estimate: "30-60 min"
       requires: project-brief.md
       notes: "Creates PRD from project brief using prd-tmpl. SAVE OUTPUT: Copy final prd.md to your project's docs/ folder."
 
     - id: ux-create-frontend-spec
       agent: ux-design-expert
       creates: front-end-spec.md
+      duration_estimate: "30-45 min"
       requires: prd.md
       optional_steps:
         - user_research_prompt
@@ -89,6 +93,7 @@ workflow:
     - id: ux-generate-v0-prompt
       agent: ux-design-expert
       creates: v0_prompt (optional)
+      duration_estimate: "15-30 min"
       requires: front-end-spec.md
       condition: user_wants_ai_generation
       notes: "OPTIONAL BUT RECOMMENDED: Generate AI UI prompt for tools like v0, Lovable, etc. Use the generate-ai-frontend-prompt task. User can then generate UI in external tool and download project structure."
@@ -96,6 +101,7 @@ workflow:
     - id: architect-create-architecture
       agent: architect
       creates: fullstack-architecture.md
+      duration_estimate: "30-60 min"
       requires:
         - prd.md
         - front-end-spec.md
@@ -107,6 +113,7 @@ workflow:
     - id: pm-update-prd
       agent: pm
       updates: prd.md
+      duration_estimate: "15-30 min"
       requires: fullstack-architecture.md
       condition: architecture_suggests_prd_changes
       notes: "If architect suggests story changes, update PRD and re-export the complete unredacted prd.md to docs/ folder."
@@ -115,6 +122,7 @@ workflow:
       agent: po
       validates: all_artifacts
       uses: po-master-checklist
+      duration_estimate: "15-30 min"
       notes: "Validates all documents for consistency and completeness. May require updates to any document."
 
     - id: po-delegate-fixes
@@ -122,6 +130,7 @@ workflow:
       action: delegate_fixes
       delegates_to: [analyst, pm, ux-design-expert, architect]
       updates: any_flagged_documents
+      duration_estimate: "15-30 min"
       condition: po_checklist_issues
       notes: "If PO finds issues, PO delegates fixes to the relevant agent and re-validates updated documents in docs/ folder."
 
@@ -147,6 +156,7 @@ workflow:
       agent: po
       action: shard_documents
       creates: sharded_docs
+      duration_estimate: "15-30 min"
       requires: all_artifacts_in_project
       notes: |
         Shard documents for IDE development:
@@ -166,6 +176,7 @@ workflow:
       agent: sm
       action: create_story
       creates: story.md
+      duration_estimate: "15-30 min"
       requires: sharded_docs
       repeats: for_each_epic
       notes: |
@@ -179,6 +190,7 @@ workflow:
       action: review_draft_story
       alternative_agent: analyst
       updates: story.md
+      duration_estimate: "10-20 min"
       requires: story.md
       optional: true
       condition: user_wants_story_review
@@ -192,6 +204,7 @@ workflow:
       agent: dev
       action: implement_story
       creates: implementation_files
+      duration_estimate: "1-4 hours"
       requires: story.md
       notes: |
         Dev Agent (New Chat): @dev
@@ -203,6 +216,7 @@ workflow:
       agent: qa
       action: review_implementation
       updates: implementation_files
+      duration_estimate: "20-40 min"
       requires: implementation_files
       optional: true
       notes: |
@@ -216,6 +230,8 @@ workflow:
       agent: dev
       action: address_qa_feedback
       updates: implementation_files
+      requires: implementation_files
+      duration_estimate: "30-60 min"
       condition: qa_left_unchecked_items
       notes: |
         If QA left unchecked items:
@@ -233,6 +249,7 @@ workflow:
       agent: po
       action: epic_retrospective
       creates: epic-retrospective.md
+      duration_estimate: "15-30 min"
       condition: epic_complete
       optional: true
       notes: |
@@ -246,7 +263,6 @@ workflow:
       notes: |
         All stories implemented and reviewed!
         Project development phase complete.
-
         Reference: .aios-core/data/aios-kb.md#IDE Development Workflow
 
   flow_diagram: |
@@ -286,7 +302,7 @@ workflow:
         subgraph PHASE_3["PHASE 3: Development Cycle"]
             K1 --> L[sm: create story]
             L --> M{Review draft story?}
-            M -->|Yes| N[pm: review & approve story]
+            M -->|Yes| N[pm/analyst: review & approve story]
             M -->|No| O[dev: implement story]
             N --> O
             O --> P{QA review?}
