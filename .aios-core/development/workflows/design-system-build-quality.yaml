@@ -1,6 +1,7 @@
 workflow:
   id: design-system-build-quality
   name: Design System Build Quality Pipeline
+  version: "1.0"
   description: >-
     Pipeline pós-migração para Design System. Encadeia sequencialmente as etapas de
     build, documentação, auditoria de acessibilidade e cálculo de ROI para garantir
@@ -11,6 +12,10 @@ workflow:
     - component-library
     - pattern-library
     - ui-migration
+
+  metadata:
+    elicit: true
+    confirmation_required: true
 
   execution_modes:
     - mode: yolo
@@ -24,9 +29,16 @@ workflow:
       description: Planejamento completo antes da execução - análise upfront de todos os componentes e dependências
       prompts: "10-15"
 
+  phases:
+    - phase_1: Build & Compile
+    - phase_2: Documentation
+    - phase_3: Quality Assurance
+    - phase_4: ROI Analysis
+
   sequence:
     - step: build_atomic_components
       id: build
+      phase: 1
       agent: ux-design-expert
       action: Build de componentes atômicos
       notes: |
@@ -47,6 +59,7 @@ workflow:
 
     - step: generate_documentation
       id: document
+      phase: 2
       agent: ux-design-expert
       action: Gerar documentação do Pattern Library
       requires: build
@@ -68,6 +81,7 @@ workflow:
 
     - step: accessibility_audit
       id: a11y-check
+      phase: 3
       agent: ux-design-expert
       action: Auditoria de acessibilidade (WCAG AA)
       requires: document
@@ -91,6 +105,7 @@ workflow:
 
     - step: calculate_roi
       id: calculate-roi
+      phase: 4
       agent: ux-design-expert
       action: Cálculo de ROI e savings
       requires: a11y-check

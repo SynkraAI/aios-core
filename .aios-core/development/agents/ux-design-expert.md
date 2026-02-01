@@ -232,10 +232,11 @@ dependencies:
     - build-component.md
     - compose-molecule.md
     - extend-pattern.md
-    # Phase 5: Quality & Documentation (3 tasks)
+    # Phase 5: Quality & Documentation (4 tasks)
     - generate-documentation.md
     - calculate-roi.md
     - ux-ds-scan-artifact.md
+    - run-design-system-pipeline.md
     # Shared utilities (2 tasks)
     - integrate-Squad.md
     - execute-checklist.md
