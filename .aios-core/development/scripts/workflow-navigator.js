@@ -277,7 +277,7 @@ class WorkflowNavigator {
     if (currentStep.agent) {
       suggestions.push({
         command: `@${currentStep.agent}`,
-        description: `Activate agent for current step`,
+        description: 'Activate agent for current step',
         raw_command: currentStep.agent,
         args: '',
       });
@@ -287,7 +287,7 @@ class WorkflowNavigator {
     if (currentStep.optional) {
       suggestions.push({
         command: `*run-workflow ${state.workflow_id} skip`,
-        description: `Skip optional step`,
+        description: 'Skip optional step',
         raw_command: 'run-workflow',
         args: `${state.workflow_id} skip`,
       });
@@ -296,7 +296,7 @@ class WorkflowNavigator {
     // Status check
     suggestions.push({
       command: `*run-workflow ${state.workflow_id} status`,
-      description: `View workflow progress`,
+      description: 'View workflow progress',
       raw_command: 'run-workflow',
       args: `${state.workflow_id} status`,
     });

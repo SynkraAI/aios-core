@@ -10,7 +10,7 @@
  */
 
 const fs = require('fs');
-const fsPromises = require('fs').promises;
+const _fsPromises = require('fs').promises; // Reserved for future async operations
 const path = require('path');
 const yaml = require('js-yaml');
 const ROOT = path.resolve(__dirname, '..', '..', '..');
@@ -371,314 +371,315 @@ async function verifyGap3() {
   }
 
   const mgr = new WorkflowStateManager({ verbose: false });
+  let statePath;
 
   try {
 
-  // 3.2 Load real workflow and create state
-  const wfContent = fs.readFileSync(path.join(ROOT, '.aios-core/development/workflows/greenfield-service.yaml'), 'utf-8');
-  const wfData = yaml.load(wfContent);
+    // 3.2 Load real workflow and create state
+    const wfContent = fs.readFileSync(path.join(ROOT, '.aios-core/development/workflows/greenfield-service.yaml'), 'utf-8');
+    const wfData = yaml.load(wfContent);
 
-  const state = await mgr.createState(wfData, { target_context: 'core' });
-  assert(
-    !!state.instance_id,
-    '3.2a createState generates instance_id',
-    'Missing instance_id',
-  );
-  assert(
-    state.status === 'active',
-    '3.2b Initial status is active',
-    `Got: ${state.status}`,
-  );
-  assert(
-    state.steps.length > 0,
-    '3.2c Steps array populated from sequence',
-    `Got ${state.steps.length} steps`,
-  );
-  assert(
-    state.current_step_index === 0,
-    '3.2d Starts at step 0',
-    `Got: ${state.current_step_index}`,
-  );
-  assert(
-    state.workflow_id === 'greenfield-service',
-    '3.2e workflow_id matches',
-    `Got: ${state.workflow_id}`,
-  );
-  assert(
-    state.target_context === 'core',
-    '3.2f target_context is core',
-    `Got: ${state.target_context}`,
-  );
-
-  // 3.3 State file was written to disk
-  const statePath = mgr._resolveStatePath(state.instance_id);
-  assert(
-    fs.existsSync(statePath),
-    '3.3 State file exists on disk',
-    `File not found: ${statePath}`,
-  );
-
-  // 3.4 Progress query
-  const progress = mgr.getProgress(state);
-  assert(
-    progress.completed === 0,
-    '3.4a Initial progress: 0 completed',
-    `Got: ${progress.completed}`,
-  );
-  assert(
-    progress.total === state.steps.length,
-    '3.4b Total matches steps count',
-    `Got: ${progress.total}`,
-  );
-  assert(
-    progress.percentage === 0,
-    '3.4c Initial percentage is 0',
-    `Got: ${progress.percentage}`,
-  );
-
-  // 3.5 getCurrentStep
-  const currentStep = mgr.getCurrentStep(state);
-  assert(
-    currentStep !== null,
-    '3.5a getCurrentStep returns step object',
-    'Got null',
-  );
-  assert(
-    currentStep.step_index === 0,
-    '3.5b Current step is index 0',
-    `Got: ${currentStep?.step_index}`,
-  );
-
-  // 3.6 Mark step completed + advance
-  mgr.markStepCompleted(state, 0, ['project-brief.md']);
-  assert(
-    state.steps[0].status === 'completed',
-    '3.6a Step 0 marked completed',
-    `Got: ${state.steps[0].status}`,
-  );
-  assert(
-    state.steps[0].artifacts_created.includes('project-brief.md'),
-    '3.6b Artifacts recorded',
-    `Got: ${state.steps[0].artifacts_created}`,
-  );
-
-  mgr.advanceStep(state);
-  assert(
-    state.current_step_index > 0,
-    '3.6c Advanced past step 0',
-    `Still at: ${state.current_step_index}`,
-  );
-
-  // 3.7 Artifact status
-  const artifacts = mgr.getArtifactStatus(state);
-  assert(
-    artifacts.created.length > 0 || artifacts.pending.length > 0,
-    '3.7 getArtifactStatus returns artifacts',
-    'No artifacts found',
-  );
-
-  // 3.8 Status report
-  const report = mgr.generateStatusReport(state);
-  assert(
-    report.includes('Progress:'),
-    '3.8a Status report has progress bar',
-    'Missing "Progress:" in report',
-  );
-  assert(
-    report.includes('[x]'),
-    '3.8b Status report shows completed step',
-    'Missing [x] checkmark',
-  );
-  assert(
-    report.includes('<-- current'),
-    '3.8c Status report shows current step marker',
-    'Missing "<-- current" marker',
-  );
-
-  // 3.9 Handoff context
-  const handoff = mgr.generateHandoffContext(state);
-  assert(
-    handoff.includes('Workflow Handoff Context'),
-    '3.9a Handoff has header',
-    'Missing header',
-  );
-  assert(
-    handoff.includes('*run-workflow'),
-    '3.9b Handoff has resume command',
-    'Missing resume command',
-  );
-
-  // 3.10 Save and reload
-  await mgr.saveState(state);
-  const reloaded = await mgr.loadState(state.instance_id);
-  assert(
-    reloaded !== null,
-    '3.10a Reloaded state is not null',
-    'loadState returned null',
-  );
-  assert(
-    reloaded.instance_id === state.instance_id,
-    '3.10b Reloaded instance_id matches',
-    `Got: ${reloaded?.instance_id}`,
-  );
-  assert(
-    reloaded.current_step_index === state.current_step_index,
-    '3.10c Reloaded current_step_index matches',
-    `Got: ${reloaded?.current_step_index}`,
-  );
-
-  // 3.11 Skip optional step
-  const optionalIdx = state.steps.findIndex((s) => s.optional && s.status === 'pending');
-  if (optionalIdx !== -1) {
-    state.current_step_index = optionalIdx;
-    mgr.markStepSkipped(state, optionalIdx);
+    const state = await mgr.createState(wfData, { target_context: 'core' });
     assert(
-      state.steps[optionalIdx].status === 'skipped',
-      '3.11a Optional step marked skipped',
-      `Got: ${state.steps[optionalIdx].status}`,
+      !!state.instance_id,
+      '3.2a createState generates instance_id',
+      'Missing instance_id',
     );
-  } else {
-    pass('3.11a (skip) No optional pending steps — N/A');
-  }
+    assert(
+      state.status === 'active',
+      '3.2b Initial status is active',
+      `Got: ${state.status}`,
+    );
+    assert(
+      state.steps.length > 0,
+      '3.2c Steps array populated from sequence',
+      `Got ${state.steps.length} steps`,
+    );
+    assert(
+      state.current_step_index === 0,
+      '3.2d Starts at step 0',
+      `Got: ${state.current_step_index}`,
+    );
+    assert(
+      state.workflow_id === 'greenfield-service',
+      '3.2e workflow_id matches',
+      `Got: ${state.workflow_id}`,
+    );
+    assert(
+      state.target_context === 'core',
+      '3.2f target_context is core',
+      `Got: ${state.target_context}`,
+    );
 
-  // 3.12 Reject skip on required step
-  const requiredIdx = state.steps.findIndex((s) => !s.optional && s.status === 'pending');
-  if (requiredIdx !== -1) {
-    let threw = false;
-    try {
-      mgr.markStepSkipped(state, requiredIdx);
-    } catch {
-      threw = true;
+    // 3.3 State file was written to disk
+    statePath = mgr._resolveStatePath(state.instance_id);
+    assert(
+      fs.existsSync(statePath),
+      '3.3 State file exists on disk',
+      `File not found: ${statePath}`,
+    );
+
+    // 3.4 Progress query
+    const progress = mgr.getProgress(state);
+    assert(
+      progress.completed === 0,
+      '3.4a Initial progress: 0 completed',
+      `Got: ${progress.completed}`,
+    );
+    assert(
+      progress.total === state.steps.length,
+      '3.4b Total matches steps count',
+      `Got: ${progress.total}`,
+    );
+    assert(
+      progress.percentage === 0,
+      '3.4c Initial percentage is 0',
+      `Got: ${progress.percentage}`,
+    );
+
+    // 3.5 getCurrentStep
+    const currentStep = mgr.getCurrentStep(state);
+    assert(
+      currentStep !== null,
+      '3.5a getCurrentStep returns step object',
+      'Got null',
+    );
+    assert(
+      currentStep.step_index === 0,
+      '3.5b Current step is index 0',
+      `Got: ${currentStep?.step_index}`,
+    );
+
+    // 3.6 Mark step completed + advance
+    mgr.markStepCompleted(state, 0, ['project-brief.md']);
+    assert(
+      state.steps[0].status === 'completed',
+      '3.6a Step 0 marked completed',
+      `Got: ${state.steps[0].status}`,
+    );
+    assert(
+      state.steps[0].artifacts_created.includes('project-brief.md'),
+      '3.6b Artifacts recorded',
+      `Got: ${state.steps[0].artifacts_created}`,
+    );
+
+    mgr.advanceStep(state);
+    assert(
+      state.current_step_index > 0,
+      '3.6c Advanced past step 0',
+      `Still at: ${state.current_step_index}`,
+    );
+
+    // 3.7 Artifact status
+    const artifacts = mgr.getArtifactStatus(state);
+    assert(
+      artifacts.created.length > 0 || artifacts.pending.length > 0,
+      '3.7 getArtifactStatus returns artifacts',
+      'No artifacts found',
+    );
+
+    // 3.8 Status report
+    const report = mgr.generateStatusReport(state);
+    assert(
+      report.includes('Progress:'),
+      '3.8a Status report has progress bar',
+      'Missing "Progress:" in report',
+    );
+    assert(
+      report.includes('[x]'),
+      '3.8b Status report shows completed step',
+      'Missing [x] checkmark',
+    );
+    assert(
+      report.includes('<-- current'),
+      '3.8c Status report shows current step marker',
+      'Missing "<-- current" marker',
+    );
+
+    // 3.9 Handoff context
+    const handoff = mgr.generateHandoffContext(state);
+    assert(
+      handoff.includes('Workflow Handoff Context'),
+      '3.9a Handoff has header',
+      'Missing header',
+    );
+    assert(
+      handoff.includes('*run-workflow'),
+      '3.9b Handoff has resume command',
+      'Missing resume command',
+    );
+
+    // 3.10 Save and reload
+    await mgr.saveState(state);
+    const reloaded = await mgr.loadState(state.instance_id);
+    assert(
+      reloaded !== null,
+      '3.10a Reloaded state is not null',
+      'loadState returned null',
+    );
+    assert(
+      reloaded.instance_id === state.instance_id,
+      '3.10b Reloaded instance_id matches',
+      `Got: ${reloaded?.instance_id}`,
+    );
+    assert(
+      reloaded.current_step_index === state.current_step_index,
+      '3.10c Reloaded current_step_index matches',
+      `Got: ${reloaded?.current_step_index}`,
+    );
+
+    // 3.11 Skip optional step
+    const optionalIdx = state.steps.findIndex((s) => s.optional && s.status === 'pending');
+    if (optionalIdx !== -1) {
+      state.current_step_index = optionalIdx;
+      mgr.markStepSkipped(state, optionalIdx);
+      assert(
+        state.steps[optionalIdx].status === 'skipped',
+        '3.11a Optional step marked skipped',
+        `Got: ${state.steps[optionalIdx].status}`,
+      );
+    } else {
+      pass('3.11a (skip) No optional pending steps — N/A');
     }
+
+    // 3.12 Reject skip on required step
+    const requiredIdx = state.steps.findIndex((s) => !s.optional && s.status === 'pending');
+    if (requiredIdx !== -1) {
+      let threw = false;
+      try {
+        mgr.markStepSkipped(state, requiredIdx);
+      } catch {
+        threw = true;
+      }
+      assert(
+        threw,
+        '3.12 Rejects skip on required step',
+        'Should throw error for non-optional step',
+      );
+    } else {
+      pass('3.12 (skip reject) No required pending steps — N/A');
+    }
+
+    // 3.13 List active workflows
+    const activeList = await mgr.listActiveWorkflows();
     assert(
-      threw,
-      '3.12 Rejects skip on required step',
-      'Should throw error for non-optional step',
+      activeList.length >= 1,
+      '3.13 listActiveWorkflows finds our test instance',
+      `Found ${activeList.length} active workflows`,
     );
-  } else {
-    pass('3.12 (skip reject) No required pending steps — N/A');
-  }
 
-  // 3.13 List active workflows
-  const activeList = await mgr.listActiveWorkflows();
-  assert(
-    activeList.length >= 1,
-    '3.13 listActiveWorkflows finds our test instance',
-    `Found ${activeList.length} active workflows`,
-  );
+    // 3.14 Load non-existent state returns null
+    const missing = await mgr.loadState('nonexistent-instance');
+    assert(
+      missing === null,
+      '3.14 loadState returns null for missing instance',
+      `Got: ${missing}`,
+    );
 
-  // 3.14 Load non-existent state returns null
-  const missing = await mgr.loadState('nonexistent-instance');
-  assert(
-    missing === null,
-    '3.14 loadState returns null for missing instance',
-    `Got: ${missing}`,
-  );
+    // 3.15 WorkflowNavigator state integration
+    const WorkflowNavigator = require('../../../.aios-core/development/scripts/workflow-navigator');
+    const nav = new WorkflowNavigator();
+    assert(
+      typeof nav.detectWorkflowStateFromFile === 'function',
+      '3.15a Navigator has detectWorkflowStateFromFile()',
+      'Missing method',
+    );
+    assert(
+      typeof nav.suggestNextCommandsFromState === 'function',
+      '3.15b Navigator has suggestNextCommandsFromState()',
+      'Missing method',
+    );
 
-  // 3.15 WorkflowNavigator state integration
-  const WorkflowNavigator = require('../../../.aios-core/development/scripts/workflow-navigator');
-  const nav = new WorkflowNavigator();
-  assert(
-    typeof nav.detectWorkflowStateFromFile === 'function',
-    '3.15a Navigator has detectWorkflowStateFromFile()',
-    'Missing method',
-  );
-  assert(
-    typeof nav.suggestNextCommandsFromState === 'function',
-    '3.15b Navigator has suggestNextCommandsFromState()',
-    'Missing method',
-  );
+    // 3.16 Navigator detects state from file
+    const navState = nav.detectWorkflowStateFromFile(statePath);
+    assert(
+      navState !== null,
+      '3.16a Navigator detects state from file',
+      'Got null',
+    );
+    assert(
+      navState && navState.workflow === 'greenfield-service',
+      '3.16b Detected correct workflow',
+      `Got: ${navState?.workflow}`,
+    );
 
-  // 3.16 Navigator detects state from file
-  const navState = nav.detectWorkflowStateFromFile(statePath);
-  assert(
-    navState !== null,
-    '3.16a Navigator detects state from file',
-    'Got null',
-  );
-  assert(
-    navState && navState.workflow === 'greenfield-service',
-    '3.16b Detected correct workflow',
-    `Got: ${navState?.workflow}`,
-  );
+    // 3.17 Navigator suggests commands from state
+    const suggestions = nav.suggestNextCommandsFromState(state);
+    assert(
+      suggestions.length > 0,
+      '3.17a Navigator generates suggestions from state',
+      'No suggestions',
+    );
+    assert(
+      suggestions.some((s) => s.command.includes('run-workflow')),
+      '3.17b Suggestions include run-workflow continue',
+      `Commands: ${suggestions.map((s) => s.command).join(', ')}`,
+    );
 
-  // 3.17 Navigator suggests commands from state
-  const suggestions = nav.suggestNextCommandsFromState(state);
-  assert(
-    suggestions.length > 0,
-    '3.17a Navigator generates suggestions from state',
-    'No suggestions',
-  );
-  assert(
-    suggestions.some((s) => s.command.includes('run-workflow')),
-    '3.17b Suggestions include run-workflow continue',
-    `Commands: ${suggestions.map((s) => s.command).join(', ')}`,
-  );
+    // 3.18 Navigator returns null for missing file
+    const navMissing = nav.detectWorkflowStateFromFile('/nonexistent.yaml');
+    assert(
+      navMissing === null,
+      '3.18 Navigator returns null for non-existent file',
+      `Got: ${navMissing}`,
+    );
 
-  // 3.18 Navigator returns null for missing file
-  const navMissing = nav.detectWorkflowStateFromFile('/nonexistent.yaml');
-  assert(
-    navMissing === null,
-    '3.18 Navigator returns null for non-existent file',
-    `Got: ${navMissing}`,
-  );
+    // 3.19 workflow-patterns.yaml has state_integration
+    const patterns = yaml.load(fs.readFileSync(path.join(ROOT, '.aios-core/data/workflow-patterns.yaml'), 'utf-8'));
+    assert(
+      !!patterns.state_integration,
+      '3.19a workflow-patterns.yaml has state_integration key',
+      'Missing state_integration',
+    );
+    assert(
+      !!patterns.state_integration.state_file_location,
+      '3.19b state_integration has state_file_location',
+      'Missing state_file_location',
+    );
+    assert(
+      !!patterns.state_integration.behavior,
+      '3.19c state_integration has behavior section',
+      'Missing behavior',
+    );
+    assert(
+      !!patterns.state_integration.commands,
+      '3.19d state_integration has commands section',
+      'Missing commands',
+    );
 
-  // 3.19 workflow-patterns.yaml has state_integration
-  const patterns = yaml.load(fs.readFileSync(path.join(ROOT, '.aios-core/data/workflow-patterns.yaml'), 'utf-8'));
-  assert(
-    !!patterns.state_integration,
-    '3.19a workflow-patterns.yaml has state_integration key',
-    'Missing state_integration',
-  );
-  assert(
-    !!patterns.state_integration.state_file_location,
-    '3.19b state_integration has state_file_location',
-    'Missing state_file_location',
-  );
-  assert(
-    !!patterns.state_integration.behavior,
-    '3.19c state_integration has behavior section',
-    'Missing behavior',
-  );
-  assert(
-    !!patterns.state_integration.commands,
-    '3.19d state_integration has commands section',
-    'Missing commands',
-  );
+    // 3.20 workflow-state-schema.yaml exists and is valid YAML
+    const schemaContent = fs.readFileSync(path.join(ROOT, '.aios-core/data/workflow-state-schema.yaml'), 'utf-8');
+    const schema = yaml.load(schemaContent);
+    assert(
+      !!schema.fields,
+      '3.20a State schema has fields definition',
+      'Missing fields',
+    );
+    assert(
+      !!schema.fields.steps,
+      '3.20b State schema defines steps field',
+      'Missing steps field',
+    );
 
-  // 3.20 workflow-state-schema.yaml exists and is valid YAML
-  const schemaContent = fs.readFileSync(path.join(ROOT, '.aios-core/data/workflow-state-schema.yaml'), 'utf-8');
-  const schema = yaml.load(schemaContent);
-  assert(
-    !!schema.fields,
-    '3.20a State schema has fields definition',
-    'Missing fields',
-  );
-  assert(
-    !!schema.fields.steps,
-    '3.20b State schema defines steps field',
-    'Missing steps field',
-  );
+    // 3.21 run-workflow.md task exists
+    assert(
+      fs.existsSync(path.join(ROOT, '.aios-core/development/tasks/run-workflow.md')),
+      '3.21 run-workflow.md task file exists',
+      'File not found',
+    );
 
-  // 3.21 run-workflow.md task exists
-  assert(
-    fs.existsSync(path.join(ROOT, '.aios-core/development/tasks/run-workflow.md')),
-    '3.21 run-workflow.md task file exists',
-    'File not found',
-  );
-
-  // 3.22 aios-master has run-workflow command
-  const masterMd = fs.readFileSync(path.join(ROOT, '.aios-core/development/agents/aios-master.md'), 'utf-8');
-  assert(
-    masterMd.includes('name: run-workflow'),
-    '3.22a aios-master has run-workflow command',
-    'Command not found',
-  );
-  assert(
-    masterMd.includes('run-workflow.md'),
-    '3.22b aios-master has run-workflow.md in dependencies',
-    'Dependency not found',
-  );
+    // 3.22 aios-master has run-workflow command
+    const masterMd = fs.readFileSync(path.join(ROOT, '.aios-core/development/agents/aios-master.md'), 'utf-8');
+    assert(
+      masterMd.includes('name: run-workflow'),
+      '3.22a aios-master has run-workflow command',
+      'Command not found',
+    );
+    assert(
+      masterMd.includes('run-workflow.md'),
+      '3.22b aios-master has run-workflow.md in dependencies',
+      'Dependency not found',
+    );
 
   } finally {
     // Cleanup test state file
@@ -751,221 +752,225 @@ async function verifyGap4() {
   fs.mkdirSync(tmpCoreAgents, { recursive: true });
   fs.mkdirSync(tmpSquadAgents, { recursive: true });
 
+  let hybridStateMgr, hybridState;
+
   try {
 
-  // Create test agent files
-  fs.writeFileSync(path.join(tmpCoreAgents, 'architect.md'), '# Architect Agent');
-  fs.writeFileSync(path.join(tmpSquadAgents, 'validator.md'), '# Validator Agent');
-  fs.writeFileSync(path.join(tmpCoreAgents, 'pm.md'), '# PM Agent');
-  fs.writeFileSync(path.join(tmpSquadAgents, 'pm.md'), '# PM Agent (squad)'); // exists in both
+    // Create test agent files
+    fs.writeFileSync(path.join(tmpCoreAgents, 'architect.md'), '# Architect Agent');
+    fs.writeFileSync(path.join(tmpSquadAgents, 'validator.md'), '# Validator Agent');
+    fs.writeFileSync(path.join(tmpCoreAgents, 'pm.md'), '# PM Agent');
+    fs.writeFileSync(path.join(tmpSquadAgents, 'pm.md'), '# PM Agent (squad)'); // exists in both
 
-  const testValidator = new WorkflowValidator({
-    agentsPath: tmpCoreAgents,
-    squadAgentsPath: tmpSquadAgents,
-  });
+    const testValidator = new WorkflowValidator({
+      agentsPath: tmpCoreAgents,
+      squadAgentsPath: tmpSquadAgents,
+    });
 
-  // 4.5 Validator finds agent in core during hybrid mode
-  const coreAgentResult = await testValidator.validateAgentReferences([
-    { agent: 'architect' },
-  ]);
-  const coreNotFound = coreAgentResult.warnings.some(
-    (w) => w.code === 'WF_AGENT_NOT_FOUND' && w.message.includes('architect'),
-  );
-  assert(
-    !coreNotFound,
-    '4.5 Validator finds core agent "architect" in hybrid mode',
-    'architect should be found in core agents',
-  );
-
-  // 4.6 Validator finds agent in squad during hybrid mode
-  const squadAgentResult = await testValidator.validateAgentReferences([
-    { agent: 'validator' },
-  ]);
-  const squadNotFound = squadAgentResult.warnings.some(
-    (w) => w.code === 'WF_AGENT_NOT_FOUND' && w.message.includes('validator'),
-  );
-  assert(
-    !squadNotFound,
-    '4.6 Validator finds squad agent "validator" in hybrid mode',
-    'validator should be found in squad agents',
-  );
-
-  // 4.7 Validator warns for agent not found in either context
-  const missingResult = await testValidator.validateAgentReferences([
-    { agent: 'nonexistent-agent' },
-  ]);
-  const missingWarning = missingResult.warnings.some(
-    (w) => w.code === 'WF_AGENT_NOT_FOUND' && w.message.includes('nonexistent-agent'),
-  );
-  assert(
-    missingWarning,
-    '4.7 Validator warns for agent not found in either context',
-    'Should warn about nonexistent-agent',
-  );
-
-  // 4.8 Core-only validator works identically (backward compat)
-  const coreOnlyValidator = new WorkflowValidator({
-    agentsPath: tmpCoreAgents,
-    // squadAgentsPath NOT set — null
-  });
-  const coreOnlyResult = await coreOnlyValidator.validateAgentReferences([
-    { agent: 'architect' },
-  ]);
-  const coreOnlyNotFound = coreOnlyResult.warnings.some(
-    (w) => w.code === 'WF_AGENT_NOT_FOUND' && w.message.includes('architect'),
-  );
-  assert(
-    !coreOnlyNotFound,
-    '4.8 Core-only validator finds architect (backward compat)',
-    'architect should be found without squadAgentsPath',
-  );
-
-  // 4.9 Explicit prefix core:architect works
-  const explicitCoreResult = await testValidator.validateAgentReferences([
-    { agent: 'core:architect' },
-  ]);
-  const explicitCoreNotFound = explicitCoreResult.warnings.some(
-    (w) => w.code === 'WF_AGENT_NOT_FOUND',
-  );
-  assert(
-    !explicitCoreNotFound,
-    '4.9 Explicit prefix "core:architect" resolves correctly',
-    'core:architect should be found',
-  );
-
-  // 4.10 Explicit prefix squad:validator works
-  const explicitSquadResult = await testValidator.validateAgentReferences([
-    { agent: 'squad:validator' },
-  ]);
-  const explicitSquadNotFound = explicitSquadResult.warnings.some(
-    (w) => w.code === 'WF_AGENT_NOT_FOUND',
-  );
-  assert(
-    !explicitSquadNotFound,
-    '4.10 Explicit prefix "squad:validator" resolves correctly',
-    'squad:validator should be found',
-  );
-
-  // 4.11 StateManager.createState with hybrid
-  const { WorkflowStateManager } = require('../../../.aios-core/development/scripts/workflow-state-manager');
-  const mgr = new WorkflowStateManager({ verbose: false });
-  const wfData = {
-    workflow: {
-      id: 'hybrid-test',
-      name: 'Hybrid Test Workflow',
-      sequence: [
-        { agent: 'architect', creates: 'design.md' },
-        { agent: 'validator', validates: 'design.md' },
-      ],
-    },
-  };
-  const hybridState = await mgr.createState(wfData, {
-    target_context: 'hybrid',
-    squad_name: 'test-squad',
-  });
-  assert(
-    hybridState.target_context === 'hybrid',
-    '4.11a createState sets target_context=hybrid',
-    `Got: ${hybridState.target_context}`,
-  );
-  assert(
-    hybridState.squad_name === 'test-squad',
-    '4.11b createState sets squad_name for hybrid',
-    `Got: ${hybridState.squad_name}`,
-  );
-
-  // 4.12 resolveAgentPaths returns both paths for hybrid
-  const hybridPaths = mgr.resolveAgentPaths(hybridState);
-  assert(
-    hybridPaths.corePath !== null && hybridPaths.squadPath !== null,
-    '4.12 resolveAgentPaths returns both corePath and squadPath for hybrid',
-    `corePath=${hybridPaths.corePath}, squadPath=${hybridPaths.squadPath}`,
-  );
-
-  // 4.13 resolveAgentPaths returns null squadPath for core
-  const coreState = { target_context: 'core', squad_name: null };
-  const corePaths = mgr.resolveAgentPaths(coreState);
-  assert(
-    corePaths.squadPath === null,
-    '4.13 resolveAgentPaths returns null squadPath for core',
-    `Got squadPath: ${corePaths.squadPath}`,
-  );
-
-  // 4.14 workflow-patterns.yaml has cross_context
-  const patterns = yaml.load(fs.readFileSync(path.join(ROOT, '.aios-core/data/workflow-patterns.yaml'), 'utf-8'));
-  assert(
-    !!patterns.cross_context,
-    '4.14a workflow-patterns.yaml has cross_context key',
-    'Missing cross_context',
-  );
-  assert(
-    !!patterns.cross_context.resolution_rules,
-    '4.14b cross_context has resolution_rules',
-    'Missing resolution_rules',
-  );
-  assert(
-    !!patterns.cross_context.explicit_prefix,
-    '4.14c cross_context has explicit_prefix',
-    'Missing explicit_prefix',
-  );
-  assert(
-    !!patterns.cross_context.hybrid_workflow_storage,
-    '4.14d cross_context has hybrid_workflow_storage',
-    'Missing hybrid_workflow_storage',
-  );
-  assert(
-    !!patterns.cross_context.validator_behavior,
-    '4.14e cross_context has validator_behavior',
-    'Missing validator_behavior',
-  );
-
-  // 4.15 All 4 task docs mention hybrid
-  const taskFiles = [
-    'create-workflow.md',
-    'modify-workflow.md',
-    'validate-workflow.md',
-    'run-workflow.md',
-  ];
-  for (const taskFile of taskFiles) {
-    const content = fs.readFileSync(path.join(ROOT, '.aios-core/development/tasks', taskFile), 'utf-8');
-    assert(
-      content.includes('hybrid'),
-      `4.15 ${taskFile} mentions hybrid`,
-      `"hybrid" not found in ${taskFile}`,
+    // 4.5 Validator finds agent in core during hybrid mode
+    const coreAgentResult = await testValidator.validateAgentReferences([
+      { agent: 'architect' },
+    ]);
+    const coreNotFound = coreAgentResult.warnings.some(
+      (w) => w.code === 'WF_AGENT_NOT_FOUND' && w.message.includes('architect'),
     );
-  }
+    assert(
+      !coreNotFound,
+      '4.5 Validator finds core agent "architect" in hybrid mode',
+      'architect should be found in core agents',
+    );
 
-  // 4.16 Template mentions hybrid
-  const template = fs.readFileSync(path.join(ROOT, '.aios-core/product/templates/workflow-template.yaml'), 'utf-8');
-  assert(
-    template.includes('hybrid') || template.includes('IF_HYBRID'),
-    '4.16 workflow-template.yaml mentions hybrid',
-    'Missing hybrid reference in template',
-  );
+    // 4.6 Validator finds agent in squad during hybrid mode
+    const squadAgentResult = await testValidator.validateAgentReferences([
+      { agent: 'validator' },
+    ]);
+    const squadNotFound = squadAgentResult.warnings.some(
+      (w) => w.code === 'WF_AGENT_NOT_FOUND' && w.message.includes('validator'),
+    );
+    assert(
+      !squadNotFound,
+      '4.6 Validator finds squad agent "validator" in hybrid mode',
+      'validator should be found in squad agents',
+    );
 
-  // 4.17 WF_AGENT_AMBIGUOUS error code exists
-  assert(
-    WorkflowValidationErrorCodes.WF_AGENT_AMBIGUOUS === 'WF_AGENT_AMBIGUOUS',
-    '4.17a WF_AGENT_AMBIGUOUS error code exists',
-    'Missing WF_AGENT_AMBIGUOUS in error codes',
-  );
+    // 4.7 Validator warns for agent not found in either context
+    const missingResult = await testValidator.validateAgentReferences([
+      { agent: 'nonexistent-agent' },
+    ]);
+    const missingWarning = missingResult.warnings.some(
+      (w) => w.code === 'WF_AGENT_NOT_FOUND' && w.message.includes('nonexistent-agent'),
+    );
+    assert(
+      missingWarning,
+      '4.7 Validator warns for agent not found in either context',
+      'Should warn about nonexistent-agent',
+    );
 
-  // Also verify ambiguity detection works (pm exists in both)
-  const ambiguousResult = await testValidator.validateAgentReferences([
-    { agent: 'pm' },
-  ]);
-  const ambiguousWarning = ambiguousResult.warnings.some(
-    (w) => w.code === 'WF_AGENT_AMBIGUOUS' && w.message.includes('pm'),
-  );
-  assert(
-    ambiguousWarning,
-    '4.17b Validator detects ambiguous agent (pm in both contexts)',
-    'Should emit WF_AGENT_AMBIGUOUS for pm',
-  );
+    // 4.8 Core-only validator works identically (backward compat)
+    const coreOnlyValidator = new WorkflowValidator({
+      agentsPath: tmpCoreAgents,
+    // squadAgentsPath NOT set — null
+    });
+    const coreOnlyResult = await coreOnlyValidator.validateAgentReferences([
+      { agent: 'architect' },
+    ]);
+    const coreOnlyNotFound = coreOnlyResult.warnings.some(
+      (w) => w.code === 'WF_AGENT_NOT_FOUND' && w.message.includes('architect'),
+    );
+    assert(
+      !coreOnlyNotFound,
+      '4.8 Core-only validator finds architect (backward compat)',
+      'architect should be found without squadAgentsPath',
+    );
+
+    // 4.9 Explicit prefix core:architect works
+    const explicitCoreResult = await testValidator.validateAgentReferences([
+      { agent: 'core:architect' },
+    ]);
+    const explicitCoreNotFound = explicitCoreResult.warnings.some(
+      (w) => w.code === 'WF_AGENT_NOT_FOUND',
+    );
+    assert(
+      !explicitCoreNotFound,
+      '4.9 Explicit prefix "core:architect" resolves correctly',
+      'core:architect should be found',
+    );
+
+    // 4.10 Explicit prefix squad:validator works
+    const explicitSquadResult = await testValidator.validateAgentReferences([
+      { agent: 'squad:validator' },
+    ]);
+    const explicitSquadNotFound = explicitSquadResult.warnings.some(
+      (w) => w.code === 'WF_AGENT_NOT_FOUND',
+    );
+    assert(
+      !explicitSquadNotFound,
+      '4.10 Explicit prefix "squad:validator" resolves correctly',
+      'squad:validator should be found',
+    );
+
+    // 4.11 StateManager.createState with hybrid
+    const { WorkflowStateManager } = require('../../../.aios-core/development/scripts/workflow-state-manager');
+    hybridStateMgr = new WorkflowStateManager({ verbose: false });
+    const wfData = {
+      workflow: {
+        id: 'hybrid-test',
+        name: 'Hybrid Test Workflow',
+        sequence: [
+          { agent: 'architect', creates: 'design.md' },
+          { agent: 'validator', validates: 'design.md' },
+        ],
+      },
+    };
+    hybridState = await hybridStateMgr.createState(wfData, {
+      target_context: 'hybrid',
+      squad_name: 'test-squad',
+    });
+    assert(
+      hybridState.target_context === 'hybrid',
+      '4.11a createState sets target_context=hybrid',
+      `Got: ${hybridState.target_context}`,
+    );
+    assert(
+      hybridState.squad_name === 'test-squad',
+      '4.11b createState sets squad_name for hybrid',
+      `Got: ${hybridState.squad_name}`,
+    );
+
+    // 4.12 resolveAgentPaths returns both paths for hybrid
+    const hybridPaths = hybridStateMgr.resolveAgentPaths(hybridState);
+    assert(
+      hybridPaths.corePath !== null && hybridPaths.squadPath !== null,
+      '4.12 resolveAgentPaths returns both corePath and squadPath for hybrid',
+      `corePath=${hybridPaths.corePath}, squadPath=${hybridPaths.squadPath}`,
+    );
+
+    // 4.13 resolveAgentPaths returns null squadPath for core
+    const coreState = { target_context: 'core', squad_name: null };
+    const corePaths = hybridStateMgr.resolveAgentPaths(coreState);
+    assert(
+      corePaths.squadPath === null,
+      '4.13 resolveAgentPaths returns null squadPath for core',
+      `Got squadPath: ${corePaths.squadPath}`,
+    );
+
+    // 4.14 workflow-patterns.yaml has cross_context
+    const patterns = yaml.load(fs.readFileSync(path.join(ROOT, '.aios-core/data/workflow-patterns.yaml'), 'utf-8'));
+    assert(
+      !!patterns.cross_context,
+      '4.14a workflow-patterns.yaml has cross_context key',
+      'Missing cross_context',
+    );
+    assert(
+      !!patterns.cross_context.resolution_rules,
+      '4.14b cross_context has resolution_rules',
+      'Missing resolution_rules',
+    );
+    assert(
+      !!patterns.cross_context.explicit_prefix,
+      '4.14c cross_context has explicit_prefix',
+      'Missing explicit_prefix',
+    );
+    assert(
+      !!patterns.cross_context.hybrid_workflow_storage,
+      '4.14d cross_context has hybrid_workflow_storage',
+      'Missing hybrid_workflow_storage',
+    );
+    assert(
+      !!patterns.cross_context.validator_behavior,
+      '4.14e cross_context has validator_behavior',
+      'Missing validator_behavior',
+    );
+
+    // 4.15 All 4 task docs mention hybrid
+    const taskFiles = [
+      'create-workflow.md',
+      'modify-workflow.md',
+      'validate-workflow.md',
+      'run-workflow.md',
+    ];
+    for (const taskFile of taskFiles) {
+      const content = fs.readFileSync(path.join(ROOT, '.aios-core/development/tasks', taskFile), 'utf-8');
+      assert(
+        content.includes('hybrid'),
+        `4.15 ${taskFile} mentions hybrid`,
+        `"hybrid" not found in ${taskFile}`,
+      );
+    }
+
+    // 4.16 Template mentions hybrid
+    const template = fs.readFileSync(path.join(ROOT, '.aios-core/product/templates/workflow-template.yaml'), 'utf-8');
+    assert(
+      template.includes('hybrid') || template.includes('IF_HYBRID'),
+      '4.16 workflow-template.yaml mentions hybrid',
+      'Missing hybrid reference in template',
+    );
+
+    // 4.17 WF_AGENT_AMBIGUOUS error code exists
+    assert(
+      WorkflowValidationErrorCodes.WF_AGENT_AMBIGUOUS === 'WF_AGENT_AMBIGUOUS',
+      '4.17a WF_AGENT_AMBIGUOUS error code exists',
+      'Missing WF_AGENT_AMBIGUOUS in error codes',
+    );
+
+    // Also verify ambiguity detection works (pm exists in both)
+    const ambiguousResult = await testValidator.validateAgentReferences([
+      { agent: 'pm' },
+    ]);
+    const ambiguousWarning = ambiguousResult.warnings.some(
+      (w) => w.code === 'WF_AGENT_AMBIGUOUS' && w.message.includes('pm'),
+    );
+    assert(
+      ambiguousWarning,
+      '4.17b Validator detects ambiguous agent (pm in both contexts)',
+      'Should emit WF_AGENT_AMBIGUOUS for pm',
+    );
   } finally {
     // Cleanup
-    const statePath = mgr._resolveStatePath(hybridState.instance_id);
-    try { fs.unlinkSync(statePath); } catch { /* already cleaned */ }
+    if (hybridStateMgr && hybridState) {
+      const cleanupPath = hybridStateMgr._resolveStatePath(hybridState.instance_id);
+      try { fs.unlinkSync(cleanupPath); } catch { /* already cleaned */ }
+    }
     try { fs.rmSync(tmpDir, { recursive: true }); } catch { /* cleanup */ }
   }
 }

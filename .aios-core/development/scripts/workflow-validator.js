@@ -446,8 +446,6 @@ class WorkflowValidator {
 
     if (!Array.isArray(sequence)) return result;
 
-    // Build adjacency list: artifact → steps that require it
-    const graph = new Map();
     const artifactToStep = new Map();
 
     for (let i = 0; i < sequence.length; i++) {
@@ -469,7 +467,6 @@ class WorkflowValidator {
         const creatorStep = artifactToStep.get(step.requires);
         if (creatorStep !== undefined && creatorStep !== i) {
           // Step i depends on creatorStep
-          if (!edges.has(i)) edges.set(i, []);
           edges.get(i).push(creatorStep);
         }
       }

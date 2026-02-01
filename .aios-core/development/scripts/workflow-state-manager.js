@@ -192,12 +192,12 @@ class WorkflowStateManager {
               progress: this.getProgress(state),
             });
           }
-        } catch {
-          // Skip files that can't be parsed
+        } catch (err) {
+          this._log(`Warning: Could not parse state file ${file}: ${err.message}`);
         }
       }
     } catch {
-      // .aios dir doesn't exist yet
+      this._log('State directory does not exist yet');
     }
 
     return results;
@@ -340,17 +340,17 @@ class WorkflowStateManager {
     const artifacts = this.getArtifactStatus(state);
 
     const lines = [
-      `## Workflow Handoff Context`,
-      ``,
+      '## Workflow Handoff Context',
+      '',
       `**Workflow:** ${state.workflow_name} (${state.instance_id})`,
       `**Status:** ${state.status}`,
       `**Progress:** ${progress.completed}/${progress.total} steps (${progress.percentage}%)`,
       `**Current Phase:** ${state.current_phase}`,
-      ``,
+      '',
     ];
 
     if (currentStep) {
-      lines.push(`### Current Step`);
+      lines.push('### Current Step');
       lines.push(`- **Step ${currentStep.step_index + 1}:** ${currentStep.phase}`);
       if (currentStep.agent) {
         lines.push(`- **Agent:** @${currentStep.agent}`);
@@ -359,34 +359,34 @@ class WorkflowStateManager {
       if (currentStep.notes) {
         lines.push(`- **Notes:** ${currentStep.notes}`);
       }
-      lines.push(``);
+      lines.push('');
     }
 
     if (artifacts.created.length > 0) {
-      lines.push(`### Completed Artifacts`);
+      lines.push('### Completed Artifacts');
       for (const a of artifacts.created) {
         lines.push(`- ${a.name}${a.path ? ` (${a.path})` : ''}`);
       }
-      lines.push(``);
+      lines.push('');
     }
 
     if (artifacts.pending.length > 0) {
-      lines.push(`### Pending Artifacts`);
+      lines.push('### Pending Artifacts');
       for (const a of artifacts.pending) {
         lines.push(`- ${a.name}`);
       }
-      lines.push(``);
+      lines.push('');
     }
 
     if (state.decisions.length > 0) {
-      lines.push(`### Key Decisions`);
+      lines.push('### Key Decisions');
       for (const d of state.decisions) {
         lines.push(`- Step ${d.step_index + 1}: ${d.decision}`);
       }
-      lines.push(``);
+      lines.push('');
     }
 
-    lines.push(`### Resume Command`);
+    lines.push('### Resume Command');
     lines.push(`\`*run-workflow ${state.workflow_id} continue\``);
 
     return lines.join('\n');
@@ -411,10 +411,10 @@ class WorkflowStateManager {
       `Status: ${state.status.toUpperCase()}`,
       `Started: ${state.started_at}`,
       `Updated: ${state.updated_at}`,
-      ``,
+      '',
       `Progress: [${bar}] ${progress.percentage}% (${progress.completed}/${progress.total})`,
-      ``,
-      `--- Steps ---`,
+      '',
+      '--- Steps ---',
     ];
 
     for (const step of state.steps) {
@@ -434,10 +434,9 @@ class WorkflowStateManager {
     }
 
     // Artifacts summary
-    const artifacts = this.getArtifactStatus(state);
     if (state.artifacts.length > 0) {
-      lines.push(``);
-      lines.push(`--- Artifacts ---`);
+      lines.push('');
+      lines.push('--- Artifacts ---');
       for (const a of state.artifacts) {
         const icon = a.status === 'created' ? '[x]' : '[ ]';
         lines.push(`  ${icon} ${a.name}${a.path ? ` → ${a.path}` : ''}`);
@@ -446,8 +445,8 @@ class WorkflowStateManager {
 
     // Decisions
     if (state.decisions.length > 0) {
-      lines.push(``);
-      lines.push(`--- Decisions ---`);
+      lines.push('');
+      lines.push('--- Decisions ---');
       for (const d of state.decisions) {
         lines.push(`  Step ${d.step_index + 1}: ${d.decision}`);
       }
@@ -472,9 +471,15 @@ class WorkflowStateManager {
       return { corePath, squadPath: null };
     }
 
+    // Sanitize squad_name to prevent path traversal
+    const squadName = state.squad_name;
+    if (squadName && (squadName.includes('..') || squadName.includes('/') || squadName.includes('\\'))) {
+      return { corePath, squadPath: null };
+    }
+
     // Both 'squad' and 'hybrid' have a squad path
-    const squadPath = state.squad_name
-      ? path.join(this.basePath, 'squads', state.squad_name, 'agents')
+    const squadPath = squadName
+      ? path.join(this.basePath, 'squads', squadName, 'agents')
       : null;
 
     return { corePath, squadPath };
@@ -493,6 +498,10 @@ class WorkflowStateManager {
    * @private
    */
   _generateInstanceId(workflowId) {
+    // Sanitize workflowId to prevent path traversal
+    if (!workflowId || workflowId.includes('..') || workflowId.includes('/') || workflowId.includes('\\')) {
+      throw new Error('workflow.id contains invalid path characters');
+    }
     const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     const random = Math.random().toString(36).substring(2, 8);
     return `${workflowId}-${date}-${random}`;
@@ -502,11 +511,7 @@ class WorkflowStateManager {
    * @private
    */
   async _ensureStateDir() {
-    try {
-      await fs.mkdir(this.stateDir, { recursive: true });
-    } catch {
-      // Already exists
-    }
+    await fs.mkdir(this.stateDir, { recursive: true });
   }
 }
 
