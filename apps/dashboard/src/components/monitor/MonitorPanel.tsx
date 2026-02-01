@@ -6,6 +6,7 @@ import { iconMap } from '@/lib/icons';
 import { useMonitorEvents } from '@/hooks/use-monitor-events';
 import { useMonitorStore } from '@/stores/monitor-store';
 import { ActivityFeed } from './ActivityFeed';
+import { CommandPanel } from './CommandPanel';
 import { CurrentToolIndicator } from './CurrentToolIndicator';
 import { MonitorStatus } from './MonitorStatus';
 
@@ -62,6 +63,13 @@ export const MonitorPanel = memo(function MonitorPanel({ className }: MonitorPan
           )}
         </div>
       </div>
+
+      {/* Command Panel (Agent + Command) */}
+      {connected && (
+        <div className="px-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
+          <CommandPanel />
+        </div>
+      )}
 
       {/* Current Tool Indicator */}
       {connected && (

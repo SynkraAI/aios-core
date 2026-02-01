@@ -12,7 +12,15 @@ export type EventType =
   | 'SubagentStop'
   | 'Notification'
   | 'PreCompact'
-  | 'SessionStart';
+  | 'SessionStart'
+  // High-level AIOS events
+  | 'AgentActivated'
+  | 'AgentDeactivated'
+  | 'CommandStart'
+  | 'CommandComplete'
+  | 'CommandError'
+  | 'StoryStatusChange'
+  | 'SessionEnd';
 
 export interface Event {
   id: string;

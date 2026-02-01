@@ -21,6 +21,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const EventEmitter = require('events');
+const { getDashboardEmitter } = require('../events');
 
 // ═══════════════════════════════════════════════════════════════════════════════════
 //                              NOTIFICATION TYPES (AC7)
@@ -119,11 +120,22 @@ class DashboardIntegration extends EventEmitter {
    */
   _bindOrchestratorEvents() {
     const orch = this.orchestrator;
+    const emitter = getDashboardEmitter();
 
     // State changes
     orch.on('stateChange', async (data) => {
       await this.updateStatus();
       this.emit('statusUpdate', { type: 'stateChange', data });
+
+      // Emit story status change to dashboard
+      if (orch.storyId) {
+        emitter.emitStoryStatusChange(
+          orch.storyId,
+          data.previousState || 'unknown',
+          data.newState,
+          orch.getProgressPercentage?.() || 0
+        );
+      }
 
       // Notification for blocked state (AC7)
       if (data.newState === 'blocked') {
@@ -150,6 +162,11 @@ class DashboardIntegration extends EventEmitter {
     orch.on('epicStart', async (data) => {
       await this.updateStatus();
       this.emit('statusUpdate', { type: 'epicStart', data });
+
+      // Emit command start for epic execution
+      const epicConfig = orch.constructor.EPIC_CONFIG || {};
+      const epicName = epicConfig[data.epicNum]?.name || `Epic ${data.epicNum}`;
+      emitter.emitCommandStart(epicName);
     });
 
     // Epic complete (AC5)
@@ -165,6 +182,11 @@ class DashboardIntegration extends EventEmitter {
 
       await this.updateStatus();
       this.emit('statusUpdate', { type: 'epicComplete', data });
+
+      // Emit command complete for epic execution
+      const epicConfig = orch.constructor.EPIC_CONFIG || {};
+      const epicName = epicConfig[data.epicNum]?.name || `Epic ${data.epicNum}`;
+      emitter.emitCommandComplete(epicName, data.duration_ms || 0, true, data.result);
     });
 
     // Epic failed (AC5)
@@ -179,6 +201,11 @@ class DashboardIntegration extends EventEmitter {
       await this.updateStatus();
       this.emit('statusUpdate', { type: 'epicFailed', data });
 
+      // Emit command error for epic execution
+      const epicConfig = orch.constructor.EPIC_CONFIG || {};
+      const epicName = epicConfig[data.epicNum]?.name || `Epic ${data.epicNum}`;
+      emitter.emitCommandError(epicName, data.error?.message || 'Epic execution failed', data.duration_ms);
+
       // Add error notification
       this.addNotification({
         type: NotificationType.ERROR,
@@ -186,6 +213,29 @@ class DashboardIntegration extends EventEmitter {
         message: data.error?.message || 'Epic execution failed',
         timestamp: new Date().toISOString(),
       });
+    });
+
+    // Agent activation (for agent systems that use orchestrator)
+    orch.on('agentActivated', async (data) => {
+      emitter.emitAgentActivated(data.agentId, data.agentName, data.persona);
+    });
+
+    // Agent deactivation
+    orch.on('agentDeactivated', async (data) => {
+      emitter.emitAgentDeactivated(data.agentId, data.agentName, data.reason);
+    });
+
+    // Command execution (for task/command systems)
+    orch.on('commandStart', async (data) => {
+      emitter.emitCommandStart(data.command, data.args);
+    });
+
+    orch.on('commandComplete', async (data) => {
+      emitter.emitCommandComplete(data.command, data.duration_ms, data.success, data.result);
+    });
+
+    orch.on('commandError', async (data) => {
+      emitter.emitCommandError(data.command, data.error, data.duration_ms);
     });
   }
 
