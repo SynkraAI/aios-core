@@ -23,6 +23,9 @@ const FOLDERS_TO_COPY = [
   'development',
   'product',
   'infrastructure',
+  // v2.1 New Modules (Story 6.19 - added missing folders)
+  'workflow-intelligence',
+  'monitor',
   // v2.0 Legacy Flat Structure (backwards compatibility)
   'agents',
   'agent-teams',
@@ -141,6 +144,15 @@ function getFileType(relativePath) {
   }
   if (normalized.includes('/development/') || normalized.startsWith('development/')) {
     return 'development';
+  }
+  if (
+    normalized.includes('/workflow-intelligence/') ||
+    normalized.startsWith('workflow-intelligence/')
+  ) {
+    return 'workflow-intelligence';
+  }
+  if (normalized.includes('/monitor/') || normalized.startsWith('monitor/')) {
+    return 'monitor';
   }
 
   // Root files

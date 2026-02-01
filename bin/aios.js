@@ -56,10 +56,17 @@ USAGE:
   npx @synkra/aios-core@latest              # Run installation wizard
   npx @synkra/aios-core@latest install      # Install in current project
   npx @synkra/aios-core@latest init <name>  # Create new project
+  npx @synkra/aios-core@latest validate     # Validate installation integrity
   npx @synkra/aios-core@latest info         # Show system info
   npx @synkra/aios-core@latest doctor       # Run diagnostics
   npx @synkra/aios-core@latest --version    # Show version
   npx @synkra/aios-core@latest --help       # Show this help
+
+VALIDATION:
+  aios validate                    # Validate installation integrity
+  aios validate --repair           # Repair missing/corrupted files
+  aios validate --repair --dry-run # Preview repairs
+  aios validate --detailed         # Show detailed file list
 
 SERVICE DISCOVERY:
   aios workers search <query>            # Search for workers
@@ -119,6 +126,54 @@ function showInfo() {
     console.log(`  - Workflows: ${countFiles(path.join(aiosCoreDir, 'workflows'))}`);
   } else {
     console.log('\n⚠️  AIOS Core not found');
+  }
+}
+
+// Helper: Run installation validation
+async function runValidate() {
+  const validateArgs = args.slice(1); // Remove 'validate' from args
+
+  try {
+    // Load the validate command module
+    const { createValidateCommand } = require('../.aios-core/cli/commands/validate/index.js');
+    const validateCmd = createValidateCommand();
+
+    // Parse and execute
+    await validateCmd.parseAsync(['node', 'aios', 'validate', ...validateArgs]);
+  } catch (error) {
+    // Fallback: Run quick validation inline
+    console.log('Running installation validation...\n');
+
+    try {
+      const validatorPath = path.join(
+        __dirname,
+        '..',
+        'src',
+        'installer',
+        'post-install-validator.js'
+      );
+      const { PostInstallValidator, formatReport } = require(validatorPath);
+
+      const projectRoot = process.cwd();
+      const validator = new PostInstallValidator(projectRoot, path.join(__dirname, '..'));
+      const report = await validator.validate();
+
+      console.log(formatReport(report, { colors: true }));
+
+      if (
+        report.status === 'failed' ||
+        report.stats.missingFiles > 0 ||
+        report.stats.corruptedFiles > 0
+      ) {
+        process.exit(1);
+      }
+    } catch (validatorError) {
+      console.error(`❌ Validation error: ${validatorError.message}`);
+      if (args.includes('--verbose') || args.includes('-v')) {
+        console.error(validatorError.stack);
+      }
+      process.exit(2);
+    }
   }
 }
 
@@ -262,6 +317,11 @@ async function main() {
 
     case 'doctor':
       runDoctor();
+      break;
+
+    case 'validate':
+      // Post-installation validation - Story 6.19
+      await runValidate();
       break;
 
     case '--version':

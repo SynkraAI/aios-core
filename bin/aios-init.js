@@ -804,6 +804,57 @@ See .aios-core/user-guide.md for complete documentation.
     }
   }
 
+  // Post-installation validation (Story 6.19)
+  console.log('');
+  console.log(chalk.blue('🔍 Validating installation integrity...'));
+
+  let validationPassed = true;
+  try {
+    const { PostInstallValidator } = require('../src/installer/post-install-validator');
+    const validator = new PostInstallValidator(context.projectRoot, context.frameworkLocation, {
+      verifyHashes: false,
+      verbose: false,
+      // SECURITY NOTE: Signature verification is disabled during initial installation
+      // because the manifest signature (.minisig) may not yet be present in the package.
+      // This is acceptable for post-install validation which only checks file presence.
+      // For production integrity checks, users should run `aios validate` which
+      // enforces signature verification when the .minisig file is present.
+      requireSignature: false,
+    });
+
+    const report = await validator.validate();
+
+    if (
+      report.status === 'failed' ||
+      report.stats.missingFiles > 0 ||
+      report.stats.corruptedFiles > 0
+    ) {
+      validationPassed = false;
+      console.log(chalk.yellow('⚠') + ` Installation validation found issues:`);
+      console.log(chalk.dim(`   - Missing files: ${report.stats.missingFiles}`));
+      console.log(chalk.dim(`   - Corrupted files: ${report.stats.corruptedFiles}`));
+      console.log('');
+      console.log(
+        chalk.yellow('   Run ') +
+          chalk.cyan('aios validate --repair') +
+          chalk.yellow(' to fix issues')
+      );
+    } else {
+      console.log(chalk.green('✓') + ` Installation verified (${report.stats.validFiles} files)`);
+    }
+  } catch (validationError) {
+    // Log validation errors but don't fail installation
+    // This allows installation to proceed even if validator module has issues
+    // However, users should investigate validation errors manually
+    validationPassed = false;
+    console.log(chalk.yellow('⚠') + ' Post-installation validation encountered an error');
+    console.log(chalk.dim(`   Error: ${validationError.message}`));
+    if (process.env.DEBUG || process.env.AIOS_DEBUG) {
+      console.log(chalk.dim(`   Stack: ${validationError.stack}`));
+    }
+    console.log(chalk.dim('   Run `aios validate` to check installation integrity'));
+  }
+
   // Summary
   console.log('');
   console.log(chalk.gray('═'.repeat(80)));
@@ -918,9 +969,8 @@ See .aios-core/user-guide.md for complete documentation.
   }
 
   console.log('  ' + chalk.yellow('General:'));
-  console.log(
-    '    • Run ' + chalk.yellow('"@synkra/aios-core doctor"') + ' to verify installation'
-  );
+  console.log('    • Run ' + chalk.yellow('aios validate') + ' to verify installation integrity');
+  console.log('    • Run ' + chalk.yellow('aios validate --repair') + ' to fix any missing files');
   console.log('    • Check .aios-core/user-guide.md for complete documentation');
   console.log('    • Explore expansion-packs/ for additional capabilities');
   console.log('');

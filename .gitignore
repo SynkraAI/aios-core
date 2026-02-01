@@ -297,3 +297,5 @@ npm-recovery-codes.txt
 # Windows path-encoded temporary files (malformed path files)
 C:Users*
 *temp-catalog.txt
+.eslintcache
+.eslintcache
