@@ -42,7 +42,7 @@ class NpmInstallCheck extends BaseCheck {
    * @param {Object} context - Execution context
    * @returns {Promise<Object>} Check result
    */
-  async execute(context) {
+  async execute(_context) {
     try {
       // Check npm version
       const npmVersion = execSync('npm --version', {

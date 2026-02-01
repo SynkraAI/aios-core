@@ -31,16 +31,16 @@ const TechStackDetector = require('./tech-stack-detector');
 const { createExecutor, hasExecutor } = require('./executors');
 
 // Recovery Handler (Story 0.5)
-const { RecoveryHandler, RecoveryStrategy } = require('./recovery-handler');
+const { RecoveryHandler, RecoveryStrategy: _RecoveryStrategy } = require('./recovery-handler');
 
 // Gate Evaluator (Story 0.6)
 const { GateEvaluator, GateVerdict } = require('./gate-evaluator');
 
 // Agent Invoker (Story 0.7)
-const { AgentInvoker, SUPPORTED_AGENTS } = require('./agent-invoker');
+const { AgentInvoker, SUPPORTED_AGENTS: _SUPPORTED_AGENTS } = require('./agent-invoker');
 
 // Dashboard Integration (Story 0.8)
-const { DashboardIntegration, NotificationType } = require('./dashboard-integration');
+const { DashboardIntegration, NotificationType: _NotificationType } = require('./dashboard-integration');
 
 // Optional chalk for colored output
 let chalk;
@@ -233,7 +233,7 @@ class MasterOrchestrator extends EventEmitter {
       projectRoot,
       '.aios',
       'master-orchestrator',
-      this.storyId ? `${this.storyId}.json` : 'current.json'
+      this.storyId ? `${this.storyId}.json` : 'current.json',
     );
 
     // Log initialization
@@ -1028,7 +1028,7 @@ class MasterOrchestrator extends EventEmitter {
           shouldRetry: result.shouldRetry,
           escalated: result.escalated,
         })}`,
-        { level: result.success ? 'info' : 'warn' }
+        { level: result.success ? 'info' : 'warn' },
       );
 
       // Track retry count
@@ -1345,7 +1345,7 @@ class MasterOrchestrator extends EventEmitter {
       }
 
       return states.sort(
-        (a, b) => new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime()
+        (a, b) => new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime(),
       );
     } catch (error) {
       this._log(`Failed to list states: ${error.message}`, { level: 'warn' });
@@ -1363,7 +1363,7 @@ class MasterOrchestrator extends EventEmitter {
     const totalEpics = Object.keys(EPIC_CONFIG).filter((num) => !EPIC_CONFIG[num].onDemand).length;
 
     const completedEpics = Object.values(state.epics).filter(
-      (epic) => epic.status === EpicStatus.COMPLETED
+      (epic) => epic.status === EpicStatus.COMPLETED,
     ).length;
 
     return Math.round((completedEpics / totalEpics) * 100);
@@ -1419,7 +1419,7 @@ class MasterOrchestrator extends EventEmitter {
     const totalEpics = Object.keys(EPIC_CONFIG).filter((num) => !EPIC_CONFIG[num].onDemand).length;
 
     const completedEpics = Object.values(this.executionState.epics).filter(
-      (epic) => epic.status === EpicStatus.COMPLETED
+      (epic) => epic.status === EpicStatus.COMPLETED,
     ).length;
 
     return Math.round((completedEpics / totalEpics) * 100);
@@ -1439,7 +1439,7 @@ class MasterOrchestrator extends EventEmitter {
         Object.entries(this.executionState.epics).map(([num, epic]) => [
           num,
           { status: epic.status, attempts: epic.attempts },
-        ])
+        ]),
       ),
       errors: this.executionState.errors.length,
     };
@@ -1474,7 +1474,7 @@ class MasterOrchestrator extends EventEmitter {
     }
 
     console.log(
-      `${chalk.dim(`[${timestamp}]`)} ${chalk.cyan('[MasterOrchestrator]')} ${icon} ${coloredMessage}`
+      `${chalk.dim(`[${timestamp}]`)} ${chalk.cyan('[MasterOrchestrator]')} ${icon} ${coloredMessage}`,
     );
 
     // Emit log event for external listeners
@@ -1503,7 +1503,7 @@ class MasterOrchestrator extends EventEmitter {
    * Default state change callback
    * @private
    */
-  _defaultStateChange(from, to, context) {
+  _defaultStateChange(from, to, _context) {
     console.log(chalk.magenta(`   📊 State: ${from} → ${to}`));
   }
 }
@@ -1523,7 +1523,7 @@ class StubEpicExecutor {
     this.config = EPIC_CONFIG[epicNum];
   }
 
-  async execute(context) {
+  async execute(_context) {
     console.log(chalk.yellow(`   ⚠️  Using stub executor for Epic ${this.epicNum}`));
     console.log(chalk.gray(`      Real executor (${this.config.executor}) not yet implemented`));
     console.log(chalk.gray('      See Story 0.3: Epic Executors'));

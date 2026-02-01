@@ -8,9 +8,9 @@
  */
 
 const GreetingBuilder = require('./greeting-builder');
-const fs = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
+const _fs = require('fs');
+const _path = require('path');
+const _yaml = require('js-yaml');
 
 // Mock agent definition (simulates @dev)
 const mockDevAgent = {

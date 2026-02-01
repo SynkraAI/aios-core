@@ -389,7 +389,7 @@ class GotchaRegistry {
 
     if (options.context) {
       gotchas = gotchas.filter((g) =>
-        g.context.toLowerCase().includes(options.context.toLowerCase())
+        g.context.toLowerCase().includes(options.context.toLowerCase()),
       );
     }
 
@@ -574,7 +574,7 @@ class GotchaRegistry {
     }
 
     lines.push(
-      `   Confidence: ${(gotcha.confidence * 100).toFixed(0)}% (${gotcha.occurrences} occurrences)`
+      `   Confidence: ${(gotcha.confidence * 100).toFixed(0)}% (${gotcha.occurrences} occurrences)`,
     );
 
     return lines.join('\n');
@@ -630,7 +630,7 @@ class GotchaRegistry {
         }
 
         lines.push(
-          `*Confidence: ${(gotcha.confidence * 100).toFixed(0)}% | Occurrences: ${gotcha.occurrences}*`
+          `*Confidence: ${(gotcha.confidence * 100).toFixed(0)}% | Occurrences: ${gotcha.occurrences}*`,
         );
         lines.push('');
         lines.push('---');

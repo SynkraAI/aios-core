@@ -10,7 +10,7 @@
  */
 
 const fs = require('fs').promises;
-const path = require('path');
+const _path = require('path');
 
 /**
  * Backlog item types
@@ -360,23 +360,26 @@ if (require.main === module) {
           await manager.generateBacklogFile();
           break;
 
-        case 'add':
+        case 'add': {
           const itemData = JSON.parse(process.argv[4] || '{}');
           await manager.addItem(itemData);
           await manager.generateBacklogFile();
           break;
+        }
 
-        case 'remove':
+        case 'remove': {
           const itemId = process.argv[4];
           await manager.removeItem(itemId);
           await manager.generateBacklogFile();
           break;
+        }
 
-        case 'stats':
+        case 'stats': {
           const stats = manager.getStatistics();
           console.log('\n📊 Backlog Statistics:');
           console.log(JSON.stringify(stats, null, 2));
           break;
+        }
 
         default:
           console.log(`

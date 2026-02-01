@@ -122,7 +122,7 @@ class YAMLValidator {
 
     // Check required top-level fields
     for (const field of rules.required) {
-      if (!data.hasOwnProperty(field)) {
+      if (!Object.hasOwn(data, field)) {
         results.valid = false;
         results.errors.push({
           type: 'missing_required',
@@ -169,7 +169,7 @@ class YAMLValidator {
   validateFieldStructure(data, fieldName, rules, results) {
     // Check required subfields
     for (const subfield of rules.required || []) {
-      if (!data.hasOwnProperty(subfield)) {
+      if (!Object.hasOwn(data, subfield)) {
         results.valid = false;
         results.errors.push({
           type: 'missing_required',
@@ -330,7 +330,7 @@ class YAMLValidator {
       else if (trimmed.includes(':')) {
         // Find appropriate indent level
         const colonIndex = trimmed.indexOf(':');
-        const key = trimmed.substring(0, colonIndex);
+        const _key = trimmed.substring(0, colonIndex);
 
         // Pop stack until we find the right level
         while (indentStack.length > 1 &&
@@ -361,7 +361,7 @@ class YAMLValidator {
   fixQuotes(content) {
     // Fix unquoted strings that need quotes
     return content.replace(
-      /^(\s*\w+):\s*([^"'\n]*[:{}\[\]|>&*!%@`][^"'\n]*)$/gm,
+      /^(\s*\w+):\s*([^"'\n]*[:{}|>&*!%@`][^"'\n]*)$/gm,
       '$1: "$2"',
     );
   }

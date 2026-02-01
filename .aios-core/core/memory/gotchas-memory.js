@@ -347,7 +347,7 @@ class GotchasMemory extends EventEmitter {
 
       // Check keyword matches in description
       const gotchaKeywords = this._extractKeywords(
-        `${gotcha.title} ${gotcha.description} ${gotcha.workaround || ''}`
+        `${gotcha.title} ${gotcha.description} ${gotcha.workaround || ''}`,
       );
       for (const keyword of gotchaKeywords) {
         if (descLower.includes(keyword)) {
@@ -526,7 +526,7 @@ class GotchasMemory extends EventEmitter {
       bySource,
       trackedErrors: this.errorTracking.size,
       pendingAutoCapture: [...this.errorTracking.values()].filter(
-        (t) => t.count >= this.options.repeatThreshold - 1 && t.count < this.options.repeatThreshold
+        (t) => t.count >= this.options.repeatThreshold - 1 && t.count < this.options.repeatThreshold,
       ).length,
     };
   }
@@ -680,7 +680,7 @@ class GotchasMemory extends EventEmitter {
         firstSeen: new Date(tracking.firstSeen).toISOString(),
         lastSeen: new Date(tracking.lastSeen).toISOString(),
       },
-      'auto_detected'
+      'auto_detected',
     );
 
     this.gotchas.set(gotcha.id, gotcha);

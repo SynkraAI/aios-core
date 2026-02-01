@@ -233,7 +233,7 @@ describe('SuggestionEngine', () => {
 
       expect(result.suggestions.length).toBeGreaterThan(0);
       expect(
-        result.suggestions.some((s) => s.command.includes('backlog') || s.command.includes('story'))
+        result.suggestions.some((s) => s.command.includes('backlog') || s.command.includes('story')),
       ).toBe(true);
     });
 
@@ -242,7 +242,7 @@ describe('SuggestionEngine', () => {
 
       expect(result.suggestions.length).toBeGreaterThan(0);
       expect(
-        result.suggestions.some((s) => s.command.includes('test') || s.command.includes('qa'))
+        result.suggestions.some((s) => s.command.includes('test') || s.command.includes('qa')),
       ).toBe(true);
     });
 

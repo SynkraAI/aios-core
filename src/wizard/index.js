@@ -8,26 +8,20 @@
  */
 
 const inquirer = require('inquirer');
-const path = require('path');
-const fse = require('fs-extra');
 const { getLanguageQuestion, getProjectTypeQuestion, getIDEQuestions } = require('./questions');
-const { setLanguage, t } = require('./i18n');
+const { setLanguage } = require('./i18n');
 const { showWelcome, showCompletion, showCancellation } = require('./feedback');
 const { generateIDEConfigs, showSuccessSummary } = require('./ide-config-generator');
-const { getIDEConfig } = require('../config/ide-configs');
 const {
   configureEnvironment,
 } = require('../../packages/installer/src/config/configure-environment');
 const {
   installDependencies,
-  hasExistingDependencies,
 } = require('../installer/dependency-installer');
 const {
   installAiosCore,
   hasPackageJson,
-  createBasicPackageJson,
 } = require('../installer/aios-core-installer');
-const { installProjectMCPs } = require('../../bin/modules/mcp-installer');
 const {
   validateInstallation,
   displayValidationReport,
@@ -36,7 +30,6 @@ const {
 const {
   installLLMRouting,
   isLLMRoutingInstalled,
-  getInstallationSummary,
 } = require('../../.aios-core/infrastructure/scripts/llm-routing/install-llm-routing');
 
 // DISABLED: Squads replaced expansion-packs (OSR-8)
@@ -161,7 +154,7 @@ async function runWizard() {
 
     if (avgTimePerQuestion > 100) {
       console.warn(
-        `Warning: Average question response time (${avgTimePerQuestion.toFixed(0)}ms) exceeds 100ms target`
+        `Warning: Average question response time (${avgTimePerQuestion.toFixed(0)}ms) exceeds 100ms target`,
       );
     }
 
@@ -171,7 +164,7 @@ async function runWizard() {
     try {
       aiosCoreResult = await installAiosCore({
         targetDir: process.cwd(),
-        onProgress: (status) => {
+        onProgress: (_status) => {
           // Silent progress - spinner handles feedback
         },
       });
@@ -179,14 +172,14 @@ async function runWizard() {
       if (aiosCoreResult.success) {
         console.log(`✅ AIOS core installed (${aiosCoreResult.installedFolders.length} folders)`);
         console.log(
-          `   - Agents: ${aiosCoreResult.installedFolders.includes('agents') ? '✓' : '⨉'}`
+          `   - Agents: ${aiosCoreResult.installedFolders.includes('agents') ? '✓' : '⨉'}`,
         );
         console.log(`   - Tasks: ${aiosCoreResult.installedFolders.includes('tasks') ? '✓' : '⨉'}`);
         console.log(
-          `   - Workflows: ${aiosCoreResult.installedFolders.includes('workflows') ? '✓' : '⨉'}`
+          `   - Workflows: ${aiosCoreResult.installedFolders.includes('workflows') ? '✓' : '⨉'}`,
         );
         console.log(
-          `   - Templates: ${aiosCoreResult.installedFolders.includes('templates') ? '✓' : '⨉'}`
+          `   - Templates: ${aiosCoreResult.installedFolders.includes('templates') ? '✓' : '⨉'}`,
         );
       }
       answers.aiosCoreInstalled = true;
@@ -444,7 +437,7 @@ async function runWizard() {
               answers.depsResult = retryResult;
             } else {
               console.log(
-                '\n⚠️  Installation still failed. You can run `npm install` manually later.'
+                '\n⚠️  Installation still failed. You can run `npm install` manually later.',
               );
               answers.depsInstalled = false;
               answers.depsResult = retryResult;
@@ -557,7 +550,7 @@ async function runWizard() {
         },
         (status) => {
           console.log(`  [${status.step}] ${status.message}`);
-        }
+        },
       );
 
       // Display validation report

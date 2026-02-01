@@ -183,7 +183,7 @@ async function generateDecisionLog(storyId, context) {
   const aiDir = '.ai';
   try {
     await fs.access(aiDir);
-  } catch (error) {
+  } catch (_error) {
     await fs.mkdir(aiDir, { recursive: true });
   }
 

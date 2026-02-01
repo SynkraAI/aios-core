@@ -65,7 +65,7 @@ class IdeationEngine {
             ...f,
             area,
             priority: this.calculatePriority(f),
-          }))
+          })),
         );
       } catch (error) {
         console.warn(`Analysis failed for ${area}:`, error.message);
@@ -290,7 +290,7 @@ class PerformanceAnalyzer {
         {
           encoding: 'utf8',
           maxBuffer: 5 * 1024 * 1024,
-        }
+        },
       );
 
       const lines = result.split('\n').filter((l) => l.trim() && !l.includes('node_modules'));
@@ -323,7 +323,7 @@ class PerformanceAnalyzer {
         {
           encoding: 'utf8',
           maxBuffer: 5 * 1024 * 1024,
-        }
+        },
       );
 
       const lines = result.split('\n').filter((l) => l.trim() && !l.includes('node_modules'));
@@ -355,7 +355,7 @@ class PerformanceAnalyzer {
         {
           encoding: 'utf8',
           maxBuffer: 5 * 1024 * 1024,
-        }
+        },
       );
 
       const lines = result.split('\n').filter((l) => l.trim() && !l.includes('node_modules'));
@@ -387,7 +387,7 @@ class PerformanceAnalyzer {
         {
           encoding: 'utf8',
           maxBuffer: 5 * 1024 * 1024,
-        }
+        },
       );
 
       const lines = result
@@ -436,18 +436,18 @@ class SecurityAnalyzer {
     try {
       // Look for potential hardcoded secrets
       const result = execSync(
-        `grep -rn "password.*=\\s*['\"]\\|api_key.*=\\s*['\"]\\|secret.*=\\s*['\"]" --include="*.js" --include="*.ts" ${this.rootPath} 2>/dev/null || true`,
+        `grep -rn "password.*=\\s*['"]\\|api_key.*=\\s*['"]\\|secret.*=\\s*['"]" --include="*.js" --include="*.ts" ${this.rootPath} 2>/dev/null || true`,
         {
           encoding: 'utf8',
           maxBuffer: 5 * 1024 * 1024,
-        }
+        },
       );
 
       const lines = result
         .split('\n')
         .filter(
           (l) =>
-            l.trim() && !l.includes('node_modules') && !l.includes('.env') && !l.includes('test')
+            l.trim() && !l.includes('node_modules') && !l.includes('.env') && !l.includes('test'),
         );
 
       if (lines.length > 0) {
@@ -476,7 +476,7 @@ class SecurityAnalyzer {
         `grep -rn "\\beval\\s*(" --include="*.js" --include="*.ts" ${this.rootPath} 2>/dev/null || true`,
         {
           encoding: 'utf8',
-        }
+        },
       );
 
       const evalLines = evalResult
@@ -560,7 +560,7 @@ class CodeQualityAnalyzer {
         `wc -l ${this.rootPath}/src/**/*.js ${this.rootPath}/.aios-core/**/*.js 2>/dev/null | sort -rn | head -10 || true`,
         {
           encoding: 'utf8',
-        }
+        },
       );
 
       const lines = result.split('\n').filter((l) => l.trim() && !l.includes('total'));
@@ -595,7 +595,7 @@ class CodeQualityAnalyzer {
         `grep -rh "function\\|const.*=.*=>" --include="*.js" ${this.rootPath}/src 2>/dev/null | sort | uniq -d | head -5 || true`,
         {
           encoding: 'utf8',
-        }
+        },
       );
 
       if (result.trim().length > 0) {
@@ -623,7 +623,7 @@ class CodeQualityAnalyzer {
         `grep -rn "console\\.log\\|console\\.error" --include="*.js" --include="*.ts" ${this.rootPath}/src 2>/dev/null || true`,
         {
           encoding: 'utf8',
-        }
+        },
       );
 
       const lines = result.split('\n').filter((l) => l.trim() && !l.includes('node_modules'));
@@ -672,7 +672,7 @@ class UXAnalyzer {
         `grep -rn "<button\\|<a\\s" --include="*.tsx" --include="*.jsx" ${this.rootPath} 2>/dev/null || true`,
         {
           encoding: 'utf8',
-        }
+        },
       );
 
       const lines = result
@@ -705,7 +705,7 @@ class UXAnalyzer {
         `grep -rn "fetch\\|axios\\|useQuery" --include="*.tsx" --include="*.jsx" ${this.rootPath} 2>/dev/null || true`,
         {
           encoding: 'utf8',
-        }
+        },
       );
 
       const asyncCalls = result
@@ -716,7 +716,7 @@ class UXAnalyzer {
         `grep -rn "isLoading\\|loading\\|Spinner\\|Skeleton" --include="*.tsx" --include="*.jsx" ${this.rootPath} 2>/dev/null || true`,
         {
           encoding: 'utf8',
-        }
+        },
       );
 
       const loadingStates = loadingResult
@@ -768,7 +768,7 @@ class ArchitectureAnalyzer {
         {
           encoding: 'utf8',
           timeout: 30000,
-        }
+        },
       );
 
       if (result.includes('Circular')) {
@@ -800,7 +800,7 @@ class ArchitectureAnalyzer {
         `grep -rn "from.*infrastructure\\|from.*database" --include="*.tsx" --include="*.jsx" ${this.rootPath}/src/components 2>/dev/null || true`,
         {
           encoding: 'utf8',
-        }
+        },
       );
 
       const violations = result.split('\n').filter((l) => l.trim());

@@ -326,7 +326,7 @@ class HumanReviewOrchestrator {
    * @param {Object} prContext - PR context
    * @returns {Promise<string>} Assigned reviewer
    */
-  async assignReviewer(prContext) {
+  async assignReviewer(_prContext) {
     // Use round-robin or auto-assignment
     const reviewers = ['@architect', '@tech-lead', '@senior-dev'];
 

@@ -121,7 +121,7 @@ describe('WorktreeManager', () => {
       try {
         await manager.create('STORY-42');
         await expect(manager.create('STORY-42')).rejects.toThrow(
-          "Worktree for story 'STORY-42' already exists"
+          "Worktree for story 'STORY-42' already exists",
         );
       } catch (error) {
         if (error.message.includes('Git command failed')) {
@@ -142,7 +142,7 @@ describe('WorktreeManager', () => {
 
         // Fourth should fail
         await expect(manager.create('STORY-4')).rejects.toThrow(
-          'Maximum worktrees limit (3) reached'
+          'Maximum worktrees limit (3) reached',
         );
       } catch (error) {
         if (error.message.includes('Git command failed')) {
@@ -217,7 +217,7 @@ describe('WorktreeManager', () => {
   describe('remove', () => {
     it('should throw error for non-existent worktree', async () => {
       await expect(manager.remove('NONEXISTENT')).rejects.toThrow(
-        "Worktree for story 'NONEXISTENT' does not exist"
+        "Worktree for story 'NONEXISTENT' does not exist",
       );
     });
 
@@ -312,7 +312,7 @@ describe('WorktreeManager', () => {
   describe('detectConflicts', () => {
     it('should throw error for non-existent worktree', async () => {
       await expect(manager.detectConflicts('NONEXISTENT')).rejects.toThrow(
-        "Worktree for story 'NONEXISTENT' does not exist"
+        "Worktree for story 'NONEXISTENT' does not exist",
       );
     });
 
@@ -374,7 +374,7 @@ describe('WorktreeManager', () => {
   describe('mergeToBase', () => {
     it('should throw error for non-existent worktree', async () => {
       await expect(manager.mergeToBase('NONEXISTENT')).rejects.toThrow(
-        "Worktree for story 'NONEXISTENT' does not exist"
+        "Worktree for story 'NONEXISTENT' does not exist",
       );
     });
 

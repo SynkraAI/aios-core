@@ -46,7 +46,7 @@ class FocusAreaRecommender {
    * @returns {Promise<Object>} Focus area recommendations
    */
   async recommend(context = {}) {
-    const { prContext = {}, layer1Result = {}, layer2Result = {} } = context;
+    const { prContext = {}, layer1Result: _layer1Result = {}, layer2Result = {} } = context;
 
     const recommendations = {
       primary: [],
@@ -224,7 +224,7 @@ class FocusAreaRecommender {
    * @param {Object} layer2Result - Layer 2 results
    * @returns {Array} Secondary focus areas
    */
-  determineSecondaryAreas(fileAnalysis, layer2Result) {
+  determineSecondaryAreas(fileAnalysis, _layer2Result) {
     const secondary = [];
 
     // Lower priority categories

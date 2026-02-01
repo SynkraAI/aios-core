@@ -86,7 +86,7 @@ function sanitizeInput(input, type = 'general') {
   switch (type) {
     case 'filename':
       // Allow only safe filename characters
-      sanitized = sanitized.replace(/[^a-zA-Z0-9\-_\.]/g, '_');
+      sanitized = sanitized.replace(/[^a-zA-Z0-9\-_.]/g, '_');
       // Prevent hidden files/directories
       sanitized = sanitized.replace(/^\.+/, '');
       break;
@@ -115,6 +115,7 @@ function sanitizeInput(input, type = 'general') {
     case 'general':
     default:
       // Basic sanitization - remove control characters except newlines and tabs
+      // eslint-disable-next-line no-control-regex
       sanitized = sanitized.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
       break;
   }
@@ -313,6 +314,7 @@ function isSafeString(value) {
 
   // Check for common injection patterns
   const dangerousPatterns = [
+    // eslint-disable-next-line no-control-regex
     /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/, // Control characters
     /\.\.\//,  // Path traversal
     /\$\{/,    // Template injection

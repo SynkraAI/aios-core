@@ -296,7 +296,7 @@ describe('Wizard Integration - Story 1.7', () => {
       await runWizard();
 
       expect(consoleLogSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Installing dependencies')
+        expect.stringContaining('Installing dependencies'),
       );
       expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('installed'));
     });

@@ -144,7 +144,7 @@ class ContextDetector {
     };
 
     // Check if recent commands match any workflow sequence
-    for (const [workflowName, pattern] of Object.entries(workflows)) {
+    for (const [_workflowName, pattern] of Object.entries(workflows)) {
       if (this._matchesPattern(commands, pattern)) {
         return true;
       }

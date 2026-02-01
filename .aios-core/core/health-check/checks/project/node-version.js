@@ -87,7 +87,7 @@ class NodeVersionCheck extends BaseCheck {
             current: currentVersion,
             recommended: '20.x LTS',
           },
-        }
+        },
       );
     }
 

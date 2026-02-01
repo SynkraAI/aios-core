@@ -28,7 +28,7 @@ describe('Health Check System', () => {
       assert.strictEqual(
         typeof HealthCheckEngine,
         'function',
-        'HealthCheckEngine should be a class'
+        'HealthCheckEngine should be a class',
       );
       assert.strictEqual(typeof BaseCheck, 'function', 'BaseCheck should be a class');
       assert.strictEqual(typeof CheckRegistry, 'function', 'CheckRegistry should be a class');
@@ -124,7 +124,7 @@ describe('Health Check System', () => {
 
       assert.ok(
         validStatuses.includes(results.overall.status),
-        `Status should be one of: ${validStatuses.join(', ')}`
+        `Status should be one of: ${validStatuses.join(', ')}`,
       );
     });
 

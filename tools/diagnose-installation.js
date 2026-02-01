@@ -9,7 +9,7 @@
  *   npx https://raw.githubusercontent.com/SynkraAI/aios-core/main/tools/diagnose-installation.js
  */
 
-const { execSync, spawnSync } = require('child_process');
+const { execSync, spawnSync: _spawnSync } = require('child_process');
 const os = require('os');
 const path = require('path');
 const fs = require('fs');
@@ -27,7 +27,7 @@ console.log('');
 function exec(cmd) {
   try {
     return execSync(cmd, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
-  } catch (e) {
+  } catch (_e) {
     return null;
   }
 }
@@ -65,11 +65,11 @@ if (nodeVersion) {
   const nodeVer = nodeVersion.replace('v', '');
   const nodeOk = compareVersions(nodeVer, REQUIRED_NODE) >= 0;
   console.log(
-    `  ${checkMark(nodeOk)} Version:     ${nodeVersion} (required: >= v${REQUIRED_NODE})`
+    `  ${checkMark(nodeOk)} Version:     ${nodeVersion} (required: >= v${REQUIRED_NODE})`,
   );
   if (!nodeOk) {
     console.log(
-      `    ⚠️  ERROR: Node.js version too old! Please upgrade to v${REQUIRED_NODE} or higher.`
+      `    ⚠️  ERROR: Node.js version too old! Please upgrade to v${REQUIRED_NODE} or higher.`,
     );
     console.log('    📥 Download: https://nodejs.org/');
     hasErrors = true;
@@ -145,7 +145,7 @@ if (npmPrefix) {
   const pathEnv = process.env.PATH || process.env.Path || '';
   const inPath = pathEnv.toLowerCase().includes(npmPrefix.toLowerCase());
   console.log(
-    `  ${checkMark(inPath)} In PATH:     ${inPath ? 'Yes' : 'NO - This may cause issues!'}`
+    `  ${checkMark(inPath)} In PATH:     ${inPath ? 'Yes' : 'NO - This may cause issues!'}`,
   );
   if (!inPath) {
     console.log('    ⚠️  WARNING: npm prefix is not in PATH!');
@@ -196,7 +196,7 @@ if (os.platform() === 'win32') {
     if (!policyOk) {
       console.log('    ⚠️  WARNING: Restricted policy may block scripts.');
       console.log(
-        '    📝 Run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser'
+        '    📝 Run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser',
       );
       hasWarnings = true;
     }

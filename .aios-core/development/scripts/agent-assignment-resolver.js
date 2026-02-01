@@ -15,7 +15,7 @@ const path = require('path');
 
 // Configuration
 const TASKS_DIR = path.join(__dirname, '../tasks');
-const AGENTS_DIR = path.join(__dirname, '../agents');
+const _AGENTS_DIR = path.join(__dirname, '../agents');
 const TODO_PATTERN = /responsável: \{TODO: Agent Name\}/g;
 
 // Agent mapping based on task filename prefixes and agent capabilities

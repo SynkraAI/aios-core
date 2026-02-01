@@ -10,7 +10,7 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const crypto = require('crypto');
+const _crypto = require('crypto');
 const { BaseCheck, CheckSeverity, CheckDomain } = require('../../base-check');
 
 /**
@@ -82,12 +82,12 @@ class LockfileIntegrityCheck extends BaseCheck {
 
       const lockfileDeps = lockfile.packages?.['']?.dependencies || {};
       const lockfileDevDeps = lockfile.packages?.['']?.devDependencies || {};
-      const allLockfileDeps = { ...lockfileDeps, ...lockfileDevDeps };
+      const _allLockfileDeps = { ...lockfileDeps, ...lockfileDevDeps };
 
       const missing = [];
-      const versionMismatch = [];
+      const _versionMismatch = [];
 
-      for (const [dep, version] of Object.entries(packageDeps)) {
+      for (const [dep, _version] of Object.entries(packageDeps)) {
         if (!lockfile.packages?.[`node_modules/${dep}`]) {
           missing.push(dep);
         }

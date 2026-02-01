@@ -239,7 +239,7 @@ class RecoveryHandler extends EventEmitter {
    * Select recovery strategy based on error type and context (AC2)
    * @private
    */
-  _selectRecoveryStrategy(epicNum, error, stuckResult, context = {}) {
+  _selectRecoveryStrategy(epicNum, error, stuckResult, _context = {}) {
     const attemptCount = (this.attempts[epicNum] || []).length;
     const errorMessage = error instanceof Error ? error.message : String(error);
 
@@ -414,12 +414,13 @@ class RecoveryHandler extends EventEmitter {
           this._log(`Escalated Epic ${epicNum} to human`, 'warn');
           break;
 
-        case RecoveryStrategy.TRIGGER_RECOVERY_WORKFLOW:
+        case RecoveryStrategy.TRIGGER_RECOVERY_WORKFLOW: {
           const recoveryResult = await this._triggerRecoveryWorkflow(epicNum, error, context);
           result.success = recoveryResult.success;
           result.shouldRetry = recoveryResult.shouldRetry;
           result.details = recoveryResult;
           break;
+        }
 
         default:
           result.details.message = `Unknown strategy: ${strategy}`;
@@ -666,7 +667,7 @@ class RecoveryHandler extends EventEmitter {
    */
   getEpicLogs(epicNum) {
     return this.logs.filter(
-      (log) => log.message.includes(`Epic ${epicNum}`) || log.message.includes(`epic-${epicNum}`)
+      (log) => log.message.includes(`Epic ${epicNum}`) || log.message.includes(`epic-${epicNum}`),
     );
   }
 

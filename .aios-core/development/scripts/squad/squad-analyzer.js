@@ -96,7 +96,7 @@ class SquadAnalyzerError extends Error {
     return new SquadAnalyzerError(
       ErrorCodes.SQUAD_NOT_FOUND,
       `Squad "${squadName}" not found`,
-      `Use *list-squads to see available squads, or *create-squad ${squadName} to create it`
+      `Use *list-squads to see available squads, or *create-squad ${squadName} to create it`,
     );
   }
 
@@ -109,7 +109,7 @@ class SquadAnalyzerError extends Error {
     return new SquadAnalyzerError(
       ErrorCodes.MANIFEST_NOT_FOUND,
       `No squad.yaml or config.yaml found in ${squadPath}`,
-      'Create squad.yaml with squad metadata'
+      'Create squad.yaml with squad metadata',
     );
   }
 }
@@ -191,7 +191,7 @@ class SquadAnalyzer {
           throw new SquadAnalyzerError(
             ErrorCodes.YAML_PARSE_ERROR,
             `Failed to parse ${manifestFile}: ${error.message}`,
-            'Check YAML syntax - use a YAML linter'
+            'Check YAML syntax - use a YAML linter',
           );
         }
       }
@@ -270,7 +270,7 @@ class SquadAnalyzer {
    * @param {Object} manifest - Squad manifest
    * @returns {Array} List of suggestions
    */
-  generateSuggestions(inventory, coverage, manifest) {
+  generateSuggestions(inventory, coverage, _manifest) {
     const suggestions = [];
 
     // Suggest adding tasks for agents without tasks
@@ -469,7 +469,7 @@ class SquadAnalyzer {
    * @private
    */
   _formatConsole(analysis) {
-    const { overview, inventory, coverage, suggestions, squadPath } = analysis;
+    const { overview, inventory, coverage, suggestions, squadPath: _squadPath } = analysis;
     const lines = [];
 
     // Header
@@ -517,18 +517,18 @@ class SquadAnalyzer {
     lines.push('Coverage');
     lines.push(
       `  Agents: ${this._formatBar(coverage.agents.percentage)} ${coverage.agents.percentage}% ` +
-        `(${coverage.agents.withTasks}/${coverage.agents.total} with tasks)`
+        `(${coverage.agents.withTasks}/${coverage.agents.total} with tasks)`,
     );
     lines.push(
       `  Tasks: ${this._formatBar(coverage.tasks.percentage)} ${coverage.tasks.percentage}% ` +
-        `(${coverage.tasks.total} tasks)`
+        `(${coverage.tasks.total} tasks)`,
     );
     lines.push(
       `  Directories: ${this._formatBar(coverage.directories.percentage)} ${coverage.directories.percentage}% ` +
-        `(${coverage.directories.populated}/${coverage.directories.total} populated)`
+        `(${coverage.directories.populated}/${coverage.directories.total} populated)`,
     );
     lines.push(
-      `  Config: ${this._formatBar(coverage.config.percentage)} ${coverage.config.percentage}%`
+      `  Config: ${this._formatBar(coverage.config.percentage)} ${coverage.config.percentage}%`,
     );
     lines.push('');
 
@@ -594,11 +594,11 @@ class SquadAnalyzer {
     lines.push('| Category | Percentage | Details |');
     lines.push('|----------|------------|---------|');
     lines.push(
-      `| Agents | ${coverage.agents.percentage}% | ${coverage.agents.withTasks}/${coverage.agents.total} with tasks |`
+      `| Agents | ${coverage.agents.percentage}% | ${coverage.agents.withTasks}/${coverage.agents.total} with tasks |`,
     );
     lines.push(`| Tasks | ${coverage.tasks.percentage}% | ${coverage.tasks.total} total |`);
     lines.push(
-      `| Directories | ${coverage.directories.percentage}% | ${coverage.directories.populated}/${coverage.directories.total} populated |`
+      `| Directories | ${coverage.directories.percentage}% | ${coverage.directories.populated}/${coverage.directories.total} populated |`,
     );
     lines.push(`| Config | ${coverage.config.percentage}% | - |`);
     lines.push('');
@@ -608,7 +608,7 @@ class SquadAnalyzer {
       lines.push('');
       suggestions.forEach((suggestion, index) => {
         lines.push(
-          `${index + 1}. **[${suggestion.priority.toUpperCase()}]** ${suggestion.message}`
+          `${index + 1}. **[${suggestion.priority.toUpperCase()}]** ${suggestion.message}`,
         );
       });
       lines.push('');

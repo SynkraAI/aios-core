@@ -23,7 +23,7 @@ async function getClickUpTool() {
     // Try using tool-resolver (test environment or future production)
     const { resolveTool } = require('../../infrastructure/scripts/tool-resolver');
     return await resolveTool('clickup');
-  } catch (error) {
+  } catch (_error) {
     // Fall back to global references (current production pattern)
     return {
       createTask: global.mcp__clickup__create_task,
@@ -99,7 +99,7 @@ async function saveStoryFile(storyFilePath, content, skipSync = false) {
     let previousContentString = '';
     try {
       previousContentString = await fs.readFile(storyFilePath, 'utf-8');
-    } catch (error) {
+    } catch (_error) {
       // File might not exist yet (new story)
       console.log('No previous version found - creating new story file');
     }

@@ -155,7 +155,7 @@ class SubagentPromptBuilder {
             }
           }
         }
-      } catch (e) {
+      } catch (_e) {
         // Invalid YAML frontmatter - continue
       }
     }
@@ -211,7 +211,7 @@ class SubagentPromptBuilder {
             }
           }
         }
-      } catch (e) {
+      } catch (_e) {
         // Invalid YAML frontmatter - continue
       }
     }

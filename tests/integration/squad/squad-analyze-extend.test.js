@@ -77,7 +77,7 @@ describe('Squad Analyze & Extend Integration', () => {
     // Create initial agent
     await fs.writeFile(
       path.join(testSquadPath, 'agents', 'initial-agent.md'),
-      '# initial-agent\n\nInitial test agent.\n'
+      '# initial-agent\n\nInitial test agent.\n',
     );
 
     // Initialize analyzer and extender pointing to parent directory

@@ -413,7 +413,7 @@ class ContextSnapshot {
       (s) =>
         s.description?.toLowerCase().includes(queryLower) ||
         s.storyId?.toLowerCase().includes(queryLower) ||
-        s.agent?.toLowerCase().includes(queryLower)
+        s.agent?.toLowerCase().includes(queryLower),
     );
   }
 

@@ -219,13 +219,13 @@ Test story
       // Create one completed story
       await fs.writeFile(
         path.join(testRoot, 'docs', 'stories', 'story-1.md'),
-        '**Status:** Completed'
+        '**Status:** Completed',
       );
 
       // Create one in progress story
       await fs.writeFile(
         path.join(testRoot, 'docs', 'stories', 'story-2.md'),
-        '**Status:** InProgress\n**Story ID:** STORY-2'
+        '**Status:** InProgress\n**Story ID:** STORY-2',
       );
 
       const info = await loader.getCurrentStoryInfo();

@@ -88,7 +88,7 @@ class DiskSpaceCheck extends BaseCheck {
             healable: false,
             healingTier: 3,
             details,
-          }
+          },
         );
       }
 
@@ -119,7 +119,7 @@ class DiskSpaceCheck extends BaseCheck {
       const drive = projectPath.substring(0, 2);
       const output = execSync(
         `powershell -Command "Get-PSDrive ${drive[0]} | Select-Object Used,Free | ConvertTo-Json"`,
-        { encoding: 'utf8', timeout: 5000, windowsHide: true }
+        { encoding: 'utf8', timeout: 5000, windowsHide: true },
       );
 
       const info = JSON.parse(output);
@@ -138,7 +138,7 @@ class DiskSpaceCheck extends BaseCheck {
         const drive = projectPath.substring(0, 2);
         const output = execSync(
           `wmic logicaldisk where "DeviceID='${drive}'" get FreeSpace,Size /format:csv`,
-          { encoding: 'utf8', timeout: 5000, windowsHide: true }
+          { encoding: 'utf8', timeout: 5000, windowsHide: true },
         );
 
         const lines = output.trim().split('\n');

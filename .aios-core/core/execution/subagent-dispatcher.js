@@ -8,7 +8,7 @@
 
 const EventEmitter = require('events');
 const { spawn } = require('child_process');
-const path = require('path');
+const _path = require('path');
 
 // Import dependencies with fallbacks
 let MemoryQuery, GotchasMemory;
@@ -218,7 +218,7 @@ class SubagentDispatcher extends EventEmitter {
       try {
         const memory = await this.memoryQuery.getContextForAgent(
           this.resolveAgent(task),
-          task.description
+          task.description,
         );
         enriched.memory = memory.relevantMemory || [];
         enriched.patterns = memory.suggestedPatterns || [];

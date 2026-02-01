@@ -106,8 +106,8 @@ describe('Workflow Intelligence System Integration', () => {
       // Should suggest validation after stories created
       expect(
         suggestions1.some(
-          (s) => s.command === 'validate-story-draft' || s.command === 'create-next-story'
-        )
+          (s) => s.command === 'validate-story-draft' || s.command === 'create-next-story',
+        ),
       ).toBe(true);
 
       // Step 2: After validation
@@ -120,7 +120,7 @@ describe('Workflow Intelligence System Integration', () => {
 
       const suggestions2 = wis.getSuggestions(context2);
       expect(
-        suggestions2.some((s) => s.command === 'analyze-impact' || s.command === 'develop')
+        suggestions2.some((s) => s.command === 'analyze-impact' || s.command === 'develop'),
       ).toBe(true);
     });
 
@@ -136,7 +136,7 @@ describe('Workflow Intelligence System Integration', () => {
       const suggestions1 = wis.getSuggestions(context1);
       if (suggestions1.length > 0) {
         const hasDevelopCommand = suggestions1.some(
-          (s) => s.command.includes('develop') || s.command.includes('review')
+          (s) => s.command.includes('develop') || s.command.includes('review'),
         );
         expect(hasDevelopCommand).toBe(true);
       }

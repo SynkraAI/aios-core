@@ -282,7 +282,7 @@ class SquadValidator {
 
     // Expected directories (task-first: tasks and agents are primary)
     const expectedDirs = ['tasks', 'agents'];
-    const optionalDirs = [
+    const _optionalDirs = [
       'workflows',
       'checklists',
       'templates',
@@ -480,7 +480,7 @@ class SquadValidator {
     let files;
     try {
       files = await fs.readdir(agentsDir);
-    } catch (error) {
+    } catch (_error) {
       return result;
     }
 

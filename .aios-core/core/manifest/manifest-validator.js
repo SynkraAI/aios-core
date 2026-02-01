@@ -320,7 +320,7 @@ class ManifestValidator {
           });
         }
       }
-    } catch (error) {
+    } catch (_error) {
       // Directory doesn't exist or other error - skip orphan check
     }
   }
@@ -392,7 +392,7 @@ class ManifestValidator {
       }
     }
 
-    const totalValid = results.summary.valid;
+    const _totalValid = results.summary.valid;
     const totalInvalid = results.summary.invalid;
     const allValid = totalInvalid === 0;
 

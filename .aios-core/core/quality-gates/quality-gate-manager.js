@@ -57,7 +57,7 @@ class QualityGateManager {
       const content = await fs.readFile(configPath, 'utf8');
       const config = yaml.load(content);
       return new QualityGateManager(config);
-    } catch (error) {
+    } catch (_error) {
       console.warn(`Could not load config from ${configPath}, using defaults`);
       return new QualityGateManager({});
     }
@@ -391,7 +391,7 @@ class QualityGateManager {
   formatResults() {
     const lines = ['', '🔍 Quality Gate Pipeline Results', '━'.repeat(50), ''];
 
-    this.results.forEach((layer, index) => {
+    this.results.forEach((layer, _index) => {
       const icon = layer.pass ? '✅' : '❌';
       lines.push(`${icon} ${layer.layer} - ${layer.pass ? 'PASSED' : 'FAILED'}`);
 

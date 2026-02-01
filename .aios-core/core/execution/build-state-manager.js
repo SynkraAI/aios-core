@@ -170,16 +170,16 @@ class BuildStateManager {
     // Epic 5 integration (AC8)
     this.stuckDetector = StuckDetector
       ? new StuckDetector({
-          maxAttempts: this.config.maxIterations,
-          verbose: options.verbose,
-        })
+        maxAttempts: this.config.maxIterations,
+        verbose: options.verbose,
+      })
       : null;
 
     this.recoveryTracker = RecoveryTracker
       ? new RecoveryTracker({
-          storyId,
-          rootPath: this.rootPath,
-        })
+        storyId,
+        rootPath: this.rootPath,
+      })
       : null;
 
     // Internal state
@@ -466,7 +466,7 @@ class BuildStateManager {
     // Add notification
     this._addNotification(
       NotificationType.INFO,
-      `Build resumed from checkpoint ${lastCheckpoint?.id || 'start'}`
+      `Build resumed from checkpoint ${lastCheckpoint?.id || 'start'}`,
     );
 
     // Save updated state
@@ -682,7 +682,7 @@ class BuildStateManager {
       // Add notification
       this._addNotification(
         NotificationType.ABANDONED,
-        `Build abandoned: ${state.abandonedReason}`
+        `Build abandoned: ${state.abandonedReason}`,
       );
 
       this.saveState();
@@ -1053,7 +1053,7 @@ class BuildStateManager {
     // Add completion notification
     this._addNotification(
       NotificationType.INFO,
-      `Build completed successfully in ${this._formatDuration(this._state.metrics.totalDuration)}`
+      `Build completed successfully in ${this._formatDuration(this._state.metrics.totalDuration)}`,
     );
 
     // Log (AC7)
@@ -1203,7 +1203,7 @@ class BuildStateManager {
     lines.push(`  Attempts:  ${status.metrics.totalAttempts}`);
     lines.push(`  Failures:  ${status.metrics.totalFailures}`);
     lines.push(
-      `  Avg Time:  ${this._formatDuration(status.metrics.averageTimePerSubtask)}/subtask`
+      `  Avg Time:  ${this._formatDuration(status.metrics.averageTimePerSubtask)}/subtask`,
     );
     lines.push(`  Checkpts:  ${status.checkpointCount}`);
 
@@ -1276,7 +1276,7 @@ class BuildStateManager {
         const progress = `${build.progress.completed}/${build.progress.total}`;
 
         lines.push(
-          `${statusColor(statusIcon)} ${build.storyId.padEnd(20)} ${build.status.padEnd(12)} ${progress.padEnd(8)} ${build.duration}`
+          `${statusColor(statusIcon)} ${build.storyId.padEnd(20)} ${build.status.padEnd(12)} ${progress.padEnd(8)} ${build.duration}`,
         );
       }
     }

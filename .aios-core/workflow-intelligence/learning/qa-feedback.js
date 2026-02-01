@@ -112,7 +112,7 @@ class QAFeedbackProcessor {
     // Enforce max history
     if (this._feedbackHistory.history.length > this.config.maxFeedbackHistory) {
       this._feedbackHistory.history = this._feedbackHistory.history.slice(
-        -this.config.maxFeedbackHistory
+        -this.config.maxFeedbackHistory,
       );
     }
 
@@ -495,7 +495,7 @@ class QAFeedbackProcessor {
     }, {});
 
     const deprecatedCount = Object.values(stats).filter(
-      (s) => s.consecutiveFailures >= this.config.deprecateAfterFailures
+      (s) => s.consecutiveFailures >= this.config.deprecateAfterFailures,
     ).length;
 
     // Calculate recent trend (last 10 vs previous 10)

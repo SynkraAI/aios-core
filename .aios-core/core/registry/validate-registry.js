@@ -306,7 +306,7 @@ async function main() {
   const testResults = await runSmokeTests(registryPath, schemaPath, baseDir);
 
   // Run field validation
-  const fieldIssues = await validateFields(registryPath);
+  const _fieldIssues = await validateFields(registryPath);
 
   // Summary
   console.log('\n' + '='.repeat(50));

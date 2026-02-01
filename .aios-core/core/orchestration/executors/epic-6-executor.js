@@ -125,7 +125,7 @@ class Epic6Executor extends EpicExecutor {
    * @private
    */
   async _runReview(context) {
-    const { storyId, iteration, techStack } = context;
+    const { storyId, iteration, techStack: _techStack } = context;
 
     this._log(`Running review cycle ${iteration}`);
 
@@ -172,7 +172,7 @@ class Epic6Executor extends EpicExecutor {
    * Perform basic quality checks
    * @private
    */
-  async _performBasicChecks(context) {
+  async _performBasicChecks(_context) {
     const issues = [];
 
     // Check if tests exist
@@ -196,7 +196,7 @@ class Epic6Executor extends EpicExecutor {
    * Apply fixes for found issues
    * @private
    */
-  async _applyFixes(issues, context) {
+  async _applyFixes(issues, _context) {
     this._log(`Applying fixes for ${issues.length} issues`);
 
     // In full implementation, this would invoke @dev agent

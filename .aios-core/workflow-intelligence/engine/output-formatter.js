@@ -111,7 +111,7 @@ function displaySuggestions(result) {
     output.push(
       colorize('  State: ', 'cyan') +
         stateDisplay +
-        ` (confidence: ${formatConfidence(result.confidence)})`
+        ` (confidence: ${formatConfidence(result.confidence)})`,
     );
   } else {
     output.push(colorize('  State: ', 'cyan') + colorize('N/A', 'gray'));
@@ -141,7 +141,7 @@ function displaySuggestions(result) {
     // Confidence note for uncertain suggestions
     if (result.isUncertain) {
       output.push(
-        colorize('  Low confidence - context is unclear. Try providing --story flag.', 'yellow')
+        colorize('  Low confidence - context is unclear. Try providing --story flag.', 'yellow'),
       );
       output.push('');
     }
@@ -209,11 +209,11 @@ function displayHelp() {
   output.push('');
   output.push(colorize('Examples:', 'bold'));
   output.push(
-    `  ${colorize('*next', 'green')}                                    ${colorize('# Auto-detect context', 'dim')}`
+    `  ${colorize('*next', 'green')}                                    ${colorize('# Auto-detect context', 'dim')}`,
   );
   output.push(`  ${colorize('*next --story docs/stories/v2.1/sprint-10/story-wis-3.md', 'green')}`);
   output.push(
-    `  ${colorize('*next --all', 'green')}                              ${colorize('# Show all suggestions', 'dim')}`
+    `  ${colorize('*next --all', 'green')}                              ${colorize('# Show all suggestions', 'dim')}`,
   );
   output.push('');
   output.push(colorize('How it works:', 'bold'));
@@ -246,7 +246,7 @@ function displayContext(context) {
 
   if (context.lastCommands && context.lastCommands.length > 0) {
     output.push(
-      `  ${colorize('Recent Commands:', 'cyan')} ${context.lastCommands.slice(-5).join(', ')}`
+      `  ${colorize('Recent Commands:', 'cyan')} ${context.lastCommands.slice(-5).join(', ')}`,
     );
   }
 
@@ -255,7 +255,7 @@ function displayContext(context) {
 
   if (context.projectState) {
     output.push(
-      `  ${colorize('Workflow Phase:', 'cyan')} ${context.projectState.workflowPhase || 'unknown'}`
+      `  ${colorize('Workflow Phase:', 'cyan')} ${context.projectState.workflowPhase || 'unknown'}`,
     );
   }
 

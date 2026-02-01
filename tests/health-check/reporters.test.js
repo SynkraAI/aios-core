@@ -215,7 +215,7 @@ describe('ReporterManager', () => {
       const invalidReporter = { name: 'invalid' };
 
       expect(() => manager.registerReporter('invalid', invalidReporter)).toThrow(
-        'Reporter must implement generate() method'
+        'Reporter must implement generate() method',
       );
     });
   });
@@ -287,7 +287,7 @@ describe('ReporterManager', () => {
       expect(generateSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           timestamp: expect.any(String),
-        })
+        }),
       );
 
       generateSpy.mockRestore();

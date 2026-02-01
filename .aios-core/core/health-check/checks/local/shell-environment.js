@@ -38,7 +38,7 @@ class ShellEnvironmentCheck extends BaseCheck {
    * @param {Object} context - Execution context
    * @returns {Promise<Object>} Check result
    */
-  async execute(context) {
+  async execute(_context) {
     const platform = os.platform();
     const details = {
       platform,

@@ -337,7 +337,7 @@ class AgentConfigLoader {
         const normalizedYaml = this._normalizeCompactCommands(yamlMatch[1]);
         try {
           agentDef = yaml.load(normalizedYaml);
-        } catch (secondError) {
+        } catch (_secondError) {
           throw new Error(`Failed to parse agent definition YAML for ${this.agentId}: ${parseError.message}`);
         }
       }
@@ -559,7 +559,7 @@ if (require.main === module) {
       const coreConfig = yaml.load(coreConfigContent);
 
       switch (command) {
-        case 'load':
+        case 'load': {
           if (!agentId) {
             console.error('Usage: node agent-config-loader.js load <agent-id>');
             process.exit(1);
@@ -577,8 +577,9 @@ if (require.main === module) {
           console.log(`   Sections Loaded: ${result.sectionsLoaded.join(', ')}`);
           console.log(`   Files Loaded: ${Object.keys(result.files).length}`);
           break;
+        }
 
-        case 'preload':
+        case 'preload': {
           const agents = agentId ? [agentId] : [
             'aios-master', 'dev', 'qa', 'architect', 'po', 'pm', 'sm',
             'analyst', 'ux-expert', 'data-engineer', 'devops', 'db-sage', 'security',
@@ -586,8 +587,9 @@ if (require.main === module) {
 
           await preloadAgents(agents, coreConfig);
           break;
+        }
 
-        case 'test':
+        case 'test': {
           console.log('\n🧪 Testing agent config loader...\n');
 
           // Test loading for a few agents
@@ -606,6 +608,7 @@ if (require.main === module) {
 
           console.log('✅ All tests passed!\n');
           break;
+        }
 
         default:
           console.log(`

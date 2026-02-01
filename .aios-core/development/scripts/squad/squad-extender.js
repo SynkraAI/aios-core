@@ -136,7 +136,7 @@ class SquadExtenderError extends Error {
     return new SquadExtenderError(
       ErrorCodes.SQUAD_NOT_FOUND,
       `Squad "${squadName}" not found`,
-      `Use *list-squads to see available squads, or *create-squad ${squadName} to create it`
+      `Use *list-squads to see available squads, or *create-squad ${squadName} to create it`,
     );
   }
 
@@ -149,7 +149,7 @@ class SquadExtenderError extends Error {
     return new SquadExtenderError(
       ErrorCodes.MANIFEST_NOT_FOUND,
       `No squad.yaml or config.yaml found in ${squadPath}`,
-      'Create squad.yaml with squad metadata'
+      'Create squad.yaml with squad metadata',
     );
   }
 
@@ -162,7 +162,7 @@ class SquadExtenderError extends Error {
     return new SquadExtenderError(
       ErrorCodes.COMPONENT_EXISTS,
       `Component already exists at ${filePath}`,
-      'Use --force to overwrite, or choose a different name'
+      'Use --force to overwrite, or choose a different name',
     );
   }
 
@@ -175,7 +175,7 @@ class SquadExtenderError extends Error {
     return new SquadExtenderError(
       ErrorCodes.INVALID_COMPONENT_NAME,
       `Invalid component name: "${name}"`,
-      'Use kebab-case (lowercase letters, numbers, and hyphens only)'
+      'Use kebab-case (lowercase letters, numbers, and hyphens only)',
     );
   }
 
@@ -189,7 +189,7 @@ class SquadExtenderError extends Error {
     return new SquadExtenderError(
       ErrorCodes.INVALID_COMPONENT_TYPE,
       `Invalid component type: "${type}"`,
-      `Valid types are: ${validTypes}`
+      `Valid types are: ${validTypes}`,
     );
   }
 
@@ -203,7 +203,7 @@ class SquadExtenderError extends Error {
     return new SquadExtenderError(
       ErrorCodes.AGENT_NOT_FOUND,
       `Agent "${agentId}" not found in squad`,
-      `Available agents: ${availableAgents.join(', ')}`
+      `Available agents: ${availableAgents.join(', ')}`,
     );
   }
 
@@ -216,7 +216,7 @@ class SquadExtenderError extends Error {
     return new SquadExtenderError(
       ErrorCodes.PATH_TRAVERSAL,
       `Invalid component name - path traversal not allowed: "${name}"`,
-      'Component names cannot contain path separators or ".."'
+      'Component names cannot contain path separators or ".."',
     );
   }
 }
@@ -509,7 +509,7 @@ class SquadExtender {
           throw new SquadExtenderError(
             ErrorCodes.MANIFEST_UPDATE_FAILED,
             `Failed to parse ${manifestFile}: ${error.message}`,
-            'Check YAML syntax - use a YAML linter'
+            'Check YAML syntax - use a YAML linter',
           );
         }
       }

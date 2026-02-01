@@ -313,7 +313,7 @@ class ParallelMonitor extends EventEmitter {
       output += '  No active executions\n';
     } else {
       for (const wave of status.waves) {
-        const { completed, failed, running, pending, total } = wave.progress;
+        const { completed, failed, running, pending, total: _total } = wave.progress;
         const progressBar = this.formatProgressBar(completed, failed, running, pending);
         const duration = Math.round(wave.duration / 1000);
 
@@ -367,7 +367,7 @@ class ParallelMonitor extends EventEmitter {
       JSON.stringify({
         type: 'status',
         data: this.getStatus(),
-      })
+      }),
     );
   }
 
@@ -382,7 +382,7 @@ class ParallelMonitor extends EventEmitter {
     for (const ws of this.wsConnections) {
       try {
         ws.send(message);
-      } catch (error) {
+      } catch (_error) {
         // Connection might be closed
         this.wsConnections.delete(ws);
       }

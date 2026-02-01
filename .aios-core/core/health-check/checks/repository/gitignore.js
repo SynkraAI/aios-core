@@ -115,7 +115,7 @@ class GitignoreCheck extends BaseCheck {
             healable: true,
             healingTier: 1,
             details,
-          }
+          },
         );
       }
 
@@ -158,7 +158,7 @@ class GitignoreCheck extends BaseCheck {
       action: 'update-gitignore',
       successMessage: 'Added missing patterns to .gitignore',
       targetFile: '.gitignore',
-      fix: async (result) => {
+      fix: async (_result) => {
         const projectRoot = process.cwd();
         const gitignorePath = path.join(projectRoot, '.gitignore');
 

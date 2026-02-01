@@ -37,7 +37,7 @@ class BaseLayer {
    * @param {Object} context - Execution context
    * @returns {Promise<Object>} Layer results
    */
-  async execute(context) {
+  async execute(_context) {
     throw new Error('execute() must be implemented by subclass');
   }
 

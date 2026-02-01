@@ -39,7 +39,7 @@ function parseYAMLFromMarkdown(content) {
   if (yamlBlockMatch) {
     try {
       return yaml.load(yamlBlockMatch[1]);
-    } catch (e) {
+    } catch (_e) {
       // Try to extract just the agent section if full parse fails
       return extractAgentSection(yamlBlockMatch[1]);
     }
@@ -50,7 +50,7 @@ function parseYAMLFromMarkdown(content) {
   if (frontMatterMatch) {
     try {
       return yaml.load(frontMatterMatch[1]);
-    } catch (e) {
+    } catch (_e) {
       return extractAgentSection(frontMatterMatch[1]);
     }
   }
@@ -98,7 +98,7 @@ function extractAgentSection(yamlContent) {
         persona_profile: archetype ? { archetype } : null,
       };
     }
-  } catch (e) {
+  } catch (_e) {
     // Fallback failed
   }
 

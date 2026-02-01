@@ -69,7 +69,7 @@ class LargeFilesCheck extends BaseCheck {
         for (const file of files.slice(0, 1000)) {
           // Limit to first 1000 files
           try {
-            const sizeOutput = execSync(`git ls-files -s "${file}"`, {
+            const _sizeOutput = execSync(`git ls-files -s "${file}"`, {
               cwd: projectRoot,
               encoding: 'utf8',
               windowsHide: true,
@@ -126,7 +126,7 @@ class LargeFilesCheck extends BaseCheck {
               veryLarge: veryLarge.slice(0, 5),
               large: justLarge.slice(0, 5),
             },
-          }
+          },
         );
       }
 

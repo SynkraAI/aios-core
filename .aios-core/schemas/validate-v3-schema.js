@@ -25,8 +25,8 @@ const yaml = require('js-yaml');
 
 // Schema locations
 const SCHEMA_DIR = __dirname;
-const AGENT_SCHEMA_PATH = path.join(SCHEMA_DIR, 'agent-v3-schema.json');
-const TASK_SCHEMA_PATH = path.join(SCHEMA_DIR, 'task-v3-schema.json');
+const _AGENT_SCHEMA_PATH = path.join(SCHEMA_DIR, 'agent-v3-schema.json');
+const _TASK_SCHEMA_PATH = path.join(SCHEMA_DIR, 'task-v3-schema.json');
 
 // Default locations
 const AGENTS_DIR = path.join(__dirname, '..', 'development', 'agents');
@@ -35,7 +35,7 @@ const TASKS_DIR = path.join(__dirname, '..', 'development', 'tasks');
 /**
  * Load and parse a schema file
  */
-async function loadSchema(schemaPath) {
+async function _loadSchema(schemaPath) {
   const content = await fs.readFile(schemaPath, 'utf-8');
   return JSON.parse(content);
 }

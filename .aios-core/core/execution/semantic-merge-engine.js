@@ -240,7 +240,7 @@ class SemanticAnalyzer {
   /**
    * Compute semantic changes between two element sets
    */
-  computeChanges(before, after, language) {
+  computeChanges(before, after, _language) {
     const changes = [];
 
     // Compare imports
@@ -474,7 +474,7 @@ class ConflictDetector {
           analysisA.changes,
           taskB,
           analysisB.changes,
-          analysisA.filePath
+          analysisA.filePath,
         );
 
         conflicts.push(...taskConflicts);
@@ -670,12 +670,12 @@ class AutoMerger {
     // This is a simplified version - real implementation would parse AST
     let mergedContent = baseContent;
 
-    for (const [taskId, content] of Object.entries(taskContents)) {
+    for (const [_taskId, content] of Object.entries(taskContents)) {
       for (const funcName of functionNames) {
         // Check if function exists in this task's content but not in merged
         const funcRegex = new RegExp(
           `(?:export\\s+)?(?:async\\s+)?function\\s+${funcName}\\s*\\([^)]*\\)\\s*\\{[^}]*\\}`,
-          'g'
+          'g',
         );
 
         const match = content.match(funcRegex);
@@ -824,7 +824,7 @@ Provide ONLY the merged code in a code block. No explanations outside the code b
             encoding: 'utf8',
             maxBuffer: 10 * 1024 * 1024,
             timeout: 120000,
-          }
+          },
         );
         resolve(result);
       } catch (error) {
@@ -1378,7 +1378,7 @@ class SemanticMergeEngine extends EventEmitter {
           filePath,
           baseContent,
           taskContent,
-          taskId
+          taskId,
         );
         taskContents[taskId] = taskContent;
       }
@@ -1450,7 +1450,7 @@ class SemanticMergeEngine extends EventEmitter {
         const aiResult = await this.aiResolver.resolveConflict(
           conflict,
           baseContent,
-          taskSnapshots
+          taskSnapshots,
         );
         results.push({
           conflict,
@@ -1700,7 +1700,7 @@ class SemanticMergeEngine extends EventEmitter {
 
     const reportPath = path.join(
       this.storageDir,
-      `merge-report-${new Date().toISOString().replace(/[:.]/g, '-')}.json`
+      `merge-report-${new Date().toISOString().replace(/[:.]/g, '-')}.json`,
     );
 
     fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));

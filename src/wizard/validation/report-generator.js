@@ -52,7 +52,7 @@ async function generateReport(validationResults) {
 
   // Warnings Section - only show high severity warnings
   const importantWarnings = validationResults.warnings.filter(
-    (w) => w.severity === 'high' || w.severity === 'critical'
+    (w) => w.severity === 'high' || w.severity === 'critical',
   );
   if (importantWarnings.length > 0) {
     lines.push('');
@@ -188,7 +188,7 @@ function formatMCPSection(mcpResults) {
  */
 function formatDependenciesSection(depsResults) {
   const allSuccess = depsResults.checks.every(
-    (c) => c.status === 'success' || c.status === 'skipped'
+    (c) => c.status === 'success' || c.status === 'skipped',
   );
   const icon = allSuccess ? chalk.green('✅') : chalk.yellow('⚠️');
 
@@ -235,12 +235,12 @@ function formatOverallStatus(validationResults) {
 
     case 'partial':
       return chalk.bold.yellow(
-        `Overall Status: ⚠️  PARTIAL SUCCESS (${errorCount} issue${errorCount !== 1 ? 's' : ''} to review)`
+        `Overall Status: ⚠️  PARTIAL SUCCESS (${errorCount} issue${errorCount !== 1 ? 's' : ''} to review)`,
       );
 
     case 'failed':
       return chalk.bold.red(
-        `Overall Status: ❌ FAILED (${errorCount} error${errorCount !== 1 ? 's' : ''})`
+        `Overall Status: ❌ FAILED (${errorCount} error${errorCount !== 1 ? 's' : ''})`,
       );
 
     default:

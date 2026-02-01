@@ -338,7 +338,7 @@ function migrateTask(filePath) {
   
   try {
     execSync(`node "${validatePath}" "${filePath}"`, { stdio: 'inherit' });
-  } catch (error) {
+  } catch (_error) {
     // Validation failed - expected for TODOs
     console.log(`${colors.yellow}⚠ Validation failed - fill TODOs and re-validate${colors.reset}\n`);
   }

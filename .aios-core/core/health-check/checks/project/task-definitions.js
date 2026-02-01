@@ -142,7 +142,7 @@ class TaskDefinitionsCheck extends BaseCheck {
    * @param {string} filePath - File path for context
    * @returns {Object} Validation result
    */
-  validateTaskDefinition(content, filePath) {
+  validateTaskDefinition(content, _filePath) {
     const errors = [];
 
     try {

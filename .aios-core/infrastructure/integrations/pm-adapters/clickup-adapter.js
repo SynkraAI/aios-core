@@ -9,7 +9,7 @@
  */
 
 const fs = require('fs');
-const path = require('path');
+const _path = require('path');
 const yaml = require('js-yaml');
 const { PMAdapter } = require('../../scripts/pm-adapter');
 const {
@@ -148,7 +148,7 @@ class ClickUpAdapter extends PMAdapter {
 
       // Get task from ClickUp
       const tool = await this._getClickUpTool();
-      const task = await tool.getTask({ taskId });
+      const _task = await tool.getTask({ taskId });
 
       // For now, just confirm it exists
       // Future: Compare task fields with local story and return differences
@@ -302,7 +302,7 @@ class ClickUpAdapter extends PMAdapter {
     try {
       const { resolveTool } = require('../../scripts/tool-resolver');
       return await resolveTool('clickup');
-    } catch (error) {
+    } catch (_error) {
       // Fall back to global references
       return {
         updateTask: global.mcp__clickup__update_task,

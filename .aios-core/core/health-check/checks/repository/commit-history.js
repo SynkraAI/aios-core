@@ -87,7 +87,7 @@ class CommitHistoryCheck extends BaseCheck {
         const isConventional = COMMIT_PREFIXES.some(
           (prefix) =>
             message.toLowerCase().startsWith(`${prefix}:`) ||
-            message.toLowerCase().startsWith(`${prefix}(`)
+            message.toLowerCase().startsWith(`${prefix}(`),
         );
 
         if (isConventional) conventionalCount++;

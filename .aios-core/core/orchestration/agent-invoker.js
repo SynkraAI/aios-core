@@ -397,7 +397,7 @@ class AgentInvoker extends EventEmitter {
     if (this.executor) {
       return await this._executeWithTimeout(
         () => this.executor(agent, task, context),
-        this.defaultTimeout
+        this.defaultTimeout,
       );
     }
 
@@ -422,7 +422,7 @@ class AgentInvoker extends EventEmitter {
     return Promise.race([
       fn(),
       new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Task execution timed out')), timeout)
+        setTimeout(() => reject(new Error('Task execution timed out')), timeout),
       ),
     ]);
   }

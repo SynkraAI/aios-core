@@ -111,7 +111,7 @@ class ChecklistRunner {
             }
           }
         }
-      } catch (e) {
+      } catch (_e) {
         // Invalid YAML - continue
       }
     }

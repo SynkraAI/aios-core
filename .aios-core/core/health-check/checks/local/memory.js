@@ -47,7 +47,7 @@ class MemoryCheck extends BaseCheck {
    * @param {Object} context - Execution context
    * @returns {Promise<Object>} Check result
    */
-  async execute(context) {
+  async execute(_context) {
     const totalMemory = os.totalmem();
     const freeMemory = os.freemem();
     const usedMemory = totalMemory - freeMemory;
@@ -78,7 +78,7 @@ class MemoryCheck extends BaseCheck {
           healable: false,
           healingTier: 3,
           details,
-        }
+        },
       );
     }
 

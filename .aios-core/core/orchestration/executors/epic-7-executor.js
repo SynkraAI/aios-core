@@ -54,7 +54,7 @@ class Epic7Executor extends EpicExecutor {
     this._startExecution();
 
     try {
-      const { qaReport, patterns, sessionInsights, storyId, techStack } = context;
+      const { qaReport, patterns: _patterns, sessionInsights, storyId, techStack } = context;
 
       this._log(`Executing Memory Layer for ${storyId}`);
 
@@ -195,9 +195,9 @@ class Epic7Executor extends EpicExecutor {
       timestamp: new Date().toISOString(),
       techStack: techStack
         ? {
-            frontend: techStack.frontend?.framework,
-            database: techStack.database?.type,
-          }
+          frontend: techStack.frontend?.framework,
+          database: techStack.database?.type,
+        }
         : null,
       outcome: qaReport?.passed ? 'success' : 'needs_improvement',
       patternsCount: patterns.length,
@@ -302,7 +302,7 @@ class Epic7Executor extends EpicExecutor {
    */
   async _createSessionSummary(storyId, data) {
     const summaryPath = this._getPath('.aios', 'session-summaries', `${storyId}-${Date.now()}.md`);
-    const { patterns, learnings, suggestions, sessionInsights } = data;
+    const { patterns, learnings: _learnings, suggestions, sessionInsights } = data;
 
     let summary = `# Session Summary: ${storyId}
 

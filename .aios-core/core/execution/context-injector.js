@@ -68,7 +68,7 @@ class ContextInjector {
    * @param {Object} baseContext - Base context
    * @returns {Promise<string>} - Formatted context string
    */
-  async inject(task, baseContext = {}) {
+  async inject(task, _baseContext = {}) {
     const startTime = Date.now();
     const cacheKey = this.getCacheKey(task);
 
@@ -189,7 +189,7 @@ class ContextInjector {
 
       // Try to detect conventions
       context.conventions = await this.detectConventions();
-    } catch (error) {
+    } catch (_error) {
       // Silently fail - context is optional enhancement
     }
 
@@ -229,7 +229,7 @@ class ContextInjector {
       } else if (fs.existsSync(path.join(this.rootPath, '__tests__'))) {
         conventions.push('Tests in /__tests__ directory');
       }
-    } catch (error) {
+    } catch (_error) {
       // Ignore errors
     }
 
@@ -311,7 +311,7 @@ class ContextInjector {
         content: r.content || r.summary,
         relevance: r.score || r.relevance,
       }));
-    } catch (error) {
+    } catch (_error) {
       return [];
     }
   }
@@ -326,7 +326,7 @@ class ContextInjector {
 
     try {
       return await this.gotchasMemory.getContextForTask(task.description || task.id);
-    } catch (error) {
+    } catch (_error) {
       return [];
     }
   }
@@ -345,7 +345,7 @@ class ContextInjector {
         reason: d.reason,
         timestamp: d.timestamp,
       }));
-    } catch (error) {
+    } catch (_error) {
       return [];
     }
   }

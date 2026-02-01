@@ -36,7 +36,7 @@ class CircularDependencyError extends Error {
     if (this.cycle.length < 2) {
       return 'Remove the self-referencing dependency';
     }
-    const lastEdge = `${this.cycle[this.cycle.length - 2]} → ${this.cycle[this.cycle.length - 1]}`;
+    const _lastEdge = `${this.cycle[this.cycle.length - 2]} → ${this.cycle[this.cycle.length - 1]}`;
     return `Consider removing the dependency from ${this.cycle[this.cycle.length - 1]} to ${this.cycle[0]}`;
   }
 }

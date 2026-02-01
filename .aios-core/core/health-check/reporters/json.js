@@ -144,7 +144,7 @@ class JSONReporter {
       (r) =>
         r.status === CheckStatus.FAIL ||
         r.status === CheckStatus.WARNING ||
-        r.status === CheckStatus.ERROR
+        r.status === CheckStatus.ERROR,
     );
 
     const grouped = {
@@ -200,7 +200,7 @@ class JSONReporter {
       .filter(
         (r) =>
           r.status === CheckStatus.WARNING ||
-          (r.severity === CheckSeverity.LOW && r.status !== CheckStatus.PASS)
+          (r.severity === CheckSeverity.LOW && r.status !== CheckStatus.PASS),
       )
       .map((r) => ({
         id: r.checkId,

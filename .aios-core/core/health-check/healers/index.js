@@ -77,7 +77,7 @@ class HealerManager {
     // Filter healable issues
     const healableResults = checkResults.filter(
       (r) =>
-        r.healable && r.healingTier > 0 && r.healingTier <= maxTier && r.status !== CheckStatus.PASS
+        r.healable && r.healingTier > 0 && r.healingTier <= maxTier && r.status !== CheckStatus.PASS,
     );
 
     for (const result of healableResults) {
@@ -187,7 +187,7 @@ class HealerManager {
       if (healer.targetFile && !this.dryRun) {
         try {
           await this.backup.restore(healer.targetFile);
-        } catch (rollbackError) {
+        } catch (_rollbackError) {
           // Log rollback failure
         }
       }
@@ -246,7 +246,7 @@ class HealerManager {
     const { checkId, recommendation } = checkResult;
 
     const healer = this.healers.get(checkId);
-    const guide = healer?.manualGuide || recommendation;
+    const _guide = healer?.manualGuide || recommendation;
 
     return {
       checkId,

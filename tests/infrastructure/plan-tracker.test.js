@@ -418,7 +418,7 @@ describe('PlanTracker', () => {
 
       // Verify write was called with status file
       const dashboardWriteCall = fs.writeFileSync.mock.calls.find((c) =>
-        c[0].includes('status.json')
+        c[0].includes('status.json'),
       );
 
       expect(dashboardWriteCall).toBeDefined();

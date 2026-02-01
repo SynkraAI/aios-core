@@ -45,7 +45,7 @@ class ApiEndpointsCheck extends BaseCheck {
    * @param {Object} context - Execution context
    * @returns {Promise<Object>} Check result
    */
-  async execute(context) {
+  async execute(_context) {
     const results = [];
     const failures = [];
     const criticalFailures = [];
@@ -131,7 +131,7 @@ class ApiEndpointsCheck extends BaseCheck {
           } else {
             reject(new Error(`HTTP ${res.statusCode}`));
           }
-        }
+        },
       );
 
       req.on('error', reject);

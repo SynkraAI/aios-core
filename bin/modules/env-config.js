@@ -162,7 +162,7 @@ async function collectAPIKeys() {
  * @param {Object} wizardState - Wizard state
  * @returns {Promise<Object>} Result with file path or error
  */
-async function generateEnvFile(projectPath, apiKeys, wizardState) {
+async function generateEnvFile(projectPath, apiKeys, _wizardState) {
   try {
     const envPath = path.join(projectPath, '.env');
 

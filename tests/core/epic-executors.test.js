@@ -198,7 +198,7 @@ describe('Epic Executors (Story 0.3)', () => {
         'stories',
         'TEST-001',
         'plan',
-        'implementation.yaml'
+        'implementation.yaml',
       );
       expect(await fs.pathExists(planPath)).toBe(true);
     });

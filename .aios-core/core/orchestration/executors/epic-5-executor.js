@@ -122,7 +122,7 @@ class Epic5Executor extends EpicExecutor {
           failedEpic,
           strategy,
           result: recoveryResult,
-        })
+        }),
       );
 
       return this._completeExecution({
@@ -211,7 +211,7 @@ class Epic5Executor extends EpicExecutor {
    * Retry with same approach
    * @private
    */
-  async _executeRetrySameApproach(context) {
+  async _executeRetrySameApproach(_context) {
     this._log('Executing retry with same approach');
 
     return {
@@ -253,7 +253,7 @@ class Epic5Executor extends EpicExecutor {
    * Skip the failing phase
    * @private
    */
-  async _executeSkipPhase(context) {
+  async _executeSkipPhase(_context) {
     this._log('Skipping failing phase');
 
     return {

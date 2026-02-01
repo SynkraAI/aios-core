@@ -54,7 +54,7 @@ class EnvironmentVarsCheck extends BaseCheck {
    * @param {Object} context - Execution context
    * @returns {Promise<Object>} Check result
    */
-  async execute(context) {
+  async execute(_context) {
     const missingRequired = [];
     const missingRecommended = [];
     const aiosVars = [];
@@ -107,7 +107,7 @@ class EnvironmentVarsCheck extends BaseCheck {
             missingRecommended,
             aiosVars,
           },
-        }
+        },
       );
     }
 

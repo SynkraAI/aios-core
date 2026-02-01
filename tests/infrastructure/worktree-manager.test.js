@@ -137,7 +137,7 @@ describe('WorktreeManager', () => {
           '-b',
           'auto-claude/STORY-42',
         ],
-        expect.objectContaining({ cwd: projectRoot })
+        expect.objectContaining({ cwd: projectRoot }),
       );
       expect(result).toHaveProperty('storyId', 'STORY-42');
     });
@@ -146,7 +146,7 @@ describe('WorktreeManager', () => {
       fs.access.mockResolvedValue(undefined); // worktree exists
 
       await expect(manager.create('STORY-42')).rejects.toThrow(
-        "Worktree for story 'STORY-42' already exists"
+        "Worktree for story 'STORY-42' already exists",
       );
     });
 
@@ -157,7 +157,7 @@ describe('WorktreeManager', () => {
           .fill(null)
           .map(
             (_, i) =>
-              `worktree /test/project/.aios/worktrees/STORY-${i}\nbranch refs/heads/auto-claude/STORY-${i}`
+              `worktree /test/project/.aios/worktrees/STORY-${i}\nbranch refs/heads/auto-claude/STORY-${i}`,
           )
           .join('\n\n'),
         stderr: '',
@@ -176,7 +176,7 @@ describe('WorktreeManager', () => {
         .mockResolvedValue(undefined); // access checks for listing
 
       await expect(manager.create('STORY-NEW')).rejects.toThrow(
-        /Maximum worktrees limit \(10\) reached/
+        /Maximum worktrees limit \(10\) reached/,
       );
     });
   });
@@ -193,12 +193,12 @@ describe('WorktreeManager', () => {
       expect(execa).toHaveBeenCalledWith(
         'git',
         ['worktree', 'remove', path.join(projectRoot, '.aios/worktrees', 'STORY-42')],
-        expect.objectContaining({ cwd: projectRoot })
+        expect.objectContaining({ cwd: projectRoot }),
       );
       expect(execa).toHaveBeenCalledWith(
         'git',
         ['branch', '-d', 'auto-claude/STORY-42'],
-        expect.objectContaining({ cwd: projectRoot })
+        expect.objectContaining({ cwd: projectRoot }),
       );
       expect(result).toBe(true);
     });
@@ -209,12 +209,12 @@ describe('WorktreeManager', () => {
       expect(execa).toHaveBeenCalledWith(
         'git',
         ['worktree', 'remove', path.join(projectRoot, '.aios/worktrees', 'STORY-42'), '--force'],
-        expect.objectContaining({ cwd: projectRoot })
+        expect.objectContaining({ cwd: projectRoot }),
       );
       expect(execa).toHaveBeenCalledWith(
         'git',
         ['branch', '-D', 'auto-claude/STORY-42'],
-        expect.objectContaining({ cwd: projectRoot })
+        expect.objectContaining({ cwd: projectRoot }),
       );
     });
 
@@ -222,7 +222,7 @@ describe('WorktreeManager', () => {
       fs.access.mockRejectedValue(new Error('ENOENT'));
 
       await expect(manager.remove('STORY-42')).rejects.toThrow(
-        "Worktree for story 'STORY-42' does not exist"
+        "Worktree for story 'STORY-42' does not exist",
       );
     });
   });
@@ -376,14 +376,14 @@ branch refs/heads/auto-claude/STORY-OLD`;
             storyId: 'STORY-42',
             success: true,
             timestamp: '2026-01-28T10:00:00.000Z',
-          })
+          }),
         )
         .mockResolvedValueOnce(
           JSON.stringify({
             storyId: 'STORY-42',
             success: true,
             timestamp: '2026-01-29T10:00:00.000Z',
-          })
+          }),
         );
 
       const result = await manager.getMergeHistory('STORY-42');

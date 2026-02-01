@@ -19,7 +19,7 @@ const ElicitationSessionManager = require('./session-manager');
 let SecurityChecker = null;
 try {
   SecurityChecker = require('../../infrastructure/scripts/security-checker');
-} catch (e) {
+} catch (_e) {
   // Security checker not available - will use basic validation
   console.warn('[ElicitationEngine] SecurityChecker not found, using basic validation');
 }

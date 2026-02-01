@@ -90,7 +90,7 @@ class BaseCheck {
    * @param {Object} context - Execution context
    * @returns {Promise<CheckResult>} Check result
    */
-  async execute(context) {
+  async execute(_context) {
     throw new Error('execute() must be implemented by subclass');
   }
 

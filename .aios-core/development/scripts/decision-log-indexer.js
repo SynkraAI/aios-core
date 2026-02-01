@@ -185,7 +185,7 @@ async function addToIndex(logPath) {
           })
           .filter(m => m !== null);
       }
-    } catch (error) {
+    } catch (_error) {
       // Index doesn't exist yet, that's okay
       console.log('Creating new decision log index');
     }

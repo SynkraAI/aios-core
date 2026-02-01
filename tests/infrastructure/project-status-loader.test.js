@@ -116,7 +116,7 @@ describe('ProjectStatusLoader', () => {
       expect(execa).toHaveBeenCalledWith(
         'git',
         ['rev-parse', '--is-inside-work-tree'],
-        expect.objectContaining({ cwd: projectRoot })
+        expect.objectContaining({ cwd: projectRoot }),
       );
     });
 

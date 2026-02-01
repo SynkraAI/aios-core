@@ -95,7 +95,7 @@ class EnvFileCheck extends BaseCheck {
           {
             recommendation: 'Check .env.example and add missing variables to .env',
             details: { found, ...details },
-          }
+          },
         );
       }
     }

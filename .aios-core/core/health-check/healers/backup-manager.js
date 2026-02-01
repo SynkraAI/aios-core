@@ -174,7 +174,7 @@ class BackupManager {
       }
 
       return backups.sort((a, b) => b.created - a.created);
-    } catch (error) {
+    } catch (_error) {
       return [];
     }
   }
@@ -206,14 +206,14 @@ class BackupManager {
             }
 
             removed++;
-          } catch (error) {
+          } catch (_error) {
             // Ignore individual deletion errors
           }
         }
       }
 
       return removed;
-    } catch (error) {
+    } catch (_error) {
       return 0;
     }
   }
@@ -236,7 +236,7 @@ class BackupManager {
       this.backups.delete(absolutePath);
       this.metadata.delete(backupPath);
       return true;
-    } catch (error) {
+    } catch (_error) {
       return false;
     }
   }

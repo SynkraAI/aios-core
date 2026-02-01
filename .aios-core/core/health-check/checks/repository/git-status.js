@@ -104,7 +104,7 @@ class GitStatusCheck extends BaseCheck {
             {
               recommendation: 'Consider pushing your commits',
               details,
-            }
+            },
           );
         }
 
@@ -114,7 +114,7 @@ class GitStatusCheck extends BaseCheck {
             {
               recommendation: 'Consider pulling latest changes',
               details,
-            }
+            },
           );
         }
 

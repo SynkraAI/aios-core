@@ -109,7 +109,7 @@ function markSessionFailed(sessionId) {
   try {
     const { capture: cap } = getInstances();
     cap.markSessionFailed(sessionId);
-  } catch (error) {
+  } catch (_error) {
     // Ignore errors
   }
 }
@@ -124,7 +124,7 @@ function clearSession(sessionId) {
   try {
     const { capture: cap } = getInstances();
     cap.clearSession(sessionId);
-  } catch (error) {
+  } catch (_error) {
     // Ignore errors
   }
 }

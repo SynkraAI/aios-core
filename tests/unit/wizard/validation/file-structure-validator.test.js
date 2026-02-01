@@ -57,7 +57,7 @@ describe('File Structure Validator', () => {
             severity: 'critical',
             code: 'ENV_FILE_MISSING',
           }),
-        ])
+        ]),
       );
     });
 
@@ -80,7 +80,7 @@ describe('File Structure Validator', () => {
             severity: 'high',
             code: 'CORE_CONFIG_MISSING',
           }),
-        ])
+        ]),
       );
     });
 
@@ -136,7 +136,7 @@ describe('File Structure Validator', () => {
             severity: 'critical',
             code: 'VALIDATION_ERROR',
           }),
-        ])
+        ]),
       );
     });
 
@@ -161,7 +161,7 @@ describe('File Structure Validator', () => {
           expect.objectContaining({
             code: 'ENV_PERMISSIONS_INSECURE',
           }),
-        ])
+        ]),
       );
 
       // Cleanup

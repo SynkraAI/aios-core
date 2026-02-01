@@ -140,7 +140,7 @@ async function runValidate() {
 
     // Parse and execute
     await validateCmd.parseAsync(['node', 'aios', 'validate', ...validateArgs]);
-  } catch (error) {
+  } catch (_error) {
     // Fallback: Run quick validation inline
     console.log('Running installation validation...\n');
 
@@ -150,7 +150,7 @@ async function runValidate() {
         '..',
         'src',
         'installer',
-        'post-install-validator.js'
+        'post-install-validator.js',
       );
       const { PostInstallValidator, formatReport } = require(validatorPath);
 
@@ -200,7 +200,7 @@ function runDoctor() {
   const nodeOk = compareVersions(nodeVersion, requiredNodeVersion) >= 0;
 
   console.log(
-    `${nodeOk ? '✔' : '✗'} Node.js version: ${process.version} ${nodeOk ? '(meets requirement: >=18.0.0)' : '(requires >=18.0.0)'}`
+    `${nodeOk ? '✔' : '✗'} Node.js version: ${process.version} ${nodeOk ? '(meets requirement: >=18.0.0)' : '(requires >=18.0.0)'}`,
   );
   if (!nodeOk) hasErrors = true;
 

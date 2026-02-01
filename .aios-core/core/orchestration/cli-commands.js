@@ -229,7 +229,7 @@ async function orchestrateStatus(storyId, options = {}) {
     for (const [num, epic] of Object.entries(state.epics || {})) {
       const config = epicConfig[num] || { name: `Epic ${num}` };
       console.log(
-        `  ${formatEpicStatus(epic.status)} Epic ${num}: ${config.name} - ${epic.status}`
+        `  ${formatEpicStatus(epic.status)} Epic ${num}: ${config.name} - ${epic.status}`,
       );
     }
 

@@ -133,7 +133,7 @@ class DependenciesCheck extends BaseCheck {
       promptQuestion: 'Run npm install to fix dependency issues?',
       promptDescription: 'This will run npm install in your project directory',
       risk: 'low',
-      fix: async (result) => {
+      fix: async (_result) => {
         const { exec } = require('child_process');
         const util = require('util');
         const execPromise = util.promisify(exec);

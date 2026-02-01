@@ -120,10 +120,10 @@ class HealthCheckEngine {
     const timeout = this.timeouts[mode] || this.timeouts.quick;
 
     // Group checks by domain for parallel execution
-    const checksByDomain = this.groupByDomain(checks);
+    const _checksByDomain = this.groupByDomain(checks);
 
     // Execute checks by priority
-    const priorityOrder = [
+    const _priorityOrder = [
       CheckSeverity.CRITICAL,
       CheckSeverity.HIGH,
       CheckSeverity.MEDIUM,
@@ -150,8 +150,8 @@ class HealthCheckEngine {
       if (this.parallel) {
         // Group by domain and run domains in parallel
         const domainGroups = this.groupByDomain(remainingChecks);
-        const domainPromises = Object.entries(domainGroups).map(([domain, domainChecks]) =>
-          this.runCheckGroup(domainChecks, timeout, runConfig)
+        const domainPromises = Object.entries(domainGroups).map(([_domain, domainChecks]) =>
+          this.runCheckGroup(domainChecks, timeout, runConfig),
         );
 
         const domainResults = await Promise.all(domainPromises);
@@ -254,7 +254,7 @@ class HealthCheckEngine {
       const timeoutPromise = new Promise((_, reject) => {
         timeoutId = setTimeout(
           () => reject(new Error('Check timeout')),
-          Math.min(timeout, check.timeout || 5000)
+          Math.min(timeout, check.timeout || 5000),
         );
       });
 
@@ -360,7 +360,7 @@ class HealthCheckEngine {
     return results.some(
       (r) =>
         r.severity === CheckSeverity.CRITICAL &&
-        (r.status === CheckStatus.FAIL || r.status === CheckStatus.ERROR)
+        (r.status === CheckStatus.FAIL || r.status === CheckStatus.ERROR),
     );
   }
 

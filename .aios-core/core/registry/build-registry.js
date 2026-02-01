@@ -142,7 +142,7 @@ async function extractMarkdownDescription(filePath, baseDir) {
       }
     }
     return 'No description available';
-  } catch (error) {
+  } catch (_error) {
     return 'No description available';
   }
 }
@@ -171,7 +171,7 @@ async function extractJSDescription(filePath, baseDir) {
       }
     }
     return 'JavaScript utility script';
-  } catch (error) {
+  } catch (_error) {
     return 'JavaScript utility script';
   }
 }

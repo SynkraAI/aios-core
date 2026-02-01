@@ -133,7 +133,7 @@ class DashboardIntegration extends EventEmitter {
           orch.storyId,
           data.previousState || 'unknown',
           data.newState,
-          orch.getProgressPercentage?.() || 0
+          orch.getProgressPercentage?.() || 0,
         );
       }
 

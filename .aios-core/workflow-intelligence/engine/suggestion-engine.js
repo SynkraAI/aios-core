@@ -191,7 +191,7 @@ class SuggestionEngine {
       const match = wis.matchWorkflow(commands);
 
       // Calculate overall confidence
-      const avgConfidence =
+      const _avgConfidence =
         suggestions.length > 0
           ? suggestions.reduce((sum, s) => sum + (s.confidence || 0), 0) / suggestions.length
           : 0;
@@ -278,7 +278,7 @@ class SuggestionEngine {
       if (fs.existsSync(resolved)) {
         return resolved;
       }
-    } catch (error) {
+    } catch (_error) {
       // File doesn't exist
     }
 
@@ -300,7 +300,7 @@ class SuggestionEngine {
           return content.replace('ref: refs/heads/', '');
         }
       }
-    } catch (error) {
+    } catch (_error) {
       // Git not available or not a git repo
     }
     return null;
@@ -328,7 +328,7 @@ class SuggestionEngine {
         // For production, would use git status command
         state.hasUncommittedChanges = true; // Assume true for now
       }
-    } catch (error) {
+    } catch (_error) {
       // Ignore
     }
 

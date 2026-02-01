@@ -147,7 +147,7 @@ class CheckRegistry {
    */
   getHealableChecks(maxTier = 3) {
     return this.getAllChecks().filter(
-      (check) => check.healingTier > 0 && check.healingTier <= maxTier
+      (check) => check.healingTier > 0 && check.healingTier <= maxTier,
     );
   }
 

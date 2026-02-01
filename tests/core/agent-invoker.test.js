@@ -212,7 +212,7 @@ outputSchema:
       type: string
 ---
 # Task with Schema
-`
+`,
       );
 
       const inv = new AgentInvoker({

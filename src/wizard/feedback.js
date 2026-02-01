@@ -91,7 +91,7 @@ function createProgressBar(total, options = {}) {
       hideCursor: true,
       ...options,
     },
-    cliProgress.Presets.shades_classic
+    cliProgress.Presets.shades_classic,
   );
 
   progressBar.start(total, 0, { task: 'Initializing...' });

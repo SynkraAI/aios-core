@@ -10,7 +10,7 @@
 const { DecisionContext } = require('./decision-context');
 const { generateDecisionLog } = require('./decision-log-generator');
 const fs = require('fs').promises;
-const path = require('path');
+const _path = require('path');
 const yaml = require('js-yaml');
 
 // Global context instance (singleton pattern for yolo mode session)

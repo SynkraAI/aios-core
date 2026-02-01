@@ -149,7 +149,7 @@ function verifyEd25519(message, signature, publicKey) {
     });
 
     return crypto.verify(null, message, keyObject, signature);
-  } catch (error) {
+  } catch (_error) {
     // Fallback error - verification failed
     return false;
   }

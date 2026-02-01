@@ -75,7 +75,7 @@ class PatternStore {
 
     // Check for existing pattern with same sequence
     const existingIndex = data.patterns.findIndex((p) =>
-      this._sequenceEquals(p.sequence, normalizedPattern.sequence)
+      this._sequenceEquals(p.sequence, normalizedPattern.sequence),
     );
 
     if (existingIndex >= 0) {
@@ -290,7 +290,7 @@ class PatternStore {
   getActivePatterns() {
     const data = this._load();
     return data.patterns.filter(
-      (p) => p.status === PATTERN_STATUS.ACTIVE || p.status === PATTERN_STATUS.PROMOTED
+      (p) => p.status === PATTERN_STATUS.ACTIVE || p.status === PATTERN_STATUS.PROMOTED,
     );
   }
 

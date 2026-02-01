@@ -109,7 +109,7 @@ describe('Recovery Handler (Story 0.5)', () => {
       const result = await handler.handleEpicFailure(
         3,
         new Error('Network timeout: ETIMEDOUT'),
-        {}
+        {},
       );
 
       expect(result.strategy).toBe(RecoveryStrategy.RETRY_SAME_APPROACH);
@@ -210,7 +210,7 @@ describe('Recovery Handler (Story 0.5)', () => {
 
       const epic3Logs = handler.getEpicLogs(3);
       expect(epic3Logs.every((l) => l.message.includes('3') || l.message.includes('epic-3'))).toBe(
-        true
+        true,
       );
     });
   });

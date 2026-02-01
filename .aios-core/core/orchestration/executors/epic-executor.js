@@ -57,7 +57,7 @@ class EpicExecutor {
    * @returns {Promise<Object>} Execution result
    * @abstract
    */
-  async execute(context) {
+  async execute(_context) {
     throw new Error(`${this.constructor.name} must implement execute()`);
   }
 

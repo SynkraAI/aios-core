@@ -90,34 +90,34 @@ class PatternValidator {
     // Rule 1: Minimum sequence length
     if (pattern.sequence.length < this.rules.minSequenceLength) {
       errors.push(
-        `Sequence too short: ${pattern.sequence.length} < minimum ${this.rules.minSequenceLength}`
+        `Sequence too short: ${pattern.sequence.length} < minimum ${this.rules.minSequenceLength}`,
       );
     }
 
     // Rule 2: Maximum sequence length
     if (pattern.sequence.length > this.rules.maxSequenceLength) {
       warnings.push(
-        `Sequence unusually long: ${pattern.sequence.length} > ${this.rules.maxSequenceLength}`
+        `Sequence unusually long: ${pattern.sequence.length} > ${this.rules.maxSequenceLength}`,
       );
     }
 
     // Rule 3: Minimum occurrences for promotion
     if (pattern.occurrences !== undefined && pattern.occurrences < this.rules.minOccurrences) {
       warnings.push(
-        `Low occurrences: ${pattern.occurrences} < minimum ${this.rules.minOccurrences} for promotion`
+        `Low occurrences: ${pattern.occurrences} < minimum ${this.rules.minOccurrences} for promotion`,
       );
     }
 
     // Rule 4: Minimum success rate
     if (pattern.successRate !== undefined && pattern.successRate < this.rules.minSuccessRate) {
       errors.push(
-        `Success rate too low: ${(pattern.successRate * 100).toFixed(1)}% < ${(this.rules.minSuccessRate * 100).toFixed(1)}%`
+        `Success rate too low: ${(pattern.successRate * 100).toFixed(1)}% < ${(this.rules.minSuccessRate * 100).toFixed(1)}%`,
       );
     }
 
     // Rule 5: Must contain at least one key workflow command
     const hasKeyCommand = pattern.sequence.some((cmd) =>
-      this.rules.requiredKeyCommands.some((key) => cmd.includes(key))
+      this.rules.requiredKeyCommands.some((key) => cmd.includes(key)),
     );
     if (!hasKeyCommand) {
       errors.push('Sequence must contain at least one key workflow command');
@@ -131,7 +131,7 @@ class PatternValidator {
 
     // Rule 7: No duplicate consecutive commands
     const hasDuplicateConsecutive = pattern.sequence.some(
-      (cmd, i) => i > 0 && cmd === pattern.sequence[i - 1]
+      (cmd, i) => i > 0 && cmd === pattern.sequence[i - 1],
     );
     if (hasDuplicateConsecutive) {
       warnings.push('Pattern contains duplicate consecutive commands');

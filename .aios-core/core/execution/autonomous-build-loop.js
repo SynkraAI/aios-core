@@ -25,7 +25,7 @@ const path = require('path');
 const { EventEmitter } = require('events');
 
 // Import Epic 8.4 Build State Manager
-const { BuildStateManager, BuildStatus } = require('./build-state-manager');
+const { BuildStateManager } = require('./build-state-manager');
 
 // Import Epic 5 Recovery System
 let RecoveryTracker;
@@ -198,7 +198,7 @@ class AutonomousBuildLoop extends EventEmitter {
         } else {
           this.log(
             `Worktree creation failed: ${error.message}, continuing without isolation`,
-            'warn'
+            'warn',
           );
         }
       }
@@ -851,7 +851,7 @@ class AutonomousBuildLoop extends EventEmitter {
 
       lines.push(`Elapsed:    ${this.formatDuration(elapsed)}`);
       lines.push(
-        `Remaining:  ${remaining > 0 ? this.formatDuration(remaining) : chalk.red('TIMEOUT')}`
+        `Remaining:  ${remaining > 0 ? this.formatDuration(remaining) : chalk.red('TIMEOUT')}`,
       );
     }
 
@@ -865,12 +865,12 @@ class AutonomousBuildLoop extends EventEmitter {
         : 0;
 
     lines.push(
-      `Progress:   ${progress}% (${this.stats.completedSubtasks}/${this.stats.totalSubtasks})`
+      `Progress:   ${progress}% (${this.stats.completedSubtasks}/${this.stats.totalSubtasks})`,
     );
     lines.push(`Completed:  ${chalk.green(this.stats.completedSubtasks)}`);
     lines.push(`Failed:     ${chalk.red(this.stats.failedSubtasks)}`);
     lines.push(
-      `Iterations: ${this.stats.totalIterations} (${chalk.green(this.stats.successfulIterations)} ok, ${chalk.red(this.stats.failedIterations)} fail)`
+      `Iterations: ${this.stats.totalIterations} (${chalk.green(this.stats.successfulIterations)} ok, ${chalk.red(this.stats.failedIterations)} fail)`,
     );
     lines.push('');
 
@@ -993,22 +993,22 @@ ${chalk.cyan('Acceptance Criteria:')}
   // Event listeners for verbose output
   if (verbose) {
     loop.on(BuildEvent.BUILD_STARTED, (e) =>
-      console.log(chalk.blue(`\n▶ Build started: ${e.storyId}`))
+      console.log(chalk.blue(`\n▶ Build started: ${e.storyId}`)),
     );
     loop.on(BuildEvent.SUBTASK_STARTED, (e) =>
-      console.log(chalk.cyan(`  → Starting subtask: ${e.subtaskId}`))
+      console.log(chalk.cyan(`  → Starting subtask: ${e.subtaskId}`)),
     );
     loop.on(BuildEvent.ITERATION_STARTED, (e) =>
-      console.log(chalk.dim(`    Iteration ${e.iteration}/${e.maxIterations}`))
+      console.log(chalk.dim(`    Iteration ${e.iteration}/${e.maxIterations}`)),
     );
     loop.on(BuildEvent.SUBTASK_COMPLETED, (e) =>
-      console.log(chalk.green(`  ✓ Subtask completed: ${e.subtaskId}`))
+      console.log(chalk.green(`  ✓ Subtask completed: ${e.subtaskId}`)),
     );
     loop.on(BuildEvent.SUBTASK_FAILED, (e) =>
-      console.log(chalk.red(`  ✗ Subtask failed: ${e.subtaskId} - ${e.error}`))
+      console.log(chalk.red(`  ✗ Subtask failed: ${e.subtaskId} - ${e.error}`)),
     );
     loop.on(BuildEvent.BUILD_SUCCESS, (e) =>
-      console.log(chalk.green(`\n✓ Build successful! Duration: ${loop.formatDuration(e.duration)}`))
+      console.log(chalk.green(`\n✓ Build successful! Duration: ${loop.formatDuration(e.duration)}`)),
     );
     loop.on(BuildEvent.BUILD_FAILED, (e) => console.log(chalk.red(`\n✗ Build failed: ${e.error}`)));
   }

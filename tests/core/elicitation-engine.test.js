@@ -317,7 +317,7 @@ describe('ElicitationEngine', () => {
 
       expect(await engine.runValidator(validator, 'my-agent')).toBe(true);
       expect(await engine.runValidator(validator, 'My Agent')).toBe(
-        'Must be lowercase with hyphens'
+        'Must be lowercase with hyphens',
       );
     });
 
@@ -344,7 +344,7 @@ describe('ElicitationEngine', () => {
 
       expect(await engine.runValidator(validator, 'hello')).toBe(true);
       expect(await engine.runValidator(validator, 'this is too long')).toBe(
-        'Must be at most 10 characters'
+        'Must be at most 10 characters',
       );
     });
 

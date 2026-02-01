@@ -250,7 +250,7 @@ class GateEvaluator {
    * Run a single check
    * @private
    */
-  async _runCheck(checkName, fromEpic, epicResult, gateConfig) {
+  async _runCheck(checkName, fromEpic, epicResult, _gateConfig) {
     const result = {
       name: checkName,
       passed: false,
@@ -297,7 +297,7 @@ class GateEvaluator {
         result.severity = 'critical';
         break;
 
-      case 'no_critical_errors':
+      case 'no_critical_errors': {
         const criticalErrors = (epicResult.errors || []).filter((e) => e.severity === 'critical');
         result.passed = criticalErrors.length === 0;
         result.message = result.passed
@@ -305,6 +305,7 @@ class GateEvaluator {
           : `${criticalErrors.length} critical errors found`;
         result.severity = 'critical';
         break;
+      }
 
       // Epic 6 checks
       case 'qa_report_exists':
@@ -319,12 +320,13 @@ class GateEvaluator {
         result.severity = 'medium';
         break;
 
-      case 'tests_pass':
+      case 'tests_pass': {
         const allPass = epicResult.testResults?.every((t) => t.passed) ?? true;
         result.passed = allPass;
         result.message = allPass ? 'All tests pass' : 'Some tests failed';
         result.severity = 'high';
         break;
+      }
 
       default:
         // Unknown check - pass by default
@@ -340,7 +342,7 @@ class GateEvaluator {
    * Get default checks for a gate
    * @private
    */
-  _getDefaultChecks(fromEpic, toEpic) {
+  _getDefaultChecks(fromEpic, _toEpic) {
     switch (fromEpic) {
       case 3:
         return ['spec_exists', 'complexity_assessed'];
@@ -444,7 +446,7 @@ class GateEvaluator {
   getSummary() {
     const approved = this.results.filter((r) => r.verdict === GateVerdict.APPROVED).length;
     const needsRevision = this.results.filter(
-      (r) => r.verdict === GateVerdict.NEEDS_REVISION
+      (r) => r.verdict === GateVerdict.NEEDS_REVISION,
     ).length;
     const blocked = this.results.filter((r) => r.verdict === GateVerdict.BLOCKED).length;
 

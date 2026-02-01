@@ -69,7 +69,7 @@ class ConsoleReporter {
    * @returns {string} Formatted console output
    */
   async generate(data) {
-    const { checkResults, scores, healingResults, config } = data;
+    const { checkResults, scores, healingResults, config: _config } = data;
     const lines = [];
 
     // Header
@@ -93,7 +93,7 @@ class ConsoleReporter {
       (r) =>
         r.status === CheckStatus.FAIL ||
         r.status === CheckStatus.WARNING ||
-        r.status === CheckStatus.ERROR
+        r.status === CheckStatus.ERROR,
     );
 
     if (issues.length > 0) {

@@ -9,7 +9,7 @@
 
 const { colors } = require('../utils/aios-colors');
 const { createInquirerValidator, validateProjectType } = require('./validators');
-const { t, getLanguageChoices, setLanguage } = require('./i18n');
+const { t, getLanguageChoices, setLanguage: _setLanguage } = require('./i18n');
 
 /**
  * Get language selection question (first question)

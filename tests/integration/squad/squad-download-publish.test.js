@@ -113,7 +113,7 @@ license: MIT
 components:
   tasks:
     - sample-task.md
-`
+`,
       );
 
       await fs.writeFile(
@@ -134,14 +134,14 @@ Checklist:
 # Sample Task
 
 This is a sample task for integration testing.
-`
+`,
       );
 
       expect(
         await fs
           .access(squadPath)
           .then(() => true)
-          .catch(() => false)
+          .catch(() => false),
       ).toBe(true);
 
       // Step 2: Validate the created squad
@@ -190,7 +190,7 @@ This is a sample task for integration testing.
           expect(squad).toHaveProperty('type');
         }
       },
-      30000
+      30000,
     ); // 30 second timeout for network
   });
 
@@ -224,12 +224,12 @@ This is a sample task for integration testing.
             fs
               .access(path.join(result.path, 'config.yaml'))
               .then(() => true)
-              .catch(() => false)
+              .catch(() => false),
           );
 
         expect(manifestExists).toBe(true);
       },
-      60000
+      60000,
     ); // 60 second timeout for network
   });
 
@@ -260,7 +260,7 @@ author: Test Suite
 components:
   tasks:
     - sample-task.md
-`
+`,
         );
 
         await fs.writeFile(
@@ -281,7 +281,7 @@ Checklist:
 # Sample Task
 
 This is a sample task for testing.
-`
+`,
         );
 
         // gh auth is mocked globally
@@ -317,7 +317,7 @@ author: Registry
 components:
   tasks:
     - sample-task.md
-`
+`,
       );
 
       await fs.writeFile(
@@ -336,7 +336,7 @@ Checklist:
 ---
 
 # Sample Task
-`
+`,
       );
 
       // Validate the mock squad
@@ -370,7 +370,7 @@ Checklist:
 version: 1.0.0
 description: Test
 author: Test
-`
+`,
       );
 
       await fs.writeFile(
@@ -385,7 +385,7 @@ Saida: "test"
 Checklist: []
 ---
 # Test
-`
+`,
       );
 
       // Test that checkAuth method works
@@ -418,8 +418,8 @@ Checklist: []
               cb(
                 Buffer.from(
                   JSON.stringify({ version: '1.0.0', squads: { official: [], community: [] } }),
-                  'utf-8'
-                )
+                  'utf-8',
+                ),
               );
             }
             if (event === 'end') {
@@ -461,8 +461,8 @@ Checklist: []
               cb(
                 Buffer.from(
                   JSON.stringify({ version: '1.0.0', squads: { official: [], community: [] } }),
-                  'utf-8'
-                )
+                  'utf-8',
+                ),
               );
             }
             if (event === 'end') {

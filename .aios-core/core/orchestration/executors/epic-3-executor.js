@@ -37,7 +37,7 @@ class Epic3Executor extends EpicExecutor {
       '.aios-core',
       'development',
       'workflows',
-      'spec-pipeline.yaml'
+      'spec-pipeline.yaml',
     );
   }
 
@@ -160,7 +160,7 @@ class Epic3Executor extends EpicExecutor {
    * Execute a single pipeline phase
    * @private
    */
-  async _executePhase(phase, context) {
+  async _executePhase(phase, _context) {
     const taskPath = this._getPath('.aios-core', 'development', 'tasks', `spec-${phase}.md`);
 
     // Check if task file exists

@@ -7,7 +7,7 @@
  */
 
 const EventEmitter = require('events');
-const path = require('path');
+const _path = require('path');
 
 // Import dependencies with fallbacks
 let WaveAnalyzer;
@@ -230,7 +230,7 @@ class WaveExecutor extends EventEmitter {
         if (this.rateLimitManager) {
           executionPromise = this.rateLimitManager.executeWithRetry(
             () => this.taskExecutor(task, context),
-            { taskId: task.id }
+            { taskId: task.id },
           );
         } else {
           executionPromise = this.taskExecutor(task, context);
@@ -285,7 +285,7 @@ class WaveExecutor extends EventEmitter {
    * @param {Object} context - Execution context
    * @returns {Promise<Object>} - Execution result
    */
-  async defaultExecutor(task, context) {
+  async defaultExecutor(task, _context) {
     // This should be overridden or configured
     console.log(`[WaveExecutor] Executing task: ${task.id}`);
     return { success: true, output: 'Default executor - no action taken' };

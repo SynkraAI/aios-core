@@ -123,7 +123,7 @@ class AiosDirectoryCheck extends BaseCheck {
       name: 'create-aios-directories',
       action: 'create-directories',
       successMessage: 'Created missing AIOS directories',
-      fix: async (result) => {
+      fix: async (_result) => {
         const projectRoot = process.cwd();
         const dirs = ['.aios', '.aios/reports', '.aios/backups', '.aios/backups/health-check'];
 

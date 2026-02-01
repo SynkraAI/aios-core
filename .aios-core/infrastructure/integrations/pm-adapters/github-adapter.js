@@ -243,7 +243,7 @@ class GitHubProjectsAdapter extends PMAdapter {
       // Check if gh CLI is installed
       try {
         this._execGH(['--version']);
-      } catch (error) {
+      } catch (_error) {
         return {
           success: false,
           error: 'GitHub CLI (gh) not installed. Install from: https://cli.github.com/',
@@ -256,7 +256,7 @@ class GitHubProjectsAdapter extends PMAdapter {
         if (!authStatus.includes('Logged in')) {
           throw new Error('Not authenticated');
         }
-      } catch (error) {
+      } catch (_error) {
         return {
           success: false,
           error: 'GitHub CLI not authenticated. Run: gh auth login',
@@ -266,7 +266,7 @@ class GitHubProjectsAdapter extends PMAdapter {
       // Try to access the organization
       try {
         this._execGH(['repo', 'list', this.org, '--limit', '1']);
-      } catch (error) {
+      } catch (_error) {
         return {
           success: false,
           error: `Cannot access organization: ${this.org}`,

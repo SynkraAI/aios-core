@@ -72,7 +72,7 @@ class Epic4Executor extends EpicExecutor {
     this._startExecution();
 
     try {
-      const { spec, specPath, complexity, storyId, techStack } = context;
+      const { spec, specPath, complexity, storyId, techStack: _techStack } = context;
       const actualSpecPath = spec || specPath;
 
       this._log(`Executing for story: ${storyId}`);
@@ -214,7 +214,7 @@ phases:
    * Execute subtasks from plan
    * @private
    */
-  async _executeSubtasks(storyId, tracker, context) {
+  async _executeSubtasks(_storyId, _tracker, _context) {
     const results = [];
 
     // In full implementation, this would iterate through subtasks
@@ -250,7 +250,7 @@ phases:
    * Run tests
    * @private
    */
-  async _runTests(context) {
+  async _runTests(_context) {
     // Check if tests exist
     const testsDir = this._getPath('tests');
     if (!(await fs.pathExists(testsDir))) {

@@ -27,25 +27,10 @@ const { EventEmitter } = require('events');
 
 // Import components
 const { AutonomousBuildLoop, BuildEvent } = require('./autonomous-build-loop');
-const { BuildStateManager } = require('./build-state-manager');
+const { BuildStateManager: _BuildStateManager } = require('./build-state-manager');
 
-// Epic 10: Parallel Execution Components
-let WaveExecutor,
-  SubagentDispatcher,
-  ContextInjector,
-  ResultAggregator,
-  ParallelMonitor,
-  RateLimitManager;
-try {
-  WaveExecutor = require('./wave-executor');
-  SubagentDispatcher = require('./subagent-dispatcher');
-  ContextInjector = require('./context-injector');
-  ResultAggregator = require('./result-aggregator');
-  ParallelMonitor = require('./parallel-monitor').getMonitor;
-  RateLimitManager = require('./rate-limit-manager');
-} catch {
-  // Parallel components optional
-}
+// Epic 10: Parallel Execution Components (optional - loaded dynamically when needed)
+// These are available for future parallel execution features but not used in current pipeline
 
 let WorktreeManager;
 try {
@@ -245,7 +230,7 @@ class BuildOrchestrator extends EventEmitter {
       // Generate failure report
       try {
         await this.phaseReport(ctx, true);
-      } catch {}
+      } catch { /* intentionally empty */ }
 
       this.emit(OrchestratorEvent.BUILD_FAILED, {
         storyId,
@@ -371,7 +356,7 @@ class BuildOrchestrator extends EventEmitter {
     const planPath = path.join(
       ctx.worktree?.path || this.rootPath,
       ctx.config.planDir,
-      'implementation.yaml'
+      'implementation.yaml',
     );
 
     // Check if plan exists
@@ -645,7 +630,7 @@ The subtask is complete only when verification passes.
       this.log('Running lint...', 'info');
       try {
         execSync('npm run lint', { cwd: workDir, stdio: 'pipe', timeout: 60000 });
-      } catch (e) {
+      } catch (_e) {
         this.log('Lint warnings (non-blocking)', 'warn');
       }
 

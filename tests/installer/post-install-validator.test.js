@@ -91,7 +91,7 @@ describe('PostInstallValidator Security Tests', () => {
           hash: 'sha256:' + 'a'.repeat(64),
           size: 1234,
         },
-        0
+        0,
       );
       expect(result.valid).toBe(true);
       expect(result.sanitized.path).toBe('core/config.js');
@@ -104,7 +104,7 @@ describe('PostInstallValidator Security Tests', () => {
           hash: 'sha256:' + 'a'.repeat(64),
           malicious: 'payload',
         },
-        0
+        0,
       );
       expect(result.valid).toBe(false);
       expect(result.error).toContain("unknown field 'malicious'");
@@ -187,7 +187,7 @@ describe('PostInstallValidator Security Tests', () => {
       };
       await fs.writeFile(
         path.join(targetDir, '.aios-core', 'install-manifest.yaml'),
-        'version: "1.0.0"\nfiles:\n  - path: link.txt'
+        'version: "1.0.0"\nfiles:\n  - path: link.txt',
       );
 
       const validator = new PostInstallValidator(targetDir, null, {
@@ -209,7 +209,7 @@ describe('PostInstallValidator Security Tests', () => {
       // Create manifest without signature
       await fs.writeFile(
         path.join(targetDir, '.aios-core', 'install-manifest.yaml'),
-        'version: "1.0.0"\nfiles:\n  - path: test.txt'
+        'version: "1.0.0"\nfiles:\n  - path: test.txt',
       );
 
       const validator = new PostInstallValidator(targetDir, null, {
@@ -220,7 +220,7 @@ describe('PostInstallValidator Security Tests', () => {
 
       expect(report.status).toBe('failed');
       const sigIssue = report.issues.find(
-        (i) => i.type === IssueType.SIGNATURE_MISSING || i.type === IssueType.SIGNATURE_INVALID
+        (i) => i.type === IssueType.SIGNATURE_MISSING || i.type === IssueType.SIGNATURE_INVALID,
       );
       expect(sigIssue).toBeDefined();
       expect(sigIssue.severity).toBe(Severity.CRITICAL);
@@ -230,7 +230,7 @@ describe('PostInstallValidator Security Tests', () => {
       // Create valid manifest and file
       await fs.writeFile(
         path.join(targetDir, '.aios-core', 'install-manifest.yaml'),
-        'version: "1.0.0"\nfiles:\n  - path: test.txt\n    size: 4'
+        'version: "1.0.0"\nfiles:\n  - path: test.txt\n    size: 4',
       );
       await fs.writeFile(path.join(targetDir, '.aios-core', 'test.txt'), 'test');
 
@@ -252,7 +252,7 @@ describe('PostInstallValidator Security Tests', () => {
       // Create manifest without size
       await fs.writeFile(
         path.join(targetDir, '.aios-core', 'install-manifest.yaml'),
-        'version: "1.0.0"\nfiles:\n  - path: test.txt'
+        'version: "1.0.0"\nfiles:\n  - path: test.txt',
       );
       await fs.writeFile(path.join(targetDir, '.aios-core', 'test.txt'), 'content');
 
@@ -272,7 +272,7 @@ describe('PostInstallValidator Security Tests', () => {
       // Create manifest with wrong size
       await fs.writeFile(
         path.join(targetDir, '.aios-core', 'install-manifest.yaml'),
-        'version: "1.0.0"\nfiles:\n  - path: test.txt\n    size: 999'
+        'version: "1.0.0"\nfiles:\n  - path: test.txt\n    size: 999',
       );
       await fs.writeFile(path.join(targetDir, '.aios-core', 'test.txt'), 'small');
 
@@ -294,7 +294,7 @@ describe('PostInstallValidator Security Tests', () => {
       // Create manifest without hash but with size
       await fs.writeFile(
         path.join(targetDir, '.aios-core', 'install-manifest.yaml'),
-        'version: "1.0.0"\nfiles:\n  - path: test.txt\n    size: 7'
+        'version: "1.0.0"\nfiles:\n  - path: test.txt\n    size: 7',
       );
       await fs.writeFile(path.join(targetDir, '.aios-core', 'test.txt'), 'content');
 
@@ -318,7 +318,7 @@ describe('PostInstallValidator Security Tests', () => {
       // Using explicit empty string to test falsy hash values
       await fs.writeFile(
         path.join(targetDir, '.aios-core', 'install-manifest.yaml'),
-        'version: "1.0.0"\nfiles:\n  - path: test.txt\n    hash: ""\n    size: 7'
+        'version: "1.0.0"\nfiles:\n  - path: test.txt\n    hash: ""\n    size: 7',
       );
       await fs.writeFile(path.join(targetDir, '.aios-core', 'test.txt'), 'content');
 
@@ -339,7 +339,7 @@ describe('PostInstallValidator Security Tests', () => {
       // Create manifest without hash but with size
       await fs.writeFile(
         path.join(targetDir, '.aios-core', 'install-manifest.yaml'),
-        'version: "1.0.0"\nfiles:\n  - path: test.txt\n    size: 7'
+        'version: "1.0.0"\nfiles:\n  - path: test.txt\n    size: 7',
       );
       await fs.writeFile(path.join(targetDir, '.aios-core', 'test.txt'), 'content');
 
@@ -352,7 +352,7 @@ describe('PostInstallValidator Security Tests', () => {
 
       // Should NOT have a schema violation for missing hash in quick mode
       const schemaIssue = report.issues.find(
-        (i) => i.type === IssueType.SCHEMA_VIOLATION && i.message.includes('Missing hash')
+        (i) => i.type === IssueType.SCHEMA_VIOLATION && i.message.includes('Missing hash'),
       );
       expect(schemaIssue).toBeUndefined();
       expect(report.stats.validFiles).toBe(1);
@@ -376,7 +376,7 @@ describe('PostInstallValidator Security Tests', () => {
       // Setup manifest
       await fs.writeFile(
         path.join(targetDir, '.aios-core', 'install-manifest.yaml'),
-        `version: "1.0.0"\nfiles:\n  - path: test.txt\n    hash: "sha256:${'a'.repeat(64)}"\n    size: 4`
+        `version: "1.0.0"\nfiles:\n  - path: test.txt\n    hash: "sha256:${'a'.repeat(64)}"\n    size: 4`,
       );
 
       const validator = new PostInstallValidator(targetDir, sourceDir, {
@@ -450,7 +450,7 @@ files:
 
       await fs.writeFile(
         path.join(targetDir, '.aios-core', 'install-manifest.yaml'),
-        `version: "1.0.0"\nfiles:\n  - path: notafile\n    hash: "sha256:${'a'.repeat(64)}"\n    size: 0`
+        `version: "1.0.0"\nfiles:\n  - path: notafile\n    hash: "sha256:${'a'.repeat(64)}"\n    size: 0`,
       );
 
       const validator = new PostInstallValidator(targetDir, null, {
@@ -462,7 +462,7 @@ files:
 
       // Should be treated as invalid path (directory, not file)
       const issue = report.issues.find(
-        (i) => i.type === IssueType.INVALID_PATH || i.type === IssueType.HASH_ERROR
+        (i) => i.type === IssueType.INVALID_PATH || i.type === IssueType.HASH_ERROR,
       );
       expect(issue).toBeDefined();
     });
@@ -478,7 +478,7 @@ files:
 
       await fs.writeFile(
         path.join(targetDir, '.aios-core', 'install-manifest.yaml'),
-        `version: "1.0.0"\nfiles:\n${files.join('\n')}`
+        `version: "1.0.0"\nfiles:\n${files.join('\n')}`,
       );
 
       const validator = new PostInstallValidator(targetDir, null, {
@@ -519,7 +519,7 @@ files:
       expect(emojiContent.length).toBeLessThan(SecurityLimits.MAX_MANIFEST_SIZE);
       // But byte count exceeds limit
       expect(Buffer.byteLength(emojiContent, 'utf8')).toBeGreaterThan(
-        SecurityLimits.MAX_MANIFEST_SIZE
+        SecurityLimits.MAX_MANIFEST_SIZE,
       );
 
       await fs.writeFile(path.join(targetDir, '.aios-core', 'install-manifest.yaml'), emojiContent);
@@ -561,7 +561,7 @@ files:
     test('should store relativePath in issue objects', async () => {
       await fs.writeFile(
         path.join(targetDir, '.aios-core', 'install-manifest.yaml'),
-        'version: "1.0.0"\nfiles:\n  - path: missing.txt\n    size: 10'
+        'version: "1.0.0"\nfiles:\n  - path: missing.txt\n    size: 10',
       );
 
       const validator = new PostInstallValidator(targetDir, null, {

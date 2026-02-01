@@ -138,7 +138,7 @@ class ElicitationSessionManager {
             progress: session.totalSteps > 0 ?
               Math.round((session.currentStep / session.totalSteps) * 100) : 0,
           });
-        } catch (error) {
+        } catch (_error) {
           // Skip invalid session files
           console.warn(`Invalid session file: ${file}`);
         }

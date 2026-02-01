@@ -44,7 +44,7 @@ class Layer3HumanReview extends BaseLayer {
     this.reset();
     this.startTimer();
 
-    const { verbose = false, storyId = null } = context;
+    const { verbose = false, storyId: _storyId = null } = context;
 
     if (!this.enabled) {
       this.addResult({

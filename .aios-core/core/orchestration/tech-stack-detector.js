@@ -373,7 +373,7 @@ class TechStackDetector {
             f.endsWith('.tsx') ||
             f.endsWith('.vue') ||
             f === 'App.jsx' ||
-            f === 'App.tsx'
+            f === 'App.tsx',
         );
         if (hasUIFiles) {
           profile.hasFrontend = true;

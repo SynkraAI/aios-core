@@ -55,7 +55,7 @@ function detectProjectConfig(projectRoot = process.cwd()) {
           config,
           serverCount: config.servers ? Object.keys(config.servers).length : 0,
         };
-      } catch (error) {
+      } catch (_error) {
         // Continue to next path
       }
     }
@@ -77,7 +77,7 @@ function detectProjectConfig(projectRoot = process.cwd()) {
           isLegacyFormat: true,
         };
       }
-    } catch (error) {
+    } catch (_error) {
       // Continue
     }
   }

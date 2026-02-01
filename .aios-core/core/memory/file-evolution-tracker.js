@@ -419,20 +419,20 @@ class FileEvolutionTracker {
 
     if (analysis.overallSeverity === DriftSeverity.CRITICAL) {
       recommendations.push(
-        'CRITICAL: Multiple tasks modified the same functions/classes. Manual review required.'
+        'CRITICAL: Multiple tasks modified the same functions/classes. Manual review required.',
       );
       recommendations.push('Consider rebasing one task onto the other before merging.');
     }
 
     if (analysis.overallSeverity === DriftSeverity.HIGH) {
       recommendations.push(
-        'HIGH: Overlapping changes detected. Use Semantic Merge Engine for AI-assisted resolution.'
+        'HIGH: Overlapping changes detected. Use Semantic Merge Engine for AI-assisted resolution.',
       );
     }
 
     if (analysis.overallSeverity === DriftSeverity.MEDIUM) {
       recommendations.push(
-        'MEDIUM: Same files modified but different sections. Auto-merge likely to succeed.'
+        'MEDIUM: Same files modified but different sections. Auto-merge likely to succeed.',
       );
     }
 
@@ -443,7 +443,7 @@ class FileEvolutionTracker {
         conflict.severity === DriftSeverity.CRITICAL
       ) {
         recommendations.push(
-          `Review ${conflict.filePath}: ${conflict.tasks.join(', ')} both modified this file.`
+          `Review ${conflict.filePath}: ${conflict.tasks.join(', ')} both modified this file.`,
         );
       }
     }

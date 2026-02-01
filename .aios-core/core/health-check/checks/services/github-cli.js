@@ -37,7 +37,7 @@ class GithubCliCheck extends BaseCheck {
    * @param {Object} context - Execution context
    * @returns {Promise<Object>} Check result
    */
-  async execute(context) {
+  async execute(_context) {
     const details = {
       installed: false,
       version: null,
@@ -77,7 +77,7 @@ class GithubCliCheck extends BaseCheck {
       if (userMatch) {
         details.user = userMatch[1];
       }
-    } catch (error) {
+    } catch (_error) {
       // Not authenticated
       details.authenticated = false;
 

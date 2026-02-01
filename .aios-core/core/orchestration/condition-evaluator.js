@@ -121,7 +121,7 @@ class ConditionEvaluator {
       // e.g., "a && b || c && d" becomes ["a && b", "c && d"], any group passing = true
       console.warn(
         `[ConditionEvaluator] Mixed && and || in condition: "${condition}". ` +
-          'Using OR-of-ANDs evaluation. Consider using only one operator type.'
+          'Using OR-of-ANDs evaluation. Consider using only one operator type.',
       );
       const orGroups = condition.split('||').map((g) => g.trim());
       return orGroups.some((group) => {

@@ -14,7 +14,7 @@
  * - Enable workflow navigation on subsequent agent activation
  */
 
-const fs = require('fs');
+const _fs = require('fs');
 const path = require('path');
 const ContextDetector = require('../../core/session/context-detector');
 
@@ -62,7 +62,7 @@ function onCommandComplete(agent, command, result, context) {
  * @param {Object} result - Command result
  * @returns {Object|null} { workflow, state } or null
  */
-function detectWorkflowState(command, result) {
+function detectWorkflowState(command, _result) {
   // Map commands to workflow states
   const stateMap = {
     'validate-story-draft': { workflow: 'story_development', state: 'validated' },

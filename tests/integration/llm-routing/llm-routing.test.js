@@ -23,7 +23,7 @@ describe('LLM Routing Module', () => {
   const isWindows = os.platform() === 'win32';
   const testTemplatesDir = path.join(
     __dirname,
-    '../../../.aios-core/infrastructure/scripts/llm-routing/templates'
+    '../../../.aios-core/infrastructure/scripts/llm-routing/templates',
   );
 
   describe('Module Exports', () => {
@@ -55,7 +55,7 @@ describe('LLM Routing Module', () => {
         expect(
           installDir.includes('npm') ||
             installDir.includes('Users') ||
-            installDir.includes('USERPROFILE')
+            installDir.includes('USERPROFILE'),
         ).toBe(true);
       } else {
         // Unix: should be /usr/local/bin or ~/bin
@@ -205,9 +205,9 @@ describe('LLM Routing Module', () => {
       const installScript = fs.readFileSync(
         path.join(
           __dirname,
-          '../../../.aios-core/infrastructure/scripts/llm-routing/install-llm-routing.js'
+          '../../../.aios-core/infrastructure/scripts/llm-routing/install-llm-routing.js',
         ),
-        'utf8'
+        'utf8',
       );
 
       expect(installScript).toContain('path.join');
@@ -223,7 +223,7 @@ describe('Environment Variable Handling', () => {
   const isWindows = os.platform() === 'win32';
   const testTemplatesDir = path.join(
     __dirname,
-    '../../../.aios-core/infrastructure/scripts/llm-routing/templates'
+    '../../../.aios-core/infrastructure/scripts/llm-routing/templates',
   );
 
   test('claude-free should look for .env file', () => {

@@ -118,7 +118,7 @@ class ResultAggregator extends EventEmitter {
         ...aggregation.conflicts.map((c) => ({
           ...c,
           waveIndex: aggregation.waveIndex,
-        }))
+        })),
       );
     }
 

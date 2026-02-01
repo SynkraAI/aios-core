@@ -154,7 +154,7 @@ class SquadMigrator {
       throw new SquadMigratorError(
         MigratorErrorCodes.SQUAD_NOT_FOUND,
         `Squad directory not found: ${squadPath}`,
-        { squadPath }
+        { squadPath },
       );
     }
 
@@ -173,7 +173,7 @@ class SquadMigrator {
       throw new SquadMigratorError(
         MigratorErrorCodes.NO_MANIFEST,
         'No manifest found (config.yaml or squad.yaml)',
-        { squadPath }
+        { squadPath },
       );
     }
 
@@ -294,7 +294,7 @@ class SquadMigrator {
         throw new SquadMigratorError(
           MigratorErrorCodes.MIGRATION_FAILED,
           `Invalid YAML in manifest: ${error.message}`,
-          { squadPath, error: error.message }
+          { squadPath, error: error.message },
         );
       }
       throw error;
@@ -339,7 +339,7 @@ class SquadMigrator {
       throw new SquadMigratorError(
         MigratorErrorCodes.BACKUP_FAILED,
         `Failed to create backup: ${error.message}`,
-        { squadPath, error: error.message }
+        { squadPath, error: error.message },
       );
     }
   }
@@ -376,7 +376,7 @@ class SquadMigrator {
         throw new SquadMigratorError(
           MigratorErrorCodes.MIGRATION_FAILED,
           `Unknown action type: ${action.type}`,
-          { action }
+          { action },
         );
     }
   }

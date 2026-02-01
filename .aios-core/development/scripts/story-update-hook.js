@@ -92,7 +92,7 @@ function extractStatus(content) {
   try {
     const frontmatter = yaml.load(frontmatterMatch[1]);
     return frontmatter.status;
-  } catch (error) {
+  } catch (_error) {
     return undefined;
   }
 }
@@ -246,7 +246,7 @@ function updateFrontmatterTimestamp(content) {
     const contentAfterFrontmatter = content.substring(frontmatterMatch[0].length);
 
     return `---\n${newFrontmatterYaml}---${contentAfterFrontmatter}`;
-  } catch (error) {
+  } catch (_error) {
     return content; // Failed to parse, return unchanged
   }
 }

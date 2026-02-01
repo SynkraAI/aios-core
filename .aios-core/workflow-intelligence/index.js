@@ -63,7 +63,7 @@ const outputFormatter = require('./engine/output-formatter');
 let learningModule = null;
 try {
   learningModule = require('./learning');
-} catch (error) {
+} catch (_error) {
   // Learning module not yet available
   learningModule = null;
 }
@@ -138,7 +138,7 @@ function getSuggestions(context) {
       match,
       firstState,
       scorer,
-      context
+      context,
     );
   }
 

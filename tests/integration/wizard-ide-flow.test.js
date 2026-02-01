@@ -76,7 +76,7 @@ describe('Wizard IDE Flow Integration', () => {
       expect(await fs.pathExists(path.join(testDir, '.cursor', 'rules.md'))).toBe(true);
       expect(await fs.pathExists(path.join(testDir, '.windsurfrules'))).toBe(true);
       expect(await fs.pathExists(path.join(testDir, '.github', 'copilot-instructions.md'))).toBe(
-        true
+        true,
       );
 
       // Verify agent folders were created
@@ -238,13 +238,13 @@ describe('Wizard IDE Flow Integration', () => {
 
       const copilotContent = await fs.readFile(
         path.join(testDir, '.github', 'copilot-instructions.md'),
-        'utf8'
+        'utf8',
       );
       expect(typeof copilotContent).toBe('string');
 
       const antigravityContent = await fs.readFile(
         path.join(testDir, '.antigravity', 'rules.md'),
-        'utf8'
+        'utf8',
       );
       expect(typeof antigravityContent).toBe('string');
     });

@@ -284,7 +284,7 @@ class WorkflowRegistry {
     for (const [name, workflow] of Object.entries(workflows)) {
       if (workflow.agent_sequence) {
         const hasAgent = workflow.agent_sequence.some(
-          (agent) => agent.toLowerCase() === normalizedAgent
+          (agent) => agent.toLowerCase() === normalizedAgent,
         );
         if (hasAgent) {
           results.push({ name, workflow });

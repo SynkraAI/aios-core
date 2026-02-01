@@ -28,7 +28,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const yaml = require('js-yaml');
 const { hashFile, hashesMatch } = require('./file-hasher');
-const { loadAndVerifyManifest, signatureExists } = require('./manifest-signature');
+const { loadAndVerifyManifest, signatureExists: _signatureExists } = require('./manifest-signature');
 
 /**
  * Validation result severity levels
@@ -480,7 +480,7 @@ class PostInstallValidator {
     const byteLength = Buffer.byteLength(content, 'utf8');
     if (byteLength > SecurityLimits.MAX_MANIFEST_SIZE) {
       throw new Error(
-        `Manifest exceeds maximum size (${byteLength} bytes > ${SecurityLimits.MAX_MANIFEST_SIZE} bytes)`
+        `Manifest exceeds maximum size (${byteLength} bytes > ${SecurityLimits.MAX_MANIFEST_SIZE} bytes)`,
       );
     }
 
@@ -499,7 +499,7 @@ class PostInstallValidator {
     // SECURITY: File count limit
     if (parsed.files.length > SecurityLimits.MAX_FILE_COUNT) {
       throw new Error(
-        `Manifest contains too many files (${parsed.files.length} > ${SecurityLimits.MAX_FILE_COUNT})`
+        `Manifest contains too many files (${parsed.files.length} > ${SecurityLimits.MAX_FILE_COUNT})`,
       );
     }
 
@@ -534,7 +534,7 @@ class PostInstallValidator {
         const sizeNum = Number(entry.size);
         if (Number.isNaN(sizeNum) || !Number.isInteger(sizeNum) || sizeNum < 0) {
           throw new Error(
-            `Entry ${i}: invalid size '${entry.size}' for path '${entry.path}' (must be non-negative integer)`
+            `Entry ${i}: invalid size '${entry.size}' for path '${entry.path}' (must be non-negative integer)`,
           );
         }
       }
@@ -562,7 +562,7 @@ class PostInstallValidator {
     };
 
     this.log(
-      `Loaded manifest v${this.manifest.version || 'unknown'} with ${this.manifest.files.length} files`
+      `Loaded manifest v${this.manifest.version || 'unknown'} with ${this.manifest.files.length} files`,
     );
 
     return this.manifest;
@@ -1006,7 +1006,7 @@ class PostInstallValidator {
    * @param {Array} [fileResults] - File validation results
    * @returns {Object} - Report
    */
-  generateReport(startTime, fileResults = []) {
+  generateReport(startTime, _fileResults = []) {
     const duration = Date.now() - startTime;
 
     // Group by severity
@@ -1059,10 +1059,10 @@ class PostInstallValidator {
       duration: `${duration}ms`,
       manifest: this.manifest
         ? {
-            version: this.manifest.version,
-            generatedAt: this.manifest.generated_at,
-            totalFiles: this.manifest.files.length,
-          }
+          version: this.manifest.version,
+          generatedAt: this.manifest.generated_at,
+          totalFiles: this.manifest.files.length,
+        }
         : null,
       stats: { ...this.stats },
       issues: this.issues,
@@ -1090,7 +1090,7 @@ class PostInstallValidator {
 
     if (!this.manifestVerified && this.options.requireSignature) {
       recommendations.push(
-        'CRITICAL: Manifest signature verification failed. Do not trust validation results.'
+        'CRITICAL: Manifest signature verification failed. Do not trust validation results.',
       );
     }
 
@@ -1099,14 +1099,14 @@ class PostInstallValidator {
         recommendations.push('Consider re-running full installation.');
       } else {
         recommendations.push(
-          `${this.stats.missingFiles} file(s) missing. Run 'aios validate --repair'.`
+          `${this.stats.missingFiles} file(s) missing. Run 'aios validate --repair'.`,
         );
       }
     }
 
     if (this.stats.corruptedFiles > 0) {
       recommendations.push(
-        `${this.stats.corruptedFiles} file(s) corrupted. Run 'aios validate --repair'.`
+        `${this.stats.corruptedFiles} file(s) corrupted. Run 'aios validate --repair'.`,
       );
     }
 
@@ -1171,7 +1171,7 @@ class PostInstallValidator {
       (i) =>
         i.type === IssueType.MISSING_FILE ||
         i.type === IssueType.CORRUPTED_FILE ||
-        i.type === IssueType.SIZE_MISMATCH
+        i.type === IssueType.SIZE_MISMATCH,
     );
 
     const result = {
@@ -1213,7 +1213,7 @@ class PostInstallValidator {
       let sourceLstat;
       try {
         sourceLstat = fs.lstatSync(sourcePath);
-      } catch (error) {
+      } catch (_error) {
         result.failed.push({ path: relativePath, reason: 'Source file not found' });
         result.success = false;
         continue;

@@ -44,7 +44,7 @@ function isLink(linkPath) {
   try {
     const stats = fs.lstatSync(linkPath);
     return stats.isSymbolicLink();
-  } catch (error) {
+  } catch (_error) {
     // On Windows, junctions might not show as symlinks via lstat
     if (isWindows()) {
       return isWindowsJunction(linkPath);
@@ -69,7 +69,7 @@ function isWindowsJunction(linkPath) {
       stdio: ['pipe', 'pipe', 'pipe'],
     });
     return result.includes('Symbolic Link') || result.includes('Mount Point');
-  } catch (error) {
+  } catch (_error) {
     return false;
   }
 }
@@ -82,7 +82,7 @@ function isWindowsJunction(linkPath) {
 function getLinkTarget(linkPath) {
   try {
     return fs.readlinkSync(linkPath);
-  } catch (error) {
+  } catch (_error) {
     // On Windows, try alternative method for junctions
     if (isWindows()) {
       return getWindowsJunctionTarget(linkPath);
@@ -122,7 +122,7 @@ function getWindowsJunctionTarget(linkPath) {
     }
 
     return null;
-  } catch (error) {
+  } catch (_error) {
     return null;
   }
 }

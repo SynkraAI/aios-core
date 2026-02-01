@@ -14,7 +14,7 @@ const { BaseCheck, CheckSeverity, CheckDomain } = require('../../base-check');
 /**
  * Conflict markers
  */
-const CONFLICT_MARKERS = ['<<<<<<<', '=======', '>>>>>>>'];
+const _CONFLICT_MARKERS = ['<<<<<<<', '=======', '>>>>>>>'];
 
 /**
  * Conflicts check
@@ -56,7 +56,7 @@ class ConflictsCheck extends BaseCheck {
             cwd: projectRoot,
             encoding: 'utf8',
             windowsHide: true,
-          }
+          },
         );
 
         conflictFiles = output
