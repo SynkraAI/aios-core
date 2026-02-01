@@ -38,6 +38,18 @@ atomic_layer: Config
   obrigatório: true
   validação: Must be non-empty, lowercase, kebab-case
 
+- campo: target_context
+  tipo: string
+  origem: User Input
+  obrigatório: false
+  validação: Must be "core", "squad", or "hybrid". Default: "core"
+
+- campo: squad_name
+  tipo: string
+  origem: User Input
+  obrigatório: false (required when target_context="squad" or "hybrid")
+  validação: Must be kebab-case, squad must exist in squads/
+
 - campo: options
   tipo: object
   origem: User Input
@@ -83,6 +95,12 @@ pre-conditions:
     validação: |
       Check target does not already exist; required inputs provided; permissions granted
     error_message: "Pre-condition failed: Target does not already exist; required inputs provided; permissions granted"
+  - [ ] When target_context="squad" or "hybrid", squad directory must exist at squads/{squad_name}/
+    tipo: pre-condition
+    blocker: true
+    validação: |
+      If target_context is "squad" or "hybrid", verify squads/{squad_name}/ exists and has a valid squad.yaml
+    error_message: "Pre-condition failed: Squad '{squad_name}' not found in squads/"
 ```
 
 ---
@@ -221,6 +239,13 @@ To create a new workflow definition that orchestrates multiple agents and tasks 
 
 ## Interactive Elicitation Process
 
+### Step 0: Target Context
+```
+ELICIT: Target Context
+1. Where should this workflow be created? (core / squad / hybrid)
+2. If squad or hybrid: Which squad? (kebab-case name, e.g., "pedro-valerio")
+```
+
 ### Step 1: Workflow Overview
 ```
 ELICIT: Workflow Basic Information
@@ -311,9 +336,19 @@ ELICIT: Resources and Dependencies
    - Approval workflows
 
 4. **Create Workflow File**
-   - Generate path: `.aios-core/workflows/{workflow-name}.yaml`
+   - Resolve output path based on target_context:
+     - `core` → `.aios-core/development/workflows/{workflow-name}.yaml`
+     - `squad` → `squads/{squad_name}/workflows/{workflow-name}.yaml`
+     - `hybrid` → `squads/{squad_name}/workflows/{workflow-name}.yaml`
    - Write structured YAML definition
    - Include comprehensive documentation
+
+4.5. **Update Squad Manifest** (when target_context="squad" or "hybrid")
+   - Load `squads/{squad_name}/squad.yaml`
+   - Initialize `components.workflows` array if it does not exist
+   - Add workflow filename to `components.workflows[]` (skip if already present)
+   - Create backup of `squad.yaml` before saving
+   - Save updated manifest
 
 5. **Update Memory Layer**
    ```javascript
@@ -356,8 +391,12 @@ ELICIT: Resources and Dependencies
 ## Success Output
 ```
 ✅ Workflow '{workflow-name}' created successfully!
-📁 Location: .aios-core/workflows/{workflow-name}.yaml
+📁 Location: {resolved-path}
+   (core → .aios-core/development/workflows/{workflow-name}.yaml)
+   (squad → squads/{squad_name}/workflows/{workflow-name}.yaml)
+   (hybrid → squads/{squad_name}/workflows/{workflow-name}.yaml)
 📊 Workflow Summary:
+   - Context: {target_context} {squad_name if applicable}
    - Stages: {stage-count}
    - Agents: {agent-list}
    - Type: {workflow-type}

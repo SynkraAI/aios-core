@@ -176,6 +176,10 @@ class SquadValidator {
     const configResult = await this.validateConfigReferences(squadPath);
     this._mergeResults(result, configResult);
 
+    // 6. Validate workflows (GAP-2)
+    const workflowsResult = await this.validateWorkflows(squadPath);
+    this._mergeResults(result, workflowsResult);
+
     // In strict mode, warnings become errors
     if (this.strict && result.warnings.length > 0) {
       result.errors.push(...result.warnings);
@@ -581,6 +585,74 @@ class SquadValidator {
     }
 
     return lines.join('\n');
+  }
+
+  /**
+   * Validate workflow files in squad using WorkflowValidator
+   *
+   * @param {string} squadPath - Path to squad directory
+   * @returns {Promise<ValidationResult>} Validation result for workflows
+   */
+  async validateWorkflows(squadPath) {
+    this._log(`Validating workflows in: ${squadPath}`);
+
+    const result = {
+      valid: true,
+      errors: [],
+      warnings: [],
+      suggestions: [],
+    };
+
+    const workflowsDir = path.join(squadPath, 'workflows');
+
+    if (!(await this._pathExists(workflowsDir))) {
+      return result; // No workflows dir is fine
+    }
+
+    let files;
+    try {
+      files = await fs.readdir(workflowsDir);
+    } catch {
+      return result;
+    }
+
+    const yamlFiles = files.filter(
+      (f) => f.endsWith('.yaml') || f.endsWith('.yml'),
+    );
+
+    if (yamlFiles.length === 0) {
+      return result; // No workflow files to validate
+    }
+
+    // Import WorkflowValidator
+    let WorkflowValidator;
+    try {
+      ({ WorkflowValidator } = require('../workflow-validator'));
+    } catch {
+      result.warnings.push({
+        code: 'WORKFLOW_VALIDATOR_UNAVAILABLE',
+        message: 'WorkflowValidator module not found, skipping workflow content validation',
+        suggestion: 'Ensure workflow-validator.js exists in .aios-core/development/scripts/',
+      });
+      return result;
+    }
+
+    const coreAgentsPath = path.join(process.cwd(), '.aios-core', 'development', 'agents');
+    const validator = new WorkflowValidator({
+      verbose: this.verbose,
+      strict: this.strict,
+      agentsPath: coreAgentsPath,
+      squadAgentsPath: path.join(squadPath, 'agents'),
+    });
+
+    for (const yamlFile of yamlFiles) {
+      const workflowPath = path.join(workflowsDir, yamlFile);
+      const workflowResult = await validator.validate(workflowPath);
+      this._mergeResults(result, workflowResult);
+    }
+
+    this._log(`Workflow validation: ${yamlFiles.length} files checked`);
+    return result;
   }
 
   // ============ Private Helper Methods ============

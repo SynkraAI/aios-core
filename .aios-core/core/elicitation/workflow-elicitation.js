@@ -5,6 +5,40 @@
 
 const workflowElicitationSteps = [
   {
+    title: 'Target Context',
+    description: 'Where should this workflow be created?',
+    help: 'Workflows can live in the AIOS core framework or within a specific squad.',
+    questions: [
+      {
+        type: 'list',
+        name: 'targetContext',
+        message: 'Where should this workflow be created?',
+        choices: [
+          { name: 'AIOS Core - Framework-level workflow', value: 'core' },
+          { name: 'Squad - Squad-specific workflow', value: 'squad' },
+          { name: 'Hybrid - Uses agents from both core AND a squad', value: 'hybrid' },
+        ],
+        default: 'core',
+      },
+      {
+        type: 'input',
+        name: 'squadName',
+        message: 'Which squad? (kebab-case name, e.g., "pedro-valerio"):',
+        when: (answers) => answers.targetContext === 'squad' || answers.targetContext === 'hybrid',
+        validate: (input) => {
+          if (!input) return 'Squad name is required';
+          if (!/^[a-z][a-z0-9-]*$/.test(input)) {
+            return 'Squad name must be kebab-case (lowercase with hyphens only)';
+          }
+          // Squad directory existence is validated at task execution time (pre-conditions)
+          return true;
+        },
+      },
+    ],
+    required: ['targetContext'],
+  },
+
+  {
     title: 'Basic Workflow Information',
     description: 'Define the core details of your workflow',
     help: 'A workflow orchestrates multiple tasks and agents to achieve a complex goal.',

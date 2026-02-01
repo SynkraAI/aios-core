@@ -603,6 +603,88 @@ workflows:
             description: "Create actionable stories"
             priority: 2
 
+# ============================================================
+# State Integration (GAP-3: Guided Workflow Automation)
+# ============================================================
+#
+# Workflow state files complement pattern-based detection.
+# When a state file exists, it takes precedence over command history
+# for workflow state detection.
+#
+state_integration:
+  description: "File-based state persistence for guided workflow automation"
+  state_file_location: ".aios/{instance-id}-state.yaml"
+  state_file_schema: ".aios-core/data/workflow-state-schema.yaml"
+  manager_script: ".aios-core/development/scripts/workflow-state-manager.js"
+
+  behavior:
+    detection_priority:
+      - state_file    # If active state file exists, use it
+      - command_history  # Fall back to pattern-based detection
+    sync:
+      - "State files are created by *run-workflow {name} start"
+      - "State files are updated by *run-workflow {name} continue/skip/abort"
+      - "WorkflowNavigator.detectWorkflowStateFromFile() reads state files"
+      - "WorkflowNavigator.suggestNextCommandsFromState() generates suggestions from state"
+    session_continuity:
+      - "State persists between Claude Code sessions via YAML file"
+      - "generateHandoffContext() produces markdown for /handoff documents"
+      - "Users resume with: *run-workflow {name} continue"
+
+  commands:
+    start: "Creates state file, validates workflow, shows step 1"
+    continue: "Loads state, marks current step complete, advances, shows next step"
+    status: "Shows progress bar, step checklist, artifact status"
+    skip: "Skips optional step, advances to next"
+    abort: "Sets status to aborted, preserves state for reference"
+
+# ============================================================
+# Cross-Context Agent Support (GAP-4: Hybrid Workflows)
+# ============================================================
+#
+# Hybrid workflows use agents from BOTH core and squad contexts.
+# This enables workflows that combine framework-level agents
+# with squad-specific specialist agents.
+#
+cross_context:
+  description: "Support for workflows that use agents from both core and squad contexts"
+
+  resolution_rules:
+    order: "squad-first, core-fallback"
+    explanation: |
+      When target_context=hybrid, agent references are resolved in this order:
+      1. Check squad agents directory first (squads/{squad}/agents/)
+      2. If not found, fall back to core agents (.aios-core/development/agents/)
+      3. If found in both, emit WF_AGENT_AMBIGUOUS warning
+
+  explicit_prefix:
+    format: "{context}:{agent_name}"
+    examples:
+      - "core:architect"
+      - "squad:validator"
+    explanation: |
+      Use explicit prefix to force resolution to a specific context.
+      This avoids ambiguity when an agent exists in both core and squad.
+
+  hybrid_workflow_storage:
+    location: "squads/{squad_name}/workflows/"
+    explanation: |
+      Hybrid workflows live in the squad directory because they are
+      squad-specific (they reference squad agents). The hybrid flag
+      simply tells the validator and runner to also check core agents.
+
+  validator_behavior:
+    ambiguity_warning:
+      code: "WF_AGENT_AMBIGUOUS"
+      trigger: "Agent name exists in both core and squad agents directories"
+      suggestion: "Use explicit prefix core:{name} or squad:{name} to disambiguate"
+    missing_agent_warning:
+      code: "WF_AGENT_NOT_FOUND"
+      trigger: "Agent name not found in either core or squad agents directories"
+    backward_compatibility: |
+      When squadAgentsPath is not provided (null), the validator behaves
+      identically to the pre-hybrid version — only checks core agents.
+
 # Validation Notes:
 # - Patterns cross-referenced with Epic 6.1 workflow analysis
 # - Commands verified against actual project usage in .aios-core/agents/*.md

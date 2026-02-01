@@ -38,6 +38,18 @@ atomic_layer: Config
   obrigatório: true
   validação: Must exist in system
 
+- campo: target_context
+  tipo: string
+  origem: User Input
+  obrigatório: false
+  validação: Must be "core", "squad", or "hybrid". Default: "core"
+
+- campo: squad_name
+  tipo: string
+  origem: User Input
+  obrigatório: false (required when target_context="squad" or "hybrid")
+  validação: Must be kebab-case, squad must exist in squads/
+
 - campo: changes
   tipo: object
   origem: User Input
@@ -83,6 +95,12 @@ pre-conditions:
     validação: |
       Check target exists; backup created; valid modification parameters
     error_message: "Pre-condition failed: Target exists; backup created; valid modification parameters"
+  - [ ] When target_context="squad" or "hybrid", squad directory must exist at squads/{squad_name}/
+    tipo: pre-condition
+    blocker: true
+    validação: |
+      If target_context is "squad" or "hybrid", verify squads/{squad_name}/ exists and has a valid squad.yaml
+    error_message: "Pre-condition failed: Squad '{squad_name}' not found in squads/"
 ```
 
 ---
@@ -213,7 +231,10 @@ To safely modify existing workflow definitions while maintaining their orchestra
 
 ## Prerequisites
 
-- Target workflow must exist in `aios-core/workflows/`
+- Target workflow must exist (path resolved from target_context):
+  - `core` → `.aios-core/development/workflows/`
+  - `squad` → `squads/{squad_name}/workflows/`
+  - `hybrid` → `squads/{squad_name}/workflows/`
 - User must provide modification intent or specific changes
 - Understanding of workflow phases and agent orchestration
 - Backup system must be available for rollback
@@ -222,8 +243,15 @@ To safely modify existing workflow definitions while maintaining their orchestra
 
 ### 1. Workflow Analysis and Backup
 
-- Load target workflow from `aios-core/workflows/{workflow-name}.yaml`
-- Create timestamped backup: `aios-core/workflows/.backups/{workflow-name}.yaml.{timestamp}`
+- Resolve workflow path based on target_context:
+  - `core` → `.aios-core/development/workflows/{workflow-name}.yaml`
+  - `squad` → `squads/{squad_name}/workflows/{workflow-name}.yaml`
+  - `hybrid` → `squads/{squad_name}/workflows/{workflow-name}.yaml`
+- Load target workflow from resolved path
+- Create timestamped backup in same context:
+  - `core` → `.aios-core/development/workflows/.backups/{workflow-name}.yaml.{timestamp}`
+  - `squad` → `squads/{squad_name}/workflows/.backups/{workflow-name}.yaml.{timestamp}`
+  - `hybrid` → `squads/{squad_name}/workflows/.backups/{workflow-name}.yaml.{timestamp}`
 - Parse and analyze workflow structure:
   - Metadata (name, description, project type)
   - Phase definitions and sequences
