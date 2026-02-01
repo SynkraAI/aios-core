@@ -14,6 +14,8 @@ module.exports = {
     '/node_modules/',
     // Playwright e2e tests (use ESM imports, run with Playwright not Jest)
     'tools/quality-dashboard/tests/e2e/',
+    // Windows-specific tests (only run on Windows CI)
+    'tests/integration/windows/',
     // Node.js native test runner tests (use node:test module)
     'tests/installer/v21-path-validation.test.js',
     // v2.1 Migration: Tests with removed common/utils modules (OSR-10 tech debt)
