@@ -436,7 +436,7 @@ class SecurityAnalyzer {
     try {
       // Look for potential hardcoded secrets
       const result = execSync(
-        `grep -rn "password.*=\\s*['"]\\|api_key.*=\\s*['"]\\|secret.*=\\s*['"]" --include="*.js" --include="*.ts" ${this.rootPath} 2>/dev/null || true`,
+        `grep -rn "password.*=\\s*['\\"]\\|api_key.*=\\s*['\\"]\\|secret.*=\\s*['\\"]" --include="*.js" --include="*.ts" ${this.rootPath} 2>/dev/null || true`,
         {
           encoding: 'utf8',
           maxBuffer: 5 * 1024 * 1024,

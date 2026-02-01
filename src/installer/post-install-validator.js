@@ -28,7 +28,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const yaml = require('js-yaml');
 const { hashFile, hashesMatch } = require('./file-hasher');
-const { loadAndVerifyManifest, signatureExists: _signatureExists } = require('./manifest-signature');
+const { loadAndVerifyManifest } = require('./manifest-signature');
 
 /**
  * Validation result severity levels

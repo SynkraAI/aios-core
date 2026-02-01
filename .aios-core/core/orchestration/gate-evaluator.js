@@ -321,9 +321,10 @@ class GateEvaluator {
         break;
 
       case 'tests_pass': {
-        const allPass = epicResult.testResults?.every((t) => t.passed) ?? true;
+        const hasResults = Array.isArray(epicResult.testResults) && epicResult.testResults.length > 0;
+        const allPass = hasResults && epicResult.testResults.every((t) => t.passed);
         result.passed = allPass;
-        result.message = allPass ? 'All tests pass' : 'Some tests failed';
+        result.message = !hasResults ? 'No test results' : (allPass ? 'All tests pass' : 'Some tests failed');
         result.severity = 'high';
         break;
       }

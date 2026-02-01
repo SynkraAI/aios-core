@@ -328,10 +328,6 @@ class YAMLValidator {
       }
       // Handle key-value pairs
       else if (trimmed.includes(':')) {
-        // Find appropriate indent level
-        const colonIndex = trimmed.indexOf(':');
-        const _key = trimmed.substring(0, colonIndex);
-
         // Pop stack until we find the right level
         while (indentStack.length > 1 &&
                line.length - line.trimStart().length < indentStack[indentStack.length - 1]) {

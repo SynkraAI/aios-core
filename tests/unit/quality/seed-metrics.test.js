@@ -207,7 +207,7 @@ describe('Seed Metrics Generator', () => {
       // All layers should have runs (with 30 days and ~300 runs, Layer 3 should have ~30)
       expect(metrics.layers.layer1.totalRuns).toBeGreaterThan(0);
       expect(metrics.layers.layer2.totalRuns).toBeGreaterThan(0);
-      expect(metrics.layers.layer3.totalRuns).toBeGreaterThanOrEqual(0); // May be 0 with low probability
+      expect(metrics.layers.layer3.totalRuns).toBeGreaterThan(0); // With 300 runs at 10% probability, statistically guaranteed
 
       // Pass rates should be between 0 and 1
       expect(metrics.layers.layer1.passRate).toBeGreaterThan(0);

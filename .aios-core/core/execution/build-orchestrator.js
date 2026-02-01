@@ -230,7 +230,11 @@ class BuildOrchestrator extends EventEmitter {
       // Generate failure report
       try {
         await this.phaseReport(ctx, true);
-      } catch { /* intentionally empty */ }
+      } catch (reportError) {
+        // Log failure report error but don't override the original error
+        const errorMsg = reportError instanceof Error ? reportError.message : 'Unknown error';
+        ctx.errors.push(new Error(`Failed to generate failure report: ${errorMsg}`));
+      }
 
       this.emit(OrchestratorEvent.BUILD_FAILED, {
         storyId,
