@@ -305,7 +305,9 @@ class WorkflowValidator {
       if (step.agent) {
         // Handle compound agents like "analyst/pm"
         const agentNames = step.agent.split('/').map(a => a.trim());
-        agentNames.forEach(a => agents.add(a));
+        for (const a of agentNames) {
+          agents.add(a);
+        }
       }
     }
 

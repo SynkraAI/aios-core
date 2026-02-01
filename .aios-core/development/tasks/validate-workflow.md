@@ -239,6 +239,16 @@ To validate workflow YAML files against AIOS conventions, checking structure, ag
 - WorkflowValidator class available at `.aios-core/development/scripts/workflow-validator.js`
 - Target workflow file(s) must exist
 
+## Elicitation Points
+
+The following inputs are collected before execution:
+
+1. **workflow_path** or **workflow_name** — Which workflow(s) to validate (one required unless `--all`)
+2. **target_context** — Where to look for the workflow: `core`, `squad`, or `hybrid` (default: `core`)
+3. **squad_name** — Required when target_context is `squad` or `hybrid`
+4. **strict** — Treat warnings as errors (default: `false`)
+5. **all** — Validate all workflows in the resolved context (default: `false`)
+
 ## Task Execution
 
 ### 1. Resolve Target Path(s)
@@ -279,7 +289,7 @@ When validating multiple files:
 
 Format and display results using `validator.formatResult()`:
 
-```
+```text
 === Workflow Validation Report ===
 
 Workflow: greenfield-service.yaml

@@ -1,6 +1,6 @@
 # Workflow State Schema
 # Defines the structure for workflow execution state files
-# State files are stored at: .aios/{workflow-id}-{instance-id}-state.yaml
+# State files are stored at: .aios/{instance-id}-state.yaml
 #
 # Version: 1.0.0
 # Created: 2026-01-31

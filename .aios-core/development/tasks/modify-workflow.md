@@ -95,6 +95,12 @@ pre-conditions:
     validação: |
       Check target exists; backup created; valid modification parameters
     error_message: "Pre-condition failed: Target exists; backup created; valid modification parameters"
+  - [ ] When target_context="squad" or "hybrid", squad directory must exist at squads/{squad_name}/
+    tipo: pre-condition
+    blocker: true
+    validação: |
+      If target_context is "squad" or "hybrid", verify squads/{squad_name}/ exists and has a valid squad.yaml
+    error_message: "Pre-condition failed: Squad '{squad_name}' not found in squads/"
 ```
 
 ---
@@ -225,7 +231,10 @@ To safely modify existing workflow definitions while maintaining their orchestra
 
 ## Prerequisites
 
-- Target workflow must exist in `aios-core/workflows/`
+- Target workflow must exist (path resolved from target_context):
+  - `core` → `.aios-core/development/workflows/`
+  - `squad` → `squads/{squad_name}/workflows/`
+  - `hybrid` → `squads/{squad_name}/workflows/`
 - User must provide modification intent or specific changes
 - Understanding of workflow phases and agent orchestration
 - Backup system must be available for rollback

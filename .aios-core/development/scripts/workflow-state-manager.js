@@ -359,19 +359,25 @@ class WorkflowStateManager {
 
     if (artifacts.created.length > 0) {
       lines.push(`### Completed Artifacts`);
-      artifacts.created.forEach((a) => lines.push(`- ${a.name}${a.path ? ` (${a.path})` : ''}`));
+      for (const a of artifacts.created) {
+        lines.push(`- ${a.name}${a.path ? ` (${a.path})` : ''}`);
+      }
       lines.push(``);
     }
 
     if (artifacts.pending.length > 0) {
       lines.push(`### Pending Artifacts`);
-      artifacts.pending.forEach((a) => lines.push(`- ${a.name}`));
+      for (const a of artifacts.pending) {
+        lines.push(`- ${a.name}`);
+      }
       lines.push(``);
     }
 
     if (state.decisions.length > 0) {
       lines.push(`### Key Decisions`);
-      state.decisions.forEach((d) => lines.push(`- Step ${d.step_index + 1}: ${d.decision}`));
+      for (const d of state.decisions) {
+        lines.push(`- Step ${d.step_index + 1}: ${d.decision}`);
+      }
       lines.push(``);
     }
 

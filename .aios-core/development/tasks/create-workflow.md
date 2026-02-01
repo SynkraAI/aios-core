@@ -239,6 +239,13 @@ To create a new workflow definition that orchestrates multiple agents and tasks 
 
 ## Interactive Elicitation Process
 
+### Step 0: Target Context
+```
+ELICIT: Target Context
+1. Where should this workflow be created? (core / squad / hybrid)
+2. If squad or hybrid: Which squad? (kebab-case name, e.g., "pedro-valerio")
+```
+
 ### Step 1: Workflow Overview
 ```
 ELICIT: Workflow Basic Information
@@ -338,7 +345,9 @@ ELICIT: Resources and Dependencies
 
 4.5. **Update Squad Manifest** (when target_context="squad" or "hybrid")
    - Load `squads/{squad_name}/squad.yaml`
-   - Add workflow filename to `components.workflows[]`
+   - Initialize `components.workflows` array if it does not exist
+   - Add workflow filename to `components.workflows[]` (skip if already present)
+   - Create backup of `squad.yaml` before saving
    - Save updated manifest
 
 5. **Update Memory Layer**

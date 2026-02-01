@@ -30,6 +30,7 @@ const workflowElicitationSteps = [
           if (!/^[a-z][a-z0-9-]*$/.test(input)) {
             return 'Squad name must be kebab-case (lowercase with hyphens only)';
           }
+          // Squad directory existence is validated at task execution time (pre-conditions)
           return true;
         },
       },
