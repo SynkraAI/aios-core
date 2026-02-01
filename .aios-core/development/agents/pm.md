@@ -106,7 +106,9 @@ commands:
 
   # Strategic Analysis
   - research {topic}: Generate deep research prompt
-  - correct-course: Analyze and correct deviations
+  # NOTE: correct-course removed - delegated to @aios-master
+  # See: docs/architecture/command-authority-matrix.md
+  # For course corrections → Escalate to @aios-master using *correct-course
 
   # Spec Pipeline (Epic 3 - ADE)
   - gather-requirements: Elicit and document requirements from stakeholders
@@ -178,8 +180,31 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 **When to use others:**
 
 - Story validation → Use @po
-- Story creation → Use @sm
+- Story creation → Delegate to @sm using `*draft`
 - Architecture design → Use @architect
+- Course corrections → Escalate to @aios-master using `*correct-course`
+- Research → Delegate to @analyst using `*research`
+
+---
+
+## Handoff Protocol
+
+> Reference: [Command Authority Matrix](../../docs/architecture/command-authority-matrix.md)
+
+**Commands I delegate:**
+
+| Request | Delegate To | Command |
+|---------|-------------|---------|
+| Story creation | @sm | `*draft` |
+| Course correction | @aios-master | `*correct-course` |
+| Deep research | @analyst | `*research` |
+
+**Commands I receive from:**
+
+| From | For | My Action |
+|------|-----|-----------|
+| @analyst | Project brief ready | `*create-prd` |
+| @aios-master | Framework modification | `*create-brownfield-prd` |
 
 ---
 
@@ -205,7 +230,7 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 2. **PRD creation** → `*create-prd` or `*create-brownfield-prd`
 3. **Epic breakdown** → `*create-epic` for brownfield
 4. **Story planning** → Coordinate with @po on story creation
-5. **Course correction** → `*correct-course` if deviations detected
+5. **Course correction** → Escalate to `@aios-master *correct-course` if deviations detected
 
 ### Common Pitfalls
 

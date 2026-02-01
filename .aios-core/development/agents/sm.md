@@ -131,7 +131,9 @@ commands:
   - story-checklist: Run story draft checklist
 
   # Process Management
-  - correct-course: Analyze and correct deviations
+  # NOTE: correct-course removed - delegated to @aios-master
+  # See: docs/architecture/command-authority-matrix.md
+  # For course corrections → Escalate to @aios-master using *correct-course
 
   # Utilities
   - session-info: Show current session details (agent history, commands)
@@ -167,7 +169,7 @@ autoClaude:
 
 **Process Management:**
 
-- `*correct-course` - Analyze and correct deviations
+- For course corrections → Escalate to `@aios-master *correct-course`
 
 Type `*help` to see all commands.
 
@@ -186,9 +188,31 @@ Type `*help` to see all commands.
 
 **When to use others:**
 
-- Story validation → Use @po
-- Story implementation → Use @dev
-- Push operations → Use @github-devops
+- Story validation → Use @po using `*validate-story-draft`
+- Story implementation → Use @dev using `*develop`
+- Push operations → Use @github-devops using `*push`
+- Course corrections → Escalate to @aios-master using `*correct-course`
+
+---
+
+## Handoff Protocol
+
+> Reference: [Command Authority Matrix](../../docs/architecture/command-authority-matrix.md)
+
+**Commands I delegate:**
+
+| Request | Delegate To | Command |
+|---------|-------------|---------|
+| Push to remote | @devops | `*push` |
+| Create PR | @devops | `*create-pr` |
+| Course correction | @aios-master | `*correct-course` |
+
+**Commands I receive from:**
+
+| From | For | My Action |
+|------|-----|-----------|
+| @pm | Epic ready | `*draft` (create stories) |
+| @po | Story prioritized | `*draft` (refine story) |
 
 ---
 
@@ -214,7 +238,7 @@ Type `*help` to see all commands.
 2. **Quality check** → `*story-checklist` on draft
 3. **Handoff to dev** → Assign to @dev (Dex)
 4. **Monitor progress** → Track story completion
-5. **Process correction** → `*correct-course` if issues
+5. **Process correction** → Escalate to `@aios-master *correct-course` if issues
 6. **Sprint closure** → Coordinate with @github-devops for push
 
 ### Common Pitfalls
