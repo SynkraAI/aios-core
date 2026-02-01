@@ -675,43 +675,54 @@ class PostInstallValidator {
     // SECURITY [C3-REALPATH]: Detect symlinks in intermediate directory components
     // A file may not be a symlink itself, but a parent directory could be,
     // allowing path traversal attacks (e.g., /install/.aios-core/symlinked-dir/../../../etc/passwd)
+    //
+    // NOTE: On macOS, /tmp is a symlink to /private/tmp. This is a system-level
+    // symlink that shouldn't trigger security alerts. We handle this by resolving
+    // both the file path AND the target directory to their real paths, then
+    // comparing containment. The key security check is: does the real path of the
+    // file stay within the real path of the target directory?
     try {
       const realPath = fs.realpathSync(absolutePath);
-      // Compare normalized paths - if they differ, there's a symlink in the path
-      const normalizedAbsolute = path.resolve(absolutePath);
-      const normalizedReal = path.resolve(realPath);
+      const realTargetDir = fs.realpathSync(this.aiosCoreTarget);
 
-      // Platform-aware comparison (case-insensitive on Windows)
-      const comparableAbsolute =
-        process.platform === 'win32' ? normalizedAbsolute.toLowerCase() : normalizedAbsolute;
-      const comparableReal =
-        process.platform === 'win32' ? normalizedReal.toLowerCase() : normalizedReal;
-
-      if (comparableAbsolute !== comparableReal) {
-        this.log(`SECURITY: Symlinked path component detected: ${relativePath}`);
+      // SECURITY: Verify realpath is still contained within REAL target directory
+      // This handles system symlinks like /tmp -> /private/tmp correctly
+      if (!isPathContained(realPath, realTargetDir)) {
+        this.log(`SECURITY: Realpath escapes target directory: ${relativePath}`);
         result.issue = {
-          type: IssueType.SYMLINK_REJECTED,
+          type: IssueType.INVALID_PATH,
           severity: Severity.CRITICAL,
-          message: `Symlinked path component detected: ${relativePath}`,
-          details: `Resolved path differs from expected: ${realPath} vs ${absolutePath}`,
+          message: `Path escape via symlink detected: ${relativePath}`,
+          details: `Real path ${realPath} is outside installation directory ${realTargetDir}`,
           category,
-          remediation: 'Remove symlinks from directory structure',
+          remediation: 'This indicates a path traversal attack via symlinked directories',
           relativePath,
         };
         this.stats.skippedFiles++;
         return result;
       }
 
-      // Also verify realpath is still contained within target directory
-      if (!isPathContained(realPath, this.aiosCoreTarget)) {
-        this.log(`SECURITY: Realpath escapes target directory: ${relativePath}`);
+      // SECURITY: Detect symlinks in the RELATIVE portion of the path
+      // Compare the relative path from target to file with the relative path
+      // from realTarget to realPath. If they differ, there's a symlink attack.
+      const expectedRelative = path.relative(this.aiosCoreTarget, absolutePath);
+      const actualRelative = path.relative(realTargetDir, realPath);
+
+      // Platform-aware comparison (case-insensitive on Windows)
+      const comparableExpected =
+        process.platform === 'win32' ? expectedRelative.toLowerCase() : expectedRelative;
+      const comparableActual =
+        process.platform === 'win32' ? actualRelative.toLowerCase() : actualRelative;
+
+      if (comparableExpected !== comparableActual) {
+        this.log(`SECURITY: Symlinked path component detected: ${relativePath}`);
         result.issue = {
-          type: IssueType.INVALID_PATH,
+          type: IssueType.SYMLINK_REJECTED,
           severity: Severity.CRITICAL,
-          message: `Path escape via symlink detected: ${relativePath}`,
-          details: `Real path ${realPath} is outside installation directory`,
+          message: `Symlinked path component detected: ${relativePath}`,
+          details: `Resolved relative path differs: expected '${expectedRelative}', got '${actualRelative}'`,
           category,
-          remediation: 'This indicates a path traversal attack via symlinked directories',
+          remediation: 'Remove symlinks from directory structure',
           relativePath,
         };
         this.stats.skippedFiles++;
