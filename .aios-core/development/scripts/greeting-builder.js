@@ -1,11 +1,24 @@
 /**
- * Greeting Builder - Contextual Agent Greeting System
+ * Greeting Builder - Contextual Agent Greeting System (Core Logic)
+ *
+ * ARCHITECTURE NOTE:
+ * This is the CORE CLASS that contains all greeting logic.
+ * It can be used directly by agents OR via the CLI wrapper (generate-greeting.js).
+ *
+ * - This file: Core GreetingBuilder class
+ * - generate-greeting.js: CLI wrapper that orchestrates context loading
  *
  * Builds intelligent greetings based on:
  * - Session type (new/existing/workflow)
  * - Git configuration status
  * - Project status
  * - Command visibility metadata
+ *
+ * Used by: Most agents (direct invocation in STEP 3)
+ * Also used by: generate-greeting.js (CLI wrapper for @devops, @data-engineer, @ux-design-expert)
+ *
+ * @see docs/architecture/greeting-system.md for full architecture documentation
+ * @see generate-greeting.js for CLI wrapper
  *
  * Performance: <150ms (hard limit with timeout protection)
  * Fallback: Simple greeting on any error

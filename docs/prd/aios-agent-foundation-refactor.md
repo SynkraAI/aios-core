@@ -88,7 +88,7 @@ O PRD do ADE (`docs/prd/aios-autonomous-development-engine.md`) assume que:
 | ID | Requirement | Priority | Epic |
 |----|-------------|----------|------|
 | FR4 | Registrar `*create-suite` no qa.md | P0 | 2 |
-| FR5 | Unificar scripts de greeting (todos usam greeting-builder.js) | P0 | 2 |
+| FR5 | Padronizar uso de greeting scripts (documentar arquitetura CLI wrapper) | P0 | 2 |
 | FR6 | Implementar todos os comandos listados em aios-master.md | P0 | 2 |
 
 #### Format Standardization
@@ -322,29 +322,48 @@ Epic 1 (Authority) ──► Epic 2 (Implementation) ──► Epic 3 (Format)
 3. Verificar que task existe
 4. Testar comando funciona
 
-#### Story 2.2: Unify Greeting Scripts
+#### Story 2.2: Standardize Greeting Script Usage
 
 **As a** framework maintainer,
-**I want** all agents using greeting-builder.js,
-**so that** behavior is consistent.
+**I want** all agents using consistent greeting invocation,
+**so that** behavior is predictable and maintainable.
 
 **Acceptance Criteria:**
 
 > **[Architect Review - Pre-requisite Investigation]:**
 > Antes de unificar cegamente, investigar por que existem dois scripts.
 
-0. **[BLOCKER] Investigar diferenças entre scripts:**
-   - Comparar `greeting-builder.js` vs `generate-greeting.js`
-   - Documentar funcionalidades únicas de cada um
-   - Determinar se `generate-greeting.js` foi criado intencionalmente
-   - Se intencional: documentar razão e manter ambos
-   - Se não intencional: prosseguir com unificação
-1. Atualizar devops.md STEP 3 para usar greeting-builder.js
-2. Atualizar data-engineer.md STEP 3 para usar greeting-builder.js
-3. Atualizar ux-design-expert.md STEP 3 para usar greeting-builder.js
-4. Deprecate generate-greeting.js (ou documentar diferença se intencional)
-5. Testar greeting em todos os 12 agentes
-6. Criar rollback plan caso unificação cause problemas
+0. **[BLOCKER - RESOLVED] Investigar diferenças entre scripts:**
+   - ✅ Comparar `greeting-builder.js` vs `generate-greeting.js`
+   - ✅ Documentar funcionalidades únicas de cada um
+   - ✅ Determinar se `generate-greeting.js` foi criado intencionalmente
+
+   **Resultado da Investigação (2026-02-01):**
+
+   | Script | Linhas | Propósito |
+   |--------|--------|-----------|
+   | `greeting-builder.js` | 938 | Core class `GreetingBuilder` com toda lógica de greeting |
+   | `generate-greeting.js` | 160 | CLI orchestrator que USA greeting-builder.js |
+
+   **Arquitetura descoberta:**
+   ```
+   generate-greeting.js (CLI wrapper)
+          ↓
+   Carrega: config → agent → session → project status
+          ↓
+   GreetingBuilder.buildGreeting(unified context)
+   ```
+
+   **Conclusão:** `generate-greeting.js` é **INTENCIONAL** - é um CLI wrapper que orquestra o carregamento de contexto antes de chamar `GreetingBuilder`. NÃO deve ser removido.
+
+   **Nova abordagem:** Padronizar instruções STEP 3 para usar abordagem consistente (ou CLI ou direta, mas documentar ambas como válidas).
+
+1. Documentar arquitetura de greeting scripts em `docs/architecture/greeting-system.md`
+2. Padronizar STEP 3 em devops.md para clareza (mantendo generate-greeting.js)
+3. Padronizar STEP 3 em data-engineer.md para clareza
+4. Padronizar STEP 3 em ux-design-expert.md para clareza
+5. Validar que ambas abordagens produzem greetings consistentes
+6. Adicionar comentários de documentação em ambos scripts explicando relação
 
 #### Story 2.3: Audit All aios-master Commands
 
@@ -358,6 +377,32 @@ Epic 1 (Authority) ──► Epic 2 (Implementation) ──► Epic 3 (Format)
 3. Para cada comando, verifica que task existe
 4. Documenta gaps encontrados
 5. Implementa missing commands
+
+**Audit Results (2026-02-01):**
+
+| Métrica | Valor |
+|---------|-------|
+| Comandos definidos | 27 |
+| Tasks referenciados | 23 |
+| Tasks existentes | ✅ 23/23 (100%) |
+| Total tasks disponíveis | 179 |
+
+**Findings:**
+
+1. **Todos os 23 tasks referenciados existem** - Nenhum arquivo faltando
+2. **Comandos internos não precisam de tasks:** help, kb, status, guide, yolo, exit, list-components, test-memory, task, workflow, plan, doc-out, chat-mode, agent, validate-component
+3. **Comandos delegados documentados corretamente** (linhas 232-237):
+   - Epic/Story creation → @pm
+   - Brainstorming → @analyst
+   - Test suites → @qa
+   - AI prompts → @architect
+
+**Gaps identificados (não bloqueantes para v1.0):**
+
+- Apenas 23 de 179 tasks estão no dependencies.tasks
+- Missing: spec-*.md, build-*.md, orchestrate-*.md workflows
+
+**Conclusão:** PASS - Dependencies estão íntegras. Gaps são melhorias futuras.
 
 ---
 
@@ -716,14 +761,14 @@ Key findings:
 
 - [x] Story 3.4 adicionada (REQUEST-RESOLUTION)
 - [x] Story 4.2 expandida (handoff validation)
-- [x] Story 2.2 inclui investigação prévia
+- [x] Story 2.2 inclui investigação prévia (RESOLVED: generate-greeting.js é CLI wrapper intencional)
 
 ### Risk Assessment
 
 | Risk | Mitigation Added |
 |------|------------------|
-| Breaking workflows | NFR1 + Rollback plan in Story 2.2 |
-| Greeting unification issues | Investigation step (AC 0) in Story 2.2 |
+| Breaking workflows | NFR1 + Documentation in Story 2.2 |
+| Greeting architecture misunderstanding | Investigation step (AC 0) RESOLVED - CLI wrapper is intentional |
 | Missing handoff cases | Bidirectional validation in Story 4.2 |
 
 ---

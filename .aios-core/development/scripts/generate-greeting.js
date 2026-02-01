@@ -1,21 +1,33 @@
 #!/usr/bin/env node
 /**
- * Unified Greeting Generator
- * 
+ * Unified Greeting Generator - CLI Orchestrator
+ *
+ * ARCHITECTURE NOTE:
+ * This is a CLI WRAPPER that uses greeting-builder.js internally.
+ * It orchestrates context loading before calling GreetingBuilder.
+ *
+ * - This file: CLI entry point, loads context from filesystem
+ * - greeting-builder.js: Core logic, GreetingBuilder class
+ *
  * Orchestrates all greeting components for optimal performance:
  * - Agent definition (via expanded agent-config-loader.js)
  * - Session context (session-context-loader.js)
  * - Project status (project-status-loader.js)
  * - User preferences (greeting-preference-manager.js)
  * - Contextual adaptation (greeting-builder.js)
- * 
+ *
  * Performance Targets:
  * - With cache: <50ms
  * - Without cache: <150ms (timeout protection)
  * - Fallback: <10ms
- * 
+ *
  * Usage: node generate-greeting.js <agent-id>
- * 
+ *
+ * Used by: @devops, @data-engineer, @ux-design-expert (CLI invocation pattern)
+ *
+ * @see docs/architecture/greeting-system.md for full architecture documentation
+ * @see greeting-builder.js for core greeting logic
+ *
  * Part of Story 6.1.4: Unified Greeting System Integration
  */
 
