@@ -637,10 +637,12 @@ class SquadValidator {
       return result;
     }
 
+    const coreAgentsPath = path.join(process.cwd(), '.aios-core', 'development', 'agents');
     const validator = new WorkflowValidator({
       verbose: this.verbose,
       strict: this.strict,
-      agentsPath: path.join(squadPath, 'agents'),
+      agentsPath: coreAgentsPath,
+      squadAgentsPath: path.join(squadPath, 'agents'),
     });
 
     for (const yamlFile of yamlFiles) {

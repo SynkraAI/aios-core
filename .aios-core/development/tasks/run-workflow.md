@@ -235,6 +235,15 @@ To provide guided workflow automation with file-based state persistence. Tracks 
 - WorkflowValidator available at `.aios-core/development/scripts/workflow-validator.js`
 - Target workflow YAML must exist
 
+## Elicitation Points
+
+The following inputs are collected before execution:
+
+1. **workflow_name** — Which workflow to run (required)
+2. **target_context** — Where to look for the workflow: `core`, `squad`, or `hybrid` (default: `core`)
+3. **squad_name** — Required when target_context is `squad` or `hybrid`
+4. **action** — What to do: `start`, `continue`, `status`, `skip`, `abort` (default: `continue`)
+
 ## Task Execution
 
 ### Action: `start`
@@ -256,7 +265,7 @@ Initialize a new workflow execution.
    - Writes state to `.aios/{instance-id}-state.yaml`
 
 4. **Show step 1 instructions:**
-   ```
+   ```text
    === Workflow Started: {workflow_name} ===
    Instance: {instance_id}
 
@@ -285,7 +294,7 @@ Resume from current step.
    - On no: re-display current step instructions
 
 5. **Show next step instructions** with pre-populated agent/command:
-   ```
+   ```text
    Step {N}/{total}: {phase}
    Agent: @{agent}
    Action: {action}
@@ -327,7 +336,7 @@ Abort workflow execution.
 1. **Load state**
 2. **Set status to 'aborted'**
 3. **Generate cleanup notes:**
-   ```
+   ```text
    === Workflow Aborted: {workflow_name} ===
    Instance: {instance_id}
    Progress: {completed}/{total} steps completed

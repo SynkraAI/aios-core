@@ -209,9 +209,27 @@ class WorkflowNavigator {
         return null;
       }
 
+      // Try to map step index to a semantic state via workflow transitions
+      let semanticState = `step_${stateData.current_step_index}`;
+      const currentStep = Array.isArray(stateData.steps)
+        ? stateData.steps[stateData.current_step_index]
+        : null;
+      if (currentStep && this.patterns.workflows) {
+        const wfDef = this.patterns.workflows[stateData.workflow_id];
+        if (wfDef && wfDef.transitions) {
+          for (const [stateName, transition] of Object.entries(wfDef.transitions)) {
+            if (transition.trigger && currentStep.agent &&
+                transition.trigger.includes(currentStep.agent)) {
+              semanticState = stateName;
+              break;
+            }
+          }
+        }
+      }
+
       return {
         workflow: stateData.workflow_id,
-        state: `step_${stateData.current_step_index}`,
+        state: semanticState,
         context: {
           instance_id: stateData.instance_id,
           current_phase: stateData.current_phase,
@@ -233,6 +251,10 @@ class WorkflowNavigator {
    */
   suggestNextCommandsFromState(state) {
     if (!state || state.status !== 'active') {
+      return [];
+    }
+
+    if (!Array.isArray(state.steps) || state.current_step_index < 0 || state.current_step_index >= state.steps.length) {
       return [];
     }
 

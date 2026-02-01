@@ -13,6 +13,7 @@ const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
 const yaml = require('js-yaml');
+const ROOT = path.resolve(__dirname, '..', '..', '..');
 
 // ============ Test Infrastructure ============
 
@@ -55,7 +56,7 @@ function verifyGap1() {
   section('GAP 1: Context Targeting');
 
   // 1.1 create-workflow.md has target_context and squad_name
-  const createWf = fs.readFileSync('.aios-core/development/tasks/create-workflow.md', 'utf-8');
+  const createWf = fs.readFileSync(path.join(ROOT, '.aios-core/development/tasks/create-workflow.md'), 'utf-8');
   assert(
     createWf.includes('campo: target_context'),
     '1.1a create-workflow.md has target_context field',
@@ -83,7 +84,7 @@ function verifyGap1() {
   );
 
   // 1.2 modify-workflow.md
-  const modifyWf = fs.readFileSync('.aios-core/development/tasks/modify-workflow.md', 'utf-8');
+  const modifyWf = fs.readFileSync(path.join(ROOT, '.aios-core/development/tasks/modify-workflow.md'), 'utf-8');
   assert(
     modifyWf.includes('campo: target_context'),
     '1.2a modify-workflow.md has target_context field',
@@ -154,7 +155,7 @@ function verifyGap1() {
   );
 
   // 1.4 workflow-template.yaml
-  const template = fs.readFileSync('.aios-core/product/templates/workflow-template.yaml', 'utf-8');
+  const template = fs.readFileSync(path.join(ROOT, '.aios-core/product/templates/workflow-template.yaml'), 'utf-8');
   assert(
     template.includes('{{TARGET_CONTEXT}}'),
     '1.4a Template has TARGET_CONTEXT variable',
@@ -201,7 +202,7 @@ async function verifyGap2() {
   );
 
   // 2.3 Validate known-good workflow
-  const goodResult = await validator.validate('.aios-core/development/workflows/greenfield-service.yaml');
+  const goodResult = await validator.validate(path.join(ROOT, '.aios-core/development/workflows/greenfield-service.yaml'));
   assert(
     goodResult.valid === true,
     '2.3a greenfield-service.yaml validates as valid',
@@ -254,7 +255,7 @@ async function verifyGap2() {
     'Should be invalid',
   );
   assert(
-    missingResult.errors[0].code === 'WF_FILE_NOT_FOUND',
+    missingResult.errors.length > 0 && missingResult.errors[0].code === 'WF_FILE_NOT_FOUND',
     '2.6b Error code is WF_FILE_NOT_FOUND',
     `Got: ${missingResult.errors[0]?.code}`,
   );
@@ -270,7 +271,7 @@ async function verifyGap2() {
       'Should be invalid',
     );
     assert(
-      badYamlResult.errors[0].code === 'WF_YAML_PARSE_ERROR',
+      badYamlResult.errors.length > 0 && badYamlResult.errors[0].code === 'WF_YAML_PARSE_ERROR',
       '2.7b Error code is WF_YAML_PARSE_ERROR',
       `Got: ${badYamlResult.errors[0]?.code}`,
     );
@@ -280,7 +281,7 @@ async function verifyGap2() {
 
   // 2.8 Strict mode — warnings become errors
   const strictValidator = new WorkflowValidator({ strict: true });
-  const strictResult = await strictValidator.validate('.aios-core/development/workflows/greenfield-service.yaml');
+  const strictResult = await strictValidator.validate(path.join(ROOT, '.aios-core/development/workflows/greenfield-service.yaml'));
   assert(
     strictResult.warnings.length === 0,
     '2.8 Strict mode moves all warnings to errors',
@@ -335,13 +336,13 @@ async function verifyGap2() {
 
   // 2.12 validate-workflow.md task exists
   assert(
-    fs.existsSync('.aios-core/development/tasks/validate-workflow.md'),
+    fs.existsSync(path.join(ROOT, '.aios-core/development/tasks/validate-workflow.md')),
     '2.12 validate-workflow.md task file exists',
     'File not found',
   );
 
   // 2.13 aios-master has validate-workflow command
-  const masterMd = fs.readFileSync('.aios-core/development/agents/aios-master.md', 'utf-8');
+  const masterMd = fs.readFileSync(path.join(ROOT, '.aios-core/development/agents/aios-master.md'), 'utf-8');
   assert(
     masterMd.includes('name: validate-workflow'),
     '2.13a aios-master has validate-workflow command',
@@ -371,8 +372,10 @@ async function verifyGap3() {
 
   const mgr = new WorkflowStateManager({ verbose: false });
 
+  try {
+
   // 3.2 Load real workflow and create state
-  const wfContent = fs.readFileSync('.aios-core/development/workflows/greenfield-service.yaml', 'utf-8');
+  const wfContent = fs.readFileSync(path.join(ROOT, '.aios-core/development/workflows/greenfield-service.yaml'), 'utf-8');
   const wfData = yaml.load(wfContent);
 
   const state = await mgr.createState(wfData, { target_context: 'core' });
@@ -621,7 +624,7 @@ async function verifyGap3() {
   );
 
   // 3.19 workflow-patterns.yaml has state_integration
-  const patterns = yaml.load(fs.readFileSync('.aios-core/data/workflow-patterns.yaml', 'utf-8'));
+  const patterns = yaml.load(fs.readFileSync(path.join(ROOT, '.aios-core/data/workflow-patterns.yaml'), 'utf-8'));
   assert(
     !!patterns.state_integration,
     '3.19a workflow-patterns.yaml has state_integration key',
@@ -644,7 +647,7 @@ async function verifyGap3() {
   );
 
   // 3.20 workflow-state-schema.yaml exists and is valid YAML
-  const schemaContent = fs.readFileSync('.aios-core/data/workflow-state-schema.yaml', 'utf-8');
+  const schemaContent = fs.readFileSync(path.join(ROOT, '.aios-core/data/workflow-state-schema.yaml'), 'utf-8');
   const schema = yaml.load(schemaContent);
   assert(
     !!schema.fields,
@@ -659,13 +662,13 @@ async function verifyGap3() {
 
   // 3.21 run-workflow.md task exists
   assert(
-    fs.existsSync('.aios-core/development/tasks/run-workflow.md'),
+    fs.existsSync(path.join(ROOT, '.aios-core/development/tasks/run-workflow.md')),
     '3.21 run-workflow.md task file exists',
     'File not found',
   );
 
   // 3.22 aios-master has run-workflow command
-  const masterMd = fs.readFileSync('.aios-core/development/agents/aios-master.md', 'utf-8');
+  const masterMd = fs.readFileSync(path.join(ROOT, '.aios-core/development/agents/aios-master.md'), 'utf-8');
   assert(
     masterMd.includes('name: run-workflow'),
     '3.22a aios-master has run-workflow command',
@@ -677,11 +680,13 @@ async function verifyGap3() {
     'Dependency not found',
   );
 
-  // Cleanup test state file
-  try {
-    fs.unlinkSync(statePath);
-  } catch {
-    // Already cleaned
+  } finally {
+    // Cleanup test state file
+    try {
+      fs.unlinkSync(statePath);
+    } catch {
+      // Already cleaned
+    }
   }
 }
 
@@ -720,7 +725,7 @@ async function verifyGap4() {
   );
 
   // 4.3 Schema includes hybrid
-  const schemaContent = fs.readFileSync('.aios-core/data/workflow-state-schema.yaml', 'utf-8');
+  const schemaContent = fs.readFileSync(path.join(ROOT, '.aios-core/data/workflow-state-schema.yaml'), 'utf-8');
   const schema = yaml.load(schemaContent);
   assert(
     schema.fields.target_context.enum.includes('hybrid'),
@@ -745,6 +750,8 @@ async function verifyGap4() {
   const tmpSquadAgents = path.join(tmpDir, 'squad-agents');
   fs.mkdirSync(tmpCoreAgents, { recursive: true });
   fs.mkdirSync(tmpSquadAgents, { recursive: true });
+
+  try {
 
   // Create test agent files
   fs.writeFileSync(path.join(tmpCoreAgents, 'architect.md'), '# Architect Agent');
@@ -885,7 +892,7 @@ async function verifyGap4() {
   );
 
   // 4.14 workflow-patterns.yaml has cross_context
-  const patterns = yaml.load(fs.readFileSync('.aios-core/data/workflow-patterns.yaml', 'utf-8'));
+  const patterns = yaml.load(fs.readFileSync(path.join(ROOT, '.aios-core/data/workflow-patterns.yaml'), 'utf-8'));
   assert(
     !!patterns.cross_context,
     '4.14a workflow-patterns.yaml has cross_context key',
@@ -920,7 +927,7 @@ async function verifyGap4() {
     'run-workflow.md',
   ];
   for (const taskFile of taskFiles) {
-    const content = fs.readFileSync(`.aios-core/development/tasks/${taskFile}`, 'utf-8');
+    const content = fs.readFileSync(path.join(ROOT, '.aios-core/development/tasks', taskFile), 'utf-8');
     assert(
       content.includes('hybrid'),
       `4.15 ${taskFile} mentions hybrid`,
@@ -929,7 +936,7 @@ async function verifyGap4() {
   }
 
   // 4.16 Template mentions hybrid
-  const template = fs.readFileSync('.aios-core/product/templates/workflow-template.yaml', 'utf-8');
+  const template = fs.readFileSync(path.join(ROOT, '.aios-core/product/templates/workflow-template.yaml'), 'utf-8');
   assert(
     template.includes('hybrid') || template.includes('IF_HYBRID'),
     '4.16 workflow-template.yaml mentions hybrid',
@@ -955,11 +962,12 @@ async function verifyGap4() {
     '4.17b Validator detects ambiguous agent (pm in both contexts)',
     'Should emit WF_AGENT_AMBIGUOUS for pm',
   );
-
-  // Cleanup
-  const statePath = mgr._resolveStatePath(hybridState.instance_id);
-  try { fs.unlinkSync(statePath); } catch { /* already cleaned */ }
-  try { fs.rmSync(tmpDir, { recursive: true }); } catch { /* cleanup */ }
+  } finally {
+    // Cleanup
+    const statePath = mgr._resolveStatePath(hybridState.instance_id);
+    try { fs.unlinkSync(statePath); } catch { /* already cleaned */ }
+    try { fs.rmSync(tmpDir, { recursive: true }); } catch { /* cleanup */ }
+  }
 }
 
 // ============ Main ============

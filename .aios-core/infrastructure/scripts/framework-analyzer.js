@@ -727,8 +727,8 @@ class FrameworkAnalyzer {
         if (seqResult.errors && seqResult.errors.length > 0) result.valid = false;
       }
       return result;
-    } catch {
-      return { valid: true, errors: [], warnings: [] };
+    } catch (error) {
+      return { valid: false, errors: [{ code: 'VALIDATOR_LOAD_ERROR', message: error.message }], warnings: [] };
     }
   }
   extractUtilDescription(content) { return ''; }

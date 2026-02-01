@@ -132,9 +132,11 @@ commands:
   - name: validate-workflow
     args: '{name|path} [--strict] [--all]'
     description: 'Validate workflow YAML structure, agents, artifacts, and logic'
+    visibility: full
   - name: run-workflow
     args: '{name} [start|continue|status|skip|abort]'
     description: 'Guided workflow execution with state tracking across sessions'
+    visibility: full
   - name: analyze-framework
     description: 'Analyze framework structure and patterns'
   - name: list-components
