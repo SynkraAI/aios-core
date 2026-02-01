@@ -30,6 +30,7 @@
 - `*doc-out` - Output complete document
 - `*shard-doc` - Break document into parts
 - `*document-project` - Generate project documentation
+- `*add-tech-doc` - Create tech-preset from documentation file
 - `*create-next-story` - Create next user story
 - `*advanced-elicitation` - Execute advanced elicitation
 - `*chat-mode` - Start conversational assistance

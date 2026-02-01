@@ -160,6 +160,9 @@ commands:
     description: 'Break document into parts'
   - name: document-project
     description: 'Generate project documentation'
+  - name: add-tech-doc
+    args: '{file-path} [preset-name]'
+    description: 'Create tech-preset from documentation file'
 
   # Story Creation
   - name: create-next-story
@@ -203,6 +206,7 @@ security:
 
 dependencies:
   tasks:
+    - add-tech-doc.md
     - advanced-elicitation.md
     - analyze-framework.md
     - correct-course.md
@@ -257,12 +261,14 @@ dependencies:
     - workflow-management.md
     - yaml-validator.js
   workflows:
-    - brownfield-fullstack.md
-    - brownfield-service.md
-    - brownfield-ui.md
-    - greenfield-fullstack.md
-    - greenfield-service.md
-    - greenfield-ui.md
+    - brownfield-fullstack.yaml
+    - brownfield-service.yaml
+    - brownfield-ui.yaml
+    - design-system-build-quality.yaml
+    - greenfield-fullstack.yaml
+    - greenfield-service.yaml
+    - greenfield-ui.yaml
+    - story-development-cycle.yaml
   checklists:
     - architect-checklist.md
     - change-checklist.md

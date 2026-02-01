@@ -35,6 +35,7 @@ Use when you need comprehensive expertise across all domains, framework componen
 - *doc-out: Output complete document (quick)
 - *shard-doc: Break document into parts (quick)
 - *document-project: Generate project documentation (quick)
+- *add-tech-doc: Create tech-preset from documentation file (quick)
 - *create-next-story: Create next user story (quick)
 - *advanced-elicitation: Execute advanced elicitation (quick)
 - *chat-mode: Start conversational assistance (quick)
@@ -48,7 +49,7 @@ Use when you need comprehensive expertise across all domains, framework componen
 </collaboration>
 
 <dependencies>
-Tasks: advanced-elicitation.md, analyze-framework.md, correct-course.md, create-agent.md, create-deep-research-prompt.md, create-doc.md, create-next-story.md, create-task.md, create-workflow.md, deprecate-component.md, document-project.md, execute-checklist.md, improve-self.md, index-docs.md, kb-mode-interaction.md, modify-agent.md, modify-task.md, modify-workflow.md, propose-modification.md, shard-doc.md, undo-last.md, update-manifest.md
+Tasks: add-tech-doc.md, advanced-elicitation.md, analyze-framework.md, correct-course.md, create-agent.md, create-deep-research-prompt.md, create-doc.md, create-next-story.md, create-task.md, create-workflow.md, deprecate-component.md, document-project.md, execute-checklist.md, improve-self.md, index-docs.md, kb-mode-interaction.md, modify-agent.md, modify-task.md, modify-workflow.md, propose-modification.md, shard-doc.md, undo-last.md, update-manifest.md
 Checklists: architect-checklist.md, change-checklist.md, pm-checklist.md, po-master-checklist.md, story-dod-checklist.md, story-draft-checklist.md
 </dependencies>
 
