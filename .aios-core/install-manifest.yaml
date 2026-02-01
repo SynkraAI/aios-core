@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.10.0
-generated_at: "2026-02-01T18:22:45.935Z"
+generated_at: "2026-02-01T21:24:18.474Z"
 generator: scripts/generate-install-manifest.js
 file_count: 770
 files:
@@ -217,9 +217,9 @@ files:
     type: core
     size: 34050
   - path: core/execution/build-orchestrator.js
-    hash: sha256:b14a2fea0b2c371f5102f31d7d28769b555e07da73d5d19f96b725a1d6e5b07b
+    hash: sha256:123825dc7af75eeab03c78c593b36af2800189e7e4a07fe4a2e397b26c8aefdf
     type: core
-    size: 31531
+    size: 31780
   - path: core/execution/build-state-manager.js
     hash: sha256:e93b61dbef7f9be6b3c18d2fea08145954d8379f81a5fc148ff10dd4973f9ba1
     type: core
@@ -449,9 +449,9 @@ files:
     type: core
     size: 7763
   - path: core/ideation/ideation-engine.js
-    hash: sha256:15ec7747df54907d39ed22aa7f5baeea8176b82c62210dc56360e39684f94131
+    hash: sha256:f803c2e9823b6526feaec5f875f0fe2ac204a15403dbe41f89fa959c12e016e7
     type: core
-    size: 22859
+    size: 22865
   - path: core/index.esm.js
     hash: sha256:74ac4edc22f53a6e1ff7fe7d16add65b4e85e198dcdd0f54d3048ba032dc8f9a
     type: core
@@ -569,9 +569,9 @@ files:
     type: core
     size: 2034
   - path: core/orchestration/gate-evaluator.js
-    hash: sha256:b0256cc7f79f2cc7f92bfbdc4c28a78fe530ab64e5c7dd44d1d17878371f6cd9
+    hash: sha256:ad4081a62c5f5c911535425c41a6ffdc9e695cb58b08523a11e98071df1192a2
     type: core
-    size: 15826
+    size: 15970
   - path: core/orchestration/index.js
     hash: sha256:b0cd2437434e492a46dd533d5b50b29348b99c75681805f6c9b8c9d1297d064d
     type: core
@@ -705,9 +705,9 @@ files:
     type: core
     size: 9061
   - path: core/utils/yaml-validator.js
-    hash: sha256:a5de8a8cdbe2c8931b6d7fe0777c5771277bbc365cbac91c2b350b0bc0a64497
+    hash: sha256:9538e95d3dae99a28aa0f7486733276686bdd48307bac8554ef657bda96a3199
     type: core
-    size: 11062
+    size: 10916
   - path: data/agent-config-requirements.yaml
     hash: sha256:d388dc48e23384eae4c0156209846c509f76afb1579f3100f0404ff17580fc3f
     type: data
