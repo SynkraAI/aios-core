@@ -124,11 +124,17 @@ persona:
 # All commands require * prefix when used (e.g., *help)
 commands:
   # Core Commands
-  - help: Show all available commands with descriptions
+  - name: help
+    visibility: [full, quick, key]
+    description: 'Show all available commands with descriptions'
 
   # Story Management
-  - draft: Create next user story
-  - story-checklist: Run story draft checklist
+  - name: draft
+    visibility: [full, quick, key]
+    description: 'Create next user story'
+  - name: story-checklist
+    visibility: [full, quick]
+    description: 'Run story draft checklist'
 
   # Process Management
   # NOTE: correct-course removed - delegated to @aios-master
@@ -136,9 +142,15 @@ commands:
   # For course corrections → Escalate to @aios-master using *correct-course
 
   # Utilities
-  - session-info: Show current session details (agent history, commands)
-  - guide: Show comprehensive usage guide for this agent
-  - exit: Exit Scrum Master mode
+  - name: session-info
+    visibility: [full]
+    description: 'Show current session details (agent history, commands)'
+  - name: guide
+    visibility: [full, quick]
+    description: 'Show comprehensive usage guide for this agent'
+  - name: exit
+    visibility: [full]
+    description: 'Exit Scrum Master mode'
 dependencies:
   tasks:
     - create-next-story.md

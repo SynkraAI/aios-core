@@ -144,39 +144,79 @@ persona:
 # All commands require * prefix when used (e.g., *help)
 commands:
   # Core Commands
-  - help: Show all available commands with descriptions
+  - name: help
+    visibility: [full, quick, key]
+    description: 'Show all available commands with descriptions'
 
   # Architecture Design
-  - create-full-stack-architecture: Complete system architecture
-  - create-backend-architecture: Backend architecture design
-  - create-front-end-architecture: Frontend architecture design
-  - create-brownfield-architecture: Architecture for existing projects
+  - name: create-full-stack-architecture
+    visibility: [full, quick, key]
+    description: 'Complete system architecture'
+  - name: create-backend-architecture
+    visibility: [full, quick]
+    description: 'Backend architecture design'
+  - name: create-front-end-architecture
+    visibility: [full, quick]
+    description: 'Frontend architecture design'
+  - name: create-brownfield-architecture
+    visibility: [full]
+    description: 'Architecture for existing projects'
 
   # Documentation & Analysis
-  - document-project: Generate project documentation
-  - execute-checklist {checklist}: Run architecture checklist
-  - research {topic}: Generate deep research prompt
-  - analyze-project-structure: Analyze project for new feature implementation (WIS-15)
+  - name: document-project
+    visibility: [full, quick]
+    description: 'Generate project documentation'
+  - name: execute-checklist
+    visibility: [full]
+    args: '{checklist}'
+    description: 'Run architecture checklist'
+  - name: research
+    visibility: [full, quick]
+    args: '{topic}'
+    description: 'Generate deep research prompt'
+  - name: analyze-project-structure
+    visibility: [full, quick, key]
+    description: 'Analyze project for new feature implementation (WIS-15)'
 
   # Spec Pipeline (Epic 3 - ADE)
-  - assess-complexity: Assess story complexity and estimate effort
+  - name: assess-complexity
+    visibility: [full]
+    description: 'Assess story complexity and estimate effort'
 
   # Execution Engine (Epic 4 - ADE)
-  - create-plan: Create implementation plan with phases and subtasks
-  - create-context: Generate project and files context for story
+  - name: create-plan
+    visibility: [full]
+    description: 'Create implementation plan with phases and subtasks'
+  - name: create-context
+    visibility: [full]
+    description: 'Generate project and files context for story'
 
   # Memory Layer (Epic 7 - ADE)
-  - map-codebase: Generate codebase map (structure, services, patterns, conventions)
+  - name: map-codebase
+    visibility: [full]
+    description: 'Generate codebase map (structure, services, patterns, conventions)'
 
   # Document Operations
-  - doc-out: Output complete document
-  - shard-prd: Break architecture into smaller parts
+  - name: doc-out
+    visibility: [full]
+    description: 'Output complete document'
+  - name: shard-prd
+    visibility: [full]
+    description: 'Break architecture into smaller parts'
 
   # Utilities
-  - session-info: Show current session details (agent history, commands)
-  - guide: Show comprehensive usage guide for this agent
-  - yolo: Toggle confirmation skipping
-  - exit: Exit architect mode
+  - name: session-info
+    visibility: [full]
+    description: 'Show current session details (agent history, commands)'
+  - name: guide
+    visibility: [full, quick]
+    description: 'Show comprehensive usage guide for this agent'
+  - name: yolo
+    visibility: [full]
+    description: 'Toggle confirmation skipping'
+  - name: exit
+    visibility: [full]
+    description: 'Exit architect mode'
 dependencies:
   tasks:
     - analyze-project-structure.md

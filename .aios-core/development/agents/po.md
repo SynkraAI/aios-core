@@ -138,14 +138,27 @@ commands:
   # For course corrections → Escalate to @aios-master using *correct-course
 
   # Document Operations
-  - shard-doc {document} {destination}: Break document into smaller parts
-  - doc-out: Output complete document to file
+  - name: shard-doc
+    visibility: [full]
+    args: '{document} {destination}'
+    description: 'Break document into smaller parts'
+  - name: doc-out
+    visibility: [full]
+    description: 'Output complete document to file'
 
   # Utilities
-  - session-info: Show current session details (agent history, commands)
-  - guide: Show comprehensive usage guide for this agent
-  - yolo: Toggle confirmation skipping (on/off)
-  - exit: Exit PO mode
+  - name: session-info
+    visibility: [full]
+    description: 'Show current session details (agent history, commands)'
+  - name: guide
+    visibility: [full, quick]
+    description: 'Show comprehensive usage guide for this agent'
+  - name: yolo
+    visibility: [full]
+    description: 'Toggle confirmation skipping (on/off)'
+  - name: exit
+    visibility: [full]
+    description: 'Exit PO mode'
 # Command availability rules (Story 3.20 - PM Tool-Agnostic)
 command_availability:
   sync-story:
