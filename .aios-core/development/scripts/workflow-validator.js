@@ -328,6 +328,16 @@ class WorkflowValidator {
         }
       }
 
+      // Sanitize agent name to prevent path traversal
+      if (!agentName || agentName.includes('..') || agentName.includes('/') || agentName.includes('\\')) {
+        result.warnings.push({
+          code: WorkflowValidationErrorCodes.WF_AGENT_NOT_FOUND,
+          message: `Agent "${agent}" has an invalid name`,
+          suggestion: 'Use simple agent identifiers without path segments',
+        });
+        continue;
+      }
+
       if (this.squadAgentsPath) {
         // Hybrid mode: check both contexts
         const coreFile = path.join(this.agentsPath, `${agentName}.md`);

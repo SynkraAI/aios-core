@@ -53,6 +53,9 @@ class WorkflowStateManager {
    */
   async createState(workflowData, instanceConfig = {}) {
     const wf = workflowData.workflow || workflowData;
+    if (!wf || !wf.id) {
+      throw new Error('workflow.id is required to create workflow state');
+    }
     const instanceId = this._generateInstanceId(wf.id);
 
     const state = {
@@ -349,7 +352,9 @@ class WorkflowStateManager {
     if (currentStep) {
       lines.push(`### Current Step`);
       lines.push(`- **Step ${currentStep.step_index + 1}:** ${currentStep.phase}`);
-      lines.push(`- **Agent:** @${currentStep.agent}`);
+      if (currentStep.agent) {
+        lines.push(`- **Agent:** @${currentStep.agent}`);
+      }
       lines.push(`- **Action:** ${currentStep.action}`);
       if (currentStep.notes) {
         lines.push(`- **Notes:** ${currentStep.notes}`);
