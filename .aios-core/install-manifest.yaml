@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.10.0
-generated_at: "2026-02-01T23:56:51.495Z"
+generated_at: "2026-02-02T00:04:56.376Z"
 generator: scripts/generate-install-manifest.js
-file_count: 781
+file_count: 782
 files:
   - path: cli/commands/generate/index.js
     hash: sha256:36f8e38ab767fa5478d8dabac548c66dc2c0fc521c216e954ac33fcea0ba597b
@@ -753,9 +753,9 @@ files:
     type: development
     size: 5012
   - path: development/agents/aios-master.md
-    hash: sha256:ddd169039cb78da56800bfbbca5fd1868285261598817719744cb941ec41df50
+    hash: sha256:9d36b1a21ede879e4a08aa8368ecaadf45e9b8633b3da4ae286c1526b84b70cf
     type: agent
-    size: 14940
+    size: 15011
   - path: development/agents/analyst.md
     hash: sha256:6ff4ea10b7ab0c5ec17691bc9932849667a9e41be4a0361b229b5435831b1352
     type: agent
@@ -781,9 +781,9 @@ files:
     type: agent
     size: 9122
   - path: development/agents/po.md
-    hash: sha256:ef4a445554a1d84fd104df11edda6012a626ae5f5e454cf97e5fe10c5476ed8e
+    hash: sha256:1300e5c2c46d7bafcddf692d26003a5f46302e42b3fec38e1e3d49228d6e0fcf
     type: agent
-    size: 10962
+    size: 11013
   - path: development/agents/qa.md
     hash: sha256:ba75516e82eb84023c7f49a3cb28dddbf3f1000def7b9197f0dec5a57649f205
     type: agent
@@ -2304,6 +2304,10 @@ files:
     hash: sha256:b65464e8bb37a80b19e2159903073ab4abf6de7cdab4940991b059288787d5fc
     type: script
     size: 18245
+  - path: infrastructure/scripts/validate-agents.js
+    hash: sha256:2189d9f7d4e05470202c8a91fc0e1bf03467ebcb8c801d67ddd343574cac9578
+    type: script
+    size: 14575
   - path: infrastructure/scripts/validate-output-pattern.js
     hash: sha256:91111d656e8d7b38a20a1bda753e663b74318f75cdab2025c7e0b84c775fc83d
     type: script
