@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.10.0
-generated_at: "2026-02-02T00:04:56.376Z"
+generated_at: "2026-02-02T00:27:10.542Z"
 generator: scripts/generate-install-manifest.js
 file_count: 782
 files:
@@ -241,9 +241,9 @@ files:
     type: core
     size: 14553
   - path: core/execution/semantic-merge-engine.js
-    hash: sha256:57f28ff3943683cd99913a53fab539301f6ce3f1f28515238edca07aac07b84a
+    hash: sha256:62999ab5a4795ab5eb9747f0058925021dd80638fd78216b6866b242112ad904
     type: core
-    size: 51548
+    size: 51668
   - path: core/execution/subagent-dispatcher.js
     hash: sha256:50e346a064c49e474f926f2422d7ca34b7743c23f29544cb544b2cff6583d389
     type: core
@@ -497,17 +497,17 @@ files:
     type: core
     size: 20027
   - path: core/memory/file-evolution-tracker.js
-    hash: sha256:de65c024ed6c6fe8c707b22398f3c7d3960b592353dfc6a47a360f665c841081
+    hash: sha256:5ef20ea0d0f37209c2897853fd9c35befbfe984dcac011747addd3f4e24d0b14
     type: core
-    size: 30546
+    size: 31161
   - path: core/memory/gotchas-memory.js
     hash: sha256:b0fe8524e98e992653b1e6cdf06a2b102ddb4d8729b6fecf0fe981bec5decdf4
     type: core
     size: 33058
   - path: core/memory/timeline-manager.js
-    hash: sha256:dfcaa857d123eff7ef8f845d946501a7df8fa060475d93ed3a5a61c009ed60fe
+    hash: sha256:c95ed4b3fb17c36f42d80160287a9529aaab662442ca4707bb8fc2d51e9ac2aa
     type: core
-    size: 24430
+    size: 24434
   - path: core/migration/migration-config.yaml
     hash: sha256:fdfc02364ba8ac5983dc8f902c63b911b799b2c9d7d8e0013460708939a69269
     type: core
@@ -605,9 +605,9 @@ files:
     type: core
     size: 26902
   - path: core/permissions/__tests__/permission-mode.test.js
-    hash: sha256:7e95dec14bdd22f8467a8f27e817d8c756096fbd7c49c9bd9c3c9208cc11536b
+    hash: sha256:87df5f29666a599fb0fec917e0360ae6fa9dd90512f0816ae62fa453dbab7fbb
     type: core
-    size: 8806
+    size: 8808
   - path: core/permissions/index.js
     hash: sha256:f68b99cc5b97678035d1b37317a9b2f834d04dbaf6810edddc19784b5aaaea9c
     type: core
@@ -617,9 +617,9 @@ files:
     type: core
     size: 9018
   - path: core/permissions/permission-mode.js
-    hash: sha256:4ff243e84f0750a26bf1e3914c66712ce86b7b12dbf415236caf8ad7814c4d80
+    hash: sha256:793698141859d9642c638e2e7b8d0e18b0d8cce782b7130f77752406aaadb96a
     type: core
-    size: 7192
+    size: 7193
   - path: core/quality-gates/base-layer.js
     hash: sha256:9a9a3921da08176b0bd44f338a59abc1f5107f3b1ee56571e840bf4e8ed233f4
     type: core
@@ -641,9 +641,9 @@ files:
     type: core
     size: 9393
   - path: core/quality-gates/layer2-pr-automation.js
-    hash: sha256:1f6f613c8cceebe5d71ef11801d408765faee96d6361c824243639631a80ea8d
+    hash: sha256:8c65e9a8a97d409caddffb9ed64aaec4c6deb2cc44b93a51d33868b832e90946
     type: core
-    size: 9171
+    size: 9362
   - path: core/quality-gates/layer3-human-review.js
     hash: sha256:e34ea99d4cba5043de51582e1a17ddbc808d2873d20e6293c74ab53c609a2d9d
     type: core
@@ -753,53 +753,53 @@ files:
     type: development
     size: 5012
   - path: development/agents/aios-master.md
-    hash: sha256:9d36b1a21ede879e4a08aa8368ecaadf45e9b8633b3da4ae286c1526b84b70cf
+    hash: sha256:6050793daa7eaadb2dbd249669d18ed3f458b51bf97d580849df6e11b963143d
     type: agent
     size: 15011
   - path: development/agents/analyst.md
-    hash: sha256:6ff4ea10b7ab0c5ec17691bc9932849667a9e41be4a0361b229b5435831b1352
+    hash: sha256:17c49a1f44a776a5df2614db4fb48703b4662b5ca4b44c755a009131b014ef22
     type: agent
-    size: 9392
+    size: 10126
   - path: development/agents/architect.md
-    hash: sha256:797ee13c488ddd6d98af58ff8a408750d185d06046f1e481c0386e62ce9d96ba
+    hash: sha256:f2e07291876a9b0891def2b844e9f3e76fad4fa33f01a7d3a5620f0d877e0926
     type: agent
-    size: 17483
+    size: 18471
   - path: development/agents/data-engineer.md
-    hash: sha256:f70f796652c513df068c5f8374f1ec27cdb3986569c17372a5252961b55fca5d
+    hash: sha256:1f0b8e9fa8ee11c9bf6b6ad6b4938d2dfd0ba9b50bbc8f2c0fb6c8e1352548e5
     type: agent
-    size: 20324
+    size: 21868
   - path: development/agents/dev.md
     hash: sha256:6dd5fd03200790262954437f3692a01b6269545852779e7d28cebdf3f3d91b3e
     type: agent
     size: 23130
   - path: development/agents/devops.md
-    hash: sha256:f566b0985250edd0bf4a6a26d5f297d6ad553f833473f18350f3cae0412eb6d5
+    hash: sha256:58e0686a094f7c875db2cfaffbc404c24463619a571ccfe17d41f82828a555bd
     type: agent
-    size: 18704
+    size: 20192
   - path: development/agents/pm.md
-    hash: sha256:d6a8ecb0c2cc7d67aa19bcf1d760650a5ccf25d722772e4d10624a2acad26b84
+    hash: sha256:baed88c1f6ea73f9fe7baeb147a1d571d7d9b934ebfb5258c814c2923f275366
     type: agent
-    size: 9122
+    size: 10749
   - path: development/agents/po.md
-    hash: sha256:1300e5c2c46d7bafcddf692d26003a5f46302e42b3fec38e1e3d49228d6e0fcf
+    hash: sha256:316ada43eb7ff127721dd791e5f638b47f0a2fb195c02336811427ae0fc6d306
     type: agent
-    size: 11013
+    size: 12321
   - path: development/agents/qa.md
-    hash: sha256:ba75516e82eb84023c7f49a3cb28dddbf3f1000def7b9197f0dec5a57649f205
+    hash: sha256:545789416340dd956b9236aa111f844865eb2a31104b701e02c7e0146b5e50de
     type: agent
-    size: 15938
+    size: 17924
   - path: development/agents/sm.md
-    hash: sha256:a3199fb2710f315e32eb6f475e5dc56a132328dde65aa8b4730676dc98e7ce4d
+    hash: sha256:a7882b3f7a775b1f3dd522689722aea3c45678bbf746c8aa7b0dd6e338682a22
     type: agent
-    size: 9758
+    size: 10942
   - path: development/agents/squad-creator.md
     hash: sha256:127a95c58b68e1dd9f42d907b8b23b9762e32fe89acf05ea0e564fb5497e9a72
     type: agent
     size: 11941
   - path: development/agents/ux-design-expert.md
-    hash: sha256:60ef84102a934c3eb06428f8d005ff2a1eae497286d616adcaefca17dc26dda2
+    hash: sha256:13dc40241a8397115e405b97e566a211ccc48c19054f7599c6e0fb36492d74d7
     type: agent
-    size: 17985
+    size: 19455
   - path: development/checklists/self-critique-checklist.md
     hash: sha256:869fbc8fbc333ac8eea4eca3ea4ab9ca79917fa5e53735b70d634c85ac6420c8
     type: checklist
@@ -857,13 +857,13 @@ files:
     type: script
     size: 8227
   - path: development/scripts/generate-greeting.js
-    hash: sha256:64647adb9b272a3f7f156a4b77edb97a2279799c5ed44413451ede7002528aa4
+    hash: sha256:22b1fc864582870ef8b278895e8f040b9ad56094ba4ade3c858461364370621a
     type: script
-    size: 5032
+    size: 5551
   - path: development/scripts/greeting-builder.js
-    hash: sha256:60a2d552368962eda89f3852c37404e751bcabf639c853b5fe86d2f434a8672d
+    hash: sha256:83efc314285cefa52b780924b59fc4f9925fa3ff6e744ec19eb2ea215dcb3ff9
     type: script
-    size: 29804
+    size: 30372
   - path: development/scripts/greeting-config-cli.js
     hash: sha256:1535acc8d5c802eb3dec7b7348f876a34974fbe4cfa760a9108d5554a72c4cf6
     type: script
@@ -2205,9 +2205,9 @@ files:
     type: script
     size: 4056
   - path: infrastructure/scripts/pr-review-ai.js
-    hash: sha256:cfe154d2e7bed2a94a5ed627d9c122e2ab5b53699054b1e31ce8741ba3c5d732
+    hash: sha256:4bd337d1572cb224c6db0a293f4e29a156655cc8bab4ece0558fb7d565465264
     type: script
-    size: 31277
+    size: 31455
   - path: infrastructure/scripts/project-status-loader.js
     hash: sha256:bd9b16daaf031a6ca97bc683ff1005255a5d6f3fd94fa35625cd27a047a3c41e
     type: script
@@ -2273,9 +2273,9 @@ files:
     type: script
     size: 8334
   - path: infrastructure/scripts/test-discovery.js
-    hash: sha256:04038aa49ae515697084fcdacaf0ef8bc36029fc114f5a1206065d7928870449
+    hash: sha256:737408e74e492ab3712b6ec2bc586e45b879af607968bca1ae39d39bf11d4a24
     type: script
-    size: 34477
+    size: 35298
   - path: infrastructure/scripts/test-generator.js
     hash: sha256:90485b00c0b9e490f2394ff0fb456ea5a5614ca2431d9df55d95b54213b15184
     type: script
@@ -2473,9 +2473,9 @@ files:
     type: monitor
     size: 1644
   - path: monitor/hooks/lib/send_event.py
-    hash: sha256:2ec9ec9abfded4c0b67a49429d192f171758c0fb4e8a1bf1e47f2c8e32aa47ea
+    hash: sha256:cec0352189a63733c9aee685eb6b42132bbff789a6f0f8f2302363c056870cf4
     type: monitor
-    size: 1190
+    size: 1293
   - path: monitor/hooks/notification.py
     hash: sha256:ae9e484772e090c557fcda3be46d19b9c48d7bec9789652cbfec17d7616a956f
     type: monitor
@@ -2489,9 +2489,9 @@ files:
     type: monitor
     size: 500
   - path: monitor/hooks/pre_tool_use.py
-    hash: sha256:e4a7bbd6cbb6e17b819f629ef88a24947612f4dffbe19fab897b9ff4a409efc2
+    hash: sha256:b7dee6e6c1738659fce443d4e0f9a61c3d63502328b24b596dfafd5a1339ea56
     type: monitor
-    size: 981
+    size: 1266
   - path: monitor/hooks/stop.py
     hash: sha256:9737bcedd34cfdf459641e2f0e74eacf7a56d0e7ad0fb05a32a40c0afc87443e
     type: monitor
