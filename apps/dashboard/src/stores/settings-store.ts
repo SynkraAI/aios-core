@@ -19,7 +19,7 @@ export interface DashboardSettings {
 
 const DEFAULT_SETTINGS: DashboardSettings = {
   theme: 'dark',
-  useMockData: true, // Start with mock data for demo
+  useMockData: false, // Use real data from APIs by default
   autoRefresh: true,
   refreshInterval: 30,
   storiesPath: 'docs/stories',

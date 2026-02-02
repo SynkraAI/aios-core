@@ -122,6 +122,93 @@ function extractStatusFromBlockquote(value: string): StoryStatus | undefined {
   return undefined;
 }
 
+// Parse markdown table metadata format
+// Format: | **Field** | Value |
+function parseTableMetadata(content: string): Record<string, string> {
+  const metadata: Record<string, string> = {};
+
+  // Match table rows with bold field names
+  // | **Status** | Done |
+  // | **Priority** | P1 |
+  const tableRegex = /^\|\s*\*\*([^*|]+)\*\*\s*\|\s*([^|]+)\s*\|/gm;
+  let match;
+
+  while ((match = tableRegex.exec(content)) !== null) {
+    const field = match[1].trim().toLowerCase();
+    const value = match[2].trim();
+    metadata[field] = value;
+  }
+
+  return metadata;
+}
+
+// Parse inline bold metadata format (not in blockquote)
+// Format: **Field:** Value
+function parseInlineMetadata(content: string): Record<string, string> {
+  const metadata: Record<string, string> = {};
+
+  // Match inline bold fields not in blockquote
+  // **Status:** Done
+  // **Priority:** P1
+  const inlineRegex = /(?<!>.*)\*\*([^*:]+)\*\*:\s*([^\n|]+)/g;
+  let match;
+
+  while ((match = inlineRegex.exec(content)) !== null) {
+    const field = match[1].trim().toLowerCase();
+    const value = match[2].trim();
+    metadata[field] = value;
+  }
+
+  return metadata;
+}
+
+// Extract status from table format with emoji handling
+function extractStatusFromTable(value: string): StoryStatus | undefined {
+  if (!value) return undefined;
+
+  // Remove common emojis at the start
+  const cleanValue = value
+    .replace(/^[\u{1F4DD}\u{2705}\u{1F534}\u{1F7E1}\u{1F7E2}\u{26AA}\u{1F535}\u{23F3}\u{1F6A7}\u{274C}\u{26A0}\u{1F3AF}\u{2714}\u{2716}]\s*/u, '')
+    .toLowerCase()
+    .trim();
+
+  // Check direct mapping
+  if (STATUS_MAP[cleanValue]) {
+    return STATUS_MAP[cleanValue];
+  }
+
+  // Check if it's a valid status directly
+  if (VALID_STATUS.includes(cleanValue as StoryStatus)) {
+    return cleanValue as StoryStatus;
+  }
+
+  return undefined;
+}
+
+// Extract priority from table format with emoji handling
+function extractPriorityFromTable(value: string): StoryPriority | undefined {
+  if (!value) return undefined;
+
+  // Remove common emojis
+  const cleanValue = value
+    .replace(/^[\u{1F534}\u{1F7E0}\u{1F7E1}\u{1F7E2}\u{26AA}\u{2B50}\u{1F525}]\s*/u, '')
+    .trim();
+
+  // Extract P0, P1, P2, P3 from strings like "P0 - Foundation", "P1 - Core"
+  const pMatch = cleanValue.match(/^(p[0-3])/i);
+  if (pMatch) {
+    return PRIORITY_MAP[pMatch[1].toLowerCase()];
+  }
+
+  // Also support direct priority names
+  const lowerValue = cleanValue.toLowerCase();
+  if (VALID_PRIORITY.includes(lowerValue as StoryPriority)) {
+    return lowerValue as StoryPriority;
+  }
+
+  return undefined;
+}
+
 // Parse frontmatter to Story object
 function parseStoryFromMarkdown(
   content: string,
@@ -131,8 +218,10 @@ function parseStoryFromMarkdown(
   try {
     const { data, content: markdownContent } = matter(content);
 
-    // Parse blockquote metadata as fallback for fields not in frontmatter
+    // Parse all metadata formats as fallback for fields not in frontmatter
     const blockquoteMeta = parseBlockquoteMetadata(markdownContent);
+    const tableMeta = parseTableMetadata(markdownContent);
+    const inlineMeta = parseInlineMetadata(markdownContent);
 
     // Extract title from first H1 or frontmatter
     let title = data.title;
@@ -155,10 +244,20 @@ function parseStoryFromMarkdown(
       storyType = 'epic';
     }
 
-    // Parse status - frontmatter first, then blockquote fallback
+    // Parse status - frontmatter first, then table, inline, blockquote fallback
     let status: StoryStatus = 'backlog';
     if (data.status && VALID_STATUS.includes(data.status)) {
       status = data.status;
+    } else if (tableMeta.status) {
+      const tableStatus = extractStatusFromTable(tableMeta.status);
+      if (tableStatus) {
+        status = tableStatus;
+      }
+    } else if (inlineMeta.status) {
+      const inlineStatus = extractStatusFromTable(inlineMeta.status);
+      if (inlineStatus) {
+        status = inlineStatus;
+      }
     } else if (blockquoteMeta.status) {
       const blockquoteStatus = extractStatusFromBlockquote(blockquoteMeta.status);
       if (blockquoteStatus) {
@@ -177,10 +276,14 @@ function parseStoryFromMarkdown(
       }
     }
 
-    // Parse priority - frontmatter first, then blockquote fallback
+    // Parse priority - frontmatter first, then table, inline, blockquote fallback
     let priority: StoryPriority | undefined;
     if (data.priority && VALID_PRIORITY.includes(data.priority)) {
       priority = data.priority;
+    } else if (tableMeta.priority) {
+      priority = extractPriorityFromTable(tableMeta.priority);
+    } else if (inlineMeta.priority) {
+      priority = extractPriorityFromTable(inlineMeta.priority);
     } else if (blockquoteMeta.priority) {
       priority = extractPriorityFromBlockquote(blockquoteMeta.priority);
     }
@@ -295,8 +398,9 @@ async function findMarkdownFiles(dir: string): Promise<string[]> {
       const fullPath = path.join(dir, entry.name);
 
       if (entry.isDirectory()) {
-        // Skip hidden directories and node_modules
-        if (!entry.name.startsWith('.') && entry.name !== 'node_modules') {
+        // Skip hidden directories, node_modules, archive, and obsolete
+        const skipDirs = ['node_modules', 'archive', 'obsolete', 'archived', 'deprecated'];
+        if (!entry.name.startsWith('.') && !skipDirs.includes(entry.name.toLowerCase())) {
           files.push(...(await findMarkdownFiles(fullPath)));
         }
       } else if (entry.isFile() && entry.name.endsWith('.md')) {
