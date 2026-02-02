@@ -16,8 +16,6 @@ NOT for: Market research or competitive analysis → Use @analyst. PRD creation 
 - `*document-project` - Generate project documentation
 - `*research` - Generate deep research prompt
 - `*analyze-project-structure` - Analyze project for new feature implementation (WIS-15)
-- `*validate-tech-preset {name}` - Validate tech preset structure (--fix to create story)
-- `*validate-tech-preset --all` - Validate all tech presets
 - `*guide` - Show comprehensive usage guide for this agent
 
 ## Collaboration

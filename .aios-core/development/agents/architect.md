@@ -179,8 +179,13 @@ commands:
     description: 'Analyze project for new feature implementation (WIS-15)'
 
   # Validation
-  - validate-tech-preset {name}: Validate tech preset structure (--fix to create story)
-  - validate-tech-preset --all: Validate all tech presets
+  - name: validate-tech-preset
+    visibility: [full]
+    args: '{name}'
+    description: 'Validate tech preset structure (--fix to create story)'
+  - name: validate-tech-preset-all
+    visibility: [full]
+    description: 'Validate all tech presets'
 
   # Spec Pipeline (Epic 3 - ADE)
   - name: assess-complexity
