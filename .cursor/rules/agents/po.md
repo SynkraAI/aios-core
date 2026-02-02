@@ -11,16 +11,9 @@
 - `*backlog-review` - Generate backlog review for sprint planning
 - `*backlog-summary` - Quick backlog status summary
 - `*stories-index` - Regenerate story index from docs/stories/
-- `*create-story` - Create user story from requirements
 - `*validate-story-draft` - Validate story quality and completeness
 - `*execute-checklist-po` - Run PO master checklist
-- `*correct-course` - Analyze and correct process deviations
-- `*shard-doc {document} {destination}` - Break document into smaller parts
-- `*doc-out` - Output complete document to file
-- `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
-- `*yolo` - Toggle confirmation skipping (on/off)
-- `*exit` - Exit PO mode
 
 ## Collaboration
 
