@@ -95,132 +95,51 @@ story-file-permissions:
 # All commands require * prefix when used (e.g., *help)
 commands:
   # Code Review & Analysis
-  - name: help
-    visibility: [full, quick, key]
-    description: 'Show all available commands with descriptions'
-  - name: code-review
-    args: '{scope}'
-    visibility: [full, quick]
-    description: 'Run automated review (scope: uncommitted or committed)'
-  - name: review
-    args: '{story}'
-    visibility: [full, quick, key]
-    description: 'Comprehensive story review with gate decision'
-  - name: review-build
-    args: '{story}'
-    visibility: [full, quick]
-    description: '10-phase structured QA review (Epic 6) - outputs qa_report.md'
+  - help: Show all available commands with descriptions
+  - 'code-review {scope}': 'Run automated review (scope: uncommitted or committed)'
+  - 'review {story}': Comprehensive story review with gate decision
+  - 'review-build {story}': '10-phase structured QA review (Epic 6) - outputs qa_report.md'
 
   # Quality Gates
-  - name: gate
-    args: '{story}'
-    visibility: [full, quick, key]
-    description: 'Create quality gate decision'
-  - name: nfr-assess
-    args: '{story}'
-    visibility: [full]
-    description: 'Validate non-functional requirements'
-  - name: risk-profile
-    args: '{story}'
-    visibility: [full]
-    description: 'Generate risk assessment matrix'
+  - 'gate {story}': Create quality gate decision
+  - 'nfr-assess {story}': Validate non-functional requirements
+  - 'risk-profile {story}': Generate risk assessment matrix
 
   # Fix Requests (Epic 6 - QA Loop)
-  - name: create-fix-request
-    args: '{story}'
-    visibility: [full, quick]
-    description: 'Generate QA_FIX_REQUEST.md for @dev with issues to fix'
+  - 'create-fix-request {story}': Generate QA_FIX_REQUEST.md for @dev with issues to fix
 
   # Enhanced Validation (Absorbed from Auto-Claude)
-  - name: validate-libraries
-    args: '{story}'
-    visibility: [full]
-    description: 'Validate third-party library usage via Context7'
-  - name: security-check
-    args: '{story}'
-    visibility: [full, quick]
-    description: 'Run 8-point security vulnerability scan'
-  - name: validate-migrations
-    args: '{story}'
-    visibility: [full]
-    description: 'Validate database migrations for schema changes'
-  - name: evidence-check
-    args: '{story}'
-    visibility: [full]
-    description: 'Verify evidence-based QA requirements'
-  - name: false-positive-check
-    args: '{story}'
-    visibility: [full]
-    description: 'Critical thinking verification for bug fixes'
-  - name: console-check
-    args: '{story}'
-    visibility: [full]
-    description: 'Browser console error detection'
+  - 'validate-libraries {story}': Validate third-party library usage via Context7
+  - 'security-check {story}': Run 8-point security vulnerability scan
+  - 'validate-migrations {story}': Validate database migrations for schema changes
+  - 'evidence-check {story}': Verify evidence-based QA requirements
+  - 'false-positive-check {story}': Critical thinking verification for bug fixes
+  - 'console-check {story}': Browser console error detection
 
   # Test Strategy
-  - name: test-design
-    args: '{story}'
-    visibility: [full, quick]
-    description: 'Create comprehensive test scenarios'
-  - name: trace
-    args: '{story}'
-    visibility: [full]
-    description: 'Map requirements to tests (Given-When-Then)'
-  - name: create-suite
-    args: '{story}'
-    visibility: [full]
-    description: 'Create test suite for story (Authority: QA owns test suites)'
+  - 'test-design {story}': Create comprehensive test scenarios
+  - 'trace {story}': 'Map requirements to tests (Given-When-Then)'
+  - 'create-suite {story}': 'Create test suite for story (Authority: QA owns test suites)'
 
   # Spec Pipeline (Epic 3 - ADE)
-  - name: critique-spec
-    args: '{story}'
-    visibility: [full]
-    description: 'Review and critique specification for completeness and clarity'
-
-  # Cross-Artifact Analysis (SDD Adoption)
-  - name: analyze
-    visibility: [full, quick]
-    description: 'Cross-artifact analysis (coverage, consistency, ambiguity) - read-only report'
-  - name: analyze-scope
-    args: '{scope}'
-    visibility: [full]
-    description: 'Analyze specific scope (prd, architecture, stories, specs)'
-  - name: analyze-story
-    args: '{id}'
-    visibility: [full]
-    description: 'Analyze specific story artifacts'
+  - 'critique-spec {story}': Review and critique specification for completeness and clarity
 
   # Backlog Management
-  - name: backlog-add
-    args: '{story} {type} {priority} {title}'
-    visibility: [full]
-    description: 'Add item to story backlog'
-  - name: backlog-update
-    args: '{item_id} {status}'
-    visibility: [full]
-    description: 'Update backlog item status'
-  - name: backlog-review
-    visibility: [full]
-    description: 'Generate backlog review for sprint planning'
+  - 'backlog-add {story} {type} {priority} {title}': Add item to story backlog
+  - 'backlog-update {item_id} {status}': Update backlog item status
+  - backlog-review: Generate backlog review for sprint planning
 
   # Utilities
-  - name: session-info
-    visibility: [full]
-    description: 'Show current session details (agent history, commands)'
-  - name: guide
-    visibility: [full, quick]
-    description: 'Show comprehensive usage guide for this agent'
-  - name: exit
-    visibility: [full]
-    description: 'Exit QA mode'
+  - session-info: Show current session details (agent history, commands)
+  - guide: Show comprehensive usage guide for this agent
+  - exit: Exit QA mode
 dependencies:
   data:
     - technical-preferences.md
   tasks:
-    - analyze-cross-artifact.md
     - qa-create-fix-request.md
     - qa-generate-tests.md
-    - po-manage-story-backlog.md
+    - manage-story-backlog.md
     - qa-nfr-assess.md
     - qa-gate.md
     - qa-review-build.md

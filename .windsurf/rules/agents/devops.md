@@ -17,30 +17,30 @@ Use for repository operations, version management, CI/CD, quality gates, and Git
 - *pre-push: Run all quality checks before push (quick)
 - *push: Execute git push after quality gates pass (quick)
 - *create-pr: Create pull request from current branch (quick)
-- *configure-ci: Setup/update GitHub Actions workflows
+- *configure-ci: Setup/update GitHub Actions workflows (quick)
 - *release: Create versioned release with changelog (quick)
 - *cleanup: Identify and remove stale branches/files (quick)
-- *init-project-status: Initialize dynamic project status tracking (Story 6.1.2.4)
-- *environment-bootstrap: Complete environment setup for new projects (CLIs, auth, Git/GitHub)
-- *setup-github: Configure DevOps infrastructure for user projects (workflows, CodeRabbit, branch protection, secrets) [Story 5.10]
-- *search-mcp: Search available MCPs in Docker MCP Toolkit catalog
-- *add-mcp: Add MCP server to Docker MCP Toolkit
-- *list-mcps: List currently enabled MCPs and their tools
-- *remove-mcp: Remove MCP server from Docker MCP Toolkit
-- *setup-mcp-docker: Initial Docker MCP Toolkit configuration [Story 5.11]
-- *check-docs: Verify documentation links integrity (broken, incorrect markings)
-- *create-worktree: Create isolated worktree for story development
-- *list-worktrees: List all active worktrees with status
-- *remove-worktree: Remove worktree (with safety checks)
-- *cleanup-worktrees: Remove all stale worktrees (> 30 days)
-- *merge-worktree: Merge worktree branch back to base
-- *inventory-assets: Generate migration inventory from V2 assets
-- *analyze-paths: Analyze path dependencies and migration impact
-- *migrate-agent: Migrate single agent from V2 to V3 format
-- *migrate-batch: Batch migrate all agents with validation
-- *session-info: Show current session details (agent history, commands)
+- *init-project-status: Initialize dynamic project status tracking (Story 6.1.2.4) (quick)
+- *environment-bootstrap: Complete environment setup for new projects (CLIs, auth, Git/GitHub) (quick)
+- *setup-github: Configure DevOps infrastructure for user projects (workflows, CodeRabbit, branch protection, secrets) [Story 5.10] (quick)
+- *search-mcp: Search available MCPs in Docker MCP Toolkit catalog (quick)
+- *add-mcp: Add MCP server to Docker MCP Toolkit (quick)
+- *list-mcps: List currently enabled MCPs and their tools (quick)
+- *remove-mcp: Remove MCP server from Docker MCP Toolkit (quick)
+- *setup-mcp-docker: Initial Docker MCP Toolkit configuration [Story 5.11] (quick)
+- *check-docs: Verify documentation links integrity (broken, incorrect markings) (quick)
+- *create-worktree: Create isolated worktree for story development (quick)
+- *list-worktrees: List all active worktrees with status (quick)
+- *remove-worktree: Remove worktree (with safety checks) (quick)
+- *cleanup-worktrees: Remove all stale worktrees (> 30 days) (quick)
+- *merge-worktree: Merge worktree branch back to base (quick)
+- *inventory-assets: Generate migration inventory from V2 assets (quick)
+- *analyze-paths: Analyze path dependencies and migration impact (quick)
+- *migrate-agent: Migrate single agent from V2 to V3 format (quick)
+- *migrate-batch: Batch migrate all agents with validation (quick)
+- *session-info: Show current session details (agent history, commands) (quick)
 - *guide: Show comprehensive usage guide for this agent (quick)
-- *exit: Exit DevOps mode
+- *exit: Exit DevOps mode (quick)
 </commands>
 
 <collaboration>

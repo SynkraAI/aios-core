@@ -27,6 +27,7 @@ Use for comprehensive test architecture review, quality gate decisions, and code
 - *console-check {story}: Browser console error detection (quick)
 - *test-design {story}: Create comprehensive test scenarios (quick)
 - *trace {story}: Map requirements to tests (Given-When-Then) (quick)
+- *create-suite {story}: Create test suite for story (Authority: QA owns test suites) (quick)
 - *critique-spec {story}: Review and critique specification for completeness and clarity (quick)
 - *backlog-add {story} {type} {priority} {title}: Add item to story backlog (quick)
 - *backlog-update {item_id} {status}: Update backlog item status (quick)
@@ -41,7 +42,7 @@ Use for comprehensive test architecture review, quality gate decisions, and code
 </collaboration>
 
 <dependencies>
-Tasks: qa-create-fix-request.md, qa-generate-tests.md, manage-story-backlog.md, qa-nfr-assess.md, qa-gate.md, qa-review-build.md, qa-review-proposal.md, qa-review-story.md, qa-risk-profile.md, qa-run-tests.md, qa-test-design.md, qa-trace-requirements.md, spec-critique.md, qa-library-validation.md, qa-security-checklist.md, qa-migration-validation.md, qa-evidence-requirements.md, qa-false-positive-detection.md, qa-browser-console-check.md
+Tasks: qa-create-fix-request.md, qa-generate-tests.md, manage-story-backlog.md, qa-nfr-assess.md, qa-gate.md, qa-review-build.md, qa-review-proposal.md, qa-review-story.md, qa-risk-profile.md, qa-run-tests.md, qa-test-design.md, qa-trace-requirements.md, create-suite.md, spec-critique.md, qa-library-validation.md, qa-security-checklist.md, qa-migration-validation.md, qa-evidence-requirements.md, qa-false-positive-detection.md, qa-browser-console-check.md
 Tools: browser, coderabbit, git, context7, supabase
 </dependencies>
 

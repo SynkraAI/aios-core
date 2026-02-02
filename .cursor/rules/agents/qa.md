@@ -22,6 +22,7 @@
 - `*console-check {story}` - Browser console error detection
 - `*test-design {story}` - Create comprehensive test scenarios
 - `*trace {story}` - Map requirements to tests (Given-When-Then)
+- `*create-suite {story}` - Create test suite for story (Authority: QA owns test suites)
 - `*critique-spec {story}` - Review and critique specification for completeness and clarity
 - `*backlog-add {story} {type} {priority} {title}` - Add item to story backlog
 - `*backlog-update {item_id} {status}` - Update backlog item status

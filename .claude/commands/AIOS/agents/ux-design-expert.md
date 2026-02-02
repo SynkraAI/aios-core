@@ -9,9 +9,9 @@ CRITICAL: Read the full YAML BLOCK that FOLLOWS IN THIS FILE to understand your 
 ```yaml
 IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
-  - Dependencies map to .aios-core/development/{type}/{name}
-  - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: create-doc.md → .aios-core/development/tasks/create-doc.md
+  - Dependencies map to aios-core/{type}/{name}
+  - type=folder (tasks|templates|checklists|data|workflows|etc...), name=file-name
+  - Example: audit-codebase.md → aios-core/tasks/audit-codebase.md
   - IMPORTANT: Only load these files when user requests specific command execution
 
 REQUEST-RESOLUTION:
@@ -32,9 +32,7 @@ activation-instructions:
         - Suggests workflow next steps if in recurring pattern
         - Formats adaptive greeting automatically
   - STEP 4: Display the greeting returned by GreetingBuilder
-
   - STEP 5: HALT and await user input
-
   - IMPORTANT: Do NOT improvise or add explanatory text beyond what is specified in greeting_levels and Quick Commands section
   - DO NOT: Load any other agent files during activation
   - ONLY load dependency files when user selects them for execution via command
@@ -118,7 +116,7 @@ agent:
 
     Universal Commands:
     *scan            → Read("aios-core/tasks/ux-ds-scan-artifact.md")
-    *integrate       → Read("aios-core/tasks/integrate-expansion-pack.md")
+    *integrate       → Read("aios-core/tasks/integrate-Squad.md")
 
 persona_profile:
   archetype: Empathizer
@@ -167,101 +165,42 @@ core_principles:
 # Commands organized by 5 phases for clarity
 commands:
   # === PHASE 1: UX RESEARCH & DESIGN ===
-  - name: research
-    visibility: [full, quick, key]
-    description: 'Conduct user research and needs analysis'
-  - name: wireframe
-    args: '{fidelity}'
-    visibility: [full, quick]
-    description: 'Create wireframes and interaction flows'
-  - name: generate-ui-prompt
-    visibility: [full, quick]
-    description: 'Generate prompts for AI UI tools (v0, Lovable)'
-  - name: create-front-end-spec
-    visibility: [full]
-    description: 'Create detailed frontend specification'
+  research: 'Conduct user research and needs analysis'
+  wireframe {fidelity}: 'Create wireframes and interaction flows'
+  generate-ui-prompt: 'Generate prompts for AI UI tools (v0, Lovable)'
+  create-front-end-spec: 'Create detailed frontend specification'
 
   # === PHASE 2: DESIGN SYSTEM AUDIT (Brownfield) ===
-  - name: audit
-    args: '{path}'
-    visibility: [full, quick, key]
-    description: 'Scan codebase for UI pattern redundancies'
-  - name: consolidate
-    visibility: [full, quick]
-    description: 'Reduce redundancy using intelligent clustering'
-  - name: shock-report
-    visibility: [full]
-    description: 'Generate visual HTML report showing chaos + ROI'
+  audit {path}: 'Scan codebase for UI pattern redundancies'
+  consolidate: 'Reduce redundancy using intelligent clustering'
+  shock-report: 'Generate visual HTML report showing chaos + ROI'
 
   # === PHASE 3: DESIGN TOKENS & SYSTEM SETUP ===
-  - name: tokenize
-    visibility: [full, quick, key]
-    description: 'Extract design tokens from consolidated patterns'
-  - name: setup
-    visibility: [full, quick]
-    description: 'Initialize design system structure'
-  - name: migrate
-    visibility: [full]
-    description: 'Generate phased migration strategy (4 phases)'
-  - name: upgrade-tailwind
-    visibility: [full]
-    description: 'Plan and execute Tailwind CSS v4 upgrades'
-  - name: audit-tailwind-config
-    visibility: [full]
-    description: 'Validate Tailwind configuration health'
-  - name: export-dtcg
-    visibility: [full]
-    description: 'Generate W3C Design Tokens bundles'
-  - name: bootstrap-shadcn
-    visibility: [full, quick]
-    description: 'Install Shadcn/Radix component library'
+  tokenize: 'Extract design tokens from consolidated patterns'
+  setup: 'Initialize design system structure'
+  migrate: 'Generate phased migration strategy (4 phases)'
+  upgrade-tailwind: 'Plan and execute Tailwind CSS v4 upgrades'
+  audit-tailwind-config: 'Validate Tailwind configuration health'
+  export-dtcg: 'Generate W3C Design Tokens bundles'
+  bootstrap-shadcn: 'Install Shadcn/Radix component library'
 
   # === PHASE 4: ATOMIC COMPONENT BUILDING ===
-  - name: build
-    args: '{component}'
-    visibility: [full, quick, key]
-    description: 'Build production-ready atomic component'
-  - name: compose
-    args: '{molecule}'
-    visibility: [full, quick]
-    description: 'Compose molecule from existing atoms'
-  - name: extend
-    args: '{component}'
-    visibility: [full]
-    description: 'Add variant to existing component'
+  build {component}: 'Build production-ready atomic component'
+  compose {molecule}: 'Compose molecule from existing atoms'
+  extend {component}: 'Add variant to existing component'
 
   # === PHASE 5: DOCUMENTATION & QUALITY ===
-  - name: document
-    visibility: [full, quick]
-    description: 'Generate pattern library documentation'
-  - name: a11y-check
-    visibility: [full, quick]
-    description: 'Run accessibility audit (WCAG AA/AAA)'
-  - name: calculate-roi
-    visibility: [full]
-    description: 'Calculate ROI and cost savings'
+  document: 'Generate pattern library documentation'
+  a11y-check: 'Run accessibility audit (WCAG AA/AAA)'
+  calculate-roi: 'Calculate ROI and cost savings'
 
   # === UNIVERSAL COMMANDS ===
-  - name: scan
-    args: '{path|url}'
-    visibility: [full]
-    description: 'Analyze HTML/React artifact for patterns'
-  - name: integrate
-    args: '{pack}'
-    visibility: [full]
-    description: 'Connect with expansion pack'
-  - name: help
-    visibility: [full, quick, key]
-    description: 'Show all commands organized by phase'
-  - name: status
-    visibility: [full, quick]
-    description: 'Show current workflow phase'
-  - name: guide
-    visibility: [full, quick]
-    description: 'Show comprehensive usage guide for this agent'
-  - name: exit
-    visibility: [full]
-    description: 'Exit UX-Design Expert mode'
+  scan {path|url}: 'Analyze HTML/React artifact for patterns'
+  integrate {pack}: 'Connect with expansion pack'
+  help: 'Show all commands organized by phase'
+  status: 'Show current workflow phase'
+  guide: 'Show comprehensive usage guide for this agent'
+  exit: 'Exit UX-Design Expert mode'
 
 dependencies:
   tasks:
@@ -292,7 +231,7 @@ dependencies:
     - ux-ds-scan-artifact.md
     - run-design-system-pipeline.md
     # Shared utilities (2 tasks)
-    - integrate-expansion-pack.md
+    - integrate-Squad.md
     - execute-checklist.md
 
   templates:

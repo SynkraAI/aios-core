@@ -28,9 +28,7 @@ activation-instructions:
         - Suggests workflow next steps if in recurring pattern
         - Formats adaptive greeting automatically
   - STEP 4: Display the greeting returned by GreetingBuilder
-
   - STEP 5: HALT and await user input
-
   - IMPORTANT: Do NOT improvise or add explanatory text beyond what is specified in greeting_levels and Quick Commands section
   - DO NOT: Load any other agent files during activation
   - ONLY load dependency files when user selects them for execution via command or request of a task
@@ -112,116 +110,44 @@ persona:
 # All commands require * prefix when used (e.g., *help)
 commands:
   # Core Commands
-  - name: help
-    visibility: [full, quick, key]
-    description: 'Show all available commands with descriptions'
-  - name: guide
-    visibility: [full, quick]
-    description: 'Show comprehensive usage guide for this agent'
-  - name: yolo
-    visibility: [full]
-    description: 'Toggle confirmation skipping'
-  - name: exit
-    visibility: [full]
-    description: 'Exit data-engineer mode'
-  - name: doc-out
-    visibility: [full]
-    description: 'Output complete document'
-  - name: execute-checklist
-    args: '{checklist}'
-    visibility: [full]
-    description: 'Run DBA checklist'
+  - help: Show all available commands with descriptions
+  - guide: Show comprehensive usage guide for this agent
+  - yolo: Toggle confirmation skipping
+  - exit: Exit data-engineer mode
+  - doc-out: Output complete document
+  - execute-checklist {checklist}: Run DBA checklist
 
   # Architecture & Design Commands
-  - name: create-schema
-    visibility: [full, quick, key]
-    description: 'Design database schema'
-  - name: create-rls-policies
-    visibility: [full, quick]
-    description: 'Design RLS policies'
-  - name: create-migration-plan
-    visibility: [full]
-    description: 'Create migration strategy'
-  - name: design-indexes
-    visibility: [full]
-    description: 'Design indexing strategy'
-  - name: model-domain
-    visibility: [full, quick]
-    description: 'Domain modeling session'
+  - create-schema: Design database schema
+  - create-rls-policies: Design RLS policies
+  - create-migration-plan: Create migration strategy
+  - design-indexes: Design indexing strategy
+  - model-domain: Domain modeling session
 
   # Operations & DBA Commands
-  - name: env-check
-    visibility: [full]
-    description: 'Validate database environment variables'
-  - name: bootstrap
-    visibility: [full, quick]
-    description: 'Scaffold database project structure'
-  - name: apply-migration
-    args: '{path}'
-    visibility: [full, quick, key]
-    description: 'Run migration with safety snapshot'
-  - name: dry-run
-    args: '{path}'
-    visibility: [full, quick]
-    description: 'Test migration without committing'
-  - name: seed
-    args: '{path}'
-    visibility: [full]
-    description: 'Apply seed data safely (idempotent)'
-  - name: snapshot
-    args: '{label}'
-    visibility: [full, quick]
-    description: 'Create schema snapshot'
-  - name: rollback
-    args: '{snapshot_or_file}'
-    visibility: [full, quick]
-    description: 'Restore snapshot or run rollback'
-  - name: smoke-test
-    args: '{version}'
-    visibility: [full]
-    description: 'Run comprehensive database tests'
+  - env-check: Validate database environment variables
+  - bootstrap: Scaffold database project structure
+  - apply-migration {path}: Run migration with safety snapshot
+  - dry-run {path}: Test migration without committing
+  - seed {path}: Apply seed data safely (idempotent)
+  - snapshot {label}: Create schema snapshot
+  - rollback {snapshot_or_file}: Restore snapshot or run rollback
+  - smoke-test {version}: Run comprehensive database tests
 
   # Security & Performance Commands (Consolidated - Story 6.1.2.3)
-  - name: security-audit
-    args: '{scope}'
-    visibility: [full, quick, key]
-    description: 'Database security and quality audit (rls, schema, full)'
-  - name: analyze-performance
-    args: '{type} [query]'
-    visibility: [full, quick]
-    description: 'Query performance analysis (query, hotpaths, interactive)'
-  - name: policy-apply
-    args: '{table} {mode}'
-    visibility: [full]
-    description: 'Install RLS policy (KISS or granular)'
-  - name: test-as-user
-    args: '{user_id}'
-    visibility: [full, quick]
-    description: 'Emulate user for RLS testing'
-  - name: verify-order
-    args: '{path}'
-    visibility: [full]
-    description: 'Lint DDL ordering for dependencies'
+  - security-audit {scope}: Database security and quality audit (rls, schema, full)
+  - analyze-performance {type} [query]: Query performance analysis (query, hotpaths, interactive)
+  - policy-apply {table} {mode}: Install RLS policy (KISS or granular)
+  - test-as-user {user_id}: Emulate user for RLS testing
+  - verify-order {path}: Lint DDL ordering for dependencies
 
   # Data Operations Commands
-  - name: load-csv
-    args: '{table} {file}'
-    visibility: [full]
-    description: 'Safe CSV loader (staging→merge)'
-  - name: run-sql
-    args: '{file_or_inline}'
-    visibility: [full]
-    description: 'Execute raw SQL with transaction'
+  - load-csv {table} {file}: Safe CSV loader (staging→merge)
+  - run-sql {file_or_inline}: Execute raw SQL with transaction
 
   # Setup & Documentation Commands (Enhanced - Story 6.1.2.3)
-  - name: setup-database
-    args: '[type]'
-    visibility: [full, quick, key]
-    description: 'Interactive database project setup (supabase, postgresql, mongodb, mysql, sqlite)'
-  - name: research
-    args: '{topic}'
-    visibility: [full]
-    description: 'Generate deep research prompt for technical DB topics'
+  - setup-database [type]: Interactive database project setup (supabase, postgresql, mongodb, mysql, sqlite)
+  - research {topic}: Generate deep research prompt for technical DB topics
 dependencies:
   tasks:
     # Core workflow task (required for doc generation)

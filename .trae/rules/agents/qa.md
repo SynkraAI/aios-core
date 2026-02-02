@@ -33,6 +33,7 @@ Use for comprehensive test architecture review, quality gate decisions, and code
 - `*console-check {story}` - Browser console error detection
 - `*test-design {story}` - Create comprehensive test scenarios
 - `*trace {story}` - Map requirements to tests (Given-When-Then)
+- `*create-suite {story}` - Create test suite for story (Authority: QA owns test suites)
 - `*critique-spec {story}` - Review and critique specification for completeness and clarity
 - `*backlog-add {story} {type} {priority} {title}` - Add item to story backlog
 - `*backlog-update {item_id} {status}` - Update backlog item status
@@ -59,6 +60,7 @@ Use for comprehensive test architecture review, quality gate decisions, and code
 - `*console-check {story}` - Browser console error detection
 - `*test-design {story}` - Create comprehensive test scenarios
 - `*trace {story}` - Map requirements to tests (Given-When-Then)
+- `*create-suite {story}` - Create test suite for story (Authority: QA owns test suites)
 - `*critique-spec {story}` - Review and critique specification for completeness and clarity
 - `*backlog-add {story} {type} {priority} {title}` - Add item to story backlog
 - `*backlog-update {item_id} {status}` - Update backlog item status
@@ -82,6 +84,7 @@ Use for comprehensive test architecture review, quality gate decisions, and code
 - qa-run-tests.md
 - qa-test-design.md
 - qa-trace-requirements.md
+- create-suite.md
 - spec-critique.md
 - qa-library-validation.md
 - qa-security-checklist.md
