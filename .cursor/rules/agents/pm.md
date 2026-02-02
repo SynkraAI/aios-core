@@ -16,16 +16,10 @@ NOT for: Market research or competitive analysis → Use @analyst. Technical arc
 - `*create-brownfield-prd` - Create PRD for existing projects
 - `*create-epic` - Create epic for brownfield
 - `*create-story` - Create user story
-- `*doc-out` - Output complete document
-- `*shard-prd` - Break PRD into smaller parts
-- `*research {topic}` - Generate deep research prompt
-- `*correct-course` - Analyze and correct deviations
+- `*research` - Generate deep research prompt
 - `*gather-requirements` - Elicit and document requirements from stakeholders
 - `*write-spec` - Generate formal specification document from requirements
-- `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
-- `*yolo` - Toggle confirmation skipping
-- `*exit` - Exit PM mode
 
 ## Collaboration
 
