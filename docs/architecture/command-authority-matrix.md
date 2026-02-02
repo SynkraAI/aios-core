@@ -14,7 +14,7 @@ This document defines the authoritative owner for each AIOS command. Following t
 
 ## Authority Matrix
 
-```
+```text
 ┌────────────────────────────────────────────────────────────────────┐
 │                    COMMAND AUTHORITY MATRIX                        │
 ├────────────────────────────────────────────────────────────────────┤
@@ -70,7 +70,7 @@ This document defines the authoritative owner for each AIOS command. Following t
 ### Planning Commands
 
 | Command | Owner | Description | Delegates To |
-|---------|-------|-------------|--------------|
+| ------- | ----- | ----------- | ------------ |
 | `*create-project-brief` | @analyst | Create project brief document | - |
 | `*brainstorm` | @analyst | Facilitate brainstorming session | - |
 | `*create-prd` | @pm | Create product requirements document | - |
@@ -81,7 +81,7 @@ This document defines the authoritative owner for each AIOS command. Following t
 ### Development Commands
 
 | Command | Owner | Description | Delegates To |
-|---------|-------|-------------|--------------|
+| ------- | ----- | ----------- | ------------ |
 | `*draft` | @sm | Draft user story | - |
 | `*create-story` | @sm | Create user story from requirements | - |
 | `*develop` | @dev | Implement story/feature | - |
@@ -90,7 +90,7 @@ This document defines the authoritative owner for each AIOS command. Following t
 ### QA Commands
 
 | Command | Owner | Description | Delegates To |
-|---------|-------|-------------|--------------|
+| ------- | ----- | ----------- | ------------ |
 | `*review` | @qa | Code review and quality check | - |
 | `*create-suite` | @qa | Create test suite | - |
 | `*create-fix-request` | @qa | Create fix request for dev | @dev |
@@ -99,7 +99,7 @@ This document defines the authoritative owner for each AIOS command. Following t
 ### Data Commands
 
 | Command | Owner | Description | Delegates To |
-|---------|-------|-------------|--------------|
+| ------- | ----- | ----------- | ------------ |
 | `*create-schema` | @data-engineer | Design database schema | - |
 | `*create-migration-plan` | @data-engineer | Plan database migration | - |
 | `*security-audit` | @data-engineer | Audit database security | - |
@@ -108,7 +108,7 @@ This document defines the authoritative owner for each AIOS command. Following t
 ### DevOps Commands
 
 | Command | Owner | Description | Delegates To |
-|---------|-------|-------------|--------------|
+| ------- | ----- | ----------- | ------------ |
 | `*push` | @devops | Push code to remote | - |
 | `*create-pr` | @devops | Create pull request | - |
 | `*release` | @devops | Create release | - |
@@ -117,7 +117,7 @@ This document defines the authoritative owner for each AIOS command. Following t
 ### Orchestration Commands
 
 | Command | Owner | Description | Delegates To |
-|---------|-------|-------------|--------------|
+| ------- | ----- | ----------- | ------------ |
 | `*workflow` | @aios-master | Start workflow | Various |
 | `*create-agent` | @aios-master | Create new agent definition | - |
 | `*create-task` | @aios-master | Create new task | - |
@@ -130,7 +130,7 @@ This document defines the authoritative owner for each AIOS command. Following t
 These commands are available to all agents as they provide common functionality:
 
 | Command | Purpose |
-|---------|---------|
+| ------- | ------- |
 | `*help` | Show available commands |
 | `*guide` | Show usage guide |
 | `*yolo` | Toggle confirmation skipping |
@@ -155,7 +155,7 @@ When an agent receives a request outside their authority:
 
 ### Example
 
-```
+```text
 User: @dev *create-epic
 
 Dev (Dex): Epic creation is @pm's responsibility.

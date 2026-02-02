@@ -44,7 +44,6 @@
     "sync:ide:check": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --strict",
     "sync:ide:cursor": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide cursor",
     "sync:ide:windsurf": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide windsurf",
-    "sync:ide:trae": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide trae",
     "prepublishOnly": "npm run generate:manifest && npm run validate:manifest",
     "prepare": "husky"
   },

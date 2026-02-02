@@ -73,28 +73,6 @@ ${baseContent.instruction}
 *AIOS Redirect - Synced automatically*
 `;
 
-    case 'project-rules':
-      // Trae format
-      return `${baseContent.header}
-
-## Redirect Notice
-
-${baseContent.notice}
-
-## Action Required
-
-${baseContent.instruction}
-
-## Mapping
-
-| Old Agent | New Agent |
-|-----------|-----------|
-| @${oldId} | @${newId} |
-
----
-*AIOS Redirect - Synced automatically*
-`;
-
     case 'condensed-rules':
     case 'cursor-style':
     default:

@@ -12,7 +12,6 @@ IDE Sync keeps agent definitions in `.aios-core/development/agents/` synchronize
 - `.claude/commands/AIOS/agents/` (Claude Code)
 - `.cursor/rules/agents/` (Cursor)
 - `.windsurf/rules/agents/` (Windsurf)
-- `.trae/rules/agents/` (Trae)
 - `.antigravity/rules/agents/` (Antigravity)
 
 ## Pre-commit Integration (Story TD-4)
@@ -50,7 +49,6 @@ Sync specific IDE only:
 ```bash
 npm run sync:ide:cursor
 npm run sync:ide:windsurf
-npm run sync:ide:trae
 ```
 
 ### Validate
@@ -113,7 +111,6 @@ Each IDE has a specific format for agent files:
 | Claude Code | Full markdown with YAML | `.md`     |
 | Cursor      | Condensed rules         | `.md`     |
 | Windsurf    | XML-tagged markdown     | `.md`     |
-| Trae        | Project rules           | `.md`     |
 | Antigravity | Cursor-style            | `.md`     |
 
 ## Redirect Agents
@@ -141,7 +138,6 @@ This agent has been renamed. Use `aios-master` instead.
     ├── claude-code.js       # Claude Code format
     ├── cursor.js            # Cursor format
     ├── windsurf.js          # Windsurf format
-    ├── trae.js              # Trae format
     └── antigravity.js       # Antigravity format
 ```
 

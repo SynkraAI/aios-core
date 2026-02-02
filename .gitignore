@@ -74,9 +74,6 @@ sync-*.sh                     # Agent sync scripts
 .windsurf/
 !.windsurf/rules/
 !.windsurf/rules/agents/
-.trae/
-!.trae/rules/
-!.trae/rules/agents/
 .cursor/rules/                # Cursor IDE personal rules and configurations
 !.cursor/rules/agents/
 

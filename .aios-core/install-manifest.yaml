@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.10.0
-generated_at: "2026-02-02T01:04:35.872Z"
+generated_at: "2026-02-02T01:25:25.903Z"
 generator: scripts/generate-install-manifest.js
-file_count: 786
+file_count: 784
 files:
   - path: cli/commands/generate/index.js
     hash: sha256:36f8e38ab767fa5478d8dabac548c66dc2c0fc521c216e954ac33fcea0ba597b
@@ -169,9 +169,9 @@ files:
     type: cli
     size: 5907
   - path: core-config.yaml
-    hash: sha256:7b60e35cb344784ba9d6e2e1840ac5212a7f8ac5edd002dd3d3547d43d9d444a
+    hash: sha256:110b5b3c7bf8737044d393997ba7dcc39ce8d121d1d0aaa406f8fbdc700729bb
     type: config
-    size: 15978
+    size: 15889
   - path: core/config/config-cache.js
     hash: sha256:527a788cbe650aa6b13d1101ebc16419489bfef20b2ee93042f6eb6a51e898e9
     type: core
@@ -2077,17 +2077,17 @@ files:
     type: script
     size: 8846
   - path: infrastructure/scripts/ide-sync/index.js
-    hash: sha256:0acc60e5aeb09135ff272d46b6cc43bcfbd1a1b56f05e293f4a9326929dc7a1a
+    hash: sha256:f6e067e802e1af03871f6b24830a070711ebb0123817408e78a96930f8972dc2
     type: script
-    size: 13425
+    size: 13216
   - path: infrastructure/scripts/ide-sync/README.md
-    hash: sha256:61f0890443f46ca876efc6aff66b679847bb4eb841b3a92bcc9e0ebdf6369d9d
+    hash: sha256:5f4dc76346bd650dfaad07223add0b765aeff53efdabd8ab97899047d4d9682c
     type: script
-    size: 4484
+    size: 4328
   - path: infrastructure/scripts/ide-sync/redirect-generator.js
-    hash: sha256:658725f2832d331ee83350e620e5a79a499492172fc8f44174749e3471feb77f
+    hash: sha256:d5ca34590201e7a7e4077c8712fa0421f3ed41df76cd6717baf8b589799b5c13
     type: script
-    size: 4518
+    size: 4205
   - path: infrastructure/scripts/ide-sync/transformers/antigravity.js
     hash: sha256:d8fe023ce70651e0d83151f9f90000d8ffb51ab260f246704c1616739a001622
     type: script
@@ -2100,10 +2100,6 @@ files:
     hash: sha256:fe38ba6960cc7e1dd2f1de963cdfc5a4be83eb5240c696e9eea607421a23cf22
     type: script
     size: 2427
-  - path: infrastructure/scripts/ide-sync/transformers/trae.js
-    hash: sha256:784660e839d1516ba7d4f12adbde43e412adb25d6557eccf234e041866790f5b
-    type: script
-    size: 2967
   - path: infrastructure/scripts/ide-sync/transformers/windsurf.js
     hash: sha256:6eec13241f1216d64acb5b69af92fb36e22f22697dd166a1afe9e4e9048884db
     type: script
@@ -2832,10 +2828,6 @@ files:
     hash: sha256:c6b4d8779f36c4629d48b18f5a686bc5fba4d07b6a334b4aebb56cf7d517ad63
     type: template
     size: 3061
-  - path: product/templates/ide-rules/trae-rules.md
-    hash: sha256:a1e3c48b83ae4498a1364f5e1498fa6c8c87f6d480f572c629e82ab4818b153d
-    type: template
-    size: 3326
   - path: product/templates/ide-rules/windsurf-rules.md
     hash: sha256:7c880de0dec8b06eb3390a56614996c6033c1939907d77f73f4f6f85ae42b3e2
     type: template

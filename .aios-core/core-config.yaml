@@ -469,10 +469,6 @@ ideSync:
       enabled: true
       path: .windsurf/rules/agents
       format: xml-tagged-markdown
-    trae:
-      enabled: true
-      path: .trae/rules/agents
-      format: project-rules
     antigravity:
       enabled: true
       path: .antigravity/rules/agents

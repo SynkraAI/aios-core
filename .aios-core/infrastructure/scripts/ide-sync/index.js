@@ -29,7 +29,6 @@ const { validateAllIdes, formatValidationReport } = require('./validator');
 const claudeCodeTransformer = require('./transformers/claude-code');
 const cursorTransformer = require('./transformers/cursor');
 const windsurfTransformer = require('./transformers/windsurf');
-const traeTransformer = require('./transformers/trae');
 const antigravityTransformer = require('./transformers/antigravity');
 
 // ANSI colors for output
@@ -71,11 +70,6 @@ function loadConfig(projectRoot) {
         enabled: true,
         path: '.windsurf/rules/agents',
         format: 'xml-tagged-markdown',
-      },
-      trae: {
-        enabled: true,
-        path: '.trae/rules/agents',
-        format: 'project-rules',
       },
       antigravity: {
         enabled: true,
@@ -122,7 +116,6 @@ function getTransformer(format) {
     'full-markdown-yaml': claudeCodeTransformer,
     'condensed-rules': cursorTransformer,
     'xml-tagged-markdown': windsurfTransformer,
-    'project-rules': traeTransformer,
     'cursor-style': antigravityTransformer,
   };
 
