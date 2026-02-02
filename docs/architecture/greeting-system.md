@@ -88,9 +88,15 @@ O sistema de greeting do AIOS é composto por dois scripts complementares que tr
 
 **Key Method:**
 ```javascript
-static async buildGreeting(agentDefinition, conversationHistory) {
+async buildGreeting(agent, context = {}) {
   // Returns formatted greeting string
 }
+```
+
+**Usage:**
+```javascript
+const builder = new GreetingBuilder();
+const greeting = await builder.buildGreeting(agentDefinition, context);
 ```
 
 **Performance:**
@@ -181,7 +187,8 @@ Para validar que ambas abordagens funcionam corretamente:
 # Test direct invocation (simulated)
 node -e "
   const { GreetingBuilder } = require('./.aios-core/development/scripts/greeting-builder.js');
-  const greeting = GreetingBuilder.buildGreeting(agentDef, []);
+  const builder = new GreetingBuilder();
+  const greeting = await builder.buildGreeting(agentDef, {});
   console.log(greeting);
 "
 

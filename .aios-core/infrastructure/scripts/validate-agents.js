@@ -197,10 +197,15 @@ async function validateDependencies(agents) {
     scripts: SCRIPTS_DIR,
   };
 
+  // Dependency types that are not file-based (external tools, integrations)
+  const skipDepTypes = new Set(['tools', 'coderabbit_integration', 'pr_automation', 'repository_agnostic_design', 'git_authority', 'workflow_examples']);
+
   for (const agent of agents) {
     const deps = agent.dependencies;
 
     for (const [depType, depList] of Object.entries(deps)) {
+      // Skip non-file-based dependency types
+      if (skipDepTypes.has(depType)) continue;
       if (!Array.isArray(depList)) continue;
 
       const depDir = depDirs[depType];

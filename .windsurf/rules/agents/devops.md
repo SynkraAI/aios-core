@@ -48,7 +48,7 @@ Use for repository operations, version management, CI/CD, quality gates, and Git
 </collaboration>
 
 <dependencies>
-Tasks: environment-bootstrap.md, setup-github.md, github-devops-version-management.md, github-devops-pre-push-quality-gate.md, github-devops-github-pr-automation.md, ci-cd-configuration.md, github-devops-repository-cleanup.md, release-management.md, search-mcp.md, add-mcp.md, setup-mcp-docker.md, check-docs-links.md, create-worktree.md, list-worktrees.md, remove-worktree.md
+Tasks: environment-bootstrap.md, setup-github.md, github-devops-version-management.md, github-devops-pre-push-quality-gate.md, github-devops-github-pr-automation.md, ci-cd-configuration.md, github-devops-repository-cleanup.md, release-management.md, search-mcp.md, add-mcp.md, list-mcps.md, remove-mcp.md, setup-mcp-docker.md, check-docs-links.md, create-worktree.md, list-worktrees.md, remove-worktree.md, cleanup-worktrees.md, merge-worktree.md
 Checklists: pre-push-checklist.md, release-checklist.md
 Tools: coderabbit, github-cli, git, docker-gateway
 </dependencies>

@@ -192,6 +192,8 @@ dependencies:
     # MCP Management Tasks [Story 6.14]
     - search-mcp.md
     - add-mcp.md
+    - list-mcps.md
+    - remove-mcp.md
     - setup-mcp-docker.md
     # Documentation Quality
     - check-docs-links.md
@@ -199,6 +201,8 @@ dependencies:
     - create-worktree.md
     - list-worktrees.md
     - remove-worktree.md
+    - cleanup-worktrees.md
+    - merge-worktree.md
   workflows:
     - auto-worktree.yaml
   templates:

@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.10.0
-generated_at: "2026-02-02T00:41:46.389Z"
+generated_at: "2026-02-02T01:04:35.872Z"
 generator: scripts/generate-install-manifest.js
-file_count: 782
+file_count: 786
 files:
   - path: cli/commands/generate/index.js
     hash: sha256:36f8e38ab767fa5478d8dabac548c66dc2c0fc521c216e954ac33fcea0ba597b
@@ -773,9 +773,9 @@ files:
     type: agent
     size: 23130
   - path: development/agents/devops.md
-    hash: sha256:47b7039847232f6a0d1a8ae22bd67714e26b155ee7e0ce98a52b27fc953b3c51
+    hash: sha256:715df999aeb020a1388ca447eb25dc15868add570aab33b21902aace03c93762
     type: agent
-    size: 18697
+    size: 18787
   - path: development/agents/pm.md
     hash: sha256:baed88c1f6ea73f9fe7baeb147a1d571d7d9b934ebfb5258c814c2923f275366
     type: agent
@@ -1064,6 +1064,10 @@ files:
     hash: sha256:9f954e38f492408a59009701083866c2c9ad36ae54da33991627a50e1281b0b8
     type: task
     size: 17769
+  - path: development/tasks/cleanup-worktrees.md
+    hash: sha256:10d9fab42ba133a03f76094829ab467d2ef53b80bcc3de39245805679cedfbbd
+    type: task
+    size: 877
   - path: development/tasks/collaborative-edit.md
     hash: sha256:cd4e1d63aaef58bc622fb86276344f01c2919eb807c7fc2c6106fe92087bf702
     type: task
@@ -1336,6 +1340,10 @@ files:
     hash: sha256:6e6ac0585d2178a2d5a8c53495c323cb764018b3fc8b7b4c96244dec2fbf5339
     type: task
     size: 26879
+  - path: development/tasks/list-mcps.md
+    hash: sha256:c2eca1a9c8d0be7c83a3e2eea59b33155bf7955f534eb0b36b27ed3852ea7dd1
+    type: task
+    size: 521
   - path: development/tasks/list-worktrees.md
     hash: sha256:7be3ab840fa3b0d0fd62ff15f8dba09ba16977558829fbf428a29bf88504f872
     type: task
@@ -1344,6 +1352,10 @@ files:
     hash: sha256:605d43ed509a0084b423b88681f091618931fe802fc60261b979f0ae1da5fe91
     type: task
     size: 8854
+  - path: development/tasks/merge-worktree.md
+    hash: sha256:e33a96e1961bbaba60f2258f4a98b8c9d384754a07eba705732f41d61ed2d4f4
+    type: task
+    size: 930
   - path: development/tasks/modify-agent.md
     hash: sha256:3b37db1399c223dbc0d426c4363aa3f96fbf1d481d541d51bcc1d067da099992
     type: task
@@ -1508,6 +1520,10 @@ files:
     hash: sha256:485a3003626a8f1fb4a6c3a67b8fee627be0b94884e3b943fe4eaca7d0243b1d
     type: task
     size: 18732
+  - path: development/tasks/remove-mcp.md
+    hash: sha256:3f4bf3f8d4d651109dc783e95598ab21569447295f22a7b868d3973f0848aa4c
+    type: task
+    size: 659
   - path: development/tasks/remove-worktree.md
     hash: sha256:969e7ee512c837ef3161ad786b0177ae14818671d7ee2fa989a24e060932a9ed
     type: task
@@ -2305,9 +2321,9 @@ files:
     type: script
     size: 18245
   - path: infrastructure/scripts/validate-agents.js
-    hash: sha256:2189d9f7d4e05470202c8a91fc0e1bf03467ebcb8c801d67ddd343574cac9578
+    hash: sha256:3a800a109edfeced0391550119b2b90f58405c65d6e0d4f1119e611c33ccbac2
     type: script
-    size: 14575
+    size: 14900
   - path: infrastructure/scripts/validate-output-pattern.js
     hash: sha256:91111d656e8d7b38a20a1bda753e663b74318f75cdab2025c7e0b84c775fc83d
     type: script

@@ -77,20 +77,3 @@ reviews:
 # Chat settings
 chat:
   auto_reply: true
-
-# Tools configuration
-tools:
-  # Linting tools
-  eslint:
-    enabled: true
-  markdownlint:
-    enabled: true
-  yamllint:
-    enabled: true
-
-  # Security tools
-  gitleaks:
-    enabled: true
-
-# Behavior settings
-abort_on_close: true

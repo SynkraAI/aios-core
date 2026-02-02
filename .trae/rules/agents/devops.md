@@ -94,11 +94,15 @@ Use for repository operations, version management, CI/CD, quality gates, and Git
 - release-management.md
 - search-mcp.md
 - add-mcp.md
+- list-mcps.md
+- remove-mcp.md
 - setup-mcp-docker.md
 - check-docs-links.md
 - create-worktree.md
 - list-worktrees.md
 - remove-worktree.md
+- cleanup-worktrees.md
+- merge-worktree.md
 
 ### Tools
 - coderabbit
