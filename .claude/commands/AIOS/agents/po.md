@@ -115,12 +115,10 @@ commands:
     description: 'Regenerate story index from docs/stories/'
 
   # Story Management
-  - name: create-epic
-    visibility: [full]
-    description: 'Create epic for brownfield projects'
-  - name: create-story
-    visibility: [full, quick]
-    description: 'Create user story from requirements'
+  # NOTE: create-epic and create-story removed - delegated to @pm and @sm respectively
+  # See: docs/architecture/command-authority-matrix.md
+  # For epic creation → Delegate to @pm using *create-epic
+  # For story creation → Delegate to @sm using *draft
   - name: validate-story-draft
     visibility: [full, quick, key]
     description: 'Validate story quality and completeness'
@@ -135,17 +133,32 @@ commands:
   - name: execute-checklist-po
     visibility: [quick]
     description: 'Run PO master checklist'
-  - correct-course: Analyze and correct process deviations
+  # NOTE: correct-course removed - delegated to @aios-master
+  # See: docs/architecture/command-authority-matrix.md
+  # For course corrections → Escalate to @aios-master using *correct-course
 
   # Document Operations
-  - shard-doc {document} {destination}: Break document into smaller parts
-  - doc-out: Output complete document to file
+  - name: shard-doc
+    visibility: [full]
+    args: '{document} {destination}'
+    description: 'Break document into smaller parts'
+  - name: doc-out
+    visibility: [full]
+    description: 'Output complete document to file'
 
   # Utilities
-  - session-info: Show current session details (agent history, commands)
-  - guide: Show comprehensive usage guide for this agent
-  - yolo: Toggle confirmation skipping (on/off)
-  - exit: Exit PO mode
+  - name: session-info
+    visibility: [full]
+    description: 'Show current session details (agent history, commands)'
+  - name: guide
+    visibility: [full, quick]
+    description: 'Show comprehensive usage guide for this agent'
+  - name: yolo
+    visibility: [full]
+    description: 'Toggle confirmation skipping (on/off)'
+  - name: exit
+    visibility: [full]
+    description: 'Exit PO mode'
 # Command availability rules (Story 3.20 - PM Tool-Agnostic)
 command_availability:
   sync-story:
@@ -208,12 +221,13 @@ autoClaude:
 **Story Management:**
 
 - `*validate-story-draft {story}` - Validate story quality
-- `*create-story` - Create user story
+- For story creation → Delegate to `@sm *draft`
+- For epic creation → Delegate to `@pm *create-epic`
 
 **Quality & Process:**
 
 - `*execute-checklist-po` - Run PO master checklist
-- `*correct-course` - Analyze deviations
+- For course corrections → Escalate to `@aios-master *correct-course`
 
 Type `*help` to see all commands.
 
@@ -228,9 +242,34 @@ Type `*help` to see all commands.
 
 **When to use others:**
 
-- Story creation → Can delegate to @sm
+- Story creation → Delegate to @sm using `*draft`
+- Epic creation → Delegate to @pm using `*create-epic`
 - PRD creation → Use @pm
 - Strategic planning → Use @pm
+- Course corrections → Escalate to @aios-master using `*correct-course`
+
+---
+
+## Handoff Protocol
+
+> Reference: [Command Authority Matrix](../../docs/architecture/command-authority-matrix.md)
+
+**Commands I delegate:**
+
+| Request | Delegate To | Command |
+|---------|-------------|---------|
+| Create story | @sm | `*draft` |
+| Create epic | @pm | `*create-epic` |
+| Course correction | @aios-master | `*correct-course` |
+| Research | @analyst | `*research` |
+
+**Commands I receive from:**
+
+| From | For | My Action |
+|------|-----|-----------|
+| @pm | Story validation | `*validate-story-draft` |
+| @sm | Backlog prioritization | `*backlog-prioritize` |
+| @qa | Quality gate review | `*backlog-review` |
 
 ---
 

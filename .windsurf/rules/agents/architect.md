@@ -18,21 +18,21 @@ NOT for: Market research or competitive analysis → Use @analyst. PRD creation 
 - *create-full-stack-architecture: Complete system architecture (quick)
 - *create-backend-architecture: Backend architecture design (quick)
 - *create-front-end-architecture: Frontend architecture design (quick)
-- *create-brownfield-architecture: Architecture for existing projects (quick)
+- *create-brownfield-architecture: Architecture for existing projects
 - *document-project: Generate project documentation (quick)
-- *execute-checklist {checklist}: Run architecture checklist (quick)
-- *research {topic}: Generate deep research prompt (quick)
+- *execute-checklist: Run architecture checklist
+- *research: Generate deep research prompt (quick)
 - *analyze-project-structure: Analyze project for new feature implementation (WIS-15) (quick)
-- *assess-complexity: Assess story complexity and estimate effort (quick)
-- *create-plan: Create implementation plan with phases and subtasks (quick)
-- *create-context: Generate project and files context for story (quick)
-- *map-codebase: Generate codebase map (structure, services, patterns, conventions) (quick)
-- *doc-out: Output complete document (quick)
-- *shard-prd: Break architecture into smaller parts (quick)
-- *session-info: Show current session details (agent history, commands) (quick)
+- *assess-complexity: Assess story complexity and estimate effort
+- *create-plan: Create implementation plan with phases and subtasks
+- *create-context: Generate project and files context for story
+- *map-codebase: Generate codebase map (structure, services, patterns, conventions)
+- *doc-out: Output complete document
+- *shard-prd: Break architecture into smaller parts
+- *session-info: Show current session details (agent history, commands)
 - *guide: Show comprehensive usage guide for this agent (quick)
-- *yolo: Toggle confirmation skipping (quick)
-- *exit: Exit architect mode (quick)
+- *yolo: Toggle confirmation skipping
+- *exit: Exit architect mode
 </commands>
 
 <collaboration>

@@ -18,22 +18,21 @@ Use for market research, competitive analysis, user research, brainstorming sess
 NOT for: PRD creation or product strategy → Use @pm. Technical architecture decisions or technology selection → Use @architect. Story creation or sprint planning → Use @sm.
 
 
+## Core Commands
+
+| Command | Description |
+|---------|-------------|
+| `*help` | Show all available commands with descriptions |
+| `*brainstorm` | Facilitate structured brainstorming |
+
 ## Quick Reference
 
 - `*help` - Show all available commands with descriptions
 - `*create-project-brief` - Create project brief document
 - `*perform-market-research` - Create market research analysis
 - `*create-competitor-analysis` - Create competitive analysis
-- `*research-prompt {topic}` - Generate deep research prompt
-- `*brainstorm {topic}` - Facilitate structured brainstorming
-- `*elicit` - Run advanced elicitation session
-- `*research-deps` - Research dependencies and technical constraints for story
-- `*extract-patterns` - Extract and document code patterns from codebase
-- `*doc-out` - Output complete document
-- `*session-info` - Show current session details (agent history, commands)
+- `*brainstorm` - Facilitate structured brainstorming
 - `*guide` - Show comprehensive usage guide for this agent
-- `*yolo` - Toggle confirmation skipping
-- `*exit` - Exit analyst mode
 
 ## All Commands
 
@@ -41,8 +40,8 @@ NOT for: PRD creation or product strategy → Use @pm. Technical architecture de
 - `*create-project-brief` - Create project brief document
 - `*perform-market-research` - Create market research analysis
 - `*create-competitor-analysis` - Create competitive analysis
-- `*research-prompt {topic}` - Generate deep research prompt
-- `*brainstorm {topic}` - Facilitate structured brainstorming
+- `*research-prompt` - Generate deep research prompt
+- `*brainstorm` - Facilitate structured brainstorming
 - `*elicit` - Run advanced elicitation session
 - `*research-deps` - Research dependencies and technical constraints for story
 - `*extract-patterns` - Extract and document code patterns from codebase

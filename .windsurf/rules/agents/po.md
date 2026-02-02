@@ -18,19 +18,16 @@ Use for backlog management, story refinement, acceptance criteria, sprint planni
 - *backlog-prioritize: Re-prioritize backlog item
 - *backlog-schedule: Assign item to sprint
 - *stories-index: Regenerate story index from docs/stories/ (quick)
-- *create-epic: Create epic for brownfield projects
-- *create-story: Create user story from requirements (quick)
 - *validate-story-draft: Validate story quality and completeness (quick)
 - *sync-story: Sync story to PM tool (ClickUp, GitHub, Jira, local)
 - *pull-story: Pull story updates from PM tool
 - *execute-checklist-po: Run PO master checklist (quick)
-- *correct-course: Analyze and correct process deviations (quick)
-- *shard-doc {document} {destination}: Break document into smaller parts (quick)
-- *doc-out: Output complete document to file (quick)
-- *session-info: Show current session details (agent history, commands) (quick)
+- *shard-doc: Break document into smaller parts
+- *doc-out: Output complete document to file
+- *session-info: Show current session details (agent history, commands)
 - *guide: Show comprehensive usage guide for this agent (quick)
-- *yolo: Toggle confirmation skipping (on/off) (quick)
-- *exit: Exit PO mode (quick)
+- *yolo: Toggle confirmation skipping (on/off)
+- *exit: Exit PO mode
 </commands>
 
 <collaboration>

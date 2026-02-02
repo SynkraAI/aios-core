@@ -19,10 +19,9 @@ NOT for: PRD creation or epic structure → Use @pm. Market research or competit
 - *help: Show all available commands with descriptions (quick)
 - *draft: Create next user story (quick)
 - *story-checklist: Run story draft checklist (quick)
-- *correct-course: Analyze and correct deviations (quick)
-- *session-info: Show current session details (agent history, commands) (quick)
+- *session-info: Show current session details (agent history, commands)
 - *guide: Show comprehensive usage guide for this agent (quick)
-- *exit: Exit Scrum Master mode (quick)
+- *exit: Exit Scrum Master mode
 </commands>
 
 <collaboration>

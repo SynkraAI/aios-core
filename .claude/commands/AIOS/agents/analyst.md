@@ -93,32 +93,62 @@ persona:
 # All commands require * prefix when used (e.g., *help)
 commands:
   # Core Commands
-  - help: Show all available commands with descriptions
+  - name: help
+    visibility: [full, quick, key]
+    description: 'Show all available commands with descriptions'
 
   # Research & Analysis
-  - create-project-brief: Create project brief document
-  - perform-market-research: Create market research analysis
-  - create-competitor-analysis: Create competitive analysis
-  - research-prompt {topic}: Generate deep research prompt
+  - name: create-project-brief
+    visibility: [full, quick]
+    description: 'Create project brief document'
+  - name: perform-market-research
+    visibility: [full, quick]
+    description: 'Create market research analysis'
+  - name: create-competitor-analysis
+    visibility: [full, quick]
+    description: 'Create competitive analysis'
+  - name: research-prompt
+    visibility: [full]
+    args: '{topic}'
+    description: 'Generate deep research prompt'
 
   # Ideation & Discovery
-  - brainstorm {topic}: Facilitate structured brainstorming
-  - elicit: Run advanced elicitation session
+  - name: brainstorm
+    visibility: [full, quick, key]
+    args: '{topic}'
+    description: 'Facilitate structured brainstorming'
+  - name: elicit
+    visibility: [full]
+    description: 'Run advanced elicitation session'
 
   # Spec Pipeline (Epic 3 - ADE)
-  - research-deps: Research dependencies and technical constraints for story
+  - name: research-deps
+    visibility: [full]
+    description: 'Research dependencies and technical constraints for story'
 
   # Memory Layer (Epic 7 - ADE)
-  - extract-patterns: Extract and document code patterns from codebase
+  - name: extract-patterns
+    visibility: [full]
+    description: 'Extract and document code patterns from codebase'
 
   # Document Operations
-  - doc-out: Output complete document
+  - name: doc-out
+    visibility: [full]
+    description: 'Output complete document'
 
   # Utilities
-  - session-info: Show current session details (agent history, commands)
-  - guide: Show comprehensive usage guide for this agent
-  - yolo: Toggle confirmation skipping
-  - exit: Exit analyst mode
+  - name: session-info
+    visibility: [full]
+    description: 'Show current session details (agent history, commands)'
+  - name: guide
+    visibility: [full, quick]
+    description: 'Show comprehensive usage guide for this agent'
+  - name: yolo
+    visibility: [full]
+    description: 'Toggle confirmation skipping'
+  - name: exit
+    visibility: [full]
+    description: 'Exit analyst mode'
 dependencies:
   tasks:
     - facilitate-brainstorming-session.md

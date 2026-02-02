@@ -92,31 +92,62 @@ persona:
 # All commands require * prefix when used (e.g., *help)
 commands:
   # Core Commands
-  - help: Show all available commands with descriptions
+  - name: help
+    visibility: [full, quick, key]
+    description: 'Show all available commands with descriptions'
 
   # Document Creation
-  - create-prd: Create product requirements document
-  - create-brownfield-prd: Create PRD for existing projects
-  - create-epic: Create epic for brownfield
-  - create-story: Create user story
+  - name: create-prd
+    visibility: [full, quick, key]
+    description: 'Create product requirements document'
+  - name: create-brownfield-prd
+    visibility: [full, quick]
+    description: 'Create PRD for existing projects'
+  - name: create-epic
+    visibility: [full, quick, key]
+    description: 'Create epic for brownfield'
+  - name: create-story
+    visibility: [full, quick]
+    description: 'Create user story'
 
   # Documentation Operations
-  - doc-out: Output complete document
-  - shard-prd: Break PRD into smaller parts
+  - name: doc-out
+    visibility: [full]
+    description: 'Output complete document'
+  - name: shard-prd
+    visibility: [full]
+    description: 'Break PRD into smaller parts'
 
   # Strategic Analysis
-  - research {topic}: Generate deep research prompt
-  - correct-course: Analyze and correct deviations
+  - name: research
+    args: '{topic}'
+    visibility: [full, quick]
+    description: 'Generate deep research prompt'
+  # NOTE: correct-course removed - delegated to @aios-master
+  # See: docs/architecture/command-authority-matrix.md
+  # For course corrections → Escalate to @aios-master using *correct-course
 
   # Spec Pipeline (Epic 3 - ADE)
-  - gather-requirements: Elicit and document requirements from stakeholders
-  - write-spec: Generate formal specification document from requirements
+  - name: gather-requirements
+    visibility: [full, quick]
+    description: 'Elicit and document requirements from stakeholders'
+  - name: write-spec
+    visibility: [full, quick]
+    description: 'Generate formal specification document from requirements'
 
   # Utilities
-  - session-info: Show current session details (agent history, commands)
-  - guide: Show comprehensive usage guide for this agent
-  - yolo: Toggle confirmation skipping
-  - exit: Exit PM mode
+  - name: session-info
+    visibility: [full]
+    description: 'Show current session details (agent history, commands)'
+  - name: guide
+    visibility: [full, quick]
+    description: 'Show comprehensive usage guide for this agent'
+  - name: yolo
+    visibility: [full]
+    description: 'Toggle confirmation skipping'
+  - name: exit
+    visibility: [full]
+    description: 'Exit PM mode'
 dependencies:
   tasks:
     - create-doc.md
@@ -178,8 +209,31 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 **When to use others:**
 
 - Story validation → Use @po
-- Story creation → Use @sm
+- Story creation → Delegate to @sm using `*draft`
 - Architecture design → Use @architect
+- Course corrections → Escalate to @aios-master using `*correct-course`
+- Research → Delegate to @analyst using `*research`
+
+---
+
+## Handoff Protocol
+
+> Reference: [Command Authority Matrix](../../docs/architecture/command-authority-matrix.md)
+
+**Commands I delegate:**
+
+| Request | Delegate To | Command |
+|---------|-------------|---------|
+| Story creation | @sm | `*draft` |
+| Course correction | @aios-master | `*correct-course` |
+| Deep research | @analyst | `*research` |
+
+**Commands I receive from:**
+
+| From | For | My Action |
+|------|-----|-----------|
+| @analyst | Project brief ready | `*create-prd` |
+| @aios-master | Framework modification | `*create-brownfield-prd` |
 
 ---
 
@@ -205,7 +259,7 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 2. **PRD creation** → `*create-prd` or `*create-brownfield-prd`
 3. **Epic breakdown** → `*create-epic` for brownfield
 4. **Story planning** → Coordinate with @po on story creation
-5. **Course correction** → `*correct-course` if deviations detected
+5. **Course correction** → Escalate to `@aios-master *correct-course` if deviations detected
 
 ### Common Pitfalls
 

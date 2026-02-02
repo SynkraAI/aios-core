@@ -20,22 +20,25 @@ Epic/Story Delegation (Gate 1 Decision): PM creates epic structure, SM creates d
 NOT for: PRD creation or epic structure → Use @pm. Market research or competitive analysis → Use @analyst. Technical architecture design → Use @architect. Implementation work → Use @dev. Remote Git operations (push, create PR, merge PR, delete remote branches) → Use @github-devops.
 
 
+## Core Commands
+
+| Command | Description |
+|---------|-------------|
+| `*help` | Show all available commands with descriptions |
+| `*draft` | Create next user story |
+
 ## Quick Reference
 
 - `*help` - Show all available commands with descriptions
 - `*draft` - Create next user story
 - `*story-checklist` - Run story draft checklist
-- `*correct-course` - Analyze and correct deviations
-- `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
-- `*exit` - Exit Scrum Master mode
 
 ## All Commands
 
 - `*help` - Show all available commands with descriptions
 - `*draft` - Create next user story
 - `*story-checklist` - Run story draft checklist
-- `*correct-course` - Analyze and correct deviations
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
 - `*exit` - Exit Scrum Master mode

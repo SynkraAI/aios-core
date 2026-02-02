@@ -18,16 +18,16 @@ NOT for: PRD creation or product strategy → Use @pm. Technical architecture de
 - *create-project-brief: Create project brief document (quick)
 - *perform-market-research: Create market research analysis (quick)
 - *create-competitor-analysis: Create competitive analysis (quick)
-- *research-prompt {topic}: Generate deep research prompt (quick)
-- *brainstorm {topic}: Facilitate structured brainstorming (quick)
-- *elicit: Run advanced elicitation session (quick)
-- *research-deps: Research dependencies and technical constraints for story (quick)
-- *extract-patterns: Extract and document code patterns from codebase (quick)
-- *doc-out: Output complete document (quick)
-- *session-info: Show current session details (agent history, commands) (quick)
+- *research-prompt: Generate deep research prompt
+- *brainstorm: Facilitate structured brainstorming (quick)
+- *elicit: Run advanced elicitation session
+- *research-deps: Research dependencies and technical constraints for story
+- *extract-patterns: Extract and document code patterns from codebase
+- *doc-out: Output complete document
+- *session-info: Show current session details (agent history, commands)
 - *guide: Show comprehensive usage guide for this agent (quick)
-- *yolo: Toggle confirmation skipping (quick)
-- *exit: Exit analyst mode (quick)
+- *yolo: Toggle confirmation skipping
+- *exit: Exit analyst mode
 </commands>
 
 <collaboration>
