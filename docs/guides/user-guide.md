@@ -114,6 +114,47 @@ When an agent is active:
 - Use the agent's designated workflow patterns
 - Maintain the agent's perspective throughout the interaction
 
+### Command Visibility Levels
+
+Agent commands use visibility levels to control when they appear:
+
+| Level | Name    | Description                                      |
+|-------|---------|--------------------------------------------------|
+| `key` | Key     | Critical commands shown in minimal greeting      |
+| `quick` | Quick | Essential commands shown in quick reference    |
+| `full` | Full    | All commands shown in `*help` output            |
+
+**How visibility works:**
+
+```yaml
+commands:
+  - name: help
+    visibility: [full, quick, key]  # Always shown
+    description: "Show available commands"
+
+  - name: create-prd
+    visibility: [full, quick]       # Shown in quick reference
+    description: "Create product requirements"
+
+  - name: session-info
+    visibility: [full]              # Only in full help
+    description: "Show session details"
+```
+
+**Command Authority:**
+
+Each command has exactly one authoritative agent owner. When multiple agents might handle similar tasks:
+
+| Command        | Owner      | Others Should...                |
+|----------------|------------|---------------------------------|
+| `*create-prd`  | @pm        | Delegate to @pm                 |
+| `*create-epic` | @pm        | Delegate to @pm                 |
+| `*draft`       | @sm        | Use @sm for story creation      |
+| `*develop`     | @dev       | Use @dev for implementation     |
+| `*review`      | @qa        | Use @qa for code review         |
+
+See the [Command Authority Matrix](../architecture/command-authority-matrix.md) for the complete mapping.
+
 ---
 
 ## Tasks
