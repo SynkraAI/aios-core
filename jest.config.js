@@ -44,7 +44,7 @@ module.exports = {
     'tests/e2e/story-creation-clickup.test.js',
     'tests/installer/v21-structure.test.js',
     // Squad template tests use ESM imports - run separately with --experimental-vm-modules
-    'templates/squad/tests/',
+    '.aios-core/development/templates/squad-template/tests/',
     // Manifest tests need manifest data alignment (OSR-10 tech debt)
     'tests/unit/manifest/manifest-generator.test.js',
     'tests/unit/manifest/manifest-validator.test.js',
