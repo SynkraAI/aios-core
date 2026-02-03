@@ -219,6 +219,8 @@ async function runValidate() {
       const validatorPath = path.join(
         __dirname,
         '..',
+        'packages',
+        'installer',
         'src',
         'installer',
         'post-install-validator.js',

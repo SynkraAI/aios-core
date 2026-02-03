@@ -48,8 +48,13 @@ const FOLDERS_TO_COPY = [
   'workflows',
 
   // Additional directories
-  'cli',            // CLI commands
-  'manifests',       // Manifest definitions
+  'cli',                    // CLI commands
+  'manifests',              // Manifest definitions
+  'schemas',                // JSON schemas for validation
+  'quality',                // Quality metrics system
+  'workflow-intelligence',  // Workflow intelligence engine
+  'utils',                  // Utility functions
+  'monitor',                // Claude Code hooks for monitoring
 ];
 
 /**
@@ -59,9 +64,9 @@ const FOLDERS_TO_COPY = [
 const ROOT_FILES_TO_COPY = [
   'index.js',
   'index.esm.js',
-  'index.d.ts',
   'core-config.yaml',   // Core framework configuration
   'package.json',       // Module package definition
+  'constitution.md',    // AIOS fundamental principles
   'user-guide.md',
   'working-in-the-brownfield.md',
 ];
