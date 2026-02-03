@@ -1,0 +1,136 @@
+name: enterprise-qa-devops
+version: 1.0.0
+description: |
+  Enterprise integration squad for QA and DevOps workflows.
+  Integrates Atlassian (Jira, Xray, Confluence) and Microsoft 365.
+  Automates test reporting, documentation, and team communication.
+
+  Built using mental models from:
+  - Eric Ries (Lean Startup - Build-Measure-Learn)
+  - James Bach (Rapid Software Testing)
+  - Maaret Pyhäjärvi (Contemporary Exploratory Testing)
+  - Gene Kim (Three Ways of DevOps)
+  - Uncle Bob (Clean Architecture - SOLID)
+
+author: AIOS Team <team@synkra.dev>
+license: MIT
+slashPrefix: eqd
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+components:
+  agents:
+    - jira-agent.md
+    - xray-agent.md
+    - confluence-agent.md
+    - o365-agent.md
+  tasks:
+    # Jira Tasks
+    - jira-create-issue.md
+    - jira-update-status.md
+    - jira-search.md
+    - jira-bulk-create.md
+    # Xray Tasks
+    - xray-import-junit.md
+    - xray-import-cucumber.md
+    - xray-create-test.md
+    - xray-create-execution.md
+    - xray-coverage-report.md
+    # Confluence Tasks
+    - confluence-create-page.md
+    - confluence-update-page.md
+    - confluence-from-template.md
+    # O365 Tasks
+    - o365-send-email.md
+    - o365-send-teams.md
+    - o365-create-event.md
+  workflows:
+    - test-report-workflow.yaml
+    - sprint-documentation.yaml
+    - release-notification.yaml
+  checklists:
+    - qa-review-checklist.md
+    - release-checklist.md
+    - integration-test-checklist.md
+  templates:
+    - test-report-template.md
+    - bug-report-template.md
+    - sprint-summary-template.md
+    - release-notes-template.md
+  tools:
+    - jira-client.js
+    - xray-client.js
+    - confluence-client.js
+    - graph-client.js
+  scripts:
+    - setup-credentials.js
+    - health-check.js
+    - sync-test-results.js
+
+config:
+  extends: extend
+  coding-standards: config/coding-standards.md
+  tech-stack: config/tech-stack.md
+  credentials: config/credentials.md
+  mental-models: config/mental-models.md
+
+# External dependencies
+dependencies:
+  node:
+    - axios@^1.6.0
+    - "@microsoft/microsoft-graph-client@^3.0.0"
+    - "@azure/identity@^4.0.0"
+  python:
+    - atlassian-python-api>=3.41.0
+    - jira>=3.6.0
+    - O365>=2.0.0
+    - pytest-jira-xray>=0.9.0
+  mcp_servers:
+    - atlassian
+    - azure-devops
+    - ms-365
+
+# Environment variables required
+env:
+  required:
+    - ATLASSIAN_API_TOKEN
+    - ATLASSIAN_EMAIL
+    - ATLASSIAN_DOMAIN
+    - XRAY_CLIENT_ID
+    - XRAY_CLIENT_SECRET
+  optional:
+    - MS365_CLIENT_ID
+    - MS365_CLIENT_SECRET
+    - MS365_TENANT_ID
+    - AZURE_DEVOPS_PAT
+    - AZURE_DEVOPS_ORG
+
+# Mental Models Applied
+mental_models:
+  design:
+    - first_principles: "Agents do ONE thing well"
+    - clean_architecture: "Dependencies point inward"
+    - four_rules: "Simple, tested, intentional"
+  testing:
+    - context_driven: "Value depends on context"
+    - exploratory: "Learn through exploration"
+    - agile_quadrants: "Right testing for right purpose"
+  operations:
+    - three_ways: "Flow, Feedback, Learning"
+    - antifragility: "Improve from stress"
+    - build_measure_learn: "Ship, measure, iterate"
+
+tags:
+  - enterprise
+  - qa
+  - devops
+  - jira
+  - xray
+  - confluence
+  - o365
+  - test-management
+  - documentation
+  - atlassian
+  - microsoft

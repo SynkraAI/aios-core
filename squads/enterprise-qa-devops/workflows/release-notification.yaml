@@ -1,0 +1,215 @@
+name: release-notification
+version: 1.0.0
+description: |
+  Comprehensive release notification workflow that updates stakeholders
+  across all channels when a release is deployed.
+  Applies Three Ways of DevOps for fast feedback.
+
+triggers:
+  - type: manual
+    command: "@devops *notify-release"
+  - type: webhook
+    event: deployment.completed
+  - type: jira
+    event: version.released
+
+inputs:
+  version:
+    type: string
+    required: true
+    description: Release version number
+  environment:
+    type: string
+    required: true
+    enum: [staging, production]
+    description: Deployment environment
+  project:
+    type: string
+    required: true
+    description: Jira project key
+  releaseNotes:
+    type: string
+    required: false
+    description: Path to release notes file
+  channels:
+    type: array
+    default: ["teams", "email", "confluence"]
+    description: Notification channels to use
+
+steps:
+  # Step 1: Get release data from Jira
+  - id: get_release_issues
+    agent: jira-agent
+    task: jira-search
+    inputs:
+      jql: "project = ${inputs.project} AND fixVersion = '${inputs.version}' AND status = Done"
+      fields: ["summary", "type", "key", "components"]
+    outputs:
+      - issues
+      - total
+
+  # Step 2: Get test results for version
+  - id: get_test_results
+    agent: xray-agent
+    task: xray-coverage-report
+    inputs:
+      project: "${inputs.project}"
+      version: "${inputs.version}"
+      format: "json"
+    outputs:
+      - summary
+      - coveragePercent
+
+  # Step 3: Categorize changes
+  - id: categorize_changes
+    agent: analyst
+    task: categorize-release-changes
+    depends_on: [get_release_issues]
+    inputs:
+      issues: "${steps.get_release_issues.issues}"
+    outputs:
+      - features
+      - bugfixes
+      - improvements
+      - changelog
+
+  # Step 4: Create/Update Confluence release notes
+  - id: create_release_notes
+    agent: confluence-agent
+    task: confluence-from-template
+    depends_on: [categorize_changes, get_test_results]
+    condition: "${inputs.channels.includes('confluence')}"
+    inputs:
+      template: "release-notes-template"
+      space: "${inputs.project}"
+      title: "Release ${inputs.version}"
+      parent: "Release Notes"
+      variables:
+        version: "${inputs.version}"
+        environment: "${inputs.environment}"
+        date: "${datetime.now('YYYY-MM-DD HH:mm')}"
+        total_issues: "${steps.get_release_issues.total}"
+        features: "${steps.categorize_changes.features}"
+        bugfixes: "${steps.categorize_changes.bugfixes}"
+        improvements: "${steps.categorize_changes.improvements}"
+        test_passed: "${steps.get_test_results.summary.passed}"
+        test_failed: "${steps.get_test_results.summary.failed}"
+        coverage: "${steps.get_test_results.coveragePercent}"
+      labels: ["release", "v${inputs.version}", "${inputs.environment}"]
+    outputs:
+      - pageUrl
+
+  # Step 5: Post to Teams
+  - id: notify_teams
+    agent: o365-agent
+    task: o365-send-teams
+    depends_on: [categorize_changes, create_release_notes]
+    condition: "${inputs.channels.includes('teams')}"
+    inputs:
+      team: "Engineering"
+      channel: "Releases"
+      importance: "high"
+      card:
+        $schema: "http://adaptivecards.io/schemas/adaptive-card.json"
+        type: "AdaptiveCard"
+        version: "1.4"
+        body:
+          - type: "Container"
+            style: "good"
+            items:
+              - type: "TextBlock"
+                size: "Large"
+                weight: "Bolder"
+                text: "🚀 Release ${inputs.version} - ${inputs.environment}"
+          - type: "TextBlock"
+            text: "Deployed: ${datetime.now('YYYY-MM-DD HH:mm UTC')}"
+            isSubtle: true
+          - type: "FactSet"
+            facts:
+              - title: "Features"
+                value: "${steps.categorize_changes.features.length}"
+              - title: "Bug Fixes"
+                value: "${steps.categorize_changes.bugfixes.length}"
+              - title: "Tests"
+                value: "${steps.get_test_results.summary.passed} passed"
+              - title: "Coverage"
+                value: "${steps.get_test_results.coveragePercent}%"
+          - type: "TextBlock"
+            text: "**Highlights:**"
+            wrap: true
+          - type: "TextBlock"
+            text: "${steps.categorize_changes.changelog.slice(0,3).join('\n')}"
+            wrap: true
+            size: "Small"
+        actions:
+          - type: "Action.OpenUrl"
+            title: "Release Notes"
+            url: "${steps.create_release_notes.pageUrl}"
+          - type: "Action.OpenUrl"
+            title: "Jira Filter"
+            url: "https://${env.ATLASSIAN_DOMAIN}/issues/?jql=fixVersion=${inputs.version}"
+
+  # Step 6: Send stakeholder email
+  - id: email_stakeholders
+    agent: o365-agent
+    task: o365-send-email
+    depends_on: [categorize_changes, create_release_notes]
+    condition: "${inputs.channels.includes('email')}"
+    inputs:
+      to: "${config.release_stakeholders}"
+      subject: "🚀 Release ${inputs.version} deployed to ${inputs.environment}"
+      importance: "high"
+      body: |
+        <div style="font-family: Arial, sans-serif; max-width: 600px;">
+          <h1 style="color: #28a745;">Release ${inputs.version}</h1>
+          <p><strong>Environment:</strong> ${inputs.environment}</p>
+          <p><strong>Deployed:</strong> ${datetime.now('YYYY-MM-DD HH:mm UTC')}</p>
+
+          <h2>Summary</h2>
+          <table style="border-collapse: collapse; width: 100%;">
+            <tr style="background: #f5f5f5;">
+              <td style="padding: 8px; border: 1px solid #ddd;"><strong>Features</strong></td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${steps.categorize_changes.features.length}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #ddd;"><strong>Bug Fixes</strong></td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${steps.categorize_changes.bugfixes.length}</td>
+            </tr>
+            <tr style="background: #f5f5f5;">
+              <td style="padding: 8px; border: 1px solid #ddd;"><strong>Test Results</strong></td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${steps.get_test_results.summary.passed} passed, ${steps.get_test_results.summary.failed} failed</td>
+            </tr>
+          </table>
+
+          <h2>Key Changes</h2>
+          <ul>
+            ${steps.categorize_changes.changelog.slice(0,5).map(c => '<li>' + c + '</li>').join('')}
+          </ul>
+
+          <p><a href="${steps.create_release_notes.pageUrl}" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">View Full Release Notes</a></p>
+        </div>
+
+  # Step 7: Update Jira version status
+  - id: update_jira_version
+    agent: jira-agent
+    task: jira-update-version
+    condition: "${inputs.environment === 'production'}"
+    inputs:
+      project: "${inputs.project}"
+      version: "${inputs.version}"
+      released: true
+      releaseDate: "${datetime.now('YYYY-MM-DD')}"
+
+outputs:
+  releaseNotesUrl: "${steps.create_release_notes.pageUrl}"
+  featuresCount: "${steps.categorize_changes.features.length}"
+  bugfixesCount: "${steps.categorize_changes.bugfixes.length}"
+  testsPassed: "${steps.get_test_results.summary.passed}"
+  testsFailed: "${steps.get_test_results.summary.failed}"
+  coverage: "${steps.get_test_results.coveragePercent}"
+
+error_handling:
+  on_failure:
+    - notify_devops:
+        channel: "DevOps-Alerts"
+        message: "⚠️ Release notification failed for ${inputs.version}"

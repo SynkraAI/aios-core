@@ -1,0 +1,149 @@
+name: test-report-workflow
+version: 1.0.0
+description: |
+  Automated workflow to import test results, generate reports, and notify stakeholders.
+  Follows Build-Measure-Learn cycle from Eric Ries.
+
+triggers:
+  - type: manual
+    command: "@qa *run-test-report-workflow"
+  - type: webhook
+    event: ci.tests.completed
+  - type: schedule
+    cron: "0 18 * * 1-5"  # 6 PM weekdays
+
+inputs:
+  project:
+    type: string
+    required: true
+    description: Jira project key
+  testPlan:
+    type: string
+    required: false
+    description: Test plan issue key
+  resultsFile:
+    type: string
+    required: true
+    description: Path to test results file (JUnit XML)
+  notifyChannel:
+    type: string
+    default: "QA-Updates"
+    description: Teams channel for notifications
+  createConfluencePage:
+    type: boolean
+    default: true
+    description: Create Confluence report page
+  emailStakeholders:
+    type: boolean
+    default: false
+    description: Send email to stakeholders
+
+steps:
+  # Step 1: Import test results to Xray
+  - id: import_results
+    agent: xray-agent
+    task: xray-import-junit
+    inputs:
+      file: "${inputs.resultsFile}"
+      project: "${inputs.project}"
+      testPlan: "${inputs.testPlan}"
+      summary: "CI Test Results - ${datetime.now()}"
+    outputs:
+      - executionKey
+      - passed
+      - failed
+      - skipped
+
+  # Step 2: Generate coverage report
+  - id: coverage_report
+    agent: xray-agent
+    task: xray-coverage-report
+    depends_on: [import_results]
+    inputs:
+      testPlan: "${inputs.testPlan}"
+      format: "markdown"
+      includeUncovered: true
+    outputs:
+      - report
+      - coveragePercent
+
+  # Step 3: Create Confluence page (conditional)
+  - id: create_confluence
+    agent: confluence-agent
+    task: confluence-from-template
+    depends_on: [coverage_report]
+    condition: "${inputs.createConfluencePage}"
+    inputs:
+      template: "test-report-template"
+      space: "${inputs.project}"
+      title: "Test Report - ${steps.import_results.executionKey}"
+      parent: "Test Reports"
+      variables:
+        execution_key: "${steps.import_results.executionKey}"
+        passed: "${steps.import_results.passed}"
+        failed: "${steps.import_results.failed}"
+        skipped: "${steps.import_results.skipped}"
+        coverage: "${steps.coverage_report.coveragePercent}"
+        report: "${steps.coverage_report.report}"
+        date: "${datetime.now('YYYY-MM-DD')}"
+    outputs:
+      - pageUrl
+
+  # Step 4: Notify Teams channel
+  - id: notify_teams
+    agent: o365-agent
+    task: o365-send-teams
+    depends_on: [import_results, coverage_report]
+    inputs:
+      team: "Engineering"
+      channel: "${inputs.notifyChannel}"
+      message: |
+        ## ${steps.import_results.failed > 0 ? '❌' : '✅'} Test Results: ${steps.import_results.executionKey}
+
+        **Passed:** ${steps.import_results.passed} | **Failed:** ${steps.import_results.failed} | **Coverage:** ${steps.coverage_report.coveragePercent}%
+
+        ${steps.create_confluence.pageUrl ? '[View Report](' + steps.create_confluence.pageUrl + ')' : ''}
+      importance: "${steps.import_results.failed > 0 ? 'high' : 'normal'}"
+
+  # Step 5: Create bugs for failures (conditional)
+  - id: create_bugs
+    agent: jira-agent
+    task: jira-bulk-create
+    depends_on: [import_results]
+    condition: "${steps.import_results.failed > 0}"
+    inputs:
+      file: "${inputs.resultsFile}"
+      template: "bug-from-failure"
+      project: "${inputs.project}"
+      labels: ["automated", "test-failure"]
+
+  # Step 6: Email stakeholders (conditional)
+  - id: email_report
+    agent: o365-agent
+    task: o365-send-email
+    depends_on: [create_confluence]
+    condition: "${inputs.emailStakeholders}"
+    inputs:
+      to: "${config.stakeholders_email}"
+      subject: "Test Report: ${steps.import_results.executionKey}"
+      body: |
+        <h1>Test Execution Complete</h1>
+        <p>Passed: ${steps.import_results.passed} | Failed: ${steps.import_results.failed}</p>
+        <p><a href="${steps.create_confluence.pageUrl}">View Full Report</a></p>
+
+outputs:
+  executionKey: "${steps.import_results.executionKey}"
+  passed: "${steps.import_results.passed}"
+  failed: "${steps.import_results.failed}"
+  coveragePercent: "${steps.coverage_report.coveragePercent}"
+  reportUrl: "${steps.create_confluence.pageUrl}"
+  bugsCreated: "${steps.create_bugs.created || 0}"
+
+error_handling:
+  on_step_failure:
+    - notify_teams:
+        message: "⚠️ Test report workflow step failed: ${error.step}"
+  on_workflow_failure:
+    - email_admin:
+        to: "${config.admin_email}"
+        subject: "Workflow Failed: test-report-workflow"

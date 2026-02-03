@@ -1,0 +1,192 @@
+name: sprint-documentation
+version: 1.0.0
+description: |
+  Generates comprehensive sprint documentation including test reports,
+  velocity metrics, and retrospective notes.
+  Applies Feynman Technique for clear documentation.
+
+triggers:
+  - type: manual
+    command: "@po *generate-sprint-docs"
+  - type: schedule
+    cron: "0 16 * * 5"  # 4 PM Fridays (end of sprint)
+
+inputs:
+  project:
+    type: string
+    required: true
+    description: Jira project key
+  sprintName:
+    type: string
+    required: true
+    description: Sprint name or ID
+  includeRetro:
+    type: boolean
+    default: true
+    description: Include retrospective template
+  notifyTeam:
+    type: boolean
+    default: true
+    description: Send Teams notification
+
+steps:
+  # Step 1: Get sprint data from Jira
+  - id: get_sprint_issues
+    agent: jira-agent
+    task: jira-search
+    inputs:
+      jql: "project = ${inputs.project} AND sprint = '${inputs.sprintName}'"
+      fields: ["summary", "status", "assignee", "storyPoints", "type", "resolution"]
+    outputs:
+      - issues
+      - total
+
+  # Step 2: Calculate velocity metrics
+  - id: calculate_metrics
+    agent: analyst
+    task: calculate-sprint-metrics
+    depends_on: [get_sprint_issues]
+    inputs:
+      issues: "${steps.get_sprint_issues.issues}"
+    outputs:
+      - plannedPoints
+      - completedPoints
+      - velocity
+      - completionRate
+      - byType
+
+  # Step 3: Get test execution summary
+  - id: get_test_summary
+    agent: xray-agent
+    task: xray-coverage-report
+    inputs:
+      project: "${inputs.project}"
+      version: "${inputs.sprintName}"
+      format: "json"
+    outputs:
+      - summary
+      - coveragePercent
+
+  # Step 4: Create sprint summary page
+  - id: create_summary_page
+    agent: confluence-agent
+    task: confluence-from-template
+    depends_on: [calculate_metrics, get_test_summary]
+    inputs:
+      template: "sprint-summary-template"
+      space: "${inputs.project}"
+      title: "${inputs.sprintName} Summary"
+      parent: "Sprint Summaries"
+      variables:
+        sprint_name: "${inputs.sprintName}"
+        date: "${datetime.now('YYYY-MM-DD')}"
+        total_issues: "${steps.get_sprint_issues.total}"
+        planned_points: "${steps.calculate_metrics.plannedPoints}"
+        completed_points: "${steps.calculate_metrics.completedPoints}"
+        velocity: "${steps.calculate_metrics.velocity}"
+        completion_rate: "${steps.calculate_metrics.completionRate}"
+        by_type: "${steps.calculate_metrics.byType}"
+        test_passed: "${steps.get_test_summary.summary.passed}"
+        test_failed: "${steps.get_test_summary.summary.failed}"
+        coverage: "${steps.get_test_summary.coveragePercent}"
+    outputs:
+      - pageId
+      - pageUrl
+
+  # Step 5: Create retrospective page (conditional)
+  - id: create_retro_page
+    agent: confluence-agent
+    task: confluence-create-page
+    depends_on: [create_summary_page]
+    condition: "${inputs.includeRetro}"
+    inputs:
+      space: "${inputs.project}"
+      title: "${inputs.sprintName} Retrospective"
+      parent: "${steps.create_summary_page.pageId}"
+      content: |
+        <h1>${inputs.sprintName} Retrospective</h1>
+
+        <ac:structured-macro ac:name="section">
+          <ac:parameter ac:name="border">true</ac:parameter>
+          <ac:rich-text-body>
+            <h2>🌟 What went well?</h2>
+            <ul>
+              <li><em>Add items here...</em></li>
+            </ul>
+          </ac:rich-text-body>
+        </ac:structured-macro>
+
+        <ac:structured-macro ac:name="section">
+          <ac:parameter ac:name="border">true</ac:parameter>
+          <ac:rich-text-body>
+            <h2>🔧 What could be improved?</h2>
+            <ul>
+              <li><em>Add items here...</em></li>
+            </ul>
+          </ac:rich-text-body>
+        </ac:structured-macro>
+
+        <ac:structured-macro ac:name="section">
+          <ac:parameter ac:name="border">true</ac:parameter>
+          <ac:rich-text-body>
+            <h2>📋 Action Items</h2>
+            <ac:task-list>
+              <ac:task>
+                <ac:task-status>incomplete</ac:task-status>
+                <ac:task-body><em>Add action items...</em></ac:task-body>
+              </ac:task>
+            </ac:task-list>
+          </ac:rich-text-body>
+        </ac:structured-macro>
+      labels: ["retrospective", "${inputs.sprintName}"]
+    outputs:
+      - pageUrl
+
+  # Step 6: Notify team
+  - id: notify_team
+    agent: o365-agent
+    task: o365-send-teams
+    depends_on: [create_summary_page, create_retro_page]
+    condition: "${inputs.notifyTeam}"
+    inputs:
+      team: "Engineering"
+      channel: "Sprint-Updates"
+      card:
+        $schema: "http://adaptivecards.io/schemas/adaptive-card.json"
+        type: "AdaptiveCard"
+        version: "1.4"
+        body:
+          - type: "TextBlock"
+            size: "Large"
+            weight: "Bolder"
+            text: "📊 ${inputs.sprintName} Documentation Ready"
+          - type: "FactSet"
+            facts:
+              - title: "Velocity"
+                value: "${steps.calculate_metrics.velocity} pts"
+              - title: "Completion"
+                value: "${steps.calculate_metrics.completionRate}%"
+              - title: "Test Coverage"
+                value: "${steps.get_test_summary.coveragePercent}%"
+        actions:
+          - type: "Action.OpenUrl"
+            title: "View Summary"
+            url: "${steps.create_summary_page.pageUrl}"
+          - type: "Action.OpenUrl"
+            title: "Retrospective"
+            url: "${steps.create_retro_page.pageUrl}"
+            condition: "${inputs.includeRetro}"
+
+outputs:
+  summaryPageUrl: "${steps.create_summary_page.pageUrl}"
+  retroPageUrl: "${steps.create_retro_page.pageUrl}"
+  velocity: "${steps.calculate_metrics.velocity}"
+  completionRate: "${steps.calculate_metrics.completionRate}"
+  testCoverage: "${steps.get_test_summary.coveragePercent}"
+
+error_handling:
+  retry:
+    max_attempts: 3
+    delay_seconds: 30
+  on_failure:
+    - notify_admin
