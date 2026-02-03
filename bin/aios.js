@@ -19,7 +19,7 @@ const args = process.argv.slice(2);
 const command = args[0];
 
 // Helper: Run initialization wizard
-async function runWizard() {
+async function runWizard(options = {}) {
   // Use the new v2.1 wizard from src/wizard/index.js
   const wizardPath = path.join(__dirname, '..', 'src', 'wizard', 'index.js');
 
@@ -27,7 +27,16 @@ async function runWizard() {
     // Fallback to legacy wizard if new wizard not found
     const legacyScript = path.join(__dirname, 'aios-init.js');
     if (fs.existsSync(legacyScript)) {
-      console.log('⚠️  Using legacy wizard (src/wizard not found)');
+      if (!options.quiet) {
+        console.log('⚠️  Using legacy wizard (src/wizard not found)');
+      }
+      // Legacy wizard doesn't support options, pass via env vars
+      process.env.AIOS_INSTALL_FORCE = options.force ? '1' : '';
+      process.env.AIOS_INSTALL_QUIET = options.quiet ? '1' : '';
+      process.env.AIOS_INSTALL_DRY_RUN = options.dryRun ? '1' : '';
+      process.env.AIOS_INSTALL_SKIP_INSTALL = options.skipInstall ? '1' : '';
+      process.env.AIOS_INSTALL_TEMPLATE = options.template || 'default';
+
       require(legacyScript);
       return;
     }
@@ -37,9 +46,9 @@ async function runWizard() {
   }
 
   try {
-    // Run the new v2.1 wizard
+    // Run the new v2.1 wizard with options
     const { runWizard: executeWizard } = require(wizardPath);
-    await executeWizard();
+    await executeWizard(options);
   } catch (error) {
     console.error('❌ Wizard error:', error.message);
     process.exit(1);
@@ -304,14 +313,37 @@ async function runUpdate() {
 }
 
 // Helper: Run doctor diagnostics
-function runDoctor() {
+async function runDoctor() {
+  const doctorArgs = args.slice(1);
+  const shouldFix = doctorArgs.includes('--fix');
+  const isDryRun = doctorArgs.includes('--dry-run');
+  const showHelp = doctorArgs.includes('--help') || doctorArgs.includes('-h');
+
+  if (showHelp) {
+    console.log(`
+Usage: aios-core doctor [options]
+
+Run system diagnostics and optionally fix issues.
+
+Options:
+  --fix          Attempt to automatically fix detected issues
+  --dry-run      Show what would be fixed without making changes
+  -h, --help     Show this help message
+
+Examples:
+  $ npx aios-core doctor              # Run diagnostics
+  $ npx aios-core doctor --fix        # Fix detected issues
+  $ npx aios-core doctor --dry-run    # Preview fixes
+`);
+    return;
+  }
+
   console.log('🏥 AIOS System Diagnostics\n');
 
+  const issues = [];
   let hasErrors = false;
 
-  // Check Node.js version
-  const nodeVersion = process.version.replace('v', '');
-  const requiredNodeVersion = '18.0.0';
+  // Helper: Compare semver versions
   const compareVersions = (a, b) => {
     const pa = a.split('.').map((n) => parseInt(n, 10));
     const pb = b.split('.').map((n) => parseInt(n, 10));
@@ -323,48 +355,486 @@ function runDoctor() {
     }
     return 0;
   };
+
+  // Check 1: Node.js version
+  const nodeVersion = process.version.replace('v', '');
+  const requiredNodeVersion = '18.0.0';
   const nodeOk = compareVersions(nodeVersion, requiredNodeVersion) >= 0;
 
+  if (!nodeOk) {
+    issues.push({
+      type: 'node_version',
+      autoFix: false,
+      message: `Node.js version: ${process.version} (requires >=18.0.0)`,
+      suggestion: 'nvm install 20 && nvm use 20',
+    });
+    hasErrors = true;
+  }
   console.log(
     `${nodeOk ? '✔' : '✗'} Node.js version: ${process.version} ${nodeOk ? '(meets requirement: >=18.0.0)' : '(requires >=18.0.0)'}`,
   );
-  if (!nodeOk) hasErrors = true;
 
-  // Check npm
+  // Check 2: npm
   try {
     const npmVersion = execSync('npm --version', { encoding: 'utf8' }).trim();
     console.log(`✔ npm version: ${npmVersion}`);
   } catch {
+    issues.push({
+      type: 'npm',
+      autoFix: false,
+      message: 'npm not found',
+      suggestion: 'Install Node.js from https://nodejs.org (includes npm)',
+    });
     console.log('✗ npm not found');
     hasErrors = true;
   }
 
-  // Check git
+  // Check 3: Git
   try {
     const gitVersion = execSync('git --version', { encoding: 'utf8' }).trim();
     console.log(`✔ Git installed: ${gitVersion}`);
   } catch {
+    issues.push({
+      type: 'git',
+      autoFix: false,
+      message: 'Git not found (optional but recommended)',
+      suggestion: 'Install Git from https://git-scm.com',
+    });
     console.log('⚠️  Git not found (optional but recommended)');
   }
 
-  // Check AIOS installation
+  // Check 4: AIOS installation
   const aiosCoreDir = path.join(__dirname, '..', '.aios-core');
   if (fs.existsSync(aiosCoreDir)) {
     console.log(`✔ Synkra AIOS: v${packageJson.version}`);
+
+    // Check for corruption using validate (if available)
+    try {
+      const validatorPath = path.join(__dirname, '..', 'packages', 'installer', 'src', 'installer', 'post-install-validator');
+      const { PostInstallValidator } = require(validatorPath);
+      const validator = new PostInstallValidator(process.cwd(), path.join(__dirname, '..'));
+      const report = await validator.validate();
+
+      if (report.stats && (report.stats.missingFiles > 0 || report.stats.corruptedFiles > 0)) {
+        issues.push({
+          type: 'aios_corrupted',
+          autoFix: true,
+          message: `AIOS Core: ${report.stats.missingFiles} missing, ${report.stats.corruptedFiles} corrupted files`,
+          fixAction: async () => {
+            console.log('  🔧 Repairing AIOS installation...');
+            await validator.repair();
+            console.log('  ✓ Repair complete');
+          },
+        });
+        hasErrors = true;
+        console.log(`⚠️  AIOS Core: ${report.stats.missingFiles} missing, ${report.stats.corruptedFiles} corrupted files`);
+      }
+    } catch {
+      // Validation not available, skip corruption check
+    }
   } else {
+    issues.push({
+      type: 'aios_missing',
+      autoFix: true,
+      message: 'AIOS Core not installed',
+      fixAction: async () => {
+        console.log('  🔧 Installing AIOS...');
+        try {
+          execSync('npx aios-core install --force --quiet', { stdio: 'inherit', timeout: 60000 });
+          console.log('  ✓ Installation complete');
+        } catch (installError) {
+          console.error(`  ✗ Installation failed: ${installError.message}`);
+          throw installError;
+        }
+      },
+    });
+    hasErrors = true;
     console.log('✗ AIOS Core not installed');
     console.log('  Run: npx @synkra/aios-core@latest');
-    hasErrors = true;
+  }
+
+  // Apply fixes if --fix
+  if (shouldFix && issues.length > 0) {
+    console.log('\n🔧 Attempting fixes...\n');
+
+    let fixed = 0;
+    let manual = 0;
+
+    for (const issue of issues) {
+      if (issue.autoFix && issue.fixAction) {
+        if (isDryRun) {
+          console.log(`  [DRY RUN] Would fix: ${issue.type}`);
+          fixed++;
+        } else {
+          try {
+            await issue.fixAction();
+            fixed++;
+          } catch (fixError) {
+            console.error(`  ✗ Failed to fix ${issue.type}: ${fixError.message}`);
+            manual++;
+          }
+        }
+      } else {
+        manual++;
+        console.log(`  ⚠️  ${issue.message}`);
+        console.log(`     💡 Fix: ${issue.suggestion}`);
+      }
+    }
+
+    console.log('');
+    if (isDryRun) {
+      console.log(`✅ Dry run completed - ${fixed} issues would be fixed`);
+      if (manual > 0) {
+        console.log(`⚠️  ${manual} issues require manual action`);
+      }
+    } else {
+      if (fixed > 0) {
+        console.log(`✅ Fixed ${fixed} issue${fixed > 1 ? 's' : ''}`);
+      }
+      if (manual > 0) {
+        console.log(`⚠️  ${manual} issue${manual > 1 ? 's' : ''} require manual action`);
+        process.exit(1);
+      }
+    }
+  } else {
+    // Summary (no --fix)
+    console.log('');
+    if (hasErrors) {
+      console.log('⚠️  Some issues were detected. Run with --fix to auto-repair.');
+      process.exit(1);
+    } else {
+      console.log('✅ All checks passed! Your installation is healthy.');
+    }
+  }
+}
+
+// Helper: Uninstall AIOS - Story 8.1
+async function runUninstall() {
+  const uninstallArgs = args.slice(1);
+  const isForce = uninstallArgs.includes('--force');
+  const keepConfig = uninstallArgs.includes('--keep-config');
+  const isDryRun = uninstallArgs.includes('--dry-run');
+  const showHelp = uninstallArgs.includes('--help') || uninstallArgs.includes('-h');
+
+  if (showHelp) {
+    showUninstallHelp();
+    return;
+  }
+
+  const projectRoot = process.cwd();
+  const aiosCoreDir = path.join(projectRoot, '.aios-core');
+
+  // Check if AIOS is installed
+  if (!fs.existsSync(aiosCoreDir)) {
+    console.error('\n❌ AIOS-Core is not installed in this directory');
+    console.error(`   Expected at: ${aiosCoreDir}`);
+    process.exit(1);
+  }
+
+  console.log('\n🗑️  AIOS-Core Uninstaller\n');
+
+  // Collect items to remove
+  const itemsToRemove = [];
+  const configDirs = ['.claude', '.cursor', '.windsurf'];
+  let totalSize = 0;
+
+  // Helper: Calculate directory size
+  const getDirSize = (dirPath) => {
+    let size = 0;
+    try {
+      const items = fs.readdirSync(dirPath, { withFileTypes: true });
+      for (const item of items) {
+        const itemPath = path.join(dirPath, item.name);
+        if (item.isDirectory()) {
+          size += getDirSize(itemPath);
+        } else {
+          size += fs.statSync(itemPath).size;
+        }
+      }
+    } catch {
+      // Ignore permission errors
+    }
+    return size;
+  };
+
+  // Helper: Remove directory recursively
+  const removeDir = (dirPath) => {
+    if (!fs.existsSync(dirPath)) return;
+    const items = fs.readdirSync(dirPath, { withFileTypes: true });
+    for (const item of items) {
+      const itemPath = path.join(dirPath, item.name);
+      if (item.isDirectory()) {
+        removeDir(itemPath);
+      } else {
+        fs.unlinkSync(itemPath);
+      }
+    }
+    fs.rmdirSync(dirPath);
+  };
+
+  // 1. Always remove .aios-core
+  const aiosCoreSize = getDirSize(aiosCoreDir);
+  totalSize += aiosCoreSize;
+  itemsToRemove.push({
+    path: '.aios-core',
+    fullPath: aiosCoreDir,
+    type: 'core',
+    size: aiosCoreSize,
+    requiresConfirm: false,
+  });
+
+  // 2. Check IDE config directories
+  if (!keepConfig) {
+    for (const configDir of configDirs) {
+      const configPath = path.join(projectRoot, configDir);
+      if (fs.existsSync(configPath)) {
+        const configSize = getDirSize(configPath);
+        totalSize += configSize;
+        itemsToRemove.push({
+          path: configDir,
+          fullPath: configPath,
+          type: 'config',
+          size: configSize,
+          requiresConfirm: !isForce,
+        });
+      }
+    }
+  }
+
+  // 3. Check .gitignore for AIOS sections
+  const gitignorePath = path.join(projectRoot, '.gitignore');
+  if (fs.existsSync(gitignorePath)) {
+    const gitignoreContent = fs.readFileSync(gitignorePath, 'utf8');
+    if (
+      gitignoreContent.includes('# AIOS') ||
+      gitignoreContent.includes('# .AIOS-CORE')
+    ) {
+      itemsToRemove.push({
+        path: '.gitignore (AIOS sections)',
+        fullPath: gitignorePath,
+        type: 'gitignore',
+        size: 0,
+        requiresConfirm: false,
+      });
+    }
+  }
+
+  // Display what will be removed
+  console.log('📂 Items to remove:\n');
+  for (const item of itemsToRemove) {
+    const sizeStr = item.size > 0 ? ` (${formatBytes(item.size)})` : '';
+    const icon = item.type === 'core' ? '📦' : item.type === 'config' ? '⚙️' : '📄';
+    console.log(`  ${icon} ${item.path}${sizeStr}`);
+  }
+
+  console.log(`\n  Total: ${formatBytes(totalSize)}`);
+
+  // Dry run mode
+  if (isDryRun) {
+    console.log('\n✅ Dry run completed - no files were modified');
+    return;
+  }
+
+  // Confirm if not --force
+  if (!isForce) {
+    const itemsNeedingConfirm = itemsToRemove.filter((i) => i.requiresConfirm);
+    if (itemsNeedingConfirm.length > 0) {
+      console.log('\n⚠️  The following IDE configurations will be removed:');
+      for (const item of itemsNeedingConfirm) {
+        console.log(`   - ${item.path}`);
+      }
+      console.log('\n   Use --keep-config to preserve these directories');
+      console.log('   Use --force to skip this confirmation\n');
+
+      // Simple readline prompt
+      const readline = require('readline');
+      const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+      });
+
+      const answer = await new Promise((resolve) => {
+        rl.question('  Continue? [y/N] ', resolve);
+      });
+      rl.close();
+
+      if (answer.toLowerCase() !== 'y') {
+        console.log('\n❌ Uninstall cancelled');
+        process.exit(0);
+      }
+    }
+  }
+
+  // Create backup before uninstall
+  const backupDir = path.join(projectRoot, '.aios-uninstall-backup');
+  let backupCreated = false;
+
+  try {
+    console.log('\n🔄 Creating backup...');
+
+    if (!fs.existsSync(backupDir)) {
+      fs.mkdirSync(backupDir, { recursive: true });
+    }
+
+    // Backup .aios-core
+    const aiosCoreBackup = path.join(backupDir, '.aios-core');
+    if (fs.existsSync(aiosCoreDir)) {
+      fs.cpSync(aiosCoreDir, aiosCoreBackup, { recursive: true });
+    }
+
+    // Backup config dirs
+    for (const configDir of configDirs) {
+      const configPath = path.join(projectRoot, configDir);
+      if (fs.existsSync(configPath) && !keepConfig) {
+        const backupPath = path.join(backupDir, configDir);
+        fs.cpSync(configPath, backupPath, { recursive: true });
+      }
+    }
+
+    backupCreated = true;
+    console.log(`   Backup created at: ${backupDir}`);
+  } catch (backupError) {
+    console.error(`\n⚠️  Warning: Could not create backup: ${backupError.message}`);
+    console.error('   Proceeding with uninstall...');
+  }
+
+  // Perform removal
+  console.log('\n🗑️  Removing files...');
+  let removedCount = 0;
+  const failedItems = [];
+
+  for (const item of itemsToRemove) {
+    try {
+      if (item.type === 'gitignore') {
+        // Clean .gitignore AIOS sections
+        cleanGitignore(item.fullPath);
+        console.log(`   ✓ Cleaned ${item.path}`);
+      } else {
+        removeDir(item.fullPath);
+        console.log(`   ✓ Removed ${item.path}`);
+      }
+      removedCount++;
+    } catch (removeError) {
+      console.error(`   ✗ Failed to remove ${item.path}: ${removeError.message}`);
+      failedItems.push(item);
+    }
   }
 
   // Summary
-  console.log('');
-  if (hasErrors) {
-    console.log('⚠️  Some issues were detected.');
-    process.exit(1);
+  console.log('\n' + '─'.repeat(50));
+
+  if (failedItems.length === 0) {
+    console.log('\n✅ AIOS-Core uninstalled successfully!\n');
+    console.log(`   📂 ${removedCount} items removed`);
+    console.log(`   💾 ${formatBytes(totalSize)} freed`);
+
+    // Remove backup on success
+    if (backupCreated) {
+      try {
+        removeDir(backupDir);
+        console.log('\n   🧹 Backup cleaned up');
+      } catch {
+        console.log(`\n   ⚠️  Backup preserved at: ${backupDir}`);
+      }
+    }
   } else {
-    console.log('✅ All checks passed! Your installation is healthy.');
+    console.log('\n⚠️  Uninstall completed with errors\n');
+    console.log(`   ✓ ${removedCount} items removed`);
+    console.log(`   ✗ ${failedItems.length} items failed`);
+
+    if (backupCreated) {
+      console.log(`\n   Backup preserved at: ${backupDir}`);
+      console.log('   You can manually restore or delete it.');
+    }
+    process.exit(1);
   }
+}
+
+// Helper: Clean AIOS sections from .gitignore
+function cleanGitignore(gitignorePath) {
+  const content = fs.readFileSync(gitignorePath, 'utf8');
+  const lines = content.split('\n');
+  const cleanedLines = [];
+  let inAiosSection = false;
+
+  for (const line of lines) {
+    // Detect AIOS section start
+    if (
+      line.includes('# AIOS') ||
+      line.includes('# .AIOS-CORE') ||
+      line.includes('# AIOS Development') ||
+      line.includes('# AIOS temporary')
+    ) {
+      inAiosSection = true;
+      continue;
+    }
+
+    // Detect section end (empty line after AIOS content, or new section)
+    if (inAiosSection && (line.trim() === '' || line.startsWith('#'))) {
+      if (line.startsWith('#') && !line.includes('AIOS')) {
+        inAiosSection = false;
+        cleanedLines.push(line);
+      }
+      // Skip empty lines while in AIOS section
+      continue;
+    }
+
+    if (!inAiosSection) {
+      cleanedLines.push(line);
+    }
+  }
+
+  // Write cleaned content
+  const cleanedContent = cleanedLines.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
+  fs.writeFileSync(gitignorePath, cleanedContent);
+}
+
+// Helper: Format bytes to human readable
+function formatBytes(bytes) {
+  if (bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+// Helper: Show uninstall help
+function showUninstallHelp() {
+  console.log(`
+Usage: npx aios-core uninstall [options]
+
+Remove AIOS-Core from the current project.
+
+Options:
+  --force        Skip all confirmations
+  --keep-config  Preserve IDE config directories (.claude, .cursor, .windsurf)
+  --dry-run      Show what would be removed without removing
+  -h, --help     Show this help message
+
+What gets removed:
+  📦 .aios-core/     Framework core (always removed)
+  ⚙️  .claude/        Claude Code config (with confirmation)
+  ⚙️  .cursor/        Cursor IDE config (with confirmation)
+  ⚙️  .windsurf/      Windsurf IDE config (with confirmation)
+  📄 .gitignore      AIOS-related sections only
+
+Examples:
+  # Interactive uninstall
+  npx aios-core uninstall
+
+  # Force uninstall (no prompts)
+  npx aios-core uninstall --force
+
+  # Uninstall but keep IDE configs
+  npx aios-core uninstall --keep-config
+
+  # Preview what would be removed
+  npx aios-core uninstall --dry-run
+
+Exit Codes:
+  0  Uninstall successful
+  1  Uninstall failed or cancelled
+`);
 }
 
 // Helper: Create new project
@@ -392,6 +862,38 @@ Examples:
   npx aios-core init my-project --template minimal
   npx aios-core init my-project --force --skip-install
   npx aios-core init . --template enterprise
+`);
+}
+
+// Helper: Show install help
+function showInstallHelp() {
+  console.log(`
+Usage: npx aios-core install [options]
+
+Install AIOS in the current directory.
+
+Options:
+  --force      Overwrite existing AIOS installation
+  --quiet      Minimal output (no banner, no prompts) - ideal for CI/CD
+  --dry-run    Simulate installation without modifying files
+  -h, --help   Show this help message
+
+Exit Codes:
+  0  Installation successful
+  1  Installation failed
+
+Examples:
+  # Interactive installation
+  npx aios-core install
+
+  # Force reinstall without prompts
+  npx aios-core install --force
+
+  # Silent install for CI/CD
+  npx aios-core install --quiet --force
+
+  # Preview what would be installed
+  npx aios-core install --dry-run
 `);
 }
 
@@ -473,7 +975,7 @@ async function initProject() {
     console.log(`Template: ${template}`);
   }
   if (skipInstall) {
-    console.log(`Skip install: enabled`);
+    console.log('Skip install: enabled');
   }
   console.log('');
 
@@ -504,11 +1006,29 @@ async function main() {
       }
       break;
 
-    case 'install':
+    case 'install': {
       // Install in current project
-      console.log('AIOS-FullStack Installation\n');
-      await runWizard();
+      const installArgs = args.slice(1);
+
+      // Handle --help first
+      if (installArgs.includes('--help') || installArgs.includes('-h')) {
+        showInstallHelp();
+        break;
+      }
+
+      const installOptions = {
+        force: installArgs.includes('--force'),
+        quiet: installArgs.includes('--quiet'),
+        dryRun: installArgs.includes('--dry-run'),
+      };
+
+      if (!installOptions.quiet) {
+        console.log('AIOS-FullStack Installation\n');
+      }
+
+      await runWizard(installOptions);
       break;
+    }
 
     case 'init': {
       // Create new project (flags parsed inside initProject)
@@ -521,7 +1041,7 @@ async function main() {
       break;
 
     case 'doctor':
-      runDoctor();
+      await runDoctor();
       break;
 
     case 'validate':
@@ -532,6 +1052,11 @@ async function main() {
     case 'update':
       // Update to latest version - Epic 7
       await runUpdate();
+      break;
+
+    case 'uninstall':
+      // Uninstall AIOS - Story 8.1
+      await runUninstall();
       break;
 
     case '--version':

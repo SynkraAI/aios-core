@@ -213,10 +213,16 @@ npx aios-core --help      Exibir ajuda detalhada
 npx aios-core info        Exibir informações do sistema
 npx aios-core doctor      Executar diagnósticos do sistema
 npx aios-core doctor --fix Corrigir problemas detectados automaticamente
+npx aios-core doctor --dry-run Preview das correções sem aplicar
+npx aios-core validate    Verificar integridade da instalação
+npx aios-core validate --repair Reparar arquivos corrompidos/faltantes
 
 # Manutenção
 npx aios-core update      Atualizar para versão mais recente
 npx aios-core uninstall   Remover Synkra AIOS
+  --force        Pular confirmações
+  --keep-config  Manter configs de IDE (.claude, .cursor, .windsurf)
+  --dry-run      Preview do que seria removido
 ```
 
 **Recursos da CLI:**
