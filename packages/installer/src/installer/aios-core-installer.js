@@ -55,6 +55,7 @@ const FOLDERS_TO_COPY = [
   'workflow-intelligence',  // Workflow intelligence engine
   'utils',                  // Utility functions
   'monitor',                // Claude Code hooks for monitoring
+  'presets',                // Configuration presets
 ];
 
 /**
@@ -199,9 +200,9 @@ async function copyDirectoryWithRootReplacement(sourceDir, destDir, onProgress =
     const sourcePath = path.join(sourceDir, item.name);
     const destPath = path.join(destDir, item.name);
 
-    // Skip backup files and hidden files (except config files)
+    // Skip backup files and hidden files (except .gitignore and .session*)
     if (item.name.includes('.backup') ||
-        (item.name.startsWith('.') && !item.name.startsWith('.session'))) {
+        (item.name.startsWith('.') && !item.name.startsWith('.session') && item.name !== '.gitignore')) {
       continue;
     }
 
