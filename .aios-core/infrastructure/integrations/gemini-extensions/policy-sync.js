@@ -20,7 +20,12 @@ class PolicySync {
     const policiesPath = path.join(this.projectDir, '.aios', 'policies.json');
 
     if (fs.existsSync(policiesPath)) {
-      return JSON.parse(fs.readFileSync(policiesPath, 'utf8'));
+      try {
+        return JSON.parse(fs.readFileSync(policiesPath, 'utf8'));
+      } catch (_err) {
+        // Return default on parse error
+        return { rules: [], version: '1.0' };
+      }
     }
 
     return { rules: [], version: '1.0' };
@@ -32,8 +37,11 @@ class PolicySync {
   async exportToGemini() {
     const policies = await this.getAIOSPolicies();
 
+    // Guard against missing rules array
+    const rules = Array.isArray(policies.rules) ? policies.rules : [];
+
     // Convert to Gemini format
-    const geminiPolicies = policies.rules.map((rule) => ({
+    const geminiPolicies = rules.map((rule) => ({
       tool: rule.tool,
       command: rule.pattern,
       allow: rule.allow,

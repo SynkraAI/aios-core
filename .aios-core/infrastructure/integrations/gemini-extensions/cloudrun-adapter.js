@@ -5,7 +5,7 @@
  * Integrates Gemini CLI's /deploy command for CloudRun deployments.
  */
 
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 const EventEmitter = require('events');
 
 class CloudRunAdapter extends EventEmitter {
@@ -98,9 +98,16 @@ class CloudRunAdapter extends EventEmitter {
    * @param {string} service - Service name
    */
   async getStatus(service) {
+    // Validate service name to prevent injection
+    if (!service || !/^[a-zA-Z0-9_-]+$/.test(service)) {
+      return null;
+    }
+
     try {
-      const output = execSync(`gcloud run services describe ${service} --format=json 2>/dev/null`, {
+      // Use execFileSync to avoid shell injection
+      const output = execFileSync('gcloud', ['run', 'services', 'describe', service, '--format=json'], {
         encoding: 'utf8',
+        stdio: ['pipe', 'pipe', 'pipe'],
       });
       return JSON.parse(output);
     } catch {

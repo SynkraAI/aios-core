@@ -91,11 +91,8 @@ class GeminiProvider extends AIProvider {
     const timeout = options.timeout || this.timeout;
     const useJsonOutput = options.jsonOutput ?? this.options.jsonOutput;
 
-    // Build command arguments
+    // Build command arguments (without prompt - will use stdin)
     const args = [];
-
-    // Use headless/non-interactive mode with prompt
-    args.push('--prompt', `"${this._escapeShell(prompt)}"`);
 
     // JSON output mode for programmatic integration
     if (useJsonOutput) {
@@ -111,13 +108,17 @@ class GeminiProvider extends AIProvider {
       let stdout = '';
       let stderr = '';
 
-      const fullCommand = `${this.command} ${args.join(' ')}`;
-
-      const child = spawn('sh', ['-c', fullCommand], {
+      // Spawn gemini directly without shell interpolation (safer)
+      const child = spawn(this.command, args, {
         cwd: workingDir,
         env: { ...process.env, ...options.env },
         windowsHide: true,
+        stdio: ['pipe', 'pipe', 'pipe'],
       });
+
+      // Write prompt via stdin to avoid shell injection
+      child.stdin.write(prompt);
+      child.stdin.end();
 
       const timeoutId = setTimeout(() => {
         child.kill('SIGTERM');

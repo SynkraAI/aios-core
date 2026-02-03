@@ -1,18 +1,20 @@
 status:
-  branch: feat/aios-dashboard
+  branch: main
   modifiedFiles:
-    - .aios/project-status.yaml
-    - .eslintcache
-    - .tsbuildinfo
-    - .aios/feedback.json
-    - .aios/file-evolution/
-  modifiedFilesTotalCount: 6
+    - .aios-core/core/execution/subagent-dispatcher.js
+    - .aios-core/core/health-check/checks/services/index.js
+    - bin/aios-init.js
+    - .aios-core/core/execution/parallel-executor.js
+    - .aios-core/core/health-check/checks/services/gemini-cli.js
+  modifiedFilesTotalCount: 15
   recentCommits:
-    - 'fix(monitor): resolve ESLint error in useMonitorEvents hook'
-    - 'fix(dashboard): add Monitor view to page switch statement'
+    - 'fix: align PR #63 workflows with AIOS standards'
+    - >-
+      feat(workflows): add design-system-build-quality and
+      story-development-cycle (#63)
   currentEpic: null
   currentStory: null
-  lastUpdate: '2026-01-29T14:48:45.444Z'
+  lastUpdate: '2026-02-03T19:10:54.583Z'
   isGitRepo: true
-timestamp: 1769698125444
+timestamp: 1770145854584
 ttl: 60

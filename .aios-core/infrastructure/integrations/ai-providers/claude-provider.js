@@ -86,15 +86,17 @@ class ClaudeProvider extends AIProvider {
       let stdout = '';
       let stderr = '';
 
-      // Escape the prompt for shell
-      const escapedPrompt = this._escapeShell(prompt);
-      const fullCommand = `echo '${escapedPrompt}' | ${this.command} ${args.join(' ')}`;
-
-      const child = spawn('sh', ['-c', fullCommand], {
+      // Spawn claude directly without shell interpolation (safer)
+      const child = spawn(this.command, args, {
         cwd: workingDir,
         env: { ...process.env, ...options.env },
         windowsHide: true,
+        stdio: ['pipe', 'pipe', 'pipe'],
       });
+
+      // Write prompt via stdin to avoid shell injection
+      child.stdin.write(prompt);
+      child.stdin.end();
 
       const timeoutId = setTimeout(() => {
         child.kill('SIGTERM');

@@ -27,14 +27,15 @@ const MODELS = {
 
 /**
  * Agent-based model overrides
+ * Keys match agent IDs (without @ prefix)
  */
 const AGENT_OVERRIDES = {
-  '@architect': 'pro',
-  '@analyst': 'pro',
-  '@qa': 'flash',
-  '@pm': 'flash',
-  '@dev': 'auto',
-  '@devops': 'flash',
+  architect: 'pro',
+  analyst: 'pro',
+  qa: 'flash',
+  pm: 'flash',
+  dev: 'auto',
+  devops: 'flash',
 };
 
 class GeminiModelSelector {
@@ -59,11 +60,14 @@ class GeminiModelSelector {
    * @returns {Object} Model selection
    */
   selectModel(task, agentId = null) {
+    // Normalize agentId (remove @ prefix if present)
+    const normalizedAgentId = agentId?.replace(/^@/, '') || null;
+
     // Check agent override first
-    if (agentId && this.agentOverrides[agentId]) {
-      const override = this.agentOverrides[agentId];
+    if (normalizedAgentId && this.agentOverrides[normalizedAgentId]) {
+      const override = this.agentOverrides[normalizedAgentId];
       if (override !== 'auto') {
-        return this._buildSelection(override, 'agent_override', agentId);
+        return this._buildSelection(override, 'agent_override', normalizedAgentId);
       }
     }
 

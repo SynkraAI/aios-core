@@ -9,18 +9,34 @@
 const fs = require('fs');
 const path = require('path');
 
+/**
+ * Sanitize sessionId to prevent path traversal
+ * Only allow alphanumeric, dash, and underscore
+ */
+function sanitizeSessionId(sessionId) {
+  if (!sessionId) return null;
+  // Remove any path separators and only keep safe characters
+  return sessionId.replace(/[^a-zA-Z0-9_-]/g, '');
+}
+
 async function handleRewind() {
   const projectDir = process.env.GEMINI_PROJECT_DIR || process.cwd();
-  const sessionId = process.env.GEMINI_SESSION_ID;
+  const rawSessionId = process.env.GEMINI_SESSION_ID;
+
+  // Sanitize sessionId to prevent path traversal
+  const sessionId = sanitizeSessionId(rawSessionId);
 
   // Sync with AIOS memory layer
   try {
     const memoryDir = path.join(projectDir, '.aios', 'memory');
 
-    if (fs.existsSync(memoryDir)) {
-      // Clear session-specific memory
+    if (fs.existsSync(memoryDir) && sessionId) {
+      // Clear session-specific memory (only if sessionId is valid)
       const sessionMemory = path.join(memoryDir, `session-${sessionId}.json`);
-      if (fs.existsSync(sessionMemory)) {
+      // Verify the resolved path is still within memoryDir (defense in depth)
+      const resolvedPath = path.resolve(sessionMemory);
+      const resolvedMemoryDir = path.resolve(memoryDir);
+      if (resolvedPath.startsWith(resolvedMemoryDir) && fs.existsSync(sessionMemory)) {
         fs.unlinkSync(sessionMemory);
       }
     }
