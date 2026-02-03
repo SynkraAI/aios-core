@@ -209,8 +209,13 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
+          # Check if metrics file exists and is not gitignored
           if [ -f .aios/data/quality-metrics.json ]; then
-            git add .aios/data/quality-metrics.json
+            if git check-ignore -q .aios/data/quality-metrics.json 2>/dev/null; then
+              echo "ℹ️ Metrics file is gitignored - skipping commit"
+            else
+              git add .aios/data/quality-metrics.json
+            fi
           fi
 
           if ! git diff --staged --quiet; then
