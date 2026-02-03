@@ -50,10 +50,8 @@ const FOLDERS_TO_COPY = [
   // Additional directories
   'cli',                    // CLI commands
   'manifests',              // Manifest definitions
-  'schemas',                // JSON schemas for validation
-  'quality',                // Quality metrics system
-  'workflow-intelligence',  // Workflow intelligence engine
-  'utils',                  // Utility functions
+  'schemas',                // JSON schemas for validation (*validate-squad, *migrate-squad)
+  'workflow-intelligence',  // Workflow intelligence engine (*next, *patterns)
   'monitor',                // Claude Code hooks for monitoring
   'presets',                // Configuration presets
 ];
