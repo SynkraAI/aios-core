@@ -20,8 +20,8 @@ const command = args[0];
 
 // Helper: Run initialization wizard
 async function runWizard() {
-  // Use the new v2.1 wizard from src/wizard/index.js
-  const wizardPath = path.join(__dirname, '..', 'src', 'wizard', 'index.js');
+  // Use the new v2.1 wizard from packages/installer/src/wizard/index.js
+  const wizardPath = path.join(__dirname, '..', 'packages', 'installer', 'src', 'wizard', 'index.js');
 
   if (!fs.existsSync(wizardPath)) {
     // Fallback to legacy wizard if new wizard not found
