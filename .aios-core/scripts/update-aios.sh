@@ -14,6 +14,12 @@ set -e
 echo "⚡ AIOS Update v5.2"
 echo ""
 
+# Preflight: check rsync
+if ! command -v rsync >/dev/null 2>&1; then
+  echo "❌ rsync is required but not found in PATH."
+  exit 1
+fi
+
 # Validate: clean working tree for .aios-core
 if [ -n "$(git status --porcelain .aios-core/)" ]; then
   echo "❌ Commit .aios-core changes first:"
@@ -87,7 +93,7 @@ echo "🔐 Backing up local-only files..."
 mkdir -p "$TEMP_DIR/local-only"
 while IFS= read -r rel_path; do
   mkdir -p "$TEMP_DIR/local-only/$(dirname "$rel_path")"
-  cp ".aios-core/$rel_path" "$TEMP_DIR/local-only/$rel_path"
+  cp -a ".aios-core/$rel_path" "$TEMP_DIR/local-only/$rel_path"
 done < "$REPORT_PRESERVED"
 
 # Execute sync

@@ -109,15 +109,12 @@ acceptance:
 After running the script:
 
 ```bash
-# Check that local files weren't touched
-ls -la .aios-core/expansion-packs/
-ls -la source/
+# Check that local-only files are preserved
+ls -la .aios-core/expansion-packs/  # if exists
+ls -la source/                       # if exists
 
-# Verify contexts still compile
-python scripts/compile_context.py
-
-# See what changed
-git diff --cached --stat
+# See what changed (unstaged)
+git diff --stat
 ```
 
 ---
