@@ -1,0 +1,47 @@
+{
+  "name": "enterprise-qa-devops-squad",
+  "version": "1.0.0",
+  "description": "Enterprise QA DevOps Squad - Atlassian & Microsoft 365 Integration",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit",
+    "lint": "eslint tools scripts __tests__",
+    "health-check": "node scripts/health-check.js",
+    "setup": "node scripts/setup-credentials.js",
+    "sync-results": "node scripts/sync-test-results.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "form-data": "^4.0.0",
+    "@azure/msal-node": "^2.6.0",
+    "dotenv": "^16.3.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
+    "eslint": "^8.55.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "tools/**/*.js",
+      "scripts/**/*.js"
+    ]
+  },
+  "keywords": [
+    "aios",
+    "squad",
+    "jira",
+    "xray",
+    "confluence",
+    "microsoft365",
+    "qa",
+    "devops"
+  ],
+  "author": "AIOS",
+  "license": "MIT"
+}

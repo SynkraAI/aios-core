@@ -1,0 +1,207 @@
+{
+  "token": {
+    "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Imk2bEdrM0ZaenhSY1ViMkMzbkVRN3N5SEpsWSJ9.test",
+    "expiresOn": "2026-02-05T00:00:00.000Z"
+  },
+  "mail": {
+    "messages": {
+      "value": [
+        {
+          "id": "msg-001",
+          "subject": "Test Email Subject",
+          "bodyPreview": "This is a test email...",
+          "from": {
+            "emailAddress": {
+              "name": "Sender Name",
+              "address": "sender@example.com"
+            }
+          },
+          "receivedDateTime": "2026-02-04T10:00:00Z",
+          "isRead": false
+        },
+        {
+          "id": "msg-002",
+          "subject": "Another Test Email",
+          "bodyPreview": "Another test message...",
+          "from": {
+            "emailAddress": {
+              "name": "Another Sender",
+              "address": "another@example.com"
+            }
+          },
+          "receivedDateTime": "2026-02-04T09:00:00Z",
+          "isRead": true
+        }
+      ]
+    },
+    "message": {
+      "id": "msg-001",
+      "subject": "Test Email Subject",
+      "body": {
+        "contentType": "html",
+        "content": "<html><body>Test email content</body></html>"
+      },
+      "from": {
+        "emailAddress": {
+          "name": "Sender Name",
+          "address": "sender@example.com"
+        }
+      },
+      "toRecipients": [
+        {
+          "emailAddress": {
+            "name": "Recipient",
+            "address": "recipient@example.com"
+          }
+        }
+      ]
+    }
+  },
+  "calendar": {
+    "events": {
+      "value": [
+        {
+          "id": "event-001",
+          "subject": "Team Meeting",
+          "start": {
+            "dateTime": "2026-02-05T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-02-05T15:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "organizer": {
+            "emailAddress": {
+              "name": "Organizer",
+              "address": "organizer@example.com"
+            }
+          }
+        }
+      ]
+    },
+    "event": {
+      "id": "event-001",
+      "subject": "Team Meeting",
+      "body": {
+        "contentType": "html",
+        "content": "<html><body>Meeting agenda...</body></html>"
+      },
+      "start": {
+        "dateTime": "2026-02-05T14:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "end": {
+        "dateTime": "2026-02-05T15:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "attendees": [
+        {
+          "emailAddress": {
+            "name": "Attendee 1",
+            "address": "attendee1@example.com"
+          },
+          "status": { "response": "accepted" }
+        }
+      ]
+    }
+  },
+  "teams": {
+    "joinedTeams": {
+      "value": [
+        {
+          "id": "team-001",
+          "displayName": "QA Team",
+          "description": "Quality Assurance Team"
+        },
+        {
+          "id": "team-002",
+          "displayName": "DevOps Team",
+          "description": "DevOps and Infrastructure"
+        }
+      ]
+    },
+    "team": {
+      "id": "team-001",
+      "displayName": "QA Team",
+      "description": "Quality Assurance Team"
+    },
+    "channels": {
+      "value": [
+        {
+          "id": "channel-001",
+          "displayName": "General",
+          "description": "General discussion"
+        },
+        {
+          "id": "channel-002",
+          "displayName": "Releases",
+          "description": "Release announcements"
+        }
+      ]
+    },
+    "message": {
+      "id": "msg-teams-001",
+      "body": {
+        "contentType": "html",
+        "content": "<p>Test message</p>"
+      },
+      "from": {
+        "user": {
+          "displayName": "Test User"
+        }
+      }
+    }
+  },
+  "users": {
+    "user": {
+      "id": "user-001",
+      "displayName": "Test User",
+      "mail": "test@example.com",
+      "userPrincipalName": "test@example.com"
+    },
+    "search": {
+      "value": [
+        {
+          "id": "user-001",
+          "displayName": "Test User",
+          "mail": "test@example.com"
+        }
+      ]
+    }
+  },
+  "drive": {
+    "file": {
+      "id": "file-001",
+      "name": "test-file.txt",
+      "size": 1024,
+      "webUrl": "https://example.sharepoint.com/file"
+    },
+    "folder": {
+      "value": [
+        {
+          "id": "file-001",
+          "name": "document.docx",
+          "size": 2048
+        },
+        {
+          "id": "folder-001",
+          "name": "subfolder",
+          "folder": { "childCount": 3 }
+        }
+      ]
+    },
+    "sharingLink": {
+      "id": "link-001",
+      "link": {
+        "type": "view",
+        "webUrl": "https://example.sharepoint.com/share/link"
+      }
+    }
+  },
+  "presence": {
+    "id": "user-001",
+    "availability": "Available",
+    "activity": "Available"
+  }
+}

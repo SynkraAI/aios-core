@@ -1,0 +1,189 @@
+{
+  "jira": {
+    "issue": {
+      "id": "10001",
+      "key": "PROJ-123",
+      "self": "https://test.atlassian.net/rest/api/3/issue/10001",
+      "fields": {
+        "summary": "Test Issue Summary",
+        "status": {
+          "name": "To Do",
+          "id": "1"
+        },
+        "assignee": {
+          "accountId": "user-123",
+          "displayName": "Test User",
+          "emailAddress": "test@example.com"
+        },
+        "priority": {
+          "name": "Medium",
+          "id": "3"
+        },
+        "issuetype": {
+          "name": "Task",
+          "id": "10001"
+        },
+        "project": {
+          "key": "PROJ",
+          "name": "Test Project"
+        }
+      }
+    },
+    "search": {
+      "expand": "names,schema",
+      "startAt": 0,
+      "maxResults": 50,
+      "total": 2,
+      "issues": [
+        {
+          "id": "10001",
+          "key": "PROJ-123",
+          "fields": {
+            "summary": "First Issue",
+            "status": { "name": "To Do" }
+          }
+        },
+        {
+          "id": "10002",
+          "key": "PROJ-124",
+          "fields": {
+            "summary": "Second Issue",
+            "status": { "name": "In Progress" }
+          }
+        }
+      ]
+    },
+    "transitions": {
+      "expand": "transitions",
+      "transitions": [
+        {
+          "id": "11",
+          "name": "To Do",
+          "to": { "name": "To Do", "id": "1" }
+        },
+        {
+          "id": "21",
+          "name": "In Progress",
+          "to": { "name": "In Progress", "id": "2" }
+        },
+        {
+          "id": "31",
+          "name": "Done",
+          "to": { "name": "Done", "id": "3" }
+        }
+      ]
+    },
+    "user": {
+      "accountId": "user-123",
+      "displayName": "Test User",
+      "emailAddress": "test@example.com",
+      "active": true
+    },
+    "project": {
+      "key": "PROJ",
+      "name": "Test Project",
+      "id": "10000"
+    },
+    "comment": {
+      "id": "10001",
+      "body": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [{ "type": "text", "text": "Test comment" }]
+          }
+        ]
+      }
+    }
+  },
+  "xray": {
+    "authenticate": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.test-token",
+    "importJunit": {
+      "id": "10100",
+      "key": "PROJ-EXEC-1",
+      "self": "https://test.atlassian.net/rest/api/3/issue/10100"
+    },
+    "importCucumber": {
+      "testExecIssue": {
+        "id": "10101",
+        "key": "PROJ-EXEC-2"
+      },
+      "testIssues": {
+        "success": ["PROJ-TEST-1", "PROJ-TEST-2"]
+      }
+    },
+    "test": {
+      "id": "10050",
+      "key": "PROJ-TEST-1",
+      "testType": { "name": "Manual" }
+    },
+    "testSet": {
+      "tests": [
+        { "key": "PROJ-TEST-1" },
+        { "key": "PROJ-TEST-2" }
+      ]
+    },
+    "testPlan": {
+      "tests": [
+        { "key": "PROJ-TEST-1" },
+        { "key": "PROJ-TEST-2" },
+        { "key": "PROJ-TEST-3" }
+      ]
+    }
+  },
+  "confluence": {
+    "content": {
+      "id": "12345",
+      "type": "page",
+      "title": "Test Page",
+      "space": {
+        "key": "SPACE",
+        "name": "Test Space"
+      },
+      "version": {
+        "number": 1
+      },
+      "body": {
+        "storage": {
+          "value": "<p>Test content</p>",
+          "representation": "storage"
+        }
+      },
+      "_links": {
+        "webui": "/spaces/SPACE/pages/12345/Test+Page"
+      }
+    },
+    "search": {
+      "results": [
+        {
+          "id": "12345",
+          "type": "page",
+          "title": "Test Page",
+          "space": { "key": "SPACE" }
+        }
+      ],
+      "start": 0,
+      "limit": 25,
+      "size": 1
+    },
+    "space": {
+      "key": "SPACE",
+      "name": "Test Space",
+      "type": "global"
+    },
+    "spaces": {
+      "results": [
+        { "key": "SPACE", "name": "Test Space" },
+        { "key": "DOC", "name": "Documentation" }
+      ]
+    },
+    "labels": {
+      "results": [
+        { "prefix": "global", "name": "test-label" },
+        { "prefix": "global", "name": "qa" }
+      ]
+    }
+  }
+}
