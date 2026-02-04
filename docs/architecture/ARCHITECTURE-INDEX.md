@@ -88,6 +88,14 @@ docs/architecture/
 | [ADR COLLAB-2](./adr/ADR-COLLAB-2-proposed-configuration.md) | Proposed configuration | ✅ Current |
 | [ADR HCS](./adr/adr-hcs-health-check-system.md)              | Health Check System    | ✅ Current |
 | [ADR Isolated VM](./adr/adr-isolated-vm-decision.md)         | Isolated VM decision   | ✅ Current |
+| [ADR Enterprise QA DevOps](./adr/adr-enterprise-qa-devops-resilience.md) | Resilience & Security patterns | 🆕 New |
+
+### Squad Architecture
+
+| Document                                                       | Description                      | Status     |
+| -------------------------------------------------------------- | -------------------------------- | ---------- |
+| [Enterprise QA DevOps PRD](../prd/enterprise-qa-devops-squad.md) | Product requirements & epics    | 🆕 New |
+| [Squad README](../../squads/enterprise-qa-devops/README.md)    | Usage and integration guide      | ✅ Current |
 
 ### Reference Documents (Official in docs/framework/)
 

@@ -140,49 +140,193 @@ Notifies all channels when a release is deployed:
   --project PROJ
 ```
 
+## Resilience & Security (v2.0)
+
+### Circuit Breaker
+
+All API clients include automatic circuit breaker protection:
+
+```javascript
+// After 5 consecutive failures, circuit opens for 30 seconds
+// Prevents hammering failing APIs
+const client = new JiraClient();
+// Circuit states: CLOSED → OPEN → HALF_OPEN → CLOSED
+```
+
+### Retry with Exponential Backoff
+
+Transient failures are automatically retried:
+
+```javascript
+// Retries: 1s → 2s → 4s (with jitter)
+// Configurable: maxRetries, baseDelay, maxDelay
+```
+
+### Rate Limiting
+
+Built-in rate limiter prevents API throttling:
+
+```javascript
+// Token bucket: 100 tokens, refill 10/sec
+// Prevents 429 errors from Atlassian/Microsoft
+```
+
+### Secure Credential Management
+
+Supports multiple secrets backends:
+
+```bash
+# Azure Key Vault
+export SECRETS_BACKEND=azure
+export AZURE_KEY_VAULT_URL=https://vault.vault.azure.net
+
+# AWS Secrets Manager
+export SECRETS_BACKEND=aws
+export AWS_REGION=us-east-1
+
+# 1Password CLI
+export SECRETS_BACKEND=1password
+export OP_VAULT=Private
+
+# Environment (default, dev only)
+export SECRETS_BACKEND=env
+```
+
+Usage:
+```javascript
+const { SecretsManager, CredentialLoader } = require('./tools/secrets-manager');
+
+const secrets = new SecretsManager({ backend: 'azure' });
+const loader = new CredentialLoader(secrets);
+
+// Load all credentials
+const creds = await loader.loadAll();
+
+// Validate before use
+const validation = await loader.validate();
+if (!validation.complete) {
+  console.error('Missing:', validation.missing);
+}
+```
+
+### API Version Abstraction
+
+Stable interfaces protect against API breaking changes:
+
+```javascript
+const { ContractFactory } = require('./tools/api-contracts');
+
+// Use contracts instead of direct clients
+const issues = ContractFactory.createIssueContract(jiraClient);
+
+// Works the same whether Jira API is v2 or v3
+const issue = await issues.create({
+  project: 'PROJ',
+  summary: 'Task title',
+  type: 'Task'
+});
+```
+
+---
+
+## Testing
+
+### Run Tests
+
+```bash
+npm test                    # Run all tests
+npm run test:watch          # Watch mode
+npm run test:coverage       # With coverage report
+```
+
+### Test Structure
+
+```
+__tests__/
+├── setup.js                # Test environment config
+├── mocks/
+│   ├── atlassian-responses.json   # Jira/Xray/Confluence mocks
+│   └── graph-responses.json       # Microsoft Graph mocks
+├── tools/
+│   ├── jira-client.test.js        # 25+ tests
+│   ├── xray-client.test.js        # 20+ tests
+│   ├── confluence-client.test.js  # 30+ tests
+│   ├── graph-client.test.js       # 25+ tests
+│   ├── resilient-client.test.js   # Circuit/retry/rate tests
+│   └── secrets-manager.test.js    # Backend/cache/audit tests
+└── integration/
+    └── workflow.test.js           # Multi-service tests
+```
+
+### Coverage Requirements
+
+- **Minimum:** 80% (branches, functions, lines)
+- **Enforced:** Via Jest configuration
+
+---
+
 ## Structure
 
 ```
 enterprise-qa-devops/
 ├── squad.yaml              # Squad manifest
 ├── README.md               # This file
+├── package.json            # Dependencies and scripts
+├── jest.config.js          # Test configuration
+│
 ├── agents/                 # Agent definitions
 │   ├── jira-agent.md
 │   ├── xray-agent.md
 │   ├── confluence-agent.md
 │   └── o365-agent.md
+│
 ├── tasks/                  # Task definitions
 │   ├── jira-*.md
 │   ├── xray-*.md
 │   ├── confluence-*.md
 │   └── o365-*.md
+│
 ├── workflows/              # Automated workflows
 │   ├── test-report-workflow.yaml
 │   ├── sprint-documentation.yaml
 │   └── release-notification.yaml
+│
 ├── checklists/             # QA checklists
 │   ├── qa-review-checklist.md
 │   ├── release-checklist.md
 │   └── integration-test-checklist.md
+│
 ├── templates/              # Document templates
 │   ├── test-report-template.md
 │   ├── bug-report-template.md
 │   ├── sprint-summary-template.md
 │   └── release-notes-template.md
-├── tools/                  # API clients
-│   ├── jira-client.js
-│   ├── xray-client.js
-│   ├── confluence-client.js
-│   └── graph-client.js
+│
+├── tools/                  # API clients & infrastructure
+│   ├── jira-client.js      # Jira REST API client
+│   ├── xray-client.js      # Xray API client
+│   ├── confluence-client.js # Confluence API client
+│   ├── graph-client.js     # Microsoft Graph client
+│   ├── resilient-client.js # Circuit breaker, retry, rate limit
+│   ├── secrets-manager.js  # Multi-backend credential management
+│   └── api-contracts.js    # Version-agnostic interfaces
+│
 ├── scripts/                # Utility scripts
 │   ├── setup-credentials.js
 │   ├── health-check.js
 │   └── sync-test-results.js
-└── config/                 # Configuration docs
-    ├── coding-standards.md
-    ├── tech-stack.md
-    ├── credentials.md
-    └── mental-models.md
+│
+├── config/                 # Configuration docs
+│   ├── coding-standards.md
+│   ├── tech-stack.md
+│   ├── credentials.md
+│   └── mental-models.md
+│
+└── __tests__/              # Test suite
+    ├── setup.js
+    ├── mocks/
+    ├── tools/
+    └── integration/
 ```
 
 ## Integration Points
@@ -289,5 +433,13 @@ MIT - See LICENSE file in repository root.
 
 ---
 
-*Enterprise QA DevOps Squad v1.0.0*
+*Enterprise QA DevOps Squad v2.0.0*
 *Built with AIOS*
+
+---
+
+## Documentation
+
+- **PRD:** `docs/prd/enterprise-qa-devops-squad.md`
+- **ADR:** `docs/architecture/adr/adr-enterprise-qa-devops-resilience.md`
+- **Architecture Index:** `docs/architecture/ARCHITECTURE-INDEX.md`
