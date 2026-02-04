@@ -9,7 +9,7 @@
 
 ## Purpose
 
-Git-native sync of AIOS framework from upstream repository. Uses `git merge --no-commit` for safe review before applying changes. All local customizations preserved automatically via `git checkout --ours`.
+Git-native sync of AIOS framework from upstream repository. Uses sparse clone + file comparison for safe review before applying changes. All local customizations preserved automatically by backup/restore.
 
 ---
 
@@ -20,34 +20,35 @@ Git-native sync of AIOS framework from upstream repository. Uses `git merge --no
 bash .aios-core/scripts/update-aios.sh
 
 # Review changes shown by the script, then:
-git commit -m "chore: sync AIOS framework"   # Apply changes
+git add .aios-core && git commit -m "chore: sync AIOS framework"   # Apply changes
 # OR
-git merge --abort                             # Cancel changes
+git checkout -- .aios-core/                                         # Cancel changes
 ```
 
 ---
 
 ## How It Works
 
-The script uses Git's native merge capabilities:
+The script uses sparse clone + file comparison:
 
-1. **Fetch upstream** - Gets latest from SynkraAI/aios-core
-2. **Merge --no-commit** - Prepares changes but doesn't commit (safety checkpoint)
-3. **Preserve local** - Uses `git checkout --ours` to keep all customizations
-4. **Show diff** - Displays what will change for review
-5. **User decides** - Commit to apply or abort to cancel
+1. **Clone upstream** - Sparse shallow clone of SynkraAI/aios-core (only `.aios-core/`)
+2. **Compare files** - Uses `comm` for O(n) file list comparison
+3. **Backup local-only** - Files that exist only locally are backed up
+4. **Sync** - Copy upstream files, restore local-only files
+5. **Report** - Shows created/updated/deleted/preserved counts
+6. **User decides** - Commit to apply or checkout to cancel
 
-**Why Git-native is better:**
-- Git already tracks all changes (no manual checksums)
-- Git is the backup (no separate backup system)
-- Merge conflicts handled natively
-- 15 lines of bash vs 847 lines of JavaScript
+**Why this approach:**
+- Sparse clone is fast (~5 seconds)
+- O(n) comparison vs O(n²) nested loops
+- Local-only files always preserved
+- Clear report before committing
 
 ---
 
 ## Protected Files (NEVER overwritten)
 
-These paths are automatically preserved via `git checkout --ours`:
+These paths are automatically preserved (local-only files are backed up and restored):
 
 | Path | Reason |
 |------|--------|
@@ -85,15 +86,15 @@ workflow:
   1. If dirty working tree: git add -A && git commit -m "chore: pre-update commit"
   2. bash .aios-core/scripts/update-aios.sh
   3. Review changes displayed
-  4. git commit -m "chore: sync AIOS framework"  # to apply
-  5. git merge --abort                           # to cancel
+  4. git add .aios-core && git commit -m "chore: sync AIOS framework"  # to apply
+  5. git checkout -- .aios-core/                                        # to cancel
 
 pre-conditions:
   - git status clean (if dirty, auto-commit with "chore: pre-update commit")
 
 post-conditions:
-  - protected files unchanged (git checkout --ours)
-  - changes staged for review
+  - local-only files preserved (backup/restore)
+  - changes ready for review (unstaged)
 
 acceptance:
   - script completes without error
@@ -138,7 +139,7 @@ git diff --cached --stat
 git reset --hard HEAD~1
 
 # If you haven't committed yet:
-git merge --abort
+git checkout -- .aios-core/
 ```
 
 ---

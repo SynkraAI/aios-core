@@ -25,7 +25,7 @@ fi
 
 # Temp directory
 TEMP_DIR=$(mktemp -d)
-trap "rm -rf $TEMP_DIR" EXIT
+trap 'rm -rf "$TEMP_DIR"' EXIT
 
 # Report files
 REPORT_CREATED="$TEMP_DIR/report-created.txt"
@@ -102,11 +102,11 @@ if [ -s "$REPORT_DELETED" ]; then
 fi
 
 # Copy all upstream files (creates new + overwrites existing)
-cp -r "$TEMP_DIR/upstream/.aios-core/"* ".aios-core/"
+rsync -a "$TEMP_DIR/upstream/.aios-core/" ".aios-core/"
 
 # Restore local-only files
 if [ -d "$TEMP_DIR/local-only" ] && [ "$(ls -A "$TEMP_DIR/local-only" 2>/dev/null)" ]; then
-  cp -r "$TEMP_DIR/local-only/"* ".aios-core/"
+  rsync -a "$TEMP_DIR/local-only/" ".aios-core/"
 fi
 
 # Clean empty directories
