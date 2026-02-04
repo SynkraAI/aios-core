@@ -12,6 +12,7 @@
  * - Parallel operations
  * - Fallback strategy
  * - Backwards compatibility
+ * - Story 10.3: User profile-based command filtering
  */
 
 const GreetingBuilder = require('../../.aios-core/development/scripts/greeting-builder');
@@ -403,6 +404,255 @@ describe('GreetingBuilder', () => {
       const warning = builder.buildGitWarning();
       expect(warning).toContain('Git Configuration Needed');
       expect(warning).toContain('git init');
+    });
+  });
+
+  describe('User Profile-Based Filtering (Story 10.3)', () => {
+    let mockPmAgent;
+    let mockDevAgent;
+
+    beforeEach(() => {
+      // PM Agent (Bob)
+      mockPmAgent = {
+        id: 'pm',
+        name: 'Morgan',
+        icon: '📋',
+        persona_profile: {
+          greeting_levels: {
+            minimal: '📋 PM ready',
+            named: '📋 Morgan (PM) ready',
+            archetypal: '📋 Morgan the Product Manager ready',
+          },
+        },
+        persona: {
+          role: 'Product Manager and orchestrator',
+        },
+        commands: [
+          { name: 'help', visibility: ['full', 'quick', 'key'], description: 'Show help' },
+          { name: 'create-story', visibility: ['full', 'quick'], description: 'Create new story' },
+          { name: 'status', visibility: ['full', 'quick', 'key'], description: 'Project status' },
+        ],
+      };
+
+      // Dev Agent (non-PM)
+      mockDevAgent = {
+        id: 'dev',
+        name: 'Dex',
+        icon: '👨‍💻',
+        persona_profile: {
+          greeting_levels: {
+            minimal: '👨‍💻 Dev ready',
+            named: '👨‍💻 Dex (Developer) ready',
+            archetypal: '👨‍💻 Dex the Developer ready',
+          },
+        },
+        persona: {
+          role: 'Software Developer',
+        },
+        commands: [
+          { name: 'help', visibility: ['full', 'quick', 'key'], description: 'Show help' },
+          { name: 'develop', visibility: ['full', 'quick'], description: 'Start development' },
+          { name: 'test', visibility: ['full'], description: 'Run tests' },
+        ],
+      };
+    });
+
+    describe('loadUserProfile()', () => {
+      test('should return advanced as default when config file not found', () => {
+        // Mock fs to return false for existsSync
+        const fs = require('fs');
+        const originalExistsSync = fs.existsSync;
+        fs.existsSync = jest.fn().mockReturnValue(false);
+
+        const profile = builder.loadUserProfile();
+        expect(profile).toBe('advanced');
+
+        fs.existsSync = originalExistsSync;
+      });
+
+      test('should return advanced when user_profile is missing from config', () => {
+        const fs = require('fs');
+        const originalExistsSync = fs.existsSync;
+        const originalReadFileSync = fs.readFileSync;
+
+        fs.existsSync = jest.fn().mockReturnValue(true);
+        fs.readFileSync = jest.fn().mockReturnValue('markdownExploder: true\nproject:\n  type: GREENFIELD');
+
+        const profile = builder.loadUserProfile();
+        expect(profile).toBe('advanced');
+
+        fs.existsSync = originalExistsSync;
+        fs.readFileSync = originalReadFileSync;
+      });
+
+      test('should return advanced when user_profile is invalid', () => {
+        const fs = require('fs');
+        const originalExistsSync = fs.existsSync;
+        const originalReadFileSync = fs.readFileSync;
+
+        fs.existsSync = jest.fn().mockReturnValue(true);
+        fs.readFileSync = jest.fn().mockReturnValue('user_profile: invalid_value');
+
+        const profile = builder.loadUserProfile();
+        expect(profile).toBe('advanced');
+
+        fs.existsSync = originalExistsSync;
+        fs.readFileSync = originalReadFileSync;
+      });
+
+      test('should return bob when user_profile is bob', () => {
+        const fs = require('fs');
+        const originalExistsSync = fs.existsSync;
+        const originalReadFileSync = fs.readFileSync;
+
+        fs.existsSync = jest.fn().mockReturnValue(true);
+        fs.readFileSync = jest.fn().mockReturnValue('user_profile: bob');
+
+        const profile = builder.loadUserProfile();
+        expect(profile).toBe('bob');
+
+        fs.existsSync = originalExistsSync;
+        fs.readFileSync = originalReadFileSync;
+      });
+
+      test('should return advanced when user_profile is advanced', () => {
+        const fs = require('fs');
+        const originalExistsSync = fs.existsSync;
+        const originalReadFileSync = fs.readFileSync;
+
+        fs.existsSync = jest.fn().mockReturnValue(true);
+        fs.readFileSync = jest.fn().mockReturnValue('user_profile: advanced');
+
+        const profile = builder.loadUserProfile();
+        expect(profile).toBe('advanced');
+
+        fs.existsSync = originalExistsSync;
+        fs.readFileSync = originalReadFileSync;
+      });
+    });
+
+    describe('filterCommandsByVisibility() with user profile', () => {
+      test('should return commands for PM agent in bob mode (AC1)', () => {
+        const commands = builder.filterCommandsByVisibility(mockPmAgent, 'new', 'bob');
+        expect(commands.length).toBeGreaterThan(0);
+        expect(commands.some(c => c.name === 'help')).toBe(true);
+      });
+
+      test('should return empty array for non-PM agent in bob mode (AC1)', () => {
+        const commands = builder.filterCommandsByVisibility(mockDevAgent, 'new', 'bob');
+        expect(commands).toEqual([]);
+      });
+
+      test('should return commands for any agent in advanced mode (AC2)', () => {
+        const pmCommands = builder.filterCommandsByVisibility(mockPmAgent, 'new', 'advanced');
+        const devCommands = builder.filterCommandsByVisibility(mockDevAgent, 'new', 'advanced');
+
+        expect(pmCommands.length).toBeGreaterThan(0);
+        expect(devCommands.length).toBeGreaterThan(0);
+      });
+
+      test('should default to advanced when userProfile not provided (AC6)', () => {
+        // filterCommandsByVisibility without userProfile should behave as advanced
+        const commands = builder.filterCommandsByVisibility(mockDevAgent, 'new');
+        expect(commands.length).toBeGreaterThan(0);
+      });
+    });
+
+    describe('buildBobModeRedirect()', () => {
+      test('should return redirect message with agent name', () => {
+        const redirect = builder.buildBobModeRedirect(mockDevAgent);
+
+        expect(redirect).toContain('Modo Assistido');
+        expect(redirect).toContain('@pm');
+        expect(redirect).toContain('Bob');
+        expect(redirect).toContain('Dex');
+      });
+
+      test('should return redirect message without agent name when agent is null', () => {
+        const redirect = builder.buildBobModeRedirect(null);
+
+        expect(redirect).toContain('Modo Assistido');
+        expect(redirect).toContain('@pm');
+        expect(redirect).toContain('Este agente');
+      });
+    });
+
+    describe('Full greeting in bob mode', () => {
+      test('PM agent should show commands in bob mode (AC5)', async () => {
+        const fs = require('fs');
+        const originalExistsSync = fs.existsSync;
+        const originalReadFileSync = fs.readFileSync;
+
+        fs.existsSync = jest.fn((path) => {
+          if (path.includes('core-config.yaml')) return true;
+          return originalExistsSync(path);
+        });
+        fs.readFileSync = jest.fn((path, encoding) => {
+          if (path.includes('core-config.yaml')) return 'user_profile: bob';
+          return originalReadFileSync(path, encoding);
+        });
+
+        const greeting = await builder.buildGreeting(mockPmAgent, {});
+
+        expect(greeting).toContain('Morgan');
+        expect(greeting).toContain('help');
+        expect(greeting).not.toContain('Modo Assistido');
+
+        fs.existsSync = originalExistsSync;
+        fs.readFileSync = originalReadFileSync;
+      });
+
+      test('Non-PM agent should show redirect message in bob mode (AC4)', async () => {
+        const fs = require('fs');
+        const originalExistsSync = fs.existsSync;
+        const originalReadFileSync = fs.readFileSync;
+
+        fs.existsSync = jest.fn((path) => {
+          if (path.includes('core-config.yaml')) return true;
+          return originalExistsSync(path);
+        });
+        fs.readFileSync = jest.fn((path, encoding) => {
+          if (path.includes('core-config.yaml')) return 'user_profile: bob';
+          return originalReadFileSync(path, encoding);
+        });
+
+        const greeting = await builder.buildGreeting(mockDevAgent, {});
+
+        expect(greeting).toContain('Dex');
+        expect(greeting).toContain('Modo Assistido');
+        expect(greeting).toContain('@pm');
+        expect(greeting).not.toContain('develop'); // No commands shown
+
+        fs.existsSync = originalExistsSync;
+        fs.readFileSync = originalReadFileSync;
+      });
+
+      test('All agents should show normal commands in advanced mode (AC2)', async () => {
+        const fs = require('fs');
+        const originalExistsSync = fs.existsSync;
+        const originalReadFileSync = fs.readFileSync;
+
+        fs.existsSync = jest.fn((path) => {
+          if (path.includes('core-config.yaml')) return true;
+          return originalExistsSync(path);
+        });
+        fs.readFileSync = jest.fn((path, encoding) => {
+          if (path.includes('core-config.yaml')) return 'user_profile: advanced';
+          return originalReadFileSync(path, encoding);
+        });
+
+        const pmGreeting = await builder.buildGreeting(mockPmAgent, {});
+        const devGreeting = await builder.buildGreeting(mockDevAgent, {});
+
+        expect(pmGreeting).toContain('help');
+        expect(pmGreeting).not.toContain('Modo Assistido');
+
+        expect(devGreeting).toContain('help');
+        expect(devGreeting).not.toContain('Modo Assistido');
+
+        fs.existsSync = originalExistsSync;
+        fs.readFileSync = originalReadFileSync;
+      });
     });
   });
 });

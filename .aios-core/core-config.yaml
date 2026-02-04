@@ -14,6 +14,16 @@ project:
   installedAt: "2025-01-14T00:00:00Z"
   version: "2.1.0"
 
+# User Profile Configuration
+# PRD: AIOS v2.0 "Projeto Bob" - Seção 2
+# Controls which interface mode is active for the user
+# Options:
+#   - bob: Simplified mode - only Bob visible, orchestrates internally
+#   - advanced: Full access to all agents and commands (default)
+# Set during: Environment Bootstrap (installation)
+# Mutable: Yes (user can change anytime)
+user_profile: advanced
+
 # ============================================
 # SECTION 2: Documentation Paths
 # ============================================

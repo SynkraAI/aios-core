@@ -6,6 +6,7 @@
  */
 
 const inquirer = require('inquirer');
+const fse = require('fs-extra');
 const { runWizard } = require('../../packages/installer/src/wizard/index');
 const {
   installDependencies,
@@ -19,6 +20,7 @@ const { installAiosCore, hasPackageJson } = require('../../packages/installer/sr
 
 // Mock dependencies
 jest.mock('inquirer');
+jest.mock('fs-extra');
 jest.mock('../../packages/installer/src/installer/dependency-installer');
 jest.mock('../../packages/installer/src/config/configure-environment');
 jest.mock('../../packages/installer/src/wizard/ide-config-generator');
@@ -91,6 +93,12 @@ describe('Wizard Integration - Story 1.7', () => {
       success: true,
       packageManager: 'npm',
     });
+
+    // Mock fs-extra for getExistingUserProfile() - Story 10.2
+    // Default: no existing core-config.yaml (forces user profile prompt)
+    fse.pathExists.mockResolvedValue(false);
+    fse.existsSync.mockReturnValue(false);
+    fse.ensureDir.mockResolvedValue();
   });
 
   afterEach(() => {
@@ -197,6 +205,106 @@ describe('Wizard Integration - Story 1.7', () => {
     });
   });
 
+  describe('User Profile Selection (Story 10.2)', () => {
+    it('should include userProfile in wizard answers', async () => {
+      inquirer.prompt
+        .mockResolvedValueOnce({ language: 'en' })
+        .mockResolvedValueOnce({ userProfile: 'advanced' })
+        .mockResolvedValueOnce({
+          projectType: 'greenfield',
+          selectedIDEs: ['vscode'],
+          selectedTechPreset: 'none',
+        });
+
+      const answers = await runWizard();
+
+      expect(answers.userProfile).toBeDefined();
+      expect(['bob', 'advanced']).toContain(answers.userProfile);
+    });
+
+    it('should pass userProfile to configureEnvironment', async () => {
+      inquirer.prompt
+        .mockResolvedValueOnce({ language: 'en' })
+        .mockResolvedValueOnce({ userProfile: 'bob' })
+        .mockResolvedValueOnce({
+          projectType: 'greenfield',
+          selectedIDEs: ['vscode'],
+          selectedTechPreset: 'none',
+        });
+
+      await runWizard();
+
+      expect(configureEnvironment).toHaveBeenCalledWith(
+        expect.objectContaining({
+          userProfile: 'bob',
+        }),
+      );
+    });
+
+    it('should use existing profile when core-config.yaml exists (idempotency)', async () => {
+      // Mock existing core-config.yaml with user_profile
+      fse.pathExists.mockResolvedValue(true);
+      fse.readFile.mockResolvedValue('user_profile: bob\nmarkdownExploder: true');
+
+      // Only 2 prompts needed: language + remaining questions (no user profile prompt)
+      inquirer.prompt
+        .mockResolvedValueOnce({ language: 'en' })
+        .mockResolvedValueOnce({
+          projectType: 'greenfield',
+          selectedIDEs: ['vscode'],
+          selectedTechPreset: 'none',
+        });
+
+      const answers = await runWizard();
+
+      // Should use existing profile without prompting
+      expect(answers.userProfile).toBe('bob');
+      // Console should show skipped message
+      expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('bob'));
+    });
+
+    it('should default to advanced when user_profile is missing from existing config', async () => {
+      // Mock existing core-config.yaml WITHOUT user_profile
+      fse.pathExists.mockResolvedValue(true);
+      fse.readFile.mockResolvedValue('markdownExploder: true\nproject:\n  type: GREENFIELD');
+
+      // Need all 3 prompts since user_profile doesn't exist
+      inquirer.prompt
+        .mockResolvedValueOnce({ language: 'en' })
+        .mockResolvedValueOnce({ userProfile: 'advanced' })
+        .mockResolvedValueOnce({
+          projectType: 'greenfield',
+          selectedIDEs: ['vscode'],
+          selectedTechPreset: 'none',
+        });
+
+      const answers = await runWizard();
+
+      expect(answers.userProfile).toBe('advanced');
+    });
+
+    it('should handle invalid user_profile in existing config gracefully', async () => {
+      // Mock existing core-config.yaml with INVALID user_profile
+      fse.pathExists.mockResolvedValue(true);
+      fse.readFile.mockResolvedValue('user_profile: invalid_value\nmarkdownExploder: true');
+
+      // Need all 3 prompts since user_profile is invalid
+      inquirer.prompt
+        .mockResolvedValueOnce({ language: 'en' })
+        .mockResolvedValueOnce({ userProfile: 'advanced' })
+        .mockResolvedValueOnce({
+          projectType: 'greenfield',
+          selectedIDEs: ['vscode'],
+          selectedTechPreset: 'none',
+        });
+
+      const answers = await runWizard();
+
+      // Should prompt for new profile since existing is invalid
+      expect(answers.userProfile).toBe('advanced');
+    });
+  });
+
   describe('Offline Mode (AC6)', () => {
     it('should handle offline mode gracefully', async () => {
       installDependencies.mockResolvedValue({
@@ -227,12 +335,14 @@ describe('Wizard Integration - Story 1.7', () => {
           packageManager: 'npm',
         });
 
-      // Mock prompt sequence: 1) language, 2) project type + IDEs, 3) retryDeps
+      // Mock prompt sequence: 1) language, 2) user profile (Story 10.2), 3) project type + IDEs + tech preset, 4) retryDeps
       inquirer.prompt
         .mockResolvedValueOnce({ language: 'en' })
+        .mockResolvedValueOnce({ userProfile: 'advanced' }) // Story 10.2: User Profile
         .mockResolvedValueOnce({
           projectType: 'greenfield',
           selectedIDEs: [],
+          selectedTechPreset: 'none',
         })
         .mockResolvedValueOnce({
           retryDeps: true,
@@ -251,12 +361,14 @@ describe('Wizard Integration - Story 1.7', () => {
         solution: 'Check your internet connection',
       });
 
-      // Mock prompt sequence: 1) language, 2) project type + IDEs, 3) retryDeps
+      // Mock prompt sequence: 1) language, 2) user profile (Story 10.2), 3) project type + IDEs + tech preset, 4) retryDeps
       inquirer.prompt
         .mockResolvedValueOnce({ language: 'en' })
+        .mockResolvedValueOnce({ userProfile: 'advanced' }) // Story 10.2: User Profile
         .mockResolvedValueOnce({
           projectType: 'greenfield',
           selectedIDEs: [],
+          selectedTechPreset: 'none',
         })
         .mockResolvedValueOnce({
           retryDeps: false,
@@ -318,12 +430,14 @@ describe('Wizard Integration - Story 1.7', () => {
     it('should handle environment config failure gracefully', async () => {
       configureEnvironment.mockRejectedValue(new Error('Env config failed'));
 
-      // Mock prompt sequence: 1) language, 2) project type + IDEs, 3) continueWithoutEnv
+      // Mock prompt sequence: 1) language, 2) user profile (Story 10.2), 3) project type + IDEs + tech preset, 4) continueWithoutEnv
       inquirer.prompt
         .mockResolvedValueOnce({ language: 'en' })
+        .mockResolvedValueOnce({ userProfile: 'advanced' }) // Story 10.2: User Profile
         .mockResolvedValueOnce({
           projectType: 'greenfield',
           selectedIDEs: [],
+          selectedTechPreset: 'none',
         })
         .mockResolvedValueOnce({
           continueWithoutEnv: true,

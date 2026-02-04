@@ -12,11 +12,13 @@ const path = require('path');
 const fse = require('fs-extra');
 const {
   getLanguageQuestion,
+  getUserProfileQuestion,
   getProjectTypeQuestion,
   getIDEQuestions,
   getTechPresetQuestion,
 } = require('./questions');
-const { setLanguage } = require('./i18n');
+const { setLanguage, t } = require('./i18n');
+const yaml = require('js-yaml');
 const { showWelcome, showCompletion, showCancellation } = require('./feedback');
 const { generateIDEConfigs, showSuccessSummary } = require('./ide-config-generator');
 const {
@@ -70,6 +72,38 @@ const {
 // **Comandos disponíveis:** Use \`*help\` para ver todos os comandos do agente.
 // `;
 // }
+
+/**
+ * Check for existing user_profile in core-config.yaml (Story 10.2 - Idempotency)
+ * Returns the existing profile if found, null otherwise
+ *
+ * @param {string} targetDir - Target directory to check
+ * @returns {Promise<string|null>} Existing user profile or null
+ */
+async function getExistingUserProfile(targetDir = process.cwd()) {
+  const coreConfigPath = path.join(targetDir, '.aios-core', 'core-config.yaml');
+
+  try {
+    if (await fse.pathExists(coreConfigPath)) {
+      const content = await fse.readFile(coreConfigPath, 'utf8');
+      const config = yaml.load(content);
+
+      if (config && config.user_profile) {
+        // Validate the value
+        const validProfiles = ['bob', 'advanced'];
+        const normalizedProfile = String(config.user_profile).toLowerCase().trim();
+
+        if (validProfiles.includes(normalizedProfile)) {
+          return normalizedProfile;
+        }
+      }
+    }
+  } catch {
+    // Config doesn't exist or is invalid - will ask for profile
+  }
+
+  return null;
+}
 
 /**
  * Handle Ctrl+C gracefully
@@ -147,8 +181,11 @@ async function runWizard(options = {}) {
 
     if (options.quiet) {
       // Quiet mode: Skip all prompts, use defaults
+      // Story 10.2: Check for existing user_profile (idempotency)
+      const existingProfile = await getExistingUserProfile();
       answers = {
         language: options.language || 'en',
+        userProfile: options.userProfile || existingProfile || 'advanced', // Story 10.2
         projectType: options.projectType || 'brownfield', // Default to brownfield for safety
         selectedIDEs: options.ide ? [options.ide] : [],   // Support single IDE flag if added later
         selectedTechPreset: 'none',
@@ -159,6 +196,20 @@ async function runWizard(options = {}) {
       // Phase 1: Language selection (must be first to apply i18n)
       const languageAnswer = await inquirer.prompt([getLanguageQuestion()]);
       setLanguage(languageAnswer.language);
+
+      // Phase 1.5: User Profile selection (Story 10.2 - Epic 10)
+      // Check for idempotency - if user_profile already exists, skip question
+      let userProfileAnswer = {};
+      const existingProfile = await getExistingUserProfile();
+
+      if (existingProfile) {
+        // Idempotent: Use existing profile, don't re-ask
+        console.log(`\n✓ ${t('userProfileSkipped')}: ${existingProfile}\n`);
+        userProfileAnswer = { userProfile: existingProfile };
+      } else {
+        // New installation: Ask for user profile
+        userProfileAnswer = await inquirer.prompt([getUserProfileQuestion()]);
+      }
 
       // Phase 2: Build remaining questions with i18n applied
       const remainingQuestions = [
@@ -173,12 +224,12 @@ async function runWizard(options = {}) {
       // Run wizard with remaining questions
       const remainingAnswers = await inquirer.prompt(remainingQuestions);
 
-      // Merge all answers
-      answers = { ...languageAnswer, ...remainingAnswers };
+      // Merge all answers (including user profile from Story 10.2)
+      answers = { ...languageAnswer, ...userProfileAnswer, ...remainingAnswers };
 
       // Log performance metrics
       const duration = Date.now() - startTime;
-      const totalQuestions = remainingQuestions.length + 1; // +1 for language question
+      const totalQuestions = remainingQuestions.length + 2; // +1 for language, +1 for user profile
       const avgTimePerQuestion = totalQuestions > 0 ? duration / totalQuestions : 0;
 
       if (avgTimePerQuestion > 100) {
@@ -457,6 +508,7 @@ async function runWizard(options = {}) {
         projectType: answers.projectType || 'greenfield',
         selectedIDEs: answers.selectedIDEs || [],
         mcpServers: answers.mcpServers || [],
+        userProfile: answers.userProfile || 'advanced', // Story 10.2: User Profile
         skipPrompts: options.quiet || false, // Skip prompts in quiet mode
         forceMerge: options.forceMerge, // Story 9.4: Smart Merge support
         noMerge: options.noMerge, // Story 9.4: Smart Merge support

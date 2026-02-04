@@ -26,6 +26,34 @@ function getLanguageQuestion() {
 }
 
 /**
+ * Get user profile question (Story 10.2 - Epic 10: User Profile System)
+ * Asks user about their ability to detect AI-generated code errors
+ * PRD: AIOS v2.0 "Projeto Bob" - Seção 2.4
+ *
+ * @returns {Object} Inquirer question object
+ */
+function getUserProfileQuestion() {
+  return {
+    type: 'list',
+    name: 'userProfile',
+    message: colors.primary(t('userProfileQuestion')),
+    choices: [
+      {
+        name:
+          colors.highlight(`🟢 ${t('modoAssistido')}`) +
+          colors.dim(` (${t('recommended')})`),
+        value: 'bob',
+      },
+      {
+        name: `🔵 ${t('modoAvancado')}`,
+        value: 'advanced',
+      },
+    ],
+    default: 1, // Default to 'advanced' for backward compatibility
+  };
+}
+
+/**
  * Get project type question (Story 1.3)
  * Uses i18n for translation
  *
@@ -288,6 +316,7 @@ function getQuestionById(questionId) {
 
 module.exports = {
   getLanguageQuestion,
+  getUserProfileQuestion,
   getProjectTypeQuestion,
   getIDEQuestions,
   getMCPQuestions,

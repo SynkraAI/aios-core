@@ -11,6 +11,16 @@ const TRANSLATIONS = {
     // Language selection
     selectLanguage: 'Select language:',
 
+    // User Profile (Story 10.2 - Epic 10: User Profile System)
+    userProfileQuestion: 'When AI generates code for you, which option best describes you?',
+    modoAssistido: 'Assisted Mode',
+    modoAssistidoDesc: "I can't tell if the code is right or wrong",
+    modoAssistidoHint: 'You talk to Bob, who handles all validation',
+    modoAvancado: 'Advanced Mode',
+    modoAvancadoDesc: 'I can identify when something is wrong and fix it',
+    modoAvancadoHint: 'You have direct access to all agents',
+    userProfileSkipped: 'Using existing user profile',
+
     // Project type
     projectTypeQuestion: 'What type of project are you setting up?',
     greenfield: 'Greenfield',
@@ -56,6 +66,17 @@ const TRANSLATIONS = {
     // Language selection
     selectLanguage: 'Selecione o idioma:',
 
+    // User Profile (Story 10.2 - Epic 10: User Profile System)
+    // PRD: AIOS v2.0 "Projeto Bob" - Seção 2.4 (exact copy)
+    userProfileQuestion: 'Quando uma IA gera código para você, qual dessas opções te descreve melhor?',
+    modoAssistido: 'Modo Assistido',
+    modoAssistidoDesc: 'Não sei avaliar se o código está certo ou errado',
+    modoAssistidoHint: 'Você conversa com Bob, que cuida de toda a validação',
+    modoAvancado: 'Modo Avançado',
+    modoAvancadoDesc: 'Consigo identificar quando algo está errado e corrigir',
+    modoAvancadoHint: 'Você tem acesso direto a todos os agentes',
+    userProfileSkipped: 'Usando perfil de usuário existente',
+
     // Project type
     projectTypeQuestion: 'Que tipo de projeto você está configurando?',
     greenfield: 'Greenfield',
@@ -100,6 +121,16 @@ const TRANSLATIONS = {
   es: {
     // Language selection
     selectLanguage: 'Seleccione idioma:',
+
+    // User Profile (Story 10.2 - Epic 10: User Profile System)
+    userProfileQuestion: 'Cuando una IA genera código para ti, ¿cuál de estas opciones te describe mejor?',
+    modoAssistido: 'Modo Asistido',
+    modoAssistidoDesc: 'No sé evaluar si el código está bien o mal',
+    modoAssistidoHint: 'Hablas con Bob, que se encarga de toda la validación',
+    modoAvancado: 'Modo Avanzado',
+    modoAvancadoDesc: 'Puedo identificar cuando algo está mal y corregirlo',
+    modoAvancadoHint: 'Tienes acceso directo a todos los agentes',
+    userProfileSkipped: 'Usando perfil de usuario existente',
 
     // Project type
     projectTypeQuestion: '¿Qué tipo de proyecto estás configurando?',

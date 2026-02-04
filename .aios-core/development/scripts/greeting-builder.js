@@ -35,6 +35,11 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 const GREETING_TIMEOUT = 150; // 150ms hard limit
+
+// Valid user profile values (Story 10.1)
+const VALID_USER_PROFILES = ['bob', 'advanced'];
+const DEFAULT_USER_PROFILE = 'advanced';
+
 const GIT_WARNING_TEMPLATE = `
 ⚠️  **Git Configuration Needed**
    Your project is not connected to a git repository.
@@ -48,6 +53,42 @@ class GreetingBuilder {
     this.workflowNavigator = new WorkflowNavigator();
     this.preferenceManager = new GreetingPreferenceManager();
     this.config = this._loadConfig();
+  }
+
+  /**
+   * Load user profile from core-config.yaml
+   * Story 10.3 - AC7: Read user_profile fresh each time (no caching)
+   * @returns {string} User profile ('bob' | 'advanced'), defaults to 'advanced'
+   */
+  loadUserProfile() {
+    try {
+      const configPath = path.join(process.cwd(), '.aios-core', 'core-config.yaml');
+
+      if (!fs.existsSync(configPath)) {
+        console.warn('[GreetingBuilder] core-config.yaml not found, using default: advanced');
+        return DEFAULT_USER_PROFILE;
+      }
+
+      const content = fs.readFileSync(configPath, 'utf8');
+      const config = yaml.load(content);
+
+      const userProfile = config?.user_profile;
+
+      if (!userProfile) {
+        console.warn('[GreetingBuilder] user_profile not found, using default: advanced');
+        return DEFAULT_USER_PROFILE;
+      }
+
+      if (!VALID_USER_PROFILES.includes(userProfile)) {
+        console.warn(`[GreetingBuilder] Invalid user_profile "${userProfile}", using default: advanced`);
+        return DEFAULT_USER_PROFILE;
+      }
+
+      return userProfile;
+    } catch (error) {
+      console.warn('[GreetingBuilder] Failed to load user_profile:', error.message);
+      return DEFAULT_USER_PROFILE;
+    }
   }
 
   /**
@@ -83,6 +124,7 @@ class GreetingBuilder {
 
   /**
    * Build contextual greeting (internal implementation)
+   * Story 10.3: Profile-aware greeting with conditional agent visibility
    * @private
    * @param {Object} agent - Agent definition
    * @param {Object} context - Session context (may contain pre-loaded values)
@@ -97,6 +139,9 @@ class GreetingBuilder {
     // gitConfig always loads (fast, cached)
     const gitConfig = await this._safeCheckGitConfig();
 
+    // Story 10.3 - AC7, AC8: Load user profile fresh each time
+    const userProfile = this.loadUserProfile();
+
     // Build greeting sections based on session type
     const sections = [];
 
@@ -104,14 +149,21 @@ class GreetingBuilder {
     const permissionBadge = await this._safeGetPermissionBadge();
     sections.push(this.buildPresentation(agent, sessionType, permissionBadge));
 
-    // 2. Role description (new session only)
-    if (sessionType === 'new') {
+    // 2. Role description (new session only, but skip in bob mode for non-PM)
+    if (sessionType === 'new' && !(userProfile === 'bob' && agent.id !== 'pm')) {
       sections.push(this.buildRoleDescription(agent));
     }
 
-    // 3. Project status (if git configured)
-    if (gitConfig.configured && projectStatus) {
+    // 3. Project status (if git configured, but skip in bob mode for non-PM)
+    if (gitConfig.configured && projectStatus && !(userProfile === 'bob' && agent.id !== 'pm')) {
       sections.push(this.buildProjectStatus(projectStatus, sessionType));
+    }
+
+    // Story 10.3 - AC1, AC4: Bob mode redirect for non-PM agents
+    if (userProfile === 'bob' && agent.id !== 'pm') {
+      // Show redirect message instead of normal content
+      sections.push(this.buildBobModeRedirect(agent));
+      return sections.filter(Boolean).join('\n\n');
     }
 
     // 4. Context section (intelligent contextualization + recommendations)
@@ -130,8 +182,9 @@ class GreetingBuilder {
       }
     }
 
-    // 7. Commands (filtered by visibility)
-    const commands = this.filterCommandsByVisibility(agent, sessionType);
+    // 7. Commands (filtered by visibility and user profile)
+    // Story 10.3 - AC2, AC5: Pass userProfile for profile-aware filtering
+    const commands = this.filterCommandsByVisibility(agent, sessionType, userProfile);
     sections.push(this.buildCommands(commands, sessionType));
 
     // 8. Footer with signature
@@ -777,6 +830,24 @@ class GreetingBuilder {
   }
 
   /**
+   * Build bob mode redirect message for non-PM agents
+   * Story 10.3 - AC4: Show informative message redirecting to Bob
+   * @param {Object} agent - Agent definition (used for personalization)
+   * @returns {string} Redirect message
+   */
+  buildBobModeRedirect(agent) {
+    const agentName = agent?.name || 'Este agente';
+    return `💡 **Você está no Modo Assistido.**
+
+${agentName} não está disponível diretamente no Modo Assistido.
+Use \`@pm\` (Bob) para todas as interações. Bob vai orquestrar os outros agentes internamente para você.
+
+**Para interagir com Bob:**
+   - Digite \`@pm\` ou \`/AIOS:agents:pm\`
+   - Use \`*help\` após ativar Bob para ver comandos disponíveis`;
+  }
+
+  /**
    * Build footer section
    * @param {Object} agent - Agent definition
    * @returns {string} Footer text with signature
@@ -807,16 +878,26 @@ class GreetingBuilder {
   }
 
   /**
-   * Filter commands by visibility metadata
+   * Filter commands by visibility metadata and user profile
+   * Story 10.3 - AC1, AC2, AC3: Profile-aware command filtering
    * @param {Object} agent - Agent definition
    * @param {string} sessionType - Session type
+   * @param {string} userProfile - User profile ('bob' | 'advanced')
    * @returns {Array} Filtered commands
    */
-  filterCommandsByVisibility(agent, sessionType) {
+  filterCommandsByVisibility(agent, sessionType, userProfile = DEFAULT_USER_PROFILE) {
     if (!agent.commands || agent.commands.length === 0) {
       return [];
     }
 
+    // Story 10.3 - AC1, AC2: Profile-based filtering
+    // If bob mode AND not PM agent: return empty (will show redirect message instead)
+    if (userProfile === 'bob' && agent.id !== 'pm') {
+      return [];
+    }
+
+    // Story 10.3 - AC5: PM agent shows all commands in bob mode
+    // Story 10.3 - AC2: Advanced mode shows commands normally (current behavior)
     const visibilityFilter = this._getVisibilityFilter(sessionType);
 
     // Filter commands with visibility metadata

@@ -32,6 +32,7 @@ const { getMergeStrategy, hasMergeStrategy } = require('../merger/index.js');
  * @param {string} [options.projectType] - Project type from Story 1.3
  * @param {Array<string>} [options.selectedIDEs] - Selected IDEs from Story 1.4
  * @param {Array<Object>} [options.mcpServers] - MCP servers from Story 1.5
+ * @param {string} [options.userProfile] - User profile from Story 10.2 (bob|advanced)
  * @param {boolean} [options.skipPrompts] - Skip interactive prompts (for testing)
  * @param {boolean} [options.forceMerge] - Force merge mode (Story 9.4)
  * @param {boolean} [options.noMerge] - Disable merge mode (Story 9.4)
@@ -43,6 +44,7 @@ async function configureEnvironment(options = {}) {
     projectType = 'GREENFIELD',
     selectedIDEs = [],
     mcpServers = [],
+    userProfile = 'advanced', // Default for backward compatibility (Story 10.2)
     skipPrompts = false,
     forceMerge = false,
     noMerge = false,
@@ -173,6 +175,7 @@ async function configureEnvironment(options = {}) {
       projectType,
       selectedIDEs,
       mcpServers,
+      userProfile,
       aiosVersion: '2.1.0',
     });
 

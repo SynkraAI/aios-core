@@ -7,6 +7,7 @@
 
 const {
   getProjectTypeQuestion,
+  getUserProfileQuestion,
   getIDEQuestions,
   getMCPQuestions,
   getEnvironmentQuestions,
@@ -49,10 +50,59 @@ describeIntegration('questions', () => {
 
     test('validator rejects invalid project types', () => {
       const question = getProjectTypeQuestion();
-      
+
       const result = question.validate('invalid');
       expect(result).not.toBe(true);
       expect(typeof result).toBe('string');
+    });
+  });
+
+  describeIntegration('getUserProfileQuestion (Story 10.2)', () => {
+    test('returns valid inquirer question object', () => {
+      const question = getUserProfileQuestion();
+
+      expect(question).toHaveProperty('type', 'list');
+      expect(question).toHaveProperty('name', 'userProfile');
+      expect(question).toHaveProperty('message');
+      expect(question).toHaveProperty('choices');
+    });
+
+    test('has bob (assisted) and advanced choices', () => {
+      const question = getUserProfileQuestion();
+
+      expect(question.choices).toHaveLength(2);
+      expect(question.choices[0]).toHaveProperty('value', 'bob');
+      expect(question.choices[1]).toHaveProperty('value', 'advanced');
+    });
+
+    test('bob choice includes assisted mode indicator', () => {
+      const question = getUserProfileQuestion();
+
+      // First choice should be bob (Modo Assistido)
+      expect(question.choices[0].name).toContain('🟢');
+      expect(question.choices[0].value).toBe('bob');
+    });
+
+    test('advanced choice includes advanced mode indicator', () => {
+      const question = getUserProfileQuestion();
+
+      // Second choice should be advanced (Modo Avançado)
+      expect(question.choices[1].name).toContain('🔵');
+      expect(question.choices[1].value).toBe('advanced');
+    });
+
+    test('defaults to advanced (index 1) for backward compatibility', () => {
+      const question = getUserProfileQuestion();
+
+      // Default should be index 1 (advanced) for backward compatibility
+      expect(question.default).toBe(1);
+    });
+
+    test('bob choice is marked as recommended', () => {
+      const question = getUserProfileQuestion();
+
+      // Bob choice should include recommended indicator
+      expect(question.choices[0].name.toLowerCase()).toMatch(/recommend|recomend/);
     });
   });
 
