@@ -1,0 +1,113 @@
+/* iOS Slider Styles */
+.ios-slider {
+  position: relative;
+  width: 100%;
+  height: 44px; /* iOS tap target */
+  display: flex;
+  align-items: center;
+}
+
+.ios-slider--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ios-slider__input {
+  /* Reset default range input styles */
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.ios-slider__input:disabled {
+  cursor: not-allowed;
+}
+
+/* Track - Empty (gray) */
+.ios-slider__input::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  transform: translateY(-50%);
+  background-color: #D1D1D6; /* systemGray4 light */
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* Track - Filled (blue) */
+.ios-slider__input::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: var(--slider-percentage, 50%);
+  height: 2px;
+  transform: translateY(-50%);
+  background-color: var(--slider-tint-color, #007AFF);
+  border-radius: 2px;
+  pointer-events: none;
+  transition: width 0.1s ease-out;
+}
+
+/* Thumb (circle) - WebKit browsers (Safari, Chrome) */
+.ios-slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20);
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+/* Thumb - Firefox */
+.ios-slider__input::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20);
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+/* Active state - slightly larger thumb */
+.ios-slider__input:active::-webkit-slider-thumb {
+  transform: scale(1.1);
+}
+
+.ios-slider__input:active::-moz-range-thumb {
+  transform: scale(1.1);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .ios-slider__input::before {
+    background-color: #3A3A3C; /* systemGray4 dark */
+  }
+
+  .ios-slider__input::after {
+    background-color: var(--slider-tint-color, #0A84FF);
+  }
+
+  .ios-slider__input::-webkit-slider-thumb {
+    background-color: #FFFFFF;
+  }
+
+  .ios-slider__input::-moz-range-thumb {
+    background-color: #FFFFFF;
+  }
+}

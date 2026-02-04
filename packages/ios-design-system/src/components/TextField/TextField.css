@@ -1,0 +1,206 @@
+/* iOS TextField Styles */
+.ios-textfield {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ios-textfield__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 12px;
+  background-color: rgba(120, 120, 128, 0.12);
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.ios-textfield__container--focused {
+  background-color: rgba(120, 120, 128, 0.08);
+  border-color: rgba(0, 122, 255, 0.4);
+}
+
+.ios-textfield__container--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ios-textfield--error .ios-textfield__container {
+  border-color: #FF3B30;
+  background-color: rgba(255, 59, 48, 0.05);
+}
+
+.ios-textfield__leading-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: rgba(0, 0, 0, 0.55);
+  flex-shrink: 0;
+}
+
+.ios-textfield__input-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 44px;
+  justify-content: center;
+}
+
+.ios-textfield__label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 22px;
+  color: rgba(60, 60, 67, 0.30);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  transform-origin: left center;
+}
+
+.ios-textfield__label--floating {
+  top: 8px;
+  transform: translateY(0) scale(0.75);
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.ios-textfield__container--focused .ios-textfield__label--floating {
+  color: #007AFF;
+}
+
+.ios-textfield--error .ios-textfield__label {
+  color: #FF3B30;
+}
+
+.ios-textfield__input {
+  /* Reset */
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+
+  /* Typography */
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.85);
+
+  /* Layout */
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* When label exists and is floating, add padding to input */
+.ios-textfield__label--floating ~ .ios-textfield__input {
+  padding-top: 14px;
+}
+
+.ios-textfield__input::placeholder {
+  color: rgba(60, 60, 67, 0.30);
+}
+
+.ios-textfield__input:disabled {
+  cursor: not-allowed;
+}
+
+.ios-textfield__clear-button {
+  /* Reset */
+  margin: 0;
+  padding: 4px;
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: rgba(60, 60, 67, 0.30);
+  transition: opacity 0.15s ease;
+}
+
+.ios-textfield__clear-button:hover {
+  opacity: 0.7;
+}
+
+.ios-textfield__clear-button:active {
+  opacity: 0.5;
+}
+
+.ios-textfield__error-message {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #FF3B30;
+  padding: 0 12px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .ios-textfield__container {
+    background-color: rgba(120, 120, 128, 0.24);
+  }
+
+  .ios-textfield__container--focused {
+    background-color: rgba(120, 120, 128, 0.18);
+    border-color: rgba(10, 132, 255, 0.4);
+  }
+
+  .ios-textfield--error .ios-textfield__container {
+    border-color: #FF453A;
+    background-color: rgba(255, 69, 58, 0.10);
+  }
+
+  .ios-textfield__leading-icon {
+    color: rgba(235, 235, 245, 0.60);
+  }
+
+  .ios-textfield__label {
+    color: rgba(235, 235, 245, 0.30);
+  }
+
+  .ios-textfield__label--floating {
+    color: rgba(235, 235, 245, 0.60);
+  }
+
+  .ios-textfield__container--focused .ios-textfield__label--floating {
+    color: #0A84FF;
+  }
+
+  .ios-textfield--error .ios-textfield__label {
+    color: #FF453A;
+  }
+
+  .ios-textfield__input {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .ios-textfield__input::placeholder {
+    color: rgba(235, 235, 245, 0.30);
+  }
+
+  .ios-textfield__clear-button {
+    color: rgba(235, 235, 245, 0.30);
+  }
+
+  .ios-textfield__error-message {
+    color: #FF453A;
+  }
+}

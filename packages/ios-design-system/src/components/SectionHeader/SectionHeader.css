@@ -1,0 +1,54 @@
+/* iOS Section Header Styles */
+.ios-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 32px 8px 16px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.ios-section-header:first-child {
+  margin-top: 16px;
+}
+
+/* Title */
+.ios-section-header__title {
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.08px;
+  color: #8E8E93; /* systemGray light */
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* Action Button */
+.ios-section-header__action {
+  border: none;
+  background: transparent;
+  color: #007AFF; /* systemBlue light */
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.24px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: opacity 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ios-section-header__action:active {
+  opacity: 0.3;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .ios-section-header__title {
+    color: #98989D; /* systemGray dark */
+  }
+
+  .ios-section-header__action {
+    color: #0A84FF; /* systemBlue dark */
+  }
+}

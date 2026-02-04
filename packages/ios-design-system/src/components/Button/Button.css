@@ -1,0 +1,227 @@
+/* iOS Button Styles */
+.ios-button {
+  /* Reset */
+  margin: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+
+  /* Typography */
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: -0.41px;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+
+  /* iOS specific */
+  border-radius: 10px;
+  transition: all 0.15s ease;
+}
+
+/* Sizes */
+.ios-button--small {
+  height: 36px;
+  padding: 0 12px;
+  font-size: 15px;
+  border-radius: 8px;
+}
+
+.ios-button--standard {
+  height: 44px;
+  padding: 0 16px;
+  min-width: 44px; /* iOS minimum tap target */
+}
+
+.ios-button--large {
+  height: 50px;
+  padding: 0 20px;
+  font-size: 18px;
+  border-radius: 12px;
+}
+
+/* Full width */
+.ios-button--full-width {
+  width: 100%;
+}
+
+/* Variants */
+
+/* Filled - Primary action */
+.ios-button--filled {
+  background-color: #007AFF;
+  color: #FFFFFF;
+}
+
+.ios-button--filled:hover:not(:disabled) {
+  background-color: #0051D5;
+}
+
+.ios-button--filled:active:not(:disabled) {
+  transform: scale(0.97);
+  opacity: 0.8;
+}
+
+/* Tinted - Secondary action */
+.ios-button--tinted {
+  background-color: rgba(0, 122, 255, 0.15);
+  color: #007AFF;
+}
+
+.ios-button--tinted:hover:not(:disabled) {
+  background-color: rgba(0, 122, 255, 0.25);
+}
+
+.ios-button--tinted:active:not(:disabled) {
+  transform: scale(0.97);
+  background-color: rgba(0, 122, 255, 0.20);
+}
+
+/* Gray - Secondary action */
+.ios-button--gray {
+  background-color: rgba(120, 120, 128, 0.12);
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.ios-button--gray:hover:not(:disabled) {
+  background-color: rgba(120, 120, 128, 0.20);
+}
+
+.ios-button--gray:active:not(:disabled) {
+  transform: scale(0.97);
+  background-color: rgba(120, 120, 128, 0.16);
+}
+
+/* Plain - Tertiary action */
+.ios-button--plain {
+  background-color: transparent;
+  color: #007AFF;
+}
+
+.ios-button--plain:hover:not(:disabled) {
+  background-color: rgba(0, 122, 255, 0.08);
+}
+
+.ios-button--plain:active:not(:disabled) {
+  opacity: 0.5;
+}
+
+/* Borderless - In-line action */
+.ios-button--borderless {
+  background-color: transparent;
+  color: #007AFF;
+  padding: 0;
+  min-width: auto;
+  height: auto;
+}
+
+.ios-button--borderless:hover:not(:disabled) {
+  opacity: 0.7;
+}
+
+.ios-button--borderless:active:not(:disabled) {
+  opacity: 0.4;
+}
+
+/* Disabled state */
+.ios-button--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Loading state */
+.ios-button--loading {
+  pointer-events: none;
+}
+
+.ios-button__label {
+  display: flex;
+  align-items: center;
+}
+
+.ios-button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.ios-button__icon--left {
+  margin-right: -2px;
+}
+
+.ios-button__icon--right {
+  margin-left: -2px;
+}
+
+/* Spinner */
+.ios-button__spinner {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ios-button__spinner-icon {
+  width: 20px;
+  height: 20px;
+  animation: ios-button-spin 1s linear infinite;
+}
+
+@keyframes ios-button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .ios-button--filled {
+    background-color: #0A84FF;
+  }
+
+  .ios-button--filled:hover:not(:disabled) {
+    background-color: #0066CC;
+  }
+
+  .ios-button--tinted {
+    background-color: rgba(10, 132, 255, 0.15);
+    color: #0A84FF;
+  }
+
+  .ios-button--tinted:hover:not(:disabled) {
+    background-color: rgba(10, 132, 255, 0.25);
+  }
+
+  .ios-button--gray {
+    background-color: rgba(120, 120, 128, 0.24);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .ios-button--gray:hover:not(:disabled) {
+    background-color: rgba(120, 120, 128, 0.32);
+  }
+
+  .ios-button--plain {
+    color: #0A84FF;
+  }
+
+  .ios-button--borderless {
+    color: #0A84FF;
+  }
+}

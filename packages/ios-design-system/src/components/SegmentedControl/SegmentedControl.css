@@ -1,0 +1,108 @@
+/* iOS Segmented Control Styles */
+.ios-segmented-control {
+  position: relative;
+  display: inline-flex;
+  height: 32px;
+  background: rgba(118, 118, 128, 0.12); /* systemGray5 light */
+  border-radius: 9px;
+  padding: 2px;
+  gap: 0;
+  overflow: hidden;
+}
+
+.ios-segmented-control--full-width {
+  width: 100%;
+}
+
+/* Background (gray container) */
+.ios-segmented-control__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 9px;
+  pointer-events: none;
+}
+
+/* Sliding indicator (white rounded rect) */
+.ios-segmented-control__indicator {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc((100% - 4px) / var(--segment-count));
+  height: calc(100% - 4px);
+  background: #FFFFFF;
+  border-radius: 7px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  transform: translateX(calc(var(--selected-index) * 100%));
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Segment button */
+.ios-segmented-control__segment {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  color: #000000;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.08px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0 12px;
+  min-width: 0; /* Allow flex shrink */
+  white-space: nowrap;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  position: relative;
+  z-index: 2;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ios-segmented-control__segment:not(.ios-segmented-control__segment--selected) {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.ios-segmented-control__segment:active {
+  opacity: 0.7;
+}
+
+.ios-segmented-control__segment--selected {
+  color: #000000;
+  font-weight: 500;
+}
+
+/* Icon */
+.ios-segmented-control__icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .ios-segmented-control {
+    background: rgba(118, 118, 128, 0.24); /* systemGray5 dark */
+  }
+
+  .ios-segmented-control__indicator {
+    background: rgba(99, 99, 102, 0.6); /* systemGray4 dark with opacity */
+  }
+
+  .ios-segmented-control__segment {
+    color: #FFFFFF;
+  }
+
+  .ios-segmented-control__segment:not(.ios-segmented-control__segment--selected) {
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .ios-segmented-control__segment--selected {
+    color: #FFFFFF;
+  }
+}

@@ -1,0 +1,88 @@
+/* iOS Toggle (Switch) Styles */
+.ios-toggle {
+  /* Layout */
+  display: inline-block;
+  position: relative;
+  width: 51px;
+  height: 31px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ios-toggle--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ios-toggle__input {
+  /* Hide native checkbox */
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ios-toggle__track {
+  /* Track (background) */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 31px;
+  background-color: #E5E5EA; /* systemGray5 light */
+  transition: background-color 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.ios-toggle--on .ios-toggle__track {
+  background-color: var(--toggle-tint-color, #34C759);
+}
+
+.ios-toggle__thumb {
+  /* Thumb (white circle) */
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.ios-toggle--on .ios-toggle__thumb {
+  transform: translateX(20px);
+}
+
+/* Hover effect (non-touch devices) */
+@media (hover: hover) {
+  .ios-toggle:not(.ios-toggle--disabled):hover .ios-toggle__track {
+    opacity: 0.9;
+  }
+}
+
+/* Active/pressed state */
+.ios-toggle:not(.ios-toggle--disabled):active .ios-toggle__thumb {
+  width: 29px;
+}
+
+.ios-toggle--on:not(.ios-toggle--disabled):active .ios-toggle__thumb {
+  transform: translateX(18px);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .ios-toggle__track {
+    background-color: #2C2C2E; /* systemGray4 dark */
+  }
+
+  .ios-toggle--on .ios-toggle__track {
+    background-color: var(--toggle-tint-color, #30D158);
+  }
+
+  .ios-toggle__thumb {
+    background-color: #FFFFFF;
+  }
+}

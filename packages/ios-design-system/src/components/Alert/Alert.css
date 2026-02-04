@@ -1,0 +1,184 @@
+/* iOS Alert Styles */
+.ios-alert-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: ios-alert-backdrop-fade-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes ios-alert-backdrop-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ios-alert {
+  width: 100%;
+  max-width: 270px;
+  background-color: rgba(242, 242, 247, 0.94); /* systemBackground */
+  backdrop-filter: saturate(180%) blur(20px);
+  border-radius: 14px;
+  overflow: hidden;
+  animation: ios-alert-scale-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes ios-alert-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(1.15);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Content */
+.ios-alert__content {
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.ios-alert__title {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+  color: #000000; /* systemLabel */
+  margin-bottom: 4px;
+}
+
+.ios-alert__message {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #000000; /* systemLabel */
+  margin-top: 4px;
+}
+
+/* Buttons */
+.ios-alert__buttons {
+  display: flex;
+  border-top: 0.5px solid rgba(60, 60, 67, 0.29);
+}
+
+/* Vertical layout (1 or 3+ buttons) */
+.ios-alert__buttons--vertical {
+  flex-direction: column;
+}
+
+.ios-alert__buttons--vertical .ios-alert__button {
+  border-bottom: 0.5px solid rgba(60, 60, 67, 0.29);
+}
+
+.ios-alert__buttons--vertical .ios-alert__button:last-child {
+  border-bottom: none;
+}
+
+/* Horizontal layout (2 buttons) */
+.ios-alert__buttons--horizontal {
+  flex-direction: row;
+}
+
+.ios-alert__buttons--horizontal .ios-alert__button {
+  flex: 1;
+  border-right: 0.5px solid rgba(60, 60, 67, 0.29);
+}
+
+.ios-alert__buttons--horizontal .ios-alert__button:last-child {
+  border-right: none;
+}
+
+/* Button base styles */
+.ios-alert__button {
+  min-height: 44px;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  color: #007AFF; /* systemBlue */
+  cursor: pointer;
+  transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ios-alert__button:active {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Button variants */
+.ios-alert__button--default {
+  font-weight: 400;
+  color: #007AFF; /* systemBlue */
+}
+
+.ios-alert__button--cancel {
+  font-weight: 600;
+  color: #007AFF; /* systemBlue */
+}
+
+.ios-alert__button--destructive {
+  font-weight: 400;
+  color: #FF3B30; /* systemRed */
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .ios-alert-backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  .ios-alert {
+    background-color: rgba(28, 28, 30, 0.94); /* systemBackground dark */
+  }
+
+  .ios-alert__title,
+  .ios-alert__message {
+    color: #FFFFFF; /* systemLabel dark */
+  }
+
+  .ios-alert__buttons {
+    border-top-color: rgba(84, 84, 88, 0.6);
+  }
+
+  .ios-alert__buttons--vertical .ios-alert__button {
+    border-bottom-color: rgba(84, 84, 88, 0.6);
+  }
+
+  .ios-alert__buttons--horizontal .ios-alert__button {
+    border-right-color: rgba(84, 84, 88, 0.6);
+  }
+
+  .ios-alert__button {
+    color: #0A84FF; /* systemBlue dark */
+  }
+
+  .ios-alert__button:active {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .ios-alert__button--default {
+    color: #0A84FF; /* systemBlue dark */
+  }
+
+  .ios-alert__button--cancel {
+    color: #0A84FF; /* systemBlue dark */
+  }
+
+  .ios-alert__button--destructive {
+    color: #FF453A; /* systemRed dark */
+  }
+}

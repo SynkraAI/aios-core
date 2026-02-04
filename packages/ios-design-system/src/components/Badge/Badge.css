@@ -1,0 +1,86 @@
+/* iOS Badge Styles */
+.ios-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #FFFFFF;
+  border-radius: 10px;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1;
+}
+
+/* Sizes */
+.ios-badge--small {
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  font-size: 11px;
+}
+
+.ios-badge--medium {
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  font-size: 13px;
+}
+
+.ios-badge--large {
+  min-width: 24px;
+  height: 24px;
+  padding: 0 8px;
+  font-size: 15px;
+}
+
+/* Color variants - Light mode */
+.ios-badge--red {
+  background-color: #FF3B30; /* systemRed */
+}
+
+.ios-badge--gray {
+  background-color: #8E8E93; /* systemGray */
+}
+
+.ios-badge--blue {
+  background-color: #007AFF; /* systemBlue */
+}
+
+.ios-badge--green {
+  background-color: #34C759; /* systemGreen */
+}
+
+.ios-badge--orange {
+  background-color: #FF9500; /* systemOrange */
+}
+
+.ios-badge--purple {
+  background-color: #AF52DE; /* systemPurple */
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .ios-badge--red {
+    background-color: #FF453A; /* systemRed dark */
+  }
+
+  .ios-badge--gray {
+    background-color: #98989D; /* systemGray dark */
+  }
+
+  .ios-badge--blue {
+    background-color: #0A84FF; /* systemBlue dark */
+  }
+
+  .ios-badge--green {
+    background-color: #30D158; /* systemGreen dark */
+  }
+
+  .ios-badge--orange {
+    background-color: #FF9F0A; /* systemOrange dark */
+  }
+
+  .ios-badge--purple {
+    background-color: #BF5AF2; /* systemPurple dark */
+  }
+}

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>iOS Design System Demo - iPhone App</title>
+    <style>
+        /* ============================================ */
+        /* iOS 16 Design Tokens (extracted from docs) */
+        /* ============================================ */
+
+        :root {
+            /* System Colors */
+            --system-blue: #007AFF;
+            --system-green: #34C759;
+            --system-red: #FF3B30;
+            --system-orange: #FF9500;
+            --system-yellow: #FFCC00;
+            --system-gray: #8E8E93;
+            --system-gray2: #AEAEB2;
+            --system-gray3: #C7C7CC;
+            --system-gray4: #D1D1D6;
+            --system-gray5: #E5E5EA;
+            --system-gray6: #F2F2F7;
+
+            /* Label Colors (Text Hierarchy) */
+            --label-primary: rgba(0, 0, 0, 0.85);
+            --label-secondary: rgba(0, 0, 0, 0.55);
+            --label-tertiary: rgba(0, 0, 0, 0.30);
+            --label-quaternary: rgba(0, 0, 0, 0.20);
+
+            /* Fill Colors */
+            --fill-primary: rgba(120, 120, 128, 0.20);
+            --fill-secondary: rgba(120, 120, 128, 0.16);
+            --fill-tertiary: rgba(118, 118, 128, 0.12);
+
+            /* Background Colors */
+            --background-primary: #FFFFFF;
+            --background-secondary: #F2F2F7;
+            --background-tertiary: #FFFFFF;
+            --background-grouped: #F2F2F7;
+            --background-grouped-secondary: #FFFFFF;
+
+            /* Separator */
+            --separator: rgba(60, 60, 67, 0.29);
+
+            /* Typography - SF Pro fallback */
+            --font-family-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+            --font-family-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+
+            /* Typography Sizes */
+            --font-large-title: 34px;
+            --font-title1: 28px;
+            --font-title2: 22px;
+            --font-title3: 20px;
+            --font-headline: 17px;
+            --font-body: 17px;
+            --font-callout: 16px;
+            --font-subheadline: 15px;
+            --font-footnote: 13px;
+            --font-caption1: 12px;
+            --font-caption2: 11px;
+
+            /* Spacing (8pt grid) */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 20px;
+            --spacing-xl: 24px;
+            --spacing-2xl: 32px;
+
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 10px;
+            --radius-lg: 12px;
+
+            /* Shadows */
+            --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.10);
+            --shadow-modal: 0 10px 40px rgba(0, 0, 0, 0.20);
+
+            /* Safe Area Insets */
+            --safe-area-top: env(safe-area-inset-top, 0px);
+            --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        /* ============================================ */
+        /* Global Styles */
+        /* ============================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-family-text);
+            font-size: var(--font-body);
+            color: var(--label-primary);
+            background-color: var(--background-grouped);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overscroll-behavior: none;
+            overflow-x: hidden;
+        }
+
+        /* iPhone viewport constraints */
+        .app-container {
+            max-width: 428px; /* iPhone 14 Pro Max width */
+            margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--background-grouped);
+            position: relative;
+        }
+
+        /* ============================================ */
+        /* Navigation Bar (Top) */
+        /* ============================================ */
+
+        .navigation-bar {
+            background-color: var(--background-primary);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 0.5px solid var(--separator);
+            padding-top: var(--safe-area-top);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-bar-content {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--spacing-md);
+        }
+
+        .nav-bar-title {
+            font-family: var(--font-family-text);
+            font-size: var(--font-headline);
+            font-weight: 600;
+            color: var(--label-primary);
+            letter-spacing: -0.41px;
+        }
+
+        .nav-bar-action {
+            font-size: var(--font-body);
+            color: var(--system-blue);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: var(--spacing-sm);
+            margin: calc(var(--spacing-sm) * -1);
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-bar-action:active {
+            opacity: 0.4;
+        }
+
+        /* ============================================ */
+        /* Content Area */
+        /* ============================================ */
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--spacing-md) 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* ============================================ */
+        /* Card Component */
+        /* ============================================ */
+
+        .card {
+            background-color: var(--background-grouped-secondary);
+            border-radius: var(--radius-md);
+            margin: 0 var(--spacing-md) var(--spacing-md);
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: var(--spacing-md);
+            border-bottom: 0.5px solid var(--separator);
+        }
+
+        .card-title {
+            font-size: var(--font-title3);
+            font-weight: 600;
+            color: var(--label-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .card-subtitle {
+            font-size: var(--font-subheadline);
+            color: var(--label-secondary);
+        }
+
+        .card-body {
+            padding: var(--spacing-md);
+        }
+
+        /* ============================================ */
+        /* List Component (Inset Grouped) */
+        /* ============================================ */
+
+        .list-section {
+            margin: 0 var(--spacing-md) var(--spacing-xl);
+        }
+
+        .list-header {
+            font-size: var(--font-footnote);
+            color: var(--label-secondary);
+            text-transform: uppercase;
+            padding: 0 var(--spacing-md) var(--spacing-sm);
+            letter-spacing: -0.08px;
+        }
+
+        .list {
+            background-color: var(--background-grouped-secondary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 11px var(--spacing-md);
+            min-height: 44px;
+            background-color: var(--background-grouped-secondary);
+            border-bottom: 0.5px solid var(--separator);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item:active {
+            background-color: var(--fill-tertiary);
+        }
+
+        .list-item-icon {
+            width: 29px;
+            height: 29px;
+            border-radius: 6px;
+            margin-right: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .list-item-content {
+            flex: 1;
+        }
+
+        .list-item-title {
+            font-size: var(--font-body);
+            color: var(--label-primary);
+            letter-spacing: -0.41px;
+        }
+
+        .list-item-subtitle {
+            font-size: var(--font-footnote);
+            color: var(--label-secondary);
+            margin-top: 2px;
+        }
+
+        .list-item-accessory {
+            margin-left: var(--spacing-sm);
+            color: var(--system-gray2);
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .list-item-disclosure {
+            color: var(--system-gray3);
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        /* ============================================ */
+        /* Button Component */
+        /* ============================================ */
+
+        .button-group {
+            padding: 0 var(--spacing-md) var(--spacing-md);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .button {
+            min-height: 44px;
+            padding: 0 var(--spacing-md);
+            border-radius: var(--radius-md);
+            border: none;
+            font-family: var(--font-family-text);
+            font-size: var(--font-headline);
+            font-weight: 600;
+            letter-spacing: -0.41px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+        }
+
+        .button:active {
+            transform: scale(0.97);
+            opacity: 0.8;
+        }
+
+        /* Button Variants */
+        .button-filled {
+            background-color: var(--system-blue);
+            color: white;
+        }
+
+        .button-tinted {
+            background-color: rgba(0, 122, 255, 0.15);
+            color: var(--system-blue);
+        }
+
+        .button-gray {
+            background-color: var(--fill-tertiary);
+            color: var(--label-primary);
+        }
+
+        .button-plain {
+            background-color: transparent;
+            color: var(--system-blue);
+        }
+
+        /* ============================================ */
+        /* Badge Component */
+        /* ============================================ */
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 6px;
+            background-color: var(--system-red);
+            color: white;
+            font-size: var(--font-caption2);
+            font-weight: 600;
+            border-radius: 10px;
+            margin-left: var(--spacing-sm);
+        }
+
+        /* ============================================ */
+        /* Toggle (Switch) Component */
+        /* ============================================ */
+
+        .toggle {
+            width: 51px;
+            height: 31px;
+            background-color: var(--system-gray4);
+            border-radius: 15.5px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .toggle.active {
+            background-color: var(--system-green);
+        }
+
+        .toggle-thumb {
+            width: 27px;
+            height: 27px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .toggle.active .toggle-thumb {
+            transform: translateX(20px);
+        }
+
+        /* ============================================ */
+        /* Tab Bar (Bottom) */
+        /* ============================================ */
+
+        .tab-bar {
+            background-color: var(--background-primary);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 0.5px solid var(--separator);
+            padding-bottom: var(--safe-area-bottom);
+            position: sticky;
+            bottom: 0;
+            z-index: 100;
+        }
+
+        .tab-bar-content {
+            display: flex;
+            height: 49px;
+        }
+
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--system-gray);
+            transition: color 0.15s ease;
+            min-height: 44px;
+            position: relative;
+        }
+
+        .tab-item.active {
+            color: var(--system-blue);
+        }
+
+        .tab-item:active {
+            opacity: 0.6;
+        }
+
+        .tab-icon {
+            font-size: 25px;
+            line-height: 1;
+        }
+
+        .tab-label {
+            font-size: var(--font-caption2);
+            font-weight: 400;
+        }
+
+        .tab-badge {
+            position: absolute;
+            top: 2px;
+            right: calc(50% - 20px);
+            min-width: 18px;
+            height: 18px;
+            padding: 0 4px;
+            background-color: var(--system-red);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--background-primary);
+        }
+
+        /* ============================================ */
+        /* Activity Indicator */
+        /* ============================================ */
+
+        .activity-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--system-gray4);
+            border-top-color: var(--system-gray);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ============================================ */
+        /* Utility Classes */
+        /* ============================================ */
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-sm { margin-top: var(--spacing-sm); }
+        .mt-md { margin-top: var(--spacing-md); }
+        .mt-lg { margin-top: var(--spacing-lg); }
+
+        .mb-sm { margin-bottom: var(--spacing-sm); }
+        .mb-md { margin-bottom: var(--spacing-md); }
+        .mb-lg { margin-bottom: var(--spacing-lg); }
+
+        /* ============================================ */
+        /* iOS-specific enhancements */
+        /* ============================================ */
+
+        @supports (backdrop-filter: blur(20px)) {
+            .navigation-bar,
+            .tab-bar {
+                background-color: rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        /* Dark mode support (optional) */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --label-primary: rgba(255, 255, 255, 0.85);
+                --label-secondary: rgba(255, 255, 255, 0.55);
+                --label-tertiary: rgba(255, 255, 255, 0.30);
+                --background-primary: #000000;
+                --background-secondary: #1C1C1E;
+                --background-grouped: #000000;
+                --background-grouped-secondary: #1C1C1E;
+                --separator: rgba(84, 84, 88, 0.60);
+                --fill-primary: rgba(120, 120, 128, 0.36);
+                --fill-tertiary: rgba(118, 118, 128, 0.24);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation Bar -->
+        <nav class="navigation-bar">
+            <div class="nav-bar-content">
+                <button class="nav-bar-action" aria-label="Voltar">‹</button>
+                <h1 class="nav-bar-title">Design System</h1>
+                <button class="nav-bar-action" aria-label="Menu">⋯</button>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <main class="content">
+            <!-- Welcome Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">iOS 16 Design System</h2>
+                    <p class="card-subtitle">Componentes nativos para web</p>
+                </div>
+                <div class="card-body">
+                    <p style="color: var(--label-secondary); font-size: var(--font-subheadline);">
+                        Esta é uma demonstração visual do design system iOS 16
+                        usando os design tokens extraídos do Apple Human Interface Guidelines.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Typography Examples -->
+            <div class="list-section">
+                <h3 class="list-header">Tipografia SF Pro</h3>
+                <div class="card">
+                    <div style="padding: var(--spacing-md);">
+                        <div style="font-family: var(--font-family-display); font-size: var(--font-large-title); margin-bottom: var(--spacing-sm);">
+                            Large Title
+                        </div>
+                        <div style="font-size: var(--font-title2); margin-bottom: var(--spacing-sm);">
+                            Title 2 - 22pt
+                        </div>
+                        <div style="font-size: var(--font-headline); font-weight: 600; margin-bottom: var(--spacing-sm);">
+                            Headline - Semibold
+                        </div>
+                        <div style="font-size: var(--font-body); margin-bottom: var(--spacing-sm);">
+                            Body - Este é o texto padrão do corpo, usado para conteúdo principal.
+                        </div>
+                        <div style="font-size: var(--font-callout); color: var(--label-secondary); margin-bottom: var(--spacing-sm);">
+                            Callout - Texto secundário com detalhes adicionais.
+                        </div>
+                        <div style="font-size: var(--font-footnote); color: var(--label-tertiary);">
+                            Footnote - Texto terciário, timestamps, metadados.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings-style List -->
+            <div class="list-section">
+                <h3 class="list-header">Lista (Inset Grouped)</h3>
+                <div class="list">
+                    <div class="list-item">
+                        <div class="list-item-icon" style="background-color: var(--system-blue); color: white;">
+                            ⚙️
+                        </div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">Configurações</div>
+                            <div class="list-item-subtitle">Ajustes do sistema</div>
+                        </div>
+                        <span class="list-item-disclosure">›</span>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="list-item-icon" style="background-color: var(--system-green); color: white;">
+                            📱
+                        </div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">Dispositivos</div>
+                        </div>
+                        <span class="badge">3</span>
+                        <span class="list-item-disclosure">›</span>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="list-item-icon" style="background-color: var(--system-orange); color: white;">
+                            🔔
+                        </div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">Notificações</div>
+                        </div>
+                        <div class="toggle active" onclick="this.classList.toggle('active')">
+                            <div class="toggle-thumb"></div>
+                        </div>
+                    </div>
+
+                    <div class="list-item">
+                        <div class="list-item-icon" style="background-color: var(--system-red); color: white;">
+                            ⭐
+                        </div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">Favoritos</div>
+                        </div>
+                        <span class="list-item-accessory" style="color: var(--label-secondary);">12</span>
+                        <span class="list-item-disclosure">›</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="list-section">
+                <h3 class="list-header">Botões (iOS Variants)</h3>
+                <div class="button-group">
+                    <button class="button button-filled">
+                        Filled Button (Primary)
+                    </button>
+                    <button class="button button-tinted">
+                        Tinted Button (Secondary)
+                    </button>
+                    <button class="button button-gray">
+                        Gray Button (Tertiary)
+                    </button>
+                    <button class="button button-plain">
+                        Plain Button (Link)
+                    </button>
+                </div>
+            </div>
+
+            <!-- System Colors -->
+            <div class="list-section">
+                <h3 class="list-header">Cores do Sistema</h3>
+                <div class="card">
+                    <div style="padding: var(--spacing-md); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-md);">
+                        <div style="text-align: center;">
+                            <div style="width: 60px; height: 60px; background-color: var(--system-blue); border-radius: var(--radius-md); margin: 0 auto var(--spacing-sm);"></div>
+                            <div style="font-size: var(--font-caption1); color: var(--label-secondary);">Blue</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="width: 60px; height: 60px; background-color: var(--system-green); border-radius: var(--radius-md); margin: 0 auto var(--spacing-sm);"></div>
+                            <div style="font-size: var(--font-caption1); color: var(--label-secondary);">Green</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="width: 60px; height: 60px; background-color: var(--system-red); border-radius: var(--radius-md); margin: 0 auto var(--spacing-sm);"></div>
+                            <div style="font-size: var(--font-caption1); color: var(--label-secondary);">Red</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="width: 60px; height: 60px; background-color: var(--system-orange); border-radius: var(--radius-md); margin: 0 auto var(--spacing-sm);"></div>
+                            <div style="font-size: var(--font-caption1); color: var(--label-secondary);">Orange</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="width: 60px; height: 60px; background-color: var(--system-yellow); border-radius: var(--radius-md); margin: 0 auto var(--spacing-sm);"></div>
+                            <div style="font-size: var(--font-caption1); color: var(--label-secondary);">Yellow</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="width: 60px; height: 60px; background-color: var(--system-gray); border-radius: var(--radius-md); margin: 0 auto var(--spacing-sm);"></div>
+                            <div style="font-size: var(--font-caption1); color: var(--label-secondary);">Gray</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spacing at bottom for scroll -->
+            <div style="height: var(--spacing-2xl);"></div>
+        </main>
+
+        <!-- Tab Bar -->
+        <nav class="tab-bar">
+            <div class="tab-bar-content">
+                <button class="tab-item active" aria-label="Início">
+                    <span class="tab-icon">🏠</span>
+                    <span class="tab-label">Início</span>
+                </button>
+                <button class="tab-item" aria-label="Buscar">
+                    <span class="tab-icon">🔍</span>
+                    <span class="tab-label">Buscar</span>
+                </button>
+                <button class="tab-item" aria-label="Notificações">
+                    <span class="tab-icon">🔔</span>
+                    <span class="tab-label">Alertas</span>
+                    <span class="tab-badge">5</span>
+                </button>
+                <button class="tab-item" aria-label="Perfil">
+                    <span class="tab-icon">👤</span>
+                    <span class="tab-label">Perfil</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        // Make tabs interactive
+        document.querySelectorAll('.tab-item').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Make list items interactive
+        document.querySelectorAll('.list-item').forEach(item => {
+            if (!item.querySelector('.toggle')) {
+                item.addEventListener('click', function() {
+                    console.log('Item clicked:', this.querySelector('.list-item-title').textContent);
+                    // Could navigate or show detail
+                });
+            }
+        });
+
+        // Toggle switches
+        document.querySelectorAll('.toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+            });
+        });
+
+        // Button interactions
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('click', function() {
+                console.log('Button clicked:', this.textContent.trim());
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+/* iOS StatusIndicator Styles */
+.ios-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ios-status-indicator__dot {
+  display: block;
+  border-radius: 50%;
+  position: relative;
+}
+
+/* Sizes */
+.ios-status-indicator--small .ios-status-indicator__dot {
+  width: 8px;
+  height: 8px;
+}
+
+.ios-status-indicator--medium .ios-status-indicator__dot {
+  width: 12px;
+  height: 12px;
+}
+
+.ios-status-indicator--large .ios-status-indicator__dot {
+  width: 16px;
+  height: 16px;
+}
+
+/* Status colors - Light mode */
+.ios-status-indicator--online .ios-status-indicator__dot {
+  background-color: #34C759; /* systemGreen */
+}
+
+.ios-status-indicator--offline .ios-status-indicator__dot {
+  background-color: #8E8E93; /* systemGray */
+}
+
+.ios-status-indicator--away .ios-status-indicator__dot {
+  background-color: #FFCC00; /* systemYellow */
+}
+
+.ios-status-indicator--busy .ios-status-indicator__dot {
+  background-color: #FF3B30; /* systemRed */
+}
+
+.ios-status-indicator--dnd .ios-status-indicator__dot {
+  background-color: #AF52DE; /* systemPurple */
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .ios-status-indicator--online .ios-status-indicator__dot {
+    background-color: #30D158; /* systemGreen dark */
+  }
+
+  .ios-status-indicator--offline .ios-status-indicator__dot {
+    background-color: #98989D; /* systemGray dark */
+  }
+
+  .ios-status-indicator--away .ios-status-indicator__dot {
+    background-color: #FFD60A; /* systemYellow dark */
+  }
+
+  .ios-status-indicator--busy .ios-status-indicator__dot {
+    background-color: #FF453A; /* systemRed dark */
+  }
+
+  .ios-status-indicator--dnd .ios-status-indicator__dot {
+    background-color: #BF5AF2; /* systemPurple dark */
+  }
+}
+
+/* Pulse animation for online status */
+.ios-status-indicator--pulse .ios-status-indicator__dot::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background-color: inherit;
+  animation: ios-status-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes ios-status-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+/* Label */
+.ios-status-indicator__label {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #000000; /* systemLabel light */
+}
+
+@media (prefers-color-scheme: dark) {
+  .ios-status-indicator__label {
+    color: #FFFFFF; /* systemLabel dark */
+  }
+}
+
+/* Label alignment */
+.ios-status-indicator--with-label {
+  align-items: center;
+}

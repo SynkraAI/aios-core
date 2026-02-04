@@ -1,0 +1,127 @@
+/* iOS SFSymbol Styles */
+.ios-sf-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+  line-height: 1;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Sizes */
+.ios-sf-symbol--small {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+}
+
+.ios-sf-symbol--medium {
+  font-size: 17px;
+  width: 17px;
+  height: 17px;
+}
+
+.ios-sf-symbol--large {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.ios-sf-symbol--xlarge {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.ios-sf-symbol--xxlarge {
+  font-size: 34px;
+  width: 34px;
+  height: 34px;
+}
+
+/* Weights */
+.ios-sf-symbol--ultralight {
+  font-weight: 100;
+}
+
+.ios-sf-symbol--thin {
+  font-weight: 200;
+}
+
+.ios-sf-symbol--light {
+  font-weight: 300;
+}
+
+.ios-sf-symbol--regular {
+  font-weight: 400;
+}
+
+.ios-sf-symbol--medium {
+  font-weight: 500;
+}
+
+.ios-sf-symbol--semibold {
+  font-weight: 600;
+}
+
+.ios-sf-symbol--bold {
+  font-weight: 700;
+}
+
+.ios-sf-symbol--heavy {
+  font-weight: 800;
+}
+
+.ios-sf-symbol--black {
+  font-weight: 900;
+}
+
+/* Rendering modes */
+.ios-sf-symbol--monochrome {
+  color: inherit;
+}
+
+.ios-sf-symbol--multicolor {
+  /* For multicolor emoji */
+  filter: none;
+}
+
+.ios-sf-symbol--hierarchical {
+  /* Apply opacity for hierarchical rendering */
+  opacity: 0.85;
+}
+
+/* Interactive state */
+.ios-sf-symbol--interactive {
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ios-sf-symbol--interactive:hover {
+  opacity: 0.7;
+}
+
+.ios-sf-symbol--interactive:active {
+  transform: scale(0.95);
+}
+
+.ios-sf-symbol--interactive:focus-visible {
+  outline: 2px solid #007AFF;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Default colors by context */
+.ios-sf-symbol {
+  color: #000000; /* systemLabel light */
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .ios-sf-symbol {
+    color: #FFFFFF; /* systemLabel dark */
+  }
+}

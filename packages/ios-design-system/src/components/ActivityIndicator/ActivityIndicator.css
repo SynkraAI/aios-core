@@ -1,0 +1,51 @@
+/* iOS ActivityIndicator Styles */
+.ios-activity-indicator {
+  display: inline-block;
+  border-style: solid;
+  border-radius: 50%;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-top-color: #8E8E93; /* systemGray */
+  border-right-color: #8E8E93; /* systemGray */
+}
+
+/* Sizes */
+.ios-activity-indicator--small {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+.ios-activity-indicator--medium {
+  width: 30px;
+  height: 30px;
+  border-width: 3px;
+}
+
+.ios-activity-indicator--large {
+  width: 44px;
+  height: 44px;
+  border-width: 4px;
+}
+
+/* Animation */
+.ios-activity-indicator--animating {
+  animation: ios-activity-indicator-spin 0.8s linear infinite;
+}
+
+@keyframes ios-activity-indicator-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .ios-activity-indicator {
+    border-color: rgba(255, 255, 255, 0.1);
+    border-top-color: #98989D; /* systemGray dark */
+    border-right-color: #98989D; /* systemGray dark */
+  }
+}

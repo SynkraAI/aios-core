@@ -1,0 +1,128 @@
+/* iOS Navigation Bar Styles */
+.ios-navigation-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #F9F9F9; /* systemBackground light */
+  border-bottom: 0.5px solid rgba(60, 60, 67, 0.29); /* separator light */
+  padding-top: env(safe-area-inset-top); /* iPhone notch */
+  z-index: 1000;
+}
+
+/* Translucent variant with blur */
+.ios-navigation-bar--translucent {
+  background: rgba(249, 249, 249, 0.94);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* Content container (44pt height) */
+.ios-navigation-bar__content {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  position: relative;
+}
+
+/* Title (centered) */
+.ios-navigation-bar__title {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: -0.41px;
+  color: #000000;
+  margin: 0;
+  text-align: center;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 8px;
+}
+
+/* Buttons */
+.ios-navigation-bar__button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  color: #007AFF; /* systemBlue light */
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.41px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 8px;
+  min-height: 44px; /* tap target */
+  transition: opacity 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ios-navigation-bar__button:active {
+  opacity: 0.3;
+}
+
+.ios-navigation-bar__button--left {
+  left: 8px;
+}
+
+.ios-navigation-bar__button--right {
+  right: 8px;
+}
+
+.ios-navigation-bar__button-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Large Title variant (iOS 11+) */
+.ios-navigation-bar--large {
+  /* Container height adjusts with large title */
+}
+
+.ios-navigation-bar__large-title {
+  padding: 0 16px 8px;
+}
+
+.ios-navigation-bar__large-title h1 {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 41px;
+  letter-spacing: 0.37px;
+  color: #000000;
+  margin: 0;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .ios-navigation-bar {
+    background: #1C1C1E; /* systemBackground dark */
+    border-bottom-color: rgba(84, 84, 88, 0.65); /* separator dark */
+  }
+
+  .ios-navigation-bar--translucent {
+    background: rgba(28, 28, 30, 0.94);
+  }
+
+  .ios-navigation-bar__title,
+  .ios-navigation-bar__large-title h1 {
+    color: #FFFFFF;
+  }
+
+  .ios-navigation-bar__button {
+    color: #0A84FF; /* systemBlue dark */
+  }
+}
+
+/* Tablet/Desktop - center if wider than max-width */
+@media (min-width: 768px) {
+  .ios-navigation-bar {
+    max-width: 100%;
+  }
+}
