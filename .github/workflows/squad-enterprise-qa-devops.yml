@@ -1,0 +1,276 @@
+name: Enterprise QA DevOps Squad Tests
+# CI pipeline for enterprise-qa-devops squad
+# Tests resilience patterns, API clients, and integration workflows
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'squads/enterprise-qa-devops/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'squads/enterprise-qa-devops/**'
+  workflow_dispatch:
+    inputs:
+      run_integration:
+        description: 'Run integration tests (requires secrets)'
+        required: false
+        default: 'false'
+        type: boolean
+
+concurrency:
+  group: squad-enterprise-qa-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # Unit tests - always run, no external dependencies
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: squads/enterprise-qa-devops/package-lock.json
+
+      - name: Install squad dependencies
+        working-directory: squads/enterprise-qa-devops
+        run: npm ci
+
+      - name: Run unit tests with coverage
+        working-directory: squads/enterprise-qa-devops
+        run: npm run test:coverage
+        env:
+          NODE_ENV: test
+
+      - name: Check coverage thresholds
+        working-directory: squads/enterprise-qa-devops
+        run: |
+          echo "=== Coverage Threshold Check ==="
+          echo "Thresholds: 80% branches, 80% functions, 80% lines, 80% statements"
+          # Coverage enforced by jest.config.js
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          files: squads/enterprise-qa-devops/coverage/lcov.info
+          flags: squad-enterprise-qa-devops
+          name: enterprise-qa-devops-coverage
+          fail_ci_if_error: false
+        continue-on-error: true
+
+  # Resilience pattern tests - verify circuit breaker, retry, rate limiting
+  resilience-tests:
+    name: Resilience Pattern Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: squads/enterprise-qa-devops/package-lock.json
+
+      - name: Install squad dependencies
+        working-directory: squads/enterprise-qa-devops
+        run: npm ci
+
+      - name: Run resilience tests
+        working-directory: squads/enterprise-qa-devops
+        run: npm test -- --testPathPattern="resilient-client|secrets-manager" --verbose
+        env:
+          NODE_ENV: test
+
+      - name: Verify resilience patterns
+        working-directory: squads/enterprise-qa-devops
+        run: |
+          echo "=== Resilience Pattern Verification ==="
+          echo ""
+          echo "Checking circuit breaker implementation..."
+          grep -r "CircuitBreaker\|failureThreshold\|resetTimeout" tools/ && echo "✅ Circuit breaker found"
+
+          echo ""
+          echo "Checking retry with backoff..."
+          grep -r "exponentialBackoff\|maxRetries\|baseDelay" tools/ && echo "✅ Retry pattern found"
+
+          echo ""
+          echo "Checking rate limiter..."
+          grep -r "RateLimiter\|maxTokens\|refillRate" tools/ && echo "✅ Rate limiter found"
+
+  # Security audit for squad dependencies
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: squads/enterprise-qa-devops/package-lock.json
+
+      - name: Install squad dependencies
+        working-directory: squads/enterprise-qa-devops
+        run: npm ci
+
+      - name: Run security audit
+        working-directory: squads/enterprise-qa-devops
+        run: |
+          echo "=== Security Audit ==="
+          npm audit --audit-level=high || {
+            echo ""
+            echo "⚠️ High or critical vulnerabilities found!"
+            echo "Review with 'npm audit' and update dependencies."
+            exit 1
+          }
+          echo "✅ No high/critical vulnerabilities found"
+
+      - name: Check for hardcoded secrets
+        run: |
+          echo "=== Secrets Scan ==="
+          # Check for potential hardcoded secrets (excluding test mocks)
+          if grep -r --include="*.js" -E "(api[_-]?key|password|secret|token)\s*[:=]\s*['\"][^'\"]{8,}" squads/enterprise-qa-devops/tools/ 2>/dev/null; then
+            echo "⚠️ Potential hardcoded secrets found in tools/"
+            echo "Ensure all secrets use SecretsManager"
+            exit 1
+          fi
+          echo "✅ No hardcoded secrets detected in tools/"
+
+  # Integration tests - only run when explicitly requested or on main
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: ${{ github.event.inputs.run_integration == 'true' || (github.ref == 'refs/heads/main' && github.event_name == 'push') }}
+    needs: [unit-tests, resilience-tests]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: squads/enterprise-qa-devops/package-lock.json
+
+      - name: Install squad dependencies
+        working-directory: squads/enterprise-qa-devops
+        run: npm ci
+
+      - name: Check for integration secrets
+        id: secrets-check
+        run: |
+          if [ -n "${{ secrets.ATLASSIAN_DOMAIN }}" ]; then
+            echo "has_atlassian=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_atlassian=false" >> $GITHUB_OUTPUT
+          fi
+          if [ -n "${{ secrets.MS365_TENANT_ID }}" ]; then
+            echo "has_ms365=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_ms365=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run integration tests (Atlassian)
+        if: steps.secrets-check.outputs.has_atlassian == 'true'
+        working-directory: squads/enterprise-qa-devops
+        run: npm test -- --testPathPattern="integration" --testNamePattern="Atlassian|Jira|Confluence|Xray"
+        env:
+          NODE_ENV: test
+          ATLASSIAN_DOMAIN: ${{ secrets.ATLASSIAN_DOMAIN }}
+          ATLASSIAN_EMAIL: ${{ secrets.ATLASSIAN_EMAIL }}
+          ATLASSIAN_API_TOKEN: ${{ secrets.ATLASSIAN_API_TOKEN }}
+          XRAY_CLIENT_ID: ${{ secrets.XRAY_CLIENT_ID }}
+          XRAY_CLIENT_SECRET: ${{ secrets.XRAY_CLIENT_SECRET }}
+
+      - name: Run integration tests (Microsoft 365)
+        if: steps.secrets-check.outputs.has_ms365 == 'true'
+        working-directory: squads/enterprise-qa-devops
+        run: npm test -- --testPathPattern="integration" --testNamePattern="Graph|Microsoft|Teams"
+        env:
+          NODE_ENV: test
+          MS365_CLIENT_ID: ${{ secrets.MS365_CLIENT_ID }}
+          MS365_CLIENT_SECRET: ${{ secrets.MS365_CLIENT_SECRET }}
+          MS365_TENANT_ID: ${{ secrets.MS365_TENANT_ID }}
+
+      - name: Skip notice (no secrets)
+        if: steps.secrets-check.outputs.has_atlassian != 'true' && steps.secrets-check.outputs.has_ms365 != 'true'
+        run: |
+          echo "⚠️ Integration tests skipped - no secrets configured"
+          echo ""
+          echo "To run integration tests, configure these repository secrets:"
+          echo "  Atlassian: ATLASSIAN_DOMAIN, ATLASSIAN_EMAIL, ATLASSIAN_API_TOKEN"
+          echo "  Xray: XRAY_CLIENT_ID, XRAY_CLIENT_SECRET"
+          echo "  Microsoft 365: MS365_CLIENT_ID, MS365_CLIENT_SECRET, MS365_TENANT_ID"
+
+  # Test summary
+  test-summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    needs: [unit-tests, resilience-tests, security-audit]
+    if: always()
+
+    steps:
+      - name: Check results
+        run: |
+          echo "=== Enterprise QA DevOps Squad Test Summary ==="
+          echo ""
+          echo "📊 Job Results:"
+          echo "  Unit Tests: ${{ needs.unit-tests.result }}"
+          echo "  Resilience Tests: ${{ needs.resilience-tests.result }}"
+          echo "  Security Audit: ${{ needs.security-audit.result }}"
+          echo ""
+
+          FAILED=false
+
+          if [ "${{ needs.unit-tests.result }}" == "failure" ]; then
+            echo "❌ Unit tests failed"
+            FAILED=true
+          fi
+
+          if [ "${{ needs.resilience-tests.result }}" == "failure" ]; then
+            echo "❌ Resilience tests failed"
+            FAILED=true
+          fi
+
+          if [ "${{ needs.security-audit.result }}" == "failure" ]; then
+            echo "❌ Security audit failed"
+            FAILED=true
+          fi
+
+          if [ "$FAILED" == "true" ]; then
+            echo ""
+            echo "❌ One or more checks failed"
+            exit 1
+          fi
+
+          echo "✅ All squad tests passed"

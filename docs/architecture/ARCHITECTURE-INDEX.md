@@ -4,8 +4,8 @@
 
 ---
 
-**Version:** 2.1.1
-**Last Updated:** 2026-01-26
+**Version:** 2.1.2
+**Last Updated:** 2026-02-04
 **Status:** Official Reference
 
 ---
@@ -89,6 +89,7 @@ docs/architecture/
 | [ADR HCS](./adr/adr-hcs-health-check-system.md)              | Health Check System    | ✅ Current |
 | [ADR Isolated VM](./adr/adr-isolated-vm-decision.md)         | Isolated VM decision   | ✅ Current |
 | [ADR Enterprise QA DevOps](./adr/adr-enterprise-qa-devops-resilience.md) | Resilience & Security patterns | 🆕 New |
+| [ADR Cloud vs Server](./adr/adr-enterprise-qa-devops-cloud-server.md) | Cloud/Server deployment strategy | 🆕 New |
 
 ### Squad Architecture
 
@@ -96,6 +97,9 @@ docs/architecture/
 | -------------------------------------------------------------- | -------------------------------- | ---------- |
 | [Enterprise QA DevOps PRD](../prd/enterprise-qa-devops-squad.md) | Product requirements & epics    | 🆕 New |
 | [Squad README](../../squads/enterprise-qa-devops/README.md)    | Usage and integration guide      | ✅ Current |
+| [Use Cases](../../squads/enterprise-qa-devops/docs/use-cases.md) | Concrete workflow examples      | 🆕 New |
+| [Metrics & KPIs](../../squads/enterprise-qa-devops/docs/metrics-kpis.md) | Success metrics and monitoring | 🆕 New |
+| [Permissions Guide](../../squads/enterprise-qa-devops/docs/enterprise-permissions-guide.md) | Enterprise access setup | 🆕 New |
 
 ### Reference Documents (Official in docs/framework/)
 
@@ -195,5 +199,5 @@ docs/architecture/
 
 ---
 
-**Last Updated:** 2026-01-26
+**Last Updated:** 2026-02-04
 **Maintainer:** @architect (Aria)
