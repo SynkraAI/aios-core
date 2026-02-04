@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circle Design System - Projeto - Synkra OS 26</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-primary: #506CF0;
+      --color-primary-hover: #3F5BD6;
+      --color-neutral-50: #FAFAFA;
+      --color-neutral-100: #F5F5F5;
+      --color-neutral-200: #E5E5E5;
+      --color-neutral-300: #D1D5DB;
+      --color-neutral-500: #737373;
+      --color-neutral-600: #525252;
+      --color-neutral-700: #404040;
+      --color-neutral-900: #171717;
+      --color-neutral-white: #FFFFFF;
+      --color-success: #10B981;
+      --color-success-light: #D1FAE5;
+      --color-warning: #F59E0B;
+      --color-danger: #EF4444;
+      --spacing-2: 0.5rem;
+      --spacing-3: 0.75rem;
+      --spacing-4: 1rem;
+      --spacing-6: 1.5rem;
+      --spacing-8: 2rem;
+      --radius-default: 0.5rem;
+      --radius-xl: 1.25rem;
+      --radius-full: 9999px;
+      --shadow-md: 0 6px 12px rgba(169, 169, 169, 0.1);
+      --shadow-lg: 0 10px 20px rgba(169, 169, 169, 0.12);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--color-neutral-50);
+      color: var(--color-neutral-900);
+      line-height: 1.5;
+    }
+
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar - Same as dashboard */
+    .sidebar {
+      width: 280px;
+      background: var(--color-neutral-white);
+      border-right: 1px solid var(--color-neutral-200);
+      padding: var(--spacing-6);
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-3);
+      margin-bottom: var(--spacing-8);
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--color-primary), #8B83FF);
+      border-radius: var(--radius-default);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-3);
+      padding: var(--spacing-3) var(--spacing-4);
+      border-radius: var(--radius-default);
+      color: var(--color-neutral-700);
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-bottom: var(--spacing-2);
+      cursor: pointer;
+    }
+
+    .nav-item:hover {
+      background: var(--color-neutral-50);
+    }
+
+    .nav-item.active {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      padding: var(--spacing-8);
+      max-width: 1400px;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+      margin-bottom: var(--spacing-6);
+      font-size: 0.875rem;
+      color: var(--color-neutral-600);
+    }
+
+    .breadcrumb a {
+      color: var(--color-neutral-600);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--color-primary);
+    }
+
+    /* Project Header */
+    .project-header {
+      background: var(--color-neutral-white);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-8);
+      box-shadow: var(--shadow-md);
+      margin-bottom: var(--spacing-6);
+    }
+
+    .project-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--spacing-6);
+    }
+
+    .project-title-section {
+      display: flex;
+      gap: var(--spacing-4);
+      align-items: flex-start;
+    }
+
+    .project-icon-large {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--color-primary), #8B83FF);
+      border-radius: var(--radius-default);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+
+    .project-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-2);
+    }
+
+    .project-description {
+      color: var(--color-neutral-600);
+      font-size: 1rem;
+      margin-bottom: var(--spacing-4);
+      line-height: 1.6;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: var(--radius-full);
+      margin-right: var(--spacing-2);
+    }
+
+    .badge-primary {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .badge-success {
+      background: var(--color-success-light);
+      color: #065F46;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-2);
+      padding: var(--spacing-3) var(--spacing-4);
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--radius-default);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--color-primary-hover);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-neutral-700);
+      border: 1px solid var(--color-neutral-300);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-neutral-50);
+    }
+
+    /* Progress Section */
+    .progress-section {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spacing-6);
+    }
+
+    .progress-item {
+      text-align: center;
+    }
+
+    .progress-label {
+      font-size: 0.875rem;
+      color: var(--color-neutral-600);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .progress-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-neutral-900);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: var(--color-neutral-200);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-top: var(--spacing-4);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-primary), #8B83FF);
+      border-radius: var(--radius-full);
+    }
+
+    /* Content Grid */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--spacing-6);
+    }
+
+    .card {
+      background: var(--color-neutral-white);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-4);
+    }
+
+    /* Task List */
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-3);
+      padding: var(--spacing-4);
+      border-bottom: 1px solid var(--color-neutral-200);
+    }
+
+    .task-item:last-child {
+      border-bottom: none;
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-neutral-300);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .checkbox.checked {
+      background: var(--color-success);
+      border-color: var(--color-success);
+      color: white;
+    }
+
+    .task-content {
+      flex: 1;
+    }
+
+    .task-title {
+      font-weight: 500;
+      color: var(--color-neutral-900);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .task-meta {
+      display: flex;
+      gap: var(--spacing-4);
+      font-size: 0.75rem;
+      color: var(--color-neutral-500);
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    /* Team Section */
+    .team-grid {
+      display: grid;
+      gap: var(--spacing-4);
+    }
+
+    .team-member {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-3);
+      padding: var(--spacing-3);
+      border-radius: var(--radius-default);
+      transition: all 0.2s;
+    }
+
+    .team-member:hover {
+      background: var(--color-neutral-50);
+    }
+
+    .member-info {
+      flex: 1;
+    }
+
+    .member-name {
+      font-weight: 600;
+      color: var(--color-neutral-900);
+      margin-bottom: 2px;
+    }
+
+    .member-role {
+      font-size: 0.75rem;
+      color: var(--color-neutral-600);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: var(--spacing-6);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: var(--spacing-6);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -22px;
+      top: 8px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 3px solid var(--color-neutral-white);
+      box-shadow: 0 0 0 2px var(--color-neutral-200);
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: -17px;
+      top: 20px;
+      width: 2px;
+      height: calc(100% - 12px);
+      background: var(--color-neutral-200);
+    }
+
+    .timeline-item:last-child::after {
+      display: none;
+    }
+
+    .timeline-date {
+      font-size: 0.75rem;
+      color: var(--color-neutral-500);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .timeline-content {
+      font-size: 0.875rem;
+      color: var(--color-neutral-700);
+    }
+
+    .timeline-content strong {
+      color: var(--color-neutral-900);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">S</div>
+        <div class="logo-text">Synkra OS 26</div>
+      </div>
+
+      <nav>
+        <a href="#" class="nav-item">
+          <span>📊</span>
+          Dashboard
+        </a>
+        <a href="#" class="nav-item active">
+          <span>📁</span>
+          Projetos
+        </a>
+        <a href="#" class="nav-item">
+          <span>✅</span>
+          Tarefas
+        </a>
+        <a href="#" class="nav-item">
+          <span>👥</span>
+          Equipe
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a href="#">Home</a>
+        <span>›</span>
+        <a href="#">Projetos</a>
+        <span>›</span>
+        <span style="color: var(--color-neutral-900);">Circle Design System</span>
+      </nav>
+
+      <!-- Project Header -->
+      <section class="project-header">
+        <div class="project-header-top">
+          <div class="project-title-section">
+            <div class="project-icon-large">🚀</div>
+            <div>
+              <h1 class="project-title">Circle Design System</h1>
+              <p class="project-description">
+                Sistema de design completo com 70+ componentes, tokens e documentação interativa no Storybook. Desenvolvimento focado em acessibilidade WCAG AA e performance.
+              </p>
+              <div>
+                <span class="badge badge-primary">Em Desenvolvimento</span>
+                <span class="badge" style="background: var(--color-neutral-100); color: var(--color-neutral-700);">Design System</span>
+                <span class="badge" style="background: var(--color-neutral-100); color: var(--color-neutral-700);">React</span>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: var(--spacing-3);">
+            <button class="btn btn-secondary">
+              <span>⭐</span>
+              Favoritar
+            </button>
+            <button class="btn btn-primary">
+              <span>⚙️</span>
+              Configurações
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-section">
+          <div class="progress-item">
+            <div class="progress-label">Progresso Geral</div>
+            <div class="progress-value">75%</div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">Tarefas Concluídas</div>
+            <div class="progress-value">18/24</div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">Prazo</div>
+            <div class="progress-value" style="font-size: 1.25rem;">15 Fev</div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">Membros</div>
+            <div class="progress-value">5</div>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 75%;"></div>
+        </div>
+      </section>
+
+      <!-- Content Grid -->
+      <div class="content-grid">
+        <!-- Left Column -->
+        <div>
+          <!-- Tasks -->
+          <div class="card" style="margin-bottom: var(--spacing-6);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-4);">
+              <h2 class="card-title">Tarefas do Projeto</h2>
+              <button class="btn btn-secondary" style="padding: var(--spacing-2) var(--spacing-3); font-size: 0.875rem;">
+                <span>➕</span>
+                Nova Tarefa
+              </button>
+            </div>
+
+            <div class="task-item">
+              <div class="checkbox checked">✓</div>
+              <div class="task-content">
+                <div class="task-title">Design Tokens Completos</div>
+                <div class="task-meta">
+                  <span>✅ Concluída</span>
+                  <span>•</span>
+                  <span>📅 01 Fev</span>
+                </div>
+              </div>
+              <div class="avatar" style="background: var(--color-primary);">LF</div>
+            </div>
+
+            <div class="task-item">
+              <div class="checkbox checked">✓</div>
+              <div class="task-content">
+                <div class="task-title">Componentes Base (Button, Card, Badge)</div>
+                <div class="task-meta">
+                  <span>✅ Concluída</span>
+                  <span>•</span>
+                  <span>📅 02 Fev</span>
+                </div>
+              </div>
+              <div class="avatar" style="background: var(--color-success);">MK</div>
+            </div>
+
+            <div class="task-item">
+              <div class="checkbox checked">✓</div>
+              <div class="task-content">
+                <div class="task-title">Configuração do Storybook</div>
+                <div class="task-meta">
+                  <span>✅ Concluída</span>
+                  <span>•</span>
+                  <span>📅 04 Fev</span>
+                </div>
+              </div>
+              <div class="avatar" style="background: var(--color-warning);">AS</div>
+            </div>
+
+            <div class="task-item">
+              <div class="checkbox"></div>
+              <div class="task-content">
+                <div class="task-title">Componentes de Navegação (Navbar, Sidebar, Tabs)</div>
+                <div class="task-meta">
+                  <span class="badge" style="background: var(--color-warning); color: white; padding: 2px 8px;">Em Progresso</span>
+                  <span>•</span>
+                  <span>📅 Prazo: 10 Fev</span>
+                </div>
+              </div>
+              <div class="avatar" style="background: var(--color-primary);">LF</div>
+            </div>
+
+            <div class="task-item">
+              <div class="checkbox"></div>
+              <div class="task-content">
+                <div class="task-title">Componentes de Formulário (Input, Select, Checkbox)</div>
+                <div class="task-meta">
+                  <span style="color: var(--color-neutral-500);">⏳ Pendente</span>
+                  <span>•</span>
+                  <span>📅 Prazo: 12 Fev</span>
+                </div>
+              </div>
+              <div class="avatar" style="background: var(--color-danger);">JD</div>
+            </div>
+
+            <div class="task-item">
+              <div class="checkbox"></div>
+              <div class="task-content">
+                <div class="task-title">Testes de Acessibilidade WCAG AA</div>
+                <div class="task-meta">
+                  <span style="color: var(--color-neutral-500);">⏳ Pendente</span>
+                  <span>•</span>
+                  <span>📅 Prazo: 14 Fev</span>
+                </div>
+              </div>
+              <div class="avatar" style="background: #8B83FF;">QA</div>
+            </div>
+          </div>
+
+          <!-- Activity Timeline -->
+          <div class="card">
+            <h2 class="card-title">Histórico de Atividades</h2>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-date">Hoje, 14:30</div>
+                <div class="timeline-content">
+                  <strong>Luiz Fosc</strong> marcou <strong>Configuração do Storybook</strong> como concluída
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">Hoje, 11:20</div>
+                <div class="timeline-content">
+                  <strong>Maria Silva</strong> comentou em <strong>Design Tokens</strong>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">Ontem, 16:45</div>
+                <div class="timeline-content">
+                  <strong>Ana Costa</strong> adicionou 3 novos componentes
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">2 dias atrás</div>
+                <div class="timeline-content">
+                  <strong>João Pedro</strong> criou a tarefa <strong>Testes de Acessibilidade</strong>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">3 dias atrás</div>
+                <div class="timeline-content">
+                  Projeto <strong>Circle Design System</strong> foi criado
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div>
+          <!-- Team -->
+          <div class="card" style="margin-bottom: var(--spacing-6);">
+            <h2 class="card-title">Equipe do Projeto</h2>
+            <div class="team-grid">
+              <div class="team-member">
+                <div class="avatar" style="background: var(--color-primary);">LF</div>
+                <div class="member-info">
+                  <div class="member-name">Luiz Fosc</div>
+                  <div class="member-role">Project Lead</div>
+                </div>
+                <span class="badge badge-primary">Admin</span>
+              </div>
+
+              <div class="team-member">
+                <div class="avatar" style="background: var(--color-success);">MK</div>
+                <div class="member-info">
+                  <div class="member-name">Maria Silva</div>
+                  <div class="member-role">UI Designer</div>
+                </div>
+              </div>
+
+              <div class="team-member">
+                <div class="avatar" style="background: var(--color-warning);">AS</div>
+                <div class="member-info">
+                  <div class="member-name">Ana Costa</div>
+                  <div class="member-role">Frontend Developer</div>
+                </div>
+              </div>
+
+              <div class="team-member">
+                <div class="avatar" style="background: var(--color-danger);">JD</div>
+                <div class="member-info">
+                  <div class="member-name">João Pedro</div>
+                  <div class="member-role">Backend Developer</div>
+                </div>
+              </div>
+
+              <div class="team-member">
+                <div class="avatar" style="background: #8B83FF;">QA</div>
+                <div class="member-info">
+                  <div class="member-name">Quality Assurance</div>
+                  <div class="member-role">QA Specialist</div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-secondary" style="width: 100%; margin-top: var(--spacing-4);">
+              <span>➕</span>
+              Adicionar Membro
+            </button>
+          </div>
+
+          <!-- Project Details -->
+          <div class="card" style="margin-bottom: var(--spacing-6);">
+            <h2 class="card-title">Detalhes do Projeto</h2>
+            <div style="display: grid; gap: var(--spacing-4);">
+              <div>
+                <div style="font-size: 0.75rem; color: var(--color-neutral-600); margin-bottom: var(--spacing-2);">Status</div>
+                <span class="badge badge-primary">Em Desenvolvimento</span>
+              </div>
+              <div>
+                <div style="font-size: 0.75rem; color: var(--color-neutral-600); margin-bottom: var(--spacing-2);">Prioridade</div>
+                <span class="badge" style="background: var(--color-danger); color: white;">Alta</span>
+              </div>
+              <div>
+                <div style="font-size: 0.75rem; color: var(--color-neutral-600); margin-bottom: var(--spacing-2);">Data de Início</div>
+                <div style="font-weight: 500;">01 Janeiro 2026</div>
+              </div>
+              <div>
+                <div style="font-size: 0.75rem; color: var(--color-neutral-600); margin-bottom: var(--spacing-2);">Data de Término</div>
+                <div style="font-weight: 500;">15 Fevereiro 2026</div>
+              </div>
+              <div>
+                <div style="font-size: 0.75rem; color: var(--color-neutral-600); margin-bottom: var(--spacing-2);">Budget</div>
+                <div style="font-weight: 500;">R$ 50.000</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tags -->
+          <div class="card">
+            <h2 class="card-title">Tags</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-2);">
+              <span class="badge" style="background: var(--color-neutral-100); color: var(--color-neutral-700);">Design System</span>
+              <span class="badge" style="background: var(--color-neutral-100); color: var(--color-neutral-700);">React</span>
+              <span class="badge" style="background: var(--color-neutral-100); color: var(--color-neutral-700);">TypeScript</span>
+              <span class="badge" style="background: var(--color-neutral-100); color: var(--color-neutral-700);">Storybook</span>
+              <span class="badge" style="background: var(--color-neutral-100); color: var(--color-neutral-700);">WCAG AA</span>
+              <span class="badge" style="background: var(--color-neutral-100); color: var(--color-neutral-700);">Acessibilidade</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

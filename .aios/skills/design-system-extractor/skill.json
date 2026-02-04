@@ -1,0 +1,108 @@
+{
+  "name": "design-system-extractor",
+  "version": "1.0.0",
+  "description": "Extract design systems from existing websites and generate TypeScript/React design system packages",
+  "author": "AIOS Core",
+  "category": "design",
+  "tags": ["design-system", "extraction", "tokens", "components", "ui"],
+  "activation": {
+    "keywords": ["design system", "extract design", "analyze website design", "create design tokens"],
+    "explicit": true
+  },
+  "capabilities": [
+    "Analyze websites visually using WebFetch",
+    "Extract design tokens (colors, typography, spacing, shadows, borders)",
+    "Identify UI components and patterns",
+    "Generate TypeScript design token files",
+    "Create React component structure",
+    "Generate package.json and build configuration",
+    "Create documentation (README, DESIGN_PRINCIPLES)",
+    "Setup Storybook configuration"
+  ],
+  "requirements": {
+    "tools": ["WebFetch", "Write", "Read", "Bash"],
+    "permissions": ["file-write", "web-fetch", "command-execution"]
+  },
+  "workflow": [
+    "1. Receive target website URLs",
+    "2. Analyze pages using WebFetch with structured prompt",
+    "3. Extract design tokens (colors, typography, spacing, etc.)",
+    "4. Generate package structure in packages/{name}-design-system/",
+    "5. Create TypeScript token files",
+    "6. Generate base components",
+    "7. Setup build tooling (Vite, TypeScript, Vitest)",
+    "8. Create documentation",
+    "9. Initialize Storybook",
+    "10. Run initial build and tests"
+  ],
+  "inputs": {
+    "urls": {
+      "type": "array",
+      "required": true,
+      "description": "Array of website URLs to analyze"
+    },
+    "packageName": {
+      "type": "string",
+      "required": true,
+      "description": "Name for the design system package (e.g., 'lendario')"
+    },
+    "scope": {
+      "type": "string",
+      "required": false,
+      "default": "@fosc",
+      "description": "NPM scope for the package"
+    },
+    "description": {
+      "type": "string",
+      "required": false,
+      "description": "Package description"
+    }
+  },
+  "outputs": {
+    "packagePath": {
+      "type": "string",
+      "description": "Path to the generated design system package"
+    },
+    "tokens": {
+      "type": "object",
+      "description": "Extracted design tokens"
+    },
+    "components": {
+      "type": "array",
+      "description": "List of identified components"
+    },
+    "documentation": {
+      "type": "array",
+      "description": "Generated documentation files"
+    }
+  },
+  "examples": [
+    {
+      "title": "Extract from single website",
+      "command": "/AIOS:skills:design-system-extractor",
+      "input": {
+        "urls": ["https://example.com"],
+        "packageName": "example",
+        "description": "Example Design System"
+      }
+    },
+    {
+      "title": "Extract from multiple pages",
+      "command": "/AIOS:skills:design-system-extractor",
+      "input": {
+        "urls": [
+          "https://example.com",
+          "https://example.com/features",
+          "https://example.com/pricing"
+        ],
+        "packageName": "example",
+        "scope": "@mycompany"
+      }
+    }
+  ],
+  "references": [
+    "packages/ecoflow-design-system/EXTRACT-FROM-SITE.md",
+    "packages/ecoflow-design-system/CIRCLE-SO-DESIGN-TOKENS.md",
+    "packages/ecoflow-design-system/"
+  ]
+}

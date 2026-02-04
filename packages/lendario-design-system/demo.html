@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lendário AI Design System - Demo</title>
+
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       CSS VARIABLES - Lendário Design Tokens
+       ============================================ */
+    :root {
+      /* Primary Colors - Teal */
+      --color-primary-500: #0FB5AE;
+      --color-primary-600: #0DA29C;
+      --color-primary-900: #055756;
+
+      /* Secondary Colors - Gold */
+      --color-secondary-500: #F5D76E;
+      --color-secondary-600: #F4C73F;
+      --color-secondary-900: #C4A76A;
+
+      /* Semantic */
+      --color-success: #10B981;
+      --color-warning: #FF9500;
+      --color-error: #F43F5E;
+      --color-info: #0EA5E9;
+
+      /* Neutrals */
+      --color-text-primary: #F0F0E8;
+      --color-text-secondary: #919180;
+      --color-bg-main: #000000;
+      --color-bg-card: #0a0a0a;
+      --color-bg-elevated: #050505;
+      --color-border: #1a3a3a;
+      --color-border-light: rgba(15, 181, 174, 0.15);
+
+      /* Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-size-base: 1rem;
+      --font-size-sm: 0.875rem;
+      --font-size-xs: 0.75rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+
+      /* Spacing */
+      --spacing-2: 0.5rem;
+      --spacing-3: 0.75rem;
+      --spacing-4: 1rem;
+      --spacing-6: 1.5rem;
+      --spacing-8: 2rem;
+      --spacing-12: 3rem;
+      --spacing-16: 4rem;
+
+      /* Effects */
+      --shadow-button: 0 10px 40px rgba(245, 215, 110, 0.3);
+      --shadow-button-hover: 0 15px 50px rgba(245, 215, 110, 0.4);
+      --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      --shadow-modal: 0 25px 80px rgba(0, 0, 0, 0.6);
+
+      /* Border Radius */
+      --radius-sm: 0.5rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --radius-full: 9999px;
+
+      /* Transitions */
+      --transition-default: all 0.3s ease;
+    }
+
+    /* ============================================
+       BASE STYLES
+       ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--font-size-base);
+      line-height: 1.6;
+      color: var(--color-text-primary);
+      background: var(--color-bg-main);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-4);
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    .header {
+      padding: var(--spacing-4);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--color-bg-card);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-primary-500);
+    }
+
+    /* ============================================
+       HERO SECTION
+       ============================================ */
+    .hero {
+      padding: var(--spacing-16) var(--spacing-4);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 400px;
+      height: 400px;
+      background: rgba(15, 181, 174, 0.08);
+      top: -100px;
+      left: -100px;
+    }
+
+    .hero::after {
+      width: 300px;
+      height: 300px;
+      background: rgba(201, 178, 152, 0.1);
+      bottom: -100px;
+      right: -100px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: var(--spacing-6);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-8);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero .highlight {
+      color: var(--color-primary-500);
+    }
+
+    /* ============================================
+       BUTTONS
+       ============================================ */
+    .btn {
+      display: inline-block;
+      padding: 0;
+      font-family: var(--font-sans);
+      font-size: var(--font-size-base);
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition-default);
+      line-height: 1;
+    }
+
+    .btn-cta {
+      background: var(--color-secondary-500);
+      color: #1a1a1a;
+      height: 56px;
+      padding: 0 2rem;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-button);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-cta:hover {
+      background: #f7e08a;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-button-hover);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary-500);
+      height: 48px;
+      padding: 0 1.5rem;
+      border: 2px solid var(--color-primary-500);
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-outline:hover {
+      background: rgba(15, 181, 174, 0.1);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: var(--spacing-4);
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ============================================
+       CARDS
+       ============================================ */
+    .section {
+      padding: var(--spacing-16) var(--spacing-4);
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: var(--spacing-12);
+      line-height: 1.1;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-3);
+      margin-bottom: var(--spacing-8);
+    }
+
+    .card {
+      background: rgba(10, 10, 10, 0.9);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-6);
+      transition: var(--transition-default);
+    }
+
+    .card:hover {
+      border-color: var(--color-primary-500);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, rgba(15, 181, 174, 0.2) 0%, rgba(15, 181, 174, 0.05) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--spacing-4);
+      color: var(--color-primary-500);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .card h3 {
+      font-size: var(--font-size-lg);
+      font-weight: 700;
+      margin-bottom: var(--spacing-2);
+    }
+
+    .card p {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+    }
+
+    /* ============================================
+       BADGES & TAGS
+       ============================================ */
+    .badges {
+      display: flex;
+      gap: var(--spacing-2);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-8);
+    }
+
+    .badge {
+      padding: 0.375rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-success {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--color-success);
+      border: 1px solid var(--color-success);
+    }
+
+    .badge-warning {
+      background: rgba(255, 149, 0, 0.2);
+      color: var(--color-warning);
+      border: 1px solid var(--color-warning);
+    }
+
+    .badge-error {
+      background: rgba(244, 63, 94, 0.2);
+      color: var(--color-error);
+      border: 1px solid var(--color-error);
+    }
+
+    .badge-info {
+      background: rgba(14, 165, 233, 0.2);
+      color: var(--color-info);
+      border: 1px solid var(--color-info);
+    }
+
+    .badge-primary {
+      background: rgba(15, 181, 174, 0.2);
+      color: var(--color-primary-500);
+      border: 1px solid var(--color-primary-500);
+    }
+
+    /* ============================================
+       COLOR PALETTE
+       ============================================ */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-4);
+      margin-bottom: var(--spacing-8);
+    }
+
+    .palette-item {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-4);
+    }
+
+    .palette-item h4 {
+      font-size: var(--font-size-sm);
+      font-weight: 700;
+      margin-bottom: var(--spacing-3);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+    }
+
+    .color-swatch {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-3);
+      margin-bottom: var(--spacing-2);
+      padding: var(--spacing-2);
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: var(--radius-sm);
+    }
+
+    .color-box {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+    }
+
+    .color-info {
+      flex: 1;
+    }
+
+    .color-name {
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .color-hex {
+      font-size: var(--font-size-xs);
+      font-family: 'Courier New', monospace;
+      color: var(--color-text-secondary);
+    }
+
+    /* ============================================
+       TYPOGRAPHY SHOWCASE
+       ============================================ */
+    .typography-sample {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-6);
+      margin-bottom: var(--spacing-4);
+    }
+
+    .typography-sample h1,
+    .typography-sample h2,
+    .typography-sample h3 {
+      margin-bottom: var(--spacing-4);
+    }
+
+    .typography-sample h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .typography-sample h2 {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .typography-sample h3 {
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+    }
+
+    .typography-sample p {
+      margin-bottom: var(--spacing-4);
+    }
+
+    .typography-sample .caption {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    /* ============================================
+       MODAL
+       ============================================ */
+    .modal-trigger {
+      margin: var(--spacing-8) auto;
+      display: block;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      z-index: 50;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--color-bg-card);
+      border: 1px solid rgba(15, 181, 174, 0.3);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-6);
+      max-width: 440px;
+      width: 90%;
+      box-shadow: var(--shadow-modal);
+      animation: modalSlideIn 0.25s ease-out;
+    }
+
+    .modal h3 {
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+      margin-bottom: var(--spacing-4);
+    }
+
+    .modal p {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-6);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: var(--spacing-3);
+      justify-content: flex-end;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      padding: var(--spacing-12) var(--spacing-4);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+    }
+
+    .footer a {
+      color: var(--color-primary-500);
+      text-decoration: none;
+      transition: var(--transition-default);
+    }
+
+    .footer a:hover {
+      color: var(--color-primary-600);
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-group .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">Lendário AI</div>
+      <button class="btn btn-cta" style="height: 48px; padding: 0 1.5rem; font-size: 0.875rem;">
+        Começar Agora
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>Design System <span class="highlight">Lendário AI</span></h1>
+      <p>Sistema de design moderno extraído das páginas da Academia Lendária, com estética dark-first e cores teal + gold.</p>
+      <div class="btn-group">
+        <button class="btn btn-cta">Começar Agora</button>
+        <button class="btn btn-outline">Ver Documentação</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BADGES -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Semantic Colors & Badges</h2>
+      <div class="badges">
+        <span class="badge badge-success">Success</span>
+        <span class="badge badge-warning">Warning</span>
+        <span class="badge badge-error">Error</span>
+        <span class="badge badge-info">Info</span>
+        <span class="badge badge-primary">Primary</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="section" style="background: var(--color-bg-elevated);">
+    <div class="container">
+      <h2 class="section-title">Feature Cards</h2>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">🎨</div>
+          <h3>Design Tokens</h3>
+          <p>Cores, tipografia, espaçamento, shadows e mais - tudo extraído do site real com valores precisos.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>TypeScript</h3>
+          <p>100% TypeScript com tipos exportados, strict mode ativo e IntelliSense completo.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">✅</div>
+          <h3>Testado</h3>
+          <p>41 testes passando com Vitest, cobertura de 80%+ para todos os tokens.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOR PALETTE -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Color Palette</h2>
+      <div class="palette-grid">
+        <!-- Primary -->
+        <div class="palette-item">
+          <h4>Primary - Teal</h4>
+          <div class="color-swatch">
+            <div class="color-box" style="background: #0FB5AE;"></div>
+            <div class="color-info">
+              <div class="color-name">Teal 500</div>
+              <div class="color-hex">#0FB5AE</div>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="color-box" style="background: #0DA29C;"></div>
+            <div class="color-info">
+              <div class="color-name">Teal 600</div>
+              <div class="color-hex">#0DA29C</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary -->
+        <div class="palette-item">
+          <h4>Secondary - Gold</h4>
+          <div class="color-swatch">
+            <div class="color-box" style="background: #F5D76E;"></div>
+            <div class="color-info">
+              <div class="color-name">Gold 500</div>
+              <div class="color-hex">#F5D76E</div>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="color-box" style="background: #C4A76A;"></div>
+            <div class="color-info">
+              <div class="color-name">Gold 900</div>
+              <div class="color-hex">#C4A76A</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Semantic -->
+        <div class="palette-item">
+          <h4>Semantic Colors</h4>
+          <div class="color-swatch">
+            <div class="color-box" style="background: #10B981;"></div>
+            <div class="color-info">
+              <div class="color-name">Success</div>
+              <div class="color-hex">#10B981</div>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="color-box" style="background: #F43F5E;"></div>
+            <div class="color-info">
+              <div class="color-name">Error</div>
+              <div class="color-hex">#F43F5E</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Neutrals -->
+        <div class="palette-item">
+          <h4>Neutrals - Dark Theme</h4>
+          <div class="color-swatch">
+            <div class="color-box" style="background: #F0F0E8;"></div>
+            <div class="color-info">
+              <div class="color-name">Text Primary</div>
+              <div class="color-hex">#F0F0E8</div>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="color-box" style="background: #919180;"></div>
+            <div class="color-info">
+              <div class="color-name">Text Secondary</div>
+              <div class="color-hex">#919180</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" style="background: var(--color-bg-elevated);">
+    <div class="container">
+      <h2 class="section-title">Typography</h2>
+      <div class="typography-sample">
+        <h1>Heading 1 - Inter Bold (clamp 2rem-3.5rem)</h1>
+        <h2>Heading 2 - Inter Bold (clamp 1.5rem-2.5rem)</h2>
+        <h3>Heading 3 - Inter Bold (1.25rem)</h3>
+        <p>Body text - Inter Regular (1rem, line-height 1.6). Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p class="caption">Caption text - Inter Regular (0.875rem) - Secondary color</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL DEMO -->
+  <section class="section">
+    <div class="container" style="text-align: center;">
+      <h2 class="section-title">Modal Component</h2>
+      <button class="btn btn-cta modal-trigger" onclick="openModal()">Abrir Modal</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>Lendário AI Design System v0.1.0 | Criado com <a href="#">Design System Extractor</a></p>
+      <p style="margin-top: 0.5rem;">Extraído de: <a href="https://cohort.lendario.ai/">cohort.lendario.ai</a> + 2 páginas</p>
+    </div>
+  </footer>
+
+  <!-- MODAL OVERLAY -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <h3>Modal Example</h3>
+      <p>Este é um modal usando o design system Lendário. Note o backdrop blur, border teal e slide-in animation.</p>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+        <button class="btn btn-cta" style="height: 40px; padding: 0 1.5rem; font-size: 0.875rem;" onclick="closeModal()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('active');
+    }
+
+    function closeModal(event) {
+      if (!event || event.target === document.getElementById('modalOverlay')) {
+        document.getElementById('modalOverlay').classList.remove('active');
+      }
+    }
+
+    // Close modal on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
