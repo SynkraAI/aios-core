@@ -3,12 +3,32 @@
  * Enterprise QA DevOps Squad
  *
  * Handles all interactions with Jira Cloud/Server REST API.
+ * Extends ResilientClient for circuit breaker, retry, and rate limiting.
  */
 
 const axios = require('axios');
+const { ResilientClient } = require('./resilient-client');
 
-class JiraClient {
+class JiraClient extends ResilientClient {
   constructor(options = {}) {
+    // Initialize resilience patterns
+    super({
+      serviceName: 'Jira',
+      timeout: options.timeout || 30000,
+      circuitBreaker: {
+        failureThreshold: options.failureThreshold || 5,
+        resetTimeout: options.resetTimeout || 30000
+      },
+      rateLimiter: {
+        maxTokens: options.maxTokens || 100,  // Atlassian: ~100 req/min
+        refillRate: options.refillRate || 2    // 2 tokens/sec
+      },
+      retry: {
+        maxRetries: options.maxRetries || 3,
+        baseDelay: options.baseDelay || 1000
+      }
+    });
+
     this.domain = options.domain || process.env.ATLASSIAN_DOMAIN;
     this.email = options.email || process.env.ATLASSIAN_EMAIL;
     this.apiToken = options.apiToken || process.env.ATLASSIAN_API_TOKEN;
@@ -18,6 +38,7 @@ class JiraClient {
     }
 
     this.baseUrl = `https://${this.domain}/rest/api/3`;
+    this.agileUrl = `https://${this.domain}/rest/agile/1.0`;
     this.auth = Buffer.from(`${this.email}:${this.apiToken}`).toString('base64');
 
     this.client = axios.create({
@@ -28,69 +49,55 @@ class JiraClient {
         'Accept': 'application/json'
       }
     });
-
-    // Add response interceptor for error handling
-    this.client.interceptors.response.use(
-      response => response,
-      error => this.handleError(error)
-    );
   }
 
-  handleError(error) {
-    if (error.response) {
-      const { status, data } = error.response;
-      const message = data.errorMessages?.join(', ') || data.message || 'Unknown error';
-
-      switch (status) {
-        case 401:
-          throw new Error(`Authentication failed: ${message}`);
-        case 403:
-          throw new Error(`Permission denied: ${message}`);
-        case 404:
-          throw new Error(`Not found: ${message}`);
-        case 400:
-          throw new Error(`Bad request: ${message}`);
-        default:
-          throw new Error(`Jira API error (${status}): ${message}`);
-      }
-    }
-    throw error;
+  /**
+   * Execute request with resilience patterns
+   */
+  async _request(method, url, data = null, config = {}) {
+    return this.executeWithResilience(
+      async () => {
+        const response = await this.client.request({
+          method,
+          url,
+          data,
+          ...config
+        });
+        return response.data;
+      },
+      { operation: `${method} ${url}` }
+    );
   }
 
   // ==================== Issue Operations ====================
 
   async createIssue(payload) {
-    const response = await this.client.post('/issue', payload);
-    return response.data;
+    return this._request('post', '/issue', payload);
   }
 
   async getIssue(issueKey, expand = []) {
     const params = expand.length > 0 ? { expand: expand.join(',') } : {};
-    const response = await this.client.get(`/issue/${issueKey}`, { params });
-    return response.data;
+    return this._request('get', `/issue/${issueKey}`, null, { params });
   }
 
   async updateIssue(issueKey, payload) {
-    const response = await this.client.put(`/issue/${issueKey}`, payload);
-    return response.data;
+    return this._request('put', `/issue/${issueKey}`, payload);
   }
 
   async deleteIssue(issueKey, deleteSubtasks = false) {
     const params = deleteSubtasks ? { deleteSubtasks: 'true' } : {};
-    const response = await this.client.delete(`/issue/${issueKey}`, { params });
-    return response.data;
+    return this._request('delete', `/issue/${issueKey}`, null, { params });
   }
 
   // ==================== Search Operations ====================
 
   async search(params) {
-    const response = await this.client.post('/search', {
+    return this._request('post', '/search', {
       jql: params.jql,
       maxResults: params.maxResults || 50,
       startAt: params.startAt || 0,
       fields: params.fields || ['summary', 'status', 'assignee', 'priority', 'issuetype']
     });
-    return response.data;
   }
 
   async searchWithJql(jql, options = {}) {
@@ -105,13 +112,11 @@ class JiraClient {
   // ==================== Transitions ====================
 
   async getTransitions(issueKey) {
-    const response = await this.client.get(`/issue/${issueKey}/transitions`);
-    return response.data;
+    return this._request('get', `/issue/${issueKey}/transitions`);
   }
 
   async doTransition(issueKey, payload) {
-    const response = await this.client.post(`/issue/${issueKey}/transitions`, payload);
-    return response.data;
+    return this._request('post', `/issue/${issueKey}/transitions`, payload);
   }
 
   async transitionTo(issueKey, statusName, comment = null) {
@@ -153,13 +158,11 @@ class JiraClient {
         content: [{ type: 'paragraph', content: [{ type: 'text', text: body }] }]
       }
     };
-    const response = await this.client.post(`/issue/${issueKey}/comment`, payload);
-    return response.data;
+    return this._request('post', `/issue/${issueKey}/comment`, payload);
   }
 
   async getComments(issueKey) {
-    const response = await this.client.get(`/issue/${issueKey}/comment`);
-    return response.data;
+    return this._request('get', `/issue/${issueKey}/comment`);
   }
 
   // ==================== Issue Links ====================
@@ -170,17 +173,13 @@ class JiraClient {
       inwardIssue: { key: inwardIssue },
       outwardIssue: { key: outwardIssue }
     };
-    const response = await this.client.post('/issueLink', payload);
-    return response.data;
+    return this._request('post', '/issueLink', payload);
   }
 
   // ==================== User Operations ====================
 
   async searchUsers(query) {
-    const response = await this.client.get('/user/search', {
-      params: { query }
-    });
-    return response.data;
+    return this._request('get', '/user/search', null, { params: { query } });
   }
 
   async getAccountId(email) {
@@ -193,29 +192,31 @@ class JiraClient {
   }
 
   async getCurrentUser() {
-    const response = await this.client.get('/myself');
-    return response.data;
+    return this._request('get', '/myself');
   }
 
   // ==================== Project Operations ====================
 
   async getProject(projectKey) {
-    const response = await this.client.get(`/project/${projectKey}`);
-    return response.data;
+    return this._request('get', `/project/${projectKey}`);
   }
 
   async getProjects() {
-    const response = await this.client.get('/project');
-    return response.data;
+    return this._request('get', '/project');
   }
 
   // ==================== Sprint Operations ====================
 
   async getSprints(boardId) {
-    const response = await this.client.get(`/board/${boardId}/sprint`, {
-      baseURL: `https://${this.domain}/rest/agile/1.0`
-    });
-    return response.data;
+    return this.executeWithResilience(
+      async () => {
+        const response = await this.client.get(`/board/${boardId}/sprint`, {
+          baseURL: this.agileUrl
+        });
+        return response.data;
+      },
+      { operation: 'getSprints' }
+    );
   }
 
   async getActiveSprint(boardId) {
@@ -224,19 +225,23 @@ class JiraClient {
   }
 
   async addToSprint(issueKey, sprintId) {
-    const response = await this.client.post(`/sprint/${sprintId}/issue`, {
-      issues: [issueKey]
-    }, {
-      baseURL: `https://${this.domain}/rest/agile/1.0`
-    });
-    return response.data;
+    return this.executeWithResilience(
+      async () => {
+        const response = await this.client.post(`/sprint/${sprintId}/issue`, {
+          issues: [issueKey]
+        }, {
+          baseURL: this.agileUrl
+        });
+        return response.data;
+      },
+      { operation: 'addToSprint' }
+    );
   }
 
   // ==================== Version Operations ====================
 
   async getVersions(projectKey) {
-    const response = await this.client.get(`/project/${projectKey}/versions`);
-    return response.data;
+    return this._request('get', `/project/${projectKey}/versions`);
   }
 
   async createVersion(projectKey, name, options = {}) {
@@ -245,13 +250,11 @@ class JiraClient {
       project: projectKey,
       ...options
     };
-    const response = await this.client.post('/version', payload);
-    return response.data;
+    return this._request('post', '/version', payload);
   }
 
   async updateVersion(versionId, payload) {
-    const response = await this.client.put(`/version/${versionId}`, payload);
-    return response.data;
+    return this._request('put', `/version/${versionId}`, payload);
   }
 
   async releaseVersion(versionId) {
@@ -267,18 +270,32 @@ class JiraClient {
     const payload = {
       issueUpdates: issues.map(issue => ({ fields: issue }))
     };
-    const response = await this.client.post('/issue/bulk', payload);
-    return response.data;
+    return this._request('post', '/issue/bulk', payload);
   }
 
   // ==================== Health Check ====================
 
   async healthCheck() {
+    // Get base health from ResilientClient
+    const baseHealth = await super.healthCheck();
+
     try {
       await this.getCurrentUser();
-      return { status: 'healthy', message: 'Connected to Jira successfully' };
+      return {
+        ...baseHealth,
+        status: baseHealth.status === 'degraded' ? 'degraded' : 'healthy',
+        service: 'Jira',
+        message: 'Connected to Jira successfully',
+        domain: this.domain
+      };
     } catch (error) {
-      return { status: 'unhealthy', message: error.message };
+      return {
+        ...baseHealth,
+        status: 'unhealthy',
+        service: 'Jira',
+        message: error.message,
+        domain: this.domain
+      };
     }
   }
 }

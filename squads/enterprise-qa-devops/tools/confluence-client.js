@@ -3,14 +3,34 @@
  * Enterprise QA DevOps Squad
  *
  * Handles all interactions with Confluence Cloud/Server REST API.
+ * Extends ResilientClient for circuit breaker, retry, and rate limiting.
  */
 
 const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
+const { ResilientClient } = require('./resilient-client');
 
-class ConfluenceClient {
+class ConfluenceClient extends ResilientClient {
   constructor(options = {}) {
+    // Initialize resilience patterns
+    super({
+      serviceName: 'Confluence',
+      timeout: options.timeout || 30000,
+      circuitBreaker: {
+        failureThreshold: options.failureThreshold || 5,
+        resetTimeout: options.resetTimeout || 30000
+      },
+      rateLimiter: {
+        maxTokens: options.maxTokens || 100,  // Atlassian: ~100 req/min
+        refillRate: options.refillRate || 2    // 2 tokens/sec
+      },
+      retry: {
+        maxRetries: options.maxRetries || 3,
+        baseDelay: options.baseDelay || 1000
+      }
+    });
+
     this.domain = options.domain || process.env.ATLASSIAN_DOMAIN;
     this.email = options.email || process.env.ATLASSIAN_EMAIL;
     this.apiToken = options.apiToken || process.env.ATLASSIAN_API_TOKEN;
@@ -30,57 +50,43 @@ class ConfluenceClient {
         'Accept': 'application/json'
       }
     });
-
-    this.client.interceptors.response.use(
-      response => response,
-      error => this.handleError(error)
-    );
   }
 
-  handleError(error) {
-    if (error.response) {
-      const { status, data } = error.response;
-      const message = data.message || JSON.stringify(data) || 'Unknown error';
-
-      switch (status) {
-        case 401:
-          throw new Error(`Authentication failed: ${message}`);
-        case 403:
-          throw new Error(`Permission denied: ${message}`);
-        case 404:
-          throw new Error(`Not found: ${message}`);
-        case 400:
-          throw new Error(`Bad request: ${message}`);
-        case 409:
-          throw new Error(`Conflict (page may already exist): ${message}`);
-        default:
-          throw new Error(`Confluence API error (${status}): ${message}`);
-      }
-    }
-    throw error;
+  /**
+   * Execute request with resilience patterns
+   */
+  async _request(method, url, data = null, config = {}) {
+    return this.executeWithResilience(
+      async () => {
+        const response = await this.client.request({
+          method,
+          url,
+          data,
+          ...config
+        });
+        return response.data;
+      },
+      { operation: `${method} ${url}` }
+    );
   }
 
   // ==================== Content Operations ====================
 
   async createContent(payload) {
-    const response = await this.client.post('/content', payload);
-    return response.data;
+    return this._request('post', '/content', payload);
   }
 
   async getContentById(contentId, expand = []) {
     const params = expand.length > 0 ? { expand: expand.join(',') } : {};
-    const response = await this.client.get(`/content/${contentId}`, { params });
-    return response.data;
+    return this._request('get', `/content/${contentId}`, null, { params });
   }
 
   async updateContent(contentId, payload) {
-    const response = await this.client.put(`/content/${contentId}`, payload);
-    return response.data;
+    return this._request('put', `/content/${contentId}`, payload);
   }
 
   async deleteContent(contentId) {
-    const response = await this.client.delete(`/content/${contentId}`);
-    return response.data;
+    return this._request('delete', `/content/${contentId}`);
   }
 
   // ==================== Search Operations ====================
@@ -92,8 +98,7 @@ class ConfluenceClient {
       start: options.start || 0,
       expand: options.expand?.join(',') || 'space,version'
     };
-    const response = await this.client.get('/content/search', { params });
-    return response.data;
+    return this._request('get', '/content/search', null, { params });
   }
 
   async findPage(spaceKey, title) {
@@ -110,13 +115,11 @@ class ConfluenceClient {
   // ==================== Space Operations ====================
 
   async getSpace(spaceKey) {
-    const response = await this.client.get(`/space/${spaceKey}`);
-    return response.data;
+    return this._request('get', `/space/${spaceKey}`);
   }
 
   async getSpaces() {
-    const response = await this.client.get('/space');
-    return response.data;
+    return this._request('get', '/space');
   }
 
   async getSpaceContent(spaceKey, type = 'page', options = {}) {
@@ -126,8 +129,7 @@ class ConfluenceClient {
       start: options.start || 0,
       expand: options.expand?.join(',') || 'version'
     };
-    const response = await this.client.get(`/space/${spaceKey}/content`, { params });
-    return response.data;
+    return this._request('get', `/space/${spaceKey}/content`, null, { params });
   }
 
   // ==================== Page Operations ====================
@@ -163,7 +165,6 @@ class ConfluenceClient {
   }
 
   async updatePage(pageId, title, content, message = null) {
-    // Get current version
     const page = await this.getContentById(pageId, ['version']);
     const newVersion = page.version.number + 1;
 
@@ -196,8 +197,7 @@ class ConfluenceClient {
   // ==================== Label Operations ====================
 
   async getLabels(contentId) {
-    const response = await this.client.get(`/content/${contentId}/label`);
-    return response.data;
+    return this._request('get', `/content/${contentId}/label`);
   }
 
   async addLabels(contentId, labels) {
@@ -205,13 +205,11 @@ class ConfluenceClient {
       prefix: 'global',
       name: label
     }));
-    const response = await this.client.post(`/content/${contentId}/label`, labelPayload);
-    return response.data;
+    return this._request('post', `/content/${contentId}/label`, labelPayload);
   }
 
   async removeLabel(contentId, label) {
-    const response = await this.client.delete(`/content/${contentId}/label/${label}`);
-    return response.data;
+    return this._request('delete', `/content/${contentId}/label/${label}`);
   }
 
   async removeLabels(contentId, labels) {
@@ -230,65 +228,64 @@ class ConfluenceClient {
   // ==================== Attachment Operations ====================
 
   async getAttachments(contentId) {
-    const response = await this.client.get(`/content/${contentId}/child/attachment`);
-    return response.data;
+    return this._request('get', `/content/${contentId}/child/attachment`);
   }
 
   async addAttachment(contentId, filePath, comment = null) {
-    const formData = new FormData();
-    formData.append('file', fs.createReadStream(filePath));
+    return this.executeWithResilience(
+      async () => {
+        const formData = new FormData();
+        formData.append('file', fs.createReadStream(filePath));
 
-    if (comment) {
-      formData.append('comment', comment);
-    }
-
-    const response = await axios.post(
-      `${this.baseUrl}/content/${contentId}/child/attachment`,
-      formData,
-      {
-        headers: {
-          ...formData.getHeaders(),
-          'Authorization': `Basic ${this.auth}`,
-          'X-Atlassian-Token': 'nocheck'
+        if (comment) {
+          formData.append('comment', comment);
         }
-      }
-    );
 
-    return response.data;
+        const response = await axios.post(
+          `${this.baseUrl}/content/${contentId}/child/attachment`,
+          formData,
+          {
+            headers: {
+              ...formData.getHeaders(),
+              'Authorization': `Basic ${this.auth}`,
+              'X-Atlassian-Token': 'nocheck'
+            }
+          }
+        );
+
+        return response.data;
+      },
+      { operation: 'addAttachment' }
+    );
   }
 
   // ==================== Template Operations ====================
 
   async getTemplates(spaceKey = null) {
     const params = spaceKey ? { spaceKey } : {};
-    const response = await this.client.get('/template/page', { params });
-    return response.data;
+    return this._request('get', '/template/page', null, { params });
   }
 
   async getTemplate(templateId) {
-    const response = await this.client.get(`/template/${templateId}`);
-    return response.data;
+    return this._request('get', `/template/${templateId}`);
   }
 
   // ==================== History Operations ====================
 
   async getContentHistory(contentId) {
-    const response = await this.client.get(`/content/${contentId}/history`);
-    return response.data;
+    return this._request('get', `/content/${contentId}/history`);
   }
 
   async getContentVersion(contentId, versionNumber) {
-    const response = await this.client.get(`/content/${contentId}/version/${versionNumber}`, {
+    return this._request('get', `/content/${contentId}/version/${versionNumber}`, null, {
       params: { expand: 'content' }
     });
-    return response.data;
   }
 
   // ==================== Children/Ancestors ====================
 
   async getChildren(contentId, type = 'page') {
-    const response = await this.client.get(`/content/${contentId}/child/${type}`);
-    return response.data;
+    return this._request('get', `/content/${contentId}/child/${type}`);
   }
 
   async getAncestors(contentId) {
@@ -299,11 +296,25 @@ class ConfluenceClient {
   // ==================== Health Check ====================
 
   async healthCheck() {
+    const baseHealth = await super.healthCheck();
+
     try {
       await this.getSpaces();
-      return { status: 'healthy', message: 'Connected to Confluence successfully' };
+      return {
+        ...baseHealth,
+        status: baseHealth.status === 'degraded' ? 'degraded' : 'healthy',
+        service: 'Confluence',
+        message: 'Connected to Confluence successfully',
+        domain: this.domain
+      };
     } catch (error) {
-      return { status: 'unhealthy', message: error.message };
+      return {
+        ...baseHealth,
+        status: 'unhealthy',
+        service: 'Confluence',
+        message: error.message,
+        domain: this.domain
+      };
     }
   }
 }

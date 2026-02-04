@@ -3,14 +3,34 @@
  * Enterprise QA DevOps Squad
  *
  * Handles all interactions with Xray Cloud/Server API.
+ * Extends ResilientClient for circuit breaker, retry, and rate limiting.
  */
 
 const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
+const { ResilientClient } = require('./resilient-client');
 
-class XrayClient {
+class XrayClient extends ResilientClient {
   constructor(options = {}) {
+    // Initialize resilience patterns
+    super({
+      serviceName: 'Xray',
+      timeout: options.timeout || 60000, // Longer timeout for file uploads
+      circuitBreaker: {
+        failureThreshold: options.failureThreshold || 5,
+        resetTimeout: options.resetTimeout || 30000
+      },
+      rateLimiter: {
+        maxTokens: options.maxTokens || 50,   // Xray: ~5000 req/hour = ~83/min
+        refillRate: options.refillRate || 1.4  // ~1.4 tokens/sec
+      },
+      retry: {
+        maxRetries: options.maxRetries || 3,
+        baseDelay: options.baseDelay || 2000   // Longer base delay for Xray
+      }
+    });
+
     this.clientId = options.clientId || process.env.XRAY_CLIENT_ID;
     this.clientSecret = options.clientSecret || process.env.XRAY_CLIENT_SECRET;
     this.isCloud = options.isCloud !== false;
@@ -43,15 +63,20 @@ class XrayClient {
       return this.token;
     }
 
-    // Cloud: Get OAuth token
-    const response = await axios.post('https://xray.cloud.getxray.app/api/v2/authenticate', {
-      client_id: this.clientId,
-      client_secret: this.clientSecret
-    });
+    // Cloud: Get OAuth token with resilience
+    return this.executeWithResilience(
+      async () => {
+        const response = await axios.post('https://xray.cloud.getxray.app/api/v2/authenticate', {
+          client_id: this.clientId,
+          client_secret: this.clientSecret
+        });
 
-    this.token = response.data;
-    this.tokenExpiry = Date.now() + (3600 * 1000); // 1 hour
-    return this.token;
+        this.token = response.data;
+        this.tokenExpiry = Date.now() + (3600 * 1000); // 1 hour
+        return this.token;
+      },
+      { operation: 'authenticate' }
+    );
   }
 
   async getClient() {
@@ -66,110 +91,117 @@ class XrayClient {
     });
   }
 
+  /**
+   * Execute request with resilience patterns
+   */
+  async _request(method, url, data = null, config = {}) {
+    return this.executeWithResilience(
+      async () => {
+        const client = await this.getClient();
+        const response = await client.request({
+          method,
+          url,
+          data,
+          ...config
+        });
+        return response.data;
+      },
+      { operation: `${method} ${url}` }
+    );
+  }
+
   // ==================== Import Operations ====================
 
   async importJunit(file, params = {}) {
-    const token = await this.getToken();
-    const formData = new FormData();
+    return this.executeWithResilience(
+      async () => {
+        const token = await this.getToken();
+        const formData = new FormData();
 
-    if (typeof file === 'string') {
-      formData.append('file', fs.createReadStream(file));
-    } else {
-      formData.append('file', file);
-    }
+        if (typeof file === 'string') {
+          formData.append('file', fs.createReadStream(file));
+        } else {
+          formData.append('file', file);
+        }
 
-    const queryString = new URLSearchParams(params).toString();
-    const url = this.isCloud
-      ? `${this.baseUrl}/import/execution/junit?${queryString}`
-      : `${this.baseUrl}/import/execution/junit?${queryString}`;
+        const queryString = new URLSearchParams(params).toString();
+        const url = `${this.baseUrl}/import/execution/junit?${queryString}`;
 
-    const response = await axios.post(url, formData, {
-      headers: {
-        ...formData.getHeaders(),
-        'Authorization': this.isCloud ? `Bearer ${token}` : `Basic ${token}`
-      }
-    });
+        const response = await axios.post(url, formData, {
+          headers: {
+            ...formData.getHeaders(),
+            'Authorization': this.isCloud ? `Bearer ${token}` : `Basic ${token}`
+          }
+        });
 
-    return response.data;
+        return response.data;
+      },
+      { operation: 'importJunit' }
+    );
   }
 
   async importCucumber(data, params = {}) {
-    const client = await this.getClient();
     const queryString = new URLSearchParams(params).toString();
-    const endpoint = `/import/execution/cucumber?${queryString}`;
-
-    const response = await client.post(endpoint, data);
-    return response.data;
+    return this._request('post', `/import/execution/cucumber?${queryString}`, data);
   }
 
   async importRobotFramework(file, params = {}) {
-    const token = await this.getToken();
-    const formData = new FormData();
-    formData.append('file', fs.createReadStream(file));
+    return this.executeWithResilience(
+      async () => {
+        const token = await this.getToken();
+        const formData = new FormData();
+        formData.append('file', fs.createReadStream(file));
 
-    const queryString = new URLSearchParams(params).toString();
-    const response = await axios.post(
-      `${this.baseUrl}/import/execution/robot?${queryString}`,
-      formData,
-      {
-        headers: {
-          ...formData.getHeaders(),
-          'Authorization': this.isCloud ? `Bearer ${token}` : `Basic ${token}`
-        }
-      }
+        const queryString = new URLSearchParams(params).toString();
+        const response = await axios.post(
+          `${this.baseUrl}/import/execution/robot?${queryString}`,
+          formData,
+          {
+            headers: {
+              ...formData.getHeaders(),
+              'Authorization': this.isCloud ? `Bearer ${token}` : `Basic ${token}`
+            }
+          }
+        );
+
+        return response.data;
+      },
+      { operation: 'importRobotFramework' }
     );
-
-    return response.data;
   }
 
   // ==================== Export Operations ====================
 
   async exportCucumberTests(testKeys) {
-    const client = await this.getClient();
     const keys = Array.isArray(testKeys) ? testKeys.join(';') : testKeys;
-
-    const response = await client.get(`/export/cucumber?keys=${keys}`);
-    return response.data;
+    return this._request('get', `/export/cucumber?keys=${keys}`);
   }
 
   // ==================== Test Operations ====================
 
   async setTestType(testKey, testType) {
-    const client = await this.getClient();
-
     if (this.isCloud) {
-      const response = await client.put(`/test/${testKey}`, {
+      return this._request('put', `/test/${testKey}`, {
         testType: { name: testType }
       });
-      return response.data;
     } else {
-      // Server API is different
-      const response = await client.put(`/api/test/${testKey}`, {
+      return this._request('put', `/api/test/${testKey}`, {
         type: testType
       });
-      return response.data;
     }
   }
 
   async setTestSteps(testKey, steps) {
-    const client = await this.getClient();
-    const response = await client.put(`/test/${testKey}/steps`, steps);
-    return response.data;
+    return this._request('put', `/test/${testKey}/steps`, steps);
   }
 
   async setGherkinDefinition(testKey, gherkin) {
-    const client = await this.getClient();
-    const response = await client.put(`/test/${testKey}`, {
-      gherkin
-    });
-    return response.data;
+    return this._request('put', `/test/${testKey}`, { gherkin });
   }
 
   async getTestsCovering(requirementKey) {
-    const client = await this.getClient();
-
     if (this.isCloud) {
-      const response = await client.get(`/graphql`, {
+      return this._request('get', '/graphql', null, {
         data: {
           query: `
             query {
@@ -183,76 +215,55 @@ class XrayClient {
           `
         }
       });
-      return response.data.data.getTests;
     } else {
-      const response = await client.get(`/api/test?requirement=${requirementKey}`);
-      return response.data;
+      return this._request('get', `/api/test?requirement=${requirementKey}`);
     }
   }
 
   // ==================== Test Execution Operations ====================
 
   async addTestsToExecution(executionKey, testKeys) {
-    const client = await this.getClient();
-    const response = await client.post(`/testexec/${executionKey}/test`, {
+    return this._request('post', `/testexec/${executionKey}/test`, {
       add: testKeys
     });
-    return response.data;
   }
 
   async removeTestsFromExecution(executionKey, testKeys) {
-    const client = await this.getClient();
-    const response = await client.post(`/testexec/${executionKey}/test`, {
+    return this._request('post', `/testexec/${executionKey}/test`, {
       remove: testKeys
     });
-    return response.data;
   }
 
   async setExecutionEnvironments(executionKey, environments) {
-    const client = await this.getClient();
-    const response = await client.put(`/testexec/${executionKey}`, {
+    return this._request('put', `/testexec/${executionKey}`, {
       testEnvironments: environments
     });
-    return response.data;
   }
 
   async setExecutionDates(executionKey, dates) {
-    const client = await this.getClient();
-    const response = await client.put(`/testexec/${executionKey}`, dates);
-    return response.data;
+    return this._request('put', `/testexec/${executionKey}`, dates);
   }
 
   // ==================== Test Set Operations ====================
 
   async getTestsInSet(testSetKey) {
-    const client = await this.getClient();
-    const response = await client.get(`/testset/${testSetKey}/test`);
-    return response.data;
+    return this._request('get', `/testset/${testSetKey}/test`);
   }
 
   async addTestsToSet(testSetKey, testKeys) {
-    const client = await this.getClient();
-    const response = await client.post(`/testset/${testSetKey}/test`, {
+    return this._request('post', `/testset/${testSetKey}/test`, {
       add: testKeys
     });
-    return response.data;
   }
 
   // ==================== Test Plan Operations ====================
 
   async getTestPlanTests(testPlanKey) {
-    const client = await this.getClient();
-    const response = await client.get(`/testplan/${testPlanKey}/test`);
-    return response.data;
+    return this._request('get', `/testplan/${testPlanKey}/test`);
   }
 
   async getTestPlanCoverage(testPlanKey) {
-    const client = await this.getClient();
-
-    // Get tests in plan
     const tests = await this.getTestPlanTests(testPlanKey);
-
-    // Get requirements linked to tests
     const requirements = new Map();
 
     for (const test of tests) {
@@ -279,21 +290,33 @@ class XrayClient {
   // ==================== Test Repository ====================
 
   async moveToFolder(testKey, folderPath) {
-    const client = await this.getClient();
-    const response = await client.put(`/test/${testKey}`, {
+    return this._request('put', `/test/${testKey}`, {
       folder: folderPath
     });
-    return response.data;
   }
 
   // ==================== Health Check ====================
 
   async healthCheck() {
+    const baseHealth = await super.healthCheck();
+
     try {
       await this.getToken();
-      return { status: 'healthy', message: 'Connected to Xray successfully' };
+      return {
+        ...baseHealth,
+        status: baseHealth.status === 'degraded' ? 'degraded' : 'healthy',
+        service: 'Xray',
+        message: 'Connected to Xray successfully',
+        mode: this.isCloud ? 'Cloud' : 'Server/DC'
+      };
     } catch (error) {
-      return { status: 'unhealthy', message: error.message };
+      return {
+        ...baseHealth,
+        status: 'unhealthy',
+        service: 'Xray',
+        message: error.message,
+        mode: this.isCloud ? 'Cloud' : 'Server/DC'
+      };
     }
   }
 }

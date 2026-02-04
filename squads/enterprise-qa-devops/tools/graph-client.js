@@ -3,13 +3,33 @@
  * Enterprise QA DevOps Squad
  *
  * Handles all interactions with Microsoft 365 via Graph API.
+ * Extends ResilientClient for circuit breaker, retry, and rate limiting.
  */
 
 const axios = require('axios');
 const { ConfidentialClientApplication } = require('@azure/msal-node');
+const { ResilientClient } = require('./resilient-client');
 
-class GraphClient {
+class GraphClient extends ResilientClient {
   constructor(options = {}) {
+    // Initialize resilience patterns
+    super({
+      serviceName: 'Microsoft Graph',
+      timeout: options.timeout || 30000,
+      circuitBreaker: {
+        failureThreshold: options.failureThreshold || 5,
+        resetTimeout: options.resetTimeout || 30000
+      },
+      rateLimiter: {
+        maxTokens: options.maxTokens || 100,  // Graph: 10,000 req/10min = ~17/sec
+        refillRate: options.refillRate || 10   // 10 tokens/sec
+      },
+      retry: {
+        maxRetries: options.maxRetries || 3,
+        baseDelay: options.baseDelay || 1000
+      }
+    });
+
     this.clientId = options.clientId || process.env.MS365_CLIENT_ID;
     this.clientSecret = options.clientSecret || process.env.MS365_CLIENT_SECRET;
     this.tenantId = options.tenantId || process.env.MS365_TENANT_ID;
@@ -62,24 +82,38 @@ class GraphClient {
     });
   }
 
+  /**
+   * Execute request with resilience patterns
+   */
+  async _request(method, url, data = null, config = {}) {
+    return this.executeWithResilience(
+      async () => {
+        const client = await this.getClient();
+        const response = await client.request({
+          method,
+          url,
+          data,
+          ...config
+        });
+        return response.data;
+      },
+      { operation: `${method} ${url}` }
+    );
+  }
+
   // ==================== Mail Operations ====================
 
   async sendMail(payload, userId = 'me') {
-    const client = await this.getClient();
-    const response = await client.post(`/users/${userId}/sendMail`, payload);
-    return response.data;
+    return this._request('post', `/users/${userId}/sendMail`, payload);
   }
 
   async getMessages(userId = 'me', options = {}) {
-    const client = await this.getClient();
     const params = {
       $top: options.limit || 10,
       $orderby: 'receivedDateTime desc',
       $filter: options.filter
     };
-
-    const response = await client.get(`/users/${userId}/messages`, { params });
-    return response.data;
+    return this._request('get', `/users/${userId}/messages`, null, { params });
   }
 
   async getUnreadMessages(userId = 'me', limit = 10) {
@@ -90,29 +124,22 @@ class GraphClient {
   }
 
   async getMessage(messageId, userId = 'me') {
-    const client = await this.getClient();
-    const response = await client.get(`/users/${userId}/messages/${messageId}`);
-    return response.data;
+    return this._request('get', `/users/${userId}/messages/${messageId}`);
   }
 
   async markAsRead(messageId, userId = 'me') {
-    const client = await this.getClient();
-    const response = await client.patch(`/users/${userId}/messages/${messageId}`, {
+    return this._request('patch', `/users/${userId}/messages/${messageId}`, {
       isRead: true
     });
-    return response.data;
   }
 
   // ==================== Calendar Operations ====================
 
   async createEvent(event, userId = 'me') {
-    const client = await this.getClient();
-    const response = await client.post(`/users/${userId}/events`, event);
-    return response.data;
+    return this._request('post', `/users/${userId}/events`, event);
   }
 
   async getEvents(userId = 'me', options = {}) {
-    const client = await this.getClient();
     const params = {
       $top: options.limit || 10,
       $orderby: 'start/dateTime'
@@ -122,173 +149,152 @@ class GraphClient {
       params.$filter = `start/dateTime ge '${options.startDateTime}' and end/dateTime le '${options.endDateTime}'`;
     }
 
-    const response = await client.get(`/users/${userId}/events`, { params });
-    return response.data;
+    return this._request('get', `/users/${userId}/events`, null, { params });
   }
 
   async getEvent(eventId, userId = 'me') {
-    const client = await this.getClient();
-    const response = await client.get(`/users/${userId}/events/${eventId}`);
-    return response.data;
+    return this._request('get', `/users/${userId}/events/${eventId}`);
   }
 
   async updateEvent(eventId, updates, userId = 'me') {
-    const client = await this.getClient();
-    const response = await client.patch(`/users/${userId}/events/${eventId}`, updates);
-    return response.data;
+    return this._request('patch', `/users/${userId}/events/${eventId}`, updates);
   }
 
   async deleteEvent(eventId, userId = 'me') {
-    const client = await this.getClient();
-    await client.delete(`/users/${userId}/events/${eventId}`);
+    await this._request('delete', `/users/${userId}/events/${eventId}`);
     return { success: true };
   }
 
   // ==================== Teams Operations ====================
 
   async getJoinedTeams(userId = 'me') {
-    const client = await this.getClient();
-    const response = await client.get(`/users/${userId}/joinedTeams`);
-    return response.data;
+    return this._request('get', `/users/${userId}/joinedTeams`);
   }
 
   async getTeam(teamId) {
-    const client = await this.getClient();
-    const response = await client.get(`/teams/${teamId}`);
-    return response.data;
+    return this._request('get', `/teams/${teamId}`);
   }
 
   async getChannels(teamId) {
-    const client = await this.getClient();
-    const response = await client.get(`/teams/${teamId}/channels`);
-    return response.data;
+    return this._request('get', `/teams/${teamId}/channels`);
   }
 
   async getChannel(teamId, channelId) {
-    const client = await this.getClient();
-    const response = await client.get(`/teams/${teamId}/channels/${channelId}`);
-    return response.data;
+    return this._request('get', `/teams/${teamId}/channels/${channelId}`);
   }
 
   async postChannelMessage(teamId, channelId, message) {
-    const client = await this.getClient();
-    const response = await client.post(
-      `/teams/${teamId}/channels/${channelId}/messages`,
-      message
-    );
-    return response.data;
+    return this._request('post', `/teams/${teamId}/channels/${channelId}/messages`, message);
   }
 
   async getChannelMessages(teamId, channelId, options = {}) {
-    const client = await this.getClient();
     const params = {
       $top: options.limit || 20
     };
-    const response = await client.get(
-      `/teams/${teamId}/channels/${channelId}/messages`,
-      { params }
-    );
-    return response.data;
+    return this._request('get', `/teams/${teamId}/channels/${channelId}/messages`, null, { params });
   }
 
   // ==================== User Operations ====================
 
   async getUser(userId) {
-    const client = await this.getClient();
-    const response = await client.get(`/users/${userId}`);
-    return response.data;
+    return this._request('get', `/users/${userId}`);
   }
 
   async getUserByEmail(email) {
-    const client = await this.getClient();
-    const response = await client.get('/users', {
+    const response = await this._request('get', '/users', null, {
       params: {
         $filter: `mail eq '${email}' or userPrincipalName eq '${email}'`
       }
     });
 
-    if (response.data.value.length === 0) {
+    if (response.value.length === 0) {
       throw new Error(`User not found: ${email}`);
     }
 
-    return response.data.value[0];
+    return response.value[0];
   }
 
   async searchUsers(query) {
-    const client = await this.getClient();
-    const response = await client.get('/users', {
+    return this._request('get', '/users', null, {
       params: {
         $filter: `startsWith(displayName, '${query}') or startsWith(mail, '${query}')`
       }
     });
-    return response.data;
   }
 
   // ==================== OneDrive/SharePoint Operations ====================
 
   async uploadFile(content, path, driveId = null) {
-    const client = await this.getClient();
     const endpoint = driveId
       ? `/drives/${driveId}/root:${path}:/content`
       : `/me/drive/root:${path}:/content`;
 
-    const response = await client.put(endpoint, content, {
-      headers: {
-        'Content-Type': 'application/octet-stream'
-      }
-    });
-    return response.data;
+    return this.executeWithResilience(
+      async () => {
+        const client = await this.getClient();
+        const response = await client.put(endpoint, content, {
+          headers: {
+            'Content-Type': 'application/octet-stream'
+          }
+        });
+        return response.data;
+      },
+      { operation: 'uploadFile' }
+    );
   }
 
   async getFile(path, driveId = null) {
-    const client = await this.getClient();
     const endpoint = driveId
       ? `/drives/${driveId}/root:${path}`
       : `/me/drive/root:${path}`;
-
-    const response = await client.get(endpoint);
-    return response.data;
+    return this._request('get', endpoint);
   }
 
   async listFolder(path, driveId = null) {
-    const client = await this.getClient();
     const endpoint = driveId
       ? `/drives/${driveId}/root:${path}:/children`
       : `/me/drive/root:${path}:/children`;
-
-    const response = await client.get(endpoint);
-    return response.data;
+    return this._request('get', endpoint);
   }
 
   async createSharingLink(itemId, type = 'view', driveId = null) {
-    const client = await this.getClient();
     const endpoint = driveId
       ? `/drives/${driveId}/items/${itemId}/createLink`
       : `/me/drive/items/${itemId}/createLink`;
-
-    const response = await client.post(endpoint, {
+    return this._request('post', endpoint, {
       type,
       scope: 'organization'
     });
-    return response.data;
   }
 
   // ==================== Presence ====================
 
   async getUserPresence(userId) {
-    const client = await this.getClient();
-    const response = await client.get(`/users/${userId}/presence`);
-    return response.data;
+    return this._request('get', `/users/${userId}/presence`);
   }
 
   // ==================== Health Check ====================
 
   async healthCheck() {
+    const baseHealth = await super.healthCheck();
+
     try {
       await this.getToken();
-      return { status: 'healthy', message: 'Connected to Microsoft Graph successfully' };
+      return {
+        ...baseHealth,
+        status: baseHealth.status === 'degraded' ? 'degraded' : 'healthy',
+        service: 'Microsoft Graph',
+        message: 'Connected to Microsoft Graph successfully',
+        tenantId: this.tenantId
+      };
     } catch (error) {
-      return { status: 'unhealthy', message: error.message };
+      return {
+        ...baseHealth,
+        status: 'unhealthy',
+        service: 'Microsoft Graph',
+        message: error.message,
+        tenantId: this.tenantId
+      };
     }
   }
 }
