@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-03T20:51:09.899Z"
+generated_at: "2026-02-04T23:38:17.730Z"
 generator: scripts/generate-install-manifest.js
-file_count: 859
+file_count: 860
 files:
   - path: cli/commands/generate/index.js
     hash: sha256:36f8e38ab767fa5478d8dabac548c66dc2c0fc521c216e954ac33fcea0ba597b
@@ -169,9 +169,9 @@ files:
     type: cli
     size: 5907
   - path: core-config.yaml
-    hash: sha256:931f58371092ca2ab08b7272bbac84a0c6dfeae62c27ebc5c420a9d66326039e
+    hash: sha256:6abd0a2d9efd5f504cedce5fddb90fddcdbf943b720911ec2d3f1fc02be47414
     type: config
-    size: 15939
+    size: 16329
   - path: core/config/config-cache.js
     hash: sha256:527a788cbe650aa6b13d1101ebc16419489bfef20b2ee93042f6eb6a51e898e9
     type: core
@@ -885,9 +885,9 @@ files:
     type: script
     size: 5551
   - path: development/scripts/greeting-builder.js
-    hash: sha256:89b17abcb8d2aa20c195fe590e0bd65452ea28bbd905163cbeaa3fd5554f2ad3
+    hash: sha256:d8f051ebcdffc4c2d50e792ec4399c7d2d5f9f00543147ff6175c3c1d539b18c
     type: script
-    size: 30369
+    size: 33715
   - path: development/scripts/greeting-config-cli.js
     hash: sha256:1535acc8d5c802eb3dec7b7348f876a34974fbe4cfa760a9108d5554a72c4cf6
     type: script
@@ -2444,6 +2444,10 @@ files:
     hash: sha256:91111d656e8d7b38a20a1bda753e663b74318f75cdab2025c7e0b84c775fc83d
     type: script
     size: 6692
+  - path: infrastructure/scripts/validate-user-profile.js
+    hash: sha256:8d9e687b842135a184c87a72b83b9a1448b0315c5030d6119b32003059b5cf77
+    type: script
+    size: 6689
   - path: infrastructure/scripts/visual-impact-generator.js
     hash: sha256:e05d36747f55b52f58f6bd9cc8cfd7191d6695e46302a00c53a53d3ec56847fb
     type: script
@@ -2937,9 +2941,9 @@ files:
     type: template
     size: 3081
   - path: product/templates/ide-rules/claude-rules.md
-    hash: sha256:47a9dfb33826abaee86acdffb46594eea40c3bef63559b0bf7861594c76ff2fa
+    hash: sha256:13d5fb7858534f6d49150a5dff642faa276c17b9d242f995369c5e7e1d37ae40
     type: template
-    size: 6350
+    size: 6785
   - path: product/templates/ide-rules/cline-rules.md
     hash: sha256:2475324a2d0ec92e4132a9a77631f21a34d51fce8da52fd03f945fc036de564d
     type: template
