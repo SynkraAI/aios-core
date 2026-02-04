@@ -106,6 +106,21 @@ CREATE TABLE IF NOT EXISTS aios_metadata (
   updated_at TEXT NOT NULL
 )`;
 
+// Embedding cache table
+const CREATE_EMBEDDING_CACHE_TABLE = `
+CREATE TABLE IF NOT EXISTS aios_embedding_cache (
+  content_hash TEXT PRIMARY KEY,
+  embedding BLOB NOT NULL,
+  model_version TEXT NOT NULL,
+  dimensions INTEGER NOT NULL,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+)`;
+
+const CREATE_EMBEDDING_CACHE_INDEX = `
+CREATE INDEX IF NOT EXISTS idx_embedding_cache_model
+ON aios_embedding_cache(model_version)
+`;
+
 // =============================================================================
 // Schema Management
 // =============================================================================
@@ -121,6 +136,8 @@ export function createSchema(conn: ConnectionInfo): void {
   db.exec(CREATE_RELATIONS_TABLE);
   db.exec(CREATE_TRACES_TABLE);
   db.exec(CREATE_METADATA_TABLE);
+  db.exec(CREATE_EMBEDDING_CACHE_TABLE);
+  db.exec(CREATE_EMBEDDING_CACHE_INDEX);
 
   // Create indexes
   for (const indexSql of CREATE_INDEXES) {

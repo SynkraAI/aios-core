@@ -197,9 +197,9 @@ export interface MemoryLayerConfig {
 
 export interface MemoryLayer {
   // Facts (Layer 1)
-  addFact(fact: FactInput): Promise<Fact>;
+  addFact(fact: FactInput & { skipEmbedding?: boolean }): Promise<Fact>;
   getFacts(filter?: FactFilter): Promise<Fact[]>;
-  supersedeFact(id: string, newFact: string): Promise<Fact>;
+  supersedeFact(id: string, newFact: string, options?: { skipEmbedding?: boolean }): Promise<Fact>;
 
   // Daily Notes (Layer 2)
   logToDaily(entry: DailyEntry): Promise<void>;

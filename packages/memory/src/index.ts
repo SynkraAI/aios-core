@@ -44,6 +44,12 @@ import {
   getFacts as getFactsFromFile,
   supersedeFact as supersedeFactInFile
 } from './files/facts';
+import {
+  generateEmbeddingCached,
+  generateEmbeddingsCached,
+  getEmbeddingCacheStats
+} from './embeddings/cached-generator';
+import { indexEmbedding as indexVectorEmbedding } from './db/search';
 
 // =============================================================================
 // Re-exports
@@ -51,6 +57,48 @@ import {
 
 export * from './types';
 export { getMemoryPaths, ensureDirectoryStructure } from './files/directory';
+
+// Embedding exports
+export {
+  MODEL_NAME,
+  MODEL_DIMENSIONS,
+  getEmbeddingPipeline,
+  preloadModel,
+  isModelLoaded,
+  isModelCached,
+  unloadModel,
+  getModelInfo,
+  type ModelLoadProgress,
+  type ProgressCallback
+} from './embeddings/model-loader';
+
+export {
+  generateEmbedding,
+  generateEmbeddings,
+  cosineSimilarity,
+  getEmbeddingDimensions,
+  type BatchProgress,
+  type BatchProgressCallback
+} from './embeddings/generator';
+
+export {
+  hashContent,
+  getCachedEmbedding,
+  cacheEmbedding,
+  getCacheStats,
+  resetCacheStats,
+  clearCache,
+  clearOldCache,
+  invalidateCacheEntry,
+  type CacheStats
+} from './embeddings/cache';
+
+export {
+  generateEmbeddingCached,
+  generateEmbeddingsCached,
+  getEmbeddingCacheStats,
+  type CachedGeneratorOptions
+} from './embeddings/cached-generator';
 
 // =============================================================================
 // Memory Layer Implementation
@@ -71,7 +119,7 @@ class MemoryLayerImpl implements MemoryLayer {
   // Facts (Layer 1)
   // ===========================================================================
 
-  async addFact(input: FactInput): Promise<Fact> {
+  async addFact(input: FactInput & { skipEmbedding?: boolean }): Promise<Fact> {
     // Add to file (source of truth)
     const fact = await addFactToFile(input, this.basePath);
 
@@ -79,11 +127,26 @@ class MemoryLayerImpl implements MemoryLayer {
     const { db } = this.conn;
     const memoryId = `mem-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 8)}`;
 
+    // Generate embedding if not skipped and vector search is enabled
+    let embeddingBlob: Buffer | null = null;
+    if (!input.skipEmbedding && this.conn.vectorSearchEnabled) {
+      try {
+        const embedding = await generateEmbeddingCached(fact.fact, { db });
+        embeddingBlob = Buffer.from(new Float32Array(embedding).buffer);
+
+        // Index in vector table
+        indexVectorEmbedding(this.conn, memoryId, embedding);
+      } catch (error) {
+        // Non-fatal: proceed without embedding
+        console.warn('Failed to generate embedding for fact:', error);
+      }
+    }
+
     db.prepare(`
       INSERT INTO aios_memories (
         id, memory_type, entity, content, category, priority, status,
-        source_file, source_session, created_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        source_file, source_session, embedding, created_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
       memoryId,
       'entity',
@@ -94,6 +157,7 @@ class MemoryLayerImpl implements MemoryLayer {
       fact.status,
       'facts/entities.jsonl',
       fact.source_session || null,
+      embeddingBlob,
       fact.created
     );
 
@@ -104,7 +168,7 @@ class MemoryLayerImpl implements MemoryLayer {
     return getFactsFromFile(filter, this.basePath);
   }
 
-  async supersedeFact(id: string, newFact: string): Promise<Fact> {
+  async supersedeFact(id: string, newFact: string, options?: { skipEmbedding?: boolean }): Promise<Fact> {
     // Supersede in file
     const fact = await supersedeFactInFile(id, newFact, this.basePath);
 
@@ -119,11 +183,26 @@ class MemoryLayerImpl implements MemoryLayer {
     // Add new fact to index
     const memoryId = `mem-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 8)}`;
 
+    // Generate embedding if not skipped and vector search is enabled
+    let embeddingBlob: Buffer | null = null;
+    if (!options?.skipEmbedding && this.conn.vectorSearchEnabled) {
+      try {
+        const embedding = await generateEmbeddingCached(fact.fact, { db });
+        embeddingBlob = Buffer.from(new Float32Array(embedding).buffer);
+
+        // Index in vector table
+        indexVectorEmbedding(this.conn, memoryId, embedding);
+      } catch (error) {
+        // Non-fatal: proceed without embedding
+        console.warn('Failed to generate embedding for superseded fact:', error);
+      }
+    }
+
     db.prepare(`
       INSERT INTO aios_memories (
         id, memory_type, entity, content, category, priority, status,
-        source_file, source_session, created_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        source_file, source_session, embedding, created_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
       memoryId,
       'entity',
@@ -134,6 +213,7 @@ class MemoryLayerImpl implements MemoryLayer {
       fact.status,
       'facts/entities.jsonl',
       fact.source_session || null,
+      embeddingBlob,
       fact.created
     );
 
