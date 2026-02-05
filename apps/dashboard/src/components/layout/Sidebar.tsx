@@ -1,6 +1,7 @@
 'use client';
 
 import { useUIStore } from '@/stores/ui-store';
+import { useBobStore } from '@/stores/bob-store';
 import { SIDEBAR_ITEMS } from '@/types';
 import { cn } from '@/lib/utils';
 import { iconMap } from '@/lib/icons';
@@ -11,6 +12,8 @@ interface SidebarProps {
 
 export function Sidebar({ className }: SidebarProps) {
   const { sidebarCollapsed, activeView, setActiveView } = useUIStore();
+  const bobActive = useBobStore((s) => s.active);
+  const bobInactive = useBobStore((s) => s.isInactive);
 
   return (
     <aside
@@ -43,6 +46,7 @@ export function Sidebar({ className }: SidebarProps) {
               isActive={activeView === item.id}
               isCollapsed={sidebarCollapsed}
               onClick={() => setActiveView(item.id)}
+              badge={item.id === 'bob' && bobActive ? (bobInactive ? 'inactive' : 'active') : undefined}
             />
           ))}
         </ul>
@@ -56,9 +60,10 @@ interface SidebarNavItemProps {
   isActive: boolean;
   isCollapsed: boolean;
   onClick: () => void;
+  badge?: 'active' | 'inactive';
 }
 
-function SidebarNavItem({ item, isActive, isCollapsed, onClick }: SidebarNavItemProps) {
+function SidebarNavItem({ item, isActive, isCollapsed, onClick, badge }: SidebarNavItemProps) {
   return (
     <li>
       <button
@@ -100,6 +105,25 @@ function SidebarNavItem({ item, isActive, isCollapsed, onClick }: SidebarNavItem
 
         {/* Label (hidden when collapsed) */}
         {!isCollapsed && <span className="flex-1 truncate text-left">{item.label}</span>}
+
+        {/* Badge (e.g., Bob active/inactive) */}
+        {!isCollapsed && badge && (
+          <span
+            className="rounded-full px-1.5 py-0.5 text-[9px] font-medium"
+            style={{
+              backgroundColor: badge === 'active' ? '#22c55e20' : '#6b728020',
+              color: badge === 'active' ? '#22c55e' : '#6b7280',
+            }}
+          >
+            {badge}
+          </span>
+        )}
+        {isCollapsed && badge === 'active' && (
+          <span
+            className="absolute top-1 right-1 h-2 w-2 rounded-full"
+            style={{ backgroundColor: '#22c55e' }}
+          />
+        )}
 
         {/* Keyboard shortcut hint */}
         {!isCollapsed && item.shortcut && (
