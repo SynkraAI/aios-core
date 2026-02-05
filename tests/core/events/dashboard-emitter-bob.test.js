@@ -209,8 +209,6 @@ describe('DashboardEmitter Bob-specific methods', () => {
   describe('Disabled emitter', () => {
     it('should not emit when disabled', async () => {
       emitter.enabled = false;
-      const events = [];
-      const originalEmit = emitter.emit;
 
       // Override _postEvent to track calls
       let postCalled = false;

@@ -96,6 +96,7 @@ Environment Variables:
   AIOS_OUTPUT_DIR    Output directory (default: /tmp)
   AIOS_DEBUG         Enable debug mode (default: false)
   AIOS_TIMEOUT       Timeout in seconds (default: 300)
+  AIOS_INLINE_MODE   Run without a visual terminal (default: false)
   CLAUDE_CMD         Claude CLI command (default: claude)
 
 Examples:
