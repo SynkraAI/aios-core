@@ -261,6 +261,11 @@ squads/.designs/
 npm-recovery-codes.txt
 
 # ============================================
+# LOCAL CONFIG (ADR-PRO-002 — machine-specific secrets, never committed)
+# ============================================
+.aios-core/local-config.yaml
+
+# ============================================
 # .AIOS-CORE INTERNAL/GENERATED FILES
 # ============================================
 

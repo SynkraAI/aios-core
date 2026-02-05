@@ -1,0 +1,20 @@
+# Test fixture: L1 Framework config
+metadata:
+  framework_name: "AIOS-FullStack"
+  framework_version: "3.12.0"
+
+resource_locations:
+  agents: ".aios-core/development/agents"
+  tasks: ".aios-core/development/tasks"
+
+performance_defaults:
+  max_concurrent_operations: 4
+  cache_ttl_seconds: 300
+
+utility_scripts_registry:
+  scripts_base: ".aios-core/development/scripts"
+
+ide_sync_system:
+  enabled: true
+  targets:
+    - ".claude/CLAUDE.md"

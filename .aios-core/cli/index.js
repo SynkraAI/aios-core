@@ -21,6 +21,7 @@ const { createMcpCommand } = require('./commands/mcp');
 const { createMigrateCommand } = require('./commands/migrate');
 const { createGenerateCommand } = require('./commands/generate');
 const { createMetricsCommand } = require('./commands/metrics');
+const { createConfigCommand } = require('./commands/config');
 
 // Read package.json for version
 const packageJsonPath = path.join(__dirname, '..', '..', 'package.json');
@@ -49,6 +50,7 @@ Commands:
   manifest          Manage manifest files (validate, regenerate)
   qa                Quality Gate Manager (run, status)
   metrics           Quality Gate Metrics (record, show, seed, cleanup)
+  config            Manage layered configuration (show, diff, migrate, validate)
   mcp               Manage global MCP configuration
   migrate           Migrate from v2.0 to v2.1 structure
   generate          Generate documents from templates (prd, adr, pmdr, etc.)
@@ -78,6 +80,12 @@ Examples:
   $ aios generate pmdr --title "Feature X Decision"
   $ aios generate adr --save
   $ aios generate list
+  $ aios config show
+  $ aios config show --debug
+  $ aios config diff --levels L1,L2
+  $ aios config migrate --dry-run
+  $ aios config validate
+  $ aios config init-local
   $ aios install
   $ aios doctor
 `);
@@ -102,6 +110,9 @@ Examples:
 
   // Add metrics command (Story 3.11a)
   program.addCommand(createMetricsCommand());
+
+  // Add config command (Story PRO-4)
+  program.addCommand(createConfigCommand());
 
   return program;
 }

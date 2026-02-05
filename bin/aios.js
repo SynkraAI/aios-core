@@ -83,6 +83,14 @@ VALIDATION:
   aios validate --repair --dry-run # Preview repairs
   aios validate --detailed         # Show detailed file list
 
+CONFIGURATION:
+  aios config show                       # Show resolved configuration
+  aios config show --debug               # Show with source annotations
+  aios config diff --levels L1,L2        # Compare config levels
+  aios config migrate                    # Migrate monolithic to layered
+  aios config validate                   # Validate config files
+  aios config init-local                 # Create local-config.yaml
+
 SERVICE DISCOVERY:
   aios workers search <query>            # Search for workers
   aios workers search "json" --category=data
@@ -941,6 +949,17 @@ async function main() {
         await run(process.argv);
       } catch (error) {
         console.error(`❌ Workers command error: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+
+    case 'config':
+      // Layered Configuration CLI - Story PRO-4
+      try {
+        const { run } = require('../.aios-core/cli/index.js');
+        await run(process.argv);
+      } catch (error) {
+        console.error(`❌ Config command error: ${error.message}`);
         process.exit(1);
       }
       break;
