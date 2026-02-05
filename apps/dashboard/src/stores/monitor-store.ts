@@ -181,3 +181,35 @@ export const selectCurrentTool = (state: MonitorState): MonitorEvent | undefined
 
   return undefined;
 };
+
+export interface CurrentCommand {
+  name: string;
+  status: 'running' | 'complete' | 'error';
+  startedAt: number;
+}
+
+export interface ActiveAgent {
+  id: string;
+  name: string;
+}
+
+export const selectCurrentCommand = (state: MonitorState): CurrentCommand | null => {
+  const currentTool = selectCurrentTool(state);
+  if (!currentTool) return null;
+
+  return {
+    name: currentTool.tool_name || 'unknown',
+    status: 'running',
+    startedAt: currentTool.timestamp,
+  };
+};
+
+export const selectActiveAgent = (state: MonitorState): ActiveAgent | null => {
+  const agentEvent = state.events.find((e) => e.aios_agent);
+  if (!agentEvent?.aios_agent) return null;
+
+  return {
+    id: agentEvent.aios_agent,
+    name: agentEvent.aios_agent,
+  };
+};

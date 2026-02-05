@@ -34,7 +34,7 @@ export function useMonitorEvents() {
     setEvents,
   } = useMonitorStore();
 
-  const connectRef = useRef<() => void>();
+  const connectRef = useRef<(() => void) | undefined>(undefined);
 
   const connect = useCallback(() => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {

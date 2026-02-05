@@ -1,7 +1,8 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 # AIOS CodeRabbit Configuration
-# Story: COLLAB-1
+# Story: COLLAB-1, 12.11
 # Created: 2025-12-30
+# Updated: 2026-02-05 (Story 12.11 - Bob CI/CD Pipeline)
 #
 # CodeRabbit provides AI-powered code review for pull requests
 # Documentation: https://docs.coderabbit.ai/getting-started/yaml-configuration
@@ -27,6 +28,27 @@ reviews:
 
   # Path-specific review instructions (array format per schema)
   path_instructions:
+    - path: ".aios-core/core/**"
+      instructions: |
+        CRITICAL PATH: Core framework modules require thorough review.
+        Verify error handling is comprehensive with proper try/catch and error context.
+        Check for race conditions in orchestration modules (lock-manager, session-state).
+        Validate async/await patterns and ensure no unhandled promise rejections.
+        Ensure backwards compatibility — core modules are consumed by all agents.
+        Check for proper input validation on public API methods.
+        Verify test coverage exists for new/modified functions.
+        Flag any hardcoded paths, credentials, or environment-specific values.
+
+    - path: ".aios-core/core/orchestration/**"
+      instructions: |
+        Bob orchestration modules — highest scrutiny required.
+        Verify bob-orchestrator.js maintains single-responsibility for workflow dispatch.
+        Check lock-manager.js for deadlock prevention and proper cleanup.
+        Validate terminal-spawner.js handles all platforms (Unix shell, Windows fallback).
+        Ensure workflow-executor.js callback lifecycle is correct (onStart, onComplete, onError).
+        Check session-state.js for thread-safety and state corruption prevention.
+        Verify message-formatter.js output is consistent across all message types.
+
     - path: ".aios-core/development/agents/**"
       instructions: |
         Verify agent follows AIOS agent YAML structure (persona_profile, commands, dependencies).

@@ -1,7 +1,7 @@
 # Story Backlog
 
 **Created:** 2026-02-05
-**Last Updated:** 2026-02-05 (EPIC12-F1 marcado DONE — todas stories já shardadas)
+**Last Updated:** 2026-02-05 (EPIC12-CLOSE delegado a @devops para fechamento do Epic)
 **Owner:** @po (Pax)
 
 ---
@@ -10,16 +10,41 @@
 
 | Metric | Count |
 |--------|-------|
-| Total Items | 6 |
+| Total Items | 7 |
 | TODO | 3 |
 | CANCELLED | 1 |
-| IN PROGRESS | 0 |
+| IN PROGRESS | 1 |
 | BLOCKED | 0 |
 | DONE | 2 |
 
 ---
 
 ## 🔴 HIGH Priority
+
+#### [EPIC12-CLOSE] Fechar Epic 12 — Merge + Branch Protection
+- **Status:** 🔄 IN PROGRESS
+- **Assignee:** @devops (Gage)
+- **Created:** 2026-02-05
+- **Delegated by:** @po (Pax)
+- **Description:** Finalizar Epic 12 com merge de feat/epic-12 → main e configuração de branch protection.
+- **Tasks:**
+  - [ ] Criar PR feat/epic-12 → main
+  - [ ] Review e approve
+  - [ ] Merge (squash)
+  - [ ] Task 5.2: Adicionar `bob-test` aos required status checks
+  - [ ] Task 5.4: Verificar squash merge enforced via GitHub Settings
+  - [ ] Task 5.5: Documentar configuração no PR
+  - [ ] Mover 12.11.story.md para docs/stories/completed/
+  - [ ] Atualizar project-status.yaml para 100%
+- **Success Criteria:**
+  - [ ] PR merged com squash
+  - [ ] `bob-test` em required checks
+  - [ ] Story 12.11 em completed/
+  - [ ] Epic 12 = 100% DONE
+- **Acceptance:** Epic 12 fechado, branch protection completa, documentação atualizada.
+- **Effort:** ~30 min
+
+---
 
 #### [EPIC12-F1] ~~Shardar stories 12.1-12.12 em arquivos individuais~~ CONCLUÍDO
 - **Status:** ✅ DONE
