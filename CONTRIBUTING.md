@@ -18,6 +18,7 @@ Welcome to AIOS! Thank you for your interest in contributing. This guide will he
 - [Testing Requirements](#testing-requirements)
 - [Frequently Asked Questions](#frequently-asked-questions)
 - [Getting Help](#getting-help)
+- [Working with Pro](#working-with-pro)
 
 ---
 
@@ -526,6 +527,45 @@ Common fixes:
 - **GitHub Issues:** [Open an issue](https://github.com/SynkraAI/aios-core/issues)
 - **Discussions:** [Start a discussion](https://github.com/SynkraAI/aios-core/discussions)
 - **Community:** [COMMUNITY.md](COMMUNITY.md)
+
+---
+
+## Working with Pro
+
+AIOS uses an Open Core model with a private `pro/` git submodule (see [ADR-PRO-001](docs/architecture/adr/adr-pro-001-repository-strategy.md)).
+
+### For Open-Source Contributors
+
+**You do NOT need the pro/ submodule.** The standard clone works perfectly:
+
+```bash
+git clone https://github.com/SynkraAI/aios-core.git
+cd aios-core
+npm install && npm test  # All tests pass without pro/
+```
+
+The `pro/` directory will simply not exist in your clone — this is expected and all features, tests, and CI pass without it.
+
+### For Team Members (with Pro Access)
+
+```bash
+# Clone with submodule
+git clone --recurse-submodules https://github.com/SynkraAI/aios-core.git
+
+# Or add to existing clone
+git submodule update --init pro
+```
+
+**Push order:** Always push `pro/` changes first, then `aios-core`.
+
+### Future: CLI Setup
+
+```bash
+# Coming in a future release
+aios setup --pro
+```
+
+For the complete developer workflow guide, see [Pro Developer Workflow](docs/guides/workflows/pro-developer-workflow.md).
 
 ---
 
