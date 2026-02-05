@@ -55,7 +55,7 @@ heuristic:
 
 Every heuristic needs a decision tree:
 
-```
+```text
 PRIMARY BRANCH (highest priority):
   IF (critical_condition_violated)
     THEN VETO → immediate action
@@ -318,7 +318,7 @@ performance:
 
 Heuristics work within quality gates:
 
-```
+```text
 ┌─────────────────────────────────────────┐
 │  QUALITY GATE                           │
 ├─────────────────────────────────────────┤

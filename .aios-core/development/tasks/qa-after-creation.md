@@ -170,11 +170,11 @@ security_scan:
 
   scan_command: |
     # Run all security patterns
-    grep -rE "(api[_-]?key|secret|password|bearer|jwt)\\s*[:=]\\s*['\"][^'\"${}]{8,}" {path} || true
-    grep -rE "AKIA[A-Z0-9]{16}" {path} || true
-    grep -rE "(postgres|mysql|mongodb)://[^:]+:[^@]+@" {path} || true
-    grep -rE "-----BEGIN.*PRIVATE KEY-----" {path} || true
-    find {path} -name ".env*" -o -name "*.pem" -o -name "credentials*.json" 2>/dev/null || true
+    grep -rE "(api[_-]?key|secret|password|bearer|jwt)\\s*[:=]\\s*['\"][^'\"${}]{8,}" {created_component} || true
+    grep -rE "AKIA[A-Z0-9]{16}" {created_component} || true
+    grep -rE "(postgres|mysql|mongodb)://[^:]+:[^@]+@" {created_component} || true
+    grep -rE "-----BEGIN.*PRIVATE KEY-----" {created_component} || true
+    find {created_component} -name ".env*" -o -name "*.pem" -o -name "credentials*.json" 2>/dev/null || true
 ```
 
 ---
@@ -299,9 +299,9 @@ quality_scoring:
         checks: ['purpose clear', 'usage examples']
 
   thresholds:
-    pass: 7.0
-    conditional: 5.0
-    fail: 5.0
+    pass: '>=7.0'
+    conditional: '>=5.0 and <7.0'
+    fail: '<5.0'
 ```
 
 ---
