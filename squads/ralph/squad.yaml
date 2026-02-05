@@ -1,0 +1,78 @@
+name: ralph
+version: 1.0.0
+description: |
+  Autonomous Development Loop Orchestrator - Implementa o conceito Ralph
+  (context-fresh iterations) integrado com a inteligência do AIOS.
+  Usa swarm de agentes especializados, scripts para economia de tokens,
+  e memória persistente em arquivos para manter contexto entre iterações.
+author: Oximito
+license: MIT
+domain: autonomous-development-orchestration
+slashPrefix: ralph
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+components:
+  agents:
+    - ralph.md
+  tasks:
+    - ralph-develop.md
+    - ralph-report.md
+    - ralph-resume.md
+    - ralph-status.md
+    - ralph-config.md
+  workflows: []
+  checklists: []
+  templates: []
+  tools: []
+  scripts:
+    - ralph-parser.js
+    - ralph-state.js
+    - ralph-progress.js
+    - ralph-context-monitor.js
+
+config:
+  extends: extend
+  coding-standards: config/coding-standards.md
+  tech-stack: config/tech-stack.md
+  source-tree: config/source-tree.md
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+context_management:
+  strategy: dual-layer-fresh-context
+  layer_1_subagents:
+    mechanism: "Task tool -> subagent com contexto 0"
+    when: "Toda execução de tarefa"
+  layer_2_orchestrator_reset:
+    mechanism: "Salva estado em arquivos -> instrui *resume"
+    when: "Contexto do Ralph principal fica pesado (~80k tokens)"
+    state_files:
+      - progress.md
+      - ralph-state.yaml
+      - story file (checkboxes)
+      - decision-log.md
+
+swarm_orchestration:
+  agent_selection:
+    code_implementation: "@dev"
+    testing_validation: "@qa"
+    architecture_decisions: "@architect"
+    story_creation: "@pm/@sm"
+    database_etl: "@data-engineer"
+    ui_ux: "@ux-design-expert"
+    research: "@analyst"
+    git_deploy: "@devops"
+    fallback: "@dev"
+
+tags:
+  - autonomous
+  - orchestration
+  - loop
+  - swarm
+  - context-fresh
