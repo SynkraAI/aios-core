@@ -389,10 +389,10 @@ operational_completeness_checks:
       Max = 10.0
     threshold: 7.0
     levels:
-      "0-4": "Nivel 1 — Persona only (FAIL)"
-      "4-7": "Nivel 2 — Frameworks only (CONDITIONAL)"
-      "7-9": "Nivel 3 — Complete (PASS)"
-      "9-10": "Nivel 3+ — Integrated (EXCELLENT)"
+      '0.0-3.9': 'Nivel 1 — Persona only (FAIL)'
+      '4.0-6.9': 'Nivel 2 — Frameworks only (CONDITIONAL)'
+      '7.0-8.9': 'Nivel 3 — Complete (PASS)'
+      '9.0-10.0': 'Nivel 3+ — Integrated (EXCELLENT)'
 ```
 
 ---

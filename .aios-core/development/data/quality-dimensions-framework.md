@@ -327,13 +327,13 @@ quality_assessment:
 
 ### Weighted Average Formula
 
-```
+```text
 overall_score = Σ(dimension_score × weight) / Σ(weights)
 ```
 
 ### Pass/Fail Logic
 
-```
+```text
 IF (overall_score >= 7.0 AND no_dimension < 6.0)
   THEN status = PASS
 ELSE IF (any_veto_dimension < threshold)

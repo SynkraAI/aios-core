@@ -11,7 +11,7 @@ Framework for organizing agents by expertise level and orchestrating their colla
 
 The Tier System organizes agents hierarchically based on their role in the workflow:
 
-```
+```text
 ┌─────────────────────────────────────────┐
 │  ORCHESTRATOR (coordinates all tiers)    │
 ├─────────────────────────────────────────┤
@@ -263,7 +263,7 @@ checklists:
 
 ### Standard Flow
 
-```
+```text
 1. Request arrives at Orchestrator
    │
 2. Orchestrator routes to Tier 0 (ALWAYS)
@@ -418,7 +418,7 @@ enhancement:
 
 ### Tier Assignment Decision Tree
 
-```
+```text
 IF agent performs diagnosis/analysis FIRST
   THEN Tier 0
 
