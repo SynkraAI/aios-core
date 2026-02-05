@@ -48,8 +48,8 @@ describe('SessionState', () => {
   });
 
   describe('Constants', () => {
-    it('should export SESSION_STATE_VERSION as 1.1', () => {
-      expect(SESSION_STATE_VERSION).toBe('1.1');
+    it('should export SESSION_STATE_VERSION as 1.2', () => {
+      expect(SESSION_STATE_VERSION).toBe('1.2');
     });
 
     it('should export SESSION_STATE_FILENAME as .session-state.yaml', () => {
@@ -145,7 +145,7 @@ describe('SessionState', () => {
       expect(state.session_state.workflow.phase_results).toEqual({});
     });
 
-    it('should include version 1.1', async () => {
+    it('should include version 1.2', async () => {
       const epicInfo = {
         id: 'epic-11',
         title: 'Projeto Bob',
@@ -155,7 +155,7 @@ describe('SessionState', () => {
 
       const state = await sessionState.createSessionState(epicInfo);
 
-      expect(state.session_state.version).toBe('1.1');
+      expect(state.session_state.version).toBe('1.2');
     });
   });
 
@@ -699,7 +699,7 @@ describe('SessionState Migration (ADR-011)', () => {
 
     // Should have migrated
     expect(loadedState).not.toBeNull();
-    expect(loadedState.session_state.version).toBe('1.1');
+    expect(loadedState.session_state.version).toBe('1.2');
     expect(loadedState.session_state.workflow.current_phase).toBe('2_development');
     expect(loadedState.session_state.context_snapshot.last_executor).toBe('@dev');
 

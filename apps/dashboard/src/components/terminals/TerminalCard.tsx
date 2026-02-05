@@ -3,6 +3,7 @@
 import { memo } from 'react';
 import { cn } from '@/lib/utils';
 import { iconMap } from '@/lib/icons';
+import { useBobStore } from '@/stores/bob-store';
 import { AGENT_CONFIG, type TerminalSession } from '@/types';
 
 interface TerminalCardProps {
@@ -22,6 +23,9 @@ export const TerminalCard = memo(function TerminalCard({
   className,
 }: TerminalCardProps) {
   const agentConfig = AGENT_CONFIG[terminal.agentId];
+  const bobTerminals = useBobStore((s) => s.terminals);
+  const bobActive = useBobStore((s) => s.active);
+  const isBobSpawned = bobActive && bobTerminals.some((bt) => bt.agent === terminal.agentId);
   const XIcon = iconMap['close'];
   const SettingsIcon = iconMap['settings'];
   const statusStyle = STATUS_STYLES[terminal.status] || STATUS_STYLES.idle;
@@ -63,6 +67,18 @@ export const TerminalCard = memo(function TerminalCard({
           >
             {terminal.agentId}
           </span>
+          {isBobSpawned && (
+            <span
+              className="px-1.5 py-0.5 text-[9px] tracking-wider border"
+              style={{
+                color: 'var(--agent-pm)',
+                borderColor: 'var(--agent-pm)' + '30',
+                backgroundColor: 'var(--agent-pm)' + '10',
+              }}
+            >
+              Bob
+            </span>
+          )}
         </div>
         <div className="flex gap-2" style={{ color: 'var(--text-muted)' }}>
           <button className="transition-colors p-1 hover:opacity-80">

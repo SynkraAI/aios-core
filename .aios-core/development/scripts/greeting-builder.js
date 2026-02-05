@@ -30,6 +30,7 @@ const WorkflowNavigator = require('./workflow-navigator');
 const GreetingPreferenceManager = require('./greeting-preference-manager');
 const { loadProjectStatus } = require('../../infrastructure/scripts/project-status-loader');
 const { PermissionMode } = require('../../core/permissions');
+const { resolveConfig } = require('../../core/config/config-resolver');
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
@@ -56,26 +57,17 @@ class GreetingBuilder {
   }
 
   /**
-   * Load user profile from core-config.yaml
-   * Story 10.3 - AC7: Read user_profile fresh each time (no caching)
+   * Load user profile via config-resolver (L5 User layer has highest priority).
+   * Story 12.1 - AC3: Uses resolveConfig() to read user_profile from layered hierarchy.
+   * Reads fresh each time (skipCache: true) to reflect toggle changes immediately.
    * @returns {string} User profile ('bob' | 'advanced'), defaults to 'advanced'
    */
   loadUserProfile() {
     try {
-      const configPath = path.join(process.cwd(), '.aios-core', 'core-config.yaml');
-
-      if (!fs.existsSync(configPath)) {
-        console.warn('[GreetingBuilder] core-config.yaml not found, using default: advanced');
-        return DEFAULT_USER_PROFILE;
-      }
-
-      const content = fs.readFileSync(configPath, 'utf8');
-      const config = yaml.load(content);
-
-      const userProfile = config?.user_profile;
+      const result = resolveConfig(process.cwd(), { skipCache: true });
+      const userProfile = result?.config?.user_profile;
 
       if (!userProfile) {
-        console.warn('[GreetingBuilder] user_profile not found, using default: advanced');
         return DEFAULT_USER_PROFILE;
       }
 

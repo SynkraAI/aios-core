@@ -1,6 +1,11 @@
 /**
  * Workflow State Manager
  *
+ * @deprecated Superseded by session-state.js (Story 11.5).
+ * Bob uses SessionState exclusively. This module is maintained for
+ * backward compatibility with MasterOrchestrator (Epic 0) only.
+ * New code should use: .aios-core/core/orchestration/session-state.js
+ *
  * File-based state persistence for guided workflow automation.
  * Tracks workflow execution progress across Claude Code sessions.
  *

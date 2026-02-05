@@ -12,6 +12,7 @@ import { RoadmapView } from '@/components/roadmap';
 import { InsightsPanel } from '@/components/insights';
 import { ContextPanel } from '@/components/context';
 import { MonitorPanel } from '@/components/monitor';
+import { BobOrchestrationView } from '@/components/bob';
 import { FAB, HelpFAB } from '@/components/ui/fab';
 import { useStories } from '@/hooks/use-stories';
 import type { Story, SidebarView } from '@/types';
@@ -88,6 +89,9 @@ function ViewContent({ view, onStoryClick, onRefresh, isLoading }: ViewContentPr
 
     case 'settings':
       return <SettingsPanel />;
+
+    case 'bob':
+      return <BobOrchestrationView />;
 
     case 'terminals':
       return <TerminalGrid />;

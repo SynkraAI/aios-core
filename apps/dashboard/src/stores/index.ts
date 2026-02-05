@@ -6,3 +6,4 @@ export * from './projects-store';
 export * from './story-store';
 export * from './agent-store';
 export * from './settings-store';
+export * from './bob-store';

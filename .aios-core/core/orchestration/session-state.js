@@ -21,7 +21,7 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 // Constants
-const SESSION_STATE_VERSION = '1.1';
+const SESSION_STATE_VERSION = '1.2';
 const SESSION_STATE_FILENAME = '.session-state.yaml';
 const CRASH_THRESHOLD_MINUTES = 30;
 const LEGACY_WORKFLOW_STATE_DIR = '.aios/workflow-state';
@@ -175,6 +175,11 @@ class SessionState {
           lastPhase: null,
           lastExecutor: null,
         }),
+
+        // Story 12.7: Session-level overrides (temporary, not persisted to user config)
+        overrides: {
+          educational_mode: null, // null = not overridden, true/false = session override
+        },
       },
     };
 
@@ -256,6 +261,14 @@ class SessionState {
       this.state.session_state.context_snapshot = {
         ...this.state.session_state.context_snapshot,
         ...updates.context_snapshot,
+      };
+    }
+
+    // Story 12.7: Handle overrides updates
+    if (updates.overrides) {
+      this.state.session_state.overrides = {
+        ...(this.state.session_state.overrides || {}),
+        ...updates.overrides,
       };
     }
 
@@ -351,6 +364,73 @@ class SessionState {
         phase: phase,
       },
     });
+  }
+
+  /**
+   * Sets a session-level override (Story 12.7 - AC6)
+   * Session overrides are temporary and only last for the current session.
+   *
+   * @param {string} key - Override key (e.g., 'educational_mode')
+   * @param {*} value - Override value (null to clear)
+   * @returns {Promise<Object>} Updated session state
+   */
+  async setSessionOverride(key, value) {
+    if (!this.state) {
+      throw new Error('Session state not initialized. Call loadSessionState() or createSessionState() first.');
+    }
+
+    const now = new Date().toISOString();
+
+    // Ensure overrides field exists (backward compatibility)
+    if (!this.state.session_state.overrides) {
+      this.state.session_state.overrides = {};
+    }
+
+    // Set the override
+    this.state.session_state.overrides[key] = value;
+    this.state.session_state.last_updated = now;
+
+    await this.save();
+
+    if (this.options.debug) {
+      console.log(`[SessionState] Set session override: ${key} = ${value}`);
+    }
+
+    return this.state;
+  }
+
+  /**
+   * Gets a session-level override (Story 12.7 - AC6)
+   *
+   * @param {string} key - Override key (e.g., 'educational_mode')
+   * @returns {*} Override value or null if not set
+   */
+  getSessionOverride(key) {
+    if (!this.state?.session_state?.overrides) {
+      return null;
+    }
+    return this.state.session_state.overrides[key] ?? null;
+  }
+
+  /**
+   * Clears a session-level override (Story 12.7 - AC6)
+   *
+   * @param {string} key - Override key to clear
+   * @returns {Promise<Object>} Updated session state
+   */
+  async clearSessionOverride(key) {
+    return this.setSessionOverride(key, null);
+  }
+
+  /**
+   * Gets all session overrides
+   * @returns {Object} All current overrides
+   */
+  getSessionOverrides() {
+    if (!this.state?.session_state?.overrides) {
+      return {};
+    }
+    return { ...this.state.session_state.overrides };
   }
 
   /**
@@ -632,6 +712,11 @@ O que você quer fazer?
           },
 
           resume_instructions: 'Migrated from legacy workflow state. Please review and continue.',
+
+          // Story 12.7: Initialize overrides (empty on migration)
+          overrides: {
+            educational_mode: null,
+          },
         },
       };
 

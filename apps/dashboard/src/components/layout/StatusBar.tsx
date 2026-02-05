@@ -1,9 +1,10 @@
 'use client';
 
 import { useAiosStatus } from '@/hooks/use-aios-status';
+import { useBobStore } from '@/stores/bob-store';
 import { AGENT_CONFIG, type AgentId } from '@/types';
 import { cn } from '@/lib/utils';
-import { Bell } from 'lucide-react';
+import { Bell, Bot } from 'lucide-react';
 import { iconMap } from '@/lib/icons';
 
 interface StatusBarProps {
@@ -40,6 +41,9 @@ export function StatusBar({ className }: StatusBarProps) {
 
       {/* Right section */}
       <div className="flex items-center gap-4">
+        {/* Bob Status */}
+        <BobStatusIndicator />
+
         {/* Active Agent */}
         {status?.activeAgent && (
           <ActiveAgentBadge agentId={status.activeAgent.id} />
@@ -137,6 +141,27 @@ function RateLimitDisplay({ rateLimit }: RateLimitDisplayProps) {
 
 interface NotificationBadgeProps {
   count: number;
+}
+
+function BobStatusIndicator() {
+  const active = useBobStore((s) => s.active);
+  const isInactive = useBobStore((s) => s.isInactive);
+
+  if (!active && !isInactive) return null;
+
+  const label = active && !isInactive ? 'active' : active && isInactive ? 'inactive' : null;
+  if (!label) return null;
+
+  const color = label === 'active' ? '#22c55e' : '#6b7280';
+
+  return (
+    <div className="flex items-center gap-1.5 text-[11px]">
+      <Bot className="h-3 w-3" style={{ color }} />
+      <span style={{ color: 'var(--text-muted)' }}>
+        Bob: <span style={{ color }}>{label}</span>
+      </span>
+    </div>
+  );
 }
 
 function NotificationBadge({ count }: NotificationBadgeProps) {

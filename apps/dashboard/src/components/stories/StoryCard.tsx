@@ -4,7 +4,9 @@ import { memo } from 'react';
 import { cn } from '@/lib/utils';
 import { iconMap } from '@/lib/icons';
 import { ProgressBar } from '@/components/ui/progress-bar';
+import { useBobStore } from '@/stores/bob-store';
 import { AGENT_CONFIG, type Story, type StoryComplexity, type AgentId } from '@/types';
+import { Bot } from 'lucide-react';
 
 // ============ Props ============
 
@@ -26,6 +28,9 @@ export const StoryCard = memo(function StoryCard({
   className,
 }: StoryCardProps) {
   const { title, description, category, complexity, agentId, progress } = story;
+  const bobActive = useBobStore((s) => s.active);
+  const bobPipeline = useBobStore((s) => s.pipeline);
+  const isBobOrchestrated = bobActive && bobPipeline?.story_progress && story.id;
 
   return (
     <div
@@ -78,6 +83,17 @@ export const StoryCard = memo(function StoryCard({
         <p className="text-[11px] text-[var(--text-tertiary)] line-clamp-2 mb-2 leading-relaxed">
           {description}
         </p>
+      )}
+
+      {/* Bob badge */}
+      {isBobOrchestrated && (
+        <div
+          className="flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-medium mt-1 w-fit"
+          style={{ backgroundColor: 'var(--agent-pm)' + '20', color: 'var(--agent-pm)' }}
+        >
+          <Bot className="h-2.5 w-2.5" />
+          Bot Bob
+        </div>
       )}
 
       {/* Footer: Agent & Progress */}

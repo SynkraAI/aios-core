@@ -42,6 +42,7 @@ OUTPUT_DIR="${AIOS_OUTPUT_DIR:-/tmp}"
 DEBUG="${AIOS_DEBUG:-false}"
 TIMEOUT="${AIOS_TIMEOUT:-300}"
 CLAUDE_CMD="${CLAUDE_CMD:-claude}"
+INLINE_MODE="${AIOS_INLINE_MODE:-false}"
 
 # Arguments
 AGENT=""
@@ -59,7 +60,7 @@ LOCK_FILE=""
 # ============================================
 
 log_debug() {
-  [[ "$DEBUG" == "true" ]] && echo "[DEBUG] $*" >&2
+  [[ "$DEBUG" == "true" ]] && echo "[DEBUG] $*" >&2 || true
 }
 
 log_info() {
@@ -95,6 +96,7 @@ Environment Variables:
   AIOS_OUTPUT_DIR    Output directory (default: /tmp)
   AIOS_DEBUG         Enable debug mode (default: false)
   AIOS_TIMEOUT       Timeout in seconds (default: 300)
+  AIOS_INLINE_MODE   Run without a visual terminal (default: false)
   CLAUDE_CMD         Claude CLI command (default: claude)
 
 Examples:
@@ -322,6 +324,37 @@ spawn_wsl() {
 }
 
 # ============================================
+# Inline Execution (Story 12.10 - No visual terminal)
+# ============================================
+
+spawn_inline() {
+  log_info "Running in inline mode (no visual terminal)"
+
+  # Build the command
+  local output=""
+  output+="=== AIOS Agent Session (Inline) ===$(printf '\n')"
+  output+="Agent: ${AGENT}$(printf '\n')"
+  output+="Task: ${TASK}$(printf '\n')"
+  [[ -n "$PARAMS" ]] && output+="Params: ${PARAMS}$(printf '\n')"
+  [[ -n "$CONTEXT_FILE" ]] && output+="Context: ${CONTEXT_FILE}$(printf '\n')"
+  output+="$(printf '\n')"
+  output+="Executing: @${AGENT} *${TASK} ${PARAMS}$(printf '\n')"
+  output+="Agent execution would happen here...$(printf '\n')"
+  output+="=== Session Complete ===$(printf '\n')"
+
+  # Write output directly to file
+  echo "$output" > "${OUTPUT_FILE}"
+
+  # Remove lock file immediately (inline is synchronous)
+  rm -f "${LOCK_FILE}"
+
+  log_info "Inline execution complete"
+  log_debug "Output written to: $OUTPUT_FILE"
+
+  return 0
+}
+
+# ============================================
 # Main Spawn Logic (Task 1.6 - Lock File)
 # ============================================
 
@@ -330,6 +363,17 @@ spawn_terminal() {
   os="$(detect_os)"
 
   log_info "Detected OS: $os"
+
+  # Create lock file to indicate process is running
+  touch "$LOCK_FILE"
+  log_debug "Created lock file: $LOCK_FILE"
+
+  # Check for inline mode (Story 12.10 - fallback for non-visual environments)
+  if [[ "$INLINE_MODE" == "true" ]]; then
+    spawn_inline
+    echo "$OUTPUT_FILE"
+    return 0
+  fi
 
   # Build the command to run in the new terminal
   local agent_cmd="${CLAUDE_CMD}"
@@ -355,10 +399,6 @@ spawn_terminal() {
 
   # Redirect output to file and remove lock when done
   full_cmd+=" > '${OUTPUT_FILE}' 2>&1; rm -f '${LOCK_FILE}'"
-
-  # Create lock file to indicate process is running
-  touch "$LOCK_FILE"
-  log_debug "Created lock file: $LOCK_FILE"
 
   # Spawn based on OS
   case "$os" in

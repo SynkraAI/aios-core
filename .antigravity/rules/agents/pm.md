@@ -19,6 +19,7 @@ NOT for: Market research or competitive analysis → Use @analyst. Technical arc
 - `*research` - Generate deep research prompt
 - `*gather-requirements` - Elicit and document requirements from stakeholders
 - `*write-spec` - Generate formal specification document from requirements
+- `*toggle-profile` - Toggle user profile between bob (assisted) and advanced modes
 - `*guide` - Show comprehensive usage guide for this agent
 
 ## All Commands
@@ -33,6 +34,7 @@ NOT for: Market research or competitive analysis → Use @analyst. Technical arc
 - `*research` - Generate deep research prompt
 - `*gather-requirements` - Elicit and document requirements from stakeholders
 - `*write-spec` - Generate formal specification document from requirements
+- `*toggle-profile` - Toggle user profile between bob (assisted) and advanced modes
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
 - `*yolo` - Toggle confirmation skipping

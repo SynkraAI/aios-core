@@ -103,6 +103,100 @@ class WorkflowExecutor {
 
     // Story 11.5: Session State Manager (ADR-011)
     this.sessionState = new SessionState(projectRoot, { debug: options.debug });
+
+    // Story 12.6: Phase change callbacks for observability
+    this._phaseChangeCallbacks = [];
+    this._agentSpawnCallbacks = [];
+    this._terminalSpawnCallbacks = [];
+  }
+
+  /**
+   * Registers a callback for phase change events (Story 12.6 - AC1)
+   * @param {Function} callback - Callback function (phase, storyId, executor) => void
+   * @returns {void}
+   */
+  onPhaseChange(callback) {
+    if (typeof callback === 'function') {
+      this._phaseChangeCallbacks.push(callback);
+    }
+  }
+
+  /**
+   * Registers a callback for agent spawn events (Story 12.6 - AC1)
+   * @param {Function} callback - Callback function (agent, task) => void
+   * @returns {void}
+   */
+  onAgentSpawn(callback) {
+    if (typeof callback === 'function') {
+      this._agentSpawnCallbacks.push(callback);
+    }
+  }
+
+  /**
+   * Registers a callback for terminal spawn events (Story 12.6 - AC1)
+   * @param {Function} callback - Callback function (agent, pid, task) => void
+   * @returns {void}
+   */
+  onTerminalSpawn(callback) {
+    if (typeof callback === 'function') {
+      this._terminalSpawnCallbacks.push(callback);
+    }
+  }
+
+  /**
+   * Emits phase change to all registered callbacks (Story 12.6)
+   * @param {string} phase - Phase name
+   * @param {string} storyId - Story ID
+   * @param {string} executor - Executor agent
+   * @private
+   */
+  _emitPhaseChange(phase, storyId, executor) {
+    for (const callback of this._phaseChangeCallbacks) {
+      try {
+        callback(phase, storyId, executor);
+      } catch (error) {
+        if (this.options.debug) {
+          console.log(`[WorkflowExecutor] Phase change callback error: ${error.message}`);
+        }
+      }
+    }
+  }
+
+  /**
+   * Emits agent spawn to all registered callbacks (Story 12.6)
+   * @param {string} agent - Agent ID
+   * @param {string} task - Task being executed
+   * @private
+   */
+  _emitAgentSpawn(agent, task) {
+    for (const callback of this._agentSpawnCallbacks) {
+      try {
+        callback(agent, task);
+      } catch (error) {
+        if (this.options.debug) {
+          console.log(`[WorkflowExecutor] Agent spawn callback error: ${error.message}`);
+        }
+      }
+    }
+  }
+
+  /**
+   * Emits terminal spawn to all registered callbacks (Story 12.6)
+   * @param {string} agent - Agent ID
+   * @param {number} pid - Process ID
+   * @param {string} task - Task being executed
+   * @private
+   */
+  _emitTerminalSpawn(agent, pid, task) {
+    for (const callback of this._terminalSpawnCallbacks) {
+      try {
+        callback(agent, pid, task);
+      } catch (error) {
+        if (this.options.debug) {
+          console.log(`[WorkflowExecutor] Terminal spawn callback error: ${error.message}`);
+        }
+      }
+    }
   }
 
   /**
@@ -375,6 +469,10 @@ class WorkflowExecutor {
     // Resolve dynamic agent
     const agent = this.resolveAgent(phase.agent);
 
+    // Story 12.6: Emit phase change for observability (AC1, AC2)
+    const storyId = path.basename(storyPath, '.story.md');
+    this._emitPhaseChange(phaseId, storyId, agent);
+
     // Execute based on phase type
     switch (phaseId) {
       case '1_validation':
@@ -498,6 +596,9 @@ class WorkflowExecutor {
         console.log(`[WorkflowExecutor] Spawning ${agent} for development`);
       }
 
+      // Story 12.6: Emit agent spawn for observability (AC1)
+      this._emitAgentSpawn(agent, 'development');
+
       // Use terminal spawning (Story 11.2)
       if (phase.spawn_in_terminal && TerminalSpawner.isSpawnerAvailable()) {
         const context = {
@@ -512,6 +613,11 @@ class WorkflowExecutor {
           timeout: DEFAULT_TIMEOUT_MS,
           debug: this.options.debug,
         });
+
+        // Story 12.6: Emit terminal spawn for observability (AC1)
+        if (result.pid) {
+          this._emitTerminalSpawn(agent, result.pid, 'development');
+        }
 
         return {
           status: result.success ? PhaseStatus.COMPLETED : PhaseStatus.FAILED,
@@ -807,6 +913,9 @@ class WorkflowExecutor {
         console.log(`[WorkflowExecutor] Spawning ${agent} for quality gate`);
       }
 
+      // Story 12.6: Emit agent spawn for observability (AC1)
+      this._emitAgentSpawn(agent, 'quality_gate');
+
       // Use terminal spawning
       if (phase.spawn_in_terminal && TerminalSpawner.isSpawnerAvailable()) {
         const context = {
@@ -824,6 +933,11 @@ class WorkflowExecutor {
           timeout: DEFAULT_TIMEOUT_MS / 4, // 30 minutes
           debug: this.options.debug,
         });
+
+        // Story 12.6: Emit terminal spawn for observability (AC1)
+        if (result.pid) {
+          this._emitTerminalSpawn(agent, result.pid, 'quality_gate');
+        }
 
         return {
           status: result.success ? PhaseStatus.COMPLETED : PhaseStatus.FAILED,
@@ -869,6 +983,9 @@ class WorkflowExecutor {
         console.log(`[WorkflowExecutor] Spawning ${agent} for push`);
       }
 
+      // Story 12.6: Emit agent spawn for observability (AC1)
+      this._emitAgentSpawn(agent, 'push');
+
       // Use terminal spawning
       if (phase.spawn_in_terminal && TerminalSpawner.isSpawnerAvailable()) {
         const context = {
@@ -885,6 +1002,11 @@ class WorkflowExecutor {
           timeout: DEFAULT_TIMEOUT_MS / 12, // 10 minutes
           debug: this.options.debug,
         });
+
+        // Story 12.6: Emit terminal spawn for observability (AC1)
+        if (result.pid) {
+          this._emitTerminalSpawn(agent, result.pid, 'push');
+        }
 
         return {
           status: result.success ? PhaseStatus.COMPLETED : PhaseStatus.FAILED,

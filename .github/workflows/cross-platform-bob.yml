@@ -1,0 +1,106 @@
+name: Cross-Platform Bob Tests
+# Story 12.11 - CI/CD Pipeline for Bob
+# Tests pm.sh and terminal-spawner across OS matrix
+# Validates Story 12.10 AC11 (CI validation deferred to this story)
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.aios-core/scripts/pm.sh'
+      - '.aios-core/core/orchestration/terminal-spawner.js'
+      - 'tests/core/orchestration/terminal-spawner.test.js'
+
+concurrency:
+  group: cross-platform-bob-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  terminal-spawner-matrix:
+    name: Terminal Spawner (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run terminal-spawner tests
+        run: npx jest tests/core/orchestration/terminal-spawner.test.js --verbose
+
+      - name: Verify pm.sh exists and is executable (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          echo "=== pm.sh Validation (${{ matrix.os }}) ==="
+          if [ -f ".aios-core/scripts/pm.sh" ]; then
+            echo "✅ pm.sh found"
+            chmod +x .aios-core/scripts/pm.sh
+            # Syntax check only (don't execute — requires full environment)
+            bash -n .aios-core/scripts/pm.sh && echo "✅ pm.sh syntax valid" || echo "❌ pm.sh syntax error"
+          else
+            echo "❌ pm.sh not found"
+            exit 1
+          fi
+
+      - name: Verify fallback inline mode (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Write-Host "=== Fallback Inline Validation (Windows) ==="
+          if (Test-Path ".aios-core/scripts/pm.sh") {
+            Write-Host "✅ pm.sh found (will use fallback inline on Windows)"
+          } else {
+            Write-Host "❌ pm.sh not found"
+            exit 1
+          }
+          # Terminal-spawner tests already validate fallback mode
+          Write-Host "✅ Windows fallback validated via terminal-spawner tests"
+
+      - name: Annotate result
+        if: always()
+        run: |
+          echo "::notice title=Cross-Platform Result (${{ matrix.os }})::Terminal spawner tests completed on ${{ matrix.os }}"
+
+  summary:
+    name: Cross-Platform Summary
+    needs: terminal-spawner-matrix
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report results
+        run: |
+          echo "=== Cross-Platform Bob Test Summary ==="
+          echo ""
+          echo "Matrix results:"
+          echo "  Ubuntu:  ${{ needs.terminal-spawner-matrix.result }}"
+          echo "  macOS:   ${{ needs.terminal-spawner-matrix.result }}"
+          echo "  Windows: ${{ needs.terminal-spawner-matrix.result }}"
+          echo ""
+
+          if [ "${{ needs.terminal-spawner-matrix.result }}" = "failure" ]; then
+            echo "❌ One or more platforms failed"
+            exit 1
+          fi
+
+          echo "✅ All platforms passed"

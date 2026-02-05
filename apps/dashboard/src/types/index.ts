@@ -152,6 +152,7 @@ export const ROADMAP_PRIORITY_CONFIG: Record<RoadmapPriority, { label: string; c
 export type SidebarView =
   | 'kanban'
   | 'agents'
+  | 'bob'
   | 'terminals'
   | 'monitor'
   | 'roadmap'
@@ -212,6 +213,7 @@ export const AGENT_CONFIG: Record<AgentId, AgentConfig> = {
 export const SIDEBAR_ITEMS: SidebarItem[] = [
   { id: 'kanban', label: 'Kanban', icon: 'kanban', href: '/kanban', shortcut: 'K' },
   { id: 'agents', label: 'Agents', icon: 'bot', href: '/agents', shortcut: 'A' },
+  { id: 'bob', label: 'Bob', icon: 'bot', href: '/bob', shortcut: 'B' },
   { id: 'terminals', label: 'Terminals', icon: 'terminal', href: '/terminals', shortcut: 'T' },
   { id: 'monitor', label: 'Monitor', icon: 'activity', href: '/monitor', shortcut: 'M' },
   { id: 'insights', label: 'Insights', icon: 'trending-up', href: '/insights', shortcut: 'I' },

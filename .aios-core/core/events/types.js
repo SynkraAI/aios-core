@@ -11,7 +11,7 @@
  * High-level event types for dashboard observability.
  * These complement the low-level tool events (PreToolUse, PostToolUse).
  *
- * @typedef {'AgentActivated'|'AgentDeactivated'|'CommandStart'|'CommandComplete'|'CommandError'|'StoryStatusChange'|'SessionStart'|'SessionEnd'} DashboardEventType
+ * @typedef {'AgentActivated'|'AgentDeactivated'|'CommandStart'|'CommandComplete'|'CommandError'|'StoryStatusChange'|'SessionStart'|'SessionEnd'|'BobPhaseChange'|'BobAgentSpawned'|'BobAgentCompleted'|'BobSurfaceDecision'|'BobError'} DashboardEventType
  */
 
 /**
@@ -37,6 +37,13 @@ const DashboardEventType = {
   STORY_STATUS_CHANGE: 'StoryStatusChange',
   SESSION_START: 'SessionStart',
   SESSION_END: 'SessionEnd',
+
+  // Story 12.6: Bob-specific event types (AC7, AC10)
+  BOB_PHASE_CHANGE: 'BobPhaseChange',
+  BOB_AGENT_SPAWNED: 'BobAgentSpawned',
+  BOB_AGENT_COMPLETED: 'BobAgentCompleted',
+  BOB_SURFACE_DECISION: 'BobSurfaceDecision',
+  BOB_ERROR: 'BobError',
 };
 
 module.exports = {

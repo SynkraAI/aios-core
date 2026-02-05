@@ -1,21 +1,28 @@
 /**
  * Tests for config-resolver.js
  * Story PRO-4 — Config Hierarchy
+ * Story 12.1 — L5 User layer, toggle-profile, user config write
  *
- * Covers: unit tests (Task 5.1), integration tests (Task 5.2), performance (Task 5.4)
+ * Covers: unit tests (Task 5.1), integration tests (Task 5.2), performance (Task 5.4),
+ *         L5 User layer (Story 12.1 Task 6)
  */
 
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
+const yaml = require('js-yaml');
 const {
   resolveConfig,
   isLegacyMode,
   loadLayeredConfig,
   loadLegacyConfig,
   getConfigAtLevel,
+  setUserConfigValue,
+  toggleUserProfile,
+  ensureUserConfigDir,
   CONFIG_FILES,
   LEVELS,
+  VALID_USER_PROFILES,
 } = require('../../.aios-core/core/config/config-resolver');
 const { globalConfigCache } = require('../../.aios-core/core/config/config-cache');
 
@@ -65,6 +72,12 @@ describe('config-resolver', () => {
       expect(CONFIG_FILES).toHaveProperty('pro');
       expect(CONFIG_FILES).toHaveProperty('local');
       expect(CONFIG_FILES).toHaveProperty('legacy');
+      expect(CONFIG_FILES).toHaveProperty('user');
+    });
+
+    test('CONFIG_FILES.user points to ~/.aios/user-config.yaml', () => {
+      const expected = path.join(os.homedir(), '.aios', 'user-config.yaml');
+      expect(CONFIG_FILES.user).toBe(expected);
     });
 
     test('LEVELS has all expected keys', () => {
@@ -73,7 +86,14 @@ describe('config-resolver', () => {
       expect(LEVELS.pro).toBe('Pro');
       expect(LEVELS.app).toBe('L3');
       expect(LEVELS.local).toBe('L4');
+      expect(LEVELS.user).toBe('L5');
       expect(LEVELS.legacy).toBe('Legacy');
+    });
+
+    test('VALID_USER_PROFILES contains bob and advanced', () => {
+      expect(VALID_USER_PROFILES).toContain('bob');
+      expect(VALID_USER_PROFILES).toContain('advanced');
+      expect(VALID_USER_PROFILES).toHaveLength(2);
     });
   });
 
@@ -497,6 +517,356 @@ describe('config-resolver', () => {
 
         const durationMs = Number(end - start) / 1_000_000;
         expect(durationMs).toBeLessThan(CACHED_READ_LIMIT);
+      } finally {
+        cleanupTempDir(tmpDir);
+      }
+    });
+  });
+
+  // ------------------------------------------------------------------
+  // Story 12.1 — L5 User layer tests
+  // ------------------------------------------------------------------
+
+  describe('L5 User layer', () => {
+    let originalUserConfigPath;
+    let tempUserDir;
+
+    beforeEach(() => {
+      // Save original CONFIG_FILES.user and redirect to temp directory
+      originalUserConfigPath = CONFIG_FILES.user;
+      tempUserDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aios-user-config-test-'));
+      CONFIG_FILES.user = path.join(tempUserDir, 'user-config.yaml');
+      globalConfigCache.clear();
+    });
+
+    afterEach(() => {
+      // Restore original CONFIG_FILES.user
+      CONFIG_FILES.user = originalUserConfigPath;
+      fs.rmSync(tempUserDir, { recursive: true, force: true });
+      globalConfigCache.clear();
+    });
+
+    test('loadLayeredConfig merges L5 user config after L4', () => {
+      const tmpDir = createTempProject({
+        '.aios-core/framework-config.yaml': { fixture: 'framework-config.yaml' },
+        '.aios-core/project-config.yaml': { fixture: 'project-config.yaml' },
+      });
+
+      // Create user config
+      fs.writeFileSync(CONFIG_FILES.user, 'user_profile: "bob"\ncustom_setting: 42\n', 'utf8');
+
+      try {
+        const result = loadLayeredConfig(tmpDir);
+        expect(result.config.user_profile).toBe('bob');
+        expect(result.config.custom_setting).toBe(42);
+        // L2 values still present
+        expect(result.config.project.name).toBe('test-project');
+      } finally {
+        cleanupTempDir(tmpDir);
+      }
+    });
+
+    test('L5 overrides L4 values', () => {
+      const tmpDir = createTempProject({
+        '.aios-core/framework-config.yaml': { fixture: 'framework-config.yaml' },
+        '.aios-core/local-config.yaml': 'user_profile: "advanced"\n',
+      });
+
+      // L5 overrides L4
+      fs.writeFileSync(CONFIG_FILES.user, 'user_profile: "bob"\n', 'utf8');
+
+      try {
+        const result = loadLayeredConfig(tmpDir);
+        expect(result.config.user_profile).toBe('bob');
+      } finally {
+        cleanupTempDir(tmpDir);
+      }
+    });
+
+    test('graceful when user config file does not exist', () => {
+      const tmpDir = createTempProject({
+        '.aios-core/framework-config.yaml': { fixture: 'framework-config.yaml' },
+      });
+
+      try {
+        // CONFIG_FILES.user points to non-existent file — should not throw
+        const result = loadLayeredConfig(tmpDir);
+        expect(result.config).toBeTruthy();
+        expect(result.config.user_profile).toBeUndefined();
+      } finally {
+        cleanupTempDir(tmpDir);
+      }
+    });
+
+    test('graceful when user config file is malformed YAML', () => {
+      const tmpDir = createTempProject({
+        '.aios-core/framework-config.yaml': { fixture: 'framework-config.yaml' },
+      });
+
+      // Write invalid YAML
+      fs.writeFileSync(CONFIG_FILES.user, '  invalid:\n  yaml: [}\n', 'utf8');
+
+      try {
+        // Should not throw — loadYamlAbsolute catches parse errors
+        const result = loadLayeredConfig(tmpDir);
+        expect(result.config).toBeTruthy();
+      } finally {
+        cleanupTempDir(tmpDir);
+      }
+    });
+
+    test('debug mode tracks L5 sources', () => {
+      const tmpDir = createTempProject({
+        '.aios-core/framework-config.yaml': { fixture: 'framework-config.yaml' },
+      });
+
+      fs.writeFileSync(CONFIG_FILES.user, 'user_profile: "bob"\n', 'utf8');
+
+      try {
+        const result = loadLayeredConfig(tmpDir, { debug: true });
+        expect(result.sources).toBeTruthy();
+        expect(result.sources['user_profile']).toEqual(
+          expect.objectContaining({ level: 'L5' }),
+        );
+      } finally {
+        cleanupTempDir(tmpDir);
+      }
+    });
+
+    test('resolveConfig includes L5 in final config', () => {
+      const tmpDir = createTempProject({
+        '.aios-core/framework-config.yaml': { fixture: 'framework-config.yaml' },
+      });
+
+      fs.writeFileSync(CONFIG_FILES.user, 'user_profile: "bob"\n', 'utf8');
+
+      try {
+        const result = resolveConfig(tmpDir, { skipCache: true });
+        expect(result.config.user_profile).toBe('bob');
+      } finally {
+        cleanupTempDir(tmpDir);
+      }
+    });
+
+    test('getConfigAtLevel returns L5 user config', () => {
+      fs.writeFileSync(CONFIG_FILES.user, 'user_profile: "advanced"\ndefault_language: "pt-BR"\n', 'utf8');
+
+      const config = getConfigAtLevel('/tmp', 'L5');
+      expect(config).toBeTruthy();
+      expect(config.user_profile).toBe('advanced');
+      expect(config.default_language).toBe('pt-BR');
+    });
+
+    test('getConfigAtLevel returns null when L5 file missing', () => {
+      // CONFIG_FILES.user points to non-existent file
+      const config = getConfigAtLevel('/tmp', 'user');
+      expect(config).toBeNull();
+    });
+
+    test('getConfigAtLevel supports aliases 5 and L5', () => {
+      fs.writeFileSync(CONFIG_FILES.user, 'user_profile: "bob"\n', 'utf8');
+
+      expect(getConfigAtLevel('/tmp', '5')).toBeTruthy();
+      expect(getConfigAtLevel('/tmp', 'L5')).toBeTruthy();
+      expect(getConfigAtLevel('/tmp', 'user')).toBeTruthy();
+    });
+  });
+
+  // ------------------------------------------------------------------
+  // Story 12.1 — setUserConfigValue tests
+  // ------------------------------------------------------------------
+
+  describe('setUserConfigValue', () => {
+    let originalUserConfigPath;
+    let tempUserDir;
+
+    beforeEach(() => {
+      originalUserConfigPath = CONFIG_FILES.user;
+      tempUserDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aios-user-write-test-'));
+      CONFIG_FILES.user = path.join(tempUserDir, 'user-config.yaml');
+      globalConfigCache.clear();
+    });
+
+    afterEach(() => {
+      CONFIG_FILES.user = originalUserConfigPath;
+      fs.rmSync(tempUserDir, { recursive: true, force: true });
+      globalConfigCache.clear();
+    });
+
+    test('creates user config file when it does not exist', () => {
+      // Delete the file if it exists (temp dir is clean)
+      expect(fs.existsSync(CONFIG_FILES.user)).toBe(false);
+
+      setUserConfigValue('user_profile', 'bob');
+
+      expect(fs.existsSync(CONFIG_FILES.user)).toBe(true);
+      const content = fs.readFileSync(CONFIG_FILES.user, 'utf8');
+      const config = yaml.load(content);
+      expect(config.user_profile).toBe('bob');
+    });
+
+    test('preserves existing values when setting new key', () => {
+      fs.writeFileSync(CONFIG_FILES.user, 'default_language: "pt-BR"\n', 'utf8');
+
+      setUserConfigValue('user_profile', 'advanced');
+
+      const content = fs.readFileSync(CONFIG_FILES.user, 'utf8');
+      const config = yaml.load(content);
+      expect(config.user_profile).toBe('advanced');
+      expect(config.default_language).toBe('pt-BR');
+    });
+
+    test('overwrites existing key value', () => {
+      fs.writeFileSync(CONFIG_FILES.user, 'user_profile: "bob"\n', 'utf8');
+
+      setUserConfigValue('user_profile', 'advanced');
+
+      const content = fs.readFileSync(CONFIG_FILES.user, 'utf8');
+      const config = yaml.load(content);
+      expect(config.user_profile).toBe('advanced');
+    });
+
+    test('invalidates config cache after write', () => {
+      globalConfigCache.set('test-key', { data: 'cached' });
+      expect(globalConfigCache.size).toBeGreaterThan(0);
+
+      setUserConfigValue('user_profile', 'bob');
+
+      expect(globalConfigCache.size).toBe(0);
+    });
+
+    test('returns updated config', () => {
+      fs.writeFileSync(CONFIG_FILES.user, 'existing: true\n', 'utf8');
+
+      const result = setUserConfigValue('user_profile', 'bob');
+      expect(result.user_profile).toBe('bob');
+      expect(result.existing).toBe(true);
+    });
+  });
+
+  // ------------------------------------------------------------------
+  // Story 12.1 — toggleUserProfile tests
+  // ------------------------------------------------------------------
+
+  describe('toggleUserProfile', () => {
+    let originalUserConfigPath;
+    let tempUserDir;
+
+    beforeEach(() => {
+      originalUserConfigPath = CONFIG_FILES.user;
+      tempUserDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aios-toggle-test-'));
+      CONFIG_FILES.user = path.join(tempUserDir, 'user-config.yaml');
+      globalConfigCache.clear();
+    });
+
+    afterEach(() => {
+      CONFIG_FILES.user = originalUserConfigPath;
+      fs.rmSync(tempUserDir, { recursive: true, force: true });
+      globalConfigCache.clear();
+    });
+
+    test('toggles from advanced to bob', () => {
+      fs.writeFileSync(CONFIG_FILES.user, 'user_profile: "advanced"\n', 'utf8');
+
+      const result = toggleUserProfile();
+      expect(result.previous).toBe('advanced');
+      expect(result.current).toBe('bob');
+
+      const content = fs.readFileSync(CONFIG_FILES.user, 'utf8');
+      const config = yaml.load(content);
+      expect(config.user_profile).toBe('bob');
+    });
+
+    test('toggles from bob to advanced', () => {
+      fs.writeFileSync(CONFIG_FILES.user, 'user_profile: "bob"\n', 'utf8');
+
+      const result = toggleUserProfile();
+      expect(result.previous).toBe('bob');
+      expect(result.current).toBe('advanced');
+    });
+
+    test('defaults to advanced and toggles to bob when no config exists', () => {
+      const result = toggleUserProfile();
+      expect(result.previous).toBe('advanced');
+      expect(result.current).toBe('bob');
+    });
+
+    test('invalidates cache after toggle', () => {
+      globalConfigCache.set('test-key', { data: 'cached' });
+
+      toggleUserProfile();
+
+      expect(globalConfigCache.size).toBe(0);
+    });
+
+    test('persists toggle result to file', () => {
+      toggleUserProfile(); // advanced → bob
+
+      const content = fs.readFileSync(CONFIG_FILES.user, 'utf8');
+      const config = yaml.load(content);
+      expect(config.user_profile).toBe('bob');
+
+      toggleUserProfile(); // bob → advanced
+
+      const content2 = fs.readFileSync(CONFIG_FILES.user, 'utf8');
+      const config2 = yaml.load(content2);
+      expect(config2.user_profile).toBe('advanced');
+    });
+  });
+
+  // ------------------------------------------------------------------
+  // Story 12.1 — Integration: resolveConfig returns L5 user_profile
+  // ------------------------------------------------------------------
+
+  describe('integration — L5 with full hierarchy', () => {
+    let originalUserConfigPath;
+    let tempUserDir;
+
+    beforeEach(() => {
+      originalUserConfigPath = CONFIG_FILES.user;
+      tempUserDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aios-l5-integration-test-'));
+      CONFIG_FILES.user = path.join(tempUserDir, 'user-config.yaml');
+      globalConfigCache.clear();
+    });
+
+    afterEach(() => {
+      CONFIG_FILES.user = originalUserConfigPath;
+      fs.rmSync(tempUserDir, { recursive: true, force: true });
+      globalConfigCache.clear();
+    });
+
+    test('resolveConfig returns user_profile from L5 overriding lower levels', () => {
+      const tmpDir = createTempProject({
+        '.aios-core/framework-config.yaml': { fixture: 'framework-config.yaml' },
+        '.aios-core/project-config.yaml': 'user_profile: "advanced"\nproject:\n  name: test\n',
+      });
+
+      fs.writeFileSync(CONFIG_FILES.user, 'user_profile: "bob"\n', 'utf8');
+
+      try {
+        const result = resolveConfig(tmpDir, { skipCache: true });
+        // L5 bob overrides L2 advanced
+        expect(result.config.user_profile).toBe('bob');
+      } finally {
+        cleanupTempDir(tmpDir);
+      }
+    });
+
+    test('toggle reflects in next resolveConfig call', () => {
+      const tmpDir = createTempProject({
+        '.aios-core/framework-config.yaml': { fixture: 'framework-config.yaml' },
+      });
+
+      fs.writeFileSync(CONFIG_FILES.user, 'user_profile: "advanced"\n', 'utf8');
+
+      try {
+        let result = resolveConfig(tmpDir, { skipCache: true });
+        expect(result.config.user_profile).toBe('advanced');
+
+        toggleUserProfile(); // advanced → bob
+
+        result = resolveConfig(tmpDir, { skipCache: true });
+        expect(result.config.user_profile).toBe('bob');
       } finally {
         cleanupTempDir(tmpDir);
       }

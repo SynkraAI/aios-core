@@ -1,14 +1,16 @@
 /**
  * Configuration Resolver — Layered Config Hierarchy
  *
- * Implements the 4-level configuration hierarchy defined in ADR-PRO-002:
- *   L1 Framework → L2 Project → Pro Extension → L3 App → L4 Local
+ * Implements the 5-level configuration hierarchy defined in ADR-PRO-002:
+ *   L1 Framework → L2 Project → Pro Extension → L3 App → L4 Local → L5 User
  *
  * Provides:
  * - resolveConfig(projectRoot, options) — main entry point
  * - isLegacyMode(projectRoot) — detects monolithic core-config.yaml
  * - loadLayeredConfig(projectRoot, options) — new layered loading
  * - loadLegacyConfig(projectRoot) — backward-compatible monolithic loading
+ * - setUserConfigValue(key, value) — write to L5 user config
+ * - toggleUserProfile() — toggle user_profile bob↔advanced
  *
  * Integrates with:
  * - ConfigCache (config-cache.js) — TTL-based caching
@@ -23,10 +25,118 @@
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const yaml = require('js-yaml');
 const { deepMerge } = require('./merge-utils');
 const { interpolateEnvVars, lintEnvPatterns } = require('./env-interpolator');
 const { globalConfigCache } = require('./config-cache');
+
+// ---------------------------------------------------------------------------
+// JSON Schema validation (Story 12.2)
+// ---------------------------------------------------------------------------
+
+let _ajvInstance = null;
+let _schemaCache = {};
+
+/**
+ * Schema file mapping for each config level.
+ */
+const SCHEMA_FILES = {
+  framework: 'framework-config.schema.json',
+  project: 'project-config.schema.json',
+  local: 'local-config.schema.json',
+  user: 'user-config.schema.json',
+};
+
+/**
+ * Get or create the shared Ajv instance (lazy-loaded).
+ *
+ * @returns {Object} Ajv instance
+ */
+function getAjvInstance() {
+  if (!_ajvInstance) {
+    const Ajv = require('ajv');
+    const addFormats = require('ajv-formats');
+    _ajvInstance = new Ajv({ allErrors: true, strict: false });
+    addFormats(_ajvInstance);
+  }
+  return _ajvInstance;
+}
+
+/**
+ * Load a JSON Schema from the schemas/ directory.
+ *
+ * @param {string} schemaFileName - Schema file name
+ * @returns {Object|null} Parsed schema or null if not found
+ */
+function loadSchema(schemaFileName) {
+  if (_schemaCache[schemaFileName]) {
+    return _schemaCache[schemaFileName];
+  }
+
+  const schemaPath = path.join(__dirname, 'schemas', schemaFileName);
+
+  try {
+    if (!fs.existsSync(schemaPath)) {
+      return null;
+    }
+    const content = fs.readFileSync(schemaPath, 'utf8');
+    const schema = JSON.parse(content);
+    _schemaCache[schemaFileName] = schema;
+    return schema;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Validate config data against a JSON Schema for the given level.
+ *
+ * Returns warnings (does not throw) for graceful degradation.
+ *
+ * @param {string} level - Config level: 'framework' | 'project' | 'local' | 'user'
+ * @param {Object} data - Config data to validate
+ * @param {string} filePath - Source file path (for error messages)
+ * @returns {string[]} Validation warnings (empty if valid)
+ */
+function validateConfig(level, data, filePath) {
+  const warnings = [];
+  const schemaFile = SCHEMA_FILES[level];
+
+  if (!schemaFile) {
+    return warnings;
+  }
+
+  const schema = loadSchema(schemaFile);
+  if (!schema) {
+    return warnings;
+  }
+
+  try {
+    const ajv = getAjvInstance();
+    const validate = ajv.compile(schema);
+    const isValid = validate(data);
+
+    if (!isValid && validate.errors) {
+      for (const err of validate.errors) {
+        const field = err.instancePath ? err.instancePath.replace(/^\//, '') : err.params?.missingProperty || 'unknown';
+        warnings.push(`${filePath} inválido: campo '${field}' ${err.message}`);
+      }
+    }
+  } catch {
+    // Graceful: if ajv fails, skip validation
+  }
+
+  return warnings;
+}
+
+/**
+ * Clear the schema cache (useful for testing).
+ */
+function clearSchemaCache() {
+  _schemaCache = {};
+  _ajvInstance = null;
+}
 
 /**
  * Standard config file paths relative to project root.
@@ -37,6 +147,7 @@ const CONFIG_FILES = {
   pro: 'pro/pro-config.yaml',
   local: '.aios-core/local-config.yaml',
   legacy: '.aios-core/core-config.yaml',
+  user: path.join(os.homedir(), '.aios', 'user-config.yaml'),
 };
 
 /**
@@ -48,6 +159,7 @@ const LEVELS = {
   pro: 'Pro',
   app: 'L3',
   local: 'L4',
+  user: 'L5',
   legacy: 'Legacy',
 };
 
@@ -78,6 +190,28 @@ function loadYaml(projectRoot, relativePath) {
   }
 }
 
+/**
+ * Load and parse a YAML file from an absolute path.
+ * Returns null if file doesn't exist. Graceful on parse errors.
+ *
+ * @param {string} absolutePath - Absolute file path
+ * @returns {{ data: Object|null, path: string }} Parsed YAML or null
+ */
+function loadYamlAbsolute(absolutePath) {
+  try {
+    if (!fs.existsSync(absolutePath)) {
+      return { data: null, path: absolutePath };
+    }
+
+    const content = fs.readFileSync(absolutePath, 'utf8');
+    const data = yaml.load(content) || {};
+    return { data, path: absolutePath };
+  } catch (_error) {
+    // Graceful: user config may be malformed — treat as missing
+    return { data: null, path: absolutePath };
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Legacy detection
 // ---------------------------------------------------------------------------
@@ -104,7 +238,7 @@ function isLegacyMode(projectRoot) {
 /**
  * Load configuration using the layered hierarchy.
  *
- * Order: L1 → L2 → Pro → L3 → L4
+ * Order: L1 → L2 → Pro → L3 → L4 → L5
  * Each level deep-merges onto the previous result.
  *
  * @param {string} projectRoot - Project root directory
@@ -134,6 +268,11 @@ function loadLayeredConfig(projectRoot, options = {}) {
     if (l1Lint.length > 0) {
       warnings.push(...l1Lint.map(w => `[LINT] ${w}`));
     }
+    // Validate L1 against schema
+    const l1Validation = validateConfig('framework', l1.data, CONFIG_FILES.framework);
+    if (l1Validation.length > 0) {
+      warnings.push(...l1Validation.map(w => `[SCHEMA] ${w}`));
+    }
   }
 
   // L2: Project (optional)
@@ -147,6 +286,11 @@ function loadLayeredConfig(projectRoot, options = {}) {
     const l2Lint = lintEnvPatterns(l2.data, CONFIG_FILES.project);
     if (l2Lint.length > 0) {
       warnings.push(...l2Lint.map(w => `[LINT] ${w}`));
+    }
+    // Validate L2 against schema
+    const l2Validation = validateConfig('project', l2.data, CONFIG_FILES.project);
+    if (l2Validation.length > 0) {
+      warnings.push(...l2Validation.map(w => `[SCHEMA] ${w}`));
     }
   }
 
@@ -177,6 +321,25 @@ function loadLayeredConfig(projectRoot, options = {}) {
     config = deepMerge(config, l4.data);
     if (options.debug) {
       trackSources(sources, l4.data, LEVELS.local, CONFIG_FILES.local);
+    }
+    // Validate L4 against schema
+    const l4Validation = validateConfig('local', l4.data, CONFIG_FILES.local);
+    if (l4Validation.length > 0) {
+      warnings.push(...l4Validation.map(w => `[SCHEMA] ${w}`));
+    }
+  }
+
+  // L5: User (optional — global user preferences, cross-project, ~/.aios/user-config.yaml)
+  const l5 = loadYamlAbsolute(CONFIG_FILES.user);
+  if (l5.data) {
+    config = deepMerge(config, l5.data);
+    if (options.debug) {
+      trackSources(sources, l5.data, LEVELS.user, CONFIG_FILES.user);
+    }
+    // Validate L5 against schema
+    const l5Validation = validateConfig('user', l5.data, CONFIG_FILES.user);
+    if (l5Validation.length > 0) {
+      warnings.push(...l5Validation.map(w => `[SCHEMA] ${w}`));
     }
   }
 
@@ -328,6 +491,10 @@ function getConfigAtLevel(projectRoot, level, options = {}) {
     case 'local': case '4': case 'L4':
       relativePath = CONFIG_FILES.local;
       break;
+    case 'user': case '5': case 'L5': {
+      const { data } = loadYamlAbsolute(CONFIG_FILES.user);
+      return data;
+    }
     case 'legacy':
       relativePath = CONFIG_FILES.legacy;
       break;
@@ -340,6 +507,85 @@ function getConfigAtLevel(projectRoot, level, options = {}) {
 }
 
 // ---------------------------------------------------------------------------
+// User config write operations (Story 12.1 — L5 User layer)
+// ---------------------------------------------------------------------------
+
+/**
+ * Valid user profile values.
+ */
+const VALID_USER_PROFILES = ['bob', 'advanced'];
+
+/**
+ * Ensure the ~/.aios/ directory exists with secure permissions.
+ *
+ * @returns {string} Path to ~/.aios/ directory
+ */
+function ensureUserConfigDir() {
+  const dir = path.dirname(CONFIG_FILES.user);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true, mode: 0o700 });
+  }
+  return dir;
+}
+
+/**
+ * Set a value in the user config file (~/.aios/user-config.yaml).
+ * Creates the file and directory if they don't exist.
+ * Invalidates the config cache after writing.
+ *
+ * @param {string} key - Config key to set
+ * @param {*} value - Value to set
+ * @returns {Object} Updated user config
+ */
+function setUserConfigValue(key, value) {
+  ensureUserConfigDir();
+
+  let config = {};
+  try {
+    if (fs.existsSync(CONFIG_FILES.user)) {
+      const content = fs.readFileSync(CONFIG_FILES.user, 'utf8');
+      config = yaml.load(content) || {};
+    }
+  } catch {
+    config = {};
+  }
+
+  config[key] = value;
+
+  const yamlContent = yaml.dump(config, { lineWidth: -1 });
+  fs.writeFileSync(CONFIG_FILES.user, yamlContent, 'utf8');
+
+  globalConfigCache.clear();
+
+  return config;
+}
+
+/**
+ * Toggle user_profile between 'bob' and 'advanced'.
+ * Reads current value, flips it, writes back, and invalidates cache.
+ *
+ * @returns {{ previous: string, current: string }} Previous and new profile values
+ */
+function toggleUserProfile() {
+  let config = {};
+  try {
+    if (fs.existsSync(CONFIG_FILES.user)) {
+      const content = fs.readFileSync(CONFIG_FILES.user, 'utf8');
+      config = yaml.load(content) || {};
+    }
+  } catch {
+    config = {};
+  }
+
+  const previous = config.user_profile || 'advanced';
+  const current = previous === 'bob' ? 'advanced' : 'bob';
+
+  setUserConfigValue('user_profile', current);
+
+  return { previous, current };
+}
+
+// ---------------------------------------------------------------------------
 // Exports
 // ---------------------------------------------------------------------------
 
@@ -349,6 +595,13 @@ module.exports = {
   loadLayeredConfig,
   loadLegacyConfig,
   getConfigAtLevel,
+  setUserConfigValue,
+  toggleUserProfile,
+  ensureUserConfigDir,
+  validateConfig,
+  clearSchemaCache,
   CONFIG_FILES,
   LEVELS,
+  SCHEMA_FILES,
+  VALID_USER_PROFILES,
 };
