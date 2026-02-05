@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-05T22:59:52.249Z"
+generated_at: "2026-02-05T23:30:13.921Z"
 generator: scripts/generate-install-manifest.js
 file_count: 889
 files:
@@ -569,9 +569,9 @@ files:
     type: core
     size: 16573
   - path: core/orchestration/bob-orchestrator.js
-    hash: sha256:5934ba422b081d949fa762a54599339a3f661fdd5068d86ad1cf41506ad02bf6
+    hash: sha256:84b4b5c9e2b82ea679137cecd69d16b05b92dfd295fb4bc95dfdbb3b32351f95
     type: core
-    size: 35768
+    size: 35841
   - path: core/orchestration/bob-status-writer.js
     hash: sha256:ea3545986fb7b52ce596b1bb54ad52da277eceb538b3060b066d61702137e823
     type: core

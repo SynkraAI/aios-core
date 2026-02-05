@@ -691,10 +691,10 @@ class BobOrchestrator {
    *
    * Decision tree implemented as pure if/else statements (AC7 — no LLM).
    *
-   * @param {string} projectRoot - Project root directory
+   * @param {string} [projectRoot=this.projectRoot] - Project root directory (defaults to instance projectRoot)
    * @returns {string} ProjectState enum value
    */
-  detectProjectState(projectRoot) {
+  detectProjectState(projectRoot = this.projectRoot) {
     // Check 1: Is this a greenfield project? (AC6)
     // No package.json, no .git, no docs/ → brand new project
     const hasPackageJson = fs.existsSync(path.join(projectRoot, 'package.json'));
