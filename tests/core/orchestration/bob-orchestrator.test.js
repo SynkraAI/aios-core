@@ -422,7 +422,8 @@ describe('BobOrchestrator', () => {
       // Then
       expect(result.success).toBe(true);
       expect(result.projectState).toBe(ProjectState.GREENFIELD);
-      expect(result.action).toBe('greenfield');
+      // GreenfieldHandler returns a surface prompt after Phase 0
+      expect(result.action).toBe('greenfield_surface');
     });
 
     it('should release lock on error', async () => {

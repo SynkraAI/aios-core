@@ -135,6 +135,15 @@ const {
   PhaseFailureAction,
 } = require('./brownfield-handler');
 
+// Story 12.13: Greenfield Handler (Projeto Bob)
+const {
+  GreenfieldHandler,
+  GreenfieldPhase,
+  PhaseFailureAction: GreenfieldPhaseFailureAction,
+  DEFAULT_GREENFIELD_INDICATORS,
+  PHASE_1_SEQUENCE,
+} = require('./greenfield-handler');
+
 module.exports = {
   // Main orchestrators
   WorkflowOrchestrator,
@@ -300,4 +309,11 @@ module.exports = {
   BrownfieldPhase,
   PostDiscoveryChoice,
   PhaseFailureAction,
+
+  // Story 12.13: Greenfield Handler (Projeto Bob)
+  GreenfieldHandler,
+  GreenfieldPhase,
+  GreenfieldPhaseFailureAction,
+  DEFAULT_GREENFIELD_INDICATORS,
+  PHASE_1_SEQUENCE,
 };
