@@ -17,8 +17,6 @@
 - `*build-status` - Show build status (--all for all builds)
 - `*build-autonomous` - Start autonomous build loop for a story (Coder Agent Loop with retries)
 - `*build` - Complete autonomous build: worktree → plan → execute → verify → merge (*build {story-id})
-- `*capture-insights` - Capture session insights (discoveries, patterns, gotchas, decisions)
-- `*list-gotchas` - List known gotchas from .aios/gotchas.md
 - `*gotcha` - Add a gotcha manually (*gotcha {title} - {description})
 - `*gotchas` - List and search gotchas (*gotchas [--category X] [--severity Y])
 - `*worktree-create` - Create isolated worktree for story (*worktree-create {story-id})
