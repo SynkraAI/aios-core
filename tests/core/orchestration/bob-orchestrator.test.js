@@ -349,6 +349,17 @@ describe('BobOrchestrator', () => {
       // Then
       expect(state).toBe(ProjectState.EXISTING_WITH_DOCS);
     });
+
+    it('should use this.projectRoot as default when no argument is passed (Issue #88)', () => {
+      // Given — orchestrator was created with TEST_PROJECT_ROOT
+      // and default setup has both config and docs
+
+      // When — call without argument
+      const state = orchestrator.detectProjectState();
+
+      // Then — should use this.projectRoot and return same result
+      expect(state).toBe(ProjectState.EXISTING_WITH_DOCS);
+    });
   });
 
   // ==========================================
