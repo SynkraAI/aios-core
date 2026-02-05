@@ -55,9 +55,17 @@ async function extractStoryMetadata(filePath) {
     // Extract from YAML frontmatter or metadata section
     let inYamlBlock = false;
     let inMetadataSection = false;
+    let inCodeBlock = false;
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim();
+
+      // Skip code blocks entirely (fixes TypeScript parsing bug)
+      if (line.startsWith('```')) {
+        inCodeBlock = !inCodeBlock;
+        continue;
+      }
+      if (inCodeBlock) continue;
 
       // YAML frontmatter detection
       if (line === '---' && i < 10) {
@@ -75,12 +83,56 @@ async function extractStoryMetadata(filePath) {
         inMetadataSection = false;
       }
 
-      if (inYamlBlock || inMetadataSection) {
-        // Extract key-value pairs
-        const match = line.match(/^[-*]?\s*\*?\*?([A-Za-z\s]+)\*?\*?:\s*(.+)$/);
+      // Extract key-value pairs from YAML, metadata section, or bold markdown format
+      // Supports: "status: Done", "**Status:** Done", "> **Status:** Done"
+      if (inYamlBlock || inMetadataSection || i < 30) {
+        const match = line.match(/^[>]?\s*\*?\*?([A-Za-z][A-Za-z\s_-]{0,20})\*?\*?:\s*(.+)$/);
         if (match) {
-          const key = match[1].trim().toLowerCase().replace(/\s+/g, '_');
-          const value = match[2].trim().replace(/^`|`$/g, '');
+          const key = match[1].trim().toLowerCase().replace(/[\s-]+/g, '_');
+          let value = match[2].trim().replace(/^`|`$/g, '').replace(/\*\*/g, '');
+
+          // Skip values that look like code
+          if (value.includes(';') || value.includes('(') || value.includes('{')) continue;
+
+          // Normalize status values to standard values
+          if (key === 'status') {
+            value = value.replace(/^[✅🚀⚙️📝❌⏸️👀]\s*/u, '').trim();
+            // Remove emojis at end too
+            value = value.replace(/\s*[✅🚀⚙️📝❌⏸️👀]\s*$/u, '').trim();
+            // Normalize common variations
+            const statusLower = value.toLowerCase();
+            if (statusLower.includes('done') || statusLower.includes('complete')) {
+              value = 'Completed';
+            } else if (statusLower.includes('ready for dev') || statusLower === 'ready') {
+              value = 'Ready for Dev';
+            } else if (statusLower.includes('review')) {
+              value = 'Ready for Review';
+            } else if (statusLower.includes('progress')) {
+              value = 'In Progress';
+            } else if (statusLower.includes('hold')) {
+              value = 'On Hold';
+            } else if (statusLower.includes('cancel')) {
+              value = 'Cancelled';
+            } else if (statusLower.includes('approved')) {
+              value = 'Approved';
+            } else if (statusLower.includes('draft')) {
+              value = 'Draft';
+            }
+          }
+
+          // Clean priority values: "P0 - Critical Foundation" -> "Critical"
+          if (key === 'priority') {
+            const prioMatch = value.match(/P0|Critical/i);
+            if (prioMatch || value.toLowerCase().includes('critical')) {
+              value = 'Critical';
+            } else if (value.toLowerCase().includes('high') || value.includes('P1')) {
+              value = 'High';
+            } else if (value.toLowerCase().includes('medium') || value.includes('P2')) {
+              value = 'Medium';
+            } else if (value.toLowerCase().includes('low') || value.includes('P3')) {
+              value = 'Low';
+            }
+          }
 
           // Map to standard fields
           if (key === 'story_id' || key === 'id') metadata.storyId = value;
@@ -88,10 +140,10 @@ async function extractStoryMetadata(filePath) {
           if (key === 'epic') metadata.epic = value;
           if (key === 'status') metadata.status = value;
           if (key === 'priority') metadata.priority = value;
-          if (key === 'owner' || key === 'assigned_to') metadata.owner = value;
-          if (key === 'estimate' || key === 'effort') metadata.estimate = value;
+          if (key === 'owner' || key === 'assigned_to' || key === 'author') metadata.owner = value;
+          if (key === 'estimate' || key === 'effort' || key === 'estimation') metadata.estimate = value;
           if (key === 'created') metadata.created = value;
-          if (key === 'updated') metadata.updated = value;
+          if (key === 'updated' || key === 'completed') metadata.updated = value;
         }
       }
 
@@ -107,11 +159,21 @@ async function extractStoryMetadata(filePath) {
       }
     }
 
-    // Extract story ID from filename if not in metadata
+    // Extract story/epic ID from filename if not in metadata
+    // Supports: story-8.4-name.md, 7.1-name.md, epic-10-name.md
     if (!metadata.storyId) {
-      const idMatch = metadata.fileName.match(/story-?([\d.]+)/i);
-      if (idMatch) {
-        metadata.storyId = idMatch[1];
+      const patterns = [
+        /story-?([\d.]+)/i,           // story-8.4-name.md
+        /^([\d]+\.[\d]+)-/,           // 7.1-name.md
+        /epic-?([\d]+)/i,             // epic-10-name.md
+      ];
+
+      for (const pattern of patterns) {
+        const idMatch = metadata.fileName.match(pattern);
+        if (idMatch) {
+          metadata.storyId = idMatch[1];
+          break;
+        }
       }
     }
 
