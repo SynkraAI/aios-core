@@ -1,30 +1,16 @@
 status:
-  branch: feat/epic-12
-  modifiedFiles:
-    - .aios/project-status.yaml
-    - .coderabbit.yaml
-    - .github/workflows/bob-integration.yml
-    - .github/workflows/cross-platform-bob.yml
-    - .releaserc.json
-    - .tsbuildinfo
-    - docs/STORY-BACKLOG.md
-    - docs/stories/active/12.11.story.md
-    - package-lock.json
-  modifiedFilesTotalCount: 9
+  branch: main
+  modifiedFiles: []
+  modifiedFilesTotalCount: 0
   recentCommits:
-    - >-
-      feat(orchestration): add BrownfieldHandler, MessageFormatter and
-      BobStatusWriter [Epic 12]
-    - >-
-      feat(orchestration): implement session state integration with Bob [Story
-      12.5]
-  currentEpic: "epic-12"
-  currentStory: "12.11"
+    - "feat: Epic 12 - Bob Orchestrator and CI/CD Pipeline"
+  currentEpic: null
+  currentStory: null
   epicProgress:
     total: 13
-    completed: 12
-    active: 1
-    percentage: 92
+    completed: 13
+    active: 0
+    percentage: 100
   completedStories:
     - "12.1"
     - "12.2"
@@ -36,40 +22,19 @@ status:
     - "12.8"
     - "12.9"
     - "12.10"
+    - "12.11"
     - "12.12"
     - "12.13"
-  activeStories:
-    - id: "12.11"
-      title: "CI/CD Pipeline for Bob"
-      status: "Ready for Review"
-      executor: "@devops"
-      progress: "85%"
-      pendingTasks:
-        - "Task 5: Branch protection (delegada @devops, pós-merge)"
-      completedTasks:
-        - "Task 1: bob-integration.yml"
-        - "Task 2: cross-platform-bob.yml"
-        - "Task 3: npm-publish.yml (parcial)"
-        - "Task 4: CodeRabbit config"
-        - "Task 6: Release notes"
-        - "Task 7: Testes (parcial)"
-        - "Task 8: Integração final"
-  nextActions:
-    - action: "EPIC12-CLOSE: Merge feat/epic-12 → main + Branch Protection"
-      owner: "@devops (Gage)"
-      priority: "HIGH"
-      status: "DELEGATED"
-      delegatedBy: "@po (Pax)"
-      delegatedAt: "2026-02-05T23:30:00.000Z"
-      tasks:
-        - "Criar PR feat/epic-12 → main"
-        - "Review e merge (squash)"
-        - "Adicionar bob-test aos required checks"
-        - "Verificar squash merge enforced"
-        - "Mover 12.11 para completed/"
-        - "Atualizar project-status.yaml para 100%"
-  lastUpdate: '2026-02-05T23:15:00.000Z'
-  lastUpdatedBy: "@po (Pax)"
+  activeStories: []
+  completedEpics:
+    - id: "epic-12"
+      title: "Bob Orchestrator and CI/CD Pipeline"
+      completedAt: "2026-02-05T23:03:47Z"
+      prNumber: 87
+      mergedBy: "oalanicolas"
+  nextActions: []
+  lastUpdate: "2026-02-05T23:10:00.000Z"
+  lastUpdatedBy: "@devops (Gage)"
   isGitRepo: true
-timestamp: 1770333300000
+timestamp: 1770336600000
 ttl: 60

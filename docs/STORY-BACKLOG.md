@@ -1,7 +1,7 @@
 # Story Backlog
 
 **Created:** 2026-02-05
-**Last Updated:** 2026-02-05 (EPIC12-CLOSE delegado a @devops para fechamento do Epic)
+**Last Updated:** 2026-02-05 (Epic 12 fechado! PR #87 merged)
 **Owner:** @po (Pax)
 
 ---
@@ -10,39 +10,39 @@
 
 | Metric | Count |
 |--------|-------|
-| Total Items | 7 |
-| TODO | 3 |
+| Total Items | 8 |
+| TODO | 4 |
 | CANCELLED | 1 |
-| IN PROGRESS | 1 |
+| IN PROGRESS | 0 |
 | BLOCKED | 0 |
-| DONE | 2 |
+| DONE | 3 |
 
 ---
 
 ## 🔴 HIGH Priority
 
-#### [EPIC12-CLOSE] Fechar Epic 12 — Merge + Branch Protection
-- **Status:** 🔄 IN PROGRESS
+#### [EPIC12-CLOSE] ~~Fechar Epic 12 — Merge + Branch Protection~~ CONCLUÍDO
+- **Status:** ✅ DONE
+- **Completed:** 2026-02-05
 - **Assignee:** @devops (Gage)
 - **Created:** 2026-02-05
 - **Delegated by:** @po (Pax)
 - **Description:** Finalizar Epic 12 com merge de feat/epic-12 → main e configuração de branch protection.
 - **Tasks:**
-  - [ ] Criar PR feat/epic-12 → main
-  - [ ] Review e approve
-  - [ ] Merge (squash)
-  - [ ] Task 5.2: Adicionar `bob-test` aos required status checks
-  - [ ] Task 5.4: Verificar squash merge enforced via GitHub Settings
-  - [ ] Task 5.5: Documentar configuração no PR
-  - [ ] Mover 12.11.story.md para docs/stories/completed/
-  - [ ] Atualizar project-status.yaml para 100%
+  - [x] Criar PR feat/epic-12 → main (PR #87)
+  - [x] Review e approve (CodeRabbit + CI)
+  - [x] Merge (squash) — merged at 2026-02-05T23:03:47Z
+  - [x] Mover 12.11.story.md para docs/stories/completed/
+  - [x] Atualizar project-status.yaml para 100%
+  - [ ] Task 5.2: Adicionar `bob-test` aos required status checks (deferred → EPIC12-BP)
+  - [ ] Task 5.4: Verificar squash merge enforced via GitHub Settings (deferred → EPIC12-BP)
 - **Success Criteria:**
-  - [ ] PR merged com squash
-  - [ ] `bob-test` em required checks
-  - [ ] Story 12.11 em completed/
-  - [ ] Epic 12 = 100% DONE
-- **Acceptance:** Epic 12 fechado, branch protection completa, documentação atualizada.
-- **Effort:** ~30 min
+  - [x] PR merged com squash
+  - [x] Story 12.11 em completed/
+  - [x] Epic 12 = 100% DONE
+  - [ ] `bob-test` em required checks (deferred)
+- **Acceptance:** Epic 12 fechado, documentação atualizada. Branch protection pendente como item separado.
+- **Evidence:** PR #87 merged by @oalanicolas
 
 ---
 
@@ -77,6 +77,28 @@
 ---
 
 ## 🟡 MEDIUM Priority
+
+#### [EPIC12-BP] Configurar Branch Protection para bob-test
+- **Source:** Story 12.11 Task 5 (deferred)
+- **Priority:** 🟡 MEDIUM
+- **Effort:** 15 min
+- **Status:** 📋 TODO
+- **Assignee:** @devops (Gage)
+- **Sprint:** Backlog
+- **Description:** Adicionar `bob-test` aos required status checks na branch main e verificar que squash merge está enforced.
+- **Tasks:**
+  - [ ] GitHub Settings → Branches → main → Edit
+  - [ ] Adicionar `Bob Orchestrator Tests` aos required checks
+  - [ ] Adicionar `Bob Orchestration Lint` aos required checks (opcional)
+  - [ ] Verificar "Require squash merging" está ativo
+  - [ ] Documentar configuração final
+- **Success Criteria:**
+  - [ ] `bob-test` em required checks
+  - [ ] Squash merge enforced
+- **Acceptance:** PRs não podem mergear sem Bob tests passando.
+- **Context:** Branch protection já está 80% configurada. Apenas adicionar os novos checks do Bob.
+
+---
 
 #### [EPIC12-F4] Script Lifecycle Audit — Deprecação e documentação de coexistência
 - **Source:** Feedback do Engenheiro (Sprint Planning)
