@@ -85,6 +85,24 @@ const {
   STATUS,
 } = require('../ui');
 
+// Story 12.3: Bob Orchestrator (Projeto Bob)
+const { BobOrchestrator, ProjectState } = require('./bob-orchestrator');
+const LockManager = require('./lock-manager');
+
+// Story 12.4: Epic Context Accumulator (Projeto Bob)
+const {
+  EpicContextAccumulator,
+  createEpicContextAccumulator,
+  CompressionLevel,
+  COMPRESSION_FIELDS,
+  estimateTokens,
+  getCompressionLevel,
+  buildFileIndex,
+  hasFileOverlap,
+  TOKEN_LIMIT,
+  HARD_CAP_PER_STORY,
+} = require('./epic-context-accumulator');
+
 module.exports = {
   // Main orchestrators
   WorkflowOrchestrator,
@@ -209,4 +227,21 @@ module.exports = {
   PanelRenderer,
   BOX,
   STATUS,
+
+  // Story 12.3: Bob Orchestrator (Projeto Bob)
+  BobOrchestrator,
+  ProjectState,
+  LockManager,
+
+  // Story 12.4: Epic Context Accumulator (Projeto Bob)
+  EpicContextAccumulator,
+  createEpicContextAccumulator,
+  CompressionLevel,
+  COMPRESSION_FIELDS,
+  estimateTokens,
+  getCompressionLevel,
+  buildFileIndex,
+  hasFileOverlap,
+  TOKEN_LIMIT,
+  HARD_CAP_PER_STORY,
 };

@@ -376,6 +376,7 @@ To comprehensively validate a story draft before implementation begins, ensuring
 
 ### 9. Anti-Hallucination Verification
 
+- **Epic Context Enrichment**: Import `EpicContextAccumulator` from `core/orchestration` and call `buildAccumulatedContext(epicId, storyN)` to enrich validation with accumulated epic context (progressive summarization within token limits)
 - **Refer to tools/mcp/context7.yaml** for library documentation lookup to verify technical claims against official sources
 - Consult the examples section for documentation verification patterns and library-specific queries
 - **Source verification**: Every technical claim must be traceable to source documents

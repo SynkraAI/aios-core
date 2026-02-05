@@ -926,6 +926,69 @@ Write-Host "✅ Project structure created"
 
 ---
 
+### Step 6.1: User Profile Selection (Story 12.1)
+
+**Action:** Ask user for their profile preference and persist to `~/.aios/user-config.yaml`
+
+**Elicitation Point (PRD §2.4):**
+
+```
+🤖 Bem-vindo ao AIOS!
+
+Quando uma IA gera código para você, qual opção te descreve melhor?
+
+[1] 🟢 Modo Assistido (Recomendado)
+    → "Não sei avaliar se o código está certo ou errado"
+
+[2] 🔵 Modo Avançado
+    → "Consigo identificar quando algo está errado e corrigir"
+
+Escolha [1/2]:
+```
+
+**YOLO Mode Behavior:** Auto-select `advanced` (developer running in autonomous mode is advanced by definition)
+
+**Profile Mapping:**
+- Option 1 (Modo Assistido) → `user_profile: "bob"`
+- Option 2 (Modo Avançado) → `user_profile: "advanced"`
+
+**Persistence:**
+
+```bash
+# Create ~/.aios/ with secure permissions
+mkdir -p ~/.aios
+chmod 700 ~/.aios
+
+# Write user-config.yaml with selected profile
+cat > ~/.aios/user-config.yaml << EOF
+# AIOS User Preferences (global, cross-project)
+# Created by environment-bootstrap
+# Change with: *toggle-profile
+user_profile: "${SELECTED_PROFILE}"
+default_language: "pt-BR"
+EOF
+```
+
+**Programmatic (Node.js):**
+
+```javascript
+const { setUserConfigValue, ensureUserConfigDir } = require('.aios-core/core/config/config-resolver');
+
+// Ensure directory exists with permissions 700
+ensureUserConfigDir();
+
+// Write user profile
+setUserConfigValue('user_profile', selectedProfile); // 'bob' or 'advanced'
+setUserConfigValue('default_language', 'pt-BR');
+```
+
+**Validation:**
+- Profile must be either `bob` or `advanced`
+- `~/.aios/` directory must have permissions 700
+- `~/.aios/user-config.yaml` must be valid YAML after write
+
+---
+
 ### Step 6.5: Docker MCP Setup (Optional but Recommended)
 
 **Condition:** Docker Desktop 4.50+ is installed AND Docker MCP Toolkit is available
