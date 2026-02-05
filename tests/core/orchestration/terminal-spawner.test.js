@@ -152,8 +152,22 @@ describe('Terminal Spawner (Story 12.10)', () => {
     });
 
     describe('SSH detection (Task 1.3)', () => {
+      // Helper to clear CI environment variables for isolated SSH tests
+      const clearCIEnvVars = () => {
+        delete process.env.CI;
+        delete process.env.GITHUB_ACTIONS;
+        delete process.env.GITLAB_CI;
+        delete process.env.JENKINS_URL;
+        delete process.env.TRAVIS;
+        delete process.env.CIRCLECI;
+        delete process.env.TF_BUILD;
+        delete process.env.BUILDKITE;
+        delete process.env.CODEBUILD_BUILD_ID;
+      };
+
       it('should detect SSH_CLIENT environment', () => {
-        // Given
+        // Given - clear CI vars first to isolate test
+        clearCIEnvVars();
         process.env.SSH_CLIENT = '192.168.1.1 12345 22';
 
         // When
@@ -166,7 +180,8 @@ describe('Terminal Spawner (Story 12.10)', () => {
       });
 
       it('should detect SSH_TTY environment', () => {
-        // Given
+        // Given - clear CI vars first to isolate test
+        clearCIEnvVars();
         process.env.SSH_TTY = '/dev/pts/0';
 
         // When
@@ -177,7 +192,8 @@ describe('Terminal Spawner (Story 12.10)', () => {
       });
 
       it('should detect SSH_CONNECTION environment', () => {
-        // Given
+        // Given - clear CI vars first to isolate test
+        clearCIEnvVars();
         process.env.SSH_CONNECTION = '192.168.1.1 12345 192.168.1.2 22';
 
         // When
@@ -189,8 +205,27 @@ describe('Terminal Spawner (Story 12.10)', () => {
     });
 
     describe('VS Code detection (Task 1.2)', () => {
+      // Helper to clear CI and SSH environment variables for isolated VS Code tests
+      const clearHigherPriorityEnvVars = () => {
+        // Clear CI vars
+        delete process.env.CI;
+        delete process.env.GITHUB_ACTIONS;
+        delete process.env.GITLAB_CI;
+        delete process.env.JENKINS_URL;
+        delete process.env.TRAVIS;
+        delete process.env.CIRCLECI;
+        delete process.env.TF_BUILD;
+        delete process.env.BUILDKITE;
+        delete process.env.CODEBUILD_BUILD_ID;
+        // Clear SSH vars
+        delete process.env.SSH_CLIENT;
+        delete process.env.SSH_TTY;
+        delete process.env.SSH_CONNECTION;
+      };
+
       it('should detect TERM_PROGRAM=vscode', () => {
-        // Given
+        // Given - clear higher priority env vars to isolate test
+        clearHigherPriorityEnvVars();
         process.env.TERM_PROGRAM = 'vscode';
 
         // When
@@ -203,7 +238,8 @@ describe('Terminal Spawner (Story 12.10)', () => {
       });
 
       it('should detect VSCODE_PID', () => {
-        // Given
+        // Given - clear higher priority env vars to isolate test
+        clearHigherPriorityEnvVars();
         process.env.VSCODE_PID = '12345';
 
         // When
@@ -214,7 +250,8 @@ describe('Terminal Spawner (Story 12.10)', () => {
       });
 
       it('should detect VSCODE_CWD', () => {
-        // Given
+        // Given - clear higher priority env vars to isolate test
+        clearHigherPriorityEnvVars();
         process.env.VSCODE_CWD = '/home/user/project';
 
         // When
@@ -225,7 +262,8 @@ describe('Terminal Spawner (Story 12.10)', () => {
       });
 
       it('should detect VSCODE_GIT_IPC_HANDLE', () => {
-        // Given
+        // Given - clear higher priority env vars to isolate test
+        clearHigherPriorityEnvVars();
         process.env.VSCODE_GIT_IPC_HANDLE = '/tmp/git-ipc-12345';
 
         // When
@@ -259,8 +297,32 @@ describe('Terminal Spawner (Story 12.10)', () => {
     });
 
     describe('Detection priority', () => {
+      // Helper to clear all detection environment variables
+      const clearAllDetectionEnvVars = () => {
+        // Clear CI vars
+        delete process.env.CI;
+        delete process.env.GITHUB_ACTIONS;
+        delete process.env.GITLAB_CI;
+        delete process.env.JENKINS_URL;
+        delete process.env.TRAVIS;
+        delete process.env.CIRCLECI;
+        delete process.env.TF_BUILD;
+        delete process.env.BUILDKITE;
+        delete process.env.CODEBUILD_BUILD_ID;
+        // Clear SSH vars
+        delete process.env.SSH_CLIENT;
+        delete process.env.SSH_TTY;
+        delete process.env.SSH_CONNECTION;
+        // Clear VS Code vars
+        delete process.env.TERM_PROGRAM;
+        delete process.env.VSCODE_PID;
+        delete process.env.VSCODE_CWD;
+        delete process.env.VSCODE_GIT_IPC_HANDLE;
+      };
+
       it('should prioritize CI over SSH', () => {
-        // Given - both CI and SSH
+        // Given - start clean and set both CI and SSH
+        clearAllDetectionEnvVars();
         process.env.CI = 'true';
         process.env.SSH_CLIENT = '192.168.1.1 12345 22';
 
@@ -272,7 +334,8 @@ describe('Terminal Spawner (Story 12.10)', () => {
       });
 
       it('should prioritize SSH over VS Code', () => {
-        // Given - both SSH and VS Code
+        // Given - start clean and set both SSH and VS Code
+        clearAllDetectionEnvVars();
         process.env.SSH_CLIENT = '192.168.1.1 12345 22';
         process.env.TERM_PROGRAM = 'vscode';
 
