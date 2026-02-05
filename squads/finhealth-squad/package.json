@@ -1,0 +1,56 @@
+{
+  "name": "@aios-squads/finhealth-squad",
+  "version": "1.0.0",
+  "description": "Intelligent Financial Module for Healthcare with AI - TISS/SUS Billing, Auditing, Reconciliation, and Cash Flow Management",
+  "author": "Noxtec",
+  "license": "PROPRIETARY",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "healthcare",
+    "fintech",
+    "billing",
+    "tiss",
+    "sus",
+    "audit",
+    "ai-agents",
+    "hospital-finance",
+    "supabase"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "example:billing": "ts-node examples/run-billing-agent.ts",
+    "example:seed": "ts-node examples/seed-test-data.ts",
+    "db:schema": "echo 'Run schema.sql in your Supabase SQL editor'",
+    "scrape:ans": "ts-node scripts/scrapers/ans-scraper.ts",
+    "scrape:datasus": "ts-node scripts/scrapers/datasus-scraper.ts",
+    "scrape:cbhpm": "ts-node scripts/scrapers/cbhpm-scraper.ts",
+    "lint": "eslint src/",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0",
+    "date-fns": "^3.0.0",
+    "decimal.js": "^10.4.0",
+    "dotenv": "^16.3.0",
+    "fast-xml-parser": "^4.3.0",
+    "js-yaml": "^4.1.0",
+    "openai": "^4.0.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  }
+}

@@ -1,0 +1,173 @@
+# FinHealth Squad - Healthcare Financial AI
+# AIOS Squad Format v2.1+
+# Migrated from config.yaml
+
+# ============================================
+# REQUIRED FIELDS
+# ============================================
+name: finhealth-squad
+version: 1.0.0
+description: >-
+  Intelligent Financial Module for Healthcare with AI.
+  Billing TISS/SUS, Medical Account Auditing, Payment Reconciliation,
+  and Cash Flow Management for Brazilian hospitals.
+
+# ============================================
+# METADATA
+# ============================================
+author: Noxtec <contact@noxtec.com.br>
+license: proprietary
+slashPrefix: finhealth
+
+# ============================================
+# AIOS COMPATIBILITY (Required for v2.1+)
+# ============================================
+aios:
+  type: squad
+  minVersion: "2.1.0"
+
+# ============================================
+# DISCOVERY TAGS
+# ============================================
+tags:
+  - healthcare
+  - fintech
+  - billing
+  - audit
+  - ai-agents
+  - tiss
+  - sus
+  - glosas
+  - hospital-finance
+  - brazilian-healthcare
+
+# ============================================
+# COMPONENTS DECLARATION
+# ============================================
+components:
+  agents:
+    - billing-agent.md
+    - auditor-agent.md
+    - reconciliation-agent.md
+    - cashflow-agent.md
+    - supervisor-agent.md
+
+  tasks:
+    # Billing
+    - validate-tiss.md
+    - generate-tiss-guide.md
+    - generate-sus-aih.md
+    - fix-billing-errors.md
+    # Auditing
+    - audit-account.md
+    - audit-batch.md
+    - score-glosa-risk.md
+    - detect-inconsistencies.md
+    # Reconciliation
+    - reconcile-payment.md
+    - match-invoices.md
+    - generate-appeal.md
+    - prioritize-appeals.md
+    # Cash Flow
+    - forecast-cashflow.md
+    - detect-anomalies.md
+    - score-delinquency.md
+    - generate-financial-report.md
+    # Orchestration
+    - route-request.md
+    - monitor-sla.md
+    - generate-consolidated-report.md
+
+  workflows:
+    - billing-pipeline.yaml
+    - audit-pipeline.yaml
+    - reconciliation-pipeline.yaml
+    - monthly-close.yaml
+
+  checklists: []
+
+  templates: []
+
+  tools: []
+
+  scripts:
+    - parsers/tiss-xml-parser.ts
+    - parsers/payment-xml-parser.ts
+    - validators/tiss-validator.ts
+    - validators/account-validator.ts
+    - generators/appeal-generator.ts
+    - generators/report-generator.ts
+    - scrapers/ans-scraper.ts
+    - scrapers/datasus-scraper.ts
+    - scrapers/cbhpm-scraper.ts
+
+  data:
+    - tuss-procedures.json
+    - cbhpm-values.json
+    - sigtap-procedures.json
+    - glosa-codes.json
+    - tiss-schemas/
+
+# ============================================
+# CONFIGURATION INHERITANCE
+# ============================================
+config:
+  extends: extend  # extend | override | none
+  coding-standards: config/coding-standards.md
+  tech-stack: config/tech-stack.md
+  source-tree: config/source-tree.md
+
+# ============================================
+# INTEGRATIONS
+# ============================================
+integrations:
+  llm:
+    routine:
+      provider: openai
+      model: gpt-4o-mini
+      description: "Routine tasks: TISS validation, glosa scoring, parsing, classification"
+    advanced:
+      provider: openai
+      model: gpt-4o-mini  # Use gpt-5-mini when available
+      description: "Complex tasks: appeal generation, consolidated reports, web search fallback"
+
+  external:
+    - name: ans-tiss
+      description: "TISS/ANS standard for communication with health insurers"
+      type: scraper
+      script: scripts/scrapers/ans-scraper.ts
+    - name: datasus
+      description: "Integration with SUS systems (SIGTAP, BPA, AIH)"
+      type: scraper
+      script: scripts/scrapers/datasus-scraper.ts
+    - name: cbhpm
+      description: "CBHPM medical procedure reference table"
+      type: scraper
+      script: scripts/scrapers/cbhpm-scraper.ts
+    - name: fhir
+      description: "HL7 FHIR for EHR integration"
+      type: api
+
+# ============================================
+# DEPENDENCIES
+# ============================================
+dependencies:
+  node:
+    - axios
+    - cheerio
+    - date-fns
+    - decimal.js
+    - fast-xml-parser
+    - openai
+    - zod
+
+  python: []
+
+  squads: []
+
+# ============================================
+# RUNTIME REQUIREMENTS
+# ============================================
+requires:
+  node: ">=18.0.0"
+  aios: ">=2.1.0"

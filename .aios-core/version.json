@@ -1,0 +1,24 @@
+{
+  "version": "3.11.3",
+  "installedAt": "2026-02-04T02:09:12.633Z",
+  "mode": "project-development",
+  "fileHashes": {
+    "core\\README.md": "sha256:bf40b518f8997dc17f1362fa89e927a2bad79c8ea6c5d2c05ffea7793dc34e8b",
+    "development\\README.md": "sha256:66c7cc2510c1100c13aa176502428e7b1396fcd88af748a966f9ad3e2d0773b3",
+    "product\\README.md": "sha256:ed0c133bfc5a09f86409d22f8f31f172119f2074161d4cd2bae041eabb839159",
+    "infrastructure\\README.md": "sha256:f89ab1192fdc3b171300ab9111f614bab70c6492a7f9e55d995362465b291e63",
+    "data\\agent-config-requirements.yaml": "sha256:d388dc48e23384eae4c0156209846c509f76afb1579f3100f0404ff17580fc3f",
+    "data\\aios-kb.md": "sha256:21138a86582b713c2106973907bbf4a5ce4e3192dadd832122ac9c6294d0efb1",
+    "data\\learned-patterns.yaml": "sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc",
+    "data\\technical-preferences.md": "sha256:7acc7123b9678ce4a48ee5c0e5f4d84665b7f3c34798178640c2c1e982c2e2c3",
+    "data\\workflow-patterns.yaml": "sha256:e8f87cba39aa0d754c0d0fac1a74e6080e07eedc7042838bc6d2109f29103e69",
+    "data\\workflow-state-schema.yaml": "sha256:e94af39f75eb8638639beb7cc86113874007b7e4fb42af31e9300f7c684e90e0",
+    "scripts\\aios-doc-template.md": "sha256:6bfd19c9953f2c28007eba320cfdd4207809ce878bd3e5f1273ec1349edccc1a",
+    "scripts\\README.md": "sha256:197f6f703ec52c1e2c5ea0468b6cd8031ed7b9b4b563887dcd8c4a388efee059",
+    "scripts\\workflow-management.md": "sha256:68ca29e897a820d8209f8bd5d5aa73b3347036511b6ee3ee111238dddaee1813",
+    "core-config.yaml": "sha256:931f58371092ca2ab08b7272bbac84a0c6dfeae62c27ebc5c420a9d66326039e",
+    "user-guide.md": "sha256:abcef62ecd991d311ef2b1858ae14aeed76e7e9d3579fab73760936926c57553",
+    "working-in-the-brownfield.md": "sha256:3daeaf85acb49578b29eed2085736274a5d144e3eaec53738d9220362442fd7d"
+  },
+  "customized": []
+}

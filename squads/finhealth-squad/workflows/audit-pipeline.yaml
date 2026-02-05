@@ -1,0 +1,120 @@
+# Audit Pipeline Workflow
+# FinHealth Squad - AIOS Workflow Format
+
+name: audit-pipeline
+version: 1.0.0
+description: "Batch audit of pending accounts"
+
+# Workflow metadata
+metadata:
+  squad: finhealth-squad
+  category: auditing
+  priority: medium
+  estimatedDuration: "30-60 minutes"
+
+# Trigger configuration
+trigger:
+  type: scheduled
+  schedule: "0 6 * * *"  # Daily at 6 AM
+  timezone: "America/Sao_Paulo"
+
+# Input schema
+input:
+  type: object
+  properties:
+    batchSize:
+      type: number
+      default: 100
+      description: "Maximum accounts to audit per batch"
+    status:
+      type: string
+      enum: [pending, review, all]
+      default: pending
+      description: "Filter accounts by status"
+    dateFrom:
+      type: string
+      format: date
+      description: "Start date for account filter"
+    dateTo:
+      type: string
+      format: date
+      description: "End date for account filter"
+
+# Workflow steps
+steps:
+  - id: batch-audit
+    name: "Batch Audit Accounts"
+    task: audit-batch
+    agent: auditor-agent
+    input:
+      batchSize: "{{input.batchSize}}"
+      status: "{{input.status}}"
+      dateFrom: "{{input.dateFrom}}"
+      dateTo: "{{input.dateTo}}"
+    output:
+      auditedAccounts: "{{result.accounts}}"
+      totalAudited: "{{result.totalAudited}}"
+      issuesFound: "{{result.issuesFound}}"
+
+  - id: detect-issues
+    name: "Detect Inconsistencies"
+    task: detect-inconsistencies
+    agent: auditor-agent
+    dependsOn: [batch-audit]
+    input:
+      accounts: "{{steps.batch-audit.output.auditedAccounts}}"
+    output:
+      inconsistencies: "{{result.inconsistencies}}"
+      severityBreakdown: "{{result.severityBreakdown}}"
+      recommendations: "{{result.recommendations}}"
+
+  - id: generate-report
+    name: "Generate Consolidated Report"
+    task: generate-consolidated-report
+    agent: supervisor-agent
+    dependsOn: [detect-issues]
+    input:
+      auditResults: "{{steps.batch-audit.output}}"
+      inconsistencies: "{{steps.detect-issues.output.inconsistencies}}"
+      reportType: "audit-batch"
+      format: "pdf"
+    output:
+      reportUrl: "{{result.reportUrl}}"
+      summary: "{{result.summary}}"
+
+# Output schema
+output:
+  type: object
+  properties:
+    totalAudited:
+      type: number
+      source: "{{steps.batch-audit.output.totalAudited}}"
+    issuesFound:
+      type: number
+      source: "{{steps.batch-audit.output.issuesFound}}"
+    inconsistencies:
+      type: array
+      source: "{{steps.detect-issues.output.inconsistencies}}"
+    reportUrl:
+      type: string
+      source: "{{steps.generate-report.output.reportUrl}}"
+    summary:
+      type: object
+      source: "{{steps.generate-report.output.summary}}"
+
+# Error handling
+onError:
+  - condition: "any"
+    action: notify
+    recipients: ["audit-team@hospital.com"]
+    message: "Audit pipeline failed: {{error.message}}"
+
+# Notifications
+notifications:
+  onComplete:
+    - type: email
+      recipients: ["audit-team@hospital.com"]
+      subject: "Daily Audit Report - {{date}}"
+      body: "Audited {{output.totalAudited}} accounts. Found {{output.issuesFound}} issues."
+    - type: log
+      message: "Audit pipeline completed: {{output.totalAudited}} accounts processed"

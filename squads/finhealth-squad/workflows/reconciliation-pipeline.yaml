@@ -1,0 +1,149 @@
+# Reconciliation Pipeline Workflow
+# FinHealth Squad - AIOS Workflow Format
+
+name: reconciliation-pipeline
+version: 1.0.0
+description: "Reconciliation of received payments"
+
+# Workflow metadata
+metadata:
+  squad: finhealth-squad
+  category: reconciliation
+  priority: high
+  estimatedDuration: "10-30 minutes"
+
+# Trigger configuration
+trigger:
+  type: on-event
+  event: payment-received
+  source: banking-integration
+
+# Input schema
+input:
+  type: object
+  required:
+    - paymentId
+  properties:
+    paymentId:
+      type: string
+      description: "Payment transaction ID"
+    paymentDate:
+      type: string
+      format: date
+      description: "Payment date"
+    amount:
+      type: number
+      description: "Payment amount in BRL"
+    insurerId:
+      type: string
+      description: "Health insurer code"
+    bankAccount:
+      type: string
+      description: "Bank account that received the payment"
+    paymentFile:
+      type: string
+      description: "Path to payment XML/file from insurer"
+
+# Workflow steps
+steps:
+  - id: reconcile
+    name: "Reconcile Payment"
+    task: reconcile-payment
+    agent: reconciliation-agent
+    input:
+      paymentId: "{{input.paymentId}}"
+      paymentDate: "{{input.paymentDate}}"
+      amount: "{{input.amount}}"
+      insurerId: "{{input.insurerId}}"
+      paymentFile: "{{input.paymentFile}}"
+    output:
+      reconciliationStatus: "{{result.status}}"
+      matchedInvoices: "{{result.matchedInvoices}}"
+      unmatchedAmount: "{{result.unmatchedAmount}}"
+      glosas: "{{result.glosas}}"
+
+  - id: match-invoices
+    name: "Match Invoices"
+    task: match-invoices
+    agent: reconciliation-agent
+    dependsOn: [reconcile]
+    input:
+      paymentId: "{{input.paymentId}}"
+      matchedInvoices: "{{steps.reconcile.output.matchedInvoices}}"
+      glosas: "{{steps.reconcile.output.glosas}}"
+    output:
+      confirmedMatches: "{{result.confirmedMatches}}"
+      pendingMatches: "{{result.pendingMatches}}"
+      glosaDetails: "{{result.glosaDetails}}"
+
+  - id: prioritize
+    name: "Prioritize Appeals"
+    task: prioritize-appeals
+    agent: reconciliation-agent
+    dependsOn: [match-invoices]
+    condition: "{{steps.match-invoices.output.glosaDetails.length > 0}}"
+    input:
+      glosas: "{{steps.match-invoices.output.glosaDetails}}"
+      insurerId: "{{input.insurerId}}"
+    output:
+      prioritizedAppeals: "{{result.prioritizedAppeals}}"
+      totalGlosaValue: "{{result.totalGlosaValue}}"
+      appealStrategy: "{{result.strategy}}"
+
+  - id: generate-appeals
+    name: "Generate Appeals"
+    task: generate-appeal
+    agent: reconciliation-agent
+    dependsOn: [prioritize]
+    condition: "{{steps.prioritize.output.prioritizedAppeals.length > 0}}"
+    input:
+      appeals: "{{steps.prioritize.output.prioritizedAppeals}}"
+      strategy: "{{steps.prioritize.output.appealStrategy}}"
+    output:
+      generatedAppeals: "{{result.appeals}}"
+      appealDocuments: "{{result.documents}}"
+
+# Output schema
+output:
+  type: object
+  properties:
+    reconciliationStatus:
+      type: string
+      source: "{{steps.reconcile.output.reconciliationStatus}}"
+    totalReceived:
+      type: number
+      source: "{{input.amount}}"
+    matchedAmount:
+      type: number
+      computed: "{{input.amount - steps.reconcile.output.unmatchedAmount}}"
+    glosaAmount:
+      type: number
+      source: "{{steps.prioritize.output.totalGlosaValue}}"
+    appealsGenerated:
+      type: number
+      computed: "{{steps.generate-appeals.output.generatedAppeals.length || 0}}"
+    appealDocuments:
+      type: array
+      source: "{{steps.generate-appeals.output.appealDocuments}}"
+
+# Error handling
+onError:
+  - condition: "steps.reconcile.failed"
+    action: alert
+    severity: critical
+    message: "Payment reconciliation failed for {{input.paymentId}}"
+  - condition: "steps.generate-appeals.failed"
+    action: retry
+    maxRetries: 3
+
+# Notifications
+notifications:
+  onComplete:
+    - type: log
+      message: "Reconciliation completed for payment {{input.paymentId}}"
+    - type: webhook
+      url: "{{env.FINANCE_WEBHOOK_URL}}"
+      payload:
+        event: "payment_reconciled"
+        paymentId: "{{input.paymentId}}"
+        status: "{{output.reconciliationStatus}}"

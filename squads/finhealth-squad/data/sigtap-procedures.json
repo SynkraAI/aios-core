@@ -1,0 +1,158 @@
+{
+  "_meta": {
+    "description": "Tabela SIGTAP - Sistema de Gerenciamento da Tabela de Procedimentos do SUS",
+    "source": "DATASUS - Ministério da Saúde",
+    "version": "2024.01",
+    "last_update": "2024-01-01",
+    "note": "Amostra representativa - sincronizar com SIGTAP oficial"
+  },
+  "procedures": [
+    {
+      "codigo": "0301010064",
+      "descricao": "Consulta médica em atenção básica",
+      "grupo": "03",
+      "subgrupo": "01",
+      "forma_organizacao": "01",
+      "valor_sh": 0.00,
+      "valor_sp": 10.00,
+      "valor_total": 10.00,
+      "complexidade": "AB"
+    },
+    {
+      "codigo": "0301010072",
+      "descricao": "Consulta médica em atenção especializada",
+      "grupo": "03",
+      "subgrupo": "01",
+      "forma_organizacao": "01",
+      "valor_sh": 0.00,
+      "valor_sp": 10.00,
+      "valor_total": 10.00,
+      "complexidade": "MC"
+    },
+    {
+      "codigo": "0202010503",
+      "descricao": "Hemograma completo",
+      "grupo": "02",
+      "subgrupo": "02",
+      "forma_organizacao": "01",
+      "valor_sh": 1.53,
+      "valor_sp": 2.73,
+      "valor_total": 4.26,
+      "complexidade": "MC"
+    },
+    {
+      "codigo": "0202010317",
+      "descricao": "Glicose",
+      "grupo": "02",
+      "subgrupo": "02",
+      "forma_organizacao": "01",
+      "valor_sh": 0.55,
+      "valor_sp": 1.30,
+      "valor_total": 1.85,
+      "complexidade": "MC"
+    },
+    {
+      "codigo": "0205020097",
+      "descricao": "Eletrocardiograma",
+      "grupo": "02",
+      "subgrupo": "05",
+      "forma_organizacao": "02",
+      "valor_sh": 2.28,
+      "valor_sp": 3.00,
+      "valor_total": 5.28,
+      "complexidade": "MC"
+    },
+    {
+      "codigo": "0211020010",
+      "descricao": "Ecocardiografia transtoracica",
+      "grupo": "02",
+      "subgrupo": "11",
+      "forma_organizacao": "02",
+      "valor_sh": 15.78,
+      "valor_sp": 23.64,
+      "valor_total": 39.42,
+      "complexidade": "MC"
+    },
+    {
+      "codigo": "0407010033",
+      "descricao": "Colecistectomia videolaparoscopica",
+      "grupo": "04",
+      "subgrupo": "07",
+      "forma_organizacao": "01",
+      "valor_sh": 313.38,
+      "valor_sp": 327.91,
+      "valor_total": 641.29,
+      "complexidade": "AC"
+    },
+    {
+      "codigo": "0406010404",
+      "descricao": "Angioplastia coronariana",
+      "grupo": "04",
+      "subgrupo": "06",
+      "forma_organizacao": "01",
+      "valor_sh": 1263.68,
+      "valor_sp": 1327.01,
+      "valor_total": 2590.69,
+      "complexidade": "AC"
+    },
+    {
+      "codigo": "0411010026",
+      "descricao": "Parto normal",
+      "grupo": "04",
+      "subgrupo": "11",
+      "forma_organizacao": "01",
+      "valor_sh": 318.75,
+      "valor_sp": 224.14,
+      "valor_total": 542.89,
+      "complexidade": "MC"
+    },
+    {
+      "codigo": "0411010034",
+      "descricao": "Parto cesariano",
+      "grupo": "04",
+      "subgrupo": "11",
+      "forma_organizacao": "01",
+      "valor_sh": 395.85,
+      "valor_sp": 249.33,
+      "valor_total": 645.18,
+      "complexidade": "MC"
+    },
+    {
+      "codigo": "0802010016",
+      "descricao": "Diária de UTI adulto tipo II",
+      "grupo": "08",
+      "subgrupo": "02",
+      "forma_organizacao": "01",
+      "valor_sh": 428.91,
+      "valor_sp": 82.10,
+      "valor_total": 511.01,
+      "complexidade": "AC"
+    },
+    {
+      "codigo": "0801010017",
+      "descricao": "Diária de permanencia maior",
+      "grupo": "08",
+      "subgrupo": "01",
+      "forma_organizacao": "01",
+      "valor_sh": 23.25,
+      "valor_sp": 7.50,
+      "valor_total": 30.75,
+      "complexidade": "MC"
+    }
+  ],
+  "grupos": [
+    {"codigo": "01", "nome": "Ações de promoção e prevenção em saúde"},
+    {"codigo": "02", "nome": "Procedimentos com finalidade diagnóstica"},
+    {"codigo": "03", "nome": "Procedimentos clínicos"},
+    {"codigo": "04", "nome": "Procedimentos cirúrgicos"},
+    {"codigo": "05", "nome": "Transplantes de órgãos, tecidos e células"},
+    {"codigo": "06", "nome": "Medicamentos"},
+    {"codigo": "07", "nome": "Órteses, próteses e materiais especiais"},
+    {"codigo": "08", "nome": "Ações complementares da atenção à saúde"}
+  ],
+  "complexidades": {
+    "AB": "Atenção Básica",
+    "MC": "Média Complexidade",
+    "AC": "Alta Complexidade"
+  }
+}

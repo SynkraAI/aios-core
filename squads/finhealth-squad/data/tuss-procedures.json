@@ -1,0 +1,146 @@
+{
+  "_meta": {
+    "description": "Tabela TUSS - Terminologia Unificada da Saúde Suplementar",
+    "source": "ANS - Agência Nacional de Saúde Suplementar",
+    "version": "2024.01",
+    "last_update": "2024-01-15",
+    "note": "Amostra representativa - expandir com dados completos da ANS"
+  },
+  "procedures": [
+    {
+      "codigo": "10101012",
+      "descricao": "Consulta em consultório (no horário normal ou preestabelecido)",
+      "tipo": "consulta",
+      "porte": "1C",
+      "valor_referencia": 150.00
+    },
+    {
+      "codigo": "10101039",
+      "descricao": "Consulta em domicílio",
+      "tipo": "consulta",
+      "porte": "2C",
+      "valor_referencia": 250.00
+    },
+    {
+      "codigo": "10102019",
+      "descricao": "Consulta em pronto socorro",
+      "tipo": "consulta",
+      "porte": "1C",
+      "valor_referencia": 180.00
+    },
+    {
+      "codigo": "20101015",
+      "descricao": "Avaliação nutricional",
+      "tipo": "procedimento",
+      "porte": "1A",
+      "valor_referencia": 120.00
+    },
+    {
+      "codigo": "40201040",
+      "descricao": "Ecocardiograma transtorácico",
+      "tipo": "exame",
+      "porte": "7B",
+      "valor_referencia": 450.00,
+      "requer_autorizacao": true
+    },
+    {
+      "codigo": "40301010",
+      "descricao": "Eletrocardiograma convencional",
+      "tipo": "exame",
+      "porte": "2A",
+      "valor_referencia": 80.00
+    },
+    {
+      "codigo": "40302016",
+      "descricao": "Teste ergométrico",
+      "tipo": "exame",
+      "porte": "4A",
+      "valor_referencia": 220.00
+    },
+    {
+      "codigo": "40501020",
+      "descricao": "Hemograma completo",
+      "tipo": "laboratorio",
+      "porte": "1A",
+      "valor_referencia": 25.00
+    },
+    {
+      "codigo": "40501038",
+      "descricao": "Glicemia de jejum",
+      "tipo": "laboratorio",
+      "porte": "1A",
+      "valor_referencia": 15.00
+    },
+    {
+      "codigo": "40501054",
+      "descricao": "Creatinina",
+      "tipo": "laboratorio",
+      "porte": "1A",
+      "valor_referencia": 18.00
+    },
+    {
+      "codigo": "30101034",
+      "descricao": "Colecistectomia videolaparoscópica",
+      "tipo": "cirurgia",
+      "porte": "10A",
+      "valor_referencia": 3500.00,
+      "requer_autorizacao": true
+    },
+    {
+      "codigo": "30901035",
+      "descricao": "Angioplastia coronariana",
+      "tipo": "cirurgia",
+      "porte": "14A",
+      "valor_referencia": 8500.00,
+      "requer_autorizacao": true
+    },
+    {
+      "codigo": "31003079",
+      "descricao": "Parto normal",
+      "tipo": "parto",
+      "porte": "6C",
+      "valor_referencia": 1200.00
+    },
+    {
+      "codigo": "31003087",
+      "descricao": "Cesariana",
+      "tipo": "parto",
+      "porte": "9B",
+      "valor_referencia": 2500.00
+    },
+    {
+      "codigo": "80010010",
+      "descricao": "Diária de enfermaria",
+      "tipo": "internacao",
+      "valor_referencia": 450.00
+    },
+    {
+      "codigo": "80010029",
+      "descricao": "Diária de apartamento",
+      "tipo": "internacao",
+      "valor_referencia": 800.00
+    },
+    {
+      "codigo": "80010037",
+      "descricao": "Diária de UTI",
+      "tipo": "internacao",
+      "valor_referencia": 2200.00
+    },
+    {
+      "codigo": "80010045",
+      "descricao": "Diária de semi-UTI",
+      "tipo": "internacao",
+      "valor_referencia": 1500.00
+    }
+  ],
+  "categorias": [
+    {"codigo": "1", "nome": "Consultas"},
+    {"codigo": "2", "nome": "Procedimentos Clínicos"},
+    {"codigo": "3", "nome": "Procedimentos Cirúrgicos"},
+    {"codigo": "4", "nome": "Procedimentos Diagnósticos"},
+    {"codigo": "5", "nome": "Materiais e Medicamentos"},
+    {"codigo": "6", "nome": "Honorários"},
+    {"codigo": "7", "nome": "Taxas e Aluguéis"},
+    {"codigo": "8", "nome": "Diárias"}
+  ]
+}

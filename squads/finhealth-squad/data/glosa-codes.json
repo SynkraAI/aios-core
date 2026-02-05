@@ -1,0 +1,85 @@
+{
+  "_meta": {
+    "description": "Códigos de glosa padrão por categoria",
+    "version": "1.0.0",
+    "last_update": "2024-01-01",
+    "note": "Códigos genéricos - complementar com códigos específicos de cada operadora"
+  },
+  "categorias": {
+    "administrativa": {
+      "descricao": "Glosas por problemas administrativos e documentais",
+      "codigos": [
+        {"codigo": "GA001", "descricao": "Guia sem autorização prévia", "tipo": "total", "reversivel": "alta"},
+        {"codigo": "GA002", "descricao": "Prazo de envio excedido", "tipo": "total", "reversivel": "baixa"},
+        {"codigo": "GA003", "descricao": "Dados do beneficiário divergentes", "tipo": "total", "reversivel": "alta"},
+        {"codigo": "GA004", "descricao": "Número de guia duplicado", "tipo": "total", "reversivel": "media"},
+        {"codigo": "GA005", "descricao": "CNES do prestador inválido", "tipo": "total", "reversivel": "alta"},
+        {"codigo": "GA006", "descricao": "CRM/CRO do profissional inválido", "tipo": "total", "reversivel": "alta"},
+        {"codigo": "GA007", "descricao": "Data de atendimento fora da vigência", "tipo": "total", "reversivel": "baixa"},
+        {"codigo": "GA008", "descricao": "Beneficiário não elegível na data", "tipo": "total", "reversivel": "baixa"},
+        {"codigo": "GA009", "descricao": "Guia com campos obrigatórios em branco", "tipo": "total", "reversivel": "alta"},
+        {"codigo": "GA010", "descricao": "Assinatura/carimbo ausente", "tipo": "total", "reversivel": "alta"}
+      ]
+    },
+    "tecnica": {
+      "descricao": "Glosas por questões técnicas de faturamento",
+      "codigos": [
+        {"codigo": "GT001", "descricao": "Procedimento incompatível com CID", "tipo": "parcial", "reversivel": "media"},
+        {"codigo": "GT002", "descricao": "Quantidade acima do permitido", "tipo": "parcial", "reversivel": "media"},
+        {"codigo": "GT003", "descricao": "Procedimento não coberto pelo plano", "tipo": "total", "reversivel": "baixa"},
+        {"codigo": "GT004", "descricao": "Material/medicamento sem justificativa", "tipo": "parcial", "reversivel": "alta"},
+        {"codigo": "GT005", "descricao": "Código TUSS inválido ou inexistente", "tipo": "total", "reversivel": "alta"},
+        {"codigo": "GT006", "descricao": "Procedimento em carência", "tipo": "total", "reversivel": "baixa"},
+        {"codigo": "GT007", "descricao": "Procedimentos simultâneos incompatíveis", "tipo": "parcial", "reversivel": "media"},
+        {"codigo": "GT008", "descricao": "Via de acesso incorreta", "tipo": "parcial", "reversivel": "alta"},
+        {"codigo": "GT009", "descricao": "Técnica utilizada incorreta", "tipo": "parcial", "reversivel": "alta"},
+        {"codigo": "GT010", "descricao": "CID-10 inválido ou incorreto", "tipo": "parcial", "reversivel": "alta"}
+      ]
+    },
+    "financeira": {
+      "descricao": "Glosas por valores divergentes",
+      "codigos": [
+        {"codigo": "GF001", "descricao": "Valor acima da tabela contratual", "tipo": "parcial", "reversivel": "media"},
+        {"codigo": "GF002", "descricao": "Cobrança em duplicidade", "tipo": "total", "reversivel": "alta"},
+        {"codigo": "GF003", "descricao": "Valor de diária divergente", "tipo": "parcial", "reversivel": "alta"},
+        {"codigo": "GF004", "descricao": "Taxa não prevista em contrato", "tipo": "total", "reversivel": "media"},
+        {"codigo": "GF005", "descricao": "Honorário acima do porte", "tipo": "parcial", "reversivel": "media"},
+        {"codigo": "GF006", "descricao": "Material com preço acima do mercado", "tipo": "parcial", "reversivel": "media"},
+        {"codigo": "GF007", "descricao": "Pacote cobrado como conta aberta", "tipo": "parcial", "reversivel": "alta"},
+        {"codigo": "GF008", "descricao": "Componente (CO/filme) divergente", "tipo": "parcial", "reversivel": "alta"},
+        {"codigo": "GF009", "descricao": "Auxiliar sem justificativa", "tipo": "parcial", "reversivel": "media"},
+        {"codigo": "GF010", "descricao": "Valor total calculado divergente", "tipo": "parcial", "reversivel": "alta"}
+      ]
+    },
+    "clinica": {
+      "descricao": "Glosas por questões clínicas e médicas",
+      "codigos": [
+        {"codigo": "GC001", "descricao": "Procedimento sem indicação clínica", "tipo": "total", "reversivel": "baixa"},
+        {"codigo": "GC002", "descricao": "Tempo de internação incompatível", "tipo": "parcial", "reversivel": "media"},
+        {"codigo": "GC003", "descricao": "Exame sem justificativa clínica", "tipo": "parcial", "reversivel": "media"},
+        {"codigo": "GC004", "descricao": "Medicamento não indicado para o CID", "tipo": "parcial", "reversivel": "media"},
+        {"codigo": "GC005", "descricao": "UTI sem critério de gravidade", "tipo": "total", "reversivel": "baixa"},
+        {"codigo": "GC006", "descricao": "Cirurgia sem indicação documentada", "tipo": "total", "reversivel": "baixa"},
+        {"codigo": "GC007", "descricao": "Segunda opinião obrigatória ausente", "tipo": "total", "reversivel": "media"},
+        {"codigo": "GC008", "descricao": "Protocolo clínico não seguido", "tipo": "parcial", "reversivel": "media"},
+        {"codigo": "GC009", "descricao": "Relatório médico incompleto", "tipo": "parcial", "reversivel": "alta"},
+        {"codigo": "GC010", "descricao": "Alta precoce sem justificativa", "tipo": "parcial", "reversivel": "media"}
+      ]
+    }
+  },
+  "probabilidade_reversao": {
+    "alta": {"percentual": "70-90%", "descricao": "Alta probabilidade com documentação adequada"},
+    "media": {"percentual": "40-70%", "descricao": "Depende da fundamentação e histórico"},
+    "baixa": {"percentual": "10-40%", "descricao": "Difícil reversão, requer evidências fortes"}
+  },
+  "prazos_recurso": {
+    "padrao_ans": 30,
+    "unimed": 30,
+    "amil": 45,
+    "bradesco_saude": 30,
+    "sulamerica": 60,
+    "hapvida": 30,
+    "notre_dame": 45,
+    "porto_seguro": 30
+  }
+}

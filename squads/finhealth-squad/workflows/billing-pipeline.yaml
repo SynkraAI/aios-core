@@ -1,0 +1,134 @@
+# Billing Pipeline Workflow
+# FinHealth Squad - AIOS Workflow Format
+
+name: billing-pipeline
+version: 1.0.0
+description: "Complete billing pipeline: generate -> validate -> audit -> send"
+
+# Workflow metadata
+metadata:
+  squad: finhealth-squad
+  category: billing
+  priority: high
+  estimatedDuration: "5-15 minutes"
+
+# Trigger configuration
+trigger:
+  type: manual
+  # Can also be: scheduled, on-event, on-demand
+
+# Input schema
+input:
+  type: object
+  required:
+    - accountId
+  properties:
+    accountId:
+      type: string
+      description: "Medical account ID to process"
+    patientId:
+      type: string
+      description: "Patient identifier"
+    insurerId:
+      type: string
+      description: "Health insurer code"
+    procedureCodes:
+      type: array
+      items:
+        type: string
+      description: "List of TUSS/SIGTAP procedure codes"
+
+# Workflow steps
+steps:
+  - id: generate
+    name: "Generate TISS Guide"
+    task: generate-tiss-guide
+    agent: billing-agent
+    input:
+      accountId: "{{input.accountId}}"
+      patientId: "{{input.patientId}}"
+      insurerId: "{{input.insurerId}}"
+    output:
+      guideXml: "{{result.xml}}"
+      guideNumber: "{{result.guideNumber}}"
+
+  - id: validate
+    name: "Validate TISS XML"
+    task: validate-tiss
+    agent: billing-agent
+    dependsOn: [generate]
+    input:
+      xml: "{{steps.generate.output.guideXml}}"
+      schemaVersion: "3.05.00"
+    output:
+      isValid: "{{result.isValid}}"
+      errors: "{{result.errors}}"
+
+  - id: audit
+    name: "Audit Account"
+    task: audit-account
+    agent: auditor-agent
+    dependsOn: [validate]
+    condition: "{{steps.validate.output.isValid}}"
+    input:
+      accountId: "{{input.accountId}}"
+      guideXml: "{{steps.generate.output.guideXml}}"
+    output:
+      auditScore: "{{result.score}}"
+      issues: "{{result.issues}}"
+
+  - id: score-risk
+    name: "Score Glosa Risk"
+    task: score-glosa-risk
+    agent: auditor-agent
+    dependsOn: [audit]
+    input:
+      accountId: "{{input.accountId}}"
+      auditResult: "{{steps.audit.output}}"
+    output:
+      riskScore: "{{result.riskScore}}"
+      riskFactors: "{{result.factors}}"
+      recommendation: "{{result.recommendation}}"
+
+# Output schema
+output:
+  type: object
+  properties:
+    guideNumber:
+      type: string
+      source: "{{steps.generate.output.guideNumber}}"
+    validationPassed:
+      type: boolean
+      source: "{{steps.validate.output.isValid}}"
+    auditScore:
+      type: number
+      source: "{{steps.audit.output.auditScore}}"
+    glosaRiskScore:
+      type: number
+      source: "{{steps.score-risk.output.riskScore}}"
+    recommendation:
+      type: string
+      source: "{{steps.score-risk.output.recommendation}}"
+    readyToSend:
+      type: boolean
+      computed: "{{steps.validate.output.isValid && steps.score-risk.output.riskScore < 0.3}}"
+
+# Error handling
+onError:
+  - condition: "steps.validate.failed"
+    action: notify
+    message: "TISS validation failed: {{steps.validate.output.errors}}"
+  - condition: "steps.audit.failed"
+    action: retry
+    maxRetries: 2
+    backoff: exponential
+
+# Notifications
+notifications:
+  onComplete:
+    - type: log
+      message: "Billing pipeline completed for account {{input.accountId}}"
+  onFailure:
+    - type: alert
+      severity: high
+      message: "Billing pipeline failed for account {{input.accountId}}"

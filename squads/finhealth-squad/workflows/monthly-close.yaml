@@ -1,0 +1,207 @@
+# Monthly Close Workflow
+# FinHealth Squad - AIOS Workflow Format
+
+name: monthly-close
+version: 1.0.0
+description: "Monthly financial closing"
+
+# Workflow metadata
+metadata:
+  squad: finhealth-squad
+  category: financial
+  priority: critical
+  estimatedDuration: "1-2 hours"
+
+# Trigger configuration
+trigger:
+  type: scheduled
+  schedule: "0 8 1 * *"  # 1st of each month at 8 AM
+  timezone: "America/Sao_Paulo"
+
+# Input schema
+input:
+  type: object
+  properties:
+    month:
+      type: number
+      description: "Month to close (1-12). Defaults to previous month."
+    year:
+      type: number
+      description: "Year to close. Defaults to current/previous year."
+    includeProjections:
+      type: boolean
+      default: true
+      description: "Include cash flow projections for next 3 months"
+    reportFormats:
+      type: array
+      items:
+        type: string
+        enum: [pdf, excel, json]
+      default: [pdf, excel]
+      description: "Output report formats"
+
+# Workflow steps
+steps:
+  - id: audit-pending
+    name: "Audit Pending Accounts"
+    task: audit-batch
+    agent: auditor-agent
+    input:
+      status: "pending"
+      dateFrom: "{{computedMonth.start}}"
+      dateTo: "{{computedMonth.end}}"
+      batchSize: 500
+    output:
+      auditedAccounts: "{{result.accounts}}"
+      pendingIssues: "{{result.issuesFound}}"
+
+  - id: reconcile-payments
+    name: "Reconcile All Payments"
+    task: reconcile-payment
+    agent: reconciliation-agent
+    dependsOn: [audit-pending]
+    input:
+      month: "{{input.month}}"
+      year: "{{input.year}}"
+      reconcileAll: true
+    output:
+      totalReceived: "{{result.totalReceived}}"
+      totalGlosas: "{{result.totalGlosas}}"
+      pendingReconciliation: "{{result.pending}}"
+
+  - id: forecast
+    name: "Forecast Cash Flow"
+    task: forecast-cashflow
+    agent: cashflow-agent
+    dependsOn: [reconcile-payments]
+    condition: "{{input.includeProjections}}"
+    input:
+      baseMonth: "{{input.month}}"
+      baseYear: "{{input.year}}"
+      projectionMonths: 3
+      historicalMonths: 12
+    output:
+      projections: "{{result.projections}}"
+      trends: "{{result.trends}}"
+      alerts: "{{result.alerts}}"
+
+  - id: financial-report
+    name: "Generate Financial Report"
+    task: generate-financial-report
+    agent: cashflow-agent
+    dependsOn: [forecast]
+    input:
+      month: "{{input.month}}"
+      year: "{{input.year}}"
+      auditSummary: "{{steps.audit-pending.output}}"
+      reconciliationSummary: "{{steps.reconcile-payments.output}}"
+      projections: "{{steps.forecast.output.projections}}"
+      formats: "{{input.reportFormats}}"
+    output:
+      reportUrls: "{{result.reportUrls}}"
+      kpis: "{{result.kpis}}"
+
+  - id: consolidated-report
+    name: "Generate Consolidated Report"
+    task: generate-consolidated-report
+    agent: supervisor-agent
+    dependsOn: [financial-report]
+    input:
+      reportType: "monthly-close"
+      month: "{{input.month}}"
+      year: "{{input.year}}"
+      sections:
+        - audit: "{{steps.audit-pending.output}}"
+        - reconciliation: "{{steps.reconcile-payments.output}}"
+        - cashflow: "{{steps.forecast.output}}"
+        - financial: "{{steps.financial-report.output}}"
+      formats: "{{input.reportFormats}}"
+    output:
+      consolidatedReportUrl: "{{result.reportUrl}}"
+      executiveSummary: "{{result.executiveSummary}}"
+      actionItems: "{{result.actionItems}}"
+
+# Output schema
+output:
+  type: object
+  properties:
+    period:
+      type: string
+      computed: "{{input.month}}/{{input.year}}"
+    totalBilled:
+      type: number
+      source: "{{steps.audit-pending.output.totalBilled}}"
+    totalReceived:
+      type: number
+      source: "{{steps.reconcile-payments.output.totalReceived}}"
+    totalGlosas:
+      type: number
+      source: "{{steps.reconcile-payments.output.totalGlosas}}"
+    pendingAccounts:
+      type: number
+      source: "{{steps.audit-pending.output.pendingIssues}}"
+    cashFlowProjection:
+      type: object
+      source: "{{steps.forecast.output.projections}}"
+    kpis:
+      type: object
+      source: "{{steps.financial-report.output.kpis}}"
+    reports:
+      type: object
+      properties:
+        financial: "{{steps.financial-report.output.reportUrls}}"
+        consolidated: "{{steps.consolidated-report.output.consolidatedReportUrl}}"
+    executiveSummary:
+      type: string
+      source: "{{steps.consolidated-report.output.executiveSummary}}"
+    actionItems:
+      type: array
+      source: "{{steps.consolidated-report.output.actionItems}}"
+
+# Error handling
+onError:
+  - condition: "any"
+    action: alert
+    severity: critical
+    recipients: ["cfo@hospital.com", "finance-team@hospital.com"]
+    message: "Monthly close failed for {{input.month}}/{{input.year}}: {{error.message}}"
+  - condition: "steps.reconcile-payments.failed"
+    action: pause
+    message: "Reconciliation failed - manual intervention required"
+
+# Notifications
+notifications:
+  onStart:
+    - type: log
+      message: "Starting monthly close for {{input.month}}/{{input.year}}"
+    - type: email
+      recipients: ["finance-team@hospital.com"]
+      subject: "Monthly Close Started - {{input.month}}/{{input.year}}"
+
+  onComplete:
+    - type: email
+      recipients: ["cfo@hospital.com", "finance-team@hospital.com"]
+      subject: "Monthly Close Complete - {{input.month}}/{{input.year}}"
+      attachments:
+        - "{{output.reports.consolidated}}"
+      body: |
+        Monthly financial close completed successfully.
+
+        Key Metrics:
+        - Total Billed: R$ {{output.totalBilled}}
+        - Total Received: R$ {{output.totalReceived}}
+        - Total Glosas: R$ {{output.totalGlosas}}
+        - Pending Accounts: {{output.pendingAccounts}}
+
+        Executive Summary:
+        {{output.executiveSummary}}
+
+        Action Items:
+        {{output.actionItems}}
+
+    - type: webhook
+      url: "{{env.ERP_WEBHOOK_URL}}"
+      payload:
+        event: "monthly_close_complete"
+        period: "{{output.period}}"
+        kpis: "{{output.kpis}}"
