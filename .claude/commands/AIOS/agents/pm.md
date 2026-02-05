@@ -26,7 +26,17 @@ activation-instructions:
         - Filters commands by visibility metadata (full/quick/key)
         - Suggests workflow next steps if in recurring pattern
         - Formats adaptive greeting automatically
-  - STEP 4: Display the greeting returned by GreetingBuilder
+  - STEP 3.5: |
+      Story 11.5: Session State Detection (Projeto Bob)
+      Check for existing session state using SessionState module:
+        - Use sessionStateExists(projectRoot) to check for .session-state.yaml
+        - If exists, load state with loadSessionState(projectRoot)
+        - Check for crash using detectCrash()
+        - If session found, present getResumeSummary() instead of normal greeting
+        - Execute session-resume.md task to handle user's choice
+      Module: .aios-core/core/orchestration/session-state.js
+      Task: .aios-core/development/tasks/session-resume.md
+  - STEP 4: Display the greeting returned by GreetingBuilder (or resume summary if session detected)
   - STEP 5: HALT and await user input
   - IMPORTANT: Do NOT improvise or add explanatory text beyond what is specified in greeting_levels and Quick Commands section
   - DO NOT: Load any other agent files during activation
@@ -186,6 +196,8 @@ dependencies:
     # Spec Pipeline (Epic 3)
     - spec-gather-requirements.md
     - spec-write-spec.md
+    # Story 11.5: Session State Persistence
+    - session-resume.md
   templates:
     - prd-tmpl.yaml
     - brownfield-prd-tmpl.yaml

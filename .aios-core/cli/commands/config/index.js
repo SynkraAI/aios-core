@@ -241,7 +241,7 @@ function migrateAction(options) {
       const exists = [fwPath, projPath, localPath].filter(p => fs.existsSync(p));
       if (exists.length > 0) {
         console.error('Split config files already exist:');
-        exists.forEach(p => console.error(`  ${p}`));
+        exists.forEach((p) => { console.error(`  ${p}`); });
         console.error('Use --force to overwrite.');
         process.exit(1);
       }

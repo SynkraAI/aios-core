@@ -16,7 +16,7 @@ AIOS v3.12+ introduces a 4-level configuration hierarchy that replaces the singl
 | **L1** Framework | `framework-config.yaml` | Committed (read-only) | Framework defaults, resource locations |
 | **L2** Project | `project-config.yaml` | Committed | Project metadata, integrations, squads |
 | **Pro** Extension | `pro/pro-config.yaml` | Submodule | Premium features (aios-pro) |
-| **L3** App | `apps/<name>/app-config.yaml` | Committed | Per-app overrides |
+| **L3** App | `apps/<name>/aios-app.config.yaml` | Committed | Per-app overrides |
 | **L4** Local | `local-config.yaml` | Gitignored | IDE, MCP, secrets, machine-specific |
 
 Resolution order: L1 → L2 → Pro → L3 → L4 (last wins for scalars, deep merge for objects).

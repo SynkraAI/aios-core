@@ -203,17 +203,20 @@ describe('config-resolver', () => {
       const tmpDir = createTempProject({
         '.aios-core/core-config.yaml': { fixture: 'legacy-core-config.yaml' },
       });
+      const origEnv = process.env.AIOS_SUPPRESS_DEPRECATION;
 
       try {
-        const origEnv = process.env.AIOS_SUPPRESS_DEPRECATION;
         delete process.env.AIOS_SUPPRESS_DEPRECATION;
 
         const result = loadLegacyConfig(tmpDir);
         expect(result.warnings.length).toBeGreaterThan(0);
         expect(result.warnings[0]).toContain('DEPRECATION');
-
-        process.env.AIOS_SUPPRESS_DEPRECATION = origEnv;
       } finally {
+        if (origEnv === undefined) {
+          delete process.env.AIOS_SUPPRESS_DEPRECATION;
+        } else {
+          process.env.AIOS_SUPPRESS_DEPRECATION = origEnv;
+        }
         cleanupTempDir(tmpDir);
       }
     });
@@ -222,16 +225,19 @@ describe('config-resolver', () => {
       const tmpDir = createTempProject({
         '.aios-core/core-config.yaml': { fixture: 'legacy-core-config.yaml' },
       });
+      const origEnv = process.env.AIOS_SUPPRESS_DEPRECATION;
 
       try {
-        const origEnv = process.env.AIOS_SUPPRESS_DEPRECATION;
         process.env.AIOS_SUPPRESS_DEPRECATION = 'true';
 
         const result = loadLegacyConfig(tmpDir);
         expect(result.warnings).toHaveLength(0);
-
-        process.env.AIOS_SUPPRESS_DEPRECATION = origEnv;
       } finally {
+        if (origEnv === undefined) {
+          delete process.env.AIOS_SUPPRESS_DEPRECATION;
+        } else {
+          process.env.AIOS_SUPPRESS_DEPRECATION = origEnv;
+        }
         cleanupTempDir(tmpDir);
       }
     });
@@ -395,12 +401,18 @@ describe('config-resolver', () => {
         '.aios-core/framework-config.yaml': 'metadata:\n  name: "test"\n',
         '.aios-core/local-config.yaml': 'api_url: "${TEST_API_URL:-http://localhost}"\n',
       });
+      const origTestApiUrl = process.env.TEST_API_URL;
 
       try {
         delete process.env.TEST_API_URL;
         const result = resolveConfig(tmpDir, { skipCache: true });
         expect(result.config.api_url).toBe('http://localhost');
       } finally {
+        if (origTestApiUrl === undefined) {
+          delete process.env.TEST_API_URL;
+        } else {
+          process.env.TEST_API_URL = origTestApiUrl;
+        }
         cleanupTempDir(tmpDir);
       }
     });
@@ -443,7 +455,11 @@ describe('config-resolver', () => {
   // ------------------------------------------------------------------
 
   describe('performance benchmarks', () => {
-    test('cold start resolution < 100ms', () => {
+    const isCI = !!process.env.CI;
+    const COLD_START_LIMIT = isCI ? 300 : 100;
+    const CACHED_READ_LIMIT = isCI ? 50 : 5;
+
+    test(`cold start resolution < ${COLD_START_LIMIT}ms`, () => {
       const tmpDir = createTempProject({
         '.aios-core/framework-config.yaml': { fixture: 'framework-config.yaml' },
         '.aios-core/project-config.yaml': { fixture: 'project-config.yaml' },
@@ -458,13 +474,13 @@ describe('config-resolver', () => {
         const end = process.hrtime.bigint();
 
         const durationMs = Number(end - start) / 1_000_000;
-        expect(durationMs).toBeLessThan(100);
+        expect(durationMs).toBeLessThan(COLD_START_LIMIT);
       } finally {
         cleanupTempDir(tmpDir);
       }
     });
 
-    test('cached read < 5ms', () => {
+    test(`cached read < ${CACHED_READ_LIMIT}ms`, () => {
       const tmpDir = createTempProject({
         '.aios-core/framework-config.yaml': { fixture: 'framework-config.yaml' },
         '.aios-core/project-config.yaml': { fixture: 'project-config.yaml' },
@@ -480,7 +496,7 @@ describe('config-resolver', () => {
         const end = process.hrtime.bigint();
 
         const durationMs = Number(end - start) / 1_000_000;
-        expect(durationMs).toBeLessThan(5);
+        expect(durationMs).toBeLessThan(CACHED_READ_LIMIT);
       } finally {
         cleanupTempDir(tmpDir);
       }

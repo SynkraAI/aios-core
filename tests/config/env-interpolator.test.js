@@ -14,12 +14,18 @@ describe('env-interpolator', () => {
   const originalEnv = { ...process.env };
 
   beforeEach(() => {
-    // Reset env for each test
-    process.env = { ...originalEnv };
+    // Reset env by clearing and restoring — preserves Node's special process.env object
+    for (const key of Object.keys(process.env)) {
+      delete process.env[key];
+    }
+    Object.assign(process.env, originalEnv);
   });
 
   afterAll(() => {
-    process.env = originalEnv;
+    for (const key of Object.keys(process.env)) {
+      delete process.env[key];
+    }
+    Object.assign(process.env, originalEnv);
   });
 
   describe('ENV_VAR_PATTERN regex', () => {

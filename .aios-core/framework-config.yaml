@@ -80,7 +80,7 @@ utility_scripts_registry:
     - version-tracker
     - visual-impact-generator
 
-  # Task Execution utilities (18) — Called during task execution
+  # Task Execution utilities (17) — Called during task execution
   executors:
     - approval-workflow
     - branch-manager

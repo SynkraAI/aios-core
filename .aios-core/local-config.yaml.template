@@ -49,6 +49,7 @@ coderabbit_integration:
   wsl_config:
     distribution: "Ubuntu"
     installation_path: "~/.local/bin/coderabbit"
+    # Replace ${PROJECT_ROOT} with your actual project root (e.g., /home/user/myproject)
     working_directory: "${PROJECT_ROOT}"
   commands:
     qa_pre_review_uncommitted: |
