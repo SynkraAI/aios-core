@@ -103,7 +103,7 @@ describe('BobStatusWriter', () => {
       const status2 = await fs.readJson(writer.statusPath);
 
       expect(new Date(status2.timestamp).getTime()).toBeGreaterThan(
-        new Date(status1.timestamp).getTime()
+        new Date(status1.timestamp).getTime(),
       );
     });
 

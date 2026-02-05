@@ -89,13 +89,13 @@ class MessageFormatter {
 
     // Add reason (📚 Por quê?)
     if (reason) {
-      message += `\n📚 Por quê?\n`;
+      message += '\n📚 Por quê?\n';
       message += `   ${reason}\n`;
     }
 
     // Add trade-offs if provided
     if (tradeoffs && tradeoffs.length > 0) {
-      message += `\n   Trade-offs:\n`;
+      message += '\n   Trade-offs:\n';
       for (const tradeoff of tradeoffs) {
         message += `   - ${tradeoff.choice}: ${tradeoff.selected}\n`;
         if (tradeoff.reason) {
@@ -106,7 +106,7 @@ class MessageFormatter {
 
     // Add steps (🔧 O que vou fazer)
     if (steps && steps.length > 0) {
-      message += `\n🔧 O que vou fazer:\n`;
+      message += '\n🔧 O que vou fazer:\n';
       steps.forEach((step, index) => {
         message += `   ${index + 1}. ${step}\n`;
       });
@@ -114,7 +114,7 @@ class MessageFormatter {
 
     // Add agents involved
     if (agents && agents.length > 0) {
-      message += `\n👥 Agentes envolvidos:\n`;
+      message += '\n👥 Agentes envolvidos:\n';
       for (const agent of agents) {
         message += `   - ${agent.id} (${agent.name}): ${agent.task}\n`;
       }
@@ -148,7 +148,7 @@ class MessageFormatter {
     let message = `\n💡 Decisão: ${decision}\n`;
 
     if (tradeoffs && tradeoffs.length > 0) {
-      message += `\n📊 Trade-offs considerados:\n`;
+      message += '\n📊 Trade-offs considerados:\n';
       for (const tradeoff of tradeoffs) {
         message += `   • ${tradeoff.choice}\n`;
         message += `     → Escolhido: ${tradeoff.selected}\n`;

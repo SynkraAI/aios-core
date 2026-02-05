@@ -104,7 +104,7 @@ class BrownfieldHandler extends EventEmitter {
     // Workflow path
     this.workflowPath = path.join(
       projectRoot,
-      '.aios-core/development/workflows/brownfield-discovery.yaml'
+      '.aios-core/development/workflows/brownfield-discovery.yaml',
     );
 
     // Phase progress tracking
@@ -218,12 +218,12 @@ Quer que eu comece?`;
     const surfaceChecker = this._getSurfaceChecker();
     const surfaceResult = surfaceChecker
       ? surfaceChecker.shouldSurface({
-          valid_options_count: 2,
-          options_with_tradeoffs: [
-            '1. Sim — Iniciar análise completa do projeto (4-8 horas)',
-            '2. Não — Pular análise e usar configurações padrão',
-          ].join('\n'),
-        })
+        valid_options_count: 2,
+        options_with_tradeoffs: [
+          '1. Sim — Iniciar análise completa do projeto (4-8 horas)',
+          '2. Não — Pular análise e usar configurações padrão',
+        ].join('\n'),
+      })
       : { should_surface: true };
 
     return {
