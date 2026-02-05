@@ -27,6 +27,7 @@ update_status() {
     local state=$1
     local message=${2:-""}
     local timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+    local pid=${CLAUDE_PID:-null}
 
     cat > "$STATUS_FILE" << EOF
 {
@@ -34,7 +35,7 @@ update_status() {
   "timestamp": "$timestamp",
   "lastActivity": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
   "message": "$message",
-  "pid": $CLAUDE_PID,
+  "pid": $pid,
   "context": ""
 }
 EOF
@@ -44,8 +45,8 @@ EOF
 # Find Claude Code process
 find_claude_process() {
     # Try to find Claude Code CLI process
-    # This might need adjustment based on how Claude Code runs
-    pgrep -f "claude.*code" | head -1 || echo ""
+    # Match any process with "claude" in the name
+    pgrep -f "claude" | head -1 || echo ""
 }
 
 # Check if Claude is waiting for input
