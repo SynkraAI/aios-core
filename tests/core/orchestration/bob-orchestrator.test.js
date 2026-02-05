@@ -19,8 +19,42 @@ const TEST_PROJECT_ROOT = path.join(__dirname, '../../fixtures/test-project-bob'
 jest.mock('../../../.aios-core/core/config/config-resolver', () => ({
   resolveConfig: jest.fn(),
   isLegacyMode: jest.fn(),
+  setUserConfigValue: jest.fn(),
   CONFIG_FILES: {},
   LEVELS: {},
+}));
+
+// Story 12.7: Mock MessageFormatter
+jest.mock('../../../.aios-core/core/orchestration/message-formatter', () => ({
+  MessageFormatter: jest.fn().mockImplementation(() => ({
+    format: jest.fn().mockReturnValue('formatted message'),
+    formatEducational: jest.fn().mockReturnValue('educational message'),
+    setEducationalMode: jest.fn(),
+    isEducationalMode: jest.fn().mockReturnValue(false),
+    formatToggleFeedback: jest.fn().mockImplementation((enabled) =>
+      enabled ? '🎓 Modo educativo ativado!' : '📋 Modo educativo desativado.',
+    ),
+    formatPersistencePrompt: jest.fn().mockReturnValue('[1] Sessão / [2] Permanente'),
+  })),
+}));
+
+// Story 12.8: Mock BrownfieldHandler
+jest.mock('../../../.aios-core/core/orchestration/brownfield-handler', () => ({
+  BrownfieldHandler: jest.fn().mockImplementation(() => ({
+    handle: jest.fn().mockResolvedValue({
+      action: 'brownfield_welcome',
+      data: {
+        message: 'Projeto com código detectado. Deseja analisar?',
+        hasCode: true,
+      },
+    }),
+    handleUserDecision: jest.fn().mockResolvedValue({
+      action: 'analysis_started',
+    }),
+  })),
+  BrownfieldPhase: {},
+  PostDiscoveryChoice: {},
+  PhaseFailureAction: {},
 }));
 
 jest.mock('../../../.aios-core/core/orchestration/executor-assignment', () => ({
@@ -42,10 +76,14 @@ jest.mock('../../../.aios-core/core/orchestration/terminal-spawner', () => ({
 }));
 
 jest.mock('../../../.aios-core/core/orchestration/workflow-executor', () => {
-  const mockExecute = jest.fn().mockResolvedValue({ success: true, state: {}, phaseResults: {} });
   return {
     WorkflowExecutor: jest.fn().mockImplementation(() => ({
-      execute: mockExecute,
+      execute: jest.fn().mockResolvedValue({ success: true, state: {}, phaseResults: {} }),
+      onPhaseChange: jest.fn(),
+      onAgentSpawn: jest.fn(),
+      onTerminalSpawn: jest.fn(),
+      onLog: jest.fn(),
+      onError: jest.fn(),
     })),
     createWorkflowExecutor: jest.fn(),
     executeDevelopmentCycle: jest.fn(),
@@ -53,6 +91,49 @@ jest.mock('../../../.aios-core/core/orchestration/workflow-executor', () => {
     CheckpointDecision: {},
   };
 });
+
+// Story 12.6: Mock UI components
+jest.mock('../../../.aios-core/core/ui/observability-panel', () => ({
+  ObservabilityPanel: jest.fn().mockImplementation(() => ({
+    setStage: jest.fn(),
+    setPipelineStage: jest.fn(),
+    setCurrentAgent: jest.fn(),
+    addTerminal: jest.fn(),
+    updateActiveAgent: jest.fn(),
+    setLog: jest.fn(),
+    setError: jest.fn(),
+    start: jest.fn(),
+    stop: jest.fn(),
+    // Story 12.7: Educational mode support
+    setMode: jest.fn(),
+    updateState: jest.fn(),
+  })),
+  PanelMode: { MINIMAL: 'minimal', DETAILED: 'detailed' },
+}));
+
+jest.mock('../../../.aios-core/core/orchestration/bob-status-writer', () => ({
+  BobStatusWriter: jest.fn().mockImplementation(() => ({
+    initialize: jest.fn().mockResolvedValue(undefined),
+    writeStatus: jest.fn().mockResolvedValue(undefined),
+    updatePhase: jest.fn().mockResolvedValue(undefined),
+    updateStage: jest.fn().mockResolvedValue(undefined),
+    updateAgent: jest.fn().mockResolvedValue(undefined),
+    addTerminal: jest.fn().mockResolvedValue(undefined),
+    updateActiveAgent: jest.fn().mockResolvedValue(undefined),
+    addAttempt: jest.fn().mockResolvedValue(undefined),
+    appendLog: jest.fn().mockResolvedValue(undefined),
+    complete: jest.fn().mockResolvedValue(undefined),
+  })),
+}));
+
+jest.mock('../../../.aios-core/core/events/dashboard-emitter', () => ({
+  getDashboardEmitter: jest.fn().mockReturnValue({
+    emit: jest.fn(),
+    on: jest.fn(),
+    emitBobPhaseChange: jest.fn().mockResolvedValue(undefined),
+    emitBobAgentSpawned: jest.fn().mockResolvedValue(undefined),
+  }),
+}));
 
 jest.mock('../../../.aios-core/core/orchestration/surface-checker', () => {
   const mockShouldSurface = jest.fn().mockReturnValue({
@@ -81,6 +162,9 @@ jest.mock('../../../.aios-core/core/orchestration/session-state', () => {
   const mockGetResumeOptions = jest.fn().mockReturnValue({});
   const mockGetResumeSummary = jest.fn().mockReturnValue('');
   const mockRecordPhaseChange = jest.fn().mockResolvedValue({});
+  const mockGetSessionOverride = jest.fn().mockReturnValue(null);
+  const mockSetSessionOverride = jest.fn();
+  const mockHandleResumeOption = jest.fn().mockResolvedValue({ action: 'continue', story: '12.1', phase: 'development' });
   return {
     SessionState: jest.fn().mockImplementation(() => ({
       exists: mockExists,
@@ -91,14 +175,18 @@ jest.mock('../../../.aios-core/core/orchestration/session-state', () => {
       recordPhaseChange: mockRecordPhaseChange,
       createSessionState: jest.fn(),
       updateSessionState: jest.fn(),
+      getSessionOverride: mockGetSessionOverride,
+      setSessionOverride: mockSetSessionOverride,
+      handleResumeOption: mockHandleResumeOption,
+      state: null,
     })),
     createSessionState: jest.fn(),
     sessionStateExists: jest.fn(),
     loadSessionState: jest.fn(),
     ActionType: { PHASE_CHANGE: 'PHASE_CHANGE' },
     Phase: {},
-    ResumeOption: {},
-    SESSION_STATE_VERSION: '1.1',
+    ResumeOption: { CONTINUE: 'continue', REVIEW: 'review', RESTART: 'restart', DISCARD: 'discard' },
+    SESSION_STATE_VERSION: '1.2',
     SESSION_STATE_FILENAME: '.session-state.yaml',
     CRASH_THRESHOLD_MINUTES: 30,
   };
@@ -114,6 +202,25 @@ jest.mock('../../../.aios-core/core/orchestration/lock-manager', () => {
     cleanupStaleLocks: mockCleanup,
     isLocked: jest.fn().mockResolvedValue(false),
   }));
+});
+
+// Story 12.5: Mock DataLifecycleManager
+jest.mock('../../../.aios-core/core/orchestration/data-lifecycle-manager', () => {
+  const mockRunStartupCleanup = jest.fn().mockResolvedValue({
+    locksRemoved: 0,
+    sessionsArchived: 0,
+    snapshotsRemoved: 0,
+    errors: [],
+  });
+  return {
+    DataLifecycleManager: jest.fn().mockImplementation(() => ({
+      runStartupCleanup: mockRunStartupCleanup,
+    })),
+    createDataLifecycleManager: jest.fn(),
+    runStartupCleanup: jest.fn(),
+    STALE_SESSION_DAYS: 30,
+    STALE_SNAPSHOT_DAYS: 90,
+  };
 });
 
 const { resolveConfig } = require('../../../.aios-core/core/config/config-resolver');
@@ -279,7 +386,7 @@ describe('BobOrchestrator', () => {
       expect(result.action).toBe('onboarding');
     });
 
-    it('should route to brownfield_discovery for EXISTING_NO_DOCS state (AC4)', async () => {
+    it('should route to brownfield_welcome for EXISTING_NO_DOCS state (AC4)', async () => {
       // Given
       await fs.rm(path.join(TEST_PROJECT_ROOT, 'docs/architecture'), { recursive: true });
 
@@ -289,7 +396,8 @@ describe('BobOrchestrator', () => {
       // Then
       expect(result.success).toBe(true);
       expect(result.projectState).toBe(ProjectState.EXISTING_NO_DOCS);
-      expect(result.action).toBe('brownfield_discovery');
+      // Story 12.8: BrownfieldHandler now returns 'brownfield_welcome' action
+      expect(result.action).toBe('brownfield_welcome');
     });
 
     it('should route to ask_objective for EXISTING_WITH_DOCS state (AC5)', async () => {
@@ -422,6 +530,473 @@ describe('BobOrchestrator', () => {
       expect(ProjectState.EXISTING_NO_DOCS).toBe('EXISTING_NO_DOCS');
       expect(ProjectState.EXISTING_WITH_DOCS).toBe('EXISTING_WITH_DOCS');
       expect(ProjectState.GREENFIELD).toBe('GREENFIELD');
+    });
+  });
+
+  // ==========================================
+  // Story 12.5: Session Detection (AC1, AC2, AC4)
+  // ==========================================
+
+  describe('_checkExistingSession (Story 12.5)', () => {
+    it('should return hasSession: false when no session exists (AC1)', async () => {
+      // Given - session does not exist (default mock)
+
+      // When
+      const result = await orchestrator._checkExistingSession();
+
+      // Then
+      expect(result.hasSession).toBe(false);
+    });
+
+    it('should return session data when session exists (AC1)', async () => {
+      // Given - session exists
+      const mockSessionState = {
+        session_state: {
+          version: '1.1',
+          last_updated: new Date().toISOString(),
+          epic: { id: '12', title: 'Test Epic', total_stories: 5 },
+          progress: { current_story: '12.1', stories_done: [], stories_pending: ['12.1'] },
+          workflow: { current_phase: 'development' },
+        },
+      };
+
+      orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+      orchestrator.sessionState.loadSessionState = jest.fn().mockResolvedValue(mockSessionState);
+      orchestrator.sessionState.detectCrash = jest.fn().mockResolvedValue({ isCrash: false });
+      orchestrator.sessionState.getResumeSummary = jest.fn().mockReturnValue('Resume summary');
+
+      // When
+      const result = await orchestrator._checkExistingSession();
+
+      // Then
+      expect(result.hasSession).toBe(true);
+      expect(result.epicTitle).toBe('Test Epic');
+      expect(result.currentStory).toBe('12.1');
+      expect(result.currentPhase).toBe('development');
+    });
+
+    it('should format elapsed time correctly (AC2)', async () => {
+      // Given - session updated 3 days ago
+      const threeDaysAgo = new Date();
+      threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+
+      const mockSessionState = {
+        session_state: {
+          version: '1.1',
+          last_updated: threeDaysAgo.toISOString(),
+          epic: { id: '12', title: 'Test Epic', total_stories: 5 },
+          progress: { current_story: '12.1' },
+          workflow: { current_phase: 'development' },
+        },
+      };
+
+      orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+      orchestrator.sessionState.loadSessionState = jest.fn().mockResolvedValue(mockSessionState);
+      orchestrator.sessionState.detectCrash = jest.fn().mockResolvedValue({ isCrash: false });
+      orchestrator.sessionState.getResumeSummary = jest.fn().mockReturnValue('');
+
+      // When
+      const result = await orchestrator._checkExistingSession();
+
+      // Then
+      expect(result.elapsedString).toBe('3 dias');
+      expect(result.formattedMessage).toContain('Bem-vindo de volta!');
+      expect(result.formattedMessage).toContain('3 dias');
+    });
+
+    it('should include crash warning when crash detected (AC4)', async () => {
+      // Given - crash detected
+      const mockSessionState = {
+        session_state: {
+          version: '1.1',
+          last_updated: new Date().toISOString(),
+          epic: { id: '12', title: 'Test Epic', total_stories: 5 },
+          progress: { current_story: '12.1' },
+          workflow: { current_phase: 'development' },
+        },
+      };
+
+      orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+      orchestrator.sessionState.loadSessionState = jest.fn().mockResolvedValue(mockSessionState);
+      orchestrator.sessionState.detectCrash = jest.fn().mockResolvedValue({
+        isCrash: true,
+        minutesSinceUpdate: 45,
+        reason: 'Crash detected',
+      });
+      orchestrator.sessionState.getResumeSummary = jest.fn().mockReturnValue('');
+
+      // When
+      const result = await orchestrator._checkExistingSession();
+
+      // Then
+      expect(result.crashInfo.isCrash).toBe(true);
+      expect(result.formattedMessage).toContain('⚠️');
+      expect(result.formattedMessage).toContain('crashado');
+      expect(result.formattedMessage).toContain('45 min');
+    });
+  });
+
+  // ==========================================
+  // Story 12.5: Session Resume (AC3, AC7)
+  // ==========================================
+
+  describe('handleSessionResume (Story 12.5)', () => {
+    beforeEach(() => {
+      // Setup session state mock with handleResumeOption
+      orchestrator.sessionState.handleResumeOption = jest.fn();
+    });
+
+    it('should handle continue option (AC3 [1])', async () => {
+      // Given
+      orchestrator.sessionState.handleResumeOption.mockResolvedValue({
+        action: 'continue',
+        story: '12.1',
+        phase: 'development',
+      });
+
+      // When
+      const result = await orchestrator.handleSessionResume('continue');
+
+      // Then
+      expect(result.success).toBe(true);
+      expect(result.action).toBe('continue');
+      expect(result.phase).toBe('development');
+      expect(result.message).toContain('Continuando');
+    });
+
+    it('should handle review option (AC3 [2])', async () => {
+      // Given
+      orchestrator.sessionState.handleResumeOption.mockResolvedValue({
+        action: 'review',
+        summary: { progress: { completed: 2, total: 5 } },
+      });
+
+      // When
+      const result = await orchestrator.handleSessionResume('review');
+
+      // Then
+      expect(result.success).toBe(true);
+      expect(result.action).toBe('review');
+      expect(result.needsReprompt).toBe(true);
+    });
+
+    it('should handle restart option (AC3 [3])', async () => {
+      // Given
+      orchestrator.sessionState.handleResumeOption.mockResolvedValue({
+        action: 'restart',
+        story: '12.1',
+      });
+
+      // When
+      const result = await orchestrator.handleSessionResume('restart');
+
+      // Then
+      expect(result.success).toBe(true);
+      expect(result.action).toBe('restart');
+      expect(result.message).toContain('Recomeçando');
+    });
+
+    it('should handle discard option (AC3 [4])', async () => {
+      // Given
+      orchestrator.sessionState.handleResumeOption.mockResolvedValue({
+        action: 'discard',
+        message: 'Session discarded',
+      });
+
+      // When
+      const result = await orchestrator.handleSessionResume('discard');
+
+      // Then
+      expect(result.success).toBe(true);
+      expect(result.action).toBe('discard');
+      expect(result.message).toContain('descartada');
+    });
+
+    it('should handle unknown option', async () => {
+      // Given
+      orchestrator.sessionState.handleResumeOption.mockResolvedValue({
+        action: 'invalid',
+      });
+
+      // When
+      const result = await orchestrator.handleSessionResume('invalid');
+
+      // Then
+      expect(result.success).toBe(false);
+      expect(result.action).toBe('unknown');
+    });
+  });
+
+  // ==========================================
+  // Story 12.5: Data Lifecycle Integration
+  // ==========================================
+
+  describe('data lifecycle integration (Story 12.5)', () => {
+    it('should initialize DataLifecycleManager in constructor', () => {
+      // Then - verify the DataLifecycleManager was initialized
+      expect(orchestrator.dataLifecycleManager).toBeDefined();
+      expect(orchestrator.dataLifecycleManager.runStartupCleanup).toBeDefined();
+    });
+
+    it('should have dataLifecycleManager with runStartupCleanup method', () => {
+      // Then - verify the method exists
+      expect(typeof orchestrator.dataLifecycleManager.runStartupCleanup).toBe('function');
+    });
+  });
+
+  // ==========================================
+  // Story 12.5: Phase Tracking (AC5)
+  // ==========================================
+
+  describe('_updatePhase (Story 12.5 - AC5)', () => {
+    it('should update session state on phase change', async () => {
+      // Given
+      orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+      orchestrator.sessionState.state = { session_state: {} };
+      orchestrator.sessionState.recordPhaseChange = jest.fn().mockResolvedValue({});
+
+      // When
+      await orchestrator._updatePhase('development', '12.1', '@dev');
+
+      // Then
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenCalledWith(
+        'development',
+        '12.1',
+        '@dev',
+      );
+    });
+
+    it('should not fail if session state does not exist', async () => {
+      // Given
+      orchestrator.sessionState.exists = jest.fn().mockResolvedValue(false);
+
+      // When/Then - should not throw
+      await expect(orchestrator._updatePhase('development', '12.1', '@dev')).resolves.not.toThrow();
+    });
+  });
+
+  // ==========================================
+  // Story 12.7: Educational Mode (AC1-7)
+  // ==========================================
+
+  describe('Educational Mode (Story 12.7)', () => {
+    describe('_detectEducationalModeToggle (AC5)', () => {
+      it('should detect "ativa modo educativo" command', () => {
+        // When
+        const result = orchestrator._detectEducationalModeToggle('ativa modo educativo');
+
+        // Then
+        expect(result).not.toBeNull();
+        expect(result.enable).toBe(true);
+      });
+
+      it('should detect "desativa modo educativo" command', () => {
+        // When
+        const result = orchestrator._detectEducationalModeToggle('desativa modo educativo');
+
+        // Then
+        expect(result).not.toBeNull();
+        expect(result.enable).toBe(false);
+      });
+
+      it('should detect "Bob, ativa modo educativo" command', () => {
+        // When
+        const result = orchestrator._detectEducationalModeToggle('Bob, ativa modo educativo');
+
+        // Then
+        expect(result).not.toBeNull();
+        expect(result.enable).toBe(true);
+      });
+
+      it('should detect "modo educativo on" command', () => {
+        // When
+        const result = orchestrator._detectEducationalModeToggle('modo educativo on');
+
+        // Then
+        expect(result).not.toBeNull();
+        expect(result.enable).toBe(true);
+      });
+
+      it('should detect "modo educativo off" command', () => {
+        // When
+        const result = orchestrator._detectEducationalModeToggle('modo educativo off');
+
+        // Then
+        expect(result).not.toBeNull();
+        expect(result.enable).toBe(false);
+      });
+
+      it('should detect "educational mode on" command (English)', () => {
+        // When
+        const result = orchestrator._detectEducationalModeToggle('educational mode on');
+
+        // Then
+        expect(result).not.toBeNull();
+        expect(result.enable).toBe(true);
+      });
+
+      it('should be case-insensitive', () => {
+        // When
+        const result1 = orchestrator._detectEducationalModeToggle('ATIVA MODO EDUCATIVO');
+        const result2 = orchestrator._detectEducationalModeToggle('Ativa Modo Educativo');
+
+        // Then
+        expect(result1).not.toBeNull();
+        expect(result1.enable).toBe(true);
+        expect(result2).not.toBeNull();
+        expect(result2.enable).toBe(true);
+      });
+
+      it('should return null for non-toggle commands', () => {
+        // When
+        const result1 = orchestrator._detectEducationalModeToggle('create a new feature');
+        const result2 = orchestrator._detectEducationalModeToggle('help');
+        const result3 = orchestrator._detectEducationalModeToggle('');
+        const result4 = orchestrator._detectEducationalModeToggle(null);
+
+        // Then
+        expect(result1).toBeNull();
+        expect(result2).toBeNull();
+        expect(result3).toBeNull();
+        expect(result4).toBeNull();
+      });
+    });
+
+    describe('orchestrate with educational mode toggle (AC5)', () => {
+      it('should detect toggle and return early before routing', async () => {
+        // When
+        const result = await orchestrator.orchestrate({
+          userGoal: 'Bob, ativa modo educativo',
+        });
+
+        // Then
+        expect(result.success).toBe(true);
+        expect(result.action).toBe('educational_mode_toggle');
+        expect(result.data.enable).toBe(true);
+        expect(result.data.persistencePrompt).toBeDefined();
+      });
+
+      it('should include persistence prompt in toggle result', async () => {
+        // When
+        const result = await orchestrator.orchestrate({
+          userGoal: 'desativa modo educativo',
+        });
+
+        // Then
+        expect(result.action).toBe('educational_mode_toggle');
+        expect(result.data.enable).toBe(false);
+        expect(result.data.persistencePrompt).toContain('Sessão');
+      });
+    });
+
+    describe('handleEducationalModeToggle (AC6)', () => {
+      it('should update internal state when enabling', async () => {
+        // When
+        const result = await orchestrator.handleEducationalModeToggle(true, 'session');
+
+        // Then
+        expect(result.success).toBe(true);
+        expect(result.educationalMode).toBe(true);
+        expect(result.persistenceType).toBe('session');
+      });
+
+      it('should update internal state when disabling', async () => {
+        // When
+        const result = await orchestrator.handleEducationalModeToggle(false, 'session');
+
+        // Then
+        expect(result.success).toBe(true);
+        expect(result.educationalMode).toBe(false);
+      });
+
+      it('should persist to session state for session type', async () => {
+        // Given
+        orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+        orchestrator.sessionState.setSessionOverride = jest.fn().mockResolvedValue({});
+
+        // When
+        await orchestrator.handleEducationalModeToggle(true, 'session');
+
+        // Then
+        expect(orchestrator.sessionState.setSessionOverride).toHaveBeenCalledWith(
+          'educational_mode',
+          true,
+        );
+      });
+
+      it('should persist to user config for permanent type', async () => {
+        // Given
+        const { setUserConfigValue } = require('../../../.aios-core/core/config/config-resolver');
+
+        // When
+        await orchestrator.handleEducationalModeToggle(true, 'permanent');
+
+        // Then
+        expect(setUserConfigValue).toHaveBeenCalledWith('educational_mode', true);
+      });
+
+      it('should return feedback message', async () => {
+        // When
+        const enableResult = await orchestrator.handleEducationalModeToggle(true, 'session');
+        const disableResult = await orchestrator.handleEducationalModeToggle(false, 'session');
+
+        // Then
+        expect(enableResult.message).toContain('ativado');
+        expect(disableResult.message).toContain('desativado');
+      });
+    });
+
+    describe('_resolveEducationalMode (AC2)', () => {
+      it('should return false when no config or override exists', () => {
+        // Given - default mocks return null/false
+
+        // When
+        const result = orchestrator._resolveEducationalMode();
+
+        // Then
+        expect(result).toBe(false);
+      });
+
+      it('should prioritize session override over user config', () => {
+        // Given
+        orchestrator.sessionState.getSessionOverride = jest.fn().mockReturnValue(true);
+        resolveConfig.mockReturnValue({
+          config: { educational_mode: false },
+          warnings: [],
+        });
+
+        // When
+        const result = orchestrator._resolveEducationalMode();
+
+        // Then
+        expect(result).toBe(true);
+      });
+
+      it('should use user config when no session override', () => {
+        // Given
+        orchestrator.sessionState.getSessionOverride = jest.fn().mockReturnValue(null);
+        resolveConfig.mockReturnValue({
+          config: { educational_mode: true },
+          warnings: [],
+        });
+
+        // When
+        const result = orchestrator._resolveEducationalMode();
+
+        // Then
+        expect(result).toBe(true);
+      });
+    });
+
+    describe('getEducationalModePersistencePrompt (AC6)', () => {
+      it('should return persistence prompt', () => {
+        // When
+        const result = orchestrator.getEducationalModePersistencePrompt();
+
+        // Then
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('string');
+      });
     });
   });
 });

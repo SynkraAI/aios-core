@@ -89,6 +89,15 @@ const {
 const { BobOrchestrator, ProjectState } = require('./bob-orchestrator');
 const LockManager = require('./lock-manager');
 
+// Story 12.5: Data Lifecycle Manager (Projeto Bob)
+const {
+  DataLifecycleManager,
+  createDataLifecycleManager,
+  runStartupCleanup,
+  STALE_SESSION_DAYS,
+  STALE_SNAPSHOT_DAYS,
+} = require('./data-lifecycle-manager');
+
 // Story 12.4: Epic Context Accumulator (Projeto Bob)
 const {
   EpicContextAccumulator,
@@ -102,6 +111,29 @@ const {
   TOKEN_LIMIT,
   HARD_CAP_PER_STORY,
 } = require('./epic-context-accumulator');
+
+// Story 12.6: Bob Status Writer (Projeto Bob)
+const {
+  BobStatusWriter,
+  BOB_STATUS_SCHEMA,
+  BOB_STATUS_VERSION,
+  DEFAULT_PIPELINE_STAGES,
+  createDefaultBobStatus,
+} = require('./bob-status-writer');
+
+// Story 12.7: Message Formatter (Educational Mode)
+const {
+  MessageFormatter,
+  createMessageFormatter,
+} = require('./message-formatter');
+
+// Story 12.8: Brownfield Handler (Projeto Bob)
+const {
+  BrownfieldHandler,
+  BrownfieldPhase,
+  PostDiscoveryChoice,
+  PhaseFailureAction,
+} = require('./brownfield-handler');
 
 module.exports = {
   // Main orchestrators
@@ -233,6 +265,13 @@ module.exports = {
   ProjectState,
   LockManager,
 
+  // Story 12.5: Data Lifecycle Manager (Projeto Bob)
+  DataLifecycleManager,
+  createDataLifecycleManager,
+  runStartupCleanup,
+  STALE_SESSION_DAYS,
+  STALE_SNAPSHOT_DAYS,
+
   // Story 12.4: Epic Context Accumulator (Projeto Bob)
   EpicContextAccumulator,
   createEpicContextAccumulator,
@@ -244,4 +283,21 @@ module.exports = {
   hasFileOverlap,
   TOKEN_LIMIT,
   HARD_CAP_PER_STORY,
+
+  // Story 12.6: Bob Status Writer (Projeto Bob)
+  BobStatusWriter,
+  BOB_STATUS_SCHEMA,
+  BOB_STATUS_VERSION,
+  DEFAULT_PIPELINE_STAGES,
+  createDefaultBobStatus,
+
+  // Story 12.7: Message Formatter (Educational Mode)
+  MessageFormatter,
+  createMessageFormatter,
+
+  // Story 12.8: Brownfield Handler (Projeto Bob)
+  BrownfieldHandler,
+  BrownfieldPhase,
+  PostDiscoveryChoice,
+  PhaseFailureAction,
 };
