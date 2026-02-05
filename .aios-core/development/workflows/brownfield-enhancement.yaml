@@ -1,0 +1,562 @@
+workflow:
+  id: brownfield-enhancement
+  name: Brownfield Enhancement - Feature Addition with Context Awareness
+  version: "2.0"
+  description: >-
+    Agent workflow for adding features to existing projects with full epic context
+    awareness. Includes executor assignment, PO validation with accumulated context,
+    and competency-based quality gates.
+
+    KEY IMPROVEMENTS (v2.0):
+    - Renamed from brownfield-fullstack for clarity
+    - PO validates story drafts with epic context awareness
+    - PM defines executor assignment in epic creation
+    - Dynamic executor based on competency (not always @dev)
+    - Quality gates specific to executor competency
+    - File overlap and dependency chain validation
+
+  type: brownfield
+  project_types:
+    - feature-addition
+    - refactoring
+    - modernization
+    - integration-enhancement
+
+  # ═══════════════════════════════════════════════════════════════════════════════════════
+  #                              ORCHESTRATION CONFIGURATION
+  # ═══════════════════════════════════════════════════════════════════════════════════════
+
+  orchestration:
+    subagent_mode: true
+    dispatch_mode: skill
+
+    # Directory structure created BEFORE any phase
+    setup_directories:
+      - docs/stories
+      - docs/prd
+      - docs/architecture
+
+  # ═══════════════════════════════════════════════════════════════════════════════════════
+  #                              EXECUTOR COMPETENCY MATRIX
+  # ═══════════════════════════════════════════════════════════════════════════════════════
+
+  executor_matrix:
+    competencies:
+      backend:
+        executor: "@dev"
+        quality_gate: "code-review-checklist"
+      frontend:
+        executor: "@dev"
+        quality_gate: "code-review-checklist"
+      fullstack:
+        executor: "@dev"
+        quality_gate: "code-review-checklist"
+      database:
+        executor: "@data-engineer"
+        quality_gate: "db-migration-checklist"
+      data_pipeline:
+        executor: "@data-engineer"
+        quality_gate: "etl-quality-checklist"
+      infrastructure:
+        executor: "@devops"
+        quality_gate: "deploy-safety-checklist"
+      ci_cd:
+        executor: "@devops"
+        quality_gate: "pipeline-checklist"
+      design:
+        executor: "@ux-expert"
+        quality_gate: "design-qa-checklist"
+      accessibility:
+        executor: "@ux-expert"
+        quality_gate: "a11y-checklist"
+      architecture:
+        executor: "@architect"
+        quality_gate: "arch-review-checklist"
+      security:
+        executor: "@devops"
+        quality_gate: "security-audit-checklist"
+
+  # ═══════════════════════════════════════════════════════════════════════════════════════
+  #                              WORKFLOW SEQUENCE
+  # ═══════════════════════════════════════════════════════════════════════════════════════
+
+  sequence:
+
+    # ═════════════════════════════════════════════════════════════════════════════════════
+    # PHASE 1: SCOPE CLASSIFICATION
+    # ═════════════════════════════════════════════════════════════════════════════════════
+
+    - step: scope_classification
+      phase: 1
+      phase_name: "Classificação de Escopo"
+      agent: analyst
+      action: classify_enhancement_scope
+      elicit: true
+      notes: |
+        @analyst classifica o escopo do enhancement:
+
+        OPÇÕES:
+        1. SINGLE STORY (< 4h): Pular para SM direto
+        2. SMALL FEATURE (1-3 stories): Criar epic simplificado
+        3. MAJOR ENHANCEMENT: Workflow completo
+
+        PERGUNTA AO USUÁRIO:
+        "Descreva o enhancement. É uma correção pequena, uma feature isolada,
+        ou uma mudança maior que requer planejamento arquitetural?"
+
+    - step: routing_decision
+      phase: 1
+      phase_name: "Decisão de Rota"
+      condition: based_on_classification
+      routes:
+        single_story:
+          goto: phase_4_development_cycle
+          notes: "Pular direto para SM criar story única"
+        small_feature:
+          goto: phase_2_planning
+          skip_architecture: true
+          notes: "Criar epic sem documento de arquitetura"
+        major_enhancement:
+          goto: phase_1b_documentation
+          notes: "Verificar se documentação existe"
+
+    # ═════════════════════════════════════════════════════════════════════════════════════
+    # PHASE 1B: DOCUMENTATION CHECK (apenas para major)
+    # ═════════════════════════════════════════════════════════════════════════════════════
+
+    - step: documentation_check
+      phase: "1b"
+      phase_name: "Verificação de Documentação"
+      agent: analyst
+      action: check_existing_documentation
+      condition: major_enhancement_path
+      elicit: true
+      notes: |
+        @analyst verifica se documentação adequada existe:
+
+        VERIFICAR:
+        - docs/architecture/system-architecture.md existe?
+        - Está atualizada (< 30 dias)?
+        - Cobre a área que será modificada?
+
+        SE INADEQUADA: Executar *document-project primeiro
+        SE ADEQUADA: Pular para planning
+
+    - step: project_documentation
+      phase: "1b"
+      phase_name: "Documentação do Projeto"
+      agent: architect
+      action: document-project
+      task: document-project.md
+      creates: docs/architecture/system-architecture.md
+      condition: documentation_inadequate
+      elicit: true
+      notes: |
+        @architect documenta o sistema existente.
+
+        Executar apenas se documentação não existe ou está desatualizada.
+
+    # ═════════════════════════════════════════════════════════════════════════════════════
+    # PHASE 2: PLANNING (PM com Executor Assignment)
+    # ═════════════════════════════════════════════════════════════════════════════════════
+
+    - step: create_prd_or_epic
+      phase: 2
+      phase_name: "Planning: PRD/Epic"
+      agent: pm
+      action: create_brownfield_prd_or_epic
+      elicit: true
+      creates:
+        - docs/prd.md (se major)
+        - docs/stories/epic-{n}.md
+      notes: |
+        @pm cria PRD (se major) ou Epic diretamente.
+
+        ⭐ EXECUTOR ASSIGNMENT OBRIGATÓRIO:
+
+        O PM DEVE incluir no Epic:
+
+        ```yaml
+        ## Executor Matrix
+
+        | Story | Título | Competência | Executor | Quality Gate |
+        |-------|--------|-------------|----------|--------------|
+        | 1.1 | Schema de métricas | database | @data-engineer | db-migration-checklist |
+        | 1.2 | API de métricas | backend | @dev | code-review-checklist |
+        | 1.3 | Dashboard UI | frontend | @dev | code-review-checklist |
+        | 1.4 | Pipeline de deploy | infrastructure | @devops | deploy-safety-checklist |
+        ```
+
+        COMPETÊNCIAS VÁLIDAS:
+        - backend, frontend, fullstack → @dev
+        - database, data_pipeline → @data-engineer
+        - infrastructure, ci_cd, security → @devops
+        - design, accessibility → @ux-expert
+        - architecture → @architect
+
+    - step: architecture_decision
+      phase: 2
+      phase_name: "Planning: Arquitetura?"
+      agent: pm
+      action: evaluate_architecture_need
+      condition: after_prd_creation
+      elicit: true
+      notes: |
+        @pm avalia se mudança arquitetural é necessária:
+
+        CRIAR ARQUITETURA SE:
+        - Novos padrões arquiteturais
+        - Novas bibliotecas/frameworks
+        - Mudanças de plataforma/infra
+
+        PULAR SE:
+        - Seguindo padrões existentes
+        - Feature isolada
+
+    - step: create_architecture
+      phase: 2
+      phase_name: "Planning: Arquitetura"
+      agent: architect
+      action: create_architecture
+      template: brownfield-architecture-tmpl.yaml
+      creates: docs/architecture.md
+      condition: architecture_changes_needed
+      elicit: true
+      notes: |
+        @architect cria documento de arquitetura.
+
+        Apenas se PM identificou necessidade.
+
+    - step: shard_documents
+      phase: 2
+      phase_name: "Planning: Shard Docs"
+      agent: pm
+      action: shard_documents
+      task: shard-doc.md
+      condition: major_enhancement
+      creates:
+        - docs/prd/
+        - docs/architecture/
+      notes: |
+        @pm fragmenta documentos para desenvolvimento.
+
+        Usa task shard-doc.md.
+
+    # ═════════════════════════════════════════════════════════════════════════════════════
+    # PHASE 3: BACKLOG SETUP (PO)
+    # ═════════════════════════════════════════════════════════════════════════════════════
+
+    - step: backlog_setup
+      phase: 3
+      phase_name: "Backlog Setup"
+      agent: po
+      action: backlog_review_and_prioritize
+      requires:
+        - docs/stories/epic-{n}.md
+      elicit: true
+      notes: |
+        @po configura o backlog:
+
+        RESPONSABILIDADES:
+        1. Revisar executor assignments do PM
+        2. Validar que competências estão corretas
+        3. Priorizar stories no epic
+        4. Definir sprint/milestone
+
+        COMANDO: *backlog-review
+
+    # ═════════════════════════════════════════════════════════════════════════════════════
+    # PHASE 4: DEVELOPMENT CYCLE (Loop por story)
+    # ═════════════════════════════════════════════════════════════════════════════════════
+
+    - step: development_cycle_start
+      phase: 4
+      phase_name: "Development Cycle"
+      notes: |
+        Ciclo repete para cada story no epic.
+
+        STATUS FLOW:
+        DRAFT → APPROVED → IN_PROGRESS → REVIEW → DONE
+
+    # STEP 4.1: SM cria story draft
+    - step: sm_create_story_draft
+      phase: "4.1"
+      phase_name: "SM: Criar Story Draft"
+      agent: sm
+      action: draft_story
+      task: create-next-story.md
+      creates: docs/stories/story-{epic}.{n}.md
+      elicit: true
+      notes: |
+        @sm cria story draft a partir do epic.
+
+        INCLUI NO YAML DA STORY:
+        ```yaml
+        assigned_executor: "@data-engineer"  # Do epic
+        competency: "database"               # Do epic
+        quality_gate: "db-migration-checklist"  # Do epic
+        ```
+
+        Status inicial: DRAFT
+
+    # STEP 4.2: PO valida story draft COM CONTEXTO
+    - step: po_validate_story_draft
+      phase: "4.2"
+      phase_name: "PO: Validar Story (com Contexto)"
+      agent: po
+      action: validate_story_draft
+      task: validate-next-story.md
+      requires:
+        - docs/stories/story-{epic}.{n}.md (draft)
+        - docs/stories/epic-{epic}.md
+        - docs/stories/story-{epic}.*.md (anteriores, se existirem)
+      elicit: true
+      notes: |
+        @po valida story draft COM CONTEXTO DO EPIC.
+
+        ⭐ VALIDAÇÃO DE CONTEXTO (Step 8 do task):
+
+        1. CARREGAR CONTEXTO ACUMULADO:
+           - Stories anteriores (status=DONE)
+           - Files modificados por cada story
+           - Executor de cada modificação
+
+        2. VALIDAR SEQUÊNCIA:
+           - Esta story depende de algo não implementado?
+           - A ordem faz sentido?
+
+        3. VALIDAR FILE OVERLAP:
+           - Arquivos sendo modificados já foram tocados?
+           - Executor é o mesmo ou diferente?
+           - Se diferente, há justificativa?
+
+        4. VALIDAR SCHEMA/API CONTINUITY:
+           - Mudanças são compatíveis com anteriores?
+           - Não quebra contratos existentes?
+
+        5. VALIDAR EXECUTOR COHERENCE:
+           - Competência correta para os arquivos?
+           - Handoff documentado se executor muda?
+
+        RESULTADO:
+        - APPROVED: Status → APPROVED
+        - NEEDS WORK: Volta para @sm ajustar
+
+        COMANDO: *validate-story-draft
+
+    # STEP 4.3: Executor implementa (dinâmico)
+    - step: executor_implements
+      phase: "4.3"
+      phase_name: "Executor: Implementar"
+      agent: dynamic  # Lido do story.yaml → assigned_executor
+      action: implement_story
+      requires:
+        - docs/stories/story-{epic}.{n}.md (status=APPROVED)
+      creates: implementation files
+      notes: |
+        EXECUTOR DINÂMICO baseado no story.yaml:
+
+        assigned_executor: "@data-engineer" → @data-engineer implementa
+        assigned_executor: "@dev" → @dev implementa
+        assigned_executor: "@devops" → @devops implementa
+        assigned_executor: "@ux-expert" → @ux-expert implementa
+
+        RESPONSABILIDADES:
+        1. Implementar tasks da story
+        2. Atualizar ## File List com arquivos modificados
+        3. Marcar tasks como [x] completo
+        4. Status → REVIEW quando terminar
+
+        IMPORTANTE:
+        - Seguir acceptance criteria
+        - Executar testes
+        - NÃO modificar arquivos fora do escopo
+
+    # STEP 4.4: QA review com quality gate específico
+    - step: qa_review
+      phase: "4.4"
+      phase_name: "QA: Review"
+      agent: qa
+      action: review_story
+      task: review-story.md
+      requires:
+        - docs/stories/story-{epic}.{n}.md (status=REVIEW)
+        - implementation files
+      elicit: true
+      notes: |
+        @qa executa review usando quality gate específico.
+
+        QUALITY GATE DINÂMICO (do story.yaml):
+
+        quality_gate: "db-migration-checklist"
+          → Usar db-migration-checklist.md
+
+        quality_gate: "code-review-checklist"
+          → Usar code-review-checklist.md
+
+        quality_gate: "deploy-safety-checklist"
+          → Usar deploy-safety-checklist.md
+
+        RESULTADO:
+        - APPROVED: Status → DONE
+        - NEEDS WORK: Status permanece REVIEW, @executor fix
+
+    # STEP 4.5: Fix issues (se necessário)
+    - step: executor_fix_issues
+      phase: "4.5"
+      phase_name: "Executor: Fix Issues"
+      agent: dynamic  # Mesmo executor da story
+      action: fix_qa_issues
+      condition: qa_found_issues
+      requires:
+        - docs/stories/story-{epic}.{n}.md (status=REVIEW com issues)
+      notes: |
+        EXECUTOR corrige issues identificados pelo QA.
+
+        Volta para step 4.4 (QA review) após correção.
+
+    # STEP 4.6: Loop check
+    - step: check_more_stories
+      phase: "4.6"
+      phase_name: "Mais Stories?"
+      action: check_remaining_stories
+      notes: |
+        Verificar se há mais stories no epic.
+
+        SE SIM: Volta para step 4.1 (SM cria próxima story)
+        SE NÃO: Vai para phase 5 (retrospective)
+
+    # ═════════════════════════════════════════════════════════════════════════════════════
+    # PHASE 5: RETROSPECTIVE (opcional)
+    # ═════════════════════════════════════════════════════════════════════════════════════
+
+    - step: sprint_retrospective
+      phase: 5
+      phase_name: "Retrospective"
+      agent: po
+      action: sprint_retrospective
+      condition: epic_complete
+      optional: true
+      elicit: true
+      notes: |
+        @po conduz retrospective do epic.
+
+        OPCIONAL mas recomendado para epics grandes.
+
+        GERA:
+        - Learnings
+        - Process improvements
+        - Technical debt identificado
+
+    # ═════════════════════════════════════════════════════════════════════════════════════
+    # WORKFLOW COMPLETE
+    # ═════════════════════════════════════════════════════════════════════════════════════
+
+    - workflow_end:
+      action: enhancement_complete
+      notes: |
+        ✅ ENHANCEMENT COMPLETO!
+
+        Artefatos gerados:
+        - docs/prd.md (se major)
+        - docs/architecture.md (se necessário)
+        - docs/stories/epic-{n}.md
+        - docs/stories/story-{n}.*.md (todas DONE)
+
+        PRÓXIMOS PASSOS:
+        - @devops: deploy se aplicável
+        - @po: update backlog
+        - Team: celebrate! 🎉
+
+  # ═══════════════════════════════════════════════════════════════════════════════════════
+  #                              QUICK REFERENCE
+  # ═══════════════════════════════════════════════════════════════════════════════════════
+
+  quick_reference:
+    phase_1:
+      name: "Scope Classification"
+      agent: "@analyst"
+      action: "Classificar escopo"
+      output: "routing decision"
+    phase_2:
+      name: "Planning"
+      agent: "@pm"
+      action: "*create-brownfield-prd ou *create-epic"
+      output: "prd.md, epic-{n}.md com executor matrix"
+    phase_3:
+      name: "Backlog Setup"
+      agent: "@po"
+      action: "*backlog-review"
+      output: "Backlog priorizado"
+    phase_4:
+      name: "Development Cycle"
+      agents: "@sm → @po → executor → @qa"
+      action: "Loop por story"
+      output: "Stories implementadas"
+    phase_5:
+      name: "Retrospective"
+      agent: "@po"
+      action: "Sprint retro"
+      output: "Learnings"
+
+  # ═══════════════════════════════════════════════════════════════════════════════════════
+  #                              DECISION GUIDANCE
+  # ═══════════════════════════════════════════════════════════════════════════════════════
+
+  decision_guidance:
+    when_to_use:
+      - Adicionar feature a projeto existente
+      - Refatorar parte do sistema
+      - Modernizar componente específico
+      - Integração com novos serviços
+
+    when_to_use_discovery_instead:
+      - Projeto legado desconhecido
+      - Due diligence técnica
+      - Assessment de débito técnico
+      - Migração de Lovable/v0.dev
+
+  # ═══════════════════════════════════════════════════════════════════════════════════════
+  #                              HANDOFF PROMPTS
+  # ═══════════════════════════════════════════════════════════════════════════════════════
+
+  handoff_prompts:
+    classification_to_planning: |
+      Enhancement classificado como: {{type}}
+      Próximo: @pm para criar {{prd_or_epic}}
+
+    planning_to_backlog: |
+      Epic criado: docs/stories/epic-{{n}}.md
+      Executor matrix definida com {{story_count}} stories.
+      Próximo: @po para *backlog-review
+
+    backlog_to_development: |
+      Backlog priorizado. Stories ordenadas.
+      Próximo: @sm para *draft (primeira story)
+
+    story_draft_to_validation: |
+      Story draft criada: story-{{epic}}.{{n}}.md
+      Status: DRAFT
+      Próximo: @po para *validate-story-draft
+
+    validation_to_implementation: |
+      Story validada e aprovada.
+      Status: APPROVED
+      Executor: {{assigned_executor}}
+      Próximo: {{assigned_executor}} implementar
+
+    implementation_to_review: |
+      Implementação completa.
+      Status: REVIEW
+      Quality Gate: {{quality_gate}}
+      Próximo: @qa para review
+
+    review_to_done: |
+      Review aprovado.
+      Status: DONE
+      Próximo: @sm para próxima story (se houver)
+
+    epic_complete: |
+      ✅ Epic completo!
+      Todas as {{story_count}} stories implementadas.
+      Próximo: @po para retrospective (opcional)
