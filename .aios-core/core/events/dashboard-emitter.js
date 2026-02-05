@@ -226,6 +226,82 @@ class DashboardEmitter {
     });
   }
 
+  // ═══════════════════════════════════════════════════════════════════════════════════
+  //                    Story 12.6: Bob-specific Events (AC7, AC10)
+  // ═══════════════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Emit BobPhaseChange event (AC10)
+   * @param {string} phase - Current phase name
+   * @param {string} story - Story ID
+   * @param {string} executor - Executor agent ID
+   */
+  async emitBobPhaseChange(phase, story, executor) {
+    await this.emit(DashboardEventType.BOB_PHASE_CHANGE, {
+      phase,
+      story,
+      executor,
+    });
+  }
+
+  /**
+   * Emit BobAgentSpawned event (AC10)
+   * @param {string} agent - Agent ID
+   * @param {number} pid - Process ID
+   * @param {string} task - Task being executed
+   */
+  async emitBobAgentSpawned(agent, pid, task) {
+    await this.emit(DashboardEventType.BOB_AGENT_SPAWNED, {
+      agent,
+      pid,
+      task,
+    });
+  }
+
+  /**
+   * Emit BobAgentCompleted event (AC10)
+   * @param {string} agent - Agent ID
+   * @param {number} pid - Process ID
+   * @param {boolean} success - Whether agent completed successfully
+   * @param {number} duration - Duration in milliseconds
+   */
+  async emitBobAgentCompleted(agent, pid, success, duration) {
+    await this.emit(DashboardEventType.BOB_AGENT_COMPLETED, {
+      agent,
+      pid,
+      success,
+      duration,
+    });
+  }
+
+  /**
+   * Emit BobSurfaceDecision event (AC10)
+   * @param {string} criteria - Decision criteria ID
+   * @param {string} action - Action taken
+   * @param {Object} [context] - Additional context
+   */
+  async emitBobSurfaceDecision(criteria, action, context = {}) {
+    await this.emit(DashboardEventType.BOB_SURFACE_DECISION, {
+      criteria,
+      action,
+      context,
+    });
+  }
+
+  /**
+   * Emit BobError event (AC10)
+   * @param {string} phase - Phase where error occurred
+   * @param {string} message - Error message
+   * @param {boolean} [recoverable=true] - Whether error is recoverable
+   */
+  async emitBobError(phase, message, recoverable = true) {
+    await this.emit(DashboardEventType.BOB_ERROR, {
+      phase,
+      message,
+      recoverable,
+    });
+  }
+
   /**
    * POST event to monitor-server with timeout
    * @private

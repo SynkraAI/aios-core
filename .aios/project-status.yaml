@@ -1,20 +1,18 @@
 status:
-  branch: main
+  branch: feat/epic-12
   modifiedFiles:
-    - .aios-core/core/execution/subagent-dispatcher.js
-    - .aios-core/core/health-check/checks/services/index.js
-    - bin/aios-init.js
-    - .aios-core/core/execution/parallel-executor.js
-    - .aios-core/core/health-check/checks/services/gemini-cli.js
-  modifiedFilesTotalCount: 15
+    - .aios-core/core/events/dashboard-emitter.js
+    - .aios-core/core/events/types.js
+    - .aios-core/core/orchestration/bob-orchestrator.js
+    - .aios-core/core/orchestration/index.js
+    - .aios-core/core/orchestration/session-state.js
+  modifiedFilesTotalCount: 17
   recentCommits:
-    - 'fix: align PR #63 workflows with AIOS standards'
-    - >-
-      feat(workflows): add design-system-build-quality and
-      story-development-cycle (#63)
+    - Merge branch 'feat/story-12.10-terminal-spawning' into feat/epic-12
+    - 'chore: add deprecation notice to workflow-state-manager'
   currentEpic: null
   currentStory: null
-  lastUpdate: '2026-02-03T19:10:54.583Z'
+  lastUpdate: '2026-02-05T21:39:41.953Z'
   isGitRepo: true
-timestamp: 1770145854584
+timestamp: 1770327581953
 ttl: 60

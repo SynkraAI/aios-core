@@ -37,6 +37,13 @@ const DashboardEventType = {
   STORY_STATUS_CHANGE: 'StoryStatusChange',
   SESSION_START: 'SessionStart',
   SESSION_END: 'SessionEnd',
+
+  // Story 12.6: Bob-specific event types (AC7, AC10)
+  BOB_PHASE_CHANGE: 'BobPhaseChange',
+  BOB_AGENT_SPAWNED: 'BobAgentSpawned',
+  BOB_AGENT_COMPLETED: 'BobAgentCompleted',
+  BOB_SURFACE_DECISION: 'BobSurfaceDecision',
+  BOB_ERROR: 'BobError',
 };
 
 module.exports = {
