@@ -285,7 +285,127 @@ To comprehensively validate a story draft before implementation begins, ensuring
 - **Completeness**: Do tasks cover all requirements and acceptance criteria?
 - **Blocking issues**: Are there any tasks that would block others?
 
-### 8. CodeRabbit Integration Validation (CONDITIONAL)
+### 8. Epic Context Awareness Validation (NEW in v2.0)
+
+**Purpose:** Validate story coherence within the epic's accumulated context. Prevent conflicts, redundancy, and ensure logical progression based on what has already been implemented.
+
+#### 8.1 Load Epic Context
+
+- **Load epic file**: `docs/stories/epic-{n}.md` (extract epic number from story filename)
+- **Load completed stories**: All stories with `status: DONE` in the same epic
+- **Load in-progress stories**: All stories with `status: IN_PROGRESS` in the same epic
+- **Build accumulated file list**: Aggregate all `## File List` sections from completed stories
+
+```yaml
+# Example context structure to build
+context_loaded:
+  epic_id: "{n}"
+  completed_stories:
+    - id: "1.1"
+      title: "Story title"
+      executor: "@data-engineer"
+      files_modified: ["path/to/file.ts"]
+  in_progress_stories: []
+  accumulated_files_modified:
+    - path: "app/services/api/metrics.ts"
+      modified_by: "story-1.1"
+      executor: "@dev"
+      change_type: "created"
+```
+
+#### 8.2 Story Sequence Logic Validation
+
+- **Prerequisite check**: Does this story depend on work from previous stories?
+- **Dependency satisfaction**: Are all dependencies already DONE?
+- **Logical progression**: Does this story make sense as the next step in the epic?
+- **No orphan references**: Does the story reference files/functions that exist (or were created by prior stories)?
+
+**Validation Questions:**
+- Does the story reference tables/APIs/components created in earlier stories?
+- If yes, are those stories marked as DONE?
+- Would implementing this story out of sequence cause issues?
+
+#### 8.3 File Overlap Analysis
+
+- **Overlap detection**: Identify files this story will modify that were already modified by previous stories
+- **Conflict risk assessment**:
+  - LOW: Same executor, same competency
+  - MEDIUM: Different executor, same competency
+  - HIGH: Different executor, different competency
+- **Justification required**: If overlap exists with HIGH risk, story must explain WHY
+
+**Check for each file in the new story's task list:**
+- Was this file created/modified by a previous story?
+- Who was the executor? What competency?
+- Is the current story's executor the same or different?
+
+#### 8.4 Schema/Architecture Continuity Check
+
+- **Database schema**: If story touches DB, verify compatibility with previous migrations
+- **API contracts**: If story changes APIs used by previous stories, verify no breaking changes
+- **Component hierarchy**: If story modifies shared components, verify hierarchy consistency
+- **Type definitions**: Verify type changes don't break previous implementations
+
+**Red flags to catch:**
+- Modifying a migration file that was already applied
+- Changing API response shape that previous stories depend on
+- Renaming exports that are imported elsewhere
+
+#### 8.5 Executor Assignment Coherence
+
+- **Competency continuity**: If a file was created by @data-engineer, should @dev modify it?
+- **Handoff clarity**: If executor changes for a file, is there explicit justification?
+- **Knowledge transfer**: Does the new executor have sufficient context from previous stories?
+
+**Executor Coherence Matrix:**
+| File Created By | Modified By | Risk Level | Action |
+|-----------------|-------------|------------|--------|
+| @dev | @dev | LOW | OK |
+| @dev | @data-engineer | MEDIUM | Justify |
+| @data-engineer | @dev | HIGH | Review |
+| @devops | @dev | HIGH | Review |
+
+#### 8.6 Generate Context Awareness Report
+
+Add this section to the validation report:
+
+```markdown
+## Epic Context Validation (Step 8)
+
+### Accumulated Context
+- **Epic**: {epic_id} - {epic_title}
+- **Stories Completed**: {count} ({list})
+- **Stories In Progress**: {count}
+- **Total Files Modified**: {count}
+
+### Previous Stories Summary
+| Story | Title | Executor | Key Changes |
+|-------|-------|----------|-------------|
+| 1.1 | ... | @data-engineer | Created metrics table |
+| 1.2 | ... | @dev | API endpoints |
+
+### File Overlap Analysis
+| File | Previously Modified By | This Story Modifies | Risk |
+|------|------------------------|---------------------|------|
+| Dashboard.tsx | story-1.3 (@dev) | Yes | LOW ✅ |
+
+### Dependency Chain
+- [x] Story 1.1 (DONE) - Required for DB schema
+- [x] Story 1.2 (DONE) - Required for API
+- [ ] Story 1.3 (IN_PROGRESS) - Not blocking
+
+### Executor Coherence
+- ✅ All file modifications match competency
+- OR
+- ⚠️ WARNING: {file} created by {executor} being modified by {different_executor}
+
+### Context Validation Result
+- [ ] PASS: Story is coherent with epic context
+- [ ] WARN: Minor context issues (document and proceed)
+- [ ] FAIL: Critical context conflicts (must resolve before approval)
+```
+
+### 9. CodeRabbit Integration Validation (CONDITIONAL)
 
 **CONDITIONAL STEP** - Check `coderabbit_integration.enabled` in core-config.yaml
 
@@ -343,7 +463,7 @@ To comprehensively validate a story draft before implementation begins, ensuring
 - [ ] FAIL: Section missing or critically incomplete
 - [ ] N/A: CodeRabbit disabled in core-config.yaml
 
-### 9. Anti-Hallucination Verification
+### 10. Anti-Hallucination Verification
 
 - **Refer to tools/mcp/context7.yaml** for library documentation lookup to verify technical claims against official sources
 - Consult the examples section for documentation verification patterns and library-specific queries
@@ -353,7 +473,7 @@ To comprehensively validate a story draft before implementation begins, ensuring
 - **Reference accuracy**: Verify all source references are correct and accessible
 - **Fact checking**: Cross-reference claims against epic and architecture documents
 
-### 10. Dev Agent Implementation Readiness
+### 11. Dev Agent Implementation Readiness
 
 - **Self-contained context**: Can the story be implemented without reading external docs?
 - **Clear instructions**: Are implementation steps unambiguous?
@@ -361,7 +481,7 @@ To comprehensively validate a story draft before implementation begins, ensuring
 - **Missing information**: Identify any critical information gaps
 - **Actionability**: Are all tasks actionable by a development agent?
 
-### 11. Generate Validation Report
+### 12. Generate Validation Report
 
 Provide a structured validation report including:
 
