@@ -1,20 +1,20 @@
 status:
   branch: main
   modifiedFiles:
-    - .aios-core/core/execution/subagent-dispatcher.js
-    - .aios-core/core/health-check/checks/services/index.js
-    - bin/aios-init.js
-    - .aios-core/core/execution/parallel-executor.js
-    - .aios-core/core/health-check/checks/services/gemini-cli.js
-  modifiedFilesTotalCount: 15
+    - .aios-core/core-config.yaml
+    - .aios-core/development/agents/analyst.md
+    - .aios-core/development/agents/architect.md
+    - .aios-core/development/agents/pm.md
+    - .aios-core/development/agents/po.md
+  modifiedFilesTotalCount: 11
   recentCommits:
-    - 'fix: align PR #63 workflows with AIOS standards'
     - >-
-      feat(workflows): add design-system-build-quality and
-      story-development-cycle (#63)
+      feat(installer): add Smart Merge Strategy for brownfield installations
+      [Epic 9]
+    - 'Merge pull request #76 from SynkraAI/feat/gemini-cli-integration'
   currentEpic: null
   currentStory: null
-  lastUpdate: '2026-02-03T19:10:54.583Z'
+  lastUpdate: '2026-02-04T19:30:58.371Z'
   isGitRepo: true
-timestamp: 1770145854584
+timestamp: 1770233458372
 ttl: 60
