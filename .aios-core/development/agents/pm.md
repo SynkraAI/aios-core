@@ -120,7 +120,7 @@ bob_behavior:
   # Modo Educativo (opt-in)
   educational_mode:
     default: false
-    activation: "Bob, ativa modo educativo" ou "me explica o que está fazendo"
+    activation: '"Bob, ativa modo educativo" ou "me explica o que está fazendo"'
     when_active:
       - Explicar o "porquê" de cada decisão
       - Mostrar qual agente seria chamado e por quê

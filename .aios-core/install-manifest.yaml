@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-04T23:38:17.730Z"
+generated_at: "2026-02-05T01:09:25.741Z"
 generator: scripts/generate-install-manifest.js
-file_count: 860
+file_count: 862
 files:
   - path: cli/commands/generate/index.js
     hash: sha256:36f8e38ab767fa5478d8dabac548c66dc2c0fc521c216e954ac33fcea0ba597b
@@ -781,13 +781,13 @@ files:
     type: agent
     size: 15011
   - path: development/agents/analyst.md
-    hash: sha256:17c49a1f44a776a5df2614db4fb48703b4662b5ca4b44c755a009131b014ef22
+    hash: sha256:30ff01a4f0a4d40a611e2f10ce2bc7fe3749d6cddced9c0a1d7c33bf6bcdf498
     type: agent
-    size: 10126
+    size: 10120
   - path: development/agents/architect.md
-    hash: sha256:4dc191cdc010132e54fe0b7517e2cfe90a1ac501661170c8cf23b9625876b22c
+    hash: sha256:df16cc9aa757e53ed6982d0e36256cd9be0faf54c9b57925057baa7a2ca2b974
     type: agent
-    size: 18906
+    size: 18900
   - path: development/agents/data-engineer.md
     hash: sha256:bf7e4eb9dcac3464004183a5f8616c894e040c7d3e766fc338312ba400a483e5
     type: agent
@@ -797,17 +797,17 @@ files:
     type: agent
     size: 23130
   - path: development/agents/devops.md
-    hash: sha256:715df999aeb020a1388ca447eb25dc15868add570aab33b21902aace03c93762
+    hash: sha256:242e05c0d5dccfeac14dd754262a05b30e563e3f7ffbf4c85046f1614b046d45
     type: agent
-    size: 18787
+    size: 18705
   - path: development/agents/pm.md
-    hash: sha256:baed88c1f6ea73f9fe7baeb147a1d571d7d9b934ebfb5258c814c2923f275366
+    hash: sha256:c10ad444296604f8a5f8388a234b0bd53455777c509db9ee6b7de0531de6f609
     type: agent
-    size: 10749
+    size: 16234
   - path: development/agents/po.md
-    hash: sha256:316ada43eb7ff127721dd791e5f638b47f0a2fb195c02336811427ae0fc6d306
+    hash: sha256:38357e30967658b711bcacde673eec8159e00c56894566c621e7674639f47b12
     type: agent
-    size: 12321
+    size: 11733
   - path: development/agents/qa.md
     hash: sha256:6b6f2f7775ea92f4b751348c72557e119c065a26717f1b28b8799503f4b5f23f
     type: agent
@@ -949,9 +949,9 @@ files:
     type: script
     size: 25151
   - path: development/scripts/story-index-generator.js
-    hash: sha256:5c9bf1339857e25b20875193c6dd42ac6c829491c0f46ba26bf07652aff6ed8b
+    hash: sha256:757409f31b56b6ab7b623317ded749ae36e20ff291214348af52e0700e9ba386
     type: script
-    size: 9506
+    size: 12494
   - path: development/scripts/story-manager.js
     hash: sha256:ba05c6dc3b29dad5ca57b0dafad8951d750bc30bdc04a9b083d4878c6f84f8f2
     type: script
@@ -1436,6 +1436,10 @@ files:
     hash: sha256:6d13427b0f323cd27a612ac1504807f66e9aad88ec2ff417ba09ecb0b5b6b850
     type: task
     size: 8302
+  - path: development/tasks/po-epic-context.md
+    hash: sha256:6f235fd457a3dd8861791cf60e55bb583749325833742b87aadbe4b2b06fe782
+    type: task
+    size: 6288
   - path: development/tasks/po-manage-story-backlog.md
     hash: sha256:cf18517faca1fe371397de9d3ba6a77456a2b5acf21130d7e7c982d83330f489
     type: task
@@ -1713,9 +1717,9 @@ files:
     type: task
     size: 13275
   - path: development/tasks/validate-next-story.md
-    hash: sha256:7ff03b62614edeb2a9c2bab9681a56ce97cffc59af3bd51054b9dafb1c99701f
+    hash: sha256:43c8b98ae2422766598b676bbf5c3a827d224e62e04ba064c2b09b60ba9c9ef8
     type: task
-    size: 14320
+    size: 19014
   - path: development/tasks/validate-tech-preset.md
     hash: sha256:1919c65909aab2b52a9d2f5c3e2c336711bc873d155707a654dc120ce7d18a25
     type: task
@@ -1852,6 +1856,10 @@ files:
     hash: sha256:ebd0dccd86138a05ff1dd808226c6f257314e9d4415d3046a2490bc815143669
     type: workflow
     size: 33252
+  - path: development/workflows/brownfield-enhancement.yaml
+    hash: sha256:a055d1d6f8af890dc1742f8f95027268fa3ddab005d4234474fb354efbeb2b55
+    type: workflow
+    size: 22839
   - path: development/workflows/brownfield-fullstack.yaml
     hash: sha256:73eaa8c5d7813415bd22a08b679ed868387335704c93c8044b4f985fe081b85f
     type: workflow

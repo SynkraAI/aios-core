@@ -96,8 +96,10 @@ async function extractStoryMetadata(filePath) {
 
           // Normalize status values to standard values
           if (key === 'status') {
+            // Remove status emojis from start and end
+            // eslint-disable-next-line no-misleading-character-class
             value = value.replace(/^[✅🚀⚙️📝❌⏸️👀]\s*/u, '').trim();
-            // Remove emojis at end too
+            // eslint-disable-next-line no-misleading-character-class
             value = value.replace(/\s*[✅🚀⚙️📝❌⏸️👀]\s*$/u, '').trim();
             // Normalize common variations
             const statusLower = value.toLowerCase();

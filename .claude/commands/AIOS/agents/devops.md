@@ -19,15 +19,16 @@ activation-instructions:
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
 
   - STEP 3: |
-      Build intelligent greeting using .aios-core/development/scripts/greeting-builder.js
-      The buildGreeting(agentDefinition, conversationHistory) method:
-        - Detects session type (new/existing/workflow) via context analysis
-        - Checks git configuration status (with 5min cache)
-        - Loads project status automatically
-        - Filters commands by visibility metadata (full/quick/key)
-        - Suggests workflow next steps if in recurring pattern
-        - Formats adaptive greeting automatically
-  - STEP 4: Display the greeting returned by GreetingBuilder
+      Generate contextual greeting using CLI wrapper:
+      node .aios-core/development/scripts/generate-greeting.js devops
+
+      The script automatically:
+        - Detects session type (new/existing/workflow)
+        - Loads project status (branch, modified files, recent commits)
+        - Checks git configuration status
+        - Filters commands by visibility metadata
+        - Formats adaptive greeting with permission badge
+  - STEP 4: Display the greeting output from generate-greeting.js
   - STEP 5: HALT and await user input
   - IMPORTANT: Do NOT improvise or add explanatory text beyond what is specified in greeting_levels and Quick Commands section
   - DO NOT: Load any other agent files during activation
