@@ -1,18 +1,33 @@
 status:
   branch: feat/epic-12
   modifiedFiles:
-    - .aios-core/core/events/dashboard-emitter.js
-    - .aios-core/core/events/types.js
-    - .aios-core/core/orchestration/bob-orchestrator.js
-    - .aios-core/core/orchestration/index.js
-    - .aios-core/core/orchestration/session-state.js
-  modifiedFilesTotalCount: 17
+    - .aios/project-status.yaml
+    - .github/workflows/npm-publish.yml
+    - .tsbuildinfo
+    - docs/STORY-BACKLOG.md
+    - package-lock.json
+  modifiedFilesTotalCount: 8
   recentCommits:
-    - Merge branch 'feat/story-12.10-terminal-spawning' into feat/epic-12
-    - 'chore: add deprecation notice to workflow-state-manager'
-  currentEpic: null
+    - >-
+      feat(orchestration): add BrownfieldHandler, MessageFormatter and
+      BobStatusWriter [Epic 12]
+    - >-
+      feat(orchestration): implement session state integration with Bob [Story
+      12.5]
+  currentEpic: "epic-12"
   currentStory: null
-  lastUpdate: '2026-02-05T21:39:41.953Z'
+  completedStories:
+    - "12.1"
+    - "12.2"
+    - "12.3"
+    - "12.4"
+    - "12.5"
+    - "12.6"
+    - "12.7"
+    - "12.8"
+    - "12.9"
+    - "12.10"
+  lastUpdate: '2026-02-05T22:05:27.104Z'
   isGitRepo: true
-timestamp: 1770327581953
+timestamp: 1770329127104
 ttl: 60

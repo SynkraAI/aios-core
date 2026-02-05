@@ -1,7 +1,7 @@
 # Story Backlog
 
 **Created:** 2026-02-05
-**Last Updated:** 2026-02-05 (EPIC12-F4 criado por @po — feedback engenheiro)
+**Last Updated:** 2026-02-05 (EPIC12-F1 marcado DONE — todas stories já shardadas)
 **Owner:** @po (Pax)
 
 ---
@@ -11,29 +11,21 @@
 | Metric | Count |
 |--------|-------|
 | Total Items | 6 |
-| TODO | 4 |
+| TODO | 3 |
 | CANCELLED | 1 |
 | IN PROGRESS | 0 |
 | BLOCKED | 0 |
-| DONE | 1 |
+| DONE | 2 |
 
 ---
 
 ## 🔴 HIGH Priority
 
-#### [EPIC12-F1] Shardar stories 12.1-12.12 em arquivos individuais
-- **Source:** Backlog Review (Sprint Planning)
-- **Priority:** 🔴 HIGH
-- **Effort:** 2-3 horas
-- **Status:** 📋 TODO
-- **Assignee:** @sm (River)
-- **Sprint:** Sprint atual
-- **Description:** 10 stories do Epic 12 existem apenas no corpo do epic (12.1, 12.2, 12.4, 12.5, 12.6, 12.7, 12.8, 12.9, 12.11, 12.12). Precisam ser shardadas em arquivos individuais em `docs/stories/active/` para que o dev possa trabalhar. Priorizar Fase 1 (12.4) e Fase 2 (12.1, 12.2, 12.5) primeiro.
-- **Success Criteria:**
-  - [ ] Story 12.4 shardada em `docs/stories/active/12.4.story.md`
-  - [ ] Stories 12.1, 12.2, 12.5 shardadas em `docs/stories/active/`
-  - [ ] Demais stories shardadas sob demanda conforme fases avançam
-- **Acceptance:** Arquivos de story criados com todos os campos do template, incluindo CodeRabbit Integration e Tasks/Subtasks.
+#### [EPIC12-F1] ~~Shardar stories 12.1-12.12 em arquivos individuais~~ CONCLUÍDO
+- **Status:** ✅ DONE
+- **Completed:** 2026-02-05
+- **Description:** Todas as 13 stories do Epic 12 já existem como arquivos individuais em `docs/stories/active/` e `docs/stories/completed/`.
+- **Evidence:** 4 em completed/ (12.1, 12.3, 12.4, 12.10), 9 em active/ (12.2, 12.5-12.9, 12.11-12.13)
 
 ---
 
