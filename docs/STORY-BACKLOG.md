@@ -11,11 +11,11 @@
 | Metric | Count |
 |--------|-------|
 | Total Items | 8 |
-| TODO | 4 |
+| TODO | 3 |
 | CANCELLED | 1 |
 | IN PROGRESS | 0 |
 | BLOCKED | 0 |
-| DONE | 3 |
+| DONE | 4 |
 
 ---
 
@@ -78,25 +78,32 @@
 
 ## 🟡 MEDIUM Priority
 
-#### [EPIC12-BP] Configurar Branch Protection para bob-test
+#### [EPIC12-BP] ~~Configurar Branch Protection para bob-test~~ CONCLUÍDO
 - **Source:** Story 12.11 Task 5 (deferred)
 - **Priority:** 🟡 MEDIUM
 - **Effort:** 15 min
-- **Status:** 📋 TODO
+- **Status:** ✅ DONE
+- **Completed:** 2026-02-05
 - **Assignee:** @devops (Gage)
-- **Sprint:** Backlog
 - **Description:** Adicionar `bob-test` aos required status checks na branch main e verificar que squash merge está enforced.
 - **Tasks:**
-  - [ ] GitHub Settings → Branches → main → Edit
-  - [ ] Adicionar `Bob Orchestrator Tests` aos required checks
-  - [ ] Adicionar `Bob Orchestration Lint` aos required checks (opcional)
-  - [ ] Verificar "Require squash merging" está ativo
-  - [ ] Documentar configuração final
+  - [x] GitHub Settings → Branches → main → Edit (via API)
+  - [x] Adicionar `Bob Orchestrator Tests` aos required checks
+  - [x] Adicionar `Bob Orchestration Lint` aos required checks
+  - [x] Verificar "Require squash merging" está ativo (enforced: only squash allowed)
+  - [x] Documentar configuração final
 - **Success Criteria:**
-  - [ ] `bob-test` em required checks
-  - [ ] Squash merge enforced
+  - [x] `bob-test` em required checks
+  - [x] Squash merge enforced
 - **Acceptance:** PRs não podem mergear sem Bob tests passando.
-- **Context:** Branch protection já está 80% configurada. Apenas adicionar os novos checks do Bob.
+- **Evidence:** Configurado via GitHub API. Required checks agora incluem 7 checks:
+  - ESLint
+  - TypeScript Type Checking
+  - Jest Tests (Node 18)
+  - Jest Tests (Node 20)
+  - Validation Summary
+  - **Bob Orchestrator Tests** ✓
+  - **Bob Orchestration Lint** ✓
 
 ---
 
