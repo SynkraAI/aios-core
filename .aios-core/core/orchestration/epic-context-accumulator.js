@@ -283,7 +283,7 @@ class EpicContextAccumulator {
    * @private
    */
   _applyCompressionCascade(entries, formattedEntries, storyN) {
-    let totalText = formattedEntries.join('\n');
+    const totalText = formattedEntries.join('\n');
     let totalTokens = estimateTokens(totalText);
 
     if (totalTokens <= TOKEN_LIMIT) {
@@ -291,7 +291,7 @@ class EpicContextAccumulator {
     }
 
     // Working copy
-    let result = [...formattedEntries];
+    const result = [...formattedEntries];
     const workingEntries = entries.map((e, i) => ({ ...e, formatted: result[i] }));
 
     // Cascade 1: metadata_only on oldest stories (N-7+)
