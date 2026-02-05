@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-05T22:48:59.031Z"
+generated_at: "2026-02-05T22:59:52.249Z"
 generator: scripts/generate-install-manifest.js
 file_count: 889
 files:
@@ -249,9 +249,9 @@ files:
     type: core
     size: 331
   - path: core/events/types.js
-    hash: sha256:faec0d23b10fdc2c7dd2629bb3d66cefc5aaae37be82bd8ecb39285e92108516
+    hash: sha256:46ced1d10e595c5c0fb7490ff63c5ca70310be1d3e22d352ab2d2afe8580ba8c
     type: core
-    size: 1613
+    size: 1700
   - path: core/execution/autonomous-build-loop.js
     hash: sha256:d93f58bbbdf2d7d92e12195d106b793638895e5b87ccd4f2cabd0ac9a822db45
     type: core
@@ -3461,9 +3461,9 @@ files:
     type: script
     size: 9488
   - path: scripts/pm.sh
-    hash: sha256:4655a0bdfe36888d7a36d9b290a847a905699305193ffc46a457ba05eb92801c
+    hash: sha256:ee05da6dc99078b710a34f9fb420684ff19876bcc0322571f1057a56cbbb6011
     type: script
-    size: 11927
+    size: 11995
   - path: scripts/README.md
     hash: sha256:197f6f703ec52c1e2c5ea0468b6cd8031ed7b9b4b563887dcd8c4a388efee059
     type: script
