@@ -44,6 +44,9 @@ jobs:
       config: ${{ steps.filter.outputs.config }}
       stories: ${{ steps.filter.outputs.stories }}
     steps:
+      # NOTE: No 'submodules' parameter — pro/ submodule is intentionally
+      # NOT checked out. aios-core MUST work standalone without pro/.
+      # See ADR-PRO-001 and Story PRO-5 (AC-7).
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
         id: filter

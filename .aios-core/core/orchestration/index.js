@@ -43,6 +43,48 @@ const ExecutorAssignment = require('./executor-assignment');
 // Story 11.2: Terminal Spawner (Projeto Bob)
 const TerminalSpawner = require('./terminal-spawner');
 
+// Story 11.3: Workflow Executor (Projeto Bob)
+const {
+  WorkflowExecutor,
+  createWorkflowExecutor,
+  executeDevelopmentCycle,
+  PhaseStatus,
+  CheckpointDecision,
+} = require('./workflow-executor');
+
+// Story 11.4: Surface Checker (Projeto Bob)
+const {
+  SurfaceChecker,
+  createSurfaceChecker,
+  shouldSurface,
+} = require('./surface-checker');
+
+// Story 11.5: Session State Persistence (Projeto Bob)
+const {
+  SessionState,
+  createSessionState,
+  sessionStateExists,
+  loadSessionState,
+  ActionType,
+  Phase,
+  ResumeOption,
+  SESSION_STATE_VERSION,
+  SESSION_STATE_FILENAME,
+  CRASH_THRESHOLD_MINUTES,
+} = require('./session-state');
+
+// Story 11.6: Observability Panel (Projeto Bob)
+const {
+  ObservabilityPanel,
+  createPanel,
+  PanelMode,
+  PipelineStage,
+  createDefaultState,
+  PanelRenderer,
+  BOX,
+  STATUS,
+} = require('../ui');
+
 module.exports = {
   // Main orchestrators
   WorkflowOrchestrator,
@@ -107,6 +149,30 @@ module.exports = {
   getPlatform: TerminalSpawner.getPlatform,
   cleanupOldFiles: TerminalSpawner.cleanupOldFiles,
 
+  // Story 11.3: Workflow Executor (Projeto Bob)
+  WorkflowExecutor,
+  createWorkflowExecutor,
+  executeDevelopmentCycle,
+  PhaseStatus,
+  CheckpointDecision,
+
+  // Story 11.4: Surface Checker (Projeto Bob)
+  SurfaceChecker,
+  createSurfaceChecker,
+  shouldSurface,
+
+  // Story 11.5: Session State Persistence (Projeto Bob)
+  SessionState,
+  createSessionState,
+  sessionStateExists,
+  loadSessionState,
+  ActionType,
+  Phase,
+  ResumeOption,
+  SESSION_STATE_VERSION,
+  SESSION_STATE_FILENAME,
+  CRASH_THRESHOLD_MINUTES,
+
   // Factory function for easy instantiation
   createOrchestrator(workflowPath, options = {}) {
     return new WorkflowOrchestrator(workflowPath, options);
@@ -133,4 +199,14 @@ module.exports = {
     const detector = new TechStackDetector(projectRoot);
     return await detector.detect();
   },
+
+  // Story 11.6: Observability Panel (Projeto Bob)
+  ObservabilityPanel,
+  createPanel,
+  PanelMode,
+  PipelineStage,
+  createDefaultState,
+  PanelRenderer,
+  BOX,
+  STATUS,
 };

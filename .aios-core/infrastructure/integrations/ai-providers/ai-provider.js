@@ -84,7 +84,7 @@ class AIProvider {
         if (attempt < maxRetries) {
           const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000); // Exponential backoff, max 10s
           console.warn(
-            `[${this.name}] Attempt ${attempt}/${maxRetries} failed: ${error.message}. Retrying in ${delay}ms...`
+            `[${this.name}] Attempt ${attempt}/${maxRetries} failed: ${error.message}. Retrying in ${delay}ms...`,
           );
           await this._sleep(delay);
         }

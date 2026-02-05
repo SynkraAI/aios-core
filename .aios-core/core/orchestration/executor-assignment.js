@@ -265,7 +265,7 @@ function assignExecutor(storyType) {
   if (assignment.executor === assignment.quality_gate) {
     throw new Error(
       `[ExecutorAssignment] Invalid configuration: executor (${assignment.executor}) ` +
-        `cannot be the same as quality_gate (${assignment.quality_gate}) for type "${storyType}"`
+        `cannot be the same as quality_gate (${assignment.quality_gate}) for type "${storyType}"`,
     );
   }
 
@@ -332,7 +332,7 @@ function validateExecutorAssignment(story) {
 
   // Validate executor is known
   const knownExecutors = new Set(
-    Object.values(EXECUTOR_ASSIGNMENT_TABLE).map((c) => c.executor)
+    Object.values(EXECUTOR_ASSIGNMENT_TABLE).map((c) => c.executor),
   );
   if (story.executor && !knownExecutors.has(story.executor)) {
     errors.push(`Unknown executor: ${story.executor}. Known executors: ${[...knownExecutors].join(', ')}`);
@@ -340,14 +340,14 @@ function validateExecutorAssignment(story) {
 
   // Validate quality gate is known
   const knownQualityGates = new Set(
-    Object.values(EXECUTOR_ASSIGNMENT_TABLE).map((c) => c.quality_gate)
+    Object.values(EXECUTOR_ASSIGNMENT_TABLE).map((c) => c.quality_gate),
   );
   // Add @pm as it can be a quality gate
   knownQualityGates.add('@pm');
 
   if (story.quality_gate && !knownQualityGates.has(story.quality_gate)) {
     errors.push(
-      `Unknown quality_gate: ${story.quality_gate}. Known quality gates: ${[...knownQualityGates].join(', ')}`
+      `Unknown quality_gate: ${story.quality_gate}. Known quality gates: ${[...knownQualityGates].join(', ')}`,
     );
   }
 

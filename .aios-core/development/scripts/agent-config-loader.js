@@ -553,10 +553,9 @@ if (require.main === module) {
 
   (async () => {
     try {
-      // Load core config
-      const coreConfigPath = path.join(process.cwd(), '.aios-core', 'core-config.yaml');
-      const coreConfigContent = await fs.readFile(coreConfigPath, 'utf8');
-      const coreConfig = yaml.load(coreConfigContent);
+      // Load config via layered resolver (PRO-4: config hierarchy)
+      const { resolveConfig } = require('../../core/config/config-resolver');
+      const { config: coreConfig } = resolveConfig(process.cwd());
 
       switch (command) {
         case 'load': {

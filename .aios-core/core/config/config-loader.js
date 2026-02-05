@@ -1,12 +1,13 @@
 /**
- * @deprecated Use agent-config-loader.js instead
- * This file will be removed in a future version.
+ * @deprecated Use config-resolver.js for config resolution, agent-config-loader.js for agent configs.
+ * This file will be removed in v4.0.0.
  *
  * Migration guide:
- * - Old: const { loadAgentConfig } = require('./config-loader');
- * - New: const { AgentConfigLoader } = require('./agent-config-loader');
- *        const loader = new AgentConfigLoader(agentId);
- *        const config = await loader.load(coreConfig);
+ * - Config resolution: const { resolveConfig } = require('./config-resolver');
+ *                      const config = await resolveConfig(projectRoot);
+ * - Agent config:      const { AgentConfigLoader } = require('./agent-config-loader');
+ *                      const loader = new AgentConfigLoader(agentId);
+ *                      const config = await loader.load(coreConfig);
  *
  * AIOS Config Loader with Lazy Loading
  *
@@ -18,6 +19,7 @@
  * @created 2025-01-16 (Story 6.1.2.6)
  * @migrated Story 2.2 - Core Module Creation
  * @deprecated Since Story 6.1.4 - Use agent-config-loader.js instead
+ * @deprecated Since Story PRO-4 - Use config-resolver.js for layered config resolution
  */
 
 const fs = require('fs').promises;

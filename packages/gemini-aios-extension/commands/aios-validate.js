@@ -16,7 +16,7 @@ async function main() {
       '.aios-core',
       'development',
       'scripts',
-      'skill-validator.js'
+      'skill-validator.js',
     );
 
     const { SkillValidator } = require(validatorPath);
