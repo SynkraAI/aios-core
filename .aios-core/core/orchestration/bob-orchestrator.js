@@ -37,6 +37,9 @@ const { DataLifecycleManager } = require('./data-lifecycle-manager');
 // Story 12.8: Brownfield Handler
 const { BrownfieldHandler } = require('./brownfield-handler');
 
+// Story 12.13: Greenfield Handler
+const { GreenfieldHandler } = require('./greenfield-handler');
+
 // Story 12.6: Observability Panel Integration + Dashboard Bridge
 const { ObservabilityPanel, PanelMode } = require('../ui/observability-panel');
 const { BobStatusWriter } = require('./bob-status-writer');
@@ -99,6 +102,14 @@ class BobOrchestrator {
 
     // Story 12.8: Brownfield Handler
     this.brownfieldHandler = new BrownfieldHandler(projectRoot, {
+      debug: this.options.debug,
+      workflowExecutor: this.workflowExecutor,
+      surfaceChecker: this.surfaceChecker,
+      sessionState: this.sessionState,
+    });
+
+    // Story 12.13: Greenfield Handler
+    this.greenfieldHandler = new GreenfieldHandler(projectRoot, {
       debug: this.options.debug,
       workflowExecutor: this.workflowExecutor,
       surfaceChecker: this.surfaceChecker,
@@ -192,6 +203,36 @@ class BobOrchestrator {
       // Dashboard Bridge: bob-status.json update (AC6)
       this.bobStatusWriter.updateAgent(agentId, agentName, task, reason).catch((err) => {
         this._log(`BobStatusWriter error: ${err.message}`);
+      });
+    });
+
+    // Story 12.13: Greenfield handler observability callbacks (AC10)
+    this.greenfieldHandler.on('phaseStart', ({ phase }) => {
+      this.observabilityPanel.setPipelineStage(phase);
+      this._log(`Greenfield panel updated: phase=${phase}`);
+      this.bobStatusWriter.updatePhase(phase).catch((err) => {
+        this._log(`BobStatusWriter error: ${err.message}`);
+      });
+    });
+
+    this.greenfieldHandler.on('agentSpawn', ({ agent, task }) => {
+      const agentId = agent.startsWith('@') ? agent : `@${agent}`;
+      const agentName = agentNameMap[agent] || agentNameMap[agent.replace('@', '')] || agent;
+      this.observabilityPanel.setCurrentAgent(agentId, agentName, task, `Greenfield: ${task}`);
+      this._log(`Greenfield panel updated: agent=${agentId}, task=${task}`);
+      this.bobStatusWriter.updateAgent(agentId, agentName, task, `Greenfield: ${task}`).catch((err) => {
+        this._log(`BobStatusWriter error: ${err.message}`);
+      });
+    });
+
+    this.greenfieldHandler.on('terminalSpawn', ({ agent, pid, task }) => {
+      this.observabilityPanel.addTerminal(agent, pid, task);
+      this._log(`Greenfield panel updated: terminal agent=${agent}, pid=${pid}`);
+      this.bobStatusWriter.addTerminal(agent, pid, task).catch((err) => {
+        this._log(`BobStatusWriter error: ${err.message}`);
+      });
+      this.dashboardEmitter.emitBobAgentSpawned(agent, pid, task).catch((err) => {
+        this._log(`DashboardEmitter error: ${err.message}`);
       });
     });
 
@@ -838,23 +879,52 @@ class BobOrchestrator {
   }
 
   /**
-   * Handles GREENFIELD state — delegates to greenfield handler (AC6)
+   * Handles GREENFIELD state — delegates to GreenfieldHandler (AC6)
+   *
+   * Story 12.13: Greenfield Workflow via Bob
+   * - AC1: Greenfield detected (no package.json, .git, docs/)
+   * - AC2-5: Orchestrates 4 phases via GreenfieldHandler
+   * - AC6-10: Integrates with all Epic 11 modules
+   *
    * @param {Object} context - Execution context
    * @returns {Promise<Object>} Handler result
    * @private
    */
-  async _handleGreenfield(_context) {
+  async _handleGreenfield(context) {
     this._log('Greenfield project — delegating to greenfield-handler');
 
-    // Placeholder until Story 12.13
-    return {
-      action: 'greenfield',
-      data: {
-        message: 'Projeto novo detectado. Greenfield Workflow será iniciado.',
-        nextStep: 'greenfield_handler',
-        note: 'greenfield-handler.js será implementado na Story 12.13',
-      },
-    };
+    // Delegate to GreenfieldHandler (Story 12.13)
+    return this.greenfieldHandler.handle(context);
+  }
+
+  /**
+   * Handles greenfield surface decision (GO/PAUSE/text input)
+   *
+   * Story 12.13 - AC11-14: Surface decisions between phases
+   *
+   * @param {string} decision - User decision
+   * @param {number} nextPhase - Next phase number
+   * @param {Object} [context={}] - Execution context
+   * @returns {Promise<Object>} Next step result
+   */
+  async handleGreenfieldSurfaceDecision(decision, nextPhase, context = {}) {
+    this._log(`Greenfield surface decision: ${decision}, next phase: ${nextPhase}`);
+    return this.greenfieldHandler.handleSurfaceDecision(decision, nextPhase, context);
+  }
+
+  /**
+   * Handles greenfield phase failure action (retry/skip/abort)
+   *
+   * Story 12.13 - AC15: Error handling with Retry/Skip/Abort
+   *
+   * @param {string} phase - Failed phase
+   * @param {string} action - User action (retry/skip/abort)
+   * @param {Object} [context={}] - Execution context
+   * @returns {Promise<Object>} Next step result
+   */
+  async handleGreenfieldPhaseFailure(phase, action, context = {}) {
+    this._log(`Greenfield phase failure: action=${action}, phase=${phase}`);
+    return this.greenfieldHandler.handlePhaseFailureAction(phase, action, context);
   }
 
   /**
