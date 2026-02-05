@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-05T20:57:39.941Z"
+generated_at: "2026-02-05T21:02:32.357Z"
 generator: scripts/generate-install-manifest.js
 file_count: 875
 files:
@@ -1029,9 +1029,9 @@ files:
     type: script
     size: 9847
   - path: development/scripts/workflow-state-manager.js
-    hash: sha256:2e33a76da218f9dea909b087b7962b4c1907a4e0dc2212b5c768db9b8b3bf6ad
+    hash: sha256:56758b8af8b53b74b89b758d84feda85b73ea196704c2969573d183025f052d7
     type: script
-    size: 15497
+    size: 15764
   - path: development/scripts/workflow-validator.js
     hash: sha256:cb1c698f39984f128918e8a3a4e5aed254ca445c57b9f99fa183ef14abc0f0dc
     type: script
