@@ -10,7 +10,6 @@
 - `*kb` - Toggle KB mode (loads AIOS Method knowledge)
 - `*status` - Show current context and progress
 - `*guide` - Show comprehensive usage guide for this agent
-- `*yolo` - Toggle confirmation skipping
 - `*exit` - Exit agent mode
 - `*create` - Create new AIOS component (agent, task, workflow, template, checklist)
 - `*modify` - Modify existing AIOS component
@@ -35,8 +34,10 @@
 - `*advanced-elicitation` - Execute advanced elicitation
 - `*chat-mode` - Start conversational assistance
 - `*agent` - Get info about specialized agent (use @ to transform)
+- `*validate-agents` - Validate all agent definitions (YAML parse, required fields, dependencies, pipeline reference)
 - `*correct-course` - Analyze and correct process/quality deviations
 - `*index-docs` - Index documentation for search
+- `*update-source-tree` - Validate data file governance (owners, fill rules, existence)
 
 ## Collaboration
 

@@ -23,6 +23,7 @@ NOT for: PRD creation or epic structure → Use @pm. Market research or competit
 - `*story-checklist` - Run story draft checklist
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
+- `*yolo` - Toggle permission mode (cycle: ask > auto > explore)
 - `*exit` - Exit Scrum Master mode
 
 ## Collaboration

@@ -63,6 +63,7 @@
 - `*session-info` - Show current session details (agent history, commands)
 - `*explain` - Explain what I just did in teaching detail
 - `*guide` - Show comprehensive usage guide for this agent
+- `*yolo` - Toggle permission mode (cycle: ask > auto > explore)
 - `*exit` - Exit developer mode
 
 ## Collaboration
