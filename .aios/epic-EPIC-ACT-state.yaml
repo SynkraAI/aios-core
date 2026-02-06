@@ -7,8 +7,8 @@ epic_state:
   execution_plan: docs/stories/epics/epic-activation-pipeline/EPIC-ACT-EXECUTION.yaml
   mode: interactive
   started_at: "2026-02-06T12:00:00Z"
-  updated_at: "2026-02-06T15:30:00Z"
-  status: active
+  updated_at: "2026-02-06T16:00:00Z"
+  status: completed
 
   current_wave: 3
   total_waves: 3
@@ -71,30 +71,36 @@ epic_state:
           files_created: 3
     3:
       name: "Intelligence & Governance"
-      status: in_progress
+      status: completed
       tag: wave-3-complete
       stories:
         ACT-5:
-          status: in_progress
+          status: completed
           branch: feat/act-5-workflow-navigator
           started_at: "2026-02-06T15:30:00Z"
-          completed_at: null
+          completed_at: "2026-02-06T15:45:00Z"
           executor: dev
           quality_gate: architect
+          tests: "36/36 passing"
+          files_changed: 4
         ACT-7:
-          status: in_progress
+          status: completed
           branch: feat/act-7-context-greetings
           started_at: "2026-02-06T15:30:00Z"
-          completed_at: null
+          completed_at: "2026-02-06T15:50:00Z"
           executor: dev
           quality_gate: architect
+          tests: "58/58 passing"
+          files_changed: 4
         ACT-8:
-          status: in_progress
+          status: completed
           branch: feat/act-8-config-governance
           started_at: "2026-02-06T15:30:00Z"
-          completed_at: null
+          completed_at: "2026-02-06T15:55:00Z"
           executor: dev
           quality_gate: architect
+          tests: "37/37 passing"
+          files_changed: 13
 
   gate_verdicts:
     1:
@@ -109,6 +115,12 @@ epic_state:
       at: "2026-02-06T15:28:00Z"
       tests_verified: "255/255 PASS"
       notes: "12/12 checklist PASS. Clean SRP, DI, defensive defaults. Zero regressions. Advisory: clear timeout timer in Wave 3."
+    3:
+      status: approved
+      agent: architect
+      at: "2026-02-06T16:00:00Z"
+      tests_verified: "386/386 PASS"
+      notes: "All 7 bugs confirmed fixed. Cross-story composition excellent. Zero regressions. Epic ready for final sign-off."
 
   bug_verification:
     1:
@@ -129,7 +141,8 @@ epic_state:
     4:
       description: "WorkflowNavigator dead (wrong method + narrow conditions)"
       fixed_by: ACT-5
-      verified: false
+      verified: true
+      note: "getNextSteps() → suggestNextCommands(), conditions relaxed, SessionState integrated, 36 tests"
     5:
       description: "ProjectStatusLoader 60s cache always stale"
       fixed_by: ACT-3
@@ -143,4 +156,5 @@ epic_state:
     7:
       description: "7 critical data files missing from source-tree.md"
       fixed_by: ACT-8
-      verified: false
+      verified: true
+      note: "All 7 files documented in source-tree.md with owner/fill rules, governance task created, 37 tests"
