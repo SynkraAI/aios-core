@@ -316,11 +316,80 @@ Reads from `.aios-core/core-config.yaml` path `agentIdentity.greeting.preference
 
 ---
 
-## 8. Permission Mode Badge
+## 8. Permission Mode System (Story ACT-4)
 
-**Source:** `permissions/index.js` + `permissions/permission-mode.js`
+**Source:** `permissions/index.js` + `permissions/permission-mode.js` + `permissions/operation-guard.js`
 
-Loads permission mode and returns a badge string displayed next to the agent presentation. Examples: `[Ask]`, `[Auto]`, `[Explore]`.
+### 8.1 Overview
+
+The Permission Mode system controls agent autonomy with three modes:
+
+| Mode | Badge | Writes | Executes | Deletes | Default |
+|------|-------|--------|----------|---------|---------|
+| `explore` | `[Explore]` | Blocked | Blocked | Blocked | No |
+| `ask` | `[Ask]` | Confirm | Confirm | Confirm | **Yes** |
+| `auto` | `[Auto]` | Allowed | Allowed | Allowed | No |
+
+All modes allow **read** operations unconditionally.
+
+### 8.2 Badge Display
+
+The badge is loaded during greeting assembly (Section 3, step 1) via `_safeGetPermissionBadge()`:
+
+```javascript
+const mode = new PermissionMode();
+await mode.load();  // Reads .aios/config.yaml -> permissions.mode
+return mode.getBadge();  // Returns "[icon Name]"
+```
+
+Badge appears next to the agent's archetypal greeting: `"Agent Name ready! [Ask]"`
+
+### 8.3 OperationGuard Enforcement
+
+The `OperationGuard` class classifies every tool call and checks against the current mode:
+
+```
+Tool Call → classifyOperation(tool, params) → canPerform(operation) → allow/prompt/deny
+```
+
+**Classification rules:**
+
+| Tool | Classification |
+|------|---------------|
+| Read, Glob, Grep | `read` (always allowed) |
+| Write, Edit | `write` |
+| Task (read-only subagent) | `read` |
+| Task (other) | `execute` |
+| Bash (git status, git log, ls, etc.) | `read` |
+| Bash (git commit, git push, npm install, etc.) | `write` |
+| Bash (rm -rf, git reset --hard, DROP TABLE, etc.) | `delete` |
+| MCP tools | `execute` |
+
+### 8.4 `*yolo` Command
+
+Available in all 12 agents. Cycles the mode: `ask` -> `auto` -> `explore` -> `ask`.
+
+**Implementation:** Calls `PermissionMode.cycleMode()` which:
+1. Reads current mode from `.aios/config.yaml`
+2. Advances to next mode in `MODE_CYCLE` array
+3. Writes new mode back to config
+4. Returns updated mode info with badge
+
+### 8.5 Integration Points
+
+The `enforcePermission()` function provides a clean API for permission enforcement:
+
+```javascript
+const { enforcePermission } = require('./.aios-core/core/permissions');
+
+const result = await enforcePermission('Write', { file_path: '/file.js' });
+// result.action: 'allow' | 'prompt' | 'deny'
+// result.message: User-facing explanation (for prompt/deny)
+```
+
+### 8.6 Config Initialization
+
+The `environment-bootstrap` task initializes `.aios/config.yaml` with `permissions.mode: ask` as the default. If the config file is missing or the field is absent, the system defaults to `ask` mode.
 
 ---
 
@@ -417,4 +486,96 @@ graph TD
 
 ---
 
+## 13. `user_profile` Impact Matrix (Story ACT-2)
+
+The `user_profile` setting (`bob` or `advanced`) affects behavior across the entire AIOS pipeline. This section documents every file that references `user_profile`/`userProfile` and the behavioral difference between modes.
+
+### 13.1 Bob Mode Flow
+
+```
+Installation → user selects "bob" → core-config.yaml: user_profile: bob
+                                   → user-config.yaml: user_profile: bob (L5 layer)
+                                   ↓
+Activation → loadUserProfile() → validateUserProfile() → resolveConfig(L5 priority)
+           → GreetingPreferenceManager: forces "named" (or "minimal")
+           → GreetingBuilder: redirect non-PM agents to @pm
+           → filterCommandsByVisibility: returns [] for non-PM
+```
+
+### 13.2 Impact Matrix: Source Files
+
+| # | File | Category | `bob` Behavior | `advanced` Behavior |
+|---|------|----------|----------------|---------------------|
+| 1 | `.aios-core/core-config.yaml` | Config | `user_profile: bob` | `user_profile: advanced` |
+| 2 | `.aios-core/development/scripts/greeting-builder.js` | Greeting | Redirects non-PM agents to @pm; hides role/status sections; returns empty commands for non-PM | Full contextual greeting with all sections and commands |
+| 3 | `.aios-core/development/scripts/generate-greeting.js` | Greeting | Uses GreetingBuilder, same bob restrictions | Uses GreetingBuilder, full features |
+| 4 | `.aios-core/development/scripts/greeting-preference-manager.js` | Greeting | Forces preference to `minimal` or `named`; overrides `auto`/`archetypal` | All 4 preferences available (`auto`, `minimal`, `named`, `archetypal`) |
+| 5 | `.aios-core/infrastructure/scripts/validate-user-profile.js` | Validation | Validates `bob` as legal value; normalizes case | Validates `advanced` as legal value; normalizes case |
+| 6 | `.aios-core/core/config/config-resolver.js` | Config | `toggleUserProfile()` switches bob<->advanced; L5 user layer has priority | Same toggle; resolveConfig merges layers |
+| 7 | `.aios-core/core/config/migrate-config.js` | Config | Categorizes `user_profile` as USER_FIELD during migration | Same categorization |
+| 8 | `.aios-core/core/config/schemas/user-config.schema.json` | Schema | `enum: ["bob", "advanced"]` validation | Same validation |
+| 9 | `.aios-core/core/config/templates/user-config.yaml` | Template | Default template value: `bob` | N/A (template default is bob) |
+| 10 | `.aios-core/development/agents/pm.md` | Agent | PM becomes sole orchestrator; bob mode session detection; orchestrates other agents internally | PM operates as normal PM with standard workflow |
+| 11 | `packages/installer/src/wizard/questions.js` | Install | Presents bob/advanced choice during setup | Same prompt |
+| 12 | `packages/installer/src/wizard/index.js` | Install | Writes `user_profile: bob`; idempotent on re-install | Writes `user_profile: advanced` |
+| 13 | `packages/installer/src/wizard/i18n.js` | Install | Translated "Assisted Mode" text (en/pt/es) | Translated "Advanced Mode" text |
+| 14 | `packages/installer/src/config/templates/core-config-template.js` | Install | Generates config with `user_profile: bob` | Generates config with `user_profile: advanced` |
+| 15 | `packages/installer/src/config/configure-environment.js` | Install | Passes `userProfile: 'bob'` to config generation | Passes `userProfile: 'advanced'` |
+| 16 | `packages/aios-install/src/installer.js` | Install | Sets `config.user_profile = 'bob'` in YAML | Sets `config.user_profile = 'advanced'` |
+| 17 | `.aios-core/development/tasks/environment-bootstrap.md` | Task | Documents bob selection flow | Documents advanced selection flow |
+| 18 | `docs/aios-workflows/bob-orchestrator-workflow.md` | Docs | Full bob orchestrator workflow documentation | N/A (bob-specific doc) |
+
+### 13.3 Impact Matrix: Agent Command Visibility
+
+In `bob` mode, non-PM agents return **empty command lists** (redirect to @pm shown instead). PM agent shows all commands normally.
+
+| Agent | `key` Commands Count | Bob Mode Result | Advanced Mode (`new` session) |
+|-------|---------------------|-----------------|-------------------------------|
+| `@pm` | 4 (`help`, `status`, `run`, `exit`) | All commands shown (PM is primary interface) | Full visibility commands |
+| `@dev` | 4 (`help`, `apply-qa-fixes`, `run-tests`, `exit`) | Empty (redirect to @pm) | Full visibility commands |
+| `@qa` | 0 (no visibility metadata) | Empty (redirect to @pm) | Fallback: first 12 commands |
+| `@architect` | 3 (`help`, `create-doc`, `exit`) | Empty (redirect to @pm) | Full visibility commands |
+| `@po` | 4 (`help`, `validate`, `gotcha`, `gotchas`) | Empty (redirect to @pm) | Full visibility commands |
+| `@sm` | 2 (`help`, `draft`) | Empty (redirect to @pm) | Full visibility commands |
+| `@analyst` | 2 (`help`, `exit`) | Empty (redirect to @pm) | Full visibility commands |
+| `@data-engineer` | 0 (no visibility metadata) | Empty (redirect to @pm) | Fallback: first 12 commands |
+| `@devops` | 0 (no visibility metadata) | Empty (redirect to @pm) | Fallback: first 12 commands |
+| `@ux-design-expert` | 0 (no visibility metadata) | Empty (redirect to @pm) | Fallback: first 12 commands |
+| `@squad-creator` | 7 (most have `key`) | Empty (redirect to @pm) | Full visibility commands |
+| `@aios-master` | 0 (uses string visibility) | Empty (redirect to @pm) | Fallback: first 12 commands |
+
+**Note:** Agents with 0 `key` commands (`qa`, `data-engineer`, `devops`, `ux-design-expert`, `aios-master`) lack `visibility` array metadata on their commands. In `advanced` mode `workflow` sessions, they fall back to showing first 12 commands. This is a known gap tracked for future improvement.
+
+### 13.4 Validation Pipeline Integration
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│              user_profile Validation in Pipeline                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  1. INSTALLATION (packages/installer)                           │
+│     └─ wizard prompts for user_profile → writes to config       │
+│                                                                  │
+│  2. CONFIG RESOLUTION (core/config/config-resolver.js)          │
+│     └─ resolveConfig() merges L1-L5 layers                     │
+│     └─ L5 (user-config.yaml) has highest priority               │
+│                                                                  │
+│  3. ACTIVATION PIPELINE (greeting-builder.js)  <-- Story ACT-2  │
+│     └─ loadUserProfile() calls resolveConfig()                  │
+│     └─ validateUserProfile() runs on resolved value             │
+│     └─ Invalid values → warn + fallback to 'advanced'           │
+│     └─ Valid value → passed to preference manager + greeting    │
+│                                                                  │
+│  4. GREETING BUILD (greeting-builder.js + preference-manager)   │
+│     └─ bob: preference forced to named/minimal                  │
+│     └─ bob + non-PM: redirect message shown                     │
+│     └─ bob + PM: full contextual greeting                       │
+│     └─ advanced: normal greeting with all features              │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
 *Traced from source on 2026-02-05 | Story AIOS-TRACE-001*
+*Updated on 2026-02-06 | Story ACT-2 - user_profile impact matrix added*
