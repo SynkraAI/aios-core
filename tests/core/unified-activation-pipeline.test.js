@@ -506,6 +506,7 @@ describe('UnifiedActivationPipeline', () => {
       // Should still return something (either from pipeline or timeout fallback)
       expect(result.greeting).toBeTruthy();
       expect(typeof result.greeting).toBe('string');
+      expect(result.fallback).toBe(true);
     });
   });
 
