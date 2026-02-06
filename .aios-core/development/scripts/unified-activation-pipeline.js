@@ -312,6 +312,8 @@ class UnifiedActivationPipeline {
 
   /**
    * Detect workflow state from session context and session type.
+   * Story ACT-5: Relaxed trigger - now detects workflows for any non-new session.
+   * Previously required sessionType === 'workflow' which was too restrictive.
    * @private
    * @param {Object|null} sessionContext - Session context data
    * @param {string} sessionType - Detected session type
@@ -319,7 +321,9 @@ class UnifiedActivationPipeline {
    */
   _detectWorkflowState(sessionContext, sessionType) {
     try {
-      if (sessionType !== 'workflow' || !sessionContext) {
+      // Story ACT-5: Relaxed from sessionType !== 'workflow' to sessionType === 'new'
+      // Workflow detection should happen for 'existing' and 'workflow' sessions
+      if (sessionType === 'new' || !sessionContext) {
         return null;
       }
 
