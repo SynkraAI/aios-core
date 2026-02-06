@@ -118,8 +118,8 @@ describe('GreetingBuilder', () => {
 
       const greeting = await builder.buildGreeting(mockAgent, {});
 
-      // Implementation now always uses archetypal greeting for richer presentation
-      expect(greeting).toContain('TestAgent the Tester ready');
+      // Story ACT-7: Existing sessions use named greeting (brief) instead of archetypal
+      expect(greeting).toContain('TestAgent (Tester) ready');
       expect(greeting).not.toContain('Test automation expert'); // No role
       expect(greeting).toContain('Quick Commands'); // Quick commands
     });
@@ -129,8 +129,8 @@ describe('GreetingBuilder', () => {
 
       const greeting = await builder.buildGreeting(mockAgent, {});
 
-      // Implementation now always uses archetypal greeting for richer presentation
-      expect(greeting).toContain('TestAgent the Tester ready');
+      // Story ACT-7: Workflow sessions use named greeting (focused) instead of archetypal
+      expect(greeting).toContain('TestAgent (Tester) ready');
       expect(greeting).not.toContain('Test automation expert'); // No role
       expect(greeting).toContain('Key Commands'); // Key commands only
     });
@@ -284,10 +284,10 @@ describe('GreetingBuilder', () => {
 
       const greeting = await builder.buildGreeting(mockAgent, {});
 
-      // Implementation uses internal _formatProjectStatus instead of formatStatusDisplay
+      // Story ACT-7: Now uses narrative format when enriched context is available
       // Just verify project status is shown in greeting
       expect(greeting).toContain('Project Status');
-      expect(greeting).toContain('Branch');
+      expect(greeting).toContain('branch');
     });
 
     test('should use condensed format for workflow session', async () => {
