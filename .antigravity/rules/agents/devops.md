@@ -35,6 +35,7 @@
 - `*migrate-batch` - Batch migrate all agents with validation
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
+- `*yolo` - Toggle permission mode (cycle: ask > auto > explore)
 - `*exit` - Exit DevOps mode
 
 ## Collaboration

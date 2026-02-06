@@ -29,6 +29,7 @@
 - `*backlog-review` - Generate backlog review for sprint planning
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
+- `*yolo` - Toggle permission mode (cycle: ask > auto > explore)
 - `*exit` - Exit QA mode
 
 ## Collaboration

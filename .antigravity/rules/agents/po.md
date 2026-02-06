@@ -34,7 +34,7 @@
 - `*doc-out` - Output complete document to file
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
-- `*yolo` - Toggle confirmation skipping (on/off)
+- `*yolo` - Toggle permission mode (cycle: ask > auto > explore)
 - `*exit` - Exit PO mode
 
 ## Collaboration

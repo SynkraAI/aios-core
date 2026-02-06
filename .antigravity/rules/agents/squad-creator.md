@@ -30,6 +30,7 @@
 - `*publish-squad` - Publish squad to aios-squads repository (Sprint 8)
 - `*sync-squad-synkra` - Sync squad to Synkra API marketplace (Sprint 8)
 - `*guide` - Show comprehensive usage guide for this agent
+- `*yolo` - Toggle permission mode (cycle: ask > auto > explore)
 - `*exit` - Exit squad-creator mode
 
 ## Collaboration

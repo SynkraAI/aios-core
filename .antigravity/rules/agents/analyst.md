@@ -30,7 +30,7 @@ NOT for: PRD creation or product strategy → Use @pm. Technical architecture de
 - `*doc-out` - Output complete document
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
-- `*yolo` - Toggle confirmation skipping
+- `*yolo` - Toggle permission mode (cycle: ask > auto > explore)
 - `*exit` - Exit analyst mode
 
 ## Collaboration
