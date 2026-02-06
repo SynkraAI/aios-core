@@ -1,5 +1,6 @@
 const execa = require('execa');
 const fs = require('fs').promises;
+const fsSync = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 const WorktreeManager = require('./worktree-manager');
@@ -10,23 +11,71 @@ const WorktreeManager = require('./worktree-manager');
  * Story 6.1.2.4: Captures git state, recent work, and current story/epic
  * for display in agent greetings across all 11 AIOS agents.
  *
+ * Story ACT-3: Reliability overhaul
+ * - Event-driven cache invalidation via git state change detection
+ * - Multi-terminal safe file locking for cache writes
+ * - Worktree-aware cache paths
+ * - Performance optimized (<100ms cached, <500ms regeneration)
+ *
  * Features:
  * - Git integration (branch, status, recent commits)
  * - Current story/epic detection from docs/stories/
- * - 60-second cache mechanism for performance
+ * - Smart cache invalidation via .git/HEAD and .git/index mtime
+ * - Multi-terminal lock file protection
+ * - Worktree-aware cache paths
  * - Cross-platform support (Windows/Linux/macOS)
  * - Graceful fallback for non-git projects
  */
+
+/**
+ * Default lock timeout in milliseconds.
+ * If a lock cannot be acquired within this time, skip locking and proceed.
+ * @type {number}
+ */
+const LOCK_TIMEOUT_MS = 3000;
+
+/**
+ * Lock file stale threshold in milliseconds.
+ * If a lock file is older than this, it is considered stale and will be removed.
+ * @type {number}
+ */
+const LOCK_STALE_MS = 10000;
+
+/**
+ * Active-session cache TTL in seconds.
+ * Used when git state has NOT changed since last cache write.
+ * @type {number}
+ */
+const ACTIVE_SESSION_TTL = 15;
+
+/**
+ * Idle cache TTL in seconds.
+ * Used as the maximum TTL fallback even if git state check fails.
+ * @type {number}
+ */
+const IDLE_TTL = 60;
+
 class ProjectStatusLoader {
   constructor(rootPath = null) {
     this.rootPath = rootPath || process.cwd();
-    this.cacheFile = path.join(this.rootPath, '.aios', 'project-status.yaml');
-    this.cacheTTL = 60; // seconds
 
     // Load config values (QA Fix: Issue 6.1.2.4-I1)
     this.config = this.loadConfig();
     this.maxModifiedFiles = this.config?.projectStatus?.maxModifiedFiles || 5;
     this.maxRecentCommits = this.config?.projectStatus?.maxRecentCommits || 2;
+
+    // ACT-3: Determine cache file path (worktree-aware)
+    this.cacheFile = this._resolveCacheFilePath();
+    this.lockFile = this.cacheFile + '.lock';
+
+    // ACT-3: Smart TTLs - active session vs idle
+    this.activeSessionTTL = ACTIVE_SESSION_TTL;
+    this.idleTTL = IDLE_TTL;
+    // Keep cacheTTL for backward compat (used in isCacheValid as fallback)
+    this.cacheTTL = IDLE_TTL;
+
+    // ACT-3: Track git state fingerprint for change detection
+    this._lastGitFingerprint = null;
   }
 
   /**
@@ -37,7 +86,7 @@ class ProjectStatusLoader {
   loadConfig() {
     try {
       const configPath = path.join(this.rootPath, '.aios-core', 'core-config.yaml');
-      const configContent = require('fs').readFileSync(configPath, 'utf8');
+      const configContent = fsSync.readFileSync(configPath, 'utf8');
       return yaml.load(configContent);
     } catch (error) {
       // Config not found - use defaults
@@ -46,23 +95,126 @@ class ProjectStatusLoader {
   }
 
   /**
-   * Load project status with caching
+   * ACT-3 Task 4: Resolve cache file path with worktree awareness.
+   *
+   * If running inside a git worktree (not the main working tree),
+   * uses a worktree-specific cache file to prevent cross-worktree conflicts.
+   *
+   * @returns {string} Resolved cache file path
+   * @private
+   */
+  _resolveCacheFilePath() {
+    try {
+      const { execSync } = require('child_process');
+
+      // Get the git directory for the current worktree
+      const gitDir = execSync('git rev-parse --git-dir', {
+        cwd: this.rootPath,
+        encoding: 'utf8',
+        timeout: 2000,
+        stdio: ['pipe', 'pipe', 'ignore'],
+      }).trim();
+
+      // Get the common git directory (shared across worktrees)
+      const gitCommonDir = execSync('git rev-parse --git-common-dir', {
+        cwd: this.rootPath,
+        encoding: 'utf8',
+        timeout: 2000,
+        stdio: ['pipe', 'pipe', 'ignore'],
+      }).trim();
+
+      // Normalize paths for comparison
+      const normalizedGitDir = path.resolve(this.rootPath, gitDir);
+      const normalizedCommonDir = path.resolve(this.rootPath, gitCommonDir);
+
+      // If git-dir !== git-common-dir, we are in a worktree
+      if (normalizedGitDir !== normalizedCommonDir) {
+        // Create a short hash from the worktree path for a unique cache filename
+        const worktreeHash = this._hashString(this.rootPath).substring(0, 8);
+        return path.join(this.rootPath, '.aios', `project-status-${worktreeHash}.yaml`);
+      }
+    } catch (error) {
+      // Not a git repo or git not available - use default path
+    }
+
+    return path.join(this.rootPath, '.aios', 'project-status.yaml');
+  }
+
+  /**
+   * Simple string hash for creating unique cache file names.
+   *
+   * @param {string} str - String to hash
+   * @returns {string} Hex hash string
+   * @private
+   */
+  _hashString(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash).toString(16).padStart(8, '0');
+  }
+
+  /**
+   * ACT-3 Task 1: Get git state fingerprint from .git/HEAD and .git/index mtime.
+   *
+   * This enables event-driven cache invalidation. Instead of blindly using a 60s TTL,
+   * we check if git state has actually changed by examining file modification times.
+   *
+   * @returns {Promise<string|null>} Fingerprint string or null if not available
+   */
+  async getGitStateFingerprint() {
+    try {
+      const { execSync } = require('child_process');
+      const gitDir = execSync('git rev-parse --git-dir', {
+        cwd: this.rootPath,
+        encoding: 'utf8',
+        timeout: 2000,
+        stdio: ['pipe', 'pipe', 'ignore'],
+      }).trim();
+
+      const resolvedGitDir = path.resolve(this.rootPath, gitDir);
+      const headPath = path.join(resolvedGitDir, 'HEAD');
+      const indexPath = path.join(resolvedGitDir, 'index');
+
+      const mtimes = await Promise.all([
+        fs.stat(headPath).then(s => s.mtimeMs).catch(() => 0),
+        fs.stat(indexPath).then(s => s.mtimeMs).catch(() => 0),
+      ]);
+
+      return `${mtimes[0]}:${mtimes[1]}`;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  /**
+   * Load project status with smart caching
+   *
+   * ACT-3: Uses event-driven cache invalidation instead of fixed 60s TTL.
+   * Cache is invalidated when git state (HEAD or index) changes.
    *
    * @returns {Promise<ProjectStatus>} Current project status
    */
   async loadProjectStatus() {
     try {
+      // ACT-3: Get current git state fingerprint
+      const currentFingerprint = await this.getGitStateFingerprint();
+
       // Try to load from cache first
       const cached = await this.loadCache();
-      if (cached && this.isCacheValid(cached)) {
+
+      if (cached && this.isCacheValid(cached, currentFingerprint)) {
         return cached.status;
       }
 
       // Cache miss or expired - generate fresh status
       const status = await this.generateStatus();
 
-      // Save to cache
-      await this.saveCache(status);
+      // Save to cache with lock protection
+      await this.saveCacheWithLock(status, currentFingerprint);
 
       return status;
     } catch (error) {
@@ -73,6 +225,8 @@ class ProjectStatusLoader {
 
   /**
    * Generate fresh project status
+   *
+   * ACT-3 Task 5: All git commands run in parallel via Promise.all()
    *
    * @returns {Promise<ProjectStatus>}
    */
@@ -155,7 +309,7 @@ class ProjectStatusLoader {
   /**
    * Get modified files from git status
    *
-   * @returns {Promise<string[]>}
+   * @returns {Promise<{files: string[], totalCount: number}>}
    */
   async getModifiedFiles() {
     try {
@@ -331,13 +485,29 @@ class ProjectStatusLoader {
   /**
    * Load status from cache file
    *
-   * @returns {Promise<{status: ProjectStatus, timestamp: number, ttl: number}|null>}
+   * ACT-3 Task 2: Added corrupted cache recovery.
+   * If the YAML is invalid, delete the file and return null.
+   *
+   * @returns {Promise<{status: ProjectStatus, timestamp: number, ttl: number, gitFingerprint: string|null}|null>}
    */
   async loadCache() {
     try {
       const content = await fs.readFile(this.cacheFile, 'utf8');
-      return yaml.load(content);
+      const parsed = yaml.load(content);
+
+      // ACT-3: Validate cache structure (corrupted cache recovery)
+      if (!parsed || typeof parsed !== 'object' || !parsed.status) {
+        // Cache is corrupted - delete and regenerate
+        await this.clearCache();
+        return null;
+      }
+
+      return parsed;
     } catch (error) {
+      if (error.name === 'YAMLException') {
+        // Corrupted YAML - delete the file
+        await this.clearCache();
+      }
       return null;
     }
   }
@@ -345,24 +515,119 @@ class ProjectStatusLoader {
   /**
    * Check if cache is still valid
    *
-   * @param {{timestamp: number, ttl: number}} cache
+   * ACT-3 Task 1: Event-driven invalidation.
+   * - If git state fingerprint changed, cache is invalid immediately
+   * - If fingerprint same, use active-session TTL (15s)
+   * - If fingerprint unavailable, use idle TTL (60s)
+   *
+   * @param {{timestamp: number, ttl: number, gitFingerprint: string|null}} cache
+   * @param {string|null} [currentFingerprint] - Current git state fingerprint
    * @returns {boolean}
    */
-  isCacheValid(cache) {
+  isCacheValid(cache, currentFingerprint) {
     if (!cache || !cache.timestamp) return false;
 
     const age = Date.now() - cache.timestamp;
-    const ttl = cache.ttl || this.cacheTTL;
 
+    // ACT-3: Event-driven invalidation via git fingerprint
+    if (currentFingerprint && cache.gitFingerprint) {
+      if (cache.gitFingerprint !== currentFingerprint) {
+        // Git state changed - cache is immediately invalid
+        return false;
+      }
+      // Git state unchanged - use active-session TTL (15s)
+      return age < this.activeSessionTTL * 1000;
+    }
+
+    // Fallback: No fingerprint available - use idle TTL (60s)
+    const ttl = cache.ttl || this.cacheTTL;
     return age < ttl * 1000;
   }
 
   /**
-   * Save status to cache file
+   * ACT-3 Task 2: Acquire a lock file for multi-terminal safety.
+   *
+   * Uses `fs.open()` with 'wx' flag (exclusive create) for cross-platform file locking.
+   * Stale locks (older than LOCK_STALE_MS) are automatically cleaned up.
+   *
+   * @returns {Promise<boolean>} true if lock acquired, false otherwise
+   * @private
+   */
+  async _acquireLock() {
+    const startTime = Date.now();
+
+    while (Date.now() - startTime < LOCK_TIMEOUT_MS) {
+      try {
+        // Try exclusive create - fails if file exists
+        // Write lock data (PID + timestamp) directly to the lock file path
+        const lockData = JSON.stringify({ pid: process.pid, timestamp: Date.now() });
+        await fs.writeFile(this.lockFile, lockData, { flag: 'wx' });
+        return true;
+      } catch (error) {
+        if (error.code === 'EEXIST') {
+          // Lock exists - check if stale
+          const isStale = await this._isLockStale();
+          if (isStale) {
+            // Remove stale lock and retry
+            await this._releaseLock();
+            continue;
+          }
+          // Wait briefly and retry
+          await new Promise(resolve => setTimeout(resolve, 50));
+          continue;
+        }
+        // Other error (e.g., ENOENT for missing directory) - skip locking
+        return false;
+      }
+    }
+
+    // Timeout - could not acquire lock
+    return false;
+  }
+
+  /**
+   * Check if the current lock file is stale.
+   *
+   * @returns {Promise<boolean>} true if lock is stale
+   * @private
+   */
+  async _isLockStale() {
+    try {
+      const content = await fs.readFile(this.lockFile, 'utf8');
+      const lockData = JSON.parse(content);
+      return (Date.now() - lockData.timestamp) > LOCK_STALE_MS;
+    } catch (error) {
+      // Cannot read lock file - consider it stale
+      return true;
+    }
+  }
+
+  /**
+   * Release the lock file.
+   *
+   * @returns {Promise<void>}
+   * @private
+   */
+  async _releaseLock() {
+    try {
+      await fs.unlink(this.lockFile);
+    } catch (error) {
+      // Lock file already removed or doesn't exist - that's fine
+    }
+  }
+
+  /**
+   * ACT-3 Task 2: Save cache with file locking for multi-terminal safety.
+   *
+   * Writes to a temporary file first, then renames atomically.
+   * Uses lock file to prevent concurrent write corruption.
    *
    * @param {ProjectStatus} status
+   * @param {string|null} gitFingerprint - Current git state fingerprint
    */
-  async saveCache(status) {
+  async saveCacheWithLock(status, gitFingerprint) {
+    const lockAcquired = await this._acquireLock();
+
     try {
       // Ensure .aios directory exists
       const cacheDir = path.dirname(this.cacheFile);
@@ -372,14 +637,40 @@ class ProjectStatusLoader {
         status,
         timestamp: Date.now(),
         ttl: this.cacheTTL,
+        gitFingerprint: gitFingerprint || null,
       };
 
       const content = yaml.dump(cache);
-      await fs.writeFile(this.cacheFile, content, 'utf8');
+
+      // Atomic write: write to temp file, then rename
+      const tempFile = this.cacheFile + '.tmp.' + process.pid;
+      await fs.writeFile(tempFile, content, 'utf8');
+
+      try {
+        await fs.rename(tempFile, this.cacheFile);
+      } catch (renameError) {
+        // On Windows, rename can fail if target exists - fall back to direct write
+        await fs.writeFile(this.cacheFile, content, 'utf8');
+        // Clean up temp file
+        try { await fs.unlink(tempFile); } catch { /* ignore */ }
+      }
     } catch (error) {
       // Cache write failure is non-critical, just log
       console.warn('Failed to write status cache:', error.message);
+    } finally {
+      if (lockAcquired) {
+        await this._releaseLock();
+      }
     }
+  }
+
+  /**
+   * Save status to cache file (backward-compatible wrapper)
+   *
+   * @param {ProjectStatus} status
+   */
+  async saveCache(status) {
+    await this.saveCacheWithLock(status, null);
   }
 
   /**
@@ -521,4 +812,9 @@ module.exports = {
   clearCache: () => loader.clearCache(),
   formatStatusDisplay: (status) => loader.formatStatusDisplay(status),
   ProjectStatusLoader,
+  // ACT-3: Export constants for testing
+  LOCK_TIMEOUT_MS,
+  LOCK_STALE_MS,
+  ACTIVE_SESSION_TTL,
+  IDLE_TTL,
 };
