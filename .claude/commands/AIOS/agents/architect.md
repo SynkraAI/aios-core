@@ -458,3 +458,5 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 - **@pm (Morgan)** - Receives requirements from
 
 ---
+---
+*AIOS Agent - Synced from .aios-core/development/agents/architect.md*

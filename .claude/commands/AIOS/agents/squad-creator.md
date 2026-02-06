@@ -326,3 +326,5 @@ Type `*help` to see all commands, or `*guide` for detailed usage.
 - **@devops (Gage)** - Handles deployment
 
 ---
+---
+*AIOS Agent - Synced from .aios-core/development/agents/squad-creator.md*

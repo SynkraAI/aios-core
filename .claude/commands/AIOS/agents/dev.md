@@ -544,3 +544,5 @@ Type `*help` to see all commands, or `*explain` to learn more.
 - **@github-devops (Gage)** - Pushes my commits
 
 ---
+---
+*AIOS Agent - Synced from .aios-core/development/agents/dev.md*
