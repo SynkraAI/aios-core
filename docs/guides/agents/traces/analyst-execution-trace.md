@@ -75,9 +75,17 @@ analyst:
     - path: .aios-core/product/data/brainstorming-techniques.md
       lazy: false
       size: 2KB
+    - path: docs/framework/tech-stack.md          # Added in Story ACT-8
+      lazy: false
+      size: 30KB
+    - path: docs/framework/source-tree.md         # Added in Story ACT-8
+      lazy: false
+      size: 20KB
   lazy_loading: {}
   performance_target: <100ms
 ```
+
+**Note:** As of Story ACT-8, Analyst loads `tech-stack.md` and `source-tree.md` during activation to have technical context when conducting research and impact analysis.
 
 ### 1.4 Context Brought to Session
 

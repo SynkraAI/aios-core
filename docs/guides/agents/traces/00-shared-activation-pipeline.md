@@ -487,12 +487,14 @@ Each agent has specific config requirements defined in `.aios-core/data/agent-co
 | `devops` | dataLocation, cicdLocation | technical-preferences.md | <50ms |
 | `architect` | architecture, dataLocation, templatesLocation | technical-preferences.md | <75ms |
 | `po` | devStoryLocation, prd, storyBacklog, templatesLocation | elicitation-methods.md | <75ms |
-| `sm` | devStoryLocation, storyBacklog, dataLocation | mode-selection-best-practices.md, workflow-patterns.yaml | <75ms |
+| `sm` | devStoryLocation, storyBacklog, dataLocation | mode-selection-best-practices.md, workflow-patterns.yaml, coding-standards.md | <75ms |
 | `data-engineer` | dataLocation, etlLocation | technical-preferences.md | <75ms |
-| `pm` | devStoryLocation, storyBacklog | (none) | <100ms |
-| `analyst` | dataLocation, analyticsLocation | brainstorming-techniques.md | <100ms |
-| `ux-design-expert` | dataLocation, uxLocation | (none) | <100ms |
-| `squad-creator` | (default) dataLocation | (none) | <150ms |
+| `pm` | devStoryLocation, storyBacklog | coding-standards.md, tech-stack.md | <100ms |
+| `analyst` | dataLocation, analyticsLocation | brainstorming-techniques.md, tech-stack.md, source-tree.md | <100ms |
+| `ux-design-expert` | dataLocation, uxLocation | tech-stack.md, coding-standards.md | <100ms |
+| `squad-creator` | dataLocation, squadsTemplateLocation | (none, lazy: agent_registry, expansion_pack_manifest) | <150ms |
+
+> **Story ACT-8 changes:** Enriched pm (+2 files), ux-design-expert (+2 files), analyst (+2 files), sm (+1 file), squad-creator (explicit entry with lazy loading). All within performance targets.
 
 ---
 
@@ -686,3 +688,4 @@ In `bob` mode, non-PM agents return **empty command lists** (redirect to @pm sho
 *Traced from source on 2026-02-05 | Story AIOS-TRACE-001*
 *Updated on 2026-02-06 | Story ACT-2 - user_profile impact matrix added*
 *Updated on 2026-02-06 | Story ACT-6 - Unified Activation Pipeline (Path A/B merged)*
+*Updated on 2026-02-06 | Story ACT-8 - Config governance: enriched pm, ux-design-expert, analyst, sm, squad-creator*

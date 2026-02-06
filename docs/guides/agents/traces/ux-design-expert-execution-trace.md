@@ -86,10 +86,18 @@ ux-design-expert:
   config_sections:
     - dataLocation
     - uxLocation
-  files_loaded: []
+  files_loaded:
+    - path: docs/framework/tech-stack.md          # Added in Story ACT-8
+      lazy: false
+      size: 30KB
+    - path: docs/framework/coding-standards.md    # Added in Story ACT-8
+      lazy: false
+      size: 25KB
   lazy_loading: {}
   performance_target: <100ms
 ```
+
+**Note:** As of Story ACT-8, UX Design Expert loads `tech-stack.md` and `coding-standards.md` during activation to understand the technical stack when designing UI components and interactions.
 
 ### 1.4 Context Brought to Session
 

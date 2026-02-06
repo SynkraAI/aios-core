@@ -63,18 +63,21 @@ sequenceDiagram
 
 ### 1.3 Agent-Specific Config
 
-From `agent-config-requirements.yaml`: **No explicit entry found for squad-creator.** Falls back to default config sections.
+From `agent-config-requirements.yaml`: As of Story ACT-8, squad-creator has an explicit entry:
 
 ```yaml
 squad-creator:
   config_sections:
-    - dataLocation        # default section
-  files_loaded: []        # no agent-specific files eagerly loaded
+    - dataLocation
+    - squadsTemplateLocation        # Added in Story ACT-8
+  files_loaded: []                  # no agent-specific files eagerly loaded
   lazy_loading:
-    squad_schemas: true   # Load when validating/creating squads
-    squad_templates: true # Load when creating components
+    agent_registry: true            # Load when validating/creating squads (ACT-8)
+    expansion_pack_manifest: true   # Load when managing expansion packs (ACT-8)
   performance_target: <150ms
 ```
+
+**Note:** As of Story ACT-8, squad-creator has a proper entry in `agent-config-requirements.yaml` (previously fell to default). Adds `squadsTemplateLocation` config section and lazy-loaded registry/manifest for squad operations.
 
 ### 1.4 Context Brought to Session
 

@@ -2,8 +2,8 @@
 
 > 🌐 **EN** | [PT](../pt/framework/source-tree.md) | [ES](../es/framework/source-tree.md)
 
-**Version:** 3.0
-**Last Updated:** 2026-01-29
+**Version:** 3.1
+**Last Updated:** 2026-02-06
 **Status:** Official Framework Standard
 **Repository:** SynkraAI/aios-core
 
@@ -123,7 +123,10 @@ aios-core/                             # Root project
 │   └── utils/                         # Core utilities
 │
 ├── data/                              # Shared Data
-│   └── aios-kb.md                     # AIOS knowledge base
+│   ├── aios-kb.md                     # AIOS knowledge base (@aios-master, lazy-loaded)
+│   ├── agent-config-requirements.yaml # Per-agent config loading rules (@architect, updated on agent changes)
+│   ├── technical-preferences.md       # User/team technical preferences (@architect, updated on preference changes)
+│   └── workflow-patterns.yaml         # Workflow detection patterns (@sm, updated on workflow changes)
 │
 ├── development/                       # Development Assets
 │   ├── agents/                        # Agent definitions (11 core agents)
@@ -177,7 +180,12 @@ aios-core/                             # Root project
 │   │   ├── story-draft-checklist.md   # Story draft validation
 │   │   ├── architect-checklist.md     # Architecture review
 │   │   └── change-checklist.md        # Change management
-│   ├── data/                          # PM-specific data
+│   ├── data/                          # PM-specific data files
+│   │   ├── brainstorming-techniques.md    # Brainstorming methods (@analyst, reference doc, rarely updated)
+│   │   ├── elicitation-methods.md         # Elicitation techniques (@po, reference doc, rarely updated)
+│   │   ├── mode-selection-best-practices.md # Mode selection guide (@sm, updated on workflow changes)
+│   │   ├── test-levels-framework.md       # Test level definitions (@qa, updated when test strategy changes)
+│   │   └── test-priorities-matrix.md      # Test priority rules (@qa, updated when priorities shift)
 │   └── templates/                     # Document templates
 │       ├── engine/                    # Template engine
 │       ├── ide-rules/                 # IDE rule templates
@@ -248,6 +256,39 @@ Infrastructure Scripts:
   Naming: {script-name}.js (kebab-case)
   Example: documentation-integrity/link-verifier.js
 ```
+
+---
+
+## Data File Governance
+
+All data files used by agents during activation must have documented ownership, fill rules, and update triggers.
+
+### Framework Data Files (docs/framework/)
+
+| File | Owner | Fill Rule | Update Trigger | Used By |
+|------|-------|-----------|----------------|---------|
+| `coding-standards.md` | @dev | Updated when coding standards change | `*update-standards` task or manual edit | @dev, @pm, @ux-design-expert, @sm |
+| `tech-stack.md` | @architect | Updated on tech stack decisions | `*create-doc architecture` or manual edit | @dev, @pm, @ux-design-expert, @analyst |
+| `source-tree.md` | @architect | Updated when structure changes | `*update-source-tree` task | @dev, @analyst |
+
+### Shared Data Files (.aios-core/data/)
+
+| File | Owner | Fill Rule | Update Trigger | Used By |
+|------|-------|-----------|----------------|---------|
+| `aios-kb.md` | @aios-master | Updated on major framework changes | Manual edit | @aios-master (lazy) |
+| `agent-config-requirements.yaml` | @architect | Updated when agent config needs change | Story-driven | AgentConfigLoader |
+| `technical-preferences.md` | @architect | Updated on preference changes | Manual edit or `*add-tech-doc` | @dev, @qa, @devops, @architect, @data-engineer |
+| `workflow-patterns.yaml` | @sm | Updated on workflow changes | Manual edit | @sm, WorkflowNavigator |
+
+### Product Data Files (.aios-core/product/data/)
+
+| File | Owner | Fill Rule | Update Trigger | Used By |
+|------|-------|-----------|----------------|---------|
+| `brainstorming-techniques.md` | @analyst | Reference doc, rarely updated | Manual edit | @analyst |
+| `elicitation-methods.md` | @po | Reference doc, rarely updated | Manual edit | @po |
+| `mode-selection-best-practices.md` | @sm | Updated on workflow changes | Manual edit | @sm |
+| `test-levels-framework.md` | @qa | Updated when test strategy changes | `*update-test-strategy` or manual edit | @qa |
+| `test-priorities-matrix.md` | @qa | Updated when priorities shift | `*update-test-strategy` or manual edit | @qa |
 
 ---
 
@@ -840,6 +881,7 @@ Runtime state is persisted in `.aios/`:
 | 1.1     | 2025-12-14 | Updated org to SynkraAI, replaced Squads with Squads system [Story 6.10]                                                                                           | Dex (dev)        |
 | 2.0     | 2025-12-15 | Major update to reflect modular architecture (cli/, core/, development/, infrastructure/, product/) [Story 6.13]                                                   | Pax (PO)         |
 | 3.0     | 2026-01-29 | Added ADE (Autonomous Development Engine) section documenting Epics 1-7: workflow-intelligence, ADE scripts, workflows, tasks, and runtime state [ADE Integration] | Aria (architect) |
+| 3.1     | 2026-02-06 | Added Data File Governance section: documented 7 missing data files with owner, fill rule, and update trigger. Expanded .aios-core/data/ and product/data/ tree listings. [Story ACT-8] | Dex (dev) |
 
 ---
 
