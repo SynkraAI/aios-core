@@ -1,16 +1,86 @@
 # Shared Activation Pipeline - Common Agent Activation Chain
 
 > Traced from source code, not documentation.
-> Source: `.aios-core/development/scripts/greeting-builder.js` (949 lines)
+> Source: `.aios-core/development/scripts/unified-activation-pipeline.js` (Story ACT-6)
+> Previous source: `.aios-core/development/scripts/greeting-builder.js` (949 lines)
 
 ## Overview
 
-Every AIOS agent goes through a common activation pipeline before presenting its greeting. There are **two activation paths** that converge on the same `GreetingBuilder` class:
+Every AIOS agent goes through a **single unified activation pipeline** before presenting its greeting. As of Story ACT-6, the previous two-path architecture (Path A: direct GreetingBuilder invocation, Path B: generate-greeting.js CLI wrapper) has been consolidated into one entry point.
 
-| Path | Used By | Entry Point |
-|------|---------|-------------|
-| **Direct invocation** | @architect, @dev, @qa, @aios-master, @po, @pm, @sm, @analyst, @squad-creator | Agent .md STEP 3 calls `GreetingBuilder.buildGreeting()` directly |
-| **CLI wrapper** | @devops, @data-engineer, @ux-design-expert | `generate-greeting.js` orchestrates context loading, then calls `GreetingBuilder.buildGreeting()` |
+| Component | Role |
+|-----------|------|
+| **UnifiedActivationPipeline** | Single entry point for ALL 12 agents. Orchestrates parallel loading, sequential detection, and greeting build. |
+| **generate-greeting.js** | Thin CLI wrapper that delegates to `UnifiedActivationPipeline.activate()`. Retained for backward compatibility. |
+| **GreetingBuilder** | Core greeting assembly engine. Called by the pipeline with pre-loaded enriched context. |
+
+All 12 agents use the same path:
+```
+Agent .md STEP 3 → UnifiedActivationPipeline.activate(agentId) → GreetingBuilder.buildGreeting(agent, enrichedContext)
+```
+
+### Unified Pipeline Architecture (Story ACT-6)
+
+```mermaid
+sequenceDiagram
+    participant CC as Claude Code
+    participant UAP as UnifiedActivationPipeline
+    participant ACL as AgentConfigLoader
+    participant SCL as SessionContextLoader
+    participant PSL as ProjectStatusLoader
+    participant GCD as GitConfigDetector
+    participant PM as PermissionMode
+    participant GPM as GreetingPreferenceManager
+    participant CD as ContextDetector
+    participant WN as WorkflowNavigator
+    participant GB as GreetingBuilder
+
+    CC->>UAP: activate(agentId)
+    UAP->>UAP: _loadCoreConfig()
+
+    par Phase 1: Parallel Loading (Steps 1-5)
+        UAP->>ACL: loadComplete(coreConfig)
+        ACL-->>UAP: {config, definition, agent, persona_profile, commands}
+    and
+        UAP->>SCL: loadContext(agentId)
+        SCL-->>UAP: {sessionType, lastCommands, previousAgent, ...}
+    and
+        UAP->>PSL: loadProjectStatus()
+        PSL-->>UAP: {branch, modifiedFiles, recentCommits, currentStory}
+    and
+        UAP->>GCD: get()
+        GCD-->>UAP: {configured, type, branch}
+    and
+        UAP->>PM: load() + getBadge()
+        PM-->>UAP: {mode, badge}
+    end
+
+    Note over UAP: Phase 2: Build agent definition
+
+    UAP->>GPM: getPreference(userProfile)
+    GPM-->>UAP: preference (auto|minimal|named|archetypal)
+
+    UAP->>CD: detectSessionType(conversationHistory)
+    CD-->>UAP: 'new' | 'existing' | 'workflow'
+
+    UAP->>WN: detectWorkflowState(commandHistory, sessionContext)
+    WN-->>UAP: workflowState | null
+
+    Note over UAP: Assemble enriched context
+
+    UAP->>GB: buildGreeting(agentDefinition, enrichedContext)
+    GB-->>UAP: formatted greeting string
+    UAP-->>CC: {greeting, context, duration}
+```
+
+### Previous Architecture (Pre-ACT-6, deprecated)
+
+Two paths existed that converged on the same `GreetingBuilder` class:
+
+| Path | Used By | Entry Point | Status |
+|------|---------|-------------|--------|
+| **Path A: Direct** | 9 agents | Agent .md STEP 3 called `GreetingBuilder.buildGreeting()` directly | **Replaced** by UnifiedActivationPipeline |
+| **Path B: CLI wrapper** | 3 agents (@devops, @data-engineer, @ux-design-expert) | `generate-greeting.js` orchestrated context loading | **Replaced** -- generate-greeting.js is now a thin wrapper |
 
 ---
 
@@ -73,96 +143,106 @@ sequenceDiagram
 
 ---
 
-## 2. Activation Pipeline (STEP 3)
+## 2. Activation Pipeline (STEP 3) -- Unified (Story ACT-6)
 
-### 2.1 Path A: Direct Invocation (9 agents)
+### 2.1 Unified Activation Path (ALL 12 agents)
 
-The agent .md instructs Claude Code to call `GreetingBuilder.buildGreeting()` directly.
+**Source:** `unified-activation-pipeline.js`
 
-**Source:** `greeting-builder.js:59-82`
+All 12 agents use the same activation path. The `UnifiedActivationPipeline.activate(agentId)` method:
 
-```mermaid
-sequenceDiagram
-    participant CC as Claude Code
-    participant GB as GreetingBuilder
-    participant GPM as GreetingPreferenceManager
-    participant CD as ContextDetector
-    participant GCD as GitConfigDetector
-    participant PSL as ProjectStatusLoader
-    participant PM as PermissionMode
-    participant WN as WorkflowNavigator
+1. **Phase 1 (Parallel):** Loads 5 subsystems concurrently via `Promise.all()`:
+   - `AgentConfigLoader.loadComplete(coreConfig)` -- Agent definition + config sections
+   - `SessionContextLoader.loadContext(agentId)` -- Session state from `.aios/session-state.json`
+   - `ProjectStatusLoader.loadProjectStatus()` -- Git branch, modified files, commits, story
+   - `GitConfigDetector.get()` -- Git remote type and branch (cached 5min)
+   - `PermissionMode.load() + getBadge()` -- Permission mode and badge string
 
-    CC->>GB: new GreetingBuilder()
-    Note over GB: Constructor loads:<br/>1. ContextDetector<br/>2. GitConfigDetector<br/>3. WorkflowNavigator<br/>4. GreetingPreferenceManager<br/>5. core-config.yaml
-    CC->>GB: buildGreeting(agent, context)
+2. **Phase 2 (Build):** Assembles agent definition from loaded data
 
-    GB->>GPM: getPreference()
-    Note over GPM: Reads .aios-core/core-config.yaml<br/>Path: agentIdentity.greeting.preference
-    GPM-->>GB: preference (auto|minimal|named|archetypal)
+3. **Phase 3 (Sequential):** Data-dependent steps:
+   - `GreetingPreferenceManager.getPreference(userProfile)` -- Reads preference from config
+   - `ContextDetector.detectSessionType()` -- Depends on session context from step 1
+   - `WorkflowNavigator.detectWorkflowState()` -- Depends on session + session type
 
-    alt preference !== 'auto'
-        GB->>GB: buildFixedLevelGreeting(agent, preference)
-        GB-->>CC: Fixed greeting string
-    else preference === 'auto'
-        GB->>GB: _buildContextualGreeting(agent, context)
-        Note over GB: 150ms timeout protection
+4. **Phase 4 (Assemble):** Builds enriched context object with all loaded data
 
-        par Parallel Context Loading
-            GB->>CD: detectSessionType(conversationHistory)
-            CD-->>GB: 'new' | 'existing' | 'workflow'
-        and
-            GB->>PSL: loadProjectStatus()
-            PSL-->>GB: ProjectStatus object
-        end
+5. **Phase 5 (Greeting):** Calls `GreetingBuilder.buildGreeting(agentDefinition, enrichedContext)`
 
-        GB->>GCD: get() [always, cached 5min]
-        GCD-->>GB: { configured, type, branch }
-
-        GB->>PM: new PermissionMode() → load() → getBadge()
-        PM-->>GB: badge string (e.g., "[Ask]")
-
-        GB->>GB: Build greeting sections (see Section 3)
-        GB-->>CC: Formatted greeting string
-    end
-```
-
-### 2.2 Path B: CLI Wrapper (3 agents: @devops, @data-engineer, @ux-design-expert)
-
-**Source:** `generate-greeting.js:53-113`
+**Timeout protection:**
+- Per-loader timeout: 150ms (if any single loader exceeds this, it falls back to null)
+- Total pipeline timeout: 200ms (if entire activation exceeds this, fallback greeting returned)
 
 ```mermaid
-sequenceDiagram
-    participant CC as Claude Code
-    participant GG as generate-greeting.js
-    participant ACL as AgentConfigLoader
-    participant SCL as SessionContextLoader
-    participant PSL as ProjectStatusLoader
-    participant GB as GreetingBuilder
-
-    CC->>GG: generateGreeting(agentId)
-
-    par Parallel Loading (3 concurrent)
-        GG->>ACL: loadComplete(coreConfig)
-        Note over ACL: Loads config sections +<br/>agent definition from .md file
-        ACL-->>GG: { config, definition, agent, persona_profile, commands }
-    and
-        GG->>SCL: loadContext(agentId)
-        Note over SCL: Reads .aios/session-state.json
-        SCL-->>GG: { sessionType, lastCommands, previousAgent, ... }
-    and
-        GG->>PSL: loadProjectStatus()
-        Note over PSL: Git branch, modified files, recent commits, story
-        PSL-->>GG: ProjectStatus object
-    end
-
-    GG->>GG: Build unified context object
-    GG->>GG: Merge agent with persona_profile from definition
-    GG->>GB: new GreetingBuilder()
-    GG->>GB: buildGreeting(agentWithPersona, context)
-    Note over GB: Same flow as Path A from here
-    GB-->>GG: Formatted greeting
-    GG-->>CC: greeting string
+flowchart LR
+    A[Agent .md STEP 3] --> B[UnifiedActivationPipeline.activate]
+    B --> C{Phase 1: Parallel}
+    C --> C1[AgentConfigLoader]
+    C --> C2[SessionContextLoader]
+    C --> C3[ProjectStatusLoader]
+    C --> C4[GitConfigDetector]
+    C --> C5[PermissionMode]
+    C1 & C2 & C3 & C4 & C5 --> D[Phase 2: Build Agent Def]
+    D --> E[Phase 3: Sequential]
+    E --> E1[PreferenceManager]
+    E1 --> E2[ContextDetector]
+    E2 --> E3[WorkflowNavigator]
+    E3 --> F[Phase 4: Enriched Context]
+    F --> G[Phase 5: GreetingBuilder]
+    G --> H[Greeting + Context + Duration]
 ```
+
+### 2.2 generate-greeting.js (Thin Wrapper)
+
+**Source:** `generate-greeting.js` (refactored in Story ACT-6)
+
+Previously a full CLI orchestrator for 3 agents, `generate-greeting.js` is now a thin wrapper:
+
+```javascript
+async function generateGreeting(agentId) {
+  const pipeline = new UnifiedActivationPipeline();
+  const result = await pipeline.activate(agentId);
+  return result.greeting;
+}
+```
+
+This maintains backward compatibility for any code that still calls `generateGreeting()` directly.
+
+### 2.3 Enriched Context Object Shape
+
+The enriched context passed to GreetingBuilder contains:
+
+```javascript
+{
+  agent,              // Agent definition (id, name, icon, title, commands, persona)
+  config,             // Agent-specific config sections
+  session,            // Session context (sessionType, lastCommands, previousAgent, ...)
+  projectStatus,      // Git status (branch, modifiedFiles, recentCommits, currentStory)
+  gitConfig,          // Git config (configured, type, branch)
+  permissions,        // Permission mode (mode, badge)
+  preference,         // Greeting preference (auto|minimal|named|archetypal)
+  sessionType,        // Detected session type (new|existing|workflow)
+  workflowState,      // Workflow state (if in workflow session)
+  userProfile,        // User profile (bob|advanced)
+  conversationHistory, // Conversation history for context detection
+  lastCommands,       // Recent agent commands
+  previousAgent,      // Previously active agent
+  sessionMessage,     // Session-specific message
+  workflowActive,     // Active workflow info
+  sessionStory,       // Current story being worked on
+}
+```
+
+### 2.4 Previous Architecture (Pre-ACT-6, deprecated)
+
+Before Story ACT-6, two separate paths existed:
+
+| Path | Agents | Entry Point | Context Richness |
+|------|--------|-------------|-----------------|
+| Path A (Direct) | 9 agents | GreetingBuilder.buildGreeting() directly | Limited -- no AgentConfigLoader, no SessionContextLoader |
+| Path B (CLI) | 3 agents (@devops, @data-engineer, @ux-design-expert) | generate-greeting.js | Rich -- full parallel loading |
+
+This divergence meant Path A agents lacked session state, project status details, and agent-specific config that Path B agents received. The unified pipeline eliminates this gap.
 
 ---
 
@@ -442,6 +522,18 @@ Each agent has specific config requirements defined in `.aios-core/data/agent-co
 
 The entire pipeline is protected with multiple fallback layers:
 
+### 11.1 UnifiedActivationPipeline Fallbacks (Story ACT-6)
+
+| Component | Fallback | Source |
+|-----------|----------|--------|
+| UnifiedActivationPipeline.activate() | `_generateFallbackGreeting(agentId)` on any unrecoverable error | unified-activation-pipeline.js |
+| `_safeLoad()` (per-loader) | Returns `null` on failure; 150ms per-loader timeout | unified-activation-pipeline.js |
+| Total pipeline | `_timeoutFallback()` at 200ms returns fallback greeting | unified-activation-pipeline.js |
+| `_detectSessionType()` | Returns `'new'` on failure | unified-activation-pipeline.js |
+| `_detectWorkflowState()` | Returns `null` on failure | unified-activation-pipeline.js |
+
+### 11.2 GreetingBuilder Fallbacks (unchanged)
+
 | Component | Fallback | Source |
 |-----------|----------|--------|
 | GreetingBuilder.buildGreeting() | `buildSimpleGreeting()` | greeting-builder.js:60 |
@@ -450,7 +542,12 @@ The entire pipeline is protected with multiple fallback layers:
 | GitConfigDetector.get() | `{ configured: false }` | greeting-builder.js:883 |
 | ProjectStatusLoader | `null` | greeting-builder.js:897 |
 | PermissionMode.getBadge() | `''` (empty string) | greeting-builder.js:913 |
-| generate-greeting.js | `generateFallbackGreeting()` | generate-greeting.js:143 |
+
+### 11.3 generate-greeting.js Fallback (thin wrapper)
+
+| Component | Fallback | Source |
+|-----------|----------|--------|
+| generateGreeting() | `generateFallbackGreeting()` if pipeline throws | generate-greeting.js |
 
 ---
 
@@ -458,30 +555,38 @@ The entire pipeline is protected with multiple fallback layers:
 
 ```mermaid
 graph TD
-    GB[GreetingBuilder] --> CD[ContextDetector]
-    GB --> GCD[GitConfigDetector]
-    GB --> WN[WorkflowNavigator]
-    GB --> GPM[GreetingPreferenceManager]
+    UAP[UnifiedActivationPipeline] --> GB[GreetingBuilder]
+    UAP --> GPM[GreetingPreferenceManager]
+    UAP --> CD[ContextDetector]
+    UAP --> WN[WorkflowNavigator]
+    UAP --> GCD_C[GitConfigDetector constructor]
+
+    UAP -.->|runtime Phase 1| ACL[AgentConfigLoader]
+    UAP -.->|runtime Phase 1| SCL[SessionContextLoader]
+    UAP -.->|runtime Phase 1| PSL[ProjectStatusLoader]
+    UAP -.->|runtime Phase 1| PM[PermissionMode]
+    UAP -.->|runtime Phase 1| GCD_R[GitConfigDetector.get]
+
+    GG[generate-greeting.js thin wrapper] --> UAP
+
+    GB --> CD2[ContextDetector]
+    GB --> GCD2[GitConfigDetector]
+    GB --> WN2[WorkflowNavigator]
+    GB --> GPM2[GreetingPreferenceManager]
     GB --> CC[core-config.yaml]
-
-    CD --> SSF[.aios/session-state.json]
-    GCD --> GIT[git CLI commands]
-    WN --> WP[.aios-core/data/workflow-patterns.yaml]
-    GPM --> CC
-
-    GG[generate-greeting.js] --> GB
-    GG --> ACL[AgentConfigLoader]
-    GG --> SCL[SessionContextLoader]
-    GG --> PSL[ProjectStatusLoader]
 
     ACL --> AR[agent-config-requirements.yaml]
     ACL --> AD[Agent .md definition]
     ACL --> GCC[globalConfigCache]
 
-    PSL --> GIT
+    SCL --> SSF[.aios/session-state.json]
+    PSL --> GIT[git CLI commands]
     PSL --> STORIES[docs/stories/**/*.md]
     PSL --> WTM[WorktreeManager]
     PSL --> PSC[.aios/project-status.yaml]
+    GCD_R --> GIT
+    WN --> WP[.aios-core/data/workflow-patterns.yaml]
+    GPM --> CC
 ```
 
 ---
@@ -560,7 +665,8 @@ In `bob` mode, non-PM agents return **empty command lists** (redirect to @pm sho
 │     └─ resolveConfig() merges L1-L5 layers                     │
 │     └─ L5 (user-config.yaml) has highest priority               │
 │                                                                  │
-│  3. ACTIVATION PIPELINE (greeting-builder.js)  <-- Story ACT-2  │
+│  3. ACTIVATION PIPELINE (unified-activation-pipeline.js) ACT-6   │
+│     └─ UnifiedActivationPipeline.activate(agentId)              │
 │     └─ loadUserProfile() calls resolveConfig()                  │
 │     └─ validateUserProfile() runs on resolved value             │
 │     └─ Invalid values → warn + fallback to 'advanced'           │
@@ -579,3 +685,4 @@ In `bob` mode, non-PM agents return **empty command lists** (redirect to @pm sho
 
 *Traced from source on 2026-02-05 | Story AIOS-TRACE-001*
 *Updated on 2026-02-06 | Story ACT-2 - user_profile impact matrix added*
+*Updated on 2026-02-06 | Story ACT-6 - Unified Activation Pipeline (Path A/B merged)*
