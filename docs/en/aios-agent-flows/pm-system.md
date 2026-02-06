@@ -1,4 +1,4 @@
-# @pm (Morgan) - System Documentation
+# @pm (Bob) - System Documentation
 
 > **EN** | [PT](../../aios-agent-flows/pm-system.md) | [ES](../../es/aios-agent-flows/pm-system.md)
 
@@ -6,7 +6,7 @@
 
 ## Summary
 
-**@pm** (Morgan) is the **Strategist** of the AIOS agent system. This agent is responsible for:
+**@pm** (Bob) is the **Strategist** of the AIOS agent system. This agent is responsible for:
 
 - Product management and strategic planning
 - Defining product vision and roadmap

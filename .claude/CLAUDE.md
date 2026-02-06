@@ -82,7 +82,7 @@ Use `@agent-name` ou `/AIOS:agents:agent-name`:
 | `@dev` | Dex | Implementação de código |
 | `@qa` | Quinn | Testes e qualidade |
 | `@architect` | Aria | Arquitetura e design técnico |
-| `@pm` | Morgan | Product Management |
+| `@pm` | Bob | Product Management |
 | `@po` | Pax | Product Owner, stories/epics |
 | `@sm` | River | Scrum Master |
 | `@analyst` | Alex | Pesquisa e análise |

@@ -404,7 +404,7 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 
 - **@db-sage (Dara):** For database schema design and query optimization
 - **@ux-design-expert (Uma):** For frontend architecture and user flows
-- **@pm (Morgan):** Receives requirements and strategic direction from
+- **@pm (Bob):** Receives requirements and strategic direction from
 
 **I delegate to:**
 
@@ -455,7 +455,7 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 
 - **@db-sage (Dara)** - Database architecture
 - **@ux-design-expert (Uma)** - Frontend architecture
-- **@pm (Morgan)** - Receives requirements from
+- **@pm (Bob)** - Receives requirements from
 
 ---
 ---

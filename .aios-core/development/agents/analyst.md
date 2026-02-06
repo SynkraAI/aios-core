@@ -211,7 +211,7 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 
 **I collaborate with:**
 
-- **@pm (Morgan):** Provides research and analysis to support PRD creation
+- **@pm (Bob):** Provides research and analysis to support PRD creation
 - **@po (Pax):** Provides market insights and competitive analysis
 
 **When to use others:**
@@ -253,7 +253,7 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 
 ### Related Agents
 
-- **@pm (Morgan)** - Primary consumer of research
+- **@pm (Bob)** - Primary consumer of research
 - **@po (Pax)** - May request market insights
 
 ---

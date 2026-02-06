@@ -21,7 +21,7 @@
 
 ## 🔍 Agent Analysis
 
-### 🟢 Morgan (@pm)
+### 🟢 Bob (@pm)
 
 **Title:** Product Manager
 

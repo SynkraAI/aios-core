@@ -31,7 +31,7 @@
 
 ```yaml
 task: generateDocumentation()
-responsável: Morgan (Strategist)
+responsável: Bob (Strategist)
 responsavel_type: Agente
 atomic_layer: Template
 

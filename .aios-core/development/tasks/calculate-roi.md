@@ -31,7 +31,7 @@
 
 ```yaml
 task: calculateRoi()
-responsável: Morgan (Strategist)
+responsável: Bob (Strategist)
 responsavel_type: Agente
 atomic_layer: Strategy
 
