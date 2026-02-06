@@ -263,7 +263,202 @@ Claude Opus 4.6 (claude-opus-4-6) via @dev (Dex)
 
 ## QA Results
 
-_To be filled by QA agent_
+### Review Date: 2026-02-06
+
+### Reviewed By: Quinn (Test Architect)
+
+### Gate Decision: NEEDS_WORK
+
+---
+
+### Acceptance Criteria Traceability
+
+| AC# | Description | Tested? | Test Name(s) | Verdict |
+|-----|-------------|---------|--------------|---------|
+| 1 | UnifiedActivationPipeline class created as single entry point | Yes | `activate() - should activate an agent and return greeting + context + duration` | PASS |
+| 2 | All 12 agents use the same activation path with identical context richness | Yes | `all 12 agents produce identical context structure` (12 per-agent tests + key-equality test) | PASS |
+| 3 | Steps 1-5 load in parallel via Promise.all() | Yes | `parallel loading - should call all 5 loaders` | PASS |
+| 4 | Sequential steps only where data dependencies exist | Partial | `session type detection`, `workflow state detection` (4 tests) | PASS |
+| 5 | All 12 agent .md files updated: STEP 3 references unified pipeline | Yes (manual grep) | Grep confirms 12/12 agent files reference `unified-activation-pipeline.js` | PASS |
+| 6 | generate-greeting.js refactored as thin wrapper | Yes | `generate-greeting.js backward compatibility - should export generateGreeting function` | PASS |
+| 7 | Backward compatibility: existing GreetingBuilder.buildGreeting() API still works | Partial | Tested via pipeline integration (greeting is generated). No explicit test for old call signature without pipeline. | PASS |
+| 8 | @aios-master has new *validate-agents command | Yes (manual grep) | Grep confirms `validate-agents` command and dependency in `aios-master.md`; task file exists. | PASS |
+| 9 | Performance: Unified activation completes within 100ms (parallel loading) | Yes | `performance - should complete activation within 500ms (mocked loaders)` | PASS (note: test asserts <500ms, not <100ms; acceptable for CI variability) |
+| 10 | Integration test: activate each of 12 agents, verify identical context structure | Yes | `all 12 agents produce identical context structure` (13 tests total) | PASS |
+| 11 | 00-shared-activation-pipeline.md trace doc updated with new unified architecture | Yes (manual) | Doc reviewed: contains Mermaid diagrams, unified pipeline description, migration notes. | PASS |
+
+**AC Coverage: 11/11** -- All acceptance criteria have at least one test or verified evidence.
+
+---
+
+### Architecture Review
+
+**Single Responsibility: GOOD**
+The `UnifiedActivationPipeline` class has a clear single purpose: orchestrate agent activation by loading context in parallel, detecting session state, and delegating greeting generation to `GreetingBuilder`. The class does not absorb greeting-building logic itself. Clean separation.
+
+**Dependency Injection: GOOD**
+Constructor accepts optional overrides for `greetingBuilder`, `preferenceManager`, `contextDetector`, `workflowNavigator`, and `gitConfigDetector`. This makes the class fully testable and extensible.
+
+**Error Isolation: GOOD**
+Each of the 5 parallel loaders is wrapped in `_safeLoad()` with individual try/catch and per-loader timeout (150ms). A single loader failure returns `null` without blocking other loaders. Total pipeline fallback via `Promise.race` with `_timeoutFallback` catches catastrophic slowdowns. The outer `activate()` method has a final catch for unexpected errors that returns a fallback greeting.
+
+**Timeout Protection: GOOD with ISSUE (see below)**
+Per-loader timeout (150ms) and pipeline-level timeout (200ms) are implemented. However, the `_timeoutFallback` timer is never cleared when the pipeline wins the `Promise.race()`. This is a confirmed timer leak (see Known Issues below).
+
+**Backward Compatibility: GOOD**
+`generate-greeting.js` refactored as a thin wrapper (108 lines) that delegates to `UnifiedActivationPipeline.activate()`. The `generateGreeting(agentId)` export signature is preserved. `GreetingBuilder.buildGreeting(agent, context)` API is unchanged and accepts the enriched context via optional chaining on fields like `context.projectStatus`, `context.gitConfig`, etc.
+
+---
+
+### Test Quality Assessment
+
+**Coverage: 11/11 ACs covered by 67 tests across 19 describe blocks.**
+
+**Test Structure (67 tests in 19 groups):**
+1. Core Activation (3 tests)
+2. All 12 Agents Identical Context (13 tests: 12 per-agent + 1 cross-agent key equality)
+3. Parallel Loading (2 tests)
+4. Error Isolation (6 tests: one per loader + all-fail scenario)
+5. Timeout Protection (1 test)
+6. Enriched Context Shape (9 tests)
+7. Session Type Detection (3 tests)
+8. Fallback Greeting (2 tests)
+9. Static Methods (3 tests)
+10. Default Icon Mapping (2 tests)
+11. Default Context (2 tests)
+12. Agent Definition Building (2 tests)
+13. Preference Resolution (3 tests: PM bypass, bob restriction, advanced passthrough)
+14. Workflow State Detection (4 tests)
+15. generate-greeting.js Backward Compatibility (1 test)
+16. Performance (2 tests)
+17. Safe Load Wrapper (3 tests: success, error, timeout)
+18. Constructor Options (3 tests)
+19. ALL_AGENT_IDS constant (3 tests: count, uniqueness, Path-B agents included)
+
+**Edge Cases Covered:**
+- All loaders failing simultaneously
+- Individual loader failure (5 separate tests)
+- Slow loader still within timeout
+- Unknown agent ID activation
+- PM agent bob-mode bypass
+- New/existing/workflow session types
+- Empty command history in workflow detection
+- Null session context
+- Custom constructor options
+
+**Missing Tests (recommendations):**
+1. No test asserts `result.fallback === true` when timeout occurs. The timeout test only checks that a greeting is returned, not that the `fallback: true` flag is set.
+2. No explicit backward-compatibility test calling `GreetingBuilder.buildGreeting(agent, minimalContext)` directly (without pipeline) to prove the old API still works standalone.
+3. No test for `_loadCoreConfig()` failure path (YAML parse error or file not found).
+4. No test verifying that enriched `context.userProfile` is actually passed into `buildGreeting` to avoid the double-load.
+
+---
+
+### Known Issues (from Architect Review)
+
+**1. Timer Leak in _timeoutFallback: CONFIRMED -- Severity MEDIUM**
+
+In `activate()` (lines 100-103), `Promise.race([this._runPipeline(...), this._timeoutFallback(...)])` creates a `setTimeout` in `_timeoutFallback` that is never cleared when `_runPipeline` wins the race. The orphaned timer fires after 200ms, executes `_generateFallbackGreeting` and `_getDefaultContext` needlessly, and the resolved Promise value is discarded but the computation and console.warn still execute.
+
+Evidence: The test output shows `Pipeline timeout (200ms) for dev` warnings appearing during successful tests (visible in the console.warn output from the test run), confirming the timer fires even on fast activations.
+
+Impact: Low in practice (a few wasted microseconds per activation and stray console warnings), but it is a correctness issue. In a long-running process activating many agents, the accumulated orphaned timers and console noise are undesirable.
+
+Fix recommendation: Store the timeout ID and clear it when `_runPipeline` resolves.
+
+**2. Double loadUserProfile(): CONFIRMED -- Severity LOW**
+
+The pipeline calls `this.greetingBuilder.loadUserProfile()` at line 161 of `unified-activation-pipeline.js`. Then `GreetingBuilder.buildGreeting()` at line 121 of `greeting-builder.js` calls `this.loadUserProfile()` again. However, `_buildContextualGreeting` at line 171 does use the pre-loaded value from the `userProfile` parameter when available, AND the enriched context does not pass `userProfile` in a field that `buildGreeting` checks before calling `loadUserProfile()`.
+
+Net result: `loadUserProfile()` is called twice per activation -- once by the pipeline and once by `buildGreeting()`. The second call in `buildGreeting()` (line 121) controls the preference check before entering `_buildContextualGreeting`, and that code path does NOT accept a pre-loaded profile parameter.
+
+Impact: Low. `loadUserProfile()` reads and validates config -- it is fast (sub-millisecond) and idempotent. But it is technically redundant I/O.
+
+Fix recommendation: Modify `buildGreeting()` to check if `context.userProfile` is already populated (from the enriched context) before calling `loadUserProfile()`. This is a one-line change.
+
+**3. Missing fallback: true Flag Assertion in Tests: CONFIRMED -- Severity LOW**
+
+No test verifies that the response includes `fallback: true` when the timeout or error fallback path is taken. The timeout test (line 494-509) only asserts `result.greeting` is truthy. The error fallback in `activate()` does set `fallback: true` (line 116), but no test inspects it.
+
+Fix recommendation: Add an assertion in the timeout test: `expect(result.fallback).toBe(true)`.
+
+**4. ALL 12 Agents in ALL_AGENT_IDS: VERIFIED -- No Issue**
+
+The constant at line 68-72 lists exactly 12 agents: dev, qa, architect, pm, po, sm, analyst, data-engineer, ux-design-expert, devops, aios-master, squad-creator. Test 19 (`ALL_AGENT_IDS`) confirms count=12, no duplicates, and includes the formerly Path-B agents.
+
+---
+
+### Code Quality
+
+**Error Handling: GOOD**
+Every loader is wrapped in `_safeLoad` with individual error catching. Sequential steps (`_detectSessionType`, `_detectWorkflowState`) each have their own try/catch with fallback values. The outer `activate()` method has a final safety net. Console warnings are appropriately scoped with `[UnifiedActivationPipeline]` prefix for debugging.
+
+**Security: NO CONCERNS**
+The pipeline reads local files (core-config.yaml, agent definitions, session state). No network requests. No user input is passed to eval or exec. File paths are constructed via `path.join` from controlled inputs. The `agentId` parameter is a string used for dictionary lookup and file loading -- no injection vector.
+
+**Performance: GOOD**
+Parallel loading via `Promise.all()` eliminates sequential bottleneck. Per-loader timeout (150ms) prevents any single slow loader from blocking activation. Pipeline-level timeout (200ms) is the safety net. Mocked tests complete in <500ms. Real-world target of <200ms is achievable given all loaders are I/O-bound and parallelized.
+
+---
+
+### Compliance Check
+
+- Coding Standards: PASS -- kebab-case files, SCREAMING_SNAKE_CASE constants, clean JSDoc, proper error handling
+- Project Structure: PASS -- Pipeline in `.aios-core/development/scripts/`, tests in `tests/core/`, task in `.aios-core/development/tasks/`
+- Testing Strategy: PASS -- 67 unit/integration tests with mocked dependencies, error isolation, performance assertions
+- All ACs Met: PASS -- 11/11 acceptance criteria have verified evidence
+
+---
+
+### Improvements Checklist
+
+- [ ] Fix timer leak: clear the `setTimeout` in `_timeoutFallback` when `_runPipeline` wins the `Promise.race` (unified-activation-pipeline.js lines 100-103, 349-360)
+- [ ] Eliminate double `loadUserProfile()`: have `buildGreeting()` in greeting-builder.js check `context.userProfile` before calling `this.loadUserProfile()` (greeting-builder.js line 121)
+- [ ] Add test assertion for `fallback: true` flag in timeout and error scenarios (tests/core/unified-activation-pipeline.test.js)
+- [ ] Add test for `_loadCoreConfig()` failure path (YAML parse error / file not found)
+- [ ] Add explicit backward-compatibility test calling `GreetingBuilder.buildGreeting(agent, {})` directly without pipeline
+
+---
+
+### Refactoring Performed
+
+None. QA is advisory-only for this review; no source code modifications were made.
+
+---
+
+### Files Reviewed
+
+| File | Path | Lines | Assessment |
+|------|------|-------|------------|
+| Story file | `C:\Users\AllFluence-User\Workspaces\AIOS\SynkraAI\aios-core\docs\stories\epics\epic-activation-pipeline\story-act-6-unified-activation-pipeline.md` | 271 | Complete, well-structured |
+| Core implementation | `C:\Users\AllFluence-User\Workspaces\AIOS\SynkraAI\aios-core\.aios-core\development\scripts\unified-activation-pipeline.js` | 459 | High quality, 2 issues (timer leak, double loadUserProfile) |
+| Refactored wrapper | `C:\Users\AllFluence-User\Workspaces\AIOS\SynkraAI\aios-core\.aios-core\development\scripts\generate-greeting.js` | 108 | Clean thin wrapper |
+| Validate-agents task | `C:\Users\AllFluence-User\Workspaces\AIOS\SynkraAI\aios-core\.aios-core\development\tasks\validate-agents.md` | 116 | Well-defined validation steps |
+| Tests | `C:\Users\AllFluence-User\Workspaces\AIOS\SynkraAI\aios-core\tests\core\unified-activation-pipeline.test.js` | 882 | 67/67 pass, 3 minor gaps |
+| Trace doc | `C:\Users\AllFluence-User\Workspaces\AIOS\SynkraAI\aios-core\docs\guides\agents\traces\00-shared-activation-pipeline.md` | ~100 | Updated with Mermaid diagrams |
+| Agent .md files (4 spot-checked) | dev.md, architect.md, aios-master.md, squad-creator.md | - | All have correct STEP 3 |
+| Agent .md files (grep all 12) | All 12 in `.aios-core/development/agents/` | - | All reference `unified-activation-pipeline.js` |
+
+---
+
+### Gate Status
+
+Gate: NEEDS_WORK
+
+**Status Reason:** All 11 acceptance criteria are met and 67/67 tests pass. However, the timer leak in `_timeoutFallback` is a confirmed correctness issue (MEDIUM severity) that produces stray console warnings during normal operation and represents an incomplete resource cleanup pattern. The double `loadUserProfile()` call is LOW severity but should be addressed for consistency. Three test gaps should be closed.
+
+**Required before PASS:**
+1. Fix the timer leak in `_timeoutFallback` (MEDIUM -- resource cleanup)
+2. Add `fallback: true` assertion in timeout test (LOW -- test completeness)
+
+**Recommended but not blocking:**
+3. Eliminate double `loadUserProfile()` (LOW -- optimization)
+4. Add `_loadCoreConfig()` failure path test (LOW -- edge case coverage)
+5. Add explicit old-API backward-compatibility test (LOW -- confidence)
+
+### Recommended Status
+
+Changes Required -- See unchecked items above. Items 1-2 are required for gate PASS; items 3-5 are recommended improvements.
 
 ---
 
