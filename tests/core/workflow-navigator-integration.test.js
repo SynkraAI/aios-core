@@ -357,7 +357,7 @@ describe('WorkflowNavigator Integration (Story ACT-5)', () => {
       const originalReadFileSync = fs.readFileSync;
 
       fs.existsSync = jest.fn().mockReturnValue(true);
-      fs.readFileSync = jest.fn().mockReturnValue('invalid: yaml: [broken');
+      fs.readFileSync = jest.fn().mockReturnValue('invalid: yaml: {broken}');
 
       // Should not throw, should return null from _detectWorkflowFromSessionState
       // and fall back to command history detection
