@@ -16,7 +16,7 @@
 | 5 | `.aios/session-state.json` | ContextDetector._detectFromFile() | Session type detection (if no conversation history) |
 | 6 | `.aios/project-status.yaml` | ProjectStatusLoader.loadCache() | Cached project status (60s TTL) |
 
-**Note:** PM loads NO additional files at activation (`files_loaded: []` in agent-config-requirements.yaml). This is the lightest agent activation in the framework.
+**Note:** As of Story ACT-8, PM loads `coding-standards.md` (25KB) and `tech-stack.md` (30KB) at activation for technical context. Both files are high-priority cached, so subsequent activations hit cache. Performance target remains <100ms.
 
 ### 1.2 Greeting Construction
 
@@ -72,10 +72,18 @@ pm:
   config_sections:
     - devStoryLocation
     - storyBacklog
-  files_loaded: []
+  files_loaded:
+    - path: docs/framework/coding-standards.md    # Added in Story ACT-8
+      lazy: false
+      size: 25KB
+    - path: docs/framework/tech-stack.md          # Added in Story ACT-8
+      lazy: false
+      size: 30KB
   lazy_loading: {}
   performance_target: <100ms
 ```
+
+**Note:** As of Story ACT-8, PM now loads `coding-standards.md` and `tech-stack.md` during activation so it has technical context when managing stories that involve development standards or technology decisions.
 
 ### 1.4 Context Brought to Session
 

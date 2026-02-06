@@ -79,9 +79,14 @@ sm:
     - path: .aios-core/data/workflow-patterns.yaml
       lazy: false
       size: 8KB
+    - path: docs/framework/coding-standards.md    # Added in Story ACT-8
+      lazy: false
+      size: 25KB
   lazy_loading: {}
   performance_target: <75ms
 ```
+
+**Note:** As of Story ACT-8, SM loads `coding-standards.md` during activation to have development standards context when creating and assigning stories.
 
 ### 1.4 Context Brought to Session
 
