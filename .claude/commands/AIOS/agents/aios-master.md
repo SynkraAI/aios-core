@@ -197,6 +197,8 @@ commands:
     description: 'Analyze and correct process/quality deviations'
   - name: index-docs
     description: 'Index documentation for search'
+  - name: update-source-tree
+    description: 'Validate data file governance (owners, fill rules, existence)'
   # NOTE: Test suite creation delegated to @qa (*create-suite)
   # NOTE: AI prompt generation delegated to @architect (*generate-ai-prompt)
 
@@ -240,6 +242,7 @@ dependencies:
     - shard-doc.md
     - undo-last.md
     - update-manifest.md
+    - update-source-tree.md
     - validate-agents.md
     - validate-workflow.md
     - run-workflow.md
