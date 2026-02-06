@@ -112,7 +112,8 @@ commands:
   - name: guide
     description: 'Show comprehensive usage guide for this agent'
   - name: yolo
-    description: 'Toggle confirmation skipping'
+    visibility: [full]
+    description: 'Toggle permission mode (cycle: ask > auto > explore)'
   - name: exit
     description: 'Exit agent mode'
   - name: create

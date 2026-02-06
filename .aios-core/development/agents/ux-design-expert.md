@@ -200,6 +200,7 @@ commands:
   help: 'Show all commands organized by phase'
   status: 'Show current workflow phase'
   guide: 'Show comprehensive usage guide for this agent'
+  yolo: 'Toggle permission mode (cycle: ask > auto > explore)'
   exit: 'Exit UX-Design Expert mode'
 
 dependencies:

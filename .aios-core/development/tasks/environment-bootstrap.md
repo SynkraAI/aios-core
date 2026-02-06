@@ -895,6 +895,9 @@ workflow:
   current: greenfield-fullstack
   phase: 0-bootstrap-complete
 
+permissions:
+  mode: ask  # Permission mode: explore (read-only), ask (confirm changes), auto (full autonomy)
+
 settings:
   auto_update_status: true
   quality_gates_enabled: true
