@@ -4,6 +4,8 @@
  * Manages user preferences for agent greeting personification levels.
  * Integrates with GreetingBuilder (Story 6.1.2.5).
  *
+ * Story ACT-2: Now accounts for user_profile — bob mode forces minimal/named.
+ *
  * Performance: Preference check <5ms (called on every agent activation)
  */
 
@@ -15,15 +17,37 @@ const CONFIG_PATH = path.join(process.cwd(), '.aios-core', 'core-config.yaml');
 const BACKUP_PATH = path.join(process.cwd(), '.aios-core', 'core-config.yaml.backup');
 const VALID_PREFERENCES = ['auto', 'minimal', 'named', 'archetypal'];
 
+// Bob mode restricts greeting to simpler levels (Story ACT-2)
+const BOB_MODE_ALLOWED_PREFERENCES = ['minimal', 'named'];
+const BOB_MODE_DEFAULT_PREFERENCE = 'named';
+
 class GreetingPreferenceManager {
   /**
-   * Get current greeting preference
+   * Get current greeting preference, accounting for user_profile restrictions.
+   *
+   * Story ACT-2 - AC1: When user_profile === 'bob', forces preference to
+   * 'minimal' or 'named' regardless of what is configured. If the configured
+   * preference is 'auto' or 'archetypal', it falls back to BOB_MODE_DEFAULT_PREFERENCE.
+   *
+   * @param {string} [userProfile] - Optional user_profile override. If not provided, reads from config.
    * @returns {string} Current preference (auto|minimal|named|archetypal)
    */
-  getPreference() {
+  getPreference(userProfile) {
     try {
       const config = this._loadConfig();
-      return config?.agentIdentity?.greeting?.preference || 'auto';
+      const rawPreference = config?.agentIdentity?.greeting?.preference || 'auto';
+
+      // Story ACT-2: If bob mode, restrict preference to minimal/named
+      const effectiveProfile = userProfile || config?.user_profile;
+      if (effectiveProfile === 'bob') {
+        if (BOB_MODE_ALLOWED_PREFERENCES.includes(rawPreference)) {
+          return rawPreference;
+        }
+        // Override non-allowed preferences (auto, archetypal) to bob default
+        return BOB_MODE_DEFAULT_PREFERENCE;
+      }
+
+      return rawPreference;
     } catch (error) {
       console.warn('[GreetingPreference] Failed to load, using default:', error.message);
       return 'auto';

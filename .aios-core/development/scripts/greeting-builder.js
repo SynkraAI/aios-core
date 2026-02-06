@@ -31,14 +31,14 @@ const GreetingPreferenceManager = require('./greeting-preference-manager');
 const { loadProjectStatus } = require('../../infrastructure/scripts/project-status-loader');
 const { PermissionMode } = require('../../core/permissions');
 const { resolveConfig } = require('../../core/config/config-resolver');
+const { validateUserProfile } = require('../../infrastructure/scripts/validate-user-profile');
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 
 const GREETING_TIMEOUT = 150; // 150ms hard limit
 
-// Valid user profile values (Story 10.1)
-const VALID_USER_PROFILES = ['bob', 'advanced'];
+// Story ACT-2: Validation now delegated to validate-user-profile.js
 const DEFAULT_USER_PROFILE = 'advanced';
 
 const GIT_WARNING_TEMPLATE = `
@@ -59,6 +59,7 @@ class GreetingBuilder {
   /**
    * Load user profile via config-resolver (L5 User layer has highest priority).
    * Story 12.1 - AC3: Uses resolveConfig() to read user_profile from layered hierarchy.
+   * Story ACT-2 - AC3: Runs validate-user-profile during activation (not just installation).
    * Reads fresh each time (skipCache: true) to reflect toggle changes immediately.
    * @returns {string} User profile ('bob' | 'advanced'), defaults to 'advanced'
    */
@@ -71,12 +72,17 @@ class GreetingBuilder {
         return DEFAULT_USER_PROFILE;
       }
 
-      if (!VALID_USER_PROFILES.includes(userProfile)) {
-        console.warn(`[GreetingBuilder] Invalid user_profile "${userProfile}", using default: advanced`);
+      // Story ACT-2 - AC3: Run validation during activation pipeline (graceful)
+      const validation = validateUserProfile(userProfile);
+      if (!validation.valid) {
+        console.warn(`[GreetingBuilder] user_profile validation failed: ${validation.error}`);
         return DEFAULT_USER_PROFILE;
       }
+      if (validation.warning) {
+        console.warn(`[GreetingBuilder] user_profile warning: ${validation.warning}`);
+      }
 
-      return userProfile;
+      return validation.value;
     } catch (error) {
       console.warn('[GreetingBuilder] Failed to load user_profile:', error.message);
       return DEFAULT_USER_PROFILE;
@@ -93,8 +99,15 @@ class GreetingBuilder {
     const fallbackGreeting = this.buildSimpleGreeting(agent);
 
     try {
-      // Check user preference (Story 6.1.4)
-      const preference = this.preferenceManager.getPreference();
+      // Story ACT-2: Load user profile early so preference manager can account for it
+      const userProfile = this.loadUserProfile();
+
+      // Check user preference (Story 6.1.4), now profile-aware (Story ACT-2)
+      // Story ACT-2: PM agent bypasses bob mode preference restriction because
+      // PM is the primary interface in bob mode and needs the full contextual greeting.
+      const preference = (userProfile === 'bob' && agent.id === 'pm')
+        ? this.preferenceManager.getPreference('advanced')
+        : this.preferenceManager.getPreference(userProfile);
 
       if (preference !== 'auto') {
         // Override with fixed level
@@ -102,7 +115,8 @@ class GreetingBuilder {
       }
 
       // Use session-aware logic (Story 6.1.2.5)
-      const greetingPromise = this._buildContextualGreeting(agent, context);
+      // Story ACT-2: Pass pre-loaded userProfile to avoid double loadUserProfile() call
+      const greetingPromise = this._buildContextualGreeting(agent, context, userProfile);
       const timeoutPromise = new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Greeting timeout')), GREETING_TIMEOUT),
       );
@@ -117,12 +131,14 @@ class GreetingBuilder {
   /**
    * Build contextual greeting (internal implementation)
    * Story 10.3: Profile-aware greeting with conditional agent visibility
+   * Story ACT-2: Accepts pre-loaded userProfile to avoid redundant loadUserProfile() calls
    * @private
    * @param {Object} agent - Agent definition
    * @param {Object} context - Session context (may contain pre-loaded values)
+   * @param {string} [preloadedUserProfile] - Pre-loaded user profile (avoids double call)
    * @returns {Promise<string>} Contextual greeting
    */
-  async _buildContextualGreeting(agent, context) {
+  async _buildContextualGreeting(agent, context, preloadedUserProfile) {
     // Use pre-loaded values if available, otherwise load
     const sessionType = context.sessionType || (await this._safeDetectSessionType(context));
 
@@ -132,7 +148,8 @@ class GreetingBuilder {
     const gitConfig = await this._safeCheckGitConfig();
 
     // Story 10.3 - AC7, AC8: Load user profile fresh each time
-    const userProfile = this.loadUserProfile();
+    // Story ACT-2: Use pre-loaded value if available to avoid double resolveConfig() call
+    const userProfile = preloadedUserProfile || this.loadUserProfile();
 
     // Build greeting sections based on session type
     const sections = [];
