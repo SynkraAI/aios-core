@@ -1,104 +1,63 @@
 #!/usr/bin/env node
 /**
- * Unified Greeting Generator - CLI Orchestrator
+ * Unified Greeting Generator - CLI Wrapper
+ *
+ * Story ACT-6: Refactored as thin wrapper around UnifiedActivationPipeline.
  *
  * ARCHITECTURE NOTE:
- * This is a CLI WRAPPER that uses greeting-builder.js internally.
- * It orchestrates context loading before calling GreetingBuilder.
- *
- * - This file: CLI entry point, loads context from filesystem
- * - greeting-builder.js: Core logic, GreetingBuilder class
- *
- * Orchestrates all greeting components for optimal performance:
- * - Agent definition (via expanded agent-config-loader.js)
- * - Session context (session-context-loader.js)
- * - Project status (project-status-loader.js)
- * - User preferences (greeting-preference-manager.js)
- * - Contextual adaptation (greeting-builder.js)
+ * This file is now a thin CLI wrapper that delegates to the
+ * UnifiedActivationPipeline for all context loading and greeting generation.
+ * Previously, this file orchestrated its own parallel loading of
+ * AgentConfigLoader, SessionContextLoader, and ProjectStatusLoader.
+ * Now ALL agents (not just 3) can use the same unified pipeline.
  *
  * Performance Targets:
  * - With cache: <50ms
- * - Without cache: <150ms (timeout protection)
+ * - Without cache: <200ms (timeout protection in pipeline)
  * - Fallback: <10ms
  *
  * Usage: node generate-greeting.js <agent-id>
  *
  * Used by: @devops, @data-engineer, @ux-design-expert (CLI invocation pattern)
+ * Note: All 12 agents now use UnifiedActivationPipeline internally.
  *
- * @see docs/architecture/greeting-system.md for full architecture documentation
+ * @see unified-activation-pipeline.js for the actual pipeline logic
  * @see greeting-builder.js for core greeting logic
  *
  * Part of Story 6.1.4: Unified Greeting System Integration
+ * Part of Story ACT-6: Unified Activation Pipeline
  */
 
-const GreetingBuilder = require('./greeting-builder');
-const SessionContextLoader = require('../../scripts/session-context-loader');
-const { loadProjectStatus } = require('../../infrastructure/scripts/project-status-loader');
-const { AgentConfigLoader } = require('./agent-config-loader');
-const fs = require('fs').promises;
-const path = require('path');
-const yaml = require('js-yaml');
+'use strict';
+
+const { UnifiedActivationPipeline } = require('./unified-activation-pipeline');
 
 /**
- * Generate unified greeting for agent activation
- * 
+ * Generate unified greeting for agent activation.
+ *
+ * Delegates to UnifiedActivationPipeline.activate() which handles:
+ * - Parallel loading of config, session, project status, git, permissions
+ * - Sequential context detection and workflow state
+ * - Greeting generation via GreetingBuilder
+ *
  * @param {string} agentId - Agent identifier (e.g., 'qa', 'dev')
  * @returns {Promise<string>} Formatted greeting string
- * @throws {Error} If agent file not found or invalid
- * 
+ *
  * @example
  * const greeting = await generateGreeting('qa');
  * console.log(greeting);
  */
 async function generateGreeting(agentId) {
-  const startTime = Date.now();
-  
   try {
-    // Load core config
-    const coreConfigPath = path.join(process.cwd(), '.aios-core', 'core-config.yaml');
-    const coreConfigContent = await fs.readFile(coreConfigPath, 'utf8');
-    const coreConfig = yaml.load(coreConfigContent);
-    
-    // Load everything in parallel using expanded AgentConfigLoader
-    const loader = new AgentConfigLoader(agentId);
-    
-    const [complete, sessionContext, projectStatus] = await Promise.all([
-      loader.loadComplete(coreConfig), // Loads config + definition
-      loadSessionContext(agentId),
-      loadProjectStatus(),
-    ]);
-    
-    // Build unified context
-    const context = {
-      conversationHistory: [], // Not available in Claude Code
-      sessionType: sessionContext.sessionType, // Pre-detected
-      projectStatus: projectStatus, // Pre-loaded
-      lastCommands: sessionContext.lastCommands || [],
-      previousAgent: sessionContext.previousAgent,
-      sessionMessage: sessionContext.message,
-      workflowActive: sessionContext.workflowActive,
-      sessionStory: sessionContext.currentStory || null, // Session's current story (more accurate than git)
-    };
-    
-    // Ensure agent has persona_profile and persona from definition
-    const agentWithPersona = {
-      ...complete.agent,
-      persona_profile: complete.persona_profile || complete.definition?.persona_profile,
-      persona: complete.definition?.persona || complete.persona,
-      commands: complete.commands || complete.definition?.commands || [],
-    };
-    
-    // Generate greeting using GreetingBuilder
-    const builder = new GreetingBuilder();
-    const greeting = await builder.buildGreeting(agentWithPersona, context);
-    
-    const duration = Date.now() - startTime;
-    if (duration > 100) {
-      console.warn(`[generate-greeting] Slow generation: ${duration}ms`);
+    const pipeline = new UnifiedActivationPipeline();
+    const result = await pipeline.activate(agentId);
+
+    if (result.duration > 100) {
+      console.warn(`[generate-greeting] Slow generation: ${result.duration}ms`);
     }
-    
-    return greeting;
-    
+
+    return result.greeting;
+
   } catch (error) {
     console.error('[generate-greeting] Error:', {
       agentId,
@@ -106,31 +65,9 @@ async function generateGreeting(agentId) {
       stack: error.stack,
       timestamp: new Date().toISOString(),
     });
-    
+
     // Fallback: Simple greeting
     return generateFallbackGreeting(agentId);
-  }
-}
-
-/**
- * Load session context for agent
- * @private
- * @param {string} agentId - Agent ID
- * @returns {Promise<Object>} Session context
- */
-async function loadSessionContext(agentId) {
-  try {
-    const loader = new SessionContextLoader();
-    return loader.loadContext(agentId);
-  } catch (error) {
-    console.warn('[generate-greeting] Session context failed:', error.message);
-    return {
-      sessionType: 'new',
-      message: null,
-      previousAgent: null,
-      lastCommands: [],
-      workflowActive: null,
-    };
   }
 }
 
@@ -141,13 +78,13 @@ async function loadSessionContext(agentId) {
  * @returns {string} Simple fallback greeting
  */
 function generateFallbackGreeting(agentId) {
-  return `✅ ${agentId} Agent ready\n\nType \`*help\` to see available commands.`;
+  return `\u2705 ${agentId} Agent ready\n\nType \`*help\` to see available commands.`;
 }
 
 // CLI interface
 if (require.main === module) {
   const agentId = process.argv[2];
-  
+
   if (!agentId) {
     console.error('Usage: node generate-greeting.js <agent-id>');
     console.error('\nExamples:');
@@ -155,7 +92,7 @@ if (require.main === module) {
     console.error('  node generate-greeting.js dev');
     process.exit(1);
   }
-  
+
   generateGreeting(agentId)
     .then(greeting => {
       console.log(greeting);
@@ -169,4 +106,3 @@ if (require.main === module) {
 }
 
 module.exports = { generateGreeting };
-
