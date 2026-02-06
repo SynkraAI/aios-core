@@ -603,6 +603,147 @@ workflows:
             description: "Create actionable stories"
             priority: 2
 
+  # Bob Orchestration Workflow (Story ACT-5)
+  bob_orchestration:
+    description: "Bob (PM) orchestrates multi-agent workflows via executor assignment"
+    agent_sequence:
+      - pm         # Bob orchestrates
+      - po         # Story validation
+      - dev        # Implementation
+      - qa         # Quality assurance
+      - devops     # Deployment
+    key_commands:
+      - execute-epic
+      - assign-executor
+      - wave-execute
+      - spawn-terminal
+      - orchestrate
+      - sync-story
+      - build-autonomous
+      - build
+    trigger_threshold: 2
+    typical_duration: "1-5 days"
+    success_indicators:
+      - "Epic stories completed"
+      - "All waves executed"
+      - "Quality gates passed"
+    transitions:
+      epic_started:
+        trigger: "execute-epic started"
+        confidence: 0.90
+        greeting_message: "Epic execution started! Bob is orchestrating."
+        next_steps:
+          - command: build-autonomous
+            args_template: "${story_path}"
+            description: "Start autonomous build for current story"
+            priority: 1
+          - command: develop-yolo
+            args_template: "${story_path}"
+            description: "Manual YOLO development for current story"
+            priority: 2
+      executor_assigned:
+        trigger: "assign-executor completed"
+        confidence: 0.85
+        greeting_message: "Executor assigned. Ready to begin story work."
+        next_steps:
+          - command: develop-yolo
+            args_template: "${story_path}"
+            description: "Begin development in YOLO mode"
+            priority: 1
+          - command: build
+            args_template: "${story_path}"
+            description: "Full autonomous build pipeline"
+            priority: 2
+      wave_completed:
+        trigger: "wave-execute completed"
+        confidence: 0.85
+        greeting_message: "Wave completed! Moving to next wave."
+        next_steps:
+          - command: wave-execute
+            args_template: "${epic_path}"
+            description: "Execute next wave"
+            priority: 1
+          - command: sync-story
+            args_template: "${story_path}"
+            description: "Sync story progress"
+            priority: 2
+      story_completed:
+        trigger: "build completed"
+        confidence: 0.90
+        greeting_message: "Story build complete! Ready for next story."
+        next_steps:
+          - command: execute-epic
+            args_template: "${epic_path} continue"
+            description: "Continue epic with next story"
+            priority: 1
+          - command: build-status
+            args_template: "--all"
+            description: "Check all build statuses"
+            priority: 2
+
+  # Cross-Agent Handoff Workflow (Story ACT-5)
+  agent_handoff:
+    description: "Handoff between agents during multi-agent story execution"
+    agent_sequence:
+      - dev        # Development
+      - qa         # Review
+      - dev        # Fix issues
+      - devops     # Push
+    key_commands:
+      - develop
+      - develop-yolo
+      - review-qa
+      - apply-qa-fixes
+      - fix-qa-issues
+      - run-tests
+      - pre-push-quality-gate
+    trigger_threshold: 2
+    typical_duration: "0.5-2 days"
+    success_indicators:
+      - "Development complete"
+      - "QA passed"
+      - "Ready for push"
+    transitions:
+      dev_complete:
+        trigger: "develop completed"
+        confidence: 0.90
+        greeting_message: "Development complete. Handing off to QA."
+        next_steps:
+          - command: review-qa
+            args_template: "${story_path}"
+            description: "Run QA review"
+            priority: 1
+          - command: run-tests
+            args_template: ""
+            description: "Run test suite"
+            priority: 2
+      qa_issues_found:
+        trigger: "review-qa completed"
+        confidence: 0.85
+        greeting_message: "QA review complete. Issues to address."
+        next_steps:
+          - command: fix-qa-issues
+            args_template: ""
+            description: "Fix QA issues from review"
+            priority: 1
+          - command: apply-qa-fixes
+            args_template: ""
+            description: "Apply QA feedback"
+            priority: 2
+      fixes_applied:
+        trigger: "fix-qa-issues completed"
+        confidence: 0.85
+        greeting_message: "Fixes applied. Ready for quality gate."
+        next_steps:
+          - command: run-tests
+            args_template: ""
+            description: "Verify fixes with tests"
+            priority: 1
+          - command: pre-push-quality-gate
+            args_template: ""
+            description: "Run final quality gate"
+            priority: 2
+
 # ============================================================
 # State Integration (GAP-3: Guided Workflow Automation)
 # ============================================================
