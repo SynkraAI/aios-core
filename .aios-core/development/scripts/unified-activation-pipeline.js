@@ -96,11 +96,13 @@ class UnifiedActivationPipeline {
     const startTime = Date.now();
 
     try {
-      // Race: full pipeline vs timeout
+      // Race: full pipeline vs timeout (clear timer to prevent leak)
+      const { promise: timeoutPromise, timerId } = this._timeoutFallback(agentId, PIPELINE_TIMEOUT_MS);
       const result = await Promise.race([
         this._runPipeline(agentId, options),
-        this._timeoutFallback(agentId, PIPELINE_TIMEOUT_MS),
+        timeoutPromise,
       ]);
+      clearTimeout(timerId);
 
       result.duration = Date.now() - startTime;
       return result;
@@ -347,8 +349,9 @@ class UnifiedActivationPipeline {
    * @returns {Promise} Resolves after timeout with fallback
    */
   _timeoutFallback(agentId, timeoutMs) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
+    let timerId;
+    const promise = new Promise((resolve) => {
+      timerId = setTimeout(() => {
         console.warn(`[UnifiedActivationPipeline] Pipeline timeout (${timeoutMs}ms) for ${agentId}`);
         resolve({
           greeting: this._generateFallbackGreeting(agentId),
@@ -357,6 +360,7 @@ class UnifiedActivationPipeline {
         });
       }, timeoutMs);
     });
+    return { promise, timerId };
   }
 
   /**
