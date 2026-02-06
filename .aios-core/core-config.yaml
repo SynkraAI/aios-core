@@ -252,6 +252,7 @@ projectStatus:
 
 agentIdentity:
   greeting:
+    preference: auto  # Valid values: auto | minimal | named | archetypal
     contextDetection: true
     sessionDetection: hybrid
     workflowDetection: hardcoded
