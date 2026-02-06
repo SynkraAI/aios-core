@@ -69,8 +69,12 @@ module.exports = {
     '!**/__tests__/**',
     '!**/*.test.js',
     '!**/*.spec.js',
-    // Exclude templates and generated files
+    // Exclude templates, generated files, and legacy scripts
     '!.aios-core/development/templates/**',
+    '!.aios-core/development/scripts/**',
+    '!.aios-core/core/orchestration/**',
+    '!.aios-core/core/execution/**',
+    '!.aios-core/hooks/**',
     '!.aios-core/product/templates/**',
     '!**/dist/**',
     // Story TD-6: Exclude I/O-heavy health check plugins from core coverage
