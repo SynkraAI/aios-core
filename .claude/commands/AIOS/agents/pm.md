@@ -361,3 +361,5 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 - **@architect (Aria)** - Collaborates on technical decisions
 
 ---
+---
+*AIOS Agent - Synced from .aios-core/development/agents/pm.md*
