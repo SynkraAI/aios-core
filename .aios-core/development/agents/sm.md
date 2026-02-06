@@ -148,6 +148,9 @@ commands:
   - name: guide
     visibility: [full, quick]
     description: 'Show comprehensive usage guide for this agent'
+  - name: yolo
+    visibility: [full]
+    description: 'Toggle permission mode (cycle: ask > auto > explore)'
   - name: exit
     visibility: [full]
     description: 'Exit Scrum Master mode'

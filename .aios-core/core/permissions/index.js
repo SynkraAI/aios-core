@@ -72,6 +72,61 @@ async function setMode(modeName, projectRoot = process.cwd()) {
   return mode.setMode(modeName);
 }
 
+/**
+ * Cycle permission mode: ask -> auto -> explore -> ask
+ * Used by the *yolo command across all agents.
+ * @param {string} projectRoot - Project root path
+ * @returns {Promise<Object>} New mode info with badge
+ */
+async function cycleMode(projectRoot = process.cwd()) {
+  const mode = new PermissionMode(projectRoot);
+  const info = await mode.cycleMode();
+  return {
+    ...info,
+    badge: mode.getBadge(),
+    message: `Permission mode changed to: ${info.name} ${mode.getBadge()}`,
+  };
+}
+
+/**
+ * Enforce permission check before a destructive operation.
+ * Returns a structured result that agents can use to decide
+ * whether to proceed, prompt the user, or block the operation.
+ *
+ * @param {string} tool - Tool name (Write, Edit, Bash, etc.)
+ * @param {Object} params - Tool parameters
+ * @param {string} projectRoot - Project root path
+ * @returns {Promise<Object>} Enforcement result:
+ *   - { action: 'allow' } - Operation can proceed
+ *   - { action: 'prompt', message: string } - Must ask user for confirmation
+ *   - { action: 'deny', message: string } - Operation is blocked
+ */
+async function enforcePermission(tool, params = {}, projectRoot = process.cwd()) {
+  const { guard } = await createGuard(projectRoot);
+  const result = await guard.guard(tool, params);
+
+  if (result.proceed) {
+    return { action: 'allow', operation: result.operation };
+  }
+
+  if (result.needsConfirmation) {
+    return {
+      action: 'prompt',
+      operation: result.operation,
+      tool: result.tool,
+      params: result.params,
+      message: result.message,
+    };
+  }
+
+  // Blocked
+  return {
+    action: 'deny',
+    operation: result.operation,
+    message: result.message,
+  };
+}
+
 module.exports = {
   PermissionMode,
   OperationGuard,
@@ -79,4 +134,6 @@ module.exports = {
   checkOperation,
   getModeBadge,
   setMode,
+  cycleMode,
+  enforcePermission,
 };

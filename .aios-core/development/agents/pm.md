@@ -220,7 +220,7 @@ commands:
     description: 'Show comprehensive usage guide for this agent'
   - name: yolo
     visibility: [full]
-    description: 'Toggle confirmation skipping'
+    description: 'Toggle permission mode (cycle: ask > auto > explore)'
   - name: exit
     visibility: [full]
     description: 'Exit PM mode'
