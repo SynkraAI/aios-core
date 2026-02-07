@@ -1,0 +1,96 @@
+{
+  "data": [
+    {
+      "numeroControlePNCP": "00394460000141-1-000012/2026",
+      "objetoCompra": "Contratação de empresa para fornecimento de software de gestão financeira e contábil",
+      "valorTotalEstimado": 150000.00,
+      "valorTotalHomologado": null,
+      "modalidadeId": 6,
+      "modalidadeNome": "Pregão - Eletrônico",
+      "modoDisputaId": 1,
+      "modoDisputaNome": "Aberto",
+      "situacaoCompraId": 1,
+      "situacaoCompraNome": "Divulgada no PNCP",
+      "anoCompra": 2026,
+      "sequencialCompra": 12,
+      "numeroCompra": "000012/2026",
+      "processo": "23200.001234/2026-01",
+      "srp": false,
+      "dataPublicacaoPncp": "2026-02-07T10:30:00",
+      "dataAberturaProposta": "2026-02-20T09:00:00",
+      "dataEncerramentoProposta": "2026-02-20T18:00:00",
+      "dataInclusao": "2026-02-07T10:30:00",
+      "dataAtualizacao": "2026-02-07T10:30:00",
+      "dataAtualizacaoGlobal": "2026-02-07T10:30:00",
+      "orgaoEntidade": {
+        "cnpj": "00394460000141",
+        "razaoSocial": "Prefeitura Municipal de Campinas",
+        "poderId": "E",
+        "esferaId": "M"
+      },
+      "unidadeOrgao": {
+        "ufSigla": "SP",
+        "ufNome": "São Paulo",
+        "municipioNome": "Campinas",
+        "codigoIbge": "3509502",
+        "nomeUnidade": "Secretaria de Finanças"
+      },
+      "amparoLegal": {
+        "nome": "Lei 14.133/2021, Art. 28, I",
+        "descricao": "Pregão eletrônico"
+      },
+      "linkSistemaOrigem": "https://compras.campinas.sp.gov.br/pregao/12-2026",
+      "linkProcessoEletronico": null,
+      "informacaoComplementar": "Prazo de entrega: 30 dias"
+    },
+    {
+      "numeroControlePNCP": "00394460000141-1-000013/2026",
+      "objetoCompra": "Aquisição de mobiliário para escritório administrativo",
+      "valorTotalEstimado": 45000.00,
+      "valorTotalHomologado": null,
+      "modalidadeId": 8,
+      "modalidadeNome": "Dispensa",
+      "modoDisputaId": null,
+      "modoDisputaNome": null,
+      "situacaoCompraId": 1,
+      "situacaoCompraNome": "Divulgada no PNCP",
+      "anoCompra": 2026,
+      "sequencialCompra": 13,
+      "numeroCompra": "000013/2026",
+      "processo": "23200.001235/2026-02",
+      "srp": false,
+      "dataPublicacaoPncp": "2026-02-06T14:00:00",
+      "dataAberturaProposta": "2026-02-15T09:00:00",
+      "dataEncerramentoProposta": null,
+      "dataInclusao": "2026-02-06T14:00:00",
+      "dataAtualizacao": "2026-02-06T14:00:00",
+      "dataAtualizacaoGlobal": "2026-02-06T14:00:00",
+      "orgaoEntidade": {
+        "cnpj": "00394460000141",
+        "razaoSocial": "Prefeitura Municipal de Campinas",
+        "poderId": "E",
+        "esferaId": "M"
+      },
+      "unidadeOrgao": {
+        "ufSigla": "SP",
+        "ufNome": "São Paulo",
+        "municipioNome": "Campinas",
+        "codigoIbge": "3509502",
+        "nomeUnidade": "Secretaria de Administração"
+      },
+      "amparoLegal": {
+        "nome": "Lei 14.133/2021, Art. 75, II",
+        "descricao": "Dispensa de licitação"
+      },
+      "linkSistemaOrigem": null,
+      "linkProcessoEletronico": null,
+      "informacaoComplementar": null
+    }
+  ],
+  "empty": false,
+  "paginasRestantes": 0,
+  "totalRegistros": 2,
+  "totalPaginas": 1,
+  "paginaAtual": 1,
+  "tamanhoPagina": 50
+}

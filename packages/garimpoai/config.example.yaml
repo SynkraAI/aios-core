@@ -1,0 +1,41 @@
+# GarimpoAI - Configuracao
+# Copie para ~/.garimpoai/garimpoai.yaml e edite
+
+pncp:
+  # UFs para monitorar (vazio = todas)
+  ufs: []
+  # Modalidades: 6=Pregao Eletronico, 8=Dispensa, 4=Concorrencia Eletronica
+  modalidades: [6, 8, 4]
+  # Palavras-chave para filtrar licitacoes
+  keywords:
+    - "software"
+    - "tecnologia da informacao"
+    - "sistema de gestao"
+  # Faixa de valor (opcional)
+  # valorMinimo: 10000
+  # valorMaximo: 500000
+
+alertas:
+  telegram:
+    enabled: false
+    botToken: ""
+    chatId: ""
+  email:
+    enabled: false
+    smtpHost: ""
+    smtpPort: 587
+    smtpUser: ""
+    smtpPass: ""
+    from: ""
+    to: ""
+
+ia:
+  provider: "anthropic"
+  apiKey: "" # Ou use env var ANTHROPIC_API_KEY
+  autoAnalyze: true
+  maxPerDay: 50
+  chatModel: "claude-haiku-4-5-20251001"
+  analysisModel: "claude-sonnet-4-5-20250929"
+
+scheduler:
+  intervalMinutes: 30
