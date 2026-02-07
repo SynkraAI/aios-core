@@ -37,7 +37,7 @@ utils:
 
 ```yaml
 task: createDoc()
-responsável: Morgan (Strategist)
+responsável: Bob (Strategist)
 responsavel_type: Agente
 atomic_layer: Template
 

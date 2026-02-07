@@ -427,7 +427,7 @@ flowchart TB
             QA_DESC["Review de componentes<br/>Testes de acessibilidade<br/>Validacao visual"]
         end
 
-        subgraph ANALYST["Analyst (Morgan)"]
+        subgraph ANALYST["Analyst (Bob)"]
             ANALYST_DESC["ROI analysis<br/>Metricas de sucesso<br/>Research support"]
         end
     end

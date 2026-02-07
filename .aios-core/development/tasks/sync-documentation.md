@@ -41,7 +41,7 @@ Automatically synchronize documentation with code changes to ensure documentatio
 
 ```yaml
 task: syncDocumentation()
-responsável: Morgan (Strategist)
+responsável: Bob (Strategist)
 responsavel_type: Agente
 atomic_layer: Molecule
 
