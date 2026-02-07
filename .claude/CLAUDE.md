@@ -67,6 +67,9 @@ aios-core/
 │   └── stories/             # Development stories (active/, completed/)
 ├── squads/                  # Expansion packs
 ├── packages/                # Shared packages
+│   ├── aios-install/        # NPX installer package
+│   ├── installer/           # Core installation logic
+│   └── gemini-aios-extension/ # Gemini CLI extension
 └── tests/                   # Testes
 ```
 
@@ -89,6 +92,8 @@ Use `@agent-name` ou `/AIOS:agents:agent-name`:
 | `@data-engineer` | Dara | Database design |
 | `@ux-design-expert` | Uma | UX/UI design |
 | `@devops` | Gage | CI/CD, git push (EXCLUSIVO) |
+| `@aios-master` | Orion | Meta-orchestration, framework development |
+| `@squad-creator` | - | Criação de squads/expansion packs |
 
 ### Comandos de Agentes
 Use prefixo `*` para comandos:
@@ -103,7 +108,7 @@ Use prefixo `*` para comandos:
 |--------|----------------------|
 | `@dev` | `src/`, `packages/`, `.aios-core/core/` |
 | `@architect` | `docs/architecture/`, system design |
-| `@data-engineer` | `packages/db/`, migrations, schema |
+| `@data-engineer` | Database design, migrations, schema |
 | `@qa` | `tests/`, `*.test.js`, quality gates |
 | `@po` | `docs/stories/`, epics, requirements |
 | `@devops` | `.github/`, CI/CD, git operations |
@@ -251,11 +256,11 @@ Seguir Conventional Commits:
 
 ### Desenvolvimento
 ```bash
-npm run dev                 # Iniciar desenvolvimento
 npm test                    # Rodar testes
-npm run lint                # Verificar estilo
-npm run typecheck           # Verificar tipos
-npm run build               # Build produção
+npm run lint                # Verificar estilo (ESLint)
+npm run typecheck           # Verificar tipos (TypeScript)
+npm run test:coverage       # Testes com cobertura
+npm run validate:structure  # Validar estrutura do projeto
 ```
 
 ### AIOS
@@ -293,12 +298,14 @@ Ver `.claude/rules/mcp-usage.md` para regras detalhadas.
 export AIOS_DEBUG=true
 ```
 
-### Logs
+### Status e Cache
 ```bash
-tail -f .aios/logs/agent.log
+cat .aios/status.json              # Status do projeto
+cat .aios/project-status.yaml      # Status detalhado
+ls .aios/cache/                    # Cache de contexto
 ```
 
 ---
 
-*Synkra AIOS Claude Code Configuration v3.0*
+*Synkra AIOS Claude Code Configuration v3.11*
 *CLI First | Observability Second | UI Third*
