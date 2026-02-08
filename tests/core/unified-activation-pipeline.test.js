@@ -225,7 +225,7 @@ jest.mock('../../.aios-core/infrastructure/scripts/performance-tracker', () => (
 }));
 
 // --- Require modules AFTER mocks ---
-const { UnifiedActivationPipeline, ALL_AGENT_IDS } = require('../../.aios-core/development/scripts/unified-activation-pipeline');
+const { UnifiedActivationPipeline, ALL_AGENT_IDS, LOADER_TIERS, DEFAULT_PIPELINE_TIMEOUT_MS, FALLBACK_PHRASES } = require('../../.aios-core/development/scripts/unified-activation-pipeline');
 const { AgentConfigLoader } = require('../../.aios-core/development/scripts/agent-config-loader');
 const SessionContextLoader = require('../../.aios-core/core/session/context-loader');
 const { loadProjectStatus } = require('../../.aios-core/infrastructure/scripts/project-status-loader');
@@ -818,24 +818,32 @@ describe('UnifiedActivationPipeline', () => {
   });
 
   // -----------------------------------------------------------
-  // 17. Safe Load Wrapper
+  // 17. Profile Loader Wrapper (ACT-11: replaces _safeLoad)
   // -----------------------------------------------------------
-  describe('_safeLoad', () => {
-    it('should return result on success', async () => {
-      const result = await pipeline._safeLoad('TestLoader', () => Promise.resolve({ data: 'test' }));
+  describe('_profileLoader', () => {
+    it('should return result on success and record metrics', async () => {
+      const metrics = { loaders: {} };
+      const result = await pipeline._profileLoader('test', metrics, 1000, () => Promise.resolve({ data: 'test' }));
       expect(result).toEqual({ data: 'test' });
+      expect(metrics.loaders.test.status).toBe('ok');
+      expect(metrics.loaders.test.duration).toBeGreaterThanOrEqual(0);
     });
 
-    it('should return null on error', async () => {
-      const result = await pipeline._safeLoad('TestLoader', () => Promise.reject(new Error('fail')));
+    it('should return null on error and record error status', async () => {
+      const metrics = { loaders: {} };
+      const result = await pipeline._profileLoader('test', metrics, 1000, () => Promise.reject(new Error('fail')));
       expect(result).toBeNull();
+      expect(metrics.loaders.test.status).toBe('error');
+      expect(metrics.loaders.test.error).toContain('fail');
     });
 
-    it('should return null on timeout', async () => {
-      const result = await pipeline._safeLoad('TestLoader', () =>
+    it('should return null on timeout and record timeout status', async () => {
+      const metrics = { loaders: {} };
+      const result = await pipeline._profileLoader('test', metrics, 10, () =>
         new Promise(resolve => setTimeout(() => resolve('late'), 500)),
       );
       expect(result).toBeNull();
+      expect(metrics.loaders.test.status).toBe('timeout');
     });
   });
 
@@ -877,6 +885,354 @@ describe('UnifiedActivationPipeline', () => {
       expect(ALL_AGENT_IDS).toContain('devops');
       expect(ALL_AGENT_IDS).toContain('data-engineer');
       expect(ALL_AGENT_IDS).toContain('ux-design-expert');
+    });
+  });
+
+  // ===========================================================
+  // ACT-11: Pipeline Performance Optimization Tests
+  // ===========================================================
+
+  // -----------------------------------------------------------
+  // 20. Tiered Loading Architecture (AC: 5, 6, 7)
+  // -----------------------------------------------------------
+  describe('ACT-11: tiered loading', () => {
+    it('should export LOADER_TIERS with correct tier structure', () => {
+      expect(LOADER_TIERS).toBeDefined();
+      expect(LOADER_TIERS.critical).toBeDefined();
+      expect(LOADER_TIERS.high).toBeDefined();
+      expect(LOADER_TIERS.bestEffort).toBeDefined();
+      expect(LOADER_TIERS.critical.loaders).toContain('agentConfig');
+      expect(LOADER_TIERS.high.loaders).toContain('permissionMode');
+      expect(LOADER_TIERS.high.loaders).toContain('gitConfig');
+      expect(LOADER_TIERS.bestEffort.loaders).toContain('sessionContext');
+      expect(LOADER_TIERS.bestEffort.loaders).toContain('projectStatus');
+    });
+
+    it('should return quality "full" when all loaders succeed', async () => {
+      const result = await pipeline.activate('dev');
+      expect(result.quality).toBe('full');
+      expect(result.fallback).toBe(false);
+    });
+
+    it('should return quality "fallback" when Tier 1 (agentConfig) fails', async () => {
+      AgentConfigLoader.mockImplementation(() => ({
+        loadComplete: jest.fn().mockRejectedValue(new Error('Agent config error')),
+      }));
+
+      const freshPipeline = new UnifiedActivationPipeline();
+      const result = await freshPipeline.activate('dev');
+      expect(result.quality).toBe('fallback');
+      expect(result.fallback).toBe(true);
+    });
+
+    it('should return quality "partial" when Tier 2/3 loaders fail but Tier 1 succeeds', async () => {
+      loadProjectStatus.mockRejectedValue(new Error('git timeout'));
+      GitConfigDetector.mockImplementation(() => ({
+        get: jest.fn().mockImplementation(() => { throw new Error('git error'); }),
+      }));
+
+      const freshPipeline = new UnifiedActivationPipeline();
+      const result = await freshPipeline.activate('dev');
+      expect(result.quality).toBe('partial');
+      expect(result.fallback).toBe(false);
+      // Greeting should still be rich (agent identity present)
+      expect(result.greeting).toBeTruthy();
+      expect(result.greeting.length).toBeGreaterThan(10);
+    });
+
+    it('should still return greeting when only ProjectStatus times out', async () => {
+      loadProjectStatus.mockImplementation(() =>
+        new Promise(resolve => setTimeout(() => resolve(mockProjectStatus), 300)),
+      );
+
+      const result = await pipeline.activate('dev');
+      expect(result.greeting).toBeTruthy();
+      // ProjectStatus may or may not have loaded depending on timing
+      expect(['full', 'partial']).toContain(result.quality);
+    });
+  });
+
+  // -----------------------------------------------------------
+  // 21. Loader Profiling / Metrics (AC: 1, 9)
+  // -----------------------------------------------------------
+  describe('ACT-11: loader profiling', () => {
+    it('should include metrics in activation result', async () => {
+      const result = await pipeline.activate('dev');
+      expect(result.metrics).toBeDefined();
+      expect(result.metrics.loaders).toBeDefined();
+    });
+
+    it('should record timing data for all 5 loaders', async () => {
+      const result = await pipeline.activate('dev');
+      const loaderNames = Object.keys(result.metrics.loaders);
+      expect(loaderNames).toContain('agentConfig');
+      expect(loaderNames).toContain('permissionMode');
+      expect(loaderNames).toContain('gitConfig');
+      expect(loaderNames).toContain('sessionContext');
+      expect(loaderNames).toContain('projectStatus');
+    });
+
+    it('should record duration and status for each loader', async () => {
+      const result = await pipeline.activate('dev');
+      for (const [name, data] of Object.entries(result.metrics.loaders)) {
+        expect(data).toHaveProperty('duration');
+        expect(data).toHaveProperty('status');
+        expect(data).toHaveProperty('start');
+        expect(data).toHaveProperty('end');
+        expect(typeof data.duration).toBe('number');
+        expect(['ok', 'timeout', 'error']).toContain(data.status);
+      }
+    });
+
+    it('should record error message on loader failure', async () => {
+      loadProjectStatus.mockRejectedValue(new Error('git status failed'));
+      const freshPipeline = new UnifiedActivationPipeline();
+      const result = await freshPipeline.activate('dev');
+      expect(result.metrics.loaders.projectStatus.status).toBe('error');
+      expect(result.metrics.loaders.projectStatus.error).toContain('git status failed');
+    });
+  });
+
+  // -----------------------------------------------------------
+  // 22. Language-Aware Fallback (AC: 8)
+  // -----------------------------------------------------------
+  describe('ACT-11: language-aware fallback', () => {
+    it('should export FALLBACK_PHRASES', () => {
+      expect(FALLBACK_PHRASES).toBeDefined();
+      expect(FALLBACK_PHRASES.en).toBeDefined();
+      expect(FALLBACK_PHRASES.pt).toBeDefined();
+      expect(FALLBACK_PHRASES.es).toBeDefined();
+    });
+
+    it('should generate English fallback by default', () => {
+      const greeting = pipeline._generateFallbackGreeting('dev');
+      expect(greeting).toContain('*help');
+      expect(greeting).toContain('dev');
+    });
+
+    it('should generate Portuguese fallback when language is pt', () => {
+      const greeting = pipeline._generateFallbackGreeting('dev', 'pt');
+      expect(greeting).toContain('Digite');
+      expect(greeting).toContain('*help');
+    });
+
+    it('should generate Spanish fallback when language is es', () => {
+      const greeting = pipeline._generateFallbackGreeting('dev', 'es');
+      expect(greeting).toContain('Escribe');
+      expect(greeting).toContain('*help');
+    });
+
+    it('should fall back to English for unknown language', () => {
+      const greeting = pipeline._generateFallbackGreeting('dev', 'fr');
+      expect(greeting).toContain('Type');
+      expect(greeting).toContain('*help');
+    });
+  });
+
+  // -----------------------------------------------------------
+  // 23. Configurable Pipeline Timeout (AC: 2, 4)
+  // -----------------------------------------------------------
+  describe('ACT-11: configurable timeout', () => {
+    it('should export DEFAULT_PIPELINE_TIMEOUT_MS', () => {
+      expect(DEFAULT_PIPELINE_TIMEOUT_MS).toBeDefined();
+      expect(typeof DEFAULT_PIPELINE_TIMEOUT_MS).toBe('number');
+      expect(DEFAULT_PIPELINE_TIMEOUT_MS).toBe(500);
+    });
+
+    it('should use default timeout when no config or env override', () => {
+      const timeout = pipeline._resolvePipelineTimeout({});
+      expect(timeout).toBe(DEFAULT_PIPELINE_TIMEOUT_MS);
+    });
+
+    it('should use config timeout when specified', () => {
+      const timeout = pipeline._resolvePipelineTimeout({ pipeline: { timeout_ms: 300 } });
+      expect(timeout).toBe(300);
+    });
+
+    it('should use env var over config value', () => {
+      const originalEnv = process.env.AIOS_PIPELINE_TIMEOUT;
+      process.env.AIOS_PIPELINE_TIMEOUT = '800';
+      try {
+        const timeout = pipeline._resolvePipelineTimeout({ pipeline: { timeout_ms: 300 } });
+        expect(timeout).toBe(800);
+      } finally {
+        if (originalEnv !== undefined) {
+          process.env.AIOS_PIPELINE_TIMEOUT = originalEnv;
+        } else {
+          delete process.env.AIOS_PIPELINE_TIMEOUT;
+        }
+      }
+    });
+
+    it('should ignore invalid env var values', () => {
+      const originalEnv = process.env.AIOS_PIPELINE_TIMEOUT;
+      process.env.AIOS_PIPELINE_TIMEOUT = 'not-a-number';
+      try {
+        const timeout = pipeline._resolvePipelineTimeout({});
+        expect(timeout).toBe(DEFAULT_PIPELINE_TIMEOUT_MS);
+      } finally {
+        if (originalEnv !== undefined) {
+          process.env.AIOS_PIPELINE_TIMEOUT = originalEnv;
+        } else {
+          delete process.env.AIOS_PIPELINE_TIMEOUT;
+        }
+      }
+    });
+  });
+
+  // -----------------------------------------------------------
+  // 24. Quality Determination (ACT-11)
+  // -----------------------------------------------------------
+  describe('ACT-11: quality determination', () => {
+    it('should return "full" when all loaders are ok', () => {
+      const metrics = {
+        loaders: {
+          agentConfig: { status: 'ok', duration: 50 },
+          permissionMode: { status: 'ok', duration: 30 },
+          gitConfig: { status: 'ok', duration: 40 },
+          sessionContext: { status: 'ok', duration: 20 },
+          projectStatus: { status: 'ok', duration: 80 },
+        },
+      };
+      expect(pipeline._determineQuality(metrics)).toBe('full');
+    });
+
+    it('should return "fallback" when agentConfig failed', () => {
+      const metrics = {
+        loaders: {
+          agentConfig: { status: 'error', duration: 80 },
+        },
+      };
+      expect(pipeline._determineQuality(metrics)).toBe('fallback');
+    });
+
+    it('should return "partial" when agentConfig ok but others failed', () => {
+      const metrics = {
+        loaders: {
+          agentConfig: { status: 'ok', duration: 50 },
+          permissionMode: { status: 'ok', duration: 30 },
+          gitConfig: { status: 'timeout', duration: 120 },
+          sessionContext: { status: 'ok', duration: 20 },
+          projectStatus: { status: 'timeout', duration: 180 },
+        },
+      };
+      expect(pipeline._determineQuality(metrics)).toBe('partial');
+    });
+  });
+
+  // -----------------------------------------------------------
+  // 25. Timeout Simulation Tests (AC: 11)
+  // -----------------------------------------------------------
+  describe('ACT-11: timeout simulation', () => {
+    it('all loaders fast → full greeting', async () => {
+      // Default mocks are instant — should produce full quality
+      const result = await pipeline.activate('dev');
+      expect(result.quality).toBe('full');
+      expect(result.fallback).toBe(false);
+    });
+
+    it('ProjectStatus slow → partial greeting (everything else present)', async () => {
+      loadProjectStatus.mockImplementation(() =>
+        new Promise((_, reject) => setTimeout(() => reject(new Error('slow')), 300)),
+      );
+
+      const freshPipeline = new UnifiedActivationPipeline();
+      const result = await freshPipeline.activate('dev');
+      expect(result.quality).toBe('partial');
+      expect(result.context.projectStatus).toBeNull();
+      // Agent identity should still be present
+      expect(result.context.agent.id).toBe('dev');
+      expect(result.context.permissions).toBeDefined();
+    });
+
+    it('AgentConfig slow → fallback greeting (Tier 1 failure)', async () => {
+      AgentConfigLoader.mockImplementation(() => ({
+        loadComplete: jest.fn().mockImplementation(() =>
+          new Promise((_, reject) => setTimeout(() => reject(new Error('slow')), 200)),
+        ),
+      }));
+
+      const freshPipeline = new UnifiedActivationPipeline();
+      const result = await freshPipeline.activate('dev');
+      expect(result.quality).toBe('fallback');
+      expect(result.fallback).toBe(true);
+      expect(result.greeting).toContain('dev');
+    });
+
+    it('all loaders slow → fallback via pipeline timeout', async () => {
+      AgentConfigLoader.mockImplementation(() => ({
+        loadComplete: jest.fn().mockImplementation(() =>
+          new Promise(resolve => setTimeout(() => resolve(null), 800)),
+        ),
+      }));
+      loadProjectStatus.mockImplementation(() =>
+        new Promise(resolve => setTimeout(() => resolve(null), 800)),
+      );
+      SessionContextLoader.mockImplementation(() => ({
+        loadContext: jest.fn().mockImplementation(() =>
+          new Promise(resolve => setTimeout(() => resolve(null), 800)),
+        ),
+      }));
+
+      const freshPipeline = new UnifiedActivationPipeline();
+      const result = await freshPipeline.activate('dev');
+      expect(result.fallback).toBe(true);
+      expect(result.greeting).toContain('dev');
+    });
+  });
+
+  // -----------------------------------------------------------
+  // 26. Backward Compatibility (ACT-11)
+  // -----------------------------------------------------------
+  describe('ACT-11: backward compatibility', () => {
+    it('should still return fallback boolean field', async () => {
+      const result = await pipeline.activate('dev');
+      expect(typeof result.fallback).toBe('boolean');
+    });
+
+    it('fallback=false when quality is full or partial', async () => {
+      const result = await pipeline.activate('dev');
+      expect(result.quality).toBe('full');
+      expect(result.fallback).toBe(false);
+    });
+
+    it('fallback=true only when quality is fallback', async () => {
+      AgentConfigLoader.mockImplementation(() => ({
+        loadComplete: jest.fn().mockRejectedValue(new Error('fail')),
+      }));
+      const freshPipeline = new UnifiedActivationPipeline();
+      const result = await freshPipeline.activate('dev');
+      expect(result.quality).toBe('fallback');
+      expect(result.fallback).toBe(true);
+    });
+  });
+
+  // -----------------------------------------------------------
+  // 27. All 12 Agents Verified — No Fallback (AC: 12)
+  // -----------------------------------------------------------
+  describe('ACT-11: all 12 agents non-fallback', () => {
+    ALL_AGENT_IDS.forEach(agentId => {
+      it(`@${agentId} should not produce fallback greeting`, async () => {
+        AgentConfigLoader.mockImplementation(() => ({
+          loadComplete: jest.fn().mockResolvedValue({
+            config: { dataLocation: '.aios-core/data' },
+            definition: {
+              ...mockAgentDefinition,
+              agent: { ...mockAgentDefinition.agent, id: agentId },
+            },
+            agent: { ...mockAgentDefinition.agent, id: agentId },
+            persona_profile: mockAgentDefinition.persona_profile,
+            commands: mockAgentDefinition.commands,
+          }),
+        }));
+
+        const result = await pipeline.activate(agentId);
+        expect(result.fallback).toBe(false);
+        expect(result.quality).toBe('full');
+        expect(result.metrics).toBeDefined();
+        expect(result.metrics.loaders.agentConfig).toBeDefined();
+        expect(result.metrics.loaders.agentConfig.status).toBe('ok');
+      });
     });
   });
 });

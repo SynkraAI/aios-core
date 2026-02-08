@@ -197,7 +197,8 @@ class GreetingBuilder {
 
     try {
       // Story ACT-9 QA fix: Single resolveConfig() call shared by both loaders
-      const resolvedConfig = this._loadResolvedConfig();
+      // ACT-11: Use pre-loaded config from pipeline context to avoid duplicate resolveConfig()
+      const resolvedConfig = context._coreConfig || this._loadResolvedConfig();
       // Story ACT-2: Load user profile early so preference manager can account for it
       const userProfile = this.loadUserProfile(resolvedConfig);
       // Story ACT-9: Load language preference

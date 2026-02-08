@@ -4,29 +4,26 @@
  * Story ACT-6: Eliminates divergence between Path A (9 agents) and Path B (3 agents)
  * by providing a single activation pipeline with identical context richness for ALL agents.
  *
- * Architecture:
- *   Steps 1-5 load in parallel via Promise.all():
- *     1. AgentConfigLoader.loadComplete(coreConfig)
- *     2. SessionContextLoader.loadContext(agentId)
- *     3. ProjectStatusLoader.loadProjectStatus()
- *     4. GitConfigDetector.get()
- *     5. PermissionMode.load() + getBadge()
- *   Sequential steps (data dependencies):
- *     6. GreetingPreferenceManager.getPreference(userProfile) (sync, fast)
- *     7. ContextDetector.detectSessionType() (depends on session context)
- *     8. WorkflowNavigator.detectWorkflowState() (depends on session + type)
- *   Final:
- *     9. GreetingBuilder.buildGreeting(enrichedContext)
+ * Story ACT-11: Pipeline Performance Optimization & Loader Prioritization
+ * - Tiered loading: Critical > High > Best-effort (instead of flat Promise.all)
+ * - Per-loader profiling via _profileLoader() with context.metrics output
+ * - Partial greeting support (between full and fallback)
+ * - Language-aware fallback greeting
+ * - Configurable timeout budgets via core-config.yaml and env vars
+ * - CoreConfig shared with GreetingBuilder to eliminate double read
  *
- * Performance Targets:
- *   - Parallel loading: <100ms
- *   - Total activation: <200ms
- *   - Fallback: <10ms
+ * Architecture (ACT-11 Tiered):
+ *   Phase 0: Load CoreConfig (shared, fast)
+ *   Phase 1 (Critical, 80ms): AgentConfigLoader — greeting is broken without this
+ *   Phase 2 (High, parallel with remaining budget): PermissionMode + GitConfigDetector
+ *   Phase 3 (Best-effort, parallel with remaining budget): SessionContext + ProjectStatus
+ *   Sequential: GreetingPreferenceManager, ContextDetector, WorkflowNavigator
+ *   Final: GreetingBuilder.buildGreeting(enrichedContext)
  *
- * Usage:
- *   const { UnifiedActivationPipeline } = require('./unified-activation-pipeline');
- *   const pipeline = new UnifiedActivationPipeline();
- *   const greeting = await pipeline.activate('dev');
+ * Performance Targets (ACT-11):
+ *   - Pipeline p50 (warm): <150ms
+ *   - Pipeline p95 (cold): <250ms
+ *   - Fallback rate: <5%
  *
  * @module development/scripts/unified-activation-pipeline
  * @see greeting-builder.js - Core greeting class
@@ -50,16 +47,36 @@ const ContextDetector = require('../../core/session/context-detector');
 const WorkflowNavigator = require('./workflow-navigator');
 
 /**
- * Per-loader timeout (ms). If any single loader exceeds this, it falls back to defaults.
- * @type {number}
+ * ACT-11: Loader importance tiers with per-tier timeout budgets.
+ * Tier 1 (Critical) must complete for a meaningful greeting.
+ * Tier 2 (High) adds important visual elements (badge, branch).
+ * Tier 3 (Best-effort) adds optional context (status, session).
+ * @type {Object}
  */
-const LOADER_TIMEOUT_MS = 150;
+const LOADER_TIERS = {
+  critical: {
+    loaders: ['agentConfig'],
+    timeout: 80,
+    description: 'Agent identity — greeting is broken without this',
+  },
+  high: {
+    loaders: ['permissionMode', 'gitConfig'],
+    timeout: 120,
+    description: 'Permission badge + branch name — visually degraded without these',
+  },
+  bestEffort: {
+    loaders: ['sessionContext', 'projectStatus'],
+    timeout: 180,
+    description: 'Session awareness + project status — greeting works fine without these',
+  },
+};
 
 /**
- * Total pipeline timeout (ms). If the entire activation exceeds this, fallback greeting.
+ * Default total pipeline timeout (ms).
+ * Can be overridden via core-config.yaml pipeline.timeout_ms or AIOS_PIPELINE_TIMEOUT env var.
  * @type {number}
  */
-const PIPELINE_TIMEOUT_MS = 200;
+const DEFAULT_PIPELINE_TIMEOUT_MS = 500;
 
 /**
  * All 12 supported agent IDs.
@@ -70,6 +87,16 @@ const ALL_AGENT_IDS = [
   'analyst', 'data-engineer', 'ux-design-expert',
   'devops', 'aios-master', 'squad-creator',
 ];
+
+/**
+ * ACT-11: Language-specific fallback phrases for minimal greeting.
+ * @type {Object}
+ */
+const FALLBACK_PHRASES = {
+  en: 'Type `*help` to see available commands.',
+  pt: 'Digite `*help` para ver os comandos disponíveis.',
+  es: 'Escribe `*help` para ver los comandos disponibles.',
+};
 
 class UnifiedActivationPipeline {
   constructor(options = {}) {
@@ -82,24 +109,47 @@ class UnifiedActivationPipeline {
   }
 
   /**
+   * Static convenience method — creates instance and activates.
+   * Allows both `UnifiedActivationPipeline.activate('dev')` and
+   * `new UnifiedActivationPipeline().activate('dev')`.
+   *
+   * @param {string} agentId - Agent identifier (e.g., 'dev', 'qa', 'pm')
+   * @param {Object} [options] - Activation options
+   * @returns {Promise<{greeting: string, context: Object, duration: number}>}
+   */
+  static activate(agentId, options = {}) {
+    return new UnifiedActivationPipeline().activate(agentId, options);
+  }
+
+  /**
    * Activate an agent through the unified pipeline.
+   *
+   * ACT-11: Uses tiered loading with graceful degradation.
+   * Returns 'full', 'partial', or 'fallback' quality level instead of boolean.
    *
    * @param {string} agentId - Agent identifier (e.g., 'dev', 'qa', 'pm')
    * @param {Object} [options] - Activation options
    * @param {Array} [options.conversationHistory] - Conversation history for context detection
-   * @returns {Promise<{greeting: string, context: Object, duration: number}>}
+   * @returns {Promise<{greeting: string, context: Object, duration: number, quality: string, metrics: Object}>}
    *   greeting - Formatted greeting string ready for display
    *   context  - The enriched context object assembled by the pipeline
    *   duration - Total activation time in ms
+   *   quality  - 'full' | 'partial' | 'fallback'
+   *   metrics  - Loader timing data
    */
   async activate(agentId, options = {}) {
     const startTime = Date.now();
 
     try {
+      // ACT-11: Load config early for language + timeout settings
+      const coreConfig = await this._loadCoreConfig();
+      const language = coreConfig.language || 'en';
+      const pipelineTimeout = this._resolvePipelineTimeout(coreConfig);
+
       // Race: full pipeline vs timeout (clear timer to prevent leak)
-      const { promise: timeoutPromise, timerId } = this._timeoutFallback(agentId, PIPELINE_TIMEOUT_MS);
+      const { promise: timeoutPromise, timerId } = this._timeoutFallback(agentId, pipelineTimeout, language);
       const result = await Promise.race([
-        this._runPipeline(agentId, options),
+        this._runPipeline(agentId, options, coreConfig),
         timeoutPromise,
       ]);
       clearTimeout(timerId);
@@ -109,67 +159,110 @@ class UnifiedActivationPipeline {
 
     } catch (error) {
       console.warn(`[UnifiedActivationPipeline] Activation failed for ${agentId}:`, error.message);
-      const fallbackGreeting = this._generateFallbackGreeting(agentId);
+      const coreConfig = await this._loadCoreConfig().catch(() => ({}));
+      const language = coreConfig.language || 'en';
+      const fallbackGreeting = this._generateFallbackGreeting(agentId, language);
       return {
         greeting: fallbackGreeting,
         context: this._getDefaultContext(agentId),
         duration: Date.now() - startTime,
+        quality: 'fallback',
+        // ACT-11: backward compat — keep fallback field
         fallback: true,
+        metrics: { loaders: {} },
       };
     }
   }
 
   /**
-   * Run the full activation pipeline.
+   * ACT-11: Run the tiered activation pipeline.
+   *
+   * Instead of flat Promise.all() for all 5 loaders, uses tiered execution:
+   * - Tier 1 (Critical): AgentConfigLoader must complete
+   * - Tier 2 (High): PermissionMode + GitConfigDetector, best-effort
+   * - Tier 3 (Best-effort): SessionContext + ProjectStatus, optional
+   *
+   * After each tier, remaining budget is checked. Slow lower-tier loaders
+   * cannot prevent the greeting from being built with available context.
+   *
    * @private
    * @param {string} agentId - Agent identifier
    * @param {Object} options - Activation options
-   * @returns {Promise<{greeting: string, context: Object}>}
+   * @param {Object} coreConfig - Pre-loaded core config (shared, not read again)
+   * @returns {Promise<{greeting: string, context: Object, quality: string, metrics: Object}>}
    */
-  async _runPipeline(agentId, options = {}) {
-    // --- Phase 1: Parallel loading (Steps 1-5) ---
-    const coreConfig = await this._loadCoreConfig();
+  async _runPipeline(agentId, options = {}, coreConfig = {}) {
+    const pipelineStart = Date.now();
+    const metrics = { loaders: {} };
 
-    const [
-      agentComplete,
-      sessionContext,
-      projectStatus,
-      gitConfig,
-      permissionData,
-    ] = await Promise.all([
-      this._safeLoad('AgentConfigLoader', () => {
-        const loader = new AgentConfigLoader(agentId);
-        return loader.loadComplete(coreConfig);
-      }),
-      this._safeLoad('SessionContextLoader', () => {
-        const loader = new SessionContextLoader();
-        return loader.loadContext(agentId);
-      }),
-      this._safeLoad('ProjectStatusLoader', () => loadProjectStatus()),
-      this._safeLoad('GitConfigDetector', () => this.gitConfigDetector.get()),
-      this._safeLoad('PermissionMode', async () => {
+    // --- Tier 1: Critical (AgentConfig) ---
+    const tier1Budget = LOADER_TIERS.critical.timeout;
+    const agentComplete = await this._profileLoader('agentConfig', metrics, tier1Budget, () => {
+      const loader = new AgentConfigLoader(agentId);
+      return loader.loadComplete(coreConfig);
+    });
+
+    // If Tier 1 failed, we can still build a minimal greeting but mark as fallback
+    const agentDefinition = this._buildAgentDefinition(agentId, agentComplete);
+    const language = coreConfig.language || 'en';
+
+    if (!agentComplete) {
+      // Tier 1 failure: return language-aware fallback greeting
+      const greeting = this._generateFallbackGreeting(agentId, language);
+      return {
+        greeting,
+        context: this._getDefaultContext(agentId),
+        quality: 'fallback',
+        fallback: true,
+        metrics,
+      };
+    }
+
+    // --- Tier 2: High (PermissionMode + GitConfig) — parallel ---
+    const tier2Budget = LOADER_TIERS.high.timeout;
+    const elapsedAfterT1 = Date.now() - pipelineStart;
+    const tier2Remaining = Math.max(tier2Budget - elapsedAfterT1, 20);
+
+    const [permissionData, gitConfig] = await Promise.all([
+      this._profileLoader('permissionMode', metrics, tier2Remaining, async () => {
         const mode = new PermissionMode(this.projectRoot);
         await mode.load();
         return { mode: mode.currentMode, badge: mode.getBadge() };
       }),
+      this._profileLoader('gitConfig', metrics, tier2Remaining, () => {
+        return this.gitConfigDetector.get();
+      }),
     ]);
 
-    // --- Phase 2: Build agent definition from loaded data ---
-    const agentDefinition = this._buildAgentDefinition(agentId, agentComplete);
+    // --- Tier 3: Best-effort (SessionContext + ProjectStatus) — parallel ---
+    const tier3Budget = LOADER_TIERS.bestEffort.timeout;
+    const elapsedAfterT2 = Date.now() - pipelineStart;
+    const tier3Remaining = Math.max(tier3Budget - elapsedAfterT2, 20);
 
-    // --- Phase 3: Sequential steps with data dependencies ---
+    const [sessionContext, projectStatus] = await Promise.all([
+      this._profileLoader('sessionContext', metrics, tier3Remaining, () => {
+        const loader = new SessionContextLoader();
+        return loader.loadContext(agentId);
+      }),
+      this._profileLoader('projectStatus', metrics, tier3Remaining, () => {
+        return loadProjectStatus();
+      }),
+    ]);
 
-    // Step 6: Greeting preference (sync, fast - depends on user profile from builder)
-    const userProfile = this.greetingBuilder.loadUserProfile();
+    // --- Sequential steps with data dependencies ---
+
+    // Step 6: Greeting preference (sync, fast)
+    // ACT-11: Share coreConfig with GreetingBuilder to avoid double resolveConfig()
+    const userProfile = this.greetingBuilder.loadUserProfile(coreConfig);
     const preference = this._resolvePreference(agentDefinition, userProfile);
 
-    // Step 7: Session type detection (depends on session context)
+    // Step 7: Session type detection
     const sessionType = this._detectSessionType(sessionContext, options);
 
-    // Step 8: Workflow state detection (depends on session + type)
+    // Step 8: Workflow state detection
     const workflowState = this._detectWorkflowState(sessionContext, sessionType);
 
-    // --- Phase 4: Assemble enriched context ---
+    // --- Assemble enriched context ---
     const enrichedContext = {
       agent: agentDefinition,
       config: agentComplete?.config || {},
@@ -181,6 +274,8 @@ class UnifiedActivationPipeline {
       sessionType,
       workflowState,
       userProfile,
+      // ACT-11: Share coreConfig with GreetingBuilder to eliminate double resolveConfig()
+      _coreConfig: coreConfig,
       // Legacy context fields for backward compatibility with GreetingBuilder
       conversationHistory: options.conversationHistory || [],
       lastCommands: sessionContext?.lastCommands || [],
@@ -190,14 +285,93 @@ class UnifiedActivationPipeline {
       sessionStory: sessionContext?.currentStory || null,
     };
 
-    // --- Phase 5: Build greeting via GreetingBuilder ---
+    // --- Build greeting via GreetingBuilder ---
     const greeting = await this.greetingBuilder.buildGreeting(agentDefinition, enrichedContext);
 
-    return { greeting, context: enrichedContext };
+    // ACT-11: Determine quality level based on what loaded successfully
+    const quality = this._determineQuality(metrics);
+
+    return {
+      greeting,
+      context: enrichedContext,
+      quality,
+      // ACT-11: backward compat — fallback is false unless quality is 'fallback'
+      fallback: quality === 'fallback',
+      metrics,
+    };
+  }
+
+  /**
+   * ACT-11: Profile a loader with timing and status tracking.
+   *
+   * Wraps a loader function with:
+   * - Start/end/duration timing in milliseconds
+   * - Status: 'ok' | 'timeout' | 'error'
+   * - Per-loader timeout with graceful null return
+   *
+   * Results are recorded in metrics.loaders[name].
+   *
+   * @private
+   * @param {string} name - Loader name for metrics
+   * @param {Object} metrics - Metrics object to populate
+   * @param {number} timeoutMs - Timeout budget for this loader
+   * @param {Function} loaderFn - Async function that performs the load
+   * @returns {Promise<*>} Loaded data or null on failure/timeout
+   */
+  async _profileLoader(name, metrics, timeoutMs, loaderFn) {
+    const start = Date.now();
+    try {
+      const result = await Promise.race([
+        loaderFn(),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error(`${name} timeout (${timeoutMs}ms)`)), timeoutMs),
+        ),
+      ]);
+      const duration = Date.now() - start;
+      metrics.loaders[name] = { duration, status: 'ok', start, end: start + duration };
+      return result;
+    } catch (error) {
+      const duration = Date.now() - start;
+      const status = error.message.includes('timeout') ? 'timeout' : 'error';
+      metrics.loaders[name] = { duration, status, start, end: start + duration, error: error.message };
+      console.warn(`[UnifiedActivationPipeline] ${name} ${status}: ${error.message}`);
+      return null;
+    }
+  }
+
+  /**
+   * ACT-11: Determine greeting quality based on loader results.
+   *
+   * - 'full': All loaders succeeded (or at least Tier 1 + Tier 2)
+   * - 'partial': Tier 1 succeeded but some Tier 2/3 loaders failed
+   * - 'fallback': Tier 1 (agentConfig) failed
+   *
+   * @private
+   * @param {Object} metrics - Metrics object with loader results
+   * @returns {string} 'full' | 'partial' | 'fallback'
+   */
+  _determineQuality(metrics) {
+    const loaders = metrics.loaders;
+
+    // Tier 1 failure = fallback
+    if (!loaders.agentConfig || loaders.agentConfig.status !== 'ok') {
+      return 'fallback';
+    }
+
+    // Check if any loader failed
+    const allLoaderNames = Object.keys(loaders);
+    const failedLoaders = allLoaderNames.filter(name => loaders[name].status !== 'ok');
+
+    if (failedLoaders.length === 0) {
+      return 'full';
+    }
+
+    return 'partial';
   }
 
   /**
    * Load core configuration from YAML.
+   * ACT-11: This is read once and shared with GreetingBuilder and all loaders.
    * @private
    * @returns {Promise<Object>} Core config object
    */
@@ -213,25 +387,29 @@ class UnifiedActivationPipeline {
   }
 
   /**
-   * Safe loader wrapper with per-loader timeout and fallback.
+   * ACT-11: Resolve pipeline timeout from config hierarchy.
+   * Priority: AIOS_PIPELINE_TIMEOUT env > core-config.yaml pipeline.timeout_ms > default
    * @private
-   * @param {string} loaderName - Name for logging
-   * @param {Function} loaderFn - Async function that performs the load
-   * @returns {Promise<*>} Loaded data or null on failure
+   * @param {Object} coreConfig - Core config object
+   * @returns {number} Pipeline timeout in ms
    */
-  async _safeLoad(loaderName, loaderFn) {
-    try {
-      const result = await Promise.race([
-        loaderFn(),
-        new Promise((_, reject) =>
-          setTimeout(() => reject(new Error(`${loaderName} timeout (${LOADER_TIMEOUT_MS}ms)`)), LOADER_TIMEOUT_MS),
-        ),
-      ]);
-      return result;
-    } catch (error) {
-      console.warn(`[UnifiedActivationPipeline] ${loaderName} failed:`, error.message);
-      return null;
+  _resolvePipelineTimeout(coreConfig) {
+    // Env var override (for CI/testing)
+    const envTimeout = process.env.AIOS_PIPELINE_TIMEOUT;
+    if (envTimeout) {
+      const parsed = parseInt(envTimeout, 10);
+      if (!isNaN(parsed) && parsed > 0) {
+        return parsed;
+      }
     }
+
+    // Config override
+    const configTimeout = coreConfig?.pipeline?.timeout_ms;
+    if (configTimeout && typeof configTimeout === 'number' && configTimeout > 0) {
+      return configTimeout;
+    }
+
+    return DEFAULT_PIPELINE_TIMEOUT_MS;
   }
 
   /**
@@ -315,7 +493,6 @@ class UnifiedActivationPipeline {
   /**
    * Detect workflow state from session context and session type.
    * Story ACT-5: Relaxed trigger - now detects workflows for any non-new session.
-   * Previously required sessionType === 'workflow' which was too restrictive.
    * @private
    * @param {Object|null} sessionContext - Session context data
    * @param {string} sessionType - Detected session type
@@ -323,8 +500,6 @@ class UnifiedActivationPipeline {
    */
   _detectWorkflowState(sessionContext, sessionType) {
     try {
-      // Story ACT-5: Relaxed from sessionType !== 'workflow' to sessionType === 'new'
-      // Workflow detection should happen for 'existing' and 'workflow' sessions
       if (sessionType === 'new' || !sessionContext) {
         return null;
       }
@@ -343,20 +518,24 @@ class UnifiedActivationPipeline {
 
   /**
    * Create a timeout promise that resolves with a fallback greeting.
+   * ACT-11: Now language-aware.
    * @private
    * @param {string} agentId - Agent ID
    * @param {number} timeoutMs - Timeout in milliseconds
-   * @returns {Promise} Resolves after timeout with fallback
+   * @param {string} [language='en'] - Language code for fallback
+   * @returns {{promise: Promise, timerId: NodeJS.Timeout}} Promise and timer ID
    */
-  _timeoutFallback(agentId, timeoutMs) {
+  _timeoutFallback(agentId, timeoutMs, language = 'en') {
     let timerId;
     const promise = new Promise((resolve) => {
       timerId = setTimeout(() => {
         console.warn(`[UnifiedActivationPipeline] Pipeline timeout (${timeoutMs}ms) for ${agentId}`);
         resolve({
-          greeting: this._generateFallbackGreeting(agentId),
+          greeting: this._generateFallbackGreeting(agentId, language),
           context: this._getDefaultContext(agentId),
+          quality: 'fallback',
           fallback: true,
+          metrics: { loaders: {} },
         });
       }, timeoutMs);
     });
@@ -365,13 +544,16 @@ class UnifiedActivationPipeline {
 
   /**
    * Generate fallback greeting when pipeline fails.
+   * ACT-11: Now language-aware — respects configured language.
    * @private
    * @param {string} agentId - Agent ID
+   * @param {string} [language='en'] - Language code
    * @returns {string} Simple fallback greeting
    */
-  _generateFallbackGreeting(agentId) {
+  _generateFallbackGreeting(agentId, language = 'en') {
     const icon = this._getDefaultIcon(agentId);
-    return `${icon} ${agentId} Agent ready\n\nType \`*help\` to see available commands.`;
+    const helpText = FALLBACK_PHRASES[language] || FALLBACK_PHRASES.en;
+    return `${icon} ${agentId} Agent ready\n\n${helpText}`;
   }
 
   /**
@@ -459,4 +641,11 @@ class UnifiedActivationPipeline {
   }
 }
 
-module.exports = { UnifiedActivationPipeline, ALL_AGENT_IDS };
+module.exports = {
+  UnifiedActivationPipeline,
+  ALL_AGENT_IDS,
+  // ACT-11: Export for testing
+  LOADER_TIERS,
+  DEFAULT_PIPELINE_TIMEOUT_MS,
+  FALLBACK_PHRASES,
+};

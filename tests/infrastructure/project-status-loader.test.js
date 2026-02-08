@@ -732,6 +732,10 @@ def5678 fix: bug fix`;
       });
 
       it('should return null when git dir not available', async () => {
+        // ACT-11: Clear cached git dir to simulate non-git scenario
+        // (constructor caches _resolvedGitDir for performance)
+        loader._resolvedGitDir = null;
+
         execSync.mockImplementation(() => {
           throw new Error('Not a git repository');
         });
