@@ -319,5 +319,3 @@ Type `*help` to see all commands.
 - **@qa (Quinn)** - Validates quality gates in stories
 
 ---
----
-*AIOS Agent - Synced from .aios-core/development/agents/po.md*

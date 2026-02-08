@@ -479,5 +479,3 @@ Type `*help` to see commands by phase, or `*status` to see workflow state.
 - **@dev (Dex)** - Implements components
 
 ---
----
-*AIOS Agent - Synced from .aios-core/development/agents/ux-design-expert.md*

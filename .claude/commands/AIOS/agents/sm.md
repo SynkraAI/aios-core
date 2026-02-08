@@ -271,5 +271,3 @@ Type `*help` to see all commands.
 - **@github-devops (Gage)** - Handles push operations
 
 ---
----
-*AIOS Agent - Synced from .aios-core/development/agents/sm.md*
