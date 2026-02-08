@@ -80,8 +80,24 @@ function formatCreateReviewEntry(entry) {
 }
 
 function runQuery() {
-  // Collect intent from non-flag args after command
-  const intentParts = args.slice(1).filter((a) => !a.startsWith('--') && a !== getFlag('type') && a !== getFlag('category'));
+  // Collect intent: skip flag names and their values positionally
+  const flagNames = new Set(['--json', '--type', '--category']);
+  const intentParts = [];
+  let skipNext = false;
+  for (let i = 1; i < args.length; i++) {
+    if (skipNext) {
+      skipNext = false;
+      continue;
+    }
+    if (args[i] === '--type' || args[i] === '--category') {
+      skipNext = true; // skip the flag's value
+      continue;
+    }
+    if (flagNames.has(args[i])) {
+      continue; // skip standalone flags like --json
+    }
+    intentParts.push(args[i]);
+  }
   const intent = intentParts.join(' ').trim();
 
   if (!intent) {
@@ -90,7 +106,12 @@ function runQuery() {
   }
 
   const loader = new RegistryLoader();
-  loader.load();
+  try {
+    loader.load();
+  } catch (err) {
+    console.error(`Error: Failed to load registry — ${err.message}`);
+    process.exit(1);
+  }
 
   const engine = new IncrementalDecisionEngine(loader);
   const context = {};
@@ -145,7 +166,12 @@ function runQuery() {
 
 function runCreateReview() {
   const loader = new RegistryLoader();
-  loader.load();
+  try {
+    loader.load();
+  } catch (err) {
+    console.error(`Error: Failed to load registry — ${err.message}`);
+    process.exit(1);
+  }
 
   const engine = new IncrementalDecisionEngine(loader);
   const report = engine.reviewCreateDecisions();

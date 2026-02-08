@@ -84,8 +84,9 @@ node bin/aios-ids.js ids:query "agent persona" --category agents
 ### Programmatic Usage (Agent Context)
 
 ```javascript
-const { RegistryLoader } = require('.aios-core/core/ids/registry-loader');
-const { IncrementalDecisionEngine } = require('.aios-core/core/ids/incremental-decision-engine');
+const path = require('path');
+const { RegistryLoader } = require(path.resolve('.aios-core/core/ids/registry-loader'));
+const { IncrementalDecisionEngine } = require(path.resolve('.aios-core/core/ids/incremental-decision-engine'));
 
 const loader = new RegistryLoader();
 loader.load();

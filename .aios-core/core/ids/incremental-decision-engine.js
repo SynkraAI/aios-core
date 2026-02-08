@@ -69,8 +69,17 @@ class IncrementalDecisionEngine {
     const cached = this._getFromCache(cacheKey);
     if (cached) return cached;
 
-    this._loader._ensureLoaded();
-    const allEntities = this._loader._getAllEntities();
+    try {
+      this._loader._ensureLoaded();
+    } catch (err) {
+      throw new Error(`[IDS] Failed to load registry: ${err.message}`);
+    }
+    let allEntities;
+    try {
+      allEntities = this._loader._getAllEntities();
+    } catch (err) {
+      throw new Error(`[IDS] Failed to retrieve entities: ${err.message}`);
+    }
     const totalEntities = allEntities.length;
 
     // Edge case: empty registry
@@ -83,6 +92,7 @@ class IncrementalDecisionEngine {
         warnings: ['Registry is empty — no existing artifacts to evaluate'],
         justification: this._buildCreateJustification(intent, [], allEntities),
       };
+      this._setCache(cacheKey, result);
       return result;
     }
 
@@ -494,8 +504,17 @@ class IncrementalDecisionEngine {
    * (Task 9.4 — 30-day review automation)
    */
   reviewCreateDecisions() {
-    this._loader._ensureLoaded();
-    const allEntities = this._loader._getAllEntities();
+    try {
+      this._loader._ensureLoaded();
+    } catch (err) {
+      throw new Error(`[IDS] Failed to load registry: ${err.message}`);
+    }
+    let allEntities;
+    try {
+      allEntities = this._loader._getAllEntities();
+    } catch (err) {
+      throw new Error(`[IDS] Failed to retrieve entities: ${err.message}`);
+    }
     const now = new Date();
     const report = {
       pendingReview: [],
@@ -563,9 +582,9 @@ class IncrementalDecisionEngine {
     }
 
     // Check if 60 days have passed since creation/last verification
-    const referenceDate = entity.createJustification
-      ? entity.createJustification.review_scheduled
-      : entity.lastVerified;
+    const referenceDate = entity.createdAt
+      || (entity.createJustification && entity.createJustification.created_at)
+      || entity.lastVerified;
 
     if (referenceDate) {
       const refDate = new Date(referenceDate);

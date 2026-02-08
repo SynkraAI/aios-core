@@ -101,9 +101,13 @@ describe('IncrementalDecisionEngine', () => {
     it('supports context filtering by category', () => {
       const result = engine.analyze('agent persona', { category: 'agents' });
 
-      // All results should be from agents category
-      // (this depends on fixture data having agents category)
       expect(result).toBeDefined();
+      for (const rec of result.recommendations) {
+        expect(rec.entityId).toBeDefined();
+        // All results should come from the agents category in the registry
+        const entity = loader._findById(rec.entityId);
+        expect(entity.category).toBe('agents');
+      }
     });
   });
 
@@ -178,9 +182,8 @@ describe('IncrementalDecisionEngine', () => {
       // valid-registry.yaml has 5 entities
       const result = engine.analyze('some query');
 
-      if (result.warnings) {
-        expect(result.warnings).toContain('Registry sparse — results may be incomplete');
-      }
+      expect(result.warnings).toBeDefined();
+      expect(result.warnings).toContain('Registry sparse — results may be incomplete');
     });
   });
 
@@ -271,13 +274,9 @@ describe('IncrementalDecisionEngine', () => {
     it('ranks better matches higher', () => {
       const result = engine.analyze('validate story');
 
-      if (result.recommendations.length >= 2) {
-        // validate-story should rank higher than generic matches
-        const vsIdx = result.recommendations.findIndex((r) => r.entityId === 'validate-story');
-        if (vsIdx >= 0) {
-          expect(vsIdx).toBeLessThan(result.recommendations.length);
-        }
-      }
+      expect(result.recommendations.length).toBeGreaterThan(0);
+      const vsIdx = result.recommendations.findIndex((r) => r.entityId === 'validate-story');
+      expect(vsIdx).toBe(0); // Should be top-ranked
     });
   });
 
@@ -702,7 +701,8 @@ describe('IncrementalDecisionEngine', () => {
       const entity = {
         id: 'unused',
         usedBy: [],
-        createJustification: { review_scheduled: pastDate.toISOString().split('T')[0] },
+        createdAt: pastDate.toISOString().split('T')[0],
+        createJustification: { created_at: pastDate.toISOString().split('T')[0] },
       };
 
       expect(engine.getPromotionStatus(entity)).toBe('deprecation-review');
@@ -799,6 +799,7 @@ describe('IncrementalDecisionEngine', () => {
     });
 
     it('returns error for missing intent', () => {
+      expect.assertions(1);
       try {
         execSync(`node "${cliPath}" ids:query`, { encoding: 'utf8', stdio: 'pipe' });
       } catch (error) {
