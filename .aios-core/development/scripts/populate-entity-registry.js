@@ -229,7 +229,11 @@ function populate() {
     sortKeys: false
   });
 
-  fs.writeFileSync(REGISTRY_PATH, yamlContent, 'utf8');
+  try {
+    fs.writeFileSync(REGISTRY_PATH, yamlContent, 'utf8');
+  } catch (err) {
+    throw new Error(`[IDS] Failed to write registry to ${REGISTRY_PATH}: ${err.message}`);
+  }
   console.log(`[IDS] Registry written to ${path.relative(REPO_ROOT, REGISTRY_PATH)}`);
   console.log(`[IDS] Total entities: ${totalCount}`);
 

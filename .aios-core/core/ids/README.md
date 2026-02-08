@@ -48,7 +48,7 @@ categories:
 ## RegistryLoader API
 
 ```js
-const { RegistryLoader } = require('.aios-core/core/ids/registry-loader');
+const { RegistryLoader } = require('./.aios-core/core/ids/registry-loader');
 const loader = new RegistryLoader(); // uses default path
 ```
 

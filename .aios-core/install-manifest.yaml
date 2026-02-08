@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-08T18:53:17.575Z"
+generated_at: "2026-02-08T18:53:40.302Z"
 generator: scripts/generate-install-manifest.js
 file_count: 942
 files:
@@ -505,13 +505,13 @@ files:
     type: core
     size: 22865
   - path: core/ids/README.md
-    hash: sha256:5f69c307397bd3065b418844fb532a18a16123f6ef4ae8122ffdc13047a00430
+    hash: sha256:1599b5be7d5a72431c10cb137087b3886e1190abfd06a658d676f1f0c284c89d
     type: core
-    size: 4429
+    size: 4431
   - path: core/ids/registry-loader.js
-    hash: sha256:7bd6d835bf5c745857d56a79dff799fc3061bc1324e7bb9bb3e73c0ccb70ac3e
+    hash: sha256:e98cee3af79091e972b379786345d15ae451afbcba968c10fb3da9bf981bb363
     type: core
-    size: 6845
+    size: 7170
   - path: core/index.esm.js
     hash: sha256:74ac4edc22f53a6e1ff7fe7d16add65b4e85e198dcdd0f54d3048ba032dc8f9a
     type: core
@@ -1101,9 +1101,9 @@ files:
     type: script
     size: 24167
   - path: development/scripts/populate-entity-registry.js
-    hash: sha256:40d8126bc375ee49f5d329ecb466d89249b325630c38fac4895b31e8a4ccf2d3
+    hash: sha256:adeb98320018cb21cd70d9220389048a35f144297c83afdd0eff8cfc84281426
     type: script
-    size: 8240
+    size: 8363
   - path: development/scripts/refactoring-suggester.js
     hash: sha256:d5183f79fae9dc4bf4d3c9136b3622e43a63643a7df622742c350931e45f18f4
     type: script

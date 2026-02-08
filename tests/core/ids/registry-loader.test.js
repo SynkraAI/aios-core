@@ -200,7 +200,7 @@ describe('RegistryLoader', () => {
       expect(rels.dependencies).toContain('template-engine');
     });
 
-    it('returns empty arrays for entity with no relationships', () => {
+    it('returns dependencies and usedBy for a dependency entity', () => {
       const rels = loader.getRelationships('template-engine');
       expect(rels.dependencies).toEqual([]);
       expect(rels.usedBy).toContain('create-doc');

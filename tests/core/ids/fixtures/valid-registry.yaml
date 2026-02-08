@@ -24,7 +24,7 @@ entities:
       type: "task"
       purpose: "Validate story drafts before implementation"
       keywords: ["validate", "story", "quality", "checklist"]
-      usedBy: []
+      usedBy: ["po"]
       dependencies: ["create-doc"]
       adaptability:
         score: 0.7
@@ -44,7 +44,7 @@ entities:
         score: 0.5
         constraints: ["API surface is stable"]
         extensionPoints: ["Custom helpers"]
-      checksum: "sha256:01234567890abcdef01234567890abcdef01234567890abcdef01234567890abc"
+      checksum: "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
       lastVerified: "2026-02-08T00:00:00Z"
   agents:
     po:

@@ -104,7 +104,7 @@ describe('Entity Registry Schema (AC: 1, 7, 8)', () => {
     it('checksum follows sha256:hex format', () => {
       for (const [category, entities] of Object.entries(registry.entities)) {
         for (const [id, entity] of Object.entries(entities)) {
-          expect(entity.checksum).toMatch(/^sha256:[a-f0-9]+$/);
+          expect(entity.checksum).toMatch(/^sha256:[a-f0-9]{64}$/);
         }
       }
     });

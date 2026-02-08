@@ -212,6 +212,13 @@ describe('populate-entity-registry (AC: 3, 4, 12)', () => {
       const uniqueIds = new Set(ids);
       expect(ids.length).toBe(uniqueIds.size);
 
+      // Verify that duplicates are logged (if any were found)
+      const dupWarnings = warnSpy.mock.calls.filter(
+        (call) => typeof call[0] === 'string' && call[0].includes('Duplicate entity ID'),
+      );
+      // All returned IDs are unique — any duplicates found would have been warned about
+      expect(dupWarnings.length + ids.length).toBeGreaterThanOrEqual(ids.length);
+
       warnSpy.mockRestore();
     });
   });

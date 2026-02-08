@@ -35,7 +35,12 @@ class RegistryLoader {
       return this._registry;
     }
 
-    const content = fs.readFileSync(this._registryPath, 'utf8');
+    let content;
+    try {
+      content = fs.readFileSync(this._registryPath, 'utf8');
+    } catch (err) {
+      throw new Error(`[IDS] Failed to read registry at ${this._registryPath}: ${err.message}`);
+    }
 
     if (!content || !content.trim()) {
       console.info('[IDS] Registry file is empty. Returning empty registry.');
@@ -254,17 +259,22 @@ class RegistryLoader {
    * Verify checksum of an entity's source file.
    */
   verifyChecksum(entityId, repoRoot) {
+    if (!entityId || !repoRoot) return null;
+
     const entity = this._findById(entityId);
     if (!entity || !entity.checksum || !entity.path) return null;
 
     const filePath = path.resolve(repoRoot, entity.path);
     if (!fs.existsSync(filePath)) return false;
 
-    const content = fs.readFileSync(filePath);
-    const hash = crypto.createHash('sha256').update(content).digest('hex');
-    const expected = entity.checksum.replace('sha256:', '');
-
-    return hash === expected;
+    try {
+      const content = fs.readFileSync(filePath);
+      const hash = crypto.createHash('sha256').update(content).digest('hex');
+      const expected = entity.checksum.replace('sha256:', '');
+      return hash === expected;
+    } catch (err) {
+      throw new Error(`[IDS] Failed to verify checksum for ${entityId}: ${err.message}`);
+    }
   }
 }
 
