@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-08T18:53:40.302Z"
+generated_at: "2026-02-08T21:38:20.501Z"
 generator: scripts/generate-install-manifest.js
-file_count: 942
+file_count: 944
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -504,6 +504,10 @@ files:
     hash: sha256:f803c2e9823b6526feaec5f875f0fe2ac204a15403dbe41f89fa959c12e016e7
     type: core
     size: 22865
+  - path: core/ids/incremental-decision-engine.js
+    hash: sha256:257b1f67f6df8eb91fe0a95405563611b8bf2f836cbca2398a0a394e40d6c219
+    type: core
+    size: 21404
   - path: core/ids/README.md
     hash: sha256:1599b5be7d5a72431c10cb137087b3886e1190abfd06a658d676f1f0c284c89d
     type: core
@@ -1616,6 +1620,10 @@ files:
     hash: sha256:9480d2a74f5d3d3cc709bbe18c957cf9267d544365a5c1adf0d1664efa13f1c9
     type: task
     size: 5527
+  - path: development/tasks/ids-query.md
+    hash: sha256:f922f7220eb6f18bfbd90328db4da9497806baec43a69874a3db3fbb5a4bba76
+    type: task
+    size: 3451
   - path: development/tasks/improve-self.md
     hash: sha256:3a17a20467a966fcd4b2f8afb6edf202caf2e23cb805fcc6a12290c87f54d65d
     type: task
