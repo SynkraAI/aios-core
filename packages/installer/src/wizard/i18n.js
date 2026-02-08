@@ -20,6 +20,7 @@ const TRANSLATIONS = {
     modoAvancadoDesc: 'I can identify when something is wrong and fix it',
     modoAvancadoHint: 'You have direct access to all agents',
     userProfileSkipped: 'Using existing user profile',
+    languageSkipped: 'Using existing language',
 
     // Project type
     projectTypeQuestion: 'What type of project are you setting up?',
@@ -76,6 +77,7 @@ const TRANSLATIONS = {
     modoAvancadoDesc: 'Consigo identificar quando algo está errado e corrigir',
     modoAvancadoHint: 'Você tem acesso direto a todos os agentes',
     userProfileSkipped: 'Usando perfil de usuário existente',
+    languageSkipped: 'Usando idioma existente',
 
     // Project type
     projectTypeQuestion: 'Que tipo de projeto você está configurando?',
@@ -131,6 +133,7 @@ const TRANSLATIONS = {
     modoAvancadoDesc: 'Puedo identificar cuando algo está mal y corregirlo',
     modoAvancadoHint: 'Tienes acceso directo a todos los agentes',
     userProfileSkipped: 'Usando perfil de usuario existente',
+    languageSkipped: 'Usando idioma existente',
 
     // Project type
     projectTypeQuestion: '¿Qué tipo de proyecto estás configurando?',
