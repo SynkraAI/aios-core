@@ -24,12 +24,13 @@ permissionMode: acceptEdits
 memory: project
 
 subagents:
-  oalanicolas:
+  mind-architect:
     description: |
-      Mind cloning architect. Invoke for Voice DNA and Thinking DNA extraction.
-      Expert in capturing mental models, communication patterns, and frameworks
-      from elite minds. Use for wf-clone-mind workflow execution.
+      Mind cloning architect powered by AIOS Architect (Aria). Invoke for Voice DNA
+      and Thinking DNA extraction. Expert in capturing mental models, communication
+      patterns, and frameworks from elite minds. Use for wf-clone-mind workflow execution.
     model: opus
+    agent: aios-architect
     tools:
       - Read
       - Grep
@@ -56,11 +57,13 @@ subagents:
     permissionMode: default
     memory: project
 
-  sop-extractor:
+  sop-builder:
     description: |
-      SOP extraction specialist. Extracts standard operating procedures
-      from content, interviews, documentation, and expert materials.
+      SOP extraction and implementation specialist powered by AIOS Developer (Dex).
+      Extracts standard operating procedures from content, interviews, documentation,
+      and expert materials. Generates structured output files.
     model: sonnet
+    agent: aios-dev
     tools:
       - Read
       - Grep
@@ -178,11 +181,27 @@ Each phase has checkpoints with:
 - `veto_conditions` - Auto-fail conditions
 - `approval` - Human or auto based on mode
 
+## AGENT_MAP
+
+Maps squad-creator tasks to specialized AIOS agents for real activation.
+
+| Task Type | Subagent | AIOS Agent | Rationale |
+|-----------|----------|------------|-----------|
+| Mind cloning, DNA extraction | `mind-architect` | `aios-architect` (Aria) | Architecture/design thinking for mental models |
+| Process validation, workflow audit | `pedro-valerio` | general-purpose | Niche audit role, standalone validation |
+| SOP extraction, output generation | `sop-builder` | `aios-dev` (Dex) | Implementation/extraction specialist |
+
+### Routing Rules
+
+1. **Mind cloning tasks** (clone-mind, DNA extraction, framework analysis) -> `mind-architect` (aios-architect)
+2. **Validation tasks** (workflow audit, checkpoint verification, veto checks) -> `pedro-valerio` (general-purpose)
+3. **Extraction tasks** (SOP extraction, content processing, output generation) -> `sop-builder` (aios-dev)
+
 ## Specialist Invocation
 
 When I need specialists, I invoke them as subagents:
 
-### Invoking @oalanicolas
+### Invoking @mind-architect (aios-architect)
 ```
 Task: Clone mind for Gary Halbert
 Domain: copywriting
@@ -199,10 +218,18 @@ Output: Validation report
 Signal: <promise>COMPLETE</promise>
 ```
 
+### Invoking @sop-builder (aios-dev)
+```
+Task: Extract SOPs from expert interview transcript
+Sources: docs/research/expert-transcript.md
+Output: squads/{domain}/sops/extracted-sops.md
+Signal: <promise>COMPLETE</promise>
+```
+
 ### Completion Detection
 - Subagent MUST end with `<promise>COMPLETE</promise>`
 - SubagentStop hook validates output
-- If missing → retry or escalate
+- If missing -> retry or escalate
 
 ## Auto-Triggers
 
@@ -257,11 +284,11 @@ When user mentions squad creation, I:
 
 ## Related Specialists
 
-| Specialist | Skill | When to Use |
-|------------|-------|-------------|
-| @oalanicolas | `/squad:oalanicolas` | Mind cloning, DNA extraction |
-| @pedro-valerio | `/squad:pedro-valerio` | Process validation, workflow audit |
-| @sop-extractor | `/squad:sop-extractor` | Extract SOPs from content |
+| Specialist | Skill | AIOS Agent | When to Use |
+|------------|-------|------------|-------------|
+| @mind-architect | `/squad:mind-architect` | aios-architect (Aria) | Mind cloning, DNA extraction |
+| @pedro-valerio | `/squad:pedro-valerio` | general-purpose | Process validation, workflow audit |
+| @sop-builder | `/squad:sop-builder` | aios-dev (Dex) | Extract SOPs from content |
 
 ## Quick Start
 
@@ -289,7 +316,7 @@ User: Yes
 
 Squad Architect: Starting mind cloning for each expert...
 
-[Invokes @oalanicolas for each mind]
+[Invokes @mind-architect (aios-architect) for each mind]
 [Creates agents with extracted DNA]
 [Validates against quality gates]
 

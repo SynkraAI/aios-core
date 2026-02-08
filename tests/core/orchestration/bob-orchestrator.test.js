@@ -788,6 +788,104 @@ describe('BobOrchestrator', () => {
   });
 
   // ==========================================
+  // Gobob Mode (SUPER YOLO)
+  // ==========================================
+
+  describe('Gobob Mode (SUPER YOLO)', () => {
+    describe('setGobobMode()', () => {
+      it('should enable gobob mode when user_profile is bob', () => {
+        // Given - user profile is bob
+        resolveConfig.mockReturnValue({
+          config: { user_profile: 'bob' },
+          warnings: [],
+          legacy: false,
+        });
+
+        // When
+        const result = orchestrator.setGobobMode(true);
+
+        // Then
+        expect(result.success).toBe(true);
+        expect(result.gobobMode).toBe(true);
+        expect(result.message).toContain('SUPER YOLO');
+        expect(orchestrator.isGobobMode()).toBe(true);
+      });
+
+      it('should disable gobob mode', () => {
+        // Given - enable first
+        resolveConfig.mockReturnValue({
+          config: { user_profile: 'bob' },
+          warnings: [],
+          legacy: false,
+        });
+        orchestrator.setGobobMode(true);
+
+        // When
+        const result = orchestrator.setGobobMode(false);
+
+        // Then
+        expect(result.success).toBe(true);
+        expect(result.gobobMode).toBe(false);
+        expect(orchestrator.isGobobMode()).toBe(false);
+      });
+
+      it('should reject gobob mode when user_profile is advanced', () => {
+        // Given - user profile is advanced
+        resolveConfig.mockReturnValue({
+          config: { user_profile: 'advanced' },
+          warnings: [],
+          legacy: false,
+        });
+
+        // When
+        const result = orchestrator.setGobobMode(true);
+
+        // Then
+        expect(result.success).toBe(false);
+        expect(result.gobobMode).toBe(false);
+        expect(result.message).toContain('perfil Bob');
+        expect(orchestrator.isGobobMode()).toBe(false);
+      });
+
+      it('should reject gobob mode when user_profile is missing (defaults to advanced)', () => {
+        // Given - no user_profile in config
+        resolveConfig.mockReturnValue({
+          config: {},
+          warnings: [],
+          legacy: false,
+        });
+
+        // When
+        const result = orchestrator.setGobobMode(true);
+
+        // Then
+        expect(result.success).toBe(false);
+        expect(result.gobobMode).toBe(false);
+      });
+
+      it('should handle config resolver error gracefully', () => {
+        // Given - config resolver throws
+        resolveConfig.mockImplementation(() => {
+          throw new Error('Config error');
+        });
+
+        // When
+        const result = orchestrator.setGobobMode(true);
+
+        // Then
+        expect(result.success).toBe(false);
+        expect(result.message).toContain('Erro');
+      });
+    });
+
+    describe('isGobobMode()', () => {
+      it('should return false by default', () => {
+        expect(orchestrator.isGobobMode()).toBe(false);
+      });
+    });
+  });
+
+  // ==========================================
   // Story 12.7: Educational Mode (AC1-7)
   // ==========================================
 

@@ -216,12 +216,23 @@ class SurfaceChecker {
   }
 
   /**
+   * Criteria IDs that gobob mode can bypass (SUPER YOLO).
+   * C005 (Destructive Action) is NEVER bypassed for safety.
+   * @type {string[]}
+   */
+  static GOBOB_BYPASS_CRITERIA = ['C001', 'C002', 'C003', 'C004', 'C006', 'C007'];
+
+  /**
    * Check if Bob should surface to ask human
    * @param {SurfaceContext} context - Current execution context
+   * @param {Object} [options] - Additional options
+   * @param {boolean} [options.gobob=false] - SUPER YOLO mode: bypass all criteria except C005
    * @returns {SurfaceResult} Result indicating whether to surface and how
    */
-  shouldSurface(context) {
+  shouldSurface(context, options = {}) {
     this._ensureLoaded();
+
+    const gobob = options.gobob === true;
 
     // Default result - no surface needed
     const noSurface = {
@@ -253,6 +264,12 @@ class SurfaceChecker {
       const conditionMet = this.evaluateCondition(criterion.condition, context);
 
       if (conditionMet) {
+        // Gobob mode: skip criteria that are in the bypass list
+        // C005 (Destructive Action) is NEVER bypassed
+        if (gobob && SurfaceChecker.GOBOB_BYPASS_CRITERIA.includes(criterion.id)) {
+          continue;
+        }
+
         return {
           should_surface: true,
           criterion_id: criterion.id,

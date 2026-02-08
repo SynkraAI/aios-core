@@ -116,6 +116,9 @@ class BobOrchestrator {
       sessionState: this.sessionState,
     });
 
+    // Gobob mode: SUPER YOLO - Bob decides automatically (except destructive actions)
+    this.gobobMode = false;
+
     // Story 12.7: Educational Mode (AC1-2)
     // Educational mode is resolved from: session override > user config > default (false)
     this.educationalMode = this._resolveEducationalMode();
@@ -159,14 +162,14 @@ class BobOrchestrator {
       '@qa': 'Quinn',
       '@architect': 'Aria',
       '@devops': 'Gage',
-      '@pm': 'Morgan',
+      '@pm': 'Bob',
       '@po': 'Pax',
       '@sm': 'River',
       dev: 'Dex',
       qa: 'Quinn',
       architect: 'Aria',
       devops: 'Gage',
-      pm: 'Morgan',
+      pm: 'Bob',
       po: 'Pax',
       sm: 'River',
     };
@@ -403,6 +406,59 @@ class BobOrchestrator {
   }
 
   /**
+   * Enable or disable SUPER YOLO (gobob) mode.
+   *
+   * In gobob mode, Bob decides automatically for most surface criteria
+   * except C005 (Destructive Action) which is NEVER bypassed.
+   *
+   * Requires user_profile === 'bob'. Rejects if user is in advanced mode.
+   *
+   * @param {boolean} enable - Whether to enable gobob mode
+   * @returns {Object} Result with success flag and message
+   */
+  setGobobMode(enable) {
+    // Validate user profile - gobob only works in bob mode
+    try {
+      const configResult = resolveConfig(this.projectRoot, { skipCache: true });
+      const userProfile = configResult?.config?.user_profile || 'advanced';
+
+      if (userProfile !== 'bob') {
+        this._log('setGobobMode rejected: user_profile is not bob');
+        return {
+          success: false,
+          gobobMode: false,
+          message: 'SUPER YOLO mode requer perfil Bob. Use `*toggle-profile` primeiro.',
+        };
+      }
+    } catch {
+      return {
+        success: false,
+        gobobMode: false,
+        message: 'Erro ao verificar perfil do usuário.',
+      };
+    }
+
+    this.gobobMode = Boolean(enable);
+    this._log(`Gobob mode ${this.gobobMode ? 'ENABLED' : 'DISABLED'}`);
+
+    return {
+      success: true,
+      gobobMode: this.gobobMode,
+      message: this.gobobMode
+        ? '🔨🔥 SUPER YOLO MODE ATIVADO! Bob decide tudo automaticamente (exceto ações destrutivas).'
+        : '🔨 SUPER YOLO MODE desativado. Bob volta a perguntar normalmente.',
+    };
+  }
+
+  /**
+   * Check if gobob (SUPER YOLO) mode is active
+   * @returns {boolean} Whether gobob mode is active
+   */
+  isGobobMode() {
+    return this.gobobMode;
+  }
+
+  /**
    * Main entry point — executes the decision tree and routes to workflow
    *
    * @param {Object} [context] - Optional execution context
@@ -477,7 +533,7 @@ class BobOrchestrator {
         const surfaceResult = this.surfaceChecker.shouldSurface({
           valid_options_count: 4,
           options_with_tradeoffs: sessionCheck.summary,
-        });
+        }, { gobob: this.gobobMode });
 
         if (surfaceResult.should_surface) {
           // Story 12.6: Stop panel when returning early (AC7)
@@ -866,7 +922,7 @@ class BobOrchestrator {
         '3. Refactor — Melhorar código existente',
         '4. Tech Debt — Resolver dívida técnica',
       ].join('\n'),
-    });
+    }, { gobob: this.gobobMode });
 
     return {
       action: 'ask_objective',

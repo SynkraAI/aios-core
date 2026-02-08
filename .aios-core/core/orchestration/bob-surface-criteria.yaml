@@ -258,6 +258,20 @@ evaluation_order:
 # METADATA
 # ============================================
 
+# ============================================
+# GOBOB MODE (SUPER YOLO)
+# ============================================
+# When gobob is active, Bob decides automatically
+# for most criteria. C005 (Destructive Action) is
+# NEVER bypassed for safety.
+# ============================================
+
+gobob_mode:
+  description: "SUPER YOLO - Bob decides automatically"
+  bypass_criteria: [C001, C002, C003, C004, C006, C007]
+  never_bypass: [C005]
+  constraint: "user_profile must be 'bob'"
+
 metadata:
   author: "@dev (Dex)"
   story: "11.4"
@@ -269,3 +283,4 @@ metadata:
     - surface-criteria
     - human-decision
     - orchestration
+    - gobob

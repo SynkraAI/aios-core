@@ -400,6 +400,83 @@ describe('SurfaceChecker', () => {
     });
   });
 
+  describe('Gobob Mode (SUPER YOLO)', () => {
+    it('should bypass C001 (Cost) in gobob mode', () => {
+      const result = checker.shouldSurface({ estimated_cost: 10 }, { gobob: true });
+      expect(result.should_surface).toBe(false);
+    });
+
+    it('should bypass C002 (Risk) in gobob mode', () => {
+      const result = checker.shouldSurface({ risk_level: 'HIGH' }, { gobob: true });
+      expect(result.should_surface).toBe(false);
+    });
+
+    it('should bypass C003 (Multiple Options) in gobob mode', () => {
+      const result = checker.shouldSurface({
+        valid_options_count: 3,
+        options_with_tradeoffs: '1. A\n2. B\n3. C',
+      }, { gobob: true });
+      expect(result.should_surface).toBe(false);
+    });
+
+    it('should bypass C004 (Consecutive Errors) in gobob mode', () => {
+      const result = checker.shouldSurface({
+        errors_in_task: 3,
+        error_summary: 'Multiple failures',
+      }, { gobob: true });
+      expect(result.should_surface).toBe(false);
+    });
+
+    it('should bypass C006 (Scope Change) in gobob mode', () => {
+      const result = checker.shouldSurface({
+        scope_expanded: true,
+        approved_scope: 'Fix bug',
+        requested_scope: 'Refactor entire system',
+      }, { gobob: true });
+      expect(result.should_surface).toBe(false);
+    });
+
+    it('should bypass C007 (External Dependency) in gobob mode', () => {
+      const result = checker.shouldSurface({
+        requires_api_key: true,
+        dependency_description: 'OpenAI API',
+      }, { gobob: true });
+      expect(result.should_surface).toBe(false);
+    });
+
+    it('should NEVER bypass C005 (Destructive Action) in gobob mode - SAFETY', () => {
+      const result = checker.shouldSurface({
+        action_type: 'delete_files',
+        action_description: 'Delete all files',
+        affected_files: '50 files',
+      }, { gobob: true });
+      expect(result.should_surface).toBe(true);
+      expect(result.criterion_id).toBe('C005');
+      expect(result.can_bypass).toBe(false);
+    });
+
+    it('should NEVER bypass C005 (force_push) in gobob mode - SAFETY', () => {
+      const result = checker.shouldSurface({
+        action_type: 'force_push',
+        action_description: 'Force push to main',
+      }, { gobob: true });
+      expect(result.should_surface).toBe(true);
+      expect(result.criterion_id).toBe('C005');
+    });
+
+    it('should surface normally when gobob is false', () => {
+      const result = checker.shouldSurface({ estimated_cost: 10 }, { gobob: false });
+      expect(result.should_surface).toBe(true);
+      expect(result.criterion_id).toBe('C001');
+    });
+
+    it('should surface normally when options is empty (default behavior)', () => {
+      const result = checker.shouldSurface({ estimated_cost: 10 });
+      expect(result.should_surface).toBe(true);
+      expect(result.criterion_id).toBe('C001');
+    });
+  });
+
   describe('getActionConfig()', () => {
     it('should return action configuration', () => {
       const config = checker.getActionConfig('confirm_before_proceed');
