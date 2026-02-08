@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-08T18:11:12.151Z"
+generated_at: "2026-02-08T18:53:17.575Z"
 generator: scripts/generate-install-manifest.js
-file_count: 938
+file_count: 942
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -504,6 +504,14 @@ files:
     hash: sha256:f803c2e9823b6526feaec5f875f0fe2ac204a15403dbe41f89fa959c12e016e7
     type: core
     size: 22865
+  - path: core/ids/README.md
+    hash: sha256:5f69c307397bd3065b418844fb532a18a16123f6ef4ae8122ffdc13047a00430
+    type: core
+    size: 4429
+  - path: core/ids/registry-loader.js
+    hash: sha256:7bd6d835bf5c745857d56a79dff799fc3061bc1324e7bb9bb3e73c0ccb70ac3e
+    type: core
+    size: 6845
   - path: core/index.esm.js
     hash: sha256:74ac4edc22f53a6e1ff7fe7d16add65b4e85e198dcdd0f54d3048ba032dc8f9a
     type: core
@@ -840,6 +848,10 @@ files:
     hash: sha256:21138a86582b713c2106973907bbf4a5ce4e3192dadd832122ac9c6294d0efb1
     type: data
     size: 34868
+  - path: data/entity-registry.yaml
+    hash: sha256:487b1c34e747467f77a24c3d4ac906018f5719286658a6a84d33c1dad8a13b68
+    type: data
+    size: 272749
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1088,6 +1100,10 @@ files:
     hash: sha256:6f59e8306afbbdae2795efc02ce21dfe336927526e99b5a40bddf37368a4614d
     type: script
     size: 24167
+  - path: development/scripts/populate-entity-registry.js
+    hash: sha256:40d8126bc375ee49f5d329ecb466d89249b325630c38fac4895b31e8a4ccf2d3
+    type: script
+    size: 8240
   - path: development/scripts/refactoring-suggester.js
     hash: sha256:d5183f79fae9dc4bf4d3c9136b3622e43a63643a7df622742c350931e45f18f4
     type: script
