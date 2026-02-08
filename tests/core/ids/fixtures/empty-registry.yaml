@@ -1,0 +1,15 @@
+metadata:
+  version: "1.0.0"
+  lastUpdated: "2026-02-08T00:00:00Z"
+  entityCount: 0
+  checksumAlgorithm: "sha256"
+
+entities:
+  tasks: {}
+  templates: {}
+  scripts: {}
+
+categories:
+  - id: tasks
+    description: "Executable task workflows"
+    basePath: ".aios-core/development/tasks"
