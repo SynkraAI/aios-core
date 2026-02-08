@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-06T21:19:57.434Z"
+generated_at: "2026-02-08T18:11:12.151Z"
 generator: scripts/generate-install-manifest.js
 file_count: 938
 files:
@@ -1053,9 +1053,9 @@ files:
     type: script
     size: 12335
   - path: development/scripts/greeting-builder.js
-    hash: sha256:dc10c99d081d446504cc70e52605e47dcc64ed4cb663ff540ff0056f575416b1
+    hash: sha256:dd468ffaef74f9955310f0d0028717cbbd15b082577b7471018cb05b032f330f
     type: script
-    size: 48919
+    size: 53736
   - path: development/scripts/greeting-config-cli.js
     hash: sha256:1535acc8d5c802eb3dec7b7348f876a34974fbe4cfa760a9108d5554a72c4cf6
     type: script

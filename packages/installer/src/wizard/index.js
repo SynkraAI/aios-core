@@ -106,6 +106,38 @@ async function getExistingUserProfile(targetDir = process.cwd()) {
 }
 
 /**
+ * Check for existing language in core-config.yaml (Story ACT-9 - Idempotency)
+ * Returns the existing language if found, null otherwise.
+ * Follows the same pattern as getExistingUserProfile() (Story 10.2).
+ *
+ * @param {string} targetDir - Target directory to check
+ * @returns {Promise<string|null>} Existing language or null
+ */
+async function getExistingLanguage(targetDir = process.cwd()) {
+  const coreConfigPath = path.join(targetDir, '.aios-core', 'core-config.yaml');
+
+  try {
+    if (await fse.pathExists(coreConfigPath)) {
+      const content = await fse.readFile(coreConfigPath, 'utf8');
+      const config = yaml.load(content);
+
+      if (config && config.language) {
+        const validLanguages = ['en', 'pt', 'es'];
+        const normalizedLanguage = String(config.language).toLowerCase().trim();
+
+        if (validLanguages.includes(normalizedLanguage)) {
+          return normalizedLanguage;
+        }
+      }
+    }
+  } catch {
+    // Config doesn't exist or is invalid - will ask for language
+  }
+
+  return null;
+}
+
+/**
  * Handle Ctrl+C gracefully
  */
 let cancellationRequested = false;
@@ -182,9 +214,11 @@ async function runWizard(options = {}) {
     if (options.quiet) {
       // Quiet mode: Skip all prompts, use defaults
       // Story 10.2: Check for existing user_profile (idempotency)
+      // Story ACT-9: Check for existing language (idempotency)
       const existingProfile = await getExistingUserProfile();
+      const existingLang = await getExistingLanguage();
       answers = {
-        language: options.language || 'en',
+        language: options.language || existingLang || 'en',
         userProfile: options.userProfile || existingProfile || 'advanced', // Story 10.2
         projectType: options.projectType || 'brownfield', // Default to brownfield for safety
         selectedIDEs: options.ide ? [options.ide] : [],   // Support single IDE flag if added later
@@ -194,7 +228,17 @@ async function runWizard(options = {}) {
     } else {
       // Interactive mode
       // Phase 1: Language selection (must be first to apply i18n)
-      const languageAnswer = await inquirer.prompt([getLanguageQuestion()]);
+      // Story ACT-9: Check idempotency - if language already exists in config, skip question
+      let languageAnswer;
+      const existingLanguage = await getExistingLanguage();
+
+      if (existingLanguage) {
+        // Idempotent: Use existing language, don't re-ask
+        console.log(`\n✓ ${t('languageSkipped') || 'Language already configured'}: ${existingLanguage}\n`);
+        languageAnswer = { language: existingLanguage };
+      } else {
+        languageAnswer = await inquirer.prompt([getLanguageQuestion()]);
+      }
       setLanguage(languageAnswer.language);
 
       // Phase 1.5: User Profile selection (Story 10.2 - Epic 10)
@@ -509,6 +553,7 @@ async function runWizard(options = {}) {
         selectedIDEs: answers.selectedIDEs || [],
         mcpServers: answers.mcpServers || [],
         userProfile: answers.userProfile || 'advanced', // Story 10.2: User Profile
+        language: answers.language || 'en', // Story ACT-9: Language Propagation
         skipPrompts: options.quiet || false, // Skip prompts in quiet mode
         forceMerge: options.forceMerge, // Story 9.4: Smart Merge support
         noMerge: options.noMerge, // Story 9.4: Smart Merge support
