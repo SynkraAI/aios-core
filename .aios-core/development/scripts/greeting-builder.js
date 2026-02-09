@@ -58,40 +58,6 @@ const SECTION_TIMEOUT = 150; // 150ms per section builder (Story ACT-7 AC8)
 
 // Story ACT-2: Validation now delegated to validate-user-profile.js
 const DEFAULT_USER_PROFILE = 'advanced';
-// Story ACT-9: Default language for backward compatibility
-const DEFAULT_LANGUAGE = 'en';
-const VALID_LANGUAGES = ['en', 'pt', 'es'];
-
-// Story ACT-9: Language-specific greeting phrases (greeting adaptation, not full i18n)
-const GREETING_PHRASES = {
-  en: {
-    helpPrompt: 'Type `*help` to see available commands.',
-    helpSessionPrompt: 'Type `*help` for commands or `*session-info` for session details.',
-    guidePrompt: 'Type `*guide` for comprehensive usage instructions.',
-    welcomeBack: 'welcome back',
-    continuing: 'continuing',
-    workflowActive: 'workflow active',
-    ready: 'ready',
-  },
-  pt: {
-    helpPrompt: 'Digite `*help` para ver os comandos disponíveis.',
-    helpSessionPrompt: 'Digite `*help` para comandos ou `*session-info` para detalhes da sessão.',
-    guidePrompt: 'Digite `*guide` para instruções completas de uso.',
-    welcomeBack: 'bem-vindo de volta',
-    continuing: 'continuando',
-    workflowActive: 'workflow ativo',
-    ready: 'pronto',
-  },
-  es: {
-    helpPrompt: 'Escribe `*help` para ver los comandos disponibles.',
-    helpSessionPrompt: 'Escribe `*help` para comandos o `*session-info` para detalles de sesión.',
-    guidePrompt: 'Escribe `*guide` para instrucciones completas de uso.',
-    welcomeBack: 'bienvenido de nuevo',
-    continuing: 'continuando',
-    workflowActive: 'workflow activo',
-    ready: 'listo',
-  },
-};
 
 const GIT_WARNING_TEMPLATE = `
 ⚠️  **Git Configuration Needed**
@@ -158,35 +124,6 @@ class GreetingBuilder {
   }
 
   /**
-   * Load language preference via config-resolver.
-   * Story ACT-9: Reads language from core-config.yaml (set during installation).
-   * Defaults to 'en' when key is missing (backward compatibility).
-   * @param {Object} [resolvedConfig] - Pre-loaded config to avoid duplicate resolveConfig() call
-   * @returns {string} Language code ('en' | 'pt' | 'es')
-   */
-  loadLanguage(resolvedConfig) {
-    try {
-      const config = resolvedConfig || this._loadResolvedConfig();
-      const language = config?.language;
-
-      if (!language) {
-        return DEFAULT_LANGUAGE;
-      }
-
-      const normalized = String(language).toLowerCase().trim();
-      if (VALID_LANGUAGES.includes(normalized)) {
-        return normalized;
-      }
-
-      console.warn(`[GreetingBuilder] Unknown language '${language}', defaulting to '${DEFAULT_LANGUAGE}'`);
-      return DEFAULT_LANGUAGE;
-    } catch (error) {
-      console.warn('[GreetingBuilder] Failed to load language:', error.message);
-      return DEFAULT_LANGUAGE;
-    }
-  }
-
-  /**
    * Build contextual greeting for agent
    * @param {Object} agent - Agent definition
    * @param {Object} context - Session context
@@ -196,13 +133,10 @@ class GreetingBuilder {
     const fallbackGreeting = this.buildSimpleGreeting(agent);
 
     try {
-      // Story ACT-9 QA fix: Single resolveConfig() call shared by both loaders
       // ACT-11: Use pre-loaded config from pipeline context to avoid duplicate resolveConfig()
       const resolvedConfig = context._coreConfig || this._loadResolvedConfig();
       // Story ACT-2: Load user profile early so preference manager can account for it
       const userProfile = this.loadUserProfile(resolvedConfig);
-      // Story ACT-9: Load language preference
-      const language = this.loadLanguage(resolvedConfig);
 
       // Check user preference (Story 6.1.4), now profile-aware (Story ACT-2)
       // Story ACT-2: PM agent bypasses bob mode preference restriction because
@@ -213,14 +147,12 @@ class GreetingBuilder {
 
       if (preference !== 'auto') {
         // Override with fixed level
-        // Story ACT-9: Pass language for localized help text
-        return this.buildFixedLevelGreeting(agent, preference, language);
+        return this.buildFixedLevelGreeting(agent, preference);
       }
 
       // Use session-aware logic (Story 6.1.2.5)
       // Story ACT-2: Pass pre-loaded userProfile to avoid double loadUserProfile() call
-      // Story ACT-9: Pass pre-loaded language to avoid double loadLanguage() call
-      const greetingPromise = this._buildContextualGreeting(agent, context, userProfile, language);
+      const greetingPromise = this._buildContextualGreeting(agent, context, userProfile);
       const timeoutPromise = new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Greeting timeout')), GREETING_TIMEOUT),
       );
@@ -237,15 +169,14 @@ class GreetingBuilder {
    * Story 10.3: Profile-aware greeting with conditional agent visibility
    * Story ACT-2: Accepts pre-loaded userProfile to avoid redundant loadUserProfile() calls
    * Story ACT-7: Context-aware sections with parallelization and enriched context
-   * Story ACT-9: Accepts pre-loaded language for greeting adaptation
+   * Story ACT-12: Language removed — delegated to Claude Code native settings.json
    * @private
    * @param {Object} agent - Agent definition
    * @param {Object} context - Session context (may contain pre-loaded values from pipeline)
    * @param {string} [preloadedUserProfile] - Pre-loaded user profile (avoids double call)
-   * @param {string} [preloadedLanguage] - Pre-loaded language (avoids double call)
    * @returns {Promise<string>} Contextual greeting
    */
-  async _buildContextualGreeting(agent, context, preloadedUserProfile, preloadedLanguage) {
+  async _buildContextualGreeting(agent, context, preloadedUserProfile) {
     // Use pre-loaded values if available, otherwise load
     const sessionType = context.sessionType || (await this._safeDetectSessionType(context));
 
@@ -257,8 +188,6 @@ class GreetingBuilder {
     // Story 10.3 - AC7, AC8: Load user profile fresh each time
     // Story ACT-2: Use pre-loaded value if available to avoid double resolveConfig() call
     const userProfile = preloadedUserProfile || this.loadUserProfile();
-    // Story ACT-9: Use pre-loaded language if available
-    const language = preloadedLanguage || this.loadLanguage();
 
     // Story ACT-7 AC1: Build enriched section context for all builders
     const sectionContext = {
@@ -266,7 +195,6 @@ class GreetingBuilder {
       projectStatus,
       gitConfig,
       userProfile,
-      language,
       previousAgent: context.previousAgent || null,
       sessionStory: context.sessionStory || null,
       lastCommands: context.lastCommands || [],
@@ -366,24 +294,13 @@ class GreetingBuilder {
   }
 
   /**
-   * Get language-specific greeting phrases.
-   * Story ACT-9: Returns phrases for the configured language, falls back to English.
-   * @param {string} [language] - Language code (en|pt|es)
-   * @returns {Object} Phrases object
-   */
-  _getGreetingPhrases(language) {
-    return GREETING_PHRASES[language] || GREETING_PHRASES[DEFAULT_LANGUAGE];
-  }
-
-  /**
    * Build fixed-level greeting (Story 6.1.4)
-   * Story ACT-9: Accepts optional language for localized help text
+   * ACT-12: Language removed — Claude Code handles translation natively via settings.json
    * @param {Object} agent - Agent definition
    * @param {string} level - Preference level (minimal|named|archetypal)
-   * @param {string} [language] - Language code (en|pt|es)
    * @returns {string} Fixed-level greeting
    */
-  buildFixedLevelGreeting(agent, level, language) {
+  buildFixedLevelGreeting(agent, level) {
     const profile = agent.persona_profile;
 
     if (!profile || !profile.greeting_levels) {
@@ -408,24 +325,21 @@ class GreetingBuilder {
         greetingText = profile.greeting_levels.named || `${agent.icon} ${agent.name} ready`;
     }
 
-    const phrases = this._getGreetingPhrases(language);
-    return `${greetingText}\n\n${phrases.helpPrompt}`;
+    return `${greetingText}\n\nType \`*help\` to see available commands.`;
   }
 
   /**
    * Build simple greeting (fallback)
-   * Story ACT-9: Accepts optional language for localized help text
+   * ACT-12: Language removed — Claude Code handles translation natively via settings.json
    * @param {Object} agent - Agent definition
-   * @param {string} [language] - Language code (en|pt|es)
    * @returns {string} Simple greeting
    */
-  buildSimpleGreeting(agent, language) {
+  buildSimpleGreeting(agent) {
     const greetingLevels =
       agent.persona_profile?.communication?.greeting_levels ||
       agent.persona_profile?.greeting_levels;
     const greeting = greetingLevels?.named || `${agent.icon} ${agent.name} ready`;
-    const phrases = this._getGreetingPhrases(language);
-    return `${greeting}\n\n${phrases.helpPrompt}`;
+    return `${greeting}\n\nType \`*help\` to see available commands.`;
   }
 
   /**
@@ -452,25 +366,24 @@ class GreetingBuilder {
     }
 
     // Story ACT-7 AC2: Presentation adapts based on session type
-    // Story ACT-9: Use language-aware phrases
-    const phrases = this._getGreetingPhrases(sectionContext?.language);
+    // ACT-12: Language delegated to Claude Code settings.json — hardcoded English phrases
     let greeting;
 
     if (sessionType === 'existing' && sectionContext) {
       // Existing session: brief welcome back
-      const namedGreeting = greetingLevels.named || `${agent.icon} ${agent.name} ${phrases.ready}`;
+      const namedGreeting = greetingLevels.named || `${agent.icon} ${agent.name} ready`;
       const storyRef = sectionContext.sessionStory || sectionContext.projectStatus?.currentStory;
       if (storyRef) {
-        greeting = `${namedGreeting} -- ${phrases.continuing} ${storyRef}`;
+        greeting = `${namedGreeting} -- continuing ${storyRef}`;
       } else {
-        greeting = `${namedGreeting} -- ${phrases.welcomeBack}`;
+        greeting = `${namedGreeting} -- welcome back`;
       }
     } else if (sessionType === 'workflow' && sectionContext) {
       // Workflow session: focused on current workflow
-      const namedGreeting = greetingLevels.named || `${agent.icon} ${agent.name} ${phrases.ready}`;
+      const namedGreeting = greetingLevels.named || `${agent.icon} ${agent.name} ready`;
       const workflowPhase = sectionContext.workflowState?.currentPhase || sectionContext.workflowActive;
       if (workflowPhase) {
-        greeting = `${namedGreeting} -- ${phrases.workflowActive}`;
+        greeting = `${namedGreeting} -- workflow active`;
       } else {
         greeting = namedGreeting;
       }
@@ -1298,25 +1211,23 @@ Use \`@pm\` (Bob) para todas as interações. Bob vai orquestrar os outros agent
     const parts = [];
 
     // Story ACT-7 AC6: Vary footer content by session context
-    // Story ACT-9: Use language-aware phrases
+    // ACT-12: Language delegated to Claude Code settings.json — hardcoded English phrases
     const sessionType = sectionContext?.sessionType || 'new';
-    const phrases = this._getGreetingPhrases(sectionContext?.language);
 
     if (sessionType === 'workflow') {
       // Workflow: progress note
       const storyRef = sectionContext?.sessionStory || sectionContext?.projectStatus?.currentStory;
       if (storyRef) {
-        parts.push(`Focused on **${storyRef}**. ${phrases.helpPrompt}`);
+        parts.push(`Focused on **${storyRef}**. Type \`*help\` to see available commands.`);
       } else {
-        const capitalizedWorkflow = phrases.workflowActive.charAt(0).toUpperCase() + phrases.workflowActive.slice(1);
-        parts.push(`${capitalizedWorkflow}. ${phrases.helpPrompt}`);
+        parts.push('Workflow active. Type `*help` to see available commands.');
       }
     } else if (sessionType === 'existing') {
       // Existing session: brief tip with session-info reference
-      parts.push(phrases.helpSessionPrompt);
+      parts.push('Type `*help` for commands or `*session-info` for session details.');
     } else {
       // New session: full guide prompt
-      parts.push(phrases.guidePrompt);
+      parts.push('Type `*guide` for comprehensive usage instructions.');
     }
 
     // Add agent signature if available

@@ -8,9 +8,13 @@
  * - Tiered loading: Critical > High > Best-effort (instead of flat Promise.all)
  * - Per-loader profiling via _profileLoader() with context.metrics output
  * - Partial greeting support (between full and fallback)
- * - Language-aware fallback greeting
  * - Configurable timeout budgets via core-config.yaml and env vars
  * - CoreConfig shared with GreetingBuilder to eliminate double read
+ *
+ * Story ACT-12: Native Language Delegation
+ * - Language handling delegated to Claude Code's native `language` setting in settings.json
+ * - Removed language extraction/propagation from pipeline
+ * - FALLBACK_PHRASES simplified to single English FALLBACK_PHRASE constant
  *
  * Architecture (ACT-11 Tiered):
  *   Phase 0: Load CoreConfig (shared, fast)
@@ -89,14 +93,11 @@ const ALL_AGENT_IDS = [
 ];
 
 /**
- * ACT-11: Language-specific fallback phrases for minimal greeting.
- * @type {Object}
+ * ACT-12: Fallback phrase for minimal greeting (English-only safety net).
+ * Language handling is delegated to Claude Code's native `language` setting in settings.json.
+ * @type {string}
  */
-const FALLBACK_PHRASES = {
-  en: 'Type `*help` to see available commands.',
-  pt: 'Digite `*help` para ver os comandos disponíveis.',
-  es: 'Escribe `*help` para ver los comandos disponibles.',
-};
+const FALLBACK_PHRASE = 'Type `*help` to see available commands.';
 
 class UnifiedActivationPipeline {
   constructor(options = {}) {
@@ -141,13 +142,12 @@ class UnifiedActivationPipeline {
     const startTime = Date.now();
 
     try {
-      // ACT-11: Load config early for language + timeout settings
+      // ACT-11: Load config early for timeout settings
       const coreConfig = await this._loadCoreConfig();
-      const language = coreConfig.language || 'en';
       const pipelineTimeout = this._resolvePipelineTimeout(coreConfig);
 
       // Race: full pipeline vs timeout (clear timer to prevent leak)
-      const { promise: timeoutPromise, timerId } = this._timeoutFallback(agentId, pipelineTimeout, language);
+      const { promise: timeoutPromise, timerId } = this._timeoutFallback(agentId, pipelineTimeout);
       const result = await Promise.race([
         this._runPipeline(agentId, options, coreConfig),
         timeoutPromise,
@@ -159,9 +159,7 @@ class UnifiedActivationPipeline {
 
     } catch (error) {
       console.warn(`[UnifiedActivationPipeline] Activation failed for ${agentId}:`, error.message);
-      const coreConfig = await this._loadCoreConfig().catch(() => ({}));
-      const language = coreConfig.language || 'en';
-      const fallbackGreeting = this._generateFallbackGreeting(agentId, language);
+      const fallbackGreeting = this._generateFallbackGreeting(agentId);
       return {
         greeting: fallbackGreeting,
         context: this._getDefaultContext(agentId),
@@ -204,11 +202,10 @@ class UnifiedActivationPipeline {
 
     // If Tier 1 failed, we can still build a minimal greeting but mark as fallback
     const agentDefinition = this._buildAgentDefinition(agentId, agentComplete);
-    const language = coreConfig.language || 'en';
 
     if (!agentComplete) {
-      // Tier 1 failure: return language-aware fallback greeting
-      const greeting = this._generateFallbackGreeting(agentId, language);
+      // Tier 1 failure: return fallback greeting
+      const greeting = this._generateFallbackGreeting(agentId);
       return {
         greeting,
         context: this._getDefaultContext(agentId),
@@ -522,20 +519,19 @@ class UnifiedActivationPipeline {
 
   /**
    * Create a timeout promise that resolves with a fallback greeting.
-   * ACT-11: Now language-aware.
+   * ACT-12: Language delegated to Claude Code native settings.json.
    * @private
    * @param {string} agentId - Agent ID
    * @param {number} timeoutMs - Timeout in milliseconds
-   * @param {string} [language='en'] - Language code for fallback
    * @returns {{promise: Promise, timerId: NodeJS.Timeout}} Promise and timer ID
    */
-  _timeoutFallback(agentId, timeoutMs, language = 'en') {
+  _timeoutFallback(agentId, timeoutMs) {
     let timerId;
     const promise = new Promise((resolve) => {
       timerId = setTimeout(() => {
         console.warn(`[UnifiedActivationPipeline] Pipeline timeout (${timeoutMs}ms) for ${agentId}`);
         resolve({
-          greeting: this._generateFallbackGreeting(agentId, language),
+          greeting: this._generateFallbackGreeting(agentId),
           context: this._getDefaultContext(agentId),
           quality: 'fallback',
           fallback: true,
@@ -548,16 +544,15 @@ class UnifiedActivationPipeline {
 
   /**
    * Generate fallback greeting when pipeline fails.
-   * ACT-11: Now language-aware — respects configured language.
+   * ACT-12: Language delegated to Claude Code native settings.json.
+   * Fallback is English-only safety net — Claude Code translates natively.
    * @private
    * @param {string} agentId - Agent ID
-   * @param {string} [language='en'] - Language code
    * @returns {string} Simple fallback greeting
    */
-  _generateFallbackGreeting(agentId, language = 'en') {
+  _generateFallbackGreeting(agentId) {
     const icon = this._getDefaultIcon(agentId);
-    const helpText = FALLBACK_PHRASES[language] || FALLBACK_PHRASES.en;
-    return `${icon} ${agentId} Agent ready\n\n${helpText}`;
+    return `${icon} ${agentId} Agent ready\n\n${FALLBACK_PHRASE}`;
   }
 
   /**
@@ -651,5 +646,6 @@ module.exports = {
   // ACT-11: Export for testing
   LOADER_TIERS,
   DEFAULT_PIPELINE_TIMEOUT_MS,
-  FALLBACK_PHRASES,
+  // ACT-12: Single English fallback (language delegated to Claude Code settings.json)
+  FALLBACK_PHRASE,
 };

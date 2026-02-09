@@ -13,7 +13,7 @@
  * - Fallback strategy
  * - Backwards compatibility
  * - Story 10.3: User profile-based command filtering
- * - Story ACT-9: Language-aware greetings
+ * - Story ACT-12: Language delegated to Claude Code settings.json
  */
 
 const GreetingBuilder = require('../../.aios-core/development/scripts/greeting-builder');
@@ -627,98 +627,42 @@ describe('GreetingBuilder', () => {
     });
   });
 
-  describe('Language Support (Story ACT-9)', () => {
-    test('loadLanguage should return en by default when key is missing', () => {
-      mockResolveConfig.mockReturnValueOnce({
-        config: { user_profile: 'advanced' },
-        warnings: [],
-        legacy: false,
-      });
-
-      const language = builder.loadLanguage();
-      expect(language).toBe('en');
-    });
-
-    test('loadLanguage should return configured language', () => {
-      mockResolveConfig.mockReturnValueOnce({
-        config: { user_profile: 'advanced', language: 'pt' },
-        warnings: [],
-        legacy: false,
-      });
-
-      const language = builder.loadLanguage();
-      expect(language).toBe('pt');
-    });
-
-    test('loadLanguage should return en for unknown language code', () => {
-      mockResolveConfig.mockReturnValueOnce({
-        config: { user_profile: 'advanced', language: 'xx' },
-        warnings: [],
-        legacy: false,
-      });
-
-      const language = builder.loadLanguage();
-      expect(language).toBe('en');
-    });
-
-    test('loadLanguage should handle config error gracefully', () => {
-      mockResolveConfig.mockImplementationOnce(() => {
-        throw new Error('Config not found');
-      });
-
-      const language = builder.loadLanguage();
-      expect(language).toBe('en');
-    });
-
-    test('buildSimpleGreeting should use Portuguese help prompt when language is pt', () => {
-      const greeting = builder.buildSimpleGreeting(mockAgent, 'pt');
-      expect(greeting).toContain('Digite `*help`');
-    });
-
-    test('buildSimpleGreeting should use English help prompt when language is en', () => {
-      const greeting = builder.buildSimpleGreeting(mockAgent, 'en');
+  describe('ACT-12: Language delegated to Claude Code settings.json', () => {
+    test('buildSimpleGreeting uses English help prompt (language handled natively by Claude Code)', () => {
+      const greeting = builder.buildSimpleGreeting(mockAgent);
       expect(greeting).toContain('Type `*help`');
     });
 
-    test('buildSimpleGreeting should use Spanish help prompt when language is es', () => {
-      const greeting = builder.buildSimpleGreeting(mockAgent, 'es');
-      expect(greeting).toContain('Escribe `*help`');
+    test('buildFixedLevelGreeting uses English help text', () => {
+      const greeting = builder.buildFixedLevelGreeting(mockAgent, 'named');
+      expect(greeting).toContain('Type `*help`');
     });
 
-    test('buildFixedLevelGreeting should use language-aware help text', () => {
-      const greeting = builder.buildFixedLevelGreeting(mockAgent, 'named', 'pt');
-      expect(greeting).toContain('Digite `*help`');
-      expect(greeting).not.toContain('Type `*help`');
-    });
-
-    test('buildPresentation should use language-aware welcome back', () => {
+    test('buildPresentation uses English welcome back', () => {
       const sectionContext = {
         sessionType: 'existing',
-        language: 'pt',
       };
 
       const presentation = builder.buildPresentation(mockAgent, 'existing', '', sectionContext);
-      expect(presentation).toContain('bem-vindo de volta');
+      expect(presentation).toContain('welcome back');
     });
 
-    test('buildFooter should use language-aware guide prompt for new sessions', () => {
+    test('buildFooter uses English guide prompt for new sessions', () => {
       const sectionContext = {
         sessionType: 'new',
-        language: 'pt',
       };
 
       const footer = builder.buildFooter(mockAgent, sectionContext);
-      expect(footer).toContain('Digite `*guide`');
+      expect(footer).toContain('Type `*guide`');
     });
 
-    test('buildFooter should use language-aware help prompt for existing sessions', () => {
+    test('buildFooter uses English help prompt for existing sessions', () => {
       const sectionContext = {
         sessionType: 'existing',
-        language: 'es',
       };
 
       const footer = builder.buildFooter(mockAgent, sectionContext);
-      expect(footer).toContain('Escribe `*help`');
+      expect(footer).toContain('Type `*help`');
       expect(footer).toContain('*session-info');
     });
   });

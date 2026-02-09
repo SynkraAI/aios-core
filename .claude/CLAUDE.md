@@ -25,6 +25,19 @@ O AIOS possui uma **Constitution formal** com princípios inegociáveis e gates 
 
 ---
 
+## Language Configuration
+
+Language preference is handled by Claude Code's native `language` setting (v2.1.0+).
+Configure in `~/.claude/settings.json` (global) or `.claude/settings.json` (project):
+
+```json
+{ "language": "portuguese" }
+```
+
+The installer writes this automatically during `npx aios-core install`. No language config in `core-config.yaml`.
+
+---
+
 ## Premissa Arquitetural: CLI First
 
 O Synkra AIOS segue uma hierarquia clara de prioridades que deve guiar **TODAS** as decisões:

@@ -225,7 +225,7 @@ jest.mock('../../.aios-core/infrastructure/scripts/performance-tracker', () => (
 }));
 
 // --- Require modules AFTER mocks ---
-const { UnifiedActivationPipeline, ALL_AGENT_IDS, LOADER_TIERS, DEFAULT_PIPELINE_TIMEOUT_MS, FALLBACK_PHRASES } = require('../../.aios-core/development/scripts/unified-activation-pipeline');
+const { UnifiedActivationPipeline, ALL_AGENT_IDS, LOADER_TIERS, DEFAULT_PIPELINE_TIMEOUT_MS, FALLBACK_PHRASE } = require('../../.aios-core/development/scripts/unified-activation-pipeline');
 const { AgentConfigLoader } = require('../../.aios-core/development/scripts/agent-config-loader');
 const SessionContextLoader = require('../../.aios-core/core/session/context-loader');
 const { loadProjectStatus } = require('../../.aios-core/infrastructure/scripts/project-status-loader');
@@ -994,38 +994,20 @@ describe('UnifiedActivationPipeline', () => {
   });
 
   // -----------------------------------------------------------
-  // 22. Language-Aware Fallback (AC: 8)
+  // 22. Fallback Phrase (ACT-12: Language delegated to Claude Code settings.json)
   // -----------------------------------------------------------
-  describe('ACT-11: language-aware fallback', () => {
-    it('should export FALLBACK_PHRASES', () => {
-      expect(FALLBACK_PHRASES).toBeDefined();
-      expect(FALLBACK_PHRASES.en).toBeDefined();
-      expect(FALLBACK_PHRASES.pt).toBeDefined();
-      expect(FALLBACK_PHRASES.es).toBeDefined();
+  describe('ACT-12: fallback phrase', () => {
+    it('should export FALLBACK_PHRASE as a string', () => {
+      expect(FALLBACK_PHRASE).toBeDefined();
+      expect(typeof FALLBACK_PHRASE).toBe('string');
+      expect(FALLBACK_PHRASE).toContain('*help');
     });
 
-    it('should generate English fallback by default', () => {
+    it('should generate English fallback greeting', () => {
       const greeting = pipeline._generateFallbackGreeting('dev');
-      expect(greeting).toContain('*help');
-      expect(greeting).toContain('dev');
-    });
-
-    it('should generate Portuguese fallback when language is pt', () => {
-      const greeting = pipeline._generateFallbackGreeting('dev', 'pt');
-      expect(greeting).toContain('Digite');
-      expect(greeting).toContain('*help');
-    });
-
-    it('should generate Spanish fallback when language is es', () => {
-      const greeting = pipeline._generateFallbackGreeting('dev', 'es');
-      expect(greeting).toContain('Escribe');
-      expect(greeting).toContain('*help');
-    });
-
-    it('should fall back to English for unknown language', () => {
-      const greeting = pipeline._generateFallbackGreeting('dev', 'fr');
       expect(greeting).toContain('Type');
       expect(greeting).toContain('*help');
+      expect(greeting).toContain('dev');
     });
   });
 

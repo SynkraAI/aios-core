@@ -1,79 +1,53 @@
 /**
  * Unit Tests for core-config-template
  *
- * Story ACT-9: Language Selection Propagation
+ * Story ACT-12: Language removed from core-config (delegated to Claude Code settings.json)
  *
  * Test Coverage:
- * - generateCoreConfig includes language field
- * - Default language is 'en'
- * - Custom language (pt, es) is preserved
- * - YAML output parses correctly with language
+ * - generateCoreConfig no longer includes language field
+ * - Config still includes user_profile and other fields
+ * - YAML output parses correctly without language
  */
 
 const yaml = require('js-yaml');
 const { generateCoreConfig } = require('../../packages/installer/src/config/templates/core-config-template');
 
 describe('core-config-template', () => {
-  describe('generateCoreConfig - language support (Story ACT-9)', () => {
-    test('should include language field in generated config', () => {
-      const output = generateCoreConfig({ language: 'pt' });
-      const parsed = yaml.load(output);
-
-      expect(parsed).toHaveProperty('language');
-      expect(parsed.language).toBe('pt');
-    });
-
-    test('should default language to en when not provided', () => {
+  describe('ACT-12: language removed from core-config', () => {
+    test('should NOT include language field in generated config', () => {
       const output = generateCoreConfig();
       const parsed = yaml.load(output);
 
-      expect(parsed.language).toBe('en');
+      expect(parsed).not.toHaveProperty('language');
     });
 
-    test('should accept es language', () => {
-      const output = generateCoreConfig({ language: 'es' });
-      const parsed = yaml.load(output);
-
-      expect(parsed.language).toBe('es');
-    });
-
-    test('should place language near user_profile in config', () => {
-      const output = generateCoreConfig({ language: 'pt', userProfile: 'advanced' });
-      const lines = output.split('\n');
-
-      const userProfileLine = lines.findIndex(l => l.includes('user_profile:'));
-      const languageLine = lines.findIndex(l => l.match(/^language:/));
-
-      expect(userProfileLine).toBeGreaterThan(-1);
-      expect(languageLine).toBeGreaterThan(-1);
-      // language should be near user_profile (within 5 lines)
-      expect(Math.abs(languageLine - userProfileLine)).toBeLessThan(5);
-    });
-
-    test('should generate valid YAML with language field', () => {
+    test('should ignore language option if passed (backward compat)', () => {
       const output = generateCoreConfig({ language: 'pt' });
-
-      // Should not throw
       const parsed = yaml.load(output);
 
-      expect(parsed).toBeDefined();
-      expect(typeof parsed).toBe('object');
-      expect(parsed.language).toBe('pt');
-      expect(parsed.user_profile).toBeDefined();
-      expect(parsed.project).toBeDefined();
+      // language param is no longer destructured, so it's just ignored
+      expect(parsed).not.toHaveProperty('language');
     });
 
-    test('should preserve language alongside other config options', () => {
+    test('should still include user_profile', () => {
+      const output = generateCoreConfig({ userProfile: 'bob' });
+      const parsed = yaml.load(output);
+
+      expect(parsed.user_profile).toBe('bob');
+    });
+
+    test('should generate valid YAML without language', () => {
       const output = generateCoreConfig({
         projectType: 'BROWNFIELD',
         selectedIDEs: ['vscode', 'cursor'],
         userProfile: 'bob',
-        language: 'es',
         aiosVersion: '3.0.0',
       });
       const parsed = yaml.load(output);
 
-      expect(parsed.language).toBe('es');
+      expect(parsed).toBeDefined();
+      expect(typeof parsed).toBe('object');
+      expect(parsed).not.toHaveProperty('language');
       expect(parsed.user_profile).toBe('bob');
       expect(parsed.project.type).toBe('BROWNFIELD');
       expect(parsed.ide.selected).toContain('vscode');

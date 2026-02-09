@@ -18,7 +18,6 @@ const yaml = require('js-yaml');
  * @param {Array<Object>} [options.mcpServers] - MCP server configurations from Story 1.5
  * @param {string} [options.aiosVersion] - AIOS version (default: 2.1.0)
  * @param {string} [options.userProfile] - User profile from Story 10.2 (bob|advanced)
- * @param {string} [options.language] - User language from Story ACT-9 (en|pt|es)
  * @returns {string} core-config.yaml content
  */
 function generateCoreConfig(options = {}) {
@@ -28,7 +27,6 @@ function generateCoreConfig(options = {}) {
     mcpServers = [],
     aiosVersion = '2.1.0',
     userProfile = 'advanced', // Default for backward compatibility (Story 10.2)
-    language = 'en', // Default for backward compatibility (Story ACT-9). Valid values: en | pt | es
   } = options;
 
   const config = {
@@ -48,10 +46,8 @@ function generateCoreConfig(options = {}) {
     // Options: bob (simplified) | advanced (full access)
     user_profile: userProfile,
 
-    // Language Configuration (Story ACT-9 - Epic ACT: Activation Pipeline)
-    // Selected during installation, affects agent greetings and communication
-    // Valid values: en | pt | es
-    language: language,
+    // Language: Delegated to Claude Code native settings.json (Story ACT-12)
+    // See: ~/.claude/settings.json → { "language": "portuguese" }
 
     // IDE Configuration (from Story 1.4)
     ide: {

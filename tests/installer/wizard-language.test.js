@@ -1,13 +1,11 @@
 /**
- * Tests for wizard language idempotency and propagation
+ * Tests for wizard language delegation to Claude Code settings.json
  *
- * Story ACT-9: Language Selection Propagation
+ * Story ACT-12: Native Language Delegation
  *
  * Test Coverage:
- * - getExistingLanguage reads language from core-config.yaml
- * - getExistingLanguage returns null when key is missing (backward compat)
- * - getExistingLanguage validates language value
- * - configureEnvironment passes language to generateCoreConfig
+ * - configureEnvironment no longer writes language to core-config.yaml
+ * - core-config.yaml generated without language field
  */
 
 const path = require('path');
@@ -15,11 +13,9 @@ const fse = require('fs-extra');
 const os = require('os');
 const yaml = require('js-yaml');
 
-// We need to import the wizard module to test getExistingLanguage
-// Since it's not exported, we'll test the behavior through configureEnvironment
 const { configureEnvironment } = require('../../packages/installer/src/config/configure-environment');
 
-describe('Language propagation through configureEnvironment (Story ACT-9)', () => {
+describe('ACT-12: Language delegated to Claude Code settings.json', () => {
   let tempDir;
 
   beforeEach(async () => {
@@ -32,23 +28,7 @@ describe('Language propagation through configureEnvironment (Story ACT-9)', () =
     await fse.remove(tempDir);
   });
 
-  test('should include language in generated core-config.yaml', async () => {
-    const result = await configureEnvironment({
-      targetDir: tempDir,
-      language: 'pt',
-      skipPrompts: true,
-    });
-
-    expect(result.coreConfigCreated).toBe(true);
-
-    const configPath = path.join(tempDir, '.aios-core', 'core-config.yaml');
-    const content = await fse.readFile(configPath, 'utf8');
-    const config = yaml.load(content);
-
-    expect(config.language).toBe('pt');
-  });
-
-  test('should default language to en when not provided', async () => {
+  test('should NOT include language in generated core-config.yaml', async () => {
     const result = await configureEnvironment({
       targetDir: tempDir,
       skipPrompts: true,
@@ -60,13 +40,12 @@ describe('Language propagation through configureEnvironment (Story ACT-9)', () =
     const content = await fse.readFile(configPath, 'utf8');
     const config = yaml.load(content);
 
-    expect(config.language).toBe('en');
+    expect(config).not.toHaveProperty('language');
   });
 
-  test('should preserve language alongside user_profile', async () => {
+  test('should still include user_profile in core-config.yaml', async () => {
     const result = await configureEnvironment({
       targetDir: tempDir,
-      language: 'es',
       userProfile: 'bob',
       skipPrompts: true,
     });
@@ -77,7 +56,7 @@ describe('Language propagation through configureEnvironment (Story ACT-9)', () =
     const content = await fse.readFile(configPath, 'utf8');
     const config = yaml.load(content);
 
-    expect(config.language).toBe('es');
     expect(config.user_profile).toBe('bob');
+    expect(config).not.toHaveProperty('language');
   });
 });
