@@ -274,6 +274,7 @@ module.exports = {
   computeChecksum,
   resolveUsedBy,
   SCAN_CONFIG,
+  ADAPTABILITY_DEFAULTS,
   REPO_ROOT,
   REGISTRY_PATH
 };

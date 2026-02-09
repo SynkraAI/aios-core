@@ -5,3 +5,7 @@
 # Uses Node.js for cross-platform compatibility.
 
 node .aios-core/infrastructure/scripts/git-hooks/post-commit.js 2>/dev/null || true
+
+# IDS Registry Auto-Update (Story IDS-3)
+# Updates entity registry with committed file changes (async, non-blocking).
+node .aios-core/hooks/ids-post-commit.js 2>/dev/null || true
