@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hotmart-downloader"
+version = "1.0.0"
+description = "Download Hotmart courses with ease"
+requires-python = ">=3.10"
+license = "MIT"
+
+dependencies = [
+    "requests>=2.31",
+    "m3u8>=4.0",
+    "beautifulsoup4>=4.12",
+    "yt-dlp>=2024.1",
+    "rich>=13.0",
+    "typer[all]>=0.12",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.4",
+    "mypy>=1.10",
+    "types-requests>=2.31",
+    "types-beautifulsoup4>=4.12",
+]
+
+[project.scripts]
+hotmart-dl = "hotmart_downloader.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hotmart_downloader"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
