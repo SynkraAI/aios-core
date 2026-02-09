@@ -1,10 +1,17 @@
 # Task: QA After Creation
 
 **Task ID:** qa-after-creation
-**Version:** 1.0.0
+**Version:** 1.1.0
 **Purpose:** Automatic quality assurance check after squad/component creation
 **Orchestrator:** @squad-architect
 **Mode:** Automatic (triggered by creation tasks)
+
+**Process Specialist:** @pedro-valerio
+**Specialist Guidance:**
+- Use Process Absolutism principles for validation
+- Define VETO conditions that BLOCK, not just warn
+- For workflow/process validation, invoke: `@pedro-valerio *audit`
+- For designing quality gates, invoke: `@pedro-valerio *design-heuristic`
 
 **Core Philosophy:**
 ```
@@ -37,7 +44,7 @@ inputs:
     type: string
     required: true
     description: "Path to created component"
-    example: "squads/{your-squad}/"
+    example: "squads/my-squad/"
 
   component_type:
     type: enum
@@ -418,13 +425,13 @@ Output: "✅ Squad 'my-new-squad' created and validated (Score: 7.8/10)"
 
 # Manual trigger
 @squad-architect
-*qa-after-creation squads/{your-squad}/ --type=squad
+*qa-after-creation squads/my-squad/ --type=squad
 
 # Check specific component
-*qa-after-creation squads/{your-squad}/agents/my-agent.md --type=agent
+*qa-after-creation squads/my-squad/agents/my-agent.md --type=agent
 
 # With auto-fix attempt
-*qa-after-creation squads/{your-squad}/ --type=squad --auto-fix
+*qa-after-creation squads/my-squad/ --type=squad --auto-fix
 ```
 
 ---

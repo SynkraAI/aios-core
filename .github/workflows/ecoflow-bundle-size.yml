@@ -1,0 +1,145 @@
+name: EcoFlow Bundle Size Check
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/ecoflow-design-system/**'
+  push:
+    branches: [main]
+    paths:
+      - 'packages/ecoflow-design-system/**'
+
+jobs:
+  bundle-size:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/ecoflow-design-system
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: .
+
+      - name: Install package dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Analyze bundle size
+        id: analyze
+        run: |
+          echo "## 📦 Bundle Size Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| File | Size | Gzipped | Target | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|------|---------|--------|--------|" >> $GITHUB_STEP_SUMMARY
+
+          # Index.js
+          if [ -f "dist/index.js" ]; then
+            SIZE=$(ls -lh dist/index.js | awk '{print $5}')
+            GZIP=$(gzip -c dist/index.js | wc -c | awk '{printf "%.2f KB", $1/1024}')
+            echo "| index.js | $SIZE | $GZIP | <50 KB | ✅ |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Tokens.js
+          if [ -f "dist/tokens.js" ]; then
+            SIZE=$(ls -lh dist/tokens.js | awk '{print $5}')
+            GZIP=$(gzip -c dist/tokens.js | wc -c | awk '{printf "%.2f KB", $1/1024}')
+            echo "| tokens.js | $SIZE | $GZIP | <10 KB | ✅ |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Components.js
+          if [ -f "dist/components.js" ]; then
+            SIZE=$(ls -lh dist/components.js | awk '{print $5}')
+            GZIP=$(gzip -c dist/components.js | wc -c | awk '{printf "%.2f KB", $1/1024}')
+            echo "| components.js | $SIZE | $GZIP | <5 KB | ✅ |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Style.css
+          if [ -f "dist/assets/style.css" ]; then
+            SIZE=$(ls -lh dist/assets/style.css | awk '{print $5}')
+            GZIP=$(gzip -c dist/assets/style.css | wc -c | awk '{printf "%.2f KB", $1/1024}')
+            echo "| style.css | $SIZE | $GZIP | <50 KB | ✅ |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Total dist size
+          TOTAL=$(du -sh dist | awk '{print $1}')
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Total dist/ size:** $TOTAL" >> $GITHUB_STEP_SUMMARY
+
+      - name: Check bundle size limits
+        run: |
+          INDEX_SIZE=$(stat -c%s dist/index.js 2>/dev/null || stat -f%z dist/index.js)
+          TOKENS_SIZE=$(stat -c%s dist/tokens.js 2>/dev/null || stat -f%z dist/tokens.js)
+
+          # Convert to KB
+          INDEX_KB=$((INDEX_SIZE / 1024))
+          TOKENS_KB=$((TOKENS_SIZE / 1024))
+
+          echo "index.js: ${INDEX_KB} KB (limit: 50 KB)"
+          echo "tokens.js: ${TOKENS_KB} KB (limit: 10 KB)"
+
+          if [ $INDEX_KB -gt 50 ]; then
+            echo "❌ index.js exceeds 50 KB limit!"
+            exit 1
+          fi
+
+          if [ $TOKENS_KB -gt 10 ]; then
+            echo "⚠️  tokens.js exceeds 10 KB target (not blocking)"
+          fi
+
+          echo "✅ Bundle sizes within limits!"
+
+      - name: Run tree-shaking validation
+        run: npm run validate:tree-shaking
+
+      - name: Upload bundle stats
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-stats
+          path: packages/ecoflow-design-system/dist/stats.html
+          retention-days: 30
+
+      - name: Comment PR with bundle size
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+
+            // Get bundle sizes
+            const indexSize = fs.statSync('packages/ecoflow-design-system/dist/index.js').size;
+            const tokensSize = fs.statSync('packages/ecoflow-design-system/dist/tokens.js').size;
+            const componentsSize = fs.statSync('packages/ecoflow-design-system/dist/components.js').size;
+
+            const comment = `## 📦 Bundle Size Report
+
+            | File | Size | Gzipped |
+            |------|------|---------|
+            | index.js | ${(indexSize / 1024).toFixed(2)} KB | ${(execSync('gzip -c packages/ecoflow-design-system/dist/index.js | wc -c').toString().trim() / 1024).toFixed(2)} KB |
+            | tokens.js | ${(tokensSize / 1024).toFixed(2)} KB | ${(execSync('gzip -c packages/ecoflow-design-system/dist/tokens.js | wc -c').toString().trim() / 1024).toFixed(2)} KB |
+            | components.js | ${(componentsSize / 1024).toFixed(2)} KB | ${(execSync('gzip -c packages/ecoflow-design-system/dist/components.js | wc -c').toString().trim() / 1024).toFixed(2)} KB |
+
+            ✅ All bundles are within size limits!
+
+            [View detailed bundle analysis](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

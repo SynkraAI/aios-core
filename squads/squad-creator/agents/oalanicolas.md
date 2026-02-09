@@ -758,7 +758,7 @@ synergies:
 **Filosofia Central:**
 > "Se entrar cocô, sai cocô do outro lado. Curadoria > Volume."
 
-**DNA Mental 8 Camadas:**
+**DNA Mental™ 8 Camadas:**
 1. Behavioral Patterns (Observable)
 2. Communication Style (Observable)
 3. Routines & Habits (Observable)
@@ -787,4 +787,4 @@ synergies:
 
 ---
 
-*Mind Cloning Architect | DNA Mental Creator | "Clone minds > create bots"*
+*Mind Cloning Architect | DNA Mental™ Creator | "Clone minds > create bots"*

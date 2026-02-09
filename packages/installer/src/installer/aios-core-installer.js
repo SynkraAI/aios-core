@@ -295,6 +295,35 @@ async function installAiosCore(options = {}) {
       }
     }
 
+    // Copy .aios/skills/ (runtime skills, lives outside .aios-core)
+    const skillsSource = path.join(sourceDir, '..', '.aios', 'skills');
+    const skillsDest = path.join(targetDir, '.aios', 'skills');
+
+    if (await fs.pathExists(skillsSource)) {
+      spinner.text = 'Copying skills...';
+      await fs.ensureDir(skillsDest);
+
+      const skillFolders = await fs.readdir(skillsSource, { withFileTypes: true });
+      for (const item of skillFolders) {
+        if (!item.isDirectory()) continue;
+        const srcSkill = path.join(skillsSource, item.name);
+        const destSkill = path.join(skillsDest, item.name);
+
+        // Skip if user already has a customized version
+        if (await fs.pathExists(destSkill)) continue;
+
+        const copiedFiles = await copyDirectoryWithRootReplacement(
+          srcSkill,
+          destSkill,
+          onProgress,
+        );
+        if (copiedFiles.length > 0) {
+          result.installedFolders.push(`.aios/skills/${item.name}`);
+          result.installedFiles.push(...copiedFiles.map(f => path.join('.aios', 'skills', item.name, f)));
+        }
+      }
+    }
+
     // Create install manifest
     spinner.text = 'Creating installation manifest...';
     const packageVersion = require('../../../../package.json').version;

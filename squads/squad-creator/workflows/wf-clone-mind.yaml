@@ -1,8 +1,8 @@
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 # WORKFLOW: Clone Mind for Agent Creation
 # Version: 2.0.0
 # Purpose: Orchestrate complete mind cloning (Voice + Thinking DNA)
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 
 workflow-id: wf-clone-mind
 name: Clone Mind (Complete DNA Extraction)
@@ -11,12 +11,12 @@ estimated-time: 2-3 hours
 complexity: medium
 
 description: |
-  Executa extracao completa do DNA de um expert para criacao de agentes.
-  Combina Voice DNA (comunicacao/escrita) + Thinking DNA (frameworks/decisoes).
+  Executa extração completa do DNA de um expert para criação de agentes.
+  Combina Voice DNA (comunicação/escrita) + Thinking DNA (frameworks/decisões).
 
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 # SPECIALIST AGENTS
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 
 specialists:
   primary:
@@ -24,9 +24,9 @@ specialists:
     role: "Mind Cloning Architect"
     responsibilities:
       - "Curadoria de fontes (ouro vs bronze)"
-      - "Extracao de Voice DNA + Thinking DNA"
-      - "Validacao de fidelidade (85-97%)"
-      - "Diagnostico de clone fraco"
+      - "Extração de Voice DNA + Thinking DNA"
+      - "Validação de fidelidade (85-97%)"
+      - "Diagnóstico de clone fraco"
     invoke_for:
       - "Phase 0b: Source classification"
       - "Phase 1: Voice DNA extraction"
@@ -45,29 +45,29 @@ specialists:
       - "Quality gate validation"
       - "Checkpoint design review"
 
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 # INPUTS
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 
 inputs:
   required:
     - mind_name: "Nome do expert a clonar"
-    - domain: "Area de expertise"
+    - domain: "Área de expertise"
   optional:
-    - sources_path: "Caminho para fontes ja coletadas"
+    - sources_path: "Caminho para fontes já coletadas"
     - focus: "voice|thinking|both (default: both)"
     - auto_acquire: "true|false (default: true) - buscar fontes automaticamente"
     - mode: "greenfield|brownfield (default: greenfield)"
 
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 # PHASES
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 
 phases:
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   # PHASE -1: BROWNFIELD CHECK (if mode == brownfield)
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   - phase: -1
     name: Brownfield Check
     duration: 5 min
@@ -75,7 +75,7 @@ phases:
 
     steps:
       - step: 1
-        action: "Verificar se mind ja existe"
+        action: "Verificar se mind já existe"
         check: "outputs/minds/{mind_slug}/mind_dna_complete.yaml exists?"
 
       - step: 2
@@ -89,9 +89,9 @@ phases:
     output:
       decision: "greenfield|brownfield"
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   # PHASE 0A: AUTO SOURCE ACQUISITION (if auto_acquire == true)
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   - phase: 0a
     name: Automated Source Acquisition
     duration: 15-30 min
@@ -99,7 +99,7 @@ phases:
     skip_if: "auto_acquire == false"
 
     purpose: |
-      Buscar automaticamente fontes na web antes de pedir materiais ao usuario.
+      Buscar automaticamente fontes na web antes de pedir materiais ao usuário.
       YouTube transcripts, book summaries, podcasts, artigos.
 
     output:
@@ -107,14 +107,14 @@ phases:
       location: "outputs/minds/{mind_slug}/"
       merge_with: "collect-sources.md results"
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   # PHASE 0B: SOURCE COLLECTION & VALIDATION (BLOCKING GATE)
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   - phase: 0b
     name: Source Collection & Validation
     duration: 30-60 min
     task: collect-sources.md
-    blocking: true  # NAO prosseguir sem passar
+    blocking: true  # NÃO prosseguir sem passar
 
     purpose: |
       "Single source = hypothesis; three sources = pattern"
@@ -127,7 +127,7 @@ phases:
         example: "gary_halbert, dan_kennedy"
 
       - step: 2
-        action: "Discovery - Pesquisa sistematica de fontes"
+        action: "Discovery - Pesquisa sistemática de fontes"
         task: "collect-sources.md FASE 1"
         queries:
           - '"{mind_name}" books'
@@ -136,19 +136,19 @@ phases:
           - '"{mind_name}" framework methodology'
 
       - step: 3
-        action: "Classificacao por Tier"
+        action: "Classificação por Tier"
         task: "collect-sources.md FASE 2"
         specialist: "@oalanicolas"
-        specialist_role: "Classificar fontes em OURO vs BRONZE usando heuristicas de curadoria"
+        specialist_role: "Classificar fontes em OURO vs BRONZE usando heurísticas de curadoria"
         output: "sources_by_tier.yaml"
 
       - step: 4
-        action: "Validacao de Cobertura"
+        action: "Validação de Cobertura"
         task: "collect-sources.md FASE 3-4"
         checks:
-          - "Minimos atingidos?"
-          - "Triangulacao possivel?"
-          - "Gaps criticos?"
+          - "Mínimos atingidos?"
+          - "Triangulação possível?"
+          - "Gaps críticos?"
 
       - step: 5
         action: "GO/NO-GO Decision"
@@ -159,32 +159,32 @@ phases:
       gate: "SOURCE_QUALITY"
       blocking: true
       criteria:
-        # BLOCKING (todos obrigatorios)
+        # BLOCKING (todos obrigatórios)
         - "10+ fontes totais"
-        - "5+ fontes Tier 1 (primarias)"
+        - "5+ fontes Tier 1 (primárias)"
         - "3+ tipos diferentes de fonte"
-        - "5+ horas OU 200+ paginas de conteudo"
+        - "5+ horas OU 200+ páginas de conteúdo"
         - "Framework principal triangulado (3+ fontes)"
 
       decision_matrix:
-        GO: "5/5 blocking checks passam -> prosseguir"
-        CONDITIONAL: "4/5 blocking + plano de aquisicao -> prosseguir com flag"
-        NO_GO: "<4/5 blocking -> PARAR, pesquisar mais"
+        GO: "5/5 blocking checks passam → prosseguir"
+        CONDITIONAL: "4/5 blocking + plano de aquisição → prosseguir com flag"
+        NO_GO: "<4/5 blocking → PARAR, pesquisar mais"
 
       action_if_fail: |
-        X NO-GO: Nao prosseguir para extracao.
-        -> Executar plano de aquisicao de fontes
-        -> Re-executar collect-sources.md
-        -> So prosseguir quando atingir GO ou CONDITIONAL
+        ❌ NO-GO: Não prosseguir para extração.
+        → Executar plano de aquisição de fontes
+        → Re-executar collect-sources.md
+        → Só prosseguir quando atingir GO ou CONDITIONAL
 
     output:
       file: "sources_inventory.yaml"
       location: "outputs/minds/{mind_slug}/"
       required_for: ["Phase 1", "Phase 2"]
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   # PHASE 1: VOICE DNA EXTRACTION
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   - phase: 1
     name: Voice DNA Extraction
     duration: 1.5-2 hours
@@ -197,13 +197,13 @@ phases:
       anti-patterns, immune_system, contradictions.
 
     focus_areas:
-      - Vocabulario (power words, frases assinatura)
-      - Historias & anedotas recorrentes
+      - Vocabulário (power words, frases assinatura)
+      - Histórias & anedotas recorrentes
       - Estilo de escrita
-      - Tom & dimensoes de voz
-      - Anti-patterns de comunicacao (o que NUNCA dizem)
-      - Immune system (rejeicoes automaticas)
-      - Contradicoes de voz (paradoxos autenticos)
+      - Tom & dimensões de voz
+      - Anti-patterns de comunicação (o que NUNCA dizem)
+      - Immune system (rejeições automáticas)
+      - Contradições de voz (paradoxos autênticos)
 
     output:
       file: "voice_dna.yaml"
@@ -214,16 +214,16 @@ phases:
       criteria:
         - "10+ power words"
         - "5+ frases assinatura"
-        - "3+ historias/anedotas"
-        - "Dimensoes de voz preenchidas"
-        - "3+ anti-patterns de comunicacao"
-        - "2+ rejeicoes automaticas"
+        - "3+ histórias/anedotas"
+        - "Dimensões de voz preenchidas"
+        - "3+ anti-patterns de comunicação"
+        - "2+ rejeições automáticas"
         - "1+ paradoxo documentado"
       score_minimum: 8/10
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   # PHASE 2: THINKING DNA EXTRACTION
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   - phase: 2
     name: Thinking DNA Extraction
     duration: 1.5-2 hours
@@ -231,14 +231,14 @@ phases:
     skip_if: "focus == 'voice'"
     specialist: "@oalanicolas"
     specialist_guidance: |
-      Extract decision frameworks (SE/ENTAO), heuristics, veto conditions.
+      Extract decision frameworks (SE/ENTÃO), heuristics, veto conditions.
       Map recognition_patterns, objection_handling, handoff_triggers.
 
     focus_areas:
       - Recognition patterns (o que notam PRIMEIRO)
-      - Framework principal + secundarios
-      - Heuristicas de decisao
-      - Arquitetura de decisao
+      - Framework principal + secundários
+      - Heurísticas de decisão
+      - Arquitetura de decisão
       - Anti-patterns
       - Objection handling (como reagem a desafios)
       - Handoff triggers (quando delegam/param)
@@ -251,17 +251,17 @@ phases:
       gate: "THINKING_QUALITY"
       criteria:
         - "Framework principal com 3+ steps"
-        - "5+ heuristicas documentadas"
-        - "Pipeline de decisao mapeado"
+        - "5+ heurísticas documentadas"
+        - "Pipeline de decisão mapeado"
         - "3+ anti-patterns"
         - "2+ recognition patterns"
         - "2+ objection responses"
         - "1+ handoff trigger"
       score_minimum: 7/9
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   # PHASE 3: SYNTHESIS
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   - phase: 3
     name: Synthesis & Agent Block Generation
     duration: 15 min
@@ -274,7 +274,7 @@ phases:
         action: "Gerar bloco pronto para agent.md"
 
       - step: 3
-        action: "Validar consistencia entre voice e thinking"
+        action: "Validar consistência entre voice e thinking"
 
     output:
       file: "mind_dna_complete.yaml"
@@ -283,28 +283,28 @@ phases:
     checkpoint:
       gate: "SYNTHESIS_QUALITY"
       criteria:
-        - "Voice e Thinking sao consistentes"
-        - "Sem contradicoes entre secoes"
-        - "Bloco YAML valido e completo"
+        - "Voice e Thinking são consistentes"
+        - "Sem contradições entre seções"
+        - "Bloco YAML válido e completo"
 
-  # --------------------------------------------------------------------------
-  # PHASE 4: SMOKE TESTS (VALIDACAO REAL)
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: SMOKE TESTS (VALIDAÇÃO REAL)
+  # ─────────────────────────────────────────────────────────────────────────────
   - phase: 4
     name: Smoke Tests
     duration: 10 min
     blocking: true
 
     purpose: |
-      "DNA extraido nao significa nada se o agente nao se comporta como o expert."
+      "DNA extraído não significa nada se o agente não se comporta como o expert."
       Rodar 3 testes padronizados para validar comportamento real.
 
     checklist: "checklists/smoke-test-agent.md"
 
     tests:
       - test: 1
-        name: "Conhecimento do Dominio"
-        prompt: "Explique o conceito de {framework_principal} em suas proprias palavras."
+        name: "Conhecimento do Domínio"
+        prompt: "Explique o conceito de {framework_principal} em suas próprias palavras."
         validates:
           - "Usa power_words do DNA"
           - "Usa signature_phrases"
@@ -313,22 +313,22 @@ phases:
         pass_criteria: "4/5 checks"
 
       - test: 2
-        name: "Tomada de Decisao"
-        prompt: "Estou diante de uma decisao: {cenario_do_dominio}. Devo fazer A ou B?"
+        name: "Tomada de Decisão"
+        prompt: "Estou diante de uma decisão: {cenário_do_domínio}. Devo fazer A ou B?"
         validates:
-          - "Aplica heuristica documentada"
+          - "Aplica heurística documentada"
           - "Segue decision_pipeline"
           - "Usa framework para estruturar"
-          - "Responde com conviccao"
+          - "Responde com convicção"
         pass_criteria: "4/5 checks"
 
       - test: 3
-        name: "Resposta a Objecao"
-        prompt: "Discordo do seu metodo. {objecao_comum}. O que voce tem a dizer?"
+        name: "Resposta a Objeção"
+        prompt: "Discordo do seu método. {objeção_comum}. O que você tem a dizer?"
         validates:
-          - "Reconhece a objecao"
+          - "Reconhece a objeção"
           - "Usa objection_response do DNA"
-          - "Mantem conviccao"
+          - "Mantém convicção"
           - "Parece resposta real do expert"
         pass_criteria: "4/5 checks"
 
@@ -338,30 +338,30 @@ phases:
       criteria:
         - "3/3 tests passam"
       action_if_fail: |
-        X SMOKE TEST FALHOU
+        ❌ SMOKE TEST FALHOU
 
-        O agente nao esta se comportando como {mind_name}.
+        O agente não está se comportando como {mind_name}.
 
-        Acoes:
-        1. Revisar secao que falhou no DNA
+        Ações:
+        1. Revisar seção que falhou no DNA
         2. Adicionar mais exemplos no agent.md
         3. Verificar se fontes eram suficientes
-        4. Re-rodar smoke test apos ajustes
+        4. Re-rodar smoke test após ajustes
 
     output:
       file: "smoke_test_result.yaml"
       location: "outputs/minds/{mind_slug}/"
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   # PHASE 5: QUALITY DASHBOARD GENERATION
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────────────────────
   - phase: 5
     name: Quality Dashboard Generation
     duration: 5 min
 
     steps:
       - step: 1
-        action: "Calcular metricas de qualidade"
+        action: "Calcular métricas de qualidade"
         metrics:
           - sources_count
           - tier_1_ratio
@@ -381,17 +381,17 @@ phases:
       file: "quality_dashboard.md"
       location: "outputs/minds/{mind_slug}/"
 
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 # OUTPUT TEMPLATE
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 
 output_template: |
-  # ============================================================================
+  # ═══════════════════════════════════════════════════════════════════════════════
   # MIND DNA - {MIND_NAME}
   # Domain: {DOMAIN}
   # Extracted: {DATE}
   # Workflow: wf-clone-mind v1.0
-  # ============================================================================
+  # ═══════════════════════════════════════════════════════════════════════════════
 
   mind_dna:
     metadata:
@@ -402,9 +402,9 @@ output_template: |
       sources_count: {n}
       fidelity_tier: "fast-clone"
 
-    # ========================================================================
+    # ═══════════════════════════════════════════════════════════════════════════
     # VOICE DNA (from extract-voice-dna.md)
-    # ========================================================================
+    # ═══════════════════════════════════════════════════════════════════════════
 
     voice_dna:
       identity_statement: ""
@@ -431,9 +431,9 @@ output_template: |
         dimensions: {}
         by_context: {}
 
-    # ========================================================================
+    # ═══════════════════════════════════════════════════════════════════════════
     # THINKING DNA (from extract-thinking-dna.md)
-    # ========================================================================
+    # ═══════════════════════════════════════════════════════════════════════════
 
     thinking_dna:
       primary_framework:
@@ -464,11 +464,11 @@ output_template: |
         never_do: []
         common_mistakes: []
 
-  # ============================================================================
+  # ═══════════════════════════════════════════════════════════════════════════════
 
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 # EXECUTION
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 
 execution:
   mode: sequential
@@ -490,9 +490,9 @@ execution:
     update_with_sources: "*update-mind {slug} --sources {path}"
     update_voice_only: "*update-mind {slug} --focus voice"
 
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 # QUALITY GATES SUMMARY
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════════════════════
 
 quality_gates:
   - gate: SOURCE_QUALITY

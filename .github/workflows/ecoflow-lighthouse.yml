@@ -1,0 +1,85 @@
+name: EcoFlow Lighthouse CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/ecoflow-design-system/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/ecoflow-design-system/**'
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/ecoflow-design-system
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install root dependencies
+        run: npm ci
+        working-directory: .
+
+      - name: Install package dependencies
+        run: npm ci
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Serve Storybook
+        run: |
+          npx http-server storybook-static -p 6006 &
+          sleep 5
+        continue-on-error: false
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            http://localhost:6006
+          configPath: './packages/ecoflow-design-system/lighthouserc.json'
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Lighthouse Summary
+        run: |
+          echo "## 🚦 Lighthouse CI Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Lighthouse audit completed. Check the artifacts for detailed reports." >> $GITHUB_STEP_SUMMARY
+
+      - name: Comment PR with Lighthouse results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = \`## 🚦 Lighthouse CI Results
+
+            Lighthouse audit has been completed for this PR.
+
+            **Targets:**
+            - ⚡ Performance: >95
+            - ♿ Accessibility: >95
+            - 💚 Best Practices: >95
+            - 🎨 First Contentful Paint: <2s
+            - ⚙️ Time to Interactive: <4s
+
+            [View detailed Lighthouse report in the Actions tab](https://github.com/\${context.repo.owner}/\${context.repo.repo}/actions/runs/\${context.runId})
+            \`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

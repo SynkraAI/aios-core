@@ -13,9 +13,9 @@ Scoring Dimensions (weights sum to 1.0):
 - Naming & Standards: 0.15
 
 Usage:
-    python scripts/scoring.py squads/squad-creator/
-    python scripts/scoring.py squads/squad-creator/ --output json
-    python scripts/scoring.py squads/squad-creator/ --detailed
+    python scripts/scoring.py squads/{squad-name}/
+    python scripts/scoring.py squads/{squad-name}/ --output json
+    python scripts/scoring.py squads/{squad-name}/ --detailed
 """
 
 import argparse

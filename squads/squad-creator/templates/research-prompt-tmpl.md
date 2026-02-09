@@ -351,17 +351,19 @@ deliverables_extended:
 
 ## Example: Fully Rendered Prompt
 
+> **Nota:** Este exemplo usa copywriting (Eugene Schwartz). Substitua pelo seu domínio e experts.
+
 ### Input Variables
 
 ```yaml
-specialist_name: "Eugene Schwartz"
-specialist_slug: "eugene_schwartz"
-activity: "headlines"
-activity_expanded: "Headline Creation"
-domain: "copywriting"
-time_period: "1950-1995"
-agent_purpose: "Create headlines that capture attention and qualify prospects"
-local_knowledge_note: "Have 'Breakthrough Advertising' excerpts (450 lines)"
+specialist_name: "{expert-name}"  # e.g., "Eugene Schwartz"
+specialist_slug: "{expert_slug}"  # e.g., "eugene_schwartz"
+activity: "{activity}"  # e.g., "headlines"
+activity_expanded: "{Activity Name}"  # e.g., "Headline Creation"
+domain: "{domain}"  # e.g., "copywriting"
+time_period: "{time-period}"  # e.g., "1950-1995"
+agent_purpose: "{agent-purpose-description}"
+local_knowledge_note: "{existing-material-note}"
 ```
 
 ### Rendered Output

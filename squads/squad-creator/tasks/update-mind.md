@@ -16,16 +16,16 @@ inputs:
 outputs:
   primary:
     - updated_dna: "mind_dna_complete.yaml atualizado"
-    - diff_report: "Relatorio do que mudou"
+    - diff_report: "Relatório do que mudou"
 
 elicit: true
 ---
 
 # Update Existing Mind DNA (Brownfield)
 
-> **Principio:** "Evolucao > Revolucao. Preserve o que funciona, adicione o que falta."
+> **Princípio:** "Evolução > Revolução. Preserve o que funciona, adicione o que falta."
 >
-> **Regra:** NUNCA substituir DNA existente sem validar que o novo e melhor.
+> **Regra:** NUNCA substituir DNA existente sem validar que o novo é melhor.
 
 ---
 
@@ -39,7 +39,7 @@ existing_files:
   voice_dna: "outputs/minds/{mind_slug}/voice_dna.yaml"
   thinking_dna: "outputs/minds/{mind_slug}/thinking_dna.yaml"
   sources_inventory: "outputs/minds/{mind_slug}/sources_inventory.yaml"
-  agent_file: "squads/{squad}/agents/{mind_slug}.md"  # Se ja tem agente
+  agent_file: "squads/{squad}/agents/{mind_slug}.md"  # Se já tem agente
 ```
 
 ### 0.2 Snapshot Before
@@ -89,16 +89,16 @@ new_sources_validation:
 gap_analysis:
   voice_gaps_before:
     - "Faltavam anedotas pessoais"
-    - "Tom em situacao X nao documentado"
+    - "Tom em situação X não documentado"
 
   thinking_gaps_before:
-    - "Heuristica de priorizacao incompleta"
-    - "Objection handling nao tinha exemplos"
+    - "Heurística de priorização incompleta"
+    - "Objection handling não tinha exemplos"
 
   gaps_filled_by_new_sources:
     - gap: ""
       source: ""
-      confidence: "alta|media|baixa"
+      confidence: "alta|média|baixa"
 ```
 
 ---
@@ -160,14 +160,14 @@ thinking_delta:
 | Mode | Comportamento |
 |------|---------------|
 | **merge** | Adiciona novos elementos, preserva existentes |
-| **replace** | Substitui secoes onde novo e significativamente melhor |
-| **selective** | Checkpoint por secao, usuario decide |
+| **replace** | Substitui seções onde novo é significativamente melhor |
+| **selective** | Checkpoint por seção, usuário decide |
 
 ### 3.2 Merge Rules
 
 ```yaml
 merge_rules:
-  # SEMPRE adicionar (nao duplicar)
+  # SEMPRE adicionar (não duplicar)
   additive:
     - power_words
     - signature_phrases
@@ -175,7 +175,7 @@ merge_rules:
     - heuristics
     - recognition_patterns
 
-  # NUNCA substituir sem validacao
+  # NUNCA substituir sem validação
   protected:
     - primary_framework  # Core identity
     - identity_statement
@@ -200,14 +200,14 @@ conflicts:
 
   resolution_strategy:
     auto_resolve:
-      - "Novo elemento nao existe no atual -> ADICIONAR"
-      - "Mesmo elemento com mais detalhes -> ENRIQUECER"
-      - "Mesmo elemento com exemplos adicionais -> ADICIONAR EXEMPLOS"
+      - "Novo elemento não existe no atual → ADICIONAR"
+      - "Mesmo elemento com mais detalhes → ENRIQUECER"
+      - "Mesmo elemento com exemplos adicionais → ADICIONAR EXEMPLOS"
 
     require_human:
-      - "Contradicao direta em framework"
-      - "Mudanca em identity_statement"
-      - "Remocao de elemento existente"
+      - "Contradição direta em framework"
+      - "Mudança em identity_statement"
+      - "Remoção de elemento existente"
 ```
 
 ---
@@ -322,11 +322,11 @@ snapshot_after:
 ## OUTPUT: UPDATE REPORT
 
 ```yaml
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════
 # MIND UPDATE REPORT - {MIND_NAME}
 # Updated: {DATE}
 # Mode: {merge|replace|selective}
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════
 
 update_report:
   metadata:
@@ -336,9 +336,9 @@ update_report:
     mode: ""
     new_sources_processed: 0
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
   # CHANGES SUMMARY
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
 
   changes:
     voice_dna:
@@ -351,9 +351,9 @@ update_report:
       updated: []
       unchanged: []
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
   # QUALITY IMPACT
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
 
   quality:
     before:
@@ -368,9 +368,9 @@ update_report:
 
     improvement: "+X%"
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
   # FILES MODIFIED
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
 
   files:
     updated:
@@ -381,16 +381,16 @@ update_report:
       - original: ""
         backup: ""
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
   # NEXT STEPS
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
 
   next_steps:
     - "Regenerar agent.md se qualidade aumentou significativamente"
-    - "Rodar smoke tests para validar mudancas"
-    - "Atualizar squad config se necessario"
+    - "Rodar smoke tests para validar mudanças"
+    - "Atualizar squad config se necessário"
 
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════
 ```
 
 ---
@@ -420,7 +420,7 @@ update_report:
 - [ ] Diff report gerado
 - [ ] Quality scores atualizados
 
-**BLOCKING:** Nao modificar arquivos sem backup criado.
+**BLOCKING:** Não modificar arquivos sem backup criado.
 
 ---
 

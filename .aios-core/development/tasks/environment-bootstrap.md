@@ -371,6 +371,7 @@ Present comprehensive status table:
 ╠═══════════════╪═══════════════╪═══════════╪════════════╪══════════════╣
 ║ INFRASTRUCTURE│ supabase      │ ❌ MISSING│ -          │ RECOMMENDED  ║
 ║               │ railway       │ ❌ MISSING│ -          │ OPTIONAL     ║
+║               │ netlify       │ ❌ MISSING│ -          │ OPTIONAL     ║
 ║               │ docker        │ ✅ OK     │ 24.0.7     │ RECOMMENDED  ║
 ╠═══════════════╪═══════════════╪═══════════╪════════════╪══════════════╣
 ║ QUALITY       │ coderabbit    │ ⚠️ CHECK  │ 0.8.0      │ RECOMMENDED  ║
@@ -380,7 +381,7 @@ Present comprehensive status table:
 ║               │ bun           │ ❌ MISSING│ -          │ OPTIONAL     ║
 ╚════════════════════════════════════════════════════════════════════════╝
 
-Summary: 4/10 tools installed | 2 essential missing | 4 recommended missing
+Summary: 4/11 tools installed | 2 essential missing | 5 recommended missing
 ```
 
 **Update Detection:**
@@ -480,6 +481,15 @@ cli_checks:
         brew: 'brew install railway'
       post_install: 'railway login'
 
+    netlify:
+      check: 'netlify --version'
+      expected: '23.x'
+      install:
+        npm: 'npm install -g netlify-cli'
+        brew: 'brew install netlify-cli'
+      post_install: 'netlify login'
+      note: 'Edge Functions, serverless deployment platform'
+
     docker:
       check: 'docker --version'
       expected: '24.x or 25.x'
@@ -577,16 +587,17 @@ ESSENTIAL (required for AIOS):
 INFRASTRUCTURE (recommended):
   [2] supabase - Database management, local development
   [3] railway - Cloud deployment
-  [4] docker - Containerization, local Supabase
+  [4] netlify - Edge functions, serverless deployment
+  [5] docker - Containerization, local Supabase
 
 QUALITY (recommended):
-  [5] coderabbit - Pre-PR code review (WSL required on Windows)
+  [6] coderabbit - Pre-PR code review (WSL required on Windows)
 
 OPTIONAL:
-  [6] pnpm - Fast package manager
-  [7] bun - Ultra-fast JavaScript runtime
+  [7] pnpm - Fast package manager
+  [8] bun - Ultra-fast JavaScript runtime
 
-Enter selection (e.g., 1,2,3,5): _
+Enter selection (e.g., 1,2,3,4,6): _
 ```
 
 **Installation Execution:**
@@ -624,6 +635,7 @@ Service authentication required. The following services need login:
 1. GitHub CLI (gh) - Required for repository creation
 2. Supabase CLI - Required for database management
 3. Railway CLI - Required for deployment
+4. Netlify CLI - Required for edge functions and deployments
 
 Authenticate now? (Y/n): _
 ```
@@ -692,6 +704,27 @@ if ($LASTEXITCODE -eq 0) {
 } else {
   Write-Host "Starting Railway authentication..."
   railway login
+}
+```
+
+**Netlify Authentication:**
+
+```bash
+echo "=== Netlify CLI Authentication ==="
+
+$netlifyStatus = netlify status 2>&1
+
+if ($netlifyStatus -match "Current Netlify User") {
+  Write-Host "✅ Already authenticated to Netlify"
+  netlify status
+} else {
+  Write-Host "Starting Netlify authentication..."
+  netlify login
+
+  if ($LASTEXITCODE -eq 0) {
+    Write-Host "✅ Netlify authentication successful"
+    netlify status
+  }
 }
 ```
 

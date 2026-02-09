@@ -1,0 +1,92 @@
+name: Publish EcoFlow to NPM
+
+on:
+  push:
+    tags:
+      - 'ecoflow-v*'
+
+jobs:
+  publish:
+    name: Publish to NPM
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/ecoflow-design-system
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/ecoflow-v}
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "📦 Publishing version: ${VERSION}"
+
+      - name: Verify package.json version
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          TAG_VERSION="${{ steps.version.outputs.version }}"
+          if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
+            echo "❌ ERROR: package.json version ($PACKAGE_VERSION) does not match tag ($TAG_VERSION)"
+            exit 1
+          fi
+          echo "✅ Version match confirmed: $PACKAGE_VERSION"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test -- --run
+
+      - name: Build package
+        run: npm run build
+
+      - name: Verify build artifacts
+        run: |
+          test -f dist/index.js || exit 1
+          test -f dist/index.cjs || exit 1
+          test -f dist/index.d.ts || exit 1
+          test -f dist/style.css || exit 1
+          echo "✅ Build artifacts verified"
+
+      - name: Publish to NPM
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          name: EcoFlow Design System v${{ steps.version.outputs.version }}
+          body: |
+            ## 🌊 EcoFlow Design System v${{ steps.version.outputs.version }}
+
+            ### Installation
+            ```bash
+            npm install @fosc/ecoflow-design-system@${{ steps.version.outputs.version }}
+            ```
+
+            ### Documentation
+            - 📚 [Storybook](https://luizfosc.github.io/aios-core/ecoflow/)
+            - 📖 [README](./packages/ecoflow-design-system/README.md)
+            - 📝 [CHANGELOG](./packages/ecoflow-design-system/CHANGELOG.md)
+
+            ### Package Info
+            - **NPM**: [@fosc/ecoflow-design-system](https://www.npmjs.com/package/@fosc/ecoflow-design-system)
+            - **Components**: 33 (28 Tailwind + 5 Radix UI)
+            - **Features**: Dark mode, WCAG AAA, TypeScript, Tree-shakable
+
+            See [CHANGELOG.md](./packages/ecoflow-design-system/CHANGELOG.md) for full details.
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

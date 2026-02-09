@@ -109,19 +109,19 @@ Generated: 2026-02-01
 ----------------------------------------------------------------------------------------------------
 Squad                 Agents   Tasks   WFs  Tmpls  Checks   Data  Scripts  Total Quality
 ----------------------------------------------------------------------------------------------------
-squad-creator              2      12     3     10       8      5        8     48 ⭐⭐⭐
-squad-creator                   5      18     2      6       4      8        2     45 ⭐⭐
+{squad-a}                 22      58    11     23      17      3        3    137 ⭐⭐⭐
+{squad-b}                  9      31     2     57      16     15        7    137 ⭐⭐⭐
 ...
 ```
 
 ### Detailed (com `--detailed`)
 
 ```
-squad-creator              2      12     3     10       8      5        8     48 ⭐⭐⭐
-   └─ agents: squad-architect, sop-extractor
-   └─ tasks: create-agent, create-task, create-workflow (+9 more)
-   └─ workflows: wf-create-squad, validate-squad (+1 more)
-   └─ checklists: squad-checklist, agent-quality-gate (+6 more)
+{squad-name}              22      58    11     23      17      3        3    137 ⭐⭐⭐
+   └─ agents: {agent-1}, {agent-2}, {agent-3}, {agent-4}, {agent-5} (+17 more)
+   └─ tasks: {task-1}, {task-2}, {task-3} (+55 more)
+   └─ workflows: {workflow-1}, {workflow-2} (+9 more)
+   └─ checklists: {checklist-1}, {checklist-2} (+15 more)
 ```
 
 ### JSON (com `--format json`)
@@ -229,7 +229,7 @@ squads/squad-creator/scripts/squad-analytics.py
 
 Execute a partir da raiz do projeto:
 ```bash
-cd /path/to/your-project
+cd ${PROJECT_ROOT}
 python3 squads/squad-creator/scripts/squad-analytics.py
 ```
 

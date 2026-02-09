@@ -1,0 +1,129 @@
+name: EcoFlow CI
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'packages/ecoflow-design-system/**'
+      - '.github/workflows/ecoflow-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/ecoflow-design-system/**'
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/ecoflow-design-system
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Check Prettier formatting
+        run: npx prettier --check "src/**/*.{ts,tsx}"
+
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/ecoflow-design-system
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run TypeScript type check
+        run: npm run typecheck
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/ecoflow-design-system
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests with coverage
+        run: npm test -- --run --coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./packages/ecoflow-design-system/coverage/coverage-final.json
+          flags: ecoflow
+          token: ${{ secrets.CODECOV_TOKEN }}
+        if: github.event_name == 'pull_request'
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/ecoflow-design-system
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          echo "Checking build artifacts..."
+          ls -lh dist/
+          test -f dist/index.js || (echo "ERROR: dist/index.js not found" && exit 1)
+          test -f dist/index.cjs || (echo "ERROR: dist/index.cjs not found" && exit 1)
+          test -f dist/index.d.ts || (echo "ERROR: dist/index.d.ts not found" && exit 1)
+          test -f dist/style.css || (echo "ERROR: dist/style.css not found" && exit 1)
+          echo "✅ All build artifacts present"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ecoflow-dist
+          path: packages/ecoflow-design-system/dist
+          retention-days: 7

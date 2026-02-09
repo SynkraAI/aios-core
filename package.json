@@ -19,6 +19,7 @@
     "tools/",
     "templates/",
     ".aios-core/",
+    ".aios/skills/",
     ".claude/CLAUDE.md",
     ".claude/rules/",
     "squads/",

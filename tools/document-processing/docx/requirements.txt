@@ -1,0 +1,14 @@
+# DOCX Processing Skill - Python Dependencies
+
+# Core dependencies
+defusedxml>=0.7.1          # Secure XML parsing
+lxml>=4.9.0                # XML processing and manipulation
+python-docx>=0.8.11        # High-level DOCX manipulation
+
+# Optional but recommended
+# pandoc (external tool, install via brew install pandoc)
+# LibreOffice (external tool, install via brew install --cask libreoffice)
+# Poppler (external tool, install via brew install poppler)
+
+# Installation command:
+# pip install -r requirements.txt

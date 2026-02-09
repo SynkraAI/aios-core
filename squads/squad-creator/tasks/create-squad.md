@@ -385,14 +385,14 @@ quality_gates_design:
 
 **Output (PHASE 2):**
 ```yaml
-phase_2_output:
+phase_2_output:  # [Example]
   tier_structure:
-    orchestrator: "copy-chief"
-    tier_0: ["eugene-schwartz", "claude-hopkins"]
-    tier_1: ["gary-halbert", "gary-bencivenga"]
-    tier_2: ["dan-kennedy", "todd-brown"]
-    tier_3: ["email-specialist", "ad-specialist"]
-    tools: ["quality-checker", "headline-scorer"]
+    orchestrator: "{squad}-chief"
+    tier_0: ["{diagnosis-agent-1}", "{diagnosis-agent-2}"]
+    tier_1: ["{master-agent-1}", "{master-agent-2}"]
+    tier_2: ["{systematizer-1}", "{systematizer-2}"]
+    tier_3: ["{specialist-1}", "{specialist-2}"]
+    tools: ["{tool-1}", "{tool-2}"]
 
   quality_gates: 5
   handoffs: 12
@@ -729,7 +729,7 @@ present_summary:
   activation:
     - install: "npm run install:squad {pack_name}"
     - activate: "@{pack_name}"
-    - example: "@copy:sales-page-writer"
+    - example: "@{squad-name}:{agent-name}"  # e.g., @copy:sales-page-writer
 ```
 
 ### Step 6.2: Document Next Steps

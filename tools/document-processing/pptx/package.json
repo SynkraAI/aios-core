@@ -1,0 +1,25 @@
+{
+  "name": "pptx-processing-skill",
+  "version": "1.0.0",
+  "description": "PPTX Processing Skill for AIOS - HTML to PowerPoint conversion",
+  "scripts": {
+    "setup": "npm install && npx playwright install chromium",
+    "test": "node scripts/html2pptx.js --help"
+  },
+  "dependencies": {
+    "pptxgenjs": "^3.12.0",
+    "playwright": "^1.40.0",
+    "sharp": "^0.33.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "pptx",
+    "powerpoint",
+    "html2pptx",
+    "presentations",
+    "aios",
+    "synkra"
+  ],
+  "author": "Luiz Fosc / Synkra AIOS",
+  "license": "MIT"
+}

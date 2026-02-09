@@ -12,9 +12,9 @@ Thresholds:
 - objection_algorithms: min 3 items
 
 Usage:
-    python scripts/quality_gate.py squads/squad-creator/
-    python scripts/quality_gate.py squads/squad-creator/ --output json
-    python scripts/quality_gate.py squads/squad-creator/ --strict
+    python scripts/quality_gate.py squads/{squad-name}/
+    python scripts/quality_gate.py squads/{squad-name}/ --output json
+    python scripts/quality_gate.py squads/{squad-name}/ --strict
 """
 
 import argparse

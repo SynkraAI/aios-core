@@ -13,7 +13,7 @@ Generate a comprehensive deep research prompt and execute research to establish 
 
 **Gold Standard Reference:**
 - Research: `docs/research/david-ogilvy-research-engineering-meta-framework.md` (1,179 lines)
-- Task: `squads/{your-squad}/tasks/copysearch.md` (921 lines) - Example from Copy squad
+- Task: `squads/{squad-name}/tasks/{task-name}.md` (921 lines) - Example task
 
 ## Inputs
 
@@ -457,7 +457,7 @@ EXPECTED RESULTS:
 ```
 
 **Output:**
-- `docs/research/gary-halbert-sales-page-research.md` (2,100+ lines)
+- `docs/research/{expert-slug}-{topic}-research.md` (2,100+ lines)  <!-- Example: gary-halbert-sales-page-research.md -->
 - Quality Score: 92%
 
 ---

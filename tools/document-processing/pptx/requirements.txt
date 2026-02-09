@@ -1,0 +1,16 @@
+# PPTX Processing Skill - Python Dependencies
+
+# Core dependencies
+defusedxml>=0.7.1          # Secure XML parsing
+Pillow>=10.0.0             # Image processing
+lxml>=4.9.0                # XML processing
+
+# Optional but recommended
+markitdown>=0.0.1          # PPTX to Markdown conversion (requires markitdown package)
+python-pptx>=0.6.21        # Python-based PPTX manipulation (alternative approach)
+
+# For thumbnail generation (if using PIL features)
+reportlab>=4.0.0           # PDF generation (optional)
+
+# Installation command:
+# pip3 install -r requirements.txt

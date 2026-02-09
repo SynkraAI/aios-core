@@ -1,12 +1,24 @@
-# Squad Type Definitions v1.0
+# Squad Type Definitions v1.1
 # Reference file for squad type detection and validation rules
-# Defines patterns for different squad architectures
+# Based on analysis of well-structured squads
 
-version: "1.0.0"
+version: "1.1.0"
 created: "2026-02-01"
-description: |
-  This file defines the three main squad types and their validation rules.
-  Use these patterns when creating new squads to ensure proper structure.
+updated: "2026-02-05"
+
+# Squad types are detected dynamically based on structure
+# Examples below are illustrative - your squads may vary
+
+type_examples:
+  expert:
+    description: "Squad focused on cloning elite minds"
+    characteristics: ["many agents", "voice_dna", "thinking_dna"]
+  pipeline:
+    description: "Squad focused on multi-phase workflows"
+    characteristics: ["sequential phases", "orchestrator", "checkpoints"]
+  hybrid:
+    description: "Mix of expert agents and pipeline workflows"
+    characteristics: ["both patterns combined"]
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SQUAD TYPES
@@ -22,16 +34,14 @@ squad_types:
       Each agent is a "mind clone" of a real person with documented frameworks.
       Focus: Knowledge capture, consistent voice, domain expertise.
 
-    examples:
-      - name: "copy"
-        agents: 22
-        description: "Direct response copywriters (Halbert, Schwartz, etc.)"
-      - name: "storytelling"
-        agents: 12
-        description: "Narrative experts (Campbell, Duarte, etc.)"
-      - name: "legal"
-        agents: 15
-        description: "Legal specialists by domain"
+    # Examples are illustrative - your squads may vary
+    example_structure:
+      # A copywriting expert squad might have:
+      # - 15-25 agents based on renowned copywriters
+      # - Voice DNA for each expert persona
+      # - Tier organization (Chief, Masters, Specialists)
+      typical_agents: "5-25"
+      typical_description: "Domain experts with distinct voice/thinking DNA"
 
     detection_signals:
       strong:
@@ -133,15 +143,15 @@ squad_types:
       Focus: Multi-step workflows, quality gates, intermediate outputs.
       Typically one orchestrator with many tasks following a defined pipeline.
 
-    examples:
-      - name: "example-pipeline"
-        agents: 1
-        phases: 8
-        description: "Multi-phase content generation pipeline"
-      - name: "example-etl"
-        agents: 2
-        phases: 5
-        description: "Data extraction and transformation pipeline"
+    # Examples are illustrative - your squads may vary
+    example_structure:
+      # A content pipeline squad might have:
+      # - 1-3 orchestrator agents
+      # - 7-12 sequential phases
+      # - Intermediate outputs between phases
+      typical_agents: "1-9"
+      typical_phases: "5-12"
+      typical_description: "Multi-phase workflow with quality gates"
 
     detection_signals:
       strong:
@@ -204,6 +214,7 @@ squad_types:
           without human intervention, while maintaining state and allowing
           resume on failure.
         location: "scripts/{squad_name}.sh"
+        reference: "scripts/{squad_name}.sh"
         required_features:
           - feature: "input_params"
             description: "Accepts target/slug as argument"
@@ -291,15 +302,15 @@ squad_types:
       Each agent handles one phase with explicit checkpoints and validation.
       Focus: Process mapping, executor assignment, compliance, documentation.
 
-    examples:
-      - name: "hybrid-ops"
-        agents: 9
-        phases: 9
-        description: "Process automation with PV heuristics"
-      - name: "etl"
-        agents: 3
-        phases: 4
-        description: "Data pipeline with validation"
+    # Examples are illustrative - your squads may vary
+    example_structure:
+      # A hybrid squad might have:
+      # - 3-10 agents with persona profiles
+      # - Heuristic validation at checkpoints
+      # - Process automation focus
+      typical_agents: "3-10"
+      typical_phases: "4-9"
+      typical_description: "Process automation with heuristic validation"
 
     detection_signals:
       strong:

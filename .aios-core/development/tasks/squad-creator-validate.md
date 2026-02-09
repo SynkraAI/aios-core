@@ -67,6 +67,14 @@ Validates a squad against the JSON Schema and TASK-FORMAT-SPECIFICATION-V1.
 - Warns if project-level reference doesn't exist
 - Errors if local reference doesn't exist
 
+### 6. Integration Reference Validation
+- Validates MCPs referenced in squad.yaml exist in `~/.claude.json` or `.mcp.json`
+- Validates integration modules referenced exist in the filesystem
+- Validates skills referenced are installed (project or global scope)
+- Validates tools listed are available (via health-check service definitions)
+- **Severity:** Warning (does not block validation, but alerts user)
+- Requires `discover-tools` report data for cross-referencing
+
 ## Flow
 
 ```
@@ -79,7 +87,8 @@ Validates a squad against the JSON Schema and TASK-FORMAT-SPECIFICATION-V1.
    ├── validateStructure() → Directory check
    ├── validateTasks() → Task format check
    ├── validateAgents() → Agent format check
-   └── validateConfigReferences() → Config path check (SQS-10)
+   ├── validateConfigReferences() → Config path check (SQS-10)
+   └── validateIntegrationReferences() → MCP/skill/tool check
 
 3. Format and display result
    ├── Show errors (if any)
@@ -120,6 +129,10 @@ Result: VALID (with warnings)
 | `TASK_MISSING_FIELD` | Warning | Task missing recommended field |
 | `AGENT_INVALID_FORMAT` | Warning | Agent file may not follow format |
 | `INVALID_NAMING` | Warning | Filename not in kebab-case |
+| `MCP_NOT_FOUND` | Warning | Referenced MCP not found in ~/.claude.json or .mcp.json |
+| `INTEGRATION_NOT_FOUND` | Warning | Referenced integration module not found in filesystem |
+| `SKILL_NOT_INSTALLED` | Warning | Referenced skill not installed (project or global) |
+| `TOOL_UNAVAILABLE` | Warning | Referenced tool not detected in environment |
 
 ## Implementation
 

@@ -338,4 +338,283 @@ Heuristics work within quality gates:
 
 ---
 
-*AIOS Decision Heuristics Framework v1.0*
+## 10. Scope Complexity Heuristic (PRD Gate)
+
+**Purpose:** Decide if scope is too large for direct squad creation → requires PRD with Epics/Stories.
+
+### 10.1 The Problem
+
+Large-scope squads created "on the fly" result in:
+- Incomplete coverage (workflows missed)
+- Poor prioritization (no roadmap)
+- Technical debt (rushing to create many agents)
+- Lost context (too much to track in conversation)
+
+### 10.2 Scope Complexity Decision
+
+```yaml
+scope_complexity_heuristic:
+  id: "SC_SCP_001"
+  name: "Scope Complexity Gate"
+  phase: "phase_0 (Discovery)"
+  blocking: true
+
+  thresholds:
+    workflows_mapped: 10       # >= 10 workflows = PRD required
+    agents_needed: 8           # >= 8 agents = PRD required
+    domain_precedent: false    # No similar squad exists = higher risk
+
+  decision_tree: |
+    PRIMARY CHECK - Workflow Count:
+      IF (workflows_mapped >= 10)
+        THEN → STOP: "Escopo grande demais para criação direta"
+               → ACTION: Create PRD with Epics/Stories
+               → VETO: Cannot proceed with direct squad creation
+
+    SECONDARY CHECK - Agent Count:
+      ELSE IF (agents_needed >= 8)
+        THEN → STOP: "Muitos agents para criar sem roadmap"
+               → ACTION: Create PRD with phased implementation
+               → VETO: Cannot proceed without planning
+
+    TERTIARY CHECK - Domain Precedent:
+      ELSE IF (no_similar_squad AND workflows >= 5)
+        THEN → WARNING: "Domínio novo sem precedente"
+               → RECOMMEND: Consider PRD for risk mitigation
+               → ALLOW: User can override
+
+    DEFAULT:
+      ELSE → PROCEED with direct squad creation
+
+  veto_conditions:
+    - condition: "workflows_mapped >= 10"
+      action: "VETO - PRD obrigatório"
+      message: |
+        ❌ ESCOPO GRANDE DEMAIS
+
+        Mapeei {n} workflows. Isso é complexo demais para criar diretamente.
+
+        AÇÃO NECESSÁRIA:
+        1. Criar PRD em docs/projects/{domain}/prd.md
+        2. Dividir em Epics (ex: "Tier 0 - Onboarding", "Tier 1 - Execução")
+        3. Criar Stories por Epic
+        4. Implementar por fases
+
+        Quer que eu crie o PRD agora?
+
+    - condition: "agents_needed >= 8"
+      action: "VETO - Roadmap obrigatório"
+      message: "Precisa de roadmap de implementação para {n} agents"
+
+  rationale: |
+    PRD para squads grandes garante:
+    - Todos os workflows são documentados antes de começar
+    - Dependências entre agents são mapeadas
+    - Priorização clara (o que criar primeiro)
+    - Checkpoints de validação por Epic
+    - Possibilidade de implementação incremental
+```
+
+### 10.3 PRD Structure for Large Squads
+
+```yaml
+prd_structure:
+  location: "docs/projects/{domain}/prd.md"
+
+  required_sections:
+    - overview: "O que o squad faz, para quem"
+    - workflows_mapped: "Lista completa de workflows (tabela)"
+    - agents_architecture: "Tier distribution, handoffs"
+    - epics: "Agrupamento lógico de trabalho"
+    - success_criteria: "Como medir se está pronto"
+
+  epic_structure:
+    - epic_1: "Infraestrutura e Orquestrador"
+    - epic_2: "Tier 0 - Diagnóstico/Onboarding"
+    - epic_3: "Tier 1 - Execução Core"
+    - epic_4: "Tier 2 - Comunicação/Consultoria"
+    - epic_5: "Tier 3 - Especialistas"
+    - epic_6: "Integração e Automação"
+
+  story_format: |
+    ## Story: {título}
+
+    **Como** {persona}
+    **Quero** {funcionalidade}
+    **Para** {benefício}
+
+    ### Acceptance Criteria
+    - [ ] {criterio_1}
+    - [ ] {criterio_2}
+
+    ### Tasks
+    - [ ] Criar agent {name}
+    - [ ] Implementar workflow {name}
+    - [ ] Validar contra checklist
+```
+
+### 10.4 Examples
+
+```yaml
+examples:
+  triggers_prd:
+    - scenario: "Squad Contabilidade MEI/Simples"
+      workflows: 54
+      agents: 14
+      decision: "VETO - PRD obrigatório"
+      reason: "54 workflows >> 10 threshold"
+
+    - scenario: "Squad Legal Completo"
+      workflows: 25
+      agents: 12
+      decision: "VETO - PRD obrigatório"
+      reason: "25 workflows + 12 agents"
+
+  direct_creation:
+    - scenario: "Squad de Email Marketing"
+      workflows: 6
+      agents: 4
+      decision: "PROCEED - Criação direta"
+      reason: "6 workflows < 10 threshold"
+
+    - scenario: "Squad de Headlines"
+      workflows: 3
+      agents: 2
+      decision: "PROCEED - Criação direta"
+      reason: "Escopo pequeno e focado"
+```
+
+---
+
+## 11. Specialist Selection Heuristic
+
+**Purpose:** Decide which specialist agent to invoke for mind cloning and squad creation.
+
+### 10.1 Available Specialists
+
+| Specialist | Domain | Activation |
+|------------|--------|------------|
+| `@oalanicolas` | Mind cloning, DNA extraction, source curation | `/squad-creator @oalanicolas` |
+| `@pedro-valerio` | Processes, tasks, checklists, automation | `/squad-creator @pedro-valerio` |
+| `@squad-architect` | General squad creation, orchestration | `/squad-creator` (default) |
+
+### 10.2 Decision Matrix
+
+```yaml
+specialist_selection:
+  id: "SC_SPE_001"
+  name: "Specialist Selection Heuristic"
+  phase: "early (before starting work)"
+
+  decision_tree: |
+    PRIMARY - Mind Cloning Tasks:
+      IF (task involves extracting DNA, voice, thinking patterns)
+        THEN invoke @oalanicolas
+      IF (task involves source curation or quality assessment)
+        THEN invoke @oalanicolas
+      IF (task involves validating clone fidelity)
+        THEN invoke @oalanicolas
+
+    SECONDARY - Process Tasks:
+      IF (task involves creating/auditing workflows)
+        THEN invoke @pedro-valerio
+      IF (task involves defining veto conditions or guardrails)
+        THEN invoke @pedro-valerio
+      IF (task involves checklist creation or validation)
+        THEN invoke @pedro-valerio
+      IF (task involves automation decisions)
+        THEN invoke @pedro-valerio
+
+    TERTIARY - General Tasks:
+      IF (task is general squad creation)
+        THEN use @squad-architect
+      IF (unclear which specialist)
+        THEN use @squad-architect (will delegate)
+
+    FALLBACK:
+      When in doubt → @squad-architect orchestrates
+
+  keywords:
+    oalanicolas:
+      - "DNA", "voice", "thinking", "clone", "mind"
+      - "source", "curadoria", "material"
+      - "personality", "communication style"
+      - "8 layers", "DNA Mental"
+      - "fidelity", "authenticity"
+
+    pedro_valerio:
+      - "process", "workflow", "task"
+      - "checklist", "validation", "audit"
+      - "automation", "guardrail", "veto"
+      - "SOP", "procedure", "efficiency"
+      - "impossible to fail", "block wrong paths"
+```
+
+### 10.3 Handoff Protocol
+
+```yaml
+handoff_rules:
+  squad_architect_to_oalanicolas:
+    trigger: "Mind cloning phase reached"
+    context_passed:
+      - mind_name
+      - domain
+      - sources_path (if exists)
+    expected_output:
+      - voice_dna (YAML block)
+      - thinking_dna (YAML block)
+      - source_quality_report
+
+  squad_architect_to_pedro_valerio:
+    trigger: "Process/workflow design phase reached"
+    context_passed:
+      - workflow_files
+      - task_files
+      - checklist_files
+    expected_output:
+      - audit_report
+      - veto_conditions
+      - automation_recommendations
+
+  oalanicolas_to_pedro_valerio:
+    trigger: "DNA extracted, need process validation"
+    context_passed:
+      - extracted_dna
+      - agent_file
+    expected_output:
+      - process_validation
+      - quality_gates
+
+  pedro_valerio_to_oalanicolas:
+    trigger: "Process ready, need mind integration"
+    context_passed:
+      - validated_process
+      - integration_points
+    expected_output:
+      - mind_integration_plan
+```
+
+### 10.4 Anti-Patterns
+
+```yaml
+anti_patterns:
+  - name: "Wrong Specialist"
+    trigger: "Using @pedro-valerio for voice extraction"
+    why_bad: "Process expert, not mind cloning expert"
+    correction: "Use @oalanicolas for DNA extraction"
+
+  - name: "Skipping Specialists"
+    trigger: "Trying to do everything with @squad-architect"
+    why_bad: "Loses depth of specialized expertise"
+    correction: "Delegate to specialists for their domains"
+
+  - name: "No Handoff Context"
+    trigger: "Switching specialists without context"
+    why_bad: "Loses continuity, duplicates work"
+    correction: "Always pass context per handoff_rules"
+```
+
+---
+
+*AIOS Decision Heuristics Framework v1.1*
+*Updated: Specialist Selection Heuristic added*

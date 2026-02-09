@@ -4,21 +4,21 @@
 > **Name:** Agent Depth Quality
 > **Type:** Blocking
 > **Version:** 1.0.0
-> **Purpose:** Garantir que agents tenham PROFUNDIDADE real, nao apenas estrutura
+> **Purpose:** Garantir que agents tenham PROFUNDIDADE real, não apenas estrutura
 
 ---
 
 ## PROBLEMA QUE ESTE GATE RESOLVE
 
-Agents podem passar em SC_AGT_001 (linhas) e SC_AGT_002 (estrutura) mas ainda serem **genericos e fracos**.
+Agents podem passar em SC_AGT_001 (linhas) e SC_AGT_002 (estrutura) mas ainda serem **genéricos e fracos**.
 
 **Sintomas de agent sem profundidade:**
-- Frameworks sao listas de passos sem TEORIA
-- Heuristicas sao regras sem EXEMPLOS
-- Voice DNA e funcional mas nao DISTINTIVO
-- Poderia ser qualquer agent generico com nome diferente
+- Frameworks são listas de passos sem TEORIA
+- Heurísticas são regras sem EXEMPLOS
+- Voice DNA é funcional mas não DISTINTIVO
+- Poderia ser qualquer agent genérico com nome diferente
 
-**Referencia de qualidade:** Squad Copy (gary-halbert, dan-kennedy, etc.)
+**Referência de qualidade:** Squads com agents baseados em experts reais do domínio
 
 ---
 
@@ -27,71 +27,71 @@ Agents podem passar em SC_AGT_001 (linhas) e SC_AGT_002 (estrutura) mas ainda se
 ### 1. FRAMEWORKS COM TEORIA
 
 ```yaml
-check: "Frameworks tem TEORIA, nao so passos"
+check: "Frameworks têm TEORIA, não só passos"
 passing_criteria:
-  - "[ ] Cada framework tem FILOSOFIA/PRINCIPIO por tras"
-  - "[ ] Steps explicam O PORQUE, nao so O QUE"
-  - "[ ] Ha when_to_use E when_NOT_to_use"
-  - "[ ] Exemplos de APLICACAO inline"
+  - "[ ] Cada framework tem FILOSOFIA/PRINCÍPIO por trás"
+  - "[ ] Steps explicam O PORQUÊ, não só O QUE"
+  - "[ ] Há when_to_use E when_NOT_to_use"
+  - "[ ] Exemplos de APLICAÇÃO inline"
 
-# X FRACO:
+# ❌ FRACO:
 framework:
   steps:
     - "Emitir DAS"
     - "Verificar valor"
     - "Enviar ao cliente"
 
-# V PROFUNDO:
+# ✅ PROFUNDO:
 framework:
-  name: "Protecao de Limite MEI"
+  name: "Proteção de Limite MEI"
   philosophy: |
-    O limite de R$ 81k nao e apenas um numero - e o ponto onde
-    o MEI perde TODOS os beneficios da simplicidade. Um MEI que
-    ultrapassa sem perceber pode ter tributacao RETROATIVA de todo
-    o ano. Por isso, alertar CEDO e mais importante que alertar CORRETAMENTE.
+    O limite de R$ 81k não é apenas um número - é o ponto onde
+    o MEI perde TODOS os benefícios da simplicidade. Um MEI que
+    ultrapassa sem perceber pode ter tributação RETROATIVA de todo
+    o ano. Por isso, alertar CEDO é mais importante que alertar CORRETAMENTE.
   steps:
     - step: "Monitorar proporcionalmente"
-      action: "Calcular limite proporcional ao mes"
-      theory: "Limite anual / 12 * meses = referencia. Excesso sobre isso e sinal amarelo."
-      example: "Em julho: R$ 81k / 12 * 7 = R$ 47.250 e o limite proporcional"
+      action: "Calcular limite proporcional ao mês"
+      theory: "Limite anual / 12 * meses = referência. Excesso sobre isso é sinal amarelo."
+      example: "Em julho: R$ 81k / 12 * 7 = R$ 47.250 é o limite proporcional"
 ```
 
 **Score:** ___/4
 
 ---
 
-### 2. HEURISTICAS COM EVIDENCIA
+### 2. HEURÍSTICAS COM EVIDÊNCIA
 
 ```yaml
-check: "Heuristicas tem EVIDENCIA ou CITACAO"
+check: "Heurísticas têm EVIDÊNCIA ou CITAÇÃO"
 passing_criteria:
-  - "[ ] Cada regra SE/ENTAO tem RATIONALE"
-  - "[ ] Regras tem EXEMPLO de aplicacao real"
-  - "[ ] Excecoes documentadas"
-  - "[ ] Fonte da heuristica (se de expert)"
+  - "[ ] Cada regra SE/ENTÃO tem RATIONALE"
+  - "[ ] Regras têm EXEMPLO de aplicação real"
+  - "[ ] Exceções documentadas"
+  - "[ ] Fonte da heurística (se de expert)"
 
-# X FRACO:
+# ❌ FRACO:
 heuristics:
-  - rule: "SE cliente atrasou DAS ENTAO cobrar"
+  - rule: "SE cliente atrasou DAS ENTÃO cobrar"
 
-# V PROFUNDO:
+# ✅ PROFUNDO:
 heuristics:
   - id: "MEI-H001"
     name: "Regra 60-80-95"
-    rule: "SE faturamento >= 60% do limite ENTAO alerta amarelo"
+    rule: "SE faturamento >= 60% do limite ENTÃO alerta amarelo"
     rationale: |
-      60% em 6 meses significa projecao de 120% no ano.
-      Alertar cedo da tempo para o cliente ESCOLHER:
+      60% em 6 meses significa projeção de 120% no ano.
+      Alertar cedo dá tempo para o cliente ESCOLHER:
       - Reduzir faturamento
       - Planejar desenquadramento
       O custo de alertar cedo demais (incomodar) < custo de alertar tarde (multa)
     example: |
-      Maria faturou R$ 48k ate junho. Isso e 59% do limite.
-      Projecao: R$ 96k no ano (18% acima).
-      Alerta amarelo: "Voce esta no ritmo de ultrapassar. Vamos monitorar."
+      Maria faturou R$ 48k até junho. Isso é 59% do limite.
+      Projeção: R$ 96k no ano (18% acima).
+      Alerta amarelo: "Você está no ritmo de ultrapassar. Vamos monitorar."
     exceptions:
-      - "Negocios sazonais (dezembro forte)"
-      - "Cliente ja planejando ME"
+      - "Negócios sazonais (dezembro forte)"
+      - "Cliente já planejando ME"
 ```
 
 **Score:** ___/4
@@ -101,72 +101,72 @@ heuristics:
 ### 3. VOICE DNA DISTINTIVO
 
 ```yaml
-check: "Voice DNA e UNICO, nao generico"
+check: "Voice DNA é ÚNICO, não genérico"
 passing_criteria:
-  - "[ ] Sentence starters sao caracteristicos (nao genericos)"
-  - "[ ] Vocabulary tem termos ESPECIFICOS do dominio"
-  - "[ ] Metaforas/analogias proprias"
-  - "[ ] Lendo so o voice_dna, da para identificar o agent"
+  - "[ ] Sentence starters são característicos (não genéricos)"
+  - "[ ] Vocabulary tem termos ESPECÍFICOS do domínio"
+  - "[ ] Metáforas/analogias próprias"
+  - "[ ] Lendo só o voice_dna, dá para identificar o agent"
 
-# X FRACO (generico):
+# ❌ FRACO (genérico):
 voice_dna:
   sentence_starters:
     - "Vou verificar isso..."
-    - "Aqui esta a informacao..."
+    - "Aqui está a informação..."
   vocabulary:
-    always_use: ["importante", "atencao", "verifique"]
+    always_use: ["importante", "atenção", "verifique"]
 
-# V PROFUNDO (distintivo):
+# ✅ PROFUNDO (distintivo):
 voice_dna:
   sentence_starters:
     alerta_limite:
-      - "ATENCAO LIMITE: Voce esta a {X}% do teto..."
-      - "Projecao atual: Se mantiver esse ritmo..."
+      - "🚨 ATENÇÃO LIMITE: Você está a {X}% do teto..."
+      - "📊 Projeção atual: Se mantiver esse ritmo..."
     operacional:
-      - "DAS de {competencia} pronto. Valor: R$ {valor}..."
-      - "Guia emitida. Vencimento: dia 20..."
+      - "📄 DAS de {competência} pronto. Valor: R$ {valor}..."
+      - "✅ Guia emitida. Vencimento: dia 20..."
   vocabulary:
     always_use:
-      - "competencia" (nao "mes" para referencia fiscal)
-      - "DAS-MEI" (nao "boleto do MEI")
-      - "limite proporcional" (nao "teto")
+      - "competência" (não "mês" para referência fiscal)
+      - "DAS-MEI" (não "boleto do MEI")
+      - "limite proporcional" (não "teto")
     never_use:
-      - "imposto" -> usar "contribuicao"
-      - "estourar" -> usar "atingir/ultrapassar"
+      - "imposto" → usar "contribuição"
+      - "estourar" → usar "atingir/ultrapassar"
   metaphors:
     limite_copo:
-      description: "O limite MEI e como um copo d'agua"
-      usage: "Quando esta 80% cheio, qualquer gota pode derramar"
+      description: "O limite MEI é como um copo d'água"
+      usage: "Quando está 80% cheio, qualquer gota pode derramar"
 ```
 
 **Score:** ___/4
 
 ---
 
-### 4. ANTI-PATTERNS COM RAZAO
+### 4. ANTI-PATTERNS COM RAZÃO
 
 ```yaml
-check: "Anti-patterns explicam O PORQUE"
+check: "Anti-patterns explicam O PORQUÊ"
 passing_criteria:
   - "[ ] Cada 'never_do' tem 'reason'"
-  - "[ ] Razoes sao especificas do dominio"
-  - "[ ] Consequencias sao explicadas"
-  - "[ ] Alternativa correta e indicada"
+  - "[ ] Razões são específicas do domínio"
+  - "[ ] Consequências são explicadas"
+  - "[ ] Alternativa correta é indicada"
 
-# X FRACO:
+# ❌ FRACO:
 anti_patterns:
   never_do:
-    - "Nao atrasar envio de guia"
+    - "Não atrasar envio de guia"
 
-# V PROFUNDO:
+# ✅ PROFUNDO:
 anti_patterns:
   never_do:
     - action: "Enviar DAS depois do dia 15"
       reason: |
         Cliente precisa de pelo menos 5 dias para organizar pagamento.
-        Muitos MEIs nao tem reserva de caixa. Guia enviada dia 18
+        Muitos MEIs não têm reserva de caixa. Guia enviada dia 18
         significa pagamento atrasado, multa de 0,33%/dia, e cliente
-        irritado com o contador (nao consigo mesmo).
+        irritado com o contador (não consigo mesmo).
       consequence: "Multa para o cliente + desgaste de relacionamento"
       alternative: "Emitir dia 1, enviar dia 5, lembrete dia 15"
 ```
@@ -178,17 +178,17 @@ anti_patterns:
 ### 5. TESTE DE DISTINTIVIDADE
 
 ```yaml
-check: "Agent e distinguivel de generico"
+check: "Agent é distinguível de genérico"
 passing_criteria:
-  - "[ ] Removendo o nome, ainda e identificavel pelo conteudo"
-  - "[ ] Frameworks sao especificos DESTE dominio"
-  - "[ ] Output examples sao unicos (nao poderiam ser de outro agent)"
-  - "[ ] Personalidade e consistente atraves de todas as secoes"
+  - "[ ] Removendo o nome, ainda é identificável pelo conteúdo"
+  - "[ ] Frameworks são específicos DESTE domínio"
+  - "[ ] Output examples são únicos (não poderiam ser de outro agent)"
+  - "[ ] Personalidade é consistente através de todas as seções"
 
 test: |
-  Mostre as secoes voice_dna e frameworks para alguem sem contexto.
-  Pergunte: "De que area e esse agent?"
-  Se a pessoa nao consegue identificar -> FAIL
+  Mostre as seções voice_dna e frameworks para alguém sem contexto.
+  Pergunte: "De que área é esse agent?"
+  Se a pessoa não consegue identificar → FAIL
 ```
 
 **Score:** ___/4
@@ -197,12 +197,12 @@ test: |
 
 ## SCORING
 
-| Secao | Score | Max |
+| Seção | Score | Max |
 |-------|-------|-----|
 | 1. Frameworks com teoria | ___/4 | 4 |
-| 2. Heuristicas com evidencia | ___/4 | 4 |
+| 2. Heurísticas com evidência | ___/4 | 4 |
 | 3. Voice DNA distintivo | ___/4 | 4 |
-| 4. Anti-patterns com razao | ___/4 | 4 |
+| 4. Anti-patterns com razão | ___/4 | 4 |
 | 5. Teste de distintividade | ___/4 | 4 |
 | **TOTAL** | **___/20** | **20** |
 
@@ -214,27 +214,29 @@ test: |
 decision:
   PASS: "Score >= 16/20 (80%)"
   CONDITIONAL: "Score 12-15/20 (60-75%) - Pode publicar com plano de melhoria"
-  FAIL: "Score < 12/20 - NAO publicar, voltar para extracao"
+  FAIL: "Score < 12/20 - NÃO publicar, voltar para extração"
 
 action_if_fail:
-  - "Identificar secoes fracas"
-  - "Re-executar extract-thinking-dna.md com foco nas secoes"
+  - "Identificar seções fracas"
+  - "Re-executar extract-thinking-dna.md com foco nas seções"
   - "Adicionar exemplos e teoria"
   - "Re-rodar checklist"
 ```
 
 ---
 
-## COMPARACAO: AGENT BOM vs AGENT FRACO
+## COMPARAÇÃO: AGENT BOM vs AGENT FRACO
 
-| Aspecto | Gary Halbert (Copy) | MEI Specialist (v1) |
-|---------|---------------------|---------------------|
-| **Linhas** | 1.500+ | 521 |
+> **Nota:** Esta comparação é ilustrativa. Substitua pelos agents do seu domínio.
+
+| Aspecto | Agent Profundo (Bom) | Agent Genérico (Fraco) |
+|---------|----------------------|------------------------|
+| **Linhas** | 1.500+ | <500 |
 | **Frameworks** | Com filosofia, exemplos, templates | Lista de passos |
-| **Heuristicas** | Com citacoes reais do expert | Regras genericas |
-| **Voice DNA** | Personalidade forte, metaforas | Funcional mas generico |
-| **Distintividade** | Impossivel confundir | Poderia ser qualquer agent |
-| **Score SC_AGT_003** | 19/20 | 8/20 |
+| **Heurísticas** | Com citações reais do expert | Regras genéricas |
+| **Voice DNA** | Personalidade forte, metáforas | Funcional mas genérico |
+| **Distintividade** | Impossível confundir | Poderia ser qualquer agent |
+| **Score SC_AGT_003** | 18-20/20 | <12/20 |
 
 ---
 

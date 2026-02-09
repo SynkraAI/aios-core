@@ -11,6 +11,16 @@ template:
     format: markdown
     filename: "agents/{{agent_id}}.md"
 
+  specialists:
+    mind_cloning: "@oalanicolas"
+    process_validation: "@pedro-valerio"
+    notes: |
+      For mind-based agents (cloned from real experts):
+      - Invoke @oalanicolas for DNA extraction: *extract-dna, *assess-sources
+      - Use DNA Mental™ 8-Layer Architecture for complete clone
+      For process/workflow validation:
+      - Invoke @pedro-valerio for: *audit, *design-heuristic, *veto-check
+
   architecture: |
     Hybrid approach combining:
     - Full persona/voice/frameworks INLINE (always loaded)

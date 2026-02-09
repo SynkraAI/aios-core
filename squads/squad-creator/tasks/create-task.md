@@ -8,7 +8,8 @@
 **Quality Standard:** AIOS Level (300+ lines simple, 500+ lines complex)
 
 **Frameworks Used:**
-- `data/executor-matrix-framework.md` → Executor assignment (Phase 2)
+- `data/executor-decision-tree.md` → Executor assignment (Phase 0, Step 0.3) **← PRIMARY**
+- `data/executor-matrix-framework.md` → Executor profiles reference
 - `data/decision-heuristics-framework.md` → Quality gate logic (Phase 4)
 - `data/quality-dimensions-framework.md` → Task validation (Phase 4)
 
@@ -196,48 +197,239 @@ identify_pack:
 
 ### Step 0.3: Assign Executor Type
 
-**Apply: executor-matrix-framework.md**
+**Apply: executor-decision-tree.md** (MANDATORY ELICITATION)
 
-**Actions:**
+**CRITICAL:** Não assuma o executor. Faça as perguntas na ordem.
+
+**Elicitation Flow:**
+
 ```yaml
-assign_executor:
-  decision_tree:
-    - IF rule_based AND low_stakes:
-        executor: "Worker"
-        description: "Fully automated, deterministic"
-        example: "Data formatting, file operations"
+executor_elicitation:
+  # PERGUNTA 1: Teste de Determinismo
+  q1:
+    ask: |
+      **Pergunta 1/6 - Determinismo**
+      Dado o MESMO input, o output será SEMPRE idêntico?
 
-    - ELSE IF high_judgment_required:
-        executor: "Human"
-        description: "Requires human decision-making"
-        example: "Final approval, creative direction"
+      Exemplos:
+      - ✅ SIM: Converter JSON→YAML, validar CPF, calcular total
+      - ❌ NÃO: Resumir texto, classificar sentimento, gerar copy
 
-    - ELSE IF ai_can_draft_human_validates:
-        executor: "Hybrid"
-        description: "AI creates draft, human reviews/approves"
-        example: "Content generation, analysis"
+    options:
+      - "SIM - Output é 100% previsível"
+      - "NÃO - Output pode variar"
 
-    - ELSE:
-        executor: "Agent"
-        description: "AI executes autonomously"
-        example: "Research, synthesis, first drafts"
+    if_yes: "q2"
+    if_no: "q3"
 
-  guardrails_required:
-    Worker: "Input validation, error handling"
-    Agent: "Quality checks, confidence thresholds"
-    Hybrid: "Human review triggers, approval workflow"
-    Human: "Clear instructions, decision criteria"
+  # PERGUNTA 2: Função Pura
+  q2:
+    ask: |
+      **Pergunta 2/6 - Função Pura**
+      Pode ser implementado como função `f(x) → y` sem ambiguidade?
+
+      Exemplos:
+      - ✅ SIM: Parsing de arquivo, validação de schema, transformação de dados
+      - ❌ NÃO: Decisão que depende de contexto externo
+
+    options:
+      - "SIM - Pode ser função pura"
+      - "NÃO - Há ambiguidade ou dependência externa"
+
+    if_yes: "q2a"
+    if_no: "q3"
+
+  # PERGUNTA 2a: Existe Lib/API
+  q2a:
+    ask: |
+      **Pergunta 2a/6 - Implementação Existente**
+      Existe biblioteca, SDK, ou API que faz essa operação?
+
+      Exemplos:
+      - ✅ SIM: email-validator, pdf-parse, date-fns
+      - ❌ NÃO: Lógica de negócio específica
+
+    options:
+      - "SIM - Existe código pronto"
+      - "NÃO - Precisa implementar"
+
+    if_yes:
+      result: "Worker"
+      rationale: "Operação determinística com implementação existente"
+    if_no: "q2b"
+
+  # PERGUNTA 2b: ROI de Codificar
+  q2b:
+    ask: |
+      **Pergunta 2b/6 - ROI de Codificação**
+      Task será executada quantas vezes?
+
+      Rule of thumb:
+      - < 3x → Agent (menor setup)
+      - 3-50x → Avaliar complexidade
+      - > 50x → Worker (investimento se paga)
+
+    options:
+      - "< 3 vezes - One-off ou raro"
+      - "3-50 vezes - Uso moderado"
+      - "> 50 vezes - Uso frequente"
+
+    if_less_than_3:
+      result: "Agent"
+      rationale: "Baixa frequência não justifica codificação"
+    if_moderate:
+      result: "Worker ou Agent"
+      rationale: "Avaliar complexidade de implementação vs benefício"
+    if_frequent:
+      result: "Worker"
+      rationale: "Alta frequência justifica investimento em código"
+
+  # PERGUNTA 3: Linguagem Natural
+  q3:
+    ask: |
+      **Pergunta 3/6 - Linguagem Natural**
+      Task envolve interpretar, analisar, ou gerar texto não-estruturado?
+
+      Exemplos:
+      - ✅ SIM: Resumir documento, classificar email, gerar resposta
+      - ❌ NÃO: Calcular métricas, mover arquivos, chamar API
+
+    options:
+      - "SIM - Envolve linguagem natural"
+      - "NÃO - Dados estruturados apenas"
+
+    if_yes: "q4"
+    if_no: "q5"
+
+  # PERGUNTA 4: Impacto de Erro
+  q4:
+    ask: |
+      **Pergunta 4/6 - Impacto de Erro**
+      Se o output estiver ERRADO, qual é o impacto?
+
+      Níveis:
+      - BAIXO: Typo em draft interno, classificação que será revisada
+      - MÉDIO: Email enviado com erro, relatório impreciso
+      - ALTO: Proposta com valor errado, comunicação a cliente
+      - CRÍTICO: Dados deletados, violação legal, dano irreversível
+
+    options:
+      - "BAIXO - Facilmente corrigível"
+      - "MÉDIO - Retrabalho necessário"
+      - "ALTO - Dano financeiro/reputacional"
+      - "CRÍTICO - Irreversível/catastrófico"
+
+    if_low:
+      result: "Agent"
+      rationale: "Baixo impacto permite execução autônoma de LLM"
+    if_medium:
+      result: "Hybrid"
+      rationale: "Impacto médio requer validação humana"
+    if_high:
+      result: "Hybrid"
+      rationale: "Alto impacto requer validação humana obrigatória"
+    if_critical:
+      result: "Human"
+      rationale: "Impacto crítico requer decisão humana direta"
+
+  # PERGUNTA 5: Julgamento Estratégico
+  q5:
+    ask: |
+      **Pergunta 5/6 - Julgamento Estratégico**
+      Task requer decisão estratégica, política, ou interpessoal?
+
+      Exemplos:
+      - ✅ SIM: Priorizar roadmap, negociar contrato, resolver conflito
+      - ❌ NÃO: Gerar relatório, processar dados, classificar items
+
+    options:
+      - "SIM - Requer julgamento humano"
+      - "NÃO - Pode ser automatizado"
+
+    if_yes: "q6"
+    if_no: "q4"
+
+  # PERGUNTA 6: AI pode assistir
+  q6:
+    ask: |
+      **Pergunta 6/6 - Assistência AI**
+      Um AI pode preparar contexto/análise para acelerar a decisão humana?
+
+      Exemplos:
+      - ✅ SIM: AI prepara briefing, humano decide
+      - ❌ NÃO: Decisão depende de relacionamento/política interna
+
+    options:
+      - "SIM - AI pode preparar/assistir"
+      - "NÃO - Decisão 100% humana"
+
+    if_yes:
+      result: "Hybrid"
+      rationale: "AI prepara, humano decide"
+    if_no:
+      result: "Human"
+      rationale: "Decisão requer contexto que AI não tem acesso"
+```
+
+**Post-Elicitation Actions:**
+
+```yaml
+post_elicitation:
+  # Após determinar executor, definir guardrails
+  guardrails_by_type:
+    Worker:
+      - "Input validation obrigatório"
+      - "Error handling com retry"
+      - "Logging de execução"
+      - "Fallback para Hybrid se falhar"
+
+    Agent:
+      - "Confidence threshold definido"
+      - "Output validation"
+      - "Fallback para Hybrid obrigatório"
+      - "Rate limiting"
+
+    Hybrid:
+      - "Timeout para review humano"
+      - "Escalation path definido"
+      - "Feedback loop para melhoria"
+      - "Fallback para Human se urgente"
+
+    Human:
+      - "Critérios de decisão documentados"
+      - "Deadline definido"
+      - "Escalation path definido"
+      - "Documentação obrigatória"
 ```
 
 **Output (PHASE 0):**
+
 ```yaml
+# Example output - values will vary based on your squad
 phase_0_output:
   classification: "task"
-  pack_name: "copy"
-  pack_path: "squads/{your-squad}/"
-  task_id: "generate-sales-page"
-  executor: "Hybrid"
-  executor_rationale: "AI generates draft, human reviews for brand voice"
+  pack_name: "{squad-name}"
+  pack_path: "squads/{squad-name}/"
+  task_id: "{task-name}"
+
+  executor:
+    type: "Hybrid"
+    pattern: "EXEC-HY-001"
+    rationale: "LLM gera draft (linguagem natural), humano valida (impacto médio em cliente)"
+
+    elicitation_path:
+      q1: "NÃO - Output varia"
+      q3: "SIM - Envolve linguagem natural"
+      q4: "MÉDIO - Email/conteúdo para cliente"
+
+    guardrails:
+      - "Timeout de review: 4h"
+      - "Escalation: @{squad-chief}"  # e.g., @{squad-name}-chief
+      - "Feedback loop: ativo"
+
+    fallback:
+      type: "Human"
+      trigger: "Cliente VIP ou conteúdo sensível"
 ```
 
 ---
@@ -807,10 +999,11 @@ save_task:
 
 **Output (PHASE 4):**
 ```yaml
+# Example output - values will vary based on your squad
 phase_4_output:
   quality_score: 8.1/10
   blocking_requirements: "ALL PASS"
-  task_file: "squads/{your-squad}/tasks/generate-sales-page.md"
+  task_file: "squads/{squad-name}/tasks/{task-name}.md"
   lines: 520
   status: "PASS"
 ```
@@ -826,12 +1019,13 @@ phase_4_output:
 
 **Actions:**
 ```yaml
+# Example output - values will vary based on your squad
 present_summary:
   task_created:
-    id: "generate-sales-page"
-    purpose: "Generate high-converting sales page copy"
+    id: "{task-name}"
+    purpose: "{task purpose description}"
     executor: "Hybrid"
-    file: "squads/{your-squad}/tasks/generate-sales-page.md"
+    file: "squads/{squad-name}/tasks/{task-name}.md"
     lines: 520
 
   task_anatomy:
@@ -845,18 +1039,18 @@ present_summary:
     status: "PASS"
 
   execution:
-    command: "*generate-sales-page"
-    agent: "@copy:sales-page-writer"
+    command: "*{command-name}"  # e.g., *generate-sales-page
+    agent: "@{squad-name}:{agent-name}"  # e.g., @copy:sales-page-writer
 ```
 
 ### Step 5.2: Document Integration
 
 **Actions:**
 ```yaml
-integration_notes:
+integration_notes:  # Example - replace with your squad agents
   agents_that_use:
-    - "sales-page-writer"
-    - "copy-chief (orchestration)"
+    - "{agent-1}"
+    - "{squad-name}-chief (orchestration)"
 
   prerequisite_tasks:
     - "avatar-research"
