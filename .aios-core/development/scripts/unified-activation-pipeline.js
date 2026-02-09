@@ -115,7 +115,7 @@ class UnifiedActivationPipeline {
    *
    * @param {string} agentId - Agent identifier (e.g., 'dev', 'qa', 'pm')
    * @param {Object} [options] - Activation options
-   * @returns {Promise<{greeting: string, context: Object, duration: number}>}
+   * @returns {Promise<{greeting: string, context: Object, duration: number, quality: string, metrics: Object}>}
    */
   static activate(agentId, options = {}) {
     return new UnifiedActivationPipeline().activate(agentId, options);

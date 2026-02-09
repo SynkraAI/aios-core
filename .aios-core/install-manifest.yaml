@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-08T21:38:20.501Z"
+generated_at: "2026-02-09T01:00:14.804Z"
 generator: scripts/generate-install-manifest.js
-file_count: 944
+file_count: 945
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -860,6 +860,10 @@ files:
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
     size: 68
+  - path: data/registry-update-log.jsonl
+    hash: sha256:78278bb18007997a3f65d2b2e38cfe75ed379c7c5a57063fbbb435175601db6f
+    type: data
+    size: 128
   - path: data/tech-presets/_template.md
     hash: sha256:1a7262912c8c8e264d307f0d38a1109bdb2b9bff9ea7d8855c768835201aa59b
     type: data
@@ -1069,9 +1073,9 @@ files:
     type: script
     size: 12335
   - path: development/scripts/greeting-builder.js
-    hash: sha256:dd468ffaef74f9955310f0d0028717cbbd15b082577b7471018cb05b032f330f
+    hash: sha256:97131252ae7bbda48a3980a0ce4275e4158320a796ba5d34294155e2b40fe2ae
     type: script
-    size: 53736
+    size: 53855
   - path: development/scripts/greeting-config-cli.js
     hash: sha256:1535acc8d5c802eb3dec7b7348f876a34974fbe4cfa760a9108d5554a72c4cf6
     type: script
@@ -1205,9 +1209,9 @@ files:
     type: script
     size: 18196
   - path: development/scripts/unified-activation-pipeline.js
-    hash: sha256:c1ec62788b3268185c8a38edb6f1b18bd4410c3be9b44af3e2d81f030c06b8cc
+    hash: sha256:fab9084865722d407c0d3654c2f5987f10ac96b78aabc19663bc6862b65daf04
     type: script
-    size: 16186
+    size: 23563
   - path: development/scripts/usage-tracker.js
     hash: sha256:b3079713787de7c6ac38a742255861f04e8359ef1b227836040920a64b7e8aac
     type: script
@@ -2669,9 +2673,9 @@ files:
     type: script
     size: 31277
   - path: infrastructure/scripts/project-status-loader.js
-    hash: sha256:9f3371459447aef25b55ec2cd1b0b41646ae9f127d455483ef0e951c0e9e67e3
+    hash: sha256:0058f79b15bb58182348aa8beca7358d104acb3ec00d086667ba0833810797d4
     type: script
-    size: 23904
+    size: 25137
   - path: infrastructure/scripts/qa-loop-orchestrator.js
     hash: sha256:1f9a886d4b6f467195c3b48a3de572c51380ca3c10236e90c83082b24e9ecac2
     type: script

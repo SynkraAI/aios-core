@@ -77,10 +77,14 @@ function percentile(sorted, p) {
 
 function clearPipelineCache() {
   for (const modulePath of PIPELINE_MODULES) {
-    const fullPath = path.resolve(PROJECT_ROOT, modulePath);
-    const resolved = require.resolve(fullPath);
-    if (require.cache[resolved]) {
-      delete require.cache[resolved];
+    try {
+      const fullPath = path.resolve(PROJECT_ROOT, modulePath);
+      const resolved = require.resolve(fullPath);
+      if (require.cache[resolved]) {
+        delete require.cache[resolved];
+      }
+    } catch {
+      // Module not found — skip silently
     }
   }
 }
