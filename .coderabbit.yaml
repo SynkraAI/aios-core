@@ -2,9 +2,10 @@
 # AIOS CodeRabbit Configuration
 # Story: COLLAB-1, 12.11
 # Created: 2025-12-30
-# Updated: 2026-02-05 (Story 12.11 - Bob CI/CD Pipeline)
+# Updated: 2026-02-10 (Added GitHub Actions CI integration)
 #
 # CodeRabbit provides AI-powered code review for pull requests
+# CI Workflow: .github/workflows/coderabbit-review.yml
 # Documentation: https://docs.coderabbit.ai/getting-started/yaml-configuration
 
 language: "en-US"
