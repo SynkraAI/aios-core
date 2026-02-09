@@ -199,6 +199,15 @@ commands:
     description: 'Index documentation for search'
   - name: update-source-tree
     description: 'Validate data file governance (owners, fill rules, existence)'
+  # Session Handoff (replaces autocompact)
+  - name: handoff
+    args: '[topic]'
+    description: 'Create session handoff document for clean context continuation'
+  - name: handoff-read
+    description: 'Read latest handoff and resume from where last session left off'
+  - name: budget
+    description: 'Show current context budget status (70/85/95% thresholds)'
+
   # NOTE: Test suite creation delegated to @qa (*create-suite)
   # NOTE: AI prompt generation delegated to @architect (*generate-ai-prompt)
 
@@ -247,6 +256,7 @@ dependencies:
     - validate-workflow.md
     - run-workflow.md
     - run-workflow-engine.md
+    - session-handoff.md
   # Delegated tasks (Story 6.1.2.3):
   #   brownfield-create-epic.md → @pm
   #   brownfield-create-story.md → @pm
@@ -270,6 +280,7 @@ dependencies:
     - task-template.md
     - workflow-template.yaml
     - subagent-step-prompt.md
+    - handoff-tmpl.md
   data:
     - aios-kb.md
     - brainstorming-techniques.md
@@ -279,6 +290,8 @@ dependencies:
     - security-checker.js
     - workflow-management.md
     - yaml-validator.js
+    - budget-awareness.js
+    - handoff-manager.js
   workflows:
     - brownfield-discovery.yaml
     - brownfield-fullstack.yaml
@@ -321,6 +334,12 @@ autoClaude:
 
 - `*plan` - Create workflow plan
 - `*plan status` - Check plan progress
+
+**Session Handoff (replaces autocompact):**
+
+- `*handoff [topic]` - Create handoff document for clean session continuation
+- `*handoff-read` - Read latest handoff and resume
+- `*budget` - Show context budget status (70/85/95% thresholds)
 
 **Delegated Commands:**
 
