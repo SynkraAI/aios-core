@@ -58,7 +58,7 @@ flowchart TB
         CLAUDE_MD_P["CLAUDE.md Projeto<br/>aios-core/.claude/CLAUDE.md"]
         RULES["Rules/*.md<br/>5 arquivos de regras"]
         AUTO_MEM["Auto Memory<br/>~/.claude/projects/.../memory/MEMORY.md<br/>Primeiras 200 linhas no system prompt"]
-        COMPOUND["Compound Analysis<br/>memory/compound-analysis/<br/>9 arquivos sintetizados"]
+        COMPOUND["Compound Analysis<br/>memory/compound-analysis/<br/>11 arquivos (9 conteudo + manifest + summary)"]
         AGENT_MEM["Agent Memory<br/>.claude/agent-memory/{agent}/MEMORY.md<br/>6 agentes com memoria"]
         TRANSCRIPTS["Session Transcripts<br/>~/.claude/projects/.../{session}.jsonl"]
         SESSIONS_IDX["Sessions Index<br/>sessions-index.json"]

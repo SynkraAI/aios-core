@@ -10,7 +10,7 @@
 **Type:** Investigation
 **Lead:** @architect (Aria)
 
-### Executor Assignment
+## Executor Assignment
 
 ```yaml
 executor: "@architect"
@@ -48,7 +48,7 @@ Realizar investigacao tecnica profunda sobre:
 - Comparative matrix com scoring por feature
 - Architecture recommendation com design principles
 - Session digest flow design (PreCompact hook)
-- Agent Memory API design (*recall commands)
+- Agent Memory API design (`*recall` commands)
 - Pipeline integration design (Tier 1/2/3)
 - Self-learning strategy design
 - Memory file format specification
@@ -361,7 +361,7 @@ User Correction ──detect──→ Extract Pattern ──validate──→ Sa
 
 **Core Pattern — Self-Learning from Corrections:**
 1. Detecta quando usuario corrige comportamento do Claude
-2. Extrai o padrao/regra implicioto na correcao
+2. Extrai o padrao/regra implicito na correcao
 3. Valida se e uma regra geral ou caso especifico
 4. Persiste como skill ou regra no CLAUDE.md
 
@@ -922,13 +922,13 @@ Cada repositorio recebe um **AIOS Fit Score** (1-10) baseado em 8 dimensoes pond
 | Progressive Disclosure | 15% | Capacidade de retrieval em camadas (index → context → detail) |
 | Multi-Agent | 15% | Suporte a memorias compartilhadas e scoped por agente |
 | Self-Learning | 10% | Captura automatica de padroes, correcoes, heuristicas |
-| File-First | 15% | Armazenamento em arquivos legiveies (Markdown, git-friendly) |
+| File-First | 15% | Armazenamento em arquivos legiveis (Markdown, git-friendly) |
 | Token Efficiency | 10% | Reducao de tokens em context injection |
 | CLI-First Fit | 15% | Alinhamento com filosofia CLI-first, sem UI obrigatoria |
 | Zero Dependencies | 10% | Minimo de dependencias externas (sem DBs pesados) |
 | PreCompact Integration | 10% | Integracao nativa ou compativel com hook PreCompact |
 
-**Formula:** `Fit Score = weighted_average(dimensions) rounded to nearest integer`
+**Scoring:** Os Fit Scores sao avaliacoes qualitativas holistic informadas pelas 8 dimensoes acima, nao uma media ponderada estrita. Cada score considera fatores adicionais como maturidade do projeto, facilidade de integracao e alinhamento arquitetural com AIOS que nao sao totalmente capturados pelas dimensoes individuais.
 
 ---
 
@@ -1003,7 +1003,7 @@ Cada repositorio recebe um **AIOS Fit Score** (1-10) baseado em 8 dimensoes pond
   - [x] Define 7 design principles
   - [x] Design 4-layer architecture (Capture, Storage, Retrieval, Evolution)
   - [x] Specify session digest flow (PreCompact hook)
-  - [x] Define Agent Memory API (*recall, *remember, *forget, *memories)
+  - [x] Define Agent Memory API (`*recall`, `*remember`, `*forget`, `*memories`)
   - [x] Design pipeline integration (Tier 1/2/3 memory loading)
   - [x] Define self-learning strategy (corrections, heuristics, evolution)
   - [x] Specify memory file format (Markdown + YAML frontmatter)
@@ -1079,7 +1079,7 @@ Para o @po validar que a investigacao atinge o nivel de profundidade requerido:
 - [x] Comparative matrix com scoring por feature
 - [x] Architecture recommendation com design principles
 - [x] Session digest flow design (PreCompact hook)
-- [x] Agent Memory API design (*recall commands)
+- [x] Agent Memory API design (`*recall` commands)
 - [x] Pipeline integration design (Tier 1/2/3 memory loading)
 - [x] Self-learning strategy (corrections, heuristics, evolution)
 - [x] Memory file format specification (Markdown + frontmatter)
@@ -1222,7 +1222,7 @@ Nenhum refactoring — story de investigacao sem code changes.
 | 4 | Comparative matrix | PASS | 8 features x 10 repos com scoring methodology |
 | 5 | Architecture recommendation | PASS | 4-layer architecture + 7 design principles + 9 ADRs |
 | 6 | Session digest flow | PASS | PreCompact hook integration detalhada |
-| 7 | Agent Memory API | PASS | *recall, *remember, *forget, *memories commands |
+| 7 | Agent Memory API | PASS | `*recall`, `*remember`, `*forget`, `*memories` commands |
 | 8 | Pipeline integration | PASS | Tier 1/2/3 memory loading design |
 | 9 | Self-learning strategy | PASS | Correction capture + evidence-based confidence |
 | 10 | Memory file format | PASS | Markdown + YAML frontmatter specification |

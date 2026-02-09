@@ -8,7 +8,7 @@ This folder contains active and planned epics for the AIOS project.
 
 | Epic | Name | Status | Sprint |
 |------|------|--------|--------|
-| **OSR** | [Open-Source Community Readiness](../../epics/epic-osr-open-source-readiness.md) | Active | Sprint 5-6 |
+| **OSR** | Open-Source Community Readiness | Active | Sprint 5-6 |
 | **HCS** | [Health Check System](epic-health-check-system/EPIC-HCS-INDEX.md) | Planning | Sprint 7 |
 | **WIS** | [Workflow Intelligence System](epic-workflow-intelligence/EPIC-WIS-INDEX.md) | Planning | Sprint 8+ |
 | **PRO** | [AIOS Pro Architecture](epic-pro-aios-pro-architecture/EPIC-PRO-INDEX.md) | Investigation | Sprint 9 |
