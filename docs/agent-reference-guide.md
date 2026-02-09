@@ -38,7 +38,7 @@ This guide provides a comprehensive reference for all 9 PV-enhanced agents in th
 
 **File**: `.claude/commands/hybridOps/agents/process-mapper-pv.md`
 **Command**: `/process-mapper`
-**Persona**: Bob Chen - Process Discovery Specialist
+**Persona**: Morgan Chen - Process Discovery Specialist
 **Truthfulness Score**: 0.90 (Very High)
 
 **Purpose**:
@@ -330,7 +330,7 @@ Conduct end-to-end workflow review, assess risks, and provide formal sign-off wi
 
 **File**: `.claude/commands/hybridOps/agents/documentation-writer-pv.md`
 **Command**: `/documentation-writer`
-**Persona**: Rachel Bob - Technical Writer & Knowledge Architect
+**Persona**: Rachel Morgan - Technical Writer & Knowledge Architect
 **Truthfulness Score**: 0.85 (High)
 
 **Purpose**:

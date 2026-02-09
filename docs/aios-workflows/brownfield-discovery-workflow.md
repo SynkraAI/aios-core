@@ -98,7 +98,7 @@ sequenceDiagram
     participant UX as @ux-design-expert<br/>Uma
     participant QA as @qa<br/>Quinn
     participant AN as @analyst<br/>Atlas
-    participant PM as @pm<br/>Bob
+    participant PM as @pm<br/>Morgan
 
     rect rgb(255, 248, 220)
         Note over AR,UX: FASES 1-3: Coleta de Dados (Paralelizável)
@@ -539,7 +539,7 @@ PENDENTE: Revisão do @ux-design-expert
 | **Step ID** | `epic_creation` + `story_creation` |
 | **Fase** | 10 |
 | **Nome da Fase** | Planning |
-| **Agente** | `@pm` (Bob - Strategist) |
+| **Agente** | `@pm` (Morgan - Strategist) |
 | **Ações** | `*brownfield-create-epic`, `*brownfield-create-story` |
 | **Elicitação** | Sim |
 | **Duração Estimada** | 30-60 min |
@@ -578,7 +578,7 @@ mindmap
     Finalizacao
       architect2["@architect<br/>Assessment Final"]
       analyst["@analyst<br/>Atlas (Decoder)<br/>Relatorio Executivo"]
-      pm["@pm<br/>Bob (Strategist)<br/>Epic & Stories"]
+      pm["@pm<br/>Morgan (Strategist)<br/>Epic & Stories"]
 ```
 
 ### Perfil dos Agentes
@@ -590,7 +590,7 @@ mindmap
 | Uma | `@ux-design-expert` | Empathizer | Atomic Design, design tokens, acessibilidade |
 | Quinn | `@qa` | Guardian | Quality gates, testes, rastreabilidade |
 | Atlas | `@analyst` | Decoder | Pesquisa, analise, ROI |
-| Bob | `@pm` | Strategist | PRDs, epics, priorizacao |
+| Morgan | `@pm` | Strategist | PRDs, epics, priorizacao |
 
 ---
 

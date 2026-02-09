@@ -10,7 +10,7 @@ const AGENT_INFO = {
   dev: { icon: '👨‍💻', persona: 'Dex', role: 'Developer' },
   architect: { icon: '🏛️', persona: 'Aria', role: 'Architect' },
   qa: { icon: '🧪', persona: 'Quinn', role: 'QA Engineer' },
-  pm: { icon: '📋', persona: 'Bob', role: 'Product Manager' },
+  pm: { icon: '📋', persona: 'Morgan', role: 'Product Manager' },
   po: { icon: '🎯', persona: 'Pax', role: 'Product Owner' },
   sm: { icon: '🔄', persona: 'River', role: 'Scrum Master' },
   analyst: { icon: '📊', persona: 'Alex', role: 'Analyst' },

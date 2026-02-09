@@ -2088,7 +2088,7 @@ Con la adicion de @docs (Ajax), AIOS ahora tiene **13 agentes nombrados**:
 | 1 | @dev | Dex | Constructor | Acuario | Cian |
 | 2 | @qa | Quinn | Guardian | Virgo | Verde |
 | 3 | @po | Pax | Equilibrador | Libra | Amarillo |
-| 4 | @pm | Bob | Estratega | Capricornio | Gris |
+| 4 | @pm | Morgan | Estratega | Capricornio | Gris |
 | 5 | @sm | River | Facilitador | Piscis | Cian |
 | 6 | @architect | Aria | Visionario | Sagitario | Magenta |
 | 7 | @analyst | Atlas | Decodificador | Escorpio | Rojo |

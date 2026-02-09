@@ -383,19 +383,19 @@ O framework de linguagem natural do AIOS funciona em QUALQUER domínio. Os Squad
 
 ## Agentes Disponíveis
 
-O Synkra AIOS vem com 12 agentes especializados:
+O Synkra AIOS vem com 11 agentes especializados:
 
 ### Agentes Meta
 
-- **aios-master** - Agente mestre de orquestração (inclui capacidades de desenvolvimento de framework e coordenação de equipe)
-- **squad-creator** - Criação de squads e expansion packs
+- **aios-master** - Agente mestre de orquestração (inclui capacidades de desenvolvimento de framework)
+- **aios-orchestrator** - Orquestrador de fluxo de trabalho e coordenação de equipe
 
 ### Agentes de Planejamento (Interface Web)
 
 - **analyst** - Especialista em análise de negócios e criação de PRD
 - **pm** (Product Manager) - Gerente de produto e priorização
 - **architect** - Arquiteto de sistema e design técnico
-- **ux-design-expert** - Design de experiência do usuário e usabilidade
+- **ux-expert** - Design de experiência do usuário e usabilidade
 
 ### Agentes de Desenvolvimento (IDE)
 

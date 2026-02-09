@@ -244,7 +244,7 @@ Capturar o estado atual do sistema, divida técnica e restrições. Os achados s
 
 | Atributo | Valor |
 |----------|-------|
-| **Agente** | @pm (Bob) |
+| **Agente** | @pm (Morgan) |
 | **Template** | `brownfield-prd-tmpl` |
 | **Requisito** | Documentação existente ou análise do Step 4 |
 | **Output** | `docs/prd.md` |
@@ -261,7 +261,7 @@ Capturar o estado atual do sistema, divida técnica e restrições. Os achados s
 
 | Atributo | Valor |
 |----------|-------|
-| **Agentes** | @pm (Bob) / @architect (Aria) |
+| **Agentes** | @pm (Morgan) / @architect (Aria) |
 | **Ação** | Determinar se documento de arquitetura e necessario |
 | **Condição** | Apos criacao do PRD |
 
@@ -473,7 +473,7 @@ Continua ate que todas as stories no PRD estejam completas.
 |--------|------|-------------------|-------|
 | @analyst | Atlas | Classificação de escopo, verificacao de documentação | 1, 3 |
 | @architect | Aria | Documentação de projeto, design de arquitetura | 4, 6, 7 |
-| @pm | Bob | Criação de PRD, epics e stories simples | 2, 5, 6 |
+| @pm | Morgan | Criação de PRD, epics e stories simples | 2, 5, 6 |
 | @po | Pax | Validação de artefatos, sharding, retrospectiva | 8, 10, 17 |
 | @sm | River | Criação detalhada de stories | 11 |
 | @dev | Dex | Implementação de stories | 13, 15 |
@@ -811,7 +811,7 @@ stateDiagram-v2
 |---------|--------|
 | `.aios-core/development/agents/analyst.md` | @analyst (Atlas) |
 | `.aios-core/development/agents/architect.md` | @architect (Aria) |
-| `.aios-core/development/agents/pm.md` | @pm (Bob) |
+| `.aios-core/development/agents/pm.md` | @pm (Morgan) |
 | `.aios-core/development/agents/po.md` | @po (Pax) |
 | `.aios-core/development/agents/sm.md` | @sm (River) |
 | `.aios-core/development/agents/dev.md` | @dev (Dex) |

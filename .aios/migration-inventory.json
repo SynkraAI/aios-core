@@ -572,7 +572,7 @@
       {
         "type": "agent",
         "id": "pm",
-        "name": "Bob",
+        "name": "Morgan",
         "title": "Product Manager",
         "path": ".aios-core/development/agents/pm.md",
         "version": "v2",

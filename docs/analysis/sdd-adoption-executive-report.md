@@ -1,7 +1,7 @@
 # Relatório Executivo: Adoção Seletiva do SDD no AIOS
 
 > **Data:** 2025-01-30
-> **Autor:** Bob (PM Agent)
+> **Autor:** Morgan (PM Agent)
 > **Status:** Aprovação Pendente
 > **Investimento Estimado:** 25-40h de desenvolvimento
 
@@ -138,4 +138,4 @@ Semana 3: Elicitation (P2)
 
 ---
 
-*— Bob, PM Agent*
+*— Morgan, PM Agent*

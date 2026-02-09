@@ -123,7 +123,7 @@ sequenceDiagram
     autonumber
     participant U as Usuario
     participant AN as @analyst (Atlas)
-    participant PM as @pm (Bob)
+    participant PM as @pm (Morgan)
     participant UX as @ux-expert (Uma)
     participant AR as @architect (Aria)
     participant PO as @po (Pax)
@@ -248,7 +248,7 @@ sequenceDiagram
 
 | Atributo | Valor |
 |----------|-------|
-| **Agente** | `@pm` (Bob) |
+| **Agente** | `@pm` (Morgan) |
 | **Comando** | `*create-prd` |
 | **Task** | `create-doc.md` + `prd-tmpl.yaml` |
 | **Requer** | `project-brief.md` |
@@ -344,7 +344,7 @@ sequenceDiagram
 
 | Atributo | Valor |
 |----------|-------|
-| **Agente** | `@pm` (Bob) |
+| **Agente** | `@pm` (Morgan) |
 | **Comando** | `*create-prd` (update) |
 | **Requer** | `front-end-architecture.md` |
 | **Atualiza** | `prd.md` |
@@ -579,7 +579,7 @@ sequenceDiagram
 | Agente | Nome | Papel | Principais Comandos |
 |--------|------|-------|---------------------|
 | `@analyst` | Atlas | Business Analyst | `*create-project-brief`, `*brainstorm`, `*research` |
-| `@pm` | Bob | Product Manager | `*create-prd`, `*shard-prd`, `*create-epic` |
+| `@pm` | Morgan | Product Manager | `*create-prd`, `*shard-prd`, `*create-epic` |
 | `@ux-expert` | Uma | UX/UI Designer | `*create-front-end-spec`, `*generate-ui-prompt`, `*wireframe` |
 | `@architect` | Aria | System Architect | `*create-front-end-architecture`, `*document-project` |
 | `@po` | Pax | Product Owner | `*execute-checklist-po`, `*shard-doc`, `*validate-story-draft` |
@@ -592,7 +592,7 @@ sequenceDiagram
 ```mermaid
 graph LR
     subgraph "Planejamento"
-        AN[Atlas<br/>@analyst] --> PM[Bob<br/>@pm]
+        AN[Atlas<br/>@analyst] --> PM[Morgan<br/>@pm]
         PM --> UX[Uma<br/>@ux-expert]
         UX --> AR[Aria<br/>@architect]
     end

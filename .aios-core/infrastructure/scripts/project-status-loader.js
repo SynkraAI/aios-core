@@ -64,7 +64,12 @@ class ProjectStatusLoader {
     this.maxModifiedFiles = this.config?.projectStatus?.maxModifiedFiles || 5;
     this.maxRecentCommits = this.config?.projectStatus?.maxRecentCommits || 2;
 
+    // ACT-11: Cache git dir from constructor to avoid duplicate execSync calls
+    this._resolvedGitDir = null;
+    this._isGitRepo = false;
+
     // ACT-3: Determine cache file path (worktree-aware)
+    // ACT-11: _resolveCacheFilePath now also caches _resolvedGitDir and _isGitRepo
     this.cacheFile = this._resolveCacheFilePath();
     this.lockFile = this.cacheFile + '.lock';
 
@@ -76,6 +81,9 @@ class ProjectStatusLoader {
 
     // ACT-3: Track git state fingerprint for change detection
     this._lastGitFingerprint = null;
+
+    // ACT-11: Support skipGitStatus config for slow environments
+    this.skipGitStatus = this.config?.projectStatus?.skipGitStatus || false;
   }
 
   /**
@@ -96,6 +104,10 @@ class ProjectStatusLoader {
 
   /**
    * ACT-3 Task 4: Resolve cache file path with worktree awareness.
+   *
+   * ACT-11: Caches _resolvedGitDir and _isGitRepo for reuse by
+   * getGitStateFingerprint() and isGitRepository(), eliminating
+   * duplicate execSync calls later in the pipeline.
    *
    * If running inside a git worktree (not the main working tree),
    * uses a worktree-specific cache file to prevent cross-worktree conflicts.
@@ -123,8 +135,12 @@ class ProjectStatusLoader {
         stdio: ['pipe', 'pipe', 'ignore'],
       }).trim();
 
-      // Normalize paths for comparison
+      // ACT-11: Cache the resolved git dir for getGitStateFingerprint()
       const normalizedGitDir = path.resolve(this.rootPath, gitDir);
+      this._resolvedGitDir = normalizedGitDir;
+      this._isGitRepo = true;
+
+      // Normalize paths for comparison
       const normalizedCommonDir = path.resolve(this.rootPath, gitCommonDir);
 
       // If git-dir !== git-common-dir, we are in a worktree
@@ -160,22 +176,28 @@ class ProjectStatusLoader {
   /**
    * ACT-3 Task 1: Get git state fingerprint from .git/HEAD and .git/index mtime.
    *
-   * This enables event-driven cache invalidation. Instead of blindly using a 60s TTL,
-   * we check if git state has actually changed by examining file modification times.
+   * ACT-11: Reuses _resolvedGitDir from constructor instead of running execSync again.
+   * This eliminates one synchronous git command (~30-50ms on Windows).
    *
    * @returns {Promise<string|null>} Fingerprint string or null if not available
    */
   async getGitStateFingerprint() {
     try {
-      const { execSync } = require('child_process');
-      const gitDir = execSync('git rev-parse --git-dir', {
-        cwd: this.rootPath,
-        encoding: 'utf8',
-        timeout: 2000,
-        stdio: ['pipe', 'pipe', 'ignore'],
-      }).trim();
+      // ACT-11: Reuse cached git dir from constructor
+      let resolvedGitDir = this._resolvedGitDir;
 
-      const resolvedGitDir = path.resolve(this.rootPath, gitDir);
+      if (!resolvedGitDir) {
+        // Fallback if constructor didn't resolve (shouldn't happen in normal flow)
+        const { execSync } = require('child_process');
+        const gitDir = execSync('git rev-parse --git-dir', {
+          cwd: this.rootPath,
+          encoding: 'utf8',
+          timeout: 2000,
+          stdio: ['pipe', 'pipe', 'ignore'],
+        }).trim();
+        resolvedGitDir = path.resolve(this.rootPath, gitDir);
+      }
+
       const headPath = path.join(resolvedGitDir, 'HEAD');
       const indexPath = path.join(resolvedGitDir, 'index');
 
@@ -227,6 +249,7 @@ class ProjectStatusLoader {
    * Generate fresh project status
    *
    * ACT-3 Task 5: All git commands run in parallel via Promise.all()
+   * ACT-11: Supports skipGitStatus config to skip expensive git status command
    *
    * @returns {Promise<ProjectStatus>}
    */
@@ -237,9 +260,14 @@ class ProjectStatusLoader {
       return this.getNonGitStatus();
     }
 
+    // ACT-11: When skipGitStatus is enabled, skip the expensive getModifiedFiles()
+    const modifiedFilesPromise = this.skipGitStatus
+      ? Promise.resolve({ files: [], totalCount: 0 })
+      : this.getModifiedFiles();
+
     const [branch, modifiedFilesResult, recentCommits, storyInfo, worktrees] = await Promise.all([
       this.getGitBranch(),
-      this.getModifiedFiles(),
+      modifiedFilesPromise,
       this.getRecentCommits(),
       this.getCurrentStoryInfo(),
       this.getWorktreesStatus(),

@@ -322,7 +322,7 @@ After evaluating multiple archetype systems, we selected zodiac signs for the fo
 | Dex | /deks/ | /deks/ | None ✅ |
 | Quinn | /kwɪn/ | /kwin/ | None ✅ |
 | Pax | /pæks/ | /paks/ | None ✅ |
-| Bob | /ˈmɔːrɡən/ | /ˈmɔɾɡɐ̃/ | None ✅ |
+| Morgan | /ˈmɔːrɡən/ | /ˈmɔɾɡɐ̃/ | None ✅ |
 | River | /ˈrɪvər/ | /ˈɾivɛɾ/ | None ✅ |
 | Aria | /ˈɑːriə/ | /ˈaɾiɐ/ | None ✅ |
 | Atlas | /ˈætləs/ | /ˈatlas/ | None ✅ |
@@ -404,7 +404,7 @@ Tested with Coblis Color Blindness Simulator:
 | Dex | None | "Dex files" (Android) - different context |
 | Quinn | None | No major tech associations |
 | Pax | None | Minor tool, not conflicting |
-| Bob | None | No tech conflicts |
+| Morgan | None | No tech conflicts |
 | River | None | Natural name, no conflicts |
 | Aria | None | Database tool exists but different context |
 | Atlas | Minor | MongoDB Atlas - different enough |
@@ -433,7 +433,7 @@ Tested with Coblis Color Blindness Simulator:
 **Examples:**
 
 - ✅ Dex, Quinn, Pax (clearly neutral)
-- ✅ Bob, River, Aria (traditionally unisex)
+- ✅ Morgan, River, Aria (traditionally unisex)
 - ❌ Avoided: Alexander, Victoria, Marcus (gendered)
 
 ---
@@ -464,7 +464,7 @@ Tested with Coblis Color Blindness Simulator:
 
 **Balance:**
 
-- ✅ Professional: Bob, Atlas, Aria
+- ✅ Professional: Morgan, Atlas, Aria
 - ✅ Friendly: River, Uma, Dex
 - ❌ Too playful: Sparky, Chippy, Buddy
 

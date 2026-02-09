@@ -49,7 +49,7 @@ flowchart TB
 
     subgraph PHASE1["Fase 1: Gather Requirements"]
         direction TB
-        G1["@pm (Bob)"]
+        G1["@pm (Morgan)"]
         G2["Elicitação Interativa<br/>9 categorias de perguntas"]
         G3["requirements.json"]
         G1 --> G2 --> G3
@@ -73,7 +73,7 @@ flowchart TB
 
     subgraph PHASE4["Fase 4: Write Specification"]
         direction TB
-        W1["@pm (Bob)"]
+        W1["@pm (Morgan)"]
         W2["Gerar spec.md<br/>Sem invencao"]
         W3["spec.md"]
         W1 --> W2 --> W3
@@ -94,7 +94,7 @@ flowchart TB
     end
 
     subgraph PHASE5B["Fase 5b: Revise (COMPLEX)"]
-        REV1["@pm (Bob)"]
+        REV1["@pm (Morgan)"]
         REV2["Aplicar feedback<br/>e auto-fixes"]
     end
 
@@ -163,7 +163,7 @@ flowchart LR
 sequenceDiagram
     autonumber
     participant U as Usuario
-    participant PM as @pm (Bob)
+    participant PM as @pm (Morgan)
     participant AR as @architect (Aria)
     participant AN as @analyst (Atlas)
     participant QA as @qa (Quinn)
@@ -223,7 +223,7 @@ sequenceDiagram
 |----------|-------|
 | **Step ID** | `gather` |
 | **Phase Number** | 1 |
-| **Agente** | @pm (Bob) |
+| **Agente** | @pm (Morgan) |
 | **Task** | `spec-gather-requirements.md` |
 | **Elicit** | Sim - requer interação do usuario |
 
@@ -434,7 +434,7 @@ flowchart LR
 |----------|-------|
 | **Step ID** | `spec` |
 | **Phase Number** | 4 |
-| **Agente** | @pm (Bob) |
+| **Agente** | @pm (Morgan) |
 | **Task** | `spec-write-spec.md` |
 | **Constitutional Gate** | Article IV - No Invention |
 
@@ -605,7 +605,7 @@ flowchart TB
 |----------|-------|
 | **Step ID** | `revise` |
 | **Phase Number** | 5b |
-| **Agente** | @pm (Bob) |
+| **Agente** | @pm (Morgan) |
 | **Condition** | `complexity.result === 'COMPLEX'` OR `critique.verdict === 'NEEDS_REVISION'` |
 
 #### Inputs
@@ -678,7 +678,7 @@ flowchart TB
 ```mermaid
 graph LR
     subgraph AGENTS["Agentes do Spec Pipeline"]
-        PM["@pm<br/>Bob<br/>Product Manager"]
+        PM["@pm<br/>Morgan<br/>Product Manager"]
         AR["@architect<br/>Aria<br/>Architect"]
         AN["@analyst<br/>Atlas<br/>Business Analyst"]
         QA["@qa<br/>Quinn<br/>Test Architect"]
@@ -697,12 +697,12 @@ graph LR
 
 | Agente | ID | Nome | Papel no Pipeline | Fases |
 |--------|-----|------|-------------------|-------|
-| @pm | pm | Bob | Product Manager | 1 (Gather), 4 (Spec), 5b (Revise) |
+| @pm | pm | Morgan | Product Manager | 1 (Gather), 4 (Spec), 5b (Revise) |
 | @architect | architect | Aria | System Architect | 2 (Assess), 6 (Plan) |
 | @analyst | analyst | Atlas | Business Analyst | 3 (Research) |
 | @qa | qa | Quinn | Test Architect | 5 (Critique), 5c (Critique 2) |
 
-### 4.1 Perfil: @pm (Bob)
+### 4.1 Perfil: @pm (Morgan)
 
 - **Arquetipo:** Strategist
 - **Foco:** Coleta de requisitos, criação de especificações, documentação
@@ -958,7 +958,7 @@ flowchart TB
 
 | Agente | Localização |
 |--------|-------------|
-| @pm (Bob) | `.aios-core/development/agents/pm.md` |
+| @pm (Morgan) | `.aios-core/development/agents/pm.md` |
 | @architect (Aria) | `.aios-core/development/agents/architect.md` |
 | @analyst (Atlas) | `.aios-core/development/agents/analyst.md` |
 | @qa (Quinn) | `.aios-core/development/agents/qa.md` |

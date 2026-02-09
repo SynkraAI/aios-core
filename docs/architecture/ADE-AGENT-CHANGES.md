@@ -123,7 +123,7 @@ dependencies:
 
 ---
 
-### @pm (Bob)
+### @pm (Morgan)
 
 **Arquivo:** `.aios-core/development/agents/pm.md`
 

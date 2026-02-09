@@ -43,7 +43,7 @@
 | Agente                       | Ícono | Usar Para                                                                                                             | NO Usar Para                                       |
 | ---------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
 | **@analyst** (Atlas)         | 🔍    | Investigación de mercado, análisis competitivo, brainstorming, extracción de patrones                                 | Creación de PRD, arquitectura, stories             |
-| **@pm** (Bob)             | 📋    | PRD, epics, estrategia de producto, recopilación de requisitos, escritura de specs                                    | Investigación, arquitectura, stories detalladas    |
+| **@pm** (Morgan)             | 📋    | PRD, epics, estrategia de producto, recopilación de requisitos, escritura de specs                                    | Investigación, arquitectura, stories detalladas    |
 | **@architect** (Aria)        | 🏛️    | Arquitectura de sistema, diseño de API, stack tecnológico, evaluación de complejidad, planificación de implementación | Investigación, PRD, esquema de base de datos       |
 | **@data-engineer** (Dara)    | 📊    | Esquema de base de datos, RLS, migraciones, optimización de queries                                                   | Arquitectura de app, selección de tecnología de BD |
 | **@sm** (River)              | 🌊    | User stories, planificación de sprint, refinamiento de backlog                                                        | PRD, epics, investigación, implementación          |
@@ -78,7 +78,7 @@
 
 ---
 
-### @pm (Bob) - Gestión de Producto
+### @pm (Morgan) - Gestión de Producto
 
 **Spec Pipeline:**
 | Comando | Descripción |

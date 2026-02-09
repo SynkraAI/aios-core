@@ -94,7 +94,7 @@ Qualidade não é negociável. Todo código passa por múltiplos gates antes de 
 - MUST: `npm run lint` passa sem erros
 - MUST: `npm run typecheck` passa sem erros
 - MUST: `npm test` passa sem falhas
-- MUST: `npm run validate:structure` passa (quando aplicável)
+- MUST: `npm run build` completa com sucesso
 - MUST: CodeRabbit não reporta issues CRITICAL
 - MUST: Story status é "Done" ou "Ready for Review"
 - SHOULD: Cobertura de testes não diminui

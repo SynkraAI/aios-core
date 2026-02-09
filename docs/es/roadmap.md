@@ -92,7 +92,7 @@ Esta hoja de ruta es revisada y actualizada mensualmente por los mantenedores de
 4. Eliminar elementos cancelados o despriorizados
 5. Comunicar cambios significativos vía [Anuncios](https://github.com/SynkraAI/aios-core/discussions/categories/announcements)
 
-**Responsable:** agentes @pm (Bob) o @po (Pax), con supervisión de mantenedores.
+**Responsable:** agentes @pm (Morgan) o @po (Pax), con supervisión de mantenedores.
 
 ### Sincronización con Backlog Interno
 

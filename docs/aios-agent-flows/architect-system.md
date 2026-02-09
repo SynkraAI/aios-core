@@ -336,7 +336,7 @@ flowchart LR
 ```mermaid
 flowchart TB
     subgraph RECEIVES_FROM["RECEBE INPUTS DE"]
-        PM["@pm (Bob)\n- PRD\n- Requisitos de negocio"]
+        PM["@pm (Morgan)\n- PRD\n- Requisitos de negocio"]
         UX["@ux-design-expert (Uma)\n- Front-end Spec\n- UI Patterns"]
         ANALYST["@analyst (Atlas)\n- Research Results\n- Technical Findings"]
     end

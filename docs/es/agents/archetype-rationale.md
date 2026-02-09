@@ -288,7 +288,7 @@ Despues de evaluar multiples sistemas de arquetipos, seleccionamos los signos zo
 | Dex | /deks/ | /deks/ | Ninguno |
 | Quinn | /kwin/ | /kwin/ | Ninguno |
 | Pax | /paeks/ | /paks/ | Ninguno |
-| Bob | /morgan/ | /morgan/ | Ninguno |
+| Morgan | /morgan/ | /morgan/ | Ninguno |
 | River | /river/ | /river/ | Ninguno |
 | Aria | /aria/ | /aria/ | Ninguno |
 | Atlas | /atlas/ | /atlas/ | Ninguno |
@@ -365,7 +365,7 @@ Probado con Coblis Color Blindness Simulator:
 | Dex | Ninguno | "Dex files" (Android) - contexto diferente |
 | Quinn | Ninguno | Sin asociaciones tecnologicas importantes |
 | Pax | Ninguno | Herramienta menor, no conflictiva |
-| Bob | Ninguno | Sin conflictos tecnologicos |
+| Morgan | Ninguno | Sin conflictos tecnologicos |
 | River | Ninguno | Nombre natural, sin conflictos |
 | Aria | Ninguno | Existe herramienta de base de datos pero contexto diferente |
 | Atlas | Menor | MongoDB Atlas - suficientemente diferente |
@@ -390,7 +390,7 @@ Probado con Coblis Color Blindness Simulator:
 
 **Ejemplos:**
 - Dex, Quinn, Pax (claramente neutrales)
-- Bob, River, Aria (tradicionalmente unisex)
+- Morgan, River, Aria (tradicionalmente unisex)
 - Evitados: Alexander, Victoria, Marcus (con genero)
 
 ---
@@ -415,7 +415,7 @@ Probado con Coblis Color Blindness Simulator:
 - Memorables pero serios
 
 **Equilibrio:**
-- Profesional: Bob, Atlas, Aria
+- Profesional: Morgan, Atlas, Aria
 - Amigable: River, Uma, Dex
 - Demasiado jugueton: Sparky, Chippy, Buddy
 

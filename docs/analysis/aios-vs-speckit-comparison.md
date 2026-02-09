@@ -1,7 +1,7 @@
 # Análise Comparativa: AIOS vs GitHub Spec-Kit (SDD)
 
 > **Data:** 2025-01-30
-> **Autor:** Bob (PM Agent)
+> **Autor:** Morgan (PM Agent)
 > **Versão:** 1.1 (Revisada)
 > **Correções:** Seção 4, 6, 10, 11 - Sistema de Checklists AIOS corrigido
 
@@ -114,7 +114,7 @@ AIOS: "Cada agente tem sua expertise e personalidade"
 | **dev** | Dex | Full Stack Developer | Implementação, debugging, refactoring |
 | **qa** | Quinn | Test Architect | Quality validation, test architecture |
 | **architect** | Aria | System Architect | Full-stack architecture, design patterns |
-| **pm** | Bob | Product Manager | PRD, strategy, feature prioritization |
+| **pm** | Morgan | Product Manager | PRD, strategy, feature prioritization |
 | **po** | Pax | Product Owner | Backlog management, story refinement |
 | **sm** | River | Scrum Master | Story creation, sprint planning |
 | **analyst** | Atlas | Business Analyst | Market research, discovery |
@@ -662,5 +662,5 @@ A combinação de ambas as abordagens criaria um sistema **spec-driven + agent-s
 
 ---
 
-*Análise elaborada por Bob (PM Agent) - Synkra AIOS*
-*— Bob, planejando o futuro*
+*Análise elaborada por Morgan (PM Agent) - Synkra AIOS*
+*— Morgan, planejando o futuro*

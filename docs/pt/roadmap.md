@@ -92,7 +92,7 @@ Este roadmap é revisado e atualizado mensalmente pelos mantenedores do projeto.
 4. Remover itens cancelados ou despriorizados
 5. Comunicar mudanças significativas via [Anúncios](https://github.com/SynkraAI/aios-core/discussions/categories/announcements)
 
-**Responsáveis:** Agentes @pm (Bob) ou @po (Pax), com supervisão dos mantenedores.
+**Responsáveis:** Agentes @pm (Morgan) ou @po (Pax), com supervisão dos mantenedores.
 
 ### Sincronização com Backlog Interno
 

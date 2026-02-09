@@ -416,7 +416,7 @@ workflow:
 1. Update dev.md → Dex (Builder)
 2. Update qa.md → Quinn (Guardian)
 3. Update po.md → Pax (Balancer)
-4. Update pm.md → Bob (Visionary)
+4. Update pm.md → Morgan (Visionary)
 5. Update sm.md → River (Flow Master)
 6. Update architect.md → Aria (Architect)
 7. Update analyst.md → Atlas (Explorer)

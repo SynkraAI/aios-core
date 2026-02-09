@@ -112,7 +112,7 @@ Choose archetype that matches agent's primary function:
 | **Builder** | Construction, implementation | dev (Dex) |
 | **Guardian** | Protection, validation | qa (Quinn) |
 | **Balancer** | Mediation, harmony | po (Pax) |
-| **Visionary** | Strategy, planning | pm (Bob) |
+| **Visionary** | Strategy, planning | pm (Morgan) |
 | **Flow_Master** | Adaptation, coordination | sm (River) |
 | **Architect** | Design, structure | architect (Aria) |
 | **Explorer** | Discovery, analysis | analyst (Atlas) |

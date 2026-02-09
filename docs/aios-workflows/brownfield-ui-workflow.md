@@ -184,7 +184,7 @@ stateDiagram-v2
 
 | Atributo | Valor |
 |----------|-------|
-| **Agente** | @pm (Bob) |
+| **Agente** | @pm (Morgan) |
 | **Ação** | Criar PRD focado em enhancement de UI |
 | **Template** | `brownfield-prd-tmpl` |
 | **Artefatos Criados** | `prd.md` |
@@ -306,7 +306,7 @@ stateDiagram-v2
 
 | Atributo | Valor |
 |----------|-------|
-| **Agente** | @analyst (Atlas) ou @pm (Bob) |
+| **Agente** | @analyst (Atlas) ou @pm (Morgan) |
 | **Ação** | Revisar e aprovar story draft |
 | **Condição** | `user_wants_story_review` - Usuário deseja revisão |
 | **Opcional** | Sim |
@@ -414,7 +414,7 @@ stateDiagram-v2
 | Icone | ID | Nome | Titulo | Papel no Workflow |
 |-------|-----|------|--------|-------------------|
 | @architect | architect | Aria | Holistic System Architect | Análise inicial e arquitetura brownfield |
-| @pm | pm | Bob | Product Manager | Criação do PRD brownfield |
+| @pm | pm | Morgan | Product Manager | Criação do PRD brownfield |
 | @ux-expert | ux-design-expert | Uma | UX/UI Designer | Especificação frontend |
 | @po | po | Pax | Product Owner | Validação, fragmentação, retrospectiva |
 | @sm | sm | River | Scrum Master | Criação de stories |
@@ -428,7 +428,7 @@ stateDiagram-v2
 graph LR
     subgraph "Fase de Planejamento"
         ARCH[architect<br/>Aria]
-        PM[pm<br/>Bob]
+        PM[pm<br/>Morgan]
         UX[ux-expert<br/>Uma]
     end
 
@@ -841,7 +841,7 @@ ls docs/architecture/
 | Agente | Arquivo | Documentação |
 |--------|---------|--------------|
 | @architect | `.aios-core/development/agents/architect.md` | Aria - Holistic System Architect |
-| @pm | `.aios-core/development/agents/pm.md` | Bob - Product Manager |
+| @pm | `.aios-core/development/agents/pm.md` | Morgan - Product Manager |
 | @ux-expert | `.aios-core/development/agents/ux-design-expert.md` | Uma - UX/UI Designer |
 | @po | `.aios-core/development/agents/po.md` | Pax - Product Owner |
 | @sm | `.aios-core/development/agents/sm.md` | River - Scrum Master |

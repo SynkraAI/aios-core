@@ -2,7 +2,7 @@
 
 > **Versão:** 1.0.0
 > **Criado:** 2026-02-04
-> **Owner:** @pm (Bob)
+> **Owner:** @pm (Morgan)
 > **Status:** Documentação Oficial
 
 ---
@@ -19,18 +19,18 @@ O agente PM e projetado para:
 - Fragmentar documentos grandes em partes gerenciaveis
 - Colaborar com outros agentes para garantir alinhamento estrategico
 
-### Persona: Bob - O Estrategista
+### Persona: Morgan - O Estrategista
 
 | Atributo | Valor |
 |----------|-------|
-| **Nome** | Bob |
+| **Nome** | Morgan |
 | **ID** | pm |
 | **Titulo** | Product Manager |
 | **Icone** | :clipboard: |
 | **Arquetipo** | Strategist |
 | **Signo** | Capricornio |
 | **Tom** | Estrategico |
-| **Assinatura** | "-- Bob, planejando o futuro :bar_chart:" |
+| **Assinatura** | "-- Morgan, planejando o futuro :bar_chart:" |
 
 ---
 
@@ -88,7 +88,7 @@ flowchart TB
         EXISTING["🏗️ Projeto Existente<br/>(Brownfield)"]
     end
 
-    subgraph PM_CORE["📋 @pm (Bob) - CORE"]
+    subgraph PM_CORE["📋 @pm (Morgan) - CORE"]
         CREATE_PRD["*create-prd<br/>Criar PRD Greenfield"]
         CREATE_BF_PRD["*create-brownfield-prd<br/>Criar PRD Brownfield"]
         CREATE_EPIC["*create-epic<br/>Criar Epic"]
@@ -458,7 +458,7 @@ flowchart TD
 
 ```mermaid
 flowchart TB
-    subgraph PM_BOX["📋 @pm (Bob) - Product Manager"]
+    subgraph PM_BOX["📋 @pm (Morgan) - Product Manager"]
         PM_DESC["Cria PRDs, epics, pesquisa estrategica<br/>Corrige desvios de curso"]
         PM_CMDS["Comandos:<br/>*create-prd, *create-epic<br/>*research, *correct-course"]
     end
@@ -724,4 +724,4 @@ flowchart LR
 
 ---
 
-*-- Bob, planejando o futuro :bar_chart:*
+*-- Morgan, planejando o futuro :bar_chart:*

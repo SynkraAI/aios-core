@@ -106,6 +106,81 @@ async function getExistingUserProfile(targetDir = process.cwd()) {
 }
 
 /**
+ * Map wizard language code to Claude Code settings.json language name (Story ACT-12)
+ * Claude Code uses full language names, not ISO codes.
+ */
+const LANGUAGE_MAP = {
+  en: 'english',
+  pt: 'portuguese',
+  es: 'spanish',
+};
+
+/**
+ * Write language preference to Claude Code's native settings.json (Story ACT-12)
+ * Replaces the old approach of storing language in core-config.yaml.
+ * Claude Code v2.1.0+ natively supports a `language` field in settings.json
+ * that is automatically injected into the system prompt.
+ *
+ * @param {string} language - Language code from wizard (en|pt|es)
+ * @param {string} [projectDir] - Project directory (default: process.cwd())
+ * @returns {Promise<boolean>} true if written successfully
+ */
+async function writeClaudeSettings(language, projectDir = process.cwd()) {
+  const claudeDir = path.join(projectDir, '.claude');
+  const settingsPath = path.join(claudeDir, 'settings.json');
+
+  try {
+    await fse.ensureDir(claudeDir);
+
+    let settings = {};
+    if (await fse.pathExists(settingsPath)) {
+      const content = await fse.readFile(settingsPath, 'utf8');
+      settings = JSON.parse(content);
+    }
+
+    const claudeLanguage = LANGUAGE_MAP[language] || language;
+    settings.language = claudeLanguage;
+
+    await fse.writeFile(settingsPath, JSON.stringify(settings, null, 2) + '\n', 'utf8');
+    return true;
+  } catch {
+    // Non-blocking: language is a preference, not critical
+    return false;
+  }
+}
+
+/**
+ * Get existing language from Claude Code settings.json (Story ACT-12 - Idempotency)
+ * Returns the existing language code if found, null otherwise.
+ *
+ * @param {string} [projectDir] - Project directory to check
+ * @returns {Promise<string|null>} Existing language code or null
+ */
+async function getExistingLanguage(projectDir = process.cwd()) {
+  const settingsPath = path.join(projectDir, '.claude', 'settings.json');
+
+  try {
+    if (await fse.pathExists(settingsPath)) {
+      const content = await fse.readFile(settingsPath, 'utf8');
+      const settings = JSON.parse(content);
+
+      if (settings && settings.language) {
+        // Reverse map: Claude Code language name → wizard code
+        const reverseMap = Object.fromEntries(
+          Object.entries(LANGUAGE_MAP).map(([k, v]) => [v, k]),
+        );
+        const langValue = String(settings.language).toLowerCase().trim();
+        return reverseMap[langValue] || null;
+      }
+    }
+  } catch {
+    // Settings don't exist or invalid JSON
+  }
+
+  return null;
+}
+
+/**
  * Handle Ctrl+C gracefully
  */
 let cancellationRequested = false;
@@ -182,9 +257,11 @@ async function runWizard(options = {}) {
     if (options.quiet) {
       // Quiet mode: Skip all prompts, use defaults
       // Story 10.2: Check for existing user_profile (idempotency)
+      // Story ACT-12: Language delegated to Claude Code settings.json
       const existingProfile = await getExistingUserProfile();
+      const existingLang = await getExistingLanguage();
       answers = {
-        language: options.language || 'en',
+        language: options.language || existingLang || 'en',
         userProfile: options.userProfile || existingProfile || 'advanced', // Story 10.2
         projectType: options.projectType || 'brownfield', // Default to brownfield for safety
         selectedIDEs: options.ide ? [options.ide] : [],   // Support single IDE flag if added later
@@ -194,7 +271,17 @@ async function runWizard(options = {}) {
     } else {
       // Interactive mode
       // Phase 1: Language selection (must be first to apply i18n)
-      const languageAnswer = await inquirer.prompt([getLanguageQuestion()]);
+      // Story ACT-12: Check idempotency via Claude Code settings.json
+      let languageAnswer;
+      const existingLanguage = await getExistingLanguage();
+
+      if (existingLanguage) {
+        // Idempotent: Use existing language, don't re-ask
+        console.log(`\n✓ ${t('languageSkipped') || 'Language already configured'}: ${existingLanguage}\n`);
+        languageAnswer = { language: existingLanguage };
+      } else {
+        languageAnswer = await inquirer.prompt([getLanguageQuestion()]);
+      }
       setLanguage(languageAnswer.language);
 
       // Phase 1.5: User Profile selection (Story 10.2 - Epic 10)
@@ -514,6 +601,16 @@ async function runWizard(options = {}) {
         noMerge: options.noMerge, // Story 9.4: Smart Merge support
       });
 
+      // Story ACT-12: Write language to Claude Code settings.json
+      if (answers.language) {
+        const langWritten = await writeClaudeSettings(answers.language);
+        if (langWritten) {
+          console.log('  - Language written to .claude/settings.json');
+        } else {
+          console.warn('  - Failed to write language to .claude/settings.json');
+        }
+      }
+
       if (envResult.envCreated && envResult.coreConfigCreated) {
         console.log('\n✅ Environment configuration complete!');
         console.log('  - .env file created');
@@ -783,4 +880,10 @@ async function runWizard(options = {}) {
 
 module.exports = {
   runWizard,
+  // ACT-12: Exported for testing
+  _testing: {
+    writeClaudeSettings,
+    getExistingLanguage,
+    LANGUAGE_MAP,
+  },
 };

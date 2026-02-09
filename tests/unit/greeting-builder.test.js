@@ -13,6 +13,7 @@
  * - Fallback strategy
  * - Backwards compatibility
  * - Story 10.3: User profile-based command filtering
+ * - Story ACT-12: Language delegated to Claude Code settings.json
  */
 
 const GreetingBuilder = require('../../.aios-core/development/scripts/greeting-builder');
@@ -423,13 +424,13 @@ describe('GreetingBuilder', () => {
       // PM Agent (Bob)
       mockPmAgent = {
         id: 'pm',
-        name: 'Bob',
+        name: 'Morgan',
         icon: '📋',
         persona_profile: {
           greeting_levels: {
             minimal: '📋 PM ready',
-            named: '📋 Bob (PM) ready',
-            archetypal: '📋 Bob the Product Manager ready',
+            named: '📋 Morgan (PM) ready',
+            archetypal: '📋 Morgan the Product Manager ready',
           },
         },
         persona: {
@@ -577,87 +578,6 @@ describe('GreetingBuilder', () => {
       });
     });
 
-    describe('Bob greeting name (Bob Mode Enhancements)', () => {
-      let mockPmAgentWithBob;
-
-      beforeEach(() => {
-        mockPmAgentWithBob = {
-          id: 'pm',
-          name: 'Bob',
-          icon: '📋',
-          persona_profile: {
-            communication: {
-              greeting_levels: {
-                minimal: '📋 pm Agent ready',
-                named: "📋 Bob (Strategist) ready. Let's plan success!",
-                archetypal: '📋 Bob the Strategist ready to strategize!',
-                bob: {
-                  minimal: '🔨 Bob ready',
-                  named: '🔨 Bob (O Construtor) pronto. Vamos construir!',
-                  archetypal: '🔨 Bob, O Construtor, pronto para orquestrar!',
-                },
-              },
-              signature_closing: '— Bob, planejando o futuro 📊',
-              bob_signature_closing: '— Bob, construindo o futuro 🔨',
-            },
-          },
-          persona: {
-            role: 'Product Manager and orchestrator',
-          },
-          commands: [
-            { name: 'help', visibility: ['full', 'quick', 'key'], description: 'Show help' },
-          ],
-        };
-      });
-
-      test('PM agent in bob mode should show Bob greeting, not Bob', () => {
-        const presentation = builder.buildPresentation(mockPmAgentWithBob, 'new', '', 'bob');
-        expect(presentation).toContain('Bob');
-        expect(presentation).toContain('Construtor');
-        expect(presentation).not.toContain('Bob');
-      });
-
-      test('PM agent in advanced mode should show Bob greeting', () => {
-        const presentation = builder.buildPresentation(mockPmAgentWithBob, 'new', '', 'advanced');
-        expect(presentation).toContain('Bob');
-        expect(presentation).not.toContain('Bob');
-      });
-
-      test('Non-PM agent in bob mode should NOT use bob greeting', () => {
-        const nonPmAgent = {
-          id: 'dev',
-          name: 'Dex',
-          icon: '👨‍💻',
-          persona_profile: {
-            greeting_levels: {
-              archetypal: '👨‍💻 Dex the Developer ready',
-            },
-          },
-        };
-        const presentation = builder.buildPresentation(nonPmAgent, 'new', '', 'bob');
-        expect(presentation).toContain('Dex');
-        expect(presentation).not.toContain('Bob');
-      });
-
-      test('buildFooter in bob mode should use bob signature for PM', () => {
-        const footer = builder.buildFooter(mockPmAgentWithBob, 'bob');
-        expect(footer).toContain('Bob, construindo o futuro');
-        expect(footer).not.toContain('Bob');
-      });
-
-      test('buildFooter in advanced mode should use Bob signature for PM', () => {
-        const footer = builder.buildFooter(mockPmAgentWithBob, 'advanced');
-        expect(footer).toContain('Bob, planejando o futuro');
-        expect(footer).not.toContain('Bob');
-      });
-
-      test('buildPresentation should append permission badge in bob mode', () => {
-        const presentation = builder.buildPresentation(mockPmAgentWithBob, 'new', '🔓 YEP', 'bob');
-        expect(presentation).toContain('Bob');
-        expect(presentation).toContain('🔓 YEP');
-      });
-    });
-
     describe('Full greeting in bob mode', () => {
       test('PM agent should show commands in bob mode (AC5)', async () => {
         mockResolveConfig.mockReturnValueOnce({
@@ -668,7 +588,7 @@ describe('GreetingBuilder', () => {
 
         const greeting = await builder.buildGreeting(mockPmAgent, {});
 
-        expect(greeting).toContain('Bob');
+        expect(greeting).toContain('Morgan');
         expect(greeting).toContain('help');
         expect(greeting).not.toContain('Modo Assistido');
       });
@@ -704,6 +624,46 @@ describe('GreetingBuilder', () => {
         expect(devGreeting).toContain('help');
         expect(devGreeting).not.toContain('Modo Assistido');
       });
+    });
+  });
+
+  describe('ACT-12: Language delegated to Claude Code settings.json', () => {
+    test('buildSimpleGreeting uses English help prompt (language handled natively by Claude Code)', () => {
+      const greeting = builder.buildSimpleGreeting(mockAgent);
+      expect(greeting).toContain('Type `*help`');
+    });
+
+    test('buildFixedLevelGreeting uses English help text', () => {
+      const greeting = builder.buildFixedLevelGreeting(mockAgent, 'named');
+      expect(greeting).toContain('Type `*help`');
+    });
+
+    test('buildPresentation uses English welcome back', () => {
+      const sectionContext = {
+        sessionType: 'existing',
+      };
+
+      const presentation = builder.buildPresentation(mockAgent, 'existing', '', sectionContext);
+      expect(presentation).toContain('welcome back');
+    });
+
+    test('buildFooter uses English guide prompt for new sessions', () => {
+      const sectionContext = {
+        sessionType: 'new',
+      };
+
+      const footer = builder.buildFooter(mockAgent, sectionContext);
+      expect(footer).toContain('Type `*guide`');
+    });
+
+    test('buildFooter uses English help prompt for existing sessions', () => {
+      const sectionContext = {
+        sessionType: 'existing',
+      };
+
+      const footer = builder.buildFooter(mockAgent, sectionContext);
+      expect(footer).toContain('Type `*help`');
+      expect(footer).toContain('*session-info');
     });
   });
 });

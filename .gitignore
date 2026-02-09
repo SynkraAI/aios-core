@@ -273,6 +273,13 @@ npm-recovery-codes.txt
 .aios-core/local-config.yaml
 
 # ============================================
+# IDS REGISTRY (Story IDS-3 — Self-Updating Registry)
+# ============================================
+.aios-core/data/registry-backups/
+.aios-core/data/.entity-registry.lock
+.aios-core/data/registry-update-log.jsonl
+
+# ============================================
 # .AIOS-CORE INTERNAL/GENERATED FILES
 # ============================================
 

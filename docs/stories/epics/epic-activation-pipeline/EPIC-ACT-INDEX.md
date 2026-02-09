@@ -4,7 +4,7 @@
 **Status:** Draft
 **Priority:** High
 **Target:** Sprint 20+
-**Effort Estimate:** 60-80 hours (across 8 stories)
+**Effort Estimate:** 78-100 hours (across 10 stories)
 **Source:** AIOS-TRACE-001 deep code analysis + AIOS-XREF-001 cross-reference findings
 
 ---
@@ -28,6 +28,7 @@ The current activation pipeline has **two divergent paths** (Path A for 9 agents
 | 5 | ProjectStatusLoader 60s cache always stale | Medium |
 | 6 | Path A vs Path B inconsistent context richness | High |
 | 7 | 7 critical data files missing from source-tree.md | Medium |
+| 8 | Installer language selection not persisted or consumed by agents | High |
 
 ---
 
@@ -43,6 +44,8 @@ The current activation pipeline has **two divergent paths** (Path A for 9 agents
 | ACT-6 | Unified Activation Pipeline | High | Very High | @dev | @architect | Draft |
 | ACT-7 | Context-Aware Greeting Sections | Medium | High | @dev | @architect | Draft |
 | ACT-8 | Agent Config Loading + Document Governance | Medium | Medium | @dev | @architect | Draft |
+| ACT-9 | Language Selection Propagation to Agents | High | Medium | @dev | @architect | Backlog |
+| ACT-10 | Pipeline API Consistency & Activation Timeouts | High | Medium | @dev | @architect | Backlog |
 
 ### Story Files
 
@@ -56,6 +59,8 @@ The current activation pipeline has **two divergent paths** (Path A for 9 agents
 | ACT-6 | [story-act-6-unified-activation-pipeline.md](story-act-6-unified-activation-pipeline.md) |
 | ACT-7 | [story-act-7-context-aware-greetings.md](story-act-7-context-aware-greetings.md) |
 | ACT-8 | [story-act-8-config-governance.md](story-act-8-config-governance.md) |
+| ACT-9 | [story-act-9-language-propagation.md](story-act-9-language-propagation.md) |
+| ACT-10 | [story-act-10-pipeline-api-and-timeouts.md](story-act-10-pipeline-api-and-timeouts.md) |
 
 ---
 
@@ -106,10 +111,11 @@ The core architectural change - merge Path A + Path B.
 | **ACT-5**: WorkflowNavigator + Bob | `feat/act-5-workflow-navigator` | High |
 | **ACT-7**: Context-aware greetings | `feat/act-7-context-greetings` | High |
 | **ACT-8**: Config governance | `feat/act-8-config-governance` | Medium |
+| **ACT-9**: Language propagation | `feat/act-9-language-propagation` | Medium |
 
 ### Final Gate: Epic Validation & Retrospective
 
-@qa verifies all 7 bugs fixed. @architect signs off. @po runs retrospective.
+@qa verifies all 8 bugs fixed. @architect signs off. @po runs retrospective.
 
 ---
 
@@ -186,8 +192,8 @@ The core architectural change - merge Path A + Path B.
 
 | Metric | Count |
 |--------|-------|
-| Stories | 8 |
-| Bugs to fix | 7 |
+| Stories | 10 |
+| Bugs to fix | 8 |
 | Files to create | ~5 new |
 | Files to modify | 30+ |
 | Agents impacted | All 12 |

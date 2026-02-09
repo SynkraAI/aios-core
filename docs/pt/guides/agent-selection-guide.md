@@ -43,7 +43,7 @@ Precisa de deploy? → @devops
 | Agente                       | Ícone | Use Para                                                                                                           | NÃO Use Para                                    |
 | ---------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
 | **@analyst** (Atlas)         | 🔍    | Pesquisa de mercado, análise competitiva, brainstorming, extração de padrões                                       | Criação de PRD, arquitetura, stories            |
-| **@pm** (Bob)             | 📋    | PRD, epics, estratégia de produto, coleta de requisitos, escrita de specs                                          | Pesquisa, arquitetura, stories detalhadas       |
+| **@pm** (Morgan)             | 📋    | PRD, epics, estratégia de produto, coleta de requisitos, escrita de specs                                          | Pesquisa, arquitetura, stories detalhadas       |
 | **@architect** (Aria)        | 🏛️    | Arquitetura de sistema, design de API, stack tecnológica, avaliação de complexidade, planejamento de implementação | Pesquisa, PRD, schema de banco de dados         |
 | **@data-engineer** (Dara)    | 📊    | Schema de banco de dados, RLS, migrations, otimização de queries                                                   | Arquitetura de app, seleção de tecnologia de BD |
 | **@sm** (River)              | 🌊    | User stories, planejamento de sprint, refinamento de backlog                                                       | PRD, epics, pesquisa, implementação             |
@@ -78,7 +78,7 @@ Precisa de deploy? → @devops
 
 ---
 
-### @pm (Bob) - Gestão de Produto
+### @pm (Morgan) - Gestão de Produto
 
 **Spec Pipeline:**
 | Comando | Descrição |

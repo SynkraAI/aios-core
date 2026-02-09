@@ -26,7 +26,7 @@ When an agent is active:
 | @dev | Dex | Code implementation |
 | @qa | Quinn | Testing and quality |
 | @architect | Aria | System architecture |
-| @pm | Bob | Product management |
+| @pm | Morgan | Product management |
 | @po | Pax | Product ownership |
 | @sm | River | Scrum master |
 | @analyst | Alex | Research and analysis |

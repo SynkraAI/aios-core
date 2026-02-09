@@ -323,7 +323,7 @@ Once the epic is validated, provide this handoff to the Story Manager:
 
 ```yaml
 task: brownfieldCreateEpic()
-responsável: Bob (Strategist)
+responsável: Morgan (Strategist)
 responsavel_type: Agente
 atomic_layer: Organism
 

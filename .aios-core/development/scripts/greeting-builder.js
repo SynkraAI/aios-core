@@ -75,16 +75,32 @@ class GreetingBuilder {
   }
 
   /**
+   * Load resolved config once, shared by loadUserProfile() and loadLanguage().
+   * Story ACT-9 QA fix: Eliminates duplicate resolveConfig() calls per greeting build.
+   * @returns {Object|null} Resolved config object, or null on failure
+   */
+  _loadResolvedConfig() {
+    try {
+      const result = resolveConfig(process.cwd(), { skipCache: true });
+      return result?.config || null;
+    } catch (error) {
+      console.warn('[GreetingBuilder] Failed to load config:', error.message);
+      return null;
+    }
+  }
+
+  /**
    * Load user profile via config-resolver (L5 User layer has highest priority).
    * Story 12.1 - AC3: Uses resolveConfig() to read user_profile from layered hierarchy.
    * Story ACT-2 - AC3: Runs validate-user-profile during activation (not just installation).
    * Reads fresh each time (skipCache: true) to reflect toggle changes immediately.
+   * @param {Object} [resolvedConfig] - Pre-loaded config to avoid duplicate resolveConfig() call
    * @returns {string} User profile ('bob' | 'advanced'), defaults to 'advanced'
    */
-  loadUserProfile() {
+  loadUserProfile(resolvedConfig) {
     try {
-      const result = resolveConfig(process.cwd(), { skipCache: true });
-      const userProfile = result?.config?.user_profile;
+      const config = resolvedConfig || this._loadResolvedConfig();
+      const userProfile = config?.user_profile;
 
       if (!userProfile) {
         return DEFAULT_USER_PROFILE;
@@ -117,8 +133,10 @@ class GreetingBuilder {
     const fallbackGreeting = this.buildSimpleGreeting(agent);
 
     try {
+      // ACT-11: Use pre-loaded config from pipeline context to avoid duplicate resolveConfig()
+      const resolvedConfig = context._coreConfig || this._loadResolvedConfig();
       // Story ACT-2: Load user profile early so preference manager can account for it
-      const userProfile = this.loadUserProfile();
+      const userProfile = this.loadUserProfile(resolvedConfig);
 
       // Check user preference (Story 6.1.4), now profile-aware (Story ACT-2)
       // Story ACT-2: PM agent bypasses bob mode preference restriction because
@@ -151,6 +169,7 @@ class GreetingBuilder {
    * Story 10.3: Profile-aware greeting with conditional agent visibility
    * Story ACT-2: Accepts pre-loaded userProfile to avoid redundant loadUserProfile() calls
    * Story ACT-7: Context-aware sections with parallelization and enriched context
+   * Story ACT-12: Language removed — delegated to Claude Code native settings.json
    * @private
    * @param {Object} agent - Agent definition
    * @param {Object} context - Session context (may contain pre-loaded values from pipeline)
@@ -276,6 +295,7 @@ class GreetingBuilder {
 
   /**
    * Build fixed-level greeting (Story 6.1.4)
+   * ACT-12: Language removed — Claude Code handles translation natively via settings.json
    * @param {Object} agent - Agent definition
    * @param {string} level - Preference level (minimal|named|archetypal)
    * @returns {string} Fixed-level greeting
@@ -310,6 +330,7 @@ class GreetingBuilder {
 
   /**
    * Build simple greeting (fallback)
+   * ACT-12: Language removed — Claude Code handles translation natively via settings.json
    * @param {Object} agent - Agent definition
    * @returns {string} Simple greeting
    */
@@ -345,6 +366,7 @@ class GreetingBuilder {
     }
 
     // Story ACT-7 AC2: Presentation adapts based on session type
+    // ACT-12: Language delegated to Claude Code settings.json — hardcoded English phrases
     let greeting;
 
     if (sessionType === 'existing' && sectionContext) {
@@ -1189,18 +1211,19 @@ Use \`@pm\` (Bob) para todas as interações. Bob vai orquestrar os outros agent
     const parts = [];
 
     // Story ACT-7 AC6: Vary footer content by session context
+    // ACT-12: Language delegated to Claude Code settings.json — hardcoded English phrases
     const sessionType = sectionContext?.sessionType || 'new';
 
     if (sessionType === 'workflow') {
       // Workflow: progress note
       const storyRef = sectionContext?.sessionStory || sectionContext?.projectStatus?.currentStory;
       if (storyRef) {
-        parts.push(`Focused on **${storyRef}**. Type \`*help\` for commands.`);
+        parts.push(`Focused on **${storyRef}**. Type \`*help\` to see available commands.`);
       } else {
-        parts.push('Workflow active. Type `*help` for commands.');
+        parts.push('Workflow active. Type `*help` to see available commands.');
       }
     } else if (sessionType === 'existing') {
-      // Existing session: brief tip
+      // Existing session: brief tip with session-info reference
       parts.push('Type `*help` for commands or `*session-info` for session details.');
     } else {
       // New session: full guide prompt

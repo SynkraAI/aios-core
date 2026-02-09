@@ -44,7 +44,7 @@ Este guia fornece uma referência abrangente para todos os 9 agentes aprimorados
 
 **Arquivo**: `.claude/commands/hybridOps/agents/process-mapper-pv.md`
 **Comando**: `/process-mapper`
-**Persona**: Bob Chen - Especialista em Descoberta de Processos
+**Persona**: Morgan Chen - Especialista em Descoberta de Processos
 **Pontuação de Veracidade**: 0.90 (Muito Alta)
 
 **Propósito**:
@@ -336,7 +336,7 @@ Conduzir revisão de workflow de ponta a ponta, avaliar riscos e fornecer aprova
 
 **Arquivo**: `.claude/commands/hybridOps/agents/documentation-writer-pv.md`
 **Comando**: `/documentation-writer`
-**Persona**: Rachel Bob - Redatora Técnica e Arquiteta de Conhecimento
+**Persona**: Rachel Morgan - Redatora Técnica e Arquiteta de Conhecimento
 **Pontuação de Veracidade**: 0.85 (Alta)
 
 **Propósito**:

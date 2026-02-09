@@ -1199,7 +1199,7 @@ Se terminal spawn falha:
 mindmap
   root((Bob<br/>Orchestrator))
     Orquestração
-      pm["@pm (Bob)<br/>Bob Mode"]
+      pm["@pm (Morgan)<br/>Bob Mode"]
     Planning
       architect["@architect (Aria)<br/>Arquitetura"]
       sm["@sm (River)<br/>Stories"]
@@ -1217,7 +1217,7 @@ mindmap
 
 | Agente | ID | Arquétipo | Papel no Bob |
 |--------|----|-----------|--------------|
-| Bob | `@pm` | Strategist | Bob Orchestrator (modo bob) |
+| Morgan | `@pm` | Strategist | Bob Orchestrator (modo bob) |
 | Aria | `@architect` | Visionary | Análise estrutural, arquitetura |
 | River | `@sm` | Facilitator | Criação de stories |
 | Pax | `@po` | Balancer | Validação, checkpoints |
@@ -1440,7 +1440,7 @@ rm .aios/.session-state.yaml
 
 | Agente | Localização |
 |--------|-------------|
-| @pm (Bob) | `.aios-core/development/agents/pm.md` |
+| @pm (Morgan) | `.aios-core/development/agents/pm.md` |
 | @architect (Aria) | `.aios-core/development/agents/architect.md` |
 | @sm (River) | `.aios-core/development/agents/sm.md` |
 | @po (Pax) | `.aios-core/development/agents/po.md` |

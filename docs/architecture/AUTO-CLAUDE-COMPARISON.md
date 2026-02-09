@@ -77,7 +77,7 @@
     │                     │                     │
 ┌───▼───┐           ┌─────▼─────┐         ┌─────▼─────┐
 │📋 PM  │           │💻 Dev     │         │✅ QA      │
-│Bob │           │Dex        │         │Quinn      │
+│Morgan │           │Dex        │         │Quinn      │
 ├───────┤           ├───────────┤         ├───────────┤
 │🎯 PO  │           │🏛️ Architect│        │⚡ DevOps  │
 │Pax    │           │Aria       │         │Gage       │
@@ -98,7 +98,7 @@
 | Agente                | Persona               | Foco                 | Comandos Principais                  |
 | --------------------- | --------------------- | -------------------- | ------------------------------------ |
 | **@aios-master**      | Orion (♌ Leo)        | Meta-orchestrator    | `*create`, `*task`, `*workflow`      |
-| **@pm**               | Bob (♑ Capricorn) | PRD, Epics           | `*create-prd`, `*create-epic`        |
+| **@pm**               | Morgan (♑ Capricorn) | PRD, Epics           | `*create-prd`, `*create-epic`        |
 | **@po**               | Pax (♎ Libra)        | Backlog, Priorização | `*backlog-*`, `*validate-story`      |
 | **@sm**               | River (♓ Pisces)     | Stories              | `*draft`, `*story-checklist`         |
 | **@analyst**          | Atlas (♏ Scorpio)    | Research             | `*brainstorm`, `*research`           |

@@ -219,7 +219,7 @@ All 11 AIOS agents display project status:
 2. **@po** (Pax - Balancer)
 3. **@qa** (Quinn - Guardian)
 4. **@sm** (River - Facilitator)
-5. **@pm** (Bob - Strategist)
+5. **@pm** (Morgan - Strategist)
 6. **@architect** (Aria - Visionary)
 7. **@analyst** (Atlas - Decoder)
 8. **@devops** (Gage - Operator)

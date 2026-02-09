@@ -104,7 +104,7 @@ sequenceDiagram
     autonumber
     participant U as Usuario
     participant AN as Analyst (Atlas)
-    participant PM as PM (Bob)
+    participant PM as PM (Morgan)
     participant AR as Architect (Aria)
     participant PO as PO (Pax)
     participant SM as SM (River)
@@ -201,7 +201,7 @@ O analista conduz sessao de brainstorming (opcional), pesquisa de mercado (opcio
 
 | Campo | Valor |
 |-------|-------|
-| **Agente** | `@pm` (Bob) |
+| **Agente** | `@pm` (Morgan) |
 | **Task** | Criar prd.md |
 | **Input** | `project-brief.md` |
 | **Output** | `docs/prd.md` |
@@ -236,7 +236,7 @@ O Arquiteto cria a arquitetura do backend/servico. Pode sugerir mudancas nas sto
 
 | Campo | Valor |
 |-------|-------|
-| **Agente** | `@pm` (Bob) |
+| **Agente** | `@pm` (Morgan) |
 | **Task** | Atualizar prd.md |
 | **Condicao** | `architecture_suggests_prd_changes` |
 | **Input** | `architecture.md` com sugestoes |
@@ -429,7 +429,7 @@ Todas as stories implementadas e revisadas! Fase de desenvolvimento do servico c
 graph LR
     subgraph Planejamento
         AN[Analyst<br/>Atlas]
-        PM[PM<br/>Bob]
+        PM[PM<br/>Morgan]
         AR[Architect<br/>Aria]
     end
 
@@ -459,7 +459,7 @@ graph LR
 | ID | Nome | Titulo | Icone | Responsabilidade no Workflow |
 |----|------|--------|-------|------------------------------|
 | `analyst` | Atlas | Business Analyst | `analise` | Criar project brief, brainstorming, market research |
-| `pm` | Bob | Product Manager | `estrategia` | Criar e atualizar PRD |
+| `pm` | Morgan | Product Manager | `estrategia` | Criar e atualizar PRD |
 | `architect` | Aria | Architect | `arquitetura` | Criar arquitetura do servico |
 | `po` | Pax | Product Owner | `validacao` | Validar artefatos, fragmentar docs, retrospectiva |
 | `sm` | River | Scrum Master | `facilitacao` | Criar stories do epic |
@@ -735,7 +735,7 @@ export AIOS_DEBUG=true
 | Arquivo | Agente |
 |---------|--------|
 | `.aios-core/development/agents/analyst.md` | Atlas (Analyst) |
-| `.aios-core/development/agents/pm.md` | Bob (PM) |
+| `.aios-core/development/agents/pm.md` | Morgan (PM) |
 | `.aios-core/development/agents/architect.md` | Aria (Architect) |
 | `.aios-core/development/agents/po.md` | Pax (PO) |
 | `.aios-core/development/agents/sm.md` | River (SM) |

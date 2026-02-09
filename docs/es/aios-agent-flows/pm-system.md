@@ -1,4 +1,4 @@
-# @pm (Bob) - Documentacion del Sistema
+# @pm (Morgan) - Documentacion del Sistema
 
 > [PT](../../aios-agent-flows/pm-system.md) | [EN](../../en/aios-agent-flows/pm-system.md) | **ES**
 
@@ -10,7 +10,7 @@
 
 ## Vision General
 
-**@pm** (Bob) es el agente de Product Management del AIOS, responsable por:
+**@pm** (Morgan) es el agente de Product Management del AIOS, responsable por:
 
 - Estrategia de producto
 - Roadmap y planificacion

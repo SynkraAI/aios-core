@@ -222,7 +222,7 @@ flowchart TD
 
         ANALYST --> |project-brief.md| PM
 
-        subgraph PM["@pm: Bob"]
+        subgraph PM["@pm: Morgan"]
             P1[Revisar Project Brief]
             P2[Criar PRD usando prd-tmpl]
             P1 --> P2
@@ -271,11 +271,11 @@ flowchart TD
 | Step | Agente | Task/Template | Entrada | Saida | Obrigatorio |
 |------|--------|---------------|---------|-------|-------------|
 | 1 | @analyst (Atlas) | `project-brief-tmpl.yaml` | Requisitos do usuario, pesquisa | `project-brief.md` | Sim |
-| 2 | @pm (Bob) | `prd-tmpl.yaml` | `project-brief.md` | `prd.md` | Sim |
+| 2 | @pm (Morgan) | `prd-tmpl.yaml` | `project-brief.md` | `prd.md` | Sim |
 | 3 | @ux-expert (Uma) | `front-end-spec-tmpl.yaml` | `prd.md` | `front-end-spec.md` | Sim |
 | 4 | @ux-expert (Uma) | `generate-ai-frontend-prompt.md` | `front-end-spec.md` | Prompt para v0/Lovable | Opcional |
 | 5 | @architect (Aria) | `fullstack-architecture-tmpl.yaml` | `prd.md`, `front-end-spec.md` | `fullstack-architecture.md` | Sim |
-| 6 | @pm (Bob) | Atualizacao | `fullstack-architecture.md` | `prd.md` atualizado | Condicional |
+| 6 | @pm (Morgan) | Atualizacao | `fullstack-architecture.md` | `prd.md` atualizado | Condicional |
 | 7 | @po (Pax) | `po-master-checklist.md` | Todos os artefatos | Validacao | Sim |
 
 ### Artefatos Criados
@@ -447,7 +447,7 @@ stateDiagram-v2
 |--------|----|----|-----------|-------------------|
 | Gage | @devops | ⚡ | Operator | Bootstrap de ambiente, push Git, releases, CI/CD |
 | Atlas | @analyst | 🔍 | Decoder | Pesquisa de mercado, brainstorming, project brief |
-| Bob | @pm | 📋 | Strategist | PRD, estrategia de produto, epics |
+| Morgan | @pm | 📋 | Strategist | PRD, estrategia de produto, epics |
 | Uma | @ux-expert | 🎨 | Empathizer | Specs de frontend, UX, design systems |
 | Aria | @architect | 🏛️ | Visionary | Arquitetura full-stack, decisoes tecnicas |
 | Pax | @po | 🎯 | Balancer | Validacao de artefatos, backlog, fragmentacao |
@@ -461,7 +461,7 @@ stateDiagram-v2
 graph LR
     subgraph Planejamento
         ANALYST[🔍 Atlas<br>@analyst]
-        PM[📋 Bob<br>@pm]
+        PM[📋 Morgan<br>@pm]
         UX[🎨 Uma<br>@ux-expert]
         ARCH[🏛️ Aria<br>@architect]
     end

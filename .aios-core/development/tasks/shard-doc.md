@@ -92,7 +92,7 @@ If the user has @kayvan/markdown-tree-parser installed, use it and skip the manu
 
 ```yaml
 task: shardDoc()
-responsável: Bob (Strategist)
+responsável: Morgan (Strategist)
 responsavel_type: Agente
 atomic_layer: Template
 

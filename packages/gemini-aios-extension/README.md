@@ -17,7 +17,7 @@ Access all AIOS agents via `@agent-name`:
 - `@dev` - Developer (Dex)
 - `@architect` - Architect (Aria)
 - `@qa` - QA Engineer (Quinn)
-- `@pm` - Product Manager (Bob)
+- `@pm` - Product Manager (Morgan)
 - `@devops` - DevOps (Gage)
 - And more...
 

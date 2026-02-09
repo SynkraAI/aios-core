@@ -275,7 +275,7 @@ Architecture design complete:
 ```markdown
 ## 📊 Task Execution Report
 
-**Agent:** Bob (Visionary)
+**Agent:** Morgan (Visionary)
 **Task:** create-prd
 **Started:** 2025-01-15T12:00:00Z
 **Completed:** 2025-01-15T12:15:30Z
@@ -300,7 +300,7 @@ PRD created:
 - Linting: ✅ Clean
 
 ---
-— Bob, planejando o futuro 📋
+— Morgan, planejando o futuro 📋
 ```
 
 ### Example 7: Explorer (Analytical Tone)

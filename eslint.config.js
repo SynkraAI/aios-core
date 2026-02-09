@@ -94,6 +94,7 @@ module.exports = [
         AbortController: 'readonly',
         URL: 'readonly',
         URLSearchParams: 'readonly',
+        structuredClone: 'readonly',
         // Jest globals
         describe: 'readonly',
         it: 'readonly',

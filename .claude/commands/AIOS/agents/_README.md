@@ -82,7 +82,7 @@ dependencies:
    - CI/CD and quality gates
    - Only agent authorized to push to remote repository
 
-7. **pm** - Engineering Manager (Bob)
+7. **pm** - Engineering Manager (Morgan)
    - Project planning and resource allocation
    - Sprint management
 

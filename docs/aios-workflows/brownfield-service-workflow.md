@@ -95,7 +95,7 @@ sequenceDiagram
     autonumber
     participant User
     participant Architect as @architect (Aria)
-    participant PM as @pm (Bob)
+    participant PM as @pm (Morgan)
     participant PO as @po (Pax)
     participant SM as @sm (River)
     participant Analyst as @analyst (Atlas)
@@ -184,7 +184,7 @@ sequenceDiagram
 
 | Atributo | Valor |
 |----------|-------|
-| **Agente** | @pm (Bob) |
+| **Agente** | @pm (Morgan) |
 | **Task** | `create-doc` com `brownfield-prd-tmpl` |
 | **Input** | Análise do serviço existente |
 | **Output** | `docs/prd.md` |
@@ -301,7 +301,7 @@ Arrastar a task `shard-doc` + `docs/prd.md` para o chat.
 
 | Atributo | Valor |
 |----------|-------|
-| **Agente** | @analyst (Atlas) ou @pm (Bob) |
+| **Agente** | @analyst (Atlas) ou @pm (Morgan) |
 | **Task** | `review-draft-story` (em desenvolvimento) |
 | **Input** | Story em Draft |
 | **Output** | Story atualizada |
@@ -409,7 +409,7 @@ Arrastar a task `shard-doc` + `docs/prd.md` para o chat.
 graph LR
     subgraph "Agentes de Planejamento"
         Architect["@architect<br/>Aria<br/>Holistic System Architect"]
-        PM["@pm<br/>Bob<br/>Product Manager"]
+        PM["@pm<br/>Morgan<br/>Product Manager"]
         Analyst["@analyst<br/>Atlas<br/>Business Analyst"]
     end
 
@@ -446,7 +446,7 @@ graph LR
 | Agente | Nome | Papel | Responsabilidades no Workflow |
 |--------|------|-------|------------------------------|
 | @architect | Aria | Holistic System Architect | Análise de serviço existente, criação de arquitetura |
-| @pm | Bob | Product Manager | Criação de PRD para brownfield |
+| @pm | Morgan | Product Manager | Criação de PRD para brownfield |
 | @po | Pax | Product Owner | Validação de artefatos, fragmentação de docs, retrospectiva |
 | @sm | River | Scrum Master | Criação de stories |
 | @analyst | Atlas | Business Analyst | Revisão opcional de story drafts |
@@ -744,8 +744,8 @@ graph TD
 
 | Problema | Primeiro Contato | Escalar Para |
 |----------|-----------------|--------------|
-| PRD incompleto | @pm (Bob) | @po (Pax) |
-| Arquitetura inconsistente | @architect (Aria) | @pm (Bob) |
+| PRD incompleto | @pm (Morgan) | @po (Pax) |
+| Arquitetura inconsistente | @architect (Aria) | @pm (Morgan) |
 | Story ambigua | @sm (River) | @po (Pax) |
 | Implementacao com bugs | @dev (Dex) | @qa (Quinn) |
 | Quality gate falha | @qa (Quinn) | @po (Pax) |
@@ -786,7 +786,7 @@ Os handoff prompts facilitam a transição entre agentes:
 | Agente | Arquivo | Caminho |
 |--------|---------|---------|
 | @architect | Aria | `.aios-core/development/agents/architect.md` |
-| @pm | Bob | `.aios-core/development/agents/pm.md` |
+| @pm | Morgan | `.aios-core/development/agents/pm.md` |
 | @po | Pax | `.aios-core/development/agents/po.md` |
 | @sm | River | `.aios-core/development/agents/sm.md` |
 | @analyst | Atlas | `.aios-core/development/agents/analyst.md` |

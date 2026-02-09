@@ -242,7 +242,7 @@ flowchart LR
 ```mermaid
 flowchart TB
     subgraph UPSTREAM["⬆️ UPSTREAM - Fornece para @sm"]
-        PM_UP["@pm (Bob)<br/>Cria estrutura de epics"]
+        PM_UP["@pm (Morgan)<br/>Cria estrutura de epics"]
         PO_UP["@po (Pax)<br/>Prioriza backlog"]
         ANALYST_UP["@analyst (Sage)<br/>Pesquisa e insights"]
     end
@@ -279,7 +279,7 @@ flowchart TB
 
 | Agente | Relacionamento | Acao |
 |--------|----------------|------|
-| **@pm (Bob)** | Recebe de | Epic structure, PRD shardado |
+| **@pm (Morgan)** | Recebe de | Epic structure, PRD shardado |
 | **@po (Pax)** | Coordena com | Backlog prioritization, sprint planning |
 | **@dev (Dex)** | Entrega para | Stories prontas para implementacao |
 | **@qa (Quinn)** | Solicita | Risk profiling para stories |

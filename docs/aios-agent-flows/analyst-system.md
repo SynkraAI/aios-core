@@ -248,7 +248,7 @@ flowchart TB
 
     subgraph PLANNING["Fase de Planning"]
         direction TB
-        PM_WORK["@pm (Bob)<br/>Estrategia de Produto"]
+        PM_WORK["@pm (Morgan)<br/>Estrategia de Produto"]
         PRD["prd.md"]
 
         PROJECT_BRIEF --> PM_WORK
@@ -512,7 +512,7 @@ template:
 
 | Agente | Tipo de Colaboracao |
 |--------|---------------------|
-| **@pm (Bob)** | Analyst fornece pesquisa e analise para criação de PRD |
+| **@pm (Morgan)** | Analyst fornece pesquisa e analise para criação de PRD |
 | **@po (Pax)** | Analyst fornece insights de mercado e analise competitiva |
 | **@architect** | Analyst pode fornecer research de tecnologias |
 | **@ux-design-expert** | Analyst fornece user research para decisoes de UX |

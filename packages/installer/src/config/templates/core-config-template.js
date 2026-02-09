@@ -46,6 +46,9 @@ function generateCoreConfig(options = {}) {
     // Options: bob (simplified) | advanced (full access)
     user_profile: userProfile,
 
+    // Language: Delegated to Claude Code native settings.json (Story ACT-12)
+    // See: ~/.claude/settings.json → { "language": "portuguese" }
+
     // IDE Configuration (from Story 1.4)
     ide: {
       selected: selectedIDEs.length > 0 ? selectedIDEs : ['vscode'],

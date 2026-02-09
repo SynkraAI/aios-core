@@ -33,7 +33,7 @@ This folder contains detailed documentation for all AIOS agents, including:
 | **@data-engineer** | Dara | Data Sage | [data-engineer-system.md](./data-engineer-system.md) |
 | **@dev** | Dex | Builder | [dev-system.md](./dev-system.md) |
 | **@devops** | Gage | Guardian | [devops-system.md](./devops-system.md) |
-| **@pm** | Bob | Strategist | [pm-system.md](./pm-system.md) |
+| **@pm** | Morgan | Strategist | [pm-system.md](./pm-system.md) |
 | **@qa** | Quinn | Guardian | [qa-system.md](./qa-system.md) |
 | **@sm** | River | Facilitator | [sm-system.md](./sm-system.md) |
 | **@squad-creator** | Nova | Creator | [squad-creator-system.md](./squad-creator-system.md) |
@@ -103,7 +103,7 @@ flowchart TB
 
     subgraph DISCOVERY["Discovery & Planning"]
         ANALYST["@analyst\n(Atlas)"]
-        PM["@pm\n(Bob)"]
+        PM["@pm\n(Morgan)"]
     end
 
     subgraph DESIGN["Design & Architecture"]

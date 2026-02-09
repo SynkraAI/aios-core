@@ -252,7 +252,7 @@ persona_profile:
       { id: 'dev', name: 'Dex', archetype: 'Builder', tone: 'pragmatic' },
       { id: 'qa', name: 'Quinn', archetype: 'Guardian', tone: 'analytical' },
       { id: 'po', name: 'Pax', archetype: 'Balancer', tone: 'collaborative' },
-      { id: 'pm', name: 'Bob', archetype: 'Visionary', tone: 'pragmatic' },
+      { id: 'pm', name: 'Morgan', archetype: 'Visionary', tone: 'pragmatic' },
       { id: 'sm', name: 'River', archetype: 'Flow Master', tone: 'empathetic' },
       { id: 'architect', name: 'Aria', archetype: 'Architect', tone: 'analytical' },
       { id: 'analyst', name: 'Atlas', archetype: 'Explorer', tone: 'analytical' },

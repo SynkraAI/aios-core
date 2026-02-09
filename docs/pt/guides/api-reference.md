@@ -80,7 +80,7 @@ O AIOS fornece uma API unificada para interagir com agentes de IA especializados
 | `@dev`           | Dex    | Builder      | Implementação de código, debugging, testes      |
 | `@qa`            | Quinn  | Guardian     | Garantia de qualidade, code review, testes      |
 | `@architect`     | Aria   | Visionary    | Arquitetura de sistema, design de API           |
-| `@pm`            | Bob | Strategist   | Requisitos de produto, epics, estratégia        |
+| `@pm`            | Morgan | Strategist   | Requisitos de produto, epics, estratégia        |
 | `@po`            | Pax    | Champion     | Gestão de backlog, critérios de aceitação       |
 | `@sm`            | River  | Facilitator  | Planejamento de sprint, criação de stories      |
 | `@analyst`       | Atlas  | Explorer     | Pesquisa de mercado, análise competitiva        |

@@ -119,7 +119,7 @@
 ### Balancer (Pax)
 > "Equilibre velocidade com qualidade. Se precisar escolher, priorize o que agrega mais valor ao usuário final."
 
-### Visionary (Bob)
+### Visionary (Morgan)
 > "Pense 3 sprints à frente. Cada decisão agora impacta a arquitetura futura. Planeje pensando em escala."
 
 ### Flow Master (River)

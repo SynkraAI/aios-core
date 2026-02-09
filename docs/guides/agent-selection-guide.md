@@ -37,7 +37,7 @@ Need deployment? → @devops
 | Agent                        | Icon | Use For                                                                                     | NOT For                                  |
 | ---------------------------- | ---- | ------------------------------------------------------------------------------------------- | ---------------------------------------- |
 | **@analyst** (Atlas)         | 🔍   | Market research, competitive analysis, brainstorming, pattern extraction                    | PRD creation, architecture, stories      |
-| **@pm** (Bob)             | 📋   | PRD, epics, product strategy, requirements gathering, spec writing                          | Research, architecture, detailed stories |
+| **@pm** (Morgan)             | 📋   | PRD, epics, product strategy, requirements gathering, spec writing                          | Research, architecture, detailed stories |
 | **@architect** (Aria)        | 🏛️   | System architecture, API design, tech stack, complexity assessment, implementation planning | Research, PRD, database schema           |
 | **@data-engineer** (Dara)    | 📊   | Database schema, RLS, migrations, query optimization                                        | App architecture, DB tech selection      |
 | **@sm** (River)              | 🌊   | User stories, sprint planning, backlog grooming                                             | PRD, epics, research, implementation     |
@@ -72,7 +72,7 @@ Need deployment? → @devops
 
 ---
 
-### @pm (Bob) - Product Management
+### @pm (Morgan) - Product Management
 
 **Spec Pipeline:**
 | Command | Description |

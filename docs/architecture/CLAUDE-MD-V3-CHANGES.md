@@ -338,5 +338,5 @@ Phase 5: Remove V2 compatibility code (future)
 
 ---
 
-_Specification created by Bob (PM Agent) - AIOS Framework_
+_Specification created by Morgan (PM Agent) - AIOS Framework_
 _Related: Epic 5, Story 5.6_

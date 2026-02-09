@@ -3,7 +3,7 @@
 > **Product Requirements Document**
 > **Version:** 1.0
 > **Date:** 2026-02-01
-> **Author:** Bob (PM Agent)
+> **Author:** Morgan (PM Agent)
 > **Status:** Draft (Architect Reviewed)
 > **Reviewed By:** Aria (Architect) - 2026-02-01
 > **Priority:** P0 - Blocking ADE Implementation
@@ -66,8 +66,8 @@ O PRD do ADE (`docs/prd/aios-autonomous-development-engine.md`) assume que:
 
 | Date | Version | Description | Author |
 |------|---------|-------------|--------|
-| 2026-02-01 | 1.0 | PRD inicial baseado em auditoria de agentes | Bob (PM) |
-| 2026-02-01 | 1.1 | Incorporadas observações do review arquitetural | Bob (PM) + Aria (Architect) |
+| 2026-02-01 | 1.0 | PRD inicial baseado em auditoria de agentes | Morgan (PM) |
+| 2026-02-01 | 1.1 | Incorporadas observações do review arquitetural | Morgan (PM) + Aria (Architect) |
 
 ---
 
@@ -773,7 +773,7 @@ Key findings:
 
 ---
 
-*PRD gerado por Bob (PM Agent) - AIOS Framework*
+*PRD gerado por Morgan (PM Agent) - AIOS Framework*
 *Reviewed por Aria (Architect Agent) - 2026-02-01*
 *Baseado em: Agent Obedience Audit (2026-02-01)*
 *Status: APPROVED - Ready for implementation*
