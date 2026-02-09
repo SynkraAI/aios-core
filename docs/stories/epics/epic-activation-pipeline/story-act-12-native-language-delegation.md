@@ -1,7 +1,7 @@
 # Story ACT-12: Native Language Delegation to Claude Code Settings
 
 **Epic:** [EPIC-ACT - Unified Agent Activation Pipeline](EPIC-ACT-INDEX.md)
-**Status:** InProgress
+**Status:** Done
 **Priority:** High
 **Complexity:** Medium
 **Effort Estimate:** 6-10 hours
@@ -279,6 +279,74 @@ Task 1 (Settings) ──→ Task 2 (Installer)
 | 2026-02-08 | 1.0 | Story created — delegate language to Claude Code native settings.json, remove from pipeline | @devops (Gage) |
 | 2026-02-08 | 1.1 | Validation GO (96/100) — 3 should-fix applied (AC2 clarification, effort estimate, DoD section). Status: Draft -> Ready | @po (Pax) |
 | 2026-02-08 | 2.0 | Implementation: Tasks 1-4 complete. Pipeline, GreetingBuilder, installer all cleaned up. Language delegated to Claude Code settings.json. 4955 tests pass, 0 regressions. | @dev (Dex) |
+
+---
+
+## QA Results
+
+### Review Date: 2026-02-09
+
+### Reviewed By: Quinn (Test Architect)
+
+### Gate Decision: PASS
+
+### Acceptance Criteria Traceability
+
+| AC# | Description | Validated By | Status |
+|-----|-------------|-------------|--------|
+| AC1 | User Settings (settings.json) | Manual verification — pipeline activated @qa with language from settings.json | PASS |
+| AC2 | Validation | Agent activation produces greeting in configured language | PASS |
+| AC3 | Installer writes settings.json | `write-claude-settings.test.js:35-43` — creates .claude/settings.json with language | PASS |
+| AC4 | Language Mapping | `write-claude-settings.test.js:46-62` — en->english, pt->portuguese, es->spanish | PASS |
+| AC5 | Idempotency | `write-claude-settings.test.js:86-102` — overwrites existing language value | PASS |
+| AC6 | No settings.json overwrite | `write-claude-settings.test.js:64-84` — preserves permissions, theme during merge | PASS |
+| AC7 | Pipeline cleanup | Grep: 0 matches for GREETING_PHRASES/VALID_LANGUAGES in unified-activation-pipeline.js | PASS |
+| AC8 | GreetingBuilder cleanup | Grep: 0 matches for loadLanguage/GREETING_PHRASES/VALID_LANGUAGES/DEFAULT_LANGUAGE in greeting-builder.js (1 residual JSDoc reference — cosmetic) | PASS |
+| AC9 | Section builders simplified | Language param removed from buildPresentation, buildFooter, buildFixedLevelGreeting, buildSimpleGreeting | PASS |
+| AC10 | Fallback safety net | `FALLBACK_PHRASE` is single English constant (L100). `_generateFallbackGreeting` uses it directly (L555). | PASS |
+| AC11 | sectionContext cleanup | Language field not present in sectionContext construction | PASS |
+| AC12 | Config cleanup | Grep: 0 matches for "language" in core-config.yaml | PASS |
+| AC13 | Installer question retained | `getExistingLanguage()` called in both quiet (L262) and interactive (L276) modes | PASS |
+| AC14 | No test regressions | 228/228 tests pass across 6 suites, 0 failures | PASS |
+| AC15 | Updated tests | Pipeline: 5->2 language tests. Greeting-builder: 11->5 ACT-12 tests. Config-template: 6->4. Wizard-language: 3->2. | PASS |
+| AC16 | Installer tests | `write-claude-settings.test.js`: 12 tests covering create, merge, map, roundtrip, edge cases | PASS |
+
+### Test Results
+
+| Suite | Tests | Status |
+|-------|------:|--------|
+| `unified-activation-pipeline.test.js` | 108 | PASS |
+| `greeting-builder.test.js` | 53 | PASS |
+| `context-aware-greetings.test.js` | 58 | PASS |
+| `write-claude-settings.test.js` | 12 | PASS |
+| `core-config-template.test.js` | 4 | PASS |
+| `wizard-language.test.js` | 2 | PASS |
+| **Total** | **228** | **ALL PASS** |
+
+### Code Quality Assessment
+
+Clean removal of language propagation. The implementation correctly delegates language to Claude Code's native `settings.json` mechanism, eliminating ~150 lines of language-related code across pipeline and GreetingBuilder. The `writeClaudeSettings()` function follows safe merge pattern (read-modify-write with try-catch). Edge cases handled: malformed JSON, missing directory, unknown language codes, roundtrip consistency.
+
+### Compliance Check
+
+- Coding Standards: PASS — consistent with existing patterns
+- Project Structure: PASS — test files in correct locations
+- Testing Strategy: PASS — 12 dedicated ACT-12 tests + existing tests updated
+- All ACs Met: PASS — 16/16
+
+### Observations (2 LOW, 0 blocking)
+
+1. **(O1 — LOW):** Residual JSDoc in `greeting-builder.js:78` references `loadLanguage()` which no longer exists. Cosmetic only — does not affect functionality.
+2. **(O2 — LOW):** Jest worker exit warning during test run — caused by timeout simulation timers in ACT-11 tests. Pre-existing, documented in ACT-11 QA review (O3).
+
+### Security Review
+
+No security concerns. `writeClaudeSettings()` writes to a local project-scoped file (`.claude/settings.json`), uses `fse.ensureDir` for safe directory creation, and `JSON.parse`/`JSON.stringify` for structured I/O. No user input injection vectors.
+
+### Gate Status
+
+Gate: PASS
+Quality Score: 98/100 (-2 for residual JSDoc reference)
 
 ---
 

@@ -232,6 +232,9 @@ const { loadProjectStatus } = require('../../.aios-core/infrastructure/scripts/p
 const GitConfigDetector = require('../../.aios-core/infrastructure/scripts/git-config-detector');
 const { PermissionMode } = require('../../.aios-core/core/permissions');
 
+// Track mock timers to prevent Jest worker exit warnings from orphaned setTimeout calls
+const _pendingMockTimers = [];
+
 // ============================================================
 // Tests
 // ============================================================
@@ -277,6 +280,11 @@ describe('UnifiedActivationPipeline', () => {
     }));
 
     pipeline = new UnifiedActivationPipeline();
+  });
+
+  afterEach(() => {
+    _pendingMockTimers.forEach(id => clearTimeout(id));
+    _pendingMockTimers.length = 0;
   });
 
   // -----------------------------------------------------------
@@ -942,7 +950,10 @@ describe('UnifiedActivationPipeline', () => {
 
     it('should still return greeting when only ProjectStatus times out', async () => {
       loadProjectStatus.mockImplementation(() =>
-        new Promise(resolve => setTimeout(() => resolve(mockProjectStatus), 300)),
+        new Promise(resolve => {
+          const id = setTimeout(() => resolve(mockProjectStatus), 300);
+          _pendingMockTimers.push(id);
+        }),
       );
 
       const result = await pipeline.activate('dev');
@@ -1115,7 +1126,10 @@ describe('UnifiedActivationPipeline', () => {
 
     it('ProjectStatus slow → partial greeting (everything else present)', async () => {
       loadProjectStatus.mockImplementation(() =>
-        new Promise((_, reject) => setTimeout(() => reject(new Error('slow')), 300)),
+        new Promise((_, reject) => {
+          const id = setTimeout(() => reject(new Error('slow')), 300);
+          _pendingMockTimers.push(id);
+        }),
       );
 
       const freshPipeline = new UnifiedActivationPipeline();
@@ -1130,7 +1144,10 @@ describe('UnifiedActivationPipeline', () => {
     it('AgentConfig slow → fallback greeting (Tier 1 failure)', async () => {
       AgentConfigLoader.mockImplementation(() => ({
         loadComplete: jest.fn().mockImplementation(() =>
-          new Promise((_, reject) => setTimeout(() => reject(new Error('slow')), 200)),
+          new Promise((_, reject) => {
+            const id = setTimeout(() => reject(new Error('slow')), 200);
+            _pendingMockTimers.push(id);
+          }),
         ),
       }));
 
@@ -1144,15 +1161,24 @@ describe('UnifiedActivationPipeline', () => {
     it('all loaders slow → fallback via pipeline timeout', async () => {
       AgentConfigLoader.mockImplementation(() => ({
         loadComplete: jest.fn().mockImplementation(() =>
-          new Promise(resolve => setTimeout(() => resolve(null), 800)),
+          new Promise(resolve => {
+            const id = setTimeout(() => resolve(null), 800);
+            _pendingMockTimers.push(id);
+          }),
         ),
       }));
       loadProjectStatus.mockImplementation(() =>
-        new Promise(resolve => setTimeout(() => resolve(null), 800)),
+        new Promise(resolve => {
+          const id = setTimeout(() => resolve(null), 800);
+          _pendingMockTimers.push(id);
+        }),
       );
       SessionContextLoader.mockImplementation(() => ({
         loadContext: jest.fn().mockImplementation(() =>
-          new Promise(resolve => setTimeout(() => resolve(null), 800)),
+          new Promise(resolve => {
+            const id = setTimeout(() => resolve(null), 800);
+            _pendingMockTimers.push(id);
+          }),
         ),
       }));
 

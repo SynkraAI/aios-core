@@ -1,7 +1,7 @@
 # Story ACT-7: Context-Aware Greeting Sections
 
 **Epic:** [EPIC-ACT - Unified Agent Activation Pipeline](EPIC-ACT-INDEX.md)
-**Status:** Implemented
+**Status:** Done
 **Priority:** Medium
 **Complexity:** High
 **Created:** 2026-02-05

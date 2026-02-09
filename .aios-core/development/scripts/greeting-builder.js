@@ -75,7 +75,7 @@ class GreetingBuilder {
   }
 
   /**
-   * Load resolved config once, shared by loadUserProfile() and loadLanguage().
+   * Load resolved config once, shared across greeting build.
    * Story ACT-9 QA fix: Eliminates duplicate resolveConfig() calls per greeting build.
    * @returns {Object|null} Resolved config object, or null on failure
    */
