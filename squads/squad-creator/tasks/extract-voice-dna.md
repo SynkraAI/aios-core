@@ -1,13 +1,14 @@
 ---
 task-id: extract-voice-dna
 name: Extract Voice DNA (Communication & Writing Style)
-version: 1.1.0
+version: 1.2.0
+note: "Exemplos usam copywriting. Substitua pelo seu domínio."
 estimated-time: 1-2 hours
 complexity: medium
 
 specialist: "@oalanicolas"
 specialist_guidance: |
-  Use DNA Mental 8-layer architecture.
+  Use DNA Mental™ 8-layer architecture.
   Apply curadoria ouro vs bronze para fontes.
   Extract: power_words, signature_phrases, storytelling, anti-patterns, immune_system.
   Follow Playbook + Framework + Swipe File trinity.
@@ -15,40 +16,40 @@ specialist_guidance: |
 inputs:
   required:
     - mind_name: "Nome do expert/mind a clonar"
-    - sources: "Minimo 5 fontes (livros, artigos, entrevistas, podcasts)"
+    - sources: "Mínimo 5 fontes (livros, artigos, entrevistas, podcasts)"
 
 outputs:
   primary:
-    - voice_dna: "Bloco YAML com DNA de comunicacao/escrita"
+    - voice_dna: "Bloco YAML com DNA de comunicação/escrita"
 
 elicit: true
 related_tasks:
-  - extract-thinking-dna.md  # Complementar: frameworks e decisoes
+  - extract-thinking-dna.md  # Complementar: frameworks e decisões
 ---
 
 # Extract Voice DNA
 
 > **Objetivo:** Extrair COMO um expert se comunica e escreve.
 >
-> **Complemento:** Use `extract-thinking-dna.md` para frameworks e decisoes.
+> **Complemento:** Use `extract-thinking-dna.md` para frameworks e decisões.
 
 ---
 
 ## FASE 1: COLETA DE FONTES (10 min)
 
-### 1.1 Fontes Prioritarias
+### 1.1 Fontes Prioritárias
 
 ```
-OBRIGATORIO (minimo 5):
-[ ] Livro principal / Obra mais conhecida
-[ ] 2-3 Entrevistas longas (podcast, YouTube)
-[ ] Artigos/posts escritos pelo proprio
-[ ] Palestras/keynotes
+OBRIGATÓRIO (mínimo 5):
+□ Livro principal / Obra mais conhecida
+□ 2-3 Entrevistas longas (podcast, YouTube)
+□ Artigos/posts escritos pelo próprio
+□ Palestras/keynotes
 
 BONUS:
-[ ] Twitter/X threads
-[ ] Newsletters
-[ ] Debates/discussoes
+□ Twitter/X threads
+□ Newsletters
+□ Debates/discussões
 ```
 
 ### 1.2 Pesquisa Web
@@ -60,11 +61,11 @@ BONUS:
 "{nome}" stories anecdotes
 ```
 
-**CHECKPOINT:** 5+ fontes? -> Continuar
+**CHECKPOINT:** 5+ fontes? → Continuar
 
 ---
 
-## FASE 2: VOCABULARIO (15 min)
+## FASE 2: VOCABULÁRIO (15 min)
 
 ### 2.1 Power Words (10-15)
 
@@ -74,12 +75,12 @@ Palavras que usa REPETIDAMENTE com peso emocional:
 power_words:
   - word: ""
     context: "quando usa"
-    emotional_weight: "alto|medio"
+    emotional_weight: "alto|médio"
 ```
 
 ### 2.2 Frases Assinatura (5-10)
 
-Expressoes que IDENTIFICAM a pessoa:
+Expressões que IDENTIFICAM a pessoa:
 
 ```yaml
 signature_phrases:
@@ -88,7 +89,7 @@ signature_phrases:
     use_when: ""
 ```
 
-### 2.3 Metaforas Favoritas (3-5)
+### 2.3 Metáforas Favoritas (3-5)
 
 Como explica conceitos complexos:
 
@@ -105,31 +106,31 @@ metaphors:
 vocabulary_rules:
   always_use: []    # termos que SEMPRE usa
   never_use: []     # termos que EVITA
-  transforms:       # como "traduz" jargao
-    - from: "jargao comum"
+  transforms:       # como "traduz" jargão
+    - from: "jargão comum"
       to: "como ele diz"
 ```
 
 ---
 
-## FASE 3: ANEDOTAS & HISTORIAS (15 min)
+## FASE 3: ANEDOTAS & HISTÓRIAS (15 min)
 
-### 3.1 Historias Recorrentes
+### 3.1 Histórias Recorrentes
 
-Historias que conta REPETIDAMENTE para ilustrar pontos:
+Histórias que conta REPETIDAMENTE para ilustrar pontos:
 
 ```yaml
 recurring_stories:
-  - title: "Nome/descricao curta"
+  - title: "Nome/descrição curta"
     summary: "O que acontece"
     lesson: "O ponto que ilustra"
-    trigger: "Quando conta essa historia"
+    trigger: "Quando conta essa história"
     source: "Onde aparece"
 ```
 
 ### 3.2 Anedotas Pessoais
 
-Experiencias pessoais que usa como prova/exemplo:
+Experiências pessoais que usa como prova/exemplo:
 
 ```yaml
 personal_anecdotes:
@@ -153,12 +154,12 @@ favorite_examples:
 
 ### 3.4 Story Patterns
 
-Como estrutura historias:
+Como estrutura histórias:
 
 ```yaml
 story_structure:
-  opening: "como comeca historias"
-  build_up: "como desenvolve tensao"
+  opening: "como começa histórias"
+  build_up: "como desenvolve tensão"
   payoff: "como entrega o ponto"
   callback: "se/como referencia de volta"
 ```
@@ -171,42 +172,42 @@ story_structure:
 
 ```yaml
 writing_structure:
-  paragraph_length: "curto|medio|longo"
-  sentence_length: "curta|media|longa"
+  paragraph_length: "curto|médio|longo"
+  sentence_length: "curta|média|longa"
   list_usage: "frequente|moderado|raro"
   headers_style: ""
-  opening_pattern: "como abre textos/secoes"
-  closing_pattern: "como fecha textos/secoes"
+  opening_pattern: "como abre textos/seções"
+  closing_pattern: "como fecha textos/seções"
 ```
 
-### 4.2 Recursos Retoricos
+### 4.2 Recursos Retóricos
 
 ```yaml
 rhetorical_devices:
-  questions: "usa perguntas retoricas? como?"
-  repetition: "usa repeticao? padrao?"
-  contrast: "usa contraste? padrao?"
+  questions: "usa perguntas retóricas? como?"
+  repetition: "usa repetição? padrão?"
+  contrast: "usa contraste? padrão?"
   direct_address: "fala direto com leitor? como?"
   humor: "usa humor? tipo?"
   provocation: "provoca? como?"
 ```
 
-### 4.3 Formatacao Caracteristica
+### 4.3 Formatação Característica
 
 ```yaml
 formatting_habits:
-  emphasis: "negrito|italico|CAPS|aspas"
+  emphasis: "negrito|itálico|CAPS|aspas"
   parentheses: "frequente|raro"
   dashes: "frequente|raro"
   ellipsis: "frequente|raro"
-  special_chars: []  # ex: "->", ".", etc
+  special_chars: []  # ex: "→", "•", etc
 ```
 
 ---
 
 ## FASE 5: TOM & VOZ (10 min)
 
-### 5.1 Dimensoes de Voz (1-10)
+### 5.1 Dimensões de Voz (1-10)
 
 ```yaml
 voice_dimensions:
@@ -216,7 +217,7 @@ voice_dimensions:
   complex_simple: 5       # 1=complexo, 10=simples
   emotional_rational: 5   # 1=emocional, 10=racional
   humble_confident: 5     # 1=humilde, 10=confiante
-  serious_playful: 5      # 1=serio, 10=brincalhao
+  serious_playful: 5      # 1=sério, 10=brincalhão
 ```
 
 ### 5.2 Tom por Contexto
@@ -225,7 +226,7 @@ voice_dimensions:
 contextual_tone:
   teaching: ""        # quando ensina
   persuading: ""      # quando convence
-  storytelling: ""    # quando conta historia
+  storytelling: ""    # quando conta história
   criticizing: ""     # quando critica
   celebrating: ""     # quando elogia
 ```
@@ -236,9 +237,9 @@ contextual_tone:
 
 ---
 
-## FASE 6: ANTI-PATTERNS DE COMUNICACAO (10 min)
+## FASE 6: ANTI-PATTERNS DE COMUNICAÇÃO (10 min)
 
-> O que o expert NUNCA faz/diz na comunicacao?
+> O que o expert NUNCA faz/diz na comunicação?
 
 ### 6.1 O Que Nunca Dizem
 
@@ -267,9 +268,9 @@ never_do_communication:
 
   # Exemplo:
   - behavior: "Small talk prolongado"
-    context: "Reunioes de negocio"
-    reason: "Desperdica tempo"
-    workaround: "Vai direto ao ponto apos 30s"
+    context: "Reuniões de negócio"
+    reason: "Desperdiça tempo"
+    workaround: "Vai direto ao ponto após 30s"
 ```
 
 ### 6.3 Estilos que Rejeitam
@@ -278,26 +279,26 @@ never_do_communication:
 rejected_styles:
   - style: ""
     reason: ""
-    observed_discomfort: "como reage quando forcado"
+    observed_discomfort: "como reage quando forçado"
 ```
 
 ---
 
-## FASE 7: IMMUNE SYSTEM - REJEICOES AUTOMATICAS (10 min)
+## FASE 7: IMMUNE SYSTEM - REJEIÇÕES AUTOMÁTICAS (10 min)
 
 > O que o expert rejeita ANTES mesmo de pensar?
 
-### 7.1 Rejeicoes Instantaneas
+### 7.1 Rejeições Instantâneas
 
 ```yaml
 automatic_rejections:
   - trigger: "Pedido para simplificar demais"
-    response_speed: "imediato|rapido|apos reflexao"
+    response_speed: "imediato|rápido|após reflexão"
     typical_response: ""
     tone_shift: "como o tom muda"
     exceptions: "quando aceita"
 
-  - trigger: "Sugestao antietica"
+  - trigger: "Sugestão antiética"
     response_speed: "reflexivo"
     typical_response: ""
 ```
@@ -321,35 +322,35 @@ emotional_boundaries:
 ```yaml
 fierce_defenses:
   - value: "Integridade intelectual"
-    how_hard: "ate onde vai"
+    how_hard: "até onde vai"
     cost_acceptable: "disposto a perder relacionamento?"
     observable_signs: "como perceber que ativou"
 ```
 
 ---
 
-## FASE 8: CONTRADICOES DE VOZ - PARADOXOS AUTENTICOS (10 min)
+## FASE 8: CONTRADIÇÕES DE VOZ - PARADOXOS AUTÊNTICOS (10 min)
 
-> Contradicoes tornam humanos REAIS. Resolver paradoxos torna clones FALSOS.
+> Contradições tornam humanos REAIS. Resolver paradoxos torna clones FALSOS.
 
-### 8.1 Paradoxos de Comunicacao
+### 8.1 Paradoxos de Comunicação
 
 ```yaml
 voice_contradictions:
-  - paradox: "Defende transparencia MAS mantem vida pessoal privada"
+  - paradox: "Defende transparência MAS mantém vida pessoal privada"
     how_appears: "Como isso aparece na fala/escrita"
     trigger_for_switch: "O que faz mudar de um para outro"
-    audience_dependent: "Muda com diferentes audiencias?"
-    clone_instruction: "NAO RESOLVER - preservar o paradox"
+    audience_dependent: "Muda com diferentes audiências?"
+    clone_instruction: "NÃO RESOLVER - preservar o paradox"
 
   # Exemplo:
   - paradox: "Simplifica para ensinar MAS usa frameworks complexos"
-    how_appears: "Alterna entre linguagem simples e jargao tecnico"
-    trigger_for_switch: "Nivel percebido da audiencia"
-    clone_instruction: "Manter ambos modos disponiveis"
+    how_appears: "Alterna entre linguagem simples e jargão técnico"
+    trigger_for_switch: "Nível percebido da audiência"
+    clone_instruction: "Manter ambos modos disponíveis"
 ```
 
-### 8.2 Inconsistencias Autenticas
+### 8.2 Inconsistências Autênticas
 
 ```yaml
 authentic_inconsistencies:
@@ -359,16 +360,16 @@ authentic_inconsistencies:
     why_both_are_authentic: ""
 ```
 
-### 8.3 Instrucoes para o Clone
+### 8.3 Instruções para o Clone
 
 ```yaml
 paradox_handling:
   preserve_these:
-    - "Lista de paradoxos que NAO devem ser resolvidos"
+    - "Lista de paradoxos que NÃO devem ser resolvidos"
 
   guidance: |
-    Contradicoes sao features, nao bugs.
-    Se o clone for "consistente demais", esta errado.
+    Contradições são features, não bugs.
+    Se o clone for "consistente demais", está errado.
 ```
 
 ---
@@ -376,18 +377,18 @@ paradox_handling:
 ## OUTPUT: VOICE DNA BLOCK
 
 ```yaml
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════
 # VOICE DNA - {MIND_NAME}
 # Focus: Communication & Writing Style
 # Extracted: {DATE}
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════
 
 voice_dna:
   identity_statement: ""
 
-  # --------------------------------------------------------------------------
-  # VOCABULARIO
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
+  # VOCABULÁRIO
+  # ─────────────────────────────────────────────────────────────
   vocabulary:
     power_words:
       - word: ""
@@ -407,9 +408,9 @@ voice_dna:
       never_use: []
       transforms: []
 
-  # --------------------------------------------------------------------------
-  # HISTORIAS & ANEDOTAS
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
+  # HISTÓRIAS & ANEDOTAS
+  # ─────────────────────────────────────────────────────────────
   storytelling:
     recurring_stories:
       - title: ""
@@ -428,9 +429,9 @@ voice_dna:
       opening: ""
       payoff: ""
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
   # ESTILO DE ESCRITA
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
   writing_style:
     structure:
       paragraph_length: ""
@@ -448,9 +449,9 @@ voice_dna:
       emphasis: ""
       special_chars: []
 
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
   # TOM & VOZ
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
   tone:
     dimensions:
       warmth_distance: 5
@@ -467,9 +468,9 @@ voice_dna:
       storytelling: ""
       criticizing: ""
 
-  # --------------------------------------------------------------------------
-  # ANTI-PATTERNS DE COMUNICACAO
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
+  # ANTI-PATTERNS DE COMUNICAÇÃO
+  # ─────────────────────────────────────────────────────────────
   anti_patterns:
     never_say:
       - term: ""
@@ -482,9 +483,9 @@ voice_dna:
 
     rejected_styles: []
 
-  # --------------------------------------------------------------------------
-  # IMMUNE SYSTEM (Rejeicoes Automaticas)
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
+  # IMMUNE SYSTEM (Rejeições Automáticas)
+  # ─────────────────────────────────────────────────────────────
   immune_system:
     automatic_rejections:
       - trigger: ""
@@ -500,22 +501,22 @@ voice_dna:
       - value: ""
         how_hard: ""
 
-  # --------------------------------------------------------------------------
-  # CONTRADICOES DE VOZ (Paradoxos Autenticos)
-  # --------------------------------------------------------------------------
+  # ─────────────────────────────────────────────────────────────
+  # CONTRADIÇÕES DE VOZ (Paradoxos Autênticos)
+  # ─────────────────────────────────────────────────────────────
   voice_contradictions:
     paradoxes:
       - paradox: ""
         how_appears: ""
-        clone_instruction: "NAO RESOLVER"
+        clone_instruction: "NÃO RESOLVER"
 
     authentic_inconsistencies: []
 
     preservation_note: |
-      Contradicoes sao features, nao bugs.
+      Contradições são features, não bugs.
       Clone "consistente demais" = clone falso.
 
-# ============================================================================
+# ═══════════════════════════════════════════════════════════════
 ```
 
 ---
@@ -524,16 +525,16 @@ voice_dna:
 
 - [ ] 10+ power words
 - [ ] 5+ frases assinatura
-- [ ] 3+ metaforas
-- [ ] 3+ historias/anedotas recorrentes
+- [ ] 3+ metáforas
+- [ ] 3+ histórias/anedotas recorrentes
 - [ ] Story structure mapeado
-- [ ] Todas dimensoes de voz preenchidas
+- [ ] Todas dimensões de voz preenchidas
 - [ ] Tom por contexto definido
-- [ ] 3+ anti-patterns de comunicacao
-- [ ] 2+ rejeicoes automaticas (immune system)
-- [ ] 1+ paradoxo/contradicao documentado
+- [ ] 3+ anti-patterns de comunicação
+- [ ] 2+ rejeições automáticas (immune system)
+- [ ] 1+ paradoxo/contradição documentado
 
-**Score minimo:** 8/10 -> PASS
+**Score mínimo:** 8/10 → PASS
 
 ---
 
@@ -549,7 +550,7 @@ voice_dna:
         context: "suas cartas famosas"
         weight: "alto"
       - word: "gun-to-the-head"
-        context: "ofertas irresistiveis"
+        context: "ofertas irresistíveis"
         weight: "alto"
 
     signature_phrases:
@@ -560,7 +561,7 @@ voice_dna:
 
     metaphors:
       - concept: "encontrar mercado"
-        metaphor: "multidao faminta vs comida gourmet"
+        metaphor: "multidão faminta vs comida gourmet"
 
     rules:
       always_use: ["street-smart", "real world", "tested"]
@@ -573,28 +574,28 @@ voice_dna:
         trigger: "quando fala de copy longo"
 
     personal_anecdotes:
-      - event: "Escrevendo cartas na prisao para o filho"
-        lesson: "As melhores licoes vem de lugares inesperados"
+      - event: "Escrevendo cartas na prisão para o filho"
+        lesson: "As melhores lições vêm de lugares inesperados"
 
     story_structure:
       opening: "Direto ao ponto com gancho pessoal"
-      payoff: "Licao pratica e acionavel"
+      payoff: "Lição prática e acionável"
 
   writing_style:
     structure:
       paragraph_length: "curto"
       sentence_length: "curta"
-      opening_pattern: "Declaracao bold ou pergunta provocativa"
+      opening_pattern: "Declaração bold ou pergunta provocativa"
       closing_pattern: "Call to action ou conselho direto"
 
     rhetorical_devices:
       questions: "Frequente, provocativas"
       direct_address: "Constante - 'you', 'listen'"
-      humor: "Autodepreciativo, palavroes"
+      humor: "Autodepreciativo, palavrões"
 
     formatting:
-      emphasis: "CAPS para enfase, sublinhado"
-      special_chars: ["...", "--"]
+      emphasis: "CAPS para ênfase, sublinhado"
+      special_chars: ["...", "—"]
 
   tone:
     dimensions:
@@ -609,7 +610,7 @@ voice_dna:
     by_context:
       teaching: "Paciente mas direto, muitos exemplos"
       persuading: "Emocional, urgente"
-      criticizing: "Sem papas na lingua, palavroes"
+      criticizing: "Sem papas na língua, palavrões"
 ```
 
 ---

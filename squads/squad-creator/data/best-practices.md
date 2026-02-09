@@ -10,7 +10,7 @@ Este documento consolida as boas praticas para criacao de squads de alta qualida
 
 ## Sumario Executivo
 
-Este documento define **15 padroes avancados** que devem ser considerados como referencia para criacao de novos squads de alta qualidade.
+Este documento define **18 padroes avancados** que devem ser considerados como referencia para criacao de novos squads de alta qualidade.
 
 ### Metricas de Maturidade
 
@@ -848,7 +848,109 @@ quality_gate:
 
 ---
 
-## Parte 9: Acoes Imediatas para Squad-Creator
+## Parte 9: Documentation Patterns (HO-DP-xxx)
+
+### 9.1 Changelog Separation Rule (HO-DP-001)
+
+**Principio:** Tasks versionadas devem ter changelog em arquivo separado.
+
+```yaml
+changelog_rule:
+  id: "HO-DP-001"
+  name: "Changelog Separation"
+
+  when_to_separate:
+    - condition: "Task version >= 2.0.0"
+      action: "MUST have CHANGELOG.md"
+    - condition: "Changelog > 20 lines"
+      action: "SHOULD have CHANGELOG.md"
+    - condition: "Task is reference/gold-standard"
+      action: "MUST have CHANGELOG.md"
+
+  when_inline_ok:
+    - condition: "Task version 1.x.x AND changelog < 10 lines"
+      action: "Inline OK"
+
+  file_location:
+    pattern: "tasks/CHANGELOG-{task-name}.md"
+    alternative: "tasks/CHANGELOG.md"  # Se houver apenas 1 task principal
+
+  reference_format: |
+    ## Changelog
+
+    Ver histórico completo em: [`CHANGELOG.md`](./CHANGELOG.md)
+```
+
+**Rationale:**
+- Changelogs longos poluem o documento principal
+- Facilita tracking de mudanças ao longo do tempo
+- Permite versionamento independente do changelog
+- Melhora legibilidade da task
+
+**Validacao:**
+- Check ID: `T3-DOC-CL` no validate-squad.md
+- Severity: WARNING (não bloqueia)
+
+---
+
+### 9.2 README Requirements (HO-DP-002)
+
+**Principio:** Todo squad deve ter README com seções obrigatórias.
+
+```yaml
+readme_requirements:
+  id: "HO-DP-002"
+
+  required_sections:
+    - "## Overview"           # O que o squad faz
+    - "## Quick Start"        # Como começar
+    - "## Commands"           # Lista de comandos
+    - "## Architecture"       # Diagrama ou descrição
+
+  recommended_sections:
+    - "## Prerequisites"      # Dependências
+    - "## Configuration"      # Opções de config
+    - "## Examples"           # Exemplos de uso
+    - "## Troubleshooting"    # Problemas comuns
+    - "## Changelog"          # Histórico (inline OK para README)
+```
+
+---
+
+### 9.3 Task Backlog Usage (HO-DP-003)
+
+**Principio:** TaskCreate/TaskUpdate só quando adiciona valor real.
+
+```yaml
+task_backlog_rule:
+  id: "HO-DP-003"
+  name: "Task Backlog Economy"
+
+  usar_quando:
+    - "Trabalho longo que pode ser interrompido"
+    - "Múltiplas tasks paralelas com dependências"
+    - "Usuário pediu explicitamente para trackear"
+    - "Sessão com múltiplos agentes/subagents"
+
+  nao_usar_quando:
+    - "Tasks simples e sequenciais"
+    - "Trabalho que cabe em uma sessão"
+    - "Overhead > benefício (chamadas extras de tools)"
+    - "Apenas 2-3 passos óbvios"
+
+  custo:
+    por_task: "~3 tool calls (create + update start + update end)"
+    threshold: "Se < 5 tasks simples, fazer direto"
+```
+
+**Rationale:**
+- Cada TaskCreate/TaskUpdate consome tokens e latência
+- Backlog não ajuda contexto em tasks sequenciais simples
+- Benefício só existe quando há tracking real necessário
+
+---
+
+## Parte 10: Acoes Imediatas para Squad-Creator
 
 ### 9.1 Atualizar Templates de Criacao
 

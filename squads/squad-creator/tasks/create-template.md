@@ -397,7 +397,7 @@ save_template:
 phase_3_output:
   quality_score: 8.0/10
   blocking_requirements: "ALL PASS"
-  template_file: "squads/{your-squad}/templates/legal-contract.yaml"
+  template_file: "squads/{squad-name}/templates/{template-name}.yaml"  # Example
   status: "PASS"
 ```
 

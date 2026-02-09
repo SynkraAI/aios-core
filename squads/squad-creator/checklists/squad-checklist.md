@@ -1,6 +1,8 @@
-# Squad Validation Checklist v3.0
+# Squad Validation Checklist v3.1
 
-This checklist validates AIOS squads using a **tiered, context-aware approach** based on analysis of gold standard squads (Copy, MMOS, HybridOps, Books).
+This checklist validates AIOS squads using a **tiered, context-aware approach** based on analysis of well-structured squads.
+
+> **Nota:** Exemplos neste documento são ilustrativos. Substitua pelo seu contexto.
 
 ---
 
@@ -55,14 +57,14 @@ detect_pipeline_squad:
     - has_orchestrator_agent: true
     - has_sequential_phases: true
     - tasks_count > agents_count * 3
-  examples: ["content-pipeline", "data-processing"]
+  examples: ["pipeline-type squads"]
 
 detect_hybrid_squad:
   conditions:
     - has_process_focus: true
     - has_heuristic_validation: true
     - agents_per_phase: "~1"
-  examples: ["workflow-automation", "etl-pipeline"]
+  examples: ["hybrid-ops", "etl"]
 ```
 
 **Detected Type:** [ ] Expert | [ ] Pipeline | [ ] Hybrid
@@ -683,6 +685,8 @@ Requirements vary by squad type. Only complete the relevant section.
 **Applies to:** Pipeline squads with 8+ phases or complex multi-step workflows
 
 **Requirement:** Large pipelines SHOULD have a YOLO mode script for autonomous execution.
+
+**Reference:** YOLO mode automation pattern for autonomous pipeline execution
 
 **What is YOLO Mode?**
 A bash script that can execute the entire pipeline autonomously, without human intervention, while maintaining state and allowing resume on failure.

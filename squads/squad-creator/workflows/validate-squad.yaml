@@ -23,7 +23,7 @@ workflow:
       type: string
       required: true
       description: "Name of squad to validate"
-      examples: ["squad-creator", "my-new-squad"]
+      examples: ["{squad-name}", "my-squad", "new-squad"]
 
     squad_path:
       type: string
@@ -533,20 +533,20 @@ workflow:
   # ─────────────────────────────────────────────────────────────────────────────
   usage:
     cli:
-      - command: "./scripts/validate-squad.sh squad-creator"
+      - command: "./scripts/validate-squad.sh {squad-name}"
         description: "Run deterministic checks"
 
-      - command: "./scripts/validate-squad.sh squad-creator --verbose"
+      - command: "./scripts/validate-squad.sh {squad-name} --verbose"
         description: "Verbose output"
 
-      - command: "./scripts/validate-squad.sh squad-creator --json"
+      - command: "./scripts/validate-squad.sh {squad-name} --json"
         description: "JSON output for CI/CD"
 
     claude:
-      - command: "*validate-squad squad-creator"
+      - command: "*validate-squad {squad-name}"
         description: "Full validation with AI assessment"
 
-      - command: "*validate-squad squad-creator --type=expert"
+      - command: "*validate-squad {squad-name} --type=expert"
         description: "Force expert type validation"
 
   # ─────────────────────────────────────────────────────────────────────────────

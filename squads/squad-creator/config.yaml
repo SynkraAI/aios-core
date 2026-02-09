@@ -1,10 +1,16 @@
 name: squad-creator
-version: 1.2.0
+version: 2.9.0
 short-title: Squad Creator
 description: >-
-  This squad provides tools and agents to create custom AIOS-FULLSTACK
-  squads. It automates the process of creating agents, tasks, templates,
-  workflows, and all necessary components for new domain-specific squads.
+  Meta-squad para criar squads de agentes baseados em elite minds reais.
+  Tier 0: @squad-diagnostician (triagem, routing, verificação de ecossistema).
+  Tier 1: @oalanicolas (mind cloning, DNA extraction, curadoria),
+  @pedro-valerio (process design, veto conditions, workflow validation).
+  Orchestrator: @squad-architect (criação completa de squads).
+  v2.9: Worker script optimization (sync-ide-command.py, validate-squad-structure.py)
+  baseado no Executor Decision Tree. Tasks com execution_type explícito.
+  Economia estimada: ~$540/ano (~15M tokens LLM evitados/mês).
+  Estatísticas calculadas dinamicamente via *refresh-registry.
 author: AIOS Team
 slashPrefix: squadCreator
 

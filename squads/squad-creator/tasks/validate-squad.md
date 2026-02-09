@@ -1,10 +1,19 @@
 # Task: Validate Squad
 
 **Task ID:** validate-squad
-**Version:** 3.0.0
+**Version:** 3.2.1
 **Purpose:** Validate a squad against AIOS principles using tiered, context-aware validation
 **Orchestrator:** @squad-architect
+**Process Specialist:** @pedro-valerio
 **Mode:** Tiered validation (structure → coverage → quality → contextual)
+**Execution Type:** `Hybrid` (Worker scripts for Phases 0-2 + Agent for Phases 3-6)
+**Worker Scripts:** `scripts/validate-squad.sh`, `scripts/quality_gate.py`, `scripts/yaml_validator.py`
+
+**Process Validation (via @pedro-valerio):**
+- Audit workflows para verificar se impedem caminhos errados
+- Validar veto conditions em cada checkpoint
+- Identificar gaps de tempo entre handoffs
+- Garantir fluxo unidirecional (cards nunca voltam)
 
 **Core Philosophy:**
 ```
@@ -18,6 +27,8 @@ Validation must understand WHAT type of squad it's validating.
 - `checklists/squad-checklist.md` → Complete validation checklist (v3.0)
 - `data/quality-dimensions-framework.md` → Quality scoring
 - `data/tier-system-framework.md` → Agent tier validation
+- `data/executor-decision-tree.md` → Executor type validation (Worker/Agent/Hybrid/Human) **[v3.2]**
+- `data/tool-registry.yaml` → Tool and MCP integration validation **[v3.2]**
 
 ---
 
@@ -41,19 +52,21 @@ INPUT (squad_name)
     → Orphan task detection (max 2)
     → Pipeline phase coverage (Pipeline squads)
     → Data file usage (>=50%)
+    → Tool registry validation (if exists) [v3.2]
     → BLOCKING: Coverage failures = ABORT
     ↓
 [PHASE 3: QUALITY - TIER 3]
-    → Prompt Quality (25%)
-    → Pipeline Coherence (25%)
-    → Checklist Actionability (25%)
-    → Documentation (25%)
+    → Prompt Quality (20%)
+    → Pipeline Coherence (20%)
+    → Checklist Actionability (20%)
+    → Documentation (20%)
+    → Optimization Opportunities (20%) [v3.2]
     → Score 0-10, threshold 7.0
     ↓
 [PHASE 4: CONTEXTUAL - TIER 4]
     → Expert: voice_dna, objection_algorithms, tiers
     → Pipeline: workflow, checkpoints, orchestrator
-    → Hybrid: persona, behavioral_states, heuristics
+    → Hybrid: persona, behavioral_states, heuristics, executor_decision_tree [v3.2]
     → Score 0-10, weighted 20% of final
     ↓
 [PHASE 5: VETO CHECK]
@@ -73,8 +86,8 @@ OUTPUT: Validation Report + Final Score
 
 | Parameter | Type | Required | Description | Example |
 |-----------|------|----------|-------------|---------|
-| `squad_name` | string | Yes | Name of squad to validate | `"copy"`, `"books"` |
-| `squad_path` | string | No | Override default path | `"squads/{your-squad}/"` |
+| `squad_name` | string | Yes | Name of squad to validate | `"{your-squad}"` |
+| `squad_path` | string | No | Override default path | `"squads/{squad-name}/"` |
 | `type_override` | string | No | Force squad type | `"expert"`, `"pipeline"`, `"hybrid"` |
 
 ---
@@ -496,6 +509,50 @@ data_usage:
   # Not blocking, just warning
 ```
 
+### 2.5 Tool Registry Validation [v3.2]
+
+```yaml
+tool_registry_validation:
+  id: "T2-TOOL-001"
+  description: "Validate tool registry if squad uses external tools/MCPs"
+  applies_when: "data/tool-registry.yaml exists OR scripts/ contains integrations"
+  reference: "data/tool-registry.yaml"
+
+  checks:
+    registry_exists:
+      id: "T2-TOOL-001a"
+      check: "tool-registry.yaml exists if squad uses external tools"
+      action: |
+        If squad has:
+          - MCP integrations
+          - External API calls in tasks
+          - Automation scripts with tool dependencies
+        THEN tool-registry.yaml SHOULD exist
+      severity: "WARNING"
+      on_missing: "WARNING - Squad uses tools but no registry found"
+
+    declared_tools_functional:
+      id: "T2-TOOL-001b"
+      check: "Declared tools are accessible"
+      action: |
+        For each tool in tool-registry.yaml:
+          Verify: path exists OR MCP is configured
+      severity: "WARNING"
+      on_fail: "WARNING - Tool declared but not accessible: {tool}"
+
+    integration_documented:
+      id: "T2-TOOL-001c"
+      check: "Tool integrations documented in README"
+      action: "Grep README for tool names from registry"
+      severity: "WARNING"
+      on_fail: "WARNING - Tools not documented in README"
+
+  result:
+    pass_if: "All declared tools accessible"
+    warn_if: "Some tools missing or undocumented"
+    # Not blocking - tools are enhancement, not requirement
+```
+
 **Tier 2 Output:**
 ```yaml
 tier_2_result:
@@ -505,6 +562,7 @@ tier_2_result:
     orphan_tasks: 1
     phase_coverage: "100%"  # if pipeline
     data_usage: "67%"
+    tool_registry: "N/A"  # or "PASS" if exists and valid [v3.2]
   issues: []
 ```
 
@@ -671,8 +729,83 @@ documentation:
       points: 1
       check: "External dependencies listed?"
 
+    - name: "Changelog separation"  # [v3.2.1]
+      points: 1
+      check: |
+        Tasks >= v2.0.0 have separate CHANGELOG.md?
+        Reference: HO-DP-001 in best-practices.md
+
+  scoring:
+    method: "Sum criteria points (max 11, normalized to 10)"
+```
+
+### 3.5 Optimization Opportunities [v3.2]
+
+```yaml
+optimization_opportunities:
+  id: "T3-OPT"
+  weight: 0.20
+  question: "Are tasks using the optimal executor type (Worker vs Agent)?"
+  reference: "data/executor-decision-tree.md"
+
+  description: |
+    This check identifies tasks that could be converted from Agent (LLM, expensive)
+    to Worker (code, cheap) for cost savings. Uses the Executor Decision Tree (Q1-Q6).
+
+  sampling:
+    method: "Analyze all tasks with execution_type field"
+    focus: "Tasks marked as Agent that could be Worker"
+
+  criteria:
+    - name: "Executor type declared"
+      points: 2
+      check: "Tasks have execution_type field? (Worker|Agent|Hybrid|Human)"
+
+    - name: "Deterministic tasks use Worker"
+      points: 3
+      check: |
+        Tasks that are 100% deterministic (format, validate, transform)
+        are marked as Worker, not Agent?
+        Apply Q1-Q2 from executor-decision-tree.md
+
+    - name: "No expensive Agent misuse"
+      points: 3
+      check: |
+        Agent tasks truly require:
+          - Language interpretation
+          - Creative generation
+          - Context-aware analysis
+        If task could be a script, DEDUCT points
+
+    - name: "Hybrid correctly applied"
+      points: 2
+      check: |
+        Hybrid tasks have:
+          - Defined human_checkpoint
+          - Clear AI vs Human boundaries
+          - Fallback behavior
+
   scoring:
     method: "Sum criteria points (max 10)"
+
+  economy_projection:
+    calculate: |
+      For each Agent task that could be Worker:
+        monthly_executions: estimated 20/month
+        agent_cost: ~$0.10-0.50 per execution (tokens)
+        worker_cost: ~$0.001 per execution (compute)
+        potential_savings: (agent_cost - worker_cost) × monthly_executions
+
+    output: |
+      Optimization Report:
+      - Tasks eligible for conversion: N
+      - Monthly token savings: ~X tokens
+      - Monthly cost savings: ~$X
+
+  output_note: |
+    This check is INFORMATIONAL - not blocking.
+    Low score indicates optimization opportunity, not failure.
+    Run `*optimize {squad}` for detailed conversion recommendations.
 ```
 
 **Tier 3 Output:**
@@ -683,11 +816,16 @@ tier_3_result:
     pipeline_coherence: 7.0
     checklist_actionability: 6.5
     documentation: 8.0
-  weighted_total: 7.5
+    optimization_opportunities: 6.0  # Indicates room for improvement
+  weighted_total: 7.2
   details:
     prompt_quality_samples: ["brutal-extractor.md", "final-writer.md", "gap-analyzer.md"]
     coherence_issues: ["Phase 3.5 not in workflow.yaml", "Sequence 10 collision"]
     checklist_issues: ["book-summary-scoring.md missing auto-correction for some items"]
+    optimization_notes:  # [v3.2]
+      agent_tasks_convertible: 3
+      potential_monthly_savings: "~$15"
+      recommendation: "Run *optimize {squad} for details"
 ```
 
 ---
@@ -801,6 +939,7 @@ pipeline_validation:
         - "Has progress tracking"
         - "Logs to logs/ directory"
         - "Supports resume capability"
+      reference: "YOLO mode automation pattern"
       scoring:
         7_of_7: 10
         6_of_7: 8
@@ -817,7 +956,7 @@ hybrid_validation:
   checks:
     persona_profile:
       id: "T4H-PP"
-      weight: 0.25
+      weight: 0.15
       required: true
       criteria:
         - "Each agent has persona_profile"
@@ -826,7 +965,7 @@ hybrid_validation:
 
     behavioral_states:
       id: "T4H-BS"
-      weight: 0.25
+      weight: 0.15
       required: true
       criteria:
         - "Operational modes defined"
@@ -835,7 +974,7 @@ hybrid_validation:
 
     heuristic_validation:
       id: "T4H-HV"
-      weight: 0.30
+      weight: 0.20
       required: true
       criteria:
         - "Heuristics have IDs (PV_*, SC_*)"
@@ -845,16 +984,72 @@ hybrid_validation:
 
     process_standards:
       id: "T4H-PS"
-      weight: 0.20
+      weight: 0.15
       required: true
       criteria:
         - "Task Anatomy (8 fields) enforced"
         - "BPMN or equivalent used"
         - "Integration points documented"
+
+    # [v3.2] NEW: Executor Decision Tree Validation
+    executor_decision_tree:
+      id: "T4H-EX"
+      weight: 0.35
+      required: true
+      reference: "data/executor-decision-tree.md"
+      description: |
+        Validate that tasks correctly apply the 4-type executor model:
+        - Worker: Deterministic code (100% consistent, cheap)
+        - Agent: LLM probabilistic (needs interpretation, expensive)
+        - Hybrid: AI + Human (needs both judgment types)
+        - Human: Pure human decision (irreducible complexity)
+
+      criteria:
+        - name: "execution_type declared"
+          check: "Each task has execution_type field"
+          points: 2
+
+        - name: "Q1-Q6 correctly applied"
+          check: |
+            For each task, verify decision tree was followed:
+            Q1: Is output 100% predictable from input?
+            Q2: Can ALL rules be codified?
+            Q2a: Does task require language interpretation?
+            Q2b: Can one person ALWAYS make the decision?
+            Q3: Is decision-maker-level or safety-critical?
+            Q4: Can human error be tolerated?
+            Q5: Is real-time response required?
+            Q6: Does complexity require expert + AI together?
+          points: 4
+
+        - name: "Worker tasks have scripts"
+          check: "Tasks marked Worker have implementation in scripts/"
+          points: 2
+
+        - name: "Hybrid tasks have checkpoints"
+          check: "Tasks marked Hybrid define human_checkpoint"
+          points: 1
+
+        - name: "Fallback chain defined"
+          check: "Each executor type has fallback (Worker→Agent, Agent→Hybrid, Hybrid→Human)"
+          points: 1
+
+      scoring:
+        10_of_10: 10
+        8_of_10: 8
+        6_of_10: 6  # Minimum pass
+        below_6: "CONDITIONAL - Executor types need review"
+
+      anti_patterns:
+        - "Task marked Agent but is pure format/transform (should be Worker)"
+        - "Task marked Worker but requires interpretation (should be Agent)"
+        - "Task marked Hybrid but no human checkpoint defined"
+        - "No fallback for when primary executor fails"
 ```
 
 **Tier 4 Output:**
 ```yaml
+# Pipeline squad example:
 tier_4_result:
   squad_type: "pipeline"
   score: 7.5
@@ -866,6 +1061,23 @@ tier_4_result:
   issues:
     - "Phase checkpoints missing rework rules"
     - "Some phases lack explicit outputs"
+
+# Hybrid squad example [v3.2]:
+tier_4_result_hybrid:
+  squad_type: "hybrid"
+  score: 7.8
+  checks:
+    persona_profile: 8.0
+    behavioral_states: 7.5
+    heuristic_validation: 8.0
+    process_standards: 7.0
+    executor_decision_tree: 8.5  # [v3.2] NEW
+  issues:
+    - "2 tasks marked Agent could be Worker"
+    - "Missing fallback for Hybrid→Human"
+  optimization:
+    convertible_tasks: 2
+    potential_savings: "~$12/month"
 ```
 
 ---
@@ -1117,6 +1329,9 @@ report_structure:
 | persona_profile | optional | optional | REQUIRED |
 | behavioral_states | optional | optional | REQUIRED |
 | heuristic_validation | optional | optional | REQUIRED |
+| **executor_decision_tree** [v3.2] | optional | optional | **REQUIRED** |
+| **tool_registry** [v3.2] | optional | optional | optional |
+| **optimization_check** [v3.2] | informational | informational | informational |
 
 ---
 
@@ -1133,31 +1348,18 @@ report_structure:
 | Checklist | `checklists/squad-checklist.md` |
 | Type Definitions | `data/squad-type-definitions.yaml` |
 | Quality Framework | `data/quality-dimensions-framework.md` |
+| Executor Decision Tree | `data/executor-decision-tree.md` **[v3.2]** |
+| Tool Registry | `data/tool-registry.yaml` **[v3.2]** |
+| Optimize Task | `tasks/optimize.md` **[v3.2]** |
 
 ---
 
 ## Changelog
 
-```yaml
-v3.0.0 (2026-02-01):
-  - Added squad type detection (Expert/Pipeline/Hybrid)
-  - Added 4-tier validation system
-  - Made voice_dna/objection_algorithms contextual
-  - Added prompt quality, pipeline coherence, checklist actionability
-  - Added coverage ratio checks
-  - Added type-specific veto conditions
-  - Aligned with squad-checklist.md v3.0
-
-v2.0.0 (2026-01-15):
-  - Qualitative validation approach
-  - Principle-based checks
-
-v1.0.0 (2025-12-01):
-  - Initial task
-```
+Ver histórico completo em: [`CHANGELOG.md`](./CHANGELOG.md)
 
 ---
 
-_Task Version: 3.0.0_
+_Task Version: 3.2.1_
 _Philosophy: Context-aware validation - different squads need different things_
-_Reference: squad-checklist.md v3.0, squad-type-definitions.yaml v1.0_
+_Reference: squad-checklist.md v3.0, squad-type-definitions.yaml v1.0, executor-decision-tree.md v1.0_

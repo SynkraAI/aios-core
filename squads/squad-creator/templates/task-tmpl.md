@@ -1,7 +1,17 @@
 template:
   id: squad-task-template-v2
   name: Squad Task
-  version: 2.0
+  version: 2.1
+  specialists:
+    process_design: "@pedro-valerio"
+    mind_extraction: "@oalanicolas"
+    notes: |
+      For tasks involving mind cloning or DNA extraction:
+      - Add `specialist: "@oalanicolas"` to frontmatter
+      - Add `specialist_guidance:` with relevant instructions
+      For tasks involving workflows, validation, or checklists:
+      - Add `specialist: "@pedro-valerio"` to frontmatter
+      - Add `specialist_guidance:` with process design guidance
   output:
     format: markdown
     filename: "tasks/{{task_id}}.md"

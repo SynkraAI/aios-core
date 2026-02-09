@@ -10,9 +10,9 @@ Features:
 - Only flags truly broken internal dependencies
 
 Usage:
-    python scripts/dependency_check.py squads/squad-creator/
-    python scripts/dependency_check.py squads/squad-creator/ --output json
-    python scripts/dependency_check.py squads/squad-creator/ --strict  # Include external refs
+    python scripts/dependency_check.py squads/{squad-name}/
+    python scripts/dependency_check.py squads/{squad-name}/ --output json
+    python scripts/dependency_check.py squads/{squad-name}/ --strict  # Include external refs
 """
 
 import argparse
@@ -25,11 +25,39 @@ from typing import Dict, List, Any, Tuple
 
 
 # Known squad names to detect external references
-# This list is populated dynamically from squad-registry.yaml
-# Add new squads here as they are created
-KNOWN_SQUADS = {
-    "squad-creator"  # Meta squad for creating other squads
-}
+# Dynamically loaded from squad-registry.yaml if available, otherwise empty set
+def load_known_squads():
+    """Load known squad names from registry or discover from squads/ directory."""
+    known = set()
+
+    # Try loading from squad-registry.yaml
+    script_dir = Path(__file__).parent
+    registry_path = script_dir / ".." / "data" / "squad-registry.yaml"
+
+    if registry_path.exists():
+        try:
+            import yaml
+            with open(registry_path, 'r') as f:
+                registry = yaml.safe_load(f)
+                if registry and 'squads' in registry:
+                    known.update(registry['squads'].keys())
+        except Exception:
+            pass  # Fall through to directory discovery
+
+    # Fallback: discover from squads/ directory
+    if not known:
+        squads_dir = script_dir / ".." / ".." / ".."  / "squads"
+        if squads_dir.exists():
+            for item in squads_dir.iterdir():
+                if item.is_dir() and not item.name.startswith('.'):
+                    known.add(item.name)
+
+    # Always include squad-creator itself
+    known.add("squad-creator")
+
+    return known
+
+KNOWN_SQUADS = load_known_squads()
 
 
 def is_in_code_block(content: str, match_pos: int) -> bool:

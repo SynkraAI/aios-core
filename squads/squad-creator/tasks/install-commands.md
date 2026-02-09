@@ -1,5 +1,10 @@
 # /install-commands Task
 
+**Task ID:** install-commands
+**Version:** 1.1.0
+**Execution Type:** `Worker` (100% deterministic file operations)
+**Worker Script:** `scripts/sync-ide-command.py` (use: `python3 scripts/sync-ide-command.py squad {name}`)
+
 When this command is used, execute the following task:
 
 # Install Squad Commands

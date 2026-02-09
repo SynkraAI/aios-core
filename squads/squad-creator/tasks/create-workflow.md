@@ -605,7 +605,7 @@ save_workflow:
 phase_4_output:
   quality_score: 8.5/10
   blocking_requirements: "ALL PASS"
-  workflow_file: "squads/{your-squad}/workflows/wf-high-ticket-sales.yaml"
+  workflow_file: "squads/{squad-name}/workflows/{workflow-name}.yaml"  # Example
   lines: 650
   status: "PASS"
 ```
@@ -625,7 +625,7 @@ present_summary:
   workflow_created:
     name: "High-Ticket Sales Pipeline"
     id: "wf-high-ticket-sales"
-    file: "squads/{your-squad}/workflows/wf-high-ticket-sales.yaml"
+    file: "squads/{squad-name}/workflows/{workflow-name}.yaml"  # Example
     lines: 650
 
   structure:

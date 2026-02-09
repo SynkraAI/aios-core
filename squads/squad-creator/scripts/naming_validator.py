@@ -12,8 +12,8 @@ Conventions:
 - Agent IDs: kebab-case (e.g., gary-halbert)
 
 Usage:
-    python scripts/naming_validator.py squads/squad-creator/
-    python scripts/naming_validator.py squads/squad-creator/ --output json
+    python scripts/naming_validator.py squads/{squad-name}/
+    python scripts/naming_validator.py squads/{squad-name}/ --output json
 """
 
 import argparse
