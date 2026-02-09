@@ -1,0 +1,10 @@
+{
+  "master_url": "https://vod-akm.play.hotmart.com/video/OLDpPy3pLx/hls/master-pkg-t-1768651064000.m3u8?hdnts=st%3D1770657393%7Eexp%3D1770657893%7Ehmac%3Dda687f174bdb60f8695ff8f10027d1e6472649de011c40df6f5ad466f455e305&app=18a4b4a2-3b23-44bc-bb9d-d2e3bb0e9550",
+  "video_urls": [
+    "https://vod-akm.play.hotmart.com/video/OLDpPy3pLx/hls/OLDpPy3pLx-1768651064000-audio=81133-video=2680281.m3u8?hdntl=exp=1770743795~acl=/*~data=hdntl~hmac=808bb5bef83545054b2eb759fbfa65ec711166e6706ff644a53597ea6aca429f&app=18a4b4a2-3b23-44bc-bb9d-d2e3bb0e9550"
+  ],
+  "subtitle_urls": [
+    "https://vod-akm.play.hotmart.com/video/OLDpPy3pLx/hls/OLDpPy3pLx-1768651064000-textstream_pt_br=1000.m3u8?hdntl=exp=1770743795~acl=/*~data=hdntl~hmac=808bb5bef83545054b2eb759fbfa65ec711166e6706ff644a53597ea6aca429f&hdntl=exp=1770743795~acl=/*~data=hdntl~hmac=808bb5bef83545054b2eb759fbfa65ec711166e6706ff644a53597ea6aca429f&app=18a4b4a2-3b23-44bc-bb9d-d2e3bb0e9550"
+  ],
+  "media_code": "Pq0zk4NpZX"
+}
