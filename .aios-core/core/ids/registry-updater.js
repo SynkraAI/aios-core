@@ -49,6 +49,9 @@ class RegistryUpdater {
     this._registryPath = options.registryPath || REGISTRY_PATH;
     this._repoRoot = options.repoRoot || REPO_ROOT;
     this._debounceMs = options.debounceMs || DEBOUNCE_MS;
+    this._auditLogPath = options.auditLogPath || AUDIT_LOG_PATH;
+    this._lockFile = options.lockFile || LOCK_FILE;
+    this._backupDir = options.backupDir || BACKUP_DIR;
     this._watcher = null;
     this._pendingUpdates = new Map();
     this._debounceTimer = null;
@@ -111,17 +114,20 @@ class RegistryUpdater {
 
   /**
    * Process specific files on-demand (CLI / hook mode).
+   * Resolves symlinks before filtering and processing.
    * @param {Array<{action: string, filePath: string}>} changes
    */
   async processChanges(changes) {
     if (!changes || changes.length === 0) return { updated: 0, errors: [] };
 
-    const validChanges = changes.filter((c) => {
-      const abs = path.isAbsolute(c.filePath)
-        ? c.filePath
-        : path.resolve(this._repoRoot, c.filePath);
-      return !this._isExcluded(abs) && this._isIncluded(abs);
-    });
+    const validChanges = changes
+      .map((c) => {
+        const abs = path.isAbsolute(c.filePath)
+          ? c.filePath
+          : path.resolve(this._repoRoot, c.filePath);
+        return { action: c.action, filePath: this._resolveSymlink(abs) };
+      })
+      .filter((c) => !this._isExcluded(c.filePath) && this._isIncluded(c.filePath));
 
     if (validChanges.length === 0) return { updated: 0, errors: [] };
 
@@ -407,7 +413,7 @@ class RegistryUpdater {
   // ─── Internal: File Locking ──────────────────────────────────────
 
   async _withLock(operation) {
-    const lockDir = path.dirname(LOCK_FILE);
+    const lockDir = path.dirname(this._lockFile);
     if (!fs.existsSync(lockDir)) {
       fs.mkdirSync(lockDir, { recursive: true });
     }
@@ -425,7 +431,7 @@ class RegistryUpdater {
           minTimeout: LOCK_RETRY_DELAY_MS,
           maxTimeout: LOCK_TIMEOUT_MS,
         },
-        lockfilePath: LOCK_FILE,
+        lockfilePath: this._lockFile,
       });
     } catch (err) {
       throw new Error(`[IDS-Updater] Could not acquire lock: ${err.message}`);
@@ -452,7 +458,7 @@ class RegistryUpdater {
 
     try {
       this._rotateLogIfNeeded();
-      fs.appendFileSync(AUDIT_LOG_PATH, JSON.stringify(logEntry) + '\n', 'utf8');
+      fs.appendFileSync(this._auditLogPath, JSON.stringify(logEntry) + '\n', 'utf8');
     } catch {
       // Audit logging should never break the main flow
     }
@@ -460,15 +466,15 @@ class RegistryUpdater {
 
   _rotateLogIfNeeded() {
     try {
-      if (!fs.existsSync(AUDIT_LOG_PATH)) return;
-      const stat = fs.statSync(AUDIT_LOG_PATH);
+      if (!fs.existsSync(this._auditLogPath)) return;
+      const stat = fs.statSync(this._auditLogPath);
       if (stat.size >= MAX_AUDIT_LOG_SIZE) {
-        if (!fs.existsSync(BACKUP_DIR)) {
-          fs.mkdirSync(BACKUP_DIR, { recursive: true });
+        if (!fs.existsSync(this._backupDir)) {
+          fs.mkdirSync(this._backupDir, { recursive: true });
         }
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        const backupPath = path.join(BACKUP_DIR, `registry-update-log-${timestamp}.jsonl`);
-        fs.renameSync(AUDIT_LOG_PATH, backupPath);
+        const backupPath = path.join(this._backupDir, `registry-update-log-${timestamp}.jsonl`);
+        fs.renameSync(this._auditLogPath, backupPath);
       }
     } catch {
       // Rotation failure should not block operations
@@ -518,6 +524,8 @@ class RegistryUpdater {
 
   /**
    * Resolve symlinks to real path before processing.
+   * Used in processChanges() for on-demand mode.
+   * Watcher mode uses chokidar's followSymlinks: true instead.
    */
   _resolveSymlink(filePath) {
     try {
@@ -543,9 +551,9 @@ class RegistryUpdater {
    * @param {object} filter - { action, path, since, limit }
    */
   queryAuditLog(filter = {}) {
-    if (!fs.existsSync(AUDIT_LOG_PATH)) return [];
+    if (!fs.existsSync(this._auditLogPath)) return [];
 
-    const lines = fs.readFileSync(AUDIT_LOG_PATH, 'utf8').trim().split('\n').filter(Boolean);
+    const lines = fs.readFileSync(this._auditLogPath, 'utf8').trim().split('\n').filter(Boolean);
     let entries = lines.map((line) => {
       try {
         return JSON.parse(line);
