@@ -35,6 +35,7 @@ class VideoContent:
     quality: str = ""
     filename: str = ""
     encryption_key_url: str = ""
+    media_code: str = ""  # Hotmart media code (needs browser resolution to m3u8)
 
 
 @dataclass

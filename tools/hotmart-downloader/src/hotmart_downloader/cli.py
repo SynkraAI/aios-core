@@ -22,8 +22,9 @@ from hotmart_downloader.exceptions import (
 from hotmart_downloader.filesystem import build_lesson_path
 from hotmart_downloader.http_client import HttpClient
 from hotmart_downloader.logging_config import setup_logging
-from hotmart_downloader.models import Course, DownloadStatus
+from hotmart_downloader.models import Course, DownloadStatus, SubtitleTrack
 from hotmart_downloader.parser import parse_lesson_page
+from hotmart_downloader.video_resolver import VideoResolver, guess_language_from_url
 
 logger = logging.getLogger(__name__)
 
@@ -213,16 +214,19 @@ def download(
                 )
                 raise typer.Exit(0)
 
-            # Download
-            _execute_download(
-                api=api,
-                course=course_data,
-                registry=DownloaderRegistry(client),
-                output_dir=settings.output_dir,
-                quality=effective_quality,
-                download_subs=subtitles,
-                audio_only=audio_only,
-            )
+            # Download — VideoResolver opens a browser lazily (only when
+            # lessons contain embed videos that need m3u8 resolution).
+            with VideoResolver(settings) as resolver:
+                _execute_download(
+                    api=api,
+                    course=course_data,
+                    registry=DownloaderRegistry(client),
+                    resolver=resolver,
+                    output_dir=settings.output_dir,
+                    quality=effective_quality,
+                    download_subs=subtitles,
+                    audio_only=audio_only,
+                )
 
     except HotmartDownloaderError as e:
         ui.print_error(str(e))
@@ -233,6 +237,7 @@ def _execute_download(
     api: HotmartAPI,
     course: Course,
     registry: DownloaderRegistry,
+    resolver: VideoResolver,
     output_dir: Path,
     quality: str,
     download_subs: bool = False,
@@ -289,8 +294,28 @@ def _execute_download(
 
                     # Download videos (or audio-only)
                     for video in content.videos:
+                        # Resolve embed videos to actual m3u8 URLs
+                        resolved_subs: list[str] = []
+                        if video.media_code:
+                            resolved = resolver.resolve(
+                                subdomain=course.subdomain,
+                                product_id=course.id,
+                                lesson_hash=lesson.id,
+                                media_code=video.media_code,
+                            )
+                            if resolved.master_url:
+                                video.url = resolved.master_url
+                            elif resolved.video_urls:
+                                video.url = resolved.video_urls[0]
+                            else:
+                                logger.warning(
+                                    "Could not resolve video: %s",
+                                    video.media_code,
+                                )
+                                continue
+                            resolved_subs = resolved.subtitle_urls
+
                         if audio_only:
-                            # Audio-only mode
                             if video.content_type == ContentType.VIDEO_HLS:
                                 registry.hls.download_audio_only(
                                     video.url,
@@ -306,7 +331,6 @@ def _execute_download(
                                     audio_only=True,
                                 )
                         else:
-                            # Normal video download
                             dl = registry.get_video_downloader(
                                 video.url, video.content_type
                             )
@@ -319,8 +343,17 @@ def _execute_download(
                             )
                         has_content = True
 
-                        # Download subtitles for this video
+                        # Download subtitles
                         if download_subs:
+                            # Strategy A: subtitles captured from browser
+                            subtitle_count += _download_resolved_subtitles(
+                                registry=registry,
+                                subtitle_urls=resolved_subs,
+                                lesson_dir=lesson_dir,
+                                video_name=video.filename or "video",
+                                master_url=video.url,
+                            )
+                            # Strategy B: subtitles from API + HLS manifest
                             subtitle_count += _download_subtitles(
                                 registry=registry,
                                 video=video,
@@ -373,6 +406,39 @@ def _execute_download(
     )
 
 
+def _download_resolved_subtitles(
+    registry: DownloaderRegistry,
+    subtitle_urls: list[str],
+    lesson_dir: Path,
+    video_name: str,
+    master_url: str = "",
+) -> int:
+    """Download subtitles captured from browser m3u8 network traffic.
+
+    These are HLS subtitle playlists (m3u8) containing WebVTT segments.
+    For Akamai CDN, passes the master_url so subtitles can be extracted
+    from the master playlist (direct subtitle URLs return 403).
+
+    Returns the number of subtitle files downloaded.
+    """
+    if not subtitle_urls:
+        return 0
+
+    count = 0
+    for sub_url in subtitle_urls:
+        lang = guess_language_from_url(sub_url)
+        track = SubtitleTrack(url=sub_url, language=lang, format="vtt")
+        try:
+            registry.hls.download_subtitle_track(
+                track, lesson_dir, video_name=video_name,
+                master_url=master_url,
+            )
+            count += 1
+        except Exception:
+            logger.debug("Failed to download resolved subtitle: %s", sub_url)
+    return count
+
+
 def _download_subtitles(
     registry: DownloaderRegistry,
     video: object,
@@ -399,13 +465,13 @@ def _download_subtitles(
         except Exception:
             logger.debug("Failed to download parsed subtitle: %s", track.url)
 
-    # Strategy 2: Subtitles from HLS manifest
+    # Strategy 2: Subtitles from HLS manifest (resolves m3u8 → VTT segments)
     if video.content_type == ContentType.VIDEO_HLS:
         try:
             hls_tracks = registry.hls.extract_subtitle_tracks(video.url)
             for track in hls_tracks:
                 try:
-                    registry.subtitle.download_track(
+                    registry.hls.download_subtitle_track(
                         track, lesson_dir, video_name=video_name
                     )
                     count += 1

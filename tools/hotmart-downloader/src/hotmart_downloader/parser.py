@@ -27,10 +27,47 @@ def parse_lesson_page(page_data: dict) -> LessonContent:
     """Parse a lesson page response and extract all downloadable content."""
     content = LessonContent()
 
-    # Extract videos from mediasSrc (Hotmart native HLS)
-    medias = page_data.get("mediasSrc", [])
-    if isinstance(medias, list):
-        for media in medias:
+    # New gateway API format: medias[] with embed URLs and media codes
+    new_medias = page_data.get("medias", [])
+    # Old API format: mediasSrc[] with direct HLS URLs
+    old_medias = page_data.get("mediasSrc", [])
+
+    if isinstance(new_medias, list) and new_medias:
+        # Prefer new format when available
+        for media in new_medias:
+            media_url = media.get("url", "")
+            media_code = media.get("code", "")
+            media_type = (media.get("type", "") or "").upper()
+
+            if media_url and media_type in ("VIDEO", ""):
+                content.videos.append(VideoContent(
+                    url=media_url,
+                    content_type=ContentType.VIDEO_HLS,
+                    filename=media.get("name", "video"),
+                    media_code=media_code,
+                ))
+                logger.debug(
+                    "Found embed video: code=%s, name=%s",
+                    media_code, media.get("name", ""),
+                )
+
+            # Extract captions from new format media entries
+            captions = media.get("captions", media.get("subtitles", []))
+            if isinstance(captions, list):
+                for cap in captions:
+                    cap_url = cap.get("url", cap.get("src", ""))
+                    if cap_url:
+                        content.subtitles.append(SubtitleTrack(
+                            url=cap_url,
+                            language=cap.get("language", cap.get("lang", "")),
+                            label=cap.get("label", ""),
+                            format=_detect_subtitle_format(cap_url),
+                        ))
+                        logger.debug("Found caption from new API: %s", cap_url)
+
+    elif isinstance(old_medias, list):
+        # Fallback to old format
+        for media in old_medias:
             media_url = media.get("mediaSrcUrl", "")
             if media_url:
                 content.videos.append(VideoContent(

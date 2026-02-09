@@ -10,9 +10,10 @@ from dotenv import load_dotenv
 
 from hotmart_downloader.exceptions import ConfigError
 
-# Hotmart API endpoints
-SPARKLE_AUTH_URL = "https://sec-proxy-content-distribution.hotmart.com/club/security/oauth/login"
-CLUB_API_BASE = "https://api-club.cb.hotmart.com/rest/v3"
+# Hotmart API endpoints (new gateway architecture)
+CLUB_GATEWAY_BASE = "https://api-club-course-consumption-gateway-ga.cb.hotmart.com"
+CLUB_API_BASE = "https://api-club-hot-club-api.cb.hotmart.com/rest/v3"
+CLUB_HUB_BASE = "https://api-hub.cb.hotmart.com/club-drive-api"
 
 # Default settings
 DEFAULT_OUTPUT_DIR = "downloads"

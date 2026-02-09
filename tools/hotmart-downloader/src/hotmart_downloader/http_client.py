@@ -48,14 +48,18 @@ class HttpClient:
         """Set the authorization bearer token."""
         self.session.headers["Authorization"] = f"Bearer {token}"
 
-    def set_club_headers(self, subdomain: str) -> None:
-        """Set club-specific headers required by the API."""
-        origin = f"https://{subdomain}.club.hotmart.com"
+    def set_club_headers(
+        self, subdomain: str, product_id: str = ""
+    ) -> None:
+        """Set club-specific headers required by the gateway API."""
         self.session.headers.update({
             "club": subdomain,
-            "origin": origin,
-            "referer": origin,
+            "slug": subdomain,
+            "origin": "https://hotmart.com",
+            "referer": f"https://hotmart.com/pt-BR/club/{subdomain}/",
         })
+        if product_id:
+            self.session.headers["x-product-id"] = product_id
 
     def get(self, url: str, **kwargs: Any) -> requests.Response:
         """Perform a GET request with retry."""

@@ -32,12 +32,12 @@ class HlsDownloader(BaseDownloader):
     def download(self, url: str, dest: Path, **kwargs: object) -> Path:
         """Download an HLS stream and convert to MP4.
 
-        Flow:
-        1. Parse master playlist → select quality
-        2. Parse quality playlist → get segments + key URL
-        3. Download encryption key + all .ts segments
-        4. Concat with ffmpeg → output.mp4
-        5. Cleanup temp files
+        For Akamai CDN URLs (with hdnts/hdntl tokens), uses ffmpeg's native
+        HLS demuxer directly — Python HTTP clients mangle the Akamai auth
+        tokens during URL normalization, causing 403 errors.
+
+        For other streams: encrypted (AES-128) also uses ffmpeg natively;
+        unencrypted downloads segments individually for progress control.
 
         Args:
             url: URL of the master m3u8 playlist
@@ -54,30 +54,38 @@ class HlsDownloader(BaseDownloader):
 
         tmpdir = None
         try:
+            # Akamai CDN URLs must be passed directly to ffmpeg to preserve
+            # the exact URL encoding (hdnts/hdntl auth tokens).
+            if _is_akamai_url(url):
+                logger.info("Akamai CDN detected, using ffmpeg direct")
+                self._ffmpeg_hls_direct(url, output)
+                logger.info("Downloaded HLS video: %s", output.name)
+                return output
+
             tmpdir = Path(tempfile.mkdtemp(prefix="hotmart_hls_"))
 
             # Step 1: Parse master playlist and select quality
             quality_url = self._select_quality(url, quality)
 
-            # Step 2: Parse quality playlist
+            # Step 2: Parse quality playlist to check for encryption
             quality_playlist = self._parse_playlist(quality_url)
 
-            # Step 3: Download encryption key if present
-            key_file = None
-            if quality_playlist.keys and quality_playlist.keys[0]:
-                key = quality_playlist.keys[0]
-                if key.uri:
-                    key_file = tmpdir / "key.bin"
-                    self.client.download_file(key.uri, str(key_file))
-                    logger.debug("Downloaded encryption key")
-
-            # Step 4: Download all segments
-            segment_files = self._download_segments(
-                quality_playlist, quality_url, tmpdir
+            is_encrypted = (
+                quality_playlist.keys
+                and quality_playlist.keys[0]
+                and quality_playlist.keys[0].uri
             )
 
-            # Step 5: Concat with ffmpeg
-            self._ffmpeg_concat(segment_files, key_file, output)
+            if is_encrypted:
+                # Encrypted stream: let ffmpeg handle HLS + AES-128 natively
+                logger.info("Encrypted HLS detected, using ffmpeg HLS demuxer")
+                self._ffmpeg_hls_direct(quality_url, output)
+            else:
+                # Unencrypted: download segments + concat (better progress control)
+                segment_files = self._download_segments(
+                    quality_playlist, quality_url, tmpdir
+                )
+                self._ffmpeg_concat(segment_files, output)
 
             logger.info("Downloaded HLS video: %s", output.name)
             return output
@@ -172,7 +180,6 @@ class HlsDownloader(BaseDownloader):
     def _ffmpeg_concat(
         self,
         segments: list[Path],
-        key_file: Path | None,
         output: Path,
     ) -> None:
         """Concatenate .ts segments into a single MP4 using ffmpeg."""
@@ -214,6 +221,42 @@ class HlsDownloader(BaseDownloader):
         if result.returncode != 0:
             raise FFmpegError(f"ffmpeg failed: {result.stderr.strip()}")
 
+    def _ffmpeg_hls_direct(self, hls_url: str, output: Path) -> None:
+        """Download an HLS stream directly with ffmpeg's native HLS demuxer.
+
+        This handles encrypted (AES-128) streams automatically, as ffmpeg
+        resolves the key URI and decrypts segments internally.
+
+        For Akamai CDN, a Referer header is required (CDN validates origin).
+        """
+        cmd = [
+            "ffmpeg", "-y",
+            *_akamai_headers_args(hls_url),
+            "-i", hls_url,
+            "-c", "copy",
+            "-movflags", "+faststart",
+            str(output),
+        ]
+
+        logger.debug("Running ffmpeg HLS direct: %s -> %s", hls_url, output.name)
+
+        try:
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=600,  # 10 minute timeout for direct HLS
+            )
+        except FileNotFoundError as e:
+            raise FFmpegError(
+                "ffmpeg not found. Install it: brew install ffmpeg"
+            ) from e
+        except subprocess.TimeoutExpired as e:
+            raise FFmpegError("ffmpeg timed out during HLS download") from e
+
+        if result.returncode != 0:
+            raise FFmpegError(f"ffmpeg HLS download failed: {result.stderr.strip()}")
+
     def extract_subtitle_tracks(self, master_url: str) -> list[SubtitleTrack]:
         """Extract subtitle tracks from an HLS master playlist.
 
@@ -243,6 +286,125 @@ class HlsDownloader(BaseDownloader):
 
         return tracks
 
+    def download_subtitle_track(
+        self,
+        track: SubtitleTrack,
+        dest: Path,
+        video_name: str = "video",
+        master_url: str = "",
+    ) -> Path:
+        """Download an HLS subtitle track by resolving its m3u8 playlist.
+
+        HLS subtitle URIs point to m3u8 playlists containing multiple WebVTT
+        segments. This method parses the playlist, downloads each segment,
+        and concatenates them into a single valid VTT file.
+
+        For Akamai CDN URLs, extracts subtitles from the master playlist
+        via ffmpeg (direct subtitle URLs return 403 from Akamai).
+
+        Args:
+            track: The SubtitleTrack with a URL pointing to a subtitle m3u8.
+            dest: Directory to save the subtitle file in.
+            video_name: Base name for the output file.
+            master_url: Optional master playlist URL for Akamai extraction.
+
+        Returns:
+            Path to the downloaded subtitle file.
+        """
+        from hotmart_downloader.filesystem import sanitize_filename
+
+        name = sanitize_filename(video_name)
+        lang_part = f".{track.language}" if track.language else ""
+        output = dest / f"{name}{lang_part}.vtt"
+
+        if output.exists() and output.stat().st_size > 0:
+            logger.info("Skipping (exists): %s", output.name)
+            return output
+
+        url = track.url
+
+        # Akamai CDN: extract subtitles from master playlist via ffmpeg.
+        # Direct subtitle URLs return 403 from Akamai CDN, but ffmpeg can
+        # access subtitle streams through the master playlist.
+        if _is_akamai_url(url) and master_url:
+            self._ffmpeg_subtitle_from_master(master_url, output)
+            logger.info("Downloaded subtitle (from master): %s", output.name)
+            return output
+
+        # If the URL points directly to a .vtt file (not m3u8), download it directly
+        lower_url = url.lower().split("?")[0]
+        if lower_url.endswith((".vtt", ".webvtt", ".srt")):
+            self.client.download_file(url, str(output))
+            logger.info("Downloaded subtitle (direct): %s", output.name)
+            return output
+
+        # Otherwise, treat as m3u8 playlist and resolve segments
+        try:
+            subtitle_playlist = self._parse_playlist(url)
+        except DownloadError:
+            # Fallback: maybe it's a direct VTT file with wrong extension
+            self.client.download_file(url, str(output))
+            logger.info("Downloaded subtitle (fallback): %s", output.name)
+            return output
+
+        # If the playlist has no segments, it might be a direct file
+        if not subtitle_playlist.segments:
+            self.client.download_file(url, str(output))
+            logger.info("Downloaded subtitle (no segments): %s", output.name)
+            return output
+
+        # Download and concatenate all VTT segments
+        base_url = url.rsplit("/", 1)[0]
+        vtt_parts: list[str] = []
+
+        for i, segment in enumerate(subtitle_playlist.segments):
+            seg_url = segment.absolute_uri
+            if not seg_url.startswith("http"):
+                seg_url = f"{base_url}/{segment.uri}"
+
+            try:
+                response = self.client.get(seg_url)
+                segment_text = response.text
+            except Exception as e:
+                logger.warning("Failed to download subtitle segment %d: %s", i, e)
+                continue
+
+            if i == 0:
+                # Keep the first segment as-is (includes WEBVTT header)
+                vtt_parts.append(segment_text.strip())
+            else:
+                # Strip WEBVTT header and NOTE blocks from subsequent segments
+                lines = segment_text.strip().splitlines()
+                content_lines: list[str] = []
+                skip_header = True
+                for line in lines:
+                    if skip_header:
+                        # Skip WEBVTT header, X-TIMESTAMP-MAP, and NOTE lines
+                        if (
+                            line.startswith("WEBVTT")
+                            or line.startswith("X-TIMESTAMP-MAP")
+                            or line.startswith("NOTE")
+                            or line == ""
+                        ):
+                            continue
+                        skip_header = False
+                    content_lines.append(line)
+                if content_lines:
+                    vtt_parts.append("\n".join(content_lines))
+
+        if not vtt_parts:
+            raise DownloadError(f"No subtitle content extracted from: {url}")
+
+        # Write the concatenated VTT file
+        with open(output, "w", encoding="utf-8") as f:
+            f.write("\n\n".join(vtt_parts) + "\n")
+
+        logger.info(
+            "Downloaded HLS subtitle (%d segments): %s",
+            len(subtitle_playlist.segments), output.name,
+        )
+        return output
+
     def download_audio_only(self, url: str, dest: Path, **kwargs: object) -> Path:
         """Extract audio-only from an HLS stream using ffmpeg.
 
@@ -262,10 +424,10 @@ class HlsDownloader(BaseDownloader):
 
         cmd = [
             "ffmpeg", "-y",
+            *_akamai_headers_args(url),
             "-i", url,
             "-vn",
-            "-acodec", "aac",
-            "-b:a", "192k",
+            "-c:a", "copy",
             str(output),
         ]
 
@@ -293,3 +455,73 @@ class HlsDownloader(BaseDownloader):
 
         logger.info("Extracted audio: %s", output.name)
         return output
+
+    def _ffmpeg_subtitle_from_master(
+        self, master_url: str, output: Path, stream_index: int = 0
+    ) -> None:
+        """Extract subtitles from an HLS master playlist via ffmpeg.
+
+        Akamai CDN blocks direct access to subtitle m3u8 playlists (403),
+        but ffmpeg can access them through the master playlist which uses
+        the short-lived hdnts token.
+
+        Args:
+            master_url: URL of the HLS master playlist (with hdnts token).
+            output: Path to save the VTT file.
+            stream_index: Subtitle stream index to extract (default: 0).
+        """
+        cmd = [
+            "ffmpeg", "-y",
+            *_akamai_headers_args(master_url),
+            "-i", master_url,
+            "-map", f"0:s:{stream_index}",
+            "-c:s", "webvtt",
+            str(output),
+        ]
+
+        logger.debug(
+            "Extracting subtitle stream %d from master: %s",
+            stream_index, output.name,
+        )
+
+        try:
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=120,
+            )
+        except FileNotFoundError as e:
+            raise FFmpegError(
+                "ffmpeg not found. Install it: brew install ffmpeg"
+            ) from e
+        except subprocess.TimeoutExpired as e:
+            raise FFmpegError("ffmpeg timed out during subtitle extraction") from e
+
+        if result.returncode != 0:
+            raise FFmpegError(
+                f"ffmpeg subtitle extraction failed: {result.stderr.strip()}"
+            )
+
+
+def _is_akamai_url(url: str) -> bool:
+    """Check if a URL is an Akamai CDN URL that requires ffmpeg direct download.
+
+    Akamai URLs contain auth tokens (hdnts/hdntl) that get mangled by Python
+    HTTP clients during URL normalization (e.g. %7E decoded to ~), causing 403s.
+    """
+    lower = url.lower()
+    return "play.hotmart.com" in lower or "hdnts=" in lower or "hdntl=" in lower
+
+
+def _akamai_headers_args(url: str) -> list[str]:
+    """Return ffmpeg -headers args if the URL is an Akamai CDN URL.
+
+    Akamai CDN validates the Referer header — requests without it get 403.
+    """
+    if not _is_akamai_url(url):
+        return []
+    return [
+        "-headers",
+        "Referer: https://hotmart.com/\r\n",
+    ]
