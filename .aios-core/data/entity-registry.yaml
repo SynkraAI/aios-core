@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-09T00:54:48.062Z'
+  lastUpdated: '2026-02-09T12:44:21.493Z'
   entityCount: 475
   checksumAlgorithm: sha256
 entities:
@@ -5181,8 +5181,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:dd468ffaef74f9955310f0d0028717cbbd15b082577b7471018cb05b032f330f
-      lastVerified: '2026-02-08T13:33:24.293Z'
+      checksum: sha256:a4a4ff094d41daf5840f55f807a775f698cb892e8c5d79f93148d4b437b0dadd
+      lastVerified: '2026-02-09T12:44:21.491Z'
     greeting-config-cli:
       path: .aios-core/development/scripts/greeting-config-cli.js
       type: script

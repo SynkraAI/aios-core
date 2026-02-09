@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-09T12:48:45.043Z"
+generated_at: "2026-02-09T12:51:52.330Z"
 generator: scripts/generate-install-manifest.js
 file_count: 946
 files:
