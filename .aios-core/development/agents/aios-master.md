@@ -199,6 +199,17 @@ commands:
     description: 'Index documentation for search'
   - name: update-source-tree
     description: 'Validate data file governance (owners, fill rules, existence)'
+  # BOB — Autonomous Build Orchestrator (Epic 8 + 12)
+  - name: bob
+    args: '{story-id} [--dry-run] [--no-merge] [--verbose]'
+    description: 'Autonomous build: worktree → plan → execute → QA → merge → report'
+  - name: bob-status
+    args: '[story-id] [--all]'
+    description: 'Show BOB build status (current or all builds)'
+  - name: bob-resume
+    args: '{story-id}'
+    description: 'Resume BOB build from last checkpoint'
+
   # Session Handoff (replaces autocompact)
   - name: handoff
     args: '[topic]'
@@ -257,6 +268,7 @@ dependencies:
     - run-workflow.md
     - run-workflow-engine.md
     - session-handoff.md
+    - build.md
   # Delegated tasks (Story 6.1.2.3):
   #   brownfield-create-epic.md → @pm
   #   brownfield-create-story.md → @pm
@@ -334,6 +346,12 @@ autoClaude:
 
 - `*plan` - Create workflow plan
 - `*plan status` - Check plan progress
+
+**BOB — Autonomous Build:**
+
+- `*bob {story-id}` - Autonomous build (worktree → plan → execute → QA → merge)
+- `*bob-status [--all]` - Show build status
+- `*bob-resume {story-id}` - Resume from checkpoint
 
 **Session Handoff (replaces autocompact):**
 
