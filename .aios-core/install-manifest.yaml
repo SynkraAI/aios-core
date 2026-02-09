@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-09T12:54:12.553Z"
+generated_at: "2026-02-09T17:13:49.666Z"
 generator: scripts/generate-install-manifest.js
-file_count: 945
+file_count: 946
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -177,9 +177,9 @@ files:
     type: cli
     size: 5907
   - path: core-config.yaml
-    hash: sha256:52a36ac27b36c16edf7ba53ec32b3ffd2f2a0e5fc412008a1d0acce0444179f7
+    hash: sha256:8e1d03a482b820a6a23d5821fae9e23fcb13cb70c95daec388e2e03d3283861f
     type: config
-    size: 9088
+    size: 9165
   - path: core/config/config-cache.js
     hash: sha256:527a788cbe650aa6b13d1101ebc16419489bfef20b2ee93042f6eb6a51e898e9
     type: core
@@ -857,13 +857,17 @@ files:
     type: data
     size: 34868
   - path: data/entity-registry.yaml
-    hash: sha256:b8d8f672950577c7914a95d4c45a9b05077fe55e2aae3b815e4adbf94b87093e
+    hash: sha256:ec01843d761dc0e2bd7e3caf7180cccb48223c37d856f354572697816bc296a5
     type: data
-    size: 273226
+    size: 273752
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
     size: 68
+  - path: data/registry-update-log.jsonl
+    hash: sha256:1f2c6fe7a017dab1c03b9a4c237221e29416c08012bf5ecca95f40d14e3a2451
+    type: data
+    size: 1027
   - path: data/tech-presets/_template.md
     hash: sha256:1a7262912c8c8e264d307f0d38a1109bdb2b9bff9ea7d8855c768835201aa59b
     type: data
