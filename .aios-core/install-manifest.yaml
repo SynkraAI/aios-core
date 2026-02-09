@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-09T01:15:48.055Z"
+generated_at: "2026-02-09T01:38:02.420Z"
 generator: scripts/generate-install-manifest.js
 file_count: 944
 files:
@@ -1069,9 +1069,9 @@ files:
     type: script
     size: 12335
   - path: development/scripts/greeting-builder.js
-    hash: sha256:97131252ae7bbda48a3980a0ce4275e4158320a796ba5d34294155e2b40fe2ae
+    hash: sha256:128cc5dbcd2d5b977a8bec268aaa998d742e1d87b8ab0713101b717848d5f312
     type: script
-    size: 53855
+    size: 50247
   - path: development/scripts/greeting-config-cli.js
     hash: sha256:1535acc8d5c802eb3dec7b7348f876a34974fbe4cfa760a9108d5554a72c4cf6
     type: script
@@ -1205,9 +1205,9 @@ files:
     type: script
     size: 18196
   - path: development/scripts/unified-activation-pipeline.js
-    hash: sha256:2c2c8bd6eaa678ab3d1a5c71aeee33bded548c6d1ffaab750d13753b7dfa6795
+    hash: sha256:ae88758977cb2f483b4ccc6019cde70d2290f70382fd11f19ae91dbcdd7b7dc5
     type: script
-    size: 23684
+    size: 23584
   - path: development/scripts/usage-tracker.js
     hash: sha256:b3079713787de7c6ac38a742255861f04e8359ef1b227836040920a64b7e8aac
     type: script

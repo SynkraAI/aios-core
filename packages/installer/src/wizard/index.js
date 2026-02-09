@@ -167,7 +167,7 @@ async function getExistingLanguage(projectDir = process.cwd()) {
       if (settings && settings.language) {
         // Reverse map: Claude Code language name → wizard code
         const reverseMap = Object.fromEntries(
-          Object.entries(LANGUAGE_MAP).map(([k, v]) => [v, k])
+          Object.entries(LANGUAGE_MAP).map(([k, v]) => [v, k]),
         );
         const langValue = String(settings.language).toLowerCase().trim();
         return reverseMap[langValue] || null;
@@ -606,6 +606,8 @@ async function runWizard(options = {}) {
         const langWritten = await writeClaudeSettings(answers.language);
         if (langWritten) {
           console.log('  - Language written to .claude/settings.json');
+        } else {
+          console.warn('  - Failed to write language to .claude/settings.json');
         }
       }
 
@@ -878,4 +880,10 @@ async function runWizard(options = {}) {
 
 module.exports = {
   runWizard,
+  // ACT-12: Exported for testing
+  _testing: {
+    writeClaudeSettings,
+    getExistingLanguage,
+    LANGUAGE_MAP,
+  },
 };
