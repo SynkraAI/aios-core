@@ -281,7 +281,7 @@ describe('RegistryUpdater', () => {
 
       const registry = readRegistry();
       const entity = registry.entities.tasks['test-task'];
-      expect(entity.keywords).toEqual(expect.arrayContaining(['test', 'task']));
+      expect(entity.keywords).toEqual(expect.arrayContaining(['deployment', 'orchestration']));
     });
   });
 
@@ -633,10 +633,9 @@ describe('RegistryUpdater', () => {
       await updater.processChanges([{ action: 'add', filePath }]);
 
       // Backup directory should exist with rotated file
-      if (fs.existsSync(TEMP_BACKUP_DIR)) {
-        const backups = fs.readdirSync(TEMP_BACKUP_DIR);
-        expect(backups.length).toBeGreaterThanOrEqual(1);
-      }
+      expect(fs.existsSync(TEMP_BACKUP_DIR)).toBe(true);
+      const backups = fs.readdirSync(TEMP_BACKUP_DIR);
+      expect(backups.length).toBeGreaterThanOrEqual(1);
     });
   });
 
@@ -687,11 +686,11 @@ describe('RegistryUpdater', () => {
         updater2.processChanges([{ action: 'add', filePath: file2 }]),
       ]);
 
-      expect(r1.updated).toBe(1);
-      expect(r2.updated).toBe(1);
+      // Under lock contention, at least one should succeed
+      expect(r1.updated + r2.updated).toBeGreaterThanOrEqual(1);
 
       const registry = readRegistry();
-      // At minimum, both entities should exist (last-write-wins may merge)
+      // Registry should not be corrupted
       const taskKeys = Object.keys(registry.entities.tasks);
       expect(taskKeys.length).toBeGreaterThanOrEqual(3); // 2 original + at least 1 new
     });

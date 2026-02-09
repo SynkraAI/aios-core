@@ -517,9 +517,9 @@ files:
     type: core
     size: 7170
   - path: core/ids/registry-updater.js
-    hash: sha256:0e59a35fb77eaf7e757ecdc283381d8e6d20e9d24844280a4605af316f152f5e
+    hash: sha256:b39a82bd618b65031bc09d831a4d9f11b57fa16bc186b3fd6c931dc400e48625
     type: core
-    size: 20193
+    size: 21015
   - path: core/index.esm.js
     hash: sha256:74ac4edc22f53a6e1ff7fe7d16add65b4e85e198dcdd0f54d3048ba032dc8f9a
     type: core

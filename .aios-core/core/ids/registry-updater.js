@@ -48,7 +48,7 @@ class RegistryUpdater {
   constructor(options = {}) {
     this._registryPath = options.registryPath || REGISTRY_PATH;
     this._repoRoot = options.repoRoot || REPO_ROOT;
-    this._debounceMs = options.debounceMs || DEBOUNCE_MS;
+    this._debounceMs = options.debounceMs ?? DEBOUNCE_MS;
     this._auditLogPath = options.auditLogPath || AUDIT_LOG_PATH;
     this._lockFile = options.lockFile || LOCK_FILE;
     this._backupDir = options.backupDir || BACKUP_DIR;
@@ -121,6 +121,7 @@ class RegistryUpdater {
     if (!changes || changes.length === 0) return { updated: 0, errors: [] };
 
     const validChanges = changes
+      .filter((c) => c && typeof c.filePath === 'string' && c.filePath && c.action)
       .map((c) => {
         const abs = path.isAbsolute(c.filePath)
           ? c.filePath
@@ -177,11 +178,29 @@ class RegistryUpdater {
     if (this._debounceTimer) {
       clearTimeout(this._debounceTimer);
     }
-    this._debounceTimer = setTimeout(() => this._flushPending(), this._debounceMs);
+    this._debounceTimer = setTimeout(() => {
+      this._flushPending().catch((err) => {
+        console.error(`[IDS-Updater] Flush failed: ${err.message}`);
+        this._isProcessing = false;
+      });
+    }, this._debounceMs);
   }
 
   async _flushPending() {
-    if (this._isProcessing || this._pendingUpdates.size === 0) return;
+    if (this._pendingUpdates.size === 0) return;
+
+    if (this._isProcessing) {
+      // Re-schedule flush — don't drop pending updates
+      if (!this._debounceTimer) {
+        this._debounceTimer = setTimeout(() => {
+          this._flushPending().catch((err) => {
+            console.error(`[IDS-Updater] Deferred flush failed: ${err.message}`);
+            this._isProcessing = false;
+          });
+        }, this._debounceMs);
+      }
+      return;
+    }
 
     const batch = Array.from(this._pendingUpdates.values());
     this._pendingUpdates.clear();
@@ -207,22 +226,21 @@ class RegistryUpdater {
               ? filePath
               : path.resolve(this._repoRoot, filePath);
 
+            let mutated = false;
             switch (action) {
               case 'add':
-                this._handleFileCreate(registry, abs);
-                updated++;
+                mutated = this._handleFileCreate(registry, abs);
                 break;
               case 'change':
-                this._handleFileModify(registry, abs);
-                updated++;
+                mutated = this._handleFileModify(registry, abs);
                 break;
               case 'unlink':
-                this._handleFileDelete(registry, abs);
-                updated++;
+                mutated = this._handleFileDelete(registry, abs);
                 break;
               default:
                 console.warn(`[IDS-Updater] Unknown action: ${action}`);
             }
+            if (mutated) updated++;
 
             this._logAudit({ action, path: path.relative(this._repoRoot, abs).replace(/\\/g, '/'), trigger: 'watcher' });
           } catch (err) {
@@ -255,7 +273,7 @@ class RegistryUpdater {
   _handleFileCreate(registry, absPath) {
     const relPath = path.relative(this._repoRoot, absPath).replace(/\\/g, '/');
     const config = this._detectCategory(relPath);
-    if (!config) return;
+    if (!config) return false;
 
     let content = '';
     try {
@@ -263,7 +281,7 @@ class RegistryUpdater {
     } catch (err) {
       if (err.code === 'EACCES' || err.code === 'EPERM') {
         console.warn(`[IDS-Updater] Permission denied reading ${relPath} — skipping`);
-        return;
+        return false;
       }
       throw err;
     }
@@ -296,20 +314,20 @@ class RegistryUpdater {
       checksum,
       lastVerified: new Date().toISOString(),
     };
+    return true;
   }
 
   _handleFileModify(registry, absPath) {
     const relPath = path.relative(this._repoRoot, absPath).replace(/\\/g, '/');
     const config = this._detectCategory(relPath);
-    if (!config) return;
+    if (!config) return false;
 
     const entityId = extractEntityId(absPath);
     const category = config.category;
     const existing = registry.entities[category]?.[entityId];
 
     if (!existing) {
-      this._handleFileCreate(registry, absPath);
-      return;
+      return this._handleFileCreate(registry, absPath);
     }
 
     let content = '';
@@ -318,7 +336,7 @@ class RegistryUpdater {
     } catch (err) {
       if (err.code === 'EACCES' || err.code === 'EPERM') {
         console.warn(`[IDS-Updater] Permission denied reading ${relPath} — skipping`);
-        return;
+        return false;
       }
       throw err;
     }
@@ -333,6 +351,7 @@ class RegistryUpdater {
     }
 
     existing.lastVerified = new Date().toISOString();
+    return true;
   }
 
   _handleFileDelete(registry, absPath) {
@@ -378,6 +397,7 @@ class RegistryUpdater {
         if (found) break;
       }
     }
+    return found;
   }
 
   // ─── Internal: Registry I/O ──────────────────────────────────────
@@ -625,6 +645,9 @@ if (require.main === module) {
         process.exit(1);
       }
       process.exit(0);
+    }).catch((err) => {
+      console.error(`[IDS-Updater] Fatal error: ${err.message}`);
+      process.exit(1);
     });
   } else if (args.includes('--log')) {
     const updater = new RegistryUpdater();

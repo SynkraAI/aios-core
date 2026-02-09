@@ -35,17 +35,29 @@ function getChangedFilesSinceRemote() {
 
     for (const line of lines) {
       const [status, ...fileParts] = line.split('\t');
-      const filePath = fileParts.join('\t');
 
-      if (!filePath) continue;
+      if (fileParts.length === 0) continue;
 
       let action;
-      if (status === 'A') action = 'add';
-      else if (status === 'M') action = 'change';
-      else if (status === 'D') action = 'unlink';
-      else if (status.startsWith('R')) action = 'change';
-      else continue;
+      let filePath;
 
+      if (status === 'A') {
+        action = 'add';
+        filePath = fileParts[0];
+      } else if (status === 'M') {
+        action = 'change';
+        filePath = fileParts[0];
+      } else if (status === 'D') {
+        action = 'unlink';
+        filePath = fileParts[0];
+      } else if (status.startsWith('R') || status.startsWith('C')) {
+        action = status.startsWith('C') ? 'add' : 'change';
+        filePath = fileParts[fileParts.length - 1];
+      } else {
+        continue;
+      }
+
+      if (!filePath) continue;
       changes.push({ action, filePath: path.resolve(REPO_ROOT, filePath) });
     }
 
