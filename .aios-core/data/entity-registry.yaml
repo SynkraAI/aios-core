@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-08T13:33:24.399Z'
-  entityCount: 474
+  lastUpdated: '2026-02-09T00:54:48.062Z'
+  entityCount: 475
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -8281,6 +8281,21 @@ entities:
         extensionPoints: []
       checksum: sha256:8480ab3e176bab7b3019c6e8b84255bbf3124ce970eabe61d6e89779f5cdf9ff
       lastVerified: '2026-02-08T13:33:24.381Z'
+    registry-updater:
+      path: .aios-core/core/ids/registry-updater.js
+      type: module
+      purpose: Entity at .aios-core\core\ids\registry-updater.js
+      keywords:
+        - registry
+        - updater
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:0e59a35fb77eaf7e757ecdc283381d8e6d20e9d24844280a4605af316f152f5e
+      lastVerified: '2026-02-09T00:54:48.061Z'
   agents:
     aios-master:
       path: .aios-core/development/agents/aios-master.md
