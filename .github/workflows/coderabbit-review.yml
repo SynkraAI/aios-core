@@ -1,0 +1,85 @@
+# CodeRabbit AI Code Review
+# Uses CodeRabbit CLI with API key for automated PR reviews
+# Story: COLLAB-1, 12.11
+# Created: 2026-02-10
+
+name: CodeRabbit Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+# Prevent concurrent reviews on same PR
+concurrency:
+  group: coderabbit-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    name: AI Code Review
+    runs-on: ubuntu-latest
+    # Skip draft PRs and bot PRs
+    if: github.event.pull_request.draft == false && !contains(github.actor, 'bot')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install CodeRabbit CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/coderabbitai/coderabbit-cli/main/install.sh | bash
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Run CodeRabbit Review
+        env:
+          CODERABBIT_API_KEY: ${{ secrets.CODERABBIT_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get the base branch for comparison
+          BASE_SHA=${{ github.event.pull_request.base.sha }}
+          HEAD_SHA=${{ github.event.pull_request.head.sha }}
+
+          echo "Reviewing changes from $BASE_SHA to $HEAD_SHA"
+
+          # Run CodeRabbit review on the PR diff
+          ~/.local/bin/coderabbit review \
+            --base "$BASE_SHA" \
+            --head "$HEAD_SHA" \
+            --output-format github \
+            2>&1 | tee review-output.txt
+
+      - name: Post Review Summary
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let output = '';
+            try {
+              output = fs.readFileSync('review-output.txt', 'utf8');
+            } catch (e) {
+              output = 'CodeRabbit review completed. Check workflow logs for details.';
+            }
+
+            // Truncate if too long for comment
+            if (output.length > 60000) {
+              output = output.substring(0, 60000) + '\n\n... (truncated)';
+            }
+
+            // Post as PR comment if we have review output
+            if (output.trim()) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `## 🐰 CodeRabbit AI Review\n\n${output}`
+              });
+            }
