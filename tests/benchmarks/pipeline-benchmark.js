@@ -90,9 +90,10 @@ function clearPipelineCache() {
 }
 
 async function runBenchmark(options) {
-  const { UnifiedActivationPipeline, ALL_AGENT_IDS } = require(
-    path.resolve(PROJECT_ROOT, '.aios-core/development/scripts/unified-activation-pipeline'),
+  const pipelinePath = path.resolve(
+    PROJECT_ROOT, '.aios-core/development/scripts/unified-activation-pipeline',
   );
+  let { UnifiedActivationPipeline, ALL_AGENT_IDS } = require(pipelinePath);
 
   const agents = options.agents || [...ALL_AGENT_IDS];
   const iterations = options.iterations;
@@ -113,6 +114,9 @@ async function runBenchmark(options) {
     for (let i = 0; i < iterations; i++) {
       if (options.cold) {
         clearPipelineCache();
+        // Re-require for true cold-start: fresh module bindings
+        const freshModule = require(pipelinePath);
+        UnifiedActivationPipeline = freshModule.UnifiedActivationPipeline;
       }
 
       const pipeline = new UnifiedActivationPipeline({ projectRoot: PROJECT_ROOT });

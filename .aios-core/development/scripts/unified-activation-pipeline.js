@@ -320,17 +320,21 @@ class UnifiedActivationPipeline {
    */
   async _profileLoader(name, metrics, timeoutMs, loaderFn) {
     const start = Date.now();
+    let timer;
     try {
+      const timeoutPromise = new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error(`${name} timeout (${timeoutMs}ms)`)), timeoutMs);
+      });
       const result = await Promise.race([
         loaderFn(),
-        new Promise((_, reject) =>
-          setTimeout(() => reject(new Error(`${name} timeout (${timeoutMs}ms)`)), timeoutMs),
-        ),
+        timeoutPromise,
       ]);
+      clearTimeout(timer);
       const duration = Date.now() - start;
       metrics.loaders[name] = { duration, status: 'ok', start, end: start + duration };
       return result;
     } catch (error) {
+      clearTimeout(timer);
       const duration = Date.now() - start;
       const status = error.message.includes('timeout') ? 'timeout' : 'error';
       metrics.loaders[name] = { duration, status, start, end: start + duration, error: error.message };
