@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-10T16:06:54.550Z"
+generated_at: "2026-02-10T22:33:41.257Z"
 generator: scripts/generate-install-manifest.js
-file_count: 953
+file_count: 955
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -848,6 +848,14 @@ files:
     hash: sha256:eaef1e3a11feb2d355c5dc8fc2813ae095e27911cdf1261e5d003b22be16d8f0
     type: core
     size: 13729
+  - path: core/synapse/domain/domain-loader.js
+    hash: sha256:30f7a1810b0bf931efa95e819e26baa4f995b847cc4f4488be1532355b63930a
+    type: core
+    size: 8124
+  - path: core/synapse/utils/paths.js
+    hash: sha256:bf8cf93c1a16295e7de055bee292e2778a152b6e7d6c648dbc054a4b04dffc10
+    type: core
+    size: 1464
   - path: core/ui/index.js
     hash: sha256:e2ead179c646b8f36046134c631c24f35a151dbf5a1e95c0e4311bf1652abe12
     type: core
