@@ -107,6 +107,9 @@ commands:
     task: squad-creator-migrate.md
 
   # Analysis & Extension (Sprint 14)
+  - name: discover-tools
+    visibility: [full, quick]
+    description: 'Discover available tools (MCPs, skills, integrations) in the environment'
   - name: analyze-squad
     visibility: [full, quick, key]
     description: 'Analyze squad structure, coverage, and get improvement suggestions'
@@ -146,6 +149,7 @@ dependencies:
     - squad-creator-design.md
     - squad-creator-create.md
     - squad-creator-validate.md
+    - squad-creator-discover-tools.md
     - squad-creator-list.md
     - squad-creator-migrate.md
     - squad-creator-analyze.md
@@ -206,7 +210,13 @@ autoClaude:
 - `*validate-squad {name}` - Validate existing squad
 - `*list-squads` - List local squads
 
-**Analysis & Extension (NEW):**
+**Tool Discovery:**
+
+- `*discover-tools` - Discover all available tools in the environment
+- `*discover-tools {name}` - Discover tools with recommendations for specific squad
+- `*discover-tools --quick` - Quick scan (MCPs + skills only)
+
+**Analysis & Extension:**
 
 - `*analyze-squad {name}` - Analyze squad structure and get suggestions
 - `*analyze-squad {name} --verbose` - Include file details in analysis
