@@ -87,6 +87,7 @@ def print_download_summary(
     skipped: int,
     failed: int,
     subtitles: int = 0,
+    attachments: int = 0,
 ) -> None:
     """Print a summary panel after download completes."""
     table = Table(show_header=False, border_style="cyan", pad_edge=False)
@@ -99,6 +100,8 @@ def print_download_summary(
     table.add_row("Failed", f"[red]{failed}[/]" if failed > 0 else str(failed))
     if subtitles > 0:
         table.add_row("Subtitles", f"[cyan]{subtitles}[/]")
+    if attachments > 0:
+        table.add_row("Attachments", f"[magenta]{attachments}[/]")
 
     console.print(Panel(table, title="Download Summary", border_style="cyan"))
 
@@ -130,6 +133,27 @@ def prompt_course_selection(courses: list[CourseListItem]) -> CourseListItem:
         except ValueError:
             pass
         print_error(f"Invalid choice. Enter a number between 1 and {len(courses)}")
+
+
+def prompt_course_disambiguation(courses: list[CourseListItem]) -> CourseListItem:
+    """Prompt user to pick a course when multiple share the same subdomain."""
+    console.print(
+        f"\n[bold yellow]Multiple courses found for "
+        f"subdomain '{courses[0].subdomain}':[/]"
+    )
+    for i, course in enumerate(courses, start=1):
+        console.print(f"  [bold]{i}.[/] {course.name}")
+    console.print()
+
+    while True:
+        choice = console.input("[bold cyan]Select course number:[/] ")
+        try:
+            idx = int(choice) - 1
+            if 0 <= idx < len(courses):
+                return courses[idx]
+        except ValueError:
+            pass
+        print_error(f"Invalid choice. Enter 1-{len(courses)}")
 
 
 def _status_icon(status: DownloadStatus) -> str:

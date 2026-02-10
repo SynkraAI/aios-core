@@ -122,8 +122,18 @@ def info(
             client.set_auth_token(token)
             api = HotmartAPI(client)
 
+            # Resolve product_id (disambiguate when subdomain has multiple courses)
+            product_id: str | None = None
+            course_list = api.list_courses()
+            matching = [c for c in course_list if c.subdomain == course_subdomain]
+            if len(matching) > 1:
+                selected = ui.prompt_course_disambiguation(matching)
+                product_id = selected.resource_id
+            elif len(matching) == 1:
+                product_id = matching[0].resource_id
+
             ui.print_info(f"Fetching structure for '{course_subdomain}'...")
-            course = api.get_course_navigation(course_subdomain)
+            course = api.get_course_navigation(course_subdomain, product_id=product_id)
             ui.print_course_structure(course)
 
     except HotmartDownloaderError as e:
@@ -149,9 +159,21 @@ def download(
         bool,
         typer.Option("--subtitles", "--subs", help="Download subtitles/captions"),
     ] = False,
+    subtitles_only: Annotated[
+        bool,
+        typer.Option("--subtitles-only", "--subs-only", help="Download only subtitles (no video)"),
+    ] = False,
     audio_only: Annotated[
         bool,
         typer.Option("--audio-only", "-a", help="Extract audio only (no video)"),
+    ] = False,
+    materials: Annotated[
+        bool,
+        typer.Option("--materials", "--mat", help="Include attachments (PDFs, docs). Combine with any mode"),
+    ] = False,
+    materials_only: Annotated[
+        bool,
+        typer.Option("--materials-only", "--mat-only", help="Download only attachments (no video/audio/subs)"),
     ] = False,
     dry_run: Annotated[
         bool,
@@ -173,9 +195,18 @@ def download(
             client.set_auth_token(token)
             api = HotmartAPI(client)
 
-            # Select course
+            # Select course and resolve product_id
+            product_id: str | None = None
             if course:
                 subdomain = course
+                # Disambiguate when subdomain has multiple courses
+                course_list = api.list_courses()
+                matching = [c for c in course_list if c.subdomain == subdomain]
+                if len(matching) > 1:
+                    sel = ui.prompt_course_disambiguation(matching)
+                    product_id = sel.resource_id
+                elif len(matching) == 1:
+                    product_id = matching[0].resource_id
             else:
                 ui.print_info("Fetching courses...")
                 course_list = api.list_courses()
@@ -184,10 +215,11 @@ def download(
                     raise typer.Exit(0)
                 selected = ui.prompt_course_selection(course_list)
                 subdomain = selected.subdomain
+                product_id = selected.resource_id
 
             # Fetch course structure
             ui.print_info(f"Fetching structure for '{subdomain}'...")
-            course_data = api.get_course_navigation(subdomain)
+            course_data = api.get_course_navigation(subdomain, product_id=product_id)
 
             # Filter modules if requested
             if module is not None:
@@ -203,16 +235,28 @@ def download(
                 ui.print_course_structure(course_data)
                 total = sum(len(m.lessons) for m in course_data.modules)
                 flags = ""
-                if subtitles:
+                if materials_only:
+                    flags += " [materials-only]"
+                elif subtitles_only:
+                    flags += " [subtitles-only]"
+                elif subtitles:
                     flags += " [+subtitles]"
                 if audio_only:
                     flags += " [audio-only]"
+                if materials and not materials_only:
+                    flags += " [+materials]"
                 ui.print_info(
                     f"\n[dry-run] Would download {total} lessons "
                     f"from {len(course_data.modules)} modules "
                     f"at {effective_quality} quality.{flags}"
                 )
                 raise typer.Exit(0)
+
+            # Resolve material flags:
+            # materials_only → only attachments, no video/audio/subs
+            # materials → explicitly include attachments (combine with any mode)
+            # default → attachments included unless subtitles_only
+            download_materials = materials_only or materials or not subtitles_only
 
             # Download — VideoResolver opens a browser lazily (only when
             # lessons contain embed videos that need m3u8 resolution).
@@ -224,8 +268,11 @@ def download(
                     resolver=resolver,
                     output_dir=settings.output_dir,
                     quality=effective_quality,
-                    download_subs=subtitles,
+                    download_subs=subtitles or subtitles_only,
                     audio_only=audio_only,
+                    subtitles_only=subtitles_only,
+                    materials_only=materials_only,
+                    download_materials=download_materials,
                 )
 
     except HotmartDownloaderError as e:
@@ -242,6 +289,9 @@ def _execute_download(
     quality: str,
     download_subs: bool = False,
     audio_only: bool = False,
+    subtitles_only: bool = False,
+    materials_only: bool = False,
+    download_materials: bool = True,
 ) -> None:
     """Execute the download of all lessons in a course."""
     from hotmart_downloader.models import ContentType
@@ -251,11 +301,19 @@ def _execute_download(
     skipped = 0
     failed = 0
     subtitle_count = 0
+    attachment_count = 0
 
-    mode = "audio" if audio_only else quality
+    if materials_only:
+        mode = "materials-only"
+    elif subtitles_only:
+        mode = "subtitles-only"
+    elif audio_only:
+        mode = "audio"
+    else:
+        mode = quality
     ui.print_info(
         f"Downloading {total_lessons} lessons "
-        f"from '{course.name}' at {mode} quality\n"
+        f"from '{course.name}' [{mode}]\n"
     )
 
     with ui.create_progress() as progress:
@@ -286,15 +344,18 @@ def _execute_download(
 
                     # Fetch and parse lesson content
                     page_data = api.get_lesson_page(
-                        course.subdomain, lesson.id
+                        course.subdomain, lesson.id,
+                        product_id=course.id,
                     )
                     content = parse_lesson_page(page_data)
 
                     has_content = False
 
-                    # Download videos (or audio-only)
-                    for video in content.videos:
-                        # Resolve embed videos to actual m3u8 URLs
+                    # Skip video processing entirely in materials-only mode
+                    skip_media = materials_only
+
+                    # Resolve video URLs (needed even for subtitles-only)
+                    for video in content.videos if not skip_media else []:
                         resolved_subs: list[str] = []
                         if video.media_code:
                             resolved = resolver.resolve(
@@ -315,33 +376,35 @@ def _execute_download(
                                 continue
                             resolved_subs = resolved.subtitle_urls
 
-                        if audio_only:
-                            if video.content_type == ContentType.VIDEO_HLS:
-                                registry.hls.download_audio_only(
-                                    video.url,
-                                    lesson_dir,
-                                    filename=video.filename,
-                                )
+                        # Download video/audio (skip when subtitles-only)
+                        if not subtitles_only:
+                            if audio_only:
+                                if video.content_type == ContentType.VIDEO_HLS:
+                                    registry.hls.download_audio_only(
+                                        video.url,
+                                        lesson_dir,
+                                        filename=video.filename,
+                                    )
+                                else:
+                                    registry.ytdlp.download(
+                                        video.url,
+                                        lesson_dir,
+                                        filename=video.filename,
+                                        quality=quality,
+                                        audio_only=True,
+                                    )
                             else:
-                                registry.ytdlp.download(
+                                dl = registry.get_video_downloader(
+                                    video.url, video.content_type
+                                )
+                                dl.download(
                                     video.url,
                                     lesson_dir,
                                     filename=video.filename,
                                     quality=quality,
-                                    audio_only=True,
+                                    download_subs=download_subs,
                                 )
-                        else:
-                            dl = registry.get_video_downloader(
-                                video.url, video.content_type
-                            )
-                            dl.download(
-                                video.url,
-                                lesson_dir,
-                                filename=video.filename,
-                                quality=quality,
-                                download_subs=download_subs,
-                            )
-                        has_content = True
+                            has_content = True
 
                         # Download subtitles
                         if download_subs:
@@ -360,21 +423,26 @@ def _execute_download(
                                 content=content,
                                 lesson_dir=lesson_dir,
                             )
+                            if subtitles_only:
+                                has_content = True
 
                     # Download attachments
-                    for att in content.attachments:
-                        registry.attachment.download(
-                            att.url,
-                            lesson_dir,
-                            filename=att.filename,
-                        )
-                        has_content = True
+                    if download_materials:
+                        for att in content.attachments:
+                            registry.attachment.download(
+                                att.url,
+                                lesson_dir,
+                                filename=att.filename,
+                            )
+                            attachment_count += 1
+                            has_content = True
 
-                    # Save text content
-                    registry.text.save_description(
-                        content.description, lesson_dir
-                    )
-                    registry.text.save_links(content.links, lesson_dir)
+                    # Save text content (skip in subtitles-only without materials)
+                    if not subtitles_only or download_materials:
+                        registry.text.save_description(
+                            content.description, lesson_dir
+                        )
+                        registry.text.save_links(content.links, lesson_dir)
 
                     if has_content:
                         lesson.status = DownloadStatus.COMPLETED
@@ -402,7 +470,9 @@ def _execute_download(
 
     ui.console.print()
     ui.print_download_summary(
-        total_lessons, completed, skipped, failed, subtitles=subtitle_count
+        total_lessons, completed, skipped, failed,
+        subtitles=subtitle_count,
+        attachments=attachment_count,
     )
 
 
