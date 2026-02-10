@@ -18,3 +18,4 @@ CHUNK_MAX_WORDS = 2000
 AUDIO_EXTENSIONS = {".mp3", ".wav", ".m4a", ".flac", ".ogg", ".aac", ".wma", ".opus"}
 VIDEO_EXTENSIONS = {".mp4", ".mkv", ".webm", ".avi", ".mov", ".wmv", ".flv", ".m4v"}
 MEDIA_EXTENSIONS = AUDIO_EXTENSIONS | VIDEO_EXTENSIONS
+TEXT_EXTENSIONS = {".vtt", ".srt", ".txt", ".md", ".json"}

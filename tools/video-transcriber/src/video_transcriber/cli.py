@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import tempfile
 from pathlib import Path
 from typing import Optional
@@ -22,6 +23,7 @@ from .config import (
     DEFAULT_LANGUAGE,
     DEFAULT_MODEL,
     MEDIA_EXTENSIONS,
+    TEXT_EXTENSIONS,
     VIDEO_EXTENSIONS,
     WHISPER_MODELS,
 )
@@ -31,7 +33,7 @@ from .transcriber import load_transcription, save_transcription, transcribe
 
 app = typer.Typer(
     name="video-transcriber",
-    help="Download, transcribe, clean, and chunk video/audio content.",
+    help="Download, transcribe, clean, chunk, and ingest video/audio/text content.",
     no_args_is_help=True,
 )
 
@@ -264,6 +266,197 @@ def clean(
 
     result_path = clean_transcription_file(file, output)
     console.print(f"\n[green]Cleaned:[/green] {result_path}")
+
+
+# ---------------------------------------------------------------------------
+# Helpers for text ingestion
+# ---------------------------------------------------------------------------
+
+_VTT_TIMESTAMP = re.compile(
+    r"^\d{2}:\d{2}[:.]\d{3}\s*-->\s*\d{2}:\d{2}[:.]\d{3}",
+)
+_SRT_TIMESTAMP = re.compile(
+    r"^\d{2}:\d{2}:\d{2},\d{3}\s*-->\s*\d{2}:\d{2}:\d{2},\d{3}",
+)
+_VTT_HEADER = re.compile(r"^(WEBVTT|Kind:|Language:)")
+_SRT_INDEX = re.compile(r"^\d+$")
+_VTT_TAG = re.compile(r"<[^>]+>")
+
+
+def _parse_subtitles(file_path: Path) -> str:
+    """Extract plain text from a VTT or SRT file, stripping timestamps and cues."""
+    raw = file_path.read_text(encoding="utf-8")
+    lines: list[str] = []
+    prev_line = ""
+
+    for line in raw.splitlines():
+        stripped = line.strip()
+
+        # Skip empty, headers, timestamps, SRT numeric indices
+        if not stripped:
+            continue
+        if _VTT_HEADER.match(stripped):
+            continue
+        if _VTT_TIMESTAMP.match(stripped) or _SRT_TIMESTAMP.match(stripped):
+            continue
+        if _SRT_INDEX.match(stripped):
+            continue
+
+        # Remove inline VTT tags like <c>, </c>, <v Name>
+        cleaned = _VTT_TAG.sub("", stripped)
+        if not cleaned:
+            continue
+
+        # Deduplicate consecutive identical lines (common in VTT)
+        if cleaned == prev_line:
+            continue
+
+        lines.append(cleaned)
+        prev_line = cleaned
+
+    return "\n\n".join(lines)
+
+
+def _text_to_segments(text: str) -> list[Segment]:
+    """Convert plain text into Segment objects using paragraph breaks.
+
+    Assigns synthetic sequential timestamps (1s per 3 words) so the
+    chunker can still operate on segment boundaries.
+    """
+    # Split on double newlines (paragraphs) or treat as single block
+    paragraphs = [p.strip() for p in re.split(r"\n{2,}", text) if p.strip()]
+    if not paragraphs:
+        return []
+
+    segments: list[Segment] = []
+    cursor = 0.0
+    words_per_second = 3.0  # rough estimate for timestamp generation
+
+    for para in paragraphs:
+        word_count = len(para.split())
+        duration = max(word_count / words_per_second, 1.0)
+        segments.append(Segment(
+            start=cursor,
+            end=cursor + duration,
+            text=para,
+            type="speech",
+        ))
+        cursor += duration
+
+    return segments
+
+
+# ---------------------------------------------------------------------------
+# Commands: chunk & ingest
+# ---------------------------------------------------------------------------
+
+@app.command()
+def chunk(
+    file: Path = typer.Argument(help="Path to transcription JSON file"),
+    output: Optional[Path] = typer.Option(
+        None, "--output", "-o",
+        help="Output directory (default: same as input file)",
+    ),
+    max_words: int = typer.Option(
+        CHUNK_MAX_WORDS, "--max-words",
+        help="Max words per chunk",
+    ),
+) -> None:
+    """Chunk an existing transcription JSON into text files."""
+    file = file.resolve()
+    if not file.exists():
+        console.print(f"[red]File not found: {file}[/red]")
+        raise typer.Exit(1)
+
+    if file.suffix.lower() != ".json":
+        console.print("[red]Expected a .json transcription file[/red]")
+        raise typer.Exit(1)
+
+    out_dir = output or file.parent
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    console.print(f"Loading: {file.name}")
+    result = load_transcription(file)
+    console.print(f"  Segments: {len(result.segments)}, Language: {result.language}")
+
+    console.print(f"Chunking (max {max_words} words)...")
+    chunks = chunk_transcription(result.segments, max_words=max_words)
+    chunks_dir = save_chunks(chunks, out_dir)
+
+    console.print(f"\n[green]Done:[/green] {len(chunks)} chunks saved to {chunks_dir}")
+
+
+@app.command()
+def ingest(
+    file: Path = typer.Argument(help="Path to VTT, SRT, TXT, MD, or JSON file"),
+    output: Optional[Path] = typer.Option(
+        None, "--output", "-o",
+        help="Output directory (default: same as input file)",
+    ),
+    max_words: int = typer.Option(
+        CHUNK_MAX_WORDS, "--max-words",
+        help="Max words per chunk",
+    ),
+) -> None:
+    """Parse a text file (VTT/SRT/TXT/MD/JSON) and produce chunks.
+
+    This is the entry point for 'ready text' — content that is already
+    transcribed or written and just needs to be chunked for LLM processing.
+    """
+    file = file.resolve()
+    if not file.exists():
+        console.print(f"[red]File not found: {file}[/red]")
+        raise typer.Exit(1)
+
+    ext = file.suffix.lower()
+    if ext not in TEXT_EXTENSIONS:
+        console.print(f"[red]Unsupported format: {ext}[/red]")
+        console.print(f"Supported: {', '.join(sorted(TEXT_EXTENSIONS))}")
+        raise typer.Exit(1)
+
+    out_dir = output or file.parent
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    console.print(f"[bold]Ingesting:[/bold] {file.name} ({ext})")
+
+    # --- Parse based on format ---
+    if ext == ".json":
+        # Assume transcription JSON — load, clean, chunk
+        result = load_transcription(file)
+        console.print(f"  Segments: {len(result.segments)}, Language: {result.language}")
+
+        console.print("  Cleaning...")
+        cleaned_segs, stats = clean_segments(result.segments)
+        console.print(
+            f"  Cleaned: {stats.original_count} → {stats.final_count} segments"
+        )
+        segments = cleaned_segs
+
+    elif ext in {".vtt", ".srt"}:
+        # Parse subtitles → plain text → segments
+        console.print("  Parsing subtitles...")
+        text = _parse_subtitles(file)
+        word_count = len(text.split())
+        console.print(f"  Extracted: {word_count:,} words")
+        segments = _text_to_segments(text)
+
+    else:
+        # Plain text (.txt, .md) — read and convert
+        text = file.read_text(encoding="utf-8")
+        word_count = len(text.split())
+        console.print(f"  Words: {word_count:,}")
+        segments = _text_to_segments(text)
+
+    # --- Chunk ---
+    console.print(f"  Chunking (max {max_words} words)...")
+    chunks = chunk_transcription(segments, max_words=max_words)
+    chunks_dir = save_chunks(chunks, out_dir)
+
+    # --- Summary ---
+    total_words = sum(c.word_count for c in chunks)
+    console.print(f"\n[green]Done:[/green] {len(chunks)} chunks, {total_words:,} words")
+    console.print(f"  Output: {chunks_dir}")
+    console.print(f"  Manifest: {chunks_dir / 'manifest.json'}")
 
 
 if __name__ == "__main__":
