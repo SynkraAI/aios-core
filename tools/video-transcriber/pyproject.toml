@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "video-transcriber"
+version = "1.0.0"
+description = "Download, transcribe, clean, and chunk video/audio content"
+requires-python = ">=3.10"
+license = "MIT"
+
+dependencies = [
+    "yt-dlp>=2024.1",
+    "rich>=13.0",
+    "typer[all]>=0.12",
+]
+
+[project.optional-dependencies]
+transcription = [
+    "openai-whisper>=20231117",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+video-transcriber = "video_transcriber.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/video_transcriber"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
