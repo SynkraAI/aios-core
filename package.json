@@ -4,8 +4,7 @@
   "description": "Synkra AIOS: AI-Orchestrated System for Full Stack Development - Core Framework",
   "bin": {
     "aios": "bin/aios.js",
-    "aios-core": "bin/aios.js",
-    "aios-minimal": "bin/aios-minimal.js"
+    "aios-core": "bin/aios.js"
   },
   "preferGlobal": false,
   "workspaces": [

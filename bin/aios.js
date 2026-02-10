@@ -24,19 +24,6 @@ async function runWizard(options = {}) {
   const wizardPath = path.join(__dirname, '..', 'packages', 'installer', 'src', 'wizard', 'index.js');
 
   if (!fs.existsSync(wizardPath)) {
-    // Fallback to legacy wizard if new wizard not found
-    const legacyScript = path.join(__dirname, 'aios-init.js');
-    if (fs.existsSync(legacyScript)) {
-      if (!options.quiet) {
-        console.log('⚠️  Using legacy wizard (src/wizard not found)');
-      }
-      // Legacy wizard doesn't support options, pass via env vars
-      process.env.AIOS_INSTALL_FORCE = options.force ? '1' : '';
-      process.env.AIOS_INSTALL_QUIET = options.quiet ? '1' : '';
-      process.env.AIOS_INSTALL_DRY_RUN = options.dryRun ? '1' : '';
-      require(legacyScript);
-      return;
-    }
     console.error('❌ Initialization wizard not found');
     console.error('Please ensure AIOS-FullStack is installed correctly.');
     process.exit(1);
