@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-10T15:40:39.431Z"
+generated_at: "2026-02-10T15:47:28.734Z"
 generator: scripts/generate-install-manifest.js
-file_count: 954
+file_count: 953
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -888,10 +888,6 @@ files:
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
     size: 68
-  - path: data/registry-update-log.jsonl
-    hash: sha256:b104b58009a177ed6bbff0247331243b0137c4fb37dd4d762c7c1ba5d436c38e
-    type: data
-    size: 5467
   - path: data/tech-presets/_template.md
     hash: sha256:1a7262912c8c8e264d307f0d38a1109bdb2b9bff9ea7d8855c768835201aa59b
     type: data
