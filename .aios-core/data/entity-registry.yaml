@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-10T10:56:07.234Z'
+  lastUpdated: '2026-02-10T11:16:46.664Z'
   entityCount: 473
   checksumAlgorithm: sha256
 entities:
@@ -5560,7 +5560,7 @@ entities:
     unified-activation-pipeline:
       path: .aios-core/development/scripts/unified-activation-pipeline.js
       type: script
-      purpose: Entity at .aios-core\development\scripts\unified-activation-pipeline.js
+      purpose: '''Agent identity — greeting is broken without this'','
       keywords:
         - unified
         - activation
@@ -5577,12 +5577,13 @@ entities:
         - greeting-preference-manager
         - context-detector
         - workflow-navigator
+        - pro-detector
       adaptability:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:c1ec62788b3268185c8a38edb6f1b18bd4410c3be9b44af3e2d81f030c06b8cc
-      lastVerified: '2026-02-08T13:33:24.303Z'
+      checksum: sha256:01ffe43e3483ba4c1a3777f98ec2d5c7f66b7015766ba2d8073522421024eb63
+      lastVerified: '2026-02-10T11:16:46.662Z'
     usage-tracker:
       path: .aios-core/development/scripts/usage-tracker.js
       type: script
