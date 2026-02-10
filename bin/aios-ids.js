@@ -7,13 +7,19 @@
  * Commands:
  *   aios ids:query {intent}     — Query registry for matching artifacts
  *   aios ids:create-review      — Review CREATE decisions for promotion/deprecation
+ *   aios ids:health             — Run registry health check (self-healing)
+ *   aios ids:check {intent}     — Pre-check registry (FrameworkGovernor advisory)
+ *   aios ids:impact {entity-id} — Impact analysis for modifications
+ *   aios ids:stats              — Registry statistics
+ *   aios ids:register {path}    — Register entity after creation
  *
  * Flags:
  *   --json                      — Machine-readable JSON output
  *   --type {type}               — Filter by entity type
  *   --category {category}       — Filter by category
+ *   --fix                       — Auto-heal fixable issues (ids:health)
  *
- * Story: IDS-2 (Incremental Decision Engine)
+ * Stories: IDS-2 (Decision Engine), IDS-4a (Self-Healing), IDS-7 (Framework Governor)
  */
 
 'use strict';
@@ -21,12 +27,23 @@
 const path = require('path');
 const { RegistryLoader } = require(path.resolve(__dirname, '..', '.aios-core', 'core', 'ids', 'registry-loader'));
 const { IncrementalDecisionEngine } = require(path.resolve(__dirname, '..', '.aios-core', 'core', 'ids', 'incremental-decision-engine'));
+const { RegistryUpdater } = require(path.resolve(__dirname, '..', '.aios-core', 'core', 'ids', 'registry-updater'));
+const { FrameworkGovernor } = require(path.resolve(__dirname, '..', '.aios-core', 'core', 'ids', 'framework-governor'));
+
+// Optional: RegistryHealer (IDS-4a — may not exist yet)
+let RegistryHealer = null;
+try {
+  RegistryHealer = require(path.resolve(__dirname, '..', '.aios-core', 'core', 'ids', 'registry-healer')).RegistryHealer;
+} catch (_err) {
+  // RegistryHealer not available — health commands degrade gracefully
+}
 
 // Parse arguments
 const args = process.argv.slice(2);
 const command = args[0];
 const flags = args.filter((a) => a.startsWith('--'));
 const jsonOutput = flags.includes('--json');
+const fixFlag = flags.includes('--fix');
 
 function showHelp() {
   console.log(`
@@ -35,11 +52,17 @@ AIOS IDS — Incremental Development System
 Commands:
   ids:query {intent}       Query registry for matching artifacts
   ids:create-review        Review CREATE decisions (30-day review)
+  ids:health               Run registry health check (self-healing)
+  ids:check {intent}       Pre-check registry (advisory REUSE/ADAPT/CREATE)
+  ids:impact {entity-id}   Impact analysis for entity modifications
+  ids:stats                Registry statistics (entity counts, health score)
+  ids:register {path}      Register entity after creation
 
 Flags:
   --json                   Output as JSON
   --type {type}            Filter by entity type (task, script, agent, etc.)
   --category {category}    Filter by category
+  --fix                    Auto-heal fixable issues (ids:health only)
 
 Examples:
   aios ids:query "validate story drafts"
@@ -47,6 +70,13 @@ Examples:
   aios ids:query "database migration" --type script
   aios ids:create-review
   aios ids:create-review --json
+  aios ids:health
+  aios ids:health --fix
+  aios ids:check "validate yaml schema" --type task
+  aios ids:impact create-doc
+  aios ids:stats
+  aios ids:stats --json
+  aios ids:register .aios-core/development/tasks/my-new-task.md
 `);
 }
 
@@ -54,6 +84,30 @@ function getFlag(name) {
   const idx = args.indexOf(`--${name}`);
   if (idx === -1 || idx + 1 >= args.length) return undefined;
   return args[idx + 1];
+}
+
+/**
+ * Collect positional args (skipping flags and their values).
+ */
+function collectPositionalArgs(startIdx) {
+  const flagNames = new Set(['--json', '--type', '--category', '--fix']);
+  const parts = [];
+  let skipNext = false;
+  for (let i = startIdx; i < args.length; i++) {
+    if (skipNext) {
+      skipNext = false;
+      continue;
+    }
+    if (args[i] === '--type' || args[i] === '--category') {
+      skipNext = true;
+      continue;
+    }
+    if (flagNames.has(args[i])) {
+      continue;
+    }
+    parts.push(args[i]);
+  }
+  return parts.join(' ').trim();
 }
 
 function formatRecommendation(rec, index) {
@@ -79,26 +133,27 @@ function formatCreateReviewEntry(entry) {
   return `  ${icon} ${entry.entityId} — reused ${entry.reusageCount}x — status: ${entry.status}`;
 }
 
-function runQuery() {
-  // Collect intent: skip flag names and their values positionally
-  const flagNames = new Set(['--json', '--type', '--category']);
-  const intentParts = [];
-  let skipNext = false;
-  for (let i = 1; i < args.length; i++) {
-    if (skipNext) {
-      skipNext = false;
-      continue;
-    }
-    if (args[i] === '--type' || args[i] === '--category') {
-      skipNext = true; // skip the flag's value
-      continue;
-    }
-    if (flagNames.has(args[i])) {
-      continue; // skip standalone flags like --json
-    }
-    intentParts.push(args[i]);
+// ─── Helper: create a FrameworkGovernor instance ─────────────────────────────
+
+function createGovernor() {
+  const loader = new RegistryLoader();
+  try {
+    loader.load();
+  } catch (err) {
+    console.error(`Error: Failed to load registry — ${err.message}`);
+    process.exit(1);
   }
-  const intent = intentParts.join(' ').trim();
+
+  const engine = new IncrementalDecisionEngine(loader);
+  const updater = new RegistryUpdater();
+  const healer = RegistryHealer ? new RegistryHealer() : null;
+  return new FrameworkGovernor(loader, engine, updater, healer);
+}
+
+// ─── Command: ids:query ──────────────────────────────────────────────────────
+
+function runQuery() {
+  const intent = collectPositionalArgs(1);
 
   if (!intent) {
     console.error('Error: Intent is required. Usage: aios ids:query "your intent here"');
@@ -164,6 +219,8 @@ function runQuery() {
   console.log('');
 }
 
+// ─── Command: ids:create-review ──────────────────────────────────────────────
+
 function runCreateReview() {
   const loader = new RegistryLoader();
   try {
@@ -223,7 +280,234 @@ function runCreateReview() {
   console.log('');
 }
 
-// Main dispatch
+// ─── Command: ids:health ─────────────────────────────────────────────────────
+
+function runHealth() {
+  if (!RegistryHealer) {
+    // Degrade gracefully — use FrameworkGovernor.healthCheck() instead
+    const governor = createGovernor();
+    governor.healthCheck().then((result) => {
+      if (jsonOutput) {
+        console.log(JSON.stringify(result, null, 2));
+      } else {
+        console.log('\nIDS Registry Health Check');
+        console.log(`${'─'.repeat(60)}`);
+        console.log(`Healer Status: ${result.healerStatus}`);
+        console.log(`Message: ${result.message}`);
+        if (result.basicStats) {
+          console.log(`Entity Count: ${result.basicStats.entityCount}`);
+        }
+      }
+    });
+    return;
+  }
+
+  const healer = new RegistryHealer();
+  const healthResult = healer.runHealthCheck();
+
+  if (fixFlag && healthResult.issues.length > 0) {
+    const healResult = healer.heal(healthResult.issues, { autoOnly: true });
+
+    if (jsonOutput) {
+      console.log(JSON.stringify({ health: healthResult, healing: healResult }, null, 2));
+    } else {
+      formatHealthReport(healthResult);
+      console.log('');
+      formatHealingReport(healResult);
+    }
+
+    // Emit warnings for non-auto-healable issues
+    const manualIssues = healthResult.issues.filter((i) => !i.autoHealable);
+    if (manualIssues.length > 0) {
+      healer.emitWarnings(manualIssues).catch(() => {});
+    }
+
+    // Exit code 1 if critical issues remain unhealed
+    const unresolvedCritical = healResult.skipped.filter((i) => i.severity === 'critical');
+    if (unresolvedCritical.length > 0) {
+      process.exit(1);
+    }
+    return;
+  }
+
+  if (jsonOutput) {
+    console.log(JSON.stringify(healthResult, null, 2));
+  } else {
+    formatHealthReport(healthResult);
+  }
+
+  // Exit code 1 if critical issues found
+  if (healthResult.summary.bySeverity.critical > 0) {
+    process.exit(1);
+  }
+}
+
+function formatHealthReport(result) {
+  const { summary } = result;
+  console.log('\nIDS Registry Health Check');
+  console.log(`${'─'.repeat(60)}`);
+  console.log(`Timestamp: ${result.timestamp}`);
+  console.log(`Total Issues: ${summary.total}`);
+  console.log(`  Critical: ${summary.bySeverity.critical}`);
+  console.log(`  High:     ${summary.bySeverity.high}`);
+  console.log(`  Medium:   ${summary.bySeverity.medium}`);
+  console.log(`  Low:      ${summary.bySeverity.low}`);
+  console.log(`Auto-healable: ${summary.autoHealable} (${summary.autoHealableRate}%)`);
+  console.log(`Needs manual:  ${summary.needsManual}`);
+
+  if (result.issues.length === 0) {
+    console.log('\nRegistry is healthy. No issues detected.');
+    return;
+  }
+
+  console.log('\nIssues:');
+  for (const issue of result.issues) {
+    const severityIcon = {
+      critical: '\u274C',
+      high: '\u26A0\uFE0F',
+      medium: '\u{1F7E1}',
+      low: '\u{1F535}',
+    };
+    const icon = severityIcon[issue.severity] || '\u2753';
+    const healable = issue.autoHealable ? ' [auto-fixable]' : ' [manual]';
+    console.log(`  ${icon} ${issue.severity.toUpperCase()} ${issue.ruleId}: ${issue.entityId}${healable}`);
+    console.log(`     ${issue.description}`);
+  }
+
+  if (summary.autoHealable > 0) {
+    console.log(`\nRun with --fix to auto-heal ${summary.autoHealable} fixable issue(s).`);
+  }
+}
+
+function formatHealingReport(result) {
+  console.log('IDS Self-Healing Report');
+  console.log(`${'─'.repeat(60)}`);
+  console.log(`Batch ID: ${result.batchId}`);
+  console.log(`Healed: ${result.healed.length}`);
+  console.log(`Skipped: ${result.skipped.length}`);
+  console.log(`Errors: ${result.errors.length}`);
+
+  if (result.backupPath) {
+    console.log(`Backup: ${result.backupPath}`);
+  }
+
+  if (result.healed.length > 0) {
+    console.log('\nHealed:');
+    for (const item of result.healed) {
+      console.log(`  \u2705 ${item.ruleId}: ${item.entityId}`);
+    }
+  }
+
+  if (result.skipped.length > 0) {
+    console.log('\nSkipped (manual intervention required):');
+    for (const item of result.skipped) {
+      console.log(`  \u23ED ${item.ruleId}: ${item.entityId} — ${item.reason}`);
+    }
+  }
+
+  if (result.errors.length > 0) {
+    console.log('\nErrors:');
+    for (const item of result.errors) {
+      console.log(`  \u274C ${item.ruleId || 'unknown'}: ${item.entityId || 'batch'} — ${item.error}`);
+    }
+  }
+}
+
+// ─── Command: ids:check (IDS-7) ─────────────────────────────────────────────
+
+async function runCheck() {
+  const intent = collectPositionalArgs(1);
+
+  if (!intent) {
+    console.error('Error: Intent is required. Usage: aios ids:check "your intent here"');
+    process.exit(1);
+  }
+
+  const typeFilter = getFlag('type');
+  const governor = createGovernor();
+  const result = await governor.preCheck(intent, typeFilter);
+
+  if (jsonOutput) {
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  console.log(FrameworkGovernor.formatPreCheckOutput(result));
+}
+
+// ─── Command: ids:impact (IDS-7) ────────────────────────────────────────────
+
+async function runImpact() {
+  const entityId = collectPositionalArgs(1);
+
+  if (!entityId) {
+    console.error('Error: Entity ID is required. Usage: aios ids:impact {entity-id}');
+    process.exit(1);
+  }
+
+  const governor = createGovernor();
+  const result = await governor.impactAnalysis(entityId);
+
+  if (jsonOutput) {
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  console.log(FrameworkGovernor.formatImpactOutput(result));
+}
+
+// ─── Command: ids:stats (IDS-7) ─────────────────────────────────────────────
+
+async function runStats() {
+  const governor = createGovernor();
+  const result = await governor.getStats();
+
+  if (jsonOutput) {
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  console.log(FrameworkGovernor.formatStatsOutput(result));
+}
+
+// ─── Command: ids:register (IDS-7) ──────────────────────────────────────────
+
+async function runRegister() {
+  const filePath = collectPositionalArgs(1);
+
+  if (!filePath) {
+    console.error('Error: File path is required. Usage: aios ids:register {file-path}');
+    process.exit(1);
+  }
+
+  const typeFilter = getFlag('type');
+  const governor = createGovernor();
+  const result = await governor.postRegister(filePath, {
+    type: typeFilter || 'unknown',
+    agent: 'cli',
+  });
+
+  if (jsonOutput) {
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  if (result.registered) {
+    console.log(`\nRegistered: ${filePath}`);
+    console.log(`Updated: ${result.updated} entities`);
+  } else {
+    console.log(`\nRegistration failed for: ${filePath}`);
+    if (result.errors.length > 0) {
+      for (const err of result.errors) {
+        console.log(`  Error: ${err}`);
+      }
+    }
+  }
+  console.log('');
+}
+
+// ─── Main dispatch ──────────────────────────────────────────────────────────
+
 switch (command) {
   case 'ids:query':
   case 'query':
@@ -233,6 +517,31 @@ switch (command) {
   case 'ids:create-review':
   case 'create-review':
     runCreateReview();
+    break;
+
+  case 'ids:health':
+  case 'health':
+    runHealth();
+    break;
+
+  case 'ids:check':
+  case 'check':
+    runCheck();
+    break;
+
+  case 'ids:impact':
+  case 'impact':
+    runImpact();
+    break;
+
+  case 'ids:stats':
+  case 'stats':
+    runStats();
+    break;
+
+  case 'ids:register':
+  case 'register':
+    runRegister();
     break;
 
   case '--help':

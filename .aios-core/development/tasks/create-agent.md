@@ -24,6 +24,24 @@
 
 ---
 
+## Step 0: IDS Registry Check (Advisory)
+
+Before proceeding, check the Entity Registry for existing artifacts:
+
+1. Extract intent keywords from user's request
+2. Run `FrameworkGovernor.preCheck(intent, 'agent')`
+3. If REUSE match found (>=90% relevance):
+   - Display match and ask user: "Existing agent found. REUSE instead of creating new?"
+4. If ADAPT match found (60-89%):
+   - Display adaptation candidate: "Similar agent exists. ADAPT instead of creating new?"
+5. If CREATE (no match or user chooses):
+   - Log decision with justification and proceed to Step 1
+6. If IDS unavailable (timeout/error): Warn and proceed normally
+
+**NOTE:** This step is advisory and does NOT block creation. User always has final decision.
+
+---
+
 ## Overview
 
 This task creates a single high-quality agent based on researched methodologies from an elite mind. The key insight: **agents created without research are weak and generic**.
