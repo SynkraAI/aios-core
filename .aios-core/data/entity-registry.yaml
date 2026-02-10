@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-10T15:31:01.207Z'
+  lastUpdated: '2026-02-10T16:04:17.829Z'
   entityCount: 483
   checksumAlgorithm: sha256
 entities:
@@ -6005,8 +6005,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:d62cf112c396f52db5584ef976b6a65e2a403a25c277ba6b1f29eb84eb519bd3
-      lastVerified: '2026-02-10T15:31:01.201Z'
+      checksum: sha256:89969400668078caea7398b0d7218f3f2fab2e996c05b6361e5618da2b9262d2
+      lastVerified: '2026-02-10T15:57:42.783Z'
     config-cache:
       path: .aios-core/core/config/config-cache.js
       type: module
@@ -8300,8 +8300,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:2cfd336f3ff8e79873b3f5a48fd6b142beb32fe48e50bfb21f59c3f9ad995018
-      lastVerified: '2026-02-10T15:31:01.198Z'
+      checksum: sha256:1b35331ba71a6ce17869bab255e087fc540291243f9884fc21ed89f7efc122a4
+      lastVerified: '2026-02-10T15:57:42.781Z'
     framework-governor:
       path: .aios-core/core/ids/framework-governor.js
       type: module
@@ -8319,8 +8319,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:a1e2d3ef9b4f162c3ede4ac82f1deed22913a9933072aa9b59e9af605823cdd1
-      lastVerified: '2026-02-10T15:31:01.199Z'
+      checksum: sha256:e72741b1aff1975bb13e03ab36f86b0193cd745c488dc024a181c938cb74a859
+      lastVerified: '2026-02-10T15:57:42.782Z'
     g1-epic-creation:
       path: .aios-core/core/ids/gates/g1-epic-creation.js
       type: module
@@ -8438,8 +8438,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:e36939819dc81bcd0dade9912fc9ab8ac6036f46b0aea5dedf805884dd42a530
-      lastVerified: '2026-02-10T15:31:01.203Z'
+      checksum: sha256:538fff4398eba7c2492b446fce3a1d9115e5f1c6f494f0c3b45a991526c2295a
+      lastVerified: '2026-02-10T16:04:17.827Z'
     analyst:
       path: .aios-core/development/agents/analyst.md
       type: agent
