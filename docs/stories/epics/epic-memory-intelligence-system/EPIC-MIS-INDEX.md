@@ -1,7 +1,7 @@
 # Epic MIS: Memory Intelligence System
 
 **Epic ID:** EPIC-MIS
-**Status:** Implementation In Progress (4/7 stories done)
+**Status:** Implementation In Progress (5/7 stories done)
 **Created:** 2026-02-09
 **Author:** @architect (Aria)
 **Related Guides:**
@@ -47,8 +47,8 @@ Implement a **Memory Intelligence System (MIS)** that:
 | [MIS-2](story-mis-2-dead-code-cleanup.md) | Dead Code Cleanup & Path Repair | High | Low | **aios-core** | 4h | ✅ Done |
 | [MIS-3](story-mis-3-session-digest.md) | Session Digest (PreCompact Hook) | Critical | High | **aios-core** (hook runner) + **aios-pro** (digest) | 14h | ✅ Done |
 | [MIS-4](story-mis-4-progressive-memory-retrieval.md) | Progressive Memory Retrieval | Critical | High | **aios-pro** | 16h | ✅ Done |
-| MIS-5 | Self-Learning Engine | High | High | **aios-pro** | 14h | Pending |
-| [MIS-6](story-mis-6-pipeline-integration.md) | Pipeline Integration & Agent Memory API | High | Medium | **aios-core** (ext points) + **aios-pro** (loader) | 10h | Ready |
+| [MIS-5](story-mis-5-self-learning-engine.md) | Self-Learning Engine | High | High | **aios-pro** | 14h | InReview |
+| [MIS-6](story-mis-6-pipeline-integration.md) | Pipeline Integration & Agent Memory API | High | Medium | **aios-core** (ext points) + **aios-pro** (loader) | 10h | ✅ Done |
 | MIS-7 | CLAUDE.md & Rules Auto-Evolution | Medium | Medium | **aios-pro** | 8h | Pending |
 
 **Total Estimated:** ~78 hours
@@ -149,6 +149,14 @@ See [MIS-1 Investigation](story-mis-1-investigation.md) for complete analysis.
 | 2026-02-09 | MIS-4 | ✅ Validated | PO validation passed (10/10 checklist). Status Pending → Ready for @dev implementation |
 | 2026-02-09 | MIS-4 | ✅ Completed | Implementation done: 121 tests passing, 90.84% coverage, 14x performance improvement. QA Gate PASS. PR #109 merged to main (commit 0239df58). Story closed. |
 | 2026-02-09 | MIS-6 | 📋 Created | Pipeline Integration & Agent Memory API - Story created by @po, status Pending → Ready for validation |
+| 2026-02-09 | MIS-6 | ✅ Validated | PO validation passed (10/10 checklist). Status Draft → Ready for @dev implementation |
+| 2026-02-09 | MIS-6 | ✅ Implemented | @dev completed all 10 ACs: extension point, memory loader API (6 methods), token budget, agent scoping, graceful degradation, feature gates, performance (500ms timeout), integration tests (5 scenarios), context enrichment, documentation |
+| 2026-02-10 | MIS-6 | ✅ QA Passed | @qa gate PASS. 16/16 integration tests green. Production bug discovered and fixed (_getDefaultContext missing memories field). 7 pre-existing test failures also resolved. Full suite: 188 suites, 5163 tests, 0 failures |
+| 2026-02-10 | MIS-6 | ✅ Completed | 6 commits pushed to main (de975fa1..bdcbd319). Story closed by @po. Core memory loop complete: Capture → Store → Retrieve → Inject |
+| 2026-02-10 | MIS-5 | 📋 Created | Self-Learning Engine - Story drafted by @sm (River) from handoff. 12 ACs, confidence scoring algorithm, tier promotion logic. Status: Draft, ready for @po validation |
+| 2026-02-10 | MIS-5 | Validated | PO validation passed (9.5/10 score, GO). Improvements: Tasks/Subtasks added (12 tasks), determineTierChange fixed (AC 5 alignment), Self-Healing Config added, Testing section added, memory-loader API referenced. Status Draft -> Ready |
+| 2026-02-10 | MIS-5 | Implemented | @dev completed all 12 ACs: SelfLearner class (680+ lines), 6 components (Correction Tracker, Evidence Accumulator, Confidence Scorer, Tier Promoter, Heuristic Extractor, Gotcha Auto-Promoter), 94 tests (90.2% coverage), feature gate registered, performance targets met. Status Ready -> InReview |
+| 2026-02-10 | MIS-5 | ✅ QA Passed | @qa gate PASS (100/100). 94/94 tests, 90.22% coverage. All 12 ACs traced. 0 CRITICAL/HIGH/MEDIUM. @architect review PASS. Ready for @devops push |
 
 ---
 
