@@ -49,6 +49,7 @@ const { PermissionMode } = require('../../core/permissions');
 const GreetingPreferenceManager = require('./greeting-preference-manager');
 const ContextDetector = require('../../core/session/context-detector');
 const WorkflowNavigator = require('./workflow-navigator');
+const { isProAvailable, loadProModule } = require('../../../bin/utils/pro-detector');
 
 /**
  * ACT-11: Loader importance tiers with per-tier timeout budgets.
@@ -231,6 +232,36 @@ class UnifiedActivationPipeline {
       }),
     ]);
 
+    // --- Memory Loader (MIS-6): Load agent memories if pro available ---
+    let memories = [];
+    try {
+      if (isProAvailable()) {
+        const MemoryLoader = loadProModule('memory/memory-loader');
+        if (MemoryLoader) {
+          // Check feature gate for memory.extended
+          const featureGate = loadProModule('license/feature-gate');
+          const isMemoryEnabled = featureGate?.featureGate?.isAvailable('pro.memory.extended') ?? false;
+
+          if (isMemoryEnabled) {
+            const memoryBudget = agentComplete?.config?.memoryBudget || 2000;
+            const memoryTimeout = 500; // 500ms timeout for memory load
+
+            memories = await this._profileLoader('memories', metrics, memoryTimeout, async () => {
+              const loader = new MemoryLoader(this.projectRoot);
+              const result = await loader.loadForAgent(agentId, { budget: memoryBudget });
+              return result?.memories || [];
+            });
+          }
+        }
+      }
+    } catch (error) {
+      // Graceful degradation: log error but continue with empty memories
+      if (metrics?.loaders?.memories) {
+        metrics.loaders.memories.error = error.message;
+      }
+      memories = [];
+    }
+
     // --- Tier 3: Best-effort (SessionContext + ProjectStatus) — parallel ---
     const tier3Budget = LOADER_TIERS.bestEffort.timeout;
     const elapsedAfterT2 = Date.now() - pipelineStart;
@@ -271,6 +302,8 @@ class UnifiedActivationPipeline {
       sessionType,
       workflowState,
       userProfile,
+      // MIS-6: Agent memories from progressive retrieval
+      memories: memories || [],
       // ACT-11: Share coreConfig with GreetingBuilder to eliminate double resolveConfig()
       _coreConfig: coreConfig,
       // Legacy context fields for backward compatibility with GreetingBuilder

@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-09T20:43:07.614Z'
-  entityCount: 474
+  lastUpdated: '2026-02-10T10:56:07.234Z'
+  entityCount: 473
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -6352,7 +6352,6 @@ entities:
         - merge
         - engine
       usedBy:
-        - gaps-implementation.verify
         - active-modules.verify
       dependencies: []
       adaptability:
@@ -6629,7 +6628,6 @@ entities:
         - context-injector
         - subagent-dispatcher
         - ideation-engine
-        - gaps-implementation.verify
         - active-modules.verify
       dependencies: []
       adaptability:
@@ -7558,26 +7556,6 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:e393fadde08f98cee7e971c84da379f8371073d1cdbeb2257d0617adee409b61
-      lastVerified: '2026-02-08T13:33:24.365Z'
-    gaps-implementation.verify:
-      path: .aios-core/core/memory/__tests__/gaps-implementation.verify.js
-      type: module
-      purpose: Entity at .aios-core\core\memory\__tests__\gaps-implementation.verify.js
-      keywords:
-        - gaps
-        - implementation
-        - verify
-      usedBy: []
-      dependencies:
-        - file-evolution-tracker
-        - timeline-manager
-        - gotchas-memory
-        - semantic-merge-engine
-      adaptability:
-        score: 0.4
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:ed2ac83feef0c7d55db1cf439f74b5fab9ab8bdc73d3f54ebff0b6d3bc549f76
       lastVerified: '2026-02-08T13:33:24.365Z'
     epic-3-executor:
       path: .aios-core/core/orchestration/executors/epic-3-executor.js

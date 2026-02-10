@@ -1,0 +1,19 @@
+status:
+  branch: main
+  modifiedFiles:
+    - .aios-core/data/entity-registry.yaml
+    - .aios-core/development/scripts/unified-activation-pipeline.js
+    - pro
+    - docs/guides/MEMORY-INTEGRATION.md
+    - tests/integration/pipeline-memory-integration.test.js
+  modifiedFilesTotalCount: 5
+  recentCommits:
+    - 'docs(mis): Epic MIS documentation updates and cleanup'
+    - 'feat(mis): Progressive Memory Retrieval System [Story MIS-4] (#109)'
+  currentEpic: Developer Experience & Documentation
+  currentStory: AIOS-TRACE-001.story
+  lastUpdate: '2026-02-10T11:14:06.804Z'
+  isGitRepo: true
+timestamp: 1770722046806
+ttl: 60
+gitFingerprint: 1770720042758.7844:1770720966716.938
