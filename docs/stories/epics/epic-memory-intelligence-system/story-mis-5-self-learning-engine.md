@@ -1,6 +1,6 @@
 # Story MIS-5: Self-Learning Engine
 
-**Status**: InReview
+**Status**: Done
 **Complexity**: High | **Estimated**: 14h
 
 ---
@@ -712,3 +712,5 @@ RECOMMENDATION: Ready for @devops push
 | 2026-02-10 | @dev (Dex) | Implemented | All 12 ACs implemented in `pro/memory/self-learner.js` (680+ lines). 94 tests passing (90.2% stmt, 100% func coverage). Feature gate registered. Performance: 500 memories recalc < 500ms, full cycle < 2s. Status Ready -> InReview |
 | 2026-02-10 | @architect (Aria) | Architecture Review PASS | Confidence scoring formula matches spec exactly. Tier promotion/demotion logic correct. 100% pro isolation confirmed. Article IV compliance verified. MIS-7 compatible output. 3 non-blocking observations (YAML updates, evidence confidence formula docs, keyword similarity trade-off). Verdict: PASS |
 | 2026-02-10 | @qa (Quinn) | QA Gate PASS | 94/94 tests passing, 90.22% stmt coverage (target >=85%). All 12 ACs fully traced to tests. 0 CRITICAL/HIGH/MEDIUM issues. 4 LOW non-blocking observations. Constitution Article IV compliance verified. Performance benchmarks met. Security review clean. Status: InReview (pending @devops push) |
+| 2026-02-10 | @devops (Gage) | PR #111 merged | Squash merge to main (commit eee56343). Pro submodule pushed (ff1aa9c). CI: all checks passed. CodeRabbit: cosmetic-only findings, dismissed. |
+| 2026-02-10 | @po (Pax) | Story closed | Status InReview -> Done. Epic MIS updated (6/7 stories). Next: MIS-7 (CLAUDE.md Auto-Evolution). |

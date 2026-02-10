@@ -74,6 +74,28 @@
 - Footer varies: new="*guide", existing="*help + *session-info", workflow="Focused on **{story}**"
 - ACT-5 changes (lines 661-816 in greeting-builder.js) must NOT be touched -- they own workflow navigator section
 
+### IDS Verification Gate Engine (Story IDS-5a)
+- `VerificationGate` base class at `.aios-core/core/ids/verification-gate.js` - Template Method pattern
+- `CircuitBreaker` at `.aios-core/core/ids/circuit-breaker.js` - 3-state machine (CLOSED/OPEN/HALF_OPEN)
+- Gates G1-G4 at `.aios-core/core/ids/gates/g{n}-*.js` - all compose with `IncrementalDecisionEngine.analyze()` (PUBLIC API only)
+- G1 (@pm): advisory, G2 (@sm): advisory, G3 (@po): soft block (can override), G4 (@dev): informational/logged
+- `verify()` handles timeout+circuit-breaker+logging, delegates to `_doVerify()` in subclasses
+- All gates gracefully degrade: timeout->warn-and-proceed, error->log-and-proceed, circuit open->skip
+- G3 needs `Boolean()` wrapper on override check: `false || "string"` evaluates to string in JS, not boolean
+- Jest `--testPathPattern` flag renamed to `--testPathPatterns` in newer Jest versions
+- Pre-existing test failure in `incremental-decision-engine.test.js` (non-string intent) -- unrelated to IDS-5a
+
+### IDS Self-Healing Registry (Story IDS-4a)
+- `RegistryHealer` at `.aios-core/core/ids/registry-healer.js` - 6 detection rules, 5 auto-healers
+- Reuses `computeChecksum` and `extractKeywords` from `populate-entity-registry.js` (DO NOT duplicate)
+- Registry entities are nested by category: `registry.entities[category][entityId]` - need `buildEntityIndex()` to flatten
+- `NotificationManager` at `.aios-core/core/quality-gates/notification-manager.js` supports console+file channels
+- Healing backups go to `.aios-core/data/registry-backups/healing/` (subfolder of updater's backup dir)
+- JSONL audit log at `.aios-core/data/registry-healing-log.jsonl`
+- `bin/aios-ids.js` is shared by multiple IDS stories (IDS-2, IDS-4a, IDS-7) - linter may auto-merge changes from other stories
+- DO NOT mock `populate-entity-registry.js` in tests - functions work on any filesystem path; just use `os.tmpdir()` temp dirs
+- `jest.mock()` path hoisting: cannot use `path.resolve()` in mock path argument because `jest.mock()` is hoisted before `const path = require('path')`
+
 ## Gotchas
 - Double `loadUserProfile()` call caused test failures when `mockReturnValueOnce` was used for resolveConfig
 - `console.warn` with template literal is one argument, not two -- match with `stringContaining()` only
