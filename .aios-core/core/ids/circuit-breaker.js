@@ -40,6 +40,7 @@ class CircuitBreaker {
     this._successCount = 0;
     this._lastFailureTime = 0;
     this._totalTrips = 0;
+    this._halfOpenProbeInFlight = false;
   }
 
   /**
@@ -56,13 +57,18 @@ class CircuitBreaker {
       if (elapsed >= this._resetTimeoutMs) {
         this._state = STATE_HALF_OPEN;
         this._successCount = 0;
+        this._halfOpenProbeInFlight = true; // This request IS the probe
         return true;
       }
       return false;
     }
 
-    // HALF_OPEN: allow one probe
-    return true;
+    // HALF_OPEN: allow exactly one probe request
+    if (!this._halfOpenProbeInFlight) {
+      this._halfOpenProbeInFlight = true;
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -70,6 +76,7 @@ class CircuitBreaker {
    */
   recordSuccess() {
     if (this._state === STATE_HALF_OPEN) {
+      this._halfOpenProbeInFlight = false;
       this._successCount++;
       if (this._successCount >= this._successThreshold) {
         this._state = STATE_CLOSED;
@@ -91,6 +98,7 @@ class CircuitBreaker {
 
     if (this._state === STATE_HALF_OPEN) {
       // Any failure in half-open re-opens the circuit
+      this._halfOpenProbeInFlight = false;
       this._state = STATE_OPEN;
       this._totalTrips++;
       this._successCount = 0;
@@ -107,14 +115,6 @@ class CircuitBreaker {
    * @returns {string} STATE_CLOSED, STATE_OPEN, or STATE_HALF_OPEN
    */
   getState() {
-    // Check if an OPEN circuit should transition to HALF_OPEN
-    if (this._state === STATE_OPEN) {
-      const elapsed = Date.now() - this._lastFailureTime;
-      if (elapsed >= this._resetTimeoutMs) {
-        this._state = STATE_HALF_OPEN;
-        this._successCount = 0;
-      }
-    }
     return this._state;
   }
 
@@ -141,6 +141,7 @@ class CircuitBreaker {
     this._failureCount = 0;
     this._successCount = 0;
     this._lastFailureTime = 0;
+    this._halfOpenProbeInFlight = false;
   }
 }
 

@@ -80,6 +80,9 @@ class FrameworkGovernor {
    * @returns {Promise<object>} Advisory result with recommendations, topDecision, shouldProceed, alternatives
    */
   async preCheck(intent, entityType) {
+    if (intent == null || typeof intent !== 'string') {
+      throw new Error('[IDS-Governor] preCheck requires a string intent parameter');
+    }
     return this._withTimeout(async () => {
       const context = {};
       if (entityType) {
@@ -140,6 +143,9 @@ class FrameworkGovernor {
    * @returns {Promise<object>} Impact report with directConsumers, indirectConsumers, riskLevel
    */
   async impactAnalysis(entityId) {
+    if (!entityId || typeof entityId !== 'string') {
+      throw new Error('[IDS-Governor] impactAnalysis requires a non-empty entityId string');
+    }
     return this._withTimeout(async () => {
       this._loader._ensureLoaded();
 
@@ -231,6 +237,9 @@ class FrameworkGovernor {
    * @returns {Promise<object>} Registration result
    */
   async postRegister(filePath, metadata = {}) {
+    if (!filePath || typeof filePath !== 'string') {
+      throw new Error('[IDS-Governor] postRegister requires a non-empty filePath string');
+    }
     return this._withTimeout(async () => {
       const task = {
         id: metadata.taskId || 'framework-governor-register',

@@ -204,10 +204,16 @@ describe('CircuitBreaker', () => {
       cb.recordFailure();
       cb.recordFailure();
       await new Promise((resolve) => setTimeout(resolve, 150));
-      cb.isAllowed(); // Triggers transition to HALF_OPEN
+      cb.isAllowed(); // Triggers transition to HALF_OPEN (first probe)
     });
 
-    it('allows probe request', () => {
+    it('blocks additional requests while probe is in-flight', () => {
+      // First probe was consumed by isAllowed() in beforeEach
+      expect(cb.isAllowed()).toBe(false);
+    });
+
+    it('allows new probe after success resets in-flight flag', () => {
+      cb.recordSuccess(); // Clears in-flight flag
       expect(cb.isAllowed()).toBe(true);
     });
 

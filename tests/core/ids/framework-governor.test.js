@@ -156,6 +156,22 @@ describe('FrameworkGovernor', () => {
     });
   });
 
+  // ─── preCheck input validation ──────────────────────────────────────────
+
+  describe('preCheck() input validation', () => {
+    it('should throw on null intent', async () => {
+      await expect(governor.preCheck(null)).rejects.toThrow('[IDS-Governor] preCheck requires a string intent parameter');
+    });
+
+    it('should throw on undefined intent', async () => {
+      await expect(governor.preCheck(undefined)).rejects.toThrow('[IDS-Governor] preCheck requires a string intent parameter');
+    });
+
+    it('should throw on numeric intent', async () => {
+      await expect(governor.preCheck(123)).rejects.toThrow('[IDS-Governor] preCheck requires a string intent parameter');
+    });
+  });
+
   // ─── preCheck with empty registry ────────────────────────────────────────
 
   describe('preCheck() with empty registry', () => {
@@ -168,6 +184,18 @@ describe('FrameworkGovernor', () => {
       const result = await emptyGov.preCheck('validate yaml', 'task');
       expect(result.topDecision).toBe('CREATE');
       expect(result.matchesFound).toBe(0);
+    });
+  });
+
+  // ─── impactAnalysis input validation ────────────────────────────────────
+
+  describe('impactAnalysis() input validation', () => {
+    it('should throw on null entityId', async () => {
+      await expect(governor.impactAnalysis(null)).rejects.toThrow('[IDS-Governor] impactAnalysis requires a non-empty entityId string');
+    });
+
+    it('should throw on empty entityId', async () => {
+      await expect(governor.impactAnalysis('')).rejects.toThrow('[IDS-Governor] impactAnalysis requires a non-empty entityId string');
     });
   });
 
@@ -225,6 +253,18 @@ describe('FrameworkGovernor', () => {
     it('should include dependencies list', async () => {
       const result = await governor.impactAnalysis('create-doc');
       expect(Array.isArray(result.dependencies)).toBe(true);
+    });
+  });
+
+  // ─── postRegister input validation ──────────────────────────────────────
+
+  describe('postRegister() input validation', () => {
+    it('should throw on null filePath', async () => {
+      await expect(governor.postRegister(null)).rejects.toThrow('[IDS-Governor] postRegister requires a non-empty filePath string');
+    });
+
+    it('should throw on empty filePath', async () => {
+      await expect(governor.postRegister('')).rejects.toThrow('[IDS-Governor] postRegister requires a non-empty filePath string');
     });
   });
 

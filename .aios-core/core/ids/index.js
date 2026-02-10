@@ -37,18 +37,30 @@ const {
   BACKUP_DIR,
 } = require('./registry-updater');
 
-// IDS-4a: Self-Healing Registry (Data Integrity)
-const {
-  RegistryHealer,
-  HEALING_RULES,
-  HEALING_LOG_PATH,
-  HEALING_BACKUP_DIR,
-  MAX_BACKUPS,
-  STALE_DAYS_THRESHOLD,
-  SEVERITY_ORDER,
-  daysSince,
-  buildEntityIndex,
-} = require('./registry-healer');
+// IDS-4a: Self-Healing Registry (Data Integrity) — optional, matches framework-governor.js pattern
+let RegistryHealer = null;
+let HEALING_RULES = [];
+let HEALING_LOG_PATH = '';
+let HEALING_BACKUP_DIR = '';
+let MAX_BACKUPS = 5;
+let STALE_DAYS_THRESHOLD = 30;
+let SEVERITY_ORDER = [];
+let daysSince = () => 0;
+let buildEntityIndex = () => ({});
+try {
+  const healer = require('./registry-healer');
+  RegistryHealer = healer.RegistryHealer;
+  HEALING_RULES = healer.HEALING_RULES;
+  HEALING_LOG_PATH = healer.HEALING_LOG_PATH;
+  HEALING_BACKUP_DIR = healer.HEALING_BACKUP_DIR;
+  MAX_BACKUPS = healer.MAX_BACKUPS;
+  STALE_DAYS_THRESHOLD = healer.STALE_DAYS_THRESHOLD;
+  SEVERITY_ORDER = healer.SEVERITY_ORDER;
+  daysSince = healer.daysSince;
+  buildEntityIndex = healer.buildEntityIndex;
+} catch (_err) {
+  // RegistryHealer not available — barrel works without it
+}
 
 // IDS-5a: Verification Gate Engine
 const {

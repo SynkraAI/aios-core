@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-10T15:47:28.734Z"
+generated_at: "2026-02-10T15:57:15.324Z"
 generator: scripts/generate-install-manifest.js
 file_count: 953
 files:
@@ -505,13 +505,13 @@ files:
     type: core
     size: 22865
   - path: core/ids/circuit-breaker.js
-    hash: sha256:2cfd336f3ff8e79873b3f5a48fd6b142beb32fe48e50bfb21f59c3f9ad995018
+    hash: sha256:1b35331ba71a6ce17869bab255e087fc540291243f9884fc21ed89f7efc122a4
     type: core
-    size: 4159
+    size: 4235
   - path: core/ids/framework-governor.js
-    hash: sha256:a1e2d3ef9b4f162c3ede4ac82f1deed22913a9933072aa9b59e9af605823cdd1
+    hash: sha256:e72741b1aff1975bb13e03ab36f86b0193cd745c488dc024a181c938cb74a859
     type: core
-    size: 17598
+    size: 18047
   - path: core/ids/gates/g1-epic-creation.js
     hash: sha256:ba7c342b176f38f2c80cb141fe820b9a963a1966e33fef3a4ec568363b011c5f
     type: core
@@ -533,9 +533,9 @@ files:
     type: core
     size: 21404
   - path: core/ids/index.js
-    hash: sha256:d62cf112c396f52db5584ef976b6a65e2a403a25c277ba6b1f29eb84eb519bd3
+    hash: sha256:89969400668078caea7398b0d7218f3f2fab2e996c05b6361e5618da2b9262d2
     type: core
-    size: 3015
+    size: 3624
   - path: core/ids/README.md
     hash: sha256:1599b5be7d5a72431c10cb137087b3886e1190abfd06a658d676f1f0c284c89d
     type: core
