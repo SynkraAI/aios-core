@@ -51,13 +51,16 @@ class HotmartAPI:
         logger.info("Found %d courses with Club access", len(courses))
         return courses
 
-    def get_course_navigation(self, subdomain: str) -> Course:
+    def get_course_navigation(
+        self, subdomain: str, product_id: str | None = None,
+    ) -> Course:
         """Fetch the full course structure (modules + lessons).
 
-        Requires the product ID which is resolved from the subdomain
-        via the purchase list if not already cached.
+        When *product_id* is supplied it is used directly, skipping the
+        (potentially ambiguous) subdomain→product resolution.
         """
-        product_id = self._resolve_product_id(subdomain)
+        if product_id is None:
+            product_id = self._resolve_product_id(subdomain)
         self.client.set_club_headers(subdomain, product_id)
 
         url = f"{CLUB_GATEWAY_BASE}/v1/navigation"
@@ -106,9 +109,13 @@ class HotmartAPI:
         )
         return course
 
-    def get_lesson_page(self, subdomain: str, lesson_hash: str) -> dict:
+    def get_lesson_page(
+        self, subdomain: str, lesson_hash: str,
+        product_id: str | None = None,
+    ) -> dict:
         """Fetch the content of a specific lesson."""
-        product_id = self._resolve_product_id(subdomain)
+        if product_id is None:
+            product_id = self._resolve_product_id(subdomain)
         self.client.set_club_headers(subdomain, product_id)
 
         url = f"{CLUB_GATEWAY_BASE}/v2/web/lessons/{lesson_hash}"

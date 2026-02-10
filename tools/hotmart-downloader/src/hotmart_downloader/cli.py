@@ -147,6 +147,10 @@ def download(
         str | None,
         typer.Option("-c", "--course", help="Course subdomain"),
     ] = None,
+    product_id: Annotated[
+        str | None,
+        typer.Option("-p", "--product-id", help="Product ID (skip disambiguation)"),
+    ] = None,
     quality: Annotated[
         str | None,
         typer.Option("-q", "--quality", help="Video quality"),
@@ -196,17 +200,18 @@ def download(
             api = HotmartAPI(client)
 
             # Select course and resolve product_id
-            product_id: str | None = None
+            pid: str | None = product_id
             if course:
                 subdomain = course
-                # Disambiguate when subdomain has multiple courses
-                course_list = api.list_courses()
-                matching = [c for c in course_list if c.subdomain == subdomain]
-                if len(matching) > 1:
-                    sel = ui.prompt_course_disambiguation(matching)
-                    product_id = sel.resource_id
-                elif len(matching) == 1:
-                    product_id = matching[0].resource_id
+                if not pid:
+                    # Disambiguate when subdomain has multiple courses
+                    course_list = api.list_courses()
+                    matching = [c for c in course_list if c.subdomain == subdomain]
+                    if len(matching) > 1:
+                        sel = ui.prompt_course_disambiguation(matching)
+                        pid = sel.resource_id
+                    elif len(matching) == 1:
+                        pid = matching[0].resource_id
             else:
                 ui.print_info("Fetching courses...")
                 course_list = api.list_courses()
@@ -215,11 +220,11 @@ def download(
                     raise typer.Exit(0)
                 selected = ui.prompt_course_selection(course_list)
                 subdomain = selected.subdomain
-                product_id = selected.resource_id
+                pid = selected.resource_id
 
             # Fetch course structure
             ui.print_info(f"Fetching structure for '{subdomain}'...")
-            course_data = api.get_course_navigation(subdomain, product_id=product_id)
+            course_data = api.get_course_navigation(subdomain, product_id=pid)
 
             # Filter modules if requested
             if module is not None:

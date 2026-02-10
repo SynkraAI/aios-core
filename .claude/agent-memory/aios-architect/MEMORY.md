@@ -36,6 +36,16 @@
 - Post-commit hook: `.aios-core/infrastructure/scripts/git-hooks/post-commit.js` + `.husky/post-commit`
 - Validate agents task: `.aios-core/development/tasks/validate-agents.md`
 
+## Video Media Content Downloader Architecture (2026-02-10)
+- Analyzed 5 options (A-E) for context window overflow problem
+- Recommended: Option D+ (Hybrid CLI + Lightweight Skill with Chunking)
+- Key insight: Chunking transcriptions into ~3k-word chunks keeps context at ~7k tokens vs 33k+
+- CLI tool at `tools/video-downloader/` (Python, Typer, pattern from hotmart-downloader)
+- Skill reduced from 970 lines to ~80 lines, lazy-loads one template at a time
+- CLI produces manifest.json + chunk files; skill reads manifest then iterates chunks
+- 3-phase migration: CLI Core > Skill Rewrite > Refinement (topic detection, batch resume)
+- Existing scripts (transcribe_mps.py, clean_transcription.py) become CLI modules, not duplicated
+
 ## Pre-existing Test Failures (not EPIC-ACT related)
 - squads/mmos-squad/ (6 suites): missing clickup module
 - tests/core/orchestration/ (2 suites): greenfield-handler, terminal-spawner

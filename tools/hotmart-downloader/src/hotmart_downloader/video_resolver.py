@@ -83,6 +83,7 @@ class VideoResolver:
         product_id: str,
         lesson_hash: str,
         media_code: str = "",
+        _retried: bool = False,
     ) -> ResolvedMedia:
         """Resolve a lesson's embed video to m3u8 stream URLs.
 
@@ -98,18 +99,35 @@ class VideoResolver:
         self._ensure_browser()
         self._ensure_authenticated()
         self._ensure_club_context(subdomain)
-        return self._navigate_and_capture(
-            subdomain, product_id, lesson_hash, media_code
-        )
+        try:
+            return self._navigate_and_capture(
+                subdomain, product_id, lesson_hash, media_code
+            )
+        except Exception as e:
+            if _retried:
+                raise
+            logger.warning("Capture failed (%s), recovering browser...", e)
+            self.close()
+            return self.resolve(
+                subdomain, product_id, lesson_hash, media_code,
+                _retried=True,
+            )
 
     # ------------------------------------------------------------------
     # Browser lifecycle
     # ------------------------------------------------------------------
 
     def _ensure_browser(self) -> None:
-        """Launch browser if not already running."""
+        """Launch browser if not already running (or recover if dead)."""
         if self._browser is not None:
-            return
+            # Health check: verify the browser is still responsive
+            try:
+                self._page.evaluate("1+1")
+                return
+            except Exception:
+                logger.warning("Browser is dead, relaunching...")
+                self.close()
+        # (re)launch below
 
         try:
             from playwright.sync_api import sync_playwright
@@ -308,6 +326,9 @@ class VideoResolver:
                 lesson_url, wait_until="domcontentloaded", timeout=30000
             )
         except Exception as e:
+            err_msg = str(e)
+            if "has been closed" in err_msg or "Target closed" in err_msg:
+                raise  # let resolve() retry with fresh browser
             logger.warning("Navigation timeout (continuing): %s", e)
 
         # Wait for the SPA + embed iframe to fully load (critical for
