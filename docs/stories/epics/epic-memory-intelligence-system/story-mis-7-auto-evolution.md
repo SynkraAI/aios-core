@@ -18,7 +18,7 @@ quality_gate_tools: ["Architecture review of evolution pattern", "Constitution A
 
 **As an** AIOS user working across multiple sessions,
 **I want** the system to automatically propose improvements to CLAUDE.md, rules, and agent configs based on accumulated evidence from the Self-Learning Engine,
-**so that** my development environment evolves and improves over time without manual configuration, while always keeping me in control of what changes are applied.
+**so that** my development environment evolves and improves over time without manual configuration, while I retain control over what changes are applied.
 
 ---
 
@@ -37,7 +37,7 @@ quality_gate_tools: ["Architecture review of evolution pattern", "Constitution A
    - `add_to_agent_config` - Proposes updating an agent's configuration or memory
    - `create_gotcha` - Proposes promoting a pattern to a permanent gotcha warning
    - Each type includes: target file path, proposed content, insertion point (section/location)
-   - Validation: proposed content is well-formed for target format (markdown, yaml, json)
+   - Validation: proposed content is well-formed for target format (Markdown, YAML, JSON)
 
 3. **Proposal Presentation** - Proposals formatted for clear user review
    - Each proposal includes: title, summary, evidence trail, confidence score, proposed diff
@@ -768,6 +768,7 @@ async _applyModification(proposal) {
 - These match our RuleProposer defaults
 
 **`_determineProposedAction` mapping** (line 818-831):
+
 | entry.type | proposed_action |
 |-----------|----------------|
 | `user-correction` | `add_to_claude_md` |
@@ -777,6 +778,7 @@ async _applyModification(proposal) {
 | default | `add_to_claude_md` |
 
 **`_determineProposedTarget` mapping** (line 840-852):
+
 | proposed_action | proposed_target (from MIS-5) | RuleProposer override |
 |----------------|------------------------------|----------------------|
 | `add_to_claude_md` | `MEMORY.md` | `.claude/CLAUDE.md` |
@@ -824,7 +826,7 @@ RuleProposer.applyProposal() → backup → modify → log
 
 RuleProposer correctly completes the Camada 4 (Evolution Layer) progression:
 
-```
+```text
 memory-index.js (MIS-1) → memory-retriever.js (MIS-4) → memory-loader.js (MIS-6)
 self-learner.js (MIS-5) → rule-proposer.js (MIS-7)
 ```
@@ -875,7 +877,7 @@ Separation of concerns is correct: MIS-5 owns "what type", MIS-7 owns "where exa
 
 ### 6. State Machine Correctness
 
-```
+```text
 PENDING → APPROVED → ROLLED_BACK
 PENDING → REJECTED
 PENDING → DEFERRED (re-generatable in future session)
