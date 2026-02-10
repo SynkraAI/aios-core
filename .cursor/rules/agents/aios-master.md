@@ -38,6 +38,10 @@
 - `*correct-course` - Analyze and correct process/quality deviations
 - `*index-docs` - Index documentation for search
 - `*update-source-tree` - Validate data file governance (owners, fill rules, existence)
+- `*ids query` - Query Entity Registry for REUSE/ADAPT/CREATE recommendations
+- `*ids health` - Registry health check (graceful fallback if RegistryHealer unavailable)
+- `*ids stats` - Registry statistics (entity count by type, categories, health score)
+- `*ids impact` - Full usedBy/dependencies impact analysis with direct and indirect consumers
 
 ## Collaboration
 
