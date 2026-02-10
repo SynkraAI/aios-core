@@ -285,6 +285,7 @@ describe('Terminal Spawner (Story 12.10)', () => {
         delete process.env.TERM_PROGRAM;
         delete process.env.VSCODE_PID;
         delete process.env.VSCODE_CWD;
+        delete process.env.VSCODE_GIT_IPC_HANDLE;
 
         // When
         const result = detectEnvironment();

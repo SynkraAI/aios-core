@@ -153,7 +153,8 @@ describe('GreenfieldHandler', () => {
 
     test('should return false when docs/ exists', () => {
       fs.existsSync.mockImplementation((p) => {
-        return p.endsWith('docs/');
+        // Handle both Unix (docs/) and Windows (docs\) path separators
+        return p.endsWith(`docs${path.sep}`);
       });
       expect(handler.isGreenfield()).toBe(false);
     });
@@ -165,10 +166,13 @@ describe('GreenfieldHandler', () => {
 
     test('should accept custom project path', () => {
       fs.existsSync.mockReturnValue(false);
-      expect(handler.isGreenfield('/custom/path')).toBe(true);
-      expect(fs.existsSync).toHaveBeenCalledWith(
-        expect.stringContaining('/custom/path/'),
-      );
+      const customPath = path.join('/custom', 'path');
+      expect(handler.isGreenfield(customPath)).toBe(true);
+      // Verify existsSync was called with the custom path (platform-agnostic)
+      expect(fs.existsSync).toHaveBeenCalled();
+      const calls = fs.existsSync.mock.calls.map(c => c[0]);
+      const hasCustomPath = calls.some(c => c.includes('custom') && c.includes('path'));
+      expect(hasCustomPath).toBe(true);
     });
 
     test('should use custom indicators when configured', () => {
