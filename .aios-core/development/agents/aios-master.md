@@ -203,16 +203,19 @@ commands:
   # NOTE: AI prompt generation delegated to @architect (*generate-ai-prompt)
 
   # IDS — Incremental Development System (Story IDS-7)
-  - name: ids query
+  - name: ids check
     args: '{intent} [--type {type}]'
-    description: 'Query Entity Registry for REUSE/ADAPT/CREATE recommendations'
+    description: 'Pre-check registry for REUSE/ADAPT/CREATE recommendations (advisory)'
+  - name: ids impact
+    args: '{entity-id}'
+    description: 'Impact analysis — direct/indirect consumers via usedBy BFS traversal'
+  - name: ids register
+    args: '{file-path} [--type {type}] [--agent {agent}]'
+    description: 'Register new entity in registry after creation'
   - name: ids health
     description: 'Registry health check (graceful fallback if RegistryHealer unavailable)'
   - name: ids stats
     description: 'Registry statistics (entity count by type, categories, health score)'
-  - name: ids impact
-    args: '{entity-id}'
-    description: 'Full usedBy/dependencies impact analysis with direct and indirect consumers'
 
 # IDS Pre-Action Hooks (Story IDS-7)
 # These hooks run BEFORE *create and *modify commands as advisory (non-blocking) steps.
@@ -356,10 +359,11 @@ autoClaude:
 
 **IDS — Incremental Development System:**
 
-- `*ids query {intent}` - Query registry for REUSE/ADAPT/CREATE recommendations
+- `*ids check {intent}` - Pre-check registry for REUSE/ADAPT/CREATE (advisory)
+- `*ids impact {entity-id}` - Impact analysis (direct/indirect consumers)
+- `*ids register {file-path}` - Register new entity after creation
 - `*ids health` - Registry health check
 - `*ids stats` - Registry statistics (entity counts, health score)
-- `*ids impact {entity-id}` - Impact analysis for modifications
 
 **Delegated Commands:**
 
@@ -419,7 +423,7 @@ Type `*help` to see all commands, or `*kb` to enable KB mode.
 ### Typical Workflow
 
 1. **Framework dev** → `*create-agent`, `*create-task`, `*create-workflow`
-2. **IDS check** → Before creating, `*ids query {intent}` checks for existing artifacts
+2. **IDS check** → Before creating, `*ids check {intent}` checks for existing artifacts
 3. **Task execution** → `*task {task}` to run any task directly
 4. **Workflow** → `*workflow {name}` for multi-step processes
 5. **Planning** → `*plan` before complex operations

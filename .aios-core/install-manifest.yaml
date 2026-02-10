@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-10T15:57:15.324Z"
+generated_at: "2026-02-10T16:03:58.959Z"
 generator: scripts/generate-install-manifest.js
 file_count: 953
 files:
@@ -881,7 +881,7 @@ files:
     type: data
     size: 34868
   - path: data/entity-registry.yaml
-    hash: sha256:67f48702d304a607a8fa71333e091e99de43079859ec3d8b13ce433523782c6c
+    hash: sha256:42e928ecdf40cd5806dfc82363684ab36b4928651b4496e8cb938e38bb77437b
     type: data
     size: 277053
   - path: data/learned-patterns.yaml
@@ -929,9 +929,9 @@ files:
     type: development
     size: 5012
   - path: development/agents/aios-master.md
-    hash: sha256:e36939819dc81bcd0dade9912fc9ab8ac6036f46b0aea5dedf805884dd42a530
+    hash: sha256:538fff4398eba7c2492b446fce3a1d9115e5f1c6f494f0c3b45a991526c2295a
     type: agent
-    size: 17308
+    size: 17534
   - path: development/agents/analyst.md
     hash: sha256:470384d9ee05d1373fe7519602f135179a88a35895252277823b35339dafd2a3
     type: agent
