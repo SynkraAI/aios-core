@@ -1,7 +1,7 @@
 # Epic MIS: Memory Intelligence System
 
 **Epic ID:** EPIC-MIS
-**Status:** Implementation In Progress (5/7 stories done)
+**Status:** Implementation In Progress (6/7 stories done)
 **Created:** 2026-02-09
 **Author:** @architect (Aria)
 **Related Guides:**
@@ -47,9 +47,9 @@ Implement a **Memory Intelligence System (MIS)** that:
 | [MIS-2](story-mis-2-dead-code-cleanup.md) | Dead Code Cleanup & Path Repair | High | Low | **aios-core** | 4h | ✅ Done |
 | [MIS-3](story-mis-3-session-digest.md) | Session Digest (PreCompact Hook) | Critical | High | **aios-core** (hook runner) + **aios-pro** (digest) | 14h | ✅ Done |
 | [MIS-4](story-mis-4-progressive-memory-retrieval.md) | Progressive Memory Retrieval | Critical | High | **aios-pro** | 16h | ✅ Done |
-| [MIS-5](story-mis-5-self-learning-engine.md) | Self-Learning Engine | High | High | **aios-pro** | 14h | InReview |
+| [MIS-5](story-mis-5-self-learning-engine.md) | Self-Learning Engine | High | High | **aios-pro** | 14h | ✅ Done |
 | [MIS-6](story-mis-6-pipeline-integration.md) | Pipeline Integration & Agent Memory API | High | Medium | **aios-core** (ext points) + **aios-pro** (loader) | 10h | ✅ Done |
-| MIS-7 | CLAUDE.md & Rules Auto-Evolution | Medium | Medium | **aios-pro** | 8h | Pending |
+| [MIS-7](story-mis-7-auto-evolution.md) | CLAUDE.md & Rules Auto-Evolution | Medium | Medium | **aios-pro** | 8h | Ready |
 
 **Total Estimated:** ~78 hours
 
@@ -157,6 +157,9 @@ See [MIS-1 Investigation](story-mis-1-investigation.md) for complete analysis.
 | 2026-02-10 | MIS-5 | Validated | PO validation passed (9.5/10 score, GO). Improvements: Tasks/Subtasks added (12 tasks), determineTierChange fixed (AC 5 alignment), Self-Healing Config added, Testing section added, memory-loader API referenced. Status Draft -> Ready |
 | 2026-02-10 | MIS-5 | Implemented | @dev completed all 12 ACs: SelfLearner class (680+ lines), 6 components (Correction Tracker, Evidence Accumulator, Confidence Scorer, Tier Promoter, Heuristic Extractor, Gotcha Auto-Promoter), 94 tests (90.2% coverage), feature gate registered, performance targets met. Status Ready -> InReview |
 | 2026-02-10 | MIS-5 | ✅ QA Passed | @qa gate PASS (100/100). 94/94 tests, 90.22% coverage. All 12 ACs traced. 0 CRITICAL/HIGH/MEDIUM. @architect review PASS. Ready for @devops push |
+| 2026-02-10 | MIS-5 | ✅ Completed | PR #111 squash-merged to main (commit eee56343). Pro submodule ff1aa9c. Story closed by @po. Evolution layer complete: Corrections → Evidence → Confidence → Tiers → Heuristics → Gotchas |
+| 2026-02-10 | MIS-7 | 📋 Created | CLAUDE.md & Rules Auto-Evolution - Story drafted by @sm (River). 12 ACs, RuleProposer class, 4 proposal types, user approval gate (Constitution Art. IV), rejection feedback loop. Status: Draft, ready for @po validation |
+| 2026-02-10 | MIS-7 | Validated | PO validation GO (9.5/10). Fixes: lowerConfidence → internal overrides (C1), target path mapping documented (C2), CLI commands removed from ACs (S1), SelfLearner sync lifecycle documented (S2), Dev Notes + self-healing config added. Status Draft → Ready |
 
 ---
 
