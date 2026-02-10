@@ -351,7 +351,7 @@ This is **Story 5 of 7** in the Memory Intelligence System epic:
 
 ### Architecture Diagram
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────┐
 │  SelfLearner (pro/memory/self-learner.js)                       │
 │                                                                   │
@@ -483,7 +483,7 @@ function determineTierChange(memory, newScore) {
 
 ### Data Flow
 
-```
+```text
 1. SelfLearner.run() triggered
    │
 2. Load all digests from .aios/session-digests/
@@ -687,7 +687,7 @@ Self-learner must ONLY extract rules from actual evidence (corrections, patterns
 
 ### 8. Gate Status
 
-```
+```text
 GATE: PASS
 ISSUES: 0 CRITICAL, 0 HIGH, 0 MEDIUM, 4 LOW (non-blocking observations)
 COVERAGE: 90.22% stmts / 100% functions / 91.11% lines
