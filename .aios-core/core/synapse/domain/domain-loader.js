@@ -169,7 +169,7 @@ function loadDomainFile(domainPath) {
   // First pass: detect if file uses KEY=VALUE format
   for (const line of lines) {
     const trimmed = line.trim();
-    if (trimmed && !trimmed.startsWith('#') && /^[A-Z_]+_RULE_\d+=/.test(trimmed)) {
+    if (trimmed && !trimmed.startsWith('#') && /^[A-Z][A-Z0-9_]*=/.test(trimmed)) {
       hasKeyValueFormat = true;
       break;
     }
@@ -185,7 +185,7 @@ function loadDomainFile(domainPath) {
 
     if (hasKeyValueFormat) {
       // KEY=VALUE format: extract value from DOMAIN_RULE_N=text
-      const match = trimmed.match(/^[A-Z_]+_RULE_\d+=(.+)$/);
+      const match = trimmed.match(/^[A-Z][A-Z0-9_]*=(.+)$/);
       if (match) {
         rules.push(match[1].trim());
       }

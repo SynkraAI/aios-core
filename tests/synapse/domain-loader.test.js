@@ -300,6 +300,92 @@ describe('loadDomainFile', () => {
     // Then: empty array
     expect(rules).toEqual([]);
   });
+
+  test('should extract AUTH and RULE entries from agent domain files', () => {
+    // Given: agent domain file with AUTH + RULE keys
+    const domainPath = path.join(tempDir, 'agent-devops');
+    fs.writeFileSync(domainPath, [
+      '# Agent devops domain',
+      'AGENT_DEVOPS_AUTH_0=EXCLUSIVE: git push',
+      'AGENT_DEVOPS_AUTH_1=EXCLUSIVE: gh pr create',
+      'AGENT_DEVOPS_RULE_0=Run pre-push quality gates',
+      'AGENT_DEVOPS_RULE_1=Confirm version bump with user',
+    ].join('\n'));
+
+    // When: loading the domain file
+    const rules = loadDomainFile(domainPath);
+
+    // Then: both AUTH and RULE values are extracted
+    expect(rules).toEqual([
+      'EXCLUSIVE: git push',
+      'EXCLUSIVE: gh pr create',
+      'Run pre-push quality gates',
+      'Confirm version bump with user',
+    ]);
+  });
+
+  test('should extract values from context bracket keys (RULE_BRACKET_N)', () => {
+    // Given: context domain file with bracket-level keys
+    const domainPath = path.join(tempDir, 'context');
+    fs.writeFileSync(domainPath, [
+      '# Context brackets',
+      'CONTEXT_RULE_FRESH_0=Context is fresh',
+      'CONTEXT_RULE_MODERATE_0=Standard context level',
+      'CONTEXT_RULE_CRITICAL_0=Context nearly exhausted',
+    ].join('\n'));
+
+    // When: loading the domain file
+    const rules = loadDomainFile(domainPath);
+
+    // Then: values extracted from all bracket-level keys
+    expect(rules).toEqual([
+      'Context is fresh',
+      'Standard context level',
+      'Context nearly exhausted',
+    ]);
+  });
+
+  test('should extract values from constitution keys (RULE_ARTN_M)', () => {
+    // Given: constitution domain file with article-numbered keys
+    const domainPath = path.join(tempDir, 'constitution');
+    fs.writeFileSync(domainPath, [
+      '# Constitution',
+      'CONSTITUTION_RULE_ART1_0=CLI First (NON-NEGOTIABLE)',
+      'CONSTITUTION_RULE_ART1_1=MUST: All functionality works via CLI first',
+      'CONSTITUTION_RULE_ART6_0=Absolute Imports (SHOULD)',
+    ].join('\n'));
+
+    // When: loading the domain file
+    const rules = loadDomainFile(domainPath);
+
+    // Then: values extracted from article-numbered keys
+    expect(rules).toEqual([
+      'CLI First (NON-NEGOTIABLE)',
+      'MUST: All functionality works via CLI first',
+      'Absolute Imports (SHOULD)',
+    ]);
+  });
+
+  test('should extract values from commands keys (RULE_COMMAND_N)', () => {
+    // Given: commands domain file with command-category keys
+    const domainPath = path.join(tempDir, 'commands');
+    fs.writeFileSync(domainPath, [
+      '# Commands',
+      'COMMANDS_RULE_BRIEF_0=Use bullet points only',
+      'COMMANDS_RULE_DEV_0=Code over explanation',
+      'COMMANDS_RULE_SYNAPSE_STATUS_0=Display current SYNAPSE state',
+    ].join('\n'));
+
+    // When: loading the domain file
+    const rules = loadDomainFile(domainPath);
+
+    // Then: values extracted from command-category keys
+    expect(rules).toEqual([
+      'Use bullet points only',
+      'Code over explanation',
+      'Display current SYNAPSE state',
+    ]);
+  });
 });
 
 describe('isExcluded', () => {
