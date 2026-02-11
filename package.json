@@ -13,15 +13,11 @@
   ],
   "files": [
     "bin/",
-    "src/",
     "scripts/",
     "packages/",
-    "tools/",
-    "templates/",
     ".aios-core/",
     ".claude/CLAUDE.md",
     ".claude/rules/",
-    "squads/",
     "README.md",
     "LICENSE"
   ],

@@ -7,12 +7,15 @@ module.exports = {
     '**/tests/**/*.test.js',
     '**/tests/**/*.spec.js',
     '**/.aios-core/**/__tests__/**/*.test.js',
-    '**/pro/**/__tests__/**/*.test.js', // aios-pro tests (MIS-4)
+    // Pro tests run via pro-integration.yml CI workflow (not in local npm test)
+    // '**/pro/**/__tests__/**/*.test.js',
   ],
 
   // Ignore patterns - exclude incompatible test frameworks
   testPathIgnorePatterns: [
     '/node_modules/',
+    // Pro submodule tests — run via pro-integration.yml CI workflow, not local npm test
+    'pro/',
     // Playwright e2e tests (use ESM imports, run with Playwright not Jest)
     'tools/quality-dashboard/tests/e2e/',
     // Windows-specific tests (only run on Windows CI)
