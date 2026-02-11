@@ -71,9 +71,9 @@ function delegateToAios(subcommand) {
     process.exit(1);
   }
 
-  const proArgs = args.slice(1).join(' ');
-  const exitCode = run(`${aios} pro ${subcommand} ${proArgs}`);
-  process.exit(exitCode || 0);
+  const spawnArgs = ['pro', subcommand, ...args.slice(1)];
+  const result = spawnSync(aios, spawnArgs, { stdio: 'inherit' });
+  process.exit(result.status ?? 0);
 }
 
 // ─── Commands ───────────────────────────────────────────────────────────────

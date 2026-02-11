@@ -45,7 +45,7 @@ npx aios-pro status
 - Node.js >= 18
 - `aios-core` >= 4.0.0 instalado no projeto
 
-### Step 1: Instalar AIOS Pro
+### Passo 1: Instalar AIOS Pro
 
 ```bash
 npx aios-pro install
@@ -59,7 +59,7 @@ Isso executa `npm install @aios-fullstack/pro` no seu projeto.
 npm install @aios-fullstack/pro
 ```
 
-### Step 2: Ativar Licenca
+### Passo 2: Ativar Licenca
 
 Apos a compra, voce recebera uma chave no formato `PRO-XXXX-XXXX-XXXX-XXXX`.
 
@@ -72,7 +72,7 @@ Esse comando:
 2. Registra sua maquina (machine ID unico)
 3. Salva um cache local criptografado para uso offline
 
-### Step 3: Verificar
+### Passo 3: Verificar
 
 ```bash
 # Status da licenca

@@ -82,8 +82,10 @@ jobs:
 
       - name: Update version from tag
         if: startsWith(github.ref, 'refs/tags/pro-v')
+        env:
+          TAG_NAME: ${{ github.ref_name }}
         run: |
-          VERSION=$(echo ${{ github.ref_name }} | sed 's/pro-v//')
+          VERSION=$(echo "$TAG_NAME" | sed 's/^pro-v//')
           cd pro
           npm version $VERSION --no-git-tag-version
 
