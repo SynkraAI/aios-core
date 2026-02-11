@@ -51,6 +51,18 @@
 - Bundled scripts should be REMOVED; CLI is canonical implementation
 - Text size gates: <5k direct, 5-15k cautious, 15-30k chunked, >30k CLI-assisted
 
+## Master Prompt Best Practices Research (2026-02-10)
+- Full research document: `docs/architecture/master-prompt-best-practices.md`
+- Key insight (Anthropic): "Intelligence is not the bottleneck, context is"
+- Goldilocks zone: not over-specified (brittle if-else) nor under-specified (vague)
+- Claude 4.6 change: CRITICAL/MUST/NEVER language now causes over-triggering; use natural language
+- AIOS strengths: numbered options, elicit=true, persona profiles, dependency loading, permission modes
+- AIOS gaps: aggressive language, no context rot prevention, no NOTES.md pattern, prompts too long
+- Persona research: effective for creative tasks, ineffective for factual accuracy tasks
+- 3 requirements for good personas: Specific + Detailed + Automated
+- Context rot has 4 forms: Poisoning, Distraction, Confusion, Clash
+- Top recommendations: R1-audit aggressive language, R4-separate core from modules, R5-NOTES.md pattern
+
 ## Pre-existing Test Failures (not EPIC-ACT related)
 - squads/mmos-squad/ (6 suites): missing clickup module
 - tests/core/orchestration/ (2 suites): greenfield-handler, terminal-spawner

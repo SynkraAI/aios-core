@@ -59,6 +59,17 @@
 
 ## Notas Recentes
 <!-- Ultimas descobertas e observacoes -->
+- [2026-02-10] prompt-architect agent criado - single agent (NAO squad) para system prompt engineering
+  - Agent: .aios-core/development/agents/prompt-architect.md (342 lines)
+  - Persona: Silo (Craftsperson), tone: analytical, emoji: minimal
+  - 4 modes: *convert (GPT->Claude), *create, *audit (10 dims + AP scan), *iterate
+  - 4 tasks em tasks/prompt-architect/ (convert, create, audit, iterate)
+  - 2 checklists em checklists/prompt-architect/ (quality 12-item, conversion 12-item)
+  - Memory: .claude/agent-memory/prompt-architect/MEMORY.md
+  - Referencia: docs/architecture/master-prompt-best-practices.md (663 lines, 9 sections)
+  - Referencia: .claude/commands/AIOS/skills/system-prompt-architect/references/gpt-to-claude-patterns.md (9 patterns)
+  - SKILL.md existente NAO foi modificado (continua como slash command)
+  - Total: 7 files criados, 1325 lines
 - [2026-02-10] mind-content-updater squad criado - companion do mmos-squad para automatizar coleta de fontes
   - Estrutura: agents/mind-content-updater.md, 5 tasks, 3 templates, 1 workflow, 2 configs
   - Integra com: Exa MCP, WebSearch, WebFetch, video-transcriber tool
