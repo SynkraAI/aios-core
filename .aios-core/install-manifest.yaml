@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-11T13:21:55.149Z"
+generated_at: "2026-02-11T13:23:41.467Z"
 generator: scripts/generate-install-manifest.js
-file_count: 968
+file_count: 962
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -856,10 +856,6 @@ files:
     hash: sha256:30f7a1810b0bf931efa95e819e26baa4f995b847cc4f4488be1532355b63930a
     type: core
     size: 8124
-  - path: core/synapse/engine.js
-    hash: sha256:daf190211674071090e76bd65c8c1bde16cecd2b525b8291054938f1919b0084
-    type: core
-    size: 9393
   - path: core/synapse/layers/l0-constitution.js
     hash: sha256:2123a6a44915aaac2a6bbd26c67c285c9d1e12b50fe42a8ada668306b07d1c4a
     type: core
@@ -876,30 +872,10 @@ files:
     hash: sha256:496cbd71d7dac9c1daa534ffac45c622d0c032f334fedf493e9322a565b2b181
     type: core
     size: 2782
-  - path: core/synapse/layers/l4-task.js
-    hash: sha256:30df70c04b16e3aff95899211ef6ae3d9f0a8097ebdc7de92599fc6cb792e5f0
-    type: core
-    size: 2140
-  - path: core/synapse/layers/l5-squad.js
-    hash: sha256:c77f16b690cd52c92401f9caa1dc0d958386d70c21fb449fc11ae47279ae6ec2
-    type: core
-    size: 7406
-  - path: core/synapse/layers/l6-keyword.js
-    hash: sha256:8e5405999a2ce2f3ca4e62e863cf702ba27448914241f5eb8f02760bc7477523
-    type: core
-    size: 4513
-  - path: core/synapse/layers/l7-star-command.js
-    hash: sha256:3b8372ac1c51830c1ef560b1012b112a3559651b0750e42f2037f7fe9e6787d6
-    type: core
-    size: 4672
   - path: core/synapse/layers/layer-processor.js
     hash: sha256:73cb0e5b4bada80d8e256009004679e483792077fac4358c6466cd77136f79fa
     type: core
     size: 2881
-  - path: core/synapse/output/formatter.js
-    hash: sha256:b29c7be4f3806a1234ed58ea1bb7ca66bfbb1417445f016b96a78bc332e72f6e
-    type: core
-    size: 15688
   - path: core/synapse/session/session-manager.js
     hash: sha256:6127c2ef1c6db83cfd5796443789964a8da72635b23b367fb351592c070d05dd
     type: core
@@ -941,9 +917,9 @@ files:
     type: data
     size: 34868
   - path: data/entity-registry.yaml
-    hash: sha256:decaec05f5d890f43459b638e4519cf114c3bc4ca252964fef9869e14f126960
+    hash: sha256:3a2e08c260f59b2ca6da398ed94a86ff10326e969655d9356314585e93a04702
     type: data
-    size: 280237
+    size: 277558
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
