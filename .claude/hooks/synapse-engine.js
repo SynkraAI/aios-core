@@ -29,6 +29,7 @@ function readStdin() {
   return new Promise((resolve, reject) => {
     let data = '';
     process.stdin.setEncoding('utf8');
+    process.stdin.on('error', (e) => reject(e));
     process.stdin.on('data', (chunk) => { data += chunk; });
     process.stdin.on('end', () => {
       try { resolve(JSON.parse(data)); }
@@ -41,6 +42,7 @@ function readStdin() {
 async function main() {
   const input = await readStdin();
   const { sessionId, cwd, prompt } = input;
+  if (!cwd) return;
   const synapsePath = path.join(cwd, '.synapse');
   if (!fs.existsSync(synapsePath)) return;
 

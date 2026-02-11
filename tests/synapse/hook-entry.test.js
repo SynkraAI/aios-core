@@ -467,20 +467,21 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.js)', () => {
     });
 
     test('readStdin rejects on invalid JSON from stream', async () => {
-      // Create a mock readable stream
       const { Readable } = require('stream');
       const originalStdin = process.stdin;
 
       const mockStdin = new Readable({ read() {} });
       Object.defineProperty(process, 'stdin', { value: mockStdin, writable: true });
 
-      const promise = hookModule.readStdin();
-      mockStdin.push('not json');
-      mockStdin.push(null); // end
+      try {
+        const promise = hookModule.readStdin();
+        mockStdin.push('not json');
+        mockStdin.push(null);
 
-      await expect(promise).rejects.toThrow();
-
-      Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
+        await expect(promise).rejects.toThrow();
+      } finally {
+        Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
+      }
     });
 
     test('readStdin resolves valid JSON from stream', async () => {
@@ -490,14 +491,16 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.js)', () => {
       const mockStdin = new Readable({ read() {} });
       Object.defineProperty(process, 'stdin', { value: mockStdin, writable: true });
 
-      const promise = hookModule.readStdin();
-      mockStdin.push('{"hello":"world"}');
-      mockStdin.push(null);
+      try {
+        const promise = hookModule.readStdin();
+        mockStdin.push('{"hello":"world"}');
+        mockStdin.push(null);
 
-      const result = await promise;
-      expect(result).toEqual({ hello: 'world' });
-
-      Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
+        const result = await promise;
+        expect(result).toEqual({ hello: 'world' });
+      } finally {
+        Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
+      }
     });
 
     test('main() processes input and writes to stdout in-process', async () => {
@@ -512,16 +515,18 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.js)', () => {
       let captured = '';
       process.stdout.write = (data) => { captured += data; return true; };
 
-      const mainPromise = hookModule.main();
-      mockStdin.push(JSON.stringify(buildInput(tmpDir)));
-      mockStdin.push(null);
-      await mainPromise;
+      try {
+        const mainPromise = hookModule.main();
+        mockStdin.push(JSON.stringify(buildInput(tmpDir)));
+        mockStdin.push(null);
+        await mainPromise;
 
-      Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
-      process.stdout.write = originalWrite;
-
-      const output = JSON.parse(captured);
-      expect(output.hookSpecificOutput.additionalContext).toContain('<synapse-rules>');
+        const output = JSON.parse(captured);
+        expect(output.hookSpecificOutput.additionalContext).toContain('<synapse-rules>');
+      } finally {
+        Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
+        process.stdout.write = originalWrite;
+      }
     });
 
     test('main() returns silently when .synapse/ is missing', async () => {
@@ -536,15 +541,17 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.js)', () => {
       let captured = '';
       process.stdout.write = (data) => { captured += data; return true; };
 
-      const mainPromise = hookModule.main();
-      mockStdin.push(JSON.stringify(buildInput(tmpDir)));
-      mockStdin.push(null);
-      await mainPromise;
+      try {
+        const mainPromise = hookModule.main();
+        mockStdin.push(JSON.stringify(buildInput(tmpDir)));
+        mockStdin.push(null);
+        await mainPromise;
 
-      Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
-      process.stdout.write = originalWrite;
-
-      expect(captured).toBe('');
+        expect(captured).toBe('');
+      } finally {
+        Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
+        process.stdout.write = originalWrite;
+      }
     });
 
     test('main() uses fallback session when loadSession returns null in-process', async () => {
@@ -573,17 +580,19 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.js)', () => {
       let captured = '';
       process.stdout.write = (data) => { captured += data; return true; };
 
-      const mainPromise = hookModule.main();
-      mockStdin.push(JSON.stringify(buildInput(tmpDir)));
-      mockStdin.push(null);
-      await mainPromise;
+      try {
+        const mainPromise = hookModule.main();
+        mockStdin.push(JSON.stringify(buildInput(tmpDir)));
+        mockStdin.push(null);
+        await mainPromise;
 
-      Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
-      process.stdout.write = originalWrite;
-
-      const output = JSON.parse(captured);
-      const inner = JSON.parse(output.hookSpecificOutput.additionalContext);
-      expect(inner.pc).toBe(0);
+        const output = JSON.parse(captured);
+        const inner = JSON.parse(output.hookSpecificOutput.additionalContext);
+        expect(inner.pc).toBe(0);
+      } finally {
+        Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
+        process.stdout.write = originalWrite;
+      }
     });
   });
 
@@ -603,20 +612,22 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.js)', () => {
       const mockStdin = new Readable({ read() {} });
       Object.defineProperty(process, 'stdin', { value: mockStdin, writable: true });
 
-      hookModule.run();
-      mockStdin.push(null); // empty stdin → JSON parse error → catch
+      try {
+        hookModule.run();
+        mockStdin.push(null); // empty stdin → JSON parse error → catch
 
-      // Wait for async catch handler to complete
-      await new Promise((r) => setTimeout(r, 50));
+        // Wait for async catch handler to complete
+        await new Promise((r) => setTimeout(r, 50));
 
-      expect(exitSpy).toHaveBeenCalledWith(0);
-      expect(errorSpy).toHaveBeenCalledWith(
-        expect.stringContaining('[synapse-hook]')
-      );
-
-      exitSpy.mockRestore();
-      errorSpy.mockRestore();
-      Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
+        expect(exitSpy).toHaveBeenCalledWith(0);
+        expect(errorSpy).toHaveBeenCalledWith(
+          expect.stringContaining('[synapse-hook]')
+        );
+      } finally {
+        exitSpy.mockRestore();
+        errorSpy.mockRestore();
+        Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
+      }
     });
 
     test('HOOK_TIMEOUT_MS is 5000 (defense-in-depth)', () => {
