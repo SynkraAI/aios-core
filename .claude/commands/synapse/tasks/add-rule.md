@@ -42,7 +42,9 @@ If domain file not found: `Error: Domain file ".synapse/{domain-name}" not found
 
 Read the domain file `.synapse/{domain-name}` and find all existing rules matching the pattern `{DOMAIN_KEY}_RULE_{N}=`.
 
-Find the maximum `N` value. The new rule index is `max(N) + 1`.
+Count the number of matching rules. The new rule index is `count(matching_rules)`.
+
+This ensures sequential indices with no gaps (e.g., if rules 0 and 2 exist but 1 was deleted, there are 2 rules, so the next index is 2 — which re-fills gaps).
 
 If no rules exist yet, start at `0`.
 

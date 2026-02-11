@@ -47,12 +47,14 @@ Examine the rule text for:
 
 For each existing domain, calculate a relevance score:
 
-| Factor | Weight | Description |
-|--------|--------|-------------|
-| RECALL keyword match | High | Rule text contains a domain's RECALL keyword |
-| Domain name word match | Medium | Rule text contains words from domain name |
-| Agent trigger match | High | Rule mentions an agent that triggers a domain |
-| Existing rule similarity | Low | Rule is similar to existing rules in domain |
+| Factor | Weight | Points | Description |
+|--------|--------|--------|-------------|
+| RECALL keyword match | High | 3 | Rule text contains a domain's RECALL keyword |
+| Domain name word match | Medium | 2 | Rule text contains words from domain name |
+| Agent trigger match | High | 3 | Rule mentions an agent that triggers a domain |
+| Existing rule similarity | Low | 1 | Rule is similar to existing rules in domain |
+
+Sum the points for each domain. Maximum possible score is 9 (round up to 10 if all factors match). Present as `{score}/10`.
 
 ### Step 4: Present Suggestion
 
