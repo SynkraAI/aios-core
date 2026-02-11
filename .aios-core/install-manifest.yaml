@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.0.0
-generated_at: "2026-02-11T18:28:32.162Z"
+generated_at: "2026-02-11T20:17:23.716Z"
 generator: scripts/generate-install-manifest.js
-file_count: 969
+file_count: 971
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -101,9 +101,9 @@ files:
     type: cli
     size: 12322
   - path: cli/commands/pro/index.js
-    hash: sha256:d686da33f3a9ac2a77dd590ef0cd6ae27734898a2023781134f54fee38abf4a8
+    hash: sha256:b12ecd08e1e21c48033def015c5a00315fd26c9e310d7883e1aaf633da68a743
     type: cli
-    size: 21790
+    size: 18712
   - path: cli/commands/qa/index.js
     hash: sha256:ff9c3669e31319d5e7be9b42a45f8ef7b9525ed2094e320000bc06cdd0625ca7
     type: cli
@@ -857,9 +857,9 @@ files:
     type: core
     size: 8122
   - path: core/synapse/engine.js
-    hash: sha256:0421993986b813d176f9b136c13b5123219309493af27aa796d51ec0206a8763
+    hash: sha256:6fc7e351736dabafa45a46753f8ec02e46e7c94207c9854e5fa43eafeae02a4d
     type: core
-    size: 9858
+    size: 10330
   - path: core/synapse/layers/l0-constitution.js
     hash: sha256:2123a6a44915aaac2a6bbd26c67c285c9d1e12b50fe42a8ada668306b07d1c4a
     type: core
@@ -896,10 +896,14 @@ files:
     hash: sha256:73cb0e5b4bada80d8e256009004679e483792077fac4358c6466cd77136f79fa
     type: core
     size: 2881
-  - path: core/synapse/output/formatter.js
-    hash: sha256:b29c7be4f3806a1234ed58ea1bb7ca66bfbb1417445f016b96a78bc332e72f6e
+  - path: core/synapse/memory/memory-bridge.js
+    hash: sha256:4233fa6b2b8b10746b758774d1aea4e4132cdfae12befe49314ab7fae6ef154d
     type: core
-    size: 15688
+    size: 6769
+  - path: core/synapse/output/formatter.js
+    hash: sha256:fe4f6c2f6091defb6af66dad71db0640f919b983111087f8cc5821e3d44ca864
+    type: core
+    size: 16418
   - path: core/synapse/scripts/generate-constitution.js
     hash: sha256:65405d3e4ee080d19a25fb8967e159360a289e773c15253a351ee163b469e877
     type: script
@@ -912,6 +916,10 @@ files:
     hash: sha256:bf8cf93c1a16295e7de055bee292e2778a152b6e7d6c648dbc054a4b04dffc10
     type: core
     size: 1464
+  - path: core/synapse/utils/tokens.js
+    hash: sha256:3b927daec51d0a791f3fe4ef9aafc362773450e7cf50eb4b6d8ae9011d70df9a
+    type: core
+    size: 573
   - path: core/ui/index.js
     hash: sha256:e2ead179c646b8f36046134c631c24f35a151dbf5a1e95c0e4311bf1652abe12
     type: core
