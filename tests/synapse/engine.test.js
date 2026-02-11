@@ -68,21 +68,29 @@ jest.mock('../../.aios-core/core/synapse/layers/l3-workflow', () => {
   return cls;
 }, { virtual: true });
 
-// L4-L7: simulate missing modules (SYN-5 not implemented)
+// L4-L7: simulate missing modules (MODULE_NOT_FOUND with proper code)
 jest.mock('../../.aios-core/core/synapse/layers/l4-task', () => {
-  throw new Error('Module not found');
+  const err = new Error("Cannot find module './layers/l4-task'");
+  err.code = 'MODULE_NOT_FOUND';
+  throw err;
 }, { virtual: true });
 
 jest.mock('../../.aios-core/core/synapse/layers/l5-squad', () => {
-  throw new Error('Module not found');
+  const err = new Error("Cannot find module './layers/l5-squad'");
+  err.code = 'MODULE_NOT_FOUND';
+  throw err;
 }, { virtual: true });
 
 jest.mock('../../.aios-core/core/synapse/layers/l6-keyword', () => {
-  throw new Error('Module not found');
+  const err = new Error("Cannot find module './layers/l6-keyword'");
+  err.code = 'MODULE_NOT_FOUND';
+  throw err;
 }, { virtual: true });
 
 jest.mock('../../.aios-core/core/synapse/layers/l7-star-command', () => {
-  throw new Error('Module not found');
+  const err = new Error("Cannot find module './layers/l7-star-command'");
+  err.code = 'MODULE_NOT_FOUND';
+  throw err;
 }, { virtual: true });
 
 // ---------------------------------------------------------------------------

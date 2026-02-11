@@ -183,7 +183,7 @@ class SynapseEngine {
 
   process(prompt, session, config) {
     const metrics = new PipelineMetrics();
-    metrics.totalStart = performance.now();
+    metrics.totalStart = Date.now();
 
     // 1. Calculate bracket
     const contextPercent = estimateContextPercent(session.prompt_count);
@@ -219,7 +219,7 @@ class SynapseEngine {
       }
     }
 
-    metrics.totalEnd = performance.now();
+    metrics.totalEnd = Date.now();
 
     // 3. Format output
     const xml = formatSynapseRules(results, bracket, session, config.devmode, metrics.getSummary());
@@ -359,7 +359,7 @@ Seguir os patterns estabelecidos:
 - **`@module` header**: `@module core/synapse/engine` e `@module core/synapse/output/formatter`
 - **Graceful degradation** em todos os paths de erro
 - **Console warnings** com prefix `[synapse:engine]` e `[synapse:formatter]`
-- **`performance.now()`** para timing (ou `Date.now()` se `performance` nao disponivel)
+- **`Date.now()`** para timing de pipeline e per-layer metrics
 
 ### Key Files
 
