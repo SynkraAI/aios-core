@@ -45,7 +45,13 @@ const LAYER_MODULES = [
 function loadLayerModule(modulePath) {
   try {
     return require(modulePath);
-  } catch {
+  } catch (err) {
+    // Only silence MODULE_NOT_FOUND for the requested module
+    if (err.code === 'MODULE_NOT_FOUND' && err.message && err.message.includes(modulePath)) {
+      return null;
+    }
+    // Surface unexpected errors (syntax, runtime, transitive missing deps)
+    console.warn(`[synapse:engine] Unexpected error loading ${modulePath}: ${err.message}`);
     return null;
   }
 }
@@ -208,7 +214,8 @@ class SynapseEngine {
    * @returns {{ xml: string, metrics: object }}
    */
   process(prompt, session, processConfig) {
-    const mergedConfig = { ...this.config, ...processConfig };
+    const safeProcessConfig = (processConfig && typeof processConfig === 'object') ? processConfig : {};
+    const mergedConfig = { ...this.config, ...safeProcessConfig };
     const metrics = new PipelineMetrics();
     metrics.totalStart = Date.now();
 

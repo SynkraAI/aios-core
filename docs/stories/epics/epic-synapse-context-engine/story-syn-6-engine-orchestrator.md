@@ -330,7 +330,7 @@ function enforceTokenBudget(xml, tokenBudget) {
 ### Integration Notes from SYN-3
 
 Pattern de consumo (documentado em SYN-3 Wrap Up):
-```
+```text
 estimateContextPercent(promptCount) → calculateBracket(percent) → getTokenBudget(bracket) + getActiveLayers(bracket)
 ```
 

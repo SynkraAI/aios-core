@@ -389,6 +389,29 @@ describe('SynapseEngine', () => {
     });
   });
 
+  describe('process() — null/invalid processConfig guard', () => {
+    test('should handle null processConfig without throwing', () => {
+      const result = engine.process('test', { prompt_count: 1 }, null);
+      expect(result).toHaveProperty('xml');
+      expect(result).toHaveProperty('metrics');
+    });
+
+    test('should handle non-object processConfig (string)', () => {
+      const result = engine.process('test', { prompt_count: 1 }, 'invalid');
+      expect(result).toHaveProperty('xml');
+    });
+
+    test('should handle undefined processConfig', () => {
+      const result = engine.process('test', { prompt_count: 1 }, undefined);
+      expect(result).toHaveProperty('xml');
+    });
+
+    test('should handle numeric processConfig', () => {
+      const result = engine.process('test', { prompt_count: 1 }, 42);
+      expect(result).toHaveProperty('xml');
+    });
+  });
+
   describe('process() — edge cases for coverage', () => {
     test('should handle layer returning non-array rules (invalid result format)', () => {
       // Make a layer return an object without rules array
