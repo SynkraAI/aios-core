@@ -856,6 +856,10 @@ files:
     hash: sha256:30f7a1810b0bf931efa95e819e26baa4f995b847cc4f4488be1532355b63930a
     type: core
     size: 8124
+  - path: core/synapse/engine.js
+    hash: sha256:daf190211674071090e76bd65c8c1bde16cecd2b525b8291054938f1919b0084
+    type: core
+    size: 9393
   - path: core/synapse/layers/l0-constitution.js
     hash: sha256:2123a6a44915aaac2a6bbd26c67c285c9d1e12b50fe42a8ada668306b07d1c4a
     type: core
@@ -892,6 +896,10 @@ files:
     hash: sha256:73cb0e5b4bada80d8e256009004679e483792077fac4358c6466cd77136f79fa
     type: core
     size: 2881
+  - path: core/synapse/output/formatter.js
+    hash: sha256:b29c7be4f3806a1234ed58ea1bb7ca66bfbb1417445f016b96a78bc332e72f6e
+    type: core
+    size: 15688
   - path: core/synapse/session/session-manager.js
     hash: sha256:6127c2ef1c6db83cfd5796443789964a8da72635b23b367fb351592c070d05dd
     type: core
@@ -933,9 +941,9 @@ files:
     type: data
     size: 34868
   - path: data/entity-registry.yaml
-    hash: sha256:3a2e08c260f59b2ca6da398ed94a86ff10326e969655d9356314585e93a04702
+    hash: sha256:97192daf97b9fe2e094d9278710f8b40d871e38bcc01420fa06d3460891edf1e
     type: data
-    size: 277558
+    size: 282882
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
