@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-11T01:54:22.658Z'
-  entityCount: 483
+  lastUpdated: '2026-02-11T02:17:11.048Z'
+  entityCount: 484
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -8423,6 +8423,21 @@ entities:
         extensionPoints: []
       checksum: sha256:96050661c90fa52bfc755911d02c9194ec35c00e71fc6bbc92a13686dd53bb91
       lastVerified: '2026-02-10T15:31:01.202Z'
+    context-tracker:
+      path: .aios-core/core/synapse/context/context-tracker.js
+      type: module
+      purpose: Entity at .aios-core\core\synapse\context\context-tracker.js
+      keywords:
+        - context
+        - tracker
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:3b09f8323fab171e3aaa7a3a079b6cd65f6fd5775e661c24c295a4775cb31a68
+      lastVerified: '2026-02-11T02:17:11.045Z'
   agents:
     aios-master:
       path: .aios-core/development/agents/aios-master.md
