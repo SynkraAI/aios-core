@@ -1,0 +1,8 @@
+# ==========================================
+# SYNAPSE Domain: {DOMAIN_NAME}
+# Created: {DATE}
+# Description: {DESCRIPTION}
+# ==========================================
+
+# Rules
+{DOMAIN_KEY}_RULE_0={FIRST_RULE}
