@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 3.11.3
-generated_at: "2026-02-11T01:57:01.052Z"
+generated_at: "2026-02-11T02:17:28.361Z"
 generator: scripts/generate-install-manifest.js
-file_count: 956
+file_count: 957
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -848,6 +848,10 @@ files:
     hash: sha256:eaef1e3a11feb2d355c5dc8fc2813ae095e27911cdf1261e5d003b22be16d8f0
     type: core
     size: 13729
+  - path: core/synapse/context/context-tracker.js
+    hash: sha256:3b09f8323fab171e3aaa7a3a079b6cd65f6fd5775e661c24c295a4775cb31a68
+    type: core
+    size: 5581
   - path: core/synapse/domain/domain-loader.js
     hash: sha256:30f7a1810b0bf931efa95e819e26baa4f995b847cc4f4488be1532355b63930a
     type: core
@@ -893,9 +897,9 @@ files:
     type: data
     size: 34868
   - path: data/entity-registry.yaml
-    hash: sha256:2e7d522677e025874c22302e3fe4ea2c92ee0164b9fad86d51f0cb6fe39cc598
+    hash: sha256:3a2e08c260f59b2ca6da398ed94a86ff10326e969655d9356314585e93a04702
     type: data
-    size: 277061
+    size: 277558
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
