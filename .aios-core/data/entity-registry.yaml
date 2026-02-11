@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-10T16:04:17.829Z'
+  lastUpdated: '2026-02-11T01:54:22.658Z'
   entityCount: 483
   checksumAlgorithm: sha256
 entities:
@@ -6150,9 +6150,9 @@ entities:
       checksum: sha256:5f4d098f731efbf8fac265d22f49306b0740ca451f4bae92f61f73644fc8b317
       lastVerified: '2026-02-08T13:33:24.329Z'
     session-manager:
-      path: .aios-core/core/elicitation/session-manager.js
+      path: .aios-core/core/synapse/session/session-manager.js
       type: module
-      purpose: Entity at .aios-core\core\elicitation\session-manager.js
+      purpose: Entity at .aios-core\core\synapse\session\session-manager.js
       keywords:
         - session
         - manager
@@ -6164,8 +6164,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:364f38da78222318493dc8f2c6d2f81bc1ed88b95885e60097fc760ea29fe1ca
-      lastVerified: '2026-02-09T20:43:07.610Z'
+      checksum: sha256:6127c2ef1c6db83cfd5796443789964a8da72635b23b367fb351592c070d05dd
+      lastVerified: '2026-02-11T01:54:22.657Z'
     task-elicitation:
       path: .aios-core/core/elicitation/task-elicitation.js
       type: module
