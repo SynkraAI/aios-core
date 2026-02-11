@@ -2,6 +2,11 @@
 .env
 .env.local
 
+# Credentials
+.club-api-token.txt
+*.token
+*.secret
+
 # Python
 __pycache__/
 *.py[cod]

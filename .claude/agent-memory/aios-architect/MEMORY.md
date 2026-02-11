@@ -37,14 +37,19 @@
 - Validate agents task: `.aios-core/development/tasks/validate-agents.md`
 
 ## Video Media Content Downloader Architecture (2026-02-10)
-- Analyzed 5 options (A-E) for context window overflow problem
-- Recommended: Option D+ (Hybrid CLI + Lightweight Skill with Chunking)
-- Key insight: Chunking transcriptions into ~3k-word chunks keeps context at ~7k tokens vs 33k+
-- CLI tool at `tools/video-downloader/` (Python, Typer, pattern from hotmart-downloader)
-- Skill reduced from 970 lines to ~80 lines, lazy-loads one template at a time
-- CLI produces manifest.json + chunk files; skill reads manifest then iterates chunks
-- 3-phase migration: CLI Core > Skill Rewrite > Refinement (topic detection, batch resume)
-- Existing scripts (transcribe_mps.py, clean_transcription.py) become CLI modules, not duplicated
+- v1.2.0 restored from backup after v2.0/v2.1 regression (context window overflow)
+- Full architectural review completed: 10 findings (2 CRITICAL, 3 HIGH, 3 MEDIUM, 2 LOW)
+- CRITICAL P1: No context window management instructions (texts >15k words overflow)
+- CRITICAL P2: 3 bundled scripts duplicate CLI functionality (CLI is superior in all cases)
+- HIGH P3: "Ready text" flow has no pre-processing or size gating
+- HIGH P4: Script paths ambiguous (`scripts/` vs absolute skill-resources path)
+- HIGH P5: CLI missing `chunk` standalone and `ingest` commands for ready text
+- Architecture principle: CLI = Hands (I/O), Skill = Brain (LLM analysis)
+- CLI at `tools/video-transcriber/` (Python, Typer); supports mlx-whisper, bundled scripts don't
+- Key gap: CLI `process` only accepts URL/file, not ready text (VTT/SRT/TXT)
+- Recommended: Add Context Window Management section + `ingest` CLI command
+- Bundled scripts should be REMOVED; CLI is canonical implementation
+- Text size gates: <5k direct, 5-15k cautious, 15-30k chunked, >30k CLI-assisted
 
 ## Pre-existing Test Failures (not EPIC-ACT related)
 - squads/mmos-squad/ (6 suites): missing clickup module
