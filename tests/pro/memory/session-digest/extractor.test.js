@@ -1,6 +1,9 @@
 /**
  * Session Digest Extractor Tests
  * Story MIS-3: Session Digest (PreCompact Hook)
+ *
+ * Requires pro/ submodule. Tests skip gracefully in CI
+ * where the submodule is not available.
  */
 
 // Mock fs FIRST (before any requires)
@@ -14,14 +17,21 @@ jest.mock('fs', () => ({
 const fs = require('fs');
 const path = require('path');
 const yaml = require('yaml');
-const {
-  extractSessionDigest,
-  _analyzeConversation,
-  _generateDigestDocument,
-  _writeDigest,
-} = require('../../../../pro/memory/session-digest/extractor');
 
-describe('Session Digest Extractor', () => {
+let extractorModule;
+try {
+  extractorModule = require('../../../../pro/memory/session-digest/extractor');
+} catch (e) {
+  // pro/ submodule not available (CI environment)
+}
+
+const isProAvailable = !!extractorModule;
+const extractSessionDigest = isProAvailable ? extractorModule.extractSessionDigest : undefined;
+const _analyzeConversation = isProAvailable ? extractorModule._analyzeConversation : undefined;
+const _generateDigestDocument = isProAvailable ? extractorModule._generateDigestDocument : undefined;
+const _writeDigest = isProAvailable ? extractorModule._writeDigest : undefined;
+
+(isProAvailable ? describe : describe.skip)('Session Digest Extractor', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     fs.promises.mkdir.mockClear();
