@@ -15,7 +15,8 @@ module.exports = {
   testPathIgnorePatterns: [
     '/node_modules/',
     // Pro submodule tests — run via pro-integration.yml CI workflow, not local npm test
-    'pro/',
+    // Use anchored regex to only match the pro/ submodule dir, not tests/pro/
+    '<rootDir>/pro/',
     // Playwright e2e tests (use ESM imports, run with Playwright not Jest)
     'tools/quality-dashboard/tests/e2e/',
     // Windows-specific tests (only run on Windows CI)
