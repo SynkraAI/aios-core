@@ -59,7 +59,20 @@ function buildDefaultSession(sessionId, cwd) {
  * @returns {string} Resolved sessions directory path
  */
 function resolveSessionFile(sessionId, sessionsDir) {
-  return path.join(sessionsDir, `${sessionId}.json`);
+  // Sanitize sessionId to prevent path traversal
+  if (typeof sessionId !== 'string' || sessionId.includes('..') || sessionId.includes('/') || sessionId.includes('\\')) {
+    throw new Error('[synapse:session] Invalid sessionId: contains path separators or traversal');
+  }
+
+  const filePath = path.join(sessionsDir, `${sessionId}.json`);
+  const resolved = path.resolve(filePath);
+  const resolvedDir = path.resolve(sessionsDir);
+
+  if (!resolved.startsWith(resolvedDir + path.sep) && resolved !== resolvedDir) {
+    throw new Error('[synapse:session] Invalid sessionId: resolved path escapes sessions directory');
+  }
+
+  return filePath;
 }
 
 /**
@@ -118,7 +131,15 @@ function createSession(sessionId, cwd, sessionsDir) {
   const session = buildDefaultSession(sessionId, cwd);
   const filePath = resolveSessionFile(sessionId, dir);
 
-  fs.writeFileSync(filePath, JSON.stringify(session, null, 2), 'utf8');
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(session, null, 2), 'utf8');
+  } catch (error) {
+    if (error.code === 'EACCES' || error.code === 'EPERM') {
+      console.error(`[synapse:session] Error: Permission denied creating session ${sessionId}`);
+      return null;
+    }
+    throw error;
+  }
 
   return session;
 }
@@ -204,7 +225,16 @@ function updateSession(sessionId, sessionsDir, updates) {
   session.last_activity = new Date().toISOString();
 
   const filePath = resolveSessionFile(sessionId, sessionsDir);
-  fs.writeFileSync(filePath, JSON.stringify(session, null, 2), 'utf8');
+
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(session, null, 2), 'utf8');
+  } catch (error) {
+    if (error.code === 'EACCES' || error.code === 'EPERM') {
+      console.error(`[synapse:session] Error: Permission denied writing session ${sessionId}`);
+      return null;
+    }
+    throw error;
+  }
 
   return session;
 }

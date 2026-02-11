@@ -499,7 +499,103 @@ describe('Permission Error Handling', () => {
 });
 
 // ============================================================
-// 10. Non-Array History Merge
+// 10. Path Traversal Protection
+// ============================================================
+
+describe('Path Traversal Protection', () => {
+  test('resolveSessionFile rejects sessionId with ..', () => {
+    fs.mkdirSync(sessionsDir, { recursive: true });
+
+    expect(() => {
+      createSession('../../../etc/passwd', tmpDir, sessionsDir);
+    }).toThrow('Invalid sessionId');
+  });
+
+  test('resolveSessionFile rejects sessionId with forward slash', () => {
+    fs.mkdirSync(sessionsDir, { recursive: true });
+
+    expect(() => {
+      createSession('foo/bar', tmpDir, sessionsDir);
+    }).toThrow('Invalid sessionId');
+  });
+
+  test('resolveSessionFile rejects sessionId with backslash', () => {
+    fs.mkdirSync(sessionsDir, { recursive: true });
+
+    expect(() => {
+      createSession('foo\\bar', tmpDir, sessionsDir);
+    }).toThrow('Invalid sessionId');
+  });
+
+  test('loadSession rejects path traversal in sessionId', () => {
+    fs.mkdirSync(sessionsDir, { recursive: true });
+
+    expect(() => {
+      loadSession('../secret', sessionsDir);
+    }).toThrow('Invalid sessionId');
+  });
+});
+
+// ============================================================
+// 11. createSession Permission Error Handling
+// ============================================================
+
+describe('createSession Permission Error Handling', () => {
+  test('createSession returns null and logs error on EACCES', () => {
+    fs.mkdirSync(sessionsDir, { recursive: true });
+
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const originalWriteFileSync = fs.writeFileSync;
+    jest.spyOn(fs, 'writeFileSync').mockImplementation((p, data, enc) => {
+      if (typeof p === 'string' && p.endsWith('.json') && p.includes('perm-create')) {
+        const err = new Error('EACCES');
+        err.code = 'EACCES';
+        throw err;
+      }
+      return originalWriteFileSync(p, data, enc);
+    });
+
+    const result = createSession('perm-create', tmpDir, sessionsDir);
+
+    expect(result).toBeNull();
+    expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('Permission denied creating session'));
+
+    fs.writeFileSync.mockRestore();
+    errorSpy.mockRestore();
+  });
+});
+
+// ============================================================
+// 12. updateSession Write Permission Error Handling
+// ============================================================
+
+describe('updateSession Write Permission Error Handling', () => {
+  test('updateSession returns null and logs error on EPERM during write', () => {
+    createSession('perm-update', tmpDir, sessionsDir);
+
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const originalWriteFileSync = fs.writeFileSync;
+    jest.spyOn(fs, 'writeFileSync').mockImplementation((p, data, enc) => {
+      if (typeof p === 'string' && p.includes('perm-update')) {
+        const err = new Error('EPERM');
+        err.code = 'EPERM';
+        throw err;
+      }
+      return originalWriteFileSync(p, data, enc);
+    });
+
+    const result = updateSession('perm-update', sessionsDir, { title: 'test' });
+
+    expect(result).toBeNull();
+    expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('Permission denied writing session'));
+
+    fs.writeFileSync.mockRestore();
+    errorSpy.mockRestore();
+  });
+});
+
+// ============================================================
+// 13. Non-Array History Merge (was 10)
 // ============================================================
 
 describe('Non-Array History Merge', () => {
@@ -517,7 +613,7 @@ describe('Non-Array History Merge', () => {
 });
 
 // ============================================================
-// 11. Concurrent Access (AC: 7 — last-write-wins)
+// 14. Concurrent Access (AC: 7 — last-write-wins)
 // ============================================================
 
 describe('Concurrent Access', () => {
