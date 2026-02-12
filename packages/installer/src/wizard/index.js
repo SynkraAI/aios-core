@@ -801,6 +801,29 @@ async function runWizard(options = {}) {
       answers.llmRoutingInstalled = false;
     }
 
+    // Story CLI-DX-1: Terminal Integration (Phase 2)
+    console.log('\n🖥️  Terminal Integration...');
+    try {
+      const {
+        setupTerminalIntegration,
+        showSetupResults,
+      } = require('../../../../.aios-core/infrastructure/scripts/terminal/setup-terminal-integration');
+
+      const terminalResult = await setupTerminalIntegration({
+        quiet: options.quiet || false,
+        force: false,
+      });
+
+      showSetupResults(terminalResult);
+      answers.terminalIntegrationInstalled = terminalResult.success;
+      answers.terminalIntegrationResult = terminalResult;
+    } catch (error) {
+      console.error('\n⚠️  Terminal integration error:', error.message);
+      console.log('   💡 You can set up terminal integration later by running:');
+      console.log('      node .aios-core/infrastructure/scripts/terminal/setup-terminal-integration.js');
+      answers.terminalIntegrationInstalled = false;
+    }
+
     // Story 1.8: Installation Validation
     console.log('\n🔍 Validating installation...\n');
 
