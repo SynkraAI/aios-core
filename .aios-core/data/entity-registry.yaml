@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-11T02:17:11.048Z'
-  entityCount: 484
+  lastUpdated: '2026-02-12T12:53:14.533Z'
+  entityCount: 487
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -6432,7 +6432,6 @@ entities:
         - check
       usedBy:
         - check-registry
-        - engine
         - console
         - json
         - markdown
@@ -6501,18 +6500,20 @@ entities:
     engine:
       path: .aios-core/core/health-check/engine.js
       type: module
-      purpose: Entity at .aios-core\core\health-check\engine.js
+      purpose: Entity at .aios-core\core\synapse\engine.js
       keywords:
         - engine
       usedBy: []
       dependencies:
-        - base-check
+        - context-tracker
+        - formatter
+        - memory-bridge
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:4388d1c988d3789c6e8626c265ebb6811c56a69cda4e1e0bf92a340bf08542b8
-      lastVerified: '2026-02-08T13:33:24.335Z'
+      checksum: sha256:6fc7e351736dabafa45a46753f8ec02e46e7c94207c9854e5fa43eafeae02a4d
+      lastVerified: '2026-02-12T12:53:14.529Z'
     ideation-engine:
       path: .aios-core/core/ideation/ideation-engine.js
       type: module
@@ -8430,7 +8431,8 @@ entities:
       keywords:
         - context
         - tracker
-      usedBy: []
+      usedBy:
+        - engine
       dependencies: []
       adaptability:
         score: 0.4
@@ -8438,6 +8440,57 @@ entities:
         extensionPoints: []
       checksum: sha256:3b09f8323fab171e3aaa7a3a079b6cd65f6fd5775e661c24c295a4775cb31a68
       lastVerified: '2026-02-11T02:17:11.045Z'
+    memory-bridge:
+      path: .aios-core/core/synapse/memory/memory-bridge.js
+      type: module
+      purpose: Entity at .aios-core\core\synapse\memory\memory-bridge.js
+      keywords:
+        - memory
+        - bridge
+      usedBy:
+        - engine
+      dependencies:
+        - tokens
+        - feature-gate
+        - synapse-memory-provider
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:4233fa6b2b8b10746b758774d1aea4e4132cdfae12befe49314ab7fae6ef154d
+      lastVerified: '2026-02-12T12:53:14.531Z'
+    formatter:
+      path: .aios-core/core/synapse/output/formatter.js
+      type: module
+      purpose: Entity at .aios-core\core\synapse\output\formatter.js
+      keywords:
+        - formatter
+      usedBy:
+        - engine
+      dependencies:
+        - tokens
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:fe4f6c2f6091defb6af66dad71db0640f919b983111087f8cc5821e3d44ca864
+      lastVerified: '2026-02-12T12:53:14.531Z'
+    tokens:
+      path: .aios-core/core/synapse/utils/tokens.js
+      type: module
+      purpose: Entity at .aios-core\core\synapse\utils\tokens.js
+      keywords:
+        - tokens
+      usedBy:
+        - memory-bridge
+        - formatter
+      dependencies: []
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:3b927daec51d0a791f3fe4ef9aafc362773450e7cf50eb4b6d8ae9011d70df9a
+      lastVerified: '2026-02-12T12:53:14.532Z'
   agents:
     aios-master:
       path: .aios-core/development/agents/aios-master.md
