@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.0.0
-generated_at: "2026-02-12T13:00:31.324Z"
+generated_at: "2026-02-12T13:07:00.752Z"
 generator: scripts/generate-install-manifest.js
 file_count: 971
 files:
@@ -857,9 +857,9 @@ files:
     type: core
     size: 8122
   - path: core/synapse/engine.js
-    hash: sha256:6fc7e351736dabafa45a46753f8ec02e46e7c94207c9854e5fa43eafeae02a4d
+    hash: sha256:90572bd719491e1f57bc43cb29179ad8de34db9d752fff54bf8638d9fcf22bc7
     type: core
-    size: 10330
+    size: 10410
   - path: core/synapse/layers/l0-constitution.js
     hash: sha256:2123a6a44915aaac2a6bbd26c67c285c9d1e12b50fe42a8ada668306b07d1c4a
     type: core
@@ -897,9 +897,9 @@ files:
     type: core
     size: 2881
   - path: core/synapse/memory/memory-bridge.js
-    hash: sha256:4233fa6b2b8b10746b758774d1aea4e4132cdfae12befe49314ab7fae6ef154d
+    hash: sha256:5f039ad6aa1ab15250efbb2eb20346b95ba545c6d9c270ee7abf96e18930db1e
     type: core
-    size: 6769
+    size: 6771
   - path: core/synapse/output/formatter.js
     hash: sha256:fe4f6c2f6091defb6af66dad71db0640f919b983111087f8cc5821e3d44ca864
     type: core
@@ -953,7 +953,7 @@ files:
     type: data
     size: 34780
   - path: data/entity-registry.yaml
-    hash: sha256:83e1d01a929278a3b74db1922aa6790d13a136d4a247512f1240f00cb23d6506
+    hash: sha256:4b4cb0e31f98fe4dc58159613dba02ab0aa39fcebe33f44e485a22c2fd6e732f
     type: data
     size: 279148
   - path: data/learned-patterns.yaml

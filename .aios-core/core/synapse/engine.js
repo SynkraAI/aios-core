@@ -292,10 +292,12 @@ class SynapseEngine {
       const hints = await this.memoryBridge.getMemoryHints(
         (session && session.activeAgent) || (session && session.active_agent) || '',
         bracket,
-        tokenBudget
+        tokenBudget,
       );
       if (hints.length > 0) {
-        previousLayers.push({ layer: 'memory', rules: hints, metadata: { layer: 'memory', source: 'memory' } });
+        const memoryResult = { layer: 'memory', rules: hints, metadata: { layer: 'memory', source: 'memory' } };
+        results.push(memoryResult);
+        previousLayers.push(memoryResult);
       }
     }
 

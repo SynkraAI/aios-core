@@ -132,7 +132,7 @@ class MemoryBridge {
       // 3. Calculate effective token budget
       const effectiveBudget = Math.min(
         bracketConfig.maxTokens,
-        tokenBudget > 0 ? tokenBudget : bracketConfig.maxTokens
+        tokenBudget > 0 ? tokenBudget : bracketConfig.maxTokens,
       );
 
       if (effectiveBudget <= 0) {
@@ -148,7 +148,7 @@ class MemoryBridge {
       // 5. Execute with timeout protection
       const hints = await this._executeWithTimeout(
         () => provider.getMemories(agentId, bracket, effectiveBudget),
-        this._timeout
+        this._timeout,
       );
 
       // 6. Enforce token budget on results

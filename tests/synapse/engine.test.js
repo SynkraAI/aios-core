@@ -448,13 +448,14 @@ describe('SynapseEngine', () => {
 
       expect(mockGetMemoryHints).toHaveBeenCalledWith('dev', 'MODERATE', 500);
 
-      // Verify hints were passed to formatter via results (previousLayers)
+      // Verify hints were passed to formatter via results array
       const formatterCall = formatter.formatSynapseRules.mock.calls[0];
       const resultsArg = formatterCall[0]; // first arg = results array
-      // Results should include layer outputs; memory hints go into previousLayers
-      // but formatter receives results (layer outputs), not previousLayers directly.
-      // The key verification is that getMemoryHints was called correctly.
-      expect(formatterCall).toBeDefined();
+      const memoryResult = resultsArg.find(r => r.metadata?.source === 'memory');
+      expect(memoryResult).toBeDefined();
+      expect(memoryResult.rules).toEqual([
+        { content: 'Use absolute imports', source: 'procedural', relevance: 0.9, tokens: 5 },
+      ]);
     });
 
     test('should NOT call memoryBridge.getMemoryHints when needsMemoryHints is false', async () => {

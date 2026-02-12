@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-12T12:53:14.533Z'
+  lastUpdated: '2026-02-12T13:06:47.837Z'
   entityCount: 487
   checksumAlgorithm: sha256
 entities:
@@ -6512,8 +6512,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:6fc7e351736dabafa45a46753f8ec02e46e7c94207c9854e5fa43eafeae02a4d
-      lastVerified: '2026-02-12T12:53:14.529Z'
+      checksum: sha256:90572bd719491e1f57bc43cb29179ad8de34db9d752fff54bf8638d9fcf22bc7
+      lastVerified: '2026-02-12T13:06:47.835Z'
     ideation-engine:
       path: .aios-core/core/ideation/ideation-engine.js
       type: module
@@ -8457,8 +8457,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:4233fa6b2b8b10746b758774d1aea4e4132cdfae12befe49314ab7fae6ef154d
-      lastVerified: '2026-02-12T12:53:14.531Z'
+      checksum: sha256:5f039ad6aa1ab15250efbb2eb20346b95ba545c6d9c270ee7abf96e18930db1e
+      lastVerified: '2026-02-12T13:06:47.836Z'
     formatter:
       path: .aios-core/core/synapse/output/formatter.js
       type: module
