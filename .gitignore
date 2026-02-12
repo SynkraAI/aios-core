@@ -354,6 +354,7 @@ docs/guides/glue-script-guide.md
 .aios/devops-setup-report.yaml
 .aios/environment-report.json
 .aios/project-status.yaml
+.aios/session.json
 
 # API data / cache
 *api-data*.json

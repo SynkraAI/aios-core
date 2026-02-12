@@ -1,0 +1,317 @@
+# Project Types Configuration
+# Used by ContextTracker for auto-detection of project type and phase
+# Story CLI-DX-1: Visual Context System for Multi-Tab Sessions
+
+version: "1.0.0"
+
+# Project Types
+# Each type has:
+# - emoji: Visual identifier for terminal tab/prompt
+# - patterns: File/folder patterns for auto-detection
+# - description: What this project type represents
+projectTypes:
+  framework:
+    emoji: "🔧"
+    description: "AIOS framework core, infrastructure"
+    patterns:
+      - ".aios-core/"
+      - "bin/aios.js"
+    examples:
+      - "aios-core"
+      - "framework development"
+
+  squad:
+    emoji: "🏗️"
+    description: "AIOS expansion pack, specialized team"
+    patterns:
+      - "squads/"
+      - "workflows/"
+      - "agents/"
+    examples:
+      - "squad-creator"
+      - "mmos-squad"
+      - "hormozi-mind"
+
+  app:
+    emoji: "⚡"
+    description: "Application, web app, SaaS"
+    patterns:
+      - "apps/"
+      - "src/app/"
+      - "pages/"
+      - "next.config.js"
+    examples:
+      - "dashboard"
+      - "ecommerce-app"
+
+  tool:
+    emoji: "🛠️"
+    description: "Utility, script, CLI tool"
+    patterns:
+      - "tools/"
+      - "cli/"
+      - "scripts/main"
+    examples:
+      - "video-transcriber"
+      - "btg-pix-batch"
+      - "aios-backup"
+
+  design-system:
+    emoji: "🎨"
+    description: "Component library, design system"
+    patterns:
+      - "design-system/"
+      - "design-systems/"
+      - "components/"
+      - "ui/"
+    examples:
+      - "ecoflow-design-system"
+
+  project:
+    emoji: "📦"
+    description: "Generic project (fallback)"
+    patterns: []
+    examples:
+      - "Any other project"
+
+# Phases
+# Each phase has:
+# - emoji: Visual identifier for current work type
+# - keywords: Words to match in commands/context
+# - description: What this phase represents
+phases:
+  research:
+    emoji: "🔬"
+    description: "Investigation, analysis, discovery"
+    keywords:
+      - "research"
+      - "analysis"
+      - "investigate"
+      - "discover"
+      - "explore"
+      - "study"
+    examples:
+      - "Hormozi → Extract DNA"
+      - "Research → Competitor analysis"
+
+  extraction:
+    emoji: "🧬"
+    description: "Data extraction, parsing, scraping"
+    keywords:
+      - "extract"
+      - "parse"
+      - "scrape"
+      - "import"
+      - "fetch"
+      - "collect"
+    examples:
+      - "Extract → Voice DNA"
+      - "Parse → API data"
+
+  creation:
+    emoji: "🤖"
+    description: "Building, generating, creating"
+    keywords:
+      - "create"
+      - "generate"
+      - "build"
+      - "make"
+      - "new"
+      - "add"
+    examples:
+      - "Create → New squad"
+      - "Build → Component"
+
+  validation:
+    emoji: "✅"
+    description: "Validation, verification, checking"
+    keywords:
+      - "validate"
+      - "verify"
+      - "check"
+      - "review"
+      - "inspect"
+      - "audit"
+    examples:
+      - "Validate → Schema"
+      - "Review → Code quality"
+
+  testing:
+    emoji: "🧪"
+    description: "Testing, coverage, quality assurance"
+    keywords:
+      - "test"
+      - "spec"
+      - "coverage"
+      - "jest"
+      - "mocha"
+      - "qa"
+    examples:
+      - "Test → Auth flow"
+      - "Coverage → 80%"
+
+  deployment:
+    emoji: "🚀"
+    description: "Deployment, release, publishing"
+    keywords:
+      - "deploy"
+      - "release"
+      - "publish"
+      - "launch"
+      - "ship"
+      - "production"
+    examples:
+      - "Deploy → Staging"
+      - "Release → v3.2.0"
+
+  maintenance:
+    emoji: "🔧"
+    description: "Refactoring, cleanup, tech debt"
+    keywords:
+      - "refactor"
+      - "cleanup"
+      - "fix"
+      - "maintain"
+      - "optimize"
+      - "improve"
+    examples:
+      - "Refactor → Legacy code"
+      - "Cleanup → Deprecated files"
+
+# Status Indicators
+# Used for tab title [STATUS] suffix
+statusIndicators:
+  wip:
+    label: "WIP"
+    description: "Work in progress"
+    emoji: "🟡"
+
+  blocked:
+    label: "BLOCKED"
+    description: "Waiting for dependency"
+    emoji: "🔴"
+
+  pr:
+    label: "PR"
+    description: "Pull request open"
+    emoji: "💙"
+
+  test:
+    label: "TEST"
+    description: "Tests running"
+    emoji: "🧪"
+
+  done:
+    label: "✓"
+    description: "Complete, ready to close"
+    emoji: "🟢"
+
+# Category Taxonomy (12 categories for tab organization)
+categories:
+  development:
+    emoji: "⚡"
+    description: "Active implementation, code writing"
+
+  research:
+    emoji: "🔬"
+    description: "Investigation, analysis, discovery"
+
+  planning:
+    emoji: "📋"
+    description: "Specs, PRDs, architecture docs"
+
+  debugging:
+    emoji: "🐛"
+    description: "Bug investigation, troubleshooting"
+
+  squad:
+    emoji: "👥"
+    description: "Squad/expansion pack work"
+
+  tool:
+    emoji: "🔧"
+    description: "Utility, script, helper tool"
+
+  framework:
+    emoji: "🏗️"
+    description: "AIOS core, infrastructure"
+
+  documentation:
+    emoji: "📚"
+    description: "Writing docs, READMEs, guides"
+
+  testing:
+    emoji: "🧪"
+    description: "Test writing, coverage, debugging"
+
+  review:
+    emoji: "👀"
+    description: "Code review, QA, validation"
+
+  deploy:
+    emoji: "🚀"
+    description: "Deployment, CI/CD, releases"
+
+  maintenance:
+    emoji: "🔨"
+    description: "Refactor, cleanup, tech debt"
+
+# Git Status Emojis
+gitStatus:
+  clean:
+    emoji: "🟢"
+    description: "No uncommitted changes"
+
+  dirty:
+    emoji: "🟡"
+    description: "Uncommitted changes present"
+
+  conflict:
+    emoji: "🔴"
+    description: "Merge conflict detected"
+
+  detached:
+    emoji: "⚠️"
+    description: "Detached HEAD state"
+
+# Permission Mode Emojis (integrated with PermissionMode system)
+permissionModes:
+  explore:
+    emoji: "🧭"
+    description: "Explore mode (read-only)"
+
+  ask:
+    emoji: "🛡️"
+    description: "Ask mode (requires confirmation)"
+
+  auto:
+    emoji: "⚡"
+    description: "Auto mode (YOLO)"
+
+# Auto-detection confidence thresholds
+confidence:
+  high: 0.8  # >80% confidence
+  medium: 0.5  # 50-80% confidence
+  low: 0.3  # 30-50% confidence
+  none: 0.0  # <30% confidence
+
+# Visual format template
+# Used by terminal title and prompt generators
+format:
+  template: "{emoji} {name} → {context} [{status}]"
+  maxLength: 60
+  separator: "→"
+  statusBrackets: ["[", "]"]
+
+# Examples of complete visual context
+examples:
+  - "⚡ aios-core → Story 7.4 [WIP]"
+  - "🔬 Hormozi → Extract DNA"
+  - "🐛 Dashboard → Auth Token Issue [BLOCKED]"
+  - "👥 Squad Creator → Upgrade v4"
+  - "🚀 v3.2.0 → Staging deploy"
+  - "📚 API Docs → Update endpoints"
+  - "🧪 Auth Tests → 80% coverage"
+  - "👀 PR #142 → Review"
+  - "🔧 Video Transcriber → Chunk [TEST]"
+  - "🏗️ AIOS Core → Health Check [✓]"
