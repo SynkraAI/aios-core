@@ -437,11 +437,15 @@ describe('UnifiedActivationPipeline Memory Integration (MIS-6)', () => {
 
       proDetector.isProAvailable.mockReturnValue(true);
 
+      // Track timer so we can clear it in case pipeline abandons the promise
+      let slowTimer;
       const MockMemoryLoader = class {
         constructor() {}
         async loadForAgent() {
           // Simulate slow load that exceeds _profileLoader timeout (500ms)
-          await new Promise(resolve => setTimeout(resolve, 600));
+          await new Promise(resolve => {
+            slowTimer = setTimeout(resolve, 600);
+          });
           return { memories: [], metadata: {} };
         }
       };
@@ -466,6 +470,9 @@ describe('UnifiedActivationPipeline Memory Integration (MIS-6)', () => {
       expect(result.metrics.loaders).toBeDefined();
       expect(result.metrics.loaders.memories).toBeDefined();
       expect(result.metrics.loaders.memories.status).toBe('timeout');
+
+      // Clean up abandoned timer to prevent Jest worker leaks
+      if (slowTimer) clearTimeout(slowTimer);
     }, 10000); // Increase test timeout
   });
 });

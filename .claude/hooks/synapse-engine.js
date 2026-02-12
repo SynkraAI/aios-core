@@ -56,20 +56,29 @@ async function main() {
   const sessionsDir = path.join(synapsePath, 'sessions');
   const session = loadSession(sessionId, sessionsDir) || { prompt_count: 0 };
   const engine = new SynapseEngine(synapsePath);
-  const result = engine.process(prompt, session);
+  const result = await engine.process(prompt, session);
 
   process.stdout.write(JSON.stringify({
     hookSpecificOutput: { additionalContext: result.xml || '' },
   }));
 }
 
+/**
+ * Safely exit the process — no-op inside Jest workers to prevent worker crashes.
+ * @param {number} code - Exit code
+ */
+function safeExit(code) {
+  if (process.env.JEST_WORKER_ID) return;
+  process.exit(code);
+}
+
 /** Entry point runner — sets safety timeout and executes main(). */
 function run() {
-  const timer = setTimeout(() => process.exit(0), HOOK_TIMEOUT_MS);
+  const timer = setTimeout(() => safeExit(0), HOOK_TIMEOUT_MS);
   timer.unref();
   main().catch((err) => {
     console.error(`[synapse-hook] ${err.message}`);
-    process.exit(0);
+    safeExit(0);
   });
 }
 

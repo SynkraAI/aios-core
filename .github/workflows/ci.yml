@@ -400,6 +400,39 @@ jobs:
           time node .aios-core/utils/aios-validator.js stories || true
         continue-on-error: true
 
+  # SYNAPSE context engine benchmarks + E2E tests (Story SYN-12)
+  synapse-benchmark:
+    name: SYNAPSE Benchmark (Node ${{ matrix.node }})
+    needs: changes
+    if: github.event_name == 'pull_request' && (needs.changes.outputs.code == 'true' || needs.changes.outputs.tests == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        node: ['18', '20']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run SYNAPSE E2E tests
+        run: npx jest tests/synapse/e2e/ --ci --verbose
+        continue-on-error: true
+
+      - name: Run SYNAPSE pipeline benchmark
+        run: node tests/synapse/benchmarks/pipeline-benchmark.js --iterations=50 --json
+        continue-on-error: true
+
   # Cross-platform testing - ONLY on main branch push
   # Moved from cross-platform-tests.yml (Story 6.1)
   cross-platform:

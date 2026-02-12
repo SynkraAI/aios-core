@@ -609,6 +609,10 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.js)', () => {
       const { Readable } = require('stream');
       const originalStdin = process.stdin;
 
+      // Temporarily clear JEST_WORKER_ID so safeExit() calls process.exit()
+      const savedWorkerId = process.env.JEST_WORKER_ID;
+      delete process.env.JEST_WORKER_ID;
+
       const mockStdin = new Readable({ read() {} });
       Object.defineProperty(process, 'stdin', { value: mockStdin, writable: true });
 
@@ -624,6 +628,10 @@ describe('SYNAPSE Hook Entry Point (synapse-engine.js)', () => {
           expect.stringContaining('[synapse-hook]')
         );
       } finally {
+        // Restore JEST_WORKER_ID before restoring other mocks
+        if (savedWorkerId !== undefined) {
+          process.env.JEST_WORKER_ID = savedWorkerId;
+        }
         exitSpy.mockRestore();
         errorSpy.mockRestore();
         Object.defineProperty(process, 'stdin', { value: originalStdin, writable: true });
