@@ -53,6 +53,7 @@ USAGE:
   npx @synkra/aios-core@latest validate     # Validate installation integrity
   npx @synkra/aios-core@latest info         # Show system info
   npx @synkra/aios-core@latest doctor       # Run diagnostics
+  npx @synkra/aios-core@latest context      # Manage session context
   npx @synkra/aios-core@latest --version    # Show version
   npx @synkra/aios-core@latest --version -d # Show detailed version info
   npx @synkra/aios-core@latest --help       # Show this help
@@ -69,6 +70,12 @@ VALIDATION:
   aios validate --repair           # Repair missing/corrupted files
   aios validate --repair --dry-run # Preview repairs
   aios validate --detailed         # Show detailed file list
+
+CONTEXT MANAGEMENT:
+  aios context set <name>                # Set context manually
+  aios context show                      # Display current context
+  aios context clear                     # Reset context
+  aios context auto                      # Auto-detect context
 
 CONFIGURATION:
   aios config show                       # Show resolved configuration
@@ -990,6 +997,17 @@ async function initProject() {
 // Command routing (async main function)
 async function main() {
   switch (command) {
+    case 'context':
+      // Visual Context System - Story CLI-DX-1
+      try {
+        const { run } = require('../.aios-core/cli/commands/context/index.js');
+        await run(process.argv);
+      } catch (error) {
+        console.error(`❌ Context command error: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+
     case 'workers':
       // Service Discovery CLI - Story 2.7
       try {
