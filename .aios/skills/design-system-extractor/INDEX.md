@@ -135,9 +135,9 @@ Edit `system-prompt.md` → Configuration Files section
 ## 🔗 Quick Links
 
 - **Activate Skill:** `/AIOS:skills:design-system-extractor`
-- **EcoFlow Reference:** `packages/ecoflow-design-system/`
-- **Extraction Workflow:** `packages/ecoflow-design-system/EXTRACT-FROM-SITE.md`
-- **Example Analysis:** `packages/ecoflow-design-system/CIRCLE-SO-DESIGN-TOKENS.md`
+- **Documentation:** See README.md for comprehensive guide
+- **Examples:** Check examples/ directory for usage patterns
+- **Resources:** Templates and utilities in resources/ directory
 
 ## 📊 Skill Metadata
 
@@ -153,7 +153,7 @@ Edit `system-prompt.md` → Configuration Files section
 2. Check **examples/** for usage patterns
 3. Review **system-prompt.md** to understand workflow
 4. Study **resources/** for templates
-5. Look at **EcoFlow** package as reference implementation
+5. Practice with real websites to refine extraction
 
 ## ⚡ Tips
 
@@ -161,7 +161,7 @@ Edit `system-prompt.md` → Configuration Files section
 - Include different page types (landing, app, dashboard)
 - Review extraction report before finalizing
 - Customize tokens after generation if needed
-- Use EcoFlow as reference for best practices
+- Follow Atomic Design principles for component organization
 
 ---
 

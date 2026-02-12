@@ -100,9 +100,5 @@
       }
     }
   ],
-  "references": [
-    "packages/ecoflow-design-system/EXTRACT-FROM-SITE.md",
-    "packages/ecoflow-design-system/CIRCLE-SO-DESIGN-TOKENS.md",
-    "packages/ecoflow-design-system/"
-  ]
+  "references": []
 }

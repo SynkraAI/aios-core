@@ -246,10 +246,10 @@ The skill uses:
 
 ## Reference Implementation
 
-This skill is based on the **EcoFlow Design System** creation process:
-- `packages/ecoflow-design-system/` - Reference structure
-- `packages/ecoflow-design-system/EXTRACT-FROM-SITE.md` - Original workflow
-- `packages/ecoflow-design-system/CIRCLE-SO-DESIGN-TOKENS.md` - Example analysis
+This skill follows industry best practices for design system creation:
+- Atomic Design principles (Brad Frost)
+- Design Tokens W3C Community Group specification
+- Modern TypeScript/React architecture patterns
 
 ## Advanced Usage
 

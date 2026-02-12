@@ -94,10 +94,9 @@ aios-core/
 │   ├── modules/             # Módulos CLI compartilhados
 │   └── utils/               # Utilitários CLI
 ├── packages/                # Workspace packages (npm workspaces)
-│   ├── ecoflow-design-system/  # Sistema de design
 │   ├── gemini-aios-extension/  # Extensão Gemini
 │   ├── installer/              # Instalador AIOS
-│   └── packages/               # Packages adicionais
+│   └── aios-install/           # Sistema de instalação
 ├── docs/                    # Documentação completa
 │   ├── stories/             # Development stories (active/, completed/)
 │   ├── architecture/        # Documentação de arquitetura
@@ -119,10 +118,9 @@ Este projeto usa npm workspaces para gerenciar múltiplos packages:
 ```
 
 **Packages disponíveis:**
-- `packages/ecoflow-design-system` - Sistema de design compartilhado
 - `packages/gemini-aios-extension` - Integração com Gemini AI
 - `packages/installer` - Sistema de instalação modular
-- `packages/packages` - Packages utilitários compartilhados
+- `packages/aios-install` - Sistema de instalação AIOS
 
 ---
 

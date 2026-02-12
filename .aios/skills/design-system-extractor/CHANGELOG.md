@@ -37,9 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Create comprehensive documentation
 
 ### References
-- Based on EcoFlow Design System creation process
-- Workflow documented in `packages/ecoflow-design-system/EXTRACT-FROM-SITE.md`
-- Example analysis in `packages/ecoflow-design-system/CIRCLE-SO-DESIGN-TOKENS.md`
+- Based on production design system creation best practices
 
 ## [Unreleased]
 

@@ -291,13 +291,13 @@ After completion, provide:
 
 ## Reference Implementation
 
-Use `packages/ecoflow-design-system/` as the gold standard for:
-- Directory structure
-- Token file organization
-- TypeScript configuration
-- Build setup
-- Documentation style
-- Testing approach
+Follow these industry standards:
+- Atomic Design methodology (Brad Frost)
+- Design Tokens W3C Community Group specification
+- Modern TypeScript/React architecture patterns
+- Comprehensive testing with Vitest
+- Storybook for component documentation
+- Accessible design principles (WCAG 2.1)
 
 ## Important Notes
 
