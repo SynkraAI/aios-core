@@ -99,7 +99,10 @@ describeIfHookExists('SYNAPSE E2E: Hook Integration', () => {
 
   test('hook output additionalContext is a string conforming to expected format', () => {
     const input = buildInput();
-    const { stdout } = runHookSync(input);
+    const { stdout, exitCode } = runHookSync(input);
+
+    expect(exitCode).toBe(0);
+    expect(stdout).toBeTruthy();
 
     const result = JSON.parse(stdout);
     const ctx = result.hookSpecificOutput.additionalContext;

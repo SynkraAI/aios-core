@@ -73,14 +73,16 @@ describeIfSynapse('SYNAPSE E2E: Regression Guards', () => {
       await warmEngine.process('warm up prompt', session);
     }
 
+    // Measure startup multiple times for statistical significance
+    for (let s = 0; s < ITERATIONS; s++) {
+      const s0 = performance.now();
+      const tempEngine = new SynapseEngine(SYNAPSE_PATH, { manifest, devmode: false });
+      startupDurations.push(performance.now() - s0);
+      if (s === 0) engine = tempEngine; // keep first instance for pipeline tests
+    }
+
     // Measured iterations
     for (let i = 0; i < ITERATIONS; i++) {
-      // Startup measurement (first iteration only for warm mode)
-      if (i === 0) {
-        const s0 = performance.now();
-        engine = new SynapseEngine(SYNAPSE_PATH, { manifest, devmode: false });
-        startupDurations.push(performance.now() - s0);
-      }
 
       // Session I/O measurement
       const sIO0 = performance.now();
@@ -123,8 +125,8 @@ describeIfSynapse('SYNAPSE E2E: Regression Guards', () => {
     if (p95 >= 70) {
       console.warn(`[WARN] Pipeline p95 (${p95.toFixed(2)}ms) approaching hard limit (target: <70ms)`);
     }
-    // Still must be under hard limit
-    expect(p95).toBeLessThan(100);
+    // Enforce the 70ms target — warn was logged above, hard-fail at target
+    expect(p95).toBeLessThan(70);
   });
 
   // -----------------------------------------------------------------------
