@@ -182,6 +182,58 @@ Estas regras fornecem:
 - 🧪 Padrões de teste e validação
 - 📝 Padrões de código específicos do AIOS
 
+### 🎨 Visual Context System: Multi-Tab Session Management
+
+O AIOS inclui um sistema inovador de contexto visual para gerenciar múltiplas sessões do Claude Code simultaneamente:
+
+**Problema resolvido:** Ao trabalhar com 5-10 abas de terminal simultaneamente, identificar cada aba instantaneamente sem precisar clicar e ler o histórico.
+
+**Solução:** Contexto visual no título da aba do terminal:
+
+```
+⚡ aios-core [3/8] WIP · development     (implementação)
+🔬 Hormozi → Extract DNA                 (pesquisa)
+🏗️ Squad Creator → Upgrade v4            (squad work)
+🧪 Dashboard → Auth Tests                (testing)
+```
+
+**Recursos:**
+
+- 🎯 **12 categorias de projeto** com emojis únicos (⚡ Dev, 🔬 Research, 🐛 Debug, etc.)
+- 📊 **Rastreamento automático de progresso** de checkboxes em stories
+- 🤖 **Integração com ativação de agentes** (emoji atualiza automaticamente)
+- 🛡️ **Sincronização com modo de permissão** (🧭 explore, 🛡️ ask, ⚡ auto)
+- ⚙️ **Atualizações durante workflows** (progresso step-by-step)
+- ⚡ **Performance:** <5ms leitura em cache, <100ms atualização de título
+
+**Comandos:**
+
+```bash
+# Auto-detectar contexto do projeto
+aios context auto
+
+# Definir manualmente
+aios context set "My Project" --emoji 🚀 --progress 3/5
+
+# Ver contexto atual
+aios context show
+
+# Limpar e arquivar
+aios context clear --archive
+```
+
+**Configuração (uma vez):**
+
+```bash
+# Adicionar ao seu ~/.zshrc
+source ~/.aios-core-terminal-integration.sh
+```
+
+**Quick Reference:** `.aios/visual-context-system.md`
+**Documentação completa:** [Story CLI-DX-1](docs/stories/epics/epic-cli-dx/story-cli-dx-1-visual-context.md)
+
+---
+
 ### Início Mais Rápido com Interface Web (2 minutos)
 
 1. **Instale o AIOS**: Execute `npx aios-core init meu-projeto`

@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "pid": 81717,
+  "sessionId": "sess_2026-02-12_test_demo",
+  "project": {
+    "type": "framework",
+    "name": "aios-core",
+    "emoji": "🏗️"
+  },
+  "status": {
+    "phase": "development",
+    "progress": "3/5",
+    "currentTask": "Visual Context System",
+    "emoji": "⚡"
+  },
+  "metadata": {
+    "startedAt": "2026-02-12T20:00:00Z",
+    "lastUpdatedAt": "2026-02-12T19:58:58.945Z",
+    "activeAgent": "aios-master",
+    "story": "CLI-DX-1"
+  }
+}

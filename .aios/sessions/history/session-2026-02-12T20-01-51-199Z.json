@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "pid": 98989,
+  "sessionId": "session-1770926349631-tdgj07ag3",
+  "project": {
+    "type": "app",
+    "name": "test-project",
+    "emoji": "🚀"
+  },
+  "status": {
+    "phase": "testing",
+    "progress": "4/8",
+    "currentTask": "",
+    "emoji": "⚡"
+  },
+  "metadata": {
+    "startedAt": "2026-02-12T19:59:09.631Z",
+    "lastUpdatedAt": "2026-02-12T20:01:49.553Z",
+    "activeAgent": "dev",
+    "story": "TEST-123"
+  }
+}

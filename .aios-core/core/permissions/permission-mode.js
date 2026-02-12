@@ -133,6 +133,10 @@ class PermissionMode {
     const currentIndex = PermissionMode.MODE_CYCLE.indexOf(this.currentMode);
     const nextIndex = (currentIndex + 1) % PermissionMode.MODE_CYCLE.length;
     const nextMode = PermissionMode.MODE_CYCLE[nextIndex];
+
+    // CLI-DX-1: Update session context with permission mode change
+    await this._updateSessionContext(nextMode);
+
     return this.setMode(nextMode);
   }
 
@@ -264,6 +268,39 @@ class PermissionMode {
     // Write config
     const configYaml = yaml.dump(config, { indent: 2 });
     await fs.writeFile(this.configPath, configYaml, 'utf-8');
+  }
+
+  /**
+   * CLI-DX-1: Update session context with permission mode change.
+   * Updates emoji and metadata when mode cycles.
+   *
+   * @private
+   * @param {string} mode - New permission mode
+   * @returns {Promise<void>}
+   */
+  async _updateSessionContext(mode) {
+    try {
+      const { SessionStateManager } = require('../session/state-manager');
+      const stateManager = new SessionStateManager(this.projectRoot);
+
+      const modeEmojis = {
+        explore: '🧭',
+        ask: '🛡️',
+        auto: '⚡'
+      };
+
+      await stateManager.update({
+        status: {
+          emoji: modeEmojis[mode] || '🛡️'
+        },
+        metadata: {
+          permissionMode: mode
+        }
+      });
+    } catch (error) {
+      // Silent fail - don't block mode change if context update fails
+      console.debug('[PermissionMode] Failed to update session context:', error.message);
+    }
   }
 }
 

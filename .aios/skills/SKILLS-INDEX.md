@@ -2,7 +2,7 @@
 
 Skills distribuidas com o framework AIOS (via `aios install` / `aios update`).
 
-**Ultima atualizacao:** 2026-02-09
+**Ultima atualizacao:** 2026-02-11
 
 ---
 
@@ -21,7 +21,8 @@ Skills distribuidas com o framework AIOS (via `aios install` / `aios update`).
 │   └── finishing-a-development-branch/
 ├── design-system-extractor/        # Extracao de design systems de sites
 ├── criar-app-completo/             # Workflow completo de criacao de app
-└── prd-generator/                  # Geracao de PRDs
+├── prd-generator/                  # Geracao de PRDs
+└── dashboard-generator/            # Dashboards interativos e sites de apresentacao
 ```
 
 ---
@@ -51,6 +52,7 @@ Skills distribuidas com o framework AIOS (via `aios install` / `aios update`).
 | Skill | Descricao | Ativacao |
 |-------|-----------|----------|
 | design-system-extractor | Extracao de design tokens de websites | `/AIOS:skills:design-system-extractor` |
+| dashboard-generator | Dashboards e sites interativos com Chart.js | `/AIOS:skills:dashboard-generator` |
 | criar-app-completo | Workflow completo de criacao de app | Manual |
 | prd-generator | Geracao de PRDs profissionais | Manual |
 
