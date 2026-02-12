@@ -21,7 +21,7 @@ const mockFeatureGate = {
 jest.mock('../../pro/license/feature-gate', () => ({
   featureGate: mockFeatureGate,
   FeatureGate: jest.fn(),
-}));
+}), { virtual: true });
 
 const mockQueryMemories = jest.fn(() => Promise.resolve([]));
 
@@ -41,7 +41,7 @@ jest.mock('../../pro/memory/memory-loader', () => ({
     'data-engineer': ['procedural', 'semantic'],
     'ux-design-expert': ['reflective', 'procedural'],
   },
-}));
+}), { virtual: true });
 
 // ---------------------------------------------------------------------------
 // Import (after mocks)

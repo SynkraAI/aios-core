@@ -21,7 +21,7 @@ const mockFeatureGate = {
 
 jest.mock('../../pro/license/feature-gate', () => ({
   featureGate: mockFeatureGate,
-}));
+}), { virtual: true });
 
 const mockGetMemories = jest.fn(() => Promise.resolve([]));
 const mockClearCache = jest.fn();
@@ -31,7 +31,7 @@ jest.mock('../../pro/memory/synapse-memory-provider', () => ({
     getMemories: mockGetMemories,
     clearCache: mockClearCache,
   })),
-}));
+}), { virtual: true });
 
 // ---------------------------------------------------------------------------
 // Import (after mocks)
