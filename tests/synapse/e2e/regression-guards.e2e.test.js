@@ -175,9 +175,9 @@ describeIfSynapse('SYNAPSE E2E: Regression Guards', () => {
   // -----------------------------------------------------------------------
   // Total E2E test count regression guard
   // -----------------------------------------------------------------------
-  test('total synapse E2E tests >= 30 (coverage guard)', () => {
-    // This test itself is part of the count. The suite has 45+ E2E tests
-    // across 6 files. This assertion guards against accidental test removal.
+  test('total synapse E2E test files >= 5 (coverage guard)', () => {
+    // Guards against accidental test file removal. The suite has 6 E2E files
+    // with 53 tests total. File count is the stable assertion here.
     const e2eDir = path.join(PROJECT_ROOT, 'tests', 'synapse', 'e2e');
     const testFiles = fs.readdirSync(e2eDir).filter(f => f.endsWith('.test.js'));
     expect(testFiles.length).toBeGreaterThanOrEqual(5);

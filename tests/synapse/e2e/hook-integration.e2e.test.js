@@ -223,7 +223,10 @@ describeIfHookExists('SYNAPSE E2E: Hook Integration', () => {
 
   test('hook output is a single well-formed JSON object (no trailing data)', () => {
     const input = buildInput();
-    const { stdout } = runHookSync(input);
+    const { stdout, exitCode } = runHookSync(input);
+
+    expect(exitCode).toBe(0);
+    expect(stdout).toBeTruthy();
 
     // Parse should succeed without leftover characters
     const result = JSON.parse(stdout);
