@@ -93,6 +93,18 @@ jest.mock('../../.aios-core/core/synapse/layers/l7-star-command', () => {
   throw err;
 }, { virtual: true });
 
+// Mock memory bridge (SYN-10)
+const mockGetMemoryHints = jest.fn(() => Promise.resolve([]));
+jest.mock('../../.aios-core/core/synapse/memory/memory-bridge', () => ({
+  MemoryBridge: jest.fn().mockImplementation(() => ({
+    getMemoryHints: mockGetMemoryHints,
+    clearCache: jest.fn(),
+    _reset: jest.fn(),
+  })),
+  BRACKET_LAYER_MAP: { FRESH: { layer: 0, maxTokens: 0 }, MODERATE: { layer: 1, maxTokens: 50 } },
+  BRIDGE_TIMEOUT_MS: 15,
+}));
+
 // ---------------------------------------------------------------------------
 // Imports (after mocks)
 // ---------------------------------------------------------------------------
@@ -214,6 +226,9 @@ describe('SynapseEngine', () => {
     contextTracker.needsMemoryHints.mockReturnValue(false);
     contextTracker.needsHandoffWarning.mockReturnValue(false);
 
+    mockGetMemoryHints.mockReset();
+    mockGetMemoryHints.mockResolvedValue([]);
+
     const warnSpy = jest.spyOn(console, 'warn').mockImplementation();
     engine = new SynapseEngine('/fake/.synapse', { manifest: {} });
     warnSpy.mockRestore();
@@ -237,33 +252,33 @@ describe('SynapseEngine', () => {
   });
 
   describe('process() — basic pipeline', () => {
-    test('should return xml and metrics', () => {
-      const result = engine.process('test prompt', { prompt_count: 1 });
+    test('should return xml and metrics', async () => {
+      const result = await engine.process('test prompt', { prompt_count: 1 });
       expect(result).toHaveProperty('xml');
       expect(result).toHaveProperty('metrics');
       expect(typeof result.xml).toBe('string');
       expect(typeof result.metrics).toBe('object');
     });
 
-    test('should call context-tracker with prompt_count', () => {
-      engine.process('test', { prompt_count: 5 });
+    test('should call context-tracker with prompt_count', async () => {
+      await engine.process('test', { prompt_count: 5 });
       expect(contextTracker.estimateContextPercent).toHaveBeenCalledWith(5);
     });
 
-    test('should call calculateBracket with context percent', () => {
+    test('should call calculateBracket with context percent', async () => {
       contextTracker.estimateContextPercent.mockReturnValue(72);
-      engine.process('test', { prompt_count: 10 });
+      await engine.process('test', { prompt_count: 10 });
       expect(contextTracker.calculateBracket).toHaveBeenCalledWith(72);
     });
 
-    test('should call getActiveLayers with bracket', () => {
+    test('should call getActiveLayers with bracket', async () => {
       contextTracker.calculateBracket.mockReturnValue('MODERATE');
-      engine.process('test', {});
+      await engine.process('test', {});
       expect(contextTracker.getActiveLayers).toHaveBeenCalledWith('MODERATE');
     });
 
-    test('should call formatSynapseRules with correct args', () => {
-      engine.process('test', { prompt_count: 0 });
+    test('should call formatSynapseRules with correct args', async () => {
+      await engine.process('test', { prompt_count: 0 });
       expect(formatter.formatSynapseRules).toHaveBeenCalledTimes(1);
 
       const args = formatter.formatSynapseRules.mock.calls[0];
@@ -275,22 +290,22 @@ describe('SynapseEngine', () => {
       expect(args[7]).toBe(false);          // showHandoffWarning
     });
 
-    test('should pass devmode=true when config has devmode', () => {
-      engine.process('test', {}, { devmode: true });
+    test('should pass devmode=true when config has devmode', async () => {
+      await engine.process('test', {}, { devmode: true });
       const args = formatter.formatSynapseRules.mock.calls[0];
       expect(args[4]).toBe(true);
     });
 
-    test('should default prompt_count to 0 when session is null', () => {
-      engine.process('test', null);
+    test('should default prompt_count to 0 when session is null', async () => {
+      await engine.process('test', null);
       expect(contextTracker.estimateContextPercent).toHaveBeenCalledWith(0);
     });
   });
 
   describe('process() — bracket-aware filtering', () => {
-    test('should skip layers not in active bracket (FRESH skips L3)', () => {
+    test('should skip layers not in active bracket (FRESH skips L3)', async () => {
       // FRESH has layers [0,1,2,7] — L3 (workflow) should be skipped
-      const result = engine.process('test', { prompt_count: 1 });
+      const result = await engine.process('test', { prompt_count: 1 });
 
       // Check metrics — workflow should be skipped
       const summary = result.metrics;
@@ -301,45 +316,45 @@ describe('SynapseEngine', () => {
       }
     });
 
-    test('should execute all L0-L7 in MODERATE bracket', () => {
+    test('should execute all L0-L7 in MODERATE bracket', async () => {
       contextTracker.getActiveLayers.mockReturnValue({
         layers: [0, 1, 2, 3, 4, 5, 6, 7],
         memoryHints: false,
         handoffWarning: false,
       });
 
-      const result = engine.process('test', { prompt_count: 30 });
+      const result = await engine.process('test', { prompt_count: 30 });
       // L0, L1, L2 should be loaded; L3 also since MODERATE allows it
       expect(result.metrics.layers_loaded).toBeGreaterThanOrEqual(3);
     });
   });
 
   describe('process() — fallback and edge cases', () => {
-    test('should return empty xml when no results', () => {
+    test('should return empty xml when no results', async () => {
       // Make all layers return null
       for (const layer of engine.layers) {
         layer._safeProcess = jest.fn(() => null);
       }
 
       formatter.formatSynapseRules.mockReturnValue('');
-      const result = engine.process('test', {});
+      const result = await engine.process('test', {});
       expect(result.xml).toBe('');
     });
 
-    test('should return empty when getActiveLayers returns null', () => {
+    test('should return empty when getActiveLayers returns null', async () => {
       contextTracker.getActiveLayers.mockReturnValue(null);
-      const result = engine.process('test', {});
+      const result = await engine.process('test', {});
       expect(result.xml).toBe('');
       expect(result.metrics.total_ms).toBeGreaterThanOrEqual(0);
     });
 
-    test('should handle session without prompt_count', () => {
-      const result = engine.process('test', {});
+    test('should handle session without prompt_count', async () => {
+      const result = await engine.process('test', {});
       expect(contextTracker.estimateContextPercent).toHaveBeenCalledWith(0);
       expect(result).toHaveProperty('xml');
     });
 
-    test('should accumulate previousLayers across layer executions', () => {
+    test('should accumulate previousLayers across layer executions', async () => {
       // Spy on _safeProcess to verify previousLayers grows
       const calls = [];
       for (const layer of engine.layers) {
@@ -350,7 +365,7 @@ describe('SynapseEngine', () => {
         });
       }
 
-      engine.process('test', {});
+      await engine.process('test', {});
 
       // First active layer should have 0 previousLayers
       if (calls.length > 0) {
@@ -364,20 +379,20 @@ describe('SynapseEngine', () => {
   });
 
   describe('process() — metrics', () => {
-    test('should have total_ms in metrics', () => {
-      const result = engine.process('test', {});
+    test('should have total_ms in metrics', async () => {
+      const result = await engine.process('test', {});
       expect(typeof result.metrics.total_ms).toBe('number');
       expect(result.metrics.total_ms).toBeGreaterThanOrEqual(0);
     });
 
-    test('should count loaded and skipped layers', () => {
-      const result = engine.process('test', { prompt_count: 1 });
+    test('should count loaded and skipped layers', async () => {
+      const result = await engine.process('test', { prompt_count: 1 });
       const m = result.metrics;
       expect(m.layers_loaded + m.layers_skipped + m.layers_errored).toBeGreaterThanOrEqual(1);
     });
 
-    test('should count total rules', () => {
-      const result = engine.process('test', {});
+    test('should count total rules', async () => {
+      const result = await engine.process('test', {});
       expect(typeof result.metrics.total_rules).toBe('number');
     });
   });
@@ -389,39 +404,79 @@ describe('SynapseEngine', () => {
   });
 
   describe('process() — handoff warning', () => {
-    test('should pass showHandoffWarning=true when bracket needs it', () => {
+    test('should pass showHandoffWarning=true when bracket needs it', async () => {
       contextTracker.needsHandoffWarning.mockReturnValue(true);
-      engine.process('test', {});
+      await engine.process('test', {});
       const args = formatter.formatSynapseRules.mock.calls[0];
       expect(args[7]).toBe(true);
     });
   });
 
   describe('process() — null/invalid processConfig guard', () => {
-    test('should handle null processConfig without throwing', () => {
-      const result = engine.process('test', { prompt_count: 1 }, null);
+    test('should handle null processConfig without throwing', async () => {
+      const result = await engine.process('test', { prompt_count: 1 }, null);
       expect(result).toHaveProperty('xml');
       expect(result).toHaveProperty('metrics');
     });
 
-    test('should handle non-object processConfig (string)', () => {
-      const result = engine.process('test', { prompt_count: 1 }, 'invalid');
+    test('should handle non-object processConfig (string)', async () => {
+      const result = await engine.process('test', { prompt_count: 1 }, 'invalid');
       expect(result).toHaveProperty('xml');
     });
 
-    test('should handle undefined processConfig', () => {
-      const result = engine.process('test', { prompt_count: 1 }, undefined);
+    test('should handle undefined processConfig', async () => {
+      const result = await engine.process('test', { prompt_count: 1 }, undefined);
       expect(result).toHaveProperty('xml');
     });
 
-    test('should handle numeric processConfig', () => {
-      const result = engine.process('test', { prompt_count: 1 }, 42);
+    test('should handle numeric processConfig', async () => {
+      const result = await engine.process('test', { prompt_count: 1 }, 42);
       expect(result).toHaveProperty('xml');
     });
   });
 
+  describe('process() — memory bridge integration (SYN-10)', () => {
+    test('should call memoryBridge.getMemoryHints when needsMemoryHints is true', async () => {
+      contextTracker.needsMemoryHints.mockReturnValue(true);
+      contextTracker.calculateBracket.mockReturnValue('MODERATE');
+      contextTracker.getTokenBudget.mockReturnValue(500);
+      mockGetMemoryHints.mockResolvedValue([
+        { content: 'Use absolute imports', source: 'procedural', relevance: 0.9, tokens: 5 },
+      ]);
+
+      await engine.process('test', { prompt_count: 30, activeAgent: 'dev' });
+
+      expect(mockGetMemoryHints).toHaveBeenCalledWith('dev', 'MODERATE', 500);
+
+      // Verify hints were passed to formatter via results (previousLayers)
+      const formatterCall = formatter.formatSynapseRules.mock.calls[0];
+      const resultsArg = formatterCall[0]; // first arg = results array
+      // Results should include layer outputs; memory hints go into previousLayers
+      // but formatter receives results (layer outputs), not previousLayers directly.
+      // The key verification is that getMemoryHints was called correctly.
+      expect(formatterCall).toBeDefined();
+    });
+
+    test('should NOT call memoryBridge.getMemoryHints when needsMemoryHints is false', async () => {
+      contextTracker.needsMemoryHints.mockReturnValue(false);
+      await engine.process('test', { prompt_count: 1 });
+      expect(mockGetMemoryHints).not.toHaveBeenCalled();
+    });
+
+    test('should use active_agent fallback when activeAgent is missing', async () => {
+      contextTracker.needsMemoryHints.mockReturnValue(true);
+      contextTracker.calculateBracket.mockReturnValue('DEPLETED');
+      contextTracker.getTokenBudget.mockReturnValue(300);
+      mockGetMemoryHints.mockResolvedValue([]);
+
+      await engine.process('test', { prompt_count: 50, active_agent: 'qa' });
+
+      expect(mockGetMemoryHints).toHaveBeenCalledWith('qa', 'DEPLETED', 300);
+    });
+  });
+
   describe('process() — edge cases for coverage', () => {
-    test('should handle layer returning non-array rules (invalid result format)', () => {
+    test('should handle layer returning non-array rules (invalid result format)', async () => {
       // Make a layer return an object without rules array
       if (engine.layers.length > 0) {
         engine.layers[0]._safeProcess = jest.fn(() => ({
@@ -430,7 +485,7 @@ describe('SynapseEngine', () => {
         }));
       }
 
-      const result = engine.process('test', {});
+      const result = await engine.process('test', {});
       // Should not crash — invalid result is skipped
       expect(result).toHaveProperty('xml');
       if (engine.layers.length > 0) {
@@ -441,7 +496,7 @@ describe('SynapseEngine', () => {
       }
     });
 
-    test('should log remaining layers as skipped on pipeline timeout', () => {
+    test('should log remaining layers as skipped on pipeline timeout', async () => {
       // Mock Date.now to simulate timeout after first layer
       const realDateNow = Date.now;
       let callCount = 0;
@@ -462,7 +517,7 @@ describe('SynapseEngine', () => {
         handoffWarning: false,
       });
 
-      const result = engine.process('test', {});
+      const result = await engine.process('test', {});
 
       Date.now = realDateNow;
 

@@ -20,6 +20,7 @@ const {
 } = require('./context/context-tracker');
 
 const { formatSynapseRules } = require('./output/formatter');
+const { MemoryBridge } = require('./memory/memory-bridge');
 
 // ---------------------------------------------------------------------------
 // Layer Imports (graceful — layers from SYN-4/SYN-5 may not exist yet)
@@ -186,6 +187,9 @@ class SynapseEngine {
     /** @type {Array<import('./layers/layer-processor')>} */
     this.layers = [];
 
+    /** @type {MemoryBridge} Feature-gated MIS consumer (SYN-10) */
+    this.memoryBridge = new MemoryBridge();
+
     for (const mod of LAYER_MODULES) {
       const LayerClass = loadLayerModule(mod.path);
       if (LayerClass) {
@@ -211,9 +215,9 @@ class SynapseEngine {
    * @param {object} session - Session state (SYN-2 schema)
    * @param {number} [session.prompt_count=0] - Number of prompts so far
    * @param {object} [processConfig] - Per-call config overrides
-   * @returns {{ xml: string, metrics: object }}
+   * @returns {Promise<{ xml: string, metrics: object }>}
    */
-  process(prompt, session, processConfig) {
+  async process(prompt, session, processConfig) {
     const safeProcessConfig = (processConfig && typeof processConfig === 'object') ? processConfig : {};
     const mergedConfig = { ...this.config, ...safeProcessConfig };
     const metrics = new PipelineMetrics();
@@ -283,9 +287,16 @@ class SynapseEngine {
       }
     }
 
-    // 3. Memory bridge placeholders (SYN-10 future — no-op)
+    // 3. Memory bridge (SYN-10) — feature-gated MIS consumer
     if (needsMemoryHints(bracket)) {
-      // Placeholder: SYN-10 will inject memory hints here
+      const hints = await this.memoryBridge.getMemoryHints(
+        (session && session.activeAgent) || (session && session.active_agent) || '',
+        bracket,
+        tokenBudget
+      );
+      if (hints.length > 0) {
+        previousLayers.push({ layer: 'memory', rules: hints, metadata: { layer: 'memory', source: 'memory' } });
+      }
     }
 
     metrics.totalEnd = Date.now();

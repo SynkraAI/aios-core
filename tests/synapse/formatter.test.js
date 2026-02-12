@@ -57,7 +57,7 @@ describe('SECTION_ORDER', () => {
   test('should include all expected sections', () => {
     const expected = [
       'CONTEXT_BRACKET', 'CONSTITUTION', 'AGENT', 'WORKFLOW',
-      'TASK', 'SQUAD', 'KEYWORD', 'STAR_COMMANDS', 'DEVMODE', 'SUMMARY',
+      'TASK', 'SQUAD', 'KEYWORD', 'MEMORY_HINTS', 'STAR_COMMANDS', 'DEVMODE', 'SUMMARY',
     ];
     expect(SECTION_ORDER).toEqual(expected);
   });
@@ -416,6 +416,46 @@ describe('formatSynapseRules', () => {
       const xml = formatSynapseRules(results, 'FRESH', 85, defaultSession, false, defaultMetrics, 10, false);
       // Output should still be valid XML (wrapped)
       expect(xml).toContain('<synapse-rules>');
+    });
+  });
+
+  describe('MEMORY_HINTS section (SYN-10)', () => {
+    test('should include [MEMORY HINTS] section when memory results present', () => {
+      const results = [
+        makeResult('constitution', ['Rule 1']),
+        {
+          rules: [
+            { content: 'Use absolute imports', source: 'procedural', relevance: 0.9, tokens: 5 },
+            { content: 'Avoid any type', source: 'semantic', relevance: 0.7, tokens: 4 },
+          ],
+          metadata: { source: 'memory', layer: 'memory' },
+        },
+      ];
+      const xml = formatSynapseRules(results, 'MODERATE', 50, defaultSession, false, defaultMetrics, 2000, false);
+      expect(xml).toContain('[MEMORY HINTS]');
+      expect(xml).toContain('[procedural] (relevance: 90%) Use absolute imports');
+      expect(xml).toContain('[semantic] (relevance: 70%) Avoid any type');
+    });
+
+    test('should NOT include [MEMORY HINTS] section when no memory results', () => {
+      const results = [makeResult('constitution', ['Rule 1'])];
+      const xml = formatSynapseRules(results, 'FRESH', 85, defaultSession, false, defaultMetrics, 2000, false);
+      expect(xml).not.toContain('[MEMORY HINTS]');
+    });
+
+    test('should handle memory hints with missing fields gracefully', () => {
+      const results = [
+        makeResult('constitution', ['Rule 1']),
+        {
+          rules: [
+            { content: 'Some hint', tokens: 3 },
+          ],
+          metadata: { source: 'memory', layer: 'memory' },
+        },
+      ];
+      const xml = formatSynapseRules(results, 'MODERATE', 50, defaultSession, false, defaultMetrics, 2000, false);
+      expect(xml).toContain('[MEMORY HINTS]');
+      expect(xml).toContain('[memory] (relevance: ?%) Some hint');
     });
   });
 

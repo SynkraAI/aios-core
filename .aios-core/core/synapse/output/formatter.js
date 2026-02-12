@@ -10,6 +10,8 @@
  * @created Story SYN-6 - SynapseEngine Orchestrator + Output Formatter
  */
 
+const { estimateTokens } = require('../utils/tokens');
+
 // ---------------------------------------------------------------------------
 // Section ordering (DESIGN doc section 14)
 // ---------------------------------------------------------------------------
@@ -29,6 +31,7 @@ const SECTION_ORDER = [
   'TASK',
   'SQUAD',
   'KEYWORD',
+  'MEMORY_HINTS',
   'STAR_COMMANDS',
   'DEVMODE',
   'SUMMARY',
@@ -45,6 +48,7 @@ const LAYER_TO_SECTION = {
   task: 'TASK',
   squad: 'SQUAD',
   keyword: 'KEYWORD',
+  memory: 'MEMORY_HINTS',
   'star-command': 'STAR_COMMANDS',
 };
 
@@ -238,6 +242,34 @@ function formatStarCommands(result) {
 }
 
 // ---------------------------------------------------------------------------
+// Memory Hints Section (SYN-10)
+// ---------------------------------------------------------------------------
+
+/**
+ * Format the MEMORY HINTS section.
+ *
+ * Only included when hints array is non-empty.
+ * Each hint displays source, relevance, and content.
+ *
+ * @param {object} result - Layer result { rules (hint objects), metadata }
+ * @returns {string}
+ */
+function formatMemoryHints(result) {
+  const lines = ['[MEMORY HINTS]'];
+
+  for (const hint of result.rules) {
+    const source = hint.source || 'memory';
+    const relevance = typeof hint.relevance === 'number'
+      ? `${(hint.relevance * 100).toFixed(0)}%`
+      : '?%';
+    const content = hint.content || '';
+    lines.push(`  [${source}] (relevance: ${relevance}) ${content}`);
+  }
+
+  return lines.join('\n');
+}
+
+// ---------------------------------------------------------------------------
 // DEVMODE Section (DESIGN doc section 13)
 // ---------------------------------------------------------------------------
 
@@ -347,18 +379,6 @@ function formatSummary(results, _metrics) {
 // ---------------------------------------------------------------------------
 
 /**
- * Estimate the number of tokens from a string.
- *
- * Uses the proven heuristic: tokens ~ string.length / 4
- *
- * @param {string} text - Text to estimate
- * @returns {number} Estimated token count
- */
-function estimateTokens(text) {
-  return Math.ceil((text || '').length / 4);
-}
-
-/**
  * Enforce a token budget by removing sections from the end.
  *
  * Truncation order (last removed first): SUMMARY, KEYWORD, SQUAD,
@@ -381,6 +401,7 @@ function enforceTokenBudget(sections, sectionIds, tokenBudget) {
   const TRUNCATION_ORDER = [
     'SUMMARY',
     'KEYWORD',
+    'MEMORY_HINTS',
     'SQUAD',
     'STAR_COMMANDS',
     'DEVMODE',
@@ -428,6 +449,7 @@ const SECTION_FORMATTERS = {
   TASK: formatTask,
   SQUAD: formatSquad,
   KEYWORD: formatKeyword,
+  MEMORY_HINTS: formatMemoryHints,
   STAR_COMMANDS: formatStarCommands,
 };
 
