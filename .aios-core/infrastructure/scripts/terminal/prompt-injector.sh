@@ -60,14 +60,21 @@ aios_prompt() {
     if [[ "$progress" =~ ^([0-9]+)/([0-9]+)$ ]]; then
       local current="${BASH_REMATCH[1]}"
       local total="${BASH_REMATCH[2]}"
-      local percent=$((current * 100 / total))
 
-      # Color code based on completion
-      if [[ $percent -eq 100 ]]; then
-        output="${output} ${GREEN}[${progress}]${CYAN}"
-      elif [[ $percent -ge 60 ]]; then
-        output="${output} ${YELLOW}[${progress}]${CYAN}"
+      # Avoid division by zero
+      if [[ $total -gt 0 ]]; then
+        local percent=$((current * 100 / total))
+
+        # Color code based on completion
+        if [[ $percent -eq 100 ]]; then
+          output="${output} ${GREEN}[${progress}]${CYAN}"
+        elif [[ $percent -ge 60 ]]; then
+          output="${output} ${YELLOW}[${progress}]${CYAN}"
+        else
+          output="${output} [${progress}]"
+        fi
       else
+        # If total is 0, just show progress without color
         output="${output} [${progress}]"
       fi
     else
