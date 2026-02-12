@@ -44,16 +44,28 @@ jest.mock('../../pro/memory/memory-loader', () => ({
 }), { virtual: true });
 
 // ---------------------------------------------------------------------------
-// Import (after mocks)
+// Import (after mocks) — skip entire suite if pro/ submodule is absent (CI)
 // ---------------------------------------------------------------------------
 
-const { SynapseMemoryProvider, BRACKET_CONFIG, DEFAULT_SECTORS } = require('../../pro/memory/synapse-memory-provider');
+let SynapseMemoryProvider, BRACKET_CONFIG, DEFAULT_SECTORS;
+let proAvailable = true;
+
+try {
+  const mod = require('../../pro/memory/synapse-memory-provider');
+  SynapseMemoryProvider = mod.SynapseMemoryProvider;
+  BRACKET_CONFIG = mod.BRACKET_CONFIG;
+  DEFAULT_SECTORS = mod.DEFAULT_SECTORS;
+} catch {
+  proAvailable = false;
+}
+
+const describeIfPro = proAvailable ? describe : describe.skip;
 
 // =============================================================================
 // SynapseMemoryProvider
 // =============================================================================
 
-describe('SynapseMemoryProvider', () => {
+describeIfPro('SynapseMemoryProvider', () => {
   let provider;
 
   beforeEach(() => {
@@ -260,7 +272,7 @@ describe('SynapseMemoryProvider', () => {
 // Constants
 // =============================================================================
 
-describe('module constants', () => {
+describeIfPro('module constants', () => {
   test('BRACKET_CONFIG has MODERATE, DEPLETED, CRITICAL', () => {
     expect(BRACKET_CONFIG).toHaveProperty('MODERATE');
     expect(BRACKET_CONFIG).toHaveProperty('DEPLETED');
