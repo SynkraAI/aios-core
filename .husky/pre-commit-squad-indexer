@@ -1,0 +1,63 @@
+#!/usr/bin/env sh
+# Universal Auto-Indexer Pre-Commit Hook
+#
+# Automatically detects changes in squads/, .aios/skills/, or tools/ and re-indexes
+
+# Check what was modified in staged files
+SQUADS_MODIFIED=$(git diff --cached --name-only | grep "^squads/" | wc -l | tr -d ' ')
+SKILLS_MODIFIED=$(git diff --cached --name-only | grep "^\.aios/skills/" | wc -l | tr -d ' ')
+TOOLS_MODIFIED=$(git diff --cached --name-only | grep "^tools/" | wc -l | tr -d ' ')
+
+# Calculate total
+TOTAL_MODIFIED=$((SQUADS_MODIFIED + SKILLS_MODIFIED + TOOLS_MODIFIED))
+
+if [ "$TOTAL_MODIFIED" -gt 0 ]; then
+  echo ""
+  echo "🔍 Detected changes in AIOS assets:"
+  [ "$SQUADS_MODIFIED" -gt 0 ] && echo "   📦 Squads: $SQUADS_MODIFIED files"
+  [ "$SKILLS_MODIFIED" -gt 0 ] && echo "   🎯 Skills: $SKILLS_MODIFIED files"
+  [ "$TOOLS_MODIFIED" -gt 0 ] && echo "   🔧 Tools: $TOOLS_MODIFIED files"
+  echo ""
+  echo "🔧 Running universal auto-indexer..."
+  echo ""
+
+  # Run universal indexer
+  npm run index:all --silent
+
+  if [ $? -eq 0 ]; then
+    echo ""
+    echo "✅ Asset indexing complete"
+
+    # Check if .claude/commands/ was modified
+    COMMANDS_MODIFIED=$(git status --porcelain .claude/commands/ | wc -l | tr -d ' ')
+
+    if [ "$COMMANDS_MODIFIED" -gt 0 ]; then
+      echo "📝 Auto-staging updated slash commands..."
+      git add .claude/commands/
+    fi
+
+    # Check if tools/README.md was modified
+    TOOLS_README_MODIFIED=$(git status --porcelain tools/README.md 2>/dev/null | wc -l | tr -d ' ')
+
+    if [ "$TOOLS_README_MODIFIED" -gt 0 ]; then
+      echo "📝 Auto-staging updated tools/README.md..."
+      git add tools/README.md
+    fi
+
+    # Check if MEMORY.md was modified
+    MEMORY_MODIFIED=$(git status --porcelain ~/.claude/projects/-Users-luizfosc-aios-core/memory/MEMORY.md 2>/dev/null | wc -l | tr -d ' ')
+
+    if [ "$MEMORY_MODIFIED" -gt 0 ]; then
+      echo "📝 Auto-staging updated MEMORY.md..."
+      git add ~/.claude/projects/-Users-luizfosc-aios-core/memory/MEMORY.md
+    fi
+
+    echo ""
+  else
+    echo ""
+    echo "⚠️  Asset indexing encountered issues"
+    echo "   Run 'npm run index:validate' to check for problems"
+    echo ""
+    # Don't block commit on indexing failure
+  fi
+fi
