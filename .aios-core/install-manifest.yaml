@@ -309,7 +309,7 @@ files:
     type: elicitation
     size: 13528
   - path: core/elicitation/session-manager.js
-    hash: sha256:65f51fa81e5b9b237d8c7f071c86acc21b0fcfcc763a781e46c5dd39e8dec0ac
+    hash: sha256:364f38da78222318493dc8f2c6d2f81bc1ed88b95885e60097fc760ea29fe1ca
     type: elicitation
     size: 8840
   - path: core/elicitation/task-elicitation.js
@@ -616,26 +616,14 @@ files:
     hash: sha256:7e21cb18f666429746e97d477db799b4401aab036421d6a5fb821354b4e26131
     type: core
     size: 10392
-  - path: core/memory/__tests__/gaps-implementation.verify.js
-    hash: sha256:ed2ac83feef0c7d55db1cf439f74b5fab9ab8bdc73d3f54ebff0b6d3bc549f76
+  - path: core/memory/__tests__/active-modules.verify.js
+    hash: sha256:70f2689446adb1dc72faf2bd2c26c2d142814d4be30fee4f0e58b9163095a400
     type: core
-    size: 14066
-  - path: core/memory/context-snapshot.js
-    hash: sha256:b316068e6689d1ab405d44083dc59e816c2515745e24d2d39043d95a6fbc786a
-    type: core
-    size: 20027
-  - path: core/memory/file-evolution-tracker.js
-    hash: sha256:8e381e40e5deeb524c7af2490c131c4556d300aefb0261de1358bcdecac839c7
-    type: core
-    size: 30550
+    size: 8850
   - path: core/memory/gotchas-memory.js
     hash: sha256:b0fe8524e98e992653b1e6cdf06a2b102ddb4d8729b6fecf0fe981bec5decdf4
     type: core
     size: 33058
-  - path: core/memory/timeline-manager.js
-    hash: sha256:c95ed4b3fb17c36f42d80160287a9529aaab662442ca4707bb8fc2d51e9ac2aa
-    type: core
-    size: 24434
   - path: core/migration/migration-config.yaml
     hash: sha256:fdfc02364ba8ac5983dc8f902c63b911b799b2c9d7d8e0013460708939a69269
     type: core
@@ -849,7 +837,7 @@ files:
     type: data
     size: 9846
   - path: data/aios-kb.md
-    hash: sha256:21138a86582b713c2106973907bbf4a5ce4e3192dadd832122ac9c6294d0efb1
+    hash: sha256:c3596f743ba36a99618ab32ab0a5b3c2419ca91128fb79a66e44ebbf7474806f
     type: data
     size: 34868
   - path: data/learned-patterns.yaml
@@ -1261,13 +1249,13 @@ files:
     type: task
     size: 7175
   - path: development/tasks/create-task.md
-    hash: sha256:e3bfc2e7c0db82379434462b7f3ab2de154045c28d4b94151171bb4653ce6ed8
+    hash: sha256:98932670187a40e38a6c06103d9a12fe8a7924eec78ff10aa2ccaf6ea98b0608
     type: task
-    size: 9223
+    size: 9952
   - path: development/tasks/create-workflow.md
-    hash: sha256:f07a2fa4a0feca19a0e44c971771d128ac6f84816f2458fa2e2315eaffdbf78a
+    hash: sha256:52bad6f2826f77a83135d78c5bc244e250fe430c73bbf564f2cdb9da6ddf9c5f
     type: task
-    size: 10751
+    size: 11492
   - path: development/tasks/create-worktree.md
     hash: sha256:2a181b87bdc2cb3f2de29d7ab33dbe7d2261bd4931a900e4c91ae00f581b0b52
     type: task
@@ -1505,17 +1493,17 @@ files:
     type: task
     size: 930
   - path: development/tasks/modify-agent.md
-    hash: sha256:3b37db1399c223dbc0d426c4363aa3f96fbf1d481d541d51bcc1d067da099992
+    hash: sha256:c36d250373555f67762a4e8d14aabcd3a8dd9e57559362d08230f3bade064f26
     type: task
-    size: 9229
+    size: 9846
   - path: development/tasks/modify-task.md
-    hash: sha256:c1bdaaaee23bde11418d5bd0840da136b09e32a7dfb95926afd41c81fb8badb9
+    hash: sha256:75da41384ec81df0b879183a70f7bd6ea5390016f56f9236c649c2a07239532e
     type: task
-    size: 10260
+    size: 10877
   - path: development/tasks/modify-workflow.md
-    hash: sha256:b5f39b9f76376bd3360fea608b2c82e9c5888e358f68295567c4d955eca9339c
+    hash: sha256:1902f821e3110440ee85d82fed5d664c0cb3d2c59e586b42e88be9cffe1e45a5
     type: task
-    size: 12739
+    size: 13356
   - path: development/tasks/next.md
     hash: sha256:53f4311ff6797342701c870b9552884815537dde8cb4936a0b3b5bf53b820f32
     type: task
@@ -2757,9 +2745,9 @@ files:
     type: monitor
     size: 818
   - path: package.json
-    hash: sha256:9998a56094f4a308c534d4dd9b29721ef50aabc0c50633763f5c1ac7b7f3da48
+    hash: sha256:dff580c83cc1554c75162c9cabb711b5cd85e679c9c8f4968ee74499e99de0c0
     type: other
-    size: 2378
+    size: 2401
   - path: product/checklists/accessibility-wcag-checklist.md
     hash: sha256:56126182b25e9b7bdde43f75315e33167eb49b1f9a9cb0e9a37bc068af40aeab
     type: checklist
@@ -3489,9 +3477,9 @@ files:
     type: script
     size: 1708
   - path: user-guide.md
-    hash: sha256:abcef62ecd991d311ef2b1858ae14aeed76e7e9d3579fab73760936926c57553
+    hash: sha256:a6c60f9781589f7e9e87ff1b488cdd842f6e1b03a74b71695cdfe14a0a5589c8
     type: documentation
-    size: 38581
+    size: 38582
   - path: workflow-intelligence/__tests__/confidence-scorer.test.js
     hash: sha256:237216842d3eb710ae33f3aba6c7b2a6a353cccc1dea6d4b927d8d063d9cb635
     type: workflow-intelligence

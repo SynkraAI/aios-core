@@ -3,7 +3,7 @@
 /**
  * AIOS-FullStack CLI
  * Main entry point - Standalone (no external dependencies for npx compatibility)
- * Version: 1.2.0
+ * Version: 4.0.0
  */
 
 const path = require('path');
@@ -93,13 +93,13 @@ SERVICE DISCOVERY:
 
 EXAMPLES:
   # Install in current directory
-  npx @synkra/aios-core@latest
+  npx aios-core@latest
 
   # Install with minimal mode (only expansion-creator)
-  npx @synkra/aios-core-minimal@latest
+  npx aios-core-minimal@latest
 
   # Create new project
-  npx @synkra/aios-core@latest init my-project
+  npx aios-core@latest init my-project
 
   # Search for workers
   aios workers search "json csv"
@@ -120,7 +120,7 @@ async function showVersion() {
 
   // Detailed version output (Story 7.2: Version Tracking)
   console.log(`AIOS-FullStack v${packageJson.version}`);
-  console.log('Package: @synkra/aios-core');
+  console.log('Package: aios-core');
 
   // Check for local installation
   const localVersionPath = path.join(process.cwd(), '.aios-core', 'version.json');
@@ -479,7 +479,7 @@ Examples:
     });
     hasErrors = true;
     console.log('✗ AIOS Core not installed');
-    console.log('  Run: npx @synkra/aios-core@latest');
+    console.log('  Run: npx aios-core@latest');
   }
 
   // Check 5: AIOS Pro license status (Task 5.1)

@@ -52,11 +52,15 @@ class UnifiedHook {
     const claudeEvent = EVENT_MAPPING[this.event]?.claude;
     if (!claudeEvent) return null;
 
-    return {
-      event: claudeEvent,
-      matcher: this.matcher,
-      handler: `node .aios-core/hooks/unified/runners/claude-runner.js ${this.name}`,
-    };
+    // TODO: Restore when runners/ directory is implemented (Story MIS-2)
+    // Runners not yet implemented - path .aios-core/hooks/unified/runners/ does not exist
+    return null;
+
+    // return {
+    //   event: claudeEvent,
+    //   matcher: this.matcher,
+    //   handler: `node .aios-core/hooks/unified/runners/claude-runner.js ${this.name}`,
+    // };
   }
 
   /**
@@ -66,17 +70,21 @@ class UnifiedHook {
   toGeminiConfig() {
     const geminiEvent = EVENT_MAPPING[this.event]?.gemini;
 
-    return {
-      matcher: this.matcher,
-      hooks: [
-        {
-          name: this.name,
-          type: 'command',
-          command: `node .aios-core/hooks/unified/runners/gemini-runner.js ${this.name}`,
-          timeout: this.timeout,
-        },
-      ],
-    };
+    // TODO: Restore when runners/ directory is implemented (Story MIS-2)
+    // Runners not yet implemented - path .aios-core/hooks/unified/runners/ does not exist
+    return null;
+
+    // return {
+    //   matcher: this.matcher,
+    //   hooks: [
+    //     {
+    //       name: this.name,
+    //       type: 'command',
+    //       command: `node .aios-core/hooks/unified/runners/gemini-runner.js ${this.name}`,
+    //       timeout: this.timeout,
+    //     },
+    //   ],
+    // };
   }
 }
 

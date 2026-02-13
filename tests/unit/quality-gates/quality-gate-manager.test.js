@@ -60,12 +60,28 @@ describe('QualityGateManager', () => {
     });
 
     it('should run Layer 2', async () => {
+      // Mock runCommand to avoid actual WSL/CodeRabbit calls
+      manager.layers.layer2.runCommand = jest.fn().mockResolvedValue({
+        exitCode: 0,
+        stdout: 'No issues found',
+        stderr: '',
+        duration: 50,
+      });
+
       const result = await manager.runLayer(2, { verbose: false });
       expect(result).toBeDefined();
       expect(result.layer).toBe('Layer 2: PR Automation');
     });
 
     it('should run Layer 3', async () => {
+      // Mock file operations to avoid actual filesystem access
+      manager.layers.layer3.runCommand = jest.fn().mockResolvedValue({
+        exitCode: 0,
+        stdout: 'Review complete',
+        stderr: '',
+        duration: 50,
+      });
+
       const result = await manager.runLayer(3, { verbose: false });
       expect(result).toBeDefined();
       expect(result.layer).toBe('Layer 3: Human Review');

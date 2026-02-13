@@ -354,7 +354,6 @@ function getIDEConfigFile(ideKey) {
   const ideConfigMap = {
     cursor: '.cursorrules',
     windsurf: '.windsurfrules',
-    trae: '.trae/config.json',
     zed: '.zed/settings.json',
     antigravity: '.antigravity.yaml',
     continue: '.continue/config.json',

@@ -1,0 +1,131 @@
+# Pro Integration Tests
+#
+# Separate workflow for tests that require the aios-pro submodule.
+# aios-core CI runs standalone (ADR-PRO-001). This workflow validates
+# the integration boundary between core and pro.
+#
+# Requires PRO_SUBMODULE_TOKEN secret (PAT with repo scope for SynkraAI/aios-pro).
+#
+# Tests covered:
+#   - tests/pro/**          (integration tests in aios-core)
+#   - pro/**/__tests__/**   (unit tests inside aios-pro submodule)
+
+name: Pro Integration
+
+on:
+  # When submodule pointer or pro-related tests change
+  push:
+    branches: [main]
+    paths:
+      - 'pro'
+      - 'tests/pro/**'
+      - 'bin/utils/pro-detector.js'
+      - '.github/workflows/pro-integration.yml'
+
+  pull_request:
+    branches: [main]
+    paths:
+      - 'pro'
+      - 'tests/pro/**'
+      - 'bin/utils/pro-detector.js'
+      - '.github/workflows/pro-integration.yml'
+
+  # Manual trigger for on-demand validation
+  workflow_dispatch:
+
+  # Weekly scheduled run (Monday 6am UTC)
+  schedule:
+    - cron: '0 6 * * 1'
+
+concurrency:
+  group: pro-integration-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  pro-tests:
+    name: Pro Integration Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    # Skip if secret is not configured (forks, new setups)
+    # The job will still appear but steps will be skipped gracefully
+    env:
+      HAS_PRO_TOKEN: ${{ secrets.PRO_SUBMODULE_TOKEN != '' }}
+
+    steps:
+      - name: Check token availability
+        id: token-check
+        run: |
+          if [ "$HAS_PRO_TOKEN" != "true" ]; then
+            echo "⚠️ PRO_SUBMODULE_TOKEN not configured. Skipping pro integration tests."
+            echo "See: .github/workflows/pro-integration.yml for setup instructions."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout with submodules
+        if: steps.token-check.outputs.skip != 'true'
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PRO_SUBMODULE_TOKEN }}
+          submodules: 'recursive'
+
+      - name: Setup Node.js
+        if: steps.token-check.outputs.skip != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install core dependencies
+        if: steps.token-check.outputs.skip != 'true'
+        run: npm ci
+
+      - name: Install pro dependencies
+        if: steps.token-check.outputs.skip != 'true'
+        run: |
+          if [ -f pro/package.json ]; then
+            cd pro && npm install --legacy-peer-deps
+          else
+            echo "⚠️ pro/package.json not found — submodule may not be initialized"
+            exit 1
+          fi
+
+      - name: Verify submodule checkout
+        if: steps.token-check.outputs.skip != 'true'
+        run: |
+          echo "=== Pro Submodule Status ==="
+          git submodule status
+          echo ""
+          echo "=== Pro Version ==="
+          node -e "const p = require('./pro/package.json'); console.log(p.name + '@' + p.version)"
+          echo ""
+          echo "=== Pro Contents ==="
+          ls pro/
+
+      - name: Run core→pro integration tests
+        if: steps.token-check.outputs.skip != 'true'
+        run: |
+          echo "=== Running tests/pro/ (integration tests in aios-core) ==="
+          npx jest tests/pro/ --no-coverage --verbose
+
+      - name: Run pro internal tests
+        if: steps.token-check.outputs.skip != 'true'
+        continue-on-error: true
+        run: |
+          echo "=== Running pro/**/__tests__/ (unit tests in aios-pro) ==="
+          echo "Note: failures here are informational — fix in aios-pro repo"
+          npx jest --roots pro/ --no-coverage --verbose
+
+      - name: Summary
+        if: steps.token-check.outputs.skip != 'true' && always()
+        run: |
+          echo "=== Pro Integration Summary ==="
+          echo "Core integration tests: tests/pro/"
+          echo "Pro unit tests: pro/**/__tests__/"
+          echo "Submodule ref: $(git submodule status | awk '{print $1}')"

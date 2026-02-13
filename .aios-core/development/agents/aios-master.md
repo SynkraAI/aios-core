@@ -202,6 +202,40 @@ commands:
   # NOTE: Test suite creation delegated to @qa (*create-suite)
   # NOTE: AI prompt generation delegated to @architect (*generate-ai-prompt)
 
+  # IDS — Incremental Development System (Story IDS-7)
+  - name: ids check
+    args: '{intent} [--type {type}]'
+    description: 'Pre-check registry for REUSE/ADAPT/CREATE recommendations (advisory)'
+  - name: ids impact
+    args: '{entity-id}'
+    description: 'Impact analysis — direct/indirect consumers via usedBy BFS traversal'
+  - name: ids register
+    args: '{file-path} [--type {type}] [--agent {agent}]'
+    description: 'Register new entity in registry after creation'
+  - name: ids health
+    description: 'Registry health check (graceful fallback if RegistryHealer unavailable)'
+  - name: ids stats
+    description: 'Registry statistics (entity count by type, categories, health score)'
+
+# IDS Pre-Action Hooks (Story IDS-7)
+# These hooks run BEFORE *create and *modify commands as advisory (non-blocking) steps.
+ids_hooks:
+  pre_create:
+    trigger: '*create agent|task|workflow|template|checklist'
+    action: 'FrameworkGovernor.preCheck(intent, entityType)'
+    mode: advisory
+    description: 'Query registry before creating new components — shows REUSE/ADAPT/CREATE recommendations'
+  pre_modify:
+    trigger: '*modify agent|task|workflow'
+    action: 'FrameworkGovernor.impactAnalysis(entityId)'
+    mode: advisory
+    description: 'Show impact analysis before modifying components — displays consumers and risk level'
+  post_create:
+    trigger: 'After successful *create completion'
+    action: 'FrameworkGovernor.postRegister(filePath, metadata)'
+    mode: automatic
+    description: 'Auto-register new entities in the IDS Entity Registry after creation'
+
 security:
   authorization:
     - Check user permissions before component creation
@@ -247,6 +281,7 @@ dependencies:
     - validate-workflow.md
     - run-workflow.md
     - run-workflow-engine.md
+    - ids-governor.md
   # Delegated tasks (Story 6.1.2.3):
   #   brownfield-create-epic.md → @pm
   #   brownfield-create-story.md → @pm
@@ -322,6 +357,14 @@ autoClaude:
 - `*plan` - Create workflow plan
 - `*plan status` - Check plan progress
 
+**IDS — Incremental Development System:**
+
+- `*ids check {intent}` - Pre-check registry for REUSE/ADAPT/CREATE (advisory)
+- `*ids impact {entity-id}` - Impact analysis (direct/indirect consumers)
+- `*ids register {file-path}` - Register new entity after creation
+- `*ids health` - Registry health check
+- `*ids stats` - Registry statistics (entity counts, health score)
+
 **Delegated Commands:**
 
 - Epic/Story creation → Use `@pm *create-epic` / `*create-story`
@@ -380,10 +423,12 @@ Type `*help` to see all commands, or `*kb` to enable KB mode.
 ### Typical Workflow
 
 1. **Framework dev** → `*create-agent`, `*create-task`, `*create-workflow`
-2. **Task execution** → `*task {task}` to run any task directly
-3. **Workflow** → `*workflow {name}` for multi-step processes
-4. **Planning** → `*plan` before complex operations
-5. **Validation** → `*validate-component` for security/standards
+2. **IDS check** → Before creating, `*ids check {intent}` checks for existing artifacts
+3. **Task execution** → `*task {task}` to run any task directly
+4. **Workflow** → `*workflow {name}` for multi-step processes
+5. **Planning** → `*plan` before complex operations
+6. **Validation** → `*validate-component` for security/standards
+7. **IDS governance** → `*ids stats` and `*ids health` to monitor registry
 
 ### Common Pitfalls
 

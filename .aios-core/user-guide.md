@@ -59,7 +59,7 @@ npx @aios/fullstack install
   ◉ Claude Code (.claude/commands/)
   ◉ Cursor (.cursor/rules/)
   ◯ Windsurf (.windsurf/rules.md)
-  ◯ Trae (.trae/agents/)
+  ◯ Gemini CLI (.gemini/)
 
 📝 Sharding Preferences:
   ◯ Single file (all in one document)

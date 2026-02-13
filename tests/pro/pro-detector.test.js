@@ -137,7 +137,7 @@ describe('pro-detector', () => {
     it('should return version from pro/package.json', () => {
       fs.existsSync.mockReturnValue(true);
       fs.readFileSync.mockReturnValue(
-        JSON.stringify({ name: '@aios/pro', version: '0.1.0' }),
+        JSON.stringify({ name: '@aios-fullstack/pro', version: '0.1.0' }),
       );
 
       expect(getProVersion()).toBe('0.1.0');
@@ -146,7 +146,7 @@ describe('pro-detector', () => {
 
     it('should return null when package.json has no version field', () => {
       fs.existsSync.mockReturnValue(true);
-      fs.readFileSync.mockReturnValue(JSON.stringify({ name: '@aios/pro' }));
+      fs.readFileSync.mockReturnValue(JSON.stringify({ name: '@aios-fullstack/pro' }));
 
       expect(getProVersion()).toBeNull();
     });
@@ -183,7 +183,7 @@ describe('pro-detector', () => {
     it('should return full info when pro is available', () => {
       fs.existsSync.mockReturnValue(true);
       fs.readFileSync.mockReturnValue(
-        JSON.stringify({ name: '@aios/pro', version: '0.1.0' }),
+        JSON.stringify({ name: '@aios-fullstack/pro', version: '0.1.0' }),
       );
 
       const info = getProInfo();

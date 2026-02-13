@@ -1,242 +1,205 @@
-# AIOS Pro Install-Gate Setup Guide
+# AIOS Pro — Guia de Instalacao e Licenciamento
 
-This guide explains how to configure access to `@aios/pro` from GitHub Packages.
+Guia completo para instalar, ativar e gerenciar o AIOS Pro.
 
 **Story:** PRO-6 — License Key & Feature Gating System
-**AC:** AC-12 — Install-gate via GitHub Packages token auth
 
 ---
 
-## Overview
+## Visao Geral
 
-AIOS Pro is distributed via GitHub Packages with token-based authentication. This provides an "install-gate" that ensures only authorized users can download the package.
+O AIOS Pro e distribuido via npm publico. O pacote e livre para instalar, mas as features premium requerem uma **licenca ativa** para funcionar.
 
 ```
-Purchase → Get GitHub Token → Setup .npmrc → Install @aios/pro → Activate License
+Comprar Licenca → Instalar → Ativar → Usar Features Pro
+```
+
+### Pacotes npm
+
+| Pacote | Tipo | Proposito |
+|--------|------|-----------|
+| `aios-pro` | CLI (1.8 KB) | Comandos de instalacao e gerenciamento |
+| `@aios-fullstack/pro` | Core (10 MB) | Features premium (squads, memory, metrics, integrations) |
+
+---
+
+## Instalacao Rapida
+
+```bash
+# Instalar AIOS Pro (instala @aios-fullstack/pro automaticamente)
+npx aios-pro install
+
+# Ativar sua licenca
+npx aios-pro activate --key PRO-XXXX-XXXX-XXXX-XXXX
+
+# Verificar ativacao
+npx aios-pro status
 ```
 
 ---
 
-## Quick Setup (Automated)
+## Passo a Passo
 
-The fastest way to configure access:
+### Prerequisitos
+
+- Node.js >= 18
+- `aios-core` >= 4.0.0 instalado no projeto
+
+### Passo 1: Instalar AIOS Pro
 
 ```bash
-# Interactive setup (will prompt for token)
-aios pro setup
+npx aios-pro install
+```
 
-# Or with token directly
-aios pro setup --token ghp_YOUR_TOKEN_HERE
+Isso executa `npm install @aios-fullstack/pro` no seu projeto.
 
-# For global installation (all projects)
-aios pro setup --token ghp_YOUR_TOKEN_HERE --global
+**Alternativa** (instalacao manual):
+
+```bash
+npm install @aios-fullstack/pro
+```
+
+### Passo 2: Ativar Licenca
+
+Apos a compra, voce recebera uma chave no formato `PRO-XXXX-XXXX-XXXX-XXXX`.
+
+```bash
+npx aios-pro activate --key PRO-XXXX-XXXX-XXXX-XXXX
+```
+
+Esse comando:
+1. Valida a chave contra o License Server (`https://aios-license-server.vercel.app`)
+2. Registra sua maquina (machine ID unico)
+3. Salva um cache local criptografado para uso offline
+
+### Passo 3: Verificar
+
+```bash
+# Status da licenca
+npx aios-pro status
+
+# Listar features disponiveis
+npx aios-pro features
 ```
 
 ---
 
-## Manual Setup
+## Comandos Disponiveis
 
-### Step 1: Create a GitHub Personal Access Token (PAT)
+| Comando | Descricao |
+|---------|-----------|
+| `npx aios-pro install` | Instala `@aios-fullstack/pro` no projeto |
+| `npx aios-pro activate --key KEY` | Ativa uma chave de licenca |
+| `npx aios-pro status` | Mostra status da licenca atual |
+| `npx aios-pro features` | Lista todas as features pro e disponibilidade |
+| `npx aios-pro validate` | Forca revalidacao online da licenca |
+| `npx aios-pro deactivate` | Desativa a licenca nesta maquina |
+| `npx aios-pro help` | Mostra todos os comandos |
 
-1. Go to [GitHub Settings → Tokens](https://github.com/settings/tokens/new)
-2. Give it a descriptive name: `AIOS Pro Access`
-3. Select expiration (recommended: 90 days or custom)
-4. Select scope: **`read:packages`** (minimum required)
-5. Click "Generate token"
-6. **Copy the token immediately** — you won't see it again!
+---
 
-> **Security Tip:** Use fine-grained tokens for better security. Classic tokens work but grant broader access.
+## Operacao Offline
 
-### Step 2: Configure npm Registry
+Apos a instalacao e ativacao, o AIOS Pro funciona offline:
 
-**Option A: Project-level (recommended for teams)**
+- **30 dias** sem necessidade de revalidacao
+- **7 dias de grace period** apos expirar o cache
+- Verificacao de features 100% local no dia a dia
 
-Create `.npmrc` in your project root:
+A internet so e necessaria para:
+1. Ativacao inicial (`npx aios-pro activate`)
+2. Revalidacao periodica (automatica a cada 30 dias)
+3. Desativacao (`npx aios-pro deactivate`)
 
-```ini
-# .npmrc
-@aios:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=ghp_YOUR_TOKEN_HERE
+---
+
+## CI/CD
+
+Para pipelines, instale e ative usando secrets de ambiente:
+
+**GitHub Actions:**
+```yaml
+- name: Install AIOS Pro
+  run: npx aios-pro install
+
+- name: Activate License
+  run: npx aios-pro activate --key ${{ secrets.AIOS_PRO_LICENSE_KEY }}
 ```
 
-> **Important:** Add `.npmrc` to `.gitignore` to avoid committing tokens!
-
-**Option B: Global (personal use)**
-
-```bash
-npm config set @aios:registry https://npm.pkg.github.com
-npm config set //npm.pkg.github.com/:_authToken ghp_YOUR_TOKEN_HERE
-```
-
-### Step 3: Install AIOS Pro
-
-```bash
-npm install @aios/pro
-```
-
-### Step 4: Activate Your License
-
-```bash
-aios pro activate --key PRO-XXXX-XXXX-XXXX-XXXX
+**GitLab CI:**
+```yaml
+before_script:
+  - npx aios-pro install
+  - npx aios-pro activate --key ${AIOS_PRO_LICENSE_KEY}
 ```
 
 ---
 
 ## Troubleshooting
 
-### Error: 401 Unauthorized
+### Chave de licenca invalida
 
 ```
-npm error 401 Unauthorized - GET https://npm.pkg.github.com/@aios%2fpro
+License activation failed: Invalid key format
 ```
 
-**Causes:**
-1. Token is invalid or expired
-2. Token doesn't have `read:packages` scope
-3. `.npmrc` is misconfigured
+- Verifique o formato: `PRO-XXXX-XXXX-XXXX-XXXX` (4 blocos de 4 caracteres hex)
+- Sem espacos extras
+- Contate support@synkra.ai se a chave foi fornecida a voce
 
-**Solutions:**
-
-```bash
-# Verify your token is set
-npm config get //npm.pkg.github.com/:_authToken
-
-# If empty or wrong, reconfigure
-npm config set //npm.pkg.github.com/:_authToken ghp_YOUR_NEW_TOKEN
-
-# Or run setup again
-aios pro setup
-```
-
-### Error: 404 Not Found
+### Maximo de seats excedido
 
 ```
-npm error 404 Not Found - GET https://npm.pkg.github.com/@aios%2fpro
+License activation failed: Maximum seats exceeded
 ```
 
-**Causes:**
-1. Package not yet published
-2. Token doesn't have access to the repository
+- Desative a licenca na outra maquina: `npx aios-pro deactivate`
+- Ou contate support para aumentar o limite de seats
 
-**Solutions:**
-- Contact support@synkra.ai to verify your access
-- Ensure your GitHub account has been granted access
-
-### Error: ENOENT .npmrc
+### Erro de rede na ativacao
 
 ```
-ENOENT: no such file or directory, open '.npmrc'
+License activation failed: ECONNREFUSED
 ```
 
-**Solution:** Run `aios pro setup` to create the file automatically.
-
-### Token Expired
-
-GitHub PATs expire based on the expiration you set during creation.
-
-**Solution:**
-1. Create a new token at GitHub Settings
-2. Run `aios pro setup --token NEW_TOKEN`
+- Verifique sua conexao com a internet
+- O License Server pode estar temporariamente indisponivel
+- Tente novamente em alguns minutos
 
 ---
 
-## Security Best Practices
+## Arquitetura do Sistema
 
-### 1. Never Commit Tokens
-
-Always add `.npmrc` to `.gitignore`:
-
-```gitignore
-# Credentials
-.npmrc
+```
+┌─────────────────┐     ┌─────────────────────────────────┐     ┌──────────┐
+│  Cliente (CLI)   │────>│  License Server (Vercel)        │────>│ Supabase │
+│  npx aios-pro    │<────│  aios-license-server.vercel.app │<────│ Database │
+└─────────────────┘     └─────────────────────────────────┘     └──────────┘
+                                                                      │
+                                                                      │
+                        ┌─────────────────────────────────┐           │
+                        │  Admin Dashboard (Vercel)       │───────────┘
+                        │  aios-license-dashboard         │
+                        │  Cria/revoga/gerencia licencas  │
+                        └─────────────────────────────────┘
 ```
 
-### 2. Use Fine-Grained Tokens
-
-Fine-grained PATs provide:
-- Repository-specific access
-- Reduced blast radius if compromised
-- Better audit logging
-
-### 3. Rotate Tokens Regularly
-
-Set calendar reminders to rotate tokens every 90 days.
-
-### 4. Use Environment Variables in CI/CD
-
-For CI/CD pipelines, use secrets instead of hardcoded tokens:
-
-**GitHub Actions:**
-```yaml
-- name: Setup npm for GitHub Packages
-  run: |
-    echo "@aios:registry=https://npm.pkg.github.com" >> .npmrc
-    echo "//npm.pkg.github.com/:_authToken=${{ secrets.AIOS_PRO_TOKEN }}" >> .npmrc
-```
-
-**GitLab CI:**
-```yaml
-before_script:
-  - echo "@aios:registry=https://npm.pkg.github.com" >> .npmrc
-  - echo "//npm.pkg.github.com/:_authToken=${AIOS_PRO_TOKEN}" >> .npmrc
-```
-
-### 5. Minimal Scope Principle
-
-Only grant `read:packages` scope — nothing more is needed for installation.
+| Componente | URL | Proposito |
+|-----------|-----|-----------|
+| License Server | `https://aios-license-server.vercel.app` | API de ativacao/validacao |
+| Admin Dashboard | `https://aios-license-dashboard.vercel.app` | Gestao de licencas (admin) |
+| Database | Supabase PostgreSQL | Armazena licencas e ativacoes |
 
 ---
 
-## Team Setup
+## Suporte
 
-For teams, we recommend:
-
-1. **Create a service account** on GitHub for the team
-2. **Generate a PAT** from the service account
-3. **Store the token** in your team's secrets manager
-4. **Share configuration** via team documentation (not the token itself)
-
-Each team member can also use their personal token if preferred.
-
----
-
-## Verifying Installation
-
-After setup, verify everything works:
-
-```bash
-# Check if package is accessible
-npm view @aios/pro
-
-# Install the package
-npm install @aios/pro
-
-# Verify pro features
-aios pro features
-```
-
----
-
-## Offline Operation
-
-Once `@aios/pro` is installed and a license is activated:
-
-- Works offline for **30 days** without revalidation
-- **7-day grace period** after cache expiry
-- No internet needed for day-to-day feature checks
-
-The install-gate only applies during initial `npm install` — after that, the package is local.
-
----
-
-## Support
-
-- **Documentation:** https://synkra.ai/pro/docs
-- **Purchase:** https://synkra.ai/pro
-- **Support:** support@synkra.ai
+- **Documentacao:** https://synkra.ai/pro/docs
+- **Comprar:** https://synkra.ai/pro
+- **Suporte:** support@synkra.ai
 - **Issues:** https://github.com/SynkraAI/aios-core/issues
 
 ---
 
-*AIOS Pro Install-Gate Setup Guide v1.0*
+*AIOS Pro Installation Guide v3.0*
 *Story PRO-6 — License Key & Feature Gating System*

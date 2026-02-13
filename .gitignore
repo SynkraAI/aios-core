@@ -144,6 +144,9 @@ aios-core/index.d.ts
 aios-core/index.esm.js
 aios-core/*.map
 
+# Applications (separate deployments, NOT part of npm package)
+apps/
+
 # External projects (separate repositories)
 aios-guide-app/
 examples/
@@ -324,12 +327,19 @@ C:Users*
 .eslintcache
 
 # ============================================
+# SYNAPSE RUNTIME (auto-managed)
+# ============================================
+.synapse/sessions/
+.synapse/cache/
+
+# ============================================
 # MMOS IMPORT (TEMPORARY - Story MMOS-Sync)
 # Remove entries after validation
 # ============================================
 scripts/glue/
 .claude/skills/
 .claude/hooks/
+!.claude/hooks/synapse-engine.js
 .claude/templates/
 .claude/agents/
 .claude/agent-memory/

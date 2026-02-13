@@ -1,0 +1,4 @@
+# Layer 6: {domain-name}
+{DOMAIN_KEY}_STATE=active
+{DOMAIN_KEY}_RECALL={KEYWORDS}
+{DOMAIN_KEY}_EXCLUDE=

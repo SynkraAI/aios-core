@@ -38,6 +38,11 @@
 - `*correct-course` - Analyze and correct process/quality deviations
 - `*index-docs` - Index documentation for search
 - `*update-source-tree` - Validate data file governance (owners, fill rules, existence)
+- `*ids check` - Pre-check registry for REUSE/ADAPT/CREATE recommendations (advisory)
+- `*ids impact` - Impact analysis — direct/indirect consumers via usedBy BFS traversal
+- `*ids register` - Register new entity in registry after creation
+- `*ids health` - Registry health check (graceful fallback if RegistryHealer unavailable)
+- `*ids stats` - Registry statistics (entity count by type, categories, health score)
 
 ## Collaboration
 

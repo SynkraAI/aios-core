@@ -93,7 +93,8 @@ async function runBenchmark(options) {
   const pipelinePath = path.resolve(
     PROJECT_ROOT, '.aios-core/development/scripts/unified-activation-pipeline',
   );
-  let { UnifiedActivationPipeline, ALL_AGENT_IDS } = require(pipelinePath);
+  const { ALL_AGENT_IDS } = require(pipelinePath);
+  let { UnifiedActivationPipeline } = require(pipelinePath);
 
   const agents = options.agents || [...ALL_AGENT_IDS];
   const iterations = options.iterations;

@@ -73,6 +73,8 @@ const EXCLUDE_PATTERNS = [
   /docs\/troubleshooting-guide\.md$/,
   /docs\/session-update-pattern\.md$/,
   // Gitignored generated files
+  /data\/registry-update-log\.jsonl$/,
+  /data\/registry-healing-log\.jsonl$/,
   /infrastructure\/tests\/utilities-audit-results\.json$/,
   /manifests\/agents\.csv$/,
   /manifests\/tasks\.csv$/,

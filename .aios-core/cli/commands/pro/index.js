@@ -23,8 +23,40 @@ const path = require('path');
 const fs = require('fs');
 const readline = require('readline');
 
-// Resolve license modules (relative from .aios-core/cli/commands/pro/)
-const licensePath = path.resolve(__dirname, '..', '..', '..', '..', 'pro', 'license');
+// BUG-6 fix (INS-1): Dynamic licensePath resolution
+// In framework-dev: __dirname = aios-core/.aios-core/cli/commands/pro → ../../../../pro/license
+// In project-dev: pro is installed via npm as @aios-fullstack/pro
+function resolveLicensePath() {
+  // 1. Try relative path (framework-dev mode)
+  const relativePath = path.resolve(__dirname, '..', '..', '..', '..', 'pro', 'license');
+  if (fs.existsSync(relativePath)) {
+    return relativePath;
+  }
+
+  // 2. Try node_modules/@aios-fullstack/pro/license (project-dev mode)
+  try {
+    const proPkg = require.resolve('@aios-fullstack/pro/package.json');
+    const proDir = path.dirname(proPkg);
+    const npmPath = path.join(proDir, 'license');
+    if (fs.existsSync(npmPath)) {
+      return npmPath;
+    }
+  } catch {
+    // @aios-fullstack/pro not installed via npm
+  }
+
+  // 3. Try project root node_modules (fallback)
+  const projectRoot = process.cwd();
+  const cwdPath = path.join(projectRoot, 'node_modules', '@aios-fullstack', 'pro', 'license');
+  if (fs.existsSync(cwdPath)) {
+    return cwdPath;
+  }
+
+  // Return relative path as default (will fail gracefully in loadLicenseModules)
+  return relativePath;
+}
+
+const licensePath = resolveLicensePath();
 
 /**
  * Lazy-load license modules (avoids failing if pro module not installed)
@@ -65,7 +97,7 @@ function loadLicenseModules() {
     };
   } catch (error) {
     console.error('AIOS Pro license module not available.');
-    console.error('Install AIOS Pro: npm install @aios/pro');
+    console.error('Install AIOS Pro: npm install @aios-fullstack/pro');
     process.exit(1);
   }
 }
@@ -487,171 +519,74 @@ async function validateAction() {
 // ---------------------------------------------------------------------------
 
 /**
- * Setup GitHub Packages access for @aios/pro installation.
+ * Setup and verify @aios-fullstack/pro installation.
  *
- * This command helps users configure their .npmrc to access
- * the private @aios scope on GitHub Packages.
+ * Since @aios-fullstack/pro is published on the public npm registry,
+ * no special token or .npmrc configuration is needed. This command
+ * installs the package and verifies it's working.
  *
  * @param {object} options - Command options
- * @param {string} options.token - GitHub Personal Access Token
- * @param {boolean} options.global - Configure globally vs project-level
+ * @param {boolean} options.verify - Only verify without installing
  */
 async function setupAction(options) {
-  const os = require('os');
-  const homedir = os.homedir();
+  console.log('\nAIOS Pro - Setup\n');
 
-  console.log('\nAIOS Pro - GitHub Packages Setup\n');
-  console.log('This will configure npm to access @aios/pro from GitHub Packages.');
-  console.log('');
+  if (options.verify) {
+    // Verify-only mode
+    console.log('Verifying @aios-fullstack/pro installation...\n');
 
-  // Determine .npmrc location
-  const npmrcPath = options.global
-    ? path.join(homedir, '.npmrc')
-    : path.join(process.cwd(), '.npmrc');
-
-  const scopeConfig = '@aios:registry=https://npm.pkg.github.com';
-  const tokenConfig = '//npm.pkg.github.com/:_authToken=';
-
-  // Check if token provided
-  let token = options.token;
-
-  if (!token) {
-    console.log('To install @aios/pro, you need a GitHub Personal Access Token (PAT)');
-    console.log('with the "read:packages" scope.');
-    console.log('');
-    console.log('Create one at: https://github.com/settings/tokens/new');
-    console.log('');
-    console.log('Required scopes:');
-    console.log('  - read:packages (download packages from GitHub Packages)');
-    console.log('');
-
-    // Interactive token input
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-
-    token = await new Promise((resolve) => {
-      rl.question('Enter your GitHub PAT (or press Enter to skip): ', (answer) => {
-        rl.close();
-        resolve(answer.trim());
-      });
-    });
-
-    if (!token) {
-      console.log('\nSetup cancelled. You can run this command again with:');
-      console.log('  aios pro setup --token <YOUR_GITHUB_PAT>');
-      console.log('');
-      console.log('Or manually add to your .npmrc:');
-      console.log(`  ${scopeConfig}`);
-      console.log(`  ${tokenConfig}<YOUR_GITHUB_PAT>`);
-      return;
-    }
-  }
-
-  // Validate token format (basic check)
-  if (!token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
-    console.log('\n⚠️  Warning: Token does not appear to be a valid GitHub PAT.');
-    console.log('Expected format: ghp_... or github_pat_...');
-
-    const confirmed = await confirm('Continue anyway? (y/N): ');
-    if (!confirmed) {
-      console.log('Setup cancelled.');
-      return;
-    }
-  }
-
-  // Read existing .npmrc or create new
-  let npmrcContent = '';
-  try {
-    npmrcContent = fs.readFileSync(npmrcPath, 'utf8');
-  } catch {
-    // File doesn't exist, will create new
-  }
-
-  // Check if already configured
-  if (npmrcContent.includes('@aios:registry')) {
-    console.log(`\n⚠️  @aios registry already configured in ${npmrcPath}`);
-
-    const overwrite = await confirm('Overwrite existing configuration? (y/N): ');
-    if (!overwrite) {
-      console.log('Setup cancelled. Existing configuration preserved.');
-      return;
-    }
-
-    // Remove existing @aios config
-    npmrcContent = npmrcContent
-      .split('\n')
-      .filter((line) => !line.includes('@aios:') && !line.includes('npm.pkg.github.com/:_authToken'))
-      .join('\n');
-  }
-
-  // Add new configuration
-  const newConfig = [
-    '',
-    '# AIOS Pro - GitHub Packages (added by aios pro setup)',
-    scopeConfig,
-    `${tokenConfig}${token}`,
-    '',
-  ].join('\n');
-
-  npmrcContent = npmrcContent.trimEnd() + newConfig;
-
-  // Write .npmrc
-  try {
-    fs.writeFileSync(npmrcPath, npmrcContent, 'utf8');
-    console.log(`\n✅ Configuration written to ${npmrcPath}`);
-  } catch (error) {
-    console.error(`\n❌ Failed to write ${npmrcPath}: ${error.message}`);
-    console.log('\nManually add these lines to your .npmrc:');
-    console.log(`  ${scopeConfig}`);
-    console.log(`  ${tokenConfig}<YOUR_TOKEN>`);
-    process.exit(1);
-  }
-
-  // Add .npmrc to .gitignore if project-level
-  if (!options.global) {
-    const gitignorePath = path.join(process.cwd(), '.gitignore');
     try {
-      let gitignore = '';
-      try {
-        gitignore = fs.readFileSync(gitignorePath, 'utf8');
-      } catch {
-        // No .gitignore exists
-      }
-
-      if (!gitignore.includes('.npmrc')) {
-        gitignore += '\n# AIOS Pro credentials (DO NOT COMMIT)\n.npmrc\n';
-        fs.writeFileSync(gitignorePath, gitignore, 'utf8');
-        console.log('✅ Added .npmrc to .gitignore');
+      const { execSync } = require('child_process');
+      const result = execSync('npm ls @aios-fullstack/pro --json', {
+        stdio: 'pipe',
+        timeout: 15000,
+      });
+      const parsed = JSON.parse(result.toString());
+      const deps = parsed.dependencies || {};
+      if (deps['@aios-fullstack/pro']) {
+        console.log(`✅ @aios-fullstack/pro@${deps['@aios-fullstack/pro'].version} is installed`);
+      } else {
+        console.log('❌ @aios-fullstack/pro is not installed');
+        console.log('');
+        console.log('Install with:');
+        console.log('  npm install @aios-fullstack/pro');
       }
     } catch {
-      console.log('⚠️  Could not update .gitignore. Please add .npmrc manually.');
+      console.log('❌ @aios-fullstack/pro is not installed');
+      console.log('');
+      console.log('Install with:');
+      console.log('  npm install @aios-fullstack/pro');
     }
+    return;
   }
 
-  // Verify access
-  console.log('\nVerifying access to GitHub Packages...');
+  // Install mode
+  console.log('@aios-fullstack/pro is available on the public npm registry.');
+  console.log('No special tokens or configuration needed.\n');
+
+  console.log('Installing @aios-fullstack/pro...\n');
 
   try {
     const { execSync } = require('child_process');
-    execSync('npm view @aios/pro --registry=https://npm.pkg.github.com', {
-      stdio: 'pipe',
-      timeout: 15000,
+    execSync('npm install @aios-fullstack/pro', {
+      stdio: 'inherit',
+      timeout: 120000,
     });
-    console.log('✅ Access verified! You can now install @aios/pro');
-  } catch {
-    console.log('⚠️  Could not verify access (package may not be published yet)');
-    console.log('   Configuration is saved. Try: npm install @aios/pro');
+    console.log('\n✅ @aios-fullstack/pro installed successfully!');
+  } catch (error) {
+    console.error(`\n❌ Installation failed: ${error.message}`);
+    console.log('\nTry manually:');
+    console.log('  npm install @aios-fullstack/pro');
+    process.exit(1);
   }
 
   console.log('\n--- Setup Complete ---');
   console.log('');
-  console.log('To install AIOS Pro:');
-  console.log('  npm install @aios/pro');
-  console.log('');
   console.log('To activate your license:');
   console.log('  aios pro activate --key PRO-XXXX-XXXX-XXXX-XXXX');
+  console.log('');
+  console.log('To check license status:');
+  console.log('  aios pro status');
   console.log('');
   console.log('Documentation: https://synkra.ai/pro/docs');
   console.log('');
@@ -704,9 +639,8 @@ function createProCommand() {
   // aios pro setup (AC-12: Install-gate)
   proCmd
     .command('setup')
-    .description('Configure GitHub Packages access for @aios/pro')
-    .option('-t, --token <token>', 'GitHub Personal Access Token')
-    .option('-g, --global', 'Configure globally (~/.npmrc) instead of project-level')
+    .description('Install and verify @aios-fullstack/pro')
+    .option('--verify', 'Only verify installation without installing')
     .action(setupAction);
 
   return proCmd;

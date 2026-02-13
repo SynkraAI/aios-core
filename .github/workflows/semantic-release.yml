@@ -11,8 +11,8 @@ name: Semantic Release
 # 4. Creates git tag, GitHub release, publishes to npm
 #
 # ALTERNATIVE: Manual tag push
-# 1. Create tag locally: git tag v3.10.0
-# 2. Push tag: git push origin v3.10.0
+# 1. Create tag locally: git tag v4.0.0
+# 2. Push tag: git push origin v4.0.0
 # 3. release.yml triggers → creates GitHub release
 # 4. npm-publish.yml triggers → publishes to npm
 #

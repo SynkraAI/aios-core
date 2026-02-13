@@ -23,6 +23,22 @@
 
 ---
 
+## Step 0: IDS Impact Analysis (Advisory)
+
+Before proceeding, check the Entity Registry for impact of this modification:
+
+1. Identify the entity being modified
+2. Run `FrameworkGovernor.impactAnalysis(entityId)`
+3. Display direct consumers, indirect consumers, and risk level
+4. Show adaptability score and 30% threshold warning if applicable
+5. If HIGH/CRITICAL risk:
+   - Warn user: "This modification affects N consumers. Proceed with caution."
+6. If IDS unavailable (timeout/error): Warn and proceed normally
+
+**NOTE:** This step is advisory and does NOT block modification. User always has final decision.
+
+---
+
 ## Task Definition (AIOS Task Format V1.0)
 
 ```yaml

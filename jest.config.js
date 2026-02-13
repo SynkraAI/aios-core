@@ -7,11 +7,16 @@ module.exports = {
     '**/tests/**/*.test.js',
     '**/tests/**/*.spec.js',
     '**/.aios-core/**/__tests__/**/*.test.js',
+    // Pro tests run via pro-integration.yml CI workflow (not in local npm test)
+    // '**/pro/**/__tests__/**/*.test.js',
   ],
 
   // Ignore patterns - exclude incompatible test frameworks
   testPathIgnorePatterns: [
     '/node_modules/',
+    // Pro submodule tests — run via pro-integration.yml CI workflow, not local npm test
+    // Use anchored regex to only match the pro/ submodule dir, not tests/pro/
+    '<rootDir>/pro/',
     // Playwright e2e tests (use ESM imports, run with Playwright not Jest)
     'tools/quality-dashboard/tests/e2e/',
     // Windows-specific tests (only run on Windows CI)
@@ -52,8 +57,6 @@ module.exports = {
     'tests/integration/install-transaction.test.js',
     // License tests require network/crypto resources unavailable in CI (pre-existing)
     'tests/license/',
-    // Squad adapter tests - module resolution issues (pre-existing)
-    'squads/mmos-squad/tests/',
     // Workflow intelligence tests - assertion count mismatches (pre-existing)
     '.aios-core/workflow-intelligence/__tests__/',
   ],

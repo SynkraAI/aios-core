@@ -82,7 +82,7 @@ AIOS transforms you into a "Vibe CEO" - directing a team of specialized AI agent
 
 #### Option 2: IDE Integration
 
-**Best for**: Cursor, Claude Code, Windsurf, Trae, Cline, Roo Code, Github Copilot users
+**Best for**: Cursor, Claude Code, Windsurf, Cline, Roo Code, Gemini CLI, Github Copilot users
 
 ```bash
 # Interactive installation (recommended)
@@ -96,7 +96,6 @@ npx @synkra/aios-core install
   - **Cursor**: Native AI integration
   - **Claude Code**: Anthropic's official IDE
   - **Windsurf**: Built-in AI capabilities
-  - **Trae**: Built-in AI capabilities
   - **Cline**: VS Code extension with AI features
   - **Roo Code**: Web-based IDE with agent support
   - **GitHub Copilot**: VS Code extension with AI peer programming assistant
@@ -299,13 +298,12 @@ You are the "Vibe CEO" - thinking like a CEO with unlimited resources and a sing
 - **Claude Code**: `/agent-name` (e.g., `/aios-master`)
 - **Cursor**: `@agent-name` (e.g., `@aios-master`)
 - **Windsurf**: `@agent-name` (e.g., `@aios-master`)
-- **Trae**: `@agent-name` (e.g., `@aios-master`)
 - **Roo Code**: Select mode from mode selector (e.g., `aios-master`)
 - **GitHub Copilot**: Open the Chat view (`⌃⌘I` on Mac, `Ctrl+Alt+I` on Windows/Linux) and select **Agent** from the chat mode selector.
 
 **Chat Management Guidelines**:
 
-- **Claude Code, Cursor, Windsurf, Trae**: Start new chats when switching agents
+- **Claude Code, Cursor, Windsurf**: Start new chats when switching agents
 - **Roo Code**: Switch modes within the same conversation
 
 **Common Task Commands**:

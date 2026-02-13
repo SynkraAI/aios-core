@@ -2,8 +2,8 @@
 
 > 🌐 **EN** | [PT](../pt/framework/source-tree.md) | [ES](../es/framework/source-tree.md)
 
-**Version:** 3.1
-**Last Updated:** 2026-02-06
+**Version:** 4.0.0
+**Last Updated:** 2026-02-11
 **Status:** Official Framework Standard
 **Repository:** SynkraAI/aios-core
 
