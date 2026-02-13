@@ -418,18 +418,21 @@ async function runWizard(options = {}) {
                 const techPrefsTargetResolved = path.resolve(techPrefsFile);
 
                 if (techPrefsSourceResolved !== techPrefsTargetResolved) {
-                  let techPrefsContent = await fse.readFile(techPrefsSource, 'utf8');
+                  // Prefer existing target file to preserve user customizations
+                  const baseFile = fse.existsSync(techPrefsFile) ? techPrefsFile : techPrefsSource;
+                  let techPrefsContent = await fse.readFile(baseFile, 'utf8');
 
-                  // Add active preset marker
+                  // Add active preset marker only if not already present
                   const activePresetSection = `\n## Active Preset\n\n**Selected:** \`${answers.selectedTechPreset}\`\n\nThis preset was selected during installation. The @architect and @dev agents will use these patterns by default.\n`;
 
-                  // Insert after the first heading
-                  techPrefsContent = techPrefsContent.replace(
-                    '# User-Defined Preferred Patterns and Preferences',
-                    '# User-Defined Preferred Patterns and Preferences' + activePresetSection,
-                  );
-
-                  await fse.writeFile(techPrefsFile, techPrefsContent, 'utf8');
+                  if (!techPrefsContent.includes('## Active Preset')) {
+                    // Insert after the first heading
+                    techPrefsContent = techPrefsContent.replace(
+                      '# User-Defined Preferred Patterns and Preferences',
+                      '# User-Defined Preferred Patterns and Preferences' + activePresetSection,
+                    );
+                    await fse.writeFile(techPrefsFile, techPrefsContent, 'utf8');
+                  }
                 }
               }
             }

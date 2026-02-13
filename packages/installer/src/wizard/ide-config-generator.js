@@ -684,8 +684,9 @@ async function createClaudeSettingsLocal(projectRoot) {
     try {
       const existing = await fs.readFile(settingsPath, 'utf8');
       settings = JSON.parse(existing);
-    } catch {
-      // Corrupted file — overwrite
+    } catch (parseError) {
+      // Corrupted file — log and overwrite with fresh settings
+      console.error(`   ⚠️  Could not parse ${settingsPath}: ${parseError.message}`);
       settings = {};
     }
   }
@@ -712,8 +713,13 @@ async function createClaudeSettingsLocal(projectRoot) {
     settings.hooks.UserPromptSubmit.push(hookWrapper);
   }
 
-  await fs.ensureDir(path.dirname(settingsPath));
-  await fs.writeFile(settingsPath, JSON.stringify(settings, null, 2), 'utf8');
+  try {
+    await fs.ensureDir(path.dirname(settingsPath));
+    await fs.writeFile(settingsPath, JSON.stringify(settings, null, 2), 'utf8');
+  } catch (writeError) {
+    console.error(`   ⚠️  Failed to write ${settingsPath}: ${writeError.message}`);
+    return null;
+  }
 
   return settingsPath;
 }

@@ -327,10 +327,11 @@ async function installAiosCore(options = {}) {
     if (await fs.pathExists(path.join(targetAiosCore, 'package.json'))) {
       spinner.text = 'Installing .aios-core dependencies...';
       try {
-        const { execSync } = require('child_process');
-        execSync('npm install --production --ignore-scripts', {
+        const { exec } = require('child_process');
+        const { promisify } = require('util');
+        const execAsync = promisify(exec);
+        await execAsync('npm install --production --ignore-scripts', {
           cwd: targetAiosCore,
-          stdio: 'pipe',
           timeout: 60000,
         });
       } catch (depError) {
