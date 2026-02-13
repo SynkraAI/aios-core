@@ -23,6 +23,10 @@
  * @returns {string} Formatted markdown report
  */
 function formatReport(data) {
+  if (!data || typeof data !== 'object') {
+    return '# SYNAPSE Diagnostic Report\n**Error:** No diagnostic data provided.\n';
+  }
+
   const lines = [];
   const timestamp = new Date().toISOString();
 

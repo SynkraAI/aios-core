@@ -40,46 +40,17 @@ function _safeCollect(name, fn) {
 }
 
 /**
- * Run full SYNAPSE diagnostics and return formatted markdown report.
- *
+ * Run all collectors and return raw results.
+ * Shared orchestration logic used by both runDiagnostics and runDiagnosticsRaw.
  * @param {string} projectRoot - Absolute path to project root
- * @param {object} [options] - Diagnostic options
- * @param {string} [options.sessionId] - Session UUID for session-specific checks
- * @returns {string} Formatted markdown diagnostic report
+ * @param {object} options - Diagnostic options
+ * @returns {{ hook, session, manifest, pipeline, uap }} Collector results
  */
-function runDiagnostics(projectRoot, options = {}) {
-  const synapsePath = path.join(projectRoot, '.synapse');
-  const manifestPath = path.join(synapsePath, 'manifest');
+function _collectAll(projectRoot, options) {
+  if (!projectRoot || typeof projectRoot !== 'string') {
+    throw new Error('projectRoot is required and must be a string');
+  }
 
-  // Run all collectors (each guarded individually for resilience)
-  const hook = _safeCollect('hook', () => collectHookStatus(projectRoot));
-  const session = _safeCollect('session', () => collectSessionStatus(projectRoot, options.sessionId));
-  const manifest = _safeCollect('manifest', () => collectManifestIntegrity(projectRoot));
-
-  // Parse manifest for pipeline simulation
-  const parsedManifest = _safeCollect('parsedManifest', () => parseManifest(manifestPath));
-
-  // Extract session data for pipeline simulation
-  const promptCount = session?.raw?.session?.prompt_count || 0;
-  const activeAgentId = session?.raw?.bridgeData?.id || session?.raw?.session?.active_agent?.id || null;
-
-  const pipeline = _safeCollect('pipeline', () => collectPipelineSimulation(promptCount, activeAgentId, parsedManifest));
-  const uap = _safeCollect('uap', () => collectUapBridgeStatus(projectRoot));
-
-  // Format report
-  const report = formatReport({ hook, session, manifest, pipeline, uap });
-
-  return report;
-}
-
-/**
- * Run diagnostics and return raw collector data (for programmatic use).
- *
- * @param {string} projectRoot - Absolute path to project root
- * @param {object} [options] - Diagnostic options
- * @returns {object} Raw collector results
- */
-function runDiagnosticsRaw(projectRoot, options = {}) {
   const synapsePath = path.join(projectRoot, '.synapse');
   const manifestPath = path.join(synapsePath, 'manifest');
 
@@ -95,6 +66,30 @@ function runDiagnosticsRaw(projectRoot, options = {}) {
   const uap = _safeCollect('uap', () => collectUapBridgeStatus(projectRoot));
 
   return { hook, session, manifest, pipeline, uap };
+}
+
+/**
+ * Run full SYNAPSE diagnostics and return formatted markdown report.
+ *
+ * @param {string} projectRoot - Absolute path to project root
+ * @param {object} [options] - Diagnostic options
+ * @param {string} [options.sessionId] - Session UUID for session-specific checks
+ * @returns {string} Formatted markdown diagnostic report
+ */
+function runDiagnostics(projectRoot, options = {}) {
+  const data = _collectAll(projectRoot, options);
+  return formatReport(data);
+}
+
+/**
+ * Run diagnostics and return raw collector data (for programmatic use).
+ *
+ * @param {string} projectRoot - Absolute path to project root
+ * @param {object} [options] - Diagnostic options
+ * @returns {object} Raw collector results
+ */
+function runDiagnosticsRaw(projectRoot, options = {}) {
+  return _collectAll(projectRoot, options);
 }
 
 module.exports = { runDiagnostics, runDiagnosticsRaw };

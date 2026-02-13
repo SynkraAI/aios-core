@@ -143,7 +143,10 @@ switch (command) {
     break;
 
   case 'recover':
-    recoverLicense();
+    recoverLicense().catch((err) => {
+      console.error(`\n  Recovery failed: ${err.message}\n`);
+      process.exit(1);
+    });
     break;
 
   case 'activate':
