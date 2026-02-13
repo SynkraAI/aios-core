@@ -32,13 +32,6 @@ Auto-generated tools registry. Updated: 2026-02-13
 - **Path:** `tools/hotmart-downloader/`
 - **Docs:** [README](hotmart-downloader/README.md)
 
-### tts-test
-
-- **Language:** Unknown
-- **Description:** Instalado em: 2026-02-13
-- **Path:** `tools/tts-test/`
-- **Docs:** [README](tts-test/README.md)
-
 ### video-transcriber
 
 - **Language:** Python
@@ -56,5 +49,5 @@ Auto-generated tools registry. Updated: 2026-02-13
 
 ---
 
-**Total Tools:** 7
+**Total Tools:** 6
 **Auto-indexed:** Yes
