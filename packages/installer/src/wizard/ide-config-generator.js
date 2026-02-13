@@ -300,6 +300,38 @@ async function copyClaudeRulesFolder(projectRoot) {
 }
 
 /**
+ * Copy .claude/hooks folder for Claude Code IDE
+ * @param {string} projectRoot - Project root directory
+ * @returns {Promise<string[]>} List of copied files
+ */
+async function copyClaudeHooksFolder(projectRoot) {
+  const sourceDir = path.join(__dirname, '..', '..', '..', '..', '.claude', 'hooks');
+  const targetDir = path.join(projectRoot, '.claude', 'hooks');
+  const copiedFiles = [];
+
+  if (!await fs.pathExists(sourceDir)) {
+    return copiedFiles;
+  }
+
+  await fs.ensureDir(targetDir);
+
+  const files = await fs.readdir(sourceDir);
+
+  for (const file of files) {
+    const sourcePath = path.join(sourceDir, file);
+    const targetPath = path.join(targetDir, file);
+
+    const stat = await fs.stat(sourcePath);
+    if (stat.isFile()) {
+      await fs.copy(sourcePath, targetPath);
+      copiedFiles.push(targetPath);
+    }
+  }
+
+  return copiedFiles;
+}
+
+/**
  * Generate AntiGravity workflow activation file content
  * @param {string} agentName - Name of the agent (e.g., 'dev', 'architect')
  * @returns {string} Workflow file content
@@ -506,7 +538,7 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
           }
         }
 
-        // For Claude Code, also copy .claude/rules folder
+        // For Claude Code, also copy .claude/rules and .claude/hooks folders
         if (ideKey === 'claude-code') {
           spinner.start('Copying Claude Code rules...');
           const rulesFiles = await copyClaudeRulesFolder(projectRoot);
@@ -516,6 +548,16 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
             spinner.succeed(`Copied ${rulesFiles.length} rule file(s) to .claude/rules`);
           } else {
             spinner.info('No rule files to copy');
+          }
+
+          spinner.start('Copying Claude Code hooks...');
+          const hooksFiles = await copyClaudeHooksFolder(projectRoot);
+          createdFiles.push(...hooksFiles);
+          if (hooksFiles.length > 0) {
+            createdFolders.push(path.join(projectRoot, '.claude', 'hooks'));
+            spinner.succeed(`Copied ${hooksFiles.length} hook file(s) to .claude/hooks`);
+          } else {
+            spinner.info('No hook files to copy');
           }
         }
 
