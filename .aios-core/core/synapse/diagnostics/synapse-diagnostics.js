@@ -25,6 +25,21 @@ const { formatReport } = require('./report-formatter');
 const { parseManifest } = require('../domain/domain-loader');
 
 /**
+ * Safely execute a collector, returning null on failure.
+ * Diagnostics must be resilient — a broken collector should not crash the entire run.
+ * @param {string} name - Collector name for error reporting
+ * @param {Function} fn - Collector function to execute
+ * @returns {*} Collector result or null
+ */
+function _safeCollect(name, fn) {
+  try {
+    return fn();
+  } catch (error) {
+    return { error: true, collector: name, message: error.message, checks: [], fields: [], entries: [] };
+  }
+}
+
+/**
  * Run full SYNAPSE diagnostics and return formatted markdown report.
  *
  * @param {string} projectRoot - Absolute path to project root
@@ -36,20 +51,20 @@ function runDiagnostics(projectRoot, options = {}) {
   const synapsePath = path.join(projectRoot, '.synapse');
   const manifestPath = path.join(synapsePath, 'manifest');
 
-  // Run all collectors
-  const hook = collectHookStatus(projectRoot);
-  const session = collectSessionStatus(projectRoot, options.sessionId);
-  const manifest = collectManifestIntegrity(projectRoot);
+  // Run all collectors (each guarded individually for resilience)
+  const hook = _safeCollect('hook', () => collectHookStatus(projectRoot));
+  const session = _safeCollect('session', () => collectSessionStatus(projectRoot, options.sessionId));
+  const manifest = _safeCollect('manifest', () => collectManifestIntegrity(projectRoot));
 
   // Parse manifest for pipeline simulation
-  const parsedManifest = parseManifest(manifestPath);
+  const parsedManifest = _safeCollect('parsedManifest', () => parseManifest(manifestPath));
 
   // Extract session data for pipeline simulation
-  const promptCount = session.raw?.session?.prompt_count || 0;
-  const activeAgentId = session.raw?.bridgeData?.id || session.raw?.session?.active_agent?.id || null;
+  const promptCount = session?.raw?.session?.prompt_count || 0;
+  const activeAgentId = session?.raw?.bridgeData?.id || session?.raw?.session?.active_agent?.id || null;
 
-  const pipeline = collectPipelineSimulation(promptCount, activeAgentId, parsedManifest);
-  const uap = collectUapBridgeStatus(projectRoot);
+  const pipeline = _safeCollect('pipeline', () => collectPipelineSimulation(promptCount, activeAgentId, parsedManifest));
+  const uap = _safeCollect('uap', () => collectUapBridgeStatus(projectRoot));
 
   // Format report
   const report = formatReport({ hook, session, manifest, pipeline, uap });
@@ -68,16 +83,16 @@ function runDiagnosticsRaw(projectRoot, options = {}) {
   const synapsePath = path.join(projectRoot, '.synapse');
   const manifestPath = path.join(synapsePath, 'manifest');
 
-  const hook = collectHookStatus(projectRoot);
-  const session = collectSessionStatus(projectRoot, options.sessionId);
-  const manifest = collectManifestIntegrity(projectRoot);
-  const parsedManifest = parseManifest(manifestPath);
+  const hook = _safeCollect('hook', () => collectHookStatus(projectRoot));
+  const session = _safeCollect('session', () => collectSessionStatus(projectRoot, options.sessionId));
+  const manifest = _safeCollect('manifest', () => collectManifestIntegrity(projectRoot));
+  const parsedManifest = _safeCollect('parsedManifest', () => parseManifest(manifestPath));
 
-  const promptCount = session.raw?.session?.prompt_count || 0;
-  const activeAgentId = session.raw?.bridgeData?.id || session.raw?.session?.active_agent?.id || null;
+  const promptCount = session?.raw?.session?.prompt_count || 0;
+  const activeAgentId = session?.raw?.bridgeData?.id || session?.raw?.session?.active_agent?.id || null;
 
-  const pipeline = collectPipelineSimulation(promptCount, activeAgentId, parsedManifest);
-  const uap = collectUapBridgeStatus(projectRoot);
+  const pipeline = _safeCollect('pipeline', () => collectPipelineSimulation(promptCount, activeAgentId, parsedManifest));
+  const uap = _safeCollect('uap', () => collectUapBridgeStatus(projectRoot));
 
   return { hook, session, manifest, pipeline, uap };
 }

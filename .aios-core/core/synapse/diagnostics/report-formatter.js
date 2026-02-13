@@ -31,7 +31,11 @@ function formatReport(data) {
   lines.push(`**Timestamp:** ${timestamp}`);
 
   if (data.pipeline) {
-    lines.push(`**Bracket:** ${data.pipeline.bracket} (${data.pipeline.contextPercent.toFixed(1)}% context remaining)`);
+    const bracket = data.pipeline.bracket || 'UNKNOWN';
+    const contextPercent = typeof data.pipeline.contextPercent === 'number'
+      ? data.pipeline.contextPercent.toFixed(1)
+      : '?';
+    lines.push(`**Bracket:** ${bracket} (${contextPercent}% context remaining)`);
   }
 
   const agentId = _extractAgentId(data);
@@ -171,54 +175,50 @@ function _collectGaps(data) {
   const gaps = [];
 
   // Check hook failures
-  if (data.hook) {
-    for (const check of data.hook.checks) {
-      if (check.status === 'FAIL') {
-        gaps.push({
-          severity: 'HIGH',
-          gap: `Hook: ${check.name} — ${check.detail}`,
-          recommendation: 'Run `npx aios-core install` to reinstall hooks',
-        });
-      }
+  const hookChecks = data.hook?.checks || [];
+  for (const check of hookChecks) {
+    if (check.status === 'FAIL') {
+      gaps.push({
+        severity: 'HIGH',
+        gap: `Hook: ${check.name} — ${check.detail}`,
+        recommendation: 'Run `npx aios-core install` to reinstall hooks',
+      });
     }
   }
 
   // Check session issues
-  if (data.session) {
-    for (const field of data.session.fields) {
-      if (field.status === 'FAIL') {
-        gaps.push({
-          severity: 'HIGH',
-          gap: `Session: ${field.field} — ${field.actual}`,
-          recommendation: 'Activate an agent with @agent to create session',
-        });
-      }
+  const sessionFields = data.session?.fields || [];
+  for (const field of sessionFields) {
+    if (field.status === 'FAIL') {
+      gaps.push({
+        severity: 'HIGH',
+        gap: `Session: ${field.field} — ${field.actual}`,
+        recommendation: 'Activate an agent with @agent to create session',
+      });
     }
   }
 
   // Check manifest failures
-  if (data.manifest) {
-    for (const entry of data.manifest.entries) {
-      if (entry.status === 'FAIL') {
-        gaps.push({
-          severity: 'MEDIUM',
-          gap: `Manifest: domain "${entry.domain}" file missing`,
-          recommendation: `Create .synapse/${entry.domain} domain file`,
-        });
-      }
+  const manifestEntries = data.manifest?.entries || [];
+  for (const entry of manifestEntries) {
+    if (entry.status === 'FAIL') {
+      gaps.push({
+        severity: 'MEDIUM',
+        gap: `Manifest: domain "${entry.domain}" file missing`,
+        recommendation: `Create .synapse/${entry.domain} domain file`,
+      });
     }
   }
 
   // Check UAP bridge failures
-  if (data.uap) {
-    for (const check of data.uap.checks) {
-      if (check.status === 'FAIL') {
-        gaps.push({
-          severity: 'HIGH',
-          gap: `UAP Bridge: ${check.name} — ${check.detail}`,
-          recommendation: 'Activate an agent to trigger UAP bridge write',
-        });
-      }
+  const uapChecks = data.uap?.checks || [];
+  for (const check of uapChecks) {
+    if (check.status === 'FAIL') {
+      gaps.push({
+        severity: 'HIGH',
+        gap: `UAP Bridge: ${check.name} — ${check.detail}`,
+        recommendation: 'Activate an agent to trigger UAP bridge write',
+      });
     }
   }
 

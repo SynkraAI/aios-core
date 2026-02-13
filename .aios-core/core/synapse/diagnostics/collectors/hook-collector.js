@@ -67,13 +67,21 @@ function collectHookStatus(projectRoot) {
   const hookExists = fs.existsSync(hookPath);
 
   if (hookExists) {
-    const stat = fs.statSync(hookPath);
-    const lineCount = fs.readFileSync(hookPath, 'utf8').split('\n').length;
-    checks.push({
-      name: 'Hook file exists',
-      status: 'PASS',
-      detail: `.claude/hooks/synapse-engine.js (${lineCount} lines, ${stat.size} bytes)`,
-    });
+    try {
+      const stat = fs.statSync(hookPath);
+      const lineCount = fs.readFileSync(hookPath, 'utf8').split('\n').length;
+      checks.push({
+        name: 'Hook file exists',
+        status: 'PASS',
+        detail: `.claude/hooks/synapse-engine.js (${lineCount} lines, ${stat.size} bytes)`,
+      });
+    } catch (error) {
+      checks.push({
+        name: 'Hook file exists',
+        status: 'ERROR',
+        detail: `File exists but cannot be read: ${error.message}`,
+      });
+    }
   } else {
     checks.push({
       name: 'Hook file exists',
