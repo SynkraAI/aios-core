@@ -642,21 +642,36 @@ class SubagentDispatcher extends EventEmitter {
   }
 
   /**
-   * Execute prompt via Claude CLI
-   * @param {string} prompt - Prompt to execute
-   * @returns {Promise<Object>} - Execution result
+   * Execute prompt via Claude CLI using stdin for robust handling.
+   * This approach avoids shell-related parsing issues and command injection.
+   * 
+   * @param {string} prompt - The prompt content to send to Claude
+   * @returns {Promise<Object>} - Execution result with success flag and output
    */
   executeClaude(prompt) {
+    if (!prompt || typeof prompt !== 'string') {
+      return Promise.reject(new Error('executeClaude requires a non-empty string prompt'));
+    }
+
     return new Promise((resolve, reject) => {
       const args = ['--print', '--dangerously-skip-permissions'];
-      const escapedPrompt = prompt.replace(/'/g, "'\\''");
-      const fullCommand = `echo '${escapedPrompt}' | claude ${args.join(' ')}`;
 
-      const child = spawn('sh', ['-c', fullCommand], {
+      const child = spawn('claude', args, {
         cwd: this.rootPath,
         env: { ...process.env },
         stdio: ['pipe', 'pipe', 'pipe'],
       });
+
+      // Prevent unhandled stream errors if the pipe breaks or process exits early
+      child.stdin.on('error', (err) => {
+        // Handled via child 'error' or 'close' events
+      });
+
+      // Write prompt via stdin to avoid shell-related issues and command injection
+      if (child.stdin.writable) {
+        child.stdin.write(prompt);
+        child.stdin.end();
+      }
 
       let stdout = '';
       let stderr = '';
