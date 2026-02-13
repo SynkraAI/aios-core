@@ -40,6 +40,8 @@ update_from_state() {
 
   # Parse session context
   if command -v jq &> /dev/null; then
+    local display_title=$(jq -r '.project.displayTitle // ""' "$state_file" 2>/dev/null)
+    local title_emoji=$(jq -r '.project.titleEmoji // ""' "$state_file" 2>/dev/null)
     local emoji=$(jq -r '.project.emoji // "📦"' "$state_file" 2>/dev/null)
     local name=$(jq -r '.project.name // "project"' "$state_file" 2>/dev/null)
     local progress=$(jq -r '.status.progress // ""' "$state_file" 2>/dev/null)
@@ -47,6 +49,8 @@ update_from_state() {
     local phase=$(jq -r '.status.phase // ""' "$state_file" 2>/dev/null)
   else
     # Fallback: grep-based parsing (slower but works without jq)
+    local display_title=$(parse_json_field "$state_file" ".project.displayTitle" "")
+    local title_emoji=$(parse_json_field "$state_file" ".project.titleEmoji" "")
     local emoji=$(parse_json_field "$state_file" ".project.emoji" "📦")
     local name=$(parse_json_field "$state_file" ".project.name" "project")
     local progress=$(parse_json_field "$state_file" ".status.progress" "")
@@ -54,22 +58,35 @@ update_from_state() {
     local phase=$(parse_json_field "$state_file" ".status.phase" "")
   fi
 
-  # Build title: {emoji} {name} [{progress}] {status_emoji}
-  local title="${emoji} ${name}"
+  # Check if there's a locked display title
+  local title=""
 
-  # Add progress if available
-  if [[ -n "$progress" && "$progress" != "null" ]]; then
-    title="${title} [${progress}]"
-  fi
+  if [[ -n "$display_title" && "$display_title" != "null" && "$display_title" != "" ]]; then
+    # Use fixed display title (locked mode)
+    # Prepend titleEmoji if available
+    if [[ -n "$title_emoji" && "$title_emoji" != "null" && "$title_emoji" != "" ]]; then
+      title="${title_emoji} ${display_title}"
+    else
+      title="${display_title}"
+    fi
+  else
+    # Build dynamic title: {emoji} {name} [{progress}] {status_emoji}
+    title="${emoji} ${name}"
 
-  # Add status emoji if available
-  if [[ -n "$status_emoji" && "$status_emoji" != "null" ]]; then
-    title="${title} ${status_emoji}"
-  fi
+    # Add progress if available
+    if [[ -n "$progress" && "$progress" != "null" ]]; then
+      title="${title} [${progress}]"
+    fi
 
-  # Add phase hint if available (optional, space permitting)
-  if [[ -n "$phase" && "$phase" != "null" && ${#title} -lt 50 ]]; then
-    title="${title} · ${phase}"
+    # Add status emoji if available
+    if [[ -n "$status_emoji" && "$status_emoji" != "null" ]]; then
+      title="${title} ${status_emoji}"
+    fi
+
+    # Add phase hint if available (optional, space permitting)
+    if [[ -n "$phase" && "$phase" != "null" && ${#title} -lt 50 ]]; then
+      title="${title} · ${phase}"
+    fi
   fi
 
   # Update terminal tab title

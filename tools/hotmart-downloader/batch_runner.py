@@ -16,13 +16,10 @@ from hotmart_downloader.logging_config import setup_logging
 # Courses to download: (subdomain, product_id, name, mode)
 # mode: "subs_mat" = subtitles + materials, "mat_only" = materials only
 COURSES = [
-    # BATCH 2 - Remaining courses (batch 1 crashed on Stories 10x)
-    # Stories 10x: re-run to complete missing subtitles (skips existing files)
-    ("blackfridayinfinita", "4594918", "Stories 10x", "subs_mat"),
-    ("blackfridayinfinita", "6145661", "Pronto para vender", "subs_mat"),
-    ("blackfridayinfinita", "6219036", "Seu produto pronto", "subs_mat"),
-    ("blackfridayinfinita", "6145723", "Tráfego Pronto", "subs_mat"),
-    ("blackfridayinfinita", "4594958", "Fórmula de Lançamento", "subs_mat"),
+    # BATCH 3 - Pending courses (batch 2 stopped after WhatsApp 10x 401 errors)
+    # Completed in batch 2: Stories 10x, Pronto para vender, Seu produto pronto,
+    #   Tráfego Pronto, Fórmula de Lançamento
+    # WhatsApp 10x: retry (aulas 3-7 failed with timeout/401, skips existing)
     ("blackfridayinfinita", "4594934", "WhatsApp 10x", "subs_mat"),
     ("blackfridayinfinita", "4594931", "Crescimento 10x", "subs_mat"),
     ("blackfridayinfinita", "4644115", "Mentalidade Black", "subs_mat"),
