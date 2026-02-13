@@ -90,7 +90,7 @@ Esta abordagem de duas fases elimina tanto a **inconsistência de planejamento**
 **Mantenha-se atualizado sem esforço!** Para atualizar sua instalação AIOS existente:
 
 ```bash
-npx github:SynkraAI/aios-core install
+npx aios-core@latest install
 ```
 
 Isto vai:
@@ -155,7 +155,7 @@ O Synkra AIOS agora inclui uma experiência de instalação interativa de últim
 Se você já tem o AIOS instalado:
 
 ```bash
-npx github:SynkraAI/aios-core install
+npx aios-core@latest install
 # O instalador detectará sua instalação existente e a atualizará
 ```
 
@@ -368,13 +368,13 @@ npm run install:aios
 Para membros da equipe ingressando no projeto:
 
 ```bash
-# Instalar AIOS com configuração GitHub
-npx github:SynkraAI/aios-core setup
+# Instalar AIOS no projeto
+npx aios-core@latest install
 
 # Isto vai:
-# 1. Verificar/instalar GitHub CLI
-# 2. Autenticar com GitHub
-# 3. Executar o instalador AIOS
+# 1. Detectar instalação existente (se houver)
+# 2. Instalar/atualizar framework AIOS
+# 3. Configurar agentes e workflows
 ```
 
 ## 🌟 Além do Desenvolvimento de Software - Squads
@@ -535,6 +535,29 @@ Squads são equipes modulares de agentes IA. Veja a [Visão Geral de Squads](doc
 ### Squads Externos
 
 - **[hybrid-ops](https://github.com/SynkraAI/aios-hybrid-ops-pedro-valerio)** - Operações híbridas humano-agente (repositório separado)
+
+## AIOS Pro
+
+O **AIOS Pro** (`@aios-fullstack/pro`) é o módulo premium do Synkra AIOS, oferecendo funcionalidades avançadas para equipes e projetos de maior escala.
+
+> **Disponibilidade restrita:** O AIOS Pro está disponível exclusivamente para membros do **AIOS Cohort Advanced**. [Saiba mais sobre o programa](https://synkra.ai).
+
+### Instalação
+
+```bash
+npm install @aios-fullstack/pro
+```
+
+### Features Premium
+
+- **Squads Avançados** - Squads especializados com capacidades expandidas
+- **Memory Layer** - Memória persistente de padrões e insights entre sessões
+- **Métricas & Analytics** - Dashboard de produtividade e métricas de desenvolvimento
+- **Integrações Enterprise** - Conectores para Jira, Linear, Notion e mais
+- **Configuração em Camadas** - Sistema de configuração L1-L4 com herança
+- **Licenciamento** - Gerenciamento de licença via `aios pro activate --key <KEY>`
+
+Para mais informações, execute `npx aios-core pro --help` após a instalação.
 
 ## Suporte & Comunidade
 

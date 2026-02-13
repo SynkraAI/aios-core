@@ -59,16 +59,16 @@ AIOS-FullStack v${packageJson.version}
 AI-Orchestrated System for Full Stack Development
 
 USAGE:
-  npx @synkra/aios-core@latest              # Run installation wizard
-  npx @synkra/aios-core@latest install      # Install in current project
-  npx @synkra/aios-core@latest init <name>  # Create new project
-  npx @synkra/aios-core@latest update       # Update to latest version
-  npx @synkra/aios-core@latest validate     # Validate installation integrity
-  npx @synkra/aios-core@latest info         # Show system info
-  npx @synkra/aios-core@latest doctor       # Run diagnostics
-  npx @synkra/aios-core@latest --version    # Show version
-  npx @synkra/aios-core@latest --version -d # Show detailed version info
-  npx @synkra/aios-core@latest --help       # Show this help
+  npx aios-core@latest              # Run installation wizard
+  npx aios-core@latest install      # Install in current project
+  npx aios-core@latest init <name>  # Create new project
+  npx aios-core@latest update       # Update to latest version
+  npx aios-core@latest validate     # Validate installation integrity
+  npx aios-core@latest info         # Show system info
+  npx aios-core@latest doctor       # Run diagnostics
+  npx aios-core@latest --version    # Show version
+  npx aios-core@latest --version -d # Show detailed version info
+  npx aios-core@latest --help       # Show this help
 
 UPDATE:
   aios update                    # Update to latest version
@@ -99,13 +99,13 @@ SERVICE DISCOVERY:
 
 EXAMPLES:
   # Install in current directory
-  npx @synkra/aios-core@latest
+  npx aios-core@latest
 
   # Install with minimal mode (only expansion-creator)
-  npx @synkra/aios-core-minimal@latest
+  npx aios-core-minimal@latest
 
   # Create new project
-  npx @synkra/aios-core@latest init my-project
+  npx aios-core@latest init my-project
 
   # Search for workers
   aios workers search "json csv"
@@ -126,7 +126,7 @@ async function showVersion() {
 
   // Detailed version output (Story 7.2: Version Tracking)
   console.log(`AIOS-FullStack v${packageJson.version}`);
-  console.log('Package: @synkra/aios-core');
+  console.log('Package: aios-core');
 
   // Check for local installation
   const localVersionPath = path.join(process.cwd(), '.aios-core', 'version.json');
@@ -485,7 +485,7 @@ Examples:
     });
     hasErrors = true;
     console.log('✗ AIOS Core not installed');
-    console.log('  Run: npx @synkra/aios-core@latest');
+    console.log('  Run: npx aios-core@latest');
   }
 
   // Check 5: AIOS Pro license status (Task 5.1)
