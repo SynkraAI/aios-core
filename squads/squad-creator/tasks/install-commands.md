@@ -356,7 +356,7 @@ Command: *create-squad
 ```
 Cause: Malformed agent markdown
 Solution: Review agent file structure, fix sections
-Reference: squad-architect/templates/agent-tmpl.md
+Reference: squad-chief/templates/agent-tmpl.md
 ```
 
 ### Error: "Permission denied"
@@ -370,4 +370,4 @@ Command: chmod +w .claude/commands/
 
 **Task Version**: 1.0.0
 **Last Updated**: 2025-10-06
-**Squad**: squad-architect
+**Squad**: squad-chief

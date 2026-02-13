@@ -2,7 +2,7 @@
 
 > **Pattern:** SC-CK-001 (SOP Validation Checklist)
 > **Version:** 1.0.0
-> **Used By:** @sop-extractor, extract-sop task
+> **Used By:** @squad-chief, extract-sop task
 
 ---
 

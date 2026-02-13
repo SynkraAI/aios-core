@@ -2,8 +2,9 @@
 
 **Task ID:** create-task
 **Version:** 2.0
+**Execution Type:** Hybrid
 **Purpose:** Create a single workflow task following Task Anatomy standard (8 fields)
-**Orchestrator:** @squad-architect
+**Orchestrator:** @squad-chief
 **Mode:** Elicitation-based (interactive)
 **Quality Standard:** AIOS Level (300+ lines simple, 500+ lines complex)
 
@@ -127,7 +128,7 @@ task_anatomy:
 ## Preconditions
 
 - [ ] Target pack exists at `squads/{pack_name}/`
-- [ ] squad-architect agent is active
+- [ ] squad-chief agent is active
 - [ ] Agent that will execute this task exists (or will be created)
 - [ ] Write permissions for `squads/{pack_name}/tasks/`
 
@@ -1061,7 +1062,7 @@ integration_notes:  # Example - replace with your squad agents
     - "copy-review"
 
   handoff_to:
-    - agent: "squad-architect"
+    - agent: "squad-chief"
       when: "Create more tasks"
     - agent: "assigned-agent"
       when: "Execute the task"

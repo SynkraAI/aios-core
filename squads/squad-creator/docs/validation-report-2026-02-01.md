@@ -34,7 +34,7 @@
 
 ```
 squads/squad-creator/
-├── agents/          ✅ (2 agents: squad-architect, sop-extractor)
+├── agents/          ✅ (2 agents: squad-chief, sop-extractor)
 ├── checklists/      ✅ (9 checklists)
 ├── config/          ✅ (squad-config.yaml)
 ├── data/            ✅ (8 knowledge files)
@@ -98,14 +98,14 @@ slashPrefix: squadCreator   # ✅ camelCase format
 
 | Agent | File | Lines | Min | voice_dna | output_examples | objection_algorithms | Status |
 |-------|------|-------|-----|-----------|-----------------|---------------------|--------|
-| Squad Architect | `squad-architect.md` | 625 | 300 | ✅ | ✅ (3) | ✅ (4) | ✅ PASS |
+| Squad Architect | `squad-chief.md` | 625 | 300 | ✅ | ✅ (3) | ✅ (4) | ✅ PASS |
 | SOP Extractor | `sop-extractor.md` | 538 | 300 | ✅ | ✅ (3) | ✅ (4) | ✅ PASS |
 
 ### 2.2 AIOS 6-Level Structure Compliance
 
 Both agents follow complete structure:
 
-| Level | Component | squad-architect | sop-extractor |
+| Level | Component | squad-chief | sop-extractor |
 |-------|-----------|-----------------|---------------|
 | 0 | Loader Configuration | ✅ | ✅ |
 | 1 | Identity & Persona | ✅ | ✅ |
@@ -127,7 +127,7 @@ Both agents follow complete structure:
 
 ### 2.4 Voice DNA Components
 
-| Component | squad-architect | sop-extractor |
+| Component | squad-chief | sop-extractor |
 |-----------|-----------------|---------------|
 | sentence_starters | ✅ 4 categories | ✅ 4 categories |
 | metaphors | ✅ 5 metaphors | ✅ 5 metaphors |
@@ -137,7 +137,7 @@ Both agents follow complete structure:
 
 ### 2.5 Quality Components
 
-| Component | squad-architect | sop-extractor |
+| Component | squad-chief | sop-extractor |
 |-----------|-----------------|---------------|
 | output_examples | ✅ 3 examples | ✅ 3 examples |
 | objection_algorithms | ✅ 4 objections | ✅ 4 objections |

@@ -1,10 +1,13 @@
 # Task: QA After Creation
 
 **Task ID:** qa-after-creation
-**Version:** 1.1.0
+**Version:** 1.2.0
+**Execution Type:** Hybrid (Script for structural checks + Agent for quality assessment)
 **Purpose:** Automatic quality assurance check after squad/component creation
-**Orchestrator:** @squad-architect
+**Orchestrator:** @squad-chief
 **Mode:** Automatic (triggered by creation tasks)
+**Model:** `Haiku` (QUALIFIED — Phases 1-3 are deterministic, Phase 4 scoring uses pre-computed data)
+**Haiku Eligible:** YES — structural validation via scripts, LLM interprets results
 
 **Process Specialist:** @pedro-valerio
 **Specialist Guidance:**
@@ -424,7 +427,7 @@ Output: "✅ Squad 'my-new-squad' created and validated (Score: 7.8/10)"
 # QA runs automatically after creation
 
 # Manual trigger
-@squad-architect
+@squad-chief
 *qa-after-creation squads/my-squad/ --type=squad
 
 # Check specific component
@@ -470,6 +473,7 @@ v1.0.0 (2026-02-01):
 
 ---
 
-_Task Version: 1.0.0_
+_Task Version: 1.2.0_
+_Last Updated: 2026-02-11_
 _Philosophy: No component ships without QA_
 _Triggered by: create-squad, create-agent, create-task, create-workflow_

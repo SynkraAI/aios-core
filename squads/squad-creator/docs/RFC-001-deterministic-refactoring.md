@@ -1,9 +1,11 @@
 # RFC-001: Deterministic Operations Refactoring
 
-**Status:** DRAFT
+**Status:** IMPLEMENTED
 **Created:** 2026-02-01
+**Updated:** 2026-02-11
 **Author:** Squad Architect
 **Priority:** High
+**Implementation:** PV Audit Session — All scripts integrated in `validate-squad.md` v4.2.0
 
 ---
 
@@ -341,27 +343,29 @@ registry_path: str  # "data/squad-registry.yaml"
 
 ## Implementation Plan
 
-### Phase 1: Core Scripts (Week 1)
+### Phase 1: Core Scripts (Week 1) ✅ DONE
 
-1. **script_inventory.py** - Already created as `refresh-registry.py`
-2. **script_yaml_validator.py** - New
-3. **script_quality_gate.py** - New
+1. **inventory.py** - ✅ Created
+2. **yaml_validator.py** - ✅ Created (as part of quality_gate.py)
+3. **quality_gate.py** - ✅ Created
 
-### Phase 2: Dependency & Naming (Week 2)
+### Phase 2: Dependency & Naming (Week 2) ✅ DONE
 
-4. **script_dependency_check.py** - New
-5. **script_naming_validator.py** - New
+4. **dependency_check.py** - ✅ Created
+5. **naming_validator.py** - ✅ Created
 
-### Phase 3: Scoring & Registry (Week 3)
+### Phase 3: Scoring & Registry (Week 3) ✅ DONE
 
-6. **script_scoring.py** - New
-7. **script_registry_manager.py** - Extend refresh-registry.py
+6. **scoring.py** - ✅ Created
+7. **checklist_validator.py** - ✅ Created (bonus)
+8. **coherence-validator.py** - ✅ Created (bonus)
 
-### Phase 4: Integration (Week 4)
+### Phase 4: Integration (Week 4) ✅ DONE (2026-02-11)
 
-8. **script_orchestrator.py** - Chains all scripts
-9. Update tasks to use scripts
-10. Update agent to call scripts first
+9. ~~script_orchestrator.py~~ - Replaced by modular preflight in validate-squad.md
+10. **validate-squad.md v4.2.0** - ✅ All scripts integrated as "Option B: Modular scripts"
+11. **validate-squad.sh** - ✅ Maintained as "Option A: All-in-one"
+12. **Veto conditions** - ✅ Added for each script
 
 ---
 
@@ -445,11 +449,17 @@ script_scoring.py:
 
 ## Next Steps
 
-1. **Review this RFC** - Get feedback on approach
-2. **Prototype 3 core scripts** - inventory, yaml_validator, quality_gate
-3. **Test on squad-creator itself** - Validate approach works
-4. **Integrate with tasks** - Update validate-squad.md to use scripts
-5. **Document interfaces** - Clear contracts between scripts and LLM
+1. ~~Review this RFC~~ - ✅ Approved
+2. ~~Prototype 3 core scripts~~ - ✅ All 8 scripts created
+3. ~~Test on squad-creator itself~~ - ✅ Validated (found 8 broken refs, 3 bad checklists)
+4. ~~Integrate with tasks~~ - ✅ validate-squad.md v4.2.0
+5. ~~Document interfaces~~ - ✅ Documented in validate-squad.md
+
+### Future Enhancements
+
+- [ ] Add caching layer for script results
+- [ ] Create CI/CD GitHub Action using modular scripts
+- [ ] Add `--fix` flag to auto-correct simple issues
 
 ---
 
@@ -459,5 +469,7 @@ See analysis output for complete list of 145 operations with classifications.
 
 ---
 
-_RFC-001 Version: 1.0_
-_Status: Awaiting Review_
+_RFC-001 Version: 2.0_
+_Status: IMPLEMENTED_
+_Completion Date: 2026-02-11_
+_Implemented by: PV Audit Session_

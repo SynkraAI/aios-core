@@ -1,12 +1,14 @@
 # Task: Optimize Squad/Task Execution
 
 **Task ID:** optimize
-**Version:** 2.1.0
-**Purpose:** Otimizar squads/tasks convertendo Agent → Worker onde possível + análise de economia
-**Orchestrator:** @squad-architect
+**Version:** 4.1.0
+**Purpose:** Otimizar squads/tasks convertendo Agent → Worker/Hybrid/Script-Only + binary checkpoint conversion + GAP ZERO + validação empírica com bias detection
+**Orchestrator:** @squad-chief
 **Mode:** Analysis + Implementation
 **Pattern:** EXEC-DT-002
 **Execution Type:** `Agent` (requires semantic analysis of task content)
+**Model:** `Opus` (REQUIRED — semantic analysis of task determinism, multiplicative impact of errors)
+**Haiku Eligible:** NO — this task creates/modifies other tasks; classification errors cascade
 
 ---
 
@@ -16,7 +18,7 @@
 |-------|-------|
 | **task_name** | Optimize Squad/Task Execution |
 | **status** | `active` |
-| **responsible_executor** | @squad-architect |
+| **responsible_executor** | @squad-chief |
 | **execution_type** | Agent |
 | **input** | `target` (task, squad, ou "all") |
 | **output** | Relatório de otimização + economia de tokens |
@@ -44,7 +46,8 @@ Onde {target} pode ser:
 
 Flags:
 --scan        Só analisa, não implementa (default)
---implement   Implementa as conversões
+--implement   Implementa as conversões (code stubs)
+--hybrid      FULL PIPELINE: analisa + cria hybrid executor + aplica GAP ZERO + testa com Haiku
 --post        Análise de economia pós-refatoração
 --exec N      Projeção com N execuções/mês (default: 20)
 ```
@@ -320,6 +323,105 @@ classify_task:
         - "Example: execution_type=Agent but all actions are deterministic"
       recommendation: "Reclassify executor"
       priority: "HIGH"
+```
+
+---
+
+## PHASE 1b: SCOPE CLARIFICATION [v4.0]
+
+**Trigger:** After Phase 1 decomposition
+**Duration:** 2-3 minutes
+**Condition:** Task references external files or has dynamic paths
+**Evidence:** an-clone-review — Haiku scored 78.6% because it analyzed wrapper only, not delegated persona
+
+### Step 1b.1: Detect Scope Ambiguity
+
+```yaml
+detect_scope_ambiguity:
+  check_for:
+    - "Task references other files? (delegated persona, configs, data files)"
+    - "Task uses dynamic paths? ({mind_path}, {squad_path})"
+    - "Task has wrapper→persona delegation pattern?"
+    - "Task scope says 'analyze X' but X includes sub-files?"
+
+  red_flags:
+    - "Wrapper agent that delegates to persona file"
+    - "Path like 'outputs/minds/{slug}/' without listing files inside"
+    - "References to config.yaml sections without specifying which"
+```
+
+### Step 1b.2: Add Explicit Scope Definition
+
+```yaml
+add_scope_definition:
+  action: |
+    IF scope ambiguity detected, add to task file:
+
+    ## SCOPE DEFINITION
+
+    **Primary file:** {main_file}
+    **Include in scope:**
+    - [ ] Delegated persona files (if wrapper → READ BOTH)
+    - [ ] Referenced configs ({list specific sections})
+    - [ ] Source directories ({list specific files})
+
+    **Explicit scope:**
+    ```
+    WHEN analyzing this target:
+    - INCLUDE: {exhaustive list of files/paths}
+    - EXCLUDE: {list of files NOT to analyze}
+    - IF wrapper delegates to persona → READ BOTH files
+    - IF config references agents → ENUMERATE and check each agent file
+    ```
+
+  veto: "Tasks with ambiguous scope MUST NOT proceed to Haiku testing without clarification."
+```
+
+---
+
+## PHASE 1c: GATEKEEPER DETECTION [v4.0]
+
+**Trigger:** During Phase 1 analysis
+**Duration:** 1-2 minutes
+**Evidence:** qa-after-creation — Opus 8.32 APPROVED, Haiku 9.9 APPROVED. Decision matched despite 19% score difference.
+
+### Step 1c.1: Detect Gatekeeper Pattern
+
+```yaml
+detect_gatekeeper:
+  definition: |
+    A GATEKEEPER task has ONE primary output: a DECISION (PASS/FAIL, APPROVED/REJECTED).
+    Score details are secondary. Users care about the decision, not exact numbers.
+
+  detection_criteria:
+    is_gatekeeper_if:
+      - "Task output is PASS/FAIL or APPROVED/REJECTED or QUALIFIED/NOT_QUALIFIED"
+      - "Score is used to DERIVE decision (score >= 7.0 → PASS), not as final output"
+      - "Users act on the decision, not the score"
+
+    is_NOT_gatekeeper_if:
+      - "Score IS the output (ranking, rating, comparison)"
+      - "Users need exact numbers for planning"
+      - "Small score differences change user actions"
+```
+
+### Step 1c.2: Apply Gatekeeper Qualification Rules
+
+```yaml
+gatekeeper_qualification:
+  if_gatekeeper: true
+  haiku_qualifies_if:
+    decision_match: "REQUIRED — Opus and Haiku MUST agree on PASS/FAIL"
+    score_variance: "<= 2.0 absolute points (not percentage)"
+    # Example OK: Opus 8.32 APPROVED, Haiku 9.9 APPROVED → delta 1.58 → QUALIFIED
+    # Example VETO: Opus 7.1 PASS, Haiku 4.5 FAIL → opposite decision → VETO (MTQ_VC_004)
+
+  action: |
+    Add to task metadata:
+      gatekeeper: true
+      qualification_rule: "decision_match required, score_variance <= 2.0"
+
+  benefit: "More tasks qualify for Haiku because score variance is tolerated when decisions match."
 ```
 
 ---
@@ -692,20 +794,26 @@ Agent:
 ## Command Variants
 
 ```bash
-# Análise (default) - só mostra oportunidades
-*optimize db-sage
+# SCAN (default) - análise + scope + gatekeeper detection
+*optimize db-sage                      # Phases 0→1→1b→1c→2→3
 *optimize copy
 *optimize all
 
-# Implementação - converte tasks + cria scripts
-*optimize db-sage --implement
+# IMPLEMENT - scan + code stubs + binary checkpoint conversion
+*optimize db-sage --implement          # + Phases 4→4b
 
-# Pós-refatoração - análise de economia
-*optimize db-sage --post
-*optimize db-sage --post --exec 50   # projeção com 50 exec/mês
+# HYBRID - FULL PIPELINE [v3.0+v4.0]
+# Analisa → Binary checkpoints → Script/Hybrid executor → GAP ZERO → Testa → Bias test
+*optimize copy --hybrid                # + Phases 5→6→7→7b
+*optimize db-sage --hybrid
 
-# Combinados
-*optimize db-sage --implement --post  # implementa e mostra economia
+# POST - economia pós-refatoração
+*optimize db-sage --post               # Phase 8
+*optimize db-sage --post --exec 50     # projeção com 50 exec/mês
+
+# COMBINADOS
+*optimize db-sage --implement --post   # implementa + economia
+*optimize copy --hybrid --post         # full pipeline + economia
 ```
 
 ---
@@ -751,12 +859,576 @@ post_analysis:
 
 ---
 
-## PHASE 5: POST-REFACTORING ECONOMY ANALYSIS
+## PHASE 4b: BINARY CHECKPOINT CONVERSION [v4.0]
+
+**Trigger:** After Phase 4, if task has subjective scoring
+**Duration:** 10-15 minutes per task
+**Evidence:** an-fidelity-score v1.0→v2.0 — 82.22% Opus vs 81.67% Haiku = 99.3% match after conversion
+
+### Step 4b.1: Detect Subjective Scoring
+
+```yaml
+detect_subjective_scoring:
+  grep_patterns:
+    - "Score 1-5"
+    - "Rate from"
+    - "Avaliar qualidade"
+    - "Evaluate.*[0-9]"
+    - "Quality score"
+    - "Score.*subjective"
+
+  action: |
+    For each match:
+      Record: { location, current_scoring, scale }
+
+  if_found: "Proceed to conversion"
+  if_not_found: "Skip Phase 4b — task already uses binary/deterministic scoring"
+```
+
+### Step 4b.2: Convert to Binary Checkpoints
+
+```yaml
+convert_to_binary:
+  for_each_subjective_score:
+    original: "Score layer X from 1-5"
+    converted: |
+      ## Layer X (5 checkpoints)
+
+      | # | Checkpoint | O que procurar | Passa se... |
+      |---|------------|----------------|-------------|
+      | 1 | {specific_check_1} | {where_to_look} | {binary_condition: exists/not_exists} |
+      | 2 | {specific_check_2} | {where_to_look} | {binary_condition: count >= N} |
+      | 3 | {specific_check_3} | {where_to_look} | {binary_condition: grep matches} |
+      | 4 | {specific_check_4} | {where_to_look} | {binary_condition: file has section} |
+      | 5 | {specific_check_5} | {where_to_look} | {binary_condition: pattern present} |
+
+      **Score = count(passed) → 0-5**
+
+  rules:
+    - "Each checkpoint MUST be answerable YES/NO"
+    - "Each checkpoint MUST specify WHERE to look (file, section, field)"
+    - "Each checkpoint MUST have a grep-able or count-able condition"
+    - "NEVER: 'evaluate quality' or 'assess completeness'"
+    - "ALWAYS: 'file exists', 'count >= 3', 'section contains X'"
+```
+
+### Step 4b.3: Add Scoring Calibration
+
+```yaml
+add_scoring_calibration:
+  action: |
+    Append to task file:
+
+    ## SCORING CALIBRATION (CRITICAL)
+
+    ```yaml
+    scoring_philosophy:
+      principle: "SCORE O QUE EXISTE, não o que falta"
+      evidence_rule: "Se existe evidência → conta ponto. Gaps vão para recommendations."
+
+      checkpoint_rules:
+        - "PASS = evidence EXISTS (not perfect, not ideal — EXISTS)"
+        - "FAIL = evidence MISSING (not weak, not partial — MISSING)"
+        - "Partial evidence = PASS (generous interpretation)"
+        - "Empty/null = FAIL"
+    ```
+
+  rationale: |
+    Haiku can be conservative OR generous depending on task.
+    Binary checkpoints + generous calibration eliminates both biases.
+    Evidence: 99.3% match after conversion (an-fidelity-score).
+```
+
+### Step 4b.4: Quality Gate
+
+```yaml
+quality_gate_4b:
+  checklist:
+    - [ ] All subjective scores identified (grep)
+    - [ ] Each converted to exactly 5 binary checkpoints
+    - [ ] Each checkpoint has WHERE to look
+    - [ ] Each checkpoint is grep-able or count-able
+    - [ ] Scoring calibration section added
+    - [ ] Zero "evaluate" or "assess" in checkpoint conditions
+```
+
+---
+
+## PHASE 5: HYBRID EXECUTOR IMPLEMENTATION [v3.0]
+
+**Trigger:** `--hybrid` flag (includes all previous phases automatically)
+**Duration:** 5-15 minutes per task
+**Condition:** Phase 1 classified task as COULD_BE_WORKER or mixed Worker+Agent
+
+### Pré-condição + Script-First Priority Rule [v4.0]
+
+```yaml
+precondition:
+  phase_1_complete: true
+
+script_first_priority:
+  # UPDATED v4.0: Three tiers based on deterministic percentage
+  if_deterministic_pct >= 90:
+    action: "SCRIPT-ONLY executor"
+    llm_role: "Optional: gap recommendations only (not required for score)"
+    cost: "~$0 per execution"
+    example: "an-fidelity-score (95% det → fidelity-score.sh)"
+
+  elif_deterministic_pct >= 60:
+    action: "HYBRID executor (script + minimal LLM)"
+    llm_role: "Interpretation of script results (8-12 questions)"
+    cost: "~20% of full Agent"
+    example: "validate-squad (88% det → validate-squad.sh + Haiku)"
+
+  elif_deterministic_pct < 60:
+    action: "Keep as AGENT"
+    cost: "100%"
+    note: "Task needs significant LLM reasoning"
+
+  veto:
+    id: "OPT_VC_SCRIPT_FIRST"
+    condition: "deterministic_pct >= 90 AND decision = Hybrid"
+    action: "VETO — Use SCRIPT-ONLY. Gastar tokens com 10% de interpretação quando script cobre 90% é desperdício."
+```
+
+### Step 5.1: Inventory Existing Scripts
+
+```yaml
+inventory_scripts:
+  action: |
+    BEFORE creating anything, check what already exists:
+
+    1. ls {squad_path}/scripts/ → List all scripts
+    2. Read scripts/README.md if exists
+    3. For each script, map: script → which checks it covers
+    4. Compare with Phase 1 decomposition: which Worker actions are ALREADY scripted?
+
+  output:
+    already_scripted: ["list of actions covered by existing scripts"]
+    needs_scripting: ["list of Worker actions not yet in scripts"]
+    existing_scripts: ["paths to existing scripts"]
+
+  veto: "Do NOT create script from zero if existing script covers >50% of needed checks. EXTEND it."
+  principle: "IDS: REUSE > ADAPT > CREATE"
+```
+
+### Step 5.2: Create/Extend Worker Script
+
+```yaml
+create_worker_script:
+  action: |
+    For actions classified as Worker in Phase 1:
+
+    IF existing script covers >50%:
+      EXTEND the existing script with missing checks
+    ELSE:
+      CREATE new script following the pattern
+
+  script_pattern: |
+    #!/usr/bin/env bash
+    # Worker Script: {task_name} - Deterministic checks
+    # Generated by: *optimize --hybrid
+    # Covers: {N} of {total} actions (deterministic portion)
+    #
+    # Usage: bash {script_name}.sh {input_args} [--json]
+    #
+    # Output: /tmp/preflight-{task_name}.yaml
+    #   Contains pre-computed data for ALL deterministic checks.
+    #   The Agent phase reads this file instead of collecting data manually.
+
+    set -euo pipefail
+
+    # === CONFIGURATION ===
+    TARGET="${1:?Usage: $0 <target> [--json]}"
+    OUTPUT_FILE="/tmp/preflight-{task_name}.yaml"
+
+    # === DETERMINISTIC CHECKS ===
+    # {For each Worker action from Phase 1, generate the bash equivalent}
+
+    # === OUTPUT ===
+    # Write structured YAML with all collected data
+    cat > "$OUTPUT_FILE" << YAML
+    preflight:
+      target: "$TARGET"
+      timestamp: "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+      script_version: "1.0.0"
+      # {all collected metrics}
+    YAML
+
+    echo "Preflight saved to: $OUTPUT_FILE"
+
+  output:
+    script_path: "{squad_path}/scripts/{task_name}-worker.sh"
+    actions_covered: N
+    actions_total: M
+    coverage_pct: "N/M * 100"
+```
+
+### Step 5.3: Create Minimal Agent Prompt
+
+```yaml
+create_agent_prompt:
+  action: |
+    For actions classified as Agent in Phase 1, create a MINIMAL prompt section
+    that RECEIVES pre-computed data and ONLY does interpretation.
+
+  prompt_pattern: |
+    ## Agent Interpretation Phase (receives pre-computed data)
+
+    ### INPUT REQUIRED: preflight-{task_name}.yaml
+
+    ```
+    BEFORE starting interpretation:
+
+      READ /tmp/preflight-{task_name}.yaml
+
+    IF file does not exist → STOP. Run the worker script first:
+      bash {squad_path}/scripts/{task_name}-worker.sh {target}
+
+    DO NOT re-collect these numbers manually.
+    DO NOT run ls/grep/wc/find yourself.
+    Your job is INTERPRETATION ONLY — not data collection.
+    ```
+
+    ### Questions to Answer (using pre-computed data)
+
+    {For each Agent action from Phase 1:}
+    - Q{N}: "{question derived from the action}"
+      Data available: "{which preflight fields to use}"
+      Answer: YES/NO + brief evidence
+
+  output:
+    prompt_section: "Markdown to append/replace in task file"
+    questions_count: N
+    estimated_haiku_tokens: "~{N * 100} tokens (minimal)"
+```
+
+### Step 5.4: Quality Gate
+
+```yaml
+quality_gate_phase_5:
+  checklist:
+    - [ ] Existing scripts were checked BEFORE creating new ones (IDS)
+    - [ ] Worker script covers ALL deterministic actions from Phase 1
+    - [ ] Worker script outputs structured YAML (not plain text)
+    - [ ] Agent prompt RECEIVES preflight data (not collects it)
+    - [ ] Agent prompt has N questions matching N Agent actions from Phase 1
+    - [ ] Script has --json flag for structured output
+    - [ ] Script has usage/help documentation
+
+  if_any_unchecked:
+    action: STOP
+    message: "Hybrid executor incomplete. Fix before proceeding."
+```
+
+---
+
+## PHASE 6: GAP ZERO ENFORCEMENT [v3.0]
+
+**Trigger:** `--hybrid` flag, after Phase 5
+**Duration:** 2-5 minutes
+**Purpose:** Modify the task file to IMPOSSIBILITATE the wrong path
+
+### Step 6.1: Add EXECUTE FIRST Block
+
+```yaml
+add_execute_first:
+  action: |
+    Insert at the BEGINNING of the task's first execution phase:
+
+    ### MANDATORY PREFLIGHT: Run Worker Script FIRST
+
+    ```
+    EXECUTE FIRST — before ANY manual analysis:
+
+      bash {script_path} {input_placeholder} --json > /tmp/preflight-{task_name}.yaml
+
+    IF the command fails → FIX the script error. Do NOT proceed manually.
+    IF the command succeeds → READ /tmp/preflight-{task_name}.yaml. Use ONLY these numbers.
+
+    VETO: If /tmp/preflight-{task_name}.yaml does not exist → BLOCK.
+          Do NOT collect data manually. Do NOT run ls/grep/wc yourself.
+          The script does this faster, cheaper, and 100% consistently.
+    ```
+
+  location: "Before the first phase that collects data"
+```
+
+### Step 6.2: Add INPUT REQUIRED Blocks
+
+```yaml
+add_input_required:
+  action: |
+    For EACH phase that previously collected data manually,
+    replace collection instructions with:
+
+    ### INPUT REQUIRED: preflight-{task_name}.yaml
+
+    ```
+    READ /tmp/preflight-{task_name}.yaml
+
+    IF file does not exist → STOP. Go back and run the worker script.
+    DO NOT re-collect these numbers. INTERPRETATION ONLY.
+    USE the numbers from preflight as INPUTS for scoring below.
+    ```
+
+  locations: "All phases after the first that use data from deterministic checks"
+```
+
+### Step 6.3: Add Veto Condition
+
+```yaml
+add_veto_condition:
+  action: |
+    Add to the task's veto conditions section (create section if doesn't exist):
+
+    - id: "GAP_ZERO_001"
+      condition: "Preflight results not generated by Worker script"
+      check: "/tmp/preflight-{task_name}.yaml does not exist"
+      result: "VETO - BLOCK. Run worker script FIRST."
+      rationale: "{coverage_pct}% of checks are deterministic. Script runs them in <30s with 100% consistency."
+
+  principle: |
+    PV004: "SE executor CONSEGUE fazer errado → processo está errado"
+    The LLM CAN skip the script and do everything manually.
+    This veto makes that path IMPOSSIBLE.
+```
+
+### Step 6.4: Update Task Version
+
+```yaml
+update_version:
+  action: |
+    Bump task version to indicate hybrid executor upgrade:
+    - Minor bump if task was already hybrid-aware
+    - Major bump if task was 100% Agent before
+
+  update_fields:
+    - "Execution Type: Hybrid (Worker script + Agent interpretation)"
+    - "Worker Scripts: {script_path}"
+    - Version bump
+```
+
+---
+
+## PHASE 7: EMPIRICAL VALIDATION [v3.0]
+
+**Trigger:** `--hybrid` flag, after Phase 6
+**Duration:** 2-5 minutes
+**Purpose:** PROVE the hybrid executor works by running it
+
+### Step 7.1: Run Worker Script
+
+```yaml
+run_worker:
+  action: |
+    bash {script_path} {test_input} --json > /tmp/preflight-{task_name}.yaml
+
+  validation:
+    - "Exit code 0?"
+    - "Output file exists?"
+    - "Output is valid YAML?"
+    - "All expected fields present?"
+
+  on_fail: "Script has bugs. Fix before proceeding."
+```
+
+### Step 7.2: Run with Haiku (--fast)
+
+```yaml
+run_haiku:
+  action: |
+    IF script has built-in Claude analysis (like validate-squad.sh):
+      bash {script_path} {test_input} --fast --json
+    ELSE:
+      Run Haiku agent with the updated task file + preflight data as input
+
+  output:
+    haiku_score: "Score from Haiku execution"
+    haiku_quality: "Quality assessment"
+```
+
+### Step 7.3: Compare with Baseline
+
+```yaml
+compare_baseline:
+  action: |
+    IF Opus baseline exists (from previous test or wf-model-tier-qualification):
+      Compare Haiku hybrid score vs Opus baseline score
+      Calculate quality percentage
+    ELSE:
+      Run Opus baseline first, then compare
+
+  thresholds:
+    qualified: "Haiku >= 90% of Opus baseline quality"
+    conditional: "Haiku >= 75% of Opus baseline quality"
+    fail: "Haiku < 75%"
+```
+
+### Step 7.4: Save Test Case
+
+```yaml
+save_test_case:
+  action: |
+    Save results to test-cases/{task_name}/ as NEW file (never overwrite):
+
+    Filename pattern: {model}-round-{N}-v{task_version}.yaml
+
+  content:
+    test_metadata:
+      round: N
+      task_version: "{new_version}"
+      model: "haiku"
+      execution: "hybrid (script + haiku)"
+      command: "{exact command used}"
+
+    results:
+      worker_script: "{script output summary}"
+      agent_interpretation: "{haiku output summary}"
+      final_score: N
+      quality_vs_baseline: "N%"
+
+    gap_zero_validation:
+      script_ran_first: true
+      llm_collected_data_manually: false
+      preflight_used_as_input: true
+      caminho_errado_impossibilitado: true
+
+    cost_comparison:
+      before: "${cost of 100% LLM execution}"
+      after: "${cost of hybrid execution}"
+      savings: "N%"
+
+  veto: "NEVER overwrite existing test case files. Always create new."
+```
+
+### Step 7.5: Generate Optimization Report
+
+```yaml
+generate_report:
+  template: |
+    # Hybrid Executor Optimization Report
+
+    **Task:** {task_name}
+    **Date:** {date}
+    **Optimizer:** *optimize --hybrid v3.0
+
+    ## Before vs After
+
+    | Aspect | Before (100% LLM) | After (Hybrid) | Delta |
+    |--------|-------------------|-----------------|-------|
+    | Executor | Agent (all phases) | Script {pct}% + Haiku {pct}% | Hybrid |
+    | Deterministic checks | LLM approximation | Script (100% consistent) | +Reliability |
+    | Cost/run | ${before} | ${after} | -{savings}% |
+    | Speed | {before}s | {after}s | -{delta}s |
+    | Consistency | Varies by model/run | Script=100%, LLM=interpretation only | +Consistency |
+
+    ## GAP ZERO Applied
+
+    - [x] EXECUTE FIRST block added to task
+    - [x] INPUT REQUIRED blocks added to interpretation phases
+    - [x] Veto condition GAP_ZERO_001 added
+    - [x] Task version bumped
+
+    ## Empirical Proof
+
+    | Model | Score | Quality vs Baseline | Cost |
+    |-------|-------|-------------------- |------|
+    | Opus baseline | {score} | 100% | ${cost} |
+    | Haiku hybrid | {score} | {pct}% | ${cost} |
+
+    ## Verdict: {QUALIFIED | CONDITIONAL | NEEDS_WORK}
+```
+
+---
+
+## PHASE 7b: BIDIRECTIONAL BIAS TEST [v4.0]
+
+**Trigger:** After Phase 7, if Haiku passed with >90% match
+**Duration:** 5-10 minutes
+**Condition:** `--hybrid` flag (runs automatically after Phase 7)
+**Evidence:** an-clone-review (Haiku -20% conservative) vs an-validate-clone (Haiku +14% generous)
+
+### Step 7b.1: Run with Different Targets
+
+```yaml
+run_multiple_targets:
+  action: |
+    Run the hybrid executor (script + Haiku) with 3 DIFFERENT targets:
+
+    1. SMALL target → Expected: higher score (less to validate)
+    2. LARGE target → Expected: lower score (more potential issues)
+    3. EDGE CASE target → Expected: tests boundary behavior
+
+  example:
+    validate-squad:
+      small: "squads/db-sage"          # 2 agents, simple
+      large: "squads/copy"             # 24 agents, complex
+      edge:  "squads/squad-creator"    # Hybrid type, meta-squad
+
+  output:
+    results:
+      - { target: "small", score: X, decision: "PASS/FAIL" }
+      - { target: "large", score: Y, decision: "PASS/FAIL" }
+      - { target: "edge",  score: Z, decision: "PASS/FAIL" }
+```
+
+### Step 7b.2: Detect Bias Direction
+
+```yaml
+detect_bias:
+  compare: "Haiku scores vs Opus scores for same targets"
+
+  patterns:
+    consistent_conservative:
+      condition: "Haiku < Opus in ALL 3 tests"
+      action: "ADD Scoring Calibration (bias up)"
+      compensation: "COMP_001 (generous interpretation)"
+
+    consistent_generous:
+      condition: "Haiku > Opus in ALL 3 tests"
+      action: "ADD Scoring Calibration (bias down) or accept if gatekeeper"
+      compensation: "Lower thresholds in scoring calibration"
+
+    inconsistent:
+      condition: "Haiku direction varies across tests"
+      action: "VETO — Task needs more structure before Haiku qualification"
+      note: "Go back to Phase 4b (binary checkpoints) to reduce variance"
+
+    neutral:
+      condition: "Delta < 0.5 in all tests"
+      action: "QUALIFIED — No bias detected"
+```
+
+### Step 7b.3: Save Bias Report
+
+```yaml
+save_bias_report:
+  file: "test-cases/{task_name}/bias-report.yaml"
+  content:
+    bias_report:
+      task: "{task_name}"
+      date: "{today}"
+      tests_run: 3
+      results:
+        - { target: "small", opus: X, haiku: Y, delta: Z, direction: "conservative/generous/neutral" }
+        - { target: "large", opus: X, haiku: Y, delta: Z, direction: "conservative/generous/neutral" }
+        - { target: "edge",  opus: X, haiku: Y, delta: Z, direction: "conservative/generous/neutral" }
+      overall_bias: "conservative | generous | inconsistent | neutral"
+      verdict: "QUALIFIED | NEEDS_CALIBRATION | VETO"
+      action_taken: "{compensation applied or none}"
+
+  veto: "NEVER overwrite existing bias reports. Create new file with timestamp."
+```
+
+---
+
+## PHASE 8: POST-REFACTORING ECONOMY ANALYSIS
 
 **Trigger:** Após implementar conversões Worker/Hybrid
 **Command:** `*optimize {target} --post`
 
-### Step 5.1: Inventory Changes
+### Step 8.1: Inventory Changes
 
 ```yaml
 inventory_changes:
@@ -774,7 +1446,7 @@ inventory_changes:
       - script_lines (wc -l)
 ```
 
-### Step 5.2: Calculate Token Economics
+### Step 8.2: Calculate Token Economics
 
 ```yaml
 token_economics:
@@ -807,7 +1479,7 @@ token_economics:
       total_per_exec: "(900 × 0.015) + (400 × 0.075)"
 ```
 
-### Step 5.3: Generate Economy Report
+### Step 8.3: Generate Economy Report
 
 ```yaml
 report_template: |
@@ -876,7 +1548,7 @@ report_template: |
   └─────────────────────────────────────────┘
 ```
 
-### Step 5.4: Per-Script Breakdown
+### Step 8.4: Per-Script Breakdown
 
 ```yaml
 script_breakdown:
@@ -907,7 +1579,7 @@ script_breakdown:
       {end}
 ```
 
-### Step 5.5: Comparison Table
+### Step 8.5: Comparison Table
 
 ```yaml
 comparison_table:
@@ -1076,6 +1748,38 @@ pre_delivery_validation:
 - `executor-decision-tree.md` - Decision tree usado na análise (MUST READ)
 - `executor-matrix-framework.md` - Perfis de executores
 - `create-task.md` - Workflow de criação (usa mesma lógica)
+- `validate-squad.md` - Referência de hybrid executor implementado (v4.0, GAP ZERO applied) **[v3.0]**
+- `an-fidelity-score.md` - Referência de binary checkpoint conversion (v2.0, 99.3% match) **[v4.0]**
+- `../workflows/wf-model-tier-qualification.yaml` - Workflow de qualificação Opus vs Haiku **[v3.0]**
+- `../test-cases/validate-squad/` - Evidência empírica do padrão hybrid (Haiku 114% vs Opus baseline) **[v3.0]**
+- `../test-cases/an-fidelity-score/` - Evidência empírica de binary checkpoint conversion **[v4.0]**
+- `../scripts/fidelity-score.sh` - Referência de script-only executor (95% det, 0 tokens) **[v4.0]**
+- `../docs/optimize-v4-proposal.md` - Proposal original com descobertas empíricas **[v4.0]**
+
+---
+
+## Changelog
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 4.1.0 | 2026-02-11 | FIX: Added explicit Model requirement (Opus REQUIRED) — PV Audit identified missing model spec |
+| | | ADD: Haiku Eligible: NO — task has multiplicative impact, classification errors cascade |
+| 4.0.0 | 2026-02-11 | NEW: Phase 1b (Scope Clarification) — explicit scope for Haiku literal interpretation |
+| | | NEW: Phase 1c (Gatekeeper Detection) — PASS/FAIL tasks tolerate score variance |
+| | | NEW: Phase 4b (Binary Checkpoint Conversion) — subjective → binary = 99.3% match |
+| | | NEW: Phase 7b (Bidirectional Bias Test) — detect conservative/generous Haiku bias |
+| | | UPDATE: Phase 5 Script-First Priority — ≥90% det → SCRIPT-ONLY, ≥60% → HYBRID |
+| | | NEW: Veto OPT_VC_SCRIPT_FIRST — blocks Hybrid when Script-Only suffices |
+| | | Evidence: 8 tasks tested, 5 patterns discovered empirically |
+| 3.0.0 | 2026-02-11 | NEW: `--hybrid` flag — full pipeline: analyze + create hybrid executor + GAP ZERO + empirical test |
+| | | NEW: Phase 5 (Hybrid Executor Implementation) — create/extend worker script + minimal agent prompt |
+| | | NEW: Phase 6 (GAP ZERO Enforcement) — EXECUTE FIRST + INPUT REQUIRED + veto condition |
+| | | NEW: Phase 7 (Empirical Validation) — run script + Haiku, compare with baseline, save test case |
+| | | Renumbered old Phase 5 → Phase 8 (Post-Refactoring Economy) |
+| | | Evidence: validate-squad v4.0 hybrid achieved Haiku 9.0 vs Opus baseline 7.89 (114.1%), cost -99.6% |
+| 2.1.0 | 2026-02-07 | Added anti-patterns, validation checklist, post-refactoring economy analysis |
+| 2.0.0 | 2026-02-03 | Added executor decision tree integration, Q1-Q6 analysis framework |
+| 1.0.0 | 2026-01-28 | Initial version — Agent→Worker scan + ROI calculation |
 
 ---
 

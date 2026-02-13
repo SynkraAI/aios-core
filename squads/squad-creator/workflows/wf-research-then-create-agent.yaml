@@ -21,7 +21,7 @@ description: |
 
   Quality Standard: AIOS Level (800+ lines, full semantic depth)
 
-orchestrator: "@squad-architect"
+orchestrator: "@squad-chief"
 mode: YOLO  # 100% autonomous, no human intervention
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -850,7 +850,7 @@ integration:
 examples:
   - name: "Specialist-Based Agent"
     command: |
-      @squad-architect
+      @squad-chief
       *workflow research-then-create-agent \
         --agent-purpose "Create high-converting sales pages" \
         --domain "copywriting" \
@@ -860,7 +860,7 @@ examples:
 
   - name: "Generic Domain Agent"
     command: |
-      @squad-architect
+      @squad-chief
       *workflow research-then-create-agent \
         --agent-purpose "Conduct user interviews for product discovery" \
         --domain "product-management" \
@@ -868,7 +868,7 @@ examples:
 
   - name: "Multiple Specialists (Blended)"
     command: |
-      @squad-architect
+      @squad-chief
       *workflow research-then-create-agent \
         --agent-purpose "Create VSL scripts" \
         --domain "copywriting" \

@@ -2,8 +2,9 @@
 
 **Task ID:** create-agent
 **Version:** 2.2
+**Execution Type:** Hybrid
 **Purpose:** Create a single domain-specific agent through research, elicitation, and validation
-**Orchestrator:** @squad-architect
+**Orchestrator:** @squad-chief
 **DNA Specialist:** @oalanicolas
 **Mode:** Research-first (never create without research)
 **Quality Standard:** AIOS Level (300+ lines, voice_dna, output_examples)
@@ -20,6 +21,57 @@
 - `data/tier-system-framework.md` → Agent tier classification (Phase 2)
 - `data/quality-dimensions-framework.md` → Agent validation (Phase 4)
 - `data/decision-heuristics-framework.md` → Quality gate logic (Phase 4)
+
+---
+
+## DESIGN RULES (Non-Negotiable)
+
+```yaml
+self_contained:
+  rule: "Squad DEVE ser self-contained - tudo dentro da pasta do squad"
+  allowed:
+    - "squads/{squad-name}/agents/*.md"
+    - "squads/{squad-name}/tasks/*.md"
+    - "squads/{squad-name}/data/*.yaml"
+    - "squads/{squad-name}/checklists/*.md"
+    - "squads/{squad-name}/minds/**/*"
+  forbidden:
+    - "outputs/minds/*"  # DNA extraído deve ser INTEGRADO, não referenciado
+    - ".aios-core/*"     # Não depender de core externo
+    - "docs/*"           # Documentação externa
+  exception: "Mission router pode lazy-load tasks/data DO PRÓPRIO squad"
+
+functional_over_philosophical:
+  rule: "Agent deve saber FAZER o trabalho, não ser clone perfeito"
+  include:
+    - "SCOPE - o que faz/não faz"
+    - "Heuristics - regras SE/ENTÃO para decisões"
+    - "Core methodology - como executar a função INLINE"
+    - "Voice DNA condensado - tom + 5 signature phrases"
+    - "Handoff + Veto - quando parar/delegar"
+    - "Output examples - calibração de output"
+  exclude_or_condense:
+    - "Psychometric completo → 1 parágrafo"
+    - "Values hierarchy 16 itens → top 5 relevantes à função"
+    - "Core obsessions 7 itens → 3 relevantes à função"
+    - "Productive paradoxes → remover se não operacional"
+    - "Dual persona → só se função exige múltiplos modos"
+
+curadoria_over_volume:
+  rule: "Menos mas melhor - curadoria > volume"
+  targets:
+    agent_lines: "400-800 lines focadas > 1500 lines dispersas"
+    heuristics: "10 heuristics úteis > 30 genéricas"
+    signature_phrases: "5 verificáveis > 20 inferidas"
+  mantra: "Se entrar cocô, sai cocô do outro lado"
+```
+
+**VETO CONDITIONS:**
+- ❌ Agent referencia arquivo fora do squad → VETO
+- ❌ Agent tem >50% de conteúdo filosófico vs operacional → VETO
+- ❌ Agent não tem SCOPE definido → VETO
+- ❌ Agent não tem heuristics de decisão → VETO
+- ❌ Agent não tem output examples → VETO
 
 ---
 
@@ -80,7 +132,7 @@ OUTPUT: Agent file + Quality Gate PASS
 ## Preconditions
 
 - [ ] Target pack exists at `squads/{pack_name}/`
-- [ ] squad-architect agent is active
+- [ ] squad-chief agent is active
 - [ ] WebSearch tool available (for research)
 - [ ] Write permissions for `squads/{pack_name}/agents/`
 
@@ -675,7 +727,7 @@ next_steps:
     - "Build workflows that use this agent"
 
   handoff_to:
-    - agent: "squad-architect"
+    - agent: "squad-chief"
       when: "Continue building squad"
     - agent: "created-agent"
       when: "Ready to use agent"

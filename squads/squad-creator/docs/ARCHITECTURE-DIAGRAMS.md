@@ -8,6 +8,120 @@
 
 ---
 
+## 0. Arquitetura v3.0: Os 3 Agentes
+
+### Visão Geral
+
+```mermaid
+graph TB
+    subgraph "SQUAD CREATOR v3.0"
+        USER[User Request] --> CHIEF[squad-chief<br/>Orchestrator]
+
+        CHIEF -->|Precisa DNA| AN[oalanicolas<br/>Tier 1 - Mind Cloning]
+        CHIEF -->|Precisa Artefatos| PV[pedro-valerio<br/>Tier 1 - Process Design]
+        CHIEF -->|Direto| SOP[Extract SOP]
+        CHIEF -->|Direto| VAL[Validate Squad]
+
+        AN -->|INSUMOS_READY| PV
+        PV -->|ARTIFACTS_READY| CHIEF
+
+        AN -.->|Veto: Insumos incompletos| AN
+        PV -.->|Veto: Sem guardrails| PV
+
+        CHIEF --> RESULT[Squad Ready]
+    end
+
+    style CHIEF fill:#4a5568,stroke:#a0aec0,color:#fff
+    style AN fill:#2d3748,stroke:#718096,color:#fff
+    style PV fill:#2d3748,stroke:#718096,color:#fff
+```
+
+### Fluxo de Colaboração Detalhado
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant SC as squad-chief
+    participant AN as @oalanicolas
+    participant PV as @pedro-valerio
+
+    U->>SC: *create-squad copywriting
+
+    rect rgb(40, 40, 60)
+        Note over SC: PHASE 0: TRIAGE
+        SC->>SC: Verificar squad-registry
+        SC->>SC: Research elite minds
+        SC->>U: Apresentar minds encontrados
+        U-->>SC: Aprovar minds
+    end
+
+    rect rgb(40, 60, 40)
+        Note over SC,AN: PHASE 1: CLONAGEM (por mind)
+        loop Para cada mind aprovado
+            SC->>AN: Clone {mind_name}
+            AN->>AN: Collect sources
+            AN->>AN: Curate (ouro/bronze)
+            AN->>AN: Extract Voice DNA
+            AN->>AN: Extract Thinking DNA
+            AN->>AN: Self-validation
+
+            alt Self-validation PASS
+                AN-->>SC: DNA Complete
+            else Self-validation FAIL
+                AN->>AN: Retry extraction
+            end
+        end
+    end
+
+    rect rgb(60, 40, 40)
+        Note over AN,PV: PHASE 2: HANDOFF AN → PV
+        AN->>AN: Prepare INSUMOS_READY
+        AN->>PV: Handoff com DNAs
+
+        alt Veto conditions
+            PV-->>AN: REJECT (insumos incompletos)
+            AN->>AN: Complete insumos
+            AN->>PV: Retry handoff
+        else Accept
+            PV->>PV: Create agents
+            PV->>PV: Create tasks
+            PV->>PV: Create workflows
+            PV->>PV: Define veto conditions
+        end
+    end
+
+    rect rgb(40, 40, 80)
+        Note over PV,SC: PHASE 3: HANDOFF PV → SC
+        PV->>PV: Validate artifacts
+        PV->>SC: ARTIFACTS_READY
+    end
+
+    rect rgb(60, 60, 40)
+        Note over SC: PHASE 4: INTEGRATION
+        SC->>SC: Generate config.yaml
+        SC->>SC: Generate README.md
+        SC->>SC: Wire dependencies
+        SC->>SC: Run smoke tests
+        SC->>SC: Generate quality dashboard
+    end
+
+    SC->>U: Squad pronto!
+```
+
+### Handoffs e Veto Conditions
+
+| De → Para | Protocolo | Veto Se |
+|-----------|-----------|---------|
+| SC → AN | Mind para clonar | - |
+| AN → PV | INSUMOS_READY | < 15 citações, < 5 signature phrases |
+| AN → SC | DNA Complete | - |
+| PV → SC | ARTIFACTS_READY | Smoke test FAIL |
+
+**Documentação completa:** [AGENT-COLLABORATION.md](./AGENT-COLLABORATION.md)
+
+---
+
 ## 1. Fluxo Principal: Criação de Squad
 
 ```mermaid
@@ -606,8 +720,9 @@ graph TD
         A --> G[data/]
         A --> H[docs/]
 
-        B --> B1[squad-architect.md]
-        B --> B2[sop-extractor.md]
+        B --> B1[squad-chief.md]
+        B --> B2[oalanicolas.md]
+        B --> B3[pedro-valerio.md]
 
         C --> C1[create-squad.md]
         C --> C2[create-agent.md]

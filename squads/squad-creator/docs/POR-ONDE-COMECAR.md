@@ -104,9 +104,10 @@ Após o tutorial, você está pronto. Execute:
 ### Para Aprofundar (opcional, avançado)
 
 ```
-• CONCEPTS.md ────────────── Como funciona por dentro
-• ARCHITECTURE-DIAGRAMS.md ─ Diagramas técnicos
-• HITL-FLOW.md ───────────── Fluxo de checkpoints
+• CONCEPTS.md ────────────────── Como funciona por dentro
+• AGENT-COLLABORATION.md ────── Como os 3 agentes colaboram
+• ARCHITECTURE-DIAGRAMS.md ──── Diagramas técnicos
+• HITL-FLOW.md ──────────────── Fluxo de checkpoints
 ```
 
 ---

@@ -1,13 +1,18 @@
 ---
 task-id: update-mind
-name: Update Existing Mind DNA (Brownfield)
-version: 1.0.0
+name: Update Existing Agent DNA (Brownfield)
+version: 2.0.0
+execution_type: Hybrid
+model: Sonnet
+haiku_eligible: false
 estimated-time: 1-2 hours
 complexity: medium
+note: "Para atualizar agents em squads criados pelo squad-creator"
 
 inputs:
   required:
-    - mind_slug: "Slug do mind existente (snake_case)"
+    - squad_name: "Nome do squad (ex: copy, legal)"
+    - agent_slug: "Slug do agent existente (snake_case)"
   optional:
     - new_sources_path: "Caminho para novas fontes"
     - focus: "voice|thinking|both (default: both)"
@@ -15,17 +20,19 @@ inputs:
 
 outputs:
   primary:
-    - updated_dna: "mind_dna_complete.yaml atualizado"
+    - updated_agent: "Agent file atualizado com novo DNA"
     - diff_report: "Relatório do que mudou"
 
 elicit: true
 ---
 
-# Update Existing Mind DNA (Brownfield)
+# Update Existing Agent DNA (Brownfield)
 
 > **Princípio:** "Evolução > Revolução. Preserve o que funciona, adicione o que falta."
 >
 > **Regra:** NUNCA substituir DNA existente sem validar que o novo é melhor.
+>
+> **Escopo:** Agents em `squads/{squad}/agents/` criados pelo squad-creator.
 
 ---
 
@@ -35,11 +42,9 @@ elicit: true
 
 ```yaml
 existing_files:
-  mind_dna: "outputs/minds/{mind_slug}/mind_dna_complete.yaml"
-  voice_dna: "outputs/minds/{mind_slug}/voice_dna.yaml"
-  thinking_dna: "outputs/minds/{mind_slug}/thinking_dna.yaml"
-  sources_inventory: "outputs/minds/{mind_slug}/sources_inventory.yaml"
-  agent_file: "squads/{squad}/agents/{mind_slug}.md"  # Se já tem agente
+  agent_file: "squads/{squad_name}/agents/{agent_slug}.md"
+  sources_dir: "squads/{squad_name}/minds/{agent_slug}/sources/"  # Se existir
+  metadata: "squads/{squad_name}/minds/{agent_slug}/metadata.yaml"  # Se existir
 ```
 
 ### 0.2 Snapshot Before
@@ -218,20 +223,13 @@ conflicts:
 
 ```yaml
 updated_files:
-  mind_dna_complete:
-    path: "outputs/minds/{mind_slug}/mind_dna_complete.yaml"
-    backup: "outputs/minds/{mind_slug}/backups/mind_dna_{timestamp}.yaml"
-
-  voice_dna:
-    path: "outputs/minds/{mind_slug}/voice_dna.yaml"
+  agent_file:
+    path: "squads/{squad_name}/agents/{agent_slug}.md"
+    backup: "squads/{squad_name}/.backup/{agent_slug}.{timestamp}.md"
     sections_updated: []
 
-  thinking_dna:
-    path: "outputs/minds/{mind_slug}/thinking_dna.yaml"
-    sections_updated: []
-
-  sources_inventory:
-    path: "outputs/minds/{mind_slug}/sources_inventory.yaml"
+  metadata:
+    path: "squads/{squad_name}/minds/{agent_slug}/metadata.yaml"
     new_sources_added: 0
 ```
 
@@ -398,14 +396,14 @@ update_report:
 ## COMMANDS
 
 ```bash
-# Update com novas fontes
-*update-mind gary_halbert --sources /path/to/new/materials
+# Update agent com novas fontes
+*update-mind copy gary_halbert --sources /path/to/new/materials
 
 # Update apenas voice
-*update-mind gary_halbert --focus voice --sources /path/to/interviews
+*update-mind copy gary_halbert --focus voice --sources /path/to/interviews
 
 # Update com merge manual
-*update-mind gary_halbert --mode selective
+*update-mind legal contract_lawyer --mode selective
 ```
 
 ---
@@ -424,5 +422,6 @@ update_report:
 
 ---
 
-**Squad Architect | Update Mind v1.0**
+**Squad Architect | Update Agent DNA v2.0**
+_Last Updated: 2026-02-11_
 *"Evolution beats revolution. Preserve what works, add what's missing."*

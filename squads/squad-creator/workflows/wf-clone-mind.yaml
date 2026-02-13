@@ -102,6 +102,18 @@ phases:
       Buscar automaticamente fontes na web antes de pedir materiais ao usuário.
       YouTube transcripts, book summaries, podcasts, artigos.
 
+    tool_priority:
+      1: mcp-youtube-transcript  # Se instalado, usar para transcripts
+      2: exa + WebFetch          # Fallback: buscar transcripts existentes
+      3: WebSearch native        # Fallback final: pesquisa genérica
+
+    fallback:
+      on_tool_unavailable: "Continue with next priority tool"
+      on_zero_sources: |
+        WARN: Auto-acquisition found no sources.
+        Continue to Phase 0b for manual collection.
+      on_partial: "Continue with available sources, flag gaps for Phase 0b"
+
     output:
       file: "acquired_sources.yaml"
       location: "outputs/minds/{mind_slug}/"
@@ -177,6 +189,17 @@ phases:
         → Re-executar collect-sources.md
         → Só prosseguir quando atingir GO ou CONDITIONAL
 
+    rework:
+      retry_max: 2
+      retry_actions:
+        1: "Expand search queries, try alternative keywords"
+        2: "Request user materials, check obscure sources"
+      on_retry_fail: |
+        ESCALATE: Source quality gate failed after 2 retries.
+        → Present gap analysis to user
+        → Request specific materials or confirm reduced fidelity
+        → Document limitations in quality_dashboard
+
     output:
       file: "sources_inventory.yaml"
       location: "outputs/minds/{mind_slug}/"
@@ -221,6 +244,18 @@ phases:
         - "1+ paradoxo documentado"
       score_minimum: 8/10
 
+    rework:
+      max_iterations: 3
+      on_score_below_6:
+        action: "Re-analyze sources focusing on voice patterns"
+        specialist: "@oalanicolas"
+        command: "*extract-voice-dna --deep-mode"
+      on_iteration_fail: |
+        ESCALATE: Voice DNA extraction below quality threshold.
+        → Document gaps in voice coverage
+        → Flag for user review of clone authenticity
+        → Continue to Phase 2 with warning
+
   # ─────────────────────────────────────────────────────────────────────────────
   # PHASE 2: THINKING DNA EXTRACTION
   # ─────────────────────────────────────────────────────────────────────────────
@@ -258,6 +293,18 @@ phases:
         - "2+ objection responses"
         - "1+ handoff trigger"
       score_minimum: 7/9
+
+    rework:
+      max_iterations: 3
+      on_score_below_5:
+        action: "Re-analyze sources focusing on decision frameworks"
+        specialist: "@oalanicolas"
+        command: "*extract-thinking-dna --deep-mode"
+      on_iteration_fail: |
+        ESCALATE: Thinking DNA extraction below quality threshold.
+        → Document gaps in framework coverage
+        → Flag for user review of clone decision-making
+        → Continue to Phase 3 with warning
 
   # ─────────────────────────────────────────────────────────────────────────────
   # PHASE 3: SYNTHESIS

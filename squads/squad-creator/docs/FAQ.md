@@ -583,53 +583,94 @@ zip -r {squad-name}-backup.zip squads/{squad-name}/
 
 ---
 
-## Especialistas (Specialists)
+## Os 3 Agentes (v3.0)
 
-### O que são especialistas?
+### Como funciona a arquitetura de agentes?
 
-São agents especializados DENTRO do Squad Creator que têm expertise profunda em áreas específicas:
+O Squad Creator v3.0 opera com **3 agentes especializados** que trabalham em sinergia:
 
-| Especialista | Domínio | Ativação |
-|--------------|---------|----------|
-| `@oalanicolas` | Mind cloning, DNA extraction | `/squad-creator @oalanicolas` |
-| `@pedro-valerio` | Processes, tasks, checklists | `/squad-creator @pedro-valerio` |
+```
+         ┌─────────────────┐
+         │  @squad-chief   │ ← Ponto de entrada
+         │  (Orchestrator) │
+         └────────┬────────┘
+                  │
+       ┌──────────┴──────────┐
+       ▼                     ▼
+┌─────────────┐       ┌─────────────┐
+│@oalanicolas │ ←───→ │@pedro-valerio│
+│ (Tier 1)    │       │  (Tier 1)   │
+└─────────────┘       └─────────────┘
+```
+
+| Agente | Papel | Ativação |
+|--------|-------|----------|
+| `@squad-chief` | Orquestração, triagem, criação, SOPs | `@squad-creator` |
+| `@oalanicolas` | Mind cloning, DNA extraction | `@squad-creator:oalanicolas` |
+| `@pedro-valerio` | Process design, veto conditions | `@squad-creator:pedro-valerio` |
+
+### Quando usar @squad-chief?
+
+**Use para tudo por padrão.** Ele sabe quando delegar para os outros:
+- "Quero criar um squad de copywriting"
+- "Extraia o SOP dessa transcrição"
+- "Valide o squad legal"
+
+Ele roteia automaticamente: se precisa DNA → @oalanicolas, se precisa artefatos → @pedro-valerio.
 
 ### Quando usar @oalanicolas?
 
-Use para tudo relacionado a **minds e DNA**:
+Use **diretamente** quando o foco é exclusivamente **minds e DNA**:
 - "Preciso extrair o DNA de voz desse expert"
 - "As fontes que tenho são suficientes?"
 - "O clone não está soando autêntico"
-- "Quero validar a fidelidade do agent"
+- "Quero calcular o fidelity score"
 
 **Comandos exclusivos:**
-- `*extract-dna` - Extrai Voice + Thinking DNA
-- `*assess-sources` - Avalia qualidade das fontes
-- `*validate-clone` - Valida fidelidade
+- `*assess-sources` - Avaliar fontes (ouro vs bronze)
+- `*extract-framework` - Extrair framework + Voice + Thinking DNA
+- `*find-0.8` - Pareto ao Cubo (encontrar 0,8% genialidade)
+- `*validate-extraction` - Self-validation antes do handoff
+
+**Filosofia:** "Curadoria > Volume" / "Se entrar cocô, sai cocô"
 
 ### Quando usar @pedro-valerio?
 
-Use para tudo relacionado a **processos e validação**:
+Use **diretamente** quando o foco é **processos e artefatos**:
 - "Preciso criar um workflow multi-fase"
 - "Quero definir veto conditions"
-- "A task está completa?"
-- "Onde posso automatizar?"
+- "Audite esse processo existente"
+- "Crie um agent a partir desse DNA"
 
 **Comandos exclusivos:**
-- `*audit` - Audita workflows/tasks
-- `*design-heuristic` - Cria heurísticas de decisão
-- `*veto-check` - Define condições de veto
+- `*create-task` - Criar task a partir de insumos
+- `*create-workflow` - Criar workflow multi-fase
+- `*create-agent` - Criar agent a partir de DNA
+- `*audit` - Auditar processo/workflow
+- `*veto-check` - Verificar veto conditions
 
-### Posso usar os dois juntos?
+**Filosofia:** "A melhor coisa é impossibilitar caminhos errados"
 
-**Sim!** Eles se complementam:
-1. `@oalanicolas` extrai DNA do expert
-2. `@pedro-valerio` valida o processo de extração
-3. `@squad-architect` orquestra tudo
+### Como os 3 colaboram?
+
+Fluxo típico de criação de squad:
+
+```
+1. USER → @squad-chief: "Quero squad de copywriting"
+2. @squad-chief pesquisa elite minds
+3. @squad-chief → @oalanicolas: "Clone Gary Halbert"
+4. @oalanicolas extrai DNA e devolve
+5. @oalanicolas → @pedro-valerio: "Crie agent com este DNA"
+6. @pedro-valerio cria artefatos e devolve
+7. @squad-chief integra tudo
+8. SQUAD READY
+```
 
 ### E se não souber qual usar?
 
-Use `@squad-architect` (default). Ele sabe quando delegar para os especialistas.
+**Sempre comece com `@squad-creator` (squad-chief).** Ele faz a triagem e delega automaticamente.
+
+**Documentação completa:** [AGENT-COLLABORATION.md](./AGENT-COLLABORATION.md)
 
 ---
 
@@ -722,10 +763,11 @@ Mas requer conhecimento do sistema AIOS.
 
 1. **Tutorial completo:** [TUTORIAL-COMPLETO.md](./TUTORIAL-COMPLETO.md)
 2. **Conceitos detalhados:** [CONCEPTS.md](./CONCEPTS.md)
-3. **Problemas técnicos:** [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)
-4. **Comandos:** [COMMANDS.md](./COMMANDS.md)
+3. **Colaboração entre agentes:** [AGENT-COLLABORATION.md](./AGENT-COLLABORATION.md)
+4. **Problemas técnicos:** [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)
+5. **Comandos:** [COMMANDS.md](./COMMANDS.md)
 
 ---
 
-**Squad Creator | FAQ v2.0**
+**Squad Creator | FAQ v3.0**
 *"Sem pergunta boba, só respostas úteis."*

@@ -2,8 +2,9 @@
 
 **Task ID:** create-template
 **Version:** 2.0
+**Execution Type:** Hybrid
 **Purpose:** Create output templates for squad artifacts through interactive elicitation
-**Orchestrator:** @squad-architect
+**Orchestrator:** @squad-chief
 **Mode:** Elicitation-based (interactive)
 **Quality Standard:** AIOS Level (300+ lines, valid YAML/MD)
 
@@ -61,7 +62,7 @@ OUTPUT: Template file + Quality Gate PASS
 ## Preconditions
 
 - [ ] Target pack exists at `squads/{pack_name}/`
-- [ ] squad-architect agent is active
+- [ ] squad-chief agent is active
 - [ ] Write permissions for `squads/{pack_name}/templates/`
 
 ---

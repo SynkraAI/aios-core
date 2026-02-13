@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Last Updated:** 2026-02-01
-**Author:** squad-architect
+**Author:** squad-chief
 
 ---
 
@@ -15,7 +15,7 @@ O comando `*squad-analytics` fornece uma visão detalhada de todo o ecossistema 
 ## Quick Start
 
 ```bash
-# Ativar squad-architect
+# Ativar squad-chief
 /squad-creator
 
 # Executar analytics

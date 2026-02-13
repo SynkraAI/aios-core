@@ -2,6 +2,7 @@
 task-id: collect-sources
 name: Collect & Validate Sources for Mind Cloning
 version: 2.2.0
+execution_type: Hybrid
 note: "Exemplos usam copywriting. Substitua pelo seu domínio."
 estimated-time: 30-60 min
 complexity: medium

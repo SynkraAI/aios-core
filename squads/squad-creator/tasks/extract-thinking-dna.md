@@ -2,6 +2,7 @@
 task-id: extract-thinking-dna
 name: Extract Thinking DNA (Frameworks + Heuristics + Decisions)
 version: 1.2.0
+execution_type: Agent
 note: "Exemplos usam copywriting. Substitua pelo seu domínio."
 estimated-time: 1-2 hours
 complexity: medium

@@ -1,5 +1,7 @@
 # Deep Research Pre-Agent Task
 
+**Execution Type:** Agent
+
 ## Purpose
 
 Generate a comprehensive deep research prompt and execute research to establish the knowledge foundation BEFORE creating an agent. This ensures agents are built on REAL methodologies from domain experts, not generic LLM knowledge.
@@ -563,4 +565,4 @@ This task calls:
 
 **Task Version:** 1.0.0
 **Created:** 2026-01-22
-**Part of:** squads/squad-architect
+**Part of:** squads/squad-chief

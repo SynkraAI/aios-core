@@ -15,7 +15,7 @@ workflow:
     Orquestrar pesquisa PROFUNDA e PARALELA de ferramentas que potencializam
     os entregáveis de um squad, usando subagentes especializados para cada
     categoria de ferramenta.
-  orchestrator: "@squad-architect"
+  orchestrator: "@squad-chief"
   mode: "autonomous"
 
   philosophy: |
@@ -95,7 +95,7 @@ inputs:
 # ═══════════════════════════════════════════════════════════════════════════════
 
 preconditions:
-  - "squad-architect agent is active"
+  - "squad-chief agent is active"
   - "WebSearch/EXA tool available"
   - "WebFetch tool available"
   - "Task tool available (for spawning subagents)"
@@ -1418,7 +1418,7 @@ metadata:
   version: "2.0"
   created: "2026-02-03"
   updated: "2026-02-03"
-  author: "squad-architect"
+  author: "squad-chief"
   lines: "900+"
   purpose: "Deep parallel tool discovery with RELATIVE TIERS - comparing tools against each other, not absolute values"
   philosophy: "Não existem valores absolutos universais. Um projeto com 30 stars pode ser excelente se for o melhor do nicho."

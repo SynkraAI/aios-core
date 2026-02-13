@@ -616,17 +616,17 @@ squads/[process-name]/
 | Phase | Step | Input | Output | Actor |
 |-------|------|-------|--------|-------|
 | 1 | Data Source | Config | Normalized transcript | System |
-| 2 | Structure | Transcript | Steps, roles, tools | @sop-extractor |
-| 3 | Task Anatomy | Steps | 8-field tasks | @sop-extractor |
-| 4 | Cognitive | Steps | Executor types | @sop-extractor |
-| 5 | Decision Rules | Transcript | IF/THEN rules | @sop-extractor |
-| 6 | Automation | Steps | PV_PM_001 decisions | @sop-extractor |
-| 7 | Quality | Process | META-AXIOMAS score | @sop-extractor |
-| 8 | Blueprint | All above | Squad YAML | @sop-extractor |
-| 9 | Gaps | All above | Gap report | @sop-extractor |
-| 10 | Assembly | All above | SOP document | @sop-extractor |
+| 2 | Structure | Transcript | Steps, roles, tools | @squad-chief |
+| 3 | Task Anatomy | Steps | 8-field tasks | @squad-chief |
+| 4 | Cognitive | Steps | Executor types | @squad-chief |
+| 5 | Decision Rules | Transcript | IF/THEN rules | @squad-chief |
+| 6 | Automation | Steps | PV_PM_001 decisions | @squad-chief |
+| 7 | Quality | Process | META-AXIOMAS score | @squad-chief |
+| 8 | Blueprint | All above | Squad YAML | @squad-chief |
+| 9 | Gaps | All above | Gap report | @squad-chief |
+| 10 | Assembly | All above | SOP document | @squad-chief |
 | 11 | Validation | SOP | APPROVE/REVIEW/REJECT | Human + SC-CK-001 |
-| 12 | Handoff | Approved SOP | Working squad | @squad-architect |
+| 12 | Handoff | Approved SOP | Working squad | @squad-chief |
 
 ---
 
@@ -664,7 +664,7 @@ squads/[process-name]/
 | SOP Template | `templates/pop-extractor-prompt.md` | SC-PE-001 structure |
 | Extraction Task | `tasks/extract-sop.md` | Workflow definition |
 | Validation Checklist | `checklists/sop-validation.md` | Quality gates |
-| Agent Definition | `agents/sop-extractor.md` | @sop-extractor persona |
+| Agent Definition | `agents/squad-chief.md` | @squad-chief persona (includes SOP extraction) |
 | Squad Config | `config/squad-config.yaml` | Data sources & settings |
 
 ---

@@ -621,5 +621,5 @@ Based on this research:
 
 **Template Version:** 1.0.0
 **Created:** 2026-01-22
-**Part of:** squads/squad-architect
+**Part of:** squads/squad-chief
 **Validates Against:** checklists/deep-research-quality.md

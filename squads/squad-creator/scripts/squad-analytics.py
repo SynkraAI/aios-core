@@ -7,6 +7,9 @@ Shows: agents, tasks, workflows, templates, checklists, data files, scripts.
 
 Usage:
     python scripts/squad-analytics.py [--format table|json] [--sort-by agents|tasks|total]
+    python scripts/squad-analytics.py --squad hormozi --detailed
+    python scripts/squad-analytics.py --squad hormozi --line-counts
+    python scripts/squad-analytics.py --squad hormozi --quality-audit
 
 Note: Uses only standard library (no external dependencies)
 """
@@ -17,7 +20,7 @@ import json
 import re
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Tuple
 
 
 def get_squads_path() -> Path:
@@ -33,6 +36,15 @@ def get_squads_path() -> Path:
         return cwd
 
     raise FileNotFoundError("Could not find squads/ directory")
+
+
+def count_lines(file_path: Path) -> int:
+    """Count lines in a file"""
+    try:
+        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+            return sum(1 for _ in f)
+    except:
+        return 0
 
 
 def count_files_by_extension(directory: Path, extensions: List[str]) -> int:
@@ -72,6 +84,21 @@ def list_files(directory: Path, extensions: List[str], exclude: List[str] = None
     return sorted(files)
 
 
+def list_files_with_lines(directory: Path, extensions: List[str], exclude: List[str] = None) -> List[Tuple[str, int]]:
+    """List files with their line counts"""
+    if not directory.exists():
+        return []
+
+    exclude = exclude or ['readme.md', 'template.md', '_template.md']
+    files = []
+    for ext in extensions:
+        for f in directory.glob(f"*{ext}"):
+            if f.name.lower() not in exclude:
+                lines = count_lines(f)
+                files.append((f.name, lines))
+    return sorted(files, key=lambda x: -x[1])  # Sort by lines desc
+
+
 def simple_yaml_parse(content: str) -> Dict[str, str]:
     """Simple YAML parser for basic key: value pairs (no nested structures)"""
     result = {}
@@ -101,7 +128,61 @@ def read_config(squad_path: Path) -> Optional[Dict]:
         return None
 
 
-def analyze_squad(squad_path: Path) -> Dict[str, Any]:
+def detect_extra_folders(squad_path: Path) -> Dict[str, Any]:
+    """Detect squad-specific extra folders like data/minds/, docs/sops/, etc."""
+    extras = {}
+
+    # data/minds/ - DNA files
+    minds_path = squad_path / "data" / "minds"
+    if minds_path.exists():
+        files = list_files_with_lines(minds_path, [".yaml", ".yml"])
+        extras["dna_files"] = {
+            "path": "data/minds/",
+            "count": len(files),
+            "files": files,
+            "total_lines": sum(f[1] for f in files)
+        }
+
+    # docs/sops/ - SOPs
+    sops_path = squad_path / "docs" / "sops"
+    if sops_path.exists():
+        md_files = list_files_with_lines(sops_path, [".md"])
+        yaml_files = list_files_with_lines(sops_path, [".yaml", ".yml"])
+        extras["sops"] = {
+            "path": "docs/sops/",
+            "md_count": len(md_files),
+            "yaml_count": len(yaml_files),
+            "md_files": md_files,
+            "yaml_files": yaml_files,
+            "total_lines": sum(f[1] for f in md_files) + sum(f[1] for f in yaml_files)
+        }
+
+    # docs/ general
+    docs_path = squad_path / "docs"
+    if docs_path.exists():
+        md_files = list_files_with_lines(docs_path, [".md"])
+        extras["docs"] = {
+            "path": "docs/",
+            "count": len(md_files),
+            "files": md_files,
+            "total_lines": sum(f[1] for f in md_files)
+        }
+
+    # pipelines/ - Pipeline code
+    pipelines_path = squad_path / "pipelines"
+    if pipelines_path.exists():
+        py_files = list_files_with_lines(pipelines_path, [".py"])
+        extras["pipelines"] = {
+            "path": "pipelines/",
+            "count": len(py_files),
+            "files": py_files,
+            "total_lines": sum(f[1] for f in py_files)
+        }
+
+    return extras
+
+
+def analyze_squad(squad_path: Path, include_lines: bool = False) -> Dict[str, Any]:
     """Analyze a single squad in detail"""
     name = squad_path.name
     config = read_config(squad_path)
@@ -128,6 +209,22 @@ def analyze_squad(squad_path: Path) -> Dict[str, Any]:
         "scripts": list_files(squad_path / "scripts", [".py", ".js", ".ts", ".sh"]),
     }
 
+    # Line counts (if requested)
+    line_counts = {}
+    if include_lines:
+        line_counts = {
+            "agents": list_files_with_lines(squad_path / "agents", [".md"]),
+            "tasks": list_files_with_lines(squad_path / "tasks", [".md"]),
+            "workflows": list_files_with_lines(squad_path / "workflows", [".md", ".yaml", ".yml"]),
+            "templates": list_files_with_lines(squad_path / "templates", [".md", ".yaml", ".yml"]),
+            "checklists": list_files_with_lines(squad_path / "checklists", [".md"]),
+            "data": list_files_with_lines(squad_path / "data", [".md", ".yaml", ".yml", ".json"]),
+            "scripts": list_files_with_lines(squad_path / "scripts", [".py", ".js", ".ts", ".sh"]),
+        }
+
+    # Detect extra folders
+    extras = detect_extra_folders(squad_path)
+
     # Check documentation
     has_readme = (squad_path / "README.md").exists()
     has_changelog = (squad_path / "CHANGELOG.md").exists()
@@ -153,6 +250,8 @@ def analyze_squad(squad_path: Path) -> Dict[str, Any]:
         "version": version,
         "counts": counts,
         "components": components,
+        "line_counts": line_counts,
+        "extras": extras,
         "total": total,
         "has_readme": has_readme,
         "has_changelog": has_changelog,
@@ -182,6 +281,33 @@ def calculate_quality_score(counts: Dict, has_readme: bool, has_config: bool) ->
     if score >= 6: return "⭐⭐"
     if score >= 3: return "⭐"
     return "🔨"  # Work in progress
+
+
+def quality_audit(squad_data: Dict) -> Dict[str, Any]:
+    """Run quality audit against AIOS standards"""
+    audit = {
+        "agents": {"min": 300, "results": [], "pass": 0, "fail": 0},
+        "workflows": {"min": 500, "results": [], "pass": 0, "fail": 0},
+        "tasks": {"min": 100, "results": [], "pass": 0, "fail": 0},  # Lower threshold for tasks
+    }
+
+    for comp_type in ["agents", "workflows", "tasks"]:
+        if comp_type in squad_data.get("line_counts", {}):
+            min_lines = audit[comp_type]["min"]
+            for name, lines in squad_data["line_counts"][comp_type]:
+                passed = lines >= min_lines
+                audit[comp_type]["results"].append({
+                    "name": name,
+                    "lines": lines,
+                    "min": min_lines,
+                    "passed": passed
+                })
+                if passed:
+                    audit[comp_type]["pass"] += 1
+                else:
+                    audit[comp_type]["fail"] += 1
+
+    return audit
 
 
 def analyze_all_squads(squads_path: Path) -> Dict[str, Any]:
@@ -299,6 +425,101 @@ def format_table(results: Dict, detailed: bool = False) -> str:
     return "\n".join(lines)
 
 
+def format_single_squad(squad_data: Dict, line_counts: bool = False, quality_audit_flag: bool = False) -> str:
+    """Format a single squad analysis"""
+    lines = []
+
+    name = squad_data["name"].upper()
+    lines.append("=" * 80)
+    lines.append(f"📊 SQUAD ANALYTICS: {name}")
+    lines.append("=" * 80)
+    lines.append("")
+
+    # Overview
+    c = squad_data["counts"]
+    lines.append("📈 OVERVIEW")
+    lines.append(f"   Agents: {c['agents']} | Tasks: {c['tasks']} | Workflows: {c['workflows']}")
+    lines.append(f"   Templates: {c['templates']} | Checklists: {c['checklists']} | Data: {c['data']}")
+    lines.append(f"   Quality: {squad_data['quality_score']}")
+    lines.append("")
+
+    # Extra folders (if any)
+    if squad_data.get("extras"):
+        lines.append("📁 EXTRA FOLDERS DETECTED")
+        for key, info in squad_data["extras"].items():
+            if key == "dna_files":
+                lines.append(f"   └─ DNA Files ({info['path']}): {info['count']} files, {info['total_lines']:,} lines")
+            elif key == "sops":
+                lines.append(f"   └─ SOPs ({info['path']}): {info['md_count']} .md + {info['yaml_count']} .yaml = {info['total_lines']:,} lines")
+            elif key == "docs":
+                lines.append(f"   └─ Docs ({info['path']}): {info['count']} files, {info['total_lines']:,} lines")
+            elif key == "pipelines":
+                lines.append(f"   └─ Pipelines ({info['path']}): {info['count']} files, {info['total_lines']:,} lines")
+        lines.append("")
+
+    # Line counts (if requested)
+    if line_counts and squad_data.get("line_counts"):
+        lines.append("-" * 80)
+        lines.append("📏 LINE COUNTS BY COMPONENT")
+        lines.append("-" * 80)
+
+        for comp_type, file_list in squad_data["line_counts"].items():
+            if file_list:
+                total_lines = sum(f[1] for f in file_list)
+                avg_lines = total_lines // len(file_list) if file_list else 0
+                lines.append("")
+                lines.append(f"📂 {comp_type.upper()} ({len(file_list)} files, {total_lines:,} lines, avg {avg_lines})")
+
+                # Determine min threshold
+                min_threshold = 300 if comp_type == "agents" else (500 if comp_type == "workflows" else 0)
+
+                for fname, flines in file_list[:15]:  # Show top 15
+                    status = "✅" if flines >= min_threshold or min_threshold == 0 else "⚠️"
+                    lines.append(f"   {status} {fname:<40} {flines:>5} lines")
+
+                if len(file_list) > 15:
+                    lines.append(f"   ... and {len(file_list) - 15} more files")
+
+        # Extra folder line counts
+        if squad_data.get("extras"):
+            for key, info in squad_data["extras"].items():
+                if "files" in info and info["files"]:
+                    lines.append("")
+                    lines.append(f"📂 {key.upper()} ({info['path']}, {info['total_lines']:,} lines)")
+                    for fname, flines in info["files"][:10]:
+                        lines.append(f"   {fname:<40} {flines:>5} lines")
+                    if len(info["files"]) > 10:
+                        lines.append(f"   ... and {len(info['files']) - 10} more files")
+
+    # Quality audit (if requested)
+    if quality_audit_flag and squad_data.get("line_counts"):
+        audit = quality_audit(squad_data)
+        lines.append("")
+        lines.append("-" * 80)
+        lines.append("🔍 QUALITY AUDIT (AIOS Standards)")
+        lines.append("-" * 80)
+
+        for comp_type in ["agents", "workflows", "tasks"]:
+            if audit[comp_type]["results"]:
+                min_lines = audit[comp_type]["min"]
+                passed = audit[comp_type]["pass"]
+                failed = audit[comp_type]["fail"]
+                total = passed + failed
+                status = "✅ ALL PASS" if failed == 0 else f"⚠️ {failed}/{total} BELOW MIN"
+
+                lines.append("")
+                lines.append(f"📋 {comp_type.upper()} (min: {min_lines} lines) — {status}")
+
+                for result in audit[comp_type]["results"]:
+                    icon = "✅" if result["passed"] else "❌"
+                    lines.append(f"   {icon} {result['name']:<40} {result['lines']:>5} lines")
+
+    lines.append("")
+    lines.append("=" * 80)
+
+    return "\n".join(lines)
+
+
 def main():
     import argparse
 
@@ -311,6 +532,12 @@ def main():
                         help="Sort squads by field")
     parser.add_argument("--squads-path", type=Path, default=None,
                         help="Path to squads/ directory")
+    parser.add_argument("--squad", "-s", type=str, default=None,
+                        help="Analyze a specific squad only")
+    parser.add_argument("--line-counts", "-l", action="store_true",
+                        help="Show line counts per file (requires --squad)")
+    parser.add_argument("--quality-audit", "-q", action="store_true",
+                        help="Run quality audit against AIOS standards (requires --squad)")
 
     args = parser.parse_args()
 
@@ -320,6 +547,23 @@ def main():
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)
 
+    # Single squad analysis
+    if args.squad:
+        squad_path = squads_path / args.squad
+        if not squad_path.exists():
+            print(f"Error: Squad '{args.squad}' not found at {squad_path}", file=sys.stderr)
+            sys.exit(1)
+
+        include_lines = args.line_counts or args.quality_audit
+        squad_data = analyze_squad(squad_path, include_lines=include_lines)
+
+        if args.format == "json":
+            print(json.dumps(squad_data, indent=2, ensure_ascii=False))
+        else:
+            print(format_single_squad(squad_data, line_counts=args.line_counts, quality_audit_flag=args.quality_audit))
+        return
+
+    # All squads analysis
     results = analyze_all_squads(squads_path)
 
     # Sort if needed

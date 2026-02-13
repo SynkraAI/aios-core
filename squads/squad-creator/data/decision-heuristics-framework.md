@@ -496,7 +496,7 @@ examples:
 |------------|--------|------------|
 | `@oalanicolas` | Mind cloning, DNA extraction, source curation | `/squad-creator @oalanicolas` |
 | `@pedro-valerio` | Processes, tasks, checklists, automation | `/squad-creator @pedro-valerio` |
-| `@squad-architect` | General squad creation, orchestration | `/squad-creator` (default) |
+| `@squad-chief` | General squad creation, orchestration | `/squad-creator` (default) |
 
 ### 10.2 Decision Matrix
 
@@ -527,12 +527,12 @@ specialist_selection:
 
     TERTIARY - General Tasks:
       IF (task is general squad creation)
-        THEN use @squad-architect
+        THEN use @squad-chief
       IF (unclear which specialist)
-        THEN use @squad-architect (will delegate)
+        THEN use @squad-chief (will delegate)
 
     FALLBACK:
-      When in doubt → @squad-architect orchestrates
+      When in doubt → @squad-chief orchestrates
 
   keywords:
     oalanicolas:
@@ -604,7 +604,7 @@ anti_patterns:
     correction: "Use @oalanicolas for DNA extraction"
 
   - name: "Skipping Specialists"
-    trigger: "Trying to do everything with @squad-architect"
+    trigger: "Trying to do everything with @squad-chief"
     why_bad: "Loses depth of specialized expertise"
     correction: "Delegate to specialists for their domains"
 

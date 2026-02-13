@@ -8,6 +8,24 @@
 
 ---
 
+## Agentes Envolvidos (v3.0)
+
+Os checkpoints são gerenciados pelos 3 agentes do Squad Creator:
+
+| Checkpoint | Agente Responsável | Função |
+|------------|-------------------|--------|
+| PRE-FLIGHT | @squad-chief | Triagem e seleção de modo |
+| VALIDATE_MINDS | @squad-chief | Apresentar elite minds |
+| MATERIALS | @squad-chief | Coletar materiais |
+| VOICE_DNA | @oalanicolas | Validar DNA de voz extraído |
+| THINKING_DNA | @oalanicolas | Validar DNA de pensamento |
+| AGENTS | @pedro-valerio | Validar agents criados |
+| FINAL | @squad-chief | Apresentar squad completo |
+
+**Ver também:** [AGENT-COLLABORATION.md](./AGENT-COLLABORATION.md)
+
+---
+
 ## Modos de Execução
 
 | Modo | Quando Usar | Interações | Qualidade Esperada |

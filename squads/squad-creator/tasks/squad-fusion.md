@@ -2,8 +2,9 @@
 
 **Task ID:** squad-fusion
 **Version:** 2.0.0
+**Execution Type:** Agent
 **Purpose:** Fundir múltiplos squads similares em um único squad otimizado
-**Orchestrator:** @squad-architect
+**Orchestrator:** @squad-chief
 **Mode:** Interactive
 **Workflow:** `workflows/wf-squad-fusion.yaml`
 
@@ -777,7 +778,7 @@ handoff_to:
     when: "Fusion needs custom scripts merged"
     context: "Review scripts/ directory conflicts"
 
-  - agent: "@squad-architect"
+  - agent: "@squad-chief"
     when: "Fused squad needs enhancement"
     context: "Run *analyze-squad {target_name}"
 ```
@@ -814,4 +815,4 @@ handoff_to:
 _Task Version: 2.0.0_
 _Created: 2026-02-01_
 _Updated: 2026-02-05_
-_Author: squad-architect_
+_Author: squad-chief_

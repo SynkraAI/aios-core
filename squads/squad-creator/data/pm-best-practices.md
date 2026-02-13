@@ -171,7 +171,7 @@ epic_template:
             - "voice_dna section complete"
             - "output_examples >= 3"
             - "All dependencies exist"
-          predicted_agents: ["@oalanicolas", "@squad-architect"]
+          predicted_agents: ["@oalanicolas", "@squad-chief"]
           quality_gates:
             - pre_commit: "Agent passes SC_AGT_001"
             - pre_pr: "Integration test passes"
@@ -252,7 +252,7 @@ quality_gates_planning:
   specialist_assignment:
     mind_cloning: "@oalanicolas"
     process_validation: "@pedro-valerio"
-    general_orchestration: "@squad-architect"
+    general_orchestration: "@squad-chief"
 ```
 
 ---

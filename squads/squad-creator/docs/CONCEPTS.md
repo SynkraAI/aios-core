@@ -412,38 +412,110 @@ Fidelity = (tier1_ratio × 0.4) + (voice_score × 0.3) + (thinking_score × 0.3)
 
 ---
 
-## 9. Especialistas (Specialists)
+## 9. Os 3 Agentes do Squad Creator
 
-O Squad Creator tem **especialistas internos** - agents com expertise profunda em áreas específicas.
+O Squad Creator v3.0 opera com **3 agentes especializados** que trabalham em sinergia:
 
-### Especialistas Disponíveis
+### Arquitetura v3.0
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                      SPECIALISTS                                 │
+│                 SQUAD CREATOR v3.0 - 3 AGENTES                   │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  @oalanicolas - Mind Cloning Specialist                        │
-│  ├── DNA Mental™ 8-Layer Architecture                          │
-│  ├── Voice + Thinking DNA extraction                           │
-│  ├── Source curation (ouro vs bronze)                          │
-│  ├── Clone fidelity validation                                 │
-│  └── "Clone minds, not create bots"                            │
-│                                                                 │
-│  @pedro-valerio - Process Specialist                           │
-│  ├── Process Absolutism                                        │
-│  ├── Workflow design & validation                              │
-│  ├── Veto conditions & guardrails                              │
-│  ├── Automation opportunities                                  │
-│  └── "Impossibilitar caminhos errados"                         │
-│                                                                 │
-│  @squad-architect - Orchestrator (default)                     │
-│  ├── Squad creation coordination                               │
-│  ├── Delegates to specialists when needed                      │
-│  └── Full workflow management                                  │
+│                    ┌─────────────────────┐                      │
+│                    │   @squad-chief      │                      │
+│                    │   (Orchestrator)    │                      │
+│                    │                     │                      │
+│                    │ • Ponto de entrada  │                      │
+│                    │ • Triagem + Routing │                      │
+│                    │ • Criação de squads │                      │
+│                    │ • Extração de SOPs  │                      │
+│                    └──────────┬──────────┘                      │
+│                               │                                 │
+│                ┌──────────────┴──────────────┐                  │
+│                ▼                             ▼                  │
+│     ┌─────────────────┐           ┌─────────────────┐          │
+│     │  @oalanicolas   │  HANDOFF  │ @pedro-valerio  │          │
+│     │   (Tier 1)      │◄─────────►│   (Tier 1)      │          │
+│     │                 │           │                 │          │
+│     │ • Mind Cloning  │           │ • Process Design│          │
+│     │ • DNA Extraction│           │ • Veto Conditions│         │
+│     │ • Curadoria     │           │ • Artifact Build│          │
+│     └─────────────────┘           └─────────────────┘          │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+### @squad-chief (Orchestrator)
+
+**Papel:** Ponto de entrada, coordenação, triagem, criação de squads.
+
+| Função | Descrição |
+|--------|-----------|
+| Triagem | Diagnóstica necessidade e roteia |
+| Research | Pesquisa elite minds (3-5 iterações) |
+| SOP Extraction | Extrai SOPs de transcrições |
+| Integration | Monta squad final (config, README) |
+| Validation | Valida qualidade e apresenta resultado |
+
+**Delega para:** @oalanicolas (DNA), @pedro-valerio (artefatos)
+
+### @oalanicolas (Tier 1 - Mind Cloning)
+
+**Papel:** Especialista em extração de conhecimento e clonagem de mentes.
+
+| Função | Descrição |
+|--------|-----------|
+| Curadoria | Classifica fontes (ouro vs bronze) |
+| Voice DNA | Extrai como o expert comunica |
+| Thinking DNA | Extrai como o expert decide |
+| Validation | Self-validation antes do handoff |
+
+**Filosofia:** "Curadoria > Volume" / "Se entrar cocô, sai cocô"
+
+**Comandos:** `*assess-sources`, `*extract-framework`, `*find-0.8`, `*validate-extraction`
+
+### @pedro-valerio (Tier 1 - Process Design)
+
+**Papel:** Especialista em processos, workflows, e construção de artefatos.
+
+| Função | Descrição |
+|--------|-----------|
+| Process Design | Mapeia e estrutura processos |
+| Veto Conditions | Define bloqueios impossíveis de ignorar |
+| Artifact Build | Cria agents, tasks, workflows |
+| Audit | Audita processos existentes |
+
+**Filosofia:** "A melhor coisa é impossibilitar caminhos errados"
+
+**Comandos:** `*create-task`, `*create-workflow`, `*create-agent`, `*audit`, `*veto-check`
+
+### Fluxo de Colaboração
+
+```
+USER → @squad-chief (triage)
+              │
+              ├── Precisa DNA? → @oalanicolas
+              │                        │
+              │                        ▼
+              │                 INSUMOS_READY
+              │                        │
+              └── Precisa artefatos? ──┼──→ @pedro-valerio
+                                       │            │
+                                       │            ▼
+                                       │     ARTIFACTS_READY
+                                       │            │
+                                       └────────────┘
+                                              │
+                                              ▼
+                                     @squad-chief (integrate)
+                                              │
+                                              ▼
+                                         SQUAD READY
+```
+
+**Documentação completa:** [AGENT-COLLABORATION.md](./AGENT-COLLABORATION.md)
 
 ### DNA Mental™ Architecture (@oalanicolas)
 
@@ -491,8 +563,8 @@ process_absolutism:
 | Criar workflow | `@pedro-valerio` |
 | Definir veto conditions | `@pedro-valerio` |
 | Auditar processo | `@pedro-valerio` |
-| Criar squad completo | `@squad-architect` |
-| Não sei qual usar | `@squad-architect` |
+| Criar squad completo | `@squad-chief` |
+| Não sei qual usar | `@squad-chief` |
 
 ---
 

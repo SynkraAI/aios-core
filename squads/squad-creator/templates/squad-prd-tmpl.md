@@ -11,7 +11,7 @@
 
 **Version:** 1.0.0
 **Created:** {{DATE}}
-**Author:** @squad-architect
+**Author:** @squad-chief
 **Status:** Draft | Review | Approved
 
 ---
@@ -41,7 +41,7 @@
 
 | Date | Version | Description | Author |
 |------|---------|-------------|--------|
-| {{DATE}} | 1.0.0 | Initial PRD | @squad-architect |
+| {{DATE}} | 1.0.0 | Initial PRD | @squad-chief |
 
 ---
 
@@ -259,7 +259,7 @@ Epic 6 (Tier 3)
 
 **Quality Gates:**
 - Pre-Commit: Structure validation
-- Specialist: @squad-architect
+- Specialist: @squad-chief
 
 ---
 
@@ -288,7 +288,7 @@ template: "templates/agent-tmpl.md"
 
 **Quality Gates:**
 - Pre-Commit: SC_AGT_001 (Agent Quality)
-- Specialist: @squad-architect
+- Specialist: @squad-chief
 
 ---
 
@@ -402,13 +402,13 @@ SC_AGT_003:
 ### After PRD Approval
 
 1. **Create Epic 1 issues/stories** in project management
-2. **Invoke:** `@squad-architect *create-squad {{PACK_NAME}} --epic=1`
+2. **Invoke:** `@squad-chief *create-squad {{PACK_NAME}} --epic=1`
 3. **Validate:** After each epic, run `*validate-squad {{PACK_NAME}}`
 4. **Iterate:** Proceed to next epic after validation passes
 
 ### Handoff
 
-- **To @squad-architect:** Implement Epic 1
+- **To @squad-chief:** Implement Epic 1
 - **To @oalanicolas:** Clone minds for Tier 0 agents
 - **To @pedro-valerio:** Validate workflow quality gates
 

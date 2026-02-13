@@ -33,7 +33,7 @@ heuristic:
     name: "Strategic Focus Heuristic"
     type: "Decision Heuristic"
     category: "Business Strategy"
-    agent: "@squad-creator:squad-architect"
+    agent: "@squad-creator:squad-chief"
     pattern: "SC-PP-001"
 
   configuration:
@@ -160,7 +160,7 @@ heuristic:
     name: "Coherence Check Heuristic"
     type: "Assessment Heuristic"
     category: "Performance Assessment"
-    agent: "@squad-creator:squad-architect"
+    agent: "@squad-creator:squad-chief"
     pattern: "SC-PP-002"
 
   configuration:
@@ -306,7 +306,7 @@ heuristic:
     name: "Automation Decision Heuristic"
     type: "Process Heuristic"
     category: "Process Management"
-    agent: "@squad-creator:squad-architect"
+    agent: "@squad-creator:squad-chief"
     pattern: "SC-PP-003"
 
   configuration:

@@ -500,7 +500,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  %(prog)s agent squad-architect
+  %(prog)s agent squad-chief
   %(prog)s task validate-squad --squad squad-creator
   %(prog)s squad squad-creator
   %(prog)s squad copy --dry-run

@@ -21,7 +21,7 @@
  *
  * Examples:
  *   node generate-squad-greeting.js squad-creator
- *   node generate-squad-greeting.js squad-creator squad-architect
+ *   node generate-squad-greeting.js squad-creator squad-chief
  *
  * @module generate-squad-greeting
  * @version 1.1.0
@@ -306,9 +306,9 @@ async function generateSquadGreeting(squadName, agentName) {
     const settings = config.settings || {};
     const activationSettings = settings.activation || {};
 
-    // Determine agent name (default to squad-architect or first agent)
+    // Determine agent name (default to squad-chief or first agent)
     if (!agentName) {
-      agentName = 'squad-architect'; // Default orchestrator
+      agentName = 'squad-chief'; // Default orchestrator
     }
 
     // Load agent definition
@@ -394,7 +394,7 @@ if (require.main === module) {
     console.error('Usage: node generate-squad-greeting.js <squad-name> [agent-name]');
     console.error('\nExamples:');
     console.error('  node generate-squad-greeting.js squad-creator');
-    console.error('  node generate-squad-greeting.js squad-creator squad-architect');
+    console.error('  node generate-squad-greeting.js squad-creator squad-chief');
     process.exit(1);
   }
 

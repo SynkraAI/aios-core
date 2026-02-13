@@ -1,7 +1,7 @@
 # wf-create-squad.yaml
 # Master Workflow: Complete Squad Creation Orchestration
-# Version: 2.6
-# Last Updated: 2026-02-03
+# Version: 2.7
+# Last Updated: 2026-02-10
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # WORKFLOW METADATA
@@ -12,7 +12,7 @@ workflow:
   name: "Create Complete Squad"
   version: "2.6"
   purpose: "Orchestrate the complete creation of an AIOS squad from research to validation"
-  orchestrator: "@squad-architect"
+  orchestrator: "@squad-chief"
   mode: "yolo"  # yolo | quality | hybrid
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -285,6 +285,47 @@ phase_materials:
       file: "data/executor-matrix-framework.md"
       applied_in: ["phase_3"]
 
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # CONFIG FILES (Updated 2026-02-10 - Added AN_* heuristics/vetos)
+  # ═══════════════════════════════════════════════════════════════════════════════
+  config_files:
+    - id: "heuristics-engine"
+      file: "config/heuristics.yaml"
+      version: "2.0"
+      purpose: "6 heuristics: SC_HE_001-003 (PV) + AN_HE_001-003 (AN) with veto mappings"
+      agents:
+        pedro_valerio: ["SC_HE_001", "SC_HE_002", "SC_HE_003"]
+        oalanicolas: ["AN_HE_001", "AN_HE_002", "AN_HE_003"]
+      applied_in: ["phase_0", "phase_3", "phase_5"]
+
+    - id: "veto-conditions"
+      file: "config/veto-conditions.yaml"
+      version: "2.0"
+      purpose: "15 veto conditions: SC_VC_001-010 (PV) + AN_VC_001-005 (AN)"
+      agents:
+        pedro_valerio: ["SC_VC_001", "SC_VC_002", "SC_VC_003", "SC_VC_004", "SC_VC_005",
+                        "SC_VC_006", "SC_VC_007", "SC_VC_008", "SC_VC_009", "SC_VC_010"]
+        oalanicolas: ["AN_VC_001", "AN_VC_002", "AN_VC_003", "AN_VC_004", "AN_VC_005"]
+      applied_in: ["phase_0", "phase_1", "phase_3", "phase_5"]
+
+    - id: "axioma-validator"
+      file: "config/axioma-validator.yaml"
+      purpose: "10 axioma dimensions (D1-D10) for quality scoring"
+      applied_in: ["phase_5"]
+
+    - id: "quality-gates"
+      file: "config/quality-gates.yaml"
+      purpose: "10 quality gates (QG-SC-1.1 to 6.2) for checkpoints"
+      applied_in: ["phase_0", "phase_1", "phase_3", "phase_4", "phase_5"]
+
+    - id: "task-anatomy"
+      file: "config/task-anatomy.yaml"
+      purpose: "8 mandatory fields for task validation"
+      applied_in: ["phase_3", "phase_5"]
+
+  validation_script: "scripts/coherence-validator.py"
+  pattern_library: "docs/PATTERN-LIBRARY.md"
+
   estimated_duration:
     incremental: "60-90 minutes"
     yolo: "30-45 minutes"
@@ -342,7 +383,7 @@ inputs:
 
 preconditions:
   system:
-    - "squad-architect agent is active"
+    - "squad-chief agent is active"
     - "WebSearch tool available for research"
     - "Write permissions for squads/ directory"
     - "All 4 frameworks loaded and accessible"
@@ -684,6 +725,25 @@ phases:
           |------|------|------------|-----------|
           | ... | ... | ... | ... |
 
+    fallback:
+      on_minds_below_5:
+        action: "Expand search to adjacent domains"
+        retry_with:
+          - "Related experts in broader {domain}"
+          - "Historical figures in {domain}"
+          - "Practitioners vs theorists mix"
+        max_iterations: 2
+      on_no_tier_0:
+        action: "Research for diagnostic/analysis experts"
+        search_queries:
+          - '"{domain}" diagnostic framework"'
+          - '"{domain}" assessment methodology"'
+      on_retry_fail: |
+        ESCALATE: Cannot find 5+ elite minds for {domain}.
+        → Present available minds (even if < 5)
+        → Ask user for manual expert suggestions
+        → Proceed with reduced scope if user approves
+
   # ─────────────────────────────────────────────────────────────────────────────
   # PHASE 2: ARCHITECTURE
   # ─────────────────────────────────────────────────────────────────────────────
@@ -817,6 +877,23 @@ phases:
             - "CP_DNA: Validate DNA if user knows expert"
           hybrid_mode:
             - "Per-mind based on materials_inventory"
+
+        fallback:
+          on_clone_fail:
+            action: "Isolate failed mind, continue with remaining"
+            recovery_path:
+              - "Log failure reason (sources_insufficient | dna_incomplete | smoke_test_fail)"
+              - "Create placeholder agent with reduced fidelity warning"
+              - "Add to remediation_queue for later improvement"
+              - "Continue squad creation with available agents"
+          on_multiple_fails:
+            threshold: "> 50% of minds fail"
+            action: |
+              ESCALATE: Too many agent creation failures.
+              → Present failure analysis
+              → Ask user to provide additional materials
+              → Option: create squad with reduced scope
+          max_retries_per_mind: 2
 
       - id: step_3_3
         name: "Create Orchestrator"
@@ -1087,6 +1164,131 @@ phases:
       status: "COMPLETE"
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# TRANSITIONS (Explicit conditions for phase progression)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+transitions:
+  - from: pre_flight
+    to: phase_0
+    condition: execution_mode_selected
+    description: "User selected YOLO/QUALITY/HYBRID mode"
+
+  - from: phase_0
+    to: phase_0_5
+    condition: discovery_complete
+    checkpoint_required: true
+    heuristic: SC_HE_001
+    veto_check: SC_VC_001
+    description: "Domain viable, pack structure defined"
+
+  - from: phase_0_5
+    to: phase_1
+    condition: tools_discovered
+    checkpoint_required: true
+    description: "Tool discovery complete, decision matrix generated"
+
+  - from: phase_1
+    to: phase_materials
+    condition: minds_identified AND mode != 'yolo'
+    checkpoint_required: true
+    veto_check: SC_VC_002
+    description: "Elite minds found, materials collection needed"
+
+  - from: phase_1
+    to: phase_2
+    condition: minds_identified AND mode == 'yolo'
+    checkpoint_required: true
+    description: "Elite minds found, skip materials (YOLO mode)"
+
+  - from: phase_materials
+    to: phase_2
+    condition: materials_collected
+    description: "User materials indexed"
+
+  - from: phase_2
+    to: phase_3
+    condition: architecture_approved
+    checkpoint_required: true
+    heuristic: SC_HE_002
+    veto_check: SC_VC_005
+    description: "Tier structure and handoffs defined"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # PHASE 3 SUB-TRANSITIONS (@oalanicolas DNA Extraction Pipeline)
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  - from: phase_3
+    to: phase_3_sources
+    condition: architecture_approved
+    checkpoint_required: true
+    agent: "@oalanicolas"
+    description: "Architecture approved, start source curation"
+
+  - from: phase_3_sources
+    to: phase_3_extraction
+    condition: sources_curated AND ouro_ratio >= 0.6
+    checkpoint_required: true
+    agent: "@oalanicolas"
+    heuristic: AN_HE_003
+    veto_check: [AN_VC_001, AN_VC_003]
+    description: "Sources curated with Pareto ao Cubo, proceed to extraction"
+
+  - from: phase_3_extraction
+    to: phase_3_validation
+    condition: dna_extracted AND trinity_complete
+    checkpoint_required: true
+    agent: "@oalanicolas"
+    heuristic: AN_HE_001
+    veto_check: [AN_VC_002, AN_VC_004]
+    description: "DNA extracted with trinity complete (Playbook + Framework + Swipe)"
+
+  - from: phase_3_validation
+    to: phase_3_handoff
+    condition: self_validation_passed
+    checkpoint_required: true
+    agent: "@oalanicolas"
+    heuristic: AN_HE_002
+    veto_check: AN_VC_005
+    description: "Self-validation passed (15+ citations, 5+ phrases, trinity complete)"
+
+  - from: phase_3_handoff
+    to: phase_3_build
+    condition: insumos_ready
+    checkpoint_required: true
+    handoff_from: "@oalanicolas"
+    handoff_to: "@pedro-valerio"
+    handoff_format: "INSUMOS_READY"
+    description: "Insumos validated, handoff to @pedro-valerio for agent creation"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  - from: phase_3
+    to: phase_4
+    condition: agents_created AND quality_gate_passed
+    checkpoint_required: true
+    veto_check: [SC_VC_003, SC_VC_004, SC_VC_006]
+    description: "All agents pass SC_AGT_001, smoke tests pass"
+
+  - from: phase_4
+    to: phase_5
+    condition: integration_complete
+    checkpoint_required: false
+    description: "Dependencies wired, docs generated"
+
+  - from: phase_5
+    to: phase_6
+    condition: validation_passed AND axioma_score >= 7.0
+    checkpoint_required: true
+    heuristic: SC_HE_003
+    veto_check: [SC_VC_007, SC_VC_008, SC_VC_009, SC_VC_010]
+    description: "All quality gates pass, no blocking issues"
+
+  - from: phase_6
+    to: complete
+    condition: handoff_accepted
+    description: "User acknowledged squad creation"
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # OUTPUTS
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -1135,6 +1337,10 @@ outputs:
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HEURISTICS REFERENCE
+# ═══════════════════════════════════════════════════════════════════════════════
+# NOTE: Core heuristics (SC_HE_001-003) and veto conditions (SC_VC_001-010)
+# are defined in config/heuristics.yaml and config/veto-conditions.yaml.
+# The heuristics below are workflow-specific (SC_SCP_*, SC_DSC_*, SC_TLD_*, etc.)
 # ═══════════════════════════════════════════════════════════════════════════════
 
 heuristics:
@@ -1249,27 +1455,50 @@ heuristics:
 # ═══════════════════════════════════════════════════════════════════════════════
 # ERROR HANDLING
 # ═══════════════════════════════════════════════════════════════════════════════
+# Veto conditions (SC_VC_001-010) from config/veto-conditions.yaml
+# are applied at each checkpoint. When a veto is triggered:
+# - BLOCKING vetos halt the workflow until resolved
+# - Veto recovery actions are specified in the config
+# ═══════════════════════════════════════════════════════════════════════════════
 
 error_handling:
+  # Veto condition mapping (from config/veto-conditions.yaml v2.0)
+  veto_conditions_reference:
+    # Pedro Valério (SC_VC_*)
+    phase_0_discovery: ["SC_VC_001"]  # Domain Viability
+    phase_2_architecture: ["SC_VC_002"]  # Vision Clarity
+    phase_3_dna_extraction: ["SC_VC_003", "SC_VC_004"]  # Source Quality, DNA Completeness
+    phase_3_agent_creation: ["SC_VC_005", "SC_VC_006"]  # Agent Coherence, Smoke Test
+    phase_5_validation: ["SC_VC_007", "SC_VC_008", "SC_VC_009", "SC_VC_010"]  # Guardrail, Unidirectional, Axioma, Task Anatomy
+
+    # OalaNicolas (AN_VC_*) - Phase 3 sub-phases
+    phase_3_sources: ["AN_VC_001", "AN_VC_003"]  # Volume Without Curation, Bronze Majority
+    phase_3_extraction: ["AN_VC_002", "AN_VC_004"]  # Trinity Incomplete, Citation Missing
+    phase_3_validation: ["AN_VC_005"]  # Handoff Without Validation
+
   research_fails:
     - action: "Retry with different queries"
     - if_still_fails: "Abort with explanation"
+    - veto_triggered: "SC_VC_001 (Domain Viability)"
 
   agent_creation_fails:
     - action: "Identify missing research"
     - action: "Supplement research"
     - action: "Retry creation"
     - if_still_fails: "Create simpler agent, note for improvement"
+    - veto_triggered: "SC_VC_005 (Agent Coherence) or SC_VC_006 (Smoke Test)"
 
   validation_fails:
     - action: "Log specific failures"
     - action: "Attempt automated fix"
     - if_cannot_fix: "Report to human for decision"
+    - run_coherence_validator: "python scripts/coherence-validator.py"
 
   checkpoint_fails:
     - blocking_checkpoint:
         action: "Halt and report"
         require: "Human intervention or fix"
+        check_vetos: "config/veto-conditions.yaml"
     - non_blocking_checkpoint:
         action: "Log warning"
         proceed: true
@@ -1298,12 +1527,25 @@ metrics:
 # ═══════════════════════════════════════════════════════════════════════════════
 
 metadata:
-  version: "2.6"
+  version: "2.7"
   created: "2026-02-01"
-  last_updated: "2026-02-03"
-  author: "squad-architect"
-  lines: "850+"
+  last_updated: "2026-02-10"
+  author: "squad-chief"
+  lines: "900+"
   changelog:
+    - version: "2.7"
+      date: "2026-02-10"
+      changes:
+        - "MAJOR: Integrated @oalanicolas heuristics and veto conditions into workflow"
+        - "Added AN_HE_001-003 (Knowledge Extraction, Trinity, Pareto ao Cubo)"
+        - "Added AN_VC_001-005 (Volume, Trinity, Bronze, Citation, Handoff)"
+        - "Added Phase 3 sub-transitions for DNA extraction pipeline"
+        - "Sub-phases: phase_3_sources → phase_3_extraction → phase_3_validation → phase_3_handoff → phase_3_build"
+        - "Updated config_files to reference heuristics.yaml v2.0 and veto-conditions.yaml v2.0"
+        - "Updated error_handling with AN_VC_* veto references"
+        - "Total heuristics: 6 (3 SC_HE + 3 AN_HE)"
+        - "Total veto conditions: 15 (10 SC_VC + 5 AN_VC)"
+
     - version: "2.6"
       date: "2026-02-03"
       changes:

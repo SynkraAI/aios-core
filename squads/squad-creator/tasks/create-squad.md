@@ -2,8 +2,9 @@
 
 **Task ID:** create-squad
 **Version:** 2.0
+**Execution Type:** Hybrid
 **Purpose:** Create a complete AIOS-FULLSTACK squad through guided elicitation, research, and validation
-**Orchestrator:** @squad-architect
+**Orchestrator:** @squad-chief
 **Mode:** Incremental (human checkpoints) or YOLO (autonomous)
 **Quality Standard:** AIOS Level (all components meet minimum standards)
 
@@ -77,7 +78,7 @@ OUTPUT: Complete squad + Quality Score
 
 ## Preconditions
 
-- [ ] squad-architect agent is active
+- [ ] squad-chief agent is active
 - [ ] WebSearch tool available (for research)
 - [ ] Write permissions for `squads/` directory
 - [ ] Frameworks loaded: tier-system, quality-dimensions, decision-heuristics, executor-matrix

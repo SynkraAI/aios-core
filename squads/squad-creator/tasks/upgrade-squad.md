@@ -1,10 +1,13 @@
 # Task: Upgrade Squad
 
 **Task ID:** upgrade-squad
-**Version:** 1.0.0
+**Version:** 1.1.0
+**Execution Type:** Hybrid (Script for inventory/scanning + Agent for gap analysis/planning)
 **Purpose:** Upgrade existing squads to current AIOS standards with gap analysis and automated improvements
-**Orchestrator:** @squad-architect
+**Orchestrator:** @squad-chief
 **Mode:** Audit → Plan → Execute (with dry-run option)
+**Model:** `Sonnet` (requires semantic gap analysis and upgrade planning)
+**Haiku Eligible:** NO — gap analysis requires interpretation of component quality
 
 **Core Philosophy:**
 ```
@@ -818,7 +821,7 @@ upgrade_report:
 
 ```bash
 # Audit only (no changes)
-@squad-architect
+@squad-chief
 *upgrade-squad copy --mode=audit
 
 # Generate plan
@@ -871,7 +874,7 @@ upgrade_complete_when:
   - "Backups verified"
 
 handoff_to:
-  - agent: "@squad-architect"
+  - agent: "@squad-chief"
     when: "Upgrade complete, user wants to validate"
     command: "*validate-squad {name}"
 
@@ -915,5 +918,6 @@ v1.0.0 (2026-02-04):
 
 ---
 
-_Task Version: 1.0.0_
+_Task Version: 1.1.0_
+_Last Updated: 2026-02-11_
 _Philosophy: Upgrade safely, validate thoroughly, document everything_

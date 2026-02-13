@@ -2,8 +2,9 @@
 
 **Task ID:** discover-tools
 **Version:** 1.0
+**Execution Type:** Agent
 **Purpose:** Research and discover tools (MCPs, APIs, CLIs, Libraries, GitHub Projects) that can potentialize a squad's deliverables
-**Orchestrator:** @squad-architect
+**Orchestrator:** @squad-chief
 **Mode:** Autonomous with human validation
 **Quality Standard:** AIOS Level (comprehensive research, validated sources)
 
@@ -77,7 +78,7 @@ OUTPUT: Tool Discovery Report + Updated tool-registry.yaml
 
 ## Preconditions
 
-- [ ] squad-architect agent is active
+- [ ] squad-chief agent is active
 - [ ] WebSearch/EXA tool available (for research)
 - [ ] WebFetch tool available (for page analysis)
 - [ ] Write permissions for `data/tool-registry.yaml`

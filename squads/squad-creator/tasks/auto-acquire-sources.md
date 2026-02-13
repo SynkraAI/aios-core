@@ -2,6 +2,7 @@
 task-id: auto-acquire-sources
 name: Automated Source Acquisition
 version: 2.0.0
+execution_type: Hybrid
 estimated-time: 15-30 min
 complexity: low
 

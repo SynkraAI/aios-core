@@ -1,12 +1,33 @@
 # Task: Refresh Squad Registry
 
 **Task ID:** refresh-registry
-**Version:** 2.0.0
+**Version:** 2.1.0
 **Purpose:** Scan all squads in the ecosystem and update squad-registry.yaml
-**Orchestrator:** @squad-architect
+**Orchestrator:** @squad-chief
 **Mode:** Hybrid (Script + LLM)
 **Execution Type:** `Hybrid` (Worker script + Agent enrichment)
 **Worker Script:** `scripts/refresh-registry.py`
+**Model:** `Haiku` (QUALIFIED — script handles counts/validation, LLM only enriches semantically)
+**Haiku Eligible:** YES — deterministic data collection via script
+
+---
+
+## ⛔ MANDATORY PREFLIGHT: Run Worker Script FIRST
+
+```
+EXECUTE FIRST — before ANY manual data collection:
+
+  python3 squads/squad-creator/scripts/refresh-registry.py --output json > /tmp/preflight-registry.json
+
+IF the command fails → FIX the script error. Do NOT proceed manually.
+IF the command succeeds → READ /tmp/preflight-registry.json. Use ONLY this data.
+
+VETO: If /tmp/preflight-registry.json does not exist → BLOCK.
+      Do NOT count agents/tasks manually. Do NOT read config.yaml files yourself.
+      The script collects all factual data faster and 100% consistently.
+```
+
+---
 
 **Architecture:**
 ```
@@ -66,7 +87,7 @@ OUTPUT: Updated squad-registry.yaml
 
 ### 2. On Squad-Creator Activation (Optional)
 ```yaml
-# In squad-architect.md activation-instructions
+# In squad-chief.md activation-instructions
 auto_refresh:
   enabled: false  # Set to true for auto-refresh
   condition: "registry older than 24 hours"
@@ -347,7 +368,7 @@ if __name__ == "__main__":
     sys.exit(main())
 ```
 
-### Add to squad-architect.md
+### Add to squad-chief.md
 
 ```yaml
 post_command_hooks:
@@ -363,7 +384,7 @@ post_command_hooks:
 
 ### Manual Refresh
 ```bash
-@squad-architect
+@squad-chief
 *refresh-registry
 ```
 
