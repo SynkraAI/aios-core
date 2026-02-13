@@ -1,13 +1,23 @@
 # Task: Validate Squad
 
 **Task ID:** validate-squad
-**Version:** 3.2.1
+**Version:** 4.3.0
 **Purpose:** Validate a squad against AIOS principles using tiered, context-aware validation
-**Orchestrator:** @squad-architect
+**Orchestrator:** @squad-chief
 **Process Specialist:** @pedro-valerio
 **Mode:** Tiered validation (structure → coverage → quality → contextual)
 **Execution Type:** `Hybrid` (Worker scripts for Phases 0-2 + Agent for Phases 3-6)
-**Worker Scripts:** `scripts/validate-squad.sh`, `scripts/quality_gate.py`, `scripts/yaml_validator.py`
+**Worker Scripts (All-in-one):** `scripts/validate-squad.sh`
+**Worker Scripts (Modular - RFC-001):**
+  - `scripts/inventory.py` — Component inventory
+  - `scripts/naming_validator.py` — Naming conventions
+  - `scripts/dependency_check.py` — Reference validation
+  - `scripts/checklist_validator.py` — Checklist structure
+  - `scripts/coherence-validator.py` — Heuristic/axioma coherence
+  - `scripts/scoring.py` — Weighted quality score
+  - `scripts/security_scanner.py` — Security issues (API keys, secrets, credentials)
+**Model:** `Haiku` (QUALIFIED — 88% deterministic via script, Agent interprets pre-computed data only)
+**Haiku Eligible:** YES — empirically validated: Haiku 9.0 vs Opus 7.89 baseline (114.1% match)
 
 **Process Validation (via @pedro-valerio):**
 - Audit workflows para verificar se impedem caminhos errados
@@ -23,6 +33,8 @@ Validation must understand WHAT type of squad it's validating.
 ```
 
 **Frameworks Used:**
+- `config/veto-conditions.yaml` → Veto engine with 10 blocking conditions **[v3.3]**
+- `config/task-anatomy.yaml` → 8-field task validation schema **[v3.3]**
 - `data/squad-type-definitions.yaml` → Squad type detection and requirements
 - `checklists/squad-checklist.md` → Complete validation checklist (v3.0)
 - `data/quality-dimensions-framework.md` → Quality scoring
@@ -95,67 +107,184 @@ OUTPUT: Validation Report + Final Score
 ## PHASE 0: TYPE DETECTION
 
 **Duration:** < 30 seconds
-**Mode:** Autonomous
-**Reference:** `data/squad-type-definitions.yaml`
+**Mode:** Worker (deterministic script)
+**Reference:** `data/squad-type-definitions.yaml`, `docs/RFC-001-deterministic-refactoring.md`
 
-### Step 0.1: Analyze Squad Structure
+### ⛔ MANDATORY PREFLIGHT: Run Worker Scripts FIRST
 
-```yaml
-detection_signals:
-  count_agents:
-    action: "Count files in agents/"
-    weight_expert: "high count (+)"
-    weight_pipeline: "low count (+)"
-
-  check_voice_dna:
-    action: "Grep for 'voice_dna:' in agent files"
-    weight_expert: "present (+3)"
-    weight_pipeline: "absent (neutral)"
-    weight_hybrid: "absent (neutral)"
-
-  check_workflow:
-    action: "Look for workflow.yaml or sequential phases in orchestrator"
-    weight_pipeline: "present (+3)"
-
-  check_heuristics:
-    action: "Grep for heuristic IDs (PV_*, SC_*)"
-    weight_hybrid: "present (+3)"
-
-  calculate_ratio:
-    action: "tasks_count / agents_count"
-    weight_pipeline: "ratio > 3 (+2)"
-    weight_expert: "ratio 2-4 (+1)"
-    weight_hybrid: "ratio ~1 (+2)"
+**Option A: All-in-one (fast, recommended)**
+```bash
+bash squads/squad-creator/scripts/validate-squad.sh {squad_name} --json > /tmp/preflight-results.yaml
 ```
 
-### Step 0.2: Determine Type
+**Option B: Modular scripts (for debugging/granular analysis)**
+```bash
+# Run in order - each produces JSON for specific validation
+cd /path/to/mmos
+
+# 1. INVENTORY: What exists in the squad?
+python3 squads/squad-creator/scripts/inventory.py squads/{squad_name}/ --output json > /tmp/preflight-inventory.json
+
+# 2. NAMING: Are conventions followed?
+python3 squads/squad-creator/scripts/naming_validator.py squads/{squad_name}/ --output json > /tmp/preflight-naming.json
+
+# 3. DEPENDENCIES: Are all references valid?
+python3 squads/squad-creator/scripts/dependency_check.py squads/{squad_name}/ --output json > /tmp/preflight-deps.json
+
+# 4. CHECKLISTS: Are checklists well-formed?
+python3 squads/squad-creator/scripts/checklist_validator.py squads/{squad_name}/checklists/ --all --output json > /tmp/preflight-checklists.json
+
+# 5. COHERENCE: Are heuristics/axiomas consistent? (squad-creator only)
+python3 squads/squad-creator/scripts/coherence-validator.py --output json > /tmp/preflight-coherence.json
+
+# 6. SCORING: Calculate weighted quality score
+python3 squads/squad-creator/scripts/scoring.py squads/{squad_name}/ --output json > /tmp/preflight-scoring.json
+
+# 7. SECURITY: Are there any secrets/credentials exposed?
+python3 squads/squad-creator/scripts/security_scanner.py squads/{squad_name}/ --output json > /tmp/preflight-security.json
+```
+
+**When to use each:**
+| Script | Use Case |
+|--------|----------|
+| `validate-squad.sh` | Full validation, CI/CD, quick check |
+| `inventory.py` | Debug: "What components exist?" |
+| `naming_validator.py` | Debug: "Why is naming failing?" |
+| `dependency_check.py` | Debug: "What references are broken?" |
+| `checklist_validator.py` | Debug: "Which checklists have issues?" |
+| `coherence-validator.py` | Debug: "Why coherence check failed?" |
+| `scoring.py` | Debug: "How is score calculated?" |
+| `security_scanner.py` | Debug: "What security issues exist?" |
+
+**VETO CONDITIONS:**
+```yaml
+blocking_checks:
+  - inventory.json → squad_exists == false → BLOCK
+  - naming.json → violations.count > 5 → BLOCK
+  - deps.json → broken_references.count > 0 → BLOCK (fix refs first)
+  - checklists.json → invalid_files > 3 → WARN (continue with warning)
+  - coherence.json → blocking_issues > 0 → BLOCK (squad-creator only)
+  - security.json → critical_count > 0 → BLOCK (fix secrets first!)
+```
+
+**IF ANY blocking issue found → STOP. Report issues. No LLM needed.**
+**IF ALL pass → Continue to Phase 1 (LLM semantic analysis).**
+
+---
+
+### Legacy Preflight (validate-squad.sh only)
+
+```
+EXECUTE FIRST — before ANY manual analysis:
+
+  bash squads/squad-creator/scripts/validate-squad.sh {squad_name} --json > /tmp/preflight-results.yaml
+
+IF the command fails → FIX the script error. Do NOT proceed manually.
+IF the command succeeds → READ /tmp/preflight-results.yaml. Use ONLY these numbers.
+
+VETO: If /tmp/preflight-results.yaml does not exist → BLOCK.
+      Do NOT collect signals manually. Do NOT run ls/grep/wc yourself.
+      The script does this faster, cheaper, and 100% consistently.
+```
+
+### Step 0.0: Collect Signals (MANDATORY - do ALL before scoring)
+
+```yaml
+signal_collection:
+  # Run ALL these commands and record results BEFORE scoring
+  agents_count:
+    action: "Count .md files in {squad_path}/agents/"
+    record: "agents_count = N"
+
+  voice_dna_count:
+    action: "Grep for 'voice_dna:' across ALL agent .md files"
+    record: "voice_dna_count = N (how many agent files contain 'voice_dna:')"
+    record: "voice_dna_percentage = voice_dna_count / agents_count * 100"
+
+  workflow_count:
+    action: "Count .yaml files in {squad_path}/workflows/ (if dir exists)"
+    record: "workflow_count = N"
+
+  heuristic_check:
+    action: "Grep for pattern 'PV_|SC_|HO_' across ALL agent .md files"
+    record: "has_heuristic_ids = true/false"
+
+  tasks_count:
+    action: "Count .md files in {squad_path}/tasks/ (recursive, include subdirs)"
+    record: "tasks_count = N"
+
+  real_names_check:
+    action: "Check if agent filenames contain real person names (e.g. gary-halbert, eugene-schwartz)"
+    record: "has_real_person_names = true/false"
+
+  tier_check:
+    action: "Grep for 'tier:' or 'Tier 0' or 'Tier 1' in config.yaml and agent files"
+    record: "has_tier_organization = true/false"
+```
+
+### Step 0.1: Check Dominant Signals (BEFORE scoring)
+
+**CRITICAL: Dominant signals OVERRIDE the scoring algorithm. Check these FIRST.**
+
+```yaml
+dominant_signals:
+  # These are EXCLUSIVE signals - only ONE type has them.
+  # If a dominant signal triggers, SKIP scoring and use the override.
+
+  expert_override:
+    condition: "voice_dna_percentage >= 50"
+    action: "TYPE = Expert (OVERRIDE - skip scoring)"
+    rationale: |
+      Pipeline and Hybrid squads NEVER have voice_dna in their agents.
+      If >= 50% of agents have voice_dna, this is an Expert squad.
+      No scoring needed.
+
+  hybrid_override:
+    condition: "has_heuristic_ids == true"
+    action: "TYPE = Hybrid (OVERRIDE - skip scoring)"
+    rationale: |
+      Only Hybrid squads use heuristic IDs (PV_*, SC_*, HO_*).
+      If heuristic IDs are present, this is a Hybrid squad.
+      No scoring needed.
+
+  # If NO dominant signal triggers → proceed to Step 0.2 scoring
+```
+
+### Step 0.2: Scoring Algorithm (ONLY if no dominant signal triggered)
 
 ```yaml
 detection_algorithm:
+  # ONLY run this if Step 0.1 did NOT trigger a dominant signal
   expert_score: 0
   pipeline_score: 0
   hybrid_score: 0
 
-  # Apply weights from signals
-  if agents_count >= 5: expert_score += 2
-  if voice_dna_present_in_50_percent: expert_score += 3
-  if has_tier_organization: expert_score += 1
+  # EXCLUSIVE signals (only one type has these) - HIGH weight
+  if voice_dna_percentage >= 50:  expert_score += 5   # Exclusive to Expert
+  if has_heuristic_ids:           hybrid_score += 5    # Exclusive to Hybrid
+  if has_real_person_names:       expert_score += 3    # Strong Expert signal
 
-  if has_orchestrator_agent: pipeline_score += 2
-  if has_sequential_phases: pipeline_score += 3
-  if tasks_count > agents_count * 3: pipeline_score += 2
+  # SHARED signals (multiple types can have these) - LOW weight
+  if agents_count >= 5:           expert_score += 1
+  if has_tier_organization:       expert_score += 1
+  if workflow_count > 0:          pipeline_score += 2  # Reduced from 3
+  if tasks_count > agents_count * 3: pipeline_score += 1  # Reduced from 2
 
-  if has_heuristic_validation: hybrid_score += 3
+  # NEGATIVE weights (exclusive signal for X reduces Y)
+  if voice_dna_percentage >= 50:  pipeline_score -= 3  # Expert signal penalizes Pipeline
+  if has_heuristic_ids:           pipeline_score -= 2  # Hybrid signal penalizes Pipeline
+
+  # Shared neutral signals
+  if has_orchestrator_agent:      pipeline_score += 1  # Reduced from 2 (experts have orchestrators too)
   if has_persona_profile_pattern: hybrid_score += 2
-  if agents_count ~= phases_count: hybrid_score += 1
 
   # Determine winner
   detected_type: max(expert_score, pipeline_score, hybrid_score)
 
-  # Handle ties
+  # Handle ties (unlikely after rebalancing)
   if tie:
-    if real_person_names_in_agents: "expert"
-    elif phase_numbering_present: "pipeline"
+    if has_real_person_names: "expert"
+    elif workflow_count > 0: "pipeline"
     else: "pipeline"  # default
 ```
 
@@ -495,9 +624,20 @@ data_usage:
   description: "Data files should be referenced"
 
   calculation:
-    step_1: "List all files in data/"
-    step_2: "For each file, grep all agents and tasks for filename"
-    step_3: "Calculate usage %"
+    step_1: |
+      List ALL files in {squad_path}/data/ directory.
+      HOW: Use glob or ls to enumerate every file in the data/ directory.
+      Include files in subdirectories (recursive).
+      Count ONLY files (not directories).
+      Record: total_data_files = N, list each filename.
+    step_2: |
+      For EACH data file found in step_1:
+        Grep the filename (without path) across ALL files in agents/ and tasks/
+        If filename appears in any agent or task file → mark as REFERENCED
+        If filename appears in ZERO agent or task files → mark as UNREFERENCED
+    step_3: |
+      Calculate: usage_percentage = referenced_count / total_data_files * 100
+      List all unreferenced files by name.
 
   threshold: 0.50  # 50%
   result:
@@ -571,8 +711,24 @@ tier_2_result:
 ## PHASE 3: QUALITY (TIER 3 - SCORING)
 
 **Duration:** 5-10 minutes
-**Mode:** Autonomous with sampling
+**Mode:** Agent (reads pre-computed data from script)
 **Result:** Score 0-10
+
+### ⛔ INPUT REQUIRED: preflight-results.yaml
+
+```
+BEFORE starting Phase 3:
+
+  READ /tmp/preflight-results.yaml
+
+IF file does not exist → STOP. Go back to Phase 0 and run the script.
+DO NOT re-collect these numbers manually. DO NOT run ls/grep/wc yourself.
+The script already computed: signal counts, structure checks, coverage metrics,
+documentation scores, prompt quality greps, checklist greps, and expert checks.
+
+USE the numbers from preflight-results.yaml as INPUTS for scoring below.
+Your job in Phase 3+ is INTERPRETATION ONLY — not data collection.
+```
 
 ### 3.1 Prompt Quality (25%)
 
@@ -701,42 +857,61 @@ documentation:
   question: "Can a new user understand and use this squad?"
 
   criteria:
-    - name: "README purpose"
-      points: 2
-      check: "README clearly explains what squad does?"
-
-    - name: "Getting started"
-      points: 2
-      check: "Installation/activation instructions present?"
-
-    - name: "Command examples"
-      points: 2
-      check: "Commands documented with usage examples?"
-
-    - name: "Architecture diagram"
+    # BINARY checks (YES/NO, no interpretation needed)
+    - name: "README exists"
       points: 1
-      check: "Visual flow or structure diagram?"
+      check: "README.md file exists in squad root? (YES=1, NO=0)"
+      type: BINARY
 
-    - name: "Changelog"
+    - name: "README substantial"
       points: 1
-      check: "Version history maintained?"
+      check: "README.md has > 100 lines? (YES=1, NO=0)"
+      type: BINARY
 
-    - name: "Error handling"
+    - name: "README has activation section"
       points: 1
-      check: "Common errors and fixes documented?"
+      check: "README.md contains 'Quick Start' OR 'Getting Started' OR 'Activation' section? (grep for these terms) (YES=1, NO=0)"
+      type: BINARY
 
-    - name: "Dependencies"
+    - name: "README has command list"
       points: 1
-      check: "External dependencies listed?"
+      check: "README.md contains a table or list of commands (grep for '*' command patterns or '|' table syntax)? (YES=1, NO=0)"
+      type: BINARY
 
-    - name: "Changelog separation"  # [v3.2.1]
+    - name: "Architecture doc exists"
       points: 1
-      check: |
-        Tasks >= v2.0.0 have separate CHANGELOG.md?
-        Reference: HO-DP-001 in best-practices.md
+      check: "ARCHITECTURE.md OR docs/architecture.md exists? (YES=1, NO=0)"
+      type: BINARY
+
+    - name: "Config has version"
+      points: 1
+      check: "config.yaml contains 'version:' field with semver format? (YES=1, NO=0)"
+      type: BINARY
+
+    - name: "Changelog exists"
+      points: 1
+      check: "CHANGELOG.md exists as separate file? (YES=1, NO=0). If changelog is ONLY in config.yaml comments, this is NO."
+      type: BINARY
+
+    - name: "Config has changelog"
+      points: 1
+      check: "config.yaml contains 'changelog:' section OR version history in comments? (YES=1, NO=0)"
+      type: BINARY
+
+    # SEMI-BINARY checks (count-based)
+    - name: "Agent documentation depth"
+      points: 1
+      check: "Average agent file > 500 lines? Count lines of 3 random agent files, calculate average. (YES if avg > 500 = 1, NO = 0)"
+      type: SEMI_BINARY
+
+    - name: "Error handling documented"
+      points: 1
+      check: "Any file in squad contains 'error' OR 'failure' OR 'rework' handling section? (grep for these terms) (YES=1, NO=0)"
+      type: BINARY
 
   scoring:
-    method: "Sum criteria points (max 11, normalized to 10)"
+    method: "Sum criteria points (max 10). Each criterion is 0 or 1. No interpretation needed."
+    note: "All checks are BINARY (exists/doesn't, count above/below threshold). No subjective judgment."
 ```
 
 ### 3.5 Optimization Opportunities [v3.2]
@@ -833,8 +1008,14 @@ tier_3_result:
 ## PHASE 4: CONTEXTUAL VALIDATION (TIER 4)
 
 **Duration:** 3-5 minutes
-**Mode:** Type-specific
+**Mode:** Agent (reads pre-computed data from script)
 **Result:** Score 0-10
+
+```
+INPUT: /tmp/preflight-results.yaml (sections: expert_checks, quality_deterministic)
+DO NOT re-count voice_dna, objections, tiers, or examples manually.
+The script already computed these. Use the numbers as-is.
+```
 
 ### 4A. Expert Squad Validation
 
@@ -1087,11 +1268,36 @@ tier_4_result_hybrid:
 **Duration:** < 30 seconds
 **Mode:** Autonomous
 **Result:** VETO or PROCEED
+**Reference:** `config/veto-conditions.yaml` **[v3.3]**
 
-### Universal Vetos
+### Universal Vetos (SC_VC_*)
 
 ```yaml
 universal_vetos:
+  # GAP ZERO FIX: Script output is mandatory input
+  - id: "SC_VC_000"
+    condition: "Preflight results not generated by Worker script"
+    check: "/tmp/preflight-results.yaml does not exist OR was not generated by validate-squad.sh"
+    result: "VETO - BLOCK. Run: bash squads/squad-creator/scripts/validate-squad.sh {squad_name} --json > /tmp/preflight-results.yaml FIRST. Do NOT collect data manually."
+    rationale: "88% of checks are deterministic. Script runs them in 15s with 100% consistency. LLM doing ls/grep/wc is slower, costlier, and inconsistent."
+
+  # From config/veto-conditions.yaml
+  - id: "SC_VC_001"
+    condition: "Domain not viable"
+    check: "elite_minds_count < 3 OR source_quality < 0.6"
+    result: "VETO - Domain not viable for squad creation"
+
+  - id: "SC_VC_002"
+    condition: "Vision unclear"
+    check: "squad_vision_clarity < 0.7"
+    result: "VETO - Vision unclear, return to Discovery"
+
+  - id: "SC_VC_010"
+    condition: "Task anatomy incomplete"
+    check: "required_fields_missing = true"
+    result: "VETO - Task missing required 8 fields"
+
+  # Legacy vetos (maintained for backwards compatibility)
   - id: "V1"
     condition: "No entry agent defined"
     check: "tier_1_result.entry_agent_exists == false"
@@ -1302,7 +1508,7 @@ report_structure:
 
 ```bash
 # Validate entire squad
-@squad-architect
+@squad-chief
 *validate-squad books
 
 # With type override (skip detection)
@@ -1356,10 +1562,21 @@ report_structure:
 
 ## Changelog
 
+| Version | Date | Changes |
+|---------|------|---------|
+| 4.3.0 | 2026-02-11 | ADD: security_scanner.py — ported from validate-squad.sh check_security() |
+| | | ADD: Security veto condition (critical_count > 0 → BLOCK) |
+| 4.2.0 | 2026-02-11 | ADD: Modular Python scripts integration (RFC-001 Phase 4 completion) |
+| | | ADD: 6 individual scripts for granular debugging |
+| | | ADD: Veto conditions for each modular script |
+| | | ADD: Use case table for when to use each script |
+| 4.1.0 | 2026-02-11 | ADD: Explicit Model specification (Haiku QUALIFIED) — PV Audit |
+| | | ADD: Haiku Eligible: YES with empirical evidence (114.1% match) |
+
 Ver histórico completo em: [`CHANGELOG.md`](./CHANGELOG.md)
 
 ---
 
-_Task Version: 3.2.1_
+_Task Version: 4.3.0_
 _Philosophy: Context-aware validation - different squads need different things_
 _Reference: squad-checklist.md v3.0, squad-type-definitions.yaml v1.0, executor-decision-tree.md v1.0_

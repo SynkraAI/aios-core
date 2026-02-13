@@ -1,0 +1,455 @@
+# VETO CONDITIONS ENGINE - Squad-Creator
+# Source patterns: HO-VC-001, HO-VC-002, HO-VC-003 + AN_VC_001-005
+# Version: 2.0
+# Last Updated: 2026-02-10
+
+veto_engine:
+  version: "2.0"
+  philosophy: |
+    "Processo que permite erro é processo quebrado."
+    Veto conditions são bloqueios FÍSICOS, não recomendações.
+    Se o executor CONSEGUE fazer errado, o processo está errado.
+
+  outcomes:
+    APPROVE: "Proceed to next phase"
+    REVIEW: "Address concerns before proceeding"
+    VETO: "BLOCKED - Cannot proceed until resolved"
+
+  conditions:
+    # ============================================
+    # PHASE 1: DISCOVERY
+    # ============================================
+    SC_VC_001:
+      name: "Domain Viability Veto"
+      phase: "discovery"
+      trigger: "elite_minds_count < 3 OR source_quality < 0.6"
+      action: "VETO - Domain not viable for squad creation"
+      severity: "BLOCKING"
+      source_pattern: "HO-VC-001"
+      validation_questions:
+        - "Existem pelo menos 3 elite minds documentados no domínio?"
+        - "As fontes são acessíveis (livros, podcasts, entrevistas)?"
+        - "Existem frameworks documentados para extrair?"
+
+    # ============================================
+    # PHASE 2: ARCHITECTURE
+    # ============================================
+    SC_VC_002:
+      name: "Vision Clarity Veto"
+      phase: "architecture"
+      trigger: "squad_vision_clarity < 0.7"
+      action: "VETO - Vision unclear, return to Discovery"
+      severity: "BLOCKING"
+      source_pattern: "HO-VC-001"
+      validation_questions:
+        - "O propósito do squad está claramente definido?"
+        - "Os agents cobrem todas as capabilities necessárias?"
+        - "Os workflows conectam os agents corretamente?"
+
+    # ============================================
+    # PHASE 3: DNA EXTRACTION
+    # ============================================
+    SC_VC_003:
+      name: "Source Quality Veto"
+      phase: "dna_extraction"
+      trigger: "verified_quotes < 15 OR signature_phrases < 5"
+      action: "VETO - Insufficient source material"
+      severity: "BLOCKING"
+      validation_questions:
+        - "Existem pelo menos 15 citações com [SOURCE:]?"
+        - "Existem pelo menos 5 signature phrases verificáveis?"
+        - "Todas as inferências estão marcadas como tal?"
+      recovery: "Retornar para @oalanicolas para mais extração"
+
+    SC_VC_004:
+      name: "DNA Completeness Veto"
+      phase: "dna_extraction"
+      trigger: "voice_dna_missing OR thinking_dna_missing"
+      action: "VETO - DNA extraction incomplete"
+      severity: "BLOCKING"
+      required_components:
+        voice_dna:
+          - "signature_phrases (min 5)"
+          - "vocabulary (power_words, transforms)"
+          - "tone (warmth, directness, formality, confidence)"
+        thinking_dna:
+          - "primary_framework"
+          - "heuristics (min 3)"
+          - "anti_patterns"
+          - "decision_architecture"
+
+    # ============================================
+    # PHASE 4: AGENT CREATION
+    # ============================================
+    SC_VC_005:
+      name: "Agent Coherence Veto"
+      phase: "agent_creation"
+      trigger: "agent_behavior_coherence < 0.7"
+      action: "VETO - Agent behavior inconsistent with persona"
+      severity: "CRITICAL"
+      source_pattern: "HO-VC-002"
+      validation_tests:
+        - name: "Consistency Test"
+          method: "Run same input 10x"
+          threshold: "10/10 identical outputs"
+        - name: "Persona Alignment Test"
+          method: "Compare output style to voice_dna"
+          threshold: ">90% alignment"
+        - name: "Guardrail Compliance Test"
+          method: "Test edge cases against anti_patterns"
+          threshold: "0 violations"
+
+    SC_VC_006:
+      name: "Smoke Test Veto"
+      phase: "agent_creation"
+      trigger: "smoke_tests_passed < 3"
+      action: "VETO - Agent fails basic validation"
+      severity: "CRITICAL"
+      required_tests:
+        - "Test 1: Greeting displays correctly"
+        - "Test 2: Core command executes"
+        - "Test 3: Handoff triggers correctly"
+
+    # ============================================
+    # PHASE 5: WORKFLOW DESIGN
+    # ============================================
+    SC_VC_007:
+      name: "Guardrail Missing Veto"
+      phase: "workflow_design"
+      trigger: "guardrails_count < 5"
+      action: "VETO - Workflow missing required guardrails"
+      severity: "BLOCKING"
+      source_pattern: "HO-VC-003"
+      required_guardrails:
+        - name: "loop_prevention"
+          description: "Max iterations, deduplication"
+        - name: "idempotency"
+          description: "Same input → same output"
+        - name: "audit_trail"
+          description: "Log all state changes"
+        - name: "manual_escape"
+          description: "Human override route"
+        - name: "retry_logic"
+          description: "Graceful failure handling"
+
+    SC_VC_008:
+      name: "Unidirectional Flow Veto"
+      phase: "workflow_design"
+      trigger: "status_can_go_backwards = true"
+      action: "VETO - Workflow allows status regression"
+      severity: "BLOCKING"
+      principle: "Nada volta num fluxo. NUNCA."
+      validation: "Check all status transitions are forward-only"
+
+    # ============================================
+    # PHASE 6: VALIDATION
+    # ============================================
+    SC_VC_009:
+      name: "Axioma Score Veto"
+      phase: "validation"
+      trigger: "axioma_overall_score < 7.0 OR truthfulness < 7.0"
+      action: "VETO - Squad fails quality threshold"
+      severity: "CRITICAL"
+      source_pattern: "HO-AX-001"
+      thresholds:
+        overall: 7.0
+        truthfulness: 7.0  # VETO power
+        per_dimension: 6.0
+
+    SC_VC_010:
+      name: "Task Anatomy Veto"
+      phase: "any"
+      trigger: "required_fields_missing = true"
+      action: "VETO - Task missing required fields"
+      severity: "BLOCKING"
+      source_pattern: "HO-TP-001"
+      required_fields:
+        - "task_name (verb + object)"
+        - "status"
+        - "responsible_executor"
+        - "execution_type"
+        - "estimated_time (with unit)"
+        - "input (array, min 1)"
+        - "output (array, min 1)"
+        - "action_items (array, min 1)"
+
+    # ============================================
+    # OALANICOLAS VETO CONDITIONS
+    # Phase: DNA Extraction (source curation → handoff)
+    # ============================================
+
+    AN_VC_001:
+      name: "Volume Without Curation Veto"
+      phase: "source_classification"
+      agent: "@oalanicolas"
+      trigger: "volume_prioritized_over_curation"
+      action: "VETO - Curadoria primeiro, volume depois"
+      severity: "BLOCKING"
+      source_artifact: "minds/oalanicolas/artifacts/SOURCE_CLASSIFICATION.md"
+      principle: "Se entrar cocô, sai cocô do outro lado"
+      validation_questions:
+        - "As fontes foram classificadas em ouro vs bronze?"
+        - "O ratio ouro/bronze é >= 60%?"
+        - "Fontes bronze foram eliminadas ou marcadas?"
+      recovery: "Aplicar classificação ouro/bronze antes de prosseguir"
+      maps_to_heuristic: "AN_HE_003"
+
+    AN_VC_002:
+      name: "Trinity Incomplete Veto"
+      phase: "dna_extraction"
+      agent: "@oalanicolas"
+      trigger: "playbook_missing OR framework_missing OR swipe_missing"
+      action: "VETO - Trindade incompleta"
+      severity: "BLOCKING"
+      source_artifact: "minds/oalanicolas/heuristics/AN_KE_002.md"
+      principle: "Clone precisa dos TRÊS para funcionar bem"
+      required_components:
+        playbook:
+          definition: "A receita completa - passo a passo"
+          if_missing: "Clone não sabe O QUE fazer"
+        framework:
+          definition: "A forma/estrutura - SE X, ENTÃO Y"
+          if_missing: "Clone não sabe QUANDO/COMO decidir"
+        swipe_file:
+          definition: "Exemplos validados - provas que funcionam"
+          if_missing: "Clone não tem referência de QUALIDADE"
+      recovery: "Identificar componente faltante e extrair"
+      maps_to_heuristic: "AN_HE_002"
+
+    AN_VC_003:
+      name: "Bronze Majority Veto"
+      phase: "source_classification"
+      agent: "@oalanicolas"
+      trigger: "ouro_ratio < 0.6"
+      action: "VETO - Fontes majoritariamente bronze"
+      severity: "BLOCKING"
+      source_artifact: "minds/oalanicolas/artifacts/SOURCE_CLASSIFICATION.md"
+      principle: "Menos material ouro > muito material bronze"
+      validation_questions:
+        - "Quantas fontes são ouro (comentários, entrevistas, stories)?"
+        - "Quantas fontes são bronze (palestras antigas, genérico)?"
+        - "Ratio ouro/total >= 60%?"
+      thresholds:
+        ouro_ratio_minimum: 0.6
+        ouro_ratio_ideal: 0.7
+      recovery: "Buscar mais fontes ouro ou eliminar bronze"
+      maps_to_heuristic: "AN_HE_001"
+
+    AN_VC_004:
+      name: "Citation Missing Veto"
+      phase: "dna_extraction"
+      agent: "@oalanicolas"
+      trigger: "concept_without_source OR citations < 15 OR signature_phrases < 5"
+      action: "VETO - Conceito sem [SOURCE:] ou citações insuficientes"
+      severity: "BLOCKING"
+      source_artifact: "minds/oalanicolas/heuristics/AN_KE_001.md"
+      principle: "Rastreabilidade é não-negociável"
+      format_required:
+        citation: "[SOURCE: página/minuto]"
+        inference: "[INFERRED] - needs validation"
+      thresholds:
+        citations_minimum: 15
+        signature_phrases_minimum: 5
+      validation_questions:
+        - "Cada conceito tem [SOURCE:] ou [INFERRED]?"
+        - "Total de citações >= 15?"
+        - "Total de signature phrases >= 5?"
+      recovery: "Adicionar citação ou marcar como [INFERRED]"
+      maps_to_heuristic: "AN_HE_001"
+
+    AN_VC_005:
+      name: "Handoff Without Validation Veto"
+      phase: "handoff"
+      agent: "@oalanicolas"
+      trigger: "self_validation_not_passed"
+      action: "VETO - Handoff sem self-validation"
+      severity: "BLOCKING"
+      source_artifact: "minds/oalanicolas/artifacts/HANDOFF_PROTOCOL.md"
+      principle: "Se não passou no checklist, LOOP. Não handoff."
+      checklist_required:
+        CHK_01:
+          name: "Citation Coverage"
+          threshold: ">= 15 citations"
+          blocking: true
+        CHK_02:
+          name: "Signature Phrases"
+          threshold: ">= 5 verified"
+          blocking: true
+        CHK_03:
+          name: "Trinity Complete"
+          threshold: "3/3 components"
+          blocking: true
+        CHK_04:
+          name: "No Unvalidated Inferences"
+          threshold: "0 unmarked"
+          blocking: true
+        CHK_05:
+          name: "Pareto Applied"
+          threshold: "4 zones documented"
+          blocking: false
+      handoff_target: "@pedro-valerio"
+      handoff_format: "INSUMOS_READY"
+      recovery: "Passar checklist antes de handoff para @pedro-valerio"
+      maps_to_heuristic: "AN_HE_001"
+
+    # ============================================
+    # OALANICOLAS VETO CONDITIONS (CLAUDE.md Extraction)
+    # Source: CLAUDE.md - Alan's Personal Rules
+    # ============================================
+
+    AN_VC_006:
+      name: "Create Without Discovery Veto"
+      phase: "discovery"
+      agent: "@oalanicolas"
+      trigger: "create_without_search OR create_when_similar_exists"
+      action: "VETO - Search existing first"
+      severity: "BLOCKING"
+      source_artifact: "minds/oalanicolas/heuristics/AN_KE_004.md"
+      principle: "REUSE > CREATE. Existing → Gap → Options → Recommendation"
+      source_in_claude_md: "NEVER: Create from scratch when similar exists in squads/"
+      search_locations:
+        - "squads/"
+        - ".claude/agents/"
+        - ".claude/skills/"
+        - "app/components/"
+        - "docs/"
+      validation_questions:
+        - "Pesquisei em squads/?"
+        - "Pesquisei em .claude/?"
+        - "Documentei o que encontrei?"
+        - "Apresentei opções antes de criar?"
+      recovery: "Search all locations, document findings, present options"
+      maps_to_heuristic: "AN_HE_004"
+
+    AN_VC_007:
+      name: "Trust Without Verification Veto"
+      phase: "validation"
+      agent: "@oalanicolas"
+      trigger: "trust_without_verification OR llm_when_code_suffices OR debug_without_physical_check"
+      action: "VETO - Verify physically first"
+      severity: "BLOCKING"
+      source_artifact: "minds/oalanicolas/heuristics/AN_KE_006.md"
+      principle: "VERIFY PHYSICALLY BEFORE THEORIZING"
+      source_in_claude_md:
+        - "NEVER: Trust AI/subagent output without verification"
+        - "GOLDEN RULE: VERIFY PHYSICALLY BEFORE THEORIZING"
+      verification_commands:
+        file_exists: "ls -la {path}"
+        server_responds: "curl -I {url}"
+        user_repeated: "Did user say this 2x?"
+        hard_refresh: "Cmd+Shift+R"
+      validation_questions:
+        - "Verifiquei fisicamente?"
+        - "Testei o output?"
+        - "Usuário repetiu algo 2x?"
+      recovery: "Verify physically before proceeding"
+      maps_to_heuristic: "AN_HE_006"
+
+    AN_VC_008:
+      name: "Ignore Pattern Veto"
+      phase: "continuous"
+      agent: "@oalanicolas"
+      trigger: "ignore_repeated_correction OR batch_without_single_validation"
+      action: "VETO - Document pattern as rule"
+      severity: "BLOCKING"
+      source_artifact: "minds/oalanicolas/heuristics/AN_KE_008.md"
+      principle: "Se Disse 2x → Vira Regra"
+      source_in_claude_md:
+        - "Se Disse 2x → Vira Regra"
+        - "NEVER: Process batch without validating one first"
+      validation_questions:
+        - "User said/corrected this before?"
+        - "Documentei como regra?"
+        - "Testei um antes de processar batch?"
+      recovery: "Document as rule in CLAUDE.md immediately"
+      maps_to_heuristic: "AN_HE_008"
+
+  # ============================================
+  # VETO RESOLUTION WORKFLOW
+  # ============================================
+  resolution_workflow:
+    on_veto:
+      - "Log veto with timestamp and trigger"
+      - "Notify responsible party"
+      - "Block progress until resolved"
+      - "Provide specific recovery actions"
+
+    on_resolution:
+      - "Verify fix addresses root cause"
+      - "Re-run validation"
+      - "Log resolution"
+      - "Allow progress to continue"
+
+  # ============================================
+  # INTEGRATION POINTS
+  # ============================================
+  integration:
+    # Pedro Valério Tasks
+    validate_squad_task:
+      file: "tasks/validate-squad.md"
+      agent: "@pedro-valerio"
+      vetos_checked:
+        - "SC_VC_001 (discovery)"
+        - "SC_VC_002 (architecture)"
+        - "SC_VC_009 (axioma)"
+
+    create_agent_task:
+      file: "tasks/create-agent.md"
+      agent: "@pedro-valerio"
+      vetos_checked:
+        - "SC_VC_003 (source quality)"
+        - "SC_VC_004 (dna completeness)"
+        - "SC_VC_005 (coherence)"
+        - "SC_VC_006 (smoke tests)"
+
+    create_workflow_task:
+      file: "tasks/create-workflow.md"
+      agent: "@pedro-valerio"
+      vetos_checked:
+        - "SC_VC_007 (guardrails)"
+        - "SC_VC_008 (unidirectional)"
+
+    create_task_task:
+      file: "tasks/create-task.md"
+      agent: "@pedro-valerio"
+      vetos_checked:
+        - "SC_VC_010 (task anatomy)"
+
+    # OalaNicolas Tasks
+    assess_sources_task:
+      file: "tasks/an-assess-sources.md"
+      agent: "@oalanicolas"
+      vetos_checked:
+        - "AN_VC_001 (volume without curation)"
+        - "AN_VC_003 (bronze majority)"
+
+    extract_dna_task:
+      file: "tasks/an-extract-dna.md"
+      agent: "@oalanicolas"
+      vetos_checked:
+        - "AN_VC_002 (trinity incomplete)"
+        - "AN_VC_004 (citation missing)"
+
+    validate_extraction_task:
+      file: "tasks/validate-extraction.md"
+      agent: "@oalanicolas"
+      vetos_checked:
+        - "AN_VC_005 (handoff without validation)"
+
+  # ============================================
+  # SUMMARY
+  # ============================================
+  summary:
+    total_veto_conditions: 18
+    pedro_valerio:
+      count: 10
+      ids: ["SC_VC_001", "SC_VC_002", "SC_VC_003", "SC_VC_004", "SC_VC_005",
+            "SC_VC_006", "SC_VC_007", "SC_VC_008", "SC_VC_009", "SC_VC_010"]
+    oalanicolas:
+      count: 8
+      extraction_vetos:
+        ids: ["AN_VC_001", "AN_VC_002", "AN_VC_003", "AN_VC_004", "AN_VC_005"]
+        source: "DNA Extraction Pipeline"
+      methodology_vetos:
+        ids: ["AN_VC_006", "AN_VC_007", "AN_VC_008"]
+        source: "CLAUDE.md - Alan's Personal Rules"
