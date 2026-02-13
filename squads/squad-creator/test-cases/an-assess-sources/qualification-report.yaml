@@ -1,0 +1,213 @@
+# Qualification Report: an-assess-sources v2.0
+# Task: Model Tier Qualification Test
+# Date: 2026-02-11
+
+qualification_test:
+  task: "an-assess-sources"
+  task_version: "2.0.0"
+  test_date: "2026-02-11"
+  target: "outputs/minds/alex_hormozi"
+
+# ============================================================================
+# TEST RESULTS
+# ============================================================================
+
+results:
+  opus_baseline:
+    model: "opus"
+    assessment_level: "BOOK (whole books)"
+    sources_assessed: 4
+    tier_distribution:
+      crown_jewel: 3  # All 3 books
+      ouro: 0
+      mixed: 0
+      bronze: 1       # Tom Bilyeu (no content)
+    average_quality: 4.15
+    scores:
+      $100M_Offers: { score: 4.8, tier: "crown_jewel" }
+      $100M_Leads: { score: 5.0, tier: "crown_jewel" }
+      $100M_Money_Models: { score: 5.0, tier: "crown_jewel" }
+      Tom_Bilyeu: { score: 0.0, tier: "bronze" }
+
+  haiku_test:
+    model: "haiku"
+    assessment_level: "CHAPTER (granular)"
+    sources_assessed: 5  # Treated chapters as separate sources
+    tier_distribution:
+      crown_jewel: 1  # Only Cap 6
+      ouro: 3         # Cap 8, Leads I-II, Money Models
+      mixed: 0
+      bronze: 1       # Tom Bilyeu (no content)
+    average_quality: 4.2
+    scores:
+      Cap_6_Equacao_Valor: { score: 5.0, tier: "crown_jewel" }
+      Cap_8_Pensamento: { score: 4.8, tier: "ouro" }
+      Leads_Secoes_I_II: { score: 4.8, tier: "ouro" }
+      Money_Models: { score: 4.4, tier: "ouro" }
+      Tom_Bilyeu: { score: 0.2, tier: "bronze" }
+
+# ============================================================================
+# COMPARISON ANALYSIS
+# ============================================================================
+
+comparison:
+  # Scope Interpretation Issue (Primary)
+  scope_interpretation:
+    issue: "CRITICAL - Models interpreted scope differently"
+    opus_interpretation: "Assess at BOOK level (whole book = 1 source)"
+    haiku_interpretation: "Assess at CHAPTER level (chapters = separate sources)"
+    impact: "Cannot directly compare scores - different units of analysis"
+    root_cause: "Task v2.0 did not explicitly define assessment granularity"
+
+  # Tier Distribution
+  tier_match:
+    tom_bilyeu: "MATCH - Both BRONZE (no transcription)"
+    books_overall: "MISMATCH"
+    opus_books: "3 CROWN JEWEL"
+    haiku_books: "1 CROWN JEWEL + 3 OURO"
+
+  # Score Variance (where comparable)
+  score_comparison:
+    note: "Scores not directly comparable due to granularity mismatch"
+    tom_bilyeu:
+      opus: 0.0
+      haiku: 0.2
+      variance: "+0.2 (Haiku slightly generous - gave 1 PASS)"
+    average_quality:
+      opus: 4.15
+      haiku: 4.2
+      variance: "+1.2% (within tolerance)"
+
+  # Binary Checkpoint Effectiveness
+  binary_checkpoints:
+    observation: "Both used 25 checkpoints correctly"
+    scoring_philosophy_applied: true
+    checkpoint_documentation: "Both provided detailed notes per checkpoint"
+    variance_source: "Not in scoring - in scope interpretation"
+
+# ============================================================================
+# VETO CONDITION CHECK
+# ============================================================================
+
+veto_conditions:
+  MTQ_VC_001:  # Score differs by >10%
+    triggered: false
+    analysis: "Average quality 4.15 vs 4.2 = 1.2% variance"
+
+  MTQ_VC_004:  # Different tier classification
+    triggered: true
+    analysis: |
+      - Opus: 3 books → all CROWN JEWEL
+      - Haiku: Same content → 1 CROWN JEWEL + 3 OURO
+      - Root cause: Scope interpretation (book vs chapter level)
+
+# ============================================================================
+# DECISION
+# ============================================================================
+
+decision:
+  verdict: "OPUS REQUIRED"
+  confidence: "high"
+
+  rationale: |
+    1. SCOPE INTERPRETATION ISSUE
+       - Opus assessed at book level (aggregated)
+       - Haiku assessed at chapter level (granular)
+       - Task v2.0 did not specify assessment granularity
+       - This is similar to an-clone-review scope issue (wrapper vs delegated persona)
+
+    2. TIER CLASSIFICATION MISMATCH
+       - 3 Crown Jewel (Opus) vs 1 Crown Jewel (Haiku)
+       - Veto condition MTQ_VC_004 triggered
+       - Different tier = different extraction priorities for user
+
+    3. BINARY CHECKPOINTS WORKED FOR SCORING
+       - Both models scored individual checkpoints consistently
+       - The 25 binary checkpoints eliminated subjective scoring variance
+       - Variance came from scope interpretation, not scoring calibration
+
+    4. PATTERN MATCH
+       - Similar to an-clone-review (Opus contextual, Haiku literal)
+       - Haiku followed instructions literally (more granular)
+       - Opus inferred user intent (book-level assessment)
+
+  required_fix: |
+    Update task v2.1 with explicit scope definition:
+
+    ## SCOPE DEFINITION (CRITICAL)
+
+    ```yaml
+    assessment_granularity:
+      books: "Assess ENTIRE BOOK as single source (not chapters)"
+      videos: "Assess ENTIRE VIDEO as single source (not segments)"
+      podcasts: "Assess ENTIRE EPISODE as single source"
+      posts: "Each post is one source"
+
+      rationale: |
+        Extraction priority is per SOURCE, not per chapter.
+        User downloads/processes at source level.
+        Crown Jewel at book level = prioritize that book.
+    ```
+
+# ============================================================================
+# PATTERN DISCOVERY
+# ============================================================================
+
+pattern_discovered:
+  name: "Granularity Interpretation"
+  description: |
+    When task doesn't specify assessment granularity:
+    - Opus infers user intent (book-level for books)
+    - Haiku follows instructions literally (more granular)
+
+  fix_pattern: |
+    Add explicit granularity rules to tasks:
+    - "Assess at {LEVEL} granularity"
+    - "One source = one {UNIT}"
+    - "Do NOT break into sub-units"
+
+  affected_tasks:
+    - an-assess-sources (source granularity)
+    - an-clone-review (scope of review)
+    - validate-squad (type detection scope)
+
+# ============================================================================
+# METRICS
+# ============================================================================
+
+metrics:
+  test_coverage:
+    sources_tested: 4
+    dimensions_covered: 5
+    checkpoints_evaluated: "25 × 4 = 100 total"
+
+  execution:
+    opus_time: "~60s"
+    haiku_time: "~25s"
+
+  binary_checkpoint_effectiveness:
+    score_variance: "1.2% (excellent)"
+    tier_match_rate: "25% (1 of 4 sources - Tom Bilyeu)"
+
+  root_cause:
+    scoring: "0% of variance"
+    scope_interpretation: "100% of variance"
+
+# ============================================================================
+# NEXT STEPS
+# ============================================================================
+
+next_steps:
+  - action: "Update task to v2.1 with scope definition"
+    priority: "high"
+
+  - action: "Add to model-routing.yaml: an-assess-sources → opus"
+    priority: "high"
+
+  - action: "Update BATCH-PROGRESS.md with result"
+    priority: "medium"
+
+  - action: "Consider if scope fix could enable Haiku (future test)"
+    priority: "low"
+    note: "Would require re-testing with v2.1"
+

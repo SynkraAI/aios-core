@@ -1,0 +1,104 @@
+# Test Case: create-task
+# Model Tier Qualification - Wave 3A
+# Similar to: checklist-based (Task Anatomy = 8 fixed fields)
+
+test_case:
+  name: "create-task-standard"
+  version: "1.0"
+  created: "2026-02-11"
+  task_file: "tasks/create-task.md"
+  wave: "3A"
+  priority: 7
+  similar_to: "checklist-based"
+  confidence: "HIGH"
+
+input:
+  # Create a test task
+  target: "test-data-validation"
+  params:
+    squad_name: "squad-creator"
+    task_purpose: "Validate test data quality"
+  context_files:
+    - "squads/squad-creator/checklists/task-anatomy-checklist.md"
+    - "squads/squad-creator/templates/task-tmpl.md"
+
+expected_output:
+  sections:
+    - task_file
+    - task_anatomy_validation
+    - quality_score
+
+  fields:
+    - name: "task_name"
+      type: "string"
+    - name: "has_all_8_fields"
+      type: "boolean"
+    - name: "task_anatomy_score"
+      type: "number"
+      range: [0, 8]
+    - name: "created_successfully"
+      type: "boolean"
+
+  validations:
+    - "Deve incluir todos 8 campos do Task Anatomy"
+    - "task_name deve seguir formato Verb + Object"
+    - "execution_type deve ser válido (Human|Agent|Hybrid|Worker)"
+    - "input/output devem ser arrays"
+    - "action_items deve ter 3+ steps"
+    - "acceptance_criteria deve ter 2+ critérios"
+
+baseline:
+  opus_output: "opus-baseline.yaml"
+  opus_score: 10.0
+  opus_tokens:
+    input: 0
+    output: 0
+  opus_latency_ms: 0
+
+evaluation:
+  completeness:
+    required_sections:
+      - "task_file: conteúdo do arquivo criado"
+      - "task_anatomy_validation: check dos 8 campos"
+    optional_sections:
+      - "quality_score: pontuação de qualidade"
+
+  accuracy:
+    numeric_tolerance: 0.05
+    enum_exact_match: true
+
+  reasoning:
+    minimum_justifications: 8  # Uma por campo
+    requires_evidence: true
+
+  format:
+    expected_format: "yaml"
+    parseable: true
+
+  actionability:
+    minimum_recommendations: 0
+    specificity: "high"
+
+compensation_history:
+  attempts: []
+
+results:
+  haiku:
+    score: null
+    percentage: null
+    qualified: null
+    output_file: "haiku-output.yaml"
+
+  opus:
+    score: 10.0
+    percentage: 100
+    qualified: true
+    output_file: "opus-baseline.yaml"
+
+  final_tier: null
+  recommendation: null
+
+wave_3a_notes:
+  rationale: "Task Anatomy is 8 fixed fields - checklist validation"
+  expected_fixes: "None - structure is deterministic"
+  estimated_effort: "20 min"

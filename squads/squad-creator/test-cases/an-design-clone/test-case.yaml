@@ -1,0 +1,102 @@
+# Test Case: an-design-clone
+# Model Tier Qualification - Wave 3A
+# Similar to: an-clone-review (design phase with checkpoints)
+
+test_case:
+  name: "an-design-clone-standard"
+  version: "1.0"
+  created: "2026-02-11"
+  task_file: "tasks/an-design-clone.md"
+  wave: "3A"
+  priority: 6
+  similar_to: "an-clone-review"
+  confidence: "HIGH"
+
+input:
+  # Use existing mind for design validation
+  target: "squads/squad-creator/minds/pedro_valerio"
+  params:
+    output_type: "specialist"  # generalista | specialist
+  context_files:
+    - "squads/squad-creator/data/an-source-tiers.yaml"
+
+expected_output:
+  sections:
+    - design_spec
+    - architecture_decision
+    - scope_definition
+    - quality_targets
+
+  fields:
+    - name: "clone_type"
+      type: "enum"
+      values: ["generalista", "specialist", "hybrid"]
+    - name: "scope_defined"
+      type: "boolean"
+    - name: "architecture_valid"
+      type: "boolean"
+    - name: "ready_for_extraction"
+      type: "boolean"
+
+  validations:
+    - "Deve definir tipo de clone (generalista vs specialist)"
+    - "Deve especificar escopo de atuação"
+    - "Deve definir architecture decisions"
+    - "Deve passar checkpoints de design"
+
+baseline:
+  opus_output: "opus-baseline.yaml"
+  opus_score: 10.0
+  opus_tokens:
+    input: 0
+    output: 0
+  opus_latency_ms: 0
+
+evaluation:
+  completeness:
+    required_sections:
+      - "design_spec: especificação do clone"
+      - "scope_definition: escopo de atuação"
+      - "quality_targets: métricas alvo"
+    optional_sections:
+      - "architecture_decision: decisões de arquitetura"
+
+  accuracy:
+    numeric_tolerance: 0.10
+    enum_exact_match: true
+
+  reasoning:
+    minimum_justifications: 3
+    requires_evidence: true
+
+  format:
+    expected_format: "yaml"
+    parseable: true
+
+  actionability:
+    minimum_recommendations: 1
+    specificity: "high"
+
+compensation_history:
+  attempts: []
+
+results:
+  haiku:
+    score: null
+    percentage: null
+    qualified: null
+    output_file: "haiku-output.yaml"
+
+  opus:
+    score: 10.0
+    percentage: 100
+    qualified: true
+    output_file: "opus-baseline.yaml"
+
+  final_tier: null
+  recommendation: null
+
+wave_3a_notes:
+  rationale: "Design phase similar to an-clone-review, checkpoint-based"
+  expected_fixes: "Scope definition fixes like an-clone-review v2.2.0"
+  estimated_effort: "30 min"

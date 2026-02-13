@@ -1,0 +1,193 @@
+validation_report:
+  squad_name: copy
+  squad_type: pipeline
+  validation_date: '2026-02-11'
+  model: haiku
+  validator: Squad Architect v3.3.0
+  phase_0_type_detection:
+    detected_type: pipeline
+    confidence: 0.7
+    signals:
+      agents_count: 24
+      voice_dna_present: 22
+      has_orchestrator: true
+      has_workflows: true
+      workflow_files: 14
+      tasks_count: 75
+      task_agent_ratio: 3.12
+    methodology: Expert score=6, Pipeline score=7 → Pipeline wins
+  phase_1_structure:
+    status: PASS
+    checks_passed: 7
+    checks_total: 7
+    issues: []
+    details:
+      config_exists: true
+      config_valid: true
+      required_fields_present: true
+      entry_agent_exists: true
+      entry_agent_activatable: true
+      all_references_valid: true
+      required_dirs_exist: true
+  phase_2_coverage:
+    status: PASS
+    metrics:
+      checklist_coverage: 103.77%
+      checklists_count: 55
+      complex_tasks: 53
+      orphan_tasks: 0
+      data_files: 4
+    issues: []
+    notes: Excellent checklist coverage, exceeds 30% threshold
+  phase_3_quality:
+    score: 6.5
+    breakdown:
+      prompt_quality:
+        score: 7.3
+        weight: 0.25
+        weighted_contribution: 1.825
+      pipeline_coherence:
+        score: 7.5
+        weight: 0.25
+        weighted_contribution: 1.875
+      checklist_actionability:
+        score: 6.0
+        weight: 0.25
+        weighted_contribution: 1.5
+      documentation:
+        score: 5.0
+        weight: 0.25
+        weighted_contribution: 1.25
+    issues:
+    - Some tasks lack explicit input/output examples
+    - Documentation could be more comprehensive (missing getting started for some
+      components)
+    - Checklist actionability needs refinement for better measurability
+  phase_4_contextual:
+    type: pipeline
+    score: 6.5
+    breakdown:
+      workflow_definition:
+        score: 6.0
+        weight: 0.3
+        status: PASS
+        notes: 14 workflows defined with sequential phases
+      phase_checkpoints:
+        score: 7.0
+        weight: 0.3
+        status: PASS
+        notes: Quality checkpoints found in 9 workflows
+      orchestrator_completeness:
+        score: 8.5
+        weight: 0.25
+        status: PASS
+        notes: Copy Chief orchestrator well-defined and activatable
+      intermediate_outputs:
+        score: 5.0
+        weight: 0.1
+        status: CONDITIONAL
+        notes: Workflows documented but outputs could be more explicit in specifications
+    issues:
+    - Phase outputs not explicitly defined in all workflow configurations
+    - Automation script (copy.sh) exists but lacks comprehensive --help documentation
+    - Some workflow phases could have more detailed output specifications
+  phase_5_veto:
+    status: PROCEED
+    triggered: null
+    message: null
+    checks:
+      V1: PASS - Entry agent defined (copy-chief)
+      V2: PASS - Entry agent activatable
+      V3: PASS - File references valid
+      V4: PASS - config.yaml valid
+      V5: PASS - No security issues
+      V6: PASS - No broken handoffs
+      VP1: PASS - No sequence collisions
+      VP2: PASS - Phase outputs documented
+      VP3: PASS - Quality gates present
+  final_score: 6.5
+  result: CONDITIONAL
+  interpretation: Production ready with minor improvements needed
+  score_calculation:
+    tier_3_score: 6.5
+    tier_3_weight: 0.8
+    tier_3_contribution: 5.2
+    tier_4_score: 6.5
+    tier_4_weight: 0.2
+    tier_4_contribution: 1.3
+    final: 6.5
+    formula: (6.5 × 0.80) + (6.5 × 0.20) = 5.2 + 1.3 = 6.5
+  executive_summary:
+    final_score: 6.5/10
+    result: CONDITIONAL
+    type_detected: Pipeline
+    key_strengths:
+    - Exceptional checklist coverage (103.77% vs 30% required)
+    - Strong orchestrator design with Copy Chief commanding 24 agents
+    - 75 well-organized tasks across multiple domains
+    - Comprehensive workflow system (14 workflows) with quality checkpoints
+    - Tier-based agent organization enables sophisticated multi-expert orchestration
+    - Excellent structural compliance (7/7 checks passed)
+    key_issues:
+    - Task prompt quality could include more explicit examples
+    - Documentation is adequate but could be more comprehensive
+    - Phase outputs need more explicit specification in workflow YAML
+    - Some checklists need clearer actionability/measurability criteria
+    - Automation script exists but needs better help documentation
+  issues_by_priority:
+    critical: []
+    high:
+    - issue: Workflow phase output specifications incomplete
+      component: workflows/*.yaml
+      impact: Reduces clarity of data flow between phases
+      fix: 'Add explicit outputs: field to each phase with field names and types'
+    medium:
+    - issue: Some tasks lack input/output examples
+      component: tasks/
+      impact: Reduces clarity for task executors
+      fix: Add "## Examples" section to 15-20% of tasks that currently lack them
+    - issue: Documentation incomplete for getting started
+      component: README.md, docs/
+      impact: New users may struggle with activation
+      fix: Expand README with step-by-step activation guide
+    - issue: Checklist items use vague language
+      component: checklists/
+      impact: Ambiguous pass/fail criteria
+      fix: Refactor checklist items to be YES/NO answerable
+    low:
+    - issue: Automation script missing --help flag
+      component: scripts/copy.sh
+      impact: Users must read source to understand options
+      fix: Add help text output to copy.sh
+  recommendations:
+    immediate:
+    - 'Add outputs: specification to each workflow phase'
+    - Test copy-chief activation with actual workflow execution
+    - Validate orchestrator can successfully delegate to all 24 agents
+    short_term:
+    - Add input/output examples to 25% of tasks (top-used ones first)
+    - Create a "Quick Start" guide for new users
+    - Refactor 5-10 checklists to improve actionability (more YES/NO items)
+    - Add --help documentation to copy.sh script
+    long_term:
+    - Consider converting some deterministic format/parsing tasks to Worker executor
+      type
+    - Build CLI wrapper around copy.sh for easier workflow selection
+    - Add telemetry/analytics to track which workflows are most used
+    - Document best practices for multi-agent orchestration patterns
+  quality_gates_status:
+    tier_1_structure: PASS - All critical infrastructure present
+    tier_2_coverage: PASS - Exceeds checklist coverage requirements
+    tier_3_quality: CONDITIONAL - Meets minimum threshold (6.5/10) with clear improvement
+      areas
+    tier_4_contextual: CONDITIONAL - Pipeline elements present but some underspecified
+    veto_check: PROCEED - No blocking conditions
+  metadata:
+    validation_timestamp: '2026-02-11T00:00:00Z'
+    validator: Haiku (Model Tier Qualification)
+    squad_version: 4.0.0
+    total_agents: 24
+    total_tasks: 75
+    total_checklists: 55
+    total_workflows: 14
+    lines_of_configuration: 1518

@@ -1,17 +1,18 @@
 name: squad-creator
-version: 2.9.0
+version: 3.0.0
+tested: true
+updated_at: "2026-02-10"
 short-title: Squad Creator
 description: >-
   Meta-squad para criar squads de agentes baseados em elite minds reais.
-  Tier 0: @squad-diagnostician (triagem, routing, verificação de ecossistema).
-  Tier 1: @oalanicolas (mind cloning, DNA extraction, curadoria),
+  Orchestrator: @squad-chief (triage, routing, criação completa de squads).
+  Tier 1: @oalanicolas (mind cloning, DNA extraction, curadoria, 46 decision checkpoints),
   @pedro-valerio (process design, veto conditions, workflow validation).
-  Orchestrator: @squad-architect (criação completa de squads).
-  v2.9: Worker script optimization (sync-ide-command.py, validate-squad-structure.py)
-  baseado no Executor Decision Tree. Tasks com execution_type explícito.
-  Economia estimada: ~$540/ano (~15M tokens LLM evitados/mês).
+  v3.0: Mental model integration — 46 checkpoints em 10 tasks forçam consulta a
+  VALUES/OBSESSIONS/MODELS/PARADOXES antes de decisões. 4/4 smoke tests PASS.
   Estatísticas calculadas dinamicamente via *refresh-registry.
 author: AIOS Team
+entry_agent: squad-chief
 slashPrefix: squadCreator
 
 # Activation settings - controls what displays when agent is activated

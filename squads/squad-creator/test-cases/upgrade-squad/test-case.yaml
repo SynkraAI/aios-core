@@ -1,0 +1,106 @@
+# Test Case: upgrade-squad
+# Model Tier Qualification - Wave 3A
+# Similar to: validate-squad (uses 3 checklists, script for inventory)
+
+test_case:
+  name: "upgrade-squad-standard"
+  version: "1.0"
+  created: "2026-02-11"
+  task_file: "tasks/upgrade-squad.md"
+  wave: "3A"
+  priority: 3
+  similar_to: "validate-squad"
+  confidence: "HIGH"
+
+input:
+  # Use a real squad to analyze for upgrades
+  target: "squads/squad-creator"
+  params:
+    mode: "audit"  # audit only, no changes
+    focus: "agents"
+  context_files:
+    - "squads/squad-creator/checklists/agent-quality-gate.md"
+    - "squads/squad-creator/checklists/task-anatomy-checklist.md"
+    - "squads/squad-creator/checklists/squad-checklist.md"
+
+expected_output:
+  sections:
+    - inventory
+    - gap_analysis
+    - upgrade_plan
+    - priority_list
+
+  fields:
+    - name: "components_analyzed"
+      type: "number"
+      range: [1, 200]
+    - name: "components_passing"
+      type: "number"
+    - name: "components_needing_upgrade"
+      type: "number"
+    - name: "overall_status"
+      type: "enum"
+      values: ["PASS", "NEEDS_UPGRADE", "CRITICAL"]
+
+  validations:
+    - "Deve inventariar todos os componentes"
+    - "Deve aplicar checklists específicos por tipo"
+    - "Deve classificar gaps por prioridade (critical/high/medium/low)"
+    - "Deve estimar esforço por componente"
+
+baseline:
+  opus_output: "opus-baseline.yaml"
+  opus_score: 10.0
+  opus_tokens:
+    input: 0
+    output: 0
+  opus_latency_ms: 0
+
+evaluation:
+  completeness:
+    required_sections:
+      - "inventory: contagem e listagem de componentes"
+      - "gap_analysis: gaps por componente"
+      - "priority_list: ordenado por criticidade"
+    optional_sections:
+      - "upgrade_plan: plano de execução"
+
+  accuracy:
+    numeric_tolerance: 0.10
+    enum_exact_match: true
+
+  reasoning:
+    minimum_justifications: 5
+    requires_evidence: true
+
+  format:
+    expected_format: "yaml"
+    parseable: true
+
+  actionability:
+    minimum_recommendations: 3
+    specificity: "high"
+
+compensation_history:
+  attempts: []
+
+results:
+  haiku:
+    score: null
+    percentage: null
+    qualified: null
+    output_file: "haiku-output.yaml"
+
+  opus:
+    score: 10.0
+    percentage: 100
+    qualified: true
+    output_file: "opus-baseline.yaml"
+
+  final_tier: null
+  recommendation: null
+
+wave_3a_notes:
+  rationale: "Uses 3 existing checklists, script for inventory - checklist-based"
+  expected_fixes: "Scope definition for agent analysis"
+  estimated_effort: "45 min"

@@ -1,0 +1,106 @@
+# Qualification Report - an-validate-clone
+# Generated: 2026-02-11
+# Workflow: wf-model-tier-qualification v2.0
+
+qualification_report:
+  task_name: "an-validate-clone"
+  task_version: "2.0.0"
+  test_date: "2026-02-11"
+  workflow_version: "2.0"
+
+  baseline:
+    model: "opus"
+    status: "COMPLETED"
+    scores:
+      fidelity_percentage: "73.89%"
+      fidelity_classification: "Basic (V1.0)"
+      hackability_score: "4/4"
+      hackability_verdict: "ROBUST"
+      authenticity_score: "7/10"
+      authenticity_verdict: "PARTIAL"
+      final_verdict: "REVIEW"
+    note: "Opus was MORE CONSERVATIVE than Haiku (opposite pattern)"
+
+  candidate:
+    model: "haiku"
+    scores:
+      fidelity_percentage: "88.3%"
+      fidelity_classification: "PREMIUM (V3.0)"
+      hackability_score: "4/4"
+      hackability_verdict: "ROBUST"
+      authenticity_score: "10/10"
+      authenticity_verdict: "AUTHENTIC"
+      final_verdict: "PASS (PREMIUM)"
+    details:
+      observable_layers: "12.8/16 (80%)"
+      deep_layers: "19.0/20 (95%)"
+      total_weighted: "31.8/36 (88.3%)"
+    breakdown:
+      L1_behavioral: "4/5"
+      L2_communication: "5/5"
+      L3_routines: "4/5"
+      L4_recognition: "3/5"
+      L5_mental_models: "5/5"
+      L6_values: "5/5"
+      L7_obsessions: "5/5"
+      L8_paradoxes: "4/5"
+
+  analysis:
+    haiku_performance: |
+      Haiku produced a thorough, well-structured validation report:
+      - Used v2.0 binary checkpoints correctly
+      - All 4 hackability tests executed with evidence
+      - All 10 authenticity markers verified
+      - Final verdict used deterministic decision tree
+
+    key_observations:
+      - Haiku followed task instructions precisely
+      - Report format matches v2.0 template
+      - Evidence provided for each checkpoint
+      - No apparent interpretation issues
+
+  qualification_decision:
+    qualified: false
+    confidence: "high"
+    reason: "MTQ_VC_004 - Verdict mismatch (REVIEW vs PASS PREMIUM)"
+    veto_triggered: true
+    quality_analysis:
+      fidelity_match: "83.6% (73.89/88.3)"
+      hackability_match: "100% (4/4 = 4/4)"
+      authenticity_match: "70% (7/10 vs 10/10)"
+      verdict_match: false
+
+    root_cause: |
+      INVERTED PATTERN: Haiku was MORE GENEROUS than Opus.
+
+      Fidelity gap (+14.4%):
+      - Haiku: Counted more checkpoints as passed
+      - Opus: More strict on paradoxes, obsessions, recognition patterns
+
+      Authenticity gap (+30%):
+      - Haiku: Passed all 10 markers
+      - Opus: Failed 3 (experiences, unique frameworks, paradoxes)
+
+      This is OPPOSITE to an-clone-review where Haiku was conservative.
+
+    pattern: "Scoring calibration inconsistency between models"
+
+  recommendation:
+    action: "RETEST_WITH_OPUS"
+    details: |
+      Run Opus baseline to compare:
+      1. Do scores match within 5%?
+      2. Does final verdict match?
+      3. Are gap recommendations similar?
+
+    preliminary_tier: "haiku"
+    note: "Task v2.0 appears Haiku-compatible based on methodology compliance"
+
+  economics:
+    haiku_cost: "~$0.03 (16K tokens)"
+    opus_cost_estimate: "~$0.50 (estimated)"
+    potential_savings: "94% if qualified"
+
+metadata:
+  test_target: ".claude/agents/mmos-victoria.md"
+  haiku_duration: "~72 seconds"

@@ -1,0 +1,104 @@
+# Qualification Report - validate-squad
+# Generated: 2026-02-11
+# Workflow: wf-model-tier-qualification v2.0
+# Re-run: Complete parallel execution with comparison
+
+qualification_report:
+  task_name: "validate-squad"
+  test_date: "2026-02-11"
+  workflow_version: "2.0"
+
+  baseline:
+    model: "opus"
+    final_score: "7.89/10"
+    decision: "PASS"
+    type_detected: "Expert"
+    type_confidence: 0.92
+    cost_usd: 0.68
+    tokens: { total: 144491 }
+    tool_uses: 47
+    duration_ms: 285370
+    file: "opus-baseline.yaml"
+    output_lines: 530
+
+  rounds:
+    - round: 1
+      model: "haiku"
+      final_score: "6.5/10"
+      decision: "CONDITIONAL"
+      type_detected: "Pipeline"
+      type_confidence: 0.70
+      quality_vs_baseline: "41%"
+      cost_usd: 0.012
+      tokens: { total: 85365 }
+      tool_uses: 31
+      duration_ms: 151018
+      gaps:
+        - "TYPE_DETECTION_WRONG: Expert classified as Pipeline"
+        - "MISSED_FINDING: alex-hormozi.md not detected as missing"
+        - "WRONG_PHASE4: Pipeline checks instead of Expert checks"
+        - "UNDERCOUNTED: 4 data files found vs 16 actual"
+        - "SKIPPED: Optimization Opportunities dimension not assessed"
+        - "OVERCRITICAL: Documentation scored 5.0 vs Opus 9.0"
+      file: "haiku-round-1.yaml"
+
+  decision:
+    veto_triggered: "MTQ_VC_004 (soft)"
+    veto_details: "Different classification bands (PASS vs CONDITIONAL) due to wrong type detection"
+    final: "OPUS_REQUIRED"
+    recommended_tier: "opus"
+    quality_achieved: "41%"
+    threshold_required: "90%"
+    compensation_attempted: false
+    compensation_reason: "Type detection error is judgment-level, not fixable with prompt compensation"
+
+  cost_analysis:
+    opus_per_run: "$0.68"
+    haiku_per_run: "$0.012"
+    savings_if_haiku: "98.2%"
+    savings_applicable: false
+    reason: "Quality 41% - far below 90% threshold. Haiku cannot do this task."
+
+  root_cause_analysis:
+    primary_failure: "Type Detection (Phase 0)"
+    cascading_effects:
+      - "Phase 4 ran Pipeline checks instead of Expert checks"
+      - "Voice DNA quality never assessed"
+      - "Objection algorithms never assessed"
+      - "Tier organization never assessed"
+      - "Final score lowered by wrong contextual checks"
+      - "Recommendations target wrong type of improvements"
+    why_haiku_failed: |
+      Type detection requires WEIGHING competing signals:
+      - 24 agents with voice_dna → Expert signal (strong)
+      - 14 workflows → Pipeline signal (moderate)
+      - task_agent_ratio 3.12 → Pipeline signal (moderate)
+      Haiku scored expert=6 pipeline=7 (marginal Pipeline win).
+      Should have applied tie-breaker: "if real_person_names_in_agents: expert"
+      This is INTERPRETATION, not binary matching.
+
+  learning:
+    pattern_confirmed: |
+      SAME pattern as pv-modernization-score:
+      Tasks with interpretive classification are OPUS_REQUIRED.
+      Haiku cannot weigh competing signals or apply contextual tie-breakers.
+    rule_strengthened: |
+      IF task requires:
+        - Multi-signal classification (type detection, quality scoring)
+        - Contextual judgment (weighing expert vs pipeline signals)
+        - Cascading decisions (type → checks → scores → result)
+      THEN: OPUS_REQUIRED, no exceptions
+    similar_tasks: ["pv-modernization-score", "an-fidelity-score", "an-validate-clone"]
+
+  evidence_files:
+    - "opus-baseline.yaml"
+    - "haiku-round-1.yaml"
+    - "comparison-round-1.yaml"
+    - "qualification-report.yaml"
+
+metadata:
+  validator: "@pedro-valerio"
+  comparison_method: "5-dimension scoring per wf-model-tier-qualification v2.0"
+  tokens_opus: 144491
+  tokens_haiku: 85365
+  total_cost: "$0.692"

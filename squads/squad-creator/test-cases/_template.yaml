@@ -1,0 +1,147 @@
+# Test Case Template for Model Tier Qualification
+# Copy this file and customize for each task
+
+# ============================================================================
+# TEST CASE METADATA
+# ============================================================================
+
+test_case:
+  name: "{task-name}-standard"
+  version: "1.0"
+  created: "2026-02-11"
+  task_file: "tasks/{task-name}.md"
+  skill_file: ".claude/skills/{task-name}/SKILL.md"
+
+# ============================================================================
+# INPUT
+# ============================================================================
+# Real data to use for testing. Must be representative of actual usage.
+
+input:
+  # Primary target (file path or value)
+  target: "path/to/real/test/data"
+
+  # Additional parameters
+  params:
+    param_1: "value_1"
+    param_2: "value_2"
+
+  # Context files to load (if any)
+  context_files:
+    - "path/to/context/file.md"
+
+# ============================================================================
+# EXPECTED OUTPUT
+# ============================================================================
+# Define what a correct output looks like
+
+expected_output:
+  # Required sections in the output
+  sections:
+    - section_name_1
+    - section_name_2
+    - section_name_3
+
+  # Required fields with types
+  fields:
+    - name: "overall_score"
+      type: "number"
+      range: [0, 10]
+    - name: "status"
+      type: "enum"
+      values: ["PASS", "FAIL", "REVIEW"]
+    - name: "recommendations"
+      type: "array"
+      min_items: 0
+
+  # Business rules to validate
+  validations:
+    - "overall_score deve ser numérico entre 0-10"
+    - "status deve ser PASS se score >= 7.0"
+    - "status deve ser FAIL se score < 7.0 ou veto triggered"
+    - "recommendations deve existir se score < 8"
+
+# ============================================================================
+# BASELINE
+# ============================================================================
+# Reference to Opus output (gold standard)
+
+baseline:
+  opus_output: "opus-baseline.yaml"  # Relative to test-cases/{task-name}/
+  opus_score: 10.0  # By definition, Opus is 100%
+  opus_tokens:
+    input: 0      # Fill after first run
+    output: 0     # Fill after first run
+  opus_latency_ms: 0  # Fill after first run
+
+# ============================================================================
+# EVALUATION CRITERIA
+# ============================================================================
+# Task-specific criteria for each dimension
+
+evaluation:
+  completeness:
+    required_sections:
+      - "section_1: description of what it should contain"
+      - "section_2: description of what it should contain"
+    optional_sections:
+      - "section_3: nice to have"
+
+  accuracy:
+    numeric_tolerance: 0.05  # 5% tolerance for scores
+    enum_exact_match: true   # Status must match exactly
+
+  reasoning:
+    minimum_justifications: 3  # At least 3 justified points
+    requires_evidence: true    # Must cite specific evidence
+
+  format:
+    expected_format: "yaml"
+    parseable: true
+
+  actionability:
+    minimum_recommendations: 1
+    specificity: "high"  # high, medium, low
+
+# ============================================================================
+# COMPENSATION ATTEMPTS
+# ============================================================================
+# Track what compensations were tried and their results
+
+compensation_history:
+  # Filled during validation process
+  attempts: []
+  # Example:
+  # - attempt: 1
+  #   type: "output_examples"
+  #   score_before: 7.5
+  #   score_after: 8.2
+  #   effective: true
+
+# ============================================================================
+# RESULTS
+# ============================================================================
+# Filled after running validation
+
+results:
+  # All output files are relative to test-cases/{task-name}/
+  haiku:
+    score: null
+    percentage: null
+    qualified: null
+    output_file: "haiku-output.yaml"
+
+  sonnet:
+    score: null
+    percentage: null
+    qualified: null
+    output_file: "sonnet-output.yaml"
+
+  opus:
+    score: 10.0  # Baseline
+    percentage: 100
+    qualified: true
+    output_file: "opus-baseline.yaml"
+
+  final_tier: null  # haiku | sonnet | opus
+  recommendation: null

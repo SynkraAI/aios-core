@@ -1,0 +1,149 @@
+# validate-squad Test Case: Haiku Round 3 (Task v4.0 + --fast flag)
+# Date: 2026-02-11
+# Task Version: 4.0.0 (GAP ZERO fix: script-first enforcement)
+# Target: squads/copy
+# Model: Haiku (via validate-squad.sh --fast)
+# Purpose: Test Haiku quality with hybrid executor (script 88% + Haiku 12%)
+
+test_metadata:
+  round: 3
+  task_version: "4.0.0"
+  model: "haiku"
+  script_version: "validate-squad.sh v2.0"
+  execution_command: "bash validate-squad.sh copy --fast --json"
+
+# ============================================================
+# RESULTS
+# ============================================================
+
+results:
+  squad: "copy"
+  result: "PASS"
+  final_score: 8
+  type: "expert"
+
+  metrics:
+    agents: 24
+    tasks: 75
+    checklists: 55
+    total_lines: 218222
+
+  deterministic_checks:
+    tier1_fail: 0
+    security_fail: 0
+    xref_fail: 0
+    warnings: 2
+    warning_details:
+      - "No entry_agent defined, using first agent: copy-chief"
+      - "config.yaml missing 'tested: true' flag"
+
+  production:
+    score: 4
+    max: 5
+
+  claude_analysis:
+    model_used: "haiku"
+    prompt_quality: 9
+    structure_coherence: 9
+    coverage: 9
+    documentation: 9
+    quality_score: 9.0
+
+  improvements:
+    - "Agent file shows 100 lines but doesn't show full framework loading patterns - verify all framework references are documented"
+    - "Sample checklist shows excellent structure but verify all 55 checklists follow consistent scoring rubrics"
+    - "Consider adding cross-references between related agents (e.g., Gary Bencivenga <> Robert Collier) in agent metadata"
+    - "Task sample shows Collier method but verify coverage spans all 24 agent methodologies"
+    - "Add explicit 'integration points' in agent definitions for cross-agent workflows"
+
+# ============================================================
+# COMPARISON TABLE (ALL ROUNDS)
+# ============================================================
+
+comparison:
+  all_rounds:
+    - round: "R1 Haiku"
+      task_version: "3.3.0"
+      model: "haiku"
+      quality_score: 6.5
+      final_score: 6.5
+      quality_vs_opus_baseline: "41%"
+      execution: "LLM did everything manually"
+
+    - round: "R2 Haiku"
+      task_version: "3.3.1"
+      model: "haiku"
+      quality_score: 7.02
+      final_score: 7.02
+      quality_vs_opus_baseline: "74%"
+      execution: "LLM did everything manually (better task instructions)"
+
+    - round: "Opus Baseline"
+      task_version: "3.3.0"
+      model: "opus"
+      quality_score: 7.89
+      final_score: 7.89
+      quality_vs_opus_baseline: "100%"
+      execution: "LLM did everything manually"
+
+    - round: "R3 Opus"
+      task_version: "4.0.0"
+      model: "opus"
+      quality_score: 8.75
+      final_score: 8
+      quality_vs_opus_baseline: "110.9%"
+      execution: "Hybrid: script (88%) + Opus (12%)"
+
+    - round: "R3 Haiku"
+      task_version: "4.0.0"
+      model: "haiku"
+      quality_score: 9.0
+      final_score: 8
+      quality_vs_opus_baseline: "114.1%"
+      execution: "Hybrid: script (88%) + Haiku (12%)"
+
+  haiku_r3_vs_opus_baseline:
+    opus_baseline_quality: 7.89
+    haiku_r3_quality: 9.0
+    delta: "+1.11"
+    quality_pct: "114.1%"
+    verdict: "HAIKU EXCEEDS OPUS BASELINE"
+
+  haiku_r3_vs_opus_r3:
+    opus_r3_quality: 8.75
+    haiku_r3_quality: 9.0
+    delta: "+0.25"
+    quality_pct: "102.9%"
+    verdict: "HAIKU MATCHES OPUS (within noise margin)"
+
+  cost_comparison:
+    opus_baseline: "$0.68/run (100% LLM)"
+    opus_r3_hybrid: "~$0.15/run (script free + Opus 12% only)"
+    haiku_r3_hybrid: "~$0.003/run (script free + Haiku 12% only)"
+    savings_vs_opus_baseline: "99.6%"
+
+# ============================================================
+# GAP ZERO VALIDATION
+# ============================================================
+
+gap_zero:
+  script_ran_first: true
+  llm_collected_data_manually: false
+  preflight_used_as_input: true
+  caminho_errado_impossibilitado: true
+  pv_verdict: "Haiku com dados pré-computados pelo script produz resultado IGUAL ou MELHOR que Opus fazendo tudo na mão. O processo impossibilitou o caminho errado."
+
+# ============================================================
+# QUALIFICATION DECISION
+# ============================================================
+
+qualification:
+  threshold: "Haiku >= 90% quality vs Opus baseline"
+  haiku_quality_pct: "114.1%"
+  decision: "HAIKU QUALIFIED"
+  rationale: |
+    With the hybrid executor architecture (script 88% + LLM 12%):
+    - Haiku matches or exceeds Opus on qualitative interpretation
+    - Because deterministic checks (88%) are identical regardless of model
+    - The 12% qualitative part is simple enough for Haiku when it receives clean pre-computed data
+    - Cost drops from $0.68 to ~$0.003 per run (99.6% savings)

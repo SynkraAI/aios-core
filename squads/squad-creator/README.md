@@ -259,28 +259,23 @@ O Squad Creator possui agentes especializados organizados por Tiers:
 
 | Tier | Agent | Especialidade | Quando Usar |
 |------|-------|---------------|-------------|
-| **0** | **squad-diagnostician** | Triagem & Routing | Ponto de entrada, diagnóstico de necessidades |
-| **Orch** | **squad-architect** | Orquestração geral | Criar squads completos, visão macro |
+| **Orch** | **squad-chief** | Orquestração + Triagem + SOP | Ponto de entrada, criar squads, extrair SOPs |
 | **1** | **oalanicolas** | Mind Cloning | Extrair DNA, curar fontes, validar fidelidade |
 | **1** | **pedro-valerio** | Process Design | Validar workflows, criar checklists, veto conditions |
-| **2** | **sop-extractor** | Extração de SOPs | Transcrições → SOPs estruturados |
 
 ### Divisão de Responsabilidades
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    ARQUITETURA DE TIERS                         │
+│                    ARQUITETURA v2.9.0                           │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  Tier 0: @squad-diagnostician (Triagem)                         │
-│  ├── Diagnóstico rápido de necessidades                         │
+│  Orchestrator: @squad-chief (Entrada + Criação + SOP)           │
+│  ├── Triagem rápida de necessidades                             │
 │  ├── Verificação de ecossistema existente                       │
-│  ├── Routing para especialista correto                          │
-│  └── Handoff com contexto completo                              │
-│                                                                 │
-│  Orchestrator: @squad-architect (Criação)                       │
 │  ├── Criação completa de squads                                 │
 │  ├── Research de elite minds                                    │
+│  ├── Extração de SOPs de transcrições                           │
 │  ├── Coordenação entre especialistas                            │
 │  └── Validação final de qualidade                               │
 │                                                                 │
@@ -288,6 +283,7 @@ O Squad Creator possui agentes especializados organizados por Tiers:
 │  ├── DNA Mental™ 8 camadas                                      │
 │  ├── Curadoria de fontes (ouro vs bronze)                       │
 │  ├── Playbook + Framework + Swipe File                          │
+│  ├── 46 decision checkpoints (VALUES/OBSESSIONS/MODELS)         │
 │  └── Validação de fidelidade (85-97%)                           │
 │                                                                 │
 │  Tier 1: @pedro-valerio (Process Design)                        │
@@ -297,8 +293,8 @@ O Squad Creator possui agentes especializados organizados por Tiers:
 │  └── Fluxo unidirecional                                        │
 │                                                                 │
 │  Sinergia:                                                      │
-│  Diagnostician roteia → Architect orquestra →                   │
-│  Alan extrai DNA → Pedro valida processo                        │
+│  Chief roteia/orquestra → Alan extrai DNA →                     │
+│  Pedro valida processo                                          │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -306,11 +302,9 @@ O Squad Creator possui agentes especializados organizados por Tiers:
 ### Ativação
 
 ```bash
-@squad-creator:squad-diagnostician  # Ponto de entrada (Tier 0)
-@squad-creator                      # Orquestrador geral
+@squad-creator                      # Ponto de entrada + Orquestrador + SOP
 @squad-creator:oalanicolas          # Especialista em minds
 @squad-creator:pedro-valerio        # Especialista em processos
-@squad-creator:sop-extractor        # Extrator de SOPs
 ```
 
 ---
@@ -443,8 +437,9 @@ Máxima fidelidade com materiais do usuário:
 
 ### Agents
 
-- `squad-architect.md` - Agent arquiteto de squads
-- `sop-extractor.md` - Agent de extração e análise de SOPs
+- `squad-chief.md` - Agent arquiteto de squads (inclui triagem e extração de SOPs)
+- `oalanicolas.md` - Especialista em mind cloning
+- `pedro-valerio.md` - Especialista em process design
 
 ### Tasks
 
@@ -544,13 +539,13 @@ O Squad Creator usa o **Executor Decision Tree** para otimizar custos:
 Para instalar este squad, execute:
 
 ```bash
-npm run install:squad squad-architect
+npm run install:squad squad-chief
 ```
 
 Ou manualmente:
 
 ```bash
-node tools/install-squad.js squad-architect
+node tools/install-squad.js squad-chief
 ```
 
 ---
@@ -589,8 +584,8 @@ data_sources:
 ### Workflow de Extração de SOP
 
 ```bash
-# Ativar o agent SOP extractor
-@sop-extractor
+# Ativar o squad-chief (agora inclui extração de SOP)
+@squad-creator
 
 # Rodar extração (workflow principal)
 *extract-sop
@@ -630,13 +625,13 @@ Gravação de Reunião
       ↓
   Transcrição (Supabase/Arquivo/API)
       ↓
-  @sop-extractor (*extract-sop)
+  @squad-chief (*extract-sop)
       ↓
   Documento SOP (SC-PE-001)
       ↓
   Validação (SC-CK-001)
       ↓
-  @squad-architect (*create-squad)
+  @squad-chief (*create-squad)
       ↓
   Squad Funcional
 ```
@@ -651,7 +646,7 @@ Gravação de Reunião
 
 ```bash
 # Ativar o agent squad architect
-@squad-architect
+@squad-chief
 
 # Iniciar workflow interativo de criação de squad
 *create-squad
@@ -932,10 +927,10 @@ Este squad requer:
 
 #### Agent Não Ativa
 
-**Sintoma:** `@squad-architect` não responde ou mostra erro
+**Sintoma:** `@squad-chief` não responde ou mostra erro
 
 **Soluções:**
-1. Verifique se o arquivo do agent existe: `ls squads/squad-creator/agents/squad-architect.md`
+1. Verifique se o arquivo do agent existe: `ls squads/squad-creator/agents/squad-chief.md`
 2. Cheque sintaxe YAML: Garanta que o bloco YAML está formatado corretamente
 3. Verifique se o squad está sincronizado: Cheque se `.claude/commands/squad-creator/` existe
 
@@ -949,7 +944,7 @@ Este squad requer:
 
 **Solução:**
 1. Diga explicitamente: "Inicie o mind-research-loop agora"
-2. Ou reinicie: `*exit` então reative `@squad-architect`
+2. Ou reinicie: `*exit` então reative `@squad-chief`
 
 ---
 
@@ -1011,6 +1006,7 @@ Este squad requer:
 
 ## Histórico de Versões
 
+- **v3.0.0** - **Mental Model Integration**: 46 decision checkpoints em 10 tasks forçam consulta a VALUES/OBSESSIONS/MODELS/PARADOXES antes de decisões. Matrix + checklist + 4/4 smoke tests PASS
 - **v2.8.0** - Test suite completa (6 scripts Python), documentação de outputs reais (31 squads, 206 agents)
 - **v2.7.0** - Tier 0 Agent (squad-diagnostician) para triagem/routing + Testes automatizados Python (pytest)
 - **v2.6.0** - Deep Tool Discovery com TIERS RELATIVOS (percentis), FLAGS em vez de VETOs, sem thresholds absolutos
@@ -1041,19 +1037,22 @@ Veja `CHANGELOG.md` para histórico detalhado de versões.
 
 ```
 docs/
-├── FAQ.md                   # Perguntas frequentes (NOVO)
-├── TUTORIAL-COMPLETO.md     # Tutorial hands-on (NOVO)
+├── POR-ONDE-COMECAR.md      # Guia inicial
+├── FAQ.md                   # Perguntas frequentes
+├── TUTORIAL-COMPLETO.md     # Tutorial hands-on
 ├── QUICK-START.md           # Tutorial de 5 minutos
 ├── CONCEPTS.md              # Conceitos fundamentais
+├── AGENT-COLLABORATION.md   # Como os 3 agentes colaboram (v3.0)
 ├── COMMANDS.md              # Referência de comandos
 ├── TROUBLESHOOTING.md       # Problemas e soluções
 ├── ARCHITECTURE-DIAGRAMS.md # Diagramas Mermaid
 ├── HITL-FLOW.md             # Human-in-the-Loop
+├── squad-chief-agent-flow.md # Fluxo detalhado do squad-chief
 └── sop-extraction-process.md # Processo de extração SOP
 ```
 
 ---
 
-_Versão: 2.9.0_
+_Versão: 3.0.0_
 _Compatível com: AIOS-FULLSTACK v5+_
-_Última Atualização: 2026-02-05_
+_Última Atualização: 2026-02-11_
