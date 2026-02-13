@@ -93,13 +93,13 @@ if [ -f "$AIOS_STATE_FILE" ]; then
   # Build context (truncate if needed)
   if [ -n "$DISPLAY_TITLE" ] && [ "$DISPLAY_TITLE" != "null" ]; then
     # Prepend titleEmoji if available
-    local emoji_prefix=""
+    emoji_prefix=""
     if [ -n "$TITLE_EMOJI" ] && [ "$TITLE_EMOJI" != "null" ]; then
       emoji_prefix="${TITLE_EMOJI} "
     fi
 
     # Truncate display title if > 35 chars (accounting for emoji)
-    local max_len=35
+    max_len=35
     if [ ${#DISPLAY_TITLE} -gt $max_len ]; then
       AIOS_CONTEXT="${emoji_prefix}${DISPLAY_TITLE:0:32}..."
     else
