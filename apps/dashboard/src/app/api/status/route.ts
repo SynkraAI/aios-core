@@ -57,7 +57,9 @@ function validateStatusFile(data: unknown): AiosStatus | null {
       : typeof obj.project === 'object' && obj.project !== null
         ? {
             name: String((obj.project as Record<string, unknown>).name || ''),
-            path: String((obj.project as Record<string, unknown>).path || ''),
+            path: (obj.project as Record<string, unknown>).path ? String((obj.project as Record<string, unknown>).path) : undefined,
+            emoji: (obj.project as Record<string, unknown>).emoji ? String((obj.project as Record<string, unknown>).emoji) : undefined,
+            type: (obj.project as Record<string, unknown>).type ? String((obj.project as Record<string, unknown>).type) : undefined,
           }
         : null;
 
@@ -114,13 +116,37 @@ function validateStatusFile(data: unknown): AiosStatus | null {
     }
   }
 
+  // Validate context (optional)
+  let context: AiosStatus['context'] = undefined;
+  if (obj.context && typeof obj.context === 'object') {
+    const c = obj.context as Record<string, unknown>;
+    context = {
+      epic: typeof c.epic === 'string' ? c.epic : undefined,
+      story: typeof c.story === 'string' ? c.story : undefined,
+      task: typeof c.task === 'string' ? c.task : undefined,
+    };
+  }
+
+  // Validate status (optional)
+  let statusInfo: AiosStatus['status'] = undefined;
+  if (obj.status && typeof obj.status === 'object') {
+    const s = obj.status as Record<string, unknown>;
+    statusInfo = {
+      progress: typeof s.progress === 'string' ? s.progress : undefined,
+      emoji: typeof s.emoji === 'string' ? s.emoji : undefined,
+      phase: typeof s.phase === 'string' ? s.phase : undefined,
+    };
+  }
+
   return {
     version: obj.version,
     updatedAt: obj.updatedAt,
     connected: true,
     project,
+    status: statusInfo,
     activeAgent,
     session,
+    context,
     stories,
     rateLimit,
   };

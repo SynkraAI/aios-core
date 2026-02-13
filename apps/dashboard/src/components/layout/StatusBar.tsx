@@ -30,6 +30,9 @@ export function StatusBar({ className }: StatusBarProps) {
           isLoading={isLoading}
         />
 
+        {/* Project Context */}
+        <ProjectContext status={status} />
+
         {/* Rate Limit */}
         <RateLimitDisplay rateLimit={status?.rateLimit} />
 
@@ -181,5 +184,29 @@ function NotificationBadge({ count }: NotificationBadgeProps) {
         </span>
       )}
     </button>
+  );
+}
+
+interface ProjectContextProps {
+  status: any;
+}
+
+function ProjectContext({ status }: ProjectContextProps) {
+  if (!status?.project?.name) return null;
+
+  const { project, status: statusInfo } = status;
+  const parts: string[] = [];
+
+  if (project.emoji) parts.push(project.emoji);
+  parts.push(project.name);
+  if (statusInfo?.progress) parts.push(`[${statusInfo.progress}]`);
+  if (statusInfo?.emoji) parts.push(statusInfo.emoji);
+
+  return (
+    <div className="flex items-center gap-1.5 text-[11px] px-2 py-0.5 rounded" style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)' }}>
+      <span className="text-foreground font-medium" style={{ color: 'rgb(59, 130, 246)' }}>
+        {parts.join(' ')}
+      </span>
+    </div>
   );
 }

@@ -82,8 +82,15 @@ export interface AiosStatus {
   connected: boolean;
   project: {
     name: string;
-    path: string;
+    path?: string;
+    emoji?: string;
+    type?: string;
   } | null;
+  status?: {
+    progress?: string;
+    emoji?: string;
+    phase?: string;
+  };
   activeAgent: {
     id: AgentId;
     name: string;
@@ -103,6 +110,11 @@ export interface AiosStatus {
     used: number;
     limit: number;
     resetsAt?: string;
+  };
+  context?: {
+    epic?: string;
+    story?: string;
+    task?: string;
   };
 }
 

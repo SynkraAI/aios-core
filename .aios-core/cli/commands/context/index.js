@@ -10,6 +10,9 @@ const show = require('./show');
 const clear = require('./clear');
 const auto = require('./auto');
 const setTitle = require('./set-title');
+const setEpic = require('./set-epic');
+const setStory = require('./set-story');
+const setTask = require('./set-task');
 
 async function run(args) {
   const subcommand = args[3] || 'show'; // Default to 'show'
@@ -20,6 +23,15 @@ async function run(args) {
       break;
     case 'set-title':
       await setTitle.execute(args.slice(4));
+      break;
+    case 'set-epic':
+      await setEpic.execute(args.slice(4));
+      break;
+    case 'set-story':
+      await setStory.execute(args.slice(4));
+      break;
+    case 'set-task':
+      await setTask.execute(args.slice(4));
       break;
     case 'show':
       await show.execute(args.slice(4));
@@ -49,6 +61,9 @@ Usage: aios context <command> [options]
 Commands:
   set <name>            Set context manually
   set-title <title>     Lock a fixed display title
+  set-epic <epic>       Set epic (main context - always visible)
+  set-story <story>     Set story (mid-level context)
+  set-task <task>       Set task (momentary context)
   show                  Display current context (default)
   clear                 Reset context
   auto                  Auto-detect context from project
@@ -66,6 +81,9 @@ Options for 'set-title':
   --emoji <emoji>       Title emoji (shown in tab)
   --clear               Remove locked title (restore dynamic title)
 
+Options for 'set-epic', 'set-story', 'set-task':
+  --clear               Clear the epic/story/task
+
 Options for 'show':
   --json                Output as JSON
 
@@ -80,6 +98,10 @@ Examples:
   aios context set-title "Tim Ferris Mind Cloning"
   aios context set-title "Design Futurista" --emoji 🎨
   aios context set-title --clear
+  aios context set-epic "Baixar vídeos YouTube"
+  aios context set-story "Implementar playlist"
+  aios context set-task "Commit GitHub"
+  aios context set-task --clear
   aios context show
   aios context show --json
   aios context clear --archive
