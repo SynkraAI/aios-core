@@ -501,9 +501,18 @@ The subtask is complete only when verification passes.
   }
 
   /**
-   * Run Claude CLI with prompt
+   * Run Claude CLI with prompt delivered via stdin.
+   * 
+   * @param {string} prompt - The prompt to execute
+   * @param {string} workDir - Working directory for execution
+   * @param {Object} config - Orchestrator configuration
+   * @returns {Promise<Object>} - Execution result with stdout and exit code
    */
   async runClaudeCLI(prompt, workDir, config) {
+    if (!prompt || typeof prompt !== 'string') {
+      throw new Error('runClaudeCLI requires a non-empty string prompt');
+    }
+
     return new Promise((resolve, reject) => {
       const args = [
         '--print', // Non-interactive mode
@@ -514,18 +523,25 @@ The subtask is complete only when verification passes.
         args.push('--model', config.claudeModel);
       }
 
-      // Escape prompt for shell
-      const escapedPrompt = prompt.replace(/'/g, "'\\''");
-
-      const fullCommand = `echo '${escapedPrompt}' | claude ${args.join(' ')}`;
-
       this.log(`Running Claude CLI in ${workDir}`, 'debug');
 
-      const child = spawn('sh', ['-c', fullCommand], {
+      const child = spawn('claude', args, {
         cwd: workDir,
         env: { ...process.env },
         timeout: config.subtaskTimeout,
+        stdio: ['pipe', 'pipe', 'pipe'],
       });
+
+      // Prevent unhandled stream errors if the pipe breaks or process exits early
+      child.stdin.on('error', (err) => {
+        // Handled via child 'error' or 'close' events
+      });
+
+      // Write prompt via stdin to avoid shell-related issues and command injection
+      if (child.stdin.writable) {
+        child.stdin.write(prompt);
+        child.stdin.end();
+      }
 
       let stdout = '';
       let stderr = '';
