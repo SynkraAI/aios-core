@@ -15,12 +15,16 @@
  * - AC7: Logging of invocations for audit
  *
  * @module core/orchestration/agent-invoker
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 const fs = require('fs-extra');
 const path = require('path');
 const EventEmitter = require('events');
+
+// Squad bridge (v1.1.0)
+const { SquadLoader } = require('../../development/scripts/squad/squad-loader');
+const { SquadExecutor } = require('./squad-executor');
 
 // ═══════════════════════════════════════════════════════════════════════════════════
 //                              SUPPORTED AGENTS (AC2)
@@ -112,6 +116,14 @@ class AgentInvoker extends EventEmitter {
     // Paths
     this.agentsDir = path.join(this.projectRoot, '.aios-core', 'development', 'agents');
     this.tasksDir = path.join(this.projectRoot, '.aios-core', 'development', 'tasks');
+
+    // Squad bridge (v1.1.0)
+    this.squadAgents = new Map(); // namespaced agent name → { squadName, agentId, ...config }
+    this.squadExecutor = new SquadExecutor({
+      projectRoot: this.projectRoot,
+      timeout: this.defaultTimeout,
+      verbose: options.verbose || false,
+    });
 
     // Audit log (AC7)
     this.invocations = [];
@@ -211,17 +223,27 @@ class AgentInvoker extends EventEmitter {
   }
 
   /**
-   * Load agent definition (AC2)
+   * Load agent definition (AC2 + squad bridge v1.1.0)
    * @private
    */
   async _loadAgent(agentName) {
     // Normalize agent name (remove @ prefix if present)
     const name = agentName.replace(/^@/, '').toLowerCase();
 
-    // Check if supported
+    // Check squad agents first (v1.1.0)
+    if (this.squadAgents.has(name)) {
+      const squadConfig = this.squadAgents.get(name);
+      return {
+        ...squadConfig,
+        loaded: true,
+        content: null, // Squad agents don't need file content — runtime handles it
+      };
+    }
+
+    // Check if supported (core agents)
     const agentConfig = SUPPORTED_AGENTS[name];
     if (!agentConfig) {
-      this._log(`Agent ${name} not in supported list`, 'warn');
+      this._log(`Agent ${name} not in supported list or squad registry`, 'warn');
       return null;
     }
 
@@ -389,10 +411,28 @@ class AgentInvoker extends EventEmitter {
   }
 
   /**
-   * Execute task (AC4)
+   * Execute task (AC4 + squad bridge v1.1.0)
    * @private
    */
   async _executeTask(agent, task, context) {
+    // Route squad agents to SquadExecutor (v1.1.0)
+    if (agent.isSquadAgent) {
+      return await this._executeWithTimeout(
+        () => this.squadExecutor.executeSquadTask(
+          agent.squadName,
+          agent.squadAgentId,
+          task.name,
+          context.inputs || {},
+          {
+            orchestration: context.orchestration,
+            projectRoot: context.projectRoot,
+            timestamp: context.timestamp,
+          },
+        ),
+        this.defaultTimeout,
+      );
+    }
+
     // If custom executor provided, use it
     if (this.executor) {
       return await this._executeWithTimeout(
@@ -490,13 +530,13 @@ class AgentInvoker extends EventEmitter {
   }
 
   /**
-   * Check if agent is supported (AC2)
+   * Check if agent is supported (AC2 + squad bridge v1.1.0)
    * @param {string} agentName - Agent name
    * @returns {boolean}
    */
   isAgentSupported(agentName) {
     const name = agentName.replace(/^@/, '').toLowerCase();
-    return SUPPORTED_AGENTS[name] !== undefined;
+    return SUPPORTED_AGENTS[name] !== undefined || this.squadAgents.has(name);
   }
 
   /**
@@ -564,6 +604,116 @@ class AgentInvoker extends EventEmitter {
   clearInvocations() {
     this.invocations = [];
     this.logs = [];
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  //                         SQUAD BRIDGE (v1.1.0)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * Register squad agents into the invoker
+   *
+   * Adds squad agents with namespaced names (prefix:agentId) so they
+   * can be invoked through the standard invokeAgent() flow.
+   *
+   * @param {string} squadName - Squad name (e.g., 'finhealth-squad')
+   * @param {string} prefix - Namespace prefix from squad manifest slashPrefix (e.g., 'finhealth')
+   * @param {string[]} agentFiles - Agent filenames from squad manifest (e.g., ['billing-agent.md'])
+   */
+  registerSquadAgents(squadName, prefix, agentFiles) {
+    for (const file of agentFiles) {
+      const agentId = file.replace('.md', '');
+      const namespacedName = `${prefix}:${agentId}`;
+
+      this.squadAgents.set(namespacedName, {
+        name: namespacedName,
+        displayName: `${squadName}/${agentId}`,
+        squadName,
+        squadAgentId: agentId,
+        file,
+        capabilities: ['squad-agent'],
+        isSquadAgent: true,
+      });
+
+      this._log(`Registered squad agent: ${namespacedName}`, 'info');
+    }
+
+    this._log(`Registered ${agentFiles.length} agents from ${squadName} (prefix: ${prefix})`, 'info');
+  }
+
+  /**
+   * Auto-discover and register all local squad agents
+   *
+   * Scans the squads directory, loads manifests, and registers
+   * all agents found in valid squads.
+   *
+   * @param {string} [squadsPath] - Path to squads directory (default: projectRoot/squads)
+   * @returns {Promise<Object>} Registration summary { squadsFound, agentsRegistered, errors }
+   */
+  async loadSquads(squadsPath) {
+    const resolvedPath = squadsPath || path.join(this.projectRoot, 'squads');
+    const loader = new SquadLoader({ squadsPath: resolvedPath, verbose: false });
+
+    const summary = { squadsFound: 0, agentsRegistered: 0, errors: [] };
+
+    let squads;
+    try {
+      squads = await loader.listLocal();
+    } catch (error) {
+      summary.errors.push(`Failed to list squads: ${error.message}`);
+      return summary;
+    }
+
+    summary.squadsFound = squads.length;
+
+    for (const squad of squads) {
+      try {
+        const manifest = await loader.loadManifest(squad.path);
+
+        if (!manifest || !manifest.components || !manifest.components.agents) {
+          this._log(`Squad ${squad.name} has no agents declared`, 'warn');
+          continue;
+        }
+
+        // Check for entry point
+        const hasEntry = await this.squadExecutor.hasEntryPoint(squad.name);
+        if (!hasEntry) {
+          this._log(`Squad ${squad.name} has no entry point (src/entry.ts), skipping`, 'warn');
+          summary.errors.push(`${squad.name}: no entry point`);
+          continue;
+        }
+
+        const prefix = manifest.slashPrefix || squad.name.replace(/-squad$/, '');
+        this.registerSquadAgents(squad.name, prefix, manifest.components.agents);
+        summary.agentsRegistered += manifest.components.agents.length;
+      } catch (error) {
+        summary.errors.push(`${squad.name}: ${error.message}`);
+        this._log(`Failed to load squad ${squad.name}: ${error.message}`, 'error');
+      }
+    }
+
+    this._log(`Squad discovery complete: ${summary.squadsFound} squads, ${summary.agentsRegistered} agents`, 'info');
+    return summary;
+  }
+
+  /**
+   * Check if an agent name refers to a squad agent
+   *
+   * @param {string} agentName - Agent name (may include namespace prefix)
+   * @returns {boolean} True if this is a registered squad agent
+   */
+  isSquadAgent(agentName) {
+    const normalized = agentName.replace(/^@/, '');
+    return this.squadAgents.has(normalized);
+  }
+
+  /**
+   * Get registered squad agents
+   *
+   * @returns {Map} Map of namespaced name → agent config
+   */
+  getSquadAgents() {
+    return new Map(this.squadAgents);
   }
 
   /**

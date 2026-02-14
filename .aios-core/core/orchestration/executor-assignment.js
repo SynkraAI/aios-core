@@ -167,6 +167,31 @@ const EXECUTOR_ASSIGNMENT_TABLE = {
     quality_gate: '@pm',
     quality_gate_tools: ['architecture_review', 'impact_analysis'],
   },
+
+  // Healthcare: billing, medical accounts, TISS/SUS, auditing (squad agents)
+  healthcare: {
+    keywords: [
+      'billing',
+      'tiss',
+      'sus',
+      'glosa',
+      'medical_account',
+      'reconciliation',
+      'cashflow',
+      'health_insurer',
+      'hospital',
+      'healthcare',
+      'guia',
+      'faturamento',
+      'convenio',
+      'operadora',
+      'auditoria',
+      'prontuario',
+    ],
+    executor: '@finhealth:supervisor-agent',
+    quality_gate: '@architect',
+    quality_gate_tools: ['healthcare_compliance', 'financial_validation'],
+  },
 };
 
 /**
