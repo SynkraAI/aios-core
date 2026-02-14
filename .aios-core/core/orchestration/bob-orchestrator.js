@@ -290,11 +290,52 @@ class BobOrchestrator {
   }
 
   /**
+   * Checks if a process belongs to the current user (Task #3 - Security)
+   * Prevents attempting to kill processes owned by other users
+   * @param {string|number} pid - Process ID to check
+   * @returns {boolean} True if process belongs to current user
+   * @private
+   */
+  _isProcessOwnedByCurrentUser(pid) {
+    try {
+      const { execSync } = require('child_process');
+      const os = require('os');
+
+      // Get current user's UID
+      const currentUid = os.userInfo().uid;
+
+      // Get process owner UID (works on macOS, Linux, WSL)
+      const processUidOutput = execSync(`ps -p ${pid} -o uid= 2>/dev/null || true`, {
+        encoding: 'utf8',
+        timeout: 5000,
+      }).trim();
+
+      if (!processUidOutput) {
+        // Process doesn't exist or ps failed
+        return false;
+      }
+
+      const processUid = parseInt(processUidOutput, 10);
+
+      // Only return true if UIDs match
+      return processUid === currentUid;
+    } catch (err) {
+      // Error checking UID - assume not owned for safety
+      if (this.options.debug) {
+        this._log(`UID check failed for PID ${pid}: ${err.message}`);
+      }
+      return false;
+    }
+  }
+
+  /**
    * Cleanup orphan monitor processes from previous sessions (BOB-BUGFIX-1)
    *
    * Detects and terminates monitor-claude-status.sh processes that are orphaned
    * (their parent process no longer exists). This prevents resource waste from
    * crashed or improperly terminated Bob sessions.
+   *
+   * Task #3 Security: Validates process ownership before kill
    *
    * @private
    */
@@ -314,11 +355,21 @@ class BobOrchestrator {
 
       const monitors = monitorsOutput.split('\n').filter(Boolean);
       let cleaned = 0;
+      let skipped = 0;
 
       for (const pid of monitors) {
         if (!pid) continue;
 
         try {
+          // SECURITY: Verify process belongs to current user before attempting kill (Task #3)
+          if (!this._isProcessOwnedByCurrentUser(pid)) {
+            skipped++;
+            if (this.options.debug) {
+              this._log(`Skipped monitor ${pid}: not owned by current user (UID mismatch)`);
+            }
+            continue;
+          }
+
           // Get parent PID
           const ppidOutput = execSync(`ps -p ${pid} -o ppid= 2>/dev/null || true`, {
             encoding: 'utf8',
@@ -337,6 +388,7 @@ class BobOrchestrator {
             // Parent exists - monitor is valid, skip
           } catch {
             // Parent doesn't exist - orphan detected
+            // Safe to kill: ownership already validated
             process.kill(parseInt(pid, 10), 'SIGTERM');
             cleaned++;
             this._log(`Cleaned orphan monitor process: ${pid} (parent ${ppid} dead)`);
@@ -351,6 +403,9 @@ class BobOrchestrator {
 
       if (cleaned > 0) {
         this._log(`Cleanup: ${cleaned} orphan monitor processes removed`);
+      }
+      if (skipped > 0 && this.options.debug) {
+        this._log(`Cleanup: ${skipped} monitors skipped (UID mismatch - not owned by current user)`);
       }
     } catch (err) {
       // pgrep failed or no monitors - ignore
