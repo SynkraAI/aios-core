@@ -105,7 +105,7 @@ describe('LayerProcessor', () => {
 
       expect(result).toBeNull();
       expect(warnSpy).toHaveBeenCalledWith(
-        '[synapse:error-test] Error: Something went wrong'
+        '[synapse:error-test] Error: Something went wrong',
       );
       warnSpy.mockRestore();
     });
@@ -129,7 +129,7 @@ describe('LayerProcessor', () => {
 
       expect(result).toEqual({ rules: ['slow-rule'], metadata: {} });
       expect(warnSpy).toHaveBeenCalledWith(
-        expect.stringContaining('[synapse:slow] Warning: Layer exceeded timeout')
+        expect.stringContaining('[synapse:slow] Warning: Layer exceeded timeout'),
       );
       warnSpy.mockRestore();
     });

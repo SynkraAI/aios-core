@@ -51,7 +51,7 @@ describeIfReady('SYNAPSE E2E: Bracket Scenarios', () => {
   beforeAll(() => {
     const { SynapseEngine } = require(ENGINE_PATH);
     const { parseManifest } = require(
-      path.join(PROJECT_ROOT, '.aios-core', 'core', 'synapse', 'domain', 'domain-loader.js')
+      path.join(PROJECT_ROOT, '.aios-core', 'core', 'synapse', 'domain', 'domain-loader.js'),
     );
 
     const manifestPath = path.join(SYNAPSE_PATH, 'manifest');

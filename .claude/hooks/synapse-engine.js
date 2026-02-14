@@ -47,10 +47,10 @@ async function main() {
   if (!fs.existsSync(synapsePath)) return;
 
   const { loadSession } = require(
-    path.join(cwd, '.aios-core', 'core', 'synapse', 'session', 'session-manager.js')
+    path.join(cwd, '.aios-core', 'core', 'synapse', 'session', 'session-manager.js'),
   );
   const { SynapseEngine } = require(
-    path.join(cwd, '.aios-core', 'core', 'synapse', 'engine.js')
+    path.join(cwd, '.aios-core', 'core', 'synapse', 'engine.js'),
   );
 
   const sessionsDir = path.join(synapsePath, 'sessions');

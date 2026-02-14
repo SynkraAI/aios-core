@@ -19,6 +19,9 @@ module.exports = [
       '**/coverage/**',
       '**/build/**',
       '**/dist/**',
+      '**/.next/**',
+      // Dashboard has its own ESLint config
+      'apps/dashboard/**',
       '**/.aios-core/_legacy-v4.31.0/**',
       '**/web-bundles/**',
       '**/*.min.js',

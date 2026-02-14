@@ -84,7 +84,7 @@ describeIfPro('SynapseMemoryProvider', () => {
       new SynapseMemoryProvider();
       expect(mockFeatureGate.require).toHaveBeenCalledWith(
         'pro.memory.synapse',
-        'SYNAPSE Memory Bridge'
+        'SYNAPSE Memory Bridge',
       );
     });
 

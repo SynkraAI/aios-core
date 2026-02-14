@@ -114,7 +114,7 @@ describe('L6KeywordProcessor', () => {
       expect(result).not.toBeNull();
       expect(result.rules).toHaveLength(2);
       expect(result.metadata.matchedDomains).toEqual(
-        expect.arrayContaining(['TESTING', 'PERFORMANCE'])
+        expect.arrayContaining(['TESTING', 'PERFORMANCE']),
       );
     });
 

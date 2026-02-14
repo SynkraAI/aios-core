@@ -116,7 +116,7 @@ describe('L5SquadProcessor', () => {
 
       expect(result).not.toBeNull();
       expect(result.metadata.domainsLoaded).toEqual(
-        expect.arrayContaining([expect.stringContaining('MY-SQUAD_')])
+        expect.arrayContaining([expect.stringContaining('MY-SQUAD_')]),
       );
     });
 
