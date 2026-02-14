@@ -110,8 +110,8 @@ describe('UnifiedActivationPipeline Memory Integration (MIS-6)', () => {
       // Mock feature gate as enabled
       const mockFeatureGate = {
         featureGate: {
-          isAvailable: jest.fn().mockReturnValue(true)
-        }
+          isAvailable: jest.fn().mockReturnValue(true),
+        },
       };
 
       proDetector.loadProModule.mockImplementation((module) => {
@@ -151,7 +151,7 @@ describe('UnifiedActivationPipeline Memory Integration (MIS-6)', () => {
         sector: 'procedural',
         tier: 'hot',
         attention_score: 0.8,
-        agent: 'dev'
+        agent: 'dev',
       },
       {
         id: 'mem-002',
@@ -160,8 +160,8 @@ describe('UnifiedActivationPipeline Memory Integration (MIS-6)', () => {
         sector: 'semantic',
         tier: 'warm',
         attention_score: 0.5,
-        agent: 'dev'
-      }
+        agent: 'dev',
+      },
     ];
 
     beforeEach(() => {
@@ -181,16 +181,16 @@ describe('UnifiedActivationPipeline Memory Integration (MIS-6)', () => {
               count: 2,
               tokensUsed: 450,
               budget: options.budget || 2000,
-              tiers: ['hot', 'warm']
-            }
+              tiers: ['hot', 'warm'],
+            },
           };
         }
       };
 
       const mockFeatureGate = {
         featureGate: {
-          isAvailable: jest.fn().mockReturnValue(true)
-        }
+          isAvailable: jest.fn().mockReturnValue(true),
+        },
       };
 
       proDetector.loadProModule.mockImplementation((module) => {
@@ -211,7 +211,7 @@ describe('UnifiedActivationPipeline Memory Integration (MIS-6)', () => {
       expect(result.context.memories[0]).toMatchObject({
         id: 'mem-001',
         title: 'Test Memory 1',
-        tier: 'hot'
+        tier: 'hot',
       });
     });
 
@@ -265,20 +265,20 @@ describe('UnifiedActivationPipeline Memory Integration (MIS-6)', () => {
               sector: 'procedural',
               tier: i < 5 ? 'hot' : 'warm',
               attention_score: i < 5 ? 0.8 : 0.5,
-              agent: agentId
+              agent: agentId,
             });
             tokensUsed += memoryTokens;
           }
 
           return {
             memories,
-            metadata: { count: memories.length, tokensUsed, budget }
+            metadata: { count: memories.length, tokensUsed, budget },
           };
         }
       };
 
       const mockFeatureGate = {
-        featureGate: { isAvailable: jest.fn().mockReturnValue(true) }
+        featureGate: { isAvailable: jest.fn().mockReturnValue(true) },
       };
 
       proDetector.loadProModule.mockImplementation((module) => {
@@ -324,23 +324,23 @@ describe('UnifiedActivationPipeline Memory Integration (MIS-6)', () => {
           const allMemories = [
             { id: 'mem-dev-1', agent: 'dev', title: 'Dev Memory' },
             { id: 'mem-qa-1', agent: 'qa', title: 'QA Memory' },
-            { id: 'mem-shared-1', agent: 'shared', title: 'Shared Memory' }
+            { id: 'mem-shared-1', agent: 'shared', title: 'Shared Memory' },
           ];
 
           // Filter to only agent's own + shared
           const memories = allMemories.filter(m =>
-            m.agent === agentId || m.agent === 'shared'
+            m.agent === agentId || m.agent === 'shared',
           );
 
           return {
             memories,
-            metadata: { count: memories.length, tokensUsed: memories.length * 200 }
+            metadata: { count: memories.length, tokensUsed: memories.length * 200 },
           };
         }
       };
 
       const mockFeatureGate = {
-        featureGate: { isAvailable: jest.fn().mockReturnValue(true) }
+        featureGate: { isAvailable: jest.fn().mockReturnValue(true) },
       };
 
       proDetector.loadProModule.mockImplementation((module) => {
@@ -393,7 +393,7 @@ describe('UnifiedActivationPipeline Memory Integration (MIS-6)', () => {
       proDetector.isProAvailable.mockReturnValue(true);
 
       const mockFeatureGate = {
-        featureGate: { isAvailable: jest.fn().mockReturnValue(false) }
+        featureGate: { isAvailable: jest.fn().mockReturnValue(false) },
       };
 
       proDetector.loadProModule.mockImplementation((module) => {
@@ -416,7 +416,7 @@ describe('UnifiedActivationPipeline Memory Integration (MIS-6)', () => {
       };
 
       const mockFeatureGate = {
-        featureGate: { isAvailable: jest.fn().mockReturnValue(true) }
+        featureGate: { isAvailable: jest.fn().mockReturnValue(true) },
       };
 
       proDetector.loadProModule.mockImplementation((module) => {
@@ -451,7 +451,7 @@ describe('UnifiedActivationPipeline Memory Integration (MIS-6)', () => {
       };
 
       const mockFeatureGate = {
-        featureGate: { isAvailable: jest.fn().mockReturnValue(true) }
+        featureGate: { isAvailable: jest.fn().mockReturnValue(true) },
       };
 
       proDetector.loadProModule.mockImplementation((module) => {

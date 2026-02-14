@@ -88,14 +88,16 @@ function hashFile(filePath) {
 }
 
 /**
- * Async version of hashFile. Uses fs.promises for non-blocking I/O.
+ * Async version of hashFile for parallel processing.
+ * INS-2 Performance: Enables parallel hashing with Promise.all
  *
  * @param {string} filePath - Absolute path to the file
  * @returns {Promise<string>} - SHA256 hash as hex string
  * @throws {Error} - If file cannot be read
  */
 async function hashFileAsync(filePath) {
-  if (!await fs.pathExists(filePath)) {
+  const exists = await fs.pathExists(filePath);
+  if (!exists) {
     throw new Error(`File not found: ${filePath}`);
   }
 
@@ -107,8 +109,10 @@ async function hashFileAsync(filePath) {
   let content;
 
   if (isBinaryFile(filePath)) {
+    // Binary files: hash raw bytes
     content = await fs.readFile(filePath);
   } else {
+    // Text files: normalize line endings and remove BOM
     const rawContent = await fs.readFile(filePath, 'utf8');
     const withoutBOM = removeBOM(rawContent);
     const normalized = normalizeLineEndings(withoutBOM);
@@ -135,6 +139,46 @@ async function hashFilesMatchAsync(filePath1, filePath2) {
   } catch {
     return false;
   }
+}
+
+/**
+ * Hash multiple files in parallel with batch processing
+ * INS-2 Performance: Process files in batches to prevent memory exhaustion
+ *
+ * @param {string[]} filePaths - Array of absolute file paths
+ * @param {number} batchSize - Number of files to hash concurrently (default: 50)
+ * @param {Function} onProgress - Optional progress callback (current, total)
+ * @returns {Promise<Map<string, string>>} - Map of filePath -> hash
+ */
+async function hashFilesParallel(filePaths, batchSize = 50, onProgress = null) {
+  const results = new Map();
+  const total = filePaths.length;
+
+  for (let i = 0; i < total; i += batchSize) {
+    const batch = filePaths.slice(i, i + batchSize);
+    const batchResults = await Promise.all(
+      batch.map(async (filePath) => {
+        try {
+          const hash = await hashFileAsync(filePath);
+          return { filePath, hash, error: null };
+        } catch (error) {
+          return { filePath, hash: null, error: error.message };
+        }
+      }),
+    );
+
+    for (const result of batchResults) {
+      if (result.hash) {
+        results.set(result.filePath, result.hash);
+      }
+    }
+
+    if (onProgress) {
+      onProgress(Math.min(i + batchSize, total), total);
+    }
+  }
+
+  return results;
 }
 
 /**
@@ -178,6 +222,7 @@ function getFileMetadata(filePath, basePath) {
 module.exports = {
   hashFile,
   hashFileAsync,
+  hashFilesParallel,
   hashString,
   hashesMatch,
   hashFilesMatchAsync,

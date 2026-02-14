@@ -1,6 +1,6 @@
 {
   "name": "@aios/installer",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "AIOS Installer - Automated setup wizard for AIOS projects (greenfield & brownfield)",
   "main": "src/index.js",
   "bin": {

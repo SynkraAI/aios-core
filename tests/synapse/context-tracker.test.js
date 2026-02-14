@@ -411,7 +411,7 @@ describe('AC8: zero external dependencies', () => {
     const path = require('path');
     const source = fs.readFileSync(
       path.join(__dirname, '../../.aios-core/core/synapse/context/context-tracker.js'),
-      'utf8'
+      'utf8',
     );
     // Should not have any require() calls (only module.exports)
     const requireMatches = source.match(/\brequire\s*\(/g);
