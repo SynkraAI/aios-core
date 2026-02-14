@@ -254,11 +254,38 @@ describe('BobOrchestrator', () => {
   });
 
   afterEach(async () => {
+    // FASE 6: Cleanup resources to prevent worker leak
+    if (orchestrator) {
+      // Stop observability panel
+      if (orchestrator.observabilityPanel && typeof orchestrator.observabilityPanel.stop === 'function') {
+        orchestrator.observabilityPanel.stop();
+      }
+
+      // Complete bob status writer
+      if (orchestrator.bobStatusWriter && typeof orchestrator.bobStatusWriter.complete === 'function') {
+        await orchestrator.bobStatusWriter.complete().catch(() => {});
+      }
+
+      // Release all locks
+      if (orchestrator.lockManager && typeof orchestrator.lockManager.releaseLock === 'function') {
+        await orchestrator.lockManager.releaseLock('bob-orchestration').catch(() => {});
+      }
+    }
+
+    // Clean up test directory
     try {
       await fs.rm(TEST_PROJECT_ROOT, { recursive: true, force: true });
     } catch {
       // Ignore
     }
+
+    // Wait for pending microtasks to complete
+    await new Promise(resolve => setImmediate(resolve));
+  });
+
+  afterAll(() => {
+    // FASE 6: Restore all mocks after test suite
+    jest.restoreAllMocks();
   });
 
   // ==========================================

@@ -24,6 +24,26 @@ describe('BobOrchestrator - Security (Task #3)', () => {
     });
   });
 
+  afterEach(async () => {
+    // FASE 6: Cleanup resources to prevent worker leak
+    if (orchestrator) {
+      if (orchestrator.observabilityPanel && typeof orchestrator.observabilityPanel.stop === 'function') {
+        orchestrator.observabilityPanel.stop();
+      }
+      if (orchestrator.bobStatusWriter && typeof orchestrator.bobStatusWriter.complete === 'function') {
+        await orchestrator.bobStatusWriter.complete().catch(() => {});
+      }
+      if (orchestrator.lockManager && typeof orchestrator.lockManager.releaseLock === 'function') {
+        await orchestrator.lockManager.releaseLock('bob-orchestration').catch(() => {});
+      }
+    }
+    await new Promise(resolve => setImmediate(resolve));
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
+
   describe('_isProcessOwnedByCurrentUser() - UID Validation', () => {
     test('returns true for current process (own PID)', () => {
       const currentPid = process.pid;
