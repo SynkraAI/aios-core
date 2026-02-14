@@ -1158,6 +1158,30 @@ Se terminal spawn falha:
 | Docker containers | Sem GUI | Inline |
 | CI/CD pipelines | Headless | Inline |
 
+### Monitor Process Cleanup (BOB-BUGFIX-1)
+
+**Problema Resolvido:** Processos `monitor-claude-status.sh` órfãos após spawning de terminais
+
+**Solução Implementada:**
+
+1. **Cleanup Automático** - Cada terminal spawned tem seus monitores terminados ao completar:
+   - No `close` event (completion normal)
+   - No `timeout` event (timeout exceeded)
+   - No `error` event (spawn failure)
+
+2. **Startup Cleanup** - BobOrchestrator detecta e remove monitores órfãos de sessões anteriores:
+   - Executado automaticamente no constructor
+   - Verifica se processo pai ainda existe
+   - Termina processos órfãos via SIGTERM
+   - Loga número de processos removidos
+
+**Função Principal:** `killMonitorProcess(childPid, debug)`
+- Localização: `terminal-spawner.js`
+- Retorna: Número de monitores terminados
+- Erro handling: Graceful (ignora processos já mortos)
+
+**Resultado:** 0 processos órfãos após execução do Bob ✅
+
 ---
 
 ## CI/CD Pipeline (Story 12.11)

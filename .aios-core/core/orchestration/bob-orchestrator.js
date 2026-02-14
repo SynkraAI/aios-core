@@ -135,6 +135,9 @@ class BobOrchestrator {
     // Story 12.6: Wire up callbacks (AC1, AC2)
     this._setupObservabilityCallbacks();
 
+    // BOB-BUGFIX-1: Cleanup orphan monitor processes from previous sessions
+    this._cleanupOrphanMonitors();
+
     this._log('BobOrchestrator initialized');
   }
 
@@ -284,6 +287,77 @@ class BobOrchestrator {
     // 3. Default: OFF
     this._log('Educational mode defaulting to false');
     return false;
+  }
+
+  /**
+   * Cleanup orphan monitor processes from previous sessions (BOB-BUGFIX-1)
+   *
+   * Detects and terminates monitor-claude-status.sh processes that are orphaned
+   * (their parent process no longer exists). This prevents resource waste from
+   * crashed or improperly terminated Bob sessions.
+   *
+   * @private
+   */
+  _cleanupOrphanMonitors() {
+    try {
+      const { execSync } = require('child_process');
+
+      // Find all monitor-claude-status.sh processes
+      const monitorsOutput = execSync(`pgrep -f "monitor-claude-status.sh" 2>/dev/null || true`, {
+        encoding: 'utf8',
+        timeout: 5000,
+      }).trim();
+
+      if (!monitorsOutput) {
+        return; // No monitors running
+      }
+
+      const monitors = monitorsOutput.split('\n').filter(Boolean);
+      let cleaned = 0;
+
+      for (const pid of monitors) {
+        if (!pid) continue;
+
+        try {
+          // Get parent PID
+          const ppidOutput = execSync(`ps -p ${pid} -o ppid= 2>/dev/null || true`, {
+            encoding: 'utf8',
+            timeout: 5000,
+          }).trim();
+
+          if (!ppidOutput) continue;
+
+          const ppid = ppidOutput.trim();
+
+          // Check if parent process still exists
+          try {
+            execSync(`ps -p ${ppid} 2>/dev/null`, {
+              timeout: 5000,
+            });
+            // Parent exists - monitor is valid, skip
+          } catch {
+            // Parent doesn't exist - orphan detected
+            process.kill(parseInt(pid, 10), 'SIGTERM');
+            cleaned++;
+            this._log(`Cleaned orphan monitor process: ${pid} (parent ${ppid} dead)`);
+          }
+        } catch (err) {
+          // Error checking this process - skip
+          if (this.options.debug) {
+            this._log(`Could not check monitor ${pid}: ${err.message}`);
+          }
+        }
+      }
+
+      if (cleaned > 0) {
+        this._log(`Cleanup: ${cleaned} orphan monitor processes removed`);
+      }
+    } catch (err) {
+      // pgrep failed or no monitors - ignore
+      if (this.options.debug) {
+        this._log(`Orphan monitor cleanup error: ${err.message}`);
+      }
+    }
   }
 
   /**

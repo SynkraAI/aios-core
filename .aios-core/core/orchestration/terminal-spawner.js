@@ -295,6 +295,71 @@ function sleep(ms) {
 }
 
 /**
+ * Kills monitor processes spawned by a terminal (Story BOB-BUGFIX-1)
+ *
+ * Finds and terminates monitor-claude-status.sh processes that are children
+ * of the spawned terminal process to prevent orphaned monitors.
+ *
+ * @param {number} childPid - PID of the spawned terminal process
+ * @param {boolean} debug - Enable debug logging
+ * @returns {Promise<number>} Number of monitor processes killed
+ */
+async function killMonitorProcess(childPid, debug = false) {
+  if (!childPid || typeof childPid !== 'number') {
+    return 0;
+  }
+
+  let killed = 0;
+
+  try {
+    // Find child processes of the terminal
+    const { execSync } = require('child_process');
+    const childrenOutput = execSync(`pgrep -P ${childPid} 2>/dev/null || true`, {
+      encoding: 'utf8',
+      timeout: 5000,
+    }).trim();
+
+    if (!childrenOutput) {
+      return 0;
+    }
+
+    const children = childrenOutput.split('\n').filter(Boolean);
+
+    for (const pid of children) {
+      if (!pid) continue;
+
+      try {
+        // Check if this is a monitor-claude-status.sh process
+        const cmdline = execSync(`ps -p ${pid} -o command= 2>/dev/null || true`, {
+          encoding: 'utf8',
+          timeout: 5000,
+        }).trim();
+
+        if (cmdline.includes('monitor-claude-status.sh')) {
+          process.kill(parseInt(pid, 10), 'SIGTERM');
+          killed++;
+          if (debug) {
+            console.log(`[TerminalSpawner] Killed monitor process: ${pid}`);
+          }
+        }
+      } catch (err) {
+        // Process might have already died - ignore
+        if (debug) {
+          console.log(`[TerminalSpawner] Could not kill process ${pid}: ${err.message}`);
+        }
+      }
+    }
+  } catch (err) {
+    // pgrep failed or no children - ignore
+    if (debug) {
+      console.log(`[TerminalSpawner] killMonitorProcess error: ${err.message}`);
+    }
+  }
+
+  return killed;
+}
+
+/**
  * Spawns an agent inline using child_process.spawn (Story 12.10 - Task 2)
  *
  * This is used when visual terminal spawning is not available (VS Code, SSH, Docker, CI).
@@ -378,9 +443,12 @@ async function spawnInline(agent, task, options = {}) {
     });
 
     // Set timeout
-    const timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(async () => {
       child.kill('SIGTERM');
       const duration = Date.now() - startTime;
+
+      // Cleanup monitor processes (BOB-BUGFIX-1)
+      await killMonitorProcess(child.pid, opts.debug);
 
       // Cleanup context file
       if (contextPath) {
@@ -400,6 +468,9 @@ async function spawnInline(agent, task, options = {}) {
     child.on('close', async (code) => {
       clearTimeout(timeoutId);
       const duration = Date.now() - startTime;
+
+      // Cleanup monitor processes (BOB-BUGFIX-1)
+      await killMonitorProcess(child.pid, opts.debug);
 
       // Cleanup context file
       if (contextPath) {
@@ -444,9 +515,12 @@ async function spawnInline(agent, task, options = {}) {
     });
 
     // Handle spawn errors
-    child.on('error', (error) => {
+    child.on('error', async (error) => {
       clearTimeout(timeoutId);
       const duration = Date.now() - startTime;
+
+      // Cleanup monitor processes (BOB-BUGFIX-1)
+      await killMonitorProcess(child.pid, opts.debug);
 
       // Cleanup context file
       if (contextPath) {
@@ -1030,6 +1104,9 @@ module.exports = {
   getPlatform,
   cleanupOldFiles,
   getScriptPath,
+
+  // Monitor Process Cleanup (BOB-BUGFIX-1)
+  killMonitorProcess,
 
   // Lock Management (Story 12.10)
   registerLockFile,
