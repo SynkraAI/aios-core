@@ -21,15 +21,17 @@ const { collectSessionStatus } = require('./collectors/session-collector');
 const { collectManifestIntegrity } = require('./collectors/manifest-collector');
 const { collectPipelineSimulation } = require('./collectors/pipeline-collector');
 const { collectUapBridgeStatus } = require('./collectors/uap-collector');
+const { collectTimingMetrics } = require('./collectors/timing-collector');
+const { collectQualityMetrics } = require('./collectors/quality-collector');
 const { formatReport } = require('./report-formatter');
 const { parseManifest } = require('../domain/domain-loader');
 
 /**
- * Safely execute a collector, returning null on failure.
+ * Safely execute a collector, returning an error object on failure.
  * Diagnostics must be resilient — a broken collector should not crash the entire run.
  * @param {string} name - Collector name for error reporting
  * @param {Function} fn - Collector function to execute
- * @returns {*} Collector result or null
+ * @returns {*} Collector result or { error: true, collector, message, checks, fields, entries }
  */
 function _safeCollect(name, fn) {
   try {
@@ -64,8 +66,10 @@ function _collectAll(projectRoot, options) {
 
   const pipeline = _safeCollect('pipeline', () => collectPipelineSimulation(promptCount, activeAgentId, parsedManifest));
   const uap = _safeCollect('uap', () => collectUapBridgeStatus(projectRoot));
+  const timing = _safeCollect('timing', () => collectTimingMetrics(projectRoot));
+  const quality = _safeCollect('quality', () => collectQualityMetrics(projectRoot));
 
-  return { hook, session, manifest, pipeline, uap };
+  return { hook, session, manifest, pipeline, uap, timing, quality };
 }
 
 /**

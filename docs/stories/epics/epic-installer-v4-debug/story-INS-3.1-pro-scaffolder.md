@@ -153,8 +153,8 @@ Apos `npx aios-pro activate --key PRO-XXXX`, a licenca e validada e o cache e cr
 ### Testing Framework
 
 - **Framework:** Jest
-- **Test Location:** `tests/pro-scaffolder.test.js`
-- **Mocking:** `fs-extra` operations mocked para evitar I/O real
+- **Test Location:** `tests/installer/pro-scaffolder.test.js`
+- **I/O Strategy:** Real filesystem with isolated temp directories (`os.tmpdir()`)
 - **Pattern:** Seguir convencao existente em `tests/` (ver testes do installer)
 
 ### Unit Tests
@@ -303,12 +303,12 @@ PASS. `hashFile()` e sincrono (usa `readFileSync`), aceitavel para o volume espe
 
 ### Gate Status
 
-Gate: PASS → docs/qa/gates/INS-3.1-pro-scaffolder.yml
-Quality Score: 100/100
+Gate: CONCERNS → PASS (updated 2026-02-14) → docs/qa/gates/INS-3.1-pro-scaffolder.yml
+Quality Score: 90/100 → 100/100 (after fixes applied)
 
 ### Recommended Status
 
-Ready for Done — Story completa, todos ACs implementados e testados, zero issues bloqueantes.
+Ready for Done — Story completa, todos ACs implementados e testados. MEDIUM issue (resolveLicensePath) corrigido, MAJOR issue (lazy-load) corrigido.
 
 ---
 

@@ -2,7 +2,7 @@
 
 **Generated:** 2025-12-05T18:00:00.000Z
 **Updated:** 2026-02-06T12:00:00.000Z
-**Total Items:** 20 (active)
+**Total Items:** 17 (active)
 **Current Sprint:** 19 (CI Optimization & Cost Reduction) 🚀 IN PROGRESS
 **Stories Completed:** 49 (Story 3.11c, Story 5.10, Story OSR-2, Story OSR-3, Story OSR-6, Story OSR-7, Story OSR-8, Story OSR-9, **Story OSR-10**, Story 6.9, Story 6.10, Story 6.11, Story 6.12, Story 6.13, **Story 6.16**, **Story 6.18**, **Story 6.19**, Story SQS-0, Story SQS-1, Story SQS-2, Story SQS-3, Story SQS-4, **Story SQS-5**, **Story SQS-6**, **Story SQS-7**, **Story SQS-8**, Story SQS-9, **Story SQS-10**, **Story WIS-2**, **Story WIS-3**, **Story WIS-4**, **Story WIS-5**, **Story WIS-9**, **Story WIS-10**, **Story WIS-11**, **Story WIS-15**, **Story TD-1**, **Story TD-2**, **Story TD-3**, **Story TD-4**, **Story TD-5**, TD-6/YAML via TD-2, **Story HCS-1**, **Story HCS-2**, Story 3.0, Story 4.1, **Story TD-6**, **Story PRO-1**, **Story PRO-5**, **Story PRO-6**)
 **Latest Release:** [v3.10.0](https://github.com/SynkraAI/aios-core/releases/tag/v3.10.0) (2025-12-30)
@@ -75,7 +75,7 @@
 | 1733400000001 | ✨ Enhancement | Investigation: Squads System Enhancement | 🟡 Medium | **[Epic SQS](../epics/current/epic-sqs-squad-system.md)** | 56-72 hours | `epic`, `squads`, `architecture`, `cli`, `loader`, `synkra` | @po | Sprint 7 |
 | 1733400000002 | ✨ Enhancement | Investigation: Refatorar hybrid-ops Squad com Process Mapping Framework | 🟡 Medium | - | 4-8 hours | `investigation`, `squad`, `hybrid-ops`, `process-mapping`, `pedro-valerio` | @po | TBD |
 | 1738600000057 | ✨ Enhancement | Investigation: Separate Core, Configuration, and User Extensions | 🟡 Medium | [Issue #57](https://github.com/SynkraAI/aios-core/issues/57) | 8-16 hours | `investigation`, `architecture`, `config`, `extensions`, `immutability` | @architect | TBD |
-| 1738700000002 | ✨ Enhancement | PO Task: Story Lifecycle Closure (*close-story) | 🟢 Low | Story PRO-5 retrospective | 2-4 hours | `po-agent`, `story-lifecycle`, `backlog-management`, `automation` | @po | ✅ Done |
+| 1738700000099 | ✨ Enhancement | PO Task: Story Lifecycle Closure (*close-story) | 🟢 Low | Story PRO-5 retrospective | 2-4 hours | `po-agent`, `story-lifecycle`, `backlog-management`, `automation` | @po | ✅ Done |
 | 1738700000014 | ✨ Enhancement | Investigation: Universal Handoff System (`/handoff @agent`) | 🟡 Medium | AIOS-TRACE-001 | 8-16 hours | `investigation`, `handoff`, `cross-agent`, `context-transfer`, `claude-command` | @devops | TBD |
 
 ### ~~Investigation Squads System (ID: 1733400000001)~~ → **Epic SQS Created**
@@ -105,7 +105,7 @@
 
 ### Investigation hybrid-ops Squad (ID: 1733400000002) - 📍 SPRINT 13 (Investigation Phase)
 
-> **⚠️ Migration Notice:** Este enhancement será executado no projeto **synkra** em `C:\Users\AllFluence-User\Workspaces\SynkraAi\synkra`, não mais em aios-core.
+> **⚠️ Migration Notice:** Este enhancement será executado no projeto **synkra** (repositório separado), não mais em aios-core.
 >
 > **🎯 Sprint 13 Target:** Iniciar investigação e criar plano de migração (6h estimado)
 
@@ -181,7 +181,7 @@
 
 ---
 
-### ~~PO Task: Story Lifecycle Closure (ID: 1738700000002)~~ - ✅ COMPLETE
+### ~~PO Task: Story Lifecycle Closure (ID: 1738700000099)~~ - ✅ COMPLETE
 
 > **Source:** Story PRO-5 retrospective
 > **Created:** 2026-02-05 | **Completed:** 2026-02-05 | **Sprint:** N/A (immediate implementation)
@@ -189,7 +189,7 @@
 **Objective:** Create a PO task (`*close-story`) that completes the story lifecycle, complementing `*validate-story-draft`.
 
 **Lifecycle Flow:**
-```
+```text
 *validate-story-draft (START) --> Development --> PR/Merge --> *close-story (END)
         |                                                            |
         v                                                            v
@@ -391,7 +391,7 @@
 | 1732891500001 | 🔧 Technical Debt | ~~Core Module Security Hardening~~ | ✅ Done | [4.1 Task 2](v2.1/sprint-4/story-4.1-technical-debt-cleanup.md) | 4 hours | `security`, `core`, `coderabbit` | @qa |
 | 1732891500002 | 🔧 Technical Debt | ~~Core Module Code Quality Fixes~~ | ✅ Done | [4.1 Task 3](v2.1/sprint-4/story-4.1-technical-debt-cleanup.md) | 2 hours | `quality`, `core`, `coderabbit` | @qa |
 | 1732978800001 | 🔧 Technical Debt | ~~Fix Pre-existing Test Suite Failures~~ | ✅ Done | [4.1 Task 4](v2.1/sprint-4/story-4.1-technical-debt-cleanup.md) | 30 min | `testing`, `technical-debt` | @github-devops |
-| 1733427600001 | 🔧 Technical Debt | ~~Fix Flaky CI Tests (migration-backup, environment-configuration)~~ | ✅ Done | [PR #27](https://github.com/Pedrovaleriolopez/aios-fullstack/pull/27) | 2-4 hours | `testing`, `ci`, `flaky-tests`, `infrastructure` | @github-devops | **Sprint 4** |
+| 1733427600001 | 🔧 Technical Debt | ~~Fix Flaky CI Tests (migration-backup, environment-configuration)~~ | ✅ Done | [PR #27](https://github.com/Pedrovaleriolopez/aios-fullstack/pull/27) | 2-4 hours | `testing`, `ci`, `flaky-tests`, `infrastructure` | @github-devops |
 
 ### IDE Sync Pre-commit Auto-Stage (ID: 1734912000004) - 🆕 NEW
 

@@ -22,7 +22,6 @@ const { Command } = require('commander');
 const path = require('path');
 const fs = require('fs');
 const readline = require('readline');
-const { scaffoldProContent } = require('../../../../packages/installer/src/pro/pro-scaffolder');
 
 // BUG-6 fix (INS-1): Dynamic licensePath resolution
 // In framework-dev: __dirname = aios-core/.aios-core/cli/commands/pro → ../../../../pro/license
@@ -216,40 +215,51 @@ async function activateAction(options) {
     console.log('');
 
     // Scaffold pro content into project (Story INS-3.1)
+    // Lazy-load to avoid crashing if pro-scaffolder or js-yaml is unavailable
     const projectRoot = path.resolve(__dirname, '..', '..', '..', '..');
     const proSourceDir = path.join(projectRoot, 'node_modules', '@aios-fullstack', 'pro');
 
     if (fs.existsSync(proSourceDir)) {
-      console.log('Scaffolding pro content...');
-      const scaffoldResult = await scaffoldProContent(projectRoot, proSourceDir, {
-        onProgress: ({ item, status, message }) => {
-          if (status === 'done') {
-            console.log(`  + ${message}`);
-          } else if (status === 'warning') {
-            console.log(`  ! ${message}`);
-          }
-        },
-      });
-
-      if (scaffoldResult.success) {
-        console.log(`\nPro content installed (${scaffoldResult.copiedFiles.length} files)`);
-        if (scaffoldResult.skippedFiles.length > 0) {
-          console.log(`  ${scaffoldResult.skippedFiles.length} files unchanged (already up to date)`);
-        }
-        if (scaffoldResult.warnings.length > 0) {
-          for (const warning of scaffoldResult.warnings) {
-            console.log(`  Warning: ${warning}`);
-          }
-        }
-      } else {
-        console.error('\nWarning: Pro content scaffolding failed.');
-        for (const err of scaffoldResult.errors) {
-          console.error(`  ${err}`);
-        }
-        console.error('Pro features are activated but content was not copied.');
-        console.error('Try running "aios pro activate" again to retry scaffolding.');
+      let scaffoldProContent;
+      try {
+        ({ scaffoldProContent } = require('../../../../packages/installer/src/pro/pro-scaffolder'));
+      } catch {
+        console.log('Note: Pro scaffolder not available. Skipping content scaffolding.');
+        console.log('');
       }
-      console.log('');
+
+      if (scaffoldProContent) {
+        console.log('Scaffolding pro content...');
+        const scaffoldResult = await scaffoldProContent(projectRoot, proSourceDir, {
+          onProgress: ({ item, status, message }) => {
+            if (status === 'done') {
+              console.log(`  + ${message}`);
+            } else if (status === 'warning') {
+              console.log(`  ! ${message}`);
+            }
+          },
+        });
+
+        if (scaffoldResult.success) {
+          console.log(`\nPro content installed (${scaffoldResult.copiedFiles.length} files)`);
+          if (scaffoldResult.skippedFiles.length > 0) {
+            console.log(`  ${scaffoldResult.skippedFiles.length} files unchanged (already up to date)`);
+          }
+          if (scaffoldResult.warnings.length > 0) {
+            for (const warning of scaffoldResult.warnings) {
+              console.log(`  Warning: ${warning}`);
+            }
+          }
+        } else {
+          console.error('\nWarning: Pro content scaffolding failed.');
+          for (const err of scaffoldResult.errors) {
+            console.error(`  ${err}`);
+          }
+          console.error('Pro features are activated but content was not copied.');
+          console.error('Try running "aios pro activate" again to retry scaffolding.');
+        }
+        console.log('');
+      }
     } else {
       console.log('Note: @aios-fullstack/pro package not found in node_modules.');
       console.log('Pro content will be scaffolded when the package is installed.');
