@@ -12,10 +12,10 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: '18'
 
@@ -46,7 +46,7 @@ jobs:
           echo "gap_count=$(cat outputs/architecture-map/reports/gap-count.txt)" >> $GITHUB_OUTPUT
 
       - name: Upload audit artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v6
         with:
           name: gap-audit-${{ github.run_number }}
           path: |
@@ -56,7 +56,7 @@ jobs:
             outputs/architecture-map/reports/gap-trend-history.json
 
       - name: Create GitHub issue
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           script: |
             const fs = require('fs');
