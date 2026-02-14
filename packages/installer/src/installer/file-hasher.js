@@ -88,6 +88,56 @@ function hashFile(filePath) {
 }
 
 /**
+ * Async version of hashFile. Uses fs.promises for non-blocking I/O.
+ *
+ * @param {string} filePath - Absolute path to the file
+ * @returns {Promise<string>} - SHA256 hash as hex string
+ * @throws {Error} - If file cannot be read
+ */
+async function hashFileAsync(filePath) {
+  if (!await fs.pathExists(filePath)) {
+    throw new Error(`File not found: ${filePath}`);
+  }
+
+  const stats = await fs.stat(filePath);
+  if (stats.isDirectory()) {
+    throw new Error(`Cannot hash directory: ${filePath}`);
+  }
+
+  let content;
+
+  if (isBinaryFile(filePath)) {
+    content = await fs.readFile(filePath);
+  } else {
+    const rawContent = await fs.readFile(filePath, 'utf8');
+    const withoutBOM = removeBOM(rawContent);
+    const normalized = normalizeLineEndings(withoutBOM);
+    content = Buffer.from(normalized, 'utf8');
+  }
+
+  return crypto.createHash('sha256').update(content).digest('hex');
+}
+
+/**
+ * Async version of hashesMatch using hashFileAsync.
+ *
+ * @param {string} filePath1 - First file path
+ * @param {string} filePath2 - Second file path
+ * @returns {Promise<boolean>} - True if file hashes match
+ */
+async function hashFilesMatchAsync(filePath1, filePath2) {
+  try {
+    const [hash1, hash2] = await Promise.all([
+      hashFileAsync(filePath1),
+      hashFileAsync(filePath2),
+    ]);
+    return hashesMatch(hash1, hash2);
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Compute SHA256 hash of a string (for manifest integrity)
  * @param {string} content - String content to hash
  * @returns {string} - SHA256 hash as hex string
@@ -127,8 +177,10 @@ function getFileMetadata(filePath, basePath) {
 
 module.exports = {
   hashFile,
+  hashFileAsync,
   hashString,
   hashesMatch,
+  hashFilesMatchAsync,
   getFileMetadata,
   isBinaryFile,
   normalizeLineEndings,

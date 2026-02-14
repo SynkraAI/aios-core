@@ -1,0 +1,73 @@
+schema: 1
+story: 'INS-3.1'
+story_title: 'Implement Pro Content Scaffolder'
+gate: CONCERNS
+status_reason: 'All 8 ACs met with 13/13 tests passing. MEDIUM issue: resolveLicensePath() removed from index.js (out-of-scope change, potential regression for project-dev mode). Scaffolder module itself is production-ready.'
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-02-14T00:00:00Z'
+
+top_issues:
+  - severity: medium
+    category: code
+    description: 'resolveLicensePath() (BUG-6 fix, INS-1) removed from index.js and replaced with hardcoded relative path. Removes npm/cwd fallback for project-dev mode users. Out of story scope.'
+    recommendation: 'Restore resolveLicensePath() or confirm with @dev/@architect that simplification is intentional and covered by another story.'
+    suggested_owner: dev
+  - severity: low
+    category: code
+    description: 'rollbackScaffold() removes individual files but not empty directories created by scaffoldDirectory(). After rollback, empty dirs like squads/ may persist.'
+    recommendation: 'Add directory cleanup to rollback for completeness. Non-blocking.'
+    suggested_owner: dev
+  - severity: low
+    category: tests
+    description: 'Missing tests for force:true option and user-modified file preservation (hash differs scenario).'
+    recommendation: 'Add edge case tests in future iteration.'
+    suggested_owner: dev
+
+waiver: { active: false }
+
+quality_score: 90
+expires: '2026-02-28T00:00:00Z'
+
+evidence:
+  tests_reviewed: 13
+  tests_passing: 13
+  risks_identified: 1
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7, 8]
+    ac_gaps: []
+
+nfr_validation:
+  security:
+    status: PASS
+    notes: 'No secrets in logs/errors. scaffoldProContent() does not handle license keys. Path traversal safe (SCAFFOLD_ITEMS are internal constants).'
+  performance:
+    status: PASS
+    notes: 'Async hashing via hashFileAsync/hashFilesMatchAsync. Non-blocking I/O. Acceptable for expected file volume (dozens).'
+  reliability:
+    status: PASS
+    notes: 'Rollback on partial failure (AC6). Idempotency via hash comparison (AC5). Graceful degradation for missing feature-registry (AC3). Scaffold failure does not block license activation.'
+  maintainability:
+    status: PASS
+    notes: 'Clean JSDoc. SCAFFOLD_ITEMS exported for INS-3.5 extensibility. Well-separated concerns across 5 functions.'
+
+recommendations:
+  immediate:
+    - action: 'Validate or restore resolveLicensePath() in index.js — out-of-scope removal may regress project-dev mode'
+      refs: ['.aios-core/cli/commands/pro/index.js']
+  future:
+    - action: 'Add directory cleanup to rollbackScaffold()'
+      refs: ['packages/installer/src/pro/pro-scaffolder.js']
+    - action: 'Add tests for force:true and user-modified file preservation'
+      refs: ['tests/installer/pro-scaffolder.test.js']
+
+review_history:
+  - date: '2026-02-13'
+    gate: PASS
+    score: 100
+    reviewer: 'Quinn (Test Architect)'
+    notes: 'Initial review. Applied fixes: async hashing, rollback test improvement.'
+  - date: '2026-02-14'
+    gate: CONCERNS
+    score: 90
+    reviewer: 'Quinn (Test Architect)'
+    notes: 'Independent re-review. Found out-of-scope removal of resolveLicensePath().'
