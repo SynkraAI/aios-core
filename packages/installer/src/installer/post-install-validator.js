@@ -359,6 +359,27 @@ class PostInstallValidator {
       extraFiles: 0,
       skippedFiles: 0,
     };
+
+    // INS-2 Performance: Cache realpath of target directory (computed once, used for all files)
+    // This eliminates redundant fs.realpathSync() calls - 50% reduction in syscalls
+    this._realTargetDirCache = null;
+  }
+
+  /**
+   * Get the real path of the target directory (cached)
+   * INS-2 Performance Optimization: Reduces syscalls from 2 to 1 per file validation
+   * @returns {string|null} - Real path or null if resolution fails
+   */
+  _getRealTargetDir() {
+    if (this._realTargetDirCache === null) {
+      try {
+        this._realTargetDirCache = fs.realpathSync(this.aiosCoreTarget);
+      } catch {
+        // Will be handled by caller
+        return null;
+      }
+    }
+    return this._realTargetDirCache;
   }
 
   /**
@@ -681,9 +702,28 @@ class PostInstallValidator {
     // both the file path AND the target directory to their real paths, then
     // comparing containment. The key security check is: does the real path of the
     // file stay within the real path of the target directory?
+    //
+    // INS-2 Performance: realTargetDir is now cached via _getRealTargetDir()
+    // This reduces syscalls from 2 to 1 per file (50% reduction)
     try {
       const realPath = fs.realpathSync(absolutePath);
-      const realTargetDir = fs.realpathSync(this.aiosCoreTarget);
+      const realTargetDir = this._getRealTargetDir();
+
+      // Handle case where target dir resolution failed
+      if (realTargetDir === null) {
+        this.log('SECURITY: Cannot resolve realpath for target directory');
+        result.issue = {
+          type: IssueType.PERMISSION_ERROR,
+          severity: Severity.CRITICAL,
+          message: 'Cannot resolve real path for target directory',
+          details: 'Target directory realpath resolution failed',
+          category,
+          remediation: 'Check directory permissions',
+          relativePath,
+        };
+        this.stats.skippedFiles++;
+        return result;
+      }
 
       // SECURITY: Verify realpath is still contained within REAL target directory
       // This handles system symlinks like /tmp -> /private/tmp correctly

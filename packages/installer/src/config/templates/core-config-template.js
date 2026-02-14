@@ -118,7 +118,7 @@ function generateCoreConfig(options = {}) {
       enabled: true,
       heavySections: [
         'pvMindContext',
-        'expansionPacks',
+        'squads',
         'registry',
       ],
     },
@@ -146,7 +146,7 @@ function generateCoreConfig(options = {}) {
     scriptsLocation: '.aios-core/scripts',
     dataLocation: '.aios-core/data',
     elicitationLocation: '.aios-core/elicitation',
-    expansionPacksLocation: 'expansion-packs',
+    squadsLocation: 'squads',
     mindsLocation: 'outputs/minds',
 
     // Project Status Configuration

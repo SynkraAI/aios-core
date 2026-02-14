@@ -47,7 +47,14 @@ const EXCLUDE_PATTERNS = [
 class RegistryUpdater {
   constructor(options = {}) {
     this._registryPath = options.registryPath || REGISTRY_PATH;
-    this._repoRoot = options.repoRoot || REPO_ROOT;
+    // Resolve repoRoot to real path to handle macOS /var -> /private/var symlink
+    // This ensures path.relative() works correctly with resolved file paths
+    const rawRepoRoot = options.repoRoot || REPO_ROOT;
+    try {
+      this._repoRoot = fs.realpathSync(rawRepoRoot);
+    } catch {
+      this._repoRoot = rawRepoRoot;
+    }
     this._debounceMs = options.debounceMs ?? DEBOUNCE_MS;
     this._auditLogPath = options.auditLogPath || AUDIT_LOG_PATH;
     this._lockFile = options.lockFile || LOCK_FILE;
@@ -126,9 +133,28 @@ class RegistryUpdater {
         const abs = path.isAbsolute(c.filePath)
           ? c.filePath
           : path.resolve(this._repoRoot, c.filePath);
-        return { action: c.action, filePath: this._resolveSymlink(abs) };
+        // For unlink, file doesn't exist so _resolveSymlink returns original path
+        // We need to manually resolve the path to match _repoRoot format on macOS
+        let resolved = this._resolveSymlink(abs);
+        if (c.action === 'unlink' && resolved === abs) {
+          // File doesn't exist - normalize path manually for macOS /var -> /private/var
+          // This ensures path.relative() works correctly with _repoRoot
+          resolved = abs.replace(/^\/var\//, '/private/var/');
+        }
+        return { action: c.action, filePath: resolved };
       })
-      .filter((c) => !this._isExcluded(c.filePath) && this._isIncluded(c.filePath));
+      .filter((c) => {
+        // For unlink (delete), skip file existence checks - the file no longer exists
+        // We only need to verify the path would be in scope and not excluded
+        if (c.action === 'unlink') {
+          if (this._isExcluded(c.filePath)) return false;
+          // For deletions, check if path matches any known category pattern
+          const relPath = path.relative(this._repoRoot, c.filePath).replace(/\\/g, '/');
+          return this._detectCategory(relPath) !== null;
+        }
+        // For add/change, use standard inclusion check
+        return !this._isExcluded(c.filePath) && this._isIncluded(c.filePath);
+      });
 
     if (validChanges.length === 0) return { updated: 0, errors: [] };
 
