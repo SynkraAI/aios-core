@@ -87,7 +87,6 @@ aios-core/                             # Raiz (proyecto brownfield)
 │
 ├── bin/                               # Ejecutables CLI
 │   ├── @synkra/aios-core.js           # Punto de entrada principal del CLI
-│   └── aios-minimal.js                # CLI minimo
 │
 ├── tools/                             # Herramientas de build y utilidad
 │   ├── cli.js                         # Constructor de CLI

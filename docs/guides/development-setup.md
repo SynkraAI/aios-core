@@ -232,7 +232,6 @@ aios-core/
 │
 ├── bin/                           # CLI entry points
 │   ├── aios.js                    # Main CLI
-│   └── aios-minimal.js            # Minimal CLI
 │
 ├── docs/                          # All documentation
 │   ├── architecture/              # System architecture

@@ -89,8 +89,6 @@ aios-core/
 │       └── components.json  # Config shadcn/ui
 ├── bin/                     # CLI executables
 │   ├── aios.js              # CLI principal (npx aios-core)
-│   ├── aios-init.js         # Instalador interativo
-│   ├── aios-minimal.js      # CLI minimalista
 │   ├── modules/             # Módulos CLI compartilhados
 │   └── utils/               # Utilitários CLI
 ├── packages/                # Workspace packages (npm workspaces)

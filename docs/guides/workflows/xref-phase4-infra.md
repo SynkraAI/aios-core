@@ -77,7 +77,7 @@ These scripts are imported in `.aios-core/infrastructure/index.js` and exposed a
 | 45 | `scripts/atomic-layer-classifier.js` | Utilities | Classifies components by atomic design layer | -- | Only index.js + install-manifest | Likely |
 | 46 | `scripts/backup-manager.js` | System | File backup and restore management | `fs` | health-check healers, improvement-validator, tasks | No |
 | 47 | `scripts/transaction-manager.js` | System | Transactional operations with rollback | -- | batch-creator, component-generator | No |
-| 48 | `scripts/repository-detector.js` | System | Detects repository type and structure | -- | aios-init.js, agent devops, tasks | No |
+| 48 | `scripts/repository-detector.js` | System | Detects repository type and structure | -- | agent devops, tasks | No |
 | 49 | `scripts/approval-workflow.js` | System | Approval workflow management | -- | tasks/architect-analyze-impact | No |
 | 50 | `scripts/config-cache.js` | Config | Configuration caching layer | -- | config-resolver, agent-config-loader, core modules | No |
 | 51 | `scripts/config-loader.js` | Config | Configuration file loading | -- | index.js internal reference | No |
