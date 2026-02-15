@@ -17,10 +17,10 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Label PR based on files changed
-        uses: actions/labeler@v4
+        uses: actions/labeler@v6
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: .github/labeler.yml
@@ -37,7 +37,7 @@ jobs:
 
       - name: Add needs-po-review label for expansion-pack PRs
         if: steps.check-expansion-pack.outputs.has_expansion_pack == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             github.rest.issues.addLabels({
