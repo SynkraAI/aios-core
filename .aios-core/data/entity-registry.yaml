@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-15T14:58:48.329Z'
-  entityCount: 532
+  lastUpdated: '2026-02-15T23:20:39.040Z'
+  entityCount: 545
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -5210,6 +5210,7 @@ entities:
         - execution
       usedBy:
         - decision-recorder
+        - dev
       dependencies: []
       adaptability:
         score: 0.7
@@ -6983,7 +6984,8 @@ entities:
       keywords:
         - bob
         - orchestrator
-      usedBy: []
+      usedBy:
+        - pm
       dependencies:
         - config-resolver
         - executor-assignment
@@ -7131,6 +7133,7 @@ entities:
         - manager
       usedBy:
         - bob-orchestrator
+        - pm
       dependencies:
         - lock-manager
       adaptability:
@@ -9291,7 +9294,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:cc6af2a9818df9e6bb41a16a9b638f9fdf235128574ab0f6dc2947a30fb3844c
-      lastVerified: '2026-02-15T14:42:11.133Z'
+      lastVerified: '2026-02-15T23:20:39.036Z'
     design-system:
       path: .aios-core/development/agents/design-system.md
       type: agent
@@ -9434,7 +9437,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:728dcdcf5d8d33f4cb46395e1e168eb31324de1c0b98857fff6ec59d60cd1256
-      lastVerified: '2026-02-15T14:42:11.134Z'
+      lastVerified: '2026-02-15T23:20:39.039Z'
     traffic-masters-chief:
       path: .aios-core/development/agents/traffic-masters-chief.md
       type: agent
@@ -9467,6 +9470,202 @@ entities:
         extensionPoints: []
       checksum: sha256:83c0a74431e5dd6d80e9a330b27c2e5982e5f16925551daa2713d3a093ef12b7
       lastVerified: '2026-02-15T14:58:48.323Z'
+    aios-master:
+      path: .aios-core/development/agents/aios-master.md
+      type: agent
+      purpose: '''Show all available commands with descriptions'''
+      keywords:
+        - aios
+        - master
+        - aios-master
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:de31b484b16a61adb18683dbc4451868c153b916bf1be92eb7654057b7a25a04
+      lastVerified: '2026-02-15T23:20:39.034Z'
+    analyst:
+      path: .aios-core/development/agents/analyst.md
+      type: agent
+      purpose: '''Show all available commands with descriptions'''
+      keywords:
+        - analyst
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:c78859c42acfb3d85ee5e0f458fe2e6d86135858fb6f01267f1e11b34cbc481b
+      lastVerified: '2026-02-15T23:20:39.035Z'
+    architect:
+      path: .aios-core/development/agents/architect.md
+      type: agent
+      purpose: '''Show all available commands with descriptions'''
+      keywords:
+        - architect
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:32a9170fc013b048b572141b7205af59ccc37ec69228c32d33e5f9a0b36baa77
+      lastVerified: '2026-02-15T23:20:39.035Z'
+    data-engineer:
+      path: .aios-core/development/agents/data-engineer.md
+      type: agent
+      purpose: data-engineer
+      keywords:
+        - data
+        - engineer
+        - data-engineer
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:a0cdd51eaa734003daf80c89275cad7f3a104b7042e5a312b62ffd5383bd6dc2
+      lastVerified: '2026-02-15T23:20:39.036Z'
+    dev:
+      path: .aios-core/development/agents/dev.md
+      type: agent
+      purpose: '''Show all available commands with descriptions'''
+      keywords:
+        - dev
+      usedBy: []
+      dependencies:
+        - decision-log-generator
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:7a62aee6925e22230e896f336c5b9c93082d2ddad2106de209f1b2c3f98f9732
+      lastVerified: '2026-02-15T23:20:39.036Z'
+    devops:
+      path: .aios-core/development/agents/devops.md
+      type: agent
+      purpose: '''Automated PR validation workflow (Story 3.3-3.4)'''
+      keywords:
+        - devops
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:f97d986bd3b66907f5fe066c72478839c64d69442ae4533c8b0c01e904749e50
+      lastVerified: '2026-02-15T23:20:39.037Z'
+    pm:
+      path: .aios-core/development/agents/pm.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - pm
+      usedBy: []
+      dependencies:
+        - data-lifecycle-manager
+        - bob-orchestrator
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:9f76602e9102bdda595dcfd13fd1f582745776729a62363c22b431f3f722f8bf
+      lastVerified: '2026-02-15T23:20:39.037Z'
+    po:
+      path: .aios-core/development/agents/po.md
+      type: agent
+      purpose: '''Show all available commands with descriptions'''
+      keywords:
+        - po
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:74b76c0086f0ecf23bfdc91877494a3a9062de78733bb2c69667f281b4375c30
+      lastVerified: '2026-02-15T23:20:39.037Z'
+    prompt-architect:
+      path: .aios-core/development/agents/prompt-architect.md
+      type: agent
+      purpose: '''Show all available commands with descriptions'''
+      keywords:
+        - prompt
+        - architect
+        - prompt-architect
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:1c1e18eec3debf72674a2d424df7670203bc63c71b3ed2ec2d1f840e778e21a9
+      lastVerified: '2026-02-15T23:20:39.038Z'
+    qa:
+      path: .aios-core/development/agents/qa.md
+      type: agent
+      purpose: qa
+      keywords:
+        - qa
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:bdc9c07fc1a8f0914ab569d8a92d38471686d14f3fa64e163bfb1689fc1b6aa6
+      lastVerified: '2026-02-15T23:20:39.038Z'
+    sm:
+      path: .aios-core/development/agents/sm.md
+      type: agent
+      purpose: '''Show all available commands with descriptions'''
+      keywords:
+        - sm
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:dcdda42a2a8a14fc755976bc3132c9e9026de377fb40090f119a0c6f41b0ace1
+      lastVerified: '2026-02-15T23:20:39.038Z'
+    squad-creator:
+      path: .aios-core/development/agents/squad-creator.md
+      type: agent
+      purpose: '''Show all available commands with descriptions'''
+      keywords:
+        - squad
+        - creator
+        - squad-creator
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:028331ac45e395646f190af857a191aaffab56f479f7ced8e38a5de9794f281c
+      lastVerified: '2026-02-15T23:20:39.039Z'
+    ux-design-expert:
+      path: .aios-core/development/agents/ux-design-expert.md
+      type: agent
+      purpose: '''Complete workflow from user research to component building'''
+      keywords:
+        - ux
+        - design
+        - expert
+        - ux-design-expert
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:a53c15f7df36baebbcb1abbdc99cea97bb63957b0ade1a768b49c5780c61e870
+      lastVerified: '2026-02-15T23:20:39.039Z'
   checklists:
     agent-quality-gate:
       path: .aios-core/development/checklists/agent-quality-gate.md
