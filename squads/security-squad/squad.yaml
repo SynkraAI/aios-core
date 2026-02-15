@@ -1,0 +1,35 @@
+name: security-squad
+version: 1.0.0
+description: A specialized squad dedicated to offensive and defensive security operations, penetration testing, and vulnerability assessment.
+author: Security Team <security@example.com>
+license: MIT
+slashPrefix: sec
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+components:
+  agents:
+    - agents/penetration-tester.md
+  tasks:
+    - tasks/security-audit.md
+  workflows: []
+  checklists: []
+  templates: []
+  tools: []
+  scripts: []
+
+config:
+  extends: extend
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - security
+  - offensive
+  - red-team
+  - pentest
