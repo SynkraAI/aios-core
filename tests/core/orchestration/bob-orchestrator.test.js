@@ -841,6 +841,181 @@ describe('BobOrchestrator', () => {
       // When/Then - should not throw
       await expect(orchestrator._updatePhase('development', '12.1', '@dev')).resolves.not.toThrow();
     });
+
+    // FASE 5: Error logging edge case (line 1141)
+    it('should log error when recordPhaseChange fails (line 1141)', async () => {
+      // Given - debug mode enabled
+      orchestrator.options.debug = true;
+      const logs = [];
+      orchestrator._log = (msg) => logs.push(msg);
+
+      orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+      orchestrator.sessionState.state = { session_state: {} };
+      orchestrator.sessionState.recordPhaseChange = jest
+        .fn()
+        .mockRejectedValue(new Error('Session write failed'));
+
+      // When
+      await orchestrator._updatePhase('development', '12.1', '@dev');
+
+      // Then - error logged, not thrown
+      expect(logs.some((log) => log.includes('Failed to update phase'))).toBe(true);
+      expect(logs.some((log) => log.includes('Session write failed'))).toBe(true);
+    });
+  });
+
+  // FASE 5: _executeStory phase tracking (lines 1086-1112)
+  describe('_executeStory Phase Tracking', () => {
+    beforeEach(() => {
+      // Mock fs.readFileSync to avoid ENOENT (line 1077 reads story file)
+      const fs = require('fs');
+      jest.spyOn(fs, 'readFileSync').mockReturnValue(`---
+id: TEST-001
+title: Test Story
+status: Draft
+---
+# Test Story Content`);
+
+      // Mock ExecutorAssignment.assignExecutorFromContent (line 1078)
+      const ExecutorAssignment = require('../../../.aios-core/core/orchestration/executor-assignment');
+      jest
+        .spyOn(ExecutorAssignment, 'assignExecutorFromContent')
+        .mockReturnValue({
+          executor: '@dev',
+          quality_gate: '@qa',
+          quality_gate_tools: ['test_review', 'coverage_check'],
+        });
+
+      // Mock session state
+      orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+      orchestrator.sessionState.loadSessionState = jest.fn().mockResolvedValue({});
+      orchestrator.sessionState.state = { session_state: {} };
+      orchestrator.sessionState.recordPhaseChange = jest.fn().mockResolvedValue({});
+
+      // Mock workflowExecutor
+      orchestrator.workflowExecutor = {
+        execute: jest.fn().mockResolvedValue({
+          success: true,
+          selfHealing: false,
+        }),
+      };
+    });
+
+    afterEach(() => {
+      // Restore fs.readFileSync to avoid interfering with other tests
+      jest.restoreAllMocks();
+    });
+
+    it('should load session state when exists (lines 1086-1087)', async () => {
+      // Given - session exists
+      orchestrator.sessionState.exists.mockResolvedValue(true);
+
+      // When
+      await orchestrator._executeStory('docs/stories/test.md');
+
+      // Then
+      expect(orchestrator.sessionState.loadSessionState).toHaveBeenCalled();
+    });
+
+    it('should track all 5 phases when success without self_healing (lines 1090-1112)', async () => {
+      // Given - success without self_healing
+      orchestrator.workflowExecutor.execute.mockResolvedValue({
+        success: true,
+        selfHealing: false,
+      });
+
+      // When
+      await orchestrator._executeStory('docs/stories/test.md');
+
+      // Then - 5 phases tracked (validation, development, quality_gate, push, checkpoint)
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenCalledTimes(5);
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenNthCalledWith(
+        1,
+        'validation',
+        expect.any(String),
+        '@dev',
+      );
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenNthCalledWith(
+        2,
+        'development',
+        expect.any(String),
+        '@dev',
+      );
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenNthCalledWith(
+        3,
+        'quality_gate',
+        expect.any(String),
+        '@qa',
+      );
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenNthCalledWith(
+        4,
+        'push',
+        expect.any(String),
+        '@devops',
+      );
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenNthCalledWith(
+        5,
+        'checkpoint',
+        expect.any(String),
+        '@dev',
+      );
+    });
+
+    it('should track self_healing phase when result.selfHealing=true (lines 1099-1100)', async () => {
+      // Given - self_healing enabled
+      orchestrator.workflowExecutor.execute.mockResolvedValue({
+        success: true,
+        selfHealing: true,
+      });
+
+      // When
+      await orchestrator._executeStory('docs/stories/test.md');
+
+      // Then - 6 phases tracked (includes self_healing)
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenCalledTimes(6);
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenCalledWith(
+        'self_healing',
+        expect.any(String),
+        '@dev',
+      );
+    });
+
+    it('should skip push phase when result.success=false (lines 1107-1108)', async () => {
+      // Given - execution failed
+      orchestrator.workflowExecutor.execute.mockResolvedValue({
+        success: false,
+        selfHealing: false,
+      });
+
+      // When
+      await orchestrator._executeStory('docs/stories/test.md');
+
+      // Then - 4 phases tracked (no push)
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenCalledTimes(4);
+      const calls = orchestrator.sessionState.recordPhaseChange.mock.calls;
+      const phases = calls.map((call) => call[0]);
+      expect(phases).toContain('validation');
+      expect(phases).toContain('development');
+      expect(phases).toContain('quality_gate');
+      expect(phases).toContain('checkpoint');
+      expect(phases).not.toContain('push'); // Push skipped when failed
+    });
+
+    it('should skip self_healing phase when result.selfHealing=false', async () => {
+      // Given - self_healing disabled
+      orchestrator.workflowExecutor.execute.mockResolvedValue({
+        success: true,
+        selfHealing: false,
+      });
+
+      // When
+      await orchestrator._executeStory('docs/stories/test.md');
+
+      // Then - self_healing not tracked
+      const calls = orchestrator.sessionState.recordPhaseChange.mock.calls;
+      const phases = calls.map((call) => call[0]);
+      expect(phases).not.toContain('self_healing');
+    });
   });
 
   // ==========================================
