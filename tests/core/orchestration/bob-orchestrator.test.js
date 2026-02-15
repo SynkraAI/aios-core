@@ -477,7 +477,7 @@ describe('BobOrchestrator', () => {
       expect(result.action).toBe('ask_objective');
     });
 
-    it.skip('should route to greenfield for GREENFIELD state (AC6)', async () => {
+    it('should route to greenfield for GREENFIELD state (AC6)', async () => {
       // Given — clean empty project
       const emptyRoot = path.join(TEST_PROJECT_ROOT, 'greenfield');
       await fs.mkdir(emptyRoot, { recursive: true });
