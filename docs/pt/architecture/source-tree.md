@@ -440,7 +440,7 @@ dependencies:
 
 **Decisão 005 define 5 repositórios separados:**
 
-### REPO 1: SynkraAI/aios-core (Commons Clause)
+### REPO 1: SynkraAI/aios-core (MIT)
 
 ```
 aios-core/
