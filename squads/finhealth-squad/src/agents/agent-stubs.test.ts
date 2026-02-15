@@ -26,6 +26,7 @@ describe('AuditorAgent', () => {
   it('has correct AGENT_ID and SUPPORTED_TASKS', () => {
     expect(AuditorAgent.AGENT_ID).toBe('auditor-agent');
     expect(AuditorAgent.SUPPORTED_TASKS).toContain('audit-batch');
+    expect(AuditorAgent.SUPPORTED_TASKS).toContain('audit-account');
     expect(AuditorAgent.SUPPORTED_TASKS).toContain('score-glosa-risk');
     expect(AuditorAgent.SUPPORTED_TASKS).toContain('detect-inconsistencies');
   });
@@ -49,6 +50,26 @@ describe('AuditorAgent', () => {
 
   it('scoreGlosaRisk rejects missing accountId', async () => {
     await expect(agent.scoreGlosaRisk({})).rejects.toThrow();
+  });
+
+  it('auditAccount rejects missing accountId', async () => {
+    await expect(agent.auditAccount({})).rejects.toThrow();
+  });
+
+  it('auditAccount delegates with valid input', async () => {
+    await agent.auditAccount({ accountId: 'acc-1' });
+    expect(runtime.executeTask).toHaveBeenCalledWith(
+      expect.objectContaining({ taskName: 'audit-account' }),
+    );
+  });
+
+  it('auditAccount accepts optional guideXml', async () => {
+    await agent.auditAccount({ accountId: 'acc-1', guideXml: '<xml/>' });
+    expect(runtime.executeTask).toHaveBeenCalledWith(
+      expect.objectContaining({
+        parameters: expect.objectContaining({ accountId: 'acc-1', guideXml: '<xml/>' }),
+      }),
+    );
   });
 
   it('detectInconsistencies delegates to runtime', async () => {

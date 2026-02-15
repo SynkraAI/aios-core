@@ -25,12 +25,19 @@ const ScoreGlosaRiskInputSchema = z.object({
   accountId: z.string(),
 });
 
+const AuditAccountInputSchema = z.object({
+  accountId: z.string(),
+  guideXml: z.string().optional(),
+  validateTiss: z.boolean().default(true),
+});
+
 const DetectInconsistenciesInputSchema = z.object({
   accounts: z.array(z.unknown()).optional(),
   accountId: z.string().optional(),
 });
 
 export type AuditBatchInput = z.infer<typeof AuditBatchInputSchema>;
+export type AuditAccountInput = z.infer<typeof AuditAccountInputSchema>;
 export type ScoreGlosaRiskInput = z.infer<typeof ScoreGlosaRiskInputSchema>;
 export type DetectInconsistenciesInput = z.infer<typeof DetectInconsistenciesInputSchema>;
 
@@ -42,6 +49,7 @@ export class AuditorAgent {
   static readonly AGENT_ID = 'auditor-agent';
   static readonly SUPPORTED_TASKS = [
     'audit-batch',
+    'audit-account',
     'score-glosa-risk',
     'detect-inconsistencies',
   ] as const;
@@ -57,6 +65,15 @@ export class AuditorAgent {
     return this.runtime.executeTask({
       agentId: AuditorAgent.AGENT_ID,
       taskName: 'audit-batch',
+      parameters: validated as Record<string, unknown>,
+    });
+  }
+
+  async auditAccount(input: unknown): Promise<TaskResult> {
+    const validated = AuditAccountInputSchema.parse(input);
+    return this.runtime.executeTask({
+      agentId: AuditorAgent.AGENT_ID,
+      taskName: 'audit-account',
       parameters: validated as Record<string, unknown>,
     });
   }
