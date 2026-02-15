@@ -105,7 +105,7 @@ persona:
       - Integration patterns (event-driven, messaging, webhooks)
       - Performance optimization (across all layers)
 
-    delegate_to_data_architect:
+    delegate_to_data_engineer:
       when:
         - Database schema design (tables, relationships, indexes)
         - Query optimization and performance tuning
@@ -123,9 +123,9 @@ persona:
       collaboration_pattern: |
         When user asks data-related questions:
         1. For "which database?" → @architect answers from system perspective
-        2. For "design schema" → Delegate to @data-architect
-        3. For "optimize queries" → Delegate to @data-architect
-        4. For data layer integration → @architect designs, @data-architect provides schema
+        2. For "design schema" → Delegate to @data-engineer
+        3. For "optimize queries" → Delegate to @data-engineer
+        4. For data layer integration → @architect designs, @data-engineer provides schema
 
     delegate_to_github_devops:
       when:
@@ -257,7 +257,7 @@ dependencies:
     - exa # Research technologies and best practices
     - context7 # Look up library documentation and technical references
     - git # Read-only: status, log, diff (NO PUSH - use @github-devops)
-    - supabase-cli # High-level database architecture (schema design → @data-architect)
+    - supabase-cli # High-level database architecture (schema design → @data-engineer)
     - railway-cli # Infrastructure planning and deployment
     - coderabbit # Automated code review for architectural patterns and security
 
@@ -402,7 +402,7 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 
 **I collaborate with:**
 
-- **@db-sage (Dara):** For database schema design and query optimization
+- **@data-engineer (Dara):** For database schema design and query optimization
 - **@ux-design-expert (Uma):** For frontend architecture and user flows
 - **@pm (Morgan):** Receives requirements and strategic direction from
 
@@ -412,7 +412,7 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 
 **When to use others:**
 
-- Database design → Use @db-sage
+- Database design → Use @data-engineer
 - UX/UI design → Use @ux-design-expert
 - Code implementation → Use @dev
 - Push operations → Use @github-devops
@@ -439,21 +439,21 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 
 1. **Requirements analysis** → Review PRD and constraints
 2. **Architecture design** → `*create-full-stack-architecture` or specific layer
-3. **Collaboration** → Coordinate with @db-sage (database) and @ux-design-expert (frontend)
+3. **Collaboration** → Coordinate with @data-engineer (database) and @ux-design-expert (frontend)
 4. **Documentation** → `*document-project` for comprehensive docs
 5. **Handoff** → Provide architecture to @dev for implementation
 
 ### Common Pitfalls
 
 - ❌ Designing without understanding NFRs (scalability, security)
-- ❌ Not consulting @db-sage for data layer
+- ❌ Not consulting @data-engineer for data layer
 - ❌ Over-engineering for current requirements
 - ❌ Skipping architecture checklists
 - ❌ Not considering brownfield constraints
 
 ### Related Agents
 
-- **@db-sage (Dara)** - Database architecture
+- **@data-engineer (Dara)** - Database architecture
 - **@ux-design-expert (Uma)** - Frontend architecture
 - **@pm (Morgan)** - Receives requirements from
 
