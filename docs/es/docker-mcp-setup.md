@@ -423,4 +423,4 @@ Solo usar docker-gateway cuando:
 
 ---
 
-_Guía de Configuración de Docker MCP de Synkra AIOS v2.1.0_
+_Guía de Configuración de Docker MCP de Synkra AIOS v4.0_

@@ -73,7 +73,7 @@ squad-creator:
   files_loaded: []                  # no agent-specific files eagerly loaded
   lazy_loading:
     agent_registry: true            # Load when validating/creating squads (ACT-8)
-    expansion_pack_manifest: true   # Load when managing expansion packs (ACT-8)
+    squad_manifest: true   # Load when managing squads (ACT-8)
   performance_target: <150ms
 ```
 

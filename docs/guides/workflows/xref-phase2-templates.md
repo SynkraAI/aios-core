@@ -258,7 +258,7 @@ Scaffold templates for creating new microservice packages.
 
 Location: `.aios-core/development/templates/squad-template/`
 
-Full project scaffold used when creating new expansion packs (squads).
+Full project scaffold used when creating new squads (squads).
 
 | # | File | Consuming Task(s) | Consuming Agent(s) | Workflow(s) | Orphan? |
 |---|------|--------------------|---------------------|-------------|---------|

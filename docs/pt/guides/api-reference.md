@@ -589,7 +589,7 @@ active_ides:
   - cursor
   - windsurf
 
-pack_aliases:
+squad_aliases:
   legal: Legal
   copy: Copy
   hr: HR
@@ -901,4 +901,4 @@ Para desenvolvimento paralelo:
 
 ---
 
-_Synkra AIOS Referência de API v2.1.0_
+_Synkra AIOS Referência de API v4.0.4_

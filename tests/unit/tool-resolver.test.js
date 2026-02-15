@@ -103,8 +103,8 @@ tool:
       expect(tool1).toBe(tool2);
     });
 
-    test('should use different cache keys for different expansion packs', async () => {
-      glob.sync.mockReturnValue(['expansion-packs/pack1/tools/test-tool.yaml']);
+    test('should use different cache keys for different squads', async () => {
+      glob.sync.mockReturnValue(['squads/pack1/tools/test-tool.yaml']);
       fs.readFile.mockResolvedValue(simpleToolYaml);
 
       const tool1 = await resolver.resolveTool('test-simple', { expansionPack: 'pack1' });
@@ -141,11 +141,11 @@ tool:
   });
 
   describe('Search Path Priority', () => {
-    test('should prioritize expansion pack tools over core tools', async () => {
-      // Mock expansion pack tool found first
+    test('should prioritize squad tools over core tools', async () => {
+      // Mock squad tool found first
       glob.sync.mockImplementation((pattern) => {
-        if (pattern.includes('expansion-packs/my-pack')) {
-          return ['expansion-packs/my-pack/tools/test-simple.yaml'];
+        if (pattern.includes('squads/my-pack')) {
+          return ['squads/my-pack/tools/test-simple.yaml'];
         }
         return [];
       });
@@ -154,18 +154,18 @@ tool:
 
       const tool = await resolver.resolveTool('test-simple', { expansionPack: 'my-pack' });
 
-      // Should have searched expansion pack first
+      // Should have searched squad first
       expect(glob.sync).toHaveBeenCalledWith(
-        expect.stringContaining('expansion-packs/my-pack/tools'),
+        expect.stringContaining('squads/my-pack/tools'),
       );
 
       expect(tool.id).toBe('test-simple');
     });
 
-    test('should fall back to core when expansion pack tool not found', async () => {
-      // Mock: expansion pack returns empty, core returns tool
+    test('should fall back to core when squad tool not found', async () => {
+      // Mock: squad returns empty, core returns tool
       glob.sync.mockImplementation((pattern) => {
-        if (pattern.includes('expansion-packs')) {
+        if (pattern.includes('squads')) {
           return [];
         }
         if (pattern.includes('aios-core/tools')) {

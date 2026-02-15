@@ -104,6 +104,6 @@ For Go projects, use `setup-go@v5`:
 
 ## Related
 
-- [Story 5.10 - GitHub DevOps Setup](../../../docs/stories/v2.1/sprint-5/story-5.10-github-devops-user-projects.md)
+- [Story 5.10 - GitHub DevOps Setup](../../../docs/stories/v4.0.4/sprint-5/story-5.10-github-devops-user-projects.md)
 - [setup-github task](../../development/tasks/setup-github.md)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)

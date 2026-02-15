@@ -92,4 +92,4 @@ Templates follow the [AIOS Document Template](../common/utils/aios-doc-template.
 - The power is in natural language orchestration, not code
 - Dev agents code, planning agents plan
 - Keep dev agents lean for maximum coding efficiency
-- Expansion packs handle specialized domains
+- Starter squads handle specialized domains

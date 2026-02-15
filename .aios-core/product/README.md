@@ -50,7 +50,7 @@ const checklistPath = '.aios-core/product/checklists/story-dod-checklist.md';
 
 ## Migration
 
-Created as part of [Story 2.4](../../../docs/stories/v2.1/sprint-2/story-2.4-product-module.md) in Sprint 2.
+Created as part of [Story 2.4](../../../docs/stories/v4.0.4/sprint-2/story-2.4-product-module.md) in Sprint 2.
 
 ---
-*Synkra AIOS v2.1 - Product Module*
+*Synkra AIOS v4 - Product Module*

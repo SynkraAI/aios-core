@@ -1,6 +1,6 @@
-# Guía de Inicio Rápido AIOS v2.1
+# Guía de Inicio Rápido AIOS v4
 
-> 🌐 [EN](../../installation/v2.1-quick-start.md) | [PT](../../pt/installation/v2.1-quick-start.md) | **ES**
+> 🌐 [EN](../../installation/v4-quick-start.md) | [PT](../../pt/installation/v4-quick-start.md) | **ES**
 
 ---
 

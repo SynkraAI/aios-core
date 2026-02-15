@@ -30,7 +30,7 @@ y este proyecto sigue [Versionado Semantico](https://semver.org/spec/v2.0.0.html
 - **Suite de Documentacion**:
   - Guia de Solucion de Problemas con 23 problemas documentados
   - FAQ con 22 preguntas y respuestas
-  - Guia de Migracion v2.0 a v2.1
+  - Guia de Migracion v2.0 a v4.0.4
 
 ### Cambiado
 

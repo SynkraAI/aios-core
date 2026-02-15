@@ -1,11 +1,11 @@
 /**
  * AIOS Migration Command
  *
- * CLI command for migrating from v2.0 to v2.1 modular structure.
+ * CLI command for migrating from v2.0 to v4.0.4 modular structure.
  *
  * @module cli/commands/migrate
  * @version 1.0.0
- * @story 2.14 - Migration Script v2.0 → v2.1
+ * @story 2.14 - Migration Script v2.0 → v4.0.4
  */
 
 const { Command } = require('commander');
@@ -91,7 +91,7 @@ async function runMigration(options) {
 
   if (!versionInfo.isV2) {
     if (versionInfo.isV21) {
-      console.log('ℹ️  Project already has v2.1 structure. No migration needed.');
+      console.log('ℹ️  Project already has v4.0.4 structure. No migration needed.');
       return;
     }
     console.error(`❌ ${versionInfo.error || 'Cannot detect AIOS version'}`);
@@ -118,7 +118,7 @@ async function runMigration(options) {
   // Check for conflicts
   if (plan.conflicts.length > 0) {
     console.log('');
-    console.log('⚠️  Conflicts detected. Some v2.1 directories already exist.');
+    console.log('⚠️  Conflicts detected. Some v4.0.4 directories already exist.');
 
     if (!yes) {
       const proceed = await askConfirmation('Continue anyway?');
@@ -363,7 +363,7 @@ function createMigrateCommand() {
   const migrate = new Command('migrate');
 
   migrate
-    .description('Migrate AIOS from v2.0 to v2.1 modular structure')
+    .description('Migrate AIOS from v2.0 to v4.0.4 modular structure')
     .option('--from <version>', 'Source version', '2.0')
     .option('--to <version>', 'Target version', '2.1')
     .option('--dry-run', 'Show migration plan without executing')

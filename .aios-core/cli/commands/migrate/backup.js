@@ -2,11 +2,11 @@
  * Migration Backup Module
  *
  * Handles backup creation, verification, and manifest generation
- * for v2.0 → v2.1 migration.
+ * for v2.0 → v4.0.4 migration.
  *
  * @module cli/commands/migrate/backup
  * @version 1.0.0
- * @story 2.14 - Migration Script v2.0 → v2.1
+ * @story 2.14 - Migration Script v2.0 → v4.0.4
  */
 
 const fs = require('fs');

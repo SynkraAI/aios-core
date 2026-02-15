@@ -1,11 +1,11 @@
 /**
  * Migration Rollback Module
  *
- * Handles rollback from v2.1 back to v2.0 structure using backup.
+ * Handles rollback from v4.0.4 back to v2.0 structure using backup.
  *
  * @module cli/commands/migrate/rollback
  * @version 1.0.0
- * @story 2.14 - Migration Script v2.0 → v2.1
+ * @story 2.14 - Migration Script v2.0 → v4.0.4
  */
 
 const fs = require('fs');
@@ -14,7 +14,7 @@ const { findLatestBackup, verifyBackup, copyFileWithMetadata } = require('./back
 const { clearMigrationState } = require('./execute');
 
 /**
- * Remove v2.1 module directories
+ * Remove v4.0.4 module directories
  * @param {string} aiosCoreDir - Path to .aios-core
  * @param {Object} options - Options
  * @returns {Promise<Object>} Removal result
@@ -28,7 +28,7 @@ async function removeV21Structure(aiosCoreDir, options = {}) {
     errors: [],
   };
 
-  onProgress({ phase: 'remove', message: '✓ Removing v2.1 structure...' });
+  onProgress({ phase: 'remove', message: '✓ Removing v4.0.4 structure...' });
 
   for (const moduleName of v21Modules) {
     const moduleDir = path.join(aiosCoreDir, moduleName);
@@ -182,7 +182,7 @@ async function executeRollback(projectRoot, options = {}) {
     },
   });
 
-  // Step 1: Remove v2.1 structure
+  // Step 1: Remove v4.0.4 structure
   const aiosCoreDir = path.join(projectRoot, '.aios-core');
   result.removal = await removeV21Structure(aiosCoreDir, { onProgress });
 
@@ -273,7 +273,7 @@ function formatRollbackSummary(result) {
   }
 
   if (result.removal?.removed?.length > 0) {
-    lines.push(`Removed: ${result.removal.removed.length} v2.1 directories`);
+    lines.push(`Removed: ${result.removal.removed.length} v4.0.4 directories`);
   }
 
   return lines.join('\n');

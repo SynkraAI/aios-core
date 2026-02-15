@@ -24,11 +24,11 @@ function getAiosCoreSourcePath() {
 
 /**
  * Folders to copy from .aios-core
- * Includes both v2.1 modular structure and v2.0 legacy flat structure for compatibility
+ * Includes both v4 modular structure and v2.0 legacy flat structure for compatibility
  * @constant {string[]}
  */
 const FOLDERS_TO_COPY = [
-  // v2.1 Modular Structure (Story 2.15)
+  // v4.0.4 Modular Structure (Story 2.15)
   'core',           // Framework utilities, config, registry, migration
   'development',    // Agents, tasks, workflows, scripts, personas
   'product',        // Templates, checklists, cli, api

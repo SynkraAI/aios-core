@@ -83,4 +83,4 @@ docs/
 - Leverage auto-apply for suggested changes
 
 ---
-*Synkra AIOS Roo Code Configuration v2.1*
+*Synkra AIOS Roo Code Configuration v4.0.4*

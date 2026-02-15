@@ -855,7 +855,7 @@ For full details, see `CONTRIBUTING.md`. Key points:
 
 ### What Are Expansion Packs?
 
-Expansion packs extend AIOS-Method beyond traditional software development into ANY domain. They provide specialized agent teams, templates, and workflows while keeping the core framework lean and focused on development.
+Squads extend AIOS-Method beyond traditional software development into ANY domain. They provide specialized agent teams, templates, and workflows while keeping the core framework lean and focused on development.
 
 ### Why Use Expansion Packs?
 
@@ -883,7 +883,7 @@ Expansion packs extend AIOS-Method beyond traditional software development into 
 
 **Specialty Packs**:
 
-- **Expansion Creator**: Tools to build your own expansion packs
+- **Expansion Creator**: Tools to build your own squads
 - **RPG Game Master**: Tabletop gaming assistance
 - **Life Event Planning**: Wedding planners, event coordinators
 - **Scientific Research**: Literature reviewers, methodology designers
@@ -896,7 +896,7 @@ Expansion packs extend AIOS-Method beyond traditional software development into 
 
    ```bash
    npx @synkra/aios-core install
-   # Select "Install expansion pack" option
+   # Select "Install squad" option
    ```
 
 4. **Use in Your Workflow**: Installed packs integrate seamlessly with existing agents
@@ -910,7 +910,7 @@ Use the **expansion-creator** pack to build your own:
 3. **Build Resources**: Tasks, templates, checklists for your domain
 4. **Test & Share**: Validate with real use cases, share with community
 
-**Key Principle**: Expansion packs democratize expertise by making specialized knowledge accessible through AI agents.
+**Key Principle**: Squads democratize expertise by making specialized knowledge accessible through AI agents.
 
 ## Getting Help
 

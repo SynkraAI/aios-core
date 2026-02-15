@@ -746,9 +746,9 @@ gh auth status
 
 ## FAQ
 
-### What's the difference between a Squad and an Expansion Pack?
+### What's the difference between a Squad and legacy AIOS squad formats?
 
-**Squads** are the new standard (AIOS 2.1+) replacing Expansion Packs. Squads have:
+**Squads** are the standard format in AIOS 2.1+ with:
 - Task-first architecture
 - JSON Schema validation
 - Three-level distribution

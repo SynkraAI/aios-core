@@ -54,14 +54,14 @@ AIOS usa una **arquitectura de doble capa**:
 ```
 aios-core/                             # Raiz (proyecto brownfield)
 ├── .aios-core/                        # Framework core (portable)
-│   ├── core/                          # Esenciales del framework (v2.1)
+│   ├── core/                          # Esenciales del framework (v4)
 │   │   ├── config/                    # Sistema de configuracion
 │   │   ├── data/                      # Base de conocimiento core
 │   │   ├── docs/                      # Documentacion core
 │   │   ├── elicitation/               # Motor de prompts interactivos
 │   │   ├── session/                   # Gestion de estado en runtime
 │   │   └── utils/                     # Utilidades core
-│   ├── product/                       # Assets de PM/PO (v2.1)
+│   ├── product/                       # Assets de PM/PO (v4)
 │   │   ├── templates/                 # Plantillas de documentos (52+ archivos)
 │   │   ├── checklists/                # Checklists de validacion (6 archivos)
 │   │   └── data/                      # Datos especificos de PM (6 archivos)

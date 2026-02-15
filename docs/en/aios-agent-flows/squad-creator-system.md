@@ -11,7 +11,7 @@
 - Creating and configuring new agent squads
 - Defining squad compositions and roles
 - Setting up squad-specific workflows
-- Managing expansion packs and customizations
+- Managing squads and customizations
 
 ---
 

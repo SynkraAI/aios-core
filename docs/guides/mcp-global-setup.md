@@ -693,4 +693,4 @@ Create `.mcp.json` in project root to override global settings:
 
 ---
 
-_Synkra AIOS v2.1 MCP Global Setup Guide_
+_Synkra AIOS v4 MCP Global Setup Guide_

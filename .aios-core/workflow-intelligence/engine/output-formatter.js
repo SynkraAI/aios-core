@@ -211,7 +211,7 @@ function displayHelp() {
   output.push(
     `  ${colorize('*next', 'green')}                                    ${colorize('# Auto-detect context', 'dim')}`,
   );
-  output.push(`  ${colorize('*next --story docs/stories/v2.1/sprint-10/story-wis-3.md', 'green')}`);
+  output.push(`  ${colorize('*next --story docs/stories/v4.0.4/sprint-10/story-wis-3.md', 'green')}`);
   output.push(
     `  ${colorize('*next --all', 'green')}                              ${colorize('# Show all suggestions', 'dim')}`,
   );

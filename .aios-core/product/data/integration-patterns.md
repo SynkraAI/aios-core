@@ -15,7 +15,7 @@ interface DesignSystemHook {
     applyTheme(theme: Theme): void;
 }
 
-// Expansion packs consume
+// Squads consume
 const designSystem = useDesignSystem();
 const tokens = designSystem.getTokens({ personality: 'formal' });
 ```

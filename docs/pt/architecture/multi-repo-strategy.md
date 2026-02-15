@@ -26,7 +26,7 @@
 
 ## Visão Geral
 
-AIOS v2.1 adota uma **estratégia multi-repositório** para viabilizar desenvolvimento modular, contribuições comunitárias e separação clara entre framework principal, extensões (squads) e componentes proprietários.
+AIOS v4 adota uma **estratégia multi-repositório** para viabilizar desenvolvimento modular, contribuições comunitárias e separação clara entre framework principal, extensões (squads) e componentes proprietários.
 
 ### Objetivos de Design
 
@@ -379,7 +379,7 @@ npm publish --access public
 
 - [Arquitetura de Alto Nível](./high-level-architecture.md)
 - [Sistema de Módulos](./module-system.md)
-- [Guia de Migração v2.0 para v2.1](../migration/v2.0-to-v2.1.md)
+- [Guia de Migração v2.0 para v4.0.4](../migration/migration-guide.md)
 - [Guia de Squads](../guides/squads-guide.md)
 
 ---

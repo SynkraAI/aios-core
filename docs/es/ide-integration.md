@@ -469,4 +469,4 @@ npm run sync:agents -- --platform cursor
 
 ---
 
-_Guía de Integración con IDEs de Synkra AIOS v2.1.0_
+_Guía de Integración con IDEs de Synkra AIOS v4.0_

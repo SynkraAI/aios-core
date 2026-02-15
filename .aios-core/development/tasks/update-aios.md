@@ -146,6 +146,6 @@ git checkout -- .aios-core/
 | Version | Date | Changes |
 |---------|------|---------|
 | 4.0.0 | 2026-01-31 | **SIMPLIFIED:** Git-native approach, 15-line bash script replaces 847-line JS |
-| 3.1.0 | 2026-01-30 | Dynamic protection for expansion pack commands |
+| 3.1.0 | 2026-01-30 | Dynamic protection for squad commands |
 | 3.0.0 | 2026-01-29 | YOLO mode with rsync |
 | 1.0.0 | 2026-01-29 | Initial version (verbose, interactive) |

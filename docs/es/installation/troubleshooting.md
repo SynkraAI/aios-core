@@ -641,7 +641,7 @@ npx @synkra/aios-core install --full
 npx @synkra/aios-core status
 
 # Listar Squads disponibles
-npx @synkra/aios-core list:expansions
+npx @synkra/aios-core install
 
 # Actualizar instalación existente
 npx @synkra/aios-core update

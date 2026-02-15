@@ -111,7 +111,7 @@ npx @synkra/aios-core init my-project
 
 **Symptoms:**
 ```
-Error: Node.js version 14.0.0 or higher required
+Error: Node.js version 18.0.0 or higher required
 ```
 
 **Solution:**

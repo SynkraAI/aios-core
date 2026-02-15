@@ -656,7 +656,7 @@ Ejemplo: .aios-core/infrastructure/integrations/pm-adapters/monday-adapter.js
 
 # Estoy escribiendo una story (docs de dev internos - gitignored):
 Ubicación: docs/stories/{sprint-context}/{story-file}.md
-Ejemplo: docs/stories/v2.1/sprint-6/story-6.14-new-feature.md
+Ejemplo: docs/stories/v4.0.4/sprint-6/story-6.14-new-feature.md
 
 # Estoy creando documentación oficial del framework:
 Ubicación: docs/framework/{doc-name}.md

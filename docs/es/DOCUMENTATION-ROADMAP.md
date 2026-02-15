@@ -49,7 +49,7 @@ Después del análisis, se categorizan en:
 
 | Documento             | Ubicación               | Complejidad | Descripción                                |
 | --------------------- | ----------------------- | ----------- | ------------------------------------------ |
-| `v2.1-quick-start.md` | `docs/en/installation/` | Simple      | Guía de inicio rápido para nuevos usuarios |
+| `v4-quick-start.md` | `docs/en/installation/` | Simple      | Guía de inicio rápido para nuevos usuarios |
 
 **Esquema de contenido:**
 
@@ -103,8 +103,8 @@ Estos documentos deben **fusionarse en documentación existente**:
 
 | Documento Faltante                                | Fusionar En                                  | Acción                               |
 | ------------------------------------------------- | -------------------------------------------- | ------------------------------------ |
-| `installation/migration-v2.0-to-v2.1.md`          | `migration-guide.md`                         | Agregar sección v2.0→v2.1            |
-| `migration-v2.0-to-v2.1.md`                       | `migration-guide.md`                         | Igual que arriba                     |
+| `installation/migration-migration-guide.md`          | `migration-guide.md`                         | Agregar sección v2.0→v4.0.4            |
+| `migration-migration-guide.md`                       | `migration-guide.md`                         | Igual que arriba                     |
 | `coderabbit-integration-decisions.md`             | `architecture/adr/`                          | Crear nuevo ADR                      |
 | `technical-review-greeting-system-unification.md` | `guides/contextual-greeting-system-guide.md` | Agregar sección técnica              |
 | `hybrid-ops-pv-mind-integration.md`               | `architecture/high-level-architecture.md`    | Agregar sección de integración       |
@@ -141,7 +141,7 @@ Estos documentos son **obsoletos o redundantes** y NO deben ser creados:
 ```
 Semana 1 (Fase 1)
 ├── Día 1-2: mcp-api-keys-management.md
-└── Día 3-4: v2.1-quick-start.md
+└── Día 3-4: v4-quick-start.md
 
 Semana 2-3 (Fase 2)
 ├── Día 1-3: agent-tool-integration-guide.md
@@ -188,7 +188,7 @@ Todos los nuevos documentos deben ser creados en **3 idiomas**:
 ### Fase 1
 
 - [ ] `mcp-api-keys-management.md` (EN/PT-BR/ES)
-- [ ] `v2.1-quick-start.md` (EN/PT-BR/ES)
+- [ ] `v4-quick-start.md` (EN/PT-BR/ES)
 
 ### Fase 2
 
@@ -206,7 +206,7 @@ Todos los nuevos documentos deben ser creados en **3 idiomas**:
 
 ### Consolidación
 
-- [ ] Sección de guía de migración v2.0→v2.1 agregada
+- [ ] Sección de guía de migración v2.0→v4.0.4 agregada
 - [ ] ADR para decisiones de CodeRabbit creado
 - [ ] Sección técnica de guía de sistema de saludos agregada
 

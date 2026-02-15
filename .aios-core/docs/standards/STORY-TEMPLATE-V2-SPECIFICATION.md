@@ -476,7 +476,7 @@ Use this checklist when creating or reviewing stories:
 #### Terminology
 - [ ] Uses "Squad" not "Expansion Pack"
 - [ ] Uses "@aios/" npm scope
-- [ ] References v2.1 architecture
+- [ ] References v4.0.4 architecture
 
 ---
 

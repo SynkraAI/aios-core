@@ -12,7 +12,7 @@ AIOS aims to be the most comprehensive open-source AI agent framework, enabling 
 
 ## Current Focus (Q1 2026)
 
-### v2.1 Release
+### v4.0.4 Release
 
 Core framework stabilization and community infrastructure:
 
@@ -30,7 +30,7 @@ Core framework stabilization and community infrastructure:
 - [x] Contribution guides (CONTRIBUTING.md, COMMUNITY.md)
 - [x] Feature request process (FEATURE_PROCESS.md)
 - [x] Public roadmap (this document!)
-- [ ] Expansion pack registry
+- [ ] Starter squad registry
 
 ## Next Up (Q2 2026)
 
@@ -105,7 +105,7 @@ This public roadmap is synchronized with our internal sprint planning:
 | Quarterly timeline | Sprint-based execution |
 
 **Sync Checklist (Monthly):**
-- [ ] Review completed sprints in `docs/stories/v2.1/`
+- [ ] Review completed sprints in `docs/stories/v4.0.4/`
 - [ ] Update GitHub Project items status (Done/In Progress)
 - [ ] Add new approved features from backlog to Project
 - [ ] Update this ROADMAP.md with latest progress

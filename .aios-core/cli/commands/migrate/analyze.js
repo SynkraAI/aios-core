@@ -2,11 +2,11 @@
  * Migration Structure Analysis Module
  *
  * Detects v2.0 structure and generates migration plan
- * for v2.0 → v2.1 migration.
+ * for v2.0 → v4.0.4 migration.
  *
  * @module cli/commands/migrate/analyze
  * @version 1.0.0
- * @story 2.14 - Migration Script v2.0 → v2.1
+ * @story 2.14 - Migration Script v2.0 → v4.0.4
  */
 
 const fs = require('fs');
@@ -14,7 +14,7 @@ const path = require('path');
 const { getAllFiles } = require('./backup');
 
 /**
- * Module mapping configuration for v2.0 → v2.1 migration
+ * Module mapping configuration for v2.0 → v4.0.4 migration
  */
 const MODULE_MAPPING = {
   core: {
@@ -81,7 +81,7 @@ async function detectV2Structure(projectRoot) {
     };
   }
 
-  // Check for v2.1 modular structure (core, development, product, infrastructure dirs)
+  // Check for v4.0.4 modular structure (core, development, product, infrastructure dirs)
   const v21Modules = ['core', 'development', 'product', 'infrastructure'];
   const hasV21Structure = v21Modules.every(module =>
     fs.existsSync(path.join(aiosCoreDir, module)),
@@ -92,7 +92,7 @@ async function detectV2Structure(projectRoot) {
       isV2: false,
       isV21: true,
       version: '2.1',
-      message: 'Project already has v2.1 modular structure',
+      message: 'Project already has v4.0.4 modular structure',
     };
   }
 
@@ -211,7 +211,7 @@ async function analyzeMigrationPlan(projectRoot, options = {}) {
     plan.totalSize += stats.size;
   }
 
-  // Check for potential conflicts (existing v2.1 directories)
+  // Check for potential conflicts (existing v4.0.4 directories)
   for (const moduleName of Object.keys(plan.modules)) {
     const targetDir = path.join(aiosCoreDir, moduleName);
     if (fs.existsSync(targetDir)) {

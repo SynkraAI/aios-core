@@ -80,7 +80,7 @@ Esta abordagem de duas fases elimina tanto a **inconsistência de planejamento**
 - **[Aprender como usar o AIOS](docs/guides/user-guide.md)** → Guia completo do usuário e passo a passo
 - **[Ver agentes IA disponíveis](#agentes-disponíveis)** → Papéis especializados para sua equipe
 - **[Explorar usos não técnicos](#-além-do-desenvolvimento-de-software---squads)** → Escrita criativa, negócios, bem-estar, educação
-- **[Criar meus próprios agentes IA](#criando-seu-próprio-expansion-pack)** → Construir agentes para seu domínio
+- **[Criar meus próprios agentes IA](#criando-seu-próprio-squad)** → Construir agentes para seu domínio
 - **[Navegar Squads prontos](docs/guides/squads-overview.md)** → Veja como criar e usar equipes de agentes IA
 - **[Entender a arquitetura](docs/architecture/ARCHITECTURE-INDEX.md)** → Mergulho técnico profundo
 - **[Juntar-se à comunidade](https://discord.gg/gk8jAdXWmj)** → Obter ajuda e compartilhar ideias
@@ -519,17 +519,17 @@ User Request → Spec Pipeline → Execution Engine → QA Review → Working Co
 
 ## Criando Seu Próprio Squad
 
-Expansion packs permitem estender o AIOS para qualquer domínio. Estrutura básica:
+Squads permitem estender o AIOS para qualquer domínio. Estrutura básica:
 
 ```
-squads/seu-pack/
-├── config.yaml           # Configuração do pack
+squads/seu-squad/
+├── config.yaml           # Configuração do squad
 ├── agents/              # Agentes especializados
 ├── tasks/               # Fluxos de trabalho de tarefas
 ├── templates/           # Templates de documentos
 ├── checklists/          # Checklists de validação
 ├── data/                # Base de conhecimento
-├── README.md            # Documentação do pack
+├── README.md            # Documentação do squad
 └── user-guide.md        # Guia do usuário
 ```
 
