@@ -589,16 +589,28 @@ class BobOrchestrator {
       await this.bobStatusWriter.initialize();
       this._log('Bob status writer initialized');
 
-      // Story 12.5: Run data lifecycle cleanup BEFORE session check (AC8-11)
-      const cleanupResult = await this.dataLifecycleManager.runStartupCleanup();
+      // BOB-VETO-3: Load session FIRST to prevent state corruption
+      const sessionCheck = await this._checkExistingSession();
+      this._log(`Session check complete: hasSession=${sessionCheck.hasSession}`);
+
+      // BOB-VETO-3: Extract protected files from session
+      const protectedFiles = sessionCheck.hasSession && sessionCheck.state
+        ? this._extractProtectedFiles(sessionCheck.state)
+        : [];
+
+      if (protectedFiles.length > 0) {
+        this._log(`Protecting ${protectedFiles.length} session files from cleanup`);
+      }
+
+      // Story 12.5: Run data lifecycle cleanup WITH protected files (AC8-11)
+      const cleanupResult = await this.dataLifecycleManager.runStartupCleanup({
+        protectFiles: protectedFiles,
+      });
       this._log(`Startup cleanup: ${JSON.stringify(cleanupResult)}`);
 
       // Step 1: Detect project state (AC3-6)
       const projectState = this.detectProjectState(this.projectRoot);
       this._log(`Detected project state: ${projectState}`);
-
-      // Story 12.5: Check for existing session with formatted summary (AC1-4)
-      const sessionCheck = await this._checkExistingSession();
       if (sessionCheck.hasSession) {
         this._log(`Session found: ${sessionCheck.summary}`);
 
@@ -762,8 +774,27 @@ class BobOrchestrator {
         };
 
       case 'restart':
+        // BOB-VETO-2: Check for uncommitted work before allowing restart
+        const workStatus = await this._checkUncommittedWork(result.story);
+
+        if (workStatus.hasChanges) {
+          this._log(`Restart blocked: ${workStatus.count} uncommitted files`, 'warn');
+          return {
+            success: false,
+            action: 'restart_blocked',
+            data: {
+              reason: 'Há trabalho não commitado.',
+              vetoCondition: 'uncommitted_changes',
+              filesAffected: workStatus.files,
+              fileCount: workStatus.count,
+              suggestion: 'Commit ou stash suas mudanças antes de restart.',
+              story: result.story,
+            },
+          };
+        }
+
         // AC3 [3]: Reset story (keep epic progress, clear story workflow state)
-        this._log(`Restarting story ${result.story}`);
+        this._log(`Restarting story ${result.story} (no uncommitted work)`);
         return {
           success: true,
           action: 'restart',
@@ -882,22 +913,45 @@ class BobOrchestrator {
         return this._handleGreenfield(context);
 
       default:
-        return {
-          action: 'unknown_state',
-          error: `Unknown project state: ${projectState}`,
-        };
+        // BOB-VETO-4: Fail-fast on unknown state
+        const validStates = Object.values(ProjectState).join(', ');
+        const errorMsg =
+          `FATAL: Unknown project state '${projectState}'. ` +
+          `Valid states: ${validStates}`;
+
+        this._log(errorMsg, 'error');
+
+        throw new Error(errorMsg);
     }
   }
 
   /**
    * Handles NO_CONFIG state — onboarding or defaults (AC3)
+   *
+   * Story BOB-VETO-1: Prevents infinite loop by checking if AIOS was already initialized
+   *
    * @param {Object} context - Execution context
    * @returns {Promise<Object>} Handler result
    * @private
    */
   async _handleNoConfig(_context) {
-    this._log('No config detected — triggering onboarding');
+    this._log('No config detected');
 
+    // BOB-VETO-1: Check if already initialized to prevent infinite loop
+    if (this._isAiosInitialized()) {
+      this._log('AIOS directory exists but config missing — repair needed', 'warn');
+      return {
+        action: 'config_repair',
+        data: {
+          message: 'AIOS já foi inicializado mas o arquivo de configuração está faltando.',
+          nextStep: 'repair_config',
+          vetoCondition: 'aios_already_initialized',
+        },
+      };
+    }
+
+    // First time init
+    this._log('First time setup — triggering onboarding');
     return {
       action: 'onboarding',
       data: {
@@ -905,6 +959,89 @@ class BobOrchestrator {
         nextStep: 'run_aios_init',
       },
     };
+  }
+
+  /**
+   * Checks if AIOS was already initialized (BOB-VETO-1)
+   * @returns {boolean} True if .aios directory exists
+   * @private
+   */
+  _isAiosInitialized() {
+    const aiosDir = path.join(this.projectRoot, '.aios');
+    try {
+      return fs.existsSync(aiosDir);
+    } catch {
+      // Permission denied or other error - assume not initialized
+      return false;
+    }
+  }
+
+  /**
+   * Checks for uncommitted changes in working directory (BOB-VETO-2)
+   * @param {string} storyId - Story ID (for context logging)
+   * @returns {Promise<Object>} Status with hasChanges flag and file list
+   * @private
+   */
+  async _checkUncommittedWork(storyId) {
+    try {
+      const { execSync } = require('child_process');
+
+      // Get git status
+      const status = execSync('git status --porcelain', {
+        cwd: this.projectRoot,
+        encoding: 'utf8',
+        timeout: 5000,
+      });
+
+      if (!status.trim()) {
+        return { hasChanges: false, files: [] };
+      }
+
+      const files = status.trim().split('\n').map((line) => line.trim());
+
+      return {
+        hasChanges: true,
+        files,
+        count: files.length,
+      };
+    } catch (error) {
+      this._log(`Git status check failed: ${error.message}`, 'warn');
+      // Fail safe: assume no changes if git check fails (might not be a git repo)
+      return { hasChanges: false, files: [], error: error.message };
+    }
+  }
+
+  /**
+   * Extracts list of files to protect from cleanup based on session state (BOB-VETO-3)
+   * @param {Object} sessionState - Session state object
+   * @returns {string[]} List of file paths to protect
+   * @private
+   */
+  _extractProtectedFiles(sessionState) {
+    const files = new Set();
+
+    // Protect files from context snapshot
+    if (sessionState.session_state?.context_snapshot?.files_modified) {
+      const modified = sessionState.session_state.context_snapshot.files_modified;
+      if (Array.isArray(modified)) {
+        modified.forEach((f) => files.add(f));
+      }
+    }
+
+    // Protect workflow artifacts
+    if (sessionState.session_state?.workflow?.phase_results) {
+      const phaseResults = sessionState.session_state.workflow.phase_results;
+      Object.values(phaseResults).forEach((result) => {
+        if (result.implementation?.files_created) {
+          result.implementation.files_created.forEach((f) => files.add(f));
+        }
+        if (result.implementation?.files_modified) {
+          result.implementation.files_modified.forEach((f) => files.add(f));
+        }
+      });
+    }
+
+    return Array.from(files);
   }
 
   /**
