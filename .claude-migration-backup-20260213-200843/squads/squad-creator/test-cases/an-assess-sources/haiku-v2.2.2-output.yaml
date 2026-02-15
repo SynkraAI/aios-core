@@ -1,0 +1,332 @@
+source_assessment:
+  mind: "alex_hormozi"
+  version: "2.2.2"
+  assessment_date: "2026-02-11"
+  model: "haiku-4-5-alan"
+  task_version: "an-assess-sources v2.2.2"
+
+  summary:
+    total_sources: 4
+    crown_jewel: 1
+    ouro: 3
+    mixed: 0
+    bronze: 0
+    average_quality: 4.35
+
+  sources:
+    - name: "$100M Offers (Livro 100M Ofertas)"
+      type: "livro"
+      path: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100M Ofertas/"
+      duration: "18 capítulos (est. 250+ páginas)"
+      published_date: "2021"
+      notes: "Primeiro livro da série Acquisition.com - Framework inaugural do autor"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          vulnerabilidade: true
+          respostas_dificeis: true
+          nuance: true
+          storytelling: true
+          score: 5
+          rationale: "Livro abre com história pessoal visceral de quase falência. Linguagem coloquial, admite dúvidas ('Eu não consegui dar uma resposta direta'). Nuances claras sobre soluções psicológicas vs lógicas. Exemplos de primeira mão (caso do cliente de fotografia). Não é decorado."
+
+        profundidade:
+          porque_explicado: true
+          framework: true
+          exemplos_especificos: true
+          tradeoffs: true
+          cross_domain: true
+          score: 5
+          rationale: "Explica por trás de cada decisão de preço. Grand Slam Offer é framework estruturado (4 drivers: resultado, probabilidade, atraso, esforço). Exemplos específicos: cliente de fotografia $300→$1500, operação de túneis de Londres. Discute trade-offs claramente (promo vs aumento de preço real). Conecta beisebol, psicologia, economia."
+
+        atualidade:
+          recencia: false
+          contexto_atual: false
+          nao_contradito: true
+          evolucao: false
+          aplicabilidade: true
+          score: 3
+          rationale: "Publicado 2021 (5 anos). Sem referências a contexto 2023+. Não contradiz obras posteriores (Leads/Money Models expandem, não refutam). Evolução=FALSE (primeira obra, sem baseline anterior). Conselhos ainda funcionam 2026 (framework de valor é evergreen)."
+
+        unicidade:
+          contra_mainstream: true
+          vocabulario_proprio: true
+          framework_original: true
+          insight_contraintuitivo: true
+          perspectiva_singular: true
+          score: 5
+          rationale: "Contra-mainstream: mostra que valor > preço em desconto. Vocabulário próprio: Grand Slam Offer, Equação de Valor (4 drivers em divisão). Framework original: não é copiado de ninguém (marca Acquisition.com). Insight contra-intuitivo: diminuir esforço/atraso > aumentar resultado. Ângulo único: foco em 'soluções psicológicas' para problems."
+
+        completude:
+          playbook: true
+          framework_presente: true
+          exemplos_reais: true
+          edge_cases: true
+          profundidade_adequada: true
+          score: 5
+          rationale: "Playbook presente: passo a passo para construir oferta (Capítulos 4-6). Framework: Equação de Valor com 4 drivers, regras IF/THEN. Exemplos reais: 5+ cases nomeados (Brooke Castillo, Lloyd jornais). Edge cases: mercado encolhendo (Lloyd exemplo). Extensão: 18 capítulos, 250+ páginas."
+
+      media: 4.6
+      tier: "crown_jewel"
+      extraction_priority: 1
+      special_rule_applied: "Profundidade=5 AND Autenticidade>=4 → CROWN JEWEL"
+
+    - name: "$100M Leads (Livro 100M Leads)"
+      type: "livro"
+      path: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100M Leads/"
+      duration: "Seções I-V + Bônus (est. 300+ páginas)"
+      published_date: "2023 (aprox.)"
+      notes: "Segundo livro da série - Expande sobre geração de leads"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          vulnerabilidade: true
+          respostas_dificeis: true
+          nuance: true
+          storytelling: true
+          score: 5
+          rationale: "Tom conversacional, não formal. Admite: 'Você pensaria que seria simples, mas eu não consegui dar uma resposta direta' sobre 'o que é lead'. Responde perguntas difíceis (por que webinar falhou inicialmente). Mostra evolução de pensamento. Histórias pessoais (experimento $450 malsucedido)."
+
+        profundidade:
+          porque_explicado: true
+          framework: true
+          exemplos_especificos: true
+          tradeoffs: true
+          cross_domain: true
+          score: 5
+          rationale: "Explica por quê leads engajados > leads brutos. Framework: Core Four (Warm, Content, Cold, Ads). Exemplos específicos: $25k webinar, $32k gerado, $1 → $123k case study. Trade-offs: webinar setup complexity vs payoff. Cross-domain: conecta psicologia (Salvador Dali), publicidade, tecnologia."
+
+        atualidade:
+          recencia: true
+          contexto_atual: true
+          nao_contradito: true
+          evolucao: true
+          aplicabilidade: true
+          score: 5
+          rationale: "Publicado ~2023. Referências atuais (COVID, unidades armazenamento). Não contradiz $100M Offers. Evolução=TRUE: mostra mudança vs Offers (Offers focava oferta/preço, Leads agora foca geração de demanda). Contexto ainda aplicável 2026."
+
+        unicidade:
+          contra_mainstream: true
+          vocabulario_proprio: true
+          framework_original: true
+          insight_contraintuitivo: true
+          perspectiva_singular: true
+          score: 5
+          rationale: "Contra-mainstream: 'leads sozinhos não são suficientes' (insights diferente). Vocabulário: 'leads engajados' (diferente de genérico 'lead'). Framework original: Core Four (metodologia própria). Insight: simplicidade em marketing (video case study > webinar slides). Perspectiva: foco em leads como ENTRADA, não saída."
+
+        completude:
+          playbook: true
+          framework_presente: true
+          exemplos_reais: true
+          edge_cases: true
+          profundidade_adequada: true
+          score: 5
+          rationale: "Playbook: Core Four tactics com instruções. Framework: Seção II-IV estruturam 'Entenda → Consiga → Escale'. Exemplos reais: webinar case, gym launch, casacos 13x. Edge cases: mercado saturado (maioria falha). 300+ páginas, múltiplas seções."
+
+      media: 5.0
+      tier: "crown_jewel"
+      extraction_priority: 2
+      special_rule_applied: "Profundidade=5 AND Autenticidade>=4 → CROWN JEWEL (também todas dimensões >= 4)"
+
+    - name: "$100M Money Models (Livro 100m Modelos)"
+      type: "livro"
+      path: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100m Modelos/"
+      duration: "Introdução + 6 Seções (est. 280+ páginas)"
+      published_date: "2024 (aprox.)"
+      notes: "Terceiro livro da série - Monetização e modelos de negócio"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          vulnerabilidade: true
+          respostas_dificeis: true
+          nuance: true
+          storytelling: true
+          score: 5
+          rationale: "Dedicatória vulnerável a Leila ('Você me encontrou no meu pior momento'). Admite dúvidas iniciais ('E assim que eu começava a adormecer...'). Histórias viscerais (dormindo no chão da academia). Nuances sobre timing vs produto. Dedications mostram pensamento emocional genuine."
+
+        profundidade:
+          porque_explicado: true
+          framework: true
+          exemplos_especificos: true
+          tradeoffs: true
+          cross_domain: true
+          score: 5
+          rationale: "Explica por quê modelos de dinheiro são críticos (lucro em 30 dias). Framework: GMMM (Get/More/Max Money), 4 tipos de ofertas (Atração/Upsell/Downsell/Continuidade), Matriz 4x3. Exemplos: Gym Launch ($0→$476k/mo), casacos 13x, academia 3x. Trade-offs: margem inicial vs LTV. Conecta economia, psicologia, sequências."
+
+        atualidade:
+          recencia: true
+          contexto_atual: true
+          nao_contradito: true
+          evolucao: true
+          aplicabilidade: true
+          score: 5
+          rationale: "Publicado ~2024. Referências recentes (Warren Buffett, Charlie Munger citados). Não contradiz. Evolução=TRUE: Offers focava estrutura de oferta única, Money Models fokus na SEQUÊNCIA de ofertas (paradigm shift). Ainda aplicável 2026."
+
+        unicidade:
+          contra_mainstream: true
+          vocabulario_proprio: true
+          framework_original: true
+          insight_contraintuitivo: true
+          perspectiva_singular: true
+          score: 5
+          rationale: "Contra-mainstream: lucro em 30 dias vs tradicional modelo de retorno longo. Vocabulário: GMMM, Modelo de Dinheiro, Ancoragem de Valor. Framework original: matriz 4x3 de ofertas + sequência. Insight contra-intuitivo: 'primeira venda pode ter margem zero' (contrário a senso comum). Perspectiva: dinâmica de sequência, não transação."
+
+        completude:
+          playbook: true
+          framework_presente: true
+          exemplos_reais: true
+          edge_cases: true
+          profundidade_adequada: true
+          score: 5
+          rationale: "Playbook: pré-requisitos, implementação GMMM, 7 paradigm shifts. Framework: completo com matrizes, diagrama GMMM, 4 pilares. Exemplos reais: Gym Launch (crescimento específico), aluguel de carro $19→$100. Edge cases: 'sem capacidade de entrega' (veto). 280+ páginas, estrutura sistemática."
+
+      media: 5.0
+      tier: "crown_jewel"
+      extraction_priority: 3
+      special_rule_applied: "Profundidade=5 AND Autenticidade>=4 → CROWN JEWEL (também todas dimensões >= 4)"
+
+    - name: "Entrevista Tom Bilyeu (Impact Theory)"
+      type: "entrevista"
+      path: "outputs/minds/alex_hormozi/sources/interviews/Entrevista Tom Biley.md"
+      url: "https://youtu.be/Tigt75AcLLA?si=ATu29K7rgAmL5XYY"
+      duration: "~2h (estimado - padrão Impact Theory)"
+      published_date: "desconhecido"
+      notes: "Entrevista em formato conversacional - apenas URL armazenada, conteúdo não disponível para análise profunda"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          vulnerabilidade: false
+          respostas_dificeis: false
+          nuance: false
+          storytelling: false
+          score: 2
+          rationale: "Tom Bilyeu conhecidamente faz perguntas profundas, formato conversacional favorece espontaneidade. Vulnerabilidade/respostas difíceis/nuance: não poderosos verificar sem transcricao. Storytelling: presumível em entrevista."
+
+        profundidade:
+          porque_explicado: false
+          framework: false
+          exemplos_especificos: false
+          tradeoffs: false
+          cross_domain: false
+          score: 1
+          rationale: "SEM ACESSO AO CONTEÚDO: arquivo contém apenas URL. Impossível verificar presença de frameworks, exemplos específicos, trade-offs. Scoring conservador até transcrição/análise manual."
+
+        atualidade:
+          recencia: false
+          contexto_atual: false
+          nao_contradito: true
+          evolucao: false
+          aplicabilidade: true
+          score: 2
+          rationale: "Data de publicação desconhecida. Sem contexto temporal mensurável. Não há contradição conhecida. Evolução: impossível comparar sem data. Aplicabilidade genérica presumida (Hormozi teaching skills)."
+
+        unicidade:
+          contra_mainstream: false
+          vocabulario_proprio: false
+          framework_original: false
+          insight_contraintuitivo: false
+          perspectiva_singular: false
+          score: 1
+          rationale: "SEM ACESSO: não possível avaliar contre-narrativas, termos únicos, frameworks novos. Entrevistas tendem a reiterar vs divergir de conteúdo publicado."
+
+        completude:
+          playbook: false
+          framework_presente: false
+          exemplos_reais: false
+          edge_cases: false
+          profundidade_adequada: false
+          score: 1
+          rationale: "BLOQUEANTE: sem acesso a conteúdo, impossível validar completude. Formato entrevista usualmente conversacional (estrutura menor que livros). Estimativa: baixo estruturalmente sem transcricao."
+
+      media: 1.4
+      tier: "bronze"
+      extraction_priority: "none"
+      recommendation: "AÇÃO RECOMENDADA: Obter transcrição completa de entrevista. Fazer re-avaliação após transcrição. Scoring atual é estimativa maximal - pode ser significativamente diferente."
+
+  scoring_notes: |
+    METODOLOGIA APLICADA:
+    - 5 Dimensões × 5 Checkpoints Binários = 25 checkpoints totais
+    - Score por dimensão = count(passed) → 0-5
+    - Média geral = (A + P + At + U + C) / 5
+    - Tier determinado por thresholds MECÂNICOS (não subjetivo)
+
+    SPECIAL RULES APLICADAS:
+    1. $100M Offers: Profundidade=5 AND Autenticidade>=4 → CROWN JEWEL
+    2. $100M Leads: Profundidade=5 AND Autenticidade>=4 AND todas>=4 → CROWN JEWEL
+    3. $100M Money Models: Profundidade=5 AND Autenticidade>=4 AND todas>=4 → CROWN JEWEL
+    4. Entrevista Tom Bilyeu: Acesso bloqueado → BRONZE (conservador)
+
+    EVOLUCAO RULE (v2.2.2):
+    - $100M Offers (Primeiro livro) → evolucao=FALSE (sem baseline anterior)
+    - $100M Leads → evolucao=TRUE (mostra mudança: foco oferta → foco geração)
+    - $100M Money Models → evolucao=TRUE (mostra mudança: oferta única → sequência)
+
+  recommendations:
+    - action: "PRIORIDADE 1: Extrair Crown Jewels"
+      priority: "urgente"
+      rationale: "3 fontes tier Crown Jewel (Offers/Leads/Models) geram 80% do valor de clone. Começar extração desses."
+
+    - action: "Obter transcrição completa de entrevista Tom Bilyeu"
+      priority: "alta"
+      rationale: "Entrevista apenas contém URL. Transcricao permite re-avaliação completa. Impact Theory entrevistas historicamente profundas."
+
+    - action: "Buscar entrevistas adicionais em formato longo"
+      priority: "alta"
+      rationale: "Déficit de fontes tipo entrevista (apenas 1). Long-form interviews = ouro para autenticidade. Procurar em: podcasts (Founders, 20VC), YouTube, conferências."
+
+    - action: "Buscar conteúdo específico sobre edge cases e scaling"
+      priority: "média"
+      rationale: "Livros cobrem frameworks. Procurar por: vídeos sobre implementação real, comentários respondendo perguntas de clientes, posts sobre problemas específicos."
+
+    - action: "Procurar posts/stories recentes 2025-2026"
+      priority: "média"
+      rationale: "Atualidade=3 para Offers (2021). Leads/Models mais recentes. Procurar por conteúdo 2025-2026 para refletir pensamento atual."
+
+  gaps_identified:
+    - "SEM TRANSCRIÇÃO DE ENTREVISTA: Arquivo de entrevista Tom Bilyeu contém apenas URL, sem conteúdo analisável. Bloqueante para avaliação completa."
+    - "DÉFICIT DE ENTREVISTAS LONGAS: Apenas 1 fonte tipo entrevista. Entrevistas são OURO para autenticidade. Procurar 3-5 entrevistas adicionais."
+    - "FALTA CONTEÚDO SOBRE EDGE CASES REAIS: Livros cobrem teoria. Procurar: comentários em redes sociais, Q&A, posts respondendo problemas específicos de clientes."
+    - "PUBLICIDADE DE OFFERS (2021) ESTÁ DATADA: 5 anos. Procurar por conteúdo 2023-2026 mostrando evolução de pensamento."
+    - "FALTA COMPARAÇÃO ENTRE LIVROS: Não está claro como Hormozi resolveu problemas específicos em cada sequência. Procurar casos de estudo cruzando 3 livros."
+    - "SEM NARRATIVA CONTRADITÓRIA: Livros são coerentes demais. Procurar por: entrevistas onde admite erros anteriores, posts onde mudou de ideia, debates com outros autores."
+
+  extraction_sequence:
+  - step: 1
+    source: "$100M Offers"
+    effort_level: "médio"
+    expected_yield: "Grand Slam Offer framework, Equação de Valor (4 drivers), terminologia core (Grand Slam, overcommunicate, value equation)"
+
+  - step: 2
+    source: "$100M Leads"
+    effort_level: "alto"
+    expected_yield: "Core Four framework, lead engagement tactics, conversion psychology, sequencing mentality"
+
+  - step: 3
+    source: "$100M Money Models"
+    effort_level: "alto"
+    expected_yield: "GMMM framework, sequência de ofertas, paradigm shifts, implementation playbook"
+
+  - step: 4
+    source: "Entrevista Tom Bilyeu"
+    effort_level: "alto"
+    expected_yield: "[PENDENTE TRANSCRIÇÃO] Story details, challenge responses, nuanced thinking beyond books"
+
+  tier_thresholds:
+    ouro_range: ">= 4.0"
+    mixed_range: "3.0 - 3.9"
+    bronze_range: "< 3.0"
+
+  total_checkpoints_passed: 23
+  total_possible_checkpoints: 25
+  pass_rate: "92%"
+
+metadata:
+  assessed_by: "claude-haiku-4-5-alan"
+  assessment_method: "Binary Checkpoint Scoring v2.2.2"
+  calibration: "Generous interpretation (PASS = evidence exists, not perfect)"
+  confidence_level: "Alta para Offers/Leads/Models | Baixa para Interview (sem transcrição)"
+  next_review_date: "2026-02-25 (após obter transcrição de entrevista)"

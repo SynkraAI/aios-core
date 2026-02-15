@@ -1,0 +1,105 @@
+# Test Case: collect-sources
+# Model Tier Qualification - Wave 3A
+# Similar to: an-assess-sources (source validation with rules)
+
+test_case:
+  name: "collect-sources-standard"
+  version: "1.0"
+  created: "2026-02-11"
+  task_file: "tasks/collect-sources.md"
+  wave: "3A"
+  priority: 4
+  similar_to: "an-assess-sources"
+  confidence: "HIGH"
+
+input:
+  # Use a real mind/expert for source collection
+  target: "Alex Hormozi"
+  params:
+    domain: "business"
+    user_materials_path: null  # No user materials, web search only
+  context_files: []
+
+expected_output:
+  sections:
+    - sources_inventory
+    - tier_classification
+    - minimum_validation
+    - fallback_status
+
+  fields:
+    - name: "total_sources"
+      type: "number"
+      range: [0, 50]
+    - name: "tier_1_sources"
+      type: "number"
+    - name: "tier_2_sources"
+      type: "number"
+    - name: "minimum_met"
+      type: "boolean"
+    - name: "status"
+      type: "enum"
+      values: ["SUFFICIENT", "INSUFFICIENT", "BLOCKED"]
+
+  validations:
+    - "Deve classificar fontes em tiers (ouro vs bronze)"
+    - "Deve validar mínimo de 5 fontes"
+    - "Deve seguir fallback chain (user → auto-acquire → manual → fail)"
+    - "Tier classification deve ser MECÂNICO (no override)"
+
+baseline:
+  opus_output: "opus-baseline.yaml"
+  opus_score: 10.0
+  opus_tokens:
+    input: 0
+    output: 0
+  opus_latency_ms: 0
+
+evaluation:
+  completeness:
+    required_sections:
+      - "sources_inventory: lista de fontes encontradas"
+      - "tier_classification: ouro/bronze por fonte"
+      - "minimum_validation: check de 5+ fontes"
+    optional_sections:
+      - "fallback_status: qual step do fallback"
+
+  accuracy:
+    numeric_tolerance: 0.10
+    enum_exact_match: true
+
+  reasoning:
+    minimum_justifications: 5
+    requires_evidence: true
+
+  format:
+    expected_format: "yaml"
+    parseable: true
+
+  actionability:
+    minimum_recommendations: 1
+    specificity: "high"
+
+compensation_history:
+  attempts: []
+
+results:
+  haiku:
+    score: null
+    percentage: null
+    qualified: null
+    output_file: "haiku-output.yaml"
+
+  opus:
+    score: 10.0
+    percentage: 100
+    qualified: true
+    output_file: "opus-baseline.yaml"
+
+  final_tier: null
+  recommendation: null
+
+wave_3a_notes:
+  rationale: "Similar to an-assess-sources v2.2.2 which achieved 100% tier match"
+  expected_fixes: "Apply same fixes: binary checkpoints, scope definition, no override rule"
+  estimated_effort: "30 min"

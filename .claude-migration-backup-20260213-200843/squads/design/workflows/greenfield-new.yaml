@@ -1,0 +1,147 @@
+# Greenfield New Workflow
+# Start fresh with token-based design system (20% of use cases)
+
+workflow:
+  id: "design-system-greenfield-new"
+  name: "Design System Greenfield New"
+  description: "Greenfield workflow: start fresh with token-based design system, build production components from scratch"
+  version: "2.0.0"
+  type: "sequential"
+
+metadata:
+  author: "Brad (Design System Architect)"
+  created_date: "2025-10-27"
+  last_modified: "2025-10-27"
+  tags:
+    - design-system
+    - greenfield
+    - components
+    - brad
+
+inputs:
+  project_name:
+    type: "string"
+    description: "Project name for output organization"
+    required: true
+    default: "my-app"
+
+  tokens_source:
+    type: "string"
+    description: "Path to existing tokens.yaml (optional - will generate starter tokens if not provided)"
+    required: false
+
+  framework:
+    type: "string"
+    description: "Component framework (react, vue, svelte)"
+    required: true
+    default: "react"
+    validation: "Must be: react, vue, or svelte"
+
+steps:
+  - id: "step_1_setup"
+    name: "Initialize Design System Structure"
+    type: "agent"
+    agent: "design-system"
+    command: "*setup"
+    inputs:
+      project_name: "{{project_name}}"
+      tokens_source: "{{tokens_source}}"
+      framework: "{{framework}}"
+    outputs:
+      tokens_yaml: "outputs/design-system/{{project_name}}/tokens/tokens.yaml"
+      structure_created: "outputs/design-system/{{project_name}}/"
+      state_file: "outputs/design-system/{{project_name}}/.state.yaml"
+    error_handling:
+      strategy: "fail"
+
+  - id: "step_2_build_atoms"
+    name: "Build Atomic Components"
+    type: "agent"
+    agent: "design-system"
+    command: "*build"
+    inputs:
+      tokens: "{{step_1_setup.tokens_yaml}}"
+      patterns: "button,input,label,icon,badge,avatar,spinner"
+    outputs:
+      atoms: "outputs/design-system/{{project_name}}/components/atoms/"
+    error_handling:
+      strategy: "fail"
+
+  - id: "step_3_compose_molecules"
+    name: "Compose Molecule Components"
+    type: "agent"
+    agent: "design-system"
+    command: "*compose"
+    inputs:
+      atoms: "{{step_2_build_atoms.atoms}}"
+      patterns: "form-field,card,alert,breadcrumb,pagination"
+    outputs:
+      molecules: "outputs/design-system/{{project_name}}/components/molecules/"
+    error_handling:
+      strategy: "fail"
+
+  - id: "step_4_compose_organisms"
+    name: "Compose Organism Components (Optional)"
+    type: "agent"
+    agent: "design-system"
+    command: "*compose"
+    inputs:
+      atoms: "{{step_2_build_atoms.atoms}}"
+      molecules: "{{step_3_compose_molecules.molecules}}"
+      patterns: "form,table,modal,navigation"
+    outputs:
+      organisms: "outputs/design-system/{{project_name}}/components/organisms/"
+    error_handling:
+      strategy: "skip"
+
+  - id: "step_5_document"
+    name: "Generate Pattern Library Documentation"
+    type: "agent"
+    agent: "design-system"
+    command: "*document"
+    inputs:
+      components: "outputs/design-system/{{project_name}}/components/"
+      tokens: "{{step_1_setup.tokens_yaml}}"
+    outputs:
+      documentation: "outputs/design-system/{{project_name}}/docs/"
+      storybook: "outputs/design-system/{{project_name}}/.storybook/"
+      readme: "outputs/design-system/{{project_name}}/README.md"
+    error_handling:
+      strategy: "skip"
+
+outputs:
+  design_system_complete:
+    type: "boolean"
+    description: "Workflow completed successfully"
+    source: "step_5_document.success"
+
+  tokens_location:
+    type: "string"
+    description: "Path to design tokens"
+    source: "step_1_setup.tokens_yaml"
+
+  components_location:
+    type: "string"
+    description: "Path to generated components"
+    source: "outputs/design-system/{{project_name}}/components/"
+
+  documentation_location:
+    type: "string"
+    description: "Path to pattern library documentation"
+    source: "step_5_document.documentation"
+
+  storybook_location:
+    type: "string"
+    description: "Path to Storybook configuration"
+    source: "step_5_document.storybook"
+
+global_error_handling:
+  on_error: "abort"
+  notification:
+    enabled: true
+    channels:
+      - console
+
+security:
+  authorization_required: false
+  audit_logging: true

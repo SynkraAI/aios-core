@@ -113,6 +113,7 @@ describe('BOB-VETO-4: Throw on unknown state', () => {
     // Mock other dependencies to prevent actual execution
     bob.lockManager = {
       acquireLock: jest.fn().mockResolvedValue(true),
+      isLockOwner: jest.fn().mockResolvedValue(true),
       releaseLock: jest.fn().mockResolvedValue(true),
     };
     bob.observabilityPanel = {

@@ -586,17 +586,6 @@ class BobOrchestrator {
         };
       }
 
-      // BOB-SAFE-1: Verify lock ownership before proceeding
-      const lockVerified = await this._verifyLockOwnership(resource);
-      if (!lockVerified.verified) {
-        return {
-          success: false,
-          projectState: null,
-          action: lockVerified.action,
-          error: lockVerified.message,
-        };
-      }
-
       // Story 12.7: Refresh educational mode from session state after loading (AC2)
       // Session state might have been loaded by previous operations
       this.educationalMode = this._resolveEducationalMode();

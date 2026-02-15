@@ -10,12 +10,38 @@ set -euo pipefail
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 STATUS_FILE="${PROJECT_ROOT}/.aios/claude-status.json"
 LOG_FILE="${PROJECT_ROOT}/.aios/logs/status-monitor.log"
+PID_FILE="${PROJECT_ROOT}/.aios/monitor-claude-status.pid"
 CHECK_INTERVAL=2  # seconds
 IDLE_TIMEOUT=30   # seconds without activity = idle
 
 # Create directories if they don't exist
 mkdir -p "$(dirname "$STATUS_FILE")"
 mkdir -p "$(dirname "$LOG_FILE")"
+mkdir -p "$(dirname "$PID_FILE")"
+
+# Lock mechanism - prevent multiple instances
+acquire_lock() {
+    if [ -f "$PID_FILE" ]; then
+        local old_pid=$(cat "$PID_FILE")
+        # Check if process is still running
+        if ps -p "$old_pid" > /dev/null 2>&1; then
+            echo "ERROR: Monitor already running with PID $old_pid"
+            echo "Use 'pkill -f monitor-claude-status.sh' to stop all instances"
+            exit 1
+        else
+            # Stale PID file, remove it
+            rm -f "$PID_FILE"
+        fi
+    fi
+
+    # Create PID file with current process ID
+    echo $$ > "$PID_FILE"
+}
+
+# Release lock on exit
+release_lock() {
+    rm -f "$PID_FILE"
+}
 
 # Logging function
 log() {
@@ -124,10 +150,14 @@ main() {
 cleanup() {
     log "Monitor stopped"
     update_status "idle" "Monitor parado"
+    release_lock
     exit 0
 }
 
-trap cleanup INT TERM
+trap cleanup INT TERM EXIT
+
+# Acquire lock before running
+acquire_lock
 
 # Run
 main

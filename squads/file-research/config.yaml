@@ -1,0 +1,139 @@
+---
+squad:
+  name: File Research Squad
+  id: file-research
+  version: 1.0.0
+  description: |
+    Specialized squad for finding and researching diverse files on the internet.
+    Focuses on PDFs, EPUBs, DOCs, academic papers, ebooks, research documents, etc.
+    Adapted from tech-search skill architecture.
+
+metadata:
+  created: 2026-02-14
+  author: aios-master
+  based_on: tech-search skill
+  license: MIT
+
+agents:
+  - id: file-hunter
+    name: File Hunter
+    role: File Research Specialist
+    description: Executes deep file research pipeline with parallel search workers
+
+tasks:
+  - id: search-files
+    name: Search Files
+    description: Main file search pipeline (6 phases)
+
+  - id: validate-sources
+    name: Validate Sources
+    description: Validate file links and accessibility
+
+  - id: extract-metadata
+    name: Extract Metadata
+    description: Extract file metadata (size, format, author, date)
+
+workflows:
+  - id: wf-file-research
+    name: File Research Workflow
+    description: Complete file research pipeline
+    phases: 6
+
+checklists:
+  - id: file-quality-checklist
+    name: File Quality Checklist
+    description: Quality validation for found files
+
+data:
+  - id: file-search-operators
+    name: File Search Operators
+    description: Specialized search operators for different file types
+
+dependencies:
+  mcp_servers:
+    preferred:
+      - apify  # Web scraping for file discovery
+      - exa    # Enhanced web search
+    fallback:
+      - WebSearch
+      - WebFetch
+
+  tools:
+    required:
+      - WebSearch
+      - WebFetch
+      - Task (for Haiku workers)
+    optional:
+      - mcp__docker-gateway__apify (via Docker)
+      - mcp__exa__web_search_exa (via Docker)
+
+configuration:
+  max_workers: 5
+  worker_model: haiku
+  max_waves: 2
+  output_dir: docs/file-research
+
+  file_types:
+    documents:
+      - pdf
+      - epub
+      - mobi
+      - azw3
+      - doc
+      - docx
+    academic:
+      - pdf
+      - tex
+      - bib
+    ebooks:
+      - epub
+      - mobi
+      - azw
+      - azw3
+      - fb2
+    other:
+      - txt
+      - md
+      - html
+
+security:
+  allowed_paths:
+    - docs/file-research/**
+  forbidden_paths:
+    - .claude/**
+    - .aios-core/**
+    - squads/**
+    - packages/**
+  validation:
+    - Validate URLs before fetching
+    - Check file sizes before download links
+    - Sanitize filenames in output
+    - Never download files automatically (only provide links)
+
+veto_conditions:
+  - id: VETO_NO_RESULTS
+    trigger: All search waves return 0 results
+    action: STOP + Report no results found
+
+  - id: VETO_MALICIOUS_FILES
+    trigger: Detected malware/suspicious file sources
+    action: BLOCK + Warn user about suspicious sources
+
+  - id: VETO_FORBIDDEN_PATH
+    trigger: Attempt to write outside docs/file-research/
+    action: BLOCK + Error message
+
+scope:
+  in_scope:
+    - File discovery and research
+    - Metadata extraction
+    - Link validation
+    - Quality assessment
+    - Documentation generation
+
+  out_of_scope:
+    - Actual file downloads (only provide links)
+    - File content parsing/reading
+    - File conversion
+    - Implementation/coding
+    - Production artifacts

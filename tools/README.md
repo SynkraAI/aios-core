@@ -1,6 +1,6 @@
 # AIOS Tools
 
-Auto-generated tools registry. Updated: 2026-02-13
+Auto-generated tools registry. Updated: 2026-02-15
 
 ## Available Tools
 
@@ -10,13 +10,6 @@ Auto-generated tools registry. Updated: 2026-02-13
 - **Description:** Intelligent GitHub backup for the AIOS ecosystem.
 - **Path:** `tools/aios-backup/`
 - **Docs:** [README](aios-backup/README.md)
-
-### btg-pix-batch
-
-- **Language:** Python
-- **Description:** BTG Pactual Empresas - Pix Batch Payment Script.
-- **Path:** `tools/btg-pix-batch/`
-- **Docs:** [README](btg-pix-batch/README.md)
 
 ### document-processing
 
@@ -39,15 +32,8 @@ Auto-generated tools registry. Updated: 2026-02-13
 - **Path:** `tools/video-transcriber/`
 - **Docs:** [README](video-transcriber/README.md)
 
-### youtube-data-collector
-
-- **Language:** Python
-- **Description:** Dual-mode YouTube data collection tool with automatic API/Scraper fallback.
-- **Path:** `tools/youtube-data-collector/`
-- **Docs:** [README](youtube-data-collector/README.md)
-
 
 ---
 
-**Total Tools:** 6
+**Total Tools:** 4
 **Auto-indexed:** Yes

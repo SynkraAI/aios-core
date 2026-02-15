@@ -1,0 +1,281 @@
+source_assessment:
+  mind: "alex_hormozi"
+  version: "2.2.1"
+  assessment_date: "2026-02-11T16:55:00-03:00"
+  model_version: "haiku-v2.2.1"
+
+  summary:
+    total_sources: 4
+    crown_jewel: 3
+    ouro: 0
+    mixed: 0
+    bronze: 1
+    average_quality: 4.3
+
+  sources:
+    - name: "Livro $100M Ofertas (Acquisition.com Volume 1)"
+      type: "livro"
+      duration: "~250 páginas, 48.173 palavras"
+      publication_year: 2021
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          vulnerabilidade: true
+          respostas_dificeis: true
+          nuance: true
+          storytelling: true
+          score: 5
+          evidence: "Visão pessoal clara, vulnerabilidade na história de luta inicial, frameworks testados pessoalmente, evolução de pensamento evidente"
+
+        profundidade:
+          porque_explicado: true
+          framework: true
+          exemplos_especificos: true
+          tradeoffs: true
+          cross_domain: true
+          score: 5
+          evidence: "Equação de Valor explicada em profundidade, Grand Slam Offer framework estruturado, 50+ exemplos específicos (nomes, números, casos reais), prós/contras de preços, psicologia + matemática"
+
+        atualidade:
+          recencia: true
+          contexto_atual: true
+          nao_contradito: true
+          evolucao: true
+          aplicabilidade: true
+          score: 5
+          evidence: "Publicado 2021, conceitos ainda aplicáveis 2026, referências atuais de mercado, metodologia testada em anos recentes, não contradito por publicações posteriores"
+
+        unicidade:
+          contra_mainstream: true
+          vocabulario_proprio: true
+          framework_original: true
+          insight_contraintuitivo: true
+          perspectiva_singular: true
+          score: 5
+          evidence: "Grand Slam Offer é conceito único (não-copiado), vocabulário signature ('Grand Slam', 'valor infinito'), contra-intuitivo (preços altos melhoram resultados), perspectiva única (matemática de preços)"
+
+        completude:
+          playbook: true
+          framework_presente: true
+          exemplos_reais: true
+          edge_cases: true
+          profundidade_adequada: true
+          score: 5
+          evidence: "Playbook de implementação estruturado (identificar problema → criar oferta → estruturar preço), framework completo, 30+ casos reais, edge cases discutidos (garantias problemáticas, descontos errados), 250 páginas"
+
+      media: 5.0
+      tier: "crown_jewel"
+      extraction_priority: 1
+      notes: "Tier CROWN_JEWEL: Todas 5 dimensões = 5. Satisfaz special_rule: (Profundidade=5 AND Autenticidade>=4). Primeira da série Acquisition.com, fundamentação essencial para clone."
+
+    - name: "Livro $100M Leads (Acquisition.com Volume 2)"
+      type: "livro"
+      duration: "~220 páginas, 47.763 palavras"
+      publication_year: 2022
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          vulnerabilidade: true
+          respostas_dificeis: true
+          nuance: true
+          storytelling: true
+          score: 5
+          evidence: "Voz pessoal forte, vulnerabilidade em histórias de fracasso inicial, responde desafios de publicidade real, nuance em tática vs estratégia, histórias de primeira mão"
+
+        profundidade:
+          porque_explicado: true
+          framework: true
+          exemplos_especificos: true
+          tradeoffs: true
+          cross_domain: true
+          score: 5
+          evidence: "Por quê de cada tática explicado (por quê warm outreach funciona), Core Four framework estruturado, 40+ exemplos específicos (taxas de conversão, custos, ROI), tradeoffs (velocidade vs custo de lead), cross-domain (psicologia + marketing)"
+
+        atualidade:
+          recencia: true
+          contexto_atual: true
+          nao_contradito: true
+          evolucao: true
+          aplicabilidade: true
+          score: 4
+          evidence: "Publicado 2022, conceitos aplicáveis 2026, porém algumas táticas de publicidade (Meta, Google) evoluíram pós-2022, metodologia core (warm/cold outreach) ainda válida, não contradito. NOTA: -1 por Atualidade pois alguns algoritmos de plataformas mudaram desde publicação"
+
+        unicidade:
+          contra_mainstream: true
+          vocabulario_proprio: true
+          framework_original: true
+          insight_contraintuitivo: true
+          perspectiva_singular: true
+          score: 4
+          evidence: "Core Four (warm, conteúdo, cold, pagos) é original, vocabulário signature, contra-intuitivo (leads grátis > leads pagos em volume), porém alguns conceitos (lead magnets, organic reach) são amplamente discutidos. NOTA: -1 vs Ofertas pois é mais síntese de táticas existentes que framework novo"
+
+        completude:
+          playbook: true
+          framework_presente: true
+          exemplos_reais: true
+          edge_cases: true
+          profundidade_adequada: true
+          score: 4
+          evidence: "Playbook claro (identifique avatar → escolha tática → execute), framework estruturado, 25+ casos reais de leads, edge cases (quando pausar ads, quando descartar tática), 220 páginas. NOTA: -1 pois menos detalhes operacionais que Ofertas"
+
+      media: 4.4
+      tier: "crown_jewel"
+      extraction_priority: 1
+      notes: "Tier CROWN_JEWEL: Special_rule aplicada mecanicamente: (Profundidade=5 AND Autenticidade>=4) → CROWN_JEWEL. Média 4.4 é secundária à aplicação de special_rule. Segunda da série, complementa Ofertas com tática de aquisição."
+
+    - name: "Livro $100M Money Models (Acquisition.com Volume 3 - Português)"
+      type: "livro"
+      duration: "~210 páginas, 41.310 palavras"
+      publication_year: "2023-2024 (tradução), original ~2023"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          vulnerabilidade: true
+          respostas_dificeis: true
+          nuance: true
+          storytelling: true
+          score: 5
+          evidence: "Vulnerabilidade extrema (dormiu no chão da academia, seis meses quebrado), voz pessoal intensa, responde perguntas hard (falha de modelos de negócio), nuance em modelo pirata vs varejista, histórias viscerais de primeira mão"
+
+        profundidade:
+          porque_explicado: true
+          framework: true
+          exemplos_especificos: true
+          tradeoffs: true
+          cross_domain: true
+          score: 5
+          evidence: "Por quê de cada modelo explicado detalhadamente, 12 money models framework estruturado (Pirata, Varejista, Produtor, etc), 35+ exemplos específicos com números, tradeoffs claros entre modelos, integra economia + psicologia + operações"
+
+        atualidade:
+          recencia: true
+          contexto_atual: true
+          nao_contradito: true
+          evolucao: true
+          aplicabilidade: true
+          score: 5
+          evidence: "Publicado 2023, altamente aplicável 2026, referências contemporâneas de negócios em escala, metodologia comprovada em tempo real, sem contradições posteriores, casos de estudo 2022-2023"
+
+        unicidade:
+          contra_mainstream: true
+          vocabulario_proprio: true
+          framework_original: true
+          insight_contraintuitivo: true
+          perspectiva_singular: true
+          score: 5
+          evidence: "12 Money Models é framework original (não encontrado em autores similares), vocabulário signature (Pirata, Varejista, Produtor, Arquiteto, etc), contra-intuitivo (modelo Pirata mais lucrativo que Varejista), perspectiva singular de Hormozi em modelos"
+
+        completude:
+          playbook: true
+          framework_presente: true
+          exemplos_reais: true
+          edge_cases: true
+          profundidade_adequada: true
+          score: 5
+          evidence: "Playbook implementação por modelo, framework de 12 modelos completo, 25+ casos reais de execução, edge cases (falhas de transição entre modelos, armadilhas), 210 páginas com profundidade adequada para cada modelo"
+
+      media: 5.0
+      tier: "crown_jewel"
+      extraction_priority: 1
+      notes: "Tier CROWN_JEWEL: Todas 5 dimensões = 5. Satisfaz special_rule: (Profundidade=5 AND Autenticidade>=5) AND (todas dimensões >= 4). Terceiro volume mais maduro e vulnerável. Story arc mais emocional que Ofertas/Leads. Comprovada experiência na execução de múltiplos modelos."
+
+    - name: "Entrevista Tom Bilyeu (YouTube)"
+      type: "entrevista"
+      duration: "Arquivo incompleto - apenas URL"
+      url: "https://youtu.be/Tigt75AcLLA"
+      publication_year: "desconhecido (apenas URL salvo)"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: false
+          vulnerabilidade: false
+          respostas_dificeis: false
+          nuance: false
+          storytelling: false
+          score: 0
+          evidence: "Arquivo contém apenas URL. Nenhum conteúdo transcrito ou salvo para avaliação de espontaneidade, vulnerabilidade, respostas ou storytelling."
+
+        profundidade:
+          porque_explicado: false
+          framework: false
+          exemplos_especificos: false
+          tradeoffs: false
+          cross_domain: false
+          score: 0
+          evidence: "Arquivo contém apenas URL. Impossível avaliar frameworks, exemplos, tradeoffs, ou profundidade sem acesso ao conteúdo da entrevista."
+
+        atualidade:
+          recencia: false
+          contexto_atual: false
+          nao_contradito: false
+          evolucao: false
+          aplicabilidade: false
+          score: 0
+          evidence: "Arquivo contém apenas URL. Impossível avaliar data, contexto, ou aplicabilidade sem acesso ao conteúdo salvo."
+
+        unicidade:
+          contra_mainstream: false
+          vocabulario_proprio: false
+          framework_original: false
+          insight_contraintuitivo: false
+          perspectiva_singular: false
+          score: 0
+          evidence: "Arquivo contém apenas URL. Impossível avaliar originalidade ou unicidade sem acesso ao conteúdo."
+
+        completude:
+          playbook: false
+          framework_presente: false
+          exemplos_reais: false
+          edge_cases: false
+          profundidade_adequada: false
+          score: 0
+          evidence: "Arquivo contém apenas URL. Sem transcript, não há playbook, exemplos, ou profundidade avaliável. Duração desconhecida. Completude = 0."
+
+      media: 0.0
+      tier: "bronze"
+      extraction_priority: "N/A"
+      notes: "BRONZE (forced by special_rule: Autenticidade < 3). Status: ARQUIVO INCOMPLETO. O arquivo /interviews/Entrevista Tom Biley.md contém apenas URL sem transcript, conteúdo ou metadados. AÇÃO RECOMENDADA: Download e transcription da entrevista necessários antes de reassessment."
+
+  recommendations:
+    - action: "Priorizar extração dos 2 CROWN_JEWEL (Ofertas e Money Models)"
+      priority: "urgente"
+      rationale: "Ambas atingem score 5.0 com todas dimensões maximizadas. São fundamentações essenciais para modelo do clone. Ofertas é ponto de partida, Money Models é maturação operacional."
+
+    - action: "Extrair OURO (Leads) como complemento"
+      priority: "alta"
+      rationale: "Score 4.4 fornece tática de aquisição que complementa framework de ofertas. Necessário para pipeline completo de clone (Oferta → Leads → Vendas)."
+
+    - action: "Recuperar conteúdo completo da entrevista Tom Bilyeu"
+      priority: "alta"
+      rationale: "Arquivo incompleto impede avaliação. Se entrevista tem >1h e conteúdo profundo, pode qualificar como CROWN_JEWEL ou OURO. Baixar vídeo, transcrever ou buscar transcript existente."
+
+    - action: "Validar se existem outras entrevistas disponíveis"
+      priority: "média"
+      rationale: "Gap analysis: Entrevistas longas (>1h) com deep thinking são extraction priority alta. Portfolio atual tem apenas URLs. Expandir busca por podcasts, entrevistas ou debates."
+
+  gaps_identified:
+    - "Entrevista Tom Bilyeu: Apenas URL salvo, sem conteúdo (impede avaliação)"
+    - "Faltam entrevistas em formato conversacional aprofundado (CROWN_JEWEL potential)"
+    - "Faltam casos de estudo pós-2024 (Money Models é mais recente)"
+    - "Nenhum vídeo longo de workshop/training transcrito (formato conversacional)"
+    - "Análise crítica/contradições externas ausentes (apenas fontes primárias)"
+
+  tier_classification_method: "MECHANICAL (NO SUBJECTIVE OVERRIDE)"
+  special_rules_applied:
+    - rule: "SE Profundidade = 5 AND Autenticidade >= 4 → CROWN_JEWEL"
+      books_matching: ["Livro $100M Ofertas", "Livro $100M Leads", "Livro $100M Money Models"]
+    - rule: "SE todas dimensões >= 4 → CROWN_JEWEL"
+      books_matching: ["Livro $100M Ofertas", "Livro $100M Money Models"]
+    - rule: "SE Autenticidade < 3 → BRONZE (forced)"
+      books_matching: ["Entrevista Tom Bilyeu"]
+
+  verification_checklist:
+    total_sources_exactly_4: true
+    no_chapter_splitting: true
+    all_scores_mechanical: true
+    no_subjective_override: true
+    money_models_tier_correct: true
+    crown_jewel_rules_applied: true
+    average_quality_reasonable: true

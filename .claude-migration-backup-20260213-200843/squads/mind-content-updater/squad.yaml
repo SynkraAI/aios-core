@@ -1,0 +1,86 @@
+name: mind-content-updater
+version: 1.0.0
+description: |
+  Mind Content Updater - Automated Source Discovery, Collection & Analysis.
+  Discovers, collects, and analyzes source materials for MMOS mind cloning
+  using MCP tools (Exa, WebSearch, WebFetch) and local tools (video-transcriber).
+author: luizfosc
+license: MIT
+slashPrefix: mcu
+documentation: README.md
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+components:
+  agents:
+    - mind-content-updater.md
+  tasks:
+    - discover-sources.md
+    - collect-content.md
+    - analyze-sources.md
+    - harvest-full-pipeline.md
+    - generate-inventory.md
+  templates:
+    - sources-master-template.yaml
+    - discovery-report-template.yaml
+    - source-frontmatter-template.yaml
+  workflows:
+    - wf-harvest.yaml
+  checklists:
+    - source-collection-checklist.md
+  config:
+    - content-types.yaml
+    - search-queries.yaml
+
+dependencies:
+  node: []
+  python: []
+  tools:
+    - video-transcriber  # ~/aios-core/tools/video-transcriber/
+  squads:
+    - mmos-squad  # Output target for collected sources
+
+integrations:
+  mmos-squad:
+    module: "squads/mmos-squad"
+    usage: "Output target - saves sources to minds/{mind}/sources/"
+  video-transcriber:
+    module: "tools/video-transcriber"
+    usage: "YouTube video transcription pipeline"
+
+mcp_tools:
+  discovery:
+    exa:
+      tool: mcp__exa__web_search_exa
+      usage: "Semantic web search for mind content"
+    web_search:
+      tool: WebSearch
+      usage: "General web search for specific URLs"
+  collection:
+    web_fetch:
+      tool: WebFetch
+      usage: "Extract markdown content from URLs"
+    video_transcriber:
+      tool: "tools/video-transcriber"
+      usage: "Download and transcribe YouTube videos"
+      command: "video-transcriber process {url} --output {output_dir}"
+
+output:
+  base_path: "squads/mmos-squad/minds/{mind}/sources/"
+  structure:
+    blogs: "{slug}.md"
+    youtube: "{slug}/"
+    articles: "{slug}.md"
+    interviews: "{slug}.md"
+    social: "{slug}.md"
+    manual: "README.md"
+  inventory: "sources_master.yaml"
+
+tags:
+  - source-discovery
+  - web-scraping
+  - content-collection
+  - mind-cloning
+  - mmos-integration

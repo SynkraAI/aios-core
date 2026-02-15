@@ -1,76 +1,111 @@
 # AIOS Skills Index
 
-Skills distribuidas com o framework AIOS (via `aios install` / `aios update`).
+## Visao Geral
 
-**Ultima atualizacao:** 2026-02-11
-
----
-
-## Skills do AIOS Hub
+O AIOS tem 3 camadas distintas. NAO confundir:
 
 ```
-.aios/skills/
-├── superpowers/                    # Skills do repositorio obra/superpowers
-│   ├── test-driven-development/
-│   ├── verification-before-completion/
-│   ├── requesting-code-review/
-│   ├── receiving-code-review/
-│   ├── brainstorming/
-│   ├── writing-plans/
-│   ├── executing-plans/
-│   └── finishing-a-development-branch/
-├── design-system-extractor/        # Extracao de design systems de sites
-├── criar-app-completo/             # Workflow completo de criacao de app
-├── prd-generator/                  # Geracao de PRDs
-└── dashboard-generator/            # Dashboards interativos e sites de apresentacao
+AIOS Capabilities
+├── agents/        (11) — Personas completas (ativadas com @agent)
+├── skills/         (4) — Skills runtime (carregadas automaticamente em .aios/skills/)
+└── slash commands/ (74) — Knowledge packs (ativados com /AIOS:skills:nome)
 ```
 
----
-
-## Categorias
-
-### Quality & Testing (Superpowers Collection)
-
-| Skill | Descricao | Ativacao |
-|-------|-----------|----------|
-| test-driven-development | Ciclo RED-GREEN-REFACTOR | Automatica |
-| verification-before-completion | Evidencia antes de claims | Automatica |
-| requesting-code-review | Workflow de solicitar review | Manual |
-| receiving-code-review | Processar feedback de review | Automatica |
-
-### Planning & Workflow (Superpowers Collection)
-
-| Skill | Descricao | Ativacao |
-|-------|-----------|----------|
-| brainstorming | Refinamento socratico de design | Automatica |
-| writing-plans | Planos com micro-tasks de 2-5 min | Apos brainstorming |
-| executing-plans | Execucao em batch com checkpoints | Referencia ao plano |
-| finishing-a-development-branch | Merge/PR/cleanup | Pos-execucao |
-
-### Design & Development
-
-| Skill | Descricao | Ativacao |
-|-------|-----------|----------|
-| design-system-extractor | Extracao de design tokens de websites | `/AIOS:skills:design-system-extractor` |
-| dashboard-generator | Dashboards e sites interativos com Chart.js | `/AIOS:skills:dashboard-generator` |
-| criar-app-completo | Workflow completo de criacao de app | Manual |
-| prd-generator | Geracao de PRDs profissionais | Manual |
+**Importante:** Slash commands sao arquivos markdown com expertise — NAO sao skills runtime.
+Skills runtime carregam automaticamente. Slash commands precisam ser invocados explicitamente.
 
 ---
 
-## Skills movidas (2026-02-09)
+## Layer 1: AIOS Agents (11)
 
-As seguintes skills foram reorganizadas:
+**Tipo:** Personas completas | **Ativacao:** `@agent` ou `/AIOS:agents:agent`
 
-| Skill | De | Para | Motivo |
-|-------|-----|------|--------|
-| document-processing | `.aios/skills/` | `tools/document-processing/` | 249MB com .venv — virou tool standalone |
-| obsidian-app-filler | `.aios/skills/` | `~/.claude/skills/` | Skill pessoal, funciona global |
-| obsidian-tag-manager | `.aios/skills/` | `~/.claude/skills/` | Skill pessoal, funciona global |
+| Agent | Persona | Use Para |
+|-------|---------|----------|
+| `@dev` | Dex | Implementacao, debugging, refactoring |
+| `@qa` | Quinn | Testes, validacao, quality gates |
+| `@architect` | Aria | Design de sistemas, decisoes tecnicas |
+| `@data-engineer` | Dara | Database design, schema, migrations |
+| `@po` | Pax | Stories, backlog, acceptance criteria |
+| `@pm` | Morgan | Planning, sprints, recursos |
+| `@sm` | River | Agile ceremonies, processo |
+| `@analyst` | Alex | Requirements, research, analise |
+| `@ux-design-expert` | Uma | UX/UI design, usabilidade |
+| `@devops` | Gage | Git, CI/CD, releases (EXCLUSIVO) |
+| `@aios-master` | — | Orchestration, framework development |
 
 ---
 
-## Repositorios Fonte
+## Layer 2: Runtime Skills (24)
 
-- **Superpowers:** https://github.com/obra/superpowers
-- **Anthropic Skills:** https://github.com/anthropics/skills
+**Tipo:** Skills carregadas automaticamente | **Local:** `.aios/skills/`
+
+**Skills principais:**
+| Skill | Descricao |
+|-------|-----------|
+| `tokenizacao/` | Auditoria frontend completa - Tailwind, Design Tokens (W3C), shadcn/ui, a11y (WCAG 2.2), performance |
+| `superpowers/` | 8 sub-skills (TDD, brainstorming, code review, plans, etc.) |
+| `design-system-extractor/` | Extracao de design tokens de websites |
+| `criar-app-completo/` | Workflow completo de criacao de app |
+| `prd-generator/` | Geracao de PRDs profissionais |
+| `dashboard-generator/` | Geracao de dashboards |
+| `app-builder/` | Builder de aplicacoes |
+| `obsidian-app-filler/` | Preenchimento de apps Obsidian |
+| `obsidian-tag-manager/` | Gerenciamento de tags Obsidian |
+
+**Outras:** angular, angular-state-management, avalonia-viewmodels-zafiro, cloud-penetration-testing, code-refactoring-refactor-clean, decision-tree-generator, game-development, godot-gdscript-patterns, mcp-builder, nextjs-react-expert, skill-creator, superpowers, synapse, system-prompt-architect, tech-search, unreal-engine-cpp-pro, vulnerability-scanner
+
+Estas skills sao distribuidas via `aios install` e funcionam automaticamente.
+
+---
+
+## Layer 3: Slash Commands (31+)
+
+**Tipo:** Knowledge packs on-demand | **Local:** `.claude/commands/AIOS/skills/`
+**Ativacao:** `/comando` no Claude Code (ex: `/doc-rot`, `/typescript-pro`)
+
+Estes sao arquivos markdown com expertise especializada. Carregados sob demanda.
+
+**Recém migradas (31 skills):**
+- **Programming Languages** — cpp-pro, elixir-pro, haskell-pro, julia-pro, python-pro, typescript-pro
+- **Security** — burp-suite-testing, ethical-hacking-methodology, linux-privilege-escalation, security-auditor, top-web-vulnerabilities
+- **Development Tools** — browser-extension-builder, mcp-builder, nestjs-expert, n8n-mcp-tools-expert, nx-workspace-patterns, salesforce-development
+- **Workflows** — concise-planning, enhance-workflow, kaizen, progress-visualizer
+- **Code Quality** — doc-rot
+- **Blockchain & Business** — blockchain-developer, defi-protocol-templates, notion-template-business
+- **AI & Agents** — agent-orchestration-improve-agent, multi-agent-patterns, prompt-engineering
+- **Other** — automate-whatsapp, documentation-templates, inngest, minecraft-bukkit-pro
+- **Languages** — typescript-pro, python-pro, cpp-pro, elixir-pro, haskell-pro, julia-pro
+- **Frontend** — angular, angular-state-management, nextjs-react-expert, tailwind-patterns, tailwind-design-system, radix-ui-design-system, scroll-experience, frontend-design, web-design-guidelines, mobile-design
+- **3D/Games** — 3d-web-experience, game-development (11 sub-skills), godot-gdscript-patterns, unreal-engine-cpp-pro, minecraft-bukkit-pro
+- **Blockchain** — blockchain-developer, defi-protocol-templates
+- **Tools** — automate-whatsapp, notion-template-business, inngest, n8n-mcp-tools-expert, nestjs-expert, browser-extension-builder, mcp-builder
+- **Business** — pricing-strategy, competitive-landscape, market-sizing-analysis, content-creator, copywriting
+- **AI/Agents** — agent-orchestration-improve-agent, prompt-engineering, multi-agent-patterns
+- **Design** — obsidian-app-filler, obsidian-tag-manager, video-media-content-downloader, progress-visualizer
+- **Dev Patterns** — api-design-principles, database-design, documentation-templates, architect-first, app-builder (13 templates), avalonia-viewmodels-zafiro, nx-workspace-patterns, salesforce-development
+- **Media** — video-downloader
+
+**Referencia completa:** `.claude/commands/AIOS/skills/HIERARCHY.md`
+
+---
+
+## Quick Reference
+
+| Preciso de... | Use... | Tipo |
+|---------------|--------|------|
+| Gestao de projeto | `@po`, `@pm`, `@sm` | Agent |
+| Implementar codigo | `@dev` | Agent |
+| Auditar frontend (Tailwind/Tokens/a11y) | `@architect /tokenizacao` | Runtime Skill |
+| Planning formal | `/AIOS:skills:concise-planning` | Slash Command |
+| Debug complexo | `/AIOS:skills:systematic-debugging` | Slash Command |
+| Security audit | `/AIOS:skills:ethical-hacking-methodology` | Slash Command |
+| Limpar doc rot | `/doc-rot` | Slash Command |
+| Criar app completo | `.aios/skills/criar-app-completo/` | Runtime Skill |
+| Gerar PRD | `.aios/skills/prd-generator/` | Runtime Skill |
+| Code review | `/AIOS:skills:kaizen` | Slash Command |
+
+---
+
+*AIOS Skills System v2.0*
+*Last Updated: 2026-02-13*

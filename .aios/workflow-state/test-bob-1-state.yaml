@@ -1,0 +1,61 @@
+workflowId: development-cycle
+currentPhase: 1_validation
+currentStory: /Users/luizfosc/aios-core/docs/stories/active/test-bob-1.story.md
+executor: '@dev'
+qualityGate: '@architect'
+attemptCount: 0
+startedAt: 2026-02-14T04:04:11.880Z
+lastUpdated: 2026-02-14T04:18:27.543Z
+phaseResults:
+  1_validation:
+    status: completed
+    validation_result:
+      passed: true
+      score: 100
+      issues: []
+  2_development:
+    status: completed
+    implementation:
+      files_created: []
+      files_modified: []
+      tests_added: []
+    output: No output captured
+    outputFile: |-
+      tab 1 of window id 9323
+      /var/folders/58/hj_q45l1103flt13ghsbtr7c0000gp/T/aios-output-1771042691.md
+  3_self_healing:
+    status: completed
+    healed_code:
+      iterations: 1
+      issues_fixed: []
+      issues_remaining: []
+      note: CodeRabbit CLI not installed
+  4_quality_gate:
+    status: completed
+    review_result:
+      verdict: APPROVED
+      score: 90
+      findings: []
+      recommendations: []
+    output: No output captured
+  5_push:
+    status: completed
+    push_result:
+      commit_hash: ''
+      branch: main
+    pr_url: ''
+    output: No output captured
+  6_checkpoint:
+    status: completed
+    decision: GO
+    next_story: null
+    awaiting_input: true
+    options:
+      GO: Continue to next story
+      PAUSE: Save state and stop
+      REVIEW: Show what was done
+      ABORT: Stop the epic
+accumulatedContext:
+  epic_name: BOB E2E Test
+  epic_id: BOB-TEST
+  validatedAt: 2026-02-14T04:18:27.537Z

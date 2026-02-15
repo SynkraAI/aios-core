@@ -242,7 +242,7 @@ def _browser_login(email: str, password: str) -> str:
             page.goto(
                 "https://consumer.hotmart.com/purchase",
                 wait_until="networkidle",
-                timeout=30000,
+                timeout=90000,
             )
             time.sleep(3)
 
@@ -259,7 +259,7 @@ def _browser_login(email: str, password: str) -> str:
                 page.goto(
                     club_url,
                     wait_until="networkidle",
-                    timeout=30000,
+                    timeout=90000,
                 )
                 time.sleep(5)
 
