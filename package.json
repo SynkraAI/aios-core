@@ -42,6 +42,8 @@
     "sync:ide:codex": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide codex",
     "sync:skills:codex": "node .aios-core/infrastructure/scripts/codex-skills-sync/index.js",
     "sync:skills:codex:global": "node .aios-core/infrastructure/scripts/codex-skills-sync/index.js --global --global-only",
+    "validate:codex-skills": "node .aios-core/infrastructure/scripts/codex-skills-sync/validate.js --strict",
+    "validate:paths": "node .aios-core/infrastructure/scripts/validate-paths.js",
     "sync:ide:cursor": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide cursor",
     "sync:ide:windsurf": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide windsurf",
     "prepublishOnly": "npm run generate:manifest && npm run validate:manifest",
