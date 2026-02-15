@@ -34,6 +34,7 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
+    "test:integration": "vitest run --config tests/integration/vitest.integration.config.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
