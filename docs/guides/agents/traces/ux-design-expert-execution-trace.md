@@ -139,7 +139,7 @@ ux-design-expert:
 | `*a11y-check` | accessibility-wcag-checklist.md (checklist) | Phase 5: Quality | Optional |
 | `*calculate-roi` | calculate-roi.md | Phase 5: Quality | No |
 | `*scan {path\|url}` | ux-ds-scan-artifact.md | Universal | Yes |
-| `*integrate {pack}` | integrate-Squad.md (MISSING - see Section 6) | Universal | Yes |
+| `*integrate {squad}` | integrate-Squad.md (MISSING - see Section 6) | Universal | Yes |
 
 ---
 
@@ -685,7 +685,7 @@ flowchart TD
 
 ---
 
-### `*integrate {pack}`
+### `*integrate {squad}`
 
 **Task file:** `.aios-core/development/tasks/integrate-Squad.md` (MISSING)
 
@@ -693,10 +693,10 @@ flowchart TD
 | File | Type | Status |
 |------|------|--------|
 | `integrate-Squad.md` | Task | MISSING |
-| `integrate-expansion-pack.md` | Task | EXISTS (possible intended file) |
+| `integrate-squad.md` | Task | EXISTS (possible intended file) |
 | `integration-patterns.md` | Data | EXISTS (product/data/) |
 
-**Note:** The agent definition references `integrate-Squad.md` but only `integrate-expansion-pack.md` exists on disk. This may cause a runtime error or the task loader may fall back.
+**Note:** The agent definition references `integrate-Squad.md` but only `integrate-squad.md` exists on disk. This may cause a runtime error or the task loader may fall back.
 
 ---
 
@@ -925,7 +925,7 @@ graph TD
 
 | File | Type | Referenced By | Impact |
 |------|------|---------------|--------|
-| `integrate-Squad.md` | Task | `*integrate {pack}` | Command non-functional; `integrate-expansion-pack.md` exists as possible substitute |
+| `integrate-Squad.md` | Task | `*integrate {squad}` | Command non-functional; `integrate-squad.md` exists as possible substitute |
 
 ### Notes on Dependency Locations
 

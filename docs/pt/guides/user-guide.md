@@ -451,4 +451,4 @@ aios squads search {keyword}
 
 ---
 
-_Guia do Usuário Synkra AIOS v2.1.0_
+_Guia do Usuário Synkra AIOS v4.0_

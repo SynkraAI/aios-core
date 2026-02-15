@@ -404,19 +404,19 @@ async function main() {
       message: chalk.white('Which IDE(s) will you use?'),
       choices: [
         {
-          name: '  Claude Code ' + chalk.blue('(v2.1)') + chalk.gray(' - Recommended'),
+          name: '  Claude Code ' + chalk.blue('(v4)') + chalk.gray(' - Recommended'),
           value: 'claude',
           checked: true,
         },
-        { name: '  Cursor ' + chalk.blue('(v2.1)'), value: 'cursor' },
-        { name: '  Windsurf ' + chalk.blue('(v2.1)'), value: 'windsurf' },
-        { name: '  Trae ' + chalk.blue('(v2.1)'), value: 'trae' },
-        { name: '  Roo Code ' + chalk.blue('(v2.1)'), value: 'roo' },
-        { name: '  Cline ' + chalk.blue('(v2.1)'), value: 'cline' },
-        { name: '  Gemini CLI ' + chalk.blue('(v2.1)'), value: 'gemini' },
-        { name: '  GitHub Copilot ' + chalk.blue('(v2.1)'), value: 'github-copilot' },
+        { name: '  Cursor ' + chalk.blue('(v4)'), value: 'cursor' },
+        { name: '  Windsurf ' + chalk.blue('(v4)'), value: 'windsurf' },
+        { name: '  Trae ' + chalk.blue('(v4)'), value: 'trae' },
+        { name: '  Roo Code ' + chalk.blue('(v4)'), value: 'roo' },
+        { name: '  Cline ' + chalk.blue('(v4)'), value: 'cline' },
+        { name: '  Gemini CLI ' + chalk.blue('(v4)'), value: 'gemini' },
+        { name: '  GitHub Copilot ' + chalk.blue('(v4)'), value: 'github-copilot' },
         {
-          name: '  AntiGravity ' + chalk.blue('(v2.1)') + chalk.gray(' - Google AI IDE'),
+          name: '  AntiGravity ' + chalk.blue('(v4)') + chalk.gray(' - Google AI IDE'),
           value: 'antigravity',
         },
         new inquirer.Separator(chalk.gray('─'.repeat(40))),
@@ -604,7 +604,7 @@ async function main() {
       : [];
 
     // Step 2: Install AIOS CORE agents and tasks for Claude Code
-    // v2.1: Agents and tasks are in development/ module
+    // v4: Agents and tasks are in development/ module
     if (ides.includes('claude')) {
       const coreAgentsTarget = path.join(
         context.projectRoot,
@@ -658,7 +658,7 @@ See .aios-core/user-guide.md for complete documentation.
     }
 
     // Step 3: Install AIOS CORE agents for Cursor
-    // v2.1: Agents are in development/ module
+    // v4: Agents are in development/ module
     // INS-2 Performance: Uses cached agent files list
     if (ides.includes('cursor')) {
       const cursorRulesTarget = path.join(
@@ -704,7 +704,7 @@ See .aios-core/user-guide.md for complete documentation.
     }
 
     // Step 4: Install AIOS CORE agents for other IDEs (Trae, Cline, Gemini, AntiGravity)
-    // v2.1: Agents are in development/ module
+    // v4: Agents are in development/ module
     // INS-2 Performance: Uses cached agent files list
     const otherIdeInstalls = ['trae', 'cline', 'gemini', 'antigravity'];
     for (const ide of otherIdeInstalls) {
@@ -737,7 +737,7 @@ See .aios-core/user-guide.md for complete documentation.
     }
 
     // Step 5: Install Roo Code modes
-    // v2.1: Agents are in development/ module
+    // v4: Agents are in development/ module
     // INS-2 Performance: Uses cached agent files list
     if (ides.includes('roo')) {
       const rooModesPath = path.join(context.projectRoot, '.roomodes');
@@ -763,7 +763,7 @@ See .aios-core/user-guide.md for complete documentation.
     }
 
     // Step 6: Install GitHub Copilot chat modes
-    // v2.1: Agents are in development/ module
+    // v4: Agents are in development/ module
     // INS-2 Performance: Uses cached agent files list
     if (ides.includes('github-copilot')) {
       const copilotModesDir = path.join(context.projectRoot, '.github', 'chatmodes');
@@ -788,7 +788,6 @@ See .aios-core/user-guide.md for complete documentation.
 
   // Step 7: Squads (CHECKBOX with visual)
   // Try multiple locations for squads (npm package vs local development vs npx)
-  // Also check legacy expansion-packs/ for backward compatibility
   // __dirname is the 'bin/' directory of the package, so '..' gives us the package root
   const packageRoot = path.resolve(__dirname, '..');
 
@@ -800,25 +799,14 @@ See .aios-core/user-guide.md for complete documentation.
     // Tertiary: installed in project's node_modules - squads/
     path.join(context.projectRoot, 'node_modules', '@synkra/aios-core', 'squads'),
     path.join(context.projectRoot, 'node_modules', '@aios', 'fullstack', 'squads'),
-    // Legacy fallback (deprecated): expansion-packs/
-    path.join(packageRoot, 'expansion-packs'),
-    path.join(context.frameworkLocation, 'expansion-packs'),
-    path.join(context.projectRoot, 'node_modules', '@synkra/aios-core', 'expansion-packs'),
-    path.join(context.projectRoot, 'node_modules', '@aios', 'fullstack', 'expansion-packs'),
   ];
 
   let sourceSquadsDir = null;
-  let usingLegacyDir = false;
   for (const dir of possibleSquadsDirs) {
     if (fs.existsSync(dir)) {
       sourceSquadsDir = dir;
-      usingLegacyDir = dir.includes('expansion-packs');
       break;
     }
-  }
-
-  if (usingLegacyDir) {
-    console.log(chalk.yellow('⚠ Note: Using legacy expansion-packs/ directory. Consider migrating to squads/'));
   }
 
   const availableSquads = [];

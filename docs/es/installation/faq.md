@@ -458,7 +458,7 @@ npx @synkra/aios-core install --Squads hybrid-ops
 **Listar paquetes disponibles:**
 
 ```bash
-npx @synkra/aios-core list:expansions
+npx @synkra/aios-core install
 ```
 
 ---

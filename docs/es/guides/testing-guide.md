@@ -1212,4 +1212,4 @@ module.exports = {
 
 ---
 
-_Guia de Testing de Synkra AIOS v2.1_
+_Guia de Testing de Synkra AIOS v4_

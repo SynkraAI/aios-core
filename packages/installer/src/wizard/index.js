@@ -41,11 +41,11 @@ const {
   isLLMRoutingInstalled,
 } = require('../../../../.aios-core/infrastructure/scripts/llm-routing/install-llm-routing');
 
-// DISABLED: Squads replaced expansion-packs (OSR-8)
+// DISABLED: Legacy installation block superseded by squads flow (OSR-8)
 // /**
-//  * Generate AntiGravity workflow content for expansion pack agents
+//  * Generate AntiGravity workflow content for squad agents
 //  * @param {string} agentName - Agent name (e.g., 'data-collector')
-//  * @param {string} packName - Expansion pack name (e.g., 'etl')
+//  * @param {string} packName - Starter squad name (e.g., 'etl')
 //  * @returns {string} Workflow file content
 //  */
 // function generateExpansionPackWorkflow(agentName, packName) {
@@ -57,7 +57,7 @@ const {
 //
 // # Ativação do Agente ${displayName}
 //
-// **Expansion Pack:** ${packName}
+// **Squad:** ${packName}
 //
 // **INSTRUÇÕES CRÍTICAS PARA O ANTIGRAVITY:**
 //
@@ -118,7 +118,7 @@ const LANGUAGE_MAP = {
 /**
  * Write language preference to Claude Code's native settings.json (Story ACT-12)
  * Replaces the old approach of storing language in core-config.yaml.
- * Claude Code v2.1.0+ natively supports a `language` field in settings.json
+ * Claude Code v4.0.4+ natively supports a `language` field in settings.json
  * that is automatically injected into the system prompt.
  *
  * @param {string} language - Language code from wizard (en|pt|es)
@@ -460,16 +460,16 @@ async function runWizard(options = {}) {
       answers.techPresetResult = { preset: 'none', success: true };
     }
 
-    // DISABLED: Squads replaced expansion-packs (OSR-8)
-    // Install Expansion Packs if selected
+    // DISABLED: Legacy installation block superseded by squads flow (OSR-8)
+    // Install Squads if selected
     // if (answers.selectedExpansionPacks && answers.selectedExpansionPacks.length > 0) {
-    //   console.log('\n🎁 Installing Expansion Packs...');
+    //   console.log('\n🎁 Installing Squads...');
     //
-    //   // Detect source expansion-packs directory (npm package location)
+    //   // Detect source squads directory (npm package location)
     //   const possibleSourceDirs = [
-    //     path.join(__dirname, '..', '..', 'expansion-packs'),
-    //     path.join(__dirname, '..', '..', '..', 'expansion-packs'),
-    //     path.join(process.cwd(), 'node_modules', '@synkra/aios-core', 'expansion-packs'),
+    //     path.join(__dirname, '..', '..', 'squads'),
+    //     path.join(__dirname, '..', '..', '..', 'squads'),
+    //     path.join(process.cwd(), 'node_modules', '@synkra/aios-core', 'squads'),
     //   ];
     //
     //   let sourceExpansionDir = null;
@@ -481,7 +481,7 @@ async function runWizard(options = {}) {
     //   }
     //
     //   if (sourceExpansionDir) {
-    //     const targetExpansionDir = path.join(process.cwd(), 'expansion-packs');
+    //     const targetExpansionDir = path.join(process.cwd(), 'squads');
     //     await fse.ensureDir(targetExpansionDir);
     //
     //     const installedPacks = [];
@@ -514,10 +514,10 @@ async function runWizard(options = {}) {
     //     };
     //
     //     if (installedPacks.length > 0) {
-    //       console.log(`\n✅ Expansion Packs installed (${installedPacks.length}/${answers.selectedExpansionPacks.length})`);
+    //       console.log(`\n✅ Squads installed (${installedPacks.length}/${answers.selectedExpansionPacks.length})`);
     //     }
     //   } else {
-    //     console.log('   ⚠️  Expansion packs source directory not found');
+    //     console.log('   ⚠️  Squads source directory not found');
     //     answers.expansionPacksInstalled = false;
     //   }
     // }
@@ -544,10 +544,10 @@ async function runWizard(options = {}) {
         }
       }
 
-      // DISABLED: Squads replaced expansion-packs (OSR-8)
-      // Install expansion pack agents to each selected IDE
+      // DISABLED: Legacy installation block superseded by squads flow (OSR-8)
+      // Install squad agents to each selected IDE
       // if (answers.expansionPacksResult && answers.expansionPacksResult.installed.length > 0) {
-      //   console.log('\n📦 Installing expansion pack agents to IDEs...');
+      //   console.log('\n📦 Installing squad agents to IDEs...');
       //
       //   for (const packName of answers.expansionPacksResult.installed) {
       //     const packAgentsDir = path.join(answers.expansionPacksResult.targetDir, packName, 'agents');
@@ -562,7 +562,7 @@ async function runWizard(options = {}) {
       //
       //           const isAntiGravity = ideConfig.specialConfig && ideConfig.specialConfig.type === 'antigravity';
       //
-      //           // Determine target folder for this expansion pack
+      //           // Determine target folder for this squad
       //           let targetFolder;
       //           if (isAntiGravity) {
       //             // AntiGravity: workflows go to .agent/workflows/{packName}/

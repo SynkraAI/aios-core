@@ -81,4 +81,4 @@ Cline requires explicit approval for:
 - Configure in Cline settings for additional tools
 
 ---
-*Synkra AIOS Cline Configuration v2.1*
+*Synkra AIOS Cline Configuration v4.0.4*

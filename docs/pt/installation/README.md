@@ -35,7 +35,7 @@ Este diretório contém documentação abrangente de instalação e configuraç�
 
 | Documento                                    | Descrição                               | Público-alvo      |
 | -------------------------------------------- | --------------------------------------- | ----------------- |
-| [Quick Start (v2.1)](./v2.1-quick-start.md)  | Configuração rápida para novos usuários | Iniciantes        |
+| [Quick Start (v4)](./v4-quick-start.md)  | Configuração rápida para novos usuários | Iniciantes        |
 | [Solução de Problemas](./troubleshooting.md) | Problemas comuns e soluções             | Todos os usuários |
 | [FAQ](./faq.md)                              | Perguntas frequentes                    | Todos os usuários |
 

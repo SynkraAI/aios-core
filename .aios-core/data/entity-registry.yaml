@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-12T13:07:01.327Z'
-  entityCount: 487
+  lastUpdated: '2026-02-15T17:43:13.184Z'
+  entityCount: 491
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -4778,6 +4778,26 @@ entities:
         extensionPoints: []
       checksum: sha256:7c880de0dec8b06eb3390a56614996c6033c1939907d77f73f4f6f85ae42b3e2
       lastVerified: '2026-02-08T13:33:24.280Z'
+    codex-rules:
+      path: .aios-core/product/templates/ide-rules/codex-rules.md
+      type: template
+      purpose: AGENTS.md - Synkra AIOS (Codex CLI)
+      keywords:
+        - codex
+        - rules
+        - agents.md
+        - synkra
+        - aios
+        - (codex
+        - cli)
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:e8345404f17977a268b917a4ff86e4f10f80174a6bb572865e5413c8f7dd217a
+      lastVerified: '2026-02-15T17:43:13.184Z'
   scripts:
     agent-assignment-resolver:
       path: .aios-core/development/scripts/agent-assignment-resolver.js
@@ -5162,19 +5182,19 @@ entities:
     generate-greeting:
       path: .aios-core/development/scripts/generate-greeting.js
       type: script
-      purpose: Entity at .aios-core\development\scripts\generate-greeting.js
+      purpose: Entity at .aios-core/development/scripts/generate-greeting.js
       keywords:
         - generate
         - greeting
       usedBy: []
       dependencies:
-        - unified-activation-pipeline
+        - activation-runtime
       adaptability:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:6ba79e9ba4d0e1ca7e47e1dd53c8087c46e28a3e951d41fde3a88bf329c2d7a7
-      lastVerified: '2026-02-08T13:33:24.290Z'
+      checksum: sha256:ee4827dd0636b0472623e770aa7c832a89544c4d7d7f5800f24d2f34b815c535
+      lastVerified: '2026-02-15T17:43:13.183Z'
     git-wrapper:
       path: .aios-core/development/scripts/git-wrapper.js
       type: script
@@ -5602,7 +5622,7 @@ entities:
         - activation
         - pipeline
       usedBy:
-        - generate-greeting
+        - activation-runtime
       dependencies:
         - greeting-builder
         - agent-config-loader
@@ -5955,6 +5975,23 @@ entities:
         extensionPoints: []
       checksum: sha256:36b02cbc8f83d6a309ca07dd79e503fd9ed9f7406db6922876db0bc7afebe894
       lastVerified: '2026-02-08T13:33:24.318Z'
+    activation-runtime:
+      path: .aios-core/development/scripts/activation-runtime.js
+      type: script
+      purpose: Entity at .aios-core/development/scripts/activation-runtime.js
+      keywords:
+        - activation
+        - runtime
+      usedBy:
+        - generate-greeting
+      dependencies:
+        - unified-activation-pipeline
+      adaptability:
+        score: 0.7
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:90678a0b10cec48191c47b799084a6d796e28135313031ed0b5e78f31459e204
+      lastVerified: '2026-02-15T17:43:13.183Z'
   modules:
     index.esm:
       path: .aios-core/core/index.esm.js
@@ -6500,20 +6537,21 @@ entities:
     engine:
       path: .aios-core/core/health-check/engine.js
       type: module
-      purpose: Entity at .aios-core\core\synapse\engine.js
+      purpose: Entity at .aios-core/core/synapse/engine.js
       keywords:
         - engine
       usedBy: []
       dependencies:
         - context-tracker
+        - context-builder
         - formatter
         - memory-bridge
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:90572bd719491e1f57bc43cb29179ad8de34db9d752fff54bf8638d9fcf22bc7
-      lastVerified: '2026-02-12T13:07:01.326Z'
+      checksum: sha256:ad3289d7ca4a118f839b56fbd467675d8f0933d7605e94b328e5c94ec71102a9
+      lastVerified: '2026-02-15T17:43:13.183Z'
     ideation-engine:
       path: .aios-core/core/ideation/ideation-engine.js
       type: module
@@ -8234,7 +8272,7 @@ entities:
     registry-updater:
       path: .aios-core/core/ids/registry-updater.js
       type: module
-      purpose: Entity at .aios-core\core\ids\registry-updater.js
+      purpose: Entity at .aios-core/core/ids/registry-updater.js
       keywords:
         - registry
         - updater
@@ -8246,8 +8284,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:0e59a35fb77eaf7e757ecdc283381d8e6d20e9d24844280a4605af316f152f5e
-      lastVerified: '2026-02-09T00:54:48.061Z'
+      checksum: sha256:6d87ec21d32acff1ba9b9d13025118c106ce6db59c1339c3a6ef4b2a02fd7f52
+      lastVerified: '2026-02-14T05:21:37.024Z'
     core-config:
       path: .aios-core/core-config.yaml
       type: module
@@ -8266,8 +8304,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:8e1d03a482b820a6a23d5821fae9e23fcb13cb70c95daec388e2e03d3283861f
-      lastVerified: '2026-02-09T16:42:28.275Z'
+      checksum: sha256:10c4b0683612f98b6b3b500592c687aa5a0925cdb814d54b00a8e76bfd413c07
+      lastVerified: '2026-02-15T17:43:13.182Z'
     active-modules.verify:
       path: .aios-core/core/memory/__tests__/active-modules.verify.js
       type: module
@@ -8491,6 +8529,37 @@ entities:
         extensionPoints: []
       checksum: sha256:3b927daec51d0a791f3fe4ef9aafc362773450e7cf50eb4b6d8ae9011d70df9a
       lastVerified: '2026-02-12T12:53:14.532Z'
+    context-builder:
+      path: .aios-core/core/synapse/context/context-builder.js
+      type: module
+      purpose: Entity at .aios-core/core/synapse/context/context-builder.js
+      keywords:
+        - context
+        - builder
+      usedBy:
+        - engine
+      dependencies: []
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:121cd0a1df8a44098831cd4335536e8facf4e65b8aec48f4ce9c2d432dc6252a
+      lastVerified: '2026-02-15T17:43:13.183Z'
+    hook-runtime:
+      path: .aios-core/core/synapse/runtime/hook-runtime.js
+      type: module
+      purpose: Entity at .aios-core/core/synapse/runtime/hook-runtime.js
+      keywords:
+        - hook
+        - runtime
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:22d0c1c93441dafda897927e67066a93360530781d8da276757049e23c177ee9
+      lastVerified: '2026-02-15T17:43:13.183Z'
   agents:
     aios-master:
       path: .aios-core/development/agents/aios-master.md

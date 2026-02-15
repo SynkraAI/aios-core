@@ -533,7 +533,7 @@ Junte-se à nossa comunidade para suporte e atualizações:
 **Meta-agent não inicia**
 ```bash
 # Verificar versão do Node.js
-node --version  # Deve ser >= 14.0.0
+node --version  # Deve ser >= 18.0.0
 
 # Verificar instalação
 npx @synkra/aios-core doctor

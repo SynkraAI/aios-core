@@ -37,7 +37,7 @@ Migrates legacy squad formats to AIOS 2.1 standard.
 # Migrate with detailed output
 *migrate-squad ./squads/my-squad --verbose
 
-# Migrate expansion pack
+# Migrate squad
 *migrate-squad ./expansion-packs/my-pack --verbose
 ```
 

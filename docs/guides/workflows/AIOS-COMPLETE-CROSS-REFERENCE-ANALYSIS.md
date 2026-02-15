@@ -708,7 +708,7 @@ The most self-contained subsystem with **35 files**:
 
 ### 7.6 Squad System
 
-The expansion pack system is well-isolated:
+The squad system is well-isolated:
 - **10 dedicated scripts** in `development/scripts/squad/`
 - **19 templates** (8 component + 10 scaffold + 1 workflow)
 - @squad-creator agent with 8 commands

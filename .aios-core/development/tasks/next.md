@@ -130,7 +130,7 @@ Options:
 
 Examples:
   *next                                    # Auto-detect context
-  *next --story docs/stories/v2.1/sprint-10/story-wis-3.md
+  *next --story docs/stories/v4.0.4/sprint-10/story-wis-3.md
   *next --all                              # Show all suggestions
 
 How it works:
@@ -156,7 +156,7 @@ Workflow detection uses:
 📍 State: in_development (confidence: 92%)
 
 Next steps:
-1. `*review-qa docs/stories/v2.1/sprint-10/story-wis-3.md` - Run QA review
+1. `*review-qa docs/stories/v4.0.4/sprint-10/story-wis-3.md` - Run QA review
 2. `*run-tests` - Execute test suite manually
 3. `*pre-push-quality-gate` - Final quality checks
 
@@ -257,7 +257,7 @@ optimizations:
  Context:
    Agent: @dev
    Last Command: *develop
-   Story: docs/stories/v2.1/sprint-11/story-wis-3.md
+   Story: docs/stories/v4.0.4/sprint-11/story-wis-3.md
    Branch: feature/wis-3
 
  Workflow: story_development

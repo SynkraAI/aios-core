@@ -1,7 +1,7 @@
 /**
  * Visual Feedback Helpers
  *
- * Spinners, progress bars, and status indicators using AIOS Color System v2.1
+ * Spinners, progress bars, and status indicators using AIOS Color System v4.0.4
  *
  * @module wizard/feedback
  */

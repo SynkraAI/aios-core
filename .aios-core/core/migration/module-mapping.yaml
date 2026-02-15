@@ -1,9 +1,9 @@
-# AIOS Module Mapping v2.0 → v2.1
+# AIOS Module Mapping v2.0 → v4.0.4
 # Story 2.14 - Migration Script
 
 version: "1.0.0"
 
-# Mapping of v2.0 directories to v2.1 modules
+# Mapping of v2.0 directories to v4.0.4 modules
 mapping:
   core:
     source: ".aios-core/"

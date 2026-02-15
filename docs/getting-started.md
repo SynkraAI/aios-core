@@ -527,7 +527,7 @@ Join our community for support and updates:
 **Meta-agent won't start**
 ```bash
 # Check Node.js version
-node --version  # Should be >= 14.0.0
+node --version  # Should be >= 18.0.0
 
 # Verify installation
 npx @synkra/aios-core doctor

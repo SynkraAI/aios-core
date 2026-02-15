@@ -1070,7 +1070,7 @@ gantt
 
 ---
 
-*AIOS Memory Intelligence System — Architecture Vision v2.1 (Core/Pro Split)*
+*AIOS Memory Intelligence System — Architecture Vision v4.0.4 (Core/Pro Split)*
 *Target state apos Epic MIS completo (7 stories, ~78 horas)*
 *aios-core: extension points + dead code cleanup*
 *aios-pro: toda a inteligencia de memoria (Capture, Storage, Retrieval, Evolution)*

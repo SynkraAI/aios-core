@@ -208,13 +208,13 @@ updated_at: 2025-11-17
 
 ## Description
 
-Connect design system with MMOS, CreatorOS, or InnerLens expansion packs. Generates pack-specific patterns, token variations, and integration documentation.
+Connect design system with MMOS, CreatorOS, or InnerLens squads. Generates pack-specific patterns, token variations, and integration documentation.
 
 ## Prerequisites
 
 - Design system setup complete
 - Components built
-- Target expansion pack installed
+- Target squad installed
 
 ## Workflow
 

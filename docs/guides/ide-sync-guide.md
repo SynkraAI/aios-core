@@ -27,12 +27,12 @@ active_ides:
   # - gemini    # Google Gemini (.gemini/)
 ```
 
-### 3. Add Pack Aliases
+### 3. Add Squad Aliases
 
 Map your squad directories to command prefixes:
 
 ```yaml
-pack_aliases:
+squad_aliases:
   legal: Legal # squads/legal/ → .claude/commands/Legal/
   copy: Copy # squads/copy/ → .claude/commands/Copy/
   hr: HR # squads/hr/ → .claude/commands/HR/
@@ -165,16 +165,16 @@ Error: Component 'my-agent' not found in squads/
 
 **Solution**: Verify the agent exists in `squads/*/agents/my-agent.md`
 
-### Missing Pack Alias
+### Missing Squad Alias
 
 ```
-Warning: No pack alias for 'new-squad'
+Warning: No squad alias for 'new-squad'
 ```
 
 **Solution**: Add the alias to `.aios-sync.yaml`:
 
 ```yaml
-pack_aliases:
+squad_aliases:
   new-squad: NewSquad
 ```
 

@@ -180,7 +180,7 @@ describe('Story ACT-8: Agent Config Enrichment', () => {
     test('squad-creator has lazy loading for registry and manifest', () => {
       const sc = agentConfig.agents['squad-creator'];
       expect(sc.lazy_loading).toHaveProperty('agent_registry', true);
-      expect(sc.lazy_loading).toHaveProperty('expansion_pack_manifest', true);
+      expect(sc.lazy_loading).toHaveProperty('squad_manifest', true);
     });
 
     test('squad-creator performance target is <150ms', () => {

@@ -30,7 +30,7 @@ e este projeto adere ao [Versionamento Semantico](https://semver.org/lang/pt-BR/
 - **Suite de Documentacao**:
   - Guia de Solucao de Problemas com 23 problemas documentados
   - FAQ com 22 perguntas e respostas
-  - Guia de Migracao v2.0 para v2.1
+  - Guia de Migracao v2.0 para v4.0.4
 
 ### Alterado
 

@@ -142,7 +142,7 @@ flowchart TB
 | Arquivo | Comando | Proposito |
 |---------|---------|-----------|
 | `.aios-core/development/tasks/ux-ds-scan-artifact.md` | `*scan {path\|url}` | Analisar HTML/React para extrair padroes |
-| `.aios-core/development/tasks/integrate-Squad.md` | `*integrate {pack}` | Conectar com expansion pack |
+| `.aios-core/development/tasks/integrate-Squad.md` | `*integrate {squad}` | Conectar com expansion squad |
 
 ### Templates
 
@@ -394,7 +394,7 @@ flowchart TB
 | Comando | Task File | Entrada | Saida |
 |---------|-----------|---------|-------|
 | `*scan {path\|url}` | `ux-ds-scan-artifact.md` | Artifact | scan-summary.md, design-tokens.yaml |
-| `*integrate {pack}` | `integrate-Squad.md` | Pack name | Integration config |
+| `*integrate {squad}` | `integrate-Squad.md` | Squad name | Integration config |
 | `*help` | N/A | N/A | Lista de comandos por fase |
 | `*status` | N/A | N/A | Estado atual do workflow |
 | `*guide` | N/A | N/A | Guia completo do agente |

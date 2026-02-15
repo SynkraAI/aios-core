@@ -492,7 +492,7 @@ Each agent has specific config requirements defined in `.aios-core/data/agent-co
 | `pm` | devStoryLocation, storyBacklog | coding-standards.md, tech-stack.md | <100ms |
 | `analyst` | dataLocation, analyticsLocation | brainstorming-techniques.md, tech-stack.md, source-tree.md | <100ms |
 | `ux-design-expert` | dataLocation, uxLocation | tech-stack.md, coding-standards.md | <100ms |
-| `squad-creator` | dataLocation, squadsTemplateLocation | (none, lazy: agent_registry, expansion_pack_manifest) | <150ms |
+| `squad-creator` | dataLocation, squadsTemplateLocation | (none, lazy: agent_registry, squad_manifest) | <150ms |
 
 > **Story ACT-8 changes:** Enriched pm (+2 files), ux-design-expert (+2 files), analyst (+2 files), sm (+1 file), squad-creator (explicit entry with lazy loading). All within performance targets.
 

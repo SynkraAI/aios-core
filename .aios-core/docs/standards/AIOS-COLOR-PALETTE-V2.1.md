@@ -1,4 +1,4 @@
-# AIOS Color Palette v2.1
+# AIOS Color Palette v4.0.4
 
 **Version:** 2.1.0  
 **Created:** 2025-01-20  
@@ -66,7 +66,7 @@ For special effects, animations, and branding moments:
 ```javascript
 const chalk = require('chalk');
 
-// AIOS Color Palette v2.1
+// AIOS Color Palette v4.0.4
 const colors = {
   // Core Brand Colors
   primary: chalk.hex('#8B5CF6'),      // ClickUp-inspired purple
@@ -162,7 +162,7 @@ module.exports = {
 - Example: Welcome screens, major section headers
 
 ```javascript
-console.log(colors.brandPrimary('🎉 AIOS v2.1 Installer'));
+console.log(colors.brandPrimary('🎉 AIOS v4.0.4 Installer'));
 ```
 
 **Level 2: Primary Content**
@@ -193,7 +193,7 @@ console.log(colors.info('💡 Tip: You can change this later'));
 **Installer & Wizards:**
 ```javascript
 // Welcome
-console.log(colors.brandPrimary('\n🎉 Welcome to AIOS v2.1\n'));
+console.log(colors.brandPrimary('\n🎉 Welcome to AIOS v4.0.4\n'));
 console.log(colors.info('Let\'s get your project set up...\n'));
 
 // Questions
@@ -341,7 +341,7 @@ For future design system integration:
 ## 🔗 Related Documents
 
 - [AIOS-LIVRO-DE-OURO-V2.1](./AIOS-LIVRO-DE-OURO-V2.1-SUMMARY.md) - Complete AIOS standards
-- [Story 1.2](../stories/v2.1/sprint-1/story-1.2-interactive-wizard-foundation.md) - Interactive Wizard (first implementation)
+- [Story 1.2](../stories/v4.0.4/sprint-1/story-1.2-interactive-wizard-foundation.md) - Interactive Wizard (first implementation)
 - [ClickUp Brand Guidelines](https://clickup.com/brand) - Primary color reference
 
 ---

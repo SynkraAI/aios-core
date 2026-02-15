@@ -208,11 +208,11 @@ updated_at: 2025-11-17
 
 ## Description
 
-Analyze an expansion pack's data requirements and design database integration strategy. Maps pack inputs/outputs/state to database schema, proposes tables/relationships, and generates migration plan.
+Analyze an squad's data requirements and design database integration strategy. Maps pack inputs/outputs/state to database schema, proposes tables/relationships, and generates migration plan.
 
 ## Prerequisites
 
-- Expansion pack installed and accessible
+- Squad installed and accessible
 - Database connection configured (*env-check passed)
 - Current schema documented or accessible
 
@@ -221,8 +221,8 @@ Analyze an expansion pack's data requirements and design database integration st
 ### Step 1: Identify Target Expansion Pack
 
 **Elicit from user:**
-- Which expansion pack? (mmos, creator-os, innerlens, etc.)
-- Path to expansion pack directory
+- Which squad? (mmos, creator-os, innerlens, etc.)
+- Path to squad directory
 
 **Actions:**
 - Verify pack exists and has config.yaml
@@ -578,7 +578,7 @@ next_steps:
 
 ## Success Criteria
 
-- [ ] Expansion pack data flows fully documented
+- [ ] Squad data flows fully documented
 - [ ] Current schema analyzed
 - [ ] Integration schema designed (follows patterns, has RLS)
 - [ ] KISS Gate validation passed (database is actually needed)

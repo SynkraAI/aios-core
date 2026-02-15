@@ -355,7 +355,7 @@ Entrada:
     tipo: string
     origen: user_input | auto-detect
     obligatorio: false
-    example: "expansion-packs/aios/agents/dev/agent.yaml"
+    example: "squads/aios/agents/dev/agent.yaml"
 
   - campo: include_task_examples
     tipo: boolean
@@ -466,7 +466,7 @@ Entrada:
     tipo: string
     origen: user_input
     obligatorio: true
-    example: "agent-collaboration-workflow", "expansion-pack-installation"
+    example: "agent-collaboration-workflow", "squad-installation"
 
   - campo: source_context
     tipo: string | code_snippet
@@ -681,7 +681,7 @@ Entrada:
     tipo: string
     origen: user_input
     obligatorio: true
-    example: "expansion-pack-creation", "partner-os-usage", "revenue-sharing"
+    example: "squad-creation", "partner-os-usage", "revenue-sharing"
 
   - campo: include_video_script
     tipo: boolean
@@ -1504,7 +1504,7 @@ on:
     paths:
       - 'src/**'
       - 'aios-core/**'
-      - 'expansion-packs/**'
+      - 'squads/**'
 
 jobs:
   check-docs:
@@ -1707,7 +1707,7 @@ dashboard:
 ### Fase 1: Construccion del Agente (Semana 1)
 
 **Dias 1-2: Fundacion del Agente**
-- [ ] Crear `expansion-packs/aios/agents/docs/agent.yaml`
+- [ ] Crear `squads/aios/agents/docs/agent.yaml`
 - [ ] Definir persona Ajax (arquetipo Aries, color Azul)
 - [ ] Escribir prompt de sistema base
 - [ ] Configurar patrones de colaboracion con otros agentes
@@ -1748,7 +1748,7 @@ dashboard:
 
 **Dias 8-10: Materiales de Capacitacion de Socios (Epic 14)**
 - [ ] Generar guia de incorporacion de socios fundadores
-- [ ] Crear tutorial de creacion de expansion pack
+- [ ] Crear tutorial de creacion de squad
 - [ ] Desarrollar plantillas de check-in semanal
 - [ ] Construir playbook de exito de socios
 

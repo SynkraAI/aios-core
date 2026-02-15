@@ -1,4 +1,4 @@
-# Quality Gates Specification v2.1
+# Quality Gates Specification v4.0.4
 
 **Version:** 2.1.0
 **Last Updated:** 2025-12-09
@@ -481,7 +481,7 @@ reviews:
         Verify:
         - Terminology uses 'Squad' not 'Expansion Pack'
         - All internal links work
-        - Version numbers are v2.1
+        - Version numbers are v4.0.4
 
     - path: "squads/**"
       instructions: |
@@ -512,7 +512,7 @@ reviews:
 | Issues escaping to production | ~15% |
 | Developer context switches | High |
 
-### After Quality Gates (v2.1)
+### After Quality Gates (v4.0.4)
 
 | Metric | Value | Improvement |
 |--------|-------|-------------|

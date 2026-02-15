@@ -250,7 +250,7 @@ agents:
     files_loaded: []
     lazy_loading:
       agent_registry: true         # Load when validating/creating squads
-      expansion_pack_manifest: true # Load when managing expansion packs
+      squad_manifest: true # Load when managing squads
     performance_target: <150ms
 
   # ======================================================================
@@ -280,7 +280,7 @@ lazy_loading_strategy:
     expansionPacks:
       size: variable
       load_only_when: pack requested by user
-      description: Optional expansion packs
+      description: Optional squads
       fallback: []
 
     registry:

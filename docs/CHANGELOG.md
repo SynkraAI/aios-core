@@ -97,7 +97,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Documentation Suite**:
   - Troubleshooting Guide with 23 documented issues
   - FAQ with 22 Q&As
-  - Migration Guide v2.0 to v2.1
+  - Migration Guide v2.0 to v4.0.4
 
 ### Changed
 

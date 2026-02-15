@@ -515,4 +515,4 @@ await registry.load(true);
 
 ---
 
-_Synkra AIOS v2.1 Service Discovery Guide_
+_Synkra AIOS v4 Service Discovery Guide_

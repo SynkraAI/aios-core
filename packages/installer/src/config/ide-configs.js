@@ -25,7 +25,7 @@ const path = require('path');
 /**
  * IDE Configuration Metadata
  *
- * Synkra AIOS v2.1 supports 6 main IDEs:
+ * Synkra AIOS v4 supports 6 main IDEs:
  * - Claude Code (Anthropic's official CLI) - Recommended
  * - Codex CLI (OpenAI coding CLI)
  * - Cursor (AI-first code editor)
