@@ -217,3 +217,5 @@ IF both unclear:
 - ALWAYS identify operation type before routing
 - ALWAYS validate output against checklist before returning
 - ALWAYS clarify if domain unknown or operation unclear
+---
+*AIOS Agent - Synced from .aios-core/development/agents/tools-orchestrator.md*

@@ -224,3 +224,5 @@ edicao/editing/lightroom/preset → @peter-mckinnon
 - ALWAYS justify specialist selection
 - ALWAYS document handoffs for multi-specialist projects
 - ALWAYS respect domain boundaries (each expert has their specialty)
+---
+*AIOS Agent - Synced from .aios-core/development/agents/design-chief.md*

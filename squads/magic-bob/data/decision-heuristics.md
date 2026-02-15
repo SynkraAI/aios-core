@@ -387,6 +387,49 @@ default:
 
 ---
 
+### BOB-VETO-5: Scope Change Prevention
+
+**Location:** `enhancement-workflow.md`, `surface-decision.md` (C006 elevated)
+
+**Problem:** Scope creep during development → features grow beyond original approval → budget/timeline exceeded
+
+**Solution:** Check if requested scope exceeds approved scope, BLOCK expansion without explicit approval
+
+```javascript
+async _checkScopeChange(storyId, requestedScope) {
+  const originalStory = await this._loadOriginalStory(storyId);
+  const approvedScope = this._calculateScope(originalStory.acceptanceCriteria);
+  const currentScope = this._calculateScope(requestedScope);
+
+  const scopeGrowth = currentScope / approvedScope;
+
+  // Scope growth > 25% triggers VETO
+  if (scopeGrowth > 1.25) {
+    return {
+      success: false,
+      action: 'scope_expansion_blocked',
+      data: {
+        vetoCondition: 'scope_change_detected',
+        approvedScope: approvedScope,
+        requestedScope: currentScope,
+        growth: `${((scopeGrowth - 1) * 100).toFixed(0)}%`,
+        suggestion: 'Aprovação necessária para expansão de escopo. Ou crie nova story para escopo adicional.',
+      },
+    };
+  }
+
+  return { success: true };
+}
+```
+
+**Threshold:** 25% growth in scope
+
+**Impact:** Prevents scope creep, enforces budget discipline, protects timeline
+
+**Bypass:** NOT bypassable without explicit user approval
+
+---
+
 ## Session Resume Logic
 
 ### Resume Options

@@ -340,3 +340,5 @@ Every mode can output in 4 formats:
 - **squad-creator** - Full agent operational infrastructure
 
 ---
+---
+*AIOS Agent - Synced from .aios-core/development/agents/prompt-architect.md*

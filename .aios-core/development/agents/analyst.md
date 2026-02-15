@@ -257,3 +257,5 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 - **@po (Pax)** - May request market insights
 
 ---
+---
+*AIOS Agent - Synced from .aios-core/development/agents/analyst.md*

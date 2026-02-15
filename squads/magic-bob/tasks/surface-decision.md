@@ -146,29 +146,59 @@ Deseja continuar? [SIM/NÃO]`,
 
 ---
 
-### C006: Scope Change
+### C006: Scope Change (VETO Gate)
+
+**⚠️ ELEVATED TO VETO-5:** Scope growth > 25% BLOCKS execution (not just surfaces)
 
 ```javascript
-const scopeExpanded = context.requestedScope > context.approvedScope;
+const approvedScope = this._calculateScope(context.originalStory.acceptanceCriteria);
+const currentScope = this._calculateScope(context.requestedScope);
+const scopeGrowth = currentScope / approvedScope;
 
-if (scopeExpanded) {
+// VETO-5: Scope growth > 25% → BLOCK
+if (scopeGrowth > 1.25) {
+  return {
+    success: false,
+    action: 'scope_expansion_blocked',
+    criterion: 'C006',
+    veto: 'BOB-VETO-5',
+    bypass: false,  // NOT bypassable
+    message: `⛔ EXPANSÃO DE ESCOPO BLOQUEADA (BOB-VETO-5)
+
+Escopo aprovado: ${approvedScope}
+Escopo solicitado: ${currentScope}
+Crescimento: ${((scopeGrowth - 1) * 100).toFixed(0)}%
+
+Limite: 25% de expansão sem aprovação.
+
+Opções:
+[1] Aprovar expansão de escopo
+[2] Criar story separada para escopo adicional
+[3] Cancelar mudanças e manter escopo original`,
+  };
+}
+
+// Surface for approval if growth < 25% but > 10%
+if (scopeGrowth > 1.10) {
   return {
     should_surface: true,
     criterion: 'C006',
     action: 'confirm_scope_expansion',
     bypass: yoloMode === 'explore',
-    message: `📐 O escopo solicitado excede o aprovado:
+    message: `📐 O escopo está crescendo:
 
-Aprovado: ${context.approvedScope}
-Solicitado: ${context.requestedScope}
-Diferença: ${context.scopeDifference}
+Aprovado: ${approvedScope}
+Solicitado: ${currentScope}
+Crescimento: ${((scopeGrowth - 1) * 100).toFixed(0)}%
 
 Confirmar expansão? [SIM/NÃO]`,
   };
 }
 ```
 
-**Bypass:** ✅ In `explore` YOLO mode
+**Bypass:**
+- ❌ NO if growth > 25% (BOB-VETO-5)
+- ✅ YES if growth 10-25% in `explore` YOLO mode
 
 ---
 

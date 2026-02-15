@@ -1,0 +1,306 @@
+workflow:
+  id: bob-brownfield-discovery
+  name: BOB Brownfield Discovery (Autonomous)
+  version: "1.0"
+  description: >-
+    BOB-orchestrated brownfield discovery with automated phase transitions,
+    parallel agent execution, and human checkpoints. Extends core brownfield
+    workflow with BOB-specific autonomy and session persistence.
+  type: brownfield
+  extends: .aios-core/development/workflows/brownfield-discovery.yaml
+
+  bob_features:
+    autonomous_execution: true
+    session_persistence: true
+    parallel_phases: [1, 2, 3]  # Phases 1-3 run in parallel
+    human_checkpoints:
+      - after_phase: 4  # After initial consolidation
+      - after_phase: 7  # After QA review
+      - after_phase: 9  # Before epic creation
+    observability:
+      cli_panel: true
+      dashboard_bridge: true
+      progress_tracking: true
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # BOB ORCHESTRATION SEQUENCE
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  sequence:
+    - step: acquire_lock
+      phase: 0
+      action: acquire_orchestration_lock
+      duration: "<1s"
+      notes: |
+        BOB acquires lock to ensure single orchestration instance.
+        Lock TTL: 300s (auto-renewed during execution)
+
+    - step: detect_state
+      phase: 0
+      action: detect_project_state
+      expected: EXISTING_NO_DOCS
+      duration: "1-2s"
+      notes: |
+        Verify project state is EXISTING_NO_DOCS (brownfield).
+        If not, abort and suggest correct workflow.
+
+    - step: parallel_discovery
+      phase: 1-3
+      execution_mode: parallel
+      agents:
+        - agent: architect
+          task: document-project
+          terminal: separate
+          creates: docs/architecture/system-architecture.md
+        - agent: data-engineer
+          task: db-schema-audit
+          terminal: separate
+          creates:
+            - supabase/docs/SCHEMA.md
+            - supabase/docs/DB-AUDIT.md
+          condition: project_has_database
+        - agent: ux-design-expert
+          task: create-front-end-spec
+          terminal: separate
+          creates: docs/frontend/frontend-spec.md
+      duration: "30-60 min (parallel)"
+      notes: |
+        BOB spawns 3 agents in separate terminals (parallel execution).
+        Monitors progress via terminal output.
+        Updates observability panel in real-time.
+
+    - step: consolidation_draft
+      phase: 4
+      agent: architect
+      action: consolidate_findings_draft
+      creates: docs/prd/technical-debt-DRAFT.md
+      requires_completion_of: parallel_discovery
+      duration: "30-45 min"
+      notes: |
+        BOB waits for all parallel agents to complete.
+        Then spawns @architect for consolidation.
+
+    - step: checkpoint_post_draft
+      phase: 4.5
+      action: human_checkpoint
+      checkpoint_type: REVIEW_DRAFT
+      options:
+        - CONTINUE: Proceed to specialist validation
+        - REVIEW_DRAFT: Show detailed draft content
+        - ADJUST: Manual adjustments to draft
+        - ABORT: Stop discovery
+      notes: |
+        BOB surfaces draft for human review.
+        User decides if ready for specialist validation.
+
+    - step: specialist_validation
+      phase: 5-7
+      execution_mode: sequential
+      agents:
+        - agent: data-engineer
+          task: review_and_validate_db
+          creates: docs/reviews/db-specialist-review.md
+        - agent: ux-design-expert
+          task: review_and_validate_ux
+          creates: docs/reviews/ux-specialist-review.md
+        - agent: qa
+          task: review_assessment
+          creates: docs/reviews/qa-review.md
+      quality_gate:
+        phase: 7
+        agent: qa
+        decision: APPROVED | NEEDS_WORK
+        on_needs_work:
+          action: return_to_phase_4
+          max_attempts: 3
+      duration: "60-90 min (sequential)"
+      notes: |
+        BOB spawns specialists sequentially (each waits for previous).
+        QA review is quality gate: APPROVED → proceed, NEEDS_WORK → rework.
+
+    - step: checkpoint_post_validation
+      phase: 7.5
+      action: human_checkpoint
+      checkpoint_type: REVIEW_VALIDATION
+      options:
+        - CONTINUE: Proceed to final assessment
+        - REVIEW: Show specialist reviews
+        - ABORT: Stop and export current state
+      notes: |
+        BOB surfaces validation results.
+        User approves before final assessment.
+
+    - step: final_assessment
+      phase: 8
+      agent: architect
+      action: finalize_assessment
+      creates: docs/prd/technical-debt-assessment.md
+      requires: qa_approval
+      duration: "30-45 min"
+
+    - step: executive_report
+      phase: 9
+      agent: analyst
+      action: create_awareness_report
+      creates: docs/reports/TECHNICAL-DEBT-REPORT.md
+      duration: "30-45 min"
+
+    - step: checkpoint_pre_planning
+      phase: 9.5
+      action: human_checkpoint
+      checkpoint_type: APPROVAL_FOR_PLANNING
+      options:
+        - CREATE_EPIC: Generate epic and stories
+        - EXPORT_ONLY: Export reports and stop
+        - MANUAL_PLANNING: Skip automated planning
+      notes: |
+        BOB asks if user wants automated epic/story creation.
+        Cost estimate: ~30-60 min additional
+
+    - step: epic_and_stories
+      phase: 10
+      condition: user_approved_planning
+      execution_mode: sequential
+      agents:
+        - agent: pm
+          task: brownfield-create-epic
+          creates: docs/stories/epic-technical-debt.md
+        - agent: pm
+          task: brownfield-create-story
+          creates: docs/stories/story-*.md
+          repeats: for_each_prioritized_debt
+      duration: "30-60 min"
+
+    - step: release_lock
+      phase: 11
+      action: release_orchestration_lock
+      always_execute: true
+      notes: |
+        BOB releases lock even if workflow aborted or failed.
+
+    - step: session_complete
+      phase: 11
+      action: save_session_state
+      status: completed
+      notes: |
+        BOB saves session as completed.
+        Reports can be accessed at:
+        - docs/reports/TECHNICAL-DEBT-REPORT.md (executive)
+        - docs/prd/technical-debt-assessment.md (technical)
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # BOB-SPECIFIC CONFIGURATION
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  orchestration:
+    lock_resource: bob-orchestration
+    lock_ttl: 300  # seconds
+    max_parallel_agents: 3
+    terminal_spawn_strategy: separate  # separate | inline
+    terminal_fallback: inline  # if separate fails (CI/Docker)
+
+  observability:
+    panel_mode: minimal  # minimal | detailed
+    panel_refresh_rate: 1000  # ms
+    dashboard_bridge_enabled: true
+    dashboard_bridge_file: .aios/bob-status.json
+
+  session_management:
+    state_file: .aios/.session-state.yaml
+    checkpoint_auto_save: true
+    crash_detection_threshold: 1800  # 30 min
+    protected_files:
+      - docs/architecture/system-architecture.md
+      - docs/prd/technical-debt-DRAFT.md
+      - docs/prd/technical-debt-assessment.md
+      - docs/reports/TECHNICAL-DEBT-REPORT.md
+
+  error_handling:
+    max_phase_retries: 3
+    on_agent_failure:
+      action: surface_to_user
+      options: [retry, skip_phase, abort]
+    on_quality_gate_fail:
+      action: return_to_development
+      max_attempts: 3
+      on_max_attempts: surface_to_user
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # TIME & COST ESTIMATES
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  estimates:
+    minimum_duration: "4h"
+    typical_duration: "5-6h"
+    complex_project_duration: "8h"
+    cost_estimate:
+      minimum: "$5"
+      typical: "$8-12"
+      complex: "$15-20"
+    checkpoint_overhead: "10-15 min total"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # FLOW DIAGRAM (BOB-specific)
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  flow_diagram: |
+    ```mermaid
+    graph TD
+        START[BOB Activated] --> LOCK[Acquire Lock]
+        LOCK --> DETECT{State = EXISTING_NO_DOCS?}
+        DETECT -->|No| ERROR[Wrong workflow]
+        DETECT -->|Yes| PARALLEL[Phases 1-3: Parallel Discovery]
+
+        PARALLEL --> A1[@architect: system docs]
+        PARALLEL --> A2[@data-engineer: DB audit]
+        PARALLEL --> A3[@ux-design: frontend spec]
+
+        A1 --> WAIT[Wait for all agents]
+        A2 --> WAIT
+        A3 --> WAIT
+
+        WAIT --> DRAFT[@architect: consolidate DRAFT]
+        DRAFT --> CP1{CHECKPOINT: Review draft?}
+
+        CP1 -->|CONTINUE| VALIDATE[Phases 5-7: Specialist Validation]
+        CP1 -->|ADJUST| DRAFT
+        CP1 -->|ABORT| RELEASE
+
+        VALIDATE --> V1[@data-engineer: validate DB]
+        V1 --> V2[@ux-design: validate UX]
+        V2 --> V3[@qa: quality gate]
+
+        V3 --> QG{QA Approved?}
+        QG -->|NEEDS WORK| DRAFT
+        QG -->|APPROVED| CP2{CHECKPOINT: Proceed?}
+
+        CP2 -->|CONTINUE| FINAL[@architect: final assessment]
+        CP2 -->|ABORT| RELEASE
+
+        FINAL --> REPORT[@analyst: executive report]
+        REPORT --> CP3{CHECKPOINT: Create epic?}
+
+        CP3 -->|CREATE_EPIC| EPIC[@pm: epic + stories]
+        CP3 -->|EXPORT_ONLY| DONE
+        EPIC --> DONE[Discovery Complete]
+
+        DONE --> RELEASE[Release Lock]
+        ERROR --> RELEASE
+
+        style DONE fill:#90EE90
+        style CP1 fill:#FFD700
+        style CP2 fill:#FFD700
+        style CP3 fill:#FFD700
+        style QG fill:#FF6B6B
+    ```
+
+metadata:
+  author: BOB (bob-orchestrator)
+  created_date: 2026-02-15
+  version: 1.0.0
+  tags:
+    - bob
+    - brownfield
+    - autonomous
+    - checkpoints
+    - parallel-execution
