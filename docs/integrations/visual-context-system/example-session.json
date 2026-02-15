@@ -1,0 +1,18 @@
+{
+  "project": {
+    "name": "aios-core",
+    "emoji": "🏗️",
+    "type": "framework",
+    "displayTitle": "Design Futurista",
+    "titleEmoji": "🎨"
+  },
+  "status": {
+    "progress": "5/10",
+    "emoji": "⚡",
+    "phase": "development"
+  },
+  "metadata": {
+    "createdAt": "2026-02-12T19:00:00.000Z",
+    "lastUpdatedAt": "2026-02-12T22:00:00.000Z"
+  }
+}
