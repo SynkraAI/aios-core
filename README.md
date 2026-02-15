@@ -204,6 +204,8 @@ O Synkra AIOS inclui regras pré-configuradas para IDE para melhorar sua experi�
 - Opcional: sincronize agentes auxiliares com `npm run sync:ide:codex`
 - Recomendado neste repositório: gerar e versionar skills locais com `npm run sync:skills:codex`
 - Use `npm run sync:skills:codex:global` apenas fora deste projeto (para evitar duplicidade no `/skills`)
+- Validacao dedicada: `npm run validate:codex-sync && npm run validate:codex-integration`
+- Guardrails de skills/paths: `npm run validate:codex-skills && npm run validate:paths`
 
 #### Para Gemini CLI:
 

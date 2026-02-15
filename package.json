@@ -46,6 +46,8 @@
     "sync:ide:antigravity": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide antigravity",
     "validate:claude-sync": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --ide claude-code --strict",
     "validate:claude-integration": "node .aios-core/infrastructure/scripts/validate-claude-integration.js",
+    "validate:codex-sync": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --ide codex --strict",
+    "validate:codex-integration": "node .aios-core/infrastructure/scripts/validate-codex-integration.js",
     "validate:gemini-sync": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --ide gemini --strict",
     "validate:github-copilot-sync": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --ide github-copilot --strict",
     "validate:antigravity-sync": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --ide antigravity --strict",

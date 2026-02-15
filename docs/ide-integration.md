@@ -124,6 +124,9 @@ special_features:
 # Sync Codex support files
 npm run sync:ide:codex
 npm run sync:skills:codex
+npm run validate:codex-sync
+npm run validate:codex-integration
+npm run validate:codex-skills
 
 # Verify setup
 ls -la AGENTS.md .codex/agents/ .codex/skills/
@@ -257,6 +260,22 @@ special_features:
   - Native hooks events and hook commands
   - Native MCP server support
   - Rapidly evolving command/tooling UX
+```
+
+**Setup:**
+
+1. Run installer flow selecting `gemini` in IDE selection (wizard path)
+2. AIOS creates:
+   - `.gemini/rules.md`
+   - `.gemini/rules/AIOS/agents/*.md`
+   - `.gemini/hooks/*.js`
+   - `.gemini/settings.json` (hooks enabled)
+3. Validate integration:
+
+```bash
+npm run sync:ide:gemini
+npm run validate:gemini-sync
+npm run validate:gemini-integration
 ```
 
 ---

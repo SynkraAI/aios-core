@@ -145,6 +145,8 @@ Platform-specific checks:
 ```bash
 npm run validate:claude-sync
 npm run validate:claude-integration
+npm run validate:codex-sync
+npm run validate:codex-integration
 npm run validate:gemini-sync
 npm run validate:gemini-integration
 ```

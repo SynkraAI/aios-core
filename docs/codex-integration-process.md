@@ -41,6 +41,8 @@ Em termos praticos: Codex esta no mesmo trilho arquitetural das integracoes prin
 2. Gerar/atualizar skills locais:
    - `npm run sync:skills:codex`
 3. Validar consistencia:
+   - `npm run validate:codex-sync`
+   - `npm run validate:codex-integration`
    - `npm run validate:codex-skills`
    - `npm run validate:paths`
 4. No Codex, usar `/skills` e escolher `aios-<agent-id>` como ativacao padrao.
@@ -61,6 +63,7 @@ Isso evita menu duplicado no `/skills` e reduz drift entre equipe/CI.
 
 ### Validadores
 
+- Integracao estrutural: `.aios-core/infrastructure/scripts/validate-codex-integration.js`
 - Skills: `.aios-core/infrastructure/scripts/codex-skills-sync/validate.js`
 - Paths/contratos: `.aios-core/infrastructure/scripts/validate-paths.js`
 
@@ -69,6 +72,8 @@ Isso evita menu duplicado no `/skills` e reduz drift entre equipe/CI.
 ```bash
 npm run sync:ide:codex
 npm run sync:skills:codex
+npm run validate:codex-sync
+npm run validate:codex-integration
 npm run validate:codex-skills
 npm run validate:paths
 ```
@@ -103,7 +108,7 @@ Mitigacao operacional no AIOS:
 - fortalecer `AGENTS.md` como contrato de execucao
 - usar `/skills` como ativacao padrao de agentes
 - usar MCP para contexto e integracoes
-- rodar sync + validadores com disciplina (`sync:ide:codex`, `sync:skills:codex`, `validate:codex-skills`)
+- rodar sync + validadores com disciplina (`sync:ide:codex`, `sync:skills:codex`, `validate:codex-sync`, `validate:codex-integration`, `validate:codex-skills`)
 
 ## Problemas Classicos e Correcao
 

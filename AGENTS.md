@@ -41,6 +41,7 @@ npm test
 - Validar drift: `npm run sync:ide:check`
 - Sync Claude Code: `npm run sync:ide:claude`
 - Sincronizar Gemini CLI: `npm run sync:ide:gemini`
+- Validar Codex sync/integration: `npm run validate:codex-sync && npm run validate:codex-integration`
 - Gerar skills locais do Codex: `npm run sync:skills:codex`
 - Este repositorio usa **local-first**: prefira `.codex/skills` versionado no projeto
 - Use `sync:skills:codex:global` apenas para testes fora deste repo
