@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "timestamp": "{{TIMESTAMP}}",
+  "orchestration": {
+    "active": {{ACTIVE}},
+    "mode": "bob",
+    "epic_id": "{{EPIC_ID}}",
+    "current_story": "{{CURRENT_STORY}}"
+  },
+  "pipeline": {
+    "stages": [
+      "validation",
+      "development",
+      "self_healing",
+      "quality_gate",
+      "push",
+      "checkpoint"
+    ],
+    "current_stage": "{{CURRENT_STAGE}}",
+    "story_progress": "{{STORY_PROGRESS}}",
+    "completed_stages": {{COMPLETED_STAGES}}
+  },
+  "current_agent": {
+    "id": "{{AGENT_ID}}",
+    "name": "{{AGENT_NAME}}",
+    "task": "{{AGENT_TASK}}",
+    "reason": "{{AGENT_REASON}}",
+    "started_at": "{{AGENT_STARTED_AT}}"
+  },
+  "active_terminals": {{ACTIVE_TERMINALS}},
+  "surface_decisions": {{SURFACE_DECISIONS}},
+  "elapsed": {
+    "story_seconds": {{STORY_SECONDS}},
+    "session_seconds": {{SESSION_SECONDS}}
+  },
+  "errors": {{ERRORS}},
+  "educational": {
+    "enabled": {{EDUCATIONAL_ENABLED}},
+    "tradeoffs": {{EDUCATIONAL_TRADEOFFS}},
+    "reasoning": {{EDUCATIONAL_REASONING}}
+  }
+}
