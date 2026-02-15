@@ -435,6 +435,9 @@ describe('BobOrchestrator', () => {
       mockInstance.acquireLock.mockResolvedValueOnce(false);
       orchestrator.lockManager = mockInstance;
 
+      // Mock BOB-SAFE-1 dependency check
+      jest.spyOn(orchestrator, '_checkDependencies').mockResolvedValue({ healthy: true });
+
       // When
       const result = await orchestrator.orchestrate();
 
@@ -449,6 +452,12 @@ describe('BobOrchestrator', () => {
         throw new Error('No config');
       });
 
+      // Mock BOB-SAFE-1 dependency check
+      jest.spyOn(orchestrator, '_checkDependencies').mockResolvedValue({ healthy: true });
+
+      // Mock BOB-VETO-1: No AIOS initialized yet (true onboarding)
+      jest.spyOn(orchestrator, '_isAiosInitialized').mockReturnValue(false);
+
       // When
       const result = await orchestrator.orchestrate();
 
@@ -460,6 +469,7 @@ describe('BobOrchestrator', () => {
 
     it('should route to brownfield_welcome for EXISTING_NO_DOCS state (AC4)', async () => {
       // Given
+      jest.spyOn(orchestrator, '_checkDependencies').mockResolvedValue({ healthy: true });
       await fs.rm(path.join(TEST_PROJECT_ROOT, 'docs/architecture'), { recursive: true });
 
       // When
@@ -473,6 +483,9 @@ describe('BobOrchestrator', () => {
     });
 
     it('should route to ask_objective for EXISTING_WITH_DOCS state (AC5)', async () => {
+      // Mock BOB-SAFE-1 dependency check
+      jest.spyOn(orchestrator, '_checkDependencies').mockResolvedValue({ healthy: true });
+
       // When
       const result = await orchestrator.orchestrate();
 
@@ -487,6 +500,9 @@ describe('BobOrchestrator', () => {
       const emptyRoot = path.join(TEST_PROJECT_ROOT, 'greenfield');
       await fs.mkdir(emptyRoot, { recursive: true });
       const greenOrch = new BobOrchestrator(emptyRoot);
+
+      // Mock BOB-SAFE-1 dependency check
+      jest.spyOn(greenOrch, '_checkDependencies').mockResolvedValue({ healthy: true });
 
       // When
       const result = await greenOrch.orchestrate();
@@ -504,6 +520,9 @@ describe('BobOrchestrator', () => {
       orchestrator.detectProjectState = () => {
         throw new Error('Forced test error');
       };
+
+      // Mock BOB-SAFE-1 dependency check
+      jest.spyOn(orchestrator, '_checkDependencies').mockResolvedValue({ healthy: true });
 
       // When
       const result = await orchestrator.orchestrate();
@@ -758,6 +777,12 @@ describe('BobOrchestrator', () => {
       orchestrator.sessionState.handleResumeOption.mockResolvedValue({
         action: 'restart',
         story: '12.1',
+      });
+
+      // Mock BOB-VETO-2: No uncommitted work (allow restart)
+      jest.spyOn(orchestrator, '_checkUncommittedWork').mockResolvedValue({
+        hasChanges: false,
+        files: [],
       });
 
       // When
