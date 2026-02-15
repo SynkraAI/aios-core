@@ -1038,4 +1038,116 @@ describe('BobOrchestrator', () => {
       });
     });
   });
+
+  // FASE 1: Error Handlers in Callbacks (Coverage Target: lines 179-257)
+  describe('Error Handlers in Callbacks', () => {
+    describe('onPhaseChange error handlers', () => {
+      it('should catch bobStatusWriter.updatePhase errors and log (line 186-188)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.bobStatusWriter.updatePhase = jest
+          .fn()
+          .mockRejectedValue(new Error('BobStatusWriter failed'));
+
+        // Get the registered callback
+        const onPhaseChangeCallback = orchestrator.workflowExecutor.onPhaseChange.mock.calls[0][0];
+
+        // When
+        await onPhaseChangeCallback('validation', 'story-1', '@qa');
+
+        // Then - Error is logged, not thrown
+        await new Promise((resolve) => setImmediate(resolve)); // Wait for async catch
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('BobStatusWriter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('BobStatusWriter failed'),
+        );
+      });
+
+      it('should catch dashboardEmitter.emitBobPhaseChange errors and log (line 191-193)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.dashboardEmitter.emitBobPhaseChange = jest
+          .fn()
+          .mockRejectedValue(new Error('DashboardEmitter failed'));
+
+        // Get the registered callback
+        const onPhaseChangeCallback = orchestrator.workflowExecutor.onPhaseChange.mock.calls[0][0];
+
+        // When
+        await onPhaseChangeCallback('validation', 'story-1', '@qa');
+
+        // Then - Error is logged, not thrown
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('DashboardEmitter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('DashboardEmitter failed'),
+        );
+      });
+    });
+
+    describe('onAgentSpawn error handlers', () => {
+      it('should catch bobStatusWriter.updateAgent errors and log (line 207-209)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.bobStatusWriter.updateAgent = jest
+          .fn()
+          .mockRejectedValue(new Error('UpdateAgent failed'));
+
+        // Get the registered callback
+        const onAgentSpawnCallback = orchestrator.workflowExecutor.onAgentSpawn.mock.calls[0][0];
+
+        // When
+        await onAgentSpawnCallback('@dev', 'implement-feature');
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('BobStatusWriter error'));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('UpdateAgent failed'));
+      });
+    });
+
+    // TODO: Add greenfieldHandler error tests (lines 216-239) when GreenfieldHandler mock is configured
+
+    describe('onTerminalSpawn error handlers', () => {
+      it('should catch bobStatusWriter.addTerminal errors and log (line 249-251)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.bobStatusWriter.addTerminal = jest
+          .fn()
+          .mockRejectedValue(new Error('AddTerminal failed'));
+
+        const onTerminalSpawnCallback =
+          orchestrator.workflowExecutor.onTerminalSpawn.mock.calls[0][0];
+
+        // When
+        await onTerminalSpawnCallback('@qa', 54321, 'test-execution');
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('BobStatusWriter error'));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('AddTerminal failed'));
+      });
+
+      it('should catch dashboardEmitter.emitBobAgentSpawned errors and log (line 254-256)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.dashboardEmitter.emitBobAgentSpawned = jest
+          .fn()
+          .mockRejectedValue(new Error('EmitBobAgentSpawned failed'));
+
+        const onTerminalSpawnCallback =
+          orchestrator.workflowExecutor.onTerminalSpawn.mock.calls[0][0];
+
+        // When
+        await onTerminalSpawnCallback('@qa', 54321, 'test-execution');
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('DashboardEmitter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('EmitBobAgentSpawned failed'),
+        );
+      });
+    });
+  });
 });
