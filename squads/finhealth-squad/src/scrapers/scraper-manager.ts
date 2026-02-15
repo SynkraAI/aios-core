@@ -13,6 +13,7 @@ import * as path from 'path';
 import { AnsScraper } from './ans-scraper';
 import { CbhpmScraper } from './cbhpm-scraper';
 import { DatasusScraper } from './datasus-scraper';
+import { logger as structuredLogger } from '../logger';
 import type {
   HttpClient,
   LlmClient,
@@ -76,9 +77,9 @@ export function createDefaultFileSystem(): FileSystem {
 
 export function createConsoleLogger(prefix: string): Logger {
   return {
-    info: (msg) => console.log(`[${prefix}] ${msg}`),
-    warn: (msg) => console.warn(`[${prefix}] ${msg}`),
-    error: (msg) => console.error(`[${prefix}] ${msg}`),
+    info: (msg) => structuredLogger.info(`[${prefix}] ${msg}`),
+    warn: (msg) => structuredLogger.warn(`[${prefix}] ${msg}`),
+    error: (msg) => structuredLogger.error(`[${prefix}] ${msg}`),
   };
 }
 
