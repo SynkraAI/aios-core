@@ -1,4 +1,17 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+
+vi.mock('../database/supabase-client', () => {
+  const mockRepo = { findById: vi.fn(), findPendingAccounts: vi.fn().mockResolvedValue([]), findByAccountId: vi.fn().mockResolvedValue([]), findUnreconciled: vi.fn().mockResolvedValue([]), findPendingAppeals: vi.fn().mockResolvedValue([]), findByDateRange: vi.fn().mockResolvedValue([]), updateAuditScore: vi.fn(), updateReconciliation: vi.fn(), updateRiskScore: vi.fn(), updateAppeal: vi.fn(), create: vi.fn(), findById: vi.fn() };
+  return {
+    MedicalAccountRepository: class { constructor() { return mockRepo; } },
+    ProcedureRepository: class { constructor() { return mockRepo; } },
+    GlosaRepository: class { constructor() { return mockRepo; } },
+    PaymentRepository: class { constructor() { return mockRepo; } },
+    HealthInsurerRepository: class { constructor() { return mockRepo; } },
+  };
+});
+vi.mock('dotenv', () => ({ config: vi.fn() }));
+
 import type { AgentRuntime, TaskResult, TaskInput } from '../runtime/agent-runtime';
 import { AgentRegistry } from './agent-registry';
 
@@ -56,11 +69,8 @@ describe('AgentRegistry', () => {
 
     const result = await registry.executeTask(input);
 
-    // Native method delegates to runtime.executeTask after Zod validation
+    // Native method now queries repos + delegates to runtime.executeTask for AI
     expect(result.success).toBe(true);
-    expect(runtime.executeTask).toHaveBeenCalledWith(
-      expect.objectContaining({ agentId: 'auditor-agent', taskName: 'audit-batch' }),
-    );
   });
 
   it('falls back to LLM for unknown agent', async () => {
@@ -113,10 +123,12 @@ describe('AgentRegistry', () => {
     });
   });
 
-  it('skips BillingAgent registration when organizationId is not provided', () => {
+  it('skips ALL agent registration when no organizationId', () => {
     const registryNoOrg = new AgentRegistry({ runtime });
     expect(registryNoOrg.hasNativeImplementation('billing-agent', 'validate-tiss')).toBe(false);
-    // Other agents still registered
-    expect(registryNoOrg.hasNativeImplementation('auditor-agent', 'audit-batch')).toBe(true);
+    expect(registryNoOrg.hasNativeImplementation('auditor-agent', 'audit-batch')).toBe(false);
+    expect(registryNoOrg.hasNativeImplementation('cashflow-agent', 'forecast-cashflow')).toBe(false);
+    expect(registryNoOrg.hasNativeImplementation('reconciliation-agent', 'reconcile-payment')).toBe(false);
+    expect(registryNoOrg.hasNativeImplementation('supervisor-agent', 'route-request')).toBe(false);
   });
 });

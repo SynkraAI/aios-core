@@ -352,6 +352,40 @@ export class GlosaRepository {
     return data as Glosa;
   }
 
+  async findById(id: string): Promise<Glosa | null> {
+    const { data, error } = await this.client
+      .from('glosas')
+      .select('*')
+      .eq('id', id)
+      .eq('organization_id', this.organizationId)
+      .single();
+
+    if (error && error.code !== 'PGRST116') throw error;
+    return data as Glosa | null;
+  }
+
+  async updateRiskScore(
+    id: string,
+    recommendation: string,
+    probability: number,
+    priorityScore: number,
+  ): Promise<Glosa> {
+    const { data, error } = await this.client
+      .from('glosas')
+      .update({
+        ai_recommendation: recommendation,
+        success_probability: probability,
+        priority_score: priorityScore,
+      } as any)
+      .eq('id', id)
+      .eq('organization_id', this.organizationId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data as Glosa;
+  }
+
   async updateAppeal(id: string, appealText: string, status: string): Promise<Glosa> {
     const { data, error } = await this.client
       .from('glosas')
@@ -401,6 +435,19 @@ export class PaymentRepository {
       .eq('health_insurer_id', insurerId)
       .eq('organization_id', this.organizationId)
       .order('payment_date', { ascending: false });
+
+    if (error) throw error;
+    return (data || []) as Payment[];
+  }
+
+  async findByDateRange(from: string, to: string): Promise<Payment[]> {
+    const { data, error } = await this.client
+      .from('payments')
+      .select('*')
+      .gte('payment_date', from)
+      .lte('payment_date', to)
+      .eq('organization_id', this.organizationId)
+      .order('payment_date', { ascending: true });
 
     if (error) throw error;
     return (data || []) as Payment[];

@@ -37,7 +37,7 @@ export class AgentRegistry {
   }
 
   private registerAll(organizationId?: string): void {
-    // BillingAgent requires organizationId
+    // All agents require organizationId for DB access
     if (organizationId) {
       this.register(
         'billing-agent',
@@ -47,48 +47,48 @@ export class AgentRegistry {
           'generate-tiss-guide': 'generateTissGuide',
         },
       );
+
+      this.register(
+        'auditor-agent',
+        new AuditorAgent(this.runtime, organizationId),
+        {
+          'audit-batch': 'auditBatch',
+          'audit-account': 'auditAccount',
+          'score-glosa-risk': 'scoreGlosaRisk',
+          'detect-inconsistencies': 'detectInconsistencies',
+        },
+      );
+
+      this.register(
+        'cashflow-agent',
+        new CashflowAgent(this.runtime, organizationId),
+        {
+          'forecast-cashflow': 'forecastCashflow',
+          'detect-anomalies': 'detectAnomalies',
+          'generate-financial-report': 'generateFinancialReport',
+        },
+      );
+
+      this.register(
+        'reconciliation-agent',
+        new ReconciliationAgent(this.runtime, organizationId),
+        {
+          'reconcile-payment': 'reconcilePayment',
+          'match-invoices': 'matchInvoices',
+          'generate-appeal': 'generateAppeal',
+          'prioritize-appeals': 'prioritizeAppeals',
+        },
+      );
+
+      this.register(
+        'supervisor-agent',
+        new SupervisorAgent(this.runtime, organizationId),
+        {
+          'route-request': 'routeRequest',
+          'generate-consolidated-report': 'generateConsolidatedReport',
+        },
+      );
     }
-
-    this.register(
-      AuditorAgent.AGENT_ID,
-      new AuditorAgent(this.runtime),
-      {
-        'audit-batch': 'auditBatch',
-        'audit-account': 'auditAccount',
-        'score-glosa-risk': 'scoreGlosaRisk',
-        'detect-inconsistencies': 'detectInconsistencies',
-      },
-    );
-
-    this.register(
-      CashflowAgent.AGENT_ID,
-      new CashflowAgent(this.runtime),
-      {
-        'forecast-cashflow': 'forecastCashflow',
-        'detect-anomalies': 'detectAnomalies',
-        'generate-financial-report': 'generateFinancialReport',
-      },
-    );
-
-    this.register(
-      ReconciliationAgent.AGENT_ID,
-      new ReconciliationAgent(this.runtime),
-      {
-        'reconcile-payment': 'reconcilePayment',
-        'match-invoices': 'matchInvoices',
-        'generate-appeal': 'generateAppeal',
-        'prioritize-appeals': 'prioritizeAppeals',
-      },
-    );
-
-    this.register(
-      SupervisorAgent.AGENT_ID,
-      new SupervisorAgent(this.runtime),
-      {
-        'route-request': 'routeRequest',
-        'generate-consolidated-report': 'generateConsolidatedReport',
-      },
-    );
   }
 
   private register(
