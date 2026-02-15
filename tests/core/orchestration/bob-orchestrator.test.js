@@ -65,8 +65,13 @@ jest.mock('../../../.aios-core/core/orchestration/greenfield-handler', () => {
       const emitter = new EventEmitter();
       return Object.assign(emitter, {
         handle: jest.fn().mockResolvedValue({
-          action: 'greenfield_bootstrap',
-          data: { phase: 'bootstrap' },
+          action: 'greenfield_surface',
+          phase: 'phase_0_bootstrap',
+          nextPhase: 1,
+          data: {
+            message: 'Ambiente configurado. Descreva o que quer construir.',
+            promptType: 'text_input',
+          },
         }),
       });
     }),
