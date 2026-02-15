@@ -21,9 +21,11 @@
 ide:
   selected:
     - vscode
+    - codex
     - claude-code
   configs:
     vscode: true
+    codex: true
     cursor: false
     windsurf: false
     zed: false

@@ -45,10 +45,12 @@ mindsLocation: outputs/minds
 ide:
   selected:
     - vscode
+    - codex
     - cursor
     - claude-code
   configs:
     vscode: true
+    codex: true
     cursor: true
     windsurf: false
     zed: false
@@ -306,6 +308,10 @@ ideSync:
     claude-code:
       enabled: true
       path: .claude/commands/AIOS/agents
+      format: full-markdown-yaml
+    codex:
+      enabled: true
+      path: .codex/agents
       format: full-markdown-yaml
     cursor:
       enabled: true

@@ -10,9 +10,17 @@ Automatically synchronizes AIOS agent definitions to IDE command files.
 IDE Sync keeps agent definitions in `.aios-core/development/agents/` synchronized with IDE-specific command files in:
 
 - `.claude/commands/AIOS/agents/` (Claude Code)
+- `.codex/agents/` (Codex CLI support files)
 - `.cursor/rules/agents/` (Cursor)
 - `.windsurf/rules/agents/` (Windsurf)
 - `.antigravity/rules/agents/` (Antigravity)
+
+For Codex `/skills` activators, use the dedicated skills sync:
+
+```bash
+npm run sync:skills:codex
+npm run sync:skills:codex:global
+```
 
 ## Pre-commit Integration (Story TD-4)
 
@@ -48,6 +56,7 @@ Sync specific IDE only:
 
 ```bash
 npm run sync:ide:cursor
+npm run sync:ide:codex
 npm run sync:ide:windsurf
 ```
 
@@ -92,6 +101,10 @@ ideSync:
       enabled: true
       path: .claude/commands/AIOS/agents
       format: full-markdown-yaml
+    codex:
+      enabled: true
+      path: .codex/agents
+      format: full-markdown-yaml
     cursor:
       enabled: true
       path: .cursor/rules/agents
@@ -109,6 +122,7 @@ Each IDE has a specific format for agent files:
 | IDE         | Format                  | Extension |
 | ----------- | ----------------------- | --------- |
 | Claude Code | Full markdown with YAML | `.md`     |
+| Codex CLI   | Condensed rules         | `.md`     |
 | Cursor      | Condensed rules         | `.md`     |
 | Windsurf    | XML-tagged markdown     | `.md`     |
 | Antigravity | Cursor-style            | `.md`     |

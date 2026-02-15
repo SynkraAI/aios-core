@@ -4,8 +4,8 @@
  * Story 1.4: IDE Selection
  * Tests complete flow from selection to config generation
  *
- * Synkra AIOS v2.1 supports 5 IDEs:
- * - Claude Code, Cursor, Windsurf, GitHub Copilot, AntiGravity
+ * Synkra AIOS v2.1 supports 6 IDEs:
+ * - Claude Code, Codex CLI, Cursor, Windsurf, GitHub Copilot, AntiGravity
  */
 
 const fs = require('fs-extra');
@@ -85,7 +85,7 @@ describe('Wizard IDE Flow Integration', () => {
       expect(await fs.pathExists(path.join(testDir, '.github', 'agents'))).toBe(true);
     });
 
-    it('should complete flow for all 5 IDEs', async () => {
+    it('should complete flow for all 6 IDEs', async () => {
       const wizardState = {
         projectType: 'greenfield',
         projectName: 'all-ides-project',
@@ -97,8 +97,8 @@ describe('Wizard IDE Flow Integration', () => {
       });
 
       expect(result.success).toBe(true);
-      // 5 config files + agent files for each IDE
-      expect(result.files.length).toBeGreaterThanOrEqual(5);
+      // 6 config files + agent files for each IDE
+      expect(result.files.length).toBeGreaterThanOrEqual(6);
 
       // Verify all config files and agent folders based on IDE configuration
       for (const ideKey of getIDEKeys()) {

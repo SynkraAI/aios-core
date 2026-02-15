@@ -16,7 +16,9 @@
  */
 
 const path = require('path');
-const fs = require('fs');
+const { resolveHookRuntime, buildHookOutput } = require(
+  path.join(__dirname, '..', '..', '.aios-core', 'core', 'synapse', 'runtime', 'hook-runtime.js'),
+);
 
 /** Safety timeout (ms) — defense-in-depth; Claude Code also manages hook timeout. */
 const HOOK_TIMEOUT_MS = 5000;
@@ -41,26 +43,11 @@ function readStdin() {
 /** Main hook execution pipeline. */
 async function main() {
   const input = await readStdin();
-  const { sessionId, cwd, prompt } = input;
-  if (!cwd) return;
-  const synapsePath = path.join(cwd, '.synapse');
-  if (!fs.existsSync(synapsePath)) return;
+  const runtime = resolveHookRuntime(input);
+  if (!runtime) return;
 
-  const { loadSession } = require(
-    path.join(cwd, '.aios-core', 'core', 'synapse', 'session', 'session-manager.js'),
-  );
-  const { SynapseEngine } = require(
-    path.join(cwd, '.aios-core', 'core', 'synapse', 'engine.js'),
-  );
-
-  const sessionsDir = path.join(synapsePath, 'sessions');
-  const session = loadSession(sessionId, sessionsDir) || { prompt_count: 0 };
-  const engine = new SynapseEngine(synapsePath);
-  const result = await engine.process(prompt, session);
-
-  process.stdout.write(JSON.stringify({
-    hookSpecificOutput: { additionalContext: result.xml || '' },
-  }));
+  const result = await runtime.engine.process(input.prompt, runtime.session);
+  process.stdout.write(JSON.stringify(buildHookOutput(result.xml)));
 }
 
 /**

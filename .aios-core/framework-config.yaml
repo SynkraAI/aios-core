@@ -123,6 +123,10 @@ ide_sync_system:
       enabled: true
       path: ".claude/commands/AIOS/agents"
       format: "full-markdown-yaml"
+    codex:
+      enabled: true
+      path: ".codex/agents"
+      format: "full-markdown-yaml"
     cursor:
       enabled: true
       path: ".cursor/rules/agents"

@@ -18,6 +18,7 @@ const {
   needsMemoryHints,
   needsHandoffWarning,
 } = require('./context/context-tracker');
+const { buildLayerContext } = require('./context/context-builder');
 
 const { formatSynapseRules } = require('./output/formatter');
 const { MemoryBridge } = require('./memory/memory-bridge');
@@ -263,16 +264,14 @@ class SynapseEngine {
 
       // Execute layer via safe wrapper
       metrics.startLayer(layer.name);
-      const context = {
+      const context = buildLayerContext({
         prompt,
         session: session || {},
-        config: {
-          ...mergedConfig,
-          synapsePath: this.synapsePath,
-          manifest: mergedConfig.manifest || {},
-        },
+        config: mergedConfig,
+        synapsePath: this.synapsePath,
+        manifest: mergedConfig.manifest || {},
         previousLayers,
-      };
+      });
 
       const result = layer._safeProcess(context);
 

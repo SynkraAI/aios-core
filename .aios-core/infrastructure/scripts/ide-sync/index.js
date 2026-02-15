@@ -61,6 +61,11 @@ function loadConfig(projectRoot) {
         path: '.claude/commands/AIOS/agents',
         format: 'full-markdown-yaml',
       },
+      codex: {
+        enabled: true,
+        path: '.codex/agents',
+        format: 'full-markdown-yaml',
+      },
       cursor: {
         enabled: true,
         path: '.cursor/rules/agents',
@@ -444,6 +449,7 @@ ${colors.bright}Options:${colors.reset}
 
 ${colors.bright}Examples:${colors.reset}
   node ide-sync/index.js sync
+  node ide-sync/index.js sync --ide codex
   node ide-sync/index.js sync --ide cursor
   node ide-sync/index.js validate --strict
   node ide-sync/index.js sync --dry-run --verbose

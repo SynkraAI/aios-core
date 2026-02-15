@@ -13,7 +13,7 @@ Guide for integrating AIOS with supported IDEs and AI development platforms.
 
 ## Supported IDEs
 
-AIOS supports 9 AI-powered development platforms. Choose the one that best fits your workflow.
+AIOS supports multiple AI-powered development platforms. Choose the one that best fits your workflow.
 
 ### Quick Comparison Table
 
@@ -63,6 +63,45 @@ npm run sync:agents -- --platform claude
 
 # Verify setup
 ls -la .claude/commands/AIOS/agents/
+```
+
+---
+
+### Codex CLI
+
+**Recommendation Level:** Best (terminal-first workflow)
+
+```yaml
+config_file: AGENTS.md
+agent_folder: .codex/agents
+activation: terminal instructions
+skills_folder: .codex/skills (source), ~/.codex/skills (Codex menu)
+format: markdown
+mcp_support: native via Codex tooling
+special_features:
+  - AGENTS.md project instructions
+  - /skills activators (aios-<agent-id>)
+  - Strong CLI workflow support
+  - Easy integration with repository scripts
+```
+
+**Setup:**
+
+1. Keep `AGENTS.md` at repository root
+2. Run `npm run sync:ide:codex` to sync auxiliary agent files
+3. Run `npm run sync:skills:codex` to generate project-local skills in `.codex/skills`
+4. Use `/skills` and choose `aios-architect`, `aios-dev`, etc.
+5. Use `npm run sync:skills:codex:global` only when you explicitly want global installation
+
+**Configuration:**
+
+```bash
+# Sync Codex support files
+npm run sync:ide:codex
+npm run sync:skills:codex
+
+# Verify setup
+ls -la AGENTS.md .codex/agents/ .codex/skills/
 ```
 
 ---

@@ -30,7 +30,7 @@
 
 'use strict';
 
-const { UnifiedActivationPipeline } = require('./unified-activation-pipeline');
+const { ActivationRuntime } = require('./activation-runtime');
 
 /**
  * Generate unified greeting for agent activation.
@@ -49,8 +49,8 @@ const { UnifiedActivationPipeline } = require('./unified-activation-pipeline');
  */
 async function generateGreeting(agentId) {
   try {
-    const pipeline = new UnifiedActivationPipeline();
-    const result = await pipeline.activate(agentId);
+    const runtime = new ActivationRuntime();
+    const result = await runtime.activate(agentId);
 
     if (result.duration > 100) {
       console.warn(`[generate-greeting] Slow generation: ${result.duration}ms`);
