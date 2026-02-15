@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-15T19:33:09.495Z'
-  entityCount: 500
+  lastUpdated: '2026-02-15T22:30:45.703Z'
+  entityCount: 497
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -4671,24 +4671,6 @@ entities:
         extensionPoints: []
       checksum: sha256:13d5fb7858534f6d49150a5dff642faa276c17b9d242f995369c5e7e1d37ae40
       lastVerified: '2026-02-08T13:33:24.279Z'
-    cline-rules:
-      path: .aios-core/product/templates/ide-rules/cline-rules.md
-      type: template
-      purpose: Synkra AIOS Development Rules for Cline
-      keywords:
-        - cline
-        - rules
-        - synkra
-        - aios
-        - development
-      usedBy: []
-      dependencies: []
-      adaptability:
-        score: 0.5
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:e2c7a57d630fab3220810b32aa24009a6bf749cd8b863d8b8a7a524861758e77
-      lastVerified: '2026-02-15T19:17:32.645Z'
     copilot-rules:
       path: .aios-core/product/templates/ide-rules/copilot-rules.md
       type: template
@@ -4743,42 +4725,6 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:9f5a0a05e1cdeab2175a98c00cb248d3fedbc8505f1d99c771703b275f2fc5bd
-      lastVerified: '2026-02-08T13:33:24.280Z'
-    roo-rules:
-      path: .aios-core/product/templates/ide-rules/roo-rules.md
-      type: template
-      purpose: Synkra AIOS Development Rules for Roo Code
-      keywords:
-        - roo
-        - rules
-        - synkra
-        - aios
-        - development
-      usedBy: []
-      dependencies: []
-      adaptability:
-        score: 0.5
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:65746d390f570aade0ef98876861b510494a5d3c040c41650297b1c95c04581a
-      lastVerified: '2026-02-15T19:17:32.645Z'
-    windsurf-rules:
-      path: .aios-core/product/templates/ide-rules/windsurf-rules.md
-      type: template
-      purpose: Synkra AIOS Development Rules for Windsurf
-      keywords:
-        - windsurf
-        - rules
-        - synkra
-        - aios
-        - development
-      usedBy: []
-      dependencies: []
-      adaptability:
-        score: 0.5
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:7c880de0dec8b06eb3390a56614996c6033c1939907d77f73f4f6f85ae42b3e2
       lastVerified: '2026-02-08T13:33:24.280Z'
     codex-rules:
       path: .aios-core/product/templates/ide-rules/codex-rules.md
@@ -8306,8 +8252,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:10c4b0683612f98b6b3b500592c687aa5a0925cdb814d54b00a8e76bfd413c07
-      lastVerified: '2026-02-15T17:43:13.182Z'
+      checksum: sha256:b02e24a4129ed2e6674b4bb51ee5bcb03b33146ec1b9d9ddcf81c9acbea97259
+      lastVerified: '2026-02-15T22:30:45.702Z'
     active-modules.verify:
       path: .aios-core/core/memory/__tests__/active-modules.verify.js
       type: module

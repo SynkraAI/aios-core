@@ -16,8 +16,8 @@
  * - Use `npx aios-core` which routes through bin/aios.js to the new wizard
  * - Do NOT call this file directly
  *
- * Supported IDEs (7 total):
- * - Claude Code, Cursor, Windsurf, Roo Code, Cline, Gemini CLI, GitHub Copilot
+ * Supported IDEs (4 total):
+ * - Claude Code, Cursor, Gemini CLI, GitHub Copilot
  */
 
 const path = require('path');
@@ -409,10 +409,6 @@ async function main() {
           checked: true,
         },
         { name: '  Cursor ' + chalk.blue('(v4)'), value: 'cursor' },
-        { name: '  Windsurf ' + chalk.blue('(v4)'), value: 'windsurf' },
-        { name: '  Trae ' + chalk.blue('(v4)'), value: 'trae' },
-        { name: '  Roo Code ' + chalk.blue('(v4)'), value: 'roo' },
-        { name: '  Cline ' + chalk.blue('(v4)'), value: 'cline' },
         { name: '  Gemini CLI ' + chalk.blue('(v4)'), value: 'gemini' },
         { name: '  GitHub Copilot ' + chalk.blue('(v4)'), value: 'github-copilot' },
         {
@@ -561,10 +557,6 @@ async function main() {
     const ideRulesMap = {
       claude: { source: 'claude-rules.md', target: '.claude/CLAUDE.md' },
       cursor: { source: 'cursor-rules.md', target: '.cursor/rules.md' },
-      windsurf: { source: 'windsurf-rules.md', target: '.windsurf/rules.md' },
-      trae: { source: 'trae-rules.md', target: '.trae/rules.md' },
-      roo: { source: 'roo-rules.md', target: '.roomodes' },
-      cline: { source: 'cline-rules.md', target: '.cline/rules.md' },
       gemini: { source: 'gemini-rules.md', target: '.gemini/rules.md' },
       'github-copilot': { source: 'copilot-rules.md', target: '.github/chatmodes/aios-agent.md' },
       antigravity: { source: 'antigravity-rules.md', target: '.antigravity/rules.md' },
@@ -703,10 +695,10 @@ See .aios-core/user-guide.md for complete documentation.
       );
     }
 
-    // Step 4: Install AIOS CORE agents for other IDEs (Trae, Cline, Gemini, AntiGravity)
+    // Step 4: Install AIOS CORE agents for other IDEs (Gemini, AntiGravity)
     // v4: Agents are in development/ module
     // INS-2 Performance: Uses cached agent files list
-    const otherIdeInstalls = ['trae', 'cline', 'gemini', 'antigravity'];
+    const otherIdeInstalls = ['gemini', 'antigravity'];
     for (const ide of otherIdeInstalls) {
       if (ides.includes(ide)) {
         const ideRulesDir = ide === 'gemini' ? '.gemini' : `.${ide}`;
@@ -736,33 +728,7 @@ See .aios-core/user-guide.md for complete documentation.
       }
     }
 
-    // Step 5: Install Roo Code modes
-    // v4: Agents are in development/ module
-    // INS-2 Performance: Uses cached agent files list
-    if (ides.includes('roo')) {
-      const rooModesPath = path.join(context.projectRoot, '.roomodes');
-
-      if (cachedAgentFiles.length > 0) {
-        // Create .roomodes JSON file (using cached list)
-        const roomodes = {
-          customModes: cachedAgentFiles.map((f) => {
-            const agentName = f.replace('.md', '');
-            return {
-              slug: `bmad-${agentName}`,
-              name: `AIOS ${agentName.charAt(0).toUpperCase() + agentName.slice(1)}`,
-              roleDefinition: `AIOS-FullStack ${agentName} agent - see .aios-core/agents/${f}`,
-              groups: ['aios'],
-              source: 'project',
-            };
-          }),
-        };
-
-        await fse.writeFile(rooModesPath, JSON.stringify(roomodes, null, 2));
-        console.log(chalk.green('✓') + ` Roo Code modes installed (${cachedAgentFiles.length} modes)`);
-      }
-    }
-
-    // Step 6: Install GitHub Copilot chat modes
+    // Step 5: Install GitHub Copilot chat modes
     // v4: Agents are in development/ module
     // INS-2 Performance: Uses cached agent files list
     if (ides.includes('github-copilot')) {
@@ -1044,7 +1010,7 @@ See .aios-core/user-guide.md for complete documentation.
   }
 
   // Show other IDE installations
-  const otherInstalledIdes = ['windsurf', 'trae', 'cline', 'gemini', 'antigravity'].filter((ide) =>
+  const otherInstalledIdes = ['gemini', 'antigravity'].filter((ide) =>
     ides.includes(ide)
   );
   for (const ide of otherInstalledIdes) {
@@ -1057,10 +1023,6 @@ See .aios-core/user-guide.md for complete documentation.
         ide.slice(1) +
         ' configuration'
     );
-  }
-
-  if (ides.includes('roo')) {
-    console.log('  ' + chalk.dim('.roomodes') + '            - Roo Code mode definitions');
   }
 
   if (ides.includes('github-copilot')) {
@@ -1080,16 +1042,6 @@ See .aios-core/user-guide.md for complete documentation.
     console.log('  ' + chalk.yellow('Cursor:'));
     console.log('    • Agent rules auto-loaded from .cursor/rules/');
     console.log('    • Use @agent-name to activate agents in chat');
-  }
-
-  if (ides.includes('windsurf') || ides.includes('trae') || ides.includes('cline')) {
-    console.log('  ' + chalk.yellow('Windsurf/Trae/Cline:'));
-    console.log('    • Use @agent-name to activate agents in chat');
-  }
-
-  if (ides.includes('roo')) {
-    console.log('  ' + chalk.yellow('Roo Code:'));
-    console.log('    • Select agent mode from status bar mode selector');
   }
 
   if (ides.includes('gemini')) {

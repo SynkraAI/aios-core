@@ -248,7 +248,6 @@ const answer = await inquirer.prompt([
     message: colors.primary('Select your IDE:'),
     choices: [
       { name: colors.highlight('Cursor') + colors.dim(' (recommended)'), value: 'cursor' },
-      { name: 'Windsurf', value: 'windsurf' },
       { name: 'VS Code', value: 'vscode' }
     ]
   }

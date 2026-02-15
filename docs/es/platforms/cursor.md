@@ -29,7 +29,6 @@ Cursor es uno de los **IDEs de IA más populares** con excelente integración de
 
 ### Comparación con Otras Plataformas
 
-| Característica        | Cursor |      Claude Code      | Windsurf |
 | --------------------- | :----: | :-------------------: | :------: |
 | Interfaz GUI          |   Sí   |          No           |    Sí    |
 | Activación @mention   |   Sí   |       /comando        |    Sí    |
@@ -599,7 +598,6 @@ R: Ejecutar `npm run sync:agents` después de actualizaciones de AIOS.
 
 3. Los agentes se sincronizan automáticamente al nuevo formato
 
-### De Cursor a Windsurf
 
 1. Exportar configuración:
 
@@ -607,13 +605,10 @@ R: Ejecutar `npm run sync:agents` después de actualizaciones de AIOS.
    cp .cursor/rules.md cursor-rules-backup.md
    ```
 
-2. Inicializar AIOS para Windsurf:
 
    ```bash
-   npx @anthropic/aios init --ide windsurf
    ```
 
-3. Las reglas se transforman al formato etiquetado en XML de Windsurf
 
 ---
 

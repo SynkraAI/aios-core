@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.0.4
-generated_at: "2026-02-15T19:35:14.070Z"
+generated_at: "2026-02-15T22:20:22.531Z"
 generator: scripts/generate-install-manifest.js
-file_count: 985
+file_count: 981
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -177,9 +177,9 @@ files:
     type: cli
     size: 5907
   - path: core-config.yaml
-    hash: sha256:10c4b0683612f98b6b3b500592c687aa5a0925cdb814d54b00a8e76bfd413c07
+    hash: sha256:b02e24a4129ed2e6674b4bb51ee5bcb03b33146ec1b9d9ddcf81c9acbea97259
     type: config
-    size: 9283
+    size: 9292
   - path: core/config/config-cache.js
     hash: sha256:527a788cbe650aa6b13d1101ebc16419489bfef20b2ee93042f6eb6a51e898e9
     type: core
@@ -833,9 +833,9 @@ files:
     type: core
     size: 5279
   - path: core/registry/service-registry.json
-    hash: sha256:00f18727622526faaef558b17840d62b149a112eeb82cb3e645849e1b72db981
+    hash: sha256:1cab7208871c0afcc551c6154322c6397c90553de733851de4942b012035dae7
     type: core
-    size: 161229
+    size: 158862
   - path: core/registry/validate-registry.js
     hash: sha256:48f2408386a565e93c8c293da2af4fd1e6357a69891ab823f3976b2cf1dbb4e8
     type: core
@@ -985,13 +985,13 @@ files:
     type: data
     size: 10938
   - path: data/aios-kb.md
-    hash: sha256:a9e9356e0d0e8618c3342d55e3a6f590f6b320ecf3cd9a2ddf1a297fc5d86764
+    hash: sha256:6170dbc0c19be1e0c9cf77a23cf0f8f6fbbd0b8a82d5e810a3c58e17cdbbfa2f
     type: data
-    size: 34744
+    size: 34310
   - path: data/entity-registry.yaml
-    hash: sha256:bd3db3cdf047b9e9d121c6b29f22266eae901150fa928f7869d7d4d6d282c8ee
+    hash: sha256:f785beaa460eae654fffa448b37ab1adfd0a97f1bca56d18925bfc67d869c20e
     type: data
-    size: 286456
+    size: 284866
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -2105,9 +2105,9 @@ files:
     type: task
     size: 4918
   - path: development/tasks/squad-creator-sync-ide-command.md
-    hash: sha256:7c99d2b298bc37a64f53236e813856f96cea6865b7a19d5ac73e18706d04913b
+    hash: sha256:7dc66bcb5d635ac20a47366cad1713da13fe1a62858f0631b3bcb0d64248d71b
     type: task
-    size: 12465
+    size: 12344
   - path: development/tasks/squad-creator-sync-synkra.md
     hash: sha256:9e3cb982b6de771daf22788eb43d06bf7a197c32f15be4860946407b824ef150
     type: task
@@ -2357,9 +2357,9 @@ files:
     type: workflow
     size: 18739
   - path: development/workflows/README.md
-    hash: sha256:459409c80ff04439e214f21d342c2f18b2f38dc0f0b7bec16ba33c51c20c3933
+    hash: sha256:cfc609808b1c01b552868c649cc44c15d62a3516f8af67b182c75c07c572bd35
     type: workflow
-    size: 2702
+    size: 2423
   - path: development/workflows/spec-pipeline.yaml
     hash: sha256:38061398e5b16c47929b0167a52adf66682366bb0073bb0a75a31c289d1afdf7
     type: workflow
@@ -2377,9 +2377,9 @@ files:
     type: documentation
     size: 4095
   - path: docs/standards/AIOS-COLOR-PALETTE-V2.1.md
-    hash: sha256:1007f12366036f7817f08cf260eed30e4df45a061fce6ec693b0446add966716
+    hash: sha256:08ddcacf88f3cf5251108de5e30429cb93ba5dcaf5bd0ac88bbcacf6a4b06667
     type: documentation
-    size: 9529
+    size: 9482
   - path: docs/standards/EXECUTOR-DECISION-TREE.md
     hash: sha256:106af2a8bc009c129618fbd501e68c6927862dbbc2e28d1a5b67be9b5fc2bb5b
     type: documentation
@@ -2681,17 +2681,17 @@ files:
     type: script
     size: 8846
   - path: infrastructure/scripts/ide-sync/index.js
-    hash: sha256:024f71d130ddad97d4f53290248b2fe1208e5739b4fb12d4713f7b9200857f4c
+    hash: sha256:70288661476c94f018e6bf481d595bb23da0686bab05c6c83153a1537642c172
     type: script
-    size: 13426
+    size: 13262
   - path: infrastructure/scripts/ide-sync/README.md
-    hash: sha256:9ae7b657f83e37991f84fd687188929485130cb43a5f9fb9b6f91f5ef6a2dd2b
+    hash: sha256:2b3d7f84fd6776d7fd410f8b78d6e3d78083faca9787c1c33b03902e67ad426c
     type: script
-    size: 4676
+    size: 4504
   - path: infrastructure/scripts/ide-sync/redirect-generator.js
-    hash: sha256:d5ca34590201e7a7e4077c8712fa0421f3ed41df76cd6717baf8b589799b5c13
+    hash: sha256:618b767411f1d9e65b450291bf26b36bec839cfe899d44771dc832703fc50389
     type: script
-    size: 4205
+    size: 4213
   - path: infrastructure/scripts/ide-sync/transformers/antigravity.js
     hash: sha256:d8fe023ce70651e0d83151f9f90000d8ffb51ab260f246704c1616739a001622
     type: script
@@ -2704,10 +2704,6 @@ files:
     hash: sha256:fe38ba6960cc7e1dd2f1de963cdfc5a4be83eb5240c696e9eea607421a23cf22
     type: script
     size: 2427
-  - path: infrastructure/scripts/ide-sync/transformers/windsurf.js
-    hash: sha256:6eec13241f1216d64acb5b69af92fb36e22f22697dd166a1afe9e4e9048884db
-    type: script
-    size: 2708
   - path: infrastructure/scripts/ide-sync/validator.js
     hash: sha256:356c78125db7f88d14f4e521808e96593d729291c3d7a1c36cb02f78b4aef8fc
     type: script
@@ -2949,9 +2945,9 @@ files:
     type: script
     size: 10362
   - path: infrastructure/templates/aios-sync.yaml.template
-    hash: sha256:3052ef8c6e541068461818d26eb54b7cd8ee5e0dd279f0ab9e09a169b1a48f3b
+    hash: sha256:a22718c4eec5b7bc808cb283f18a96c96cfcbbed4a0ffec6e332da45a4a0a549
     type: template
-    size: 8721
+    size: 8385
   - path: infrastructure/templates/coderabbit.yaml.template
     hash: sha256:a8f8e08e5c109b4c635a468e9b400bfb35361073de8a0883c5d4c9db84d7ed0a
     type: template
@@ -3432,10 +3428,6 @@ files:
     hash: sha256:13d5fb7858534f6d49150a5dff642faa276c17b9d242f995369c5e7e1d37ae40
     type: template
     size: 6785
-  - path: product/templates/ide-rules/cline-rules.md
-    hash: sha256:e2c7a57d630fab3220810b32aa24009a6bf749cd8b863d8b8a7a524861758e77
-    type: template
-    size: 2840
   - path: product/templates/ide-rules/codex-rules.md
     hash: sha256:e8345404f17977a268b917a4ff86e4f10f80174a6bb572865e5413c8f7dd217a
     type: template
@@ -3452,14 +3444,6 @@ files:
     hash: sha256:9f5a0a05e1cdeab2175a98c00cb248d3fedbc8505f1d99c771703b275f2fc5bd
     type: template
     size: 6605
-  - path: product/templates/ide-rules/roo-rules.md
-    hash: sha256:65746d390f570aade0ef98876861b510494a5d3c040c41650297b1c95c04581a
-    type: template
-    size: 3063
-  - path: product/templates/ide-rules/windsurf-rules.md
-    hash: sha256:7c880de0dec8b06eb3390a56614996c6033c1939907d77f73f4f6f85ae42b3e2
-    type: template
-    size: 2604
   - path: product/templates/index-strategy-tmpl.yaml
     hash: sha256:6db2b40f6eef47f4faa31ce513ee7b0d5f04d9a5e081a72e0cdbad402eb444ae
     type: template
@@ -3869,9 +3853,9 @@ files:
     type: script
     size: 1708
   - path: user-guide.md
-    hash: sha256:392885f5bd71f3be9a764d83d5b401b61a2a875ea8000ad2569c17a7139e68e5
+    hash: sha256:fe62815694f4d747fde55bc83f750a923b414c01fe506af5729ad7d7377dcc65
     type: documentation
-    size: 38725
+    size: 38486
   - path: workflow-intelligence/__tests__/confidence-scorer.test.js
     hash: sha256:237216842d3eb710ae33f3aba6c7b2a6a353cccc1dea6d4b927d8d063d9cb635
     type: workflow-intelligence

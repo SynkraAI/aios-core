@@ -55,7 +55,7 @@ ${baseContent.instruction}
 `;
 
     case 'xml-tagged-markdown':
-      // Windsurf format
+      // Generic markdown format
       return `${baseContent.header}
 
 <redirect>

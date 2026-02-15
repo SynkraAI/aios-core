@@ -83,6 +83,7 @@ special_features:
   - /skills activators (aios-<agent-id>)
   - Strong CLI workflow support
   - Easy integration with repository scripts
+  - No official hooks API; use AGENTS.md + skills + MCP as operational equivalent
 ```
 
 **Setup:**
@@ -121,6 +122,8 @@ special_features:
   - Chat modes
   - @codebase context
   - Multi-file editing
+  - Subagents and cloud handoff support (latest Cursor releases)
+  - Long-running agent workflows (research preview)
 ```
 
 **Setup:**
@@ -214,7 +217,7 @@ special_features:
 
 ### Gemini CLI
 
-**Recommendation Level:** Basic
+**Recommendation Level:** Good
 
 ```yaml
 config_file: .gemini/rules.md
@@ -226,6 +229,8 @@ special_features:
   - Google AI models
   - CLI-based workflow
   - Multimodal support
+  - Native hooks events and hook commands
+  - Rapidly evolving command/tooling UX
 ```
 
 ---

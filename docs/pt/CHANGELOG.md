@@ -18,7 +18,7 @@ e este projeto adere ao [Versionamento Semantico](https://semver.org/lang/pt-BR/
 ### Adicionado
 
 - **Assistente de Instalacao Interativo**: Configuracao guiada passo a passo com selecao de componentes
-- **Suporte Multi-IDE**: Adicionado suporte para 8 IDEs (Claude Code, Cursor, Windsurf, Trae, Roo Code, Cline, Gemini CLI, GitHub Copilot)
+- **Suporte Multi-IDE**: Adicionado suporte para 4 IDEs (Claude Code, Cursor, Gemini CLI, GitHub Copilot)
 - **Sistema de Squads**: Add-ons modulares incluindo HybridOps para integracao com ClickUp
 - **Testes Multiplataforma**: Cobertura completa de testes para Windows, macOS e Linux
 - **Tratamento de Erros e Rollback**: Rollback automatico em caso de falha na instalacao com sugestoes de recuperacao

@@ -18,10 +18,7 @@ version: "1.0.0"
 active_ides:
   - claude    # Claude Code (.claude/commands/)
   - cursor    # Cursor IDE (.cursor/rules/)
-  # - windsurf  # Windsurf IDE (.windsurf/)
   # - gemini    # Google Gemini (.gemini/)
-  # - trae      # Trae IDE (.trae/)
-  # - cline     # Cline (.cline/)
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # SQUAD ALIASES
@@ -54,16 +51,8 @@ sync_mappings:
         - path: ".cursor/rules/"
           format: "mdc"
           wrapper: "cursor-rule"
-      windsurf:
-        - path: ".windsurf/{squad_alias}/agents/"
-          format: "md"
-          wrapper: "none"
       gemini:
         - path: ".gemini/agents/"
-          format: "md"
-          wrapper: "none"
-      trae:
-        - path: ".trae/{squad_alias}/agents/"
           format: "md"
           wrapper: "none"
 

@@ -46,7 +46,7 @@ function validateIDESelection(selectedIDEs) {
  *
  * @example
  * const selectedIDEs = await selectIDEs();
- * console.log(selectedIDEs); // ['cursor', 'windsurf']
+ * console.log(selectedIDEs); // ['cursor', 'github-copilot']
  */
 async function selectIDEs() {
   const { selectedIDEs } = await inquirer.prompt([

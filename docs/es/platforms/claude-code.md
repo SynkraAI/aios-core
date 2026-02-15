@@ -29,7 +29,6 @@ Claude Code ofrece la **mejor integración** con AIOS debido a:
 
 ### Comparación con Otras Plataformas
 
-| Característica | Claude Code | Cursor | Windsurf |
 |---|:-:|:-:|:-:|
 | Soporte MCP | Nativo | Configuración | Configuración |
 | Tareas de Subagentos | Sí | No | No |

@@ -280,10 +280,6 @@ tar -xzvf aios-offline.tar.gz
 | ------------------ | ------------ | ------------------- |
 | **Claude Code**    | Full Support | `/dev`, `/qa`, etc. |
 | **Cursor**         | Full Support | `@dev`, `@qa`, etc. |
-| **Windsurf**       | Full Support | `@dev`, `@qa`, etc. |
-| **Trae**           | Full Support | `@dev`, `@qa`, etc. |
-| **Roo Code**       | Full Support | Mode selector       |
-| **Cline**          | Full Support | `@dev`, `@qa`, etc. |
 | **Gemini CLI**     | Full Support | Mention in prompt   |
 | **GitHub Copilot** | Full Support | Chat modes          |
 
@@ -301,20 +297,17 @@ tar -xzvf aios-offline.tar.gz
 ? Which IDE(s) do you want to configure?
 ❯ ◉ Cursor
   ◉ Claude Code
-  ◯ Windsurf
 ```
 
 **Command line:**
 
 ```bash
-npx @synkra/aios-core install --ide cursor claude-code windsurf
 ```
 
 Each IDE gets its own configuration directory:
 
 - `.cursor/rules/` for Cursor
 - `.claude/commands/` for Claude Code
-- `.windsurf/rules/` for Windsurf
 
 ---
 

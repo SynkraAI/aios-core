@@ -19,7 +19,6 @@ Antes de começar, certifique-se de ter:
 - **Node.js** 20.0.0 ou superior instalado
 - **npm** ou outro gerenciador de pacotes
 - **GitHub CLI** (gh) instalado e configurado (para colaboração em equipe)
-- Um **IDE compatível**: Windsurf, Cursor, ou Claude Code
 - **Acesso a um agente de IA**: Claude, GPT-4, Gemini, ou similar
 
 ## Instalação e Configuração Inicial
@@ -58,7 +57,6 @@ npx @aios/fullstack install
 💻 Select IDEs to Configure:
   ◉ Claude Code (.claude/commands/)
   ◉ Cursor (.cursor/rules/)
-  ◯ Windsurf (.windsurf/rules.md)
   ◯ Gemini CLI (.gemini/)
 
 📝 Sharding Preferences:
@@ -240,7 +238,6 @@ Use o agente de IA na interface web (Claude.ai, ChatGPT, Gemini, etc.) para:
 
 ### Fase 2: Desenvolvimento (IDE)
 
-Mude para seu IDE (Windsurf, Cursor ou Claude Code) para:
 
 1. **Fragmentação de Histórias** - Use o **sm** (Scrum Master) para criar histórias de desenvolvimento
 2. **Implementação** - Trabalhe com o **dev** para codificar as features
@@ -548,11 +545,9 @@ O agente **qa** monitora:
 
 ## Integração com IDE
 
-### Configuração para Windsurf
 
 1. **Configurar regras globais**:
    - Abrir Settings → Global Rules
-   - Copiar conteúdo de `.windsurf/global-rules.md`
    - Salvar configuração
 
 2. **Ativar agentes**:

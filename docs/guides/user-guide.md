@@ -356,8 +356,6 @@ AIOS supports multiple IDEs. Configuration is synchronized across:
 
 - Claude Code (`.claude/`)
 - Cursor (`.cursor/`)
-- Windsurf (`.windsurf/`)
-- Cline (`.cline/`)
 - VS Code (`.vscode/`)
 
 ```bash

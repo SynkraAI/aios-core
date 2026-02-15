@@ -220,7 +220,6 @@ mcp-ecosystem/
 ├── ide-configs/            # Configuraciones específicas del IDE
 │   ├── claude-code/
 │   ├── cursor/
-│   ├── windsurf/
 │   └── vscode/
 │
 └── presets/                # Paquetes MCP preconfigurados

@@ -386,8 +386,8 @@ async function createAntiGravityConfigJson(projectRoot, ideConfig) {
  * @returns {Promise<{success: boolean, files: string[], errors: Array}>}
  *
  * @example
- * const result = await generateIDEConfigs(['cursor', 'windsurf'], wizardState);
- * console.log(result.files); // ['.cursorrules', '.windsurfrules']
+ * const result = await generateIDEConfigs(['cursor', 'github-copilot'], wizardState);
+ * console.log(result.files); // ['.cursorrules', '.github/copilot-instructions.md']
  */
 async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
   const projectRoot = options.projectRoot || process.cwd();

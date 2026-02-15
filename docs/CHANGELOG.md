@@ -85,7 +85,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Interactive Installation Wizard**: Step-by-step guided setup with component selection
-- **Multi-IDE Support**: Added support for 8 IDEs (Claude Code, Cursor, Windsurf, Trae, Roo Code, Cline, Gemini CLI, GitHub Copilot)
+- **Multi-IDE Support**: Added support for 4 IDEs (Claude Code, Cursor, Gemini CLI, GitHub Copilot)
 - **Squads System**: Modular add-ons including HybridOps for ClickUp integration
 - **Cross-Platform Testing**: Full test coverage for Windows, macOS, and Linux
 - **Error Handling & Rollback**: Automatic rollback on installation failure with recovery suggestions

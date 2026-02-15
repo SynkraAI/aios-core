@@ -102,7 +102,6 @@ squads/legal/agents/legal-chief.md
 
 Mapeamentos padrão para tipos de componentes:
 
-| Tipo de Componente | Claude | Cursor | Gemini | Windsurf |
 | ------------------ | ------ | ------ | ------ | -------- |
 | Agents             | ✅     | ✅     | ✅     | ✅       |
 | Tasks              | ✅     | -      | -      | -        |

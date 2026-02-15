@@ -27,7 +27,6 @@ O Cursor é uma das **IDEs com IA mais populares** com excelente integração AI
 
 ### Comparação com Outras Plataformas
 
-| Recurso              | Cursor | Claude Code | Windsurf |
 | -------------------- | :----: | :---------: | :------: |
 | Interface GUI        |  Sim   |     Não     |   Sim    |
 | Ativação @mention    |  Sim   |  /comando   |   Sim    |
@@ -597,7 +596,6 @@ R: Execute `npm run sync:agents` após atualizações do AIOS.
 
 3. Agentes sincronizam automaticamente para o novo formato
 
-### Do Cursor para Windsurf
 
 1. Exporte configuração:
 
@@ -605,13 +603,10 @@ R: Execute `npm run sync:agents` após atualizações do AIOS.
    cp .cursor/rules.md cursor-rules-backup.md
    ```
 
-2. Inicialize AIOS para Windsurf:
 
    ```bash
-   npx @anthropic/aios init --ide windsurf
    ```
 
-3. Regras transformam para o formato XML-tagged do Windsurf
 
 ---
 
