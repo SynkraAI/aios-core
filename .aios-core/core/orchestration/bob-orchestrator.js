@@ -563,6 +563,18 @@ class BobOrchestrator {
     }
 
     try {
+      // BOB-SAFE-1: Check dependencies on startup
+      const depsCheck = await this._checkDependencies();
+      if (!depsCheck.healthy) {
+        return {
+          success: false,
+          projectState: null,
+          action: 'dependencies_missing',
+          error: depsCheck.message,
+          missing: depsCheck.missing,
+        };
+      }
+
       // Acquire orchestration lock (AC14)
       const lockAcquired = await this.lockManager.acquireLock(resource);
       if (!lockAcquired) {
@@ -571,6 +583,17 @@ class BobOrchestrator {
           projectState: null,
           action: 'lock_failed',
           error: 'Another Bob orchestration is already running. Wait or check .aios/locks/',
+        };
+      }
+
+      // BOB-SAFE-1: Verify lock ownership before proceeding
+      const lockVerified = await this._verifyLockOwnership(resource);
+      if (!lockVerified.verified) {
+        return {
+          success: false,
+          projectState: null,
+          action: lockVerified.action,
+          error: lockVerified.message,
         };
       }
 
@@ -593,6 +616,18 @@ class BobOrchestrator {
       const sessionCheck = await this._checkExistingSession();
       this._log(`Session check complete: hasSession=${sessionCheck.hasSession}`);
 
+      // BOB-SAFE-1: Validate session state schema if session exists
+      if (sessionCheck.hasSession && sessionCheck.state) {
+        const validation = this._validateSessionStateSchema(sessionCheck.state);
+        if (!validation.valid) {
+          this._log(`Session state validation failed: ${validation.errors.join(', ')}`, 'error');
+          // Discard corrupted session to prevent undefined behavior
+          await this.sessionState.clear();
+          sessionCheck.hasSession = false;
+          this._log('Corrupted session discarded, proceeding as fresh start');
+        }
+      }
+
       // BOB-VETO-3: Extract protected files from session
       const protectedFiles = sessionCheck.hasSession && sessionCheck.state
         ? this._extractProtectedFiles(sessionCheck.state)
@@ -600,6 +635,20 @@ class BobOrchestrator {
 
       if (protectedFiles.length > 0) {
         this._log(`Protecting ${protectedFiles.length} session files from cleanup`);
+      }
+
+      // BOB-SAFE-1: Check disk space before cleanup/workflow
+      const spaceCheck = await this._checkDiskSpace(100);
+      if (!spaceCheck.safe) {
+        await this.lockManager.releaseLock(resource).catch(() => {});
+        return {
+          success: false,
+          projectState: null,
+          action: 'insufficient_disk_space',
+          error: spaceCheck.message,
+          available: spaceCheck.available,
+          required: spaceCheck.required,
+        };
       }
 
       // Story 12.5: Run data lifecycle cleanup WITH protected files (AC8-11)
@@ -1042,6 +1091,168 @@ class BobOrchestrator {
     }
 
     return Array.from(files);
+  }
+
+  /**
+   * Checks if sufficient disk space is available (BOB-SAFE-1)
+   * @param {number} requiredMB - Required space in MB
+   * @returns {Promise<Object>} Safety check result
+   * @private
+   */
+  async _checkDiskSpace(requiredMB = 100) {
+    try {
+      const { execSync } = require('child_process');
+      const df = execSync('df -m .', { encoding: 'utf8' });
+      const lines = df.trim().split('\n');
+      const data = lines[1].split(/\s+/);
+      const availableMB = parseInt(data[3], 10);
+
+      if (availableMB < requiredMB) {
+        return {
+          safe: false,
+          reason: 'insufficient_disk_space',
+          available: availableMB,
+          required: requiredMB,
+          message: `Espaço em disco insuficiente. Disponível: ${availableMB}MB, Necessário: ${requiredMB}MB`,
+        };
+      }
+
+      return { safe: true, available: availableMB };
+    } catch (error) {
+      // Fail safe: assume space is available if check fails
+      this._log(`Disk space check failed: ${error.message}`, 'warn');
+      return { safe: true, warning: 'check_failed' };
+    }
+  }
+
+  /**
+   * Validates session state schema integrity (BOB-SAFE-1)
+   * @param {Object} sessionState - Session state to validate
+   * @returns {Object} Validation result
+   * @private
+   */
+  _validateSessionStateSchema(sessionState) {
+    const errors = [];
+
+    // Required top-level fields
+    if (!sessionState.session_state) {
+      errors.push('Missing session_state object');
+    }
+
+    // Required session fields
+    const required = ['epic', 'progress', 'workflow', 'last_updated'];
+    required.forEach((field) => {
+      if (!sessionState.session_state?.[field]) {
+        errors.push(`Missing required field: session_state.${field}`);
+      }
+    });
+
+    // Validate workflow structure
+    if (sessionState.session_state?.workflow) {
+      if (!sessionState.session_state.workflow.current_phase) {
+        errors.push('Missing workflow.current_phase');
+      }
+      if (!sessionState.session_state.workflow.phase_results) {
+        errors.push('Missing workflow.phase_results');
+      }
+    }
+
+    // Validate last_updated is a valid date
+    if (sessionState.session_state?.last_updated) {
+      const date = new Date(sessionState.session_state.last_updated);
+      if (isNaN(date.getTime())) {
+        errors.push('Invalid last_updated timestamp');
+      }
+    }
+
+    return {
+      valid: errors.length === 0,
+      errors,
+    };
+  }
+
+  /**
+   * Double-checks lock ownership before critical operation (BOB-SAFE-1)
+   * @param {string} resource - Resource name
+   * @returns {Promise<Object>} Lock verification result
+   * @private
+   */
+  async _verifyLockOwnership(resource) {
+    const isOwner = await this.lockManager.isLockOwner(resource);
+
+    if (!isOwner) {
+      return {
+        verified: false,
+        reason: 'lock_lost',
+        message: 'Lock foi perdido durante a operação. Outra instância pode estar executando.',
+        action: 'abort',
+      };
+    }
+
+    return { verified: true };
+  }
+
+  /**
+   * Validates required dependencies are available (BOB-SAFE-1)
+   * @returns {Promise<Object>} Dependency check result
+   * @private
+   */
+  async _checkDependencies() {
+    const required = ['git', 'node'];
+    const missing = [];
+
+    for (const dep of required) {
+      try {
+        const { execSync } = require('child_process');
+        execSync(`which ${dep}`, { stdio: 'ignore' });
+      } catch {
+        missing.push(dep);
+      }
+    }
+
+    if (missing.length > 0) {
+      return {
+        healthy: false,
+        missing,
+        message: `Dependências faltando: ${missing.join(', ')}`,
+      };
+    }
+
+    return { healthy: true };
+  }
+
+  /**
+   * Checks if backup should be suggested before destructive operation (BOB-SAFE-1)
+   * @param {string} operation - Operation type (delete, reset, etc)
+   * @param {Object} context - Operation context
+   * @returns {Object} Backup recommendation
+   * @private
+   */
+  _shouldPromptBackup(operation, context) {
+    const destructiveOps = ['delete', 'reset', 'discard', 'force-restart'];
+
+    if (destructiveOps.includes(operation)) {
+      // Check if git has uncommitted changes
+      const hasUncommitted = context.uncommittedFiles?.length > 0;
+
+      if (hasUncommitted) {
+        return {
+          recommend: true,
+          reason: 'uncommitted_changes',
+          message: 'Há mudanças não commitadas. Recomendamos criar um commit antes de prosseguir.',
+          severity: 'high',
+        };
+      }
+
+      return {
+        recommend: true,
+        reason: 'destructive_operation',
+        message: 'Esta operação não pode ser desfeita. Considere criar um backup.',
+        severity: 'medium',
+      };
+    }
+
+    return { recommend: false };
   }
 
   /**
