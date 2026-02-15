@@ -344,4 +344,160 @@ describe('BobOrchestrator - Security (Task #3)', () => {
       expect(output.toLowerCase()).not.toContain('uid');
     });
   });
+
+  // FASE 4: Coverage for cleanup & UID validation edge cases
+  describe('FASE 4 - Cleanup & UID Validation Edge Cases', () => {
+    describe('UID check debug logging (line 325)', () => {
+      test('should log UID check failure in debug mode', () => {
+        // Given - debug mode enabled
+        orchestrator.options.debug = true;
+        const logs = [];
+        orchestrator._log = (msg) => logs.push(msg);
+
+        // Mock execSync to throw error
+        const originalExecSync = require('child_process').execSync;
+        jest.spyOn(require('child_process'), 'execSync').mockImplementation(() => {
+          throw new Error('ps command failed');
+        });
+
+        // When
+        const result = orchestrator._isProcessOwnedByCurrentUser(12345);
+
+        // Then
+        expect(result).toBe(false);
+        expect(logs.some((log) => log.includes('UID check failed for PID 12345'))).toBe(true);
+        expect(logs.some((log) => log.includes('ps command failed'))).toBe(true);
+
+        // Restore
+        require('child_process').execSync = originalExecSync;
+      });
+    });
+
+    describe('Cleanup with SIGTERM (lines 393-394, 405)', () => {
+      test('should terminate orphan monitor with SIGTERM and log summary', () => {
+        // Given - debug mode to see all logs
+        orchestrator.options.debug = true;
+        const logs = [];
+        orchestrator._log = (msg) => logs.push(msg);
+
+        // Mock process.kill to track calls
+        const originalKill = process.kill;
+        const killCalls = [];
+        process.kill = jest.fn((pid, signal) => {
+          killCalls.push({ pid, signal });
+          return true;
+        });
+
+        // Mock execSync
+        const originalExecSync = require('child_process').execSync;
+        jest.spyOn(require('child_process'), 'execSync').mockImplementation((cmd) => {
+          // pgrep finds one monitor
+          if (cmd.includes('pgrep')) {
+            return '54321';
+          }
+
+          // UID check - return current UID
+          if (cmd.includes('ps -p 54321 -o uid=')) {
+            return String(os.userInfo().uid);
+          }
+
+          // PPID check - return fake parent
+          if (cmd.includes('ps -p 54321 -o ppid=')) {
+            return '99999';
+          }
+
+          // Parent check - parent doesn't exist (orphan)
+          if (cmd.includes('ps -p 99999')) {
+            throw new Error('Parent does not exist');
+          }
+
+          return '';
+        });
+
+        // When
+        orchestrator._cleanupOrphanMonitors();
+
+        // Then - process.kill was called with SIGTERM
+        expect(killCalls.length).toBe(1);
+        expect(killCalls[0].pid).toBe(54321);
+        expect(killCalls[0].signal).toBe('SIGTERM');
+
+        // And cleanup summary was logged (line 405)
+        expect(logs.some((log) => log.includes('Cleanup: 1 orphan monitor processes removed'))).toBe(true);
+        expect(logs.some((log) => log.includes('Cleaned orphan monitor process: 54321'))).toBe(true);
+
+        // Restore
+        process.kill = originalKill;
+        require('child_process').execSync = originalExecSync;
+      });
+    });
+
+    describe('Skipped monitors summary (lines 407-408)', () => {
+      test('should log skipped summary in debug mode when UID mismatch', () => {
+        // Given - debug mode
+        orchestrator.options.debug = true;
+        const logs = [];
+        orchestrator._log = (msg) => logs.push(msg);
+
+        // Mock execSync
+        const originalExecSync = require('child_process').execSync;
+        jest.spyOn(require('child_process'), 'execSync').mockImplementation((cmd) => {
+          // pgrep finds two monitors
+          if (cmd.includes('pgrep')) {
+            return '11111\n22222';
+          }
+
+          // First monitor - different UID
+          if (cmd.includes('ps -p 11111 -o uid=')) {
+            return String(os.userInfo().uid + 1000);
+          }
+
+          // Second monitor - also different UID
+          if (cmd.includes('ps -p 22222 -o uid=')) {
+            return String(os.userInfo().uid + 2000);
+          }
+
+          return '';
+        });
+
+        // When
+        orchestrator._cleanupOrphanMonitors();
+
+        // Then - skipped summary logged (lines 407-408)
+        expect(logs.some((log) => log.includes('Cleanup: 2 monitors skipped'))).toBe(true);
+        expect(logs.some((log) => log.includes('UID mismatch - not owned by current user'))).toBe(true);
+
+        // Restore
+        require('child_process').execSync = originalExecSync;
+      });
+    });
+
+    describe('Cleanup error logging (lines 412-413)', () => {
+      test('should log cleanup error in debug mode when pgrep fails', () => {
+        // Given - debug mode
+        orchestrator.options.debug = true;
+        const logs = [];
+        orchestrator._log = (msg) => logs.push(msg);
+
+        // Mock execSync to throw on pgrep
+        const originalExecSync = require('child_process').execSync;
+        jest.spyOn(require('child_process'), 'execSync').mockImplementation((cmd) => {
+          if (cmd.includes('pgrep')) {
+            throw new Error('pgrep command not found');
+          }
+          return '';
+        });
+
+        // When
+        orchestrator._cleanupOrphanMonitors();
+
+        // Then - error logged (lines 412-413)
+        expect(logs.some((log) => log.includes('Orphan monitor cleanup error'))).toBe(true);
+        expect(logs.some((log) => log.includes('pgrep command not found'))).toBe(true);
+
+        // Restore
+        require('child_process').execSync = originalExecSync;
+      });
+    });
+  });
 });
