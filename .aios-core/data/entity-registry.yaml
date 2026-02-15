@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-15T22:30:45.703Z'
+  lastUpdated: '2026-02-15T22:31:57.444Z'
   entityCount: 497
   checksumAlgorithm: sha256
 entities:
@@ -3323,8 +3323,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:7c99d2b298bc37a64f53236e813856f96cea6865b7a19d5ac73e18706d04913b
-      lastVerified: '2026-02-15T19:17:32.645Z'
+      checksum: sha256:7dc66bcb5d635ac20a47366cad1713da13fe1a62858f0631b3bcb0d64248d71b
+      lastVerified: '2026-02-15T22:31:57.443Z'
     squad-creator-sync-synkra:
       path: .aios-core/development/tasks/squad-creator-sync-synkra.md
       type: task
@@ -8914,8 +8914,8 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:a9e9356e0d0e8618c3342d55e3a6f590f6b320ecf3cd9a2ddf1a297fc5d86764
-      lastVerified: '2026-02-15T19:17:32.644Z'
+      checksum: sha256:6170dbc0c19be1e0c9cf77a23cf0f8f6fbbd0b8a82d5e810a3c58e17cdbbfa2f
+      lastVerified: '2026-02-15T22:31:57.442Z'
     entity-registry:
       path: .aios-core/data/entity-registry.yaml
       type: data
