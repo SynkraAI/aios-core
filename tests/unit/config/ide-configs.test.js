@@ -92,7 +92,7 @@ describe('IDE Configs', () => {
       });
     });
 
-    it('should have Claude Code as recommended', () => {
+    it('should have Claude Code and Codex as recommended', () => {
       expect(IDE_CONFIGS['claude-code'].recommended).toBe(true);
       expect(IDE_CONFIGS.codex.recommended).toBe(true);
     });

@@ -79,7 +79,13 @@ function validatePaths(options = {}) {
       continue;
     }
 
-    const content = fs.readFileSync(file, 'utf8');
+    let content;
+    try {
+      content = fs.readFileSync(file, 'utf8');
+    } catch (error) {
+      errors.push(`Unable to read file: ${path.relative(resolved.projectRoot, file)} (${error.message})`);
+      continue;
+    }
     checkedFiles.push(file);
     errors.push(...collectAbsolutePathViolations(content, path.relative(resolved.projectRoot, file)));
 

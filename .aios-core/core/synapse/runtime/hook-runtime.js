@@ -15,23 +15,30 @@ const fs = require('fs');
 function resolveHookRuntime(input) {
   const cwd = input && input.cwd;
   const sessionId = input && input.sessionId;
-  if (!cwd) return null;
+  if (!cwd || typeof cwd !== 'string') return null;
 
   const synapsePath = path.join(cwd, '.synapse');
   if (!fs.existsSync(synapsePath)) return null;
 
-  const { loadSession } = require(
-    path.join(cwd, '.aios-core', 'core', 'synapse', 'session', 'session-manager.js'),
-  );
-  const { SynapseEngine } = require(
-    path.join(cwd, '.aios-core', 'core', 'synapse', 'engine.js'),
-  );
+  try {
+    const { loadSession } = require(
+      path.join(cwd, '.aios-core', 'core', 'synapse', 'session', 'session-manager.js'),
+    );
+    const { SynapseEngine } = require(
+      path.join(cwd, '.aios-core', 'core', 'synapse', 'engine.js'),
+    );
 
-  const sessionsDir = path.join(synapsePath, 'sessions');
-  const session = loadSession(sessionId, sessionsDir) || { prompt_count: 0 };
-  const engine = new SynapseEngine(synapsePath);
+    const sessionsDir = path.join(synapsePath, 'sessions');
+    const session = loadSession(sessionId, sessionsDir) || { prompt_count: 0 };
+    const engine = new SynapseEngine(synapsePath);
 
-  return { engine, session };
+    return { engine, session };
+  } catch (error) {
+    if (process.env.DEBUG === '1') {
+      console.error(`[hook-runtime] Failed to resolve runtime: ${error.message}`);
+    }
+    return null;
+  }
 }
 
 /**

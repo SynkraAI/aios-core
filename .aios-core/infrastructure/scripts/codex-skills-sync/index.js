@@ -106,14 +106,21 @@ function buildSkillPlan(agents, skillsDir) {
 function writeSkillPlan(plan, options) {
   for (const item of plan) {
     if (!options.dryRun) {
-      fs.ensureDirSync(item.targetDir);
-      fs.writeFileSync(item.targetFile, item.content, 'utf8');
+      try {
+        fs.ensureDirSync(item.targetDir);
+        fs.writeFileSync(item.targetFile, item.content, 'utf8');
+      } catch (error) {
+        throw new Error(`Failed to write skill ${item.skillId} at ${item.targetFile}: ${error.message}`);
+      }
     }
   }
 }
 
 function syncSkills(options = {}) {
   const resolved = { ...getDefaultOptions(), ...options };
+  if (resolved.globalOnly) {
+    resolved.global = true;
+  }
   const agents = parseAllAgents(resolved.sourceDir);
   const plan = buildSkillPlan(agents, resolved.localSkillsDir);
 
@@ -129,7 +136,7 @@ function syncSkills(options = {}) {
   return {
     generated: plan.length,
     localSkillsDir: resolved.localSkillsDir,
-    globalSkillsDir: resolved.global ? resolved.globalSkillsDir : null,
+    globalSkillsDir: resolved.global || resolved.globalOnly ? resolved.globalSkillsDir : null,
     dryRun: resolved.dryRun,
   };
 }

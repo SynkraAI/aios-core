@@ -37,8 +37,12 @@ class ActivationRuntime {
    * @returns {Promise<string>}
    */
   async activateGreeting(agentId, options = {}) {
-    const result = await this.activate(agentId, options);
-    return result.greeting;
+    try {
+      const result = await this.activate(agentId, options);
+      return result && typeof result.greeting === 'string' ? result.greeting : '';
+    } catch (error) {
+      throw new Error(`ActivationRuntime.activateGreeting failed for "${agentId}": ${error.message}`);
+    }
   }
 }
 

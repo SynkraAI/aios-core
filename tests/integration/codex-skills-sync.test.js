@@ -11,9 +11,12 @@ const {
 
 describe('Codex Skills Sync', () => {
   let tmpRoot;
+  let expectedAgentCount;
 
   beforeEach(() => {
     tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'aios-codex-skills-'));
+    expectedAgentCount = fs.readdirSync(path.join(process.cwd(), '.aios-core', 'development', 'agents'))
+      .filter(name => name.endsWith('.md')).length;
   });
 
   afterEach(() => {
@@ -28,7 +31,7 @@ describe('Codex Skills Sync', () => {
       dryRun: false,
     });
 
-    expect(result.generated).toBe(12);
+    expect(result.generated).toBe(expectedAgentCount);
     const expected = path.join(localSkillsDir, 'aios-architect', 'SKILL.md');
     expect(fs.existsSync(expected)).toBe(true);
 
@@ -51,8 +54,26 @@ describe('Codex Skills Sync', () => {
       dryRun: false,
     });
 
-    expect(result.generated).toBe(12);
+    expect(result.generated).toBe(expectedAgentCount);
     expect(result.globalSkillsDir).toBe(globalSkillsDir);
+    expect(fs.existsSync(path.join(globalSkillsDir, 'aios-dev', 'SKILL.md'))).toBe(true);
+  });
+
+  it('treats globalOnly as global output and skips local writes', () => {
+    const localSkillsDir = path.join(tmpRoot, '.codex', 'skills');
+    const globalSkillsDir = path.join(tmpRoot, '.codex-home', 'skills');
+
+    const result = syncSkills({
+      sourceDir: path.join(process.cwd(), '.aios-core', 'development', 'agents'),
+      localSkillsDir,
+      globalSkillsDir,
+      globalOnly: true,
+      dryRun: false,
+    });
+
+    expect(result.generated).toBe(expectedAgentCount);
+    expect(result.globalSkillsDir).toBe(globalSkillsDir);
+    expect(fs.existsSync(path.join(localSkillsDir, 'aios-dev', 'SKILL.md'))).toBe(false);
     expect(fs.existsSync(path.join(globalSkillsDir, 'aios-dev', 'SKILL.md'))).toBe(true);
   });
 

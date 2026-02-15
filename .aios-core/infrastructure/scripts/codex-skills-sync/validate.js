@@ -85,7 +85,13 @@ function validateCodexSkills(options = {}) {
       continue;
     }
 
-    const content = fs.readFileSync(skillPath, 'utf8');
+    let content;
+    try {
+      content = fs.readFileSync(skillPath, 'utf8');
+    } catch (error) {
+      errors.push(`${item.skillId}: unable to read skill file (${error.message})`);
+      continue;
+    }
     const issues = validateSkillContent(content, item);
     for (const issue of issues) {
       errors.push(`${item.skillId}: ${issue}`);

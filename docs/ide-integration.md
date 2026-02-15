@@ -17,15 +17,15 @@ AIOS supports multiple AI-powered development platforms. Choose the one that bes
 
 ### Quick Comparison Table
 
-| Feature              | Claude Code |  Cursor  | Windsurf |  Cline   | Copilot | AntiGravity | Roo Code | Gemini CLI |   Trae   |
-| -------------------- | :---------: | :------: | :------: | :------: | :-----: | :---------: | :------: | :--------: | :------: |
-| **Agent Activation** |  /command   | @mention | @mention | @mention | 4 Modes |  Workflow   |   Mode   |   Prompt   | @mention |
-| **MCP Support**      |   Native    |  Config  |  Config  | Limited  |   Yes   |   Native    |    No    |     No     | Limited  |
-| **Subagent Tasks**   |     Yes     |    No    |    No    |    No    |   Yes   |     Yes     |    No    |     No     |    No    |
-| **Auto-sync**        |     Yes     |   Yes    |   Yes    |   Yes    |   Yes   |     Yes     |   Yes    |    Yes     |   Yes    |
-| **Hooks System**     |     Yes     |    No    |    No    |    No    |   No    |     No      |    No    |     No     |    No    |
-| **Skills/Commands**  |   Native    |    No    |    No    |    No    |   No    |     No      |    No    |     No     |    No    |
-| **Recommendation**   |    Best     |   Best   |   Good   |   Good   |  Good   |    Good     |  Basic   |   Basic    |  Basic   |
+| Feature              | Claude Code | Codex CLI |  Cursor  | Windsurf |  Cline   | Copilot | AntiGravity | Roo Code | Gemini CLI |   Trae   |
+| -------------------- | :---------: | :-------: | :------: | :------: | :------: | :-----: | :---------: | :------: | :--------: | :------: |
+| **Agent Activation** |  /command   | terminal  | @mention | @mention | @mention | 4 Modes |  Workflow   |   Mode   |   Prompt   | @mention |
+| **MCP Support**      |   Native    |  Native   |  Config  |  Config  | Limited  |   Yes   |   Native    |    No    |     No     | Limited  |
+| **Subagent Tasks**   |     Yes     |    No     |    No    |    No    |    No    |   Yes   |     Yes     |    No    |     No     |    No    |
+| **Auto-sync**        |     Yes     |    Yes    |   Yes    |   Yes    |   Yes    |   Yes   |     Yes     |   Yes    |    Yes     |   Yes    |
+| **Hooks System**     |     Yes     |    No     |    No    |    No    |    No    |   No    |     No      |    No    |     No     |    No    |
+| **Skills/Commands**  |   Native    |  Native   |    No    |    No    |    No    |   No    |     No      |    No    |     No     |    No    |
+| **Recommendation**   |    Best     |   Best    |   Best   |   Good   |   Good   |  Good   |    Good     |  Basic   |   Basic    |  Basic   |
 
 ---
 

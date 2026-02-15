@@ -11,11 +11,13 @@ describe('Codex Skills Validator', () => {
   let tmpRoot;
   let sourceDir;
   let skillsDir;
+  let expectedAgentCount;
 
   beforeEach(() => {
     tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'aios-codex-validate-'));
     sourceDir = path.join(process.cwd(), '.aios-core', 'development', 'agents');
     skillsDir = path.join(tmpRoot, '.codex', 'skills');
+    expectedAgentCount = fs.readdirSync(sourceDir).filter(name => name.endsWith('.md')).length;
   });
 
   afterEach(() => {
@@ -33,7 +35,7 @@ describe('Codex Skills Validator', () => {
     });
 
     expect(result.ok).toBe(true);
-    expect(result.checked).toBe(12);
+    expect(result.checked).toBe(expectedAgentCount);
     expect(result.errors).toEqual([]);
   });
 
