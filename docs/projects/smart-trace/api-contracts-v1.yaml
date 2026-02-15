@@ -1,0 +1,2054 @@
+openapi: 3.1.0
+info:
+  title: Smart Trace API
+  description: |
+    API principal do Smart Trace - Infraestrutura nacional de integridade da cadeia do medicamento.
+
+    ## Autenticacao
+    Todas as requisicoes requerem JWT Bearer token emitido pelo Keycloak.
+    O token deve conter: sub, roles, establishment_id, actor_id.
+
+    ## Versionamento
+    API versionada via path prefix: /api/v1/
+    - Path-based versioning (/api/v1/, /api/v2/)
+    - Major versions only, minor changes backward-compatible
+    - Periodo minimo de deprecacao: 18 meses
+    - Headers: `X-API-Version` (response), `Sunset` (quando deprecado)
+
+    ## Idempotencia
+    Operacoes mutantes (POST) em recursos criticos suportam header `Idempotency-Key`.
+    Envie UUID v4 para processamento idempotente (deduplicacao por 24h).
+    Endpoints obrigatorios: POST /dispensations, POST /recalls, POST /disposals, POST /inventory/receipts.
+
+    ## Rate Limiting
+    - Default: 100 req/s por client (por establishment_id)
+    - Bulk operations: 10 req/s
+    - Read-only: 500 req/s
+    - Headers: `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`
+
+    ## Graceful Degradation
+    Sistema mantem funcionalidade core com sistemas externos indisponiveis.
+    Respostas em modo degradado incluem headers `X-Degraded-Mode`, `X-Degraded-Services`.
+
+    ## Paginacao
+    Endpoints de listagem usam cursor-based pagination:
+    - `cursor`: ID do ultimo item (opaque string)
+    - `limit`: max 100, default 20
+
+    ## Erros
+    Formato padrao RFC 7807 (Problem Details):
+    ```json
+    {
+      "type": "https://smarttrace.gov.br/errors/validation",
+      "title": "Validation Error",
+      "status": 422,
+      "detail": "Campo 'product_code' e obrigatorio",
+      "instance": "/api/v1/dispensations",
+      "errors": [{"field": "product_code", "message": "Required"}]
+    }
+    ```
+  version: 1.1.0
+  contact:
+    name: Smart Trace Engineering
+    email: engineering@smarttrace.gov.br
+  license:
+    name: Proprietary
+
+servers:
+  - url: https://api.smarttrace.gov.br/api/v1
+    description: Production
+  - url: https://api.staging.smarttrace.gov.br/api/v1
+    description: Staging
+  - url: http://localhost:3000/api/v1
+    description: Local Development
+
+tags:
+  - name: Dispensations
+    description: Prova do Ato - Dispensacao de medicamentos
+  - name: RT Validation
+    description: Validacao de presenca do Responsavel Tecnico
+  - name: Prescriptions
+    description: Gestao de receitas medicas
+  - name: Inventory
+    description: SNGPC do Fato - Estoque e escrituracao fiscal
+  - name: Compliance
+    description: Dashboard de conformidade
+  - name: Recalls
+    description: Ciclo de Vida - Recalls e bloqueios
+  - name: Collections
+    description: Ciclo de Vida - Recolhimento e coleta
+  - name: Disposals
+    description: Ciclo de Vida - Descarte certificado
+  - name: Ledger
+    description: Verificacao de integridade no blockchain
+  - name: Establishments
+    description: Cadastro de estabelecimentos
+  - name: Products
+    description: Cadastro de produtos/medicamentos
+  - name: SDK
+    description: Endpoints otimizados para integracao SDK
+
+security:
+  - bearerAuth: []
+
+paths:
+  # ===== DISPENSATIONS =====
+  /dispensations:
+    post:
+      tags: [Dispensations]
+      operationId: createDispensation
+      summary: Registrar dispensacao de medicamento
+      description: |
+        Cria um novo evento de dispensacao. Se o produto requer validacao RT
+        (controlados, antimicrobianos), o status sera 'pending_rt' ate a
+        validacao ser concluida.
+
+        **Fluxos:** 1 (controlados), 2 (simples), 3 (PFPB), 5 (antimicrobianos)
+
+        **Idempotencia:** Suporta header `Idempotency-Key` para deduplicacao (24h TTL).
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDispensationRequest'
+            examples:
+              controlled:
+                summary: Dispensacao de controlado (C1)
+                value:
+                  product_code: "7891234567890"
+                  batch_number: "LOT2026A01"
+                  serial_number: "SN00012345"
+                  quantity: 1
+                  prescription_ref: "RX-2026-001234"
+                  patient_pseudo_id: "a1b2c3d4e5f6..."
+                  program: null
+                  device_id: "POS-FARM-001"
+              pfpb:
+                summary: Dispensacao PFPB (Farmacia Popular)
+                value:
+                  product_code: "7891234567891"
+                  batch_number: "LOT2026B02"
+                  quantity: 2
+                  prescription_ref: "RX-2026-005678"
+                  patient_pseudo_id: "f6e5d4c3b2a1..."
+                  program: "PFPB"
+                  device_id: "POS-FARM-001"
+              simple:
+                summary: Dispensacao simples (sem receita)
+                value:
+                  product_code: "7891234567892"
+                  batch_number: "LOT2026C03"
+                  quantity: 3
+                  device_id: "POS-FARM-001"
+      responses:
+        '201':
+          description: Dispensacao criada (aprovada ou pendente RT)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispensationResponse'
+        '403':
+          description: Dispensacao bloqueada (recall ativo, RT rejeitado, politica)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispensationBlockedResponse'
+        '408':
+          description: Timeout na validacao RT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '422':
+          description: Dados invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '409':
+          description: Conflito de Idempotency-Key (mesma key, body diferente)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '429':
+          description: Rate limit excedido
+        '503':
+          description: Servico degradado (sistema externo indisponivel)
+          headers:
+            X-Degraded-Mode:
+              description: "true se servico esta degradado mas parcialmente operacional"
+              schema:
+                type: boolean
+            X-Degraded-Services:
+              description: "Lista de servicos externos degradados"
+              schema:
+                type: string
+                example: "sefaz,pfpb-autorizador"
+            Retry-After:
+              description: "Segundos para aguardar antes de retry"
+              schema:
+                type: integer
+                example: 60
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+
+    get:
+      tags: [Dispensations]
+      operationId: listDispensations
+      summary: Listar dispensacoes do estabelecimento
+      description: |
+        Retorna dispensacoes filtradas. Scoped automaticamente pelo
+        establishment_id do JWT token.
+      parameters:
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [approved, blocked, pending_rt, all]
+          description: Filtrar por status
+        - name: date_from
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Data inicio (inclusive)
+        - name: date_to
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Data fim (inclusive)
+        - name: product_code
+          in: query
+          schema:
+            type: string
+          description: Filtrar por EAN/GTIN
+        - name: batch_number
+          in: query
+          schema:
+            type: string
+          description: Filtrar por lote
+        - name: event_type
+          in: query
+          schema:
+            type: string
+            enum: [dispensation, dispensation_controlled, dispensation_pfpb, dispensation_antimicrobial]
+      responses:
+        '200':
+          description: Lista de dispensacoes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispensationListResponse'
+
+  /dispensations/{event_id}:
+    get:
+      tags: [Dispensations]
+      operationId: getDispensation
+      summary: Buscar dispensacao por ID
+      parameters:
+        - name: event_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Detalhes da dispensacao
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispensationDetail'
+        '404':
+          description: Dispensacao nao encontrada
+
+  /dispensations/stats:
+    get:
+      tags: [Dispensations, Compliance]
+      operationId: getDispensationStats
+      summary: Estatisticas de dispensacoes
+      parameters:
+        - name: period
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [today, week, month, custom]
+        - name: date_from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: date_to
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Estatisticas agregadas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispensationStats'
+
+  # ===== RT VALIDATION =====
+  /rt-validation/request:
+    post:
+      tags: [RT Validation]
+      operationId: requestRtValidation
+      summary: Solicitar validacao de presenca RT
+      description: |
+        Envia push notification para o App RT solicitando validacao
+        biometrica + geofence. Retorna um validation_id para tracking.
+
+        **Uso interno** - chamado pelo Dispensation Service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RtValidationRequest'
+      responses:
+        '202':
+          description: Validacao solicitada (aguardando RT)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RtValidationPending'
+
+  /rt-validation/{validation_id}/respond:
+    post:
+      tags: [RT Validation]
+      operationId: respondRtValidation
+      summary: RT responde a solicitacao de validacao
+      description: |
+        Endpoint chamado pelo App RT com resultado da validacao
+        biometrica e geofence.
+      parameters:
+        - name: validation_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RtValidationResponse'
+      responses:
+        '200':
+          description: Resposta registrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RtValidationResult'
+        '409':
+          description: Validacao ja respondida ou expirada
+
+  /rt-validation/{validation_id}/status:
+    get:
+      tags: [RT Validation]
+      operationId: getRtValidationStatus
+      summary: Consultar status da validacao RT
+      parameters:
+        - name: validation_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Status atual
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RtValidationStatus'
+
+  # ===== PRESCRIPTIONS =====
+  /prescriptions:
+    post:
+      tags: [Prescriptions]
+      operationId: createPrescription
+      summary: Registrar receita medica
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePrescriptionRequest'
+      responses:
+        '201':
+          description: Receita registrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionResponse'
+
+  /prescriptions/{id}:
+    get:
+      tags: [Prescriptions]
+      operationId: getPrescription
+      summary: Consultar receita
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Detalhes da receita
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionDetail'
+
+  # ===== INVENTORY =====
+  /inventory:
+    get:
+      tags: [Inventory]
+      operationId: getInventory
+      summary: Consultar estoque do estabelecimento
+      parameters:
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+        - name: product_code
+          in: query
+          schema:
+            type: string
+        - name: batch_number
+          in: query
+          schema:
+            type: string
+        - name: low_stock
+          in: query
+          schema:
+            type: boolean
+          description: Apenas itens com estoque baixo
+      responses:
+        '200':
+          description: Lista de estoque
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryListResponse'
+
+  /inventory/receipts:
+    post:
+      tags: [Inventory]
+      operationId: createReceipt
+      summary: Registrar recebimento de mercadoria (NF-e)
+      description: |
+        Registra entrada de mercadoria validando a NF-e junto a SEFAZ.
+        **Fluxo 7:** Recebimento NF-e
+
+        **Idempotencia:** Suporta header `Idempotency-Key`.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReceiptRequest'
+      responses:
+        '201':
+          description: Recebimento aprovado (NF-e validada)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReceiptResponse'
+        '202':
+          description: Recebimento pendente (divergencia de itens)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReceiptPendingResponse'
+        '422':
+          description: NF-e invalida ou nao encontrada
+
+  /inventory/adjustments:
+    post:
+      tags: [Inventory]
+      operationId: createAdjustment
+      summary: Registrar ajuste de estoque (quebra/avaria)
+      description: "**Fluxo 12:** Ajuste de estoque"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAdjustmentRequest'
+      responses:
+        '201':
+          description: Ajuste aprovado
+        '202':
+          description: Ajuste pendente de aprovacao (acima do threshold)
+
+  /inventory/reconciliation:
+    get:
+      tags: [Inventory]
+      operationId: getReconciliation
+      summary: Consultar reconciliacao estoque vs eventos
+      description: "**Fluxo 10:** Reconciliacao estoque"
+      parameters:
+        - name: date
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Resultado da reconciliacao
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReconciliationResponse'
+
+  /sngpc/exports:
+    post:
+      tags: [Inventory]
+      operationId: createSngpcExport
+      summary: Gerar e submeter exportacao SNGPC
+      description: "**Fluxo 11:** Exportacao regulatoria SNGPC"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [period]
+              properties:
+                period:
+                  type: string
+                  pattern: '^\d{4}-\d{2}$'
+                  example: "2026-01"
+      responses:
+        '200':
+          description: Exportacao gerada e submetida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SngpcExportResponse'
+
+  # ===== COMPLIANCE =====
+  /compliance/dashboard:
+    get:
+      tags: [Compliance]
+      operationId: getComplianceDashboard
+      summary: Dashboard de conformidade da farmacia
+      description: "**Fluxo 6:** Conformidade tempo real"
+      responses:
+        '200':
+          description: Dados de conformidade
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceDashboard'
+
+  # ===== RECALLS =====
+  /recalls:
+    post:
+      tags: [Recalls]
+      operationId: createRecall
+      summary: Emitir recall de lote
+      description: |
+        Inicia processo de recall. Dispara bloqueio automatico em
+        todos os estabelecimentos com estoque do lote.
+        **Fluxo 25:** Emissao de recall
+        **SLA:** Bloqueio efetivo em < 2h
+
+        **Idempotencia:** Suporta header `Idempotency-Key`.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRecallRequest'
+      responses:
+        '201':
+          description: Recall criado, bloqueio iniciado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecallResponse'
+
+    get:
+      tags: [Recalls]
+      operationId: listRecalls
+      summary: Listar recalls
+      parameters:
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [initiated, blocking, blocked, collecting, disposed, closed]
+        - name: severity
+          in: query
+          schema:
+            type: string
+            enum: [critical, high, medium, low]
+      responses:
+        '200':
+          description: Lista de recalls
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecallListResponse'
+
+  /recalls/{id}:
+    get:
+      tags: [Recalls]
+      operationId: getRecall
+      summary: Detalhes do recall
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Recall detalhado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecallDetail'
+
+  # ===== COLLECTIONS =====
+  /collections/schedule:
+    post:
+      tags: [Collections]
+      operationId: scheduleCollection
+      summary: Agendar coleta de medicamentos (recolhimento)
+      description: "**Fluxo 27:** Agendamento de coleta"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleCollectionRequest'
+      responses:
+        '201':
+          description: Coleta agendada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionResponse'
+
+  /collections/{id}/checkin:
+    post:
+      tags: [Collections]
+      operationId: collectionCheckin
+      summary: Check-in na farmacia (operador rota)
+      description: "**Fluxo 28:** Rastreio de coleta"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionCheckinRequest'
+      responses:
+        '200':
+          description: Checkin registrado
+
+  /collections/{id}/waypoint:
+    post:
+      tags: [Collections]
+      operationId: collectionWaypoint
+      summary: Registrar waypoint em transito
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WaypointRequest'
+      responses:
+        '200':
+          description: Waypoint registrado
+
+  /collections/{id}/arrival:
+    post:
+      tags: [Collections]
+      operationId: collectionArrival
+      summary: Registrar chegada no destino
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionArrivalRequest'
+      responses:
+        '200':
+          description: Chegada registrada
+
+  # ===== DISPOSALS =====
+  /disposals:
+    post:
+      tags: [Disposals]
+      operationId: createDisposal
+      summary: Registrar descarte e gerar certificado
+      description: |
+        Registra descarte de medicamentos e gera certificado com
+        hash ancorado no ledger (Hyperledger Fabric ou PostgreSQL fallback).
+        **Fluxo 29:** Certificacao de descarte
+
+        **Idempotencia:** Suporta header `Idempotency-Key`.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDisposalRequest'
+      responses:
+        '201':
+          description: Descarte certificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisposalCertificateResponse'
+
+  /disposals/{id}/certificate:
+    get:
+      tags: [Disposals]
+      operationId: getDisposalCertificate
+      summary: Download do certificado de descarte
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [json, pdf]
+            default: json
+      responses:
+        '200':
+          description: Certificado de descarte
+
+  # ===== LEDGER VERIFICATION =====
+  /ledger/verify/{event_id}:
+    get:
+      tags: [Ledger]
+      operationId: verifyEventIntegrity
+      summary: Verificar integridade de evento no ledger
+      description: |
+        Recomputa o hash do evento e verifica contra o Merkle root
+        ancorado no Hyperledger Fabric.
+      parameters:
+        - name: event_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Resultado da verificacao
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerVerificationResponse'
+              examples:
+                verified:
+                  value:
+                    event_id: "550e8400-e29b-41d4-a716-446655440000"
+                    verified: true
+                    event_hash: "a1b2c3d4..."
+                    merkle_root: "e5f6a7b8..."
+                    batch_id: "batch-2026-02-12-001"
+                    hlf_transaction_id: "tx-abc123"
+                    hlf_block_number: 1234
+                    anchored_at: "2026-02-12T10:30:00Z"
+
+  /ledger/batches:
+    get:
+      tags: [Ledger]
+      operationId: listLedgerBatches
+      summary: Listar batches de ancoragem
+      parameters:
+        - name: date_from
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: Lista de batches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerBatchListResponse'
+
+  # ===== ESTABLISHMENTS =====
+  /establishments/me:
+    get:
+      tags: [Establishments]
+      operationId: getMyEstablishment
+      summary: Dados do estabelecimento do usuario logado
+      responses:
+        '200':
+          description: Dados do estabelecimento
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstablishmentDetail'
+
+  # ===== PRODUCTS =====
+  /products/{code}:
+    get:
+      tags: [Products]
+      operationId: getProduct
+      summary: Consultar produto por EAN/GTIN
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Dados do produto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDetail'
+        '404':
+          description: Produto nao encontrado
+
+  /products/{code}/batches:
+    get:
+      tags: [Products]
+      operationId: getProductBatches
+      summary: Listar lotes de um produto
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [active, recalled, expired, disposed]
+      responses:
+        '200':
+          description: Lotes do produto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchListResponse'
+
+  # ===== STATUS =====
+  /status:
+    get:
+      tags: [SDK]
+      operationId: getServiceStatus
+      summary: Status de todos os servicos (core + externos)
+      description: |
+        Retorna saude de servicos internos e integracao com sistemas externos.
+        Usado para monitoramento e graceful degradation.
+      security: []
+      responses:
+        '200':
+          description: Status dos servicos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  overall:
+                    type: string
+                    enum: [operational, degraded, outage]
+                  services:
+                    type: object
+                    properties:
+                      core:
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                            enum: [operational, degraded, outage]
+                      sefaz:
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                            enum: [operational, degraded, outage]
+                          message:
+                            type: string
+                            nullable: true
+                      pfpb:
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                            enum: [operational, degraded, outage]
+                          message:
+                            type: string
+                            nullable: true
+                      hlf:
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                            enum: [operational, degraded, outage]
+                          message:
+                            type: string
+                            nullable: true
+                  timestamp:
+                    type: string
+                    format: date-time
+
+  # ===== HEALTH =====
+  /health:
+    get:
+      tags: [SDK]
+      operationId: healthCheck
+      summary: Health check
+      security: []
+      responses:
+        '200':
+          description: Service healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [healthy]
+                  version:
+                    type: string
+                  timestamp:
+                    type: string
+                    format: date-time
+
+# ===== COMPONENTS =====
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token from Keycloak (includes establishment_id, roles)
+
+  parameters:
+    cursor:
+      name: cursor
+      in: query
+      schema:
+        type: string
+      description: Cursor for pagination (opaque, from previous response)
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: Max items per page
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      description: |
+        UUID v4 para processamento idempotente. Servidor armazena request/response
+        por 24h. Requests duplicados com mesma key retornam resposta cacheada.
+      schema:
+        type: string
+        format: uuid
+      example: "a1b2c3d4-e5f6-4789-a0b1-c2d3e4f5g6h7"
+
+  schemas:
+    # ===== DISPENSATION SCHEMAS =====
+    CreateDispensationRequest:
+      type: object
+      required:
+        - product_code
+        - batch_number
+        - quantity
+      properties:
+        product_code:
+          type: string
+          description: EAN/GTIN do medicamento
+          example: "7891234567890"
+        batch_number:
+          type: string
+          description: Numero do lote
+          example: "LOT2026A01"
+        serial_number:
+          type: string
+          nullable: true
+          description: Numero serial da unidade (quando aplicavel)
+        quantity:
+          type: integer
+          minimum: 1
+          description: Quantidade dispensada
+        prescription_ref:
+          type: string
+          nullable: true
+          description: Referencia da receita medica
+        patient_pseudo_id:
+          type: string
+          nullable: true
+          description: ID pseudonimizado do paciente (SHA-256)
+          pattern: '^[a-f0-9]{64}$'
+        program:
+          type: string
+          nullable: true
+          enum: [PFPB, null]
+          description: Programa governamental (se aplicavel)
+        device_id:
+          type: string
+          nullable: true
+          description: ID do dispositivo POS/terminal
+
+    DispensationResponse:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        event_type:
+          type: string
+        status:
+          type: string
+          enum: [approved, pending_rt]
+        rt_validated:
+          type: boolean
+        rt_validation_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: ID da validacao RT (se pending_rt)
+        timestamp:
+          type: string
+          format: date-time
+        ledger_hash:
+          type: string
+          nullable: true
+          description: Hash do evento (preenchido apos ancoragem)
+
+    DispensationBlockedResponse:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [blocked]
+        reason:
+          type: string
+          enum:
+            - recall_active
+            - rt_outside_geofence
+            - rt_biometric_failed
+            - rt_timeout
+            - prescription_expired
+            - quantity_exceeds_prescription
+            - no_fiscal_backing
+            - policy_violation
+        detail:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    DispensationDetail:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        event_type:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        establishment_id:
+          type: string
+          format: uuid
+        actor_id:
+          type: string
+          format: uuid
+        product_code:
+          type: string
+        product_name:
+          type: string
+        batch_number:
+          type: string
+        serial_number:
+          type: string
+          nullable: true
+        quantity:
+          type: integer
+        expiry_date:
+          type: string
+          format: date
+          nullable: true
+        nfe_key:
+          type: string
+          nullable: true
+        prescription_ref:
+          type: string
+          nullable: true
+        patient_pseudo_id:
+          type: string
+          nullable: true
+        geolocation:
+          $ref: '#/components/schemas/GeoPoint'
+        geofence_status:
+          type: string
+          enum: [inside, outside, unknown]
+        rt_validated:
+          type: boolean
+        rt_evidence_id:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [approved, blocked, pending_rt]
+        reason:
+          type: string
+          nullable: true
+        decision_log:
+          type: object
+          nullable: true
+        ledger_hash:
+          type: string
+          nullable: true
+        ledger_verified:
+          type: boolean
+          nullable: true
+
+    DispensationListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DispensationDetail'
+        pagination:
+          $ref: '#/components/schemas/CursorPagination'
+
+    DispensationStats:
+      type: object
+      properties:
+        period:
+          type: string
+        total:
+          type: integer
+        approved:
+          type: integer
+        blocked:
+          type: integer
+        pending_rt:
+          type: integer
+        rt_validated_rate:
+          type: number
+          format: float
+          description: Percentual com RT validado (0-100)
+        by_type:
+          type: object
+          properties:
+            dispensation:
+              type: integer
+            dispensation_controlled:
+              type: integer
+            dispensation_pfpb:
+              type: integer
+            dispensation_antimicrobial:
+              type: integer
+        by_hour:
+          type: array
+          items:
+            type: object
+            properties:
+              hour:
+                type: integer
+              count:
+                type: integer
+
+    # ===== RT VALIDATION SCHEMAS =====
+    RtValidationRequest:
+      type: object
+      required:
+        - dispensation_id
+        - establishment_id
+      properties:
+        dispensation_id:
+          type: string
+          format: uuid
+        establishment_id:
+          type: string
+          format: uuid
+        product_info:
+          type: object
+          properties:
+            name:
+              type: string
+            class:
+              type: string
+            quantity:
+              type: integer
+
+    RtValidationPending:
+      type: object
+      properties:
+        validation_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [pending]
+        expires_at:
+          type: string
+          format: date-time
+
+    RtValidationResponse:
+      type: object
+      required:
+        - decision
+        - biometric_assertion
+        - geolocation
+      properties:
+        decision:
+          type: string
+          enum: [approve, reject]
+        biometric_assertion:
+          type: string
+          description: FIDO2 assertion (base64)
+        geolocation:
+          $ref: '#/components/schemas/GeoPoint'
+        reject_reason:
+          type: string
+          nullable: true
+        timestamp:
+          type: string
+          format: date-time
+
+    RtValidationResult:
+      type: object
+      properties:
+        validation_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [approved, rejected, expired]
+        rt_validated:
+          type: boolean
+        geofence_status:
+          type: string
+          enum: [inside, outside]
+        evidence_id:
+          type: string
+          nullable: true
+
+    RtValidationStatus:
+      type: object
+      properties:
+        validation_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [pending, approved, rejected, expired]
+        requested_at:
+          type: string
+          format: date-time
+        responded_at:
+          type: string
+          format: date-time
+          nullable: true
+        expires_at:
+          type: string
+          format: date-time
+
+    # ===== PRESCRIPTION SCHEMAS =====
+    CreatePrescriptionRequest:
+      type: object
+      required:
+        - prescriber_registration
+        - patient_pseudo_id
+        - items
+        - type
+        - issued_at
+      properties:
+        prescriber_registration:
+          type: string
+          description: CRM do prescritor
+        patient_pseudo_id:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+        items:
+          type: array
+          items:
+            type: object
+            required: [product_code, quantity]
+            properties:
+              product_code:
+                type: string
+              quantity:
+                type: integer
+              instructions:
+                type: string
+        type:
+          type: string
+          enum: [simples, controle_especial, antimicrobiano]
+        issued_at:
+          type: string
+          format: date
+        valid_until:
+          type: string
+          format: date
+
+    PrescriptionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [active, fulfilled, expired, cancelled]
+        created_at:
+          type: string
+          format: date-time
+
+    PrescriptionDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        prescriber_registration:
+          type: string
+        patient_pseudo_id:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              product_code:
+                type: string
+              product_name:
+                type: string
+              quantity_prescribed:
+                type: integer
+              quantity_dispensed:
+                type: integer
+              remaining:
+                type: integer
+        type:
+          type: string
+        issued_at:
+          type: string
+          format: date
+        valid_until:
+          type: string
+          format: date
+        status:
+          type: string
+        total_dispensations:
+          type: integer
+
+    # ===== INVENTORY SCHEMAS =====
+    InventoryListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              product_code:
+                type: string
+              product_name:
+                type: string
+              batch_number:
+                type: string
+              quantity_available:
+                type: integer
+              quantity_reserved:
+                type: integer
+              quantity_blocked:
+                type: integer
+              expiry_date:
+                type: string
+                format: date
+              last_movement_at:
+                type: string
+                format: date-time
+        pagination:
+          $ref: '#/components/schemas/CursorPagination'
+
+    CreateReceiptRequest:
+      type: object
+      required:
+        - nfe_key
+        - items
+      properties:
+        nfe_key:
+          type: string
+          minLength: 44
+          maxLength: 44
+          description: Chave NF-e (44 digitos)
+        items:
+          type: array
+          items:
+            type: object
+            required: [product_code, batch_number, quantity]
+            properties:
+              product_code:
+                type: string
+              batch_number:
+                type: string
+              quantity:
+                type: integer
+              expiry_date:
+                type: string
+                format: date
+
+    ReceiptResponse:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [approved]
+        nfe_validated:
+          type: boolean
+        items_received:
+          type: integer
+
+    ReceiptPendingResponse:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [pending]
+        divergences:
+          type: array
+          items:
+            type: object
+            properties:
+              product_code:
+                type: string
+              expected_quantity:
+                type: integer
+              received_quantity:
+                type: integer
+
+    CreateAdjustmentRequest:
+      type: object
+      required:
+        - product_code
+        - batch_number
+        - quantity
+        - reason
+      properties:
+        product_code:
+          type: string
+        batch_number:
+          type: string
+        quantity:
+          type: integer
+          description: Quantidade a ajustar (negativo para reducao)
+        reason:
+          type: string
+          enum: [breakage, damage, theft, expiry, other]
+        notes:
+          type: string
+
+    ReconciliationResponse:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [OK, DIVERGENT]
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              product_code:
+                type: string
+              batch_number:
+                type: string
+              system_quantity:
+                type: integer
+              event_quantity:
+                type: integer
+              delta:
+                type: integer
+              status:
+                type: string
+                enum: [ok, divergent]
+
+    SngpcExportResponse:
+      type: object
+      properties:
+        export_id:
+          type: string
+          format: uuid
+        period:
+          type: string
+        status:
+          type: string
+          enum: [accepted, rejected, pending]
+        protocol:
+          type: string
+          nullable: true
+        errors:
+          type: array
+          nullable: true
+          items:
+            type: string
+
+    # ===== COMPLIANCE SCHEMAS =====
+    ComplianceDashboard:
+      type: object
+      properties:
+        rt_coverage:
+          type: object
+          properties:
+            rate:
+              type: number
+              format: float
+            total:
+              type: integer
+            validated:
+              type: integer
+            target:
+              type: number
+              format: float
+              example: 99.5
+        fiscal_integrity:
+          type: object
+          properties:
+            rate:
+              type: number
+              format: float
+            total_nfe:
+              type: integer
+            divergences:
+              type: integer
+        blocked_today:
+          type: object
+          properties:
+            count:
+              type: integer
+            reasons:
+              type: array
+              items:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  count:
+                    type: integer
+        dispensations_today:
+          type: integer
+        period:
+          type: string
+
+    # ===== RECALL SCHEMAS =====
+    CreateRecallRequest:
+      type: object
+      required:
+        - batch_id
+        - reason
+        - severity
+      properties:
+        batch_id:
+          type: string
+          format: uuid
+        reason:
+          type: string
+        severity:
+          type: string
+          enum: [critical, high, medium, low]
+        communication:
+          type: string
+          description: Texto do comunicado oficial
+
+    RecallResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [initiated]
+        affected_establishments:
+          type: integer
+        affected_units:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+
+    RecallDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        batch_id:
+          type: string
+          format: uuid
+        batch_number:
+          type: string
+        product_code:
+          type: string
+        product_name:
+          type: string
+        severity:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+        affected_units:
+          type: integer
+        blocked_units:
+          type: integer
+        collected_units:
+          type: integer
+        disposed_units:
+          type: integer
+        issued_at:
+          type: string
+          format: date-time
+        blocked_at:
+          type: string
+          format: date-time
+          nullable: true
+        block_duration_minutes:
+          type: integer
+          nullable: true
+        ledger_hash:
+          type: string
+          nullable: true
+
+    RecallListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecallDetail'
+        pagination:
+          $ref: '#/components/schemas/CursorPagination'
+
+    # ===== COLLECTION SCHEMAS =====
+    ScheduleCollectionRequest:
+      type: object
+      required:
+        - recall_id
+        - items
+      properties:
+        recall_id:
+          type: string
+          format: uuid
+        items:
+          type: array
+          items:
+            type: object
+            required: [product_code, batch_number, quantity]
+            properties:
+              product_code:
+                type: string
+              batch_number:
+                type: string
+              quantity:
+                type: integer
+        preferred_date:
+          type: string
+          format: date
+        notes:
+          type: string
+
+    CollectionResponse:
+      type: object
+      properties:
+        collection_id:
+          type: string
+          format: uuid
+        disposal_company:
+          type: object
+          properties:
+            name:
+              type: string
+            cnpj:
+              type: string
+        estimated_date:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [scheduled]
+
+    CollectionCheckinRequest:
+      type: object
+      required:
+        - geolocation
+      properties:
+        geolocation:
+          $ref: '#/components/schemas/GeoPoint'
+        photo_url:
+          type: string
+          format: uri
+        notes:
+          type: string
+
+    WaypointRequest:
+      type: object
+      required:
+        - geolocation
+      properties:
+        geolocation:
+          $ref: '#/components/schemas/GeoPoint'
+        timestamp:
+          type: string
+          format: date-time
+
+    CollectionArrivalRequest:
+      type: object
+      required:
+        - geolocation
+      properties:
+        geolocation:
+          $ref: '#/components/schemas/GeoPoint'
+        photo_url:
+          type: string
+          format: uri
+
+    # ===== DISPOSAL SCHEMAS =====
+    CreateDisposalRequest:
+      type: object
+      required:
+        - collection_id
+        - method
+        - quantity
+      properties:
+        collection_id:
+          type: string
+          format: uuid
+        method:
+          type: string
+          enum: [incineration, autoclaving, chemical, landfill_certified]
+        quantity:
+          type: integer
+        evidence_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        technical_report:
+          type: string
+          description: Laudo tecnico (texto ou URL)
+        environmental_license:
+          type: string
+
+    DisposalCertificateResponse:
+      type: object
+      properties:
+        certificate_id:
+          type: string
+          format: uuid
+        certificate_hash:
+          type: string
+          description: SHA-256 do certificado
+        hlf_transaction_id:
+          type: string
+        hlf_block_number:
+          type: integer
+        collection_id:
+          type: string
+          format: uuid
+        batch_number:
+          type: string
+        quantity:
+          type: integer
+        method:
+          type: string
+        disposed_at:
+          type: string
+          format: date-time
+        verified_on_ledger:
+          type: boolean
+
+    # ===== LEDGER SCHEMAS =====
+    LedgerVerificationResponse:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        verified:
+          type: boolean
+        event_hash:
+          type: string
+        merkle_root:
+          type: string
+        batch_id:
+          type: string
+        hlf_transaction_id:
+          type: string
+        hlf_block_number:
+          type: integer
+        anchored_at:
+          type: string
+          format: date-time
+        verification_details:
+          type: object
+          properties:
+            hash_matches:
+              type: boolean
+            merkle_proof_valid:
+              type: boolean
+            hlf_tx_confirmed:
+              type: boolean
+
+    LedgerBatchListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              batch_id:
+                type: string
+              merkle_root:
+                type: string
+              event_count:
+                type: integer
+              hlf_transaction_id:
+                type: string
+              anchored_at:
+                type: string
+                format: date-time
+        pagination:
+          $ref: '#/components/schemas/CursorPagination'
+
+    # ===== ESTABLISHMENT / PRODUCT SCHEMAS =====
+    EstablishmentDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum: [pharmacy, industry, distributor, disposal, government]
+        cnpj:
+          type: string
+        name:
+          type: string
+        cnes:
+          type: string
+          nullable: true
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            zip:
+              type: string
+        geofence:
+          type: object
+          description: GeoJSON Polygon
+        active:
+          type: boolean
+
+    ProductDetail:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        active_ingredient:
+          type: string
+        therapeutic_class:
+          type: string
+        controlled_class:
+          type: string
+          nullable: true
+          enum: [null, C1, C2, C3, C4, C5, AM]
+        requires_prescription:
+          type: boolean
+        requires_rt_validation:
+          type: boolean
+        manufacturer:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            name:
+              type: string
+
+    BatchListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              batch_number:
+                type: string
+              manufacture_date:
+                type: string
+                format: date
+              expiry_date:
+                type: string
+                format: date
+              total_units:
+                type: integer
+              status:
+                type: string
+                enum: [active, recalled, expired, disposed]
+        pagination:
+          $ref: '#/components/schemas/CursorPagination'
+
+    # ===== COMMON SCHEMAS =====
+    GeoPoint:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+          minimum: -90
+          maximum: 90
+        longitude:
+          type: number
+          format: double
+          minimum: -180
+          maximum: 180
+        accuracy_meters:
+          type: number
+          nullable: true
+
+    CursorPagination:
+      type: object
+      properties:
+        next_cursor:
+          type: string
+          nullable: true
+          description: Cursor para proxima pagina (null se ultima)
+        has_more:
+          type: boolean
+        total_count:
+          type: integer
+          description: Total de itens (quando disponivel)
+
+    ProblemDetail:
+      type: object
+      description: RFC 7807 Problem Details
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
+
+    ValidationError:
+      allOf:
+        - $ref: '#/components/schemas/ProblemDetail'
+        - type: object
+          properties:
+            errors:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                  message:
+                    type: string
+                  code:
+                    type: string
