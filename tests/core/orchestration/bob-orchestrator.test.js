@@ -1262,4 +1262,224 @@ describe('BobOrchestrator', () => {
       });
     });
   });
+
+  // FASE 2: Brownfield/Greenfield Handlers (Coverage Target: lines 941-1057)
+  describe('Brownfield/Greenfield Handlers', () => {
+    describe('Brownfield handlers', () => {
+      it('should handle brownfield decision ACCEPTED (line 941-944)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handleUserDecision = jest
+          .fn()
+          .mockResolvedValue({ action: 'analysis_started' });
+
+        // When
+        const result = await orchestrator.handleBrownfieldDecision(true, { foo: 'bar' });
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Brownfield decision: ACCEPTED');
+        expect(orchestrator.brownfieldHandler.handleUserDecision).toHaveBeenCalledWith(
+          true,
+          { foo: 'bar' },
+        );
+        expect(result).toEqual({ action: 'analysis_started' });
+      });
+
+      it('should handle brownfield decision DECLINED (line 941-944)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handleUserDecision = jest
+          .fn()
+          .mockResolvedValue({ action: 'declined' });
+
+        // When
+        const result = await orchestrator.handleBrownfieldDecision(false);
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Brownfield decision: DECLINED');
+        expect(orchestrator.brownfieldHandler.handleUserDecision).toHaveBeenCalledWith(
+          false,
+          {},
+        );
+        expect(result).toEqual({ action: 'declined' });
+      });
+
+      it('should handle brownfield phase failure with retry action (line 956-959)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handlePhaseFailureAction = jest
+          .fn()
+          .mockResolvedValue({ action: 'retry', phase: 'discovery' });
+
+        // When
+        const result = await orchestrator.handleBrownfieldPhaseFailure(
+          'discovery',
+          'retry',
+          { attempt: 1 },
+        );
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Brownfield phase failure action: retry for discovery');
+        expect(orchestrator.brownfieldHandler.handlePhaseFailureAction).toHaveBeenCalledWith(
+          'discovery',
+          'retry',
+          { attempt: 1 },
+        );
+        expect(result).toEqual({ action: 'retry', phase: 'discovery' });
+      });
+
+      it('should handle brownfield phase failure with skip action (line 956-959)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handlePhaseFailureAction = jest
+          .fn()
+          .mockResolvedValue({ action: 'skip' });
+
+        // When
+        await orchestrator.handleBrownfieldPhaseFailure('analysis', 'skip');
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Brownfield phase failure action: skip for analysis');
+      });
+
+      it('should handle brownfield phase failure with abort action (line 956-959)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handlePhaseFailureAction = jest
+          .fn()
+          .mockResolvedValue({ action: 'abort' });
+
+        // When
+        await orchestrator.handleBrownfieldPhaseFailure('validation', 'abort');
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith(
+          'Brownfield phase failure action: abort for validation',
+        );
+      });
+
+      it('should handle post-discovery choice resolve_debts (line 970-973)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handle = jest
+          .fn()
+          .mockResolvedValue({ action: 'resolve_debts', phase: 'debt_resolution' });
+
+        // When
+        const result = await orchestrator.handlePostDiscoveryChoice('resolve_debts', {
+          debts: 10,
+        });
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Post-discovery choice: resolve_debts');
+        expect(orchestrator.brownfieldHandler.handle).toHaveBeenCalledWith({
+          debts: 10,
+          postDiscoveryChoice: 'resolve_debts',
+        });
+        expect(result).toEqual({ action: 'resolve_debts', phase: 'debt_resolution' });
+      });
+
+      it('should handle post-discovery choice add_feature (line 970-973)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handle = jest
+          .fn()
+          .mockResolvedValue({ action: 'add_feature' });
+
+        // When
+        await orchestrator.handlePostDiscoveryChoice('add_feature');
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Post-discovery choice: add_feature');
+        expect(orchestrator.brownfieldHandler.handle).toHaveBeenCalledWith({
+          postDiscoveryChoice: 'add_feature',
+        });
+      });
+    });
+
+    describe('Greenfield handlers', () => {
+      it('should handle greenfield surface decision GO (line 1040-1042)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.greenfieldHandler.handleSurfaceDecision = jest
+          .fn()
+          .mockResolvedValue({ action: 'continue', nextPhase: 'discovery' });
+
+        // When
+        const result = await orchestrator.handleGreenfieldSurfaceDecision('GO', 'discovery', {
+          ready: true,
+        });
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Greenfield surface decision: GO, next phase: discovery');
+        expect(orchestrator.greenfieldHandler.handleSurfaceDecision).toHaveBeenCalledWith(
+          'GO',
+          'discovery',
+          { ready: true },
+        );
+        expect(result).toEqual({ action: 'continue', nextPhase: 'discovery' });
+      });
+
+      it('should handle greenfield surface decision PAUSE (line 1040-1042)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.greenfieldHandler.handleSurfaceDecision = jest
+          .fn()
+          .mockResolvedValue({ action: 'pause' });
+
+        // When
+        await orchestrator.handleGreenfieldSurfaceDecision('PAUSE', 'sharding');
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Greenfield surface decision: PAUSE, next phase: sharding');
+      });
+
+      it('should handle greenfield phase failure with retry (line 1054-1057)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.greenfieldHandler.handlePhaseFailureAction = jest
+          .fn()
+          .mockResolvedValue({ action: 'retry' });
+
+        // When
+        await orchestrator.handleGreenfieldPhaseFailure('bootstrap', 'retry', { attempt: 2 });
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Greenfield phase failure: action=retry, phase=bootstrap');
+        expect(orchestrator.greenfieldHandler.handlePhaseFailureAction).toHaveBeenCalledWith(
+          'bootstrap',
+          'retry',
+          { attempt: 2 },
+        );
+      });
+
+      it('should handle greenfield phase failure with skip (line 1054-1057)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.greenfieldHandler.handlePhaseFailureAction = jest
+          .fn()
+          .mockResolvedValue({ action: 'skip' });
+
+        // When
+        await orchestrator.handleGreenfieldPhaseFailure('discovery', 'skip');
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Greenfield phase failure: action=skip, phase=discovery');
+      });
+
+      it('should handle greenfield phase failure with abort (line 1054-1057)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.greenfieldHandler.handlePhaseFailureAction = jest
+          .fn()
+          .mockResolvedValue({ action: 'abort' });
+
+        // When
+        await orchestrator.handleGreenfieldPhaseFailure('dev_cycle', 'abort');
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Greenfield phase failure: action=abort, phase=dev_cycle');
+      });
+    });
+  });
 });
