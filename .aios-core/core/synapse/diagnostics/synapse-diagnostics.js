@@ -21,8 +21,6 @@ const { collectSessionStatus } = require('./collectors/session-collector');
 const { collectManifestIntegrity } = require('./collectors/manifest-collector');
 const { collectPipelineSimulation } = require('./collectors/pipeline-collector');
 const { collectUapBridgeStatus } = require('./collectors/uap-collector');
-const { collectTimingMetrics } = require('./collectors/timing-collector');
-const { collectQualityMetrics } = require('./collectors/quality-collector');
 const { formatReport } = require('./report-formatter');
 const { parseManifest } = require('../domain/domain-loader');
 
@@ -66,10 +64,8 @@ function _collectAll(projectRoot, options) {
 
   const pipeline = _safeCollect('pipeline', () => collectPipelineSimulation(promptCount, activeAgentId, parsedManifest));
   const uap = _safeCollect('uap', () => collectUapBridgeStatus(projectRoot));
-  const timing = _safeCollect('timing', () => collectTimingMetrics(projectRoot));
-  const quality = _safeCollect('quality', () => collectQualityMetrics(projectRoot));
 
-  return { hook, session, manifest, pipeline, uap, timing, quality };
+  return { hook, session, manifest, pipeline, uap };
 }
 
 /**
