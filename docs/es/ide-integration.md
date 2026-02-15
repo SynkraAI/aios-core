@@ -27,6 +27,30 @@ AIOS es compatible con 6 plataformas de desarrollo potenciadas por IA. Elige la 
 | **Skills/Commands**    |   Native    |  Native   |   No   |   No   |      No     |   Native   |
 | **Recomendación**      |    Best     |   Best    |  Best  |  Good  |     Good    |   Good     |
 
+### Paridad de Hooks e Impacto Funcional
+
+| IDE | Paridad de Hooks vs Claude | Qué se degrada sin hooks completos | Mitigación en AIOS |
+| --- | --- | --- | --- |
+| Claude Code | Completa | Ninguno (comportamiento de referencia) | Hooks nativos + pipeline completo de AIOS |
+| Gemini CLI | Alta | Diferencias menores en el modelo de eventos | Hooks nativos de Gemini + mapeo unificado |
+| Codex CLI | Limitada/parcial | Menor automatización del ciclo de sesión y menor enforcement pre/post-tool | `AGENTS.md` + `/skills` + MCP + scripts de sync/validación |
+| Cursor | Sin hooks de ciclo equivalentes | Sin interceptación nativa pre/post-tool y trazabilidad automática más débil | Reglas sincronizadas + MCP + disciplina de workflow |
+| GitHub Copilot | Sin hooks de ciclo equivalentes | Mismo impacto que Cursor, con mayor dependencia de flujo manual | Instrucciones de repositorio, chat modes y MCP en VS Code |
+| AntiGravity | Basado en workflow (no en hooks) | Sin paridad de ciclo de vida estilo Claude | Generación de workflows + sync de agentes |
+
+### Consecuencias Prácticas por Capacidad
+
+- Automatización `SessionStart/SessionEnd`:
+  - Fuerte en Claude/Gemini.
+  - Parcial o manual en Codex/Cursor/Copilot/AntiGravity.
+- Guardrails `BeforeTool/AfterTool`:
+  - Más robustos en Claude/Gemini.
+  - Limitados en Codex.
+  - Principalmente de proceso en Cursor/Copilot/AntiGravity.
+- Riqueza de auditoría y telemetría automáticas:
+  - Mayor donde existen hooks de ciclo de vida.
+  - Menor donde la integración depende de reglas/instrucciones.
+
 ---
 
 ## Instrucciones de Configuración

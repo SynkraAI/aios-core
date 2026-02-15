@@ -12,6 +12,27 @@
 
 Framework de Desenvolvimento Auto-Modificável Alimentado por IA. Fundado em Desenvolvimento Ágil Dirigido por Agentes, oferecendo capacidades revolucionárias para desenvolvimento dirigido por IA e muito mais. Transforme qualquer domínio com expertise especializada de IA: desenvolvimento de software, entretenimento, escrita criativa, estratégia de negócios, bem-estar pessoal e muito mais.
 
+## Compatibilidade de Hooks por IDE (Realidade AIOS 4.0.4)
+
+Muitos recursos avançados do AIOS dependem de eventos de ciclo de vida (hooks). A tabela abaixo mostra a paridade real entre IDEs/plataformas:
+
+| IDE/CLI | Paridade de Hooks vs Claude | Impacto Prático |
+| --- | --- | --- |
+| Claude Code | Completa (referência) | Automação máxima de contexto, guardrails e auditoria |
+| Gemini CLI | Alta (eventos nativos) | Cobertura forte de automações pre/post tool e sessão |
+| Codex CLI | Parcial/limitada | Parte das automações depende de `AGENTS.md`, `/skills`, MCP e fluxo operacional |
+| Cursor | Sem lifecycle hooks equivalentes | Menor automação de pre/post tool; foco em regras, MCP e fluxo do agente |
+| GitHub Copilot | Sem lifecycle hooks equivalentes | Menor automação de sessão/tooling; foco em instruções de repositório + MCP no VS Code |
+| AntiGravity | Workflow-based (não hook-based) | Integração por workflows, não por eventos de hook equivalentes ao Claude |
+
+Impactos e mitigação detalhados: `docs/ide-integration.md`.
+
+## Nota Sobre BMAD
+
+O AIOS evoluiu significativamente e **não depende de BMAD** para operação atual.
+Quando BMAD aparece em histórico de changelog/migração, é apenas contexto histórico.
+O caminho oficial e atual é AIOS 4.x com terminologia e arquitetura próprias.
+
 ## Visão Geral
 
 ### Premissa Arquitetural: CLI First

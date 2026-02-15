@@ -27,6 +27,30 @@ AIOS supports multiple AI-powered development platforms. Choose the one that bes
 | **Skills/Commands**  |   Native    |  Native   |   No   |   No   |      No     |    Native  |
 | **Recommendation**   |    Best     |   Best    |  Best  |  Good  |     Good    |   Good     |
 
+### Hook Parity and Functional Impact
+
+| IDE | Hook Parity vs Claude | What Is Degraded Without Full Hooks | AIOS Mitigation |
+| --- | --- | --- | --- |
+| Claude Code | Full | None (reference behavior) | Native hooks + full AIOS pipeline |
+| Gemini CLI | High | Minor event-model differences | Native Gemini hooks + unified hook mapping |
+| Codex CLI | Limited/partial | Less automatic session lifecycle capture, weaker pre/post-tool enforcement | `AGENTS.md` + `/skills` + MCP + sync/validation scripts |
+| Cursor | No equivalent lifecycle hooks | No native pre/post-tool interception and reduced automatic audit trail | Synced rules + MCP + explicit workflow discipline |
+| GitHub Copilot | No equivalent lifecycle hooks | Same as Cursor, with stronger dependence on manual flow | Repo instructions, chat modes, and VS Code MCP integration |
+| AntiGravity | Workflow-driven (not hook-driven) | No Claude-like lifecycle parity | Workflow generation + agent sync |
+
+### Practical Consequences by Capability
+
+- `SessionStart/SessionEnd` automation:
+  - Strong on Claude/Gemini.
+  - Partial or manual on Codex/Cursor/Copilot/AntiGravity.
+- `BeforeTool/AfterTool` guardrails:
+  - Strongest on Claude/Gemini.
+  - Limited on Codex.
+  - Mostly process-based on Cursor/Copilot/AntiGravity.
+- Automatic audit and telemetry richness:
+  - Highest where hook lifecycle is available.
+  - Reduced where integration is instruction/rules-driven only.
+
 ---
 
 ## Setup Instructions

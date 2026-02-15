@@ -88,6 +88,23 @@ Criterio de sucesso:
 
 No AIOS, o caminho recomendado continua: `AGENTS.md` + `/skills` + MCP + scripts de sync/validacao.
 
+## Limitacoes de Hooks no Codex (Impacto Real)
+
+Mesmo com melhorias recentes, o Codex ainda nao replica 1:1 o lifecycle de hooks do Claude.
+
+Impactos praticos:
+
+- menor automacao de eventos de ciclo de sessao (`SessionStart/SessionEnd`) no padrao AIOS
+- menor capacidade de enforcement automatico em `beforeTool/afterTool`
+- trilha automatica de auditoria menos rica quando comparada ao fluxo com hooks completos
+
+Mitigacao operacional no AIOS:
+
+- fortalecer `AGENTS.md` como contrato de execucao
+- usar `/skills` como ativacao padrao de agentes
+- usar MCP para contexto e integracoes
+- rodar sync + validadores com disciplina (`sync:ide:codex`, `sync:skills:codex`, `validate:codex-skills`)
+
 ## Problemas Classicos e Correcao
 
 ### Skills duplicadas no `/skills`
