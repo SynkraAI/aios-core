@@ -12,6 +12,17 @@ export * from './runtime/agent-runtime';
 // Agents
 export * from './agents/billing-agent';
 
+// Pipeline
+export { PipelineExecutor } from './pipeline/pipeline-executor';
+export type {
+  WorkflowDefinition,
+  WorkflowStep,
+  StepResult,
+  PipelineResult,
+  PipelineContext,
+  PipelineMetadata,
+} from './pipeline/types';
+
 // Re-export types
 export type {
   Patient,

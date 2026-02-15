@@ -67,6 +67,8 @@ describe('entry.ts', () => {
       initError?: Error;
       executeResult?: any;
       executeError?: Error;
+      pipelineResult?: any;
+      pipelineInitError?: Error;
     },
   ) {
     const mockStdin = createMockStdin(stdinData);
@@ -91,11 +93,32 @@ describe('entry.ts', () => {
       AgentRuntime: vi.fn(),
     }));
 
+    // Mock PipelineExecutor for workflow mode tests
+    const defaultPipelineResult = {
+      success: true,
+      output: { data: 'pipeline-result' },
+      errors: [],
+      metadata: { totalSteps: 2, executedSteps: 2, skippedSteps: 0, failedSteps: 0, duration: 100 },
+    };
+    const mockPipelineExecute = vi.fn().mockResolvedValue(
+      runtimeOverrides?.pipelineResult ?? defaultPipelineResult,
+    );
+    const mockPipelineInit = runtimeOverrides?.pipelineInitError
+      ? vi.fn().mockRejectedValue(runtimeOverrides.pipelineInitError)
+      : vi.fn().mockResolvedValue(undefined);
+
+    vi.doMock('./pipeline/pipeline-executor', () => ({
+      PipelineExecutor: class MockPipelineExecutor {
+        initialize = mockPipelineInit;
+        execute = mockPipelineExecute;
+      },
+    }));
+
     await import('./entry');
     // Wait for main() to complete (it's async)
     await new Promise((resolve) => setTimeout(resolve, 100));
 
-    return { mockExecuteTask };
+    return { mockExecuteTask, mockPipelineExecute };
   }
 
   // ========================================================================
@@ -251,6 +274,70 @@ describe('entry.ts', () => {
       await runEntry('"invalid"');
       const outputs = getAllStdoutJsons(writeSpy);
       expect(outputs[0].metadata?.exitCode).toBe(2);
+    });
+  });
+
+  // ========================================================================
+  // Workflow mode
+  // ========================================================================
+
+  describe('workflow mode', () => {
+    it('should route workflow input to PipelineExecutor', async () => {
+      const workflowInput = JSON.stringify({
+        workflowName: 'billing-pipeline',
+        parameters: { accountId: 'acc-001' },
+      });
+      const { mockPipelineExecute } = await runEntry(workflowInput);
+
+      expect(mockPipelineExecute).toHaveBeenCalledWith({
+        workflowName: 'billing-pipeline',
+        parameters: { accountId: 'acc-001' },
+      });
+    });
+
+    it('should write pipeline result to stdout', async () => {
+      const workflowInput = JSON.stringify({
+        workflowName: 'billing-pipeline',
+        parameters: { accountId: 'acc-001' },
+      });
+      await runEntry(workflowInput);
+
+      const outputs = getAllStdoutJsons(writeSpy);
+      expect(outputs[0].success).toBe(true);
+      expect(outputs[0].metadata?.mode).toBe('workflow');
+      expect(exitSpy).toHaveBeenCalledWith(0);
+    });
+
+    it('should exit 1 when pipeline fails', async () => {
+      const workflowInput = JSON.stringify({
+        workflowName: 'billing-pipeline',
+        parameters: {},
+      });
+      await runEntry(workflowInput, {
+        pipelineResult: {
+          success: false,
+          output: {},
+          errors: ['Missing required input: accountId'],
+          metadata: { totalSteps: 0, executedSteps: 0, skippedSteps: 0, failedSteps: 0, duration: 5 },
+        },
+      });
+
+      const outputs = getAllStdoutJsons(writeSpy);
+      const errorOutput = outputs.find((o: any) => o.errors?.length > 0);
+      expect(errorOutput).toBeDefined();
+      expect(exitSpy).toHaveBeenCalledWith(1);
+    });
+
+    it('should default parameters to empty object for workflow', async () => {
+      const workflowInput = JSON.stringify({
+        workflowName: 'billing-pipeline',
+      });
+      const { mockPipelineExecute } = await runEntry(workflowInput);
+
+      expect(mockPipelineExecute).toHaveBeenCalledWith({
+        workflowName: 'billing-pipeline',
+        parameters: {},
+      });
     });
   });
 });
