@@ -12,6 +12,9 @@ PreToolUse Hooks
 │                 → mind-clone-governance.py
 └── Bash          → sql-governance.py
                   → slug-validation.py
+
+Stop Hooks
+└── (prompt)      → handoff enforcement (settings.json)
 ```
 
 ## Hooks Disponíveis
@@ -97,6 +100,39 @@ Impede criação de mind clones sem DNA extraído previamente.
 1. Execute o pipeline de extração de DNA: `/squad-creator` → `*collect-sources` → `*extract-voice-dna` → `*extract-thinking-dna`
 2. OU se é agent funcional, renomeie com sufixo apropriado
 
+### 7. Stop Hook: Handoff Enforcement
+**Trigger:** `Stop` (quando o agente tenta encerrar sua resposta)
+**Comportamento:** BLOQUEIA via prompt LLM
+**Tipo:** `prompt` (não é script — configurado em `settings.json`)
+
+Garante que um handoff seja criado sempre que houver commits/pushes na sessão.
+
+**Como funciona:**
+1. Quando o agente tenta encerrar uma resposta, o Stop hook dispara
+2. Um modelo LLM analisa a conversa e verifica:
+   - Se houve `git commit` ou `git push` via Bash tool
+   - Se um arquivo `docs/sessions/*/handoff-*.md` foi criado via Write tool
+3. Se houve commits mas **não** houve handoff → `decision='block'`
+4. Se não houve commits ou handoff já existe → `decision='approve'`
+
+**Por que Stop e não PreToolUse?**
+
+| Tipo | Quando roda | O que resolve |
+|------|------------|---------------|
+| `PreToolUse` | Antes de uma tool call | Impedir ações proibidas |
+| `Stop` | Quando agente encerra | Garantir obrigações pós-trabalho |
+
+O Stop hook resolve um problema diferente: enforcement de **obrigações pós-trabalho**. Não é sobre impedir uma ação, é sobre garantir que algo foi feito antes de encerrar.
+
+**Cenários:**
+```
+Sessão sem commits        → approve (sem interferência)
+Commits + handoff criado  → approve (obrigação cumprida)
+Commits SEM handoff       → block   (agente forçado a criar handoff)
+```
+
+---
+
 ## Exit Codes
 
 | Code | Significado |
@@ -153,6 +189,28 @@ Hooks são configurados em `.claude/settings.local.json`:
   }
 }
 ```
+
+### Stop Hooks (prompt-based)
+
+```json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Review the conversation. If ANY git commits or git pushes were executed (via Bash tool with 'git commit' or 'git push' in the command), check if a handoff document was created in docs/sessions/ during this session (via Write tool creating a file matching 'docs/sessions/*/handoff-*.md'). If commits/pushes happened but NO handoff was created, return decision='block' with reason='Handoff obrigatório: crie um handoff em docs/sessions/YYYY-MM/handoff-YYYY-MM-DD-<tema>.md antes de encerrar.'. Otherwise return decision='approve'."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+---
 
 ## Manutenção
 

@@ -250,6 +250,7 @@ Seguir Conventional Commits:
 - Atualize checkboxes imediatamente após completar tasks
 - Mantenha contexto da story atual sendo trabalhada
 - Salve estado importante antes de operações longas
+- **MANDATORY**: Crie handoff em `docs/sessions/YYYY-MM/handoff-YYYY-MM-DD-<tema>.md` após QUALQUER git commit/push — enforced pelo Stop hook
 
 ### Recuperação de Erros
 - Sempre forneça sugestões de recuperação para falhas
