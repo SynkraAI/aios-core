@@ -57,6 +57,35 @@ jest.mock('../../../.aios-core/core/orchestration/brownfield-handler', () => ({
   PhaseFailureAction: {},
 }));
 
+// Story 12.13: Mock GreenfieldHandler (FASE 1: Error Handlers)
+jest.mock('../../../.aios-core/core/orchestration/greenfield-handler', () => {
+  const EventEmitter = require('events');
+  return {
+    GreenfieldHandler: jest.fn().mockImplementation(() => {
+      const emitter = new EventEmitter();
+      return Object.assign(emitter, {
+        handle: jest.fn().mockResolvedValue({
+          action: 'greenfield_bootstrap',
+          data: { phase: 'bootstrap' },
+        }),
+      });
+    }),
+    GreenfieldPhase: {
+      DETECTION: 'detection',
+      BOOTSTRAP: 'phase_0_bootstrap',
+      DISCOVERY: 'phase_1_discovery',
+      SHARDING: 'phase_2_sharding',
+      DEV_CYCLE: 'phase_3_dev_cycle',
+      COMPLETE: 'complete',
+    },
+    PhaseFailureAction: {
+      RETRY: 'retry',
+      SKIP: 'skip',
+      ABORT: 'abort',
+    },
+  };
+});
+
 jest.mock('../../../.aios-core/core/orchestration/executor-assignment', () => ({
   assignExecutorFromContent: jest.fn().mockReturnValue({
     executor: '@dev',
@@ -1106,7 +1135,90 @@ describe('BobOrchestrator', () => {
       });
     });
 
-    // TODO: Add greenfieldHandler error tests (lines 216-239) when GreenfieldHandler mock is configured
+    describe('greenfieldHandler error handlers', () => {
+      it('should catch bobStatusWriter.updatePhase errors in phaseStart (line 216-218)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.bobStatusWriter.updatePhase = jest
+          .fn()
+          .mockRejectedValue(new Error('Greenfield updatePhase failed'));
+
+        // Trigger the phaseStart event
+        orchestrator.greenfieldHandler.emit('phaseStart', { phase: 'setup' });
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('BobStatusWriter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('Greenfield updatePhase failed'),
+        );
+      });
+
+      it('should catch bobStatusWriter.updateAgent errors in agentSpawn (line 226-228)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.bobStatusWriter.updateAgent = jest
+          .fn()
+          .mockRejectedValue(new Error('Greenfield updateAgent failed'));
+
+        // Trigger the agentSpawn event
+        orchestrator.greenfieldHandler.emit('agentSpawn', {
+          agent: '@architect',
+          task: 'design-system',
+        });
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('BobStatusWriter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('Greenfield updateAgent failed'),
+        );
+      });
+
+      it('should catch bobStatusWriter.addTerminal errors in terminalSpawn (line 234-236)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.bobStatusWriter.addTerminal = jest
+          .fn()
+          .mockRejectedValue(new Error('Greenfield addTerminal failed'));
+
+        // Trigger the terminalSpawn event
+        orchestrator.greenfieldHandler.emit('terminalSpawn', {
+          agent: '@dev',
+          pid: 12345,
+          task: 'implement',
+        });
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('BobStatusWriter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('Greenfield addTerminal failed'),
+        );
+      });
+
+      it('should catch dashboardEmitter.emitBobAgentSpawned errors in terminalSpawn (line 237-239)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.dashboardEmitter.emitBobAgentSpawned = jest
+          .fn()
+          .mockRejectedValue(new Error('Greenfield emitBobAgentSpawned failed'));
+
+        // Trigger the terminalSpawn event
+        orchestrator.greenfieldHandler.emit('terminalSpawn', {
+          agent: '@dev',
+          pid: 12345,
+          task: 'implement',
+        });
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('DashboardEmitter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('Greenfield emitBobAgentSpawned failed'),
+        );
+      });
+    });
 
     describe('onTerminalSpawn error handlers', () => {
       it('should catch bobStatusWriter.addTerminal errors and log (line 249-251)', async () => {
