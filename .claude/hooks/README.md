@@ -112,7 +112,7 @@ Garante que um handoff seja criado sempre que houver commits/pushes na sessão.
 2. Um modelo LLM analisa a conversa e verifica:
    - Se houve `git commit` ou `git push` via Bash tool
    - Se um arquivo `docs/sessions/*/handoff-*.md` foi criado via Write tool
-3. Se houve commits mas **não** houve handoff → `decision='block'`
+3. Se houve commits, mas **não** houve handoff → `decision='block'`
 4. Se não houve commits ou handoff já existe → `decision='approve'`
 
 **Por que Stop e não PreToolUse?**
@@ -125,7 +125,7 @@ Garante que um handoff seja criado sempre que houver commits/pushes na sessão.
 O Stop hook resolve um problema diferente: enforcement de **obrigações pós-trabalho**. Não é sobre impedir uma ação, é sobre garantir que algo foi feito antes de encerrar.
 
 **Cenários:**
-```
+```text
 Sessão sem commits        → approve (sem interferência)
 Commits + handoff criado  → approve (obrigação cumprida)
 Commits SEM handoff       → block   (agente forçado a criar handoff)
