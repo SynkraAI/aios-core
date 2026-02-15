@@ -39,6 +39,8 @@ npm test
 
 - Sincronizar regras/agentes: `npm run sync:ide`
 - Validar drift: `npm run sync:ide:check`
+- Sync Claude Code: `npm run sync:ide:claude`
+- Sincronizar Gemini CLI: `npm run sync:ide:gemini`
 - Gerar skills locais do Codex: `npm run sync:skills:codex`
 - Este repositorio usa **local-first**: prefira `.codex/skills` versionado no projeto
 - Use `sync:skills:codex:global` apenas para testes fora deste repo

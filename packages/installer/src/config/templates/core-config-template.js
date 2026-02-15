@@ -54,8 +54,8 @@ function generateCoreConfig(options = {}) {
       selected: selectedIDEs.length > 0 ? selectedIDEs : ['vscode'],
       configs: {
         vscode: selectedIDEs.includes('vscode') || selectedIDEs.length === 0,
+        gemini: selectedIDEs.includes('gemini'),
         cursor: selectedIDEs.includes('cursor'),
-        windsurf: selectedIDEs.includes('windsurf'),
         zed: selectedIDEs.includes('zed'),
         'claude-desktop': selectedIDEs.includes('claude-desktop'),
         'claude-code': selectedIDEs.includes('claude-code'),

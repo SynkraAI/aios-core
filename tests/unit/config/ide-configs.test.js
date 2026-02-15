@@ -5,7 +5,7 @@
  * Tests IDE configuration metadata structure
  *
  * Synkra AIOS v2.1 supports 6 IDEs:
- * - Claude Code, Codex CLI, Cursor, Windsurf, GitHub Copilot, AntiGravity
+ * - Claude Code, Codex CLI, Gemini CLI, Cursor, GitHub Copilot, AntiGravity
  */
 
 const {
@@ -27,8 +27,8 @@ describe('IDE Configs', () => {
       const expectedIDEs = [
         'claude-code',
         'codex',
+        'gemini',
         'cursor',
-        'windsurf',
         'github-copilot',
         'antigravity',
       ];
@@ -67,7 +67,6 @@ describe('IDE Configs', () => {
 
       // IDEs that do not require directories (root file only)
       expect(IDE_CONFIGS.codex.requiresDirectory).toBe(false);
-      expect(IDE_CONFIGS.windsurf.requiresDirectory).toBe(false);
     });
 
     it('should have correct file formats', () => {
@@ -80,8 +79,8 @@ describe('IDE Configs', () => {
     it('should have correct config file paths', () => {
       expect(IDE_CONFIGS['claude-code'].configFile).toContain('.claude');
       expect(IDE_CONFIGS.codex.configFile).toBe('AGENTS.md');
+      expect(IDE_CONFIGS.gemini.configFile).toContain('.gemini');
       expect(IDE_CONFIGS.cursor.configFile).toContain('.cursor');
-      expect(IDE_CONFIGS.windsurf.configFile).toBe('.windsurfrules');
       expect(IDE_CONFIGS['github-copilot'].configFile).toContain('.github');
       expect(IDE_CONFIGS.antigravity.configFile).toContain('.antigravity');
     });
@@ -102,10 +101,10 @@ describe('IDE Configs', () => {
       expect(IDE_CONFIGS['claude-code'].agentFolder).toContain('agents');
       expect(IDE_CONFIGS.codex.agentFolder).toContain('.codex');
       expect(IDE_CONFIGS.codex.agentFolder).toContain('agents');
+      expect(IDE_CONFIGS.gemini.agentFolder).toContain('.gemini');
+      expect(IDE_CONFIGS.gemini.agentFolder).toContain('agents');
       expect(IDE_CONFIGS.cursor.agentFolder).toContain('.cursor');
       expect(IDE_CONFIGS.cursor.agentFolder).toContain('rules');
-      expect(IDE_CONFIGS.windsurf.agentFolder).toContain('.windsurf');
-      expect(IDE_CONFIGS.windsurf.agentFolder).toContain('rules');
       expect(IDE_CONFIGS['github-copilot'].agentFolder).toContain('.github');
       expect(IDE_CONFIGS['github-copilot'].agentFolder).toContain('agents');
       // AntiGravity uses .agent/workflows instead of .antigravity/agents
@@ -127,8 +126,8 @@ describe('IDE Configs', () => {
       const expectedKeys = [
         'claude-code',
         'codex',
+        'gemini',
         'cursor',
-        'windsurf',
         'github-copilot',
         'antigravity',
       ];
@@ -154,7 +153,7 @@ describe('IDE Configs', () => {
     });
 
     it('should return correct config for all IDEs', () => {
-      const ides = ['claude-code', 'codex', 'cursor', 'windsurf', 'github-copilot', 'antigravity'];
+      const ides = ['claude-code', 'codex', 'gemini', 'cursor', 'github-copilot', 'antigravity'];
 
       ides.forEach((ide) => {
         const config = getIDEConfig(ide);
@@ -167,7 +166,7 @@ describe('IDE Configs', () => {
   describe('isValidIDE', () => {
     it('should return true for valid IDE', () => {
       expect(isValidIDE('cursor')).toBe(true);
-      expect(isValidIDE('windsurf')).toBe(true);
+      expect(isValidIDE('gemini')).toBe(true);
       expect(isValidIDE('github-copilot')).toBe(true);
       expect(isValidIDE('claude-code')).toBe(true);
       expect(isValidIDE('codex')).toBe(true);

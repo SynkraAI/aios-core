@@ -172,7 +172,7 @@ describe('IDE Config Generator', () => {
     });
 
     it('should create config files for multiple IDEs', async () => {
-      const selectedIDEs = ['cursor', 'windsurf'];
+      const selectedIDEs = ['cursor', 'gemini'];
       const wizardState = { projectName: 'test', projectType: 'greenfield' };
 
       const result = await generateIDEConfigs(selectedIDEs, wizardState, {
@@ -183,13 +183,13 @@ describe('IDE Config Generator', () => {
       // Now includes config files + agent files for each IDE
       expect(result.files.length).toBeGreaterThanOrEqual(2);
 
-      // v2.1: Cursor uses .cursor/rules.md, Windsurf uses .windsurfrules
+      // v2.1: Cursor and Gemini use directory-based rules files
       expect(await fs.pathExists(path.join(testDir, '.cursor', 'rules.md'))).toBe(true);
-      expect(await fs.pathExists(path.join(testDir, '.windsurfrules'))).toBe(true);
+      expect(await fs.pathExists(path.join(testDir, '.gemini', 'rules.md'))).toBe(true);
 
       // Agent folders should also exist
       expect(await fs.pathExists(path.join(testDir, '.cursor', 'rules'))).toBe(true);
-      expect(await fs.pathExists(path.join(testDir, '.windsurf', 'rules'))).toBe(true);
+      expect(await fs.pathExists(path.join(testDir, '.gemini', 'rules', 'AIOS', 'agents'))).toBe(true);
     });
 
     it('should create directory for IDEs that require it', async () => {

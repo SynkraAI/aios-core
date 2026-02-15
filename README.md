@@ -139,7 +139,7 @@ O Synkra AIOS agora inclui uma experiência de instalação interativa de últim
 
 - ✅ Download da versão mais recente do NPM
 - ✅ Assistente de instalação interativo moderno
-- ✅ Configuração automática do IDE (Codex CLI, Windsurf, Cursor ou Claude Code)
+- ✅ Configuração automática do IDE (Codex CLI, Cursor ou Claude Code)
 - ✅ Configuração de todos os agentes e fluxos de trabalho AIOS
 - ✅ Criação dos arquivos de configuração necessários
 - ✅ Inicialização do sistema de meta-agentes
@@ -163,23 +163,32 @@ npx aios-core@latest install
 
 O Synkra AIOS inclui regras pré-configuradas para IDE para melhorar sua experiência de desenvolvimento:
 
-#### Para Windsurf ou Cursor:
+#### Para Cursor:
 
-1. Abra as configurações do seu IDE
-2. Navegue até **Global Rules** (Windsurf) ou **User Rules** (Cursor)
-3. Copie o conteúdo de `.windsurf/global-rules.md` ou `.cursor/global-rules.md`
+1. Abra as configurações do Cursor
+2. Navegue até **User Rules**
+3. Copie o conteúdo de `.cursor/global-rules.md`
 4. Cole na seção de regras e salve
 
 #### Para Claude Code:
 
 - ✅ Já configurado! O arquivo `.claude/CLAUDE.md` é carregado automaticamente
+- Sync dedicado de agentes: `npm run sync:ide:claude`
+- Validacao dedicada: `npm run validate:claude-sync && npm run validate:claude-integration`
 
 #### Para Codex CLI:
 
+- ✅ Integração de primeira classe no AIOS 4.0.4 (pipeline de ativação e greeting compartilhado)
 - ✅ Já configurado! O arquivo `AGENTS.md` na raiz é carregado automaticamente
 - Opcional: sincronize agentes auxiliares com `npm run sync:ide:codex`
 - Recomendado neste repositório: gerar e versionar skills locais com `npm run sync:skills:codex`
 - Use `npm run sync:skills:codex:global` apenas fora deste projeto (para evitar duplicidade no `/skills`)
+
+#### Para Gemini CLI:
+
+- ✅ Regras e agentes sincronizaveis com `npm run sync:ide:gemini`
+- Arquivos gerados em `.gemini/rules.md` e `.gemini/rules/AIOS/agents/`
+- Validacao dedicada: `npm run validate:gemini-sync && npm run validate:gemini-integration`
 
 Estas regras fornecem:
 
@@ -192,7 +201,7 @@ Estas regras fornecem:
 ### Início Mais Rápido com Interface Web (2 minutos)
 
 1. **Instale o AIOS**: Execute `npx aios-core init meu-projeto`
-2. **Configure seu IDE**: Siga as instruções de configuração para Codex CLI, Windsurf, Cursor ou Claude Code
+2. **Configure seu IDE**: Siga as instruções de configuração para Codex CLI, Cursor ou Claude Code
 3. **Comece a Planejar**: Ative um agente como `@analyst` para começar a criar seu briefing
 4. **Use comandos AIOS**: Digite `*help` para ver comandos disponíveis
 5. **Siga o fluxo**: Veja o [Guia do usuário](docs/guides/user-guide.md) para mais detalhes

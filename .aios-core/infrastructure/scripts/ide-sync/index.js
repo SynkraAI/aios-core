@@ -28,7 +28,6 @@ const { validateAllIdes, formatValidationReport } = require('./validator');
 // Transformers
 const claudeCodeTransformer = require('./transformers/claude-code');
 const cursorTransformer = require('./transformers/cursor');
-const windsurfTransformer = require('./transformers/windsurf');
 const antigravityTransformer = require('./transformers/antigravity');
 
 // ANSI colors for output
@@ -66,15 +65,15 @@ function loadConfig(projectRoot) {
         path: '.codex/agents',
         format: 'full-markdown-yaml',
       },
+      gemini: {
+        enabled: true,
+        path: '.gemini/rules/AIOS/agents',
+        format: 'full-markdown-yaml',
+      },
       cursor: {
         enabled: true,
         path: '.cursor/rules/agents',
         format: 'condensed-rules',
-      },
-      windsurf: {
-        enabled: false, // Disabled - consolidating to core IDEs (v3.10.0)
-        path: '.windsurf/rules/agents',
-        format: 'xml-tagged-markdown',
       },
       antigravity: {
         enabled: true,
@@ -120,7 +119,6 @@ function getTransformer(format) {
   const transformers = {
     'full-markdown-yaml': claudeCodeTransformer,
     'condensed-rules': cursorTransformer,
-    'xml-tagged-markdown': windsurfTransformer,
     'cursor-style': antigravityTransformer,
   };
 
@@ -337,9 +335,18 @@ async function commandValidate(options) {
 
   // Build expected files for each IDE
   const ideConfigs = {};
+  let targetIdes = Object.entries(config.targets).filter(([, ideConfig]) => ideConfig.enabled);
 
-  for (const [ideName, ideConfig] of Object.entries(config.targets)) {
-    if (!ideConfig.enabled) continue;
+  // Filter IDEs if --ide flag specified
+  if (options.ide) {
+    targetIdes = targetIdes.filter(([name]) => name === options.ide);
+    if (targetIdes.length === 0) {
+      console.error(`${colors.red}Error: IDE '${options.ide}' not found in config${colors.reset}`);
+      process.exit(1);
+    }
+  }
+
+  for (const [ideName, ideConfig] of targetIdes) {
 
     const transformer = getTransformer(ideConfig.format);
     const expectedFiles = [];
@@ -450,7 +457,9 @@ ${colors.bright}Options:${colors.reset}
 ${colors.bright}Examples:${colors.reset}
   node ide-sync/index.js sync
   node ide-sync/index.js sync --ide codex
+  node ide-sync/index.js sync --ide gemini
   node ide-sync/index.js sync --ide cursor
+  node ide-sync/index.js validate --ide gemini --strict
   node ide-sync/index.js validate --strict
   node ide-sync/index.js sync --dry-run --verbose
 `);
