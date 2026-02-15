@@ -35,8 +35,14 @@ components:
     - nav-update-roadmap.md
     - nav-detect-phase.md
     - nav-doctor.md
-  workflows: []
-  checklists: []
+  workflows:
+    - wf-new-project-setup.yaml
+    - wf-resume-work.yaml
+    - wf-multi-chat-orchestration.yaml
+  checklists:
+    - roadmap-validation.md
+    - checkpoint-validation.md
+    - orchestration-validation.md
   templates:
     - nav-roadmap-tmpl.md
     - nav-checkpoint-tmpl.md
@@ -98,31 +104,59 @@ features:
       - Scripts executable
 
 quality_metrics:
-  code_coverage: "~25% (integration tests), targeting 85%"
+  test_coverage: "17 unit tests passing (doctor + phase-detector)"
   eslint_compliance: "100% (0 errors, 0 warnings)"
   health_checks: "7 validations"
-  documentation: "Comprehensive README + task examples"
+  documentation: "2,500+ lines (README, examples, guides, checklists)"
+  validation: "Passed JSON Schema validation"
 
 sprint_history:
   sprint_1:
     name: Quick Wins
     status: completed
+    date: 2026-02-14
     tasks:
       - Remove scripts from ESLint ignore
       - Add confirmations for destructive operations
       - Create *navigator-doctor health check
       - Add output examples in tasks
     impact: Quality gates + safety + diagnostics
+    files: 32 files, +4,206 lines
 
   sprint_2:
     name: Structure Migration
-    status: in_progress
+    status: completed
+    date: 2026-02-14
     tasks:
       - Migrate to squad structure
       - Create squad.yaml manifest
       - Auto-install git hooks
       - Validate with *validate-squad
     impact: Distribution-ready squad
+    files: 26 files, +5,124 lines
+
+  sprint_3:
+    name: Testing & Quality
+    status: completed
+    date: 2026-02-15
+    tasks:
+      - Add unit tests (17 passing)
+      - Create TypeScript migration guide
+      - Add multi-step workflows (3 YAML)
+      - Add validation checklists (3 comprehensive)
+    impact: Test infrastructure + migration planning + validation
+    files: 10 files, +1,854 lines
+
+  sprint_4:
+    name: Documentation & Polish
+    status: in_progress
+    date: 2026-02-15
+    tasks:
+      - Add mermaid diagrams (5 diagrams)
+      - Create examples (6 practical examples)
+      - Prepare for publication (CHANGELOG, LICENSE, etc)
+      - Add quickstart and troubleshooting
+    impact: Production-ready documentation + publication preparation
 
 references:
   documentation: squads/navigator/README.md

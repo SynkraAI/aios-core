@@ -1,9 +1,27 @@
 # 🧭 Navigator Squad
 
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![AIOS](https://img.shields.io/badge/AIOS-%3E%3D4.0.0-purple.svg)
+![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)
+![Tests](https://img.shields.io/badge/tests-17%20passing-success.svg)
+![ESLint](https://img.shields.io/badge/eslint-0%20errors-success.svg)
+
 **Version:** 1.0.0
 **Author:** Craft (@squad-creator) + Luiz Fosc
 **License:** MIT
 **AIOS Min Version:** 4.0.0
+
+---
+
+## 📚 Quick Links
+
+- [🚀 Quickstart Guide](./QUICKSTART.md) - Get started in 5 minutes
+- [❓ FAQ](./FAQ.md) - Common questions answered
+- [🔧 Troubleshooting](./TROUBLESHOOTING.md) - Solutions to common problems
+- [💡 Examples](./examples/) - Practical tutorials
+- [🤝 Contributing](./CONTRIBUTING.md) - How to contribute
+- [📝 Changelog](./CHANGELOG.md) - Version history
 
 ---
 
@@ -152,6 +170,217 @@ Conflict resolution:
 - Timestamp comparison (newer wins)
 - Interactive confirmation in manual mode
 - Auto-mode for git hooks
+
+---
+
+## Visual Architecture
+
+### Navigator Component Diagram
+
+```mermaid
+graph TB
+    User[👤 User] -->|activates| Agent[🧭 Navigator Agent]
+    Agent -->|executes| Tasks[📋 Tasks]
+
+    Tasks --> MapProject[*map-project]
+    Tasks --> WhereAmI[*where-am-i]
+    Tasks --> AutoNav[*auto-navigate]
+    Tasks --> Orchestrate[*orchestrate]
+    Tasks --> Doctor[*navigator-doctor]
+
+    MapProject --> Scripts
+    WhereAmI --> Scripts
+    AutoNav --> Scripts
+    Orchestrate --> Scripts
+
+    subgraph Scripts [🔧 Core Scripts]
+        PhaseDetect[phase-detector.js]
+        RoadmapSync[roadmap-sync.js]
+        CheckpointMgr[checkpoint-manager.js]
+        Orchestrator[orchestrator.js]
+        DoctorScript[doctor.js]
+    end
+
+    Scripts --> Data[📊 Data Layer]
+
+    subgraph Data [📊 Data Layer]
+        Pipeline[navigator-pipeline-map.yaml]
+        Roadmap[.aios/navigator/{project}/roadmap.md]
+        Checkpoints[.aios/navigator/{project}/checkpoints/]
+    end
+
+    Scripts --> Templates[📄 Templates]
+
+    subgraph Templates [📄 Templates]
+        RoadmapTmpl[nav-roadmap-tmpl.md]
+        CheckpointTmpl[nav-checkpoint-tmpl.md]
+        StatusTmpl[nav-status-report-tmpl.md]
+        OrchTmpl[nav-orchestration-tmpl.md]
+    end
+
+    PhaseDetect -.->|reads| Roadmap
+    PhaseDetect -.->|checks| FileSystem[(File System)]
+    CheckpointMgr -.->|writes| Checkpoints
+    RoadmapSync -.->|syncs| LocalRoadmap[docs/roadmap.md]
+
+    style Agent fill:#4A90E2
+    style Scripts fill:#E8F5E9
+    style Data fill:#FFF3E0
+    style Templates fill:#F3E5F5
+```
+
+### AIOS 10-Phase Pipeline
+
+```mermaid
+graph LR
+    Start([🚀 Start]) --> P1
+
+    P1[1️⃣ Pesquisa<br/>@analyst] --> P2[2️⃣ PRD<br/>@pm]
+    P2 --> P3[3️⃣ Arquitetura<br/>@architect]
+    P3 --> P4[4️⃣ Épicos<br/>@pm]
+    P4 --> P5[5️⃣ Stories<br/>@sm]
+    P5 --> P6[6️⃣ Validação<br/>@po]
+    P6 --> P7[7️⃣ Desenvolvimento<br/>@dev]
+    P7 --> P8[8️⃣ QA & Testes<br/>@qa]
+    P8 --> P9{Tests Pass?}
+
+    P9 -->|❌ No| P9Loop[9️⃣ Fix Loop<br/>@dev]
+    P9Loop --> P8
+
+    P9 -->|✅ Yes| P10[🔟 Deploy<br/>@devops]
+    P10 --> End([🎉 Complete])
+
+    style P1 fill:#E3F2FD
+    style P2 fill:#E8F5E9
+    style P3 fill:#FFF3E0
+    style P4 fill:#F3E5F5
+    style P5 fill:#FCE4EC
+    style P6 fill:#E0F2F1
+    style P7 fill:#FFF9C4
+    style P8 fill:#FFEBEE
+    style P9Loop fill:#FFE0B2
+    style P10 fill:#E1F5FE
+```
+
+### Phase Detection Algorithm
+
+```mermaid
+flowchart TD
+    Start([*where-am-i<br/>triggered]) --> LoadPipeline[Load pipeline map<br/>from YAML]
+    LoadPipeline --> LoadRoadmap[Load project roadmap]
+
+    LoadRoadmap --> CheckPhase1{Phase 1<br/>outputs exist?}
+    CheckPhase1 -->|No| Return1[Return:<br/>Phase 1, 0%]
+    CheckPhase1 -->|Yes| CalcPhase1[Calculate<br/>completion %]
+
+    CalcPhase1 --> CheckPhase2{Phase 2<br/>outputs exist?}
+    CheckPhase2 -->|No| Return2[Return:<br/>Phase 2, X%]
+    CheckPhase2 -->|Yes| CalcPhase2[Calculate<br/>completion %]
+
+    CalcPhase2 --> CheckPhase3{Phase 3<br/>outputs exist?}
+    CheckPhase3 -->|No| Return3[Return:<br/>Phase 3, X%]
+    CheckPhase3 -->|Yes| Continue[...]
+
+    Continue --> CheckPhase10{Phase 10<br/>outputs exist?}
+    CheckPhase10 -->|Yes| Return10[Return:<br/>Phase 10, 100%]
+
+    Return1 --> Output[📊 Phase Result]
+    Return2 --> Output
+    Return3 --> Output
+    Return10 --> Output
+
+    Output --> ParseStories[Parse story files<br/>for status]
+    ParseStories --> CalcProgress[Calculate<br/>% complete]
+    CalcProgress --> IdentifyBlockers[Identify<br/>blockers]
+    IdentifyBlockers --> SuggestNext[Suggest<br/>next steps]
+    SuggestNext --> End([Return to user])
+
+    style LoadPipeline fill:#E3F2FD
+    style ParseStories fill:#E8F5E9
+    style CalcProgress fill:#FFF3E0
+    style Output fill:#FFE0B2
+```
+
+### Checkpoint Workflow
+
+```mermaid
+stateDiagram-v2
+    [*] --> PhaseActive: Working on phase
+
+    PhaseActive --> PhaseComplete: Phase outputs created
+
+    PhaseComplete --> ManualCheckpoint: User runs<br/>*checkpoint
+    PhaseComplete --> AutoCheckpoint: Git commit<br/>(post-commit hook)
+
+    ManualCheckpoint --> CreateCheckpoint: Create checkpoint JSON
+    AutoCheckpoint --> CreateCheckpoint
+
+    CreateCheckpoint --> SaveCheckpoint: Save to<br/>.aios/navigator/{project}/checkpoints/
+
+    SaveCheckpoint --> NextPhase: Continue to next phase
+    NextPhase --> PhaseActive
+
+    PhaseActive --> Resume: Session ends
+    Resume --> LoadCheckpoint: *where-am-i<br/>reads latest checkpoint
+    LoadCheckpoint --> RestoreContext: Restore phase context
+    RestoreContext --> PhaseActive: Resume work
+
+    note right of CreateCheckpoint
+        Checkpoint includes:
+        - Phase ID
+        - Timestamp
+        - Git commit SHA
+        - Description
+        - Metadata
+    end note
+
+    note right of SaveCheckpoint
+        Format:
+        cp-{phase}-{type}-{timestamp}.json
+        Example:
+        cp-5-auto-20260215-143022.json
+    end note
+```
+
+### Multi-Chat Orchestration Flow
+
+```mermaid
+graph TB
+    User[👤 User] -->|runs| Orchestrate[*orchestrate epic-1]
+
+    Orchestrate --> LoadEpic[Load epic file<br/>with stories]
+    LoadEpic --> AnalyzeDeps[Analyze story<br/>dependencies]
+
+    AnalyzeDeps --> Wave1[🌊 Wave 1<br/>No dependencies]
+    AnalyzeDeps --> Wave2[🌊 Wave 2<br/>Depends on Wave 1]
+    AnalyzeDeps --> Wave3[🌊 Wave 3<br/>Depends on Wave 2]
+
+    Wave1 --> GenPrompts[Generate 4 prompts]
+    Wave2 --> GenPrompts
+    Wave3 --> GenPrompts
+
+    GenPrompts --> Chat1[💬 Chat 1: Coordinator<br/>@sm manages waves]
+    GenPrompts --> Chat2[💬 Chat 2: Dev Wave 1<br/>@dev executes stories]
+    GenPrompts --> Chat3[💬 Chat 3: Dev Wave 2<br/>@dev executes stories]
+    GenPrompts --> Chat4[💬 Chat 4: Dev Wave 3<br/>@dev executes stories]
+
+    Chat2 -.->|Wave 1 complete| Chat1
+    Chat1 -.->|Approve Wave 2| Chat3
+    Chat3 -.->|Wave 2 complete| Chat1
+    Chat1 -.->|Approve Wave 3| Chat4
+    Chat4 -.->|Wave 3 complete| Chat1
+
+    Chat1 --> FinalMerge[🔀 Final merge<br/>& conflict resolution]
+    FinalMerge --> Complete([✅ Epic complete])
+
+    style Chat1 fill:#E8F5E9
+    style Chat2 fill:#E3F2FD
+    style Chat3 fill:#FFF3E0
+    style Chat4 fill:#F3E5F5
+    style Wave1 fill:#C8E6C9
+    style Wave2 fill:#FFECB3
+    style Wave3 fill:#FFCCBC
+```
 
 ---
 
@@ -308,28 +537,28 @@ Edit `squads/navigator/data/navigator-pipeline-map.yaml` to customize:
 ## Sprint History
 
 ### Sprint 1: Quick Wins ✅
-- Quality gates via ESLint
+- Quality gates via ESLint (0 warnings)
 - Safety confirmations for destructive operations
-- `*navigator-doctor` health check
+- `*navigator-doctor` health check (7 checks)
 - Documentation with output examples
 
 ### Sprint 2: Structure Migration ✅
-- Migrated to squad structure
-- Created squad.yaml manifest
-- Auto-install git hooks (planned)
-- Validation with *validate-squad (planned)
+- Migrated to squad structure (21 components)
+- Created squad.yaml manifest (validated)
+- Auto-install git hooks script
+- Passed validation with *validate-squad
 
-### Sprint 3: Testing & Quality (Planned)
-- Unit tests for scripts (85% coverage)
-- TypeScript migration
-- Multi-step workflows
-- Validation checklists
+### Sprint 3: Testing & Quality ✅
+- Unit tests for scripts (17 passing tests)
+- TypeScript migration guide (400+ lines)
+- Multi-step workflows (3 YAML workflows)
+- Validation checklists (3 comprehensive checklists)
 
-### Sprint 4: Documentation & Polish (Planned)
-- Mermaid diagrams
-- Video demo
-- Publish to aios-squads
-- Community announcement
+### Sprint 4: Documentation & Polish (In Progress)
+- Mermaid diagrams ✅
+- Usage examples (in progress)
+- Publish preparation (in progress)
+- Quickstart & FAQ (in progress)
 
 ---
 
@@ -353,9 +582,20 @@ MIT License - See LICENSE file in aios-core repository
 
 ## Support
 
+### Documentation
+
+- **Quickstart:** [QUICKSTART.md](./QUICKSTART.md) - 5-minute setup guide
+- **FAQ:** [FAQ.md](./FAQ.md) - Frequently asked questions
+- **Troubleshooting:** [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) - Common problems & solutions
+- **Examples:** [examples/](./examples/) - Practical tutorials
+- **Contributing:** [CONTRIBUTING.md](./CONTRIBUTING.md) - Contribution guide
+- **Changelog:** [CHANGELOG.md](./CHANGELOG.md) - Version history
+
+### Community
+
 - **Issues:** https://github.com/SynkraAI/aios-core/issues
-- **Documentation:** `docs/guides/navigator-guide.md`
-- **Community:** AIOS Discord (coming soon)
+- **Discussions:** https://github.com/SynkraAI/aios-core/discussions
+- **Discord:** AIOS Discord (coming soon)
 
 ---
 
