@@ -18,6 +18,7 @@
 
 import { AgentRuntime, createRuntime, TaskInput, TaskResult } from './runtime/agent-runtime';
 import { PipelineExecutor } from './pipeline/pipeline-executor';
+import { CircuitBreaker } from './pipeline/circuit-breaker';
 import { logger } from './logger';
 import * as path from 'path';
 
@@ -165,9 +166,11 @@ async function main(): Promise<void> {
     // --- Workflow mode ---
     const wfInput = validateWorkflowInput(rawObj);
     const workflowsPath = path.resolve(squadPath, 'workflows');
+    const circuitBreaker = new CircuitBreaker();
     const executor = new PipelineExecutor(runtime!, {
       workflowsPath,
       verbose,
+      circuitBreaker,
     });
 
     try {

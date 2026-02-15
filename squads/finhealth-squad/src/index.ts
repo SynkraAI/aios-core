@@ -11,6 +11,10 @@ export * from './runtime/agent-runtime';
 
 // Agents
 export * from './agents/billing-agent';
+export { AuditorAgent } from './agents/auditor-agent';
+export { CashflowAgent } from './agents/cashflow-agent';
+export { ReconciliationAgent } from './agents/reconciliation-agent';
+export { SupervisorAgent } from './agents/supervisor-agent';
 
 // Parsers
 export * from './parsers/tiss-xml-parser';
@@ -107,6 +111,15 @@ export type {
   PipelineContext,
   PipelineMetadata,
 } from './pipeline/types';
+
+// Circuit Breaker & Error Classification
+export { CircuitBreaker } from './pipeline/circuit-breaker';
+export type { CircuitState, CircuitBreakerConfig } from './pipeline/circuit-breaker';
+export { classifyError, isRetryable } from './pipeline/error-classifier';
+export type { ErrorCategory } from './pipeline/error-classifier';
+
+// Logger
+export { logger, createAgentLogger } from './logger';
 
 // Re-export types
 export type {
