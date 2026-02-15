@@ -20,11 +20,11 @@ O AIOS suporta 6 plataformas de desenvolvimento com IA. Escolha a que melhor se 
 | Funcionalidade         | Claude Code | Codex CLI | Cursor | Copilot | AntiGravity | Gemini CLI |
 | ---------------------- | :---------: | :-------: | :----: | :-----: | :---------: | :--------: |
 | **Ativação de Agente** |  /command   |  /skills  | @mention | chat modes | workflow-based | prompt mention |
-| **Suporte MCP**        |   Native    |  Native   | Config | None | Native | None |
+| **Suporte MCP**        |   Native    |  Native   | Config | Config | Provider-specific | Native |
 | **Tarefas de Subagente** |   Yes     |    Yes    |   No   |   No   |     Yes     |     No     |
 | **Auto-sync**          |     Yes     |    Yes    |  Yes   |  Yes   |     Yes     |    Yes     |
-| **Sistema de Hooks**   |     Yes     |    No     |   No   |   No   |      No     |     No     |
-| **Skills/Commands**    |   Native    |  Native   |   No   |   No   |      No     |     No     |
+| **Sistema de Hooks**   |     Yes     |  Limited  |   No   |   No   |      No     |     Yes    |
+| **Skills/Commands**    |   Native    |  Native   |   No   |   No   |      No     |   Native   |
 | **Recomendação**       |    Best     |   Best    |  Best  |  Good  |     Good    |   Good     |
 
 ---
@@ -82,7 +82,7 @@ special_features:
   - AGENTS.md como contrato operacional
   - Skills locais versionadas no projeto
   - Pipeline de greeting compartilhado com Claude
-  - Sem API oficial de hooks; usar AGENTS.md + skills + MCP como equivalente
+  - Comando de notify e hooks de ferramenta emergentes nas releases recentes do Codex
 ```
 
 **Configuração:**
@@ -159,11 +159,12 @@ config_file: .github/copilot-instructions.md
 agent_folder: .github/agents
 activation: chat modes
 format: text
-mcp_support: none
+mcp_support: via VS Code MCP config
 special_features:
   - GitHub integration
   - PR assistance
   - Code review
+  - Integracao com instrucoes de repositorio e MCP no VS Code
 ```
 
 **Configuração:**
@@ -215,15 +216,16 @@ special_features:
 
 ```yaml
 config_file: .gemini/rules.md
-agent_folder: .gemini/agents
+agent_folder: .gemini/rules/AIOS/agents
 activation: prompt mention
 format: text
-mcp_support: none
+mcp_support: native
 special_features:
   - Google AI models
   - CLI-based workflow
   - Multimodal support
   - Eventos de hooks nativos e comandos de hooks
+  - Suporte nativo a servidores MCP
   - UX de comandos/ferramentas em evolucao acelerada
 ```
 
@@ -257,6 +259,8 @@ npm run sync:ide
 npm run sync:ide:cursor
 npm run sync:ide:codex
 npm run sync:ide:gemini
+npm run sync:ide:github-copilot
+npm run sync:ide:antigravity
 
 # Dry run (visualizar mudanças)
 npm run sync:ide -- --dry-run

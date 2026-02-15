@@ -842,32 +842,32 @@ For full details, see `CONTRIBUTING.md`. Key points:
 
 - **Dev Agents Must Be Lean**: Minimize dependencies, save context for code
 - **Natural Language First**: Everything in markdown, no code in core
-- **Core vs Expansion Packs**: Core for universal needs, packs for specialized domains
+- **Core vs Squads**: Core for universal needs, squads for specialized domains
 - **Design Philosophy**: "Dev agents code, planning agents plan"
 
-## Expansion Packs
+## Squads
 
-### What Are Expansion Packs?
+### What Are Squads?
 
 Squads extend AIOS-Method beyond traditional software development into ANY domain. They provide specialized agent teams, templates, and workflows while keeping the core framework lean and focused on development.
 
-### Why Use Expansion Packs?
+### Why Use Squads?
 
 1. **Keep Core Lean**: Dev agents maintain maximum context for coding
 2. **Domain Expertise**: Deep, specialized knowledge without bloating core
-3. **Community Innovation**: Anyone can create and share packs
+3. **Community Innovation**: Anyone can create and share squads
 4. **Modular Design**: Install only what you need
 
-### Available Expansion Packs
+### Available Squads
 
-**Technical Packs**:
+**Technical Squads**:
 
 - **Infrastructure/DevOps**: Cloud architects, SRE experts, security specialists
 - **Game Development**: Game designers, level designers, narrative writers
 - **Mobile Development**: iOS/Android specialists, mobile UX experts
 - **Data Science**: ML engineers, data scientists, visualization experts
 
-**Non-Technical Packs**:
+**Non-Technical Squads**:
 
 - **Business Strategy**: Consultants, financial analysts, marketing strategists
 - **Creative Writing**: Plot architects, character developers, world builders
@@ -875,17 +875,17 @@ Squads extend AIOS-Method beyond traditional software development into ANY domai
 - **Education**: Curriculum designers, assessment specialists
 - **Legal Support**: Contract analysts, compliance checkers
 
-**Specialty Packs**:
+**Specialty Squads**:
 
 - **Expansion Creator**: Tools to build your own squads
 - **RPG Game Master**: Tabletop gaming assistance
 - **Life Event Planning**: Wedding planners, event coordinators
 - **Scientific Research**: Literature reviewers, methodology designers
 
-### Using Expansion Packs
+### Using Squads
 
-1. **Browse Available Packs**: Check `Squads/` directory
-2. **Get Inspiration**: See `docs/Squads.md` for detailed examples and ideas
+1. **Browse Available Squads**: Check `squads/` directory
+2. **Get Inspiration**: See `docs/squads.md` for detailed examples and ideas
 3. **Install via CLI**:
 
    ```bash
@@ -893,11 +893,11 @@ Squads extend AIOS-Method beyond traditional software development into ANY domai
    # Select "Install squad" option
    ```
 
-4. **Use in Your Workflow**: Installed packs integrate seamlessly with existing agents
+4. **Use in Your Workflow**: Installed squads integrate seamlessly with existing agents
 
-### Creating Custom Expansion Packs
+### Creating Custom Squads
 
-Use the **expansion-creator** pack to build your own:
+Use the **squad-creator** squad to build your own:
 
 1. **Define Domain**: What expertise are you capturing?
 2. **Design Agents**: Create specialized roles with clear boundaries

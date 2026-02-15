@@ -101,7 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Directory Structure**: Renamed `.bmad-core/` to `.aios-core/`
+- **Directory Structure**: Renamed `.legacy-core/` to `.aios-core/`
 - **Configuration Format**: Enhanced `core-config.yaml` with new sections for git, projectStatus, and sharding options
 - **Agent Format**: Updated agent YAML schema with persona_profile, commands visibility, and whenToUse fields
 - **IDE Configuration**: Claude Code agents moved to `.claude/commands/AIOS/agents/`
@@ -120,7 +120,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 - Manual installation process (use `npx @synkra/aios-core install` instead)
-- `.bmad-core/` directory name (automatically migrated)
+- `.legacy-core/` directory name (automatically migrated)
 
 ### Security
 
@@ -170,7 +170,7 @@ npx @synkra/aios-core install --force-upgrade
 
 **Key changes:**
 
-1. Directory renamed: `.bmad-core/` → `.aios-core/`
+1. Directory renamed: `.legacy-core/` → `.aios-core/`
 2. Update `core-config.yaml` with new fields
 3. Re-run IDE configuration
 

@@ -48,9 +48,9 @@ npx @aios/fullstack install
 ✓ Detecting installation state...
   Current state: Clean installation
 
-📦 Select Expansion Packs to Install:
+📦 Select Squads to Install:
   ◉ hybrid-ops (Pedro Valério methodology)
-  ◯ expansion-creator (Create new expansion packs)
+  ◯ expansion-creator (Create new squads)
   ◯ aios-infrastructure-devops (DevOps utilities)
   ◯ meeting-notes (Meeting assistant)
 
@@ -64,7 +64,7 @@ npx @aios/fullstack install
   ◉ Multi-file (separate files per section)
 
 ✓ Installing .aios-core/ framework...
-✓ Installing expansion packs...
+✓ Installing squads...
 ✓ Configuring IDE integrations...
 ✓ Creating install manifest...
 
@@ -120,9 +120,9 @@ your-project/
 │       ├── po.mdc
 │       └── ... (30+ rules)
 │
-└── Squads/               # ✅ Se expansion packs selecionados
+└── Squads/               # ✅ Se squads selecionados
     ├── hybrid-ops/                # Metodologia Pedro Valério
-    └── expansion-creator/         # Criador de expansion packs
+    └── expansion-creator/         # Criador de squads
 ```
 
 ### Upgrade de Instalação Existente
@@ -1276,36 +1276,36 @@ O **aios-developer** é o meta-agente para o próprio AIOS:
 
 ## Expansão e Customização
 
-### Expansion Packs
+### Squads
 
-O Synkra AIOS suporta expansion packs para domínios específicos:
+O Synkra AIOS suporta squads para domínios específicos:
 
 **Disponíveis durante instalação**:
 - **hybrid-ops** - Metodologia Pedro Valério (operações híbridas humano-agente)
-- **expansion-creator** - Ferramentas para criar novos expansion packs
+- **expansion-creator** - Ferramentas para criar novos squads
 - **aios-infrastructure-devops** - Utilities de DevOps e infraestrutura
 - **meeting-notes** - Assistente de notas e atas de reuniões
 
-**Configurar expansion packs na instalação**:
+**Configurar squads na instalação**:
 ```bash
-# Durante a instalação, o wizard pergunta quais expansion packs instalar
+# Durante a instalação, o wizard pergunta quais squads instalar
 npx @synkra/aios-core@latest install
 
 # O wizard mostra:
-# 📦 Select Expansion Packs to Install:
+# 📦 Select Squads to Install:
 #   ◉ hybrid-ops
 #   ◯ expansion-creator
 #   ◯ aios-infrastructure-devops
 #   ◯ meeting-notes
 ```
 
-**Adicionar expansion packs depois**:
+**Adicionar squads depois**:
 ```bash
 # Re-execute o instalador
 npx @synkra/aios-core@latest install
 
 # Escolha "Configure IDE settings" ou "Upgrade"
-# Wizard permitirá adicionar expansion packs não instalados
+# Wizard permitirá adicionar squads não instalados
 ```
 
 ### Criar Seus Próprios Agentes
@@ -1388,7 +1388,7 @@ Use este checklist para garantir que está seguindo o workflow corretamente:
 ### Documentação
 - [Guia de Instalação](../docs/getting-started.md)
 - [Arquitetura do AIOS](../docs/architecture.md)
-- [Guia de Expansion Packs](../docs/Squads.md)
+- [Guia de Squads](../docs/Squads.md)
 - [Trabalhando em Brownfield](./working-in-the-brownfield.md)
 
 ### Suporte

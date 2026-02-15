@@ -27,7 +27,7 @@ Closes #(issue number)
 
 ## 🎯 Scope
 - [ ] Core framework (`aios-core/`)
-- [ ] Expansion pack (`expansion-packs/`)
+- [ ] Squad (`squads/`)
 - [ ] Tools (`tools/`)
 - [ ] Documentation (`docs/`)
 - [ ] CI/CD (`.github/`)
@@ -93,7 +93,7 @@ Add screenshots to help explain your changes.
 
 ## 👥 Reviewers
 Tag relevant reviewers:
-- @SynkraAI (PO - required for expansion-pack changes)
+- @SynkraAI (PO - required for squad changes)
 
 ## 🚀 Deployment Notes
 Any special deployment considerations or migration steps needed?
@@ -101,4 +101,3 @@ Any special deployment considerations or migration steps needed?
 ---
 
 **Note:** For expansion-pack related PRs, Product Owner (PO) approval is required before merge.
-

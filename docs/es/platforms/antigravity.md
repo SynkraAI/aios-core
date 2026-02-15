@@ -360,10 +360,10 @@ flowchart LR
 
 ```bash
 # Sincronizar todos los agentes y flujos de trabajo
-npm run sync:agents
+npm run sync:ide
 
 # Sincronizar para AntiGravity
-npm run sync:agents -- --ide antigravity
+npm run sync:ide -- --ide antigravity
 ```
 
 ### Formato de Agente
@@ -449,7 +449,7 @@ Error: Unknown agent '@xyz'
 **Solución:**
 ```bash
 # Resincronizar agentes
-npm run sync:agents
+npm run sync:ide
 
 # Verificar configuración de agente
 cat .antigravity/antigravity.json

@@ -1,4 +1,4 @@
-# Integrate with Expansion Pack
+# Integrate with Squad
 
 > Task ID: atlas-integrate-Squad
 > Agent: Atlas (Design System Builder)

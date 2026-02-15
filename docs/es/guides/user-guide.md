@@ -325,7 +325,7 @@ AIOS soporta multiples IDEs. La configuracion se sincroniza a traves de:
 
 ```bash
 # Sincronizar agentes a tu IDE
-npm run sync:agents
+npm run sync:ide
 ```
 
 ---

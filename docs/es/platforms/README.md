@@ -239,7 +239,7 @@ graph TD
 3. **Sincronice los agentes** a su plataforma:
 
    ```bash
-   npm run sync:agents
+   npm run sync:ide
    ```
 
 4. **Comience a usar los agentes** con la activación específica de la plataforma
@@ -256,7 +256,7 @@ sequenceDiagram
     participant Transform as IDE Transformer
     participant IDE as IDE Config
 
-    User->>CLI: npm run sync:agents
+    User->>CLI: npm run sync:ide
     CLI->>Parser: Cargar definiciones de agentes
     Parser->>Parser: Parsear frontmatter YAML
     Parser->>Transform: Enviar agentes parseados

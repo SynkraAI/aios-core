@@ -53,8 +53,8 @@ credentials/
 .claude/commands/mmosMapper/
 .claude/commands/hybridOps/
 
-# Private local expansion packs/squads (not for repository)
-expansion-packs/
+# Private local squads (not for repository)
+squads/
 keys/
 *.secret
 *.credentials
@@ -105,11 +105,11 @@ sample-project/*
 .aios/project-status.yaml     # Project status cache (Story 6.1.2.4 - auto-generated)
 .cursor/                      # Cursor IDE project files
 aios-memory-layer-mvp/        # Separate memory layer project
-memory/                       # Memory expansion package
-performance/                  # Performance expansion package
+memory/                       # Memory squad
+performance/                  # Performance squad
 scripts/                      # Project-specific scripts (not part of core)
-security/                     # Security expansion package
-telemetry/                    # Telemetry expansion package
+security/                     # Security squad
+telemetry/                    # Telemetry squad
 tests/                        # Test files for expansion projects
 
 # AIOS Development Artifacts (generated during workflow execution)

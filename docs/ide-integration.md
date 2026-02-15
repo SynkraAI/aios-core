@@ -20,11 +20,11 @@ AIOS supports multiple AI-powered development platforms. Choose the one that bes
 | Feature              | Claude Code | Codex CLI | Cursor | Copilot | AntiGravity | Gemini CLI |
 | -------------------- | :---------: | :-------: | :----: | :-----: | :---------: | :--------: |
 | **Agent Activation** |  /command   |  /skills  | @mention | chat modes | workflow-based | prompt mention |
-| **MCP Support**      |   Native    |  Native   | Config | None | Native | None |
+| **MCP Support**      |   Native    |  Native   | Config | Config | Provider-specific | Native |
 | **Subagent Tasks**   |     Yes     |   Yes     |   No   |   No   |     Yes     |     No     |
 | **Auto-sync**        |     Yes     |   Yes     |  Yes   |  Yes   |     Yes     |    Yes     |
-| **Hooks System**     |     Yes     |    No     |   No   |   No   |      No     |     No     |
-| **Skills/Commands**  |   Native    |  Native   |   No   |   No   |      No     |     No     |
+| **Hooks System**     |     Yes     |  Limited  |   No   |   No   |      No     |     Yes    |
+| **Skills/Commands**  |   Native    |  Native   |   No   |   No   |      No     |    Native  |
 | **Recommendation**   |    Best     |   Best    |  Best  |  Good  |     Good    |   Good     |
 
 ---
@@ -83,7 +83,7 @@ special_features:
   - /skills activators (aios-<agent-id>)
   - Strong CLI workflow support
   - Easy integration with repository scripts
-  - No official hooks API; use AGENTS.md + skills + MCP as operational equivalent
+  - Notify command plus emerging tool hooks in recent Codex releases
 ```
 
 **Setup:**
@@ -165,11 +165,12 @@ config_file: .github/copilot-instructions.md
 agent_folder: .github/agents
 activation: chat modes
 format: text
-mcp_support: none
+mcp_support: via VS Code MCP config
 special_features:
   - GitHub integration
   - PR assistance
   - Code review
+  - Works with repo instructions and VS Code MCP config
 ```
 
 **Setup:**
@@ -224,12 +225,13 @@ config_file: .gemini/rules.md
 agent_folder: .gemini/rules/AIOS/agents
 activation: prompt mention
 format: text
-mcp_support: none
+mcp_support: native
 special_features:
   - Google AI models
   - CLI-based workflow
   - Multimodal support
   - Native hooks events and hook commands
+  - Native MCP server support
   - Rapidly evolving command/tooling UX
 ```
 
@@ -261,6 +263,8 @@ npm run sync:ide
 
 # Sync only Gemini
 npm run sync:ide:gemini
+npm run sync:ide:github-copilot
+npm run sync:ide:antigravity
 
 # Validate sync
 npm run sync:ide:check
@@ -279,8 +283,10 @@ auto_sync:
   platforms:
     - claude
     - codex
+    - github-copilot
     - cursor
     - gemini
+    - antigravity
 ```
 
 ---

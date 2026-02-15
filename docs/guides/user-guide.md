@@ -360,7 +360,7 @@ AIOS supports multiple IDEs. Configuration is synchronized across:
 
 ```bash
 # Sync agents to your IDE
-npm run sync:agents
+npm run sync:ide
 ```
 
 ---

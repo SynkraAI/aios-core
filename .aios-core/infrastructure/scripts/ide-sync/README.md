@@ -12,6 +12,7 @@ IDE Sync keeps agent definitions in `.aios-core/development/agents/` synchronize
 - `.claude/commands/AIOS/agents/` (Claude Code)
 - `.codex/agents/` (Codex CLI support files)
 - `.gemini/rules/AIOS/agents/` (Gemini CLI)
+- `.github/agents/` (GitHub Copilot support files)
 - `.cursor/rules/agents/` (Cursor)
 - `.antigravity/rules/agents/` (Antigravity)
 
@@ -58,6 +59,8 @@ Sync specific IDE only:
 npm run sync:ide:cursor
 npm run sync:ide:codex
 npm run sync:ide:gemini
+npm run sync:ide:github-copilot
+npm run sync:ide:antigravity
 npm run sync:ide:claude
 ```
 
@@ -110,6 +113,10 @@ ideSync:
       enabled: true
       path: .gemini/rules/AIOS/agents
       format: full-markdown-yaml
+    github-copilot:
+      enabled: true
+      path: .github/agents
+      format: full-markdown-yaml
     cursor:
       enabled: true
       path: .cursor/rules/agents
@@ -129,6 +136,7 @@ Each IDE has a specific format for agent files:
 | Claude Code | Full markdown with YAML | `.md`     |
 | Codex CLI   | Full markdown with YAML | `.md`     |
 | Gemini CLI  | Full markdown with YAML | `.md`     |
+| GitHub Copilot | Full markdown with YAML | `.md`   |
 | Cursor      | Condensed rules         | `.md`     |
 | Antigravity | Cursor-style            | `.md`     |
 

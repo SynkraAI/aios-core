@@ -211,7 +211,7 @@ This release marks the **Open-Source Community Readiness** milestone, preparing 
 - Breaking Change: hybrid-ops no longer bundled with @synkra/aios-core
 - Migration: Users can install from external repo to `squads/hybrid-ops/`
 - Story: 4.7 - Removed `squads/hybrid-ops.legacy/` directory (legacy backup no longer needed)
-- Story: 4.5.3 - Expansion-Packs Naming Convention Migration
+- Story: 4.5.3 - Squads Naming Convention Migration
   - Applied naming convention from Story 4.5.2 to all 6 squads
   - Total: 15 tasks renamed (11 new + 4 pre-existing)
   - 18 agent files updated with new dependencies

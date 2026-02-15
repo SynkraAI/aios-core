@@ -44,19 +44,19 @@ squad:
   - changed-files:
     - any-glob-to-any-file:
       - 'aios-squads/**/*'
-      - 'expansion-packs/**/*'
+      - 'squads/**/*'
 
 'squad: etl':
   - changed-files:
     - any-glob-to-any-file:
       - 'aios-squads/etl-squad/**/*'
-      - 'expansion-packs/etl/**/*'
+      - 'squads/etl/**/*'
 
 'squad: creator':
   - changed-files:
     - any-glob-to-any-file:
       - 'aios-squads/creator-squad/**/*'
-      - 'expansion-packs/creator/**/*'
+      - 'squads/creator/**/*'
 
 # ============================================
 # MCP ECOSYSTEM LABELS

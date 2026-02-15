@@ -70,6 +70,11 @@ function loadConfig(projectRoot) {
         path: '.gemini/rules/AIOS/agents',
         format: 'full-markdown-yaml',
       },
+      'github-copilot': {
+        enabled: true,
+        path: '.github/agents',
+        format: 'full-markdown-yaml',
+      },
       cursor: {
         enabled: true,
         path: '.cursor/rules/agents',

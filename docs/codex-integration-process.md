@@ -12,8 +12,9 @@ O Codex hoje e alvo de primeira classe no AIOS:
 - skills nativas via `.codex/skills` com estrategia local-first
 - pipeline canonico de greeting/ativacao compartilhado
 - validadores dedicados para detectar drift rapidamente
+- suporte a notify command e hooks de ferramenta em releases recentes do Codex CLI
 
-Em termos práticos: Codex esta no mesmo trilho arquitetural das integracoes principais do AIOS, sem caminho paralelo legado.
+Em termos praticos: Codex esta no mesmo trilho arquitetural das integracoes principais do AIOS, sem caminho paralelo legado.
 
 ## Arquitetura Canonica
 
@@ -78,6 +79,14 @@ Criterio de sucesso:
 - `.codex/agents/*.md` existente
 - `.codex/skills/aios-*/SKILL.md` existente
 - validadores sem erro
+
+## Recursos Recentes do Codex (AIOS 4.0)
+
+- `notify` command configuravel no `config.toml`
+- aprovacoes por preset (`suggest`/`auto-edit`/`full-auto`)
+- hooks de ferramenta e de execucao de comandos em evolucao no CLI
+
+No AIOS, o caminho recomendado continua: `AGENTS.md` + `/skills` + MCP + scripts de sync/validacao.
 
 ## Problemas Classicos e Correcao
 

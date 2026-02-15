@@ -34,7 +34,7 @@ e este projeto adere ao [Versionamento Semantico](https://semver.org/lang/pt-BR/
 
 ### Alterado
 
-- **Estrutura de Diretorios**: Renomeado `.bmad-core/` para `.aios-core/`
+- **Estrutura de Diretorios**: Renomeado `.legacy-core/` para `.aios-core/`
 - **Formato de Configuracao**: `core-config.yaml` aprimorado com novas secoes para git, projectStatus e opcoes de sharding
 - **Formato de Agentes**: Esquema YAML de agentes atualizado com persona_profile, visibilidade de comandos e campos whenToUse
 - **Configuracao de IDE**: Agentes do Claude Code movidos para `.claude/commands/AIOS/agents/`
@@ -53,7 +53,7 @@ e este projeto adere ao [Versionamento Semantico](https://semver.org/lang/pt-BR/
 ### Descontinuado
 
 - Processo de instalacao manual (use `npx @synkra/aios-core install` em vez disso)
-- Nome do diretorio `.bmad-core/` (migrado automaticamente)
+- Nome do diretorio `.legacy-core/` (migrado automaticamente)
 
 ### Seguranca
 
@@ -103,7 +103,7 @@ npx @synkra/aios-core install --force-upgrade
 ```
 
 **Principais alteracoes:**
-1. Diretorio renomeado: `.bmad-core/` -> `.aios-core/`
+1. Diretorio renomeado: `.legacy-core/` -> `.aios-core/`
 2. Atualizar `core-config.yaml` com novos campos
 3. Executar novamente a configuracao do IDE
 

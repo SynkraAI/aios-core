@@ -376,13 +376,13 @@ flowchart LR
 
 ```bash
 # Sincronizar todos os agentes
-npm run sync:agents
+npm run sync:ide
 
 # Sincronizar agente específico
-npm run sync:agents -- --agent dev
+npm run sync:ide
 
 # Forçar ressincronização
-npm run sync:agents -- --force
+npm run sync:ide
 ```
 
 ### Formato de Arquivo de Agente
@@ -510,7 +510,7 @@ Problema: @dev não ativa agente
 
 ```bash
 # Ressincronizar agentes
-npm run sync:agents
+npm run sync:ide
 
 # Verificar se arquivo do agente existe
 ls .cursor/rules/dev.md
@@ -565,7 +565,7 @@ R: Sim, mas é recomendado usar um agente por tarefa para clareza.
 R: Em `.cursor/rules/` após a sincronização.
 
 **P: Como atualizo os agentes?**
-R: Execute `npm run sync:agents` após atualizações do AIOS.
+R: Execute `npm run sync:ide` após atualizações do AIOS.
 
 ---
 

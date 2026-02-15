@@ -410,13 +410,13 @@ flowchart LR
 
 ```bash
 # Sincronizar todos os agentes
-npm run sync:agents
+npm run sync:ide
 
 # Sincronizar agente específico
-npm run sync:agents -- --agent dev
+npm run sync:ide
 
 # Forçar ressincronização
-npm run sync:agents -- --force
+npm run sync:ide
 ```
 
 ### Formato de Arquivo de Agente
@@ -521,7 +521,7 @@ Error: Unknown command '/xyz'
 **Solução:**
 ```bash
 # Ressincronizar agentes
-npm run sync:agents
+npm run sync:ide
 
 # Verificar se o agente existe
 ls .claude/commands/AIOS/agents/
@@ -615,7 +615,7 @@ R: Após atualizar o AIOS ou quando agentes são modificados no core.
 
 4. Sincronize agentes:
    ```bash
-   npm run sync:agents
+   npm run sync:ide
    ```
 
 ### Do Claude Code para Outra IDE

@@ -1,4 +1,4 @@
-# Database Integration Analysis for Expansion Pack
+# Database Integration Analysis for Squad
 
 > Task ID: db-Squad-integration
 > Agent: DB Sage (Database Architect)
@@ -218,7 +218,7 @@ Analyze an squad's data requirements and design database integration strategy. M
 
 ## Workflow
 
-### Step 1: Identify Target Expansion Pack
+### Step 1: Identify Target Squad
 
 **Elicit from user:**
 - Which squad? (mmos, creator-os, innerlens, etc.)
@@ -230,7 +230,7 @@ Analyze an squad's data requirements and design database integration strategy. M
 
 ---
 
-### Step 2: Audit Expansion Pack Data Flows
+### Step 2: Audit Squad Data Flows
 
 **Scan pack structure for data touchpoints:**
 
