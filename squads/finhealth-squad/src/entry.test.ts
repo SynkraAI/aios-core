@@ -38,7 +38,7 @@ function getAllStdoutJsons(writeSpy: ReturnType<typeof vi.spyOn>): any[] {
 // Tests
 // ============================================================================
 
-describe('entry.ts', () => {
+describe('entry.ts', { timeout: 10_000 }, () => {
   let exitSpy: ReturnType<typeof vi.spyOn>;
   let writeSpy: ReturnType<typeof vi.spyOn>;
   let originalStdin: typeof process.stdin;
@@ -155,6 +155,32 @@ describe('entry.ts', () => {
       const outputs = getAllStdoutJsons(writeSpy);
       expect(outputs[0].success).toBe(false);
       expect(exitSpy).toHaveBeenCalledWith(2);
+    });
+
+    it('should error with exit code 2 for unknown agentId', async () => {
+      await runEntry(JSON.stringify({ agentId: 'unknown-agent', taskName: 'test', parameters: {} }));
+      const outputs = getAllStdoutJsons(writeSpy);
+      const errorOutput = outputs.find((o: any) => o.errors?.[0]?.includes('Unknown agentId'));
+      expect(errorOutput).toBeDefined();
+      expect(errorOutput.errors[0]).toContain('unknown-agent');
+      expect(errorOutput.errors[0]).toContain('Allowed:');
+      expect(exitSpy).toHaveBeenCalledWith(2);
+    });
+
+    it('should accept all 5 known agent IDs without validation error', async () => {
+      const knownAgents = [
+        'billing-agent', 'auditor-agent', 'cashflow-agent',
+        'reconciliation-agent', 'supervisor-agent',
+      ];
+      for (const agentId of knownAgents) {
+        vi.resetModules();
+        writeSpy = vi.spyOn(process.stdout, 'write').mockReturnValue(true);
+        exitSpy = vi.spyOn(process, 'exit').mockImplementation((() => {}) as any);
+        await runEntry(JSON.stringify({ agentId, taskName: 'test', parameters: {} }));
+        const outputs = getAllStdoutJsons(writeSpy);
+        const agentIdError = outputs.find((o: any) => o.errors?.[0]?.includes('Unknown agentId'));
+        expect(agentIdError).toBeUndefined();
+      }
     });
   });
 

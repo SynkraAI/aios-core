@@ -19,6 +19,7 @@
 import { AgentRuntime, createRuntime, TaskInput, TaskResult } from './runtime/agent-runtime';
 import { PipelineExecutor } from './pipeline/pipeline-executor';
 import { CircuitBreaker } from './pipeline/circuit-breaker';
+import { AgentRegistry } from './registry/agent-registry';
 import { logger } from './logger';
 import * as path from 'path';
 
@@ -92,6 +93,14 @@ function validateWorkflowInput(raw: Record<string, unknown>): WorkflowInput {
   };
 }
 
+const ALLOWED_AGENTS = [
+  'billing-agent',
+  'auditor-agent',
+  'cashflow-agent',
+  'reconciliation-agent',
+  'supervisor-agent',
+] as const;
+
 function validateTaskInput(raw: unknown): EntryInput {
   if (!raw || typeof raw !== 'object') {
     writeError('Invalid input: expected JSON object', 2);
@@ -101,6 +110,13 @@ function validateTaskInput(raw: unknown): EntryInput {
 
   if (!input.agentId || typeof input.agentId !== 'string') {
     writeError('Invalid input: missing or invalid "agentId" (string required)', 2);
+  }
+
+  if (!ALLOWED_AGENTS.includes(input.agentId as (typeof ALLOWED_AGENTS)[number])) {
+    writeError(
+      `Unknown agentId: "${input.agentId}". Allowed: ${ALLOWED_AGENTS.join(', ')}`,
+      2,
+    );
   }
 
   if (!input.taskName || typeof input.taskName !== 'string') {
@@ -223,9 +239,15 @@ async function main(): Promise<void> {
       context: { ...input.context, organizationId } as Record<string, any>,
     };
 
+    // Route through AgentRegistry (native TS → Zod validation → runtime)
+    const registry = new AgentRegistry({
+      runtime: runtime!,
+      organizationId,
+    });
+
     let result: TaskResult;
     try {
-      result = await runtime!.executeTask(taskInput);
+      result = await registry.executeTask(taskInput);
     } catch (err: unknown) {
       writeError(
         `Task execution failed: ${err instanceof Error ? err.message : 'Unknown'}`,

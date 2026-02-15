@@ -101,6 +101,10 @@ export type {
   ReportComparativo,
 } from './templates/types';
 
+// Registry
+export { AgentRegistry } from './registry/agent-registry';
+export type { AgentRegistryConfig } from './registry/agent-registry';
+
 // Pipeline
 export { PipelineExecutor } from './pipeline/pipeline-executor';
 export type {
