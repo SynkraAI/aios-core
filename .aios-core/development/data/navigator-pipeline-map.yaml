@@ -1,0 +1,143 @@
+# Pipeline de 10 fases do AIOS
+# Fonte: AIOS-GUIA-COMPLETO.html + AIOS-MANUAL.html
+# Used by: Navigator Agent for phase detection and auto-navigation
+
+phases:
+  - id: 1
+    name: Pesquisa
+    agent: analyst
+    icon: 🔍
+    command: '*brainstorm'
+    description: 'Market research, competitive analysis, brainstorming'
+    inputs: []
+    outputs:
+      - 'docs/research/market-analysis.md'
+      - 'docs/research/competitive-analysis.md'
+    next_phase: 2
+
+  - id: 2
+    name: PRD
+    agent: pm
+    icon: 📋
+    command: '*create-prd'
+    description: 'Product Requirements Document creation'
+    inputs:
+      - 'docs/research/*'
+    outputs:
+      - 'docs/prd.yaml'
+    next_phase: 3
+
+  - id: 3
+    name: Arquitetura
+    agent: architect
+    icon: 🏗️
+    command: '*create-full-stack-architecture'
+    description: 'Technical architecture design'
+    inputs:
+      - 'docs/prd.yaml'
+    outputs:
+      - 'docs/architecture/full-stack-architecture.yaml'
+    next_phase: 4
+
+  - id: 4
+    name: Épicos
+    agent: pm
+    icon: 📋
+    command: '*create-epic'
+    description: 'Epic creation and breakdown'
+    inputs:
+      - 'docs/prd.yaml'
+      - 'docs/architecture/*.yaml'
+    outputs:
+      - 'docs/stories/epic-*.md'
+    next_phase: 5
+
+  - id: 5
+    name: Stories
+    agent: sm
+    icon: 🔄
+    command: '*draft'
+    description: 'User story creation'
+    inputs:
+      - 'docs/stories/epic-*.md'
+    outputs:
+      - 'docs/stories/story-*.md'
+    next_phase: 6
+
+  - id: 6
+    name: Validação
+    agent: po
+    icon: 🎯
+    command: '*validate-story-draft'
+    description: 'Story validation and acceptance criteria'
+    inputs:
+      - 'docs/stories/story-*.md'
+    outputs:
+      - 'Validated stories (updated)'
+    next_phase: 7
+
+  - id: 7
+    name: Desenvolvimento
+    agent: dev
+    icon: ⚙️
+    command: '*develop'
+    description: 'Code implementation'
+    inputs:
+      - 'docs/stories/story-*.md'
+    outputs:
+      - 'src/**/*'
+      - 'tests/**/*'
+    next_phase: 8
+
+  - id: 8
+    name: QA & Testes
+    agent: qa
+    icon: ✅
+    command: '*review'
+    description: 'Quality assurance and testing'
+    inputs:
+      - 'src/**/*'
+      - 'tests/**/*'
+    outputs:
+      - '.aios/qa-reports/*.md'
+    next_phase: 9
+
+  - id: 9
+    name: Fix Loop
+    agent: dev
+    icon: 🔧
+    command: '*apply-qa-fixes'
+    description: 'Fix QA issues and re-test'
+    inputs:
+      - '.aios/qa-reports/*.md'
+    outputs:
+      - 'Fixed code'
+    next_phase: 10
+    loop_back_to: 8  # Se ainda houver issues
+
+  - id: 10
+    name: Deploy
+    agent: devops
+    icon: ⚡
+    command: '*push'
+    description: 'Git push and deployment'
+    inputs:
+      - 'Validated code'
+    outputs:
+      - 'Remote repository updated'
+    next_phase: null  # Fim do pipeline
+
+# Regras de transição
+transitions:
+  auto_advance:
+    - condition: 'all outputs created'
+      action: 'move to next_phase'
+
+  blocked:
+    - condition: 'missing inputs'
+      action: 'stay in current phase, report blocker'
+
+  loop:
+    - phase: 9
+      condition: 'QA issues exist'
+      action: 'loop back to phase 8'
