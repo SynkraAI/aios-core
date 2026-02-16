@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-16T00:13:24.489Z'
+  lastUpdated: '2026-02-16T01:12:06.472Z'
   entityCount: 497
   checksumAlgorithm: sha256
 entities:
@@ -4720,7 +4720,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:c0621a46f2a37ec8c8cfe6b6b240eaf207738693c80199ead7c338d4223d15c2
-      lastVerified: '2026-02-16T00:13:24.487Z'
+      lastVerified: '2026-02-16T01:12:06.470Z'
     codex-rules:
       path: .aios-core/product/templates/ide-rules/codex-rules.md
       type: template
