@@ -122,6 +122,31 @@ export type { CircuitState, CircuitBreakerConfig } from './pipeline/circuit-brea
 export { classifyError, isRetryable } from './pipeline/error-classifier';
 export type { ErrorCategory } from './pipeline/error-classifier';
 
+// Crypto
+export { CertificateManager } from './crypto/certificate-manager';
+export { XmlSigner } from './crypto/xml-signer';
+export type {
+  CertificateInfo,
+  CertificateValidation,
+  SigningResult,
+  VerificationResult,
+} from './crypto/types';
+
+// Scheduler
+export { WorkflowScheduler } from './scheduler/workflow-scheduler';
+export { EventDispatcher } from './scheduler/event-dispatcher';
+export { ExecutionLogger } from './scheduler/execution-logger';
+export { runSchedulerCli } from './scheduler/scheduler-cli';
+export type {
+  ScheduledJob,
+  EventBinding,
+  WorkflowExecution,
+  SchedulerStatus,
+  SchedulerConfig,
+  TriggerType,
+  ExecutionStatus,
+} from './scheduler/types';
+
 // Logger
 export { logger, createAgentLogger } from './logger';
 
