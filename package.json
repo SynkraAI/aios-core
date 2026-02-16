@@ -1,6 +1,6 @@
 {
   "name": "aios-core",
-  "version": "4.2.3",
+  "version": "4.2.4",
   "description": "Synkra AIOS: AI-Orchestrated System for Full Stack Development - Core Framework",
   "bin": {
     "aios": "bin/aios.js",
@@ -19,6 +19,7 @@
     ".claude/CLAUDE.md",
     ".claude/rules/",
     ".claude/hooks/",
+    "pro/license/",
     "README.md",
     "LICENSE"
   ],
