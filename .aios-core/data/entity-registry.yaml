@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-15T22:31:57.444Z'
+  lastUpdated: '2026-02-15T22:52:07.325Z'
   entityCount: 497
   checksumAlgorithm: sha256
 entities:
@@ -1213,8 +1213,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:9be22b14a1e7f6e2b065c894d9bacb754a13306a73cdb56f6834f223541471d3
-      lastVerified: '2026-02-08T13:33:24.193Z'
+      checksum: sha256:6b76a6b428a1a45573431739d4740a78955a7af7a3156515d7151eb97bae2d90
+      lastVerified: '2026-02-15T22:52:07.324Z'
     dev-improve-code-quality:
       path: .aios-core/development/tasks/dev-improve-code-quality.md
       type: task
@@ -2292,8 +2292,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:730dc930cd78b0e4313326068ecd390d3f19ecbfc98d04b3935dc6130049a951
-      lastVerified: '2026-02-15T19:17:32.644Z'
+      checksum: sha256:472fbb54b04f3e7f5db864a071e8289970461a5f6636b0db55336a95f7740b26
+      lastVerified: '2026-02-15T22:52:07.324Z'
     propose-modification:
       path: .aios-core/development/tasks/propose-modification.md
       type: task
@@ -3287,8 +3287,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:c376c2844aaff4fccf4970215f864fd329c029f891176481814d69c46784f759
-      lastVerified: '2026-02-15T19:17:32.645Z'
+      checksum: sha256:51961002b69bc5cab4a191214e9d49ca9bb02d4d82663fe674fbc3a77edf41f3
+      lastVerified: '2026-02-15T22:52:07.324Z'
     squad-creator-publish:
       path: .aios-core/development/tasks/squad-creator-publish.md
       type: task
@@ -3494,8 +3494,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:425aab2ec69812648676d3dc6072136fd5614177d82cf6c979cdec1ed825cdef
-      lastVerified: '2026-02-15T19:17:32.645Z'
+      checksum: sha256:895779bca1ca13f387fd0cbac23fbd0ac5e8b04b9002372ee7ef092ac26a9652
+      lastVerified: '2026-02-15T22:52:07.325Z'
     update-manifest:
       path: .aios-core/development/tasks/update-manifest.md
       type: task
@@ -3860,8 +3860,6 @@ entities:
         - integration
         - database
         - analysis
-        - expansion
-        - pack
       usedBy: []
       dependencies:
         - N/A
@@ -3869,8 +3867,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:ecd73fbd76ea15664c13abcb9ad328586b097e1ed42b5889ce6ea16e0d4d1644
-      lastVerified: '2026-02-15T19:17:32.644Z'
+      checksum: sha256:5a5d601d97131287e373ac8ad2a78df8987753532c504704c87255580231b0b8
+      lastVerified: '2026-02-15T22:52:07.324Z'
     integrate-squad:
       path: .aios-core/development/tasks/integrate-squad.md
       type: task
@@ -3878,8 +3876,6 @@ entities:
       keywords:
         - integrate
         - squad
-        - expansion
-        - pack
       usedBy: []
       dependencies:
         - N/A
@@ -3887,8 +3883,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:f645b5ea7940b0cde92f542acb3263ce36bc41aec202bb123e5628a89cd55948
-      lastVerified: '2026-02-15T19:17:32.644Z'
+      checksum: sha256:95e2774c4da99467fa397d773203847d367bf4c5e6060f89534dd931088359e3
+      lastVerified: '2026-02-15T22:52:07.324Z'
   templates:
     activation-instructions-inline-greeting:
       path: .aios-core/product/templates/activation-instructions-inline-greeting.yaml
@@ -8252,8 +8248,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:b02e24a4129ed2e6674b4bb51ee5bcb03b33146ec1b9d9ddcf81c9acbea97259
-      lastVerified: '2026-02-15T22:30:45.702Z'
+      checksum: sha256:c1266389772b3fcf3e4c91df085bd38dc0b01d0a5f98bdf977d134972ccaf49b
+      lastVerified: '2026-02-15T22:52:07.323Z'
     active-modules.verify:
       path: .aios-core/core/memory/__tests__/active-modules.verify.js
       type: module
@@ -8914,8 +8910,8 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:6170dbc0c19be1e0c9cf77a23cf0f8f6fbbd0b8a82d5e810a3c58e17cdbbfa2f
-      lastVerified: '2026-02-15T22:31:57.442Z'
+      checksum: sha256:c322dbd1964172108be6d1520f8d596472fac69258ef3a12d7b9e26079553b18
+      lastVerified: '2026-02-15T22:52:07.324Z'
     entity-registry:
       path: .aios-core/data/entity-registry.yaml
       type: data

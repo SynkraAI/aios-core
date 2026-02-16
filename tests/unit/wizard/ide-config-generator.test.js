@@ -258,6 +258,35 @@ describe('IDE Config Generator', () => {
       expect(await fs.pathExists(configPath)).toBe(true);
     });
 
+    it('should configure Gemini hooks and settings with active AIOS hooks', async () => {
+      const selectedIDEs = ['gemini'];
+      const wizardState = { projectName: 'test', projectType: 'greenfield' };
+
+      const result = await generateIDEConfigs(selectedIDEs, wizardState, {
+        projectRoot: testDir,
+      });
+
+      expect(result.success).toBe(true);
+
+      const hooksDir = path.join(testDir, '.gemini', 'hooks');
+      const settingsPath = path.join(testDir, '.gemini', 'settings.json');
+      expect(await fs.pathExists(hooksDir)).toBe(true);
+      expect(await fs.pathExists(path.join(hooksDir, 'before-agent.js'))).toBe(true);
+      expect(await fs.pathExists(path.join(hooksDir, 'session-start.js'))).toBe(true);
+      expect(await fs.pathExists(settingsPath)).toBe(true);
+
+      const settings = JSON.parse(await fs.readFile(settingsPath, 'utf8'));
+      expect(settings.hooks).toBeDefined();
+      expect(Array.isArray(settings.hooks.BeforeAgent)).toBe(true);
+      const beforeAgentWrapper = settings.hooks.BeforeAgent.find(
+        (w) => Array.isArray(w.hooks) && w.hooks.some((h) => h.name === 'aios-context-inject'),
+      );
+      expect(beforeAgentWrapper).toBeDefined();
+      const hook = beforeAgentWrapper.hooks.find((h) => h.name === 'aios-context-inject');
+      expect(hook.enabled).toBe(true);
+      expect(hook.command).toContain('.gemini/hooks/before-agent.js');
+    });
+
     it('should handle invalid IDE key gracefully', async () => {
       const selectedIDEs = ['invalid-ide'];
       const wizardState = { projectName: 'test', projectType: 'greenfield' };

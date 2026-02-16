@@ -250,7 +250,7 @@ special_features:
 ```yaml
 config_file: .gemini/rules.md
 agent_folder: .gemini/rules/AIOS/agents
-activation: prompt mention
+activation: slash launcher commands
 format: text
 mcp_support: native
 special_features:
@@ -277,6 +277,11 @@ npm run sync:ide:gemini
 npm run validate:gemini-sync
 npm run validate:gemini-integration
 ```
+
+4. Quick agent activation (recommended):
+   - `/aios-menu` to list shortcuts
+   - `/aios-dev`, `/aios-architect`, `/aios-qa`, etc.
+   - `/aios-agent <agent-id>` for generic launcher
 
 ---
 

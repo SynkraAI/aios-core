@@ -196,6 +196,27 @@ describe('Wizard IDE Flow Integration', () => {
       const content = await fs.readFile(claudePath, 'utf8');
       expect(content).toContain('Synkra AIOS');
     });
+
+    it('should generate Gemini settings and hooks for lifecycle integration', async () => {
+      const wizardState = {
+        projectType: 'greenfield',
+        projectName: 'gemini-hooks-test',
+        selectedIDEs: ['gemini'],
+      };
+
+      const result = await generateIDEConfigs(wizardState.selectedIDEs, wizardState, {
+        projectRoot: testDir,
+      });
+
+      expect(result.success).toBe(true);
+      expect(await fs.pathExists(path.join(testDir, '.gemini', 'settings.json'))).toBe(true);
+      expect(await fs.pathExists(path.join(testDir, '.gemini', 'hooks', 'before-agent.js'))).toBe(
+        true,
+      );
+      expect(await fs.pathExists(path.join(testDir, '.gemini', 'hooks', 'session-start.js'))).toBe(
+        true,
+      );
+    });
   });
 
   describe('Error handling and edge cases', () => {
