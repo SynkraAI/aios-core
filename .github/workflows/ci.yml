@@ -329,7 +329,7 @@ jobs:
   validation-summary:
     name: Validation Summary
     runs-on: ubuntu-latest
-    needs: [changes, security-audit, lint, typecheck, test, story-validation, manifest-validation, ide-sync-validation, installer-smoke-test]
+    needs: [changes, security-audit, lint, typecheck, test, story-validation, manifest-validation, ide-sync-validation, installer-smoke-test, compatibility-parity-gate]
     if: always()
 
     steps:

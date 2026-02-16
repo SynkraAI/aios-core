@@ -91,8 +91,7 @@ describe('Onboarding smoke flow (AIOS-DIFF-4.0.5)', () => {
     expect(greeting).toContain('Available Commands');
     expect(greeting).toContain('*help');
 
-    // Target for real user path is <=10 min; CI allows margin up to 12 min.
-    expect(elapsedSeconds).toBeLessThanOrEqual(CI_MARGIN_SECONDS);
+    // Target for real user path is <=10 min.
     expect(elapsedSeconds).toBeLessThanOrEqual(FIRST_VALUE_TARGET_SECONDS);
   });
 });
