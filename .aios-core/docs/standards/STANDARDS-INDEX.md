@@ -23,11 +23,11 @@
 
 ## 📚 Standards by Category
 
-### Core Framework Standards (Current v4.0.4)
+### Core Framework Standards (Current v4.2)
 
 | Document | Description | Status | Version |
 |----------|-------------|--------|---------|
-| [AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md](./AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md) | **Complete v4.0.4 framework guide** | ✅ Current | 2.1.0 |
+| [AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md](./AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md) | **Complete v4.2 framework guide** | ✅ Current | 2.1.0 |
 | [QUALITY-GATES-SPECIFICATION.md](./QUALITY-GATES-SPECIFICATION.md) | 3-layer quality gates system | ✅ Current | 2.1.0 |
 | [STORY-TEMPLATE-V2-SPECIFICATION.md](./STORY-TEMPLATE-V2-SPECIFICATION.md) | Story template v2.0 specification | ✅ Current | 2.0.0 |
 | [TASK-FORMAT-SPECIFICATION-V1.md](./TASK-FORMAT-SPECIFICATION-V1.md) | Task-First architecture format | ✅ Current | 1.0.0 |
@@ -60,13 +60,13 @@
 
 ---
 
-## 🔄 What Changed in v4.0.4
+## 🔄 What Changed in v4.2
 
 ### New Documents Created
 
 | Document | Purpose |
 |----------|---------|
-| AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md | Consolidated v4.0.4 documentation |
+| AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md | Consolidated v4.2 documentation |
 | QUALITY-GATES-SPECIFICATION.md | 3-layer quality gates |
 | STORY-TEMPLATE-V2-SPECIFICATION.md | Story template v2.0 |
 | STANDARDS-INDEX.md | This navigation document |
@@ -101,8 +101,8 @@
 .aios-core/docs/standards/
 ├── STANDARDS-INDEX.md                     # This file - navigation
 │
-├── Current v4.0.4 Standards
-│   ├── AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md  # Complete v4.0.4 guide
+├── Current v4.2 Standards
+│   ├── AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md  # Complete v4.2 guide
 │   ├── QUALITY-GATES-SPECIFICATION.md       # Quality gates
 │   ├── STORY-TEMPLATE-V2-SPECIFICATION.md   # Story template
 │   ├── TASK-FORMAT-SPECIFICATION-V1.md      # Task format
@@ -156,7 +156,7 @@ Located in `docs/`:
 
 | Status | Meaning | Action |
 |--------|---------|--------|
-| ✅ Current | Up-to-date with v4.0.4 | Use as reference |
+| ✅ Current | Up-to-date with v4.2 | Use as reference |
 | ⚠️ Deprecated | Superseded by newer document | Refer to replacement |
 | ⚠️ Needs Update | Content outdated | Update planned |
 | 📦 Archive Candidate | Should be archived | Move to _archived/ |
@@ -201,7 +201,7 @@ grep -r "v2.0" .aios-core/docs/standards --include="*.md"
 
 | Date | Version | Changes | Author |
 |------|---------|---------|--------|
-| 2025-12-09 | 2.1.0 | Initial STANDARDS-INDEX creation for v4.0.4 | @dev (Dex) |
+| 2025-12-09 | 2.1.0 | Initial STANDARDS-INDEX creation for v4.2 | @dev (Dex) |
 
 ---
 

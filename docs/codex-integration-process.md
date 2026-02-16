@@ -1,6 +1,6 @@
 # Integracao AIOS com Codex CLI (Estado Atual)
 
-Este documento descreve o estado operacional atual da integracao AIOS + Codex CLI no AIOS `4.0.4`.
+Este documento descreve o estado operacional atual da integracao AIOS + Codex CLI no AIOS `4.2.11`.
 O foco aqui nao e historico: e operacao pratica, compatibilidade real e como manter sem regressao.
 
 ## Resumo Executivo
@@ -16,7 +16,7 @@ O Codex hoje e alvo de primeira classe no AIOS:
 
 Em termos praticos: Codex esta no mesmo trilho arquitetural das integracoes principais do AIOS, sem caminho paralelo legado.
 
-## Status de Compatibilidade (AIOS 4.0.4)
+## Status de Compatibilidade (AIOS 4.2)
 
 | O que você quer fazer | Funciona no Codex? | Como fazer |
 | --- | --- | --- |

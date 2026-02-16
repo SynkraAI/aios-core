@@ -177,7 +177,7 @@ docs/architecture/
 
 | Status | Meaning |
 |--------|---------|
-| ✅ Current | Up-to-date with v4.0.4 |
+| ✅ Current | Up-to-date with v4.2 |
 | ⚠️ Update needed | Needs terminology or content update |
 | 📦 Legacy | Historical reference |
 | 🆕 New | Recently created |

@@ -29,7 +29,7 @@
 
 **AIOS (AI Operating System)** é um framework sofisticado para orquestração de agentes de IA, workers e humanos em fluxos de trabalho complexos de desenvolvimento de software. A versão 2.1 introduz uma arquitetura modular com 4 módulos, estratégia multi-repositório e quality gates de 3 camadas.
 
-### Capacidades Principais v4.0.4
+### Capacidades Principais v4.2
 
 | Capacidade                    | Descrição                                                                         |
 | ----------------------------- | --------------------------------------------------------------------------------- |

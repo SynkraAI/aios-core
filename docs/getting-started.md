@@ -308,4 +308,4 @@ npm run validate:parity
 
 ---
 
-_Synkra AIOS Getting Started Guide v4.0.4_
+_Synkra AIOS Getting Started Guide v4.2.11_

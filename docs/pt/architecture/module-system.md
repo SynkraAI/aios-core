@@ -6,7 +6,7 @@
 
 ---
 
-> Guia completo para a arquitetura modular v4.0.4 do Synkra AIOS.
+> Guia completo para a arquitetura modular v4.2 do Synkra AIOS.
 
 **Versão:** 2.1.0
 **Última Atualização:** 2025-12-01
@@ -17,9 +17,9 @@
 
 ### Por Que Arquitetura Modular?
 
-A arquitetura modular v4.0.4 aborda vários desafios da estrutura flat da v2.0:
+A arquitetura modular v4.2 aborda vários desafios da estrutura flat da v2.0:
 
-| Desafio            | Problema v2.0                       | Solução v4.0.4                          |
+| Desafio            | Problema v2.0                       | Solução v4.2                          |
 | ------------------ | ----------------------------------- | ------------------------------------- |
 | **Descoberta**     | 200+ arquivos em diretórios mistos  | Organizado por responsabilidade       |
 | **Manutenção**     | Propriedade pouco clara             | Limites de módulo definem propriedade |

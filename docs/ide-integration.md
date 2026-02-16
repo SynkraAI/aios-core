@@ -6,16 +6,16 @@
 
 Guide for integrating AIOS with supported IDEs and AI development platforms.
 
-**Version:** 4.0.4
+**Version:** 4.2.11
 **Last Updated:** 2026-02-16
 
 ---
 
-## Compatibility Contract (AIOS 4.0.4)
+## Compatibility Contract (AIOS 4.2.11)
 
 The IDE matrix is enforced by a versioned contract:
 
-- Contract file: `.aios-core/infrastructure/contracts/compatibility/aios-4.0.4.yaml`
+- Contract file: `.aios-core/infrastructure/contracts/compatibility/aios-4.2.11.yaml`
 - Validator: `npm run validate:parity`
 
 If matrix claims in this document diverge from validator results, parity validation fails.
@@ -26,7 +26,7 @@ If matrix claims in this document diverge from validator results, parity validat
 
 AIOS supports multiple AI-powered development platforms. Choose the one that best fits your workflow.
 
-### Quick Status Matrix (AIOS 4.0.4)
+### Quick Status Matrix (AIOS 4.2.11)
 
 | IDE/CLI | Overall Status | How to Activate an Agent | Auto-Checks Before/After Actions | Workaround if Limited |
 | --- | --- | --- | --- | --- |
@@ -38,7 +38,7 @@ AIOS supports multiple AI-powered development platforms. Choose the one that bes
 | AntiGravity | Limited | workflow-driven activation | Not available | Use generated workflows and run validators manually |
 
 Legend:
-- `Works`: fully recommended for new users in AIOS 4.0.4.
+- `Works`: fully recommended for new users in AIOS 4.2.11.
 - `Limited`: usable with the documented workaround.
 - `Not available`: this IDE does not offer this capability; use the workaround instead.
 
@@ -476,4 +476,4 @@ npm run sync:ide:cursor
 
 ---
 
-_Synkra AIOS IDE Integration Guide v4.0.4_
+_Synkra AIOS IDE Integration Guide v4.2.11_

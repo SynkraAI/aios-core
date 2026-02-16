@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.11
-generated_at: "2026-02-16T17:42:52.251Z"
+generated_at: "2026-02-16T17:57:01.191Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1004
 files:
@@ -2429,29 +2429,29 @@ files:
     type: documentation
     size: 16023
   - path: docs/standards/AIOS-COLOR-PALETTE-QUICK-REFERENCE.md
-    hash: sha256:3bf52aa948c6f5a79a43ab6cd4170b5ab476737e88813176d4d7a33f4a659edb
+    hash: sha256:b521992d1f6a17b7b624ddbb9e78cb54b9efce62ca78d36b425a3f74f55e5c07
     type: documentation
-    size: 4095
+    size: 4093
   - path: docs/standards/AIOS-COLOR-PALETTE-V2.1.md
-    hash: sha256:08ddcacf88f3cf5251108de5e30429cb93ba5dcaf5bd0ac88bbcacf6a4b06667
+    hash: sha256:075760cd1734967e8af366fd6824cb3cd37cfae850d18340451d8c4df9f35889
     type: documentation
-    size: 9482
+    size: 9474
   - path: docs/standards/EXECUTOR-DECISION-TREE.md
     hash: sha256:106af2a8bc009c129618fbd501e68c6927862dbbc2e28d1a5b67be9b5fc2bb5b
     type: documentation
     size: 19268
   - path: docs/standards/OPEN-SOURCE-VS-SERVICE-DIFFERENCES.md
-    hash: sha256:3cb48a85705305a5a70ec35cd110570a5cb71056d151ca226367e83d4a67e0f7
+    hash: sha256:2411b48a14bc11ef78684cd3fb488165d13406832e0b1bc3fae0a15bf1714f3a
     type: documentation
-    size: 16398
+    size: 16390
   - path: docs/standards/QUALITY-GATES-SPECIFICATION.md
-    hash: sha256:3c9b4ed28b5cf1ec0116d5a0095493beb261f1fe7dbef6ac6dc5e8651660e118
+    hash: sha256:05df49e8ae8909fd583cf131bc2190a1709ba0249b761bf5d51c2e4bedbb4aeb
     type: documentation
-    size: 19752
+    size: 19746
   - path: docs/standards/STANDARDS-INDEX.md
-    hash: sha256:d099262e71e64bfe8e723203c64f26cbd9645b6e7862d33915151bc2ec6ab4c2
+    hash: sha256:f9c22b0fb6ac3240c44d71a44deeae9ef3a3b873ccae9bf2401f08edec61382a
     type: documentation
-    size: 8385
+    size: 8369
   - path: docs/standards/STORY-TEMPLATE-V2-SPECIFICATION.md
     hash: sha256:31cf0854013c05a39020406bcdd8937f48ab7fe85c17274c8a077bdb3c45131f
     type: documentation

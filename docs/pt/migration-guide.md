@@ -26,15 +26,15 @@ Este guia ajuda você a atualizar entre versões do Synkra AIOS.
 
 ### Versão Atual
 
-**Synkra AIOS v4.0.4** (Versão Estável Atual)
+**Synkra AIOS v4.2.11** (Versão Estável Atual)
 
 ### Caminhos de Atualização
 
 | Da Versão | Para Versão | Tipo de Atualização | Dificuldade |
 |-----------|-------------|---------------------|-------------|
-| v4.3.x | v4.0.4 | Menor | Baixa |
-| v4.0-4.2 | v4.0.4 | Menor | Média |
-| v3.x | v4.0.4 | Maior | Alta |
+| v4.3.x | v4.2.11 | Menor | Baixa |
+| v4.0-4.2 | v4.2.11 | Menor | Média |
+| v3.x | v4.2.11 | Maior | Alta |
 
 ### Requisitos do Sistema
 
@@ -285,7 +285,7 @@ Se você encontrar problemas não cobertos aqui:
 
 ## Notas Específicas por Versão
 
-### Atualizando para v4.0.4
+### Atualizando para v4.2
 
 **Principais Mudanças:**
 - Capacidades aprimoradas do meta-agente
@@ -307,4 +307,4 @@ Se você encontrar problemas não cobertos aqui:
 ---
 
 **Última Atualização:** 2025-08-01
-**Versão Atual:** v4.0.4
+**Versão Atual:** v4.2.11
