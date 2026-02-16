@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-16T02:23:49.803Z'
-  entityCount: 504
+  lastUpdated: '2026-02-16T04:49:07.416Z'
+  entityCount: 506
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -4765,6 +4765,24 @@ entities:
         extensionPoints: []
       checksum: sha256:e8345404f17977a268b917a4ff86e4f10f80174a6bb572865e5413c8f7dd217a
       lastVerified: '2026-02-15T17:43:13.184Z'
+    brownfield-risk-report-tmpl:
+      path: .aios-core/product/templates/brownfield-risk-report-tmpl.yaml
+      type: template
+      purpose: '>'
+      keywords:
+        - brownfield
+        - risk
+        - report
+        - tmpl
+        - template
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:173adec3131f0924bc7d64c10f54386bb85dcadc14e6ff3fb9bb2f8172caf162
+      lastVerified: '2026-02-16T04:49:07.415Z'
   scripts:
     agent-assignment-resolver:
       path: .aios-core/development/scripts/agent-assignment-resolver.js
@@ -9004,6 +9022,22 @@ entities:
         extensionPoints: []
       checksum: sha256:869fbc8fbc333ac8eea4eca3ea4ab9ca79917fa5e53735b70d634c85ac6420c8
       lastVerified: '2026-02-08T13:33:24.391Z'
+    brownfield-compatibility-checklist:
+      path: .aios-core/development/checklists/brownfield-compatibility-checklist.md
+      type: checklist
+      purpose: Brownfield Compatibility Checklist
+      keywords:
+        - brownfield
+        - compatibility
+        - checklist
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.6
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:d07b1f9e2fcb78f62188ef05a6e6f75a94821b6bb297ea67f2e782e260d27f49
+      lastVerified: '2026-02-16T04:49:07.414Z'
   data:
     agent-config-requirements:
       path: .aios-core/data/agent-config-requirements.yaml
