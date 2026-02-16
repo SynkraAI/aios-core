@@ -220,6 +220,12 @@ test-sample-*.md
 .tsbuildinfo
 *.tsbuildinfo
 
+# Runtime AIOS artifacts (explicit rules without inline comments)
+.aios/
+.aios/project-status.yaml
+.aios/notifications/
+.aios/sessions/
+
 # ESLint cache
 .eslintcache
 
