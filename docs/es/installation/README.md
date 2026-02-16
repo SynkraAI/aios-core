@@ -88,10 +88,6 @@ npx @synkra/aios-core install --force-upgrade
 | -------------- | --------------------- |
 | Claude Code    | `/dev`, `/qa`, etc.   |
 | Cursor         | `@dev`, `@qa`, etc.   |
-| Windsurf       | `@dev`, `@qa`, etc.   |
-| Trae           | `@dev`, `@qa`, etc.   |
-| Roo Code       | Selector de modo      |
-| Cline          | `@dev`, `@qa`, etc.   |
 | Gemini CLI     | Mención en el prompt  |
 | GitHub Copilot | Modos de chat         |
 

@@ -52,7 +52,7 @@ These paths are automatically preserved (local-only files are backed up and rest
 
 | Path | Reason |
 |------|--------|
-| `.aios-core/expansion-packs/` | Custom copywriters, data, ralph |
+| `.aios-core/squads/` | Custom copywriters, data, ralph |
 | `.aios-core/marketing/` | Marketing-specific agents/tasks |
 | `source/` | Business context YAML |
 | `Knowledge/` | Knowledge bases |
@@ -110,7 +110,7 @@ After running the script:
 
 ```bash
 # Check that local-only files are preserved
-ls -la .aios-core/expansion-packs/  # if exists
+ls -la .aios-core/squads/  # if exists
 ls -la source/                       # if exists
 
 # See what changed (unstaged)

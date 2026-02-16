@@ -12,6 +12,7 @@ const path = require('path');
 const yaml = require('js-yaml');
 const inquirer = require('inquirer');
 const ora = require('ora');
+const { spawnSync } = require('child_process');
 const { getIDEConfig } = require('../config/ide-configs');
 const { validateProjectName } = require('./validators');
 const { getMergeStrategy, hasMergeStrategy } = require('../merger/index.js');
@@ -386,8 +387,8 @@ async function createAntiGravityConfigJson(projectRoot, ideConfig) {
  * @returns {Promise<{success: boolean, files: string[], errors: Array}>}
  *
  * @example
- * const result = await generateIDEConfigs(['cursor', 'windsurf'], wizardState);
- * console.log(result.files); // ['.cursorrules', '.windsurfrules']
+ * const result = await generateIDEConfigs(['cursor', 'github-copilot'], wizardState);
+ * console.log(result.files); // ['.cursorrules', '.github/copilot-instructions.md']
  */
 async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
   const projectRoot = options.projectRoot || process.cwd();
@@ -543,6 +544,38 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
           const statuslineResult = await setupGlobalStatusline();
           if (statuslineResult.installed) {
             createdFiles.push(...statuslineResult.files);
+          }
+        }
+
+        // Gemini parity with Claude Code: copy hooks and configure settings
+        if (ideKey === 'gemini') {
+          spinner.start('Copying Gemini CLI hooks...');
+          const hookFiles = await copyGeminiHooksFolder(projectRoot);
+          createdFiles.push(...hookFiles);
+          if (hookFiles.length > 0) {
+            createdFolders.push(path.join(projectRoot, '.gemini', 'hooks'));
+            spinner.succeed(`Copied ${hookFiles.length} hook file(s) to .gemini/hooks`);
+          } else {
+            spinner.info('No Gemini hook files to copy');
+          }
+
+          spinner.start('Configuring Gemini CLI settings...');
+          const settingsFile = await createGeminiSettings(projectRoot);
+          if (settingsFile) {
+            createdFiles.push(settingsFile);
+            spinner.succeed('Created .gemini/settings.json with AIOS hooks');
+          } else {
+            spinner.info('Skipped .gemini/settings.json (no hooks to register)');
+          }
+
+          spinner.start('Linking Gemini AIOS extension...');
+          const extensionResult = await linkGeminiExtension(projectRoot);
+          if (extensionResult.status === 'linked') {
+            spinner.succeed('Gemini extension "aios" linked and enabled');
+          } else if (extensionResult.status === 'already-linked') {
+            spinner.succeed('Gemini extension "aios" already linked');
+          } else {
+            spinner.info(`Skipped Gemini extension linking (${extensionResult.reason})`);
           }
         }
 
@@ -731,6 +764,225 @@ async function createClaudeSettingsLocal(projectRoot) {
 }
 
 /**
+<<<<<<< HEAD
+ * Copy .aios-core/hooks/gemini folder into .gemini/hooks during installation
+ * @param {string} projectRoot - Project root directory
+ * @returns {Promise<string[]>} List of copied files
+ */
+async function copyGeminiHooksFolder(projectRoot) {
+  const sourceDir = path.join(__dirname, '..', '..', '..', '..', '.aios-core', 'hooks', 'gemini');
+  const targetDir = path.join(projectRoot, '.gemini', 'hooks');
+  const copiedFiles = [];
+
+  if (!await fs.pathExists(sourceDir)) {
+    return copiedFiles;
+  }
+
+  if (path.resolve(sourceDir) === path.resolve(targetDir)) {
+    return copiedFiles;
+  }
+
+  await fs.ensureDir(targetDir);
+
+  const files = await fs.readdir(sourceDir);
+  for (const file of files) {
+    if (!file.endsWith('.js')) continue;
+
+    const sourcePath = path.join(sourceDir, file);
+    const targetPath = path.join(targetDir, file);
+    const stat = await fs.stat(sourcePath);
+    if (stat.isFile()) {
+      await fs.copy(sourcePath, targetPath);
+      copiedFiles.push(targetPath);
+    }
+  }
+
+  return copiedFiles;
+}
+
+/**
+ * Create/merge .gemini/settings.json and register AIOS hooks as enabled.
+ * @param {string} projectRoot - Project root directory
+ * @returns {Promise<string|null>} Path to settings file or null if skipped
+ */
+async function createGeminiSettings(projectRoot) {
+  const settingsPath = path.join(projectRoot, '.gemini', 'settings.json');
+  const hooksDir = path.join(projectRoot, '.gemini', 'hooks');
+
+  if (!await fs.pathExists(hooksDir)) {
+    return null;
+  }
+
+  const hookEntries = [
+    {
+      event: 'SessionStart',
+      matcher: '*',
+      hook: {
+        name: 'aios-session-init',
+        type: 'command',
+        command: 'node ".gemini/hooks/session-start.js"',
+        timeout: 5000,
+        enabled: true,
+      },
+    },
+    {
+      event: 'BeforeAgent',
+      matcher: '*',
+      hook: {
+        name: 'aios-context-inject',
+        type: 'command',
+        command: 'node ".gemini/hooks/before-agent.js"',
+        timeout: 3000,
+        enabled: true,
+      },
+    },
+    {
+      event: 'BeforeTool',
+      matcher: 'write_file|replace|shell|bash|execute',
+      hook: {
+        name: 'aios-security-check',
+        type: 'command',
+        command: 'node ".gemini/hooks/before-tool.js"',
+        timeout: 2000,
+        enabled: true,
+      },
+    },
+    {
+      event: 'AfterTool',
+      matcher: '*',
+      hook: {
+        name: 'aios-audit-log',
+        type: 'command',
+        command: 'node ".gemini/hooks/after-tool.js"',
+        timeout: 2000,
+        enabled: true,
+      },
+    },
+    {
+      event: 'SessionEnd',
+      matcher: '*',
+      hook: {
+        name: 'aios-session-persist',
+        type: 'command',
+        command: 'node ".gemini/hooks/session-end.js"',
+        timeout: 5000,
+        enabled: true,
+      },
+    },
+  ];
+
+  let settings = {};
+  if (await fs.pathExists(settingsPath)) {
+    try {
+      settings = JSON.parse(await fs.readFile(settingsPath, 'utf8'));
+    } catch (error) {
+      console.error(`   ⚠️  Could not parse ${settingsPath}: ${error.message}`);
+      settings = {};
+    }
+  }
+
+  settings.previewFeatures = true;
+  settings.folderTrust = settings.folderTrust || { enabled: true };
+  settings.hooks = settings.hooks || {};
+
+  for (const entry of hookEntries) {
+    if (!Array.isArray(settings.hooks[entry.event])) {
+      settings.hooks[entry.event] = [];
+    }
+
+    const alreadyRegistered = settings.hooks[entry.event].some((wrapper) => {
+      if (wrapper && Array.isArray(wrapper.hooks)) {
+        return wrapper.hooks.some((h) => h && h.name === entry.hook.name);
+      }
+      return false;
+    });
+
+    if (!alreadyRegistered) {
+      settings.hooks[entry.event].push({
+        matcher: entry.matcher,
+        hooks: [entry.hook],
+      });
+    }
+  }
+
+  await fs.ensureDir(path.dirname(settingsPath));
+  await fs.writeFile(settingsPath, JSON.stringify(settings, null, 2), 'utf8');
+  return settingsPath;
+}
+
+/**
+ * Best-effort Gemini extension linking for AIOS project.
+ * Does not fail installation when auth/CLI is unavailable.
+ * @param {string} projectRoot
+ * @returns {Promise<{status: 'linked'|'already-linked'|'skipped', reason?: string}>}
+ */
+async function linkGeminiExtension(projectRoot) {
+  const extensionDir = path.join(projectRoot, 'packages', 'gemini-aios-extension');
+  const manifestPath = path.join(extensionDir, 'gemini-extension.json');
+  const legacyManifestPath = path.join(extensionDir, 'extension.json');
+
+  if (!await fs.pathExists(extensionDir)) {
+    return { status: 'skipped', reason: 'extension-dir-not-found' };
+  }
+
+  // Gemini CLI >=0.28 expects gemini-extension.json
+  if (!await fs.pathExists(manifestPath) && await fs.pathExists(legacyManifestPath)) {
+    await fs.copy(legacyManifestPath, manifestPath);
+  }
+
+  if (!await fs.pathExists(manifestPath)) {
+    return { status: 'skipped', reason: 'manifest-not-found' };
+  }
+
+  const versionCheck = spawnSync('gemini', ['--version'], { encoding: 'utf8' });
+  if (versionCheck.status !== 0) {
+    return { status: 'skipped', reason: 'gemini-cli-not-available' };
+  }
+
+  let linkResult = spawnSync('gemini', ['extensions', 'link', extensionDir, '--consent'], {
+    cwd: projectRoot,
+    encoding: 'utf8',
+    timeout: 30000,
+  });
+
+  if (linkResult.status === 0) {
+    return { status: 'linked' };
+  }
+
+  const output = `${linkResult.stdout || ''}\n${linkResult.stderr || ''}`;
+
+  // When already installed, perform idempotent relink.
+  if (output.includes('already installed')) {
+    const uninstall = spawnSync('gemini', ['extensions', 'uninstall', 'aios'], {
+      cwd: projectRoot,
+      encoding: 'utf8',
+      timeout: 30000,
+    });
+
+    if (uninstall.status !== 0) {
+      return { status: 'skipped', reason: 'uninstall-failed' };
+    }
+
+    linkResult = spawnSync('gemini', ['extensions', 'link', extensionDir, '--consent'], {
+      cwd: projectRoot,
+      encoding: 'utf8',
+      timeout: 30000,
+    });
+
+    if (linkResult.status === 0) {
+      return { status: 'linked' };
+    }
+    return { status: 'skipped', reason: 'relink-failed' };
+  }
+
+  if (output.toLowerCase().includes('authentication')) {
+    return { status: 'skipped', reason: 'authentication-required' };
+  }
+
+  return { status: 'skipped', reason: 'link-failed' };
+}
+
+/**
  * Setup global statusline for Claude Code
  *
  * Copies statusline-script.js and track-agent.sh to ~/.claude/
@@ -849,5 +1101,8 @@ module.exports = {
   generateTemplateVariables,
   copyClaudeHooksFolder,
   createClaudeSettingsLocal,
+  copyGeminiHooksFolder,
+  createGeminiSettings,
+  linkGeminiExtension,
   setupGlobalStatusline,
 };

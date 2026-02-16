@@ -75,7 +75,7 @@
 
 | Old Term | New Term | Affected Documents |
 |----------|----------|-------------------|
-| Expansion Pack | **Squad** | All standards |
+| Squad | **Squad** | All standards |
 | Squads/ | **squads/** | Directory references |
 | pack.yaml | **squad.yaml** | Manifest references |
 | @expansion/* | **@aios/squad-*** | npm scope |
@@ -169,7 +169,7 @@ Located in `docs/`:
 ### When to Update Standards
 
 1. **New features** that change framework behavior
-2. **Terminology changes** (like Expansion Pack → Squad)
+2. **Terminology changes** (like Squad → Squad)
 3. **Architecture changes** (like modular architecture)
 4. **Process changes** (like Quality Gates)
 
@@ -188,8 +188,8 @@ Located in `docs/`:
 find .aios-core/docs/standards -name "*.md" -exec markdown-link-check {} \;
 
 # Search for deprecated terminology
-grep -r "expansion pack" .aios-core/docs/standards --include="*.md"
-grep -r "Expansion Pack" .aios-core/docs/standards --include="*.md"
+grep -r "squad" .aios-core/docs/standards --include="*.md"
+grep -r "Squad" .aios-core/docs/standards --include="*.md"
 
 # Verify version numbers
 grep -r "v2.0" .aios-core/docs/standards --include="*.md"

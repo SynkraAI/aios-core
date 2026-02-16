@@ -132,7 +132,7 @@ To help users contribute to the AIOS open-source project (`@synkra/aios-core`) b
 
 6. **Validate Contribution Standards**
    - Check against contribution guidelines:
-     - [ ] **Expansion Packs**: Have README, agent.md, tasks/, proper structure
+     - [ ] **Squads**: Have README, agent.md, tasks/, proper structure
      - [ ] **Agents**: Follow agent template, have commands, dependencies
      - [ ] **Tasks**: Follow task format spec, have checklists, complete docs
      - [ ] **Tools**: Have tool definition YAML, usage examples
@@ -362,7 +362,7 @@ Thank you for your interest in contributing! 🎉
 
 ### Types of Contributions
 
-- **Expansion Packs**: New agent ecosystems
+- **Squads**: New agent ecosystems
 - **Agents**: Improved or new agents
 - **Tasks**: Enhanced or new tasks
 - **Tools**: MCP tool integrations
@@ -632,7 +632,7 @@ updated_at: 2025-11-17
 
 ## Usage Examples
 
-### Example 1: Submit New Expansion Pack
+### Example 1: Submit New Squad
 
 ```bash
 aios activate Otto  # github-devops agent

@@ -479,7 +479,7 @@ reviews:
     - path: ".aios-core/docs/standards/**"
       instructions: |
         Verify:
-        - Terminology uses 'Squad' not 'Expansion Pack'
+        - Terminology uses 'Squad' not 'Squad'
         - All internal links work
         - Version numbers are v4.0.4
 

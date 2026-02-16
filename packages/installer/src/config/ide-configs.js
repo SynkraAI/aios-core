@@ -28,8 +28,8 @@ const path = require('path');
  * Synkra AIOS v4 supports 6 main IDEs:
  * - Claude Code (Anthropic's official CLI) - Recommended
  * - Codex CLI (OpenAI coding CLI)
+ * - Gemini CLI (Google AI coding CLI)
  * - Cursor (AI-first code editor)
- * - Windsurf (AI-powered development)
  * - GitHub Copilot (GitHub's AI pair programmer)
  * - AntiGravity (Google agentic platform)
  */
@@ -54,6 +54,15 @@ const IDE_CONFIGS = {
     recommended: true,
     agentFolder: path.join('.codex', 'agents'),
   },
+  gemini: {
+    name: 'Gemini CLI',
+    description: '',
+    configFile: path.join('.gemini', 'rules.md'),
+    template: 'ide-rules/gemini-rules.md',
+    requiresDirectory: true,
+    format: 'text',
+    agentFolder: path.join('.gemini', 'rules', 'AIOS', 'agents'),
+  },
   cursor: {
     name: 'Cursor',
     description: '',
@@ -62,15 +71,6 @@ const IDE_CONFIGS = {
     requiresDirectory: true,
     format: 'text',
     agentFolder: path.join('.cursor', 'rules'),
-  },
-  windsurf: {
-    name: 'Windsurf',
-    description: '',
-    configFile: '.windsurfrules',
-    template: 'ide-rules/windsurf-rules.md',
-    requiresDirectory: false,
-    format: 'text',
-    agentFolder: path.join('.windsurf', 'rules'),
   },
   'github-copilot': {
     name: 'GitHub Copilot',

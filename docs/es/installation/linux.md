@@ -164,7 +164,6 @@ El instalador automáticamente:
 - ✅ Configura rutas de IDE para Linux:
   - Cursor: `~/.config/Cursor/`
   - Claude: `~/.claude/`
-  - Windsurf: `~/.config/Windsurf/`
 - ✅ Configura scripts shell con terminaciones de línea Unix (LF)
 - ✅ Respeta la especificación XDG Base Directory
 - ✅ Maneja enlaces simbólicos correctamente
@@ -198,10 +197,7 @@ El instalador automáticamente:
 2. Comandos se instalan en `.claude/commands/AIOS/`
 3. Use `/nombre-del-agente` para activar agentes
 
-### Windsurf
 
-1. Instale desde [codeium.com/windsurf](https://codeium.com/windsurf)
-2. Reglas se instalan en `.windsurf/rules/`
 3. Use `@nombre-del-agente` para activar agentes
 
 ---

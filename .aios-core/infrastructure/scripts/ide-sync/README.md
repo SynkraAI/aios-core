@@ -11,8 +11,10 @@ IDE Sync keeps agent definitions in `.aios-core/development/agents/` synchronize
 
 - `.claude/commands/AIOS/agents/` (Claude Code)
 - `.codex/agents/` (Codex CLI support files)
+- `.gemini/rules/AIOS/agents/` (Gemini CLI)
+- `.gemini/commands/` (Gemini slash command launcher files)
+- `.github/agents/` (GitHub Copilot support files)
 - `.cursor/rules/agents/` (Cursor)
-- `.windsurf/rules/agents/` (Windsurf)
 - `.antigravity/rules/agents/` (Antigravity)
 
 For Codex `/skills` activators, use the dedicated skills sync:
@@ -57,7 +59,10 @@ Sync specific IDE only:
 ```bash
 npm run sync:ide:cursor
 npm run sync:ide:codex
-npm run sync:ide:windsurf
+npm run sync:ide:gemini
+npm run sync:ide:github-copilot
+npm run sync:ide:antigravity
+npm run sync:ide:claude
 ```
 
 ### Validate
@@ -105,6 +110,14 @@ ideSync:
       enabled: true
       path: .codex/agents
       format: full-markdown-yaml
+    gemini:
+      enabled: true
+      path: .gemini/rules/AIOS/agents
+      format: full-markdown-yaml
+    github-copilot:
+      enabled: true
+      path: .github/agents
+      format: full-markdown-yaml
     cursor:
       enabled: true
       path: .cursor/rules/agents
@@ -122,10 +135,22 @@ Each IDE has a specific format for agent files:
 | IDE         | Format                  | Extension |
 | ----------- | ----------------------- | --------- |
 | Claude Code | Full markdown with YAML | `.md`     |
-| Codex CLI   | Condensed rules         | `.md`     |
+| Codex CLI   | Full markdown with YAML | `.md`     |
+| Gemini CLI  | Full markdown with YAML | `.md`     |
+| GitHub Copilot | Full markdown with YAML | `.md`   |
 | Cursor      | Condensed rules         | `.md`     |
-| Windsurf    | XML-tagged markdown     | `.md`     |
 | Antigravity | Cursor-style            | `.md`     |
+
+Platform-specific checks:
+
+```bash
+npm run validate:claude-sync
+npm run validate:claude-integration
+npm run validate:codex-sync
+npm run validate:codex-integration
+npm run validate:gemini-sync
+npm run validate:gemini-integration
+```
 
 ## Redirect Agents
 
@@ -151,7 +176,6 @@ This agent has been renamed. Use `aios-master` instead.
 └── transformers/
     ├── claude-code.js       # Claude Code format
     ├── cursor.js            # Cursor format
-    ├── windsurf.js          # Windsurf format
     └── antigravity.js       # Antigravity format
 ```
 

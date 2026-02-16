@@ -48,7 +48,7 @@ class ToolResolver {
     // 2. Build search paths (squad → core priority)
     const searchPaths = [];
     if (context.expansionPack) {
-      searchPaths.push(`expansion-packs/${context.expansionPack}/tools`);
+      searchPaths.push(`squads/${context.expansionPack}/tools`);
     }
     searchPaths.push(...this.basePaths);
 
@@ -304,7 +304,7 @@ class ToolResolver {
   async toolExists(toolName, context = {}) {
     const searchPaths = [];
     if (context.expansionPack) {
-      searchPaths.push(`expansion-packs/${context.expansionPack}/tools`);
+      searchPaths.push(`squads/${context.expansionPack}/tools`);
     }
     searchPaths.push(...this.basePaths);
 

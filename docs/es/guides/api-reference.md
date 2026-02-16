@@ -574,8 +574,6 @@ phases:
 | ----------- | ------------ | ----------------- | ---------------- |
 | Claude Code | `.claude/`   | Markdown          | Completo         |
 | Cursor      | `.cursor/`   | MDC (frontmatter) | Completo         |
-| Windsurf    | `.windsurf/` | Markdown          | Completo         |
-| Cline       | `.cline/`    | Markdown          | Completo         |
 | VS Code     | `.vscode/`   | JSON              | Parcial          |
 | Gemini      | `.gemini/`   | Markdown          | Básico           |
 
@@ -587,7 +585,6 @@ version: 1.0.0
 active_ides:
   - claude
   - cursor
-  - windsurf
 
 squad_aliases:
   legal: Legal
@@ -669,10 +666,8 @@ alwaysApply: false
 # Contenido del agente...
 ```
 
-### Integración con Windsurf
 
 ```
-.windsurf/
 └── agents/
     ├── dev.md
     ├── qa.md

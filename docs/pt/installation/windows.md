@@ -143,7 +143,6 @@ O instalador automaticamente:
 - ✅ Configura caminhos de IDE para localizações Windows:
   - Cursor: `%APPDATA%\Cursor\`
   - Claude: `%USERPROFILE%\.claude\`
-  - Windsurf: `%APPDATA%\Windsurf\`
 - ✅ Lida com separadores de caminho Windows (barras invertidas)
 - ✅ Configura terminações de linha corretamente (CRLF para batch, LF para scripts)
 - ✅ Configura scripts npm compatíveis com cmd.exe e PowerShell
@@ -171,11 +170,8 @@ O instalador automaticamente:
 2. Comandos são instalados em `.claude\commands\AIOS\`
 3. Use `/nome-do-agente` para ativar agentes
 
-### Windsurf
 
-1. Baixe de [codeium.com/windsurf](https://codeium.com/windsurf)
 2. Execute o instalador
-3. Regras são instaladas em `.windsurf\rules\`
 4. Use `@nome-do-agente` para ativar agentes
 
 ---

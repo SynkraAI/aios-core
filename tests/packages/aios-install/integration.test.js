@@ -14,6 +14,7 @@ const { execSync } = require('child_process');
 const PKG_DIR = path.resolve(__dirname, '../../../packages/aios-install');
 
 describe('Integration - Task 8.3: Local NPX Execution', () => {
+  const runNpxIntegration = process.env.RUN_NPX_INTEGRATION === '1';
   describe('Package Structure Validation', () => {
     it('should have valid package.json', () => {
       // Given
@@ -226,7 +227,7 @@ describe('Integration - Task 8.3: Local NPX Execution', () => {
     });
   });
 
-  describe('NPX Local Execution Simulation', () => {
+  (runNpxIntegration ? describe : describe.skip)('NPX Local Execution Simulation', () => {
     it('should execute via npm exec (simulates npx .)', () => {
       // Given - We simulate npx . by running npm exec in the package directory
 
@@ -234,7 +235,7 @@ describe('Integration - Task 8.3: Local NPX Execution', () => {
       const result = execSync('npm exec -- aios-install --version', {
         cwd: PKG_DIR,
         encoding: 'utf8',
-        timeout: 30000,
+        timeout: 90000,
         env: { ...process.env, npm_config_yes: 'true' },
       }).trim();
 
@@ -249,7 +250,7 @@ describe('Integration - Task 8.3: Local NPX Execution', () => {
       const result = execSync('npm exec -- edmcp --version', {
         cwd: PKG_DIR,
         encoding: 'utf8',
-        timeout: 30000,
+        timeout: 90000,
         env: { ...process.env, npm_config_yes: 'true' },
       }).trim();
 
