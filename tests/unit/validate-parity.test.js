@@ -1,5 +1,6 @@
 'use strict';
 
+<<<<<<< HEAD
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -49,6 +50,15 @@ describe('validate-parity', () => {
     const ok = { ok: true, errors: [], warnings: [] };
     const result = runParityValidation(
       { projectRoot },
+=======
+const { runParityValidation } = require('../../.aios-core/infrastructure/scripts/validate-parity');
+
+describe('validate-parity', () => {
+  it('passes when all checks return ok', () => {
+    const ok = { ok: true, errors: [], warnings: [] };
+    const result = runParityValidation(
+      { projectRoot: '/tmp/mock' },
+>>>>>>> origin/main
       {
         runSyncValidate: () => ok,
         validateClaudeIntegration: () => ok,
@@ -56,11 +66,15 @@ describe('validate-parity', () => {
         validateGeminiIntegration: () => ok,
         validateCodexSkills: () => ok,
         validatePaths: () => ok,
+<<<<<<< HEAD
         loadCompatibilityContract: () => buildMockContract(),
+=======
+>>>>>>> origin/main
       },
     );
 
     expect(result.ok).toBe(true);
+<<<<<<< HEAD
     expect(result.checks).toHaveLength(11);
     expect(result.checks.every((c) => c.ok)).toBe(true);
     expect(result.contractViolations).toHaveLength(0);
@@ -71,6 +85,16 @@ describe('validate-parity', () => {
     let count = 0;
     const result = runParityValidation(
       { projectRoot },
+=======
+    expect(result.checks).toHaveLength(8);
+    expect(result.checks.every((c) => c.ok)).toBe(true);
+  });
+
+  it('fails when any check fails', () => {
+    let count = 0;
+    const result = runParityValidation(
+      { projectRoot: '/tmp/mock' },
+>>>>>>> origin/main
       {
         runSyncValidate: () => ({ ok: true, errors: [], warnings: [] }),
         validateClaudeIntegration: () => ({ ok: true, errors: [], warnings: [] }),
@@ -83,13 +107,17 @@ describe('validate-parity', () => {
         validateGeminiIntegration: () => ({ ok: true, errors: [], warnings: [] }),
         validateCodexSkills: () => ({ ok: true, errors: [], warnings: [] }),
         validatePaths: () => ({ ok: true, errors: [], warnings: [] }),
+<<<<<<< HEAD
         loadCompatibilityContract: () => buildMockContract(),
+=======
+>>>>>>> origin/main
       },
     );
 
     expect(result.ok).toBe(false);
     expect(result.checks.some((c) => c.id === 'codex-integration' && c.ok === false)).toBe(true);
   });
+<<<<<<< HEAD
 
   it('fails when docs matrix claim diverges from contract', () => {
     const projectRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'aios-parity-mismatch-'));
@@ -168,4 +196,6 @@ describe('validate-parity', () => {
     expect(result.contractDiff.to_release).toBe('AIOS 4.0.4');
     expect(result.contractDiff.has_changes).toBe(true);
   });
+=======
+>>>>>>> origin/main
 });

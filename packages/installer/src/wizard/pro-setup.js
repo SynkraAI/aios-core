@@ -386,7 +386,7 @@ async function loginWithRetry(client, email) {
 
       // Wait for email verification if needed
       if (!loginResult.emailVerified) {
-        const verifyResult = await waitForEmailVerification(client, loginResult.sessionToken);
+        const verifyResult = await waitForEmailVerification(client, loginResult.sessionToken, email);
         if (!verifyResult.success) {
           return verifyResult;
         }
@@ -495,7 +495,7 @@ async function createAccountFlow(client, email) {
   }
 
   if (sessionToken) {
-    const verifyResult = await waitForEmailVerification(client, sessionToken);
+    const verifyResult = await waitForEmailVerification(client, sessionToken, email);
     if (!verifyResult.success) {
       return verifyResult;
     }
@@ -516,7 +516,7 @@ async function createAccountFlow(client, email) {
           break;
         }
         // Got session but not verified yet — use the verification polling
-        const verifyResult = await waitForEmailVerification(client, sessionToken);
+        const verifyResult = await waitForEmailVerification(client, sessionToken, email);
         if (!verifyResult.success) {
           return verifyResult;
         }
@@ -625,7 +625,7 @@ async function authenticateWithEmail(email, password) {
 
   // Wait for email verification if needed
   if (!emailVerified) {
-    const verifyResult = await waitForEmailVerification(client, sessionToken);
+    const verifyResult = await waitForEmailVerification(client, sessionToken, email);
     if (!verifyResult.success) {
       return verifyResult;
     }
@@ -642,10 +642,11 @@ async function authenticateWithEmail(email, password) {
  * User can press R to resend verification email.
  *
  * @param {object} client - LicenseApiClient instance
- * @param {string} sessionToken - Session token
+ * @param {string} sessionToken - Session token (accessToken)
+ * @param {string} email - User email for resend functionality
  * @returns {Promise<Object>} Result with { success }
  */
-async function waitForEmailVerification(client, sessionToken) {
+async function waitForEmailVerification(client, sessionToken, email) {
   console.log('');
   showInfo('Waiting for email verification...');
   showInfo('Open your email and click the verification link.');
@@ -692,7 +693,7 @@ async function waitForEmailVerification(client, sessionToken) {
       if (resendHint) {
         resendHint = false;
         try {
-          await client.resendVerification(sessionToken);
+          await client.resendVerification(email);
           showInfo('Verification email resent.');
         } catch (error) {
           showWarning(`Could not resend: ${error.message}`);

@@ -7,10 +7,10 @@
 # - SHA256 hashes for change detection
 # - File types for categorization
 #
-version: 4.2.3
-generated_at: "2026-02-16T05:05:38.733Z"
+version: 4.2.6
+generated_at: "2026-02-16T05:09:51.825Z"
 generator: scripts/generate-install-manifest.js
-file_count: 997
+file_count: 1004
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -180,6 +180,26 @@ files:
     hash: sha256:c1266389772b3fcf3e4c91df085bd38dc0b01d0a5f98bdf977d134972ccaf49b
     type: config
     size: 9392
+  - path: core/code-intel/code-intel-client.js
+    hash: sha256:bd88497c8c8f312e95f746121e627c088e93d27af093d411f0521712bd17ba94
+    type: core
+    size: 7541
+  - path: core/code-intel/code-intel-enricher.js
+    hash: sha256:0bea0c1953a21621afbb4c9755e782842940cf54cdc88a4318dd7242f1fb02a8
+    type: core
+    size: 4320
+  - path: core/code-intel/index.js
+    hash: sha256:ca8c54c2decbf64183d890ab42dc8ca2deafa675d4433492cb6ce423a284ad4d
+    type: core
+    size: 3802
+  - path: core/code-intel/providers/code-graph-provider.js
+    hash: sha256:0c5ffd7b3faf82453ed1cb77f52ef10a3e67d3a1b2e2df5aac89a4fb2ac6583b
+    type: core
+    size: 6335
+  - path: core/code-intel/providers/provider-interface.js
+    hash: sha256:7d16aa715155e9c077720a6bffc7e9e5411b65f821b6b4e5e909f226796e7acb
+    type: core
+    size: 3079
   - path: core/config/config-cache.js
     hash: sha256:527a788cbe650aa6b13d1101ebc16419489bfef20b2ee93042f6eb6a51e898e9
     type: core
@@ -3600,6 +3620,14 @@ files:
     hash: sha256:7ff9caabce83ccc14acb05e9d06eaf369a8ebd54c2ddf4988efcc942f6c51037
     type: template
     size: 6763
+  - path: product/templates/statusline/statusline-script.js
+    hash: sha256:352b928acd0a477875192ce96fa3aebb278fe9d9b55bc24a144e7aaafa180b45
+    type: template
+    size: 6190
+  - path: product/templates/statusline/track-agent.sh
+    hash: sha256:b0761d31538ed92db1e3d68c21b1e462ef2a18d1b83094b87f58c0a601ebb24d
+    type: template
+    size: 1800
   - path: product/templates/story-tmpl.yaml
     hash: sha256:3fa85f0ebef9e8ee1e7063b579d5d27819e1e2f69497654f94e0b0f7fc847006
     type: template
