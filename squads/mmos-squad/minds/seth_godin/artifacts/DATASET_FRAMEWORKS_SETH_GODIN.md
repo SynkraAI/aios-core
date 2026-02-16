@@ -90,9 +90,9 @@ melhor que
 ```
 
 ### Anti-Padrões Comuns
-- "Meu produto é para todos" → Produto para ninguém
-- "Quanto mais, melhor" → Diluição até irrelevância
-- "Vamos conquistar o mercado" → Vamos ser ignorados
+- '"Meu produto é para todos" → Produto para ninguém'
+- '"Quanto mais, melhor" → Diluição até irrelevância'
+- '"Vamos conquistar o mercado" → Vamos ser ignorados'
 
 ---
 

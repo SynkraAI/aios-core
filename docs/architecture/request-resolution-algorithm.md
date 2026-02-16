@@ -71,9 +71,9 @@ FOR each token IN tokens:
 ```
 
 **Examples:**
-- "criar história" → tokens contain "história" → maps to "story" → `draft` command (80%)
-- "fazer push" → tokens contain "push" → `push` command (80%)
-- "rodar testes" → tokens contain "testes" → maps to "test" → `run-tests` command (80%)
+- '"criar história" → tokens contain "história" → maps to "story" → `draft` command (80%)'
+- '"fazer push" → tokens contain "push" → `push` command (80%)'
+- '"rodar testes" → tokens contain "testes" → maps to "test" → `run-tests` command (80%)'
 
 ### Step 4: Semantic Match (60% confidence)
 
@@ -94,8 +94,8 @@ FOR each pattern IN semanticPatterns:
 ```
 
 **Examples:**
-- "preciso de uma story nova" → `draft` (60%)
-- "quero ver como está o projeto" → `session-info` (60%)
+- '"preciso de uma story nova" → `draft` (60%)'
+- '"quero ver como está o projeto" → `session-info` (60%)'
 
 ### Step 5: No Match
 

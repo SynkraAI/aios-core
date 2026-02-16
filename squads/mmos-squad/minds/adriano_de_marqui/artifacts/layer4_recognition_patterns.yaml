@@ -179,7 +179,7 @@ recognition_radars:
       - Transparente sobre investimento: "isso é muito dinheiro investido, inclusive"
       - Cita fontes honestamente
       - Dog fooding: usa Obsidian, ensina Obsidian
-      - "Depois de muitos atendimentos" → baseado em evidência real
+      - '"Depois de muitos atendimentos" → baseado em evidência real'
 
     rejection_triggers:
       - Promessas vazias

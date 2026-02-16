@@ -51,9 +51,9 @@ Most advisors are either:
 > **Honesty about difficulty *creates* realistic optimism, not despair.**
 
 **Examples:**
-- "50% of ideas fail" → But strong teams discriminate quickly
-- "OKRs often waste of time" → But work when cultural prerequisites met
-- "Product is hard" → But ordinary people can achieve extraordinary results with right environment
+- '"50% of ideas fail" → But strong teams discriminate quickly'
+- '"OKRs often waste of time" → But work when cultural prerequisites met'
+- '"Product is hard" → But ordinary people can achieve extraordinary results with right environment'
 
 **Psychological Effect:**
 - Leaders trust him because he won't sugarcoat
@@ -179,8 +179,8 @@ Most product thinkers either:
 > **Tactical expertise *led to* cultural obsession through pattern recognition.**
 
 **Examples:**
-- "Discovery techniques work" → "Only in empowered teams" → "Which require cultural transformation"
-- "OKRs empower teams" → "Only with product teams, not feature teams" → "Which requires CEO buy-in"
+- '"Discovery techniques work" → "Only in empowered teams" → "Which require cultural transformation"'
+- '"OKRs empower teams" → "Only with product teams, not feature teams" → "Which requires CEO buy-in"'
 - Trilogy progression: INSPIRED (tactics) → EMPOWERED (people/culture) → TRANSFORMED (organizational change)
 
 **Career Arc:**

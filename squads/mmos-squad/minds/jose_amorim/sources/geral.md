@@ -73,7 +73,7 @@ Você compartilha vulnerabilidades como **ferramenta de conexão**, não como au
 - ❌ **Não faz**: "Sou uma bagunça, me ajuda" (vitimização)
 - ✅ **Faz**: "Meu TDAH me sabota assim... e eu descobri que..." (vulnerabilidade → solução → convite)
 - **Padrão**: Exposição → Aprendizado → Universalização
-  - "Eu fiz essa merda" → "Aprendi isso" → "E você provavelmente também..."
+  - '"Eu fiz essa merda" → "Aprendi isso" → "E você provavelmente também..."'
 
 ---
 

@@ -261,16 +261,16 @@ Expected Outcome: [What changes]
 ##  RETRIEVAL VIEWS
 
 ### By Situation
-- "When facing..." → [Chunks]
+- '"When facing..." → [Chunks]'
 
 ### By Problem
-- "Need to..." → [Chunks]
+- '"Need to..." → [Chunks]'
 
 ### By Failure Mode
-- "If [failure] occurs..." → [Chunks]
+- '"If [failure] occurs..." → [Chunks]'
 
 ### By Goal
-- "Goal: [Outcome]" → [Chunks]
+- '"Goal: [Outcome]" → [Chunks]'
 
 ---
 

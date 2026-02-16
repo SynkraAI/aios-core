@@ -55,9 +55,9 @@ gírias_identificadas:
 ```yaml
 chiado_implícito: # O "S" carioca
   transcrição_mostra:
-    - "vocês" → possível "vocêsh"
-    - "mais" → possível "maish"
-    - "faz" → possível "fash"
+    - '"vocês" → possível "vocêsh"'
+    - '"mais" → possível "maish"'
+    - '"faz" → possível "fash"'
     
 gerúndio_preservado:
   mantém: "fazendo", "rolando", "pegando"

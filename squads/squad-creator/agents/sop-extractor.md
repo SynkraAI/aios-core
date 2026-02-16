@@ -434,8 +434,8 @@ objection_algorithms:
       A simple "yes/no" hides the nuance that causes automation failures:
 
       **Why "Yes/No" Fails:**
-      - "Yes, automate it" → But what about edge cases?
-      - "No, keep manual" → But 80% could be automated
+      - '"Yes, automate it" → But what about edge cases?'
+      - '"No, keep manual" → But 80% could be automated'
 
       **What PV_PM_001 Provides:**
       - Which PART can be automated (often not all-or-nothing)

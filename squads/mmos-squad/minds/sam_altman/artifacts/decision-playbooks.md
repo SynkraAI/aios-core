@@ -221,7 +221,7 @@ Why: More reliable, harder to copy, compounds faster
 **Example (Returning to OpenAI after board drama):**
 - Decision made within days
 - Immediate action despite uncertainty
-- "I need to get back to it" → back at work within ~1 week
+- '"I need to get back to it" → back at work within ~1 week'
 - → ✅ Extreme speed execution
 
 **Evidence:** "I have never, not once, seen a slow-moving founder be really successful" (Startup Playbook)

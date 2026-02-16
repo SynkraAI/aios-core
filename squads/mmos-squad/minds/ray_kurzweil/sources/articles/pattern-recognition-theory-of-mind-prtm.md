@@ -53,7 +53,7 @@ Ray Kurzweil's **Pattern Recognition Theory of Mind (PRTM)**, presented in his 2
 
 4. **Level 4+ (Concept Recognizers)**:
    - Words → Concepts
-   - "APPLE" → Fruit category, Technology brand, etc.
+   - '"APPLE" → Fruit category, Technology brand, etc.'
 
 **Key Insight**: Higher levels represent more abstract, general categories. Lower levels represent discrete bits of input.
 

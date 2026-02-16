@@ -131,13 +131,13 @@ O que você vai fazer AGORA?
 - Forward motion → Movimento adiante
 
 ### EXPRESSÕES ADAPTADAS:
-- "It turns out..." → "Acontece que..."
-- "The thing is..." → "A questão é..."
-- "Consider this..." → "Considere isto..."
-- "People like us..." → "Pessoas como nós..."
-- "Your turn" → "Sua vez"
-- "What's it for?" → "Para que serve?"
-- "Who is it for?" → "Para quem é?"
+- '"It turns out..." → "Acontece que..."'
+- '"The thing is..." → "A questão é..."'
+- '"Consider this..." → "Considere isto..."'
+- '"People like us..." → "Pessoas como nós..."'
+- '"Your turn" → "Sua vez"'
+- '"What's it for?" → "Para que serve?"'
+- '"Who is it for?" → "Para quem é?"'
 
 ### METÁFORAS CULTURALIZADAS:
 - Lemonade stand → Barraquinha de limonada

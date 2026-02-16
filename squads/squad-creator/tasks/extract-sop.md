@@ -304,16 +304,16 @@ handoff:
 ## Examples
 
 **Good transcript signals:**
-- "First, I do X, then Y, then Z" → Clear sequence
-- "If the client says no, I do A, otherwise B" → Decision rule
-- "I always check this before proceeding" → Precondition
-- "This takes about 30 minutes" → Time estimate
+- '"First, I do X, then Y, then Z" → Clear sequence'
+- '"If the client says no, I do A, otherwise B" → Decision rule'
+- '"I always check this before proceeding" → Precondition'
+- '"This takes about 30 minutes" → Time estimate'
 
 **Red flag signals:**
 - "It depends" (without criteria) → Needs clarification
-- "João knows how to do this" → Single point of failure
-- "We figure it out" → Undocumented exception
-- "It's always been this way" → May be obsolete
+- '"João knows how to do this" → Single point of failure'
+- '"We figure it out" → Undocumented exception'
+- '"It's always been this way" → May be obsolete'
 
 ---
 

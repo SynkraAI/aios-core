@@ -293,9 +293,9 @@ evolucao_linguística:
     
 evolucao_vocabulario:
   termos_abandonados:
-    - "utilize" → "use" (2016)
-    - "demonstrate" → "show" (2017)
-    - "methodology" → "approach" (2018)
+    - '"utilize" → "use" (2016)'
+    - '"demonstrate" → "show" (2017)'
+    - '"methodology" → "approach" (2018)'
     
   neologismos_adotados:
     - "vibe coding" (2025)
@@ -303,8 +303,8 @@ evolucao_vocabulario:
     - "unreasonable effectiveness" (aplicação, 2015)
     
   metáforas_evoluíram:
-    - "magic" → "magical" → "unreasonably effective"
-    - "problems" → "gotchas" → "failure modes"
+    - '"magic" → "magical" → "unreasonably effective"'
+    - '"problems" → "gotchas" → "failure modes"'
 ```
 
 ## PARTE C: ELEMENTOS DE AUTENTICAÇÃO IMPOSSÍVEIS DE FALSIFICAR

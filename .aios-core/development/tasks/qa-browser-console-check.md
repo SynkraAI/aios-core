@@ -91,8 +91,8 @@ detect_pages:
 
   patterns:
     nextjs:
-      - "app/**/page.tsx" → "/{path}"
-      - "pages/**/*.tsx" → "/{path}"
+      - '"app/**/page.tsx" → "/{path}"'
+      - '"pages/**/*.tsx" → "/{path}"'
     react_router:
       - Extract from Route components
     manual:

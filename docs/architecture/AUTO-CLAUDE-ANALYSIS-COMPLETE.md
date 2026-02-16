@@ -2217,10 +2217,10 @@ Rules:
     - Invent patterns that don't exist
 
 Bad Suggestions (Examples):
-  - "Add WebSocket support" → Requires new infrastructure
-  - "Implement i18n" → Major feature, not code-revealed
-  - "Add ML recommendations" → Strategic decision
-  - "Improve performance" → Too vague
+  - '"Add WebSocket support" → Requires new infrastructure'
+  - '"Implement i18n" → Major feature, not code-revealed'
+  - '"Add ML recommendations" → Strategic decision'
+  - '"Improve performance" → Too vague'
 ```
 
 ---

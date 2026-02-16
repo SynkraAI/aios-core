@@ -82,9 +82,9 @@ vocabulário_técnico_fixo:
     colocar: "botar"
     
   nunca_usa:
-    - "configurar" → sempre "setar"
-    - "executar" → sempre "rodar"
-    - "fazer upload" → sempre "subir"
+    - '"configurar" → sempre "setar"'
+    - '"executar" → sempre "rodar"'
+    - '"fazer upload" → sempre "subir"'
 ```
 
 **Exemplo Real Completo:**

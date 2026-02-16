@@ -84,7 +84,7 @@
 - "Conceptual models" (designer vs user mental models)
 - "Gulf of Execution / Gulf of Evaluation"
 - "Visceral, Behavioral, Reflective"
-- "User-centered design" → "Humanity-centered design"
+- '"User-centered design" → "Humanity-centered design"'
 - "Necessary complexity" vs "complication"
 - "The Design of Everyday Things" (book title = philosophy)
 

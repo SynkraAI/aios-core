@@ -224,7 +224,7 @@ Baseado no background declarado, Adriano opera em múltiplos contextos simultane
 
 **Framework Creation:**
 - Pensamento em sistemas e modelos
-- "GPS", "Três Cs" → tendência de criar estruturas nomeadas
+- '"GPS", "Três Cs" → tendência de criar estruturas nomeadas'
 - Systematizer natural
 
 **Meta-Analysis:**
@@ -274,7 +274,7 @@ Baseado no background declarado, Adriano opera em múltiplos contextos simultane
 **Systemization as Anxiety Management:**
 - Cria estruturas para reduzir incerteza
 - Frameworks = controle
-- "GPS", "Três Cs" → previsibilidade
+- '"GPS", "Três Cs" → previsibilidade'
 
 **Preparation as Stress Reducer:**
 - Mapas mentais antes de gravar

@@ -950,9 +950,9 @@ create_tasks:
   identify_tasks:
     source: "agent_definition.capabilities"
     example:
-      - "create-sales-page" → Main task
-      - "analyze-sales-page" → Audit task
-      - "optimize-headline" → Support task
+      - '"create-sales-page" → Main task'
+      - '"analyze-sales-page" → Audit task'
+      - '"optimize-headline" → Support task'
 
   # For each task
   for_each_task:

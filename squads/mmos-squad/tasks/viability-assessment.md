@@ -593,10 +593,10 @@ potential_use_cases:
 ```
 
 **Example use cases:**
-- "Startup founder mentor" → entrepreneurs building 0-1
-- "Sales coaching" → B2B sales professionals
-- "Content creation guide" → marketers and creators
-- "Technical educator" → developers learning new skills
+- '"Startup founder mentor" → entrepreneurs building 0-1'
+- '"Sales coaching" → B2B sales professionals'
+- '"Content creation guide" → marketers and creators'
+- '"Technical educator" → developers learning new skills'
 
 #### Step 2: ICP Scoring Matrix
 

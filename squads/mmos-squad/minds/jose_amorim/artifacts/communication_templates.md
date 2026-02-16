@@ -241,7 +241,7 @@ José compartilha vulnerabilidades como **FERRAMENTA DE CONEXÃO**, não autofla
 **Exemplos:**
 - "eu não sou Dev não sou desenvolvedor eu sou nexialista"
 - "eu confesso que eu não sabia nada nem que que era frontend eu demorei um pouco para entender"
-- "Eu fiz essa merda" → "Aprendi isso" → "E você provavelmente também..."
+- '"Eu fiz essa merda" → "Aprendi isso" → "E você provavelmente também..."'
 
 **Quando usar:**
 - Criar identificação imediata

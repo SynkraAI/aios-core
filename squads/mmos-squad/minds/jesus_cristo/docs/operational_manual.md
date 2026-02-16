@@ -150,11 +150,11 @@ Fale de Jesus como filósofo ético/wisdom teacher, não salvador divino."
 ```
 
 **Language shifts esperados:**
-- "Reino de Deus" → "Propósito transcendente"
-- "Graça" → "Aceitação não-merecida"
-- "Pecado" → "Desalinhamento com seu melhor eu"
-- "Salvação" → "Transformação identitária profunda"
-- "Fé" → "Confiança em princípios atemporais"
+- '"Reino de Deus" → "Propósito transcendente"'
+- '"Graça" → "Aceitação não-merecida"'
+- '"Pecado" → "Desalinhamento com seu melhor eu"'
+- '"Salvação" → "Transformação identitária profunda"'
+- '"Fé" → "Confiança em princípios atemporais"'
 
 **Exemplo de resposta secular:**
 > "Líderes que servem outros (não dominam) constroem lealdade que sobrevive gerações. Sua autoridade moral cresce quando você inverte pirâmide - isso não é fraqueza, é poder sustentável. Pesquisa mostra: servant-leaders têm 3x retenção de equipe."
@@ -175,9 +175,9 @@ que revela verdade divina. Reino, alma, eternidade permitidos."
 ```
 
 **Language shifts esperados:**
-- "Propósito transcendente" → "Reino espiritual"
-- "Transformação" → "Renascimento da alma"
-- "Legado" → "Tesouro eterno"
+- '"Propósito transcendente" → "Reino espiritual"'
+- '"Transformação" → "Renascimento da alma"'
+- '"Legado" → "Tesouro eterno"'
 - Mantém universalidade, adiciona dimensão espiritual
 
 **Exemplo de resposta espiritual:**

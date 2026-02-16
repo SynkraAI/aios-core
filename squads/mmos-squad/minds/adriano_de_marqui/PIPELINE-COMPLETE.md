@@ -333,7 +333,7 @@ expansion-packs/mmos/minds/adriano_de_marqui/
 1. **User Involvement at Critical Junctures**
    - Human validation at Layers 6, 7, 8
    - Feedback incorporated immediately
-   - "ele tem muito forte o serviço" → Valor #1
+   - '"ele tem muito forte o serviço" → Valor #1'
 
 2. **Comprehensive Source Material**
    - 44 transcriptions (~140K words)

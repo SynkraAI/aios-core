@@ -77,8 +77,8 @@ IDE-FILE-RESOLUTION:
 # REQUEST-RESOLUTION: How to match user requests to commands
 REQUEST-RESOLUTION: |
   Match user requests flexibly to commands:
-  - "{{example_request_1}}" → *{{command_1}} → loads {{task_1}}
-  - "{{example_request_2}}" → *{{command_2}} → loads {{task_2}}
+  - '"{{example_request_1}}" → *{{command_1}} → loads {{task_1}}'
+  - '"{{example_request_2}}" → *{{command_2}} → loads {{task_2}}'
   ALWAYS ask for clarification if no clear match.
 
 # CRITICAL: Loader rules that MUST be followed

@@ -625,9 +625,9 @@ Ask user:
 5. "What VALUE will you GIVE in exchange?" (reciprocity)
 
 **STEP 2: CONVERT VAGUE → DEFINITE**
-- "I want to be rich" → "I will accumulate $5,000,000 by age 45"
-- "I want a better job" → "I will secure Senior Engineer role at [Company] by June 1, 2025, earning $150K+"
-- "I want to help people" → "I will coach 100 entrepreneurs to $100K revenue by 2026"
+- '"I want to be rich" → "I will accumulate $5,000,000 by age 45"'
+- '"I want a better job" → "I will secure Senior Engineer role at [Company] by June 1, 2025, earning $150K+"'
+- '"I want to help people" → "I will coach 100 entrepreneurs to $100K revenue by 2026"'
 
 **STEP 3: WRITE IT DOWN**
 - Vague thoughts exist in mind only

@@ -127,7 +127,7 @@ Every complex idea must compile to:
 4. **Surprising implication**
 
 Examples:
-- "Founder mode" → New way to run companies → Steve Jobs' 100 person retreats → Breaks all management theory
+- '"Founder mode" → New way to run companies → Steve Jobs' 100 person retreats → Breaks all management theory'
 
 ### Simplicity Razor Activation
 Before expressing ANY idea:

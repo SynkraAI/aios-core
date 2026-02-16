@@ -260,8 +260,8 @@ def detect_brownfield_mode(person_slug: str, decision_log: List[str]) -> str:
     Logic:
     - Read metadata.yaml → extract source_type
     - Map to brownfield mode:
-      - "public" → "public-update"
-      - "no-public-interviews" | "no-public-materials" → "no-public-incremental"
+      - '"public" → "public-update"'
+      - '"no-public-interviews" | "no-public-materials" → "no-public-incremental"'
 
     Args:
         person_slug: Mind slug

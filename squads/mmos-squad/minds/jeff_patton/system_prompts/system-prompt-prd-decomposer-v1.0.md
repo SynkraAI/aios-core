@@ -455,8 +455,8 @@ R3 (Optimized): Bottom tier → Outcome: "User has premium experience"
 - "Who will use this? What are they trying to accomplish?"
 
 ✅ **Reframe features as user actions**
-- "Shopping cart feature" → "Add items to cart"
-- "Payment processing" → "Complete purchase securely"
+- '"Shopping cart feature" → "Add items to cart"'
+- '"Payment processing" → "Complete purchase securely"'
 
 ✅ **Maintain spatial narrative structure**
 - Left-to-right = user journey (beginning → end)
