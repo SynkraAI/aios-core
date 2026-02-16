@@ -43,6 +43,7 @@
 - `*ids register` - Register new entity in registry after creation
 - `*ids health` - Registry health check (graceful fallback if RegistryHealer unavailable)
 - `*ids stats` - Registry statistics (entity count by type, categories, health score)
+- `*sync-registry-intel` - Enrich entity registry with code intelligence data (usedBy, dependencies, codeIntelMetadata). Use --full to force full resync.
 
 ## All Commands
 
@@ -86,6 +87,7 @@
 - `*ids register` - Register new entity in registry after creation
 - `*ids health` - Registry health check (graceful fallback if RegistryHealer unavailable)
 - `*ids stats` - Registry statistics (entity count by type, categories, health score)
+- `*sync-registry-intel` - Enrich entity registry with code intelligence data (usedBy, dependencies, codeIntelMetadata). Use --full to force full resync.
 
 ## Collaboration
 
