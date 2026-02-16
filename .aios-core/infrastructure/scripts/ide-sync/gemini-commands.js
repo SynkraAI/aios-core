@@ -4,6 +4,7 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const FALLBACK_DESCRIPTION = 'Agente especializado AIOS';
+const MAX_DESCRIPTION_CONTEXT = 120;
 
 const MENU_ORDER = [
   'aios-master',
@@ -36,6 +37,24 @@ function normalizeText(text) {
   return text.replace(/\s+/g, ' ').trim();
 }
 
+function truncateText(text, maxLen = MAX_DESCRIPTION_CONTEXT) {
+  if (!text || text.length <= maxLen) return text;
+  return `${text.slice(0, maxLen - 1).trimEnd()}…`;
+}
+
+function summarizeWhenToUse(whenToUse) {
+  const normalized = normalizeText(whenToUse);
+  if (!normalized) return '';
+
+  // Drop redirect/negative guidance sections that are useful for routing, not for menu labels.
+  const withoutNegativeSection = normalized.split(/\b(?:NOT\s+for|NÃO\s+para)\b/i)[0].trim();
+  const primary = withoutNegativeSection || normalized;
+
+  // Keep only the first sentence/chunk for concise autocomplete labels.
+  const firstChunk = primary.split(/[.;!?](?:\s|$)/)[0].trim();
+  return truncateText(firstChunk || primary);
+}
+
 function escapeTomlString(text) {
   return String(text || '').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }
@@ -43,16 +62,16 @@ function escapeTomlString(text) {
 function buildAgentDescription(agent) {
   const agentData = agent.agent || {};
   const title = normalizeText(agentData.title);
-  const whenToUse = normalizeText(agentData.whenToUse);
+  const whenToUseSummary = summarizeWhenToUse(agentData.whenToUse);
 
-  if (title && whenToUse) {
-    return `${title} (${whenToUse})`;
+  if (title && whenToUseSummary) {
+    return `${title} (${whenToUseSummary})`;
   }
   if (title) {
     return title;
   }
-  if (whenToUse) {
-    return whenToUse;
+  if (whenToUseSummary) {
+    return whenToUseSummary;
   }
   return `Ativar agente AIOS ${agent.id}`;
 }
@@ -178,6 +197,8 @@ module.exports = {
   commandSlugForAgent,
   menuCommandName,
   buildAgentDescription,
+  summarizeWhenToUse,
+  truncateText,
   escapeTomlString,
   buildGeminiCommandFiles,
   syncGeminiCommands,

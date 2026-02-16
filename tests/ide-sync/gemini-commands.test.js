@@ -8,6 +8,8 @@ const {
   commandSlugForAgent,
   menuCommandName,
   buildAgentDescription,
+  summarizeWhenToUse,
+  truncateText,
   buildGeminiCommandFiles,
   syncGeminiCommands,
 } = require('../../.aios-core/infrastructure/scripts/ide-sync/gemini-commands');
@@ -50,7 +52,10 @@ describe('gemini command sync', () => {
       {
         id: 'dev',
         error: null,
-        agent: { title: 'Full Stack Developer', whenToUse: 'Use para implementação e debugging' },
+        agent: {
+          title: 'Full Stack Developer',
+          whenToUse: 'Use para implementação e debugging. NOT for planejamento de produto',
+        },
       },
     ]);
 
@@ -69,10 +74,21 @@ describe('gemini command sync', () => {
       id: 'architect',
       agent: {
         title: 'Architect',
-        whenToUse: 'Use para arquitetura\ncomplexa em sistemas distribuídos',
+        whenToUse: 'Use para arquitetura\ncomplexa em sistemas distribuídos. NOT for gestão de sprint',
       },
     });
     expect(description).toBe('Architect (Use para arquitetura complexa em sistemas distribuídos)');
+  });
+
+  it('summarizeWhenToUse truncates very long text', () => {
+    const longText = 'Use para arquitetura '.concat('muito '.repeat(80)).concat('complexa.');
+    const summary = summarizeWhenToUse(longText);
+    expect(summary.length).toBeLessThanOrEqual(120);
+    expect(summary.endsWith('…')).toBe(true);
+  });
+
+  it('truncateText returns original when short', () => {
+    expect(truncateText('texto curto', 20)).toBe('texto curto');
   });
 
   it('writes command files to .gemini/commands', () => {
