@@ -13,9 +13,10 @@ Welcome to Synkra AIOS. This guide is optimized for first-value in 10 minutes.
 3. [Your First Project](#your-first-project)
 4. [Basic Commands](#basic-commands)
 5. [IDE Compatibility](#ide-compatibility)
-6. [Advanced Path](#advanced-path)
-7. [Troubleshooting](#troubleshooting)
-8. [Next Steps](#next-steps)
+6. [Brownfield: Existing Projects](#brownfield-existing-projects)
+7. [Advanced Path](#advanced-path)
+8. [Troubleshooting](#troubleshooting)
+9. [Next Steps](#next-steps)
 
 ## 10-Minute Quick Path
 
@@ -182,6 +183,55 @@ Summary:
 
 - **Works**: fully recommended for new users.
 - **Limited**: usable with documented workarounds.
+
+## Brownfield: Existing Projects
+
+Already have a codebase? AIOS handles brownfield projects with a dedicated workflow.
+
+### Quick Brownfield Setup
+
+```bash
+# Navigate to your existing project
+cd my-existing-project
+
+# Install AIOS (non-destructive, preserves your config)
+npx aios-core install
+
+# Run doctor to verify compatibility
+npx aios-core doctor
+```
+
+### What Happens on First Run
+
+When you first activate an AIOS agent in an existing project:
+
+1. **Detection**: AIOS detects code but no AIOS docs
+2. **Offer**: "I can analyze your codebase. This takes 4-8 hours."
+3. **Discovery**: Multi-agent technical debt assessment (optional)
+4. **Output**: System architecture docs + technical debt report
+
+### Brownfield Workflow Options
+
+| Your Situation | Recommended Workflow |
+|----------------|---------------------|
+| Add major feature to existing project | `@pm → *create-doc brownfield-prd` |
+| Audit legacy codebase | `brownfield-discovery.yaml` (full workflow) |
+| Quick enhancement | `@pm → *brownfield-create-epic` |
+| Single bug fix | `@pm → *brownfield-create-story` |
+
+### Safety Guarantees
+
+- **Non-destructive**: AIOS creates files, never overwrites existing
+- **Rollback**: `git checkout HEAD~1 -- .` restores pre-AIOS state
+- **Config preservation**: Your `.eslintrc`, `tsconfig.json`, etc. stay intact
+
+### Resources
+
+- **[Working in the Brownfield Guide](.aios-core/working-in-the-brownfield.md)** - Complete brownfield documentation
+- **[Compatibility Checklist](.aios-core/development/checklists/brownfield-compatibility-checklist.md)** - Pre/post migration checks
+- **[Risk Report Template](.aios-core/product/templates/brownfield-risk-report-tmpl.yaml)** - Phase-by-phase risk assessment
+
+---
 
 ## Advanced Path
 

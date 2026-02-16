@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.3
-generated_at: "2026-02-16T02:39:21.051Z"
+generated_at: "2026-02-16T04:34:40.335Z"
 generator: scripts/generate-install-manifest.js
-file_count: 995
+file_count: 997
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -1116,6 +1116,10 @@ files:
     hash: sha256:04d1bf12dd4b0b3d10de04c1825efab742e6475087d3ac9d5c86ca7ff8ec9057
     type: checklist
     size: 16148
+  - path: development/checklists/brownfield-compatibility-checklist.md
+    hash: sha256:d07b1f9e2fcb78f62188ef05a6e6f75a94821b6bb297ea67f2e782e260d27f49
+    type: checklist
+    size: 3335
   - path: development/checklists/self-critique-checklist.md
     hash: sha256:869fbc8fbc333ac8eea4eca3ea4ab9ca79917fa5e53735b70d634c85ac6420c8
     type: checklist
@@ -3352,6 +3356,10 @@ files:
     hash: sha256:bc1852d15e3a383c7519e5976094de3055c494fdd467acd83137700c900c4c61
     type: template
     size: 14755
+  - path: product/templates/brownfield-risk-report-tmpl.yaml
+    hash: sha256:173adec3131f0924bc7d64c10f54386bb85dcadc14e6ff3fb9bb2f8172caf162
+    type: template
+    size: 12211
   - path: product/templates/changelog-template.md
     hash: sha256:af44d857c9bf8808e89419d1d859557c3c827de143be3c0f36f2a053c9ee9197
     type: template
