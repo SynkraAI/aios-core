@@ -95,10 +95,11 @@ async function enrichWithCodeIntel(baseResult, options = {}) {
 
     await Promise.allSettled(promises);
   } catch (error) {
-    // Graceful — never throws
+    // Graceful — never throws, returns baseResult unchanged on failure
     if (options.fallbackBehavior !== 'silent') {
       console.warn('[code-intel] Enrichment failed, returning base result:', error.message);
     }
+    return baseResult;
   }
 
   return { ...baseResult, _codeIntel: enrichments };

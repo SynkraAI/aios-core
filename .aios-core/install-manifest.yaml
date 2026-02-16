@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.5
-generated_at: "2026-02-16T03:09:15.515Z"
+generated_at: "2026-02-16T03:17:44.947Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1000
 files:
@@ -189,9 +189,9 @@ files:
     type: core
     size: 4320
   - path: core/code-intel/index.js
-    hash: sha256:fa13bf788e6f3dd71d48630970376ea821b539c9e8984f4fb6cd065c08005f70
+    hash: sha256:ca8c54c2decbf64183d890ab42dc8ca2deafa675d4433492cb6ce423a284ad4d
     type: core
-    size: 3738
+    size: 3802
   - path: core/code-intel/providers/code-graph-provider.js
     hash: sha256:0c5ffd7b3faf82453ed1cb77f52ef10a3e67d3a1b2e2df5aac89a4fb2ac6583b
     type: core
