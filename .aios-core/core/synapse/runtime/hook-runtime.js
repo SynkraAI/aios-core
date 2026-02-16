@@ -6,7 +6,7 @@ const fs = require('fs');
 /**
  * Resolve runtime dependencies for Synapse hook execution.
  *
- * @param {{cwd?: string, sessionId?: string}} input
+ * @param {{cwd?: string, session_id?: string, sessionId?: string}} input
  * @returns {{
  *   engine: import('../engine').SynapseEngine,
  *   session: Object
@@ -14,7 +14,7 @@ const fs = require('fs');
  */
 function resolveHookRuntime(input) {
   const cwd = input && input.cwd;
-  const sessionId = input && input.sessionId;
+  const sessionId = input && (input.session_id || input.sessionId);
   if (!cwd || typeof cwd !== 'string') return null;
 
   const synapsePath = path.join(cwd, '.synapse');

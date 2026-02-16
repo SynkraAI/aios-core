@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.12
-generated_at: "2026-02-16T18:30:15.483Z"
+generated_at: "2026-02-16T20:24:44.425Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1004
+file_count: 1006
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -200,6 +200,10 @@ files:
     hash: sha256:7d16aa715155e9c077720a6bffc7e9e5411b65f821b6b4e5e909f226796e7acb
     type: core
     size: 3079
+  - path: core/code-intel/registry-syncer.js
+    hash: sha256:011318e2ba5c250daae2e565a8e8fb1570c99b7569e631276a2bf46e887fc514
+    type: core
+    size: 10891
   - path: core/config/config-cache.js
     hash: sha256:527a788cbe650aa6b13d1101ebc16419489bfef20b2ee93042f6eb6a51e898e9
     type: core
@@ -565,9 +569,9 @@ files:
     type: core
     size: 26179
   - path: core/ids/registry-loader.js
-    hash: sha256:e98cee3af79091e972b379786345d15ae451afbcba968c10fb3da9bf981bb363
+    hash: sha256:88c67bace0a5ab6a14cb1d096e3f9cab9f5edc0dd8377788e27b692ccefbd487
     type: core
-    size: 7170
+    size: 8096
   - path: core/ids/registry-updater.js
     hash: sha256:6d87ec21d32acff1ba9b9d13025118c106ce6db59c1339c3a6ef4b2a02fd7f52
     type: core
@@ -985,9 +989,9 @@ files:
     type: core
     size: 16418
   - path: core/synapse/runtime/hook-runtime.js
-    hash: sha256:441bdee8bbfea448f4e20eeb0ff1277352b33e79c9cf6cde9012c6d150fee08b
+    hash: sha256:2fdd54f36a1bbb4ba05d6577c607cf2d6711dcf9a06284fc935676189a461fa2
     type: core
-    size: 1529
+    size: 1572
   - path: core/synapse/scripts/generate-constitution.js
     hash: sha256:65405d3e4ee080d19a25fb8967e159360a289e773c15253a351ee163b469e877
     type: script
@@ -1037,9 +1041,9 @@ files:
     type: data
     size: 34251
   - path: data/entity-registry.yaml
-    hash: sha256:7b9bb3a5354107f9ec29105b5948d5c538e2a3b19d49fa42e2e785e4a767c38b
+    hash: sha256:fefd5d2eba3de2c49a3dbf6219cda466062b05a05b894dc2f89886b1f937bd21
     type: data
-    size: 289966
+    size: 291072
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1085,9 +1089,9 @@ files:
     type: development
     size: 5012
   - path: development/agents/aios-master.md
-    hash: sha256:538fff4398eba7c2492b446fce3a1d9115e5f1c6f494f0c3b45a991526c2295a
+    hash: sha256:092161d318ab523b8cd5c3dc8a2bd19accc23ab7fa731d5b4fa11c5afb8b5a08
     type: agent
-    size: 17534
+    size: 17821
   - path: development/agents/analyst.md
     hash: sha256:470384d9ee05d1373fe7519602f135179a88a35895252277823b35339dafd2a3
     type: agent
@@ -2180,6 +2184,10 @@ files:
     hash: sha256:caa2077e7a5bbbba9269b04e878b7772a71422ed6fd138447fe5cfb7345f96fb
     type: task
     size: 23362
+  - path: development/tasks/sync-registry-intel.md
+    hash: sha256:0e69435307db814563823896e7ba9b29a4a9c10d90f6dedec5cb7a6d6f7ba936
+    type: task
+    size: 1664
   - path: development/tasks/tailwind-upgrade.md
     hash: sha256:c369df0a28d8be7f0092405ecaed669a40075841427337990e2346b8c1d43c3a
     type: task

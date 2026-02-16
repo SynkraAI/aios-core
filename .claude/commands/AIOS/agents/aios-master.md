@@ -217,6 +217,11 @@ commands:
   - name: ids stats
     description: 'Registry statistics (entity count by type, categories, health score)'
 
+  # Code Intelligence — Registry Enrichment (Story NOG-2)
+  - name: sync-registry-intel
+    args: '[--full]'
+    description: 'Enrich entity registry with code intelligence data (usedBy, dependencies, codeIntelMetadata). Use --full to force full resync.'
+
 # IDS Pre-Action Hooks (Story IDS-7)
 # These hooks run BEFORE *create and *modify commands as advisory (non-blocking) steps.
 ids_hooks:
@@ -282,6 +287,7 @@ dependencies:
     - run-workflow.md
     - run-workflow-engine.md
     - ids-governor.md
+    - sync-registry-intel.md
   # Delegated tasks (Story 6.1.2.3):
   #   brownfield-create-epic.md → @pm
   #   brownfield-create-story.md → @pm

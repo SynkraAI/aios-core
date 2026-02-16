@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-16T04:49:07.416Z'
-  entityCount: 506
+  lastUpdated: '2026-02-16T20:22:35.905Z'
+  entityCount: 508
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -3909,6 +3909,24 @@ entities:
         extensionPoints: []
       checksum: sha256:f7a0bb8fed5663c88ad691b8871fdf7a861b6a7c02599f0c2db3eb9393d353c8
       lastVerified: '2026-02-16T01:21:26.585Z'
+    sync-registry-intel:
+      path: .aios-core/development/tasks/sync-registry-intel.md
+      type: task
+      purpose: 'Task: Sync Registry Intel'
+      keywords:
+        - sync
+        - registry
+        - intel
+        - 'task:'
+      usedBy: []
+      dependencies:
+        - registry-syncer
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:0e69435307db814563823896e7ba9b29a4a9c10d90f6dedec5cb7a6d6f7ba936
+      lastVerified: '2026-02-16T20:19:27.659Z'
   templates:
     activation-instructions-inline-greeting:
       path: .aios-core/product/templates/activation-instructions-inline-greeting.yaml
@@ -5979,6 +5997,24 @@ entities:
       checksum: sha256:310884d94b81be976a346987822306a16a73ba812c08c3b805f4a03216ffef38
       lastVerified: '2026-02-15T19:28:17.743Z'
   modules:
+    registry-syncer:
+      path: .aios-core/core/code-intel/registry-syncer.js
+      type: module
+      purpose: Entity at .aios-core\core\code-intel\registry-syncer.js
+      keywords:
+        - registry
+        - syncer
+      usedBy:
+        - sync-registry-intel
+      dependencies:
+        - code-intel
+        - registry-loader
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:011318e2ba5c250daae2e565a8e8fb1570c99b7569e631276a2bf46e887fc514
+      lastVerified: '2026-02-16T20:19:27.658Z'
     index.esm:
       path: .aios-core/core/index.esm.js
       type: module
@@ -6562,6 +6598,7 @@ entities:
         - registry
         - loader
       usedBy:
+        - registry-syncer
         - index
         - framework-governor
       dependencies: []
@@ -6569,8 +6606,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:7fb2edb5a605765757d5ca7201025a7ff4cf7bfa9b18f35a311e2b658532a865
-      lastVerified: '2026-02-08T13:33:24.336Z'
+      checksum: sha256:88c67bace0a5ab6a14cb1d096e3f9cab9f5edc0dd8377788e27b692ccefbd487
+      lastVerified: '2026-02-16T20:19:27.659Z'
     manifest-generator:
       path: .aios-core/core/manifest/manifest-generator.js
       type: module
@@ -8536,7 +8573,7 @@ entities:
     hook-runtime:
       path: .aios-core/core/synapse/runtime/hook-runtime.js
       type: module
-      purpose: Entity at .aios-core/core/synapse/runtime/hook-runtime.js
+      purpose: Entity at .aios-core\core\synapse\runtime\hook-runtime.js
       keywords:
         - hook
         - runtime
@@ -8546,8 +8583,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:441bdee8bbfea448f4e20eeb0ff1277352b33e79c9cf6cde9012c6d150fee08b
-      lastVerified: '2026-02-15T19:28:17.742Z'
+      checksum: sha256:2fdd54f36a1bbb4ba05d6577c607cf2d6711dcf9a06284fc935676189a461fa2
+      lastVerified: '2026-02-16T20:22:35.904Z'
     migration-config:
       path: .aios-core/core/migration/migration-config.yaml
       type: module
@@ -8819,8 +8856,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:538fff4398eba7c2492b446fce3a1d9115e5f1c6f494f0c3b45a991526c2295a
-      lastVerified: '2026-02-10T16:04:17.827Z'
+      checksum: sha256:092161d318ab523b8cd5c3dc8a2bd19accc23ab7fa731d5b4fa11c5afb8b5a08
+      lastVerified: '2026-02-16T19:52:18.846Z'
     analyst:
       path: .aios-core/development/agents/analyst.md
       type: agent
