@@ -12,6 +12,7 @@ const path = require('path');
 const yaml = require('js-yaml');
 const inquirer = require('inquirer');
 const ora = require('ora');
+const { spawnSync } = require('child_process');
 const { getIDEConfig } = require('../config/ide-configs');
 const { validateProjectName } = require('./validators');
 const { getMergeStrategy, hasMergeStrategy } = require('../merger/index.js');
@@ -560,6 +561,16 @@ async function generateIDEConfigs(selectedIDEs, wizardState, options = {}) {
           } else {
             spinner.info('Skipped .gemini/settings.json (no hooks to register)');
           }
+
+          spinner.start('Linking Gemini AIOS extension...');
+          const extensionResult = await linkGeminiExtension(projectRoot);
+          if (extensionResult.status === 'linked') {
+            spinner.succeed('Gemini extension "aios" linked and enabled');
+          } else if (extensionResult.status === 'already-linked') {
+            spinner.succeed('Gemini extension "aios" already linked');
+          } else {
+            spinner.info(`Skipped Gemini extension linking (${extensionResult.reason})`);
+          }
         }
 
       } catch (error) {
@@ -892,6 +903,78 @@ async function createGeminiSettings(projectRoot) {
   return settingsPath;
 }
 
+/**
+ * Best-effort Gemini extension linking for AIOS project.
+ * Does not fail installation when auth/CLI is unavailable.
+ * @param {string} projectRoot
+ * @returns {Promise<{status: 'linked'|'already-linked'|'skipped', reason?: string}>}
+ */
+async function linkGeminiExtension(projectRoot) {
+  const extensionDir = path.join(projectRoot, 'packages', 'gemini-aios-extension');
+  const manifestPath = path.join(extensionDir, 'gemini-extension.json');
+  const legacyManifestPath = path.join(extensionDir, 'extension.json');
+
+  if (!await fs.pathExists(extensionDir)) {
+    return { status: 'skipped', reason: 'extension-dir-not-found' };
+  }
+
+  // Gemini CLI >=0.28 expects gemini-extension.json
+  if (!await fs.pathExists(manifestPath) && await fs.pathExists(legacyManifestPath)) {
+    await fs.copy(legacyManifestPath, manifestPath);
+  }
+
+  if (!await fs.pathExists(manifestPath)) {
+    return { status: 'skipped', reason: 'manifest-not-found' };
+  }
+
+  const versionCheck = spawnSync('gemini', ['--version'], { encoding: 'utf8' });
+  if (versionCheck.status !== 0) {
+    return { status: 'skipped', reason: 'gemini-cli-not-available' };
+  }
+
+  let linkResult = spawnSync('gemini', ['extensions', 'link', extensionDir, '--consent'], {
+    cwd: projectRoot,
+    encoding: 'utf8',
+    timeout: 30000,
+  });
+
+  if (linkResult.status === 0) {
+    return { status: 'linked' };
+  }
+
+  const output = `${linkResult.stdout || ''}\n${linkResult.stderr || ''}`;
+
+  // When already installed, perform idempotent relink.
+  if (output.includes('already installed')) {
+    const uninstall = spawnSync('gemini', ['extensions', 'uninstall', 'aios'], {
+      cwd: projectRoot,
+      encoding: 'utf8',
+      timeout: 30000,
+    });
+
+    if (uninstall.status !== 0) {
+      return { status: 'skipped', reason: 'uninstall-failed' };
+    }
+
+    linkResult = spawnSync('gemini', ['extensions', 'link', extensionDir, '--consent'], {
+      cwd: projectRoot,
+      encoding: 'utf8',
+      timeout: 30000,
+    });
+
+    if (linkResult.status === 0) {
+      return { status: 'linked' };
+    }
+    return { status: 'skipped', reason: 'relink-failed' };
+  }
+
+  if (output.toLowerCase().includes('authentication')) {
+    return { status: 'skipped', reason: 'authentication-required' };
+  }
+
+  return { status: 'skipped', reason: 'link-failed' };
+}
+
 module.exports = {
   generateIDEConfigs,
   showSuccessSummary,
@@ -904,4 +987,5 @@ module.exports = {
   createClaudeSettingsLocal,
   copyGeminiHooksFolder,
   createGeminiSettings,
+  linkGeminiExtension,
 };

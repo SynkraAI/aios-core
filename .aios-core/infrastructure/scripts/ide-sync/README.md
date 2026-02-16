@@ -12,6 +12,7 @@ IDE Sync keeps agent definitions in `.aios-core/development/agents/` synchronize
 - `.claude/commands/AIOS/agents/` (Claude Code)
 - `.codex/agents/` (Codex CLI support files)
 - `.gemini/rules/AIOS/agents/` (Gemini CLI)
+- `.gemini/commands/` (Gemini slash command launcher files)
 - `.github/agents/` (GitHub Copilot support files)
 - `.cursor/rules/agents/` (Cursor)
 - `.antigravity/rules/agents/` (Antigravity)

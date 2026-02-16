@@ -26,6 +26,8 @@ describe('validate-gemini-integration', () => {
 
   it('passes when required Gemini files exist', () => {
     write(path.join(tmpRoot, '.gemini', 'rules', 'AIOS', 'agents', 'dev.md'), '# dev');
+    write(path.join(tmpRoot, '.gemini', 'commands', 'aios-menu.toml'), 'description = "menu"');
+    write(path.join(tmpRoot, '.gemini', 'commands', 'aios-dev.toml'), 'description = "dev"');
     write(path.join(tmpRoot, '.aios-core', 'development', 'agents', 'dev.md'), '# dev');
     write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'extension.json'), '{}');
     write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'README.md'), '# readme');
@@ -43,6 +45,7 @@ describe('validate-gemini-integration', () => {
     const result = validateGeminiIntegration({ projectRoot: tmpRoot });
     expect(result.ok).toBe(false);
     expect(result.errors.some((e) => e.includes('Missing Gemini agents dir'))).toBe(true);
+    expect(result.errors.some((e) => e.includes('Missing Gemini commands dir'))).toBe(true);
     expect(result.warnings.some((w) => w.includes('Gemini rules file not found yet'))).toBe(true);
   });
 });

@@ -268,6 +268,7 @@ special_features:
 2. AIOS creates:
    - `.gemini/rules.md`
    - `.gemini/rules/AIOS/agents/*.md`
+   - `.gemini/commands/*.toml` (`/aios-menu`, `/aios-<agent>`)
    - `.gemini/hooks/*.js`
    - `.gemini/settings.json` (hooks enabled)
 3. Validate integration:

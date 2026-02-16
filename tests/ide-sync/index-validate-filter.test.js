@@ -7,6 +7,7 @@ const path = require('path');
 const { commandValidate } = require('../../.aios-core/infrastructure/scripts/ide-sync/index');
 const { parseAllAgents } = require('../../.aios-core/infrastructure/scripts/ide-sync/agent-parser');
 const claudeTransformer = require('../../.aios-core/infrastructure/scripts/ide-sync/transformers/claude-code');
+const { syncGeminiCommands } = require('../../.aios-core/infrastructure/scripts/ide-sync/gemini-commands');
 
 describe('ide-sync commandValidate --ide filter', () => {
   let tmpRoot;
@@ -53,6 +54,7 @@ describe('ide-sync commandValidate --ide filter', () => {
         'utf8',
       );
     }
+    syncGeminiCommands(agents, tmpRoot, { dryRun: false });
   });
 
   afterEach(async () => {
@@ -64,4 +66,3 @@ describe('ide-sync commandValidate --ide filter', () => {
     await expect(commandValidate({ ide: 'gemini', strict: true, verbose: false })).resolves.toBeUndefined();
   });
 });
-

@@ -210,9 +210,11 @@ O Synkra AIOS inclui regras pré-configuradas para IDE para melhorar sua experi�
 #### Para Gemini CLI:
 
 - ✅ Regras e agentes sincronizaveis com `npm run sync:ide:gemini`
-- Arquivos gerados em `.gemini/rules.md` e `.gemini/rules/AIOS/agents/`
+- Arquivos gerados em `.gemini/rules.md`, `.gemini/rules/AIOS/agents/` e `.gemini/commands/*.toml`
 - ✅ Hooks e settings locais no fluxo de instalacao (`.gemini/hooks/` + `.gemini/settings.json`)
+- ✅ Ativacao rapida por slash commands (`/aios-menu`, `/aios-dev`, `/aios-architect`, etc.)
 - Validacao dedicada: `npm run validate:gemini-sync && npm run validate:gemini-integration`
+- Paridade multi-IDE em um comando: `npm run validate:parity`
 
 Estas regras fornecem:
 

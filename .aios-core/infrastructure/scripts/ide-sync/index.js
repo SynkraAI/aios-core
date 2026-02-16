@@ -24,6 +24,7 @@ const yaml = require('js-yaml');
 const { parseAllAgents } = require('./agent-parser');
 const { generateAllRedirects, writeRedirects } = require('./redirect-generator');
 const { validateAllIdes, formatValidationReport } = require('./validator');
+const { syncGeminiCommands, buildGeminiCommandFiles } = require('./gemini-commands');
 
 // Transformers
 const claudeCodeTransformer = require('./transformers/claude-code');
@@ -261,6 +262,15 @@ async function commandSync(options) {
     }
 
     const result = syncIde(agents, ideConfig, ideName, projectRoot, options);
+
+    // Gemini CLI: also sync slash launcher command files (.gemini/commands/*.toml)
+    if (ideName === 'gemini') {
+      const geminiCommands = syncGeminiCommands(agents, projectRoot, options);
+      result.commandFiles = geminiCommands.files;
+    } else {
+      result.commandFiles = [];
+    }
+
     results.push(result);
 
     // Generate redirects for this IDE
@@ -272,6 +282,7 @@ async function commandSync(options) {
     }
 
     const agentCount = result.files.length;
+    const commandCount = (result.commandFiles || []).length;
     const redirectCount = redirectResult.written.length;
     const errorCount = result.errors.length;
 
@@ -282,7 +293,7 @@ async function commandSync(options) {
       }
 
       console.log(
-        `   ${status} ${agentCount} agents, ${redirectCount} redirects${errorCount > 0 ? `, ${errorCount} errors` : ''}`
+        `   ${status} ${agentCount} agents${commandCount > 0 ? `, ${commandCount} commands` : ''}, ${redirectCount} redirects${errorCount > 0 ? `, ${errorCount} errors` : ''}`
       );
 
       if (options.verbose && result.errors.length > 0) {
@@ -294,7 +305,7 @@ async function commandSync(options) {
   }
 
   // Summary
-  const totalFiles = results.reduce((sum, r) => sum + r.files.length, 0);
+  const totalFiles = results.reduce((sum, r) => sum + r.files.length + (r.commandFiles || []).length, 0);
   const totalRedirects =
     Object.keys(config.redirects).length * targetIdes.filter(([, c]) => c.enabled).length;
   const totalErrors = results.reduce((sum, r) => sum + r.errors.length, 0);
@@ -386,6 +397,18 @@ async function commandValidate(options) {
       expectedFiles,
       targetDir: path.join(projectRoot, ideConfig.path),
     };
+
+    // Gemini CLI command launcher files are synced under .gemini/commands/*.toml
+    if (ideName === 'gemini') {
+      const commandFiles = buildGeminiCommandFiles(agents).map((entry) => ({
+        filename: entry.filename,
+        content: entry.content,
+      }));
+      ideConfigs['gemini-commands'] = {
+        expectedFiles: commandFiles,
+        targetDir: path.join(projectRoot, '.gemini', 'commands'),
+      };
+    }
   }
 
   // Validate

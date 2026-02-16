@@ -10,6 +10,7 @@ function getDefaultOptions() {
     projectRoot,
     rulesFile: path.join(projectRoot, '.gemini', 'rules.md'),
     agentsDir: path.join(projectRoot, '.gemini', 'rules', 'AIOS', 'agents'),
+    commandsDir: path.join(projectRoot, '.gemini', 'commands'),
     extensionDir: path.join(projectRoot, 'packages', 'gemini-aios-extension'),
     sourceAgentsDir: path.join(projectRoot, '.aios-core', 'development', 'agents'),
     quiet: false,
@@ -38,6 +39,7 @@ function validateGeminiIntegration(options = {}) {
     projectRoot,
     rulesFile: options.rulesFile || path.join(projectRoot, '.gemini', 'rules.md'),
     agentsDir: options.agentsDir || path.join(projectRoot, '.gemini', 'rules', 'AIOS', 'agents'),
+    commandsDir: options.commandsDir || path.join(projectRoot, '.gemini', 'commands'),
     extensionDir: options.extensionDir || path.join(projectRoot, 'packages', 'gemini-aios-extension'),
     sourceAgentsDir: options.sourceAgentsDir || path.join(projectRoot, '.aios-core', 'development', 'agents'),
   };
@@ -51,9 +53,23 @@ function validateGeminiIntegration(options = {}) {
   if (!fs.existsSync(resolved.agentsDir)) {
     errors.push(`Missing Gemini agents dir: ${path.relative(resolved.projectRoot, resolved.agentsDir)}`);
   }
+  if (!fs.existsSync(resolved.commandsDir)) {
+    errors.push(`Missing Gemini commands dir: ${path.relative(resolved.projectRoot, resolved.commandsDir)}`);
+  }
 
   const sourceCount = countMarkdownFiles(resolved.sourceAgentsDir);
   const geminiCount = countMarkdownFiles(resolved.agentsDir);
+  const commandFiles = fs.existsSync(resolved.commandsDir)
+    ? fs.readdirSync(resolved.commandsDir).filter((f) => f.endsWith('.toml'))
+    : [];
+  const expectedCommandCount = sourceCount > 0 ? sourceCount + 1 : 0;
+
+  if (sourceCount > 0 && commandFiles.length !== expectedCommandCount) {
+    warnings.push(`Gemini command count differs from source (${commandFiles.length}/${expectedCommandCount})`);
+  }
+  if (!commandFiles.includes('aios-menu.toml')) {
+    errors.push(`Missing Gemini command file: ${path.relative(resolved.projectRoot, path.join(resolved.commandsDir, 'aios-menu.toml'))}`);
+  }
   if (sourceCount > 0 && geminiCount !== sourceCount) {
     warnings.push(`Gemini agent count differs from source (${geminiCount}/${sourceCount})`);
   }
@@ -81,13 +97,16 @@ function validateGeminiIntegration(options = {}) {
     metrics: {
       sourceAgents: sourceCount,
       geminiAgents: geminiCount,
+      geminiCommands: commandFiles.length,
     },
   };
 }
 
 function formatHumanReport(result) {
   if (result.ok) {
-    const lines = [`✅ Gemini integration validation passed (agents: ${result.metrics.geminiAgents})`];
+    const lines = [
+      `✅ Gemini integration validation passed (agents: ${result.metrics.geminiAgents}, commands: ${result.metrics.geminiCommands})`,
+    ];
     if (result.warnings.length > 0) {
       lines.push(...result.warnings.map((w) => `⚠️ ${w}`));
     }

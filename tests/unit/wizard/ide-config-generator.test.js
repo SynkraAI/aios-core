@@ -12,6 +12,7 @@ const {
   validateConfigContent,
   generateTemplateVariables,
   generateIDEConfigs,
+  linkGeminiExtension,
 } = require('../../../packages/installer/src/wizard/ide-config-generator');
 
 describe('IDE Config Generator', () => {
@@ -305,6 +306,23 @@ describe('IDE Config Generator', () => {
       // This test would require mocking to force an error mid-generation
       // For now, we verify the rollback logic exists in the code
       expect(generateIDEConfigs).toBeDefined();
+    });
+  });
+
+  describe('linkGeminiExtension', () => {
+    const testDir = path.join(__dirname, '..', '..', '..', '.test-temp-link-gemini');
+
+    beforeEach(async () => {
+      await fs.ensureDir(testDir);
+    });
+
+    afterEach(async () => {
+      await fs.remove(testDir);
+    });
+
+    it('should skip when extension directory does not exist', async () => {
+      const result = await linkGeminiExtension(testDir);
+      expect(result).toEqual({ status: 'skipped', reason: 'extension-dir-not-found' });
     });
   });
 });
