@@ -189,7 +189,6 @@ async function runValidation(options) {
     const possibleSources = [
       path.join(__dirname, '../../../../..'), // npm package root
       path.join(projectRoot, 'node_modules/aios-core'),
-      path.join(projectRoot, 'node_modules/aios-core'),
     ];
 
     for (const src of possibleSources) {
@@ -216,12 +215,12 @@ async function runValidation(options) {
     detectExtras: options.extras === true,
     verbose: options.verbose === true,
     onProgress: options.json
-      ? () => {}
+      ? () => { }
       : (current, total, file) => {
-          if (spinner) {
-            spinner.text = `Validating ${current}/${total}: ${truncatePath(file, 40)}`;
-          }
-        },
+        if (spinner) {
+          spinner.text = `Validating ${current}/${total}: ${truncatePath(file, 40)}`;
+        }
+      },
   });
 
   try {
@@ -274,15 +273,15 @@ async function runValidation(options) {
         issueCount: report.issues?.length ?? 0,
         repair: repairAttempted
           ? {
-              attempted: true,
-              success: repairResult?.success ?? false,
-              error: repairResult?.error ?? null,
-              dryRun: options.dryRun === true,
-              repairedCount: repairResult?.repaired?.length ?? 0,
-              failedCount: repairResult?.failed?.length ?? 0,
-              repaired: repairResult?.repaired ?? [],
-              failed: repairResult?.failed ?? [],
-            }
+            attempted: true,
+            success: repairResult?.success ?? false,
+            error: repairResult?.error ?? null,
+            dryRun: options.dryRun === true,
+            repairedCount: repairResult?.repaired?.length ?? 0,
+            failedCount: repairResult?.failed?.length ?? 0,
+            repaired: repairResult?.repaired ?? [],
+            failed: repairResult?.failed ?? [],
+          }
           : { attempted: false },
       };
       console.log(JSON.stringify(output, null, 2));
@@ -369,13 +368,13 @@ async function runRepair(validator, options, spinner) {
   const repairResult = await validator.repair({
     dryRun,
     onProgress: options.json
-      ? () => {}
+      ? () => { }
       : (current, total, file) => {
-          if (spinner) {
-            const action = dryRun ? 'Checking' : 'Repairing';
-            spinner.text = `${action} ${current}/${total}: ${truncatePath(file, 40)}`;
-          }
-        },
+        if (spinner) {
+          const action = dryRun ? 'Checking' : 'Repairing';
+          spinner.text = `${action} ${current}/${total}: ${truncatePath(file, 40)}`;
+        }
+      },
   });
 
   if (spinner) {

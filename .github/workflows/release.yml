@@ -130,8 +130,6 @@ jobs:
         run: |
           VERSION="${{ needs.create-release.outputs.version }}"
 
-          # Create output directory
-          mkdir -p @synkra
 
           # Use tar with || true to ignore "file changed" warnings
           tar -czf aios-core-${VERSION}.tar.gz \

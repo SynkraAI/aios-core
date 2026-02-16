@@ -814,8 +814,8 @@ tar -czf aios-support.tar.gz .aios/logs diagnostic.json
    - Version de AIOS: `npx aios-core version`
 
 3. **Verificar issues existentes:**
-   - [GitHub Issues](https://github.com/aios-core/aios-core/issues)
-   - [Discussions](https://github.com/aios-core/aios-core/discussions)
+   - [GitHub Issues](https://github.com/SynkraAI/aios-core/issues)
+   - [Discussions](https://github.com/SynkraAI/aios-core/discussions)
 
 ### Soporte de la Comunidad
 

@@ -764,7 +764,6 @@ async function createClaudeSettingsLocal(projectRoot) {
 }
 
 /**
-<<<<<<< HEAD
  * Copy .aios-core/hooks/gemini folder into .gemini/hooks during installation
  * @param {string} projectRoot - Project root directory
  * @returns {Promise<string[]>} List of copied files

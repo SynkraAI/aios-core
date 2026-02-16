@@ -323,9 +323,7 @@ npm cache clean --force
 
 # Eliminar de package.json
 echo "Updating package.json..."
-npm uninstall aios-core/core
-npm uninstall aios-core/memory
-npm uninstall aios-core/meta-agent
+npm uninstall aios-core
 
 echo "Uninstall complete!"
 ```

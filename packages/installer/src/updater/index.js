@@ -180,7 +180,7 @@ class AIOSUpdater {
     if (fs.existsSync(localPackageJsonPath)) {
       try {
         const pkg = await fs.readJson(localPackageJsonPath);
-        if (pkg.name === 'aios-core' || pkg.name === 'aios-core') {
+        if (pkg.name === 'aios-core') {
           return { version: pkg.version, installedAt: null, mode: 'framework-development' };
         }
       } catch (error) {
@@ -406,7 +406,7 @@ class AIOSUpdater {
    */
   async update(options = {}) {
     const dryRun = options.dryRun === true;
-    const onProgress = options.onProgress || (() => {});
+    const onProgress = options.onProgress || (() => { });
 
     const result = {
       success: false,

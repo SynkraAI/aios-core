@@ -176,7 +176,7 @@ const patterns = [
 ## Support
 
 For additional help:
-- GitHub Issues: https://github.com/SynkraAIinc/aios-core/issues
+- GitHub Issues: https://github.com/SynkraAI/aios-core/issues
 - Documentation: https://aios-core.dev/docs
 - Story Reference: 2.3 - NPX Installation Context Detection
 
