@@ -38,7 +38,10 @@ function getEnricher(options) {
  * @returns {boolean}
  */
 function isCodeIntelAvailable() {
-  return getClient().isCodeIntelAvailable();
+  if (_defaultClient) {
+    return _defaultClient.isCodeIntelAvailable();
+  }
+  return false;
 }
 
 /**
@@ -61,15 +64,24 @@ async function enrichWithCodeIntel(baseResult, options = {}) {
   const enrichments = {};
 
   try {
-    const timeout = options.timeout || 5000;
+    const timeout = options.timeout ?? 5000;
     const capabilities = options.capabilities || [];
+
+    const capabilityArgs = {
+      assessImpact: () => [Array.isArray(options.files) ? options.files : []],
+      detectDuplicates: () => [options.description || '', options],
+      findTests: () => [options.symbol || ''],
+      getConventions: () => [options.target || '.'],
+      describeProject: () => [options.target || '.'],
+    };
 
     const promises = capabilities.map(async (cap) => {
       if (typeof enricher[cap] === 'function') {
         let timer;
         try {
+          const args = capabilityArgs[cap] ? capabilityArgs[cap]() : [options.target || '.'];
           const result = await Promise.race([
-            enricher[cap](options.target || '.'),
+            enricher[cap](...args),
             new Promise((_, reject) => {
               timer = setTimeout(() => reject(new Error('timeout')), timeout);
             }),

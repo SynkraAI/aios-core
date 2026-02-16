@@ -126,9 +126,9 @@ class CodeGraphProvider extends CodeIntelProvider {
   _normalizeDefinitionResult(result) {
     if (!result) return null;
     return {
-      file: result.file || result.path || null,
-      line: result.line || result.row || null,
-      column: result.column || result.col || null,
+      file: result.file ?? result.path ?? null,
+      line: result.line != null ? result.line : (result.row != null ? result.row : null),
+      column: result.column != null ? result.column : (result.col != null ? result.col : null),
       context: result.context || result.snippet || null,
     };
   }
@@ -137,8 +137,8 @@ class CodeGraphProvider extends CodeIntelProvider {
     if (!result) return null;
     const items = Array.isArray(result) ? result : result.references || result.results || [];
     return items.map((r) => ({
-      file: r.file || r.path || null,
-      line: r.line || r.row || null,
+      file: r.file ?? r.path ?? null,
+      line: r.line != null ? r.line : (r.row != null ? r.row : null),
       context: r.context || r.snippet || null,
     }));
   }
@@ -148,8 +148,8 @@ class CodeGraphProvider extends CodeIntelProvider {
     const items = Array.isArray(result) ? result : result.callers || result.results || [];
     return items.map((r) => ({
       caller: r.caller || r.name || null,
-      file: r.file || r.path || null,
-      line: r.line || r.row || null,
+      file: r.file ?? r.path ?? null,
+      line: r.line != null ? r.line : (r.row != null ? r.row : null),
     }));
   }
 
@@ -158,8 +158,8 @@ class CodeGraphProvider extends CodeIntelProvider {
     const items = Array.isArray(result) ? result : result.callees || result.results || [];
     return items.map((r) => ({
       callee: r.callee || r.name || null,
-      file: r.file || r.path || null,
-      line: r.line || r.row || null,
+      file: r.file ?? r.path ?? null,
+      line: r.line != null ? r.line : (r.row != null ? r.row : null),
     }));
   }
 
