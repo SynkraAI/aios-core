@@ -18,16 +18,15 @@ Em termos praticos: Codex esta no mesmo trilho arquitetural das integracoes prin
 
 ## Status de Compatibilidade (AIOS 4.0.4)
 
-| Capacidade | Status no Codex | Observacao |
+| O que você quer fazer | Funciona no Codex? | Como fazer |
 | --- | --- | --- |
-| Ativacao de agentes via skills | Works | `/skills` + `aios-<agent-id>` e o caminho recomendado |
-| Sync/validacao de artefatos AIOS | Works | `sync:ide:codex`, `sync:skills:codex`, validadores dedicados |
-| Hooks de lifecycle equivalentes ao Claude | Limited | Paridade parcial; parte da automacao depende de disciplina de fluxo |
-| Enforcement automatico before/after tool | Limited | Mitigar com `AGENTS.md`, validadores e rotinas de sync |
+| Ativar agentes AIOS | Works | `/skills` depois escolha `aios-<agent-id>` |
+| Sincronizar e validar arquivos AIOS | Works | `npm run sync:ide:codex` e `npm run validate:codex-sync` |
+| Checagens automáticas antes/depois de ações | Limited | Rode `npm run validate:parity` manualmente; parte da automação depende de disciplina no fluxo |
 
-Regra pratica para iniciantes:
-- Se precisar de automacao de hooks maxima, prefira Claude Code ou Gemini CLI.
-- Se usar Codex, siga o fluxo local-first com `/skills` e validadores.
+Regra prática para iniciantes:
+- Se você quer o máximo de automação (checagens automáticas sem precisar rodar comandos), prefira Claude Code ou Gemini CLI.
+- Se você usa Codex, siga o fluxo local-first: ative agentes via `/skills` e rode os validadores após cada mudança.
 
 ## Arquitetura Canonica
 

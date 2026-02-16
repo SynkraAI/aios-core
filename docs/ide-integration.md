@@ -17,51 +17,53 @@ AIOS supports multiple AI-powered development platforms. Choose the one that bes
 
 ### Quick Status Matrix (AIOS 4.0.4)
 
-| IDE/CLI | Overall Status | Agent Activation (Beginner Path) | Hooks/Lifecycle Parity | Notes |
+| IDE/CLI | Overall Status | How to Activate an Agent | Auto-Checks Before/After Actions | Workaround if Limited |
 | --- | --- | --- | --- | --- |
-| Claude Code | Works | `/agent-name` commands | Full | Reference implementation for AIOS lifecycle automation |
-| Gemini CLI | Works | `/aios-menu` then `/aios-<agent>` | High | Strong hook coverage with minor event-model differences |
-| Codex CLI | Limited | `/skills` then `aios-<agent-id>` | Partial | Works well with `AGENTS.md` + local skills + validators |
-| Cursor | Limited | `@agent` + synced rules | Not supported (equivalent lifecycle hooks) | Use rules + MCP + workflow discipline |
-| GitHub Copilot | Limited | chat modes + repo instructions | Not supported (equivalent lifecycle hooks) | Use repo instructions + MCP in VS Code |
-| AntiGravity | Limited | workflow-driven activation | Not supported (equivalent lifecycle hooks) | Integration is workflow-based, not Claude-style hooks |
+| Claude Code | Works | `/agent-name` commands | Works (full) | -- |
+| Gemini CLI | Works | `/aios-menu` then `/aios-<agent>` | Works (minor differences in event handling) | -- |
+| Codex CLI | Limited | `/skills` then `aios-<agent-id>` | Limited (some checks need manual sync) | Run `npm run sync:ide:codex` and follow `/skills` flow |
+| Cursor | Limited | `@agent` + synced rules | Not available | Follow synced rules and run validators manually (`npm run validate:parity`) |
+| GitHub Copilot | Limited | chat modes + repo instructions | Not available | Use repo instructions and VS Code MCP config for context |
+| AntiGravity | Limited | workflow-driven activation | Not available | Use generated workflows and run validators manually |
 
 Legend:
-- `Works`: fully recommended for onboarding path in AIOS 4.0.4.
-- `Limited`: supported with documented constraints/workarounds.
-- `Not supported`: no equivalent lifecycle parity feature for that capability.
+- `Works`: fully recommended for new users in AIOS 4.0.4.
+- `Limited`: usable with the documented workaround.
+- `Not available`: this IDE does not offer this capability; use the workaround instead.
 
-### Hook Parity and Functional Impact
+### What You Lose Without Full Auto-Checks
 
-| IDE | Hook Parity vs Claude | What Is Degraded Without Full Hooks | AIOS Mitigation |
+Some IDEs run automatic checks before and after each action (e.g., validating context, enforcing rules). Where this is not available, you compensate manually:
+
+| IDE | Auto-Check Level | What Is Reduced | How to Compensate |
 | --- | --- | --- | --- |
-| Claude Code | Full | None (reference behavior) | Native hooks + full AIOS pipeline |
-| Gemini CLI | High | Minor event-model differences | Native Gemini hooks + unified hook mapping |
-| Codex CLI | Limited/partial | Less automatic session lifecycle capture, weaker pre/post-tool enforcement | `AGENTS.md` + `/skills` + MCP + sync/validation scripts |
-| Cursor | No equivalent lifecycle hooks | No native pre/post-tool interception and reduced automatic audit trail | Synced rules + MCP + explicit workflow discipline |
-| GitHub Copilot | No equivalent lifecycle hooks | Same as Cursor, with stronger dependence on manual flow | Repo instructions, chat modes, and VS Code MCP integration |
-| AntiGravity | Workflow-driven (not hook-driven) | No Claude-like lifecycle parity | Workflow generation + agent sync |
+| Claude Code | Full | Nothing | Built-in checks handle everything |
+| Gemini CLI | High | Minor timing differences in checks | Gemini native checks cover most scenarios |
+| Codex CLI | Partial | Less automatic session tracking; some pre/post-action checks need manual trigger | Use `AGENTS.md` + `/skills` + sync/validation scripts |
+| Cursor | None | No automatic pre/post-action checks; no automatic audit trail | Follow synced rules, use MCP for context, run validators |
+| GitHub Copilot | None | Same as Cursor, plus more reliance on manual workflow | Use repo instructions, chat modes, VS Code MCP |
+| AntiGravity | None | No automatic check equivalents | Use generated workflows and run validators |
 
 ### Beginner Decision Guide
 
-If your goal is fastest first-value:
+If your goal is to get started as fast as possible:
 
-1. Choose `Claude Code` or `Gemini CLI` when possible.
-2. Use `Codex CLI` if you want terminal-first workflow and can follow `/skills` flow.
-3. Use `Cursor`, `Copilot`, or `AntiGravity` with awareness that lifecycle automation is reduced.
+1. **Best option:** Use `Claude Code` or `Gemini CLI` -- they have the most automation and fewest manual steps.
+2. **Good option:** Use `Codex CLI` if you prefer a terminal-first workflow and can follow the `/skills` activation flow.
+3. **Usable with extra steps:** Use `Cursor`, `Copilot`, or `AntiGravity` -- they work but require more manual validation steps (see workarounds in the table above).
 
 ### Practical Consequences by Capability
 
-- `SessionStart/SessionEnd` automation:
-  - Strong on Claude/Gemini.
-  - Partial or manual on Codex/Cursor/Copilot/AntiGravity.
-- `BeforeTool/AfterTool` guardrails:
-  - Strongest on Claude/Gemini.
-  - Limited on Codex.
-  - Mostly process-based on Cursor/Copilot/AntiGravity.
-- Automatic audit and telemetry richness:
-  - Highest where hook lifecycle is available.
-  - Reduced where integration is instruction/rules-driven only.
+- **Session tracking** (automatic start/end detection):
+  - Automatic on Claude Code and Gemini CLI.
+  - Manual or partial on Codex, Cursor, Copilot, and AntiGravity.
+- **Pre/post-action guardrails** (checks that run before and after each tool use):
+  - Full on Claude Code and Gemini CLI.
+  - Partial on Codex CLI (run sync scripts to compensate).
+  - Not available on Cursor, Copilot, and AntiGravity (run validators manually).
+- **Automatic audit trail** (record of what happened in each session):
+  - Richest on Claude Code and Gemini CLI.
+  - Reduced on other IDEs (compensate with manual logging or validator output).
 
 ---
 

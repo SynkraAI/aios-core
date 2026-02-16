@@ -14,7 +14,7 @@ Framework de Desenvolvimento Auto-Modificável Alimentado por IA. Fundado em Des
 
 ## Comece Aqui (10 Min)
 
-Se e sua primeira vez no AIOS, siga este caminho linear:
+Se é sua primeira vez no AIOS, siga este caminho linear:
 
 1. Instale em um projeto novo ou existente:
 ```bash
@@ -25,15 +25,15 @@ npx aios-core init meu-projeto
 cd seu-projeto
 npx aios-core install
 ```
-2. Escolha sua IDE/CLI e o caminho de ativacao:
+2. Escolha sua IDE/CLI e o caminho de ativação:
 - Claude Code: `/agent-name`
-- Gemini CLI: `/aios-menu` -> `/aios-<agent>`
-- Codex CLI: `/skills` -> `aios-<agent-id>`
+- Gemini CLI: `/aios-menu` → `/aios-<agent>`
+- Codex CLI: `/skills` → `aios-<agent-id>`
 - Cursor/Copilot/AntiGravity: siga os limites e workarounds em `docs/ide-integration.md`
 3. Ative 1 agente e confirme o greeting.
 4. Rode 1 comando inicial (`*help` ou equivalente) para validar first-value.
 
-Definicao de first-value (binaria): ativacao de agente + greeting valido + comando inicial com output util em <= 10 minutos.
+Definição de first-value (binária): ativação de agente + greeting válido + comando inicial com output útil em <= 10 minutos.
 
 ## Compatibilidade de Hooks por IDE (Realidade AIOS 4.0.4)
 
