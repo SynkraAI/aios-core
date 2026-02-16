@@ -17,7 +17,7 @@
  * - Each session picks up where the last left off via state file
  *
  * @module workflow-state-manager
- * @version 1.0.0
+ * @version 2.0.0
  */
 
 const fs = require('fs').promises;

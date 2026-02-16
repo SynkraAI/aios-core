@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.3
-generated_at: "2026-02-16T01:52:19.705Z"
+generated_at: "2026-02-16T01:59:01.295Z"
 generator: scripts/generate-install-manifest.js
 file_count: 993
 files:
@@ -1013,7 +1013,7 @@ files:
     type: data
     size: 34251
   - path: data/entity-registry.yaml
-    hash: sha256:9b3db7230e514a96034d9e5d4b10a0e17c9bd1cf9fb4de396807bd444a55b08a
+    hash: sha256:5a0e297c39519a5f90eae5208e30b1dba83dbcc0646730b64efb7962d8810b5d
     type: data
     size: 288870
   - path: data/learned-patterns.yaml
@@ -1397,7 +1397,7 @@ files:
     type: script
     size: 9847
   - path: development/scripts/workflow-state-manager.js
-    hash: sha256:89177df1184e1650ba3e9aad18c9a3b07f6b77711f0271949e8676701695e431
+    hash: sha256:f3573ec1ebd022d31422bf8dcd48df5891f698ab5a9489031bd56e0893087109
     type: script
     size: 20129
   - path: development/scripts/workflow-validator.js
@@ -3933,9 +3933,9 @@ files:
     type: workflow-intelligence
     size: 8436
   - path: workflow-intelligence/engine/suggestion-engine.js
-    hash: sha256:1283f4a80e4bb00fe22b34822695c282d7a2ca3e2d1394f2923cd57b99a91f32
+    hash: sha256:7e07146e644edc39c5337bfc2f5eee621c39446be40cf303cdf418de97111796
     type: workflow-intelligence
-    size: 19809
+    size: 23441
   - path: workflow-intelligence/engine/wave-analyzer.js
     hash: sha256:0d017b70213584a11cad354d54d442be977b183353e6a5e31cc1de4291d0afb9
     type: workflow-intelligence

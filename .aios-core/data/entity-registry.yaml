@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-16T01:21:26.585Z'
+  lastUpdated: '2026-02-16T01:52:27.945Z'
   entityCount: 504
   checksumAlgorithm: sha256
 entities:
@@ -1952,13 +1952,14 @@ entities:
       usedBy: []
       dependencies:
         - suggestion-engine
+        - workflow-state-manager
         - output-formatter
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:8ba7dc4567c0c7bf7001f0a26650767f72f45442d312daeb0e321ba4605ce429
-      lastVerified: '2026-02-15T19:17:32.644Z'
+      checksum: sha256:d9c84f8892367cd8e1bd453dd08876d051bcc368ca9eacf5d2babb26235427fb
+      lastVerified: '2026-02-16T01:52:27.944Z'
     orchestrate-resume:
       path: .aios-core/development/tasks/orchestrate-resume.md
       type: task
@@ -5711,20 +5712,21 @@ entities:
     workflow-state-manager:
       path: .aios-core/development/scripts/workflow-state-manager.js
       type: script
-      purpose: Entity at .aios-core\development\scripts\workflow-state-manager.js
+      purpose: Entity at .aios-core/development/scripts/workflow-state-manager.js
       keywords:
         - workflow
         - state
         - manager
       usedBy:
+        - next
         - verify-workflow-gaps
       dependencies: []
       adaptability:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:56758b8af8b53b74b89b758d84feda85b73ea196704c2969573d183025f052d7
-      lastVerified: '2026-02-08T13:33:24.304Z'
+      checksum: sha256:89177df1184e1650ba3e9aad18c9a3b07f6b77711f0271949e8676701695e431
+      lastVerified: '2026-02-16T01:52:27.944Z'
     workflow-validator:
       path: .aios-core/development/scripts/workflow-validator.js
       type: script
