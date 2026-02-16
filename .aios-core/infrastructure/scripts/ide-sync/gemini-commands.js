@@ -3,20 +3,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-const GEMINI_AGENT_DESCRIPTIONS = {
-  'aios-master': 'Orquestrador AIOS (estratégia, arquitetura e coordenação multiagente)',
-  analyst: 'Analista de negócio (pesquisa, requisitos, descobertas e priorização)',
-  architect: 'Arquiteto de sistema (arquitetura, stack, APIs e decisões técnicas)',
-  'data-engineer': 'Engenharia de dados (modelagem, banco, migrações e performance SQL)',
-  dev: 'Desenvolvedor full stack (implementação, refatoração, debug e testes)',
-  devops: 'DevOps e repositório (quality gates, release, branch, push e PR)',
-  pm: 'Product Manager (PRD, estratégia, roadmap e priorização)',
-  po: 'Product Owner (backlog, critérios de aceite e refinamento)',
-  qa: 'Qualidade e testes (estratégia de teste, riscos e validação)',
-  sm: 'Scrum Master (stories, fluxo ágil, planejamento e acompanhamento)',
-  'squad-creator': 'Squad Creator (criar, validar e evoluir squads)',
-  'ux-design-expert': 'UX/UI (pesquisa, fluxo, design system e experiência do usuário)',
-};
+const FALLBACK_DESCRIPTION = 'Agente especializado AIOS';
 
 const MENU_ORDER = [
   'aios-master',
@@ -44,6 +31,32 @@ function menuCommandName(agentId) {
   return `/aios-${commandSlugForAgent(agentId)}`;
 }
 
+function normalizeText(text) {
+  if (!text || typeof text !== 'string') return '';
+  return text.replace(/\s+/g, ' ').trim();
+}
+
+function escapeTomlString(text) {
+  return String(text || '').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
+function buildAgentDescription(agent) {
+  const agentData = agent.agent || {};
+  const title = normalizeText(agentData.title);
+  const whenToUse = normalizeText(agentData.whenToUse);
+
+  if (title && whenToUse) {
+    return `${title} (${whenToUse})`;
+  }
+  if (title) {
+    return title;
+  }
+  if (whenToUse) {
+    return whenToUse;
+  }
+  return `Ativar agente AIOS ${agent.id}`;
+}
+
 function buildAgentCommandPrompt(agentId) {
   return [
     `Ative o agente ${agentId}:`,
@@ -56,15 +69,12 @@ function buildAgentCommandPrompt(agentId) {
   ].join('\n');
 }
 
-function buildAgentCommandFile(agentId) {
+function buildAgentCommandFile(agentId, description = FALLBACK_DESCRIPTION) {
   const slug = commandSlugForAgent(agentId);
-  const description =
-    GEMINI_AGENT_DESCRIPTIONS[agentId] ||
-    `Ativar agente AIOS ${agentId}`;
 
   const prompt = buildAgentCommandPrompt(agentId);
   const content = [
-    `description = "${description.replace(/"/g, '\\"')}"`,
+    `description = "${escapeTomlString(description)}"`,
     'prompt = """',
     prompt,
     '"""',
@@ -75,10 +85,11 @@ function buildAgentCommandFile(agentId) {
     filename: `aios-${slug}.toml`,
     content,
     agentId,
+    description,
   };
 }
 
-function buildMenuPrompt(agentIds) {
+function buildMenuPrompt(commandFiles) {
   const lines = [
     'Você está no launcher AIOS para Gemini.',
     '',
@@ -86,9 +97,8 @@ function buildMenuPrompt(agentIds) {
   ];
 
   let index = 1;
-  for (const agentId of agentIds) {
-    const description = GEMINI_AGENT_DESCRIPTIONS[agentId] || 'Agente especializado AIOS';
-    lines.push(`${index}. ${menuCommandName(agentId)} - ${description}`);
+  for (const commandFile of commandFiles) {
+    lines.push(`${index}. ${menuCommandName(commandFile.agentId)} - ${commandFile.description}`);
     index += 1;
   }
 
@@ -97,11 +107,11 @@ function buildMenuPrompt(agentIds) {
   return lines.join('\n');
 }
 
-function buildMenuCommandFile(agentIds) {
+function buildMenuCommandFile(commandFiles) {
   const content = [
     'description = "Menu rápido AIOS (lista agentes e orienta qual ativar)"',
     'prompt = """',
-    buildMenuPrompt(agentIds),
+    buildMenuPrompt(commandFiles),
     '"""',
     '',
   ].join('\n');
@@ -120,13 +130,21 @@ function resolveAgentOrder(agentIds) {
 }
 
 function buildGeminiCommandFiles(agents) {
-  const validAgentIds = agents
+  const validAgents = agents
     .filter((agent) => !agent.error)
-    .map((agent) => agent.id);
+    .map((agent) => ({
+      id: agent.id,
+      description: buildAgentDescription(agent),
+    }));
 
-  const ordered = resolveAgentOrder(validAgentIds);
-  const files = ordered.map((id) => buildAgentCommandFile(id));
-  files.unshift(buildMenuCommandFile(ordered));
+  const ordered = resolveAgentOrder(validAgents.map((agent) => agent.id));
+  const byId = new Map(validAgents.map((agent) => [agent.id, agent]));
+  const files = ordered.map((id) => {
+    const meta = byId.get(id);
+    const description = meta?.description || FALLBACK_DESCRIPTION;
+    return buildAgentCommandFile(id, description);
+  });
+  files.unshift(buildMenuCommandFile(files));
   return files;
 }
 
@@ -155,10 +173,12 @@ function syncGeminiCommands(agents, projectRoot, options = {}) {
 }
 
 module.exports = {
-  GEMINI_AGENT_DESCRIPTIONS,
+  FALLBACK_DESCRIPTION,
   MENU_ORDER,
   commandSlugForAgent,
   menuCommandName,
+  buildAgentDescription,
+  escapeTomlString,
   buildGeminiCommandFiles,
   syncGeminiCommands,
 };
