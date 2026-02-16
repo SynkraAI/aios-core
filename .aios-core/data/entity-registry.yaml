@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-15T23:35:00.000Z'
-  entityCount: 498
+  lastUpdated: '2026-02-16T01:22:08.129Z'
+  entityCount: 504
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -4801,6 +4801,21 @@ entities:
         extensionPoints: []
       checksum: sha256:7c880de0dec8b06eb3390a56614996c6033c1939907d77f73f4f6f85ae42b3e2
       lastVerified: '2026-02-08T13:33:24.280Z'
+    statusline-script:
+      path: .aios-core/product/templates/statusline/statusline-script.js
+      type: template
+      purpose: Entity at .aios-core\product\templates\statusline\statusline-script.js
+      keywords:
+        - statusline
+        - script
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:352b928acd0a477875192ce96fa3aebb278fe9d9b55bc24a144e7aaafa180b45
+      lastVerified: '2026-02-16T01:22:08.127Z'
   scripts:
     agent-assignment-resolver:
       path: .aios-core/development/scripts/agent-assignment-resolver.js
@@ -8646,6 +8661,128 @@ entities:
         extensionPoints: []
       checksum: sha256:33faf5820fbe2559e425707ff6ce19ce20b046d7222814d4040e739317ff998e
       lastVerified: '2026-02-15T20:39:45.235Z'
+    code-intel-index:
+      path: .aios-core/core/code-intel/index.js
+      type: module
+      purpose: Public API for code intelligence module — singletons, convenience functions, exports
+      keywords:
+        - code-intel
+        - code-intelligence
+        - public-api
+        - singleton
+      usedBy: []
+      dependencies:
+        - code-intel-client
+        - code-intel-enricher
+        - provider-interface
+        - code-graph-provider
+      adaptability:
+        score: 0.7
+        constraints:
+          - CommonJS module system
+        extensionPoints:
+          - New providers via CodeIntelProvider subclass
+          - New enricher capabilities
+      checksum: ''
+      lastVerified: '2026-02-15T00:00:00.000Z'
+    code-intel-client:
+      path: .aios-core/core/code-intel/code-intel-client.js
+      type: module
+      purpose: >-
+        Central code intelligence client with provider detection, circuit breaker, session cache, and 8 primitive
+        capabilities
+      keywords:
+        - code-intel
+        - client
+        - circuit-breaker
+        - cache
+        - provider-detection
+      usedBy:
+        - code-intel-index
+        - code-intel-enricher
+      dependencies:
+        - provider-interface
+        - code-graph-provider
+      adaptability:
+        score: 0.6
+        constraints:
+          - Circuit breaker threshold/reset configurable via constants
+          - Cache TTL configurable via constant
+        extensionPoints:
+          - Provider registry accepts any CodeIntelProvider subclass
+      checksum: ''
+      lastVerified: '2026-02-15T00:00:00.000Z'
+    code-intel-enricher:
+      path: .aios-core/core/code-intel/code-intel-enricher.js
+      type: module
+      purpose: >-
+        Composite code intelligence capabilities — assessImpact, detectDuplicates, getConventions, findTests,
+        describeProject
+      keywords:
+        - code-intel
+        - enricher
+        - composite
+        - impact
+        - conventions
+      usedBy:
+        - code-intel-index
+      dependencies:
+        - code-intel-client
+      adaptability:
+        score: 0.7
+        constraints:
+          - Depends on CodeIntelClient primitives
+        extensionPoints:
+          - New composite capabilities can be added
+      checksum: ''
+      lastVerified: '2026-02-15T00:00:00.000Z'
+    provider-interface:
+      path: .aios-core/core/code-intel/providers/provider-interface.js
+      type: module
+      purpose: Abstract base class defining 8-capability contract for code intelligence providers
+      keywords:
+        - code-intel
+        - provider
+        - interface
+        - abstract
+        - contract
+      usedBy:
+        - code-intel-index
+        - code-intel-client
+        - code-graph-provider
+      dependencies: []
+      adaptability:
+        score: 0.9
+        constraints:
+          - 8 capabilities are the MVP contract
+        extensionPoints:
+          - Subclass to create new providers (Nogic, Semgrep, etc.)
+      checksum: ''
+      lastVerified: '2026-02-15T00:00:00.000Z'
+    code-graph-provider:
+      path: .aios-core/core/code-intel/providers/code-graph-provider.js
+      type: module
+      purpose: Code Graph MCP adapter — maps 8 capabilities to Code Graph MCP tools with response normalization
+      keywords:
+        - code-intel
+        - provider
+        - code-graph
+        - mcp
+        - adapter
+      usedBy:
+        - code-intel-index
+        - code-intel-client
+      dependencies:
+        - provider-interface
+        - Code Graph MCP server
+      adaptability:
+        score: 0.5
+        constraints:
+          - Coupled to Code Graph MCP tool names
+        extensionPoints:
+          - TOOL_MAP can be extended for new MCP tools
+      checksum: ''
+      lastVerified: '2026-02-15T00:00:00.000Z'
   agents:
     aios-master:
       path: .aios-core/development/agents/aios-master.md
@@ -9022,7 +9159,9 @@ entities:
     code-intel-health-check:
       path: scripts/code-intel-health-check.js
       type: script
-      purpose: Health check and validation for Code Graph MCP provider. Outputs structured JSON with status, tools availability, and response time.
+      purpose: >-
+        Health check and validation for Code Graph MCP provider. Outputs structured JSON with status, tools
+        availability, and response time.
       keywords:
         - code-intelligence
         - health-check
@@ -9030,8 +9169,7 @@ entities:
         - code-graph
         - provider
         - validation
-      usedBy:
-        - NOG-1
+      usedBy: []
       dependencies:
         - code-graph-mcp
       adaptability:
@@ -9053,9 +9191,7 @@ entities:
         - installation
         - troubleshooting
         - guide
-      usedBy:
-        - NOG-0
-        - NOG-1
+      usedBy: []
       dependencies: []
       adaptability:
         score: 0.9
