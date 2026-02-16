@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.3
-generated_at: "2026-02-16T02:16:10.891Z"
+generated_at: "2026-02-16T02:23:49.647Z"
 generator: scripts/generate-install-manifest.js
 file_count: 995
 files:
@@ -641,9 +641,9 @@ files:
     type: core
     size: 10845
   - path: core/orchestration/context-manager.js
-    hash: sha256:027fb225c227f15e9a9faf14f3b74af735ab01e8549e2d11056c99729ed8f0d7
+    hash: sha256:0dd03e84d0a2ea06165825c5eb7154531337ef98275918119ccd03769af576c3
     type: core
-    size: 10721
+    size: 16842
   - path: core/orchestration/dashboard-integration.js
     hash: sha256:2099a762e039d7b536b0472231d648a39c34c386d04bdcb1a265c5dd4d261514
     type: core
@@ -729,9 +729,9 @@ files:
     type: core
     size: 24732
   - path: core/orchestration/skill-dispatcher.js
-    hash: sha256:0a2dcf12cb8b04c26006c57016cf0d651332e60dee09762f88927c216464abde
+    hash: sha256:4a54fec3a3338431d1d9634ebf06f3983d06903570c45d67d0ac15d25c95eb05
     type: core
-    size: 10372
+    size: 10490
   - path: core/orchestration/subagent-prompt-builder.js
     hash: sha256:967cc17e019ae030148b276b6fdc6a698ae5f42a05f20e80484cb87ea81ed7af
     type: core
@@ -757,9 +757,9 @@ files:
     type: core
     size: 36350
   - path: core/orchestration/workflow-orchestrator.js
-    hash: sha256:ab6edd48275d41b4074bc6012708ffb3a7c7df94d7af341166c79df90c793944
+    hash: sha256:5d3f14d5f12742ce87c3ae8745f82f4ac9f3df3d1889cf16bfc13743130963f9
     type: core
-    size: 28570
+    size: 30727
   - path: core/permissions/__tests__/permission-mode.test.js
     hash: sha256:87df5f29666a599fb0fec917e0360ae6fa9dd90512f0816ae62fa453dbab7fbb
     type: core

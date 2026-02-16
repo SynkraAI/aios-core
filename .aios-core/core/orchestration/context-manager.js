@@ -33,6 +33,7 @@ class ContextManager {
     this.stateDir = path.join(projectRoot, '.aios', 'workflow-state');
     this.statePath = path.join(this.stateDir, `${workflowId}.json`);
     this.handoffDir = path.join(this.stateDir, 'handoffs');
+    this.confidenceDir = path.join(this.stateDir, 'confidence');
 
     // In-memory cache
     this._stateCache = null;
@@ -45,6 +46,7 @@ class ContextManager {
   async ensureStateDir() {
     await fs.ensureDir(this.stateDir);
     await fs.ensureDir(this.handoffDir);
+    await fs.ensureDir(this.confidenceDir);
   }
 
   /**
@@ -78,6 +80,7 @@ class ContextManager {
       phases: {},
       metadata: {
         projectRoot: this.projectRoot,
+        delivery_confidence: null,
       },
     };
   }
@@ -118,6 +121,8 @@ class ContextManager {
   async savePhaseOutput(phaseNum, output, options = {}) {
     const state = await this.loadState();
     const completedAt = new Date().toISOString();
+    state.currentPhase = phaseNum;
+    state.status = 'in_progress';
     const handoff = this._buildHandoffPackage(phaseNum, output, state, options, completedAt);
 
     state.phases[phaseNum] = {
@@ -125,13 +130,13 @@ class ContextManager {
       completedAt,
       handoff,
     };
-
-    state.currentPhase = phaseNum;
-    state.status = 'in_progress';
+    state.metadata = state.metadata || {};
+    state.metadata.delivery_confidence = this._calculateDeliveryConfidence(state);
 
     this._stateCache = state;
     await this._saveState();
     await this._saveHandoffFile(handoff);
+    await this._saveConfidenceFile(state.metadata.delivery_confidence);
   }
 
   /**
@@ -261,7 +266,16 @@ class ContextManager {
       currentPhase: state.currentPhase,
       completedPhases: phases,
       totalPhases: phases.length,
+      deliveryConfidence: state.metadata?.delivery_confidence || null,
     };
+  }
+
+  /**
+   * Get latest delivery confidence score metadata.
+   * @returns {Object|null} Confidence payload
+   */
+  getDeliveryConfidence() {
+    return this._stateCache?.metadata?.delivery_confidence || null;
   }
 
   /**
@@ -308,6 +322,17 @@ class ContextManager {
     const filePath = path.join(this.handoffDir, `${this.workflowId}-phase-${phase}.handoff.json`);
     await fs.ensureDir(this.handoffDir);
     await fs.writeJson(filePath, handoff, { spaces: 2 });
+  }
+
+  /**
+   * Persist confidence score as a dedicated artifact.
+   * @private
+   */
+  async _saveConfidenceFile(confidence) {
+    if (!confidence) return;
+    const filePath = path.join(this.confidenceDir, `${this.workflowId}.delivery-confidence.json`);
+    await fs.ensureDir(this.confidenceDir);
+    await fs.writeJson(filePath, confidence, { spaces: 2 });
   }
 
   /**
@@ -372,6 +397,185 @@ class ContextManager {
     }
 
     return risks;
+  }
+
+  /**
+   * Compute delivery confidence score from workflow state.
+   * @private
+   */
+  _calculateDeliveryConfidence(state) {
+    const phases = Object.values(state.phases || {});
+    const weights = {
+      test_coverage: 0.25,
+      ac_completion: 0.30,
+      risk_score_inv: 0.20,
+      debt_score_inv: 0.15,
+      regression_clear: 0.10,
+    };
+    const components = {
+      test_coverage: this._calculateTestCoverage(phases),
+      ac_completion: this._calculateAcCompletion(phases),
+      risk_score_inv: this._calculateRiskInverseScore(phases),
+      debt_score_inv: this._calculateDebtInverseScore(phases),
+      regression_clear: this._calculateRegressionClear(phases),
+    };
+
+    const scoreBase = Object.keys(weights).reduce(
+      (acc, key) => acc + (components[key] || 0) * weights[key],
+      0,
+    );
+    const score = Number((scoreBase * 100).toFixed(2));
+    const threshold = this._resolveConfidenceThreshold();
+
+    return {
+      version: '1.0.0',
+      calculated_at: new Date().toISOString(),
+      score,
+      threshold,
+      gate_passed: score >= threshold,
+      formula: {
+        expression:
+          'confidence = (test_coverage*0.25 + ac_completion*0.30 + risk_score_inv*0.20 + debt_score_inv*0.15 + regression_clear*0.10) * 100',
+        weights,
+      },
+      components,
+      phase_count: phases.length,
+    };
+  }
+
+  /**
+   * @private
+   */
+  _resolveConfidenceThreshold() {
+    const raw = process.env.AIOS_DELIVERY_CONFIDENCE_THRESHOLD;
+    const parsed = Number(raw);
+    return Number.isFinite(parsed) ? parsed : 70;
+  }
+
+  /**
+   * @private
+   */
+  _calculateTestCoverage(phases) {
+    let totalChecks = 0;
+    let passedChecks = 0;
+
+    for (const phase of phases) {
+      const checks = phase?.validation?.checks;
+      if (!Array.isArray(checks)) continue;
+      for (const check of checks) {
+        totalChecks += 1;
+        if (check?.passed === true) passedChecks += 1;
+      }
+    }
+
+    if (totalChecks === 0) {
+      return phases.length > 0 ? 1 : 0;
+    }
+
+    return passedChecks / totalChecks;
+  }
+
+  /**
+   * @private
+   */
+  _calculateAcCompletion(phases) {
+    let total = 0;
+    let done = 0;
+    let hasExplicitData = false;
+
+    for (const phase of phases) {
+      const result = phase?.result || {};
+      if (Number.isFinite(result.ac_total) && Number.isFinite(result.ac_completed)) {
+        hasExplicitData = true;
+        total += Math.max(0, result.ac_total);
+        done += Math.min(Math.max(0, result.ac_completed), Math.max(0, result.ac_total));
+      } else if (Array.isArray(result.acceptance_criteria)) {
+        hasExplicitData = true;
+        total += result.acceptance_criteria.length;
+        done += result.acceptance_criteria.filter((item) => item?.done || item?.status === 'done').length;
+      }
+    }
+
+    if (hasExplicitData && total > 0) {
+      return done / total;
+    }
+
+    if (phases.length === 0) {
+      return 0;
+    }
+
+    const successful = phases.filter((phase) => phase?.result?.status !== 'failed').length;
+    return successful / phases.length;
+  }
+
+  /**
+   * @private
+   */
+  _calculateRiskInverseScore(phases) {
+    const totalRisks = phases.reduce((sum, phase) => {
+      const handoffRisks = Array.isArray(phase?.handoff?.open_risks) ? phase.handoff.open_risks.length : 0;
+      const resultRisks = this._extractOpenRisks(phase).length;
+      return sum + Math.max(handoffRisks, resultRisks);
+    }, 0);
+
+    return Math.max(0, 1 - totalRisks / 10);
+  }
+
+  /**
+   * @private
+   */
+  _calculateDebtInverseScore(phases) {
+    const totalDebt = phases.reduce((sum, phase) => {
+      const result = phase?.result || {};
+      const explicitCount = Number.isFinite(result.technical_debt_count)
+        ? result.technical_debt_count
+        : Number.isFinite(result.debt_count)
+          ? result.debt_count
+          : 0;
+      const listCount = [
+        result.technical_debt,
+        result.debt_items,
+        result.todos,
+        result.hacks,
+      ].reduce((listSum, list) => listSum + (Array.isArray(list) ? list.length : 0), 0);
+      return sum + explicitCount + listCount;
+    }, 0);
+
+    return Math.max(0, 1 - totalDebt / 10);
+  }
+
+  /**
+   * @private
+   */
+  _calculateRegressionClear(phases) {
+    let totalRegressionChecks = 0;
+    let passedRegressionChecks = 0;
+
+    for (const phase of phases) {
+      const checks = phase?.validation?.checks;
+      if (!Array.isArray(checks)) continue;
+
+      for (const check of checks) {
+        const type = String(check?.type || '').toLowerCase();
+        const pathValue = String(check?.path || '').toLowerCase();
+        const checklist = String(check?.checklist || '').toLowerCase();
+        const isRegression = type.includes('regression')
+          || pathValue.includes('regression')
+          || checklist.includes('regression');
+
+        if (!isRegression) continue;
+        totalRegressionChecks += 1;
+        if (check?.passed === true) {
+          passedRegressionChecks += 1;
+        }
+      }
+    }
+
+    if (totalRegressionChecks === 0) {
+      return this._calculateTestCoverage(phases);
+    }
+
+    return passedRegressionChecks / totalRegressionChecks;
   }
 
   /**

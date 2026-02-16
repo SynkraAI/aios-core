@@ -79,4 +79,45 @@ describe('WorkflowStateManager runtime-first recommendations', () => {
     expect(next.command).toContain('*review-build');
     expect(next.agent).toBe('@qa');
   });
+
+  it('maps completed story to close-story', () => {
+    const manager = new WorkflowStateManager();
+    const next = manager.getNextActionRecommendation(
+      {
+        story_status: 'done',
+        qa_status: 'pass',
+        ci_status: 'green',
+        has_uncommitted_changes: false,
+      },
+      { story: 'docs/stories/completed.md' },
+    );
+
+    expect(next.state).toBe('completed');
+    expect(next.command).toContain('*close-story');
+    expect(next.agent).toBe('@po');
+    expect(next.rationale).toBeDefined();
+    expect(next.confidence).toBeGreaterThanOrEqual(0.9);
+  });
+
+  it('maps in-progress + uncommitted changes to in_development', () => {
+    const manager = new WorkflowStateManager();
+    const next = manager.getNextActionRecommendation({
+      story_status: 'in_progress',
+      qa_status: 'pass',
+      ci_status: 'green',
+      has_uncommitted_changes: true,
+    });
+
+    expect(next.state).toBe('in_development');
+    expect(next.command).toBe('*run-tests');
+    expect(next.agent).toBe('@dev');
+  });
+
+  it('falls back to unknown with low confidence when no signals', () => {
+    const manager = new WorkflowStateManager();
+    const next = manager.getNextActionRecommendation({});
+
+    expect(next.state).toBe('unknown');
+    expect(next.confidence).toBeLessThanOrEqual(0.5);
+  });
 });
