@@ -27,12 +27,6 @@ Muitos recursos avançados do AIOS dependem de eventos de ciclo de vida (hooks).
 
 Impactos e mitigação detalhados: `docs/ide-integration.md`.
 
-## Nota Sobre BMAD
-
-O AIOS evoluiu significativamente e **não depende de BMAD** para operação atual.
-Quando BMAD aparece em histórico de changelog/migração, é apenas contexto histórico.
-O caminho oficial e atual é AIOS 4.x com terminologia e arquitetura próprias.
-
 ## Visão Geral
 
 ### Premissa Arquitetural: CLI First

@@ -16,6 +16,19 @@ O Codex hoje e alvo de primeira classe no AIOS:
 
 Em termos praticos: Codex esta no mesmo trilho arquitetural das integracoes principais do AIOS, sem caminho paralelo legado.
 
+## Status de Compatibilidade (AIOS 4.0.4)
+
+| Capacidade | Status no Codex | Observacao |
+| --- | --- | --- |
+| Ativacao de agentes via skills | Works | `/skills` + `aios-<agent-id>` e o caminho recomendado |
+| Sync/validacao de artefatos AIOS | Works | `sync:ide:codex`, `sync:skills:codex`, validadores dedicados |
+| Hooks de lifecycle equivalentes ao Claude | Limited | Paridade parcial; parte da automacao depende de disciplina de fluxo |
+| Enforcement automatico before/after tool | Limited | Mitigar com `AGENTS.md`, validadores e rotinas de sync |
+
+Regra pratica para iniciantes:
+- Se precisar de automacao de hooks maxima, prefira Claude Code ou Gemini CLI.
+- Se usar Codex, siga o fluxo local-first com `/skills` e validadores.
+
 ## Arquitetura Canonica
 
 ### Fonte de verdade

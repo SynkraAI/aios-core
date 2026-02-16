@@ -5,7 +5,7 @@ Status: Active
 
 ## Strategic Principle
 
-Differentiate AIOS without copying BMAD, with learning-curve reduction as the top priority.
+Differentiate AIOS with its own product identity, with learning-curve reduction as the top priority.
 
 ## Workstreams
 
@@ -42,6 +42,28 @@ Differentiate AIOS without copying BMAD, with learning-curve reduction as the to
 - Brownfield premium track with rollback strategy.
 - Live ADR validations.
 - Terminology hardening and semantic lint.
+
+## Sprint Sequence
+
+- Sprint 1: onboarding metric + IDE activation clarity.
+- Sprint 2: onboarding rewrite + flow-state design.
+- Sprint 3: flow-state implementation + onboarding smoke tests.
+- Sprint 4: compatibility contract + execution profiles + structured handoffs.
+- Sprint 5: delivery confidence score.
+- Sprint 6: vertical specialization + brownfield premium + taxonomy hardening.
+
+## Merge Gates
+
+- P0 Gate (after Sprint 3): onboarding metric validated, beginner path published, IDE matrix clear, flow-state working, onboarding smoke tests green.
+- P1 Gate (after Sprint 5): contract-vs-implementation CI blocking enabled, execution profiles audited, handoff package validated, confidence score operational.
+- P2 Gate (after Sprint 6): vertical tracks reproducible, brownfield pipeline documented/tested, taxonomy lint active with no regressions.
+
+## Branch Strategy
+
+- Branch by sub-stream item: `feat/aios-diff-<id>-<slug>`.
+- Merge order: P0 -> P1 -> P2.
+- Base branch: `main`.
+- No merge without lint, typecheck, tests, and parity validation when applicable.
 
 ## Delivery Rules
 

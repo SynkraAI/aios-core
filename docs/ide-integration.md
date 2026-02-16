@@ -6,8 +6,8 @@
 
 Guide for integrating AIOS with supported IDEs and AI development platforms.
 
-**Version:** 2.1.0
-**Last Updated:** 2026-01-28
+**Version:** 4.0.4
+**Last Updated:** 2026-02-16
 
 ---
 
@@ -15,17 +15,21 @@ Guide for integrating AIOS with supported IDEs and AI development platforms.
 
 AIOS supports multiple AI-powered development platforms. Choose the one that best fits your workflow.
 
-### Quick Comparison Table
+### Quick Status Matrix (AIOS 4.0.4)
 
-| Feature              | Claude Code | Codex CLI | Cursor | Copilot | AntiGravity | Gemini CLI |
-| -------------------- | :---------: | :-------: | :----: | :-----: | :---------: | :--------: |
-| **Agent Activation** |  /command   |  /skills  | @mention | chat modes | workflow-based | prompt mention |
-| **MCP Support**      |   Native    |  Native   | Config | Config | Provider-specific | Native |
-| **Subagent Tasks**   |     Yes     |   Yes     |   No   |   No   |     Yes     |     No     |
-| **Auto-sync**        |     Yes     |   Yes     |  Yes   |  Yes   |     Yes     |    Yes     |
-| **Hooks System**     |     Yes     |  Limited  |   No   |   No   |      No     |     Yes    |
-| **Skills/Commands**  |   Native    |  Native   |   No   |   No   |      No     |    Native  |
-| **Recommendation**   |    Best     |   Best    |  Best  |  Good  |     Good    |   Good     |
+| IDE/CLI | Overall Status | Agent Activation (Beginner Path) | Hooks/Lifecycle Parity | Notes |
+| --- | --- | --- | --- | --- |
+| Claude Code | Works | `/agent-name` commands | Full | Reference implementation for AIOS lifecycle automation |
+| Gemini CLI | Works | `/aios-menu` then `/aios-<agent>` | High | Strong hook coverage with minor event-model differences |
+| Codex CLI | Limited | `/skills` then `aios-<agent-id>` | Partial | Works well with `AGENTS.md` + local skills + validators |
+| Cursor | Limited | `@agent` + synced rules | Not supported (equivalent lifecycle hooks) | Use rules + MCP + workflow discipline |
+| GitHub Copilot | Limited | chat modes + repo instructions | Not supported (equivalent lifecycle hooks) | Use repo instructions + MCP in VS Code |
+| AntiGravity | Limited | workflow-driven activation | Not supported (equivalent lifecycle hooks) | Integration is workflow-based, not Claude-style hooks |
+
+Legend:
+- `Works`: fully recommended for onboarding path in AIOS 4.0.4.
+- `Limited`: supported with documented constraints/workarounds.
+- `Not supported`: no equivalent lifecycle parity feature for that capability.
 
 ### Hook Parity and Functional Impact
 
@@ -37,6 +41,14 @@ AIOS supports multiple AI-powered development platforms. Choose the one that bes
 | Cursor | No equivalent lifecycle hooks | No native pre/post-tool interception and reduced automatic audit trail | Synced rules + MCP + explicit workflow discipline |
 | GitHub Copilot | No equivalent lifecycle hooks | Same as Cursor, with stronger dependence on manual flow | Repo instructions, chat modes, and VS Code MCP integration |
 | AntiGravity | Workflow-driven (not hook-driven) | No Claude-like lifecycle parity | Workflow generation + agent sync |
+
+### Beginner Decision Guide
+
+If your goal is fastest first-value:
+
+1. Choose `Claude Code` or `Gemini CLI` when possible.
+2. Use `Codex CLI` if you want terminal-first workflow and can follow `/skills` flow.
+3. Use `Cursor`, `Copilot`, or `AntiGravity` with awareness that lifecycle automation is reduced.
 
 ### Practical Consequences by Capability
 
