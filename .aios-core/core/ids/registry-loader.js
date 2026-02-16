@@ -257,7 +257,7 @@ class RegistryLoader {
     const results = this.queryByKeywords(keywords);
     if (!options.role) return results;
     return results.filter(
-      (e) => e.codeIntelMetadata && e.codeIntelMetadata.role === options.role
+      (e) => e.codeIntelMetadata && e.codeIntelMetadata.role === options.role,
     );
   }
 

@@ -428,7 +428,7 @@ describe('RegistrySyncer', () => {
       );
     });
 
-    it('should not corrupt registry on write failure', () => {
+    it('should not corrupt registry on write failure', async () => {
       fs.writeFileSync.mockImplementation(() => {
         throw new Error('Disk full');
       });
@@ -436,7 +436,7 @@ describe('RegistrySyncer', () => {
       const syncer = createSyncer();
 
       // sync should throw but original file should be untouched
-      expect(syncer.sync({ full: true })).rejects.toBeDefined();
+      await expect(syncer.sync({ full: true })).rejects.toBeDefined();
       // renameSync should NOT have been called
       expect(fs.renameSync).not.toHaveBeenCalled();
     });

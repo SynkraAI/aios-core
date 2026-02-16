@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-16T04:49:07.416Z'
-  entityCount: 506
+  lastUpdated: '2026-02-16T19:52:18.848Z'
+  entityCount: 508
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -3909,6 +3909,24 @@ entities:
         extensionPoints: []
       checksum: sha256:f7a0bb8fed5663c88ad691b8871fdf7a861b6a7c02599f0c2db3eb9393d353c8
       lastVerified: '2026-02-16T01:21:26.585Z'
+    sync-registry-intel:
+      path: .aios-core/development/tasks/sync-registry-intel.md
+      type: task
+      purpose: 'Task: Sync Registry Intel'
+      keywords:
+        - sync
+        - registry
+        - intel
+        - 'task:'
+      usedBy: []
+      dependencies:
+        - registry-syncer
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:73c07c7735b387432618525c39f52e2d03d2576f604d7f14fdb4c4c961beb85d
+      lastVerified: '2026-02-16T19:52:18.847Z'
   templates:
     activation-instructions-inline-greeting:
       path: .aios-core/product/templates/activation-instructions-inline-greeting.yaml
@@ -5991,17 +6009,16 @@ entities:
         - usedBy
         - dependencies
       usedBy:
-        - aios-master
+        - sync-registry-intel
       dependencies:
-        - code-intel-client
+        - code-intel
         - registry-loader
       adaptability:
-        score: 0.7
-        constraints:
-          - Requires code intelligence provider (NOG-1)
-        extensionPoints:
-          - Additional enrichment fields via syncEntity override
-      lastVerified: '2026-02-16T00:00:00.000Z'
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:5c87bcbf16f6b9bc57cb4eee95791d02870fc8e7b0312dd84562dbeb594d4ab3
+      lastVerified: '2026-02-16T19:52:18.842Z'
     index.esm:
       path: .aios-core/core/index.esm.js
       type: module
@@ -6585,6 +6602,7 @@ entities:
         - registry
         - loader
       usedBy:
+        - registry-syncer
         - index
         - framework-governor
       dependencies: []
@@ -6592,8 +6610,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:7fb2edb5a605765757d5ca7201025a7ff4cf7bfa9b18f35a311e2b658532a865
-      lastVerified: '2026-02-08T13:33:24.336Z'
+      checksum: sha256:9059e1ece1ac1168fcd4f2eec183cf08702a3c334304e793ccc2b1e8af9b867a
+      lastVerified: '2026-02-16T19:52:18.845Z'
     manifest-generator:
       path: .aios-core/core/manifest/manifest-generator.js
       type: module
@@ -8842,8 +8860,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:538fff4398eba7c2492b446fce3a1d9115e5f1c6f494f0c3b45a991526c2295a
-      lastVerified: '2026-02-10T16:04:17.827Z'
+      checksum: sha256:092161d318ab523b8cd5c3dc8a2bd19accc23ab7fa731d5b4fa11c5afb8b5a08
+      lastVerified: '2026-02-16T19:52:18.846Z'
     analyst:
       path: .aios-core/development/agents/analyst.md
       type: agent

@@ -132,7 +132,7 @@ class RegistrySyncer {
    * @returns {Promise<boolean>} true if entity was processed, false if skipped
    */
   async syncEntity(entity, entities, isFull) {
-    const { id, category, data } = entity;
+    const { id, data } = entity;
     const sourcePath = data.path;
 
     // Skip entities without source path

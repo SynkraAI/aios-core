@@ -280,15 +280,16 @@ codeIntelMetadata:
 ### Role Inference Map
 
 ```javascript
-const ROLE_MAP = {
-  'tasks/': 'task',
-  'templates/': 'template',
-  'agents/': 'agent',
-  'workflows/': 'workflow',
-  'scripts/': 'script',
-  'core/': 'module',
-  'data/': 'config',
-};
+// Order matters: more specific patterns first (e.g., /data/ before /core/)
+const ROLE_MAP = [
+  ['tasks/', 'task'],
+  ['templates/', 'template'],
+  ['agents/', 'agent'],
+  ['workflows/', 'workflow'],
+  ['scripts/', 'script'],
+  ['/data/', 'config'],
+  ['/core/', 'module'],
+];
 ```
 
 ### Write Atomico Pattern

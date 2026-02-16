@@ -26,7 +26,7 @@ Enrich the entity registry with code intelligence data (usedBy, dependencies, co
 
 ### Step 1: Parse Arguments
 
-```
+```text
 Arguments:
   --full    Force full resync (reprocess all entities regardless of lastSynced)
 
