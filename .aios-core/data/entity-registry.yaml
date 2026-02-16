@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-16T01:52:27.945Z'
+  lastUpdated: '2026-02-16T02:23:49.803Z'
   entityCount: 504
   checksumAlgorithm: sha256
 entities:
@@ -6804,7 +6804,7 @@ entities:
     context-manager:
       path: .aios-core/core/orchestration/context-manager.js
       type: module
-      purpose: Entity at .aios-core\core\orchestration\context-manager.js
+      purpose: Entity at .aios-core/core/orchestration/context-manager.js
       keywords:
         - context
         - manager
@@ -6815,8 +6815,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:91b4e84f1a6246f9a1c94191a096bf9ee26b668610cc3fe7aec893931f54d241
-      lastVerified: '2026-02-08T13:33:24.342Z'
+      checksum: sha256:0dd03e84d0a2ea06165825c5eb7154531337ef98275918119ccd03769af576c3
+      lastVerified: '2026-02-16T02:23:49.802Z'
     dashboard-integration:
       path: .aios-core/core/orchestration/dashboard-integration.js
       type: module
@@ -7048,8 +7048,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:0a2dcf12cb8b04c26006c57016cf0d651332e60dee09762f88927c216464abde
-      lastVerified: '2026-02-08T13:33:24.350Z'
+      checksum: sha256:4a54fec3a3338431d1d9634ebf06f3983d06903570c45d67d0ac15d25c95eb05
+      lastVerified: '2026-02-16T02:23:49.802Z'
     subagent-prompt-builder:
       path: .aios-core/core/orchestration/subagent-prompt-builder.js
       type: module
@@ -7162,7 +7162,7 @@ entities:
     workflow-orchestrator:
       path: .aios-core/core/orchestration/workflow-orchestrator.js
       type: module
-      purpose: Entity at .aios-core\core\orchestration\workflow-orchestrator.js
+      purpose: Entity at .aios-core/core/orchestration/workflow-orchestrator.js
       keywords:
         - workflow
         - orchestrator
@@ -7175,12 +7175,13 @@ entities:
         - tech-stack-detector
         - condition-evaluator
         - skill-dispatcher
+        - execution-profile-resolver
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:fb89682ea86d33bf8453062f82be0313fbfdf4da42ebf0220dd12dc29238a50a
-      lastVerified: '2026-02-08T13:33:24.353Z'
+      checksum: sha256:5d3f14d5f12742ce87c3ae8745f82f4ac9f3df3d1889cf16bfc13743130963f9
+      lastVerified: '2026-02-16T02:23:49.803Z'
     operation-guard:
       path: .aios-core/core/permissions/operation-guard.js
       type: module

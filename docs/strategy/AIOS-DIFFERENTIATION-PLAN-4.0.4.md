@@ -84,3 +84,28 @@ Mandatory sections:
 - `decision_log`
 - `evidence_links`
 - `open_risks`
+
+### Delivery Confidence Score Standard (4.2.2)
+
+AIOS now computes a deterministic delivery confidence score per workflow from runtime artifacts and phase validations.
+
+- Stored in workflow state metadata: `.aios/workflow-state/{workflow-id}.json` -> `metadata.delivery_confidence`
+- Stored as artifact: `.aios/workflow-state/confidence/{workflow-id}.delivery-confidence.json`
+
+Formula (version `1.0.0`):
+
+```text
+confidence = (
+  test_coverage * 0.25 +
+  ac_completion * 0.30 +
+  risk_score_inv * 0.20 +
+  debt_score_inv * 0.15 +
+  regression_clear * 0.10
+) * 100
+```
+
+Default gate policy:
+
+- `threshold = 70`
+- Workflow status fails confidence gate when `score < threshold`
+- Threshold is configurable via runtime option or `AIOS_DELIVERY_CONFIDENCE_THRESHOLD`
