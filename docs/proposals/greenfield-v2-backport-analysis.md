@@ -61,12 +61,12 @@ Ship-It evolved from a fork of the original greenfield into a production-grade w
 manifest.yaml          (465 lines)  — orchestration metadata
 metadata.yaml          (100 lines)  — version history
 phase-0-bootstrap.yaml (1019 lines) — environment setup
-phase-0b-brownfield.yaml (306 lines) — brownfield alt entry
+phase-0b-brownfield-discovery.yaml (306 lines) — brownfield alt entry
 phase-1-brief.yaml     (397 lines)  — project brief
 phase-2-research.yaml  (423 lines)  — research & discovery
 phase-3-prd.yaml       (625 lines)  — PRD creation
 phase-4-design.yaml    (832 lines)  — design controller
-phase-4a-track-arch.yaml (353 lines) — architecture track
+phase-4a-track-architecture.yaml (353 lines) — architecture track
 phase-4b-track-data.yaml (339 lines) — data track
 phase-4c-track-ux.yaml (656 lines)  — UX track
 phase-5-planning.yaml  (1284 lines) — planning + sharding
@@ -502,7 +502,7 @@ rule: "User NEVER opens files. Complete artifact rendered in conversation."
 - Confirmation after each block
 ```
 
-**Impact:** Zero context switch. User reviews everything inline.
+**Impact:** Zero context switches. Users review everything inline.
 
 ---
 
