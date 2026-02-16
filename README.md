@@ -12,6 +12,29 @@
 
 Framework de Desenvolvimento Auto-Modificável Alimentado por IA. Fundado em Desenvolvimento Ágil Dirigido por Agentes, oferecendo capacidades revolucionárias para desenvolvimento dirigido por IA e muito mais. Transforme qualquer domínio com expertise especializada de IA: desenvolvimento de software, entretenimento, escrita criativa, estratégia de negócios, bem-estar pessoal e muito mais.
 
+## Comece Aqui (10 Min)
+
+Se e sua primeira vez no AIOS, siga este caminho linear:
+
+1. Instale em um projeto novo ou existente:
+```bash
+# novo projeto
+npx aios-core init meu-projeto
+
+# projeto existente
+cd seu-projeto
+npx aios-core install
+```
+2. Escolha sua IDE/CLI e o caminho de ativacao:
+- Claude Code: `/agent-name`
+- Gemini CLI: `/aios-menu` -> `/aios-<agent>`
+- Codex CLI: `/skills` -> `aios-<agent-id>`
+- Cursor/Copilot/AntiGravity: siga os limites e workarounds em `docs/ide-integration.md`
+3. Ative 1 agente e confirme o greeting.
+4. Rode 1 comando inicial (`*help` ou equivalente) para validar first-value.
+
+Definicao de first-value (binaria): ativacao de agente + greeting valido + comando inicial com output util em <= 10 minutos.
+
 ## Compatibilidade de Hooks por IDE (Realidade AIOS 4.0.4)
 
 Muitos recursos avançados do AIOS dependem de eventos de ciclo de vida (hooks). A tabela abaixo mostra a paridade real entre IDEs/plataformas:

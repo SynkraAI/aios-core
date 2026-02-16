@@ -4,20 +4,47 @@
 
 ---
 
-Welcome to Synkra AIOS! This guide will walk you through your first steps with the AI-powered self-modifying development framework.
+Welcome to Synkra AIOS. This guide is optimized for first-value in 10 minutes.
 
 ## Table of Contents
 
-1. [Installation](#installation)
-2. [Your First Project](#your-first-project)
-3. [Understanding the Meta-Agent](#understanding-the-meta-agent)
+1. [10-Minute Quick Path](#10-minute-quick-path)
+2. [Installation](#installation)
+3. [Your First Project](#your-first-project)
 4. [Basic Commands](#basic-commands)
-5. [Creating Your First Agent](#creating-your-first-agent)
-6. [Working with Tasks](#working-with-tasks)
-7. [Memory Layer Basics](#memory-layer-basics)
-8. [Best Practices](#best-practices)
-9. [Common Patterns](#common-patterns)
-10. [Next Steps](#next-steps)
+5. [Next Steps](#next-steps)
+
+## 10-Minute Quick Path
+
+Use this exact flow if you are new:
+
+### Step 1: Install AIOS
+
+```bash
+# New project
+npx aios-core init my-first-project
+cd my-first-project
+
+# Existing project
+# cd existing-project
+# npx aios-core install
+```
+
+### Step 2: Pick your IDE activation path
+
+- Claude Code: `/agent-name`
+- Gemini CLI: `/aios-menu` then `/aios-<agent>`
+- Codex CLI: `/skills` then `aios-<agent-id>`
+- Cursor/Copilot/AntiGravity: follow constraints in `docs/ide-integration.md`
+
+### Step 3: Validate first value
+
+First value is achieved when all 3 conditions are true:
+1. You activate one AIOS agent.
+2. You receive a valid greeting/activation response.
+3. You run one starter command (`*help` or equivalent) and get useful output.
+
+PASS rule: complete all 3 conditions in <= 10 minutes.
 
 ## Installation
 
@@ -25,8 +52,8 @@ Welcome to Synkra AIOS! This guide will walk you through your first steps with t
 
 Before installing Synkra AIOS, ensure you have:
 
-- **Node.js** version 14.0.0 or higher
-- **npm** version 6.0.0 or higher
+- **Node.js** version 18.0.0 or higher
+- **npm** version 9.0.0 or higher
 - **Git** (optional, but recommended)
 - At least **1GB** of free disk space
 
@@ -36,13 +63,13 @@ The fastest way to get started is using npx:
 
 ```bash
 # Create a new project
-npx @synkra/aios-core init my-first-project
+npx aios-core init my-first-project
 
 # Navigate to your project
 cd my-first-project
 
 # Start the meta-agent
-npx @synkra/aios-core
+npx aios
 ```
 
 ### Installation Options
@@ -51,17 +78,17 @@ Synkra AIOS offers flexible installation options:
 
 ```bash
 # 1. Create new project with custom template
-npx @synkra/aios-core init my-project --template enterprise
+npx aios-core init my-project --template enterprise
 
 # 2. Install in existing project
 cd existing-project
-npx @synkra/aios-core install
+npx aios-core install
 
 # 3. Force installation in non-empty directory
-npx @synkra/aios-core init my-project --force
+npx aios-core init my-project --force
 
 # 4. Skip dependency installation (manual install later)
-npx @synkra/aios-core init my-project --skip-install
+npx aios-core init my-project --skip-install
 ```
 
 ## Your First Project
@@ -124,43 +151,13 @@ NODE_ENV=development
 AIOS_TELEMETRY=enabled
 ```
 
-## Understanding the Meta-Agent
-
-The meta-agent is the core of Synkra AIOS - an AI that understands and can modify its own codebase.
-
-### Key Capabilities
-
-1. **Self-Analysis**: Examines its own code structure
-2. **Code Generation**: Creates optimized components
-3. **Pattern Learning**: Learns from your development style
-4. **Auto-Evolution**: Improves based on usage
-5. **Smart Refactoring**: Suggests and implements improvements
-
-### How It Works
-
-```mermaid
-graph TD
-    A[User Command] --> B[Meta-Agent]
-    B --> C{Analyze Request}
-    C --> D[Memory Layer]
-    C --> E[Code Analysis]
-    C --> F[Pattern Recognition]
-    D --> G[Context Retrieval]
-    E --> H[Generate Solution]
-    F --> H
-    G --> H
-    H --> I[Execute Changes]
-    I --> J[Update Memory]
-    J --> K[Learn & Improve]
-```
-
 ## Basic Commands
 
 ### Starting the Meta-Agent
 
 ```bash
 # Start in current directory
-npx @synkra/aios-core
+npx aios
 
 # Or use the shorthand
 npx aios
@@ -501,7 +498,7 @@ examples:
 - **[Meta-Agent Commands Reference](./meta-agent-commands.md)**: Complete command list
 - **[Architecture Overview](./core-architecture.md)**: Technical deep dive
 - **[Troubleshooting Guide](./troubleshooting.md)**: Common issues and solutions
-- **[Video Tutorials](https://@synkra/aios-core.dev/tutorials)**: Visual learning
+- **[Video Tutorials](https://synkra.ai/tutorials)**: Visual learning
 
 ### Advanced Topics
 
@@ -530,10 +527,10 @@ Join our community for support and updates:
 node --version  # Should be >= 18.0.0
 
 # Verify installation
-npx @synkra/aios-core doctor
+npx aios-core doctor
 
 # Fix common issues
-npx @synkra/aios-core doctor --fix
+npx aios-core doctor --fix
 ```
 
 **API Key errors**
