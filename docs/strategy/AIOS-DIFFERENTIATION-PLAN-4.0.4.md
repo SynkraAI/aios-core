@@ -70,3 +70,17 @@ Differentiate AIOS with its own product identity, with learning-curve reduction 
 - No public claim without corresponding validation.
 - No safety profile without explicit policy and audit log.
 - No handoff without snapshot, decision log, evidence links, and open risks.
+
+### Structured Handoff Standard (4.2.1)
+
+AIOS now persists a deterministic handoff package at every workflow phase completion:
+
+- Stored in phase state: `.aios/workflow-state/{workflow-id}.json` -> `phases.{n}.handoff`
+- Stored as artifact: `.aios/workflow-state/handoffs/{workflow-id}-phase-{n}.handoff.json`
+
+Mandatory sections:
+
+- `context_snapshot`
+- `decision_log`
+- `evidence_links`
+- `open_risks`

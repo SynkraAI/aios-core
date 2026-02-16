@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.3
-generated_at: "2026-02-16T02:12:39.906Z"
+generated_at: "2026-02-16T02:16:10.891Z"
 generator: scripts/generate-install-manifest.js
 file_count: 995
 files:
@@ -641,9 +641,9 @@ files:
     type: core
     size: 10845
   - path: core/orchestration/context-manager.js
-    hash: sha256:91b4e84f1a6246f9a1c94191a096bf9ee26b668610cc3fe7aec893931f54d241
+    hash: sha256:027fb225c227f15e9a9faf14f3b74af735ab01e8549e2d11056c99729ed8f0d7
     type: core
-    size: 7299
+    size: 10721
   - path: core/orchestration/dashboard-integration.js
     hash: sha256:2099a762e039d7b536b0472231d648a39c34c386d04bdcb1a265c5dd4d261514
     type: core
@@ -757,9 +757,9 @@ files:
     type: core
     size: 36350
   - path: core/orchestration/workflow-orchestrator.js
-    hash: sha256:c62dab3769885b186f868b48664437c82fa266c37784e368b26b986927044284
+    hash: sha256:ab6edd48275d41b4074bc6012708ffb3a7c7df94d7af341166c79df90c793944
     type: core
-    size: 27700
+    size: 28570
   - path: core/permissions/__tests__/permission-mode.test.js
     hash: sha256:87df5f29666a599fb0fec917e0360ae6fa9dd90512f0816ae62fa453dbab7fbb
     type: core

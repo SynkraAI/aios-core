@@ -486,7 +486,9 @@ class WorkflowOrchestrator {
 
         // V3.1: Save skip result to context with reason
         const skipResult = this.skillDispatcher.createSkipResult(phase, skipReason);
-        await this.contextManager.savePhaseOutput(phaseNum, skipResult);
+        await this.contextManager.savePhaseOutput(phaseNum, skipResult, {
+          handoffTarget: this._getNextPhaseHandoffTarget(phaseNum),
+        });
 
         return { skipped: true, phase: phaseNum, reason: skipReason };
       }
@@ -603,6 +605,8 @@ class WorkflowOrchestrator {
         result,
         validation,
         timestamp: new Date().toISOString(),
+      }, {
+        handoffTarget: this._getNextPhaseHandoffTarget(phaseNum),
       });
 
       // Notify phase complete
@@ -630,6 +634,31 @@ class WorkflowOrchestrator {
 
     // Fallback to legacy evaluation
     return this._evaluateConditionLegacy(condition);
+  }
+
+  /**
+   * Determine next phase handoff target from workflow sequence.
+   * @private
+   */
+  _getNextPhaseHandoffTarget(currentPhaseNum) {
+    const sequence = Array.isArray(this.workflow?.sequence) ? this.workflow.sequence : [];
+    const currentIndex = sequence.findIndex((p) => p && p.phase === currentPhaseNum);
+    if (currentIndex < 0) {
+      return { phase: null, agent: null };
+    }
+
+    for (let i = currentIndex + 1; i < sequence.length; i += 1) {
+      const next = sequence[i];
+      if (!next || next.workflow_end || !next.phase) {
+        continue;
+      }
+      return {
+        phase: next.phase,
+        agent: next.agent || null,
+      };
+    }
+
+    return { phase: null, agent: null };
   }
 
   /**

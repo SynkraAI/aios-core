@@ -32,6 +32,7 @@ class ContextManager {
     // State file path
     this.stateDir = path.join(projectRoot, '.aios', 'workflow-state');
     this.statePath = path.join(this.stateDir, `${workflowId}.json`);
+    this.handoffDir = path.join(this.stateDir, 'handoffs');
 
     // In-memory cache
     this._stateCache = null;
@@ -43,6 +44,7 @@ class ContextManager {
    */
   async ensureStateDir() {
     await fs.ensureDir(this.stateDir);
+    await fs.ensureDir(this.handoffDir);
   }
 
   /**
@@ -113,12 +115,15 @@ class ContextManager {
    * @param {number} phaseNum - Phase number
    * @param {Object} output - Phase output data
    */
-  async savePhaseOutput(phaseNum, output) {
+  async savePhaseOutput(phaseNum, output, options = {}) {
     const state = await this.loadState();
+    const completedAt = new Date().toISOString();
+    const handoff = this._buildHandoffPackage(phaseNum, output, state, options, completedAt);
 
     state.phases[phaseNum] = {
       ...output,
-      completedAt: new Date().toISOString(),
+      completedAt,
+      handoff,
     };
 
     state.currentPhase = phaseNum;
@@ -126,6 +131,7 @@ class ContextManager {
 
     this._stateCache = state;
     await this._saveState();
+    await this._saveHandoffFile(handoff);
   }
 
   /**
@@ -145,10 +151,18 @@ class ContextManager {
       }
     }
 
+    const previousHandoffs = {};
+    for (const [phaseId, phaseData] of Object.entries(previousPhases)) {
+      if (phaseData && phaseData.handoff) {
+        previousHandoffs[phaseId] = phaseData.handoff;
+      }
+    }
+
     return {
       workflowId: this.workflowId,
       currentPhase: phaseNum,
       previousPhases,
+      previousHandoffs,
       metadata: state.metadata,
     };
   }
@@ -248,6 +262,116 @@ class ContextManager {
       completedPhases: phases,
       totalPhases: phases.length,
     };
+  }
+
+  /**
+   * Build standardized handoff package for inter-agent transfer.
+   * @private
+   */
+  _buildHandoffPackage(phaseNum, output, state, options, completedAt) {
+    const handoffTarget = options.handoffTarget || {};
+    const decision = this._extractDecisionLog(output);
+    const evidence = this._extractEvidenceLinks(output);
+    const risks = this._extractOpenRisks(output);
+
+    return {
+      version: '1.0.0',
+      workflow_id: this.workflowId,
+      generated_at: completedAt,
+      from: {
+        phase: phaseNum,
+        agent: output.agent || null,
+        action: output.action || null,
+        task: output.task || null,
+      },
+      to: {
+        phase: handoffTarget.phase || null,
+        agent: handoffTarget.agent || null,
+      },
+      context_snapshot: {
+        workflow_status: state.status,
+        current_phase: state.currentPhase,
+        metadata: state.metadata || {},
+      },
+      decision_log: decision,
+      evidence_links: evidence,
+      open_risks: risks,
+    };
+  }
+
+  /**
+   * Persist handoff package as a dedicated artifact.
+   * @private
+   */
+  async _saveHandoffFile(handoff) {
+    const phase = handoff?.from?.phase || 'unknown';
+    const filePath = path.join(this.handoffDir, `${this.workflowId}-phase-${phase}.handoff.json`);
+    await fs.ensureDir(this.handoffDir);
+    await fs.writeJson(filePath, handoff, { spaces: 2 });
+  }
+
+  /**
+   * @private
+   */
+  _extractDecisionLog(output = {}) {
+    const result = output.result || {};
+    const entries = Array.isArray(result.decisions)
+      ? result.decisions
+      : Array.isArray(result.decision_log)
+        ? result.decision_log
+        : [];
+    const sourcePaths = [];
+
+    if (result.decisionLogPath) sourcePaths.push(result.decisionLogPath);
+    if (result.decision_log_path) sourcePaths.push(result.decision_log_path);
+
+    return {
+      entries,
+      source_paths: sourcePaths,
+      count: entries.length,
+    };
+  }
+
+  /**
+   * @private
+   */
+  _extractEvidenceLinks(output = {}) {
+    const evidence = [];
+    const result = output.result || {};
+    const validation = output.validation || {};
+
+    if (Array.isArray(result.evidence_links)) {
+      evidence.push(...result.evidence_links);
+    }
+
+    if (Array.isArray(validation.checks)) {
+      for (const check of validation.checks) {
+        if (check.path) evidence.push(check.path);
+        if (check.checklist) evidence.push(check.checklist);
+      }
+    }
+
+    return [...new Set(evidence)];
+  }
+
+  /**
+   * @private
+   */
+  _extractOpenRisks(output = {}) {
+    const result = output.result || {};
+    const risks = [];
+
+    if (Array.isArray(result.open_risks)) {
+      risks.push(...result.open_risks);
+    }
+    if (Array.isArray(result.risks)) {
+      risks.push(...result.risks);
+    }
+    if (Array.isArray(result.risk_register)) {
+      risks.push(...result.risk_register);
+    }
+
+    return risks;
   }
 
   /**
