@@ -252,7 +252,7 @@ Execute CodeRabbit self-healing **FIRST** before manual review:
 │  WHILE iteration < max_iterations:                                │
 │    ┌─────────────────────────────────────────────────────────┐   │
 │    │ 1. Run CodeRabbit CLI                                   │   │
-│    │    wsl bash -c 'cd /mnt/c/.../@synkra/aios-core &&         │   │
+│    │    wsl bash -c 'cd /mnt/c/.../aios-core &&         │   │
 │    │    ~/.local/bin/coderabbit --prompt-only                │   │
 │    │    -t committed --base main'                            │   │
 │    │                                                          │   │

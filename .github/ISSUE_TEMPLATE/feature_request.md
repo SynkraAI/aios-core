@@ -24,12 +24,12 @@ Describe the solution you'd like:
 
 ### 📦 Package Scope
 Which AIOS-FullStack package should this feature belong to?
-- [ ] @synkra/aios-core/workspace (overall framework)
-- [ ] @synkra/aios-core/core (meta-agent, task management)
-- [ ] @synkra/aios-core/memory (vector storage, semantic search)
-- [ ] @synkra/aios-core/security (sanitization, vulnerability scanning)
-- [ ] @synkra/aios-core/performance (monitoring, profiling, optimization)
-- [ ] @synkra/aios-core/telemetry (analytics, error reporting, metrics)
+- [ ] aios-core/workspace (overall framework)
+- [ ] aios-core/core (meta-agent, task management)
+- [ ] aios-core/memory (vector storage, semantic search)
+- [ ] aios-core/security (sanitization, vulnerability scanning)
+- [ ] aios-core/performance (monitoring, profiling, optimization)
+- [ ] aios-core/telemetry (analytics, error reporting, metrics)
 - [ ] New package: ________________
 
 ### 📋 Code Example
@@ -37,7 +37,7 @@ What would the API look like? Provide a code example:
 
 ```javascript
 // Example of how this feature would be used
-const { AIOS } = require('@synkra/aios-core/workspace');
+const { AIOS } = require('aios-core/workspace');
 
 const aios = new AIOS();
 // Your proposed feature usage here

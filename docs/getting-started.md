@@ -36,13 +36,13 @@ The fastest way to get started is using npx:
 
 ```bash
 # Create a new project
-npx @synkra/aios-core init my-first-project
+npx aios-core init my-first-project
 
 # Navigate to your project
 cd my-first-project
 
 # Start the meta-agent
-npx @synkra/aios-core
+npx aios-core
 ```
 
 ### Installation Options
@@ -51,17 +51,17 @@ Synkra AIOS offers flexible installation options:
 
 ```bash
 # 1. Create new project with custom template
-npx @synkra/aios-core init my-project --template enterprise
+npx aios-core init my-project --template enterprise
 
 # 2. Install in existing project
 cd existing-project
-npx @synkra/aios-core install
+npx aios-core install
 
 # 3. Force installation in non-empty directory
-npx @synkra/aios-core init my-project --force
+npx aios-core init my-project --force
 
 # 4. Skip dependency installation (manual install later)
-npx @synkra/aios-core init my-project --skip-install
+npx aios-core init my-project --skip-install
 ```
 
 ## Your First Project
@@ -160,7 +160,7 @@ graph TD
 
 ```bash
 # Start in current directory
-npx @synkra/aios-core
+npx aios-core
 
 # Or use the shorthand
 npx aios
@@ -501,7 +501,7 @@ examples:
 - **[Meta-Agent Commands Reference](./meta-agent-commands.md)**: Complete command list
 - **[Architecture Overview](./core-architecture.md)**: Technical deep dive
 - **[Troubleshooting Guide](./troubleshooting.md)**: Common issues and solutions
-- **[Video Tutorials](https://@synkra/aios-core.dev/tutorials)**: Visual learning
+- **[Video Tutorials](https://aios-core.dev/tutorials)**: Visual learning
 
 ### Advanced Topics
 
@@ -530,10 +530,10 @@ Join our community for support and updates:
 node --version  # Should be >= 18.0.0
 
 # Verify installation
-npx @synkra/aios-core doctor
+npx aios-core doctor
 
 # Fix common issues
-npx @synkra/aios-core doctor --fix
+npx aios-core doctor --fix
 ```
 
 **API Key errors**

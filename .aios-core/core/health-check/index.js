@@ -5,7 +5,7 @@
  * Supports 5 domains: Project Coherence, Local Environment, Repository Health,
  * Deployment Environment, and Service Integration.
  *
- * @module @synkra/aios-core/health-check
+ * @module aios-core/health-check
  * @version 1.0.0
  * @story HCS-2 - Health Check System Implementation
  */

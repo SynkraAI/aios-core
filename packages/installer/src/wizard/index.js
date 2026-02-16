@@ -470,7 +470,7 @@ async function runWizard(options = {}) {
     //   const possibleSourceDirs = [
     //     path.join(__dirname, '..', '..', 'squads'),
     //     path.join(__dirname, '..', '..', '..', 'squads'),
-    //     path.join(process.cwd(), 'node_modules', '@synkra/aios-core', 'squads'),
+    //     path.join(process.cwd(), 'node_modules', 'aios-core', 'squads'),
     //   ];
     //
     //   let sourceExpansionDir = null;

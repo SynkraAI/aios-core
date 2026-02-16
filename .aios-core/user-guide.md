@@ -35,7 +35,7 @@ O AIOS-FullStack oferece instalação simplificada através de um instalador int
 cd /path/to/your/project
 
 # Execute o instalador (versão RC atual)
-npx @synkra/aios-core@latest install
+npx aios-core@latest install
 
 # OU usando NPM direto (produção - quando disponível)
 npx @aios/fullstack install
@@ -84,13 +84,13 @@ Se você está contribuindo para o AIOS-FullStack em si:
 ```bash
 # Clone o repositório
 git clone https://github.com/SynkraAI/aios-core
-cd @synkra/aios-core
+cd aios-core
 
 # Instale dependências
 npm install
 
 # Execute o instalador no modo desenvolvimento
-npx @synkra/aios-core@latest install
+npx aios-core@latest install
 ```
 
 ### Estrutura Pós-Instalação
@@ -133,10 +133,10 @@ Se você já tem AIOS instalado e quer fazer upgrade:
 
 ```bash
 # Upgrade automático (RC.9+)
-npx @synkra/aios-core@latest install --force-upgrade
+npx aios-core@latest install --force-upgrade
 
 # OU interativo (todos os RCs)
-npx @synkra/aios-core@latest install
+npx aios-core@latest install
 # → Menu aparece:
 #   1. Keep current version (v1.0.0-rc.8)
 #   2. Upgrade AIOS core (v1.0.0-rc.8 → v1.0.0-rc.10)
@@ -148,18 +148,18 @@ npx @synkra/aios-core@latest install
 
 ```bash
 # Ver versão disponível no NPM
-npm view @synkra/aios-core@latest version
+npm view aios-core@latest version
 # Output: 1.0.0-rc.10
 
 # Ver opções de instalação e comandos disponíveis
-npx @synkra/aios-core@latest --help
+npx aios-core@latest --help
 
 # Ver squads instalados
 # Use o wizard de instalação para selecionar/visualizar squads disponíveis
-npx @synkra/aios-core@latest install
+npx aios-core@latest install
 
 # Ajuda do instalador
-npx @synkra/aios-core@latest install --help
+npx aios-core@latest install --help
 ```
 
 ### 🚀 Futuro: Modo de Instalação Explícito (Story 3.14)
@@ -203,7 +203,7 @@ npx aios init
 npm cache clean --force
 
 # Usar versão específica
-npx @synkra/aios-core@1.0.0-rc.10 install --force-upgrade
+npx aios-core@1.0.0-rc.10 install --force-upgrade
 ```
 
 **Problema**: Agents/tasks não instalados
@@ -212,7 +212,7 @@ npx @synkra/aios-core@1.0.0-rc.10 install --force-upgrade
 
 **Solução**: Usar RC.8 ou superior
 ```bash
-npx @synkra/aios-core@latest install
+npx aios-core@latest install
 ```
 
 **Problema**: Versão GitHub (4.31.1) detectada como mais nova que RC
@@ -221,7 +221,7 @@ npx @synkra/aios-core@latest install
 
 **Solução**: Escolher "Upgrade" ou usar `--force-upgrade`
 ```bash
-npx @synkra/aios-core@latest install --force-upgrade
+npx aios-core@latest install --force-upgrade
 # Migra de v4.31.1 para v1.0.0-rc.10 (novo scheme)
 ```
 
@@ -818,7 +818,7 @@ O agente @github-devops funciona com QUALQUER repositório git:
 
 **Modo Framework Development** (futuro):
 ```bash
-# No repositório @synkra/aios-core
+# No repositório aios-core
 @github-devops
 *detect-repo
 # Output:
@@ -1294,7 +1294,7 @@ O Synkra AIOS suporta expansion packs para domínios específicos:
 **Configurar expansion packs na instalação**:
 ```bash
 # Durante a instalação, o wizard pergunta quais expansion packs instalar
-npx @synkra/aios-core@latest install
+npx aios-core@latest install
 
 # O wizard mostra:
 # 📦 Select Expansion Packs to Install:
@@ -1307,7 +1307,7 @@ npx @synkra/aios-core@latest install
 **Adicionar expansion packs depois**:
 ```bash
 # Re-execute o instalador
-npx @synkra/aios-core@latest install
+npx aios-core@latest install
 
 # Escolha "Configure IDE settings" ou "Upgrade"
 # Wizard permitirá adicionar expansion packs não instalados
