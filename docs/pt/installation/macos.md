@@ -84,7 +84,6 @@ O instalador automaticamente:
 - Configura caminhos de IDE para localizações do macOS:
   - Cursor: `~/Library/Application Support/Cursor/`
   - Claude: `~/.claude/`
-  - Windsurf: `~/Library/Application Support/Windsurf/`
 - Configura scripts shell com terminações de linha Unix
 - Lida adequadamente com sistemas de arquivos case-sensitive
 
@@ -101,9 +100,7 @@ O instalador automaticamente:
 1. Os comandos são instalados em `.claude/commands/AIOS/`
 2. Use `/agent-name` para ativar agentes
 
-### Windsurf
 
-1. As regras são instaladas em `.windsurf/rules/`
 2. Use `@agent-name` para ativar agentes
 
 ## Solução de Problemas

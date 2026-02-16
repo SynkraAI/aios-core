@@ -78,7 +78,6 @@ cd /path/to/your/project
 Su directorio de proyecto debería contener:
 - Archivos de gestión de paquetes (`package.json`, etc.)
 - Directorios de código fuente
-- Carpetas de configuración del IDE (`.cursor`, `.windsurf`, `.claude`, etc.)
 
 ### Paso 2: Ejecute el Instalador
 
@@ -143,7 +142,6 @@ Si el instalador pide una ruta de directorio:
 
 Si su IDE no es detectado después de la instalación:
 1. Verifique que ejecutó el instalador desde el directorio correcto del proyecto
-2. Verifique que existen las carpetas de configuración del IDE (`.cursor`, `.windsurf`, etc.)
 3. Vuelva a ejecutar el instalador y seleccione manualmente su IDE
 
 ## Alternativa: Instalación Global

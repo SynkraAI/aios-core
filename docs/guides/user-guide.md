@@ -356,13 +356,11 @@ AIOS supports multiple IDEs. Configuration is synchronized across:
 
 - Claude Code (`.claude/`)
 - Cursor (`.cursor/`)
-- Windsurf (`.windsurf/`)
-- Cline (`.cline/`)
 - VS Code (`.vscode/`)
 
 ```bash
 # Sync agents to your IDE
-npm run sync:agents
+npm run sync:ide
 ```
 
 ---

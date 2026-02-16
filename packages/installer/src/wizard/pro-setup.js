@@ -264,13 +264,18 @@ async function stepLicenseGateCI(options) {
 /**
  * Interactive email/password license gate flow.
  *
- * Prompts for email, then checks if account exists to determine signup vs login.
+ * New flow (PRO-11 v2):
+ * 1. Email → checkEmail API → { isBuyer, hasAccount }
+ * 2. NOT buyer → "No Pro access found" → STOP
+ * 3. IS buyer + HAS account → Password → Login (with retry) → Activate
+ * 4. IS buyer + NO account → Password + Confirm → Signup → Verify email → Login → Activate
  *
  * @returns {Promise<Object>} Result with { success, key, activationResult }
  */
 async function stepLicenseGateWithEmail() {
   const inquirer = require('inquirer');
 
+  // Step 1: Get email
   const { email } = await inquirer.prompt([
     {
       type: 'input',
@@ -288,52 +293,146 @@ async function stepLicenseGateWithEmail() {
     },
   ]);
 
-  const { password } = await inquirer.prompt([
-    {
-      type: 'password',
-      name: 'password',
-      message: colors.primary('Password:'),
-      mask: '*',
-      validate: (input) => {
-        if (!input || input.length < MIN_PASSWORD_LENGTH) {
-          return `Password must be at least ${MIN_PASSWORD_LENGTH} characters`;
-        }
-        return true;
-      },
-    },
-  ]);
+  const trimmedEmail = email.trim();
 
-  return authenticateWithEmail(email.trim(), password);
+  // Step 2: Check buyer status + account existence
+  const loader = module.exports._testing ? module.exports._testing.loadLicenseApi : loadLicenseApi;
+  const licenseModule = loader();
+
+  if (!licenseModule) {
+    return {
+      success: false,
+      error: 'Pro license module not available. Ensure @aios-fullstack/pro is installed.',
+    };
+  }
+
+  const { LicenseApiClient } = licenseModule;
+  const client = new LicenseApiClient();
+
+  // Check connectivity
+  const online = await client.isOnline();
+  if (!online) {
+    return {
+      success: false,
+      error: 'License server is unreachable. Check your internet connection and try again.',
+    };
+  }
+
+  const checkSpinner = createSpinner('Verifying your access...');
+  checkSpinner.start();
+
+  let checkResult;
+  try {
+    checkResult = await client.checkEmail(trimmedEmail);
+  } catch (checkError) {
+    checkSpinner.fail(`Verification failed: ${checkError.message}`);
+    return { success: false, error: checkError.message };
+  }
+
+  // Step 2a: NOT a buyer → stop
+  if (!checkResult.isBuyer) {
+    checkSpinner.fail('No AIOS Pro access found for this email.');
+    console.log('');
+    showInfo('If you believe this is an error, please contact support:');
+    showInfo('  Email: support@synkra.ai');
+    showInfo('  Purchase Pro: https://pro.synkra.ai');
+    return { success: false, error: 'Email not found in Pro buyers list.' };
+  }
+
+  // Step 2b: IS a buyer
+  if (checkResult.hasAccount) {
+    checkSpinner.succeed('Pro access confirmed! Account found.');
+    // Flow 3: Existing account → Login with password (retry loop)
+    return loginWithRetry(client, trimmedEmail);
+  }
+
+  checkSpinner.succeed('Pro access confirmed! Let\'s create your account.');
+  // Flow 4: New account → Create account flow
+  return createAccountFlow(client, trimmedEmail);
 }
 
 /**
- * Prompt user to create a new account interactively.
- *
- * Asks for confirmation, then password with confirmation.
- * Calls signup API and logs in to get session token.
+ * Login flow with password retry (max 3 attempts).
  *
  * @param {object} client - LicenseApiClient instance
- * @param {string} email - User email
- * @returns {Promise<Object>} Result with { success, sessionToken } or { success: false, error }
+ * @param {string} email - Verified buyer email
+ * @returns {Promise<Object>} Result with { success, key, activationResult }
  */
-async function promptCreateAccount(client, email) {
+async function loginWithRetry(client, email) {
+  const inquirer = require('inquirer');
+
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    const { password } = await inquirer.prompt([
+      {
+        type: 'password',
+        name: 'password',
+        message: colors.primary('Password:'),
+        mask: '*',
+        validate: (input) => {
+          if (!input || input.length < MIN_PASSWORD_LENGTH) {
+            return `Password must be at least ${MIN_PASSWORD_LENGTH} characters`;
+          }
+          return true;
+        },
+      },
+    ]);
+
+    const spinner = createSpinner('Authenticating...');
+    spinner.start();
+
+    try {
+      const loginResult = await client.login(email, password);
+      spinner.succeed('Authenticated successfully.');
+
+      // Wait for email verification if needed
+      if (!loginResult.emailVerified) {
+        const verifyResult = await waitForEmailVerification(client, loginResult.sessionToken);
+        if (!verifyResult.success) {
+          return verifyResult;
+        }
+      }
+
+      // Activate Pro
+      return activateProByAuth(client, loginResult.sessionToken);
+    } catch (loginError) {
+      if (loginError.code === 'INVALID_CREDENTIALS') {
+        const remaining = MAX_RETRIES - attempt;
+        if (remaining > 0) {
+          spinner.fail(`Incorrect password. ${remaining} attempt${remaining > 1 ? 's' : ''} remaining.`);
+          showInfo('Forgot your password? Visit https://pro.synkra.ai/reset-password');
+        } else {
+          spinner.fail('Maximum login attempts reached.');
+          showInfo('Forgot your password? Visit https://pro.synkra.ai/reset-password');
+          showInfo('Or contact support: support@synkra.ai');
+          return { success: false, error: 'Maximum login attempts reached.' };
+        }
+      } else if (loginError.code === 'AUTH_RATE_LIMITED') {
+        spinner.fail(loginError.message);
+        return { success: false, error: loginError.message };
+      } else {
+        spinner.fail(`Authentication failed: ${loginError.message}`);
+        return { success: false, error: loginError.message };
+      }
+    }
+  }
+
+  return { success: false, error: 'Maximum login attempts reached.' };
+}
+
+/**
+ * Create account flow for new buyers.
+ *
+ * Asks for password, creates account, waits for email verification.
+ *
+ * @param {object} client - LicenseApiClient instance
+ * @param {string} email - Verified buyer email
+ * @returns {Promise<Object>} Result with { success, key, activationResult }
+ */
+async function createAccountFlow(client, email) {
   const inquirer = require('inquirer');
 
   console.log('');
-  showInfo(`No account found for ${email}.`);
-
-  const { wantCreate } = await inquirer.prompt([
-    {
-      type: 'confirm',
-      name: 'wantCreate',
-      message: colors.primary('Would you like to create an account?'),
-      default: true,
-    },
-  ]);
-
-  if (!wantCreate) {
-    return { success: false, error: 'Account creation cancelled.' };
-  }
+  showInfo('Create your AIOS Pro account to get started.');
 
   // Ask for password with confirmation
   const { newPassword } = await inquirer.prompt([
@@ -370,29 +469,79 @@ async function promptCreateAccount(client, email) {
   const spinner = createSpinner('Creating account...');
   spinner.start();
 
+  let sessionToken;
   try {
     await client.signup(email, confirmPassword);
     spinner.succeed('Account created! Verification email sent.');
-
-    // Login to get session token
-    const loginResult = await client.login(email, confirmPassword);
-    return { success: true, sessionToken: loginResult.sessionToken };
   } catch (signupError) {
     if (signupError.code === 'EMAIL_ALREADY_REGISTERED') {
-      spinner.fail('An account already exists with this email but the password is incorrect.');
-      showInfo('Forgot your password? Visit https://pro.synkra.ai/reset-password or contact support@synkra.ai');
-      return { success: false, error: signupError.message };
+      spinner.info('Account already exists. Switching to login...');
+      return loginWithRetry(client, email);
     }
     spinner.fail(`Account creation failed: ${signupError.message}`);
     return { success: false, error: signupError.message };
   }
+
+  // Wait for email verification
+  console.log('');
+  showInfo('Please check your email and click the verification link.');
+
+  // Login after signup to get session token
+  try {
+    const loginResult = await client.login(email, confirmPassword);
+    sessionToken = loginResult.sessionToken;
+  } catch {
+    // Login might fail if email not verified yet — that's OK, we'll poll
+  }
+
+  if (sessionToken) {
+    const verifyResult = await waitForEmailVerification(client, sessionToken);
+    if (!verifyResult.success) {
+      return verifyResult;
+    }
+  } else {
+    // Need to wait for verification then login
+    showInfo('Waiting for email verification...');
+    showInfo('After verifying, the installation will continue automatically.');
+
+    // Poll by trying to login periodically
+    const startTime = Date.now();
+    while (Date.now() - startTime < VERIFY_POLL_TIMEOUT_MS) {
+      await new Promise((resolve) => setTimeout(resolve, VERIFY_POLL_INTERVAL_MS));
+      try {
+        const loginResult = await client.login(email, confirmPassword);
+        sessionToken = loginResult.sessionToken;
+        if (loginResult.emailVerified) {
+          showSuccess('Email verified!');
+          break;
+        }
+        // Got session but not verified yet — use the verification polling
+        const verifyResult = await waitForEmailVerification(client, sessionToken);
+        if (!verifyResult.success) {
+          return verifyResult;
+        }
+        break;
+      } catch {
+        // Still waiting for verification
+      }
+    }
+
+    if (!sessionToken) {
+      showError('Email verification timed out after 10 minutes.');
+      showInfo('Run the installer again to retry.');
+      return { success: false, error: 'Email verification timed out.' };
+    }
+  }
+
+  // Activate Pro
+  return activateProByAuth(client, sessionToken);
 }
 
 /**
- * Authenticate with email and password.
+ * Authenticate with email and password (CI mode / pre-provided credentials).
  *
- * Tries login first. If user doesn't exist, offers to create account.
- * Handles email verification polling for new signups.
+ * For interactive mode, use stepLicenseGateWithEmail() instead (buyer-first flow).
+ * This function is used when credentials are pre-provided (CI, CLI args).
  *
  * @param {string} email - User email
  * @param {string} password - User password
@@ -421,120 +570,57 @@ async function authenticateWithEmail(email, password) {
     };
   }
 
+  // CI mode: check buyer first, then try login or auto-signup
+  const checkSpinner = createSpinner('Verifying access...');
+  checkSpinner.start();
+
+  try {
+    const checkResult = await client.checkEmail(email);
+    if (!checkResult.isBuyer) {
+      checkSpinner.fail('No AIOS Pro access found for this email.');
+      return { success: false, error: 'Email not found in Pro buyers list.' };
+    }
+    checkSpinner.succeed('Pro access confirmed.');
+  } catch {
+    checkSpinner.info('Buyer check unavailable, proceeding with login...');
+  }
+
+  // Try login
+  const spinner = createSpinner('Authenticating...');
+  spinner.start();
+
   let sessionToken;
   let emailVerified;
-  let currentPassword = password;
 
-  // Login with retry loop (max 3 attempts for wrong password)
-  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-    const spinner = createSpinner('Authenticating...');
-    spinner.start();
-
-    try {
-      const loginResult = await client.login(email, currentPassword);
-      sessionToken = loginResult.sessionToken;
-      emailVerified = loginResult.emailVerified;
-      spinner.succeed('Authenticated successfully.');
-      break; // Success, exit retry loop
-    } catch (loginError) {
-      if (loginError.code === 'INVALID_CREDENTIALS') {
-        spinner.stop();
-
-        // Try to determine if account exists by attempting signup
-        // If signup fails with EMAIL_ALREADY_REGISTERED, account exists (wrong password)
-        // If signup succeeds or would succeed, account doesn't exist (new user)
-        if (isCIEnvironment()) {
-          // CI mode: try auto-signup
-          try {
-            await client.signup(email, currentPassword);
-            showSuccess('Account created. Verification email sent!');
-            emailVerified = false;
-            const loginAfterSignup = await client.login(email, currentPassword);
-            sessionToken = loginAfterSignup.sessionToken;
-            break;
-          } catch (signupError) {
-            if (signupError.code === 'EMAIL_ALREADY_REGISTERED') {
-              showError('Account exists but the password is incorrect.');
-              showInfo('Forgot your password? Visit https://pro.synkra.ai/reset-password or contact support@synkra.ai');
-              return { success: false, error: signupError.message };
-            }
-            return { success: false, error: signupError.message };
-          }
+  try {
+    const loginResult = await client.login(email, password);
+    sessionToken = loginResult.sessionToken;
+    emailVerified = loginResult.emailVerified;
+    spinner.succeed('Authenticated successfully.');
+  } catch (loginError) {
+    if (loginError.code === 'INVALID_CREDENTIALS') {
+      spinner.info('Login failed, attempting signup...');
+      try {
+        await client.signup(email, password);
+        showSuccess('Account created. Verification email sent!');
+        emailVerified = false;
+        const loginAfterSignup = await client.login(email, password);
+        sessionToken = loginAfterSignup.sessionToken;
+      } catch (signupError) {
+        if (signupError.code === 'EMAIL_ALREADY_REGISTERED') {
+          showError('Account exists but the password is incorrect.');
+          return { success: false, error: 'Invalid password.' };
         }
-
-        // Interactive mode: check if account exists
-        const accountCheckSpinner = createSpinner('Checking account...');
-        accountCheckSpinner.start();
-
-        let accountExists = false;
-        try {
-          // Try a lightweight signup to probe. If EMAIL_ALREADY_REGISTERED, account exists.
-          await client.signup(email, currentPassword);
-          // Signup succeeded — account was just created
-          accountCheckSpinner.succeed('Account created! Verification email sent.');
-          const loginAfterSignup = await client.login(email, currentPassword);
-          sessionToken = loginAfterSignup.sessionToken;
-          emailVerified = false;
-          break;
-        } catch (probeError) {
-          if (probeError.code === 'EMAIL_ALREADY_REGISTERED') {
-            accountExists = true;
-            accountCheckSpinner.stop();
-          } else {
-            accountCheckSpinner.stop();
-            // Unknown error during probe — offer create account flow
-            const signupResult = await promptCreateAccount(client, email);
-            if (!signupResult.success) {
-              return signupResult;
-            }
-            sessionToken = signupResult.sessionToken;
-            emailVerified = false;
-            break;
-          }
-        }
-
-        if (accountExists) {
-          // Account exists but password is wrong — retry
-          const remaining = MAX_RETRIES - attempt;
-          if (remaining > 0) {
-            showError(`Incorrect password. ${remaining} attempt${remaining > 1 ? 's' : ''} remaining.`);
-            showInfo('Forgot your password? Visit https://pro.synkra.ai/reset-password');
-
-            const inquirer = require('inquirer');
-            const { retryPassword } = await inquirer.prompt([
-              {
-                type: 'password',
-                name: 'retryPassword',
-                message: colors.primary('Password:'),
-                mask: '*',
-                validate: (input) => {
-                  if (!input || input.length < MIN_PASSWORD_LENGTH) {
-                    return `Password must be at least ${MIN_PASSWORD_LENGTH} characters`;
-                  }
-                  return true;
-                },
-              },
-            ]);
-            currentPassword = retryPassword;
-            continue; // Retry login
-          } else {
-            showError('Maximum login attempts reached.');
-            showInfo('Forgot your password? Visit https://pro.synkra.ai/reset-password or contact support@synkra.ai');
-            return { success: false, error: 'Maximum login attempts reached.' };
-          }
-        }
-      } else if (loginError.code === 'AUTH_RATE_LIMITED') {
-        spinner.fail(loginError.message);
-        return { success: false, error: loginError.message };
-      } else {
-        spinner.fail(`Authentication failed: ${loginError.message}`);
-        return { success: false, error: loginError.message };
+        return { success: false, error: signupError.message };
       }
+    } else {
+      spinner.fail(`Authentication failed: ${loginError.message}`);
+      return { success: false, error: loginError.message };
     }
   }
 
   if (!sessionToken) {
-    return { success: false, error: 'Authentication failed after all attempts.' };
+    return { success: false, error: 'Authentication failed.' };
   }
 
   // Wait for email verification if needed
@@ -1070,11 +1156,12 @@ module.exports = {
     authenticateWithEmail,
     waitForEmailVerification,
     activateProByAuth,
+    loginWithRetry,
+    createAccountFlow,
     stepLicenseGateCI,
     stepLicenseGateWithKey,
     stepLicenseGateWithKeyInteractive,
     stepLicenseGateWithEmail,
-    promptCreateAccount,
     loadLicenseApi,
     loadFeatureGate,
     loadProScaffolder,

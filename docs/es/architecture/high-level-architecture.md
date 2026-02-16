@@ -152,7 +152,7 @@
 │   ┌────────────────────┐     ┌────────────────────┐                    │
 │   │  SynkraAI/         │     │  SynkraAI/         │                    │
 │   │  aios-core         │     │  aios-squads       │                    │
-│   │  (Commons Clause)  │◄────│  (MIT)             │                    │
+│   │  (MIT)  │◄────│  (MIT)             │                    │
 │   │                    │     │                    │                    │
 │   │  • Framework Core  │     │  • ETL Squad       │                    │
 │   │  • 11 Agentes Base │     │  • Creator Squad   │                    │
@@ -190,7 +190,7 @@
 
 | Paquete               | Registry    | Licencia       |
 | --------------------- | ----------- | -------------- |
-| `@aios/core`          | npm público | Commons Clause |
+| `@aios/core`          | npm público | MIT            |
 | `@aios/squad-etl`     | npm público | MIT            |
 | `@aios/squad-creator` | npm público | MIT            |
 | `@aios/squad-mmos`    | npm público | MIT            |

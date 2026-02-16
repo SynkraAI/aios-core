@@ -118,7 +118,6 @@ O sistema usa `.aios-sync.yaml` na raiz do projeto para configuração:
 active_ides:
   - claude # .claude/commands/
   - cursor # .cursor/rules/
-  # - windsurf  # .windsurf/ (descomentar para ativar)
   # - gemini    # .gemini/
 
 # Mapeamento de diretório → prefixo de comando
@@ -174,7 +173,6 @@ O `squad_aliases` mapeia o nome do diretório do squad para o prefixo usado nos 
 │     ├── Claude: Copy MD → .claude/commands/       │
 │     ├── Cursor: Convert MD → MDC                  │
 │     ├── Gemini: Copy MD → .gemini/agents/         │
-│     └── Windsurf: Copy MD → .windsurf/            │
 │     ↓                                             │
 │  7. Validate created files                        │
 │     ↓                                             │

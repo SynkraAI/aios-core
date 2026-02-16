@@ -34,7 +34,20 @@ Core framework stabilization and community infrastructure:
 
 ## Next Up (Q2 2026)
 
-### v2.2 Planning
+### P0 Strategic Focus: Learning Curve Reduction
+
+Primary objective for AIOS 4.0.x execution:
+
+- onboarding-first experience (single "start here" path)
+- time-to-first-value <= 10 minutes for new users
+- clearer agent activation across IDEs (Codex, Gemini, Cursor, Copilot, Claude)
+- runtime-guided next action (state-driven, not command-list driven)
+
+Tracking reference:
+- `docs/stories/active/AIOS-4-differentiation-objective-plan.md`
+- `docs/stories/epics/epic-aios-differentiation-4x/EPIC-AIOS-DIFF-INDEX.md`
+
+### Platform Planning
 
 - Memory Layer implementation for agent context persistence
 - Enhanced agent collaboration capabilities
@@ -116,4 +129,4 @@ This roadmap represents our current plans and is subject to change based on comm
 
 ---
 
-*Last updated: 2025-12-10*
+*Last updated: 2026-02-16*

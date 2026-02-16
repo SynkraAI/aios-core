@@ -96,7 +96,6 @@ squads/legal/agents/legal-chief.md
 
 Default mappings for component types:
 
-| Component Type | Claude | Cursor | Gemini | Windsurf |
 | -------------- | ------ | ------ | ------ | -------- |
 | Agents         | ✅     | ✅     | ✅     | ✅       |
 | Tasks          | ✅     | -      | -      | -        |

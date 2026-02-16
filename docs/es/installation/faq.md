@@ -288,10 +288,6 @@ tar -xzvf aios-offline.tar.gz
 | ------------------ | ------------ | ------------------- |
 | **Claude Code**    | Soporte Completo | `/dev`, `/qa`, etc. |
 | **Cursor**         | Soporte Completo | `@dev`, `@qa`, etc. |
-| **Windsurf**       | Soporte Completo | `@dev`, `@qa`, etc. |
-| **Trae**           | Soporte Completo | `@dev`, `@qa`, etc. |
-| **Roo Code**       | Soporte Completo | Selector de modo       |
-| **Cline**          | Soporte Completo | `@dev`, `@qa`, etc. |
 | **Gemini CLI**     | Soporte Completo | Mención en prompt   |
 | **GitHub Copilot** | Soporte Completo | Modos de chat          |
 
@@ -309,7 +305,6 @@ tar -xzvf aios-offline.tar.gz
 ? ¿Qué IDE(s) quiere configurar?
 ❯ ◉ Cursor
   ◉ Claude Code
-  ◯ Windsurf
 ```
 
 **Línea de comandos:**
@@ -322,7 +317,6 @@ Cada IDE obtiene su propio directorio de configuración:
 
 - `.cursor/rules/` para Cursor
 - `.claude/commands/` para Claude Code
-- `.windsurf/rules/` para Windsurf
 
 ---
 

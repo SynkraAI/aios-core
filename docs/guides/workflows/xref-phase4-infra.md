@@ -126,7 +126,6 @@ These scripts exist in the scripts/ directory but are NOT part of the module's p
 | 4 | `scripts/ide-sync/redirect-generator.js` | IDE Sync | Creates redirect files for deprecated agents | `fs-extra` | ide-sync/index.js | No |
 | 5 | `scripts/ide-sync/transformers/claude-code.js` | IDE Sync | Transforms agent definitions for Claude Code | -- | ide-sync/index.js, tests | No |
 | 6 | `scripts/ide-sync/transformers/cursor.js` | IDE Sync | Transforms agent definitions for Cursor IDE | -- | ide-sync/index.js, tests | No |
-| 7 | `scripts/ide-sync/transformers/windsurf.js` | IDE Sync | Transforms agent definitions for Windsurf IDE | -- | ide-sync/index.js, tests | No |
 | 8 | `scripts/ide-sync/transformers/antigravity.js` | IDE Sync | Transforms agent definitions for Antigravity | -- | ide-sync/index.js, tests | No |
 
 ### 1.4 Documentation Integrity Sub-module (7 files)

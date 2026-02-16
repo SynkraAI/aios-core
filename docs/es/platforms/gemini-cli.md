@@ -324,10 +324,10 @@ flowchart LR
 
 ```bash
 # Sincronizar todos los agentes
-npm run sync:agents
+npm run sync:ide
 
 # Sincronizar para Gemini CLI
-npm run sync:agents -- --ide gemini-cli
+npm run sync:ide -- --ide gemini
 ```
 
 ### Formato de Agentes

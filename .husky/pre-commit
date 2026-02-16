@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+# Keep install-manifest.yaml synchronized whenever .aios-core files are committed.
+node scripts/ensure-manifest.js
+

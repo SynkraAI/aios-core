@@ -854,7 +854,7 @@ git checkout abc123def456 -- <file-path>
 **Output**:
 ```
 💬 Interactive Mode - Balanced Development
-📋 Story 3.15: Expansion Pack Auto Configuration
+📋 Story 3.15: Squad Auto Configuration
 
 📖 Task 1: Design configuration schema
 ❓ Decision Point - Schema Format

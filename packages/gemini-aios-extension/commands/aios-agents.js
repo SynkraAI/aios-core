@@ -42,7 +42,8 @@ async function main() {
   }
 
   console.log('\n' + '━'.repeat(50));
-  console.log('Activate with: @agent-name or type *help after activation');
+  console.log('Quick launch with: /aios-menu or /aios-<agent-id>');
+  console.log('Alternative: /aios-agent <agent-id>');
 }
 
 main().catch(console.error);

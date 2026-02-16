@@ -20,7 +20,7 @@
 Este documento é a **versão consolidada v4.0.4** que incorpora todas as mudanças dos Sprints 2-5:
 
 - ✅ **Modular Architecture** (4 módulos: core, development, product, infrastructure)
-- ✅ **Squad System** (nova terminologia, substituindo "Expansion Pack")
+- ✅ **Squad System** (nova terminologia, substituindo "Squad")
 - ✅ **Multi-Repo Strategy** (3 repositórios públicos + 2 privados)
 - ✅ **Quality Gates 3 Layers** (Pre-commit, PR Automation, Human Review)
 - ✅ **Story Template v2.0** (Cross-Story Decisions, CodeRabbit Integration)
@@ -47,7 +47,7 @@ Este documento é a **versão consolidada v4.0.4** que incorpora todas as mudan�
 | **Service Discovery**    | ❌ None     | ✅ **BUILT-IN** | Community needs it         |
 | **Task-First Arch**      | ⚠️ Implicit | ✅ **EXPLICIT** | Architecture clarity       |
 | **Clones (DNA Mental™)** | 🔒 Closed   | 🔒 **CLOSED**   | True moat (IP)             |
-| **Expansion Packs**      | 🔒 Closed   | 🔒 **CLOSED**   | Domain expertise           |
+| **Squads**      | 🔒 Closed   | 🔒 **CLOSED**   | Domain expertise           |
 
 ### Repositório Multi-Repo Structure
 
@@ -348,7 +348,7 @@ Regras:
 
 | Termo Antigo   | Termo Novo         | Descrição              |
 | -------------- | ------------------ | ---------------------- |
-| Expansion Pack | **Squad**          | Modular AI agent teams |
+| Squad | **Squad**          | Modular AI agent teams |
 | Squads/        | **squads/**        | Diretório de Squads    |
 | pack.yaml      | **squad.yaml**     | Manifesto do Squad     |
 | @expansion/\*  | **@aios/squad-\*** | npm scope              |

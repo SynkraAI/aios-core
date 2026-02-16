@@ -644,7 +644,6 @@ class GitHubApiCheck extends BaseCheck {
 | --------------- | ---------------------------- | ------------------- | -------------------------- |
 | **VS Code**     | `.vscode/settings.json`      | Arquivo existe      | JSON schema                |
 | **Cursor**      | `.cursorrules`               | Arquivo existe      | Padrões de conteúdo        |
-| **Windsurf**    | `.windsurf/rules/`           | Diretório existe    | TBD                        |
 | **Claude Code** | `.claude/CLAUDE.md`          | Arquivo existe      | Seções obrigatórias        |
 | **MCPs**        | `.claude.json` / `.mcp.json` | Arquivo existe      | Ping de saúde MCP          |
 | **Git**         | `.gitconfig`                 | `git config --list` | Configurações obrigatórias |

@@ -325,10 +325,10 @@ flowchart LR
 
 ```bash
 # Sincronizar todos los agentes
-npm run sync:agents
+npm run sync:ide
 
 # Sincronizar para GitHub Copilot
-npm run sync:agents -- --ide github-copilot
+npm run sync:ide -- --ide github-copilot
 ```
 
 ### Formato del Modo de Chat

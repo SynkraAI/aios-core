@@ -72,7 +72,6 @@ cd /path/to/your/project
 Your project directory should contain:
 - Package management files (`package.json`, etc.)
 - Source code directories
-- IDE configuration folders (`.cursor`, `.windsurf`, `.claude`, etc.)
 
 ### Step 2: Run Installer
 
@@ -137,7 +136,6 @@ If the installer asks for a directory path:
 
 If your IDE isn't detected after installation:
 1. Verify you ran the installer from the correct project directory
-2. Check that IDE config folders exist (`.cursor`, `.windsurf`, etc.)
 3. Re-run the installer and manually select your IDE
 
 ## Alternative: Global Installation

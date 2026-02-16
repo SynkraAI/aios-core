@@ -27,7 +27,6 @@ O Cursor é uma das **IDEs com IA mais populares** com excelente integração AI
 
 ### Comparação com Outras Plataformas
 
-| Recurso              | Cursor | Claude Code | Windsurf |
 | -------------------- | :----: | :---------: | :------: |
 | Interface GUI        |  Sim   |     Não     |   Sim    |
 | Ativação @mention    |  Sim   |  /comando   |   Sim    |
@@ -377,13 +376,13 @@ flowchart LR
 
 ```bash
 # Sincronizar todos os agentes
-npm run sync:agents
+npm run sync:ide
 
 # Sincronizar agente específico
-npm run sync:agents -- --agent dev
+npm run sync:ide
 
 # Forçar ressincronização
-npm run sync:agents -- --force
+npm run sync:ide
 ```
 
 ### Formato de Arquivo de Agente
@@ -511,7 +510,7 @@ Problema: @dev não ativa agente
 
 ```bash
 # Ressincronizar agentes
-npm run sync:agents
+npm run sync:ide
 
 # Verificar se arquivo do agente existe
 ls .cursor/rules/dev.md
@@ -566,7 +565,7 @@ R: Sim, mas é recomendado usar um agente por tarefa para clareza.
 R: Em `.cursor/rules/` após a sincronização.
 
 **P: Como atualizo os agentes?**
-R: Execute `npm run sync:agents` após atualizações do AIOS.
+R: Execute `npm run sync:ide` após atualizações do AIOS.
 
 ---
 
@@ -597,7 +596,6 @@ R: Execute `npm run sync:agents` após atualizações do AIOS.
 
 3. Agentes sincronizam automaticamente para o novo formato
 
-### Do Cursor para Windsurf
 
 1. Exporte configuração:
 
@@ -605,13 +603,10 @@ R: Execute `npm run sync:agents` após atualizações do AIOS.
    cp .cursor/rules.md cursor-rules-backup.md
    ```
 
-2. Inicialize AIOS para Windsurf:
 
    ```bash
-   npx @anthropic/aios init --ide windsurf
    ```
 
-3. Regras transformam para o formato XML-tagged do Windsurf
 
 ---
 

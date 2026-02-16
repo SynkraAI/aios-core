@@ -45,7 +45,7 @@ AIOS v4 adota uma **estratégia multi-repositório** para viabilizar desenvolvim
 ```
 Organização SynkraAI
 ├── REPOSITÓRIOS PÚBLICOS
-│   ├── aios-core          # Framework principal (Commons Clause)
+│   ├── aios-core          # Framework principal (MIT)
 │   ├── aios-squads        # Squads comunitárias (MIT)
 │   └── mcp-ecosystem      # Configurações MCP (Apache 2.0)
 │
@@ -66,7 +66,7 @@ Organização SynkraAI
 │   ┌────────────────────┐     ┌────────────────────┐                     │
 │   │  SynkraAI/         │     │  SynkraAI/         │                     │
 │   │  aios-core         │     │  aios-squads       │                     │
-│   │  (Commons Clause)  │◄────│  (MIT)             │                     │
+│   │  (MIT)  │◄────│  (MIT)             │                     │
 │   │                    │     │                    │                     │
 │   │  - Framework Core  │     │  - Squad ETL       │                     │
 │   │  - 11 Agentes Base │     │  - Squad Creator   │                     │
@@ -120,7 +120,7 @@ O repositório principal contém o framework AIOS fundamental que todos os proje
 
 ### Licença
 
-**Commons Clause** - Livre para uso, hospedagem/revenda comercial requer licença.
+**MIT** - Licença permissiva para uso, modificação e distribuição do core.
 
 ### Pacote npm
 
@@ -216,7 +216,6 @@ mcp-ecosystem/
 ├── ide-configs/            # Configurações específicas de IDE
 │   ├── claude-code/
 │   ├── cursor/
-│   ├── windsurf/
 │   └── vscode/
 │
 └── presets/                # Bundles MCP pré-configurados
@@ -320,7 +319,7 @@ git submodule add https://github.com/SynkraAI/mcp-ecosystem.git mcp
 
 | Pacote               | Registry   | Licença        | Repositório   |
 | -------------------- | ---------- | -------------- | ------------- |
-| `@aios/core`         | npm public | Commons Clause | aios-core     |
+| `@aios/core`         | npm public | MIT            | aios-core     |
 | `@aios/squad-etl`    | npm public | MIT            | aios-squads   |
 | `@aios/squad-creator`| npm public | MIT            | aios-squads   |
 | `@aios/squad-mmos`   | npm public | MIT            | aios-squads   |

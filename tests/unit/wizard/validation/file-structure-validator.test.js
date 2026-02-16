@@ -23,7 +23,7 @@ describe('File Structure Validator', () => {
       fs.statSync.mockReturnValue({ isDirectory: () => true });
 
       const fileContext = {
-        ideConfigs: ['.cursor/settings.json', '.windsurf/settings.json'],
+        ideConfigs: ['.cursor/settings.json', '.github/copilot-instructions.md'],
         env: '.env',
         coreConfig: '.aios-core/core-config.yaml',
         mcpConfig: '.mcp.json',
@@ -105,7 +105,7 @@ describe('File Structure Validator', () => {
       fs.existsSync.mockReturnValue(true);
 
       const fileContext = {
-        ideConfigs: ['.cursor/settings.json', '.windsurf/settings.json'],
+        ideConfigs: ['.cursor/settings.json', '.github/copilot-instructions.md'],
       };
 
       // When

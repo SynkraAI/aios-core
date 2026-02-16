@@ -24,7 +24,7 @@ describe('IDE Selector', () => {
     });
 
     it('should accept multiple IDE selections', () => {
-      const result = validateIDESelection(['cursor', 'windsurf', 'antigravity']);
+      const result = validateIDESelection(['cursor', 'gemini', 'antigravity']);
       expect(result).toBe(true);
     });
 
