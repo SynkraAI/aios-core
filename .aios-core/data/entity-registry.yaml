@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-15T22:52:07.325Z'
+  lastUpdated: '2026-02-16T00:13:24.489Z'
   entityCount: 497
   checksumAlgorithm: sha256
 entities:
@@ -4707,21 +4707,20 @@ entities:
     gemini-rules:
       path: .aios-core/product/templates/ide-rules/gemini-rules.md
       type: template
-      purpose: Synkra AIOS Development Rules for Gemini CLI
+      purpose: Gemini Rules - Synkra AIOS
       keywords:
         - gemini
         - rules
         - synkra
         - aios
-        - development
       usedBy: []
       dependencies: []
       adaptability:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:9f5a0a05e1cdeab2175a98c00cb248d3fedbc8505f1d99c771703b275f2fc5bd
-      lastVerified: '2026-02-08T13:33:24.280Z'
+      checksum: sha256:c0621a46f2a37ec8c8cfe6b6b240eaf207738693c80199ead7c338d4223d15c2
+      lastVerified: '2026-02-16T00:13:24.487Z'
     codex-rules:
       path: .aios-core/product/templates/ide-rules/codex-rules.md
       type: template

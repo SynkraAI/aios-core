@@ -61,6 +61,9 @@ Isso evita menu duplicado no `/skills` e reduz drift entre equipe/CI.
 
 ## Guardrails e Anti-Regressao
 
+Comando consolidado de paridade:
+- `npm run validate:parity` (Claude + Codex + Gemini + guardrails de paths/skills)
+
 ### Validadores
 
 - Integracao estrutural: `.aios-core/infrastructure/scripts/validate-codex-integration.js`

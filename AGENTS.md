@@ -39,6 +39,7 @@ npm test
 
 - Sincronizar regras/agentes: `npm run sync:ide`
 - Validar drift: `npm run sync:ide:check`
+- Rodar paridade multi-IDE (Claude/Codex/Gemini): `npm run validate:parity`
 - Sync Claude Code: `npm run sync:ide:claude`
 - Sincronizar Gemini CLI: `npm run sync:ide:gemini`
 - Validar Codex sync/integration: `npm run validate:codex-sync && npm run validate:codex-integration`
