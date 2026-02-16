@@ -23,6 +23,7 @@ const ChecklistRunner = require('./checklist-runner');
 const TechStackDetector = require('./tech-stack-detector');
 const ConditionEvaluator = require('./condition-evaluator');
 const SkillDispatcher = require('./skill-dispatcher');
+const { resolveExecutionProfile } = require('./execution-profile-resolver');
 
 /**
  * Orchestrates multi-agent workflow execution
@@ -41,6 +42,8 @@ class WorkflowOrchestrator {
     this.workflowPath = workflowPath;
     this.options = {
       yolo: options.yolo || false,
+      executionProfile: options.executionProfile || null,
+      executionContext: options.executionContext || 'development',
       parallel: options.parallel !== false, // Default true
       onPhaseStart: options.onPhaseStart || this._defaultPhaseStart.bind(this),
       onPhaseComplete: options.onPhaseComplete || this._defaultPhaseComplete.bind(this),
@@ -59,6 +62,11 @@ class WorkflowOrchestrator {
     this.skillDispatcher = new SkillDispatcher(this.options);
     this.conditionEvaluator = null; // Initialized after pre-flight detection
     this.techStackProfile = null; // Populated by pre-flight detection
+    this.executionProfile = resolveExecutionProfile({
+      explicitProfile: this.options.executionProfile,
+      context: this.options.executionContext,
+      yolo: this.options.yolo,
+    });
 
     // Execution state
     this.executionState = {
@@ -522,6 +530,8 @@ class WorkflowOrchestrator {
           notes: phase.notes,
           checklist: phase.checklist,
           template: phase.template,
+          executionProfile: this.executionProfile.profile,
+          executionPolicy: this.executionProfile.policy,
         },
       );
 
@@ -534,6 +544,8 @@ class WorkflowOrchestrator {
           ...context,
           workflowId: this.workflow.workflow?.id,
           yoloMode: this.options.yolo,
+          executionProfile: this.executionProfile.profile,
+          executionPolicy: this.executionProfile.policy,
           previousPhases: this.executionState.completedPhases,
         },
         techStackProfile: this.techStackProfile,
@@ -543,6 +555,11 @@ class WorkflowOrchestrator {
       console.log(
         chalk.gray(
           `   🚀 ${this.skillDispatcher.formatDispatchLog(dispatchPayload).split('\n')[0]}`,
+        ),
+      );
+      console.log(
+        chalk.gray(
+          `   🛡️  Execution profile: ${this.executionProfile.profile} (${this.executionProfile.context})`,
         ),
       );
 

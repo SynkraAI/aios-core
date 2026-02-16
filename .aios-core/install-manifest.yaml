@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.3
-generated_at: "2026-02-16T02:10:47.556Z"
+generated_at: "2026-02-16T02:12:39.906Z"
 generator: scripts/generate-install-manifest.js
-file_count: 994
+file_count: 995
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -656,6 +656,10 @@ files:
     hash: sha256:4f342f7fc05f404de2b899358f86143106737b56d6c486c98e988a67d420078b
     type: core
     size: 12310
+  - path: core/orchestration/execution-profile-resolver.js
+    hash: sha256:bb35f1c16c47c9306128c5f3e6c90df3ed91f9358576ea97a59007b74f5e9927
+    type: core
+    size: 2696
   - path: core/orchestration/executor-assignment.js
     hash: sha256:d022d8bc01432958857894bc424e48e42d21287f44fe2e0cacfbdf03b412d33f
     type: core
@@ -697,9 +701,9 @@ files:
     type: core
     size: 35270
   - path: core/orchestration/index.js
-    hash: sha256:a71fc2cf4facd2725d9f330806076424450f7e5eee3dc876aae1fc0335166da7
+    hash: sha256:1d1b5471585647512327e7d5836ad826442b4c9bd588f82729fa455b41fa28b9
     type: core
-    size: 8630
+    size: 8835
   - path: core/orchestration/lock-manager.js
     hash: sha256:7764b9e79444e75577931a561444f1bf950d893004abc39fa8c2476f632bb481
     type: core
@@ -729,9 +733,9 @@ files:
     type: core
     size: 10372
   - path: core/orchestration/subagent-prompt-builder.js
-    hash: sha256:3da03371fa4cafa4221299f241acd3c37697b395e29ea0c5c65c81bc13f51326
+    hash: sha256:967cc17e019ae030148b276b6fdc6a698ae5f42a05f20e80484cb87ea81ed7af
     type: core
-    size: 11255
+    size: 11395
   - path: core/orchestration/surface-checker.js
     hash: sha256:92e9d5bea78c3db4940c39f79e537821b36451cd524d69e6b738272aa63c08b6
     type: core
@@ -753,9 +757,9 @@ files:
     type: core
     size: 36350
   - path: core/orchestration/workflow-orchestrator.js
-    hash: sha256:fb89682ea86d33bf8453062f82be0313fbfdf4da42ebf0220dd12dc29238a50a
+    hash: sha256:c62dab3769885b186f868b48664437c82fa266c37784e368b26b986927044284
     type: core
-    size: 26902
+    size: 27700
   - path: core/permissions/__tests__/permission-mode.test.js
     hash: sha256:87df5f29666a599fb0fec917e0360ae6fa9dd90512f0816ae62fa453dbab7fbb
     type: core
