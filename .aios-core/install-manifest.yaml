@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.3
-generated_at: "2026-02-16T01:28:05.928Z"
+generated_at: "2026-02-16T01:31:17.865Z"
 generator: scripts/generate-install-manifest.js
 file_count: 999
 files:
@@ -1033,9 +1033,9 @@ files:
     type: data
     size: 34744
   - path: data/entity-registry.yaml
-    hash: sha256:3862b1da163099e8d8d6b54b64fc704211595322ce767c5b6ea6e2e820d11db6
+    hash: sha256:46870b70c5e2c572670c9508803af38206b34f40e2fea94df1516f0217cc3ba4
     type: data
-    size: 288876
+    size: 289901
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -2217,9 +2217,9 @@ files:
     type: task
     size: 3482
   - path: development/tasks/validate-next-story.md
-    hash: sha256:b446e369fcad0d0fc2d50765d88bdf28f0b151466f39f822c223081d466eb78a
+    hash: sha256:f834d96cc0f6a0e2aee46ce7b98192e0cea5847f442db0075e066ab6230c1774
     type: task
-    size: 20256
+    size: 15871
   - path: development/tasks/validate-tech-preset.md
     hash: sha256:1919c65909aab2b52a9d2f5c3e2c336711bc873d155707a654dc120ce7d18a25
     type: task
