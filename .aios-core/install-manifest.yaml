@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.3
-generated_at: "2026-02-16T01:25:57.397Z"
+generated_at: "2026-02-16T01:49:55.166Z"
 generator: scripts/generate-install-manifest.js
 file_count: 993
 files:
@@ -1397,9 +1397,9 @@ files:
     type: script
     size: 9847
   - path: development/scripts/workflow-state-manager.js
-    hash: sha256:56758b8af8b53b74b89b758d84feda85b73ea196704c2969573d183025f052d7
+    hash: sha256:89177df1184e1650ba3e9aad18c9a3b07f6b77711f0271949e8676701695e431
     type: script
-    size: 15764
+    size: 20129
   - path: development/scripts/workflow-validator.js
     hash: sha256:cb1c698f39984f128918e8a3a4e5aed254ca445c57b9f99fa183ef14abc0f0dc
     type: script
@@ -1849,9 +1849,9 @@ files:
     type: task
     size: 13356
   - path: development/tasks/next.md
-    hash: sha256:8ba7dc4567c0c7bf7001f0a26650767f72f45442d312daeb0e321ba4605ce429
+    hash: sha256:d9c84f8892367cd8e1bd453dd08876d051bcc368ca9eacf5d2babb26235427fb
     type: task
-    size: 6556
+    size: 7641
   - path: development/tasks/orchestrate-resume.md
     hash: sha256:5da88a904fc9e77d7428344fb83e55f6f4a3cae4f9d21d77092d1c67664c3d86
     type: task
