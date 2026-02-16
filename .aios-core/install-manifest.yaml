@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.3
-generated_at: "2026-02-16T02:26:49.784Z"
+generated_at: "2026-02-16T02:39:21.051Z"
 generator: scripts/generate-install-manifest.js
 file_count: 995
 files:
@@ -2977,9 +2977,9 @@ files:
     type: script
     size: 6692
   - path: infrastructure/scripts/validate-parity.js
-    hash: sha256:bb0d4589840a8adef39f20f187968a4e9a7e3c5c0db11a314238fa437611a7ef
+    hash: sha256:527948d4a35a85c2f558b261f4b0a921d0482cab979e7dffe988b6fa11b7b2a1
     type: script
-    size: 8584
+    size: 12683
   - path: infrastructure/scripts/validate-paths.js
     hash: sha256:4360d0735ec2c717a97c1670855c5423cf5172005a93c4698b5305ccec48bc2e
     type: script

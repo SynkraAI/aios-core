@@ -71,6 +71,14 @@ Differentiate AIOS with its own product identity, with learning-curve reduction 
 - No safety profile without explicit policy and audit log.
 - No handoff without snapshot, decision log, evidence links, and open risks.
 
+### Onboarding Smoke Baseline (4.0.5)
+
+Onboarding smoke validation is operational via `tests/integration/onboarding-smoke.test.js` and covers:
+
+- clean-environment command readiness
+- "Comece Aqui" flow contract in docs
+- first-value activation signal (`generate-greeting`) with deterministic timer check
+
 ### Structured Handoff Standard (4.2.1)
 
 AIOS now persists a deterministic handoff package at every workflow phase completion:

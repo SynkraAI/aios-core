@@ -12,12 +12,16 @@ const { validateCodexSkills } = require('./codex-skills-sync/validate');
 const { validatePaths } = require('./validate-paths');
 
 function parseArgs(argv = process.argv.slice(2)) {
-  const args = new Set(argv.filter((arg) => !arg.startsWith('--contract=')));
+  const args = new Set(
+    argv.filter((arg) => !arg.startsWith('--contract=') && !arg.startsWith('--diff=')),
+  );
   const contractArg = argv.find((arg) => arg.startsWith('--contract='));
+  const diffArg = argv.find((arg) => arg.startsWith('--diff='));
   return {
     quiet: args.has('--quiet') || args.has('-q'),
     json: args.has('--json'),
     contractPath: contractArg ? contractArg.slice('--contract='.length) : null,
+    diffPath: diffArg ? diffArg.slice('--diff='.length) : null,
   };
 }
 
@@ -138,6 +142,80 @@ function validateCompatibilityContract(contract, resultById, options = {}) {
   return violations;
 }
 
+function sortUnique(values = []) {
+  return [...new Set(values)].sort();
+}
+
+function diffCompatibilityContracts(currentContract, previousContract) {
+  if (!currentContract || !previousContract) {
+    return null;
+  }
+
+  const currentRelease = currentContract.release || null;
+  const previousRelease = previousContract.release || null;
+  const releaseChanged = currentRelease !== previousRelease;
+
+  const currentGlobalChecks = sortUnique(currentContract.global_required_checks || []);
+  const previousGlobalChecks = sortUnique(previousContract.global_required_checks || []);
+  const globalChecksAdded = currentGlobalChecks.filter((item) => !previousGlobalChecks.includes(item));
+  const globalChecksRemoved = previousGlobalChecks.filter((item) => !currentGlobalChecks.includes(item));
+
+  const currentByIde = Object.fromEntries((currentContract.ide_matrix || []).map((item) => [item.ide, item]));
+  const previousByIde = Object.fromEntries((previousContract.ide_matrix || []).map((item) => [item.ide, item]));
+  const ideKeys = sortUnique([...Object.keys(currentByIde), ...Object.keys(previousByIde)]);
+
+  const ideChanges = [];
+  for (const ide of ideKeys) {
+    const current = currentByIde[ide];
+    const previous = previousByIde[ide];
+
+    if (!previous && current) {
+      ideChanges.push({ ide, type: 'added', current });
+      continue;
+    }
+    if (previous && !current) {
+      ideChanges.push({ ide, type: 'removed', previous });
+      continue;
+    }
+
+    const currentStatus = current.expected_status || null;
+    const previousStatus = previous.expected_status || null;
+    const statusChanged = currentStatus !== previousStatus;
+    const currentChecks = sortUnique(current.required_checks || []);
+    const previousChecks = sortUnique(previous.required_checks || []);
+    const checksAdded = currentChecks.filter((item) => !previousChecks.includes(item));
+    const checksRemoved = previousChecks.filter((item) => !currentChecks.includes(item));
+
+    if (statusChanged || checksAdded.length > 0 || checksRemoved.length > 0) {
+      ideChanges.push({
+        ide,
+        type: 'changed',
+        status: { previous: previousStatus, current: currentStatus },
+        required_checks: {
+          added: checksAdded,
+          removed: checksRemoved,
+        },
+      });
+    }
+  }
+
+  return {
+    from_release: previousRelease,
+    to_release: currentRelease,
+    release_changed: releaseChanged,
+    global_required_checks: {
+      added: globalChecksAdded,
+      removed: globalChecksRemoved,
+    },
+    ide_changes: ideChanges,
+    has_changes:
+      releaseChanged
+      || globalChecksAdded.length > 0
+      || globalChecksRemoved.length > 0
+      || ideChanges.length > 0,
+  };
+}
+
 function runParityValidation(options = {}, deps = {}) {
   const projectRoot = options.projectRoot || process.cwd();
   const runSync = deps.runSyncValidate || runSyncValidate;
@@ -151,6 +229,8 @@ function runParityValidation(options = {}, deps = {}) {
     : getDefaultContractPath(projectRoot);
   const loadContract = deps.loadCompatibilityContract || loadCompatibilityContract;
   const contract = loadContract(resolvedContractPath);
+  const resolvedDiffPath = options.diffPath ? path.resolve(projectRoot, options.diffPath) : null;
+  const previousContract = resolvedDiffPath ? loadContract(resolvedDiffPath) : null;
   const docsPath = path.join(projectRoot, 'docs', 'ide-integration.md');
   const docsPathRelative = path.relative(projectRoot, docsPath);
   const checks = [
@@ -190,6 +270,7 @@ function runParityValidation(options = {}, deps = {}) {
     ok: results.every((r) => r.ok) && contractViolations.length === 0,
     checks: results,
     contract: contractSummary,
+    contractDiff: diffCompatibilityContracts(contract, previousContract),
     contractViolations,
   };
 }
@@ -198,6 +279,30 @@ function formatHumanReport(result) {
   const lines = [];
   if (result.contract && result.contract.release) {
     lines.push(`Compatibility Contract: ${result.contract.release} (${result.contract.path})`);
+    lines.push('');
+  }
+  if (result.contractDiff) {
+    lines.push(
+      `Contract Diff: ${result.contractDiff.from_release || 'unknown'} -> ${result.contractDiff.to_release || 'unknown'}`,
+    );
+    if (!result.contractDiff.has_changes) {
+      lines.push('- no changes');
+    } else {
+      if (result.contractDiff.release_changed) {
+        lines.push('- release changed');
+      }
+      const globalAdded = result.contractDiff.global_required_checks.added || [];
+      const globalRemoved = result.contractDiff.global_required_checks.removed || [];
+      if (globalAdded.length > 0) {
+        lines.push(`- global checks added: ${globalAdded.join(', ')}`);
+      }
+      if (globalRemoved.length > 0) {
+        lines.push(`- global checks removed: ${globalRemoved.join(', ')}`);
+      }
+      for (const ideChange of result.contractDiff.ide_changes || []) {
+        lines.push(`- ${ideChange.ide}: ${ideChange.type}`);
+      }
+    }
     lines.push('');
   }
   for (const check of result.checks) {
@@ -246,4 +351,5 @@ module.exports = {
   runParityValidation,
   normalizeResult,
   formatHumanReport,
+  diffCompatibilityContracts,
 };

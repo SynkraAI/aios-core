@@ -119,6 +119,21 @@ First value is achieved only when all three are true:
 - IDE support table is explicit (works/limited/not supported).
 - onboarding smoke tests pass in clean environment.
 
+## Onboarding Smoke Risks (4.0.5)
+
+Known false-positive/false-negative risks for smoke automation:
+
+- CI may run faster or slower than user machines; timer is a guardrail, not UX truth.
+- Offline/air-gapped environments can fail install-related checks even when docs are correct.
+- CLI `--help` and activation greeting checks validate first-value readiness, not full interactive onboarding depth.
+- IDE-specific activation still depends on external IDE behavior, so smoke tests validate contract text + activation artifacts.
+
+Mitigation:
+
+- Use deterministic pass/fail assertions for command availability and greeting contract.
+- Keep timer threshold with CI margin and track trend over time.
+- Pair smoke automation with periodic manual dry-run in clean environment.
+
 ## Risks
 
 - Over-simplification for advanced users.
