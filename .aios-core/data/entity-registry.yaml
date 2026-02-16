@@ -5979,6 +5979,29 @@ entities:
       checksum: sha256:310884d94b81be976a346987822306a16a73ba812c08c3b805f4a03216ffef38
       lastVerified: '2026-02-15T19:28:17.743Z'
   modules:
+    registry-syncer:
+      path: .aios-core/core/code-intel/registry-syncer.js
+      type: module
+      purpose: Enriches entity registry with code intelligence data (usedBy, dependencies, codeIntelMetadata)
+      keywords:
+        - registry
+        - syncer
+        - code-intel
+        - enrichment
+        - usedBy
+        - dependencies
+      usedBy:
+        - aios-master
+      dependencies:
+        - code-intel-client
+        - registry-loader
+      adaptability:
+        score: 0.7
+        constraints:
+          - Requires code intelligence provider (NOG-1)
+        extensionPoints:
+          - Additional enrichment fields via syncEntity override
+      lastVerified: '2026-02-16T00:00:00.000Z'
     index.esm:
       path: .aios-core/core/index.esm.js
       type: module
