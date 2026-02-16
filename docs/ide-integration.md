@@ -11,6 +11,17 @@ Guide for integrating AIOS with supported IDEs and AI development platforms.
 
 ---
 
+## Compatibility Contract (AIOS 4.0.4)
+
+The IDE matrix is enforced by a versioned contract:
+
+- Contract file: `.aios-core/infrastructure/contracts/compatibility/aios-4.0.4.yaml`
+- Validator: `npm run validate:parity`
+
+If matrix claims in this document diverge from validator results, parity validation fails.
+
+---
+
 ## Supported IDEs
 
 AIOS supports multiple AI-powered development platforms. Choose the one that best fits your workflow.

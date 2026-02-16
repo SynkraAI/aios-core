@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.3
-generated_at: "2026-02-16T01:59:01.295Z"
+generated_at: "2026-02-16T02:10:47.556Z"
 generator: scripts/generate-install-manifest.js
-file_count: 993
+file_count: 994
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -1105,9 +1105,9 @@ files:
     type: agent
     size: 12076
   - path: development/agents/ux-design-expert.md
-    hash: sha256:5dde817f220f1f452b53026643e267eb027e4a131d1e5fc4bbcf6ebd772da3bb
+    hash: sha256:ae3f98570fa6cbd714ecd0aa2f44c7db005f0469b5bd04191d8da3b133bc65f1
     type: agent
-    size: 18376
+    size: 18377
   - path: development/checklists/agent-quality-gate.md
     hash: sha256:04d1bf12dd4b0b3d10de04c1825efab742e6475087d3ac9d5c86ca7ff8ec9057
     type: checklist
@@ -2452,6 +2452,10 @@ files:
     hash: sha256:e46e4b86e48e22a6f0b7ccb91e7e901bfc779479d4ebc7e776fca6dd4de5b30b
     type: code
     size: 753
+  - path: infrastructure/contracts/compatibility/aios-4.0.4.yaml
+    hash: sha256:e8bea648df5d62a22a979b9d70e3987690db4e19a1ed3beec11d232746297136
+    type: infrastructure
+    size: 1074
   - path: infrastructure/index.js
     hash: sha256:8e05caec57188938d6f348444ad3abce2c06b53bdb46993fb2e8ff81c27fca4c
     type: infrastructure
@@ -2969,9 +2973,9 @@ files:
     type: script
     size: 6692
   - path: infrastructure/scripts/validate-parity.js
-    hash: sha256:1ec3b6c5863b4130a30f3844f9f148e86969011a8e557ca8b8d8f3bd5e96bd83
+    hash: sha256:bb0d4589840a8adef39f20f187968a4e9a7e3c5c0db11a314238fa437611a7ef
     type: script
-    size: 3929
+    size: 8584
   - path: infrastructure/scripts/validate-paths.js
     hash: sha256:4360d0735ec2c717a97c1670855c5423cf5172005a93c4698b5305ccec48bc2e
     type: script
