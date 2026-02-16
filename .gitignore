@@ -86,6 +86,11 @@ CLAUDE.md
 !.claude/CLAUDE.md
 !.claude/rules/
 .gemini
+!.gemini/
+!.gemini/rules/
+!.gemini/rules/AIOS/
+!.gemini/rules/AIOS/agents/
+!.gemini/rules/AIOS/agents/*.md
 
 # AI Session Artifacts (Story 6.1.2.6 - Decision Logging)
 # Auto-generated decision logs from yolo mode executions
