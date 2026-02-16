@@ -121,7 +121,7 @@ Esta abordagem de duas fases elimina tanto a **inconsistência de planejamento**
 - **[Criar meus próprios agentes IA](#criando-seu-próprio-squad)** → Construir agentes para seu domínio
 - **[Navegar Squads prontos](docs/guides/squads-overview.md)** → Veja como criar e usar equipes de agentes IA
 - **[Entender a arquitetura](docs/architecture/ARCHITECTURE-INDEX.md)** → Mergulho técnico profundo
-- **[Juntar-se à comunidade](https://discord.gg/gk8jAdXWmj)** → Obter ajuda e compartilhar ideias
+- **[Reportar problemas](https://github.com/SynkraAI/aios-core/issues)** → Bug reports e feature requests
 
 ## Importante: Mantenha Sua Instalação AIOS Atualizada
 
@@ -618,12 +618,10 @@ npm install @aios-fullstack/pro
 
 Para mais informações, execute `npx aios-core pro --help` após a instalação.
 
-## Suporte & Comunidade
+## Suporte
 
-- 📖 [Guia da Comunidade](docs/community.md) - Como participar e contribuir
-- 💬 [Discussões GitHub](https://github.com/SynkraAI/aios-core/discussions) - Hub central da comunidade
+- 🐛 [Rastreador de Issues](https://github.com/SynkraAI/aios-core/issues) - Bug reports e feature requests
 - 💡 [Processo de Features](docs/FEATURE_PROCESS.md) - Como propor novas funcionalidades
-- 🐛 [Rastreador de Issues](https://github.com/SynkraAI/aios-core/issues)
 - 📋 [Como Contribuir](CONTRIBUTING.md)
 - 🗺️ [Roadmap](docs/roadmap.md) - Veja o que estamos construindo
 - 🤖 [Guia de Squads](docs/guides/squads-guide.md) - Crie equipes de agentes IA

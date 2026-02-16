@@ -256,11 +256,6 @@ npm run validate:parity
 - **[Squads Guide](./guides/squads-guide.md)** - Extend AIOS to any domain
 - **[Troubleshooting](./troubleshooting.md)** - Common issues and solutions
 
-### Community
-
-- **Discord**: [Join our server](https://discord.gg/gk8jAdXWmj)
-- **GitHub Discussions**: Share ideas and get help
-
 ---
 
 _Synkra AIOS Getting Started Guide v4.0.4_
