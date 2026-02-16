@@ -147,6 +147,38 @@ export type {
   ExecutionStatus,
 } from './scheduler/types';
 
+// Billing Batch
+export {
+  groupAccountsByBatch,
+  generateBatchId,
+  generateLoteNumber,
+  buildBatchXml,
+  computeTotalAmount,
+  createBatchFromGroup,
+} from './billing/tiss-batch-generator';
+export { BatchProcessor } from './billing/batch-processor';
+export { runBatchCli } from './billing/batch-cli';
+export type {
+  TissBatch,
+  BatchStatus,
+  BatchConfig,
+  BatchGroupKey,
+  BatchGenerateInput,
+  BatchGenerateResult,
+} from './billing/types';
+
+// Onboarding
+export { TenantProvisioner, generateSlug } from './onboarding/tenant-provisioner';
+export { runOnboardingCli } from './onboarding/onboarding-cli';
+export type {
+  TenantCreateInput,
+  ProvisioningResult,
+  ProvisioningStep,
+  OrgType,
+  OrgPlan,
+  MemberRole,
+} from './onboarding/types';
+
 // Logger
 export { logger, createAgentLogger } from './logger';
 

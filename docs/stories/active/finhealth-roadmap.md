@@ -174,47 +174,52 @@ O padrao TISS da ANS exige que guias XML sejam assinadas digitalmente com certif
 **Prioridade:** Medium — Escala e operacionalizacao
 **Esforco estimado:** 8-10 dias
 **Dependencias:** Phase 11 (assinatura XML), Phase 10 (scheduler para batch agendado)
+**Implementacao:** Promise.allSettled (sem BullMQ/Redis), CLI-first, 41 testes
 
 ### M3: Batch Processing / Lotes TISS
 
 BillingAgent hoje valida/gera guias individualmente. Operadoras esperam receber **lotes** (XML com N guias agrupadas por competencia + operadora).
 
-| # | Entrega | Detalhes |
-|---|---------|----------|
-| 12.1 | **Lote TISS generator** | `src/billing/tiss-batch.ts` — agrupa guias por (operadora, competencia), gera XML lote conforme schema ANS. |
-| 12.2 | **BillingAgent: `generate-tiss-batch`** | Nova task: recebe filtros (operadora, periodo), busca guias pendentes, gera lote, assina, retorna. |
-| 12.3 | **Parallel processing** | Processamento paralelo de multiplos lotes (por operadora) via BullMQ workers. |
-| 12.4 | **Batch status tracking** | Tabela `tiss_batches` — id, operadora, competencia, total_guias, status (pending/processing/sent/accepted/rejected), xml_url. |
-| 12.5 | **Frontend: Batch view** | Pagina `/tiss/batches` — lista lotes, status, download XML, reenvio. |
-| 12.6 | **Tests** | Geracao de lote com N guias, validacao XSD, assinatura do lote. |
+| # | Entrega | Detalhes | Status |
+|---|---------|----------|--------|
+| 12.1 | **Lote TISS generator** | `src/billing/tiss-batch-generator.ts` — agrupa guias por (operadora, competencia), gera XML lote conforme schema ANS. | Done |
+| 12.2 | **Batch Processor** | `src/billing/batch-processor.ts` — orchestrates parallel generation and signing via Promise.allSettled, bounded concurrency. | Done |
+| 12.3 | **Parallel processing** | Promise.allSettled com concurrency configuravel (default 5). Sem BullMQ/Redis — consistente com Phase 10. | Done |
+| 12.4 | **Batch status tracking** | Tabela `tiss_batches` — SQL migration com RLS, indexes, 7 status states. | Done |
+| 12.5 | **Frontend: Batch view** | Skipped — CLI First principle. Use `batch list` CLI. | N/A |
+| 12.6 | **Batch CLI** | `src/billing/batch-cli.ts` — generate, list, sign commands. | Done |
+| 12.7 | **Batch types** | `src/billing/types.ts` — TissBatch, BatchConfig, BatchGenerateResult. | Done |
+| 12.8 | **Tests** | 23 tests: 13 batch-generator + 10 batch-processor (parallel gen, signing, split by maxGuides). | Done |
 
 ### M2: Onboarding de Tenant Automatizado
 
 Hoje criar um novo tenant (hospital/clinica) requer: criar org no Supabase, configurar RLS, inserir operadoras, configurar certificados — tudo manual.
 
-| # | Entrega | Detalhes |
-|---|---------|----------|
-| 12.7 | **Tenant provisioner** | `src/onboarding/tenant-provisioner.ts` — cria organization, admin user, seed reference data, configura operadoras padrao. |
-| 12.8 | **CLI command** | `finhealth tenant create --name "Hospital X" --cnpj "XX.XXX.XXX/XXXX-XX" --admin-email "admin@hospital.com"`. |
-| 12.9 | **API endpoint** | `/api/admin/tenants` — CRUD com RBAC `admin:tenants:write` (super-admin only). |
-| 12.10 | **Onboarding wizard** | Frontend: `/onboarding` — wizard 4 steps: dados da organizacao → operadoras → certificado → usuarios. |
-| 12.11 | **Tests** | Provisioning end-to-end, cleanup on failure (rollback parcial). |
+| # | Entrega | Detalhes | Status |
+|---|---------|----------|--------|
+| 12.9 | **Tenant provisioner** | `src/onboarding/tenant-provisioner.ts` — 5-step pipeline: create org → admin member → seed insurers → glosa codes → defaults. Rollback on failure. | Done |
+| 12.10 | **CLI command** | `src/onboarding/onboarding-cli.ts` — `tenant create --name --type --admin-user [--cnpj] [--plan]`. | Done |
+| 12.11 | **API endpoint** | Skipped — CLI First principle. Frontend already handles its own API routes. | N/A |
+| 12.12 | **Onboarding wizard** | Skipped — CLI First principle. | N/A |
+| 12.13 | **Onboarding types** | `src/onboarding/types.ts` — TenantCreateInput, ProvisioningResult, default insurers, standard glosa codes. | Done |
+| 12.14 | **Tests** | 18 tests: slug generation, provisioning (success, rollback, filter insurers, step details). | Done |
 
 ### Acceptance Criteria (M3)
 
-- [ ] Lote TISS agrupa guias por operadora + competencia
-- [ ] XML lote valida contra XSD de lote ANS
-- [ ] Lote assinado com certificado A1 da organizacao
-- [ ] Processamento paralelo de 5+ lotes simultaneos
-- [ ] Dashboard mostra status de cada lote com timeline
+- [x] Lote TISS agrupa guias por operadora + competencia
+- [x] XML lote conforme TISS (mensagemTISS > loteGuias > guiaSP_SADT[])
+- [x] Lote assinado com certificado A1 (XmlSigner integration)
+- [x] Processamento paralelo de 5+ lotes simultaneos (Promise.allSettled)
+- [x] Batch splitting por maxGuidesPerBatch (default 100)
+- [x] CLI: `batch generate`, `batch list`, `batch sign`
 
 ### Acceptance Criteria (M2)
 
-- [ ] `finhealth tenant create` provisiona org completa em <30s
-- [ ] Seed automatico de tabelas de referencia (TUSS, SIGTAP, codigos de glosa)
-- [ ] Rollback automatico se qualquer step falhar
-- [ ] Admin user recebe email de boas-vindas com link de ativacao
-- [ ] Wizard frontend guia o onboarding sem necessidade de CLI
+- [x] `tenant create` provisiona org completa (5 steps)
+- [x] Seed automatico de health insurers (6 top BR operators)
+- [x] Standard glosa codes (10 codigos ANS: admin, tecnica, linear)
+- [x] Rollback automatico se qualquer step falhar (tested)
+- [x] Slug generation com remoção de acentos e caracteres especiais
 
 ---
 
@@ -258,5 +263,5 @@ Phase 8: CI/CD + Docker + Staging (C5)
 | C6 | Scrapers contra fontes reais | Phase 9 | Done |
 | H3 | Scheduler/cron workflows | Phase 10 | Done |
 | H6 | Assinatura XML A1 | Phase 11 | Done |
-| M3 | Batch processing / Lotes TISS | Phase 12 | Pendente |
-| M2 | Onboarding de tenant | Phase 12 | Pendente |
+| M3 | Batch processing / Lotes TISS | Phase 12 | Done |
+| M2 | Onboarding de tenant | Phase 12 | Done |

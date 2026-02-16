@@ -48,6 +48,11 @@
     "scheduler:start": "ts-node src/scheduler/scheduler-cli.ts start",
     "scheduler:status": "ts-node src/scheduler/scheduler-cli.ts status",
     "scheduler:list": "ts-node src/scheduler/scheduler-cli.ts list",
+    "batch": "ts-node src/billing/batch-cli.ts",
+    "batch:generate": "ts-node src/billing/batch-cli.ts generate",
+    "batch:list": "ts-node src/billing/batch-cli.ts list",
+    "tenant": "ts-node src/onboarding/onboarding-cli.ts",
+    "tenant:create": "ts-node src/onboarding/onboarding-cli.ts create",
     "ci": "npm run lint && npm run typecheck && npm run test:run && npm run build"
   },
   "dependencies": {
