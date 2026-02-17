@@ -1,0 +1,47 @@
+name: renner-silva
+version: "1.0.0"
+slashPrefix: renner
+title: "Renner Silva - Mind Clone | Mentoria & Oratória"
+description: >-
+  Clone mental de Renner Silva — referência em oratória, liderança e
+  desenvolvimento humano. Ativado com todos os 17 KBs de conhecimento
+  (SYNAPSE v6.0 — fidelidade ~93/100). Especialista em método "Aplauda de Pé",
+  palestrança transformadora e mentoria de alta conversão (0.8%).
+author: "Luiz Fosc"
+icon: "🎤"
+type: specialist
+
+entry_agent: renner-silva
+
+independence: true
+independence_details: |
+  Squad 100% independente e auto-contido:
+  - Não requer banco de dados
+  - Não requer APIs externas
+  - Todo conhecimento está nos 17 KBs locais
+  - Funciona offline com base de conhecimento fornecida
+
+agents:
+  - renner-silva
+
+tasks:
+  - mentor-session
+  - review-palestra
+  - create-content
+  - evaluate-speaker
+
+workflows:
+  - mentoring-flow
+
+data:
+  - knowledge-base-index
+
+tags:
+  - mind-clone
+  - oratoria
+  - mentoria
+  - liderança
+  - renner-silva
+  - synapse
+  - palestranca
+  - transformacao
