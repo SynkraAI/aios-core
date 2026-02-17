@@ -9,7 +9,14 @@
 
 ## Purpose
 
-Git-native sync of AIOS framework from upstream repository. Uses sparse clone + file comparison for safe review before applying changes. All local customizations preserved automatically by backup/restore.
+Git-native sync of complete AIOS framework from upstream repository (https://github.com/SynkraAI/aios-core). Clones entire upstream repository, applies selective merge logic:
+- **NEW files** → CREATE
+- **MODIFIED files** → OVERWRITE (upstream wins)
+- **DELETED files** (in upstream) → DELETE locally
+- **LOCAL-ONLY files** → KEEP (never delete)
+- **PROTECTED:** `update-aios.sh` always preserved (never overwrite)
+
+All changes staged for review before user commits.
 
 ---
 
@@ -29,45 +36,61 @@ git checkout -- .aios-core/                                         # Cancel cha
 
 ## How It Works
 
-The script uses sparse clone + file comparison:
+The script applies selective merge logic with complete upstream comparison:
 
-1. **Clone upstream** - Sparse shallow clone of SynkraAI/aios-core (only `.aios-core/`)
-2. **Compare files** - Uses `comm` for O(n) file list comparison
-3. **Backup local-only** - Files that exist only locally are backed up
-4. **Sync** - Copy upstream files, restore local-only files
-5. **Report** - Shows created/updated/deleted/preserved counts
-6. **User decides** - Commit to apply or checkout to cancel
+1. **Clone upstream** - Shallow clone of `https://github.com/SynkraAI/aios-core` (entire repository)
+2. **Compare files** - Uses `comm` for O(n) file list comparison across all files
+3. **Categorize changes:**
+   - Files NEW in upstream → Mark as CREATE
+   - Files MODIFIED in both → Mark as OVERWRITE
+   - Files DELETED in upstream → Mark as DELETE
+   - Files LOCAL-ONLY → Mark as PRESERVE
+4. **Execute sync:**
+   - Delete files removed from upstream
+   - Copy all upstream files (new + modified)
+   - Restore local-only files (if accidentally overwritten)
+5. **Report** - Shows counts for created/updated/deleted/preserved
+6. **User decides** - Commit to apply changes or checkout to cancel
+
+**Merge logic (STRICT ORDER):**
+```
+NEW in upstream        → CREATE
+EXISTS in both         → OVERWRITE (upstream replaces local)
+DELETED in upstream    → DELETE (remove locally)
+LOCAL-ONLY            → KEEP (never delete)
+EXCEPTION: update-aios.sh → NEVER OVERWRITE (always protected)
+```
 
 **Why this approach:**
-- Sparse clone is fast (~5 seconds)
-- O(n) comparison vs O(n²) nested loops
-- Local-only files always preserved
-- Clear report before committing
+- Complete sync (not sparse, gets everything)
+- O(n) comparison performance
+- Clear categorization before applying
+- User reviews before committing
+- Rollback simple (`git checkout -- .` if needed)
 
 ---
 
-## Protected Files (NEVER overwritten)
+## Local-Only Files (PRESERVED automatically)
 
-These paths are automatically preserved (local-only files are backed up and restored):
+Files that exist ONLY locally (not in upstream) are automatically preserved. Examples:
+- `squads/` - Custom copywriters, data, ralph
+- `.aios-core/marketing/` - Marketing-specific agents/tasks (if local-only)
+- `source/` - Business context YAML
+- `Knowledge/` - Knowledge bases
+- `.aios-core/context/` - Compiled contexts
+- `CLAUDE.md` - Project rules
+- `.claude/commands/` - Custom commands
+- `.claude/rules/` - Custom rules
+- `.antigravity/` - Antigravity config
+- `.gemini/` - Gemini config
+- `MCPs/` - MCP integrations
+- `Contexto/` - Business context
+- `Output/` - Deliverables
+- `docs/` - Project documentation
+- `scripts/` - Python scripts
+- `.env` - Secrets
 
-| Path | Reason |
-|------|--------|
-| `.aios-core/squads/` | Custom copywriters, data, ralph |
-| `.aios-core/marketing/` | Marketing-specific agents/tasks |
-| `source/` | Business context YAML |
-| `Knowledge/` | Knowledge bases |
-| `.aios-core/context/` | Compiled contexts |
-| `CLAUDE.md` | Project rules |
-| `.claude/commands/` | Custom commands |
-| `.claude/rules/` | Custom rules |
-| `.antigravity/` | Antigravity config |
-| `.gemini/` | Gemini config |
-| `MCPs/` | MCP integrations |
-| `Contexto/` | Business context |
-| `Output/` | Deliverables |
-| `docs/` | Project documentation |
-| `scripts/` | Python scripts |
-| `.env` | Secrets |
+**If these files exist in BOTH local and upstream:** Upstream version wins (overwrites local)
 
 ---
 
@@ -110,7 +133,7 @@ After running the script:
 
 ```bash
 # Check that local-only files are preserved
-ls -la .aios-core/squads/  # if exists
+ls -la squads/  # if exists
 ls -la source/                       # if exists
 
 # See what changed (unstaged)
@@ -141,11 +164,20 @@ git checkout -- .aios-core/
 
 ---
 
+## Upstream Repository
+
+**Source:** https://github.com/SynkraAI/aios-core
+
+Complete AIOS framework. All files (not sparse).
+
+---
+
 ## Changelog
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 5.0.0 | 2026-02-15 | **COMPLETE FRAMEWORK SYNC:** Full upstream clone, strict merge logic (CREATE/OVERWRITE/DELETE/PRESERVE), always protects `update-aios.sh` |
 | 4.0.0 | 2026-01-31 | **SIMPLIFIED:** Git-native approach, 15-line bash script replaces 847-line JS |
-| 3.1.0 | 2026-01-30 | Dynamic protection for squad commands |
+| 3.1.0 | 2026-01-30 | Dynamic protection for expansion pack commands |
 | 3.0.0 | 2026-01-29 | YOLO mode with rsync |
 | 1.0.0 | 2026-01-29 | Initial version (verbose, interactive) |
