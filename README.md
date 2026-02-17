@@ -18,13 +18,17 @@ Se é sua primeira vez no AIOS, siga este caminho linear:
 
 1. Instale em um projeto novo ou existente:
 ```bash
-# novo projeto
+# novo projeto (cria a pasta automaticamente)
 npx aios-core init meu-projeto
+cd meu-projeto
 
-# projeto existente
+# ou em projeto existente
 cd seu-projeto
 npx aios-core install
 ```
+
+> **O que `npx aios-core init` faz?** O `npx` baixa e executa o pacote `aios-core` sem instalar globalmente. O comando `init` inicia um assistente interativo que cria a pasta do projeto, configura o framework (agentes, tasks, workflows), detecta sua IDE e instala as dependências — tudo em um único passo.
+
 2. Escolha sua IDE/CLI e o caminho de ativação:
 - Claude Code: `/agent-name`
 - Gemini CLI: `/aios-menu` → `/aios-<agent>`
