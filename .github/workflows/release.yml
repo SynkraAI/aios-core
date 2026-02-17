@@ -1,0 +1,237 @@
+name: Release
+# Story 6.1 - Added concurrency
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g., v4.0.0)'
+        required: true
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false  # Never cancel releases in progress
+
+env:
+  NODE_VERSION: '20'
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    outputs:
+      release_id: ${{ steps.create_release.outputs.id }}
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG="${{ github.event.inputs.tag }}"
+          else
+            TAG="${{ github.ref_name }}"
+          fi
+          VERSION=${TAG#v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          # Create a changelog based on recent commits
+          echo "## 📋 What's New in v${{ steps.version.outputs.version }}" > CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          
+          # Get commits since last tag
+          LAST_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -n "$LAST_TAG" ]; then
+            echo "### 🔄 Changes since $LAST_TAG:" >> CHANGELOG.md
+            git log --pretty=format:"* %s (%h)" $LAST_TAG..HEAD >> CHANGELOG.md
+          else
+            echo "### 🎉 Initial Release Features:" >> CHANGELOG.md
+            echo "* ✅ Complete Meta-Agent MVP and Framework Distribution" >> CHANGELOG.md
+            echo "* 🔒 Security hardening with penetration testing" >> CHANGELOG.md
+            echo "* ⚡ Performance optimization framework" >> CHANGELOG.md
+            echo "* 📊 Privacy-conscious telemetry system" >> CHANGELOG.md
+            echo "* 📦 Modular NPM package distribution" >> CHANGELOG.md
+          fi
+          
+          echo "" >> CHANGELOG.md
+          echo "## 📦 Installation" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "| Package | Description | Installation |" >> CHANGELOG.md
+          echo "|---------|-------------|--------------|" >> CHANGELOG.md
+          echo "| [aios-core](https://www.npmjs.com/package/aios-core) | AI-Orchestrated System for Full Stack Development | \`npm install -g aios-core\` |" >> CHANGELOG.md
+
+          echo "" >> CHANGELOG.md
+          echo "## 🚀 Quick Start" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "\`\`\`bash" >> CHANGELOG.md
+          echo "# Install globally" >> CHANGELOG.md
+          echo "npm install -g aios-core" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "# Initialize in your project" >> CHANGELOG.md
+          echo "aios init" >> CHANGELOG.md
+          echo "\`\`\`" >> CHANGELOG.md
+
+      - name: Create Release
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create the release using GitHub CLI
+          gh release create "${{ steps.version.outputs.tag }}" \
+            --title "AIOS-FullStack ${{ steps.version.outputs.tag }}" \
+            --notes-file CHANGELOG.md \
+            --verify-tag || true
+          
+          # Get release info for outputs
+          RELEASE_INFO=$(gh api repos/${{ github.repository }}/releases/tags/${{ steps.version.outputs.tag }})
+          echo "id=$(echo "$RELEASE_INFO" | jq -r '.id')" >> $GITHUB_OUTPUT
+          echo "upload_url=$(echo "$RELEASE_INFO" | jq -r '.upload_url')" >> $GITHUB_OUTPUT
+
+  build-and-upload:
+    needs: create-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prepare packages
+        run: |
+          # Create lib directories for packages that need them
+          for pkg in .aios-core memory security performance telemetry; do
+            if [ -d "$pkg" ]; then
+              mkdir -p "$pkg/lib"
+            fi
+          done
+
+      - name: Create distribution archive
+        run: |
+          VERSION="${{ needs.create-release.outputs.version }}"
+
+          # Create output directory
+          mkdir -p @synkra
+
+          # Use tar with || true to ignore "file changed" warnings
+          tar -czf @synkra/aios-core-${VERSION}.tar.gz \
+            --exclude=node_modules \
+            --exclude=.git \
+            --exclude=tests \
+            --exclude='*.log' \
+            --exclude='.github' \
+            --exclude='*.tar.gz' \
+            --exclude='*.zip' \
+            . || true
+
+          # Verify tar was created
+          if [ ! -f "@synkra/aios-core-${VERSION}.tar.gz" ]; then
+            echo "❌ Failed to create tar archive"
+            exit 1
+          fi
+
+          # Create source code zip
+          zip -r @synkra/aios-core-${VERSION}-source.zip . \
+            -x "node_modules/*" ".git/*" "tests/*" "*.log" ".github/*" "*.tar.gz" "*.zip"
+
+      - name: Upload Release Assets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ needs.create-release.outputs.version }}"
+          TAG="${{ needs.create-release.outputs.tag }}"
+
+          # Upload tar.gz file
+          gh release upload "${TAG}" \
+            "@synkra/aios-core-${VERSION}.tar.gz" \
+            --clobber
+
+          # Upload source zip file
+          gh release upload "${TAG}" \
+            "@synkra/aios-core-${VERSION}-source.zip" \
+            --clobber
+
+  trigger-npm-publish:
+    needs: [create-release, build-and-upload]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for release event propagation
+        run: |
+          echo "⏳ Waiting for release event to propagate..."
+          sleep 10
+
+      - name: Verify npm-publish workflow triggered
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+
+            // Check if npm-publish workflow was triggered by release event
+            const runs = await github.rest.actions.listWorkflowRuns({
+              owner,
+              repo,
+              workflow_id: 'npm-publish.yml',
+              per_page: 5
+            });
+
+            const recentRun = runs.data.workflow_runs.find(run =>
+              run.event === 'release' &&
+              new Date(run.created_at) > new Date(Date.now() - 60000)
+            );
+
+            if (recentRun) {
+              console.log(`✅ npm-publish workflow triggered automatically (run #${recentRun.run_number})`);
+              console.log(`   URL: ${recentRun.html_url}`);
+            } else {
+              console.log('⚠️ npm-publish not auto-triggered, dispatching manually...');
+
+              await github.rest.actions.createWorkflowDispatch({
+                owner,
+                repo,
+                workflow_id: 'npm-publish.yml',
+                ref: 'main',
+                inputs: {
+                  publish_mode: 'stable',
+                  packages: 'all'
+                }
+              });
+
+              console.log('✅ Manually triggered NPM publication workflow');
+            }
+
+  notify:
+    needs: [create-release, build-and-upload, trigger-npm-publish]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify completion
+        run: |
+          TAG="${{ needs.create-release.outputs.tag }}"
+          if [ "${{ needs.trigger-npm-publish.result }}" = "success" ]; then
+            echo "🎉 Release ${TAG} created successfully!"
+            echo "📦 NPM publication has been triggered"
+            echo "🔗 Release URL: https://github.com/${{ github.repository }}/releases/tag/${TAG}"
+          else
+            echo "❌ Release process encountered issues"
+            exit 1
+          fi

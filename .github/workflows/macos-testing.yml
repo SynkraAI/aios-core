@@ -1,0 +1,302 @@
+name: macOS Testing & Validation
+# Story 1.10b - Automated macOS testing across Intel and Apple Silicon
+# Story 6.1 - Added concurrency, normalized branches
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'installer/**'
+      - 'tests/macos/**'
+      - '.github/workflows/macos-testing.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'installer/**'
+      - 'tests/macos/**'
+  workflow_dispatch:
+    inputs:
+      test_suite:
+        description: 'Test suite to run'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - installation
+          - compatibility
+          - performance
+          - security
+
+concurrency:
+  group: macos-testing-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Job 1: Intel Mac Testing
+  test-intel-mac:
+    name: Test on macOS Intel (x86_64)
+    runs-on: macos-13  # Intel runner
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Display system information
+        run: |
+          echo "=== System Information ==="
+          sw_vers
+          uname -a
+          echo "Architecture: $(uname -m)"
+          node --version
+          npm --version
+          echo "=========================="
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Make test scripts executable
+        run: chmod +x tests/macos/*.sh
+
+      - name: Run Intel-specific tests
+        run: |
+          cd tests/macos
+          ./test-intel-installation.sh || true
+
+      - name: Run compatibility tests
+        run: |
+          cd tests/macos
+          ./test-shell-compatibility.sh
+          ./test-path-handling.sh
+          ./test-line-endings.sh
+          ./test-permissions.sh
+
+      - name: Run integration tests
+        run: |
+          cd tests/macos
+          ./test-homebrew-integration.sh
+
+      - name: Run performance benchmarks
+        run: |
+          cd tests/macos
+          ./test-performance.sh
+
+      - name: Run security tests
+        run: |
+          cd tests/macos
+          ./test-security.sh
+
+      - name: Upload test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs-intel
+          path: /tmp/aios-test-*.log
+          retention-days: 30
+
+  # Job 2: Apple Silicon Testing
+  test-apple-silicon:
+    name: Test on macOS Apple Silicon (arm64)
+    runs-on: macos-14  # M1 runner
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Display system information
+        run: |
+          echo "=== System Information ==="
+          sw_vers
+          uname -a
+          echo "Architecture: $(uname -m)"
+          sysctl -n machdep.cpu.brand_string
+          node --version
+          npm --version
+          file $(which node)
+          echo "=========================="
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Make test scripts executable
+        run: chmod +x tests/macos/*.sh
+
+      - name: Run Apple Silicon-specific tests
+        run: |
+          cd tests/macos
+          ./test-apple-silicon-installation.sh || true
+
+      - name: Run compatibility tests
+        run: |
+          cd tests/macos
+          ./test-shell-compatibility.sh
+          ./test-path-handling.sh
+          ./test-line-endings.sh
+          ./test-permissions.sh
+
+      - name: Run integration tests
+        run: |
+          cd tests/macos
+          ./test-homebrew-integration.sh
+
+      - name: Run performance benchmarks
+        run: |
+          cd tests/macos
+          ./test-performance.sh
+
+      - name: Run security tests
+        run: |
+          cd tests/macos
+          ./test-security.sh
+
+      - name: Verify native ARM execution
+        run: |
+          echo "Checking if Node.js runs natively on ARM..."
+          file $(which node) | grep arm64 || echo "WARNING: Node.js not running natively on ARM"
+
+      - name: Upload test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs-apple-silicon
+          path: /tmp/aios-test-*.log
+          retention-days: 30
+
+  # Job 3: Error Recovery Testing
+  test-error-recovery:
+    name: Test Error Recovery & Rollback
+    runs-on: macos-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Make test scripts executable
+        run: chmod +x tests/macos/*.sh
+
+      - name: Run error recovery tests
+        run: |
+          cd tests/macos
+          ./test-error-recovery.sh
+
+      - name: Upload test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs-error-recovery
+          path: /tmp/aios-test-*.log
+          retention-days: 30
+
+  # Job 4: Generate Test Report
+  generate-report:
+    name: Generate Test Report
+    runs-on: macos-latest
+    needs: [test-intel-mac, test-apple-silicon, test-error-recovery]
+    if: always()
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download all test logs
+        uses: actions/download-artifact@v4
+        with:
+          path: test-results/
+
+      - name: Generate summary report
+        run: |
+          echo "# macOS Testing Summary" > test-summary.md
+          echo "" >> test-summary.md
+          echo "**Date:** $(date)" >> test-summary.md
+          echo "**Workflow:** ${{ github.workflow }}" >> test-summary.md
+          echo "**Commit:** ${{ github.sha }}" >> test-summary.md
+          echo "" >> test-summary.md
+          echo "## Test Results" >> test-summary.md
+          echo "" >> test-summary.md
+          echo "| Platform | Status |" >> test-summary.md
+          echo "|----------|--------|" >> test-summary.md
+          echo "| Intel Mac (x86_64) | ${{ needs.test-intel-mac.result }} |" >> test-summary.md
+          echo "| Apple Silicon (arm64) | ${{ needs.test-apple-silicon.result }} |" >> test-summary.md
+          echo "| Error Recovery | ${{ needs.test-error-recovery.result }} |" >> test-summary.md
+          echo "" >> test-summary.md
+
+          cat test-summary.md
+
+      - name: Upload test summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-summary
+          path: test-summary.md
+          retention-days: 90
+
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const summary = fs.readFileSync('test-summary.md', 'utf8');
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: summary
+            });
+
+  # Job 5: Performance Comparison
+  performance-comparison:
+    name: Compare Intel vs Apple Silicon Performance
+    runs-on: macos-latest
+    needs: [test-intel-mac, test-apple-silicon]
+    if: always()
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download test logs
+        uses: actions/download-artifact@v4
+        with:
+          path: test-results/
+
+      - name: Analyze performance metrics
+        run: |
+          echo "# Performance Comparison Report" > perf-comparison.md
+          echo "" >> perf-comparison.md
+          echo "## Installation Performance" >> perf-comparison.md
+          echo "" >> perf-comparison.md
+          echo "| Metric | Intel | Apple Silicon |" >> perf-comparison.md
+          echo "|--------|-------|---------------|" >> perf-comparison.md
+          echo "| Installation Time | TBD | TBD |" >> perf-comparison.md
+          echo "| Health Check Time | TBD | TBD |" >> perf-comparison.md
+          echo "| CLI Response Time | TBD | TBD |" >> perf-comparison.md
+          echo "" >> perf-comparison.md
+          echo "*Note: Metrics extracted from test logs*" >> perf-comparison.md
+
+      - name: Upload performance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-comparison
+          path: perf-comparison.md
+          retention-days: 90

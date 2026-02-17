@@ -1,0 +1,49 @@
+name: PR Labeling
+# Story 6.1 - Added concurrency
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+concurrency:
+  group: pr-labeling-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Label PR based on files changed
+        uses: actions/labeler@v4
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: .github/labeler.yml
+          sync-labels: true
+
+      - name: Check for squad changes
+        id: check-squad
+        run: |
+          if git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -q "^squads/"; then
+            echo "has_squad=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_squad=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Add needs-po-review label for squad PRs
+        if: steps.check-squad.outputs.has_squad == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['needs-po-review']
+            })
+

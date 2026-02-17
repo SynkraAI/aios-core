@@ -1,0 +1,12 @@
+name: extend-test-squad
+version: 1.0.0
+description: Test squad for extender tests
+author: test
+
+aios:
+  minVersion: "2.1.0"
+
+components:
+  agents:
+    - test-agent.md
+  tasks: []

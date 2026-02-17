@@ -1,0 +1,14 @@
+tool:
+  id: test-simple
+  type: mcp
+  name: Test Simple Tool
+  version: 1.0.0
+  description: Simple v1.0 tool for testing
+
+  commands:
+    - search
+    - fetch
+
+  mcp_specific:
+    server_command: npx -y test-simple-server
+    transport: stdio

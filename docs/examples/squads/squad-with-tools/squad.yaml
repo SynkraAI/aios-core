@@ -1,0 +1,38 @@
+# Squad with Custom Tools Example
+# Demonstrates integrating custom JavaScript tools
+
+name: squad-with-tools
+version: 1.0.0
+description: Example squad showing how to integrate custom tools
+
+author: AIOS Team <team@synkra.dev>
+license: MIT
+slashPrefix: analyze
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+components:
+  agents:
+    - analyzer-agent.md
+  tasks: []
+  workflows: []
+  checklists: []
+  templates: []
+  tools:
+    - text-analyzer.js
+  scripts: []
+
+config:
+  extends: extend
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - example
+  - tools
+  - intermediate

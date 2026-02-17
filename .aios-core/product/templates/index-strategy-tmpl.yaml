@@ -1,0 +1,53 @@
+---
+template_name: "Indexing Strategy"
+template_version: "1.0.0"
+output_format: "markdown"
+destination: "index-strategy.md"
+description: "Purpose-built index plan tied to access patterns"
+
+sections:
+  - id: overview
+    title: "Indexing Overview"
+    instruction: |
+      - Goals: latency targets, load profile
+      - Read/Write trade-offs
+      - Engine features in use (B-Tree, GIN, GiST, BRIN, partial, covering)
+    elicit: true
+
+  - id: patterns
+    title: "Access Patterns Mapping"
+    instruction: |
+      For each frequent query:
+      - Query shape & filters
+      - ORDER BY requirements
+      - Estimated cardinality/selectivity
+      - Proposed index(es) with rationale
+    elicit: true
+
+  - id: catalog
+    title: "Index Catalog"
+    instruction: |
+      For each table:
+      ## table_name
+      - Existing indexes (name → columns, where, include)
+      - Proposed new indexes
+      - Partial indexes (predicates)
+      - Covering indexes (INCLUDE)
+      - Maintenance notes (bloat risk, reindex cadence)
+    elicit: true
+
+  - id: fulltext
+    title: "Full-Text & Search"
+    instruction: |
+      - tsvector generated columns
+      - GIN/Trigram usage
+      - Ranking functions and query samples
+    elicit: true
+
+  - id: maintenance
+    title: "Monitoring & Maintenance"
+    instruction: |
+      - pg_stat_user_indexes + idx scan ratio targets
+      - Unused index detection policy
+      - Reindex strategy, autovacuum considerations
+    elicit: true

@@ -1,0 +1,38 @@
+# Basic Squad Example
+# A minimal squad with one agent and one task
+
+name: basic-squad
+version: 1.0.0
+description: A simple example squad demonstrating the minimum required structure
+
+author: AIOS Team <team@synkra.dev>
+license: MIT
+slashPrefix: basic
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+components:
+  agents:
+    - greeter-agent.md
+  tasks:
+    - greet-user.md
+  workflows: []
+  checklists: []
+  templates: []
+  tools: []
+  scripts: []
+
+config:
+  extends: extend
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - example
+  - beginner
+  - tutorial

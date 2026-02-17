@@ -1,0 +1,551 @@
+tool:
+  schema_version: 2.0
+  id: n8n
+  type: mcp
+  name: n8n Workflow Automation
+  version: 1.0.0
+  description: n8n workflow management with execution validation and credential handling
+  knowledge_strategy: executable
+
+  executable_knowledge:
+    validators:
+      # Combined validator for execute_workflow
+      - id: validate-execute-workflow
+        validates: execute_workflow
+        language: javascript
+        checks:
+          - required_fields: [workflow_id]
+        function: |
+          (function() {
+            const errors = [];
+
+            // 1. Required workflow_id
+            if (!args.args.workflow_id && !args.args.workflowId) {
+              errors.push("workflow_id is required");
+            }
+
+            // 2. Validate data parameter structure if provided
+            if (args.args.data) {
+              if (typeof args.args.data !== 'object') {
+                errors.push("data must be an object");
+              }
+            }
+
+            // 3. Validate wait_for_completion is boolean
+            if (args.args.wait_for_completion !== undefined &&
+                typeof args.args.wait_for_completion !== 'boolean') {
+              errors.push("wait_for_completion must be boolean");
+            }
+
+            return {
+              valid: errors.length === 0,
+              errors: errors
+            };
+          })();
+
+      # Validator for create_workflow
+      - id: validate-create-workflow
+        validates: create_workflow
+        language: javascript
+        function: |
+          (function() {
+            const errors = [];
+
+            // 1. Required name field
+            if (!args.args.name) {
+              errors.push("name is required");
+            }
+
+            // 2. Validate nodes structure if provided
+            if (args.args.nodes) {
+              if (!Array.isArray(args.args.nodes)) {
+                errors.push("nodes must be an array");
+              } else {
+                args.args.nodes.forEach((node, index) => {
+                  if (!node.type) {
+                    errors.push(`nodes[${index}] missing required 'type' field`);
+                  }
+                  if (!node.name) {
+                    errors.push(`nodes[${index}] missing required 'name' field`);
+                  }
+                });
+              }
+            }
+
+            // 3. Validate connections structure
+            if (args.args.connections) {
+              if (typeof args.args.connections !== 'object') {
+                errors.push("connections must be an object");
+              }
+            }
+
+            return {
+              valid: errors.length === 0,
+              errors: errors
+            };
+          })();
+
+      # Validator for create_credential
+      - id: validate-create-credential
+        validates: create_credential
+        language: javascript
+        function: |
+          (function() {
+            const errors = [];
+
+            if (!args.args.name) {
+              errors.push("name is required for create_credential");
+            }
+            if (!args.args.type) {
+              errors.push("type is required for create_credential");
+            }
+            if (!args.args.data) {
+              errors.push("data is required for create_credential");
+            } else if (typeof args.args.data !== 'object') {
+              errors.push("data must be an object");
+            }
+
+            return {
+              valid: errors.length === 0,
+              errors: errors
+            };
+          })();
+
+      # Validator for update_credential
+      - id: validate-update-credential
+        validates: update_credential
+        language: javascript
+        function: |
+          (function() {
+            const errors = [];
+
+            if (!args.args.credential_id && !args.args.credentialId) {
+              errors.push("credential_id is required for update_credential");
+            }
+
+            return {
+              valid: errors.length === 0,
+              errors: errors
+            };
+          })();
+
+      # Validator for delete_credential
+      - id: validate-delete-credential
+        validates: delete_credential
+        language: javascript
+        function: |
+          (function() {
+            const errors = [];
+
+            if (!args.args.credential_id && !args.args.credentialId) {
+              errors.push("credential_id is required for delete_credential");
+            }
+
+            return {
+              valid: errors.length === 0,
+              errors: errors
+            };
+          })();
+
+    helpers:
+      - id: extract-workflow-state
+        language: javascript
+        runtime: isolated_vm
+        description: "Extract current state from workflow execution"
+        function: |
+          (function() {
+            const { execution } = args;
+            if (!execution) return null;
+
+            return {
+              id: execution.id,
+              status: execution.finished ? 'finished' : execution.stoppedAt ? 'stopped' : 'running',
+              startedAt: execution.startedAt,
+              finishedAt: execution.finishedAt,
+              mode: execution.mode
+            };
+          })();
+
+      - id: validate-node-connections
+        language: javascript
+        runtime: isolated_vm
+        description: "Validate node connections in workflow"
+        function: |
+          (function() {
+            const { nodes, connections } = args;
+            if (!nodes || !connections) {
+              return { valid: false, errors: ['Missing nodes or connections'] };
+            }
+
+            const errors = [];
+            const nodeNames = new Set(nodes.map(n => n.name));
+
+            // Check all connection sources exist
+            for (const [sourceName, outputs] of Object.entries(connections)) {
+              if (!nodeNames.has(sourceName)) {
+                errors.push(`Connection source '${sourceName}' not found in nodes`);
+              }
+
+              // Check all connection targets exist
+              // n8n structure: outputs = { main: [[{node, type, index}]], error: [[...]] }
+              for (const outputConnections of Object.values(outputs || {})) {
+                if (Array.isArray(outputConnections)) {
+                  // outputConnections is an array of arrays
+                  outputConnections.forEach(connectionGroup => {
+                    if (Array.isArray(connectionGroup)) {
+                      connectionGroup.forEach(conn => {
+                        if (conn.node && !nodeNames.has(conn.node)) {
+                          errors.push(`Connection target '${conn.node}' not found in nodes`);
+                        }
+                      });
+                    }
+                  });
+                }
+              }
+            }
+
+            return {
+              valid: errors.length === 0,
+              errors: errors
+            };
+          })();
+
+      - id: format-workflow-data
+        language: javascript
+        runtime: isolated_vm
+        description: "Format input data for workflow execution"
+        function: |
+          (function() {
+            const { data, workflowData } = args;
+
+            // If workflow expects specific input format, validate it
+            if (workflowData && workflowData.nodes) {
+              const triggerNode = workflowData.nodes.find(n =>
+                n.type.includes('trigger') ||
+                n.type.includes('webhook') ||
+                n.type === 'n8n-nodes-base.start'
+              );
+
+              if (triggerNode && triggerNode.parameters !== undefined) {
+                // Format data according to trigger expectations
+                return {
+                  formatted: true,
+                  data: data || {},
+                  triggerNode: triggerNode.name
+                };
+              }
+            }
+
+            return {
+              formatted: false,
+              data: data || {}
+            };
+          })();
+
+      - id: parse-execution-error
+        language: javascript
+        runtime: isolated_vm
+        description: "Parse and format execution errors"
+        function: |
+          (function() {
+            const { error, execution } = args;
+            if (!error) return null;
+
+            return {
+              message: error.message || 'Unknown error',
+              node: error.node || 'unknown',
+              timestamp: error.timestamp || execution?.stoppedAt,
+              stack: error.stack || null
+            };
+          })();
+
+      - id: validate-credential-type
+        language: javascript
+        runtime: isolated_vm
+        description: "Validate credential type is supported"
+        function: |
+          (function() {
+            const { type } = args;
+
+            // Common n8n credential types
+            const validTypes = [
+              'httpBasicAuth',
+              'httpHeaderAuth',
+              'oAuth2Api',
+              'apiKey',
+              'postgres',
+              'mysql',
+              'mongodb',
+              'redis',
+              'aws',
+              'googleApi',
+              'slackApi',
+              'githubApi',
+              'jwtAuth'
+            ];
+
+            return validTypes.includes(type);
+          })();
+
+      - id: build-workflow-structure
+        language: javascript
+        runtime: isolated_vm
+        description: "Build workflow structure from nodes and connections"
+        function: |
+          (function() {
+            const { name, nodes, connections } = args;
+
+            if (!name) {
+              return { error: 'Workflow name is required' };
+            }
+
+            return {
+              name: name,
+              nodes: nodes || [],
+              connections: connections || {},
+              active: false,
+              settings: {},
+              staticData: null
+            };
+          })();
+
+      - id: calculate-workflow-complexity
+        language: javascript
+        runtime: isolated_vm
+        description: "Calculate workflow complexity score"
+        function: |
+          (function() {
+            const { nodes, connections } = args;
+
+            if (!nodes) return { complexity: 0 };
+
+            let complexity = nodes.length; // Base complexity from node count
+
+            // Add complexity for connections
+            if (connections) {
+              const connectionCount = Object.values(connections).reduce((sum, outputs) => {
+                return sum + Object.values(outputs || {}).reduce((s, conns) => {
+                  return s + (Array.isArray(conns) ? conns.length : 0);
+                }, 0);
+              }, 0);
+              complexity += connectionCount * 0.5;
+            }
+
+            // Add complexity for certain node types
+            const complexNodeTypes = ['n8n-nodes-base.if', 'n8n-nodes-base.switch', 'n8n-nodes-base.function'];
+            const complexNodes = nodes.filter(n => complexNodeTypes.includes(n.type)).length;
+            complexity += complexNodes * 2;
+
+            return {
+              complexity: Math.round(complexity),
+              nodeCount: nodes.length,
+              connectionCount: Object.keys(connections || {}).length,
+              hasComplexLogic: complexNodes > 0
+            };
+          })();
+
+  api_complexity:
+    workflow_execution_state:
+      - state: waiting
+        description: "Workflow is queued for execution"
+        next_states: [running, failed]
+
+      - state: running
+        description: "Workflow is currently executing"
+        next_states: [finished, stopped, error]
+
+      - state: finished
+        description: "Workflow completed successfully"
+        terminal: true
+
+      - state: stopped
+        description: "Workflow was manually stopped"
+        terminal: true
+
+      - state: error
+        description: "Workflow encountered an error"
+        terminal: true
+        retry_allowed: true
+
+    credential_types:
+      - type: httpBasicAuth
+        fields: [username, password]
+        description: "HTTP Basic Authentication"
+
+      - type: httpHeaderAuth
+        fields: [name, value]
+        description: "HTTP Header Authentication"
+
+      - type: oAuth2Api
+        fields: [clientId, clientSecret, authUrl, accessTokenUrl]
+        description: "OAuth 2.0 Authentication"
+
+      - type: apiKey
+        fields: [apiKey]
+        description: "API Key Authentication"
+
+    node_execution_patterns:
+      - pattern: sequential
+        description: "Nodes execute in order, one after another"
+        use_case: "Simple linear workflows"
+
+      - pattern: parallel
+        description: "Multiple nodes execute simultaneously"
+        use_case: "Independent data processing"
+
+      - pattern: conditional
+        description: "Execution path depends on node conditions"
+        nodes: [n8n-nodes-base.if, n8n-nodes-base.switch]
+
+      - pattern: loop
+        description: "Repeated execution over data items"
+        nodes: [n8n-nodes-base.splitInBatches]
+
+  anti_patterns:
+    - pattern: missing_error_handling
+      description: "Not handling node execution errors"
+      category: reliability
+      severity: high
+      wrong: |
+        execute_workflow({
+          workflow_id: "123"
+          // ❌ No error handling for failed execution
+        })
+      correct: |
+        const result = execute_workflow({
+          workflow_id: "123",
+          wait_for_completion: true
+        })
+
+        if (result.status === 'error') {
+          // ✅ Handle error appropriately
+          handle_execution_error(result)
+        }
+      rationale: "Always check execution status and handle errors gracefully."
+
+    - pattern: invalid_node_connections
+      description: "Creating workflows with disconnected or invalid nodes"
+      category: workflow_structure
+      severity: medium
+      wrong: |
+        create_workflow({
+          name: "Test",
+          nodes: [{name: "Start", type: "trigger"}, {name: "End", type: "action"}],
+          connections: {
+            "NonExistent": { // ❌ Node doesn't exist
+              main: [[{node: "End"}]]
+            }
+          }
+        })
+      correct: |
+        create_workflow({
+          name: "Test",
+          nodes: [{name: "Start", type: "trigger"}, {name: "End", type: "action"}],
+          connections: {
+            "Start": { // ✅ Correct node name
+              main: [[{node: "End", type: "main", index: 0}]]
+            }
+          }
+        })
+      rationale: "Use validate-node-connections helper to verify connections before workflow creation."
+
+    - pattern: missing_credentials
+      description: "Referencing credentials that don't exist"
+      category: authentication
+      severity: high
+      wrong: |
+        create_workflow({
+          nodes: [{
+            type: "n8n-nodes-base.httpRequest",
+            credentials: {
+              httpBasicAuth: "nonexistent" // ❌ Credential not created
+            }
+          }]
+        })
+      correct: |
+        // First create credential
+        const cred = create_credential({
+          type: "httpBasicAuth",
+          name: "My API Auth",
+          data: {username: "user", password: "pass"}
+        })
+
+        // Then reference it
+        create_workflow({
+          nodes: [{
+            type: "n8n-nodes-base.httpRequest",
+            credentials: {
+              httpBasicAuth: cred.id // ✅ Valid credential reference
+            }
+          }]
+        })
+      rationale: "Always create and verify credentials before referencing them in workflows."
+
+  examples:
+    execute_workflow:
+      - scenario: success
+        description: "Execute workflow and wait for completion"
+        input:
+          workflow_id: "wf_abc123"
+          wait_for_completion: true
+          data: { key: "value" }
+        output:
+          execution_id: "exec_xyz789"
+          status: "finished"
+          data: { result: "success" }
+
+      - scenario: failure_invalid_param
+        description: "Missing required workflow_id"
+        input:
+          data: { key: "value" }
+        error:
+          code: VALIDATION_ERROR
+          message: "workflow_id is required"
+          validator: validate-execute-workflow
+
+    create_workflow:
+      - scenario: success
+        description: "Create simple workflow"
+        input:
+          name: "Data Processor"
+          nodes:
+            - type: n8n-nodes-base.start
+              name: Start
+              parameters: {}
+            - type: n8n-nodes-base.httpRequest
+              name: Fetch Data
+              parameters:
+                url: "https://api.example.com/data"
+          connections:
+            Start:
+              main: [[{node: "Fetch Data", type: "main", index: 0}]]
+        output:
+          workflow_id: "wf_new123"
+          name: "Data Processor"
+          active: false
+
+      - scenario: failure_invalid_param
+        description: "Invalid node structure"
+        input:
+          name: "Test Workflow"
+          nodes: "not an array"
+        error:
+          code: VALIDATION_ERROR
+          message: "nodes must be an array"
+          validator: validate-create-workflow
+
+  mcp_specific:
+    server_command: "npx -y @illuminaresolutions/n8n-mcp-server"
+    transport: stdio
+    environment_variables:
+      - name: N8N_HOST
+        required: true
+        description: "n8n instance URL (e.g., https://your-n8n-instance.com)"
+      - name: N8N_API_KEY
+        required: true
+        description: "n8n API key for authentication"
+    health_check:
+      method: tool_call
+      command: list_workflows
+      expected_response: "Array of workflows"
+      timeout_ms: 5000

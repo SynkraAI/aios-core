@@ -1,0 +1,90 @@
+# AIOS Code Owners
+# Story: COLLAB-1, COLLAB-2
+# Last Updated: 2025-12-30
+#
+# Format: <pattern> <owners>
+# Later patterns take precedence over earlier ones
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Owner: @SynkraAI (organization)
+# All PRs require approval from an org member before merge.
+# This is a public open-source repository - no GitHub Teams needed.
+
+# ============================================
+# Default Owner (fallback)
+# ============================================
+* @SynkraAI
+
+# ============================================
+# Framework Core (requires senior review)
+# ============================================
+# Agent definitions
+.aios-core/development/agents/ @SynkraAI
+
+# Task definitions
+.aios-core/development/tasks/ @SynkraAI
+
+# Workflow definitions
+.aios-core/development/workflows/ @SynkraAI
+
+# Templates
+.aios-core/product/templates/ @SynkraAI
+templates/ @SynkraAI
+
+# Core utilities
+.aios-core/core/ @SynkraAI
+.aios-core/cli/ @SynkraAI
+
+# ============================================
+# Infrastructure
+# ============================================
+# CI/CD configurations
+.github/ @SynkraAI
+
+# Docker configurations
+.docker/ @SynkraAI
+
+# Framework configuration
+.aios-core/core-config.yaml @SynkraAI
+
+# Package management
+package.json @SynkraAI
+package-lock.json @SynkraAI
+
+# ============================================
+# Documentation (more permissive)
+# ============================================
+# General docs
+docs/ @SynkraAI
+
+# Architecture decisions
+docs/architecture/ @SynkraAI
+
+# Framework standards
+docs/framework/ @SynkraAI
+
+# User guides
+docs/guides/ @SynkraAI
+
+# ============================================
+# Security-Sensitive Files
+# ============================================
+# This file
+.github/CODEOWNERS @SynkraAI
+
+# Release workflows
+.github/workflows/semantic-release.yml @SynkraAI
+.github/workflows/npm-publish.yml @SynkraAI
+.github/workflows/release.yml @SynkraAI
+
+# Security configurations
+security/ @SynkraAI
+
+# Environment files (should not be committed, but protect pattern)
+.env* @SynkraAI
+
+# Configuration files
+*.config.js @SynkraAI
+*.config.ts @SynkraAI
+tsconfig.json @SynkraAI
+eslint.config.* @SynkraAI

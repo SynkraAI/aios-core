@@ -1,0 +1,6 @@
+tool:
+  # Missing required id field
+  type: mcp
+  name: Invalid Tool
+  version: 1.0.0
+  # Missing description

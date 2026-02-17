@@ -1,0 +1,428 @@
+---
+template_name: "Database Schema Design"
+template_version: "1.0.0"
+output_format: "markdown"
+destination: "schema-design.md"
+description: "Comprehensive database schema design document for data modeling and implementation"
+---
+
+sections:
+  - id: overview
+    title: "Schema Overview"
+    instruction: |
+      Create a high-level overview of the database schema including:
+      - Purpose and scope of this schema design
+      - Target database system (Supabase/PostgreSQL, MySQL, etc)
+      - Key business entities being modeled
+      - Expected scale (estimated records, growth projections)
+      - Performance requirements
+      - Security and compliance requirements
+    elicit: true
+    
+  - id: domain-model
+    title: "Domain Model"
+    instruction: |
+      Document the business domain model:
+      
+      ## Core Entities
+      List and describe each core entity in the business domain:
+      - Entity name and description
+      - Key attributes and their business meaning
+      - Lifecycle and state transitions (if applicable)
+      - Business rules and invariants
+      
+      ## Relationships
+      Document relationships between entities:
+      - Type of relationship (one-to-one, one-to-many, many-to-many)
+      - Cardinality and optionality
+      - Cascade behaviors
+      - Business meaning of the relationship
+      
+      ## Bounded Contexts
+      If using DDD, identify bounded contexts and how entities relate across contexts.
+    elicit: true
+    
+  - id: access-patterns
+    title: "Access Patterns & Query Requirements"
+    instruction: |
+      Document how the data will be accessed:
+      
+      ## Primary Access Patterns
+      List the most common queries and operations:
+      1. Pattern description
+         - Frequency (requests/second or per day)
+         - Latency requirements
+         - Involved tables and relationships
+         - Expected result size
+      
+      ## Secondary Access Patterns
+      Less frequent but important queries
+      
+      ## Write Patterns
+      - Insert frequency and volume
+      - Update patterns
+      - Delete/archive patterns
+      
+      ## Reporting & Analytics
+      - Aggregation queries
+      - Time-series analysis
+      - Cross-entity reports
+      
+      Use this information to inform schema design and indexing strategy.
+    elicit: true
+    
+  - id: schema-design
+    title: "Physical Schema Design"
+    instruction: |
+      Design the actual database schema:
+      
+      ## Tables
+      For each table, document:
+      
+      ### `table_name`
+      **Purpose**: Brief description
+      
+      **Columns**:
+      | Column | Type | Constraints | Description |
+      |--------|------|-------------|-------------|
+      | id | uuid | PRIMARY KEY, DEFAULT uuid_generate_v4() | Unique identifier |
+      | created_at | timestamptz | NOT NULL, DEFAULT now() | Creation timestamp |
+      | updated_at | timestamptz | NOT NULL, DEFAULT now() | Last update timestamp |
+      | ... | ... | ... | ... |
+      
+      **Indexes**:
+      - `idx_table_column` (column) - Purpose and query pattern
+      
+      **Foreign Keys**:
+      - `fk_table_other` REFERENCES other_table(id) ON DELETE CASCADE
+      
+      **Triggers**:
+      - `trigger_name` - Purpose
+      
+      **Notes**:
+      - Design decisions and trade-offs
+      - Performance considerations
+      - Future evolution plans
+      
+      Repeat for each table.
+      
+      ## Views
+      Document any database views for common query patterns.
+      
+      ## Materialized Views
+      For expensive aggregations or reporting.
+    elicit: true
+    
+  - id: normalization
+    title: "Normalization Strategy"
+    instruction: |
+      Explain normalization decisions:
+      
+      ## Normalization Level
+      - Target normal form (1NF, 2NF, 3NF, BCNF)
+      - Rationale for the chosen level
+      
+      ## Denormalization Decisions
+      Document any intentional denormalization:
+      - What data is denormalized
+      - Why (performance, simplicity, etc)
+      - Trade-offs accepted
+      - Consistency maintenance strategy
+      
+      ## Data Redundancy
+      - Calculated/derived fields stored for performance
+      - Cached aggregations
+      - Sync mechanisms
+    elicit: true
+    
+  - id: indexing-strategy
+    title: "Indexing Strategy"
+    instruction: |
+      Comprehensive indexing plan:
+      
+      ## Index Categories
+      
+      ### Primary Indexes
+      - Primary keys (automatically indexed)
+      
+      ### Foreign Key Indexes
+      - Indexes on foreign key columns for join performance
+      
+      ### Query-Driven Indexes
+      Based on access patterns identified earlier:
+      
+      **Index Name**: `idx_table_column`
+      - **Table**: table_name
+      - **Columns**: column1, column2
+      - **Type**: B-tree / GiST / GIN / etc
+      - **Purpose**: Which queries benefit
+      - **Estimated Impact**: Query performance improvement
+      - **Cost**: Storage and write overhead
+      
+      ### Composite Indexes
+      Multi-column indexes for complex queries
+      
+      ### Partial Indexes
+      Indexes on subsets of data (WHERE clause)
+      
+      ### Full-Text Search Indexes
+      If using PostgreSQL FTS or similar
+      
+      ## Index Maintenance
+      - Monitoring strategy
+      - Reindex schedule if needed
+      - Unused index detection
+    elicit: true
+    
+  - id: constraints
+    title: "Constraints & Data Integrity"
+    instruction: |
+      Document all data integrity mechanisms:
+      
+      ## Primary Keys
+      - Choice of UUID vs Sequential ID and rationale
+      
+      ## Foreign Keys
+      - All relationships with cascade rules
+      - ON DELETE CASCADE / SET NULL / RESTRICT decisions
+      - ON UPDATE behaviors
+      
+      ## Unique Constraints
+      - Natural keys or business uniqueness
+      - Composite unique constraints
+      
+      ## Check Constraints
+      - Value range validations
+      - Business rule enforcement
+      - Enum-like constraints
+      
+      ## Not Null Constraints
+      - Required fields rationale
+      
+      ## Default Values
+      - Sensible defaults for columns
+    elicit: true
+    
+  - id: security
+    title: "Security Architecture"
+    instruction: |
+      Database security design:
+      
+      ## Authentication
+      - How users are identified
+      - Session management
+      - Token storage if applicable
+      
+      ## Authorization Model
+      - Role-based access control (RBAC)
+      - Attribute-based access control (ABAC)
+      - Row-level security approach
+      
+      ## Sensitive Data
+      - PII identification
+      - Encryption requirements (at-rest, in-transit)
+      - Hashing for passwords/secrets
+      - Data masking for non-production environments
+      
+      ## Audit Logging
+      - What actions are logged
+      - Audit table design
+      - Retention policy
+      
+      ## Compliance
+      - GDPR, LGPD, HIPAA, etc considerations
+      - Data deletion/anonymization procedures
+    elicit: true
+    
+  - id: supabase-specific
+    title: "Supabase-Specific Configuration"
+    condition: "using_supabase"
+    instruction: |
+      If using Supabase, document:
+      
+      ## RLS Policies
+      High-level RLS strategy (detailed policies in separate document):
+      - Policy approach per table
+      - User context variables used
+      - Performance considerations
+      
+      ## Realtime Configuration
+      - Tables with Realtime enabled
+      - Publication configuration
+      - Client-side subscription patterns
+      
+      ## Edge Functions
+      - Database triggers that call edge functions
+      - Integration points
+      
+      ## Storage Integration
+      - File storage buckets
+      - Relationship to database tables
+      - Access policies
+      
+      ## Auth Integration
+      - auth.users relationship to application tables
+      - User metadata storage strategy
+      - Multi-tenancy approach
+    elicit: true
+    
+  - id: migration-strategy
+    title: "Migration & Evolution Strategy"
+    instruction: |
+      Plan for schema changes over time:
+      
+      ## Initial Migration
+      - Creation script organization
+      - Seed data requirements
+      - Initial data population strategy
+      
+      ## Change Management
+      - Migration naming convention
+      - Up/Down migration requirements
+      - Testing strategy for migrations
+      
+      ## Versioning
+      - Schema version tracking
+      - Migration tool (Supabase migrations, Flyway, Liquibase, etc)
+      
+      ## Backward Compatibility
+      - How to handle breaking changes
+      - Deprecation process
+      - Multi-version support if needed
+      
+      ## Rollback Strategy
+      - When rollbacks are safe
+      - Data loss prevention
+      - Contingency plans
+    elicit: true
+    
+  - id: performance
+    title: "Performance Optimization"
+    instruction: |
+      Performance considerations and optimizations:
+      
+      ## Query Optimization
+      - Expensive queries identified
+      - Optimization strategies
+      - Execution plan analysis approach
+      
+      ## Connection Pooling
+      - Pool size configuration
+      - Connection lifecycle
+      
+      ## Caching Strategy
+      - What data is cached (Redis, in-memory)
+      - Cache invalidation strategy
+      - Cache-aside vs write-through
+      
+      ## Partitioning
+      - Table partitioning if needed (time-based, hash-based)
+      - Partition key selection
+      
+      ## Read Replicas
+      - If using read replicas
+      - Read/write routing strategy
+      
+      ## Monitoring
+      - Key metrics to track
+      - Slow query logging
+      - Performance baselines
+    elicit: true
+    
+  - id: scalability
+    title: "Scalability & Growth"
+    instruction: |
+      How the schema handles growth:
+      
+      ## Vertical Scaling
+      - Resource limits before vertical scaling needed
+      
+      ## Horizontal Scaling
+      - Sharding strategy if applicable
+      - Shard key selection
+      - Cross-shard queries handling
+      
+      ## Data Archival
+      - Archival strategy for old data
+      - Historical data retention
+      - Archive storage location
+      
+      ## Growth Projections
+      - Expected data growth
+      - Query load projections
+      - Scaling trigger points
+    elicit: true
+    
+  - id: testing
+    title: "Testing & Validation"
+    instruction: |
+      Database testing approach:
+      
+      ## Unit Tests
+      - Database function testing
+      - Constraint validation testing
+      
+      ## Integration Tests
+      - Query performance tests
+      - Transaction testing
+      - Concurrency testing
+      
+      ## Load Testing
+      - Simulated load scenarios
+      - Performance benchmarks
+      
+      ## Data Validation
+      - Data quality checks
+      - Constraint verification
+      - Referential integrity tests
+    elicit: false
+    
+  - id: implementation
+    title: "Implementation Plan"
+    instruction: |
+      Concrete implementation steps:
+      
+      ## Phase 1: Core Schema
+      - Order of table creation
+      - Dependencies between tables
+      - Estimated timeline
+      
+      ## Phase 2: Indexes & Constraints
+      - Index creation
+      - Constraint addition
+      - Performance validation
+      
+      ## Phase 3: Security & RLS
+      - RLS policy implementation
+      - Security testing
+      
+      ## Phase 4: Optimization
+      - Performance tuning
+      - Monitoring setup
+      
+      ## Rollout
+      - Deployment strategy
+      - Validation checkpoints
+      - Rollback criteria
+    elicit: false
+    
+  - id: appendix
+    title: "Appendix"
+    instruction: |
+      ## SQL Scripts
+      Link to or include:
+      - Schema creation scripts
+      - Seed data scripts
+      - Migration scripts
+      
+      ## ER Diagram
+      Reference to visual schema diagram
+      
+      ## Glossary
+      Business and technical terms used
+      
+      ## References
+      - Documentation links
+      - Related design documents
+      - Team decisions and ADRs
+    elicit: false

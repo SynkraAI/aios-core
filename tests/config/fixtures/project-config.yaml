@@ -1,0 +1,19 @@
+# Test fixture: L2 Project config
+project:
+  name: "test-project"
+  version: "1.0.0"
+
+github_integration:
+  owner: "test-org"
+  repo: "test-repo"
+
+squads:
+  enabled: true
+  max_squads: 3
+
+performance_defaults:
+  max_concurrent_operations: 8
+
+logging:
+  level: "info"
+  format: "json"

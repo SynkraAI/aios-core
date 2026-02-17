@@ -1,0 +1,617 @@
+name: CI
+# Story 6.1: GitHub Actions Cost Optimization
+# Story TD-3: CI/CD Optimization & Test Coverage
+# Consolidated CI workflow - single source of truth for validation
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+      - '.aios/**'
+      - 'squads/**'
+      - 'LICENSE'
+      - '.gitignore'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+      - '.aios/**'
+      - 'squads/**'
+      - 'LICENSE'
+      - '.gitignore'
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # Path-based change detection for smart job skipping
+  changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      code: ${{ steps.filter.outputs.code }}
+      tests: ${{ steps.filter.outputs.tests }}
+      config: ${{ steps.filter.outputs.config }}
+      stories: ${{ steps.filter.outputs.stories }}
+    steps:
+      # NOTE: No 'submodules' parameter — pro/ submodule is intentionally
+      # NOT checked out. aios-core MUST work standalone without pro/.
+      # See ADR-PRO-001 and Story PRO-5 (AC-7).
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            code:
+              - 'src/**'
+              - '.aios-core/**'
+              - 'bin/**'
+              - 'packages/**'
+              - 'scripts/**'
+              - 'tools/**'
+            tests:
+              - 'tests/**'
+              - 'jest.config.js'
+            config:
+              - 'package.json'
+              - 'package-lock.json'
+              - 'tsconfig.json'
+              - '.eslintrc.*'
+              - 'eslint.config.*'
+            stories:
+              - 'docs/stories/**'
+
+  # Security audit - only fail on critical vulnerabilities
+  # Note: high severity vulnerabilities in dev dependencies (semantic-release/npm/tar)
+  # are accepted as they don't affect production users
+  security-audit:
+    name: Security Audit
+    needs: changes
+    if: ${{ needs.changes.outputs.config == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run security audit
+        run: |
+          echo "=== npm audit (critical level for dev dependencies) ==="
+          # Only fail on critical vulnerabilities
+          # High severity in dev-only dependencies (semantic-release chain) is accepted
+          npm audit --audit-level=critical || {
+            echo ""
+            echo "⚠️ Critical vulnerabilities found!"
+            echo "Run 'npm audit' locally for details."
+            exit 1
+          }
+          echo "✅ No critical vulnerabilities found"
+
+  lint:
+    name: ESLint
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' || needs.changes.outputs.config == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+  typecheck:
+    name: TypeScript Type Checking
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' || needs.changes.outputs.config == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run TypeScript type checking
+        run: npm run typecheck
+
+  test:
+    name: Jest Tests (Node ${{ matrix.node }})
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' || needs.changes.outputs.tests == 'true' || needs.changes.outputs.config == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        node: ['18', '20']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests with coverage
+        run: npm run test:coverage
+
+      - name: Check coverage threshold
+        run: |
+          echo "=== Coverage Threshold Check ==="
+          # Coverage threshold is enforced by jest.config.js
+          # Target: 80% overall, 85% for core modules
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          files: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+        continue-on-error: true
+
+  story-validation:
+    name: Story Checkbox Validation
+    needs: changes
+    if: ${{ needs.changes.outputs.stories == 'true' || needs.changes.outputs.code == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate story checkboxes
+        run: node .aios-core/utils/aios-validator.js stories
+
+  manifest-validation:
+    name: Install Manifest Validation
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' || needs.changes.outputs.config == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate install manifest
+        run: npm run validate:manifest
+
+  ide-sync-validation:
+    name: IDE Command Sync Validation
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate IDE sync
+        run: npm run sync:ide:check
+
+      - name: Report on failure
+        if: failure()
+        run: |
+          echo "::error::IDE command files out of sync"
+          echo "Run 'npm run sync:ide' locally and commit"
+          npm run sync:ide:validate
+
+  compatibility-parity-gate:
+    name: Compatibility Parity Gate
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' || needs.changes.outputs.config == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run compatibility parity gate
+        run: npm run validate:parity
+
+  semantic-lint:
+    name: Semantic Lint
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' || needs.changes.outputs.stories == 'true' || needs.changes.outputs.config == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run semantic lint
+        run: npm run validate:semantic-lint
+
+  validation-summary:
+    name: Validation Summary
+    runs-on: ubuntu-latest
+    needs: [changes, security-audit, lint, typecheck, test, story-validation, manifest-validation, ide-sync-validation, installer-smoke-test, compatibility-parity-gate]
+    if: always()
+
+    steps:
+      - name: Check all jobs
+        run: |
+          echo "=== AIOS CI Validation Summary ==="
+          echo ""
+          echo "📋 Change Detection:"
+          echo "  Code changed: ${{ needs.changes.outputs.code }}"
+          echo "  Tests changed: ${{ needs.changes.outputs.tests }}"
+          echo "  Config changed: ${{ needs.changes.outputs.config }}"
+          echo "  Stories changed: ${{ needs.changes.outputs.stories }}"
+          echo ""
+          echo "📊 Job Results:"
+          echo "  Security Audit: ${{ needs.security-audit.result }}"
+          echo "  Lint: ${{ needs.lint.result }}"
+          echo "  TypeCheck: ${{ needs.typecheck.result }}"
+          echo "  Tests: ${{ needs.test.result }}"
+          echo "  Story Validation: ${{ needs.story-validation.result }}"
+          echo "  Manifest Validation: ${{ needs.manifest-validation.result }}"
+          echo "  IDE Sync Validation: ${{ needs.ide-sync-validation.result }}"
+          echo "  Installer Smoke Test: ${{ needs.installer-smoke-test.result }}"
+          echo ""
+
+          # Check for failures (skipped is OK when changes don't affect that area)
+          FAILED=false
+
+          # Security Audit: fail if ran and didn't succeed
+          if [ "${{ needs.security-audit.result }}" == "failure" ]; then
+            echo "❌ Security audit failed (critical vulnerabilities found)"
+            FAILED=true
+          fi
+
+          # Lint: fail if ran and didn't succeed
+          if [ "${{ needs.lint.result }}" == "failure" ]; then
+            echo "❌ ESLint check failed"
+            FAILED=true
+          fi
+
+          # TypeCheck: fail if ran and didn't succeed
+          if [ "${{ needs.typecheck.result }}" == "failure" ]; then
+            echo "❌ TypeScript check failed"
+            FAILED=true
+          fi
+
+          # Tests: fail if ran and didn't succeed
+          if [ "${{ needs.test.result }}" == "failure" ]; then
+            echo "❌ Jest tests failed"
+            FAILED=true
+          fi
+
+          # Story Validation: fail if ran and didn't succeed
+          if [ "${{ needs.story-validation.result }}" == "failure" ]; then
+            echo "❌ Story validation failed"
+            FAILED=true
+          fi
+
+          # Manifest Validation: fail if ran and didn't succeed
+          if [ "${{ needs.manifest-validation.result }}" == "failure" ]; then
+            echo "❌ Manifest validation failed"
+            FAILED=true
+          fi
+
+          # IDE Sync: fail if ran and didn't succeed
+          if [ "${{ needs.ide-sync-validation.result }}" == "failure" ]; then
+            echo "❌ IDE sync validation failed"
+            FAILED=true
+          fi
+
+          # Installer Smoke Test: fail if ran and didn't succeed
+          if [ "${{ needs.installer-smoke-test.result }}" == "failure" ]; then
+            echo "❌ Installer smoke test failed - WRONG WIZARD MAY BE USED!"
+            FAILED=true
+          fi
+
+          if [ "$FAILED" == "true" ]; then
+            echo ""
+            echo "❌ One or more validation checks failed"
+            exit 1
+          fi
+
+          echo "✅ All validation checks passed (skipped jobs are OK when no relevant changes)"
+
+  # Performance monitoring (optional, informational only)
+  performance:
+    name: Performance Metrics
+    needs: changes
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && needs.changes.outputs.code == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Measure validation performance
+        run: |
+          echo "=== Validation Performance Metrics ==="
+
+          echo "ESLint execution time:"
+          time npm run lint || true
+
+          echo -e "\nTypeScript execution time:"
+          time npm run typecheck || true
+
+          echo -e "\nStory validation time:"
+          time node .aios-core/utils/aios-validator.js stories || true
+        continue-on-error: true
+
+  # SYNAPSE context engine benchmarks + E2E tests (Story SYN-12)
+  synapse-benchmark:
+    name: SYNAPSE Benchmark (Node ${{ matrix.node }})
+    needs: changes
+    if: github.event_name == 'pull_request' && (needs.changes.outputs.code == 'true' || needs.changes.outputs.tests == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        node: ['18', '20']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run SYNAPSE E2E tests
+        run: npx jest tests/synapse/e2e/ --ci --verbose
+        continue-on-error: true
+
+      - name: Run SYNAPSE pipeline benchmark
+        run: node tests/synapse/benchmarks/pipeline-benchmark.js --iterations=50 --json
+        continue-on-error: true
+
+  # Cross-platform testing - ONLY on main branch push
+  # Moved from cross-platform-tests.yml (Story 6.1)
+  cross-platform:
+    name: Cross-Platform (${{ matrix.os }}, Node ${{ matrix.node }})
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: [changes, lint, typecheck, test]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: ['18', '20', '22', '24']
+        # All combinations supported for Node.js 18-24 (isolated-vm removed in v3.11.0)
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Test CLI installation
+        run: npm link
+        continue-on-error: true
+
+      - name: Test CLI basic commands
+        run: |
+          npx aios-core --version || echo "CLI version check skipped"
+          npx aios-core --help || echo "CLI help check skipped"
+        continue-on-error: true
+
+  # Installer smoke test - ensures correct wizard is being used (Story 6.1.4)
+  installer-smoke-test:
+    name: Installer Smoke Test
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' || needs.changes.outputs.config == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify wizard path in aios.js
+        run: |
+          echo "=== Installer Smoke Test ==="
+          echo ""
+          echo "Checking bin/aios.js uses correct wizard path..."
+
+          # The wizard path should point to packages/installer/src/wizard/index.js
+          if grep -q "packages.*installer.*src.*wizard" bin/aios.js; then
+            echo "✅ bin/aios.js uses correct wizard path (packages/installer/src/wizard)"
+          else
+            echo "❌ ERROR: bin/aios.js does NOT reference packages/installer/src/wizard"
+            echo ""
+            echo "Current wizard references in bin/aios.js:"
+            grep -n "wizard" bin/aios.js || echo "No wizard references found"
+            echo ""
+            echo "This is a CRITICAL error - wrong installer will be used!"
+            exit 1
+          fi
+
+      - name: Verify wizard file exists
+        run: |
+          echo "Checking wizard file exists..."
+
+          if [ -f "packages/installer/src/wizard/index.js" ]; then
+            echo "✅ packages/installer/src/wizard/index.js exists"
+          else
+            echo "❌ ERROR: packages/installer/src/wizard/index.js NOT FOUND"
+            echo ""
+            echo "Files in packages/installer/src/:"
+            ls -la packages/installer/src/ 2>/dev/null || echo "Directory not found"
+            exit 1
+          fi
+
+      - name: Verify aios-minimal.js uses router
+        run: |
+          echo "Checking bin/aios-minimal.js uses main router..."
+
+          if grep -q "aios\.js" bin/aios-minimal.js; then
+            echo "✅ bin/aios-minimal.js forwards to aios.js router"
+          else
+            echo "⚠️  WARNING: bin/aios-minimal.js may not use the main router"
+            echo ""
+            echo "Current content:"
+            cat bin/aios-minimal.js
+          fi
+
+      - name: Verify package.json files field
+        run: |
+          echo "Checking package.json includes all required paths..."
+
+          # Check for required paths in files field
+          REQUIRED_PATHS=("bin/" "packages/" ".aios-core/")
+
+          for path in "${REQUIRED_PATHS[@]}"; do
+            if grep -q "\"$path\"" package.json; then
+              echo "✅ package.json includes $path"
+            else
+              echo "❌ ERROR: package.json missing $path in files field"
+              exit 1
+            fi
+          done
+
+      - name: Summary
+        run: |
+          echo ""
+          echo "=== Installer Smoke Test Complete ==="
+          echo "✅ All installer checks passed"
+          echo ""
+          echo "The npm publish will use the correct wizard from:"
+          echo "  packages/installer/src/wizard/index.js"

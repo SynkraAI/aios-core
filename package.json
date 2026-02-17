@@ -1,0 +1,154 @@
+{
+  "name": "aios-core",
+  "version": "4.2.13",
+  "description": "Synkra AIOS: AI-Orchestrated System for Full Stack Development - Core Framework",
+  "bin": {
+    "aios": "bin/aios.js",
+    "aios-core": "bin/aios.js",
+    "aios-minimal": "bin/aios-minimal.js"
+  },
+  "preferGlobal": false,
+  "workspaces": [
+    "packages/*"
+  ],
+  "files": [
+    "bin/",
+    "scripts/",
+    "packages/",
+    ".aios-core/",
+    ".claude/CLAUDE.md",
+    ".claude/rules/",
+    ".claude/hooks/",
+    "pro/license/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "format": "prettier --write \"**/*.md\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:health-check": "mocha tests/health-check/**/*.test.js --timeout 30000",
+    "lint": "eslint . --cache --cache-location .eslintcache",
+    "typecheck": "tsc --noEmit",
+    "release": "semantic-release",
+    "release:test": "semantic-release --dry-run --no-ci || echo 'Config test complete - authentication errors are expected locally'",
+    "generate:manifest": "node scripts/generate-install-manifest.js",
+    "validate:manifest": "node scripts/validate-manifest.js",
+    "validate:structure": "node .aios-core/infrastructure/scripts/source-tree-guardian/index.js",
+    "validate:agents": "node .aios-core/infrastructure/scripts/validate-agents.js",
+    "sync:ide": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync",
+    "sync:ide:validate": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate",
+    "sync:ide:check": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --strict",
+    "sync:ide:claude": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide claude-code",
+    "sync:ide:codex": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide codex",
+    "sync:ide:gemini": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide gemini",
+    "sync:ide:github-copilot": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide github-copilot",
+    "sync:ide:antigravity": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide antigravity",
+    "validate:claude-sync": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --ide claude-code --strict",
+    "validate:claude-integration": "node .aios-core/infrastructure/scripts/validate-claude-integration.js",
+    "validate:codex-sync": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --ide codex --strict",
+    "validate:codex-integration": "node .aios-core/infrastructure/scripts/validate-codex-integration.js",
+    "validate:gemini-sync": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --ide gemini --strict",
+    "validate:github-copilot-sync": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --ide github-copilot --strict",
+    "validate:antigravity-sync": "node .aios-core/infrastructure/scripts/ide-sync/index.js validate --ide antigravity --strict",
+    "validate:gemini-integration": "node .aios-core/infrastructure/scripts/validate-gemini-integration.js",
+    "sync:skills:codex": "node .aios-core/infrastructure/scripts/codex-skills-sync/index.js",
+    "sync:skills:codex:global": "node .aios-core/infrastructure/scripts/codex-skills-sync/index.js --global --global-only",
+    "validate:codex-skills": "node .aios-core/infrastructure/scripts/codex-skills-sync/validate.js --strict",
+    "validate:paths": "node .aios-core/infrastructure/scripts/validate-paths.js",
+    "validate:parity": "node .aios-core/infrastructure/scripts/validate-parity.js",
+    "validate:semantic-lint": "node scripts/semantic-lint.js",
+    "manifest:ensure": "node scripts/ensure-manifest.js",
+    "sync:ide:cursor": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide cursor",
+    "prepublishOnly": "npm run generate:manifest && npm run validate:manifest",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.11.0",
+    "@kayvan/markdown-tree-parser": "^1.5.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "ansi-to-html": "^0.7.2",
+    "chalk": "^4.1.2",
+    "chokidar": "^3.5.3",
+    "cli-progress": "^3.12.0",
+    "commander": "^12.1.0",
+    "execa": "^5.1.1",
+    "fast-glob": "^3.3.3",
+    "fs-extra": "^11.3.2",
+    "glob": "^10.4.4",
+    "handlebars": "^4.7.8",
+    "inquirer": "^8.2.6",
+    "js-yaml": "^4.1.0",
+    "ora": "^5.4.1",
+    "picocolors": "^1.1.1",
+    "proper-lockfile": "^4.1.2",
+    "semver": "^7.7.2",
+    "validator": "^13.15.15"
+  },
+  "keywords": [
+    "ai",
+    "aios",
+    "agile",
+    "agents",
+    "orchestrator",
+    "fullstack",
+    "development",
+    "cli",
+    "cross-platform",
+    "interactive",
+    "wizard",
+    "modern-ux",
+    "vite-style",
+    "automation"
+  ],
+  "author": "Synkra AIOS Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SynkraAI/aios-core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SynkraAI/aios-core/issues"
+  },
+  "homepage": "https://github.com/SynkraAI/aios-core#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@types/jest": "^30.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.2",
+    "@typescript-eslint/parser": "^8.46.2",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
+    "eslint": "^9.38.0",
+    "husky": "^9.1.7",
+    "jest": "^30.2.0",
+    "lint-staged": "^16.1.1",
+    "mocha": "^11.7.5",
+    "prettier": "^3.5.3",
+    "semantic-release": "^25.0.2",
+    "typescript": "^5.9.3",
+    "yaml-lint": "^1.7.0"
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts}": [
+      "eslint --fix --cache --cache-location .eslintcache",
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write",
+      "node scripts/semantic-lint.js --staged"
+    ],
+    ".aios-core/development/agents/*.md": [
+      "npm run sync:ide"
+    ]
+  },
+  "overrides": {
+    "tar": "^7.5.7",
+    "diff": "^8.0.3"
+  }
+}

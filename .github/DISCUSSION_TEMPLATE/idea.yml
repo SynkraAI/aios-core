@@ -1,0 +1,55 @@
+title: "[Idea] "
+labels: ["idea", "community"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Share Your Idea
+        Thanks for contributing! Please describe your idea clearly.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Opportunity
+      description: What problem does this solve or what opportunity does it create?
+      placeholder: Describe the current situation and why it needs improvement
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How would you solve this?
+      placeholder: Describe your proposed approach
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: What other solutions did you consider?
+      placeholder: List any alternatives you thought about
+    validations:
+      required: false
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      description: How big is this change?
+      options:
+        - Small (few files, simple change)
+        - Medium (multiple files, moderate complexity)
+        - Large (significant changes, new feature)
+        - Epic (major feature, multiple stories)
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Willingness to Contribute
+      options:
+        - label: I would be willing to help implement this feature

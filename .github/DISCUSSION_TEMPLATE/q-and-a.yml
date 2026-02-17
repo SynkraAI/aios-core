@@ -1,0 +1,85 @@
+title: "[Q&A] "
+labels:
+  - question
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🙏 Ask a Question
+        Have a question about AIOS? Ask here and the community will help!
+
+        **Before posting:**
+        - Check existing discussions and documentation
+        - Search for similar questions
+        - Include relevant code examples
+
+  - type: dropdown
+    id: repo-scope
+    attributes:
+      label: Which repository is this about?
+      description: Select the repository your question relates to
+      options:
+        - aios-core (Core Framework, Agents, Tasks)
+        - aios-squads (ETL Squad, Creator Squad)
+        - mcp-ecosystem (Docker MCP Toolkit, IDE Configs, Presets)
+        - General / Multiple repos
+    validations:
+      required: true
+
+  - type: dropdown
+    id: question-type
+    attributes:
+      label: Question Type
+      description: What kind of help do you need?
+      options:
+        - How do I...? (Usage question)
+        - Why does...? (Understanding behavior)
+        - What is the best way to...? (Best practices)
+        - Is it possible to...? (Capability question)
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: Be as specific as possible
+      placeholder: |
+        Describe your question in detail...
+
+        Include:
+        - What you're trying to achieve
+        - What you've already tried
+        - Any error messages or unexpected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: code-example
+    attributes:
+      label: Code Example (if applicable)
+      description: Share relevant code to help us understand your question
+      render: javascript
+      placeholder: |
+        // Your code here
+        const { AIOS } = require('@synkra/aios-core/workspace');
+
+        // ...
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information
+      placeholder: |
+        - OS: Windows/macOS/Linux
+        - Node.js version:
+        - AIOS version:
+        - IDE: VS Code/Cursor/Other
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Tip:** Questions marked as answered help future users! If your question is resolved, please mark the best answer.

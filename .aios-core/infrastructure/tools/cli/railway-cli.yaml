@@ -1,0 +1,260 @@
+tool:
+  schema_version: 1.0
+  id: railway-cli
+  type: cli
+  name: Railway CLI
+  version: 1.0.0
+  description: Official Railway command-line interface for deploying and managing cloud applications, databases, and services
+  knowledge_strategy: declarative
+
+  capabilities:
+    - Deploy applications from CLI
+    - Manage Railway projects and services
+    - Configure environment variables
+    - View logs and metrics
+    - Manage databases (PostgreSQL, MySQL, MongoDB, Redis)
+    - Link services together
+    - Run commands in Railway environment
+    - Handle deployments and rollbacks
+
+  use_cases:
+    - rapid_deployment: "Deploy applications with zero configuration"
+    - environment_management: "Manage environment variables across environments"
+    - log_monitoring: "Stream and view application logs"
+    - database_provisioning: "Create and manage databases"
+    - service_linking: "Connect services via private networking"
+    - ci_cd: "Integrate with CI/CD pipelines"
+
+  installation:
+    npm: "npm install -g @railway/cli"
+    brew: "brew install railway"
+    shell: "bash <(curl -fsSL cli.new)"
+
+  cli_specific:
+    executable: "railway"
+    configuration:
+      auth_file: "~/.railway/config.json"
+      project_file: ".railway/project.json"
+
+  command_groups:
+    initialization:
+      - command: "railway login"
+        description: "Authenticate with Railway"
+        method: "Opens browser for OAuth"
+
+      - command: "railway init"
+        description: "Initialize Railway project in current directory"
+        creates: ".railway directory with project.json"
+        options:
+          - "Create new project"
+          - "Link to existing project"
+
+      - command: "railway link"
+        description: "Link current directory to Railway project"
+        usage: "railway link [PROJECT_ID]"
+
+    deployment:
+      - command: "railway up"
+        description: "Deploy current directory"
+        common_flags:
+          - "--detach (deploy without attaching to logs)"
+          - "--service SERVICE_NAME (deploy specific service)"
+        notes:
+          - "Automatically detects framework"
+          - "Uses Nixpacks for building"
+          - "Supports Dockerfile if present"
+
+      - command: "railway deploy"
+        description: "Alias for railway up"
+
+      - command: "railway status"
+        description: "Show deployment status"
+        shows:
+          - "Active deployments"
+          - "Service status"
+          - "URLs"
+
+    environment:
+      - command: "railway variables"
+        description: "List environment variables"
+        common_flags:
+          - "--service SERVICE_NAME"
+          - "--environment ENVIRONMENT_NAME"
+
+      - command: "railway variables set"
+        description: "Set environment variable"
+        usage: "railway variables set KEY=VALUE"
+        common_flags:
+          - "--service SERVICE_NAME"
+
+      - command: "railway variables delete"
+        description: "Delete environment variable"
+        usage: "railway variables delete KEY"
+
+    services:
+      - command: "railway service"
+        description: "Manage services in project"
+        subcommands:
+          - "railway service create"
+          - "railway service list"
+          - "railway service delete"
+
+      - command: "railway add"
+        description: "Add a database or service"
+        options:
+          - "PostgreSQL"
+          - "MySQL"
+          - "MongoDB"
+          - "Redis"
+        notes:
+          - "Automatically provisions and configures"
+          - "Sets environment variables"
+
+    logs_and_monitoring:
+      - command: "railway logs"
+        description: "Stream application logs"
+        common_flags:
+          - "--service SERVICE_NAME"
+          - "--deployment DEPLOYMENT_ID"
+          - "--tail N (show last N lines)"
+
+      - command: "railway run"
+        description: "Run command with Railway environment"
+        usage: "railway run COMMAND"
+        examples:
+          - "railway run npm start"
+          - "railway run node migrate.js"
+        notes:
+          - "Injects environment variables from Railway"
+          - "Useful for running migrations"
+
+    project_management:
+      - command: "railway list"
+        description: "List all Railway projects"
+
+      - command: "railway open"
+        description: "Open project in Railway dashboard"
+
+      - command: "railway whoami"
+        description: "Show current authenticated user"
+
+      - command: "railway domain"
+        description: "Manage custom domains"
+        subcommands:
+          - "railway domain add DOMAIN"
+          - "railway domain list"
+          - "railway domain remove DOMAIN"
+
+    environments:
+      - command: "railway environment"
+        description: "Manage environments (production, staging, etc.)"
+        subcommands:
+          - "railway environment create NAME"
+          - "railway environment list"
+          - "railway environment delete NAME"
+
+  workflow_patterns:
+    new_project:
+      - step: 1
+        action: "railway login"
+        purpose: "Authenticate"
+      - step: 2
+        action: "railway init"
+        purpose: "Create/link project"
+      - step: 3
+        action: "railway add (select database if needed)"
+        purpose: "Provision resources"
+      - step: 4
+        action: "railway variables set KEY=VALUE"
+        purpose: "Configure environment"
+      - step: 5
+        action: "railway up"
+        purpose: "Deploy application"
+
+    continuous_deployment:
+      - step: 1
+        action: "railway login --browserless (in CI)"
+        purpose: "Authenticate in CI"
+      - step: 2
+        action: "railway up --detach"
+        purpose: "Deploy without logs"
+      - step: 3
+        action: "railway status"
+        purpose: "Verify deployment"
+
+    database_migration:
+      - step: 1
+        action: "railway run node migrations/run.js"
+        purpose: "Run migrations with Railway env"
+
+  best_practices:
+    - "Use railway run for migrations to access production environment"
+    - "Separate environments for staging and production"
+    - "Use service names to manage multiple services"
+    - "Store secrets in Railway variables, not in code"
+    - "Use --detach flag in CI/CD pipelines"
+    - "Monitor logs during deployment with railway logs"
+    - "Use private networking for service-to-service communication"
+
+  authentication:
+    browser_login:
+      command: "railway login"
+      method: "OAuth via browser"
+
+    ci_login:
+      command: "railway login --browserless"
+      requires: "RAILWAY_TOKEN environment variable"
+      obtain: "From Railway Dashboard > Account > Tokens"
+
+  private_networking:
+    description: "Services can communicate via private URLs"
+    format: "SERVICE_NAME.railway.internal"
+    port: "Default service port"
+    example: "postgres.railway.internal:5432"
+    benefits:
+      - "No public exposure required"
+      - "Lower latency"
+      - "Free internal traffic"
+
+  deployment_features:
+    auto_detection:
+      - "Detects framework automatically"
+      - "Generates optimal build configuration"
+      - "Supports: Node.js, Python, Go, Ruby, PHP, etc."
+
+    build_systems:
+      - "Nixpacks (default)"
+      - "Dockerfile (if present)"
+      - "Buildpacks (legacy)"
+
+    zero_config:
+      - "No railway.json required"
+      - "Smart defaults for popular frameworks"
+      - "Automatic port detection"
+
+  common_issues:
+    not_logged_in:
+      error: "Not authenticated"
+      solution: "Run 'railway login' to authenticate"
+
+    no_project_linked:
+      error: "No project linked"
+      solution: "Run 'railway init' or 'railway link PROJECT_ID'"
+
+    build_failures:
+      error: "Build failed"
+      troubleshooting:
+        - "Check logs with railway logs"
+        - "Verify dependencies in package.json"
+        - "Check Nixpacks compatibility"
+        - "Add custom Dockerfile if needed"
+
+    environment_issues:
+      error: "Missing environment variables"
+      solution: "Use 'railway variables set' or configure in dashboard"
+
+  limitations:
+    - "Requires Railway account"
+    - "Billing based on resource usage"
+    - "Some regions may have limited availability"
+    - "Build time limits on free tier"

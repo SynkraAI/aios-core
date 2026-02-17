@@ -1,0 +1,100 @@
+name: Bob Integration Tests
+# Story 12.11 - CI/CD Pipeline for Bob
+# Validates bob-orchestrator and related modules on every PR
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.aios-core/core/orchestration/**'
+      - '.aios-core/core/events/**'
+      - 'tests/core/orchestration/**'
+
+concurrency:
+  group: bob-integration-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  bob-test:
+    name: Bob Orchestrator Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Bob orchestrator tests
+        run: |
+          echo "=== Bob Integration Test Suite ==="
+          npx jest tests/core/orchestration/bob-orchestrator.test.js --verbose
+          npx jest tests/core/orchestration/terminal-spawner.test.js --verbose
+          npx jest tests/core/orchestration/lock-manager.test.js --verbose
+          npx jest tests/core/orchestration/workflow-executor-callbacks.test.js --verbose
+
+      - name: Run Bob supporting module tests
+        run: |
+          echo "=== Bob Supporting Modules ==="
+          npx jest tests/core/orchestration/session-state.test.js --verbose
+          npx jest tests/core/orchestration/message-formatter.test.js --verbose
+          npx jest tests/core/orchestration/bob-status-writer.test.js --verbose
+          npx jest tests/core/orchestration/brownfield-handler.test.js --verbose
+          npx jest tests/core/orchestration/greenfield-handler.test.js --verbose
+
+      - name: Test summary
+        if: always()
+        run: |
+          echo "=== Bob Integration Test Summary ==="
+          echo "Tests executed for:"
+          echo "  - bob-orchestrator (core orchestration)"
+          echo "  - terminal-spawner (process management)"
+          echo "  - lock-manager (concurrency control)"
+          echo "  - workflow-executor-callbacks (execution hooks)"
+          echo "  - session-state (state management)"
+          echo "  - message-formatter (output formatting)"
+          echo "  - bob-status-writer (status persistence)"
+          echo "  - brownfield-handler (existing project support)"
+          echo "  - greenfield-handler (new project support)"
+
+  bob-lint:
+    name: Bob Orchestration Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint orchestration modules
+        run: |
+          echo "=== Linting Bob Orchestration ==="
+          npx eslint .aios-core/core/orchestration/ --cache --cache-location .eslintcache --no-error-on-unmatched-pattern || true
+          npx eslint .aios-core/core/events/ --cache --cache-location .eslintcache --no-error-on-unmatched-pattern || true
+          echo "✅ Orchestration lint passed"

@@ -1,0 +1,47 @@
+# Example: Data Processor Squad
+# A complete squad manifest for data processing operations
+
+name: data-processor
+version: 1.0.0
+description: Squad for data transformation and validation workflows
+
+author: AIOS Community
+license: MIT
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+components:
+  agents:
+    - agents/data-validator.yaml
+    - agents/data-transformer.yaml
+  tasks:
+    - tasks/validate-schema.yaml
+    - tasks/transform-csv.yaml
+    - tasks/export-json.yaml
+  workflows:
+    - workflows/etl-pipeline.yaml
+  templates:
+    - templates/data-report.md
+
+dependencies:
+  - name: csv-parser
+    version: "^3.0.0"
+  - name: ajv
+    version: "^8.0.0"
+
+keywords:
+  - aios
+  - squad
+  - data-processing
+  - etl
+  - validation
+
+config:
+  max_file_size: "100MB"
+  supported_formats:
+    - csv
+    - json
+    - xml
+  default_encoding: "utf-8"

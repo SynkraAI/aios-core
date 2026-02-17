@@ -1,0 +1,42 @@
+# Multi-Agent Squad Example
+# Demonstrates team collaboration patterns
+
+name: multi-agent-squad
+version: 1.0.0
+description: Example squad with multiple collaborating agents
+
+author: AIOS Team <team@synkra.dev>
+license: MIT
+slashPrefix: team
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+components:
+  agents:
+    - lead-agent.md
+    - researcher-agent.md
+    - writer-agent.md
+  tasks:
+    - research-topic.md
+    - write-report.md
+  workflows: []
+  checklists: []
+  templates: []
+  tools: []
+  scripts: []
+
+config:
+  extends: extend
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - example
+  - multi-agent
+  - advanced
+  - collaboration

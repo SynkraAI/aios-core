@@ -1,0 +1,182 @@
+name: Semantic Release
+# HYBRID RELEASE WORKFLOW
+#
+# This workflow is ONLY triggered manually via workflow_dispatch.
+# It uses semantic-release to analyze commits and determine the next version.
+#
+# RELEASE FLOW (Hybrid Approach):
+# 1. @devops *release → triggers this workflow via GitHub API
+# 2. semantic-release analyzes commits (Conventional Commits)
+# 3. Determines version bump (major/minor/patch)
+# 4. Creates git tag, GitHub release, publishes to npm
+#
+# ALTERNATIVE: Manual tag push
+# 1. Create tag locally: git tag v4.0.0
+# 2. Push tag: git push origin v4.0.0
+# 3. release.yml triggers → creates GitHub release
+# 4. npm-publish.yml triggers → publishes to npm
+#
+# DO NOT enable automatic push trigger - it caused phantom versions (3.9.1-3.9.6)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run in dry-run mode (no publish)'
+        required: false
+        default: 'false'
+        type: boolean
+      release_type:
+        description: 'Release type (auto = analyze commits)'
+        required: false
+        default: 'auto'
+        type: choice
+        options:
+          - auto
+          - patch
+          - minor
+          - major
+
+concurrency:
+  group: semantic-release-${{ github.ref }}
+  cancel-in-progress: false  # Never cancel releases in progress
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  # Release job - CI validation handled by branch protection rules
+  release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify NPM authentication
+        run: npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Pre-flight Tag Validation
+        id: preflight
+        run: |
+          echo "## Pre-flight Tag Validation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Get current version from package.json
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          echo "📦 Current package.json version: v${PACKAGE_VERSION}"
+          echo "- Current package.json version: \`v${PACKAGE_VERSION}\`" >> $GITHUB_STEP_SUMMARY
+
+          # Check for reachable version tags from HEAD
+          echo ""
+          echo "🔍 Checking for reachable version tags from HEAD..."
+
+          REACHABLE_TAGS=""
+          for tag in $(git tag -l 'v*' | sort -V); do
+            if git merge-base --is-ancestor "$tag" HEAD 2>/dev/null; then
+              REACHABLE_TAGS="$REACHABLE_TAGS $tag"
+              echo "  ✅ $tag is reachable"
+            else
+              echo "  ⚠️  $tag is orphaned (not in current history)"
+            fi
+          done
+
+          if [ -z "$REACHABLE_TAGS" ]; then
+            echo ""
+            echo "🚨 CRITICAL: No version tags are reachable from HEAD!"
+            echo "   This may cause semantic-release to start from v1.0.0"
+            echo ""
+            echo "### ⚠️ WARNING: No reachable tags found!" >> $GITHUB_STEP_SUMMARY
+            echo "This may cause semantic-release to create v1.0.0 instead of the expected version." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Recommended action:** Create a baseline tag manually:" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+            echo "git tag v${PACKAGE_VERSION}" >> $GITHUB_STEP_SUMMARY
+            echo "git push origin v${PACKAGE_VERSION}" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+            # Fail if not dry-run to prevent version regression
+            if [ "${{ inputs.dry_run }}" != "true" ]; then
+              echo "❌ Failing to prevent version regression. Use dry_run=true to test, or create a baseline tag."
+              exit 1
+            fi
+          else
+            LATEST_REACHABLE=$(echo $REACHABLE_TAGS | tr ' ' '\n' | sort -V | tail -1)
+            echo ""
+            echo "✅ Latest reachable tag: $LATEST_REACHABLE"
+            echo "- Latest reachable tag: \`$LATEST_REACHABLE\`" >> $GITHUB_STEP_SUMMARY
+            echo "LATEST_TAG=$LATEST_REACHABLE" >> $GITHUB_OUTPUT
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+      - name: Dry-run Preview
+        if: inputs.dry_run != true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "🔍 Running dry-run to preview release..."
+          echo ""
+          npx semantic-release --dry-run 2>&1 | tee /tmp/dry-run.log || true
+
+          # Extract expected version from dry-run output
+          NEXT_VERSION=$(grep -oP "The next release version is \K[0-9]+\.[0-9]+\.[0-9]+" /tmp/dry-run.log || echo "")
+
+          if [ -n "$NEXT_VERSION" ]; then
+            echo ""
+            echo "📋 Dry-run complete. Next version will be: v${NEXT_VERSION}"
+            echo "### 📋 Release Preview" >> $GITHUB_STEP_SUMMARY
+            echo "- Next version: \`v${NEXT_VERSION}\`" >> $GITHUB_STEP_SUMMARY
+          else
+            echo ""
+            echo "ℹ️  No new version detected (no releasable commits or already released)"
+            echo "### ℹ️ No Release Needed" >> $GITHUB_STEP_SUMMARY
+            echo "No releasable commits found since last release." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Run Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ "${{ inputs.dry_run }}" == "true" ]; then
+            npx semantic-release --dry-run
+          else
+            npx semantic-release
+          fi
+
+      - name: Release Summary
+        if: success()
+        run: |
+          echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Semantic release completed successfully." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check the [Releases page](https://github.com/${{ github.repository }}/releases) for the new version." >> $GITHUB_STEP_SUMMARY

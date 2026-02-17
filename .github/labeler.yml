@@ -1,0 +1,141 @@
+# Labeler configuration for GitHub Actions
+# Automatically labels PRs based on files changed
+# Used by .github/workflows/pr-labeling.yml
+#
+# Reference: https://github.com/actions/labeler
+# Story: OSR-4 - GitHub Community Setup
+
+# ============================================
+# CORE FRAMEWORK LABELS
+# ============================================
+
+core:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.aios-core/**/*'
+      - 'aios-core/**/*'
+      - 'src/core/**/*'
+
+agents:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.aios-core/agents/**/*'
+      - '**/*.agent.md'
+      - '.claude/commands/**/*'
+
+templates:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.aios-core/**/templates/**/*'
+      - '**/*-tmpl.yaml'
+      - '**/*-tmpl.md'
+
+workflows:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.aios-core/workflows/**/*'
+      - '**/*.workflow.yaml'
+
+# ============================================
+# SQUAD LABELS
+# ============================================
+
+squad:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'aios-squads/**/*'
+      - 'squads/**/*'
+
+'squad: etl':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'aios-squads/etl-squad/**/*'
+      - 'squads/etl/**/*'
+
+'squad: creator':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'aios-squads/creator-squad/**/*'
+      - 'squads/creator/**/*'
+
+# ============================================
+# MCP ECOSYSTEM LABELS
+# ============================================
+
+mcp:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'mcp-ecosystem/**/*'
+      - '.aios-core/tools/mcp/**/*'
+      - '**/*mcp*.yaml'
+      - '**/*mcp*.json'
+
+docker-mcp:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.docker/mcp/**/*'
+      - '**/docker-mcp*.yml'
+      - '**/gateway-service.yml'
+
+preset:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'mcp-ecosystem/presets/**/*'
+      - '**/*preset*.yaml'
+      - '**/*preset*.json'
+
+# ============================================
+# INFRASTRUCTURE LABELS
+# ============================================
+
+ci/cd:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.github/**/*'
+      - '.github/workflows/**/*'
+      - 'Dockerfile'
+      - 'docker-compose*.yml'
+      - '.docker/**/*'
+
+installer:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'tools/installer/**/*'
+      - 'bin/**/*'
+      - 'install*.js'
+      - 'setup*.js'
+
+# ============================================
+# DOCUMENTATION LABELS
+# ============================================
+
+documentation:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'docs/**/*'
+      - '**/*.md'
+      - '!node_modules/**/*'
+      - '!.github/ISSUE_TEMPLATE/**/*'
+
+# ============================================
+# DEVELOPMENT TOOLS LABELS
+# ============================================
+
+tools:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'tools/**/*'
+      - 'bin/**/*'
+      - 'scripts/**/*'
+
+# ============================================
+# TESTING LABELS
+# ============================================
+
+tests:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'tests/**/*'
+      - '**/*.test.js'
+      - '**/*.spec.js'
+      - 'jest.config.*'

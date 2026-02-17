@@ -1,0 +1,77 @@
+name: Quarterly Architecture Gap Audit
+
+on:
+  schedule:
+    # Run quarterly: Jan 1, Apr 1, Jul 1, Oct 1 at midnight UTC
+    - cron: '0 0 1 1,4,7,10 *'
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  architecture-audit:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Parse framework entities
+        run: |
+          cd outputs/architecture-map/schemas
+          node parse-markdown-agents.js
+          node parse-tasks.js
+          node parse-templates.js
+          node parse-tools.js
+
+      - name: Validate tool references (Story 3.21)
+        run: node outputs/architecture-map/schemas/validate-tool-references.js
+
+      - name: Synthesize relationships
+        run: node outputs/architecture-map/schemas/synthesize-relationships.js
+
+      - name: Detect gaps
+        run: node outputs/architecture-map/schemas/detect-gaps.js
+
+      - name: Generate trend report
+        id: trend
+        run: |
+          node outputs/architecture-map/schemas/generate-trend-report.js
+          echo "gap_count=$(cat outputs/architecture-map/reports/gap-count.txt)" >> $GITHUB_OUTPUT
+
+      - name: Upload audit artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: gap-audit-${{ github.run_number }}
+          path: |
+            outputs/architecture-map/reports/gap-backlog.csv
+            outputs/architecture-map/reports/gap-trend.json
+            outputs/architecture-map/reports/gap-trend.md
+            outputs/architecture-map/reports/gap-trend-history.json
+
+      - name: Create GitHub issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const trendReport = fs.readFileSync('outputs/architecture-map/reports/gap-trend.md', 'utf8');
+            
+            const quarter = Math.ceil((new Date().getMonth() + 1) / 3);
+            const year = new Date().getFullYear();
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Q${quarter} ${year} Architecture Gap Audit`,
+              body: trendReport,
+              labels: ['architecture', 'gap-remediation', 'quarterly-audit'],
+              assignees: []  // Configure team members in repo settings
+            });
+
+

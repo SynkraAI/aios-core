@@ -1,0 +1,26 @@
+# Test fixture: Legacy monolithic config
+project:
+  name: "legacy-project"
+  version: "2.0.0"
+
+ide:
+  selected:
+    - vscode
+
+mcp:
+  enabled: false
+
+performance_defaults:
+  max_concurrent_operations: 4
+  cache_ttl_seconds: 300
+
+github_integration:
+  owner: "legacy-org"
+  repo: "legacy-repo"
+
+squads:
+  enabled: true
+  max_squads: 3
+
+logging:
+  level: "warn"

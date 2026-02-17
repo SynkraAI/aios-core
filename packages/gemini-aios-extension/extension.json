@@ -1,0 +1,147 @@
+{
+  "$schema": "https://geminicli.com/schemas/extension.json",
+  "name": "aios",
+  "displayName": "Synkra AIOS",
+  "version": "1.0.0",
+  "description": "Multi-agent orchestration system for CLI-first development. Brings AIOS agents, hooks, and workflows to Gemini CLI.",
+  "author": "Synkra",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/synkra/aios-core"
+  },
+  "engines": {
+    "gemini-cli": ">=0.26.0"
+  },
+  "capabilities": {
+    "hooks": true,
+    "skills": true,
+    "commands": true,
+    "mcp": false
+  },
+  "activation": {
+    "onStartup": true,
+    "conditions": [
+      {
+        "type": "fileExists",
+        "path": ".aios-core"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "name": "aios-status",
+      "description": "Show AIOS system status and provider info",
+      "script": "commands/aios-status.js"
+    },
+    {
+      "name": "aios-agents",
+      "description": "List available AIOS agents",
+      "script": "commands/aios-agents.js"
+    },
+    {
+      "name": "aios-validate",
+      "description": "Validate AIOS installation and skills",
+      "script": "commands/aios-validate.js"
+    },
+    {
+      "name": "aios-menu",
+      "description": "Show AIOS quick agent menu for Gemini",
+      "script": "commands/aios-menu.js"
+    },
+    {
+      "name": "aios-agent",
+      "description": "Prepare activation prompt for a specific AIOS agent (/aios-agent <id>)",
+      "script": "commands/aios-agent.js"
+    },
+    {
+      "name": "aios-master",
+      "description": "Quick launch aios-master agent",
+      "script": "commands/aios-master.js"
+    },
+    {
+      "name": "aios-analyst",
+      "description": "Quick launch analyst agent",
+      "script": "commands/aios-analyst.js"
+    },
+    {
+      "name": "aios-architect",
+      "description": "Quick launch architect agent",
+      "script": "commands/aios-architect.js"
+    },
+    {
+      "name": "aios-data-engineer",
+      "description": "Quick launch data-engineer agent",
+      "script": "commands/aios-data-engineer.js"
+    },
+    {
+      "name": "aios-dev",
+      "description": "Quick launch dev agent",
+      "script": "commands/aios-dev.js"
+    },
+    {
+      "name": "aios-devops",
+      "description": "Quick launch devops agent",
+      "script": "commands/aios-devops.js"
+    },
+    {
+      "name": "aios-pm",
+      "description": "Quick launch pm agent",
+      "script": "commands/aios-pm.js"
+    },
+    {
+      "name": "aios-po",
+      "description": "Quick launch po agent",
+      "script": "commands/aios-po.js"
+    },
+    {
+      "name": "aios-qa",
+      "description": "Quick launch qa agent",
+      "script": "commands/aios-qa.js"
+    },
+    {
+      "name": "aios-sm",
+      "description": "Quick launch sm agent",
+      "script": "commands/aios-sm.js"
+    },
+    {
+      "name": "aios-squad-creator",
+      "description": "Quick launch squad-creator agent",
+      "script": "commands/aios-squad-creator.js"
+    },
+    {
+      "name": "aios-ux-design-expert",
+      "description": "Quick launch ux-design-expert agent",
+      "script": "commands/aios-ux-design-expert.js"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dev",
+      "path": "skills/dev.md",
+      "description": "Developer agent - code implementation"
+    },
+    {
+      "name": "architect",
+      "path": "skills/architect.md",
+      "description": "Architect agent - system design"
+    },
+    {
+      "name": "qa",
+      "path": "skills/qa.md",
+      "description": "QA agent - testing and quality"
+    }
+  ],
+  "hooks": {
+    "configPath": "hooks/hooks.json"
+  },
+  "keywords": [
+    "aios",
+    "agents",
+    "orchestration",
+    "development",
+    "ai",
+    "claude",
+    "multi-agent"
+  ]
+}

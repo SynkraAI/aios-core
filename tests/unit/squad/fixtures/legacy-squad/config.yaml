@@ -1,0 +1,10 @@
+name: legacy-squad
+version: 0.9.0
+description: A legacy squad using config.yaml (deprecated)
+author: AIOS Test Suite
+
+agents:
+  - legacy-agent
+
+config:
+  legacy: true

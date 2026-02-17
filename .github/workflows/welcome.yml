@@ -1,0 +1,96 @@
+# Welcome New Contributors Workflow
+# Automatically welcomes first-time contributors to AIOS
+#
+# Reference: https://github.com/actions/first-interaction
+# Story: OSR-4 - GitHub Community Setup
+
+name: Welcome New Contributors
+
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Welcome first-time contributors
+        uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: |
+            👋 **Welcome to AIOS!**
+
+            Thanks for opening your first issue! We're excited to have you here.
+
+            **What happens next?**
+            - A maintainer will review your issue and add appropriate labels
+            - We'll respond as soon as possible
+            - Feel free to join the discussion in our [Community Discussions](https://github.com/SynkraAI/aios-core/discussions)
+
+            **Helpful Resources:**
+            - 📖 [Contributing Guide](CONTRIBUTING.md)
+            - 💬 [Community Discussions](https://github.com/SynkraAI/aios-core/discussions)
+            - 📚 [Documentation](docs/)
+
+            **Labels Guide:**
+            - `good-first-issue` - Great for newcomers
+            - `help-wanted` - We need community help
+            - `bug` - Something isn't working
+            - `enhancement` - Feature requests
+
+            Thanks for helping make AIOS better! 🚀
+
+          pr-message: |
+            🎉 **Welcome to AIOS!**
+
+            Thanks for submitting your first pull request! We're thrilled to have you contribute.
+
+            **What happens next?**
+            1. Automated checks will run on your PR
+            2. A maintainer will review your changes
+            3. We may suggest improvements or ask questions
+            4. Once approved, we'll merge your contribution!
+
+            **PR Checklist:**
+            - [ ] Tests pass locally (`npm test`)
+            - [ ] Linting passes (`npm run lint`)
+            - [ ] Documentation updated (if applicable)
+            - [ ] Commit messages follow [conventional commits](https://www.conventionalcommits.org/)
+
+            **Helpful Resources:**
+            - 📖 [Contributing Guide](CONTRIBUTING.md)
+            - 📜 [Code of Conduct](CODE_OF_CONDUCT.md)
+            - 🏗️ [Coding Standards](docs/architecture/coding-standards.md)
+
+            Thanks for contributing to AIOS! 🚀
+
+      - name: Add triage label to new issues
+        if: github.event_name == 'issues'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = await github.rest.issues.listLabelsOnIssue({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            });
+
+            const hasTriageLabel = labels.data.some(label =>
+              label.name === 'needs-triage'
+            );
+
+            if (!hasTriageLabel) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: ['needs-triage']
+              });
+            }

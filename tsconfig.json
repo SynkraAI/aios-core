@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["ES2022"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@synkra/aios-core": ["./.aios-core/core"],
+      "@synkra/aios-core/*": ["./.aios-core/core/*"]
+    }
+  },
+  "include": [
+    "types/**/*.d.ts",
+    ".aios-core/**/*",
+    "tools/**/*",
+    "scripts/**/*",
+    "src/**/*",
+    "common/**/*",
+    "bin/**/*",
+    "*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".tsbuildinfo",
+    "coverage",
+    ".test-temp",
+    "**/*-tmpl.*",
+    "**/*.tmpl.*",
+    "**/*-template.*",
+    ".aios-core/development/templates/**",
+    ".aios-core.backup*/**",
+    "aios-core.backup*/**",
+    "aios-core-deprecated/**",
+    "aios-core-depracated/**",
+    "eslint.config.js"
+  ]
+}

@@ -1,0 +1,12 @@
+# Test fixture: L4 Local config
+ide:
+  selected:
+    - vscode
+    - claude-code
+
+mcp:
+  enabled: true
+  config_location: "${MCP_CONFIG_PATH:-.claude/mcp.json}"
+
+performance_defaults:
+  max_concurrent_operations: 16

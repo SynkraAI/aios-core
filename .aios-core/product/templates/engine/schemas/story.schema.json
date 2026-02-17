@@ -1,0 +1,222 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Story Template Variables",
+  "description": "Schema for User Story template variables",
+  "type": "object",
+  "required": ["id", "title", "epicRef", "sprint", "points", "priority", "status", "userStory", "acceptanceCriteria"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$",
+      "description": "Story ID (e.g., 3.6)"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 150,
+      "description": "Story title"
+    },
+    "epicRef": {
+      "type": "string",
+      "description": "Reference to parent epic"
+    },
+    "sprint": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Sprint number"
+    },
+    "points": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 21,
+      "description": "Story points (Fibonacci: 1, 2, 3, 5, 8, 13, 21)"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["Critical", "High", "Medium", "Low"],
+      "description": "Story priority"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Draft", "Ready", "In Progress", "In Review", "Done", "Blocked"],
+      "description": "Current status"
+    },
+    "userStory": {
+      "type": "object",
+      "required": ["asA", "iWant", "soThat"],
+      "properties": {
+        "asA": {
+          "type": "string",
+          "description": "User persona"
+        },
+        "iWant": {
+          "type": "string",
+          "description": "Desired functionality"
+        },
+        "soThat": {
+          "type": "string",
+          "description": "Business value"
+        }
+      },
+      "description": "User story in standard format"
+    },
+    "acceptanceCriteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "description"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Criteria ID (e.g., AC3.6.1)"
+          },
+          "description": {
+            "type": "string",
+            "description": "Criteria description"
+          },
+          "completed": {
+            "type": "boolean",
+            "default": false,
+            "description": "Completion status"
+          }
+        }
+      },
+      "description": "Acceptance criteria"
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "description"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Task ID"
+          },
+          "description": {
+            "type": "string",
+            "description": "Task description"
+          },
+          "estimate": {
+            "type": "string",
+            "description": "Time estimate"
+          },
+          "completed": {
+            "type": "boolean",
+            "default": false
+          },
+          "subtasks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "description"],
+              "properties": {
+                "id": { "type": "string" },
+                "description": { "type": "string" },
+                "completed": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      },
+      "description": "Implementation tasks"
+    },
+    "testing": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Test ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Test name"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["Unit", "Integration", "E2E", "Manual"],
+            "description": "Test type"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["P0", "P1", "P2"]
+          }
+        }
+      },
+      "description": "Test scenarios"
+    },
+    "coderabbitIntegration": {
+      "type": "object",
+      "properties": {
+        "storyType": {
+          "type": "string",
+          "description": "Primary story type"
+        },
+        "primaryAgents": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "supportingAgents": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "selfHealing": {
+          "type": "object",
+          "properties": {
+            "primaryAgent": { "type": "string" },
+            "maxIterations": { "type": "integer" },
+            "timeout": { "type": "string" },
+            "severityFilter": { "type": "string" }
+          }
+        }
+      },
+      "description": "CodeRabbit integration configuration"
+    },
+    "dependencies": {
+      "type": "object",
+      "properties": {
+        "dependsOn": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "blocks": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "description": "Story dependencies"
+    },
+    "definitionOfDone": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["criteria"],
+        "properties": {
+          "criteria": { "type": "string" },
+          "completed": { "type": "boolean" }
+        }
+      },
+      "description": "Definition of done checklist"
+    },
+    "devNotes": {
+      "type": "string",
+      "description": "Developer notes and guidance"
+    },
+    "devAgentRecord": {
+      "type": "object",
+      "properties": {
+        "model": { "type": "string" },
+        "completionNotes": { "type": "string" },
+        "fileList": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "description": "Dev agent completion record"
+    }
+  }
+}

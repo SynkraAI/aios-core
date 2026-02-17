@@ -1,0 +1,7 @@
+# Test fixture: L3 App config
+logging:
+  level: "debug"
+
+app_specific:
+  port: 3000
+  name: "dashboard"

@@ -1,0 +1,70 @@
+title: "[Idea] "
+labels:
+  - idea
+  - community
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 💡 Share Your Idea
+        Thanks for taking the time to suggest an improvement! Your ideas help make AIOS better for everyone.
+
+  - type: dropdown
+    id: repo-scope
+    attributes:
+      label: Which repository does this idea relate to?
+      description: Select the repository this idea is most relevant to
+      options:
+        - aios-core (Core Framework)
+        - aios-squads (AIOS Squads - ETL, Creator, MMOS)
+        - mcp-ecosystem (MCP Tools & Docker MCP Toolkit)
+        - Multiple / Cross-repo
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe your idea
+      description: What would you like to see in AIOS?
+      placeholder: |
+        A clear and concise description of your idea...
+
+        - What problem does it solve?
+        - Who would benefit from this?
+        - How should it work?
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: How would you use this feature?
+      placeholder: |
+        Describe a real-world scenario where this would be useful...
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Have you considered any alternatives or workarounds?
+      placeholder: |
+        - Alternative 1
+        - Alternative 2
+        - Current workaround (if any)
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Would you be willing to contribute?
+      options:
+        - label: I would be interested in implementing this feature
+        - label: I can help with documentation
+        - label: I can help with testing
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Note:** Ideas are reviewed by maintainers. Approved ideas may become GitHub Issues for implementation.

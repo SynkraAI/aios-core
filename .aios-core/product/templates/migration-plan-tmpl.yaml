@@ -1,0 +1,1022 @@
+---
+template_name: "Schema Migration Plan"
+template_version: "1.0.0"
+output_format: "markdown"
+destination: "migration-plan.md"
+description: "Plan and validate a safe schema migration with rollback and tests"
+
+sections:
+  - id: summary
+    title: "Executive Summary"
+    instruction: |
+      Summarize the change:
+      - Objective and scope
+      - Risk level (Low/Med/High) and why
+      - Environments impacted (dev/staging/prod)
+      - Expected migration time window and rollback window
+    elicit: true
+
+  - id: change-set
+    title: "Change Set"
+    instruction: |
+      Detail every schema change:
+      - Tables created/altered/dropped
+      - Columns added/modified/removed (types, defaults, constraints)
+      - Indexes (create/alter/drop)
+      - Functions/triggers/views (create/replace/drop)
+      - RLS policies (add/remove/modify)
+    elicit: true
+
+  - id: dependencies
+    title: "Dependencies & Ordering"
+    instruction: |
+      List dependencies and execution order:
+      1) Extensions
+      2) Tables & constraints
+      3) Functions
+      4) Triggers
+      5) RLS
+      6) Views / MatViews
+      Note any cross-object dependencies that require two-phase rollout.
+    elicit: true
+
+  - id: data-migration
+    title: "Data Migration & Backfill"
+    instruction: |
+      Strategies for migrating existing data safely at scale.
+
+      ## Small Data Sets (< 100K rows)
+
+      **Simple approach** for tables with few rows:
+
+      ```sql
+      -- Direct UPDATE (< 100K rows)
+      UPDATE users SET email_address = email
+      WHERE email_address IS NULL;
+
+      -- Single transaction, fast execution
+      ```
+
+      **When safe**:
+      - Small tables (< 100K rows)
+      - Low traffic tables
+      - Maintenance window available
+
+      ## Large Data Sets (> 100K rows)
+
+      **Batched approach** prevents table locks and reduces transaction size.
+
+      ### Pattern 1: Basic Batching (Single Process)
+
+      ```sql
+      -- Backfill in batches to avoid long locks
+      DO $$
+      DECLARE
+        batch_size INT := 1000;  -- Adjust based on row size and available memory
+        rows_updated INT;
+        total_updated INT := 0;
+        batch_count INT := 0;
+      BEGIN
+        LOOP
+          -- Update one batch
+          WITH batch AS (
+            SELECT id FROM users
+            WHERE email_address IS NULL
+            LIMIT batch_size
+            FOR UPDATE SKIP LOCKED  -- ⭐ CRITICAL: Avoid lock contention
+          )
+          UPDATE users
+          SET email_address = email
+          FROM batch
+          WHERE users.id = batch.id;
+
+          GET DIAGNOSTICS rows_updated = ROW_COUNT;
+          EXIT WHEN rows_updated = 0;  -- No more rows to process
+
+          total_updated := total_updated + rows_updated;
+          batch_count := batch_count + 1;
+
+          RAISE NOTICE 'Batch %: Updated % rows (total: %)',
+            batch_count, rows_updated, total_updated;
+
+          -- Throttle to avoid overloading DB
+          PERFORM pg_sleep(0.1);  -- 100ms pause between batches
+        END LOOP;
+
+        RAISE NOTICE 'Backfill complete: % batches, % total rows',
+          batch_count, total_updated;
+      END $$;
+      ```
+
+      **Key techniques**:
+      - `FOR UPDATE SKIP LOCKED` - Avoids lock contention, enables parallel processing
+      - `LIMIT batch_size` - Controls transaction size
+      - `pg_sleep()` - Throttles load, allows other transactions to proceed
+      - `RAISE NOTICE` - Progress tracking
+
+      ### Pattern 2: Parallel Batching (Multiple Workers)
+
+      **For very large tables** (millions of rows), run multiple workers concurrently:
+
+      ```sql
+      -- Worker 1 (run in psql session 1)
+      DO $$
+      DECLARE
+        batch_size INT := 5000;
+        worker_id INT := 1;
+        rows_updated INT;
+      BEGIN
+        LOOP
+          WITH batch AS (
+            SELECT id FROM orders
+            WHERE status_new IS NULL
+            ORDER BY id  -- ⭐ CRITICAL: Deterministic ordering
+            LIMIT batch_size
+            FOR UPDATE SKIP LOCKED  -- Skip rows locked by other workers
+          )
+          UPDATE orders
+          SET status_new = status
+          FROM batch
+          WHERE orders.id = batch.id;
+
+          GET DIAGNOSTICS rows_updated = ROW_COUNT;
+          EXIT WHEN rows_updated = 0;
+
+          RAISE NOTICE '[Worker %] Updated % rows', worker_id, rows_updated;
+          PERFORM pg_sleep(0.05);  -- Shorter pause with multiple workers
+        END LOOP;
+      END $$;
+
+      -- Worker 2-4: Same script, different worker_id in RAISE NOTICE
+      ```
+
+      **Why it works**:
+      - `FOR UPDATE SKIP LOCKED` allows workers to grab different rows
+      - Each worker skips rows locked by others
+      - No deadlocks or contention
+      - Near-linear speedup (4 workers ≈ 4x faster)
+
+      ### Pattern 3: Progress Tracking Table
+
+      **Track progress** for resumable migrations:
+
+      ```sql
+      -- Create progress tracking table
+      CREATE TABLE migration_progress (
+        migration_name TEXT PRIMARY KEY,
+        last_processed_id BIGINT,
+        total_processed BIGINT DEFAULT 0,
+        started_at TIMESTAMPTZ DEFAULT NOW(),
+        updated_at TIMESTAMPTZ DEFAULT NOW()
+      );
+
+      -- Resumable backfill with progress tracking
+      DO $$
+      DECLARE
+        batch_size INT := 5000;
+        last_id BIGINT;
+        rows_updated INT;
+        migration TEXT := 'users_email_address_backfill';
+      BEGIN
+        -- Get last processed ID (resume from failure)
+        SELECT COALESCE(last_processed_id, 0) INTO last_id
+        FROM migration_progress
+        WHERE migration_name = migration;
+
+        -- Initialize if not exists
+        INSERT INTO migration_progress (migration_name, last_processed_id)
+        VALUES (migration, 0)
+        ON CONFLICT (migration_name) DO NOTHING;
+
+        LOOP
+          -- Process batch starting after last_id
+          WITH batch AS (
+            SELECT id FROM users
+            WHERE id > last_id
+              AND email_address IS NULL
+            ORDER BY id  -- Deterministic ordering
+            LIMIT batch_size
+            FOR UPDATE SKIP LOCKED
+          )
+          UPDATE users
+          SET email_address = email
+          FROM batch
+          WHERE users.id = batch.id
+          RETURNING users.id INTO last_id;
+
+          GET DIAGNOSTICS rows_updated = ROW_COUNT;
+          EXIT WHEN rows_updated = 0;
+
+          -- Update progress
+          UPDATE migration_progress
+          SET
+            last_processed_id = last_id,
+            total_processed = total_processed + rows_updated,
+            updated_at = NOW()
+          WHERE migration_name = migration;
+
+          RAISE NOTICE '[%] Processed up to ID %, % rows this batch',
+            migration, last_id, rows_updated;
+
+          PERFORM pg_sleep(0.1);
+        END LOOP;
+
+        RAISE NOTICE '[%] Complete: % total rows',
+          migration,
+          (SELECT total_processed FROM migration_progress WHERE migration_name = migration);
+      END $$;
+
+      -- Check progress (run in separate session)
+      SELECT
+        migration_name,
+        last_processed_id,
+        total_processed,
+        updated_at,
+        AGE(NOW(), updated_at) AS time_since_update
+      FROM migration_progress;
+      ```
+
+      **Benefits**:
+      - Resumable on failure/cancellation
+      - Live progress monitoring
+      - Deterministic (no duplicate processing)
+
+      ## Batch Size Guidelines
+
+      **Factors to consider**:
+      - Row size (larger rows → smaller batches)
+      - Available memory (`maintenance_work_mem`)
+      - Transaction timeout limits
+      - Lock contention sensitivity
+
+      **Recommended sizes**:
+      | Row Size | Batch Size | Reasoning |
+      |----------|------------|-----------|
+      | Small (< 1KB) | 5,000-10,000 | Fast, low memory |
+      | Medium (1-10KB) | 1,000-5,000 | Balance speed/memory |
+      | Large (> 10KB) | 100-1,000 | Avoid memory exhaustion |
+      | JSONB/text heavy | 500-2,000 | Variable size risk |
+
+      ## Throttling Strategies
+
+      ```sql
+      -- Light throttle (10 batches/sec, low impact)
+      PERFORM pg_sleep(0.1);
+
+      -- Medium throttle (5 batches/sec, safer for production)
+      PERFORM pg_sleep(0.2);
+
+      -- Heavy throttle (2 batches/sec, minimal impact)
+      PERFORM pg_sleep(0.5);
+
+      -- Adaptive throttle (based on DB load)
+      -- Check pg_stat_activity connection count
+      SELECT pg_sleep(
+        CASE
+          WHEN (SELECT count(*) FROM pg_stat_activity WHERE state = 'active') > 50
+          THEN 0.5  -- High load, slow down
+          ELSE 0.1  -- Normal load, faster
+        END
+      );
+      ```
+
+      ## Verification Queries
+
+      ```sql
+      -- Check completion
+      SELECT COUNT(*) AS remaining
+      FROM users
+      WHERE email_address IS NULL;
+      -- Expected: 0
+
+      -- Check data integrity
+      SELECT COUNT(*) AS mismatches
+      FROM users
+      WHERE email != email_address;
+      -- Expected: 0 (or acceptable threshold)
+
+      -- Sample verification
+      SELECT id, email, email_address
+      FROM users
+      WHERE email != email_address
+        OR email_address IS NULL
+      LIMIT 100;
+
+      -- Performance check (should use index)
+      EXPLAIN ANALYZE
+      SELECT * FROM users WHERE email_address IS NULL;
+      -- Look for "Index Scan" not "Seq Scan"
+      ```
+
+      ## Lock Impact Analysis
+
+      ```sql
+      -- Monitor locks during backfill
+      SELECT
+        pid,
+        usename,
+        query_start,
+        state,
+        wait_event_type,
+        wait_event,
+        query
+      FROM pg_stat_activity
+      WHERE state != 'idle'
+        AND query LIKE '%users%'
+      ORDER BY query_start;
+
+      -- Check for lock contention
+      SELECT
+        locktype,
+        relation::regclass AS table_name,
+        mode,
+        granted,
+        COUNT(*) AS lock_count
+      FROM pg_locks
+      WHERE relation::regclass::text LIKE '%users%'
+      GROUP BY locktype, relation, mode, granted;
+      ```
+
+      ## Best Practices Summary
+
+      1. **Use FOR UPDATE SKIP LOCKED** for parallelizable batching
+      2. **ORDER BY** for deterministic processing (resumable)
+      3. **Batch size 1,000-10,000** depending on row size
+      4. **Throttle with pg_sleep()** to reduce DB load
+      5. **Track progress** in separate table
+      6. **Monitor locks** during execution
+      7. **Verify data** before and after migration
+      8. **Test in staging** with production-size data
+
+      ## When NOT to Use Batching
+
+      - Tables < 100K rows (direct UPDATE faster)
+      - Maintenance window available (faster without throttling)
+      - No other traffic (no contention risk)
+
+      ## Common Pitfalls
+
+      - **Forgetting FOR UPDATE SKIP LOCKED** → deadlocks with parallel workers
+      - **No ORDER BY** → non-deterministic, duplicate processing
+      - **Too large batches** → lock contention, memory issues
+      - **No throttling** → DB overload, affects production traffic
+      - **No progress tracking** → can't resume on failure
+    elicit: true
+
+  - id: safety
+    title: "Safety & Rollback"
+    instruction: |
+      Safety plan:
+      - Pre-migration snapshot strategy
+      - Rollback script outline (what to undo, in order)
+      - Roll-forward strategy if rollback is unsafe
+      - Advisory locks to avoid concurrent runs
+    elicit: true
+
+  - id: testing
+    title: "Testing Strategy"
+    instruction: |
+      Tests to run:
+      - Dry-run (BEGIN; \i file; ROLLBACK)
+      - Smoke tests (post-migration)
+      - RLS positive/negative tests (impersonation)
+      - Performance baselines & EXPLAIN checks on hot paths
+    elicit: true
+
+  - id: operations
+    title: "Operational Runbook"
+    instruction: |
+      Provide exact commands with placeholders:
+      - Set env, check psql/pg_dump versions
+      - Take snapshot
+      - Apply migration
+      - Post snapshot
+      - Run smoke tests
+      Include expected outputs and success criteria.
+    elicit: true
+
+  - id: communication
+    title: "Communication & Approval"
+    instruction: |
+      - Stakeholders, approvers
+      - Change window notice
+      - Post-deploy validation owners
+      - Incident/rollback contact path
+    elicit: true
+
+  - id: version-tracking
+    title: "Schema Version Tracking"
+    instruction: |
+      DB Sage uses custom schema_migrations table for enhanced tracking beyond Supabase's built-in migration system.
+
+      ## Setup (run once in initial migration)
+
+      ```sql
+      CREATE TABLE IF NOT EXISTS public.schema_migrations (
+        version TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        applied_at TIMESTAMPTZ DEFAULT NOW(),
+        applied_by TEXT NOT NULL,
+        execution_time_ms INTEGER,
+        success BOOLEAN NOT NULL DEFAULT false,
+        checksum TEXT NOT NULL,        -- SHA256 do arquivo de migration
+        rollback_script TEXT,           -- Script de rollback
+        notes TEXT,
+        CONSTRAINT valid_checksum CHECK (length(checksum) = 64),
+        CONSTRAINT valid_version CHECK (version ~ '^\d{14}$')  -- Format: YYYYMMDDHHmmss
+      );
+
+      CREATE INDEX idx_migrations_applied_at
+        ON schema_migrations(applied_at DESC);
+
+      CREATE INDEX idx_migrations_success
+        ON schema_migrations(success) WHERE success = false;
+
+      COMMENT ON TABLE schema_migrations IS
+        'Custom migration tracking with checksums, rollback scripts, and execution metadata';
+      ```
+
+      ## Migration File Structure
+
+      Every migration should follow this template:
+
+      ```sql
+      -- Migration: 20251027120000_add_users_table
+      -- Checksum: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      -- Applied by: user@example.com
+      -- Rollback: See section at end of file
+
+      BEGIN;
+
+      -- Record migration start
+      INSERT INTO public.schema_migrations (
+        version, name, applied_by, success, checksum, rollback_script, notes
+      )
+      VALUES (
+        '20251027120000',
+        'add_users_table',
+        current_user,
+        false,  -- Will update to true on success
+        'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+        $rollback$
+          -- Rollback script
+          DROP TABLE IF EXISTS users CASCADE;
+          DELETE FROM public.schema_migrations WHERE version = '20251027120000';
+        $rollback$,
+        'Initial users table creation'
+      )
+      ON CONFLICT (version) DO NOTHING;
+
+      -- Migration DDL/DML statements here
+      CREATE TABLE users (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        email TEXT UNIQUE NOT NULL,
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+
+      -- Update to success
+      UPDATE public.schema_migrations
+      SET
+        success = true,
+        execution_time_ms = EXTRACT(MILLISECOND FROM (NOW() - applied_at))::INTEGER
+      WHERE version = '20251027120000';
+
+      COMMIT;
+
+      -- ROLLBACK SECTION (DO NOT EXECUTE - stored in schema_migrations table)
+      /*
+      BEGIN;
+      DROP TABLE IF EXISTS users CASCADE;
+      DELETE FROM public.schema_migrations WHERE version = '20251027120000';
+      COMMIT;
+      */
+      ```
+
+      ## Checksum Generation
+
+      Generate SHA256 checksum before applying migration:
+
+      ```bash
+      # Generate checksum (exclude rollback section)
+      checksum=$(sha256sum migration.sql | awk '{print $1}')
+      echo "Checksum: $checksum"
+
+      # Verify against stored checksum after application
+      psql -c "SELECT version, checksum FROM schema_migrations WHERE version = '20251027120000'"
+      ```
+
+      ## Query Migration History
+
+      ```sql
+      -- Recent successful migrations
+      SELECT
+        version,
+        name,
+        applied_at,
+        applied_by,
+        execution_time_ms,
+        notes
+      FROM schema_migrations
+      WHERE success = true
+      ORDER BY applied_at DESC
+      LIMIT 10;
+
+      -- Failed migrations (investigate)
+      SELECT
+        version,
+        name,
+        applied_at,
+        applied_by,
+        notes
+      FROM schema_migrations
+      WHERE success = false
+      ORDER BY applied_at DESC;
+
+      -- Pending rollbacks
+      SELECT
+        version,
+        name,
+        applied_at,
+        LENGTH(rollback_script) AS rollback_size_bytes
+      FROM schema_migrations
+      WHERE success = true
+        AND rollback_script IS NOT NULL
+      ORDER BY applied_at DESC;
+
+      -- Checksum verification (detect tampering)
+      SELECT
+        version,
+        name,
+        checksum,
+        applied_at
+      FROM schema_migrations
+      WHERE success = true
+      ORDER BY applied_at DESC;
+      ```
+
+      ## Integration with Supabase CLI
+
+      Supabase CLI manages migrations in `supabase/migrations/` directory with timestamp prefix.
+      Our schema_migrations table complements this by adding:
+      - WHO applied the migration (applied_by)
+      - WHEN exactly (applied_at)
+      - SUCCESS status (for partial failures)
+      - CHECKSUM verification (integrity)
+      - ROLLBACK script (automated recovery)
+
+      Use both systems together:
+      - Supabase CLI for development workflow (`supabase db diff`, `supabase db reset`)
+      - schema_migrations for production audit trail and rollback capability
+
+      ## Rollback Execution
+
+      To rollback a migration:
+
+      ```sql
+      -- 1. Retrieve rollback script
+      SELECT rollback_script
+      FROM schema_migrations
+      WHERE version = '20251027120000';
+
+      -- 2. Execute rollback script (in transaction)
+      BEGIN;
+      -- Copy rollback script here
+      DROP TABLE IF EXISTS users CASCADE;
+      DELETE FROM public.schema_migrations WHERE version = '20251027120000';
+      COMMIT;
+
+      -- 3. Verify rollback
+      SELECT COUNT(*) FROM information_schema.tables WHERE table_name = 'users';
+      -- Should return 0
+      ```
+    elicit: false
+
+  - id: zero-downtime
+    title: "Zero-Downtime Migrations"
+    instruction: |
+      Use expand/contract pattern for non-breaking schema changes. Forward-only migrations that allow
+      old and new application versions to coexist.
+
+      ## Overview - Expand/Contract Pattern
+
+      Zero-downtime migrations use 4-6 phases:
+
+      1. **EXPAND** - Add new schema (additive only, backward compatible)
+      2. **DEPLOY v2** - Deploy app version writing to both old and new schema
+      3. **BACKFILL** - Migrate existing data (batched, throttled)
+      4. **VALIDATE** - Verify data integrity
+      5. **DEPLOY v3** - Deploy app version reading from new schema only
+      6. **CONTRACT** - Remove old schema (after all apps updated)
+
+      ## Pattern 1: Add Column (Safe - No Downtime)
+
+      Adding a column with constant default is safe per PostgreSQL docs:
+      "Adding a column with a constant default value does not require each row to be updated."
+
+      ```sql
+      -- PHASE 1: EXPAND (safe, instant)
+      ALTER TABLE users ADD COLUMN bio TEXT DEFAULT '';
+
+      -- No other phases needed - existing app ignores new column
+      ```
+
+      ## Pattern 2: Rename Column (Requires Expand/Contract)
+
+      **Unsafe**:
+      ```sql
+      ALTER TABLE users RENAME COLUMN email TO email_address;  -- ❌ BREAKS OLD APP
+      ```
+
+      **Safe** (6 phases):
+
+      **PHASE 1: EXPAND** (add new column + sync trigger):
+      ```sql
+      -- Add new column
+      ALTER TABLE users ADD COLUMN email_address TEXT;
+
+      -- Trigger to keep columns in sync
+      CREATE OR REPLACE FUNCTION sync_email_columns()
+      RETURNS TRIGGER AS $$
+      BEGIN
+        IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
+          -- Sync both directions
+          NEW.email_address := COALESCE(NEW.email_address, NEW.email);
+          NEW.email := COALESCE(NEW.email, NEW.email_address);
+        END IF;
+        RETURN NEW;
+      END;
+      $$ LANGUAGE plpgsql;
+
+      CREATE TRIGGER sync_email
+        BEFORE INSERT OR UPDATE ON users
+        FOR EACH ROW EXECUTE FUNCTION sync_email_columns();
+      ```
+
+      **PHASE 2: DEPLOY v2** (app writes to BOTH columns):
+      ```typescript
+      // App version 2 - dual writes
+      await db.query(
+        'INSERT INTO users (email, email_address) VALUES ($1, $1)',
+        [email]
+      )
+      ```
+
+      **PHASE 3: BACKFILL** (migrate existing data in batches):
+      ```sql
+      -- Backfill in batches (avoid long table locks)
+      DO $$
+      DECLARE
+        batch_size INT := 1000;
+        rows_updated INT;
+        total_updated INT := 0;
+      BEGIN
+        LOOP
+          -- Update one batch
+          WITH batch AS (
+            SELECT id FROM users
+            WHERE email_address IS NULL
+            LIMIT batch_size
+            FOR UPDATE SKIP LOCKED  -- Avoid lock contention
+          )
+          UPDATE users
+          SET email_address = email
+          FROM batch
+          WHERE users.id = batch.id;
+
+          GET DIAGNOSTICS rows_updated = ROW_COUNT;
+          EXIT WHEN rows_updated = 0;
+
+          total_updated := total_updated + rows_updated;
+          RAISE NOTICE 'Backfilled % rows (total: %)', rows_updated, total_updated;
+
+          -- Throttle to avoid overloading DB
+          PERFORM pg_sleep(0.1);
+        END LOOP;
+
+        RAISE NOTICE 'Backfill complete: % total rows updated', total_updated;
+      END $$;
+      ```
+
+      **PHASE 4: VALIDATE** (verify data integrity):
+      ```sql
+      -- Check all data migrated
+      SELECT COUNT(*) FROM users WHERE email_address IS NULL;
+      -- Expected: 0
+
+      -- Check data consistency
+      SELECT COUNT(*) FROM users WHERE email != email_address;
+      -- Expected: 0 (or acceptable threshold for dirty data)
+
+      -- Sample verification
+      SELECT id, email, email_address
+      FROM users
+      WHERE email != email_address OR email_address IS NULL
+      LIMIT 10;
+      ```
+
+      **PHASE 5: DEPLOY v3** (app reads from email_address only):
+      ```typescript
+      // App version 3 - reads from new column
+      await db.query('SELECT email_address FROM users WHERE id = $1', [id])
+      ```
+
+      **PHASE 6: CONTRACT** (remove old column and trigger):
+      ```sql
+      -- Drop sync trigger and function
+      DROP TRIGGER IF EXISTS sync_email ON users;
+      DROP FUNCTION IF EXISTS sync_email_columns();
+
+      -- Remove old column
+      ALTER TABLE users DROP COLUMN email;
+
+      -- Optional: Rename to canonical name
+      ALTER TABLE users RENAME COLUMN email_address TO email;
+      ```
+
+      ## Pattern 3: Change Column Type
+
+      **Example**: Change `age INT` → `age NUMERIC(5,2)`
+
+      **PHASE 1: EXPAND**:
+      ```sql
+      ALTER TABLE users ADD COLUMN age_new NUMERIC(5,2);
+
+      -- Sync trigger (optional if app will write)
+      CREATE OR REPLACE FUNCTION sync_age_columns()
+      RETURNS TRIGGER AS $$
+      BEGIN
+        NEW.age_new := NEW.age::NUMERIC(5,2);
+        RETURN NEW;
+      END;
+      $$ LANGUAGE plpgsql;
+
+      CREATE TRIGGER sync_age
+        BEFORE INSERT OR UPDATE ON users
+        FOR EACH ROW
+        WHEN (NEW.age IS NOT NULL)
+        EXECUTE FUNCTION sync_age_columns();
+      ```
+
+      **PHASE 2: BACKFILL**:
+      ```sql
+      UPDATE users SET age_new = age::NUMERIC(5,2) WHERE age_new IS NULL;
+      ```
+
+      **PHASE 3: APP MIGRATION** → read from age_new
+
+      **PHASE 4: CONTRACT**:
+      ```sql
+      DROP TRIGGER IF EXISTS sync_age ON users;
+      DROP FUNCTION IF EXISTS sync_age_columns();
+      ALTER TABLE users DROP COLUMN age;
+      ALTER TABLE users RENAME COLUMN age_new TO age;
+      ```
+
+      ## Pattern 4: Add NOT NULL Constraint (Requires Data Backfill)
+
+      **Unsafe**:
+      ```sql
+      ALTER TABLE users ALTER COLUMN email SET NOT NULL;  -- ❌ Fails if NULLs exist
+      ```
+
+      **Safe**:
+
+      **PHASE 1: Add default value**:
+      ```sql
+      ALTER TABLE users ALTER COLUMN email SET DEFAULT 'unknown@example.com';
+      ```
+
+      **PHASE 2: Backfill NULLs**:
+      ```sql
+      UPDATE users SET email = 'unknown@example.com' WHERE email IS NULL;
+      ```
+
+      **PHASE 3: Validate**:
+      ```sql
+      SELECT COUNT(*) FROM users WHERE email IS NULL;  -- Expected: 0
+      ```
+
+      **PHASE 4: Add constraint**:
+      ```sql
+      ALTER TABLE users ALTER COLUMN email SET NOT NULL;
+      ```
+
+      ## Pattern 5: CREATE INDEX CONCURRENTLY
+
+      **Always use CONCURRENTLY in production**:
+
+      ```sql
+      -- ✅ SAFE (non-blocking)
+      CREATE INDEX CONCURRENTLY idx_users_email ON users(email);
+
+      -- ❌ UNSAFE (blocks writes)
+      CREATE INDEX idx_users_email ON users(email);
+      ```
+
+      CONCURRENTLY allows reads/writes to continue during index creation.
+
+      ## When to Use Zero-Downtime
+
+      **Use expand/contract for**:
+      - Column renames
+      - Type changes
+      - Table splits/merges
+      - Adding NOT NULL constraints
+      - Removing columns with data
+
+      **Don't need for** (already safe):
+      - Adding nullable columns with constant defaults
+      - Creating new tables
+      - Adding indexes (use CONCURRENTLY)
+      - Adding constraints (check, foreign key) to empty tables
+      - Renaming tables (if app uses dynamic table names)
+
+      ## Risks & Trade-offs
+
+      **Pros**:
+      - Zero downtime
+      - Gradual rollout
+      - Safe rollback at any phase
+      - No maintenance window needed
+
+      **Cons**:
+      - Longer deployment cycle (days/weeks vs minutes)
+      - Increased complexity (6 phases vs 1)
+      - Duplicate data temporarily (storage cost)
+      - Requires app coordination (multiple deploys)
+      - Sync triggers add write overhead
+
+      ## Decision Tree
+
+      ```
+      Does migration break existing app code?
+        NO → Standard migration ✅
+        YES → Does it affect hot path (high traffic table)?
+          NO → Maintenance window OK (document downtime) ✅
+          YES → Use expand/contract pattern ✅
+      ```
+
+      ## Supabase-Specific Notes
+
+      Supabase emphasizes **forward-only migrations**:
+      - No explicit rollback command in CLI
+      - Use `supabase db reset` for local development only
+      - Production rollbacks require new forward migrations
+
+      This aligns perfectly with expand/contract philosophy:
+      Each phase is a separate forward migration.
+    elicit: false
+
+  - id: supabase-cli
+    title: "Supabase CLI Integration"
+    instruction: |
+      How DB Sage migration workflow integrates with Supabase CLI.
+
+      ## Supabase CLI Migration Workflow
+
+      ### Local Development
+
+      ```bash
+      # 1. Create new migration
+      supabase migration new add_users_table
+
+      # 2. Edit migration file in supabase/migrations/<timestamp>_add_users_table.sql
+
+      # 3. Test migration locally
+      supabase db reset  # Recreates DB from scratch + applies all migrations
+
+      # 4. Verify changes
+      supabase db diff --schema public  # Show diff vs remote
+
+      # 5. Commit migration file
+      git add supabase/migrations/<timestamp>_add_users_table.sql
+      git commit -m "feat: add users table"
+      ```
+
+      ### Staging/Production Deployment
+
+      **CI/CD Pipeline** (GitHub Actions recommended):
+
+      ```yaml
+      name: Deploy to Production
+      on:
+        push:
+          branches: [main]
+
+      jobs:
+        deploy:
+          runs-on: ubuntu-latest
+          steps:
+            - uses: actions/checkout@v3
+
+            - name: Setup Supabase CLI
+              uses: supabase/setup-cli@v1
+
+            - name: Deploy migrations
+              run: supabase db push
+              env:
+                SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+                SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+                SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+      ```
+
+      ### Pulling Remote Schema
+
+      Sync production schema to local:
+
+      ```bash
+      # Pull all remote migrations
+      supabase db pull
+
+      # Creates: supabase/migrations/<timestamp>_remote_schema.sql
+      ```
+
+      **When to use**: After manual changes in Supabase Dashboard.
+
+      ## DB Sage Enhancement Layer
+
+      DB Sage adds custom schema_migrations table **on top** of Supabase CLI:
+
+      | Feature | Supabase CLI | DB Sage schema_migrations |
+      |---------|--------------|---------------------------|
+      | Version tracking | ✅ Timestamp in filename | ✅ + applied_at |
+      | Applied by | ❌ | ✅ current_user |
+      | Checksums | ❌ | ✅ SHA256 |
+      | Rollback scripts | ❌ | ✅ Stored in table |
+      | Success/failure | ❌ | ✅ success boolean |
+      | Execution time | ❌ | ✅ execution_time_ms |
+
+      **Use both together**:
+      - Supabase CLI for development workflow and deployments
+      - schema_migrations for production audit trail
+
+      ## Permission Management
+
+      **Critical**: Migrations created in Supabase Dashboard may have wrong owner.
+
+      ```sql
+      -- Fix ownership (run after pulling remote schema)
+      ALTER TABLE users OWNER TO postgres;
+      ALTER TYPE user_role OWNER TO postgres;
+      ALTER FUNCTION get_user_role() OWNER TO postgres;
+      ```
+
+      **Best practice**: Create all migrations as SQL files, not via Dashboard.
+
+      ## Migration List & Status
+
+      ```bash
+      # Check migration status (local vs remote)
+      supabase migration list
+
+      # Output:
+      # Local      Remote     Status
+      # 20240101   20240101   Applied
+      # 20240102   -          Pending
+      ```
+
+      ## Rollback Strategy
+
+      Supabase CLI does **not** support explicit rollback.
+
+      **Options**:
+      1. **Local**: `supabase db reset` (destructive, dev only)
+      2. **Production**: Create new forward migration that undoes changes
+      3. **DB Sage**: Use rollback_script from schema_migrations table
+
+      **Example** (using DB Sage):
+      ```sql
+      -- Retrieve rollback script
+      SELECT rollback_script FROM schema_migrations
+      WHERE version = '20251027120000';
+
+      -- Execute retrieved script
+      ```
+
+      ## Best Practices
+
+      1. **Always test locally** with `supabase db reset` before deploying
+      2. **Use CI/CD** for staging/production (not local machine)
+      3. **Separate projects** for dev/staging/prod
+      4. **Store credentials** as GitHub secrets (never commit)
+      5. **Reassign ownership** to postgres after dashboard changes
+      6. **Small migrations** (easier to debug, faster to apply)
+      7. **Idempotent scripts** (IF NOT EXISTS, DROP IF EXISTS)
+
+      ## Troubleshooting
+
+      **"must be owner of table" error**:
+      ```sql
+      ALTER TABLE mytable OWNER TO postgres;
+      ```
+
+      **Migration applied but not tracked**:
+      ```bash
+      supabase migration repair <version> --status applied
+      ```
+
+      **Reset local DB** (development only):
+      ```bash
+      supabase db reset
+      ```
+    elicit: false

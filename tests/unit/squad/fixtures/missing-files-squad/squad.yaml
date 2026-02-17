@@ -1,0 +1,9 @@
+name: missing-files
+version: 1.0.0
+description: Squad that references files that do not exist
+
+components:
+  tasks:
+    - non-existent-task.md
+  agents:
+    - non-existent-agent.md

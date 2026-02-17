@@ -1,0 +1,9 @@
+name: needs-migration-squad
+version: 0.5.0
+description: A squad that needs full migration
+
+agents:
+  - old-agent
+
+tasks:
+  - old-task

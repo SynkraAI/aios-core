@@ -1,0 +1,6 @@
+name: malformed-squad
+version: 1.0.0
+invalid yaml content here [[[
+  this: is
+    badly: formatted
+  - broken

@@ -1,0 +1,112 @@
+title: "[Help] "
+labels:
+  - help-wanted
+  - troubleshooting
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 Troubleshooting Help
+        Running into a problem? Let's figure it out together!
+
+        **Note:** If you've confirmed this is a bug, please [open an issue](https://github.com/SynkraAI/aios-core/issues/new/choose) instead.
+
+  - type: dropdown
+    id: repo-scope
+    attributes:
+      label: Which repository is affected?
+      options:
+        - aios-core (Core Framework)
+        - aios-squads (AIOS Squads)
+        - mcp-ecosystem (Docker MCP Toolkit)
+        - Multiple / Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's happening?
+      description: Describe the problem you're experiencing
+      placeholder: |
+        Describe what's going wrong...
+
+        - What were you trying to do?
+        - What happened instead?
+        - Any error messages?
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      description: What should have happened?
+      placeholder: |
+        I expected...
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Step 1
+        2. Step 2
+        3. See error
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Code / Configuration
+      description: Share relevant code or config
+      render: javascript
+      placeholder: |
+        // Your code here
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Error Output
+      description: Any error messages or stack traces
+      render: shell
+      placeholder: |
+        Paste error output here...
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Your system information
+      placeholder: |
+        - OS: Windows 11 / macOS 14 / Ubuntu 22.04
+        - Node.js: v20.x
+        - AIOS version: x.x.x
+        - IDE: VS Code / Cursor / Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried?
+      description: List any solutions you've attempted
+      placeholder: |
+        - Tried restarting...
+        - Cleared cache...
+        - Checked documentation...
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I've searched existing discussions for similar issues
+        - label: I've checked the documentation
+        - label: I've tried with the latest version
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Tip:** The more details you provide, the faster we can help! If this turns out to be a bug, a maintainer will help you file an issue.

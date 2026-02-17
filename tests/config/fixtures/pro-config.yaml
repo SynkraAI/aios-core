@@ -1,0 +1,8 @@
+# Test fixture: Pro extension config
+squads:
+  premium_templates: true
+  max_squads: 10
+
+pro_features:
+  advanced_analytics: true
+  custom_workflows: true

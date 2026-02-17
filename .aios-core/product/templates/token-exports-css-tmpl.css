@@ -1,0 +1,240 @@
+/**
+ * Design System Tokens - CSS Custom Properties
+ *
+ * Project: {{PROJECT_NAME}}
+ * Generated: {{GENERATION_DATE}}
+ * Source: {{TOKEN_SOURCE_FILE}}
+ *
+ * Usage:
+ * ```css
+ * .button {
+ *   background-color: var(--color-primary);
+ *   padding: var(--space-md) var(--space-lg);
+ *   font-family: var(--font-base);
+ * }
+ * ```
+ */
+
+:root {
+  /* ============================================
+     COLOR TOKENS
+     ============================================ */
+
+  /* Primary Colors */
+  {{#EACH_COLOR_PRIMARY}}
+  --color-{{COLOR_NAME}}: {{COLOR_VALUE}};
+  {{/EACH_COLOR_PRIMARY}}
+
+  /* Semantic Colors */
+  {{#EACH_COLOR_SEMANTIC}}
+  --color-{{COLOR_NAME}}: {{COLOR_VALUE}};
+  {{/EACH_COLOR_SEMANTIC}}
+
+  /* Neutral/Grayscale */
+  {{#EACH_COLOR_NEUTRAL}}
+  --color-{{COLOR_NAME}}: {{COLOR_VALUE}};
+  {{/EACH_COLOR_NEUTRAL}}
+
+  /* State Colors */
+  {{#EACH_COLOR_STATE}}
+  --color-{{COLOR_NAME}}: {{COLOR_VALUE}};
+  {{/EACH_COLOR_STATE}}
+
+  /* ============================================
+     SPACING TOKENS
+     ============================================ */
+
+  /* Base Spacing Scale */
+  {{#EACH_SPACING}}
+  --space-{{SPACING_NAME}}: {{SPACING_VALUE}};
+  {{/EACH_SPACING}}
+
+  /* Component-Specific Spacing */
+  {{#EACH_SPACING_COMPONENT}}
+  --space-{{SPACING_NAME}}: {{SPACING_VALUE}};
+  {{/EACH_SPACING_COMPONENT}}
+
+  /* ============================================
+     TYPOGRAPHY TOKENS
+     ============================================ */
+
+  /* Font Families */
+  {{#EACH_FONT_FAMILY}}
+  --font-{{FONT_NAME}}: {{FONT_VALUE}};
+  {{/EACH_FONT_FAMILY}}
+
+  /* Font Sizes */
+  {{#EACH_FONT_SIZE}}
+  --font-size-{{SIZE_NAME}}: {{SIZE_VALUE}};
+  {{/EACH_FONT_SIZE}}
+
+  /* Font Weights */
+  {{#EACH_FONT_WEIGHT}}
+  --font-weight-{{WEIGHT_NAME}}: {{WEIGHT_VALUE}};
+  {{/EACH_FONT_WEIGHT}}
+
+  /* Line Heights */
+  {{#EACH_LINE_HEIGHT}}
+  --line-height-{{HEIGHT_NAME}}: {{HEIGHT_VALUE}};
+  {{/EACH_LINE_HEIGHT}}
+
+  /* Letter Spacing */
+  {{#EACH_LETTER_SPACING}}
+  --letter-spacing-{{SPACING_NAME}}: {{SPACING_VALUE}};
+  {{/EACH_LETTER_SPACING}}
+
+  /* ============================================
+     BORDER TOKENS
+     ============================================ */
+
+  /* Border Widths */
+  {{#EACH_BORDER_WIDTH}}
+  --border-width-{{WIDTH_NAME}}: {{WIDTH_VALUE}};
+  {{/EACH_BORDER_WIDTH}}
+
+  /* Border Radii */
+  {{#EACH_BORDER_RADIUS}}
+  --radius-{{RADIUS_NAME}}: {{RADIUS_VALUE}};
+  {{/EACH_BORDER_RADIUS}}
+
+  /* Border Colors */
+  {{#EACH_BORDER_COLOR}}
+  --border-{{COLOR_NAME}}: {{COLOR_VALUE}};
+  {{/EACH_BORDER_COLOR}}
+
+  /* ============================================
+     SHADOW TOKENS
+     ============================================ */
+
+  {{#EACH_SHADOW}}
+  --shadow-{{SHADOW_NAME}}: {{SHADOW_VALUE}};
+  {{/EACH_SHADOW}}
+
+  /* ============================================
+     Z-INDEX TOKENS
+     ============================================ */
+
+  {{#EACH_Z_INDEX}}
+  --z-{{Z_NAME}}: {{Z_VALUE}};
+  {{/EACH_Z_INDEX}}
+
+  /* ============================================
+     TRANSITION/ANIMATION TOKENS
+     ============================================ */
+
+  /* Transition Durations */
+  {{#EACH_DURATION}}
+  --duration-{{DURATION_NAME}}: {{DURATION_VALUE}};
+  {{/EACH_DURATION}}
+
+  /* Transition Easings */
+  {{#EACH_EASING}}
+  --easing-{{EASING_NAME}}: {{EASING_VALUE}};
+  {{/EACH_EASING}}
+
+  /* ============================================
+     BREAKPOINT TOKENS
+     ============================================ */
+
+  {{#EACH_BREAKPOINT}}
+  --breakpoint-{{BP_NAME}}: {{BP_VALUE}};
+  {{/EACH_BREAKPOINT}}
+
+  /* ============================================
+     CUSTOM COMPONENT TOKENS
+     ============================================ */
+
+  {{#EACH_CUSTOM_TOKEN}}
+  --{{CUSTOM_NAME}}: {{CUSTOM_VALUE}};
+  {{/EACH_CUSTOM_TOKEN}}
+}
+
+/* ============================================
+   DARK MODE OVERRIDES (Optional)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    {{#EACH_DARK_MODE_OVERRIDE}}
+    --color-{{COLOR_NAME}}: {{DARK_VALUE}};
+    {{/EACH_DARK_MODE_OVERRIDE}}
+  }
+}
+
+[data-theme="dark"] {
+  {{#EACH_DARK_MODE_OVERRIDE}}
+  --color-{{COLOR_NAME}}: {{DARK_VALUE}};
+  {{/EACH_DARK_MODE_OVERRIDE}}
+}
+
+/* ============================================
+   UTILITY CLASSES (Optional)
+   ============================================ */
+
+/* Color Utilities */
+{{#EACH_COLOR_UTILITY}}
+.text-{{COLOR_NAME}} {
+  color: var(--color-{{COLOR_NAME}});
+}
+
+.bg-{{COLOR_NAME}} {
+  background-color: var(--color-{{COLOR_NAME}});
+}
+
+.border-{{COLOR_NAME}} {
+  border-color: var(--color-{{COLOR_NAME}});
+}
+{{/EACH_COLOR_UTILITY}}
+
+/* Spacing Utilities */
+{{#EACH_SPACING_UTILITY}}
+.p-{{SPACING_NAME}} {
+  padding: var(--space-{{SPACING_NAME}});
+}
+
+.m-{{SPACING_NAME}} {
+  margin: var(--space-{{SPACING_NAME}});
+}
+
+.gap-{{SPACING_NAME}} {
+  gap: var(--space-{{SPACING_NAME}});
+}
+{{/EACH_SPACING_UTILITY}}
+
+/* Typography Utilities */
+{{#EACH_FONT_SIZE_UTILITY}}
+.text-{{SIZE_NAME}} {
+  font-size: var(--font-size-{{SIZE_NAME}});
+}
+{{/EACH_FONT_SIZE_UTILITY}}
+
+{{#EACH_FONT_WEIGHT_UTILITY}}
+.font-{{WEIGHT_NAME}} {
+  font-weight: var(--font-weight-{{WEIGHT_NAME}});
+}
+{{/EACH_FONT_WEIGHT_UTILITY}}
+
+/* Border Radius Utilities */
+{{#EACH_RADIUS_UTILITY}}
+.rounded-{{RADIUS_NAME}} {
+  border-radius: var(--radius-{{RADIUS_NAME}});
+}
+{{/EACH_RADIUS_UTILITY}}
+
+/* Shadow Utilities */
+{{#EACH_SHADOW_UTILITY}}
+.shadow-{{SHADOW_NAME}} {
+  box-shadow: var(--shadow-{{SHADOW_NAME}});
+}
+{{/EACH_SHADOW_UTILITY}}
+
+/* ============================================
+   TOKEN VALIDATION
+   ============================================ */
+
+/**
+ * To verify tokens are loaded correctly, check:
+ * console.log(getComputedStyle(document.documentElement).getPropertyValue('--color-primary'));
+ *
+ * Expected output: "{{COLOR_PRIMARY_VALUE}}" (or your primary color)
+ */

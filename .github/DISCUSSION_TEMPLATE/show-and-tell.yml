@@ -1,0 +1,102 @@
+title: "[Showcase] "
+labels:
+  - community
+  - showcase
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🙌 Show and Tell
+        Built something cool with AIOS? Share it with the community!
+
+        We love seeing what you've created. Your project might inspire others!
+
+  - type: input
+    id: project-name
+    attributes:
+      label: Project Name
+      description: What's your project called?
+      placeholder: My Awesome AIOS Project
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Tell us about your project
+      placeholder: |
+        What does your project do?
+        What problem does it solve?
+        Who is it for?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: aios-components
+    attributes:
+      label: AIOS Components Used
+      description: Which parts of AIOS does your project use?
+      multiple: true
+      options:
+        - aios-core (Core Framework)
+        - aios-squads (AIOS Squads)
+        - ETL Squad
+        - Creator Squad
+        - Docker MCP Toolkit
+        - MCP Presets
+        - Custom Agents
+        - Custom Tasks
+        - Custom Workflows
+    validations:
+      required: true
+
+  - type: textarea
+    id: features
+    attributes:
+      label: Key Features
+      description: What are the main features of your project?
+      placeholder: |
+        - Feature 1
+        - Feature 2
+        - Feature 3
+
+  - type: textarea
+    id: code-snippet
+    attributes:
+      label: Code Snippet (optional)
+      description: Share an interesting code snippet
+      render: javascript
+      placeholder: |
+        // Share a cool snippet from your project
+
+  - type: input
+    id: link
+    attributes:
+      label: Project Link (optional)
+      description: GitHub repo, demo, or website
+      placeholder: https://github.com/username/project
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or Demo (optional)
+      description: Drag and drop images or paste links to demos
+      placeholder: |
+        Paste images or links here...
+
+  - type: textarea
+    id: lessons-learned
+    attributes:
+      label: Lessons Learned (optional)
+      description: What did you learn while building this?
+      placeholder: |
+        - Tip 1
+        - Challenge I overcame
+        - Something I wish I knew earlier
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Thank you for sharing!** Your contribution helps grow the AIOS community. 🎉

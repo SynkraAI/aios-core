@@ -1,0 +1,54 @@
+tool:
+  schema_version: 2.0
+  id: test-complex
+  type: mcp
+  name: Test Complex Tool
+  version: 1.0.0
+  description: Complex v2.0 tool with executable knowledge
+  knowledge_strategy: executable
+
+  commands:
+    - create_item
+    - update_item
+
+  executable_knowledge:
+    validators:
+      - id: validate-create-item
+        validates: create_item
+        language: javascript
+        checks:
+          - required_fields: [name]
+        function: |
+          function validateCommand(args) {
+            const errors = [];
+            if (!args.args.name) {
+              errors.push("name is required");
+            }
+            return {
+              valid: errors.length === 0,
+              errors: errors
+            };
+          }
+          module.exports = { validateCommand };
+
+    helpers:
+      - id: extract-field
+        language: javascript
+        runtime: isolated_vm
+        function: |
+          function extractField(args) {
+            const { data, fieldName } = args;
+            return data.fields?.find(f => f.name === fieldName);
+          }
+          module.exports = { extractField };
+
+  api_complexity:
+    api_quirks:
+      - quirk: format_mismatch
+        description: "Create and Update use different formats"
+        impact: "Runtime errors if wrong format used"
+        mitigation: "Use validators"
+
+  mcp_specific:
+    server_command: npx -y test-complex-server
+    transport: stdio

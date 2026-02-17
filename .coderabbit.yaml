@@ -1,0 +1,101 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# AIOS CodeRabbit Configuration
+# Story: COLLAB-1, 12.11
+# Created: 2025-12-30
+# Updated: 2026-02-05 (Story 12.11 - Bob CI/CD Pipeline)
+#
+# CodeRabbit provides AI-powered code review for pull requests
+# Documentation: https://docs.coderabbit.ai/getting-started/yaml-configuration
+
+language: "en-US"
+tone_instructions: "Be professional, constructive, and focused on code quality."
+early_access: false
+
+reviews:
+  # Automatic review settings
+  auto_review:
+    enabled: true
+    base_branches:
+      - main
+    drafts: false
+
+  # Review behavior
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+
+  # Path-specific review instructions (array format per schema)
+  path_instructions:
+    - path: ".aios-core/core/**"
+      instructions: |
+        CRITICAL PATH: Core framework modules require thorough review.
+        Verify error handling is comprehensive with proper try/catch and error context.
+        Check for race conditions in orchestration modules (lock-manager, session-state).
+        Validate async/await patterns and ensure no unhandled promise rejections.
+        Ensure backwards compatibility — core modules are consumed by all agents.
+        Check for proper input validation on public API methods.
+        Verify test coverage exists for new/modified functions.
+        Flag any hardcoded paths, credentials, or environment-specific values.
+
+    - path: ".aios-core/core/orchestration/**"
+      instructions: |
+        Bob orchestration modules — highest scrutiny required.
+        Verify bob-orchestrator.js maintains single-responsibility for workflow dispatch.
+        Check lock-manager.js for deadlock prevention and proper cleanup.
+        Validate terminal-spawner.js handles all platforms (Unix shell, Windows fallback).
+        Ensure workflow-executor.js callback lifecycle is correct (onStart, onComplete, onError).
+        Check session-state.js for thread-safety and state corruption prevention.
+        Verify message-formatter.js output is consistent across all message types.
+
+    - path: ".aios-core/development/agents/**"
+      instructions: |
+        Verify agent follows AIOS agent YAML structure (persona_profile, commands, dependencies).
+        Check that persona_profile includes archetype, communication style, and greeting_levels.
+        Validate all commands listed have corresponding task dependencies.
+        Ensure agent has proper visibility metadata for commands.
+        Check for security: no hardcoded credentials or sensitive data.
+
+    - path: ".aios-core/development/tasks/**"
+      instructions: |
+        Verify task follows AIOS task format with clear elicitation points.
+        Check that deliverables are well-defined.
+        Validate any referenced dependencies exist in the codebase.
+        Ensure task has proper error handling guidance.
+
+    - path: ".aios-core/development/workflows/**"
+      instructions: |
+        Verify workflow YAML structure is valid.
+        Check step ordering and dependencies make logical sense.
+        Validate referenced agents and tasks exist.
+
+    - path: ".aios-core/product/templates/**"
+      instructions: |
+        Ensure template follows AIOS template conventions.
+        Check placeholder syntax is consistent.
+        Validate template produces valid output.
+
+    - path: ".github/**"
+      instructions: |
+        Review for security implications.
+        Check for proper secret handling.
+        Validate workflow syntax.
+        Ensure consistent with existing CI patterns.
+
+    - path: "**/*.js"
+      instructions: |
+        Check for async/await best practices.
+        Verify error handling is comprehensive.
+        Look for potential security vulnerabilities.
+        Ensure code follows AIOS coding standards (ES2022, single quotes, 2-space indent).
+
+    - path: "**/*.ts"
+      instructions: |
+        Verify TypeScript types are properly defined.
+        Check for any 'any' type usage that should be more specific.
+        Ensure exports are properly typed.
+
+# Chat settings
+chat:
+  auto_reply: true

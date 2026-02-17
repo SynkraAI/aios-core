@@ -1,0 +1,15 @@
+name: analyze-test-squad
+version: 1.0.0
+description: Test squad for analyzer tests
+author: test
+
+aios:
+  minVersion: "2.1.0"
+
+components:
+  agents:
+    - lead-agent.md
+    - helper-agent.md
+  tasks:
+    - lead-agent-task1.md
+    - lead-agent-task2.md
