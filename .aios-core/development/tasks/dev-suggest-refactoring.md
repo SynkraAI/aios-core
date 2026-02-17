@@ -825,11 +825,17 @@ module.exports = SuggestRefactoringTask;
 3. Run pattern detectors
 4. Generate suggestions
 5. Prioritize by impact
+6. **Code Intelligence Blast Radius** (if available):
+   - Call `assessRefactoringImpact(candidateFiles)` from `.aios-core/core/code-intel/helpers/dev-helper`
+   - If result is not null, enrich each suggestion with:
+     - `blastRadius`: number of affected references
+     - `riskLevel`: LOW (<5 refs) | MEDIUM (5-15) | HIGH (>15)
+   - If code intelligence not available: suggestions work as before (no blast radius shown)
 
 ### Review Phase
 1. Display suggestions
 2. Group by file/type
-3. Show impact analysis
+3. Show impact analysis (including blast radius and risk level when available)
 4. Provide preview
 5. Export for review
 

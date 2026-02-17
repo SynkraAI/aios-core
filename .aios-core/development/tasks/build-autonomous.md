@@ -70,10 +70,16 @@ steps:
     action: |
       FOR EACH subtask in implementation.yaml:
         1. Track attempt start (RecoveryTracker)
-        2. Execute subtask (plan-execute-subtask.md workflow)
-        3. Self-critique at steps 5.5 and 6.5
-        4. Verify completion (verify-subtask.md workflow)
-        5. Create checkpoint on success
+        2. **Code Intelligence IDS G4 Check** (before creating new files):
+           - If `isCodeIntelAvailable()` (from `.aios-core/core/code-intel`):
+             - Call `checkBeforeWriting(fileName, description)` from `dev-helper`
+             - If duplicates detected: log in decision-log and display as advisory
+             - Does NOT block execution (autonomous mode continues)
+           - If code intelligence not available: skip silently
+        3. Execute subtask (plan-execute-subtask.md workflow)
+        4. Self-critique at steps 5.5 and 6.5
+        5. Verify completion (verify-subtask.md workflow)
+        6. Create checkpoint on success
 
         IF failure:
           - Increment attempt count
