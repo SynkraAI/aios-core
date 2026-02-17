@@ -156,6 +156,9 @@ commands:
   - name: cleanup
     visibility: [full, quick]
     description: 'Identify and remove stale branches/files'
+  - name: update-aios
+    visibility: [full, quick, key]
+    description: 'Git-native sync of AIOS framework from upstream repository'
   - name: init-project-status
     visibility: [full]
     description: 'Initialize dynamic project status tracking (Story 6.1.2.4)'
@@ -233,6 +236,7 @@ dependencies:
     - ci-cd-configuration.md
     - github-devops-repository-cleanup.md
     - release-management.md
+    - update-aios.md
     # MCP Management Tasks [Story 6.14]
     - search-mcp.md
     - add-mcp.md
