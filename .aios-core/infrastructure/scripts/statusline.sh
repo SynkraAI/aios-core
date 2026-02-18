@@ -294,14 +294,11 @@ if [ -n "$AIOS_CONTEXT" ]; then
 fi
 
 # ── Build Line 2 ───────────────────────────────────────────────────────────
-# repo/subpath:branch
+# repo/subpath (branch omitted — visible via git status when needed)
 if [ -n "$REPO_PATH" ]; then
   LINE2="${BLUE}${REPO_PATH}"
 else
   LINE2="${BLUE}$(basename "$CWD")"
-fi
-if [ -n "$BRANCH" ]; then
-  LINE2+=":${BRANCH}"
 fi
 LINE2+="${RESET}"
 
