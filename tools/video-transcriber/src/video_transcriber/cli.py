@@ -19,6 +19,8 @@ from .chunker import chunk_transcription, save_chunks
 from .cleaner import clean_segments, clean_transcription_file, generate_clean_markdown
 from .config import (
     AUDIO_EXTENSIONS,
+    BATCH_DASHBOARD_PORT,
+    BATCH_DEFAULT_MODEL,
     CHUNK_MAX_WORDS,
     DEFAULT_LANGUAGE,
     DEFAULT_MODEL,
@@ -248,6 +250,149 @@ def transcribe_cmd(
     save_transcription(result, output)
     console.print(f"\n[green]Saved:[/green] {output}")
     console.print(f"Segments: {len(result.segments)}, Language: {result.language}")
+
+
+@app.command()
+def batch(
+    source_dir: Path = typer.Argument(help="Directory containing videos to transcribe"),
+    model: str = typer.Option(
+        BATCH_DEFAULT_MODEL, "--model", "-m",
+        help=f"Whisper model ({', '.join(WHISPER_MODELS)})",
+    ),
+    language: str = typer.Option(
+        DEFAULT_LANGUAGE, "--language", "-l",
+        help="Language code (e.g., 'pt', 'en')",
+    ),
+    output_dir: Optional[Path] = typer.Option(
+        None, "--output-dir", "-o",
+        help="Centralized output directory (default: alongside each video)",
+    ),
+    dashboard: bool = typer.Option(
+        False, "--dashboard",
+        help="Start an HTML dashboard for monitoring progress",
+    ),
+    port: int = typer.Option(
+        BATCH_DASHBOARD_PORT, "--port",
+        help="Dashboard server port",
+    ),
+    do_chunk: bool = typer.Option(
+        False, "--chunk",
+        help="Generate chunks per video (off by default)",
+    ),
+    max_words: int = typer.Option(
+        CHUNK_MAX_WORDS, "--max-words",
+        help="Max words per chunk (requires --chunk)",
+    ),
+    dry_run: bool = typer.Option(
+        False, "--dry-run",
+        help="List videos without processing",
+    ),
+) -> None:
+    """Batch transcribe all videos in a directory.
+
+    Scans recursively for video files, skips already-transcribed ones,
+    and writes '-transcricao.md' files with cleaned transcriptions.
+    """
+    from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn, TimeElapsedColumn
+
+    from .batch import BatchEngine
+
+    source_dir = source_dir.resolve()
+    if not source_dir.is_dir():
+        console.print(f"[red]Not a directory: {source_dir}[/red]")
+        raise typer.Exit(1)
+
+    engine = BatchEngine(
+        source_dir,
+        model=model,
+        language=language,
+        output_dir=output_dir,
+        chunk=do_chunk,
+        max_words=max_words,
+    )
+
+    # Scan
+    console.print(f"\n[bold]Scanning:[/bold] {source_dir}")
+    state = engine.scan()
+
+    console.print(f"  Total videos: {state.total_videos}")
+    console.print(f"  Already done: {state.skipped}")
+    console.print(f"  To process:   {state.remaining}")
+
+    if state.remaining == 0:
+        console.print("\n[green]All videos already transcribed![/green]")
+        raise typer.Exit(0)
+
+    # Dry run — list and exit
+    if dry_run:
+        console.print(f"\n[bold]Pending videos ({len(engine.pending)}):[/bold]")
+        for i, video in enumerate(engine.pending, 1):
+            rel = video.relative_to(source_dir)
+            console.print(f"  {i:3d}. {rel}")
+        raise typer.Exit(0)
+
+    # Start dashboard if requested
+    dashboard_server = None
+    if dashboard:
+        from .dashboard import DashboardServer
+
+        serve_dir = output_dir or source_dir
+        dashboard_server = DashboardServer(serve_dir, port=port)
+        actual_port = dashboard_server.start()
+        console.print(
+            f"\n[bold green]Dashboard:[/bold green] http://localhost:{actual_port}/dashboard.html"
+        )
+
+    # Run with Rich progress
+    console.print(f"\n[bold]Starting batch transcription[/bold]")
+    console.print(f"  Model: {model} | Language: {language}")
+    console.print(f"  Ctrl+C to pause (resume by re-running)\n")
+
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(),
+        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+        TextColumn("{task.completed}/{task.total}"),
+        TimeElapsedColumn(),
+        console=console,
+    ) as progress:
+        task = progress.add_task("Transcribing", total=len(engine.pending))
+
+        completed_count = 0
+
+        def on_progress(batch_state):  # noqa: ANN001
+            nonlocal completed_count
+            new_completed = batch_state.completed - state.skipped + batch_state.errors
+            advance = new_completed - completed_count
+            if advance > 0:
+                completed_count = new_completed
+                progress.advance(task, advance)
+            progress.update(task, description=f"[cyan]{batch_state.current_video or 'Done'}[/cyan]")
+
+        final_state = engine.run(progress_callback=on_progress)
+
+    # Summary
+    console.print("\n" + "=" * 60)
+    if not engine._is_running and final_state.remaining > 0:
+        console.print("[yellow]PAUSED[/yellow] — re-run to resume")
+    else:
+        console.print("[bold green]COMPLETE[/bold green]")
+    console.print("=" * 60)
+
+    table = Table(show_header=False, box=None, padding=(0, 2))
+    table.add_column(style="bold")
+    table.add_column()
+    table.add_row("Directory", str(source_dir))
+    table.add_row("Completed", str(final_state.completed))
+    table.add_row("Errors", str(final_state.errors))
+    table.add_row("Remaining", str(final_state.remaining))
+    table.add_row("Model", model)
+    console.print(table)
+    console.print()
+
+    if dashboard_server:
+        dashboard_server.stop()
 
 
 @app.command()

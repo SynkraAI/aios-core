@@ -20,6 +20,8 @@ MLX_MODEL_MAP = {
     "small": "mlx-community/whisper-small-mlx",
     "medium": "mlx-community/whisper-medium-mlx",
     "large": "mlx-community/whisper-large-v3-mlx",
+    "turbo": "mlx-community/whisper-large-v3-turbo",
+    "large-v3-turbo": "mlx-community/whisper-large-v3-turbo",
 }
 
 
@@ -27,6 +29,7 @@ def transcribe(
     audio_path: Path,
     model_name: str = "medium",
     language: str | None = None,
+    verbose: bool = True,
 ) -> TranscriptionResult:
     """Transcribe audio file using the best available Whisper backend.
 
@@ -38,18 +41,19 @@ def transcribe(
 
     # Try mlx-whisper first
     try:
-        return _transcribe_mlx(audio_path, model_name, language)
+        return _transcribe_mlx(audio_path, model_name, language, verbose)
     except ImportError:
         console.print("  [yellow]mlx-whisper not available, trying openai-whisper...[/yellow]")
 
     # Fallback to openai-whisper
-    return _transcribe_openai(audio_path, model_name, language)
+    return _transcribe_openai(audio_path, model_name, language, verbose)
 
 
 def _transcribe_mlx(
     audio_path: Path,
     model_name: str,
     language: str | None,
+    verbose: bool = True,
 ) -> TranscriptionResult:
     """Transcribe using mlx-whisper (Apple Silicon GPU)."""
     import mlx_whisper  # type: ignore[import-untyped]
@@ -58,7 +62,7 @@ def _transcribe_mlx(
     console.print(f"  [bold]Engine:[/bold] mlx-whisper (Apple Silicon GPU)")
     console.print(f"  [bold]Model:[/bold] {mlx_model}")
 
-    options: dict = {"path_or_hf_repo": mlx_model, "verbose": True}
+    options: dict = {"path_or_hf_repo": mlx_model, "verbose": verbose}
     if language and language != "auto":
         options["language"] = language
 
@@ -70,6 +74,7 @@ def _transcribe_openai(
     audio_path: Path,
     model_name: str,
     language: str | None,
+    verbose: bool = True,
 ) -> TranscriptionResult:
     """Transcribe using openai-whisper with auto-detect device."""
     import torch  # type: ignore[import-untyped]
@@ -90,7 +95,7 @@ def _transcribe_openai(
 
     model = whisper.load_model(model_name, device=device)
 
-    options: dict = {"fp16": False, "verbose": True}
+    options: dict = {"fp16": False, "verbose": verbose}
     if language and language != "auto":
         options["language"] = language
 

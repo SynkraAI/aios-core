@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "video-transcriber"
-version = "1.0.0"
+version = "1.1.0"
 description = "Download, transcribe, clean, and chunk video/audio content"
 requires-python = ">=3.10"
 license = "MIT"
@@ -27,9 +27,13 @@ dev = [
 
 [project.scripts]
 video-transcriber = "video_transcriber.cli:app"
+vt = "video_transcriber.cli:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/video_transcriber"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/video_transcriber/assets" = "video_transcriber/assets"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

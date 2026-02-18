@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from enum import Enum
 
 
 @dataclass
@@ -135,3 +136,79 @@ def _fmt_time(seconds: float) -> str:
     if h > 0:
         return f"{h:02d}:{m:02d}:{s:02d}"
     return f"{m:02d}:{s:02d}"
+
+
+# ---------------------------------------------------------------------------
+# Batch transcription models
+# ---------------------------------------------------------------------------
+
+
+class VideoStatus(str, Enum):
+    """Status of a single video in a batch run."""
+
+    PENDING = "pending"
+    RUNNING = "running"
+    DONE = "done"
+    SKIPPED = "skipped"
+    ERROR = "error"
+
+
+@dataclass
+class BatchVideoStatus:
+    """Tracks the status of a single video within a batch."""
+
+    path: str
+    name: str
+    status: VideoStatus = VideoStatus.PENDING
+    elapsed_seconds: float = 0.0
+    error: str = ""
+    output_path: str = ""
+
+    def to_dict(self) -> dict:
+        return {
+            "path": self.path,
+            "name": self.name,
+            "status": self.status.value,
+            "elapsed_seconds": self.elapsed_seconds,
+            "error": self.error,
+            "output_path": self.output_path,
+        }
+
+
+@dataclass
+class BatchState:
+    """Full state of a batch transcription run."""
+
+    project_name: str = ""
+    total_videos: int = 0
+    completed: int = 0
+    skipped: int = 0
+    errors: int = 0
+    remaining: int = 0
+    percent: float = 0.0
+    is_running: bool = False
+    current_video: str = ""
+    estimated_hours_remaining: float = 0.0
+    timestamp: str = ""
+    model: str = ""
+    language: str = ""
+    recent_transcriptions: list[dict] = field(default_factory=list)
+    videos: list[BatchVideoStatus] = field(default_factory=list)
+
+    def to_dict(self) -> dict:
+        return {
+            "project_name": self.project_name,
+            "total_videos": self.total_videos,
+            "completed": self.completed,
+            "skipped": self.skipped,
+            "errors": self.errors,
+            "remaining": self.remaining,
+            "percent": round(self.percent, 1),
+            "is_running": self.is_running,
+            "current_video": self.current_video,
+            "estimated_hours_remaining": round(self.estimated_hours_remaining, 2),
+            "timestamp": self.timestamp,
+            "model": self.model,
+            "language": self.language,
+            "recent_transcriptions": self.recent_transcriptions,
+        }
