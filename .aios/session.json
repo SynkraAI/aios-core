@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "aios-core",
+    "emoji": "🏗️",
+    "type": "framework"
+  },
+  "status": {},
+  "metadata": {},
+  "context": {},
+  "activeAgent": {},
+  "session": {}
+}

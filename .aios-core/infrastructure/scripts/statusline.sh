@@ -155,21 +155,43 @@ if [ -f "$AIOS_STATE_FILE" ]; then
   eval "$(jq -r '
     @sh "DISPLAY_TITLE=\(.project.displayTitle // "")",
     @sh "TITLE_EMOJI=\(.project.titleEmoji // "")",
+    @sh "CTX_STORY=\(.context.story // "")",
+    @sh "CTX_EPIC=\(.context.epic // "")",
+    @sh "PROJECT_NAME=\(.project.name // "")",
+    @sh "PROJECT_EMOJI=\(.project.emoji // "")",
     @sh "PROGRESS=\(.status.progress // "")",
     @sh "STATUS_EMOJI=\(.status.emoji // "")",
     @sh "SESSION_AGENT=\(.activeAgent.id // "")"
   ' "$AIOS_STATE_FILE" 2>/dev/null)" || true
 
-  # Build AIOS context string
-  if [ -n "$DISPLAY_TITLE" ] && [ "$DISPLAY_TITLE" != "null" ]; then
-    ctx_prefix=""
-    if [ -n "$TITLE_EMOJI" ] && [ "$TITLE_EMOJI" != "null" ]; then
-      ctx_prefix="${TITLE_EMOJI} "
+  # Fallback chain for title: displayTitle → context.story → context.epic → project.name
+  RESOLVED_TITLE=""
+  for candidate in "$DISPLAY_TITLE" "$CTX_STORY" "$CTX_EPIC" "$PROJECT_NAME"; do
+    if [ -n "$candidate" ] && [ "$candidate" != "null" ]; then
+      RESOLVED_TITLE="$candidate"
+      break
     fi
-    if [ ${#DISPLAY_TITLE} -gt 30 ]; then
-      AIOS_CONTEXT="${ctx_prefix}${DISPLAY_TITLE:0:27}..."
+  done
+
+  # Fallback chain for emoji: titleEmoji → project.emoji → (empty)
+  RESOLVED_EMOJI=""
+  for candidate in "$TITLE_EMOJI" "$PROJECT_EMOJI"; do
+    if [ -n "$candidate" ] && [ "$candidate" != "null" ]; then
+      RESOLVED_EMOJI="$candidate"
+      break
+    fi
+  done
+
+  # Build AIOS context string
+  if [ -n "$RESOLVED_TITLE" ]; then
+    ctx_prefix=""
+    if [ -n "$RESOLVED_EMOJI" ]; then
+      ctx_prefix="${RESOLVED_EMOJI} "
+    fi
+    if [ ${#RESOLVED_TITLE} -gt 30 ]; then
+      AIOS_CONTEXT="${ctx_prefix}${RESOLVED_TITLE:0:27}..."
     else
-      AIOS_CONTEXT="${ctx_prefix}${DISPLAY_TITLE}"
+      AIOS_CONTEXT="${ctx_prefix}${RESOLVED_TITLE}"
     fi
   fi
 
