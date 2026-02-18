@@ -6,7 +6,7 @@
 
 Complete guide for using Synkra AIOS - the AI-Orchestrated System for Full Stack Development.
 
-**Version:** 2.1.0
+**Version:** 4.2.11
 **Last Updated:** 2026-01-28
 
 ---
@@ -26,11 +26,11 @@ Before using AIOS, ensure you have:
 
 ```bash
 # New project (Greenfield)
-npx @synkra/aios-core init my-project
+npx aios-core init my-project
 
 # Existing project (Brownfield)
 cd existing-project
-npx @synkra/aios-core install
+npx aios-core install
 ```
 
 ### First Steps

@@ -118,7 +118,7 @@ class AIOSUpdater {
         if (!isOnline) {
           result.error = 'You appear to be offline. Please check your internet connection.';
         } else {
-          result.error = 'Package @synkra/aios-core not found on npm registry. This may be a local development installation.';
+          result.error = 'Package aios-core not found on npm registry. This may be a local development installation.';
         }
         return result;
       }
@@ -180,7 +180,7 @@ class AIOSUpdater {
     if (fs.existsSync(localPackageJsonPath)) {
       try {
         const pkg = await fs.readJson(localPackageJsonPath);
-        if (pkg.name === '@synkra/aios-core' || pkg.name === 'aios-core') {
+        if (pkg.name === 'aios-core') {
           return { version: pkg.version, installedAt: null, mode: 'framework-development' };
         }
       } catch (error) {
@@ -199,7 +199,7 @@ class AIOSUpdater {
   async getLatestVersion() {
     return new Promise((resolve) => {
       const request = https.get(
-        'https://registry.npmjs.org/@synkra/aios-core/latest',
+        'https://registry.npmjs.org/aios-core/latest',
         { timeout: this.options.timeout },
         (res) => {
           let data = '';
@@ -406,7 +406,7 @@ class AIOSUpdater {
    */
   async update(options = {}) {
     const dryRun = options.dryRun === true;
-    const onProgress = options.onProgress || (() => {});
+    const onProgress = options.onProgress || (() => { });
 
     const result = {
       success: false,
@@ -587,7 +587,7 @@ class AIOSUpdater {
 
     try {
       // Use npm to update the package
-      const cmd = `npm install @synkra/aios-core@${targetVersion} --save-exact`;
+      const cmd = `npm install aios-core@${targetVersion} --save-exact`;
       this.log(`Running: ${cmd}`);
 
       execSync(cmd, {

@@ -212,7 +212,7 @@ Claude Opus 4.6
 
 - `open` v10+ is ESM-only; used `import()` dynamic import in CJS context with `openFn` DI parameter for testability
 - `jest.mock('open')` does not intercept dynamic `import()` — switched to dependency injection pattern
-- Pre-existing test failure in `tests/unit/cli.test.js:61` (expects `npx @synkra/aios-core`, CLI shows `npx aios-core@latest`) — not related to this story
+- Pre-existing test failure in `tests/unit/cli.test.js:61` (expects `npx aios-core`, CLI shows `npx aios-core@latest`) — not related to this story
 
 ### Completion Notes
 

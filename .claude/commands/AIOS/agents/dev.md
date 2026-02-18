@@ -319,7 +319,7 @@ dependencies:
       max_iterations = 2
 
       WHILE iteration < max_iterations:
-        1. Run: wsl bash -c 'cd /mnt/c/.../@synkra/aios-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'
+        1. Run: wsl bash -c 'cd /mnt/c/.../aios-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'
         2. Parse output for CRITICAL issues
 
         IF no CRITICAL issues:
