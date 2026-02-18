@@ -39,7 +39,7 @@ The Ship-It squad workflows referenced in this analysis live in the private AIOS
 |-----------|---------------------------|--------------|-----|
 | Architecture | 1 file, 384 lines | 14 files, 8,340 lines | Monolith vs sharded |
 | Phases | 4 (0-3) | 8 (0-7) + brownfield alt | Missing 4 phases |
-| Formal gates | 0 | 10 (structured YAML) | No quality control |
+| Formal gates | 0 | 9 main + 1 brownfield-alt (structured YAML) | No quality control |
 | Verify types | None | 3 (shell/state/manual) | No automation readiness |
 | Severity levels | None | 3 (halt/block/warn) | No triage system |
 | Framework 9 Passos | None | All phases | No execution standard |
@@ -157,10 +157,10 @@ gate_config:
       message: "PRD not found — cannot proceed to Design"
 
   fail_staged_checks: # STAGED — requires user acknowledgment
-    - id: "FS-PRD-001"
+    - id: "FS-PRD-005"
       condition: "Zero placeholders in PRD"
       verify_type: "shell"
-      verify: "grep -qE '\\{[^}]+\\}' docs/02_PRD.md"
+      verify: "! grep -qE '\\{[^}]+\\}' docs/02_PRD.md"
       severity: "block"
       impact: "Incomplete PRD will cascade to broken Design"
       requires: "user_acknowledgment"
@@ -188,7 +188,9 @@ gate_config:
 | delivery_to_done | 7 | 3 | 2 |
 | **TOTAL** | **34** | **24** | **11** |
 
-**Impact:** 69 structured quality checks vs 0 in native greenfield.
+**Impact:** 69 structured quality checks across the 9 main gates vs 0 in native greenfield.
+
+> **Note:** The 10th gate — `brownfield_to_planning` — is a conditional/alternate gate used only in brownfield mode (see A4 and Appendix A). Its checks are not included in the 69-check total above since it replaces the `brief_to_research` and `research_to_prd` gates rather than supplementing them.
 
 ---
 
