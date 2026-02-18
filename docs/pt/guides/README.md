@@ -46,7 +46,7 @@ Use o agente DevOps: `@devops` e então `*setup-mcp-docker`
 
 ---
 
-## Documentação do Framework v4.0.4
+## Documentação do Framework v4.2
 
 **Status:** Completo (Story 2.16)
 **Versão:** 2.1.0
@@ -56,7 +56,7 @@ Use o agente DevOps: `@devops` e então `*setup-mcp-docker`
 
 | Guia                                                                      | Propósito                               | Tempo  | Público                       |
 | ------------------------------------------------------------------------- | --------------------------------------- | ------ | ----------------------------- |
-| **[Arquitetura do Sistema de Módulos](../architecture/module-system.md)** | Arquitetura modular v4.0.4 (4 módulos)    | 15 min | Arquitetos, Desenvolvedores   |
+| **[Arquitetura do Sistema de Módulos](../architecture/module-system.md)** | Arquitetura modular v4.2 (4 módulos)    | 15 min | Arquitetos, Desenvolvedores   |
 | **[Guia de Service Discovery](./service-discovery.md)**                   | Descoberta de workers e API do registro | 10 min | Desenvolvedores               |
 | **[Guia de Migração v2.0→v4.0.4](../../migration/migration-guide.md)**         | Instruções passo a passo de migração    | 20 min | Todos os usuários atualizando |
 

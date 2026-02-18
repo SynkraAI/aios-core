@@ -44,7 +44,7 @@ describe('license-api auth methods', () => {
     it('should successfully create account', async () => {
       await createMockServer((req, res) => {
         expect(req.method).toBe('POST');
-        expect(req.url).toBe('/v1/auth/signup');
+        expect(req.url).toBe('/api/v1/auth/signup');
 
         let body = '';
         req.on('data', (chunk) => (body += chunk));
@@ -110,7 +110,7 @@ describe('license-api auth methods', () => {
     it('should successfully login', async () => {
       await createMockServer((req, res) => {
         expect(req.method).toBe('POST');
-        expect(req.url).toBe('/v1/auth/login');
+        expect(req.url).toBe('/api/v1/auth/login');
 
         let body = '';
         req.on('data', (chunk) => (body += chunk));
@@ -120,7 +120,7 @@ describe('license-api auth methods', () => {
 
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({
-            sessionToken: 'session-token-abc',
+            accessToken: 'session-token-abc',
             userId: 'user-123',
             emailVerified: true,
           }));
@@ -156,7 +156,7 @@ describe('license-api auth methods', () => {
       await createMockServer((req, res) => {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
-          sessionToken: 'session-token',
+          accessToken: 'session-token',
           userId: 'user-456',
           emailVerified: false,
         }));
@@ -172,11 +172,11 @@ describe('license-api auth methods', () => {
   describe('checkEmailVerified (AC-2)', () => {
     it('should return verified=true for verified email', async () => {
       await createMockServer((req, res) => {
-        expect(req.url).toBe('/v1/auth/verify-status');
+        expect(req.url).toBe('/api/v1/auth/verify-status');
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
-          verified: true,
+          emailVerified: true,
           email: 'user@example.com',
         }));
       });
@@ -192,7 +192,7 @@ describe('license-api auth methods', () => {
       await createMockServer((req, res) => {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
-          verified: false,
+          emailVerified: false,
           email: 'unverified@example.com',
         }));
       });
@@ -207,22 +207,22 @@ describe('license-api auth methods', () => {
   describe('activateByAuth (AC-3, AC-4)', () => {
     it('should successfully activate for valid buyer (AC-3)', async () => {
       const mockActivation = {
-        key: 'PRO-AUTH-1234-5678-ABCD',
+        licenseKey: 'PRO-AUTH-1234-5678-ABCD',
         features: ['pro.squads.*', 'pro.memory.*'],
-        seats: { used: 1, max: 2 },
+        seats: { used: 1, max: 3 },
         expiresAt: '2027-02-15T00:00:00Z',
         cacheValidDays: 30,
         gracePeriodDays: 7,
       };
 
       await createMockServer((req, res) => {
-        expect(req.url).toBe('/v1/auth/activate-pro');
+        expect(req.url).toBe('/api/v1/auth/activate-pro');
 
         let body = '';
         req.on('data', (chunk) => (body += chunk));
         req.on('end', () => {
           const data = JSON.parse(body);
-          expect(data.sessionToken).toBe('valid-session');
+          expect(data.accessToken).toBe('valid-session');
           expect(data.machineId).toBeTruthy();
           expect(data.aiosCoreVersion).toBeTruthy();
 
@@ -236,7 +236,7 @@ describe('license-api auth methods', () => {
 
       expect(result.key).toBe('PRO-AUTH-1234-5678-ABCD');
       expect(result.features).toContain('pro.squads.*');
-      expect(result.seats.max).toBe(2);
+      expect(result.seats.max).toBe(3);
       expect(result.activatedAt).toBeTruthy();
     });
 
@@ -324,14 +324,14 @@ describe('license-api auth methods', () => {
   describe('resendVerification (AC-9)', () => {
     it('should successfully resend verification', async () => {
       await createMockServer((req, res) => {
-        expect(req.url).toBe('/v1/auth/resend-verification');
+        expect(req.url).toBe('/api/v1/auth/resend-verification');
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'Verification email resent.' }));
       });
 
       const client = new LicenseApiClient({ baseUrl: serverUrl });
-      const result = await client.resendVerification('session-token');
+      const result = await client.resendVerification('test@example.com');
 
       expect(result.message).toContain('resent');
     });
@@ -345,7 +345,7 @@ describe('license-api auth methods', () => {
       const client = new LicenseApiClient({ baseUrl: serverUrl });
 
       try {
-        await client.resendVerification('session-token');
+        await client.resendVerification('test@example.com');
         fail('Should have thrown');
       } catch (error) {
         expect(error).toBeInstanceOf(AuthError);

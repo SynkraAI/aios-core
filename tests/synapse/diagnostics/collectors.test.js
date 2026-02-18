@@ -72,13 +72,13 @@ describe('hook-collector: collectHookStatus', () => {
   test('returns PASS when settings.local.json has synapse-engine hook', () => {
     writeJson(path.join(tmpDir, '.claude', 'settings.local.json'), {
       hooks: {
-        UserPromptSubmit: ['node .claude/hooks/synapse-engine.js'],
+        UserPromptSubmit: ['node .claude/hooks/synapse-engine.cjs'],
       },
     });
 
     // Create the hook file so check 2 + 3 also pass
     writeFile(
-      path.join(tmpDir, '.claude', 'hooks', 'synapse-engine.js'),
+      path.join(tmpDir, '.claude', 'hooks', 'synapse-engine.cjs'),
       'module.exports = {};'
     );
 
@@ -117,7 +117,7 @@ describe('hook-collector: collectHookStatus', () => {
       hooks: { UserPromptSubmit: [] },
     });
     writeFile(
-      path.join(tmpDir, '.claude', 'hooks', 'synapse-engine.js'),
+      path.join(tmpDir, '.claude', 'hooks', 'synapse-engine.cjs'),
       '// hook\nmodule.exports = {};'
     );
 
@@ -146,7 +146,7 @@ describe('hook-collector: collectHookStatus', () => {
       hooks: { UserPromptSubmit: [] },
     });
     writeFile(
-      path.join(tmpDir, '.claude', 'hooks', 'synapse-engine.js'),
+      path.join(tmpDir, '.claude', 'hooks', 'synapse-engine.cjs'),
       'module.exports = {};'
     );
 
@@ -172,12 +172,12 @@ describe('hook-collector: collectHookStatus', () => {
     writeJson(path.join(tmpDir, '.claude', 'settings.local.json'), {
       hooks: {
         UserPromptSubmit: [
-          { command: 'node .claude/hooks/synapse-engine.js', timeout: 5000 },
+          { command: 'node .claude/hooks/synapse-engine.cjs', timeout: 5000 },
         ],
       },
     });
     writeFile(
-      path.join(tmpDir, '.claude', 'hooks', 'synapse-engine.js'),
+      path.join(tmpDir, '.claude', 'hooks', 'synapse-engine.cjs'),
       'module.exports = {};'
     );
 

@@ -12,7 +12,31 @@
 
 Framework de Desenvolvimento Auto-Modificável Alimentado por IA. Fundado em Desenvolvimento Ágil Dirigido por Agentes, oferecendo capacidades revolucionárias para desenvolvimento dirigido por IA e muito mais. Transforme qualquer domínio com expertise especializada de IA: desenvolvimento de software, entretenimento, escrita criativa, estratégia de negócios, bem-estar pessoal e muito mais.
 
-## Compatibilidade de Hooks por IDE (Realidade AIOS 4.0.4)
+## Comece Aqui (10 Min)
+
+Se é sua primeira vez no AIOS, siga este caminho linear:
+
+1. Instale em um projeto novo ou existente:
+```bash
+# novo projeto
+npx aios-core init meu-projeto
+
+# projeto existente
+cd seu-projeto
+npx aios-core install
+```
+2. Escolha sua IDE/CLI e o caminho de ativação:
+- Claude Code: `/agent-name`
+- Gemini CLI: `/aios-menu` → `/aios-<agent>`
+- Codex CLI: `/skills` → `aios-<agent-id>`
+- Cursor/Copilot/AntiGravity: siga os limites e workarounds em `docs/ide-integration.md`
+3. Ative 1 agente e confirme o greeting.
+4. Rode 1 comando inicial (`*help` ou equivalente) para validar first-value.
+
+Definição de first-value (binária): ativação de agente + greeting válido + comando inicial com output útil em <= 10 minutos.
+
+
+## Compatibilidade de Hooks por IDE (Realidade AIOS 4.2)
 
 Muitos recursos avançados do AIOS dependem de eventos de ciclo de vida (hooks). A tabela abaixo mostra a paridade real entre IDEs/plataformas:
 
@@ -27,11 +51,15 @@ Muitos recursos avançados do AIOS dependem de eventos de ciclo de vida (hooks).
 
 Impactos e mitigação detalhados: `docs/ide-integration.md`.
 
-## Nota Sobre BMAD
+## Acknowledgments & Attribution
 
-O AIOS evoluiu significativamente e **não depende de BMAD** para operação atual.
-Quando BMAD aparece em histórico de changelog/migração, é apenas contexto histórico.
-O caminho oficial e atual é AIOS 4.x com terminologia e arquitetura próprias.
+Synkra AIOS was originally derived from the [BMad Method](https://github.com/bmad-code-org/BMAD-METHOD), created by [Brian Madison](https://github.com/bmadcode) (BMad Code, LLC). We gratefully acknowledge the BMad Method for providing the foundation from which this project began.
+
+**Important:** This project is **NOT affiliated with, endorsed by, or sanctioned by** the BMad Method or BMad Code, LLC. Contributors appearing in the git history from the original BMad Method repository do not imply active participation in or endorsement of Synkra AIOS.
+
+Since its origin, AIOS has evolved significantly with its own architecture, terminology, and features (v4.x+), and does not depend on BMad for current operation. The BMad Method remains an excellent framework in its own right — please visit the [official BMad Method repository](https://github.com/bmad-code-org/BMAD-METHOD) to learn more.
+
+BMad, BMad Method, and BMad Core are trademarks of BMad Code, LLC. See [TRADEMARK.md](https://github.com/bmad-code-org/BMAD-METHOD/blob/main/TRADEMARK.md) for usage guidelines.
 
 ## Visão Geral
 
@@ -104,7 +132,7 @@ Esta abordagem de duas fases elimina tanto a **inconsistência de planejamento**
 - **[Criar meus próprios agentes IA](#criando-seu-próprio-squad)** → Construir agentes para seu domínio
 - **[Navegar Squads prontos](docs/guides/squads-overview.md)** → Veja como criar e usar equipes de agentes IA
 - **[Entender a arquitetura](docs/architecture/ARCHITECTURE-INDEX.md)** → Mergulho técnico profundo
-- **[Juntar-se à comunidade](https://discord.gg/gk8jAdXWmj)** → Obter ajuda e compartilhar ideias
+- **[Reportar problemas](https://github.com/SynkraAI/aios-core/issues)** → Bug reports e feature requests
 
 ## Importante: Mantenha Sua Instalação AIOS Atualizada
 
@@ -199,7 +227,7 @@ O Synkra AIOS inclui regras pré-configuradas para IDE para melhorar sua experi�
 
 #### Para Codex CLI:
 
-- ✅ Integração de primeira classe no AIOS 4.0.4 (pipeline de ativação e greeting compartilhado)
+- ✅ Integração de primeira classe no AIOS 4.2 (pipeline de ativação e greeting compartilhado)
 - ✅ Já configurado! O arquivo `AGENTS.md` na raiz é carregado automaticamente
 - Opcional: sincronize agentes auxiliares com `npm run sync:ide:codex`
 - Recomendado neste repositório: gerar e versionar skills locais com `npm run sync:skills:codex`
@@ -348,7 +376,7 @@ $ npx aios-core doctor
 ✔ npm version: 10.2.3
 ✔ Git installed: version 2.43.0
 ✔ GitHub CLI: gh 2.40.1
-✔ Synkra AIOS: v1.0.0
+✔ Synkra AIOS: v4.2.11
 
 Configuration:
 ✔ .aios-core/ directory exists
@@ -468,7 +496,7 @@ O Synkra AIOS vem com 11 agentes especializados:
 
 ## 🤖 AIOS Autonomous Development Engine (ADE)
 
-O Synkra AIOS v1.0.0 introduz o **Autonomous Development Engine (ADE)** - um sistema completo para desenvolvimento autônomo que transforma requisitos em código funcional.
+O Synkra AIOS introduz o **Autonomous Development Engine (ADE)** - um sistema completo para desenvolvimento autônomo que transforma requisitos em código funcional.
 
 ### 🎯 O Que é o ADE?
 
@@ -601,12 +629,10 @@ npm install @aios-fullstack/pro
 
 Para mais informações, execute `npx aios-core pro --help` após a instalação.
 
-## Suporte & Comunidade
+## Suporte
 
-- 📖 [Guia da Comunidade](docs/community.md) - Como participar e contribuir
-- 💬 [Discussões GitHub](https://github.com/SynkraAI/aios-core/discussions) - Hub central da comunidade
+- 🐛 [Rastreador de Issues](https://github.com/SynkraAI/aios-core/issues) - Bug reports e feature requests
 - 💡 [Processo de Features](docs/FEATURE_PROCESS.md) - Como propor novas funcionalidades
-- 🐛 [Rastreador de Issues](https://github.com/SynkraAI/aios-core/issues)
 - 📋 [Como Contribuir](CONTRIBUTING.md)
 - 🗺️ [Roadmap](docs/roadmap.md) - Veja o que estamos construindo
 - 🤖 [Guia de Squads](docs/guides/squads-guide.md) - Crie equipes de agentes IA
@@ -703,6 +729,10 @@ Veja também:
 | **Changelog**         | [Version History](CHANGELOG.md)             | -                                     |
 
 ## Reconhecimentos
+
+This project was originally derived from the [BMad Method](https://github.com/bmad-code-org/BMAD-METHOD) by [Brian Madison](https://github.com/bmadcode). We thank Brian and all BMad Method contributors for the original work that made this project possible.
+
+**Note:** Some contributors shown in the GitHub contributors graph are inherited from the original BMad Method git history and do not represent active participation in or endorsement of Synkra AIOS.
 
 [![Contributors](https://contrib.rocks/image?repo=SynkraAI/aios-core)](https://github.com/SynkraAI/aios-core/graphs/contributors)
 

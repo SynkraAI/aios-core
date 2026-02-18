@@ -60,7 +60,7 @@ Publishes a new version to npm under the `preview` dist-tag.
    - npm init -y
    - npm install aios-core@preview
    - Verify critical files exist in node_modules/aios-core/:
-     - .claude/hooks/synapse-engine.js
+     - .claude/hooks/synapse-engine.cjs
      - .aios-core/core-config.yaml
      - bin/aios.js
    - Clean up temp directory
@@ -161,8 +161,8 @@ Tests package installation from a specific dist-tag in a clean temporary directo
      - .aios-core/constitution.md
      - .aios-core/development/agents/ (non-empty)
      - .aios-core/development/tasks/ (non-empty)
-     - .claude/hooks/synapse-engine.js
-     - .claude/hooks/precompact-session-digest.js
+     - .claude/hooks/synapse-engine.cjs
+     - .claude/hooks/precompact-session-digest.cjs
      - .claude/rules/ (non-empty)
      - bin/aios.js
      - bin/aios-minimal.js

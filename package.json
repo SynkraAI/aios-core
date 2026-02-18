@@ -1,6 +1,6 @@
 {
   "name": "aios-core",
-  "version": "4.2.4",
+  "version": "4.2.13",
   "description": "Synkra AIOS: AI-Orchestrated System for Full Stack Development - Core Framework",
   "bin": {
     "aios": "bin/aios.js",
@@ -19,6 +19,7 @@
     ".claude/CLAUDE.md",
     ".claude/rules/",
     ".claude/hooks/",
+    "pro/license/",
     "README.md",
     "LICENSE"
   ],
@@ -54,11 +55,12 @@
     "validate:gemini-integration": "node .aios-core/infrastructure/scripts/validate-gemini-integration.js",
     "sync:skills:codex": "node .aios-core/infrastructure/scripts/codex-skills-sync/index.js",
     "sync:skills:codex:global": "node .aios-core/infrastructure/scripts/codex-skills-sync/index.js --global --global-only",
-  "validate:codex-skills": "node .aios-core/infrastructure/scripts/codex-skills-sync/validate.js --strict",
-  "validate:paths": "node .aios-core/infrastructure/scripts/validate-paths.js",
-  "validate:parity": "node .aios-core/infrastructure/scripts/validate-parity.js",
-  "manifest:ensure": "node scripts/ensure-manifest.js",
-  "sync:ide:cursor": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide cursor",
+    "validate:codex-skills": "node .aios-core/infrastructure/scripts/codex-skills-sync/validate.js --strict",
+    "validate:paths": "node .aios-core/infrastructure/scripts/validate-paths.js",
+    "validate:parity": "node .aios-core/infrastructure/scripts/validate-parity.js",
+    "validate:semantic-lint": "node scripts/semantic-lint.js",
+    "manifest:ensure": "node scripts/ensure-manifest.js",
+    "sync:ide:cursor": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide cursor",
     "prepublishOnly": "npm run generate:manifest && npm run validate:manifest",
     "prepare": "husky"
   },
@@ -138,7 +140,8 @@
       "prettier --write"
     ],
     "*.md": [
-      "prettier --write"
+      "prettier --write",
+      "node scripts/semantic-lint.js --staged"
     ],
     ".aios-core/development/agents/*.md": [
       "npm run sync:ide"

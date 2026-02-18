@@ -30,7 +30,7 @@ flowchart TB
     end
 
     subgraph SYNAPSE["SYNAPSE Engine"]
-        ENTRY["synapse-engine.js<br/>(Hook Entry Point)"]
+        ENTRY["synapse-engine.cjs<br/>(Hook Entry Point)"]
         ENGINE["SynapseEngine.process()"]
         FORMATTER["Output Formatter"]
     end
@@ -240,7 +240,7 @@ flowchart TD
     CLEAN -->|">24h inativo"| DELETE
 
     subgraph CONSUMERS["Quem Escreve na Session"]
-        C_HOOK["synapse-engine.js<br/>(per-prompt update)"]
+        C_HOOK["synapse-engine.cjs<br/>(per-prompt update)"]
         C_UAP["UnifiedActivationPipeline<br/>(seta active_agent)"]
         C_SM["Scrum Master workflow<br/>(seta active_workflow)"]
     end
@@ -543,7 +543,7 @@ sequenceDiagram
     participant U as Usuario
     participant CC as Claude Code
     participant UAP as Activation Pipeline
-    participant H as synapse-engine.js
+    participant H as synapse-engine.cjs
     participant E as SynapseEngine
     participant S as Session Manager
     participant D as Domain Loader
@@ -605,7 +605,7 @@ sequenceDiagram
 aios-core/
 ├── .claude/
 │   ├── hooks/
-│   │   └── synapse-engine.js              # Hook entry point (106 linhas)
+│   │   └── synapse-engine.cjs              # Hook entry point (106 linhas)
 │   ├── commands/synapse/                  # CRUD commands (SYN-9)
 │   │   ├── manager.md                     # Command router
 │   │   ├── tasks/

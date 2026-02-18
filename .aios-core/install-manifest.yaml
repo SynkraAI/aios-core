@@ -7,10 +7,10 @@
 # - SHA256 hashes for change detection
 # - File types for categorization
 #
-version: 4.2.4
-generated_at: "2026-02-16T01:40:50.481Z"
+version: 4.2.13
+generated_at: "2026-02-17T12:48:43.195Z"
 generator: scripts/generate-install-manifest.js
-file_count: 995
+file_count: 1007
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -180,6 +180,34 @@ files:
     hash: sha256:c1266389772b3fcf3e4c91df085bd38dc0b01d0a5f98bdf977d134972ccaf49b
     type: config
     size: 9392
+  - path: core/code-intel/code-intel-client.js
+    hash: sha256:bd88497c8c8f312e95f746121e627c088e93d27af093d411f0521712bd17ba94
+    type: core
+    size: 7541
+  - path: core/code-intel/code-intel-enricher.js
+    hash: sha256:0bea0c1953a21621afbb4c9755e782842940cf54cdc88a4318dd7242f1fb02a8
+    type: core
+    size: 4320
+  - path: core/code-intel/helpers/dev-helper.js
+    hash: sha256:2418a5f541003c73cc284e88a6b0cb666896a47ffd5ed4c08648269d281efc4c
+    type: core
+    size: 5770
+  - path: core/code-intel/index.js
+    hash: sha256:ca8c54c2decbf64183d890ab42dc8ca2deafa675d4433492cb6ce423a284ad4d
+    type: core
+    size: 3802
+  - path: core/code-intel/providers/code-graph-provider.js
+    hash: sha256:0c5ffd7b3faf82453ed1cb77f52ef10a3e67d3a1b2e2df5aac89a4fb2ac6583b
+    type: core
+    size: 6335
+  - path: core/code-intel/providers/provider-interface.js
+    hash: sha256:7d16aa715155e9c077720a6bffc7e9e5411b65f821b6b4e5e909f226796e7acb
+    type: core
+    size: 3079
+  - path: core/code-intel/registry-syncer.js
+    hash: sha256:011318e2ba5c250daae2e565a8e8fb1570c99b7569e631276a2bf46e887fc514
+    type: core
+    size: 10891
   - path: core/config/config-cache.js
     hash: sha256:527a788cbe650aa6b13d1101ebc16419489bfef20b2ee93042f6eb6a51e898e9
     type: core
@@ -545,9 +573,9 @@ files:
     type: core
     size: 26179
   - path: core/ids/registry-loader.js
-    hash: sha256:e98cee3af79091e972b379786345d15ae451afbcba968c10fb3da9bf981bb363
+    hash: sha256:88c67bace0a5ab6a14cb1d096e3f9cab9f5edc0dd8377788e27b692ccefbd487
     type: core
-    size: 7170
+    size: 8096
   - path: core/ids/registry-updater.js
     hash: sha256:6d87ec21d32acff1ba9b9d13025118c106ce6db59c1339c3a6ef4b2a02fd7f52
     type: core
@@ -641,13 +669,13 @@ files:
     type: core
     size: 10845
   - path: core/orchestration/context-manager.js
-    hash: sha256:91b4e84f1a6246f9a1c94191a096bf9ee26b668610cc3fe7aec893931f54d241
+    hash: sha256:0dd03e84d0a2ea06165825c5eb7154531337ef98275918119ccd03769af576c3
     type: core
-    size: 7299
+    size: 16842
   - path: core/orchestration/dashboard-integration.js
-    hash: sha256:2099a762e039d7b536b0472231d648a39c34c386d04bdcb1a265c5dd4d261514
+    hash: sha256:fc96589a18302ac91036a52a8f4da2f9a1ba8e3f9dc45a4bacb8a279fc6db39d
     type: core
-    size: 14603
+    size: 15116
   - path: core/orchestration/data-lifecycle-manager.js
     hash: sha256:0d5df61805502204c0a467ae9900c940f869743ee332fa19839c9f9cacfe824d
     type: core
@@ -656,6 +684,10 @@ files:
     hash: sha256:4f342f7fc05f404de2b899358f86143106737b56d6c486c98e988a67d420078b
     type: core
     size: 12310
+  - path: core/orchestration/execution-profile-resolver.js
+    hash: sha256:bb35f1c16c47c9306128c5f3e6c90df3ed91f9358576ea97a59007b74f5e9927
+    type: core
+    size: 2696
   - path: core/orchestration/executor-assignment.js
     hash: sha256:d022d8bc01432958857894bc424e48e42d21287f44fe2e0cacfbdf03b412d33f
     type: core
@@ -697,9 +729,9 @@ files:
     type: core
     size: 35270
   - path: core/orchestration/index.js
-    hash: sha256:a71fc2cf4facd2725d9f330806076424450f7e5eee3dc876aae1fc0335166da7
+    hash: sha256:1d1b5471585647512327e7d5836ad826442b4c9bd588f82729fa455b41fa28b9
     type: core
-    size: 8630
+    size: 8835
   - path: core/orchestration/lock-manager.js
     hash: sha256:7764b9e79444e75577931a561444f1bf950d893004abc39fa8c2476f632bb481
     type: core
@@ -725,13 +757,13 @@ files:
     type: core
     size: 24732
   - path: core/orchestration/skill-dispatcher.js
-    hash: sha256:0a2dcf12cb8b04c26006c57016cf0d651332e60dee09762f88927c216464abde
+    hash: sha256:4a54fec3a3338431d1d9634ebf06f3983d06903570c45d67d0ac15d25c95eb05
     type: core
-    size: 10372
+    size: 10490
   - path: core/orchestration/subagent-prompt-builder.js
-    hash: sha256:3da03371fa4cafa4221299f241acd3c37697b395e29ea0c5c65c81bc13f51326
+    hash: sha256:967cc17e019ae030148b276b6fdc6a698ae5f42a05f20e80484cb87ea81ed7af
     type: core
-    size: 11255
+    size: 11395
   - path: core/orchestration/surface-checker.js
     hash: sha256:92e9d5bea78c3db4940c39f79e537821b36451cd524d69e6b738272aa63c08b6
     type: core
@@ -753,9 +785,9 @@ files:
     type: core
     size: 36350
   - path: core/orchestration/workflow-orchestrator.js
-    hash: sha256:fb89682ea86d33bf8453062f82be0313fbfdf4da42ebf0220dd12dc29238a50a
+    hash: sha256:5d3f14d5f12742ce87c3ae8745f82f4ac9f3df3d1889cf16bfc13743130963f9
     type: core
-    size: 26902
+    size: 30727
   - path: core/permissions/__tests__/permission-mode.test.js
     hash: sha256:87df5f29666a599fb0fec917e0360ae6fa9dd90512f0816ae62fa453dbab7fbb
     type: core
@@ -861,9 +893,9 @@ files:
     type: core
     size: 5933
   - path: core/synapse/diagnostics/collectors/hook-collector.js
-    hash: sha256:9cd342cc0c2253296f931a977b20408370c1e1bebe02a22a757418d4d0630884
+    hash: sha256:c2cfa1b760bcb05decf5ad05f9159140cbe0cdc6b0f91581790e44d83dc6b660
     type: core
-    size: 3762
+    size: 3765
   - path: core/synapse/diagnostics/collectors/manifest-collector.js
     hash: sha256:3dc895eb94485320ecbaca3a1d29e3776cfb691dd7dcc71cf44b34af30e8ebb6
     type: core
@@ -961,9 +993,9 @@ files:
     type: core
     size: 16418
   - path: core/synapse/runtime/hook-runtime.js
-    hash: sha256:441bdee8bbfea448f4e20eeb0ff1277352b33e79c9cf6cde9012c6d150fee08b
+    hash: sha256:2fdd54f36a1bbb4ba05d6577c607cf2d6711dcf9a06284fc935676189a461fa2
     type: core
-    size: 1529
+    size: 1572
   - path: core/synapse/scripts/generate-constitution.js
     hash: sha256:65405d3e4ee080d19a25fb8967e159360a289e773c15253a351ee163b469e877
     type: script
@@ -1013,9 +1045,9 @@ files:
     type: data
     size: 34251
   - path: data/entity-registry.yaml
-    hash: sha256:ac383b2adae912c065b537029c218a05a0bd20cd89b41d8d83abf70b01a65569
+    hash: sha256:9cbf837d0b2151304c3ce8d28e6ac8efa1ef4b35a9dc4074bdbfaa9fd4afc77f
     type: data
-    size: 289345
+    size: 291887
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1061,9 +1093,9 @@ files:
     type: development
     size: 5012
   - path: development/agents/aios-master.md
-    hash: sha256:538fff4398eba7c2492b446fce3a1d9115e5f1c6f494f0c3b45a991526c2295a
+    hash: sha256:092161d318ab523b8cd5c3dc8a2bd19accc23ab7fa731d5b4fa11c5afb8b5a08
     type: agent
-    size: 17534
+    size: 17821
   - path: development/agents/analyst.md
     hash: sha256:470384d9ee05d1373fe7519602f135179a88a35895252277823b35339dafd2a3
     type: agent
@@ -1105,13 +1137,17 @@ files:
     type: agent
     size: 12076
   - path: development/agents/ux-design-expert.md
-    hash: sha256:5dde817f220f1f452b53026643e267eb027e4a131d1e5fc4bbcf6ebd772da3bb
+    hash: sha256:ae3f98570fa6cbd714ecd0aa2f44c7db005f0469b5bd04191d8da3b133bc65f1
     type: agent
-    size: 18376
+    size: 18377
   - path: development/checklists/agent-quality-gate.md
     hash: sha256:04d1bf12dd4b0b3d10de04c1825efab742e6475087d3ac9d5c86ca7ff8ec9057
     type: checklist
     size: 16148
+  - path: development/checklists/brownfield-compatibility-checklist.md
+    hash: sha256:d07b1f9e2fcb78f62188ef05a6e6f75a94821b6bb297ea67f2e782e260d27f49
+    type: checklist
+    size: 3335
   - path: development/checklists/self-critique-checklist.md
     hash: sha256:869fbc8fbc333ac8eea4eca3ea4ab9ca79917fa5e53735b70d634c85ac6420c8
     type: checklist
@@ -1369,9 +1405,9 @@ files:
     type: script
     size: 18196
   - path: development/scripts/unified-activation-pipeline.js
-    hash: sha256:dd1ad8050ac6ea04ff634434be9b97f67239ee0a7342d669bc5618eb2b7a7f5b
+    hash: sha256:f822840facd618447032b71aefbde464dd2bce4aba630e5b4ec5241435761919
     type: script
-    size: 29211
+    size: 29786
   - path: development/scripts/usage-tracker.js
     hash: sha256:b3079713787de7c6ac38a742255861f04e8359ef1b227836040920a64b7e8aac
     type: script
@@ -1397,9 +1433,9 @@ files:
     type: script
     size: 9847
   - path: development/scripts/workflow-state-manager.js
-    hash: sha256:56758b8af8b53b74b89b758d84feda85b73ea196704c2969573d183025f052d7
+    hash: sha256:f3573ec1ebd022d31422bf8dcd48df5891f698ab5a9489031bd56e0893087109
     type: script
-    size: 15764
+    size: 20129
   - path: development/scripts/workflow-validator.js
     hash: sha256:cb1c698f39984f128918e8a3a4e5aed254ca445c57b9f99fa183ef14abc0f0dc
     type: script
@@ -1493,9 +1529,9 @@ files:
     type: task
     size: 8997
   - path: development/tasks/build-autonomous.md
-    hash: sha256:8e39b1c89f7f24f180101d82b37628019a07e84b16e5683b10ab196c35bf7028
+    hash: sha256:332bf97df0ea910c9e8b8bb4f40ef42d0dd3ea929a719ca221478324ba23a366
     type: task
-    size: 5617
+    size: 6066
   - path: development/tasks/build-component.md
     hash: sha256:992a116fae239712e6b371a61deb299ab592b58a5d64909664e2f5e22b7caeff
     type: task
@@ -1569,9 +1605,9 @@ files:
     type: task
     size: 29544
   - path: development/tasks/create-service.md
-    hash: sha256:6ce3eeeab6ed8ff6c5804b4fc4c3006c298009ab60c35b51afedac57082eeb34
+    hash: sha256:31c4b50dbaede1c09d72a1dd5d9b1e5ca4edcbedc5204639d7399818e737c898
     type: task
-    size: 8947
+    size: 9882
   - path: development/tasks/create-suite.md
     hash: sha256:8e57cba8aaed7f86a327e11185aca208af241ab41abc95188a2243375085ca15
     type: task
@@ -1681,9 +1717,9 @@ files:
     type: task
     size: 11021
   - path: development/tasks/dev-develop-story.md
-    hash: sha256:6b76a6b428a1a45573431739d4740a78955a7af7a3156515d7151eb97bae2d90
+    hash: sha256:6f7c7f5bc866ffd0bc1bf4ba90eee33aa02727e010f31b6457fcfa14d386c467
     type: task
-    size: 26543
+    size: 27075
   - path: development/tasks/dev-improve-code-quality.md
     hash: sha256:8f8e6b0dcb1328cf7efcde263be95b93b2592176beafc7adfd3cdffbfa763be4
     type: task
@@ -1693,9 +1729,9 @@ files:
     type: task
     size: 29272
   - path: development/tasks/dev-suggest-refactoring.md
-    hash: sha256:fb75f56fa178b72c9716a4a00f9a0df6a6d6348f362ef3e095cff45c16bd8f43
+    hash: sha256:c69def336713b8ef2051c9aae725e3ecec228682c7adaeccd8a9a945bf59ab3a
     type: task
-    size: 24191
+    size: 24669
   - path: development/tasks/dev-validate-next-story.md
     hash: sha256:68af17e15d933588c5f82fac0133ad037a2941364f328f309bde09576f428b0a
     type: task
@@ -1849,9 +1885,9 @@ files:
     type: task
     size: 13356
   - path: development/tasks/next.md
-    hash: sha256:8ba7dc4567c0c7bf7001f0a26650767f72f45442d312daeb0e321ba4605ce429
+    hash: sha256:d9c84f8892367cd8e1bd453dd08876d051bcc368ca9eacf5d2babb26235427fb
     type: task
-    size: 6556
+    size: 7641
   - path: development/tasks/orchestrate-resume.md
     hash: sha256:5da88a904fc9e77d7428344fb83e55f6f4a3cae4f9d21d77092d1c67664c3d86
     type: task
@@ -1925,9 +1961,9 @@ files:
     type: task
     size: 23884
   - path: development/tasks/publish-npm.md
-    hash: sha256:f7a0bb8fed5663c88ad691b8871fdf7a861b6a7c02599f0c2db3eb9393d353c8
+    hash: sha256:79b1d83fca5fd0079ad63d4fd6cb5cdef81aa00ed618d77cbdc42f70aca98c27
     type: task
-    size: 6470
+    size: 6473
   - path: development/tasks/qa-after-creation.md
     hash: sha256:e9f6ceff7a0bc00d4fc035e890b7f1178c6ea43f447d135774b46a00713450e6
     type: task
@@ -2152,6 +2188,10 @@ files:
     hash: sha256:caa2077e7a5bbbba9269b04e878b7772a71422ed6fd138447fe5cfb7345f96fb
     type: task
     size: 23362
+  - path: development/tasks/sync-registry-intel.md
+    hash: sha256:0e69435307db814563823896e7ba9b29a4a9c10d90f6dedec5cb7a6d6f7ba936
+    type: task
+    size: 1664
   - path: development/tasks/tailwind-upgrade.md
     hash: sha256:c369df0a28d8be7f0092405ecaed669a40075841427337990e2346b8c1d43c3a
     type: task
@@ -2401,29 +2441,29 @@ files:
     type: documentation
     size: 16023
   - path: docs/standards/AIOS-COLOR-PALETTE-QUICK-REFERENCE.md
-    hash: sha256:3bf52aa948c6f5a79a43ab6cd4170b5ab476737e88813176d4d7a33f4a659edb
+    hash: sha256:b521992d1f6a17b7b624ddbb9e78cb54b9efce62ca78d36b425a3f74f55e5c07
     type: documentation
-    size: 4095
+    size: 4093
   - path: docs/standards/AIOS-COLOR-PALETTE-V2.1.md
-    hash: sha256:08ddcacf88f3cf5251108de5e30429cb93ba5dcaf5bd0ac88bbcacf6a4b06667
+    hash: sha256:075760cd1734967e8af366fd6824cb3cd37cfae850d18340451d8c4df9f35889
     type: documentation
-    size: 9482
+    size: 9474
   - path: docs/standards/EXECUTOR-DECISION-TREE.md
     hash: sha256:106af2a8bc009c129618fbd501e68c6927862dbbc2e28d1a5b67be9b5fc2bb5b
     type: documentation
     size: 19268
   - path: docs/standards/OPEN-SOURCE-VS-SERVICE-DIFFERENCES.md
-    hash: sha256:3cb48a85705305a5a70ec35cd110570a5cb71056d151ca226367e83d4a67e0f7
+    hash: sha256:2411b48a14bc11ef78684cd3fb488165d13406832e0b1bc3fae0a15bf1714f3a
     type: documentation
-    size: 16398
+    size: 16390
   - path: docs/standards/QUALITY-GATES-SPECIFICATION.md
-    hash: sha256:3c9b4ed28b5cf1ec0116d5a0095493beb261f1fe7dbef6ac6dc5e8651660e118
+    hash: sha256:05df49e8ae8909fd583cf131bc2190a1709ba0249b761bf5d51c2e4bedbb4aeb
     type: documentation
-    size: 19752
+    size: 19746
   - path: docs/standards/STANDARDS-INDEX.md
-    hash: sha256:d099262e71e64bfe8e723203c64f26cbd9645b6e7862d33915151bc2ec6ab4c2
+    hash: sha256:f9c22b0fb6ac3240c44d71a44deeae9ef3a3b873ccae9bf2401f08edec61382a
     type: documentation
-    size: 8385
+    size: 8369
   - path: docs/standards/STORY-TEMPLATE-V2-SPECIFICATION.md
     hash: sha256:31cf0854013c05a39020406bcdd8937f48ab7fe85c17274c8a077bdb3c45131f
     type: documentation
@@ -2452,6 +2492,10 @@ files:
     hash: sha256:e46e4b86e48e22a6f0b7ccb91e7e901bfc779479d4ebc7e776fca6dd4de5b30b
     type: code
     size: 753
+  - path: infrastructure/contracts/compatibility/aios-4.0.4.yaml
+    hash: sha256:e8bea648df5d62a22a979b9d70e3987690db4e19a1ed3beec11d232746297136
+    type: infrastructure
+    size: 1074
   - path: infrastructure/index.js
     hash: sha256:8e05caec57188938d6f348444ad3abce2c06b53bdb46993fb2e8ff81c27fca4c
     type: infrastructure
@@ -2969,9 +3013,9 @@ files:
     type: script
     size: 6692
   - path: infrastructure/scripts/validate-parity.js
-    hash: sha256:1ec3b6c5863b4130a30f3844f9f148e86969011a8e557ca8b8d8f3bd5e96bd83
+    hash: sha256:527948d4a35a85c2f558b261f4b0a921d0482cab979e7dffe988b6fa11b7b2a1
     type: script
-    size: 3929
+    size: 12683
   - path: infrastructure/scripts/validate-paths.js
     hash: sha256:4360d0735ec2c717a97c1670855c5423cf5172005a93c4698b5305ccec48bc2e
     type: script
@@ -3344,6 +3388,10 @@ files:
     hash: sha256:bc1852d15e3a383c7519e5976094de3055c494fdd467acd83137700c900c4c61
     type: template
     size: 14755
+  - path: product/templates/brownfield-risk-report-tmpl.yaml
+    hash: sha256:173adec3131f0924bc7d64c10f54386bb85dcadc14e6ff3fb9bb2f8172caf162
+    type: template
+    size: 12211
   - path: product/templates/changelog-template.md
     hash: sha256:af44d857c9bf8808e89419d1d859557c3c827de143be3c0f36f2a053c9ee9197
     type: template
@@ -3941,9 +3989,9 @@ files:
     type: workflow-intelligence
     size: 8436
   - path: workflow-intelligence/engine/suggestion-engine.js
-    hash: sha256:1283f4a80e4bb00fe22b34822695c282d7a2ca3e2d1394f2923cd57b99a91f32
+    hash: sha256:7e07146e644edc39c5337bfc2f5eee621c39446be40cf303cdf418de97111796
     type: workflow-intelligence
-    size: 19809
+    size: 23441
   - path: workflow-intelligence/engine/wave-analyzer.js
     hash: sha256:0d017b70213584a11cad354d54d442be977b183353e6a5e31cc1de4291d0afb9
     type: workflow-intelligence

@@ -72,7 +72,7 @@ function collectHookStatus(projectRoot) {
   }
 
   // Check 2: Hook file exists
-  const hookPath = path.join(projectRoot, '.claude', 'hooks', 'synapse-engine.js');
+  const hookPath = path.join(projectRoot, '.claude', 'hooks', 'synapse-engine.cjs');
   const hookExists = fs.existsSync(hookPath);
 
   if (hookExists) {
@@ -82,7 +82,7 @@ function collectHookStatus(projectRoot) {
       checks.push({
         name: 'Hook file exists',
         status: 'PASS',
-        detail: `.claude/hooks/synapse-engine.js (${lineCount} lines, ${stat.size} bytes)`,
+        detail: `.claude/hooks/synapse-engine.cjs (${lineCount} lines, ${stat.size} bytes)`,
       });
     } catch (error) {
       checks.push({
@@ -95,7 +95,7 @@ function collectHookStatus(projectRoot) {
     checks.push({
       name: 'Hook file exists',
       status: 'FAIL',
-      detail: '.claude/hooks/synapse-engine.js not found',
+      detail: '.claude/hooks/synapse-engine.cjs not found',
     });
   }
 

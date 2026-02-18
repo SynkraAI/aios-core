@@ -32,8 +32,8 @@ const VERBOSE = process.argv.includes('--verbose') || process.env.VERBOSE === 't
  */
 const REQUIRED_PATHS = [
   // Hooks (critical - these were missing in v4.0.0)
-  '.claude/hooks/synapse-engine.js',
-  '.claude/hooks/precompact-session-digest.js',
+  '.claude/hooks/synapse-engine.cjs',
+  '.claude/hooks/precompact-session-digest.cjs',
   // Rules
   '.claude/rules/',
   // CLI binaries
@@ -137,7 +137,7 @@ function getTarballContents() {
         timeout: 30000,
       });
 
-      // Text output has lines like "npm notice 1.2kB .claude/hooks/synapse-engine.js"
+      // Text output has lines like "npm notice 1.2kB .claude/hooks/synapse-engine.cjs"
       const lines = output.split('\n');
       return lines
         .filter((line) => line.includes('npm notice') && !line.includes('=== Tarball'))

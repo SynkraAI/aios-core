@@ -16,7 +16,7 @@
 'use strict';
 
 const { createSpinner, showSuccess, showError, showWarning, showInfo } = require('./feedback');
-const { colors, headings, status } = require('../utils/aios-colors');
+const { colors, status } = require('../utils/aios-colors');
 
 /**
  * Gold color for Pro branding.
@@ -386,7 +386,7 @@ async function loginWithRetry(client, email) {
 
       // Wait for email verification if needed
       if (!loginResult.emailVerified) {
-        const verifyResult = await waitForEmailVerification(client, loginResult.sessionToken);
+        const verifyResult = await waitForEmailVerification(client, loginResult.sessionToken, email);
         if (!verifyResult.success) {
           return verifyResult;
         }
@@ -395,7 +395,34 @@ async function loginWithRetry(client, email) {
       // Activate Pro
       return activateProByAuth(client, loginResult.sessionToken);
     } catch (loginError) {
-      if (loginError.code === 'INVALID_CREDENTIALS') {
+      if (loginError.code === 'EMAIL_NOT_VERIFIED') {
+        // Email not verified — poll by retrying login until verified
+        spinner.info('Email not verified yet. Please check your inbox and click the verification link.');
+        console.log(colors.dim('  (Checking every 5 seconds... timeout in 10 minutes)'));
+
+        const startTime = Date.now();
+        while (Date.now() - startTime < VERIFY_POLL_TIMEOUT_MS) {
+          await new Promise((resolve) => setTimeout(resolve, VERIFY_POLL_INTERVAL_MS));
+          try {
+            const retryLogin = await client.login(email, password);
+            showSuccess('Email verified!');
+            if (!retryLogin.emailVerified) {
+              const verifyResult = await waitForEmailVerification(client, retryLogin.sessionToken, email);
+              if (!verifyResult.success) return verifyResult;
+            }
+            return activateProByAuth(client, retryLogin.sessionToken);
+          } catch (retryError) {
+            if (retryError.code !== 'EMAIL_NOT_VERIFIED') {
+              return { success: false, error: retryError.message };
+            }
+            // Still not verified, continue polling
+          }
+        }
+
+        showError('Email verification timed out after 10 minutes.');
+        showInfo('Run the installer again to retry.');
+        return { success: false, error: 'Email verification timed out.' };
+      } else if (loginError.code === 'INVALID_CREDENTIALS') {
         const remaining = MAX_RETRIES - attempt;
         if (remaining > 0) {
           spinner.fail(`Incorrect password. ${remaining} attempt${remaining > 1 ? 's' : ''} remaining.`);
@@ -495,7 +522,7 @@ async function createAccountFlow(client, email) {
   }
 
   if (sessionToken) {
-    const verifyResult = await waitForEmailVerification(client, sessionToken);
+    const verifyResult = await waitForEmailVerification(client, sessionToken, email);
     if (!verifyResult.success) {
       return verifyResult;
     }
@@ -516,7 +543,7 @@ async function createAccountFlow(client, email) {
           break;
         }
         // Got session but not verified yet — use the verification polling
-        const verifyResult = await waitForEmailVerification(client, sessionToken);
+        const verifyResult = await waitForEmailVerification(client, sessionToken, email);
         if (!verifyResult.success) {
           return verifyResult;
         }
@@ -625,7 +652,7 @@ async function authenticateWithEmail(email, password) {
 
   // Wait for email verification if needed
   if (!emailVerified) {
-    const verifyResult = await waitForEmailVerification(client, sessionToken);
+    const verifyResult = await waitForEmailVerification(client, sessionToken, email);
     if (!verifyResult.success) {
       return verifyResult;
     }
@@ -642,10 +669,11 @@ async function authenticateWithEmail(email, password) {
  * User can press R to resend verification email.
  *
  * @param {object} client - LicenseApiClient instance
- * @param {string} sessionToken - Session token
+ * @param {string} sessionToken - Session token (accessToken)
+ * @param {string} email - User email for resend functionality
  * @returns {Promise<Object>} Result with { success }
  */
-async function waitForEmailVerification(client, sessionToken) {
+async function waitForEmailVerification(client, sessionToken, email) {
   console.log('');
   showInfo('Waiting for email verification...');
   showInfo('Open your email and click the verification link.');
@@ -692,7 +720,7 @@ async function waitForEmailVerification(client, sessionToken) {
       if (resendHint) {
         resendHint = false;
         try {
-          await client.resendVerification(sessionToken);
+          await client.resendVerification(email);
           showInfo('Verification email resent.');
         } catch (error) {
           showWarning(`Could not resend: ${error.message}`);
@@ -770,6 +798,11 @@ async function activateProByAuth(client, sessionToken) {
       spinner.fail(error.message);
       showInfo('Deactivate another device or upgrade your license.');
       return { success: false, error: error.message };
+    }
+    if (error.code === 'ALREADY_ACTIVATED') {
+      // License already exists — treat as success (re-install scenario)
+      spinner.succeed('Pro license already activated for this account.');
+      return { success: true, key: 'existing', activationResult: { reactivation: true } };
     }
 
     spinner.fail(`Activation failed: ${error.message}`);
@@ -946,6 +979,55 @@ async function validateKeyWithApi(key) {
 async function stepInstallScaffold(targetDir, options = {}) {
   showStep(2, 3, 'Pro Content Installation');
 
+  const path = require('path');
+  const fs = require('fs');
+  const { execSync } = require('child_process');
+
+  const proSourceDir = path.join(targetDir, 'node_modules', '@aios-fullstack', 'pro');
+
+  // Step 2a: Ensure package.json exists (greenfield projects)
+  const packageJsonPath = path.join(targetDir, 'package.json');
+  if (!fs.existsSync(packageJsonPath)) {
+    const initSpinner = createSpinner('Initializing package.json...');
+    initSpinner.start();
+    try {
+      execSync('npm init -y', { cwd: targetDir, stdio: 'pipe' });
+      initSpinner.succeed('package.json created');
+    } catch (err) {
+      initSpinner.fail('Failed to create package.json');
+      return { success: false, error: `npm init failed: ${err.message}` };
+    }
+  }
+
+  // Step 2b: Install @aios-fullstack/pro if not present
+  if (!fs.existsSync(proSourceDir)) {
+    const installSpinner = createSpinner('Installing @aios-fullstack/pro...');
+    installSpinner.start();
+    try {
+      execSync('npm install @aios-fullstack/pro', {
+        cwd: targetDir,
+        stdio: 'pipe',
+        timeout: 120000,
+      });
+      installSpinner.succeed('Pro package installed');
+    } catch (err) {
+      installSpinner.fail('Failed to install Pro package');
+      return {
+        success: false,
+        error: `npm install @aios-fullstack/pro failed: ${err.message}. Try manually: npm install @aios-fullstack/pro`,
+      };
+    }
+
+    // Validate installation
+    if (!fs.existsSync(proSourceDir)) {
+      return {
+        success: false,
+        error: 'Pro package not found after npm install. Check npm output.',
+      };
+    }
+  }
+
+  // Step 2c: Scaffold pro content
   const scaffolderModule = loadProScaffolder();
 
   if (!scaffolderModule) {
@@ -954,10 +1036,6 @@ async function stepInstallScaffold(targetDir, options = {}) {
   }
 
   const { scaffoldProContent } = scaffolderModule;
-  const path = require('path');
-
-  // Determine pro source directory
-  const proSourceDir = path.join(targetDir, 'node_modules', '@aios-fullstack', 'pro');
 
   const spinner = createSpinner('Scaffolding pro content...');
   spinner.start();

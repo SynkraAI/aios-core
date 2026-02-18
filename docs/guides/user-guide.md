@@ -484,4 +484,4 @@ aios squads search {keyword}
 
 ---
 
-_Synkra AIOS User Guide v4.0.4_
+_Synkra AIOS User Guide v4.2.11_

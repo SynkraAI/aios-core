@@ -5,9 +5,66 @@ All notable changes to Synkra AIOS will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.11] - 2026-02-16
+
+### Added
+
+- Squad agent commands are now automatically installed to active IDEs during pro scaffolding (`installSquadCommands`).
+- Supports Claude Code (`.claude/commands/{squad}/`), Codex CLI (`.codex/agents/`), Gemini CLI (`.gemini/rules/{squad}/`), and Cursor (`.cursor/rules/`).
+- Installed files are tracked in `pro-installed-manifest.yaml` and `pro-version.json`.
+
+## [4.2.10] - 2026-02-16
+
+### Fixed
+
+- Handle `ALREADY_ACTIVATED` license status gracefully instead of throwing error.
+- Fix error envelope parsing in pro license client — correctly extracts error messages from API responses.
+
+## [4.2.9] - 2026-02-16
+
+### Fixed
+
+- Pass `targetDir` correctly to `runProWizard` — fixes pro install failing in non-CWD projects.
+- Surface pro install errors to user instead of silently swallowing them.
+
+## [4.2.8] - 2026-02-16
+
+### Fixed
+
+- Exclude `mmos-squad` (private) from pro scaffolding via `SCAFFOLD_EXCLUDES`.
+- Merge `pro-config.yaml` sections into `core-config.yaml` during pro install (`mergeProConfig`).
+
+## [4.2.7] - 2026-02-16
+
+### Fixed
+
+- Pro wizard (`npx aios-core install`) now auto-installs `@aios-fullstack/pro` package during Step 2, fixing "Pro package not found" error in greenfield and brownfield projects.
+- Greenfield projects without `package.json` now get `npm init -y` automatically before pro install.
+- Removed unused `headings` import in `pro-setup.js`.
+
 ## [Unreleased]
 
-*Nothing unreleased at this time.*
+### Added
+
+- `docs/glossary.md` with official AIOS taxonomy terms:
+  - `squad`
+  - `flow-state`
+  - `confidence gate`
+  - `execution profile`
+- `scripts/semantic-lint.js` for semantic terminology regression checks.
+- `tests/unit/semantic-lint.test.js` for semantic lint rule validation.
+
+### Changed
+
+- CI now includes a `Semantic Lint` job (`npm run validate:semantic-lint`).
+- Pre-commit markdown pipeline now runs semantic lint through `lint-staged`.
+
+### Migration Notes
+
+- Deprecated terminology replacements:
+  - `expansion pack` -> `squad`
+  - `permission mode` -> `execution profile`
+  - `workflow state` -> `flow-state` (warning-level migration)
 
 ---
 

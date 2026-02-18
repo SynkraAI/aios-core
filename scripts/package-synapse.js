@@ -59,7 +59,7 @@ const FILES = {
   'core/diagnostics/collectors/relevance-matrix.js': '.aios-core/core/synapse/diagnostics/collectors/relevance-matrix.js',
 
   // Hook Entry Point
-  'hook/synapse-engine.js': '.claude/hooks/synapse-engine.js',
+  'hook/synapse-engine.cjs': '.claude/hooks/synapse-engine.cjs',
 
   // Commands
   'commands/manager.md': '.claude/commands/synapse/manager.md',
@@ -210,7 +210,7 @@ cp -r core/ <your-project>/.aios-core/core/synapse/
 ### 2. Copy Hook Entry Point
 
 \`\`\`
-cp hook/synapse-engine.js <your-project>/.claude/hooks/
+cp hook/synapse-engine.cjs <your-project>/.claude/hooks/
 \`\`\`
 
 ### 3. Register the Hook
@@ -223,7 +223,7 @@ Add to \`.claude/settings.local.json\`:
     "UserPromptSubmit": [
       {
         "type": "command",
-        "command": "node .claude/hooks/synapse-engine.js"
+        "command": "node .claude/hooks/synapse-engine.cjs"
       }
     ]
   }
@@ -254,7 +254,7 @@ Add these lines:
 .synapse/sessions/
 .synapse/metrics/
 .synapse/cache/
-!.claude/hooks/synapse-engine.js
+!.claude/hooks/synapse-engine.cjs
 \`\`\`
 
 ## Verification
@@ -303,7 +303,7 @@ synapse-package/
 │   ├── diagnostics/           # Observability (10 collectors)
 │   ├── scripts/               # Constitution generator
 │   └── utils/                 # Path + token helpers
-├── hook/                      # .claude/hooks/synapse-engine.js
+├── hook/                      # .claude/hooks/synapse-engine.cjs
 ├── commands/                  # .claude/commands/synapse/
 ├── skills/                    # .claude/skills/synapse/
 ├── runtime/                   # .synapse/ domain files (manifest, domains)

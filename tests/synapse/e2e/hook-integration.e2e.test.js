@@ -1,7 +1,7 @@
 /**
  * SYNAPSE E2E: Hook Integration Tests
  *
- * End-to-end tests for the SYNAPSE hook entry point (synapse-engine.js).
+ * End-to-end tests for the SYNAPSE hook entry point (synapse-engine.cjs).
  * Tests the stdin/stdout JSON protocol by spawning the hook as a child process
  * and validating real output against the actual project .synapse/ configuration.
  *
@@ -17,7 +17,7 @@ const os = require('os');
 jest.setTimeout(30000);
 
 const PROJECT_ROOT = path.resolve(__dirname, '..', '..', '..');
-const HOOK_PATH = path.join(PROJECT_ROOT, '.claude', 'hooks', 'synapse-engine.js');
+const HOOK_PATH = path.join(PROJECT_ROOT, '.claude', 'hooks', 'synapse-engine.cjs');
 const HOOK_EXISTS = fs.existsSync(HOOK_PATH);
 
 // ---------------------------------------------------------------------------

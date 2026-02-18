@@ -12,7 +12,7 @@ AIOS tiene como objetivo ser el framework de agentes de IA de código abierto m�
 
 ## Enfoque Actual (Q1 2026)
 
-### Lanzamiento v4.0.4
+### Lanzamiento v4.2
 
 Estabilización del framework principal e infraestructura comunitaria:
 

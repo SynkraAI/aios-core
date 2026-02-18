@@ -12,7 +12,7 @@ O AIOS visa ser o framework de agentes IA open-source mais abrangente, permitind
 
 ## Foco Atual (Q1 2026)
 
-### Release v4.0.4
+### Release v4.2
 
 Estabilização do framework principal e infraestrutura da comunidade:
 

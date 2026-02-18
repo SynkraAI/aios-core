@@ -896,4 +896,4 @@ Para desarrollo paralelo:
 
 ---
 
-_Synkra AIOS API Reference v4.0.4_
+_Synkra AIOS API Reference v4.2.11_

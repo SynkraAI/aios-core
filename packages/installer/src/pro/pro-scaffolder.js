@@ -17,6 +17,13 @@ const yaml = require('js-yaml');
 const { hashFileAsync, hashFilesMatchAsync } = require('../installer/file-hasher');
 
 /**
+ * Directories excluded from scaffolding (private/internal squads).
+ */
+const SCAFFOLD_EXCLUDES = [
+  'mmos-squad',
+];
+
+/**
  * Items to scaffold from pro package into user project.
  * Each entry defines source (relative to proSourceDir) and dest (relative to targetDir).
  */
@@ -114,6 +121,22 @@ async function scaffoldProContent(targetDir, proSourceDir, options = {}) {
       }
     }
 
+    // Merge pro-config into core-config
+    const merged = await mergeProConfig(targetDir);
+    if (merged && onProgress) {
+      onProgress({ item: 'pro-config', status: 'done', message: 'Pro config merged into core-config.yaml' });
+    }
+
+    // Install squad agent commands to IDEs
+    const commandsResult = await installSquadCommands(targetDir);
+    if (commandsResult.installed > 0) {
+      result.copiedFiles.push(...commandsResult.files);
+      if (onProgress) {
+        onProgress({ item: 'squad-commands', status: 'done',
+          message: `${commandsResult.installed} squad agent commands installed` });
+      }
+    }
+
     // Generate pro-version.json (AC4)
     const versionInfo = await generateProVersionJson(targetDir, proSourceDir, result.copiedFiles);
     result.versionInfo = versionInfo;
@@ -162,6 +185,11 @@ async function scaffoldDirectory(sourceDir, destDir, options = {}) {
   const items = await fs.readdir(sourceDir, { withFileTypes: true });
 
   for (const item of items) {
+    // Skip excluded directories (e.g. private squads)
+    if (SCAFFOLD_EXCLUDES.includes(item.name)) {
+      continue;
+    }
+
     const sourcePath = path.join(sourceDir, item.name);
     const destPath = path.join(destDir, item.name);
 
@@ -324,6 +352,89 @@ async function rollbackScaffold(rollbackFiles) {
   return { removed, errors };
 }
 
+/**
+ * Merge pro-config.yaml sections into core-config.yaml.
+ * Deep merges top-level keys (pro, memory, metrics, integrations, squads).
+ *
+ * @param {string} targetDir - Project root directory
+ * @returns {Promise<boolean>} True if merge was performed
+ */
+async function mergeProConfig(targetDir) {
+  const coreConfigPath = path.join(targetDir, '.aios-core', 'core-config.yaml');
+  const proConfigPath = path.join(targetDir, '.aios-core', 'pro-config.yaml');
+
+  if (!await fs.pathExists(proConfigPath) || !await fs.pathExists(coreConfigPath)) {
+    return false;
+  }
+
+  const coreConfig = yaml.load(await fs.readFile(coreConfigPath, 'utf8')) || {};
+  const proConfig = yaml.load(await fs.readFile(proConfigPath, 'utf8')) || {};
+
+  for (const [key, value] of Object.entries(proConfig)) {
+    if (coreConfig[key] && typeof coreConfig[key] === 'object' && typeof value === 'object' && !Array.isArray(value)) {
+      coreConfig[key] = { ...coreConfig[key], ...value };
+    } else {
+      coreConfig[key] = value;
+    }
+  }
+
+  await fs.writeFile(coreConfigPath, yaml.dump(coreConfig, { lineWidth: -1 }), 'utf8');
+  return true;
+}
+
+/**
+ * Install squad agent commands into active IDE directories.
+ * Detects which IDEs are configured and copies agent .md files accordingly.
+ *
+ * @param {string} targetDir - Project root directory
+ * @returns {Promise<Object>} Result with installed count and file list
+ */
+async function installSquadCommands(targetDir) {
+  const squadsDir = path.join(targetDir, 'squads');
+  if (!await fs.pathExists(squadsDir)) return { installed: 0, files: [] };
+
+  const ideTargets = [
+    { check: path.join('.claude', 'commands'), dest: (squad) => path.join('.claude', 'commands', squad) },
+    { check: path.join('.codex', 'agents'), dest: () => path.join('.codex', 'agents') },
+    { check: path.join('.gemini', 'rules'), dest: (squad) => path.join('.gemini', 'rules', squad) },
+    { check: path.join('.cursor', 'rules'), dest: () => path.join('.cursor', 'rules') },
+  ];
+
+  const activeIDEs = [];
+  for (const ide of ideTargets) {
+    if (await fs.pathExists(path.join(targetDir, ide.check))) {
+      activeIDEs.push(ide);
+    }
+  }
+  if (activeIDEs.length === 0) return { installed: 0, files: [] };
+
+  const files = [];
+  const items = await fs.readdir(squadsDir, { withFileTypes: true });
+
+  for (const item of items) {
+    if (!item.isDirectory()) continue;
+    const agentsDir = path.join(squadsDir, item.name, 'agents');
+    if (!await fs.pathExists(agentsDir)) continue;
+
+    const agentFiles = (await fs.readdir(agentsDir))
+      .filter(f => f.endsWith('.md') && !f.startsWith('test-'));
+
+    for (const ide of activeIDEs) {
+      const destDir = path.join(targetDir, ide.dest(item.name));
+      await fs.ensureDir(destDir);
+      for (const agentFile of agentFiles) {
+        await fs.copy(
+          path.join(agentsDir, agentFile),
+          path.join(destDir, agentFile)
+        );
+        files.push(path.relative(targetDir, path.join(destDir, agentFile)).replace(/\\/g, '/'));
+      }
+    }
+  }
+
+  return { installed: files.length, files };
+}
+
 module.exports = {
   scaffoldProContent,
   scaffoldDirectory,
@@ -331,5 +442,8 @@ module.exports = {
   generateProVersionJson,
   generateInstalledManifest,
   rollbackScaffold,
+  mergeProConfig,
+  installSquadCommands,
   SCAFFOLD_ITEMS,
+  SCAFFOLD_EXCLUDES,
 };

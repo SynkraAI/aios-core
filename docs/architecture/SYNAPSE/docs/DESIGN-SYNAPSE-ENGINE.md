@@ -1,6 +1,6 @@
 # DESIGN — SYNAPSE Engine
 
-> Design Document tecnico para `synapse-engine.js`
+> Design Document tecnico para `synapse-engine.cjs`
 > Motor unificado de contexto adaptativo do Synkra AIOS
 
 **Versao:** 1.0.0
@@ -10,7 +10,7 @@
 
 ---
 
-## 1. Interface Publica do synapse-engine.js
+## 1. Interface Publica do synapse-engine.cjs
 
 ### 1.1 Ponto de Entrada (Hook)
 
@@ -418,7 +418,7 @@ flowchart TD
     "UserPromptSubmit": [
       {
         "type": "command",
-        "command": "node \"C:/Users/AllFluence-User/Workspaces/AIOS/SYNAPSE/.claude/hooks/synapse-engine.js\""
+        "command": "node \"C:/Users/AllFluence-User/Workspaces/AIOS/SYNAPSE/.claude/hooks/synapse-engine.cjs\""
       }
     ]
   }
@@ -999,9 +999,9 @@ Current Status:
 
 ## 16. Migration Notes
 
-### Feature Parity Checklist (carl-hook.py → synapse-engine.js)
+### Feature Parity Checklist (carl-hook.py → synapse-engine.cjs)
 
-| Feature | carl-hook.py | synapse-engine.js | Status |
+| Feature | carl-hook.py | synapse-engine.cjs | Status |
 |---------|-------------|-------------------|--------|
 | stdin/stdout JSON | ✅ | Required | Pending |
 | Manifest parsing | ✅ | Required | Pending |
