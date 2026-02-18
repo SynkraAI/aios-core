@@ -73,6 +73,20 @@ ${baseContent.instruction}
 *AIOS Redirect - Synced automatically*
 `;
 
+    case 'copilot-agent-md':
+      // GitHub Copilot format with YAML frontmatter
+      return `---
+description: "Redirect: ${oldId} has been renamed to ${newId}"
+---
+
+${baseContent.header}
+
+> ${baseContent.notice} ${baseContent.instruction}
+
+---
+*AIOS Redirect - Synced automatically*
+`;
+
     case 'condensed-rules':
     case 'cursor-style':
     default:
@@ -96,7 +110,8 @@ ${baseContent.instruction}
  * @returns {object} - Result with path and content
  */
 function generateRedirect(oldId, newId, targetDir, format) {
-  const filename = `${oldId}.md`;
+  // Copilot format requires .agent.md extension
+  const filename = format === 'copilot-agent-md' ? `${oldId}.agent.md` : `${oldId}.md`;
   const filePath = path.join(targetDir, filename);
   const content = generateRedirectContent(oldId, newId, format);
 

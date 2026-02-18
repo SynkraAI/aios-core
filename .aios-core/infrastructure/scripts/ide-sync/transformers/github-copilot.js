@@ -16,15 +16,16 @@ function transform(agentData) {
   const agent = agentData.agent || {};
   const persona = agentData.persona_profile || {};
 
-  const name = agent.name || agentData.id;
+  const name = agent.name || agentData.id || 'agent';
   const title = agent.title || 'AIOS Agent';
   const icon = agent.icon || '🤖';
   const description = agent.whenToUse || `${title} agent for AIOS development workflows`;
+  const filename = agentData.filename || `${agentData.id || 'unknown'}.md`;
 
   // Build YAML frontmatter (Copilot spec requires at minimum 'description')
   const frontmatter = [
     '---',
-    `name: "${name}"`,
+    `name: "${escapeYamlString(name)}"`,
     `description: "${escapeYamlString(description)}"`,
     '---',
   ].join('\n');
@@ -47,8 +48,8 @@ function transform(agentData) {
   if (agentData.commands && agentData.commands.length > 0) {
     body += '## Commands\n\n';
     for (const cmd of agentData.commands) {
-      const cmdName = cmd.name || cmd;
-      const cmdDesc = cmd.description || 'No description';
+      const cmdName = typeof cmd === 'string' ? cmd : (cmd.name || String(cmd));
+      const cmdDesc = typeof cmd === 'string' ? 'No description' : (cmd.description || 'No description');
       body += `- \`*${cmdName}\` — ${cmdDesc}\n`;
     }
     body += '\n';
@@ -72,7 +73,7 @@ function transform(agentData) {
     }
   }
 
-  body += `---\n*AIOS Agent — Synced from .aios-core/development/agents/${agentData.filename}*\n`;
+  body += `---\n*AIOS Agent — Synced from .aios-core/development/agents/${filename}*\n`;
 
   return `${frontmatter}\n\n${body}`;
 }
@@ -83,7 +84,11 @@ function transform(agentData) {
  * @returns {string} - Escaped string
  */
 function escapeYamlString(str) {
-  return str.replace(/"/g, '\\"').replace(/\n/g, ' ');
+  if (!str) return '';
+  return str
+    .replace(/\\/g, '\\\\')  // Escape backslashes first
+    .replace(/"/g, '\\"')     // Escape double quotes
+    .replace(/\n/g, ' ');     // Replace newlines with spaces
 }
 
 /**
@@ -93,7 +98,8 @@ function escapeYamlString(str) {
  */
 function getFilename(agentData) {
   // Copilot requires .agent.md extension
-  const baseName = agentData.filename.replace(/\.md$/, '');
+  const filename = agentData.filename || `${agentData.id || 'unknown'}.md`;
+  const baseName = filename.replace(/\.md$/, '');
   return `${baseName}.agent.md`;
 }
 
