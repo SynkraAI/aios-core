@@ -108,6 +108,10 @@ class WorkflowExecutor {
     this._phaseChangeCallbacks = [];
     this._agentSpawnCallbacks = [];
     this._terminalSpawnCallbacks = [];
+
+    // Memory pipeline callbacks
+    this._memoryEnrichCallbacks = [];
+    this._digestTriggerCallbacks = [];
   }
 
   /**
@@ -140,6 +144,30 @@ class WorkflowExecutor {
   onTerminalSpawn(callback) {
     if (typeof callback === 'function') {
       this._terminalSpawnCallbacks.push(callback);
+    }
+  }
+
+  /**
+   * Registers a callback for memory enrichment events.
+   * Called after each phase change to inject memory context.
+   * @param {Function} callback - (phase, agentId, storyContext) => Promise<result>
+   * @returns {void}
+   */
+  onMemoryEnrich(callback) {
+    if (typeof callback === 'function') {
+      this._memoryEnrichCallbacks.push(callback);
+    }
+  }
+
+  /**
+   * Registers a callback for digest trigger events.
+   * Called after checkpoint phase to capture session learnings.
+   * @param {Function} callback - (storyPath) => Promise<void>
+   * @returns {void}
+   */
+  onDigestTrigger(callback) {
+    if (typeof callback === 'function') {
+      this._digestTriggerCallbacks.push(callback);
     }
   }
 
@@ -194,6 +222,47 @@ class WorkflowExecutor {
       } catch (error) {
         if (this.options.debug) {
           console.log(`[WorkflowExecutor] Terminal spawn callback error: ${error.message}`);
+        }
+      }
+    }
+  }
+
+  /**
+   * Emits memory enrich to all registered callbacks.
+   * @param {string} phase - Phase ID
+   * @param {string} agent - Agent ID
+   * @param {object} storyContext - Story context
+   * @returns {Promise<Array>} Results from callbacks
+   * @private
+   */
+  async _emitMemoryEnrich(phase, agent, storyContext) {
+    const results = [];
+    for (const callback of this._memoryEnrichCallbacks) {
+      try {
+        const result = await callback(phase, agent, storyContext);
+        if (result) results.push(result);
+      } catch (error) {
+        if (this.options.debug) {
+          console.log(`[WorkflowExecutor] Memory enrich callback error: ${error.message}`);
+        }
+      }
+    }
+    return results;
+  }
+
+  /**
+   * Emits digest trigger to all registered callbacks.
+   * @param {string} storyPath - Path to current story
+   * @returns {Promise<void>}
+   * @private
+   */
+  async _emitDigestTrigger(storyPath) {
+    for (const callback of this._digestTriggerCallbacks) {
+      try {
+        await callback(storyPath);
+      } catch (error) {
+        if (this.options.debug) {
+          console.log(`[WorkflowExecutor] Digest trigger callback error: ${error.message}`);
         }
       }
     }
@@ -472,6 +541,15 @@ class WorkflowExecutor {
     // Story 12.6: Emit phase change for observability (AC1, AC2)
     const storyId = path.basename(storyPath, '.story.md');
     this._emitPhaseChange(phaseId, storyId, agent);
+
+    // Memory enrichment: inject memories for this phase
+    const memoryResults = await this._emitMemoryEnrich(phaseId, agent, {
+      story: this.state.currentStory,
+      accumulatedContext: this.state.accumulatedContext,
+    });
+    if (memoryResults.length > 0) {
+      this.state.accumulatedContext.memoryContext = memoryResults[0];
+    }
 
     // Execute based on phase type
     switch (phaseId) {
@@ -1051,6 +1129,9 @@ class WorkflowExecutor {
     if (this.options.debug) {
       console.log('[WorkflowExecutor] Checkpoint reached - awaiting human decision');
     }
+
+    // Trigger session digest generation for this checkpoint
+    await this._emitDigestTrigger(storyPath);
 
     // For now, return with GO decision (would be replaced by actual elicitation)
     return {

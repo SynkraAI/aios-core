@@ -82,6 +82,8 @@ jest.mock('../../../.aios-core/core/orchestration/workflow-executor', () => {
       onPhaseChange: jest.fn(),
       onAgentSpawn: jest.fn(),
       onTerminalSpawn: jest.fn(),
+      onMemoryEnrich: jest.fn(),
+      onDigestTrigger: jest.fn(),
       onLog: jest.fn(),
       onError: jest.fn(),
     })),
@@ -123,6 +125,20 @@ jest.mock('../../../.aios-core/core/orchestration/bob-status-writer', () => ({
     addAttempt: jest.fn().mockResolvedValue(undefined),
     appendLog: jest.fn().mockResolvedValue(undefined),
     complete: jest.fn().mockResolvedValue(undefined),
+    updateMemory: jest.fn().mockResolvedValue(undefined),
+    _status: { memory: {} },
+  })),
+}));
+
+// Memory Pipeline Integration
+jest.mock('../../../.aios-core/core/orchestration/bob-memory-bridge', () => ({
+  BobMemoryBridge: jest.fn().mockImplementation(() => ({
+    loadProjectMemories: jest.fn().mockResolvedValue({ memories: [], gotchas: [], metadata: {} }),
+    getPhaseMemories: jest.fn().mockResolvedValue({ memories: [], gotchas: [], metadata: {} }),
+    generateSessionDigest: jest.fn().mockResolvedValue({ digestPath: null, success: false }),
+    triggerSelfLearning: jest.fn().mockResolvedValue({ stats: {}, success: false }),
+    _isAvailable: jest.fn().mockReturnValue(false),
+    _reset: jest.fn(),
   })),
 }));
 

@@ -116,6 +116,15 @@ function createDefaultBobStatus() {
       tradeoffs: [],
       reasoning: [],
     },
+    memory: {
+      available: false,
+      memories_loaded: 0,
+      gotchas_injected: 0,
+      last_retrieval: null,
+      last_confidence: null,
+      digests_generated: 0,
+      self_learning_runs: 0,
+    },
   };
 }
 
@@ -356,6 +365,16 @@ class BobStatusWriter {
    */
   async updateEducational(educational) {
     this._status.educational = { ...this._status.educational, ...educational };
+    await this.writeBobStatus(this._status);
+  }
+
+  /**
+   * Updates memory pipeline data
+   * @param {Object} memoryData - Memory data updates
+   * @returns {Promise<void>}
+   */
+  async updateMemory(memoryData) {
+    this._status.memory = { ...this._status.memory, ...memoryData };
     await this.writeBobStatus(this._status);
   }
 

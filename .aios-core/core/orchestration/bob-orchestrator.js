@@ -49,6 +49,9 @@ const { getDashboardEmitter } = require('../events/dashboard-emitter');
 const { MessageFormatter } = require('./message-formatter');
 const { setUserConfigValue } = require('../config/config-resolver');
 
+// Memory Pipeline Integration
+const { BobMemoryBridge } = require('./bob-memory-bridge');
+
 /**
  * Project state enum — detected by decision tree
  * @enum {string}
@@ -115,6 +118,9 @@ class BobOrchestrator {
       surfaceChecker: this.surfaceChecker,
       sessionState: this.sessionState,
     });
+
+    // Memory Pipeline Integration
+    this.bobMemoryBridge = new BobMemoryBridge(projectRoot, { debug: this.options.debug });
 
     // Story 12.7: Educational Mode (AC1-2)
     // Educational mode is resolved from: session override > user config > default (false)
@@ -234,6 +240,42 @@ class BobOrchestrator {
       this.dashboardEmitter.emitBobAgentSpawned(agent, pid, task).catch((err) => {
         this._log(`DashboardEmitter error: ${err.message}`);
       });
+    });
+
+    // Memory Pipeline: Per-phase memory enrichment (Path 2)
+    this.workflowExecutor.onMemoryEnrich(async (phase, agentId, storyContext) => {
+      try {
+        const result = await this.bobMemoryBridge.getPhaseMemories(phase, agentId, storyContext);
+        this.bobStatusWriter.updateMemory({
+          memories_loaded: (this.bobStatusWriter._status.memory?.memories_loaded || 0) + result.memories.length,
+          gotchas_injected: (this.bobStatusWriter._status.memory?.gotchas_injected || 0) + result.gotchas.length,
+          last_retrieval: new Date().toISOString(),
+          last_confidence: result.metadata?.maxConfidence || null,
+        }).catch(err => this._log(`StatusWriter memory error: ${err.message}`));
+        return result;
+      } catch (error) {
+        this._log(`Phase memory failed (graceful): ${error.message}`);
+        return null;
+      }
+    });
+
+    // Memory Pipeline: Post-checkpoint digest (Path 3)
+    this.workflowExecutor.onDigestTrigger(async (storyPath) => {
+      try {
+        const result = await this.bobMemoryBridge.generateSessionDigest({
+          sessionId: `bob-${Date.now()}`,
+          projectDir: this.projectRoot,
+          metadata: { activeStory: storyPath },
+        });
+        if (result.success) {
+          await this._updateMemoryMetadata({ digest_paths_append: result.digestPath });
+          this.bobStatusWriter.updateMemory({
+            digests_generated: (this.bobStatusWriter._status.memory?.digests_generated || 0) + 1,
+          }).catch(err => this._log(`StatusWriter digest error: ${err.message}`));
+        }
+      } catch (error) {
+        this._log(`Digest failed (graceful): ${error.message}`);
+      }
     });
 
     // AC1: Terminal spawn callback
@@ -467,6 +509,22 @@ class BobOrchestrator {
       // Step 1: Detect project state (AC3-6)
       const projectState = this.detectProjectState(this.projectRoot);
       this._log(`Detected project state: ${projectState}`);
+
+      // Memory Pipeline: Pre-orchestration memory load (Path 1)
+      let memoryContext = { memories: [], gotchas: [], metadata: {} };
+      try {
+        memoryContext = await this.bobMemoryBridge.loadProjectMemories({
+          title: context.userGoal || '',
+          projectState,
+        });
+        this._log(`Memory: ${memoryContext.memories.length} memories, ${memoryContext.gotchas.length} gotchas`);
+      } catch (error) {
+        this._log(`Memory load failed (graceful): ${error.message}`);
+      }
+
+      // Memory Pipeline: Set observability status (Path 6)
+      const memoryAvailable = this.bobMemoryBridge._isAvailable('pro.memory.extended');
+      await this.bobStatusWriter.updateMemory({ available: memoryAvailable }).catch(() => {});
 
       // Story 12.5: Check for existing session with formatted summary (AC1-4)
       const sessionCheck = await this._checkExistingSession();
@@ -982,6 +1040,29 @@ class BobOrchestrator {
     // Story 12.5 AC5: Track checkpoint
     await this._updatePhase('checkpoint', storyId, assignment.executor);
 
+    // Memory Pipeline: Self-Learning after epic completion (Path 4)
+    // Fire-and-forget — does not block the checkpoint
+    try {
+      const sessionExists = await this.sessionState.exists();
+      const pending = sessionExists && this.sessionState.state
+        ? (this.sessionState.state.session_state?.progress?.stories_pending || [])
+        : [];
+      if (pending.length === 0) {
+        this.bobMemoryBridge.triggerSelfLearning({ verbose: this.options.debug })
+          .then(r => {
+            this._log(`Self-learning: ${JSON.stringify(r.stats)}`);
+            this._updateMemoryMetadata({ self_learning_increment: true })
+              .catch(() => {});
+            this.bobStatusWriter.updateMemory({
+              self_learning_runs: (this.bobStatusWriter._status.memory?.self_learning_runs || 0) + 1,
+            }).catch(() => {});
+          })
+          .catch(e => this._log(`Self-learning failed: ${e.message}`));
+      }
+    } catch (error) {
+      this._log(`Self-learning check failed: ${error.message}`);
+    }
+
     return {
       action: 'story_executed',
       data: {
@@ -1010,6 +1091,44 @@ class BobOrchestrator {
       }
     } catch (error) {
       this._log(`Failed to update phase: ${error.message}`);
+    }
+  }
+
+  /**
+   * Updates memory metadata in session state (Path 5).
+   *
+   * Handles append operations for digest_paths and increment for
+   * self_learning_runs, retrieval counters, etc.
+   *
+   * @param {Object} updates - Memory metadata updates
+   * @param {string} [updates.digest_paths_append] - Digest path to append
+   * @param {boolean} [updates.self_learning_increment] - Increment self_learning_runs
+   * @returns {Promise<void>}
+   * @private
+   */
+  async _updateMemoryMetadata(updates) {
+    try {
+      const sessionExists = await this.sessionState.exists();
+      if (!sessionExists || !this.sessionState.state) return;
+
+      const currentMemory = this.sessionState.state.session_state?.context_snapshot?.memory || {};
+      const memoryUpdate = {};
+
+      if (updates.digest_paths_append) {
+        memoryUpdate.digest_paths = [...(currentMemory.digest_paths || []), updates.digest_paths_append];
+      }
+
+      if (updates.self_learning_increment) {
+        memoryUpdate.self_learning_runs = (currentMemory.self_learning_runs || 0) + 1;
+      }
+
+      if (Object.keys(memoryUpdate).length > 0) {
+        await this.sessionState.updateSessionState({
+          context_snapshot: { memory: memoryUpdate },
+        });
+      }
+    } catch (error) {
+      this._log(`Memory metadata update failed: ${error.message}`);
     }
   }
 

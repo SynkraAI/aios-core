@@ -175,6 +175,42 @@ criteria:
     severity: "info"
     bypass: true
 
+  # ----------------------------------------
+  # C008: Memory Conflict
+  # Multiple conflicting memories retrieved for same context
+  # ----------------------------------------
+  memory_conflict:
+    id: "C008"
+    name: "Memory Conflict"
+    condition: "memory_conflict_count >= 2"
+    action: "present_options_with_tradeoffs"
+    message: |
+      🧠 ${memory_conflict_count} memórias conflitantes detectadas:
+
+      ${memory_conflict_details}
+
+      Qual abordagem você prefere? [1-${memory_conflict_count}]
+    severity: "info"
+    bypass: true
+
+  # ----------------------------------------
+  # C009: Low Confidence Retrieval
+  # Memories retrieved but with low confidence scores
+  # ----------------------------------------
+  low_confidence_retrieval:
+    id: "C009"
+    name: "Low Confidence Retrieval"
+    condition: "memory_max_confidence < 0.3 AND memory_count > 0"
+    action: "confirm_before_proceed"
+    message: |
+      🧠 Memórias encontradas com baixa confiança (max: ${memory_max_confidence}).
+
+      As memórias podem não ser relevantes para o contexto atual.
+
+      Deseja usar mesmo assim? [SIM/NÃO]
+    severity: "info"
+    bypass: true
+
 # ============================================
 # ACTION DEFINITIONS
 # ============================================
@@ -251,6 +287,8 @@ evaluation_order:
   - consecutive_errors   # C004 - Error recovery
   - cost_threshold       # C001 - Cost confirmation
   - scope_change         # C006 - Scope expansion
+  - memory_conflict      # C008 - Conflicting memories
+  - low_confidence_retrieval  # C009 - Low confidence memories
   - multiple_options     # C003 - User choice needed
   - external_dependency  # C007 - External dependencies
 

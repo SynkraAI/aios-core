@@ -164,6 +164,13 @@ class SessionState {
           executor_distribution: {},
           last_executor: null,
           branch: branch,
+          memory: {
+            last_retrieval_count: 0,
+            last_retrieval_confidence: null,
+            gotchas_injected: 0,
+            digest_paths: [],
+            self_learning_runs: 0,
+          },
         },
 
         // Resume Instructions (auto-generated)
@@ -258,6 +265,13 @@ class SessionState {
     }
 
     if (updates.context_snapshot) {
+      // Deep merge memory sub-object instead of overwriting
+      if (updates.context_snapshot.memory) {
+        updates.context_snapshot.memory = {
+          ...(this.state.session_state.context_snapshot.memory || {}),
+          ...updates.context_snapshot.memory,
+        };
+      }
       this.state.session_state.context_snapshot = {
         ...this.state.session_state.context_snapshot,
         ...updates.context_snapshot,
@@ -709,6 +723,13 @@ O que você quer fazer?
             executor_distribution: {},
             last_executor: legacyState.executor || null,
             branch: 'main',
+            memory: {
+              last_retrieval_count: 0,
+              last_retrieval_confidence: null,
+              gotchas_injected: 0,
+              digest_paths: [],
+              self_learning_runs: 0,
+            },
           },
 
           resume_instructions: 'Migrated from legacy workflow state. Please review and continue.',
