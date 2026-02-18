@@ -1,316 +1,217 @@
-# CLAUDE.md - Synkra AIOS
+# Synkra AIOS Development Rules for Claude Code
 
-Este arquivo configura o comportamento do Claude Code ao trabalhar neste repositório.
+You are working with Synkra AIOS, an AI-Orchestrated System for Full Stack Development.
 
----
+<!-- AIOS-MANAGED-START: core-framework -->
+## Core Framework Understanding
 
-## Constitution
+Synkra AIOS is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
+<!-- AIOS-MANAGED-END: core-framework -->
 
-O AIOS possui uma **Constitution formal** com princípios inegociáveis e gates automáticos.
+<!-- AIOS-MANAGED-START: agent-system -->
+## Agent System
 
-**Documento completo:** `.aios-core/constitution.md`
+### Agent Activation
+- Agents are activated with @agent-name syntax: @dev, @qa, @architect, @pm, @po, @sm, @analyst
+- The master agent is activated with @aios-master
+- Agent commands use the * prefix: *help, *create-story, *task, *exit
 
-**Princípios fundamentais:**
+### Agent Context
+When an agent is active:
+- Follow that agent's specific persona and expertise
+- Use the agent's designated workflow patterns
+- Maintain the agent's perspective throughout the interaction
+<!-- AIOS-MANAGED-END: agent-system -->
 
-| Artigo | Princípio | Severidade |
-|--------|-----------|------------|
-| I | CLI First | NON-NEGOTIABLE |
-| II | Agent Authority | NON-NEGOTIABLE |
-| III | Story-Driven Development | MUST |
-| IV | No Invention | MUST |
-| V | Quality First | MUST |
-| VI | Absolute Imports | SHOULD |
+## Development Methodology
 
-**Gates automáticos bloqueiam violações.** Consulte a Constitution para detalhes completos.
+### Story-Driven Development
+1. **Work from stories** - All development starts with a story in `docs/stories/`
+2. **Update progress** - Mark checkboxes as tasks complete: [ ] → [x]
+3. **Track changes** - Maintain the File List section in the story
+4. **Follow criteria** - Implement exactly what the acceptance criteria specify
 
----
+### Code Standards
+- Write clean, self-documenting code
+- Follow existing patterns in the codebase
+- Include comprehensive error handling
+- Add unit tests for all new functionality
+- Use TypeScript/JavaScript best practices
 
-## Language Configuration
+### Testing Requirements
+- Run all tests before marking tasks complete
+- Ensure linting passes: `npm run lint`
+- Verify type checking: `npm run typecheck`
+- Add tests for new features
+- Test edge cases and error scenarios
 
-Language preference is handled by Claude Code's native `language` setting (v2.1.0+).
-Configure in `~/.claude/settings.json` (global) or `.claude/settings.json` (project):
-
-```json
-{ "language": "portuguese" }
-```
-
-The installer writes this automatically during `npx aios-core install`. No language config in `core-config.yaml`.
-
----
-
-## Premissa Arquitetural: CLI First
-
-O Synkra AIOS segue uma hierarquia clara de prioridades que deve guiar **TODAS** as decisões:
-
-```
-CLI First → Observability Second → UI Third
-```
-
-| Camada | Prioridade | Descrição |
-|--------|------------|-----------|
-| **CLI** | Máxima | Onde a inteligência vive. Toda execução, decisões e automação. |
-| **Observability** | Secundária | Observar e monitorar o que acontece no CLI em tempo real. |
-| **UI** | Terciária | Gestão pontual e visualizações quando necessário. |
-
-### Princípios Derivados
-
-1. **A CLI é a fonte da verdade** - Dashboards apenas observam, nunca controlam
-2. **Funcionalidades novas devem funcionar 100% via CLI** antes de ter qualquer UI
-3. **A UI nunca deve ser requisito** para operação do sistema
-4. **Observabilidade serve para entender** o que o CLI está fazendo, não para controlá-lo
-5. **Ao decidir onde implementar algo**, sempre prefira CLI > Observability > UI
-
-> **Referência formal:** Constitution Artigo I - CLI First (NON-NEGOTIABLE)
-
----
-
-## Estrutura do Projeto
+<!-- AIOS-MANAGED-START: framework-structure -->
+## AIOS Framework Structure
 
 ```
 aios-core/
-├── .aios-core/              # Core do framework
-│   ├── core/                # Módulos principais (orchestration, memory, etc.)
-│   ├── data/                # Knowledge base, entity registry
-│   ├── development/         # Agents, tasks, templates, checklists, scripts
-│   └── infrastructure/      # CI/CD templates, scripts
-├── bin/                     # CLI executables (aios-init.js, aios.js)
-├── docs/                    # Documentação
-│   └── stories/             # Development stories (active/, completed/)
-├── packages/                # Shared packages
-├── pro/                     # Pro submodule (proprietary)
-├── squads/                  # Squad expansions
-└── tests/                   # Testes
+├── .aios-core/development/
+│   ├── agents/       # Agent persona definitions (Markdown)
+│   ├── tasks/        # Executable task workflows
+│   ├── workflows/    # Multi-step workflow definitions (YAML)
+│   ├── templates/    # Document and code templates
+│   └── checklists/   # Validation and review checklists
+├── .claude/rules/    # Framework rules and patterns
+└── docs/
+    ├── stories/      # Development stories (active/completed/draft)
+    ├── architecture/ # ADRs and architecture documentation
+    └── guides/       # User and developer guides
 ```
+<!-- AIOS-MANAGED-END: framework-structure -->
 
----
+## Workflow Execution
 
-## Sistema de Agentes
+### Task Execution Pattern
+1. Read the complete task/workflow definition
+2. Understand all elicitation points
+3. Execute steps sequentially
+4. Handle errors gracefully
+5. Provide clear feedback
 
-### Ativação de Agentes
-Use `@agent-name` ou `/AIOS:agents:agent-name`:
+### Interactive Workflows
+- Workflows with `elicit: true` require user input
+- Present options clearly
+- Validate user responses
+- Provide helpful defaults
 
-| Agente | Persona | Escopo Principal |
-|--------|---------|------------------|
-| `@dev` | Dex | Implementação de código |
-| `@qa` | Quinn | Testes e qualidade |
-| `@architect` | Aria | Arquitetura e design técnico |
-| `@pm` | Morgan | Product Management |
-| `@po` | Pax | Product Owner, stories/epics |
-| `@sm` | River | Scrum Master |
-| `@analyst` | Alex | Pesquisa e análise |
-| `@data-engineer` | Dara | Database design |
-| `@ux-design-expert` | Uma | UX/UI design |
-| `@devops` | Gage | CI/CD, git push (EXCLUSIVO) |
+## Best Practices
 
-### Comandos de Agentes
-Use prefixo `*` para comandos:
-- `*help` - Mostrar comandos disponíveis
-- `*create-story` - Criar story de desenvolvimento
-- `*task {name}` - Executar task específica
-- `*exit` - Sair do modo agente
+### When implementing features:
+- Check existing patterns first
+- Reuse components and utilities
+- Follow naming conventions
+- Keep functions focused and testable
+- Document complex logic
 
-### Mapeamento Agente → Codebase
+### When working with agents:
+- Respect agent boundaries
+- Use appropriate agent for each task
+- Follow agent communication patterns
+- Maintain agent context
 
-| Agente | Diretórios Principais |
-|--------|----------------------|
-| `@dev` | `packages/`, `.aios-core/core/`, `bin/` |
-| `@architect` | `docs/architecture/`, system design |
-| `@data-engineer` | `packages/db/`, migrations, schema |
-| `@qa` | `tests/`, `*.test.js`, quality gates |
-| `@po` | Stories, epics, requirements |
-| `@devops` | `.github/`, CI/CD, git operations |
-
----
-
-## Story-Driven Development
-
-1. **Trabalhe a partir de stories** - Todo desenvolvimento começa com uma story em `docs/stories/`
-2. **Atualize progresso** - Marque checkboxes conforme completa: `[ ]` → `[x]`
-3. **Rastreie mudanças** - Mantenha a seção File List na story
-4. **Siga critérios** - Implemente exatamente o que os acceptance criteria especificam
-
-### Workflow de Story
-```
-@po *create-story → @dev implementa → @qa testa → @devops push
-```
-
----
-
-## Padrões de Código
-
-### Convenções de Nomenclatura
-
-| Tipo | Convenção | Exemplo |
-|------|-----------|---------|
-| Componentes | PascalCase | `WorkflowList` |
-| Hooks | prefixo `use` | `useWorkflowOperations` |
-| Arquivos | kebab-case | `workflow-list.tsx` |
-| Constantes | SCREAMING_SNAKE_CASE | `MAX_RETRIES` |
-| Interfaces | PascalCase + sufixo | `WorkflowListProps` |
-
-### Imports
-**Sempre use imports absolutos.** Nunca use imports relativos.
-```typescript
-// ✓ Correto
-import { useStore } from '@/stores/feature/store'
-
-// ✗ Errado
-import { useStore } from '../../../stores/feature/store'
-```
-
-**Ordem de imports:**
-1. React/core libraries
-2. External libraries
-3. UI components
-4. Utilities
-5. Stores
-6. Feature imports
-7. CSS imports
-
-### TypeScript
-- Sem `any` - Use tipos apropriados ou `unknown` com type guards
-- Sempre defina interface de props para componentes
-- Use `as const` para objetos/arrays constantes
-- Tipos de ref explícitos: `useRef<HTMLDivElement>(null)`
-
-### Error Handling
-```typescript
+### When handling errors:
+```javascript
 try {
   // Operation
 } catch (error) {
-  logger.error(`Failed to ${operation}`, { error })
-  throw new Error(`Failed to ${operation}: ${error instanceof Error ? error.message : 'Unknown'}`)
+  console.error(`Error in ${operation}:`, error);
+  // Provide helpful error message
+  throw new Error(`Failed to ${operation}: ${error.message}`);
 }
 ```
 
----
+## Git & GitHub Integration
 
-## Testes & Quality Gates
+### Commit Conventions
+- Use conventional commits: `feat:`, `fix:`, `docs:`, `chore:`, etc.
+- Reference story ID: `feat: implement IDE detection [Story 2.1]`
+- Keep commits atomic and focused
 
-### Comandos de Teste
-```bash
-npm test                    # Rodar testes
-npm run test:coverage       # Testes com cobertura
-npm run lint                # ESLint
-npm run typecheck           # TypeScript
-```
+### GitHub CLI Usage
+- Ensure authenticated: `gh auth status`
+- Use for PR creation: `gh pr create`
+- Check org access: `gh api user/memberships`
 
-### Quality Gates (Pre-Push)
-Antes de push, todos os checks devem passar:
-```bash
-npm run lint        # ESLint
-npm run typecheck   # TypeScript
-npm test            # Jest
-```
+<!-- AIOS-MANAGED-START: aios-patterns -->
+## AIOS-Specific Patterns
 
----
+### Agent Activation
+- Agents are activated via slash commands: `/AIOS:agents:dev`, `/AIOS:agents:qa`, etc.
+- Agent definitions live in `.aios-core/development/agents/`
+- Tasks are executed with `*task {name}` command within agent context
 
-## Convenções Git
+### Story-Driven Workflow
+- Stories in `docs/stories/active/` drive all development
+- Mark checkboxes `[ ] → [x]` as tasks complete
+- Maintain File List section for traceability
+<!-- AIOS-MANAGED-END: aios-patterns -->
 
-### Commits
-Seguir Conventional Commits:
-- `feat:` - Nova funcionalidade
-- `fix:` - Correção de bug
-- `docs:` - Documentação
-- `test:` - Testes
-- `chore:` - Manutenção
-- `refactor:` - Refatoração
+## Environment Setup
 
-**Referencie story ID:** `feat: implement feature [Story 2.1]`
+### Required Tools
+- Node.js 18+
+- GitHub CLI
+- Git
+- Your preferred package manager (npm/yarn/pnpm)
 
-### Branches
-- `main` - Branch principal
-- `feat/*` - Features
-- `fix/*` - Correções
-- `docs/*` - Documentação
+### Configuration Files
+- `.aios-core/core-config.yaml` - Framework configuration
+- `.env` - Environment variables (never commit)
 
-### Push Authority
-**Apenas `@devops` pode fazer push para remote.**
+<!-- AIOS-MANAGED-START: common-commands -->
+## Common Commands
 
----
+### AIOS Master Commands
+- `*help` - Show available commands
+- `*create-story` - Create new story
+- `*task {name}` - Execute specific task
+- `*workflow {name}` - Run workflow
 
-## Otimização Claude Code
+### Development Commands
+- `npm test` - Run tests (Jest)
+- `npm run lint` - Check code style (ESLint)
+- `npm run typecheck` - Type checking (TypeScript)
+- `npm run format` - Format markdown (Prettier)
+<!-- AIOS-MANAGED-END: common-commands -->
 
-### Uso de Ferramentas
-| Tarefa | Use | Não Use |
-|--------|-----|---------|
-| Buscar conteúdo | `Grep` tool | `grep`/`rg` no bash |
-| Ler arquivos | `Read` tool | `cat`/`head`/`tail` |
-| Editar arquivos | `Edit` tool | `sed`/`awk` |
-| Buscar arquivos | `Glob` tool | `find` |
-| Operações complexas | `Task` tool | Múltiplos comandos manuais |
+## Debugging
 
-### Performance
-- Prefira chamadas de ferramentas em batch
-- Use execução paralela para operações independentes
-- Cache dados frequentemente acessados durante a sessão
-
-### Gerenciamento de Sessão
-- Rastreie progresso da story durante a sessão
-- Atualize checkboxes imediatamente após completar tasks
-- Mantenha contexto da story atual sendo trabalhada
-- Salve estado importante antes de operações longas
-
-### Recuperação de Erros
-- Sempre forneça sugestões de recuperação para falhas
-- Inclua contexto do erro em mensagens ao usuário
-- Sugira procedimentos de rollback quando apropriado
-- Documente quaisquer correções manuais necessárias
-
----
-
-## Comandos Frequentes
-
-### Desenvolvimento
-```bash
-npm run dev                 # Iniciar desenvolvimento
-npm test                    # Rodar testes
-npm run lint                # Verificar estilo
-npm run typecheck           # Verificar tipos
-npm run build               # Build produção
-```
-
-### AIOS
-```bash
-npx aios-core install       # Instalar AIOS
-npx aios-core doctor        # Diagnóstico do sistema
-npx aios-core info          # Informações do sistema
-```
-
-### Dashboard (apps/dashboard/)
-```bash
-cd apps/dashboard
-npm install
-npm run dev                 # Desenvolvimento
-npm run build               # Build produção
-```
-
----
-
-## MCP Usage
-
-Ver `.claude/rules/mcp-usage.md` para regras detalhadas.
-
-**Resumo:**
-- Preferir ferramentas nativas do Claude Code sobre MCP
-- MCP Docker Gateway apenas quando explicitamente necessário
-- `@devops` gerencia toda infraestrutura MCP
-
----
-
-## Debug
-
-### Habilitar Debug
+### Enable Debug Mode
 ```bash
 export AIOS_DEBUG=true
 ```
 
-### Logs
+### View Agent Logs
 ```bash
 tail -f .aios/logs/agent.log
 ```
 
----
+### Validate Framework Structure
+```bash
+npm run validate:structure
+```
 
-*Synkra AIOS Claude Code Configuration v4.0*
-*CLI First | Observability Second | UI Third*
+## Claude Code Specific Configuration
+
+### Performance Optimization
+- Prefer batched tool calls when possible for better performance
+- Use parallel execution for independent operations
+- Cache frequently accessed data in memory during sessions
+
+### Tool Usage Guidelines
+- Always use the Grep tool for searching, never `grep` or `rg` in bash
+- Use the Task tool for complex multi-step operations
+- Batch file reads/writes when processing multiple files
+- Prefer editing existing files over creating new ones
+
+### Session Management
+- Track story progress throughout the session
+- Update checkboxes immediately after completing tasks
+- Maintain context of the current story being worked on
+- Save important state before long-running operations
+
+### Error Recovery
+- Always provide recovery suggestions for failures
+- Include error context in messages to user
+- Suggest rollback procedures when appropriate
+- Document any manual fixes required
+
+### Testing Strategy
+- Run tests incrementally during development
+- Always verify lint and typecheck before marking complete
+- Test edge cases for each new feature
+- Document test scenarios in story files
+
+### Documentation
+- Update relevant docs when changing functionality
+- Include code examples in documentation
+- Keep README synchronized with actual behavior
+- Document breaking changes prominently
+
+---
+*Synkra AIOS Claude Code Configuration v2.0*
