@@ -22,56 +22,61 @@ describe('score-calculator', () => {
   });
 
   describe('calculateScores', () => {
+    // Use neutral fixtures to isolate each scoring factor
+    const neutral = (overrides = {}) => ({
+      id: 'zz', name: 'ZZ', tags: [], category: '', description: '', score: 0, ...overrides,
+    });
+
     it('should boost score for exact ID match', () => {
-      const results = [makeResult({ id: 'dev' })];
+      const results = [neutral({ id: 'dev' })];
       const scored = calculateScores(results, 'dev');
       expect(scored[0].score).toBe(100);
     });
 
     it('should boost score for case-insensitive ID match', () => {
-      const results = [makeResult({ id: 'Dev' })];
+      const results = [neutral({ id: 'Dev' })];
       const scored = calculateScores(results, 'dev');
       expect(scored[0].score).toBeGreaterThanOrEqual(99);
     });
 
     it('should boost score for partial ID match', () => {
-      const results = [makeResult({ id: 'devops' })];
+      const results = [neutral({ id: 'devops' })];
       const scored = calculateScores(results, 'dev');
       expect(scored[0].score).toBeGreaterThanOrEqual(95);
     });
 
     it('should boost score for exact name match', () => {
-      const results = [makeResult({ id: 'x', name: 'Dex' })];
+      const results = [neutral({ name: 'Dex' })];
       const scored = calculateScores(results, 'dex');
       expect(scored[0].score).toBeGreaterThanOrEqual(98);
     });
 
     it('should boost score for partial name match', () => {
-      const results = [makeResult({ id: 'x', name: 'Developer Agent' })];
+      const results = [neutral({ name: 'Developer Agent' })];
       const scored = calculateScores(results, 'developer');
       expect(scored[0].score).toBeGreaterThanOrEqual(90);
     });
 
     it('should boost score for tag matches', () => {
-      const results = [makeResult({ id: 'x', name: 'x', tags: ['testing', 'qa'] })];
+      const results = [neutral({ tags: ['testing', 'qa'] })];
       const scored = calculateScores(results, 'testing qa');
       expect(scored[0].score).toBeGreaterThan(0);
     });
 
     it('should boost score for category match', () => {
-      const results = [makeResult({ id: 'x', name: 'x', category: 'engineering' })];
+      const results = [neutral({ category: 'engineering' })];
       const scored = calculateScores(results, 'engineering');
       expect(scored[0].score).toBeGreaterThan(0);
     });
 
     it('should clamp scores to 0-100 range', () => {
-      const results = [makeResult({ score: 200 })];
-      const scored = calculateScores(results, 'dev');
+      const results = [neutral({ score: 200 })];
+      const scored = calculateScores(results, 'zzzznothing');
       expect(scored[0].score).toBeLessThanOrEqual(100);
     });
 
     it('should preserve existing score when no matches', () => {
-      const results = [makeResult({ id: 'x', name: 'y', tags: [], category: '', score: 50 })];
+      const results = [neutral({ score: 50 })];
       const scored = calculateScores(results, 'zzzzz');
       expect(scored[0].score).toBe(50);
     });
@@ -79,6 +84,11 @@ describe('score-calculator', () => {
     it('should handle results without tags or category', () => {
       const results = [{ id: 'x', name: 'y', score: 0 }];
       expect(() => calculateScores(results, 'test')).not.toThrow();
+    });
+
+    it('should handle empty results array', () => {
+      const scored = calculateScores([], 'dev');
+      expect(scored).toEqual([]);
     });
   });
 
@@ -260,6 +270,10 @@ describe('score-calculator', () => {
       const boosted = boostExactMatches(results, 'dev');
       expect(boosted[0].score).toBe(100);
       expect(boosted[1].score).toBe(70);
+    });
+
+    it('should handle empty array', () => {
+      expect(boostExactMatches([], 'dev')).toEqual([]);
     });
   });
 
