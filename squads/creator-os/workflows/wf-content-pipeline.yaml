@@ -1,0 +1,114 @@
+# Workflow: Content Pipeline
+# Trend → Research → Write → Distribute
+# Squad: Creator OS
+# Version: 1.0.0
+
+id: wf-content-pipeline
+name: "Content Pipeline"
+description: "Pipeline completo: pesquisa tendencia, destila conhecimento, escreve conteudo, distribui em escala"
+version: "1.0.0"
+squad: "creator-os"
+
+trigger:
+  command: "*content {topic}"
+  alias: "*pipeline"
+
+inputs:
+  - name: topic
+    type: string
+    required: true
+    description: "Topico principal para criacao de conteudo"
+  - name: format
+    type: string
+    required: false
+    default: "all"
+    options: ["newsletter", "post", "thread", "carrossel", "all"]
+  - name: canal
+    type: string
+    required: false
+    default: "linkedin"
+    options: ["linkedin", "twitter", "newsletter", "instagram", "all"]
+
+phases:
+  phase_1:
+    name: "Research & Distill"
+    agent: "tiago-forte"
+    task: "research-trend"
+    description: "Pesquisar topico, organizar com PARA, destilar com Progressive Summarization"
+    inputs:
+      - topic: "${inputs.topic}"
+    outputs:
+      - research_output:
+          insights: "list[5-10]"
+          data_points: "list[3-5]"
+          quotes: "list[2-3]"
+          narrative: "string"
+          content_seeds: "list[3-5]"
+    quality_gate:
+      id: "QG-CO-002"
+      check: "Minimum 5 insights destilados com source"
+      blocking: true
+
+  phase_2:
+    name: "Write Content"
+    agent: "nicolas-cole"
+    task: "distill-content"
+    description: "Transformar insights em conteudo escrito usando 4A Framework + Atomic Essays"
+    inputs:
+      - content_seeds: "${phase_1.outputs.research_output.content_seeds}"
+      - narrative: "${phase_1.outputs.research_output.narrative}"
+      - format: "${inputs.format}"
+    outputs:
+      - content_pieces:
+          newsletter: "string (500-1000 palavras)"
+          posts_linkedin: "list[3]"
+          thread: "list[5-10 posts]"
+          carrossel: "list[7-10 slides]"
+    quality_gate:
+      id: "QG-CO-003"
+      check: "Rate of Revelation alto, hooks fortes, kickers memoraveis"
+      blocking: true
+
+  phase_3:
+    name: "Distribution Plan"
+    agent: "sahil-bloom"
+    task: "distribute-content"
+    description: "Criar plano de distribuicao com repurposing, calendario e growth actions"
+    inputs:
+      - content_pieces: "${phase_2.outputs.content_pieces}"
+      - canal: "${inputs.canal}"
+    outputs:
+      - distribution_plan:
+          calendar: "yaml (7 dias)"
+          repurposed_pieces: "list"
+          growth_actions: "list[3-5]"
+          metricas: "list"
+    quality_gate:
+      check: "Calendario preenchido, metricas definidas"
+      blocking: false
+
+  phase_4:
+    name: "Review & Deliver"
+    agent: "creator-os-chief"
+    description: "Consolidar outputs, apresentar ao usuario, ajustar se necessario"
+    inputs:
+      - all_outputs: "${phase_1, phase_2, phase_3}"
+    outputs:
+      - final_package:
+          summary: "Resumo do que foi criado"
+          content: "Conteudo pronto para publicar"
+          calendar: "Calendario de publicacao"
+          next_steps: "Proximos passos recomendados"
+
+execution:
+  mode: "sequential"
+  error_handling:
+    phase_failure: "retry_once_then_skip"
+    pipeline_failure: "save_state_and_report"
+  state_persistence: true
+  estimated_time: "5-10 min"
+
+user_profile:
+  reference: "squads/zona-genialidade/data/joao-rosa/genius-zone-blueprint.md"
+  apply_to: "all phases"
+  voice_calibration: "Direto, confiante, visionario mas pratico"

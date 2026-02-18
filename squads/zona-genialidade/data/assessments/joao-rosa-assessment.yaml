@@ -1,0 +1,95 @@
+assessment_result:
+  metadata:
+    id: "assessment_joao_rosa_2026-02-18T00:00:00Z"
+    name: "Joao Rosa"
+    slug: "joao-rosa"
+    date: "2026-02-18"
+    duration_minutes: 30
+    version: "1.0.0"
+    completeness_score: 100
+    previous_assessments: "Mencionou ter resultados anteriores mas nao compartilhou detalhes"
+
+  section_1_context:
+    nome: "Joao Rosa"
+    area_atuacao: "Gestao / Lideranca"
+    tempo_experiencia: "Mais de 10 anos"
+    descricao_dia_a_dia: "Empreendedor / dono de negocio - gerencia proprio negocio, cuida de tudo desde estrategia ate operacao"
+    se_dinheiro_nao_importasse: "Criar projetos inovadores"
+    espectro_introextro: "Equilibrado - depende da situacao"
+    espectro_analitico_intuitivo: "Mais analitico que intuitivo - prefere dados mas confia no instinto quando preciso"
+    espectro_estrutura_flex: "Mais flexibilidade - estrutura demais sufoca"
+    frameworks_fed:
+      - "ALL: identificacao basica"
+      - "hamilton: equilibrado + mais analitico = Creator-Mechanic axis"
+      - "kolbe: flexibilidade = low Follow Thru"
+      - "hogshead: equilibrado = balanced mystique/power"
+
+  section_2_activities:
+    atividades_drenam:
+      - "Tarefas administrativas e burocraticas"
+      - "Reunioes longas sem pauta definida"
+      - "Trabalho repetitivo e operacional"
+      - "Analise detalhada de numeros e planilhas"
+    atividades_energizam:
+      - "Resolver problemas complexos"
+      - "Criar coisas novas (produtos, conteudo, arte)"
+      - "Planejar estrategias e visao de longo prazo"
+    outros_agradecem_por: "Explicar algo complexo de forma simples"
+    perde_tempo_em: "Pesquisando, aprendendo coisas novas"
+    como_inicia_projetos: "Comecar a executar logo e ajustar no caminho"
+    como_resolve_problemas: "Agir rapido com a melhor opcao disponivel no momento"
+    manual_vs_conceitual: "Coisas tangiveis - prototipos, ferramentas, construir fisicamente"
+    nivel_detalhe: "Foca no resultado geral - detalhes podem ser ajustados depois"
+    estilo_delegacao: "Adoro delegar - prefiro focar no que so eu sei fazer"
+    ritmo_trabalho: "Comeco devagar e vou acelerando ate o deadline"
+    inovacao_vs_otimizacao: "Melhorar algo existente e tornar excelente"
+    foco_vs_multitask: "Alternando entre 2-3 projetos no mesmo dia"
+    frameworks_fed:
+      - "hendricks: drena (admin,repetitivo,reunioes,numeros) vs energiza (problemas,criar,estrategia) = forte separacao de zonas"
+      - "sullivan: agradecem (simplificar complexidade) + flow (pesquisar/aprender) + inovacao (melhorar existente) = unique ability de otimizacao criativa"
+      - "kolbe: inicio (executar logo) + problemas (agir rapido) + detalhe (resultado geral) + delegacao (adora delegar) = high Quick Start, low Fact Finder, low Follow Thru"
+      - "clifton: energiza (criar, estrategia, resolver) + padrao = Strategic Thinking domain"
+
+  section_3_talents:
+    padrao_sucesso: "Em todos estava analisando e resolvendo problemas complexos"
+    como_outros_descrevem: "Criativo e visionario - sempre tem ideias incriveis"
+    facilidade_natural: "Enxergar tendencias e oportunidades antes dos outros"
+    dominio_strengths: "PENSADOR ESTRATEGICO - visao de futuro e analise profunda"
+    frustracao_recorrente: "Processos lentos e burocraticos"
+    estilo_comunicacao: "Direto e objetivo - vai ao ponto sem rodeios"
+    estilo_aprendizado: "Procura um mentor ou especialista para aprender direto com a pessoa"
+    reacao_feedback: "Questiona e desafia se o feedback faz sentido"
+    contribuicao_mundo: "Gerar riqueza e oportunidades economicas para outros"
+    competencia_vs_genialidade: "Nao - tudo que faz bem genuinamente gosta de fazer"
+    competencia_vs_genialidade_detalhe: null
+    frameworks_fed:
+      - "clifton: padrao (resolver problemas) + descricao (criativo) + dominio (estrategico) = Strategic Thinking dominant, com Futuristic/Strategic/Ideation"
+      - "hogshead: descricao (visionario) + comunicacao (direto) = Innovation + Power advantages"
+      - "hendricks: natural (tendencias) + comp_vs_gen (alinhado) = proximo da Zona de Genialidade"
+      - "sullivan: contribuicao (riqueza/oportunidades) + padrao (resolver problemas) = UA de transformar complexidade em oportunidade"
+
+  section_4_business:
+    modelo_preferido: "Automatizar sistemas que geram receita recorrente"
+    tolerancia_risco: "Aceita riscos calculados com rede de protecao"
+    solo_vs_time: "Totalmente sozinho - mais produtivo sem ninguem por perto"
+    timing_mercado: "Entrar cedo mas com algo ja validado (fast follower)"
+    fonte_receita_ideal: "Vender produtos (SaaS, apps, e-commerce, produtos fisicos)"
+    relacao_preco: "Cobro bem e me sinto confortavel com meu preco"
+    escala_vs_profundidade: "Atender MUITAS pessoas com um produto escalavel (cursos, SaaS)"
+    perfil_wealth_dynamics: "CRIADOR - Tenho muitas ideias, comeco coisas novas, sou visionario"
+    frameworks_fed:
+      - "hamilton: criador + fast follower + solo + automatizar = Creator com tendencia Mechanic (melhora existente + sistemas)"
+      - "hormozi: produto + escala + preco confortavel = Grand Slam Offer viavel"
+      - "sullivan: solo + automatizar = Who Not How via tecnologia, nao via pessoas"
+
+  section_5_vision:
+    resultado_90_dias: "Lancar um produto/servico no mercado"
+    meta_receita_mensal: "Mais de R$50.000/mes"
+    maior_bloqueio: "Falta de clareza sobre qual caminho seguir"
+    tempo_disponivel: "10 a 20 horas/semana (dedicacao parcial consistente)"
+    nivel_ai: "Intermediario - usa AI no dia a dia para varios fluxos de trabalho"
+    frameworks_fed:
+      - "hormozi: meta agressiva (50k+) + bloqueio (clareza) + tempo (10-20h) = precisa de alavanca forte (produto escalavel + AI)"
+      - "hendricks: bloqueio (falta de clareza) = possivel Upper Limit Problem - auto-sabotagem por excesso de opcoes"
+      - "sullivan: resultado (lancar produto) + bloqueio (clareza) = Gap thinking - foco no que falta, nao no que ja tem"
+      - "ALL: tempo parcial (10-20h) + meta agressiva = PRECISA de squad/automacao para viabilizar"

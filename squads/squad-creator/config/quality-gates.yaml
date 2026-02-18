@@ -1,0 +1,415 @@
+# QUALITY GATES - Squad-Creator
+# Source patterns: HO-PP-003, HO-QG-001
+# Version: 1.0
+# Last Updated: 2026-02-10
+
+quality_gates:
+  version: "1.0"
+  philosophy: |
+    "O que não é vigiado não é realizado."
+    Quality gates são checkpoints que BLOQUEIAM progresso se critérios não são atendidos.
+    Gates automáticos < 60s. Gates híbridos < 5min. Gates manuais = agendados.
+
+  # ============================================
+  # GATE TYPES
+  # ============================================
+  gate_types:
+    auto:
+      name: "Automatic Gate"
+      description: "Runtime validation, no human intervention"
+      max_duration: "60s"
+      executor: "Worker"
+      examples:
+        - "YAML syntax validation"
+        - "Required fields check"
+        - "File existence check"
+        - "Regex pattern matching"
+
+    hybrid:
+      name: "Hybrid Gate"
+      description: "AI prepares, human validates"
+      max_duration: "5min"
+      executor: "Hybrid"
+      examples:
+        - "Coherence score calculation"
+        - "Axioma assessment"
+        - "Smoke test execution"
+        - "DNA completeness check"
+
+    manual:
+      name: "Manual Gate"
+      description: "Human judgment required"
+      max_duration: "scheduled"
+      executor: "Human"
+      examples:
+        - "Strategic alignment review"
+        - "Stakeholder approval"
+        - "Final sign-off"
+        - "Creative quality assessment"
+
+  # ============================================
+  # PHASE-SPECIFIC GATES
+  # ============================================
+  gates:
+    # PHASE 1: DISCOVERY
+    QG_SC_1_1:
+      id: "QG-SC-1.1"
+      name: "Domain Viability Gate"
+      phase: "discovery"
+      type: "hybrid"
+      description: "Validates domain has sufficient elite minds and sources"
+
+      criteria:
+        - metric: "elite_minds_count"
+          threshold: 3
+          operator: ">="
+        - metric: "source_quality_score"
+          threshold: 0.6
+          operator: ">="
+        - metric: "accessible_sources"
+          threshold: true
+
+      veto_conditions:
+        - "SC_VC_001"
+
+      pass_action: "Proceed to Architecture"
+      fail_action: "VETO - Domain not viable"
+
+      validation_questions:
+        - "Existem pelo menos 3 elite minds no domínio?"
+        - "As fontes são acessíveis?"
+        - "Existe material suficiente para extração?"
+
+    # PHASE 2: ARCHITECTURE
+    QG_SC_2_1:
+      id: "QG-SC-2.1"
+      name: "Vision Clarity Gate"
+      phase: "architecture"
+      type: "hybrid"
+      description: "Validates squad vision is clear and complete"
+
+      criteria:
+        - metric: "vision_clarity_score"
+          threshold: 0.7
+          operator: ">="
+        - metric: "agent_coverage"
+          threshold: 0.8
+          operator: ">="
+        - metric: "workflow_defined"
+          threshold: true
+
+      veto_conditions:
+        - "SC_VC_002"
+
+      heuristic_reference: "SC_HE_001"
+      pass_action: "Proceed to DNA Extraction"
+      fail_action: "VETO - Return to Discovery"
+
+      validation_questions:
+        - "O propósito do squad está claramente definido?"
+        - "Os agents cobrem todas as capabilities?"
+        - "Os workflows conectam corretamente?"
+
+    # PHASE 3: DNA EXTRACTION
+    QG_SC_3_1:
+      id: "QG-SC-3.1"
+      name: "Source Quality Gate"
+      phase: "dna_extraction"
+      type: "auto"
+      description: "Validates source material quality"
+
+      criteria:
+        - metric: "verified_quotes"
+          threshold: 15
+          operator: ">="
+        - metric: "signature_phrases"
+          threshold: 5
+          operator: ">="
+        - metric: "inferences_marked"
+          threshold: true
+
+      veto_conditions:
+        - "SC_VC_003"
+
+      pass_action: "Proceed to DNA Completeness"
+      fail_action: "VETO - Insufficient sources"
+
+      auto_checks:
+        - check: "Count [SOURCE:] tags"
+          threshold: 15
+        - check: "Count signature_phrases in voice_dna"
+          threshold: 5
+        - check: "Check for [INFERENCE:] markers"
+          threshold: "present"
+
+    QG_SC_3_2:
+      id: "QG-SC-3.2"
+      name: "DNA Completeness Gate"
+      phase: "dna_extraction"
+      type: "auto"
+      description: "Validates DNA has all required components"
+
+      criteria:
+        - metric: "voice_dna_complete"
+          threshold: true
+        - metric: "thinking_dna_complete"
+          threshold: true
+        - metric: "anti_patterns_defined"
+          threshold: true
+
+      veto_conditions:
+        - "SC_VC_004"
+
+      required_voice_dna:
+        - "signature_phrases (min 5)"
+        - "vocabulary.power_words"
+        - "vocabulary.transforms"
+        - "tone (4 dimensions)"
+
+      required_thinking_dna:
+        - "primary_framework"
+        - "heuristics (min 3)"
+        - "anti_patterns"
+        - "decision_architecture"
+
+      pass_action: "Proceed to Agent Creation"
+      fail_action: "VETO - DNA incomplete"
+
+    # PHASE 4: AGENT CREATION
+    QG_SC_4_1:
+      id: "QG-SC-4.1"
+      name: "Agent Coherence Gate"
+      phase: "agent_creation"
+      type: "hybrid"
+      description: "Validates agent behavior matches persona"
+
+      criteria:
+        - metric: "coherence_score"
+          threshold: 0.7
+          operator: ">="
+        - metric: "consistency_10x"
+          threshold: "10/10"
+        - metric: "guardrail_compliance"
+          threshold: "0 violations"
+
+      veto_conditions:
+        - "SC_VC_005"
+
+      heuristic_reference: "SC_HE_002"
+      pass_action: "Proceed to Smoke Tests"
+      fail_action: "VETO - Agent incoherent"
+
+      coherence_tests:
+        - name: "Consistency Test"
+          method: "Run same input 10x"
+          threshold: "10/10 identical outputs"
+        - name: "Persona Alignment Test"
+          method: "Compare output style to voice_dna"
+          threshold: ">90% alignment"
+        - name: "Guardrail Compliance Test"
+          method: "Test edge cases against anti_patterns"
+          threshold: "0 violations"
+
+    QG_SC_4_2:
+      id: "QG-SC-4.2"
+      name: "Smoke Test Gate"
+      phase: "agent_creation"
+      type: "auto"
+      description: "Validates agent passes basic functionality tests"
+
+      criteria:
+        - metric: "smoke_tests_passed"
+          threshold: 3
+          operator: ">="
+
+      veto_conditions:
+        - "SC_VC_006"
+
+      required_tests:
+        - test: "Greeting Test"
+          description: "Agent displays greeting correctly"
+          method: "Invoke agent, check greeting output"
+
+        - test: "Core Command Test"
+          description: "Primary command executes without error"
+          method: "Run most common command"
+
+        - test: "Handoff Test"
+          description: "Handoff triggers correctly"
+          method: "Simulate handoff condition"
+
+      pass_action: "Proceed to Workflow Design"
+      fail_action: "VETO - Smoke tests failed"
+
+    # PHASE 5: WORKFLOW DESIGN
+    QG_SC_5_1:
+      id: "QG-SC-5.1"
+      name: "Guardrails Gate"
+      phase: "workflow_design"
+      type: "auto"
+      description: "Validates workflow has required guardrails"
+
+      criteria:
+        - metric: "guardrails_count"
+          threshold: 5
+          operator: ">="
+
+      veto_conditions:
+        - "SC_VC_007"
+
+      heuristic_reference: "SC_HE_003"
+
+      required_guardrails:
+        - "loop_prevention"
+        - "idempotency"
+        - "audit_trail"
+        - "manual_escape"
+        - "retry_logic"
+
+      pass_action: "Proceed to Flow Validation"
+      fail_action: "VETO - Guardrails missing"
+
+    QG_SC_5_2:
+      id: "QG-SC-5.2"
+      name: "Unidirectional Flow Gate"
+      phase: "workflow_design"
+      type: "auto"
+      description: "Validates workflow has no backward transitions"
+
+      criteria:
+        - metric: "backward_transitions"
+          threshold: 0
+          operator: "=="
+
+      veto_conditions:
+        - "SC_VC_008"
+
+      validation:
+        - "Check all status transitions"
+        - "Verify no status can go backwards"
+        - "Confirm terminal states are final"
+
+      pass_action: "Proceed to Validation"
+      fail_action: "VETO - Unidirectional flow violated"
+
+    # PHASE 6: VALIDATION
+    QG_SC_6_1:
+      id: "QG-SC-6.1"
+      name: "Axioma Assessment Gate"
+      phase: "validation"
+      type: "hybrid"
+      description: "Validates squad/agent against 10 axioma dimensions"
+
+      criteria:
+        - metric: "overall_axioma_score"
+          threshold: 7.0
+          operator: ">="
+        - metric: "truthfulness_score"
+          threshold: 7.0
+          operator: ">="
+        - metric: "min_dimension_score"
+          threshold: 6.0
+          operator: ">="
+
+      veto_conditions:
+        - "SC_VC_009"
+
+      axioma_reference: "config/axioma-validator.yaml"
+
+      pass_action: "APPROVED - Ready for production"
+      fail_action: "REVIEW or VETO based on truthfulness"
+
+    QG_SC_6_2:
+      id: "QG-SC-6.2"
+      name: "Task Anatomy Gate"
+      phase: "any"
+      type: "auto"
+      description: "Validates all tasks have required 8 fields"
+
+      criteria:
+        - metric: "tasks_with_complete_anatomy"
+          threshold: "100%"
+          operator: "=="
+
+      veto_conditions:
+        - "SC_VC_010"
+
+      task_anatomy_reference: "config/task-anatomy.yaml"
+
+      required_fields:
+        - "task_name (verb + object)"
+        - "status"
+        - "responsible_executor"
+        - "execution_type"
+        - "estimated_time (with unit)"
+        - "input (array, min 1)"
+        - "output (array, min 1)"
+        - "action_items (array, min 1)"
+
+      pass_action: "Tasks validated"
+      fail_action: "VETO - Task anatomy incomplete"
+
+  # ============================================
+  # GATE EXECUTION WORKFLOW
+  # ============================================
+  execution_workflow:
+    on_gate_reached:
+      - "Log gate entry with timestamp"
+      - "Execute validation criteria"
+      - "Check veto conditions"
+      - "Determine PASS/REVIEW/VETO"
+      - "Log result"
+
+    on_pass:
+      - "Record pass in audit trail"
+      - "Proceed to next phase"
+      - "Notify stakeholders (optional)"
+
+    on_review:
+      - "Record review needed"
+      - "List specific concerns"
+      - "Assign to human reviewer"
+      - "Block until resolved"
+
+    on_veto:
+      - "Record veto with reason"
+      - "Block all progress"
+      - "Notify immediately"
+      - "Provide recovery actions"
+
+  # ============================================
+  # GATE SUMMARY BY PHASE
+  # ============================================
+  phase_gates:
+    discovery:
+      gates: ["QG-SC-1.1"]
+      total_gates: 1
+
+    architecture:
+      gates: ["QG-SC-2.1"]
+      total_gates: 1
+
+    dna_extraction:
+      gates: ["QG-SC-3.1", "QG-SC-3.2"]
+      total_gates: 2
+
+    agent_creation:
+      gates: ["QG-SC-4.1", "QG-SC-4.2"]
+      total_gates: 2
+
+    workflow_design:
+      gates: ["QG-SC-5.1", "QG-SC-5.2"]
+      total_gates: 2
+
+    validation:
+      gates: ["QG-SC-6.1", "QG-SC-6.2"]
+      total_gates: 2
+
+  # ============================================
+  # INTEGRATION
+  # ============================================
+  integration:
+    veto_conditions_file: "config/veto-conditions.yaml"
+    heuristics_file: "config/heuristics.yaml"
+    axioma_file: "config/axioma-validator.yaml"
+    task_anatomy_file: "config/task-anatomy.yaml"
