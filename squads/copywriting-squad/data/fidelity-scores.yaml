@@ -1,0 +1,322 @@
+# Fidelity Scores — Copywriting Squad Clones
+# Documenta nivel de fidelidade de cada clone em relacao ao expert real
+# Metodologia: Assessment baseado em SOURCE citations, Voice DNA specificity,
+#              Thinking DNA frameworks, output quality, smoke tests
+version: "1.0.0"
+updated_at: "2026-02-16"
+
+scoring_scale:
+  95-100: "Master Clone — Virtually indistinguishable from expert's real output"
+  85-94: "High Fidelity — Captures core methodology and voice accurately"
+  75-84: "Good Clone — Solid methodology, minor voice gaps"
+  60-74: "Functional — Works but lacks nuance/depth"
+  below_60: "Draft — Needs significant source material to improve"
+
+# =============================================================================
+# SCORES PER AGENT
+# =============================================================================
+scores:
+
+  # ─── ORCHESTRATOR ──────────────────────────────────────────────────────────
+  copy-maestro:
+    overall: 72
+    voice_fidelity: 70
+    thinking_fidelity: 74
+    source_quality: "mixed"
+    role: "orchestrator"
+    note: "Scored on operational fidelity, not expert clone fidelity"
+    strengths:
+      - "Clear operational voice with diagnostic-selection-orchestration framework"
+      - "Well-defined tier hierarchy and workflow routing enforcement (13 routes)"
+      - "Strong immune system with auto-rejections aligned to squad principles"
+    gaps:
+      - "Only 5 SOURCE citations (low for orchestrator role)"
+      - "Signature phrases descriptive but not sourced from primary materials"
+    improvement_path: "Add SOURCE citations for orchestration heuristics from copywriting management literature"
+
+  # ─── TIER 0: ESTRATEGISTAS ────────────────────────────────────────────────
+  eugene-schwartz:
+    overall: 88
+    voice_fidelity: 86
+    thinking_fidelity: 90
+    source_quality: "primary"
+    key_sources: ["Breakthrough Advertising (chapters cited)", "Boardroom Inc newsletters"]
+    strengths:
+      - "25 SOURCE citations directly to Breakthrough Advertising chapters"
+      - "Signature phrases traceable ('Copy nao se escreve. Copy se monta.')"
+      - "5 Levels of Awareness + 5 Levels of Sophistication with WHEN context"
+      - "Assembly Method well-documented with 80/20 research rule"
+    gaps:
+      - "Some heuristics could include more specific chapter references"
+      - "Voice could use more direct quotes from Schwartz lectures"
+    improvement_path: "Add Schwartz lecture transcripts and Boardroom Inc case studies"
+
+  dan-kennedy:
+    overall: 86
+    voice_fidelity: 84
+    thinking_fidelity: 88
+    source_quality: "primary"
+    key_sources: ["No B.S. Series", "Magnetic Marketing", "GKIC newsletters"]
+    strengths:
+      - "30 SOURCE citations to No B.S. Series + specific books"
+      - "Marketing Triangle framework extremely detailed with WHEN rules"
+      - "Signature phrases authentic ('Vendedores timidos tem filhos magros')"
+      - "10 Smart Questions and 29-Step Sales Letter traceable to source"
+    gaps:
+      - "Some phrases adapted from others (Zig Ziglar) without clear attribution"
+      - "Could benefit from more specific seminar/newsletter citations"
+    improvement_path: "Add GKIC newsletter edition-level citations and seminar transcripts"
+
+  claude-hopkins:
+    overall: 90
+    voice_fidelity: 91
+    thinking_fidelity: 89
+    source_quality: "primary"
+    key_sources: ["Scientific Advertising (1923)", "My Life in Advertising (1927)"]
+    strengths:
+      - "77+ SOURCE citations primarily from Scientific Advertising chapters"
+      - "14 signature phrases with exact source chapters"
+      - "Scientific Advertising Method 7-step process exceptionally detailed"
+      - "5 complete secondary frameworks (Salesman Test, Specificity Principle, etc.)"
+      - "Decision heuristics (10) + veto heuristics (3) with BLOCKING severity"
+    gaps:
+      - "Some sources are tertiary (azquotes.com, growthsummary.com)"
+    improvement_path: "Replace tertiary sources with direct book quotes"
+
+  # ─── TIER 1: EXECUTORES ───────────────────────────────────────────────────
+  john-carlton:
+    overall: 96
+    voice_fidelity: 96
+    thinking_fidelity: 96
+    source_quality: "primary"
+    key_sources: ["john-carlton.com", "Simple Writing System", "Marketing Rebel Club", "Call Notes"]
+    strengths:
+      - "77 SOURCE citations — highest in entire squad"
+      - "Signature phrases ultra-specific ('Bucko', 'The Voice o Experience', 'Get Good, Get Connected, Get Paid')"
+      - "Simple Writing System 17-step checklist fully documented"
+      - "Sales Detective Method procedural (7 steps) with result definition"
+      - "Emotional states mapped (Snarling Beast, Voice of Experience, Marketing Rebel, Sales Detective)"
+      - "Authentication markers checklist (10-point scoring system)"
+    gaps: []
+    improvement_path: "Gold standard — maintain and use as reference for other clones"
+
+  alex-hormozi:
+    overall: 94
+    voice_fidelity: 93
+    thinking_fidelity: 95
+    source_quality: "primary"
+    key_sources: ["$100M Offers", "$100M Leads", "COGNITIVE_OS sections", "acquisition.com"]
+    strengths:
+      - "47 SOURCE citations to COGNITIVE_OS sections and numbered frameworks"
+      - "Value Equation mathematically precise with application rules"
+      - "Forbidden vocabulary section exhaustive with alternatives"
+      - "Every heuristic has WHEN + source + specific system reference"
+      - "Strongest source traceability in entire squad"
+    gaps: []
+    improvement_path: "Exemplary — maintain and use as reference"
+
+  stefan-georgi:
+    overall: 92
+    voice_fidelity: 91
+    thinking_fidelity: 93
+    source_quality: "primary"
+    key_sources: ["RMBC Method", "stefanpaulgeorgi.com", "The Copywriter Club podcast", "Copy Accelerator"]
+    strengths:
+      - "47 SOURCE citations to RMBC Method + blog + podcasts"
+      - "RMBC phases exhaustive with weight percentages and veto conditions per phase"
+      - "Emotional Research 23 Questions referenced with source"
+      - "AOV Money Close specific with revenue impact ($29-$34.80 increase)"
+      - "Voice authentic ('I'm really fucking fast' — bar stool test)"
+    gaps:
+      - "Could expand Fascinations taxonomy beyond Clayton Makepeace reference"
+    improvement_path: "Minor — expand fascination types with Georgi-specific examples"
+
+  gary-halbert:
+    overall: 84
+    voice_fidelity: 82
+    thinking_fidelity: 86
+    source_quality: "primary"
+    key_sources: ["The Boron Letters", "Gary Halbert Letter (GHL) newsletter"]
+    strengths:
+      - "19 SOURCE citations to Boron Letters chapters + GHL Newsletter"
+      - "Starving Crowd + A-Pile + Slippery Slide trilogy well-integrated"
+      - "Signature phrases authentic ('Peace.' as closing, 'A STARVING CROWD!')"
+      - "11-Step Sales Letter Structure with specific examples"
+    gaps:
+      - "SOURCE count lower than others (19 vs 47+ for top performers)"
+      - "Some heuristics could use more GHL Newsletter edition numbers"
+      - "RFU (Recency-Frequency-Unit) needs more detail"
+    improvement_path: "Add 20+ GHL Newsletter edition-specific citations and RFU case studies"
+
+  gary-bencivenga:
+    overall: 91
+    voice_fidelity: 92
+    thinking_fidelity: 90
+    source_quality: "primary"
+    key_sources: ["Bencivenga 100 Seminar", "Bencivenga Farewell Seminar", "verygoodcopy.com", "gameofconversions.com"]
+    strengths:
+      - "70+ SOURCE citations from direct sources"
+      - "10 authentication markers demonstrating deep research"
+      - "The Persuasion Equation as primary framework with clear formula"
+      - "11 Proof Elements framework operationally complete"
+      - "Decision heuristics (10) + veto heuristics (7) with severity levels"
+    gaps:
+      - "Authentication markers could include more personal biographical details"
+    improvement_path: "Minor — add Bencivenga biographical timeline and Farewell Seminar details"
+
+  clayton-makepeace:
+    overall: 88
+    voice_fidelity: 90
+    thinking_fidelity: 86
+    source_quality: "primary"
+    key_sources: ["AWAI courses", "copychief.com", "breakthroughmarketingsecrets.com"]
+    strengths:
+      - "50+ SOURCE citations including primary sources"
+      - "14 signature phrases with specific context and source attribution"
+      - "7 complete frameworks (Four-Legged Stool, Dimensionalized Benefits, 16 Dominant Emotions, etc.)"
+      - "Decision heuristics (10) with severity levels and WHEN context"
+    gaps:
+      - "Some frameworks lack concrete examples beyond descriptions"
+      - "Could benefit from more contrasting examples (what NOT to do)"
+    improvement_path: "Add before/after copy examples for each framework"
+
+  todd-brown:
+    overall: 90
+    voice_fidelity: 88
+    thinking_fidelity: 92
+    source_quality: "primary"
+    key_sources: ["toddbrown.me articles", "E5 Method", "Copywriter Club podcast", "S.I.N. Offer Protocol"]
+    strengths:
+      - "23 SOURCE citations to toddbrown.me articles + podcast episodes"
+      - "E5 Method (C.A.M.P.) detailed with phase-by-phase execution"
+      - "Unique Mechanism 3-type taxonomy with examples"
+      - "Prosecutor's Method well-documented with Buying Belief logic"
+    gaps:
+      - "Some signature phrases could use more direct sourcing"
+      - "A.S.I.S.T. process attribution needs validation"
+    improvement_path: "Validate A.S.I.S.T. sourcing and add more direct Todd Brown quotes"
+
+  # ─── TIER 2: ESPECIALISTAS ────────────────────────────────────────────────
+  jon-benson:
+    overall: 85
+    voice_fidelity: 87
+    thinking_fidelity: 83
+    source_quality: "primary"
+    key_sources: ["I Love Marketing podcast Ep #44/122", "Drop Dead Copy Ep #82", "jonbenson.com"]
+    strengths:
+      - "77+ SOURCE citations from primary sources"
+      - "5-Step VSL Formula detailed with psychological mechanisms (SNAP Suggestion, NLP)"
+      - "Voice captures signature tone (conversational-confrontational, NLP-infused)"
+      - "12 secondary frameworks (3X VSL, EPIC Email, Agreeance Principle, etc.)"
+    gaps:
+      - "Some frameworks lack step-by-step operational guidance"
+      - "Could benefit from more concrete VSL examples with annotations"
+    improvement_path: "Add annotated VSL transcript examples and step-by-step framework breakdowns"
+
+  david-ogilvy:
+    overall: 86
+    voice_fidelity: 88
+    thinking_fidelity: 84
+    source_quality: "mixed"
+    key_sources: ["Confessions of an Advertising Man", "Ogilvy on Advertising"]
+    strengths:
+      - "55+ SOURCE citations from primary sources"
+      - "13 signature phrases with clear context"
+      - "38 Rules framework comprehensive and categorized"
+      - "Decision heuristics with clear WHEN context and severity"
+    gaps:
+      - "Some sources are secondary (medium.com, shortform.com)"
+      - "Could include deeper case study analyses (Rolls-Royce, Dove, SAAB)"
+    improvement_path: "Replace secondary sources with direct book quotes; add campaign case studies"
+
+  ben-settle:
+    overall: 82
+    voice_fidelity: 85
+    thinking_fidelity: 79
+    source_quality: "mixed"
+    key_sources: ["bensettle.com/blog", "Email Players newsletter", "Drop Dead Copy podcast"]
+    strengths:
+      - "57+ SOURCE citations from primary sources"
+      - "Voice captures distinctive personality (elBenbo persona, sarcastic-witty)"
+      - "28 Email Players Rules framework operationally complete"
+      - "Infotainment Email System 6-step structure"
+      - "Specific biographical details (Gary Halbert connection, Boron Letters copying)"
+    gaps:
+      - "CopySlacker formula described but not fully operationalized"
+      - "Decision heuristics could include more WHEN context"
+    improvement_path: "Operationalize CopySlacker formula; add WHEN context to all heuristics"
+
+  andre-chaperon:
+    overall: 89
+    voice_fidelity: 91
+    thinking_fidelity: 87
+    source_quality: "primary"
+    key_sources: ["andrechaperon.com", "ARM course", "Sphere of Influence"]
+    strengths:
+      - "55+ SOURCE citations from primary sources"
+      - "Voice captures philosophical tone with signature metaphors (Tiny Digital Worlds, Digital Soulcraft)"
+      - "Soap Opera Sequence exceptionally detailed with psychological targeting"
+      - "Open Loop Technique leverages Zeigarnik Effect with clear mechanism"
+      - "Decision heuristics (10) + veto heuristics (5) with BLOCKING severity"
+    gaps:
+      - "Could benefit from more concrete email examples with annotations"
+    improvement_path: "Add annotated email sequence examples from ARM course"
+
+  dan-koe:
+    overall: 87
+    voice_fidelity: 89
+    thinking_fidelity: 85
+    source_quality: "primary"
+    key_sources: ["thedankoe.com", "2hourwriter.com", "MMOS artifacts", "linguistic analysis"]
+    strengths:
+      - "79+ SOURCE citations from primary sources"
+      - "Linguistic frequency analysis (ideas 4.74x, content 3.80x, offer 3.42x)"
+      - "2-Hour Writer System (3-phase Creative Workflow) operationally complete"
+      - "APAG Persuasion Framework with psychological research backing"
+      - "Authentication markers with sentence length stats and em-dash usage patterns"
+    gaps:
+      - "Some frameworks are high-level philosophical without tactical breakdown"
+    improvement_path: "Add tactical step-by-step breakdowns for philosophical frameworks"
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+summary:
+  average_fidelity: 88.1
+  highest:
+    name: "john-carlton"
+    score: 96
+    reason: "77 SOURCE citations, strongest voice+thinking integration, zero gaps"
+  lowest:
+    name: "copy-maestro"
+    score: 72
+    reason: "Orchestrator role — not expert clone (expected)"
+  lowest_clone:
+    name: "ben-settle"
+    score: 82
+    reason: "CopySlacker formula not operationalized, heuristics lack WHEN context"
+
+  tier_distribution:
+    master_clone: 1     # 95-100: john-carlton
+    high_fidelity: 10   # 85-94: schwartz, kennedy, hopkins, hormozi, georgi, bencivenga, makepeace, todd-brown, chaperon, koe
+    good_clone: 3        # 75-84: halbert, benson, settle
+    functional: 1        # 60-74: copy-maestro (orchestrator)
+    draft: 0
+
+  ranking:
+    - { rank: 1,  agent: "john-carlton",     score: 96, tier: "Master Clone" }
+    - { rank: 2,  agent: "alex-hormozi",     score: 94, tier: "High Fidelity" }
+    - { rank: 3,  agent: "stefan-georgi",    score: 92, tier: "High Fidelity" }
+    - { rank: 4,  agent: "gary-bencivenga",  score: 91, tier: "High Fidelity" }
+    - { rank: 5,  agent: "todd-brown",       score: 90, tier: "High Fidelity" }
+    - { rank: 5,  agent: "claude-hopkins",   score: 90, tier: "High Fidelity" }
+    - { rank: 7,  agent: "andre-chaperon",   score: 89, tier: "High Fidelity" }
+    - { rank: 8,  agent: "eugene-schwartz",  score: 88, tier: "High Fidelity" }
+    - { rank: 8,  agent: "clayton-makepeace", score: 88, tier: "High Fidelity" }
+    - { rank: 10, agent: "dan-koe",          score: 87, tier: "High Fidelity" }
+    - { rank: 11, agent: "dan-kennedy",      score: 86, tier: "High Fidelity" }
+    - { rank: 11, agent: "david-ogilvy",     score: 86, tier: "High Fidelity" }
+    - { rank: 13, agent: "jon-benson",       score: 85, tier: "Good Clone" }
+    - { rank: 14, agent: "gary-halbert",     score: 84, tier: "Good Clone" }
+    - { rank: 15, agent: "ben-settle",       score: 82, tier: "Good Clone" }
+    - { rank: 16, agent: "copy-maestro",     score: 72, tier: "Functional (Orchestrator)" }

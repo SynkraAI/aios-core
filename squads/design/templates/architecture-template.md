@@ -1,0 +1,177 @@
+# Template: Frontend Architecture Document
+
+**Template ID:** architecture-template
+**Version:** 1.0
+**Output Format:** markdown
+**Used By:** @ds-architect
+
+---
+
+## Purpose
+
+Produces a comprehensive frontend architecture document for a design system. Use this template to establish the structural foundation of the system, including folder organization, component hierarchy, build pipeline, and technology decisions.
+
+---
+
+## Template
+
+# Frontend Architecture: {{system_name}}
+
+**Version:** {{architecture_version}}
+**Last Updated:** {{last_updated}}
+**Author:** {{author}}
+**Status:** {{architecture_status}}
+
+---
+
+## 1. Overview
+
+{{architecture_overview}}
+
+### Goals
+
+- {{goal_1}}
+- {{goal_2}}
+- {{goal_3}}
+
+### Non-Goals
+
+- {{non_goal_1}}
+- {{non_goal_2}}
+
+---
+
+## 2. Folder Structure
+
+```
+{{root_folder}}/
+├── src/
+│   ├── atoms/           # {{atoms_description}}
+│   ├── molecules/       # {{molecules_description}}
+│   ├── organisms/       # {{organisms_description}}
+│   ├── templates/       # {{templates_description}}
+│   ├── tokens/          # {{tokens_description}}
+│   ├── utilities/       # {{utilities_description}}
+│   ├── styles/          # {{styles_description}}
+│   └── index.ts         # Public API barrel file
+├── docs/                # {{docs_description}}
+├── tests/               # {{tests_description}}
+├── scripts/             # {{scripts_description}}
+├── .storybook/          # {{storybook_description}}
+└── package.json
+```
+
+---
+
+## 3. Component Organization (Atomic Design)
+
+| Level | Description | Examples | Folder |
+|---|---|---|---|
+| Atoms | {{atoms_definition}} | {{atoms_examples}} | `src/atoms/` |
+| Molecules | {{molecules_definition}} | {{molecules_examples}} | `src/molecules/` |
+| Organisms | {{organisms_definition}} | {{organisms_examples}} | `src/organisms/` |
+| Templates | {{templates_definition}} | {{templates_examples}} | `src/templates/` |
+
+### Component File Structure
+
+```
+ComponentName/
+├── ComponentName.tsx        # Component implementation
+├── ComponentName.styles.ts  # Styles
+├── ComponentName.test.tsx   # Unit tests
+├── ComponentName.stories.ts # Storybook stories
+├── ComponentName.types.ts   # TypeScript types
+├── index.ts                 # Barrel export
+└── README.md                # Component documentation
+```
+
+---
+
+## 4. Build Pipeline
+
+| Stage | Tool | Purpose | Config File |
+|---|---|---|---|
+| Compile | {{compile_tool}} | {{compile_purpose}} | {{compile_config}} |
+| Bundle | {{bundle_tool}} | {{bundle_purpose}} | {{bundle_config}} |
+| Lint | {{lint_tool}} | {{lint_purpose}} | {{lint_config}} |
+| Test | {{test_tool}} | {{test_purpose}} | {{test_config}} |
+| Docs | {{docs_tool}} | {{docs_purpose}} | {{docs_config}} |
+| Publish | {{publish_tool}} | {{publish_purpose}} | {{publish_config}} |
+
+### Build Commands
+
+| Command | Description |
+|---|---|
+| `{{build_cmd}}` | {{build_desc}} |
+| `{{dev_cmd}}` | {{dev_desc}} |
+| `{{test_cmd}}` | {{test_desc}} |
+| `{{lint_cmd}}` | {{lint_desc}} |
+| `{{publish_cmd}}` | {{publish_desc}} |
+
+---
+
+## 5. Testing Layers
+
+| Layer | Scope | Tool | Coverage Target |
+|---|---|---|---|
+| Unit | Individual components | {{unit_tool}} | {{unit_coverage}}% |
+| Integration | Component compositions | {{integration_tool}} | {{integration_coverage}}% |
+| Visual Regression | Screenshot comparison | {{visual_tool}} | {{visual_coverage}}% |
+| Accessibility | WCAG compliance | {{a11y_tool}} | {{a11y_coverage}}% |
+| Performance | Bundle size, render time | {{perf_tool}} | {{perf_threshold}} |
+
+---
+
+## 6. Documentation Approach
+
+| Layer | Tool | Purpose |
+|---|---|---|
+| Component docs | {{comp_doc_tool}} | {{comp_doc_purpose}} |
+| API reference | {{api_doc_tool}} | {{api_doc_purpose}} |
+| Design guidelines | {{design_doc_tool}} | {{design_doc_purpose}} |
+| Changelog | {{changelog_tool}} | {{changelog_purpose}} |
+
+---
+
+## 7. Technology Decisions
+
+| Decision | Choice | Alternatives Considered | Rationale |
+|---|---|---|---|
+| Framework | {{framework}} | {{framework_alts}} | {{framework_rationale}} |
+| Styling | {{styling}} | {{styling_alts}} | {{styling_rationale}} |
+| State Management | {{state}} | {{state_alts}} | {{state_rationale}} |
+| Build Tool | {{build}} | {{build_alts}} | {{build_rationale}} |
+| Testing | {{testing}} | {{testing_alts}} | {{testing_rationale}} |
+
+---
+
+## 8. Dependency Management
+
+### Core Dependencies
+
+| Package | Version | Purpose |
+|---|---|---|
+| {{dep_name}} | {{dep_version}} | {{dep_purpose}} |
+
+### Peer Dependencies
+
+| Package | Version Range | Reason |
+|---|---|---|
+| {{peer_name}} | {{peer_version}} | {{peer_reason}} |
+
+### Update Policy
+
+{{dependency_update_policy}}
+
+---
+
+## 9. Versioning and Release
+
+- **Versioning scheme:** {{versioning_scheme}}
+- **Release cadence:** {{release_cadence}}
+- **Breaking change policy:** {{breaking_change_policy}}
+- **Deprecation period:** {{deprecation_period}}
+
+---
+
+*Generated by AIOS Design Squad — Frontend Architecture Template v1.0*

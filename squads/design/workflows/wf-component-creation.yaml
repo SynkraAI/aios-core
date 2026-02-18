@@ -1,0 +1,638 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW: Component Creation Pipeline
+# Version: 1.0.0
+# Purpose: Create a production-ready component from zero across all disciplines
+# Key Agents: nathan-curtis, brad-frost, andy-bell, heydon-pickering, jina-anne
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow-id: wf-component-creation
+name: Component Creation (Zero to Production-Ready)
+version: 1.0.0
+estimated-time: 3-6 hours
+complexity: high
+
+description: |
+  Pega um componente do zero ate production-ready passando por todas as disciplinas.
+  Garante que o componente nasce com spec completa, estrutura atomica,
+  CSS arquitetado, acessivel, e tokenizado.
+
+  Quando usar:
+  - Criar componente novo (Card, Modal, DataTable, etc.)
+  - Componente precisa nascer com qualidade AIOS
+  - Multiplas plataformas (web, iOS, Android) precisam implementar
+  - Componente sera parte de um design system compartilhado
+
+  Este workflow produz:
+  - Component specification (platform-agnostic)
+  - Atomic decomposition (hierarchy + reuse map)
+  - CSS architecture (CUBE layers, token mapping)
+  - Accessibility blueprint (ARIA, keyboard, focus)
+  - Token integration (all design decisions tokenized)
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - component_name: "Nome do componente (ex: Card, Modal, DataTable)"
+    - component_purpose: "Descricao do que o componente faz"
+  optional:
+    - design_reference: "URL do Figma ou screenshot"
+    - existing_impl: "Caminho para implementacao existente (se brownfield)"
+    - platforms: "web|ios|android|all (default: web)"
+    - token_namespace: "Namespace de tokens do sistema (ex: 'eds', 'acme')"
+    - tier: "core|secondary|experimental (default: core)"
+    - output_path: "Caminho para salvar specs (default: outputs/components/{component_name}/)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: SPECIFICATION (Nathan Curtis)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 1
+    name: Component Specification
+    duration: 1-2 hours
+    tier: 0
+    agent: nathan-curtis
+
+    description: |
+      Criar a especificacao completa platform-agnostic do componente.
+      Anatomy, props, tokens, spacing, states — o contrato que qualquer
+      plataforma pode implementar.
+
+    steps:
+      - step: 1
+        action: "Elicitar requisitos do componente"
+        elicit: true
+        questions:
+          - "Qual o proposito principal desse componente?"
+          - "Quais variacoes/variantes precisa? (size, emphasis, type)"
+          - "E interativo? (clickable, expandable, editable)"
+          - "Quais conteudos sao obrigatorios vs. opcionais?"
+          - "Existe referencia visual? (Figma, screenshot, concorrente)"
+          - "Quais plataformas precisam implementar?"
+
+      - step: 2
+        action: "Define Anatomy"
+        description: "Quebrar o componente em elementos constituintes"
+        output_template: |
+          anatomy:
+            elements:
+              - number: 1
+                name: "Container"
+                type: "Frame"
+                required: true
+                description: "Root element"
+              - number: 2
+                name: "{element}"
+                type: "{type}"
+                required: true|false
+                description: "{description}"
+
+      - step: 3
+        action: "Specify Properties"
+        description: "Definir todas as propriedades configuraveis"
+        output_template: |
+          properties:
+            - name: "{property}"
+              type: "boolean|enum|string|number"
+              options: ["{option1}", "{option2}"]
+              default: "{default}"
+              description: "{description}"
+
+      - step: 4
+        action: "Map Tokens"
+        description: "Conectar cada decisao visual a um design token"
+        output_template: |
+          token_mapping:
+            - element: "{element}"
+              css_property: "{property}"
+              token: "{namespace}-{component}-{element}-{property}-{variant}"
+              value: "{value}"
+              fallback: "{fallback}"
+
+      - step: 5
+        action: "Document Spacing and Layout"
+        description: "Especificar padding, margin, alignment, direction"
+        output: "spacing_diagram.md"
+
+      - step: 6
+        action: "Define States and Variants"
+        description: "Documentar todos os estados e variantes"
+        states:
+          - default
+          - hover
+          - focus
+          - active
+          - disabled
+          - error
+          - loading
+        output: "states_matrix.md"
+
+      - step: 7
+        action: "Cross-Platform Alignment"
+        description: "Alinhar nomes e APIs entre plataformas"
+        output: "cross_platform_notes.md"
+
+    checkpoint:
+      criteria:
+        - "Anatomy complete with all elements named and typed"
+        - "Properties table with types, options, defaults"
+        - "Token mapping covers every visual decision"
+        - "Spacing documented with diagrams"
+        - "All states defined"
+        - "Cross-platform alignment verified"
+      human_review: true
+      message: "Component specification ready. Review before proceeding to decomposition."
+      veto_condition: "Spec missing anatomy or properties — cannot proceed without contract"
+
+    output:
+      file: "component_spec.md"
+      location: "outputs/components/{component_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: ATOMIC DECOMPOSITION (Brad Frost)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 2
+    name: Atomic Design Decomposition
+    duration: 30-60 min
+    tier: 1
+    agent: brad-frost
+
+    description: |
+      Quebrar o componente na hierarquia Atomic Design.
+      Identificar atoms reutilizaveis, molecules compostas, e organismos.
+      Mapear reuso com componentes existentes.
+
+    steps:
+      - step: 1
+        action: "Decompose into Atomic Levels"
+        input: "component_spec.md from Phase 1"
+        description: "Classificar cada elemento da anatomy como atom, molecule, ou organism"
+        output_template: |
+          atomic_decomposition:
+            atoms:
+              - name: "{element}"
+                reuse: "existing|new"
+                existing_path: "{path_if_existing}"
+            molecules:
+              - name: "{element}"
+                composed_of: ["{atom1}", "{atom2}"]
+            organisms:
+              - name: "{component_name}"
+                composed_of: ["{molecule1}", "{atom1}"]
+
+      - step: 2
+        action: "Identify Reuse Opportunities"
+        description: "Mapear quais atoms/molecules ja existem no sistema"
+        checks:
+          - "Button atom exists? → reuse"
+          - "Input atom exists? → reuse"
+          - "Icon atom exists? → reuse"
+          - "Text atom exists? → reuse"
+        output: "reuse_map.md"
+
+      - step: 3
+        action: "Define New Atoms/Molecules Needed"
+        description: "Listar novos elementos que precisam ser criados"
+        output: "new_elements.md"
+
+      - step: 4
+        action: "Composition Rules"
+        description: "Definir como as pecas se encaixam"
+        rules:
+          - "Slot-based composition (children areas)"
+          - "Prop delegation (which props pass down to children)"
+          - "Event bubbling (which events propagate up)"
+        output: "composition_rules.md"
+
+    checkpoint:
+      criteria:
+        - "All elements classified (atom, molecule, organism)"
+        - "Reuse map complete — existing vs. new"
+        - "New elements listed with specs"
+        - "Composition rules defined"
+      human_review: false
+      message: "Atomic decomposition complete. Proceeding to CSS architecture."
+
+    output:
+      files:
+        - "atomic_decomposition.yaml"
+        - "reuse_map.md"
+        - "new_elements.md"
+        - "composition_rules.md"
+      location: "outputs/components/{component_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: CSS ARCHITECTURE (Andy Bell)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 3
+    name: CSS Architecture
+    duration: 30-60 min
+    tier: 1
+    agent: andy-bell
+
+    description: |
+      Definir a estrategia de styling do componente.
+      CUBE layers, token-to-CSS mapping, layout primitives, responsive behavior.
+
+    steps:
+      - step: 1
+        action: "Define CUBE Layers"
+        input: "component_spec.md + atomic_decomposition.yaml"
+        description: "Mapear o componente nos 4 layers do CUBE CSS"
+        output_template: |
+          cube_architecture:
+            composition:
+              description: "Skeletal layout — how elements flow"
+              properties:
+                - "display: flex|grid"
+                - "gap: var(--{token})"
+                - "flex-direction: column|row"
+            utility:
+              description: "Single-purpose classes"
+              classes:
+                - ".text-center"
+                - ".visually-hidden"
+            block:
+              description: "Component-specific styles"
+              selectors:
+                - "[data-component='{name}']"
+              properties: [...]
+            exception:
+              description: "State deviations"
+              selectors:
+                - "[data-state='error']"
+                - "[data-state='disabled']"
+
+      - step: 2
+        action: "Token-to-CSS Mapping"
+        input: "token_mapping from Phase 1"
+        description: "Gerar CSS custom properties a partir dos tokens"
+        output_template: |
+          css_tokens:
+            - token: "{namespace}-{component}-{property}"
+              css_var: "--{namespace}-{component}-{property}"
+              value: "{value}"
+              usage: "{selector} { {property}: var(--{css_var}); }"
+
+      - step: 3
+        action: "Layout Primitives"
+        description: "Identificar quais layout primitives o componente usa"
+        primitives:
+          stack: "Vertical flow with consistent gap"
+          cluster: "Horizontal wrap with gap"
+          sidebar: "Two-panel with min-width breakpoint"
+          switcher: "Flex→wrap layout switching"
+          center: "Centered content with max-width"
+          cover: "Vertical centering with principal element"
+        output: "layout_primitives.md"
+
+      - step: 4
+        action: "Responsive Strategy"
+        description: "Definir como o componente se adapta"
+        approach: "Intrinsic design — component-level queries over viewport breakpoints"
+        output: "responsive_css.md"
+
+    checkpoint:
+      criteria:
+        - "CUBE layers defined"
+        - "Token-to-CSS mapping complete"
+        - "Layout primitives identified"
+        - "Responsive strategy documented"
+      human_review: false
+      message: "CSS architecture complete. Proceeding to accessibility."
+
+    output:
+      files:
+        - "cube_architecture.yaml"
+        - "css_tokens.yaml"
+        - "layout_primitives.md"
+        - "responsive_css.md"
+      location: "outputs/components/{component_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: ACCESSIBILITY (Heydon Pickering)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 4
+    name: Accessibility Blueprint
+    duration: 30-60 min
+    tier: 1
+    agent: heydon-pickering
+
+    description: |
+      Definir ARIA roles, keyboard interaction, screen reader flow,
+      focus management para o componente.
+
+    steps:
+      - step: 1
+        action: "Define Semantic Structure"
+        input: "component_spec.md + atomic_decomposition.yaml"
+        description: "Mapear cada elemento para HTML semantico correto"
+        output_template: |
+          semantic_structure:
+            - element: "{element}"
+              html: "{tag}"
+              role: "{role_if_needed}"
+              rationale: "{why_this_tag}"
+
+      - step: 2
+        action: "ARIA Pattern Selection"
+        description: "Selecionar o WAI-ARIA authoring practice pattern correto"
+        reference: "https://www.w3.org/WAI/ARIA/apg/patterns/"
+        output_template: |
+          aria_pattern:
+            pattern_name: "{pattern}"
+            roles:
+              - element: "{element}"
+                role: "{role}"
+                aria_attributes:
+                  - "{aria-label|aria-labelledby|aria-expanded|...}"
+
+      - step: 3
+        action: "Keyboard Interaction Map"
+        description: "Definir todas as interacoes por teclado"
+        output_template: |
+          keyboard_interaction:
+            - key: "Tab"
+              action: "Move focus to next focusable element"
+            - key: "Enter/Space"
+              action: "{action}"
+            - key: "Escape"
+              action: "{action}"
+            - key: "Arrow keys"
+              action: "{action_if_composite}"
+
+      - step: 4
+        action: "Focus Management"
+        description: "Definir estrategia de foco"
+        considerations:
+          - "Initial focus placement"
+          - "Focus restoration after close/dismiss"
+          - "Focus trapping (if modal/dialog)"
+          - "Focus indicator styling"
+          - "tabindex management"
+        output: "focus_management.md"
+
+      - step: 5
+        action: "Screen Reader Announcements"
+        description: "Definir o que o screen reader deve anunciar"
+        output_template: |
+          screen_reader:
+            on_render: "{announcement}"
+            on_state_change: "{announcement}"
+            on_error: "{announcement}"
+            on_loading: "{announcement}"
+
+      - step: 6
+        action: "Verify Against Token Contrast"
+        input: "css_tokens.yaml from Phase 3"
+        description: "Verificar que tokens de cor atendem contrast ratios"
+        checks:
+          - "Text on background: >= 4.5:1 (AA)"
+          - "Large text: >= 3:1 (AA)"
+          - "Interactive boundaries: >= 3:1"
+          - "Focus indicator: >= 3:1"
+
+    checkpoint:
+      criteria:
+        - "Semantic HTML defined for all elements"
+        - "ARIA pattern selected and applied"
+        - "Keyboard interactions mapped"
+        - "Focus management strategy defined"
+        - "Screen reader announcements specified"
+        - "Color contrast verified"
+      human_review: true
+      message: "Accessibility blueprint complete. Review before token integration."
+      veto_condition: "Missing keyboard interaction map or ARIA pattern — cannot ship without a11y"
+
+    output:
+      files:
+        - "semantic_structure.yaml"
+        - "aria_pattern.yaml"
+        - "keyboard_interaction.yaml"
+        - "focus_management.md"
+        - "screen_reader.yaml"
+      location: "outputs/components/{component_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 5: TOKEN INTEGRATION (Jina Anne)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 5
+    name: Token Integration & Final Assembly
+    duration: 30-60 min
+    tier: 2
+    agent: jina-anne
+
+    description: |
+      Integrar todos os design decisions em tokens formais.
+      Garantir naming correto, tier classification, e promotion candidates.
+      Gerar o token file final do componente.
+
+    steps:
+      - step: 1
+        action: "Validate Token Naming"
+        input: "css_tokens.yaml from Phase 3"
+        description: "Verificar que todos os tokens seguem namespace-object-base-modifier"
+        checks:
+          - "Namespace present and consistent"
+          - "Object matches component/element name"
+          - "Base uses standard categories (color, size, space, etc.)"
+          - "Modifier follows convention (variant, state, scale)"
+
+      - step: 2
+        action: "Classify Token Tiers"
+        description: "Classificar cada token como global, alias, ou component"
+        tiers:
+          global: "System-wide decisions (color-primary, space-md)"
+          alias: "Semantic references (color-action, color-feedback-error)"
+          component: "Component-specific (card-padding, button-height)"
+        output: "token_tiers.yaml"
+
+      - step: 3
+        action: "Identify Promotion Candidates"
+        description: "Tokens que podem ser promovidos de component para global"
+        rule: "When a decision is relevant to 3+ components, promote to global"
+        output: "promotion_candidates.md"
+
+      - step: 4
+        action: "Generate Token Definition File"
+        description: "Gerar o arquivo final de tokens do componente"
+        formats:
+          - "YAML (source of truth)"
+          - "JSON (Style Dictionary compatible)"
+          - "CSS custom properties"
+        output: "component_tokens.yaml"
+
+      - step: 5
+        action: "Final Assembly & Cross-Reference"
+        description: "Verificar que todos os outputs sao consistentes entre si"
+        cross_checks:
+          - "Spec anatomy ↔ atomic decomposition match"
+          - "Spec tokens ↔ CSS tokens ↔ final tokens match"
+          - "ARIA elements ↔ semantic structure match"
+          - "Responsive CSS ↔ spacing spec match"
+        output: "consistency_report.md"
+
+    checkpoint:
+      criteria:
+        - "All tokens follow naming convention"
+        - "Token tiers classified"
+        - "Promotion candidates identified"
+        - "Token definition file generated"
+        - "Cross-reference consistency verified"
+      human_review: true
+      message: "Component fully specified. Review final assembly."
+
+    output:
+      files:
+        - "token_tiers.yaml"
+        - "promotion_candidates.md"
+        - "component_tokens.yaml"
+        - "consistency_report.md"
+      location: "outputs/components/{component_name}/"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  on_phase_failure:
+    - log_error: true
+    - halt_workflow: true
+    - reason: "Each phase depends on the previous — cannot skip"
+
+  on_checkpoint_failure:
+    - log_failure_reason: true
+    - return_to_previous_phase: true
+    - max_retries: 2
+
+  on_veto:
+    - action: "Block progression, fix the veto condition, re-run checkpoint"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+completion_signal: "<promise>COMPONENT:COMPLETE</promise>"
+checkpoint_signal: "<promise>COMPONENT:CHECKPOINT:PHASE-{N}</promise>"
+blocked_signal: "<promise>COMPONENT:BLOCKED:PHASE-{N}</promise>"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENT ASSIGNMENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-1:
+    primary: ["nathan-curtis"]
+    secondary: []
+  PHASE-2:
+    primary: ["brad-frost"]
+    secondary: []
+  PHASE-3:
+    primary: ["andy-bell"]
+    secondary: []
+  PHASE-4:
+    primary: ["heydon-pickering"]
+    secondary: []
+  PHASE-5:
+    primary: ["jina-anne"]
+    secondary: ["nathan-curtis"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_checklist:
+  specification:
+    - "[ ] Anatomy documented with all elements"
+    - "[ ] Properties table complete"
+    - "[ ] Token mapping covers all visual decisions"
+    - "[ ] Spacing documented"
+    - "[ ] All states defined"
+    - "[ ] Cross-platform alignment verified"
+  decomposition:
+    - "[ ] All elements classified (atom/molecule/organism)"
+    - "[ ] Reuse map complete"
+    - "[ ] New elements listed"
+    - "[ ] Composition rules defined"
+  css:
+    - "[ ] CUBE layers defined"
+    - "[ ] Token-to-CSS mapping complete"
+    - "[ ] Layout primitives identified"
+    - "[ ] Responsive strategy documented"
+  accessibility:
+    - "[ ] Semantic HTML for all elements"
+    - "[ ] ARIA pattern applied"
+    - "[ ] Keyboard interactions mapped"
+    - "[ ] Focus management defined"
+    - "[ ] Screen reader announcements specified"
+    - "[ ] Color contrast verified"
+  tokens:
+    - "[ ] All tokens follow naming convention"
+    - "[ ] Tiers classified"
+    - "[ ] Promotion candidates identified"
+    - "[ ] Cross-reference consistency passed"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXECUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+execution:
+  mode: sequential
+  parallel_phases: []  # All phases are dependent on previous
+
+  commands:
+    full: "*create-component {component_name} --purpose '{purpose}'"
+    with_figma: "*create-component {component_name} --design '{figma_url}'"
+    brownfield: "*create-component {component_name} --existing '{path}'"
+
+  next_steps:
+    - "Hand off component_spec.md + component_tokens.yaml to implementation team"
+    - "Use *validate-component to re-check after implementation"
+    - "Register component in design system library"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY GATES SUMMARY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_gates:
+  - gate: SPEC_COMPLETE
+    phase: 1
+    blocking: true
+    veto_on: "Missing anatomy or properties"
+
+  - gate: DECOMPOSITION_COMPLETE
+    phase: 2
+    blocking: true
+
+  - gate: CSS_ARCHITECTED
+    phase: 3
+    blocking: true
+
+  - gate: A11Y_DEFINED
+    phase: 4
+    blocking: true
+    veto_on: "Missing keyboard map or ARIA pattern"
+
+  - gate: TOKENS_INTEGRATED
+    phase: 5
+    blocking: true
+
+overall_pass: "All 5 gates PASS + cross-reference consistency verified"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  framework: "aios-workflow-v2"
+  created: "2026-02-03"
+  squad: "design"
+  primary_use_case: "Create production-ready component specification across all design disciplines"

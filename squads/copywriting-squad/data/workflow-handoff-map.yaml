@@ -1,0 +1,526 @@
+# Cross-Workflow Handoff Map — Copywriting Squad
+# Mapeia conexoes entre workflows: pre-requisitos, sequencias recomendadas, e outputs que alimentam inputs
+# Referencia: squads/copywriting-squad/workflows/INDEX.md
+
+version: "1.0.0"
+updated_at: "2026-02-16"
+squad: copywriting-squad
+total_workflows: 13
+
+# =============================================================================
+# Direct prerequisites (BLOCKING — workflow B REQUER workflow A antes)
+# =============================================================================
+prerequisites:
+  sales-page-killer:
+    requires: [oferta-irresistivel]
+    reason: "Sales page SEM oferta definida = copy sem fundacao. Oferta define stack, garantia, pricing que a sales page apresenta."
+    enforcement: "optional_pre no metadados — se oferta ja existir, Fase 1 Passo 3 pode ser pulado"
+
+  vsl-matador:
+    requires: [oferta-irresistivel]
+    reason: "VSL SEM oferta = pitch vazio. Grand Slam Offer reutilizada na Fase 3."
+    enforcement: "optional_pre no metadados — se Grand Slam Offer ja existir, Fase 3 usa artefato"
+
+  email-marketing-completo:
+    requires: [maquina-de-leads]
+    reason: "Email marketing SEM leads = sistema sem combustivel. Precisa de lista construida."
+    enforcement: "soft — lista pode vir de outras fontes, mas maquina-de-leads e o caminho recomendado"
+
+# =============================================================================
+# Output -> Input connections (qual output de um workflow alimenta qual input de outro)
+# =============================================================================
+handoff_connections:
+  # --- oferta-irresistivel e a FUNDACAO de quase tudo ---
+  - from: oferta-irresistivel
+    output: "Stack de valor completo + garantia + unique mechanism + pricing + dream outcome"
+    output_artifacts:
+      - dream_outcome.md
+      - mapa_obstaculos.md
+      - unique_mechanism.md
+      - stack_valor_completo.md
+      - garantias.md
+      - script_preco.md
+      - naming_completo.md
+    to:
+      - sales-page-killer
+      - vsl-matador
+      - lancamento-completo
+      - high-ticket-sales
+      - webinar-que-vende
+      - ads-que-escalam
+    handoff_note: "Oferta e o artefato mais reutilizado da squad. Crie uma vez, use em todos os workflows de venda."
+
+  # --- sales-page-killer alimenta lancamento e ads ---
+  - from: sales-page-killer
+    output: "Sales page completa (12 secoes + audit Hopkins + variantes A/B)"
+    output_artifacts:
+      - sales_page_final.md
+      - bank_headlines.md
+      - bank_bullets.md
+      - audit_hopkins_report.md
+      - variantes_ab.md
+    to:
+      - lancamento-completo
+      - ads-que-escalam
+    handoff_note: "Sales page e destino de ads e emails. Lancamento Completo pode executar sales-page-killer em paralelo no Dia 4-5."
+
+  # --- vsl-matador alimenta lancamento ---
+  - from: vsl-matador
+    output: "Script VSL completo (15-45 min) + estrutura de slides + bank de bullets"
+    output_artifacts:
+      - script_vsl_completo.md
+      - estrutura_slides.md
+      - bank_bullets.md
+      - documento_awareness.md
+      - unique_mechanism.md
+      - stack_valor.md
+      - audit_report.md
+    to:
+      - lancamento-completo
+    handoff_note: "VSL integrado no Dia 4-5 do lancamento. Bullets podem ser redistribuidos para emails e ads."
+
+  # --- maquina-de-leads alimenta email e ads ---
+  - from: maquina-de-leads
+    output: "Lead Magnet + Landing Page + Sequencia de 7 emails de nutricao"
+    output_artifacts:
+      - lead_magnet_estrutura.md
+      - landing_page_copy.md
+      - email_sequence_7.md
+      - bank_bullets.md
+      - audit_report.md
+    to:
+      - email-marketing-completo
+      - email-diario-lucrativo
+      - ads-que-escalam
+    handoff_note: "Leads capturados entram no sistema de email. Landing page serve como destino dos ads."
+
+  # --- ads-que-escalam alimenta maquina-de-leads e lancamento ---
+  - from: ads-que-escalam
+    output: "Pack de 20+ criativos + Landing Page + variantes A/B"
+    output_artifacts:
+      - hooks_diretos_20.md
+      - hooks_narrativos_10.md
+      - bullets_ads_30.md
+      - scripts_video_5.md
+      - landing_page_copy.md
+      - variantes_ab.md
+    to:
+      - maquina-de-leads
+      - lancamento-completo
+    handoff_note: "Criativos direcionam trafego para LP da maquina de leads ou sales page do lancamento."
+
+  # --- webinar-que-vende alimenta lancamento e high-ticket ---
+  - from: webinar-que-vende
+    output: "Script webinar 90 min + slides + 10 emails (5 pre + 5 pos)"
+    output_artifacts:
+      - script_webinar_completo.md
+      - estrutura_slides.md
+      - sequencia_emails_pre.md
+      - sequencia_emails_pos.md
+      - checklist_ao_vivo.md
+    to:
+      - lancamento-completo
+    handoff_note: "Webinar como evento de lancamento. High-ticket-sales ja inclui webinar interno (Fase 2 Passo 2)."
+
+  # --- email-diario-lucrativo e reativacao-lista sao bidirecionais ---
+  - from: email-diario-lucrativo
+    output: "Sistema de email diario (persona 3X + template + banco 50 temas + 7 emails exemplo)"
+    output_artifacts:
+      - persona_3x.md
+      - template_email.md
+      - banco_50_temas.md
+      - estruturas_storytelling.md
+      - 7_emails_exemplo.md
+    to:
+      - reativacao-lista
+    handoff_note: "Quando lista esfria apos periodo de email diario, reativacao-lista reengaja inativos."
+
+  - from: reativacao-lista
+    output: "Sequencia de 7 emails de reengajamento + limpeza de lista"
+    output_artifacts:
+      - sequencia_7_emails.md
+      - subject_lines_variantes.md
+      - segmentacao_criterios.md
+      - metricas_acompanhamento.md
+    to:
+      - email-diario-lucrativo
+      - email-marketing-completo
+    handoff_note: "Leads reativados voltam ao sistema de email (diario ou completo). Lista limpa melhora deliverability."
+
+  # --- email-marketing-completo alimenta otimizacao ---
+  - from: email-marketing-completo
+    output: "Sistema completo de email (SOS 5-7 emails + carrinho abandonado + pos-compra + broadcasts)"
+    output_artifacts:
+      - sos_principal.md
+      - sos_carrinho_abandonado.md
+      - sos_pos_compra.md
+      - broadcast_templates.md
+    to:
+      - otimizacao-funil
+    handoff_note: "Emails sao parte do funil. Otimizacao de funil audita e melhora sequencias existentes."
+
+  # --- conteudo-organico-diario alimenta email ---
+  - from: conteudo-organico-diario
+    output: "Sistema semanal (posts diarios + threads + newsletter + conteudo pilar)"
+    output_artifacts:
+      - identidade_conteudo.md
+      - templates_formato.md
+      - banco_temas.md
+      - calendario_semanal.md
+    to:
+      - email-marketing-completo
+      - maquina-de-leads
+    handoff_note: "Audiencia organica convertida em leads via newsletter CTA ou lead magnet. Feeds lista para email marketing."
+
+  # --- lancamento-completo e um mega-workflow que gera tudo ---
+  - from: lancamento-completo
+    output: "Campanha completa (VSL + sales page + 10-12 emails lancamento + 3-4 emails carrinho + 15+ ads + 5 templates ongoing)"
+    output_artifacts:
+      - vsl_script_completo.md
+      - sales_page_completa.md
+      - emails_pre_lancamento.md
+      - emails_carrinho_aberto.md
+      - emails_carrinho_abandonado.md
+      - templates_email_ongoing.md
+      - criativos_ads.md
+      - posts_organicos.md
+      - audit_report.md
+    to:
+      - otimizacao-funil
+      - email-diario-lucrativo
+    handoff_note: "Pos-lancamento, funil entra em modo ongoing. Email diario monetiza lista. Otimizacao melhora conversao."
+
+  # --- high-ticket-sales gera material completo ---
+  - from: high-ticket-sales
+    output: "Campanha high-ticket completa (Lead Magnet + Webinar + Sales Page + Script Call + 3 sequencias email)"
+    output_artifacts:
+      - avatar_kennedy_4ms.md
+      - grand_slam_offer.md
+      - mecanismo_unico.md
+      - lead_magnet_premium.md
+      - script_webinar.md
+      - sos_emails_7_10.md
+      - sales_page_high_ticket.md
+      - script_call_vendas.md
+      - sequencia_nao_fechou.md
+      - sequencia_onboarding.md
+      - sequencia_nurturing.md
+      - audit_report.md
+    to:
+      - otimizacao-funil
+      - email-diario-lucrativo
+    handoff_note: "Pos-campanha high-ticket, nurturing continuo via email. Otimizacao melhora close rate."
+
+  # --- otimizacao-funil e terminal (melhora o existente) ---
+  - from: otimizacao-funil
+    output: "Funil otimizado (audit + gaps corrigidos + triggers injetados + testes A/B)"
+    output_artifacts:
+      - audit_headlines.md
+      - audit_oferta.md
+      - audit_copy_body.md
+      - gaps_identificados.md
+      - copy_reescrita.md
+      - triggers_injetados.md
+      - plano_testes_ab.md
+    to: []
+    handoff_note: "Workflow terminal. Output melhora funil existente. Repetir a cada 30-60 dias."
+
+# =============================================================================
+# Recommended sequences (caminhos nomeados atraves de multiplos workflows)
+# =============================================================================
+sequences:
+  lancamento-completo-path:
+    name: "Lancamento Completo"
+    description: "Caminho completo para lancar produto do zero. Cria fundacao, copy principal, emails, ads — tudo coeso."
+    steps:
+      - workflow: oferta-irresistivel
+        order: 1
+        duration: "4-6h"
+        output_key: "Stack de valor + garantia + pricing"
+        clones: [alex-hormozi, dan-kennedy, todd-brown]
+      - workflow: sales-page-killer
+        order: 2
+        duration: "3-5 dias"
+        output_key: "Sales page de classe mundial"
+        clones: [schwartz, kennedy, todd-brown, hormozi, georgi, halbert, carlton, makepeace, bencivenga, ogilvy, hopkins]
+      - workflow: vsl-matador
+        order: 3
+        duration: "2-3 dias"
+        output_key: "Script VSL + slides"
+        clones: [schwartz, todd-brown, hormozi, benson, makepeace, bencivenga, hopkins]
+      - workflow: maquina-de-leads
+        order: 4
+        duration: "3-4 dias"
+        output_key: "Lead Magnet + LP + 7 emails nutricao"
+        clones: [schwartz, todd-brown, hormozi, carlton, bencivenga, chaperon, hopkins]
+      - workflow: webinar-que-vende
+        order: 5
+        duration: "2-3 dias"
+        output_key: "Script webinar 90min + slides + 10 emails"
+        clones: [benson, todd-brown, halbert, makepeace, hormozi, bencivenga, kennedy]
+      - workflow: email-marketing-completo
+        order: 6
+        duration: "2-5 dias"
+        output_key: "Sistema email completo (SOS + broadcasts)"
+        clones: [settle, chaperon, hopkins]
+    total_duration: "17-24 dias"
+    note: "Pode executar steps 2 e 3 em paralelo se tiver banda."
+
+  high-ticket-path:
+    name: "High-Ticket Sales"
+    description: "Workflow completo e autocontido para vendas acima de R$5.000. Inclui oferta, webinar, sales page, call e emails em 3 fases."
+    steps:
+      - workflow: high-ticket-sales
+        order: 1
+        duration: "8-11 dias"
+        output_key: "Campanha high-ticket completa (Lead Magnet + Webinar + Sales Page + Call + Emails)"
+        clones: [kennedy, hormozi, todd-brown, schwartz, georgi, makepeace, halbert, benson, bencivenga, chaperon, settle, hopkins]
+    total_duration: "8-11 dias"
+    note: "Workflow autocontido — oferta-irresistivel pode ser executada antes para acelerar Fase 1 Passo 2."
+
+  trafego-pago-path:
+    name: "Trafego Pago Rapido"
+    description: "Caminho acelerado para gerar vendas via trafego pago. Oferta + criativos + captura de leads."
+    steps:
+      - workflow: oferta-irresistivel
+        order: 1
+        duration: "4-6h"
+        output_key: "Stack de valor + garantia + pricing"
+        clones: [alex-hormozi, dan-kennedy, todd-brown]
+      - workflow: ads-que-escalam
+        order: 2
+        duration: "2-3 dias"
+        output_key: "20+ criativos + LP + testes A/B"
+        clones: [schwartz, carlton, halbert, bencivenga, benson, makepeace, hopkins]
+      - workflow: maquina-de-leads
+        order: 3
+        duration: "3-4 dias"
+        output_key: "Lead Magnet + LP + 7 emails nutricao"
+        clones: [schwartz, todd-brown, hormozi, carlton, bencivenga, chaperon, hopkins]
+    total_duration: "6-8 dias"
+    note: "Rapido e direto. Ads direcionam para LP da maquina de leads."
+
+  monetizar-lista-path:
+    name: "Monetizar Lista Existente"
+    description: "Para quem ja tem lista mas nao monetiza. Reativa inativos e configura sistema de email."
+    steps:
+      - workflow: reativacao-lista
+        order: 1
+        duration: "5-7 dias campanha"
+        output_key: "7 emails reengajamento + lista limpa"
+        clones: [schwartz, carlton, makepeace, halbert, settle]
+      - workflow: email-marketing-completo
+        order: 2
+        duration: "2-5 dias"
+        output_key: "Sistema email completo"
+        clones: [settle, chaperon, hopkins]
+    total_duration: "7-12 dias"
+    note: "Reativar ANTES de configurar sistema evita enviar para inativos."
+
+  audiencia-organica-path:
+    name: "Audiencia Organica"
+    description: "Construir audiencia do zero com conteudo organico e converter em lista de email."
+    steps:
+      - workflow: conteudo-organico-diario
+        order: 1
+        duration: "1 dia setup + ongoing"
+        output_key: "Sistema semanal de conteudo organico"
+        clones: [dan-koe, halbert, ogilvy, hopkins]
+      - workflow: email-marketing-completo
+        order: 2
+        duration: "2-5 dias"
+        output_key: "Sistema email para capturar e monetizar"
+        clones: [settle, chaperon, hopkins]
+    total_duration: "3-6 dias setup + ongoing"
+    note: "Conteudo organico e ongoing. Email marketing captura audiencia crescente."
+
+  otimizacao-path:
+    name: "Otimizar Existente"
+    description: "Diagnosticar e corrigir funil existente com resultados abaixo do esperado."
+    steps:
+      - workflow: otimizacao-funil
+        order: 1
+        duration: "3-5 dias"
+        output_key: "Funil otimizado + testes A/B configurados"
+        clones: [hopkins, schwartz, todd-brown, makepeace, bencivenga, hormozi]
+    total_duration: "3-5 dias"
+    note: "Standalone. Repetir a cada 30-60 dias ou quando metricas cairem."
+
+# =============================================================================
+# Standalone workflows (podem ser usados independentemente)
+# =============================================================================
+standalone:
+  - workflow: otimizacao-funil
+    note: "Diagnostico + correcao de funil existente. Nao precisa de nenhum workflow anterior — precisa apenas de funil publicado com metricas."
+    execution_model: one-time (repetir a cada ciclo)
+
+  - workflow: reativacao-lista
+    note: "Pode ser usado antes de qualquer lancamento para limpar e reengajar lista. Precisa apenas de lista com inativos identificados."
+    execution_model: one-time (antes de campanhas)
+
+  - workflow: conteudo-organico-diario
+    note: "Sistema ongoing de publicacao. Nao depende de outros workflows — depende de nicho, expertise e comprometimento com cadencia."
+    execution_model: recurring (setup 1 dia + semanal)
+
+  - workflow: email-diario-lucrativo
+    note: "Requer lista existente, nao workflow anterior. Setup rapido (1 dia), depois 15-30 min/dia de escrita."
+    execution_model: recurring (setup 1 dia + diario)
+
+  - workflow: high-ticket-sales
+    note: "Workflow autocontido de 3 fases que ja inclui oferta + webinar + sales page + call + emails. Nao precisa de outros workflows."
+    execution_model: one-time
+
+# =============================================================================
+# Entry points (qual workflow comecar baseado no objetivo do usuario)
+# =============================================================================
+entry_points:
+  - goal: "Lancar produto novo"
+    start_with: oferta-irresistivel
+    full_sequence: lancamento-completo-path
+    ask_first: "Produto ja tem oferta estruturada? Se sim, pode pular oferta-irresistivel."
+
+  - goal: "Vender high-ticket (acima R$5.000)"
+    start_with: high-ticket-sales
+    full_sequence: high-ticket-path
+    ask_first: "Ja tem avatar detalhado e oferta? Se sim, Fase 1 e acelerada."
+
+  - goal: "Gerar vendas rapidas com trafego pago"
+    start_with: oferta-irresistivel
+    full_sequence: trafego-pago-path
+    ask_first: "Ja tem oferta definida? Se sim, comecar direto em ads-que-escalam."
+
+  - goal: "Monetizar lista de email existente"
+    start_with: reativacao-lista
+    full_sequence: monetizar-lista-path
+    ask_first: "Lista tem muitos inativos? Se nao, pular reativacao e ir direto para email-marketing-completo."
+
+  - goal: "Construir audiencia organica"
+    start_with: conteudo-organico-diario
+    full_sequence: audiencia-organica-path
+    ask_first: "Ja tem nicho e expertise definidos? Quais plataformas vai publicar?"
+
+  - goal: "Melhorar funil existente"
+    start_with: otimizacao-funil
+    full_sequence: otimizacao-path
+    ask_first: "Tem metricas atuais do funil? Quais pecas tem publicadas (ads, LP, emails, sales page)?"
+
+  - goal: "Criar sales page"
+    start_with: oferta-irresistivel
+    then: sales-page-killer
+    ask_first: "Sales Page Killer e OBRIGATORIO. Se oferta ja existe, comecar direto no sales-page-killer."
+
+  - goal: "Criar VSL"
+    start_with: oferta-irresistivel
+    then: vsl-matador
+    ask_first: "VSL precisa de oferta estruturada. Se Grand Slam Offer ja existe, comecar direto no vsl-matador."
+
+  - goal: "Criar webinar que vende"
+    start_with: oferta-irresistivel
+    then: webinar-que-vende
+    ask_first: "Webinar precisa de oferta para o pitch. Se oferta ja existe, comecar direto no webinar-que-vende."
+
+  - goal: "Escrever emails diarios"
+    start_with: email-diario-lucrativo
+    full_sequence: null
+    ask_first: "Ja tem lista? Ja tem produto para vender? Se sim, pode comecar direto."
+
+  - goal: "Reativar lista morta"
+    start_with: reativacao-lista
+    full_sequence: null
+    ask_first: "Qual criterio de inatividade? (30, 60, 90+ dias sem abrir)"
+
+# =============================================================================
+# Workflow metadata summary (referencia rapida)
+# =============================================================================
+workflow_catalog:
+  oferta-irresistivel:
+    duration: "4-6h"
+    complexity: alta
+    execution_model: one-time
+    primary_clones: [alex-hormozi, dan-kennedy, todd-brown]
+    output_summary: "Stack de valor + garantia + pricing + unique mechanism"
+
+  sales-page-killer:
+    duration: "3-5 dias"
+    complexity: alta
+    execution_model: one-time
+    mandatory: true  # OBRIGATORIO para qualquer sales page
+    primary_clones: [schwartz, kennedy, todd-brown, hormozi, georgi, halbert, carlton, makepeace, bencivenga, ogilvy, benson, hopkins]
+    output_summary: "Sales page de classe mundial (6 fases, 15 clones)"
+
+  vsl-matador:
+    duration: "2-3 dias"
+    complexity: alta
+    execution_model: one-time
+    primary_clones: [schwartz, todd-brown, hormozi, benson, makepeace, bencivenga, hopkins]
+    output_summary: "Script VSL 15-45 min + slides + bank de bullets"
+
+  lancamento-completo:
+    duration: "5-7 dias"
+    complexity: alta
+    execution_model: one-time
+    primary_clones: [todos os 15]
+    output_summary: "Campanha completa (VSL + emails + ads + sales page)"
+
+  high-ticket-sales:
+    duration: "8-11 dias"
+    complexity: alta
+    execution_model: one-time
+    primary_clones: [kennedy, hormozi, todd-brown, schwartz, georgi, makepeace, benson, bencivenga, chaperon, settle, hopkins]
+    output_summary: "Campanha high-ticket completa (Lead Magnet + Webinar + Sales Page + Call + Emails)"
+
+  webinar-que-vende:
+    duration: "2-3 dias"
+    complexity: alta
+    execution_model: one-time
+    primary_clones: [benson, todd-brown, halbert, makepeace, hormozi, bencivenga, kennedy]
+    output_summary: "Script webinar 90 min + slides + 10 emails"
+
+  maquina-de-leads:
+    duration: "3-4 dias"
+    complexity: media
+    execution_model: one-time
+    primary_clones: [schwartz, todd-brown, hormozi, carlton, bencivenga, chaperon, hopkins]
+    output_summary: "Lead Magnet + Landing Page + 7 emails nutricao"
+
+  ads-que-escalam:
+    duration: "2-3 dias"
+    complexity: media
+    execution_model: one-time
+    primary_clones: [schwartz, carlton, halbert, bencivenga, benson, makepeace, hopkins]
+    output_summary: "20+ criativos + Landing Page + variantes A/B"
+
+  email-diario-lucrativo:
+    duration: "1 dia setup + ongoing"
+    complexity: media
+    execution_model: recurring
+    primary_clones: [ben-settle, dan-koe, halbert]
+    output_summary: "Sistema email diario (persona 3X + template + 50 temas + 7 emails exemplo)"
+
+  email-marketing-completo:
+    duration: "2-5 dias setup + ongoing"
+    complexity: media
+    execution_model: one-time setup + recurring
+    primary_clones: [settle, chaperon, hopkins]
+    output_summary: "Sistema email completo (3 opcoes: Settle / Chaperon / Hibrido)"
+
+  conteudo-organico-diario:
+    duration: "1 dia setup + ongoing"
+    complexity: media
+    execution_model: recurring
+    primary_clones: [dan-koe, halbert, ogilvy, hopkins]
+    output_summary: "Sistema semanal (posts diarios + threads + newsletter + conteudo pilar)"
+
+  otimizacao-funil:
+    duration: "3-5 dias"
+    complexity: media-alta
+    execution_model: one-time (repetir a cada ciclo)
+    primary_clones: [hopkins, schwartz, todd-brown, makepeace, bencivenga, hormozi]
+    output_summary: "Funil otimizado (audit + gaps + reescrita + triggers + testes A/B)"
+
+  reativacao-lista:
+    duration: "5-7 dias campanha"
+    complexity: media
+    execution_model: one-time
+    primary_clones: [schwartz, carlton, makepeace, halbert, settle]
+    output_summary: "7 emails reengajamento + limpeza de lista"

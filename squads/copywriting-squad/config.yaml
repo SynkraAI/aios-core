@@ -1,0 +1,154 @@
+name: copywriting-squad
+version: 2.1.0
+short-title: Copywriting Masters Squad
+description: >-
+  Framework estrategico de 15 clones de copywriters lendarios organizados em 3 tiers
+  (Estrategistas, Executores, Otimizadores) para criar copy de alta conversao.
+  Inclui 12 workflows completos com checkpoints e veto conditions, checklist de 31 triggers
+  psicologicos de Sugarman, 12 templates de output, e sistema hierarquico de selecao de
+  clones por tipo de projeto. Todos os 15 experts com Voice DNA + Thinking DNA autenticados.
+  Inclui workflow obrigatorio Sales Page Killer para paginas de venda de classe mundial.
+author: AIOS Team
+entry_agent: copy-maestro
+slashPrefix: copy
+updated_at: "2026-02-16"
+
+components:
+  agents:
+    - copy-maestro.md
+    - eugene-schwartz.md
+    - dan-kennedy.md
+    - todd-brown.md
+    - alex-hormozi.md
+    - stefan-georgi.md
+    - gary-halbert.md
+    - john-carlton.md
+    - clayton-makepeace.md
+    - gary-bencivenga.md
+    - jon-benson.md
+    - david-ogilvy.md
+    - ben-settle.md
+    - andre-chaperon.md
+    - dan-koe.md
+    - claude-hopkins.md
+  tasks:
+    - diagnostico-projeto.md
+    - trafego-pago-rapido.md
+    - high-ticket-sales.md
+    - conteudo-organico.md
+    - email-marketing.md
+    - otimizacao-funil.md
+  workflows:
+    # Workflows originais (v2.0)
+    - lancamento-completo.md
+    - oferta-irresistivel.md
+    - vsl-matador.md
+    - ads-que-escalam.md
+    - maquina-de-leads.md
+    - email-diario-lucrativo.md
+    - reativacao-lista.md
+    - webinar-que-vende.md
+    # Workflows v2.1 — Framework Base Merge + Sales Page Killer
+    - high-ticket-sales.md
+    - conteudo-organico-diario.md
+    - otimizacao-funil.md
+    - email-marketing-completo.md
+    - sales-page-killer.md  # OBRIGATORIO para qualquer sales page
+  templates:
+    # Templates originais (v2.0)
+    - sales-letter-tmpl.md
+    - vsl-script-tmpl.md
+    - email-sequence-tmpl.md
+    - bullets-fascinations-tmpl.md
+    - oferta-irresistivel-tmpl.md
+    # Templates v2.1 — Framework Base Merge
+    - landing-page-tmpl.md
+    - ad-creative-tmpl.md
+    - sales-page-completa-tmpl.md
+    - webinar-script-tmpl.md
+    - sales-call-script-tmpl.md
+    - newsletter-tmpl.md
+    - post-organico-tmpl.md
+  checklists:
+    - sugarman-31-triggers.md
+    - clone-selection-guide.md
+    - audit-copy-hopkins.md
+    - awareness-checklist.md
+    - sales-letter-checklist.md
+    - vsl-quality-checklist.md
+  data:
+    - copywriting-framework-kb.md
+    - awareness-levels-kb.md
+    - clone-profiles-kb.md
+    - workflow-handoff-map.yaml
+    - fidelity-scores.yaml
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# USAGE TRACKING
+# ═══════════════════════════════════════════════════════════════════════════════
+usage_tracking:
+  enabled: true
+  version: "1.0.0"
+
+  # What to track per session
+  session_metrics:
+    - metric: "agent_activations"
+      description: "Which agents were activated and how many times"
+      format: "{agent_id}: {count}"
+    - metric: "workflow_executions"
+      description: "Which workflows were executed and completion status"
+      format: "{workflow}: {status: completed|abandoned|partial}"
+    - metric: "task_executions"
+      description: "Which tasks were executed"
+      format: "{task}: {status}"
+    - metric: "template_usage"
+      description: "Which templates were used to generate output"
+      format: "{template}: {count}"
+    - metric: "session_duration"
+      description: "Total session time"
+      format: "minutes"
+    - metric: "handoff_count"
+      description: "Number of inter-agent handoffs"
+      format: "count"
+
+  # What to track per agent
+  agent_metrics:
+    - metric: "quality_score"
+      description: "Average quality of agent outputs (1-10)"
+    - metric: "routing_compliance"
+      description: "Did agent follow workflow_routing rules"
+      values: ["compliant", "override_with_reason", "violation"]
+    - metric: "veto_triggers"
+      description: "How many times agent triggered veto conditions"
+    - metric: "user_satisfaction"
+      description: "User rating of output quality (optional)"
+      values: ["thumbs_up", "thumbs_down", "no_rating"]
+
+  # What to track per workflow
+  workflow_metrics:
+    - metric: "completion_rate"
+      description: "Percentage of workflow phases completed"
+    - metric: "phase_durations"
+      description: "Time spent in each phase"
+    - metric: "checkpoint_results"
+      description: "Pass/fail at each checkpoint"
+    - metric: "chain_route_compliance"
+      description: "Were prerequisite workflows executed first"
+
+  # Storage location
+  storage:
+    path: "squads/copywriting-squad/data/usage-logs/"
+    format: "yaml"
+    rotation: "per_session"
+    naming: "{date}-{session_id}.yaml"
+
+  # Aggregation for analytics
+  analytics:
+    dashboard_command: "*squad-analytics copywriting-squad"
+    reports:
+      - type: "weekly_summary"
+        includes: ["top_agents", "top_workflows", "quality_trends"]
+      - type: "agent_performance"
+        includes: ["quality_scores", "usage_frequency", "veto_rate"]
+      - type: "workflow_efficiency"
+        includes: ["completion_rates", "avg_duration", "bottleneck_phases"]

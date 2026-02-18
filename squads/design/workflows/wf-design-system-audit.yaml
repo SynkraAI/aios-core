@@ -1,0 +1,730 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW: Design System Audit
+# Version: 1.0.0
+# Purpose: Complete audit of an existing design system across all dimensions
+# Key Agents: brad-frost, jenifer-tidwell, heydon-pickering, nathan-curtis, design-chief
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow-id: wf-design-system-audit
+name: Design System Audit (Full Diagnostic)
+version: 1.0.0
+estimated-time: 4-8 hours
+complexity: high
+
+description: |
+  Auditoria completa de um design system existente. Passa por todas as dimensoes
+  — estrutura, padroes de interacao, acessibilidade, governanca — e entrega
+  um relatorio consolidado com score e plano de acao.
+
+  Quando usar:
+  - Design system herdado sem documentacao clara
+  - Sistema que cresceu organicamente e ninguem sabe o estado real
+  - Antes de investir em melhorias, precisa de diagnostico
+  - Avaliacao periodica de saude do design system
+
+  Este workflow produz:
+  - Inventario completo de componentes, tokens, patterns
+  - Analise de padroes de interacao
+  - Relatorio de acessibilidade (WCAG)
+  - Avaliacao de governanca e processos
+  - Relatorio consolidado com scores e roadmap
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - system_name: "Nome do design system a auditar"
+    - system_path: "Caminho para o codigo/assets do design system"
+  optional:
+    - docs_url: "URL da documentacao (Storybook, ZeroHeight, etc.)"
+    - figma_url: "URL do Figma library"
+    - target_wcag: "A|AA|AAA (default: AA)"
+    - scope: "full|structure|patterns|a11y|governance (default: full)"
+    - output_path: "Caminho para salvar relatorios (default: outputs/audits/{system_name}/)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0: DISCOVERY & SCOPING
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 0
+    name: Discovery & Scoping
+    duration: 30-60 min
+    tier: 0
+    agent: design-chief
+
+    description: |
+      Entender o contexto do design system antes de auditar.
+      Coletar informacoes sobre stack, equipe, e expectativas.
+
+    steps:
+      - step: 1
+        action: "Elicitar contexto do design system"
+        elicit: true
+        questions:
+          - "Qual e a stack tecnologica? (React, Vue, Angular, Web Components, etc.)"
+          - "Quantos produtos/apps usam o design system?"
+          - "Quantas pessoas contribuem para o sistema?"
+          - "Existe documentacao? (Storybook, ZeroHeight, Notion, etc.)"
+          - "Quais sao as principais dores hoje?"
+          - "O sistema tem tokens de design? (Figma Tokens, Style Dictionary, etc.)"
+
+      - step: 2
+        action: "Definir escopo da auditoria"
+        output: "audit_scope.yaml"
+        template: |
+          audit_scope:
+            system: "{system_name}"
+            stack: "{stack}"
+            scope: "{scope}"
+            wcag_target: "{target_wcag}"
+            products_served: {count}
+            team_size: {count}
+            documentation: "{docs_url}"
+            main_concerns:
+              - "{concern_1}"
+              - "{concern_2}"
+
+      - step: 3
+        action: "Mapear artefatos disponiveis para auditoria"
+        checks:
+          - "Repositorio de codigo acessivel?"
+          - "Storybook/docs acessivel?"
+          - "Figma library acessivel?"
+          - "Token files acessiveis?"
+
+    checkpoint:
+      criteria:
+        - "Contexto coletado e documentado"
+        - "Escopo definido e aceito pelo usuario"
+        - "Artefatos mapeados e acessiveis"
+      human_review: true
+      message: "Escopo da auditoria definido. Revisar antes de prosseguir."
+
+    output:
+      file: "audit_scope.yaml"
+      location: "outputs/audits/{system_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: COMPONENT INVENTORY (Brad Frost)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 1
+    name: Component Inventory & Structural Analysis
+    duration: 1-2 hours
+    tier: 0
+    agent: brad-frost
+    skip_if: "scope == 'governance'"
+
+    description: |
+      Catalogar tudo que existe no design system — componentes, tokens, patterns.
+      Identificar duplicatas, orphans, inconsistencias estruturais.
+      Aplicar Atomic Design decomposition para avaliar hierarquia.
+
+    steps:
+      - step: 1
+        action: "Interface Inventory"
+        description: "Catalogar todos os componentes existentes"
+        output_template: |
+          inventory:
+            atoms:
+              - name: "{component}"
+                variants: [{variants}]
+                documented: true|false
+                tested: true|false
+            molecules: [...]
+            organisms: [...]
+            templates: [...]
+            pages: [...]
+
+      - step: 2
+        action: "Token Inventory"
+        description: "Mapear todos os tokens de design"
+        categories:
+          - color (primitive, semantic, component)
+          - typography (font-family, size, weight, line-height)
+          - spacing (padding, margin, gap)
+          - elevation (shadow)
+          - border (width, radius, color)
+          - motion (duration, easing)
+
+      - step: 3
+        action: "Structural Analysis"
+        checks:
+          - "Duplicated components (same purpose, different names)"
+          - "Orphan components (exist in code but not documented)"
+          - "Zombie components (documented but not used)"
+          - "Missing atomic hierarchy (molecules without atoms)"
+          - "Token consistency (hardcoded values vs. tokens)"
+          - "Naming convention consistency"
+
+      - step: 4
+        action: "Score Structure Dimension"
+        scoring:
+          duplication: "0=many dupes, 10=no dupes"
+          completeness: "0=many gaps, 10=comprehensive"
+          hierarchy: "0=flat/chaotic, 10=clear atomic hierarchy"
+          token_coverage: "0=all hardcoded, 10=all tokenized"
+          naming: "0=inconsistent, 10=consistent convention"
+
+    checkpoint:
+      criteria:
+        - "All components cataloged with atomic classification"
+        - "All tokens mapped by category"
+        - "Duplicates, orphans, zombies identified"
+        - "Structure score calculated"
+      human_review: false
+      message: "Component inventory complete. Proceeding to pattern analysis."
+
+    output:
+      files:
+        - "component_inventory.yaml"
+        - "token_inventory.yaml"
+        - "structural_issues.md"
+        - "phase1_score.yaml"
+      location: "outputs/audits/{system_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: PATTERN ANALYSIS (Jenifer Tidwell)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 2
+    name: Interaction Pattern Analysis
+    duration: 1-2 hours
+    tier: 1
+    agent: jenifer-tidwell
+    skip_if: "scope == 'governance' OR scope == 'structure'"
+
+    description: |
+      Avaliar se os padroes de interacao estao corretos.
+      Analisar navegacao, forms, layouts, data display.
+      Identificar mismatches entre comportamento esperado do usuario e pattern usado.
+
+    steps:
+      - step: 1
+        action: "Navigation Pattern Audit"
+        description: "Avaliar padroes de navegacao"
+        patterns_to_check:
+          - "Hub and Spoke vs. Fully Connected"
+          - "Pyramid vs. Flat"
+          - "Modal Panel usage"
+          - "Breadcrumb consistency"
+          - "Tab navigation patterns"
+        output: "navigation_audit.md"
+
+      - step: 2
+        action: "Form Pattern Audit"
+        description: "Avaliar padroes de formularios"
+        patterns_to_check:
+          - "Form layout consistency (top-aligned, side-aligned)"
+          - "Input affordances (placeholder, label, helper text)"
+          - "Validation patterns (inline, summary, real-time)"
+          - "Error messaging consistency"
+          - "Progressive disclosure usage"
+          - "Good Defaults application"
+        output: "form_audit.md"
+
+      - step: 3
+        action: "Layout Pattern Audit"
+        description: "Avaliar padroes de layout"
+        patterns_to_check:
+          - "Visual Framework consistency"
+          - "Center Stage identification"
+          - "Card/Grid patterns"
+          - "Dashboard patterns"
+          - "Two-Panel Selector usage"
+          - "Responsive behavior"
+        output: "layout_audit.md"
+
+      - step: 4
+        action: "Pattern Mismatch Detection"
+        description: "Identificar onde o pattern errado foi aplicado"
+        checks:
+          - "Pattern matches user mental model?"
+          - "Pattern complexity matches task complexity?"
+          - "Consistency across similar contexts?"
+          - "Standard patterns used where appropriate?"
+        output: "pattern_mismatches.md"
+
+      - step: 5
+        action: "Score Patterns Dimension"
+        scoring:
+          navigation: "0=confusing, 10=clear and consistent"
+          forms: "0=frustrating, 10=frictionless"
+          layouts: "0=chaotic, 10=intentional and consistent"
+          pattern_fit: "0=wrong patterns, 10=right pattern for context"
+          consistency: "0=different patterns for same task, 10=unified"
+
+    checkpoint:
+      criteria:
+        - "Navigation patterns audited"
+        - "Form patterns audited"
+        - "Layout patterns audited"
+        - "Pattern mismatches documented"
+        - "Pattern score calculated"
+      human_review: false
+      message: "Pattern analysis complete. Proceeding to accessibility audit."
+
+    output:
+      files:
+        - "navigation_audit.md"
+        - "form_audit.md"
+        - "layout_audit.md"
+        - "pattern_mismatches.md"
+        - "phase2_score.yaml"
+      location: "outputs/audits/{system_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: ACCESSIBILITY AUDIT (Heydon Pickering)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 3
+    name: Accessibility Audit
+    duration: 1-2 hours
+    tier: 1
+    agent: heydon-pickering
+    skip_if: "scope == 'governance' OR scope == 'structure' OR scope == 'patterns'"
+
+    description: |
+      WCAG compliance, ARIA patterns, keyboard navigation, screen reader support.
+      Classificar issues por severidade (critical, major, minor).
+
+    steps:
+      - step: 1
+        action: "Semantic HTML Audit"
+        description: "Verificar uso correto de HTML semantico"
+        checks:
+          - "Heading hierarchy (h1-h6 sequence)"
+          - "Landmark regions (main, nav, aside, footer)"
+          - "List usage (ul/ol for lists, not divs)"
+          - "Button vs. link usage (action vs. navigation)"
+          - "Form element association (label + input)"
+          - "Table structure (thead, tbody, th scope)"
+
+      - step: 2
+        action: "ARIA Pattern Audit"
+        description: "Verificar uso correto de ARIA"
+        checks:
+          - "ARIA roles match actual behavior"
+          - "aria-label/aria-labelledby on interactive elements"
+          - "aria-live regions for dynamic content"
+          - "aria-expanded/aria-controls on disclosure widgets"
+          - "No redundant ARIA (ARIA on semantic elements)"
+          - "Custom widgets follow WAI-ARIA Authoring Practices"
+
+      - step: 3
+        action: "Keyboard Navigation Audit"
+        description: "Verificar navegacao por teclado"
+        checks:
+          - "All interactive elements focusable"
+          - "Focus order matches visual order"
+          - "Focus visible indicator present"
+          - "No keyboard traps"
+          - "Escape closes modals/popovers"
+          - "Arrow keys for composite widgets (tabs, menus)"
+          - "Skip links present"
+
+      - step: 4
+        action: "Visual Accessibility Audit"
+        description: "Verificar acessibilidade visual"
+        checks:
+          - "Color contrast ratios (AA: 4.5:1 text, 3:1 large text)"
+          - "Color not sole means of conveying information"
+          - "Text resizable to 200% without loss"
+          - "Touch targets minimum 44x44px"
+          - "Motion respects prefers-reduced-motion"
+          - "Focus indicators have 3:1 contrast ratio"
+
+      - step: 5
+        action: "Classify Issues by Severity"
+        severity_levels:
+          critical: "Prevents access entirely (no keyboard, no screen reader, no contrast)"
+          major: "Significant barrier (wrong ARIA, broken focus, missing labels)"
+          minor: "Inconvenience (suboptimal patterns, missing descriptions)"
+        output: "a11y_issues.md"
+
+      - step: 6
+        action: "Score Accessibility Dimension"
+        scoring:
+          semantic_html: "0=div soup, 10=proper semantic structure"
+          aria_usage: "0=missing/wrong, 10=correct and complete"
+          keyboard: "0=inaccessible, 10=fully navigable"
+          visual: "0=fails contrast/resize, 10=fully compliant"
+          wcag_compliance: "0=fails many criteria, 10=fully compliant at target level"
+
+    checkpoint:
+      criteria:
+        - "All 4 audit areas completed"
+        - "Issues classified by severity"
+        - "Critical issues flagged for immediate action"
+        - "Accessibility score calculated"
+      human_review: true
+      message: "Accessibility audit complete. Review critical issues before proceeding."
+      veto_condition: "Critical a11y issues found — must be flagged in final report as P0"
+
+    output:
+      files:
+        - "semantic_html_audit.md"
+        - "aria_audit.md"
+        - "keyboard_audit.md"
+        - "visual_a11y_audit.md"
+        - "a11y_issues.md"
+        - "phase3_score.yaml"
+      location: "outputs/audits/{system_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: GOVERNANCE CHECK (Nathan Curtis)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 4
+    name: Governance & Process Audit
+    duration: 1-2 hours
+    tier: 1
+    agent: nathan-curtis
+    skip_if: "scope == 'structure' OR scope == 'patterns' OR scope == 'a11y'"
+
+    description: |
+      Avaliar o estado organizacional do design system: team model,
+      contribution process, versioning, naming conventions, adoption.
+      Identificar gaps organizacionais que bloqueiam a saude do sistema.
+
+    steps:
+      - step: 1
+        action: "Team Model Assessment"
+        elicit: true
+        questions:
+          - "Who owns the design system? (1 person, dedicated team, federated?)"
+          - "How many people contribute regularly?"
+          - "Is there executive sponsorship?"
+          - "How are priorities decided?"
+        output: "team_model_assessment.md"
+
+      - step: 2
+        action: "Contribution Process Audit"
+        checks:
+          - "Documented contribution guidelines exist?"
+          - "PR review SLAs defined?"
+          - "Different workflows for defect/small/large/new?"
+          - "Stewardship model in place?"
+          - "PR backlog health (stale PRs?)"
+        output: "contribution_audit.md"
+
+      - step: 3
+        action: "Versioning & Release Audit"
+        checks:
+          - "SemVer policy documented?"
+          - "Visual breaking change criteria defined?"
+          - "Release cadence established and followed?"
+          - "CHANGELOG maintained?"
+          - "Deprecation policy exists?"
+          - "Migration guides for major versions?"
+        output: "versioning_audit.md"
+
+      - step: 4
+        action: "Naming Convention Audit"
+        checks:
+          - "Component naming consistent?"
+          - "Token naming follows a pattern? (namespace-object-base-modifier)"
+          - "CSS class naming convention? (BEM, CUBE, utility-first)"
+          - "Figma layer naming aligned with code?"
+        output: "naming_audit.md"
+
+      - step: 5
+        action: "Adoption Measurement"
+        checks:
+          - "Adoption metrics tracked?"
+          - "Product teams know what to use?"
+          - "Onboarding documentation exists?"
+          - "Version freshness across products?"
+        output: "adoption_audit.md"
+
+      - step: 6
+        action: "Score Governance Dimension"
+        scoring:
+          team_model: "0=undefined, 10=clear model with authority matrix"
+          contributions: "0=no process, 10=full workflow with stewards"
+          versioning: "0=no policy, 10=SemVer with breaking change criteria"
+          naming: "0=inconsistent, 10=documented and enforced"
+          adoption: "0=unknown, 10=measured with OKRs"
+
+    checkpoint:
+      criteria:
+        - "Team model assessed"
+        - "Contribution process audited"
+        - "Versioning policy audited"
+        - "Naming conventions audited"
+        - "Adoption state documented"
+        - "Governance score calculated"
+      human_review: false
+      message: "Governance audit complete. Proceeding to consolidated report."
+
+    output:
+      files:
+        - "team_model_assessment.md"
+        - "contribution_audit.md"
+        - "versioning_audit.md"
+        - "naming_audit.md"
+        - "adoption_audit.md"
+        - "phase4_score.yaml"
+      location: "outputs/audits/{system_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 5: CONSOLIDATED REPORT (design-chief)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 5
+    name: Consolidated Audit Report
+    duration: 30-60 min
+    tier: 2
+    agent: design-chief
+
+    description: |
+      Unificar os reports de todas as phases em um unico diagnostico.
+      Calcular score por dimensao e overall. Gerar plano de acao priorizado.
+
+    steps:
+      - step: 1
+        action: "Consolidate Phase Scores"
+        input:
+          - "phase1_score.yaml (Structure)"
+          - "phase2_score.yaml (Patterns)"
+          - "phase3_score.yaml (Accessibility)"
+          - "phase4_score.yaml (Governance)"
+        output_template: |
+          audit_scorecard:
+            system: "{system_name}"
+            date: "{date}"
+            dimensions:
+              structure:
+                score: {x}/10
+                highlights: [...]
+                critical_issues: [...]
+              patterns:
+                score: {x}/10
+                highlights: [...]
+                critical_issues: [...]
+              accessibility:
+                score: {x}/10
+                highlights: [...]
+                critical_issues: [...]
+              governance:
+                score: {x}/10
+                highlights: [...]
+                critical_issues: [...]
+            overall_score: {x}/10
+
+      - step: 2
+        action: "Generate Prioritized Action Plan"
+        priority_criteria:
+          P0_critical: "Accessibility blockers, security issues"
+          P1_high: "Structural duplications, governance gaps"
+          P2_medium: "Pattern mismatches, naming inconsistencies"
+          P3_low: "Documentation gaps, polish items"
+        output: "action_plan.md"
+
+      - step: 3
+        action: "Generate Executive Summary"
+        template: |
+          # Design System Audit Report: {system_name}
+          ## Executive Summary
+          Overall Score: {score}/10
+          Date: {date}
+          Audited by: Design System Squad (AIOS)
+
+          ## Dimension Scores
+          | Dimension | Score | Status |
+          |-----------|-------|--------|
+          | Structure | {x}/10 | {status} |
+          | Patterns | {x}/10 | {status} |
+          | Accessibility | {x}/10 | {status} |
+          | Governance | {x}/10 | {status} |
+
+          ## Critical Issues (P0)
+          {critical_issues}
+
+          ## Top 5 Recommendations
+          {recommendations}
+
+          ## Roadmap
+          {phased_roadmap}
+
+      - step: 4
+        action: "Map Issues to Squad Agents"
+        description: "Para cada issue, recomendar qual agente da squad pode resolver"
+        mapping:
+          structural_issues: "brad-frost (*interface-inventory, *component-decomposition)"
+          pattern_issues: "jenifer-tidwell (*pattern-audit, *pattern-match)"
+          a11y_issues: "heydon-pickering (*a11y-audit, *component-a11y)"
+          governance_issues: "nathan-curtis (*governance-model, *team-model)"
+          token_issues: "jina-anne (*token-audit, *token-architecture)"
+          css_issues: "andy-bell (*css-audit, *cube-architecture)"
+          responsive_issues: "stephanie-walter (*responsive-audit, *breakpoint-strategy)"
+
+    checkpoint:
+      criteria:
+        - "All dimension scores consolidated"
+        - "Action plan prioritized (P0-P3)"
+        - "Executive summary generated"
+        - "Issues mapped to resolution agents"
+      human_review: true
+      message: "Audit report complete. Review and approve before sharing."
+
+    output:
+      files:
+        - "audit_scorecard.yaml"
+        - "action_plan.md"
+        - "audit_report.md"
+        - "agent_resolution_map.md"
+      location: "outputs/audits/{system_name}/"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  on_phase_failure:
+    - log_error: true
+    - notify_stakeholders: true
+    - create_remediation_task: true
+    - halt_workflow: false
+
+  on_checkpoint_failure:
+    - log_failure_reason: true
+    - return_to_previous_phase: false
+    - max_retries: 2
+    - action: "Continue with partial results, flag gaps in final report"
+
+  on_missing_artifacts:
+    - action: "Skip phase, document as 'Not Audited' in report"
+    - example: "No Figma library → skip visual token audit, flag in report"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+completion_signal: "<promise>AUDIT:COMPLETE</promise>"
+checkpoint_signal: "<promise>AUDIT:CHECKPOINT:PHASE-{N}</promise>"
+blocked_signal: "<promise>AUDIT:BLOCKED:PHASE-{N}</promise>"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENT ASSIGNMENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-0:
+    primary: ["design-chief"]
+    secondary: []
+  PHASE-1:
+    primary: ["brad-frost"]
+    secondary: ["jina-anne"]
+  PHASE-2:
+    primary: ["jenifer-tidwell"]
+    secondary: ["sophia-prater"]
+  PHASE-3:
+    primary: ["heydon-pickering"]
+    secondary: []
+  PHASE-4:
+    primary: ["nathan-curtis"]
+    secondary: ["dan-mall"]
+  PHASE-5:
+    primary: ["design-chief"]
+    secondary: []
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_checklist:
+  discovery:
+    - "[ ] Context collected and documented"
+    - "[ ] Scope agreed with stakeholder"
+    - "[ ] All artifacts accessible"
+  structure:
+    - "[ ] All components cataloged with atomic classification"
+    - "[ ] All tokens mapped"
+    - "[ ] Duplicates, orphans, zombies identified"
+  patterns:
+    - "[ ] Navigation patterns audited"
+    - "[ ] Form patterns audited"
+    - "[ ] Layout patterns audited"
+    - "[ ] Pattern mismatches documented"
+  accessibility:
+    - "[ ] Semantic HTML reviewed"
+    - "[ ] ARIA patterns validated"
+    - "[ ] Keyboard navigation tested"
+    - "[ ] Visual accessibility checked"
+    - "[ ] Issues classified by severity"
+  governance:
+    - "[ ] Team model assessed"
+    - "[ ] Contribution process audited"
+    - "[ ] Versioning policy reviewed"
+    - "[ ] Naming conventions checked"
+    - "[ ] Adoption state documented"
+  report:
+    - "[ ] All dimension scores consolidated"
+    - "[ ] Action plan prioritized P0-P3"
+    - "[ ] Executive summary written"
+    - "[ ] Issues mapped to resolution agents"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXECUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+execution:
+  mode: sequential
+  parallel_phases: [1, 2]  # Structure and Patterns can run in parallel
+
+  commands:
+    full: "*audit {system_name} --path {system_path}"
+    structure_only: "*audit {system_name} --scope structure"
+    a11y_only: "*audit {system_name} --scope a11y --wcag AAA"
+    governance_only: "*audit {system_name} --scope governance"
+
+  next_steps:
+    - "Use action_plan.md to prioritize fixes"
+    - "Use agent_resolution_map.md to delegate to specific agents"
+    - "Re-run audit after fixes to measure improvement"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY GATES SUMMARY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_gates:
+  - gate: SCOPE_DEFINED
+    phase: 0
+    blocking: true
+
+  - gate: INVENTORY_COMPLETE
+    phase: 1
+    blocking: false
+
+  - gate: PATTERNS_ANALYZED
+    phase: 2
+    blocking: false
+
+  - gate: A11Y_AUDITED
+    phase: 3
+    blocking: false
+    veto_on: "Critical a11y issues must be flagged P0"
+
+  - gate: GOVERNANCE_ASSESSED
+    phase: 4
+    blocking: false
+
+  - gate: REPORT_CONSOLIDATED
+    phase: 5
+    blocking: true
+
+overall_pass: "SCOPE_DEFINED + REPORT_CONSOLIDATED + at least 3 of 4 dimension phases completed"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  framework: "aios-workflow-v2"
+  created: "2026-02-03"
+  squad: "design"
+  primary_use_case: "Audit existing design system for structural, pattern, accessibility, and governance quality"

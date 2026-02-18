@@ -1,0 +1,201 @@
+# Template: Development Process Document
+
+**Template ID:** process-template
+**Version:** 1.0
+**Output Format:** markdown
+**Used By:** @ds-governance
+
+---
+
+## Purpose
+
+Produces a development process document covering PR templates, code review checklists, component creation workflow, release process, deprecation notices, and breaking change communication. Use this template to standardize how the team builds, reviews, and ships design system changes.
+
+---
+
+## Template
+
+# Development Process: {{system_name}}
+
+**Version:** {{document_version}}
+**Last Updated:** {{last_updated}}
+**Owner:** {{process_owner}}
+
+---
+
+## 1. Pull Request Template
+
+```markdown
+## What
+
+{{pr_what_description}}
+
+## Why
+
+{{pr_why_description}}
+
+## Type of Change
+
+- [ ] New component
+- [ ] Component update
+- [ ] Bug fix
+- [ ] Token change
+- [ ] Documentation
+- [ ] Breaking change
+
+## Checklist
+
+- [ ] Tests added/updated
+- [ ] Documentation updated
+- [ ] Storybook stories added/updated
+- [ ] Accessibility tested
+- [ ] Visual regression verified
+- [ ] Design review approved
+- [ ] No hardcoded values (tokens used)
+
+## Screenshots / Recordings
+
+{{pr_screenshots_section}}
+
+## Breaking Changes (if any)
+
+{{pr_breaking_changes_section}}
+```
+
+---
+
+## 2. Code Review Checklist
+
+### For Reviewers
+
+- [ ] Component follows atomic design classification
+- [ ] Naming conventions are consistent with system standards
+- [ ] Props API is consistent with existing components
+- [ ] All states are handled (default, hover, focus, active, disabled, error)
+- [ ] Accessibility requirements met (keyboard, screen reader, contrast)
+- [ ] Design tokens used (no hardcoded colors, spacing, typography)
+- [ ] Responsive behavior defined and tested
+- [ ] Unit tests cover all props and state changes
+- [ ] Documentation is complete and accurate
+- [ ] No unnecessary dependencies added
+- [ ] Bundle size impact is acceptable (< {{max_bundle_increase}})
+- [ ] TypeScript types are properly exported
+
+### Review SLA
+
+| Priority | Response Time | Resolution Time |
+|---|---|---|
+| Critical (blocking) | {{critical_response}} | {{critical_resolution}} |
+| Standard | {{standard_response}} | {{standard_resolution}} |
+| Low priority | {{low_response}} | {{low_resolution}} |
+
+---
+
+## 3. Component Creation Workflow
+
+| Step | Action | Owner | Artifact |
+|---|---|---|---|
+| 1 | Submit contribution proposal | {{step1_owner}} | Proposal document |
+| 2 | Design review and approval | {{step2_owner}} | Approved design |
+| 3 | Create component folder structure | {{step3_owner}} | Scaffolded files |
+| 4 | Implement component | {{step4_owner}} | Component code |
+| 5 | Write unit tests | {{step5_owner}} | Test file |
+| 6 | Add Storybook stories | {{step6_owner}} | Story file |
+| 7 | Write documentation | {{step7_owner}} | Doc page |
+| 8 | Accessibility audit | {{step8_owner}} | Audit report |
+| 9 | Code review | {{step9_owner}} | Approved PR |
+| 10 | Merge and release | {{step10_owner}} | Published package |
+
+---
+
+## 4. Release Process
+
+### Release Types
+
+| Type | Version Bump | Frequency | Approval Required |
+|---|---|---|---|
+| Patch | x.x.PATCH | {{patch_frequency}} | {{patch_approval}} |
+| Minor | x.MINOR.0 | {{minor_frequency}} | {{minor_approval}} |
+| Major | MAJOR.0.0 | {{major_frequency}} | {{major_approval}} |
+
+### Release Steps
+
+1. {{release_step_1}}
+2. {{release_step_2}}
+3. {{release_step_3}}
+4. {{release_step_4}}
+5. {{release_step_5}}
+
+### Release Checklist
+
+- [ ] All tests passing
+- [ ] Changelog updated
+- [ ] Version bumped
+- [ ] Visual regression tests approved
+- [ ] Stakeholder sign-off (for major releases)
+- [ ] Migration guide written (for breaking changes)
+- [ ] Release notes drafted
+- [ ] Communication sent to consumers
+
+---
+
+## 5. Deprecation Notice Template
+
+```markdown
+## Deprecation Notice: {{deprecated_component}}
+
+**Deprecated in:** v{{deprecation_version}}
+**Removal planned:** v{{removal_version}}
+**Replacement:** {{replacement_component}}
+**Migration guide:** {{migration_guide_url}}
+
+### What is changing?
+{{deprecation_description}}
+
+### How to migrate
+{{migration_steps}}
+
+### Timeline
+- {{deprecation_date}}: Component marked as deprecated
+- {{warning_date}}: Console warnings enabled
+- {{removal_date}}: Component removed
+
+### Support
+Contact {{support_channel}} for migration assistance.
+```
+
+---
+
+## 6. Breaking Change Communication Template
+
+```markdown
+## Breaking Change: {{breaking_change_title}}
+
+**Version:** v{{breaking_version}}
+**Impact:** {{impact_level}}
+**Affected Components:** {{affected_components}}
+
+### Summary
+{{breaking_summary}}
+
+### Before (v{{previous_version}})
+{{before_code}}
+
+### After (v{{breaking_version}})
+{{after_code}}
+
+### Migration Steps
+1. {{migration_step_1}}
+2. {{migration_step_2}}
+3. {{migration_step_3}}
+
+### Codemod Available
+{{codemod_info}}
+
+### Questions?
+{{support_info}}
+```
+
+---
+
+*Generated by AIOS Design Squad — Development Process Template v1.0*

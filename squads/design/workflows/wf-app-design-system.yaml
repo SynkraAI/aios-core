@@ -1,0 +1,882 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW: App Design System — Full Pipeline
+# Version: 1.0.0
+# Purpose: End-to-end UX/UI + Design System + Components + Tokens for an app
+# Key Agents: design-chief, sophia-prater, jenifer-tidwell, alla-kholmatova,
+#             jina-anne, brad-frost, nathan-curtis, andy-bell, stephanie-walter,
+#             heydon-pickering
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow-id: wf-app-design-system
+name: App Design System (Full Pipeline)
+version: 1.0.0
+estimated-time: 8-16 hours
+complexity: very-high
+
+description: |
+  Pipeline end-to-end que recebe qualquer input sobre um app (ideia, PRD,
+  wireframes, ou app existente) e produz o pacote completo: UX architecture,
+  design language, token system, component library, responsive strategy,
+  e accessibility blueprint.
+
+  O output final e um handoff estruturado para @ux-design-expert implementar.
+
+  Quando usar:
+  - App sendo criado e quer que o design system nasca junto com o produto
+  - Precisa de UX architecture + visual design + component library + tokens
+  - Quer um pacote completo para delegar implementacao
+  - Qualquer estagio: ideia, PRD, wireframes, ou app existente
+
+  Este workflow produz:
+  - UX Architecture (objects, flows, patterns por tela)
+  - Design Language (principles, naming, vocabulary)
+  - Token Specification (full token tree — color, type, space, etc.)
+  - Component Library Spec (hierarchy + 10-15 core specs)
+  - CSS Architecture (CUBE layers, primitives)
+  - Responsive Strategy (breakpoints, choreography)
+  - Accessibility Blueprint (ARIA, keyboard, focus)
+  - Implementation Roadmap (priorities, dependencies, checklist)
+  - Handoff Package for @ux-design-expert
+
+  10 of 12 squad agents participate in this workflow.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - app_name: "Nome do app/produto"
+    - app_description: "Descricao do que o app faz (1-3 frases)"
+  optional:
+    - prd_path: "Path para PRD existente"
+    - stories_path: "Path para user stories"
+    - wireframes_path: "Path ou URL para wireframes/mockups"
+    - figma_url: "URL do Figma com designs"
+    - existing_app_url: "URL do app existente (se brownfield)"
+    - existing_app_path: "Path para codigo do app existente"
+    - target_platforms: "web|ios|android|all (default: web)"
+    - brand_guidelines: "URL ou path para brand guidelines"
+    - target_users: "Descricao do publico-alvo"
+    - output_path: "Caminho para salvar handoff (default: outputs/apps/{app_name}/)"
+
+  adaptive_input: |
+    Este workflow aceita QUALQUER nivel de input:
+    - Ideia verbal → Phase 0 faz discovery completo
+    - PRD → Phase 0 extrai fluxos e requisitos
+    - Wireframes → Phase 0 analisa e cataloga telas
+    - App existente → Phase 0 faz screenshot audit
+    O workflow se adapta ao que o usuario tem disponivel.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0: ADAPTIVE DISCOVERY
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 0
+    name: Adaptive Discovery
+    duration: 30-60 min
+    tier: 0
+    agent: design-chief
+
+    description: |
+      Entender o app independentemente do nivel de input fornecido.
+      Se o usuario tem PRD, extrair. Se tem wireframes, analisar.
+      Se tem app existente, auditar. Se tem so ideia, elicitar.
+
+    steps:
+      - step: 1
+        action: "Detect Input Level"
+        description: "Classificar o que o usuario tem disponivel"
+        detection:
+          level_1_idea: "Apenas descricao verbal do app"
+          level_2_prd: "PRD e/ou user stories existem"
+          level_3_wireframes: "Wireframes ou mockups disponiveis"
+          level_4_existing_app: "App ja existe (codigo ou URL)"
+
+      - step: 2
+        action: "Extract App Context (adaptive)"
+        description: "Extrair contexto baseado no input level"
+
+        if_level_1_idea:
+          elicit: true
+          questions:
+            - "Quem sao os usuarios do app? (personas)"
+            - "Quais os 3-5 fluxos principais? (ex: login, busca, compra)"
+            - "Quais as telas principais que voce imagina?"
+            - "O app e mais consumo (ler, ver) ou producao (criar, editar)?"
+            - "Existe alguma referencia visual? (app concorrente, estilo)"
+            - "Quais plataformas? (web, mobile, desktop)"
+
+        if_level_2_prd:
+          action: "Parse PRD and extract"
+          extract:
+            - "User personas"
+            - "User flows"
+            - "Feature list"
+            - "Non-functional requirements"
+            - "Screen inventory (from acceptance criteria)"
+
+        if_level_3_wireframes:
+          action: "Analyze wireframes/mockups"
+          extract:
+            - "Screen inventory"
+            - "Navigation structure"
+            - "Component inventory (visual)"
+            - "Content types"
+            - "Interaction patterns visible"
+
+        if_level_4_existing_app:
+          action: "Screenshot audit + code analysis"
+          extract:
+            - "Screen inventory from navigation"
+            - "Existing component inventory"
+            - "Current design patterns"
+            - "Existing tokens/variables"
+            - "Pain points and inconsistencies"
+
+      - step: 3
+        action: "Generate App Context Document"
+        output_template: |
+          app_context:
+            name: "{app_name}"
+            description: "{description}"
+            input_level: "{level}"
+            target_users:
+              - persona: "{persona}"
+                goals: ["{goal}"]
+            main_flows:
+              - flow: "{flow_name}"
+                screens: ["{screen1}", "{screen2}"]
+                description: "{flow_description}"
+            screen_inventory:
+              - screen: "{screen_name}"
+                type: "dashboard|detail|list|form|auth|settings"
+                key_content: ["{content}"]
+            platforms: ["{platform}"]
+            style_references: ["{reference}"]
+        output: "app_context.yaml"
+
+    checkpoint:
+      criteria:
+        - "Input level detected and processed"
+        - "App context document generated"
+        - "At least 3 main flows identified"
+        - "Screen inventory created"
+        - "Target users defined"
+      human_review: true
+      message: "App context captured. Review before UX architecture."
+
+    output:
+      file: "app_context.yaml"
+      location: "outputs/apps/{app_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: UX ARCHITECTURE
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 1
+    name: UX Architecture (Objects + Patterns)
+    duration: 1-2 hours
+    tier: 0
+    agents:
+      primary: sophia-prater
+      secondary: jenifer-tidwell
+
+    description: |
+      Construir a arquitetura UX do app: mapear objetos (OOUX),
+      definir patterns de interacao por tela, e criar o esqueleto de navegacao.
+
+    steps:
+      - step: 1
+        action: "OOUX Object Mapping (Sophia Prater)"
+        agent: sophia-prater
+        input: "app_context.yaml from Phase 0"
+        description: "Identificar os objetos do sistema e seus relacionamentos"
+        output_template: |
+          ooux_map:
+            objects:
+              - name: "{object}"
+                core_content: ["{attribute}"]
+                metadata: ["{metadata}"]
+                nested_objects: ["{nested}"]
+                ctas:
+                  - action: "{cta}"
+                    priority: "primary|secondary|tertiary"
+                    permission: "{who_can_do_this}"
+            relationships:
+              - from: "{object_a}"
+                to: "{object_b}"
+                type: "has_many|belongs_to|has_one"
+                cta_on_relationship: "{action}"
+            priority_matrix:
+              - screen: "{screen}"
+                objects_displayed:
+                  - object: "{name}"
+                    content_priority: ["{attr1}", "{attr2}"]
+                    cta_priority: ["{cta1}", "{cta2}"]
+        output: "ooux_map.yaml"
+
+      - step: 2
+        action: "Interaction Pattern Mapping (Jenifer Tidwell)"
+        agent: jenifer-tidwell
+        input: "app_context.yaml + ooux_map.yaml"
+        description: "Mapear patterns de interacao por tela"
+        output_template: |
+          pattern_map:
+            navigation:
+              global: "{Hub and Spoke|Pyramid|Fully Connected}"
+              local: "{Tabs|Breadcrumb|Sidebar}"
+            screens:
+              - screen: "{screen_name}"
+                layout_pattern: "{Dashboard|Two-Panel Selector|One-Window Drilldown}"
+                content_pattern: "{Card Grid|List|Detail View|Form}"
+                interaction_patterns:
+                  - "{Progressive Disclosure}"
+                  - "{Inline Editing}"
+                  - "{Drag and Drop}"
+                rationale: "{why_these_patterns}"
+        output: "pattern_map.yaml"
+
+      - step: 3
+        action: "Consolidate UX Architecture"
+        agent: design-chief
+        description: "Unificar OOUX + Patterns em documento de UX architecture"
+        output: "ux_architecture.md"
+
+    checkpoint:
+      criteria:
+        - "All system objects mapped with CTAs and relationships"
+        - "Priority matrix defined (which objects/CTAs per screen)"
+        - "Interaction patterns assigned to every screen"
+        - "Navigation structure defined"
+        - "UX architecture document consolidated"
+      human_review: true
+      message: |
+        UX Architecture ready:
+        - Objects: {n} mapped with {n} relationships
+        - Screens: {n} with pattern assignments
+        - Navigation: {pattern} selected
+
+        Review before investing in visual design.
+      veto_condition: "Missing OOUX map or pattern assignments — cannot design without UX skeleton"
+
+    output:
+      files:
+        - "ooux_map.yaml"
+        - "pattern_map.yaml"
+        - "ux_architecture.md"
+      location: "outputs/apps/{app_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: DESIGN LANGUAGE & TOKEN FOUNDATION
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 2
+    name: Design Language & Token Foundation
+    duration: 1-2 hours
+    tier: 1
+    agents:
+      primary: alla-kholmatova
+      secondary: jina-anne
+
+    description: |
+      Definir a design language (principios, naming, vocabulario semantico)
+      e criar a token architecture (color, typography, spacing, elevation).
+
+    steps:
+      - step: 1
+        action: "Design Language Definition (Alla Kholmatova)"
+        agent: alla-kholmatova
+        input: "app_context.yaml + ux_architecture.md"
+        description: "Definir principios, naming system, e vocabulario de design"
+
+        substeps:
+          - "Define 3-5 design principles based on app purpose and users"
+          - "Choose naming approach (functional vs. perceptual)"
+          - "Create pattern vocabulary that aligns with OOUX objects"
+          - "Define emotional tone of the visual language"
+
+        output: "design_language.md"
+
+      - step: 2
+        action: "Token Architecture (Jina Anne)"
+        agent: jina-anne
+        input: "app_context.yaml + design_language.md"
+        description: "Criar a fundacao completa de tokens"
+
+        substeps:
+          - "Define token tier structure (global → alias → component)"
+          - "Create color palette (primitive + semantic)"
+          - "Define typography scale"
+          - "Define spacing scale (4px base unit)"
+          - "Define elevation, border, motion tokens"
+          - "Apply naming convention (namespace-object-base-modifier)"
+          - "Handle light/dark mode if applicable"
+
+        output_files:
+          - "token_architecture.yaml"
+          - "color_tokens.yaml"
+          - "typography_tokens.yaml"
+          - "spacing_tokens.yaml"
+          - "additional_tokens.yaml"
+
+      - step: 3
+        action: "Align Language ↔ Tokens"
+        description: "Garantir que naming dos tokens reflete a design language"
+        checks:
+          - "Semantic token names use design language vocabulary"
+          - "Pattern names align with OOUX object names"
+          - "Color semantics match design principles"
+        output: "language_token_alignment.md"
+
+    checkpoint:
+      criteria:
+        - "Design principles defined (3-5)"
+        - "Naming system established"
+        - "Color palette complete (primitive + semantic)"
+        - "Typography scale defined"
+        - "Spacing scale defined"
+        - "Additional tokens defined"
+        - "Language ↔ token alignment verified"
+      human_review: true
+      message: |
+        Design Language + Tokens ready.
+        - Principles: {n} defined
+        - Colors: {n} tokens ({n} semantic)
+        - Typography: {n} scale steps
+        - Spacing: {scale} base unit
+
+        Review palette and typography before component phase.
+
+    output:
+      files:
+        - "design_language.md"
+        - "token_architecture.yaml"
+        - "color_tokens.yaml"
+        - "typography_tokens.yaml"
+        - "spacing_tokens.yaml"
+        - "additional_tokens.yaml"
+        - "language_token_alignment.md"
+      location: "outputs/apps/{app_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: COMPONENT ARCHITECTURE
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 3
+    name: Component Architecture
+    duration: 2-4 hours
+    tier: 1
+    agents:
+      primary: brad-frost
+      secondary: [nathan-curtis, andy-bell]
+
+    description: |
+      Decompor todas as telas em componentes (Atomic Design), criar specs
+      dos 10-15 core components, e definir a CSS architecture.
+
+    steps:
+      - step: 1
+        action: "Atomic Decomposition of All Screens (Brad Frost)"
+        agent: brad-frost
+        input: "ux_architecture.md + pattern_map.yaml"
+        description: "Decompor cada tela em atoms, molecules, organisms, templates"
+        output_template: |
+          screen_decomposition:
+            - screen: "{screen_name}"
+              template: "{template_name}"
+              organisms:
+                - name: "{organism}"
+                  molecules:
+                    - name: "{molecule}"
+                      atoms: ["{atom1}", "{atom2}"]
+
+          component_inventory:
+            atoms: ["{list_all_unique_atoms}"]
+            molecules: ["{list_all_unique_molecules}"]
+            organisms: ["{list_all_unique_organisms}"]
+            templates: ["{list_all_unique_templates}"]
+
+          reuse_analysis:
+            most_used_atoms: ["{atom}: {count}x"]
+            most_used_molecules: ["{molecule}: {count}x"]
+        output: "atomic_decomposition.yaml"
+
+      - step: 2
+        action: "Core Component Specs (Nathan Curtis)"
+        agent: nathan-curtis
+        input: "atomic_decomposition.yaml + token_architecture.yaml"
+        description: "Criar specs dos 10-15 componentes mais criticos"
+        per_component:
+          - "Anatomy (elements, hierarchy)"
+          - "Properties (type, options, default)"
+          - "Token mapping (every visual decision)"
+          - "Spacing (padding, margin, alignment)"
+          - "States (default, hover, focus, active, disabled, error, loading)"
+          - "Cross-platform notes"
+        output: "core_component_specs/"
+
+      - step: 3
+        action: "CSS Architecture (Andy Bell)"
+        agent: andy-bell
+        input: "atomic_decomposition.yaml + token_architecture.yaml"
+        description: "Definir CUBE layers, token-to-CSS mapping, layout primitives"
+        output_files:
+          - "cube_architecture.yaml"
+          - "layout_primitives.md"
+          - "css_token_mapping.yaml"
+
+      - step: 4
+        action: "Component Dependency Map"
+        agent: brad-frost
+        description: "Mapear dependencias e ordem de implementacao"
+        output: "dependency_map.yaml"
+
+    checkpoint:
+      criteria:
+        - "All screens decomposed into atomic hierarchy"
+        - "Component inventory complete (atoms, molecules, organisms)"
+        - "10-15 core component specs created"
+        - "CUBE CSS architecture defined"
+        - "Layout primitives identified"
+        - "Dependency map created"
+      human_review: true
+      message: |
+        Component architecture ready:
+        - Atoms: {n}, Molecules: {n}, Organisms: {n}
+        - Core specs: {n} components fully specified
+        - CUBE layers defined
+
+        Review before responsive + a11y phase.
+      veto_condition: "Less than 5 core component specs — insufficient for handoff"
+
+    output:
+      files:
+        - "atomic_decomposition.yaml"
+        - "core_component_specs/ (10-15 spec files)"
+        - "cube_architecture.yaml"
+        - "layout_primitives.md"
+        - "css_token_mapping.yaml"
+        - "dependency_map.yaml"
+      location: "outputs/apps/{app_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: RESPONSIVE & ACCESSIBILITY
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 4
+    name: Responsive Strategy & Accessibility Blueprint
+    duration: 1-2 hours
+    tier: 2
+    agents:
+      primary: [stephanie-walter, heydon-pickering]
+
+    description: |
+      Definir responsive strategy (breakpoints, content choreography) e
+      accessibility blueprint (ARIA, keyboard, focus, screen reader).
+
+    steps:
+      - step: 1
+        action: "Responsive Strategy (Stephanie Walter)"
+        agent: stephanie-walter
+        input: "atomic_decomposition.yaml + core_component_specs/"
+        description: "Definir como o app se adapta a diferentes viewports"
+
+        substeps:
+          - "Define breakpoint strategy (content-driven, not device-driven)"
+          - "Content choreography per screen (what stacks, hides, adapts)"
+          - "Touch target sizing (min 44x44px)"
+          - "Image strategy (responsive images, art direction)"
+          - "Performance budget per viewport"
+          - "Typography fluid scaling (if applicable)"
+
+        output_files:
+          - "breakpoint_strategy.md"
+          - "content_choreography.yaml"
+          - "responsive_guidelines.md"
+
+      - step: 2
+        action: "Accessibility Blueprint (Heydon Pickering)"
+        agent: heydon-pickering
+        input: "atomic_decomposition.yaml + core_component_specs/ + color_tokens.yaml"
+        description: "Definir a11y requirements para todos os core components"
+
+        substeps:
+          - "Semantic structure per screen (landmarks, heading hierarchy)"
+          - "ARIA patterns per interactive component"
+          - "Keyboard navigation map (global + per component)"
+          - "Focus management strategy (modals, drawers, dynamic content)"
+          - "Screen reader flow per screen"
+          - "Color contrast verification against token palette"
+          - "Motion/animation accessibility (prefers-reduced-motion)"
+
+        output_files:
+          - "semantic_structure.yaml"
+          - "aria_patterns.yaml"
+          - "keyboard_navigation.yaml"
+          - "focus_management.md"
+          - "screen_reader_flows.yaml"
+          - "contrast_report.md"
+
+      - step: 3
+        action: "Cross-Reference Responsive ↔ A11y"
+        description: "Garantir que responsive nao quebra a11y"
+        checks:
+          - "Hidden content still accessible to screen readers"
+          - "Touch targets adequate at all breakpoints"
+          - "Focus order maintained across breakpoints"
+          - "Content choreography preserves reading order"
+        output: "responsive_a11y_crosscheck.md"
+
+    checkpoint:
+      criteria:
+        - "Breakpoint strategy defined"
+        - "Content choreography per screen"
+        - "ARIA patterns per interactive component"
+        - "Keyboard navigation mapped"
+        - "Focus management defined"
+        - "Color contrast verified"
+        - "Responsive ↔ a11y cross-check passed"
+      human_review: true
+      message: "Responsive + A11y complete. Last checkpoint before handoff."
+      veto_condition: "Color contrast failures or missing keyboard navigation — must fix before handoff"
+
+    output:
+      files:
+        - "breakpoint_strategy.md"
+        - "content_choreography.yaml"
+        - "responsive_guidelines.md"
+        - "semantic_structure.yaml"
+        - "aria_patterns.yaml"
+        - "keyboard_navigation.yaml"
+        - "focus_management.md"
+        - "screen_reader_flows.yaml"
+        - "contrast_report.md"
+        - "responsive_a11y_crosscheck.md"
+      location: "outputs/apps/{app_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 5: HANDOFF PACKAGE
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 5
+    name: Handoff Package for @ux-design-expert
+    duration: 30-60 min
+    tier: 2
+    agent: design-chief
+
+    description: |
+      Consolidar todos os outputs (Phases 0-4) em um pacote estruturado
+      para handoff ao @ux-design-expert. Organizado por implementacao,
+      nao por disciplina.
+
+    steps:
+      - step: 1
+        action: "Compile Handoff Structure"
+        description: "Organizar todos os outputs em pasta estruturada"
+        output_structure: |
+          handoff/
+            01-ux-architecture.md
+              - App context summary
+              - OOUX object map
+              - Interaction pattern map
+              - Navigation structure
+            02-design-language.md
+              - Design principles
+              - Naming system
+              - Pattern vocabulary
+            03-token-specification.yaml
+              - Full token tree (color, type, space, elevation, etc.)
+              - Token tier structure
+              - Naming convention reference
+            04-component-library.md
+              - Atomic decomposition (all screens)
+              - Component inventory (atoms, molecules, organisms)
+              - Core component specs (10-15)
+              - Dependency map
+            05-css-architecture.md
+              - CUBE layers
+              - Layout primitives
+              - Token-to-CSS mapping
+            06-responsive-strategy.md
+              - Breakpoints
+              - Content choreography per screen
+              - Touch targets
+              - Image strategy
+            07-accessibility-blueprint.md
+              - Semantic structure per screen
+              - ARIA patterns per component
+              - Keyboard navigation map
+              - Focus management
+              - Screen reader flows
+              - Contrast report
+            08-implementation-roadmap.md
+              - Implementation priority order
+              - Component dependencies
+              - Sprint-by-sprint breakdown
+              - Validation checklist
+
+      - step: 2
+        action: "Generate Implementation Roadmap"
+        description: "Definir ordem de implementacao baseada em dependencias"
+        output_template: |
+          implementation_roadmap:
+            sprint_1_foundation:
+              tokens: "Set up Style Dictionary / token pipeline"
+              components: ["{atom1}", "{atom2}", "{atom3}"]
+              rationale: "Foundation atoms that everything depends on"
+            sprint_2_core:
+              components: ["{molecule1}", "{molecule2}"]
+              rationale: "Core molecules used across most screens"
+            sprint_3_complex:
+              components: ["{organism1}", "{organism2}"]
+              rationale: "Complex organisms that compose screens"
+            sprint_4_screens:
+              templates: ["{template1}", "{template2}"]
+              rationale: "Page templates using composed components"
+
+      - step: 3
+        action: "Generate Validation Checklist"
+        description: "Checklist para @ux-design-expert validar cada sprint"
+        output_template: |
+          validation_checklist:
+            per_component:
+              - "[ ] Matches spec (anatomy, props, tokens)"
+              - "[ ] All states implemented"
+              - "[ ] Responsive behavior works"
+              - "[ ] Keyboard navigation works"
+              - "[ ] Screen reader announces correctly"
+              - "[ ] Color contrast passes"
+              - "[ ] Token usage (no hardcoded values)"
+            per_screen:
+              - "[ ] Correct patterns applied"
+              - "[ ] OOUX objects displayed with right priority"
+              - "[ ] Content choreography works across breakpoints"
+              - "[ ] Heading hierarchy correct"
+              - "[ ] Landmarks present"
+
+      - step: 4
+        action: "Write Handoff Summary"
+        description: "Resumo executivo do handoff para @ux-design-expert"
+        output_template: |
+          # Handoff: {app_name} Design System
+
+          ## Summary
+          - App: {app_name} — {description}
+          - Screens: {n} screens across {n} flows
+          - Components: {n} atoms, {n} molecules, {n} organisms
+          - Core Specs: {n} components fully specified
+          - Tokens: {n} tokens ({n} color, {n} type, {n} space, {n} other)
+
+          ## For @ux-design-expert
+          Start with `08-implementation-roadmap.md` for priorities.
+          Reference `03-token-specification.yaml` for all design decisions.
+          Use `04-component-library.md` for component specs.
+          Follow `07-accessibility-blueprint.md` for every component.
+
+          ## Agents Involved
+          {list_agents_and_their_contributions}
+        output: "handoff_summary.md"
+
+    checkpoint:
+      criteria:
+        - "All 8 handoff documents generated"
+        - "Implementation roadmap with sprint breakdown"
+        - "Validation checklist included"
+        - "Handoff summary written"
+        - "All cross-references consistent"
+      human_review: true
+      message: "Handoff package complete. Ready for @ux-design-expert."
+
+    output:
+      files:
+        - "handoff/ (8 documents)"
+        - "handoff_summary.md"
+      location: "outputs/apps/{app_name}/"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  on_phase_failure:
+    - log_error: true
+    - halt_workflow: true
+    - reason: "Each phase depends on the previous — cannot skip"
+
+  on_checkpoint_failure:
+    - log_failure_reason: true
+    - return_to_current_phase: true
+    - max_retries: 2
+    - action: "Address feedback, re-run failing step, checkpoint again"
+
+  on_veto:
+    - action: "Block progression, resolve veto condition, re-checkpoint"
+    - escalation: "If veto persists after 2 retries, flag for human decision"
+
+  on_missing_input:
+    - action: "Phase 0 handles missing input adaptively — elicit from user"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+completion_signal: "<promise>APP-DS:COMPLETE</promise>"
+checkpoint_signal: "<promise>APP-DS:CHECKPOINT:PHASE-{N}</promise>"
+blocked_signal: "<promise>APP-DS:BLOCKED:PHASE-{N}</promise>"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENT ASSIGNMENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-0:
+    primary: ["design-chief"]
+    secondary: []
+    role: "Discovery and context extraction"
+  PHASE-1:
+    primary: ["sophia-prater", "jenifer-tidwell"]
+    secondary: ["design-chief"]
+    role: "UX architecture — objects and interaction patterns"
+  PHASE-2:
+    primary: ["alla-kholmatova", "jina-anne"]
+    secondary: []
+    role: "Design language and token foundation"
+  PHASE-3:
+    primary: ["brad-frost"]
+    secondary: ["nathan-curtis", "andy-bell"]
+    role: "Component architecture — decomposition, specs, CSS"
+  PHASE-4:
+    primary: ["stephanie-walter", "heydon-pickering"]
+    secondary: []
+    role: "Responsive strategy and accessibility blueprint"
+  PHASE-5:
+    primary: ["design-chief"]
+    secondary: []
+    role: "Handoff package consolidation"
+
+  agents_not_included:
+    dan-mall: "Organizational strategy — not needed for single-app DS"
+    micah-godbolt: "Frontend implementation — handled by @ux-design-expert"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_checklist:
+  discovery:
+    - "[ ] App context captured (users, flows, screens)"
+    - "[ ] Input level detected and processed"
+    - "[ ] At least 3 main flows identified"
+  ux_architecture:
+    - "[ ] OOUX objects mapped with CTAs and relationships"
+    - "[ ] Interaction patterns assigned per screen"
+    - "[ ] Navigation structure defined"
+  design_language:
+    - "[ ] Design principles defined (3-5)"
+    - "[ ] Naming system established"
+    - "[ ] Language aligned with tokens"
+  tokens:
+    - "[ ] Color palette (primitive + semantic)"
+    - "[ ] Typography scale"
+    - "[ ] Spacing scale"
+    - "[ ] Additional tokens (elevation, border, motion)"
+  components:
+    - "[ ] All screens decomposed (atomic hierarchy)"
+    - "[ ] 10-15 core components fully specified"
+    - "[ ] CUBE CSS architecture defined"
+    - "[ ] Dependency map created"
+  responsive:
+    - "[ ] Breakpoints defined (content-driven)"
+    - "[ ] Content choreography per screen"
+    - "[ ] Touch targets verified"
+  accessibility:
+    - "[ ] ARIA patterns per interactive component"
+    - "[ ] Keyboard navigation mapped"
+    - "[ ] Focus management defined"
+    - "[ ] Color contrast verified"
+  handoff:
+    - "[ ] All 8 handoff documents generated"
+    - "[ ] Implementation roadmap with sprint breakdown"
+    - "[ ] Validation checklist included"
+    - "[ ] All cross-references consistent"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXECUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+execution:
+  mode: sequential
+  parallel_phases: []  # All phases are dependent
+
+  commands:
+    from_idea: "*app-design-system '{app_name}' --description '{description}'"
+    from_prd: "*app-design-system '{app_name}' --prd '{prd_path}'"
+    from_wireframes: "*app-design-system '{app_name}' --wireframes '{path}'"
+    from_existing: "*app-design-system '{app_name}' --existing '{app_url}'"
+
+  next_steps:
+    - "Hand off outputs/apps/{app_name}/handoff/ to @ux-design-expert"
+    - "Start with 08-implementation-roadmap.md for priorities"
+    - "Use wf-component-creation for any additional components needed"
+    - "Run wf-design-system-audit periodically to check quality"
+
+  handoff_command: |
+    To hand off to @ux-design-expert:
+    1. Activate: @ux-design-expert
+    2. Provide: outputs/apps/{app_name}/handoff/
+    3. Start: "Implement the design system from the handoff package"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY GATES SUMMARY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_gates:
+  - gate: CONTEXT_CAPTURED
+    phase: 0
+    blocking: true
+
+  - gate: UX_ARCHITECTED
+    phase: 1
+    blocking: true
+    veto_on: "Missing OOUX map or pattern assignments"
+
+  - gate: LANGUAGE_AND_TOKENS
+    phase: 2
+    blocking: true
+
+  - gate: COMPONENTS_SPECIFIED
+    phase: 3
+    blocking: true
+    veto_on: "Less than 5 core component specs"
+
+  - gate: RESPONSIVE_AND_A11Y
+    phase: 4
+    blocking: true
+    veto_on: "Color contrast failures or missing keyboard navigation"
+
+  - gate: HANDOFF_READY
+    phase: 5
+    blocking: true
+
+overall_pass: "All 6 gates PASS + all cross-references consistent"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  framework: "aios-workflow-v2"
+  created: "2026-02-03"
+  squad: "design"
+  primary_use_case: "End-to-end UX/UI + Design System + Components + Tokens for an app, with handoff to @ux-design-expert"
+  key_difference: |
+    This is the most comprehensive workflow in the design squad — it orchestrates 10 of 12 agents
+    in a pipeline that produces a complete, implementable design system for a specific app.
+    Unlike wf-design-system-setup (which creates a generic foundation for an org), this workflow
+    is app-specific: it analyzes the app's flows, objects, and screens to produce a tailored
+    design system that maps directly to implementation needs.
+  agents_involved: 10
+  total_phases: 6
+  handoff_target: "@ux-design-expert"

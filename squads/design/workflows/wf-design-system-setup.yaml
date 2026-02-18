@@ -1,0 +1,649 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW: Design System Setup (Bootstrap)
+# Version: 1.0.0
+# Purpose: Bootstrap a new design system from zero — strategy to foundation
+# Key Agents: dan-mall, nathan-curtis, jina-anne, alla-kholmatova, brad-frost
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow-id: wf-design-system-setup
+name: Design System Setup (Zero to Foundation)
+version: 1.0.0
+estimated-time: 6-12 hours
+complexity: high
+
+description: |
+  Bootstrap um design system novo do zero para uma organizacao.
+  Vai desde o assessment organizacional ate ter a fundacao tecnica
+  (tokens, language, library) definida.
+
+  NAO e sobre criar componentes — e sobre criar a FUNDACAO sobre a qual
+  componentes serao construidos.
+
+  Quando usar:
+  - Organizacao nao tem design system
+  - Fragmentos espalhados e quer comecar do jeito certo
+  - Precisa de estrategia organizacional + fundacao tecnica
+  - Nova empresa/produto e quer comecar com design system from day one
+
+  Este workflow produz:
+  - Organizational assessment e strategy
+  - Team model e governance structure
+  - Token architecture (cores, tipografia, spacing, elevation)
+  - Design language (principios, naming, pattern language)
+  - Component library foundation (hierarchy + 5-10 core components)
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - org_name: "Nome da organizacao/empresa"
+    - product_count: "Numero de produtos/apps que o sistema vai atender"
+  optional:
+    - brand_guidelines: "URL ou path para brand guidelines existentes"
+    - existing_components: "Path para componentes existentes (se houver fragmentos)"
+    - figma_file: "URL do Figma com designs existentes"
+    - team_size: "Tamanho da equipe de design + dev"
+    - tech_stack: "Stack tecnologica principal (React, Vue, Angular, etc.)"
+    - multi_brand: "true|false — precisa suportar multiplas marcas?"
+    - output_path: "Caminho para salvar outputs (default: outputs/setup/{org_name}/)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: ORGANIZATIONAL ASSESSMENT (Dan Mall)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 1
+    name: Organizational Assessment & Strategy
+    duration: 1-2 hours
+    tier: 0
+    agent: dan-mall
+
+    description: |
+      Mapear a organizacao — quantos produtos, times, designers, devs.
+      Definir o modelo de operacao (in-house vs. partnership).
+      Alinhar com stakeholders sobre expectativas e investment.
+
+    steps:
+      - step: 1
+        action: "Organizational Discovery"
+        elicit: true
+        questions:
+          - "How many products/apps will the design system serve?"
+          - "How many designers and developers are on the team?"
+          - "Is there executive sponsorship for a design system initiative?"
+          - "What's the biggest pain point today? (inconsistency, speed, quality)"
+          - "Is there any existing design system, even informal?"
+          - "What's the tech stack? (React, Vue, Angular, native, etc.)"
+          - "Single brand or multi-brand?"
+          - "What's the timeline expectation? (MVP in weeks, comprehensive in months)"
+
+      - step: 2
+        action: "Hot Potato Assessment"
+        description: "Avaliar a maturidade da colaboracao design-dev"
+        framework: "Dan Mall's Hot Potato methodology"
+        checks:
+          - "Design and dev work in parallel or sequentially?"
+          - "How often do design and dev sync?"
+          - "Are there shared artifacts between design and dev?"
+          - "Is there a shared vocabulary?"
+        output: "hot_potato_assessment.md"
+
+      - step: 3
+        action: "Investment & Prioritization"
+        description: "Definir escopo e prioridades do MVP"
+        output_template: |
+          strategy:
+            org: "{org_name}"
+            products_served: {count}
+            team_model_recommendation: "{model}"
+            mvp_scope:
+              tokens: ["color", "typography", "spacing"]
+              components: ["{comp1}", "{comp2}", "...5-10 core"]
+              documentation: "minimal|comprehensive"
+            timeline:
+              mvp: "{weeks}"
+              v1: "{months}"
+            investment:
+              dedicated_team: {count}
+              part_time_contributors: {count}
+
+      - step: 4
+        action: "Stakeholder Alignment Document"
+        description: "Documento para alinhar com stakeholders"
+        output: "stakeholder_alignment.md"
+
+    checkpoint:
+      criteria:
+        - "Organization mapped (products, teams, maturity)"
+        - "Hot Potato assessment complete"
+        - "MVP scope defined and prioritized"
+        - "Stakeholder alignment document ready"
+      human_review: true
+      message: "Organizational strategy defined. Review before governance phase."
+
+    output:
+      files:
+        - "org_assessment.yaml"
+        - "hot_potato_assessment.md"
+        - "strategy.yaml"
+        - "stakeholder_alignment.md"
+      location: "outputs/setup/{org_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: GOVERNANCE & TEAM MODEL (Nathan Curtis)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 2
+    name: Governance & Team Model
+    duration: 1-2 hours
+    tier: 0
+    agent: nathan-curtis
+
+    description: |
+      Selecionar team model (solitary/centralized/federated), definir
+      authority matrix, contribution model, versioning strategy.
+      Criar o framework organizacional que sustenta o design system.
+
+    steps:
+      - step: 1
+        action: "Select Team Model"
+        input: "org_assessment.yaml from Phase 1"
+        description: "Escolher o modelo de equipe baseado no contexto organizacional"
+        models:
+          solitary: "1 person, < 3 products, starting out"
+          centralized: "3-5 dedicated, 3-10 products, growing"
+          federated: "Core + representatives, 10+ products, mature"
+          cyclical: "Core + rotating contributors, large orgs"
+        output: "team_model.md"
+
+      - step: 2
+        action: "Define Authority Matrix"
+        description: "Quem decide o que"
+        output_template: |
+          authority_matrix:
+            - decision: "Add new component"
+              authority: "{role/team}"
+              process: "{how}"
+            - decision: "Breaking change"
+              authority: "{role/team}"
+              process: "{how}"
+            - decision: "Color palette change"
+              authority: "{role/team}"
+              process: "{how}"
+
+      - step: 3
+        action: "Design Contribution Model"
+        description: "Definir como outros times podem contribuir"
+        tiers:
+          defect_fix: "PR → review → merge (48hr SLA)"
+          small_enhancement: "PR + design review → merge (72hr SLA)"
+          large_enhancement: "Proposal → steward → design → code → review"
+          new_feature: "RFC → council → design → code → docs → review"
+        output: "contribution_model.md"
+
+      - step: 4
+        action: "Define Versioning Strategy"
+        description: "SemVer policy, release cadence, breaking change criteria"
+        output: "versioning_strategy.md"
+
+      - step: 5
+        action: "Define Naming Conventions"
+        description: "Component naming, token naming, CSS naming"
+        conventions:
+          tokens: "namespace-object-base-modifier"
+          components: "PascalCase (React), kebab-case (CSS)"
+          css: "CUBE or BEM"
+        output: "naming_conventions.md"
+
+    checkpoint:
+      criteria:
+        - "Team model selected with rationale"
+        - "Authority matrix defined"
+        - "Contribution model designed"
+        - "Versioning strategy documented"
+        - "Naming conventions established"
+      human_review: true
+      message: "Governance framework complete. Review before token architecture."
+
+    output:
+      files:
+        - "team_model.md"
+        - "authority_matrix.yaml"
+        - "contribution_model.md"
+        - "versioning_strategy.md"
+        - "naming_conventions.md"
+      location: "outputs/setup/{org_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: TOKEN ARCHITECTURE (Jina Anne)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 3
+    name: Token Architecture
+    duration: 1-2 hours
+    tier: 1
+    agent: jina-anne
+
+    description: |
+      Definir a fundacao de tokens — cores, tipografia, spacing, elevation.
+      Naming convention, tier structure, multi-brand strategy se aplicavel.
+
+    steps:
+      - step: 1
+        action: "Define Token Tier Structure"
+        description: "Estabelecer os niveis de tokens"
+        tiers:
+          global: "Raw values — colors, sizes, durations"
+          alias: "Semantic references — action-primary, feedback-error"
+          component: "Component-specific — button-height, card-radius"
+        output: "token_tiers.yaml"
+
+      - step: 2
+        action: "Color Token Architecture"
+        description: "Definir a palette de cores"
+        layers:
+          primitive: "Raw hues with scale (gray-100 to gray-900, blue-100 to blue-900)"
+          semantic: "Mapped to meaning (color-action, color-feedback-success, color-surface)"
+          component: "Component-specific overrides"
+        considerations:
+          - "Light/dark mode support"
+          - "Multi-brand support (if applicable)"
+          - "Accessibility contrast requirements"
+        output: "color_tokens.yaml"
+
+      - step: 3
+        action: "Typography Token Architecture"
+        description: "Definir a escala tipografica"
+        properties:
+          - font-family (sans, serif, mono)
+          - font-size (scale: xs, sm, md, lg, xl, 2xl, 3xl)
+          - font-weight (regular, medium, semibold, bold)
+          - line-height (tight, normal, relaxed)
+          - letter-spacing (tight, normal, wide)
+        output: "typography_tokens.yaml"
+
+      - step: 4
+        action: "Spacing Token Architecture"
+        description: "Definir a escala de espacamento"
+        approach: "Base unit × multiplier (4px base: 4, 8, 12, 16, 24, 32, 48, 64)"
+        categories:
+          inset: "Padding inside elements"
+          stack: "Vertical spacing between elements"
+          inline: "Horizontal spacing between elements"
+          gap: "Grid/flex gap values"
+        output: "spacing_tokens.yaml"
+
+      - step: 5
+        action: "Additional Token Categories"
+        description: "Elevation, border, motion, z-index"
+        categories:
+          elevation: "Shadow levels (none, sm, md, lg, xl)"
+          border:
+            width: "(none, thin, medium, thick)"
+            radius: "(none, sm, md, lg, full)"
+            color: "(mapped to semantic colors)"
+          motion:
+            duration: "(instant, fast, normal, slow)"
+            easing: "(ease-in, ease-out, ease-in-out)"
+          z_index: "(base, dropdown, sticky, modal, toast)"
+        output: "additional_tokens.yaml"
+
+      - step: 6
+        action: "Generate Token Source Files"
+        description: "Gerar os arquivos fonte de tokens"
+        formats:
+          - "YAML (source of truth)"
+          - "JSON (Style Dictionary input)"
+        output: "tokens/"
+
+    checkpoint:
+      criteria:
+        - "Token tier structure defined"
+        - "Color palette complete with primitive + semantic + component"
+        - "Typography scale defined"
+        - "Spacing scale defined"
+        - "Additional tokens (elevation, border, motion) defined"
+        - "Token source files generated"
+        - "Naming convention follows namespace-object-base-modifier"
+      human_review: true
+      message: "Token architecture complete. Review palette and scale before design language."
+
+    output:
+      files:
+        - "token_tiers.yaml"
+        - "color_tokens.yaml"
+        - "typography_tokens.yaml"
+        - "spacing_tokens.yaml"
+        - "additional_tokens.yaml"
+        - "tokens/ (generated files)"
+      location: "outputs/setup/{org_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: DESIGN LANGUAGE (Alla Kholmatova)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 4
+    name: Design Language Definition
+    duration: 1-2 hours
+    tier: 1
+    agent: alla-kholmatova
+
+    description: |
+      Definir o vocabulario de design — principios, naming system, pattern language.
+      Conectar tokens a significado semantico.
+      Criar a linguagem compartilhada entre designers e developers.
+
+    steps:
+      - step: 1
+        action: "Define Design Principles"
+        elicit: true
+        description: "Principios que guiam todas as decisoes de design"
+        questions:
+          - "What are the core values of the product/brand?"
+          - "What should the experience feel like? (fast, calm, playful, professional)"
+          - "What are the anti-values? (not cluttered, not boring, not corporate)"
+        output_template: |
+          design_principles:
+            - name: "{principle}"
+              description: "{description}"
+              do: ["{example}"]
+              dont: ["{anti_example}"]
+        output: "design_principles.md"
+
+      - step: 2
+        action: "Create Naming System"
+        input: "token_tiers.yaml from Phase 3"
+        description: "Criar vocabulario compartilhado para patterns"
+        framework: "Functional vs. Perceptual naming"
+        output_template: |
+          naming_system:
+            approach: "functional|perceptual|mixed"
+            vocabulary:
+              - term: "{name}"
+                meaning: "{what_it_means_in_this_system}"
+                usage: "{when_to_use}"
+        output: "naming_system.md"
+
+      - step: 3
+        action: "Define Pattern Language"
+        description: "Mapear patterns recorrentes e dar nomes"
+        categories:
+          - "Navigation patterns"
+          - "Content display patterns"
+          - "Interaction patterns"
+          - "Feedback patterns"
+          - "Layout patterns"
+        output: "pattern_language.md"
+
+      - step: 4
+        action: "Connect Language to Tokens"
+        input: "tokens/ from Phase 3"
+        description: "Garantir que token names refletem a design language"
+        checks:
+          - "Token names match naming system vocabulary"
+          - "Semantic tokens use language-consistent names"
+          - "Pattern names align with component names"
+        output: "language_token_alignment.md"
+
+      - step: 5
+        action: "Create Design Language Guide"
+        description: "Documento consolidado da design language"
+        output: "design_language_guide.md"
+
+    checkpoint:
+      criteria:
+        - "Design principles defined (3-7 principles)"
+        - "Naming system established (functional/perceptual/mixed)"
+        - "Pattern language mapped"
+        - "Language aligned with tokens"
+        - "Design language guide generated"
+      human_review: true
+      message: "Design language complete. Review before component library phase."
+
+    output:
+      files:
+        - "design_principles.md"
+        - "naming_system.md"
+        - "pattern_language.md"
+        - "language_token_alignment.md"
+        - "design_language_guide.md"
+      location: "outputs/setup/{org_name}/"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 5: COMPONENT LIBRARY FOUNDATION (Brad Frost)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 5
+    name: Component Library Foundation
+    duration: 1-2 hours
+    tier: 2
+    agent: brad-frost
+
+    description: |
+      Definir a estrutura da component library — Atomic Design hierarchy,
+      categorias, e os primeiros 5-10 componentes core.
+
+    steps:
+      - step: 1
+        action: "Define Library Architecture"
+        description: "Estrutura da component library"
+        hierarchy:
+          atoms: "Buttons, inputs, icons, badges, text, links"
+          molecules: "Search bar, form field, card, list item"
+          organisms: "Header, sidebar, product grid, form, footer"
+          templates: "Page layouts (dashboard, detail, list, auth)"
+          pages: "Concrete instances with real content"
+        output: "library_architecture.md"
+
+      - step: 2
+        action: "Select Core Components (MVP)"
+        description: "Identificar os 5-10 componentes mais criticos"
+        criteria:
+          - "Used in 80%+ of pages"
+          - "High interaction frequency"
+          - "Most inconsistency today"
+          - "Foundation for other components"
+        typical_core:
+          - "Button (primary, secondary, tertiary, icon)"
+          - "Input (text, number, email, password)"
+          - "Select / Dropdown"
+          - "Checkbox / Radio / Toggle"
+          - "Card"
+          - "Modal / Dialog"
+          - "Toast / Alert"
+          - "Badge / Tag"
+          - "Avatar"
+          - "Breadcrumb / Tabs / Navigation"
+        output: "core_components.yaml"
+
+      - step: 3
+        action: "Define Component Categories"
+        description: "Organizar componentes por categoria"
+        categories:
+          actions: "Button, Link, IconButton, FAB"
+          inputs: "TextField, Select, Checkbox, Radio, Toggle, Slider, DatePicker"
+          display: "Card, Badge, Avatar, Tooltip, Chip, Tag"
+          feedback: "Alert, Toast, Snackbar, ProgressBar, Spinner, Skeleton"
+          navigation: "Tabs, Breadcrumb, Sidebar, Menu, Pagination"
+          layout: "Container, Grid, Stack, Divider, Spacer"
+          overlay: "Modal, Drawer, Popover, Dialog"
+        output: "component_categories.yaml"
+
+      - step: 4
+        action: "Create Component Dependency Map"
+        description: "Mapear dependencias entre componentes"
+        example: |
+          Modal depends on: Button, IconButton, Overlay
+          Form depends on: Input, Select, Checkbox, Button
+          Card depends on: Text, Button, Badge, Image
+        output: "dependency_map.yaml"
+
+      - step: 5
+        action: "Define Implementation Priorities"
+        description: "Ordem de implementacao baseada em dependencias"
+        approach: "Bottom-up: atoms first, then molecules that compose them"
+        output_template: |
+          implementation_order:
+            sprint_1: ["Button", "Text", "Icon", "Input"]
+            sprint_2: ["Select", "Checkbox", "Card", "Badge"]
+            sprint_3: ["Modal", "Toast", "Form", "Tabs"]
+        output: "implementation_roadmap.md"
+
+    checkpoint:
+      criteria:
+        - "Library architecture defined (Atomic Design hierarchy)"
+        - "Core components selected (5-10)"
+        - "Component categories organized"
+        - "Dependency map created"
+        - "Implementation priorities defined"
+      human_review: true
+      message: "Component library foundation complete. Design system setup finished."
+
+    output:
+      files:
+        - "library_architecture.md"
+        - "core_components.yaml"
+        - "component_categories.yaml"
+        - "dependency_map.yaml"
+        - "implementation_roadmap.md"
+      location: "outputs/setup/{org_name}/"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  on_phase_failure:
+    - log_error: true
+    - halt_workflow: true
+    - reason: "Each phase builds on the previous — cannot skip"
+
+  on_checkpoint_failure:
+    - log_failure_reason: true
+    - return_to_previous_phase: false
+    - max_retries: 2
+    - action: "Address feedback, re-run phase, checkpoint again"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+completion_signal: "<promise>SETUP:COMPLETE</promise>"
+checkpoint_signal: "<promise>SETUP:CHECKPOINT:PHASE-{N}</promise>"
+blocked_signal: "<promise>SETUP:BLOCKED:PHASE-{N}</promise>"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENT ASSIGNMENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-1:
+    primary: ["dan-mall"]
+    secondary: ["design-chief"]
+  PHASE-2:
+    primary: ["nathan-curtis"]
+    secondary: []
+  PHASE-3:
+    primary: ["jina-anne"]
+    secondary: []
+  PHASE-4:
+    primary: ["alla-kholmatova"]
+    secondary: ["jina-anne"]
+  PHASE-5:
+    primary: ["brad-frost"]
+    secondary: ["nathan-curtis"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_checklist:
+  organizational:
+    - "[ ] Organization mapped (products, teams, maturity)"
+    - "[ ] MVP scope defined"
+    - "[ ] Stakeholder alignment document ready"
+  governance:
+    - "[ ] Team model selected with rationale"
+    - "[ ] Authority matrix defined"
+    - "[ ] Contribution model designed"
+    - "[ ] Versioning strategy documented"
+    - "[ ] Naming conventions established"
+  tokens:
+    - "[ ] Color palette (primitive + semantic + component)"
+    - "[ ] Typography scale complete"
+    - "[ ] Spacing scale defined"
+    - "[ ] Additional tokens (elevation, border, motion)"
+    - "[ ] Token source files generated"
+  language:
+    - "[ ] Design principles defined (3-7)"
+    - "[ ] Naming system established"
+    - "[ ] Pattern language mapped"
+    - "[ ] Language aligned with tokens"
+  library:
+    - "[ ] Atomic Design hierarchy defined"
+    - "[ ] Core components selected (5-10)"
+    - "[ ] Dependency map created"
+    - "[ ] Implementation roadmap defined"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXECUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+execution:
+  mode: sequential
+  parallel_phases: [3, 4]  # Tokens and Language can run in parallel
+
+  commands:
+    full: "*setup-system --org '{org_name}' --products {count}"
+    with_brand: "*setup-system --org '{org_name}' --brand '{brand_url}'"
+    multi_brand: "*setup-system --org '{org_name}' --multi-brand"
+
+  next_steps:
+    - "Use implementation_roadmap.md to start building components"
+    - "Run wf-component-creation for each core component"
+    - "Share stakeholder_alignment.md with leadership"
+    - "Onboard team using design_language_guide.md"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY GATES SUMMARY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_gates:
+  - gate: ORG_ASSESSED
+    phase: 1
+    blocking: true
+
+  - gate: GOVERNANCE_DEFINED
+    phase: 2
+    blocking: true
+
+  - gate: TOKENS_ARCHITECTED
+    phase: 3
+    blocking: true
+
+  - gate: LANGUAGE_DEFINED
+    phase: 4
+    blocking: true
+
+  - gate: LIBRARY_FOUNDED
+    phase: 5
+    blocking: true
+
+overall_pass: "All 5 gates PASS"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  framework: "aios-workflow-v2"
+  created: "2026-02-03"
+  squad: "design"
+  primary_use_case: "Bootstrap a new design system from organizational strategy to technical foundation"
+  key_difference: |
+    Unlike wf-design-system-audit (which evaluates existing systems) or wf-component-creation
+    (which builds individual components), this workflow creates the FOUNDATION — the organizational
+    and technical infrastructure that everything else is built on top of.
