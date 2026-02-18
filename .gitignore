@@ -318,6 +318,16 @@ C:Users*
 *temp-catalog.txt
 .eslintcache
 
+# Backup/migration directories (cleanup audit 2026-02-18)
+.claude-migration-backup-*/
+.tmp-squad-publish/
+squads/*.backup-*/
+*-backup-*/
+
+# Pro runtime artifacts (generated during pro installation)
+pro-installed-manifest.yaml
+pro-version.json
+
 # ============================================
 # SYNAPSE RUNTIME (auto-managed)
 # ============================================
@@ -338,3 +348,19 @@ scripts/glue/
 .claude/setup/
 docs/guides/aios-workflows/
 docs/guides/glue-script-guide.md
+
+# Dependencies (AIOS)
+node_modules
+
+# Build & Logs (AIOS)
+dist/
+build/
+
+# IDE & OS (AIOS)
+.idea/
+*.swp
+
+# AIOS Local (AIOS)
+.aios-core/local/
+.claude/settings.local.json
+.aios/install-log.txt
