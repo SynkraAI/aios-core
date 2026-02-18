@@ -151,6 +151,29 @@ Examples: API_KEY, BASE_URL, TIMEOUT_MS
 
 ## Implementation Steps
 
+### Step 0: Code Intelligence Duplicate Check (Pre-Scaffold)
+
+Before scaffolding the service, check if a similar service already exists using code intelligence:
+
+```javascript
+// Code Intelligence pre-scaffold check (graceful — never blocks)
+const { isCodeIntelAvailable } = require('.aios-core/core/code-intel');
+const { checkBeforeWriting } = require('.aios-core/core/code-intel/helpers/dev-helper');
+
+if (isCodeIntelAvailable()) {
+  const result = await checkBeforeWriting(serviceName, description);
+  if (result) {
+    // Display as advisory — does NOT block scaffold
+    console.log('⚠️  Code Intelligence Suggestion:');
+    console.log(`   ${result.suggestion}`);
+    console.log('   Consider REUSE or ADAPT before creating a new service.');
+    // In interactive mode: prompt user to confirm proceeding
+    // In YOLO mode: log and continue
+  }
+}
+// If code intelligence not available: proceed normally (no impact)
+```
+
 ### Step 1: Validate Inputs
 ```javascript
 // Validate service_name

@@ -128,7 +128,7 @@ Capture session knowledge before context compact to preserve institutional learn
 ```
 Claude Code PreCompact Event
          ↓
-.claude/hooks/precompact-session-digest.js
+.claude/hooks/precompact-session-digest.cjs
          ↓
 runners/precompact-runner.js
          ↓ (pro-detector check)
