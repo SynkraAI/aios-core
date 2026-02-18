@@ -158,6 +158,7 @@ describe('redirect-generator', () => {
       const redirects = generateAllRedirects({ 'dry-old': 'dry-new' }, tmpDir, 'full-markdown-yaml');
       const result = writeRedirects(redirects, true);
 
+      // In dry-run, written tracks what *would* be written, but no file is created
       expect(result.written).toHaveLength(1);
       expect(fs.existsSync(path.join(tmpDir, 'dry-old.md'))).toBe(false);
     });
@@ -172,12 +173,14 @@ describe('redirect-generator', () => {
     });
 
     it('should handle write errors gracefully', () => {
+      // Use os.devNull for cross-platform compatibility
+      const impossiblePath = path.join(os.devNull, 'impossible', 'bad.md');
       const redirects = [
         {
           oldId: 'bad',
           newId: 'target',
           filename: 'bad.md',
-          path: '/dev/null/impossible/bad.md',
+          path: impossiblePath,
           content: 'test',
         },
       ];
