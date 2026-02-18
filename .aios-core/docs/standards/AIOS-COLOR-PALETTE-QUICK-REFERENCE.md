@@ -68,7 +68,7 @@ console.log(status.tip('Press Enter to continue'));
 
 ### Welcome Screen
 ```javascript
-console.log(headings.h1('🎉 Welcome to AIOS v2.1 Installer!'));
+console.log(headings.h1('🎉 Welcome to AIOS v4.2 Installer!'));
 console.log(colors.info('Let\'s configure your project...\n'));
 ```
 

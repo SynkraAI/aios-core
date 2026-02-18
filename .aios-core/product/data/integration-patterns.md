@@ -1,4 +1,4 @@
-# Integration Patterns with Expansion Packs
+# Integration Patterns with Squads
 
 **Purpose:** How design system integrates with MMOS, CreatorOS, InnerLens
 **Agent:** Design System (Builder Mode)
@@ -15,7 +15,7 @@ interface DesignSystemHook {
     applyTheme(theme: Theme): void;
 }
 
-// Expansion packs consume
+// Squads consume
 const designSystem = useDesignSystem();
 const tokens = designSystem.getTokens({ personality: 'formal' });
 ```

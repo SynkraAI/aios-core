@@ -118,11 +118,10 @@ O sistema usa `.aios-sync.yaml` na raiz do projeto para configuração:
 active_ides:
   - claude # .claude/commands/
   - cursor # .cursor/rules/
-  # - windsurf  # .windsurf/ (descomentar para ativar)
   # - gemini    # .gemini/
 
 # Mapeamento de diretório → prefixo de comando
-pack_aliases:
+squad_aliases:
   legal: Legal
   copy: Copy
   hr: HR
@@ -134,7 +133,7 @@ sync_mappings:
     source: 'squads/*/agents/'
     destinations:
       claude:
-        - path: '.claude/commands/{pack}/agents/'
+        - path: '.claude/commands/{squad_alias}/agents/'
           format: 'md'
       cursor:
         - path: '.cursor/rules/'
@@ -142,9 +141,9 @@ sync_mappings:
           wrapper: 'cursor-rule'
 ```
 
-### Pack Aliases
+### Squad Aliases
 
-O `pack_aliases` mapeia o nome do diretório do squad para o prefixo usado nos comandos:
+O `squad_aliases` mapeia o nome do diretório do squad para o prefixo usado nos comandos:
 
 | Diretório       | Alias   | Comando Claude              |
 | --------------- | ------- | --------------------------- |
@@ -163,7 +162,7 @@ O `pack_aliases` mapeia o nome do diretório do squad para o prefixo usado nos c
 │     ↓                                             │
 │  2. Load .aios-sync.yaml                          │
 │     ↓ (not found → create default)                │
-│  3. Resolve pack alias                            │
+│  3. Resolve squad alias                           │
 │     ↓                                             │
 │  4. Locate source files in squads/                │
 │     ↓ (not found → error)                         │
@@ -174,7 +173,6 @@ O `pack_aliases` mapeia o nome do diretório do squad para o prefixo usado nos c
 │     ├── Claude: Copy MD → .claude/commands/       │
 │     ├── Cursor: Convert MD → MDC                  │
 │     ├── Gemini: Copy MD → .gemini/agents/         │
-│     └── Windsurf: Copy MD → .windsurf/            │
 │     ↓                                             │
 │  7. Validate created files                        │
 │     ↓                                             │
@@ -243,7 +241,7 @@ A description é extraída de:
 Sincroniza um arquivo de agent:
 
 - Source: `squads/{squad}/agents/{name}.md`
-- Claude: `.claude/commands/{Pack}/agents/{name}.md`
+- Claude: `.claude/commands/{SquadAlias}/agents/{name}.md`
 - Cursor: `.cursor/rules/{name}.mdc`
 
 ### Task (`*command task {name}`)
@@ -251,14 +249,14 @@ Sincroniza um arquivo de agent:
 Sincroniza um arquivo de task:
 
 - Source: `squads/{squad}/tasks/{name}.md`
-- Claude: `.claude/commands/{Pack}/tasks/{name}.md`
+- Claude: `.claude/commands/{SquadAlias}/tasks/{name}.md`
 
 ### Workflow (`*command workflow {name}`)
 
 Sincroniza um arquivo de workflow:
 
 - Source: `squads/{squad}/workflows/{name}.yaml`
-- Claude: `.claude/commands/{Pack}/workflows/{name}.yaml`
+- Claude: `.claude/commands/{SquadAlias}/workflows/{name}.yaml`
 
 ### Squad (`*command squad {name}`)
 
@@ -276,7 +274,7 @@ Sincroniza TODOS os componentes de um squad:
 | Error                  | Causa                           | Solução                     |
 | ---------------------- | ------------------------------- | --------------------------- |
 | `Source not found`     | Arquivo não existe em squads/   | Verifique o nome e tipo     |
-| `Pack alias not found` | Squad não está em pack_aliases  | Adicione ao .aios-sync.yaml |
+| `Squad alias not found` | Squad não está em squad_aliases | Adicione ao .aios-sync.yaml |
 | `File exists`          | Destino já existe               | Use --force ou escolha ação |
 | `IDE not active`       | IDE não está em active_ides     | Ative no .aios-sync.yaml    |
 | `Invalid YAML`         | Arquivo fonte com YAML inválido | Corrija o arquivo fonte     |
@@ -300,7 +298,7 @@ if (!validTypes.includes(type)) {
 // 3. Carregar configuração
 const syncConfig = loadYaml('.aios-sync.yaml');
 const activeIdes = syncConfig.active_ides || ['claude'];
-const packAliases = syncConfig.pack_aliases || {};
+const squadAliases = syncConfig.squad_aliases || syncConfig.pack_aliases || {};
 
 // 4. Localizar source
 let sourceFiles = [];
@@ -317,14 +315,14 @@ if (type === 'squad') {
   sourceFiles = [sourceFile];
 }
 
-// 5. Determinar pack alias
+// 5. Determinar squad alias
 const squadName = extractSquadName(sourceFiles[0]);
-const packAlias = packAliases[squadName] || capitalize(squadName);
+const squadAlias = squadAliases[squadName] || capitalize(squadName);
 
 // 6. Verificar existentes
 for (const file of sourceFiles) {
   for (const ide of activeIdes) {
-    const destPath = getDestPath(ide, packAlias, file);
+    const destPath = getDestPath(ide, squadAlias, file);
     if (fs.existsSync(destPath) && !flags.force) {
       const action = await askUser(`${destPath} exists. Overwrite?`);
       if (action === 'skip') continue;
@@ -337,7 +335,7 @@ if (flags.dryRun) {
   output('DRY RUN - Would sync:');
   for (const file of sourceFiles) {
     for (const ide of activeIdes) {
-      output(`  ${file} → ${getDestPath(ide, packAlias, file)}`);
+      output(`  ${file} → ${getDestPath(ide, squadAlias, file)}`);
     }
   }
   return;

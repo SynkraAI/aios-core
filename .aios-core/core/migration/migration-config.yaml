@@ -1,5 +1,5 @@
 # AIOS Migration Configuration
-# Story 2.14 - Migration Script v2.0 → v2.1
+# Story 2.14 - Migration Script v2.0 → v4.0.4
 
 version: "1.0.0"
 story: "2.14"
@@ -29,7 +29,7 @@ backup:
     algorithm: "md5"
     parallel: true
 
-# Module configuration for v2.1
+# Module configuration for v4.0.4
 modules:
   core:
     description: "Core framework utilities and runtime"

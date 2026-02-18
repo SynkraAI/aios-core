@@ -2,11 +2,11 @@
 /**
  * Unified Greeting Generator - CLI Wrapper
  *
- * Story ACT-6: Refactored as thin wrapper around UnifiedActivationPipeline.
+ * Story ACT-6: Refactored as thin wrapper around ActivationRuntime.
  *
  * ARCHITECTURE NOTE:
  * This file is now a thin CLI wrapper that delegates to the
- * UnifiedActivationPipeline for all context loading and greeting generation.
+ * ActivationRuntime for all context loading and greeting generation.
  * Previously, this file orchestrated its own parallel loading of
  * AgentConfigLoader, SessionContextLoader, and ProjectStatusLoader.
  * Now ALL agents (not just 3) can use the same unified pipeline.
@@ -19,9 +19,10 @@
  * Usage: node generate-greeting.js <agent-id>
  *
  * Used by: @devops, @data-engineer, @ux-design-expert (CLI invocation pattern)
- * Note: All 12 agents now use UnifiedActivationPipeline internally.
+ * Note: All 12 agents now activate through ActivationRuntime.
  *
- * @see unified-activation-pipeline.js for the actual pipeline logic
+ * @see activation-runtime.js for the runtime entrypoint
+ * @see unified-activation-pipeline.js for pipeline internals
  * @see greeting-builder.js for core greeting logic
  *
  * Part of Story 6.1.4: Unified Greeting System Integration
@@ -30,12 +31,12 @@
 
 'use strict';
 
-const { UnifiedActivationPipeline } = require('./unified-activation-pipeline');
+const { ActivationRuntime } = require('./activation-runtime');
 
 /**
  * Generate unified greeting for agent activation.
  *
- * Delegates to UnifiedActivationPipeline.activate() which handles:
+ * Delegates to ActivationRuntime.activate() which handles:
  * - Parallel loading of config, session, project status, git, permissions
  * - Sequential context detection and workflow state
  * - Greeting generation via GreetingBuilder
@@ -49,8 +50,8 @@ const { UnifiedActivationPipeline } = require('./unified-activation-pipeline');
  */
 async function generateGreeting(agentId) {
   try {
-    const pipeline = new UnifiedActivationPipeline();
-    const result = await pipeline.activate(agentId);
+    const runtime = new ActivationRuntime();
+    const result = await runtime.activate(agentId);
 
     if (result.duration > 100) {
       console.warn(`[generate-greeting] Slow generation: ${result.duration}ms`);

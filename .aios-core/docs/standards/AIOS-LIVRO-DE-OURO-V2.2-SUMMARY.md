@@ -9,14 +9,14 @@
 
 ## 🎯 PURPOSE OF THIS DOCUMENT
 
-This is a **delta document** highlighting **ONLY what changed in v2.2** compared to v2.1.
+This is a **delta document** highlighting **ONLY what changed in v2.2** compared to v4.0.4.
 
 For complete content:
 - ✅ **`AIOS-LIVRO-DE-OURO.md`** (v2.0 base)
-- ✅ **`AIOS-LIVRO-DE-OURO-V2.1-SUMMARY.md`** (v2.1 changes)
+- ✅ **`AIOS-LIVRO-DE-OURO-V2.1-SUMMARY.md`** (v4.0.4 changes)
 - ✅ **This document** (v2.2 changes ONLY)
 
-**Combined reading:** v2.0 base + v2.1 delta + v2.2 delta = Complete v2.2 understanding
+**Combined reading:** v2.0 base + v4.0.4 delta + v2.2 delta = Complete v2.2 understanding
 
 ---
 
@@ -24,7 +24,7 @@ For complete content:
 
 ### Memory Layer (The Game Changer)
 
-**v2.1:** Stateless agents (each execution isolated)  
+**v4.0.4:** Stateless agents (each execution isolated)  
 **v2.2:** Agents remember, learn, and improve
 
 ```yaml
@@ -59,7 +59,7 @@ Memory Types:
 
 ### Agent Lightning (RL Optimization)
 
-**v2.1:** Static workflows  
+**v4.0.4:** Static workflows  
 **v2.2:** Self-optimizing workflows
 
 ```yaml
@@ -96,7 +96,7 @@ Result:
 
 ### Advanced Features Matrix
 
-| Feature | v2.1 | v2.2 | Impact |
+| Feature | v4.0.4 | v2.2 | Impact |
 |---------|------|------|--------|
 | **Memory Layer** | ❌ Stateless | ✅ 4 memory types | Agents learn |
 | **Agent Lightning** | ❌ Static | ✅ RL optimization | 30% faster, 40% cheaper |
@@ -110,7 +110,7 @@ Result:
 
 ## 🧠 DEEP DIVE: Memory Layer
 
-### The Problem (v2.1)
+### The Problem (v4.0.4)
 
 ```yaml
 Scenario: Developer asks Dex (Dev Agent) to implement feature
@@ -298,10 +298,10 @@ Example:
 
 ## ⚡ DEEP DIVE: Agent Lightning
 
-### The Problem (v2.1)
+### The Problem (v4.0.4)
 
 ```yaml
-Static Workflow (v2.1):
+Static Workflow (v4.0.4):
   1. Developer creates story
   2. Dex implements (5 min)
   3. Quinn tests (3 min)
@@ -419,7 +419,7 @@ Result:
 
 ### Impact Metrics
 
-**Before Agent Lightning (v2.1):**
+**Before Agent Lightning (v4.0.4):**
 ```yaml
 Average workflow time: 11 minutes
 Average cost per story: $0.50 (LLM calls)
@@ -441,7 +441,7 @@ Learning rate: 10% improvement per week
 
 ### Shared Context
 
-**v2.1:** Each developer's agents isolated  
+**v4.0.4:** Each developer's agents isolated  
 **v2.2:** Team-wide shared memory
 
 ```yaml
@@ -637,11 +637,11 @@ responsavel_type: Clone
 
 ---
 
-## 📊 COMPARATIVE METRICS: v2.1 vs. v2.2
+## 📊 COMPARATIVE METRICS: v4.0.4 vs. v2.2
 
 ### Development Speed
 
-| Metric | v2.1 | v2.2 | Improvement |
+| Metric | v4.0.4 | v2.2 | Improvement |
 |--------|------|------|-------------|
 | Simple task time | 11 min | 1 min | **91% faster** |
 | Complex task time | 11 min | 26 min | Appropriately slower |
@@ -650,7 +650,7 @@ responsavel_type: Clone
 
 ### Cost Efficiency
 
-| Metric | v2.1 | v2.2 | Improvement |
+| Metric | v4.0.4 | v2.2 | Improvement |
 |--------|------|------|-------------|
 | Avg cost per story | $0.50 | $0.30 | **40% cheaper** |
 | Wasted LLM calls | 30% | 5% | **83% reduction** |
@@ -658,7 +658,7 @@ responsavel_type: Clone
 
 ### Quality & Learning
 
-| Metric | v2.1 | v2.2 | Improvement |
+| Metric | v4.0.4 | v2.2 | Improvement |
 |--------|------|------|-------------|
 | Issue catch rate | 80% (3 layers) | 85% (learning) | **+5 percentage points** |
 | False positive rate | 15% | 8% | **47% reduction** |
@@ -667,7 +667,7 @@ responsavel_type: Clone
 
 ### Team Collaboration
 
-| Metric | v2.1 | v2.2 | Improvement |
+| Metric | v4.0.4 | v2.2 | Improvement |
 |--------|------|------|-------------|
 | Handoff delay | 30 min avg | 0 min | **100% elimination** |
 | Coordination overhead | 2h/day | 15min/day | **87% reduction** |
@@ -716,7 +716,7 @@ Features:
 
 ## 🎯 SUMMARY: Evolution Path
 
-### v2.0 → v2.1 (The Foundation)
+### v2.0 → v4.0.4 (The Foundation)
 
 **Focus:** Installation + Discovery + Architecture
 - ✅ 5-minute installation
@@ -729,7 +729,7 @@ Features:
 
 ---
 
-### v2.1 → v2.2 (The Intelligence)
+### v4.0.4 → v2.2 (The Intelligence)
 
 **Focus:** Memory + Learning + Collaboration
 - ✅ Memory Layer (4 types)
@@ -756,7 +756,7 @@ Features:
 
 ## 📖 WHERE TO GO FROM HERE
 
-### If You're on v2.1
+### If You're on v4.0.4
 
 1. ✅ Read this summary (done!)
 2. → Review [Memory Layer Architecture](#memory-layer)
@@ -782,7 +782,7 @@ Features:
 
 ---
 
-**Full v2.2 Documentation:** Combine v2.0 base + v2.1 delta + v2.2 delta
+**Full v2.2 Documentation:** Combine v2.0 base + v4.0.4 delta + v2.2 delta
 
 **Next Version:** v2.3 (Q3 2026) - Enterprise & Scale
 
@@ -988,7 +988,7 @@ Features:
 │   ├── research/
 │   ├── epics/
 │   ├── stories/
-│   │   ├── v2.1/                      # v2.1 stories (completed)
+│   │   ├── v4.0.4/                      # v4.0.4 stories (completed)
 │   │   ├── v2.2/                      # ⭐ v2.2 stories (in progress)
 │   │   │   ├── sprint-1/              # Memory Layer
 │   │   │   ├── sprint-2/              # Agent Lightning
@@ -1093,7 +1093,7 @@ Features:
 
 ---
 
-### Key Changes from v2.1 → v2.2
+### Key Changes from v4.0.4 → v2.2
 
 **1. Memory Layer:**
 ```
@@ -1192,7 +1192,7 @@ ENHANCED: .aios-core/core/validation/learning-feedback-loop.js
   - False positive reduction
   - Accuracy improvement over time
 
-Impact: 85% catch rate (vs. 80% in v2.1), 8% false positives (vs. 15%)
+Impact: 85% catch rate (vs. 80% in v4.0.4), 8% false positives (vs. 15%)
 ```
 
 **7. Local Development Environment:**
@@ -1221,7 +1221,7 @@ Impact: Never lose institutional knowledge
 
 ### Storage Requirements Comparison
 
-| Component | v2.1 | v2.2 | Additional Storage |
+| Component | v4.0.4 | v2.2 | Additional Storage |
 |-----------|------|------|-------------------|
 | Base Framework | ~50MB | ~50MB | 0MB |
 | Workers | ~5MB | ~5MB | 0MB |
@@ -1237,7 +1237,7 @@ Impact: Never lose institutional knowledge
 
 ### Performance Comparison
 
-| Metric | v2.1 | v2.2 | Improvement |
+| Metric | v4.0.4 | v2.2 | Improvement |
 |--------|------|------|-------------|
 | Simple task time | 1 min | 30s | **50% faster** |
 | Complex task time | 26 min | 22 min | **15% faster** |

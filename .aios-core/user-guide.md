@@ -19,7 +19,6 @@ Antes de começar, certifique-se de ter:
 - **Node.js** 20.0.0 ou superior instalado
 - **npm** ou outro gerenciador de pacotes
 - **GitHub CLI** (gh) instalado e configurado (para colaboração em equipe)
-- Um **IDE compatível**: Windsurf, Cursor, ou Claude Code
 - **Acesso a um agente de IA**: Claude, GPT-4, Gemini, ou similar
 
 ## Instalação e Configuração Inicial
@@ -35,7 +34,7 @@ O AIOS-FullStack oferece instalação simplificada através de um instalador int
 cd /path/to/your/project
 
 # Execute o instalador (versão RC atual)
-npx @synkra/aios-core@rc install
+npx @synkra/aios-core@latest install
 
 # OU usando NPM direto (produção - quando disponível)
 npx @aios/fullstack install
@@ -49,16 +48,15 @@ npx @aios/fullstack install
 ✓ Detecting installation state...
   Current state: Clean installation
 
-📦 Select Expansion Packs to Install:
+📦 Select Squads to Install:
   ◉ hybrid-ops (Pedro Valério methodology)
-  ◯ expansion-creator (Create new expansion packs)
+  ◯ expansion-creator (Create new squads)
   ◯ aios-infrastructure-devops (DevOps utilities)
   ◯ meeting-notes (Meeting assistant)
 
 💻 Select IDEs to Configure:
   ◉ Claude Code (.claude/commands/)
   ◉ Cursor (.cursor/rules/)
-  ◯ Windsurf (.windsurf/rules.md)
   ◯ Gemini CLI (.gemini/)
 
 📝 Sharding Preferences:
@@ -66,7 +64,7 @@ npx @aios/fullstack install
   ◉ Multi-file (separate files per section)
 
 ✓ Installing .aios-core/ framework...
-✓ Installing expansion packs...
+✓ Installing squads...
 ✓ Configuring IDE integrations...
 ✓ Creating install manifest...
 
@@ -90,7 +88,7 @@ cd @synkra/aios-core
 npm install
 
 # Execute o instalador no modo desenvolvimento
-npx @synkra/aios-core@rc install
+npx @synkra/aios-core@latest install
 ```
 
 ### Estrutura Pós-Instalação
@@ -122,9 +120,9 @@ your-project/
 │       ├── po.mdc
 │       └── ... (30+ rules)
 │
-└── Squads/               # ✅ Se expansion packs selecionados
+└── Squads/               # ✅ Se squads selecionados
     ├── hybrid-ops/                # Metodologia Pedro Valério
-    └── expansion-creator/         # Criador de expansion packs
+    └── expansion-creator/         # Criador de squads
 ```
 
 ### Upgrade de Instalação Existente
@@ -133,10 +131,10 @@ Se você já tem AIOS instalado e quer fazer upgrade:
 
 ```bash
 # Upgrade automático (RC.9+)
-npx @synkra/aios-core@rc install --force-upgrade
+npx @synkra/aios-core@latest install --force-upgrade
 
 # OU interativo (todos os RCs)
-npx @synkra/aios-core@rc install
+npx @synkra/aios-core@latest install
 # → Menu aparece:
 #   1. Keep current version (v1.0.0-rc.8)
 #   2. Upgrade AIOS core (v1.0.0-rc.8 → v1.0.0-rc.10)
@@ -148,17 +146,18 @@ npx @synkra/aios-core@rc install
 
 ```bash
 # Ver versão disponível no NPM
-npm view @synkra/aios-core@rc version
+npm view @synkra/aios-core@latest version
 # Output: 1.0.0-rc.10
 
-# Ver agentes disponíveis
-npx @synkra/aios-core@rc list:agents
+# Ver opções de instalação e comandos disponíveis
+npx @synkra/aios-core@latest --help
 
-# Ver expansion packs
-npx @synkra/aios-core@rc list:expansions
+# Ver squads instalados
+# Use o wizard de instalação para selecionar/visualizar squads disponíveis
+npx @synkra/aios-core@latest install
 
 # Ajuda do instalador
-npx @synkra/aios-core@rc install --help
+npx @synkra/aios-core@latest install --help
 ```
 
 ### 🚀 Futuro: Modo de Instalação Explícito (Story 3.14)
@@ -211,7 +210,7 @@ npx @synkra/aios-core@1.0.0-rc.10 install --force-upgrade
 
 **Solução**: Usar RC.8 ou superior
 ```bash
-npx @synkra/aios-core@rc install
+npx @synkra/aios-core@latest install
 ```
 
 **Problema**: Versão GitHub (4.31.1) detectada como mais nova que RC
@@ -220,7 +219,7 @@ npx @synkra/aios-core@rc install
 
 **Solução**: Escolher "Upgrade" ou usar `--force-upgrade`
 ```bash
-npx @synkra/aios-core@rc install --force-upgrade
+npx @synkra/aios-core@latest install --force-upgrade
 # Migra de v4.31.1 para v1.0.0-rc.10 (novo scheme)
 ```
 
@@ -239,7 +238,6 @@ Use o agente de IA na interface web (Claude.ai, ChatGPT, Gemini, etc.) para:
 
 ### Fase 2: Desenvolvimento (IDE)
 
-Mude para seu IDE (Windsurf, Cursor ou Claude Code) para:
 
 1. **Fragmentação de Histórias** - Use o **sm** (Scrum Master) para criar histórias de desenvolvimento
 2. **Implementação** - Trabalhe com o **dev** para codificar as features
@@ -547,11 +545,9 @@ O agente **qa** monitora:
 
 ## Integração com IDE
 
-### Configuração para Windsurf
 
 1. **Configurar regras globais**:
    - Abrir Settings → Global Rules
-   - Copiar conteúdo de `.windsurf/global-rules.md`
    - Salvar configuração
 
 2. **Ativar agentes**:
@@ -1280,36 +1276,36 @@ O **aios-developer** é o meta-agente para o próprio AIOS:
 
 ## Expansão e Customização
 
-### Expansion Packs
+### Squads
 
-O Synkra AIOS suporta expansion packs para domínios específicos:
+O Synkra AIOS suporta squads para domínios específicos:
 
 **Disponíveis durante instalação**:
 - **hybrid-ops** - Metodologia Pedro Valério (operações híbridas humano-agente)
-- **expansion-creator** - Ferramentas para criar novos expansion packs
+- **expansion-creator** - Ferramentas para criar novos squads
 - **aios-infrastructure-devops** - Utilities de DevOps e infraestrutura
 - **meeting-notes** - Assistente de notas e atas de reuniões
 
-**Configurar expansion packs na instalação**:
+**Configurar squads na instalação**:
 ```bash
-# Durante a instalação, o wizard pergunta quais expansion packs instalar
-npx @synkra/aios-core@rc install
+# Durante a instalação, o wizard pergunta quais squads instalar
+npx @synkra/aios-core@latest install
 
 # O wizard mostra:
-# 📦 Select Expansion Packs to Install:
+# 📦 Select Squads to Install:
 #   ◉ hybrid-ops
 #   ◯ expansion-creator
 #   ◯ aios-infrastructure-devops
 #   ◯ meeting-notes
 ```
 
-**Adicionar expansion packs depois**:
+**Adicionar squads depois**:
 ```bash
 # Re-execute o instalador
-npx @synkra/aios-core@rc install
+npx @synkra/aios-core@latest install
 
 # Escolha "Configure IDE settings" ou "Upgrade"
-# Wizard permitirá adicionar expansion packs não instalados
+# Wizard permitirá adicionar squads não instalados
 ```
 
 ### Criar Seus Próprios Agentes
@@ -1392,7 +1388,7 @@ Use este checklist para garantir que está seguindo o workflow corretamente:
 ### Documentação
 - [Guia de Instalação](../docs/getting-started.md)
 - [Arquitetura do AIOS](../docs/architecture.md)
-- [Guia de Expansion Packs](../docs/Squads.md)
+- [Guia de Squads](../docs/Squads.md)
 - [Trabalhando em Brownfield](./working-in-the-brownfield.md)
 
 ### Suporte

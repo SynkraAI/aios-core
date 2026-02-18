@@ -1,4 +1,4 @@
-# AIOS Framework - Livro de Ouro v2.1 (Complete)
+# AIOS Framework - Livro de Ouro v4.2 (Complete)
 
 ## O Sistema Operacional Definitivo para Orquestração de Agentes IA
 
@@ -17,10 +17,10 @@
 
 ## 📣 IMPORTANTE: Sobre Este Documento
 
-Este documento é a **versão consolidada v2.1** que incorpora todas as mudanças dos Sprints 2-5:
+Este documento é a **versão consolidada v4.2** que incorpora todas as mudanças dos Sprints 2-5:
 
 - ✅ **Modular Architecture** (4 módulos: core, development, product, infrastructure)
-- ✅ **Squad System** (nova terminologia, substituindo "Expansion Pack")
+- ✅ **Squad System** (nova terminologia, substituindo "Squad")
 - ✅ **Multi-Repo Strategy** (3 repositórios públicos + 2 privados)
 - ✅ **Quality Gates 3 Layers** (Pre-commit, PR Automation, Human Review)
 - ✅ **Story Template v2.0** (Cross-Story Decisions, CodeRabbit Integration)
@@ -34,20 +34,20 @@ Este documento é a **versão consolidada v2.1** que incorpora todas as mudança
 
 ---
 
-## 📜 Open Source vs. Serviço - Business Model v2.1
+## 📜 Open Source vs. Serviço - Business Model v4.2
 
-### O Que Mudou de v2.0 para v2.1
+### O Que Mudou de v2.0 para v4.0.4
 
-**IMPORTANTE: v2.1 alterou fundamentalmente o business model!**
+**IMPORTANTE: v4.0.4 alterou fundamentalmente o business model!**
 
-| Componente               | v2.0        | v2.1            | Rationale                  |
+| Componente               | v2.0        | v4.0.4            | Rationale                  |
 | ------------------------ | ----------- | --------------- | -------------------------- |
 | **11 Agents**            | ✅ Open     | ✅ Open         | Core functionality         |
 | **Workers (97+)**        | ❌ Closed   | ✅ **OPEN**     | Commodity, network effects |
 | **Service Discovery**    | ❌ None     | ✅ **BUILT-IN** | Community needs it         |
 | **Task-First Arch**      | ⚠️ Implicit | ✅ **EXPLICIT** | Architecture clarity       |
 | **Clones (DNA Mental™)** | 🔒 Closed   | 🔒 **CLOSED**   | True moat (IP)             |
-| **Expansion Packs**      | 🔒 Closed   | 🔒 **CLOSED**   | Domain expertise           |
+| **Squads**      | 🔒 Closed   | 🔒 **CLOSED**   | Domain expertise           |
 
 ### Repositório Multi-Repo Structure
 
@@ -106,7 +106,7 @@ Este documento é a **versão consolidada v2.1** que incorpora todas as mudança
 | LangChain     | ✅ Complete              | ❌ None (commodity)            |
 | CrewAI        | ✅ Complete              | ❌ None (commodity)            |
 | AutoGen       | ✅ Complete              | ❌ None (commodity)            |
-| **AIOS v2.1** | ✅ **Complete**          | ✅ **Clones (DNA Mental™)** ⭐ |
+| **AIOS v4.2** | ✅ **Complete**          | ✅ **Clones (DNA Mental™)** ⭐ |
 
 **Analogia:** Linux é open source, mas Red Hat Enterprise Linux adiciona suporte e otimizações. Ambos são Linux, mas o valor agregado varia. AIOS funciona igual.
 
@@ -119,7 +119,7 @@ Este não é um documento para ser lido do início ao fim. É um **sistema de ap
 - 🚀 **Layer 0: DISCOVERY** - Descubra seu caminho (5 min)
 - 🎯 **Layer 1: UNDERSTANDING** - 5 essays que ensinam o modelo mental (75 min)
 - 🎨 **Layer 2: COMPONENT LIBRARY** - Catálogo completo de componentes
-- 📋 **Layer 3: USAGE GUIDE** - Como usar AIOS v2.1 no seu contexto
+- 📋 **Layer 3: USAGE GUIDE** - Como usar AIOS v4.2 no seu contexto
 - 📚 **Layer 4: COMPLETE REFERENCE** - Especificação técnica completa
 - 🔄 **META: EVOLUTION** - Como contribuir e evoluir o framework
 
@@ -129,7 +129,7 @@ Este não é um documento para ser lido do início ao fim. É um **sistema de ap
 
 # 🚀 LAYER 0: DISCOVERY ROUTER
 
-## Bem-vindo ao AIOS v2.1 - Vamos Encontrar Seu Caminho
+## Bem-vindo ao AIOS v4.2 - Vamos Encontrar Seu Caminho
 
 ### Learning Tracks Disponíveis
 
@@ -192,7 +192,7 @@ AIOS fornece **orquestração estruturada**:
 
 ---
 
-## Essay 3: Business Model v2.1
+## Essay 3: Business Model v4.2
 
 ### Por Que Workers São Open-Source Agora?
 
@@ -212,7 +212,7 @@ AIOS fornece **orquestração estruturada**:
 
 ## Essay 4: Agent System
 
-### Os 11 Agents v2.1
+### Os 11 Agents v4.2
 
 | Agent     | ID              | Archetype    | Responsabilidade        |
 | --------- | --------------- | ------------ | ----------------------- |
@@ -288,7 +288,7 @@ responsavel_type: Clone    # Year 2
 
 # 🎨 LAYER 2: COMPONENT LIBRARY
 
-## Arquitetura Modular v2.1
+## Arquitetura Modular v4.2
 
 ### Os 4 Módulos
 
@@ -342,13 +342,13 @@ Regras:
 
 ---
 
-## Squad System (Novo em v2.1)
+## Squad System (Novo em v4.2)
 
 ### Terminologia
 
 | Termo Antigo   | Termo Novo         | Descrição              |
 | -------------- | ------------------ | ---------------------- |
-| Expansion Pack | **Squad**          | Modular AI agent teams |
+| Squad | **Squad**          | Modular AI agent teams |
 | Squads/        | **squads/**        | Diretório de Squads    |
 | pack.yaml      | **squad.yaml**     | Manifesto do Squad     |
 | @expansion/\*  | **@aios/squad-\*** | npm scope              |
@@ -600,7 +600,7 @@ npm install @aios/mcp-presets
 
 # 📋 LAYER 3: USAGE GUIDE
 
-## Quick Start v2.1
+## Quick Start v4.2
 
 ### Installation (5 minutes)
 
@@ -609,7 +609,7 @@ npm install @aios/mcp-presets
 $ npx @SynkraAI/aios@latest init
 
 # Existing project (Brownfield)
-$ npx @SynkraAI/aios migrate v2.0-to-v2.1
+$ npx @SynkraAI/aios migrate v2.0-to-v4.0.4
 ```
 
 ### First Steps
@@ -700,7 +700,7 @@ $ aios workflow brownfield-integration --target=./existing-project
 
 # 📚 LAYER 4: COMPLETE REFERENCE
 
-## Source Tree v2.1 (Current)
+## Source Tree v4.2 (Current)
 
 ```
 @synkra/aios-core/                        # Root project
@@ -733,7 +733,7 @@ $ aios workflow brownfield-integration --target=./existing-project
 │
 ├── docs/                              # Project docs
 │   ├── stories/                       # Development stories
-│   │   └── v2.1/                      # v2.1 stories
+│   │   └── v4.0.4/                      # v4.0.4 stories
 │   │       ├── sprint-1/
 │   │       ├── sprint-2/
 │   │       ├── sprint-3/
@@ -785,7 +785,7 @@ $ aios workflow brownfield-integration --target=./existing-project
 
 ### Installation
 
-| Metric          | v2.0       | v2.1      | Improvement     |
+| Metric          | v2.0       | v4.2      | Improvement     |
 | --------------- | ---------- | --------- | --------------- |
 | Time to install | 2-4 hours  | 5 minutes | **96% faster**  |
 | Steps required  | 15+ manual | 1 command | **93% simpler** |
@@ -793,7 +793,7 @@ $ aios workflow brownfield-integration --target=./existing-project
 
 ### Development Speed
 
-| Metric                | v2.0     | v2.1       | Improvement       |
+| Metric                | v2.0     | v4.2       | Improvement       |
 | --------------------- | -------- | ---------- | ----------------- |
 | Find reusable Worker  | N/A      | 30 seconds | **∞**             |
 | Quality issues caught | 20%      | 80%        | **4x**            |
@@ -801,7 +801,7 @@ $ aios workflow brownfield-integration --target=./existing-project
 
 ### Quality
 
-| Metric              | v2.0       | v2.1          |
+| Metric              | v2.0       | v4.2          |
 | ------------------- | ---------- | ------------- |
 | Quality Gate Layers | 1 (manual) | 3 (automated) |
 | Auto-caught issues  | 0%         | 80%           |
@@ -834,4 +834,4 @@ $ aios workflow brownfield-integration --target=./existing-project
 
 ---
 
-_Este documento consolida AIOS-LIVRO-DE-OURO.md (v2.0) + deltas v2.1 em um único documento completo._
+_Este documento consolida AIOS-LIVRO-DE-OURO.md (v2.0) + deltas v4.0.4 em um único documento completo._

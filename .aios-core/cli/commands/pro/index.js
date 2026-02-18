@@ -23,8 +23,40 @@ const path = require('path');
 const fs = require('fs');
 const readline = require('readline');
 
-// Resolve license modules (relative from .aios-core/cli/commands/pro/)
-const licensePath = path.resolve(__dirname, '..', '..', '..', '..', 'pro', 'license');
+// BUG-6 fix (INS-1): Dynamic licensePath resolution
+// In framework-dev: __dirname = aios-core/.aios-core/cli/commands/pro → ../../../../pro/license
+// In project-dev: pro is installed via npm as @aios-fullstack/pro
+function resolveLicensePath() {
+  // 1. Try relative path (framework-dev mode)
+  const relativePath = path.resolve(__dirname, '..', '..', '..', '..', 'pro', 'license');
+  if (fs.existsSync(relativePath)) {
+    return relativePath;
+  }
+
+  // 2. Try node_modules/@aios-fullstack/pro/license (project-dev mode)
+  try {
+    const proPkg = require.resolve('@aios-fullstack/pro/package.json');
+    const proDir = path.dirname(proPkg);
+    const npmPath = path.join(proDir, 'license');
+    if (fs.existsSync(npmPath)) {
+      return npmPath;
+    }
+  } catch {
+    // @aios-fullstack/pro not installed via npm
+  }
+
+  // 3. Try project root node_modules (fallback)
+  const projectRoot = process.cwd();
+  const cwdPath = path.join(projectRoot, 'node_modules', '@aios-fullstack', 'pro', 'license');
+  if (fs.existsSync(cwdPath)) {
+    return cwdPath;
+  }
+
+  // Return relative path as default (will fail gracefully in loadLicenseModules)
+  return relativePath;
+}
+
+const licensePath = resolveLicensePath();
 
 /**
  * Lazy-load license modules (avoids failing if pro module not installed)
@@ -181,6 +213,58 @@ async function activateAction(options) {
     console.log(`  Valid until:  ${formatDate(result.expiresAt)}`);
     console.log(`  Cache:        ${result.cacheValidDays} days offline operation`);
     console.log('');
+
+    // Scaffold pro content into project (Story INS-3.1)
+    // Lazy-load to avoid crashing if pro-scaffolder or js-yaml is unavailable
+    const projectRoot = path.resolve(__dirname, '..', '..', '..', '..');
+    const proSourceDir = path.join(projectRoot, 'node_modules', '@aios-fullstack', 'pro');
+
+    if (fs.existsSync(proSourceDir)) {
+      let scaffoldProContent;
+      try {
+        ({ scaffoldProContent } = require('../../../../packages/installer/src/pro/pro-scaffolder'));
+      } catch {
+        console.log('Note: Pro scaffolder not available. Skipping content scaffolding.');
+        console.log('');
+      }
+
+      if (scaffoldProContent) {
+        console.log('Scaffolding pro content...');
+        const scaffoldResult = await scaffoldProContent(projectRoot, proSourceDir, {
+          onProgress: ({ item, status, message }) => {
+            if (status === 'done') {
+              console.log(`  + ${message}`);
+            } else if (status === 'warning') {
+              console.log(`  ! ${message}`);
+            }
+          },
+        });
+
+        if (scaffoldResult.success) {
+          console.log(`\nPro content installed (${scaffoldResult.copiedFiles.length} files)`);
+          if (scaffoldResult.skippedFiles.length > 0) {
+            console.log(`  ${scaffoldResult.skippedFiles.length} files unchanged (already up to date)`);
+          }
+          if (scaffoldResult.warnings.length > 0) {
+            for (const warning of scaffoldResult.warnings) {
+              console.log(`  Warning: ${warning}`);
+            }
+          }
+        } else {
+          console.error('\nWarning: Pro content scaffolding failed.');
+          for (const err of scaffoldResult.errors) {
+            console.error(`  ${err}`);
+          }
+          console.error('Pro features are activated but content was not copied.');
+          console.error('Try running "aios pro activate" again to retry scaffolding.');
+        }
+        console.log('');
+      }
+    } else {
+      console.log('Note: @aios-fullstack/pro package not found in node_modules.');
+      console.log('Pro content will be scaffolded when the package is installed.');
+      console.log('');
+    }
 
   } catch (error) {
     if (error instanceof LicenseActivationError) {

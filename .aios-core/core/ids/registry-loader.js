@@ -233,6 +233,35 @@ class RegistryLoader {
   }
 
   /**
+   * Get entity with code intelligence metadata (Story NOG-2).
+   * @param {string} entityId - Entity ID
+   * @returns {Object|null} Entity with codeIntelMetadata or null
+   */
+  getEntityWithIntel(entityId) {
+    const entity = this._findById(entityId);
+    if (!entity) return null;
+    return {
+      ...entity,
+      codeIntelMetadata: entity.codeIntelMetadata || null,
+    };
+  }
+
+  /**
+   * Query entities by keywords with optional role filter (Story NOG-2).
+   * @param {string[]} keywords - Keywords to search
+   * @param {Object} [options]
+   * @param {string} [options.role] - Filter by codeIntelMetadata.role
+   * @returns {Object[]} Matching entities
+   */
+  findByKeyword(keywords, options = {}) {
+    const results = this.queryByKeywords(keywords);
+    if (!options.role) return results;
+    return results.filter(
+      (e) => e.codeIntelMetadata && e.codeIntelMetadata.role === options.role,
+    );
+  }
+
+  /**
    * Get registry metadata.
    */
   getMetadata() {

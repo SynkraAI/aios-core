@@ -89,4 +89,4 @@ docs/
 - Use @workspace for project-wide context
 
 ---
-*Synkra AIOS GitHub Copilot Configuration v2.1*
+*Synkra AIOS GitHub Copilot Configuration v4.0.4*

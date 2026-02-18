@@ -5,7 +5,7 @@
  *
  * @module cli/commands/migrate/update-imports
  * @version 1.0.0
- * @story 2.14 - Migration Script v2.0 → v2.1
+ * @story 2.14 - Migration Script v2.0 → v4.0.4
  */
 
 const fs = require('fs');
@@ -86,7 +86,7 @@ async function scanFileImports(filePath) {
 }
 
 /**
- * Transform an import path from v2.0 to v2.1 structure
+ * Transform an import path from v2.0 to v4.0.4 structure
  * @param {string} importPath - Original import path
  * @param {string} currentFileModule - Module of the file containing the import
  * @param {string} currentFilePath - Path of the file containing the import

@@ -4,7 +4,7 @@
 # Usage:
 #   1. Copy this file to your project root as .aios-sync.yaml
 #   2. Configure active_ides for your setup
-#   3. Add pack_aliases for your squads
+#   3. Add squad_aliases for your squads
 #   4. Run *command to sync components
 #
 # Documentation: https://synkra.dev/docs/ide-sync
@@ -18,17 +18,14 @@ version: "1.0.0"
 active_ides:
   - claude    # Claude Code (.claude/commands/)
   - cursor    # Cursor IDE (.cursor/rules/)
-  # - windsurf  # Windsurf IDE (.windsurf/)
   # - gemini    # Google Gemini (.gemini/)
-  # - trae      # Trae IDE (.trae/)
-  # - cline     # Cline (.cline/)
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# PACK ALIASES
+# SQUAD ALIASES
 # ═══════════════════════════════════════════════════════════════════════════════
 # Maps directory name → command prefix
 # Example: squads/legal/ → .claude/commands/Legal/
-pack_aliases:
+squad_aliases:
   # Add your squads here:
   # squad-name: CommandPrefix
   # legal: Legal
@@ -39,7 +36,7 @@ pack_aliases:
 # SYNC MAPPINGS
 # ═══════════════════════════════════════════════════════════════════════════════
 # Source → destination patterns
-# Use {pack} placeholder for dynamic pack name substitution
+# Use {squad_alias} placeholder for dynamic squad alias substitution
 sync_mappings:
 
   # Agents - sync to all IDEs
@@ -47,23 +44,15 @@ sync_mappings:
     source: "squads/*/agents/"
     destinations:
       claude:
-        - path: ".claude/commands/{pack}/agents/"
+        - path: ".claude/commands/{squad_alias}/agents/"
           format: "md"
           wrapper: "none"
       cursor:
         - path: ".cursor/rules/"
           format: "mdc"
           wrapper: "cursor-rule"
-      windsurf:
-        - path: ".windsurf/{pack}/agents/"
-          format: "md"
-          wrapper: "none"
       gemini:
         - path: ".gemini/agents/"
-          format: "md"
-          wrapper: "none"
-      trae:
-        - path: ".trae/{pack}/agents/"
           format: "md"
           wrapper: "none"
 
@@ -72,7 +61,7 @@ sync_mappings:
     source: "squads/*/tasks/"
     destinations:
       claude:
-        - path: ".claude/commands/{pack}/tasks/"
+        - path: ".claude/commands/{squad_alias}/tasks/"
           format: "md"
           wrapper: "none"
 
@@ -81,7 +70,7 @@ sync_mappings:
     source: "squads/*/workflows/"
     destinations:
       claude:
-        - path: ".claude/commands/{pack}/workflows/"
+        - path: ".claude/commands/{squad_alias}/workflows/"
           format: "md"
           wrapper: "none"
       cursor:
@@ -94,7 +83,7 @@ sync_mappings:
     source: "squads/*/checklists/"
     destinations:
       claude:
-        - path: ".claude/commands/{pack}/checklists/"
+        - path: ".claude/commands/{squad_alias}/checklists/"
           format: "md"
           wrapper: "none"
 
@@ -103,7 +92,7 @@ sync_mappings:
     source: "squads/*/data/"
     destinations:
       claude:
-        - path: ".claude/commands/{pack}/data/"
+        - path: ".claude/commands/{squad_alias}/data/"
           format: "md"
           wrapper: "none"
 

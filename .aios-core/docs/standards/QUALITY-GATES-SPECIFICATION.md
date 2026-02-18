@@ -1,4 +1,4 @@
-# Quality Gates Specification v2.1
+# Quality Gates Specification v4.2
 
 **Version:** 2.1.0
 **Last Updated:** 2025-12-09
@@ -479,9 +479,9 @@ reviews:
     - path: ".aios-core/docs/standards/**"
       instructions: |
         Verify:
-        - Terminology uses 'Squad' not 'Expansion Pack'
+        - Terminology uses 'Squad' not 'Squad'
         - All internal links work
-        - Version numbers are v2.1
+        - Version numbers are v4.2
 
     - path: "squads/**"
       instructions: |
@@ -512,7 +512,7 @@ reviews:
 | Issues escaping to production | ~15% |
 | Developer context switches | High |
 
-### After Quality Gates (v2.1)
+### After Quality Gates (v4.2)
 
 | Metric | Value | Improvement |
 |--------|-------|-------------|
