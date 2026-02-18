@@ -20,22 +20,25 @@ aios_prompt() {
     return 0
   fi
 
-  # Quick check if jq is available
-  if ! command -v jq &> /dev/null; then
+  local emoji="" name="" status_emoji="" progress="" phase=""
+
+  # Parse session context (single jq call for all fields)
+  if command -v jq &> /dev/null; then
+    eval "$(jq -r '
+      @sh "emoji=\(.project.emoji // "")",
+      @sh "name=\(.project.name // "")",
+      @sh "status_emoji=\(.status.emoji // "")",
+      @sh "progress=\(.status.progress // "")",
+      @sh "phase=\(.status.phase // "")"
+    ' "$state_file" 2>/dev/null)" || return 0
+  else
     # Fallback: minimal parsing without jq
-    local name=$(grep -o '"name"[[:space:]]*:[[:space:]]*"[^"]*"' "$state_file" 2>/dev/null | head -1 | cut -d'"' -f4)
+    name=$(grep -o '"name"[[:space:]]*:[[:space:]]*"[^"]*"' "$state_file" 2>/dev/null | head -1 | cut -d'"' -f4)
     if [[ -n "$name" ]]; then
       echo -e "${CYAN}${name}${RESET}"
     fi
     return 0
   fi
-
-  # Parse session context (with jq)
-  local emoji=$(jq -r '.project.emoji // ""' "$state_file" 2>/dev/null)
-  local name=$(jq -r '.project.name // ""' "$state_file" 2>/dev/null)
-  local status_emoji=$(jq -r '.status.emoji // ""' "$state_file" 2>/dev/null)
-  local progress=$(jq -r '.status.progress // ""' "$state_file" 2>/dev/null)
-  local phase=$(jq -r '.status.phase // ""' "$state_file" 2>/dev/null)
 
   # Build prompt output
   local output=""
@@ -74,7 +77,6 @@ aios_prompt() {
           output="${output} [${progress}]"
         fi
       else
-        # If total is 0, just show progress without color
         output="${output} [${progress}]"
       fi
     else

@@ -1,177 +1,100 @@
 # Quick Start - AIOS Visual Context System
 
-Comece a usar o Visual Context System em 5 minutos!
+Get started with the Visual Context System in 5 minutes!
 
-## 🚀 Início Rápido (3 passos)
+## Quick Start (3 steps)
 
-### 1. Instalar Statusline
+### 1. Install Statusline
 
 ```bash
-# Copiar script
-cp statusline.sh ~/.claude/
+# Copy script
+cp .aios-core/infrastructure/scripts/statusline.sh ~/.claude/
 chmod +x ~/.claude/statusline.sh
 
-# Configurar Claude Code (~/.claude/settings.json)
+# Configure Claude Code (~/.claude/settings.json)
+# {
+#   "statusLine": {
+#     "type": "command",
+#     "command": "/Users/YOUR_USERNAME/.claude/statusline.sh"
+#   }
+# }
+```
+
+### 2. Restart Claude Code
+
+Close and reopen Claude Code.
+
+### 3. See the Result!
+
+You should see:
+```
+🤖 Sonnet 4.5 | ████░░ 75% 150k | 💰 $5.23 ⏱ 10m
+📁 ~/your-project:main | 💻 45%/75% | 📅 12/02/26 🕐 19:35
+```
+
+## Use with AIOS (Optional)
+
+If you use the AIOS Framework, create/edit `.aios/session.json` to customize context:
+
+```json
 {
-  "statusLine": {
-    "type": "command",
-    "command": "/Users/SEU_USUARIO/.claude/statusline.sh"
+  "project": {
+    "name": "my-project",
+    "emoji": "🎨",
+    "displayTitle": "Design Sprint",
+    "titleEmoji": "🎨"
+  },
+  "status": {
+    "progress": "3/10",
+    "phase": "implementation"
   }
 }
 ```
 
-### 2. Reiniciar Claude Code
+> **Planned:** CLI commands (`npx aios-core context set-title`, etc.) will be available in a future release.
 
-Feche e abra o Claude Code novamente.
+## Understanding the Statusline
 
-### 3. Ver o Resultado! ✨
-
-Você deve ver:
-```
-🤖 Sonnet 4.5 | ████░░ 75% 150k | 💰 $5.23 ⏱ 10m
-📁 ~/seu-projeto:main | 💻 45%/75% | 📅 12/02/26 🕐 19:35
-```
-
-## 🎨 Usar com AIOS (Opcional)
-
-Se você usa o AIOS Framework, pode customizar o contexto:
-
-### Definir título com emoji temático
-
-```bash
-# Design
-npx aios-core context set-title "Design System" --emoji 🎨
-
-# Backend
-npx aios-core context set-title "API Development" --emoji ⚙️
-
-# Mind Cloning
-npx aios-core context set-title "Tim Ferriss Clone" --emoji 🧠
-```
-
-### Definir progresso
-
-```bash
-npx aios-core context set "meu-projeto" --progress "3/10"
-```
-
-### Ver contexto atual
-
-```bash
-npx aios-core context show
-```
-
-### Limpar título customizado
-
-```bash
-npx aios-core context set-title --clear
-```
-
-## 📊 Entendendo o Statusline
-
-### Linha 1: Métricas da Sessão
+### Line 1: Session Metrics
 ```
 🤖 Sonnet 4.5 | ████░░ 75% 150k | 💰 $5.23 ⏱ 10m | 🎨 Design System
 ```
 
-- `🤖 Sonnet 4.5` - Modelo de IA em uso
-- `████░░` - Progress bar visual (contexto usado)
-- `75%` - Percentual de contexto usado
-- `150k` - Tokens usados (150 mil)
-- `💰 $5.23` - Custo da sessão atual
-- `⏱ 10m` - Tempo decorrido
-- `🎨 Design System` - Contexto AIOS (se configurado)
+- `🤖 Sonnet 4.5` — AI model in use
+- `████░░` — Visual progress bar (context used)
+- `75%` — Context used percentage
+- `150k` — Tokens consumed
+- `💰 $5.23` — Session cost
+- `⏱ 10m` — Elapsed time
+- `🎨 Design System` — AIOS context (if configured)
 
-### Linha 2: Sistema e Localização
+### Line 2: System & Location
 ```
 📁 ~/aios-core:main | 💻 45%/75% | 📅 12/02/26 🕐 19:35
 ```
 
-- `📁 ~/aios-core:main` - Diretório atual e branch git
-- `💻 45%/75%` - CPU e RAM do sistema
-- `📅 12/02/26` - Data atual
-- `🕐 19:35` - Hora atual
+- `📁 ~/aios-core:main` — Current directory and git branch
+- `💻 45%/75%` — CPU and RAM usage
+- `📅 12/02/26` — Current date
+- `🕐 19:35` — Current time
 
-## 🎯 Casos de Uso Comuns
+## Recommended Emojis by Theme
 
-### Trabalho Temático
+| Theme | Emoji |
+|-------|-------|
+| Design | 🎨 |
+| Backend | ⚙️ |
+| Frontend | ⚛️ |
+| Mind Clone | 🧠 |
+| Database | 🗄️ |
+| Testing | 🧪 |
+| Deploy | 🚀 |
+| Marketing | 📢 |
+| Docs | 📚 |
+| Bug Fix | 🐛 |
 
-```bash
-# Começar sessão de design
-npx aios-core context set-title "Design Sprint" --emoji 🎨
+## Next Steps
 
-# Trabalhar em backend
-npx aios-core context set-title "API Refactor" --emoji ⚙️
-
-# Sessão de brainstorming
-npx aios-core context set-title "Ideation" --emoji 💡
-```
-
-### Projetos Diferentes
-
-```bash
-# Projeto A
-cd ~/projeto-a
-npx aios-core context set-title "Projeto A" --emoji 🚀
-
-# Projeto B
-cd ~/projeto-b
-npx aios-core context set-title "Projeto B" --emoji 🏗️
-```
-
-### Tracking de Progresso
-
-```bash
-# Início do dia
-npx aios-core context set "meu-app" --progress "0/10"
-
-# Meio do dia
-npx aios-core context set "meu-app" --progress "5/10"
-
-# Fim do dia
-npx aios-core context set "meu-app" --progress "8/10"
-```
-
-## 💡 Dicas Rápidas
-
-### Emojis Recomendados por Tema
-
-| Tema | Emoji | Comando |
-|------|-------|---------|
-| Design | 🎨 | `--emoji 🎨` |
-| Backend | ⚙️ | `--emoji ⚙️` |
-| Frontend | ⚛️ | `--emoji ⚛️` |
-| Mind Clone | 🧠 | `--emoji 🧠` |
-| Database | 🗄️ | `--emoji 🗄️` |
-| Testing | 🧪 | `--emoji 🧪` |
-| Deploy | 🚀 | `--emoji 🚀` |
-| Marketing | 📢 | `--emoji 📢` |
-| Docs | 📚 | `--emoji 📚` |
-| Bug Fix | 🐛 | `--emoji 🐛` |
-
-### Copiar Emoji Rapidamente
-
-**macOS**: Cmd + Ctrl + Space (abre seletor de emoji)
-**Windows**: Win + . (ponto)
-**Linux**: Ctrl + . (ou Ctrl + ;)
-
-### Ver Ajuda Completa
-
-```bash
-npx aios-core context help
-```
-
-## 🔧 Próximos Passos
-
-- [CUSTOMIZATION.md](CUSTOMIZATION.md) - Personalizar cores e formato
-- [INSTALL.md](INSTALL.md) - Guia completo de instalação
-- [CHANGELOG.md](CHANGELOG.md) - Ver novidades da versão
-
----
-
-**Pronto para começar!** 🎉
-
-Experimente definir seu primeiro título temático agora:
-```bash
-npx aios-core context set-title "Meu Projeto Show" --emoji 🚀
-```
+- [CUSTOMIZATION.md](CUSTOMIZATION.md) — Customize colors and format
+- [INSTALL.md](INSTALL.md) — Full installation guide
+- [CHANGELOG.md](CHANGELOG.md) — Version history

@@ -1,20 +1,20 @@
-# Guia de Instalação - AIOS Visual Context System
+# Installation Guide - AIOS Visual Context System
 
-Guia completo para instalar e configurar o Visual Context System.
+Complete guide to install and configure the Visual Context System.
 
-## 📋 Pré-requisitos
+## Prerequisites
 
-### Obrigatórios
-- **Claude Code 2.0+** instalado
-- **jq** para parsing JSON
+### Required
+- **Claude Code 2.0+** installed
+- **jq** for JSON parsing
 
-### Verificar jq
+### Install jq
 
 ```bash
-# Verificar se jq está instalado
+# Check if jq is installed
 which jq
 
-# Se não estiver instalado:
+# If not installed:
 # macOS
 brew install jq
 
@@ -25,138 +25,93 @@ sudo apt-get install jq
 sudo dnf install jq
 ```
 
-## 🚀 Instalação
+## Installation
 
-### Passo 1: Copiar Statusline Script
+### Step 1: Copy Statusline Script
 
 ```bash
-# Copiar statusline.sh para diretório do Claude Code
-cp statusline.sh ~/.claude/
+# Copy statusline.sh to Claude Code config directory
+cp .aios-core/infrastructure/scripts/statusline.sh ~/.claude/
 
-# Dar permissão de execução
+# Make it executable
 chmod +x ~/.claude/statusline.sh
 ```
 
-### Passo 2: Configurar Claude Code
+### Step 2: Configure Claude Code
 
-Edite `~/.claude/settings.json` e adicione:
+Edit `~/.claude/settings.json` and add:
 
 ```json
 {
   "statusLine": {
     "type": "command",
-    "command": "/Users/SEU_USUARIO/.claude/statusline.sh"
+    "command": "/Users/YOUR_USERNAME/.claude/statusline.sh"
   }
 }
 ```
 
-**⚠️ IMPORTANTE**: Substitua `SEU_USUARIO` pelo seu nome de usuário!
+> **Important**: Replace `YOUR_USERNAME` with your actual username!
 
 ```bash
-# Descobrir seu nome de usuário
-echo $HOME
-# Resultado: /Users/luizfosc
+# Find your username
+echo $USER
+# Example result: luizfosc
 # Use: /Users/luizfosc/.claude/statusline.sh
 ```
 
-### Passo 3: Instalar Terminal Integration (Opcional mas Recomendado)
+### Step 3: Install Terminal Integration (Optional but Recommended)
 
 ```bash
-# Copiar scripts de integração
-mkdir -p ~/.aios-core/infrastructure/scripts/terminal
-cp terminal-integration/*.sh ~/.aios-core/infrastructure/scripts/terminal/
+# Add to your ~/.zshrc
+echo 'source /path/to/aios-core/.aios-core/infrastructure/scripts/terminal/zsh-integration.sh' >> ~/.zshrc
 
-# Dar permissões de execução
-chmod +x ~/.aios-core/infrastructure/scripts/terminal/*.sh
-
-# Adicionar ao seu ~/.zshrc (zsh) ou ~/.bashrc (bash)
-echo 'source ~/.aios-core/infrastructure/scripts/terminal/zsh-integration.sh' >> ~/.zshrc
-
-# Recarregar shell
+# Reload shell
 source ~/.zshrc
 ```
 
-### Passo 4: Instalar CLI Commands (Se usar AIOS)
+## Verify Installation
 
-Se você usa o AIOS Framework:
+### 1. Verify Statusline
 
-```bash
-# Copiar comando set-title
-cp cli-commands/set-title.js ~/aios-core/.aios-core/cli/commands/context/
-
-# O comando já estará disponível via npx aios-core
+Restart Claude Code. You should see:
 ```
-
-## ✅ Verificar Instalação
-
-### 1. Verificar Statusline
-
-```bash
-# Reiniciar Claude Code
-# O statusline deve aparecer na parte superior/inferior
-```
-
-Você deve ver algo como:
-```
-🤖 Sonnet 4.5 | ████░░ 75% 150k | 💰 $5.23 ⏱ 10m | 🎨 Meu Projeto
+🤖 Sonnet 4.5 | ████░░ 75% 150k | 💰 $5.23 ⏱ 10m | 🎨 My Project
 📁 ~/aios-core:main | 💻 45%/75% | 📅 12/02/26 🕐 19:35
 ```
 
-### 2. Verificar Tab Title (se instalou terminal integration)
+### 2. Verify Tab Title (if terminal integration installed)
 
 ```bash
-# Mudar para diretório com .aios/session.json
+# Navigate to a directory with .aios/session.json
 cd ~/aios-core
 
-# O título da aba deve atualizar automaticamente
+# The tab title should update automatically
 ```
 
-### 3. Testar Comandos CLI (se instalou AIOS)
+## Troubleshooting
+
+### Statusline doesn't appear
+
+1. Verify settings.json is correct
+2. Verify the full path to statusline.sh
+3. Restart Claude Code completely
+
+### jq errors
 
 ```bash
-# Definir título com emoji
-npx aios-core context set-title "Teste" --emoji 🧪
-
-# Ver contexto atual
-npx aios-core context show
-```
-
-## 🔧 Solução de Problemas
-
-### Statusline não aparece
-
-1. Verificar se settings.json está correto
-2. Verificar caminho completo do statusline.sh
-3. Reiniciar Claude Code completamente
-
-### Erros de jq
-
-```bash
-# Se vir erros como "jq: command not found"
+# If you see "jq: command not found"
 brew install jq  # macOS
 sudo apt-get install jq  # Linux
 ```
 
-### Tab title não atualiza
+### Tab title doesn't update
 
-1. Verificar se zsh-integration.sh foi sourced no ~/.zshrc
-2. Recarregar shell: `source ~/.zshrc`
-3. Verificar se .aios/session.json existe no diretório
+1. Verify zsh-integration.sh is sourced in ~/.zshrc
+2. Reload shell: `source ~/.zshrc`
+3. Verify .aios/session.json exists in the directory
 
-### Statusline muito grande (área de input pequena)
+## Next Steps
 
-Isso foi corrigido na v2.0! Se ainda ocorrer:
-1. Verificar se está usando statusline.sh v2.0
-2. Atualizar para versão mais recente
-
-## 🎯 Próximos Passos
-
-- [QUICK-START.md](QUICK-START.md) - Começar a usar
-- [CUSTOMIZATION.md](CUSTOMIZATION.md) - Personalizar cores e formato
-- [CHANGELOG.md](CHANGELOG.md) - Ver histórico de mudanças
-
----
-
-**Instalação completa!** 🎉
-
-Se tiver problemas, abra uma issue no GitHub ou consulte a documentação completa.
+- [QUICK-START.md](QUICK-START.md) — Get started
+- [CUSTOMIZATION.md](CUSTOMIZATION.md) — Customize colors and format
+- [CHANGELOG.md](CHANGELOG.md) — Version history

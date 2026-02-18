@@ -1,336 +1,191 @@
-# AIOS Visual Context System 🎨
+# AIOS Visual Context System
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/luizfosc/aios-visual-context-system)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/SynkraAI/aios-core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![AIOS Compatible](https://img.shields.io/badge/AIOS-Compatible-success.svg)](https://github.com/SynkraAI/aios-core)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-2.0%2B-purple.svg)](https://claude.ai/code)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux-lightgrey.svg)]()
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-Sistema completo de statusline e integração de terminal para Claude Code com suporte a contexto AIOS rico e emoji temático.
+A rich statusline and terminal integration system for Claude Code with AIOS context support.
 
-![AIOS Visual Context System](docs/images/hero-banner.png)
+## Features
 
-*Visual Context System em ação: Tab title com emoji (topo) e statusline completo (embaixo)*
+- **Rich Statusline** — Model, cost, duration, tokens and visual progress bar in real-time
+- **Two-Line Layout** — Optimized format that doesn't compress the input area
+- **Terminal Integration** — Auto-update tab title when changing context
+- **System Monitoring** — CPU, RAM, date and time (macOS + Linux)
+- **Multi-Project Support** — Independent contexts per project
+- **Customizable** — Colors, format and elements are fully configurable
 
-## ✨ Features
+## Preview
 
-- 🎨 **Emoji Temático** - Adicione emoji personalizado ao título para organização visual por tema
-- 📊 **Statusline Rico** - Visualize modelo, custo, duração, tokens e progress bar em tempo real
-- 📐 **Formato de 2 Linhas** - Layout otimizado que não comprime a área de input
-- 🖥️ **Terminal Integration** - Atualização automática do título da aba ao mudar de contexto
-- ⚙️ **AIOS CLI Integration** - Comandos nativos integrados ao framework AIOS
-- 💻 **System Monitoring** - CPU, RAM, data e hora em tempo real
-- 🎯 **Multi-Project Support** - Contextos diferentes para cada projeto
-- 🌈 **Customizável** - Cores, formato e elementos totalmente configuráveis
-
-## 📸 Preview
-
-### Statusline Completo
-
-**Linha 1:** Métricas da sessão Claude + contexto AIOS
+**Line 1:** Session metrics + AIOS context
 ```
 🤖 Sonnet 4.5 | ██████░░░░ 60% 120k | 💰 $3.45 ⏱ 5m | 🎨 Design System
 ```
 
-**Linha 2:** Sistema e localização
+**Line 2:** System and location
 ```
 📁 ~/aios-core:main | 💻 35%/72% | 📅 12/02/26 🕐 19:35
 ```
 
-### Terminal Tab Title
+## Quick Start
 
-Título da aba atualiza automaticamente com emoji temático:
-```
-🎨 Design Futurista
-```
-
-### Emoji Themes em Ação
-
-Organize visualmente seus projetos por tema:
-- 🎨 Design
-- ⚙️ Backend
-- 🧠 Mind Cloning
-- 📢 Marketing
-
-## 🚀 Quick Start
-
-### Instalação Rápida (3 passos)
+### Installation (3 steps)
 
 ```bash
-# 1. Copiar statusline.sh
-cp statusline.sh ~/.claude/
+# 1. Copy statusline.sh to Claude Code config dir
+cp .aios-core/infrastructure/scripts/statusline.sh ~/.claude/
 chmod +x ~/.claude/statusline.sh
 
-# 2. Configurar Claude Code (~/.claude/settings.json)
+# 2. Configure Claude Code (~/.claude/settings.json)
+# Add:
+# {
+#   "statusLine": {
+#     "type": "command",
+#     "command": "/Users/YOUR_USERNAME/.claude/statusline.sh"
+#   }
+# }
+
+# 3. Restart Claude Code — done!
+```
+
+> **Note:** Replace `YOUR_USERNAME` with your actual username. Run `echo $USER` to find it.
+
+### AIOS Context (Optional)
+
+If you use the AIOS Framework, create/edit `.aios/session.json` in your project root to customize context displayed in the statusline:
+
+```json
 {
-  "statusLine": {
-    "type": "command",
-    "command": "/Users/SEU_USUARIO/.claude/statusline.sh"
+  "project": {
+    "name": "my-project",
+    "emoji": "🚀",
+    "displayTitle": "My Custom Title",
+    "titleEmoji": "🎨"
+  },
+  "status": {
+    "progress": "3/10",
+    "emoji": "🔨",
+    "phase": "implementation"
   }
 }
-
-# 3. Reiniciar Claude Code
-# Ver resultado! ✨
 ```
 
-**⚠️ IMPORTANTE:** Substitua `SEU_USUARIO` pelo seu nome de usuário real.
+> **Planned:** CLI commands (`npx aios-core context set-title`, `context set`, `context show`) will be available in a future release. Currently, edit `.aios/session.json` directly.
 
-### Primeiro Uso
+## What It Shows
+
+### Session Metrics (Line 1)
+
+| Element | Description | Example |
+|---------|-------------|---------|
+| 🤖 Model | AI model in use | `Sonnet 4.5` |
+| Progress Bar | Visual context usage | `██████░░░░` |
+| Percentage | % of context used | `60%` |
+| Tokens | Tokens consumed | `120k` |
+| 💰 Cost | Session cost | `$3.45` |
+| ⏱ Duration | Elapsed time | `5m` |
+| Context | Custom AIOS context | `🎨 Design System` |
+
+### System & Location (Line 2)
+
+| Element | Description | Example |
+|---------|-------------|---------|
+| 📁 Directory | Current directory | `~/aios-core` |
+| Branch | Git branch | `main` |
+| 💻 CPU/RAM | System resources | `35%/72%` |
+| 📅 Date | Current date | `12/02/26` |
+| 🕐 Time | Current time | `19:35` |
+
+## Scripts
+
+All scripts live under `.aios-core/infrastructure/scripts/`:
+
+| Script | Purpose |
+|--------|---------|
+| `statusline.sh` | Main statusline script (read by Claude Code) |
+| `terminal/update-tab-title.sh` | Updates terminal tab title from session context |
+| `terminal/zsh-integration.sh` | zsh hooks for automatic tab title updates |
+| `terminal/prompt-injector.sh` | Optional PS1 prompt integration |
+
+## Terminal Integration (Optional)
+
+To auto-update your terminal tab title based on AIOS session context:
 
 ```bash
-# Definir título com emoji temático
-npx aios-core context set-title "Design System" --emoji 🎨
-
-# Definir progresso
-npx aios-core context set "aios-core" --progress "5/10"
-
-# Ver contexto atual
-npx aios-core context show
-
-# Limpar título
-npx aios-core context set-title --clear
+# Add to ~/.zshrc
+source /path/to/aios-core/.aios-core/infrastructure/scripts/terminal/zsh-integration.sh
 ```
 
-## 📚 Documentação Completa
+## Requirements
 
-| Documento | Descrição |
-|-----------|-----------|
-| [INSTALL.md](docs/INSTALL.md) | Guia completo de instalação passo a passo |
-| [QUICK-START.md](docs/QUICK-START.md) | Começar a usar em 5 minutos |
-| [CUSTOMIZATION.md](docs/CUSTOMIZATION.md) | Personalizar cores, formato e elementos |
-| [CHANGELOG.md](docs/CHANGELOG.md) | Histórico de versões e mudanças |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Como contribuir com o projeto |
-
-## 🎯 Casos de Uso
-
-### Organização por Tema
-
-```bash
-# Design
-npx aios-core context set-title "Design System" --emoji 🎨
-
-# Backend Development
-npx aios-core context set-title "API Development" --emoji ⚙️
-
-# Mind Cloning
-npx aios-core context set-title "Alex Hormozi Clone" --emoji 🧠
-
-# Marketing
-npx aios-core context set-title "Campaign Launch" --emoji 📢
-```
-
-### Multi-Project Workflow
-
-```bash
-# Projeto A
-cd ~/projeto-a
-npx aios-core context set-title "Projeto A" --emoji 🚀 --progress "3/10"
-
-# Projeto B
-cd ~/projeto-b
-npx aios-core context set-title "Projeto B" --emoji 🏗️ --progress "7/15"
-
-# Contextos independentes por projeto! ✨
-```
-
-### Tracking de Progresso
-
-```bash
-# Início do sprint
-npx aios-core context set "meu-app" --progress "0/10"
-
-# Durante o desenvolvimento
-npx aios-core context set "meu-app" --progress "5/10"
-
-# Fim do sprint
-npx aios-core context set "meu-app" --progress "10/10" --emoji ✅
-```
-
-## 📊 O que Mostra
-
-### Métricas de Sessão (Linha 1)
-
-| Elemento | Descrição | Exemplo |
-|----------|-----------|---------|
-| 🤖 Model | Modelo de IA em uso | `Sonnet 4.5` |
-| Progress Bar | Uso de contexto visual | `██████░░░░` |
-| Percentual | % de contexto usado | `60%` |
-| Tokens | Tokens consumidos | `120k` |
-| 💰 Cost | Custo da sessão | `$3.45` |
-| ⏱ Duration | Tempo decorrido | `5m` |
-| Context | Contexto AIOS customizado | `🎨 Design System` |
-
-### Sistema e Localização (Linha 2)
-
-| Elemento | Descrição | Exemplo |
-|----------|-----------|---------|
-| 📁 Directory | Diretório atual | `~/aios-core` |
-| Branch | Branch git | `main` |
-| 💻 CPU/RAM | Recursos do sistema | `35%/72%` |
-| 📅 Date | Data atual | `12/02/26` |
-| 🕐 Time | Hora atual | `19:35` |
-
-## 🎨 Emoji Recomendados por Tema
-
-| Tema | Emoji | Comando |
-|------|-------|---------|
-| Design | 🎨 | `--emoji 🎨` |
-| Backend | ⚙️ | `--emoji ⚙️` |
-| Frontend | ⚛️ | `--emoji ⚛️` |
-| Mind Cloning | 🧠 | `--emoji 🧠` |
-| Database | 🗄️ | `--emoji 🗄️` |
-| Testing | 🧪 | `--emoji 🧪` |
-| Deploy | 🚀 | `--emoji 🚀` |
-| Marketing | 📢 | `--emoji 📢` |
-| Documentation | 📚 | `--emoji 📚` |
-| Bug Fix | 🐛 | `--emoji 🐛` |
-| Security | 🔒 | `--emoji 🔒` |
-| Performance | ⚡ | `--emoji ⚡` |
-
-## 🛠️ Requisitos
-
-### Obrigatórios
-
+### Required
 - **Claude Code** 2.0+
-- **macOS** (Sequoia 15+) ou **Linux**
-- **jq** para parsing JSON
-- **Shell:** zsh, bash ou fish
+- **macOS** (Sequoia 15+) or **Linux**
+- **jq** for JSON parsing
+- **Shell:** zsh or bash
 
-### Recomendados
-
-- **iTerm2** para suporte completo a emoji (no macOS)
-- **AIOS Framework** para comandos CLI completos
-
-### Verificação Rápida
+### Install jq
 
 ```bash
-# Verificar Claude Code
-claude --version
+# macOS
+brew install jq
 
-# Verificar jq
-jq --version
+# Linux (Ubuntu/Debian)
+sudo apt-get install jq
 
-# Se não tiver jq:
-brew install jq  # macOS
-sudo apt-get install jq  # Linux
+# Linux (Fedora)
+sudo dnf install jq
 ```
 
-## 🏗️ Arquitetura
+## Customization
+
+Edit `~/.claude/statusline.sh` to change colors, progress bar characters, or layout.
+
+See [CUSTOMIZATION.md](CUSTOMIZATION.md) for the full guide.
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [INSTALL.md](INSTALL.md) | Step-by-step installation guide |
+| [QUICK-START.md](QUICK-START.md) | Get started in 5 minutes |
+| [CUSTOMIZATION.md](CUSTOMIZATION.md) | Customize colors, format and elements |
+| [CHANGELOG.md](CHANGELOG.md) | Version history |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | How to contribute |
+
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────┐
 │ Claude Code (Interface)                                 │
 ├─────────────────────────────────────────────────────────┤
-│ ~/.claude/statusline.sh (Script Principal)             │
-│ • Lê métricas do Claude Code via stdin (JSON)          │
-│ • Integra com .aios/session.json                       │
-│ • Renderiza 2 linhas formatadas                        │
+│ ~/.claude/statusline.sh (Main Script)                   │
+│ • Reads Claude Code metrics via stdin (JSON)            │
+│ • Integrates with .aios/session.json                    │
+│ • Renders 2 formatted lines                             │
 ├─────────────────────────────────────────────────────────┤
-│ Terminal Integration (Opcional)                         │
-│ • update-tab-title.sh - Atualiza título da aba         │
-│ • zsh-integration.sh - Hooks do shell                  │
-│ • prompt-injector.sh - Injeta no prompt               │
+│ Terminal Integration (Optional)                         │
+│ • update-tab-title.sh - Updates tab title               │
+│ • zsh-integration.sh  - Shell hooks                     │
+│ • prompt-injector.sh  - PS1 injection                   │
 ├─────────────────────────────────────────────────────────┤
-│ AIOS CLI Commands (Opcional)                           │
-│ • context set-title --emoji - Define título temático   │
-│ • context set - Define progresso                       │
-│ • context show - Visualiza estado                      │
+│ AIOS CLI Commands (Planned)                             │
+│ • context set-title --emoji - Set themed title          │
+│ • context set - Set progress                            │
+│ • context show - View state                             │
 └─────────────────────────────────────────────────────────┘
 ```
 
-## 🔧 Customização
+## Contributing
 
-### Cores
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Edite `~/.claude/statusline.sh` (linhas 8-15):
-
-```bash
-# Cores padrão
-CYAN='\033[0;36m'
-YELLOW='\033[1;33m'
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-
-# Tema customizado (exemplo: roxo)
-CYAN='\033[0;35m'    # Magenta
-YELLOW='\033[1;35m'  # Magenta brilhante
-```
-
-### Progress Bar
-
-Mudar caracteres (linhas 159-165):
-
-```bash
-# Padrão
-PROGRESS_BAR="${PROGRESS_BAR}█"  # Cheio
-PROGRESS_BAR="${PROGRESS_BAR}░"  # Vazio
-
-# Alternativas
-PROGRESS_BAR="${PROGRESS_BAR}●"  # Círculos
-PROGRESS_BAR="${PROGRESS_BAR}▰"  # Barras
-```
-
-Ver [CUSTOMIZATION.md](docs/CUSTOMIZATION.md) para guia completo.
-
-## 🤝 Contribuindo
-
-Contribuições são muito bem-vindas! Veja [CONTRIBUTING.md](CONTRIBUTING.md) para:
-
-- 🐛 Reportar bugs
-- ✨ Sugerir features
-- 🔧 Enviar pull requests
-- 📚 Melhorar documentação
-
-## 📝 Changelog
-
-### [2.0.0] - 2026-02-12
-
-#### ✨ Adicionado
-- **Emoji Temático** - Flag `--emoji` no comando `set-title`
-- **Formato de 2 Linhas** - Layout otimizado
-- Campo `titleEmoji` em `.aios/session.json`
-
-#### 🔄 Modificado
-- Statusline reformatado para 2 linhas
-- Terminal integration atualizada
-- Truncamento inteligente de títulos longos
-
-#### 🐛 Corrigido
-- Statusline não comprime mais área de input
-- Títulos longos truncados corretamente
-
-Ver [CHANGELOG.md](docs/CHANGELOG.md) completo.
-
-## 📄 Licença
+## License
 
 MIT License - Copyright (c) 2026 Luiz Fosc
 
-Ver [LICENSE](LICENSE) para detalhes completos.
-
-## 🙏 Créditos
-
-Desenvolvido com ❤️ por [Luiz Fosc](https://github.com/luizfosc)
-
-Para o [AIOS Framework](https://github.com/SynkraAI/aios-core) (Synkra AI Operating System)
-
-### Agradecimentos
-
-- [Claude Code](https://claude.ai/code) - Plataforma incrível
-- [AIOS Community](https://discord.gg/gk8jAdXWmj) - Feedback e suporte
-- Todos os [contribuidores](https://github.com/luizfosc/aios-visual-context-system/graphs/contributors)
-
-## 🔗 Links
-
-- **Repository**: https://github.com/luizfosc/aios-visual-context-system
-- **AIOS Framework**: https://github.com/SynkraAI/aios-core
-- **Claude Code**: https://claude.ai/code
-- **Issues**: https://github.com/luizfosc/aios-visual-context-system/issues
-- **Discord**: https://discord.gg/gk8jAdXWmj
-
 ---
 
-<p align="center">
-  <strong>Transforme sua experiência com Claude Code! 🚀</strong><br>
-  Feito com ❤️ para a comunidade AIOS
-</p>
+Built for the [AIOS Framework](https://github.com/SynkraAI/aios-core) (Synkra AI Operating System)

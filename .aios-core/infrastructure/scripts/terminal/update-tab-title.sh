@@ -22,8 +22,10 @@ parse_json_field() {
   if command -v jq &> /dev/null; then
     jq -r "${field} // \"${default}\"" "$file" 2>/dev/null || echo "$default"
   else
-    # Fallback: grep-based parsing
-    grep -o "\"$(basename "$field")\"[[:space:]]*:[[:space:]]*\"[^\"]*\"" "$file" 2>/dev/null | \
+    # Fallback: grep-based parsing for simple nested fields
+    # Extract the last key from jq path (e.g., .project.displayTitle -> displayTitle)
+    local key="${field##*.}"
+    grep -o "\"${key}\"[[:space:]]*:[[:space:]]*\"[^\"]*\"" "$file" 2>/dev/null | \
       head -1 | \
       cut -d'"' -f4 || echo "$default"
   fi
@@ -40,13 +42,19 @@ update_from_state() {
 
   # Parse session context
   if command -v jq &> /dev/null; then
-    local display_title=$(jq -r '.project.displayTitle // ""' "$state_file" 2>/dev/null)
-    local title_emoji=$(jq -r '.project.titleEmoji // ""' "$state_file" 2>/dev/null)
-    local emoji=$(jq -r '.project.emoji // "📦"' "$state_file" 2>/dev/null)
-    local name=$(jq -r '.project.name // "project"' "$state_file" 2>/dev/null)
-    local progress=$(jq -r '.status.progress // ""' "$state_file" 2>/dev/null)
-    local status_emoji=$(jq -r '.status.emoji // ""' "$state_file" 2>/dev/null)
-    local phase=$(jq -r '.status.phase // ""' "$state_file" 2>/dev/null)
+    # Single jq call for all fields
+    eval "$(jq -r '
+      @sh "display_title=\(.project.displayTitle // "")",
+      @sh "title_emoji=\(.project.titleEmoji // "")",
+      @sh "emoji=\(.project.emoji // "📦")",
+      @sh "name=\(.project.name // "project")",
+      @sh "progress=\(.status.progress // "")",
+      @sh "status_emoji=\(.status.emoji // "")",
+      @sh "phase=\(.status.phase // "")"
+    ' "$state_file" 2>/dev/null)" || {
+      display_title=""; title_emoji=""; emoji="📦"; name="project"
+      progress=""; status_emoji=""; phase=""
+    }
   else
     # Fallback: grep-based parsing (slower but works without jq)
     local display_title=$(parse_json_field "$state_file" ".project.displayTitle" "")
@@ -63,7 +71,6 @@ update_from_state() {
 
   if [[ -n "$display_title" && "$display_title" != "null" && "$display_title" != "" ]]; then
     # Use fixed display title (locked mode)
-    # Prepend titleEmoji if available
     if [[ -n "$title_emoji" && "$title_emoji" != "null" && "$title_emoji" != "" ]]; then
       title="${title_emoji} ${display_title}"
     else

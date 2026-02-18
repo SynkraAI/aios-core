@@ -178,8 +178,8 @@ cp statusline.sh ~/.claude/
 # 2. Testar no Claude Code
 # Reiniciar e verificar comportamento
 
-# 3. Testar comandos CLI
-npx aios-core context set-title "Test" --emoji 🧪
+# 3. Testar com session.json
+# Edit .aios/session.json to set displayTitle and titleEmoji
 
 # 4. Verificar diferentes cenários
 # - Com/sem AIOS

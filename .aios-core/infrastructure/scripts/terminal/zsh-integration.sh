@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/bin/zsh
 # AIOS Terminal Integration - zsh Shell Hooks
 # Integrates tab title updates with zsh precmd/chpwd hooks
 # Auto-loads when .aios/session.json exists
+# NOTE: This file is designed to be sourced into zsh, not executed directly
 
 # Avoid duplicate loading
 if [[ -n "$AIOS_TERMINAL_INTEGRATED" ]]; then

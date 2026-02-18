@@ -17,23 +17,34 @@ BOLD='\033[1m'
 # Read JSON from Claude Code
 INPUT=$(cat)
 
-# Extract Claude Code data
-MODEL=$(echo "$INPUT" | jq -r '.model.display_name // "Unknown"')
-CTX_USED=$(echo "$INPUT" | jq -r '.context_window.used_percentage // 0')
-CTX_SIZE=$(echo "$INPUT" | jq -r '.context_window.context_window_size // 200000')
-SESSION_COST=$(echo "$INPUT" | jq -r '.cost.total_cost_usd // 0')
-DURATION_MS=$(echo "$INPUT" | jq -r '.cost.total_duration_ms // 0')
-CWD=$(echo "$INPUT" | jq -r '.cwd // ""')
+# Extract Claude Code data (single jq call for efficiency)
+if command -v jq &> /dev/null; then
+  eval "$(echo "$INPUT" | jq -r '
+    @sh "MODEL=\(.model.display_name // "Unknown")",
+    @sh "CTX_USED=\(.context_window.used_percentage // 0)",
+    @sh "CTX_SIZE=\(.context_window.context_window_size // 200000)",
+    @sh "SESSION_COST=\(.cost.total_cost_usd // 0)",
+    @sh "DURATION_MS=\(.cost.total_duration_ms // 0)",
+    @sh "CWD=\(.cwd // "")"
+  ' 2>/dev/null)" || {
+    MODEL="Unknown"; CTX_USED=0; CTX_SIZE=200000
+    SESSION_COST=0; DURATION_MS=0; CWD=""
+  }
+else
+  echo "jq required" >&2
+  exit 1
+fi
 
 # Calculate tokens used
 CTX_PERCENT=${CTX_USED%.*}
+CTX_PERCENT=${CTX_PERCENT:-0}
 TOKENS_USED=$((CTX_SIZE * CTX_PERCENT / 100))
 
-# Format tokens (k/M)
+# Format tokens (k/M) — using awk -v for safe variable passing
 if [ "$TOKENS_USED" -gt 1000000 ]; then
-  TOKENS_FMT=$(awk "BEGIN {printf \"%.1fM\", $TOKENS_USED/1000000}")
+  TOKENS_FMT=$(awk -v tokens="$TOKENS_USED" 'BEGIN {printf "%.1fM", tokens/1000000}')
 elif [ "$TOKENS_USED" -gt 1000 ]; then
-  TOKENS_FMT=$(awk "BEGIN {printf \"%.0fk\", $TOKENS_USED/1000}")
+  TOKENS_FMT=$(awk -v tokens="$TOKENS_USED" 'BEGIN {printf "%.0fk", tokens/1000}')
 else
   TOKENS_FMT="${TOKENS_USED}"
 fi
@@ -50,28 +61,45 @@ else
   DURATION_FMT="${DURATION_SEC}s"
 fi
 
-# Format cost
-COST_FMT=$(awk "BEGIN {printf \"%.2f\", $SESSION_COST}")
+# Format cost — using awk -v for safe variable passing
+COST_FMT=$(awk -v cost="$SESSION_COST" 'BEGIN {printf "%.2f", cost}')
 
 # Short directory path
 SHORT_CWD=$(echo "$CWD" | sed "s|$HOME|~|")
 
-# Git branch
+# Git branch (supports worktrees where .git is a file)
 BRANCH=""
-if [ -n "$CWD" ] && [ -d "$CWD/.git" ]; then
+if [ -n "$CWD" ] && git -C "$CWD" rev-parse --is-inside-work-tree &>/dev/null; then
   BRANCH=$(git -C "$CWD" branch --show-current 2>/dev/null)
 fi
 
-# CPU and RAM
-TOP_OUTPUT=$(top -l 1 -n 0 2>/dev/null)
-CPU=$(echo "$TOP_OUTPUT" | grep "CPU usage" | awk '{print $3}' | tr -d '%')
-CPU=${CPU:-"0"}
-MEM_USED=$(echo "$TOP_OUTPUT" | grep "PhysMem" | awk '{print $2}' | tr -d 'G')
-MEM_TOTAL=$(sysctl -n hw.memsize 2>/dev/null | awk '{printf "%.0f", $1/1024/1024/1024}')
-if [ -n "$MEM_USED" ] && [ -n "$MEM_TOTAL" ] && [ "$MEM_TOTAL" -gt 0 ]; then
-  RAM_PERCENT=$(awk "BEGIN {printf \"%.0f\", ($MEM_USED / $MEM_TOTAL) * 100}")
-else
-  RAM_PERCENT="0"
+# CPU and RAM — cross-platform detection
+CPU="0"
+RAM_PERCENT="0"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS: use ps for CPU (fast) and sysctl/vm_stat for RAM
+  CPU=$(ps -A -o %cpu | awk '{s+=$1} END {printf "%.0f", s}' 2>/dev/null || echo "0")
+  # Cap at 100 per core, show as aggregate percentage
+  MEM_TOTAL_BYTES=$(sysctl -n hw.memsize 2>/dev/null || echo "0")
+  if [ "$MEM_TOTAL_BYTES" -gt 0 ]; then
+    # Get page size and pages from vm_stat (fast, no sampling delay)
+    PAGE_SIZE=$(sysctl -n hw.pagesize 2>/dev/null || echo "4096")
+    PAGES_ACTIVE=$(vm_stat 2>/dev/null | awk '/Pages active/ {gsub(/\./,"",$3); print $3}')
+    PAGES_WIRED=$(vm_stat 2>/dev/null | awk '/Pages wired/ {gsub(/\./,"",$4); print $4}')
+    PAGES_ACTIVE=${PAGES_ACTIVE:-0}
+    PAGES_WIRED=${PAGES_WIRED:-0}
+    MEM_USED_BYTES=$(( (PAGES_ACTIVE + PAGES_WIRED) * PAGE_SIZE ))
+    RAM_PERCENT=$(awk -v used="$MEM_USED_BYTES" -v total="$MEM_TOTAL_BYTES" \
+      'BEGIN {printf "%.0f", (used / total) * 100}')
+  fi
+elif [[ "$OSTYPE" == "linux"* ]]; then
+  # Linux: /proc/stat for CPU, /proc/meminfo for RAM
+  CPU=$(awk '/^cpu / {usage=100-($5*100/($2+$3+$4+$5+$6+$7+$8)); printf "%.0f", usage}' \
+    /proc/stat 2>/dev/null || echo "0")
+  MEM_INFO=$(awk '/MemTotal/ {total=$2} /MemAvailable/ {avail=$2} END {if(total>0) printf "%.0f", ((total-avail)/total)*100; else print "0"}' \
+    /proc/meminfo 2>/dev/null)
+  RAM_PERCENT="${MEM_INFO:-0}"
 fi
 
 # Date and Time
@@ -83,22 +111,24 @@ AIOS_STATE_FILE="${CWD}/.aios/session.json"
 AIOS_CONTEXT=""
 
 if [ -f "$AIOS_STATE_FILE" ]; then
-  DISPLAY_TITLE=$(jq -r '.project.displayTitle // ""' "$AIOS_STATE_FILE" 2>/dev/null)
-  TITLE_EMOJI=$(jq -r '.project.titleEmoji // ""' "$AIOS_STATE_FILE" 2>/dev/null)
-  PROJECT_EMOJI=$(jq -r '.project.emoji // ""' "$AIOS_STATE_FILE" 2>/dev/null)
-  PROJECT_NAME=$(jq -r '.project.name // ""' "$AIOS_STATE_FILE" 2>/dev/null)
-  PROGRESS=$(jq -r '.status.progress // ""' "$AIOS_STATE_FILE" 2>/dev/null)
-  STATUS_EMOJI=$(jq -r '.status.emoji // ""' "$AIOS_STATE_FILE" 2>/dev/null)
+  # Single jq call for all AIOS fields
+  eval "$(jq -r '
+    @sh "DISPLAY_TITLE=\(.project.displayTitle // "")",
+    @sh "TITLE_EMOJI=\(.project.titleEmoji // "")",
+    @sh "PROJECT_EMOJI=\(.project.emoji // "")",
+    @sh "PROJECT_NAME=\(.project.name // "")",
+    @sh "PROGRESS=\(.status.progress // "")",
+    @sh "STATUS_EMOJI=\(.status.emoji // "")"
+  ' "$AIOS_STATE_FILE" 2>/dev/null)" || true
 
   # Build context (truncate if needed)
   if [ -n "$DISPLAY_TITLE" ] && [ "$DISPLAY_TITLE" != "null" ]; then
-    # Prepend titleEmoji if available
     emoji_prefix=""
     if [ -n "$TITLE_EMOJI" ] && [ "$TITLE_EMOJI" != "null" ]; then
       emoji_prefix="${TITLE_EMOJI} "
     fi
 
-    # Truncate display title if > 35 chars (accounting for emoji)
+    # Truncate display title if > 35 chars
     max_len=35
     if [ ${#DISPLAY_TITLE} -gt $max_len ]; then
       AIOS_CONTEXT="${emoji_prefix}${DISPLAY_TITLE:0:32}..."
