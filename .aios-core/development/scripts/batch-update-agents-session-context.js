@@ -31,7 +31,7 @@ async function updateAgent(agentFile) {
 
     // Pattern 1: Update activation-instructions
     const activationPattern = /(- STEP 2\.5: Load project status.*\n)( {2}- STEP 3: Greet user)/s;
-    const activationReplacement = '$1  - STEP 2.6: Load session context using .aios-core/scripts/session-context-loader.js to detect previous agent and workflow state\n$2';
+    const activationReplacement = '$1  - STEP 2.6: Load session context using .aios-core/development/scripts/session-context-loader.js to detect previous agent and workflow state\n$2';
 
     content = content.replace(activationPattern, activationReplacement);
 

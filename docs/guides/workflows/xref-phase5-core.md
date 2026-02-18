@@ -237,7 +237,7 @@ Session detection and context continuity.
 | File | Purpose | Internal Deps | External Consumers | Orphan? |
 |------|---------|---------------|-------------------|---------|
 | `context-detector.js` | Hybrid session type detection (new/existing/workflow) | None | context-loader.js, core/index.js, tests/unit/, tests/integration/ | No |
-| `context-loader.js` | Multi-agent session context loader | context-detector.js | core/index.js, .aios-core/scripts/session-context-loader.js | No |
+| `context-loader.js` | Multi-agent session context loader | context-detector.js | core/index.js, .aios-core/development/scripts/session-context-loader.js | No |
 
 ### 2.15 utils/ (3 files)
 

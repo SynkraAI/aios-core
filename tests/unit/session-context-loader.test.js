@@ -7,7 +7,7 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const SessionContextLoader = require('../../.aios-core/scripts/session-context-loader');
+const SessionContextLoader = require('../../.aios-core/development/scripts/session-context-loader');
 
 describe('SessionContextLoader', () => {
   let loader;

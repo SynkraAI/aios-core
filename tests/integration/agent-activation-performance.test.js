@@ -7,7 +7,7 @@
  */
 
 const DevContextLoader = require('../../.aios-core/development/scripts/dev-context-loader');
-const SessionContextLoader = require('../../.aios-core/scripts/session-context-loader');
+const SessionContextLoader = require('../../.aios-core/development/scripts/session-context-loader');
 
 describeIntegration('Agent Activation Performance (Integration)', () => {
   let devLoader;

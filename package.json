@@ -41,9 +41,11 @@
     "sync:ide:cursor": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide cursor",
     "sync:ide:windsurf": "node .aios-core/infrastructure/scripts/ide-sync/index.js sync --ide windsurf",
     "prepublishOnly": "npm run generate:manifest && npm run validate:manifest",
+    "generate:catalog": "node .aios-core/infrastructure/scripts/generate-agent-catalog.js",
     "prepare": "husky"
   },
   "dependencies": {
+    "@aios-fullstack/pro": "^0.1.3",
     "@clack/prompts": "^0.11.0",
     "@kayvan/markdown-tree-parser": "^1.5.0",
     "ajv": "^8.17.1",

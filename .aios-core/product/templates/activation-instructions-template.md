@@ -41,7 +41,7 @@ activation-instructions:
 ### BEFORE (Manual/Mechanical)
 ```yaml
 - STEP 2.5: Load project status using .aios-core/infrastructure/scripts/project-status-loader.js
-- STEP 2.6: Load session context using .aios-core/scripts/session-context-loader.js
+- STEP 2.6: Load session context using .aios-core/development/scripts/session-context-loader.js
 - STEP 3: Greet user with EXACTLY the text from greeting_levels.named
 - STEP 3.5: Introduce yourself using format: "I'm {agent.name}..."
 - STEP 3.6: Display session context if available
