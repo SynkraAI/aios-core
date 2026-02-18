@@ -69,7 +69,7 @@ BMad, BMad Method, and BMad Core are trademarks of BMad Code, LLC. See [TRADEMAR
 
 Synkra AIOS follows a clear priority hierarchy:
 
-```
+```text
 CLI First → Observability Second → UI Third
 ```
 
@@ -455,7 +455,7 @@ The AIOS natural language framework works in ANY domain. Squads provide speciali
 
 ## Available Agents
 
-Synkra AIOS comes with 11 specialized agents:
+Synkra AIOS comes with 12 specialized agents:
 
 ### Meta Agents
 
@@ -475,6 +475,8 @@ Synkra AIOS comes with 11 specialized agents:
 - **dev** - Developer and implementation
 - **qa** - Quality assurance and testing
 - **po** (Product Owner) - Backlog and story management
+- **data-engineer** - Database design and data modeling
+- **devops** - CI/CD, infrastructure, and git operations (exclusive push authority)
 
 ## Documentation and Resources
 
@@ -516,7 +518,7 @@ ADE is a set of **7 Epics** that enable autonomous development execution:
 
 ### 🔄 Main Flow
 
-```
+```text
 User Request → Spec Pipeline → Execution Engine → QA Review → Working Code
                                       ↓
                               Recovery System
@@ -586,7 +588,7 @@ User Request → Spec Pipeline → Execution Engine → QA Review → Working Co
 
 Squads allow you to extend AIOS to any domain. Basic structure:
 
-```
+```text
 squads/your-squad/
 ├── config.yaml           # Squad configuration
 ├── agents/              # Specialized agents
