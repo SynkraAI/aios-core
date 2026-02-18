@@ -1,0 +1,149 @@
+name: magic-bob
+version: 1.0.0
+description: Magic BOB - Autonomous orchestration system for AIOS projects. Detects project state, spawns agents in separate terminals, manages development cycles, and maintains persistent sessions with human checkpoints.
+author: Luiz Fosc
+license: MIT
+slashPrefix: bob
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+squad:
+  domain: orchestration
+  specialization: autonomous-development
+  principles:
+    - CLI First - Observability Second - UI Third
+    - Deterministic decision tree (no LLM routing)
+    - Human approval at critical checkpoints
+    - Session persistence across crashes
+    - Quality gates with segregated reviewers
+
+components:
+  agents:
+    - bob-orchestrator.md
+    - bob-guardian.md
+    - bob-validator.md
+  tasks:
+    - orchestrate-project.md
+    - brownfield-discovery.md
+    - greenfield-setup.md
+    - enhancement-workflow.md
+    - checkpoint-story.md
+    - surface-decision.md
+    - session-resume.md
+  workflows:
+    - brownfield-discovery.yaml
+    - greenfield-fullstack.yaml
+    - enhancement.yaml
+    - story-development-cycle.yaml
+  checklists:
+    - project-state-detection.md
+    - session-resume-options.md
+    - quality-gate-checklist.md
+  templates:
+    - bob-status.json.tmpl
+    - session-state.yaml.tmpl
+  data:
+    - surface-criteria.yaml
+    - decision-heuristics.md
+    - voice-swipe-file.md
+  scripts:
+    - cleanup-monitors.sh
+    - lock-manager.js
+  utils:
+    - observability-panel.js
+    - session-state-manager.js
+
+core_modules:
+  orchestration:
+    - bob-orchestrator.js
+    - brownfield-handler.js
+    - greenfield-handler.js
+  observability:
+    - panel.js
+    - status-writer.js
+    - dashboard-emitter.js
+    - message-formatter.js
+  state:
+    - session-state.js
+    - lock-manager.js
+    - data-lifecycle-manager.js
+
+config:
+  extends: extend
+  coding-standards: config/coding-standards.md
+  tech-stack: config/tech-stack.md
+
+integration:
+  epic_11_modules:
+    - executor-assignment  # From core
+    - terminal-spawner     # From core
+    - workflow-executor    # From core
+    - surface-checker      # From core
+    - session-state        # Wraps core with BOB-specific
+
+dependencies:
+  aios_core:
+    - .aios-core/core/orchestration/executor-assignment.js
+    - .aios-core/core/orchestration/terminal-spawner.js
+    - .aios-core/core/orchestration/workflow-executor.js
+    - .aios-core/core/orchestration/surface-checker.js
+  node: []
+  python: []
+  squads: []
+
+features:
+  decision_tree:
+    - PATH A: Onboarding (NO_CONFIG)
+    - PATH B: Brownfield Discovery (EXISTING_NO_DOCS)
+    - PATH C: Enhancement (EXISTING_WITH_DOCS)
+    - PATH D: Greenfield (GREENFIELD)
+  development_cycle:
+    phases:
+      - validation      # @po
+      - development     # executor
+      - self_healing    # @dev + CodeRabbit
+      - quality_gate    # quality_gate ≠ executor
+      - push            # @devops
+      - checkpoint      # HUMAN (GO/PAUSE/REVIEW/ABORT)
+  observability:
+    - CLI Panel (stdout) - ALWAYS works
+    - bob-status.json - Dashboard bridge
+    - WebSocket events - Real-time updates
+  surface_criteria:
+    - C001: Cost threshold (>$5)
+    - C002: Risk threshold (HIGH)
+    - C003: Multiple options
+    - C004: Consecutive errors (≥2)
+    - C005: Destructive actions (NEVER bypass)
+    - C006: Scope change
+    - C007: External dependencies
+
+quality_metrics:
+  code_coverage: "~85%"
+  architecture_rating: "9.0/10"
+  documentation: "1561 lines (exceptional)"
+  security: "3 concerns identified (mitigable)"
+
+references:
+  documentation: docs/aios-workflows/bob-orchestrator-workflow.md
+  analysis: docs/qa/magic-bob-analysis.md
+  epic: Epic 12 - Bob Full Integration v1.6
+  stories:
+    - BOB-DOC-1
+    - BOB-FLOW-2
+    - BOB-SAFE-1
+    - BOB-VETO-1
+    - BOB-VETO-2
+    - BOB-VETO-3
+    - BOB-VETO-4
+    - BOB-VOICE-1
+
+tags:
+  - orchestration
+  - automation
+  - autonomous
+  - cli-first
+  - bob
+  - pm-mode

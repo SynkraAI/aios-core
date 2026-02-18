@@ -295,6 +295,177 @@ function sleep(ms) {
 }
 
 /**
+ * Kills ALL orphaned monitor-claude-status.sh processes (global cleanup)
+ * Used after execSync-based spawns where we don't have the parent PID
+ * (BOB-BUGFIX-1 - Task 1 Enhancement)
+ *
+ * @param {boolean} debug - Enable debug logging
+ * @returns {Promise<number>} Number of monitor processes killed
+ */
+async function killOrphanMonitors(debug = false) {
+  let totalKilled = 0;
+
+  if (debug) {
+    console.log('[TerminalSpawner] killOrphanMonitors() called');
+  }
+
+  // Retry logic - monitors may take a moment to appear
+  const maxRetries = 3;
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const { execSync } = require('child_process');
+
+      // Find all monitor-claude-status.sh processes
+      const monitorsOutput = execSync(`pgrep -f "monitor-claude-status.sh" 2>/dev/null || true`, {
+        encoding: 'utf8',
+        timeout: 5000,
+      }).trim();
+
+      if (debug && attempt === 1) {
+        console.log(`[TerminalSpawner] Found monitors output (attempt ${attempt}): "${monitorsOutput}"`);
+      }
+
+      if (!monitorsOutput) {
+        if (totalKilled === 0 && attempt < maxRetries) {
+          // No monitors found yet, wait and retry
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          continue;
+        }
+        break;
+      }
+
+      const monitors = monitorsOutput.split('\n').filter(Boolean);
+      let killed = 0;
+
+      for (const pid of monitors) {
+        if (!pid) continue;
+
+        try {
+          process.kill(parseInt(pid, 10), 'SIGTERM');
+          killed++;
+          totalKilled++;
+          if (debug) {
+            console.log(`[TerminalSpawner] Killed orphan monitor process: ${pid}`);
+          }
+        } catch (err) {
+          // Process might have already died - ignore
+          if (debug) {
+            console.log(`[TerminalSpawner] Could not kill process ${pid}: ${err.message}`);
+          }
+        }
+      }
+
+      // If we killed any, wait and check again
+      if (killed > 0) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+      } else {
+        // No new processes to kill
+        break;
+      }
+    } catch (err) {
+      // pgrep failed or no monitors - ignore
+      if (debug) {
+        console.log(`[TerminalSpawner] killOrphanMonitors error: ${err.message}`);
+      }
+    }
+  }
+
+  if (debug && totalKilled > 0) {
+    console.log(`[TerminalSpawner] Total orphan monitors killed: ${totalKilled}`);
+  }
+
+  return totalKilled;
+}
+
+/**
+ * Kills monitor processes spawned by a terminal (Story BOB-BUGFIX-1)
+ *
+ * Finds and terminates monitor-claude-status.sh processes that are children
+ * of the spawned terminal process to prevent orphaned monitors.
+ *
+ * @param {number} childPid - PID of the spawned terminal process
+ * @param {boolean} debug - Enable debug logging
+ * @returns {Promise<number>} Number of monitor processes killed
+ */
+async function killMonitorProcess(childPid, debug = false) {
+  if (!childPid || typeof childPid !== 'number') {
+    return 0;
+  }
+
+  let killed = 0;
+
+  try {
+    const { execSync } = require('child_process');
+
+    // Find ALL descendant processes recursively (children, grandchildren, etc.)
+    // Using pgrep with the parent process, then recursively searching descendants
+    const getAllDescendants = (pid) => {
+      try {
+        const directChildren = execSync(`pgrep -P ${pid} 2>/dev/null || true`, {
+          encoding: 'utf8',
+          timeout: 5000,
+        }).trim();
+
+        if (!directChildren) {
+          return [];
+        }
+
+        const children = directChildren.split('\n').filter(Boolean);
+        let descendants = [...children];
+
+        // Recursively get descendants of each child
+        for (const childPid of children) {
+          descendants = descendants.concat(getAllDescendants(childPid));
+        }
+
+        return descendants;
+      } catch {
+        return [];
+      }
+    };
+
+    const allDescendants = getAllDescendants(childPid);
+
+    if (allDescendants.length === 0) {
+      return 0;
+    }
+
+    // Check each descendant and kill monitor processes
+    for (const pid of allDescendants) {
+      if (!pid) continue;
+
+      try {
+        // Check if this is a monitor-claude-status.sh process
+        const cmdline = execSync(`ps -p ${pid} -o command= 2>/dev/null || true`, {
+          encoding: 'utf8',
+          timeout: 5000,
+        }).trim();
+
+        if (cmdline.includes('monitor-claude-status.sh')) {
+          process.kill(parseInt(pid, 10), 'SIGTERM');
+          killed++;
+          if (debug) {
+            console.log(`[TerminalSpawner] Killed monitor process: ${pid}`);
+          }
+        }
+      } catch (err) {
+        // Process might have already died - ignore
+        if (debug) {
+          console.log(`[TerminalSpawner] Could not kill process ${pid}: ${err.message}`);
+        }
+      }
+    }
+  } catch (err) {
+    // pgrep failed or no children - ignore
+    if (debug) {
+      console.log(`[TerminalSpawner] killMonitorProcess error: ${err.message}`);
+    }
+  }
+
+  return killed;
+}
+
+/**
  * Spawns an agent inline using child_process.spawn (Story 12.10 - Task 2)
  *
  * This is used when visual terminal spawning is not available (VS Code, SSH, Docker, CI).
@@ -378,9 +549,12 @@ async function spawnInline(agent, task, options = {}) {
     });
 
     // Set timeout
-    const timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(async () => {
       child.kill('SIGTERM');
       const duration = Date.now() - startTime;
+
+      // Cleanup monitor processes (BOB-BUGFIX-1)
+      await killMonitorProcess(child.pid, opts.debug);
 
       // Cleanup context file
       if (contextPath) {
@@ -400,6 +574,9 @@ async function spawnInline(agent, task, options = {}) {
     child.on('close', async (code) => {
       clearTimeout(timeoutId);
       const duration = Date.now() - startTime;
+
+      // Cleanup monitor processes (BOB-BUGFIX-1)
+      await killMonitorProcess(child.pid, opts.debug);
 
       // Cleanup context file
       if (contextPath) {
@@ -444,9 +621,12 @@ async function spawnInline(agent, task, options = {}) {
     });
 
     // Handle spawn errors
-    child.on('error', (error) => {
+    child.on('error', async (error) => {
       clearTimeout(timeoutId);
       const duration = Date.now() - startTime;
+
+      // Cleanup monitor processes (BOB-BUGFIX-1)
+      await killMonitorProcess(child.pid, opts.debug);
 
       // Cleanup context file
       if (contextPath) {
@@ -570,6 +750,10 @@ async function spawnAgent(agent, task, options = {}) {
       // Poll for completion (Task 3.2, 3.3)
       const output = await pollForOutput(outputFile, opts.timeout, opts.debug);
 
+      // Cleanup orphan monitor processes (BOB-BUGFIX-1)
+      // Since execSync doesn't give us the terminal PID, we clean all orphans
+      await killOrphanMonitors(opts.debug);
+
       // Cleanup context file (Task 2.4)
       if (contextPath) {
         await fs.unlink(contextPath).catch(() => {});
@@ -589,6 +773,9 @@ async function spawnAgent(agent, task, options = {}) {
         console.log(`[TerminalSpawner] Attempt ${attempt} failed: ${error.message}`);
       }
 
+      // Cleanup orphan monitors on error (BOB-BUGFIX-1)
+      await killOrphanMonitors(opts.debug);
+
       if (attempt < opts.retries) {
         await sleep(RETRY_DELAY_MS * attempt);
       }
@@ -597,6 +784,9 @@ async function spawnAgent(agent, task, options = {}) {
 
   // Fallback to inline spawn if visual terminal fails (Story 12.10 - Task 2.3)
   console.log('⚠️ Terminal visual falhou. Tentando execução inline como fallback...');
+
+  // Cleanup orphan monitors before fallback (BOB-BUGFIX-1)
+  await killOrphanMonitors(opts.debug);
 
   // Cleanup context file before retry with inline
   if (contextPath) {
@@ -1030,6 +1220,10 @@ module.exports = {
   getPlatform,
   cleanupOldFiles,
   getScriptPath,
+
+  // Monitor Process Cleanup (BOB-BUGFIX-1)
+  killMonitorProcess,
+  killOrphanMonitors,
 
   // Lock Management (Story 12.10)
   registerLockFile,

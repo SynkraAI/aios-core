@@ -1,0 +1,112 @@
+# HANDOFF TEMPLATE: oalanicolas → pedro-valerio
+# Formato padronizado para entrega de insumos extraídos
+#
+# USO:
+# 1. oalanicolas preenche após extração completa
+# 2. squad-chief valida com *review-extraction
+# 3. pedro-valerio recebe e constrói artefatos
+
+type: extraction_complete
+date: "{YYYY-MM-DD}"
+source_material: "{descrição do que foi processado}"
+expert_name: "{nome do expert se aplicável}"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INSUMOS EXTRAÍDOS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+insumos:
+  voice_dna:
+    signature_phrases:
+      - phrase: "{frase}"
+        source: "[SOURCE: página/minuto]"
+      # mínimo 5 phrases
+    power_words:
+      - "{palavra}"
+    tone_dimensions:
+      warmth: 0-10
+      directness: 0-10
+      formality: 0-10
+      confidence: 0-10
+    stories:
+      - title: "{título}"
+        context: "{quando usa}"
+        source: "[SOURCE: página/minuto]"
+    immune_system:
+      - trigger: "{o que rejeita}"
+        response: "{como responde}"
+
+  thinking_dna:
+    primary_framework:
+      name: "{nome}"
+      purpose: "{para que serve}"
+      steps:
+        - "{passo 1}"
+      when_to_use: "{trigger}"
+      source: "[SOURCE: página/minuto]"
+    secondary_frameworks:
+      - name: "{nome}"
+        purpose: "{para que}"
+        source: "[SOURCE:]"
+    heuristics:
+      - id: "{ID}"
+        name: "{nome}"
+        rule: "SE {condição} → ENTÃO {ação}"
+        when: "{contexto de aplicação}"  # OBRIGATÓRIO
+        source: "[SOURCE:]"
+    veto_conditions:
+      - trigger: "{o que dispara}"
+        action: "VETO - {razão}"
+    decision_architecture:
+      pipeline: "{fluxo de decisão}"
+      weights:
+        - "{fator}: {peso}"
+
+  sop_extracted:  # se aplicável
+    name: "{nome do procedimento}"
+    steps:
+      - step: 1
+        action: "{ação}"
+        veto_condition: "{quando NÃO fazer}"
+    edge_cases:
+      - case: "{situação}"
+        handling: "{como tratar}"
+
+  frameworks_extracted:
+    - name: "{nome}"
+      purpose: "{para que}"
+      steps:
+        - "{passo}"
+      when_to_use: "{trigger}"
+      source: "[SOURCE:]"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VALIDAÇÃO (preenchido por oalanicolas)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+validation:
+  citations_count: 0          # mínimo 15
+  signature_phrases_count: 0  # mínimo 5
+  inferred_concepts_count: 0  # deve ser 0
+  heuristics_with_when: 0     # todas devem ter QUANDO
+
+  checklist:
+    - item: "15+ citações com [SOURCE:]"
+      status: "PASS|FAIL"
+    - item: "5+ signature phrases verificáveis"
+      status: "PASS|FAIL"
+    - item: "Heuristics têm QUANDO usar"
+      status: "PASS|FAIL"
+    - item: "Zero inferências não marcadas"
+      status: "PASS|FAIL"
+    - item: "Anti-patterns específicos do expert"
+      status: "PASS|FAIL"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DESTINO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+ready_for: "task|workflow|agent|template"
+recommended_artifact: "{sugestão do que criar}"
+notes_for_builder: |
+  {observações para pedro-valerio}

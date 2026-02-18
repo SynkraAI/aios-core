@@ -1,0 +1,249 @@
+workflow:
+  id: bob-enhancement
+  name: BOB Enhancement Workflow (Autonomous)
+  version: "1.0"
+  description: >-
+    BOB-orchestrated enhancement workflow for adding features to existing AIOS projects.
+    User provides goal → BOB creates story → executes 6-phase development cycle → checkpoint.
+  type: enhancement
+  project_types:
+    - EXISTING_WITH_DOCS
+
+  bob_features:
+    autonomous_execution: true
+    session_persistence: true
+    single_story_mode: true  # Focus on one story at a time
+    human_checkpoints:
+      - after_story_creation
+      - after_story_complete
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # BOB ORCHESTRATION SEQUENCE
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  sequence:
+    - step: acquire_lock
+      phase: 0
+      action: acquire_orchestration_lock
+
+    - step: detect_state
+      phase: 0
+      action: detect_project_state
+      expected: EXISTING_WITH_DOCS
+      notes: |
+        Verify project has AIOS documentation (architecture.md, stories/).
+        If not, suggest brownfield-discovery workflow first.
+
+    - step: determine_objective
+      phase: 1
+      action: ask_user_objective
+      options:
+        - FEATURE: New feature implementation
+        - BUG: Bug fix
+        - REFACTOR: Code refactoring
+        - DEBT: Technical debt resolution
+        - EXISTING_STORY: Execute existing story file
+      notes: |
+        BOB asks what user wants to do.
+        If user provides --goal, skip this step.
+        If user provides --story path, skip to story execution.
+
+    - step: create_story
+      phase: 1
+      agent: po
+      action: create-story
+      creates: docs/stories/active/{{story-id}}.md
+      condition: user_goal_provided
+      inputs:
+        - user_goal: from user
+        - objective_type: from determine_objective
+        - epic_id: optional (if user specifies)
+        - project_context: loaded from docs/
+      duration: "10-20 min"
+      notes: |
+        BOB spawns @po to create story from user goal.
+        Loads project context (architecture, existing stories) for context.
+
+    - step: checkpoint_post_creation
+      phase: 1.5
+      action: human_checkpoint
+      checkpoint_type: REVIEW_STORY
+      options:
+        - APPROVE: Execute this story
+        - ADJUST: Modify story before execution
+        - CANCEL: Discard story
+      notes: |
+        BOB surfaces newly created story for user review.
+        Shows: title, description, acceptance criteria, estimated effort.
+
+    - step: execute_story
+      phase: 2
+      workflow: story-development-cycle.yaml
+      story: created_or_provided
+      duration: "~3h"
+      notes: |
+        BOB executes 6-phase development cycle:
+
+        1. VALIDATION (@po)
+           - Validates acceptance criteria
+           - Checks dependencies
+           - Confirms story is ready
+
+        2. DEVELOPMENT (executor)
+           - ExecutorAssignment determines agent
+           - Agent implements ACs
+           - Writes tests
+           - Updates story file
+
+        3. SELF-HEALING (@dev + CodeRabbit)
+           - Scans for CRITICAL/HIGH issues
+           - Auto-fixes when possible
+           - Logs issues for QG review
+
+        4. QUALITY GATE (quality_gate ≠ executor)
+           - Independent reviewer
+           - Checks code quality, security, tests
+           - APPROVED → proceed | REJECTED → return to dev (max 3x)
+
+        5. PUSH (@devops)
+           - Creates branch
+           - Pushes to remote
+           - Creates Pull Request
+           - Records PR URL
+
+        6. CHECKPOINT (HUMAN)
+           - BOB surfaces: "Story complete! GO/PAUSE/REVIEW/ABORT?"
+           - User decides next action
+
+    - step: checkpoint_post_story
+      phase: 2.5
+      action: human_checkpoint
+      checkpoint_type: STORY_COMPLETE
+      options:
+        - GO: Create and execute another story
+        - PAUSE: Save session, resume later
+        - REVIEW: Show detailed results
+        - ABORT: End session
+      notes: |
+        BOB gives control to user after story completion.
+        Shows: files changed, tests status, PR URL, duration, cost.
+
+    - step: loop_or_complete
+      phase: 3
+      action: conditional_loop
+      condition: user_decision == GO
+      loop_to: determine_objective
+      notes: |
+        If user chose GO, BOB loops back to ask for next objective.
+        Creates virtuous cycle: goal → story → dev → checkpoint → next goal.
+
+    - step: release_lock
+      phase: 4
+      action: release_orchestration_lock
+      always_execute: true
+
+    - step: session_complete
+      phase: 4
+      action: save_session_state
+      status: completed | paused | aborted
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # BOB-SPECIFIC CONFIGURATION
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  orchestration:
+    lock_resource: bob-orchestration
+    story_mode: one_at_a_time
+    allow_story_queue: false  # Focus on one story, then decide
+
+  observability:
+    panel_mode: minimal  # Simpler than greenfield (no epic tracking)
+    show_current_story: true
+    show_phase_progress: true  # [1/6] [2/6] etc.
+
+  session_management:
+    state_file: .aios/.session-state.yaml
+    save_on_checkpoint: true
+    protected_files:
+      - docs/stories/active/*.md
+
+  surface_criteria_integration:
+    enable_all_criteria: true  # C001-C007
+    cost_threshold_per_story: 10  # USD (surfaces if story > $10)
+    scope_change_detection: true  # Surfaces if story scope grows mid-development
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # FLOW DIAGRAM
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  flow_diagram: |
+    ```mermaid
+    graph TD
+        START[BOB: Enhancement] --> ASK{User has goal?}
+
+        ASK -->|Yes: --goal| CREATE[@po: create story]
+        ASK -->|Yes: --story| LOAD[Load existing story]
+        ASK -->|No| MENU{What to do?}
+
+        MENU -->|Feature| CREATE
+        MENU -->|Bug| CREATE
+        MENU -->|Refactor| CREATE
+        MENU -->|Debt| CREATE
+
+        CREATE --> CP1{CHECKPOINT: Review story?}
+        LOAD --> EXEC
+
+        CP1 -->|APPROVE| EXEC[Execute 6-phase cycle]
+        CP1 -->|ADJUST| CREATE
+        CP1 -->|CANCEL| ASK
+
+        EXEC --> P1[1. VALIDATION]
+        P1 --> P2[2. DEVELOPMENT]
+        P2 --> P3[3. SELF-HEALING]
+        P3 --> P4[4. QUALITY GATE]
+
+        P4 --> QG{Approved?}
+        QG -->|Rejected 3x| SURFACE[Surface to user]
+        QG -->|Rejected| P2
+        QG -->|Approved| P5[5. PUSH]
+
+        P5 --> P6[6. CHECKPOINT]
+        P6 --> CP2{User decision?}
+
+        CP2 -->|GO| ASK
+        CP2 -->|PAUSE| SAVE[Save session]
+        CP2 -->|REVIEW| SHOW[Show results]
+        CP2 -->|ABORT| END
+
+        SHOW --> CP2
+        SURFACE --> CP2
+
+        style END fill:#90EE90
+        style CP1 fill:#FFD700
+        style CP2 fill:#FFD700
+        style P6 fill:#FFD700
+    ```
+
+  estimates:
+    per_story_duration: "2-4h"
+    checkpoint_overhead: "5-10 min"
+    typical_session: "3-5 stories"
+
+  examples:
+    user_goals:
+      - "Add JWT authentication to API"
+      - "Fix bug in user registration form"
+      - "Refactor database queries to use ORM"
+      - "Add dark mode toggle to settings"
+      - "Implement rate limiting middleware"
+
+metadata:
+  author: BOB (bob-orchestrator)
+  created_date: 2026-02-15
+  version: 1.0.0
+  tags:
+    - bob
+    - enhancement
+    - single-story
+    - autonomous
+    - iterative

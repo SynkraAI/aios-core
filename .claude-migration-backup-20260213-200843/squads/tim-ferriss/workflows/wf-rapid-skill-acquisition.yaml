@@ -1,0 +1,151 @@
+# Workflow: Rapid Skill Acquisition (DiSSS + CaFE)
+# Version: 1.0.0
+# DNA Source: thinking_dna.frameworks.secondary.DiSSS
+# Created: 2026-02-12
+
+workflow:
+  id: wf-rapid-skill-acquisition
+  name: "Rapid Skill Acquisition via DiSSS + CaFE"
+  description: "Learn any skill 80% competent in 20% of expected time"
+  version: "1.0.0"
+
+  variables:
+    skill_target:
+      type: string
+      required: true
+      description: "The skill to learn"
+      example: "Conversational Spanish"
+
+    current_level:
+      type: string
+      required: false
+      default: "Beginner"
+      enum: ["Beginner", "Intermediate", "Advanced"]
+
+    timeframe:
+      type: string
+      required: false
+      description: "Target deadline"
+      example: "3 months"
+
+  phases:
+    # ========================================================================
+    # DiSSS FRAMEWORK
+    # ========================================================================
+
+    - id: phase-deconstruction
+      name: "D - Deconstruction"
+      description: "Break skill into smallest learnable units"
+      agent: tim-ferriss-meta-learning
+      task: apply-disss-meta-learning
+      task_step: "Phase 1: Deconstruction"
+      duration_estimate: "30-60 min"
+      output:
+        - path: "learning-plan/01-deconstruction.md"
+          description: "Skill component tree"
+
+    - id: phase-selection
+      name: "S - Selection"
+      description: "Find critical 20% that unlocks 80%"
+      agent: tim-ferriss-meta-learning
+      task: apply-disss-meta-learning
+      task_step: "Phase 1: Selection"
+      depends_on: [phase-deconstruction]
+      duration_estimate: "30-45 min"
+      output:
+        - path: "learning-plan/02-selection.md"
+          description: "Priority-ranked critical components"
+
+    - id: phase-sequencing
+      name: "S - Sequencing"
+      description: "Design optimal learning order"
+      agent: tim-ferriss-meta-learning
+      task: apply-disss-meta-learning
+      task_step: "Phase 1: Sequencing"
+      depends_on: [phase-selection]
+      duration_estimate: "20-30 min"
+      output:
+        - path: "learning-plan/03-sequencing.md"
+          description: "Learning path with timeline"
+
+    - id: phase-stakes
+      name: "S - Stakes"
+      description: "Create real consequences for motivation"
+      agent: tim-ferriss-meta-learning
+      task: apply-disss-meta-learning
+      task_step: "Phase 1: Stakes"
+      depends_on: [phase-sequencing]
+      duration_estimate: "15-20 min"
+      output:
+        - path: "learning-plan/04-stakes.md"
+          description: "Commitment mechanism ($100+ bet or public)"
+
+    # ========================================================================
+    # CaFE FRAMEWORK
+    # ========================================================================
+
+    - id: phase-compression
+      name: "C - Compression"
+      description: "Find patterns and create mnemonics"
+      agent: tim-ferriss-meta-learning
+      task: apply-disss-meta-learning
+      task_step: "Phase 2: Compression"
+      depends_on: [phase-stakes]
+      duration_estimate: "20-30 min"
+      output:
+        - path: "learning-plan/05-compression.md"
+          description: "Patterns and mnemonics"
+
+    - id: phase-frequency
+      name: "F - Frequency"
+      description: "Design spaced repetition schedule"
+      agent: tim-ferriss-meta-learning
+      task: apply-disss-meta-learning
+      task_step: "Phase 2: Frequency"
+      depends_on: [phase-compression]
+      duration_estimate: "15-20 min"
+      output:
+        - path: "learning-plan/06-frequency.md"
+          description: "Practice schedule (daily, weekly, review)"
+
+    - id: phase-encoding
+      name: "E - Encoding"
+      description: "Multi-sensory + contextual learning"
+      agent: tim-ferriss-meta-learning
+      task: apply-disss-meta-learning
+      task_step: "Phase 2: Encoding"
+      depends_on: [phase-frequency]
+      duration_estimate: "15-20 min"
+      output:
+        - path: "learning-plan/07-encoding.md"
+          description: "Visual, kinesthetic, contextual strategies"
+
+    # ========================================================================
+    # SYNTHESIS
+    # ========================================================================
+
+    - id: phase-synthesis
+      name: "Complete Learning Plan"
+      description: "Compile DiSSS + CaFE into actionable plan"
+      agent: tim-ferriss-meta-learning
+      depends_on: [phase-encoding]
+      duration_estimate: "15-20 min"
+      output:
+        - path: "learning-plan/COMPLETE-LEARNING-PLAN.md"
+          description: "Final plan with milestones and deadlines"
+
+  metadata:
+    total_duration_estimate: "2.5-4 hours"
+    tim_goal: "80% competence in 20% of expected time"
+    dna_source: "thinking_dna.frameworks.secondary.DiSSS"
+
+  examples:
+    - skill: "Conversational Spanish"
+      timeframe: "3 months"
+      result: "Top 100 words + present tense → conversational"
+
+    - skill: "React Hooks"
+      timeframe: "2 weeks"
+      result: "useState, useEffect, custom hooks → build apps"
+
+# Elite Mind Cloning Pipeline v1.0 | DNA Fidelity: 96.5%

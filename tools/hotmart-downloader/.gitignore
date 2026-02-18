@@ -1,0 +1,33 @@
+# Environment
+.env
+.env.local
+
+# Credentials
+.club-api-token.txt
+*.token
+*.secret
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Downloads
+downloads/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

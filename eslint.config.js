@@ -36,8 +36,6 @@ module.exports = [
       // Scripts that need cleanup (TODO: fix in Story 6.2)
       '.aios-core/quality/**',
       '.aios-core/scripts/**',
-      // Development scripts with known ESLint errors (TODO: fix in future story)
-      '.aios-core/development/scripts/**',
       '.claude/commands/AIOS/scripts/**',
       // CLI files with legacy issues (TODO: fix)
       '.aios-core/cli/**',

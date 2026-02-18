@@ -77,7 +77,7 @@ module.exports = {
     // Exclude templates, generated files, and legacy scripts
     '!.aios-core/development/templates/**',
     '!.aios-core/development/scripts/**',
-    '!.aios-core/core/orchestration/**',
+    // '!.aios-core/core/orchestration/**', // TEMP: Commented to see FASE 3 coverage
     '!.aios-core/core/execution/**',
     '!.aios-core/hooks/**',
     '!.aios-core/product/templates/**',

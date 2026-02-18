@@ -1,0 +1,23 @@
+{
+  "name": "docx-processing-skill",
+  "version": "1.0.0",
+  "description": "DOCX Processing Skill for AIOS - Word document creation and manipulation",
+  "scripts": {
+    "setup": "npm install",
+    "test": "node -e \"const docx = require('docx'); console.log('✓ docx library OK')\""
+  },
+  "dependencies": {
+    "docx": "^8.5.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "docx",
+    "word",
+    "document",
+    "office",
+    "aios",
+    "synkra"
+  ],
+  "author": "Luiz Fosc / Synkra AIOS",
+  "license": "MIT"
+}

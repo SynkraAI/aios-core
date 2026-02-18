@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-16T20:22:35.905Z'
-  entityCount: 508
+  lastUpdated: '2026-02-15T23:20:39.040Z'
+  entityCount: 545
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -586,7 +586,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:b7f872ff04b3668ca6f950a5ab4d66be674ec98e0ce5e607d947e0b121473277
-      lastVerified: '2026-02-10T15:31:01.203Z'
+      lastVerified: '2026-02-14T14:57:24.820Z'
     create-brownfield-story:
       path: .aios-core/development/tasks/create-brownfield-story.md
       type: task
@@ -728,7 +728,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:98932670187a40e38a6c06103d9a12fe8a7924eec78ff10aa2ccaf6ea98b0608
-      lastVerified: '2026-02-10T15:31:01.203Z'
+      lastVerified: '2026-02-14T14:57:24.820Z'
     create-workflow:
       path: .aios-core/development/tasks/create-workflow.md
       type: task
@@ -750,7 +750,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:52bad6f2826f77a83135d78c5bc244e250fe430c73bbf564f2cdb9da6ddf9c5f
-      lastVerified: '2026-02-10T15:31:01.204Z'
+      lastVerified: '2026-02-14T14:57:24.820Z'
     create-worktree:
       path: .aios-core/development/tasks/create-worktree.md
       type: task
@@ -884,6 +884,26 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:87847ae950523df49e1ec4f86e689be538dfebb4cecc9ce8461e68dce509fb25
+      lastVerified: '2026-02-08T13:33:24.184Z'
+    db-expansion-pack-integration:
+      path: .aios-core/development/tasks/db-expansion-pack-integration.md
+      type: task
+      purpose: '** Validate prerequisites BEFORE task execution (blocking)'
+      keywords:
+        - db
+        - expansion
+        - pack
+        - integration
+        - database
+        - analysis
+      usedBy: []
+      dependencies:
+        - N/A
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:0a18f3a72210707fa66f8fddd6de737172da647931b9327a58deda02ff1cf748
       lastVerified: '2026-02-08T13:33:24.184Z'
     db-explain:
       path: .aios-core/development/tasks/db-explain.md
@@ -1213,8 +1233,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:6b76a6b428a1a45573431739d4740a78955a7af7a3156515d7151eb97bae2d90
-      lastVerified: '2026-02-15T22:52:07.324Z'
+      checksum: sha256:9be22b14a1e7f6e2b065c894d9bacb754a13306a73cdb56f6834f223541471d3
+      lastVerified: '2026-02-08T13:33:24.193Z'
     dev-improve-code-quality:
       path: .aios-core/development/tasks/dev-improve-code-quality.md
       type: task
@@ -1621,8 +1641,7 @@ entities:
         - quality
         - gate
         - pre-push-quality-gate.md
-      usedBy:
-        - publish-npm
+      usedBy: []
       dependencies:
         - repository-detector
         - N/A
@@ -1772,6 +1791,23 @@ entities:
         extensionPoints: []
       checksum: sha256:31f85d85d8679a4dae27b26860985bc775d744092f2c4d4203acfbcd0cd63516
       lastVerified: '2026-02-08T13:33:24.205Z'
+    integrate-expansion-pack:
+      path: .aios-core/development/tasks/integrate-expansion-pack.md
+      type: task
+      purpose: '** Validate prerequisites BEFORE task execution (blocking)'
+      keywords:
+        - integrate
+        - expansion
+        - pack
+      usedBy: []
+      dependencies:
+        - N/A
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:7b12e0bcbdb4ab02aed3e8c22ad231a2cddac209cc5a855af707afc3db10c35e
+      lastVerified: '2026-02-08T13:33:24.205Z'
     kb-mode-interaction:
       path: .aios-core/development/tasks/kb-mode-interaction.md
       type: task
@@ -1901,7 +1937,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:c36d250373555f67762a4e8d14aabcd3a8dd9e57559362d08230f3bade064f26
-      lastVerified: '2026-02-10T15:31:01.205Z'
+      lastVerified: '2026-02-14T14:57:24.821Z'
     modify-task:
       path: .aios-core/development/tasks/modify-task.md
       type: task
@@ -1919,7 +1955,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:75da41384ec81df0b879183a70f7bd6ea5390016f56f9236c649c2a07239532e
-      lastVerified: '2026-02-10T15:31:01.206Z'
+      lastVerified: '2026-02-14T14:57:24.821Z'
     modify-workflow:
       path: .aios-core/development/tasks/modify-workflow.md
       type: task
@@ -1938,7 +1974,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:1902f821e3110440ee85d82fed5d664c0cb3d2c59e586b42e88be9cffe1e45a5
-      lastVerified: '2026-02-10T15:31:01.206Z'
+      lastVerified: '2026-02-14T14:57:24.821Z'
     next:
       path: .aios-core/development/tasks/next.md
       type: task
@@ -1952,14 +1988,13 @@ entities:
       usedBy: []
       dependencies:
         - suggestion-engine
-        - workflow-state-manager
         - output-formatter
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:d9c84f8892367cd8e1bd453dd08876d051bcc368ca9eacf5d2babb26235427fb
-      lastVerified: '2026-02-16T01:52:27.944Z'
+      checksum: sha256:53f4311ff6797342701c870b9552884815537dde8cb4936a0b3b5bf53b820f32
+      lastVerified: '2026-02-08T13:33:24.208Z'
     orchestrate-resume:
       path: .aios-core/development/tasks/orchestrate-resume.md
       type: task
@@ -2294,8 +2329,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:472fbb54b04f3e7f5db864a071e8289970461a5f6636b0db55336a95f7740b26
-      lastVerified: '2026-02-15T22:52:07.324Z'
+      checksum: sha256:afa1856d285da4604c55a4ec2d45ba2fb0ed5166e5995fd81b0894fb60ed8fe4
+      lastVerified: '2026-02-08T13:33:24.213Z'
     propose-modification:
       path: .aios-core/development/tasks/propose-modification.md
       type: task
@@ -2723,8 +2758,7 @@ entities:
         - manage
         - software
         - releases
-      usedBy:
-        - publish-npm
+      usedBy: []
       dependencies:
         - package
         - N/A
@@ -2732,8 +2766,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:569e48755ab32820456fbb6fd82492f79d007ff51a6975e4f92772bb097ab916
-      lastVerified: '2026-02-15T19:17:32.645Z'
+      checksum: sha256:485a3003626a8f1fb4a6c3a67b8fee627be0b94884e3b943fe4eaca7d0243b1d
+      lastVerified: '2026-02-08T13:33:24.224Z'
     remove-mcp:
       path: .aios-core/development/tasks/remove-mcp.md
       type: task
@@ -2957,8 +2991,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:6ae57c32e34af7c59e3ba8153113ca3c3661f501ec6ed41f2c0534f6f1d2a788
-      lastVerified: '2026-02-15T19:17:32.645Z'
+      checksum: sha256:27a86ce932b45a91a62ba4ced0855415ed9d98c2dedd7c00f0ea9d04c12f6125
+      lastVerified: '2026-02-08T13:33:24.235Z'
     setup-llm-routing:
       path: .aios-core/development/tasks/setup-llm-routing.md
       type: task
@@ -3290,8 +3324,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:51961002b69bc5cab4a191214e9d49ca9bb02d4d82663fe674fbc3a77edf41f3
-      lastVerified: '2026-02-15T22:52:07.324Z'
+      checksum: sha256:c0f669b2d490c698d7b448408019558ff02a46c5232c8e6ce58cd7b5131d4565
+      lastVerified: '2026-02-08T13:33:24.240Z'
     squad-creator-publish:
       path: .aios-core/development/tasks/squad-creator-publish.md
       type: task
@@ -3326,8 +3360,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:7dc66bcb5d635ac20a47366cad1713da13fe1a62858f0631b3bcb0d64248d71b
-      lastVerified: '2026-02-15T22:31:57.443Z'
+      checksum: sha256:1fe5d5a713a0f1c582f6218a0418a78312f868e692bf67c01fd3e298b9b749bf
+      lastVerified: '2026-02-08T13:33:24.251Z'
     squad-creator-sync-synkra:
       path: .aios-core/development/tasks/squad-creator-sync-synkra.md
       type: task
@@ -3497,8 +3531,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:895779bca1ca13f387fd0cbac23fbd0ac5e8b04b9002372ee7ef092ac26a9652
-      lastVerified: '2026-02-15T22:52:07.325Z'
+      checksum: sha256:c570ab41fdfff5cb31dd7626fb8a4423c9d7629a082896d6fdc2b552e2cea477
+      lastVerified: '2026-02-08T13:33:24.256Z'
     update-manifest:
       path: .aios-core/development/tasks/update-manifest.md
       type: task
@@ -3833,7 +3867,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:d1aa11f338f3f943ea7ac3f299d536ae9af0a8bad48394d893c345ab98b452fe
-      lastVerified: '2026-02-10T15:31:01.204Z'
+      lastVerified: '2026-02-14T14:57:24.820Z'
     ids-health:
       path: .aios-core/development/tasks/ids-health.md
       type: task
@@ -3852,81 +3886,185 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:093a9ee73e79ec5682d9161648f36710d635a0a7b074d45f4036c782bbc72bb2
-      lastVerified: '2026-02-10T15:31:01.205Z'
-    db-squad-integration:
-      path: .aios-core/development/tasks/db-squad-integration.md
+      lastVerified: '2026-02-14T14:57:24.821Z'
+    nav-auto-navigate:
+      path: .aios-core/development/tasks/nav-auto-navigate.md
       type: task
-      purpose: '** Validate prerequisites BEFORE task execution (blocking)'
+      purpose: '`Phase ${currentPhase.id} completed via auto-navigate`'
       keywords:
-        - db
-        - squad
-        - integration
-        - database
-        - analysis
+        - nav
+        - auto
+        - navigate
+        - '*auto-navigate'
       usedBy: []
       dependencies:
-        - N/A
+        - phase-detector
+        - orchestrator
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:5a5d601d97131287e373ac8ad2a78df8987753532c504704c87255580231b0b8
-      lastVerified: '2026-02-15T22:52:07.324Z'
-    integrate-squad:
-      path: .aios-core/development/tasks/integrate-squad.md
+      checksum: sha256:5a8a6c5f6599358444d90419361a6888fc58621b9db574d5ba00396efce10439
+      lastVerified: '2026-02-15T14:58:48.326Z'
+    nav-checkpoint:
+      path: .aios-core/development/tasks/nav-checkpoint.md
       type: task
-      purpose: '** Validate prerequisites BEFORE task execution (blocking)'
+      purpose: '`Phase ${state.phase.id} checkpoint`,'
       keywords:
-        - integrate
-        - squad
+        - nav
+        - checkpoint
+        - '*checkpoint'
       usedBy: []
       dependencies:
-        - N/A
+        - checkpoint-manager
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:95e2774c4da99467fa397d773203847d367bf4c5e6060f89534dd931088359e3
-      lastVerified: '2026-02-15T22:52:07.324Z'
-    publish-npm:
-      path: .aios-core/development/tasks/publish-npm.md
+      checksum: sha256:f6003c76594e22a3aade1cf6f84870bd58bd0f7314c8a86374b1c75e776faa5c
+      lastVerified: '2026-02-15T14:58:48.326Z'
+    nav-detect-phase:
+      path: .aios-core/development/tasks/nav-detect-phase.md
       type: task
-      purpose: 'Safe, validated npm publishing using a two-phase release strategy:'
+      purpose: nav-detect-phase (Internal)
       keywords:
-        - publish
-        - npm
-        - publishing
-        - 'pipeline:'
-        - preview
-        - latest
+        - nav
+        - detect
+        - phase
+        - nav-detect-phase
+        - (internal)
       usedBy: []
-      dependencies:
-        - release-management
-        - github-devops-pre-push-quality-gate
+      dependencies: []
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:f7a0bb8fed5663c88ad691b8871fdf7a861b6a7c02599f0c2db3eb9393d353c8
-      lastVerified: '2026-02-16T01:21:26.585Z'
-    sync-registry-intel:
-      path: .aios-core/development/tasks/sync-registry-intel.md
+      checksum: sha256:d6c03da12b353852acacaa4d9eba6c5cf053575dfe1259cdd12d7d7f91c10a6c
+      lastVerified: '2026-02-15T14:58:48.327Z'
+    nav-doctor:
+      path: .aios-core/development/tasks/nav-doctor.md
       type: task
-      purpose: 'Task: Sync Registry Intel'
+      purpose: >-
+        Run health checks to validate Navigator installation, dependencies, and configuration. Helps diagnose issues
+        when Navigator commands fail or behave unexpectedly.
       keywords:
-        - sync
-        - registry
-        - intel
-        - 'task:'
+        - nav
+        - doctor
+        - navigator
+        - task
       usedBy: []
-      dependencies:
-        - registry-syncer
+      dependencies: []
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:0e69435307db814563823896e7ba9b29a4a9c10d90f6dedec5cb7a6d6f7ba936
-      lastVerified: '2026-02-16T20:19:27.659Z'
+      checksum: sha256:ffd7b094feaf8189b10cb1058fe6a283797d2d50fc403fe0316e7eae928bb2e3
+      lastVerified: '2026-02-15T14:58:48.327Z'
+    nav-map-project:
+      path: .aios-core/development/tasks/nav-map-project.md
+      type: task
+      purpose: Text description of the project (free form)
+      keywords:
+        - nav
+        - map
+        - project
+        - '*map-project'
+      usedBy: []
+      dependencies:
+        - roadmap-sync
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:9d6a35559b0405a88a0c346d532926eaf240c49e53222d2bcf2562c80ff43bfb
+      lastVerified: '2026-02-15T14:58:48.327Z'
+    nav-orchestrate:
+      path: .aios-core/development/tasks/nav-orchestrate.md
+      type: task
+      purpose: '*orchestrate'
+      keywords:
+        - nav
+        - orchestrate
+        - '*orchestrate'
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:8d1f4a3e30e39e38d7c961cf319e0eed6b6df74809d20512d9540d62ed44f5f2
+      lastVerified: '2026-02-15T14:58:48.327Z'
+    nav-resume-project:
+      path: .aios-core/development/tasks/nav-resume-project.md
+      type: task
+      purpose: '*resume-project'
+      keywords:
+        - nav
+        - resume
+        - project
+        - '*resume-project'
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:683e69f84230d81b8ececaac304424f816096bea72d2ab0844ee54a3ae94f5a7
+      lastVerified: '2026-02-15T14:58:48.328Z'
+    nav-status-report:
+      path: .aios-core/development/tasks/nav-status-report.md
+      type: task
+      purpose: '**'
+      keywords:
+        - nav
+        - status
+        - report
+        - '*status-report'
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:837049cb8d027c071a8e50505aa4c822ddfc3808dbf952c0cd7afffa6cdc7541
+      lastVerified: '2026-02-15T14:58:48.328Z'
+    nav-update-roadmap:
+      path: .aios-core/development/tasks/nav-update-roadmap.md
+      type: task
+      purpose: '`Transitioned to phase ${newPhase.id}`'
+      keywords:
+        - nav
+        - update
+        - roadmap
+        - '*update-roadmap'
+      usedBy: []
+      dependencies:
+        - phase-detector
+        - roadmap-sync
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:eb6306eb245b61eeda4d628fe8b61f0f3af927cf19913f6a7e83ba5d48fc2e46
+      lastVerified: '2026-02-15T14:58:48.328Z'
+    nav-where-am-i:
+      path: .aios-core/development/tasks/nav-where-am-i.md
+      type: task
+      purpose: '`Missing required file: ${input}`'
+      keywords:
+        - nav
+        - where
+        - am
+        - '*where-am-i'
+      usedBy: []
+      dependencies:
+        - phase-detector
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:1ba39a698e0c999d361559e2f134690e14b03ce7bf7bced2ee25e4ca6502f171
+      lastVerified: '2026-02-15T14:58:48.328Z'
   templates:
     activation-instructions-inline-greeting:
       path: .aios-core/product/templates/activation-instructions-inline-greeting.yaml
@@ -4709,6 +4847,24 @@ entities:
         extensionPoints: []
       checksum: sha256:13d5fb7858534f6d49150a5dff642faa276c17b9d242f995369c5e7e1d37ae40
       lastVerified: '2026-02-08T13:33:24.279Z'
+    cline-rules:
+      path: .aios-core/product/templates/ide-rules/cline-rules.md
+      type: template
+      purpose: Synkra AIOS Development Rules for Cline
+      keywords:
+        - cline
+        - rules
+        - synkra
+        - aios
+        - development
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:2475324a2d0ec92e4132a9a77631f21a34d51fce8da52fd03f945fc036de564d
+      lastVerified: '2026-02-08T13:33:24.279Z'
     copilot-rules:
       path: .aios-core/product/templates/ide-rules/copilot-rules.md
       type: template
@@ -4726,8 +4882,8 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:8ff2822680e189ba5fd0e14370625964ddb1017f893c1d0c5aa242b9bf786069
-      lastVerified: '2026-02-15T19:17:32.645Z'
+      checksum: sha256:9c614000604f4e073a81b594f3ff4bb86362b9a23559716bc68d9781c0ea223c
+      lastVerified: '2026-02-08T13:33:24.279Z'
     cursor-rules:
       path: .aios-core/product/templates/ide-rules/cursor-rules.md
       type: template
@@ -4749,58 +4905,57 @@ entities:
     gemini-rules:
       path: .aios-core/product/templates/ide-rules/gemini-rules.md
       type: template
-      purpose: Gemini Rules - Synkra AIOS
+      purpose: Synkra AIOS Development Rules for Gemini CLI
       keywords:
         - gemini
         - rules
         - synkra
         - aios
+        - development
       usedBy: []
       dependencies: []
       adaptability:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:c0621a46f2a37ec8c8cfe6b6b240eaf207738693c80199ead7c338d4223d15c2
-      lastVerified: '2026-02-16T01:12:06.470Z'
-    codex-rules:
-      path: .aios-core/product/templates/ide-rules/codex-rules.md
+      checksum: sha256:9f5a0a05e1cdeab2175a98c00cb248d3fedbc8505f1d99c771703b275f2fc5bd
+      lastVerified: '2026-02-08T13:33:24.280Z'
+    roo-rules:
+      path: .aios-core/product/templates/ide-rules/roo-rules.md
       type: template
-      purpose: AGENTS.md - Synkra AIOS (Codex CLI)
+      purpose: Synkra AIOS Development Rules for Roo Code
       keywords:
-        - codex
+        - roo
         - rules
-        - agents.md
         - synkra
         - aios
-        - (codex
-        - cli)
+        - development
       usedBy: []
       dependencies: []
       adaptability:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:e8345404f17977a268b917a4ff86e4f10f80174a6bb572865e5413c8f7dd217a
-      lastVerified: '2026-02-15T17:43:13.184Z'
-    brownfield-risk-report-tmpl:
-      path: .aios-core/product/templates/brownfield-risk-report-tmpl.yaml
+      checksum: sha256:c6b4d8779f36c4629d48b18f5a686bc5fba4d07b6a334b4aebb56cf7d517ad63
+      lastVerified: '2026-02-08T13:33:24.280Z'
+    windsurf-rules:
+      path: .aios-core/product/templates/ide-rules/windsurf-rules.md
       type: template
-      purpose: '>'
+      purpose: Synkra AIOS Development Rules for Windsurf
       keywords:
-        - brownfield
-        - risk
-        - report
-        - tmpl
-        - template
+        - windsurf
+        - rules
+        - synkra
+        - aios
+        - development
       usedBy: []
       dependencies: []
       adaptability:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:173adec3131f0924bc7d64c10f54386bb85dcadc14e6ff3fb9bb2f8172caf162
-      lastVerified: '2026-02-16T04:49:07.415Z'
+      checksum: sha256:7c880de0dec8b06eb3390a56614996c6033c1939907d77f73f4f6f85ae42b3e2
+      lastVerified: '2026-02-08T13:33:24.280Z'
   scripts:
     agent-assignment-resolver:
       path: .aios-core/development/scripts/agent-assignment-resolver.js
@@ -4827,18 +4982,18 @@ entities:
         - config
         - loader
       usedBy:
+        - generate-greeting
         - unified-activation-pipeline
         - config-loader
       dependencies:
         - config-cache
         - performance-tracker
-        - config-resolver
       adaptability:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:53aa76c1711bb063e033876fcd420be9eadd2f58035ca2ea2fc43cdd7ca317c4
-      lastVerified: '2026-02-08T13:33:24.282Z'
+      checksum: sha256:b1f2656e4c2ada97dffd064833cfa799beee672a2ad1d2a461214e8247b0899f
+      lastVerified: '2026-02-14T14:57:24.819Z'
     agent-exit-hooks:
       path: .aios-core/development/scripts/agent-exit-hooks.js
       type: script
@@ -5191,13 +5346,16 @@ entities:
         - greeting
       usedBy: []
       dependencies:
-        - activation-runtime
+        - greeting-builder
+        - session-context-loader
+        - project-status-loader
+        - agent-config-loader
       adaptability:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:49b857fe36a0216a0df8395a6847f14608bd6a228817276201d22598a6862a4f
-      lastVerified: '2026-02-15T19:28:17.743Z'
+      checksum: sha256:e516671e54dc3f7fb0b88d35c92af9cf23134558764a66f97ed277f4ceb2c2c0
+      lastVerified: '2026-02-15T14:42:11.135Z'
     git-wrapper:
       path: .aios-core/development/scripts/git-wrapper.js
       type: script
@@ -5223,6 +5381,7 @@ entities:
         - greeting
         - builder
       usedBy:
+        - generate-greeting
         - test-greeting-system
         - unified-activation-pipeline
       dependencies:
@@ -5231,17 +5390,12 @@ entities:
         - workflow-navigator
         - greeting-preference-manager
         - project-status-loader
-        - permissions
-        - config-resolver
-        - validate-user-profile
-        - session-state
-        - surface-checker
       adaptability:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:a4a4ff094d41daf5840f55f807a775f698cb892e8c5d79f93148d4b437b0dadd
-      lastVerified: '2026-02-09T12:44:21.491Z'
+      checksum: sha256:ebc0d7d8ebddefa763a9c924c2f344493cb212768f9a7533b835efb5ad3b7378
+      lastVerified: '2026-02-15T14:42:11.135Z'
     greeting-config-cli:
       path: .aios-core/development/scripts/greeting-config-cli.js
       type: script
@@ -5624,8 +5778,7 @@ entities:
         - unified
         - activation
         - pipeline
-      usedBy:
-        - activation-runtime
+      usedBy: []
       dependencies:
         - greeting-builder
         - agent-config-loader
@@ -5637,12 +5790,13 @@ entities:
         - context-detector
         - workflow-navigator
         - pro-detector
+        - state-manager
       adaptability:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:dd1ad8050ac6ea04ff634434be9b97f67239ee0a7342d669bc5618eb2b7a7f5b
-      lastVerified: '2026-02-16T01:21:26.585Z'
+      checksum: sha256:158833f51543c19ab33d492d7b524326f8fd31d20098b9087ae00c67c2786123
+      lastVerified: '2026-02-14T14:57:24.820Z'
     usage-tracker:
       path: .aios-core/development/scripts/usage-tracker.js
       type: script
@@ -5748,21 +5902,20 @@ entities:
     workflow-state-manager:
       path: .aios-core/development/scripts/workflow-state-manager.js
       type: script
-      purpose: Entity at .aios-core/development/scripts/workflow-state-manager.js
+      purpose: Entity at .aios-core\development\scripts\workflow-state-manager.js
       keywords:
         - workflow
         - state
         - manager
       usedBy:
-        - next
         - verify-workflow-gaps
       dependencies: []
       adaptability:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:89177df1184e1650ba3e9aad18c9a3b07f6b77711f0271949e8676701695e431
-      lastVerified: '2026-02-16T01:52:27.944Z'
+      checksum: sha256:56758b8af8b53b74b89b758d84feda85b73ea196704c2969573d183025f052d7
+      lastVerified: '2026-02-08T13:33:24.304Z'
     workflow-validator:
       path: .aios-core/development/scripts/workflow-validator.js
       type: script
@@ -5979,69 +6132,127 @@ entities:
         extensionPoints: []
       checksum: sha256:36b02cbc8f83d6a309ca07dd79e503fd9ed9f7406db6922876db0bc7afebe894
       lastVerified: '2026-02-08T13:33:24.318Z'
-    activation-runtime:
-      path: .aios-core/development/scripts/activation-runtime.js
+    session-context-loader:
+      path: .aios-core/development/scripts/session-context-loader.js
       type: script
-      purpose: Entity at .aios-core/development/scripts/activation-runtime.js
+      purpose: Entity at .aios-core/development/scripts/session-context-loader.js
       keywords:
-        - activation
-        - runtime
+        - session
+        - context
+        - loader
       usedBy:
         - generate-greeting
       dependencies:
-        - unified-activation-pipeline
+        - context-detector
       adaptability:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:310884d94b81be976a346987822306a16a73ba812c08c3b805f4a03216ffef38
-      lastVerified: '2026-02-15T19:28:17.743Z'
+      checksum: sha256:3472e36f62301250023868324c0fff873ff54092449553fa6665188f0eda6c62
+      lastVerified: '2026-02-15T14:42:11.135Z'
+    checkpoint-manager:
+      path: .aios-core/development/scripts/navigator/checkpoint-manager.js
+      type: script
+      purpose: description || `Phase ${phase.id} checkpoint`,
+      keywords:
+        - checkpoint
+        - manager
+      usedBy:
+        - nav-checkpoint
+      dependencies:
+        - phase-detector
+      adaptability:
+        score: 0.7
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:5ff348aeb730ed6f588c3e5fb39ca06816909dfe64c60bc87beb4362786bf55d
+      lastVerified: '2026-02-15T14:58:48.324Z'
+    doctor:
+      path: .aios-core/development/scripts/navigator/doctor.js
+      type: script
+      purpose: Entity at .aios-core/development/scripts/navigator/doctor.js
+      keywords:
+        - doctor
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.7
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:60eddfe4e3222c206180d2fac6745ef1c56b508f77c3b816c12cccd74fa779bc
+      lastVerified: '2026-02-15T14:58:48.325Z'
+    orchestrator:
+      path: .aios-core/development/scripts/navigator/orchestrator.js
+      type: script
+      purpose: Entity at .aios-core/development/scripts/navigator/orchestrator.js
+      keywords:
+        - orchestrator
+      usedBy:
+        - nav-auto-navigate
+      dependencies: []
+      adaptability:
+        score: 0.7
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:4c8fbae0e962a23c4306a3881fde88353eaa077e51ac59b4ececefcfbc5740f3
+      lastVerified: '2026-02-15T14:58:48.325Z'
+    phase-detector:
+      path: .aios-core/development/scripts/navigator/phase-detector.js
+      type: script
+      purpose: Entity at .aios-core/development/scripts/navigator/phase-detector.js
+      keywords:
+        - phase
+        - detector
+      usedBy:
+        - nav-auto-navigate
+        - nav-update-roadmap
+        - nav-where-am-i
+        - checkpoint-manager
+        - post-commit-hook
+      dependencies: []
+      adaptability:
+        score: 0.7
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:cfe56c59126eaed9fcdef6927c3b0a5eda7ed3f7260943f1e68b47647e2ffaf7
+      lastVerified: '2026-02-15T14:58:48.325Z'
+    post-commit-hook:
+      path: .aios-core/development/scripts/navigator/post-commit-hook.js
+      type: script
+      purpose: Entity at .aios-core/development/scripts/navigator/post-commit-hook.js
+      keywords:
+        - post
+        - commit
+        - hook
+      usedBy: []
+      dependencies:
+        - roadmap-sync
+        - phase-detector
+      adaptability:
+        score: 0.7
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:fa4ceb21873d4e2ba318edc7080bbf4903139b703249df17c1965c9bda40aca6
+      lastVerified: '2026-02-15T14:58:48.325Z'
+    roadmap-sync:
+      path: .aios-core/development/scripts/navigator/roadmap-sync.js
+      type: script
+      purpose: Entity at .aios-core/development/scripts/navigator/roadmap-sync.js
+      keywords:
+        - roadmap
+        - sync
+      usedBy:
+        - nav-map-project
+        - nav-update-roadmap
+        - post-commit-hook
+      dependencies: []
+      adaptability:
+        score: 0.7
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:13200d1c164e2e063f0c056b75215897b47dbf50c38a54951e8a36f6123371f6
+      lastVerified: '2026-02-15T14:58:48.326Z'
   modules:
-    dev-helper:
-      path: .aios-core/core/code-intel/helpers/dev-helper.js
-      type: module
-      purpose: Code intelligence helper for @dev agent tasks - IDS G4 automation, duplicate detection, conventions, blast radius
-      keywords:
-        - code-intel
-        - dev-helper
-        - ids-g4
-        - duplicate-detection
-        - blast-radius
-        - conventions
-        - reuse
-      usedBy:
-        - dev-develop-story
-        - create-service
-        - dev-suggest-refactoring
-        - build-autonomous
-      dependencies:
-        - code-intel
-      adaptability:
-        score: 0.7
-        constraints:
-          - Requires code-intel module (NOG-1)
-        extensionPoints:
-          - Additional helper functions for other agents
-      checksum: ''
-      lastVerified: '2026-02-16T00:00:00.000Z'
-    registry-syncer:
-      path: .aios-core/core/code-intel/registry-syncer.js
-      type: module
-      purpose: Entity at .aios-core\core\code-intel\registry-syncer.js
-      keywords:
-        - registry
-        - syncer
-      usedBy:
-        - sync-registry-intel
-      dependencies:
-        - code-intel
-        - registry-loader
-      adaptability:
-        score: 0.4
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:011318e2ba5c250daae2e565a8e8fb1570c99b7569e631276a2bf46e887fc514
-      lastVerified: '2026-02-16T20:19:27.658Z'
     index.esm:
       path: .aios-core/core/index.esm.js
       type: module
@@ -6071,7 +6282,7 @@ entities:
     index:
       path: .aios-core/core/ids/index.js
       type: module
-      purpose: Entity at .aios-core\core\ids\index.js
+      purpose: Entity at .aios-core/core/ids/index.js
       keywords:
         - index
       usedBy: []
@@ -6092,7 +6303,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:89969400668078caea7398b0d7218f3f2fab2e996c05b6361e5618da2b9262d2
-      lastVerified: '2026-02-10T15:57:42.783Z'
+      lastVerified: '2026-02-14T14:57:24.811Z'
     config-cache:
       path: .aios-core/core/config/config-cache.js
       type: module
@@ -6138,8 +6349,6 @@ entities:
         - resolver
       usedBy:
         - environment-bootstrap
-        - agent-config-loader
-        - greeting-builder
         - config-loader
         - bob-orchestrator
       dependencies:
@@ -6238,7 +6447,7 @@ entities:
     session-manager:
       path: .aios-core/core/synapse/session/session-manager.js
       type: module
-      purpose: Entity at .aios-core\core\synapse\session\session-manager.js
+      purpose: Entity at .aios-core/core/synapse/session/session-manager.js
       keywords:
         - session
         - manager
@@ -6251,7 +6460,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:6127c2ef1c6db83cfd5796443789964a8da72635b23b367fb351592c070d05dd
-      lastVerified: '2026-02-11T01:54:22.657Z'
+      lastVerified: '2026-02-14T14:57:24.818Z'
     task-elicitation:
       path: .aios-core/core/elicitation/task-elicitation.js
       type: module
@@ -6584,7 +6793,7 @@ entities:
       checksum: sha256:bf34286fcb59053dbc13a88a199c309325e38cb1edc34b31cf85a33f2b7288b7
       lastVerified: '2026-02-08T13:33:24.335Z'
     engine:
-      path: .aios-core/core/health-check/engine.js
+      path: .aios-core/core/synapse/engine.js
       type: module
       purpose: Entity at .aios-core/core/synapse/engine.js
       keywords:
@@ -6592,15 +6801,14 @@ entities:
       usedBy: []
       dependencies:
         - context-tracker
-        - context-builder
         - formatter
         - memory-bridge
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:65e9c48d8ba7991fcd32bb1ea0bd087ce6d709ebf7f5bc4fd4b2e947ee5ddf0f
-      lastVerified: '2026-02-16T01:21:26.584Z'
+      checksum: sha256:90572bd719491e1f57bc43cb29179ad8de34db9d752fff54bf8638d9fcf22bc7
+      lastVerified: '2026-02-14T14:57:24.815Z'
     ideation-engine:
       path: .aios-core/core/ideation/ideation-engine.js
       type: module
@@ -6625,7 +6833,6 @@ entities:
         - registry
         - loader
       usedBy:
-        - registry-syncer
         - index
         - framework-governor
       dependencies: []
@@ -6633,8 +6840,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:88c67bace0a5ab6a14cb1d096e3f9cab9f5edc0dd8377788e27b692ccefbd487
-      lastVerified: '2026-02-16T20:19:27.659Z'
+      checksum: sha256:7fb2edb5a605765757d5ca7201025a7ff4cf7bfa9b18f35a311e2b658532a865
+      lastVerified: '2026-02-08T13:33:24.336Z'
     manifest-generator:
       path: .aios-core/core/manifest/manifest-generator.js
       type: module
@@ -6797,8 +7004,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:84b4b5c9e2b82ea679137cecd69d16b05b92dfd295fb4bc95dfdbb3b32351f95
-      lastVerified: '2026-02-08T13:33:24.339Z'
+      checksum: sha256:01994c29f376624ea4dbd236539b35abe45f1bdaa07494d7633254be784dd20a
+      lastVerified: '2026-02-15T14:42:11.128Z'
     bob-status-writer:
       path: .aios-core/core/orchestration/bob-status-writer.js
       type: module
@@ -6886,7 +7093,7 @@ entities:
     context-manager:
       path: .aios-core/core/orchestration/context-manager.js
       type: module
-      purpose: Entity at .aios-core/core/orchestration/context-manager.js
+      purpose: Entity at .aios-core\core\orchestration\context-manager.js
       keywords:
         - context
         - manager
@@ -6897,8 +7104,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:0dd03e84d0a2ea06165825c5eb7154531337ef98275918119ccd03769af576c3
-      lastVerified: '2026-02-16T02:23:49.802Z'
+      checksum: sha256:91b4e84f1a6246f9a1c94191a096bf9ee26b668610cc3fe7aec893931f54d241
+      lastVerified: '2026-02-08T13:33:24.342Z'
     dashboard-integration:
       path: .aios-core/core/orchestration/dashboard-integration.js
       type: module
@@ -7104,7 +7311,6 @@ entities:
         - session
         - state
       usedBy:
-        - greeting-builder
         - bob-orchestrator
         - brownfield-handler
         - greenfield-handler
@@ -7114,8 +7320,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:a16682446733eabf5ffd99b1624f3978216f73bad602092304263ac806a11ed8
-      lastVerified: '2026-02-08T13:33:24.350Z'
+      checksum: sha256:5e159ed85fbdba4887a58336c2128edf69ef36246bb2ed1debb9dfabd7e6b6df
+      lastVerified: '2026-02-14T23:51:25.940Z'
     skill-dispatcher:
       path: .aios-core/core/orchestration/skill-dispatcher.js
       type: module
@@ -7130,8 +7336,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:4a54fec3a3338431d1d9634ebf06f3983d06903570c45d67d0ac15d25c95eb05
-      lastVerified: '2026-02-16T02:23:49.802Z'
+      checksum: sha256:0a2dcf12cb8b04c26006c57016cf0d651332e60dee09762f88927c216464abde
+      lastVerified: '2026-02-08T13:33:24.350Z'
     subagent-prompt-builder:
       path: .aios-core/core/orchestration/subagent-prompt-builder.js
       type: module
@@ -7152,12 +7358,11 @@ entities:
     surface-checker:
       path: .aios-core/core/orchestration/surface-checker.js
       type: module
-      purpose: Entity at .aios-core\core\orchestration\surface-checker.js
+      purpose: Entity at .aios-core/core/orchestration/surface-checker.js
       keywords:
         - surface
         - checker
       usedBy:
-        - greeting-builder
         - bob-orchestrator
         - brownfield-handler
         - greenfield-handler
@@ -7166,8 +7371,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:92e9d5bea78c3db4940c39f79e537821b36451cd524d69e6b738272aa63c08b6
-      lastVerified: '2026-02-08T13:33:24.350Z'
+      checksum: sha256:b64d80da9d49a59e7e1015be1c9208eb861fc7937b71a96587bc50e26f4b2afa
+      lastVerified: '2026-02-15T14:42:11.129Z'
     task-complexity-classifier:
       path: .aios-core/core/orchestration/task-complexity-classifier.js
       type: module
@@ -7218,8 +7423,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:4b3d536da60627e56847431e5a9d0d6c8db1a5e75e6b4ec32313373942984791
-      lastVerified: '2026-02-08T13:33:24.351Z'
+      checksum: sha256:0e60bff79f1d4f2ef27981ace2fc33a64c5baf5fe2a7a407dcd6f1c35662db4b
+      lastVerified: '2026-02-14T14:57:24.814Z'
     workflow-executor:
       path: .aios-core/core/orchestration/workflow-executor.js
       type: module
@@ -7244,7 +7449,7 @@ entities:
     workflow-orchestrator:
       path: .aios-core/core/orchestration/workflow-orchestrator.js
       type: module
-      purpose: Entity at .aios-core/core/orchestration/workflow-orchestrator.js
+      purpose: Entity at .aios-core\core\orchestration\workflow-orchestrator.js
       keywords:
         - workflow
         - orchestrator
@@ -7257,13 +7462,12 @@ entities:
         - tech-stack-detector
         - condition-evaluator
         - skill-dispatcher
-        - execution-profile-resolver
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:5d3f14d5f12742ce87c3ae8745f82f4ac9f3df3d1889cf16bfc13743130963f9
-      lastVerified: '2026-02-16T02:23:49.803Z'
+      checksum: sha256:fb89682ea86d33bf8453062f82be0313fbfdf4da42ebf0220dd12dc29238a50a
+      lastVerified: '2026-02-08T13:33:24.353Z'
     operation-guard:
       path: .aios-core/core/permissions/operation-guard.js
       type: module
@@ -7501,6 +7705,7 @@ entities:
         - agent-exit-hooks
         - greeting-builder
         - unified-activation-pipeline
+        - session-context-loader
         - index.esm
         - context-loader
       dependencies: []
@@ -8323,7 +8528,7 @@ entities:
     registry-updater:
       path: .aios-core/core/ids/registry-updater.js
       type: module
-      purpose: Entity at .aios-core/core/ids/registry-updater.js
+      purpose: Entity at .aios-core\core\ids\registry-updater.js
       keywords:
         - registry
         - updater
@@ -8335,8 +8540,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:6d87ec21d32acff1ba9b9d13025118c106ce6db59c1339c3a6ef4b2a02fd7f52
-      lastVerified: '2026-02-14T05:21:37.024Z'
+      checksum: sha256:0e59a35fb77eaf7e757ecdc283381d8e6d20e9d24844280a4605af316f152f5e
+      lastVerified: '2026-02-09T00:54:48.061Z'
     core-config:
       path: .aios-core/core-config.yaml
       type: module
@@ -8355,8 +8560,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:c1266389772b3fcf3e4c91df085bd38dc0b01d0a5f98bdf977d134972ccaf49b
-      lastVerified: '2026-02-15T22:52:07.323Z'
+      checksum: sha256:8e1d03a482b820a6a23d5821fae9e23fcb13cb70c95daec388e2e03d3283861f
+      lastVerified: '2026-02-09T16:42:28.275Z'
     active-modules.verify:
       path: .aios-core/core/memory/__tests__/active-modules.verify.js
       type: module
@@ -8374,11 +8579,11 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:70f2689446adb1dc72faf2bd2c26c2d142814d4be30fee4f0e58b9163095a400
-      lastVerified: '2026-02-09T20:43:07.612Z'
+      lastVerified: '2026-02-14T14:57:24.812Z'
     circuit-breaker:
       path: .aios-core/core/ids/circuit-breaker.js
       type: module
-      purpose: Entity at .aios-core\core\ids\circuit-breaker.js
+      purpose: Entity at .aios-core/core/ids/circuit-breaker.js
       keywords:
         - circuit
         - breaker
@@ -8391,7 +8596,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:1b35331ba71a6ce17869bab255e087fc540291243f9884fc21ed89f7efc122a4
-      lastVerified: '2026-02-10T15:57:42.781Z'
+      lastVerified: '2026-02-14T14:57:24.810Z'
     framework-governor:
       path: .aios-core/core/ids/framework-governor.js
       type: module
@@ -8410,7 +8615,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:e72741b1aff1975bb13e03ab36f86b0193cd745c488dc024a181c938cb74a859
-      lastVerified: '2026-02-10T15:57:42.782Z'
+      lastVerified: '2026-02-14T14:57:24.810Z'
     g1-epic-creation:
       path: .aios-core/core/ids/gates/g1-epic-creation.js
       type: module
@@ -8427,7 +8632,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:ba7c342b176f38f2c80cb141fe820b9a963a1966e33fef3a4ec568363b011c5f
-      lastVerified: '2026-02-10T15:31:01.199Z'
+      lastVerified: '2026-02-14T14:57:24.810Z'
     g2-story-creation:
       path: .aios-core/core/ids/gates/g2-story-creation.js
       type: module
@@ -8444,7 +8649,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:cb6312358a3d1c92a0094d25861e0747d0c1d63ffb08c82d8ed0a115a73ca1c5
-      lastVerified: '2026-02-10T15:31:01.200Z'
+      lastVerified: '2026-02-14T14:57:24.811Z'
     g3-story-validation:
       path: .aios-core/core/ids/gates/g3-story-validation.js
       type: module
@@ -8461,7 +8666,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:7b24912d9e80c5ca52d11950b133df6782b1c0c0914127ccef0dc8384026b4ae
-      lastVerified: '2026-02-10T15:31:01.200Z'
+      lastVerified: '2026-02-14T14:57:24.811Z'
     g4-dev-context:
       path: .aios-core/core/ids/gates/g4-dev-context.js
       type: module
@@ -8478,7 +8683,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:a0fdd59eb0c3a8a59862397b1af5af84971ce051929ae9d32361b7ca99a444fb
-      lastVerified: '2026-02-10T15:31:01.200Z'
+      lastVerified: '2026-02-14T14:57:24.811Z'
     registry-healer:
       path: .aios-core/core/ids/registry-healer.js
       type: module
@@ -8495,11 +8700,11 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:8e68b00f5291b7934e7d95ed609b55248051fb9301025dfcc4a6aa8ba1e4795e
-      lastVerified: '2026-02-10T15:31:01.201Z'
+      lastVerified: '2026-02-14T14:57:24.812Z'
     verification-gate:
       path: .aios-core/core/ids/verification-gate.js
       type: module
-      purpose: Entity at .aios-core\core\ids\verification-gate.js
+      purpose: Entity at .aios-core/core/ids/verification-gate.js
       keywords:
         - verification
         - gate
@@ -8512,28 +8717,27 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:96050661c90fa52bfc755911d02c9194ec35c00e71fc6bbc92a13686dd53bb91
-      lastVerified: '2026-02-10T15:31:01.202Z'
+      lastVerified: '2026-02-14T14:57:24.812Z'
     context-tracker:
       path: .aios-core/core/synapse/context/context-tracker.js
       type: module
-      purpose: Entity at .aios-core\core\synapse\context\context-tracker.js
+      purpose: Entity at .aios-core/core/synapse/context/context-tracker.js
       keywords:
         - context
         - tracker
       usedBy:
         - engine
-        - pipeline-collector
       dependencies: []
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
       checksum: sha256:3b09f8323fab171e3aaa7a3a079b6cd65f6fd5775e661c24c295a4775cb31a68
-      lastVerified: '2026-02-11T02:17:11.045Z'
+      lastVerified: '2026-02-14T14:57:24.815Z'
     memory-bridge:
       path: .aios-core/core/synapse/memory/memory-bridge.js
       type: module
-      purpose: Entity at .aios-core\core\synapse\memory\memory-bridge.js
+      purpose: Entity at .aios-core/core/synapse/memory/memory-bridge.js
       keywords:
         - memory
         - bridge
@@ -8548,11 +8752,11 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:5f039ad6aa1ab15250efbb2eb20346b95ba545c6d9c270ee7abf96e18930db1e
-      lastVerified: '2026-02-12T13:07:01.327Z'
+      lastVerified: '2026-02-14T14:57:24.817Z'
     formatter:
       path: .aios-core/core/synapse/output/formatter.js
       type: module
-      purpose: Entity at .aios-core\core\synapse\output\formatter.js
+      purpose: Entity at .aios-core/core/synapse/output/formatter.js
       keywords:
         - formatter
       usedBy:
@@ -8564,11 +8768,11 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:fe4f6c2f6091defb6af66dad71db0640f919b983111087f8cc5821e3d44ca864
-      lastVerified: '2026-02-12T12:53:14.531Z'
+      lastVerified: '2026-02-14T14:57:24.817Z'
     tokens:
       path: .aios-core/core/synapse/utils/tokens.js
       type: module
-      purpose: Entity at .aios-core\core\synapse\utils\tokens.js
+      purpose: Entity at .aios-core/core/synapse/utils/tokens.js
       keywords:
         - tokens
       usedBy:
@@ -8580,295 +8784,692 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:3b927daec51d0a791f3fe4ef9aafc362773450e7cf50eb4b6d8ae9011d70df9a
-      lastVerified: '2026-02-12T12:53:14.532Z'
-    context-builder:
-      path: .aios-core/core/synapse/context/context-builder.js
+      lastVerified: '2026-02-14T14:57:24.818Z'
+    domain-loader:
+      path: .aios-core/core/synapse/domain/domain-loader.js
       type: module
-      purpose: Entity at .aios-core/core/synapse/context/context-builder.js
+      purpose: Entity at .aios-core/core/synapse/domain/domain-loader.js
       keywords:
-        - context
-        - builder
+        - domain
+        - loader
       usedBy:
-        - engine
+        - l0-constitution
+        - l1-global
+        - l2-agent
+        - l3-workflow
+        - l5-squad
+        - l6-keyword
+        - l7-star-command
       dependencies: []
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:121cd0a1df8a44098831cd4335536e8facf4e65b8aec48f4ce9c2d432dc6252a
-      lastVerified: '2026-02-15T17:43:13.183Z'
-    hook-runtime:
-      path: .aios-core/core/synapse/runtime/hook-runtime.js
+      checksum: sha256:af788f9da956b89eef1e5eb4ef4efdf05ca758c8969a2c375f568119495ebc05
+      lastVerified: '2026-02-14T14:57:24.815Z'
+    l0-constitution:
+      path: .aios-core/core/synapse/layers/l0-constitution.js
       type: module
-      purpose: Entity at .aios-core\core\synapse\runtime\hook-runtime.js
+      purpose: Entity at .aios-core/core/synapse/layers/l0-constitution.js
       keywords:
-        - hook
-        - runtime
+        - l0
+        - constitution
       usedBy: []
-      dependencies: []
-      adaptability:
-        score: 0.4
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:2fdd54f36a1bbb4ba05d6577c607cf2d6711dcf9a06284fc935676189a461fa2
-      lastVerified: '2026-02-16T20:22:35.904Z'
-    migration-config:
-      path: .aios-core/core/migration/migration-config.yaml
-      type: module
-      purpose: '"Migrate from flat to modular structure"'
-      keywords:
-        - migration
-        - config
-        - aios
-        - configuration
-      usedBy: []
-      dependencies: []
-      adaptability:
-        score: 0.4
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:2267027b27300a12173ba317c72df54732e865e3ed2305ad2553e6ddac3ec610
-      lastVerified: '2026-02-15T19:17:32.641Z'
-    module-mapping:
-      path: .aios-core/core/migration/module-mapping.yaml
-      type: module
-      purpose: AIOS Module Mapping v2.0 → v4.0.4
-      keywords:
-        - module
-        - mapping
-        - aios
-        - v2.0
-        - v4.0.4
-      usedBy: []
-      dependencies: []
-      adaptability:
-        score: 0.4
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:d141e61387871c366be93b5751b32363708e2d6ea42cceda3c4b3be13a4ed80f
-      lastVerified: '2026-02-15T19:17:32.642Z'
-    hook-collector:
-      path: .aios-core/core/synapse/diagnostics/collectors/hook-collector.js
-      type: module
-      purpose: Entity at .aios-core/core/synapse/diagnostics/collectors/hook-collector.js
-      keywords:
-        - hook
-        - collector
-      usedBy:
-        - synapse-diagnostics
-      dependencies: []
-      adaptability:
-        score: 0.4
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:9cd342cc0c2253296f931a977b20408370c1e1bebe02a22a757418d4d0630884
-      lastVerified: '2026-02-16T01:21:26.583Z'
-    manifest-collector:
-      path: .aios-core/core/synapse/diagnostics/collectors/manifest-collector.js
-      type: module
-      purpose: Entity at .aios-core/core/synapse/diagnostics/collectors/manifest-collector.js
-      keywords:
-        - manifest
-        - collector
-      usedBy:
-        - synapse-diagnostics
       dependencies:
         - domain-loader
+        - layer-processor
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:3dc895eb94485320ecbaca3a1d29e3776cfb691dd7dcc71cf44b34af30e8ebb6
-      lastVerified: '2026-02-15T19:17:32.643Z'
-    pipeline-collector:
-      path: .aios-core/core/synapse/diagnostics/collectors/pipeline-collector.js
+      checksum: sha256:2123a6a44915aaac2a6bbd26c67c285c9d1e12b50fe42a8ada668306b07d1c4a
+      lastVerified: '2026-02-14T14:57:24.815Z'
+    l1-global:
+      path: .aios-core/core/synapse/layers/l1-global.js
       type: module
-      purpose: Entity at .aios-core/core/synapse/diagnostics/collectors/pipeline-collector.js
+      purpose: Entity at .aios-core/core/synapse/layers/l1-global.js
       keywords:
-        - pipeline
-        - collector
-      usedBy:
-        - synapse-diagnostics
-      dependencies:
-        - context-tracker
-      adaptability:
-        score: 0.4
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:8655b6240e2f54b70def1a8c2fae00d40e2615cb95fd7ca0d64c2e0a6dfe3b73
-      lastVerified: '2026-02-15T19:17:32.643Z'
-    session-collector:
-      path: .aios-core/core/synapse/diagnostics/collectors/session-collector.js
-      type: module
-      purpose: Entity at .aios-core/core/synapse/diagnostics/collectors/session-collector.js
-      keywords:
-        - session
-        - collector
-      usedBy:
-        - synapse-diagnostics
-      dependencies: []
-      adaptability:
-        score: 0.4
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:a116d884d6947ddc8e5f3def012d93696576c584c4fde1639b8d895924fc09ea
-      lastVerified: '2026-02-15T19:17:32.643Z'
-    uap-collector:
-      path: .aios-core/core/synapse/diagnostics/collectors/uap-collector.js
-      type: module
-      purpose: Entity at .aios-core/core/synapse/diagnostics/collectors/uap-collector.js
-      keywords:
-        - uap
-        - collector
-      usedBy:
-        - synapse-diagnostics
-      dependencies: []
-      adaptability:
-        score: 0.4
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:dd025894f8f0d3bd22a147dbc0debef8b83e96f3c59483653404b3cd5a01d5aa
-      lastVerified: '2026-02-15T19:17:32.643Z'
-    report-formatter:
-      path: .aios-core/core/synapse/diagnostics/report-formatter.js
-      type: module
-      purpose: Entity at .aios-core/core/synapse/diagnostics/report-formatter.js
-      keywords:
-        - report
-        - formatter
-      usedBy:
-        - synapse-diagnostics
-      dependencies: []
-      adaptability:
-        score: 0.4
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:33faf5820fbe2559e425707ff6ce19ce20b046d7222814d4040e739317ff998e
-      lastVerified: '2026-02-16T01:21:26.584Z'
-    synapse-diagnostics:
-      path: .aios-core/core/synapse/diagnostics/synapse-diagnostics.js
-      type: module
-      purpose: Entity at .aios-core/core/synapse/diagnostics/synapse-diagnostics.js
-      keywords:
-        - synapse
-        - diagnostics
+        - l1
+        - global
       usedBy: []
       dependencies:
-        - hook-collector
-        - session-collector
-        - manifest-collector
-        - pipeline-collector
-        - uap-collector
-        - report-formatter
         - domain-loader
+        - layer-processor
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:de9dffce0e380637027cbd64b062d3eeffc37e42a84a337e5758fbef39fe3a00
-      lastVerified: '2026-02-15T19:17:32.644Z'
-    consistency-collector:
-      path: .aios-core/core/synapse/diagnostics/collectors/consistency-collector.js
+      checksum: sha256:21f6969e6d64e9a85c876be6799db4ca7d090f0009057f4a06ead8da12392d45
+      lastVerified: '2026-02-14T14:57:24.816Z'
+    l2-agent:
+      path: .aios-core/core/synapse/layers/l2-agent.js
       type: module
-      purpose: Entity at .aios-core/core/synapse/diagnostics/collectors/consistency-collector.js
+      purpose: Entity at .aios-core/core/synapse/layers/l2-agent.js
       keywords:
-        - consistency
-        - collector
+        - l2
+        - agent
       usedBy: []
       dependencies:
-        - safe-read-json
+        - domain-loader
+        - layer-processor
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:65f4255f87c9900400649dc8b9aedaac4851b5939d93e127778bd93cee99db12
-      lastVerified: '2026-02-16T01:21:26.582Z'
-    output-analyzer:
-      path: .aios-core/core/synapse/diagnostics/collectors/output-analyzer.js
+      checksum: sha256:a8677dc58ae7927c5292a4b52883bbc905c8112573b8b8631f0b8bc01ea2b6e6
+      lastVerified: '2026-02-14T14:57:24.816Z'
+    l3-workflow:
+      path: .aios-core/core/synapse/layers/l3-workflow.js
       type: module
-      purpose: string }>}
+      purpose: Entity at .aios-core/core/synapse/layers/l3-workflow.js
       keywords:
-        - output
-        - analyzer
+        - l3
+        - workflow
       usedBy: []
       dependencies:
-        - safe-read-json
+        - domain-loader
+        - layer-processor
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:e6846b1aba0a6cba17c297a871861d4f8199d7500220bff296a6a3291e32493e
-      lastVerified: '2026-02-16T01:21:26.584Z'
-    quality-collector:
-      path: .aios-core/core/synapse/diagnostics/collectors/quality-collector.js
+      checksum: sha256:496cbd71d7dac9c1daa534ffac45c622d0c032f334fedf493e9322a565b2b181
+      lastVerified: '2026-02-14T14:57:24.816Z'
+    l4-task:
+      path: .aios-core/core/synapse/layers/l4-task.js
       type: module
-      purpose: Entity at .aios-core/core/synapse/diagnostics/collectors/quality-collector.js
+      purpose: Entity at .aios-core/core/synapse/layers/l4-task.js
       keywords:
-        - quality
-        - collector
+        - l4
+        - task
       usedBy: []
       dependencies:
-        - safe-read-json
+        - layer-processor
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:30ae299eab6d569d09afe3530a5b2f1ff35ef75366a1ab56a9e2a57d39d3611c
-      lastVerified: '2026-02-16T01:21:26.584Z'
-    relevance-matrix:
-      path: .aios-core/core/synapse/diagnostics/collectors/relevance-matrix.js
+      checksum: sha256:30df70c04b16e3aff95899211ef6ae3d9f0a8097ebdc7de92599fc6cb792e5f0
+      lastVerified: '2026-02-14T14:57:24.816Z'
+    l5-squad:
+      path: .aios-core/core/synapse/layers/l5-squad.js
       type: module
-      purpose: Entity at .aios-core/core/synapse/diagnostics/collectors/relevance-matrix.js
+      purpose: Entity at .aios-core/core/synapse/layers/l5-squad.js
       keywords:
-        - relevance
-        - matrix
+        - l5
+        - squad
       usedBy: []
       dependencies:
-        - safe-read-json
+        - domain-loader
+        - layer-processor
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:f92c4f7061dc82eed4310a27b69eade33d3015f9beb1bed688601a2dccbad22e
-      lastVerified: '2026-02-16T01:21:26.584Z'
-    safe-read-json:
-      path: .aios-core/core/synapse/diagnostics/collectors/safe-read-json.js
+      checksum: sha256:fabc2bcb01543ef7d249631da02297d67e42f4d0fcf9e159b79564793ce8f7bb
+      lastVerified: '2026-02-14T14:57:24.816Z'
+    l6-keyword:
+      path: .aios-core/core/synapse/layers/l6-keyword.js
       type: module
-      purpose: Entity at .aios-core/core/synapse/diagnostics/collectors/safe-read-json.js
+      purpose: Entity at .aios-core/core/synapse/layers/l6-keyword.js
       keywords:
-        - safe
-        - read
-        - json
+        - l6
+        - keyword
+      usedBy: []
+      dependencies:
+        - domain-loader
+        - layer-processor
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:8e5405999a2ce2f3ca4e62e863cf702ba27448914241f5eb8f02760bc7477523
+      lastVerified: '2026-02-14T14:57:24.817Z'
+    l7-star-command:
+      path: .aios-core/core/synapse/layers/l7-star-command.js
+      type: module
+      purpose: Entity at .aios-core/core/synapse/layers/l7-star-command.js
+      keywords:
+        - l7
+        - star
+        - command
+      usedBy: []
+      dependencies:
+        - domain-loader
+        - layer-processor
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:3b8372ac1c51830c1ef560b1012b112a3559651b0750e42f2037f7fe9e6787d6
+      lastVerified: '2026-02-14T14:57:24.817Z'
+    layer-processor:
+      path: .aios-core/core/synapse/layers/layer-processor.js
+      type: module
+      purpose: Entity at .aios-core/core/synapse/layers/layer-processor.js
+      keywords:
+        - layer
+        - processor
       usedBy:
-        - consistency-collector
-        - output-analyzer
-        - quality-collector
-        - relevance-matrix
-        - timing-collector
+        - l0-constitution
+        - l1-global
+        - l2-agent
+        - l3-workflow
+        - l4-task
+        - l5-squad
+        - l6-keyword
+        - l7-star-command
       dependencies: []
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:dc7bcd13779207ad67b1c3929b7e1e0ccfa3563f3458c20cad28cb1922e9a74c
-      lastVerified: '2026-02-16T01:21:26.584Z'
-    timing-collector:
-      path: .aios-core/core/synapse/diagnostics/collectors/timing-collector.js
+      checksum: sha256:73cb0e5b4bada80d8e256009004679e483792077fac4358c6466cd77136f79fa
+      lastVerified: '2026-02-14T14:57:24.817Z'
+    generate-constitution:
+      path: .aios-core/core/synapse/scripts/generate-constitution.js
       type: module
-      purpose: Entity at .aios-core/core/synapse/diagnostics/collectors/timing-collector.js
+      purpose: Entity at .aios-core/core/synapse/scripts/generate-constitution.js
       keywords:
-        - timing
-        - collector
+        - generate
+        - constitution
       usedBy: []
-      dependencies:
-        - safe-read-json
+      dependencies: []
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:2523ce93f863a28f798d992c4f2fab041c91a09413b3186fd290e6035b391587
-      lastVerified: '2026-02-16T01:21:26.584Z'
+      checksum: sha256:65405d3e4ee080d19a25fb8967e159360a289e773c15253a351ee163b469e877
+      lastVerified: '2026-02-14T14:57:24.818Z'
+    paths:
+      path: .aios-core/core/synapse/utils/paths.js
+      type: module
+      purpose: Entity at .aios-core/core/synapse/utils/paths.js
+      keywords:
+        - paths
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:bf8cf93c1a16295e7de055bee292e2778a152b6e7d6c648dbc054a4b04dffc10
+      lastVerified: '2026-02-14T14:57:24.818Z'
+    bob-decision-heuristics:
+      path: .aios-core/core/orchestration/bob-decision-heuristics.md
+      type: module
+      purpose: sessionCheck.formattedMessage,
+      keywords:
+        - bob
+        - decision
+        - heuristics
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:933e279143bde98fa487e5b9b97b9efbb6b30e644e23d6f4621c397adb5ea2d1
+      lastVerified: '2026-02-15T14:42:11.126Z'
+    bob-voice-swipe-file:
+      path: .aios-core/core/orchestration/bob-voice-swipe-file.md
+      type: module
+      purpose: BOB Voice DNA & Swipe File
+      keywords:
+        - bob
+        - voice
+        - swipe
+        - file
+        - dna
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:cbc509e007fde26b322ada35582320a6d60946754b1d03d6ac0d59b56c2153ae
+      lastVerified: '2026-02-15T14:42:11.129Z'
   agents:
+    aios-analyst:
+      path: .aios-core/development/agents/aios-analyst.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - aios
+        - analyst
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:82648e02adef6adbf0552635a539fc9b13b627eeb579119d23c2cb93c1f16d35
+      lastVerified: '2026-02-15T14:42:11.130Z'
+    aios-architect:
+      path: .aios-core/development/agents/aios-architect.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - aios
+        - architect
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:aeea57ce4205d60061bf0883a22dd605d5aeb61af0d3e763d003c493c39cbaf9
+      lastVerified: '2026-02-15T14:42:11.130Z'
+    aios-data-engineer:
+      path: .aios-core/development/agents/aios-data-engineer.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - aios
+        - data
+        - engineer
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:a5d5ac309f836eb5d900301e4362222b7a09f1ec2e7d708cc29acdfaf359c788
+      lastVerified: '2026-02-15T14:42:11.131Z'
+    aios-dev:
+      path: .aios-core/development/agents/aios-dev.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - aios
+        - dev
+        - developer
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:2fcc53b9c2afa6ff44b79b1faadea41e214b4f7cebbcc33db6638dd403261e8e
+      lastVerified: '2026-02-15T14:42:11.131Z'
+    aios-devops:
+      path: .aios-core/development/agents/aios-devops.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - aios
+        - devops
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:874b6035ab3845c8c7eb4fafd46d7939b67ea6561b0994042a2b551ddae2cc6a
+      lastVerified: '2026-02-15T14:42:11.131Z'
+    aios-pm:
+      path: .aios-core/development/agents/aios-pm.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - aios
+        - pm
+        - project
+        - manager
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:9cfa5e2630f98994dd6ecc6b8fd7102ba6e592ad0169e2240cec4893dd54f622
+      lastVerified: '2026-02-15T14:42:11.132Z'
+    aios-po:
+      path: .aios-core/development/agents/aios-po.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - aios
+        - po
+        - product
+        - owner
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:720cabe9bc75a18d68e564682dfdefd4c18ab3af282e1edd02b05b1954209376
+      lastVerified: '2026-02-15T14:42:11.132Z'
+    aios-qa:
+      path: .aios-core/development/agents/aios-qa.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - aios
+        - qa
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:7e286b2f8732a3178c03b6c26952aa710b14ec080af3d301750c92b6be9ba651
+      lastVerified: '2026-02-15T14:42:11.132Z'
+    aios-sm:
+      path: .aios-core/development/agents/aios-sm.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - aios
+        - sm
+        - scrum
+        - master
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:3d831badfe1f67bbb9e3ed98dfdfbb7ea6f540a817631ee1a35ebb696104ac60
+      lastVerified: '2026-02-15T14:42:11.132Z'
+    aios-ux:
+      path: .aios-core/development/agents/aios-ux.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - aios
+        - ux
+        - design
+        - expert
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:08e866fe41b51c68c470419c57c62a2386d29628acc8205148a5523f680a0b5e
+      lastVerified: '2026-02-15T14:42:11.132Z'
+    copy-chief:
+      path: .aios-core/development/agents/copy-chief.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - copy
+        - chief
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:625a5deb87ecbbb438f5f430c20c052ef486d4f12663da433638c9f995a1182e
+      lastVerified: '2026-02-15T14:42:11.133Z'
+    cyber-chief:
+      path: .aios-core/development/agents/cyber-chief.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - cyber
+        - chief
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:38170a86fcd8ab5f9232aef98a84393005cfdc522e692bb8d92f3c72a9e7bfc6
+      lastVerified: '2026-02-15T14:42:11.133Z'
+    data-chief:
+      path: .aios-core/development/agents/data-chief.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - data
+        - chief
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:a485bee3a2b9bb0ec75f5fc97c0a7324d2dc778c2e71ed28b02473b255af1a54
+      lastVerified: '2026-02-15T14:42:11.133Z'
+    db-sage:
+      path: .aios-core/development/agents/db-sage.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - db
+        - sage
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:cf9562d4230795d03f9623041b99c92c6b0829d50ddc6c1d9425e181efd49748
+      lastVerified: '2026-02-15T14:42:11.133Z'
+    design-chief:
+      path: .aios-core/development/agents/design-chief.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - design
+        - chief
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:cc6af2a9818df9e6bb41a16a9b638f9fdf235128574ab0f6dc2947a30fb3844c
+      lastVerified: '2026-02-15T23:20:39.036Z'
+    design-system:
+      path: .aios-core/development/agents/design-system.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - design
+        - system
+        - (brad
+        - frost)
+        - autonomous
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:ae71dc4e36af1191a64cd7b0831e5946531d9af2bc464d829c84d9b0e0e88bbb
+      lastVerified: '2026-02-15T14:42:11.134Z'
+    legal-chief:
+      path: .aios-core/development/agents/legal-chief.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - legal
+        - chief
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:4c725f674a0976387c4ffb8acbe199331fe98438be33f33be9b5acc1d8b2265c
+      lastVerified: '2026-02-15T14:42:11.134Z'
+    oalanicolas:
+      path: .aios-core/development/agents/oalanicolas.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - oalanicolas
+        - '@oalanicolas'
+        - mind
+        - cloning
+        - architect
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:f8f1128e9a998f36fdb4256904edd077823fd216c7fbeedb6602df690e738618
+      lastVerified: '2026-02-15T14:42:11.134Z'
+    pedro-valerio:
+      path: .aios-core/development/agents/pedro-valerio.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - pedro
+        - valerio
+        - '@pedro-valerio'
+        - process
+        - absolutist
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:505fe03af8d5926ba05f0caeddb210dcddd082b54fb4c2cedec4d1688d18dfc9
+      lastVerified: '2026-02-15T14:42:11.134Z'
+    sop-extractor:
+      path: .aios-core/development/agents/sop-extractor.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - sop
+        - extractor
+        - '@sop-extractor'
+        - extraction
+        - specialist
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:96a944fc6bf12444ee65a1ad8803c8a3c0194c87603f8dfc1ef9985c8204d6ac
+      lastVerified: '2026-02-15T14:42:11.134Z'
+    squad:
+      path: .aios-core/development/agents/squad.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - squad
+        - architect
+      usedBy:
+        - squad-creator-create
+        - squad-creator-design
+        - squad-creator-list
+        - squad-creator-migrate
+        - squad-creator-validate
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:d73c3ef7c72417205cec553d500ac4978ab06c01c761f101a361021473469e87
+      lastVerified: '2026-02-15T14:42:11.134Z'
+    story-chief:
+      path: .aios-core/development/agents/story-chief.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - story
+        - chief
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:b30cf41b7b40d92178f90f3bf7c5776c345cea8570a5ce2f37bbb6414e8f0bae
+      lastVerified: '2026-02-15T14:42:11.134Z'
+    tools-orchestrator:
+      path: .aios-core/development/agents/tools-orchestrator.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - tools
+        - orchestrator
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:728dcdcf5d8d33f4cb46395e1e168eb31324de1c0b98857fff6ec59d60cd1256
+      lastVerified: '2026-02-15T23:20:39.039Z'
+    traffic-masters-chief:
+      path: .aios-core/development/agents/traffic-masters-chief.md
+      type: agent
+      purpose: '|'
+      keywords:
+        - traffic
+        - masters
+        - chief
+        - autonomous
+        - agent
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:a2e2b644bca28fedaf84764f3f49fb06eb103220291ef2ecafda2c84ccac9cc2
+      lastVerified: '2026-02-15T14:42:11.135Z'
+    navigator:
+      path: .aios-core/development/agents/navigator.md
+      type: agent
+      purpose: '''Show all available commands with descriptions'''
+      keywords:
+        - navigator
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:83c0a74431e5dd6d80e9a330b27c2e5982e5f16925551daa2713d3a093ef12b7
+      lastVerified: '2026-02-15T14:58:48.323Z'
     aios-master:
       path: .aios-core/development/agents/aios-master.md
       type: agent
@@ -8883,8 +9484,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:092161d318ab523b8cd5c3dc8a2bd19accc23ab7fa731d5b4fa11c5afb8b5a08
-      lastVerified: '2026-02-16T19:52:18.846Z'
+      checksum: sha256:de31b484b16a61adb18683dbc4451868c153b916bf1be92eb7654057b7a25a04
+      lastVerified: '2026-02-15T23:20:39.034Z'
     analyst:
       path: .aios-core/development/agents/analyst.md
       type: agent
@@ -8897,8 +9498,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:470384d9ee05d1373fe7519602f135179a88a35895252277823b35339dafd2a3
-      lastVerified: '2026-02-08T13:33:24.383Z'
+      checksum: sha256:c78859c42acfb3d85ee5e0f458fe2e6d86135858fb6f01267f1e11b34cbc481b
+      lastVerified: '2026-02-15T23:20:39.035Z'
     architect:
       path: .aios-core/development/agents/architect.md
       type: agent
@@ -8911,8 +9512,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:624cc2a9e8a6cb1549321614927649714a867332272faaa5861f4378206f1c34
-      lastVerified: '2026-02-15T19:33:09.493Z'
+      checksum: sha256:32a9170fc013b048b572141b7205af59ccc37ec69228c32d33e5f9a0b36baa77
+      lastVerified: '2026-02-15T23:20:39.035Z'
     data-engineer:
       path: .aios-core/development/agents/data-engineer.md
       type: agent
@@ -8927,8 +9528,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:4be2e5bff60e58d7444d39030edd1e8d34e326e6d1267ae84772871f3e76ec19
-      lastVerified: '2026-02-08T13:33:24.384Z'
+      checksum: sha256:a0cdd51eaa734003daf80c89275cad7f3a104b7042e5a312b62ffd5383bd6dc2
+      lastVerified: '2026-02-15T23:20:39.036Z'
     dev:
       path: .aios-core/development/agents/dev.md
       type: agent
@@ -8942,12 +9543,12 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:994d1015878d4deec3ee1b0f14cfa9ff6ffcf60ee1f83abe969daaa01b95b4db
-      lastVerified: '2026-02-08T13:33:24.385Z'
+      checksum: sha256:7a62aee6925e22230e896f336c5b9c93082d2ddad2106de209f1b2c3f98f9732
+      lastVerified: '2026-02-15T23:20:39.036Z'
     devops:
       path: .aios-core/development/agents/devops.md
       type: agent
-      purpose: '''Show all available commands with descriptions'''
+      purpose: '''Automated PR validation workflow (Story 3.3-3.4)'''
       keywords:
         - devops
       usedBy: []
@@ -8956,8 +9557,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:958dd617e0c3d4fd3419102df22e6c3f3acdbab30f1333e687ce6191e41113f8
-      lastVerified: '2026-02-15T19:33:09.494Z'
+      checksum: sha256:f97d986bd3b66907f5fe066c72478839c64d69442ae4533c8b0c01e904749e50
+      lastVerified: '2026-02-15T23:20:39.037Z'
     pm:
       path: .aios-core/development/agents/pm.md
       type: agent
@@ -8972,8 +9573,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:e724b248d30c0e67e316e72d5d408c4c57b2da0bfe0cc014e48415531703e765
-      lastVerified: '2026-02-08T13:33:24.386Z'
+      checksum: sha256:9f76602e9102bdda595dcfd13fd1f582745776729a62363c22b431f3f722f8bf
+      lastVerified: '2026-02-15T23:20:39.037Z'
     po:
       path: .aios-core/development/agents/po.md
       type: agent
@@ -8986,12 +9587,28 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:4b092282c4a6fab6cadb15c9a5792f851766525d152d18bc8d2f0c8d66366c7d
-      lastVerified: '2026-02-08T13:33:24.386Z'
+      checksum: sha256:74b76c0086f0ecf23bfdc91877494a3a9062de78733bb2c69667f281b4375c30
+      lastVerified: '2026-02-15T23:20:39.037Z'
+    prompt-architect:
+      path: .aios-core/development/agents/prompt-architect.md
+      type: agent
+      purpose: '''Show all available commands with descriptions'''
+      keywords:
+        - prompt
+        - architect
+        - prompt-architect
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:1c1e18eec3debf72674a2d424df7670203bc63c71b3ed2ec2d1f840e778e21a9
+      lastVerified: '2026-02-15T23:20:39.038Z'
     qa:
       path: .aios-core/development/agents/qa.md
       type: agent
-      purpose: '''Show all available commands with descriptions'''
+      purpose: qa
       keywords:
         - qa
       usedBy: []
@@ -9000,8 +9617,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:0f8fb4bce7c75852937bc822547ce74735b212c16761b2d58d95356708fd0a14
-      lastVerified: '2026-02-15T19:33:09.495Z'
+      checksum: sha256:bdc9c07fc1a8f0914ab569d8a92d38471686d14f3fa64e163bfb1689fc1b6aa6
+      lastVerified: '2026-02-15T23:20:39.038Z'
     sm:
       path: .aios-core/development/agents/sm.md
       type: agent
@@ -9014,8 +9631,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:0f0a8171a68035594ef5dfc5f3e611e6a16198b3c3cc116b98c34d38ef2045ad
-      lastVerified: '2026-02-08T13:33:24.387Z'
+      checksum: sha256:dcdda42a2a8a14fc755976bc3132c9e9026de377fb40090f119a0c6f41b0ace1
+      lastVerified: '2026-02-15T23:20:39.038Z'
     squad-creator:
       path: .aios-core/development/agents/squad-creator.md
       type: agent
@@ -9030,8 +9647,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:396afae845d9d53f510e64360dc814954f181d8832c93593e96ede0f84f41d41
-      lastVerified: '2026-02-08T13:33:24.388Z'
+      checksum: sha256:028331ac45e395646f190af857a191aaffab56f479f7ced8e38a5de9794f281c
+      lastVerified: '2026-02-15T23:20:39.039Z'
     ux-design-expert:
       path: .aios-core/development/agents/ux-design-expert.md
       type: agent
@@ -9047,8 +9664,8 @@ entities:
         score: 0.3
         constraints: []
         extensionPoints: []
-      checksum: sha256:5dde817f220f1f452b53026643e267eb027e4a131d1e5fc4bbcf6ebd772da3bb
-      lastVerified: '2026-02-15T19:33:09.495Z'
+      checksum: sha256:a53c15f7df36baebbcb1abbdc99cea97bb63957b0ade1a768b49c5780c61e870
+      lastVerified: '2026-02-15T23:20:39.039Z'
   checklists:
     agent-quality-gate:
       path: .aios-core/development/checklists/agent-quality-gate.md
@@ -9086,22 +9703,6 @@ entities:
         extensionPoints: []
       checksum: sha256:869fbc8fbc333ac8eea4eca3ea4ab9ca79917fa5e53735b70d634c85ac6420c8
       lastVerified: '2026-02-08T13:33:24.391Z'
-    brownfield-compatibility-checklist:
-      path: .aios-core/development/checklists/brownfield-compatibility-checklist.md
-      type: checklist
-      purpose: Brownfield Compatibility Checklist
-      keywords:
-        - brownfield
-        - compatibility
-        - checklist
-      usedBy: []
-      dependencies: []
-      adaptability:
-        score: 0.6
-        constraints: []
-        extensionPoints: []
-      checksum: sha256:d07b1f9e2fcb78f62188ef05a6e6f75a94821b6bb297ea67f2e782e260d27f49
-      lastVerified: '2026-02-16T04:49:07.414Z'
   data:
     agent-config-requirements:
       path: .aios-core/data/agent-config-requirements.yaml
@@ -9117,8 +9718,8 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:e798a0ec2b67b37d00b0561f68f8bfb62d8f4d725cb6af81338ec1f2a75992e3
-      lastVerified: '2026-02-15T19:17:32.644Z'
+      checksum: sha256:d5b88cfcaf5b47b991ef7e16e0c8b79b368f7e4dd5650979934353e4b6e486cc
+      lastVerified: '2026-02-08T13:33:24.393Z'
     aios-kb:
       path: .aios-core/data/aios-kb.md
       type: data
@@ -9134,8 +9735,8 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:c322dbd1964172108be6d1520f8d596472fac69258ef3a12d7b9e26079553b18
-      lastVerified: '2026-02-15T22:52:07.324Z'
+      checksum: sha256:c3596f743ba36a99618ab32ab0a5b3c2419ca91128fb79a66e44ebbf7474806f
+      lastVerified: '2026-02-14T14:57:24.819Z'
     entity-registry:
       path: .aios-core/data/entity-registry.yaml
       type: data
@@ -9184,8 +9785,8 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:7acc7123b9678ce4a48ee5c0e5f4d84665b7f3c34798178640c2c1e982c2e2c3
-      lastVerified: '2026-02-08T13:33:24.396Z'
+      checksum: sha256:60e6732a93a4ab18514ab7798208670b96e6c866b8b174f1e1537ba9cb229e5d
+      lastVerified: '2026-02-15T14:42:11.130Z'
     workflow-patterns:
       path: .aios-core/data/workflow-patterns.yaml
       type: data
@@ -9257,6 +9858,26 @@ entities:
         extensionPoints: []
       checksum: sha256:1a7262912c8c8e264d307f0d38a1109bdb2b9bff9ea7d8855c768835201aa59b
       lastVerified: '2026-02-08T13:33:24.397Z'
+    frontend-audit-2025:
+      path: .aios-core/data/tech-presets/frontend-audit-2025.md
+      type: data
+      purpose: >-
+        'Preset abrangente para projetos React/Next.js com rigor profissional em Tailwind CSS (v3/v4), Design Tokens
+        (W3C DTCG), shadcn/ui, Performance (Core Web Vitals), Acessibilidade (WCAG 2.2) e DX'
+      keywords:
+        - frontend
+        - audit
+        - '2025'
+        - quality
+      usedBy: []
+      dependencies:
+        - button
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:5e2e88f617b793e9e15fa95ac462e0d58389544024ff733499cebee2b8080e35
+      lastVerified: '2026-02-15T14:42:11.130Z'
 categories:
   - id: tasks
     description: Executable task workflows for agent operations

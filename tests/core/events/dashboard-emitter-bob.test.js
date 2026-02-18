@@ -39,6 +39,8 @@ describe('DashboardEmitter Bob-specific methods', () => {
     process.env.NODE_ENV = originalEnv;
     DashboardEmitter.instance = null;
     await fs.remove(tempDir);
+    // FASE 6: Wait for pending microtasks
+    await new Promise(resolve => setImmediate(resolve));
   });
 
   describe('DashboardEventType', () => {

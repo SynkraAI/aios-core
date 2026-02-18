@@ -7,9 +7,10 @@ Location: `.aios-core/data/tech-presets/`
 
 ### Available Presets
 
-| Preset         | Technologies                                                   | Best For                                         |
-| -------------- | -------------------------------------------------------------- | ------------------------------------------------ |
-| `nextjs-react` | Next.js 14+, React, TypeScript, Tailwind, Zustand, React Query | Fullstack web apps, SaaS, E-commerce, Dashboards |
+| Preset                  | Technologies                                                                          | Best For                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| `nextjs-react`          | Next.js 14+, React, TypeScript, Tailwind, Zustand, React Query                        | Fullstack web apps, SaaS, E-commerce, Dashboards              |
+| `frontend-audit-2025`   | Next.js 14+, React 19+, TypeScript, Tailwind v3/v4, shadcn/ui, Design Tokens (W3C)   | Frontend quality audits, Design Systems, Accessibility (WCAG) |
 
 ### How to Use Presets
 
@@ -80,4 +81,4 @@ techPreset:
 
 ---
 
-_Updated: 2025-01-27_
+_Updated: 2026-02-13_

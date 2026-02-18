@@ -35,7 +35,13 @@ describe('BobStatusWriter', () => {
   });
 
   afterEach(async () => {
+    // FASE 6: Complete writer before cleanup
+    if (writer && typeof writer.complete === 'function') {
+      await writer.complete().catch(() => {});
+    }
     await fs.remove(tempDir);
+    // Wait for pending microtasks
+    await new Promise(resolve => setImmediate(resolve));
   });
 
   describe('constructor', () => {
@@ -376,7 +382,13 @@ describe('Edge Cases', () => {
   });
 
   afterEach(async () => {
+    // FASE 6: Complete writer before cleanup
+    if (writer && typeof writer.complete === 'function') {
+      await writer.complete().catch(() => {});
+    }
     await fs.remove(tempDir);
+    // Wait for pending microtasks
+    await new Promise(resolve => setImmediate(resolve));
   });
 
   it('should handle concurrent writes gracefully', async () => {

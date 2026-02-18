@@ -1,0 +1,196 @@
+# Brownfield Complete Workflow
+# Most common use case (70%) - audit existing codebase through component building
+
+workflow:
+  id: "design-system-brownfield-complete"
+  name: "Design System Brownfield Complete"
+  description: "Complete workflow for brownfield projects: audit UI chaos, consolidate patterns, extract tokens, plan migration, then build production components"
+  version: "2.0.0"
+  type: "sequential"
+
+metadata:
+  author: "Brad (Design System Architect)"
+  created_date: "2025-10-27"
+  last_modified: "2025-10-27"
+  tags:
+    - design-system
+    - brownfield
+    - audit
+    - consolidation
+    - components
+    - brad
+
+inputs:
+  codebase_path:
+    type: "string"
+    description: "Path to codebase for audit (e.g., ./src)"
+    required: true
+    validation: "Must be valid directory path"
+
+  project_name:
+    type: "string"
+    description: "Project name for output organization"
+    required: true
+    default: "my-app"
+
+steps:
+  - id: "step_1_audit"
+    name: "Audit Codebase for Pattern Redundancy"
+    type: "agent"
+    agent: "design-system"
+    command: "*audit"
+    inputs:
+      path: "{{codebase_path}}"
+    outputs:
+      inventory_report: "outputs/design-system/{{project_name}}/audit/inventory.yaml"
+      state_file: "outputs/design-system/{{project_name}}/.state.yaml"
+    error_handling:
+      strategy: "fail"
+
+  - id: "step_2_consolidate"
+    name: "Consolidate Patterns Using Clustering"
+    type: "agent"
+    agent: "design-system"
+    command: "*consolidate"
+    inputs:
+      inventory: "{{step_1_audit.inventory_report}}"
+    outputs:
+      consolidation_report: "outputs/design-system/{{project_name}}/consolidation/decisions.yaml"
+      reduction_metrics: "outputs/design-system/{{project_name}}/consolidation/metrics.yaml"
+    error_handling:
+      strategy: "fail"
+
+  - id: "step_3_tokenize"
+    name: "Extract Design Tokens"
+    type: "agent"
+    agent: "design-system"
+    command: "*tokenize"
+    inputs:
+      consolidation: "{{step_2_consolidate.consolidation_report}}"
+    outputs:
+      tokens_yaml: "outputs/design-system/{{project_name}}/tokens/tokens.yaml"
+      tokens_json: "outputs/design-system/{{project_name}}/tokens/tokens.json"
+      tokens_css: "outputs/design-system/{{project_name}}/tokens/tokens.css"
+      tokens_tailwind: "outputs/design-system/{{project_name}}/tokens/tokens.tailwind.js"
+    error_handling:
+      strategy: "fail"
+
+  - id: "step_4_migrate"
+    name: "Generate Migration Strategy"
+    type: "agent"
+    agent: "design-system"
+    command: "*migrate"
+    inputs:
+      tokens: "{{step_3_tokenize.tokens_yaml}}"
+      consolidation: "{{step_2_consolidate.consolidation_report}}"
+    outputs:
+      migration_plan: "outputs/design-system/{{project_name}}/migration/plan.md"
+    error_handling:
+      strategy: "fail"
+
+  - id: "step_5_shock_report"
+    name: "Generate Shock Report (Optional)"
+    type: "agent"
+    agent: "design-system"
+    command: "*shock-report"
+    inputs:
+      inventory: "{{step_1_audit.inventory_report}}"
+      consolidation: "{{step_2_consolidate.consolidation_report}}"
+    outputs:
+      shock_report: "outputs/design-system/{{project_name}}/reports/shock-report.html"
+    error_handling:
+      strategy: "skip"
+
+  - id: "step_6_calculate_roi"
+    name: "Calculate ROI (Optional)"
+    type: "agent"
+    agent: "design-system"
+    command: "*calculate-roi"
+    inputs:
+      consolidation: "{{step_2_consolidate.consolidation_report}}"
+    outputs:
+      roi_report: "outputs/design-system/{{project_name}}/reports/roi.yaml"
+    error_handling:
+      strategy: "skip"
+
+  - id: "step_7_build_atoms"
+    name: "Build Atomic Components"
+    type: "agent"
+    agent: "design-system"
+    command: "*build"
+    inputs:
+      tokens: "{{step_3_tokenize.tokens_yaml}}"
+      patterns: "button,input,label,icon"
+    outputs:
+      components: "outputs/design-system/{{project_name}}/components/atoms/"
+    error_handling:
+      strategy: "fail"
+
+  - id: "step_8_compose_molecules"
+    name: "Compose Molecule Components"
+    type: "agent"
+    agent: "design-system"
+    command: "*compose"
+    inputs:
+      atoms: "{{step_7_build_atoms.components}}"
+      patterns: "form-field,card,alert"
+    outputs:
+      molecules: "outputs/design-system/{{project_name}}/components/molecules/"
+    error_handling:
+      strategy: "fail"
+
+  - id: "step_9_document"
+    name: "Generate Pattern Library Documentation"
+    type: "agent"
+    agent: "design-system"
+    command: "*document"
+    inputs:
+      components: "outputs/design-system/{{project_name}}/components/"
+      tokens: "{{step_3_tokenize.tokens_yaml}}"
+    outputs:
+      documentation: "outputs/design-system/{{project_name}}/docs/"
+      storybook: "outputs/design-system/{{project_name}}/.storybook/"
+    error_handling:
+      strategy: "skip"
+
+outputs:
+  design_system_complete:
+    type: "boolean"
+    description: "Workflow completed successfully"
+    source: "step_9_document.success"
+
+  tokens_location:
+    type: "string"
+    description: "Path to design tokens"
+    source: "step_3_tokenize.tokens_yaml"
+
+  components_location:
+    type: "string"
+    description: "Path to generated components"
+    source: "outputs/design-system/{{project_name}}/components/"
+
+  migration_plan_location:
+    type: "string"
+    description: "Path to migration plan"
+    source: "step_4_migrate.migration_plan"
+
+  shock_report_location:
+    type: "string"
+    description: "Path to shock report (if generated)"
+    source: "step_5_shock_report.shock_report"
+
+  roi_metrics:
+    type: "string"
+    description: "ROI calculation results"
+    source: "step_6_calculate_roi.roi_report"
+
+global_error_handling:
+  on_error: "abort"
+  notification:
+    enabled: true
+    channels:
+      - console
+
+security:
+  authorization_required: false
+  audit_logging: true

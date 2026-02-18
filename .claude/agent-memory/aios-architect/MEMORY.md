@@ -36,6 +36,44 @@
 - Post-commit hook: `.aios-core/infrastructure/scripts/git-hooks/post-commit.js` + `.husky/post-commit`
 - Validate agents task: `.aios-core/development/tasks/validate-agents.md`
 
+## Video Media Content Downloader Architecture (2026-02-10)
+- v1.2.0 restored from backup after v2.0/v2.1 regression (context window overflow)
+- Full architectural review completed: 10 findings (2 CRITICAL, 3 HIGH, 3 MEDIUM, 2 LOW)
+- CRITICAL P1: No context window management instructions (texts >15k words overflow)
+- CRITICAL P2: 3 bundled scripts duplicate CLI functionality (CLI is superior in all cases)
+- HIGH P3: "Ready text" flow has no pre-processing or size gating
+- HIGH P4: Script paths ambiguous (`scripts/` vs absolute skill-resources path)
+- HIGH P5: CLI missing `chunk` standalone and `ingest` commands for ready text
+- Architecture principle: CLI = Hands (I/O), Skill = Brain (LLM analysis)
+- CLI at `tools/video-transcriber/` (Python, Typer); supports mlx-whisper, bundled scripts don't
+- Key gap: CLI `process` only accepts URL/file, not ready text (VTT/SRT/TXT)
+- Recommended: Add Context Window Management section + `ingest` CLI command
+- Bundled scripts should be REMOVED; CLI is canonical implementation
+- Text size gates: <5k direct, 5-15k cautious, 15-30k chunked, >30k CLI-assisted
+
+## Master Prompt Best Practices Research (2026-02-10)
+- Full research document: `docs/architecture/master-prompt-best-practices.md`
+- Key insight (Anthropic): "Intelligence is not the bottleneck, context is"
+- Goldilocks zone: not over-specified (brittle if-else) nor under-specified (vague)
+- Claude 4.6 change: CRITICAL/MUST/NEVER language now causes over-triggering; use natural language
+- AIOS strengths: numbered options, elicit=true, persona profiles, dependency loading, permission modes
+- AIOS gaps: aggressive language, no context rot prevention, no NOTES.md pattern, prompts too long
+- Persona research: effective for creative tasks, ineffective for factual accuracy tasks
+- 3 requirements for good personas: Specific + Detailed + Automated
+- Context rot has 4 forms: Poisoning, Distraction, Confusion, Clash
+- Top recommendations: R1-audit aggressive language, R4-separate core from modules, R5-NOTES.md pattern
+
+## Ensinio Transformation Plan (2026-02-11)
+- Full 6-month implementation plan created: 12 sprints, 36 stories, ~394 SP
+- Output: `/Users/luizfosc/Documents/Ensinio-Analysis/PLANO-TRANSFORMACAO-6-MESES.md`
+- Stack: Laravel 8 / PHP 7.4 (5,345 files) + Next.js 14 / React 18 (10,135 files)
+- Multi-tenant: database-per-tenant, 1,163 migrations
+- Score: 5.1/10 current -> 6.5 (Fase 1) -> 7.8 (Fase 2) -> 9.0 (Fase 3)
+- Top priorities: SQL Injection (52 queries), API keys hardcoded, 267 unauth routes
+- Key decisions: PHP 7.4->8.x and Laravel 8->10/11 migrations NOT in scope (separate projects)
+- Architecture patterns: Repository Pattern, Integration Gateway, API Versioning
+- Assumed team: 4-6 devs, velocity ~40 SP/sprint
+
 ## Pre-existing Test Failures (not EPIC-ACT related)
 - squads/mmos-squad/ (6 suites): missing clickup module
 - tests/core/orchestration/ (2 suites): greenfield-handler, terminal-spawner

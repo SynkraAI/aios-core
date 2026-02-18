@@ -24,19 +24,6 @@ async function runWizard(options = {}) {
   const wizardPath = path.join(__dirname, '..', 'packages', 'installer', 'src', 'wizard', 'index.js');
 
   if (!fs.existsSync(wizardPath)) {
-    // Fallback to legacy wizard if new wizard not found
-    const legacyScript = path.join(__dirname, 'aios-init.js');
-    if (fs.existsSync(legacyScript)) {
-      if (!options.quiet) {
-        console.log('⚠️  Using legacy wizard (src/wizard not found)');
-      }
-      // Legacy wizard doesn't support options, pass via env vars
-      process.env.AIOS_INSTALL_FORCE = options.force ? '1' : '';
-      process.env.AIOS_INSTALL_QUIET = options.quiet ? '1' : '';
-      process.env.AIOS_INSTALL_DRY_RUN = options.dryRun ? '1' : '';
-      require(legacyScript);
-      return;
-    }
     console.error('❌ Initialization wizard not found');
     console.error('Please ensure AIOS-FullStack is installed correctly.');
     process.exit(1);
@@ -66,6 +53,7 @@ USAGE:
   npx @synkra/aios-core@latest validate     # Validate installation integrity
   npx @synkra/aios-core@latest info         # Show system info
   npx @synkra/aios-core@latest doctor       # Run diagnostics
+  npx @synkra/aios-core@latest context      # Manage session context
   npx @synkra/aios-core@latest --version    # Show version
   npx @synkra/aios-core@latest --version -d # Show detailed version info
   npx @synkra/aios-core@latest --help       # Show this help
@@ -83,6 +71,12 @@ VALIDATION:
   aios validate --repair --dry-run # Preview repairs
   aios validate --detailed         # Show detailed file list
 
+CONTEXT MANAGEMENT:
+  aios context set <name>                # Set context manually
+  aios context show                      # Display current context
+  aios context clear                     # Reset context
+  aios context auto                      # Auto-detect context
+
 CONFIGURATION:
   aios config show                       # Show resolved configuration
   aios config show --debug               # Show with source annotations
@@ -99,13 +93,13 @@ SERVICE DISCOVERY:
 
 EXAMPLES:
   # Install in current directory
-  npx @synkra/aios-core@latest
+  npx aios-core@latest
 
   # Install with minimal mode (only expansion-creator)
-  npx @synkra/aios-core-minimal@latest
+  npx aios-core-minimal@latest
 
   # Create new project
-  npx @synkra/aios-core@latest init my-project
+  npx aios-core@latest init my-project
 
   # Search for workers
   aios workers search "json csv"
@@ -126,7 +120,7 @@ async function showVersion() {
 
   // Detailed version output (Story 7.2: Version Tracking)
   console.log(`AIOS-FullStack v${packageJson.version}`);
-  console.log('Package: @synkra/aios-core');
+  console.log('Package: aios-core');
 
   // Check for local installation
   const localVersionPath = path.join(process.cwd(), '.aios-core', 'version.json');
@@ -485,7 +479,7 @@ Examples:
     });
     hasErrors = true;
     console.log('✗ AIOS Core not installed');
-    console.log('  Run: npx @synkra/aios-core@latest');
+    console.log('  Run: npx aios-core@latest');
   }
 
   // Check 5: AIOS Pro license status (Task 5.1)
@@ -1003,6 +997,17 @@ async function initProject() {
 // Command routing (async main function)
 async function main() {
   switch (command) {
+    case 'context':
+      // Visual Context System - Story CLI-DX-1
+      try {
+        const { run } = require('../.aios-core/cli/commands/context/index.js');
+        await run(process.argv);
+      } catch (error) {
+        console.error(`❌ Context command error: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+
     case 'workers':
       // Service Discovery CLI - Story 2.7
       try {

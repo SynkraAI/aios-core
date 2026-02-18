@@ -1,0 +1,243 @@
+# Workflow: Productivity Optimization (DEAL Framework)
+# Version: 1.0.0
+# DNA Source: thinking_dna.frameworks.primary.DEAL
+# Created: 2026-02-12
+
+workflow:
+  id: wf-productivity-optimization
+  name: "Productivity Optimization via DEAL Framework"
+  description: "Apply Tim Ferriss's DEAL framework to any productivity challenge"
+  version: "1.0.0"
+
+  variables:
+    problem_statement:
+      type: string
+      required: true
+      description: "The productivity challenge or goal"
+
+    current_time_spent:
+      type: string
+      required: false
+      description: "How much time currently spent on this area"
+
+    target_outcome:
+      type: string
+      required: false
+      description: "Desired end state"
+
+  phases:
+    # ========================================================================
+    # PHASE 1: DEFINE
+    # ========================================================================
+    - id: phase-define
+      name: "Define - Clarify Desired Outcomes"
+      description: "What do you really want? What are you optimizing for?"
+
+      agent: tim-ferriss-chief
+      task: execute-deal-framework
+      task_step: "STEP 1: Define"
+
+      input:
+        problem_statement: "{{variables.problem_statement}}"
+        current_situation: "{{variables.current_time_spent}}"
+
+      output:
+        - path: "deal-analysis/01-define.md"
+          type: markdown
+          description: "Clear outcome statement with success metrics"
+
+      questions:
+        - "What do I really want?"
+        - "What would my ideal day/week/lifestyle look like?"
+        - "What am I optimizing for? (Time, money, freedom?)"
+        - "If I could only work 2 hours per week on this, what would I do?"
+
+      validation:
+        - check: "Clear outcome statement defined"
+          severity: BLOCKING
+
+      duration_estimate: "15-30 min"
+
+    # ========================================================================
+    # PHASE 2: ELIMINATE
+    # ========================================================================
+    - id: phase-eliminate
+      name: "Eliminate - Remove Unnecessary"
+      description: "Which 20% creates 80% of problems? What can be removed entirely?"
+
+      agent: tim-ferriss-productivity
+      task: execute-deal-framework
+      task_step: "STEP 2: Eliminate"
+
+      depends_on: [phase-define]
+
+      input:
+        outcome_defined: "deal-analysis/01-define.md"
+        problem_statement: "{{variables.problem_statement}}"
+
+      output:
+        - path: "deal-analysis/02-eliminate.md"
+          type: markdown
+          description: "Tasks eliminated with time freed estimate"
+
+      subtasks:
+        - id: "8020-analysis"
+          name: "80/20 Analysis"
+          agent: tim-ferriss-productivity
+          task: perform-8020-analysis
+          output: "deal-analysis/02a-8020-analysis.md"
+
+      tim_principle: "Doing something unimportant well does not make it important"
+
+      questions:
+        - "What happens if I don't do this at all?"
+        - "Is this productive or just active?"
+        - "Which 20% creates 80% of problems?"
+
+      validation:
+        - check: "At least 3 tasks/activities eliminated"
+          severity: WARNING
+
+      duration_estimate: "30-60 min"
+
+    # ========================================================================
+    # PHASE 3: AUTOMATE
+    # ========================================================================
+    - id: phase-automate
+      name: "Automate - Systemize Remaining"
+      description: "What can be batched, automated, or templated?"
+
+      agent: tim-ferriss-productivity
+      task: execute-deal-framework
+      task_step: "STEP 3: Automate"
+
+      depends_on: [phase-eliminate]
+
+      input:
+        remaining_tasks: "deal-analysis/02-eliminate.md"
+
+      output:
+        - path: "deal-analysis/03-automate.md"
+          type: markdown
+          description: "Automation plan with tools and time saved"
+
+      tim_principle: "If you do something more than twice, create a system"
+
+      automation_strategies:
+        - "Technology: Zapier, scripts, filters"
+        - "Batching: Group similar tasks"
+        - "Templates: Email, SOPs, checklists"
+        - "Systems: Passive income muses"
+
+      validation:
+        - check: "At least 2 automation opportunities identified"
+          severity: WARNING
+
+      duration_estimate: "30-45 min"
+
+    # ========================================================================
+    # PHASE 4: LIBERATE
+    # ========================================================================
+    - id: phase-liberate
+      name: "Liberate - Delegate and Create Freedom"
+      description: "Who else can do this? How to make location-independent?"
+
+      agent: tim-ferriss-lifestyle-design
+      task: execute-deal-framework
+      task_step: "STEP 4: Liberate"
+
+      depends_on: [phase-automate]
+
+      input:
+        remaining_after_automation: "deal-analysis/03-automate.md"
+
+      output:
+        - path: "deal-analysis/04-liberate.md"
+          type: markdown
+          description: "Delegation plan with cost/benefit analysis"
+
+      tim_principle: "Focus on your $1000/hr tasks. Delegate your $10/hr tasks"
+
+      delegation_protocol:
+        1: "Calculate your real hourly value"
+        2: "Identify delegation candidates"
+        3: "Create SOPs"
+        4: "Start with $100 test (1 week trial)"
+
+      validation:
+        - check: "Delegation plan with costs analyzed"
+          severity: WARNING
+
+      duration_estimate: "30-45 min"
+
+    # ========================================================================
+    # PHASE 5: SYNTHESIS & ACTION PLAN
+    # ========================================================================
+    - id: phase-synthesis
+      name: "Synthesis & Action Plan"
+      description: "Compile complete DEAL analysis with next steps"
+
+      agent: tim-ferriss-chief
+      task: execute-deal-framework
+      task_step: "Output"
+
+      depends_on: [phase-define, phase-eliminate, phase-automate, phase-liberate]
+
+      input:
+        define_output: "deal-analysis/01-define.md"
+        eliminate_output: "deal-analysis/02-eliminate.md"
+        automate_output: "deal-analysis/03-automate.md"
+        liberate_output: "deal-analysis/04-liberate.md"
+
+      output:
+        - path: "deal-analysis/COMPLETE-DEAL-ANALYSIS.md"
+          type: markdown
+          description: "Final DEAL analysis with action plan"
+
+        - path: "deal-analysis/NEXT-STEPS.md"
+          type: markdown
+          description: "Prioritized action items with deadlines"
+
+      summary_includes:
+        - "Total time freed"
+        - "Total investment ($ + hours)"
+        - "ROI calculation"
+        - "Next steps with deadlines"
+
+      duration_estimate: "15-20 min"
+
+  # ========================================================================
+  # WORKFLOW METADATA
+  # ========================================================================
+  metadata:
+    total_duration_estimate: "2-3 hours"
+
+    success_criteria:
+      - "Clear outcome defined with metrics"
+      - "At least 3 tasks eliminated"
+      - "At least 2 automation opportunities"
+      - "Delegation plan created"
+      - "Action plan with deadlines"
+
+    dna_source:
+      framework: "thinking_dna.frameworks.primary.DEAL"
+      heuristics:
+        - "H001: Eliminate before optimizing"
+        - "H003: Cut the 20% that creates 80% of problems"
+        - "H004: Batch similar tasks"
+        - "H005: Delegate low ROI activities"
+
+  # ========================================================================
+  # USAGE EXAMPLES
+  # ========================================================================
+  examples:
+    - problem: "Working 60 hours/week, barely making ends meet"
+      outcome: "28 hours freed, same income in 20 hours/week"
+
+    - problem: "Overwhelmed with meetings and email"
+      outcome: "Cut 15 unnecessary meetings, batched email to 2x/day, freed 10h/week"
+
+    - problem: "Want to travel but tied to office"
+      outcome: "Negotiated remote work, now location-independent"
+
+# Elite Mind Cloning Pipeline v1.0 | DNA Fidelity: 96.5%

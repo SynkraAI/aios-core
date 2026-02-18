@@ -1,0 +1,429 @@
+# Elite Mind Cloning Pipeline - Unified Workflow
+# Version: 1.0.0
+# Created: 2026-02-12
+# Purpose: End-to-end pipeline to clone ANY elite mind with 93-97% fidelity
+#
+# Usage:
+#   @squad-creator *run-workflow elite-mind-clone {mind_slug}
+#   Example: @squad-creator *run-workflow elite-mind-clone tim_ferriss
+#
+# Output:
+#   - outputs/minds/{mind_slug}/     (DNA files)
+#   - squads/{mind_slug}/            (Complete squad)
+
+workflow:
+  id: wf-elite-mind-clone
+  name: "Elite Mind Cloning Pipeline"
+  version: "1.0.0"
+  description: |
+    Universal pipeline to clone elite minds with high fidelity.
+    Integrates Mind Cloning (DNA extraction) + Squad Creator (orchestration).
+
+  author: "AIOS Squad Creator + Mind Cloning Integration"
+
+  # Variables that can be passed when invoking
+  variables:
+    mind_slug:
+      type: string
+      required: true
+      description: "Slug identifier for the mind (e.g., 'tim_ferriss', 'naval_ravikant')"
+      example: "tim_ferriss"
+
+    expert_name:
+      type: string
+      required: false
+      description: "Full name of the expert (auto-derived from mind_slug if not provided)"
+      example: "Tim Ferriss"
+
+    domain:
+      type: string
+      required: false
+      description: "Primary domain of expertise"
+      example: "productivity, meta-learning, lifestyle-design"
+
+    sources_path:
+      type: string
+      required: false
+      description: "Optional path to custom sources (Tier 0)"
+      example: "./custom-sources/tim-ferriss/"
+
+    fidelity_target:
+      type: string
+      required: false
+      default: "Elite"
+      enum: ["Basic", "Intermediate", "Premium", "Elite"]
+      description: "Target fidelity level (determines quality gates)"
+
+  # Phases of the pipeline
+  phases:
+    # ========================================================================
+    # PHASE 0: VIABILITY & RESEARCH
+    # ========================================================================
+    - id: phase-0
+      name: "Viability & Research"
+      description: "Collect and validate sources. GO/NO-GO decision gate."
+
+      agent: mind-cloner
+      task: collect-sources
+
+      input:
+        mind_slug: "{{variables.mind_slug}}"
+        sources_path: "{{variables.sources_path}}"
+
+      output:
+        - path: "outputs/minds/{{variables.mind_slug}}/sources_inventory.yaml"
+          type: yaml
+          description: "Sources classified by tier (0-3)"
+
+      gate:
+        type: GO_NO_GO
+        name: "Source Quality Gate"
+        criteria:
+          - name: "Minimum Tier 0 or Tier 1 sources"
+            check: "sources_inventory.tier_0_count + sources_inventory.tier_1_count >= 5"
+            severity: BLOCKING
+
+          - name: "Total sources minimum"
+            check: "sources_inventory.total_sources >= 10"
+            severity: BLOCKING
+
+          - name: "No red flags"
+            check: "sources_inventory.red_flags.length == 0"
+            severity: WARNING
+
+        on_fail:
+          action: ABORT
+          message: "Insufficient quality sources. Cannot proceed with cloning."
+
+      duration_estimate: "1-2h"
+      human_in_loop: true
+      prompt: "Review sources_inventory.yaml and confirm GO/NO-GO decision"
+
+    # ========================================================================
+    # PHASE 1A: VOICE DNA EXTRACTION (Parallel with 1B)
+    # ========================================================================
+    - id: phase-1a
+      name: "Voice DNA Extraction"
+      description: "Extract Voice DNA: vocabulary, tone, storytelling, immune system"
+
+      agent: mind-cloner
+      task: extract-voice-dna
+
+      parallel_with: phase-1b
+      depends_on: [phase-0]
+
+      input:
+        mind_slug: "{{variables.mind_slug}}"
+        sources: "outputs/minds/{{variables.mind_slug}}/sources_inventory.yaml"
+
+      output:
+        - path: "outputs/minds/{{variables.mind_slug}}/voice_dna.yaml"
+          type: yaml
+          description: "Voice DNA (10 components)"
+
+      validation:
+        - name: "Voice DNA completeness"
+          check: "voice_dna.completeness_score >= 7/10"
+          severity: WARNING
+
+      duration_estimate: "2-3h"
+
+    # ========================================================================
+    # PHASE 1B: THINKING DNA EXTRACTION (Parallel with 1A)
+    # ========================================================================
+    - id: phase-1b
+      name: "Thinking DNA Extraction"
+      description: "Extract Thinking DNA: frameworks, heuristics, decision architecture"
+
+      agent: mind-cloner
+      task: extract-thinking-dna
+
+      parallel_with: phase-1a
+      depends_on: [phase-0]
+
+      input:
+        mind_slug: "{{variables.mind_slug}}"
+        sources: "outputs/minds/{{variables.mind_slug}}/sources_inventory.yaml"
+
+      output:
+        - path: "outputs/minds/{{variables.mind_slug}}/thinking_dna.yaml"
+          type: yaml
+          description: "Thinking DNA (9 components)"
+
+      validation:
+        - name: "Thinking DNA completeness"
+          check: "thinking_dna.completeness_score >= 6/9"
+          severity: WARNING
+
+      duration_estimate: "2-3h"
+
+    # ========================================================================
+    # PHASE 2: DNA SYNTHESIS
+    # ========================================================================
+    - id: phase-2
+      name: "DNA Synthesis"
+      description: "Combine Voice + Thinking DNA, validate 8-layer coverage"
+
+      agent: mind-cloner
+      task: synthesize-mind
+
+      depends_on: [phase-1a, phase-1b]
+
+      input:
+        mind_slug: "{{variables.mind_slug}}"
+        voice_dna: "outputs/minds/{{variables.mind_slug}}/voice_dna.yaml"
+        thinking_dna: "outputs/minds/{{variables.mind_slug}}/thinking_dna.yaml"
+
+      output:
+        - path: "outputs/minds/{{variables.mind_slug}}/mind_dna_complete.yaml"
+          type: yaml
+          description: "Complete DNA (Voice + Thinking + Synthesis)"
+
+        - path: "outputs/minds/{{variables.mind_slug}}/quality_dashboard.md"
+          type: markdown
+          description: "Quality metrics and DNA Mental 8-layer coverage"
+
+      gate:
+        type: QUALITY_GATE
+        name: "DNA Mental 8-Layer Coverage"
+        criteria:
+          - name: "Minimum 6/8 layers covered"
+            check: "mind_dna_complete.dna_mental_coverage.layers_covered >= 6"
+            severity: BLOCKING
+            message: "Insufficient DNA coverage. Clone will be incomplete."
+
+          - name: "Elite fidelity target"
+            check: "mind_dna_complete.fidelity_percentage >= 93"
+            severity: WARNING
+            message: "Fidelity below Elite threshold (93%). Consider re-extraction."
+            only_when: "{{variables.fidelity_target}} == 'Elite'"
+
+        on_fail:
+          action: SUGGEST_REFINEMENT
+          next_phase: phase-6
+
+      duration_estimate: "30min"
+      human_in_loop: true
+      prompt: "Review quality_dashboard.md and DNA coverage"
+
+    # ========================================================================
+    # PHASE 3: SQUAD CREATION
+    # ========================================================================
+    - id: phase-3
+      name: "Squad Creation from DNA"
+      description: "Generate complete squad (agents, tasks, workflows) using DNA as foundation"
+
+      agent: squad-creator
+      task: create-squad-from-dna
+
+      depends_on: [phase-2]
+
+      input:
+        mind_slug: "{{variables.mind_slug}}"
+        expert_name: "{{variables.expert_name}}"
+        domain: "{{variables.domain}}"
+        dna_path: "outputs/minds/{{variables.mind_slug}}/"
+        dna_files:
+          voice: "voice_dna.yaml"
+          thinking: "thinking_dna.yaml"
+          complete: "mind_dna_complete.yaml"
+
+      output:
+        - path: "squads/{{variables.mind_slug}}/"
+          type: directory
+          description: "Complete squad directory"
+
+        - path: "squads/{{variables.mind_slug}}/config.yaml"
+          type: yaml
+          description: "Squad configuration"
+
+        - path: "squads/{{variables.mind_slug}}/agents/"
+          type: directory
+          description: "Agents with DNA embedded"
+
+        - path: "squads/{{variables.mind_slug}}/tasks/"
+          type: directory
+          description: "Domain-specific tasks"
+
+        - path: "squads/{{variables.mind_slug}}/workflows/"
+          type: directory
+          description: "Workflows based on mental models"
+
+      duration_estimate: "1-2h"
+
+    # ========================================================================
+    # PHASE 4: TOOL DISCOVERY (Parallel)
+    # ========================================================================
+    - id: phase-4
+      name: "Deep Tool Discovery"
+      description: "Discover and evaluate tools (MCP, API, CLI, Library, GitHub) in parallel"
+
+      agent: squad-creator
+      task: discover-tools
+
+      depends_on: [phase-3]
+      parallel: true
+
+      input:
+        mind_slug: "{{variables.mind_slug}}"
+        domain: "{{variables.domain}}"
+        squad_path: "squads/{{variables.mind_slug}}/"
+        capabilities: "squads/{{variables.mind_slug}}/config.yaml#capabilities"
+
+      output:
+        - path: "squads/{{variables.mind_slug}}/tools/integration-plan.yaml"
+          type: yaml
+          description: "Tool integration plan with RICE scoring"
+
+        - path: "squads/{{variables.mind_slug}}/tools/decision-matrix.md"
+          type: markdown
+          description: "DO NOW / DO NEXT / DO LATER / DON'T DO matrix"
+
+      duration_estimate: "2-3h"
+
+    # ========================================================================
+    # PHASE 5: SMOKE TESTING
+    # ========================================================================
+    - id: phase-5
+      name: "Fidelity Smoke Testing"
+      description: "Run 3 behavioral tests to validate clone fidelity"
+
+      agent: mind-cloner
+      task: smoke-test
+
+      depends_on: [phase-3, phase-4]
+
+      input:
+        mind_slug: "{{variables.mind_slug}}"
+        squad_path: "squads/{{variables.mind_slug}}/"
+        dna_reference: "outputs/minds/{{variables.mind_slug}}/mind_dna_complete.yaml"
+
+      output:
+        - path: "outputs/minds/{{variables.mind_slug}}/smoke_test_result.yaml"
+          type: yaml
+          description: "Test results (3 tests: identity, framework, voice)"
+
+      gate:
+        type: QUALITY_GATE
+        name: "Smoke Test Pass Rate"
+        criteria:
+          - name: "All 3 tests pass"
+            check: "smoke_test_result.passed == 3"
+            severity: BLOCKING
+            message: "Clone failed smoke tests. Refinement required."
+
+        on_fail:
+          action: TRIGGER_REFINEMENT
+          next_phase: phase-6
+
+      duration_estimate: "30min"
+      human_in_loop: true
+      prompt: "Review smoke test results. If failed, proceed to Phase 6 (Refinement)"
+
+    # ========================================================================
+    # PHASE 6: REFINEMENT (Conditional - only if Phase 5 fails)
+    # ========================================================================
+    - id: phase-6
+      name: "Clone Refinement"
+      description: "Diagnose failures and create correction plan"
+
+      agent: mind-cloner
+      task: diagnose-clone
+
+      trigger:
+        - phase-5.failed
+        - phase-2.quality_gate_warning
+
+      depends_on: [phase-5]
+
+      input:
+        mind_slug: "{{variables.mind_slug}}"
+        smoke_test_results: "outputs/minds/{{variables.mind_slug}}/smoke_test_result.yaml"
+        quality_dashboard: "outputs/minds/{{variables.mind_slug}}/quality_dashboard.md"
+
+      output:
+        - path: "outputs/minds/{{variables.mind_slug}}/diagnosis_report.md"
+          type: markdown
+          description: "Gap analysis and correction plan"
+
+        - path: "outputs/minds/{{variables.mind_slug}}/refinement_plan.yaml"
+          type: yaml
+          description: "Step-by-step refinement actions"
+
+      next_action:
+        type: LOOP_BACK
+        target_phase: phase-1a
+        message: "Re-run targeted DNA extraction based on diagnosis"
+
+      duration_estimate: "1h"
+      human_in_loop: true
+      prompt: "Review diagnosis_report.md and decide on refinement approach"
+
+  # ========================================================================
+  # WORKFLOW METADATA
+  # ========================================================================
+  metadata:
+    total_duration_estimate: "7-12h (first run), 4-6h (subsequent runs)"
+
+    success_criteria:
+      - "Phase 0 GO decision"
+      - "DNA Mental coverage >= 6/8 layers"
+      - "Smoke tests: 3/3 passed"
+      - "Squad generated with agents + tasks + workflows"
+      - "Tools discovered and prioritized"
+
+    outputs_summary:
+      dna_files: "outputs/minds/{mind_slug}/*.yaml"
+      squad_files: "squads/{mind_slug}/**"
+      reports: "outputs/minds/{mind_slug}/*.md"
+
+    reusability:
+      description: |
+        This workflow is 100% reusable for ANY elite mind.
+        Simply change the mind_slug variable and run.
+
+      examples:
+        - mind_slug: "tim_ferriss"
+          domain: "productivity, meta-learning"
+
+        - mind_slug: "naval_ravikant"
+          domain: "startups, philosophy, wealth"
+
+        - mind_slug: "nassim_taleb"
+          domain: "risk, antifragility, statistics"
+
+        - mind_slug: "ray_dalio"
+          domain: "investing, principles, management"
+
+  # ========================================================================
+  # INTEGRATION NOTES
+  # ========================================================================
+  integration:
+    mind_cloning_squad:
+      location: "squads/mind-cloning/"
+      agents_used: ["mind-cloner"]
+      tasks_used:
+        - "collect-sources"
+        - "extract-voice-dna"
+        - "extract-thinking-dna"
+        - "synthesize-mind"
+        - "smoke-test"
+        - "diagnose-clone"
+
+    squad_creator:
+      location: "squads/squad-creator/"
+      agents_used: ["oalanicolas", "pedro-valerio", "squad-chief"]
+      tasks_used:
+        - "create-squad-from-dna"  # NEW - needs to be created
+        - "discover-tools"
+
+    new_dependencies:
+      - task: "create-squad-from-dna.md"
+        status: "NEEDS CREATION"
+        location: "squads/squad-creator/tasks/"
+
+      - enhancement: "DNA integration in oalanicolas.md"
+        status: "NEEDS ENHANCEMENT"
+        location: "squads/squad-creator/agents/"
+
+# Criado com Elite Mind Cloning Pipeline | 2026-02-12

@@ -216,6 +216,69 @@ class SurfaceChecker {
   }
 
   /**
+   * Scores the impact of trade-offs for a decision (BOB-FLOW-2)
+   * @param {Object} tradeoffs - Trade-off analysis
+   * @returns {Object} Impact score and classification
+   * @private
+   */
+  _scoreTradeoffImpact(tradeoffs) {
+    let impactScore = 0;
+    const factors = [];
+
+    // Factor 1: Reversibility (can user undo this?)
+    if (tradeoffs.reversibility === 'hard') {
+      impactScore += 30;
+      factors.push('irreversible');
+    } else if (tradeoffs.reversibility === 'moderate') {
+      impactScore += 15;
+      factors.push('hard_to_reverse');
+    }
+
+    // Factor 2: Blast radius (how many things affected?)
+    if (tradeoffs.blast_radius === 'high') {
+      impactScore += 25;
+      factors.push('high_blast_radius');
+    } else if (tradeoffs.blast_radius === 'medium') {
+      impactScore += 10;
+      factors.push('medium_blast_radius');
+    }
+
+    // Factor 3: Cost (time/money/effort)
+    if (tradeoffs.cost === 'high') {
+      impactScore += 20;
+      factors.push('high_cost');
+    }
+
+    // Factor 4: User expertise required
+    if (tradeoffs.expertise_required === 'high') {
+      impactScore += 15;
+      factors.push('requires_expertise');
+    }
+
+    // Factor 5: Consequences (data loss, security, etc.)
+    if (tradeoffs.consequences?.includes('data_loss')) {
+      impactScore += 30;
+      factors.push('data_loss_risk');
+    }
+
+    // Classification
+    let classification;
+    if (impactScore >= 50) {
+      classification = 'critical'; // MUST surface
+    } else if (impactScore >= 25) {
+      classification = 'significant'; // SHOULD surface
+    } else {
+      classification = 'trivial'; // CAN auto-decide
+    }
+
+    return {
+      score: impactScore,
+      classification,
+      factors,
+    };
+  }
+
+  /**
    * Check if Bob should surface to ask human
    * @param {SurfaceContext} context - Current execution context
    * @returns {SurfaceResult} Result indicating whether to surface and how
@@ -233,6 +296,49 @@ class SurfaceChecker {
       severity: null,
       can_bypass: true,
     };
+
+    // BOB-FLOW-2: Evaluate trade-off impact FIRST
+    if (context.decision_metadata?.tradeoffs) {
+      const impact = this._scoreTradeoffImpact(context.decision_metadata.tradeoffs);
+
+      // Critical decisions MUST surface
+      if (impact.classification === 'critical') {
+        return {
+          should_surface: true,
+          criterion_id: 'tradeoff_critical',
+          criterion_name: 'Critical Trade-offs',
+          action: 'confirm',
+          message: 'Esta decisão tem consequências significativas. Por favor, revise as opções.',
+          severity: 'high',
+          can_bypass: false,
+          impact,
+        };
+      }
+
+      // Significant decisions SHOULD surface (unless single obvious option)
+      if (impact.classification === 'significant' && (context.valid_options_count || 0) >= 2) {
+        return {
+          should_surface: true,
+          criterion_id: 'tradeoff_significant',
+          criterion_name: 'Significant Trade-offs',
+          action: 'select',
+          message: context.options_with_tradeoffs || 'Há trade-offs importantes a considerar.',
+          severity: 'medium',
+          can_bypass: true,
+          impact,
+        };
+      }
+
+      // Trivial decisions can auto-decide (return early to skip criteria evaluation)
+      if (impact.classification === 'trivial' && (context.valid_options_count || 0) <= 1) {
+        return {
+          ...noSurface,
+          reason: 'trivial_auto_decide',
+          auto_selected: context.decision_metadata?.recommended_option,
+          impact,
+        };
+      }
+    }
 
     if (!this.criteria || !this.criteria.criteria) {
       return noSurface;

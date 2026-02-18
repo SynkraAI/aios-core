@@ -35,6 +35,14 @@ web-bundles/
 Thumbs.db
 nul                           # Windows temporary file
 
+# Python artifacts
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
+**/.ruff_cache/
+*.pyc
+*.pyo
+
 # Private keys and certificates
 *.key
 *.pem
@@ -364,3 +372,27 @@ build/
 .aios-core/local/
 .claude/settings.local.json
 .aios/install-log.txt
+
+# === aios-backup: auto-generated sensitive file exclusions ===
+# Tokens, credentials, secrets
+.env
+.env.*
+!.env.example
+*token*.json
+*bearer*.json
+*cookie*.json
+*secret*
+*credential*
+*.key
+
+# AIOS auto-generated status files
+.aios/claude-status.json
+.aios/devops-setup-report.yaml
+.aios/environment-report.json
+.aios/project-status.yaml
+.aios/session.json
+
+# API data / cache
+*api-data*.json
+# === end aios-backup ===
+tools/cademi-transcriber/

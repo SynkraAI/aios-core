@@ -141,6 +141,9 @@ class BobOrchestrator {
     // Story 12.6: Wire up callbacks (AC1, AC2)
     this._setupObservabilityCallbacks();
 
+    // BOB-BUGFIX-1: Cleanup orphan monitor processes from previous sessions
+    this._cleanupOrphanMonitors();
+
     this._log('BobOrchestrator initialized');
   }
 
@@ -329,6 +332,132 @@ class BobOrchestrator {
   }
 
   /**
+   * Checks if a process belongs to the current user (Task #3 - Security)
+   * Prevents attempting to kill processes owned by other users
+   * @param {string|number} pid - Process ID to check
+   * @returns {boolean} True if process belongs to current user
+   * @private
+   */
+  _isProcessOwnedByCurrentUser(pid) {
+    try {
+      const { execSync } = require('child_process');
+      const os = require('os');
+
+      // Get current user's UID
+      const currentUid = os.userInfo().uid;
+
+      // Get process owner UID (works on macOS, Linux, WSL)
+      const processUidOutput = execSync(`ps -p ${pid} -o uid= 2>/dev/null || true`, {
+        encoding: 'utf8',
+        timeout: 5000,
+      }).trim();
+
+      if (!processUidOutput) {
+        // Process doesn't exist or ps failed
+        return false;
+      }
+
+      const processUid = parseInt(processUidOutput, 10);
+
+      // Only return true if UIDs match
+      return processUid === currentUid;
+    } catch (err) {
+      // Error checking UID - assume not owned for safety
+      if (this.options.debug) {
+        this._log(`UID check failed for PID ${pid}: ${err.message}`);
+      }
+      return false;
+    }
+  }
+
+  /**
+   * Cleanup orphan monitor processes from previous sessions (BOB-BUGFIX-1)
+   *
+   * Detects and terminates monitor-claude-status.sh processes that are orphaned
+   * (their parent process no longer exists). This prevents resource waste from
+   * crashed or improperly terminated Bob sessions.
+   *
+   * Task #3 Security: Validates process ownership before kill
+   *
+   * @private
+   */
+  _cleanupOrphanMonitors() {
+    try {
+      const { execSync } = require('child_process');
+
+      // Find all monitor-claude-status.sh processes
+      const monitorsOutput = execSync(`pgrep -f "monitor-claude-status.sh" 2>/dev/null || true`, {
+        encoding: 'utf8',
+        timeout: 5000,
+      }).trim();
+
+      if (!monitorsOutput) {
+        return; // No monitors running
+      }
+
+      const monitors = monitorsOutput.split('\n').filter(Boolean);
+      let cleaned = 0;
+      let skipped = 0;
+
+      for (const pid of monitors) {
+        if (!pid) continue;
+
+        try {
+          // SECURITY: Verify process belongs to current user before attempting kill (Task #3)
+          if (!this._isProcessOwnedByCurrentUser(pid)) {
+            skipped++;
+            if (this.options.debug) {
+              this._log(`Skipped monitor ${pid}: not owned by current user (UID mismatch)`);
+            }
+            continue;
+          }
+
+          // Get parent PID
+          const ppidOutput = execSync(`ps -p ${pid} -o ppid= 2>/dev/null || true`, {
+            encoding: 'utf8',
+            timeout: 5000,
+          }).trim();
+
+          if (!ppidOutput) continue;
+
+          const ppid = ppidOutput.trim();
+
+          // Check if parent process still exists
+          try {
+            execSync(`ps -p ${ppid} 2>/dev/null`, {
+              timeout: 5000,
+            });
+            // Parent exists - monitor is valid, skip
+          } catch {
+            // Parent doesn't exist - orphan detected
+            // Safe to kill: ownership already validated
+            process.kill(parseInt(pid, 10), 'SIGTERM');
+            cleaned++;
+            this._log(`Cleaned orphan monitor process: ${pid} (parent ${ppid} dead)`);
+          }
+        } catch (err) {
+          // Error checking this process - skip
+          if (this.options.debug) {
+            this._log(`Could not check monitor ${pid}: ${err.message}`);
+          }
+        }
+      }
+
+      if (cleaned > 0) {
+        this._log(`Cleanup: ${cleaned} orphan monitor processes removed`);
+      }
+      if (skipped > 0 && this.options.debug) {
+        this._log(`Cleanup: ${skipped} monitors skipped (UID mismatch - not owned by current user)`);
+      }
+    } catch (err) {
+      // pgrep failed or no monitors - ignore
+      if (this.options.debug) {
+        this._log(`Orphan monitor cleanup error: ${err.message}`);
+      }
+    }
+  }
+
+  /**
    * Detects educational mode toggle commands in user input (Story 12.7 - AC5)
    *
    * Supported commands (case-insensitive):
@@ -476,6 +605,18 @@ class BobOrchestrator {
     }
 
     try {
+      // BOB-SAFE-1: Check dependencies on startup
+      const depsCheck = await this._checkDependencies();
+      if (!depsCheck.healthy) {
+        return {
+          success: false,
+          projectState: null,
+          action: 'dependencies_missing',
+          error: depsCheck.message,
+          missing: depsCheck.missing,
+        };
+      }
+
       // Acquire orchestration lock (AC14)
       const lockAcquired = await this.lockManager.acquireLock(resource);
       if (!lockAcquired) {
@@ -502,8 +643,49 @@ class BobOrchestrator {
       await this.bobStatusWriter.initialize();
       this._log('Bob status writer initialized');
 
-      // Story 12.5: Run data lifecycle cleanup BEFORE session check (AC8-11)
-      const cleanupResult = await this.dataLifecycleManager.runStartupCleanup();
+      // BOB-VETO-3: Load session FIRST to prevent state corruption
+      const sessionCheck = await this._checkExistingSession();
+      this._log(`Session check complete: hasSession=${sessionCheck.hasSession}`);
+
+      // BOB-SAFE-1: Validate session state schema if session exists
+      if (sessionCheck.hasSession && sessionCheck.state) {
+        const validation = this._validateSessionStateSchema(sessionCheck.state);
+        if (!validation.valid) {
+          this._log(`Session state validation failed: ${validation.errors.join(', ')}`, 'error');
+          // Discard corrupted session to prevent undefined behavior
+          await this.sessionState.clear();
+          sessionCheck.hasSession = false;
+          this._log('Corrupted session discarded, proceeding as fresh start');
+        }
+      }
+
+      // BOB-VETO-3: Extract protected files from session
+      const protectedFiles = sessionCheck.hasSession && sessionCheck.state
+        ? this._extractProtectedFiles(sessionCheck.state)
+        : [];
+
+      if (protectedFiles.length > 0) {
+        this._log(`Protecting ${protectedFiles.length} session files from cleanup`);
+      }
+
+      // BOB-SAFE-1: Check disk space before cleanup/workflow
+      const spaceCheck = await this._checkDiskSpace(100);
+      if (!spaceCheck.safe) {
+        await this.lockManager.releaseLock(resource).catch(() => {});
+        return {
+          success: false,
+          projectState: null,
+          action: 'insufficient_disk_space',
+          error: spaceCheck.message,
+          available: spaceCheck.available,
+          required: spaceCheck.required,
+        };
+      }
+
+      // Story 12.5: Run data lifecycle cleanup WITH protected files (AC8-11)
+      const cleanupResult = await this.dataLifecycleManager.runStartupCleanup({
+        protectFiles: protectedFiles,
+      });
       this._log(`Startup cleanup: ${JSON.stringify(cleanupResult)}`);
 
       // Step 1: Detect project state (AC3-6)
@@ -691,8 +873,27 @@ class BobOrchestrator {
         };
 
       case 'restart':
+        // BOB-VETO-2: Check for uncommitted work before allowing restart
+        const workStatus = await this._checkUncommittedWork(result.story);
+
+        if (workStatus.hasChanges) {
+          this._log(`Restart blocked: ${workStatus.count} uncommitted files`, 'warn');
+          return {
+            success: false,
+            action: 'restart_blocked',
+            data: {
+              reason: 'Há trabalho não commitado.',
+              vetoCondition: 'uncommitted_changes',
+              filesAffected: workStatus.files,
+              fileCount: workStatus.count,
+              suggestion: 'Commit ou stash suas mudanças antes de restart.',
+              story: result.story,
+            },
+          };
+        }
+
         // AC3 [3]: Reset story (keep epic progress, clear story workflow state)
-        this._log(`Restarting story ${result.story}`);
+        this._log(`Restarting story ${result.story} (no uncommitted work)`);
         return {
           success: true,
           action: 'restart',
@@ -811,22 +1012,45 @@ class BobOrchestrator {
         return this._handleGreenfield(context);
 
       default:
-        return {
-          action: 'unknown_state',
-          error: `Unknown project state: ${projectState}`,
-        };
+        // BOB-VETO-4: Fail-fast on unknown state
+        const validStates = Object.values(ProjectState).join(', ');
+        const errorMsg =
+          `FATAL: Unknown project state '${projectState}'. ` +
+          `Valid states: ${validStates}`;
+
+        this._log(errorMsg, 'error');
+
+        throw new Error(errorMsg);
     }
   }
 
   /**
    * Handles NO_CONFIG state — onboarding or defaults (AC3)
+   *
+   * Story BOB-VETO-1: Prevents infinite loop by checking if AIOS was already initialized
+   *
    * @param {Object} context - Execution context
    * @returns {Promise<Object>} Handler result
    * @private
    */
   async _handleNoConfig(_context) {
-    this._log('No config detected — triggering onboarding');
+    this._log('No config detected');
 
+    // BOB-VETO-1: Check if already initialized to prevent infinite loop
+    if (this._isAiosInitialized()) {
+      this._log('AIOS directory exists but config missing — repair needed', 'warn');
+      return {
+        action: 'config_repair',
+        data: {
+          message: 'AIOS já foi inicializado mas o arquivo de configuração está faltando.',
+          nextStep: 'repair_config',
+          vetoCondition: 'aios_already_initialized',
+        },
+      };
+    }
+
+    // First time init
+    this._log('First time setup — triggering onboarding');
     return {
       action: 'onboarding',
       data: {
@@ -834,6 +1058,251 @@ class BobOrchestrator {
         nextStep: 'run_aios_init',
       },
     };
+  }
+
+  /**
+   * Checks if AIOS was already initialized (BOB-VETO-1)
+   * @returns {boolean} True if .aios directory exists
+   * @private
+   */
+  _isAiosInitialized() {
+    const aiosDir = path.join(this.projectRoot, '.aios');
+    try {
+      return fs.existsSync(aiosDir);
+    } catch {
+      // Permission denied or other error - assume not initialized
+      return false;
+    }
+  }
+
+  /**
+   * Checks for uncommitted changes in working directory (BOB-VETO-2)
+   * @param {string} storyId - Story ID (for context logging)
+   * @returns {Promise<Object>} Status with hasChanges flag and file list
+   * @private
+   */
+  async _checkUncommittedWork(storyId) {
+    try {
+      const { execSync } = require('child_process');
+
+      // Get git status
+      const status = execSync('git status --porcelain', {
+        cwd: this.projectRoot,
+        encoding: 'utf8',
+        timeout: 5000,
+      });
+
+      if (!status.trim()) {
+        return { hasChanges: false, files: [] };
+      }
+
+      const files = status.trim().split('\n').map((line) => line.trim());
+
+      return {
+        hasChanges: true,
+        files,
+        count: files.length,
+      };
+    } catch (error) {
+      this._log(`Git status check failed: ${error.message}`, 'warn');
+      // Fail safe: assume no changes if git check fails (might not be a git repo)
+      return { hasChanges: false, files: [], error: error.message };
+    }
+  }
+
+  /**
+   * Extracts list of files to protect from cleanup based on session state (BOB-VETO-3)
+   * @param {Object} sessionState - Session state object
+   * @returns {string[]} List of file paths to protect
+   * @private
+   */
+  _extractProtectedFiles(sessionState) {
+    const files = new Set();
+
+    // Protect files from context snapshot
+    if (sessionState.session_state?.context_snapshot?.files_modified) {
+      const modified = sessionState.session_state.context_snapshot.files_modified;
+      if (Array.isArray(modified)) {
+        modified.forEach((f) => files.add(f));
+      }
+    }
+
+    // Protect workflow artifacts
+    if (sessionState.session_state?.workflow?.phase_results) {
+      const phaseResults = sessionState.session_state.workflow.phase_results;
+      Object.values(phaseResults).forEach((result) => {
+        if (result.implementation?.files_created) {
+          result.implementation.files_created.forEach((f) => files.add(f));
+        }
+        if (result.implementation?.files_modified) {
+          result.implementation.files_modified.forEach((f) => files.add(f));
+        }
+      });
+    }
+
+    return Array.from(files);
+  }
+
+  /**
+   * Checks if sufficient disk space is available (BOB-SAFE-1)
+   * @param {number} requiredMB - Required space in MB
+   * @returns {Promise<Object>} Safety check result
+   * @private
+   */
+  async _checkDiskSpace(requiredMB = 100) {
+    try {
+      const { execSync } = require('child_process');
+      const df = execSync('df -m .', { encoding: 'utf8' });
+      const lines = df.trim().split('\n');
+      const data = lines[1].split(/\s+/);
+      const availableMB = parseInt(data[3], 10);
+
+      if (availableMB < requiredMB) {
+        return {
+          safe: false,
+          reason: 'insufficient_disk_space',
+          available: availableMB,
+          required: requiredMB,
+          message: `Espaço em disco insuficiente. Disponível: ${availableMB}MB, Necessário: ${requiredMB}MB`,
+        };
+      }
+
+      return { safe: true, available: availableMB };
+    } catch (error) {
+      // Fail safe: assume space is available if check fails
+      this._log(`Disk space check failed: ${error.message}`, 'warn');
+      return { safe: true, warning: 'check_failed' };
+    }
+  }
+
+  /**
+   * Validates session state schema integrity (BOB-SAFE-1)
+   * @param {Object} sessionState - Session state to validate
+   * @returns {Object} Validation result
+   * @private
+   */
+  _validateSessionStateSchema(sessionState) {
+    const errors = [];
+
+    // Required top-level fields
+    if (!sessionState.session_state) {
+      errors.push('Missing session_state object');
+    }
+
+    // Required session fields
+    const required = ['epic', 'progress', 'workflow', 'last_updated'];
+    required.forEach((field) => {
+      if (!sessionState.session_state?.[field]) {
+        errors.push(`Missing required field: session_state.${field}`);
+      }
+    });
+
+    // Validate workflow structure
+    if (sessionState.session_state?.workflow) {
+      if (!sessionState.session_state.workflow.current_phase) {
+        errors.push('Missing workflow.current_phase');
+      }
+      if (!sessionState.session_state.workflow.phase_results) {
+        errors.push('Missing workflow.phase_results');
+      }
+    }
+
+    // Validate last_updated is a valid date
+    if (sessionState.session_state?.last_updated) {
+      const date = new Date(sessionState.session_state.last_updated);
+      if (isNaN(date.getTime())) {
+        errors.push('Invalid last_updated timestamp');
+      }
+    }
+
+    return {
+      valid: errors.length === 0,
+      errors,
+    };
+  }
+
+  /**
+   * Double-checks lock ownership before critical operation (BOB-SAFE-1)
+   * @param {string} resource - Resource name
+   * @returns {Promise<Object>} Lock verification result
+   * @private
+   */
+  async _verifyLockOwnership(resource) {
+    const isOwner = await this.lockManager.isLockOwner(resource);
+
+    if (!isOwner) {
+      return {
+        verified: false,
+        reason: 'lock_lost',
+        message: 'Lock foi perdido durante a operação. Outra instância pode estar executando.',
+        action: 'abort',
+      };
+    }
+
+    return { verified: true };
+  }
+
+  /**
+   * Validates required dependencies are available (BOB-SAFE-1)
+   * @returns {Promise<Object>} Dependency check result
+   * @private
+   */
+  async _checkDependencies() {
+    const required = ['git', 'node'];
+    const missing = [];
+
+    for (const dep of required) {
+      try {
+        const { execSync } = require('child_process');
+        execSync(`which ${dep}`, { stdio: 'ignore' });
+      } catch {
+        missing.push(dep);
+      }
+    }
+
+    if (missing.length > 0) {
+      return {
+        healthy: false,
+        missing,
+        message: `Dependências faltando: ${missing.join(', ')}`,
+      };
+    }
+
+    return { healthy: true };
+  }
+
+  /**
+   * Checks if backup should be suggested before destructive operation (BOB-SAFE-1)
+   * @param {string} operation - Operation type (delete, reset, etc)
+   * @param {Object} context - Operation context
+   * @returns {Object} Backup recommendation
+   * @private
+   */
+  _shouldPromptBackup(operation, context) {
+    const destructiveOps = ['delete', 'reset', 'discard', 'force-restart'];
+
+    if (destructiveOps.includes(operation)) {
+      // Check if git has uncommitted changes
+      const hasUncommitted = context.uncommittedFiles?.length > 0;
+
+      if (hasUncommitted) {
+        return {
+          recommend: true,
+          reason: 'uncommitted_changes',
+          message: 'Há mudanças não commitadas. Recomendamos criar um commit antes de prosseguir.',
+          severity: 'high',
+        };
+      }
+
+      return {
+        recommend: true,
+        reason: 'destructive_operation',
+        message: 'Esta operação não pode ser desfeita. Considere criar um backup.',
+        severity: 'medium',
+      };
+    }
+
+    return { recommend: false };
   }
 
   /**

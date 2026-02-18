@@ -1,0 +1,265 @@
+workflow:
+  id: bob-story-development-cycle
+  name: BOB 6-Phase Story Development Cycle
+  version: "1.0"
+  description: >-
+    BOB-orchestrated 6-phase development cycle with automated phase transitions,
+    exit criteria validation, quality gates, and mandatory human checkpoints.
+    Implements BOB-VETO-1 through BOB-VETO-4 and phase exit criteria enforcement.
+  type: story-cycle
+  extends: .aios-core/development/workflows/story-development-cycle.yaml
+
+  bob_features:
+    phase_exit_criteria: true  # Validate exit criteria before advancing
+    quality_gate_segregation: true  # quality_gate ≠ executor (BOB enforces)
+    self_healing_integration: true  # CodeRabbit CLI integration
+    mandatory_checkpoint: true  # Phase 6 ALWAYS surfaces to user
+    max_attempts_enforcement: true  # 3 attempts per phase max
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # 6-PHASE DEVELOPMENT CYCLE
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  sequence:
+    - phase: 1
+      name: VALIDATION
+      owner: po
+      duration: "10 min"
+      purpose: Validate story acceptance criteria and technical feasibility
+      exit_criteria:
+        - EC1.1: Story file exists and is readable
+        - EC1.2: All acceptance criteria defined (minimum 3)
+        - EC1.3: Technical approach validated
+        - EC1.4: Dependencies identified
+        - EC1.5: Executor assigned via ExecutorAssignment
+        - EC1.6: Estimated duration documented
+      validation_code: validatePhase1Exit()
+      max_attempts: 5
+      on_failure:
+        action: surface_to_user
+        options: [fix_story, abort]
+      notes: |
+        @po validates story is ready for development.
+        BOB checks all exit criteria before allowing advance to Phase 2.
+
+    - phase: 2
+      name: DEVELOPMENT
+      owner: executor  # Assigned via ExecutorAssignment module
+      duration: "~2h"
+      purpose: Implement story according to acceptance criteria
+      exit_criteria:
+        - EC2.1: All acceptance criteria implemented
+        - EC2.2: Code follows project coding standards
+        - EC2.3: Unit tests written (≥80% coverage for new code)
+        - EC2.4: No linting errors (npm run lint passes)
+        - EC2.5: No TypeScript errors (npm run typecheck passes)
+        - EC2.6: Files staged in git
+        - EC2.7: Story file updated with implementation notes
+      validation_code: validatePhase2Exit()
+      max_attempts: 5
+      on_failure:
+        action: retry_with_feedback
+        surface_after: 5 attempts
+      notes: |
+        Executor implements story.
+        BOB validates all exit criteria before proceeding to self-healing.
+
+    - phase: 3
+      name: SELF-HEALING
+      owner: dev  # Always @dev + CodeRabbit
+      duration: "30 min"
+      purpose: Auto-fix critical and high issues via CodeRabbit
+      exit_criteria:
+        - EC3.1: CodeRabbit scan completed
+        - EC3.2: CRITICAL issues = 0
+        - EC3.3: HIGH issues ≤ 2
+        - EC3.4: Auto-fixes applied and committed
+        - EC3.5: Tests still passing after fixes
+        - EC3.6: Scan report saved to .aios/qa/coderabbit-report.json
+      validation_code: validatePhase3Exit()
+      max_attempts: 3
+      blocking_criteria: [EC3.2]  # CRITICAL issues are non-negotiable
+      on_blocking_failure:
+        action: manual_fix_required
+        message: "CRITICAL issues detected. Manual correction mandatory."
+      notes: |
+        BOB spawns @dev with CodeRabbit CLI.
+        CRITICAL issues = 0 is hard requirement (BLOCKS advancement).
+
+    - phase: 4
+      name: QUALITY GATE
+      owner: quality_gate  # Segregated reviewer (≠ executor)
+      duration: "30 min"
+      purpose: Independent code review and quality validation
+      exit_criteria:
+        - EC4.1: Reviewer ≠ executor (segregation verified by BOB)
+        - EC4.2: All acceptance criteria met (verified by reviewer)
+        - EC4.3: Code quality acceptable (no major issues)
+        - EC4.4: Architecture patterns followed
+        - EC4.5: Security review passed (OWASP top 10 check)
+        - EC4.6: Review decision = APPROVED
+        - EC4.7: Feedback documented (if rejected)
+      validation_code: validatePhase4Exit()
+      max_attempts: 3
+      on_rejected:
+        action: return_to_phase_2
+        increment: qg_attempts
+      on_max_attempts:
+        action: surface_to_user
+        options: [manual_review, skip_story, abort]
+      notes: |
+        BOB enforces segregation: quality_gate ≠ executor.
+        Max 3 attempts. After 3 rejections → surface to human.
+
+    - phase: 5
+      name: PUSH
+      owner: devops  # Always @devops (exclusive push authority)
+      duration: "10 min"
+      purpose: Create PR and prepare for merge
+      exit_criteria:
+        - EC5.1: All changes committed to local branch
+        - EC5.2: Branch pushed to remote
+        - EC5.3: Pull Request created
+        - EC5.4: PR description includes story reference
+        - EC5.5: CI/CD checks initiated (if configured)
+        - EC5.6: PR URL recorded in session state
+      validation_code: validatePhase5Exit()
+      max_attempts: 3
+      on_failure:
+        action: devops_fix
+        message: "@devops resolve push issues"
+      notes: |
+        Only @devops can push to remote (BOB enforces).
+        Creates PR with story context.
+
+    - phase: 6
+      name: CHECKPOINT
+      owner: HUMAN  # User decision point
+      duration: "1-5 min"
+      purpose: User decides next action
+      mandatory: true  # ALWAYS surfaces, never bypassed
+      exit_criteria:
+        - EC6.1: Checkpoint summary displayed to user
+        - EC6.2: User selected one of 4 options
+        - EC6.3: Decision recorded in session state
+        - EC6.4: Lock status updated
+      validation_code: validatePhase6Exit()
+      options:
+        - GO: Continue to next story
+        - PAUSE: Save session and exit
+        - REVIEW: Show detailed progress
+        - ABORT: End session
+      notes: |
+        BOB ALWAYS surfaces checkpoint (Constitutional principle).
+        User has full control over next action.
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # EXECUTOR ASSIGNMENT (Phase 2)
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  executor_assignment:
+    module: ExecutorAssignment (Epic 11.1)
+    decision_matrix:
+      code_general: dev
+      database_schema: data-engineer
+      api_design: architect
+      ui_component: dev
+      infrastructure: devops
+      documentation: po
+    quality_gate_mapping:
+      dev: architect
+      data-engineer: dev
+      architect: dev
+      devops: architect
+      po: architect
+    golden_rule: quality_gate ≠ executor  # BOB enforces
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE TRANSITION ENFORCEMENT
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  phase_transitions:
+    validation_required: true
+    exit_criteria_enforcement: strict
+    max_attempts_per_phase:
+      phase_1: 5
+      phase_2: 5
+      phase_3: 3
+      phase_4: 3
+      phase_5: 3
+      phase_6: N/A  # Always surfaces
+    on_max_attempts_exceeded:
+      action: surface_to_user
+      options: [manual_intervention, skip_phase, abort_story]
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # FLOW DIAGRAM
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  flow_diagram: |
+    ```mermaid
+    graph TD
+        START[Story Selected] --> P1[Phase 1: VALIDATION - @po]
+
+        P1 --> EC1{Exit criteria met?}
+        EC1 -->|No| FIX1[Fix story]
+        EC1 -->|Yes| P2[Phase 2: DEVELOPMENT - executor]
+        FIX1 --> P1
+
+        P2 --> EC2{Exit criteria met?}
+        EC2 -->|No, attempt < 5| FIX2[Retry with feedback]
+        EC2 -->|No, attempt = 5| SURFACE2[Surface to user]
+        EC2 -->|Yes| P3[Phase 3: SELF-HEALING - @dev + CodeRabbit]
+        FIX2 --> P2
+
+        P3 --> EC3{Exit criteria met?}
+        EC3 -->|CRITICAL issues| MANUAL[Manual fix required]
+        EC3 -->|Yes| P4[Phase 4: QUALITY GATE - quality_gate]
+        MANUAL --> P3
+
+        P4 --> EC4{Approved?}
+        EC4 -->|Rejected, < 3x| FIX4[Return to Phase 2]
+        EC4 -->|Rejected, = 3x| SURFACE4[Surface to user]
+        EC4 -->|Approved| P5[Phase 5: PUSH - @devops]
+        FIX4 --> P2
+
+        P5 --> EC5{Exit criteria met?}
+        EC5 -->|No| FIX5[@devops fix]
+        EC5 -->|Yes| P6[Phase 6: CHECKPOINT - HUMAN]
+        FIX5 --> P5
+
+        P6 --> CP{User decision?}
+        CP -->|GO| NEXT[Next story]
+        CP -->|PAUSE| SAVE[Save session]
+        CP -->|REVIEW| SHOW[Show progress]
+        CP -->|ABORT| END[End session]
+
+        SHOW --> P6
+
+        style P6 fill:#FFD700
+        style END fill:#90EE90
+        style MANUAL fill:#FF6B6B
+        style SURFACE2 fill:#FF6B6B
+        style SURFACE4 fill:#FF6B6B
+    ```
+
+  estimates:
+    minimum_duration: "2h"
+    typical_duration: "3h"
+    complex_story: "4-5h"
+    checkpoint_overhead: "5 min"
+
+metadata:
+  author: BOB (bob-orchestrator)
+  created_date: 2026-02-15
+  version: 1.0.0
+  references:
+    - checklists/phase-exit-criteria.md
+    - tasks/enhancement-workflow.md
+    - tasks/checkpoint-story.md
+  tags:
+    - bob
+    - development-cycle
+    - 6-phases
+    - exit-criteria
+    - quality-gate

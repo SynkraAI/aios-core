@@ -1,0 +1,533 @@
+---
+workflow:
+  name: File Research Workflow
+  id: wf-file-research
+  version: 1.0.0
+  description: |
+    Complete 6-phase file research pipeline for discovering and cataloging files on the internet.
+    Adapted from tech-search skill architecture.
+
+metadata:
+  created: 2026-02-14
+  author: aios-master
+  squad: file-research
+  complexity: high
+  duration: 10-30 minutes
+
+agents:
+  required:
+    - id: file-hunter
+      role: primary
+      description: Executes all 6 phases
+
+inputs:
+  required:
+    - name: query
+      type: string
+      description: User search query (what files to find)
+
+  optional:
+    - name: filetype
+      type: string
+      description: Specific file format (pdf, epub, doc, etc.)
+      default: null
+
+    - name: year
+      type: integer
+      description: Year constraint for recency
+      default: null
+
+    - name: domain
+      type: string
+      description: Domain/topic focus (academic, technical, business)
+      default: null
+
+outputs:
+  directory: docs/file-research/{YYYY-MM-DD}-{slug}/
+
+  files:
+    - name: README.md
+      description: Index with TL;DR and best sources
+
+    - name: 00-query-original.md
+      description: Original query and inferred context
+
+    - name: 01-search-strategy.md
+      description: Sub-queries and search operators
+
+    - name: 02-research-report.md
+      description: Complete research findings
+
+    - name: 03-file-catalog.md
+      description: Organized file links with metadata
+
+    - name: 04-recommendations.md
+      description: Best sources and next steps
+
+phases:
+  # ═══════════════════════════════════════════════════════════
+  # PHASE 1: AUTO-CLARIFY
+  # ═══════════════════════════════════════════════════════════
+  - id: phase-1-auto-clarify
+    name: Auto-Clarification
+    agent: file-hunter
+    model: main
+    execution_mode: inline
+    description: |
+      Pattern matching and file type detection to understand query intent.
+
+    steps:
+      - id: parse-query
+        action: Parse user query (unmodified)
+        output: raw_query
+
+      - id: detect-file-types
+        action: Detect file types (PDF, EPUB, DOC, etc.)
+        patterns:
+          - Documents: [pdf, epub, mobi, azw3, doc, docx]
+          - Academic: [pdf, tex, bib, arxiv]
+          - Ebooks: [epub, mobi, azw, fb2]
+          - Other: [txt, md, html]
+        output: detected_file_types
+
+      - id: detect-patterns
+        action: Match patterns for focus area
+        patterns:
+          - Research: [research, paper, study, thesis, academic]
+          - Books: [book, ebook, novel, guide, manual]
+          - Documentation: [documentation, docs, reference]
+        output: focus_area
+
+      - id: detect-temporal
+        action: Detect temporal scope
+        patterns:
+          - Recent: [latest, new, 2024, 2025, 2026, recent]
+          - Historical: [classic, original, archive]
+        output: temporal_scope
+
+      - id: detect-domain
+        action: Detect domain/topic
+        patterns:
+          - Technical: [programming, software, development]
+          - Scientific: [physics, biology, chemistry, math]
+          - Business: [marketing, finance, management]
+          - Creative: [design, art, writing]
+        output: domain
+
+      - id: decide-clarification
+        action: Decide if clarification needed
+        logic: |
+          IF (detected_file_types OR focus_area) THEN
+            skip_clarification = true
+          ELSE
+            ask_question("What file type are you looking for?")
+            skip_clarification = false
+        output: skip_clarification
+
+    outputs:
+      - inferred_context:
+          file_types: detected_file_types
+          focus: focus_area
+          temporal: temporal_scope
+          domain: domain
+          skip_clarification: skip_clarification
+
+  # ═══════════════════════════════════════════════════════════
+  # PHASE 2: DECOMPOSE
+  # ═══════════════════════════════════════════════════════════
+  - id: phase-2-decompose
+    name: Query Decomposition
+    agent: file-hunter
+    model: main
+    execution_mode: inline
+    description: |
+      Deep analysis to generate 5-7 file-focused sub-queries with operators.
+
+    steps:
+      - id: deep-analysis
+        action: Use extended thinking (ultrathink)
+        questions:
+          - What specific files would best answer this query?
+          - What file sources are most credible for this domain?
+          - What file formats are most relevant?
+          - What sites/repositories are known for quality files?
+        output: analysis_insights
+
+      - id: generate-subqueries
+        action: Generate 5-7 sub-queries
+        rules:
+          - Include filetype operators (filetype:pdf, filetype:epub)
+          - Include site restrictions when relevant (site:arxiv.org)
+          - Cover different aspects (overview, detailed, examples)
+          - Include authoritative source query
+          - Include recent/updated query
+          - Ensure orthogonal coverage (no overlap)
+        output: sub_queries
+
+      - id: incorporate-context
+        action: Enhance sub-queries with inferred context
+        enhancements:
+          - Add file type operators from detected types
+          - Add year constraints if temporal=recent
+          - Add domain-specific site restrictions
+        output: enhanced_sub_queries
+
+    outputs:
+      - decomposition_result:
+          main_topic: string
+          file_types: array
+          sub_queries: enhanced_sub_queries
+          search_strategy: parallel
+
+  # ═══════════════════════════════════════════════════════════
+  # PHASE 3: PARALLEL SEARCH
+  # ═══════════════════════════════════════════════════════════
+  - id: phase-3-parallel-search
+    name: Parallel File Search
+    agent: file-hunter
+    model: haiku
+    execution_mode: parallel_workers
+    description: |
+      Dispatch sub-queries as parallel Haiku workers for fast coverage.
+
+    steps:
+      - id: pre-check-mcp
+        action: Check MCP availability
+        checks:
+          - apify: Try search-actors
+          - exa: Try test search
+        output: mcp_availability
+
+      - id: dispatch-workers
+        action: Create Task calls for each sub-query
+        worker_config:
+          type: general-purpose
+          model: haiku
+          max_parallel: 5
+          max_deep_reads_per_worker: 3
+        prompt_template: |
+          You are a file research worker. Find files for ONE specific query.
+
+          QUERY: {sub_query}
+          CONTEXT: {inferred_context}
+          MCP: apify={apify_available}, exa={exa_available}
+
+          INSTRUCTIONS:
+          1. Search using best available tool
+          2. Filter for actual FILE LINKS
+          3. Extract metadata for top 2-3 files
+          4. Return JSON only
+
+          OUTPUT FORMAT:
+          {
+            "sub_query": "...",
+            "files": [
+              {
+                "url": "...",
+                "title": "...",
+                "format": "PDF|EPUB|...",
+                "size": "... MB",
+                "source": "arxiv.org|...",
+                "credibility": "HIGH|MEDIUM|LOW",
+                "snippet": "...",
+                "tool_used": "Apify|Exa|WebSearch"
+              }
+            ]
+          }
+        output: worker_tasks
+
+      - id: aggregate-results
+        action: Collect and parse worker responses
+        operations:
+          - Collect all worker responses
+          - Parse JSON from each Task result
+          - Deduplicate files by URL
+          - Build unified catalog
+        output: aggregated_files
+
+      - id: handle-failures
+        action: Process failed workers
+        fallback:
+          - Log warnings for failed workers
+          - Execute failed queries in main context
+          - Require at least 1 successful result
+        output: failure_report
+
+    outputs:
+      - search_results:
+          files_found: aggregated_files
+          tools_used: {apify: N, exa: N, websearch: N}
+          worker_stats: {dispatched: N, succeeded: N, failed: N}
+
+  # ═══════════════════════════════════════════════════════════
+  # PHASE 4: EVALUATE COVERAGE
+  # ═══════════════════════════════════════════════════════════
+  - id: phase-4-evaluate-coverage
+    name: Coverage Evaluation
+    agent: file-hunter
+    model: haiku
+    execution_mode: task_worker
+    description: |
+      Evaluate research completeness and decide CONTINUE or STOP.
+
+    steps:
+      - id: calculate-metrics
+        action: Calculate coverage metrics
+        metrics:
+          coverage_score: (files_found / expected_files) * 100
+          source_quality:
+            high: count(credibility == "HIGH")
+            medium: count(credibility == "MEDIUM")
+            low: count(credibility == "LOW")
+          format_diversity: unique(file_formats).length
+        output: metrics
+
+      - id: apply-stopping-rules
+        action: Decide CONTINUE or STOP
+        rules:
+          hard_stops:
+            - condition: wave >= 2
+              reason: Max iterations reached
+            - condition: coverage_score >= 80 AND high_credibility >= 5
+              reason: Sufficient coverage
+
+          soft_stop:
+            - condition: coverage_score >= 60 AND wave >= 1
+              reason: Acceptable coverage
+
+          must_continue:
+            - condition: coverage_score < 50 AND wave == 1
+              reason: Insufficient first wave
+        output: decision
+
+      - id: generate-gap-queries
+        action: If CONTINUE, generate gap-filling queries
+        condition: decision == "CONTINUE"
+        count: 2-3
+        output: next_queries
+
+    outputs:
+      - evaluation_result:
+          decision: CONTINUE|STOP
+          coverage_score: 0-100
+          stop_reason: string
+          gaps: array
+          next_queries: array (if CONTINUE)
+
+    conditional_loop:
+      condition: decision == "CONTINUE"
+      max_iterations: 2
+      return_to: phase-3-parallel-search
+      with_inputs: next_queries
+
+  # ═══════════════════════════════════════════════════════════
+  # PHASE 5: SYNTHESIZE
+  # ═══════════════════════════════════════════════════════════
+  - id: phase-5-synthesize
+    name: Synthesize File Catalog
+    agent: file-hunter
+    model: main
+    execution_mode: inline
+    description: |
+      Consolidate findings into organized file catalog.
+
+    steps:
+      - id: review-findings
+        action: Review all files found
+        input: aggregated_files
+        output: reviewed_files
+
+      - id: organize-catalog
+        action: Organize files by multiple dimensions
+        dimensions:
+          - by_format: [PDF, EPUB, DOC, etc.]
+          - by_domain: [Technical, Academic, Business]
+          - by_credibility: [HIGH, MEDIUM, LOW]
+          - by_recency: [Newest first if temporal=recent]
+        output: organized_catalog
+
+      - id: rank-sources
+        action: Rank sources by quality
+        tiers:
+          primary: HIGH credibility + direct download link
+          secondary: MEDIUM credibility + accessible
+          tertiary: LOW credibility (with warnings)
+        output: ranked_sources
+
+      - id: generate-sections
+        action: Generate catalog sections
+        sections:
+          - executive_summary: Total files, best sources, formats
+          - catalog_by_format: Tables organized by file type
+          - catalog_by_topic: Grouped by sub-topic
+          - source_credibility_notes: Explanation of ratings
+          - download_instructions: How to access sources
+          - recommendations: Best files to start with
+        output: catalog_sections
+
+    outputs:
+      - synthesized_catalog:
+          content: markdown
+          sections: catalog_sections
+          ranked_sources: ranked_sources
+
+  # ═══════════════════════════════════════════════════════════
+  # PHASE 6: DOCUMENT
+  # ═══════════════════════════════════════════════════════════
+  - id: phase-6-document
+    name: Document Research
+    agent: file-hunter
+    model: main
+    execution_mode: inline
+    description: |
+      Save complete research to docs/file-research/
+
+    steps:
+      - id: create-directory
+        action: Create output directory
+        path: docs/file-research/{YYYY-MM-DD}-{slug}/
+        slug: sanitize(main_topic)
+        output: output_dir
+
+      - id: write-readme
+        action: Write README.md
+        template: |
+          # {main_topic} - File Research
+
+          **Date:** {date}
+          **Files Found:** {total_count}
+          **Best Source:** {top_source}
+
+          ## TL;DR
+          {executive_summary}
+
+          ## Quick Links
+          - [Complete Catalog](03-file-catalog.md)
+          - [Recommendations](04-recommendations.md)
+
+          ## Files by Format
+          {format_counts}
+        output: README.md
+
+      - id: write-query-original
+        action: Write 00-query-original.md
+        content: |
+          Original query + inferred_context
+        output: 00-query-original.md
+
+      - id: write-search-strategy
+        action: Write 01-search-strategy.md
+        content: |
+          Sub-queries + search operators used
+        output: 01-search-strategy.md
+
+      - id: write-research-report
+        action: Write 02-research-report.md
+        content: |
+          Complete findings from all phases
+        output: 02-research-report.md
+
+      - id: write-file-catalog
+        action: Write 03-file-catalog.md
+        content: |
+          Organized file links with metadata tables
+        output: 03-file-catalog.md
+
+      - id: write-recommendations
+        action: Write 04-recommendations.md
+        content: |
+          Best sources + download instructions
+        output: 04-recommendations.md
+
+      - id: validate-output
+        action: Validate all files created
+        checks:
+          - All 6 files exist
+          - No security issues (sanitized filenames, validated URLs)
+          - Markdown syntax is valid
+          - Links are accessible
+        output: validation_status
+
+    outputs:
+      - documentation_complete:
+          output_dir: output_dir
+          files_created: 6
+          validation_status: passed|failed
+
+completion:
+  success_message: |
+    ✅ File research complete!
+
+    **Output:** {output_dir}
+    **Files Found:** {total_files}
+    **High Credibility:** {high_credibility_count}
+
+    **Next Steps:**
+    1. Review catalog: {output_dir}/03-file-catalog.md
+    2. Download recommended files manually
+    3. Validate sources if needed: *validate-sources {output_dir}
+
+  failure_conditions:
+    - condition: No results found in all waves
+      message: |
+        ❌ No files found matching your criteria.
+
+        **Suggestions:**
+        1. Try broader search terms
+        2. Try different file formats
+        3. Remove year constraints
+
+    - condition: All workers failed
+      message: |
+        ❌ All search workers failed.
+
+        **Possible causes:**
+        1. Network connectivity issues
+        2. MCP servers unavailable
+        3. Rate limiting
+
+        **Try:** Run again or use simpler query
+
+veto_conditions:
+  - id: VETO_NO_RESULTS
+    trigger: All search waves return 0 results
+    action: STOP + Show failure message
+
+  - id: VETO_MALICIOUS_SOURCE
+    trigger: Detected suspicious sources
+    action: WARN + Flag as LOW credibility
+
+  - id: VETO_FORBIDDEN_PATH
+    trigger: Attempt to write outside docs/file-research/
+    action: BLOCK + Error
+
+validation:
+  pre_execution:
+    - Query is not empty
+    - Output directory is writable
+    - Required tools available (WebSearch, WebFetch, Task)
+
+  post_execution:
+    - At least 1 file found (or explain why)
+    - Output directory created
+    - All 6 output files generated
+    - No security issues
+
+metrics:
+  track:
+    - total_files_found
+    - high_credibility_count
+    - formats_discovered
+    - waves_executed
+    - workers_dispatched
+    - execution_time_minutes
+
+  success_thresholds:
+    - files_found >= 5
+    - high_credibility_count >= 2
+    - coverage_score >= 60
+
+version: 1.0.0
+status: pending_validation
+created: 2026-02-14
+author: aios-master

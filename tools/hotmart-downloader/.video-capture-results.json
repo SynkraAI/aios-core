@@ -1,0 +1,18 @@
+{
+  "m3u8": [
+    "https://vod-akm.play.hotmart.com/video/9qrQJoY7Rp/hls/master-pkg-t-1748522681000.m3u8?hdnts=st%3D1770654016%7Eexp%3D1770654516%7Ehmac%3D59b0bc8605870377d078de7cca435489352a0cd1c59b5e72329a658b8d0505c1&app=9aaabfff-2606-4437-a9e3-42fa6f6ed4a7",
+    "https://vod-akm.play.hotmart.com/video/9qrQJoY7Rp/hls/9qrQJoY7Rp-1748522681000-audio=85431-video=2265149.m3u8?hdntl=exp=1770740418~acl=/*~data=hdntl~hmac=9b68fd8b21fda5de0fda02bbfafe28be50d6d1b9bdfb66dd2841d50adff17b7b&app=9aaabfff-2606-4437-a9e3-42fa6f6ed4a7",
+    "https://vod-akm.play.hotmart.com/video/9qrQJoY7Rp/hls/9qrQJoY7Rp-1748522681000-textstream_pt_br=1000.m3u8?hdntl=exp=1770740418~acl=/*~data=hdntl~hmac=9b68fd8b21fda5de0fda02bbfafe28be50d6d1b9bdfb66dd2841d50adff17b7b&hdntl=exp=1770740418~acl=/*~data=hdntl~hmac=9b68fd8b21fda5de0fda02bbfafe28be50d6d1b9bdfb66dd2841d50adff17b7b&app=9aaabfff-2606-4437-a9e3-42fa6f6ed4a7"
+  ],
+  "token_domains": [
+    "sso.hotmart.com",
+    "hotmart.com",
+    "api-tos.hotmart.com",
+    "api-club-course-consumption-gateway-ga.cb.hotmart.com",
+    "api-club-content.cb.hotmart.com",
+    "api-smart-search-content.cp.hotmart.com",
+    "api-club-hot-club-api.cb.hotmart.com",
+    "api-club-settings.cb.hotmart.com",
+    "api-recommendations.data.hotmart.com"
+  ]
+}

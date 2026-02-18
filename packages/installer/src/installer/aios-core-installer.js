@@ -295,6 +295,35 @@ async function installAiosCore(options = {}) {
       }
     }
 
+    // Copy .aios/skills/ (runtime skills, lives outside .aios-core)
+    const skillsSource = path.join(sourceDir, '..', '.aios', 'skills');
+    const skillsDest = path.join(targetDir, '.aios', 'skills');
+
+    if (await fs.pathExists(skillsSource)) {
+      spinner.text = 'Copying skills...';
+      await fs.ensureDir(skillsDest);
+
+      const skillFolders = await fs.readdir(skillsSource, { withFileTypes: true });
+      for (const item of skillFolders) {
+        if (!item.isDirectory()) continue;
+        const srcSkill = path.join(skillsSource, item.name);
+        const destSkill = path.join(skillsDest, item.name);
+
+        // Skip if user already has a customized version
+        if (await fs.pathExists(destSkill)) continue;
+
+        const copiedFiles = await copyDirectoryWithRootReplacement(
+          srcSkill,
+          destSkill,
+          onProgress,
+        );
+        if (copiedFiles.length > 0) {
+          result.installedFolders.push(`.aios/skills/${item.name}`);
+          result.installedFiles.push(...copiedFiles.map(f => path.join('.aios', 'skills', item.name, f)));
+        }
+      }
+    }
+
     // Create install manifest
     spinner.text = 'Creating installation manifest...';
     const packageVersion = require('../../../../package.json').version;
@@ -320,6 +349,29 @@ async function installAiosCore(options = {}) {
       mode: 'project-development',
     });
     result.versionInfo = versionInfo;
+
+    // BUG-2 fix (INS-1): Install .aios-core dependencies after copy
+    // The copied .aios-core/package.json has dependencies (js-yaml, execa, etc.)
+    // that must be installed for the activation pipeline to work
+    const aiosCorePackageJson = path.join(targetAiosCore, 'package.json');
+    if (await fs.pathExists(aiosCorePackageJson)) {
+      spinner.text = 'Installing .aios-core dependencies (js-yaml, etc.)...';
+      try {
+        const { exec } = require('child_process');
+        const { promisify } = require('util');
+        const execAsync = promisify(exec);
+        await execAsync('npm install --production --ignore-scripts', {
+          cwd: targetAiosCore,
+          timeout: 60000,
+        });
+        spinner.succeed('Installed .aios-core dependencies');
+        spinner.start('Finishing installation...');
+      } catch (depError) {
+        spinner.warn(`Could not install .aios-core dependencies: ${depError.message}`);
+        spinner.start('Continuing installation...');
+        result.errors.push(`Dependencies warning: ${depError.message}`);
+      }
+    }
 
     result.success = true;
     spinner.succeed(`AIOS core installed (${result.installedFiles.length} files)`);

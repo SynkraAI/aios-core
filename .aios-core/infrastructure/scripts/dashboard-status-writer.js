@@ -91,6 +91,7 @@ function createDefaultStatus(projectRoot) {
 
 /**
  * Writes the status to file
+ * AUTO-SYNC: Also syncs to session.json for terminal integration
  */
 async function writeStatus(projectRoot, status) {
   await ensureStatusDir(projectRoot);
@@ -99,6 +100,10 @@ async function writeStatus(projectRoot, status) {
   status.updatedAt = new Date().toISOString();
 
   await fs.writeFile(filePath, JSON.stringify(status, null, 2), 'utf-8');
+
+  // AUTO-SYNC: Keep session.json in sync for terminal
+  await syncToSession(status, projectRoot);
+
   return status;
 }
 
@@ -283,6 +288,28 @@ async function clearStatus(projectRoot) {
 }
 
 /**
+ * Updates context hierarchy (epic → story → task)
+ *
+ * @param {Object} contextData - Context data
+ * @param {string} [contextData.epic] - Epic name (main context)
+ * @param {string} [contextData.story] - Story name (mid-level context)
+ * @param {string} [contextData.task] - Task name (momentary context)
+ * @param {string} [projectRoot] - Optional project root path
+ */
+async function updateContext(contextData, projectRoot) {
+  projectRoot = projectRoot || getProjectRoot();
+  const status = await readStatus(projectRoot);
+
+  status.context = {
+    epic: contextData.epic || undefined,
+    story: contextData.story || undefined,
+    task: contextData.task || undefined,
+  };
+
+  return writeStatus(projectRoot, status);
+}
+
+/**
  * Gets the current status without modifying it
  *
  * @param {string} [projectRoot] - Optional project root path
@@ -293,6 +320,69 @@ async function getStatus(projectRoot) {
   return readStatus(projectRoot);
 }
 
+/**
+ * AUTO-SYNC: Syncs dashboard status to session.json (for terminal)
+ * This ensures terminal and dashboard always show the same context
+ *
+ * @param {Object} dashboardStatus - Dashboard status data
+ * @param {string} projectRoot - Project root path
+ * @private
+ */
+async function syncToSession(dashboardStatus, projectRoot) {
+  const sessionPath = path.join(projectRoot, '.aios/session.json');
+
+  try {
+    // Read existing session.json
+    let session = {};
+    try {
+      const content = await fs.readFile(sessionPath, 'utf-8');
+      session = JSON.parse(content);
+    } catch (error) {
+      // Session doesn't exist, skip sync
+      if (error.code === 'ENOENT') return;
+      throw error;
+    }
+
+    // Sync relevant fields from dashboard to session
+    // Preserve CLI-specific fields (pid, sessionId, metadata)
+    if (dashboardStatus.project) {
+      session.project = {
+        ...session.project,
+        name: dashboardStatus.project.name || session.project?.name,
+        emoji: dashboardStatus.project.emoji || session.project?.emoji,
+        type: dashboardStatus.project.type || session.project?.type,
+      };
+    }
+
+    if (dashboardStatus.status) {
+      session.status = {
+        ...session.status,
+        progress: dashboardStatus.status.progress || session.status?.progress,
+        emoji: dashboardStatus.status.emoji || session.status?.emoji,
+        phase: dashboardStatus.status.phase || session.status?.phase,
+      };
+    }
+
+    if (dashboardStatus.context) {
+      session.context = {
+        ...session.context,
+        ...dashboardStatus.context,
+      };
+    }
+
+    // Update metadata timestamp
+    if (session.metadata) {
+      session.metadata.lastUpdatedAt = new Date().toISOString();
+    }
+
+    // Write back to session.json
+    await fs.writeFile(sessionPath, JSON.stringify(session, null, 2), 'utf-8');
+  } catch (error) {
+    // Don't fail the main operation if sync fails
+    console.warn('[dashboard-status-writer] Warning: Could not sync to session.json:', error.message);
+  }
+}
+
 module.exports = {
   activateAgent,
   deactivateAgent,
@@ -300,10 +390,12 @@ module.exports = {
   incrementCommands,
   completeStory,
   updateRateLimit,
+  updateContext,
   clearStatus,
   getStatus,
   // Internal exports for testing
   _ensureStatusDir: ensureStatusDir,
   _readStatus: readStatus,
   _writeStatus: writeStatus,
+  _syncToSession: syncToSession,
 };

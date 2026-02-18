@@ -1,0 +1,56 @@
+# BOB Session State Template
+# Location: .aios/.session-state.yaml
+# Purpose: Persistent session state for crash recovery and resume
+
+session_state:
+  # Epic Context
+  epic:
+    id: {{EPIC_ID}}
+    title: "{{EPIC_TITLE}}"
+    stories_total: {{STORIES_TOTAL}}
+    stories_completed: {{STORIES_COMPLETED}}
+
+  # Progress Tracking
+  progress:
+    current_story: {{CURRENT_STORY}}
+    completed: {{COMPLETED_STORIES}}  # Array of story IDs
+
+  # Workflow State (6-Phase Development Cycle)
+  workflow:
+    current_phase: {{CURRENT_PHASE}}  # validation | development | self_healing | quality_gate | push | checkpoint
+    completed_phases: {{COMPLETED_PHASES}}  # Array of phase names
+    current_executor: {{CURRENT_EXECUTOR}}  # @dev | @data-engineer | @architect | etc.
+    phase_results:
+      {{PHASE_NAME}}:
+        executor: {{PHASE_EXECUTOR}}
+        duration: {{PHASE_DURATION}}
+        result: {{PHASE_RESULT}}  # approved | rejected | completed
+        timestamp: {{PHASE_TIMESTAMP}}
+    phase_attempts:
+      phase_2: {{PHASE_2_ATTEMPTS}}
+      phase_3: {{PHASE_3_ATTEMPTS}}
+      phase_4: {{PHASE_4_ATTEMPTS}}
+      phase_5: {{PHASE_5_ATTEMPTS}}
+    pr_url: {{PR_URL}}  # Set in Phase 5 (Push)
+
+  # Session Metadata
+  created_at: {{CREATED_AT}}
+  last_updated: {{LAST_UPDATED}}
+  session_id: {{SESSION_ID}}
+
+  # Metrics (Optional)
+  metrics:
+    files_changed: {{FILES_CHANGED}}
+    tests_status: {{TESTS_STATUS}}  # passing | failing | unknown
+    total_duration: {{TOTAL_DURATION}}  # in seconds
+
+  # Crash Recovery Context
+  crash_recovery:
+    is_crash: {{IS_CRASH}}  # true if last_updated > 30min ago
+    last_active_phase: {{LAST_ACTIVE_PHASE}}
+    uncommitted_files: {{UNCOMMITTED_FILES}}  # Array of file paths
+
+  # Lock Information
+  locks:
+    orchestration_lock: {{ORCHESTRATION_LOCK}}  # bob-orchestration
+    acquired_at: {{LOCK_ACQUIRED_AT}}

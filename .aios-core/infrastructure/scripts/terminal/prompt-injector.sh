@@ -77,6 +77,7 @@ aios_prompt() {
           output="${output} [${progress}]"
         fi
       else
+        # If total is 0, just show progress without color
         output="${output} [${progress}]"
       fi
     else

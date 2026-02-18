@@ -1,0 +1,98 @@
+# Source Signals
+# Padrões linguísticos que indicam valor alto ou baixo em sources
+# Usado por: *assess-sources, *extract-framework
+
+high_value_signals:
+  description: "Frases que indicam conhecimento essencial, regras pessoais, priorização"
+
+  absolute_statements:
+    - pattern: "The single most important thing is..."
+      indicates: "Priorização máxima - core belief"
+    - pattern: "If I could only do one thing..."
+      indicates: "Essência destilada - Pareto aplicado"
+    - pattern: "The ONE thing that..."
+      indicates: "Foco absoluto"
+
+  personal_rules:
+    - pattern: "I always..."
+      indicates: "Heurística pessoal validada"
+    - pattern: "I never..."
+      indicates: "Anti-pattern pessoal - veto condition"
+    - pattern: "My rule is..."
+      indicates: "Framework pessoal explícito"
+    - pattern: "Without exception..."
+      indicates: "Princípio não-negociável"
+
+  expertise_markers:
+    - pattern: "The biggest mistake is..."
+      indicates: "Anti-pattern do campo - experiência real"
+    - pattern: "What separates beginners from experts..."
+      indicates: "Diferenciação de nível - insight de expertise"
+    - pattern: "After X years, I learned..."
+      indicates: "Conhecimento destilado por tempo"
+    - pattern: "The counterintuitive thing is..."
+      indicates: "Insight único - diferencial"
+
+  decision_patterns:
+    - pattern: "When I see X, I do Y..."
+      indicates: "Heurística de reconhecimento"
+    - pattern: "The first thing I check is..."
+      indicates: "Prioridade de diagnóstico"
+    - pattern: "Before I do anything, I..."
+      indicates: "Pre-requisito crítico"
+
+low_value_signals:
+  description: "Frases que indicam conteúdo genérico, hedge, ou falta de convicção"
+
+  hedging:
+    - pattern: "Generally speaking..."
+      indicates: "Falta de especificidade - genérico"
+    - pattern: "It depends on..."
+      indicates: "Sem framework de decisão claro"
+    - pattern: "There are many approaches..."
+      indicates: "Não priorizou - sem opinião forte"
+    - pattern: "Some people say..."
+      indicates: "Terceirização de opinião"
+
+  generic_advice:
+    - pattern: "Most people think..."
+      indicates: "Convenção, não insight"
+    - pattern: "The common wisdom is..."
+      indicates: "Repetição do campo"
+    - pattern: "Best practices suggest..."
+      indicates: "Genérico, não pessoal"
+
+  filler:
+    - pattern: "It's important to..."
+      indicates: "Declaração vazia sem ação"
+    - pattern: "You should consider..."
+      indicates: "Sem direção clara"
+    - pattern: "There are pros and cons..."
+      indicates: "Análise sem conclusão"
+
+citation_formats:
+  standard: "[SOURCE: {source_name} p.{page}]"
+  video: "[SOURCE: {source_name} {mm:ss}]"
+  podcast: "[SOURCE: {podcast_name} ep.{number} {mm:ss}]"
+  interview: "[SOURCE: {publication} interview {date}]"
+
+inference_format:
+  marker: "[INFERRED]"
+  note: "Needs validation - não entregar para PV"
+  action: "Buscar fonte ou remover antes de handoff"
+
+usage_instructions:
+  when_extracting:
+    - "Buscar high_value_signals primeiro"
+    - "Marcar com [SOURCE:] imediatamente"
+    - "Se encontrar low_value_signals, não incluir na extração"
+
+  when_assessing:
+    - "Contar ocorrências de high_value em cada source"
+    - "Source com mais high_value = OURO"
+    - "Source com majoritariamente low_value = BRONZE"
+
+  quality_threshold:
+    ouro: "5+ high_value_signals por source"
+    prata: "2-4 high_value_signals"
+    bronze: "0-1 high_value_signals ou majoritariamente low_value"

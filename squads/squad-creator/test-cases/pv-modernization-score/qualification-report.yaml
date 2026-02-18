@@ -1,0 +1,74 @@
+# Qualification Report - pv-modernization-score
+# Generated: 2026-02-11
+# Workflow: wf-model-tier-qualification v2.0
+
+qualification_report:
+  task_name: "pv-modernization-score"
+  test_date: "2026-02-11"
+  workflow_version: "2.0"
+
+  baseline:
+    model: "opus"
+    score: "2/12"
+    interpretation: "Majoritariamente legado"
+    cost_usd: 0.68
+    tokens_total: 45169
+    tool_uses: 19
+    latency_ms: 161256
+    file: "opus-baseline.yaml"
+
+  rounds:
+    - round: 1
+      model: "haiku"
+      score: "9/12"
+      quality_vs_baseline: "42%"
+      cost_usd: 0.012
+      tokens_total: 48280
+      tool_uses: 12
+      latency_ms: 86633
+      gaps:
+        - "Charitable interpretation (7 wrong PASS judgments)"
+        - "Spirit vs Letter interpretation mismatch"
+        - "Conflated 'described' with 'implemented'"
+      file: "haiku-round-1.yaml"
+      veto_triggered: true
+      veto_id: "MTQ_VC_004"
+
+  decision:
+    final: "OPUS_REQUIRED"
+    recommended_tier: "opus"
+    quality_achieved: "42%"
+    threshold_required: "90%"
+    veto_triggered: true
+    veto_reason: "Opposite assessment (9/12 vs 2/12). Wrong on 7/12 patterns."
+
+  cost_analysis:
+    opus_per_run: 0.68
+    haiku_per_run: 0.012
+    potential_savings: "98.2%"
+    actual_savings: "0% - Haiku not qualified"
+    note: "Even though Haiku is 98% cheaper, quality at 42% is unacceptable"
+
+  compensation_attempted: false
+  compensation_reason: "MTQ_VC_004 veto blocks compensation. Judgment errors cannot be compensated."
+
+  learning:
+    key_insight: |
+      NOT ALL CHECKLIST TASKS ARE HAIKU-ELIGIBLE.
+
+      pv-modernization-score LOOKS deterministic (12-point PASS/FAIL)
+      but REQUIRES nuanced judgment about "implemented vs described".
+
+      Haiku-eligible checklists: Binary (file exists? score > X?)
+      Opus-required checklists: Interpretive (is this REALLY implemented?)
+
+    reclassification:
+      from: "haiku (high confidence)"
+      to: "opus (non-negotiable)"
+      reason: "Task requires strict literal interpretation, not charitable reading"
+
+  evidence_files:
+    - "opus-baseline.yaml"
+    - "haiku-round-1.yaml"
+    - "comparison-round-1.yaml"
+    - "qualification-report.yaml"

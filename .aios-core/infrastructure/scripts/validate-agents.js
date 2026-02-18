@@ -25,16 +25,39 @@ const fs = require('fs').promises;
 const path = require('path');
 const yaml = require('js-yaml');
 
-// Paths
+// Paths (updated for modular architecture v2.0)
 const ROOT_DIR = path.join(__dirname, '..', '..');
 const AGENTS_DIR = path.join(ROOT_DIR, 'development', 'agents');
 const TASKS_DIR = path.join(ROOT_DIR, 'development', 'tasks');
-const TEMPLATES_DIR = path.join(ROOT_DIR, 'development', 'templates');
-const CHECKLISTS_DIR = path.join(ROOT_DIR, 'development', 'checklists');
-const DATA_DIR = path.join(ROOT_DIR, 'development', 'data');
-const UTILS_DIR = path.join(ROOT_DIR, 'development', 'utils');
 const WORKFLOWS_DIR = path.join(ROOT_DIR, 'development', 'workflows');
-const SCRIPTS_DIR = path.join(ROOT_DIR, 'development', 'scripts');
+
+// Modular paths with fallback support (search order matters)
+const MODULAR_PATHS = {
+  templates: [
+    path.join(ROOT_DIR, 'product', 'templates'),      // Primary: product templates
+    path.join(ROOT_DIR, 'development', 'templates'),  // Fallback: legacy location
+  ],
+  checklists: [
+    path.join(ROOT_DIR, 'product', 'checklists'),     // Primary: product checklists
+    path.join(ROOT_DIR, 'development', 'checklists'), // Fallback: legacy location
+  ],
+  data: [
+    path.join(ROOT_DIR, 'product', 'data'),           // Primary: product data
+    path.join(ROOT_DIR, 'data'),                      // Secondary: shared data
+    path.join(ROOT_DIR, 'development', 'data'),       // Fallback: legacy location
+  ],
+  utils: [
+    path.join(ROOT_DIR, 'core', 'utils'),             // Primary: core utilities
+    path.join(ROOT_DIR, 'infrastructure', 'scripts'), // Secondary: infrastructure scripts
+    path.join(ROOT_DIR, 'scripts'),                   // Tertiary: root scripts
+    path.join(ROOT_DIR, 'development', 'utils'),      // Fallback: legacy location
+  ],
+  scripts: [
+    path.join(ROOT_DIR, 'development', 'scripts'),    // Primary: development scripts
+    path.join(ROOT_DIR, 'infrastructure', 'scripts'), // Secondary: infrastructure scripts
+    path.join(ROOT_DIR, 'scripts'),                   // Tertiary: root scripts
+  ],
+};
 
 // Commands that are allowed to be shared by multiple agents
 // These are utility/infrastructure commands, not domain-specific
@@ -181,24 +204,29 @@ function validateCommandUniqueness(agents) {
 }
 
 /**
- * Validate dependencies exist
+ * Validate dependencies exist (supports modular architecture v2.0 with fallback paths)
  */
 async function validateDependencies(agents) {
   const errors = [];
   const warnings = [];
 
-  const depDirs = {
+  // Simple paths (single location)
+  const simplePaths = {
     tasks: TASKS_DIR,
-    templates: TEMPLATES_DIR,
-    checklists: CHECKLISTS_DIR,
-    data: DATA_DIR,
-    utils: UTILS_DIR,
     workflows: WORKFLOWS_DIR,
-    scripts: SCRIPTS_DIR,
   };
 
   // Dependency types that are not file-based (external tools, integrations)
-  const skipDepTypes = new Set(['tools', 'coderabbit_integration', 'pr_automation', 'repository_agnostic_design', 'git_authority', 'workflow_examples']);
+  const skipDepTypes = new Set([
+    'tools',
+    'coderabbit_integration',
+    'pr_automation',
+    'repository_agnostic_design',
+    'git_authority',
+    'workflow_examples',
+    'references',  // Added: references are documentation links, not files
+    'schemas',     // Added: schemas are inline YAML, not files
+  ]);
 
   for (const agent of agents) {
     const deps = agent.dependencies;
@@ -208,8 +236,13 @@ async function validateDependencies(agents) {
       if (skipDepTypes.has(depType)) continue;
       if (!Array.isArray(depList)) continue;
 
-      const depDir = depDirs[depType];
-      if (!depDir) {
+      // Check if it's a simple path or modular path
+      let searchPaths = [];
+      if (simplePaths[depType]) {
+        searchPaths = [simplePaths[depType]];
+      } else if (MODULAR_PATHS[depType]) {
+        searchPaths = MODULAR_PATHS[depType];
+      } else {
         warnings.push({
           type: 'UNKNOWN_DEP_TYPE',
           agent: agent.id,
@@ -220,19 +253,30 @@ async function validateDependencies(agents) {
       }
 
       for (const depFile of depList) {
-        const depPath = path.join(depDir, depFile);
-        const exists = await fileExists(depPath);
+        let found = false;
+        let checkedPaths = [];
 
-        if (!exists) {
+        // Try each path in order (fallback support)
+        for (const basePath of searchPaths) {
+          const depPath = path.join(basePath, depFile);
+          checkedPaths.push(depPath);
+
+          if (await fileExists(depPath)) {
+            found = true;
+            break;
+          }
+        }
+
+        if (!found) {
           // Missing dependencies are warnings, not errors (pre-existing technical debt)
           warnings.push({
             type: 'MISSING_DEPENDENCY',
             agent: agent.id,
             depType,
             depFile,
-            expectedPath: depPath,
+            expectedPaths: checkedPaths,
             message: `Missing dependency: @${agent.id} → ${depType}/${depFile}`,
-            suggestion: `Create the file at ${depPath} or remove from agent dependencies.`,
+            suggestion: `Create the file at one of: ${checkedPaths.map(p => path.relative(ROOT_DIR, p)).join(' OR ')}`,
           });
         }
       }

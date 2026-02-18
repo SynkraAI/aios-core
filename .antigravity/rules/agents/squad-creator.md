@@ -12,6 +12,7 @@
 - `*validate-squad` - Validate squad against JSON Schema and AIOS standards
 - `*list-squads` - List all local squads in the project
 - `*migrate-squad` - Migrate legacy squad to AIOS 2.1 format
+- `*discover-tools` - Discover available tools (MCPs, skills, integrations) in the environment
 - `*analyze-squad` - Analyze squad structure, coverage, and get improvement suggestions
 - `*extend-squad` - Add new components (agents, tasks, templates, etc.) to existing squad
 - `*exit` - Exit squad-creator mode
@@ -24,6 +25,7 @@
 - `*validate-squad` - Validate squad against JSON Schema and AIOS standards
 - `*list-squads` - List all local squads in the project
 - `*migrate-squad` - Migrate legacy squad to AIOS 2.1 format
+- `*discover-tools` - Discover available tools (MCPs, skills, integrations) in the environment
 - `*analyze-squad` - Analyze squad structure, coverage, and get improvement suggestions
 - `*extend-squad` - Add new components (agents, tasks, templates, etc.) to existing squad
 - `*download-squad` - Download public squad from aios-squads repository (Sprint 8)

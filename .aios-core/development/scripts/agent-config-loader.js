@@ -9,7 +9,7 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const yaml = require('js-yaml');
+const yaml = require('yaml');
 const { globalConfigCache } = require('../../core/config/config-cache');
 const { trackConfigLoad } = require('../../infrastructure/scripts/performance-tracker');
 
@@ -32,7 +32,7 @@ async function loadAgentRequirements() {
 
   try {
     const content = await fs.readFile(requirementsPath, 'utf8');
-    agentRequirements = yaml.load(content);
+    agentRequirements = yaml.parse(content);
     return agentRequirements;
   } catch (error) {
     console.warn(`⚠️ Could not load agent requirements: ${error.message}`);
@@ -318,7 +318,7 @@ class AgentConfigLoader {
     }
     
     // Load from file
-    const agentPath = path.join(process.cwd(), '.aios-core', 'development', 'agents', `${this.agentId}.md`);
+    const agentPath = path.join(process.cwd(), '.aios-core', 'agents', `${this.agentId}.md`);
     
     try {
       const content = await fs.readFile(agentPath, 'utf8');
@@ -331,13 +331,13 @@ class AgentConfigLoader {
       
       let agentDef;
       try {
-        agentDef = yaml.load(yamlMatch[1]);
+        agentDef = yaml.parse(yamlMatch[1]);
       } catch (parseError) {
         // Try normalizing compact command format before parsing
         const normalizedYaml = this._normalizeCompactCommands(yamlMatch[1]);
         try {
-          agentDef = yaml.load(normalizedYaml);
-        } catch (_secondError) {
+          agentDef = yaml.parse(normalizedYaml);
+        } catch (secondError) {
           throw new Error(`Failed to parse agent definition YAML for ${this.agentId}: ${parseError.message}`);
         }
       }
@@ -553,12 +553,13 @@ if (require.main === module) {
 
   (async () => {
     try {
-      // Load config via layered resolver (PRO-4: config hierarchy)
-      const { resolveConfig } = require('../../core/config/config-resolver');
-      const { config: coreConfig } = resolveConfig(process.cwd());
+      // Load core config
+      const coreConfigPath = path.join(process.cwd(), '.aios-core', 'core-config.yaml');
+      const coreConfigContent = await fs.readFile(coreConfigPath, 'utf8');
+      const coreConfig = yaml.parse(coreConfigContent);
 
       switch (command) {
-        case 'load': {
+        case 'load':
           if (!agentId) {
             console.error('Usage: node agent-config-loader.js load <agent-id>');
             process.exit(1);
@@ -576,9 +577,8 @@ if (require.main === module) {
           console.log(`   Sections Loaded: ${result.sectionsLoaded.join(', ')}`);
           console.log(`   Files Loaded: ${Object.keys(result.files).length}`);
           break;
-        }
 
-        case 'preload': {
+        case 'preload':
           const agents = agentId ? [agentId] : [
             'aios-master', 'dev', 'qa', 'architect', 'po', 'pm', 'sm',
             'analyst', 'ux-expert', 'data-engineer', 'devops', 'db-sage', 'security',
@@ -586,9 +586,8 @@ if (require.main === module) {
 
           await preloadAgents(agents, coreConfig);
           break;
-        }
 
-        case 'test': {
+        case 'test':
           console.log('\n🧪 Testing agent config loader...\n');
 
           // Test loading for a few agents
@@ -607,7 +606,6 @@ if (require.main === module) {
 
           console.log('✅ All tests passed!\n');
           break;
-        }
 
         default:
           console.log(`

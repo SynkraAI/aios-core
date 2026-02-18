@@ -157,6 +157,11 @@ function getFileType(relativePath) {
     return 'monitor';
   }
 
+  // Skills (from .aios/skills/)
+  if (normalized.includes('/skills/') || normalized.startsWith('skills/')) {
+    return 'skill';
+  }
+
   // Root files
   if (normalized.endsWith('.js') || normalized.endsWith('.ts')) {
     return 'code';
@@ -236,6 +241,12 @@ async function generateManifest() {
     if (fs.existsSync(filePath)) {
       allFiles.push(filePath);
     }
+  }
+
+  // Scan .aios/skills/ (runtime skills, lives outside .aios-core)
+  const aiosSkillsDir = path.join(__dirname, '..', '.aios', 'skills');
+  if (fs.existsSync(aiosSkillsDir)) {
+    scanDirectory(aiosSkillsDir, path.join(__dirname, '..'), allFiles);
   }
 
   // Note: install-manifest.yaml itself is not included in the manifest

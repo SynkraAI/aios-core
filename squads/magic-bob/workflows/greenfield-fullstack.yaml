@@ -1,0 +1,223 @@
+workflow:
+  id: bob-greenfield-fullstack
+  name: BOB Greenfield Fullstack (Autonomous)
+  version: "1.0"
+  description: >-
+    BOB-orchestrated greenfield fullstack development with automated PRD→Epic→Stories
+    sharding, parallel development cycles, and strategic checkpoints.
+  type: greenfield
+  extends: .aios-core/development/workflows/greenfield-fullstack.yaml
+
+  bob_features:
+    autonomous_execution: true
+    session_persistence: true
+    document_sharding: true  # PRD → Epic → Stories automatically
+    development_cycles: true  # 6-phase cycle per story
+    human_checkpoints:
+      - after_prd_generation
+      - after_first_story_complete
+      - after_each_epic_complete
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # BOB ORCHESTRATION SEQUENCE
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  sequence:
+    - step: acquire_lock
+      phase: 0
+      action: acquire_orchestration_lock
+
+    - step: detect_state
+      phase: 0
+      action: detect_project_state
+      expected: GREENFIELD
+      notes: |
+        Verify project state is GREENFIELD (empty directory or no code yet).
+
+    - step: environment_bootstrap
+      phase: 0
+      agent: devops
+      action: bootstrap-environment
+      creates:
+        - .aios/
+        - package.json
+        - .gitignore
+        - README.md
+      duration: "5-10 min"
+      notes: |
+        BOB spawns @devops to setup project structure.
+
+    - step: elicit_requirements
+      phase: 1
+      agent: po
+      action: elicit-requirements
+      interactive: true
+      creates: docs/requirements/user-input.md
+      duration: "15-30 min"
+      notes: |
+        BOB activates @po to ask user about product vision.
+        Questions about: target audience, main features, tech preferences.
+
+    - step: generate_prd
+      phase: 1
+      agent: po
+      action: generate-prd
+      creates: docs/prd.md
+      requires: elicit_requirements
+      duration: "20-30 min"
+
+    - step: design_architecture
+      phase: 1
+      agent: architect
+      action: design-architecture
+      creates: docs/architecture.md
+      requires: generate_prd
+      duration: "30-45 min"
+
+    - step: checkpoint_post_planning
+      phase: 1.5
+      action: human_checkpoint
+      checkpoint_type: REVIEW_PLAN
+      options:
+        - APPROVE: Start development
+        - ADJUST_PRD: Modify PRD before continuing
+        - ADJUST_ARCH: Modify architecture
+        - ABORT: Cancel project
+      notes: |
+        BOB surfaces PRD + Architecture for approval.
+        User validates before expensive development begins.
+
+    - step: shard_into_epics
+      phase: 2
+      agent: po
+      action: generate-epics
+      creates: docs/epics/epic-*.md
+      requires: checkpoint_approval
+      duration: "15-25 min"
+      notes: |
+        BOB spawns @po to break PRD into epics.
+
+    - step: shard_epic_into_stories
+      phase: 2
+      agent: po
+      action: shard-epic-into-stories
+      creates: docs/stories/active/*.md
+      repeats: for_first_epic
+      duration: "20-30 min"
+      notes: |
+        BOB shards first epic into stories.
+        Other epics sharded on-demand.
+
+    - step: development_cycle
+      phase: 3
+      workflow: story-development-cycle.yaml
+      repeats: for_each_story
+      duration: "~3h per story"
+      notes: |
+        BOB executes 6-phase development cycle for each story:
+        1. VALIDATION (@po)
+        2. DEVELOPMENT (executor via ExecutorAssignment)
+        3. SELF-HEALING (@dev + CodeRabbit)
+        4. QUALITY GATE (quality_gate ≠ executor)
+        5. PUSH (@devops)
+        6. CHECKPOINT (HUMAN: GO/PAUSE/REVIEW/ABORT)
+
+        After each story, user decides: GO → next story, PAUSE → save session.
+
+    - step: epic_complete_checkpoint
+      phase: 3.5
+      action: human_checkpoint
+      checkpoint_type: EPIC_COMPLETE
+      trigger: after_all_epic_stories_done
+      options:
+        - NEXT_EPIC: Shard and develop next epic
+        - PAUSE: Save progress, resume later
+        - COMPLETE: Mark project as v1.0 done
+      notes: |
+        BOB surfaces epic completion.
+        User decides: continue to next epic or stop.
+
+    - step: release_lock
+      phase: 4
+      action: release_orchestration_lock
+      always_execute: true
+
+    - step: session_complete
+      phase: 4
+      action: save_session_state
+      status: completed | paused
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # BOB-SPECIFIC CONFIGURATION
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  orchestration:
+    lock_resource: bob-orchestration
+    max_concurrent_stories: 1  # Sequential for now (parallel in future)
+    story_execution_mode: autonomous_with_checkpoints
+
+  observability:
+    panel_mode: detailed  # Show full progress: PRD → Epic → Stories
+    show_story_progress: true  # [1/8] [2/8] etc.
+    show_time_estimates: true
+
+  session_management:
+    state_file: .aios/.session-state.yaml
+    save_frequency: after_each_phase_transition
+    protected_files:
+      - docs/prd.md
+      - docs/architecture.md
+      - docs/epics/*.md
+      - docs/stories/active/*.md
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # FLOW DIAGRAM
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  flow_diagram: |
+    ```mermaid
+    graph TD
+        START[BOB: Greenfield] --> BOOTSTRAP[@devops: setup env]
+        BOOTSTRAP --> ELICIT[@po: elicit requirements]
+        ELICIT --> PRD[@po: generate PRD]
+        PRD --> ARCH[@architect: design architecture]
+        ARCH --> CP1{CHECKPOINT: Approve plan?}
+
+        CP1 -->|APPROVE| EPICS[@po: generate epics]
+        CP1 -->|ADJUST| PRD
+        CP1 -->|ABORT| END
+
+        EPICS --> STORIES[@po: shard epic → stories]
+        STORIES --> STORY1[Story 1.1: 6-phase cycle]
+
+        STORY1 --> CP2{CHECKPOINT: GO/PAUSE?}
+        CP2 -->|GO| STORY2[Story 1.2: 6-phase cycle]
+        CP2 -->|PAUSE| SAVE[Save session]
+
+        STORY2 --> STORYN[... Story 1.N]
+        STORYN --> CP3{CHECKPOINT: Epic done}
+
+        CP3 -->|NEXT_EPIC| EPICS
+        CP3 -->|COMPLETE| END[Project Complete]
+
+        style END fill:#90EE90
+        style CP1 fill:#FFD700
+        style CP2 fill:#FFD700
+        style CP3 fill:#FFD700
+    ```
+
+  estimates:
+    first_epic_duration: "12-20h"
+    per_story_average: "3h"
+    total_project_estimate: "calculate from epic breakdown"
+
+metadata:
+  author: BOB (bob-orchestrator)
+  created_date: 2026-02-15
+  version: 1.0.0
+  tags:
+    - bob
+    - greenfield
+    - fullstack
+    - autonomous
+    - prd-sharding

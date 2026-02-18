@@ -171,7 +171,7 @@ cd ~/.aios-core-source
 npm install
 
 # Run installer for your project
-node bin/aios-init.js ~/projects/my-project
+npx aios-core ~/projects/my-project
 ```
 
 ### What the Installer Does
@@ -368,7 +368,7 @@ npx github:SynkraAI/aios-core install
 cd ~/.aios-core-source
 git pull
 npm install
-node bin/aios-init.js ~/projects/my-project --update
+npx aios-core ~/projects/my-project --update
 ```
 
 The updater will:

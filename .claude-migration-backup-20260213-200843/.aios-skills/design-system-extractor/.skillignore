@@ -1,0 +1,10 @@
+# Skill ignore file
+# Files and directories to exclude from skill activation
+
+node_modules/
+.git/
+dist/
+build/
+coverage/
+*.log
+.DS_Store

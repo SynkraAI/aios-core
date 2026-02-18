@@ -13,7 +13,7 @@
  *
  * Performance Targets:
  * - With cache: <50ms
- * - Without cache: <200ms (timeout protection in pipeline)
+ * - Without cache: <150ms (timeout protection)
  * - Fallback: <10ms
  *
  * Usage: node generate-greeting.js <agent-id>
@@ -26,7 +26,6 @@
  * @see greeting-builder.js for core greeting logic
  *
  * Part of Story 6.1.4: Unified Greeting System Integration
- * Part of Story ACT-6: Unified Activation Pipeline
  */
 
 'use strict';
@@ -43,12 +42,15 @@ const { ActivationRuntime } = require('./activation-runtime');
  *
  * @param {string} agentId - Agent identifier (e.g., 'qa', 'dev')
  * @returns {Promise<string>} Formatted greeting string
+ * @throws {Error} If agent file not found or invalid
  *
  * @example
  * const greeting = await generateGreeting('qa');
  * console.log(greeting);
  */
 async function generateGreeting(agentId) {
+  const startTime = Date.now();
+
   try {
     const runtime = new ActivationRuntime();
     const result = await runtime.activate(agentId);
@@ -79,7 +81,7 @@ async function generateGreeting(agentId) {
  * @returns {string} Simple fallback greeting
  */
 function generateFallbackGreeting(agentId) {
-  return `\u2705 ${agentId} Agent ready\n\nType \`*help\` to see available commands.`;
+  return `✅ ${agentId} Agent ready\n\nType \`*help\` to see available commands.`;
 }
 
 // CLI interface

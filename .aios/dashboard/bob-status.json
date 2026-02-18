@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-02-14T04:39:08.578Z",
+  "orchestration": {
+    "active": true,
+    "mode": "bob",
+    "epic_id": null,
+    "current_story": null
+  },
+  "pipeline": {
+    "stages": [
+      "validation",
+      "development",
+      "self_healing",
+      "quality_gate",
+      "push",
+      "checkpoint"
+    ],
+    "current_stage": "self_healing",
+    "story_progress": "0/0",
+    "completed_stages": []
+  },
+  "current_agent": {
+    "id": "@dev",
+    "name": "Dex",
+    "task": "development",
+    "reason": "Assigned for development",
+    "started_at": "2026-02-14T04:39:07.756Z"
+  },
+  "active_terminals": [],
+  "surface_decisions": [],
+  "elapsed": {
+    "story_seconds": 0,
+    "session_seconds": 14
+  },
+  "errors": [],
+  "educational": {
+    "enabled": false,
+    "tradeoffs": [],
+    "reasoning": []
+  }
+}

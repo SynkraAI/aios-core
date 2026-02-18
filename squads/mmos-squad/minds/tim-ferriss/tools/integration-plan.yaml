@@ -1,0 +1,749 @@
+# Tim Ferriss Squad - Tool Integration Plan
+# Version: 1.0.0
+# Created: 2026-02-12
+# Discovery Phase: Complete
+
+metadata:
+  squad: "tim-ferriss"
+  domain: "productivity, meta-learning, lifestyle-design, experimentation"
+  discovery_date: "2026-02-12"
+  total_tools_discovered: 15
+  top_priority_count: 4
+
+# ============================================================================
+# CAPABILITY GAP ANALYSIS
+# ============================================================================
+
+capability_gaps:
+  identified:
+    - gap: "Time tracking and productivity measurement"
+      use_cases: ["80/20 analysis", "DEAL framework execution", "MED discovery"]
+      severity: "HIGH"
+
+    - gap: "Experiment protocol tracking"
+      use_cases: ["Body hacking experiments", "A/B testing", "MED discovery"]
+      severity: "HIGH"
+
+    - gap: "Workflow automation"
+      use_cases: ["DEAL automate phase", "Task batching", "Delegation"]
+      severity: "MEDIUM"
+
+    - gap: "Skill learning progress tracking"
+      use_cases: ["DiSSS framework", "Meta-learning", "Progress measurement"]
+      severity: "MEDIUM"
+
+    - gap: "Data collection and analysis"
+      use_cases: ["Experiment results", "80/20 analysis", "ROI calculation"]
+      severity: "MEDIUM"
+
+# ============================================================================
+# DISCOVERED TOOLS (15 Total)
+# ============================================================================
+
+tools:
+  # CATEGORY 1: TIME TRACKING & PRODUCTIVITY
+  # ========================================================================
+
+  - id: "toggl-track"
+    name: "Toggl Track"
+    category: "time_tracking"
+    type: "API"
+    url: "https://toggl.com/"
+    api_docs: "https://developers.track.toggl.com/"
+
+    description: "Time tracking software with comprehensive API for custom integrations"
+
+    capabilities:
+      - "Automatic time tracking"
+      - "Project and client categorization"
+      - "Detailed reports and analytics"
+      - "80/20 analysis ready (time spent vs. value)"
+      - "Export to CSV/PDF/Excel"
+
+    integration_use_cases:
+      - "Track time spent on tasks for 80/20 analysis"
+      - "Measure DEAL framework effectiveness (time freed)"
+      - "Calculate real hourly value for delegation decisions"
+
+    pricing:
+      free_tier: true
+      paid_from: "$10/user/month"
+      api_access: "Free tier + paid"
+
+    rice_score:
+      reach: 9        # Most use cases benefit
+      impact: 8       # Direct measurement for frameworks
+      confidence: 9   # Well-documented API, proven tool
+      effort: 3       # API integration straightforward
+      total: 216      # (9 × 8 × 9) / 3 = 216
+
+    recommendation: "DO NOW"
+    priority: 1
+
+  - id: "clockify"
+    name: "Clockify"
+    category: "time_tracking"
+    type: "API"
+    url: "https://clockify.me/"
+    api_docs: "https://clockify.me/developers-api"
+
+    description: "Free time tracker with API, unlimited users and projects"
+
+    capabilities:
+      - "Free forever plan (unlimited)"
+      - "Time tracking with detailed reports"
+      - "API for automation"
+      - "Integrations with 80+ tools"
+
+    integration_use_cases:
+      - "Free alternative to Toggl for time tracking"
+      - "80/20 analysis of time allocation"
+      - "DEAL framework measurement"
+
+    pricing:
+      free_tier: true
+      paid_from: "$5.49/user/month"
+      api_access: "Free tier included"
+
+    rice_score:
+      reach: 9
+      impact: 8
+      confidence: 8
+      effort: 3
+      total: 192      # (9 × 8 × 8) / 3 = 192
+
+    recommendation: "DO NOW (if budget constraint)"
+    priority: 2
+
+  - id: "kimai"
+    name: "Kimai"
+    category: "time_tracking"
+    type: "Open Source"
+    url: "https://www.kimai.org/"
+    github: "https://github.com/kimai/kimai"
+    api_docs: "https://www.kimai.org/documentation/rest-api.html"
+
+    description: "Open-source time tracker with extensive JSON API, self-hosted"
+
+    capabilities:
+      - "100% free and open source"
+      - "Self-hosted (full control)"
+      - "Extensive JSON API"
+      - "Custom plugins and integrations"
+
+    integration_use_cases:
+      - "Full control over data (privacy)"
+      - "Custom integrations via API"
+      - "No subscription costs"
+
+    pricing:
+      free_tier: true
+      paid_from: "$0 (self-hosted)"
+      api_access: "Full access (open source)"
+
+    rice_score:
+      reach: 7
+      impact: 7
+      confidence: 7
+      effort: 6        # Self-hosting adds setup effort
+      total: 57        # (7 × 7 × 7) / 6 = 57
+
+    recommendation: "DO LATER (if need full control)"
+    priority: 10
+
+  # CATEGORY 2: EXPERIMENT TRACKING
+  # ========================================================================
+
+  - id: "mlflow"
+    name: "MLflow"
+    category: "experiment_tracking"
+    type: "Open Source"
+    url: "https://mlflow.org/"
+    github: "https://github.com/mlflow/mlflow"
+    api_docs: "https://mlflow.org/docs/latest/tracking.html"
+
+    description: "Open-source platform for ML lifecycle, excellent for experiment tracking"
+
+    capabilities:
+      - "Track experiments with parameters, metrics, artifacts"
+      - "Compare experiment runs"
+      - "Visualize results"
+      - "REST, Python, R, Java APIs"
+      - "Local or cloud deployment"
+
+    integration_use_cases:
+      - "Track body hacking experiments (diet, sleep, exercise)"
+      - "MED discovery (test different doses)"
+      - "DiSSS meta-learning progress tracking"
+      - "A/B testing for productivity experiments"
+
+    pricing:
+      free_tier: true
+      paid_from: "$0 (self-hosted) or $X on Databricks"
+      api_access: "Full access (open source)"
+
+    rice_score:
+      reach: 8
+      impact: 9        # Core to experimenter agent
+      confidence: 8
+      effort: 5        # Setup + learning curve
+      total: 115       # (8 × 9 × 8) / 5 = 115
+
+    recommendation: "DO NEXT"
+    priority: 3
+
+  - id: "protocols-io"
+    name: "protocols.io"
+    category: "experiment_tracking"
+    type: "SaaS + API"
+    url: "https://www.protocols.io/"
+    api_docs: "https://www.protocols.io/developers"
+
+    description: "Scientific protocol management and sharing platform"
+
+    capabilities:
+      - "Create and share experimental protocols"
+      - "Version control for protocols"
+      - "Detailed parameters and reagents tracking"
+      - "Collaboration features"
+      - "HIPAA compliant"
+
+    integration_use_cases:
+      - "Document experiment protocols (body hacking)"
+      - "Share reproducible methods"
+      - "Track protocol iterations"
+
+    pricing:
+      free_tier: true
+      paid_from: "Custom pricing"
+      api_access: "Available"
+
+    rice_score:
+      reach: 5
+      impact: 7
+      confidence: 6
+      effort: 4
+      total: 53        # (5 × 7 × 6) / 4 = 53
+
+    recommendation: "DO LATER"
+    priority: 11
+
+  # CATEGORY 3: AUTOMATION PLATFORMS
+  # ========================================================================
+
+  - id: "n8n"
+    name: "n8n"
+    category: "automation"
+    type: "Open Source / Cloud"
+    url: "https://n8n.io/"
+    github: "https://github.com/n8n-io/n8n"
+    api_docs: "https://docs.n8n.io/"
+
+    description: "Fair-code workflow automation with 1000+ integrations, self-hostable"
+
+    capabilities:
+      - "1000+ native integrations"
+      - "HTTP node for any API"
+      - "Custom code (JavaScript/Python)"
+      - "Self-hosted or cloud"
+      - "Visual workflow builder"
+
+    integration_use_cases:
+      - "DEAL Automate phase: build automation workflows"
+      - "Batch email processing"
+      - "Connect all tools in ecosystem"
+      - "Custom integrations via HTTP/code"
+
+    pricing:
+      free_tier: true
+      paid_from: "$0 (self-hosted) or $20/month (cloud)"
+      api_access: "Full access"
+
+    rice_score:
+      reach: 10       # Used across all automation use cases
+      impact: 9       # Core to DEAL Automate phase
+      confidence: 9
+      effort: 4       # Learning curve moderate
+      total: 203      # (10 × 9 × 9) / 4 = 203
+
+    recommendation: "DO NOW"
+    priority: 2
+
+  - id: "zapier"
+    name: "Zapier"
+    category: "automation"
+    type: "SaaS"
+    url: "https://zapier.com/"
+    api_docs: "https://platform.zapier.com/docs"
+
+    description: "Automation platform with 8000+ app integrations, no-code"
+
+    capabilities:
+      - "8000+ pre-built integrations"
+      - "No-code automation"
+      - "Webhook support"
+      - "Easy to use"
+
+    integration_use_cases:
+      - "DEAL Automate phase for non-technical users"
+      - "Quick automations without coding"
+      - "Wide app ecosystem"
+
+    pricing:
+      free_tier: true
+      paid_from: "$19.99/month"
+      api_access: "Limited (tasks-based billing)"
+
+    rice_score:
+      reach: 10
+      impact: 8
+      confidence: 10   # Industry standard
+      effort: 2        # Easiest to use
+      total: 400       # (10 × 8 × 10) / 2 = 400
+
+    recommendation: "DO NOW (if non-technical or quick setup needed)"
+    priority: 3
+
+  - id: "make"
+    name: "Make (formerly Integromat)"
+    category: "automation"
+    type: "SaaS"
+    url: "https://www.make.com/"
+    api_docs: "https://www.make.com/en/api-documentation"
+
+    description: "Visual automation platform with 2500+ apps, credit-based pricing"
+
+    capabilities:
+      - "2500+ app integrations"
+      - "Visual workflow design"
+      - "Advanced logic (conditions, loops)"
+      - "HTTP module for custom APIs"
+
+    integration_use_cases:
+      - "DEAL Automate phase"
+      - "Complex workflows with logic"
+      - "Cost-effective for medium volumes"
+
+    pricing:
+      free_tier: true
+      paid_from: "$9/month"
+      api_access: "Available (credit-based)"
+
+    rice_score:
+      reach: 9
+      impact: 8
+      confidence: 9
+      effort: 3
+      total: 216       # (9 × 8 × 9) / 3 = 216
+
+    recommendation: "DO NEXT (if need visual + cost-effective)"
+    priority: 5
+
+  # CATEGORY 4: MCP SERVERS (Already Available in AIOS)
+  # ========================================================================
+
+  - id: "mcp-exa"
+    name: "EXA (via Docker MCP)"
+    category: "mcp_server"
+    type: "MCP"
+    status: "Already Available"
+
+    description: "Web search and research MCP server"
+
+    capabilities:
+      - "Web search for research"
+      - "Company research"
+      - "Code context retrieval"
+
+    integration_use_cases:
+      - "Deep research for DiSSS deconstruction (find who solved it)"
+      - "Fear-setting: research worst-case scenarios"
+      - "80/20 analysis: find benchmarks and data"
+
+    rice_score:
+      reach: 7
+      impact: 6
+      confidence: 10
+      effort: 1        # Already available
+      total: 420       # (7 × 6 × 10) / 1 = 420
+
+    recommendation: "USE NOW (already available)"
+    priority: 1
+
+  - id: "mcp-context7"
+    name: "Context7 (via Docker MCP)"
+    category: "mcp_server"
+    type: "MCP"
+    status: "Already Available"
+
+    description: "Library documentation lookup MCP server"
+
+    capabilities:
+      - "Query library documentation"
+      - "API reference lookup"
+
+    integration_use_cases:
+      - "DiSSS meta-learning: find best learning resources"
+      - "Skill acquisition: lookup library docs"
+
+    rice_score:
+      reach: 5
+      impact: 5
+      confidence: 10
+      effort: 1        # Already available
+      total: 250       # (5 × 5 × 10) / 1 = 250
+
+    recommendation: "USE NOW (already available)"
+    priority: 4
+
+  # CATEGORY 5: LIBRARIES & SDKs
+  # ========================================================================
+
+  - id: "pandas"
+    name: "Pandas"
+    category: "library"
+    type: "Python Library"
+    url: "https://pandas.pydata.org/"
+    docs: "https://pandas.pydata.org/docs/"
+
+    description: "Data analysis and manipulation library for Python"
+
+    capabilities:
+      - "Data analysis and manipulation"
+      - "CSV/Excel reading and writing"
+      - "Statistical analysis"
+      - "80/20 analysis calculations"
+
+    integration_use_cases:
+      - "80/20 analysis: calculate Pareto distribution"
+      - "Experiment data analysis"
+      - "Time tracking data analysis"
+
+    rice_score:
+      reach: 8
+      impact: 8
+      confidence: 10
+      effort: 2
+      total: 320       # (8 × 8 × 10) / 2 = 320
+
+    recommendation: "USE NOW (for data analysis tasks)"
+    priority: 2
+
+  - id: "requests"
+    name: "Requests"
+    category: "library"
+    type: "Python Library"
+    url: "https://requests.readthedocs.io/"
+
+    description: "HTTP library for Python"
+
+    capabilities:
+      - "Simple HTTP requests"
+      - "API integration"
+
+    integration_use_cases:
+      - "Connect to any REST API"
+      - "Automate API calls"
+
+    rice_score:
+      reach: 10
+      impact: 6
+      confidence: 10
+      effort: 1
+      total: 600       # (10 × 6 × 10) / 1 = 600
+
+    recommendation: "USE NOW (fundamental)"
+    priority: 1
+
+  - id: "aiohttp"
+    name: "aiohttp"
+    category: "library"
+    type: "Python Library"
+    url: "https://docs.aiohttp.org/"
+
+    description: "Async HTTP client/server for Python"
+
+    capabilities:
+      - "Asynchronous HTTP requests"
+      - "Better performance for multiple API calls"
+
+    integration_use_cases:
+      - "Parallel API calls (faster automation)"
+      - "Webhook handling"
+
+    rice_score:
+      reach: 7
+      impact: 6
+      confidence: 8
+      effort: 3
+      total: 112       # (7 × 6 × 8) / 3 = 112
+
+    recommendation: "DO LATER (optimization)"
+    priority: 8
+
+  # CATEGORY 6: CLI TOOLS
+  # ========================================================================
+
+  - id: "jq"
+    name: "jq"
+    category: "cli_tool"
+    type: "CLI"
+    url: "https://jqlang.github.io/jq/"
+
+    description: "Lightweight and flexible command-line JSON processor"
+
+    capabilities:
+      - "Parse and transform JSON"
+      - "Filter and query JSON data"
+
+    integration_use_cases:
+      - "Parse API responses"
+      - "Transform data for analysis"
+
+    rice_score:
+      reach: 8
+      impact: 5
+      confidence: 10
+      effort: 1
+      total: 400       # (8 × 5 × 10) / 1 = 400
+
+    recommendation: "USE NOW"
+    priority: 3
+
+  - id: "httpie"
+    name: "HTTPie"
+    category: "cli_tool"
+    type: "CLI"
+    url: "https://httpie.io/"
+
+    description: "Modern, user-friendly command-line HTTP client"
+
+    capabilities:
+      - "Test APIs from command line"
+      - "Human-friendly syntax"
+
+    integration_use_cases:
+      - "Quick API testing"
+      - "Debug integrations"
+
+    rice_score:
+      reach: 6
+      impact: 4
+      confidence: 10
+      effort: 1
+      total: 240       # (6 × 4 × 10) / 1 = 240
+
+    recommendation: "DO NEXT"
+    priority: 6
+
+  - id: "curl"
+    name: "curl"
+    category: "cli_tool"
+    type: "CLI"
+    url: "https://curl.se/"
+    status: "Already Available"
+
+    description: "Command line tool for transferring data with URLs"
+
+    capabilities:
+      - "HTTP requests from CLI"
+      - "Supports all major protocols"
+
+    integration_use_cases:
+      - "Test APIs"
+      - "Automate HTTP calls in scripts"
+
+    rice_score:
+      reach: 10
+      impact: 5
+      confidence: 10
+      effort: 0        # Already available
+      total: 999       # Already available
+
+    recommendation: "USE NOW (already available)"
+    priority: 1
+
+# ============================================================================
+# RICE SCORING SUMMARY (Sorted by Priority)
+# ============================================================================
+
+rice_ranking:
+  do_now:
+    - tool: "requests"
+      rice: 600
+      reason: "Fundamental for any API integration"
+
+    - tool: "mcp-exa"
+      rice: 420
+      reason: "Already available, high value for research"
+
+    - tool: "zapier"
+      rice: 400
+      reason: "Fastest time-to-value for automation"
+
+    - tool: "jq"
+      rice: 400
+      reason: "Essential for JSON processing"
+
+    - tool: "pandas"
+      rice: 320
+      reason: "Critical for data analysis (80/20)"
+
+    - tool: "mcp-context7"
+      rice: 250
+      reason: "Already available, useful for learning"
+
+    - tool: "toggl-track"
+      rice: 216
+      reason: "Best time tracking for DEAL measurement"
+
+    - tool: "make"
+      rice: 216
+      reason: "Cost-effective automation"
+
+  do_next:
+    - tool: "n8n"
+      rice: 203
+      reason: "Powerful automation with flexibility"
+
+    - tool: "clockify"
+      rice: 192
+      reason: "Free alternative to Toggl"
+
+    - tool: "mlflow"
+      rice: 115
+      reason: "Excellent for experiment tracking"
+
+    - tool: "aiohttp"
+      rice: 112
+      reason: "Performance optimization"
+
+  do_later:
+    - tool: "httpie"
+      rice: 240
+      reason: "Nice-to-have for API testing"
+
+    - tool: "kimai"
+      rice: 57
+      reason: "Only if need full control/privacy"
+
+    - tool: "protocols-io"
+      rice: 53
+      reason: "Specialized use case (scientific protocols)"
+
+# ============================================================================
+# INTEGRATION ROADMAP
+# ============================================================================
+
+roadmap:
+  phase_1_immediate:
+    duration: "1-2 weeks"
+    tools:
+      - "requests (Python)"
+      - "jq (CLI)"
+      - "pandas (Python)"
+      - "mcp-exa (use existing)"
+      - "mcp-context7 (use existing)"
+
+    actions:
+      - "Create Python helpers for API calls (requests)"
+      - "Build 80/20 analysis script (pandas)"
+      - "Document EXA usage for research tasks"
+      - "Create JSON processing utilities (jq)"
+
+    expected_impact: "Enable data-driven DEAL framework execution and 80/20 analysis"
+
+  phase_2_quick_wins:
+    duration: "2-4 weeks"
+    tools:
+      - "Zapier OR n8n"
+      - "Toggl Track OR Clockify"
+
+    actions:
+      - "Choose automation platform (Zapier for ease, n8n for flexibility)"
+      - "Set up time tracking integration"
+      - "Build 3-5 core automations for DEAL Automate phase"
+      - "Create DEAL measurement dashboard"
+
+    expected_impact: "Automate repetitive tasks, measure time savings accurately"
+
+  phase_3_advanced:
+    duration: "4-8 weeks"
+    tools:
+      - "MLflow"
+      - "Make (if not using n8n)"
+
+    actions:
+      - "Set up MLflow for experiment tracking"
+      - "Build experiment protocol templates"
+      - "Create MED discovery workflows"
+      - "Advanced automation workflows"
+
+    expected_impact: "Scientific tracking of body hacking and productivity experiments"
+
+  phase_4_optimization:
+    duration: "8+ weeks"
+    tools:
+      - "aiohttp"
+      - "HTTPie"
+      - "Kimai (if needed)"
+
+    actions:
+      - "Optimize API performance with async"
+      - "Advanced CLI tooling"
+      - "Self-hosted solutions if privacy/cost needed"
+
+    expected_impact: "Performance optimization and cost reduction"
+
+# ============================================================================
+# INTEGRATION TEMPLATES
+# ============================================================================
+
+integration_examples:
+  deal_time_tracking:
+    description: "Integrate time tracking with DEAL framework execution"
+    tools: ["Toggl Track", "pandas"]
+    workflow: |
+      1. Start Toggl timer when beginning task
+      2. Tag with DEAL phase (Define/Eliminate/Automate/Liberate)
+      3. Export weekly data via API
+      4. Run pandas 80/20 analysis
+      5. Generate report: "Which 20% of tasks create 80% of value?"
+
+  experiment_tracking:
+    description: "Track body hacking experiments with MLflow"
+    tools: ["MLflow", "pandas"]
+    workflow: |
+      1. Define experiment (e.g., "Slow-carb diet test")
+      2. Log parameters (diet rules, duration, metrics)
+      3. Track daily measurements (weight, energy, focus)
+      4. Compare runs (different variations)
+      5. Identify MED (minimum effective dose)
+
+  automation_workflow:
+    description: "Automate email batching with n8n or Zapier"
+    tools: ["n8n OR Zapier", "Gmail API"]
+    workflow: |
+      1. Filter incoming emails by priority
+      2. Batch low-priority emails
+      3. Send digest 2x/day (10am, 4pm)
+      4. Auto-archive newsletters for weekly review
+      5. Track time saved
+
+# ============================================================================
+# SOURCES
+# ============================================================================
+
+sources:
+  - "Toggl Track: Time Tracking Software - https://toggl.com/"
+  - "Clockify™ - FREE Time Tracking Software - https://clockify.me/"
+  - "Kimai - Open Source time-tracker - https://www.kimai.org/"
+  - "MLflow - ML Lifecycle Platform - https://mlflow.org/"
+  - "protocols.io - Scientific Protocol Management - https://www.protocols.io/"
+  - "n8n - Workflow Automation - https://n8n.io/"
+  - "Zapier - Automation Platform - https://zapier.com/"
+  - "Make - Visual Automation - https://www.make.com/"
+  - "n8n vs Make vs Zapier Comparison - https://www.digidop.com/blog/n8n-vs-make-vs-zapier"
+  - "Best Time Tracking Software 2026 - https://www.getapp.com/project-management-planning-software/time-tracking/f/api/"
+
+# Elite Mind Cloning Pipeline v1.0 | Tool Discovery Complete

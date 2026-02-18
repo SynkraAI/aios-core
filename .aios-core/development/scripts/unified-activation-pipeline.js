@@ -339,6 +339,14 @@ class UnifiedActivationPipeline {
     // SYN-14: Persist UAP metrics for diagnostics (fire-and-forget)
     this._persistUapMetrics(agentId, quality, metrics, Date.now() - startTime);
 
+    // CLI-DX-1: Update session context with active agent
+    try {
+      await this._updateSessionContext(agentId, agentDefinition);
+    } catch (error) {
+      // Silent fail - don't block activation if context update fails
+      console.debug('[UnifiedActivationPipeline] Failed to update session context:', error.message);
+    }
+
     return {
       greeting,
       context: enrichedContext,
@@ -780,6 +788,58 @@ class UnifiedActivationPipeline {
    */
   static isValidAgentId(agentId) {
     return ALL_AGENT_IDS.includes(agentId);
+  }
+
+  /**
+   * CLI-DX-1: Update session context with active agent information.
+   * Updates .aios/session.json with agent emoji and metadata.
+   *
+   * @private
+   * @param {string} agentId - Agent identifier
+   * @param {Object} agentDefinition - Agent definition from loader
+   * @returns {Promise<void>}
+   */
+  async _updateSessionContext(agentId, agentDefinition) {
+    const { SessionStateManager } = require('../../core/session/state-manager');
+
+    const stateManager = new SessionStateManager(this.projectRoot);
+    const agentEmoji = this._getAgentEmoji(agentId);
+
+    await stateManager.update({
+      metadata: {
+        activeAgent: agentId,
+        lastActivated: new Date().toISOString()
+      },
+      project: {
+        emoji: agentEmoji
+      }
+    });
+  }
+
+  /**
+   * CLI-DX-1: Get emoji for agent type.
+   * Maps agent IDs to their visual representation.
+   *
+   * @private
+   * @param {string} agentId - Agent identifier
+   * @returns {string} Emoji character
+   */
+  _getAgentEmoji(agentId) {
+    const emojiMap = {
+      'dev': '💻',
+      'architect': '🏗️',
+      'qa': '🧪',
+      'pm': '📊',
+      'po': '📋',
+      'sm': '🎯',
+      'analyst': '🔬',
+      'data-engineer': '🗄️',
+      'ux-design-expert': '🎨',
+      'devops': '🚀',
+      'aios-master': '👑',
+      'squad-creator': '👥'
+    };
+    return emojiMap[agentId] || '🤖';
   }
 }
 

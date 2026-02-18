@@ -57,6 +57,40 @@ jest.mock('../../../.aios-core/core/orchestration/brownfield-handler', () => ({
   PhaseFailureAction: {},
 }));
 
+// Story 12.13: Mock GreenfieldHandler (FASE 1: Error Handlers)
+jest.mock('../../../.aios-core/core/orchestration/greenfield-handler', () => {
+  const EventEmitter = require('events');
+  return {
+    GreenfieldHandler: jest.fn().mockImplementation(() => {
+      const emitter = new EventEmitter();
+      return Object.assign(emitter, {
+        handle: jest.fn().mockResolvedValue({
+          action: 'greenfield_surface',
+          phase: 'phase_0_bootstrap',
+          nextPhase: 1,
+          data: {
+            message: 'Ambiente configurado. Descreva o que quer construir.',
+            promptType: 'text_input',
+          },
+        }),
+      });
+    }),
+    GreenfieldPhase: {
+      DETECTION: 'detection',
+      BOOTSTRAP: 'phase_0_bootstrap',
+      DISCOVERY: 'phase_1_discovery',
+      SHARDING: 'phase_2_sharding',
+      DEV_CYCLE: 'phase_3_dev_cycle',
+      COMPLETE: 'complete',
+    },
+    PhaseFailureAction: {
+      RETRY: 'retry',
+      SKIP: 'skip',
+      ABORT: 'abort',
+    },
+  };
+});
+
 jest.mock('../../../.aios-core/core/orchestration/executor-assignment', () => ({
   assignExecutorFromContent: jest.fn().mockReturnValue({
     executor: '@dev',
@@ -270,11 +304,38 @@ describe('BobOrchestrator', () => {
   });
 
   afterEach(async () => {
+    // FASE 6: Cleanup resources to prevent worker leak
+    if (orchestrator) {
+      // Stop observability panel
+      if (orchestrator.observabilityPanel && typeof orchestrator.observabilityPanel.stop === 'function') {
+        orchestrator.observabilityPanel.stop();
+      }
+
+      // Complete bob status writer
+      if (orchestrator.bobStatusWriter && typeof orchestrator.bobStatusWriter.complete === 'function') {
+        await orchestrator.bobStatusWriter.complete().catch(() => {});
+      }
+
+      // Release all locks
+      if (orchestrator.lockManager && typeof orchestrator.lockManager.releaseLock === 'function') {
+        await orchestrator.lockManager.releaseLock('bob-orchestration').catch(() => {});
+      }
+    }
+
+    // Clean up test directory
     try {
       await fs.rm(TEST_PROJECT_ROOT, { recursive: true, force: true });
     } catch {
       // Ignore
     }
+
+    // Wait for pending microtasks to complete
+    await new Promise(resolve => setImmediate(resolve));
+  });
+
+  afterAll(() => {
+    // FASE 6: Restore all mocks after test suite
+    jest.restoreAllMocks();
   });
 
   // ==========================================
@@ -390,6 +451,9 @@ describe('BobOrchestrator', () => {
       mockInstance.acquireLock.mockResolvedValueOnce(false);
       orchestrator.lockManager = mockInstance;
 
+      // Mock BOB-SAFE-1 dependency check
+      jest.spyOn(orchestrator, '_checkDependencies').mockResolvedValue({ healthy: true });
+
       // When
       const result = await orchestrator.orchestrate();
 
@@ -404,6 +468,12 @@ describe('BobOrchestrator', () => {
         throw new Error('No config');
       });
 
+      // Mock BOB-SAFE-1 dependency check
+      jest.spyOn(orchestrator, '_checkDependencies').mockResolvedValue({ healthy: true });
+
+      // Mock BOB-VETO-1: No AIOS initialized yet (true onboarding)
+      jest.spyOn(orchestrator, '_isAiosInitialized').mockReturnValue(false);
+
       // When
       const result = await orchestrator.orchestrate();
 
@@ -415,6 +485,7 @@ describe('BobOrchestrator', () => {
 
     it('should route to brownfield_welcome for EXISTING_NO_DOCS state (AC4)', async () => {
       // Given
+      jest.spyOn(orchestrator, '_checkDependencies').mockResolvedValue({ healthy: true });
       await fs.rm(path.join(TEST_PROJECT_ROOT, 'docs/architecture'), { recursive: true });
 
       // When
@@ -428,6 +499,9 @@ describe('BobOrchestrator', () => {
     });
 
     it('should route to ask_objective for EXISTING_WITH_DOCS state (AC5)', async () => {
+      // Mock BOB-SAFE-1 dependency check
+      jest.spyOn(orchestrator, '_checkDependencies').mockResolvedValue({ healthy: true });
+
       // When
       const result = await orchestrator.orchestrate();
 
@@ -442,6 +516,9 @@ describe('BobOrchestrator', () => {
       const emptyRoot = path.join(TEST_PROJECT_ROOT, 'greenfield');
       await fs.mkdir(emptyRoot, { recursive: true });
       const greenOrch = new BobOrchestrator(emptyRoot);
+
+      // Mock BOB-SAFE-1 dependency check
+      jest.spyOn(greenOrch, '_checkDependencies').mockResolvedValue({ healthy: true });
 
       // When
       const result = await greenOrch.orchestrate();
@@ -459,6 +536,9 @@ describe('BobOrchestrator', () => {
       orchestrator.detectProjectState = () => {
         throw new Error('Forced test error');
       };
+
+      // Mock BOB-SAFE-1 dependency check
+      jest.spyOn(orchestrator, '_checkDependencies').mockResolvedValue({ healthy: true });
 
       // When
       const result = await orchestrator.orchestrate();
@@ -715,6 +795,12 @@ describe('BobOrchestrator', () => {
         story: '12.1',
       });
 
+      // Mock BOB-VETO-2: No uncommitted work (allow restart)
+      jest.spyOn(orchestrator, '_checkUncommittedWork').mockResolvedValue({
+        hasChanges: false,
+        files: [],
+      });
+
       // When
       const result = await orchestrator.handleSessionResume('restart');
 
@@ -800,6 +886,181 @@ describe('BobOrchestrator', () => {
 
       // When/Then - should not throw
       await expect(orchestrator._updatePhase('development', '12.1', '@dev')).resolves.not.toThrow();
+    });
+
+    // FASE 5: Error logging edge case (line 1141)
+    it('should log error when recordPhaseChange fails (line 1141)', async () => {
+      // Given - debug mode enabled
+      orchestrator.options.debug = true;
+      const logs = [];
+      orchestrator._log = (msg) => logs.push(msg);
+
+      orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+      orchestrator.sessionState.state = { session_state: {} };
+      orchestrator.sessionState.recordPhaseChange = jest
+        .fn()
+        .mockRejectedValue(new Error('Session write failed'));
+
+      // When
+      await orchestrator._updatePhase('development', '12.1', '@dev');
+
+      // Then - error logged, not thrown
+      expect(logs.some((log) => log.includes('Failed to update phase'))).toBe(true);
+      expect(logs.some((log) => log.includes('Session write failed'))).toBe(true);
+    });
+  });
+
+  // FASE 5: _executeStory phase tracking (lines 1086-1112)
+  describe('_executeStory Phase Tracking', () => {
+    beforeEach(() => {
+      // Mock fs.readFileSync to avoid ENOENT (line 1077 reads story file)
+      const fs = require('fs');
+      jest.spyOn(fs, 'readFileSync').mockReturnValue(`---
+id: TEST-001
+title: Test Story
+status: Draft
+---
+# Test Story Content`);
+
+      // Mock ExecutorAssignment.assignExecutorFromContent (line 1078)
+      const ExecutorAssignment = require('../../../.aios-core/core/orchestration/executor-assignment');
+      jest
+        .spyOn(ExecutorAssignment, 'assignExecutorFromContent')
+        .mockReturnValue({
+          executor: '@dev',
+          quality_gate: '@qa',
+          quality_gate_tools: ['test_review', 'coverage_check'],
+        });
+
+      // Mock session state
+      orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+      orchestrator.sessionState.loadSessionState = jest.fn().mockResolvedValue({});
+      orchestrator.sessionState.state = { session_state: {} };
+      orchestrator.sessionState.recordPhaseChange = jest.fn().mockResolvedValue({});
+
+      // Mock workflowExecutor
+      orchestrator.workflowExecutor = {
+        execute: jest.fn().mockResolvedValue({
+          success: true,
+          selfHealing: false,
+        }),
+      };
+    });
+
+    afterEach(() => {
+      // Restore fs.readFileSync to avoid interfering with other tests
+      jest.restoreAllMocks();
+    });
+
+    it('should load session state when exists (lines 1086-1087)', async () => {
+      // Given - session exists
+      orchestrator.sessionState.exists.mockResolvedValue(true);
+
+      // When
+      await orchestrator._executeStory('docs/stories/test.md');
+
+      // Then
+      expect(orchestrator.sessionState.loadSessionState).toHaveBeenCalled();
+    });
+
+    it('should track all 5 phases when success without self_healing (lines 1090-1112)', async () => {
+      // Given - success without self_healing
+      orchestrator.workflowExecutor.execute.mockResolvedValue({
+        success: true,
+        selfHealing: false,
+      });
+
+      // When
+      await orchestrator._executeStory('docs/stories/test.md');
+
+      // Then - 5 phases tracked (validation, development, quality_gate, push, checkpoint)
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenCalledTimes(5);
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenNthCalledWith(
+        1,
+        'validation',
+        expect.any(String),
+        '@dev',
+      );
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenNthCalledWith(
+        2,
+        'development',
+        expect.any(String),
+        '@dev',
+      );
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenNthCalledWith(
+        3,
+        'quality_gate',
+        expect.any(String),
+        '@qa',
+      );
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenNthCalledWith(
+        4,
+        'push',
+        expect.any(String),
+        '@devops',
+      );
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenNthCalledWith(
+        5,
+        'checkpoint',
+        expect.any(String),
+        '@dev',
+      );
+    });
+
+    it('should track self_healing phase when result.selfHealing=true (lines 1099-1100)', async () => {
+      // Given - self_healing enabled
+      orchestrator.workflowExecutor.execute.mockResolvedValue({
+        success: true,
+        selfHealing: true,
+      });
+
+      // When
+      await orchestrator._executeStory('docs/stories/test.md');
+
+      // Then - 6 phases tracked (includes self_healing)
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenCalledTimes(6);
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenCalledWith(
+        'self_healing',
+        expect.any(String),
+        '@dev',
+      );
+    });
+
+    it('should skip push phase when result.success=false (lines 1107-1108)', async () => {
+      // Given - execution failed
+      orchestrator.workflowExecutor.execute.mockResolvedValue({
+        success: false,
+        selfHealing: false,
+      });
+
+      // When
+      await orchestrator._executeStory('docs/stories/test.md');
+
+      // Then - 4 phases tracked (no push)
+      expect(orchestrator.sessionState.recordPhaseChange).toHaveBeenCalledTimes(4);
+      const calls = orchestrator.sessionState.recordPhaseChange.mock.calls;
+      const phases = calls.map((call) => call[0]);
+      expect(phases).toContain('validation');
+      expect(phases).toContain('development');
+      expect(phases).toContain('quality_gate');
+      expect(phases).toContain('checkpoint');
+      expect(phases).not.toContain('push'); // Push skipped when failed
+    });
+
+    it('should skip self_healing phase when result.selfHealing=false', async () => {
+      // Given - self_healing disabled
+      orchestrator.workflowExecutor.execute.mockResolvedValue({
+        success: true,
+        selfHealing: false,
+      });
+
+      // When
+      await orchestrator._executeStory('docs/stories/test.md');
+
+      // Then - self_healing not tracked
+      const calls = orchestrator.sessionState.recordPhaseChange.mock.calls;
+      const phases = calls.map((call) => call[0]);
+      expect(phases).not.toContain('self_healing');
     });
   });
 
@@ -1024,6 +1285,581 @@ describe('BobOrchestrator', () => {
         // Then
         expect(result).toBeDefined();
         expect(typeof result).toBe('string');
+      });
+    });
+  });
+
+  // FASE 1: Error Handlers in Callbacks (Coverage Target: lines 179-257)
+  describe('Error Handlers in Callbacks', () => {
+    describe('onPhaseChange error handlers', () => {
+      it('should catch bobStatusWriter.updatePhase errors and log (line 186-188)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.bobStatusWriter.updatePhase = jest
+          .fn()
+          .mockRejectedValue(new Error('BobStatusWriter failed'));
+
+        // Get the registered callback
+        const onPhaseChangeCallback = orchestrator.workflowExecutor.onPhaseChange.mock.calls[0][0];
+
+        // When
+        await onPhaseChangeCallback('validation', 'story-1', '@qa');
+
+        // Then - Error is logged, not thrown
+        await new Promise((resolve) => setImmediate(resolve)); // Wait for async catch
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('BobStatusWriter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('BobStatusWriter failed'),
+        );
+      });
+
+      it('should catch dashboardEmitter.emitBobPhaseChange errors and log (line 191-193)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.dashboardEmitter.emitBobPhaseChange = jest
+          .fn()
+          .mockRejectedValue(new Error('DashboardEmitter failed'));
+
+        // Get the registered callback
+        const onPhaseChangeCallback = orchestrator.workflowExecutor.onPhaseChange.mock.calls[0][0];
+
+        // When
+        await onPhaseChangeCallback('validation', 'story-1', '@qa');
+
+        // Then - Error is logged, not thrown
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('DashboardEmitter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('DashboardEmitter failed'),
+        );
+      });
+    });
+
+    describe('onAgentSpawn error handlers', () => {
+      it('should catch bobStatusWriter.updateAgent errors and log (line 207-209)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.bobStatusWriter.updateAgent = jest
+          .fn()
+          .mockRejectedValue(new Error('UpdateAgent failed'));
+
+        // Get the registered callback
+        const onAgentSpawnCallback = orchestrator.workflowExecutor.onAgentSpawn.mock.calls[0][0];
+
+        // When
+        await onAgentSpawnCallback('@dev', 'implement-feature');
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('BobStatusWriter error'));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('UpdateAgent failed'));
+      });
+    });
+
+    describe('greenfieldHandler error handlers', () => {
+      it('should catch bobStatusWriter.updatePhase errors in phaseStart (line 216-218)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.bobStatusWriter.updatePhase = jest
+          .fn()
+          .mockRejectedValue(new Error('Greenfield updatePhase failed'));
+
+        // Trigger the phaseStart event
+        orchestrator.greenfieldHandler.emit('phaseStart', { phase: 'setup' });
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('BobStatusWriter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('Greenfield updatePhase failed'),
+        );
+      });
+
+      it('should catch bobStatusWriter.updateAgent errors in agentSpawn (line 226-228)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.bobStatusWriter.updateAgent = jest
+          .fn()
+          .mockRejectedValue(new Error('Greenfield updateAgent failed'));
+
+        // Trigger the agentSpawn event
+        orchestrator.greenfieldHandler.emit('agentSpawn', {
+          agent: '@architect',
+          task: 'design-system',
+        });
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('BobStatusWriter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('Greenfield updateAgent failed'),
+        );
+      });
+
+      it('should catch bobStatusWriter.addTerminal errors in terminalSpawn (line 234-236)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.bobStatusWriter.addTerminal = jest
+          .fn()
+          .mockRejectedValue(new Error('Greenfield addTerminal failed'));
+
+        // Trigger the terminalSpawn event
+        orchestrator.greenfieldHandler.emit('terminalSpawn', {
+          agent: '@dev',
+          pid: 12345,
+          task: 'implement',
+        });
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('BobStatusWriter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('Greenfield addTerminal failed'),
+        );
+      });
+
+      it('should catch dashboardEmitter.emitBobAgentSpawned errors in terminalSpawn (line 237-239)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.dashboardEmitter.emitBobAgentSpawned = jest
+          .fn()
+          .mockRejectedValue(new Error('Greenfield emitBobAgentSpawned failed'));
+
+        // Trigger the terminalSpawn event
+        orchestrator.greenfieldHandler.emit('terminalSpawn', {
+          agent: '@dev',
+          pid: 12345,
+          task: 'implement',
+        });
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('DashboardEmitter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('Greenfield emitBobAgentSpawned failed'),
+        );
+      });
+    });
+
+    describe('onTerminalSpawn error handlers', () => {
+      it('should catch bobStatusWriter.addTerminal errors and log (line 249-251)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.bobStatusWriter.addTerminal = jest
+          .fn()
+          .mockRejectedValue(new Error('AddTerminal failed'));
+
+        const onTerminalSpawnCallback =
+          orchestrator.workflowExecutor.onTerminalSpawn.mock.calls[0][0];
+
+        // When
+        await onTerminalSpawnCallback('@qa', 54321, 'test-execution');
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('BobStatusWriter error'));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('AddTerminal failed'));
+      });
+
+      it('should catch dashboardEmitter.emitBobAgentSpawned errors and log (line 254-256)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.dashboardEmitter.emitBobAgentSpawned = jest
+          .fn()
+          .mockRejectedValue(new Error('EmitBobAgentSpawned failed'));
+
+        const onTerminalSpawnCallback =
+          orchestrator.workflowExecutor.onTerminalSpawn.mock.calls[0][0];
+
+        // When
+        await onTerminalSpawnCallback('@qa', 54321, 'test-execution');
+
+        // Then
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('DashboardEmitter error'));
+        expect(logSpy).toHaveBeenCalledWith(
+          expect.stringContaining('EmitBobAgentSpawned failed'),
+        );
+      });
+    });
+  });
+
+  // FASE 2: Brownfield/Greenfield Handlers (Coverage Target: lines 941-1057)
+  describe('Brownfield/Greenfield Handlers', () => {
+    describe('Brownfield handlers', () => {
+      it('should handle brownfield decision ACCEPTED (line 941-944)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handleUserDecision = jest
+          .fn()
+          .mockResolvedValue({ action: 'analysis_started' });
+
+        // When
+        const result = await orchestrator.handleBrownfieldDecision(true, { foo: 'bar' });
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Brownfield decision: ACCEPTED');
+        expect(orchestrator.brownfieldHandler.handleUserDecision).toHaveBeenCalledWith(
+          true,
+          { foo: 'bar' },
+        );
+        expect(result).toEqual({ action: 'analysis_started' });
+      });
+
+      it('should handle brownfield decision DECLINED (line 941-944)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handleUserDecision = jest
+          .fn()
+          .mockResolvedValue({ action: 'declined' });
+
+        // When
+        const result = await orchestrator.handleBrownfieldDecision(false);
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Brownfield decision: DECLINED');
+        expect(orchestrator.brownfieldHandler.handleUserDecision).toHaveBeenCalledWith(
+          false,
+          {},
+        );
+        expect(result).toEqual({ action: 'declined' });
+      });
+
+      it('should handle brownfield phase failure with retry action (line 956-959)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handlePhaseFailureAction = jest
+          .fn()
+          .mockResolvedValue({ action: 'retry', phase: 'discovery' });
+
+        // When
+        const result = await orchestrator.handleBrownfieldPhaseFailure(
+          'discovery',
+          'retry',
+          { attempt: 1 },
+        );
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Brownfield phase failure action: retry for discovery');
+        expect(orchestrator.brownfieldHandler.handlePhaseFailureAction).toHaveBeenCalledWith(
+          'discovery',
+          'retry',
+          { attempt: 1 },
+        );
+        expect(result).toEqual({ action: 'retry', phase: 'discovery' });
+      });
+
+      it('should handle brownfield phase failure with skip action (line 956-959)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handlePhaseFailureAction = jest
+          .fn()
+          .mockResolvedValue({ action: 'skip' });
+
+        // When
+        await orchestrator.handleBrownfieldPhaseFailure('analysis', 'skip');
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Brownfield phase failure action: skip for analysis');
+      });
+
+      it('should handle brownfield phase failure with abort action (line 956-959)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handlePhaseFailureAction = jest
+          .fn()
+          .mockResolvedValue({ action: 'abort' });
+
+        // When
+        await orchestrator.handleBrownfieldPhaseFailure('validation', 'abort');
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith(
+          'Brownfield phase failure action: abort for validation',
+        );
+      });
+
+      it('should handle post-discovery choice resolve_debts (line 970-973)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handle = jest
+          .fn()
+          .mockResolvedValue({ action: 'resolve_debts', phase: 'debt_resolution' });
+
+        // When
+        const result = await orchestrator.handlePostDiscoveryChoice('resolve_debts', {
+          debts: 10,
+        });
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Post-discovery choice: resolve_debts');
+        expect(orchestrator.brownfieldHandler.handle).toHaveBeenCalledWith({
+          debts: 10,
+          postDiscoveryChoice: 'resolve_debts',
+        });
+        expect(result).toEqual({ action: 'resolve_debts', phase: 'debt_resolution' });
+      });
+
+      it('should handle post-discovery choice add_feature (line 970-973)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.brownfieldHandler.handle = jest
+          .fn()
+          .mockResolvedValue({ action: 'add_feature' });
+
+        // When
+        await orchestrator.handlePostDiscoveryChoice('add_feature');
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Post-discovery choice: add_feature');
+        expect(orchestrator.brownfieldHandler.handle).toHaveBeenCalledWith({
+          postDiscoveryChoice: 'add_feature',
+        });
+      });
+    });
+
+    describe('Greenfield handlers', () => {
+      it('should handle greenfield surface decision GO (line 1040-1042)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.greenfieldHandler.handleSurfaceDecision = jest
+          .fn()
+          .mockResolvedValue({ action: 'continue', nextPhase: 'discovery' });
+
+        // When
+        const result = await orchestrator.handleGreenfieldSurfaceDecision('GO', 'discovery', {
+          ready: true,
+        });
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Greenfield surface decision: GO, next phase: discovery');
+        expect(orchestrator.greenfieldHandler.handleSurfaceDecision).toHaveBeenCalledWith(
+          'GO',
+          'discovery',
+          { ready: true },
+        );
+        expect(result).toEqual({ action: 'continue', nextPhase: 'discovery' });
+      });
+
+      it('should handle greenfield surface decision PAUSE (line 1040-1042)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.greenfieldHandler.handleSurfaceDecision = jest
+          .fn()
+          .mockResolvedValue({ action: 'pause' });
+
+        // When
+        await orchestrator.handleGreenfieldSurfaceDecision('PAUSE', 'sharding');
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Greenfield surface decision: PAUSE, next phase: sharding');
+      });
+
+      it('should handle greenfield phase failure with retry (line 1054-1057)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.greenfieldHandler.handlePhaseFailureAction = jest
+          .fn()
+          .mockResolvedValue({ action: 'retry' });
+
+        // When
+        await orchestrator.handleGreenfieldPhaseFailure('bootstrap', 'retry', { attempt: 2 });
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Greenfield phase failure: action=retry, phase=bootstrap');
+        expect(orchestrator.greenfieldHandler.handlePhaseFailureAction).toHaveBeenCalledWith(
+          'bootstrap',
+          'retry',
+          { attempt: 2 },
+        );
+      });
+
+      it('should handle greenfield phase failure with skip (line 1054-1057)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.greenfieldHandler.handlePhaseFailureAction = jest
+          .fn()
+          .mockResolvedValue({ action: 'skip' });
+
+        // When
+        await orchestrator.handleGreenfieldPhaseFailure('discovery', 'skip');
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Greenfield phase failure: action=skip, phase=discovery');
+      });
+
+      it('should handle greenfield phase failure with abort (line 1054-1057)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        orchestrator.greenfieldHandler.handlePhaseFailureAction = jest
+          .fn()
+          .mockResolvedValue({ action: 'abort' });
+
+        // When
+        await orchestrator.handleGreenfieldPhaseFailure('dev_cycle', 'abort');
+
+        // Then
+        expect(logSpy).toHaveBeenCalledWith('Greenfield phase failure: action=abort, phase=dev_cycle');
+      });
+    });
+  });
+
+  // FASE 3: Educational Mode Edge Cases (Coverage Target: lines 547-562, 696-704)
+  describe('Educational Mode Edge Cases', () => {
+    describe('Toggle detection early return', () => {
+      it('should detect toggle command and return early (line 547-562)', async () => {
+        // Given
+        const logSpy = jest.spyOn(orchestrator, '_log');
+        const toggleSpy = jest
+          .spyOn(orchestrator, '_detectEducationalModeToggle')
+          .mockReturnValue({
+            enable: true,
+            command: 'enable educational mode',
+          });
+
+        // When
+        const result = await orchestrator.orchestrate({
+          userGoal: 'enable educational mode',
+        });
+
+        // Then
+        expect(toggleSpy).toHaveBeenCalledWith('enable educational mode');
+        expect(logSpy).toHaveBeenCalledWith('Educational mode toggle detected: enable=true');
+        expect(result.success).toBe(true);
+        expect(result.action).toBe('educational_mode_toggle');
+        expect(result.data.enable).toBe(true);
+        expect(result.data.command).toBe('enable educational mode');
+      });
+
+      it('should detect toggle disable command and return early (line 547-562)', async () => {
+        // Given
+        const toggleSpy = jest
+          .spyOn(orchestrator, '_detectEducationalModeToggle')
+          .mockReturnValue({
+            enable: false,
+            command: 'disable educational mode',
+          });
+
+        // When
+        const result = await orchestrator.orchestrate({
+          userGoal: 'disable educational mode',
+        });
+
+        // Then
+        expect(result.action).toBe('educational_mode_toggle');
+        expect(result.data.enable).toBe(false);
+      });
+    });
+
+    describe('Elapsed time formatting', () => {
+      beforeEach(() => {
+        jest.useFakeTimers();
+      });
+
+      afterEach(() => {
+        jest.useRealTimers();
+      });
+
+      it('should format elapsed time as "1 dia" (singular) when 1 day (line 698-699)', async () => {
+        // Given
+        const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+        orchestrator.sessionState.loadSessionState = jest.fn().mockResolvedValue({
+          session_state: {
+            last_updated: oneDayAgo.toISOString(),
+            active_story: 'test-story',
+            current_phase: 'validation',
+          },
+        });
+        orchestrator.sessionState.detectCrash = jest.fn().mockResolvedValue({
+          isCrash: false,
+        });
+        orchestrator.sessionState.getResumeSummary = jest
+          .fn()
+          .mockReturnValue('Resumo da sessão: 1 dia de inatividade');
+
+        // When
+        const result = await orchestrator._checkExistingSession();
+
+        // Then
+        expect(result.summary).toContain('1 dia');
+        expect(result.summary).not.toContain('dias'); // Não deve ter plural
+      });
+
+      it('should format elapsed time as "2 dias" (plural) when multiple days (line 698-699)', async () => {
+        // Given
+        const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
+        orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+        orchestrator.sessionState.loadSessionState = jest.fn().mockResolvedValue({
+          session_state: {
+            last_updated: twoDaysAgo.toISOString(),
+            active_story: 'test-story',
+            current_phase: 'validation',
+          },
+        });
+        orchestrator.sessionState.detectCrash = jest.fn().mockResolvedValue({
+          isCrash: false,
+        });
+        orchestrator.sessionState.getResumeSummary = jest
+          .fn()
+          .mockReturnValue('Resumo da sessão: 2 dias de inatividade');
+
+        // When
+        const result = await orchestrator._checkExistingSession();
+
+        // Then
+        expect(result.summary).toContain('2 dias');
+      });
+
+      it('should format elapsed time as "1 hora" (singular) when 1 hour (line 700-701)', async () => {
+        // Given
+        const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+        orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+        orchestrator.sessionState.loadSessionState = jest.fn().mockResolvedValue({
+          session_state: {
+            last_updated: oneHourAgo.toISOString(),
+            active_story: 'test-story',
+            current_phase: 'validation',
+          },
+        });
+        orchestrator.sessionState.detectCrash = jest.fn().mockResolvedValue({
+          isCrash: false,
+        });
+        orchestrator.sessionState.getResumeSummary = jest
+          .fn()
+          .mockReturnValue('Resumo da sessão: 1 hora de inatividade');
+
+        // When
+        const result = await orchestrator._checkExistingSession();
+
+        // Then
+        expect(result.summary).toContain('1 hora');
+        expect(result.summary).not.toContain('horas'); // Não deve ter plural
+      });
+
+      it('should format elapsed time as "3 horas" (plural) when multiple hours (line 700-701)', async () => {
+        // Given
+        const threeHoursAgo = new Date(Date.now() - 3 * 60 * 60 * 1000);
+        orchestrator.sessionState.exists = jest.fn().mockResolvedValue(true);
+        orchestrator.sessionState.loadSessionState = jest.fn().mockResolvedValue({
+          session_state: {
+            last_updated: threeHoursAgo.toISOString(),
+            active_story: 'test-story',
+            current_phase: 'validation',
+          },
+        });
+        orchestrator.sessionState.detectCrash = jest.fn().mockResolvedValue({
+          isCrash: false,
+        });
+        orchestrator.sessionState.getResumeSummary = jest
+          .fn()
+          .mockReturnValue('Resumo da sessão: 3 horas de inatividade');
+
+        // When
+        const result = await orchestrator._checkExistingSession();
+
+        // Then
+        expect(result.summary).toContain('3 horas');
       });
     });
   });

@@ -1,0 +1,503 @@
+/**
+ * Bob Orchestrator Security Tests
+ *
+ * Task #3: UID validation before process.kill()
+ * Security: Prevents attempting to kill processes owned by other users
+ *
+ * @module tests/unit/core/orchestration/bob-orchestrator-security
+ */
+
+'use strict';
+
+const { BobOrchestrator } = require('../../../../.aios-core/core/orchestration/bob-orchestrator');
+const os = require('os');
+const { execSync } = require('child_process');
+
+describe('BobOrchestrator - Security (Task #3)', () => {
+  let orchestrator;
+  const projectRoot = '/tmp/test-project';
+
+  beforeEach(() => {
+    orchestrator = new BobOrchestrator(projectRoot, {
+      debug: false,
+      observability: false,
+    });
+  });
+
+  afterEach(async () => {
+    // FASE 6: Cleanup resources to prevent worker leak
+    if (orchestrator) {
+      if (orchestrator.observabilityPanel && typeof orchestrator.observabilityPanel.stop === 'function') {
+        orchestrator.observabilityPanel.stop();
+      }
+      if (orchestrator.bobStatusWriter && typeof orchestrator.bobStatusWriter.complete === 'function') {
+        await orchestrator.bobStatusWriter.complete().catch(() => {});
+      }
+      if (orchestrator.lockManager && typeof orchestrator.lockManager.releaseLock === 'function') {
+        await orchestrator.lockManager.releaseLock('bob-orchestration').catch(() => {});
+      }
+    }
+    await new Promise(resolve => setImmediate(resolve));
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
+
+  describe('_isProcessOwnedByCurrentUser() - UID Validation', () => {
+    test('returns true for current process (own PID)', () => {
+      const currentPid = process.pid;
+      const result = orchestrator._isProcessOwnedByCurrentUser(currentPid);
+
+      expect(result).toBe(true);
+    });
+
+    test('returns true for parent process (Node.js parent)', () => {
+      const ppid = process.ppid;
+      if (ppid) {
+        const result = orchestrator._isProcessOwnedByCurrentUser(ppid);
+        expect(result).toBe(true);
+      } else {
+        // No parent (unlikely but handle gracefully)
+        expect(true).toBe(true);
+      }
+    });
+
+    test('returns false for non-existent PID', () => {
+      // Use a very high PID that definitely doesn't exist
+      const nonExistentPid = 99999999;
+      const result = orchestrator._isProcessOwnedByCurrentUser(nonExistentPid);
+
+      expect(result).toBe(false);
+    });
+
+    test('returns false for invalid PID (string)', () => {
+      const result = orchestrator._isProcessOwnedByCurrentUser('invalid-pid');
+
+      expect(result).toBe(false);
+    });
+
+    test('returns false for negative PID', () => {
+      const result = orchestrator._isProcessOwnedByCurrentUser(-1);
+
+      expect(result).toBe(false);
+    });
+
+    test('returns false for PID 0', () => {
+      const result = orchestrator._isProcessOwnedByCurrentUser(0);
+
+      expect(result).toBe(false);
+    });
+
+    test('verifies current user UID matches process UID', () => {
+      const currentPid = process.pid;
+      const currentUid = os.userInfo().uid;
+
+      // Get process UID
+      const processUidOutput = execSync(`ps -p ${currentPid} -o uid=`, {
+        encoding: 'utf8',
+      }).trim();
+      const processUid = parseInt(processUidOutput, 10);
+
+      // UIDs should match
+      expect(processUid).toBe(currentUid);
+
+      // And our function should return true
+      const result = orchestrator._isProcessOwnedByCurrentUser(currentPid);
+      expect(result).toBe(true);
+    });
+
+    test('handles ps command failure gracefully', () => {
+      // Mock execSync to throw error
+      const originalExecSync = require('child_process').execSync;
+      jest.spyOn(require('child_process'), 'execSync').mockImplementation(() => {
+        throw new Error('ps command failed');
+      });
+
+      const result = orchestrator._isProcessOwnedByCurrentUser(process.pid);
+
+      // Should return false on error (safe default)
+      expect(result).toBe(false);
+
+      // Restore original
+      require('child_process').execSync = originalExecSync;
+    });
+  });
+
+  describe('_cleanupOrphanMonitors() - Security Integration', () => {
+    test('skips processes not owned by current user', () => {
+      // This test verifies the security check is integrated
+      // Since we can't easily create processes owned by other users in a test,
+      // we verify the logic flow
+
+      const logs = [];
+      orchestrator._log = (msg) => logs.push(msg);
+      orchestrator.options.debug = true;
+
+      // Mock execSync to return a fake monitor PID
+      const originalExecSync = require('child_process').execSync;
+      let execCallCount = 0;
+
+      jest.spyOn(require('child_process'), 'execSync').mockImplementation((cmd) => {
+        execCallCount++;
+
+        // First call: pgrep for monitors
+        if (cmd.includes('pgrep')) {
+          return '12345\n67890'; // Two fake PIDs
+        }
+
+        // Second call: get UID for PID 12345
+        if (cmd.includes('ps -p 12345 -o uid=')) {
+          // Return different UID than current user
+          const currentUid = os.userInfo().uid;
+          return String(currentUid + 1000); // Different UID
+        }
+
+        // Third call: get UID for PID 67890
+        if (cmd.includes('ps -p 67890 -o uid=')) {
+          // Return same UID as current user
+          return String(os.userInfo().uid);
+        }
+
+        // Fourth call: get PPID for PID 67890
+        if (cmd.includes('ps -p 67890 -o ppid=')) {
+          return '99999'; // Fake parent PID
+        }
+
+        // Fifth call: check if parent exists
+        if (cmd.includes('ps -p 99999')) {
+          throw new Error('Parent does not exist'); // Orphan detected
+        }
+
+        return '';
+      });
+
+      // Run cleanup
+      orchestrator._cleanupOrphanMonitors();
+
+      // Verify PID 12345 was skipped (UID mismatch)
+      expect(logs.some((log) => log.includes('Skipped monitor 12345'))).toBe(true);
+
+      // Verify PID 67890 was processed (but we can't actually kill it in test)
+      // The process.kill() would be called for 67890, but we can't verify that easily
+
+      // Restore original
+      require('child_process').execSync = originalExecSync;
+    });
+
+    test('handles empty monitor list gracefully', () => {
+      // Mock execSync to return empty result
+      const originalExecSync = require('child_process').execSync;
+      jest.spyOn(require('child_process'), 'execSync').mockImplementation((cmd) => {
+        if (cmd.includes('pgrep')) {
+          return ''; // No monitors
+        }
+        return '';
+      });
+
+      // Should not throw
+      expect(() => {
+        orchestrator._cleanupOrphanMonitors();
+      }).not.toThrow();
+
+      // Restore original
+      require('child_process').execSync = originalExecSync;
+    });
+
+    test('handles pgrep failure gracefully', () => {
+      // Mock execSync to throw on pgrep
+      const originalExecSync = require('child_process').execSync;
+      jest.spyOn(require('child_process'), 'execSync').mockImplementation((cmd) => {
+        if (cmd.includes('pgrep')) {
+          throw new Error('pgrep failed');
+        }
+        return '';
+      });
+
+      // Should not throw - errors are caught
+      expect(() => {
+        orchestrator._cleanupOrphanMonitors();
+      }).not.toThrow();
+
+      // Restore original
+      require('child_process').execSync = originalExecSync;
+    });
+  });
+
+  describe('Security Properties', () => {
+    test('_isProcessOwnedByCurrentUser is a private method', () => {
+      expect(orchestrator._isProcessOwnedByCurrentUser).toBeDefined();
+      expect(typeof orchestrator._isProcessOwnedByCurrentUser).toBe('function');
+
+      // Method name starts with underscore (private convention)
+      expect(orchestrator._isProcessOwnedByCurrentUser.name).toMatch(/^_/);
+    });
+
+    test('UID validation happens before process.kill()', () => {
+      // This is a code structure test - verifying the order of operations
+      // We verify this by reading the code (which we did in implementation)
+      // and ensuring the UID check is BEFORE the kill
+
+      const orchestratorCode = require('fs').readFileSync(
+        require('path').join(__dirname, '../../../../.aios-core/core/orchestration/bob-orchestrator.js'),
+        'utf8',
+      );
+
+      // Find the _cleanupOrphanMonitors function
+      const functionMatch = orchestratorCode.match(/_cleanupOrphanMonitors\(\) \{[\s\S]*?\n  \}/);
+      expect(functionMatch).toBeTruthy();
+
+      const functionBody = functionMatch[0];
+
+      // Verify UID check comes before process.kill
+      const uidCheckIndex = functionBody.indexOf('_isProcessOwnedByCurrentUser');
+      const killIndex = functionBody.indexOf('process.kill');
+
+      expect(uidCheckIndex).toBeGreaterThan(0);
+      expect(killIndex).toBeGreaterThan(0);
+      expect(uidCheckIndex).toBeLessThan(killIndex);
+    });
+
+    test('process.kill() has security comment', () => {
+      const orchestratorCode = require('fs').readFileSync(
+        require('path').join(__dirname, '../../../../.aios-core/core/orchestration/bob-orchestrator.js'),
+        'utf8',
+      );
+
+      // Verify security comment exists near process.kill
+      expect(orchestratorCode).toContain('SECURITY: Verify process belongs to current user');
+      expect(orchestratorCode).toContain('Safe to kill: ownership already validated');
+    });
+  });
+
+  describe('Error Handling', () => {
+    test('handles timeout in UID check gracefully', () => {
+      // Create orchestrator with very short timeout
+      const fastOrchestrator = new BobOrchestrator(projectRoot, {
+        debug: false,
+        observability: false,
+      });
+
+      // Mock slow ps command
+      const originalExecSync = require('child_process').execSync;
+      jest.spyOn(require('child_process'), 'execSync').mockImplementation((cmd, options) => {
+        if (cmd.includes('ps -p') && cmd.includes('uid')) {
+          // Simulate timeout by taking longer than 5 seconds (mocked)
+          throw new Error('Command timed out');
+        }
+        return originalExecSync(cmd, options);
+      });
+
+      const result = fastOrchestrator._isProcessOwnedByCurrentUser(process.pid);
+
+      // Should return false on timeout (safe default)
+      expect(result).toBe(false);
+
+      // Restore original
+      require('child_process').execSync = originalExecSync;
+    });
+
+    test('handles invalid UID output gracefully', () => {
+      // Mock ps to return invalid UID
+      const originalExecSync = require('child_process').execSync;
+      jest.spyOn(require('child_process'), 'execSync').mockImplementation((cmd) => {
+        if (cmd.includes('uid=')) {
+          return 'not-a-number'; // Invalid UID
+        }
+        return '';
+      });
+
+      const result = orchestrator._isProcessOwnedByCurrentUser(12345);
+
+      // Should return false for invalid UID
+      expect(result).toBe(false);
+
+      // Restore original
+      require('child_process').execSync = originalExecSync;
+    });
+  });
+
+  describe('Platform Compatibility', () => {
+    test('works on current platform', () => {
+      // Verify os.userInfo().uid is available on this platform
+      const userInfo = os.userInfo();
+      expect(userInfo).toBeDefined();
+      expect(typeof userInfo.uid).toBe('number');
+
+      // Verify ps command works
+      const psOutput = execSync(`ps -p ${process.pid} -o uid=`, {
+        encoding: 'utf8',
+      }).trim();
+      expect(psOutput).toMatch(/^\d+$/); // Should be a number
+    });
+
+    test('ps command format matches expected', () => {
+      // Verify ps -o uid= returns just the UID (no header)
+      const output = execSync(`ps -p ${process.pid} -o uid=`, {
+        encoding: 'utf8',
+      });
+
+      // Should be whitespace + number + newline
+      expect(output.trim()).toMatch(/^\d+$/);
+
+      // Should NOT contain header like "UID"
+      expect(output.toLowerCase()).not.toContain('uid');
+    });
+  });
+
+  // FASE 4: Coverage for cleanup & UID validation edge cases
+  describe('FASE 4 - Cleanup & UID Validation Edge Cases', () => {
+    describe('UID check debug logging (line 325)', () => {
+      test('should log UID check failure in debug mode', () => {
+        // Given - debug mode enabled
+        orchestrator.options.debug = true;
+        const logs = [];
+        orchestrator._log = (msg) => logs.push(msg);
+
+        // Mock execSync to throw error
+        const originalExecSync = require('child_process').execSync;
+        jest.spyOn(require('child_process'), 'execSync').mockImplementation(() => {
+          throw new Error('ps command failed');
+        });
+
+        // When
+        const result = orchestrator._isProcessOwnedByCurrentUser(12345);
+
+        // Then
+        expect(result).toBe(false);
+        expect(logs.some((log) => log.includes('UID check failed for PID 12345'))).toBe(true);
+        expect(logs.some((log) => log.includes('ps command failed'))).toBe(true);
+
+        // Restore
+        require('child_process').execSync = originalExecSync;
+      });
+    });
+
+    describe('Cleanup with SIGTERM (lines 393-394, 405)', () => {
+      test('should terminate orphan monitor with SIGTERM and log summary', () => {
+        // Given - debug mode to see all logs
+        orchestrator.options.debug = true;
+        const logs = [];
+        orchestrator._log = (msg) => logs.push(msg);
+
+        // Mock process.kill to track calls
+        const originalKill = process.kill;
+        const killCalls = [];
+        process.kill = jest.fn((pid, signal) => {
+          killCalls.push({ pid, signal });
+          return true;
+        });
+
+        // Mock execSync
+        const originalExecSync = require('child_process').execSync;
+        jest.spyOn(require('child_process'), 'execSync').mockImplementation((cmd) => {
+          // pgrep finds one monitor
+          if (cmd.includes('pgrep')) {
+            return '54321';
+          }
+
+          // UID check - return current UID
+          if (cmd.includes('ps -p 54321 -o uid=')) {
+            return String(os.userInfo().uid);
+          }
+
+          // PPID check - return fake parent
+          if (cmd.includes('ps -p 54321 -o ppid=')) {
+            return '99999';
+          }
+
+          // Parent check - parent doesn't exist (orphan)
+          if (cmd.includes('ps -p 99999')) {
+            throw new Error('Parent does not exist');
+          }
+
+          return '';
+        });
+
+        // When
+        orchestrator._cleanupOrphanMonitors();
+
+        // Then - process.kill was called with SIGTERM
+        expect(killCalls.length).toBe(1);
+        expect(killCalls[0].pid).toBe(54321);
+        expect(killCalls[0].signal).toBe('SIGTERM');
+
+        // And cleanup summary was logged (line 405)
+        expect(logs.some((log) => log.includes('Cleanup: 1 orphan monitor processes removed'))).toBe(true);
+        expect(logs.some((log) => log.includes('Cleaned orphan monitor process: 54321'))).toBe(true);
+
+        // Restore
+        process.kill = originalKill;
+        require('child_process').execSync = originalExecSync;
+      });
+    });
+
+    describe('Skipped monitors summary (lines 407-408)', () => {
+      test('should log skipped summary in debug mode when UID mismatch', () => {
+        // Given - debug mode
+        orchestrator.options.debug = true;
+        const logs = [];
+        orchestrator._log = (msg) => logs.push(msg);
+
+        // Mock execSync
+        const originalExecSync = require('child_process').execSync;
+        jest.spyOn(require('child_process'), 'execSync').mockImplementation((cmd) => {
+          // pgrep finds two monitors
+          if (cmd.includes('pgrep')) {
+            return '11111\n22222';
+          }
+
+          // First monitor - different UID
+          if (cmd.includes('ps -p 11111 -o uid=')) {
+            return String(os.userInfo().uid + 1000);
+          }
+
+          // Second monitor - also different UID
+          if (cmd.includes('ps -p 22222 -o uid=')) {
+            return String(os.userInfo().uid + 2000);
+          }
+
+          return '';
+        });
+
+        // When
+        orchestrator._cleanupOrphanMonitors();
+
+        // Then - skipped summary logged (lines 407-408)
+        expect(logs.some((log) => log.includes('Cleanup: 2 monitors skipped'))).toBe(true);
+        expect(logs.some((log) => log.includes('UID mismatch - not owned by current user'))).toBe(true);
+
+        // Restore
+        require('child_process').execSync = originalExecSync;
+      });
+    });
+
+    describe('Cleanup error logging (lines 412-413)', () => {
+      test('should log cleanup error in debug mode when pgrep fails', () => {
+        // Given - debug mode
+        orchestrator.options.debug = true;
+        const logs = [];
+        orchestrator._log = (msg) => logs.push(msg);
+
+        // Mock execSync to throw on pgrep
+        const originalExecSync = require('child_process').execSync;
+        jest.spyOn(require('child_process'), 'execSync').mockImplementation((cmd) => {
+          if (cmd.includes('pgrep')) {
+            throw new Error('pgrep command not found');
+          }
+          return '';
+        });
+
+        // When
+        orchestrator._cleanupOrphanMonitors();
+
+        // Then - error logged (lines 412-413)
+        expect(logs.some((log) => log.includes('Orphan monitor cleanup error'))).toBe(true);
+        expect(logs.some((log) => log.includes('pgrep command not found'))).toBe(true);
+
+        // Restore
+        require('child_process').execSync = originalExecSync;
+      });
+    });
+  });
+});

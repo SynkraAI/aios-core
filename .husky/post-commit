@@ -9,3 +9,7 @@ node .aios-core/infrastructure/scripts/git-hooks/post-commit.js 2>/dev/null || t
 # IDS Registry Auto-Update (Story IDS-3)
 # Updates entity registry with committed file changes (async, non-blocking).
 node .aios-core/hooks/ids-post-commit.js 2>/dev/null || true
+
+# Navigator Auto-Update (Navigator Agent)
+# Auto-updates roadmap when stories change (async, non-blocking).
+node .aios-core/development/scripts/navigator/post-commit-hook.js 2>/dev/null || true

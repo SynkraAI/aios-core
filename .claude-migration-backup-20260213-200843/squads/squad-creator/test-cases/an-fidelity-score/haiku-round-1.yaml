@@ -1,0 +1,262 @@
+fidelity_report:
+  clone: "Victoria (Viability Specialist)"
+  clone_file: ".claude/commands/MMOS/agents/victoria-viability-specialist.md"
+  wrapper_file: ".claude/agents/mmos-victoria.md"
+  date: "2026-02-11"
+  evaluator: "Haiku (Claude Haiku 4.5)"
+  evaluation_type: "Full 8-layer analysis"
+
+  scores:
+    observable:
+      behavioral_patterns:
+        score: 5
+        weight: 0.8
+        checkpoints_passed: [1, 2, 3, 4, 5]
+        checkpoints_failed: []
+        evidence: |
+          1. Greeting ritual: Lines 338-342 (sentence_starters.authority/teaching/challenging/encouraging)
+          2. Response structure: Lines 337-374 (voice_dna with sentence patterns, metaphors, vocabulary)
+          3. Modes/states: Lines 376-393 (behavioral_states: assessment_mode, jtbd_analysis, deployment_planning)
+          4. Trigger responses: Lines 535-561 (objection_algorithms with explicit trigger handling)
+          5. Anti-patterns: Lines 395-405 (explicit "AVOID" list with 10 items)
+
+      communication_style:
+        score: 5
+        weight: 0.8
+        checkpoints_passed: [1, 2, 3, 4, 5]
+        checkpoints_failed: []
+        evidence: |
+          1. Signature phrases: Lines 338-350 (sentence_starters, metaphors like "hiring", "bridge", "three_dimensions")
+          2. Vocabulary always: Lines 352-361 (always_use list: "job to be done", "deployment", "production readiness", etc.)
+          3. Vocabulary never: Lines 364-369 (never_use list: "hopefully", "probably works", "good enough")
+          4. Sentence structure: Lines 371-374 (pattern, example, rhythm explicitly defined)
+          5. Metaphors/analogies: Lines 345-350 (5 metaphors including hiring, bridge, three dimensions, competing solutions, day_one_trap)
+
+      routines_habits:
+        score: 5
+        weight: 0.8
+        checkpoints_passed: [1, 2, 3, 4, 5]
+        checkpoints_failed: []
+        evidence: |
+          1. Opening ritual: Lines 19-29 (activation-instructions with STEP 1-3 procedure)
+          2. Workflow steps: Lines 103-336 (signature_methods with 5 major workflows, each with detailed steps)
+          3. Checkpoint habit: Lines 630-638 (validation_gates: 8 explicit gates for validation checkpoints)
+          4. Closing ritual: Lines 585-588 (completion_criteria.handoff_to with specific agent routing)
+          5. Error handling: Lines 285-293 (risk_assessment with technical, operational, business, reputational, compliance risks)
+
+      recognition_patterns:
+        score: 3
+        weight: 0.8
+        checkpoints_passed: [1, 2, 3]
+        checkpoints_failed: [4, 5]
+        evidence: |
+          PASS:
+          1. Red flags: Lines 395-405 (explicit anti_patterns list)
+          2. Green flags: Lines 381-393 (behavioral_states.signals with trigger indicators)
+          3. Decision rules: Lines 74-101 (core_principles with christensen_foundation, viability_methodology)
+
+          FAIL:
+          4. Pattern IDs: Patterns named (validation_gates, gates) but not in XX_YY_NNN format (ex: PV_BS_001)
+          5. Thresholds: Some mentions (7+ on 10-point scale, line 446) but no systematized threshold section
+
+      subtotal_raw: 18
+      subtotal_weighted: 14.4
+
+    deep:
+      mental_models:
+        score: 5
+        weight: 1.0
+        checkpoints_passed: [1, 2, 3, 4, 5]
+        checkpoints_failed: []
+        evidence: |
+          1. Primary framework: Lines 38-57 (Clayton Christensen inspiration with primary_works, academic, key_frameworks)
+          2. Decision architecture: Lines 103-336 (signature_methods with complete pipeline architecture)
+          3. Named frameworks: Lines 48-52 (6 named frameworks: JTBD, Disruptive Innovation, Capabilities, Modularity, Value Chain Evolution, Non-consumption)
+          4. Framework steps: Lines 105-120 (jobs_to_be_done_analysis with 5 detailed steps)
+          5. Anti-patterns: Lines 395-405 (explicit anti_patterns list for thinking)
+
+      values_hierarchy:
+        score: 5
+        weight: 1.0
+        checkpoints_passed: [1, 2, 3, 4, 5]
+        checkpoints_failed: []
+        evidence: |
+          1. Core beliefs: Lines 74-101 (core_principles with 3 subsections: christensen_foundation, viability_methodology, jobs_to_be_done_principles)
+          2. What defends: Lines 74-101 (christensen_foundation, viability_methodology, deployment_philosophy all define what Victoria defends)
+          3. What rejects: Lines 364-405 (never_use vocabulary list + anti_patterns list)
+          4. Trade-offs: Lines 89-94 (jobs_to_be_done_principles explore multiple dimensions of jobs)
+          5. Non-negotiables: Lines 630-638 (validation_gates are framed as mandatory gates)
+
+      core_obsessions:
+        score: 4
+        weight: 1.0
+        checkpoints_passed: [1, 2, 3, 4, 5]
+        checkpoints_failed: []
+        evidence: |
+          PASS (4/5):
+          1. Recurring themes: "Deployment readiness" (appears 50+ times), "JTBD" (appears 40+ times), "integration testing" (appears 20+ times),
+             "handoff completeness" (appears 15+ times) - all appear 3+ times throughout
+          2. Named obsessions: Lines 69-72 (focus: "USE CASE CLARITY, DEPLOYMENT READINESS, INTEGRATION VIABILITY, SUCCESS METRICS, SUSTAINABLE VALUE, HANDOFF COMPLETENESS")
+          3. Hills to die on: While not explicitly named, core_principles (lines 74-101) shows uncompromising positions on deployment, metrics, integration
+          4. Mission statement: Lines 60 (role: "Viability Guardian who ensures cognitive clones are not just theoretically excellent but practically deployable...")
+          5. Legacy thinking: Lines 78-80 (explicit sustainability principle: "SUSTAINABLE DISRUPTION: Value must persist, not just impress initially")
+
+          Note: "Hills to die on" not explicitly named section, but implicit throughout.
+
+      productive_paradoxes:
+        score: 1
+        weight: 1.0
+        checkpoints_passed: [4]
+        checkpoints_failed: [1, 2, 3, 5]
+        evidence: |
+          FAIL:
+          1. Contradictions section: No explicit "contradictions:" or "paradoxes:" section
+          2. Named paradoxes: No 2+ paradoxes with descriptions (only implicit tensions)
+          3. "Feature not bug": No indication that contradictions are intentional/preserved
+          4. Context-dependent: PARTIAL PASS - Line 77 mentions "CIRCUMSTANCES MATTER" and JTBD acknowledges context
+          5. Integration note: No explicit explanation of how paradoxes function
+
+          Context: Victoria is highly systematic and rational. Paradoxes would represent internal contradictions,
+          which the design explicitly avoids. The operative logic is monolithic rather than paradox-containing.
+
+      subtotal_raw: 15
+      subtotal_weighted: 15.0
+
+    overall:
+      total_weighted: 29.4
+      max_possible: 36
+      percentage: "81.67%"
+      classification: "intermediate"
+      version: "V2.0"
+
+  gaps:
+    - layer: "Layer 4: Recognition Patterns"
+      checkpoint_failed: 4
+      checkpoint_name: "Pattern IDs (heuristic naming)"
+      severity: "medium"
+      what_to_add: "Systematize heuristics with pattern ID format (XX_YY_NNN), e.g., VIC_ASSESS_001, VIC_DEPLOY_002"
+      where_to_add: "Add new section under 'core_principles:' called 'heuristic_patterns:' with IDs"
+      example: |
+        heuristic_patterns:
+          VIC_ASSESS_001: "Incomplete JTBD → assessment gate fails"
+          VIC_ASSESS_002: "Missing success metrics → validation gate fails"
+          VIC_DEPLOY_001: "No integration test → deployment gate fails"
+          VIC_DEPLOY_002: "Unclear handoff → operational gate fails"
+
+    - layer: "Layer 4: Recognition Patterns"
+      checkpoint_failed: 5
+      checkpoint_name: "Thresholds (numeric limits)"
+      severity: "medium"
+      what_to_add: "Define quantitative thresholds for go/no-go decisions"
+      where_to_add: "Add 'validation_thresholds:' section with numeric criteria"
+      example: |
+        validation_thresholds:
+          test_pass_rate: "minimum: 95%"
+          metrics_coverage: "minimum: 3 (outcome + adoption + value)"
+          documentation_completeness: "minimum: 90%"
+          integration_latency: "maximum: 500ms p99"
+          error_rate: "maximum: 0.1%"
+
+    - layer: "Layer 7: Core Obsessions"
+      checkpoint_failed: 3
+      checkpoint_name: "Hills to die on (explicit naming)"
+      severity: "low"
+      what_to_add: "Explicitly name the non-negotiable positions"
+      where_to_add: "Add 'hills_to_die_on:' section in persona or core_principles"
+      example: |
+        hills_to_die_on:
+          - "Deployment readiness is non-negotiable (DEPLOY OR DIE principle)"
+          - "Integration testing must complete before production (not optional)"
+          - "Handoff documentation must enable independent operation"
+          - "Success metrics must be measurable (not aspirational)"
+
+    - layer: "Layer 8: Productive Paradoxes"
+      checkpoint_failed: 1
+      checkpoint_name: "Contradictions section"
+      severity: "high"
+      what_to_add: "Identify and document internal contradictions that make Victoria effective"
+      where_to_add: "Add 'productive_paradoxes:' section after 'core_principles'"
+      example: |
+        productive_paradoxes:
+          speed_vs_rigor:
+            description: "Victoria demands comprehensive planning (rigor) but for speed (get to production fast)"
+            how_it_works: "Up-front planning prevents 10x delays in firefighting"
+            example: "2-hour use case spec saves 20 hours of confusion"
+
+          prescriptive_vs_adaptive:
+            description: "Victoria is highly systematic (prescriptive 8-gate model) yet acknowledges circumstances vary (adaptive)"
+            how_it_works: "Gates are rigid; what passes them is context-specific"
+            example: "Same JTBD framework works for 5 different industries"
+
+          simplicity_vs_completeness:
+            description: "Victoria seeks minimum viable deployment (simplicity) but demands comprehensive handoff (completeness)"
+            how_it_works: "Deploy core job only, but document everything including what NOT to deploy"
+
+    - layer: "Layer 8: Productive Paradoxes"
+      checkpoint_failed: 2
+      checkpoint_name: "Named paradoxes (explicit documentation)"
+      severity: "high"
+      what_to_add: "Expand productive_paradoxes section with 2-3 named paradoxes"
+      where_to_add: "As per previous gap (new section)"
+      example: "See paradoxes above"
+
+    - layer: "Layer 8: Productive Paradoxes"
+      checkpoint_failed: 3
+      checkpoint_name: "Feature not bug (intentional preservation)"
+      severity: "high"
+      what_to_add: "Indicate that paradoxes are intentional, not flaws"
+      where_to_add: "In each paradox description, add 'intentional: true' and 'preserves:' field"
+      example: |
+        productive_paradoxes:
+          speed_vs_rigor:
+            intentional: true
+            preserves: "Both planning rigor AND deployment speed"
+
+    - layer: "Layer 8: Productive Paradoxes"
+      checkpoint_failed: 5
+      checkpoint_name: "Integration note (how paradox functions)"
+      severity: "high"
+      what_to_add: "Explain the mechanism by which paradoxes create effectiveness"
+      where_to_add: "Add 'integration:' field to each paradox"
+      example: |
+        productive_paradoxes:
+          speed_vs_rigor:
+            integration: "The rigor IS the speed mechanism. JTBD framework collapses decision-making time by providing structure."
+
+  trajectory:
+    current_version: "V2.0 (Intermediate)"
+    current_percentage: "81.67%"
+    next_milestone: "V2.5 (Premium - 85%)"
+    path_to_premium: |
+      Estimated effort to reach 85%+ (Premium tier):
+      1. Add heuristic pattern IDs (Layer 4): ~2 hours
+      2. Add validation thresholds (Layer 4): ~1.5 hours
+      3. Explicit "hills to die on" section (Layer 7): ~1 hour
+      4. Document productive paradoxes (Layer 8): ~3 hours
+
+      Total: ~7.5 hours → 85%+ achievable
+
+    path_to_elite: |
+      To reach 93%+ (Elite - V3.5+), would also need:
+      - Deeper contradiction documentation (Layer 8)
+      - Additional heuristic patterns (Layer 4)
+      - Cross-layer integration examples
+
+      Estimated: Additional ~4-5 hours → 90%+ achievable
+
+    assessment: |
+      Victoria is a STRONG V2.0 clone at 81.67%. The complete 8-layer foundation is present.
+      The primary gap is Layer 8 (Productive Paradoxes) which is not present at all.
+      Layers 1-3 and 5-6 are excellent. Layer 4 needs systematization (IDs, thresholds).
+      Layer 7 is nearly complete (just needs explicit naming).
+
+metadata:
+  task_version: "2.0.0"
+  scoring_method: "Binary checkpoint counting (0-5 per layer)"
+  model_compatible: ["opus", "sonnet", "haiku"]
+  weights:
+    observable: 0.8
+    deep: 1.0
+  file_size_bytes: 699
+  file_line_count: 699
+  completeness_assessment: "This is a PRODUCTION-QUALITY clone definition. The YAML is comprehensive, well-structured, and operationally complete."

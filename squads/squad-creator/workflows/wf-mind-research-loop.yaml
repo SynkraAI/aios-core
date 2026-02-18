@@ -1,0 +1,668 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# ⚠️  DEPRECATED - Use /mind-research instead
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# This workflow has been migrated to a modern SKILL.md format with:
+# - Teams Architecture (TeamCreate, TaskCreate, TaskUpdate)
+# - Parallel execution in Phase 3 (4 agents)
+# - Real specialist integration (@oalanicolas, @pedro-valerio)
+# - Enforced veto conditions
+# - Full Context Preamble
+#
+# NEW INVOCATION:
+#   /mind-research {domain} [--context "..."] [--must-include-local]
+#
+# NEW OUTPUT PATH:
+#   outputs/mind_research/{domain}/05-final-report.md
+#
+# Deprecated: 2026-02-06
+# Replacement: ~/.claude/skills/mind-research/SKILL.md
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW: Mind Research Loop (LEGACY)
+# Version: 2.1.0
+# Purpose: Research and validate the world's best minds for any domain
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow-id: wf-mind-research-loop
+name: Mind Research Loop
+version: 2.1.0
+estimated-time: 15-30 minutes
+complexity: medium
+
+description: |
+  Research and validate the world's best minds for any domain through
+  iterative loop with self-criticism (devil's advocate).
+
+  Core Philosophy:
+  - People with skin in the game > Generic AI bots
+  - Real consequences = Battle-tested frameworks
+  - Clone elite minds = Guaranteed quality
+
+  FUNDAMENTAL RULE:
+  It doesn't matter if someone is "the best in the world" if there's
+  no documented process we can replicate.
+
+orchestrator: "@squad-chief"
+mode: YOLO  # 100% autonomous, executes all iterations
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SPECIALIST AGENTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+specialists:
+  mind_cloning:
+    agent: "@oalanicolas"
+    role: "Mind Cloning Architect"
+    responsibilities:
+      - "DNA extraction and source validation"
+      - "Source quality classification (gold vs bronze)"
+    invoke_for:
+      - "Phase: Source Collection"
+      - "Phase: DNA Extraction"
+
+  process_validation:
+    agent: "@pedro-valerio"
+    role: "Process Absolutist"
+    responsibilities:
+      - "Workflow checkpoint validation"
+      - "Quality gate design"
+    invoke_for:
+      - "Phase: Workflow Checkpoints"
+
+specialist_handoffs:
+  - phase: "Source Collection"
+    invoke: "@oalanicolas *assess-sources"
+    context: "Pass discovered sources for quality classification"
+
+  - phase: "DNA Extraction"
+    invoke: "@oalanicolas *extract-dna"
+    context: "Pass validated sources + mind profile"
+
+  - phase: "Workflow Checkpoints"
+    invoke: "@pedro-valerio *audit"
+    context: "Validate quality gates are properly blocking"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FRAMEWORKS USED
+# ═══════════════════════════════════════════════════════════════════════════════
+
+frameworks:
+  - id: tier-system-framework
+    file: "data/tier-system-framework.md"
+    usage: "Classify minds by tier (Iteration 3, Final)"
+
+  - id: quality-dimensions-framework
+    file: "data/quality-dimensions-framework.md"
+    usage: "Score each mind (Iteration 3)"
+
+  - id: decision-heuristics-framework
+    file: "data/decision-heuristics-framework.md"
+    usage: "Cut/Keep heuristics (Iteration 2, 3)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  - name: domain
+    type: string
+    required: true
+    description: "Area of expertise"
+    examples:
+      - "copywriting"
+      - "tax-law"
+      - "hr"
+
+  - name: context
+    type: string
+    required: false
+    description: "Additional context"
+    examples:
+      - "for Brazilian startups"
+
+  - name: must_include_local
+    type: boolean
+    required: false
+    default: false
+    description: "Include local/regional minds"
+
+  - name: specific_needs
+    type: array
+    required: false
+    description: "Specific needs within domain"
+    examples:
+      - ["contracts", "tax"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  primary:
+    - name: "mind_research_report"
+      format: "markdown"
+      path: "outputs/research/{domain}-minds-research.md"
+      description: "Complete research report with curated minds"
+
+  artifacts:
+    - "Initial mapping (15-20 names)"
+    - "Devil's advocate refinement (10-12 names)"
+    - "Framework validation (6-8 names)"
+    - "Final elite list (3-5 names with tier assignments)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: ITERATION-1
+    name: "Broad Research"
+    tier: 0
+    mandatory: true
+    description: |
+      Map the universe of experts in the domain.
+      Generate initial list of 15-20 names.
+
+    research_queries:
+      - "best {domain} experts thought leaders"
+      - "top {domain} consultants frameworks"
+      - "most influential {domain} professionals"
+      - "{domain} methodology creators founders"
+      - "best {domain} books authors"
+      # If must_include_local:
+      - "best {domain} Brazil specialists"
+      - "{domain} Brazilian reference experts"
+
+    extract_per_result:
+      - name: "Expert name"
+      - title: "Known title/position"
+      - known_for: "What they're known for"
+      - has_framework: "Has own framework/methodology? (yes/no/unknown)"
+      - sources_found: "Which sources mention this person"
+
+    output_format: |
+      ## Iteration 1: Initial Mapping
+
+      ### Broad List (15-20 names)
+      | # | Name | Known for | Framework? | Sources |
+      |---|------|-----------|------------|---------|
+      | 1 | Expert A | X methodology | Yes | 5 sources |
+      ...
+
+      ### Observations
+      - {patterns identified}
+      - {gaps in research}
+
+    checkpoint:
+      criteria:
+        - "At least 15 names identified"
+        - "Each name has sources documented"
+      human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: ITERATION-2
+    name: "Devil's Advocate"
+    tier: 1
+    mandatory: true
+    description: |
+      Question your own research, find who's missing.
+      Apply self-criticism to refine to 10-12 names.
+
+    research_queries:
+      - "critics of {expert_names} methodology"
+      - "alternatives to {popular_framework}"
+      - "{domain} contrarian experts different approach"
+      - "underrated {domain} experts hidden gems"
+      - "who disagrees with {top_expert} {domain}"
+      - "{domain} experts not famous but effective"
+
+    self_questioning:
+      - "Why {Expert A} and not {Expert B}?"
+      - "Who would criticize this list? Why?"
+      - "Who are the contrarians in {domain}?"
+      - "Who is doing innovative work but isn't famous yet?"
+      - "Is the list too American/Eurocentric?"
+      - "Is any niche underrepresented?"
+
+    heuristic:
+      id: "SC_DA_001"
+      name: "Devil's Advocate Cut/Keep"
+      from_framework: "decision-heuristics-framework"
+
+      weights:
+        source_mentions: 0.8
+        original_work: 0.9
+        practical_results: 0.9
+        framework_documented: 1.0  # VETO power
+
+      thresholds:
+        source_mentions: 3
+        original_work: true
+        practical_results: true
+
+      veto_conditions:
+        - condition: "source_mentions < 2"
+          action: "CUT - Insufficient validation"
+        - condition: "is_only_influencer = true"
+          action: "CUT - No deep work"
+        - condition: "no_practical_results = true"
+          action: "CUT - Theory only"
+
+      decision_tree: |
+        IF sources < 2 → CUT (insufficient validation)
+        ELSE IF is_popularizer_only → CUT (no original work)
+        ELSE IF no_practical_evidence → REVIEW (needs more research)
+        ELSE → KEEP (proceed to Iteration 3)
+
+    cut_criteria:
+      keep_if:
+        - "Mentioned in multiple sources (>=3)"
+        - "Has original work (not just a popularizer)"
+        - "Active practitioner (not just theorist)"
+      cut_if:
+        - "Only appears in 1 source"
+        - "Is just an 'influencer' without deep work"
+        - "No evidence of practical results"
+
+    output_format: |
+      ## Iteration 2: Devil's Advocate
+
+      ### Names Added (weren't in initial list)
+      | Name | Why they were missing | Relevance |
+
+      ### Names Questioned
+      | Name | Questioning | Decision |
+
+      ### Refined List (10-12 names)
+
+    checkpoint:
+      criteria:
+        - "Self-questioning applied to all names"
+        - "At least 2 names added from devil's advocate"
+        - "Refined to 10-12 names with justifications"
+      human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: ITERATION-3
+    name: "Framework Validation"
+    tier: 2
+    mandatory: true
+    description: |
+      Ensure each name has REPLICABLE DOCUMENTATION.
+      Apply quality dimensions and tier classification.
+      Refine to 6-8 names.
+
+    frameworks_applied:
+      - "quality-dimensions-framework.md"
+      - "tier-system-framework.md"
+      - "decision-heuristics-framework.md"
+
+    quality_dimensions:
+      accuracy:
+        weight: 1.0
+        threshold: 7.0
+        veto_power: true
+        check: "Are their claims verified by results/case studies?"
+
+      coherence:
+        weight: 0.9
+        threshold: 6.0
+        check: "Is their methodology internally consistent?"
+
+      operational_excellence:
+        weight: 0.9
+        threshold: 6.0
+        check: "Is the process documented and replicable?"
+
+      innovation_capacity:
+        weight: 0.7
+        threshold: 5.0
+        check: "Did they create original frameworks?"
+
+      stakeholder_value:
+        weight: 0.8
+        threshold: 6.0
+        check: "Do they deliver proven results?"
+
+      scoring:
+        method: "weighted_average"
+        pass_threshold: 7.0
+        per_dimension_min: 5.0
+
+    tier_classification:
+      tier_0_diagnosis:
+        indicators:
+          - "Creates diagnostic/audit frameworks"
+          - "Establishes baseline before action"
+          - "Analytical focus"
+        examples: "Auditors, analysts, diagnosticians"
+
+      tier_1_masters:
+        indicators:
+          - "Proven track record ($XXM+ results)"
+          - "Original methodology"
+          - "Deep expertise, not just popular"
+        examples: "Domain masters with documented results"
+
+      tier_2_systematizers:
+        indicators:
+          - "Creates teachable frameworks"
+          - "Process-oriented thinking"
+          - "Methodology developers"
+        examples: "Framework creators, educators"
+
+      tier_3_specialists:
+        indicators:
+          - "Format/channel specific expertise"
+          - "Applied specialization"
+        examples: "VSL specialist, email specialist"
+
+    mandatory_criteria:
+      must_have_all:
+        - framework_documented: "Has methodology/framework with own name?"
+        - process_extractable: "Is there a documented step-by-step process?"
+        - artifacts_available: "Has extractable templates, checklists, frameworks?"
+        - examples_exist: "Are there application examples?"
+        - material_accessible: "Is the material accessible (books, courses, articles)?"
+
+    validation_queries:
+      - "{expert_name} methodology framework"
+      - "{expert_name} process step by step"
+      - "{expert_name} book template checklist"
+      - "{expert_name} case study results"
+
+    heuristic:
+      id: "SC_FV_001"
+      name: "Framework Validation Gate"
+      from_framework: "decision-heuristics-framework"
+
+      weights:
+        framework_documented: 1.0  # VETO power
+        process_extractable: 0.9
+        artifacts_available: 0.8
+        examples_exist: 0.8
+        material_accessible: 0.7
+
+      veto_conditions:
+        - condition: "framework_documented < 2"
+          action: "VETO - No replicable methodology"
+        - condition: "total_score < 10"
+          action: "VETO - Insufficient documentation"
+
+      decision_tree: |
+        IF framework_documented == 0 → VETO (no methodology)
+        ELSE IF total_score < 10 → VETO (insufficient docs)
+        ELSE IF total_score >= 12 → APPROVE (excellent)
+        ELSE → APPROVE (acceptable)
+
+    scoring:
+      framework_documented: "0-3 (0=no, 1=partial, 2=yes, 3=excellent)"
+      process_extractable: "0-3"
+      artifacts_available: "0-3"
+      examples_exist: "0-3"
+      material_accessible: "0-3"
+      minimum_total: "10/15"
+      ideal_total: "12+/15"
+
+    output_format: |
+      ## Iteration 3: Framework Validation
+
+      ### Detailed Assessment
+      | Expert | Framework | Process | Artifacts | Examples | Access | TOTAL | Tier | Status |
+      |--------|-----------|---------|-----------|----------|--------|-------|------|--------|
+
+      ### Tier Distribution
+      - Tier 0 (Diagnosis): {names}
+      - Tier 1 (Masters): {names}
+      - Tier 2 (Systematizers): {names}
+
+      ### Cut Due to Lack of Documentation
+      | Expert | Reason | Veto Condition |
+
+    checkpoint:
+      criteria:
+        - "Each mind scored against quality dimensions"
+        - "Each passing mind assigned to tier"
+        - "Refined to 6-8 names"
+        - "Tier 0 has at least 1 mind (diagnostic)"
+      human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: ITERATION-4
+    name: "Cross-Reference"
+    tier: 2
+    mandatory: false
+    condition: "Still more than 6 names or doubts remain"
+    description: |
+      Validate through multiple perspectives.
+      Verify reputation and check for obvious omissions.
+
+    cross_checks:
+      - "Appears in 'best of' lists from multiple sources?"
+      - "Cited by other domain experts?"
+      - "Has verifiable track record?"
+      - "Results are verifiable?"
+
+    final_questions:
+      - "Did we miss anyone obvious that any domain expert would mention?"
+      - "Does the list cover different approaches/schools in the domain?"
+      - "Is there sufficient diversity (geographic, approach)?"
+
+    checkpoint:
+      criteria:
+        - "Cross-reference validation complete"
+        - "No obvious omissions"
+      human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: ITERATION-5
+    name: "Final Elite"
+    tier: 3
+    mandatory: false
+    condition: "Still more than 5 names"
+    description: |
+      Select the final team based on material availability.
+      Apply tiebreakers if needed.
+
+    tiebreakers:
+      - "Who has the most documented material?"
+      - "Who has the most recent success cases?"
+      - "Who has the most complete framework?"
+      - "Who best complements others on the list?"
+
+    checkpoint:
+      criteria:
+        - "Final elite list of 3-5 minds"
+        - "Each mind has tier assignment"
+        - "Documentation available for each"
+      human_review: true
+      message: |
+        Please review the final elite list.
+        These are the minds that will be cloned for the squad.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FINAL OUTPUT
+# ═══════════════════════════════════════════════════════════════════════════════
+
+final_output:
+  format: markdown
+  template: |
+    # Mind Research Report: {Domain}
+
+    **Generated:** {date}
+    **Domain:** {domain}
+    **Context:** {context}
+    **Iterations executed:** {3-5}
+
+    ---
+
+    ## Executive Summary
+    {Paragraph summarizing research and conclusions}
+
+    ---
+
+    ## Final Elite: {N} Selected Minds
+
+    ### Tier Distribution
+    | Tier | Minds | Role |
+    |------|-------|------|
+    | Tier 0 | {names} | Diagnosis/Audit - ALWAYS first |
+    | Tier 1 | {names} | Core Masters - Primary execution |
+    | Tier 2 | {names} | Systematizers - Frameworks |
+    | Tier 3 | {names} | Specialists - Format-specific |
+
+    ---
+
+    ### 1. {Expert Name}
+    - **Tier:** {0|1|2|3}
+    - **Known for:** {description}
+    - **Main Framework:** {framework name}
+    - **Why include:** {justification}
+    - **Quality Score:** {X}/10
+    - **Documentation Score:** {X}/15
+    - **Available Material:**
+      - {book/course/article 1}
+      - {book/course/article 2}
+
+    ...
+
+    ---
+
+    ## Minds Considered but Not Selected
+    | Expert | Reason for Exclusion |
+
+    ---
+
+    ## Next Steps
+    For each selected mind, execute:
+    1. `wf-clone-mind.yaml` - Clone mind DNA
+    2. `create-agent.md` - Create agent from DNA
+
+    ---
+
+    ## Research Metadata
+    | Metric | Value |
+    |--------|-------|
+    | Initial names mapped | {N} |
+    | After devil's advocate | {N} |
+    | After framework validation | {N} |
+    | Final elite | {N} |
+    | Iterations executed | {N} |
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXECUTION RULES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+execution_rules:
+  always:
+    - "Execute MINIMUM 3 iterations"
+    - "Question your own research in each iteration"
+    - "Validate existence of DOCUMENTED FRAMEWORK"
+    - "Justify each inclusion and exclusion"
+    - "Seek diversity of approaches"
+
+  never:
+    - "Accept names without validating frameworks"
+    - "Trust only memory/prior knowledge"
+    - "Skip the devil's advocate iteration"
+    - "Keep a name just because they're famous"
+    - "Stop before 3 iterations"
+
+  absolute_cut_criterion: |
+    "Is there sufficient documentation of this person's processes
+    for an agent to replicate the method?"
+
+    - YES → Continues
+    - NO → Cut, no matter how famous they are
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY GUARANTEES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_guarantees:
+  - "Minimum 3 iterations MANDATORY"
+  - "Maximum 5 iterations if necessary"
+  - "Each iteration QUESTIONS the previous one"
+  - "Only those with DOCUMENTED FRAMEWORKS pass"
+  - "Tier distribution ensures diagnostic capability (Tier 0)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INTEGRATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+integration:
+  executed_by:
+    - "squad-chief.md when user requests squad in new domain"
+
+  feeds_into:
+    - workflow: "wf-clone-mind.yaml"
+      context: "List of minds to clone"
+    - task: "create-agent.md"
+      context: "Data for each mind"
+
+  complete_flow: |
+    mind-research-loop (this)
+        ↓
+    [For each selected mind]
+        ↓
+    wf-clone-mind.yaml
+        ↓
+    create-agent.md
+        ↓
+    Complete squad with cloned minds
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# USAGE EXAMPLES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+examples:
+  - name: "Copywriting Squad"
+    input:
+      domain: "copywriting"
+      context: "for info-product sales"
+      must_include_local: false
+    flow:
+      iteration_1: "18 names mapped (Halbert, Ogilvy, Hopkins, etc.)"
+      iteration_2: "12 names after questioning (removed influencers without framework)"
+      iteration_3: "8 names with documented frameworks"
+      final: "6 elite minds (Halbert, Ogilvy, Schwartz, Kennedy, Bencivenga, Sugarman)"
+
+  - name: "Brazilian Legal Squad"
+    input:
+      domain: "corporate and tax law"
+      context: "for Brazilian startups"
+      must_include_local: true
+      specific_needs: ["contracts", "tax", "corporate"]
+    flow:
+      iteration_1: "15 names (global + Brazilian mix)"
+      iteration_2: "10 names (added lesser-known Brazilian specialists)"
+      iteration_3: "6 names with frameworks (cut theorists without methodology)"
+      final: "5 minds (3 Brazilian + 2 global with applicable frameworks)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "2.1.0"
+  migrated_from: "mind-research-loop.md"
+  migration_date: "2026-02-05"
+  created: "2026-01-25"
+  updated: "2026-02-05"
+  author: "Squad Architect"
+  changelog:
+    - version: "2.1.0"
+      date: "2026-02-05"
+      changes:
+        - "Migrated from .md to .yaml format"
+        - "Structured phases with formal checkpoints"
+        - "Added explicit heuristic references"
+    - version: "2.0.0"
+      date: "2026-02-01"
+      changes:
+        - "Integrated decision-heuristics-framework.md in Iteration 2 (SC_DA_001)"
+        - "Integrated quality-dimensions-framework.md in Iteration 3"
+        - "Integrated tier-system-framework.md in Iteration 3"
+        - "Added tier distribution to final output"

@@ -19,12 +19,36 @@ const fs = require('fs').promises;
 const fsSync = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
+const Ajv = require('ajv');
+const addFormats = require('ajv-formats');
 
 // Constants
 const SESSION_STATE_VERSION = '1.2';
 const SESSION_STATE_FILENAME = '.session-state.yaml';
 const CRASH_THRESHOLD_MINUTES = 30;
 const LEGACY_WORKFLOW_STATE_DIR = '.aios/workflow-state';
+
+// JSON Schema validation (Story 11.5 - Task #2 Security)
+const SCHEMA_PATH = path.join(__dirname, 'schemas', 'session-state-schema.json');
+let schemaValidator = null;
+
+/**
+ * Initializes JSON Schema validator (lazy load)
+ * @returns {Object} Ajv validator instance
+ */
+function getSchemaValidator() {
+  if (!schemaValidator) {
+    const ajv = new Ajv({ allErrors: true, strict: true });
+    addFormats(ajv);
+
+    // Load schema from file
+    const schemaContent = fsSync.readFileSync(SCHEMA_PATH, 'utf8');
+    const schema = JSON.parse(schemaContent);
+
+    schemaValidator = ajv.compile(schema);
+  }
+  return schemaValidator;
+}
 
 /**
  * Action types for session state tracking
@@ -202,6 +226,7 @@ class SessionState {
   /**
    * Loads session state from disk
    * @returns {Promise<Object|null>} Session state or null if not found
+   * @throws {Error} If loaded state fails schema validation (Task #2 - Security)
    */
   async loadSessionState() {
     // Check for existing session state
@@ -209,8 +234,25 @@ class SessionState {
       const content = await fs.readFile(this.stateFilePath, 'utf8');
       this.state = yaml.load(content);
 
+      // Validate loaded state (Task #2 - Security: Prevent corrupted data)
+      const validation = SessionState.validateSchema(this.state);
+      if (!validation.isValid) {
+        const errorMsg = `Corrupted session state detected in ${this.stateFilePath}:\n${validation.errors.join('\n')}`;
+
+        if (this.options.debug) {
+          console.error('[SessionState] Validation errors:', validation.ajvErrors);
+        }
+
+        // Archive corrupted file to prevent crash loop
+        const corruptedPath = `${this.stateFilePath}.corrupted.${Date.now()}`;
+        await fs.rename(this.stateFilePath, corruptedPath);
+        console.warn(`[SessionState] Corrupted state archived to: ${corruptedPath}`);
+
+        throw new Error(errorMsg);
+      }
+
       if (this.options.debug) {
-        console.log(`[SessionState] Loaded session state from: ${this.stateFilePath}`);
+        console.log(`[SessionState] Loaded and validated session state from: ${this.stateFilePath}`);
       }
 
       return this.state;
@@ -805,49 +847,41 @@ O que você quer fazer?
   }
 
   /**
-   * Validates session state schema
+   * Validates session state schema using JSON Schema (Task #2 - Security)
    * @param {Object} state - State to validate
-   * @returns {Object} Validation result
+   * @returns {Object} Validation result with isValid and errors
    */
   static validateSchema(state) {
-    const errors = [];
+    try {
+      const validate = getSchemaValidator();
+      const isValid = validate(state);
 
-    if (!state?.session_state) {
-      errors.push('Missing session_state root');
-      return { isValid: false, errors };
+      if (!isValid) {
+        // Format Ajv errors into readable messages
+        const errors = validate.errors.map((err) => {
+          const path = err.instancePath || err.dataPath || 'root';
+          const message = err.message || 'validation failed';
+          return `${path}: ${message}`;
+        });
+
+        return {
+          isValid: false,
+          errors,
+          ajvErrors: validate.errors, // Keep raw Ajv errors for debugging
+        };
+      }
+
+      return {
+        isValid: true,
+        errors: [],
+      };
+    } catch (error) {
+      return {
+        isValid: false,
+        errors: [`Schema validation error: ${error.message}`],
+        validationError: error,
+      };
     }
-
-    const ss = state.session_state;
-
-    // Validate version
-    if (!ss.version) {
-      errors.push('Missing version field');
-    }
-
-    // Validate epic (AC2)
-    if (!ss.epic?.id || !ss.epic?.title || ss.epic?.total_stories === undefined) {
-      errors.push('Invalid epic field: requires id, title, total_stories');
-    }
-
-    // Validate progress (AC3)
-    if (!ss.progress || !Array.isArray(ss.progress.stories_done) || !Array.isArray(ss.progress.stories_pending)) {
-      errors.push('Invalid progress field: requires current_story, stories_done[], stories_pending[]');
-    }
-
-    // Validate last_action (AC4)
-    if (!ss.last_action?.type || !ss.last_action?.timestamp) {
-      errors.push('Invalid last_action field: requires type, timestamp, story, phase');
-    }
-
-    // Validate context_snapshot (AC5)
-    if (ss.context_snapshot?.files_modified === undefined) {
-      errors.push('Invalid context_snapshot field: requires files_modified, executor_distribution, branch');
-    }
-
-    return {
-      isValid: errors.length === 0,
-      errors,
-    };
   }
 }
 

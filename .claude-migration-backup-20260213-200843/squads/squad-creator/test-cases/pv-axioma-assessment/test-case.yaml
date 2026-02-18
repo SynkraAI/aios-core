@@ -1,0 +1,129 @@
+# Test Case: pv-axioma-assessment
+# Model Tier Qualification - First validated task
+
+test_case:
+  name: "pv-axioma-assessment-standard"
+  version: "1.0"
+  created: "2026-02-11"
+  task_file: "tasks/pv-axioma-assessment.md"
+  skill_file: ".claude/skills/pv-axioma-assessment/SKILL.md"
+
+input:
+  target: "squads/squad-creator/workflows/wf-create-squad.yaml"
+  params: {}
+  context_files:
+    - "squads/squad-creator/data/pv-meta-axiomas.yaml"
+
+expected_output:
+  sections:
+    - axioma_assessment
+    - dimensions
+    - overall_score
+    - status
+    - veto_triggered
+    - recommendations
+
+  fields:
+    - name: "overall_score"
+      type: "number"
+      range: [0, 10]
+    - name: "status"
+      type: "enum"
+      values: ["PASS", "FAIL", "REVIEW"]
+    - name: "veto_triggered"
+      type: "boolean"
+    - name: "dimensions"
+      type: "array"
+      min_items: 10
+
+  validations:
+    - "Deve avaliar todas as 10 dimensões"
+    - "Verdade (veto dimension) deve ser avaliada primeiro"
+    - "Se Verdade < 7.0, status deve ser FAIL"
+    - "overall_score = weighted average das 10 dimensões"
+    - "Cada dimensão deve ter score, weight, e evidence"
+
+baseline:
+  opus_output: "opus-baseline.yaml"  # Relative to this folder
+  opus_score: 10.0
+  opus_tokens:
+    input: 15000
+    output: 800
+  opus_latency_ms: 8000
+
+evaluation:
+  completeness:
+    required_sections:
+      - "dimensions: array com 10 itens (uma por dimensão)"
+      - "overall_score: número calculado"
+      - "status: PASS/FAIL/REVIEW"
+      - "recommendations: lista de melhorias"
+    optional_sections:
+      - "veto_triggered: boolean"
+
+  accuracy:
+    numeric_tolerance: 0.10  # 10% tolerance
+    enum_exact_match: true
+
+  reasoning:
+    minimum_justifications: 10  # Uma por dimensão
+    requires_evidence: true
+
+  format:
+    expected_format: "yaml"
+    parseable: true
+
+  actionability:
+    minimum_recommendations: 1
+    specificity: "high"
+
+compensation_history:
+  attempts: []
+
+results:
+  haiku:
+    score: 7.71
+    percentage: 98.2  # vs opus baseline
+    qualified: true
+    output_file: "haiku-output.yaml"
+    tokens_input: 55000
+    tokens_output: 3000
+    cost_usd: 0.018
+    latency_ms: 71140
+    notes: "REAL EXECUTION 2026-02-11. Output mais detalhado que Opus (5 recs vs 3, evidence profunda)."
+
+  sonnet:
+    score: null
+    percentage: null
+    qualified: null
+    output_file: "sonnet-output.yaml"
+    notes: "Not tested yet"
+
+  opus:
+    score: 7.85
+    percentage: 100
+    qualified: true
+    output_file: "opus-baseline.yaml"
+    tokens_input: 15000
+    tokens_output: 800
+    cost_usd: 0.285
+    latency_ms: 8000
+    notes: "Baseline estabelecido 2026-02-11"
+
+  final_tier: "haiku"
+
+  cost_analysis:
+    opus_cost_per_run: 0.285
+    haiku_cost_per_run: 0.018
+    savings_per_run: 0.267
+    savings_percentage: 93.7
+    break_even_quality: 90.0  # threshold
+    actual_quality: 98.2
+
+  recommendation: |
+    HAIKU QUALIFICADO.
+    - Qualidade: 98.2% do baseline (threshold: 90%)
+    - Economia: 93.7% de redução de custo ($0.267/execução)
+    - Haiku usa 3.6x mais tokens MAS custa 15x menos por token
+    - Output do Haiku foi MAIS detalhado (5 recommendations vs 3)
+    - Zero compensações necessárias

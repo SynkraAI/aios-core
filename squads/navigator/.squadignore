@@ -1,0 +1,71 @@
+# .squadignore
+# Files and directories to exclude when publishing/distributing Navigator squad
+
+# Development files
+node_modules/
+*.log
+*.swp
+*.swo
+*~
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Testing
+coverage/
+.nyc_output/
+test-results/
+*.test.js.snap
+
+# Build artifacts
+dist/
+build/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Git
+.git/
+.gitignore
+
+# Squad metadata (keep in source, exclude from distribution)
+.squadignore
+
+# Documentation drafts (keep published docs only)
+docs/drafts/
+*.draft.md
+
+# Private/internal notes
+NOTES.md
+TODO.md
+ROADMAP.private.md
+
+# Test fixtures
+tests/fixtures/
+*.fixture.*
+
+# CI/CD (keep workflows, exclude logs)
+.github/workflows/*.log
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# OS-specific
+Thumbs.db
+Desktop.ini
+
+# Squad-specific excludes
+# (Add project-specific excludes here if needed)

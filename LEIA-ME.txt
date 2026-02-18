@@ -1,0 +1,115 @@
+╔══════════════════════════════════════════════════════════╗
+║                                                          ║
+║          📊 PROGRESS VISUALIZER SKILL                   ║
+║          Para Claude Code                                ║
+║                                                          ║
+╚══════════════════════════════════════════════════════════╝
+
+🎯 O QUE É ESTE PACOTE?
+
+Este zip contém a skill "Progress Visualizer" - uma ferramenta
+que transforma suas tasks em visualizações ASCII lindíssimas
+direto no terminal do Claude Code!
+
+
+📦 CONTEÚDO DESTE ZIP:
+
+├── .claude/commands/AIOS/skills/progress-visualizer/
+│   └── SKILL.md ..................... Skill completa (14KB)
+│
+├── LEIA-ME.txt ...................... Este arquivo
+├── COMO-INSTALAR.md ................. Guia de instalação
+├── EXEMPLOS-VISUAIS.md .............. Todos os 5 estilos
+├── PRINTS-SIMULADOS.md .............. Casos de uso reais
+├── MENSAGEM-WHATSAPP-CURTA.txt ...... Mensagem resumida
+└── mensagem-whatsapp-progress-visualizer.md ... Completa
+
+
+🚀 INÍCIO RÁPIDO (3 passos):
+
+1. Extrair tudo
+2. Copiar pasta progress-visualizer/ para:
+   ~/.claude/skills/  (global)
+   OU
+   .claude/commands/AIOS/skills/  (por projeto)
+
+3. Reiniciar Claude Code e usar:
+   "show progress" ou "/progress-visualizer"
+
+
+📖 DOCUMENTAÇÃO:
+
+Abra cada arquivo .md para ver:
+
+• COMO-INSTALAR.md
+  → Instruções detalhadas de instalação
+  → Troubleshooting
+  → Configuração de terminal
+
+• EXEMPLOS-VISUAIS.md
+  → 5 estilos de visualização
+  → Quando usar cada um
+  → Características de cada estilo
+
+• PRINTS-SIMULADOS.md
+  → Exemplos práticos de uso
+  → Cenários reais
+  → Antes vs Depois
+
+• MENSAGEM-WHATSAPP-CURTA.txt
+  → Mensagem pronta para copiar/colar
+  → Resumo para compartilhar
+
+• mensagem-whatsapp-progress-visualizer.md
+  → Mensagem completa e detalhada
+  → Explicação técnica
+
+
+🎨 5 ESTILOS DISPONÍVEIS:
+
+1. Dashboard Completo ......... Visão detalhada (padrão)
+2. Roadmap Horizontal ......... Timeline de fases
+3. Quest Map .................. Tema RPG motivacional
+4. Kanban Board ............... Colunas estilo Trello
+5. Status Rápido .............. Minimalista
+
+
+💡 COMO USAR:
+
+Após instalado, simplesmente fale com Claude:
+
+"show progress"
+"onde estamos?"
+"quero ver o roadmap"
+"show as kanban"
+"status visual"
+
+
+🔧 PRÉ-REQUISITOS:
+
+✓ Claude Code instalado
+✓ Projeto usando TaskList
+✓ Terminal com UTF-8
+
+
+❓ SUPORTE:
+
+Qualquer dúvida, abra os arquivos .md incluídos.
+Tudo está documentado!
+
+
+📜 CRÉDITOS:
+
+Skill desenvolvida como parte do AIOS Framework
+(AI Operating System)
+
+GitHub: SynkraAI/aios-core
+
+
+═══════════════════════════════════════════════════════════
+
+Aproveite! 🚀
+
+E se gostar, compartilhe com sua equipe! 💪
+
+═══════════════════════════════════════════════════════════
