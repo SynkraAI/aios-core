@@ -19,7 +19,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const https = require('https');
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 const { hashFile, hashesMatch } = require('../installer/file-hasher');
 const { PostInstallValidator, formatReport: formatValidationReport } = require('../installer/post-install-validator');
 
@@ -47,16 +47,16 @@ const FileAction = {
 };
 
 /**
- * AIOS Updater Class
- * Handles intelligent updates while preserving user customizations
- */
-/**
  * Published npm package name.
  * The package is published as unscoped 'aios-core' on the npm registry.
  * @constant {string}
  */
 const NPM_PACKAGE_NAME = 'aios-core';
 
+/**
+ * AIOS Updater Class
+ * Handles intelligent updates while preserving user customizations
+ */
 class AIOSUpdater {
   /**
    * Create a new AIOSUpdater instance
@@ -598,11 +598,11 @@ class AIOSUpdater {
     }
 
     try {
-      // Use npm to update the package
-      const cmd = `npm install ${NPM_PACKAGE_NAME}@${targetVersion} --save-exact`;
-      this.log(`Running: ${cmd}`);
+      // Use npm to update the package (execFileSync avoids shell injection)
+      const args = ['install', `${NPM_PACKAGE_NAME}@${targetVersion}`, '--save-exact'];
+      this.log(`Running: npm ${args.join(' ')}`);
 
-      execSync(cmd, {
+      execFileSync('npm', args, {
         cwd: this.projectRoot,
         stdio: this.options.verbose ? 'inherit' : 'pipe',
         timeout: 120000, // 2 minutes
