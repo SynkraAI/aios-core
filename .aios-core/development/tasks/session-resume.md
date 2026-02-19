@@ -1,3 +1,6 @@
+---
+agent: master
+---
 # Session Resume Task
 
 **Story:** 11.5 - Session State Persistence

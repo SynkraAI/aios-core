@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Apply Migration (with snapshot + advisory lock)
 
 **Purpose**: Safely apply a migration with pre/post snapshots and exclusive lock

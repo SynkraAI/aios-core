@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Verify DDL Ordering
 
 **Purpose**: Lint DDL for safe execution order to avoid dependency errors

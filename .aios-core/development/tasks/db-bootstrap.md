@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Bootstrap Supabase Project
 
 **Purpose**: Create standard Supabase project structure

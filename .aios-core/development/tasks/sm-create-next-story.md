@@ -21,6 +21,7 @@
 
 **Parameter:** `mode` (optional, default: `interactive`)
 
+agent: sm
 ---
 
 ## Task Definition (AIOS Task Format V1.0)

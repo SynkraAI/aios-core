@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # Cross-Artifact Analysis Task
 
 > **Command:** `*analyze`

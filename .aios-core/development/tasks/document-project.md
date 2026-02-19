@@ -1,4 +1,6 @@
 ---
+agent: architect
+---
 
 ## Execution Modes
 

@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Impersonate User (RLS Testing)
 
 **Purpose**: Set session claims to emulate authenticated user for RLS testing

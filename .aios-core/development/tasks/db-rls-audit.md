@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: RLS Audit
 
 **Purpose**: Report tables with/without RLS and list all policies

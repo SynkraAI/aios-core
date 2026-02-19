@@ -153,7 +153,7 @@ All layers extend `base-layer.js` and are managed by `quality-gate-manager.js`. 
 ### External References (30+ files reference this system)
 
 - **Agent definitions:** `development/agents/devops.md`, `development/agents/dev.md` (via quality gate tasks)
-- **Tasks:** `github-devops-pre-push-quality-gate.md`, `qa-gate.md`, `dev-develop-story.md`
+- **Tasks:** `pre-push-quality-gate.md`, `qa-gate.md`, `dev-develop-story.md`
 - **Workflows:** `story-development-cycle.yaml`, `brownfield-*.yaml`
 - **CLI commands:** `cli/commands/metrics/*` (show, record, cleanup, seed)
 - **CI/CD:** `.github/workflows/pr-automation.yml`
@@ -485,7 +485,7 @@ No references to `.aios-core/processes/` were found in the codebase.
 
 | File | Purpose | Consumers | Cross-refs | Orphan? |
 |------|---------|-----------|------------|---------|
-| `constitution.md` | **FOUNDATIONAL** -- Defines non-negotiable principles (CLI First, Agent Authority, Story-Driven Development, No Invention, Quality First, Absolute Imports) | All agents, all tasks, CLAUDE.md | Referenced by `dev-develop-story.md`, `github-devops-pre-push-quality-gate.md`, `analyze-cross-artifact.md`, `spec-write-spec.md` | No |
+| `constitution.md` | **FOUNDATIONAL** -- Defines non-negotiable principles (CLI First, Agent Authority, Story-Driven Development, No Invention, Quality First, Absolute Imports) | All agents, all tasks, CLAUDE.md | Referenced by `dev-develop-story.md`, `pre-push-quality-gate.md`, `analyze-cross-artifact.md`, `spec-write-spec.md` | No |
 | `core-config.yaml` | **PRIMARY** Legacy/monolithic config (v2.3.0) with ALL configuration sections (13 sections) | `core/config/config-loader.js`, all agents, all tasks | Central configuration file; being split into L1-L4 hierarchy | No |
 | `framework-config.yaml` | **NEW** L1 Framework config (read-only, shipped with npm) | `core/config/config-resolver.js`, config CLI | Part of ADR-PRO-002 config hierarchy; duplicates framework portions of `core-config.yaml` | No |
 | `project-config.yaml` | **NEW** L2 Project config (team-shared, committed) | `core/config/config-resolver.js`, config CLI | Part of ADR-PRO-002; duplicates project portions of `core-config.yaml` | No |

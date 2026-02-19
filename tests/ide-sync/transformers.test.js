@@ -188,7 +188,7 @@ describe('IDE Transformers', () => {
     it('should include skills array in frontmatter', () => {
       const result = claudeNative.transform(sampleAgent);
       expect(result).toContain('skills:');
-      expect(result).toContain('- aios-dev');
+      expect(result).toContain('- dev');
     });
 
     it('should include project-context in skills array (AGF-1)', () => {
@@ -249,24 +249,24 @@ describe('IDE Transformers', () => {
   describe('claude skill transformer', () => {
     it('should generate skill content compatible with shared renderer', () => {
       const result = claudeSkills.transform(sampleAgent);
-      expect(result).toContain('name: aios-dev');
+      expect(result).toContain('name: dev');
       expect(result).toContain('Activation Protocol');
     });
 
     it('should generate nested SKILL.md path', () => {
-      expect(claudeSkills.getFilename(sampleAgent)).toBe('aios-dev/SKILL.md');
+      expect(claudeSkills.getFilename(sampleAgent)).toBe('dev/SKILL.md');
     });
   });
 
   describe('gemini skill transformer', () => {
     it('should generate skill content compatible with shared renderer', () => {
       const result = geminiSkills.transform(sampleAgent);
-      expect(result).toContain('name: aios-dev');
+      expect(result).toContain('name: dev');
       expect(result).toContain('Starter Commands');
     });
 
     it('should generate nested SKILL.md path', () => {
-      expect(geminiSkills.getFilename(sampleAgent)).toBe('aios-dev/SKILL.md');
+      expect(geminiSkills.getFilename(sampleAgent)).toBe('dev/SKILL.md');
     });
   });
 

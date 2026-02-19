@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # list-mcps
 
 List currently enabled MCP servers and their available tools.

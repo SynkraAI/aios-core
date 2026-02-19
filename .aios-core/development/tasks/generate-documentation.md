@@ -1,3 +1,6 @@
+---
+agent: architect
+---
 # Generate Pattern Library Documentation
 
 > Task ID: atlas-generate-documentation

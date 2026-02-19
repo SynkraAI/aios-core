@@ -50,7 +50,7 @@ function parseArgs(argv = process.argv.slice(2)) {
 function listSkillFiles(skillsDir) {
   if (!fs.existsSync(skillsDir)) return [];
   return fs.readdirSync(skillsDir, { withFileTypes: true })
-    .filter(entry => entry.isDirectory() && entry.name.startsWith('aios-'))
+    .filter(entry => entry.isDirectory())
     .map(entry => path.join(skillsDir, entry.name, 'SKILL.md'))
     .filter(file => fs.existsSync(file));
 }
@@ -71,7 +71,7 @@ function collectAbsolutePathViolations(content, filePath) {
 
 function isTaskSkillFile(filePath) {
   return new RegExp(
-    `(^|/)(?:aios-task-[^/]+|aios-(?:${AGENT_TASK_SKILL_PATTERN})-[^/]+)/SKILL\\.md$`,
+    `(^|/)(?:aios-task-[^/]+|aios-master-[^/]+|(?:${AGENT_TASK_SKILL_PATTERN})-[^/]+)/SKILL\\.md$`,
   ).test(String(filePath || '').replace(/\\/g, '/'));
 }
 

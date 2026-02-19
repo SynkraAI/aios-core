@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Create Database Snapshot
 
 **Purpose**: Create schema-only snapshot for rollback capability

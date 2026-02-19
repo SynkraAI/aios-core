@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Task: Build Status
 
 > **Command:** `*build-status {story-id}` or `*build-status --all`

@@ -1,3 +1,6 @@
+---
+agent: architect
+---
 # Task: Analyze Performance
 
 **Purpose**: Query performance analysis and optimization (explain plans, hotpath detection, interactive optimization)

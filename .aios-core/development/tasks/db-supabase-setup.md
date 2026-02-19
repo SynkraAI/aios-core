@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Supabase Setup Guide
 
 **Purpose**: Interactive guide to set up Supabase project with best practices

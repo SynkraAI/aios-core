@@ -4,6 +4,7 @@ docOutputLocation: docs/brainstorming-session-results.md
 template: ".aios-core/product/templates/brainstorming-output-tmpl.yaml"
 tools:
   - github-cli
+agent: analyst
 ---
 
 # Facilitate Brainstorming Session Task

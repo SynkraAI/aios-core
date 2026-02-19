@@ -1,7 +1,7 @@
 ---
 title: Orchestrate Stop
 description: Stop orchestrator execution for a story
-agent: aios-master
+agent: master
 version: 1.0.0
 story: '0.9'
 epic: '0'

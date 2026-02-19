@@ -21,6 +21,7 @@ Checklist:
   - "[ ] Apply user adjustments"
   - "[ ] Generate blueprint file"
   - "[ ] Display next steps"
+agent: squad-creator
 ---
 
 # *design-squad

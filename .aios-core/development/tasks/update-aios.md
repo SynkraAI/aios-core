@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # Task: Update AIOS Framework
 
 > **Version:** 4.0.0

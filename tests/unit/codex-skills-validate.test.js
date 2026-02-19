@@ -54,7 +54,7 @@ describe('Codex Skills Validator', () => {
 
   it('fails when a generated skill is missing', () => {
     syncSkills({ sourceDir, localSkillsDir: skillsDir, dryRun: false });
-    fs.rmSync(path.join(skillsDir, 'aios-architect', 'SKILL.md'), { force: true });
+    fs.rmSync(path.join(skillsDir, 'architect', 'SKILL.md'), { force: true });
 
     const result = validateCodexSkills({
       projectRoot: tmpRoot,
@@ -70,7 +70,7 @@ describe('Codex Skills Validator', () => {
 
   it('passes when skill content uses inline greeting (no generate-greeting.js)', () => {
     syncSkills({ sourceDir, localSkillsDir: skillsDir, dryRun: false });
-    const target = path.join(skillsDir, 'aios-dev', 'SKILL.md');
+    const target = path.join(skillsDir, 'dev', 'SKILL.md');
     const content = fs.readFileSync(target, 'utf8');
 
     // Skills should NOT reference generate-greeting.js (removed)
@@ -125,7 +125,7 @@ describe('Codex Skills Validator', () => {
       'utf8',
     );
 
-    const taskSkillDir = path.join(skillsDir, 'aios-qa-execute-checklist');
+    const taskSkillDir = path.join(skillsDir, 'qa-execute-checklist');
     fs.mkdirSync(taskSkillDir, { recursive: true });
     fs.writeFileSync(path.join(taskSkillDir, 'SKILL.md'), '# task skill', 'utf8');
 
@@ -182,7 +182,7 @@ describe('Codex Skills Validator', () => {
       'utf8',
     );
 
-    const taskSkillDir = path.join(skillsDir, 'aios-devops-publish-npm');
+    const taskSkillDir = path.join(skillsDir, 'devops-publish-npm');
     fs.mkdirSync(taskSkillDir, { recursive: true });
     fs.writeFileSync(path.join(taskSkillDir, 'SKILL.md'), '# task skill', 'utf8');
 
@@ -203,7 +203,7 @@ describe('Codex Skills Validator', () => {
     syncSkills({ sourceDir, localSkillsDir: skillsDir, dryRun: false });
 
     // "spec-write-spec" is owned by PM in full mapping, so devops binding must be rejected.
-    const invalidTaskSkillDir = path.join(skillsDir, 'aios-devops-spec-write-spec');
+    const invalidTaskSkillDir = path.join(skillsDir, 'devops-spec-write-spec');
     fs.mkdirSync(invalidTaskSkillDir, { recursive: true });
     fs.writeFileSync(path.join(invalidTaskSkillDir, 'SKILL.md'), '# task skill', 'utf8');
 
@@ -216,6 +216,6 @@ describe('Codex Skills Validator', () => {
     });
 
     expect(result.ok).toBe(false);
-    expect(result.orphaned).toContain('aios-devops-spec-write-spec');
+    expect(result.orphaned).toContain('devops-spec-write-spec');
   });
 });

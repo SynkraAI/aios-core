@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Apply Seed Data
 
 **Purpose**: Safely apply seed data to database with idempotent operations

@@ -4,7 +4,7 @@ description: Complete design workflow - user research, wireframes, design system
 memory: project
 model: sonnet
 skills:
-  - aios-ux-design-expert
+  - ux-design-expert
   - project-context
 ---
 

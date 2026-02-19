@@ -17,6 +17,7 @@ Checklist:
   - "[ ] Execute migration actions"
   - "[ ] Validate migrated squad"
   - "[ ] Generate migration report"
+agent: squad-creator
 ---
 
 # *migrate-squad

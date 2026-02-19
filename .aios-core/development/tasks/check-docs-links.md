@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # check-docs-links
 
 Verifica a integridade dos links internos na documentação markdown.

@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 <!-- Powered by AIOS™ Core -->
 
 ---

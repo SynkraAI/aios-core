@@ -2,6 +2,7 @@
 # No checklists needed - document processing task with built-in validation via md-tree tool
 tools:
   - github-cli
+agent: po
 ---
 
 # Document Sharding Task

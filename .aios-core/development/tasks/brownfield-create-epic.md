@@ -4,6 +4,7 @@ tools:
 checklists:
   - po-master-checklist.md
   - change-checklist.md
+agent: po
 ---
 
 # Create Brownfield Epic Task

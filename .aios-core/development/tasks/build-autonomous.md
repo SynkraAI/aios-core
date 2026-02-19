@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Task: Build Autonomous
 
 > **Command:** `*build-autonomous {story-id}`

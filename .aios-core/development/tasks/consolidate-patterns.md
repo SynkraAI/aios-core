@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Consolidate Patterns Using Intelligent Clustering
 
 > Task ID: brad-consolidate-patterns

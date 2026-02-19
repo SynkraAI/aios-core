@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Migration Dry-Run
 
 **Purpose**: Execute migration inside BEGIN…ROLLBACK to catch syntax/ordering errors

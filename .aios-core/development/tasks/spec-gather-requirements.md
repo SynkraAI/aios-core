@@ -1,3 +1,6 @@
+---
+agent: pm
+---
 # Spec Pipeline: Gather Requirements
 
 > **Phase:** 1 - Gather

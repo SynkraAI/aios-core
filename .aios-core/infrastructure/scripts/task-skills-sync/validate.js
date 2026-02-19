@@ -322,8 +322,9 @@ function isEnabledForTarget(entry, targetName) {
 
 function toAgentSkillId(agentId) {
   const normalized = String(agentId || '').trim();
-  if (normalized.startsWith('aios-')) return normalized;
-  return `aios-${normalized}`;
+  if (normalized === 'aios-master') return 'aios-master';
+  if (normalized.startsWith('aios-')) return normalized.slice(5);
+  return normalized;
 }
 
 function toAgentSlug(agentId) {
@@ -365,7 +366,7 @@ function listTaskSkillDirs(skillsDir) {
   if (!fs.existsSync(skillsDir)) return [];
 
   return fs.readdirSync(skillsDir, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() && entry.name.startsWith('aios-'))
+    .filter((entry) => entry.isDirectory())
     .filter((entry) => fs.existsSync(path.join(skillsDir, entry.name, 'SKILL.md')))
     .filter((entry) => {
       try {

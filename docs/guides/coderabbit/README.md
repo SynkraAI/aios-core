@@ -391,7 +391,7 @@ docs/qa/coderabbit-reports/
 - [Quality Gates Specification](../../../.aios-core/docs/standards/QUALITY-GATES-SPECIFICATION.md)
 - [@qa Agent Definition](../../../.aios-core/development/agents/qa.md)
 - [@devops Agent Definition](../../../.aios-core/development/agents/devops.md)
-- [Pre-Push Quality Gate Task](../../../.aios-core/development/tasks/github-devops-pre-push-quality-gate.md)
+- [Pre-Push Quality Gate Task](../../../.aios-core/development/tasks/pre-push-quality-gate.md)
 
 ---
 

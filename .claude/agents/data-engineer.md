@@ -4,7 +4,7 @@ description: Use for database design, schema architecture, Supabase configuratio
 memory: project
 model: sonnet
 skills:
-  - aios-data-engineer
+  - data-engineer
   - project-context
 ---
 

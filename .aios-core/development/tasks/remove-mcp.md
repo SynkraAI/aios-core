@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # remove-mcp
 
 Remove an MCP server from Docker MCP Toolkit.

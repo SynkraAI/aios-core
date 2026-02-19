@@ -24,6 +24,7 @@ Checklist:
   - '[x] Verificar arquivos existentes nos destinos'
   - '[x] Sincronizar para cada IDE ativa'
   - '[x] Validar arquivos criados'
+agent: squad-creator
 ---
 
 # \*command

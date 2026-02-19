@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # create-worktree
 
 **Task ID:** create-worktree

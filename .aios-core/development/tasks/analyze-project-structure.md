@@ -1,3 +1,6 @@
+---
+agent: architect
+---
 # Analyze Project Structure
 
 **Purpose:** Analyze an existing AIOS project to understand its structure, services, patterns, and provide recommendations for implementing new features. This is Phase 1 of the Incremental Feature Workflow.

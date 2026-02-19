@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # Evidence Requirements Task
 
 Enforce evidence-based QA with mandatory proof of fix and verification.

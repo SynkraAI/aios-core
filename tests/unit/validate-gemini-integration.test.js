@@ -27,15 +27,15 @@ describe('validate-gemini-integration', () => {
   it('passes when required Gemini files exist', () => {
     write(path.join(tmpRoot, '.gemini', 'rules', 'AIOS', 'agents', 'dev.md'), '# dev');
     write(path.join(tmpRoot, '.aios-core', 'development', 'agents', 'dev.md'), '# dev');
-    write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'skills', 'aios-dev', 'SKILL.md'), '# skill');
+    write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'skills', 'dev', 'SKILL.md'), '# skill');
     write(
       path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'extension.json'),
       JSON.stringify(
         {
           skills: [
             {
-              name: 'aios-dev',
-              path: 'skills/aios-dev/SKILL.md',
+              name: 'dev',
+              path: 'skills/dev/SKILL.md',
               description: 'Dev skill',
             },
           ],
@@ -68,7 +68,7 @@ describe('validate-gemini-integration', () => {
   it('fails when extension skills map does not match generated skills', () => {
     write(path.join(tmpRoot, '.gemini', 'rules', 'AIOS', 'agents', 'dev.md'), '# dev');
     write(path.join(tmpRoot, '.aios-core', 'development', 'agents', 'dev.md'), '# dev');
-    write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'skills', 'aios-dev', 'SKILL.md'), '# skill');
+    write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'skills', 'dev', 'SKILL.md'), '# skill');
     write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'extension.json'), '{"skills": []}');
     write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'README.md'), '# readme');
     write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'commands', 'aios-status.js'), '');
@@ -85,10 +85,10 @@ describe('validate-gemini-integration', () => {
     write(path.join(tmpRoot, '.gemini', 'rules', 'AIOS', 'agents', 'dev.md'), '# dev');
     write(path.join(tmpRoot, '.gemini', 'commands', 'aios-dev.toml'), 'description = "dev"');
     write(path.join(tmpRoot, '.aios-core', 'development', 'agents', 'dev.md'), '# dev');
-    write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'skills', 'aios-dev', 'SKILL.md'), '# skill');
+    write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'skills', 'dev', 'SKILL.md'), '# skill');
     write(
       path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'extension.json'),
-      JSON.stringify({ skills: [{ name: 'aios-dev', path: 'skills/aios-dev/SKILL.md' }] }, null, 2),
+      JSON.stringify({ skills: [{ name: 'dev', path: 'skills/dev/SKILL.md' }] }, null, 2),
     );
     write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'README.md'), '# readme');
     write(path.join(tmpRoot, 'packages', 'gemini-aios-extension', 'commands', 'aios-status.js'), '');

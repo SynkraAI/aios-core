@@ -34,11 +34,11 @@ describe('Codex Skills Sync', () => {
     });
 
     expect(result.generated).toBe(expectedAgentCount);
-    const expected = path.join(localSkillsDir, 'aios-architect', 'SKILL.md');
+    const expected = path.join(localSkillsDir, 'architect', 'SKILL.md');
     expect(fs.existsSync(expected)).toBe(true);
 
     const content = fs.readFileSync(expected, 'utf8');
-    expect(content).toContain('name: aios-architect');
+    expect(content).toContain('name: architect');
     expect(content).toContain('Activation Protocol');
     expect(content).toContain('.aios-core/development/agents/architect/architect.md');
     expect(content).toContain('Present yourself with a brief greeting');
@@ -58,7 +58,7 @@ describe('Codex Skills Sync', () => {
 
     expect(result.generated).toBe(expectedAgentCount);
     expect(result.globalSkillsDir).toBe(globalSkillsDir);
-    expect(fs.existsSync(path.join(globalSkillsDir, 'aios-dev', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(globalSkillsDir, 'dev', 'SKILL.md'))).toBe(true);
   });
 
   it('treats globalOnly as global output and skips local writes', () => {
@@ -75,8 +75,8 @@ describe('Codex Skills Sync', () => {
 
     expect(result.generated).toBe(expectedAgentCount);
     expect(result.globalSkillsDir).toBe(globalSkillsDir);
-    expect(fs.existsSync(path.join(localSkillsDir, 'aios-dev', 'SKILL.md'))).toBe(false);
-    expect(fs.existsSync(path.join(globalSkillsDir, 'aios-dev', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(localSkillsDir, 'dev', 'SKILL.md'))).toBe(false);
+    expect(fs.existsSync(path.join(globalSkillsDir, 'dev', 'SKILL.md'))).toBe(true);
   });
 
   it('buildSkillContent emits valid frontmatter and starter commands', () => {
@@ -88,7 +88,7 @@ describe('Codex Skills Sync', () => {
     };
     const content = buildSkillContent(sample);
     expect(content.startsWith('---')).toBe(true);
-    expect(content).toContain('name: aios-dev');
+    expect(content).toContain('name: dev');
     expect(content).toContain('`*help` - Show commands');
   });
 });

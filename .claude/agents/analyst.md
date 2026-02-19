@@ -4,7 +4,7 @@ description: Use for market research, competitive analysis, user research, brain
 memory: project
 model: sonnet
 skills:
-  - aios-analyst
+  - analyst
   - project-context
 ---
 

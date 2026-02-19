@@ -10,8 +10,9 @@ function trimText(text, max = 220) {
 
 function getAgentSkillId(agentId) {
   const id = String(agentId || '').trim();
-  if (id.startsWith('aios-')) return id;
-  return `aios-${id}`;
+  if (id === 'aios-master') return 'aios-master';
+  if (id.startsWith('aios-')) return id.slice(5);
+  return id;
 }
 
 function getVisibleCommands(commands, visibility) {

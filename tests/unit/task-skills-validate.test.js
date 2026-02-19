@@ -89,7 +89,7 @@ describe('task-skills-sync validate', () => {
       dryRun: false,
     });
 
-    fs.rmSync(path.join(tmpRoot, '.codex', 'skills', 'aios-qa-execute-checklist', 'SKILL.md'));
+    fs.rmSync(path.join(tmpRoot, '.codex', 'skills', 'qa-execute-checklist', 'SKILL.md'));
 
     const result = validateTaskSkills({
       projectRoot: tmpRoot,

@@ -2,6 +2,7 @@
 # No templates needed - this task executes existing checklists, doesn't create document outputs
 tools:
   - github-cli  # For document gathering
+agent: qa
 ---
 
 # Checklist Validation Task

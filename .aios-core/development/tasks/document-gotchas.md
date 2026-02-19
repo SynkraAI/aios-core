@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Document Gotchas Task
 
 ## Purpose

@@ -1,3 +1,6 @@
+---
+agent: ux-design-expert
+---
 # Extract Design Tokens from Consolidated Patterns
 
 > Task ID: brad-extract-tokens

@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Run SQL
 
 **Purpose**: Execute SQL file or inline SQL with transaction safety and timing

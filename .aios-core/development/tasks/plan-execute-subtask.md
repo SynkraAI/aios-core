@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Execute Subtask (Coder Agent)
 
 > **Phase:** Execution - Subtask

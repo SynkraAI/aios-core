@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-19T00:19:00.056Z'
+  lastUpdated: '2026-02-19T15:54:21.741Z'
   entityCount: 512
   checksumAlgorithm: sha256
 entities:
@@ -1589,8 +1589,8 @@ entities:
         extensionPoints: []
       checksum: sha256:ee54ce0bc4c81b131ca66c33f317a2277da66b7156794bc2a41eb4e77c5bf867
       lastVerified: '2026-02-08T13:33:24.202Z'
-    github-devops-github-pr-automation:
-      path: .aios-core/development/tasks/github-devops-github-pr-automation.md
+    github-pr-automation:
+      path: .aios-core/development/tasks/github-pr-automation.md
       type: task
       purpose: '** Validate prerequisites BEFORE task execution (blocking)'
       keywords:
@@ -1609,8 +1609,8 @@ entities:
         extensionPoints: []
       checksum: sha256:907476b248dc063e8bbd48bb884fa667dca93f6469394500e4ad567aa33953ba
       lastVerified: '2026-02-08T13:33:24.202Z'
-    github-devops-pre-push-quality-gate:
-      path: .aios-core/development/tasks/github-devops-pre-push-quality-gate.md
+    pre-push-quality-gate:
+      path: .aios-core/development/tasks/pre-push-quality-gate.md
       type: task
       purpose: '** Validate prerequisites BEFORE task execution (blocking)'
       keywords:
@@ -1632,8 +1632,8 @@ entities:
         extensionPoints: []
       checksum: sha256:5466ed17c850945f4418ec8911a269ca90e2fb7d6fef80beab2cadf3abc0dbd5
       lastVerified: '2026-02-08T13:33:24.203Z'
-    github-devops-repository-cleanup:
-      path: .aios-core/development/tasks/github-devops-repository-cleanup.md
+    repository-cleanup:
+      path: .aios-core/development/tasks/repository-cleanup.md
       type: task
       purpose: '** Validate prerequisites BEFORE task execution (blocking)'
       keywords:
@@ -1651,8 +1651,8 @@ entities:
         extensionPoints: []
       checksum: sha256:41bab1eb9841602af7c806ddc7c03d6d36e8a2390e290d87818037076fe5fb05
       lastVerified: '2026-02-08T13:33:24.203Z'
-    github-devops-version-management:
-      path: .aios-core/development/tasks/github-devops-version-management.md
+    version-management:
+      path: .aios-core/development/tasks/version-management.md
       type: task
       purpose: '** Validate prerequisites BEFORE task execution (blocking)'
       keywords:
@@ -3902,7 +3902,7 @@ entities:
       usedBy: []
       dependencies:
         - release-management
-        - github-devops-pre-push-quality-gate
+        - pre-push-quality-gate
       adaptability:
         score: 0.8
         constraints: []
@@ -8353,8 +8353,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:937fcf8487ebf11e332852c0a86617b82dc8b1d6295f6bb87d9574bf88ec599b
-      lastVerified: '2026-02-19T00:19:00.028Z'
+      checksum: sha256:de82c7221ee6599f932811b574b4e4c65d96c6bbb2cd93d413ac0ec21e7e0579
+      lastVerified: '2026-02-19T15:54:21.739Z'
     active-modules.verify:
       path: .aios-core/core/memory/__tests__/active-modules.verify.js
       type: module

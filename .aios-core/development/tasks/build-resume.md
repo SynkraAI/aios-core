@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Task: Build Resume
 
 > **Command:** `*build-resume {story-id}`

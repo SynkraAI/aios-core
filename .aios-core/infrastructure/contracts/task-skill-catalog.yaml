@@ -16,6 +16,9 @@ targets:
 
 agent_aliases:
   github-devops: devops
+  aios-developer: dev
+  ux: ux-design-expert
+  db: data-engineer
 
 allowlist:
   - task_id: execute-checklist
@@ -57,7 +60,7 @@ allowlist:
   - task_id: cleanup-worktrees
     agent: devops
     reason: "Batch cleanup workflow for stale branches"
-  - task_id: github-devops-pre-push-quality-gate
+  - task_id: pre-push-quality-gate
     agent: devops
     reason: "Pre-push quality gate - lint, test, typecheck"
   - task_id: dev-develop-story

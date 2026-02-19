@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # Task: Security Audit
 
 **Purpose**: Comprehensive database security and quality audit (RLS coverage, schema design, full system)

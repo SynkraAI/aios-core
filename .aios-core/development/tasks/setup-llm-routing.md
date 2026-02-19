@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # setup-llm-routing
 
 **Task ID:** setup-llm-routing

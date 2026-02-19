@@ -28,7 +28,7 @@ describe('validate-claude-integration', () => {
     write(path.join(tmpRoot, '.claude', 'CLAUDE.md'), '# rules');
     write(path.join(tmpRoot, '.claude', 'hooks', 'hook.js'), '');
     write(path.join(tmpRoot, '.claude', 'agents', 'dev.md'), '# native dev');
-    write(path.join(tmpRoot, '.claude', 'skills', 'aios-dev', 'SKILL.md'), '# skill');
+    write(path.join(tmpRoot, '.claude', 'skills', 'dev', 'SKILL.md'), '# skill');
     write(path.join(tmpRoot, '.aios-core', 'development', 'agents', 'dev.md'), '# dev');
 
     const result = validateClaudeIntegration({ projectRoot: tmpRoot });
@@ -47,7 +47,7 @@ describe('validate-claude-integration', () => {
 
   it('fails when source agent files are missing from native/skills outputs', () => {
     write(path.join(tmpRoot, '.claude', 'agents', 'dev.md'), '# native dev');
-    write(path.join(tmpRoot, '.claude', 'skills', 'aios-dev', 'SKILL.md'), '# skill');
+    write(path.join(tmpRoot, '.claude', 'skills', 'dev', 'SKILL.md'), '# skill');
     write(path.join(tmpRoot, '.aios-core', 'development', 'agents', 'dev.md'), '# dev');
     write(path.join(tmpRoot, '.aios-core', 'development', 'agents', 'qa.md'), '# qa');
 
@@ -66,7 +66,7 @@ describe('validate-claude-integration', () => {
       path.join(tmpRoot, '.claude', 'agents', 'aios-dev.md'),
       ['---', 'name: aios-dev', '---', '# legacy dev'].join('\n'),
     );
-    write(path.join(tmpRoot, '.claude', 'skills', 'aios-dev', 'SKILL.md'), '# skill');
+    write(path.join(tmpRoot, '.claude', 'skills', 'dev', 'SKILL.md'), '# skill');
     write(path.join(tmpRoot, '.aios-core', 'development', 'agents', 'dev.md'), '# dev');
 
     const result = validateClaudeIntegration({ projectRoot: tmpRoot });
@@ -78,7 +78,7 @@ describe('validate-claude-integration', () => {
     write(path.join(tmpRoot, '.claude', 'CLAUDE.md'), '# rules');
     write(path.join(tmpRoot, '.claude', 'agents', 'dev.md'), '# native dev');
     write(path.join(tmpRoot, '.claude', 'commands', 'AIOS', 'agents', 'dev.md'), '# old adapter');
-    write(path.join(tmpRoot, '.claude', 'skills', 'aios-dev', 'SKILL.md'), '# skill');
+    write(path.join(tmpRoot, '.claude', 'skills', 'dev', 'SKILL.md'), '# skill');
     write(path.join(tmpRoot, '.aios-core', 'development', 'agents', 'dev.md'), '# dev');
 
     const result = validateClaudeIntegration({ projectRoot: tmpRoot });

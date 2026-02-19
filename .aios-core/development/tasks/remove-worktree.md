@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # remove-worktree
 
 **Task ID:** remove-worktree

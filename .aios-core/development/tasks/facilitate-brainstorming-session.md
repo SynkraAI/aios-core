@@ -1,7 +1,7 @@
 ---
 id: facilitate-brainstorming-session
 name: Facilitate Brainstorming Session
-agent: aios-master
+agent: master
 category: collaboration
 complexity: medium
 tools:

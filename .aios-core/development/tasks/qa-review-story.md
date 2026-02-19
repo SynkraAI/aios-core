@@ -6,6 +6,7 @@ tools:
   - supabase          # Database testing and data validation
 checklists:
   - qa-master-checklist.md
+agent: qa
 ---
 
 # review-story

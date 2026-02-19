@@ -1,3 +1,6 @@
+---
+agent: master
+---
 # Task: `*waves` - Wave Analysis
 
 <!-- Story: WIS-4 - Wave Analysis Engine -->

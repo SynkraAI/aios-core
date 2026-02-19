@@ -1,5 +1,6 @@
 ---
 # No checklists needed - rollback operation with built-in transaction validation
+agent: dev
 ---
 
 # Task: Undo Last Component Operation

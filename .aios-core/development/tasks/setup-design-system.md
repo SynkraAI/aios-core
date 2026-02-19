@@ -1,3 +1,6 @@
+---
+agent: ux-design-expert
+---
 # Setup Design System Structure
 
 > Task ID: atlas-setup-design-system

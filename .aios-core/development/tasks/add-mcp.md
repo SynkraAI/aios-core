@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # Add MCP Server Task
 
 > Dynamically add MCP servers to Docker MCP Toolkit from the catalog.

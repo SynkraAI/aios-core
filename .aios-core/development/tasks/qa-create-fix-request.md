@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # Create Fix Request Task
 
 Generate a structured fix request document (`QA_FIX_REQUEST.md`) for @dev based on QA review findings.

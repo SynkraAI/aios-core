@@ -1,3 +1,6 @@
+---
+agent: architect
+---
 # Execution Pipeline: Create Implementation Plan
 
 > **Phase:** 1 - Plan

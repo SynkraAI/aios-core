@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # setup-github
 
 **Task ID:** setup-github

@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: DB Env Check
 
 **Purpose**: Validate environment for DB operations without leaking secrets

@@ -1,3 +1,6 @@
+---
+agent: master
+---
 # Task: Build (Autonomous)
 
 > **Command:** `*build {story-id}`

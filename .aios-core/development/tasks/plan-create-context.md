@@ -1,3 +1,6 @@
+---
+agent: architect
+---
 # Plan Pipeline: Create Context
 
 > **Phase:** execution-context

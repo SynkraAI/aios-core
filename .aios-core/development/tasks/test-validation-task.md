@@ -21,6 +21,7 @@
 
 **Parameter:** `mode` (optional, default: `interactive`)
 
+agent: qa
 ---
 
 ## Task Definition (AIOS Task Format V2.0)

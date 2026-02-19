@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Task: Add Gotcha
 
 > **Command:** `*gotcha {title} - {description}`

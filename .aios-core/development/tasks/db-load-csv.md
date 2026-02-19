@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Load CSV Data Safely
 
 **Purpose**: Import CSV data using PostgreSQL COPY with staging table and validation

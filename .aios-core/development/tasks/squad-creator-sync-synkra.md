@@ -23,6 +23,7 @@ Checklist:
   - "[x] Calcular checksum"
   - "[x] Enviar para Synkra API"
   - "[x] Exibir URL do marketplace"
+agent: squad-creator
 ---
 
 # *sync-squad-synkra

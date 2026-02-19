@@ -4,7 +4,7 @@ description: Use for PRD creation (greenfield and brownfield), epic creation and
 memory: project
 model: sonnet
 skills:
-  - aios-pm
+  - pm
   - project-context
 ---
 

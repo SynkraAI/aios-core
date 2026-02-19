@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # False Positive Detection Task
 
 Critical thinking checklist to prevent confirmation bias and false positive approvals.

@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # Task: QA After Creation
 
 **Task ID:** qa-after-creation

@@ -4,7 +4,7 @@ description: Use for code implementation, debugging, refactoring, and developmen
 memory: project
 model: sonnet
 skills:
-  - aios-dev
+  - dev
   - project-context
 ---
 

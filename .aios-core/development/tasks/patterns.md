@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Learned Patterns Management
 
 ## Purpose

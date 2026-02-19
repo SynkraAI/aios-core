@@ -302,6 +302,37 @@ function extractDeclaredAgent(task = {}, aliasMap = new Map()) {
   );
 }
 
+/**
+ * Infer agent from task filename prefix.
+ * Used as fallback when no agent: frontmatter exists.
+ * Longest-prefix-first to avoid false matches (e.g., "squad-creator-" before "squad-").
+ */
+function inferAgentFromFilename(taskId, aliasMap = new Map()) {
+  const KNOWN_PREFIXES = [
+    'squad-creator-',
+    'github-devops-',
+    'ux-design-expert-',
+    'data-engineer-',
+    'architect-',
+    'analyst-',
+    'devops-',
+    'dev-',
+    'qa-',
+    'po-',
+    'sm-',
+    'pm-',
+    'ux-',
+    'db-',
+  ];
+  for (const prefix of KNOWN_PREFIXES) {
+    if (taskId.startsWith(prefix)) {
+      const slug = prefix.slice(0, -1);
+      return aliasMap.get(slug) || slug;
+    }
+  }
+  return null;
+}
+
 function buildScopedEntries({
   scope,
   catalogEntries,
@@ -337,7 +368,9 @@ function buildScopedEntries({
 
     const declaredAgent = extractDeclaredAgent(task, aliasMap);
     const isDeclaredAgentValid = declaredAgent && validAgentSlugs.has(declaredAgent);
-    const agent = isDeclaredAgentValid ? declaredAgent : fallback;
+    const inferredAgent = isDeclaredAgentValid ? null : inferAgentFromFilename(task.id, aliasMap);
+    const isInferredAgentValid = inferredAgent && validAgentSlugs.has(inferredAgent);
+    const agent = isDeclaredAgentValid ? declaredAgent : (isInferredAgentValid ? inferredAgent : fallback);
 
     entries.push({
       taskId: task.id,
@@ -404,7 +437,7 @@ function pruneOrphanTaskSkills(targetDir, expectedSkillIds, options = {}) {
 
   const expected = new Set(expectedSkillIds || []);
   const existing = fs.readdirSync(targetDir, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() && entry.name.startsWith('aios-'))
+    .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
     .filter((skillId) => {
       const skillPath = path.join(targetDir, skillId, 'SKILL.md');
@@ -558,6 +591,7 @@ module.exports = {
   canonicalizeAgent,
   resolveFallbackAgent,
   extractDeclaredAgent,
+  inferAgentFromFilename,
   buildScopedEntries,
   getCanonicalAgentSlugs,
   collectSelectedTaskSpecs,

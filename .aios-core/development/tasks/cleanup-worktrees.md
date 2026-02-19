@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # cleanup-worktrees
 
 Remove all stale git worktrees older than specified threshold.

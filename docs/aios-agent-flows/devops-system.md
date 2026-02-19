@@ -57,9 +57,9 @@ Filosofia: "Automatize tudo que pode ser automatizado"
 
 | Task | Caminho | Comando |
 |------|---------|---------|
-| Pre-Push Quality Gate | `.aios-core/development/tasks/github-devops-pre-push-quality-gate.md` | `*push` |
-| Version Management | `.aios-core/development/tasks/github-devops-version-management.md` | `*version-check` |
-| Repository Cleanup | `.aios-core/development/tasks/github-devops-repository-cleanup.md` | `*cleanup` |
+| Pre-Push Quality Gate | `.aios-core/development/tasks/pre-push-quality-gate.md` | `*push` |
+| Version Management | `.aios-core/development/tasks/version-management.md` | `*version-check` |
+| Repository Cleanup | `.aios-core/development/tasks/repository-cleanup.md` | `*cleanup` |
 | CI/CD Configuration | `.aios-core/development/tasks/ci-cd-configuration.md` | `*ci-cd` |
 | Release Management | `.aios-core/development/tasks/release-management.md` | `*release` |
 | Environment Bootstrap | `.aios-core/development/tasks/environment-bootstrap.md` | `*environment-bootstrap` |
@@ -278,9 +278,9 @@ flowchart TD
 
 | Comando | Task | Descrição | Modo |
 |---------|------|-----------|------|
-| `*push` | github-devops-pre-push-quality-gate.md | Quality gate antes do push | Interactive |
+| `*push` | pre-push-quality-gate.md | Quality gate antes do push | Interactive |
 | `*setup-github` | setup-github.md | Configurar repositorio GitHub | Interactive |
-| `*cleanup` | github-devops-repository-cleanup.md | Limpar branches e arquivos | Interactive |
+| `*cleanup` | repository-cleanup.md | Limpar branches e arquivos | Interactive |
 
 ### Comandos CI/CD e Releases
 
@@ -288,7 +288,7 @@ flowchart TD
 |---------|------|-----------|------|
 | `*ci-cd` | ci-cd-configuration.md | Configurar pipeline CI/CD | Interactive |
 | `*release` | release-management.md | Criar release com changelog | Interactive |
-| `*version-check` | github-devops-version-management.md | Analisar e sugerir versao | YOLO |
+| `*version-check` | version-management.md | Analisar e sugerir versao | YOLO |
 
 ### Comandos de Seguranca
 
@@ -591,8 +591,8 @@ npm audit --ignore-advisories=ADVISORY_ID
 
 | Task | Descrição |
 |------|-----------|
-| [Pre-Push Quality Gate](.aios-core/development/tasks/github-devops-pre-push-quality-gate.md) | Validacao antes do push |
-| [Version Management](.aios-core/development/tasks/github-devops-version-management.md) | Gerenciamento de versoes |
+| [Pre-Push Quality Gate](.aios-core/development/tasks/pre-push-quality-gate.md) | Validacao antes do push |
+| [Version Management](.aios-core/development/tasks/version-management.md) | Gerenciamento de versoes |
 | [CI/CD Configuration](.aios-core/development/tasks/ci-cd-configuration.md) | Configuracao de pipelines |
 | [Release Management](.aios-core/development/tasks/release-management.md) | Gerenciamento de releases |
 | [Environment Bootstrap](.aios-core/development/tasks/environment-bootstrap.md) | Bootstrap de ambientes |

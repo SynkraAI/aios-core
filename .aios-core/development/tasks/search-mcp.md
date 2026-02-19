@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # Search MCP Catalog Task
 
 > Search and discover available MCP servers in the Docker MCP Toolkit catalog.

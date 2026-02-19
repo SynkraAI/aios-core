@@ -49,10 +49,10 @@ $tasks = @(
   'db-dry-run.md',
   'db-env-check.md',
   'db-snapshot.md',
-  'github-devops-github-pr-automation.md',
-  'github-devops-pre-push-quality-gate.md',
-  'github-devops-repository-cleanup.md',
-  'github-devops-version-management.md',
+  'github-pr-automation.md',
+  'pre-push-quality-gate.md',
+  'repository-cleanup.md',
+  'version-management.md',
   'ci-cd-configuration.md',
   'security-scan.md'
 )

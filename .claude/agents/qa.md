@@ -4,7 +4,7 @@ description: Use for comprehensive test architecture review, quality gate decisi
 memory: project
 model: sonnet
 skills:
-  - aios-qa
+  - qa
   - project-context
 ---
 

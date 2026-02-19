@@ -1,3 +1,6 @@
+---
+agent: ux-design-expert
+---
 # Design System Artifact Scanner
 
 > **Task ID:** ux-ds-scan-artifact

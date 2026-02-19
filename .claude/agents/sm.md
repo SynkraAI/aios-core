@@ -4,7 +4,7 @@ description: Use for user story creation from PRD, story validation and complete
 memory: project
 model: sonnet
 skills:
-  - aios-sm
+  - sm
   - project-context
 ---
 

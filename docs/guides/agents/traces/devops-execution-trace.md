@@ -102,13 +102,13 @@ devops:
 |---------|-----------|----------|--------|
 | `*help` | (built-in) | Core | No |
 | `*detect-repo` | (built-in, uses repository-detector.js) | Core | No |
-| `*version-check` | github-devops-version-management.md | Quality & Push | No |
-| `*pre-push` | github-devops-pre-push-quality-gate.md | Quality & Push | No |
+| `*version-check` | version-management.md | Quality & Push | No |
+| `*pre-push` | pre-push-quality-gate.md | Quality & Push | No |
 | `*push` | (built-in, orchestrates quality gates + git push) | Quality & Push | Yes |
-| `*create-pr` | github-devops-github-pr-automation.md | GitHub | Yes |
+| `*create-pr` | github-pr-automation.md | GitHub | Yes |
 | `*configure-ci` | ci-cd-configuration.md | GitHub | Yes |
 | `*release` | release-management.md | GitHub | Yes |
-| `*cleanup` | github-devops-repository-cleanup.md | Repository | Yes |
+| `*cleanup` | repository-cleanup.md | Repository | Yes |
 | `*init-project-status` | init-project-status.md | Repository | No |
 | `*environment-bootstrap` | environment-bootstrap.md | Environment | Yes |
 | `*setup-github` | setup-github.md | Environment | Yes |
@@ -137,19 +137,19 @@ devops:
 
 ### `*pre-push`
 
-**Task file:** `.aios-core/development/tasks/github-devops-pre-push-quality-gate.md`
+**Task file:** `.aios-core/development/tasks/pre-push-quality-gate.md`
 
 **Dependencies loaded:**
 | File | Type | Status |
 |------|------|--------|
-| `github-devops-pre-push-quality-gate.md` | Task | EXISTS |
+| `pre-push-quality-gate.md` | Task | EXISTS |
 | `pre-push-checklist.md` | Checklist | EXISTS (at `.aios-core/product/checklists/`) |
 
 **Execution flow:**
 
 ```mermaid
 flowchart TD
-    A["*pre-push"] --> B[Load github-devops-pre-push-quality-gate.md]
+    A["*pre-push"] --> B[Load pre-push-quality-gate.md]
     B --> C[Check for uncommitted changes]
     C --> D{Clean working tree?}
     D -->|no| E[Error: commit or stash changes first]
@@ -175,7 +175,7 @@ flowchart TD
 **Dependencies loaded:**
 | File | Type | Status |
 |------|------|--------|
-| `github-devops-pre-push-quality-gate.md` | Task | EXISTS |
+| `pre-push-quality-gate.md` | Task | EXISTS |
 | `repository-detector.js` | Script | EXISTS (at `.aios-core/infrastructure/scripts/`) |
 
 **Execution flow:**
@@ -204,19 +204,19 @@ flowchart TD
 
 ### `*create-pr`
 
-**Task file:** `.aios-core/development/tasks/github-devops-github-pr-automation.md`
+**Task file:** `.aios-core/development/tasks/github-pr-automation.md`
 
 **Dependencies loaded:**
 | File | Type | Status |
 |------|------|--------|
-| `github-devops-github-pr-automation.md` | Task | EXISTS |
+| `github-pr-automation.md` | Task | EXISTS |
 | `github-pr-template.md` | Template | EXISTS (at `.aios-core/product/templates/`) |
 
 **Execution flow:**
 
 ```mermaid
 flowchart TD
-    A["*create-pr"] --> B[Load github-devops-github-pr-automation.md]
+    A["*create-pr"] --> B[Load github-pr-automation.md]
     B --> C[Detect repository and current branch]
     C --> D[Run CodeRabbit pre-PR review]
     D --> E{CRITICAL issues?}
@@ -236,18 +236,18 @@ flowchart TD
 
 ### `*version-check`
 
-**Task file:** `.aios-core/development/tasks/github-devops-version-management.md`
+**Task file:** `.aios-core/development/tasks/version-management.md`
 
 **Dependencies loaded:**
 | File | Type | Status |
 |------|------|--------|
-| `github-devops-version-management.md` | Task | EXISTS |
+| `version-management.md` | Task | EXISTS |
 
 **Execution flow:**
 
 ```mermaid
 flowchart TD
-    A["*version-check"] --> B[Load github-devops-version-management.md]
+    A["*version-check"] --> B[Load version-management.md]
     B --> C[Read current version from package.json]
     C --> D[Analyze git diff since last tag]
     D --> E[Check for breaking change keywords]
@@ -326,19 +326,19 @@ flowchart TD
 
 ### `*cleanup`
 
-**Task file:** `.aios-core/development/tasks/github-devops-repository-cleanup.md`
+**Task file:** `.aios-core/development/tasks/repository-cleanup.md`
 
 **Dependencies loaded:**
 | File | Type | Status |
 |------|------|--------|
-| `github-devops-repository-cleanup.md` | Task | EXISTS |
+| `repository-cleanup.md` | Task | EXISTS |
 | `branch-manager.js` | Script | EXISTS (at `.aios-core/infrastructure/scripts/`) |
 
 **Execution flow:**
 
 ```mermaid
 flowchart TD
-    A["*cleanup"] --> B[Load github-devops-repository-cleanup.md]
+    A["*cleanup"] --> B[Load repository-cleanup.md]
     B --> C[Detect repository context]
     C --> D[Identify merged branches >30 days old]
     D --> E[Identify stale temporary files]
@@ -575,11 +575,11 @@ graph TD
     subgraph "Task Files (19/19 EXIST)"
         T1[environment-bootstrap.md]
         T2[setup-github.md]
-        T3[github-devops-version-management.md]
-        T4[github-devops-pre-push-quality-gate.md]
-        T5[github-devops-github-pr-automation.md]
+        T3[version-management.md]
+        T4[pre-push-quality-gate.md]
+        T5[github-pr-automation.md]
         T6[ci-cd-configuration.md]
-        T7[github-devops-repository-cleanup.md]
+        T7[repository-cleanup.md]
         T8[release-management.md]
         T9[search-mcp.md]
         T10[add-mcp.md]

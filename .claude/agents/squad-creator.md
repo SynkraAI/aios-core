@@ -4,7 +4,7 @@ description: Use to create, validate, publish and manage squads
 memory: project
 model: sonnet
 skills:
-  - aios-squad-creator
+  - squad-creator
   - project-context
 ---
 

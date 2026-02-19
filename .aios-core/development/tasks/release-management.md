@@ -1,7 +1,7 @@
 ---
 id: release-management
 name: Manage Software Releases
-agent: github-devops
+agent: devops
 category: devops
 complexity: high
 tools:

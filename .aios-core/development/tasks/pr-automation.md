@@ -1,7 +1,7 @@
 ---
 id: pr-automation
 name: Automate Pull Request Creation for Open-Source Contributions
-agent: github-devops
+agent: devops
 category: devops
 complexity: medium
 tools:

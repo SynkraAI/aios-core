@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Next Command Suggestions
 
 ## Purpose

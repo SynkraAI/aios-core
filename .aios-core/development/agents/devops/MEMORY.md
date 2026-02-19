@@ -6,7 +6,7 @@
 - ONLY agent authorized to push to remote repositories
 - All other agents must delegate push operations to @devops
 - Pre-push quality gate: lint + typecheck + test must all pass
-- PR automation via `github-devops-github-pr-automation` task
+- PR automation via `github-pr-automation` task
 
 ### Version Management
 - Version tracking via `version-tracker` utility

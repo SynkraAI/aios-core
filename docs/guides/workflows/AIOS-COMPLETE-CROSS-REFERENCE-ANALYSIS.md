@@ -279,9 +279,9 @@ WORKFLOWS (5):
 TASKS (11):
   Workflow: environment-bootstrap, create-worktree, list-worktrees,
            remove-worktree, merge-worktree
-  On-demand: github-devops-pre-push-quality-gate,
-             github-devops-version-management,
-             github-devops-repository-cleanup, ci-cd-configuration,
+  On-demand: pre-push-quality-gate,
+             version-management,
+             repository-cleanup, ci-cd-configuration,
              release-management, security-audit, search-mcp, add-mcp,
              setup-mcp-docker, setup-github
 

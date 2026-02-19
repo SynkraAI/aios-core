@@ -4,6 +4,7 @@ tools:
   - context7          # Research backlog management best practices
 checklists:
   - backlog-management-checklist.md
+agent: po
 ---
 
 # manage-story-backlog

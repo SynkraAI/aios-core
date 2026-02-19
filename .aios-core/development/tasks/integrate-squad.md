@@ -1,3 +1,6 @@
+---
+agent: master
+---
 # Integrate with Squad
 
 > Task ID: atlas-integrate-Squad

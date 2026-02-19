@@ -58,6 +58,7 @@ Checklist:
   - "[ ] Calculate coverage metrics"
   - "[ ] Generate improvement suggestions"
   - "[ ] Format and display report"
+agent: squad-creator
 ---
 
 # Analyze Squad Task

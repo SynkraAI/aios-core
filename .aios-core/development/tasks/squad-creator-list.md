@@ -13,6 +13,7 @@ Checklist:
   - "[ ] Usar squad-generator.listLocal()"
   - "[ ] Formatar output conforme format"
   - "[ ] Exibir informacoes basicas de cada squad"
+agent: squad-creator
 ---
 
 # *list-squads

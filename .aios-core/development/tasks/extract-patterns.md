@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Extract Patterns
 
 ## Purpose

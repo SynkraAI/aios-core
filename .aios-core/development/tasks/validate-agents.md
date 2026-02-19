@@ -1,3 +1,6 @@
+---
+agent: master
+---
 # Validate Agents Task
 
 ## Purpose

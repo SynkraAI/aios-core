@@ -11,8 +11,14 @@ const {
 
 describe('task-skill renderer', () => {
   it('builds agent-scoped task skill ids', () => {
-    expect(getTaskSkillId('build-resume', 'dev')).toBe('aios-dev-build-resume');
-    expect(getTaskSkillId('aios-task-build-resume', 'aios-dev')).toBe('aios-dev-build-resume');
+    expect(getTaskSkillId('build-resume', 'dev')).toBe('dev-build-resume');
+    expect(getTaskSkillId('aios-task-build-resume', 'aios-dev')).toBe('dev-build-resume');
+  });
+
+  it('prevents double agent prefix in task skill ids', () => {
+    expect(getTaskSkillId('dev-develop-story', 'dev')).toBe('dev-develop-story');
+    expect(getTaskSkillId('po-backlog-add', 'po')).toBe('po-backlog-add');
+    expect(getTaskSkillId('qa-review-build', 'qa')).toBe('qa-review-build');
   });
 
   it('resolves owner agent source filename', () => {
@@ -36,7 +42,7 @@ describe('task-skill renderer', () => {
       elicit: false,
     });
 
-    expect(content).toContain('name: aios-dev-build-resume');
+    expect(content).toContain('name: dev-build-resume');
     expect(content).toContain('description: "Command: *build-resume {story-id}"');
     expect(content).toContain('owner: "dev"');
     expect(content).toContain('source: ".aios-core/development/tasks/build-resume.md"');
@@ -58,7 +64,7 @@ describe('task-skill renderer', () => {
         elicit: false,
       });
 
-      expect(content).toContain('name: aios-dev-build-resume');
+      expect(content).toContain('name: dev-build-resume');
       expect(content).toContain('context: fork');
       expect(content).toContain('agent: dev');
       expect(content).toContain('owner: "dev"');

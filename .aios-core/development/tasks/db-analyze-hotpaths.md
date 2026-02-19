@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Analyze Hot Query Paths
 
 **Purpose**: Run EXPLAIN ANALYZE on common/critical queries to identify performance issues

@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # Library Validation Task
 
 Validate third-party library usage against official documentation using Context7.

@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Domain Modeling Session
 
 **Purpose**: Interactive session to model business domain into database schema

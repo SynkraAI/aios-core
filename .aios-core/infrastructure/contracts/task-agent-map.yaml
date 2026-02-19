@@ -1,0 +1,240 @@
+# Task-to-Agent Ownership Map
+# Generated from AGF-2 audit (2026-02-19)
+# This file is the source of truth for task ownership validation.
+schema_version: 1
+
+# Action: delete = file should be deleted (duplicate)
+# Action: rename = file should be renamed (value = new name)
+tasks:
+  # --- analyst ---
+  advanced-elicitation: analyst
+  analyst-facilitate-brainstorming: analyst
+  calculate-roi: analyst
+  create-deep-research-prompt: analyst
+  generate-shock-report: analyst
+  spec-research-dependencies: analyst
+
+  # --- architect ---
+  analyze-brownfield: architect
+  document-project: architect
+  analyze-framework: architect
+  analyze-performance: architect
+  analyze-project-structure: architect
+  architect-analyze-impact: architect
+  generate-documentation: architect
+  generate-migration-strategy: architect
+  plan-create-context: architect
+  plan-create-implementation: architect
+  propose-modification: architect
+  spec-assess-complexity: architect
+  validate-tech-preset: architect
+
+  # --- data-engineer ---
+  db-analyze-hotpaths: data-engineer
+  db-apply-migration: data-engineer
+  db-bootstrap: data-engineer
+  db-domain-modeling: data-engineer
+  db-dry-run: data-engineer
+  db-env-check: data-engineer
+  db-explain: data-engineer
+  db-impersonate: data-engineer
+  db-load-csv: data-engineer
+  db-policy-apply: data-engineer
+  db-rls-audit: data-engineer
+  db-rollback: data-engineer
+  db-run-sql: data-engineer
+  db-schema-audit: data-engineer
+  db-seed: data-engineer
+  db-smoke-test: data-engineer
+  db-snapshot: data-engineer
+  db-squad-integration: data-engineer
+  db-supabase-setup: data-engineer
+  db-verify-order: data-engineer
+  setup-database: data-engineer
+
+  # --- dev ---
+  audit-tailwind-config: dev
+  audit-utilities: dev
+  build-autonomous: dev
+  build-component: dev
+  build-resume: dev
+  build-status: dev
+  cleanup-utilities: dev
+  consolidate-patterns: dev
+  correct-course: dev
+  create-service: dev
+  create-suite: dev
+  deprecate-component: dev
+  dev-apply-qa-fixes: dev
+  dev-backlog-debt: dev
+  dev-develop-story: dev
+  dev-improve-code-quality: dev
+  dev-optimize-performance: dev
+  dev-suggest-refactoring: dev
+  dev-validate-next-story: dev
+  document-gotchas: dev
+  extend-pattern: dev
+  extract-patterns: dev
+  gotcha: dev
+  gotchas: dev
+  learn-patterns: dev
+  next: dev
+  patterns: dev
+  plan-execute-subtask: dev
+  setup-llm-routing: dev
+  tailwind-upgrade: dev
+  undo-last: dev
+  verify-subtask: dev
+
+  # --- devops ---
+  add-mcp: devops
+  check-docs-links: devops
+  ci-cd-configuration: devops
+  cleanup-worktrees: devops
+  create-worktree: devops
+  environment-bootstrap: devops
+  init-project-status: devops
+  list-mcps: devops
+  list-worktrees: devops
+  mcp-workflow: devops
+  merge-worktree: devops
+  pr-automation: devops
+  publish-npm: devops
+  release-management: devops
+  remove-mcp: devops
+  remove-worktree: devops
+  search-mcp: devops
+  setup-github: devops
+  setup-mcp-docker: devops
+  sync-documentation: devops
+  update-aios: devops
+  # Renamed from github-devops-* (AGF-2 Fase 7):
+  github-pr-automation: devops
+  pre-push-quality-gate: devops
+  repository-cleanup: devops
+  version-management: devops
+
+  # --- master ---
+  build: master
+  collaborative-edit: master
+  create-agent: master
+  create-task: master
+  create-workflow: master
+  execute-epic-plan: master
+  facilitate-brainstorming-session: master
+  ids-governor: master
+  ids-health: master
+  ids-query: master
+  improve-self: master
+  integrate-squad: master
+  kb-mode-interaction: master
+  modify-agent: master
+  modify-task: master
+  modify-workflow: master
+  orchestrate: master
+  orchestrate-resume: master
+  orchestrate-status: master
+  orchestrate-stop: master
+  run-workflow: master
+  run-workflow-engine: master
+  session-resume: master
+  sync-registry-intel: master
+  update-manifest: master
+  update-source-tree: master
+  validate-agents: master
+  waves: master
+  yolo-toggle: master
+
+  # --- pm ---
+  spec-gather-requirements: pm
+  spec-write-spec: pm
+
+  # --- po ---
+  brownfield-create-epic: po
+  brownfield-create-story: po
+  create-doc: po
+  create-next-story: po
+  index-docs: po
+  po-backlog-add: po
+  po-close-story: po
+  po-manage-story-backlog: po
+  po-pull-story: po
+  po-pull-story-from-clickup: po
+  po-stories-index: po
+  po-sync-story: po
+  po-sync-story-to-clickup: po
+  setup-project-docs: po
+  shard-doc: po
+  story-checkpoint: po
+  validate-next-story: po
+
+  # --- qa ---
+  analyze-cross-artifact: qa
+  audit-codebase: qa
+  execute-checklist: qa
+  qa-after-creation: qa
+  qa-backlog-add-followup: qa
+  qa-browser-console-check: qa
+  qa-create-fix-request: qa
+  qa-evidence-requirements: qa
+  qa-false-positive-detection: qa
+  qa-fix-issues: qa
+  qa-gate: qa
+  qa-generate-tests: qa
+  qa-library-validation: qa
+  qa-migration-validation: qa
+  qa-nfr-assess: qa
+  qa-review-build: qa
+  qa-review-proposal: qa
+  qa-review-story: qa
+  qa-risk-profile: qa
+  qa-run-tests: qa
+  qa-security-checklist: qa
+  qa-test-design: qa
+  qa-trace-requirements: qa
+  security-audit: qa
+  security-scan: qa
+  spec-critique: qa
+  test-as-user: qa
+  test-validation-task: qa
+  validate-workflow: qa
+
+  # --- sm ---
+  sm-create-next-story: sm
+
+  # --- squad-creator ---
+  squad-creator-analyze: squad-creator
+  squad-creator-create: squad-creator
+  squad-creator-design: squad-creator
+  squad-creator-download: squad-creator
+  squad-creator-extend: squad-creator
+  squad-creator-list: squad-creator
+  squad-creator-migrate: squad-creator
+  squad-creator-publish: squad-creator
+  squad-creator-sync-ide-command: squad-creator
+  squad-creator-sync-synkra: squad-creator
+  squad-creator-validate: squad-creator
+
+  # --- ux-design-expert ---
+  bootstrap-shadcn-library: ux-design-expert
+  compose-molecule: ux-design-expert
+  export-design-tokens-dtcg: ux-design-expert
+  extract-tokens: ux-design-expert
+  generate-ai-frontend-prompt: ux-design-expert
+  run-design-system-pipeline: ux-design-expert
+  setup-design-system: ux-design-expert
+  ux-create-wireframe: ux-design-expert
+  ux-ds-scan-artifact: ux-design-expert
+  ux-user-research: ux-design-expert
+
+# Duplicates to delete
+duplicates_to_delete:
+  - apply-qa-fixes          # duplicate of dev-apply-qa-fixes
+  - create-brownfield-story # duplicate of brownfield-create-story
+
+# Tasks to rename (Fase 7)
+renames:
+  github-devops-pre-push-quality-gate: pre-push-quality-gate
+  github-devops-github-pr-automation: github-pr-automation
+  github-devops-repository-cleanup: repository-cleanup
+  github-devops-version-management: version-management

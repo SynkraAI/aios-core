@@ -24,6 +24,7 @@ Checklist:
   - "[ ] Gerar exemplo de task"
   - "[ ] Executar validacao inicial"
   - "[ ] Exibir proximos passos"
+agent: squad-creator
 ---
 
 # *create-squad

@@ -23,6 +23,7 @@ Checklist:
   - "[ ] Atualizar registry.json"
   - "[ ] Criar Pull Request"
   - "[ ] Exibir URL do PR"
+agent: squad-creator
 ---
 
 # *publish-squad

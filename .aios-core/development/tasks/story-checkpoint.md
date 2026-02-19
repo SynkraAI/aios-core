@@ -1,3 +1,6 @@
+---
+agent: po
+---
 # Task: Story Checkpoint
 
 ## Story 11.3: Development Cycle Workflow

@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Apply RLS Policy Template
 
 **Purpose**: Install KISS or granular RLS policies on a table

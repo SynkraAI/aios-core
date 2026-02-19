@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # list-worktrees
 
 **Task ID:** list-worktrees

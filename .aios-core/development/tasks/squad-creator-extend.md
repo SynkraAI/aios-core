@@ -60,6 +60,7 @@ Checklist:
   - "[ ] Update squad.yaml manifest"
   - "[ ] Run validation"
   - "[ ] Display result and next steps"
+agent: squad-creator
 ---
 
 # Extend Squad Task

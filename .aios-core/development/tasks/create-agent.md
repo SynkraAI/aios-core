@@ -1,3 +1,6 @@
+---
+agent: master
+---
 # Task: Create Squad Agent
 
 **Task ID:** create-agent

@@ -21,6 +21,7 @@
 
 **Parameter:** `mode` (optional, default: `interactive`)
 
+agent: master
 ---
 
 ## Step 0: IDS Registry Check (Advisory)

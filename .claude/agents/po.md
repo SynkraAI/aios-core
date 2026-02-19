@@ -4,7 +4,7 @@ description: Use for backlog management, story refinement, acceptance criteria, 
 memory: project
 model: sonnet
 skills:
-  - aios-po
+  - po
   - project-context
 ---
 

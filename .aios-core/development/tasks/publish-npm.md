@@ -247,7 +247,7 @@ story: INS-2 (Release Pipeline: Preview to Latest)
 version: 1.0.0
 dependencies:
   - release-management.md
-  - github-devops-pre-push-quality-gate.md
+  - pre-push-quality-gate.md
 tags:
   - npm
   - release

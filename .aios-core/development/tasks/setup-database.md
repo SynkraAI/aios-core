@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Setup Database
 
 **Purpose**: Interactive database project setup (Supabase, PostgreSQL, MongoDB, MySQL, SQLite)

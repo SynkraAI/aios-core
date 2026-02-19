@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Verify Subtask
 
 > **Phase:** Execution - Verification

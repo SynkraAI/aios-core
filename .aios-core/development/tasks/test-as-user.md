@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # Task: Test As User (RLS Testing)
 
 **Purpose**: Emulate authenticated user for RLS policy testing

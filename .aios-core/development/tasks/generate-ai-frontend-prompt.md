@@ -21,6 +21,7 @@
 
 **Parameter:** `mode` (optional, default: `interactive`)
 
+agent: ux-design-expert
 ---
 
 ## Task Definition (AIOS Task Format V1.0)

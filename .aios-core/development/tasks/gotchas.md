@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Task: List Gotchas
 
 > **Command:** `*gotchas [options]`

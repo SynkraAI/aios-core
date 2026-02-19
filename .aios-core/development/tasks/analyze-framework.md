@@ -1,3 +1,6 @@
+---
+agent: architect
+---
 # Task: Analyze Framework
 
 ## Description

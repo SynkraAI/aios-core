@@ -21,6 +21,7 @@
 
 **Parameter:** `mode` (optional, default: `interactive`)
 
+agent: analyst
 ---
 
 ## Task Definition (AIOS Task Format V1.0)

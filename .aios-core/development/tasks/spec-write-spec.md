@@ -1,3 +1,6 @@
+---
+agent: pm
+---
 # Spec Pipeline: Write Specification
 
 > **Phase:** 4 - Write

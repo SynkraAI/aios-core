@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Rollback Database
 
 **Purpose**: Restore database to previous snapshot or run rollback script

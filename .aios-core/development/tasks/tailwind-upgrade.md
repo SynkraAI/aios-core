@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Tailwind CSS v4 Upgrade Playbook
 
 > Task ID: brad-tailwind-upgrade  

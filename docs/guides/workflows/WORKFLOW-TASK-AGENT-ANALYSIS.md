@@ -118,9 +118,9 @@ Every task file referenced across all workflows and agents:
 | 34 | `generate-documentation.md` | @ux-expert | DS | `*document` |
 | 35 | `accessibility-wcag-checklist.md` | @ux-expert | DS | `*a11y-check` |
 | 36 | `calculate-roi.md` | @ux-expert, @analyst | DS | `*calculate-roi` |
-| 37 | `github-devops-pre-push-quality-gate.md` | @devops | (push flow) | `*push` |
-| 38 | `github-devops-version-management.md` | @devops | (release flow) | `*version-check` |
-| 39 | `github-devops-repository-cleanup.md` | @devops | (maintenance) | `*cleanup` |
+| 37 | `pre-push-quality-gate.md` | @devops | (push flow) | `*push` |
+| 38 | `version-management.md` | @devops | (release flow) | `*version-check` |
+| 39 | `repository-cleanup.md` | @devops | (maintenance) | `*cleanup` |
 | 40 | `ci-cd-configuration.md` | @devops | (CI/CD) | `*ci-cd` |
 | 41 | `release-management.md` | @devops | (release flow) | `*release` |
 | 42 | `search-mcp.md` | @devops | (MCP mgmt) | `*search-mcp` |
@@ -605,7 +605,7 @@ graph LR
     subgraph "Tasks"
         T1["environment-bootstrap.md"]
         T2["create-worktree.md"]
-        T3["github-devops-pre-push-quality-gate.md"]
+        T3["pre-push-quality-gate.md"]
         T4["search-mcp.md"]
         T5["add-mcp.md"]
         T6["ci-cd-configuration.md"]

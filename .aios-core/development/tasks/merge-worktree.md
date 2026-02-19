@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # merge-worktree
 
 Merge a worktree branch back to its base branch.

@@ -34,7 +34,7 @@ function countSkillFiles(skillsDir) {
   if (!fs.existsSync(skillsDir)) return 0;
   const entries = fs.readdirSync(skillsDir, { withFileTypes: true });
   return entries
-    .filter((entry) => entry.isDirectory() && entry.name.startsWith('aios-'))
+    .filter((entry) => entry.isDirectory())
     .filter((entry) => fs.existsSync(path.join(skillsDir, entry.name, 'SKILL.md')))
     .length;
 }

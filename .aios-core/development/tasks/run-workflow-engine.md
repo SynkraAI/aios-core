@@ -6,6 +6,7 @@
 
 For guided automation (persona-switching), use `run-workflow.md` directly.
 
+agent: master
 ---
 
 ## Task Definition (AIOS Task Format V1.0)

@@ -1,3 +1,6 @@
+---
+agent: architect
+---
 # Spec Pipeline: Assess Complexity
 
 > **Phase:** 2 - Assess

@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: Schema Audit
 
 **Purpose**: Comprehensive audit of database schema quality and best practices

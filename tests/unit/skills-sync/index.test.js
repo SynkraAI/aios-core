@@ -47,7 +47,7 @@ describe('skills-sync shared pipeline', () => {
       skillsDir,
     );
 
-    expect(agentPlan.map((item) => item.skillId)).toEqual(['aios-architect', 'aios-qa']);
-    expect(taskPlan.map((item) => item.skillId)).toEqual(['aios-po-a-task', 'aios-qa-z-task']);
+    expect(agentPlan.map((item) => item.skillId)).toEqual(['architect', 'qa']);
+    expect(taskPlan.map((item) => item.skillId)).toEqual(['po-a-task', 'qa-z-task']);
   });
 });

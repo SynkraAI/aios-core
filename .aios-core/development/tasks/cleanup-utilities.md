@@ -1,6 +1,7 @@
 ---
 tools:
   - github-cli        # Git operations for archiving files
+agent: dev
 ---
 
 # Cleanup Utilities Task

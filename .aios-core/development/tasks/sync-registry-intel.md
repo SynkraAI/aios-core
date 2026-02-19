@@ -1,3 +1,6 @@
+---
+agent: master
+---
 # Task: Sync Registry Intel
 
 ## Metadata

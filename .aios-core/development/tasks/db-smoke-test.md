@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: DB Smoke Test
 
 **Purpose**: Run post-migration validation checks

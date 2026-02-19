@@ -177,7 +177,7 @@ Code and configuration templates for specific technical purposes.
 | 6 | `github-actions-ci.yml` | ci-cd-configuration (implicit) | devops | -- | No |
 | 7 | `github-actions-cd.yml` | ci-cd-configuration (implicit) | devops | -- | No |
 | 8 | `github-pr-template.md` | setup-github (implicit) | devops | -- | No |
-| 9 | `changelog-template.md` | github-devops-version-management (implicit) | devops | -- | No |
+| 9 | `changelog-template.md` | version-management (implicit) | devops | -- | No |
 | 10 | `mcp-workflow.js` | mcp-workflow | -- | -- | No |
 | 11 | `gordon-mcp.yaml` | setup-mcp-docker, add-mcp | devops (implicit) | -- | No |
 | 12 | `migration-strategy-tmpl.md` | -- | ux-design-expert | -- | No |

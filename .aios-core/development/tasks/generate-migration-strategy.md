@@ -1,3 +1,6 @@
+---
+agent: architect
+---
 # Generate Phased Migration Strategy
 
 > Task ID: brad-generate-migration-strategy

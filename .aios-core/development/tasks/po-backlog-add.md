@@ -1,3 +1,6 @@
+---
+agent: po
+---
 # PO Task: Add Backlog Item
 
 **Agent:** @po

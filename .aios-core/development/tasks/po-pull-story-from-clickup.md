@@ -3,6 +3,7 @@ tools:
   - clickup  # Required for ClickUp integration
 checklists:
   - po-master-checklist.md
+agent: po
 ---
 
 # pull-story-from-clickup

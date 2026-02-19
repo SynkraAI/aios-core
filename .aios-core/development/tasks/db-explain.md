@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Task: EXPLAIN (ANALYZE, BUFFERS)
 
 **Purpose**: Run detailed query plan analysis to assess performance

@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # QA Issue Fixer Task
 
 > **Phase:** QA Fix Loop

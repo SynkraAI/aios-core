@@ -1,3 +1,6 @@
+---
+agent: master
+---
 # yolo-toggle
 
 **Task ID:** yolo-toggle

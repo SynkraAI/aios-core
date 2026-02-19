@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Build Production-Ready Component
 
 > Task ID: atlas-build-component

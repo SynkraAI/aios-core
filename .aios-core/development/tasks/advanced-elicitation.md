@@ -1,3 +1,6 @@
+---
+agent: analyst
+---
 # advanced-elicitation
 
 ## Execution Modes

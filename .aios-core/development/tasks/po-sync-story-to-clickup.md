@@ -3,6 +3,7 @@ tools:
   - clickup  # Required for ClickUp synchronization
 checklists:
   - po-master-checklist.md
+agent: po
 ---
 
 # sync-story-to-clickup

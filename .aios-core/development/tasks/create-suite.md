@@ -4,6 +4,7 @@ tools:
 # TODO: Create test-suite-checklist.md for validation (follow-up story needed)
 # checklists:
 #   - test-suite-checklist.md
+agent: dev
 ---
 
 # Task: Create Component Suite

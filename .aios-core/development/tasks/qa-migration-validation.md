@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # Migration Validation Task
 
 Validate database migrations are properly created and applied for schema changes.

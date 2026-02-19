@@ -4,7 +4,7 @@ description: Use for system architecture (fullstack, backend, frontend, infrastr
 memory: project
 model: sonnet
 skills:
-  - aios-architect
+  - architect
   - project-context
 ---
 

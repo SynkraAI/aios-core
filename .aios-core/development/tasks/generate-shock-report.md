@@ -1,3 +1,6 @@
+---
+agent: analyst
+---
 # Generate Visual Shock Report
 
 > Task ID: brad-generate-shock-report

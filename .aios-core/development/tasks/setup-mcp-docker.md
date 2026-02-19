@@ -1,3 +1,6 @@
+---
+agent: devops
+---
 # Setup Docker MCP Toolkit
 
 **Task ID:** setup-mcp-docker

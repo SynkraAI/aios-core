@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # security-scan
 
 **Task ID:** `security-scan`  

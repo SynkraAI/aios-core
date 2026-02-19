@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # Audit Codebase for UI Pattern Redundancy
 
 > Task ID: brad-audit-codebase

@@ -1,3 +1,6 @@
+---
+agent: po
+---
 # PO Task: Regenerate Story Index
 
 **Agent:** @po

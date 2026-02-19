@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Extend Existing Pattern
 
 > Task ID: atlas-extend-pattern

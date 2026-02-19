@@ -22,6 +22,7 @@ Checklist:
   - "[ ] Extrair para ./squads/{name}/"
   - "[ ] Validar squad baixado"
   - "[ ] Exibir próximos passos"
+agent: squad-creator
 ---
 
 # *download-squad

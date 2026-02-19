@@ -57,7 +57,7 @@ const ERROR_STRATEGIES = {
     'po-pull-story-from-clickup.md',
     'po-sync-story.md',
     'po-sync-story-to-clickup.md',
-    'github-devops-github-pr-automation.md',
+    'github-pr-automation.md',
     'pr-automation.md',
     'release-management.md',
     'integrate-expansion-pack.md',

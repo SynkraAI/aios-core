@@ -1,3 +1,6 @@
+---
+agent: master
+---
 # IDS Registry Health Check Task
 
 ## Purpose

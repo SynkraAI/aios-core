@@ -4,7 +4,7 @@ description: Use for repository operations, version management, CI/CD, quality g
 memory: project
 model: sonnet
 skills:
-  - aios-devops
+  - devops
   - project-context
 ---
 

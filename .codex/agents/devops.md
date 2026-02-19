@@ -218,11 +218,11 @@ dependencies:
   tasks:
     - environment-bootstrap.md
     - setup-github.md
-    - github-devops-version-management.md
-    - github-devops-pre-push-quality-gate.md
-    - github-devops-github-pr-automation.md
+    - version-management.md
+    - pre-push-quality-gate.md
+    - github-pr-automation.md
     - ci-cd-configuration.md
-    - github-devops-repository-cleanup.md
+    - repository-cleanup.md
     - release-management.md
     # MCP Management Tasks [Story 6.14]
     - search-mcp.md

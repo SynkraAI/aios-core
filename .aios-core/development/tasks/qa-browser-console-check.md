@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # Browser Console Check Task
 
 Automated browser console error detection for frontend changes.

@@ -32,7 +32,10 @@ function getTaskSkillId(taskId, agent) {
     throw new Error(`Task skill id requires agent slug for task "${id}"`);
   }
 
-  return `aios-${agentSlug}-${id}`;
+  const prefix = agentSlug === 'master' ? 'aios-master' : agentSlug;
+  // Strip agent slug from task ID to prevent double prefix (e.g., dev-dev-develop-story)
+  const cleanId = id.startsWith(`${agentSlug}-`) ? id.slice(agentSlug.length + 1) : id;
+  return `${prefix}-${cleanId}`;
 }
 
 function sanitizeDescription(text) {

@@ -1,3 +1,6 @@
+---
+agent: dev
+---
 # Dev Task: Register Technical Debt
 
 **Agent:** @dev

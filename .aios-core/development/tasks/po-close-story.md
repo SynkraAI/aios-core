@@ -1,3 +1,6 @@
+---
+agent: po
+---
 # PO Task: Close Story
 
 **Agent:** @po

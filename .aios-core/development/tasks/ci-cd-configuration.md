@@ -1,7 +1,7 @@
 ---
 id: ci-cd-configuration
 name: Configure CI/CD Pipeline
-agent: github-devops
+agent: devops
 category: devops
 complexity: high
 tools:

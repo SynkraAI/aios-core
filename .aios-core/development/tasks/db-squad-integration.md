@@ -1,3 +1,6 @@
+---
+agent: data-engineer
+---
 # Database Integration Analysis for Squad
 
 > Task ID: db-Squad-integration

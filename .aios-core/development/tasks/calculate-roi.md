@@ -1,3 +1,6 @@
+---
+agent: analyst
+---
 # Calculate ROI and Cost Savings
 
 > Task ID: brad-calculate-roi

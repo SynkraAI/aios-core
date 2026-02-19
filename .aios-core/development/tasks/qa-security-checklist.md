@@ -1,3 +1,6 @@
+---
+agent: qa
+---
 # Security Checklist Task
 
 Automated security vulnerability scanning for common security anti-patterns.

@@ -6,6 +6,7 @@ const path = require('path');
 
 const {
   syncTaskSkills,
+  inferAgentFromFilename,
 } = require('../../.aios-core/infrastructure/scripts/task-skills-sync/index');
 
 describe('task-skills-sync index', () => {
@@ -66,12 +67,12 @@ describe('task-skills-sync index', () => {
     });
 
     expect(result.targets).toHaveLength(2);
-    expect(fs.existsSync(path.join(tmpRoot, '.codex', 'skills', 'aios-qa-execute-checklist', 'SKILL.md'))).toBe(true);
-    expect(fs.existsSync(path.join(tmpRoot, '.claude', 'skills', 'aios-po-create-doc', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(tmpRoot, '.codex', 'skills', 'qa-execute-checklist', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(tmpRoot, '.claude', 'skills', 'po-create-doc', 'SKILL.md'))).toBe(true);
   });
 
   it('prunes orphaned task skill dirs when prune is enabled', () => {
-    const orphanDir = path.join(tmpRoot, '.codex', 'skills', 'aios-dev-legacy');
+    const orphanDir = path.join(tmpRoot, '.codex', 'skills', 'dev-legacy');
     write(path.join(orphanDir, 'SKILL.md'), 'Load .aios-core/development/tasks/legacy.md');
 
     const result = syncTaskSkills({
@@ -86,7 +87,7 @@ describe('task-skills-sync index', () => {
     });
 
     expect(result.targets).toHaveLength(1);
-    expect(result.targets[0].pruned).toContain('aios-dev-legacy');
+    expect(result.targets[0].pruned).toContain('dev-legacy');
     expect(fs.existsSync(orphanDir)).toBe(false);
   });
 
@@ -106,8 +107,8 @@ describe('task-skills-sync index', () => {
 
     expect(result.targets).toHaveLength(1);
     expect(result.targets[0].generated).toBe(sourceTaskCount);
-    expect(fs.existsSync(path.join(tmpRoot, '.codex', 'skills', 'aios-devops-environment-bootstrap', 'SKILL.md'))).toBe(true);
-    expect(fs.existsSync(path.join(tmpRoot, '.codex', 'skills', 'aios-master-analyze-brownfield', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(tmpRoot, '.codex', 'skills', 'devops-environment-bootstrap', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(tmpRoot, '.codex', 'skills', 'architect-analyze-brownfield', 'SKILL.md'))).toBe(true);
   });
 
   it('normalizes github-devops alias to devops in catalog entries', () => {
@@ -139,6 +140,59 @@ describe('task-skills-sync index', () => {
 
     expect(result.targets).toHaveLength(1);
     expect(result.targets[0].generated).toBe(1);
-    expect(fs.existsSync(path.join(tmpRoot, '.codex', 'skills', 'aios-devops-publish-npm', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(tmpRoot, '.codex', 'skills', 'devops-publish-npm', 'SKILL.md'))).toBe(true);
+  });
+});
+
+describe('inferAgentFromFilename', () => {
+  const emptyMap = new Map();
+  const aliasMap = new Map([
+    ['github-devops', 'devops'],
+    ['db', 'data-engineer'],
+    ['ux', 'ux-design-expert'],
+    ['aios-developer', 'dev'],
+  ]);
+
+  it('returns qa for qa-prefixed tasks', () => {
+    expect(inferAgentFromFilename('qa-gate', emptyMap)).toBe('qa');
+    expect(inferAgentFromFilename('qa-review-story', emptyMap)).toBe('qa');
+  });
+
+  it('returns dev for dev-prefixed tasks', () => {
+    expect(inferAgentFromFilename('dev-develop-story', emptyMap)).toBe('dev');
+  });
+
+  it('returns po for po-prefixed tasks', () => {
+    expect(inferAgentFromFilename('po-backlog-add', emptyMap)).toBe('po');
+  });
+
+  it('returns squad-creator for squad-creator-prefixed tasks (longest match)', () => {
+    expect(inferAgentFromFilename('squad-creator-analyze', emptyMap)).toBe('squad-creator');
+  });
+
+  it('resolves db- prefix via alias to data-engineer', () => {
+    expect(inferAgentFromFilename('db-schema-audit', aliasMap)).toBe('data-engineer');
+  });
+
+  it('resolves ux- prefix via alias to ux-design-expert', () => {
+    expect(inferAgentFromFilename('ux-create-wireframe', aliasMap)).toBe('ux-design-expert');
+  });
+
+  it('resolves github-devops- prefix via alias to devops', () => {
+    expect(inferAgentFromFilename('github-devops-pre-push-quality-gate', aliasMap)).toBe('devops');
+  });
+
+  it('returns null for tasks without known prefix', () => {
+    expect(inferAgentFromFilename('execute-checklist', emptyMap)).toBeNull();
+    expect(inferAgentFromFilename('build', emptyMap)).toBeNull();
+    expect(inferAgentFromFilename('waves', emptyMap)).toBeNull();
+  });
+
+  it('returns sm for sm-prefixed tasks', () => {
+    expect(inferAgentFromFilename('sm-create-next-story', emptyMap)).toBe('sm');
+  });
+
+  it('returns architect for architect-prefixed tasks', () => {
+    expect(inferAgentFromFilename('architect-analyze-impact', emptyMap)).toBe('architect');
   });
 });

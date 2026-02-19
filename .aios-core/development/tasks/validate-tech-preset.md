@@ -19,6 +19,7 @@ Checklist:
   - [ ] Check content quality
   - [ ] Format result for output
   - [ ] Create fix story if requested
+agent: architect
 ---
 
 # \*validate-tech-preset

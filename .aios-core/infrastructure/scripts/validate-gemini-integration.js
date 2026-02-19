@@ -42,14 +42,15 @@ function listMarkdownFilenames(dirPath) {
 
 function toSkillIdFromFilename(filename) {
   const id = path.basename(filename, '.md');
-  if (id.startsWith('aios-')) return id;
-  return `aios-${id}`;
+  if (id === 'aios-master') return 'aios-master';
+  if (id.startsWith('aios-')) return id.slice(5);
+  return id;
 }
 
 function listSkillIds(skillsDir) {
   if (!fs.existsSync(skillsDir)) return [];
   return fs.readdirSync(skillsDir, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() && entry.name.startsWith('aios-'))
+    .filter((entry) => entry.isDirectory())
     .filter((entry) => fs.existsSync(path.join(skillsDir, entry.name, 'SKILL.md')))
     .map((entry) => entry.name)
     .sort((a, b) => a.localeCompare(b));

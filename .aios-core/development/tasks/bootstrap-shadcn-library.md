@@ -1,3 +1,6 @@
+---
+agent: ux-design-expert
+---
 # Bootstrap Shadcn/Radix Component Library
 
 > Task ID: atlas-bootstrap-shadcn  

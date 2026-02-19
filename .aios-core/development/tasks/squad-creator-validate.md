@@ -17,6 +17,7 @@ Checklist:
   - [ ] Execute squad-validator.validate()
   - [ ] Format result for output
   - [ ] Return appropriate exit code
+agent: squad-creator
 ---
 
 # *validate-squad

@@ -1,3 +1,6 @@
+---
+agent: analyst
+---
 # Spec Pipeline: Research Dependencies
 
 > **Phase:** 3 - Research
