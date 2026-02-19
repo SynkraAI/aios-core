@@ -94,6 +94,9 @@ class SubagentDispatcher extends EventEmitter {
     this.maxRetries = config.maxRetries || 2;
     this.retryDelay = config.retryDelay || 2000;
 
+    // Timeout configuration
+    this.claudeTimeout = config.claudeTimeout || 10 * 60 * 1000; // 10 minutes
+
     // Dependencies
     this.memoryQuery = config.memoryQuery || (MemoryQuery ? new MemoryQuery() : null);
     this.gotchasMemory = config.gotchasMemory || (GotchasMemory ? new GotchasMemory() : null);
@@ -660,13 +663,18 @@ class SubagentDispatcher extends EventEmitter {
         cwd: this.rootPath,
         env: { ...process.env },
         stdio: ['pipe', 'pipe', 'pipe'],
+        timeout: this.claudeTimeout,
+      });
+
+      child.on('error', (error) => {
+        reject(error);
       });
 
       let stdinError = null;
       // Prevent unhandled stream errors if the pipe breaks or process exits early
       child.stdin.on('error', (err) => {
         stdinError = err;
-        console.debug('Claude stdin stream error:', err.message);
+        this.log('stdin_write_error', { error: err.message, code: err.code });
       });
 
       // Write prompt via stdin to avoid shell-related issues and command injection
@@ -704,10 +712,6 @@ class SubagentDispatcher extends EventEmitter {
         } else {
           reject(new Error(`Claude CLI exited with code ${code}: ${stderr || stdout}`));
         }
-      });
-
-      child.on('error', (error) => {
-        reject(error);
       });
     });
   }

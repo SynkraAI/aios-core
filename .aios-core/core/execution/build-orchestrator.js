@@ -532,11 +532,15 @@ The subtask is complete only when verification passes.
         stdio: ['pipe', 'pipe', 'pipe'],
       });
 
+      child.on('error', (error) => {
+        reject(error);
+      });
+
       let stdinError = null;
       // Prevent unhandled stream errors if the pipe breaks or process exits early
       child.stdin.on('error', (err) => {
         stdinError = err;
-        console.debug('Claude stdin stream error:', err.message);
+        this.log(`Claude stdin stream error: ${err.message}`, 'debug');
       });
 
       // Write prompt via stdin to avoid shell-related issues and command injection
@@ -576,10 +580,6 @@ The subtask is complete only when verification passes.
         } else {
           reject(new Error(`Claude CLI exited with code ${code}: ${stderr}`));
         }
-      });
-
-      child.on('error', (error) => {
-        reject(error);
       });
     });
   }
