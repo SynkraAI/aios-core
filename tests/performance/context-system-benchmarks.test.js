@@ -136,7 +136,7 @@ describe('Performance Benchmarks - Context System', () => {
 
       for (let i = 0; i < iterations; i++) {
         const start = Date.now();
-        await tracker.detectProject();
+        await tracker.detectProjectType();
         durations.push(Date.now() - start);
       }
 
@@ -156,7 +156,7 @@ describe('Performance Benchmarks - Context System', () => {
       const start = Date.now();
 
       // Run all detection methods
-      await tracker.detectProject();
+      await tracker.detectProjectType();
       await tracker.inferPhase();
       await tracker.extractProgress();
 

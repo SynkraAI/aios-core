@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-15T23:20:39.040Z'
-  entityCount: 545
+  lastUpdated: '2026-02-19T17:52:46.383Z'
+  entityCount: 547
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -4065,6 +4065,43 @@ entities:
         extensionPoints: []
       checksum: sha256:1ba39a698e0c999d361559e2f134690e14b03ce7bf7bced2ee25e4ca6502f171
       lastVerified: '2026-02-15T14:58:48.328Z'
+    video-to-clone:
+      path: .aios-core/development/tasks/video-to-clone.md
+      type: task
+      purpose: Video to Mind Clone Task
+      keywords:
+        - video
+        - to
+        - clone
+        - mind
+        - task
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:4017f562be26cd76aa44bafd9f53476963d57fc7506cec35edaf4376d6881d3d
+      lastVerified: '2026-02-19T17:52:46.380Z'
+    video-to-kb:
+      path: .aios-core/development/tasks/video-to-kb.md
+      type: task
+      purpose: Video to Knowledge Base Task
+      keywords:
+        - video
+        - to
+        - kb
+        - knowledge
+        - base
+        - task
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:fa1c2feffda8f1550d14237f43c638b4013dd71ceced4444ae61d2819ad8bc7e
+      lastVerified: '2026-02-19T17:52:46.382Z'
   templates:
     activation-instructions-inline-greeting:
       path: .aios-core/product/templates/activation-instructions-inline-greeting.yaml

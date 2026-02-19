@@ -48,6 +48,11 @@ const ElicitationEngine = require('../../.aios-core/core/elicitation/elicitation
 jest.setTimeout(30000);
 
 describe('ElicitationEngine', () => {
+  beforeEach(() => {
+    // Clear all mocks before each test
+    jest.clearAllMocks();
+  });
+
   describe('Constructor', () => {
     it('should create instance with default security checker', () => {
       const engine = new ElicitationEngine();
@@ -88,8 +93,8 @@ describe('ElicitationEngine', () => {
     });
 
     it('should handle saveSession option', async () => {
-      const engine = new ElicitationEngine();
       const fs = require('fs-extra');
+      const engine = new ElicitationEngine();
 
       await engine.startSession('task', { saveSession: true });
 

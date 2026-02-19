@@ -58,10 +58,11 @@ const DEFAULT_SESSION = {
  * Singleton pattern for session state management
  */
 class SessionStateManager extends EventEmitter {
-  constructor() {
+  constructor(basePath = null) {
     super();
-    this.sessionPath = path.join(process.cwd(), '.aios', 'session.json');
-    this.historyDir = path.join(process.cwd(), '.aios', 'sessions', 'history');
+    this.basePath = basePath || process.cwd();
+    this.sessionPath = path.join(this.basePath, '.aios', 'session.json');
+    this.historyDir = path.join(this.basePath, '.aios', 'sessions', 'history');
     this.cache = null;
     this.cacheTimestamp = null;
   }
@@ -73,7 +74,7 @@ class SessionStateManager extends EventEmitter {
   async init() {
     try {
       // Check if .aios directory exists
-      const aiosDir = path.join(process.cwd(), '.aios');
+      const aiosDir = path.join(this.basePath, '.aios');
       if (!fs.existsSync(aiosDir)) {
         // Not an AIOS project, fail fast
         return;
@@ -370,7 +371,7 @@ class SessionStateManager extends EventEmitter {
    * @returns {boolean} True if AIOS project
    */
   isAiosProject() {
-    const aiosDir = path.join(process.cwd(), '.aios');
+    const aiosDir = path.join(this.basePath, '.aios');
     return fs.existsSync(aiosDir);
   }
 }

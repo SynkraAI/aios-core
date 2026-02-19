@@ -59,6 +59,11 @@ module.exports = {
     'tests/license/',
     // Workflow intelligence tests - assertion count mismatches (pre-existing)
     '.aios-core/workflow-intelligence/__tests__/',
+    // Migration backup directories should never be tested
+    '.claude-migration-backup-',
+    // Story ACT-7: Some context-aware greeting tests still ahead of full implementation
+    // _safeBuildSection and full parallel execution tests skipped until ACT-7 complete
+    // 'tests/core/context-aware-greetings.test.js', // Re-enabled: core ACT-7 features now implemented
   ],
 
   // Coverage collection (Story TD-3: Updated paths)
@@ -128,6 +133,20 @@ module.exports = {
   verbose: true,
   roots: ['<rootDir>'],
   moduleDirectories: ['node_modules', '.'],
+
+  // Force unified module resolution for packages duplicated in .aios-core/node_modules/
+  // Without this, jest.mock('module') only mocks the root installation, but modules
+  // inside .aios-core/ resolve to .aios-core/node_modules/module (unmocked).
+  // Only includes modules that are jest.mock()'d in test files.
+  moduleNameMapper: {
+    '^js-yaml$': '<rootDir>/node_modules/js-yaml',
+    '^execa$': '<rootDir>/node_modules/execa',
+    '^fs-extra$': '<rootDir>/node_modules/fs-extra',
+    '^chalk$': '<rootDir>/node_modules/chalk',
+    '^inquirer$': '<rootDir>/node_modules/inquirer',
+    '^glob$': '<rootDir>/node_modules/glob',
+    '^diff$': '<rootDir>/node_modules/diff',
+  },
   setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
 
   // Cross-platform config from REMOTE

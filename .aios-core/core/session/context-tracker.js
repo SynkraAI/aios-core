@@ -25,9 +25,9 @@ const yaml = require('js-yaml');
  * Provides auto-detection and inference for session context
  */
 class ContextTracker {
-  constructor() {
+  constructor(basePath = null) {
     this.projectTypesConfig = null;
-    this.cwd = process.cwd();
+    this.cwd = basePath || process.cwd();
   }
 
   /**
@@ -368,4 +368,6 @@ class ContextTracker {
   }
 }
 
+// Support both default and named exports for backward compatibility
 module.exports = ContextTracker;
+module.exports.ContextTracker = ContextTracker;

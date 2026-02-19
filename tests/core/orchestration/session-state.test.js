@@ -577,13 +577,15 @@ describe('SessionState', () => {
             stories_done: [],
             stories_pending: ['11.1'],
           },
-          workflow: { current_phase: null, attempt_count: 0, phase_results: {} },
-          last_action: { type: 'EPIC_STARTED', timestamp: '2026-02-05T10:00:00Z' },
+          workflow: { current_phase: null, attempt_count: 0, phase_results: {}, started_at: '2026-02-05T10:00:00Z' },
+          last_action: { type: 'EPIC_STARTED', timestamp: '2026-02-05T10:00:00Z', story: '11.1', phase: null },
           context_snapshot: {
             files_modified: 0,
             executor_distribution: {},
+            last_executor: null,
             branch: 'main',
           },
+          resume_instructions: 'Test resume instructions',
         },
       };
 
@@ -613,7 +615,7 @@ describe('SessionState', () => {
       const result = SessionState.validateSchema(invalidState);
 
       expect(result.isValid).toBe(false);
-      expect(result.errors).toContain('Missing session_state root');
+      expect(result.errors).toContain("root: must have required property 'session_state'");
     });
   });
 

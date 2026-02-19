@@ -23,7 +23,11 @@ jest.mock('child_process', () => ({
 }));
 
 // Mock execa before requiring the module
-jest.mock('execa', () => jest.fn());
+jest.mock('execa', () => {
+  const mockExeca = jest.fn();
+  mockExeca.mockResolvedValue({ stdout: '', stderr: '' });
+  return mockExeca;
+});
 
 // Mock WorktreeManager
 jest.mock('../../.aios-core/infrastructure/scripts/worktree-manager', () => {

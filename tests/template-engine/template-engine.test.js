@@ -18,9 +18,7 @@ const path = require('path');
 const fs = require('fs').promises;
 
 // Mock inquirer for non-interactive tests
-jest.mock('inquirer', () => ({
-  prompt: jest.fn().mockResolvedValue({}),
-}));
+jest.mock('inquirer');
 
 const {
   TemplateEngine,
@@ -32,6 +30,9 @@ const {
 } = require('../../.aios-core/product/templates/engine');
 
 const inquirer = require('inquirer');
+
+// Set up default mock implementation
+inquirer.prompt = jest.fn().mockResolvedValue({});
 
 describe('Template Engine v2.0', () => {
   const baseDir = path.join(__dirname, '..', '..');
@@ -48,6 +49,8 @@ describe('Template Engine v2.0', () => {
       interactive: false,
     });
     jest.clearAllMocks();
+    // Reset to default mock behavior
+    inquirer.prompt.mockResolvedValue({});
   });
 
   describe('TE-01: Template Loader', () => {
@@ -144,7 +147,11 @@ describe('Template Engine v2.0', () => {
     test('should handle interactive mode', async () => {
       const interactiveElicitation = new VariableElicitation({ interactive: true });
 
-      inquirer.prompt.mockResolvedValue({ title: 'Interactive Title' });
+      // Clear any previous mock calls
+      inquirer.prompt.mockClear();
+
+      // Set up the mock to resolve with expected value
+      inquirer.prompt.mockResolvedValueOnce({ title: 'Interactive Title' });
 
       const variables = [
         { name: 'title', type: 'string', required: true, prompt: 'Enter title:' },

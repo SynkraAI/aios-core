@@ -47,7 +47,13 @@ const EXCLUDE_PATTERNS = [
 class RegistryUpdater {
   constructor(options = {}) {
     this._registryPath = options.registryPath || REGISTRY_PATH;
-    this._repoRoot = options.repoRoot || REPO_ROOT;
+    // Resolve symlinks in repoRoot to ensure consistent path comparisons
+    const repoRoot = options.repoRoot || REPO_ROOT;
+    try {
+      this._repoRoot = fs.realpathSync(repoRoot);
+    } catch {
+      this._repoRoot = repoRoot;
+    }
     this._debounceMs = options.debounceMs ?? DEBOUNCE_MS;
     this._auditLogPath = options.auditLogPath || AUDIT_LOG_PATH;
     this._lockFile = options.lockFile || LOCK_FILE;
@@ -128,7 +134,16 @@ class RegistryUpdater {
           : path.resolve(this._repoRoot, c.filePath);
         return { action: c.action, filePath: this._resolveSymlink(abs) };
       })
-      .filter((c) => !this._isExcluded(c.filePath) && this._isIncluded(c.filePath));
+      .filter((c) => {
+        // For unlink actions, skip inclusion check since file may not exist
+        if (c.action === 'unlink') {
+          const excluded = this._isExcluded(c.filePath);
+          if (excluded) console.log('[DEBUG unlink] Excluded:', c.filePath);
+          else console.log('[DEBUG unlink] Not excluded, will process:', c.filePath);
+          return !excluded;
+        }
+        return !this._isExcluded(c.filePath) && this._isIncluded(c.filePath);
+      });
 
     if (validChanges.length === 0) return { updated: 0, errors: [] };
 
@@ -438,7 +453,12 @@ class RegistryUpdater {
       fs.mkdirSync(lockDir, { recursive: true });
     }
 
+    // Ensure registry file exists before attempting lock
     if (!fs.existsSync(this._registryPath)) {
+      const registryDir = path.dirname(this._registryPath);
+      if (!fs.existsSync(registryDir)) {
+        fs.mkdirSync(registryDir, { recursive: true });
+      }
       this._writeRegistry(this._loadRegistry());
     }
 
@@ -452,8 +472,10 @@ class RegistryUpdater {
           maxTimeout: LOCK_TIMEOUT_MS,
         },
         lockfilePath: this._lockFile,
+        realpath: false, // Don't resolve symlinks (faster)
       });
     } catch (err) {
+      console.error(`[IDS-Updater] Lock acquisition failed: ${err.message}`);
       throw new Error(`[IDS-Updater] Could not acquire lock: ${err.message}`);
     }
 
@@ -477,6 +499,10 @@ class RegistryUpdater {
     };
 
     try {
+      const logDir = path.dirname(this._auditLogPath);
+      if (!fs.existsSync(logDir)) {
+        fs.mkdirSync(logDir, { recursive: true });
+      }
       this._rotateLogIfNeeded();
       fs.appendFileSync(this._auditLogPath, JSON.stringify(logEntry) + '\n', 'utf8');
     } catch {

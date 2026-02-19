@@ -21,7 +21,7 @@
 
 const GreetingBuilder = require('./greeting-builder');
 const SessionContextLoader = require('./session-context-loader');
-const { loadProjectStatus } = require('./project-status-loader');
+const { loadProjectStatus } = require('../../infrastructure/scripts/project-status-loader');
 const { AgentConfigLoader } = require('./agent-config-loader');
 const fs = require('fs').promises;
 const path = require('path');
