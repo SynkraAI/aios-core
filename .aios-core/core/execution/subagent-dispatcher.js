@@ -664,7 +664,8 @@ class SubagentDispatcher extends EventEmitter {
 
       // Prevent unhandled stream errors if the pipe breaks or process exits early
       child.stdin.on('error', (err) => {
-        // Handled via child 'error' or 'close' events
+        // Log locally for troubleshooting; parent process handles result via 'error' or 'close'
+        console.debug('Claude stdin stream error:', err.message);
       });
 
       // Write prompt via stdin to avoid shell-related issues and command injection
