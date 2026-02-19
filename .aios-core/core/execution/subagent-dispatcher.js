@@ -662,9 +662,10 @@ class SubagentDispatcher extends EventEmitter {
         stdio: ['pipe', 'pipe', 'pipe'],
       });
 
+      let stdinError = null;
       // Prevent unhandled stream errors if the pipe breaks or process exits early
       child.stdin.on('error', (err) => {
-        // Log locally for troubleshooting; parent process handles result via 'error' or 'close'
+        stdinError = err;
         console.debug('Claude stdin stream error:', err.message);
       });
 
@@ -672,6 +673,10 @@ class SubagentDispatcher extends EventEmitter {
       if (child.stdin.writable) {
         child.stdin.write(prompt);
         child.stdin.end();
+      } else {
+        child.kill();
+        reject(new Error('Claude stdin was not writable immediately after spawn'));
+        return;
       }
 
       let stdout = '';
@@ -685,13 +690,17 @@ class SubagentDispatcher extends EventEmitter {
         stderr += data.toString();
       });
 
-      child.on('close', (code) => {
-        if (code === 0) {
+      child.on('close', (code, signal) => {
+        if (stdinError) {
+          reject(new Error(`Claude CLI stdin write failed (prompt not delivered): ${stdinError.message}`));
+        } else if (code === 0) {
           resolve({
             success: true,
             output: stdout,
             filesModified: this.extractModifiedFiles(stdout),
           });
+        } else if (signal) {
+          reject(new Error(`Claude CLI killed by signal ${signal} (timeout or external kill): ${stderr || stdout}`));
         } else {
           reject(new Error(`Claude CLI exited with code ${code}: ${stderr || stdout}`));
         }
