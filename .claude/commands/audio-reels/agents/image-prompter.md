@@ -1,0 +1,1 @@
+Activate the image-prompter agent by reading and following the instructions in squads/audio-reels/agents/image-prompter.md

@@ -1,0 +1,1 @@
+Execute the quality-gate-checklist by reading and following the instructions in squads/audio-reels/checklists/quality-gate-checklist.md

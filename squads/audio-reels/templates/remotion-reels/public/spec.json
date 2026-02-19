@@ -1,0 +1,663 @@
+{
+  "version": "1.0.0",
+  "metadata": {
+    "audio_source": "original.mp3",
+    "duration_seconds": 44.16,
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "total_scenes": 8,
+    "created_at": "2026-02-15T00:00:00Z"
+  },
+  "style": {
+    "name": "cinematic-dark",
+    "reference_image": "reference.png",
+    "prompt_suffix": "Comic book illustration, clean ink outlines, graphic novel aesthetic, muted earth tone color palette, cel-shaded coloring with hard shadows, slightly irregular hand-drawn linework, fine grain texture like vintage paper, NOT photorealistic",
+    "seed": 42
+  },
+  "subtitles": {
+    "enabled": true,
+    "position": "bottom-safe",
+    "style": "word-by-word",
+    "font_family": "Inter",
+    "font_size": 48,
+    "font_weight": "bold",
+    "color": "#FFFFFF",
+    "stroke_color": "#000000",
+    "stroke_width": 3,
+    "highlight_color": "#FFD700"
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "start": 0.0,
+      "end": 6.62,
+      "duration": 6.62,
+      "shot_type": "close-up",
+      "camera_movement": "slow-zoom-in",
+      "transition_in": "fade-from-black",
+      "image_prompt": "Close-up of a young Brazilian man in his early 30s with short dark hair, rectangular glasses, short beard, wearing a dark t-shirt, slightly surprised expression, sitting on a patterned couch in a living room with a window showing a sunny Brazilian street, soft morning light filtering through curtains, a coffee cup on the side table, carnival decorations visible outside.",
+      "subtitle_text": "Hoje é segunda-feira de feriado pré terça-feira gorda de carnaval e o meu vizinho",
+      "sfx": null,
+      "mood": "tension",
+      "audio_layer": "voice-introspective",
+      "subtitle_words": [
+        {
+          "word": "Hoje",
+          "start": 0.04,
+          "end": 0.22
+        },
+        {
+          "word": "é",
+          "start": 0.22,
+          "end": 0.29
+        },
+        {
+          "word": "segunda-feira",
+          "start": 0.54,
+          "end": 1.37
+        },
+        {
+          "word": "de",
+          "start": 1.75,
+          "end": 1.85
+        },
+        {
+          "word": "feriado",
+          "start": 2.14,
+          "end": 2.75
+        },
+        {
+          "word": "pré",
+          "start": 3.35,
+          "end": 3.61
+        },
+        {
+          "word": "terça-feira",
+          "start": 3.61,
+          "end": 4.16
+        },
+        {
+          "word": "gorda",
+          "start": 4.16,
+          "end": 4.44
+        },
+        {
+          "word": "de",
+          "start": 4.44,
+          "end": 4.53
+        },
+        {
+          "word": "carnaval",
+          "start": 4.53,
+          "end": 5.11
+        },
+        {
+          "word": "e",
+          "start": 5.42,
+          "end": 5.49
+        },
+        {
+          "word": "o",
+          "start": 5.49,
+          "end": 5.55
+        },
+        {
+          "word": "meu",
+          "start": 5.55,
+          "end": 5.74
+        },
+        {
+          "word": "vizinho",
+          "start": 5.97,
+          "end": 6.5
+        }
+      ],
+      "image_path": "assets/scenes/scene_001.png",
+      "video_path": "assets/videos/scene_001.mp4",
+      "video_url": "https://cdn-magnific.freepik.com/kling_b9b0cb7c-ae1c-4e28-8260-e7be2770abe6.mp4?token=exp=1771265088~hmac=66a37fcb87db85375165cb9c5e048fad747aa4c808b24aad31e968172b2be380",
+      "video_task_id": "b9b0cb7c-ae1c-4e28-8260-e7be2770abe6",
+      "video_status": "COMPLETED",
+      "video_duration": 5
+    },
+    {
+      "id": 2,
+      "start": 6.62,
+      "end": 10.99,
+      "duration": 4.37,
+      "shot_type": "wide-shot",
+      "camera_movement": "ken-burns",
+      "transition_in": "dissolve",
+      "image_prompt": "Wide shot of a cozy living room, a young Brazilian man in his early 30s with short dark hair, rectangular glasses, short beard, wearing a dark t-shirt sitting on a couch leaning back relaxed, sunlight streaming through the window revealing dust particles, a bookshelf filled with colorful books, a bluetooth speaker on a shelf playing music, warm and inviting atmosphere.",
+      "subtitle_text": "está com o som não alto, está no volume correto.",
+      "sfx": null,
+      "mood": "neutral",
+      "audio_layer": "voice-descriptive",
+      "subtitle_words": [
+        {
+          "word": "está",
+          "start": 6.73,
+          "end": 6.99
+        },
+        {
+          "word": "com",
+          "start": 6.99,
+          "end": 7.13
+        },
+        {
+          "word": "o",
+          "start": 7.13,
+          "end": 7.18
+        },
+        {
+          "word": "som",
+          "start": 7.81,
+          "end": 8.04
+        },
+        {
+          "word": "não",
+          "start": 8.27,
+          "end": 8.46
+        },
+        {
+          "word": "alto,",
+          "start": 8.71,
+          "end": 9.03
+        },
+        {
+          "word": "está",
+          "start": 9.41,
+          "end": 9.65
+        },
+        {
+          "word": "no",
+          "start": 9.79,
+          "end": 9.93
+        },
+        {
+          "word": "volume",
+          "start": 10.16,
+          "end": 10.61
+        },
+        {
+          "word": "correto.",
+          "start": 10.95,
+          "end": 11.44
+        }
+      ],
+      "image_path": "assets/scenes/scene_002.png",
+      "video_path": "assets/videos/scene_002.mp4",
+      "video_url": "https://cdn-magnific.freepik.com/kling_bc035df7-cd45-4d3a-aea4-17b46ab606b6.mp4?token=exp=1771265154~hmac=dee91c33a82d50aab454559dc56c16b8a04bf769c5ea7d10328c479ef8ebe788",
+      "video_task_id": "bc035df7-cd45-4d3a-aea4-17b46ab606b6",
+      "video_status": "COMPLETED",
+      "video_duration": 5
+    },
+    {
+      "id": 3,
+      "start": 10.99,
+      "end": 17.64,
+      "duration": 6.65,
+      "shot_type": "over-the-shoulder",
+      "camera_movement": "static",
+      "transition_in": "cut",
+      "image_prompt": "Over-the-shoulder shot of a young Brazilian man in his early 30s with short dark hair, rectangular glasses, short beard, wearing a dark t-shirt looking out the window toward the neighbor house, hearing music, a slight knowing smile forming on his face, curtains gently swaying in the breeze, a potted plant on the windowsill, afternoon light.",
+      "subtitle_text": "correto. E não só isso, a playlist do meu vizinho é exatamente a minha playlist.",
+      "sfx": null,
+      "mood": "neutral",
+      "audio_layer": "mixed",
+      "subtitle_words": [
+        {
+          "word": "correto.",
+          "start": 10.95,
+          "end": 11.44
+        },
+        {
+          "word": "E",
+          "start": 11.97,
+          "end": 12.04
+        },
+        {
+          "word": "não",
+          "start": 12.04,
+          "end": 12.19
+        },
+        {
+          "word": "só",
+          "start": 12.19,
+          "end": 12.36
+        },
+        {
+          "word": "isso,",
+          "start": 12.6,
+          "end": 12.86
+        },
+        {
+          "word": "a",
+          "start": 13.09,
+          "end": 13.15
+        },
+        {
+          "word": "playlist",
+          "start": 13.48,
+          "end": 14.05
+        },
+        {
+          "word": "do",
+          "start": 14.05,
+          "end": 14.14
+        },
+        {
+          "word": "meu",
+          "start": 14.14,
+          "end": 14.3
+        },
+        {
+          "word": "vizinho",
+          "start": 14.54,
+          "end": 14.99
+        },
+        {
+          "word": "é",
+          "start": 14.99,
+          "end": 15.03
+        },
+        {
+          "word": "exatamente",
+          "start": 15.54,
+          "end": 16.29
+        },
+        {
+          "word": "a",
+          "start": 16.29,
+          "end": 16.33
+        },
+        {
+          "word": "minha",
+          "start": 16.54,
+          "end": 16.83
+        },
+        {
+          "word": "playlist.",
+          "start": 17.15,
+          "end": 17.67
+        }
+      ],
+      "image_path": "assets/scenes/scene_003.png",
+      "video_path": "assets/videos/scene_003.mp4",
+      "video_url": "https://cdn-magnific.freepik.com/kling_7b9e82b3-4e3c-4759-9c7f-e98c051eed5d.mp4?token=exp=1771265237~hmac=f891e27a200f001d836b68a997593e26f9f4d9179dd8a5073ed9867757c56fc8",
+      "video_task_id": "7b9e82b3-4e3c-4759-9c7f-e98c051eed5d",
+      "video_status": "COMPLETED",
+      "video_duration": 5
+    },
+    {
+      "id": 4,
+      "start": 17.64,
+      "end": 19.96,
+      "duration": 2.32,
+      "shot_type": "close-up",
+      "camera_movement": "slow-zoom-in",
+      "transition_in": "cut",
+      "image_prompt": "Close-up of a young Brazilian man in his early 30s with short dark hair, rectangular glasses, short beard, wearing a dark t-shirt eyes behind rectangular glasses reflecting sunlight, a curious and amused expression, detailed reflection in the lenses, subtle excitement in his gaze, warm golden light on his face.",
+      "subtitle_text": "Tá tocando nesse momento",
+      "sfx": null,
+      "mood": "reflection",
+      "audio_layer": "voice-introspective",
+      "subtitle_words": [
+        {
+          "word": "Tá",
+          "start": 18.31,
+          "end": 18.43
+        },
+        {
+          "word": "tocando",
+          "start": 18.66,
+          "end": 19.07
+        },
+        {
+          "word": "nesse",
+          "start": 19.25,
+          "end": 19.48
+        },
+        {
+          "word": "momento",
+          "start": 19.75,
+          "end": 20.14
+        }
+      ],
+      "image_path": "assets/scenes/scene_004.png",
+      "video_path": "assets/videos/scene_004.mp4",
+      "video_url": "https://cdn-magnific.freepik.com/kling_fc15cf79-056e-480e-9133-1853a939fde9.mp4?token=exp=1771265300~hmac=aa8550a74731bf23d01f168347f125e61b22d02250259cc80c68ebf5acdf3da4",
+      "video_task_id": "fc15cf79-056e-480e-9133-1853a939fde9",
+      "video_status": "COMPLETED",
+      "video_duration": 5
+    },
+    {
+      "id": 5,
+      "start": 19.96,
+      "end": 26.0,
+      "duration": 6.04,
+      "shot_type": "wide-shot",
+      "camera_movement": "ken-burns",
+      "transition_in": "dissolve",
+      "image_prompt": "Wide shot of a vibrant Brazilian street during Carnival pre-celebration, colorful decorations hanging from buildings, a few people walking with festive spirit, warm sunlight casting long shadows, a food vendor cart nearby, music speakers visible on balconies.",
+      "subtitle_text": "1997 do Ratin. Já tocou NX0, já tocou nossa,",
+      "sfx": null,
+      "mood": "neutral",
+      "audio_layer": "voice-descriptive",
+      "subtitle_words": [
+        {
+          "word": "1997",
+          "start": 20.5,
+          "end": 21.18
+        },
+        {
+          "word": "do",
+          "start": 21.4,
+          "end": 21.5
+        },
+        {
+          "word": "Ratin.",
+          "start": 21.74,
+          "end": 22.13
+        },
+        {
+          "word": "Já",
+          "start": 22.74,
+          "end": 22.86
+        },
+        {
+          "word": "tocou",
+          "start": 23.08,
+          "end": 23.37
+        },
+        {
+          "word": "NX0,",
+          "start": 23.64,
+          "end": 24.16
+        },
+        {
+          "word": "já",
+          "start": 24.35,
+          "end": 24.5
+        },
+        {
+          "word": "tocou",
+          "start": 24.76,
+          "end": 25.11
+        },
+        {
+          "word": "nossa,",
+          "start": 25.5,
+          "end": 25.91
+        }
+      ],
+      "image_path": "assets/scenes/scene_005.png",
+      "video_path": "assets/videos/scene_005.mp4",
+      "video_url": "https://cdn-magnific.freepik.com/kling_57e9222d-6c61-4bcb-9913-16c209a91317.mp4?token=exp=1771265631~hmac=15332dff99953264f067336721a7919eebfe323bc3ff2dd82d3393b7069a4810",
+      "video_task_id": "57e9222d-6c61-4bcb-9913-16c209a91317",
+      "video_status": "COMPLETED",
+      "video_duration": 5
+    },
+    {
+      "id": 6,
+      "start": 26.0,
+      "end": 32.0,
+      "duration": 6.0,
+      "shot_type": "close-up",
+      "camera_movement": "slow-zoom-in",
+      "transition_in": "cut",
+      "image_prompt": "Close-up of a young Brazilian man in his early 30s with short dark hair, rectangular glasses, short beard, wearing a dark t-shirt smiling contentedly, sitting on his couch, sunlight illuminating his features through the window, a sense of peace and happiness, soft shadows on his face, headphones around his neck, phone in hand showing a playlist.",
+      "subtitle_text": "as melhores bandas possíveis que eu gosto. Agora me diz, Eu tô",
+      "sfx": null,
+      "mood": "reflection",
+      "audio_layer": "voice-introspective",
+      "subtitle_words": [
+        {
+          "word": "as",
+          "start": 26.09,
+          "end": 26.21
+        },
+        {
+          "word": "melhores",
+          "start": 26.55,
+          "end": 27.11
+        },
+        {
+          "word": "bandas",
+          "start": 27.41,
+          "end": 27.8
+        },
+        {
+          "word": "possíveis",
+          "start": 28.12,
+          "end": 28.59
+        },
+        {
+          "word": "que",
+          "start": 28.59,
+          "end": 28.68
+        },
+        {
+          "word": "eu",
+          "start": 28.68,
+          "end": 28.78
+        },
+        {
+          "word": "gosto.",
+          "start": 29.04,
+          "end": 29.4
+        },
+        {
+          "word": "Agora",
+          "start": 30.19,
+          "end": 30.48
+        },
+        {
+          "word": "me",
+          "start": 30.48,
+          "end": 30.59
+        },
+        {
+          "word": "diz,",
+          "start": 30.84,
+          "end": 31.07
+        },
+        {
+          "word": "Eu",
+          "start": 31.9,
+          "end": 32.02
+        },
+        {
+          "word": "tô",
+          "start": 32.02,
+          "end": 32.17
+        }
+      ],
+      "image_path": "assets/scenes/scene_006.png",
+      "video_path": "assets/videos/scene_006.mp4",
+      "video_url": "https://cdn-magnific.freepik.com/kling_cf29bf7a-175d-4cd9-8f39-041fcc164277.mp4?token=exp=1771265395~hmac=03aebca987e6fd63af9796c55392fa2787dce24b849ba52746d2a51a9742823c",
+      "video_task_id": "cf29bf7a-175d-4cd9-8f39-041fcc164277",
+      "video_status": "COMPLETED",
+      "video_duration": 5
+    },
+    {
+      "id": 7,
+      "start": 32.0,
+      "end": 38.77,
+      "duration": 6.77,
+      "shot_type": "medium-shot",
+      "camera_movement": "slow-zoom-in",
+      "transition_in": "dissolve",
+      "image_prompt": "Medium shot of a young Brazilian man in his early 30s with short dark hair, rectangular glasses, short beard, wearing a dark t-shirt turning to face the camera with a playful questioning expression, sunlit living room with patterned curtains, a bluetooth speaker visible on a shelf, warm afternoon light, his hand gesturing questioningly, carnival streamers draped over a doorframe.",
+      "subtitle_text": "tô com sorte ou não tô com sorte. O meu vizinho não está fazendo",
+      "sfx": null,
+      "mood": "humor",
+      "audio_layer": "voice-introspective",
+      "subtitle_words": [
+        {
+          "word": "tô",
+          "start": 32.02,
+          "end": 32.17
+        },
+        {
+          "word": "com",
+          "start": 32.17,
+          "end": 32.31
+        },
+        {
+          "word": "sorte",
+          "start": 32.55,
+          "end": 32.86
+        },
+        {
+          "word": "ou",
+          "start": 32.86,
+          "end": 32.93
+        },
+        {
+          "word": "não",
+          "start": 32.93,
+          "end": 33.07
+        },
+        {
+          "word": "tô",
+          "start": 33.07,
+          "end": 33.2
+        },
+        {
+          "word": "com",
+          "start": 33.2,
+          "end": 33.33
+        },
+        {
+          "word": "sorte.",
+          "start": 33.56,
+          "end": 33.92
+        },
+        {
+          "word": "O",
+          "start": 34.48,
+          "end": 34.55
+        },
+        {
+          "word": "meu",
+          "start": 34.73,
+          "end": 34.96
+        },
+        {
+          "word": "vizinho",
+          "start": 35.92,
+          "end": 36.55
+        },
+        {
+          "word": "não",
+          "start": 36.77,
+          "end": 36.94
+        },
+        {
+          "word": "está",
+          "start": 37.17,
+          "end": 37.44
+        },
+        {
+          "word": "fazendo",
+          "start": 37.72,
+          "end": 38.14
+        }
+      ],
+      "image_path": "assets/scenes/scene_007.png",
+      "video_path": "assets/videos/scene_007.mp4",
+      "video_url": "https://cdn-magnific.freepik.com/kling_72667d45-0997-488a-b54b-d9087ea10f49.mp4?token=exp=1771265462~hmac=ffdf02176c36d5c610985368f6db02bcd7ed057c7743a9dcb9b95bd538e2888b",
+      "video_task_id": "72667d45-0997-488a-b54b-d9087ea10f49",
+      "video_status": "COMPLETED",
+      "video_duration": 5
+    },
+    {
+      "id": 8,
+      "start": 38.77,
+      "end": 44.16,
+      "duration": 5.39,
+      "shot_type": "wide-shot",
+      "camera_movement": "slow-zoom-out",
+      "transition_in": "dissolve",
+      "image_prompt": "Wide shot of a Brazilian neighborhood during Carnival sunset, colorful flags and banners strung between buildings, warm golden light, a young Brazilian man in his early 30s with short dark hair, rectangular glasses, short beard, wearing a dark t-shirt visible through an open window gesturing happily, the neighbor house with an open window and a speaker playing, sense of community and shared music joy.",
+      "subtitle_text": "barulho e o som dele é a minha playlist que eu mais amo.",
+      "sfx": null,
+      "mood": "triumph",
+      "audio_layer": "voice-descriptive",
+      "subtitle_words": [
+        {
+          "word": "barulho",
+          "start": 38.77,
+          "end": 39.29
+        },
+        {
+          "word": "e",
+          "start": 39.46,
+          "end": 39.5
+        },
+        {
+          "word": "o",
+          "start": 39.5,
+          "end": 39.57
+        },
+        {
+          "word": "som",
+          "start": 39.82,
+          "end": 40.13
+        },
+        {
+          "word": "dele",
+          "start": 40.74,
+          "end": 40.99
+        },
+        {
+          "word": "é",
+          "start": 41.12,
+          "end": 41.2
+        },
+        {
+          "word": "a",
+          "start": 41.2,
+          "end": 41.24
+        },
+        {
+          "word": "minha",
+          "start": 41.46,
+          "end": 41.78
+        },
+        {
+          "word": "playlist",
+          "start": 42.37,
+          "end": 42.91
+        },
+        {
+          "word": "que",
+          "start": 42.91,
+          "end": 43.01
+        },
+        {
+          "word": "eu",
+          "start": 43.01,
+          "end": 43.1
+        },
+        {
+          "word": "mais",
+          "start": 43.32,
+          "end": 43.59
+        },
+        {
+          "word": "amo.",
+          "start": 43.84,
+          "end": 44.16
+        }
+      ],
+      "image_path": "assets/scenes/scene_008.png",
+      "video_path": "assets/videos/scene_008.mp4",
+      "video_url": "https://cdn-magnific.freepik.com/kling_b0bc87d0-52d5-46e7-9907-79fcf13a97b2.mp4?token=exp=1771265722~hmac=2e20f46ccd9b491eee4662b65c9162453a7fc582ba7e3f795305607cc1130ee0",
+      "video_task_id": "b0bc87d0-52d5-46e7-9907-79fcf13a97b2",
+      "video_status": "COMPLETED",
+      "video_duration": 5
+    }
+  ]
+}

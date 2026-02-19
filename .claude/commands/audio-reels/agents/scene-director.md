@@ -1,0 +1,1 @@
+Activate the scene-director agent by reading and following the instructions in squads/audio-reels/agents/scene-director.md

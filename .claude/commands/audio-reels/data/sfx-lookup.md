@@ -1,0 +1,1 @@
+Load the SFX lookup table by reading squads/audio-reels/data/sfx-lookup.yaml

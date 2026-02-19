@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AudioReelsVideoSpec",
+  "description": "Contrato entre LLM scene-director e Remotion template",
+  "type": "object",
+  "required": ["version", "metadata", "style", "scenes"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["audio_source", "duration_seconds", "fps", "width", "height"],
+      "properties": {
+        "audio_source": { "type": "string" },
+        "duration_seconds": { "type": "number" },
+        "fps": { "type": "integer", "default": 30 },
+        "width": { "type": "integer", "default": 1080 },
+        "height": { "type": "integer", "default": 1920 },
+        "total_scenes": { "type": "integer" },
+        "created_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "style": {
+      "type": "object",
+      "required": ["name", "reference_image", "prompt_suffix"],
+      "properties": {
+        "name": { "type": "string" },
+        "reference_image": { "type": "string" },
+        "prompt_suffix": { "type": "string" },
+        "seed": { "type": "integer" },
+        "color_palette": { "type": "string" }
+      }
+    },
+    "subtitles": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean", "default": true },
+        "position": { "type": "string", "enum": ["top", "center", "bottom-safe"], "default": "bottom-safe" },
+        "style": { "type": "string", "enum": ["word-by-word", "sentence", "karaoke"], "default": "word-by-word" },
+        "font_family": { "type": "string", "default": "Inter" },
+        "font_size": { "type": "integer", "default": 48 },
+        "font_weight": { "type": "string", "default": "bold" },
+        "color": { "type": "string", "default": "#FFFFFF" },
+        "stroke_color": { "type": "string", "default": "#000000" },
+        "stroke_width": { "type": "integer", "default": 3 },
+        "highlight_color": { "type": "string", "default": "#FFD700" }
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "start", "end", "shot_type", "image_prompt", "subtitle_text"],
+        "properties": {
+          "id": { "type": "integer" },
+          "start": { "type": "number" },
+          "end": { "type": "number" },
+          "duration": { "type": "number" },
+          "shot_type": {
+            "type": "string",
+            "enum": ["extreme-close-up", "close-up", "medium-shot", "wide-shot", "insert-shot", "over-the-shoulder", "pov", "low-angle", "high-angle", "establishing-shot"]
+          },
+          "camera_movement": {
+            "type": "string",
+            "enum": ["static", "slow-zoom-in", "slow-zoom-out", "pan-left", "pan-right", "ken-burns", "handheld-shake", "dolly-in"],
+            "default": "ken-burns"
+          },
+          "transition_in": {
+            "type": "string",
+            "enum": ["cut", "dissolve", "fade-from-black", "wipe-left", "wipe-right", "zoom-in"],
+            "default": "cut"
+          },
+          "image_prompt": { "type": "string" },
+          "image_path": { "type": "string" },
+          "subtitle_text": { "type": "string" },
+          "subtitle_words": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["word", "start", "end"],
+              "properties": {
+                "word": { "type": "string" },
+                "start": { "type": "number" },
+                "end": { "type": "number" }
+              }
+            }
+          },
+          "sfx": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "properties": {
+                  "description": { "type": "string" },
+                  "start": { "type": "number" },
+                  "duration": { "type": "number" },
+                  "volume": { "type": "number", "minimum": 0, "maximum": 1, "default": 0.5 },
+                  "file_path": { "type": "string" }
+                }
+              }
+            ]
+          },
+          "mood": {
+            "type": "string",
+            "enum": ["neutral", "tension", "triumph", "sadness", "humor", "reflection", "urgency", "revelation"]
+          },
+          "audio_layer": {
+            "type": "string",
+            "enum": ["voice-introspective", "voice-descriptive", "sfx-dominant", "ambient", "mixed"]
+          }
+        }
+      }
+    },
+    "_optimization_log": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

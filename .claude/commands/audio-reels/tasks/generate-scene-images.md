@@ -1,0 +1,1 @@
+Execute the generate-scene-images task by reading and following the instructions in squads/audio-reels/tasks/generate-scene-images.md

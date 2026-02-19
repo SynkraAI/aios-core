@@ -1,0 +1,1 @@
+Activate the ops agent by reading and following the instructions in squads/audio-reels/agents/ops.md

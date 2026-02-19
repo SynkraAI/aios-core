@@ -1,0 +1,1 @@
+Execute the video-spec-validator checklist by reading and following the instructions in squads/audio-reels/checklists/video-spec-validator.md

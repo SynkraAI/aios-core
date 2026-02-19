@@ -1,0 +1,1 @@
+Execute the generate-sfx task by reading and following the instructions in squads/audio-reels/tasks/generate-sfx.md

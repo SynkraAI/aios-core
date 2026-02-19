@@ -1,0 +1,1 @@
+Activate the remotion-assembler agent by reading and following the instructions in squads/audio-reels/agents/remotion-assembler.md

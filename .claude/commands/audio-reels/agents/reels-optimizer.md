@@ -1,0 +1,1 @@
+Activate the reels-optimizer agent by reading and following the instructions in squads/audio-reels/agents/reels-optimizer.md

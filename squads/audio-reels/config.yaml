@@ -1,0 +1,170 @@
+name: audio-reels
+version: 2.0.0
+title: "Audio Reels — AI Cinema Pipeline"
+short-title: "AudioReels"
+description: |
+  Pipeline automatizado ponta-a-ponta que transforma áudio de WhatsApp
+  em vídeo cinematográfico animado (9:16) pronto para Reels/TikTok/Shorts.
+
+  Fluxo: WhatsApp (áudio) → Transcrição → Análise de cenas (LLM) →
+  Geração de imagens (Gemini 2.5 Flash) + SFX (ElevenLabs) →
+  Animação (Kling AI via Freepik) → Remotion render (9:16 + legendas) →
+  Compressão + Entrega (< 16MB)
+
+author: "José Carlos Amorim"
+icon: "🎬"
+created: 2026-02-15
+slash_prefix: "AudioReels"
+
+domain: "AI Video Production / Audio-to-Video / Cinema Automation"
+target_users:
+  - "José Carlos Amorim (owner/CEO)"
+  - "Clientes OPES (instalação premium futura)"
+
+agents:
+  - id: audio-reels-chief
+    file: agents/audio-reels-chief.md
+    name: "Audio Reels Chief"
+    role: "Orquestrador do pipeline — coordena todos os agentes, gerencia estado, fallbacks"
+    tier: orchestrator
+
+  - id: scene-director
+    file: agents/scene-director.md
+    name: "Scene Director"
+    role: "Analisa transcrição, quebra em cenas, aplica decision tree cinematográfica"
+    tier: 0
+    minds: ["Walter Murch", "Roger Deakins", "Robert McKee"]
+
+  - id: image-prompter
+    file: agents/image-prompter.md
+    name: "Image Prompter"
+    role: "Crafta prompts otimizados para Nano Banana 2.5 Flash com consistência visual"
+    tier: 1
+    minds: ["Roger Deakins"]
+
+  - id: sfx-designer
+    file: agents/sfx-designer.md
+    name: "SFX Designer"
+    role: "Decide e gera efeitos sonoros via ElevenLabs Sound Effects"
+    tier: 1
+    minds: ["Ben Burtt"]
+
+  - id: remotion-assembler
+    file: agents/remotion-assembler.md
+    name: "Remotion Assembler"
+    role: "Monta JSON spec, gerencia render via Remotion, valida output"
+    tier: 2
+
+  - id: reels-optimizer
+    file: agents/reels-optimizer.md
+    name: "Reels Optimizer"
+    role: "Otimiza pacing, hook visual e legendas para máxima retenção em short-form"
+    tier: 3
+    minds: ["Paddy Galloway"]
+
+tasks:
+  - id: process-audio
+    file: tasks/process-audio.md
+    name: "Processar Áudio Completo"
+    purpose: "Task principal — recebe áudio, coordena pipeline ponta-a-ponta, entrega vídeo"
+
+  - id: analyze-scenes
+    file: tasks/analyze-scenes.md
+    name: "Analisar e Quebrar em Cenas"
+    purpose: "Recebe transcrição com timestamps, aplica decision tree, gera JSON parcial"
+
+  - id: generate-scene-images
+    file: tasks/generate-scene-images.md
+    name: "Gerar Imagens das Cenas"
+    purpose: "Batch generation de imagens 9:16 via Nano Banana 2.5 Flash"
+
+  - id: generate-sfx
+    file: tasks/generate-sfx.md
+    name: "Gerar Efeitos Sonoros"
+    purpose: "Gera SFX via ElevenLabs Sound Effects API"
+
+  - id: optimize-pacing
+    file: tasks/optimize-pacing.md
+    name: "Otimizar Pacing para Reels"
+    purpose: "Revisa JSON spec e ajusta pacing para máxima retenção"
+
+  - id: render-and-deliver
+    file: tasks/render-and-deliver.md
+    name: "Renderizar e Entregar"
+    purpose: "Remotion render + compressão + envio WhatsApp"
+
+workflows:
+  - id: audio-to-reels
+    file: workflows/audio-to-reels.md
+    name: "Áudio para Reels (Pipeline Completo)"
+    purpose: "End-to-end: áudio WhatsApp → vídeo entregue"
+
+data:
+  - id: scene-decision-tree
+    file: data/scene-decision-tree.md
+    name: "Decision Tree para Cenas Cinematográficas"
+
+  - id: sfx-lookup
+    file: data/sfx-lookup.yaml
+    name: "Mapeamento de Keywords para SFX"
+
+  - id: video-spec-schema
+    file: data/video-spec-schema.json
+    name: "JSON Schema do Video Spec"
+
+  - id: audio-reels-kb
+    file: data/audio-reels-kb.md
+    name: "Knowledge Base do Squad"
+
+checklists:
+  - id: video-spec-validator
+    file: checklists/video-spec-validator.md
+    name: "Validador de Video Spec JSON"
+
+  - id: quality-gate-checklist
+    file: checklists/quality-gate-checklist.md
+    name: "Quality Gates do Pipeline"
+
+gemini_architecture:
+  flash: "gemini-3.0-flash"    # Transcrição, validações rápidas, enriquecimento SFX
+  pro: "gemini-3.0-pro"        # Análise de cenas (decision tree), otimização pacing
+  image: "gemini-2.5-flash"    # Geração de imagens (Nano Banana)
+
+dependencies:
+  - name: nano-banana-pro
+    path: ../nano-banana-pro
+    required: true
+    description: "Geração de imagens via Gemini 2.5 Flash"
+
+  - name: video-production-os
+    path: ../video-production-os
+    required: true
+    description: "Remotion toolkit, render, KineticText"
+
+  - name: freepik-kling-ai
+    type: external-api
+    required: true
+    description: "Kling AI O1 via Freepik API — image-to-video animation (5s clips)"
+    credential: "freepik.api_key in ~/.config/aios/credentials.yaml"
+
+output:
+  videos:
+    directory: "outputs/audio-reels/"
+    naming: "YYYY-MM-DD_{slug}_reels.mp4"
+  specs:
+    directory: "outputs/audio-reels/specs/"
+    naming: "YYYY-MM-DD_{slug}_spec.json"
+  assets:
+    directory: "outputs/audio-reels/assets/"
+
+tags:
+  - audio-to-video
+  - reels
+  - tiktok
+  - shorts
+  - cinema
+  - automation
+  - remotion
+  - nano-banana
+  - elevenlabs
+  - whatsapp

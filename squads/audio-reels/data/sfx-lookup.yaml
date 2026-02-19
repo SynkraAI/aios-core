@@ -1,0 +1,119 @@
+# SFX Lookup Table
+# Mapeamento de keywords em português → descrição enriquecida para ElevenLabs
+
+keywords:
+  campainha:
+    description: "old plastic doorbell buzzing, slight echo in concrete hallway"
+    default_duration: 1.5
+    default_volume: 0.6
+    category: featured
+
+  chuva:
+    description: "heavy rain falling on concrete and tin roofs, urban ambient with distant traffic"
+    default_duration: 5.0
+    default_volume: 0.4
+    category: background
+
+  trovão:
+    description: "distant thunder rolling across the sky, ominous rumbling atmosphere"
+    default_duration: 3.0
+    default_volume: 0.5
+    category: featured
+
+  porta:
+    description: "heavy wooden door slamming shut with metallic lock click"
+    default_duration: 1.0
+    default_volume: 0.6
+    category: featured
+
+  porta_batendo:
+    description: "door being knocked on firmly, three knocks, wooden door"
+    default_duration: 2.0
+    default_volume: 0.5
+    category: featured
+
+  risada:
+    description: "muffled laughter behind closed door, mocking tone, multiple people"
+    default_duration: 2.0
+    default_volume: 0.3
+    category: background
+
+  passos:
+    description: "footsteps on wet cobblestone, leather shoes, rhythmic walking pace"
+    default_duration: 3.0
+    default_volume: 0.3
+    category: background
+
+  carro:
+    description: "car engine passing by on wet road, urban traffic ambient"
+    default_duration: 3.0
+    default_volume: 0.3
+    category: background
+
+  vento:
+    description: "strong wind howling through narrow alley, whistling sound"
+    default_duration: 4.0
+    default_volume: 0.3
+    category: background
+
+  telefone:
+    description: "old phone ringing, classic ringtone, slightly distorted"
+    default_duration: 2.0
+    default_volume: 0.5
+    category: featured
+
+  sirene:
+    description: "distant ambulance siren passing by, doppler effect"
+    default_duration: 4.0
+    default_volume: 0.3
+    category: background
+
+  aplausos:
+    description: "crowd applauding enthusiastically, indoor venue, echoing"
+    default_duration: 3.0
+    default_volume: 0.5
+    category: featured
+
+  silêncio:
+    skip: true
+    description: null
+
+  suspiro:
+    description: "deep exhausted sigh, tired breathing, close microphone"
+    default_duration: 1.5
+    default_volume: 0.4
+    category: featured
+
+  coração:
+    description: "heartbeat sound, steady then accelerating, deep bass"
+    default_duration: 3.0
+    default_volume: 0.4
+    category: background
+
+  vidro:
+    description: "glass breaking, sharp shatter, multiple pieces falling"
+    default_duration: 1.5
+    default_volume: 0.6
+    category: featured
+
+  explosão:
+    description: "distant explosion with rumbling aftershock, cinematic impact"
+    default_duration: 3.0
+    default_volume: 0.5
+    category: featured
+
+  água:
+    description: "water flowing from faucet into sink, ambient bathroom sound"
+    default_duration: 3.0
+    default_volume: 0.3
+    category: background
+
+  pássaros:
+    description: "morning birds chirping, peaceful outdoor ambient, garden atmosphere"
+    default_duration: 4.0
+    default_volume: 0.2
+    category: background
+
+# Categories:
+# featured = SFX é o foco da cena (volume mais alto)
+# background = SFX é ambiente (volume mais baixo, não abafar narração)

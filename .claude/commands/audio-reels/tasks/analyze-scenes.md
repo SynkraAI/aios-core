@@ -1,0 +1,1 @@
+Execute the analyze-scenes task by reading and following the instructions in squads/audio-reels/tasks/analyze-scenes.md

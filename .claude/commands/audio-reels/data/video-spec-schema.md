@@ -1,0 +1,1 @@
+Load the video spec JSON schema by reading squads/audio-reels/data/video-spec-schema.json

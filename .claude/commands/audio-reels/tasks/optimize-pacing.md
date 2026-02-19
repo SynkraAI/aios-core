@@ -1,0 +1,1 @@
+Execute the optimize-pacing task by reading and following the instructions in squads/audio-reels/tasks/optimize-pacing.md

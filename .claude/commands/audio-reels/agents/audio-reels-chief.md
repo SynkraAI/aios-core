@@ -1,0 +1,1 @@
+Activate the audio-reels-chief agent by reading and following the instructions in squads/audio-reels/agents/audio-reels-chief.md
