@@ -1,0 +1,198 @@
+id,name,category,format,has_elicitation,file_path,status
+add-mcp,Add Mcp,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/add-mcp.md,active
+advanced-elicitation,Advanced Elicitation,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/advanced-elicitation.md,active
+analyst-facilitate-brainstorming,Analyst Facilitate Brainstorming,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/analyst-facilitate-brainstorming.md,active
+analyze-brownfield,Analyze Brownfield,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/analyze-brownfield.md,active
+analyze-cross-artifact,Analyze Cross Artifact,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/analyze-cross-artifact.md,active
+analyze-framework,Analyze Framework,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/analyze-framework.md,active
+analyze-performance,Analyze Performance,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/analyze-performance.md,active
+analyze-project-structure,Analyze Project Structure,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/analyze-project-structure.md,active
+apply-qa-fixes,Apply Qa Fixes,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/apply-qa-fixes.md,active
+architect-analyze-impact,Architect Analyze Impact,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/architect-analyze-impact.md,active
+audit-codebase,Audit Codebase,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/audit-codebase.md,active
+audit-tailwind-config,Audit Tailwind Config,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/audit-tailwind-config.md,active
+audit-utilities,Audit Utilities,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/audit-utilities.md,active
+bootstrap-shadcn-library,Bootstrap Shadcn Library,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/bootstrap-shadcn-library.md,active
+brownfield-create-epic,Brownfield Create Epic,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/brownfield-create-epic.md,active
+brownfield-create-story,Brownfield Create Story,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/brownfield-create-story.md,active
+build-autonomous,Build Autonomous,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/build-autonomous.md,active
+build-component,Build Component,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/build-component.md,active
+build-resume,Build Resume,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/build-resume.md,active
+build-status,Build Status,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/build-status.md,active
+build,Build,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/build.md,active
+calculate-roi,Calculate Roi,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/calculate-roi.md,active
+check-docs-links,Check Documentation Links,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/check-docs-links.md,active
+ci-cd-configuration,Ci Cd Configuration,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/ci-cd-configuration.md,active
+cleanup-utilities,Cleanup Utilities,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/cleanup-utilities.md,active
+cleanup-worktrees,Cleanup Worktrees,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/cleanup-worktrees.md,active
+collaborative-edit,Collaborative Edit,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/collaborative-edit.md,active
+compose-molecule,Compose Molecule,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/compose-molecule.md,active
+consolidate-patterns,Consolidate Patterns,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/consolidate-patterns.md,active
+correct-course,Correct Course,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/correct-course.md,active
+create-agent,Create Agent,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/create-agent.md,active
+create-brownfield-story,Create Brownfield Story,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/create-brownfield-story.md,active
+create-deep-research-prompt,Create Deep Research Prompt,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/create-deep-research-prompt.md,active
+create-doc,Create Doc,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/create-doc.md,active
+create-next-story,Create Next Story,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/create-next-story.md,active
+create-service,Create Service,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/create-service.md,active
+create-suite,Create Suite,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/create-suite.md,active
+create-task,Create Task,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/create-task.md,active
+create-workflow,Create Workflow,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/create-workflow.md,active
+create-worktree,Create Worktree,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/create-worktree.md,active
+db-analyze-hotpaths,Db Analyze Hotpaths,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-analyze-hotpaths.md,active
+db-apply-migration,Db Apply Migration,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-apply-migration.md,active
+db-bootstrap,Db Bootstrap,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-bootstrap.md,active
+db-domain-modeling,Db Domain Modeling,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-domain-modeling.md,active
+db-dry-run,Db Dry Run,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-dry-run.md,active
+db-env-check,Db Env Check,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-env-check.md,active
+db-explain,Db Explain,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-explain.md,active
+db-impersonate,Db Impersonate,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-impersonate.md,active
+db-load-csv,Db Load Csv,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-load-csv.md,active
+db-policy-apply,Db Policy Apply,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-policy-apply.md,active
+db-rls-audit,Db Rls Audit,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-rls-audit.md,active
+db-rollback,Db Rollback,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-rollback.md,active
+db-run-sql,Db Run Sql,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-run-sql.md,active
+db-schema-audit,Db Schema Audit,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-schema-audit.md,active
+db-seed,Db Seed,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-seed.md,active
+db-smoke-test,Db Smoke Test,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-smoke-test.md,active
+db-snapshot,Db Snapshot,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-snapshot.md,active
+db-squad-integration,Db Squad Integration,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-squad-integration.md,active
+db-supabase-setup,Db Supabase Setup,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-supabase-setup.md,active
+db-verify-order,Db Verify Order,database,TASK-FORMAT-V1,false,.aios-core/development/tasks/db-verify-order.md,active
+deprecate-component,Deprecate Component,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/deprecate-component.md,active
+dev-apply-qa-fixes,Dev Apply Qa Fixes,development,TASK-FORMAT-V1,false,.aios-core/development/tasks/dev-apply-qa-fixes.md,active
+dev-backlog-debt,Dev Backlog Debt,development,TASK-FORMAT-V1,true,.aios-core/development/tasks/dev-backlog-debt.md,active
+dev-develop-story,Dev Develop Story,development,TASK-FORMAT-V1,false,.aios-core/development/tasks/dev-develop-story.md,active
+dev-improve-code-quality,Dev Improve Code Quality,development,TASK-FORMAT-V1,false,.aios-core/development/tasks/dev-improve-code-quality.md,active
+dev-optimize-performance,Dev Optimize Performance,development,TASK-FORMAT-V1,false,.aios-core/development/tasks/dev-optimize-performance.md,active
+dev-suggest-refactoring,Dev Suggest Refactoring,development,TASK-FORMAT-V1,false,.aios-core/development/tasks/dev-suggest-refactoring.md,active
+dev-validate-next-story,Dev Validate Next Story,development,TASK-FORMAT-V1,false,.aios-core/development/tasks/dev-validate-next-story.md,active
+document-gotchas,Document Gotchas,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/document-gotchas.md,active
+document-project,Document Project,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/document-project.md,active
+environment-bootstrap,Environment Bootstrap,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/environment-bootstrap.md,active
+execute-checklist,Execute Checklist,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/execute-checklist.md,active
+execute-epic-plan,Execute Epic Plan,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/execute-epic-plan.md,active
+export-design-tokens-dtcg,Export Design Tokens Dtcg,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/export-design-tokens-dtcg.md,active
+extend-pattern,Extend Pattern,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/extend-pattern.md,active
+extract-patterns,Extract Patterns,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/extract-patterns.md,active
+extract-tokens,Extract Tokens,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/extract-tokens.md,active
+facilitate-brainstorming-session,Facilitate Brainstorming Session,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/facilitate-brainstorming-session.md,active
+generate-ai-frontend-prompt,Generate Ai Frontend Prompt,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/generate-ai-frontend-prompt.md,active
+generate-documentation,Generate Documentation,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/generate-documentation.md,active
+generate-migration-strategy,Generate Migration Strategy,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/generate-migration-strategy.md,active
+generate-shock-report,Generate Shock Report,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/generate-shock-report.md,active
+github-devops-github-pr-automation,Github Devops Github Pr Automation,devops,TASK-FORMAT-V1,false,.aios-core/development/tasks/github-devops-github-pr-automation.md,active
+github-devops-pre-push-quality-gate,Github Devops Pre Push Quality Gate,devops,TASK-FORMAT-V1,false,.aios-core/development/tasks/github-devops-pre-push-quality-gate.md,active
+github-devops-repository-cleanup,Github Devops Repository Cleanup,devops,TASK-FORMAT-V1,false,.aios-core/development/tasks/github-devops-repository-cleanup.md,active
+github-devops-version-management,Github Devops Version Management,devops,TASK-FORMAT-V1,false,.aios-core/development/tasks/github-devops-version-management.md,active
+gotcha,Gotcha,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/gotcha.md,active
+gotchas,Gotchas,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/gotchas.md,active
+ids-governor,Ids Governor,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/ids-governor.md,active
+ids-health,Ids Health,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/ids-health.md,active
+ids-query,Ids Query,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/ids-query.md,active
+improve-self,Improve Self,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/improve-self.md,active
+index-docs,Index Docs,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/index-docs.md,active
+init-project-status,Init Project Status,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/init-project-status.md,active
+integrate-squad,Integrate Squad,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/integrate-squad.md,active
+kb-mode-interaction,Kb Mode Interaction,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/kb-mode-interaction.md,active
+learn-patterns,Learn Patterns,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/learn-patterns.md,active
+list-mcps,List Mcps,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/list-mcps.md,active
+list-worktrees,List Worktrees,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/list-worktrees.md,active
+mcp-workflow,Mcp Workflow,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/mcp-workflow.md,active
+merge-worktree,Merge Worktree,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/merge-worktree.md,active
+modify-agent,Modify Agent,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/modify-agent.md,active
+modify-task,Modify Task,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/modify-task.md,active
+modify-workflow,Modify Workflow,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/modify-workflow.md,active
+next,Next,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/next.md,active
+orchestrate-resume,Orchestrate Resume,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/orchestrate-resume.md,active
+orchestrate-status,Orchestrate Status,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/orchestrate-status.md,active
+orchestrate-stop,Orchestrate Stop,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/orchestrate-stop.md,active
+orchestrate,Orchestrate,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/orchestrate.md,active
+patterns,Patterns,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/patterns.md,active
+plan-create-context,Plan Create Context,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/plan-create-context.md,active
+plan-create-implementation,Plan Create Implementation,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/plan-create-implementation.md,active
+plan-execute-subtask,Plan Execute Subtask,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/plan-execute-subtask.md,active
+po-backlog-add,Po Backlog Add,product,TASK-FORMAT-V1,true,.aios-core/development/tasks/po-backlog-add.md,active
+po-close-story,Po Close Story,product,TASK-FORMAT-V1,true,.aios-core/development/tasks/po-close-story.md,active
+po-manage-story-backlog,Po Manage Story Backlog,product,TASK-FORMAT-V1,false,.aios-core/development/tasks/po-manage-story-backlog.md,active
+po-pull-story-from-clickup,Po Pull Story From Clickup,product,TASK-FORMAT-V1,false,.aios-core/development/tasks/po-pull-story-from-clickup.md,active
+po-pull-story,Po Pull Story,product,TASK-FORMAT-V1,false,.aios-core/development/tasks/po-pull-story.md,active
+po-stories-index,Po Stories Index,product,TASK-FORMAT-V1,true,.aios-core/development/tasks/po-stories-index.md,active
+po-sync-story-to-clickup,Po Sync Story To Clickup,product,TASK-FORMAT-V1,false,.aios-core/development/tasks/po-sync-story-to-clickup.md,active
+po-sync-story,Po Sync Story,product,TASK-FORMAT-V1,false,.aios-core/development/tasks/po-sync-story.md,active
+pr-automation,Pr Automation,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/pr-automation.md,active
+propose-modification,Propose Modification,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/propose-modification.md,active
+publish-npm,Publish Npm,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/publish-npm.md,active
+qa-after-creation,Qa After Creation,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-after-creation.md,active
+qa-backlog-add-followup,Qa Backlog Add Followup,quality,TASK-FORMAT-V1,true,.aios-core/development/tasks/qa-backlog-add-followup.md,active
+qa-browser-console-check,Qa Browser Console Check,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-browser-console-check.md,active
+qa-create-fix-request,Qa Create Fix Request,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-create-fix-request.md,active
+qa-evidence-requirements,Qa Evidence Requirements,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-evidence-requirements.md,active
+qa-false-positive-detection,Qa False Positive Detection,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-false-positive-detection.md,active
+qa-fix-issues,Qa Fix Issues,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-fix-issues.md,active
+qa-gate,Qa Gate,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-gate.md,active
+qa-generate-tests,Qa Generate Tests,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-generate-tests.md,active
+qa-library-validation,Qa Library Validation,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-library-validation.md,active
+qa-migration-validation,Qa Migration Validation,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-migration-validation.md,active
+qa-nfr-assess,Qa Nfr Assess,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-nfr-assess.md,active
+qa-review-build,Qa Review Build,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-review-build.md,active
+qa-review-proposal,Qa Review Proposal,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-review-proposal.md,active
+qa-review-story,Qa Review Story,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-review-story.md,active
+qa-risk-profile,Qa Risk Profile,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-risk-profile.md,active
+qa-run-tests,Qa Run Tests,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-run-tests.md,active
+qa-security-checklist,Qa Security Checklist,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-security-checklist.md,active
+qa-test-design,Qa Test Design,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-test-design.md,active
+qa-trace-requirements,Qa Trace Requirements,quality,TASK-FORMAT-V1,false,.aios-core/development/tasks/qa-trace-requirements.md,active
+release-management,Release Management,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/release-management.md,active
+remove-mcp,Remove Mcp,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/remove-mcp.md,active
+remove-worktree,Remove Worktree,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/remove-worktree.md,active
+run-design-system-pipeline,Run Design System Pipeline,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/run-design-system-pipeline.md,active
+run-workflow-engine,Run Workflow Engine,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/run-workflow-engine.md,active
+run-workflow,Run Workflow,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/run-workflow.md,active
+search-mcp,Search Mcp,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/search-mcp.md,active
+security-audit,Security Audit,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/security-audit.md,active
+security-scan,Security Scan,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/security-scan.md,active
+session-resume,Session Resume,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/session-resume.md,active
+setup-database,Setup Database,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/setup-database.md,active
+setup-design-system,Setup Design System,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/setup-design-system.md,active
+setup-github,Setup Github,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/setup-github.md,active
+setup-llm-routing,Setup Llm Routing,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/setup-llm-routing.md,active
+setup-mcp-docker,Setup Mcp Docker,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/setup-mcp-docker.md,active
+setup-project-docs,Setup Project Docs,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/setup-project-docs.md,active
+shard-doc,Shard Doc,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/shard-doc.md,active
+sm-create-next-story,Sm Create Next Story,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/sm-create-next-story.md,active
+spec-assess-complexity,Spec Assess Complexity,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/spec-assess-complexity.md,active
+spec-critique,Spec Critique,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/spec-critique.md,active
+spec-gather-requirements,Spec Gather Requirements,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/spec-gather-requirements.md,active
+spec-research-dependencies,Spec Research Dependencies,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/spec-research-dependencies.md,active
+spec-write-spec,Spec Write Spec,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/spec-write-spec.md,active
+squad-creator-analyze,Squad Creator Analyze,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/squad-creator-analyze.md,active
+squad-creator-create,meu-dominio-squad,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/squad-creator-create.md,active
+squad-creator-design,Squad Creator Design,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/squad-creator-design.md,active
+squad-creator-download,Squad Creator Download,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/squad-creator-download.md,active
+squad-creator-extend,Squad Creator Extend,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/squad-creator-extend.md,active
+squad-creator-list,Squad Creator List,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/squad-creator-list.md,active
+squad-creator-migrate,Squad Creator Migrate,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/squad-creator-migrate.md,active
+squad-creator-publish,my-squad,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/squad-creator-publish.md,active
+squad-creator-sync-ide-command,Squad Creator Sync Ide Command,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/squad-creator-sync-ide-command.md,active
+squad-creator-sync-synkra,Squad Creator Sync Synkra,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/squad-creator-sync-synkra.md,active
+squad-creator-validate,Squad Creator Validate,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/squad-creator-validate.md,active
+story-checkpoint,Story Checkpoint,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/story-checkpoint.md,active
+sync-documentation,Sync Documentation,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/sync-documentation.md,active
+tailwind-upgrade,Tailwind Upgrade,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/tailwind-upgrade.md,active
+test-as-user,Test As User,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/test-as-user.md,active
+test-validation-task,Test Validation Task,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/test-validation-task.md,active
+undo-last,Undo Last,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/undo-last.md,active
+update-aios,Update Aios,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/update-aios.md,active
+update-manifest,Update Manifest,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/update-manifest.md,active
+update-source-tree,Update Source Tree,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/update-source-tree.md,active
+ux-create-wireframe,Ux Create Wireframe,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/ux-create-wireframe.md,active
+ux-ds-scan-artifact,Ux Ds Scan Artifact,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/ux-ds-scan-artifact.md,active
+ux-user-research,Ux User Research,general,TASK-FORMAT-V1,true,.aios-core/development/tasks/ux-user-research.md,active
+validate-agents,Validate Agents,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/validate-agents.md,active
+validate-next-story,Validate Next Story,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/validate-next-story.md,active
+validate-tech-preset,Validate Tech Preset,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/validate-tech-preset.md,active
+validate-workflow,Validate Workflow,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/validate-workflow.md,active
+verify-subtask,Verify Subtask,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/verify-subtask.md,active
+waves,Waves,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/waves.md,active
+yolo-toggle,Yolo Toggle,general,TASK-FORMAT-V1,false,.aios-core/development/tasks/yolo-toggle.md,active

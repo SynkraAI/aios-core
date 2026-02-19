@@ -1,0 +1,501 @@
+[
+  {
+    "name": "aios-validator.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "validate",
+      "validateStoryFile",
+      "runESLint",
+      "runTypeScript",
+      "validateYAML"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "approval-workflow.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "atomic-layer-classifier.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "classifyTask",
+      "processTaskFile"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "backup-manager.js",
+    "status": "FIXABLE",
+    "loadable": false,
+    "exports": [],
+    "errors": [
+      "Cannot find module 'tar'\nRequire stack:\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\scripts\\backup-manager.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\scripts\\test-utilities-fast.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\index.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\tests\\validate-module.js"
+    ],
+    "recommendation": "Missing dependencies - installable"
+  },
+  {
+    "name": "batch-creator.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "branch-manager.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "capability-analyzer.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "clickup-helpers.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "updateStoryStatus",
+      "updateEpicStatus",
+      "updateTaskDescription",
+      "addTaskComment",
+      "verifyEpicExists"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "code-quality-improver.js",
+    "status": "FIXABLE",
+    "loadable": false,
+    "exports": [],
+    "errors": [
+      "Cannot find module 'jscodeshift'\nRequire stack:\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\scripts\\code-quality-improver.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\scripts\\test-utilities-fast.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\index.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\tests\\validate-module.js"
+    ],
+    "recommendation": "Missing dependencies - installable"
+  },
+  {
+    "name": "commit-message-generator.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "component-generator.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "component-metadata.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "component-search.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "config-cache.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "ConfigCache",
+      "globalConfigCache"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "config-loader.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "loadAgentConfig",
+      "loadConfigSections",
+      "loadMinimalConfig",
+      "loadFullConfig",
+      "preloadConfig",
+      "clearCache",
+      "getPerformanceMetrics",
+      "validateAgentConfig",
+      "getConfigSection",
+      "agentRequirements",
+      "ALWAYS_LOADED"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "conflict-resolver.js",
+    "status": "FIXABLE",
+    "loadable": false,
+    "exports": [],
+    "errors": [
+      "Cannot find module 'diff'\nRequire stack:\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\scripts\\conflict-resolver.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\scripts\\test-utilities-fast.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\index.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\tests\\validate-module.js"
+    ],
+    "recommendation": "Missing dependencies - installable"
+  },
+  {
+    "name": "coverage-analyzer.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "dependency-analyzer.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "dependency-impact-analyzer.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "diff-generator.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "documentation-synchronizer.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "framework-analyzer.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "git-config-detector.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "git-wrapper.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "improvement-engine.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "improvement-validator.js",
+    "status": "FIXABLE",
+    "loadable": false,
+    "exports": [],
+    "errors": [
+      "Cannot find module './dependency-manager'\nRequire stack:\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\scripts\\improvement-validator.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\scripts\\test-utilities-fast.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\index.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\tests\\validate-module.js"
+    ],
+    "recommendation": "Missing dependencies - installable"
+  },
+  {
+    "name": "modification-risk-assessment.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "modification-validator.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "output-formatter.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "performance-analyzer.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "performance-and-error-resolver.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "processTaskFile",
+      "determineErrorStrategy"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "performance-optimizer.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "performance-tracker.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "trackConfigLoad",
+      "trackAgentActivation",
+      "startSession",
+      "endSession",
+      "getStatistics",
+      "generateReport",
+      "savePerformanceData",
+      "loadPerformanceData",
+      "reset",
+      "PERFORMANCE_TARGETS",
+      "AGENT_PRIORITIES"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "pm-adapter-factory.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "getPMAdapter",
+      "clearAdapterCache",
+      "getPMToolType",
+      "isPMToolConfigured"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "pm-adapter.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "PMAdapter"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "project-status-loader.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "loadProjectStatus",
+      "clearCache",
+      "formatStatusDisplay",
+      "ProjectStatusLoader"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "refactoring-suggester.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "repository-detector.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "detectRepositoryContext"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "sandbox-tester.js",
+    "status": "FIXABLE",
+    "loadable": false,
+    "exports": [],
+    "errors": [
+      "Cannot find module 'tmp-promise'\nRequire stack:\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\scripts\\sandbox-tester.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\scripts\\test-utilities-fast.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\index.js\n- C:\\Users\\AllFluence-User\\Workspaces\\AIOS\\AIOS-V4\\aios-fullstack\\.aios-core\\infrastructure\\tests\\validate-module.js"
+    ],
+    "recommendation": "Missing dependencies - installable"
+  },
+  {
+    "name": "security-checker.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "spot-check-validator.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "validateTask"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "status-mapper.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "mapStatusToClickUp",
+      "mapStatusFromClickUp",
+      "isValidAIOSStatus",
+      "isValidClickUpStatus",
+      "getValidAIOSStatuses",
+      "getValidClickUpStatuses",
+      "STATUS_MAPPING"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "template-engine.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "template-validator.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "test-generator.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "test-quality-assessment.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "tool-resolver.js",
+    "status": "WORKING",
+    "loadable": true,
+    "exports": [
+      "cache",
+      "basePaths",
+      "resolveTool"
+    ],
+    "errors": [],
+    "recommendation": "Functional - verify integration"
+  },
+  {
+    "name": "transaction-manager.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "usage-analytics.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "validate-output-pattern.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "visual-impact-generator.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  },
+  {
+    "name": "yaml-validator.js",
+    "status": "FIXABLE",
+    "loadable": true,
+    "exports": [],
+    "errors": [],
+    "recommendation": "Loads but exports nothing"
+  }
+]

@@ -1,0 +1,36 @@
+# Example Agent Definition
+# Replace placeholders with your agent's details
+
+name: example-agent
+version: 1.0.0
+description: Brief description of what this agent does
+
+persona:
+  name: Example Agent
+  role: Your Agent's Role
+  expertise:
+    - Expertise Area 1
+    - Expertise Area 2
+    - Expertise Area 3
+
+capabilities:
+  - capability-one
+  - capability-two
+
+commands:
+  - name: example-command
+    description: What this command does
+    workflow: example-workflow
+
+system_prompt: |
+  You are Example Agent, specialized in [your domain].
+
+  Your responsibilities:
+  - Responsibility 1
+  - Responsibility 2
+  - Responsibility 3
+
+  Guidelines:
+  - Be helpful and precise
+  - Follow best practices
+  - Ask for clarification when needed

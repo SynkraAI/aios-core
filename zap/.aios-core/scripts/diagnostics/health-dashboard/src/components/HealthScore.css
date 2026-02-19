@@ -1,0 +1,80 @@
+.health-score {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.health-score-svg {
+  display: block;
+}
+
+.health-score-bg {
+  fill: none;
+  stroke: var(--color-bg-card);
+}
+
+.health-score-progress {
+  fill: none;
+  transition: stroke-dashoffset 0.5s ease-out;
+}
+
+.health-score-progress--animated {
+  animation: health-score-fill 1s ease-out forwards;
+}
+
+@keyframes health-score-fill {
+  from {
+    stroke-dashoffset: 100%;
+  }
+}
+
+.health-score-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.health-score-value {
+  font-weight: 700;
+  line-height: 1;
+}
+
+.health-score-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.health-score-label--healthy {
+  color: var(--color-healthy);
+}
+
+.health-score-label--degraded {
+  color: var(--color-degraded);
+}
+
+.health-score-label--warning {
+  color: var(--color-warning);
+}
+
+.health-score-label--critical {
+  color: var(--color-critical);
+}
+
+/* Size variants */
+.health-score--sm .health-score-label {
+  font-size: 0.625rem;
+}
+
+.health-score--md .health-score-label {
+  font-size: 0.75rem;
+}
+
+.health-score--xl .health-score-label {
+  font-size: 1rem;
+}

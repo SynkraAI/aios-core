@@ -1,0 +1,261 @@
+tool:
+  schema_version: 1.0
+  id: ffmpeg
+  type: local
+  name: FFmpeg
+  version: 1.0.0
+  description: Complete, cross-platform solution for recording, converting, and streaming audio and video
+  knowledge_strategy: declarative
+
+  capabilities:
+    - Video format conversion
+    - Audio extraction and conversion
+    - Video compression and optimization
+    - Image sequence to video conversion
+    - Video trimming and concatenation
+    - Resolution and aspect ratio changes
+    - Subtitles and overlay addition
+    - Streaming and recording
+    - Codec transcoding
+    - Metadata manipulation
+
+  use_cases:
+    - format_conversion: "Convert between video/audio formats"
+    - compression: "Reduce file sizes while maintaining quality"
+    - extraction: "Extract audio from video files"
+    - editing: "Trim, concat, and edit media files"
+    - optimization: "Optimize media for web delivery"
+    - streaming: "Stream video content"
+    - thumbnail_generation: "Extract frames as images"
+
+  installation:
+    windows:
+      - method: "Chocolatey"
+        command: "choco install ffmpeg"
+      - method: "Scoop"
+        command: "scoop install ffmpeg"
+      - method: "Manual"
+        url: "https://ffmpeg.org/download.html#build-windows"
+        notes: "Download, extract, add to PATH"
+
+    macos:
+      - method: "Homebrew"
+        command: "brew install ffmpeg"
+
+    linux:
+      - method: "APT (Ubuntu/Debian)"
+        command: "apt install ffmpeg"
+      - method: "YUM (CentOS/RHEL)"
+        command: "yum install ffmpeg"
+
+  local_specific:
+    executables:
+      - name: "ffmpeg"
+        purpose: "Main conversion tool"
+      - name: "ffprobe"
+        purpose: "Media analysis and metadata extraction"
+      - name: "ffplay"
+        purpose: "Media player for testing"
+
+    verification:
+      check_install: "ffmpeg -version"
+      check_codecs: "ffmpeg -codecs"
+      check_formats: "ffmpeg -formats"
+
+  common_operations:
+    format_conversion:
+      - operation: "Video conversion"
+        command: "ffmpeg -i input.mp4 output.avi"
+        notes: "Auto-detects format from extension"
+
+      - operation: "Audio conversion"
+        command: "ffmpeg -i input.mp3 output.wav"
+
+    quality_control:
+      - operation: "Set video quality (CRF)"
+        command: "ffmpeg -i input.mp4 -crf 23 output.mp4"
+        notes: "CRF: 0 (best) to 51 (worst), 23 is default"
+
+      - operation: "Set bitrate"
+        command: "ffmpeg -i input.mp4 -b:v 1M output.mp4"
+        notes: "1M = 1 megabit/second"
+
+    resolution_changes:
+      - operation: "Resize video"
+        command: "ffmpeg -i input.mp4 -vf scale=1280:720 output.mp4"
+
+      - operation: "Resize maintaining aspect ratio"
+        command: "ffmpeg -i input.mp4 -vf scale=1280:-1 output.mp4"
+        notes: "-1 auto-calculates to maintain aspect"
+
+    audio_extraction:
+      - operation: "Extract audio"
+        command: "ffmpeg -i video.mp4 -vn -acodec copy audio.mp3"
+        flags:
+          - "-vn: no video"
+          - "-acodec copy: copy audio codec"
+
+    video_trimming:
+      - operation: "Trim video by time"
+        command: "ffmpeg -i input.mp4 -ss 00:01:00 -to 00:02:00 -c copy output.mp4"
+        flags:
+          - "-ss: start time"
+          - "-to: end time"
+          - "-c copy: copy codecs (fast)"
+
+      - operation: "Trim with re-encoding"
+        command: "ffmpeg -i input.mp4 -ss 00:01:00 -t 00:01:00 output.mp4"
+        flags:
+          - "-t: duration instead of end time"
+
+    concatenation:
+      - operation: "Concat videos (same codec)"
+        command: "ffmpeg -f concat -safe 0 -i filelist.txt -c copy output.mp4"
+        requires: "filelist.txt with format: file 'video1.mp4'\\nfile 'video2.mp4'"
+
+    thumbnail_extraction:
+      - operation: "Extract single frame"
+        command: "ffmpeg -i video.mp4 -ss 00:00:10 -vframes 1 thumb.jpg"
+
+      - operation: "Extract frame every N seconds"
+        command: "ffmpeg -i video.mp4 -vf fps=1/60 thumb%03d.jpg"
+        notes: "fps=1/60 means 1 frame per 60 seconds"
+
+    codec_transcoding:
+      - operation: "H.264 encoding"
+        command: "ffmpeg -i input.mp4 -c:v libx264 -preset medium output.mp4"
+        presets: "ultrafast, superfast, veryfast, faster, fast, medium, slow, slower, veryslow"
+
+      - operation: "H.265/HEVC encoding"
+        command: "ffmpeg -i input.mp4 -c:v libx265 -preset medium output.mp4"
+
+    streaming:
+      - operation: "Stream to RTMP"
+        command: "ffmpeg -re -i input.mp4 -c copy -f flv rtmp://server/live/stream"
+
+      - operation: "Stream to HLS"
+        command: "ffmpeg -i input.mp4 -codec: copy -start_number 0 -hls_time 10 -hls_list_size 0 -f hls output.m3u8"
+
+  advanced_features:
+    filters:
+      - name: "scale"
+        purpose: "Resize video"
+        example: "-vf scale=1280:720"
+
+      - name: "crop"
+        purpose: "Crop video"
+        example: "-vf crop=640:480:0:0"
+
+      - name: "overlay"
+        purpose: "Add watermark/logo"
+        example: "-i logo.png -filter_complex overlay=10:10"
+
+      - name: "subtitles"
+        purpose: "Burn subtitles"
+        example: "-vf subtitles=subs.srt"
+
+    metadata:
+      - operation: "View metadata"
+        command: "ffprobe -v quiet -print_format json -show_format -show_streams input.mp4"
+
+      - operation: "Set metadata"
+        command: "ffmpeg -i input.mp4 -metadata title=\"My Video\" output.mp4"
+
+  common_flags:
+    input_output:
+      - flag: "-i"
+        purpose: "Input file"
+        required: true
+
+      - flag: "-y"
+        purpose: "Overwrite output without asking"
+
+      - flag: "-n"
+        purpose: "Never overwrite output"
+
+    video:
+      - flag: "-vcodec / -c:v"
+        purpose: "Video codec"
+        values: "libx264, libx265, copy"
+
+      - flag: "-b:v"
+        purpose: "Video bitrate"
+        example: "1M, 2500k"
+
+      - flag: "-r"
+        purpose: "Frame rate"
+        example: "24, 30, 60"
+
+      - flag: "-vf"
+        purpose: "Video filters"
+
+    audio:
+      - flag: "-acodec / -c:a"
+        purpose: "Audio codec"
+        values: "aac, mp3, copy"
+
+      - flag: "-b:a"
+        purpose: "Audio bitrate"
+        example: "128k, 192k"
+
+      - flag: "-ar"
+        purpose: "Audio sample rate"
+        example: "44100, 48000"
+
+      - flag: "-ac"
+        purpose: "Audio channels"
+        values: "1 (mono), 2 (stereo)"
+
+    speed:
+      - flag: "-preset"
+        purpose: "Encoding speed vs quality"
+        values: "ultrafast, fast, medium, slow"
+
+      - flag: "-crf"
+        purpose: "Constant Rate Factor (quality)"
+        range: "0-51 (lower is better)"
+
+  best_practices:
+    - "Use -c copy when no re-encoding needed (faster)"
+    - "Test with short clips before processing large files"
+    - "Use -crf for quality, -b:v for size control"
+    - "Check codec support: ffmpeg -codecs"
+    - "Use presets: slower = better quality but longer processing"
+    - "Always specify output format explicitly"
+    - "Use ffprobe to analyze before processing"
+
+  performance_tips:
+    - "Hardware acceleration: -hwaccel auto"
+    - "Multi-threading: -threads N (auto by default)"
+    - "Two-pass encoding for better quality"
+    - "Use appropriate presets for speed/quality balance"
+
+  common_issues:
+    codec_not_found:
+      error: "Unknown encoder 'libx264'"
+      solution: "Install FFmpeg with required codecs or use different codec"
+
+    audio_video_sync:
+      error: "Audio and video out of sync"
+      solution: "Use -async 1 flag or re-encode with constant frame rate"
+
+    file_size_large:
+      issue: "Output file too large"
+      solutions:
+        - "Increase CRF value (lower quality)"
+        - "Reduce resolution with scale filter"
+        - "Use more efficient codec (H.265 instead of H.264)"
+        - "Reduce bitrate with -b:v flag"
+
+    slow_processing:
+      issue: "Encoding takes too long"
+      solutions:
+        - "Use faster preset (fast, veryfast, ultrafast)"
+        - "Enable hardware acceleration"
+        - "Use -c copy if no re-encoding needed"
+
+  limitations:
+    - "Processing can be CPU/GPU intensive"
+    - "Some codecs require additional libraries"
+    - "Patent restrictions on certain codecs in some regions"
+    - "Quality loss with repeated re-encoding"

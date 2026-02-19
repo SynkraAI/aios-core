@@ -1,0 +1,204 @@
+id,name,category,subcategory,executor_types,tags,file_path,status
+architect-checklist,Architect Checklist,checklist,quality,Agent,checklist;quality;architect;validation,.aios-core/product/checklists/architect-checklist.md,active
+change-checklist,Change Checklist,checklist,quality,Agent,checklist;quality;change;validation,.aios-core/product/checklists/change-checklist.md,active
+pm-checklist,Pm Checklist,checklist,quality,Agent,checklist;quality;validation,.aios-core/product/checklists/pm-checklist.md,active
+po-master-checklist,Po Master Checklist,checklist,quality,Agent,checklist;quality;master;validation;product,.aios-core/product/checklists/po-master-checklist.md,active
+story-dod-checklist,Story Dod Checklist,checklist,quality,Agent,checklist;quality;story;dod;validation;product,.aios-core/product/checklists/story-dod-checklist.md,active
+story-draft-checklist,Story Draft Checklist,checklist,quality,Agent,checklist;quality;story;draft;validation;product,.aios-core/product/checklists/story-draft-checklist.md,active
+agent-config-requirements,Agent Config Requirements,data,configuration,Agent,data;configuration;agent;config;requirements,.aios-core/core/data/agent-config-requirements.yaml,active
+aios-kb,Aios Kb,data,knowledge,Agent,data;knowledge;aios,.aios-core/core/data/aios-kb.md,active
+workflow-patterns,Workflow Patterns,data,configuration,Agent,data;configuration;workflow;patterns,.aios-core/core/data/workflow-patterns.yaml,active
+aios-validator,Aios Validator,script,validation,CLI;Script,script;validation;aios;validator,.aios-core/infrastructure/scripts/aios-validator.js,active
+approval-workflow,Approval Workflow,script,utility,CLI;Script,script;utility;approval;workflow,.aios-core/infrastructure/scripts/approval-workflow.js,active
+atomic-layer-classifier,Atomic Layer Classifier,script,utility,CLI;Script,script;utility;atomic;layer;classifier,.aios-core/infrastructure/scripts/atomic-layer-classifier.js,active
+backup-manager,Backup Manager,script,management,CLI;Script,script;management;backup;manager,.aios-core/infrastructure/scripts/backup-manager.js,active
+batch-creator,Batch Creator,script,utility,CLI;Script,script;utility;batch;creator,.aios-core/infrastructure/scripts/batch-creator.js,active
+branch-manager,Branch Manager,script,management,CLI;Script,script;management;branch;manager,.aios-core/infrastructure/scripts/branch-manager.js,active
+capability-analyzer,Capability Analyzer,script,analysis,CLI;Script,script;analysis;capability;analyzer,.aios-core/infrastructure/scripts/capability-analyzer.js,active
+clickup-helpers,Clickup Helpers,script,utility,CLI;Script,script;utility;clickup;helpers,.aios-core/infrastructure/scripts/clickup-helpers.js,active
+code-quality-improver,Code Quality Improver,script,utility,CLI;Script,script;utility;code;quality;improver,.aios-core/infrastructure/scripts/code-quality-improver.js,active
+commit-message-generator,Commit Message Generator,script,generation,CLI;Script,script;generation;commit;message;generator,.aios-core/infrastructure/scripts/commit-message-generator.js,active
+component-generator,Component Generator,script,generation,CLI;Script,script;generation;component;generator;product,.aios-core/infrastructure/scripts/component-generator.js,active
+component-metadata,Component Metadata,script,utility,CLI;Script,script;utility;component;metadata;product,.aios-core/infrastructure/scripts/component-metadata.js,active
+component-search,Component Search,script,utility,CLI;Script,script;utility;component;search;product,.aios-core/infrastructure/scripts/component-search.js,active
+config-cache,Config Cache,script,configuration,CLI;Script,script;configuration;config;cache,.aios-core/infrastructure/scripts/config-cache.js,active
+config-loader,Config Loader,script,configuration,CLI;Script,script;configuration;config;loader,.aios-core/infrastructure/scripts/config-loader.js,active
+conflict-resolver,Conflict Resolver,script,utility,CLI;Script,script;utility;conflict;resolver,.aios-core/infrastructure/scripts/conflict-resolver.js,active
+coverage-analyzer,Coverage Analyzer,script,analysis,CLI;Script,script;analysis;coverage;analyzer,.aios-core/infrastructure/scripts/coverage-analyzer.js,active
+dependency-analyzer,Dependency Analyzer,script,analysis,CLI;Script,script;analysis;dependency;analyzer,.aios-core/infrastructure/scripts/dependency-analyzer.js,active
+dependency-impact-analyzer,Dependency Impact Analyzer,script,analysis,CLI;Script,script;analysis;dependency;impact;analyzer,.aios-core/infrastructure/scripts/dependency-impact-analyzer.js,active
+diff-generator,Diff Generator,script,generation,CLI;Script,script;generation;diff;generator,.aios-core/infrastructure/scripts/diff-generator.js,active
+documentation-synchronizer,Documentation Synchronizer,script,utility,CLI;Script,script;utility;documentation;synchronizer,.aios-core/infrastructure/scripts/documentation-synchronizer.js,active
+framework-analyzer,Framework Analyzer,script,analysis,CLI;Script,script;analysis;framework;analyzer,.aios-core/infrastructure/scripts/framework-analyzer.js,active
+git-config-detector,Git Config Detector,script,configuration,CLI;Script,script;configuration;git;config;detector,.aios-core/infrastructure/scripts/git-config-detector.js,active
+git-wrapper,Git Wrapper,script,utility,CLI;Script,script;utility;git;wrapper,.aios-core/infrastructure/scripts/git-wrapper.js,active
+improvement-engine,Improvement Engine,script,utility,CLI;Script,script;utility;improvement;engine,.aios-core/infrastructure/scripts/improvement-engine.js,active
+improvement-validator,Improvement Validator,script,validation,CLI;Script,script;validation;improvement;validator,.aios-core/infrastructure/scripts/improvement-validator.js,active
+modification-risk-assessment,Modification Risk Assessment,script,utility,CLI;Script,script;utility;modification;risk;assessment,.aios-core/infrastructure/scripts/modification-risk-assessment.js,active
+modification-validator,Modification Validator,script,validation,CLI;Script,script;validation;modification;validator,.aios-core/infrastructure/scripts/modification-validator.js,active
+output-formatter,Output Formatter,script,utility,CLI;Script,script;utility;output;formatter,.aios-core/infrastructure/scripts/output-formatter.js,active
+performance-analyzer,Performance Analyzer,script,analysis,CLI;Script,script;analysis;performance;analyzer,.aios-core/infrastructure/scripts/performance-analyzer.js,active
+performance-and-error-resolver,Performance And Error Resolver,script,utility,CLI;Script,script;utility;performance;and;error;resolver,.aios-core/infrastructure/scripts/performance-and-error-resolver.js,active
+performance-optimizer,Performance Optimizer,script,utility,CLI;Script,script;utility;performance;optimizer,.aios-core/infrastructure/scripts/performance-optimizer.js,active
+performance-tracker,Performance Tracker,script,utility,CLI;Script,script;utility;performance;tracker,.aios-core/infrastructure/scripts/performance-tracker.js,active
+pm-adapter,Pm Adapter,script,utility,CLI;Script,script;utility;adapter,.aios-core/infrastructure/scripts/pm-adapter.js,active
+pm-adapter-factory,Pm Adapter Factory,script,utility,CLI;Script,script;utility;adapter;factory,.aios-core/infrastructure/scripts/pm-adapter-factory.js,active
+project-status-loader,Project Status Loader,script,configuration,CLI;Script,script;configuration;project;status;loader,.aios-core/infrastructure/scripts/project-status-loader.js,active
+refactoring-suggester,Refactoring Suggester,script,utility,CLI;Script,script;utility;refactoring;suggester,.aios-core/infrastructure/scripts/refactoring-suggester.js,active
+repository-detector,Repository Detector,script,utility,CLI;Script,script;utility;repository;detector;product,.aios-core/infrastructure/scripts/repository-detector.js,active
+sandbox-tester,Sandbox Tester,script,testing,CLI;Script,script;testing;sandbox;tester;database,.aios-core/infrastructure/scripts/sandbox-tester.js,active
+security-checker,Security Checker,script,validation,CLI;Script,script;validation;security;checker,.aios-core/infrastructure/scripts/security-checker.js,active
+spot-check-validator,Spot Check Validator,script,validation,CLI;Script,script;validation;spot;check;validator;product,.aios-core/infrastructure/scripts/spot-check-validator.js,active
+status-mapper,Status Mapper,script,utility,CLI;Script,script;utility;status;mapper,.aios-core/infrastructure/scripts/status-mapper.js,active
+template-engine,Template Engine,script,utility,CLI;Script,script;utility;template;engine,.aios-core/infrastructure/scripts/template-engine.js,active
+template-validator,Template Validator,script,validation,CLI;Script,script;validation;template;validator,.aios-core/infrastructure/scripts/template-validator.js,active
+test-generator,Test Generator,script,generation,CLI;Script,script;generation;test;generator;testing,.aios-core/infrastructure/scripts/test-generator.js,active
+test-quality-assessment,Test Quality Assessment,script,testing,CLI;Script,script;testing;test;quality;assessment,.aios-core/infrastructure/scripts/test-quality-assessment.js,active
+test-utilities,Test Utilities,script,testing,CLI;Script,script;testing;test;utilities,.aios-core/infrastructure/scripts/test-utilities.js,active
+test-utilities-fast,Test Utilities Fast,script,testing,CLI;Script,script;testing;test;utilities;fast,.aios-core/infrastructure/scripts/test-utilities-fast.js,active
+tool-resolver,Tool Resolver,script,utility,CLI;Script,script;utility;tool;resolver,.aios-core/infrastructure/scripts/tool-resolver.js,active
+transaction-manager,Transaction Manager,script,management,CLI;Script,script;management;transaction;manager,.aios-core/infrastructure/scripts/transaction-manager.js,active
+usage-analytics,Usage Analytics,script,utility,CLI;Script,script;utility;usage;analytics,.aios-core/infrastructure/scripts/usage-analytics.js,active
+validate-output-pattern,Validate Output Pattern,script,utility,CLI;Script,script;utility;validate;output;pattern;validation,.aios-core/infrastructure/scripts/validate-output-pattern.js,active
+visual-impact-generator,Visual Impact Generator,script,generation,CLI;Script,script;generation;visual;impact;generator,.aios-core/infrastructure/scripts/visual-impact-generator.js,active
+yaml-validator,Yaml Validator,script,validation,CLI;Script,script;validation;yaml;validator,.aios-core/infrastructure/scripts/yaml-validator.js,active
+advanced-elicitation,Advanced Elicitation,task,general,Agent;Worker,task;general;advanced;elicitation,.aios-core/development/tasks/advanced-elicitation.md,active
+analyst-facilitate-brainstorming,Analyst Facilitate Brainstorming,task,general,Agent;Worker,task;general;analyst;facilitate;brainstorming,.aios-core/development/tasks/analyst-facilitate-brainstorming.md,active
+analyze-framework,Analyze Framework,task,analysis,Agent;Worker,task;analysis;analyze;framework,.aios-core/development/tasks/analyze-framework.md,active
+analyze-performance,Analyze Performance,task,analysis,Agent;Worker,task;analysis;analyze;performance,.aios-core/development/tasks/analyze-performance.md,active
+apply-qa-fixes,Apply Qa Fixes,task,general,Agent;Worker,task;general;apply;fixes;testing,.aios-core/development/tasks/apply-qa-fixes.md,active
+architect-analyze-impact,Architect Analyze Impact,task,analysis,Agent;Worker,task;analysis;architect;analyze;impact,.aios-core/development/tasks/architect-analyze-impact.md,active
+audit-codebase,Audit Codebase,task,validation,Agent;Worker,task;validation;audit;codebase;analysis,.aios-core/development/tasks/audit-codebase.md,active
+audit-tailwind-config,Audit Tailwind Config,task,validation,Agent;Worker,task;validation;audit;tailwind;config;analysis,.aios-core/development/tasks/audit-tailwind-config.md,active
+audit-utilities,Audit Utilities,task,validation,Agent;Worker,task;validation;audit;utilities;analysis,.aios-core/development/tasks/audit-utilities.md,active
+bootstrap-shadcn-library,Bootstrap Shadcn Library,task,general,Agent;Worker,task;general;bootstrap;shadcn;library,.aios-core/development/tasks/bootstrap-shadcn-library.md,active
+brownfield-create-epic,Brownfield Create Epic,task,creation,Agent;Worker,task;creation;brownfield;create;epic,.aios-core/development/tasks/brownfield-create-epic.md,active
+brownfield-create-story,Brownfield Create Story,task,creation,Agent;Worker,task;creation;brownfield;create;story;product,.aios-core/development/tasks/brownfield-create-story.md,active
+build-component,Build Component,task,general,Agent;Worker,task;general;build;component;product,.aios-core/development/tasks/build-component.md,active
+calculate-roi,Calculate Roi,task,general,Agent;Worker,task;general;calculate;roi,.aios-core/development/tasks/calculate-roi.md,active
+ci-cd-configuration,Ci Cd Configuration,task,general,Agent;Worker,task;general;configuration,.aios-core/development/tasks/ci-cd-configuration.md,active
+cleanup-utilities,Cleanup Utilities,task,general,Agent;Worker,task;general;cleanup;utilities,.aios-core/development/tasks/cleanup-utilities.md,active
+collaborative-edit,Collaborative Edit,task,modification,Agent;Worker,task;modification;collaborative;edit,.aios-core/development/tasks/collaborative-edit.md,active
+compose-molecule,Compose Molecule,task,general,Agent;Worker,task;general;compose;molecule;product,.aios-core/development/tasks/compose-molecule.md,active
+consolidate-patterns,Consolidate Patterns,task,general,Agent;Worker,task;general;consolidate;patterns,.aios-core/development/tasks/consolidate-patterns.md,active
+correct-course,Correct Course,task,general,Agent;Worker,task;general;correct;course,.aios-core/development/tasks/correct-course.md,active
+create-agent,Create Agent,task,creation,Agent;Worker,task;creation;create;agent,.aios-core/development/tasks/create-agent.md,active
+create-brownfield-story,Create Brownfield Story,task,creation,Agent;Worker,task;creation;create;brownfield;story;product,.aios-core/development/tasks/create-brownfield-story.md,active
+create-deep-research-prompt,Create Deep Research Prompt,task,creation,Agent;Worker,task;creation;create;deep;research;prompt,.aios-core/development/tasks/create-deep-research-prompt.md,active
+create-doc,Create Doc,task,creation,Agent;Worker,task;creation;create;doc,.aios-core/development/tasks/create-doc.md,active
+create-next-story,Create Next Story,task,creation,Agent;Worker,task;creation;create;next;story;product,.aios-core/development/tasks/create-next-story.md,active
+create-suite,Create Suite,task,creation,Agent;Worker,task;creation;create;suite,.aios-core/development/tasks/create-suite.md,active
+create-task,Create Task,task,creation,Agent;Worker,task;creation;create,.aios-core/development/tasks/create-task.md,active
+create-workflow,Create Workflow,task,creation,Agent;Worker,task;creation;create;workflow,.aios-core/development/tasks/create-workflow.md,active
+db-analyze-hotpaths,Db Analyze Hotpaths,task,analysis,Agent;Worker,task;analysis;analyze;hotpaths;database,.aios-core/development/tasks/db-analyze-hotpaths.md,active
+db-apply-migration,Db Apply Migration,task,general,Agent;Worker,task;general;apply;migration;database,.aios-core/development/tasks/db-apply-migration.md,active
+db-bootstrap,Db Bootstrap,task,general,Agent;Worker,task;general;bootstrap;database,.aios-core/development/tasks/db-bootstrap.md,active
+db-domain-modeling,Db Domain Modeling,task,general,Agent;Worker,task;general;domain;modeling;database,.aios-core/development/tasks/db-domain-modeling.md,active
+db-dry-run,Db Dry Run,task,general,Agent;Worker,task;general;dry;run;database,.aios-core/development/tasks/db-dry-run.md,active
+db-env-check,Db Env Check,task,general,Agent;Worker,task;general;env;check;database;validation,.aios-core/development/tasks/db-env-check.md,active
+db-expansion-pack-integration,Db Expansion Pack Integration,task,general,Agent;Worker,task;general;expansion;pack;integration;database,.aios-core/development/tasks/db-expansion-pack-integration.md,active
+db-explain,Db Explain,task,general,Agent;Worker,task;general;explain;database,.aios-core/development/tasks/db-explain.md,active
+db-impersonate,Db Impersonate,task,general,Agent;Worker,task;general;impersonate;database,.aios-core/development/tasks/db-impersonate.md,active
+db-load-csv,Db Load Csv,task,general,Agent;Worker,task;general;load;csv;database,.aios-core/development/tasks/db-load-csv.md,active
+db-policy-apply,Db Policy Apply,task,general,Agent;Worker,task;general;policy;apply;database;product,.aios-core/development/tasks/db-policy-apply.md,active
+db-rls-audit,Db Rls Audit,task,validation,Agent;Worker,task;validation;rls;audit;database;analysis,.aios-core/development/tasks/db-rls-audit.md,active
+db-rollback,Db Rollback,task,general,Agent;Worker,task;general;rollback;database,.aios-core/development/tasks/db-rollback.md,active
+db-run-sql,Db Run Sql,task,general,Agent;Worker,task;general;run;sql;database,.aios-core/development/tasks/db-run-sql.md,active
+db-schema-audit,Db Schema Audit,task,validation,Agent;Worker,task;validation;schema;audit;database;analysis,.aios-core/development/tasks/db-schema-audit.md,active
+db-seed,Db Seed,task,general,Agent;Worker,task;general;seed;database,.aios-core/development/tasks/db-seed.md,active
+db-smoke-test,Db Smoke Test,task,general,Agent;Worker,task;general;smoke;test;testing;database,.aios-core/development/tasks/db-smoke-test.md,active
+db-snapshot,Db Snapshot,task,general,Agent;Worker,task;general;snapshot;database,.aios-core/development/tasks/db-snapshot.md,active
+db-supabase-setup,Db Supabase Setup,task,general,Agent;Worker,task;general;supabase;setup;database,.aios-core/development/tasks/db-supabase-setup.md,active
+db-verify-order,Db Verify Order,task,general,Agent;Worker,task;general;verify;order;database,.aios-core/development/tasks/db-verify-order.md,active
+deprecate-component,Deprecate Component,task,general,Agent;Worker,task;general;deprecate;component;product,.aios-core/development/tasks/deprecate-component.md,active
+dev-apply-qa-fixes,Dev Apply Qa Fixes,task,general,Agent;Worker,task;general;dev;apply;fixes;testing;development,.aios-core/development/tasks/dev-apply-qa-fixes.md,active
+dev-backlog-debt,Dev Backlog Debt,task,general,Agent;Worker,task;general;dev;backlog;debt;development,.aios-core/development/tasks/dev-backlog-debt.md,active
+dev-develop-story,Dev Develop Story,task,general,Agent;Worker,task;general;dev;develop;story;development;product,.aios-core/development/tasks/dev-develop-story.md,active
+dev-improve-code-quality,Dev Improve Code Quality,task,general,Agent;Worker,task;general;dev;improve;code;quality;development,.aios-core/development/tasks/dev-improve-code-quality.md,active
+dev-optimize-performance,Dev Optimize Performance,task,general,Agent;Worker,task;general;dev;optimize;performance;development,.aios-core/development/tasks/dev-optimize-performance.md,active
+dev-suggest-refactoring,Dev Suggest Refactoring,task,general,Agent;Worker,task;general;dev;suggest;refactoring;development,.aios-core/development/tasks/dev-suggest-refactoring.md,active
+dev-validate-next-story,Dev Validate Next Story,task,validation,Agent;Worker,task;validation;dev;validate;next;story;development;product,.aios-core/development/tasks/dev-validate-next-story.md,active
+document-project,Document Project,task,general,Agent;Worker,task;general;document;project,.aios-core/development/tasks/document-project.md,active
+execute-checklist,Execute Checklist,task,general,Agent;Worker,task;general;execute;checklist;validation,.aios-core/development/tasks/execute-checklist.md,active
+export-design-tokens-dtcg,Export Design Tokens Dtcg,task,general,Agent;Worker,task;general;export;design;tokens;dtcg;product,.aios-core/development/tasks/export-design-tokens-dtcg.md,active
+extend-pattern,Extend Pattern,task,general,Agent;Worker,task;general;extend;pattern,.aios-core/development/tasks/extend-pattern.md,active
+extract-tokens,Extract Tokens,task,general,Agent;Worker,task;general;extract;tokens,.aios-core/development/tasks/extract-tokens.md,active
+facilitate-brainstorming-session,Facilitate Brainstorming Session,task,general,Agent;Worker,task;general;facilitate;brainstorming;session,.aios-core/development/tasks/facilitate-brainstorming-session.md,active
+generate-ai-frontend-prompt,Generate Ai Frontend Prompt,task,general,Agent;Worker,task;general;generate;frontend;prompt;creation,.aios-core/development/tasks/generate-ai-frontend-prompt.md,active
+generate-documentation,Generate Documentation,task,general,Agent;Worker,task;general;generate;documentation;creation,.aios-core/development/tasks/generate-documentation.md,active
+generate-migration-strategy,Generate Migration Strategy,task,general,Agent;Worker,task;general;generate;migration;strategy;creation,.aios-core/development/tasks/generate-migration-strategy.md,active
+generate-shock-report,Generate Shock Report,task,general,Agent;Worker,task;general;generate;shock;report;creation;product,.aios-core/development/tasks/generate-shock-report.md,active
+github-devops-github-pr-automation,Github Devops Github Pr Automation,task,general,Agent;Worker,task;general;github;devops;automation;development;git,.aios-core/development/tasks/github-devops-github-pr-automation.md,active
+github-devops-pre-push-quality-gate,Github Devops Pre Push Quality Gate,task,general,Agent;Worker,task;general;github;devops;pre;push;quality;gate;development;git,.aios-core/development/tasks/github-devops-pre-push-quality-gate.md,active
+github-devops-repository-cleanup,Github Devops Repository Cleanup,task,general,Agent;Worker,task;general;github;devops;repository;cleanup;development;product;git,.aios-core/development/tasks/github-devops-repository-cleanup.md,active
+github-devops-version-management,Github Devops Version Management,task,general,Agent;Worker,task;general;github;devops;version;management;development;git,.aios-core/development/tasks/github-devops-version-management.md,active
+improve-self,Improve Self,task,general,Agent;Worker,task;general;improve;self,.aios-core/development/tasks/improve-self.md,active
+index-docs,Index Docs,task,general,Agent;Worker,task;general;index;docs,.aios-core/development/tasks/index-docs.md,active
+init-project-status,Init Project Status,task,general,Agent;Worker,task;general;init;project;status,.aios-core/development/tasks/init-project-status.md,active
+integrate-expansion-pack,Integrate Expansion Pack,task,general,Agent;Worker,task;general;integrate;expansion;pack,.aios-core/development/tasks/integrate-expansion-pack.md,active
+kb-mode-interaction,Kb Mode Interaction,task,general,Agent;Worker,task;general;mode;interaction,.aios-core/development/tasks/kb-mode-interaction.md,active
+learn-patterns,Learn Patterns,task,general,Agent;Worker,task;general;learn;patterns,.aios-core/development/tasks/learn-patterns.md,active
+modify-agent,Modify Agent,task,modification,Agent;Worker,task;modification;modify;agent,.aios-core/development/tasks/modify-agent.md,active
+modify-task,Modify Task,task,modification,Agent;Worker,task;modification;modify,.aios-core/development/tasks/modify-task.md,active
+modify-workflow,Modify Workflow,task,modification,Agent;Worker,task;modification;modify;workflow,.aios-core/development/tasks/modify-workflow.md,active
+po-backlog-add,Po Backlog Add,task,general,Agent;Worker,task;general;backlog;add;product,.aios-core/development/tasks/po-backlog-add.md,active
+po-manage-story-backlog,Po Manage Story Backlog,task,general,Agent;Worker,task;general;manage;story;backlog;product,.aios-core/development/tasks/po-manage-story-backlog.md,active
+po-pull-story,Po Pull Story,task,general,Agent;Worker,task;general;pull;story;product,.aios-core/development/tasks/po-pull-story.md,active
+po-pull-story-from-clickup,Po Pull Story From Clickup,task,general,Agent;Worker,task;general;pull;story;from;clickup;product,.aios-core/development/tasks/po-pull-story-from-clickup.md,active
+po-stories-index,Po Stories Index,task,general,Agent;Worker,task;general;stories;index;product,.aios-core/development/tasks/po-stories-index.md,active
+po-sync-story,Po Sync Story,task,general,Agent;Worker,task;general;sync;story;product,.aios-core/development/tasks/po-sync-story.md,active
+po-sync-story-to-clickup,Po Sync Story To Clickup,task,general,Agent;Worker,task;general;sync;story;clickup;product,.aios-core/development/tasks/po-sync-story-to-clickup.md,active
+pr-automation,Pr Automation,task,general,Agent;Worker,task;general;automation,.aios-core/development/tasks/pr-automation.md,active
+propose-modification,Propose Modification,task,general,Agent;Worker,task;general;propose;modification;product,.aios-core/development/tasks/propose-modification.md,active
+qa-backlog-add-followup,Qa Backlog Add Followup,task,general,Agent;Worker,task;general;backlog;add;followup;testing,.aios-core/development/tasks/qa-backlog-add-followup.md,active
+qa-gate,Qa Gate,task,general,Agent;Worker,task;general;gate;testing,.aios-core/development/tasks/qa-gate.md,active
+qa-generate-tests,Qa Generate Tests,task,general,Agent;Worker,task;general;generate;tests;testing;creation,.aios-core/development/tasks/qa-generate-tests.md,active
+qa-nfr-assess,Qa Nfr Assess,task,general,Agent;Worker,task;general;nfr;assess;testing,.aios-core/development/tasks/qa-nfr-assess.md,active
+qa-review-proposal,Qa Review Proposal,task,general,Agent;Worker,task;general;review;proposal;testing;product,.aios-core/development/tasks/qa-review-proposal.md,active
+qa-review-story,Qa Review Story,task,general,Agent;Worker,task;general;review;story;testing;product,.aios-core/development/tasks/qa-review-story.md,active
+qa-risk-profile,Qa Risk Profile,task,general,Agent;Worker,task;general;risk;profile;testing,.aios-core/development/tasks/qa-risk-profile.md,active
+qa-run-tests,Qa Run Tests,task,general,Agent;Worker,task;general;run;tests;testing,.aios-core/development/tasks/qa-run-tests.md,active
+qa-test-design,Qa Test Design,task,general,Agent;Worker,task;general;test;design;testing,.aios-core/development/tasks/qa-test-design.md,active
+qa-trace-requirements,Qa Trace Requirements,task,general,Agent;Worker,task;general;trace;requirements;testing,.aios-core/development/tasks/qa-trace-requirements.md,active
+release-management,Release Management,task,general,Agent;Worker,task;general;release;management,.aios-core/development/tasks/release-management.md,active
+security-audit,Security Audit,task,validation,Agent;Worker,task;validation;security;audit;analysis,.aios-core/development/tasks/security-audit.md,active
+security-scan,Security Scan,task,general,Agent;Worker,task;general;security;scan,.aios-core/development/tasks/security-scan.md,active
+setup-database,Setup Database,task,general,Agent;Worker,task;general;setup;database,.aios-core/development/tasks/setup-database.md,active
+setup-design-system,Setup Design System,task,general,Agent;Worker,task;general;setup;design;system,.aios-core/development/tasks/setup-design-system.md,active
+shard-doc,Shard Doc,task,general,Agent;Worker,task;general;shard;doc,.aios-core/development/tasks/shard-doc.md,active
+sm-create-next-story,Sm Create Next Story,task,creation,Agent;Worker,task;creation;create;next;story;product,.aios-core/development/tasks/sm-create-next-story.md,active
+sync-documentation,Sync Documentation,task,general,Agent;Worker,task;general;sync;documentation,.aios-core/development/tasks/sync-documentation.md,active
+tailwind-upgrade,Tailwind Upgrade,task,general,Agent;Worker,task;general;tailwind;upgrade,.aios-core/development/tasks/tailwind-upgrade.md,active
+test-as-user,Test As User,task,general,Agent;Worker,task;general;test;user;testing,.aios-core/development/tasks/test-as-user.md,active
+test-validation-task,Test Validation Task,task,general,Agent;Worker,task;general;test;validation;testing,.aios-core/development/tasks/test-validation-task.md,active
+undo-last,Undo Last,task,general,Agent;Worker,task;general;undo;last,.aios-core/development/tasks/undo-last.md,active
+update-manifest,Update Manifest,task,general,Agent;Worker,task;general;update;manifest,.aios-core/development/tasks/update-manifest.md,active
+ux-create-wireframe,Ux Create Wireframe,task,creation,Agent;Worker,task;creation;create;wireframe,.aios-core/development/tasks/ux-create-wireframe.md,active
+ux-ds-scan-artifact,Ux Ds Scan Artifact,task,general,Agent;Worker,task;general;scan;artifact,.aios-core/development/tasks/ux-ds-scan-artifact.md,active
+ux-user-research,Ux User Research,task,general,Agent;Worker,task;general;user;research,.aios-core/development/tasks/ux-user-research.md,active
+validate-next-story,Validate Next Story,task,validation,Agent;Worker,task;validation;validate;next;story;product,.aios-core/development/tasks/validate-next-story.md,active
+activation-instructions-template,Activation Instructions Template,template,document,Agent,template;document;activation;instructions,.aios-core/product/templates/activation-instructions-template.md,active
+antigravity-rules,Antigravity Rules,template,ide-rules,Agent,template;ide-rules;antigravity;rules,.aios-core/product/templates/ide-rules/antigravity-rules.md,active
+claude-rules,Claude Rules,template,ide-rules,Agent,template;ide-rules;claude;rules,.aios-core/product/templates/ide-rules/claude-rules.md,active
+cline-rules,Cline Rules,template,ide-rules,Agent,template;ide-rules;cline;rules,.aios-core/product/templates/ide-rules/cline-rules.md,active
+command-rationalization-matrix,Command Rationalization Matrix,template,document,Agent,template;document;command;rationalization;matrix,.aios-core/product/templates/command-rationalization-matrix.md,active
+copilot-rules,Copilot Rules,template,ide-rules,Agent,template;ide-rules;copilot;rules,.aios-core/product/templates/ide-rules/copilot-rules.md,active
+cursor-rules,Cursor Rules,template,ide-rules,Agent,template;ide-rules;cursor;rules,.aios-core/product/templates/ide-rules/cursor-rules.md,active
+ds-artifact-analysis,Ds Artifact Analysis,template,document,Agent,template;document;artifact;analysis,.aios-core/product/templates/ds-artifact-analysis.md,active
+gemini-rules,Gemini Rules,template,ide-rules,Agent,template;ide-rules;gemini;rules,.aios-core/product/templates/ide-rules/gemini-rules.md,active
+migration-strategy-tmpl,Migration Strategy Tmpl,template,document,Agent,template;document;migration;strategy;tmpl,.aios-core/product/templates/migration-strategy-tmpl.md,active
+personalized-agent-template,Personalized Agent Template,template,personalized,Agent,template;personalized;agent,.aios-core/product/templates/personalized-agent-template.md,active
+personalized-checklist-template,Personalized Checklist Template,template,personalized,Agent,template;personalized;checklist;validation,.aios-core/product/templates/personalized-checklist-template.md,active
+personalized-task-template,Personalized Task Template,template,personalized,Agent,template;personalized;task,.aios-core/product/templates/personalized-task-template.md,active
+personalized-task-template-v2,Personalized Task Template V2,template,personalized,Agent,template;personalized;task,.aios-core/product/templates/personalized-task-template-v2.md,active
+roo-rules,Roo Rules,template,ide-rules,Agent,template;ide-rules;roo;rules,.aios-core/product/templates/ide-rules/roo-rules.md,active
+task-execution-report,Task Execution Report,template,document,Agent,template;document;task;execution;report;product,.aios-core/product/templates/task-execution-report.md,active
+task-template,Task Template,template,document,Agent,template;document;task,.aios-core/product/templates/task-template.md,active
+trae-rules,Trae Rules,template,ide-rules,Agent,template;ide-rules;trae;rules,.aios-core/product/templates/ide-rules/trae-rules.md,active
+windsurf-rules,Windsurf Rules,template,ide-rules,Agent,template;ide-rules;windsurf;rules,.aios-core/product/templates/ide-rules/windsurf-rules.md,active
+brownfield-fullstack,Brownfield Fullstack,workflow,brownfield,Agent;Worker,workflow;brownfield;fullstack,.aios-core/development/workflows/brownfield-fullstack.yaml,active
+brownfield-service,Brownfield Service,workflow,brownfield,Agent;Worker,workflow;brownfield;service,.aios-core/development/workflows/brownfield-service.yaml,active
+brownfield-ui,Brownfield Ui,workflow,brownfield,Agent;Worker,workflow;brownfield,.aios-core/development/workflows/brownfield-ui.yaml,active
+greenfield-fullstack,Greenfield Fullstack,workflow,greenfield,Agent;Worker,workflow;greenfield;fullstack,.aios-core/development/workflows/greenfield-fullstack.yaml,active
+greenfield-service,Greenfield Service,workflow,greenfield,Agent;Worker,workflow;greenfield;service,.aios-core/development/workflows/greenfield-service.yaml,active
+greenfield-ui,Greenfield Ui,workflow,greenfield,Agent;Worker,workflow;greenfield,.aios-core/development/workflows/greenfield-ui.yaml,active

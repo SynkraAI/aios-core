@@ -1,0 +1,224 @@
+tool:
+  schema_version: 1.0
+  id: supabase-cli
+  type: cli
+  name: Supabase CLI
+  version: 1.0.0
+  description: Official Supabase command-line interface for local development, database migrations, Edge Functions, and project management
+  knowledge_strategy: declarative
+
+  capabilities:
+    - Local Supabase stack (PostgreSQL, Auth, Storage, Realtime)
+    - Database migrations and version control
+    - Edge Functions development and deployment
+    - Database diff and schema comparison
+    - Type generation for TypeScript
+    - Project linking and management
+    - Self-hosting setup
+
+  use_cases:
+    - local_development: "Run full Supabase stack locally with Docker"
+    - migration_management: "Create and apply database migrations"
+    - edge_functions: "Develop and deploy serverless functions"
+    - type_safety: "Generate TypeScript types from database schema"
+    - schema_diffing: "Compare local and remote database schemas"
+    - project_setup: "Initialize and configure Supabase projects"
+
+  installation:
+    npm: "npm install -g supabase"
+    homebrew: "brew install supabase/tap/supabase"
+    scoop: "scoop bucket add supabase https://github.com/supabase/scoop-bucket.git && scoop install supabase"
+
+  cli_specific:
+    executable: "supabase"
+    configuration:
+      config_file: "supabase/config.toml"
+      migrations_dir: "supabase/migrations"
+      functions_dir: "supabase/functions"
+      seed_file: "supabase/seed.sql"
+
+  command_groups:
+    initialization:
+      - command: "supabase init"
+        description: "Initialize a new Supabase project"
+        creates:
+          - "supabase/config.toml"
+          - "supabase/.gitignore"
+
+      - command: "supabase link"
+        description: "Link to a remote Supabase project"
+        common_flags:
+          - "--project-ref"
+        notes:
+          - "Requires Supabase access token"
+          - "Creates .env with SUPABASE_ACCESS_TOKEN"
+
+    local_development:
+      - command: "supabase start"
+        description: "Start local Supabase stack"
+        requirements:
+          - "Docker Desktop running"
+        provides:
+          - "PostgreSQL on localhost:54322"
+          - "Studio UI on http://localhost:54323"
+          - "Kong API Gateway on localhost:54321"
+          - "Inbucket email testing on localhost:54324"
+
+      - command: "supabase stop"
+        description: "Stop local Supabase stack"
+        common_flags:
+          - "--no-backup (skip backup before stopping)"
+
+      - command: "supabase status"
+        description: "Show status of local services"
+        output:
+          - "Service URLs and credentials"
+          - "API keys (anon, service_role)"
+
+    database_migrations:
+      - command: "supabase db diff"
+        description: "Generate migration from schema changes"
+        common_flags:
+          - "--file MIGRATION_NAME"
+          - "--schema public"
+        workflow:
+          - "Make schema changes in local database"
+          - "Run db diff to generate migration SQL"
+          - "Review and commit migration file"
+
+      - command: "supabase migration new"
+        description: "Create a new empty migration file"
+        usage: "supabase migration new MIGRATION_NAME"
+        generates: "supabase/migrations/YYYYMMDDHHMMSS_migration_name.sql"
+
+      - command: "supabase db push"
+        description: "Push local migrations to remote database"
+        common_flags:
+          - "--dry-run (preview without applying)"
+        notes:
+          - "Applies all pending migrations"
+          - "Requires linked project"
+
+      - command: "supabase db reset"
+        description: "Reset local database and reapply migrations"
+        common_flags:
+          - "--db-url (specify database URL)"
+        warning: "Destructive - drops all data"
+
+    edge_functions:
+      - command: "supabase functions new"
+        description: "Create a new Edge Function"
+        usage: "supabase functions new FUNCTION_NAME"
+        creates: "supabase/functions/FUNCTION_NAME/index.ts"
+
+      - command: "supabase functions serve"
+        description: "Serve Edge Functions locally"
+        common_flags:
+          - "--env-file (load environment variables)"
+          - "--no-verify-jwt (disable JWT verification)"
+        runs_on: "http://localhost:54321/functions/v1/FUNCTION_NAME"
+
+      - command: "supabase functions deploy"
+        description: "Deploy Edge Functions to remote project"
+        usage: "supabase functions deploy FUNCTION_NAME"
+        common_flags:
+          - "--no-verify-jwt"
+
+    type_generation:
+      - command: "supabase gen types typescript"
+        description: "Generate TypeScript types from database schema"
+        common_flags:
+          - "--local (use local database)"
+          - "--project-id PROJECT_REF (use remote project)"
+          - "--schema public"
+        output: "TypeScript definitions for database tables and views"
+        usage_example: "supabase gen types typescript --local > database.types.ts"
+
+    testing:
+      - command: "supabase db test"
+        description: "Run pgTAP tests"
+        requirements:
+          - "pgTAP extension enabled"
+          - "Test files in supabase/tests/"
+
+    secrets:
+      - command: "supabase secrets set"
+        description: "Set secrets for Edge Functions"
+        usage: "supabase secrets set KEY=VALUE"
+        notes:
+          - "Secrets available in Edge Functions via Deno.env"
+
+      - command: "supabase secrets list"
+        description: "List all secrets"
+
+  workflow_patterns:
+    feature_development:
+      - step: 1
+        action: "supabase start"
+        purpose: "Start local stack"
+      - step: 2
+        action: "Make schema changes in Studio or SQL"
+        purpose: "Develop feature"
+      - step: 3
+        action: "supabase db diff --file feature_name"
+        purpose: "Generate migration"
+      - step: 4
+        action: "supabase db reset"
+        purpose: "Test migration"
+      - step: 5
+        action: "supabase db push"
+        purpose: "Deploy to remote"
+
+    edge_function_development:
+      - step: 1
+        action: "supabase functions new my_function"
+        purpose: "Create function"
+      - step: 2
+        action: "Edit supabase/functions/my_function/index.ts"
+        purpose: "Implement logic"
+      - step: 3
+        action: "supabase functions serve"
+        purpose: "Test locally"
+      - step: 4
+        action: "supabase functions deploy my_function"
+        purpose: "Deploy to remote"
+
+  best_practices:
+    - "Always version control supabase/migrations directory"
+    - "Use db diff instead of manual migration writing"
+    - "Test migrations with db reset before pushing"
+    - "Keep migrations small and atomic"
+    - "Use descriptive migration names"
+    - "Generate types after schema changes"
+    - "Store secrets in proper environment, not in code"
+    - "Use --dry-run flag before db push"
+
+  authentication:
+    access_token:
+      purpose: "Required for linking and remote operations"
+      obtain: "From Supabase Dashboard > Account > Access Tokens"
+      env_var: "SUPABASE_ACCESS_TOKEN"
+      scope: "Project-level access"
+
+  common_issues:
+    docker_not_running:
+      error: "Cannot connect to Docker daemon"
+      solution: "Start Docker Desktop before running supabase start"
+
+    port_conflicts:
+      error: "Port already in use"
+      solution: "Stop conflicting services or change ports in config.toml"
+
+    migration_conflicts:
+      error: "Migration conflict detected"
+      solution: "Resolve conflicts in migration files, ensure proper ordering"
+
+    outdated_cli:
+      error: "CLI version too old"
+      solution: "Update CLI: npm update -g supabase or brew upgrade supabase"
+
+  limitations:
+    - "Requires Docker for local development"
+    - "Some features may differ between local and remote"
+    - "Edge Functions use Deno runtime (not Node.js)"
+    - "Migration rollback requires manual SQL"

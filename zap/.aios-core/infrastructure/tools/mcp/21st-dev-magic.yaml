@@ -1,0 +1,127 @@
+tool:
+  schema_version: 1.0
+  id: 21st-dev-magic
+  type: mcp
+  name: 21st.dev Magic UI
+  version: 1.0.0
+  description: AI-powered UI component builder and design system for creating React components, finding UI inspiration, and searching for logos
+  knowledge_strategy: declarative
+
+  capabilities:
+    - Generate React UI components from descriptions
+    - Search and retrieve UI component examples
+    - Refine and improve existing UI components
+    - Search and retrieve brand logos (JSX, TSX, SVG formats)
+    - Access component library for inspiration
+    - Generate production-ready component code
+
+  use_cases:
+    - component_creation: "Generate new UI components from descriptions"
+    - component_refinement: "Improve and redesign existing components"
+    - ui_inspiration: "Browse component examples for design ideas"
+    - logo_integration: "Add brand logos to projects"
+    - design_system: "Build consistent UI component libraries"
+
+  mcp_specific:
+    server_command: "npx -y @21st-dev/mcp-server"
+    transport: stdio
+    environment_variables: []
+    health_check:
+      method: tool_call
+      command: 21st_magic_component_builder
+      expected_response: "Component code snippet"
+      timeout_ms: 15000
+
+  tools:
+    - id: 21st_magic_component_builder
+      description: "Generate UI component from user request (triggered by /ui, /21, /21st commands)"
+      parameters:
+        - message: "Full user's message describing the component"
+        - searchQuery: "2-4 word search query for 21st.dev library"
+        - absolutePathToCurrentFile: "Absolute path to file where component will be used"
+        - absolutePathToProjectDirectory: "Absolute path to project root"
+        - standaloneRequestQuery: "Extracted context about what component to create"
+      notes:
+        - "Only returns text snippet - you must edit/add files to integrate"
+        - "Triggered when user mentions /ui, /21, /21st or requests buttons, inputs, dialogs, etc."
+
+    - id: 21st_magic_component_inspiration
+      description: "Fetch component data and previews from 21st.dev for inspiration"
+      parameters:
+        - message: "Full user's message"
+        - searchQuery: "2-4 word search query for component examples"
+      notes:
+        - "Returns JSON data of matching components"
+        - "Does not generate new code, only retrieves examples"
+        - "Use when user wants to see examples or get inspiration"
+
+    - id: 21st_magic_component_refiner
+      description: "Re-design/refine/improve existing UI component"
+      parameters:
+        - userMessage: "Full user's message about UI refinement"
+        - absolutePathToRefiningFile: "Absolute path to file needing refinement"
+        - context: "Specific UI elements and aspects to improve"
+      notes:
+        - "For improving existing components, not creating new ones"
+        - "Triggered by /ui or /21 commands with refinement context"
+        - "Returns redesigned version with implementation instructions"
+
+    - id: logo_search
+      description: "Search and return brand logos in specified format"
+      parameters:
+        - queries: "Array of company names to search for"
+        - format: "Output format (JSX, TSX, or SVG)"
+      notes:
+        - "Triggered by /logo command or requests to add company logos"
+        - "Supports single or multiple logo searches"
+        - "Can return logos in different themes (light/dark) if available"
+      examples:
+        - "Single: queries: ['discord'], format: 'TSX'"
+        - "Multiple: queries: ['discord', 'github', 'slack'], format: 'JSX'"
+        - "Command: '/logo GitHub' → queries: ['github']"
+
+  workflow:
+    creating_component:
+      - step: 1
+        action: "User requests component (e.g., 'create a button' or '/ui button')"
+      - step: 2
+        action: "Call 21st_magic_component_builder with description"
+      - step: 3
+        action: "Receive component code snippet"
+      - step: 4
+        action: "Edit/add files to integrate snippet into codebase"
+
+    refining_component:
+      - step: 1
+        action: "User requests improvement (e.g., '/ui improve this button')"
+      - step: 2
+        action: "Call 21st_magic_component_refiner with file path and context"
+      - step: 3
+        action: "Receive redesigned version"
+      - step: 4
+        action: "Apply changes to existing file"
+
+    adding_logo:
+      - step: 1
+        action: "User requests logo (e.g., '/logo Discord' or 'add Discord logo')"
+      - step: 2
+        action: "Call logo_search with company name(s)"
+      - step: 3
+        action: "Receive logo component code"
+      - step: 4
+        action: "Integrate into project"
+
+  best_practices:
+    - "Use /ui or /21 prefix for explicit component requests"
+    - "Provide clear, specific descriptions for better component generation"
+    - "Use logo_search for brand logos rather than creating from scratch"
+    - "Always integrate returned snippets into actual files"
+    - "Use component_inspiration to explore options before building"
+    - "Specify format (JSX/TSX) based on project setup"
+
+  limitations:
+    - "Tools only return code snippets, not complete files"
+    - "Requires manual integration into codebase"
+    - "Component quality depends on description clarity"
+    - "Logo availability depends on 21st.dev database"
+    - "May require styling adjustments for project theme"
