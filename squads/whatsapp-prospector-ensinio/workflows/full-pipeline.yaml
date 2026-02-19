@@ -1,0 +1,285 @@
+# Full Pipeline Workflow
+# Parse WhatsApp export -> Validate -> Analyze -> Write -> Validate -> Populate Sheets
+name: full-pipeline
+version: "2.0.0"
+description: "Pipeline completo de prospeccao: ZIP WhatsApp -> Google Sheets com mensagens personalizadas"
+
+trigger:
+  command: "*full-pipeline {zip_path} {group_name}"
+  inputs:
+    - name: zip_path
+      type: string
+      required: true
+      description: "Path to WhatsApp ZIP export file"
+    - name: group_name
+      type: string
+      required: true
+      description: "Name of the WhatsApp group"
+
+# Global pipeline configuration
+pipeline_config:
+  max_contacts: 500
+  min_score_threshold: 3
+  max_rework_iterations: 2
+  progress_reporting: true
+  progress_interval: "10%"
+
+# Retry policy for transient failures
+retry_policy:
+  max_retries: 2
+  backoff: exponential
+  initial_delay_seconds: 5
+  retryable_errors:
+    - "timeout"
+    - "rate_limit"
+    - "temporary_unavailable"
+
+phases:
+  - id: phase-1-parse
+    name: "Parse WhatsApp Export"
+    agent: chat-parser
+    model: haiku
+    task: tasks/parse-chat-export.md
+    timeout_minutes: 10
+    inputs:
+      - zip_path
+      - group_name
+    outputs:
+      - parsed_contacts
+      - group_metadata
+    veto_conditions:
+      - condition: "ZIP file does not exist"
+        severity: BLOCKING
+        action: HALT
+      - condition: "ZIP file is corrupted"
+        severity: BLOCKING
+        action: HALT
+    description: |
+      Extrair do ZIP todos os contatos e mensagens.
+      Agrupar por remetente, extrair telefones, filtrar sistema.
+    on_failure:
+      task: tasks/handle-parse-errors.md
+      agent: chat-parser
+      model: haiku
+    rollback: "No rollback needed - read-only operation"
+
+  - id: phase-1b-validate-parse
+    name: "Validate Parsed Data"
+    agent: chat-parser
+    model: haiku
+    task: tasks/validate-parsed-data.md
+    timeout_minutes: 5
+    depends_on:
+      - phase-1-parse
+    inputs:
+      - parsed_contacts
+      - group_metadata
+    outputs:
+      - validation_report
+      - quality_metrics
+    quality_gate: QG-001
+    veto_conditions:
+      - condition: "0 contacts extracted"
+        severity: BLOCKING
+        action: HALT
+      - condition: "< 10 non-system messages"
+        severity: BLOCKING
+        action: HALT
+      - condition: "Phone coverage < 50%"
+        severity: WARNING
+        action: LOG_AND_CONTINUE
+    description: |
+      Validar integridade dos dados parseados.
+      Checklist de qualidade pos-extracao.
+      Se FAIL, acionar handle-parse-errors.
+    on_failure:
+      task: tasks/handle-parse-errors.md
+      agent: chat-parser
+      model: haiku
+    rollback: "Re-parse with different encoding if format issue"
+
+  - id: phase-2-load-kb
+    name: "Load Ensinio Knowledge Base"
+    agent: prospector-chief
+    model: sonnet
+    task: tasks/load-ensinio-kb.md
+    timeout_minutes: 5
+    parallel_with: phase-1-parse
+    outputs:
+      - ensinio_kb
+    veto_conditions:
+      - condition: "KB source file not found"
+        severity: BLOCKING
+        action: HALT
+      - condition: "KB file is empty"
+        severity: BLOCKING
+        action: HALT
+      - condition: "Not all 5 pillars detected"
+        severity: WARNING
+        action: LOG_AND_CONTINUE
+    description: |
+      Carregar e estruturar os 5 pilares de solucao Ensinio (67 features).
+      Source: data/ensinio-solutions-kb.md
+      Pode rodar em paralelo com o parsing.
+    rollback: "No rollback needed - read-only operation"
+
+  - id: phase-3-analyze
+    name: "Analyze & Score Prospects"
+    agent: prospect-analyst
+    model: sonnet
+    task: tasks/analyze-prospects.md
+    timeout_minutes: 30
+    depends_on:
+      - phase-1b-validate-parse
+      - phase-2-load-kb
+    inputs:
+      - parsed_contacts
+      - ensinio_kb
+    outputs:
+      - scored_prospects
+    quality_gate: QG-002
+    veto_conditions:
+      - condition: "Parsed contacts not available"
+        severity: BLOCKING
+        action: HALT
+      - condition: "KB not loaded"
+        severity: BLOCKING
+        action: HALT
+      - condition: "> 50% contacts have no phone"
+        severity: WARNING
+        action: LOG_AND_CONTINUE
+    description: |
+      Cruzar cada contato com solucoes Ensinio.
+      Scoring de temperatura (1-10).
+      Classificar: cliente potencial vs parceiro.
+      Filtrar score >= 3.
+    rollback: "Re-analyze with adjusted scoring criteria"
+
+  - id: phase-3b-validate-scoring
+    name: "Validate Scoring Quality"
+    agent: prospector-chief
+    model: sonnet
+    task: checklists/scoring-validation-checklist.md
+    timeout_minutes: 5
+    depends_on:
+      - phase-3-analyze
+    inputs:
+      - scored_prospects
+    outputs:
+      - scoring_validation_report
+    quality_gate: QG-002.5
+    veto_conditions:
+      - condition: "Score distribution is uniform (all same score)"
+        severity: WARNING
+        action: LOG_AND_CONTINUE
+      - condition: "No prospects with score >= 3"
+        severity: BLOCKING
+        action: HALT
+    description: |
+      Validar qualidade do scoring.
+      Verificar distribuicao de scores.
+      Sanity check de classificacao.
+
+  - id: phase-4-write
+    name: "Write Personalized Messages"
+    agent: outreach-writer
+    model: opus
+    task: tasks/write-outreach.md
+    timeout_minutes: 45
+    depends_on:
+      - phase-3b-validate-scoring
+    inputs:
+      - scored_prospects
+    outputs:
+      - messages_with_links
+    veto_conditions:
+      - condition: "Prospect analysis not available"
+        severity: BLOCKING
+        action: HALT
+      - condition: "Message rules not loaded"
+        severity: BLOCKING
+        action: HALT
+    description: |
+      Escrever mensagem personalizada por prospect.
+      Gerar links diretos de WhatsApp com URL encoding.
+    rollback: "Rewrite specific messages that failed validation"
+
+  - id: phase-4b-validate-outreach
+    name: "Validate Outreach Batch"
+    agent: prospector-chief
+    model: sonnet
+    task: tasks/validate-outreach-batch.md
+    timeout_minutes: 15
+    depends_on:
+      - phase-4-write
+    inputs:
+      - messages_with_links
+    outputs:
+      - approved_messages
+      - rejected_messages
+    quality_gate: QG-003
+    veto_conditions:
+      - condition: "No messages in batch"
+        severity: BLOCKING
+        action: HALT
+      - condition: "Quality checklist not loaded"
+        severity: BLOCKING
+        action: HALT
+      - condition: "> 30% messages rejected"
+        severity: WARNING
+        action: REWORK
+    description: |
+      Validar humanizacao e qualidade de cada mensagem.
+      Validar links WhatsApp.
+      Reenviar rejeitadas para rewrite se necessario.
+    on_failure:
+      rework:
+        task: tasks/write-outreach.md
+        agent: outreach-writer
+        max_iterations: 2
+        input: rejected_messages
+    rollback: "Return to phase-4-write with rejection feedback"
+
+  - id: phase-5-sheet
+    name: "Populate Google Sheets"
+    agent: prospector-chief
+    model: sonnet
+    task: tasks/populate-sheet.md
+    timeout_minutes: 10
+    depends_on:
+      - phase-4b-validate-outreach
+    inputs:
+      - approved_messages
+    outputs:
+      - sheet_url
+      - summary_stats
+    quality_gate: QG-004
+    veto_conditions:
+      - condition: "No approved messages to populate"
+        severity: BLOCKING
+        action: HALT
+      - condition: "Google Sheets access not available"
+        severity: BLOCKING
+        action: HALT
+      - condition: "Sheet already has data"
+        severity: WARNING
+        action: ASK_USER
+    description: |
+      Popular a planilha Google Sheets com todos os dados.
+      Ordenar por temperatura.
+      Validar links.
+    rollback: "Clear sheet rows and re-populate"
+
+completion:
+  summary: |
+    Pipeline completo! Resultados na planilha:
+    https://docs.google.com/spreadsheets/d/124EQQAkmt9D7-49LbR-Jx64DhxdtCwceUQgqolk5ZFI
+  report:
+    - total_contacts_parsed
+    - total_qualified_prospects
+    - prospects_by_type
+    - prospects_by_pillar
+    - temperature_distribution
+    - messages_approved_vs_rejected
+    - batch_quality_score
+    - quality_gates_summary

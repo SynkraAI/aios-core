@@ -1,0 +1,129 @@
+# WhatsApp Prospector Ensinio - Squad Configuration
+# Version: 2.0.0
+# Updated: 2026-02-19
+
+name: whatsapp-prospector-ensinio
+version: "2.0.0"
+entry_agent: prospector-chief
+
+squad:
+  name: whatsapp-prospector-ensinio
+  display_name: "WhatsApp Prospector Ensinio"
+  version: "2.0.0"
+  domain: "sales prospecting, whatsapp analysis, lead generation, outreach"
+  description: |
+    Squad especializado em prospectar leads a partir de exports de grupos de WhatsApp.
+    Parseia chats, analisa fit com solucoes Ensinio, gera mensagens personalizadas
+    e popula Google Sheets com dados estruturados e links diretos de WhatsApp.
+
+  context: |
+    Ensinio e uma plataforma LMS All-in-One com 5 pilares de solucao:
+    1. LMS/Area de Membros (23 features: vitrine streaming, comunidades, trilhas, SCORM, aulas ao vivo, quizzes, certificados MEC, gamificacao)
+    2. Gamificacao (7 features: pontos XP, moedas, 25 gatilhos, missoes, niveis, ranking, loja)
+    3. Agentes de IA (11 features: vendas 24/7, tutor, suporte, customizado, multi-canal, follow-up, qualificacao)
+    4. Pagamentos Integrados (15 features: checkout, ofertas, PIX/boleto/cartao, split, afiliados, upsell, order bump, cupons)
+    5. White Label + App + Integracoes (13 features: white label, app mobile, SSO, API, webhooks, Hotmart/Kiwify, dashboards)
+
+    Total: 67 features mapeadas no KB v2.0.
+
+    Mensagens sao enviadas pelo Antonio, a pedido do Fosc (socio fundador).
+    Output vai para Google Sheets ID: 124EQQAkmt9D7-49LbR-Jx64DhxdtCwceUQgqolk5ZFI
+
+  keywords:
+    - whatsapp prospecting
+    - lead generation
+    - outreach messages
+    - ensinio
+    - lms sales
+    - chat parsing
+    - google sheets
+
+orchestrator:
+  agent: prospector-chief
+  file: agents/prospector-chief.md
+
+layers:
+  processing:
+    description: "Parsing e processamento tecnico de dados do WhatsApp"
+    agents:
+      - id: chat-parser
+        name: Cipher
+        role: WhatsApp Export Parser
+        file: agents/chat-parser.md
+        model: haiku
+
+  analysis:
+    description: "Analise de prospects e matching com solucoes Ensinio"
+    agents:
+      - id: prospect-analyst
+        name: Minerva
+        role: Solution Fit Analyst & Lead Scorer
+        file: agents/prospect-analyst.md
+        model: sonnet
+
+  outreach:
+    description: "Geracao de mensagens personalizadas de outreach"
+    agents:
+      - id: outreach-writer
+        name: Velvet
+        role: Personalized Outreach Copywriter
+        file: agents/outreach-writer.md
+        model: opus
+
+  orchestration:
+    agents:
+      - id: prospector-chief
+        name: Atlas
+        role: Pipeline Orchestrator & Lead Qualification Chief
+        file: agents/prospector-chief.md
+        model: sonnet
+
+workflows:
+  full_pipeline:
+    file: workflows/full-pipeline.yaml
+    description: "Pipeline completo: Parse -> Validate -> Analyze -> Score Validate -> Write -> Validate Batch -> Output"
+    phases: 8
+
+quality_gates:
+  - id: QG-001
+    name: "Parse Validation"
+    transition: "Raw ZIP -> Structured Contacts"
+    type: blocking
+    criteria: "Contatos extraidos com nome, telefone e mensagens agrupadas"
+    checklist: checklists/parse-validation-checklist.md
+
+  - id: QG-002
+    name: "Analysis Complete"
+    transition: "Contacts -> Scored Prospects"
+    type: blocking
+    criteria: "Todos os contatos analisados com score e solucoes match"
+
+  - id: QG-002.5
+    name: "Scoring Validation"
+    transition: "Scored Prospects -> Validated Scores"
+    type: blocking
+    criteria: "Distribuicao de scores validada, classificacao consistente"
+    checklist: checklists/scoring-validation-checklist.md
+
+  - id: QG-003
+    name: "Message Quality"
+    transition: "Draft -> Approved Message"
+    type: blocking
+    criteria: "Mensagem passa no message-quality-checklist (humanizacao, personalizacao)"
+    checklist: checklists/message-quality-checklist.md
+    max_rework_iterations: 2
+
+  - id: QG-004
+    name: "Sheet Population"
+    transition: "Approved -> Google Sheets"
+    type: blocking
+    criteria: "Dados inseridos na planilha com links WhatsApp funcionais"
+
+settings:
+  show_greeting: true
+  language: pt-BR
+  google_sheets_id: "124EQQAkmt9D7-49LbR-Jx64DhxdtCwceUQgqolk5ZFI"
+  ensinio_kb_source: "data/ensinio-solutions-kb.md"
+  min_score_threshold: 3
+  max_rework_iterations: 2
+  batch_size: 50
