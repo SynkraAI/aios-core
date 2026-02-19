@@ -26,7 +26,7 @@
 
 ## Descripción General
 
-AIOS v2.1 adopta una **estrategia multi-repositorio** para permitir el desarrollo modular, las contribuciones de la comunidad y una clara separación entre el marco fundamental, las extensiones (squads) y los componentes propietarios.
+AIOS v4 adopta una **estrategia multi-repositorio** para permitir el desarrollo modular, las contribuciones de la comunidad y una clara separación entre el marco fundamental, las extensiones (squads) y los componentes propietarios.
 
 ### Objetivos de Diseño
 
@@ -45,7 +45,7 @@ AIOS v2.1 adopta una **estrategia multi-repositorio** para permitir el desarroll
 ```
 Organización SynkraAI
 ├── REPOSITORIOS PÚBLICOS
-│   ├── aios-core          # Marco fundamental (Commons Clause)
+│   ├── aios-core          # Marco fundamental (MIT)
 │   ├── aios-squads        # Squads comunitarios (MIT)
 │   └── mcp-ecosystem      # Configuraciones MCP (Apache 2.0)
 │
@@ -66,7 +66,7 @@ Organización SynkraAI
 │   ┌────────────────────┐     ┌────────────────────┐                     │
 │   │  SynkraAI/         │     │  SynkraAI/         │                     │
 │   │  aios-core         │     │  aios-squads       │                     │
-│   │  (Commons Clause)  │◄────│  (MIT)             │                     │
+│   │  (MIT)  │◄────│  (MIT)             │                     │
 │   │                    │     │                    │                     │
 │   │  - Marco           │     │  - Squad ETL       │                     │
 │   │    Fundamental     │     │  - Squad Creator   │                     │
@@ -124,7 +124,7 @@ El repositorio central contiene el marco AIOS fundamental del que todos los proy
 
 ### Licencia
 
-**Commons Clause** - Libre para usar, alojamiento/reventa comercial requiere licencia.
+**MIT** - Licencia permisiva para uso, modificacion y distribucion del core.
 
 ### Paquete npm
 
@@ -220,7 +220,6 @@ mcp-ecosystem/
 ├── ide-configs/            # Configuraciones específicas del IDE
 │   ├── claude-code/
 │   ├── cursor/
-│   ├── windsurf/
 │   └── vscode/
 │
 └── presets/                # Paquetes MCP preconfigurados
@@ -324,7 +323,7 @@ git submodule add https://github.com/SynkraAI/mcp-ecosystem.git mcp
 
 | Paquete               | Registro   | Licencia       | Repositorio    |
 | --------------------- | ---------- | -------------- | ------------- |
-| `@aios/core`          | npm public | Commons Clause | aios-core     |
+| `@aios/core`          | npm public | MIT            | aios-core     |
 | `@aios/squad-etl`     | npm public | MIT            | aios-squads   |
 | `@aios/squad-creator` | npm public | MIT            | aios-squads   |
 | `@aios/squad-mmos`    | npm public | MIT            | aios-squads   |
@@ -383,7 +382,7 @@ npm publish --access public
 
 - [Arquitectura de Alto Nivel](./high-level-architecture.md)
 - [Sistema de Módulos](./module-system.md)
-- [Guía de Migración v2.0 a v2.1](../migration/v2.0-to-v2.1.md)
+- [Guía de Migración v2.0 a v4.0.4](../migration/migration-guide.md)
 - [Guía de Squads](../guides/squads-guide.md)
 
 ---

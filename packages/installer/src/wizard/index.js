@@ -10,6 +10,7 @@
 const inquirer = require('inquirer');
 const path = require('path');
 const fse = require('fs-extra');
+const { colors } = require('../utils/aios-colors');
 const {
   getLanguageQuestion,
   getUserProfileQuestion,
@@ -41,11 +42,11 @@ const {
   isLLMRoutingInstalled,
 } = require('../../../../.aios-core/infrastructure/scripts/llm-routing/install-llm-routing');
 
-// DISABLED: Squads replaced expansion-packs (OSR-8)
+// DISABLED: Legacy installation block superseded by squads flow (OSR-8)
 // /**
-//  * Generate AntiGravity workflow content for expansion pack agents
+//  * Generate AntiGravity workflow content for squad agents
 //  * @param {string} agentName - Agent name (e.g., 'data-collector')
-//  * @param {string} packName - Expansion pack name (e.g., 'etl')
+//  * @param {string} packName - Starter squad name (e.g., 'etl')
 //  * @returns {string} Workflow file content
 //  */
 // function generateExpansionPackWorkflow(agentName, packName) {
@@ -57,7 +58,7 @@ const {
 //
 // # Ativação do Agente ${displayName}
 //
-// **Expansion Pack:** ${packName}
+// **Squad:** ${packName}
 //
 // **INSTRUÇÕES CRÍTICAS PARA O ANTIGRAVITY:**
 //
@@ -118,7 +119,7 @@ const LANGUAGE_MAP = {
 /**
  * Write language preference to Claude Code's native settings.json (Story ACT-12)
  * Replaces the old approach of storing language in core-config.yaml.
- * Claude Code v2.1.0+ natively supports a `language` field in settings.json
+ * Claude Code v4.0.4+ natively supports a `language` field in settings.json
  * that is automatically injected into the system prompt.
  *
  * @param {string} language - Language code from wizard (en|pt|es)
@@ -460,67 +461,7 @@ async function runWizard(options = {}) {
       answers.techPresetResult = { preset: 'none', success: true };
     }
 
-    // DISABLED: Squads replaced expansion-packs (OSR-8)
-    // Install Expansion Packs if selected
-    // if (answers.selectedExpansionPacks && answers.selectedExpansionPacks.length > 0) {
-    //   console.log('\n🎁 Installing Expansion Packs...');
-    //
-    //   // Detect source expansion-packs directory (npm package location)
-    //   const possibleSourceDirs = [
-    //     path.join(__dirname, '..', '..', 'expansion-packs'),
-    //     path.join(__dirname, '..', '..', '..', 'expansion-packs'),
-    //     path.join(process.cwd(), 'node_modules', '@synkra/aios-core', 'expansion-packs'),
-    //   ];
-    //
-    //   let sourceExpansionDir = null;
-    //   for (const dir of possibleSourceDirs) {
-    //     if (fse.existsSync(dir)) {
-    //       sourceExpansionDir = dir;
-    //       break;
-    //     }
-    //   }
-    //
-    //   if (sourceExpansionDir) {
-    //     const targetExpansionDir = path.join(process.cwd(), 'expansion-packs');
-    //     await fse.ensureDir(targetExpansionDir);
-    //
-    //     const installedPacks = [];
-    //     const failedPacks = [];
-    //
-    //     for (const pack of answers.selectedExpansionPacks) {
-    //       const sourcePack = path.join(sourceExpansionDir, pack);
-    //       const targetPack = path.join(targetExpansionDir, pack);
-    //
-    //       try {
-    //         if (fse.existsSync(sourcePack)) {
-    //           await fse.copy(sourcePack, targetPack);
-    //           installedPacks.push(pack);
-    //           console.log(`   ✅ ${pack}`);
-    //         } else {
-    //           failedPacks.push({ pack, reason: 'not found' });
-    //           console.log(`   ⚠️  ${pack} - not found in source`);
-    //         }
-    //       } catch (packError) {
-    //         failedPacks.push({ pack, reason: packError.message });
-    //         console.log(`   ⚠️  ${pack} - ${packError.message}`);
-    //       }
-    //     }
-    //
-    //     answers.expansionPacksInstalled = installedPacks.length > 0;
-    //     answers.expansionPacksResult = {
-    //       installed: installedPacks,
-    //       failed: failedPacks,
-    //       targetDir: targetExpansionDir,
-    //     };
-    //
-    //     if (installedPacks.length > 0) {
-    //       console.log(`\n✅ Expansion Packs installed (${installedPacks.length}/${answers.selectedExpansionPacks.length})`);
-    //     }
-    //   } else {
-    //     console.log('   ⚠️  Expansion packs source directory not found');
-    //     answers.expansionPacksInstalled = false;
-    //   }
-    // }
+    // Legacy squad installation path removed; unified squads flow is now the only supported path.
 
     // Story 1.4: Generate IDE configs if IDEs were selected
     let ideConfigResult = null;
@@ -544,63 +485,7 @@ async function runWizard(options = {}) {
         }
       }
 
-      // DISABLED: Squads replaced expansion-packs (OSR-8)
-      // Install expansion pack agents to each selected IDE
-      // if (answers.expansionPacksResult && answers.expansionPacksResult.installed.length > 0) {
-      //   console.log('\n📦 Installing expansion pack agents to IDEs...');
-      //
-      //   for (const packName of answers.expansionPacksResult.installed) {
-      //     const packAgentsDir = path.join(answers.expansionPacksResult.targetDir, packName, 'agents');
-      //
-      //     if (await fse.pathExists(packAgentsDir)) {
-      //       const agentFiles = (await fse.readdir(packAgentsDir)).filter(f => f.endsWith('.md'));
-      //
-      //       if (agentFiles.length > 0) {
-      //         for (const ideKey of answers.selectedIDEs) {
-      //           const ideConfig = getIDEConfig(ideKey);
-      //           if (!ideConfig || !ideConfig.agentFolder) continue;
-      //
-      //           const isAntiGravity = ideConfig.specialConfig && ideConfig.specialConfig.type === 'antigravity';
-      //
-      //           // Determine target folder for this expansion pack
-      //           let targetFolder;
-      //           if (isAntiGravity) {
-      //             // AntiGravity: workflows go to .agent/workflows/{packName}/
-      //             targetFolder = path.join(process.cwd(), ideConfig.agentFolder, packName);
-      //             // Also need to copy actual agents to .antigravity/agents/{packName}/
-      //             const agentsTargetFolder = path.join(process.cwd(), ideConfig.specialConfig.agentsFolder, packName);
-      //             await fse.ensureDir(agentsTargetFolder);
-      //
-      //             for (const agentFile of agentFiles) {
-      //               const sourcePath = path.join(packAgentsDir, agentFile);
-      //               const agentName = agentFile.replace('.md', '');
-      //
-      //               // Create workflow file
-      //               const workflowContent = generateExpansionPackWorkflow(agentName, packName);
-      //               await fse.ensureDir(targetFolder);
-      //               await fse.writeFile(path.join(targetFolder, agentFile), workflowContent, 'utf8');
-      //
-      //               // Copy actual agent
-      //               await fse.copy(sourcePath, path.join(agentsTargetFolder, agentFile));
-      //             }
-      //           } else {
-      //             // Other IDEs: copy directly to agentFolder/{packName}/
-      //             targetFolder = path.join(process.cwd(), ideConfig.agentFolder, packName);
-      //             await fse.ensureDir(targetFolder);
-      //
-      //             for (const agentFile of agentFiles) {
-      //               await fse.copy(
-      //                 path.join(packAgentsDir, agentFile),
-      //                 path.join(targetFolder, agentFile),
-      //               );
-      //             }
-      //           }
-      //         }
-      //         console.log(`   ✅ ${packName}: ${agentFiles.length} agents installed to ${answers.selectedIDEs.length} IDE(s)`);
-      //       }
-      //     }
-      //   }
-      // }
+      // Legacy per-squad IDE copy path removed; sync pipeline handles IDE propagation.
     }
 
     // Story 1.6: Environment Configuration
@@ -816,6 +701,76 @@ async function runWizard(options = {}) {
     } catch (error) {
       console.error('\n⚠️  LLM Routing error:', error.message);
       answers.llmRoutingInstalled = false;
+    }
+
+    // Story INS-3.2: Pro Installation Wizard (optional phase)
+    if (!options.skipPro) {
+      try {
+        const { runProWizard } = require('./pro-setup');
+        const isCI = process.env.CI === 'true' || !process.stdout.isTTY;
+        const hasProKey = !!process.env.AIOS_PRO_KEY;
+
+        const proOptions = { targetDir: process.cwd() };
+
+        if (isCI && hasProKey) {
+          // CI mode: auto-run if AIOS_PRO_KEY is set
+          console.log('\n🔑 Pro license key detected, running Pro setup...');
+          const proResult = await runProWizard({ ...proOptions, quiet: true });
+          answers.proInstalled = proResult.success;
+          answers.proResult = proResult;
+        } else if (!isCI && !options.quiet) {
+          // Interactive mode: ask which edition to install
+          const { edition } = await inquirer.prompt([
+            {
+              type: 'list',
+              name: 'edition',
+              message: colors.primary('Which edition do you want to install?'),
+              choices: [
+                {
+                  name: 'Community (free) — agents, workflows, squads, full CLI',
+                  value: 'community',
+                },
+                {
+                  name: 'Pro (requires account) — premium squads, minds, priority support',
+                  value: 'pro',
+                },
+              ],
+              default: 'community',
+            },
+          ]);
+
+          if (edition === 'pro') {
+            const proResult = await runProWizard(proOptions);
+            answers.proInstalled = proResult.success;
+            answers.proResult = proResult;
+
+            if (!proResult.success && proResult.error) {
+              console.error(`\n⚠️  Pro activation failed: ${proResult.error}`);
+
+              const { fallback } = await inquirer.prompt([
+                {
+                  type: 'confirm',
+                  name: 'fallback',
+                  message: colors.primary('Continue with Community (free) edition instead?'),
+                  default: true,
+                },
+              ]);
+
+              if (!fallback) {
+                console.log('\n👋 Installation cancelled. Run again when ready.');
+                return answers;
+              }
+
+              console.log('\n📦 Continuing with Community edition...\n');
+            }
+          } else {
+            answers.proInstalled = false;
+          }
+        }
+      } catch (error) {
+        console.error(`\n⚠️  Pro setup error: ${error.message}`);
+        answers.proInstalled = false;
+      }
     }
 
     // Story 1.8: Installation Validation

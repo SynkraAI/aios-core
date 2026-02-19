@@ -45,12 +45,15 @@ mindsLocation: outputs/minds
 ide:
   selected:
     - vscode
+    - codex
+    - gemini
     - cursor
     - claude-code
   configs:
     vscode: true
+    codex: true
+    gemini: true
     cursor: true
-    windsurf: false
     zed: false
     claude-desktop: false
     claude-code: true
@@ -307,14 +310,22 @@ ideSync:
       enabled: true
       path: .claude/commands/AIOS/agents
       format: full-markdown-yaml
+    codex:
+      enabled: true
+      path: .codex/agents
+      format: full-markdown-yaml
+    gemini:
+      enabled: true
+      path: .gemini/rules/AIOS/agents
+      format: full-markdown-yaml
+    github-copilot:
+      enabled: true
+      path: .github/agents
+      format: full-markdown-yaml
     cursor:
       enabled: true
       path: .cursor/rules/agents
       format: condensed-rules
-    windsurf:
-      enabled: false
-      path: .windsurf/rules/agents
-      format: xml-tagged-markdown
     antigravity:
       enabled: true
       path: .antigravity/rules/agents

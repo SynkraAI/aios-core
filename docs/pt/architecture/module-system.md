@@ -6,7 +6,7 @@
 
 ---
 
-> Guia completo para a arquitetura modular v2.1 do Synkra AIOS.
+> Guia completo para a arquitetura modular v4.2 do Synkra AIOS.
 
 **Versão:** 2.1.0
 **Última Atualização:** 2025-12-01
@@ -17,9 +17,9 @@
 
 ### Por Que Arquitetura Modular?
 
-A arquitetura modular v2.1 aborda vários desafios da estrutura flat da v2.0:
+A arquitetura modular v4.2 aborda vários desafios da estrutura flat da v2.0:
 
-| Desafio            | Problema v2.0                       | Solução v2.1                          |
+| Desafio            | Problema v2.0                       | Solução v4.2                          |
 | ------------------ | ----------------------------------- | ------------------------------------- |
 | **Descoberta**     | 200+ arquivos em diretórios mistos  | Organizado por responsabilidade       |
 | **Manutenção**     | Propriedade pouco clara             | Limites de módulo definem propriedade |
@@ -53,7 +53,7 @@ O Synkra AIOS organiza o diretório `.aios-core/` em quatro módulos principais:
 
 ```mermaid
 graph TB
-    subgraph "Framework AIOS v2.1"
+    subgraph "Framework AIOS v4"
         CLI[CLI / Ferramentas]
 
         subgraph "Módulo Product"
@@ -365,7 +365,7 @@ aios migrate --from=2.0 --to=2.1
 aios migrate --validate
 ```
 
-Veja o [Guia de Migração](../../migration/v2.0-to-v2.1.md) para instruções detalhadas.
+Veja o [Guia de Migração](../../migration/migration-guide.md) para instruções detalhadas.
 
 ---
 
@@ -374,9 +374,9 @@ Veja o [Guia de Migração](../../migration/v2.0-to-v2.1.md) para instruções d
 - [Guia de Service Discovery](../guides/service-discovery.md)
 - [Guia de Quality Gates](../guides/quality-gates.md)
 - [Guia de Setup Global MCP](../guides/mcp-global-setup.md)
-- [Guia de Migração](../../migration/v2.0-to-v2.1.md)
+- [Guia de Migração](../../migration/migration-guide.md)
 - [ADR-002: Mapa de Migração](../../architecture/adr/ADR-002-migration-map.md)
 
 ---
 
-_Arquitetura do Sistema de Módulos Synkra AIOS v2.1_
+_Arquitetura do Sistema de Módulos Synkra AIOS v4_

@@ -1356,4 +1356,4 @@ Currently, Synkra AIOS does not have a formal bug bounty program. However, signi
 
 ---
 
-_Synkra AIOS Security Hardening Guide v2.1.0_
+_Synkra AIOS Security Hardening Guide v4.0.4_

@@ -428,7 +428,7 @@ There appears to be **duplication** between `core/elicitation/` (3 domain files)
 | File | Purpose | Consumers | Cross-refs | Orphan? |
 |------|---------|-----------|------------|---------|
 | `STANDARDS-INDEX.md` | Navigation index for all standards documents | All team members, agent definitions | References all standard docs | No |
-| `AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md` | **PRIMARY** -- Complete v2.1 framework guide (consolidated) | All agents, onboarding | Supersedes all legacy Livro docs | No |
+| `AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md` | **PRIMARY** -- Complete v4.0.4 framework guide (consolidated) | All agents, onboarding | Supersedes all legacy Livro docs | No |
 | `QUALITY-GATES-SPECIFICATION.md` | 3-layer quality gates system specification | QA agent, devops, quality gate code | Referenced by `core/quality-gates/` | No |
 | `STORY-TEMPLATE-V2-SPECIFICATION.md` | Story template v2.0 specification | PO, SM, story creation tasks | Referenced by story creation workflows | No |
 | `TASK-FORMAT-SPECIFICATION-V1.md` | Task-First architecture format specification | All agents creating tasks | Referenced by task templates | No |
@@ -439,8 +439,8 @@ There appears to be **duplication** between `core/elicitation/` (3 domain files)
 | `OPEN-SOURCE-VS-SERVICE-DIFFERENCES.md` | Business model documentation (OSS vs service) | Product decisions | Needs update per index | No |
 | `V3-ARCHITECTURAL-DECISIONS.md` | Old architectural decisions (archive candidate) | Historical reference | Superseded by ADR system | Yes (Archive) |
 | `AIOS-LIVRO-DE-OURO.md` | v2.0 base document (DEPRECATED) | Historical reference | Superseded by V2.1-COMPLETE | Yes (Legacy) |
-| `AIOS-LIVRO-DE-OURO-V2.1.md` | v2.1 delta document (DEPRECATED) | Historical reference | Superseded by V2.1-COMPLETE | Yes (Legacy) |
-| `AIOS-LIVRO-DE-OURO-V2.1-SUMMARY.md` | v2.1 summary (DEPRECATED) | Historical reference | Superseded by V2.1-COMPLETE | Yes (Legacy) |
+| `AIOS-LIVRO-DE-OURO-V2.1.md` | v4.0.4 delta document (DEPRECATED) | Historical reference | Superseded by V2.1-COMPLETE | Yes (Legacy) |
+| `AIOS-LIVRO-DE-OURO-V2.1-SUMMARY.md` | v4.0.4 summary (DEPRECATED) | Historical reference | Superseded by V2.1-COMPLETE | Yes (Legacy) |
 | `AIOS-LIVRO-DE-OURO-V2.2-SUMMARY.md` | Future v2.2 planning (DRAFT) | Planning only | Not yet active | No (Draft) |
 | `AIOS-FRAMEWORK-MASTER.md` | v2.0 framework doc (DEPRECATED) | Historical reference | Superseded by V2.1-COMPLETE | Yes (Legacy) |
 
@@ -449,7 +449,7 @@ There appears to be **duplication** between `core/elicitation/` (3 domain files)
 - **Install manifest:** `install-manifest.yaml`
 - **Guides:** `docs/guides/squads-guide.md`, `docs/guides/coderabbit/README.md`
 - **Architecture:** `docs/architecture/high-level-architecture.md`
-- **Migration docs:** `docs/migration/v2.0-to-v2.1.md`
+- **Migration docs:** `docs/migration/migration-guide.md`
 - **Templates:** Various personalized templates
 
 ### Deprecation Summary

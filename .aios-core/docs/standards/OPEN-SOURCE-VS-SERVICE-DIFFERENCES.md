@@ -3,7 +3,7 @@
 **Version:** 2.1.0
 **Date:** 2025-12-09
 **Purpose:** Document differences between AIOS open-source and AIOS service implementations
-**Status:** ⚠️ Needs Review - Updated for v2.1 Multi-Repo Strategy
+**Status:** ⚠️ Needs Review - Updated for v4.2 Multi-Repo Strategy
 
 ---
 
@@ -17,7 +17,7 @@ This document clarifies which features apply to which context.
 
 ---
 
-## Multi-Repo Strategy (v2.1)
+## Multi-Repo Strategy (v4.2)
 
 ### Repository Organization
 
@@ -489,7 +489,7 @@ function validateTask(task) {
 
 ## Related Documents
 
-- [AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md](./AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md) - Complete v2.1 framework guide
+- [AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md](./AIOS-LIVRO-DE-OURO-V2.1-COMPLETE.md) - Complete v4.2 framework guide
 - [STANDARDS-INDEX.md](./STANDARDS-INDEX.md) - Standards navigation
 - [TASK-FORMAT-SPECIFICATION-V1.md](./TASK-FORMAT-SPECIFICATION-V1.md) - Complete task format spec
 - [AGENT-PERSONALIZATION-STANDARD-V1.md](./AGENT-PERSONALIZATION-STANDARD-V1.md) - Personality guidelines
@@ -508,4 +508,4 @@ function validateTask(task) {
 
 **Last Updated:** 2025-12-09
 **Version:** 2.1.0
-**Applies to:** AIOS v2.1+
+**Applies to:** AIOS v4.2+

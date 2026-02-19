@@ -117,11 +117,8 @@ IDE-specific rule files generated during project setup. Referenced in service-re
 |---|------|--------------------|---------------------|-------------|---------|
 | 1 | `antigravity-rules.md` | -- (service-registry, workers.csv) | -- | -- | **WEAK** |
 | 2 | `claude-rules.md` | -- (service-registry, workers.csv) | -- | -- | **WEAK** |
-| 3 | `cline-rules.md` | -- (service-registry, workers.csv) | -- | -- | **WEAK** |
 | 4 | `copilot-rules.md` | -- (service-registry, workers.csv) | -- | -- | **WEAK** |
 | 5 | `cursor-rules.md` | -- (service-registry, workers.csv) | -- | -- | **WEAK** |
-| 6 | `roo-rules.md` | -- (service-registry, workers.csv) | -- | -- | **WEAK** |
-| 7 | `windsurf-rules.md` | -- (service-registry, workers.csv) | -- | -- | **WEAK** |
 
 **Note:** IDE rules are output artifacts deployed to target projects. They are registered in the service-registry and workers.csv, which means they are available for lookup and discovery, but no task or agent currently automates their deployment. They likely serve as reference content or are deployed manually/externally.
 
@@ -258,7 +255,7 @@ Scaffold templates for creating new microservice packages.
 
 Location: `.aios-core/development/templates/squad-template/`
 
-Full project scaffold used when creating new expansion packs (squads).
+Full project scaffold used when creating new squads (squads).
 
 | # | File | Consuming Task(s) | Consuming Agent(s) | Workflow(s) | Orphan? |
 |---|------|--------------------|---------------------|-------------|---------|

@@ -866,7 +866,7 @@ Write-Host "✅ Setup report saved to .aios/devops-setup-report.yaml"
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [GitHub Branch Protection API](https://docs.github.com/en/rest/branches/branch-protection)
 - [CodeRabbit Documentation](https://docs.coderabbit.ai/)
-- [Story 5.10 - GitHub DevOps Setup](docs/stories/v2.1/sprint-5/story-5.10-github-devops-user-projects.md)
+- [Story 5.10 - GitHub DevOps Setup](docs/stories/v4.0.4/sprint-5/story-5.10-github-devops-user-projects.md)
 
 ---
 

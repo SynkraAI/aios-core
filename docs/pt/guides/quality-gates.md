@@ -611,4 +611,4 @@ verbose:
 
 ---
 
-_Guia do Sistema de Quality Gates Synkra AIOS v2.1_
+_Guia do Sistema de Quality Gates Synkra AIOS v4_

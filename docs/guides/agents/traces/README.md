@@ -237,7 +237,7 @@ Each trace documents files referenced but not found on disk:
 |-------|--------------|--------|
 | @dev | 9 scripts (recovery-tracker.js, stuck-detector.js, etc.), 1 checklist | Non-functional commands |
 | @aios-master | add-tech-doc.md | `*add-tech-doc` command non-functional |
-| @ux-design-expert | integrate-Squad.md | Only `integrate-expansion-pack.md` exists |
+| @ux-design-expert | integrate-Squad.md | Only `integrate-squad.md` exists |
 | @devops | gitignore-manager, version-tracker | Referenced tools not found |
 
 ---

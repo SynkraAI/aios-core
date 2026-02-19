@@ -478,12 +478,18 @@ const {
 ### Order of Execution
 
 1. Read (first or next) task
-2. Implement task and its subtasks
-3. Write tests
-4. Execute validations
-5. **Only if ALL pass**: Mark task checkbox [x]
-6. Update story File List (ensure all created/modified/deleted files listed)
-7. Repeat until all tasks complete
+2. **Code Intelligence Check (IDS G4)** — Before creating new files or functions:
+   - If code intelligence is available (`isCodeIntelAvailable()` from `.aios-core/core/code-intel`):
+     - Call `checkBeforeWriting(fileName, description)` from `.aios-core/core/code-intel/helpers/dev-helper`
+     - If result is not null, display as **"Code Intelligence Suggestion"** (non-blocking advisory)
+     - Log suggestion in decision-log if in YOLO mode
+   - If code intelligence is NOT available: skip silently (zero impact on workflow)
+3. Implement task and its subtasks
+4. Write tests
+5. Execute validations
+6. **Only if ALL pass**: Mark task checkbox [x]
+7. Update story File List (ensure all created/modified/deleted files listed)
+8. Repeat until all tasks complete
 
 ### Story File Updates (All Modes)
 
@@ -854,7 +860,7 @@ git checkout abc123def456 -- <file-path>
 **Output**:
 ```
 💬 Interactive Mode - Balanced Development
-📋 Story 3.15: Expansion Pack Auto Configuration
+📋 Story 3.15: Squad Auto Configuration
 
 📖 Task 1: Design configuration schema
 ❓ Decision Point - Schema Format

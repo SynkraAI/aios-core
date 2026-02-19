@@ -16,17 +16,44 @@
  * - Use `npx aios-core` which routes through bin/aios.js to the new wizard
  * - Do NOT call this file directly
  *
- * Supported IDEs (7 total):
- * - Claude Code, Cursor, Windsurf, Roo Code, Cline, Gemini CLI, GitHub Copilot
+ * Supported IDEs (4 total):
+ * - Claude Code, Cursor, Gemini CLI, GitHub Copilot
  */
 
 const path = require('path');
 const fs = require('fs');
 const fse = require('fs-extra');
 const yaml = require('js-yaml');
-const { execSync } = require('child_process');
+const { execSync, exec, spawn } = require('child_process');
+const { promisify } = require('util');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
+const ora = require('ora'); // INS-2 Performance: Progress indicators (AC9)
+
+// INS-2 Performance: Promisified exec for async shell commands (AC7)
+const execAsync = promisify(exec);
+
+/**
+ * Execute command with inherited stdio (for npm install -g that needs user interaction)
+ * INS-2 Performance: Async version that doesn't block event loop
+ * @param {string} command - Command to execute
+ * @param {object} options - Spawn options
+ * @returns {Promise<void>}
+ */
+function spawnAsync(command, options = {}) {
+  return new Promise((resolve, reject) => {
+    const [cmd, ...args] = command.split(' ');
+    const child = spawn(cmd, args, { stdio: 'inherit', shell: true, ...options });
+    child.on('close', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(`Command failed with code ${code}`));
+      }
+    });
+    child.on('error', reject);
+  });
+}
 
 // ASCII Art Banner (Clean blocky style like reference image)
 const BANNER = chalk.cyan(`
@@ -108,20 +135,23 @@ async function main() {
     console.log(chalk.blue('⚙️  Setting up project prerequisites...\n'));
 
     // Check for git repository
+    // INS-2 Performance: Use async exec (AC7)
     let hasGit = false;
     try {
-      execSync('git rev-parse --git-dir', { cwd: projectRoot, stdio: 'ignore' });
+      await execAsync('git rev-parse --git-dir', { cwd: projectRoot });
       hasGit = true;
     } catch (_err) {
       // Not a git repo
     }
 
     if (!hasGit) {
+      // INS-2 Performance: Add spinner for git init (AC9)
+      const gitSpinner = ora('Initializing git repository...').start();
       try {
-        execSync('git init', { cwd: projectRoot, stdio: 'ignore' });
-        console.log(chalk.green('✓') + ' Git repository initialized');
+        await execAsync('git init', { cwd: projectRoot });
+        gitSpinner.succeed('Git repository initialized');
       } catch (_err) {
-        console.error(chalk.red('✗') + ' Failed to initialize git repository');
+        gitSpinner.fail('Failed to initialize git repository');
         process.exit(1);
       }
     }
@@ -140,7 +170,8 @@ async function main() {
         author: '',
         license: 'ISC',
       };
-      fs.writeFileSync(packageJsonPath, JSON.stringify(defaultPackage, null, 2));
+      // INS-2 Performance: Use async write instead of sync
+      await fse.writeFile(packageJsonPath, JSON.stringify(defaultPackage, null, 2));
       console.log(chalk.green('✓') + ' package.json created');
     }
 
@@ -151,7 +182,8 @@ async function main() {
 
     // If still no context, create minimal one
     if (!context) {
-      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+      // INS-2 Performance: Use async read instead of sync
+      const packageJson = JSON.parse(await fse.readFile(packageJsonPath, 'utf8'));
       context = {
         projectRoot,
         packageName: packageJson.name,
@@ -328,10 +360,12 @@ async function main() {
   };
 
   const configPath = path.join(context.projectRoot, '.aios-installation-config.yaml');
-  fs.writeFileSync(configPath, yaml.dump(config));
+  // INS-2 Performance: Use async write instead of sync
+  await fse.writeFile(configPath, yaml.dump(config));
 
   // Update .gitignore
-  updateGitIgnore(installMode, context.projectRoot);
+  // INS-2 Performance: Now async
+  await updateGitIgnore(installMode, context.projectRoot);
 
   // Step 2: PM Tool
   console.log('');
@@ -350,7 +384,8 @@ async function main() {
   ]);
 
   // Save PM config
-  savePMConfig(pmTool, {}, context.projectRoot);
+  // INS-2 Performance: Now async
+  await savePMConfig(pmTool, {}, context.projectRoot);
 
   // Step 3: IDE Selection (CHECKBOX with instructions)
   console.log('');
@@ -369,19 +404,15 @@ async function main() {
       message: chalk.white('Which IDE(s) will you use?'),
       choices: [
         {
-          name: '  Claude Code ' + chalk.blue('(v2.1)') + chalk.gray(' - Recommended'),
+          name: '  Claude Code ' + chalk.blue('(v4)') + chalk.gray(' - Recommended'),
           value: 'claude',
           checked: true,
         },
-        { name: '  Cursor ' + chalk.blue('(v2.1)'), value: 'cursor' },
-        { name: '  Windsurf ' + chalk.blue('(v2.1)'), value: 'windsurf' },
-        { name: '  Trae ' + chalk.blue('(v2.1)'), value: 'trae' },
-        { name: '  Roo Code ' + chalk.blue('(v2.1)'), value: 'roo' },
-        { name: '  Cline ' + chalk.blue('(v2.1)'), value: 'cline' },
-        { name: '  Gemini CLI ' + chalk.blue('(v2.1)'), value: 'gemini' },
-        { name: '  GitHub Copilot ' + chalk.blue('(v2.1)'), value: 'github-copilot' },
+        { name: '  Cursor ' + chalk.blue('(v4)'), value: 'cursor' },
+        { name: '  Gemini CLI ' + chalk.blue('(v4)'), value: 'gemini' },
+        { name: '  GitHub Copilot ' + chalk.blue('(v4)'), value: 'github-copilot' },
         {
-          name: '  AntiGravity ' + chalk.blue('(v2.1)') + chalk.gray(' - Google AI IDE'),
+          name: '  AntiGravity ' + chalk.blue('(v4)') + chalk.gray(' - Google AI IDE'),
           value: 'antigravity',
         },
         new inquirer.Separator(chalk.gray('─'.repeat(40))),
@@ -409,15 +440,26 @@ async function main() {
     console.log('');
     console.log(chalk.blue('🔍 Checking CLI tools...'));
 
+    // INS-2 Performance: Check CLI tools in parallel (AC7)
+    const toolCheckResults = await Promise.all(
+      cliToolsToCheck.map(async (tool) => {
+        try {
+          const checkCmd = process.platform === 'win32' ? `where ${tool.command}` : `command -v ${tool.command}`;
+          await execAsync(checkCmd);
+          return { tool, installed: true };
+        } catch {
+          return { tool, installed: false };
+        }
+      })
+    );
+
     const missingTools = [];
-    for (const tool of cliToolsToCheck) {
-      try {
-        const checkCmd = process.platform === 'win32' ? `where ${tool.command}` : `command -v ${tool.command}`;
-        require('child_process').execSync(checkCmd, { stdio: 'ignore' });
-        console.log(chalk.green('✓') + ` ${tool.name} is installed`);
-      } catch {
-        console.log(chalk.yellow('⚠') + ` ${tool.name} is not installed`);
-        missingTools.push(tool);
+    for (const result of toolCheckResults) {
+      if (result.installed) {
+        console.log(chalk.green('✓') + ` ${result.tool.name} is installed`);
+      } else {
+        console.log(chalk.yellow('⚠') + ` ${result.tool.name} is not installed`);
+        missingTools.push(result.tool);
       }
     }
 
@@ -437,7 +479,8 @@ async function main() {
         for (const tool of missingTools) {
           console.log(chalk.blue(`📥 Installing ${tool.name}...`));
           try {
-            require('child_process').execSync(`npm install -g ${tool.npm}`, { stdio: 'inherit' });
+            // INS-2 Performance: Use async spawn instead of sync (AC7)
+            await spawnAsync(`npm install -g ${tool.npm}`);
             console.log(chalk.green('✓') + ` ${tool.name} installed successfully`);
 
             // Show post-install instructions
@@ -462,16 +505,16 @@ async function main() {
 
   // Step 4b: Copy AIOS Core files
   console.log('');
-  console.log(chalk.blue('📦 Installing AIOS Core files...'));
 
   const sourceCoreDir = path.join(context.frameworkLocation, '.aios-core');
   const targetCoreDir = path.join(context.projectRoot, '.aios-core');
 
   if (fs.existsSync(sourceCoreDir)) {
+    // INS-2 Performance: Add spinner for file copy (AC9)
+    const copySpinner = ora('Installing AIOS Core files...').start();
     await fse.copy(sourceCoreDir, targetCoreDir);
-    console.log(
-      chalk.green('✓') +
-        ' AIOS Core files installed ' +
+    copySpinner.succeed(
+      'AIOS Core files installed ' +
         chalk.gray('(11 agents, 68 tasks, 23 templates)')
     );
 
@@ -514,10 +557,6 @@ async function main() {
     const ideRulesMap = {
       claude: { source: 'claude-rules.md', target: '.claude/CLAUDE.md' },
       cursor: { source: 'cursor-rules.md', target: '.cursor/rules.md' },
-      windsurf: { source: 'windsurf-rules.md', target: '.windsurf/rules.md' },
-      trae: { source: 'trae-rules.md', target: '.trae/rules.md' },
-      roo: { source: 'roo-rules.md', target: '.roomodes' },
-      cline: { source: 'cline-rules.md', target: '.cline/rules.md' },
       gemini: { source: 'gemini-rules.md', target: '.gemini/rules.md' },
       'github-copilot': { source: 'copilot-rules.md', target: '.github/chatmodes/aios-agent.md' },
       antigravity: { source: 'antigravity-rules.md', target: '.antigravity/rules.md' },
@@ -540,10 +579,25 @@ async function main() {
       }
     }
 
+    // INS-2 Performance: Cache directory listings to avoid redundant readdirSync calls
+    // The same agent/task directories are read 6-7 times across IDE installations
+    // This reduces directory reads from 6-7x to 1x (AC3)
+    const coreAgentsSource = path.join(targetCoreDir, 'development', 'agents');
+    const coreTasksSource = path.join(targetCoreDir, 'development', 'tasks');
+
+    // Cache agent files list (read once, use many times)
+    const cachedAgentFiles = fs.existsSync(coreAgentsSource)
+      ? fs.readdirSync(coreAgentsSource).filter((f) => f.endsWith('.md'))
+      : [];
+
+    // Cache task files list
+    const cachedTaskFiles = fs.existsSync(coreTasksSource)
+      ? fs.readdirSync(coreTasksSource).filter((f) => f.endsWith('.md'))
+      : [];
+
     // Step 2: Install AIOS CORE agents and tasks for Claude Code
-    // v2.1: Agents and tasks are in development/ module
+    // v4: Agents and tasks are in development/ module
     if (ides.includes('claude')) {
-      const coreAgentsSource = path.join(targetCoreDir, 'development', 'agents');
       const coreAgentsTarget = path.join(
         context.projectRoot,
         '.claude',
@@ -552,7 +606,6 @@ async function main() {
         'agents'
       );
 
-      const coreTasksSource = path.join(targetCoreDir, 'development', 'tasks');
       const coreTasksTarget = path.join(
         context.projectRoot,
         '.claude',
@@ -561,16 +614,14 @@ async function main() {
         'tasks'
       );
 
-      if (fs.existsSync(coreAgentsSource)) {
+      if (cachedAgentFiles.length > 0) {
         await fse.copy(coreAgentsSource, coreAgentsTarget);
-        const agentCount = fs.readdirSync(coreAgentsSource).filter((f) => f.endsWith('.md')).length;
-        console.log(chalk.green('✓') + ` Claude Code CORE agents installed (${agentCount} agents)`);
+        console.log(chalk.green('✓') + ` Claude Code CORE agents installed (${cachedAgentFiles.length} agents)`);
       }
 
-      if (fs.existsSync(coreTasksSource)) {
+      if (cachedTaskFiles.length > 0) {
         await fse.copy(coreTasksSource, coreTasksTarget);
-        const taskCount = fs.readdirSync(coreTasksSource).filter((f) => f.endsWith('.md')).length;
-        console.log(chalk.green('✓') + ` Claude Code CORE tasks installed (${taskCount} tasks)`);
+        console.log(chalk.green('✓') + ` Claude Code CORE tasks installed (${cachedTaskFiles.length} tasks)`);
       }
 
       // Create AIOS README for Claude Code
@@ -596,12 +647,15 @@ This directory contains the core AIOS-FullStack agents and tasks.
 See .aios-core/user-guide.md for complete documentation.
 `
       );
+
+      // Silent statusline setup (graceful skip if user already has one)
+      await setupGlobalStatuslineLegacy(sourceCoreDir);
     }
 
     // Step 3: Install AIOS CORE agents for Cursor
-    // v2.1: Agents are in development/ module
+    // v4: Agents are in development/ module
+    // INS-2 Performance: Uses cached agent files list
     if (ides.includes('cursor')) {
-      const coreAgentsSource = path.join(targetCoreDir, 'development', 'agents');
       const cursorRulesTarget = path.join(
         context.projectRoot,
         '.cursor',
@@ -610,12 +664,11 @@ See .aios-core/user-guide.md for complete documentation.
         'agents'
       );
 
-      if (fs.existsSync(coreAgentsSource)) {
+      if (cachedAgentFiles.length > 0) {
         await fse.ensureDir(cursorRulesTarget);
 
-        // Convert .md files to .mdc for Cursor
-        const agentFiles = fs.readdirSync(coreAgentsSource).filter((f) => f.endsWith('.md'));
-        for (const agentFile of agentFiles) {
+        // Convert .md files to .mdc for Cursor (using cached list)
+        for (const agentFile of cachedAgentFiles) {
           const sourcePath = path.join(coreAgentsSource, agentFile);
           const targetFileName = agentFile.replace('.md', '.mdc');
           const targetPath = path.join(cursorRulesTarget, targetFileName);
@@ -623,7 +676,7 @@ See .aios-core/user-guide.md for complete documentation.
         }
 
         console.log(
-          chalk.green('✓') + ` Cursor CORE rules installed (${agentFiles.length} agents)`
+          chalk.green('✓') + ` Cursor CORE rules installed (${cachedAgentFiles.length} agents)`
         );
       }
 
@@ -645,12 +698,12 @@ See .aios-core/user-guide.md for complete documentation.
       );
     }
 
-    // Step 4: Install AIOS CORE agents for other IDEs (Trae, Cline, Gemini, AntiGravity)
-    // v2.1: Agents are in development/ module
-    const otherIdeInstalls = ['trae', 'cline', 'gemini', 'antigravity'];
+    // Step 4: Install AIOS CORE agents for other IDEs (Gemini, AntiGravity)
+    // v4: Agents are in development/ module
+    // INS-2 Performance: Uses cached agent files list
+    const otherIdeInstalls = ['gemini', 'antigravity'];
     for (const ide of otherIdeInstalls) {
       if (ides.includes(ide)) {
-        const coreAgentsSource = path.join(targetCoreDir, 'development', 'agents');
         const ideRulesDir = ide === 'gemini' ? '.gemini' : `.${ide}`;
         const ideRulesTarget = path.join(
           context.projectRoot,
@@ -660,12 +713,11 @@ See .aios-core/user-guide.md for complete documentation.
           'agents'
         );
 
-        if (fs.existsSync(coreAgentsSource)) {
+        if (cachedAgentFiles.length > 0) {
           await fse.ensureDir(ideRulesTarget);
 
-          // Copy agent files
-          const agentFiles = fs.readdirSync(coreAgentsSource).filter((f) => f.endsWith('.md'));
-          for (const agentFile of agentFiles) {
+          // Copy agent files (using cached list)
+          for (const agentFile of cachedAgentFiles) {
             const sourcePath = path.join(coreAgentsSource, agentFile);
             const targetPath = path.join(ideRulesTarget, agentFile);
             await fse.copy(sourcePath, targetPath);
@@ -673,51 +725,23 @@ See .aios-core/user-guide.md for complete documentation.
 
           const ideName = ide.charAt(0).toUpperCase() + ide.slice(1);
           console.log(
-            chalk.green('✓') + ` ${ideName} CORE agents installed (${agentFiles.length} agents)`
+            chalk.green('✓') + ` ${ideName} CORE agents installed (${cachedAgentFiles.length} agents)`
           );
         }
       }
     }
 
-    // Step 5: Install Roo Code modes
-    // v2.1: Agents are in development/ module
-    if (ides.includes('roo')) {
-      const coreAgentsSource = path.join(targetCoreDir, 'development', 'agents');
-      const rooModesPath = path.join(context.projectRoot, '.roomodes');
-
-      if (fs.existsSync(coreAgentsSource)) {
-        const agentFiles = fs.readdirSync(coreAgentsSource).filter((f) => f.endsWith('.md'));
-
-        // Create .roomodes JSON file
-        const roomodes = {
-          customModes: agentFiles.map((f) => {
-            const agentName = f.replace('.md', '');
-            return {
-              slug: `bmad-${agentName}`,
-              name: `AIOS ${agentName.charAt(0).toUpperCase() + agentName.slice(1)}`,
-              roleDefinition: `AIOS-FullStack ${agentName} agent - see .aios-core/agents/${f}`,
-              groups: ['aios'],
-              source: 'project',
-            };
-          }),
-        };
-
-        await fse.writeFile(rooModesPath, JSON.stringify(roomodes, null, 2));
-        console.log(chalk.green('✓') + ` Roo Code modes installed (${agentFiles.length} modes)`);
-      }
-    }
-
-    // Step 6: Install GitHub Copilot chat modes
-    // v2.1: Agents are in development/ module
+    // Step 5: Install GitHub Copilot chat modes
+    // v4: Agents are in development/ module
+    // INS-2 Performance: Uses cached agent files list
     if (ides.includes('github-copilot')) {
-      const coreAgentsSource = path.join(targetCoreDir, 'development', 'agents');
       const copilotModesDir = path.join(context.projectRoot, '.github', 'chatmodes');
 
-      if (fs.existsSync(coreAgentsSource)) {
+      if (cachedAgentFiles.length > 0) {
         await fse.ensureDir(copilotModesDir);
 
-        const agentFiles = fs.readdirSync(coreAgentsSource).filter((f) => f.endsWith('.md'));
-        for (const agentFile of agentFiles) {
+        // Copy agent files (using cached list)
+        for (const agentFile of cachedAgentFiles) {
           const sourcePath = path.join(coreAgentsSource, agentFile);
           const agentName = agentFile.replace('.md', '');
           const targetPath = path.join(copilotModesDir, `aios-${agentName}.md`);
@@ -725,52 +749,55 @@ See .aios-core/user-guide.md for complete documentation.
         }
 
         console.log(
-          chalk.green('✓') + ` GitHub Copilot chat modes installed (${agentFiles.length} modes)`
+          chalk.green('✓') + ` GitHub Copilot chat modes installed (${cachedAgentFiles.length} modes)`
         );
       }
     }
   }
 
-  // Step 7: Expansion Packs (CHECKBOX with visual)
-  // Try multiple locations for expansion-packs (npm package vs local development vs npx)
+  // Step 7: Squads (CHECKBOX with visual)
+  // Try multiple locations for squads (npm package vs local development vs npx)
   // __dirname is the 'bin/' directory of the package, so '..' gives us the package root
   const packageRoot = path.resolve(__dirname, '..');
 
-  const possibleExpansionDirs = [
-    // Primary: relative to this script (works for npx and local)
-    path.join(packageRoot, 'expansion-packs'),
-    // Secondary: context-based framework location
-    path.join(context.frameworkLocation, 'expansion-packs'),
-    // Tertiary: installed in project's node_modules
-    path.join(context.projectRoot, 'node_modules', '@synkra/aios-core', 'expansion-packs'),
-    path.join(context.projectRoot, 'node_modules', '@aios', 'fullstack', 'expansion-packs'),
+  const possibleSquadsDirs = [
+    // Primary: relative to this script (works for npx and local) - squads/
+    path.join(packageRoot, 'squads'),
+    // Secondary: context-based framework location - squads/
+    path.join(context.frameworkLocation, 'squads'),
+    // Tertiary: installed in project's node_modules - squads/
+    path.join(context.projectRoot, 'node_modules', '@synkra/aios-core', 'squads'),
+    path.join(context.projectRoot, 'node_modules', '@aios', 'fullstack', 'squads'),
   ];
 
-  let sourceExpansionDir = null;
-  for (const dir of possibleExpansionDirs) {
+  let sourceSquadsDir = null;
+  for (const dir of possibleSquadsDirs) {
     if (fs.existsSync(dir)) {
-      sourceExpansionDir = dir;
+      sourceSquadsDir = dir;
       break;
     }
   }
 
-  const availablePacks = [];
-  let expansionPacks = []; // Declare here to be accessible in summary
+  const availableSquads = [];
+  let selectedSquads = []; // Declare here to be accessible in summary
 
-  if (sourceExpansionDir && fs.existsSync(sourceExpansionDir)) {
-    let packs = fs
-      .readdirSync(sourceExpansionDir)
-      .filter((f) => fs.statSync(path.join(sourceExpansionDir, f)).isDirectory());
+  if (sourceSquadsDir && fs.existsSync(sourceSquadsDir)) {
+    // INS-2 Performance: Use withFileTypes to avoid separate statSync calls per entry
+    // This reduces N+1 syscalls to just 1 syscall for the entire directory
+    let squads = fs
+      .readdirSync(sourceSquadsDir, { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) => dirent.name);
 
-    // Filter for minimal mode - only show expansion-creator
+    // Filter for minimal mode - only show squad-creator
     if (isMinimalMode) {
-      packs = packs.filter((pack) => pack === 'expansion-creator');
+      squads = squads.filter((squad) => squad === 'squad-creator');
     }
 
-    availablePacks.push(...packs);
+    availableSquads.push(...squads);
   }
 
-  if (availablePacks.length > 0) {
+  if (availableSquads.length > 0) {
     console.log('');
     console.log(chalk.gray('─'.repeat(80)));
     console.log(
@@ -783,96 +810,103 @@ See .aios-core/user-guide.md for complete documentation.
     const result = await inquirer.prompt([
       {
         type: 'checkbox',
-        name: 'expansionPacks',
-        message: chalk.white('Select expansion packs to install (optional)'),
-        choices: availablePacks.map((pack) => ({
-          name: '  ' + pack,
-          value: pack,
+        name: 'selectedSquads',
+        message: chalk.white('Select squads to install (optional)'),
+        choices: availableSquads.map((squad) => ({
+          name: '  ' + squad,
+          value: squad,
         })),
       },
     ]);
 
-    expansionPacks = result.expansionPacks; // Assign to outer scope variable
+    selectedSquads = result.selectedSquads; // Assign to outer scope variable
 
-    if (expansionPacks.length > 0) {
+    if (selectedSquads.length > 0) {
       console.log('');
-      console.log(chalk.blue('📦 Installing expansion packs...'));
+      console.log(chalk.blue('📦 Installing squads...'));
 
-      const targetExpansionDir = path.join(context.projectRoot, 'expansion-packs');
+      // Always install to squads/ directory (modern naming)
+      const targetSquadsDir = path.join(context.projectRoot, 'squads');
 
-      for (const pack of expansionPacks) {
-        const sourcePack = path.join(sourceExpansionDir, pack);
-        const targetPack = path.join(targetExpansionDir, pack);
-        await fse.copy(sourcePack, targetPack);
-        console.log(chalk.green('✓') + ` Expansion pack installed: ${pack}`);
+      // INS-2 Performance: Copy all squads in parallel first (AC6)
+      await Promise.all(
+        selectedSquads.map(async (squad) => {
+          const sourceSquad = path.join(sourceSquadsDir, squad);
+          const targetSquad = path.join(targetSquadsDir, squad);
+          await fse.copy(sourceSquad, targetSquad);
+        })
+      );
+      console.log(chalk.green('✓') + ` Squads copied: ${selectedSquads.join(', ')}`);
 
-        // Install expansion pack agents/tasks for Claude Code
+      // Process IDE-specific installations sequentially for ordered logging
+      for (const squad of selectedSquads) {
+        const targetSquad = path.join(targetSquadsDir, squad);
+
+        // INS-2 Performance: Cache squad file lists once per squad (used by Claude, Cursor, etc.)
+        const squadAgentsSource = path.join(targetSquad, 'agents');
+        const squadTasksSource = path.join(targetSquad, 'tasks');
+        const squadReadmeSource = path.join(targetSquad, 'README.md');
+
+        // Cache squad agents/tasks lists (read once per squad, use for all IDEs)
+        const squadAgentFiles = fs.existsSync(squadAgentsSource)
+          ? fs.readdirSync(squadAgentsSource).filter((f) => f.endsWith('.md'))
+          : [];
+        const squadTaskFiles = fs.existsSync(squadTasksSource)
+          ? fs.readdirSync(squadTasksSource).filter((f) => f.endsWith('.md'))
+          : [];
+        const hasSquadReadme = fs.existsSync(squadReadmeSource);
+
+        // Install squad agents/tasks for Claude Code
         if (ides.includes('claude')) {
-          const packAgentsSource = path.join(targetPack, 'agents');
-          const packTasksSource = path.join(targetPack, 'tasks');
-          const packReadmeSource = path.join(targetPack, 'README.md');
+          const squadClaudeTarget = path.join(context.projectRoot, '.claude', 'commands', squad);
 
-          const packClaudeTarget = path.join(context.projectRoot, '.claude', 'commands', pack);
-
-          // Copy agents
-          if (fs.existsSync(packAgentsSource)) {
-            const packAgentsTarget = path.join(packClaudeTarget, 'agents');
-            await fse.copy(packAgentsSource, packAgentsTarget);
-            const agentCount = fs
-              .readdirSync(packAgentsSource)
-              .filter((f) => f.endsWith('.md')).length;
-            console.log(chalk.green('  ✓') + ` Claude Code ${pack} agents (${agentCount} agents)`);
+          // Copy agents (using cached list)
+          if (squadAgentFiles.length > 0) {
+            const squadAgentsTarget = path.join(squadClaudeTarget, 'agents');
+            await fse.copy(squadAgentsSource, squadAgentsTarget);
+            console.log(chalk.green('  ✓') + ` Claude Code ${squad} agents (${squadAgentFiles.length} agents)`);
           }
 
-          // Copy tasks
-          if (fs.existsSync(packTasksSource)) {
-            const packTasksTarget = path.join(packClaudeTarget, 'tasks');
-            await fse.copy(packTasksSource, packTasksTarget);
-            const taskCount = fs
-              .readdirSync(packTasksSource)
-              .filter((f) => f.endsWith('.md')).length;
-            console.log(chalk.green('  ✓') + ` Claude Code ${pack} tasks (${taskCount} tasks)`);
+          // Copy tasks (using cached list)
+          if (squadTaskFiles.length > 0) {
+            const squadTasksTarget = path.join(squadClaudeTarget, 'tasks');
+            await fse.copy(squadTasksSource, squadTasksTarget);
+            console.log(chalk.green('  ✓') + ` Claude Code ${squad} tasks (${squadTaskFiles.length} tasks)`);
           }
 
-          // Copy README
-          if (fs.existsSync(packReadmeSource)) {
-            await fse.copy(packReadmeSource, path.join(packClaudeTarget, 'README.md'));
+          // Copy README (using cached check)
+          if (hasSquadReadme) {
+            await fse.copy(squadReadmeSource, path.join(squadClaudeTarget, 'README.md'));
           }
         }
 
-        // Install expansion pack agents for Cursor
-        if (ides.includes('cursor')) {
-          const packAgentsSource = path.join(targetPack, 'agents');
-          const packReadmeSource = path.join(targetPack, 'README.md');
+        // Install squad agents for Cursor
+        if (ides.includes('cursor') && squadAgentFiles.length > 0) {
+          const cursorSquadTarget = path.join(
+            context.projectRoot,
+            '.cursor',
+            'rules',
+            squad,
+            'agents'
+          );
+          await fse.ensureDir(cursorSquadTarget);
 
-          if (fs.existsSync(packAgentsSource)) {
-            const cursorPackTarget = path.join(
-              context.projectRoot,
-              '.cursor',
-              'rules',
-              pack,
-              'agents'
+          // Convert .md files to .mdc for Cursor (using cached list)
+          for (const agentFile of squadAgentFiles) {
+            const sourcePath = path.join(squadAgentsSource, agentFile);
+            const targetFileName = agentFile.replace('.md', '.mdc');
+            const targetPath = path.join(cursorSquadTarget, targetFileName);
+            await fse.copy(sourcePath, targetPath);
+          }
+
+          console.log(chalk.green('  ✓') + ` Cursor ${squad} rules (${squadAgentFiles.length} agents)`);
+
+          // Copy README for Cursor (using cached check)
+          if (hasSquadReadme) {
+            await fse.copy(
+              squadReadmeSource,
+              path.join(context.projectRoot, '.cursor', 'rules', squad, 'README.md')
             );
-            await fse.ensureDir(cursorPackTarget);
-
-            // Convert .md files to .mdc for Cursor
-            const agentFiles = fs.readdirSync(packAgentsSource).filter((f) => f.endsWith('.md'));
-            for (const agentFile of agentFiles) {
-              const sourcePath = path.join(packAgentsSource, agentFile);
-              const targetFileName = agentFile.replace('.md', '.mdc');
-              const targetPath = path.join(cursorPackTarget, targetFileName);
-              await fse.copy(sourcePath, targetPath);
-            }
-
-            console.log(chalk.green('  ✓') + ` Cursor ${pack} rules (${agentFiles.length} agents)`);
-
-            // Copy README for Cursor
-            if (fs.existsSync(packReadmeSource)) {
-              await fse.copy(
-                packReadmeSource,
-                path.join(context.projectRoot, '.cursor', 'rules', pack, 'README.md')
-              );
-            }
           }
         }
       }
@@ -881,7 +915,8 @@ See .aios-core/user-guide.md for complete documentation.
 
   // Post-installation validation (Story 6.19)
   console.log('');
-  console.log(chalk.blue('🔍 Validating installation integrity...'));
+  // INS-2 Performance: Add spinner for validation (AC9)
+  const validationSpinner = ora('Validating installation integrity...').start();
 
   let validationPassed = true;
   try {
@@ -905,7 +940,7 @@ See .aios-core/user-guide.md for complete documentation.
       report.stats.corruptedFiles > 0
     ) {
       validationPassed = false;
-      console.log(chalk.yellow('⚠') + ` Installation validation found issues:`);
+      validationSpinner.warn('Installation validation found issues:');
       console.log(chalk.dim(`   - Missing files: ${report.stats.missingFiles}`));
       console.log(chalk.dim(`   - Corrupted files: ${report.stats.corruptedFiles}`));
       console.log('');
@@ -915,14 +950,14 @@ See .aios-core/user-guide.md for complete documentation.
           chalk.yellow(' to fix issues')
       );
     } else {
-      console.log(chalk.green('✓') + ` Installation verified (${report.stats.validFiles} files)`);
+      validationSpinner.succeed(`Installation verified (${report.stats.validFiles} files)`);
     }
   } catch (validationError) {
     // Log validation errors but don't fail installation
     // This allows installation to proceed even if validator module has issues
     // However, users should investigate validation errors manually
     validationPassed = false;
-    console.log(chalk.yellow('⚠') + ' Post-installation validation encountered an error');
+    validationSpinner.warn('Post-installation validation encountered an error');
     console.log(chalk.dim(`   Error: ${validationError.message}`));
     if (process.env.DEBUG || process.env.AIOS_DEBUG) {
       console.log(chalk.dim(`   Stack: ${validationError.stack}`));
@@ -945,8 +980,8 @@ See .aios-core/user-guide.md for complete documentation.
   );
   console.log('  ' + chalk.dim('PM Tool:        ') + pmTool);
 
-  if (availablePacks.length > 0 && expansionPacks && expansionPacks.length > 0) {
-    console.log('  ' + chalk.dim('Expansion Packs:') + ' ' + expansionPacks.join(', '));
+  if (availableSquads.length > 0 && selectedSquads && selectedSquads.length > 0) {
+    console.log('  ' + chalk.dim('Squads:         ') + ' ' + selectedSquads.join(', '));
   }
 
   console.log('');
@@ -958,9 +993,9 @@ See .aios-core/user-guide.md for complete documentation.
     console.log('    ' + chalk.dim('├─ CLAUDE.md') + '        - Main configuration');
     console.log('    ' + chalk.dim('└─ commands/'));
     console.log('      ' + chalk.dim('  ├─ AIOS/') + '         - Core agents & tasks');
-    if (expansionPacks && expansionPacks.length > 0) {
-      expansionPacks.forEach((pack) => {
-        console.log('      ' + chalk.dim(`  └─ ${pack}/`) + '     - Expansion pack commands');
+    if (selectedSquads && selectedSquads.length > 0) {
+      selectedSquads.forEach((squad) => {
+        console.log('      ' + chalk.dim(`  └─ ${squad}/`) + '     - Squad commands');
       });
     }
   }
@@ -970,15 +1005,15 @@ See .aios-core/user-guide.md for complete documentation.
     console.log('    ' + chalk.dim('├─ rules.md') + '         - Main configuration');
     console.log('    ' + chalk.dim('└─ rules/'));
     console.log('      ' + chalk.dim('  ├─ AIOS/') + '         - Core agent rules');
-    if (expansionPacks && expansionPacks.length > 0) {
-      expansionPacks.forEach((pack) => {
-        console.log('      ' + chalk.dim(`  └─ ${pack}/`) + '     - Expansion pack rules');
+    if (selectedSquads && selectedSquads.length > 0) {
+      selectedSquads.forEach((squad) => {
+        console.log('      ' + chalk.dim(`  └─ ${squad}/`) + '     - Squad rules');
       });
     }
   }
 
   // Show other IDE installations
-  const otherInstalledIdes = ['windsurf', 'trae', 'cline', 'gemini', 'antigravity'].filter((ide) =>
+  const otherInstalledIdes = ['gemini', 'antigravity'].filter((ide) =>
     ides.includes(ide)
   );
   for (const ide of otherInstalledIdes) {
@@ -991,10 +1026,6 @@ See .aios-core/user-guide.md for complete documentation.
         ide.slice(1) +
         ' configuration'
     );
-  }
-
-  if (ides.includes('roo')) {
-    console.log('  ' + chalk.dim('.roomodes') + '            - Roo Code mode definitions');
   }
 
   if (ides.includes('github-copilot')) {
@@ -1014,16 +1045,6 @@ See .aios-core/user-guide.md for complete documentation.
     console.log('  ' + chalk.yellow('Cursor:'));
     console.log('    • Agent rules auto-loaded from .cursor/rules/');
     console.log('    • Use @agent-name to activate agents in chat');
-  }
-
-  if (ides.includes('windsurf') || ides.includes('trae') || ides.includes('cline')) {
-    console.log('  ' + chalk.yellow('Windsurf/Trae/Cline:'));
-    console.log('    • Use @agent-name to activate agents in chat');
-  }
-
-  if (ides.includes('roo')) {
-    console.log('  ' + chalk.yellow('Roo Code:'));
-    console.log('    • Select agent mode from status bar mode selector');
   }
 
   if (ides.includes('gemini')) {
@@ -1047,7 +1068,7 @@ See .aios-core/user-guide.md for complete documentation.
   console.log('    • Run ' + chalk.yellow('aios validate') + ' to verify installation integrity');
   console.log('    • Run ' + chalk.yellow('aios validate --repair') + ' to fix any missing files');
   console.log('    • Check .aios-core/user-guide.md for complete documentation');
-  console.log('    • Explore expansion-packs/ for additional capabilities');
+  console.log('    • Explore squads/ for additional capabilities');
   console.log('');
   console.log(chalk.gray('═'.repeat(80)));
   console.log('');
@@ -1055,13 +1076,15 @@ See .aios-core/user-guide.md for complete documentation.
 
 /**
  * Updates .gitignore file based on installation mode
+ * INS-2 Performance: Converted to async
  */
-function updateGitIgnore(mode, projectRoot) {
+async function updateGitIgnore(mode, projectRoot) {
   const gitignorePath = path.join(projectRoot, '.gitignore');
 
   let gitignore = '';
   if (fs.existsSync(gitignorePath)) {
-    gitignore = fs.readFileSync(gitignorePath, 'utf8');
+    // INS-2 Performance: Use async read
+    gitignore = await fse.readFile(gitignorePath, 'utf8');
   }
 
   if (mode === 'project-development') {
@@ -1080,15 +1103,17 @@ function updateGitIgnore(mode, projectRoot) {
 
     if (!hasFrameworkSection) {
       gitignore += frameworkRules.join('\n');
-      fs.writeFileSync(gitignorePath, gitignore);
+      // INS-2 Performance: Use async write
+      await fse.writeFile(gitignorePath, gitignore);
     }
   }
 }
 
 /**
  * Save PM configuration
+ * INS-2 Performance: Converted to async
  */
-function savePMConfig(pmTool, config, projectRoot) {
+async function savePMConfig(pmTool, config, projectRoot) {
   const pmConfigData = {
     pm_tool: {
       type: pmTool,
@@ -1103,7 +1128,97 @@ function savePMConfig(pmTool, config, projectRoot) {
   };
 
   const configPath = path.join(projectRoot, '.aios-pm-config.yaml');
-  fs.writeFileSync(configPath, yaml.dump(pmConfigData));
+  // INS-2 Performance: Use async write
+  await fse.writeFile(configPath, yaml.dump(pmConfigData));
+}
+
+/**
+ * Setup global statusline for Claude Code (legacy installer version)
+ * Graceful skip: returns silently if user already has a statusLine configured.
+ * @param {string} sourceCoreDir - Path to installed .aios-core directory
+ */
+async function setupGlobalStatuslineLegacy(sourceCoreDir) {
+  const os = require('os');
+  const homeDir = os.homedir();
+  const globalSettingsPath = path.join(homeDir, '.claude', 'settings.json');
+
+  // Read existing global settings
+  let settings = {};
+  try {
+    if (fs.existsSync(globalSettingsPath)) {
+      settings = JSON.parse(fs.readFileSync(globalSettingsPath, 'utf8'));
+    }
+  } catch {
+    settings = {};
+  }
+
+  // GRACEFUL SKIP: User already has a statusLine
+  if (settings.statusLine) {
+    return;
+  }
+
+  // Source templates
+  const templatesDir = path.join(sourceCoreDir, 'product', 'templates', 'statusline');
+  const scriptSource = path.join(templatesDir, 'statusline-script.js');
+  const hookSource = path.join(templatesDir, 'track-agent.sh');
+
+  if (!fs.existsSync(scriptSource) || !fs.existsSync(hookSource)) {
+    return;
+  }
+
+  // Target paths
+  const scriptTarget = path.join(homeDir, '.claude', 'statusline-script.js');
+  const hookTarget = path.join(homeDir, '.claude', 'hooks', 'track-agent.sh');
+
+  try {
+    await fse.ensureDir(path.join(homeDir, '.claude', 'hooks'));
+    await fse.ensureDir(path.join(homeDir, '.claude', 'session-cache'));
+    await fse.copy(scriptSource, scriptTarget);
+    await fse.copy(hookSource, hookTarget);
+  } catch {
+    return;
+  }
+
+  // Add statusLine + hook to settings
+  const scriptPathEscaped = scriptTarget.replace(/\\/g, '\\\\');
+  settings.statusLine = {
+    type: 'command',
+    command: `node "${scriptPathEscaped}"`,
+  };
+
+  if (!settings.hooks) {
+    settings.hooks = {};
+  }
+  if (!Array.isArray(settings.hooks.UserPromptSubmit)) {
+    settings.hooks.UserPromptSubmit = [];
+  }
+
+  const hookPathEscaped = hookTarget.replace(/\\/g, '\\\\');
+  const alreadyHasTrackAgent = settings.hooks.UserPromptSubmit.some(entry => {
+    if (Array.isArray(entry.hooks)) {
+      return entry.hooks.some(h => h.command && h.command.includes('track-agent'));
+    }
+    return entry.command && entry.command.includes('track-agent');
+  });
+
+  if (!alreadyHasTrackAgent) {
+    settings.hooks.UserPromptSubmit.push({
+      matcher: '',
+      hooks: [
+        {
+          type: 'command',
+          command: `bash "${hookPathEscaped}"`,
+        },
+      ],
+    });
+  }
+
+  try {
+    await fse.ensureDir(path.dirname(globalSettingsPath));
+    await fse.writeFile(globalSettingsPath, JSON.stringify(settings, null, 2), 'utf8');
+  } catch {
+    // Silent failure — statusline is non-critical
+  }
 }
 
 // Run installer with error handling

@@ -40,7 +40,7 @@ Use the DevOps agent: `@devops` then `*setup-mcp-docker`
 
 ---
 
-## v2.1 Framework Documentation
+## v4.2 Framework Documentation
 
 **Status:** Complete (Story 2.16)
 **Version:** 2.1.0
@@ -50,9 +50,9 @@ Use the DevOps agent: `@devops` then `*setup-mcp-docker`
 
 | Guide                                                              | Purpose                               | Time   | Audience               |
 | ------------------------------------------------------------------ | ------------------------------------- | ------ | ---------------------- |
-| **[Module System Architecture](../architecture/module-system.md)** | v2.1 modular architecture (4 modules) | 15 min | Architects, Developers |
+| **[Module System Architecture](../architecture/module-system.md)** | v4.2 modular architecture (4 modules) | 15 min | Architects, Developers |
 | **[Service Discovery Guide](./service-discovery.md)**              | Worker discovery and registry API     | 10 min | Developers             |
-| **[Migration Guide v2.0→v2.1](../migration/v2.0-to-v2.1.md)**      | Step-by-step migration instructions   | 20 min | All users upgrading    |
+| **[Migration Guide v2.0→v4.2](../migration/migration-guide.md)**      | Step-by-step migration instructions   | 20 min | All users upgrading    |
 
 ### System Configuration
 
@@ -68,7 +68,7 @@ Use the DevOps agent: `@devops` then `*setup-mcp-docker`
 | ------------------------------------------------- | -------------------------- | ------ | ---------- |
 | **[Template Engine v2](./template-engine-v2.md)** | Document generation engine | 10 min | Developers |
 
-### Quick Navigation (v2.1)
+### Quick Navigation (v4)
 
 **...understand the 4-module architecture**
 → [`module-system.md`](../architecture/module-system.md) (15 min)
@@ -76,8 +76,8 @@ Use the DevOps agent: `@devops` then `*setup-mcp-docker`
 **...discover available workers and tasks**
 → [`service-discovery.md`](./service-discovery.md) (10 min)
 
-**...migrate from v2.0 to v2.1**
-→ [`v2.0-to-v2.1.md`](../migration/v2.0-to-v2.1.md) (20 min)
+**...migrate from v2.0 to v4.2**
+→ [`migration-guide.md`](../migration/migration-guide.md) (20 min)
 
 **...configure quality gates**
 → [`quality-gates.md`](./quality-gates.md) (15 min)

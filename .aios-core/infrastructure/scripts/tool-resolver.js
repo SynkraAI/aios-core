@@ -8,7 +8,7 @@ const glob = require('glob');
  *
  * Features:
  * - Map-based caching for performance (<5ms cached lookups)
- * - Search path priority: expansion pack → common → core
+ * - Search path priority: squad → common → core
  * - Glob-based file resolution
  * - Schema validation
  * - Health checking (tool_call, command, http methods)
@@ -25,7 +25,7 @@ class ToolResolver {
     this.basePaths = [
       'aios-core/tools',
       'common/tools',
-      // Expansion pack paths added dynamically during resolution
+      // Squad paths added dynamically during resolution
     ];
   }
 
@@ -34,7 +34,7 @@ class ToolResolver {
    *
    * @param {string} toolName - Tool identifier (e.g., 'clickup', 'github-cli')
    * @param {object} context - Resolution context (optional)
-   * @param {string} context.expansionPack - Specific expansion pack to search
+   * @param {string} context.expansionPack - Specific squad to search
    * @returns {object} Tool definition with schema_version detected
    * @throws {Error} If tool not found or validation fails
    */
@@ -45,10 +45,10 @@ class ToolResolver {
       return this.cache.get(cacheKey);
     }
 
-    // 2. Build search paths (expansion pack → core priority)
+    // 2. Build search paths (squad → core priority)
     const searchPaths = [];
     if (context.expansionPack) {
-      searchPaths.push(`expansion-packs/${context.expansionPack}/tools`);
+      searchPaths.push(`squads/${context.expansionPack}/tools`);
     }
     searchPaths.push(...this.basePaths);
 
@@ -304,7 +304,7 @@ class ToolResolver {
   async toolExists(toolName, context = {}) {
     const searchPaths = [];
     if (context.expansionPack) {
-      searchPaths.push(`expansion-packs/${context.expansionPack}/tools`);
+      searchPaths.push(`squads/${context.expansionPack}/tools`);
     }
     searchPaths.push(...this.basePaths);
 

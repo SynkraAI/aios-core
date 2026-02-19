@@ -1012,7 +1012,7 @@ These are valid "utility" tasks, but have no formal workflow integration:
 
 | Agent | Status | Notes |
 |-------|--------|-------|
-| `@squad-creator` (Craft) | NO WORKFLOW | Creates squads/expansion packs. Standalone by design. |
+| `@squad-creator` (Craft) | NO WORKFLOW | Creates and manages squads. Standalone by design. |
 | `@aios-master` (Orion) | META-AGENT | Orchestrates other agents. Not a workflow participant but a workflow creator/executor. |
 | `@devops` (Gage) | SERVICE ROLE | Provides infrastructure (bootstrap, push, worktrees) but doesn't follow workflow sequences. |
 

@@ -104,7 +104,7 @@ describe('L7StarCommandProcessor', () => {
 
       expect(result).not.toBeNull();
       expect(result.metadata.commands).toEqual(
-        expect.arrayContaining(['dev', 'brief'])
+        expect.arrayContaining(['dev', 'brief']),
       );
       expect(result.rules.length).toBeGreaterThanOrEqual(2);
     });
@@ -304,7 +304,7 @@ describe('L7StarCommandProcessor', () => {
       expect(result.rules).toEqual(
         expect.arrayContaining([
           expect.stringContaining('inline content here'),
-        ])
+        ]),
       );
     });
 

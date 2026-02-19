@@ -134,7 +134,7 @@ flowchart TB
     subgraph ACTIVATION["🚀 ATIVACAO"]
         USER["👤 Usuario"]
         ACTIVATE["@aios-master"]
-        GREETING["greeting-builder.js<br/>Saudacao Inteligente"]
+        GREETING["UnifiedActivationPipeline<br/>Saudacao Inteligente"]
     end
 
     USER -->|"@aios-master"| ACTIVATE

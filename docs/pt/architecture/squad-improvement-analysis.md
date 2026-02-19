@@ -19,7 +19,7 @@
 |---------|-------|
 | Framework | AIOS-FullStack |
 | Linguagem Principal | TypeScript/JavaScript |
-| Sistema de Squads | v2.1 (Arquitetura Task-First) |
+| Sistema de Squads | v4.2 (Arquitetura Task-First) |
 | Tasks Existentes | 8 tasks do squad-creator |
 | Framework de Testes | Jest |
 

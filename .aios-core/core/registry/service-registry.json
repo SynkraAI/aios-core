@@ -5925,36 +5925,6 @@
       }
     },
     {
-      "id": "cline-rules",
-      "name": "Cline Rules",
-      "description": "You are working with AIOS-FULLSTACK, an AI-Orchestrated System for Full Stack Development.",
-      "category": "template",
-      "subcategory": "ide-rules",
-      "inputs": [],
-      "outputs": [],
-      "tags": [
-        "template",
-        "ide-rules",
-        "cline",
-        "rules"
-      ],
-      "path": ".aios-core/product/templates/ide-rules/cline-rules.md",
-      "taskFormat": "TEMPLATE",
-      "executorTypes": [
-        "Agent"
-      ],
-      "performance": {
-        "avgDuration": "100ms",
-        "cacheable": true,
-        "parallelizable": true
-      },
-      "agents": [],
-      "metadata": {
-        "source": "product",
-        "addedVersion": "1.0.0"
-      }
-    },
-    {
       "id": "command-rationalization-matrix",
       "name": "Command Rationalization Matrix",
       "description": "Purpose: Systematic framework for evaluating agent commands for rationalization",
@@ -6254,36 +6224,6 @@
       }
     },
     {
-      "id": "roo-rules",
-      "name": "Roo Rules",
-      "description": "You are working with AIOS-FULLSTACK, an AI-Orchestrated System for Full Stack Development.",
-      "category": "template",
-      "subcategory": "ide-rules",
-      "inputs": [],
-      "outputs": [],
-      "tags": [
-        "template",
-        "ide-rules",
-        "roo",
-        "rules"
-      ],
-      "path": ".aios-core/product/templates/ide-rules/roo-rules.md",
-      "taskFormat": "TEMPLATE",
-      "executorTypes": [
-        "Agent"
-      ],
-      "performance": {
-        "avgDuration": "100ms",
-        "cacheable": true,
-        "parallelizable": true
-      },
-      "agents": [],
-      "metadata": {
-        "source": "product",
-        "addedVersion": "1.0.0"
-      }
-    },
-    {
       "id": "task-execution-report",
       "name": "Task Execution Report",
       "description": "Version: 1.0",
@@ -6329,66 +6269,6 @@
         "task"
       ],
       "path": ".aios-core/product/templates/task-template.md",
-      "taskFormat": "TEMPLATE",
-      "executorTypes": [
-        "Agent"
-      ],
-      "performance": {
-        "avgDuration": "100ms",
-        "cacheable": true,
-        "parallelizable": true
-      },
-      "agents": [],
-      "metadata": {
-        "source": "product",
-        "addedVersion": "1.0.0"
-      }
-    },
-    {
-      "id": "trae-rules",
-      "name": "Trae Rules",
-      "description": "You are working with AIOS-FULLSTACK, an AI-Orchestrated System for Full Stack Development.",
-      "category": "template",
-      "subcategory": "ide-rules",
-      "inputs": [],
-      "outputs": [],
-      "tags": [
-        "template",
-        "ide-rules",
-        "trae",
-        "rules"
-      ],
-      "path": ".aios-core/product/templates/ide-rules/trae-rules.md",
-      "taskFormat": "TEMPLATE",
-      "executorTypes": [
-        "Agent"
-      ],
-      "performance": {
-        "avgDuration": "100ms",
-        "cacheable": true,
-        "parallelizable": true
-      },
-      "agents": [],
-      "metadata": {
-        "source": "product",
-        "addedVersion": "1.0.0"
-      }
-    },
-    {
-      "id": "windsurf-rules",
-      "name": "Windsurf Rules",
-      "description": "When working with AIOS agents in Windsurf:",
-      "category": "template",
-      "subcategory": "ide-rules",
-      "inputs": [],
-      "outputs": [],
-      "tags": [
-        "template",
-        "ide-rules",
-        "windsurf",
-        "rules"
-      ],
-      "path": ".aios-core/product/templates/ide-rules/windsurf-rules.md",
       "taskFormat": "TEMPLATE",
       "executorTypes": [
         "Agent"

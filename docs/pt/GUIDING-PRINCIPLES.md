@@ -98,4 +98,4 @@ Templates seguem a especificação do [AIOS Document Template](../../common/util
 - O poder está na orquestração em linguagem natural, não no código
 - Dev agents codificam, planning agents planejam
 - Mantenha dev agents enxutos para máxima eficiência de codificação
-- Expansion packs lidam com domínios especializados
+- Starter squads lidam com domínios especializados

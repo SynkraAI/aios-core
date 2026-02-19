@@ -33,12 +33,12 @@ active_ides:
   # - gemini    # Google Gemini (.gemini/)
 ```
 
-### 3. Agregar Alias de Packs
+### 3. Agregar Alias de Squads
 
 Mapear tus directorios de squads a prefijos de comandos:
 
 ```yaml
-pack_aliases:
+squad_aliases:
   legal: Legal # squads/legal/ → .claude/commands/Legal/
   copy: Copy # squads/copy/ → .claude/commands/Copy/
   hr: HR # squads/hr/ → .claude/commands/HR/
@@ -102,7 +102,6 @@ squads/legal/agents/legal-chief.md
 
 Mapeos por defecto para tipos de componentes:
 
-| Tipo de Componente | Claude | Cursor | Gemini | Windsurf |
 | ------------------ | ------ | ------ | ------ | -------- |
 | Agents             | ✅     | ✅     | ✅     | ✅       |
 | Tasks              | ✅     | -      | -      | -        |
@@ -171,16 +170,16 @@ Error: Component 'my-agent' not found in squads/
 
 **Solucion**: Verificar que el agente existe en `squads/*/agents/my-agent.md`
 
-### Falta Alias de Pack
+### Falta Alias de Squad
 
 ```
-Warning: No pack alias for 'new-squad'
+Warning: No squad alias for 'new-squad'
 ```
 
 **Solucion**: Agregar el alias a `.aios-sync.yaml`:
 
 ```yaml
-pack_aliases:
+squad_aliases:
   new-squad: NewSquad
 ```
 

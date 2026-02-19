@@ -4,7 +4,7 @@
  * AIOS-FullStack Minimal Installation
  *
  * DEPRECATED (since v3.11.1, scheduled for removal in v5.0.0):
- * The --minimal mode was designed for expansion-packs which have been
+ * The --minimal mode was designed for squads which have been
  * replaced by the Squads system (OSR-8). This command now runs the
  * standard wizard through the main router.
  */
@@ -14,7 +14,7 @@ const path = require('path');
 
 // Show deprecation warning
 console.log('\n⚠️  DEPRECATION WARNING: aios-minimal is deprecated.');
-console.log('   The --minimal mode (expansion-packs) was replaced by Squads.');
+console.log('   The --minimal mode (squads) was replaced by Squads.');
 console.log('   Running standard installation wizard instead.\n');
 
 // Get the path to the main router (aios.js)

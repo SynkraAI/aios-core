@@ -1,11 +1,11 @@
 /**
  * Migration Execution Module
  *
- * Executes the migration from v2.0 → v2.1 structure.
+ * Executes the migration from v2.0 → v4.0.4 structure.
  *
  * @module cli/commands/migrate/execute
  * @version 1.0.0
- * @story 2.14 - Migration Script v2.0 → v2.1
+ * @story 2.14 - Migration Script v2.0 → v4.0.4
  */
 
 const fs = require('fs');
@@ -14,7 +14,7 @@ const { copyFileWithMetadata } = require('./backup');
 const { MODULE_MAPPING } = require('./analyze');
 
 /**
- * Create module directories for v2.1 structure
+ * Create module directories for v4.0.4 structure
  * @param {string} aiosCoreDir - Path to .aios-core
  * @param {Object} options - Options
  * @returns {Promise<Object>} Created directories
@@ -102,7 +102,7 @@ async function migrateModule(moduleData, moduleName, aiosCoreDir, options = {}) 
 }
 
 /**
- * Execute full migration from v2.0 to v2.1
+ * Execute full migration from v2.0 to v4.0.4
  * @param {Object} plan - Migration plan from analyzeMigrationPlan
  * @param {Object} options - Execution options
  * @returns {Promise<Object>} Migration result

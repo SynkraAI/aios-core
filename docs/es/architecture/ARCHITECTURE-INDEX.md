@@ -12,7 +12,7 @@
 
 ## 📋 Document Navigation
 
-This index provides navigation to all architecture documentation for AIOS v2.1.
+This index provides navigation to all architecture documentation for AIOS v4.
 
 > **Note:** Official framework documentation (coding-standards, tech-stack, source-tree) has been consolidated in `docs/framework/`. See [Framework README](../framework/README.md) for details.
 
@@ -39,7 +39,7 @@ docs/architecture/
 
 | Document | Description | Status |
 |----------|-------------|--------|
-| [High-Level Architecture](./high-level-architecture.md) | Overview of AIOS v2.1 architecture | ✅ Current |
+| [High-Level Architecture](./high-level-architecture.md) | Overview of AIOS v4 architecture | ✅ Current |
 | [Module System](./module-system.md) | 4-module modular architecture | ✅ Current |
 | [Memory Layer](./memory-layer.md) | Memory system architecture | ✅ Current |
 
@@ -112,7 +112,7 @@ docs/architecture/
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                     AIOS v2.1 ARCHITECTURE                              │
+│                     AIOS v4 ARCHITECTURE                              │
 │                                                                         │
 │   ┌─────────────────────────────────────────────────────────────────┐   │
 │   │                    MULTI-REPO STRUCTURE                          │   │
@@ -177,7 +177,7 @@ docs/architecture/
 
 | Status | Meaning |
 |--------|---------|
-| ✅ Current | Up-to-date with v2.1 |
+| ✅ Current | Up-to-date with v4.2 |
 | ⚠️ Update needed | Needs terminology or content update |
 | 📦 Legacy | Historical reference |
 | 🆕 New | Recently created |

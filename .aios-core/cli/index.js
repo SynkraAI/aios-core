@@ -54,7 +54,7 @@ Commands:
   config            Manage layered configuration (show, diff, migrate, validate)
   pro               AIOS Pro license management (activate, status, deactivate, features)
   mcp               Manage global MCP configuration
-  migrate           Migrate from v2.0 to v2.1 structure
+  migrate           Migrate from v2.0 to v4.0.4 structure
   generate          Generate documents from templates (prd, adr, pmdr, etc.)
   install           Install AIOS in current project
   init <name>       Create new AIOS project

@@ -181,7 +181,7 @@
    - Atualizar epic-sqs-squad-system.md
 
 10. **Criar Story**
-    - `docs/stories/v2.1/sprint-XX/story-sqs-11-squad-improvement.md`
+    - `docs/stories/v4.0.4/sprint-XX/story-sqs-11-squad-improvement.md`
 
 ---
 
@@ -356,7 +356,7 @@ outputs:
 ## Próximos Passos
 
 1. **Revisar e aprovar** esta abordagem
-2. **Criar Story SQS-11** em `docs/stories/v2.1/sprint-XX/`
+2. **Criar Story SQS-11** em `docs/stories/v4.0.4/sprint-XX/`
 3. **Executar `*create-service squad-analyzer`** para criar estrutura (ou criação manual)
 4. **Iniciar implementação** com @dev
 

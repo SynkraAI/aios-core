@@ -91,14 +91,14 @@ The installer will:
 | ----------------------- | ------------- |
 | **First-time install**  | 2-5 minutes   |
 | **Update existing**     | 1-2 minutes   |
-| **Expansion pack only** | 30-60 seconds |
+| **Starter squad only** | 30-60 seconds |
 
 Factors affecting installation time:
 
 - Internet connection speed
 - npm cache status
 - Number of IDEs selected
-- Expansion packs selected
+- Starter squads selected
 
 ---
 
@@ -154,7 +154,7 @@ npx @synkra/aios-core status
 
 - `.aios-core/` files (agents, tasks, templates)
 - IDE configurations
-- Expansion packs (if installed)
+- Starter squads (if installed)
 
 **What is preserved:**
 
@@ -280,10 +280,6 @@ tar -xzvf aios-offline.tar.gz
 | ------------------ | ------------ | ------------------- |
 | **Claude Code**    | Full Support | `/dev`, `/qa`, etc. |
 | **Cursor**         | Full Support | `@dev`, `@qa`, etc. |
-| **Windsurf**       | Full Support | `@dev`, `@qa`, etc. |
-| **Trae**           | Full Support | `@dev`, `@qa`, etc. |
-| **Roo Code**       | Full Support | Mode selector       |
-| **Cline**          | Full Support | `@dev`, `@qa`, etc. |
 | **Gemini CLI**     | Full Support | Mention in prompt   |
 | **GitHub Copilot** | Full Support | Chat modes          |
 
@@ -301,20 +297,17 @@ tar -xzvf aios-offline.tar.gz
 ? Which IDE(s) do you want to configure?
 ❯ ◉ Cursor
   ◉ Claude Code
-  ◯ Windsurf
 ```
 
 **Command line:**
 
 ```bash
-npx @synkra/aios-core install --ide cursor claude-code windsurf
 ```
 
 Each IDE gets its own configuration directory:
 
 - `.cursor/rules/` for Cursor
 - `.claude/commands/` for Claude Code
-- `.windsurf/rules/` for Windsurf
 
 ---
 
@@ -435,7 +428,7 @@ npx @synkra/aios-core install
 
 ### Q17: What are Squads?
 
-**Answer:** Expansion packs are optional add-ons that extend AIOS capabilities:
+**Answer:** Starter squads are optional add-ons that extend AIOS capabilities:
 
 | Pack           | Features                                                       |
 | -------------- | -------------------------------------------------------------- |
@@ -450,14 +443,14 @@ npx @synkra/aios-core install --Squads hybrid-ops
 **List available packs:**
 
 ```bash
-npx @synkra/aios-core list:expansions
+npx @synkra/aios-core install
 ```
 
 ---
 
 ### Q18: Can I create my own Squad?
 
-**Answer:** Yes! Expansion packs follow this structure:
+**Answer:** Yes! Starter squads follow this structure:
 
 ```
 my-expansion/
@@ -584,7 +577,7 @@ projectStatus:
 - Bug fixes
 - New agents
 - Documentation improvements
-- Expansion packs
+- Starter squads
 - IDE integrations
 
 ---

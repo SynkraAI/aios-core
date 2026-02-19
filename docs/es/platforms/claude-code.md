@@ -29,7 +29,6 @@ Claude Code ofrece la **mejor integración** con AIOS debido a:
 
 ### Comparación con Otras Plataformas
 
-| Característica | Claude Code | Cursor | Windsurf |
 |---|:-:|:-:|:-:|
 | Soporte MCP | Nativo | Configuración | Configuración |
 | Tareas de Subagentos | Sí | No | No |
@@ -413,13 +412,13 @@ flowchart LR
 
 ```bash
 # Sincronizar todos los agentes
-npm run sync:agents
+npm run sync:ide
 
 # Sincronizar agente específico
-npm run sync:agents -- --agent dev
+npm run sync:ide
 
 # Forzar resincronización
-npm run sync:agents -- --force
+npm run sync:ide
 ```
 
 ### Formato de Archivo de Agente
@@ -524,7 +523,7 @@ Error: Unknown command '/xyz'
 **Solución:**
 ```bash
 # Resincronizar agentes
-npm run sync:agents
+npm run sync:ide
 
 # Verificar que el agente existe
 ls .claude/commands/AIOS/agents/
@@ -618,7 +617,7 @@ R: Después de actualizar AIOS o cuando los agentes se modifiquen en el núcleo.
 
 4. Sincroniza agentes:
    ```bash
-   npm run sync:agents
+   npm run sync:ide
    ```
 
 ### De Claude Code a Otro IDE

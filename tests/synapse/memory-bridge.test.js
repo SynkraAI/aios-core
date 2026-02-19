@@ -201,7 +201,7 @@ describe('MemoryBridge', () => {
       // Create a bridge with very short timeout
       const fastBridge = new MemoryBridge({ timeout: 1 });
       mockGetMemories.mockImplementation(() =>
-        new Promise((resolve) => setTimeout(() => resolve([{ content: 'late', tokens: 5 }]), 100))
+        new Promise((resolve) => setTimeout(() => resolve([{ content: 'late', tokens: 5 }]), 100)),
       );
 
       const hints = await fastBridge.getMemoryHints('dev', 'MODERATE', 100);

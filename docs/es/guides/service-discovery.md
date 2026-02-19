@@ -521,4 +521,4 @@ await registry.load(true);
 
 ---
 
-_Guía de Descubrimiento de Servicios de Synkra AIOS v2.1_
+_Guía de Descubrimiento de Servicios de Synkra AIOS v4_

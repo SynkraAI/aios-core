@@ -12,7 +12,7 @@ O AIOS visa ser o framework de agentes IA open-source mais abrangente, permitind
 
 ## Foco Atual (Q1 2026)
 
-### Release v2.1
+### Release v4.2
 
 Estabilização do framework principal e infraestrutura da comunidade:
 
@@ -105,7 +105,7 @@ Este roadmap público é sincronizado com nosso planejamento interno de sprints:
 | Timeline trimestral | Execução baseada em sprints |
 
 **Checklist de Sincronização (Mensal):**
-- [ ] Revisar sprints concluídos em `docs/stories/v2.1/`
+- [ ] Revisar sprints concluídos em `docs/stories/v4.0.4/`
 - [ ] Atualizar status dos itens do Projeto GitHub (Done/In Progress)
 - [ ] Adicionar novas features aprovadas do backlog ao Projeto
 - [ ] Atualizar este ROADMAP.md com o progresso mais recente

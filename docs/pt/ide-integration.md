@@ -13,19 +13,43 @@ Guia para integrar o AIOS com IDEs e plataformas de desenvolvimento com IA supor
 
 ## IDEs Suportadas
 
-O AIOS suporta 9 plataformas de desenvolvimento com IA. Escolha a que melhor se adapta ao seu fluxo de trabalho.
+O AIOS suporta 6 plataformas de desenvolvimento com IA. Escolha a que melhor se adapta ao seu fluxo de trabalho.
 
 ### Tabela de Comparação Rápida
 
-| Funcionalidade       | Claude Code |  Cursor  | Windsurf |  Cline   | Copilot | AntiGravity | Roo Code | Gemini CLI |   Trae   |
-| -------------------- | :---------: | :------: | :------: | :------: | :-----: | :---------: | :------: | :--------: | :------: |
-| **Ativação de Agente** |  /command   | @mention | @mention | @mention | 4 Modos |  Workflow   |   Mode   |   Prompt   | @mention |
-| **Suporte MCP**      |   Native    |  Config  |  Config  | Limited  |   Yes   |   Native    |    No    |     No     | Limited  |
-| **Tarefas de Subagente**   |     Yes     |    No    |    No    |    No    |   Yes   |     Yes     |    No    |     No     |    No    |
-| **Auto-sync**        |     Yes     |   Yes    |   Yes    |   Yes    |   Yes   |     Yes     |   Yes    |    Yes     |   Yes    |
-| **Sistema de Hooks**     |     Yes     |    No    |    No    |    No    |   No    |     No      |    No    |     No     |    No    |
-| **Skills/Commands**  |   Native    |    No    |    No    |    No    |   No    |     No      |    No    |     No     |    No    |
-| **Recomendação**   |    Best     |   Best   |   Good   |   Good   |  Good   |    Good     |  Basic   |   Basic    |  Basic   |
+| Funcionalidade         | Claude Code | Codex CLI | Cursor | Copilot | AntiGravity | Gemini CLI |
+| ---------------------- | :---------: | :-------: | :----: | :-----: | :---------: | :--------: |
+| **Ativação de Agente** |  /command   |  /skills  | @mention | chat modes | workflow-based | prompt mention |
+| **Suporte MCP**        |   Native    |  Native   | Config | Config | Provider-specific | Native |
+| **Tarefas de Subagente** |   Yes     |    Yes    |   No   |   No   |     Yes     |     No     |
+| **Auto-sync**          |     Yes     |    Yes    |  Yes   |  Yes   |     Yes     |    Yes     |
+| **Sistema de Hooks**   |     Yes     |  Limited  |   No   |   No   |      No     |     Yes    |
+| **Skills/Commands**    |   Native    |  Native   |   No   |   No   |      No     |   Native   |
+| **Recomendação**       |    Best     |   Best    |  Best  |  Good  |     Good    |   Good     |
+
+### Paridade de Hooks e Impacto Funcional
+
+| IDE | Paridade de Hooks vs Claude | O que degrada sem hooks completos | Mitigação no AIOS |
+| --- | --- | --- | --- |
+| Claude Code | Completa | Nenhum (comportamento de referência) | Hooks nativos + pipeline completo do AIOS |
+| Gemini CLI | Alta | Pequenas diferenças de modelo de eventos | Hooks nativos do Gemini + mapeamento unificado |
+| Codex CLI | Limitada/parcial | Menor automação de ciclo de sessão e menor enforcement pre/post-tool | `AGENTS.md` + `/skills` + MCP + scripts de sync/validação |
+| Cursor | Sem hooks de ciclo equivalentes | Sem interceptação nativa pre/post-tool e trilha automática mais fraca | Regras sincronizadas + MCP + disciplina de workflow |
+| GitHub Copilot | Sem hooks de ciclo equivalentes | Mesmo impacto do Cursor, com maior dependência de fluxo manual | Instruções de repo, chat modes e MCP no VS Code |
+| AntiGravity | Baseado em workflow (não em hooks) | Sem paridade de ciclo de vida ao estilo Claude | Geração de workflows + sync de agentes |
+
+### Consequências Práticas por Capacidade
+
+- Automação `SessionStart/SessionEnd`:
+  - Forte em Claude/Gemini.
+  - Parcial ou manual em Codex/Cursor/Copilot/AntiGravity.
+- Guardrails `BeforeTool/AfterTool`:
+  - Mais robustos em Claude/Gemini.
+  - Limitados no Codex.
+  - Predominantemente processuais em Cursor/Copilot/AntiGravity.
+- Riqueza de auditoria e telemetria automáticas:
+  - Maior onde há hooks de ciclo de vida.
+  - Menor onde a integração é majoritariamente por regras/instruções.
 
 ---
 
@@ -58,11 +82,45 @@ special_features:
 **Configuração:**
 
 ```bash
-# Sincronizar agentes para Claude Code
-npm run sync:agents -- --platform claude
+# Sincronizar todos os alvos habilitados (inclui Claude)
+npm run sync:ide
 
 # Verificar configuração
 ls -la .claude/commands/AIOS/agents/
+```
+
+---
+
+### Codex CLI
+
+**Nível de Recomendação:** Melhor (workflow terminal-first)
+
+```yaml
+config_file: AGENTS.md
+agent_folder: .codex/agents
+activation: /skills + atalhos AGENTS.md
+skills_folder: .codex/skills (local), ~/.codex/skills (global)
+format: markdown
+mcp_support: nativo via Codex
+special_features:
+  - AGENTS.md como contrato operacional
+  - Skills locais versionadas no projeto
+  - Pipeline de greeting compartilhado com Claude
+  - Comando de notify e hooks de ferramenta emergentes nas releases recentes do Codex
+```
+
+**Configuração:**
+
+1. Mantenha `AGENTS.md` na raiz do repositório
+2. Execute `npm run sync:ide:codex`
+3. Execute `npm run sync:skills:codex`
+4. Use `/skills` e selecione `aios-<agent-id>`
+5. Use `sync:skills:codex:global` só quando quiser instalação global
+
+```bash
+npm run sync:ide:codex
+npm run sync:skills:codex
+ls -la AGENTS.md .codex/agents/ .codex/skills/
 ```
 
 ---
@@ -82,6 +140,8 @@ special_features:
   - Chat modes
   - @codebase context
   - Multi-file editing
+  - Suporte a subagents e handoff para cloud agents
+  - Fluxos de agente de longa duracao (preview)
 ```
 
 **Configuração:**
@@ -93,8 +153,8 @@ special_features:
 **Configuração:**
 
 ```bash
-# Sincronizar agentes para Cursor
-npm run sync:agents -- --platform cursor
+# Sincronizar Cursor
+npm run sync:ide:cursor
 
 # Verificar configuração
 ls -la .cursor/rules/
@@ -114,75 +174,6 @@ ls -la .cursor/rules/
 
 ---
 
-### Windsurf
-
-**Nível de Recomendação:** Bom (fluxo Cascade)
-
-```yaml
-config_file: .windsurfrules
-agent_folder: .windsurf/rules
-activation: @agent-name
-format: xml-tagged-markdown
-mcp_support: via configuration
-special_features:
-  - Cascade flow
-  - Supercomplete
-  - Flows system
-```
-
-**Configuração:**
-
-1. AIOS cria o diretório `.windsurf/` e o arquivo `.windsurfrules`
-2. Agentes ativados com @mention
-3. Suporta fluxo Cascade para tarefas de múltiplas etapas
-
-**Configuração:**
-
-```bash
-# Sincronizar agentes para Windsurf
-npm run sync:agents -- --platform windsurf
-
-# Verificar configuração
-cat .windsurfrules
-ls -la .windsurf/rules/
-```
-
----
-
-### Cline
-
-**Nível de Recomendação:** Bom (integração com VS Code)
-
-```yaml
-config_file: .cline/rules.md
-agent_folder: .cline/agents
-activation: @agent-name
-format: condensed-rules
-mcp_support: limited
-special_features:
-  - VS Code integration
-  - Extension ecosystem
-  - Inline suggestions
-```
-
-**Configuração:**
-
-1. Instale a extensão Cline para VS Code
-2. AIOS cria o diretório `.cline/` durante a inicialização
-3. Agentes sincronizados para `.cline/agents/`
-
-**Configuração:**
-
-```bash
-# Sincronizar agentes para Cline
-npm run sync:agents -- --platform cline
-
-# Verificar configuração
-ls -la .cline/agents/
-```
-
----
-
 ### GitHub Copilot
 
 **Nível de Recomendação:** Bom (integração com GitHub)
@@ -192,11 +183,12 @@ config_file: .github/copilot-instructions.md
 agent_folder: .github/agents
 activation: chat modes
 format: text
-mcp_support: none
+mcp_support: via VS Code MCP config
 special_features:
   - GitHub integration
   - PR assistance
   - Code review
+  - Integracao com instrucoes de repositorio e MCP no VS Code
 ```
 
 **Configuração:**
@@ -208,8 +200,8 @@ special_features:
 **Configuração:**
 
 ```bash
-# Sincronizar agentes para GitHub Copilot
-npm run sync:agents -- --platform github-copilot
+# Sincronizar todos os alvos habilitados
+npm run sync:ide
 
 # Verificar configuração
 cat .github/copilot-instructions.md
@@ -242,56 +234,23 @@ special_features:
 
 ---
 
-### Roo Code
-
-**Nível de Recomendação:** Básico
-
-```yaml
-config_file: .roo/rules.md
-agent_folder: .roo/agents
-activation: mode selector
-format: text
-mcp_support: none
-special_features:
-  - Mode-based workflow
-  - VS Code extension
-  - Custom modes
-```
-
----
-
 ### Gemini CLI
 
-**Nível de Recomendação:** Básico
+**Nível de Recomendação:** Bom
 
 ```yaml
 config_file: .gemini/rules.md
-agent_folder: .gemini/agents
+agent_folder: .gemini/rules/AIOS/agents
 activation: prompt mention
 format: text
-mcp_support: none
+mcp_support: native
 special_features:
   - Google AI models
   - CLI-based workflow
   - Multimodal support
-```
-
----
-
-### Trae
-
-**Nível de Recomendação:** Básico
-
-```yaml
-config_file: .trae/rules.md
-agent_folder: .trae/agents
-activation: @agent-name
-format: project-rules
-mcp_support: limited
-special_features:
-  - Modern UI
-  - Fast iteration
-  - Builder mode
+  - Eventos de hooks nativos e comandos de hooks
+  - Suporte nativo a servidores MCP
+  - UX de comandos/ferramentas em evolucao acelerada
 ```
 
 ---
@@ -309,29 +268,29 @@ O AIOS mantém uma única fonte de verdade para definições de agentes e as sin
 │                        │                             │
 │            ┌───────────┼───────────┐                │
 │            ▼           ▼           ▼                │
-│  .claude/     .cursor/     .windsurf/               │
-│  .cline/      .github/     .antigravity/            │
-│  .roo/        .gemini/     .trae/                   │
+│  .claude/     .codex/      .cursor/                  │
+│  .antigravity/ .gemini/                              │
 └─────────────────────────────────────────────────────┘
 ```
 
 ### Comandos de Sincronização
 
 ```bash
-# Sincronizar todos os agentes para todas as plataformas
-npm run sync:agents
+# Sincronizar todos os alvos habilitados
+npm run sync:ide
 
-# Sincronizar para plataforma específica
-npm run sync:agents -- --platform cursor
-
-# Sincronizar agente específico
-npm run sync:agents -- --agent dev
+# Sincronizar alvos específicos
+npm run sync:ide:cursor
+npm run sync:ide:codex
+npm run sync:ide:gemini
+npm run sync:ide:github-copilot
+npm run sync:ide:antigravity
 
 # Dry run (visualizar mudanças)
-npm run sync:agents -- --dry-run
+npm run sync:ide -- --dry-run
 
-# Sincronização forçada (sobrescrever)
-npm run sync:agents -- --force
+# Sincronização padrão
+npm run sync:ide
 ```
 
 ### Sincronização Automática
@@ -346,8 +305,9 @@ auto_sync:
     - .aios-core/development/agents/
   platforms:
     - claude
+    - codex
     - cursor
-    - windsurf
+    - gemini
 ```
 
 ---
@@ -360,8 +320,9 @@ auto_sync:
 # Verificar se o agente existe na fonte
 ls .aios-core/development/agents/
 
-# Forçar sincronização
-npm run sync:agents -- --force
+# Sincronizar e validar
+npm run sync:ide
+npm run sync:ide:check
 
 # Verificar diretório específico da plataforma
 ls .cursor/rules/  # Para Cursor
@@ -372,11 +333,11 @@ ls .claude/commands/AIOS/agents/  # Para Claude Code
 
 ```bash
 # Visualizar o que seria alterado
-npm run sync:agents -- --dry-run
+npm run sync:ide -- --dry-run
 
-# Fazer backup antes de sincronização forçada
+# Fazer backup antes de sincronização
 cp -r .cursor/rules/ .cursor/rules.backup/
-npm run sync:agents -- --force
+npm run sync:ide
 ```
 
 ### MCP Não Está Funcionando
@@ -402,13 +363,6 @@ cat .cursor/mcp.json  # Para Cursor
 - Reinicie o Cursor após sincronização
 - Verifique permissões de `.cursor/rules/`
 
-**Windsurf:**
-
-- Verifique se `.windsurfrules` existe na raiz
-- Verifique sintaxe com validador YAML
-
----
-
 ## Guia de Decisão de Plataforma
 
 Use este guia para escolher a plataforma certa:
@@ -419,15 +373,14 @@ Você usa Claude/Anthropic API?
 └── Não
     └── Você prefere VS Code?
         ├── Sim --> Quer uma extensão?
-        │   ├── Sim --> Cline (Integração completa com VS Code)
+        │   ├── Sim --> GitHub Copilot (Recursos nativos do GitHub)
         │   └── Não --> GitHub Copilot (Recursos nativos do GitHub)
         └── Não --> Quer uma IDE dedicada com IA?
             ├── Sim --> Qual modelo você prefere?
             │   ├── Claude/GPT --> Cursor (IDE com IA mais popular)
-            │   └── Múltiplos --> Windsurf (fluxo Cascade)
             └── Não --> Usa Google Cloud?
                 ├── Sim --> AntiGravity (integração com Google)
-                └── Não --> Gemini CLI / Trae / Roo (Especializados)
+                └── Não --> Gemini CLI (Especializados)
 ```
 
 ---
@@ -441,7 +394,7 @@ Você usa Claude/Anthropic API?
 cp -r .cursor/rules/ ./rules-backup/
 
 # Inicializar Claude Code
-npm run sync:agents -- --platform claude
+npm run sync:ide
 
 # Verificar migração
 diff -r ./rules-backup/ .claude/commands/AIOS/agents/
@@ -451,7 +404,7 @@ diff -r ./rules-backup/ .claude/commands/AIOS/agents/
 
 ```bash
 # Sincronizar para Cursor
-npm run sync:agents -- --platform cursor
+npm run sync:ide:cursor
 
 # Configurar MCP (se necessário)
 # Copiar configuração MCP para .cursor/mcp.json
@@ -469,4 +422,4 @@ npm run sync:agents -- --platform cursor
 
 ---
 
-_Guia de Integração com IDEs do Synkra AIOS v2.1.0_
+_Guia de Integração com IDEs do Synkra AIOS v4.0_

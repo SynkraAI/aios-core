@@ -5,7 +5,7 @@
  *
  * @module cli/commands/migrate/validate
  * @version 1.0.0
- * @story 2.14 - Migration Script v2.0 → v2.1
+ * @story 2.14 - Migration Script v2.0 → v4.0.4
  */
 
 const fs = require('fs');
@@ -17,7 +17,7 @@ const { verifyImports } = require('./update-imports');
 // const { formatSize } = require('./analyze');
 
 /**
- * Validate the v2.1 module structure exists
+ * Validate the v4.0.4 module structure exists
  * @param {string} aiosCoreDir - Path to .aios-core
  * @returns {Promise<Object>} Validation result
  */

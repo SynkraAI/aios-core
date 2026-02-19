@@ -126,7 +126,6 @@ quality_gates:
 ide:
   vscode: true
   cursor: true
-  windsurf: false
 
 # MCP Configuration
 mcp:

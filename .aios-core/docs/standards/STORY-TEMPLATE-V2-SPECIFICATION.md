@@ -474,9 +474,9 @@ Use this checklist when creating or reviewing stories:
 - [ ] Testing strategy clear
 
 #### Terminology
-- [ ] Uses "Squad" not "Expansion Pack"
+- [ ] Uses "Squad" not "Squad"
 - [ ] Uses "@aios/" npm scope
-- [ ] References v2.1 architecture
+- [ ] References v4.0.4 architecture
 
 ---
 
@@ -532,7 +532,7 @@ Use this checklist when creating or reviewing stories:
 | Decision | Source | Impact |
 |----------|--------|--------|
 | Multi-repo structure | OSR-2/OSR-11 | Standards must document 3-repo architecture |
-| Squad terminology | OSR-4 | Replace all "Expansion Pack" references |
+| Squad terminology | OSR-4 | Replace all "Squad" references |
 ```
 
 ---

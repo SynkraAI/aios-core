@@ -1,5 +1,5 @@
 /**
- * AIOS Color Palette v2.1
+ * AIOS Color Palette v4.0.4
  * 
  * Brand-inspired color system for CLI tools and terminal output.
  * Colors derived from AIOS logo gradient (magenta → orange → purple → blue)
@@ -189,7 +189,7 @@ const lists = {
  */
 const examples = {
   welcome: () => {
-    console.log(headings.h1('🎉 Welcome to AIOS v2.1 Installer!'));
+    console.log(headings.h1('🎉 Welcome to AIOS v4 Installer!'));
     console.log(colors.info('Let\'s configure your project in just a few steps...\n'));
   },
   

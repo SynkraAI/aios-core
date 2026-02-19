@@ -605,4 +605,4 @@ verbose:
 
 ---
 
-_Synkra AIOS v2.1 Quality Gate System Guide_
+_Synkra AIOS v4 Quality Gate System Guide_

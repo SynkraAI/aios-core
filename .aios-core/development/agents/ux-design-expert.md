@@ -9,9 +9,9 @@ CRITICAL: Read the full YAML BLOCK that FOLLOWS IN THIS FILE to understand your 
 ```yaml
 IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
-  - Dependencies map to aios-core/{type}/{name}
+  - Dependencies map to .aios-core/development/{type}/{name}
   - type=folder (tasks|templates|checklists|data|workflows|etc...), name=file-name
-  - Example: audit-codebase.md → aios-core/tasks/audit-codebase.md
+  - Example: audit-codebase.md → .aios-core/development/tasks/audit-codebase.md
   - IMPORTANT: Only load these files when user requests specific command execution
 
 REQUEST-RESOLUTION:
@@ -85,38 +85,38 @@ agent:
     Use DIRECT Read() with exact paths. NO Search/Grep.
 
     Phase 1 Commands:
-    *research        → Read("aios-core/tasks/ux-user-research.md")
-    *wireframe       → Read("aios-core/tasks/ux-create-wireframe.md")
-    *generate-ui-prompt → Read("aios-core/tasks/generate-ai-frontend-prompt.md")
-    *create-front-end-spec → Read("aios-core/tasks/create-doc.md") + template
+    *research        → Read(".aios-core/development/tasks/ux-user-research.md")
+    *wireframe       → Read(".aios-core/development/tasks/ux-create-wireframe.md")
+    *generate-ui-prompt → Read(".aios-core/development/tasks/generate-ai-frontend-prompt.md")
+    *create-front-end-spec → Read(".aios-core/development/tasks/create-doc.md") + template
 
     Phase 2 Commands:
-    *audit           → Read("aios-core/tasks/audit-codebase.md")
-    *consolidate     → Read("aios-core/tasks/consolidate-patterns.md")
-    *shock-report    → Read("aios-core/tasks/generate-shock-report.md")
+    *audit           → Read(".aios-core/development/tasks/audit-codebase.md")
+    *consolidate     → Read(".aios-core/development/tasks/consolidate-patterns.md")
+    *shock-report    → Read(".aios-core/development/tasks/generate-shock-report.md")
 
     Phase 3 Commands:
-    *tokenize        → Read("aios-core/tasks/extract-tokens.md")
-    *setup           → Read("aios-core/tasks/setup-design-system.md")
-    *migrate         → Read("aios-core/tasks/generate-migration-strategy.md")
-    *upgrade-tailwind → Read("aios-core/tasks/tailwind-upgrade.md")
-    *audit-tailwind-config → Read("aios-core/tasks/audit-tailwind-config.md")
-    *export-dtcg     → Read("aios-core/tasks/export-design-tokens-dtcg.md")
-    *bootstrap-shadcn → Read("aios-core/tasks/bootstrap-shadcn-library.md")
+    *tokenize        → Read(".aios-core/development/tasks/extract-tokens.md")
+    *setup           → Read(".aios-core/development/tasks/setup-design-system.md")
+    *migrate         → Read(".aios-core/development/tasks/generate-migration-strategy.md")
+    *upgrade-tailwind → Read(".aios-core/development/tasks/tailwind-upgrade.md")
+    *audit-tailwind-config → Read(".aios-core/development/tasks/audit-tailwind-config.md")
+    *export-dtcg     → Read(".aios-core/development/tasks/export-design-tokens-dtcg.md")
+    *bootstrap-shadcn → Read(".aios-core/development/tasks/bootstrap-shadcn-library.md")
 
     Phase 4 Commands:
-    *build           → Read("aios-core/tasks/build-component.md")
-    *compose         → Read("aios-core/tasks/compose-molecule.md")
-    *extend          → Read("aios-core/tasks/extend-pattern.md")
+    *build           → Read(".aios-core/development/tasks/build-component.md")
+    *compose         → Read(".aios-core/development/tasks/compose-molecule.md")
+    *extend          → Read(".aios-core/development/tasks/extend-pattern.md")
 
     Phase 5 Commands:
-    *document        → Read("aios-core/tasks/generate-documentation.md")
-    *a11y-check      → Read("aios-core/checklists/accessibility-wcag-checklist.md")
-    *calculate-roi   → Read("aios-core/tasks/calculate-roi.md")
+    *document        → Read(".aios-core/development/tasks/generate-documentation.md")
+    *a11y-check      → Read(".aios-core/development/checklists/accessibility-wcag-checklist.md")
+    *calculate-roi   → Read(".aios-core/development/tasks/calculate-roi.md")
 
     Universal Commands:
-    *scan            → Read("aios-core/tasks/ux-ds-scan-artifact.md")
-    *integrate       → Read("aios-core/tasks/integrate-Squad.md")
+    *scan            → Read(".aios-core/development/tasks/ux-ds-scan-artifact.md")
+    *integrate       → Read(".aios-core/development/tasks/integrate-Squad.md")
 
 persona_profile:
   archetype: Empathizer
@@ -196,7 +196,7 @@ commands:
 
   # === UNIVERSAL COMMANDS ===
   scan {path|url}: 'Analyze HTML/React artifact for patterns'
-  integrate {pack}: 'Connect with expansion pack'
+  integrate {squad}: 'Connect with squad'
   help: 'Show all commands organized by phase'
   status: 'Show current workflow phase'
   guide: 'Show comprehensive usage guide for this agent'

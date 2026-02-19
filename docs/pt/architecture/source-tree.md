@@ -56,14 +56,14 @@ AIOS utiliza uma **arquitetura de camada dupla**:
 ```
 aios-core/                             # Raiz (projeto brownfield)
 ├── .aios-core/                        # Core do framework (portátil)
-│   ├── core/                          # Essenciais do framework (v2.1)
+│   ├── core/                          # Essenciais do framework (v4)
 │   │   ├── config/                    # Sistema de configuração
 │   │   ├── data/                      # Base de conhecimento core
 │   │   ├── docs/                      # Documentação core
 │   │   ├── elicitation/               # Motor de prompting interativo
 │   │   ├── session/                   # Gerenciamento de estado em runtime
 │   │   └── utils/                     # Utilitários core
-│   ├── product/                       # Ativos PM/PO (v2.1)
+│   ├── product/                       # Ativos PM/PO (v4)
 │   │   ├── templates/                 # Templates de documentos (52+ arquivos)
 │   │   ├── checklists/                # Checklists de validação (6 arquivos)
 │   │   └── data/                      # Dados específicos de PM (6 arquivos)
@@ -430,7 +430,7 @@ dependencies:
 | Legado (Descontinuado)          | Atual (Squads)                  |
 | ------------------------------- | ------------------------------- |
 | Diretório `Squads/`             | Template `templates/squad/`     |
-| Config `expansionPacksLocation` | Config `squadsTemplateLocation` |
+| Config `legacyPacksLocation` | Config `squadsTemplateLocation` |
 | Manifesto `pack.yaml`           | Manifesto `squad.yaml`          |
 | Carregamento direto             | Criação baseada em template     |
 
@@ -440,7 +440,7 @@ dependencies:
 
 **Decisão 005 define 5 repositórios separados:**
 
-### REPO 1: SynkraAI/aios-core (Commons Clause)
+### REPO 1: SynkraAI/aios-core (MIT)
 
 ```
 aios-core/
@@ -564,7 +564,7 @@ Diretórios: kebab-case (minúsculas, separados por hífen)
   ✅ .aios-core/
   ✅ Squads/
   ❌ .AIOS-Core/
-  ❌ expansionPacks/
+  ❌ legacy-packs/
 
 Arquivos (Código): kebab-case com extensão
   ✅ agent-executor.js

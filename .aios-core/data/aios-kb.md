@@ -82,7 +82,7 @@ AIOS transforms you into a "Vibe CEO" - directing a team of specialized AI agent
 
 #### Option 2: IDE Integration
 
-**Best for**: Cursor, Claude Code, Windsurf, Cline, Roo Code, Gemini CLI, Github Copilot users
+**Best for**: Cursor, Claude Code, Gemini CLI, Github Copilot users
 
 ```bash
 # Interactive installation (recommended)
@@ -95,12 +95,9 @@ npx @synkra/aios-core install
 - Select your IDE from supported options:
   - **Cursor**: Native AI integration
   - **Claude Code**: Anthropic's official IDE
-  - **Windsurf**: Built-in AI capabilities
-  - **Cline**: VS Code extension with AI features
-  - **Roo Code**: Web-based IDE with agent support
   - **GitHub Copilot**: VS Code extension with AI peer programming assistant
 
-**Note for VS Code Users**: AIOS-Method assumes when you mention "VS Code" that you're using it with an AI-powered extension like GitHub Copilot, Cline, or Roo. Standard VS Code without AI capabilities cannot run AIOS agents. The installer includes built-in support for Cline and Roo.
+**Note for VS Code Users**: AIOS-Method assumes when you mention "VS Code" that you're using it with an AI-powered extension like GitHub Copilot. Standard VS Code without AI capabilities cannot run AIOS agents.
 
 **Verify Installation**:
 
@@ -297,14 +294,11 @@ You are the "Vibe CEO" - thinking like a CEO with unlimited resources and a sing
 
 - **Claude Code**: `/agent-name` (e.g., `/aios-master`)
 - **Cursor**: `@agent-name` (e.g., `@aios-master`)
-- **Windsurf**: `@agent-name` (e.g., `@aios-master`)
-- **Roo Code**: Select mode from mode selector (e.g., `aios-master`)
 - **GitHub Copilot**: Open the Chat view (`⌃⌘I` on Mac, `Ctrl+Alt+I` on Windows/Linux) and select **Agent** from the chat mode selector.
 
 **Chat Management Guidelines**:
 
-- **Claude Code, Cursor, Windsurf**: Start new chats when switching agents
-- **Roo Code**: Switch modes within the same conversation
+- **Claude Code, Cursor**: Start new chats when switching agents
 
 **Common Task Commands**:
 
@@ -848,32 +842,32 @@ For full details, see `CONTRIBUTING.md`. Key points:
 
 - **Dev Agents Must Be Lean**: Minimize dependencies, save context for code
 - **Natural Language First**: Everything in markdown, no code in core
-- **Core vs Expansion Packs**: Core for universal needs, packs for specialized domains
+- **Core vs Squads**: Core for universal needs, squads for specialized domains
 - **Design Philosophy**: "Dev agents code, planning agents plan"
 
-## Expansion Packs
+## Squads
 
-### What Are Expansion Packs?
+### What Are Squads?
 
-Expansion packs extend AIOS-Method beyond traditional software development into ANY domain. They provide specialized agent teams, templates, and workflows while keeping the core framework lean and focused on development.
+Squads extend AIOS-Method beyond traditional software development into ANY domain. They provide specialized agent teams, templates, and workflows while keeping the core framework lean and focused on development.
 
-### Why Use Expansion Packs?
+### Why Use Squads?
 
 1. **Keep Core Lean**: Dev agents maintain maximum context for coding
 2. **Domain Expertise**: Deep, specialized knowledge without bloating core
-3. **Community Innovation**: Anyone can create and share packs
+3. **Community Innovation**: Anyone can create and share squads
 4. **Modular Design**: Install only what you need
 
-### Available Expansion Packs
+### Available Squads
 
-**Technical Packs**:
+**Technical Squads**:
 
 - **Infrastructure/DevOps**: Cloud architects, SRE experts, security specialists
 - **Game Development**: Game designers, level designers, narrative writers
 - **Mobile Development**: iOS/Android specialists, mobile UX experts
 - **Data Science**: ML engineers, data scientists, visualization experts
 
-**Non-Technical Packs**:
+**Non-Technical Squads**:
 
 - **Business Strategy**: Consultants, financial analysts, marketing strategists
 - **Creative Writing**: Plot architects, character developers, world builders
@@ -881,36 +875,36 @@ Expansion packs extend AIOS-Method beyond traditional software development into 
 - **Education**: Curriculum designers, assessment specialists
 - **Legal Support**: Contract analysts, compliance checkers
 
-**Specialty Packs**:
+**Specialty Squads**:
 
-- **Expansion Creator**: Tools to build your own expansion packs
+- **Expansion Creator**: Tools to build your own squads
 - **RPG Game Master**: Tabletop gaming assistance
 - **Life Event Planning**: Wedding planners, event coordinators
 - **Scientific Research**: Literature reviewers, methodology designers
 
-### Using Expansion Packs
+### Using Squads
 
-1. **Browse Available Packs**: Check `Squads/` directory
-2. **Get Inspiration**: See `docs/Squads.md` for detailed examples and ideas
+1. **Browse Available Squads**: Check `squads/` directory
+2. **Get Inspiration**: See `docs/squads.md` for detailed examples and ideas
 3. **Install via CLI**:
 
    ```bash
    npx @synkra/aios-core install
-   # Select "Install expansion pack" option
+   # Select "Install squad" option
    ```
 
-4. **Use in Your Workflow**: Installed packs integrate seamlessly with existing agents
+4. **Use in Your Workflow**: Installed squads integrate seamlessly with existing agents
 
-### Creating Custom Expansion Packs
+### Creating Custom Squads
 
-Use the **expansion-creator** pack to build your own:
+Use the **squad-creator** squad to build your own:
 
 1. **Define Domain**: What expertise are you capturing?
 2. **Design Agents**: Create specialized roles with clear boundaries
 3. **Build Resources**: Tasks, templates, checklists for your domain
 4. **Test & Share**: Validate with real use cases, share with community
 
-**Key Principle**: Expansion packs democratize expertise by making specialized knowledge accessible through AI agents.
+**Key Principle**: Squads democratize expertise by making specialized knowledge accessible through AI agents.
 
 ## Getting Help
 

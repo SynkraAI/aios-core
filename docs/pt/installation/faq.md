@@ -288,10 +288,6 @@ tar -xzvf aios-offline.tar.gz
 | ------------------ | -------------- | ------------------- |
 | **Claude Code**    | Suporte Completo | `/dev`, `/qa`, etc. |
 | **Cursor**         | Suporte Completo | `@dev`, `@qa`, etc. |
-| **Windsurf**       | Suporte Completo | `@dev`, `@qa`, etc. |
-| **Trae**           | Suporte Completo | `@dev`, `@qa`, etc. |
-| **Roo Code**       | Suporte Completo | Seletor de modo     |
-| **Cline**          | Suporte Completo | `@dev`, `@qa`, etc. |
 | **Gemini CLI**     | Suporte Completo | Menção no prompt    |
 | **GitHub Copilot** | Suporte Completo | Modos de chat       |
 
@@ -309,20 +305,17 @@ tar -xzvf aios-offline.tar.gz
 ? Which IDE(s) do you want to configure?
 ❯ ◉ Cursor
   ◉ Claude Code
-  ◯ Windsurf
 ```
 
 **Linha de comando:**
 
 ```bash
-npx @synkra/aios-core install --ide cursor claude-code windsurf
 ```
 
 Cada IDE recebe seu próprio diretório de configuração:
 
 - `.cursor/rules/` para Cursor
 - `.claude/commands/` para Claude Code
-- `.windsurf/rules/` para Windsurf
 
 ---
 
@@ -458,7 +451,7 @@ npx @synkra/aios-core install --Squads hybrid-ops
 **Listar packs disponíveis:**
 
 ```bash
-npx @synkra/aios-core list:expansions
+npx @synkra/aios-core install
 ```
 
 ---

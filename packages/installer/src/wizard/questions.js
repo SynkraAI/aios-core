@@ -186,26 +186,30 @@ function getEnvironmentQuestions() {
 }
 
 /**
- * Get Expansion Pack selection questions
+ * Get Squad selection questions
  *
- * Available expansion packs for v2.1:
- * - expansion-creator: Tools to create custom expansion packs
+ * Available squads for v4.0:
+ * - squad-creator: Tools to create custom squads
  * - etl: ETL pipeline for knowledge base creation
  *
+ * Note: This function is currently DISABLED. Squad selection is handled
+ * directly in aios-init.js using the squads/ directory.
+ *
  * @returns {Object[]} Array of inquirer question objects
+ * @deprecated Use squads/ directory directly in aios-init.js
  */
-function getExpansionPackQuestions() {
+function getSquadQuestions() {
   return [
     {
       type: 'checkbox',
-      name: 'selectedExpansionPacks',
-      message: colors.primary('Select Expansion Packs to install (optional):'),
+      name: 'selectedSquads',
+      message: colors.primary('Select Squads to install (optional):'),
       choices: [
         {
           name:
-            colors.highlight('expansion-creator') +
-            colors.dim(' - Tools to create custom expansion packs'),
-          value: 'expansion-creator',
+            colors.highlight('squad-creator') +
+            colors.dim(' - Tools to create custom squads'),
+          value: 'squad-creator',
           checked: false,
         },
         {
@@ -215,7 +219,7 @@ function getExpansionPackQuestions() {
         },
       ],
       validate: () => {
-        // Allow empty selection (user can skip expansion pack installation)
+        // Allow empty selection (user can skip squad installation)
         return true;
       },
     },
@@ -277,9 +281,9 @@ function buildQuestionSequence(_context = {}) {
   // TODO: Remove entirely in future version - each project has unique MCP needs
   // questions.push(...getMCPQuestions());
 
-  // Expansion Pack Selection (v2.1) - DISABLED: Squads replaced expansion-packs (OSR-8)
-  // TODO: Remove entirely in future version
-  // questions.push(...getExpansionPackQuestions());
+  // Squad Selection - DISABLED: Handled directly in aios-init.js
+  // TODO: Consider removing getSquadQuestions() entirely in future version
+  // questions.push(...getSquadQuestions());
 
   // Tech Preset Selection
   questions.push(...getTechPresetQuestion());
@@ -320,7 +324,9 @@ module.exports = {
   getProjectTypeQuestion,
   getIDEQuestions,
   getMCPQuestions,
-  getExpansionPackQuestions,
+  getSquadQuestions,
+  // Backward compat alias (deprecated)
+  getExpansionPackQuestions: getSquadQuestions,
   getTechPresetQuestion,
   getEnvironmentQuestions,
   getPackageManagerQuestion,

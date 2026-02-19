@@ -21,11 +21,14 @@
 ide:
   selected:
     - vscode
+    - codex
+    - gemini
     - claude-code
   configs:
     vscode: true
+    codex: true
+    gemini: true
     cursor: false
-    windsurf: false
     zed: false
     claude-desktop: false
     claude-code: true

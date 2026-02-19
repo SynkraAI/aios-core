@@ -92,7 +92,7 @@ O agente **@dev (Dex)** e o Full Stack Developer do AIOS, responsavel pela imple
 ```mermaid
 flowchart TB
     subgraph ACTIVATION["ATIVACAO DO AGENTE"]
-        A["@dev"] --> B["Greeting Builder<br/>(greeting-builder.js)"]
+        A["@dev"] --> B["Unified Activation Pipeline<br/>(unified-activation-pipeline.js)"]
         B --> C["Carrega devLoadAlwaysFiles"]
         C --> D["Exibe Quick Commands"]
         D --> E["HALT - Aguarda Usuario"]
@@ -375,7 +375,7 @@ O @dev tem operacoes Git limitadas:
 | Arquivo | Propósito |
 |---------|-----------|
 | `.aios-core/core-config.yaml` | Configuracao central (devStoryLocation, coderabbit, etc.) |
-| `.aios-core/development/scripts/greeting-builder.js` | Constroi greeting adaptativo |
+| `.aios-core/development/scripts/unified-activation-pipeline.js` | Pipeline canonico de ativacao e greeting |
 | `.aios-core/scripts/decision-recorder.js` | Logging de decisoes (YOLO mode) |
 
 ### devLoadAlwaysFiles

@@ -12,19 +12,24 @@ Or manually copy to `~/.gemini/extensions/aios/`
 
 ## Features
 
-### Agents
-Access all AIOS agents via `@agent-name`:
-- `@dev` - Developer (Dex)
-- `@architect` - Architect (Aria)
-- `@qa` - QA Engineer (Quinn)
-- `@pm` - Product Manager (Morgan)
-- `@devops` - DevOps (Gage)
-- And more...
+### Quick Agent Launcher
+Use slash commands for fast activation flow (Codex `$`-like UX):
+- `/aios-menu` - show all quick launch commands
+- `/aios-dev`
+- `/aios-architect`
+- `/aios-qa`
+- `/aios-devops`
+- `/aios-master`
+- and other `/aios-<agent-id>` commands
+
+Each launcher returns a ready-to-send activation prompt plus greeting preview.
 
 ### Commands
 - `/aios-status` - Show system status
 - `/aios-agents` - List available agents
 - `/aios-validate` - Validate installation
+- `/aios-menu` - Show quick launch menu
+- `/aios-agent <id>` - Generic launcher by agent id
 
 ### Hooks
 Automatic integration with AIOS memory and security:

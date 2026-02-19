@@ -51,11 +51,14 @@ function generateCoreConfig(options = {}) {
 
     // IDE Configuration (from Story 1.4)
     ide: {
-      selected: selectedIDEs.length > 0 ? selectedIDEs : ['vscode'],
+      selected: selectedIDEs.length > 0 ? selectedIDEs : ['claude-code', 'codex'],
       configs: {
-        vscode: selectedIDEs.includes('vscode') || selectedIDEs.length === 0,
+        vscode: selectedIDEs.includes('vscode') || selectedIDEs.length === 0, // Legacy compatibility
+        codex: selectedIDEs.includes('codex'),
+        gemini: selectedIDEs.includes('gemini'),
         cursor: selectedIDEs.includes('cursor'),
-        windsurf: selectedIDEs.includes('windsurf'),
+        'github-copilot': selectedIDEs.includes('github-copilot'),
+        antigravity: selectedIDEs.includes('antigravity'),
         zed: selectedIDEs.includes('zed'),
         'claude-desktop': selectedIDEs.includes('claude-desktop'),
         'claude-code': selectedIDEs.includes('claude-code'),
@@ -118,7 +121,7 @@ function generateCoreConfig(options = {}) {
       enabled: true,
       heavySections: [
         'pvMindContext',
-        'expansionPacks',
+        'squads',
         'registry',
       ],
     },
@@ -146,7 +149,7 @@ function generateCoreConfig(options = {}) {
     scriptsLocation: '.aios-core/scripts',
     dataLocation: '.aios-core/data',
     elicitationLocation: '.aios-core/elicitation',
-    expansionPacksLocation: 'expansion-packs',
+    squadsLocation: 'squads',
     mindsLocation: 'outputs/minds',
 
     // Project Status Configuration

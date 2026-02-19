@@ -83,7 +83,7 @@ O agente **@sm (River)** e o Scrum Master tecnico do AIOS, especializado em prep
 | Arquivo | Propósito |
 |---------|-----------|
 | `.aios-core/core-config.yaml` | Configuracao central (devStoryLocation, etc.) |
-| `.aios-core/development/scripts/greeting-builder.js` | Script de saudacao inteligente |
+| `.aios-core/development/scripts/unified-activation-pipeline.js` | Pipeline de saudacao inteligente |
 | `.aios-core/development/scripts/agent-assignment-resolver.js` | Resolucao de assignment de agentes |
 
 ---

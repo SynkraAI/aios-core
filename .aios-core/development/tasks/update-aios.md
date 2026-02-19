@@ -52,7 +52,7 @@ These paths are automatically preserved (local-only files are backed up and rest
 
 | Path | Reason |
 |------|--------|
-| `.aios-core/expansion-packs/` | Custom copywriters, data, ralph |
+| `.aios-core/squads/` | Custom copywriters, data, ralph |
 | `.aios-core/marketing/` | Marketing-specific agents/tasks |
 | `source/` | Business context YAML |
 | `Knowledge/` | Knowledge bases |
@@ -110,7 +110,7 @@ After running the script:
 
 ```bash
 # Check that local-only files are preserved
-ls -la .aios-core/expansion-packs/  # if exists
+ls -la .aios-core/squads/  # if exists
 ls -la source/                       # if exists
 
 # See what changed (unstaged)
@@ -146,6 +146,6 @@ git checkout -- .aios-core/
 | Version | Date | Changes |
 |---------|------|---------|
 | 4.0.0 | 2026-01-31 | **SIMPLIFIED:** Git-native approach, 15-line bash script replaces 847-line JS |
-| 3.1.0 | 2026-01-30 | Dynamic protection for expansion pack commands |
+| 3.1.0 | 2026-01-30 | Dynamic protection for squad commands |
 | 3.0.0 | 2026-01-29 | YOLO mode with rsync |
 | 1.0.0 | 2026-01-29 | Initial version (verbose, interactive) |

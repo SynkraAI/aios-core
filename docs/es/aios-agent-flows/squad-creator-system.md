@@ -12,7 +12,7 @@
 
 **@squad-creator** (Nova) es el agente de creacion de squads del AIOS, responsable por:
 
-- Creacion de expansion packs
+- Creacion de squads
 - Configuracion de nuevos agentes
 - Templates de squad
 - Integracion de agentes custom

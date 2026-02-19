@@ -46,7 +46,7 @@ Use el agente DevOps: `@devops` luego `*setup-mcp-docker`
 
 ---
 
-## Documentación del Framework v2.1
+## Documentación del Framework v4.2
 
 **Estado:** Completo (Story 2.16)
 **Versión:** 2.1.0
@@ -56,9 +56,9 @@ Use el agente DevOps: `@devops` luego `*setup-mcp-docker`
 
 | Guía                                                                        | Propósito                                   | Tiempo | Audiencia                       |
 | --------------------------------------------------------------------------- | ------------------------------------------- | ------ | ------------------------------- |
-| **[Arquitectura del Sistema de Módulos](../architecture/module-system.md)** | Arquitectura modular v2.1 (4 módulos)       | 15 min | Arquitectos, Desarrolladores    |
+| **[Arquitectura del Sistema de Módulos](../architecture/module-system.md)** | Arquitectura modular v4.2 (4 módulos)       | 15 min | Arquitectos, Desarrolladores    |
 | **[Guía de Descubrimiento de Servicios](./service-discovery.md)**           | API de descubrimiento y registro de workers | 10 min | Desarrolladores                 |
-| **[Guía de Migración v2.0→v2.1](../../migration/v2.0-to-v2.1.md)**          | Instrucciones de migración paso a paso      | 20 min | Todos los usuarios actualizando |
+| **[Guía de Migración v2.0→v4.0.4](../../migration/migration-guide.md)**          | Instrucciones de migración paso a paso      | 20 min | Todos los usuarios actualizando |
 
 ### Configuración del Sistema
 
@@ -74,7 +74,7 @@ Use el agente DevOps: `@devops` luego `*setup-mcp-docker`
 | ----------------------------------------------------- | --------------------------------- | ------ | --------------- |
 | **[Motor de Plantillas v2](./template-engine-v2.md)** | Motor de generación de documentos | 10 min | Desarrolladores |
 
-### Navegación Rápida (v2.1)
+### Navegación Rápida (v4)
 
 **...entender la arquitectura de 4 módulos**
 → [`module-system.md`](../architecture/module-system.md) (15 min)
@@ -82,8 +82,8 @@ Use el agente DevOps: `@devops` luego `*setup-mcp-docker`
 **...descubrir workers y tareas disponibles**
 → [`service-discovery.md`](./service-discovery.md) (10 min)
 
-**...migrar de v2.0 a v2.1**
-→ [`v2.0-to-v2.1.md`](../../migration/v2.0-to-v2.1.md) (20 min)
+**...migrar de v2.0 a v4.0.4**
+→ [`migration-guide.md`](../../migration/migration-guide.md) (20 min)
 
 **...configurar quality gates**
 → [`quality-gates.md`](./quality-gates.md) (15 min)

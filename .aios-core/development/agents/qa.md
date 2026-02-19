@@ -94,46 +94,100 @@ story-file-permissions:
   - CRITICAL: Your updates must be limited to appending your review results in the QA Results section only
 # All commands require * prefix when used (e.g., *help)
 commands:
-  # Code Review & Analysis
-  - help: Show all available commands with descriptions
-  - 'code-review {scope}': 'Run automated review (scope: uncommitted or committed)'
-  - 'review {story}': Comprehensive story review with gate decision
-  - 'review-build {story}': '10-phase structured QA review (Epic 6) - outputs qa_report.md'
-
-  # Quality Gates
-  - 'gate {story}': Create quality gate decision
-  - 'nfr-assess {story}': Validate non-functional requirements
-  - 'risk-profile {story}': Generate risk assessment matrix
-
-  # Fix Requests (Epic 6 - QA Loop)
-  - 'create-fix-request {story}': Generate QA_FIX_REQUEST.md for @dev with issues to fix
-
-  # Enhanced Validation (Absorbed from Auto-Claude)
-  - 'validate-libraries {story}': Validate third-party library usage via Context7
-  - 'security-check {story}': Run 8-point security vulnerability scan
-  - 'validate-migrations {story}': Validate database migrations for schema changes
-  - 'evidence-check {story}': Verify evidence-based QA requirements
-  - 'false-positive-check {story}': Critical thinking verification for bug fixes
-  - 'console-check {story}': Browser console error detection
-
-  # Test Strategy
-  - 'test-design {story}': Create comprehensive test scenarios
-  - 'trace {story}': 'Map requirements to tests (Given-When-Then)'
-  - 'create-suite {story}': 'Create test suite for story (Authority: QA owns test suites)'
-
-  # Spec Pipeline (Epic 3 - ADE)
-  - 'critique-spec {story}': Review and critique specification for completeness and clarity
-
-  # Backlog Management
-  - 'backlog-add {story} {type} {priority} {title}': Add item to story backlog
-  - 'backlog-update {item_id} {status}': Update backlog item status
-  - backlog-review: Generate backlog review for sprint planning
-
-  # Utilities
-  - session-info: Show current session details (agent history, commands)
-  - guide: Show comprehensive usage guide for this agent
-  - yolo: 'Toggle permission mode (cycle: ask > auto > explore)'
-  - exit: Exit QA mode
+  - name: help
+    visibility: [full, quick, key]
+    description: 'Show all available commands with descriptions'
+  - name: code-review
+    visibility: [full, quick]
+    args: '{scope}'
+    description: 'Run automated review (scope: uncommitted or committed)'
+  - name: review
+    visibility: [full, quick, key]
+    args: '{story}'
+    description: 'Comprehensive story review with gate decision'
+  - name: review-build
+    visibility: [full]
+    args: '{story}'
+    description: '10-phase structured QA review (Epic 6) - outputs qa_report.md'
+  - name: gate
+    visibility: [full, quick]
+    args: '{story}'
+    description: 'Create quality gate decision'
+  - name: nfr-assess
+    visibility: [full, quick]
+    args: '{story}'
+    description: 'Validate non-functional requirements'
+  - name: risk-profile
+    visibility: [full, quick]
+    args: '{story}'
+    description: 'Generate risk assessment matrix'
+  - name: create-fix-request
+    visibility: [full]
+    args: '{story}'
+    description: 'Generate QA_FIX_REQUEST.md for @dev with issues to fix'
+  - name: validate-libraries
+    visibility: [full]
+    args: '{story}'
+    description: 'Validate third-party library usage via Context7'
+  - name: security-check
+    visibility: [full, quick]
+    args: '{story}'
+    description: 'Run 8-point security vulnerability scan'
+  - name: validate-migrations
+    visibility: [full]
+    args: '{story}'
+    description: 'Validate database migrations for schema changes'
+  - name: evidence-check
+    visibility: [full]
+    args: '{story}'
+    description: 'Verify evidence-based QA requirements'
+  - name: false-positive-check
+    visibility: [full]
+    args: '{story}'
+    description: 'Critical thinking verification for bug fixes'
+  - name: console-check
+    visibility: [full]
+    args: '{story}'
+    description: 'Browser console error detection'
+  - name: test-design
+    visibility: [full, quick]
+    args: '{story}'
+    description: 'Create comprehensive test scenarios'
+  - name: trace
+    visibility: [full, quick]
+    args: '{story}'
+    description: 'Map requirements to tests (Given-When-Then)'
+  - name: create-suite
+    visibility: [full]
+    args: '{story}'
+    description: 'Create test suite for story (Authority: QA owns test suites)'
+  - name: critique-spec
+    visibility: [full]
+    args: '{story}'
+    description: 'Review and critique specification for completeness and clarity'
+  - name: backlog-add
+    visibility: [full]
+    args: '{story} {type} {priority} {title}'
+    description: 'Add item to story backlog'
+  - name: backlog-update
+    visibility: [full]
+    args: '{item_id} {status}'
+    description: 'Update backlog item status'
+  - name: backlog-review
+    visibility: [full, quick]
+    description: 'Generate backlog review for sprint planning'
+  - name: session-info
+    visibility: [full, quick]
+    description: 'Show current session details (agent history, commands)'
+  - name: guide
+    visibility: [full, quick, key]
+    description: 'Show comprehensive usage guide for this agent'
+  - name: yolo
+    visibility: [full, quick, key]
+    description: 'Toggle permission mode (cycle: ask > auto > explore)'
+  - name: exit
+    visibility: [full, quick, key]
+    description: 'Exit QA mode'
 dependencies:
   data:
     - technical-preferences.md

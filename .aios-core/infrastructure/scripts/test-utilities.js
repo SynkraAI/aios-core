@@ -27,7 +27,7 @@ async function countIntegrationReferences(utilityName) {
   const searchDirs = [
     '.aios-core/agents',
     '.aios-core/tasks',
-    'expansion-packs',
+    'squads',
   ];
 
   let totalCount = 0;

@@ -453,7 +453,7 @@ dependencies:
 | Legacy (Deprecated)             | Current (Squads)                |
 | ------------------------------- | ------------------------------- |
 | `Squads/` directory             | `templates/squad/` template     |
-| `expansionPacksLocation` config | `squadsTemplateLocation` config |
+| `legacyPacksLocation` config | `squadsTemplateLocation` config |
 | `pack.yaml` manifest            | `squad.yaml` manifest           |
 | Direct loading                  | Template-based creation         |
 
@@ -463,7 +463,7 @@ dependencies:
 
 **Decision 005 defines 5 separate repositories:**
 
-### REPO 1: SynkraAI/aios-core (Commons Clause)
+### REPO 1: SynkraAI/aios-core (MIT)
 
 ```
 aios-core/
@@ -600,7 +600,7 @@ Directories: kebab-case (lowercase, hyphen-separated)
   ✅ .aios-core/
   ✅ Squads/
   ❌ .AIOS-Core/
-  ❌ expansionPacks/
+  ❌ legacy-packs/
 
 Files (Code): kebab-case with extension
   ✅ agent-executor.js
@@ -690,7 +690,7 @@ Example: .aios-core/infrastructure/integrations/pm-adapters/monday-adapter.js
 
 # I'm writing a story (internal dev docs - gitignored):
 Location: docs/stories/{sprint-context}/{story-file}.md
-Example: docs/stories/v2.1/sprint-6/story-6.14-new-feature.md
+Example: docs/stories/v4.0.4/sprint-6/story-6.14-new-feature.md
 
 # I'm creating official framework documentation:
 Location: docs/framework/{doc-name}.md

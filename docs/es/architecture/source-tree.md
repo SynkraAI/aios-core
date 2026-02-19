@@ -54,14 +54,14 @@ AIOS usa una **arquitectura de doble capa**:
 ```
 aios-core/                             # Raiz (proyecto brownfield)
 ├── .aios-core/                        # Framework core (portable)
-│   ├── core/                          # Esenciales del framework (v2.1)
+│   ├── core/                          # Esenciales del framework (v4)
 │   │   ├── config/                    # Sistema de configuracion
 │   │   ├── data/                      # Base de conocimiento core
 │   │   ├── docs/                      # Documentacion core
 │   │   ├── elicitation/               # Motor de prompts interactivos
 │   │   ├── session/                   # Gestion de estado en runtime
 │   │   └── utils/                     # Utilidades core
-│   ├── product/                       # Assets de PM/PO (v2.1)
+│   ├── product/                       # Assets de PM/PO (v4)
 │   │   ├── templates/                 # Plantillas de documentos (52+ archivos)
 │   │   ├── checklists/                # Checklists de validacion (6 archivos)
 │   │   └── data/                      # Datos especificos de PM (6 archivos)
@@ -428,7 +428,7 @@ dependencies:
 | Legacy (Obsoleto)               | Actual (Squads)                 |
 | ------------------------------- | ------------------------------- |
 | Directorio `Squads/`            | Plantilla `templates/squad/`    |
-| Config `expansionPacksLocation` | Config `squadsTemplateLocation` |
+| Config `legacyPacksLocation` | Config `squadsTemplateLocation` |
 | Manifiesto `pack.yaml`          | Manifiesto `squad.yaml`         |
 | Carga directa                   | Creacion basada en plantilla    |
 
@@ -438,7 +438,7 @@ dependencies:
 
 **La Decision 005 define 5 repositorios separados:**
 
-### REPO 1: SynkraAI/aios-core (Commons Clause)
+### REPO 1: SynkraAI/aios-core (MIT)
 
 ```
 aios-core/
@@ -562,7 +562,7 @@ Directorios: kebab-case (minusculas, separadas por guion)
   ✅ .aios-core/
   ✅ Squads/
   ❌ .AIOS-Core/
-  ❌ expansionPacks/
+  ❌ legacy-packs/
 
 Archivos (Codigo): kebab-case con extension
   ✅ agent-executor.js

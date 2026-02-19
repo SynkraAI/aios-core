@@ -6,7 +6,7 @@
 
 ---
 
-> Guía completa de la arquitectura modular v2.1 para Synkra AIOS.
+> Guía completa de la arquitectura modular v4.2 para Synkra AIOS.
 
 **Versión:** 2.1.0
 **Última Actualización:** 2025-12-01
@@ -17,9 +17,9 @@
 
 ### ¿Por qué Arquitectura Modular?
 
-La arquitectura modular v2.1 aborda varios desafíos de la estructura plana v2.0:
+La arquitectura modular v4.2 aborda varios desafíos de la estructura plana v2.0:
 
-| Desafío             | Problema v2.0                          | Solución v2.1                            |
+| Desafío             | Problema v2.0                          | Solución v4.2                            |
 | ------------------- | -------------------------------------- | ---------------------------------------- |
 | **Descubribilidad** | 200+ archivos en directorios mezclados | Organizado por responsabilidad           |
 | **Mantenimiento**   | Propiedad poco clara                   | Los límites de módulos definen propiedad |
@@ -53,7 +53,7 @@ Synkra AIOS organiza el directorio `.aios-core/` en cuatro módulos principales:
 
 ```mermaid
 graph TB
-    subgraph "Framework AIOS v2.1"
+    subgraph "Framework AIOS v4"
         CLI[CLI / Herramientas]
 
         subgraph "Módulo Product"
@@ -365,7 +365,7 @@ aios migrate --from=2.0 --to=2.1
 aios migrate --validate
 ```
 
-Ver [Guía de Migración](../../migration/v2.0-to-v2.1.md) para instrucciones detalladas.
+Ver [Guía de Migración](../../migration/migration-guide.md) para instrucciones detalladas.
 
 ---
 
@@ -374,9 +374,9 @@ Ver [Guía de Migración](../../migration/v2.0-to-v2.1.md) para instrucciones de
 - [Guía de Service Discovery](../guides/service-discovery.md)
 - [Guía de Quality Gates](../guides/quality-gates.md)
 - [Guía de Setup Global MCP](../guides/mcp-global-setup.md)
-- [Guía de Migración](../../migration/v2.0-to-v2.1.md)
+- [Guía de Migración](../../migration/migration-guide.md)
 - [ADR-002: Mapa de Migración](../../architecture/adr/ADR-002-migration-map.md)
 
 ---
 
-_Arquitectura del Sistema de Módulos Synkra AIOS v2.1_
+_Arquitectura del Sistema de Módulos Synkra AIOS v4_

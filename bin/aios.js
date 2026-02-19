@@ -20,7 +20,7 @@ const command = args[0];
 
 // Helper: Run initialization wizard
 async function runWizard(options = {}) {
-  // Use the new v2.1 wizard from packages/installer/src/wizard/index.js
+  // Use the v4 wizard from packages/installer/src/wizard/index.js
   const wizardPath = path.join(__dirname, '..', 'packages', 'installer', 'src', 'wizard', 'index.js');
 
   if (!fs.existsSync(wizardPath)) {
@@ -43,7 +43,7 @@ async function runWizard(options = {}) {
   }
 
   try {
-    // Run the new v2.1 wizard with options
+    // Run the v4 wizard with options
     const { runWizard: executeWizard } = require(wizardPath);
     await executeWizard(options);
   } catch (error) {
@@ -633,7 +633,7 @@ Options:
 What gets removed:
   - .aios-core/     Framework core files
   - docs/stories/   Story files (if created by AIOS)
-  - squads/         Squad expansion packs
+  - squads/         Squad definitions
   - .gitignore      AIOS-added entries only
 
 What is preserved (with --keep-data):
@@ -702,7 +702,7 @@ async function runUninstall(options = {}) {
   // Items to remove
   const itemsToRemove = [
     { path: '.aios-core', description: 'Framework core' },
-    { path: 'squads', description: 'Squad expansion packs' },
+    { path: 'squads', description: 'Squad definitions' },
   ];
 
   // Optionally remove .aios

@@ -574,8 +574,6 @@ phases:
 | ----------- | ------------ | ----------------- | ---------------- |
 | Claude Code | `.claude/`   | Markdown          | Completo         |
 | Cursor      | `.cursor/`   | MDC (frontmatter) | Completo         |
-| Windsurf    | `.windsurf/` | Markdown          | Completo         |
-| Cline       | `.cline/`    | Markdown          | Completo         |
 | VS Code     | `.vscode/`   | JSON              | Parcial          |
 | Gemini      | `.gemini/`   | Markdown          | Básico           |
 
@@ -587,9 +585,8 @@ version: 1.0.0
 active_ides:
   - claude
   - cursor
-  - windsurf
 
-pack_aliases:
+squad_aliases:
   legal: Legal
   copy: Copy
   hr: HR
@@ -669,10 +666,8 @@ alwaysApply: false
 # Agent content...
 ```
 
-### Integração Windsurf
 
 ```
-.windsurf/
 └── agents/
     ├── dev.md
     ├── qa.md
@@ -901,4 +896,4 @@ Para desenvolvimento paralelo:
 
 ---
 
-_Synkra AIOS Referência de API v2.1.0_
+_Synkra AIOS Referência de API v4.2.11_

@@ -12,7 +12,7 @@ AIOS tiene como objetivo ser el framework de agentes de IA de código abierto m�
 
 ## Enfoque Actual (Q1 2026)
 
-### Lanzamiento v2.1
+### Lanzamiento v4.2
 
 Estabilización del framework principal e infraestructura comunitaria:
 
@@ -30,7 +30,7 @@ Estabilización del framework principal e infraestructura comunitaria:
 - [x] Guías de contribución (CONTRIBUTING.md, COMMUNITY.md)
 - [x] Proceso de solicitud de características (FEATURE_PROCESS.md)
 - [x] Hoja de ruta pública (¡este documento!)
-- [ ] Registro de expansion packs
+- [ ] Registro de squads
 
 ## Próximamente (Q2 2026)
 
@@ -105,7 +105,7 @@ Esta hoja de ruta pública está sincronizada con nuestra planificación interna
 | Cronograma trimestral | Ejecución basada en sprints |
 
 **Checklist de Sincronización (Mensual):**
-- [ ] Revisar sprints completados en `docs/stories/v2.1/`
+- [ ] Revisar sprints completados en `docs/stories/v4.0.4/`
 - [ ] Actualizar estado de elementos del Proyecto de GitHub (Done/In Progress)
 - [ ] Agregar nuevas características aprobadas del backlog al Proyecto
 - [ ] Actualizar este ROADMAP.md con el progreso más reciente

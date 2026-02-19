@@ -660,4 +660,4 @@ Crie `.mcp.json` na raiz do projeto para sobrescrever configurações globais:
 
 ---
 
-_Synkra AIOS v2.1 Guia de Configuração Global MCP_
+_Synkra AIOS v4 Guia de Configuração Global MCP_

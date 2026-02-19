@@ -12,7 +12,7 @@ AIOS aims to be the most comprehensive open-source AI agent framework, enabling 
 
 ## Current Focus (Q1 2026)
 
-### v2.1 Release
+### v4.0.4 Release
 
 Core framework stabilization and community infrastructure:
 
@@ -30,11 +30,29 @@ Core framework stabilization and community infrastructure:
 - [x] Contribution guides (CONTRIBUTING.md, COMMUNITY.md)
 - [x] Feature request process (FEATURE_PROCESS.md)
 - [x] Public roadmap (this document!)
-- [ ] Expansion pack registry
+- [ ] Starter squad registry
 
 ## Next Up (Q2 2026)
 
-### v2.2 Planning
+### P0 Strategic Focus: Learning Curve Reduction
+
+Primary objective for AIOS 4.0.x execution:
+
+- onboarding-first experience (single "start here" path)
+- time-to-first-value <= 10 minutes for new users
+- clearer agent activation across IDEs (Codex, Gemini, Cursor, Copilot, Claude)
+- runtime-guided next action (state-driven, not command-list driven)
+
+Tracking reference:
+- `docs/strategy/AIOS-LEARNING-CURVE-FOCUS-4.0.4.md`
+- `docs/strategy/AIOS-DIFFERENTIATION-PLAN-4.0.4.md`
+
+Execution gates:
+- P0 gate: onboarding metric + clear IDE matrix + first-value flow + smoke tests
+- P1 gate: compatibility contract enforced in CI + risk profiles + handoffs + confidence score
+- P2 gate: vertical tracks reproducible + brownfield pipeline + taxonomy lint
+
+### Platform Planning
 
 - Memory Layer implementation for agent context persistence
 - Enhanced agent collaboration capabilities
@@ -100,12 +118,12 @@ This public roadmap is synchronized with our internal sprint planning:
 
 | Public Roadmap | Internal Tracking |
 |----------------|-------------------|
-| [GitHub Project](https://github.com/orgs/SynkraAI/projects/1) | `docs/stories/backlog.md` |
+| [GitHub Project](https://github.com/orgs/SynkraAI/projects/1) | `docs/strategy/AIOS-DIFFERENTIATION-PLAN-4.0.4.md` |
 | High-level features | Detailed stories per sprint |
 | Quarterly timeline | Sprint-based execution |
 
 **Sync Checklist (Monthly):**
-- [ ] Review completed sprints in `docs/stories/v2.1/`
+- [ ] Review completed sprints against strategy docs in `docs/strategy/`
 - [ ] Update GitHub Project items status (Done/In Progress)
 - [ ] Add new approved features from backlog to Project
 - [ ] Update this ROADMAP.md with latest progress
@@ -116,4 +134,4 @@ This roadmap represents our current plans and is subject to change based on comm
 
 ---
 
-*Last updated: 2025-12-10*
+*Last updated: 2026-02-16*

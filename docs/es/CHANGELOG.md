@@ -18,7 +18,7 @@ y este proyecto sigue [Versionado Semantico](https://semver.org/spec/v2.0.0.html
 ### Agregado
 
 - **Asistente de Instalacion Interactivo**: Configuracion guiada paso a paso con seleccion de componentes
-- **Soporte Multi-IDE**: Agregado soporte para 8 IDEs (Claude Code, Cursor, Windsurf, Trae, Roo Code, Cline, Gemini CLI, GitHub Copilot)
+- **Soporte Multi-IDE**: Agregado soporte para 4 IDEs (Claude Code, Cursor, Gemini CLI, GitHub Copilot)
 - **Sistema de Squads**: Complementos modulares incluyendo HybridOps para integracion con ClickUp
 - **Pruebas Multiplataforma**: Cobertura completa de pruebas para Windows, macOS y Linux
 - **Manejo de Errores y Rollback**: Rollback automatico en caso de fallo de instalacion con sugerencias de recuperacion
@@ -30,11 +30,11 @@ y este proyecto sigue [Versionado Semantico](https://semver.org/spec/v2.0.0.html
 - **Suite de Documentacion**:
   - Guia de Solucion de Problemas con 23 problemas documentados
   - FAQ con 22 preguntas y respuestas
-  - Guia de Migracion v2.0 a v2.1
+  - Guia de Migracion v2.0 a v4.0.4
 
 ### Cambiado
 
-- **Estructura de Directorios**: Renombrado `.bmad-core/` a `.aios-core/`
+- **Estructura de Directorios**: Renombrado `.legacy-core/` a `.aios-core/`
 - **Formato de Configuracion**: Mejorado `core-config.yaml` con nuevas secciones para git, projectStatus y opciones de sharding
 - **Formato de Agentes**: Actualizado esquema YAML de agentes con persona_profile, visibilidad de comandos y campos whenToUse
 - **Configuracion de IDE**: Agentes de Claude Code movidos a `.claude/commands/AIOS/agents/`
@@ -53,7 +53,7 @@ y este proyecto sigue [Versionado Semantico](https://semver.org/spec/v2.0.0.html
 ### Obsoleto
 
 - Proceso de instalacion manual (usar `npx @synkra/aios-core install` en su lugar)
-- Nombre de directorio `.bmad-core/` (migrado automaticamente)
+- Nombre de directorio `.legacy-core/` (migrado automaticamente)
 
 ### Seguridad
 
@@ -103,7 +103,7 @@ npx @synkra/aios-core install --force-upgrade
 ```
 
 **Cambios clave:**
-1. Directorio renombrado: `.bmad-core/` → `.aios-core/`
+1. Directorio renombrado: `.legacy-core/` → `.aios-core/`
 2. Actualizar `core-config.yaml` con nuevos campos
 3. Volver a ejecutar la configuracion del IDE
 

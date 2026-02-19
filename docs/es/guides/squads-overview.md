@@ -293,9 +293,9 @@ Usar versionado semantico:
 
 ## FAQ
 
-### Cual es la diferencia entre un Squad y un Expansion Pack?
+### Cual es la diferencia entre un Squad y formatos legados de squad en AIOS?
 
-**Squads** son el nuevo estandar (AIOS 2.1+) reemplazando Expansion Packs. Los Squads tienen:
+**Squads** son el formato estandar en AIOS 2.1+ con:
 
 - Arquitectura task-first
 - Validacion JSON Schema

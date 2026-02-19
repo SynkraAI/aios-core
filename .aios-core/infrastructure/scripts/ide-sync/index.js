@@ -24,11 +24,11 @@ const yaml = require('js-yaml');
 const { parseAllAgents } = require('./agent-parser');
 const { generateAllRedirects, writeRedirects } = require('./redirect-generator');
 const { validateAllIdes, formatValidationReport } = require('./validator');
+const { syncGeminiCommands, buildGeminiCommandFiles } = require('./gemini-commands');
 
 // Transformers
 const claudeCodeTransformer = require('./transformers/claude-code');
 const cursorTransformer = require('./transformers/cursor');
-const windsurfTransformer = require('./transformers/windsurf');
 const antigravityTransformer = require('./transformers/antigravity');
 
 // ANSI colors for output
@@ -61,15 +61,25 @@ function loadConfig(projectRoot) {
         path: '.claude/commands/AIOS/agents',
         format: 'full-markdown-yaml',
       },
+      codex: {
+        enabled: true,
+        path: '.codex/agents',
+        format: 'full-markdown-yaml',
+      },
+      gemini: {
+        enabled: true,
+        path: '.gemini/rules/AIOS/agents',
+        format: 'full-markdown-yaml',
+      },
+      'github-copilot': {
+        enabled: true,
+        path: '.github/agents',
+        format: 'full-markdown-yaml',
+      },
       cursor: {
         enabled: true,
         path: '.cursor/rules/agents',
         format: 'condensed-rules',
-      },
-      windsurf: {
-        enabled: false, // Disabled - consolidating to core IDEs (v3.10.0)
-        path: '.windsurf/rules/agents',
-        format: 'xml-tagged-markdown',
       },
       antigravity: {
         enabled: true,
@@ -115,7 +125,6 @@ function getTransformer(format) {
   const transformers = {
     'full-markdown-yaml': claudeCodeTransformer,
     'condensed-rules': cursorTransformer,
-    'xml-tagged-markdown': windsurfTransformer,
     'cursor-style': antigravityTransformer,
   };
 
@@ -253,6 +262,15 @@ async function commandSync(options) {
     }
 
     const result = syncIde(agents, ideConfig, ideName, projectRoot, options);
+
+    // Gemini CLI: also sync slash launcher command files (.gemini/commands/*.toml)
+    if (ideName === 'gemini') {
+      const geminiCommands = syncGeminiCommands(agents, projectRoot, options);
+      result.commandFiles = geminiCommands.files;
+    } else {
+      result.commandFiles = [];
+    }
+
     results.push(result);
 
     // Generate redirects for this IDE
@@ -264,6 +282,7 @@ async function commandSync(options) {
     }
 
     const agentCount = result.files.length;
+    const commandCount = (result.commandFiles || []).length;
     const redirectCount = redirectResult.written.length;
     const errorCount = result.errors.length;
 
@@ -274,7 +293,7 @@ async function commandSync(options) {
       }
 
       console.log(
-        `   ${status} ${agentCount} agents, ${redirectCount} redirects${errorCount > 0 ? `, ${errorCount} errors` : ''}`
+        `   ${status} ${agentCount} agents${commandCount > 0 ? `, ${commandCount} commands` : ''}, ${redirectCount} redirects${errorCount > 0 ? `, ${errorCount} errors` : ''}`
       );
 
       if (options.verbose && result.errors.length > 0) {
@@ -286,7 +305,7 @@ async function commandSync(options) {
   }
 
   // Summary
-  const totalFiles = results.reduce((sum, r) => sum + r.files.length, 0);
+  const totalFiles = results.reduce((sum, r) => sum + r.files.length + (r.commandFiles || []).length, 0);
   const totalRedirects =
     Object.keys(config.redirects).length * targetIdes.filter(([, c]) => c.enabled).length;
   const totalErrors = results.reduce((sum, r) => sum + r.errors.length, 0);
@@ -332,9 +351,18 @@ async function commandValidate(options) {
 
   // Build expected files for each IDE
   const ideConfigs = {};
+  let targetIdes = Object.entries(config.targets).filter(([, ideConfig]) => ideConfig.enabled);
 
-  for (const [ideName, ideConfig] of Object.entries(config.targets)) {
-    if (!ideConfig.enabled) continue;
+  // Filter IDEs if --ide flag specified
+  if (options.ide) {
+    targetIdes = targetIdes.filter(([name]) => name === options.ide);
+    if (targetIdes.length === 0) {
+      console.error(`${colors.red}Error: IDE '${options.ide}' not found in config${colors.reset}`);
+      process.exit(1);
+    }
+  }
+
+  for (const [ideName, ideConfig] of targetIdes) {
 
     const transformer = getTransformer(ideConfig.format);
     const expectedFiles = [];
@@ -369,6 +397,18 @@ async function commandValidate(options) {
       expectedFiles,
       targetDir: path.join(projectRoot, ideConfig.path),
     };
+
+    // Gemini CLI command launcher files are synced under .gemini/commands/*.toml
+    if (ideName === 'gemini') {
+      const commandFiles = buildGeminiCommandFiles(agents).map((entry) => ({
+        filename: entry.filename,
+        content: entry.content,
+      }));
+      ideConfigs['gemini-commands'] = {
+        expectedFiles: commandFiles,
+        targetDir: path.join(projectRoot, '.gemini', 'commands'),
+      };
+    }
   }
 
   // Validate
@@ -444,7 +484,10 @@ ${colors.bright}Options:${colors.reset}
 
 ${colors.bright}Examples:${colors.reset}
   node ide-sync/index.js sync
+  node ide-sync/index.js sync --ide codex
+  node ide-sync/index.js sync --ide gemini
   node ide-sync/index.js sync --ide cursor
+  node ide-sync/index.js validate --ide gemini --strict
   node ide-sync/index.js validate --strict
   node ide-sync/index.js sync --dry-run --verbose
 `);

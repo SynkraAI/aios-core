@@ -35,7 +35,7 @@ Este directorio contiene documentación completa de instalación y configuració
 
 | Documento                                     | Descripción                               | Audiencia          |
 | --------------------------------------------- | ----------------------------------------- | ------------------ |
-| [Quick Start (v2.1)](./v2.1-quick-start.md)   | Configuración rápida para nuevos usuarios | Principiantes      |
+| [Quick Start (v4)](./v4-quick-start.md)   | Configuración rápida para nuevos usuarios | Principiantes      |
 | [Solución de Problemas](./troubleshooting.md) | Problemas comunes y soluciones            | Todos los usuarios |
 | [Preguntas Frecuentes](./faq.md)              | Preguntas frecuentes                      | Todos los usuarios |
 
@@ -88,10 +88,6 @@ npx @synkra/aios-core install --force-upgrade
 | -------------- | --------------------- |
 | Claude Code    | `/dev`, `/qa`, etc.   |
 | Cursor         | `@dev`, `@qa`, etc.   |
-| Windsurf       | `@dev`, `@qa`, etc.   |
-| Trae           | `@dev`, `@qa`, etc.   |
-| Roo Code       | Selector de modo      |
-| Cline          | `@dev`, `@qa`, etc.   |
 | Gemini CLI     | Mención en el prompt  |
 | GitHub Copilot | Modos de chat         |
 

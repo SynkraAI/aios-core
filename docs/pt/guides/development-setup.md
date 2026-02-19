@@ -190,7 +190,6 @@ npm run sync:ide
 
 # Sincronizar para IDE específica
 npm run sync:ide:cursor
-npm run sync:ide:windsurf
 
 # Validar sincronização
 npm run sync:ide:validate
@@ -1038,7 +1037,6 @@ npm run sync:ide:validate
 
 # Verificar diretório específico da IDE
 ls .cursor/  # Para Cursor
-ls .windsurf/  # Para Windsurf
 ```
 
 #### Problema: Hooks pre-commit não executando

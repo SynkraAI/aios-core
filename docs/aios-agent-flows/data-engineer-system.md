@@ -139,7 +139,7 @@ O agente **@data-engineer (Dara)** e o Database Architect & Operations Engineer 
 ```mermaid
 flowchart TB
     subgraph ACTIVATION["ATIVACAO DO AGENTE"]
-        A["@data-engineer"] --> B["generate-greeting.js"]
+        A["@data-engineer"] --> B["ActivationRuntime -> UnifiedActivationPipeline"]
         B --> C["Exibe Greeting Sage"]
         C --> D["Quick Commands"]
         D --> E["HALT - Aguarda Usuario"]
