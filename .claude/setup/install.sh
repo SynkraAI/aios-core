@@ -41,7 +41,7 @@ if [ -f "$CLAUDE_DIR/settings.json" ]; then
     # Usa jq para fazer merge se disponível
     if command -v jq &> /dev/null; then
         echo "  Fazendo merge de settings.json..."
-        jq -s '.[0] * .[1]' "$CLAUDE_DIR/settings.json" "$SCRIPT_DIR/settings.json" > "$CLAUDE_DIR/settings.json.tmp"
+        jq -s '(.[0].env // {}) * (.[1].env // {}) as $merged_env | .[0] * .[1] | .env = $merged_env' "$CLAUDE_DIR/settings.json" "$SCRIPT_DIR/settings.json" > "$CLAUDE_DIR/settings.json.tmp"
         mv "$CLAUDE_DIR/settings.json.tmp" "$CLAUDE_DIR/settings.json"
     else
         cp "$SCRIPT_DIR/settings.json" "$CLAUDE_DIR/settings.json"
