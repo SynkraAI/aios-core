@@ -4,24 +4,31 @@ build-backend = "hatchling.build"
 
 [project]
 name = "video-transcriber"
-version = "1.0.0"
+version = "1.1.0"
 description = "Download, transcribe, clean, and chunk video/audio content"
 requires-python = ">=3.10"
 license = "MIT"
 
 dependencies = [
-    "yt-dlp>=2024.1",
-    "rich>=13.0",
-    "typer[all]>=0.12",
+    "yt-dlp>=2024.1,<2027",
+    "rich>=13.0,<14",
+    "typer[all]>=0.12,<1",
 ]
 
 [project.optional-dependencies]
-transcription = [
+faster = [
+    "faster-whisper>=1.0,<2",
+]
+openai = [
     "openai-whisper>=20231117",
+]
+mlx = [
+    "mlx-whisper>=0.4",
 ]
 dev = [
     "pytest>=8.0",
     "pytest-cov>=5.0",
+    "pytest-mock>=3.12",
     "ruff>=0.4",
 ]
 

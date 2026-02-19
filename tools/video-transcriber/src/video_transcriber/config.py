@@ -1,10 +1,27 @@
 """Configuration and default settings for video-transcriber."""
 
+import os
+import tempfile
 from pathlib import Path
 
-# Output paths
-YOUTUBE_OUTPUT = Path.home() / "Dropbox" / "Downloads" / "YT"
-COURSES_OUTPUT = Path.home() / "Dropbox" / "Downloads" / "Cursos"
+# Output paths — configurable via env vars, XDG fallback
+_data_home = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share"))
+_vt_data = _data_home / "video-transcriber"
+
+YOUTUBE_OUTPUT = Path(os.environ.get("VT_YOUTUBE_OUTPUT", _vt_data / "youtube"))
+COURSES_OUTPUT = Path(os.environ.get("VT_COURSES_OUTPUT", _vt_data / "courses"))
+
+# Subprocess timeouts (seconds)
+TIMEOUT_METADATA = 30
+TIMEOUT_DOWNLOAD = 600
+TIMEOUT_AUDIO_EXTRACT = 300
+TIMEOUT_SUBTITLE = 60
+TIMEOUT_GDRIVE = 900
+
+# Retry config
+RETRY_MAX_ATTEMPTS = 3
+RETRY_DELAY = 2
+RETRY_BACKOFF = 2
 
 # Whisper defaults
 DEFAULT_MODEL = "medium"

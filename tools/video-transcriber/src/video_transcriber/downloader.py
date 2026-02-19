@@ -3,21 +3,30 @@
 from __future__ import annotations
 
 import json
-import subprocess
 from pathlib import Path
 
 from rich.console import Console
 
+from .config import (
+    TIMEOUT_DOWNLOAD,
+    TIMEOUT_GDRIVE,
+    TIMEOUT_METADATA,
+    TIMEOUT_SUBTITLE,
+)
 from .models import Metadata
+from .utils import retry_on_failure, run_command, validate_url
 
 console = Console(stderr=True)
 
 
+@retry_on_failure(max_attempts=3, delay=2, backoff=2)
 def download_youtube_metadata(url: str) -> Metadata:
     """Extract video metadata without downloading."""
-    result = subprocess.run(
+    validate_url(url)
+
+    result = run_command(
         ["yt-dlp", "--dump-json", "--no-download", url],
-        capture_output=True, text=True,
+        timeout=TIMEOUT_METADATA,
     )
     if result.returncode != 0:
         raise RuntimeError(f"yt-dlp metadata failed: {result.stderr}")
@@ -35,21 +44,23 @@ def download_youtube_metadata(url: str) -> Metadata:
     )
 
 
+@retry_on_failure(max_attempts=3, delay=2, backoff=2)
 def download_youtube_audio(url: str, output_dir: Path) -> Path:
     """Download audio from YouTube video using yt-dlp.
 
     Returns:
         Path to the downloaded audio file.
     """
+    validate_url(url)
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    console.print(f"[bold]Downloading audio from YouTube...[/bold]")
+    console.print("[bold]Downloading audio from YouTube...[/bold]")
 
     # Use wav output for Whisper compatibility
     output_template = str(output_dir / "%(title)s.%(ext)s")
 
-    result = subprocess.run(
+    result = run_command(
         [
             "yt-dlp", "-x",
             "--audio-format", "wav",
@@ -57,7 +68,7 @@ def download_youtube_audio(url: str, output_dir: Path) -> Path:
             "-o", output_template,
             url,
         ],
-        capture_output=True, text=True,
+        timeout=TIMEOUT_DOWNLOAD,
     )
     if result.returncode != 0:
         raise RuntimeError(f"yt-dlp download failed: {result.stderr}")
@@ -75,12 +86,13 @@ def download_youtube_audio(url: str, output_dir: Path) -> Path:
 
 def download_youtube_subtitles(url: str, output_dir: Path) -> Path | None:
     """Try to download auto-generated subtitles. Returns path or None if unavailable."""
+    validate_url(url)
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     output_template = str(output_dir / "%(title)s.%(ext)s")
 
-    result = subprocess.run(
+    result = run_command(
         [
             "yt-dlp",
             "--write-auto-sub",
@@ -90,7 +102,7 @@ def download_youtube_subtitles(url: str, output_dir: Path) -> Path | None:
             "-o", output_template,
             url,
         ],
-        capture_output=True, text=True,
+        timeout=TIMEOUT_SUBTITLE,
     )
 
     if result.returncode != 0:
@@ -105,11 +117,14 @@ def download_youtube_subtitles(url: str, output_dir: Path) -> Path | None:
     return None
 
 
+@retry_on_failure(max_attempts=3, delay=2, backoff=2)
 def list_playlist(url: str) -> list[dict]:
     """List all videos in a YouTube playlist."""
-    result = subprocess.run(
+    validate_url(url)
+
+    result = run_command(
         ["yt-dlp", "--flat-playlist", "--dump-json", url],
-        capture_output=True, text=True,
+        timeout=TIMEOUT_METADATA,
     )
     if result.returncode != 0:
         raise RuntimeError(f"yt-dlp playlist failed: {result.stderr}")
@@ -121,24 +136,26 @@ def list_playlist(url: str) -> list[dict]:
     return entries
 
 
+@retry_on_failure(max_attempts=2, delay=3, backoff=2)
 def download_gdrive(url: str, output_dir: Path) -> Path:
     """Download Google Drive folder using gdown."""
+    validate_url(url)
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    console.print(f"[bold]Downloading from Google Drive...[/bold]")
+    console.print("[bold]Downloading from Google Drive...[/bold]")
 
-    result = subprocess.run(
+    result = run_command(
         ["gdown", "--folder", url, "-O", str(output_dir), "--remaining-ok"],
-        capture_output=True, text=True,
+        timeout=TIMEOUT_GDRIVE,
     )
 
     if result.returncode != 0:
         # Retry with --fuzzy
         console.print("  [yellow]Retrying with --fuzzy flag...[/yellow]")
-        result = subprocess.run(
+        result = run_command(
             ["gdown", "--folder", url, "-O", str(output_dir), "--remaining-ok", "--fuzzy"],
-            capture_output=True, text=True,
+            timeout=TIMEOUT_GDRIVE,
         )
         if result.returncode != 0:
             raise RuntimeError(f"gdown failed: {result.stderr}")

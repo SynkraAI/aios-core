@@ -1,6 +1,6 @@
 """Whisper transcription with auto-detect device (MPS > CUDA > CPU).
 
-Tries mlx-whisper first (Apple Silicon), falls back to openai-whisper.
+Fallback chain: mlx-whisper → faster-whisper → openai-whisper.
 """
 
 from __future__ import annotations
@@ -30,19 +30,25 @@ def transcribe(
 ) -> TranscriptionResult:
     """Transcribe audio file using the best available Whisper backend.
 
-    Tries mlx-whisper first (Apple Silicon), falls back to openai-whisper.
+    Fallback chain: mlx-whisper → faster-whisper → openai-whisper.
     """
     audio_path = Path(audio_path)
     if not audio_path.exists():
         raise FileNotFoundError(f"Audio file not found: {audio_path}")
 
-    # Try mlx-whisper first
+    # Try mlx-whisper first (Apple Silicon GPU)
     try:
         return _transcribe_mlx(audio_path, model_name, language)
     except ImportError:
-        console.print("  [yellow]mlx-whisper not available, trying openai-whisper...[/yellow]")
+        console.print("  [yellow]mlx-whisper not available, trying faster-whisper...[/yellow]")
 
-    # Fallback to openai-whisper
+    # Try faster-whisper (CTranslate2 — ~4x faster than openai-whisper)
+    try:
+        return _transcribe_faster(audio_path, model_name, language)
+    except ImportError:
+        console.print("  [yellow]faster-whisper not available, trying openai-whisper...[/yellow]")
+
+    # Final fallback: openai-whisper
     return _transcribe_openai(audio_path, model_name, language)
 
 
@@ -64,6 +70,44 @@ def _transcribe_mlx(
 
     result = mlx_whisper.transcribe(str(audio_path), **options)
     return _parse_whisper_result(result)
+
+
+def _transcribe_faster(
+    audio_path: Path,
+    model_name: str,
+    language: str | None,
+) -> TranscriptionResult:
+    """Transcribe using faster-whisper (CTranslate2, ~4x faster than openai-whisper)."""
+    from faster_whisper import WhisperModel  # type: ignore[import-untyped]
+
+    # faster-whisper auto-detects best device (cuda > cpu)
+    device = "auto"
+    compute_type = "int8"
+    console.print(f"  [bold]Engine:[/bold] faster-whisper (CTranslate2)")
+    console.print(f"  [bold]Model:[/bold] {model_name}")
+
+    model = WhisperModel(model_name, device=device, compute_type=compute_type)
+
+    lang = language if language and language != "auto" else None
+    segments_iter, info = model.transcribe(
+        str(audio_path),
+        language=lang,
+        beam_size=5,
+        vad_filter=True,
+    )
+
+    segments = []
+    full_texts = []
+    for seg in segments_iter:
+        text = seg.text.strip()
+        segments.append(Segment(start=seg.start, end=seg.end, text=text))
+        full_texts.append(text)
+
+    return TranscriptionResult(
+        language=info.language,
+        segments=segments,
+        full_text=" ".join(full_texts),
+    )
 
 
 def _transcribe_openai(

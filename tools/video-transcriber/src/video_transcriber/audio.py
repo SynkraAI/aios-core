@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-import subprocess
 from pathlib import Path
 
 from rich.console import Console
+
+from .config import TIMEOUT_AUDIO_EXTRACT
+from .utils import run_command
 
 console = Console(stderr=True)
 
@@ -37,7 +39,7 @@ def extract_audio(video_path: Path, output_path: Path | None = None) -> Path:
         str(output_path),
     ]
 
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = run_command(cmd, timeout=TIMEOUT_AUDIO_EXTRACT)
     if result.returncode != 0:
         raise RuntimeError(f"ffmpeg failed: {result.stderr}")
 

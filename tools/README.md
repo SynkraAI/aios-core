@@ -1,6 +1,6 @@
 # AIOS Tools
 
-Auto-generated tools registry. Updated: 2026-02-17
+Auto-generated tools registry. Updated: 2026-02-19
 
 ## Available Tools
 
@@ -28,7 +28,7 @@ Auto-generated tools registry. Updated: 2026-02-17
 ### video-transcriber
 
 - **Language:** Python
-- **Description:** CLI tool that downloads, transcribes, cleans, and chunks video/audio content. Designed to work with the `video-media-content-downloader` skill.
+- **Description:** CLI tool that downloads, transcribes, cleans, and chunks video/audio content. Designed to work with AIOS squads (knowledge-base-builder, mind-cloning, content-engine).
 - **Path:** `tools/video-transcriber/`
 - **Docs:** [README](video-transcriber/README.md)
 
