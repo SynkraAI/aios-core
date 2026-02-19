@@ -151,6 +151,31 @@ async function writeClaudeSettings(language, projectDir = process.cwd()) {
 }
 
 /**
+ * Enable Claude Code Agent Teams in project settings.
+ * Adds CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 and teammateMode=auto.
+ *
+ * @param {string} [projectDir] - Project directory (default: process.cwd())
+ * @returns {Promise<boolean>} true if enabled successfully
+ */
+async function enableClaudeAgentTeams(projectDir = process.cwd()) {
+  const settingsPath = path.join(projectDir, '.claude', 'settings.json');
+  try {
+    await fse.ensureDir(path.dirname(settingsPath));
+    let settings = {};
+    if (await fse.pathExists(settingsPath)) {
+      settings = JSON.parse(await fse.readFile(settingsPath, 'utf8'));
+    }
+    if (!settings.env) settings.env = {};
+    settings.env.CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = '1';
+    if (!settings.teammateMode) settings.teammateMode = 'auto';
+    await fse.writeFile(settingsPath, JSON.stringify(settings, null, 2) + '\n', 'utf8');
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Get existing language from Claude Code settings.json (Story ACT-12 - Idempotency)
  * Returns the existing language code if found, null otherwise.
  *
@@ -513,6 +538,14 @@ async function runWizard(options = {}) {
         }
       }
 
+      // Enable Agent Teams for Claude Code users
+      if (answers.selectedIDEs && answers.selectedIDEs.includes('claude-code')) {
+        const teamsEnabled = await enableClaudeAgentTeams();
+        if (teamsEnabled) {
+          console.log('  - Agent Teams enabled in .claude/settings.json');
+        }
+      }
+
       if (envResult.envCreated && envResult.coreConfigCreated) {
         console.log('\n✅ Environment configuration complete!');
         console.log('  - .env file created');
@@ -855,6 +888,7 @@ module.exports = {
   // ACT-12: Exported for testing
   _testing: {
     writeClaudeSettings,
+    enableClaudeAgentTeams,
     getExistingLanguage,
     LANGUAGE_MAP,
   },

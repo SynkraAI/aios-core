@@ -122,6 +122,42 @@ Use prefixo `*` para comandos:
 
 ---
 
+## Agent Teams (Orquestracao Multi-Agente)
+
+O AIOS usa **Agent Teams** do Claude Code para orquestracao nativa de multiplos agentes.
+
+**Requer:** `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` (configurado em `.claude/settings.json`)
+
+### Como funciona
+
+- `@aios-master` atua como **Team Leader** — cria equipes, spawna teammates, coordena
+- Cada agente AIOS e spawned como **Teammate** (instancia independente do Claude Code)
+- Teammates compartilham task list e comunicam-se via `SendMessage`
+- Herdam automaticamente: CLAUDE.md, `.claude/rules/`, skills e MCPs
+
+### Ferramentas
+
+| Ferramenta | Uso |
+|------------|-----|
+| `TeamCreate` | Criar equipe antes de spawnar teammates |
+| `Task` (com `team_name`) | Spawnar teammate |
+| `TaskCreate/Update/List` | Gerenciar tasks compartilhadas |
+| `SendMessage` | Comunicar entre agentes |
+| `TeamDelete` | Limpar equipe ao final |
+
+### Workflows integrados
+
+- `my-aios/workflows/end-to-end-pipeline.yaml` — Pipeline de 7 fases
+- `.claude/skills/enhance-workflow.md` — Roundtable estrategica
+
+### Settings
+
+```json
+{ "env": { "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1" }, "teammateMode": "auto" }
+```
+
+---
+
 ## Story-Driven Development
 
 1. **Trabalhe a partir de stories** - Todo desenvolvimento começa com uma story em `docs/stories/`
