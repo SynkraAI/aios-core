@@ -65,7 +65,12 @@ def markdown_to_html(md_path: str, css_path: str = "") -> str:
         cmd.extend(["--css", css_path])
 
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        result = subprocess.run(  # noqa: S603
+            cmd, capture_output=True, text=True, check=True, timeout=30,
+        )
+    except subprocess.TimeoutExpired:
+        print("Error: pandoc timed out after 30 seconds", file=sys.stderr)
+        sys.exit(1)
     except subprocess.CalledProcessError as exc:
         print(f"Error: pandoc failed:\n{exc.stderr}", file=sys.stderr)
         sys.exit(1)
@@ -152,6 +157,11 @@ def main() -> None:
 
     # Determine CSS path
     css_path = args.css or find_css_file()
+
+    # Validate explicit --css path
+    if args.css and not os.path.exists(args.css):
+        print(f"Error: CSS file not found: {args.css}", file=sys.stderr)
+        sys.exit(1)
 
     print(f"Input:  {args.input}")
     print(f"Output: {output_path}")
