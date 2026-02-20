@@ -18,6 +18,7 @@ Usage:
 import argparse
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -33,23 +34,18 @@ def find_css_file() -> str:
     return ""
 
 
-def check_dependencies() -> list[str]:
+def check_dependencies(require_pdf: bool = True) -> list[str]:
     """Check for required external tools."""
     missing = []
 
-    try:
-        subprocess.run(
-            ["pandoc", "--version"],
-            capture_output=True,
-            check=True,
-        )
-    except (FileNotFoundError, subprocess.CalledProcessError):
-        missing.append("pandoc")
+    if not shutil.which("pandoc"):
+        missing.append("pandoc (brew install pandoc / apt install pandoc)")
 
-    try:
-        import weasyprint
-    except ImportError:
-        missing.append("weasyprint (pip install weasyprint)")
+    if require_pdf:
+        try:
+            import weasyprint
+        except ImportError:
+            missing.append("weasyprint (pip install weasyprint)")
 
     return missing
 
@@ -139,8 +135,8 @@ def main() -> None:
         print(f"Error: Input file not found: {args.input}", file=sys.stderr)
         sys.exit(1)
 
-    # Check dependencies
-    missing = check_dependencies()
+    # Check dependencies (skip weasyprint check for --html-only)
+    missing = check_dependencies(require_pdf=not args.html_only)
     if missing:
         print("Missing dependencies:", file=sys.stderr)
         for dep in missing:
