@@ -1,0 +1,39 @@
+name: AIOS Core - CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x] # Testa nas versões modernas do Node
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run Linter (Quality Gate)
+      run: npm run lint --if-present
+
+    - name: Run Unit Tests (SimulatedLLM Mode)
+      # Este passo usa sua infraestrutura de testes simulados
+      run: npm test
+      env:
+        CI: true
+        # Nenhuma chave de API real necessária graças ao SimulatedLLM
+        
