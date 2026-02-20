@@ -10,7 +10,7 @@
  */
 
 @page {
-    size: A4;
+    size: a4;
     margin: 2.5cm 2.5cm 2.5cm 3cm;
     @bottom-center {
         content: counter(page);
@@ -53,7 +53,7 @@ h2 {
     text-transform: uppercase;
     margin-top: 20pt;
     margin-bottom: 12pt;
-    page-break-after: avoid;
+    break-after: avoid;
 }
 
 /* Subsection headers */
@@ -63,7 +63,7 @@ h3 {
     text-align: left;
     margin-top: 16pt;
     margin-bottom: 8pt;
-    page-break-after: avoid;
+    break-after: avoid;
 }
 
 /* Sub-subsection headers */
@@ -74,7 +74,7 @@ h4 {
     text-align: left;
     margin-top: 12pt;
     margin-bottom: 6pt;
-    page-break-after: avoid;
+    break-after: avoid;
 }
 
 /* Paragraphs */
@@ -99,7 +99,7 @@ table {
     border-collapse: collapse;
     margin: 10pt 0;
     font-size: 10pt;
-    page-break-inside: avoid;
+    break-inside: avoid;
 }
 
 th, td {
@@ -144,10 +144,10 @@ li {
 h2 + h3,
 h3 + p,
 h3 + table {
-    page-break-before: avoid;
+    break-before: avoid;
 }
 
 /* Signature block */
-p:last-of-type {
-    page-break-before: avoid;
+.signature-block {
+    break-before: avoid;
 }

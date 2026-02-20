@@ -41,7 +41,7 @@ in formal Portuguese without accents (court convention). Bilingual interaction s
 
 ## Pipeline
 
-```
+```text
 INVENTORY ──► TRANSCRIPTION ──► ANALYSIS ──► CONSOLIDATION ──► DRAFTING ──► REVIEW ──► PDF
  (Phase 1)      (Phase 2)       (Phase 3)     (Phase 4)       (Phase 5)   (Phase 6)  (Phase 7)
 ```
@@ -223,7 +223,7 @@ danos morais, court jurisdiction selection, and damage scenario prioritization.
 
 ## File Organization
 
-```
+```text
 case-directory/
 ├── audios/                    # Raw audio files
 ├── documentos/                # Contracts, notifications, reports

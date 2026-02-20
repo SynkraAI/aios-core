@@ -17,6 +17,7 @@ Usage:
 
 import argparse
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -46,7 +47,7 @@ def check_dependencies() -> list[str]:
         missing.append("pandoc")
 
     try:
-        import weasyprint  # noqa: F401
+        import weasyprint
     except ImportError:
         missing.append("weasyprint (pip install weasyprint)")
 
@@ -67,7 +68,12 @@ def markdown_to_html(md_path: str, css_path: str = "") -> str:
     if css_path and os.path.exists(css_path):
         cmd.extend(["--css", css_path])
 
-    result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    except subprocess.CalledProcessError as exc:
+        print(f"Error: pandoc failed:\n{exc.stderr}", file=sys.stderr)
+        sys.exit(1)
+
     html_content = result.stdout
 
     # If CSS was provided, embed it inline for weasyprint compatibility
@@ -75,23 +81,20 @@ def markdown_to_html(md_path: str, css_path: str = "") -> str:
         with open(css_path, "r", encoding="utf-8") as f:
             css_content = f.read()
 
-        # Replace the <link> tag with inline <style>
-        html_content = html_content.replace(
-            f'<link rel="stylesheet" href="{css_path}" />',
-            f"<style>\n{css_content}\n</style>",
+        # Replace any <link> referencing this CSS with an inline <style> block
+        # Matches both self-closing and non-self-closing variants across pandoc versions
+        css_filename = re.escape(os.path.basename(css_path))
+        css_path_escaped = re.escape(css_path)
+        pattern = (
+            rf'<link\s[^>]*href="(?:{css_path_escaped}|{css_filename})"[^>]*/?\s*>'
         )
-
-        # Also handle relative path references
-        css_filename = os.path.basename(css_path)
-        html_content = html_content.replace(
-            f'<link rel="stylesheet" href="{css_filename}" />',
-            f"<style>\n{css_content}\n</style>",
-        )
+        replacement = f"<style>\n{css_content}\n</style>"
+        html_content = re.sub(pattern, replacement, html_content, count=1)
 
     return html_content
 
 
-def html_to_pdf(html_content: str, output_path: str) -> None:
+def html_to_pdf(html_content: str, output_path: str, base_url: str = "") -> None:
     """Convert HTML to PDF using weasyprint."""
     from weasyprint import HTML
 
@@ -102,7 +105,7 @@ def html_to_pdf(html_content: str, output_path: str) -> None:
         temp_html = f.name
 
     try:
-        HTML(filename=temp_html).write_pdf(output_path)
+        HTML(filename=temp_html, base_url=base_url or None).write_pdf(output_path)
     finally:
         os.unlink(temp_html)
 
@@ -174,11 +177,12 @@ def main() -> None:
 
     # Convert HTML → PDF
     print("Converting HTML to PDF...")
-    html_to_pdf(html_content, output_path)
+    base_url = Path(args.input).resolve().parent.as_uri()
+    html_to_pdf(html_content, output_path, base_url=base_url)
 
     # Report results
     file_size = os.path.getsize(output_path)
-    print(f"\nPDF generated successfully!")
+    print("\nPDF generated successfully!")
     print(f"  File: {output_path}")
     print(f"  Size: {file_size / 1024:.1f} KB")
 

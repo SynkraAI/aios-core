@@ -115,7 +115,7 @@ Check each payment for:
 
 For each unpaid or late amount:
 
-```
+```text
 Base amount: R$ [X]
 Date due: [date]
 Date of calculation: [date]

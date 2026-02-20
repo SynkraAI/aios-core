@@ -214,21 +214,29 @@ This reference provides the most commonly used articles from Brazilian civil law
 
 ## Common Jurisprudence References
 
-### STJ - Contract Rescission
+### STJ - Contract Rescission and Occupancy
 
-> "A rescisao contratual por inadimplemento gera o dever de restituicao integral, impedindo o enriquecimento sem causa de qualquer das partes." (STJ, REsp 1.613.613-RJ, Informativo 629)
+> "Na rescisao da promessa de compra e venda de imovel, e cabivel condenar o comprador ao pagamento de taxa de ocupacao pelo periodo em que permaneceu na posse do bem, em razao da vedacao ao enriquecimento sem causa, sendo irrelevante discutir quem deu causa ao rompimento para fins da taxa de ocupacao." (STJ, 3a Turma, REsp 1.613.613/RJ, Rel. Min. Ricardo Villas Boas Cueva, j. 12/06/2018, DJe 18/06/2018, Informativo 629)
 
-### STJ - Good Faith
+**Use when:** Rescission disputes involving restitution and occupancy — applies the principle that return to status quo ante requires compensation for use of the property/asset.
 
-> "O principio da boa-fe objetiva impoe aos contratantes o dever de agir com lealdade e cooperacao em todas as fases do contrato." (STJ, REsp 1.580.278/SP)
+### STJ - Good Faith and Contractual Penalties
 
-### STJ - Burden of Proof
+> "A resilicao unilateral prevista em contrato e um direito potestativo cuja multa penitencial nao e ilimitada, devendo ser balizada pela boa-fe objetiva e pela funcao social do contrato, aplicando-se por analogia os arts. 413 e 473, paragrafo unico, do CC/2002." (STJ, 3a Turma, REsp 1.580.278/SP, Rel. Min. Nancy Andrighi, j. 21/08/2018, DJe 03/09/2018)
 
-> "E admissivel a inversao do onus da prova em acoes que versam sobre obrigacoes em geral, quando o julgador verificar a presenca de verossimilhanca nas alegacoes e a hipossuficiencia da parte." (STJ, REsp 1.286.704/SP)
+**Use when:** Challenging excessive contractual penalties or demonstrating that a party abused contractual rights beyond good faith limits.
 
-### STJ - Market Value
+### STJ - Dynamic Distribution of Burden of Proof
 
-> "Na rescisao contratual por culpa de uma das partes, a indenizacao deve corresponder ao valor real do bem, e nao ao preco contratual, quando este se mostra visivelmente defasado em relacao ao mercado." (STJ, jurisprudencia consolidada)
+> "E legitima a redistribuicao judicial do onus da prova quando a parte originalmente onerada estiver em situacao de impossibilidade ou excessiva dificuldade e a outra parte tiver maior facilidade na producao probatoria, conforme a teoria da distribuicao dinamica do onus da prova." (STJ, 3a Turma, REsp 1.286.704/SP, Rel. Min. Nancy Andrighi, j. 22/10/2013, DJe 28/10/2013)
+
+**Use when:** Requesting redistribution of burden of proof when defendant holds exclusive access to evidence (see also Art. 373, § 1o, CPC).
+
+### STJ - Market Value for Damages
+
+> "Na rescisao contratual por inadimplemento, a indenizacao por perdas e danos deve considerar o valor real do bem, aferido por avaliacao pericial ou dados de mercado, e nao apenas o preco contratual, quando este se mostra defasado." (STJ, 3a Turma, REsp 1.620.865/SP, Rel. Min. Paulo de Tarso Sanseverino, j. 20/06/2017, DJe 01/08/2017)
+
+**Use when:** Damages calculation based on market/expert value rather than contract price — always cross-reference with expert appraisal data.
 
 ---
 
