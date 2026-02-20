@@ -1,0 +1,126 @@
+# CRM Field Mapping — AIOS → GoHighLevel
+# Maps enriched prospect fields to GoHighLevel contact fields
+# Version: 1.0.0
+
+# GoHighLevel API Reference:
+# - Contacts: https://highlevel.stoplight.io/docs/integrations/contacts
+# - Custom Fields: configured per location
+
+contact_mapping:
+  # Standard GoHighLevel fields
+  standard_fields:
+    firstName:
+      source: "lead.nome"
+      required: true
+    lastName:
+      source: "lead.sobrenome"
+      required: false
+    email:
+      source: "lead.email"
+      required: false
+    phone:
+      source: "lead.telefone"
+      required: true
+      format: "+55XXXXXXXXXXX"
+    companyName:
+      source: "lead.empresa"
+      required: false
+    website:
+      source: "enriched.site_url"
+      required: false
+    source:
+      value: "AIOS Prospector"
+      static: true
+    tags:
+      dynamic: true
+      rules:
+        - if: "prospect_type == 'potential_client'"
+          add: ["prospect-cliente", "aios-prospected"]
+        - if: "prospect_type == 'partner'"
+          add: ["prospect-parceiro", "aios-prospected"]
+        - if: "score >= 8"
+          add: ["hot-lead"]
+        - if: "score >= 5 AND score < 8"
+          add: ["warm-lead"]
+        - if: "score >= 3 AND score < 5"
+          add: ["cold-lead"]
+
+  # Custom fields (must be pre-created in GoHighLevel)
+  custom_fields:
+    aios_score:
+      source: "analysis.temperature_score"
+      type: number
+      ghl_field_key: "aios_score"
+    aios_prospect_type:
+      source: "analysis.prospect_type"
+      type: text
+      ghl_field_key: "aios_prospect_type"
+    aios_primary_pillar:
+      source: "analysis.primary_pillar"
+      type: text
+      ghl_field_key: "aios_primary_pillar"
+    aios_matching_pillars:
+      source: "analysis.matching_pillars"
+      type: text
+      format: "comma_separated"
+      ghl_field_key: "aios_matching_pillars"
+    aios_pain_points:
+      source: "analysis.pain_points"
+      type: text
+      format: "comma_separated"
+      ghl_field_key: "aios_pain_points"
+    aios_nicho:
+      source: "analysis.project_name"
+      type: text
+      ghl_field_key: "aios_nicho"
+    instagram_username:
+      source: "lead.instagram_username"
+      type: text
+      ghl_field_key: "instagram_username"
+    instagram_followers:
+      source: "enriched.instagram_followers"
+      type: number
+      ghl_field_key: "instagram_followers"
+    checkout_platform:
+      source: "enriched.checkout_platform"
+      type: text
+      ghl_field_key: "checkout_platform"
+    aios_processed_date:
+      source: "pipeline.processed_at"
+      type: date
+      ghl_field_key: "aios_processed_date"
+
+# Note to add to contact after sync
+contact_note:
+  template: |
+    === AIOS Prospector Analysis ===
+    Data: {processed_at}
+    Score: {score}/10 ({prospect_type})
+    Pilar principal: {primary_pillar}
+    Pilares match: {matching_pillars}
+    Pain points: {pain_points}
+
+    Instagram: @{instagram_username} ({instagram_followers} followers)
+    Bio: {instagram_bio}
+    Site: {site_url}
+    Checkout: {checkout_platform}
+
+    Analise: {analysis_notes}
+
+    Mensagem gerada: {outreach_message_preview}
+    ================================
+
+# API endpoints used
+api_endpoints:
+  search_contact: "GET /contacts/search?query={phone_or_email}"
+  create_contact: "POST /contacts/"
+  update_contact: "PUT /contacts/{contact_id}"
+  add_note: "POST /contacts/{contact_id}/notes"
+  add_tag: "POST /contacts/{contact_id}/tags"
+
+# Authentication
+auth:
+  type: "Bearer"
+  header: "Authorization: Bearer {GOHIGHLEVEL_API_KEY}"
+  location_header: "Version: 2021-07-28"
+  base_url: "https://services.leadconnectorhq.com"

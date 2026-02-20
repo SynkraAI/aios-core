@@ -1,0 +1,168 @@
+# Ensinio Prospector - Squad Configuration
+# Version: 1.0.0
+# Updated: 2026-02-19
+
+name: ensinio-prospector
+version: "1.0.0"
+entry_agent: prospector-chief
+
+squad:
+  name: ensinio-prospector
+  display_name: "Ensinio Prospector"
+  version: "1.0.0"
+  domain: "sales prospecting, instagram research, lead enrichment, crm sync, outreach"
+  description: |
+    Squad especializado em prospectar leads a partir de Google Sheets.
+    Enriquece dados via Instagram/site/checkout, analisa fit com solucoes Ensinio,
+    gera mensagens personalizadas de outreach, atualiza GoHighLevel CRM
+    e notifica equipe via Slack.
+
+  context: |
+    Ensinio e uma plataforma LMS All-in-One com 5 pilares de solucao:
+    1. LMS/Area de Membros (23 features)
+    2. Gamificacao (7 features)
+    3. Agentes de IA (11 features)
+    4. Pagamentos Integrados (15 features)
+    5. White Label + App + Integracoes (13 features)
+
+    Total: 67 features mapeadas no KB v2.0.
+
+    Pipeline: Google Sheets → Instagram/Site enrichment → Analyze & Score →
+    Outreach message → GoHighLevel CRM → Slack notification.
+
+    Mensagens sao enviadas pelo Antonio, a pedido do Fosc (socio fundador).
+
+  keywords:
+    - lead prospecting
+    - instagram research
+    - lead enrichment
+    - outreach messages
+    - ensinio
+    - lms sales
+    - gohighlevel
+    - crm sync
+    - google sheets
+    - slack notification
+
+  ids_reuse:
+    reuse:
+      - source: "whatsapp-prospector-ensinio/data/ensinio-solutions-kb.md"
+        via: symlink
+      - source: "whatsapp-prospector-ensinio/data/scoring-criteria.md"
+        via: symlink
+      - source: "whatsapp-prospector-ensinio/data/message-rules.md"
+        via: symlink
+      - source: "whatsapp-prospector-ensinio/checklists/scoring-validation-checklist.md"
+        via: symlink
+      - source: "whatsapp-prospector-ensinio/checklists/message-quality-checklist.md"
+        via: symlink
+    adapt:
+      - source: "whatsapp-prospector-ensinio/agents/prospector-chief.md"
+        changes: "~30% - multi-source pipeline (Sheets/Instagram)"
+      - source: "whatsapp-prospector-ensinio/agents/prospect-analyst.md"
+        changes: "~20% - enriched fields (Instagram, site, checkout)"
+      - source: "whatsapp-prospector-ensinio/agents/outreach-writer.md"
+        changes: "~15% - Instagram context instead of WhatsApp group"
+      - source: "whatsapp-prospector-ensinio/tasks/analyze-prospects.md"
+        changes: "~20% - enriched input data"
+      - source: "whatsapp-prospector-ensinio/tasks/write-outreach.md"
+        changes: "~15% - Instagram-based context"
+      - source: "whatsapp-prospector-ensinio/tasks/validate-outreach-batch.md"
+        changes: "~10% - same validation, different context reference"
+
+orchestrator:
+  agent: prospector-chief
+  file: agents/prospector-chief.md
+
+layers:
+  enrichment:
+    description: "Coleta e enriquecimento de dados do lead (Instagram, site, checkout)"
+    agents:
+      - id: instagram-researcher
+        name: Scout
+        role: Instagram & Web Data Researcher
+        file: agents/instagram-researcher.md
+        model: sonnet
+
+  analysis:
+    description: "Analise de prospects e matching com solucoes Ensinio"
+    agents:
+      - id: prospect-analyst
+        name: Minerva
+        role: Solution Fit Analyst & Lead Scorer
+        file: agents/prospect-analyst.md
+        model: sonnet
+
+  outreach:
+    description: "Geracao de mensagens personalizadas de outreach"
+    agents:
+      - id: outreach-writer
+        name: Velvet
+        role: Personalized Outreach Copywriter
+        file: agents/outreach-writer.md
+        model: opus
+
+  integration:
+    description: "Sincronizacao com CRM e notificacoes"
+    agents:
+      - id: crm-syncer
+        name: Nexus
+        role: CRM Sync & Notification Agent
+        file: agents/crm-syncer.md
+        model: sonnet
+
+  orchestration:
+    agents:
+      - id: prospector-chief
+        name: Atlas
+        role: Pipeline Orchestrator & Lead Qualification Chief
+        file: agents/prospector-chief.md
+        model: sonnet
+
+workflows:
+  sheets_instagram_pipeline:
+    file: workflows/sheets-instagram-pipeline.md
+    description: "Pipeline completo: Sheets -> Enrich -> Analyze -> Outreach -> CRM -> Notify"
+    phases: 9
+
+quality_gates:
+  - id: QG-001
+    name: "Enrichment Quality"
+    transition: "Raw Lead -> Enriched Lead"
+    type: blocking
+    criteria: "Dados enriquecidos com Instagram bio, site summary, checkout platform"
+    checklist: checklists/enrichment-quality-checklist.md
+
+  - id: QG-002
+    name: "Scoring Validation"
+    transition: "Enriched -> Scored Prospects"
+    type: blocking
+    criteria: "Score validado com distribuicao consistente"
+    checklist: checklists/scoring-validation-checklist.md
+
+  - id: QG-003
+    name: "Message Quality"
+    transition: "Draft -> Approved Message"
+    type: blocking
+    criteria: "Mensagem passa no message-quality-checklist (humanizacao, personalizacao)"
+    checklist: checklists/message-quality-checklist.md
+    max_rework_iterations: 2
+
+  - id: QG-004
+    name: "CRM Sync"
+    transition: "Approved -> GoHighLevel Updated"
+    type: warning
+    criteria: "Contato atualizado no CRM com todos os campos mapeados"
+
+settings:
+  show_greeting: true
+  language: pt-BR
+  ensinio_kb_source: "data/ensinio-solutions-kb.md"
+  min_score_threshold: 3
+  max_rework_iterations: 2
+
+env_required:
+  - GOHIGHLEVEL_API_KEY
+  - GOHIGHLEVEL_LOCATION_ID
+  - SLACK_WEBHOOK_URL
+  - GOOGLE_SHEETS_ID

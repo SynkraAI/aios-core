@@ -1,0 +1,1 @@
+../../whatsapp-prospector-ensinio/checklists/scoring-validation-checklist.md

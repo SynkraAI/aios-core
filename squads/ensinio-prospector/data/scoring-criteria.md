@@ -1,0 +1,1 @@
+../../whatsapp-prospector-ensinio/data/scoring-criteria.md

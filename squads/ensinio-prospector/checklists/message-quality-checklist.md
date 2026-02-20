@@ -1,0 +1,1 @@
+../../whatsapp-prospector-ensinio/checklists/message-quality-checklist.md

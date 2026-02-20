@@ -1,0 +1,143 @@
+# Platform Signatures — Checkout Platform Detection
+# Used by detect-checkout-platform task to identify which platform hosts a checkout page
+# Version: 1.0.0
+
+signatures:
+  hotmart:
+    name: "Hotmart"
+    url_patterns:
+      - "hotmart.com"
+      - "pay.hotmart.com"
+      - "go.hotmart.com"
+    html_markers:
+      - "hotmart-checkout"
+      - "data-hot-"
+      - "hotmart.com/product"
+      - "hp-checkout"
+      - "hotmart-fb"
+    meta_tags:
+      - "Hotmart"
+    confidence_boost:
+      - "hotmart" in domain
+
+  kiwify:
+    name: "Kiwify"
+    url_patterns:
+      - "kiwify.com.br"
+      - "pay.kiwify.com.br"
+    html_markers:
+      - "kiwify"
+      - "kw-checkout"
+      - "__NEXT_DATA__"
+      - "kiwify.com.br"
+    meta_tags:
+      - "Kiwify"
+    confidence_boost:
+      - "kiwify" in domain
+
+  eduzz:
+    name: "Eduzz"
+    url_patterns:
+      - "eduzz.com"
+      - "sun.eduzz.com"
+      - "checkout.eduzz.com"
+    html_markers:
+      - "eduzz"
+      - "edz-checkout"
+      - "sun.eduzz"
+    meta_tags:
+      - "Eduzz"
+    confidence_boost:
+      - "eduzz" in domain
+
+  monetizze:
+    name: "Monetizze"
+    url_patterns:
+      - "monetizze.com.br"
+      - "app.monetizze.com.br"
+    html_markers:
+      - "monetizze"
+      - "mntz-checkout"
+    meta_tags:
+      - "Monetizze"
+    confidence_boost:
+      - "monetizze" in domain
+
+  braip:
+    name: "Braip"
+    url_patterns:
+      - "braip.com"
+      - "pay.braip.com"
+    html_markers:
+      - "braip"
+      - "braip-checkout"
+    meta_tags:
+      - "Braip"
+    confidence_boost:
+      - "braip" in domain
+
+  greenn:
+    name: "Greenn"
+    url_patterns:
+      - "greenn.com.br"
+      - "pay.greenn.com.br"
+    html_markers:
+      - "greenn"
+      - "grn-checkout"
+    meta_tags:
+      - "Greenn"
+    confidence_boost:
+      - "greenn" in domain
+
+  lastlink:
+    name: "Lastlink"
+    url_patterns:
+      - "lastlink.com"
+    html_markers:
+      - "lastlink"
+    meta_tags:
+      - "Lastlink"
+
+  guru:
+    name: "Digital Manager Guru"
+    url_patterns:
+      - "guru.com"
+      - "digitalmanager.guru"
+    html_markers:
+      - "guru"
+      - "dm-guru"
+    meta_tags:
+      - "Guru"
+
+  ticto:
+    name: "Ticto"
+    url_patterns:
+      - "ticto.com.br"
+    html_markers:
+      - "ticto"
+    meta_tags:
+      - "Ticto"
+
+  ensinio:
+    name: "Ensinio"
+    url_patterns:
+      - "ensinio.com"
+    html_markers:
+      - "ensinio"
+      - "ens-checkout"
+    meta_tags:
+      - "Ensinio"
+    note: "If prospect already uses Ensinio, flag as existing_customer"
+
+detection_algorithm:
+  steps:
+    1: "Check URL domain against url_patterns"
+    2: "If no domain match, fetch HTML and search html_markers"
+    3: "If markers found, check meta_tags for confirmation"
+    4: "Apply confidence_boost if domain contains platform name"
+  confidence_levels:
+    high: "URL pattern match + HTML marker"
+    medium: "HTML marker only"
+    low: "Meta tag only"
+    unknown: "No match found"
+  fallback: "unknown"
