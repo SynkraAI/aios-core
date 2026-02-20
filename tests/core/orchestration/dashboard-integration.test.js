@@ -34,6 +34,7 @@ describe('DashboardIntegration', () => {
   afterEach(() => {
     dashboard.stop();
     jest.useRealTimers();
+    jest.restoreAllMocks();
   });
 
   // ============================================================

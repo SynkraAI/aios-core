@@ -468,13 +468,13 @@ describe('ContextManager', () => {
 
     test('uses custom threshold from env', async () => {
       process.env.AIOS_DELIVERY_CONFIDENCE_THRESHOLD = '85';
-
-      await mgr.savePhaseOutput(1, { result: {} });
-
-      const confidence = mgr.getDeliveryConfidence();
-      expect(confidence.threshold).toBe(85);
-
-      delete process.env.AIOS_DELIVERY_CONFIDENCE_THRESHOLD;
+      try {
+        await mgr.savePhaseOutput(1, { result: {} });
+        const confidence = mgr.getDeliveryConfidence();
+        expect(confidence.threshold).toBe(85);
+      } finally {
+        delete process.env.AIOS_DELIVERY_CONFIDENCE_THRESHOLD;
+      }
     });
 
     test('defaults to threshold 70', async () => {
