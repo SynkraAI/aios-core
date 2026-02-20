@@ -520,6 +520,63 @@ reviews:
 
 ---
 
+## QA Results
+
+### Review Date: 2026-02-20
+
+### Reviewed By: Quinn (Test Architect)
+
+### Code Quality Assessment
+
+Overall implementation quality is **good**. The DNA/Enhancement split is well-structured across all 12 agent files with consistent markers. The `extractPersonaDNA()` function in `claude-agents.js` has proper fallback logic. Hook scripts follow documented conventions (exit codes, `$CLAUDE_PROJECT_DIR`, JSON output format). Authority rules files are well-targeted with frontmatter `paths:` globs.
+
+One **HIGH severity bug** was found and fixed: the `pre-compact-persona.sh` had a malformed `sed` command on line 18 that would fail to extract DNA from any active agent file. The regex was missing a `/` character before the opening `{` in the sed address range block, causing a parse error. This was a silent failure because the hook would fall back to returning `{}` (noop), meaning persona identity would be lost during compaction without any warning.
+
+### Refactoring Performed
+
+- **File**: `.claude/hooks/pre-compact-persona.sh`
+  - **Change**: Fixed sed regex on line 18 — added missing `/` before `{` in address range
+  - **Why**: The malformed sed command `'/=== PERSONA DNA ===/,/=== ENHANCEMENT ==={...'` fails with "extra characters after command". This meant DNA was never extracted during PreCompact.
+  - **How**: Changed to `'/=== PERSONA DNA ===/,/=== ENHANCEMENT ===/{...'` — correct sed address range syntax
+
+### Compliance Check
+
+- Coding Standards: [ok] Consistent patterns, proper error handling with fallbacks
+- Project Structure: [ok] Files in correct locations per story plan
+- Testing Strategy: [ok] 62 tests covering hooks (14) and transformers (48, including 6 AGF-4 specific)
+- All ACs Met: [partial] AC1-AC5, AC7-AC8 fully met. AC6 partially met (activation level 0-3 deferred to AGF-5 per PO agreement)
+
+### Improvements Checklist
+
+- [x] Fixed pre-compact-persona.sh sed regex bug (HIGH — prevented DNA extraction)
+- [ ] Add stderr warning when DNA extraction fails but agent file exists (silent failure detection)
+- [ ] Add integration test with simulated .active-agent file to test DNA extraction end-to-end
+- [ ] Consider persisting AIOS_LAST_COMMIT in $CLAUDE_ENV_FILE (minor deviation from plan)
+
+### Security Review
+
+No security concerns. Hook scripts do not handle secrets. JSON values are properly escaped (newlines via `tr`, quotes via `sed`). `$CLAUDE_PROJECT_DIR` is used for path resolution rather than hardcoded paths.
+
+### Performance Considerations
+
+SessionStart hook has a 10-second timeout budget (Claude Code limit is 600s). DNA sections across all 12 agents are 89-116 words (~100-150 tokens), well within the target. No heavy I/O operations in either hook.
+
+### Files Modified During Review
+
+- `.claude/hooks/pre-compact-persona.sh` — fixed sed regex (line 18)
+
+### Gate Status
+
+Gate: CONCERNS -> docs/qa/gates/AGF-4-activation-foundation.yml
+
+### Recommended Status
+
+[ok Changes Required - See unchecked items above]
+The sed fix is the only blocking change. Remaining unchecked items are future improvements that can be addressed in AGF-5/AGF-6.
+(Story owner decides final status)
+
+---
+
 *Story derivada de: AGF-3 (Roundtable) → Phase A: Foundation*
 *ADR Decisions: D1, D2, D3, D4, D5, D7, D8, D9-partial*
 *Epic: Agent Fidelity (AGF) — CLI First | Observability Second | UI Third*

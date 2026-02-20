@@ -15,7 +15,7 @@ AGENT_ID=$(cat "$CLAUDE_PROJECT_DIR/.claude/agent-memory/.active-agent" 2>/dev/n
 
 if [ "$AGENT_ID" != "none" ] && [ -n "$AGENT_ID" ] && [ -f "$CLAUDE_PROJECT_DIR/.claude/agents/${AGENT_ID}.md" ]; then
   # Extract DNA between PERSONA DNA and ENHANCEMENT markers
-  DNA=$(sed -n '/=== PERSONA DNA ===/,/=== ENHANCEMENT ==={/=== PERSONA DNA ===/d;/=== ENHANCEMENT ===/d;p;}' \
+  DNA=$(sed -n '/=== PERSONA DNA ===/,/=== ENHANCEMENT ===/{/=== PERSONA DNA ===/d;/=== ENHANCEMENT ===/d;p;}' \
     "$CLAUDE_PROJECT_DIR/.claude/agents/${AGENT_ID}.md" 2>/dev/null | head -20)
 
   if [ -n "$DNA" ]; then

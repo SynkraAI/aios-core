@@ -1,0 +1,64 @@
+schema: 1
+story: 'AGF-4'
+story_title: 'Activation Foundation — DNA/Enhancement Split + SessionStart/PreCompact Hooks'
+gate: CONCERNS
+status_reason: 'All ACs met and tests pass. One HIGH bug found and fixed in pre-compact-persona.sh (malformed sed regex). AC6 activation level deferred to AGF-5 per PO agreement.'
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-02-20T00:00:00Z'
+
+top_issues:
+  - id: AGF4-QA-001
+    severity: high
+    description: 'pre-compact-persona.sh line 18 had malformed sed command: missing / before { in address range block. This caused sed parse error and DNA extraction failure when active agent exists.'
+    status: fixed
+    suggested_owner: dev
+    files: ['.claude/hooks/pre-compact-persona.sh']
+  - id: AGF4-QA-002
+    severity: low
+    description: 'session-start.sh omits AIOS_LAST_COMMIT from $CLAUDE_ENV_FILE persistence despite being in story implementation plan. Commit info still available in additionalContext string — minor deviation.'
+    status: noted
+    suggested_owner: dev
+    files: ['.claude/hooks/session-start.sh']
+  - id: AGF4-QA-003
+    severity: low
+    description: 'AC6 partial: activation level indicator (0-3) deferred to AGF-5. PO acknowledged this in story (line 162). No blocking impact.'
+    status: accepted
+    suggested_owner: dev
+
+waiver: { active: false }
+
+quality_score: 80  # 100 - (0 * 20 for zero remaining FAILs) - (1 * 10 for CONCERNS from fixed HIGH) - (10 for deferred AC6)
+expires: '2026-03-06T00:00:00Z'
+
+evidence:
+  tests_reviewed: 62  # 14 hook tests + 48 transformer tests (6 AGF-4 specific)
+  risks_identified: 1  # Malformed sed regex (fixed)
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 7, 8]
+    ac_gaps: [6]  # Partial — activation level deferred to AGF-5
+
+nfr_validation:
+  security:
+    status: PASS
+    notes: 'No secrets in hooks. Scripts use $CLAUDE_PROJECT_DIR for path resolution. JSON escaping applied to prevent injection.'
+  performance:
+    status: PASS
+    notes: 'SessionStart hook has 10s timeout budget. DNA sections are 89-116 words (~100-150 tokens). No heavy IO operations.'
+  reliability:
+    status: CONCERNS
+    notes: 'Pre-compact sed regex was broken (fixed). Fallback to {} on failure is correct but means DNA loss is silent. Consider adding stderr warning in future.'
+  maintainability:
+    status: PASS
+    notes: 'Clean separation of concerns. extractPersonaDNA() has fallback logic. Authority rules have proper frontmatter targeting. 12 agent files consistently structured.'
+
+recommendations:
+  immediate:
+    - action: 'Commit the pre-compact-persona.sh sed fix (missing / before { in address range)'
+      refs: ['.claude/hooks/pre-compact-persona.sh']
+  future:
+    - action: 'Add stderr warning in pre-compact-persona.sh when DNA extraction fails but agent file exists (silent failure detection)'
+      refs: ['.claude/hooks/pre-compact-persona.sh']
+    - action: 'Add integration test that simulates active agent with .active-agent file to verify DNA extraction end-to-end'
+      refs: ['tests/hooks/agf4-hooks.test.js']
+    - action: 'Consider persisting AIOS_LAST_COMMIT in $CLAUDE_ENV_FILE for session consistency'
+      refs: ['.claude/hooks/session-start.sh']
