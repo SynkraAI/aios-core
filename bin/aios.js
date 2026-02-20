@@ -54,6 +54,7 @@ USAGE:
   npx @synkra/aios-core@latest info         # Show system info
   npx @synkra/aios-core@latest doctor       # Run diagnostics
   npx @synkra/aios-core@latest context      # Manage session context
+  npx @synkra/aios-core@latest install-squad <name>  # Install a squad
   npx @synkra/aios-core@latest --version    # Show version
   npx @synkra/aios-core@latest --version -d # Show detailed version info
   npx @synkra/aios-core@latest --help       # Show this help
@@ -994,6 +995,120 @@ async function initProject() {
   });
 }
 
+// Helper: Show install-squad help
+function showInstallSquadHelp() {
+  console.log(`
+Usage: npx aios-core install-squad <squad-name> [options]
+
+Install a squad expansion pack into the current project.
+
+Options:
+  --force        Reinstall even if already installed
+  --skip-deps    Skip npm dependency installation
+  --skip-hooks   Skip git hook installation
+  --list         List available squads
+  -h, --help     Show this help message
+
+Examples:
+  # Install the navigator squad
+  npx aios-core install-squad navigator
+
+  # Force reinstall
+  npx aios-core install-squad navigator --force
+
+  # List available squads
+  npx aios-core install-squad --list
+`);
+}
+
+// Helper: Run install-squad command
+async function runInstallSquad() {
+  const squadArgs = args.slice(1);
+
+  if (squadArgs.includes('--help') || squadArgs.includes('-h')) {
+    showInstallSquadHelp();
+    return;
+  }
+
+  const installerPath = path.join(__dirname, '..', 'packages', 'installer', 'src', 'installer', 'squad-installer.js');
+
+  if (!fs.existsSync(installerPath)) {
+    console.error('❌ Squad installer module not found');
+    console.error('Please ensure AIOS-FullStack is installed correctly.');
+    process.exit(1);
+  }
+
+  const { installSquad, listAvailableSquads } = require(installerPath);
+
+  // --list flag
+  if (squadArgs.includes('--list')) {
+    const available = listAvailableSquads();
+    if (available.length === 0) {
+      console.log('No squads available.');
+    } else {
+      console.log(`\n📦 Available squads (${available.length}):\n`);
+      for (const name of available) {
+        console.log(`  • ${name}`);
+      }
+      console.log(`\nInstall with: npx aios-core install-squad <name>\n`);
+    }
+    return;
+  }
+
+  // Extract squad name (first non-flag arg)
+  const squadName = squadArgs.find(a => !a.startsWith('-'));
+
+  if (!squadName) {
+    console.error('❌ Squad name is required');
+    console.log('\nUsage: npx aios-core install-squad <squad-name>');
+    console.log('Run with --help for more information.');
+    console.log('Run with --list to see available squads.');
+    process.exit(1);
+  }
+
+  const isForce = squadArgs.includes('--force');
+  const skipDeps = squadArgs.includes('--skip-deps');
+  const skipHooks = squadArgs.includes('--skip-hooks');
+
+  console.log(`\n🧩 Installing squad: ${squadName}\n`);
+
+  const result = await installSquad(squadName, {
+    projectRoot: process.cwd(),
+    force: isForce,
+    skipDeps,
+    skipHooks,
+    onProgress: (phase, message) => {
+      const icons = {
+        detect: '🔍',
+        validate: '📋',
+        copy: '📁',
+        deps: '📦',
+        'deps-warn': '⚠️',
+        symlinks: '🔗',
+        hooks: '🪝',
+        register: '✅',
+      };
+      console.log(`${icons[phase] || '•'} ${message}`);
+    },
+  });
+
+  if (result.success) {
+    console.log(`\n✅ ${result.message}`);
+    console.log(`   Files copied: ${result.filesCopied}`);
+    console.log(`   Slash commands: ${result.symlinksCreated}`);
+    if (result.depsInstalled.length > 0) {
+      console.log(`   Dependencies: ${result.depsInstalled.join(', ')}`);
+    }
+    if (result.hooksInstalled) {
+      console.log('   Git hooks: installed');
+    }
+    console.log(`\n   Activate with: /${squadName}:*\n`);
+  } else {
+    console.error(`\n❌ ${result.message}`);
+    process.exit(1);
+  }
+}
+
 // Command routing (async main function)
 async function main() {
   switch (command) {
@@ -1113,6 +1228,11 @@ async function main() {
     case 'update':
       // Update to latest version - Epic 7
       await runUpdate();
+      break;
+
+    case 'install-squad':
+      // Install squad expansion pack
+      await runInstallSquad();
       break;
 
     case '--version':

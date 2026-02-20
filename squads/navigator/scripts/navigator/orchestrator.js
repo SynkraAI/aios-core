@@ -9,6 +9,7 @@
 
 const fs = require('fs');
 const _path = require('path');
+const { resolveSquadPath } = require('../squad-paths');
 
 /**
  * Delegate to another agent
@@ -54,10 +55,10 @@ async function generateMultiChatPrompts(epicData) {
   const waves = assignStoriesToWaves(stories);
 
   // Load template
-  const templatePath = `.aios-core/development/templates/${template}`;
+  const templatePath = resolveSquadPath('templates', template);
   let _templateContent = '';
 
-  if (fs.existsSync(templatePath)) {
+  if (templatePath && fs.existsSync(templatePath)) {
     _templateContent = fs.readFileSync(templatePath, 'utf8');
   } else {
     // Fallback to basic template

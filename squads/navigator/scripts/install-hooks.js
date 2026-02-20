@@ -11,10 +11,15 @@
  */
 
 const fs = require('fs');
-const path = require('path');
+const _path = require('path');
+const { resolveSquadPath } = require('./squad-paths');
 
 const HOOK_FILE = '.husky/post-commit';
-const HOOK_LINE = 'node .aios-core/development/scripts/navigator/post-commit-hook.js 2>/dev/null || true';
+// Resolve hook script path: squad-local first, legacy fallback
+const hookScriptPath = resolveSquadPath('scripts/navigator', 'post-commit-hook.js')
+  ? 'squads/navigator/scripts/navigator/post-commit-hook.js'
+  : '.aios-core/development/scripts/navigator/post-commit-hook.js';
+const HOOK_LINE = `node ${hookScriptPath} 2>/dev/null || true`;
 const HOOK_COMMENT = '# Navigator Auto-Update (Navigator Agent)';
 
 /**
@@ -99,7 +104,7 @@ function uninstallHook() {
   const filteredLines = lines.filter(line =>
     !line.includes(HOOK_LINE) &&
     !line.includes(HOOK_COMMENT) &&
-    !line.includes('Auto-updates roadmap when stories change')
+    !line.includes('Auto-updates roadmap when stories change'),
   );
 
   const newContent = filteredLines.join('\n');

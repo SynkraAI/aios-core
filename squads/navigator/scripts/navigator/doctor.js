@@ -10,6 +10,7 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const { resolveSquadDir, resolveSquadPath } = require('../squad-paths');
 
 /**
  * Run all health checks
@@ -169,14 +170,14 @@ async function checkGitHooks() {
  */
 async function checkDirectoryStructure() {
   const requiredDirs = [
-    '.aios-core/development/agents',
-    '.aios-core/development/tasks',
-    '.aios-core/development/templates',
-    '.aios-core/development/scripts/navigator',
-    '.aios-core/development/data',
+    { name: 'agents', resolved: resolveSquadDir('agents') },
+    { name: 'tasks', resolved: resolveSquadDir('tasks') },
+    { name: 'templates', resolved: resolveSquadDir('templates') },
+    { name: 'scripts/navigator', resolved: resolveSquadDir('scripts/navigator') },
+    { name: 'data', resolved: resolveSquadDir('data') },
   ];
 
-  const missing = requiredDirs.filter(dir => !fs.existsSync(dir));
+  const missing = requiredDirs.filter(dir => !dir.resolved).map(dir => dir.name);
 
   if (missing.length === 0) {
     return {
@@ -198,7 +199,8 @@ async function checkDirectoryStructure() {
  * Check pipeline map
  */
 async function checkPipelineMap() {
-  const pipelineMapPath = '.aios-core/development/data/navigator-pipeline-map.yaml';
+  const pipelineMapPath = resolveSquadPath('data', 'navigator-pipeline-map.yaml')
+    || '.aios-core/development/data/navigator-pipeline-map.yaml';
 
   if (!fs.existsSync(pipelineMapPath)) {
     return {
@@ -242,7 +244,8 @@ async function checkPipelineMap() {
  * Check scripts executable
  */
 async function checkScriptsExecutable() {
-  const scriptsDir = '.aios-core/development/scripts/navigator';
+  const scriptsDir = resolveSquadDir('scripts/navigator')
+    || '.aios-core/development/scripts/navigator';
   const requiredScripts = [
     'roadmap-sync.js',
     'phase-detector.js',

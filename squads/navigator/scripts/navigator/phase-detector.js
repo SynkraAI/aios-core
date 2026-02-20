@@ -11,6 +11,7 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 const glob = require('glob');
+const { resolveSquadPath } = require('../squad-paths');
 
 /**
  * Detect current phase from file system
@@ -21,10 +22,8 @@ const glob = require('glob');
 async function detectPhase(projectRoot = process.cwd(), pipelineMap = null) {
   // Load pipeline map if not provided
   if (!pipelineMap) {
-    const pipelineMapPath = path.join(
-      projectRoot,
-      '.aios-core/development/data/navigator-pipeline-map.yaml',
-    );
+    const pipelineMapPath = resolveSquadPath('data', 'navigator-pipeline-map.yaml', projectRoot)
+      || path.join(projectRoot, '.aios-core/development/data/navigator-pipeline-map.yaml');
 
     if (!fs.existsSync(pipelineMapPath)) {
       throw new Error(`Pipeline map not found: ${pipelineMapPath}`);
