@@ -1,381 +1,381 @@
-# Navigator Troubleshooting Guide
+# Guia de Troubleshooting do Navigator
 
-Solutions to common problems and error messages.
-
----
-
-## Table of Contents
-
-- [Health Check Failures](#health-check-failures)
-- [Phase Detection Issues](#phase-detection-issues)
-- [Roadmap Sync Problems](#roadmap-sync-problems)
-- [Checkpoint Issues](#checkpoint-issues)
-- [Git Hook Problems](#git-hook-problems)
-- [Performance Issues](#performance-issues)
-- [Error Messages](#error-messages)
+Solucoes para problemas comuns e mensagens de erro.
 
 ---
 
-## Health Check Failures
+## Indice
 
-### ❌ Node.js Version Check Failed
+- [Falhas no Health Check](#falhas-no-health-check)
+- [Problemas de Deteccao de Fase](#problemas-de-deteccao-de-fase)
+- [Problemas de Sincronizacao do Roadmap](#problemas-de-sincronizacao-do-roadmap)
+- [Problemas com Checkpoints](#problemas-com-checkpoints)
+- [Problemas com Git Hooks](#problemas-com-git-hooks)
+- [Problemas de Performance](#problemas-de-performance)
+- [Mensagens de Erro](#mensagens-de-erro)
 
-**Error:**
+---
+
+## Falhas no Health Check
+
+### ❌ Versao do Node.js Falhou na Verificacao
+
+**Erro:**
 ```
 ✗ Node.js v16.14.0 (requires >= 18.0.0)
 ```
 
-**Cause:** Node.js version too old
+**Causa:** Versao do Node.js muito antiga
 
-**Fix:**
+**Correcao:**
 ```bash
-# Option 1: Install via nvm
+# Opcao 1: Instalar via nvm
 nvm install 20
 nvm use 20
 
-# Option 2: Download from nodejs.org
-# Visit https://nodejs.org and install LTS version
+# Opcao 2: Baixar de nodejs.org
+# Visite https://nodejs.org e instale a versao LTS
 
-# Verify
-node --version  # Should show v18.x.x or higher
+# Verificar
+node --version  # Deve mostrar v18.x.x ou superior
 ```
 
 ---
 
-### ❌ Git Not Available
+### ❌ Git Nao Disponivel
 
-**Error:**
+**Erro:**
 ```
 ✗ Git: Not found in PATH
 ```
 
-**Cause:** Git not installed or not in PATH
+**Causa:** Git nao instalado ou nao esta no PATH
 
-**Fix:**
+**Correcao:**
 ```bash
 # macOS
 brew install git
 
 # Windows
-# Download from https://git-scm.com/download/win
+# Baixe de https://git-scm.com/download/win
 
 # Linux (Ubuntu/Debian)
 sudo apt-get install git
 
-# Verify
+# Verificar
 git --version
 ```
 
 ---
 
-### ❌ NPM Dependencies Missing
+### ❌ Dependencias NPM Faltando
 
-**Error:**
+**Erro:**
 ```
 ✗ NPM Dependencies: Missing js-yaml, glob
 ```
 
-**Cause:** Required npm packages not installed
+**Causa:** Pacotes npm necessarios nao instalados
 
-**Fix:**
+**Correcao:**
 ```bash
-# Install all at once
+# Instalar todos de uma vez
 npm install js-yaml glob inquirer
 
-# Or individually
+# Ou individualmente
 npm install js-yaml
 npm install glob
 npm install inquirer
 
-# Verify
+# Verificar
 npm list js-yaml glob inquirer
 ```
 
 ---
 
-### ❌ Git Hooks Not Installed
+### ❌ Git Hooks Nao Instalados
 
-**Error:**
+**Erro:**
 ```
 ✗ Git Hooks: Navigator hook not found in .husky/post-commit
 ```
 
-**Cause:** Husky not configured or Navigator hook missing
+**Causa:** Husky nao configurado ou hook do Navigator faltando
 
-**Fix:**
+**Correcao:**
 ```bash
-# Step 1: Ensure Husky is installed
+# Passo 1: Garantir que o Husky esta instalado
 npm run prepare
 
-# Step 2: Install Navigator hook
+# Passo 2: Instalar hook do Navigator
 node squads/navigator/scripts/install-hooks.js install
 
-# Step 3: Verify
+# Passo 3: Verificar
 cat .husky/post-commit
-# Should contain: node squads/navigator/scripts/post-commit-hook.js
+# Deve conter: node squads/navigator/scripts/post-commit-hook.js
 ```
 
 ---
 
-### ❌ Invalid Pipeline Map
+### ❌ Pipeline Map Invalido
 
-**Error:**
+**Erro:**
 ```
 ✗ Pipeline Map: YAML syntax error at line 42
 ```
 
-**Cause:** Malformed YAML in pipeline map
+**Causa:** YAML malformado no pipeline map
 
-**Fix:**
+**Correcao:**
 ```bash
-# Validate YAML syntax
+# Validar sintaxe YAML
 cat squads/navigator/data/navigator-pipeline-map.yaml
 
-# Common issues:
-# - Inconsistent indentation (use 2 spaces)
-# - Missing colons after keys
-# - Unquoted strings with special characters
+# Problemas comuns:
+# - Indentacao inconsistente (use 2 espacos)
+# - Dois-pontos faltando depois das chaves
+# - Strings sem aspas com caracteres especiais
 
-# Example fix:
-# Bad:  description: Tasks & Features
-# Good: description: "Tasks & Features"
+# Exemplo de correcao:
+# Ruim:  description: Tasks & Features
+# Bom: description: "Tasks & Features"
 ```
 
 ---
 
-## Phase Detection Issues
+## Problemas de Deteccao de Fase
 
-### ❌ Wrong Phase Detected
+### ❌ Fase Errada Detectada
 
-**Problem:** `*where-am-i` shows Phase 3 but you're actually in Phase 5
+**Problema:** `*where-am-i` mostra Fase 3 mas voce esta na Fase 5
 
-**Cause:** Output files from Phase 5 don't match pipeline map patterns
+**Causa:** Arquivos de output da Fase 5 nao correspondem aos padroes do pipeline map
 
-**Diagnosis:**
+**Diagnostico:**
 ```bash
-# 1. Check what files exist
+# 1. Verificar quais arquivos existem
 ls docs/stories/story-*.md
 
-# 2. Compare with pipeline map outputs
+# 2. Comparar com outputs do pipeline map
 cat squads/navigator/data/navigator-pipeline-map.yaml | grep "outputs:" -A 5
 
-# 3. Verify glob patterns match
+# 3. Verificar se os padroes glob correspondem
 ```
 
-**Fix:**
+**Correcao:**
 ```yaml
-# Option 1: Update pipeline map to match your structure
-# Edit: data/navigator-pipeline-map.yaml
+# Opcao 1: Atualizar pipeline map para corresponder sua estrutura
+# Editar: data/navigator-pipeline-map.yaml
 outputs:
-  - "docs/stories/story-*.md"  # Must match your actual files
+  - "docs/stories/story-*.md"  # Deve corresponder aos seus arquivos reais
 
-# Option 2: Rename files to match pipeline map
+# Opcao 2: Renomear arquivos para corresponder ao pipeline map
 mv docs/user-stories/* docs/stories/
 ```
 
 ---
 
-### ❌ Completion Percentage Wrong
+### ❌ Porcentagem de Conclusao Errada
 
-**Problem:** `*where-am-i` shows 0% but stories exist
+**Problema:** `*where-am-i` mostra 0% mas stories existem
 
-**Cause:** Story files missing YAML front-matter or status field
+**Causa:** Arquivos de story sem YAML front-matter ou campo status
 
-**Diagnosis:**
+**Diagnostico:**
 ```bash
-# Check a story file
+# Verificar um arquivo de story
 head -10 docs/stories/story-7.1.md
 ```
 
-**Expected format:**
+**Formato esperado:**
 ```markdown
 ---
 id: story-7.1
 title: User authentication
-status: completed  # Must have this!
+status: completed  # Precisa ter isso!
 ---
 
-# Story content...
+# Conteudo da story...
 ```
 
-**Fix:**
+**Correcao:**
 ```bash
-# Add front-matter to all stories
-# Use this template:
+# Adicionar front-matter a todas as stories
+# Use este template:
 cat > docs/stories/story-X.Y.md <<'EOF'
 ---
 id: story-X.Y
-title: Story title
-status: pending  # or: in-progress, completed
+title: Titulo da story
+status: pending  # ou: in-progress, completed
 ---
 
-# Story content
+# Conteudo da story
 EOF
 ```
 
 ---
 
-### ❌ Phase Stuck (Not Advancing)
+### ❌ Fase Travada (Nao Avanca)
 
-**Problem:** Completed all phase outputs but `*auto-navigate` doesn't advance
+**Problema:** Completou todos os outputs da fase mas `*auto-navigate` nao avanca
 
-**Cause:** Transition rules blocking advancement
+**Causa:** Regras de transicao bloqueando o avanco
 
-**Diagnosis:**
+**Diagnostico:**
 ```bash
-# Check for blockers
+# Verificar bloqueios
 *where-am-i | grep "Blockers"
 ```
 
-**Fix:**
+**Correcao:**
 ```bash
-# Option 1: Resolve the blocker
-# (e.g., fix failing tests, complete missing stories)
+# Opcao 1: Resolver o bloqueio
+# (ex: corrigir testes falhando, completar stories faltantes)
 
-# Option 2: Override transition rule
-# Edit roadmap.md, set next_phase manually
+# Opcao 2: Sobrescrever regra de transicao
+# Editar roadmap.md, definir next_phase manualmente
 ```
 
 ---
 
-## Roadmap Sync Problems
+## Problemas de Sincronizacao do Roadmap
 
-### ❌ Sync Conflicts
+### ❌ Conflitos de Sincronizacao
 
-**Problem:** Central and local roadmaps differ, sync fails
+**Problema:** Roadmaps central e local diferem, sync falha
 
-**Error:**
+**Erro:**
 ```
 ⚠️  Roadmap sync conflict detected!
 Central: modified 2026-02-15 14:30:00
 Local: modified 2026-02-15 16:45:00
 ```
 
-**Fix:**
+**Correcao:**
 ```bash
-# Option 1: Keep central version
+# Opcao 1: Manter versao central
 cp .aios/navigator/{project}/roadmap.md docs/roadmap.md
 
-# Option 2: Keep local version
+# Opcao 2: Manter versao local
 cp docs/roadmap.md .aios/navigator/{project}/roadmap.md
 
-# Option 3: Manual merge
-# Open both files and merge changes manually
+# Opcao 3: Merge manual
+# Abrir ambos os arquivos e fazer merge manual
 code docs/roadmap.md .aios/navigator/{project}/roadmap.md
 ```
 
 ---
 
-### ❌ Sync Fails Silently
+### ❌ Sync Falha Silenciosamente
 
-**Problem:** Git commits don't trigger roadmap sync
+**Problema:** Commits no git nao disparam sync do roadmap
 
-**Cause:** Post-commit hook not executing
+**Causa:** Hook post-commit nao esta executando
 
-**Diagnosis:**
+**Diagnostico:**
 ```bash
-# Check hook exists
+# Verificar se hook existe
 ls -la .husky/post-commit
 
-# Check hook has execute permission
+# Verificar se hook tem permissao de execucao
 stat .husky/post-commit
 
-# Test hook manually
+# Testar hook manualmente
 bash .husky/post-commit
 ```
 
-**Fix:**
+**Correcao:**
 ```bash
-# Make executable
+# Tornar executavel
 chmod +x .husky/post-commit
 
-# Verify Navigator hook is present
+# Verificar se hook do Navigator esta presente
 grep "post-commit-hook.js" .husky/post-commit
 ```
 
 ---
 
-## Checkpoint Issues
+## Problemas com Checkpoints
 
-### ❌ Checkpoint Creation Fails
+### ❌ Criacao de Checkpoint Falha
 
-**Error:**
+**Erro:**
 ```
 Error: ENOENT: no such file or directory
 ```
 
-**Cause:** Checkpoint directory doesn't exist
+**Causa:** Diretorio de checkpoints nao existe
 
-**Fix:**
+**Correcao:**
 ```bash
-# Create checkpoint directory
+# Criar diretorio de checkpoints
 mkdir -p .aios/navigator/{your-project-name}/checkpoints/
 
-# Retry
+# Tentar novamente
 @navigator
 *checkpoint
 ```
 
 ---
 
-### ❌ Duplicate Checkpoint Warning
+### ❌ Aviso de Checkpoint Duplicado
 
-**Warning:**
+**Aviso:**
 ```
 ⚠️  Checkpoint cp-7-manual-20260215-143022 already exists. Overwrite? (y/n)
 ```
 
-**Cause:** Checkpoint with same ID exists (rare, but possible)
+**Causa:** Checkpoint com mesmo ID existe (raro, mas possivel)
 
-**Fix:**
+**Correcao:**
 ```bash
-# Option 1: Skip (recommended)
-# Press 'n' to skip
+# Opcao 1: Pular (recomendado)
+# Pressione 'n' para pular
 
-# Option 2: Overwrite
-# Press 'y' to overwrite (loses previous checkpoint)
+# Opcao 2: Sobrescrever
+# Pressione 'y' para sobrescrever (perde checkpoint anterior)
 
-# Option 3: List checkpoints first
+# Opcao 3: Listar checkpoints primeiro
 *checkpoint --list
-# Delete old checkpoint if needed
+# Deletar checkpoint antigo se necessario
 rm .aios/navigator/{project}/checkpoints/cp-7-manual-20260215-143022.json
 ```
 
 ---
 
-### ❌ Cannot Restore Checkpoint
+### ❌ Nao Consigo Restaurar Checkpoint
 
-**Error:**
+**Erro:**
 ```
 Error: Checkpoint file corrupted or invalid JSON
 ```
 
-**Cause:** JSON syntax error in checkpoint file
+**Causa:** Erro de sintaxe JSON no arquivo de checkpoint
 
-**Fix:**
+**Correcao:**
 ```bash
-# Validate JSON
+# Validar JSON
 cat .aios/navigator/{project}/checkpoints/cp-X-type-timestamp.json | jq .
 
-# If invalid, restore from git history
+# Se invalido, restaurar do historico git
 git log --all --full-history -- .aios/navigator/{project}/checkpoints/
 git checkout <commit-hash> -- .aios/navigator/{project}/checkpoints/cp-X.json
 ```
 
 ---
 
-## Git Hook Problems
+## Problemas com Git Hooks
 
-### ❌ Hook Fails with Permission Denied
+### ❌ Hook Falha com Permission Denied
 
-**Error:**
+**Erro:**
 ```
 bash: .husky/post-commit: Permission denied
 ```
 
-**Cause:** Hook file not executable
+**Causa:** Arquivo do hook nao e executavel
 
-**Fix:**
+**Correcao:**
 ```bash
 chmod +x .husky/post-commit
 chmod +x .husky/pre-commit
@@ -383,87 +383,87 @@ chmod +x .husky/pre-commit
 
 ---
 
-### ❌ Hook Blocks Commits
+### ❌ Hook Bloqueia Commits
 
-**Problem:** Commits hang or fail due to hook
+**Problema:** Commits travam ou falham por causa do hook
 
-**Diagnosis:**
+**Diagnostico:**
 ```bash
-# Test hook manually
+# Testar hook manualmente
 bash .husky/post-commit
-# Check for errors
+# Verificar erros
 ```
 
-**Temporary Fix:**
+**Correcao Temporaria:**
 ```bash
-# Skip hooks for one commit
+# Pular hooks por um commit
 git commit --no-verify -m "message"
 ```
 
-**Permanent Fix:**
+**Correcao Permanente:**
 ```bash
-# Debug hook script
+# Debugar script do hook
 node squads/navigator/scripts/post-commit-hook.js --verbose
 
-# Or disable Navigator hook temporarily
+# Ou desabilitar hook do Navigator temporariamente
 node squads/navigator/scripts/install-hooks.js uninstall
 ```
 
 ---
 
-## Performance Issues
+## Problemas de Performance
 
-### ❌ *where-am-i is Slow (> 5 seconds)
+### ❌ *where-am-i esta Lento (> 5 segundos)
 
-**Cause:** Too many files to scan
+**Causa:** Muitos arquivos para escanear
 
-**Diagnosis:**
+**Diagnostico:**
 ```bash
-# Count story files
+# Contar arquivos de story
 ls docs/stories/story-*.md | wc -l
-# If > 1000, that's the issue
+# Se > 1000, esse e o problema
 ```
 
-**Fix:**
+**Correcao:**
 ```yaml
-# Optimize glob patterns in pipeline map
-# Change from:
+# Otimizar padroes glob no pipeline map
+# Mudar de:
 outputs:
-  - "docs/**/*.md"  # Too broad
+  - "docs/**/*.md"  # Muito amplo
 
-# To:
+# Para:
 outputs:
-  - "docs/stories/story-*.md"  # Specific
+  - "docs/stories/story-*.md"  # Especifico
 ```
 
 ---
 
-### ❌ Roadmap Sync Causes Lag
+### ❌ Sync do Roadmap Causa Lag
 
-**Cause:** Large roadmap file (> 10MB)
+**Causa:** Arquivo de roadmap grande (> 10MB)
 
-**Fix:**
+**Correcao:**
 ```bash
-# Check file size
+# Verificar tamanho do arquivo
 ls -lh .aios/navigator/{project}/roadmap.md
 
-# If too large, split into multiple files
-# Or compress old phase details
+# Se muito grande, dividir em multiplos arquivos
+# Ou comprimir detalhes de fases antigas
 ```
 
 ---
 
-## Error Messages
+## Mensagens de Erro
 
 ### "Cannot read property 'id' of undefined"
 
-**Cause:** Missing phase ID in roadmap
+**Causa:** ID de fase faltando no roadmap
 
-**Fix:**
+**Correcao:**
 ```yaml
-# Ensure all phases have id field
+# Garantir que todas as fases tem campo id
 phases:
-  - id: 1  # MUST be present
+  - id: 1  # PRECISA estar presente
     name: Pesquisa
     # ...
 ```
@@ -472,16 +472,16 @@ phases:
 
 ### "YAML parse error: duplicated mapping key"
 
-**Cause:** Duplicate keys in YAML
+**Causa:** Chaves duplicadas no YAML
 
-**Fix:**
+**Correcao:**
 ```yaml
-# Bad (duplicate "name")
+# Ruim (name duplicado)
 phase:
   name: Pesquisa
-  name: Research  # DUPLICATE!
+  name: Research  # DUPLICADO!
 
-# Good
+# Bom
 phase:
   name: Pesquisa
   description: Research phase
@@ -491,118 +491,118 @@ phase:
 
 ### "Phase transition blocked"
 
-**Cause:** Transition rule preventing advancement
+**Causa:** Regra de transicao impedindo avanco
 
-**Fix:**
+**Correcao:**
 ```bash
-# Check roadmap transition rules
+# Verificar regras de transicao no roadmap
 cat docs/roadmap.md | grep "transitions:" -A 20
 
-# Resolve the blocking condition
-# Or remove the blocking rule temporarily
+# Resolver a condicao de bloqueio
+# Ou remover a regra de bloqueio temporariamente
 ```
 
 ---
 
 ### "Git commit not found in checkpoint"
 
-**Cause:** Checkpoint created outside git repository
+**Causa:** Checkpoint criado fora de repositorio git
 
-**Fix:**
+**Correcao:**
 ```bash
-# Ensure you're in a git repo
+# Garantir que esta em um repositorio git
 git status
 
-# If not, initialize
+# Se nao estiver, inicializar
 git init
 git add .
 git commit -m "Initial commit"
 
-# Retry checkpoint
+# Tentar checkpoint novamente
 *checkpoint
 ```
 
 ---
 
-## Getting More Help
+## Obtendo Mais Ajuda
 
-### Enable Debug Mode
+### Habilitar Modo Debug
 
 ```bash
 export NAVIGATOR_DEBUG=true
 *where-am-i
-# Verbose output with debug info
+# Output verboso com informacoes de debug
 ```
 
-### Check Logs
+### Verificar Logs
 
 ```bash
-# Navigator logs (if logging enabled)
+# Logs do Navigator (se logging habilitado)
 tail -f .aios/logs/navigator.log
 ```
 
-### Run Full Diagnostic
+### Executar Diagnostico Completo
 
 ```bash
 *navigator-doctor --verbose
-# Shows detailed diagnostic info
+# Mostra informacoes detalhadas de diagnostico
 ```
 
-### Report a Bug
+### Reportar um Bug
 
-If none of these solutions work:
+Se nenhuma dessas solucoes funcionar:
 
-1. **Check existing issues:** https://github.com/SynkraAI/aios-core/issues
-2. **Create new issue** with:
-   - Error message (full text)
-   - Output of `*navigator-doctor`
-   - Steps to reproduce
-   - Environment (OS, Node version)
+1. **Verificar issues existentes:** https://github.com/SynkraAI/aios-core/issues
+2. **Criar nova issue** com:
+   - Mensagem de erro (texto completo)
+   - Output de `*navigator-doctor`
+   - Passos para reproduzir
+   - Ambiente (SO, versao do Node)
 
 ---
 
-## Common Pitfalls
+## Armadilhas Comuns
 
-### ❌ Editing Central Roadmap Directly
+### ❌ Editar Roadmap Central Diretamente
 
-**Don't:**
+**Nao faca:**
 ```bash
-# WRONG: Editing central file directly
+# ERRADO: Editando arquivo central diretamente
 vim .aios/navigator/{project}/roadmap.md
 ```
 
-**Do:**
+**Faca:**
 ```bash
-# RIGHT: Edit local copy, sync will handle central
+# CERTO: Editar copia local, sync cuidara do central
 vim docs/roadmap.md
 git commit -m "Update roadmap"
-# Hook syncs to central automatically
+# Hook sincroniza para central automaticamente
 ```
 
 ---
 
-### ❌ Ignoring Health Check Warnings
+### ❌ Ignorar Avisos do Health Check
 
-**Don't:** Skip warnings from `*navigator-doctor`
+**Nao faca:** Pular avisos de `*navigator-doctor`
 
-**Do:** Fix all warnings before proceeding
+**Faca:** Corrigir todos os avisos antes de prosseguir
 
 ---
 
-### ❌ Manual Roadmap Edits Without Sync
+### ❌ Edicoes Manuais do Roadmap Sem Sync
 
-**Don't:** Edit roadmap and forget to sync
+**Nao faca:** Editar roadmap e esquecer de sincronizar
 
-**Do:**
+**Faca:**
 ```bash
-# After manual edits
+# Depois de edicoes manuais
 *update-roadmap --force-sync
 ```
 
 ---
 
-**Still stuck?** Open an issue with full error details: https://github.com/SynkraAI/aios-core/issues
+**Ainda travado?** Abra uma issue com detalhes completos do erro: https://github.com/SynkraAI/aios-core/issues
 
 ---
 
-*Navigator Troubleshooting Guide v1.0*
+*Guia de Troubleshooting do Navigator v1.0*

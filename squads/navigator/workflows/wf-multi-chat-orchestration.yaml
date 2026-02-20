@@ -15,6 +15,17 @@ metadata:
     - epic
     - parallel
 
+veto_conditions:
+  step_1_load_epic:
+    - "Epic file does not exist at provided path → BLOCK (provide valid epic file path)"
+    - "Epic file has no stories listed → BLOCK (empty epic cannot be orchestrated)"
+  step_2_analyze_dependencies:
+    - "Fewer than 3 stories in epic → BLOCK (orchestration overkill for < 3 stories, use sequential)"
+    - "Circular dependency detected in story graph → BLOCK (resolve circular deps first)"
+  step_4_generate_prompts:
+    - "Wave assignment is empty (0 waves) → BLOCK (dependency analysis failed)"
+    - "No coordinator agent available → BLOCK (multi-chat requires coordinator role)"
+
 steps:
   - id: 1
     name: Load Epic Stories

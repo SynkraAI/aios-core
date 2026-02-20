@@ -1,105 +1,105 @@
-# Contributing to Navigator Squad
+# Contribuindo para o Navigator Squad
 
-Thank you for your interest in contributing to Navigator! This guide will help you get started.
-
----
-
-## Table of Contents
-
-- [Code of Conduct](#code-of-conduct)
-- [Getting Started](#getting-started)
-- [Development Setup](#development-setup)
-- [How to Contribute](#how-to-contribute)
-- [Coding Standards](#coding-standards)
-- [Testing](#testing)
-- [Documentation](#documentation)
-- [Pull Request Process](#pull-request-process)
-- [Community](#community)
+Obrigado pelo seu interesse em contribuir para o Navigator! Este guia vai te ajudar a começar.
 
 ---
 
-## Code of Conduct
+## Indice
 
-By participating in this project, you agree to abide by the AIOS Code of Conduct:
-
-- Be respectful and inclusive
-- Provide constructive feedback
-- Focus on what is best for the community
-- Show empathy towards other community members
-
-Report unacceptable behavior to the project maintainers.
+- [Codigo de Conduta](#codigo-de-conduta)
+- [Primeiros Passos](#primeiros-passos)
+- [Setup de Desenvolvimento](#setup-de-desenvolvimento)
+- [Como Contribuir](#como-contribuir)
+- [Padroes de Codigo](#padroes-de-codigo)
+- [Testes](#testes)
+- [Documentacao](#documentacao)
+- [Processo de Pull Request](#processo-de-pull-request)
+- [Comunidade](#comunidade)
 
 ---
 
-## Getting Started
+## Codigo de Conduta
 
-### Prerequisites
+Ao participar deste projeto, você concorda em seguir o Código de Conduta do AIOS:
+
+- Seja respeitoso e inclusivo
+- Forneça feedback construtivo
+- Foque no que é melhor para a comunidade
+- Mostre empatia com outros membros da comunidade
+
+Reporte comportamento inaceitável aos mantenedores do projeto.
+
+---
+
+## Primeiros Passos
+
+### Pre-requisitos
 
 - Node.js >= 18.0.0
 - Git
 - AIOS Core >= 4.0.0
-- Familiarity with AIOS agent architecture
+- Familiaridade com arquitetura de agentes AIOS
 
 ### Quick Start
 
-1. **Fork the repository**
+1. **Faça fork do repositório**
    ```bash
-   # Visit https://github.com/SynkraAI/aios-core
-   # Click "Fork"
+   # Visite https://github.com/SynkraAI/aios-core
+   # Clique em "Fork"
    ```
 
-2. **Clone your fork**
+2. **Clone seu fork**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/aios-core.git
+   git clone https://github.com/SEU_USUARIO/aios-core.git
    cd aios-core/squads/navigator
    ```
 
-3. **Install dependencies**
+3. **Instale as dependências**
    ```bash
    npm install
    ```
 
-4. **Run health check**
+4. **Execute o health check**
    ```bash
    @navigator
    *navigator-doctor
    ```
 
-5. **Run tests**
+5. **Execute os testes**
    ```bash
    npm test -- tests/unit/navigator/
    ```
 
 ---
 
-## Development Setup
+## Setup de Desenvolvimento
 
-### Environment Variables
+### Variaveis de Ambiente
 
-Create `.env` for local development:
+Crie `.env` para desenvolvimento local:
 ```bash
-NAVIGATOR_AUTO_MODE=false  # Manual confirmations during dev
+NAVIGATOR_AUTO_MODE=false  # Confirmações manuais durante dev
 NODE_ENV=development
 ```
 
 ### Git Hooks
 
-Install development hooks:
+Instale os hooks de desenvolvimento:
 ```bash
 npm run prepare
 node squads/navigator/scripts/install-hooks.js install
 ```
 
-### IDE Setup
+### Setup de IDE
 
-**VS Code Extensions (recommended):**
+**Extensões VS Code (recomendadas):**
 - ESLint
 - Prettier
 - YAML
 - Markdown All in One
 - Mermaid Preview
 
-**Settings:**
+**Configurações:**
 ```json
 {
   "editor.formatOnSave": true,
@@ -111,37 +111,37 @@ node squads/navigator/scripts/install-hooks.js install
 
 ---
 
-## How to Contribute
+## Como Contribuir
 
-### Types of Contributions
+### Tipos de Contribuicoes
 
-1. **Bug Reports** - Found a bug? Open an issue
-2. **Feature Requests** - Have an idea? Propose it
-3. **Code Contributions** - Fix bugs or add features
-4. **Documentation** - Improve or translate docs
-5. **Examples** - Share your Navigator workflows
-6. **Testing** - Write tests for uncovered code
+1. **Reportar Bugs** - Encontrou um bug? Abra uma issue
+2. **Sugestões de Features** - Tem uma ideia? Proponha
+3. **Contribuições de Código** - Corrija bugs ou adicione features
+4. **Documentação** - Melhore ou traduza a documentação
+5. **Exemplos** - Compartilhe seus workflows Navigator
+6. **Testes** - Escreva testes para código não coberto
 
-### Areas Needing Help
+### Areas que Precisam de Ajuda
 
-Check issues labeled:
-- `good-first-issue` - Great for newcomers
-- `help-wanted` - Community contributions welcome
-- `documentation` - Docs improvements needed
-- `testing` - Test coverage needed
+Verifique issues marcadas como:
+- `good-first-issue` - Ótimas para iniciantes
+- `help-wanted` - Contribuições da comunidade são bem-vindas
+- `documentation` - Melhorias na documentação necessárias
+- `testing` - Cobertura de testes necessária
 
 ---
 
-## Coding Standards
+## Padroes de Codigo
 
 ### JavaScript/Node.js
 
-- **Style:** Follow ESLint config (`.eslintrc.js`)
-- **Naming:** camelCase for variables, PascalCase for classes
-- **Async:** Use async/await, not callbacks
-- **Errors:** Always handle errors explicitly
+- **Estilo:** Siga a config do ESLint (`.eslintrc.js`)
+- **Nomenclatura:** camelCase para variáveis, PascalCase para classes
+- **Async:** Use async/await, não callbacks
+- **Erros:** Sempre trate erros explicitamente
 
-**Example:**
+**Exemplo:**
 ```javascript
 async function detectPhase(roadmapPath) {
   try {
@@ -157,38 +157,38 @@ async function detectPhase(roadmapPath) {
 
 ### Markdown
 
-- Use ATX headers (`#`, `##`, `###`)
-- Wrap lines at 100 characters
-- Use fenced code blocks with language tags
-- Include table of contents for long docs
+- Use headers ATX (`#`, `##`, `###`)
+- Quebre linhas em 100 caracteres
+- Use blocos de código com tags de linguagem
+- Inclua índice para documentos longos
 
 ### YAML
 
-- Use 2-space indentation
-- Quote strings with special characters
-- Validate with yamllint
+- Use indentação de 2 espaços
+- Use aspas em strings com caracteres especiais
+- Valide com yamllint
 
-### Commit Messages
+### Mensagens de Commit
 
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
+Siga [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
-<type>(<scope>): <subject>
+<tipo>(<escopo>): <assunto>
 
-<body>
+<corpo>
 
-<footer>
+<rodapé>
 ```
 
-**Types:**
-- `feat` - New feature
-- `fix` - Bug fix
-- `docs` - Documentation changes
-- `test` - Test additions/changes
-- `refactor` - Code refactoring
-- `chore` - Build/tooling changes
+**Tipos:**
+- `feat` - Nova feature
+- `fix` - Correção de bug
+- `docs` - Mudanças na documentação
+- `test` - Adição/mudanças em testes
+- `refactor` - Refatoração de código
+- `chore` - Mudanças em build/ferramentas
 
-**Examples:**
+**Exemplos:**
 ```bash
 feat(phase-detector): add story status parsing
 
@@ -210,29 +210,29 @@ Fixes #58
 
 ---
 
-## Testing
+## Testes
 
-### Running Tests
+### Executando Testes
 
 ```bash
-# All Navigator tests
+# Todos os testes do Navigator
 npm test -- tests/unit/navigator/
 
-# Specific test file
+# Arquivo de teste específico
 npm test -- tests/unit/navigator/doctor.test.js
 
 # Watch mode
 npm test -- --watch tests/unit/navigator/
 
-# Coverage
+# Cobertura
 npm run test:coverage
 ```
 
-### Writing Tests
+### Escrevendo Testes
 
-**Location:** `tests/unit/navigator/`
+**Localização:** `tests/unit/navigator/`
 
-**Structure:**
+**Estrutura:**
 ```javascript
 describe('Component Name', () => {
   describe('functionName', () => {
@@ -250,46 +250,46 @@ describe('Component Name', () => {
 });
 ```
 
-### Test Coverage Goals
+### Metas de Cobertura de Testes
 
-- **Overall:** 80%+
-- **Core functions:** 90%+
-- **Edge cases:** Covered
+- **Geral:** 80%+
+- **Funções core:** 90%+
+- **Casos extremos:** Cobertos
 
-### Test Checklist
+### Checklist de Testes
 
-- [ ] Unit tests pass locally
-- [ ] New code has tests
-- [ ] Tests follow naming convention
-- [ ] Edge cases covered
-- [ ] No skip/only in commits
+- [ ] Testes unitários passam localmente
+- [ ] Código novo tem testes
+- [ ] Testes seguem convenção de nomenclatura
+- [ ] Casos extremos cobertos
+- [ ] Sem skip/only nos commits
 
 ---
 
-## Documentation
+## Documentacao
 
-### Documentation Types
+### Tipos de Documentacao
 
-1. **Code Comments** - Inline explanations
-2. **README.md** - Overview and usage
-3. **Examples** - Practical tutorials
-4. **API Docs** - Function signatures
-5. **Guides** - Step-by-step tutorials
+1. **Comentários de Código** - Explicações inline
+2. **README.md** - Visão geral e uso
+3. **Exemplos** - Tutoriais práticos
+4. **Documentação de API** - Assinaturas de funções
+5. **Guias** - Tutoriais passo a passo
 
-### Documentation Standards
+### Padroes de Documentacao
 
-**Inline Comments:**
+**Comentários Inline:**
 ```javascript
-// Good: Explain WHY, not WHAT
+// Bom: Explique o PORQUÊ, não o QUE
 // Use glob pattern instead of exact match for flexibility
 const stories = glob.sync('docs/stories/story-*.md');
 
-// Bad: Redundant comment
+// Ruim: Comentário redundante
 // Get all story files
 const stories = glob.sync('docs/stories/story-*.md');
 ```
 
-**Function Docs:**
+**Documentação de Funções:**
 ```javascript
 /**
  * Detect current project phase based on output files
@@ -307,179 +307,179 @@ async function detectPhase(roadmapPath) {
 }
 ```
 
-### Adding Examples
+### Adicionando Exemplos
 
-Examples go in `squads/navigator/examples/`:
+Exemplos vão em `squads/navigator/examples/`:
 
-1. Create `example-N-your-scenario.md`
-2. Follow this structure:
-   - Context (scenario description)
-   - Steps (detailed walkthrough)
-   - Results (what was achieved)
-   - Key Takeaways (lessons learned)
-3. Add to `examples/README.md` index
-4. Include realistic project details
-5. Test the example yourself first
+1. Crie `example-N-seu-cenario.md`
+2. Siga esta estrutura:
+   - Contexto (descrição do cenário)
+   - Passos (passo a passo detalhado)
+   - Resultados (o que foi alcançado)
+   - Principais Aprendizados (lições aprendidas)
+3. Adicione ao índice em `examples/README.md`
+4. Inclua detalhes de projeto realistas
+5. Teste o exemplo você mesmo primeiro
 
 ---
 
-## Pull Request Process
+## Processo de Pull Request
 
-### Before Submitting
+### Antes de Submeter
 
-- [ ] Code follows style guide
-- [ ] Tests pass locally
-- [ ] New tests added for new code
-- [ ] Documentation updated
-- [ ] CHANGELOG.md updated
-- [ ] Commit messages follow convention
-- [ ] PR description is clear
+- [ ] Código segue o guia de estilo
+- [ ] Testes passam localmente
+- [ ] Novos testes adicionados para código novo
+- [ ] Documentação atualizada
+- [ ] CHANGELOG.md atualizado
+- [ ] Mensagens de commit seguem convenção
+- [ ] Descrição do PR está clara
 
-### PR Template
+### Template de PR
 
 ```markdown
-## Description
-Brief description of changes
+## Descricao
+Breve descrição das mudanças
 
-## Motivation
-Why is this change needed?
+## Motivacao
+Por que esta mudança é necessária?
 
-## Changes Made
-- Change 1
-- Change 2
+## Mudancas Realizadas
+- Mudança 1
+- Mudança 2
 
-## Testing
-How was this tested?
+## Testes
+Como isso foi testado?
 
-## Screenshots (if applicable)
-Attach screenshots
+## Screenshots (se aplicável)
+Anexe screenshots
 
 ## Checklist
-- [ ] Tests pass
-- [ ] Documentation updated
-- [ ] CHANGELOG updated
+- [ ] Testes passam
+- [ ] Documentação atualizada
+- [ ] CHANGELOG atualizado
 ```
 
-### Review Process
+### Processo de Review
 
-1. **Automated checks** run first (ESLint, tests)
-2. **Maintainer review** (1-2 business days)
-3. **Revisions** if requested
-4. **Approval** and merge
+1. **Checks automatizados** executam primeiro (ESLint, testes)
+2. **Review de mantenedor** (1-2 dias úteis)
+3. **Revisões** se solicitado
+4. **Aprovação** e merge
 
-### After Merge
+### Apos o Merge
 
-- Your contribution will be in the next release
-- You'll be added to CONTRIBUTORS.md
-- Thank you! 🎉
+- Sua contribuição estará na próxima release
+- Você será adicionado ao CONTRIBUTORS.md
+- Obrigado! 🎉
 
 ---
 
-## Community
+## Comunidade
 
-### Communication Channels
+### Canais de Comunicacao
 
-- **GitHub Issues** - Bug reports, feature requests
-- **GitHub Discussions** - Questions, ideas
-- **AIOS Discord** - Real-time chat (coming soon)
+- **GitHub Issues** - Reportar bugs, solicitar features
+- **GitHub Discussions** - Perguntas, ideias
+- **AIOS Discord** - Chat em tempo real (em breve)
 
-### Getting Help
+### Obtendo Ajuda
 
-**Stuck?** Ask in:
+**Travou?** Pergunte em:
 1. GitHub Discussions (Q&A)
-2. Issue comments
-3. Discord #navigator channel
+2. Comentários de issues
+3. Canal #navigator no Discord
 
-**Response time:** Usually within 48 hours
+**Tempo de resposta:** Geralmente dentro de 48 horas
 
-### Recognition
+### Reconhecimento
 
-Contributors are recognized in:
+Contribuidores são reconhecidos em:
 - CONTRIBUTORS.md
-- Release notes
+- Notas de release
 - CHANGELOG.md
 
 ---
 
-## Development Workflow
+## Workflow de Desenvolvimento
 
-### Typical Flow
+### Fluxo Tipico
 
-1. **Pick an issue** from GitHub
-2. **Comment** "I'd like to work on this"
-3. **Create branch** `git checkout -b feat/your-feature`
-4. **Make changes** and commit
-5. **Push branch** `git push origin feat/your-feature`
-6. **Open PR** on GitHub
-7. **Address reviews**
-8. **Celebrate** when merged! 🎉
+1. **Escolha uma issue** no GitHub
+2. **Comente** "Gostaria de trabalhar nisso"
+3. **Crie branch** `git checkout -b feat/sua-feature`
+4. **Faça mudanças** e commits
+5. **Push do branch** `git push origin feat/sua-feature`
+6. **Abra PR** no GitHub
+7. **Responda reviews**
+8. **Comemore** quando for merged! 🎉
 
-### Branch Naming
+### Nomenclatura de Branches
 
-- `feat/feature-name` - New features
-- `fix/bug-name` - Bug fixes
-- `docs/doc-name` - Documentation
-- `test/test-name` - Test additions
-- `refactor/refactor-name` - Refactoring
-
----
-
-## Advanced Topics
-
-### Adding a New Task
-
-1. Create `tasks/nav-your-task.md`
-2. Follow existing task format
-3. Add to `squad.yaml` manifest
-4. Add to agent's command list
-5. Write tests for task logic
-6. Add example usage
-7. Update README.md
-
-### Adding a New Script
-
-1. Create `scripts/navigator/your-script.js`
-2. Add shebang and description
-3. Export main function
-4. Handle errors gracefully
-5. Write unit tests
-6. Update documentation
-
-### Modifying the Pipeline
-
-1. Edit `data/navigator-pipeline-map.yaml`
-2. Validate YAML syntax
-3. Update phase-detector.js if needed
-4. Test with real project
-5. Document changes in CHANGELOG
+- `feat/nome-feature` - Novas features
+- `fix/nome-bug` - Correções de bug
+- `docs/nome-doc` - Documentação
+- `test/nome-teste` - Adição de testes
+- `refactor/nome-refactor` - Refatoração
 
 ---
 
-## Release Process
+## Topicos Avancados
 
-(For maintainers)
+### Adicionando uma Nova Task
 
-1. Update version in `squad.yaml`
-2. Update CHANGELOG.md
-3. Create git tag: `v1.0.0`
-4. Push tag: `git push origin v1.0.0`
-5. Create GitHub release
-6. Publish to aios-squads repository
+1. Crie `tasks/nav-sua-task.md`
+2. Siga o formato de tasks existentes
+3. Adicione ao manifest `squad.yaml`
+4. Adicione à lista de comandos do agente
+5. Escreva testes para a lógica da task
+6. Adicione exemplo de uso
+7. Atualize o README.md
+
+### Adicionando um Novo Script
+
+1. Crie `scripts/navigator/seu-script.js`
+2. Adicione shebang e descrição
+3. Exporte função principal
+4. Trate erros graciosamente
+5. Escreva testes unitários
+6. Atualize documentação
+
+### Modificando o Pipeline
+
+1. Edite `data/navigator-pipeline-map.yaml`
+2. Valide sintaxe YAML
+3. Atualize phase-detector.js se necessário
+4. Teste com projeto real
+5. Documente mudanças no CHANGELOG
 
 ---
 
-## Questions?
+## Processo de Release
 
-- **Technical questions:** GitHub Discussions
-- **Security issues:** Email maintainers privately
-- **General inquiries:** Open an issue
+(Para mantenedores)
+
+1. Atualize versão em `squad.yaml`
+2. Atualize CHANGELOG.md
+3. Crie git tag: `v1.0.0`
+4. Push da tag: `git push origin v1.0.0`
+5. Crie release no GitHub
+6. Publique no repositório aios-squads
 
 ---
 
-**Thank you for contributing to Navigator!** 🧭
+## Duvidas?
 
-Your contributions make AIOS better for everyone.
+- **Questões técnicas:** GitHub Discussions
+- **Problemas de segurança:** Email para mantenedores (privado)
+- **Consultas gerais:** Abra uma issue
 
 ---
 
-*Contributing Guide v1.0 - Last updated 2026-02-15*
+**Obrigado por contribuir para o Navigator!** 🧭
+
+Suas contribuições tornam o AIOS melhor para todos.
+
+---
+
+*Guia de Contribuicao v1.0 - Ultima atualizacao 2026-02-20*

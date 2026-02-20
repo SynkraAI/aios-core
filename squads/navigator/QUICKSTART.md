@@ -1,169 +1,169 @@
-# Quickstart Guide
+# Guia de Inicio Rapido
 
-Get Navigator running in under 5 minutes.
+Coloque o Navigator rodando em menos de 5 minutos.
 
 ---
 
-## Step 1: Health Check (30 seconds)
+## Passo 1: Health Check (30 segundos)
 
 ```bash
 @navigator
 *navigator-doctor
 ```
 
-All 7 checks should pass. If not, see [INSTALL.md](./INSTALL.md).
+Todos os 7 checks devem passar. Se não, veja [INSTALL.md](./INSTALL.md).
 
 ---
 
-## Step 2: Choose Your Path
+## Passo 2: Escolha Seu Caminho
 
-### Path A — New Project
+### Caminho A — Projeto Novo
 
-Starting from scratch? Map your project:
+Começando do zero? Mapeie seu projeto:
 
 ```bash
 *map-project
 ```
 
-Navigator asks you to describe your project in plain text:
+Navigator vai te pedir pra descrever seu projeto em texto simples:
 
 ```
-> SaaS task manager with Kanban board, real-time collaboration,
-  and team analytics. Next.js frontend, Supabase backend.
+> SaaS de gerenciamento de tarefas com Kanban board, colaboração em tempo real,
+  e analytics de time. Frontend Next.js, backend Supabase.
 ```
 
-Navigator will:
-1. Parse entities, workflows, and complexity
-2. Ask 3-5 clarifying questions (stack, integrations, timeline)
-3. Generate a 10-phase roadmap
-4. Save it to `.aios/navigator/{project}/roadmap.md`
+Navigator vai:
+1. Analisar entidades, workflows e complexidade
+2. Fazer 3-5 perguntas de esclarecimento (stack, integrações, timeline)
+3. Gerar um roadmap de 10 fases
+4. Salvar em `.aios/navigator/{project}/roadmap.md`
 
-**Then start navigating:**
+**Depois comece a navegar:**
 
 ```bash
 *auto-navigate
-# → "Phase 1 (Research) — Activate @analyst with *brainstorm"
+# → "Phase 1 (Research) — Ativar @analyst com *brainstorm"
 ```
 
 ---
 
-### Path B — Existing Project
+### Caminho B — Projeto Existente
 
-Already have code? Detect where you are:
+Já tem código? Detecte onde você está:
 
 ```bash
 *where-am-i
 ```
 
-Navigator scans your file system and shows:
+Navigator escaneia seu file system e mostra:
 
 ```
-📍 Phase 7 — Development (42% complete)
+📍 Phase 7 — Development (42% completo)
 
-✅ Done: Research, PRD, Architecture, Epics, Stories, Validation
-🔄 Active: Story 7.3 (auth middleware) — @dev
-⏳ Pending: QA, Fix Loop, Deploy
+✅ Feito: Research, PRD, Architecture, Epics, Stories, Validation
+🔄 Ativo: Story 7.3 (auth middleware) — @dev
+⏳ Pendente: QA, Fix Loop, Deploy
 
-Next: Continue Story 7.3 → @dev *develop
+Próximo: Continuar Story 7.3 → @dev *develop
 ```
 
-**Then continue:**
+**Depois continue:**
 
 ```bash
 *auto-navigate
-# → Activates the right agent for your current phase
+# → Ativa o agente certo para sua fase atual
 ```
 
 ---
 
-## Step 3: Daily Workflow
+## Passo 3: Workflow Diario
 
-Once mapped, your daily cycle is:
+Uma vez mapeado, seu ciclo diário é:
 
 ```bash
-# 1. Check where you are
+# 1. Checar onde você está
 *where-am-i
 
-# 2. Navigate to next step
+# 2. Navegar para próximo passo
 *auto-navigate
 
-# 3. Work with the delegated agent
-@dev  # or whichever agent Navigator suggests
+# 3. Trabalhar com o agente delegado
+@dev  # ou qualquer agente que Navigator sugerir
 
-# 4. Repeat
+# 4. Repetir
 ```
 
-Navigator updates the roadmap automatically via git hooks.
+Navigator atualiza o roadmap automaticamente via git hooks.
 
 ---
 
-## Step 4: Track Progress
+## Passo 4: Rastrear Progresso
 
-### Quick status
+### Status rápido
 
 ```bash
 *where-am-i
 ```
 
-### Detailed report
+### Report detalhado
 
 ```bash
 *status-report
 ```
 
-Generates a markdown report with:
-- Phase completion percentages
-- Active and completed stories
-- Blockers and risks
-- Velocity metrics
+Gera um report markdown com:
+- Percentuais de conclusão de fase
+- Stories ativas e completadas
+- Blockers e riscos
+- Métricas de velocidade
 
-### Create a checkpoint
+### Criar um checkpoint
 
 ```bash
 *checkpoint
 ```
 
-Save a snapshot before risky operations. Restore later with `*resume-project`.
+Salva um snapshot antes de operações arriscadas. Restaure depois com `*resume-project`.
 
 ---
 
-## Common Commands
+## Comandos Comuns
 
-| Command | When to use |
+| Comando | Quando usar |
 |---------|-------------|
-| `*map-project` | Starting a new project |
-| `*where-am-i` | Daily check / after a break |
-| `*auto-navigate` | Advance to next phase |
-| `*checkpoint` | Before major changes |
-| `*status-report` | Team meetings |
-| `*orchestrate {epic}` | Large epics (8+ stories) |
+| `*map-project` | Começando um projeto novo |
+| `*where-am-i` | Check diário / depois de um intervalo |
+| `*auto-navigate` | Avançar para próxima fase |
+| `*checkpoint` | Antes de mudanças grandes |
+| `*status-report` | Reuniões de time |
+| `*orchestrate {epic}` | Epics grandes (8+ stories) |
 | `*navigator-doctor` | Debugging |
 
 ---
 
-## Tips
+## Dicas
 
-1. **Run `*where-am-i` every morning** — make it your first command
-2. **Create checkpoints before breaks** — never lose context
-3. **Use `*orchestrate` for large epics** — parallelize across 4 chats
-4. **Enable git hooks** — automatic roadmap updates on every commit
-5. **Share roadmaps with your team** — the `docs/roadmap.md` local copy is gitignore-friendly
-
----
-
-## Next Steps
-
-- [Examples](./examples/) — See Navigator in action with real scenarios
-- [FAQ](./FAQ.md) — 40+ questions answered
-- [Full README](./README.md) — Architecture, diagrams, and deep details
+1. **Rode `*where-am-i` toda manhã** — faça esse ser seu primeiro comando
+2. **Crie checkpoints antes de intervalos** — nunca perca contexto
+3. **Use `*orchestrate` para epics grandes** — paralelizar em 4 chats
+4. **Habilite git hooks** — atualizações automáticas de roadmap a cada commit
+5. **Compartilhe roadmaps com seu time** — a cópia local `docs/roadmap.md` é gitignore-friendly
 
 ---
 
-**Ready?**
+## Proximos Passos
+
+- [Examples](./examples/) — Veja Navigator em ação com cenários reais
+- [FAQ](./FAQ.md) — Mais de 40 perguntas respondidas
+- [Full README](./README.md) — Arquitetura, diagramas e detalhes profundos
+
+---
+
+**Pronto?**
 
 ```bash
 @navigator
 *map-project
 ```
 
-Happy navigating! 🧭
+Boa navegação! 🧭

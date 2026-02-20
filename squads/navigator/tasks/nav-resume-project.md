@@ -16,6 +16,10 @@ Checklist:
   - "[ ] Run nav-where-am-i internally"
   - "[ ] Display project status"
   - "[ ] Offer quick actions (continue/review/restart)"
+veto_conditions:
+  - "No projects found in .aios/navigator/ → BLOCK (no mapped projects to resume, use *map-project)"
+  - "Selected project roadmap is corrupted/unreadable → BLOCK (suggest *navigator-doctor)"
+  - "Selected project has no checkpoints and no stories → WARN (limited context available for resume)"
 ---
 
 # *resume-project

@@ -16,6 +16,10 @@ Checklist:
   - "[ ] List pending work"
   - "[ ] Generate report from template"
   - "[ ] Save to reports/"
+veto_conditions:
+  - "No roadmap exists for current project → BLOCK (run *map-project first)"
+  - "No stories found in docs/stories/ → BLOCK (no data to report on)"
+  - "Time range is invalid (start > end, or future dates) → BLOCK (provide valid date range)"
 ---
 
 # *status-report

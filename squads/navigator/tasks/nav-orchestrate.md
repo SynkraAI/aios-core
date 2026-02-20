@@ -18,6 +18,11 @@ Checklist:
   - "[ ] Generate dev prompts (wave 1, 2, 3)"
   - "[ ] Use orchestration template"
   - "[ ] Display ready-to-copy prompts"
+veto_conditions:
+  - "Epic file does not exist at specified path → BLOCK (provide valid epic file)"
+  - "Epic has fewer than 3 stories → BLOCK (orchestration overkill, use sequential execution)"
+  - "Stories have no dependency metadata → WARN (waves cannot be optimized, all stories in single wave)"
+  - "No roadmap exists → BLOCK (run *map-project first to establish project context)"
 ---
 
 # *orchestrate

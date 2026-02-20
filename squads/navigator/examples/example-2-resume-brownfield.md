@@ -1,37 +1,37 @@
-# Example 2: Resume Brownfield Project
+# Exemplo 2: Retomar Projeto Brownfield
 
-This example shows how to use Navigator to resume work on an existing project after a break or context loss.
-
----
-
-## Context
-
-**Project:** Legacy CRM system (brownfield)
-**Situation:** Returned after 2-week vacation, forgot current status
-**Codebase:** 50,000 lines, multiple features in progress
-**Team:** 3 developers
-**Goal:** Resume development without wasting time
+Este exemplo mostra como usar o Navigator para retomar trabalho em um projeto existente apos uma pausa ou perda de contexto.
 
 ---
 
-## Problem: Lost Context
+## Contexto
 
-You return to your project and have these questions:
-- ❓ Which phase am I in?
-- ❓ What stories are in progress?
-- ❓ What's my next task?
-- ❓ Are there any blockers?
-- ❓ What did I complete before the break?
-
-**Manual approach would take:** 30-60 minutes (checking git log, reading docs, reviewing stories)
-
-**Navigator approach:** 30 seconds
+**Projeto:** Sistema CRM legado (brownfield)
+**Situacao:** Voltou apos 2 semanas de ferias, esqueceu status atual
+**Codebase:** 50,000 linhas, multiplas features em progresso
+**Time:** 3 desenvolvedores
+**Objetivo:** Retomar desenvolvimento sem perder tempo
 
 ---
 
-## Solution: Use Navigator
+## Problema: Perda de Contexto
 
-### Step 1: Activate Navigator
+Voce volta ao seu projeto e tem estas questoes:
+- ❓ Em qual fase estou?
+- ❓ Quais stories estao em progresso?
+- ❓ Qual minha proxima task?
+- ❓ Existem blockers?
+- ❓ O que completei antes da pausa?
+
+**Abordagem manual levaria:** 30-60 minutos (checando git log, lendo docs, revisando stories)
+
+**Abordagem Navigator:** 30 segundos
+
+---
+
+## Solucao: Usar Navigator
+
+### Passo 1: Ativar Navigator
 
 ```bash
 @navigator
@@ -44,74 +44,74 @@ You return to your project and have these questions:
 
 ---
 
-### Step 2: Detect Current Phase
+### Passo 2: Detectar Fase Atual
 
 ```bash
 *where-am-i
 ```
 
-**Navigator analyzes:**
-1. Scans project directory for output files
-2. Compares with roadmap pipeline
-3. Parses story status from front-matter
-4. Identifies blockers
+**Navigator analisa:**
+1. Escaneia diretorio do projeto por arquivos de output
+2. Compara com pipeline do roadmap
+3. Faz parse do status da story do front-matter
+4. Identifica blockers
 
 **Output:**
 ```
-📍 CRM System - Current Status
+📍 CRM System - Status Atual
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-📊 Current Phase: 7 — Desenvolvimento (67% complete)
+📊 Fase Atual: 7 — Desenvolvimento (67% completo)
 
-✅ Completed Phases:
+✅ Fases Completas:
   1. Pesquisa ✓
   2. PRD ✓
   3. Arquitetura ✓
-  4. Épicos ✓
+  4. Epicos ✓
   5. Stories ✓
-  6. Validação ✓
+  6. Validacao ✓
 
-🔄 Active Stories (3):
-  Story 7.4: Contact management API (in-progress)
-  Story 7.7: Email integration (in-progress)
-  Story 7.9: Report generation (blocked)
+🔄 Stories Ativas (3):
+  Story 7.4: API de gerenciamento de contatos (in-progress)
+  Story 7.7: Integracao de email (in-progress)
+  Story 7.9: Geracao de relatorios (blocked)
 
-✅ Completed Stories (6):
-  Story 7.1: User authentication ✓
-  Story 7.2: Dashboard widgets ✓
-  Story 7.3: Database migrations ✓
-  Story 7.5: Lead tracking ✓
-  Story 7.6: Activity logging ✓
-  Story 7.8: Notification system ✓
+✅ Stories Completas (6):
+  Story 7.1: Autenticacao de usuario ✓
+  Story 7.2: Widgets de dashboard ✓
+  Story 7.3: Migracoes de banco de dados ✓
+  Story 7.5: Tracking de leads ✓
+  Story 7.6: Logging de atividades ✓
+  Story 7.8: Sistema de notificacoes ✓
 
-⏳ Pending Stories (2):
-  Story 7.10: Export functionality
-  Story 7.11: Mobile responsive UI
+⏳ Stories Pendentes (2):
+  Story 7.10: Funcionalidade de exportacao
+  Story 7.11: UI responsiva mobile
 
 🚫 Blockers (1):
-  Story 7.9 blocked: Waiting for @data-engineer to create aggregation views
+  Story 7.9 bloqueada: Aguardando @data-engineer criar views de agregacao
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🎯 Next Steps:
-  1. Continue Story 7.4 (Contact management API)
-  2. Complete Story 7.7 (Email integration)
-  3. Unblock Story 7.9 (ask @data-engineer for status)
+🎯 Proximos Passos:
+  1. Continuar Story 7.4 (API de gerenciamento de contatos)
+  2. Completar Story 7.7 (Integracao de email)
+  3. Desbloquear Story 7.9 (perguntar status ao @data-engineer)
 
-💡 Recommended: Resume with @dev
-  Command: @dev
+💡 Recomendado: Retomar com @dev
+  Comando: @dev
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Time taken:** 3 seconds ✨
+**Tempo gasto:** 3 segundos ✨
 
 ---
 
-### Step 3: Review Last Checkpoint
+### Passo 3: Revisar Ultimo Checkpoint
 
-To see what you were working on before the break:
+Para ver no que estava trabalhando antes da pausa:
 
 ```bash
 *checkpoint --list
@@ -119,172 +119,172 @@ To see what you were working on before the break:
 
 **Output:**
 ```
-📸 Available Checkpoints (12 total)
+📸 Checkpoints Disponiveis (12 total)
 
-Recent:
-  1. cp-7-auto-20260201-173045.json (2 weeks ago)
-     Phase: 7 (Desenvolvimento) - 58% complete
+Recentes:
+  1. cp-7-auto-20260201-173045.json (2 semanas atras)
+     Fase: 7 (Desenvolvimento) - 58% completo
      Git: d4e5f6g
-     Description: "Completed Story 7.6 (Activity logging)"
+     Descricao: "Completada Story 7.6 (Logging de atividades)"
 
-  2. cp-7-manual-20260131-144522.json (2 weeks ago)
-     Phase: 7 (Desenvolvimento) - 50% complete
+  2. cp-7-manual-20260131-144522.json (2 semanas atras)
+     Fase: 7 (Desenvolvimento) - 50% completo
      Git: a1b2c3d
-     Description: "Mid-phase checkpoint before vacation"
+     Descricao: "Checkpoint mid-phase antes de ferias"
 
-  3. cp-6-auto-20260128-091233.json (3 weeks ago)
-     Phase: 6 (Validação) - 100% complete
+  3. cp-6-auto-20260128-091233.json (3 semanas atras)
+     Fase: 6 (Validacao) - 100% completo
      Git: 9z8y7x6
-     Description: "All stories validated by @po"
+     Descricao: "Todas stories validadas por @po"
 
-💡 Latest checkpoint shows you were 58% through Development phase
+💡 Ultimo checkpoint mostra que estava 58% na fase de Desenvolvimento
 ```
 
 ---
 
-### Step 4: Load Detailed Context
+### Passo 4: Carregar Contexto Detalhado
 
 ```bash
 *status-report --detailed
 ```
 
-**Output (markdown file generated):**
+**Output (arquivo markdown gerado):**
 ```markdown
-# CRM System - Detailed Status Report
-Generated: 2026-02-15 09:30:00
+# CRM System - Relatorio de Status Detalhado
+Gerado: 2026-02-15 09:30:00
 
-## Executive Summary
-- **Phase:** 7/10 (Desenvolvimento)
-- **Progress:** 67% complete
-- **Velocity:** 1.5 stories/day (last 7 days)
+## Resumo Executivo
+- **Fase:** 7/10 (Desenvolvimento)
+- **Progresso:** 67% completo
+- **Velocity:** 1.5 stories/dia (ultimos 7 dias)
 - **Blockers:** 1 (Story 7.9)
-- **ETA to Phase 8:** 3 days
+- **ETA para Fase 8:** 3 dias
 
-## Active Work
+## Trabalho Ativo
 
-### Story 7.4: Contact Management API (In Progress)
+### Story 7.4: API de Gerenciamento de Contatos (Em Progresso)
 **Owner:** @dev
-**Started:** 2026-02-01
-**File:** docs/stories/story-7.4.md
-**Status:** 75% complete
+**Iniciada:** 2026-02-01
+**Arquivo:** docs/stories/story-7.4.md
+**Status:** 75% completo
 
-**Completed:**
-- ✅ Database schema for contacts
-- ✅ CRUD endpoints (GET, POST, PUT)
-- ✅ Validation middleware
+**Completado:**
+- ✅ Schema de banco de dados para contatos
+- ✅ Endpoints CRUD (GET, POST, PUT)
+- ✅ Middleware de validacao
 
-**Remaining:**
-- ⏳ DELETE endpoint with cascade logic
-- ⏳ Search/filter functionality
-- ⏳ Unit tests (80% coverage)
+**Restante:**
+- ⏳ Endpoint DELETE com logica de cascade
+- ⏳ Funcionalidade de busca/filtro
+- ⏳ Testes unitarios (80% coverage)
 
-**Next Action:** Implement DELETE with soft-delete strategy
+**Proxima Acao:** Implementar DELETE com estrategia de soft-delete
 
 ---
 
-### Story 7.7: Email Integration (In Progress)
+### Story 7.7: Integracao de Email (Em Progresso)
 **Owner:** @dev
-**Started:** 2026-02-03
-**File:** docs/stories/story-7.7.md
-**Status:** 40% complete
+**Iniciada:** 2026-02-03
+**Arquivo:** docs/stories/story-7.7.md
+**Status:** 40% completo
 
-**Completed:**
-- ✅ SMTP configuration
-- ✅ Email template system
+**Completado:**
+- ✅ Configuracao SMTP
+- ✅ Sistema de templates de email
 
-**Remaining:**
-- ⏳ Send email endpoint
-- ⏳ Email queue with retry logic
-- ⏳ Tracking (opened, clicked)
+**Restante:**
+- ⏳ Endpoint de envio de email
+- ⏳ Fila de emails com logica de retry
+- ⏳ Tracking (abertos, clicados)
 
-**Next Action:** Implement send endpoint with validation
+**Proxima Acao:** Implementar endpoint de envio com validacao
 
 ---
 
-### Story 7.9: Report Generation (Blocked)
+### Story 7.9: Geracao de Relatorios (Bloqueada)
 **Owner:** @dev
-**Started:** 2026-02-04
-**File:** docs/stories/story-7.9.md
+**Iniciada:** 2026-02-04
+**Arquivo:** docs/stories/story-7.9.md
 **Status:** BLOCKED
 
-**Blocker:** Waiting for database aggregation views from @data-engineer
-**Blocking Since:** 2026-02-04 (11 days)
+**Blocker:** Aguardando views de agregacao de banco de dados do @data-engineer
+**Bloqueado Desde:** 2026-02-04 (11 dias)
 
-**Action Required:** Ping @data-engineer on Slack
+**Acao Necessaria:** Chamar @data-engineer no Slack
 
 ---
 
-## Git Changes Since Last Checkpoint
+## Mudancas Git Desde Ultimo Checkpoint
 
 ```bash
-# Commits since d4e5f6g (last checkpoint)
-- e7f8g9h: feat: add contact validation middleware [Story 7.4]
-- f9g0h1i: feat: implement email templates [Story 7.7]
-- g1h2i3j: test: add contact API tests [Story 7.4]
-- h3i4j5k: fix: email config env variables [Story 7.7]
+# Commits desde d4e5f6g (ultimo checkpoint)
+- e7f8g9h: feat: adicionar middleware de validacao de contatos [Story 7.4]
+- f9g0h1i: feat: implementar templates de email [Story 7.7]
+- g1h2i3j: test: adicionar testes de API de contatos [Story 7.4]
+- h3i4j5k: fix: variaveis env de configuracao de email [Story 7.7]
 ```
 
-**Files Changed:** 23 files (+847, -234)
+**Arquivos Modificados:** 23 arquivos (+847, -234)
 
 ---
 
-## Velocity Analysis
+## Analise de Velocity
 
-| Date | Stories Completed | Points |
+| Data | Stories Completas | Pontos |
 |------|------------------|--------|
-| 2026-02-14 | 0 (vacation) | 0 |
-| 2026-02-13 | 0 (vacation) | 0 |
+| 2026-02-14 | 0 (ferias) | 0 |
+| 2026-02-13 | 0 (ferias) | 0 |
 | ...        | ...          | ... |
 | 2026-02-01 | 1 (Story 7.6) | 5 |
 | 2026-01-31 | 2 (7.3, 7.5) | 8 |
 
-**Average:** 1.5 stories/day (pre-vacation)
+**Media:** 1.5 stories/dia (pre-ferias)
 
 ---
 
-## Recommendations
+## Recomendacoes
 
-1. **Priority 1:** Complete Story 7.4 (75% done, quick win)
-2. **Priority 2:** Continue Story 7.7 (40% done)
-3. **Priority 3:** Unblock Story 7.9 (ping @data-engineer)
+1. **Prioridade 1:** Completar Story 7.4 (75% pronto, vitoria rapida)
+2. **Prioridade 2:** Continuar Story 7.7 (40% pronto)
+3. **Prioridade 3:** Desbloquear Story 7.9 (chamar @data-engineer)
 
-**Estimated Time to Phase 8 (QA):** 3 days (if no new blockers)
+**Tempo Estimado para Fase 8 (QA):** 3 dias (se nao houver novos blockers)
 ```
 
 ---
 
-### Step 5: Resume Development
+### Passo 5: Retomar Desenvolvimento
 
-Now you have full context. Resume work:
+Agora voce tem contexto completo. Retomar trabalho:
 
 ```bash
 @dev
 ```
 
-**Dev agent loads:**
+**Dev agent carrega:**
 ```
 🔧 Dev Agent ready
 
-📂 Loading context from Navigator...
+📂 Carregando contexto do Navigator...
 
-✅ Context loaded:
-  - Current phase: Desenvolvimento (67%)
-  - Active stories: 3
-  - Next task: Complete DELETE endpoint in Story 7.4
+✅ Contexto carregado:
+  - Fase atual: Desenvolvimento (67%)
+  - Stories ativas: 3
+  - Proxima task: Completar endpoint DELETE na Story 7.4
 
-💡 Quick recap:
-  You were implementing the Contact Management API (Story 7.4).
-  Last completed: Validation middleware
-  Next: DELETE endpoint with soft-delete
+💡 Resumo rapido:
+  Voce estava implementando a API de Gerenciamento de Contatos (Story 7.4).
+  Ultimo completado: Middleware de validacao
+  Proximo: Endpoint DELETE com soft-delete
 
-Ready to code! 🚀
+Pronto para codar! 🚀
 ```
 
 ---
 
-## Step 6: Handle Blocker
+## Passo 6: Lidar com Blocker
 
-Unblock Story 7.9:
+Desbloquear Story 7.9:
 
 ```bash
 @navigator
@@ -293,127 +293,127 @@ Unblock Story 7.9:
 
 **Output:**
 ```
-🚫 Blocker detected: Story 7.9
+🚫 Blocker detectado: Story 7.9
 
-Issue: Database aggregation views not created
+Issue: Views de agregacao de banco de dados nao criadas
 Owner: @data-engineer
-Blocking since: 11 days
+Bloqueado desde: 11 dias
 
-💡 Suggested actions:
-  1. Ping @data-engineer via Slack
-  2. Offer to pair program on views
-  3. Create ticket in project management tool
+💡 Acoes sugeridas:
+  1. Chamar @data-engineer via Slack
+  2. Oferecer pair programming nas views
+  3. Criar ticket na ferramenta de gerenciamento de projeto
 
-📝 Template message:
-  "Hey @data-engineer! Story 7.9 (Report Generation) is blocked
-   waiting for the aggregation views. Can you provide an ETA or
-   should we pair on this? It's been 11 days. Thanks!"
+📝 Mensagem template:
+  "Oi @data-engineer! Story 7.9 (Geracao de Relatorios) esta bloqueada
+   aguardando as views de agregacao. Pode dar uma ETA ou vamos fazer
+   pair programming nisso? Ja faz 11 dias. Valeu!"
 ```
 
 ---
 
-## Step 7: Continue Development
+## Passo 7: Continuar Desenvolvimento
 
-Work on active stories until phase complete:
+Trabalhar em stories ativas ate fase completa:
 
 ```bash
-# After completing Story 7.4
+# Apos completar Story 7.4
 @dev *complete-story 7.4
 
-# After completing Story 7.7
+# Apos completar Story 7.7
 @dev *complete-story 7.7
 
-# Check progress
+# Checar progresso
 @navigator *where-am-i
 ```
 
 **Output:**
 ```
-📍 Current Phase: 7 — Desenvolvimento (92% complete)
+📍 Fase Atual: 7 — Desenvolvimento (92% completo)
 
-11/12 stories completed
+11/12 stories completas
 
-Remaining: Story 7.11 (Mobile responsive UI)
+Restante: Story 7.11 (UI responsiva mobile)
 
-🎯 Next: Complete Story 7.11 to advance to QA phase
+🎯 Proximo: Completar Story 7.11 para avancar para fase QA
 ```
 
 ---
 
-## Results
+## Resultados
 
-**Before Navigator:**
-- ❌ 30-60 minutes reading git logs and docs
-- ❌ Confusion about what to work on
-- ❌ Risk of missing blockers
-- ❌ Uncertain about progress
+**Antes do Navigator:**
+- ❌ 30-60 minutos lendo git logs e docs
+- ❌ Confusao sobre o que trabalhar
+- ❌ Risco de perder blockers
+- ❌ Incerteza sobre progresso
 
-**After Navigator:**
-- ✅ 30 seconds to get full context
-- ✅ Clear next actions identified
-- ✅ Blockers surfaced immediately
-- ✅ Confidence in project status
+**Depois do Navigator:**
+- ✅ 30 segundos para pegar contexto completo
+- ✅ Proximas acoes claras identificadas
+- ✅ Blockers surfados imediatamente
+- ✅ Confianca no status do projeto
 
-**Time Saved:** ~45 minutes
-**Mental Load:** Significantly reduced
-**Productivity:** Higher (jumped straight into coding)
+**Tempo Economizado:** ~45 minutos
+**Carga Mental:** Significativamente reduzida
+**Produtividade:** Maior (pulou direto para codar)
 
 ---
 
-## Advanced: Team Handoff
+## Avancado: Handoff de Time
 
-If multiple developers, create handoff document:
+Se multiplos desenvolvedores, criar documento de handoff:
 
 ```bash
 @navigator
 *status-report --format handoff --team
 ```
 
-**Generates:**
+**Gera:**
 ```markdown
-# CRM Team Handoff - Week of Feb 15
+# CRM Team Handoff - Semana de 15 de Fev
 
-## Dev 1 (You)
-- Continue Story 7.4 (Contact API)
-- Complete Story 7.7 (Email integration)
-- Owner of Phase 7 completion
+## Dev 1 (Voce)
+- Continuar Story 7.4 (API de Contatos)
+- Completar Story 7.7 (Integracao de email)
+- Owner da conclusao da Fase 7
 
 ## Dev 2
-- Unblock Story 7.9 (work with @data-engineer)
-- Start Story 7.10 (Export functionality)
+- Desbloquear Story 7.9 (trabalhar com @data-engineer)
+- Comecar Story 7.10 (Funcionalidade de exportacao)
 
 ## Dev 3
-- Complete Story 7.11 (Mobile responsive)
-- Prepare for Phase 8 (QA setup)
+- Completar Story 7.11 (Responsividade mobile)
+- Preparar para Fase 8 (setup de QA)
 
-## Team Blockers
-- Story 7.9: Database views (11 days old)
+## Blockers do Time
+- Story 7.9: Views de banco de dados (11 dias)
 
-## Team Goals
-- Complete Phase 7 by EOW (Feb 19)
-- Enter Phase 8 (QA) on Monday (Feb 22)
+## Objetivos do Time
+- Completar Fase 7 ate fim de semana (19 de Fev)
+- Entrar na Fase 8 (QA) na segunda (22 de Fev)
 ```
 
 ---
 
-## Key Takeaways
+## Principais Aprendizados
 
-1. **Never lose context again** - Navigator remembers for you
-2. **Resume in seconds** - From vacation or weekend breaks
-3. **Blockers surface automatically** - No surprises
-4. **Team alignment** - Everyone knows current status
-5. **Velocity tracking** - Data-driven progress estimation
-
----
-
-## Pro Tips
-
-- Run `*where-am-i` every morning as a ritual
-- Create manual checkpoints before major changes
-- Use `*status-report` for weekly team meetings
-- Set up post-commit hooks for automatic checkpoints
-- Share roadmap link with stakeholders
+1. **Nunca perca contexto novamente** - Navigator lembra por voce
+2. **Retomar em segundos** - De ferias ou pausas de fim de semana
+3. **Blockers surgem automaticamente** - Sem surpresas
+4. **Alinhamento de time** - Todo mundo sabe o status atual
+5. **Tracking de velocity** - Estimativa de progresso baseada em dados
 
 ---
 
-*Example completed on 2026-02-15 using Navigator v1.0.0*
+## Dicas Pro
+
+- Rode `*where-am-i` toda manha como ritual
+- Crie checkpoints manuais antes de mudancas grandes
+- Use `*status-report` para reunioes semanais de time
+- Configure post-commit hooks para checkpoints automaticos
+- Compartilhe link do roadmap com stakeholders
+
+---
+
+*Exemplo completado em 2026-02-15 usando Navigator v1.0.0*

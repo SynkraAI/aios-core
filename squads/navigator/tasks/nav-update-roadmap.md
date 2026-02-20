@@ -17,6 +17,10 @@ Checklist:
   - "[ ] Update Context Anchors"
   - "[ ] Sync central ↔ local"
   - "[ ] Create checkpoint if phase changed"
+veto_conditions:
+  - "No roadmap exists to update → BLOCK (run *map-project first to create roadmap)"
+  - "Central and local roadmaps have unresolved sync conflict → BLOCK (resolve conflict manually first)"
+  - "Pipeline map missing or invalid → BLOCK (run *navigator-doctor to fix)"
 ---
 
 # *update-roadmap

@@ -1,19 +1,19 @@
-# Example 1: New Fullstack App (E-commerce Platform)
+# Exemplo 1: Novo App Fullstack (Plataforma E-commerce)
 
-This example shows how to use Navigator to set up and navigate through a complete fullstack e-commerce project from scratch.
-
----
-
-## Context
-
-**Project:** E-commerce platform with Next.js frontend and Node.js backend
-**Features:** Product catalog, shopping cart, checkout, order management
-**Team:** Solo developer
-**Timeline:** 8 weeks
+Este exemplo mostra como usar o Navigator para configurar e navegar por um projeto fullstack de e-commerce completo do zero.
 
 ---
 
-## Step 1: Activate Navigator
+## Contexto
+
+**Projeto:** Plataforma de e-commerce com frontend Next.js e backend Node.js
+**Features:** Catalogo de produtos, carrinho de compras, checkout, gerenciamento de pedidos
+**Time:** Desenvolvedor solo
+**Timeline:** 8 semanas
+
+---
+
+## Passo 1: Ativar Navigator
 
 ```bash
 @navigator
@@ -32,34 +32,34 @@ Available commands:
 
 ---
 
-## Step 2: Map the Project
+## Passo 2: Mapear o Projeto
 
 ```bash
 *map-project
 ```
 
-**Navigator asks:**
+**Navigator pergunta:**
 ```
 📋 Describe your project:
 ```
 
-**Your input:**
+**Seu input:**
 ```
-E-commerce platform with the following features:
+Plataforma de e-commerce com as seguintes features:
 
 Frontend:
-- Next.js 14 with App Router
-- Product listing with filters and search
-- Shopping cart with local persistence
-- Checkout flow with Stripe integration
-- User authentication (email/password)
+- Next.js 14 com App Router
+- Listagem de produtos com filtros e busca
+- Carrinho de compras com persistencia local
+- Fluxo de checkout com integracao Stripe
+- Autenticacao de usuario (email/senha)
 
 Backend:
 - Node.js + Express API
-- PostgreSQL database
-- RESTful endpoints for products, orders, users
-- JWT authentication
-- Payment processing with Stripe
+- Banco de dados PostgreSQL
+- Endpoints RESTful para produtos, pedidos, usuarios
+- Autenticacao JWT
+- Processamento de pagamento com Stripe
 
 Tech Stack:
 - Frontend: Next.js, TypeScript, Tailwind CSS, Zustand
@@ -68,38 +68,38 @@ Tech Stack:
 - Deployment: Vercel (frontend), Railway (backend)
 ```
 
-**Navigator generates:**
+**Navigator gera:**
 ```
-✅ Roadmap generated!
+✅ Roadmap gerado!
 
-📁 Saved to:
+📁 Salvo em:
   - .aios/navigator/ecommerce-platform/roadmap.md
-  - docs/roadmap.md (local copy)
+  - docs/roadmap.md (copia local)
 
-📊 10 phases mapped:
+📊 10 fases mapeadas:
   1. Pesquisa → @analyst
   2. PRD → @pm
   3. Arquitetura → @architect
-  4. Épicos → @pm
+  4. Epicos → @pm
   5. Stories → @sm
-  6. Validação → @po
+  6. Validacao → @po
   7. Desenvolvimento → @dev
   8. QA & Testes → @qa
   9. Fix Loop → @dev
   10. Deploy → @devops
 
-🚀 Starting point detected: Phase 1 (Pesquisa)
+🚀 Ponto de partida detectado: Fase 1 (Pesquisa)
 ```
 
 ---
 
-## Step 3: Review the Generated Roadmap
+## Passo 3: Revisar o Roadmap Gerado
 
 ```bash
 *show-roadmap
 ```
 
-**Output (excerpt):**
+**Output (trecho):**
 ```yaml
 ---
 project_name: ecommerce-platform
@@ -131,38 +131,38 @@ phases:
       - "docs/prd/prd.yaml"
     next_phase: 3
 
-  # ... phases 3-10
+  # ... fases 3-10
 ---
 ```
 
 ---
 
-## Step 4: Start Phase 1 (Pesquisa)
+## Passo 4: Comecar Fase 1 (Pesquisa)
 
 ```bash
 *auto-navigate
 ```
 
-**Navigator output:**
+**Output do Navigator:**
 ```
-📍 Current Phase: 1 — Pesquisa (0% complete)
-🤖 Next Agent: @analyst
+📍 Fase Atual: 1 — Pesquisa (0% completo)
+🤖 Proximo Agent: @analyst
 
-🎯 Suggested command:
+🎯 Comando sugerido:
   @analyst *research
 
-💡 What to do:
-  1. Research e-commerce market trends
-  2. Analyze competitors (Shopify, WooCommerce, etc.)
-  3. Define user personas (buyers, sellers, admins)
+💡 O que fazer:
+  1. Pesquisar tendencias de mercado de e-commerce
+  2. Analisar competidores (Shopify, WooCommerce, etc.)
+  3. Definir user personas (compradores, vendedores, admins)
 
-📂 Expected outputs:
+📂 Outputs esperados:
   - docs/research/market-analysis.md
   - docs/research/competitor-analysis.md
   - docs/research/user-personas.md
 ```
 
-**Execute:**
+**Executar:**
 ```bash
 @analyst
 *research
@@ -170,9 +170,9 @@ phases:
 
 ---
 
-## Step 5: Complete Phase 1
+## Passo 5: Completar Fase 1
 
-After @analyst completes research, check progress:
+Depois que @analyst completa a pesquisa, checar progresso:
 
 ```bash
 @navigator
@@ -181,19 +181,19 @@ After @analyst completes research, check progress:
 
 **Output:**
 ```
-📍 Current Phase: 1 — Pesquisa (100% complete) ✅
+📍 Fase Atual: 1 — Pesquisa (100% completo) ✅
 
-📂 Outputs found:
+📂 Outputs encontrados:
   ✅ docs/research/market-analysis.md
   ✅ docs/research/competitor-analysis.md
   ✅ docs/research/user-personas.md
 
-✨ Ready to advance to Phase 2
+✨ Pronto para avancar para Fase 2
 ```
 
 ---
 
-## Step 6: Create Checkpoint (Optional)
+## Passo 6: Criar Checkpoint (Opcional)
 
 ```bash
 *checkpoint
@@ -201,21 +201,21 @@ After @analyst completes research, check progress:
 
 **Output:**
 ```
-📸 Checkpoint created!
+📸 Checkpoint criado!
 
 ID: cp-1-manual-20260215-143500
 Path: .aios/navigator/ecommerce-platform/checkpoints/cp-1-manual-20260215-143500.json
 
-Snapshot includes:
+Snapshot inclui:
   - Phase: 1 (Pesquisa)
   - Completion: 100%
-  - Outputs: 3 files
+  - Outputs: 3 arquivos
   - Git commit: a1b2c3d
 ```
 
 ---
 
-## Step 7: Advance to Phase 2 (PRD)
+## Passo 7: Avancar para Fase 2 (PRD)
 
 ```bash
 *auto-navigate
@@ -223,22 +223,22 @@ Snapshot includes:
 
 **Output:**
 ```
-📍 Current Phase: 2 — PRD (0% complete)
-🤖 Next Agent: @pm
+📍 Fase Atual: 2 — PRD (0% completo)
+🤖 Proximo Agent: @pm
 
-🎯 Suggested command:
+🎯 Comando sugerido:
   @pm *create-prd
 
-💡 What to do:
-  1. Review research outputs
-  2. Define product features and priorities
-  3. Create PRD document
+💡 O que fazer:
+  1. Revisar outputs da pesquisa
+  2. Definir features e prioridades do produto
+  3. Criar documento PRD
 
-📂 Expected outputs:
+📂 Outputs esperados:
   - docs/prd/prd.yaml
 ```
 
-**Execute:**
+**Executar:**
 ```bash
 @pm
 *create-prd
@@ -246,24 +246,24 @@ Snapshot includes:
 
 ---
 
-## Step 8: Continue Through Pipeline
+## Passo 8: Continuar Pelo Pipeline
 
-Repeat the cycle for remaining phases:
+Repetir o ciclo para as fases restantes:
 
-**Phase 3:** @architect designs architecture
-**Phase 4:** @pm breaks down into epics
-**Phase 5:** @sm creates user stories
-**Phase 6:** @po validates stories
-**Phase 7:** @dev implements code
-**Phase 8:** @qa runs tests
-**Phase 9:** @dev fixes issues (if any)
-**Phase 10:** @devops deploys to production
+**Fase 3:** @architect projeta arquitetura
+**Fase 4:** @pm quebra em epics
+**Fase 5:** @sm cria user stories
+**Fase 6:** @po valida stories
+**Fase 7:** @dev implementa codigo
+**Fase 8:** @qa roda testes
+**Fase 9:** @dev corrige issues (se houver)
+**Fase 10:** @devops faz deploy para producao
 
 ---
 
-## Step 9: Track Progress Anytime
+## Passo 9: Acompanhar Progresso a Qualquer Momento
 
-During development, check status:
+Durante o desenvolvimento, checar status:
 
 ```bash
 @navigator
@@ -273,45 +273,45 @@ During development, check status:
 **Output:**
 ```
 📊 E-commerce Platform - Status Report
-Generated: 2026-02-15 16:45:00
+Gerado: 2026-02-15 16:45:00
 
-📍 Current Phase: 7 — Desenvolvimento (42% complete)
+📍 Fase Atual: 7 — Desenvolvimento (42% completo)
 
-✅ Completed Phases:
+✅ Fases Completas:
   1. Pesquisa (100%)
   2. PRD (100%)
   3. Arquitetura (100%)
-  4. Épicos (100%)
+  4. Epicos (100%)
   5. Stories (100%)
-  6. Validação (100%)
+  6. Validacao (100%)
 
-🔄 In Progress:
+🔄 Em Progresso:
   7. Desenvolvimento (42%)
-     - ✅ Story 7.1: Product listing API (done)
-     - ✅ Story 7.2: Shopping cart API (done)
-     - 🔄 Story 7.3: Checkout API (in progress)
-     - ⏳ Story 7.4: User auth API (pending)
-     - ⏳ Story 7.5: Frontend components (pending)
+     - ✅ Story 7.1: API de listagem de produtos (done)
+     - ✅ Story 7.2: API de carrinho de compras (done)
+     - 🔄 Story 7.3: API de checkout (in progress)
+     - ⏳ Story 7.4: API de autenticacao de usuario (pending)
+     - ⏳ Story 7.5: Componentes frontend (pending)
 
-⏳ Pending Phases:
+⏳ Fases Pendentes:
   8. QA & Testes
-  9. Fix Loop (if needed)
+  9. Fix Loop (se necessario)
   10. Deploy
 
-🚫 Blockers: None
+🚫 Blockers: Nenhum
 
-📅 Next Steps:
-  1. Complete Story 7.3 (checkout API)
-  2. Implement Story 7.4 (user auth)
-  3. Build frontend components (Story 7.5)
-  4. Advance to Phase 8 (QA)
+📅 Proximos Passos:
+  1. Completar Story 7.3 (API checkout)
+  2. Implementar Story 7.4 (autenticacao usuario)
+  3. Construir componentes frontend (Story 7.5)
+  4. Avancar para Fase 8 (QA)
 ```
 
 ---
 
-## Step 10: Final Deployment
+## Passo 10: Deploy Final
 
-After QA passes:
+Depois que QA passa:
 
 ```bash
 @navigator
@@ -320,66 +320,66 @@ After QA passes:
 
 **Output:**
 ```
-📍 Current Phase: 10 — Deploy (0% complete)
-🤖 Next Agent: @devops
+📍 Fase Atual: 10 — Deploy (0% completo)
+🤖 Proximo Agent: @devops
 
-🎯 Suggested command:
+🎯 Comando sugerido:
   @devops *deploy
 
-💡 What to do:
-  1. Push code to GitHub
-  2. Deploy frontend to Vercel
-  3. Deploy backend to Railway
-  4. Configure environment variables
-  5. Run production smoke tests
+💡 O que fazer:
+  1. Push do codigo para GitHub
+  2. Deploy frontend no Vercel
+  3. Deploy backend no Railway
+  4. Configurar variaveis de ambiente
+  5. Rodar smoke tests de producao
 
-📂 Expected outputs:
+📂 Outputs esperados:
   - .github/workflows/deploy.yml
-  - Production URLs in deployment log
+  - URLs de producao no log de deployment
 ```
 
 ---
 
-## Final Result
+## Resultado Final
 
 ```
-🎉 Project Complete!
+🎉 Projeto Completo!
 
-📊 Summary:
-  - Total phases: 10/10 (100%)
-  - Total time: 7 weeks
-  - Stories completed: 34
-  - Lines of code: ~15,000
-  - Checkpoints created: 12
+📊 Resumo:
+  - Total de fases: 10/10 (100%)
+  - Tempo total: 7 semanas
+  - Stories completas: 34
+  - Linhas de codigo: ~15,000
+  - Checkpoints criados: 12
 
-🌐 Production URLs:
+🌐 URLs de Producao:
   - Frontend: https://ecommerce-platform.vercel.app
   - Backend API: https://ecommerce-api.railway.app
   - Admin panel: https://admin.ecommerce-platform.vercel.app
 
-📁 Repository:
+📁 Repositorio:
   - https://github.com/username/ecommerce-platform
 ```
 
 ---
 
-## Key Takeaways
+## Principais Aprendizados
 
-1. **Roadmap saves time** - Clear path from research to deployment
-2. **Phase detection prevents confusion** - Always know where you are
-3. **Agent handoffs are smooth** - Navigator delegates to right specialist
-4. **Checkpoints enable recovery** - Resume after breaks without context loss
-5. **Progress tracking builds confidence** - See tangible advancement
-
----
-
-## Next Steps
-
-- Use `*orchestrate` for parallel story execution
-- Create custom pipeline for different project types
-- Share roadmap with stakeholders
-- Archive completed project for reference
+1. **Roadmap economiza tempo** - Caminho claro da pesquisa ao deploy
+2. **Deteccao de fase previne confusao** - Sempre sabe onde esta
+3. **Handoffs de agente sao suaves** - Navigator delega para o especialista certo
+4. **Checkpoints habilitam recuperacao** - Retomar apos pausas sem perda de contexto
+5. **Tracking de progresso gera confianca** - Ver avanco tangivel
 
 ---
 
-*Example completed on 2026-02-15 using Navigator v1.0.0*
+## Proximos Passos
+
+- Usar `*orchestrate` para execucao paralela de stories
+- Criar pipeline customizado para diferentes tipos de projeto
+- Compartilhar roadmap com stakeholders
+- Arquivar projeto completo para referencia
+
+---
+
+*Exemplo completado em 2026-02-15 usando Navigator v1.0.0*

@@ -22,6 +22,10 @@ Checklist:
   - "[ ] Identify blockers (missing inputs)"
   - "[ ] Suggest next agent/command"
   - "[ ] Display formatted status"
+veto_conditions:
+  - "No roadmap exists for current project → BLOCK (run *map-project first)"
+  - "Pipeline map missing or invalid → BLOCK (run *navigator-doctor to fix)"
+  - "No docs/stories/ directory found → WARN (phase detection will rely on output files only)"
 ---
 
 # *where-am-i

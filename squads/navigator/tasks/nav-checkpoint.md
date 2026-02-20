@@ -16,6 +16,10 @@ Checklist:
   - "[ ] Generate checkpoint from template"
   - "[ ] Save to checkpoints/"
   - "[ ] Update roadmap with checkpoint reference"
+veto_conditions:
+  - "No roadmap exists for current project → BLOCK (run *map-project first)"
+  - "No git repository detected → BLOCK (git init required for commit SHA tracking)"
+  - "No .aios/navigator/{project}/ directory → BLOCK (project not mapped yet)"
 ---
 
 # *checkpoint

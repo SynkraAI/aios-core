@@ -1,38 +1,38 @@
-# Example Roadmap (Annotated)
+# Exemplo de Roadmap (Anotado)
 
-This is an annotated example of a Navigator roadmap for a SaaS project. Comments explain each section.
+Este e um exemplo anotado de roadmap do Navigator para um projeto SaaS. Comentarios explicam cada secao.
 
 ---
 
 ```markdown
 ---
-# Front-matter: Project metadata
-project_name: task-management-saas        # Kebab-case, used in file paths
+# Front-matter: Metadata do projeto
+project_name: task-management-saas        # Kebab-case, usado em file paths
 version: 1.0.0                            # Semantic versioning
 created_at: 2026-02-15T10:00:00Z         # ISO 8601 timestamp
-last_updated: 2026-02-15T14:30:00Z       # Updated automatically by sync
-status: in-progress                       # Options: planning, in-progress, complete
+last_updated: 2026-02-15T14:30:00Z       # Atualizado automaticamente por sync
+status: in-progress                       # Opcoes: planning, in-progress, complete
 description: >
-  Task management SaaS with team collaboration,
-  real-time updates, and analytics dashboard.
+  Plataforma SaaS de gerenciamento de tarefas com colaboracao em time,
+  updates em tempo real, e dashboard de analytics.
 
-# Phases: Complete 10-phase pipeline
+# Phases: Pipeline completo de 10 fases
 phases:
-  # Phase 1: Research (always first, no inputs)
+  # Phase 1: Research (sempre primeiro, sem inputs)
   - id: 1
-    name: Pesquisa                        # Phase name in Portuguese (AIOS convention)
-    agent: "@analyst"                     # Agent responsible (with @ prefix)
-    icon: "🔍"                           # Emoji for visual identification
-    command: "*research"                  # Command to execute this phase
-    description: >                        # Multi-line description
-      Market research, competitor analysis,
-      and user persona definition for task management space.
-    inputs: []                            # Phase 1 has no inputs (user provides context)
-    outputs:                              # Files that must exist for phase to be complete
+    name: Pesquisa                        # Nome da fase em Portugues (convencao AIOS)
+    agent: "@analyst"                     # Agente responsavel (com prefixo @)
+    icon: "🔍"                           # Emoji para identificacao visual
+    command: "*research"                  # Comando para executar esta fase
+    description: >                        # Descricao multi-linha
+      Pesquisa de mercado, analise de competidores,
+      e definicao de user persona para espaco de gerenciamento de tarefas.
+    inputs: []                            # Fase 1 nao tem inputs (usuario fornece contexto)
+    outputs:                              # Arquivos que devem existir para fase ser completa
       - "docs/research/market-analysis.md"
       - "docs/research/competitor-analysis.md"
       - "docs/research/user-personas.md"
-    next_phase: 2                         # ID of next phase (sequential)
+    next_phase: 2                         # ID da proxima fase (sequencial)
 
   # Phase 2: PRD
   - id: 2
@@ -41,12 +41,12 @@ phases:
     icon: "📋"
     command: "*create-prd"
     description: >
-      Product Requirements Document with features,
-      user stories, and success metrics.
-    inputs:                               # These files must exist before starting
-      - "docs/research/**/*.md"          # Wildcard: all .md files in research/
+      Product Requirements Document com features,
+      user stories, e metricas de sucesso.
+    inputs:                               # Estes arquivos devem existir antes de comecar
+      - "docs/research/**/*.md"          # Wildcard: todos arquivos .md em research/
     outputs:
-      - "docs/prd/prd.yaml"              # Single PRD file (YAML format)
+      - "docs/prd/prd.yaml"              # Arquivo unico de PRD (formato YAML)
     next_phase: 3
 
   # Phase 3: Architecture
@@ -56,10 +56,10 @@ phases:
     icon: "🏗️"
     command: "*design-architecture"
     description: >
-      Technical architecture including database schema,
-      API design, and infrastructure decisions.
+      Arquitetura tecnica incluindo schema de banco de dados,
+      design de API, e decisoes de infraestrutura.
     inputs:
-      - "docs/prd/prd.yaml"              # Specific file from previous phase
+      - "docs/prd/prd.yaml"              # Arquivo especifico da fase anterior
     outputs:
       - "docs/architecture/system-design.yaml"
       - "docs/architecture/database-schema.yaml"
@@ -68,18 +68,18 @@ phases:
 
   # Phase 4: Epics
   - id: 4
-    name: Épicos
+    name: Epicos
     agent: "@pm"
     icon: "📚"
     command: "*create-epics"
     description: >
-      Break down PRD into epics (large features)
-      with clear scope and dependencies.
+      Quebrar PRD em epics (features grandes)
+      com escopo claro e dependencias.
     inputs:
       - "docs/prd/prd.yaml"
       - "docs/architecture/**/*.yaml"
     outputs:
-      - "docs/epics/epic-*.md"           # Wildcard: multiple epic files
+      - "docs/epics/epic-*.md"           # Wildcard: multiplos arquivos de epic
     next_phase: 5
 
   # Phase 5: Stories
@@ -89,45 +89,45 @@ phases:
     icon: "📝"
     command: "*create-stories"
     description: >
-      Convert epics into detailed user stories
-      with acceptance criteria and estimates.
+      Converter epics em user stories detalhadas
+      com criterios de aceitacao e estimativas.
     inputs:
       - "docs/epics/epic-*.md"
     outputs:
-      - "docs/stories/story-*.md"        # Wildcard: many story files
+      - "docs/stories/story-*.md"        # Wildcard: muitos arquivos de story
     next_phase: 6
 
   # Phase 6: Validation
   - id: 6
-    name: Validação
+    name: Validacao
     agent: "@po"
     icon: "✅"
     command: "*validate-stories"
     description: >
-      Product Owner validates all stories for
-      completeness, testability, and alignment with PRD.
+      Product Owner valida todas stories para
+      completude, testabilidade, e alinhamento com PRD.
     inputs:
       - "docs/stories/story-*.md"
     outputs:
-      - "docs/validation/validation-report.md"  # Single validation report
+      - "docs/validation/validation-report.md"  # Relatorio unico de validacao
     next_phase: 7
 
-  # Phase 7: Development (longest phase, story-driven)
+  # Phase 7: Development (fase mais longa, story-driven)
   - id: 7
     name: Desenvolvimento
     agent: "@dev"
     icon: "💻"
     command: "*implement"
     description: >
-      Code implementation of all validated stories.
-      Track progress via story status in front-matter.
+      Implementacao de codigo de todas stories validadas.
+      Acompanhar progresso via status de story no front-matter.
     inputs:
       - "docs/stories/story-*.md"
       - "docs/architecture/**/*.yaml"
-    outputs:                              # Code outputs (actual implementation)
-      - "src/**/*.ts"                    # Source code files
-      - "tests/**/*.test.ts"             # Test files
-      - "package.json"                    # Dependencies
+    outputs:                              # Outputs de codigo (implementacao real)
+      - "src/**/*.ts"                    # Arquivos de source code
+      - "tests/**/*.test.ts"             # Arquivos de teste
+      - "package.json"                    # Dependencias
     next_phase: 8
 
   # Phase 8: QA & Testing
@@ -137,54 +137,54 @@ phases:
     icon: "🧪"
     command: "*test"
     description: >
-      Quality assurance: unit tests, integration tests,
-      E2E tests, and manual exploratory testing.
+      Quality assurance: testes unitarios, testes de integracao,
+      testes E2E, e testes explorativos manuais.
     inputs:
       - "src/**/*.ts"
       - "tests/**/*.test.ts"
-      - "docs/stories/story-*.md"        # QA validates against acceptance criteria
+      - "docs/stories/story-*.md"        # QA valida contra criterios de aceitacao
     outputs:
-      - "docs/qa/test-report.md"         # Test results report
-      - "docs/qa/bug-list.md"            # List of bugs found (if any)
-    next_phase: 9                         # Next is conditional (fix loop or deploy)
+      - "docs/qa/test-report.md"         # Relatorio de resultados de testes
+      - "docs/qa/bug-list.md"            # Lista de bugs encontrados (se houver)
+    next_phase: 9                         # Proximo e condicional (fix loop ou deploy)
 
-  # Phase 9: Fix Loop (conditional, may be skipped)
+  # Phase 9: Fix Loop (condicional, pode ser pulada)
   - id: 9
     name: Fix Loop
     agent: "@dev"
     icon: "🔧"
     command: "*fix"
     description: >
-      Fix bugs identified in QA phase.
-      Loop back to Phase 8 for regression testing.
+      Corrigir bugs identificados na fase QA.
+      Loop de volta para Fase 8 para testes de regressao.
     inputs:
       - "docs/qa/bug-list.md"
     outputs:
-      - "docs/fixes/fix-*.md"            # Fix documentation
-    next_phase: 8                         # Loop back to QA! (not 10)
-    loop_back_to: 8                       # Explicit loop marker
+      - "docs/fixes/fix-*.md"            # Documentacao de fix
+    next_phase: 8                         # Loop de volta para QA! (nao 10)
+    loop_back_to: 8                       # Marcador explicito de loop
 
-  # Phase 10: Deploy (final phase)
+  # Phase 10: Deploy (fase final)
   - id: 10
     name: Deploy
     agent: "@devops"
     icon: "🚀"
     command: "*deploy"
     description: >
-      Push code to remote, deploy to production,
-      and verify deployment health.
+      Push de codigo para remote, deploy para producao,
+      e verificar saude do deployment.
     inputs:
       - "src/**/*.ts"
-      - "docs/qa/test-report.md"         # Requires passing tests
+      - "docs/qa/test-report.md"         # Requer testes passando
     outputs:
-      - ".github/workflows/deploy.yml"   # CI/CD pipeline
-      - "docs/deployment/deployment-log.md"  # Deployment record
-    next_phase: null                      # null = final phase, no next
+      - ".github/workflows/deploy.yml"   # Pipeline de CI/CD
+      - "docs/deployment/deployment-log.md"  # Registro de deployment
+    next_phase: null                      # null = fase final, sem proxima
 
-# Transition Rules: Advanced logic for auto-navigation
+# Transition Rules: Logica avancada para auto-navegacao
 transitions:
-  auto_advance:                           # Automatically advance if condition met
-    - condition: "phase 1 outputs exist"  # All outputs present
+  auto_advance:                           # Avancar automaticamente se condicao atendida
+    - condition: "phase 1 outputs exist"  # Todos outputs presentes
       action: "advance"
       phase: 2
 
@@ -193,41 +193,41 @@ transitions:
       phase: 8
 
     - condition: "phase 8 tests passing, no bugs"
-      action: "skip"                      # Skip phase 9 if no bugs
+      action: "skip"                      # Pular fase 9 se sem bugs
       phase: 10
 
-  blocked:                                # Block if condition not met
+  blocked:                                # Bloquear se condicao nao atendida
     - condition: "phase 7 not 100% complete"
       action: "block"
-      message: "Complete all stories before QA"
+      message: "Completar todas stories antes de QA"
 
     - condition: "phase 8 tests failing"
       action: "block"
-      message: "Fix failing tests before deploy"
+      message: "Corrigir testes falhando antes de deploy"
 
-  loop:                                   # Loop conditions
+  loop:                                   # Condicoes de loop
     - condition: "phase 8 has bugs"
       action: "loop"
-      phase: 9                            # Go to fix loop
-      max_iterations: 5                   # Prevent infinite loops
+      phase: 9                            # Ir para fix loop
+      max_iterations: 5                   # Prevenir loops infinitos
 
     - condition: "phase 9 fixes complete"
       action: "loop"
-      phase: 8                            # Return to QA
+      phase: 8                            # Retornar para QA
 
-# Checkpoints: Auto-checkpoint configuration
+# Checkpoints: Configuracao de auto-checkpoint
 checkpoints:
-  auto_create:                            # Create checkpoint automatically
-    - on: "phase_complete"                # After each phase completion
+  auto_create:                            # Criar checkpoint automaticamente
+    - on: "phase_complete"                # Apos cada conclusao de fase
       type: "auto"
-    - on: "git_commit"                    # After each commit (via hook)
+    - on: "git_commit"                    # Apos cada commit (via hook)
       type: "auto"
 
-  manual_prompt:                          # Prompt user to create checkpoint
-    - before: "destructive_operation"     # Before risky operations
-    - at: "phase_boundary"                # Between phases
+  manual_prompt:                          # Solicitar usuario criar checkpoint
+    - before: "destructive_operation"     # Antes de operacoes arriscadas
+    - at: "phase_boundary"                # Entre fases
 
-# Metadata: Additional configuration
+# Metadata: Configuracao adicional
 metadata:
   tech_stack:
     frontend: "Next.js 14, TypeScript, Tailwind CSS"
@@ -236,183 +236,183 @@ metadata:
     deployment: "Vercel (frontend), Railway (backend)"
 
   team:
-    size: 1                               # Solo developer
+    size: 1                               # Desenvolvedor solo
     timezone: "America/Sao_Paulo"
 
   estimates:
-    total_hours: 160                      # 4 weeks × 40 hours
+    total_hours: 160                      # 4 semanas × 40 horas
     phase_breakdown:
-      1: 8                                # Research: 1 day
-      2: 16                               # PRD: 2 days
-      3: 16                               # Architecture: 2 days
-      4: 8                                # Epics: 1 day
-      5: 16                               # Stories: 2 days
-      6: 4                                # Validation: 0.5 day
-      7: 80                               # Development: 10 days (50%)
-      8: 8                                # QA: 1 day
-      9: 4                                # Fixes: 0.5 day
-      10: 4                               # Deploy: 0.5 day
+      1: 8                                # Research: 1 dia
+      2: 16                               # PRD: 2 dias
+      3: 16                               # Architecture: 2 dias
+      4: 8                                # Epics: 1 dia
+      5: 16                               # Stories: 2 dias
+      6: 4                                # Validation: 0.5 dia
+      7: 80                               # Development: 10 dias (50%)
+      8: 8                                # QA: 1 dia
+      9: 4                                # Fixes: 0.5 dia
+      10: 4                               # Deploy: 0.5 dia
 ---
 
 # Task Management SaaS - Project Roadmap
 
-This roadmap was generated by Navigator on 2026-02-15.
+Este roadmap foi gerado pelo Navigator em 2026-02-15.
 
-## Project Overview
+## Visao Geral do Projeto
 
-A modern task management SaaS platform with real-time collaboration,
-analytics, and team productivity features.
+Uma plataforma SaaS moderna de gerenciamento de tarefas com colaboracao em tempo real,
+analytics, e features de produtividade de time.
 
-**Target Users:** Small to medium teams (5-50 people)
-**Business Model:** Freemium (free tier + paid plans)
-**Launch Date:** Q2 2026
+**Usuarios Alvo:** Times pequenos a medios (5-50 pessoas)
+**Modelo de Negocio:** Freemium (tier gratis + planos pagos)
+**Data de Lancamento:** Q2 2026
 
-## Key Features
+## Features Principais
 
-1. **Task Management**
-   - Create, assign, and track tasks
-   - Priorities, due dates, labels
-   - Subtasks and checklists
+1. **Gerenciamento de Tarefas**
+   - Criar, assignar, e acompanhar tarefas
+   - Prioridades, due dates, labels
+   - Subtasks e checklists
 
-2. **Team Collaboration**
-   - Real-time updates (WebSockets)
-   - Comments and mentions
-   - File attachments
+2. **Colaboracao de Time**
+   - Updates em tempo real (WebSockets)
+   - Comentarios e mentions
+   - Anexos de arquivos
 
-3. **Analytics Dashboard**
-   - Team productivity metrics
-   - Task completion trends
+3. **Dashboard de Analytics**
+   - Metricas de produtividade de time
+   - Trends de conclusao de tarefas
    - Time tracking
 
-4. **Integrations**
-   - Slack notifications
-   - GitHub issue sync
-   - Calendar integration
+4. **Integracoes**
+   - Notificacoes Slack
+   - Sync de issues GitHub
+   - Integracao de calendario
 
-## Phase Details
+## Detalhes das Fases
 
-### 1. Pesquisa (Week 1)
-**Goal:** Understand market and validate idea
+### 1. Pesquisa (Semana 1)
+**Objetivo:** Entender mercado e validar ideia
 
-**Deliverables:**
-- Market size analysis
-- Competitor comparison (Asana, Trello, Monday.com)
-- User personas (3 types: manager, developer, designer)
-
----
-
-### 2. PRD (Week 2)
-**Goal:** Define product scope
-
-**Deliverables:**
-- Feature prioritization (MoSCoW method)
-- User stories (high-level)
-- Success metrics (DAU, retention, NPS)
+**Entregas:**
+- Analise de tamanho de mercado
+- Comparacao de competidores (Asana, Trello, Monday.com)
+- User personas (3 tipos: manager, developer, designer)
 
 ---
 
-### 3. Arquitetura (Week 2-3)
-**Goal:** Technical foundation
+### 2. PRD (Semana 2)
+**Objetivo:** Definir escopo do produto
 
-**Deliverables:**
-- System design diagram
-- Database schema (15 tables)
-- API specification (RESTful + WebSocket)
+**Entregas:**
+- Priorizacao de features (metodo MoSCoW)
+- User stories (alto nivel)
+- Metricas de sucesso (DAU, retencao, NPS)
 
 ---
 
-### 4-6. Épicos, Stories, Validação (Week 3-4)
-**Goal:** Detailed planning
+### 3. Arquitetura (Semana 2-3)
+**Objetivo:** Fundacao tecnica
 
-**Deliverables:**
+**Entregas:**
+- Diagrama de design de sistema
+- Schema de banco de dados (15 tabelas)
+- Especificacao de API (RESTful + WebSocket)
+
+---
+
+### 4-6. Epicos, Stories, Validacao (Semana 3-4)
+**Objetivo:** Planejamento detalhado
+
+**Entregas:**
 - 8 epics
 - 45 user stories
-- Validated by Product Owner
+- Validadas por Product Owner
 
 ---
 
-### 7. Desenvolvimento (Week 5-12)
-**Goal:** Build the product
+### 7. Desenvolvimento (Semana 5-12)
+**Objetivo:** Construir o produto
 
-**Stories:** 45 stories × 3.5 hours = 160 hours
-
----
-
-### 8-10. QA, Fixes, Deploy (Week 13-14)
-**Goal:** Launch to production
-
-**Deliverables:**
-- Test coverage: 85%+
-- Performance: < 200ms API response
-- Deployment: Automated CI/CD
+**Stories:** 45 stories × 3.5 horas = 160 horas
 
 ---
 
-## Success Criteria
+### 8-10. QA, Fixes, Deploy (Semana 13-14)
+**Objetivo:** Lancar para producao
 
-- ✅ All 10 phases complete
-- ✅ 45/45 stories implemented
-- ✅ Tests passing (85%+ coverage)
-- ✅ Deployed to production
-- ✅ < 2 critical bugs in production
-
----
-
-## Notes
-
-- This roadmap is version-controlled in git
-- Updates sync between .aios/navigator/ and docs/
-- Use `@navigator *where-am-i` to check progress
-- Checkpoints auto-created after each phase
+**Entregas:**
+- Cobertura de testes: 85%+
+- Performance: < 200ms resposta API
+- Deployment: CI/CD automatizado
 
 ---
 
-*Generated by Navigator v1.0.0 on 2026-02-15*
+## Criterios de Sucesso
+
+- ✅ Todas 10 fases completas
+- ✅ 45/45 stories implementadas
+- ✅ Testes passando (85%+ coverage)
+- ✅ Deploy em producao
+- ✅ < 2 bugs criticos em producao
+
+---
+
+## Notas
+
+- Este roadmap e versionado em git
+- Updates sincronizam entre .aios/navigator/ e docs/
+- Use `@navigator *where-am-i` para checar progresso
+- Checkpoints auto-criados apos cada fase
+
+---
+
+*Gerado por Navigator v1.0.0 em 2026-02-15*
 ```
 
 ---
 
-## Roadmap Anatomy
+## Anatomia do Roadmap
 
-### Front-Matter Section
-- **YAML format** between `---` markers
-- Contains all structured data Navigator needs
-- Parsed by `phase-detector.js` for logic
+### Secao Front-Matter
+- **Formato YAML** entre marcadores `---`
+- Contem todos dados estruturados que Navigator precisa
+- Parseado por `phase-detector.js` para logica
 
-### Markdown Body
-- Human-readable project description
-- Context for stakeholders
-- Not parsed by Navigator (documentation only)
+### Corpo Markdown
+- Descricao legivel do projeto para humanos
+- Contexto para stakeholders
+- Nao parseado pelo Navigator (apenas documentacao)
 
-### Key Patterns
+### Padroes Principais
 
 **Inputs/Outputs:**
-- Use glob patterns (`**/*.md`) for multiple files
-- Specific paths for single files
-- Navigator checks file existence to detect phase completion
+- Use padroes glob (`**/*.md`) para multiplos arquivos
+- Paths especificos para arquivos unicos
+- Navigator checa existencia de arquivo para detectar conclusao de fase
 
 **Transitions:**
-- `auto_advance`: Automatically move to next phase
-- `blocked`: Prevent advancement if condition fails
-- `loop`: Cycle between phases (e.g., dev → QA → fixes → QA)
+- `auto_advance`: Move automaticamente para proxima fase
+- `blocked`: Previne avanco se condicao falha
+- `loop`: Ciclo entre fases (ex: dev → QA → fixes → QA)
 
 **Agents:**
-- Always use `@` prefix
-- Must match agent IDs in `.aios-core/development/agents/`
+- Sempre use prefixo `@`
+- Deve corresponder a IDs de agente em `.aios-core/development/agents/`
 
 **Commands:**
-- Always use `*` prefix
-- Must exist in agent's task list
+- Sempre use prefixo `*`
+- Deve existir na lista de tasks do agente
 
 ---
 
-## How to Use This Roadmap
+## Como Usar Este Roadmap
 
-1. **Copy template** to your project
-2. **Customize phases** for your tech stack
-3. **Adjust outputs** to match your file structure
-4. **Run Navigator** to follow the roadmap
+1. **Copiar template** para seu projeto
+2. **Customizar fases** para seu tech stack
+3. **Ajustar outputs** para combinar com sua estrutura de arquivos
+4. **Rodar Navigator** para seguir o roadmap
 
 ---
 
-*This example is a complete, production-ready roadmap template.*
+*Este exemplo e um template de roadmap completo, pronto para producao.*

@@ -20,6 +20,11 @@ Checklist:
   - "[ ] Map to pipeline phases"
   - "[ ] Generate roadmap from template"
   - "[ ] Sync to both locations"
+veto_conditions:
+  - "No git repository detected → BLOCK (git init required for hooks and status tracking)"
+  - "Roadmap already exists for this project and --force not specified → WARN (suggest *update-roadmap instead)"
+  - "Pipeline map missing → BLOCK (cannot map phases without navigator-pipeline-map.yaml)"
+  - "User provides empty project description → BLOCK (require at least a brief description)"
 ---
 
 # *map-project

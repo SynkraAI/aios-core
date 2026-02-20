@@ -14,6 +14,16 @@ metadata:
     - context
     - checkpoint
 
+veto_conditions:
+  step_1_detect_phase:
+    - "No .aios/navigator/ directory exists → BLOCK (no mapped projects, use *map-project)"
+    - "Pipeline map missing or invalid → BLOCK (run *navigator-doctor to fix)"
+  step_3_check_blockers:
+    - "Phase detection returned error → BLOCK (cannot evaluate blockers without phase data)"
+  step_5_auto_navigate:
+    - "Blockers from Step 4 still unresolved → BLOCK (resolve blockers before auto-navigating)"
+    - "No valid next phase identified → BLOCK (pipeline may be complete or misconfigured)"
+
 steps:
   - id: 1
     name: Detect Current Phase

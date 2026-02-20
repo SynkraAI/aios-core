@@ -1,53 +1,53 @@
-# Installation Guide
+# Guia de Instalacao
 
-## Prerequisites
+## Pre-requisitos
 
 - **Node.js** >= 18.0.0
-- **Git** (any version)
-- **AIOS Core** initialized (`.aios-core/` exists in your project)
+- **Git** (qualquer versão)
+- **AIOS Core** inicializado (`.aios-core/` existe no seu projeto)
 
 ---
 
-## Included with AIOS Core
+## Incluido com AIOS Core
 
-Navigator ships with AIOS Core. After installing AIOS, Navigator is already available:
+Navigator vem com AIOS Core. Depois de instalar AIOS, Navigator já está disponível:
 
 ```bash
-# Install AIOS Core (Navigator is included)
+# Instalar AIOS Core (Navigator já vem junto)
 npx aios-core install
 
-# Activate Navigator
+# Ativar Navigator
 @navigator
 
-# Verify everything works
+# Verificar que tudo funciona
 *navigator-doctor
 ```
 
-If the health check passes (7/7), you're ready to go. Skip to [Verify Installation](#verify-installation).
+Se o health check passar (7/7), você está pronto. Pule para [Verificar Instalação](#verificar-instalacao).
 
 ---
 
-## Manual Setup
+## Setup Manual
 
-If health check reports issues, fix them manually:
+Se health check reportar problemas, corrija manualmente:
 
-### 1. Install Dependencies
+### 1. Instalar Dependencias
 
 ```bash
 npm install js-yaml glob inquirer
 ```
 
-### 2. Install Git Hooks
+### 2. Instalar Git Hooks
 
 ```bash
 node squads/navigator/scripts/install-hooks.js
 ```
 
-This adds a post-commit hook to `.husky/post-commit` that automatically updates your roadmap when stories change. The hook is:
-- **Non-blocking** — runs asynchronously
-- **Silent** — failures don't interrupt commits
+Isso adiciona um post-commit hook em `.husky/post-commit` que atualiza automaticamente seu roadmap quando stories mudam. O hook é:
+- **Non-blocking** — roda assincronamente
+- **Silent** — falhas não interrompem commits
 
-### 3. Verify
+### 3. Verificar
 
 ```bash
 @navigator
@@ -58,96 +58,96 @@ This adds a post-commit hook to `.husky/post-commit` that automatically updates 
 
 ## Git Hooks
 
-Navigator uses a post-commit hook to keep roadmaps in sync automatically.
+Navigator usa um post-commit hook pra manter roadmaps sincronizados automaticamente.
 
-### Manage Hooks
+### Gerenciar Hooks
 
 ```bash
-# Install
+# Instalar
 node squads/navigator/scripts/install-hooks.js
 
-# Check status
+# Checar status
 node squads/navigator/scripts/install-hooks.js --status
 
-# Uninstall
+# Desinstalar
 node squads/navigator/scripts/install-hooks.js --uninstall
 ```
 
-### What the Hook Does
+### O Que o Hook Faz
 
-On every commit, the hook checks if any files in `docs/stories/` were changed. If so, it:
-1. Detects the current phase
-2. Syncs the roadmap (central + local)
-3. Creates an auto-checkpoint if a phase transition occurred
+A cada commit, o hook checa se algum arquivo em `docs/stories/` foi alterado. Se sim:
+1. Detecta a fase atual
+2. Sincroniza o roadmap (central + local)
+3. Cria um auto-checkpoint se houve transição de fase
 
 ---
 
-## Verify Installation
+## Verificar Instalacao
 
 ```bash
 @navigator
 *navigator-doctor
 ```
 
-**Expected output:**
+**Output esperado:**
 
 ```
 🧭 Navigator Health Check
 
 ✓ Node.js v20.x.x (>= 18.0.0)
 ✓ git version 2.x.x
-✓ All required packages installed (js-yaml, glob, inquirer)
-✓ Navigator post-commit hook installed
-✓ All required directories exist
-✓ Pipeline map valid (10 phases)
-✓ All 6 scripts present and readable
+✓ Todos os packages necessários instalados (js-yaml, glob, inquirer)
+✓ Navigator post-commit hook instalado
+✓ Todos os diretórios necessários existem
+✓ Pipeline map válido (10 phases)
+✓ Todos os 6 scripts presentes e legíveis
 
-7/7 checks passed
+7/7 checks passaram
 
-✅ Navigator is healthy!
+✅ Navigator está saudável!
 ```
 
 ---
 
-## Directory Structure
+## Estrutura de Diretorios
 
-After installation, Navigator files live in:
+Depois da instalação, arquivos do Navigator ficam em:
 
 ```
 squads/navigator/
 ├── squad.yaml              # Manifest
 ├── agents/
-│   └── navigator.md        # Vega persona
-├── tasks/                  # 10 task definitions
+│   └── navigator.md        # Persona Vega
+├── tasks/                  # 10 definições de task
 ├── scripts/
-│   ├── navigator/          # Core engine (6 scripts)
-│   └── install-hooks.js    # Hook installer
-├── templates/              # 4 Mustache-style templates
+│   ├── navigator/          # Engine core (6 scripts)
+│   └── install-hooks.js    # Instalador de hook
+├── templates/              # 4 templates estilo Mustache
 ├── data/
 │   └── navigator-pipeline-map.yaml
-└── examples/               # Practical tutorials
+└── examples/               # Tutoriais práticos
 ```
 
-Runtime data is stored in:
+Dados de runtime são guardados em:
 
 ```
 .aios/navigator/{project-name}/
-├── roadmap.md              # Central roadmap (source of truth)
-└── checkpoints/            # Project state snapshots
+├── roadmap.md              # Roadmap central (source of truth)
+└── checkpoints/            # Snapshots de estado do projeto
 ```
 
 ---
 
-## Uninstallation
+## Desinstalacao
 
 ```bash
-# 1. Remove git hooks
+# 1. Remover git hooks
 node squads/navigator/scripts/install-hooks.js --uninstall
 
-# 2. Remove runtime data (optional)
+# 2. Remover dados de runtime (opcional)
 rm -rf .aios/navigator/
 
-# 3. Remove squad files (optional)
+# 3. Remover arquivos do squad (opcional)
 rm -rf squads/navigator/
 ```
 
@@ -155,18 +155,18 @@ rm -rf squads/navigator/
 
 ## Troubleshooting
 
-| Issue | Fix |
+| Problema | Solução |
 |-------|-----|
-| Missing dependencies | `npm install js-yaml glob inquirer` |
-| Git hook not triggering | `npm run prepare && node squads/navigator/scripts/install-hooks.js` |
-| Permission denied on scripts | `chmod +x squads/navigator/scripts/**/*.js` |
-| Pipeline map invalid | Check YAML syntax in `data/navigator-pipeline-map.yaml` |
+| Dependências faltando | `npm install js-yaml glob inquirer` |
+| Git hook não disparando | `npm run prepare && node squads/navigator/scripts/install-hooks.js` |
+| Permission denied em scripts | `chmod +x squads/navigator/scripts/**/*.js` |
+| Pipeline map inválido | Checar sintaxe YAML em `data/navigator-pipeline-map.yaml` |
 
-For more, see [TROUBLESHOOTING.md](./TROUBLESHOOTING.md).
+Para mais, veja [TROUBLESHOOTING.md](./TROUBLESHOOTING.md).
 
 ---
 
-## Support
+## Suporte
 
 - **Health Check:** `*navigator-doctor`
 - **Issues:** [github.com/SynkraAI/aios-core/issues](https://github.com/SynkraAI/aios-core/issues)

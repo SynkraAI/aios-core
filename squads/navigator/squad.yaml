@@ -1,7 +1,7 @@
 name: navigator
 version: 1.0.0
 description: Autonomous project navigator and orchestration specialist. Maps roadmaps, detects current phase, prevents context loss, and orchestrates multi-agent workflows for complex AIOS projects.
-author: Luiz Fosc + Craft (@squad-creator)
+author: Luiz Fosc
 license: MIT
 slashPrefix: nav
 

@@ -1,36 +1,36 @@
 # Navigator Examples
 
-This directory contains practical examples demonstrating how to use Navigator for different scenarios.
+Este diretorio contem exemplos praticos demonstrando como usar o Navigator em diferentes cenarios.
 
 ---
 
-## Quick Navigation
+## Navegacao Rapida
 
-| Example | Scenario | Complexity | Time to Read |
-|---------|----------|------------|--------------|
-| [Example 1](#example-1-new-fullstack-app) | New project setup | Beginner | 10 min |
-| [Example 2](#example-2-resume-brownfield) | Resume after break | Intermediate | 8 min |
-| [Example 3](#example-3-multi-chat-epic) | Parallel execution | Advanced | 15 min |
-| [Example Roadmap](#example-roadmap) | Roadmap structure | Reference | 5 min |
-| [Example Checkpoint](#example-checkpoint) | Checkpoint format | Reference | 3 min |
+| Exemplo | Cenario | Complexidade | Tempo de Leitura |
+|---------|---------|--------------|------------------|
+| [Exemplo 1](#exemplo-1-novo-app-fullstack) | Setup de projeto novo | Iniciante | 10 min |
+| [Exemplo 2](#exemplo-2-retomar-projeto-brownfield) | Retomar apos pausa | Intermediario | 8 min |
+| [Exemplo 3](#exemplo-3-orquestracao-de-epic-multi-chat) | Execucao paralela | Avancado | 15 min |
+| [Exemplo Roadmap](#exemplo-roadmap) | Estrutura de roadmap | Referencia | 5 min |
+| [Exemplo Checkpoint](#exemplo-checkpoint) | Formato de checkpoint | Referencia | 3 min |
 
 ---
 
-## Example 1: New Fullstack App
+## Exemplo 1: Novo App Fullstack
 
-**File:** [example-1-new-fullstack-app.md](./example-1-new-fullstack-app.md)
+**Arquivo:** [example-1-new-fullstack-app.md](./example-1-new-fullstack-app.md)
 
-**Scenario:** Starting a new e-commerce platform from scratch
+**Cenario:** Comecar uma nova plataforma de e-commerce do zero
 
-**What you'll learn:**
-- How to map a new project with `*map-project`
-- Review generated roadmaps
-- Navigate through all 10 phases
-- Create checkpoints manually
-- Track progress with `*status-report`
-- Deploy to production
+**O que voce vai aprender:**
+- Como mapear um novo projeto com `*map-project`
+- Revisar roadmaps gerados
+- Navegar pelas 10 fases
+- Criar checkpoints manualmente
+- Acompanhar progresso com `*status-report`
+- Fazer deploy para producao
 
-**Key Commands:**
+**Comandos Principais:**
 ```bash
 @navigator
 *map-project
@@ -40,28 +40,28 @@ This directory contains practical examples demonstrating how to use Navigator fo
 *status-report
 ```
 
-**Use this when:**
-- Starting a new project
-- Need a complete roadmap
-- Want to follow AIOS methodology
-- Solo developer or small team
+**Use quando:**
+- Comecar um novo projeto
+- Precisar de um roadmap completo
+- Quiser seguir a metodologia AIOS
+- Desenvolvedor solo ou time pequeno
 
 ---
 
-## Example 2: Resume Brownfield Project
+## Exemplo 2: Retomar Projeto Brownfield
 
-**File:** [example-2-resume-brownfield.md](./example-2-resume-brownfield.md)
+**Arquivo:** [example-2-resume-brownfield.md](./example-2-resume-brownfield.md)
 
-**Scenario:** Returning to an existing project after 2 weeks vacation
+**Cenario:** Voltar a um projeto existente depois de 2 semanas de ferias
 
-**What you'll learn:**
-- Detect current phase instantly
-- See active and completed stories
-- Identify blockers automatically
-- Review checkpoints history
-- Resume development without wasting time
+**O que voce vai aprender:**
+- Detectar a fase atual instantaneamente
+- Ver stories ativas e completas
+- Identificar blockers automaticamente
+- Revisar historico de checkpoints
+- Retomar desenvolvimento sem perder tempo
 
-**Key Commands:**
+**Comandos Principais:**
 ```bash
 @navigator
 *where-am-i
@@ -69,92 +69,92 @@ This directory contains practical examples demonstrating how to use Navigator fo
 *status-report --detailed
 ```
 
-**Use this when:**
-- Lost context (vacation, weekend, context switch)
-- Working on multiple projects
-- Need quick status overview
-- Onboarding to existing project
+**Use quando:**
+- Perdeu o contexto (ferias, fim de semana, troca de contexto)
+- Trabalhando em multiplos projetos
+- Precisar de um overview rapido do status
+- Onboarding em projeto existente
 
-**Time Saved:** ~45 minutes vs manual context recovery
+**Tempo Economizado:** ~45 minutos vs recuperacao manual de contexto
 
 ---
 
-## Example 3: Multi-Chat Epic Orchestration
+## Exemplo 3: Orquestracao de Epic Multi-Chat
 
-**File:** [example-3-multi-chat-epic.md](./example-3-multi-chat-epic.md)
+**Arquivo:** [example-3-multi-chat-epic.md](./example-3-multi-chat-epic.md)
 
-**Scenario:** Execute 12-story epic in parallel across 4 Claude Code chats
+**Cenario:** Executar epic de 12 stories em paralelo em 4 chats do Claude Code
 
-**What you'll learn:**
-- Analyze story dependencies
-- Split work into waves (dependency groups)
-- Generate prompts for multiple chats
-- Coordinate parallel execution
-- Merge work from multiple chats
+**O que voce vai aprender:**
+- Analisar dependencias de stories
+- Dividir trabalho em waves (grupos de dependencia)
+- Gerar prompts para multiplos chats
+- Coordenar execucao paralela
+- Fazer merge de trabalho de multiplos chats
 
-**Key Commands:**
+**Comandos Principais:**
 ```bash
 @navigator
 *orchestrate epic-3.2
 ```
 
-**Use this when:**
-- Large epics (8+ stories)
-- Want to save time (50% faster)
-- Stories have clear dependencies
-- Comfortable with git branching
+**Use quando:**
+- Epics grandes (8+ stories)
+- Quiser economizar tempo (50% mais rapido)
+- Stories tem dependencias claras
+- Confortavel com git branching
 
-**Time Saved:** 16 hours on a 36-hour epic
-
----
-
-## Example Roadmap (Annotated)
-
-**File:** [example-roadmap.md](./example-roadmap.md)
-
-**Purpose:** Understand roadmap structure and syntax
-
-**What you'll learn:**
-- Front-matter YAML format
-- Phase definitions (inputs, outputs, agents)
-- Transition rules (auto-advance, blocked, loop)
-- Checkpoint configuration
-- Metadata and estimates
-
-**Use this as:**
-- Template for your own roadmaps
-- Reference when customizing pipelines
-- Learning tool for roadmap anatomy
-
-**Highlights:**
-- Complete 10-phase example
-- Inline comments explaining each field
-- Best practices for glob patterns
-- Transition logic examples
+**Tempo Economizado:** 16 horas em um epic de 36 horas
 
 ---
 
-## Example Checkpoint (JSON)
+## Exemplo Roadmap (Anotado)
 
-**File:** [example-checkpoint.json](./example-checkpoint.json)
+**Arquivo:** [example-roadmap.md](./example-roadmap.md)
 
-**Purpose:** Understand checkpoint data structure
+**Proposito:** Entender estrutura e sintaxe de roadmap
 
-**What you'll see:**
-- Checkpoint metadata (ID, timestamp, type)
-- Phase information and completion %
-- Git commit details
-- Story status (completed, in-progress, pending)
-- Metrics (velocity, code stats, time tracking)
-- Environment information
+**O que voce vai aprender:**
+- Formato YAML de front-matter
+- Definicoes de fase (inputs, outputs, agents)
+- Regras de transicao (auto-advance, blocked, loop)
+- Configuracao de checkpoint
+- Metadata e estimativas
 
-**Use this as:**
-- Reference for checkpoint format
-- Understanding what Navigator tracks
-- Debugging checkpoint issues
-- Building custom tooling
+**Use como:**
+- Template para seus proprios roadmaps
+- Referencia ao customizar pipelines
+- Ferramenta de aprendizado para anatomia de roadmap
 
-**Key Fields:**
+**Destaques:**
+- Exemplo completo de 10 fases
+- Comentarios inline explicando cada campo
+- Melhores praticas para padroes glob
+- Exemplos de logica de transicao
+
+---
+
+## Exemplo Checkpoint (JSON)
+
+**Arquivo:** [example-checkpoint.json](./example-checkpoint.json)
+
+**Proposito:** Entender estrutura de dados de checkpoint
+
+**O que voce vai ver:**
+- Metadata de checkpoint (ID, timestamp, type)
+- Informacao de fase e % de conclusao
+- Detalhes de commit git
+- Status de stories (completas, em progresso, pendentes)
+- Metricas (velocity, estatisticas de codigo, time tracking)
+- Informacoes de ambiente
+
+**Use como:**
+- Referencia para formato de checkpoint
+- Entender o que o Navigator rastreia
+- Debug de problemas de checkpoint
+- Construir tooling customizado
+
+**Campos Principais:**
 ```json
 {
   "checkpointId": "cp-{phase}-{type}-{timestamp}",
@@ -167,30 +167,30 @@ This directory contains practical examples demonstrating how to use Navigator fo
 
 ---
 
-## Learning Path
+## Caminho de Aprendizado
 
-### Beginner (New to Navigator)
-1. Read [Example 1](./example-1-new-fullstack-app.md) - Full workflow
-2. Read [Example Roadmap](./example-roadmap.md) - Understand structure
-3. Try Navigator on a small project
+### Iniciante (Novo no Navigator)
+1. Ler [Exemplo 1](./example-1-new-fullstack-app.md) - Workflow completo
+2. Ler [Exemplo Roadmap](./example-roadmap.md) - Entender estrutura
+3. Testar Navigator em um projeto pequeno
 
-### Intermediate (Used Navigator before)
-1. Read [Example 2](./example-2-resume-brownfield.md) - Context recovery
-2. Practice `*where-am-i` daily
-3. Set up automatic checkpoints
+### Intermediario (Ja usou Navigator antes)
+1. Ler [Exemplo 2](./example-2-resume-brownfield.md) - Recuperacao de contexto
+2. Praticar `*where-am-i` diariamente
+3. Configurar checkpoints automaticos
 
-### Advanced (Power User)
-1. Read [Example 3](./example-3-multi-chat-epic.md) - Parallel execution
-2. Customize pipelines for your stack
-3. Create reusable roadmap templates
+### Avancado (Power User)
+1. Ler [Exemplo 3](./example-3-multi-chat-epic.md) - Execucao paralela
+2. Customizar pipelines para seu stack
+3. Criar templates de roadmap reutilizaveis
 
 ---
 
-## Example Projects
+## Projetos de Exemplo
 
-All examples reference realistic projects:
+Todos os exemplos referenciam projetos realistas:
 
-| Project | Type | Tech Stack | Stories |
+| Projeto | Tipo | Tech Stack | Stories |
 |---------|------|------------|---------|
 | E-commerce Platform | Greenfield | Next.js + Node.js | 34 |
 | CRM System | Brownfield | React + Express | 45 |
@@ -199,114 +199,114 @@ All examples reference realistic projects:
 
 ---
 
-## Common Patterns
+## Padroes Comuns
 
-### Pattern 1: Start New Project
+### Padrao 1: Comecar Novo Projeto
 ```bash
 @navigator
 *map-project
-# Describe project
+# Descrever projeto
 *show-roadmap
-# Review and customize
+# Revisar e customizar
 *auto-navigate
-# Follow delegations
+# Seguir delegacoes
 ```
 
-### Pattern 2: Check Status
+### Padrao 2: Checar Status
 ```bash
 @navigator
 *where-am-i
-# See current phase, stories, blockers
+# Ver fase atual, stories, blockers
 ```
 
-### Pattern 3: Create Checkpoint
+### Padrao 3: Criar Checkpoint
 ```bash
 @navigator
 *checkpoint
-# Manual snapshot before major changes
+# Snapshot manual antes de mudancas grandes
 ```
 
-### Pattern 4: Generate Report
+### Padrao 4: Gerar Relatorio
 ```bash
 @navigator
 *status-report --detailed
-# Share with team or stakeholders
+# Compartilhar com time ou stakeholders
 ```
 
-### Pattern 5: Orchestrate Epic
+### Padrao 5: Orquestrar Epic
 ```bash
 @navigator
 *orchestrate epic-{id}
-# Get prompts for parallel chats
+# Pegar prompts para chats paralelos
 ```
 
 ---
 
-## Tips & Tricks
+## Dicas & Truques
 
-### Tip 1: Daily Ritual
-Run `*where-am-i` every morning to start with context:
+### Dica 1: Ritual Diario
+Rode `*where-am-i` toda manha para comecar com contexto:
 ```bash
 @navigator
 *where-am-i
 ```
 
-### Tip 2: Before Long Break
-Create manual checkpoint before vacation:
+### Dica 2: Antes de Pausa Longa
+Crie checkpoint manual antes de ferias:
 ```bash
 @navigator
 *checkpoint
-# Add description of current state
+# Adicionar descricao do estado atual
 ```
 
-### Tip 3: Weekly Reports
-Generate status report for team meetings:
+### Dica 3: Relatorios Semanais
+Gere status report para reunioes de time:
 ```bash
 @navigator
 *status-report --format markdown > weekly-report.md
 ```
 
-### Tip 4: Custom Pipelines
-Copy `example-roadmap.md` and adapt for your tech stack:
+### Dica 4: Pipelines Customizados
+Copie `example-roadmap.md` e adapte para seu tech stack:
 ```bash
 cp squads/navigator/examples/example-roadmap.md .aios/navigator/my-project/roadmap.md
-# Edit phases, agents, outputs to match your project
+# Editar fases, agents, outputs para seu projeto
 ```
 
-### Tip 5: Git Integration
-Enable auto-checkpoints via git hooks:
+### Dica 5: Integracao Git
+Habilite auto-checkpoints via git hooks:
 ```bash
 node squads/navigator/scripts/install-hooks.js install
-# Checkpoints created automatically after commits
+# Checkpoints criados automaticamente apos commits
 ```
 
 ---
 
 ## Troubleshooting Examples
 
-### "Where am I stuck?"
+### "Onde estou travado?"
 ```bash
 @navigator
 *where-am-i
-# Check "Blockers" section
+# Checar secao "Blockers"
 ```
 
-### "Why isn't phase advancing?"
+### "Por que a fase nao avanca?"
 ```bash
-# Check if all outputs exist
+# Verificar se todos outputs existem
 ls docs/stories/story-*.md
-# Compare with roadmap outputs list
+# Comparar com lista de outputs do roadmap
 ```
 
-### "How do I skip a phase?"
+### "Como pular uma fase?"
 ```bash
-# Edit roadmap.md, change next_phase
-# Or use transition rules to skip conditionally
+# Editar roadmap.md, mudar next_phase
+# Ou usar regras de transicao para pular condicionalmente
 ```
 
-### "Can I go back to a previous phase?"
+### "Posso voltar para fase anterior?"
 ```bash
-# Load checkpoint from that phase
+# Carregar checkpoint daquela fase
 @navigator
 *checkpoint --list
 *checkpoint --restore cp-5-manual-20260201-100000
@@ -314,27 +314,27 @@ ls docs/stories/story-*.md
 
 ---
 
-## Contributing Examples
+## Contribuindo Exemplos
 
-Have a great Navigator example? Contribute it!
+Tem um otimo exemplo de Navigator? Contribua!
 
-1. Create new file: `example-N-your-scenario.md`
-2. Follow existing format (Context → Steps → Results → Takeaways)
-3. Include realistic project details
-4. Add to this README index
-5. Submit PR to aios-core
-
----
-
-## Additional Resources
-
-- **Main README:** [../README.md](../README.md) - Complete Navigator documentation
-- **Squad Manifest:** [../squad.yaml](../squad.yaml) - Squad configuration
-- **Workflows:** [../workflows/](../workflows/) - Multi-step YAML workflows
-- **Checklists:** [../checklists/](../checklists/) - Validation checklists
+1. Criar novo arquivo: `example-N-your-scenario.md`
+2. Seguir formato existente (Context → Steps → Results → Takeaways)
+3. Incluir detalhes realistas do projeto
+4. Adicionar ao indice deste README
+5. Submeter PR para aios-core
 
 ---
 
-**Navigator Examples** - Learn by doing 🧭
+## Recursos Adicionais
+
+- **README Principal:** [../README.md](../README.md) - Documentacao completa do Navigator
+- **Squad Manifest:** [../squad.yaml](../squad.yaml) - Configuracao do squad
+- **Workflows:** [../workflows/](../workflows/) - Workflows YAML multi-step
+- **Checklists:** [../checklists/](../checklists/) - Checklists de validacao
+
+---
+
+**Navigator Examples** - Aprender fazendo 🧭
 
 *Last updated: 2026-02-15*

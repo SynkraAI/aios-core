@@ -20,6 +20,11 @@ Checklist:
   - "[ ] Activate agent with command"
   - "[ ] Wait for completion or timeout"
   - "[ ] Create checkpoint on success"
+veto_conditions:
+  - "No roadmap exists for current project → BLOCK (run *map-project first)"
+  - "Phase detection returns null/error → BLOCK (run *navigator-doctor)"
+  - "Pipeline map missing or invalid YAML → BLOCK (run *navigator-doctor)"
+  - "Next phase agent not recognized in AIOS registry → BLOCK (check pipeline map config)"
 ---
 
 # *auto-navigate

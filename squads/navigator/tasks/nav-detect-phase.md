@@ -17,6 +17,10 @@ Checklist:
   - "[ ] Parse story status from front-matter"
   - "[ ] Calculate completion based on outputs"
   - "[ ] Return most advanced phase"
+veto_conditions:
+  - "Pipeline map file missing → BLOCK (navigator-pipeline-map.yaml not found)"
+  - "Pipeline map has invalid YAML syntax → BLOCK (run *navigator-doctor to fix)"
+  - "Project root not an AIOS project (.aios-core/ missing) → BLOCK (run npx aios-core install)"
 ---
 
 # nav-detect-phase (Internal)

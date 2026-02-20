@@ -32,6 +32,9 @@ Checklist:
   - "[ ] Check pipeline map validity"
   - "[ ] Check scripts readable"
   - "[ ] Display health summary"
+veto_conditions:
+  - "Node.js not available in PATH → BLOCK (doctor script requires Node.js runtime)"
+  - "Doctor script file missing or unreadable → BLOCK (reinstall Navigator squad)"
 ---
 
 # Navigator Doctor Task
@@ -192,7 +195,7 @@ post-conditions:
 story: Navigator Sprint 1 - Quick Wins
 version: 1.0.0
 created: 2026-02-15
-author: Craft (squad-creator)
+author: Luiz Fosc
 tags:
   - navigator
   - health-check
