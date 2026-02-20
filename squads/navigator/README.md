@@ -8,13 +8,17 @@
 <h1 align="center">🧭 Navigator</h1>
 
 <p align="center">
-  <strong>Never lose track of your project again.</strong><br />
-  Autonomous project navigation, phase detection, and multi-agent orchestration for AIOS.
+  <strong>Nunca mais perca o fio do seu projeto.</strong><br />
+  Navegacao autonoma, deteccao de fase e orquestracao multi-agente para AIOS.
+</p>
+
+<p align="center">
+  <em>by <a href="https://github.com/luizfosc">Luiz Fosc</a></em>
 </p>
 
 <p align="center">
   <a href="./QUICKSTART.md">Quickstart</a> ·
-  <a href="./examples/">Examples</a> ·
+  <a href="./examples/">Exemplos</a> ·
   <a href="./FAQ.md">FAQ</a> ·
   <a href="./TROUBLESHOOTING.md">Troubleshooting</a> ·
   <a href="./CONTRIBUTING.md">Contributing</a> ·
@@ -23,58 +27,62 @@
 
 ---
 
-## The Problem
+## O Problema
 
-Ever returned to a project after a few days and spent **30–60 minutes** figuring out where you left off? Which stories were done, what was in progress, what's blocked?
+Tudo que fazemos com agentes de IA depende de uma **janela de contexto finita**. Em projetos pequenos, tudo bem. Mas em projetos reais — com dezenas de stories, tracks paralelos, multiplos agentes — a janela estoura. E quando a sessao acaba, **o contexto morre junto**.
 
-In multi-agent AI workflows, this gets worse: agents don't share memory across sessions. Context is lost every time you close a chat.
+Voce volta no dia seguinte e gasta 30-60 minutos reconstruindo onde parou. Qual story estava em andamento, o que estava bloqueado, qual o proximo passo. Multiplica isso por semanas e o custo e absurdo — em tempo, em tokens, em energia mental.
 
-## The Solution
+A gente fala de multi-agent e orquestracao, mas nada disso funciona de verdade se **ninguem lembra o estado do projeto entre sessoes**.
 
-**Navigator** is an autonomous agent that maps your project into a structured roadmap, detects your current phase in real time, creates checkpoints you can restore, and orchestrates multiple agents in parallel — all without you having to manually track anything.
+## A Solucao
+
+**Navigator** nao tenta expandir a janela de contexto — ele **elimina a dependencia dela**. O estado do projeto vive no file system, nao na memoria do modelo.
+
+Ele mapeia seu projeto em um roadmap estruturado, detecta sua fase atual em tempo real escaneando o disco, cria checkpoints que voce pode restaurar, e orquestra multiplos agentes em paralelo — tudo sem tracking manual.
 
 ```
-You: "Where am I?"
+Voce: "Onde eu estou?"
 
-Navigator: 📍 Phase 7 — Development (67% complete)
-           ✅ Done: Research, PRD, Architecture, Epics, Stories, Validation
-           🔄 Active: Story 7.3 (auth middleware)
-           ⏳ Next: Story 7.4 → @dev *develop
-           🚫 Blockers: None
+Navigator: 📍 Fase 7 — Desenvolvimento (67% completo)
+           ✅ Feito: Pesquisa, PRD, Arquitetura, Epicos, Stories, Validacao
+           🔄 Ativa: Story 7.3 (auth middleware)
+           ⏳ Proximo: Story 7.4 → @dev *develop
+           🚫 Blockers: Nenhum
 ```
 
 ---
 
-## Key Features
+## Funcionalidades
 
-| Feature | What it does |
-|---------|-------------|
-| **Roadmap Generation** | Describe your project in plain text → get a structured 10-phase roadmap |
-| **Phase Detection** | Scans your file system to detect exactly where you are |
-| **Autonomous Navigation** | Identifies the next agent + command and delegates automatically |
-| **Checkpoints** | Snapshots of project state — restore context in seconds |
-| **Multi-Chat Orchestration** | Split an epic across 4 parallel Claude Code chats |
-| **Health Diagnostics** | 7-point check to validate your Navigator setup |
-| **Git Hook Auto-Update** | Roadmap updates silently on every commit |
+| Funcionalidade | O que faz |
+|----------------|-----------|
+| **Geracao de Roadmap** | Descreva seu projeto em texto livre → receba um roadmap estruturado de 10 fases |
+| **Deteccao de Fase** | Escaneia o file system pra detectar exatamente onde voce esta |
+| **Navegacao Autonoma** | Identifica o proximo agente + comando e delega automaticamente |
+| **Checkpoints** | Snapshots do estado do projeto — restaure contexto em segundos |
+| **Orquestracao Multi-Chat** | Divida um epic em 4 chats paralelos do Claude Code |
+| **Diagnostico de Saude** | 7 verificacoes pra validar o setup do Navigator |
+| **Auto-Update via Git Hook** | Roadmap atualiza silenciosamente a cada commit |
 
 ---
 
-## How It Works
+## Como Funciona
 
-Navigator follows a **10-phase pipeline** that maps to the AIOS development methodology. Each phase has a designated agent, clear inputs/outputs, and automatic transitions:
+O Navigator segue um **pipeline de 10 fases** mapeado para a metodologia AIOS. Cada fase tem um agente designado, inputs/outputs claros, e transicoes automaticas:
 
 ```mermaid
 graph LR
-    P1[1. Research<br/>@analyst] --> P2[2. PRD<br/>@pm]
-    P2 --> P3[3. Architecture<br/>@architect]
-    P3 --> P4[4. Epics<br/>@pm]
+    P1[1. Pesquisa<br/>@analyst] --> P2[2. PRD<br/>@pm]
+    P2 --> P3[3. Arquitetura<br/>@architect]
+    P3 --> P4[4. Epicos<br/>@pm]
     P4 --> P5[5. Stories<br/>@sm]
-    P5 --> P6[6. Validation<br/>@po]
-    P6 --> P7[7. Development<br/>@dev]
+    P5 --> P6[6. Validacao<br/>@po]
+    P6 --> P7[7. Desenvolvimento<br/>@dev]
     P7 --> P8[8. QA<br/>@qa]
-    P8 --> P9{Pass?}
-    P9 -->|No| Fix[9. Fix<br/>@dev] --> P8
-    P9 -->|Yes| P10[10. Deploy<br/>@devops]
+    P8 --> P9{Passou?}
+    P9 -->|Nao| Fix[9. Correcao<br/>@dev] --> P8
+    P9 -->|Sim| P10[10. Deploy<br/>@devops]
 
     style P1 fill:#E3F2FD
     style P2 fill:#E8F5E9
@@ -88,19 +96,19 @@ graph LR
     style P10 fill:#E1F5FE
 ```
 
-Phase detection works by checking which output files exist on disk. No manual tracking needed — Navigator reads the truth directly from your file system.
+A deteccao de fase funciona verificando quais arquivos de output existem no disco. Sem tracking manual — o Navigator le a verdade direto do file system.
 
 ---
 
-## Quick Start
+## Inicio Rapido
 
-### 1. Activate Navigator
+### 1. Ativar o Navigator
 
 ```bash
 @navigator
 ```
 
-### 2. Check health
+### 2. Verificar saude
 
 ```bash
 *navigator-doctor
@@ -108,63 +116,63 @@ Phase detection works by checking which output files exist on disk. No manual tr
 
 ```
 ✓ Node.js v20.x (>= 18.0.0)
-✓ Git available
-✓ Dependencies installed
-✓ Git hooks active
-✓ Directory structure valid
-✓ Pipeline map valid (10 phases)
-✓ Scripts readable
+✓ Git disponivel
+✓ Dependencias instaladas
+✓ Git hooks ativos
+✓ Estrutura de diretorios valida
+✓ Pipeline map valido (10 fases)
+✓ Scripts legiveis
 
-✅ Navigator is healthy! (7/7)
+✅ Navigator saudavel! (7/7)
 ```
 
-### 3. Map a new project
+### 3. Mapear um novo projeto
 
 ```bash
 *map-project
 ```
 
-Describe your project in free text. Navigator will:
-1. Parse entities, workflows, and complexity
-2. Ask clarifying questions
-3. Generate a dual roadmap (central + local sync)
-4. Identify your starting phase
+Descreva seu projeto em texto livre. O Navigator vai:
+1. Extrair entidades, workflows e complexidade
+2. Fazer perguntas de esclarecimento
+3. Gerar um roadmap dual (central + local sincronizados)
+4. Identificar sua fase inicial
 
-### 4. Navigate
+### 4. Navegar
 
 ```bash
-*where-am-i     # See current phase + progress
-*auto-navigate   # Delegate to the next agent automatically
+*where-am-i     # Ver fase atual + progresso
+*auto-navigate   # Delegar pro proximo agente automaticamente
 ```
 
-That's it. Navigator handles the rest.
+So isso. O Navigator cuida do resto.
 
-> For a complete walkthrough, see the [Quickstart Guide](./QUICKSTART.md).
-
----
-
-## Commands
-
-| Command | Description | Use when... |
-|---------|-------------|-------------|
-| `*map-project` | Generate roadmap from project description | Starting a new project |
-| `*where-am-i` | Detect current phase, progress %, blockers | Daily check-in or after a break |
-| `*show-roadmap` | Display the full roadmap | Need the big picture |
-| `*auto-navigate` | Delegate to next agent automatically | Ready to advance |
-| `*resume-project` | Restore context from last checkpoint | Returning after days/weeks |
-| `*orchestrate {epic}` | Generate multi-chat prompts for parallel work | Large epics (8+ stories) |
-| `*checkpoint` | Save a manual snapshot | Before risky operations |
-| `*status-report` | Generate a detailed progress report | Team meetings, stakeholder updates |
-| `*update-roadmap` | Force roadmap sync | After manual story changes |
-| `*navigator-doctor` | Run 7-point health check | Debugging issues |
+> Para um passo-a-passo completo, veja o [Quickstart Guide](./QUICKSTART.md).
 
 ---
 
-## Architecture
+## Comandos
+
+| Comando | Descricao | Quando usar |
+|---------|-----------|-------------|
+| `*map-project` | Gerar roadmap a partir de descricao do projeto | Iniciando um novo projeto |
+| `*where-am-i` | Detectar fase atual, progresso %, blockers | Check-in diario ou apos uma pausa |
+| `*show-roadmap` | Exibir o roadmap completo | Precisa da visao geral |
+| `*auto-navigate` | Delegar pro proximo agente automaticamente | Pronto pra avancar |
+| `*resume-project` | Restaurar contexto do ultimo checkpoint | Voltando apos dias/semanas |
+| `*orchestrate {epic}` | Gerar prompts multi-chat pra trabalho paralelo | Epics grandes (8+ stories) |
+| `*checkpoint` | Salvar snapshot manual | Antes de operacoes arriscadas |
+| `*status-report` | Gerar relatorio detalhado de progresso | Reunioes de time, updates pra stakeholders |
+| `*update-roadmap` | Forcar sincronizacao do roadmap | Apos mudancas manuais nas stories |
+| `*navigator-doctor` | Executar health check de 7 pontos | Debugando problemas |
+
+---
+
+## Arquitetura
 
 ```mermaid
 graph TB
-    User[User] -->|activates| Agent[Navigator Agent<br/>Vega]
+    User[Usuario] -->|ativa| Agent[Navigator Agent<br/>Vega]
 
     Agent --> Tasks
 
@@ -179,7 +187,7 @@ graph TB
 
     Tasks --> Scripts
 
-    subgraph Scripts [Core Scripts]
+    subgraph Scripts [Scripts Core]
         PhaseDetect[phase-detector.js]
         RoadmapSync[roadmap-sync.js]
         CheckpointMgr[checkpoint-manager.js]
@@ -189,14 +197,14 @@ graph TB
 
     Scripts --> Storage
 
-    subgraph Storage [Data Layer]
-        Pipeline[pipeline-map.yaml<br/>10 phases]
+    subgraph Storage [Camada de Dados]
+        Pipeline[pipeline-map.yaml<br/>10 fases]
         Roadmap[roadmap.md<br/>central + local]
         Checkpoints[checkpoints/<br/>snapshots]
     end
 
     GitHook[post-commit hook] -.->|auto-update| RoadmapSync
-    PhaseDetect -.->|scans| FS[(File System)]
+    PhaseDetect -.->|escaneia| FS[(File System)]
 
     style Agent fill:#4A90E2,color:#fff
     style Scripts fill:#E8F5E9
@@ -204,108 +212,108 @@ graph TB
     style Tasks fill:#F3E5F5
 ```
 
-### Core Components
+### Componentes Core
 
-| Component | File | Purpose |
-|-----------|------|---------|
-| **Phase Detector** | `phase-detector.js` | Scans file system outputs to determine current phase |
-| **Roadmap Sync** | `roadmap-sync.js` | Bidirectional sync between central and local roadmap |
-| **Checkpoint Manager** | `checkpoint-manager.js` | Creates/loads project state snapshots |
-| **Orchestrator** | `orchestrator.js` | Generates multi-chat prompts and delegation commands |
-| **Doctor** | `doctor.js` | 7-point health validation |
-| **Post-Commit Hook** | `post-commit-hook.js` | Auto-updates roadmap when stories change |
+| Componente | Arquivo | Proposito |
+|------------|---------|-----------|
+| **Phase Detector** | `phase-detector.js` | Escaneia outputs do file system pra determinar fase atual |
+| **Roadmap Sync** | `roadmap-sync.js` | Sincronizacao bidirecional entre roadmap central e local |
+| **Checkpoint Manager** | `checkpoint-manager.js` | Cria/carrega snapshots de estado do projeto |
+| **Orchestrator** | `orchestrator.js` | Gera prompts multi-chat e comandos de delegacao |
+| **Doctor** | `doctor.js` | Validacao de saude em 7 pontos |
+| **Post-Commit Hook** | `post-commit-hook.js` | Auto-atualiza roadmap quando stories mudam |
 
-### Data Flow
+### Fluxo de Dados
 
 ```
-Central Roadmap (.aios/navigator/{project}/roadmap.md)
-       ↕  roadmap-sync.js (timestamp-based conflict resolution)
-Local Roadmap (docs/roadmap.md)
+Roadmap Central (.aios/navigator/{projeto}/roadmap.md)
+       ↕  roadmap-sync.js (resolucao de conflito por timestamp)
+Roadmap Local (docs/roadmap.md)
 
-Triggers:
+Gatilhos:
   - Manual:  *update-roadmap
-  - Auto:    post-commit hook (when docs/stories/*.md changes)
+  - Auto:    post-commit hook (quando docs/stories/*.md muda)
 ```
 
 ---
 
-## Examples
+## Exemplos
 
-### New Fullstack App
+### Novo App Fullstack
 
-Map a project from scratch, navigate through all 10 phases, deploy to production.
+Mapeie um projeto do zero, navegue pelas 10 fases, faca deploy em producao.
 
 ```bash
 @navigator
 *map-project
-> "SaaS task manager with real-time collaboration, Kanban board,
-   and team analytics. Next.js + Supabase."
+> "SaaS de gerenciamento de tarefas com colaboracao em tempo real,
+   Kanban board e analytics de time. Next.js + Supabase."
 
-# Navigator generates roadmap → start at Phase 1
+# Navigator gera roadmap → comeca na Fase 1
 *auto-navigate
-# → Activates @analyst for market research
+# → Ativa @analyst pra pesquisa de mercado
 ```
 
-[Full example →](./examples/example-1-new-fullstack-app.md)
+[Exemplo completo →](./examples/example-1-new-fullstack-app.md)
 
-### Resume After a Break
+### Retomar Apos Uma Pausa
 
-Lost context? Get it back in 30 seconds instead of 30 minutes.
+Perdeu o contexto? Recupere em 30 segundos ao inves de 30 minutos.
 
 ```bash
 @navigator
 *where-am-i
 
-# Output: Phase 5 — Stories (75% complete)
-# Last checkpoint: 2026-02-15
-# Active: Story 5.8 (payment integration)
+# Output: Fase 5 — Stories (75% completo)
+# Ultimo checkpoint: 2026-02-15
+# Ativa: Story 5.8 (integracao de pagamento)
 
 *auto-navigate
-# → Activates @sm to continue story drafting
+# → Ativa @sm pra continuar drafting de stories
 ```
 
-[Full example →](./examples/example-2-resume-brownfield.md)
+[Exemplo completo →](./examples/example-2-resume-brownfield.md)
 
-### Multi-Chat Parallel Execution
+### Execucao Paralela Multi-Chat
 
-Turn a 36-hour sequential epic into 20 hours of parallel work.
+Transforme um epic de 36 horas sequenciais em 20 horas de trabalho paralelo.
 
 ```bash
 @navigator
 *orchestrate epic-core-features
 
-# Generates 4 prompts:
-# Chat 1: @sm coordinator (manages waves)
-# Chat 2: @dev Wave 1 (auth + user stories)
-# Chat 3: @dev Wave 2 (dashboard stories)
-# Chat 4: @dev Wave 3 (API stories)
+# Gera 4 prompts:
+# Chat 1: @sm coordenador (gerencia waves)
+# Chat 2: @dev Wave 1 (stories de auth + usuario)
+# Chat 3: @dev Wave 2 (stories de dashboard)
+# Chat 4: @dev Wave 3 (stories de API)
 ```
 
-[Full example →](./examples/example-3-multi-chat-epic.md)
+[Exemplo completo →](./examples/example-3-multi-chat-epic.md)
 
 ---
 
-## Multi-Chat Orchestration
+## Orquestracao Multi-Chat
 
-This is Navigator's most powerful feature. It analyzes story dependencies, groups them into parallel waves, and generates ready-to-paste prompts for separate Claude Code sessions:
+A feature mais poderosa do Navigator. Ele analisa dependencias entre stories, agrupa em waves paralelas, e gera prompts prontos pra colar em sessoes separadas do Claude Code:
 
 ```mermaid
 graph TB
-    Orchestrate[*orchestrate epic-1] --> Analyze[Analyze Dependencies]
+    Orchestrate[*orchestrate epic-1] --> Analyze[Analisar Dependencias]
 
-    Analyze --> W1[Wave 1<br/>No dependencies]
-    Analyze --> W2[Wave 2<br/>Depends on Wave 1]
-    Analyze --> W3[Wave 3<br/>Depends on Wave 2]
+    Analyze --> W1[Wave 1<br/>Sem dependencias]
+    Analyze --> W2[Wave 2<br/>Depende da Wave 1]
+    Analyze --> W3[Wave 3<br/>Depende da Wave 2]
 
-    W1 --> Chat2[Chat 2: @dev<br/>Wave 1 stories]
-    W2 --> Chat3[Chat 3: @dev<br/>Wave 2 stories]
-    W3 --> Chat4[Chat 4: @dev<br/>Wave 3 stories]
+    W1 --> Chat2[Chat 2: @dev<br/>Stories Wave 1]
+    W2 --> Chat3[Chat 3: @dev<br/>Stories Wave 2]
+    W3 --> Chat4[Chat 4: @dev<br/>Stories Wave 3]
 
-    Chat2 -.-> Chat1[Chat 1: @sm<br/>Coordinator]
+    Chat2 -.-> Chat1[Chat 1: @sm<br/>Coordenador]
     Chat3 -.-> Chat1
     Chat4 -.-> Chat1
 
-    Chat1 --> Merge[Final Merge]
+    Chat1 --> Merge[Merge Final]
 
     style Chat1 fill:#E8F5E9
     style Chat2 fill:#E3F2FD
@@ -313,78 +321,78 @@ graph TB
     style Chat4 fill:#F3E5F5
 ```
 
-**Result:** 4 prompts you copy into separate Claude Code windows. Each chat works independently on its wave. The coordinator chat manages handoffs and resolves conflicts.
+**Resultado:** 4 prompts que voce copia em janelas separadas do Claude Code. Cada chat trabalha independentemente na sua wave. O chat coordenador gerencia handoffs e resolve conflitos.
 
 ---
 
-## Checkpoint System
+## Sistema de Checkpoints
 
-Checkpoints are snapshots of your project state — think of them as "save points" in a game.
+Checkpoints sao snapshots do estado do seu projeto — pense neles como "save points" de um jogo.
 
 ```bash
-# Create a checkpoint before a risky operation
+# Criar checkpoint antes de uma operacao arriscada
 *checkpoint
 
-# Checkpoint includes:
-# - Current phase and completion %
-# - All completed stories (with details)
-# - Modified files (git diff)
-# - Recent commits (last 10)
-# - Velocity metrics
+# O checkpoint inclui:
+# - Fase atual e % de completude
+# - Todas stories completadas (com detalhes)
+# - Arquivos modificados (git diff)
+# - Commits recentes (ultimos 10)
+# - Metricas de velocidade
 ```
 
-**Storage:** `.aios/navigator/{project}/checkpoints/`
+**Storage:** `.aios/navigator/{projeto}/checkpoints/`
 
-**Auto-checkpoints:** The post-commit git hook creates checkpoints automatically when a phase transition is detected.
+**Auto-checkpoints:** O git hook post-commit cria checkpoints automaticamente quando detecta transicao de fase.
 
-**Restore:** Use `*resume-project` to load the latest checkpoint and restore full context.
+**Restaurar:** Use `*resume-project` pra carregar o ultimo checkpoint e restaurar contexto completo.
 
 ---
 
-## Installation
+## Instalacao
 
-Navigator is included with AIOS Core. After running `npx aios-core install`, it's ready to use.
+O Navigator ja vem incluso no AIOS Core. Apos rodar `npx aios-core install`, esta pronto pra uso.
 
-### Verify
+### Verificar
 
 ```bash
 @navigator
 *navigator-doctor
 ```
 
-### Manual Setup (if health check fails)
+### Setup Manual (se o health check falhar)
 
 ```bash
-# Install dependencies
+# Instalar dependencias
 npm install js-yaml glob inquirer
 
-# Install git hooks
+# Instalar git hooks
 node squads/navigator/scripts/install-hooks.js
 
-# Verify
+# Verificar
 *navigator-doctor
 ```
 
-> For detailed instructions, see [INSTALL.md](./INSTALL.md).
+> Para instrucoes detalhadas, veja [INSTALL.md](./INSTALL.md).
 
 ---
 
-## Configuration
+## Configuracao
 
-### Environment Variables
+### Variaveis de Ambiente
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `NAVIGATOR_AUTO_MODE` | `false` | Skip interactive confirmations (used by git hooks) |
+| Variavel | Padrao | Descricao |
+|----------|--------|-----------|
+| `NAVIGATOR_AUTO_MODE` | `false` | Pula confirmacoes interativas (usado pelo git hook) |
 
-### Custom Pipeline
+### Pipeline Customizado
 
-Edit `.aios-core/development/data/navigator-pipeline-map.yaml` to customize:
+Edite `.aios-core/development/data/navigator-pipeline-map.yaml` pra customizar:
 
 ```yaml
 phases:
   - id: 1
-    name: "Research"
+    name: "Pesquisa"
     agent: "analyst"
     icon: "🔍"
     command: "*brainstorm"
@@ -393,25 +401,25 @@ phases:
     next_phase: 2
 ```
 
-You can add, remove, or reorder phases. Navigator adapts automatically.
+Voce pode adicionar, remover ou reordenar fases. O Navigator se adapta automaticamente.
 
 ---
 
-## Project Structure
+## Estrutura do Projeto
 
 ```
 squads/navigator/
-├── squad.yaml                    # Squad manifest
-├── README.md                     # This file
-├── QUICKSTART.md                 # 5-minute setup guide
-├── INSTALL.md                    # Detailed installation
-├── FAQ.md                        # 40+ answered questions
-├── TROUBLESHOOTING.md            # Common problems & fixes
-├── CONTRIBUTING.md               # How to contribute
-├── CHANGELOG.md                  # Version history
+├── squad.yaml                    # Manifesto do squad
+├── README.md                     # Este arquivo
+├── QUICKSTART.md                 # Guia de 5 minutos
+├── INSTALL.md                    # Instalacao detalhada
+├── FAQ.md                        # 40+ perguntas respondidas
+├── TROUBLESHOOTING.md            # Problemas comuns e solucoes
+├── CONTRIBUTING.md               # Como contribuir
+├── CHANGELOG.md                  # Historico de versoes
 ├── agents/
-│   └── navigator.md              # Vega persona definition
-├── tasks/                        # 10 executable task definitions
+│   └── navigator.md              # Definicao da persona Vega
+├── tasks/                        # 10 definicoes de tasks executaveis
 │   ├── nav-map-project.md
 │   ├── nav-where-am-i.md
 │   ├── nav-auto-navigate.md
@@ -423,7 +431,7 @@ squads/navigator/
 │   ├── nav-detect-phase.md
 │   └── nav-doctor.md
 ├── scripts/
-│   ├── navigator/                # Core engine
+│   ├── navigator/                # Engine core
 │   │   ├── roadmap-sync.js
 │   │   ├── phase-detector.js
 │   │   ├── checkpoint-manager.js
@@ -431,19 +439,19 @@ squads/navigator/
 │   │   ├── doctor.js
 │   │   └── post-commit-hook.js
 │   └── install-hooks.js
-├── templates/                    # Mustache-style templates
+├── templates/                    # Templates estilo Mustache
 │   ├── nav-roadmap-tmpl.md
 │   ├── nav-checkpoint-tmpl.md
 │   ├── nav-status-report-tmpl.md
 │   └── nav-orchestration-tmpl.md
-├── checklists/                   # Validation checklists
+├── checklists/                   # Checklists de validacao
 │   ├── checkpoint-validation.md
 │   ├── roadmap-validation.md
 │   └── orchestration-validation.md
-├── workflows/                    # Multi-step workflows (YAML)
+├── workflows/                    # Workflows multi-step (YAML)
 ├── data/
 │   └── navigator-pipeline-map.yaml
-└── examples/                     # Practical tutorials
+└── examples/                     # Tutoriais praticos
     ├── example-1-new-fullstack-app.md
     ├── example-2-resume-brownfield.md
     ├── example-3-multi-chat-epic.md
@@ -452,110 +460,110 @@ squads/navigator/
 
 ---
 
-## When to Use Navigator
+## Quando Usar o Navigator
 
-| Scenario | Navigator Command |
-|----------|------------------|
-| Starting a new project | `*map-project` |
-| Lost track of where I am | `*where-am-i` |
-| Returning after a break | `*resume-project` |
-| Ready to advance to next phase | `*auto-navigate` |
-| Large epic, want parallel execution | `*orchestrate {epic}` |
-| Before a risky refactor | `*checkpoint` |
-| Need a progress report | `*status-report` |
-| Something seems broken | `*navigator-doctor` |
+| Cenario | Comando |
+|---------|---------|
+| Iniciando um novo projeto | `*map-project` |
+| Perdi a nocao de onde estou | `*where-am-i` |
+| Voltando apos uma pausa | `*resume-project` |
+| Pronto pra avancar de fase | `*auto-navigate` |
+| Epic grande, quero paralelizar | `*orchestrate {epic}` |
+| Antes de um refactor arriscado | `*checkpoint` |
+| Preciso de um relatorio de progresso | `*status-report` |
+| Algo parece quebrado | `*navigator-doctor` |
 
-### When NOT to Use Navigator
+### Quando NAO Usar o Navigator
 
-| Need | Use Instead |
-|------|-------------|
-| Write code | `@dev` |
-| Create a PRD | `@pm` |
-| Design architecture | `@architect` |
-| Run tests | `@qa` |
-| Push to remote | `@devops` |
+| Necessidade | Use |
+|-------------|-----|
+| Escrever codigo | `@dev` |
+| Criar um PRD | `@pm` |
+| Projetar arquitetura | `@architect` |
+| Rodar testes | `@qa` |
+| Push pro remote | `@devops` |
 
-Navigator **orchestrates** — it doesn't execute. It tells you (or the right agent) what to do next.
-
----
-
-## FAQ Highlights
-
-**Q: Does Navigator work with existing projects?**
-A: Yes. Run `*where-am-i` and Navigator will detect your current phase by scanning file outputs. No prior setup needed.
-
-**Q: What if my project doesn't follow the 10-phase pipeline?**
-A: Edit `navigator-pipeline-map.yaml` to match your workflow. You can add, remove, or reorder phases.
-
-**Q: Can I use Navigator without AIOS agents?**
-A: Navigator generates commands for AIOS agents, but the roadmap, checkpoints, and phase detection work standalone.
-
-**Q: Is data stored remotely?**
-A: No. Everything is local — `.aios/navigator/` in your project root. Nothing leaves your machine.
-
-> [Full FAQ with 40+ questions →](./FAQ.md)
+O Navigator **orquestra** — ele nao executa. Ele diz pra voce (ou pro agente certo) qual o proximo passo.
 
 ---
 
-## Contributing
+## FAQ - Destaques
 
-We welcome contributions! Whether it's fixing a bug, adding a feature, or improving docs.
+**P: O Navigator funciona com projetos existentes?**
+R: Sim. Rode `*where-am-i` e o Navigator detecta sua fase atual escaneando os outputs dos arquivos. Nenhum setup previo necessario.
+
+**P: E se meu projeto nao segue o pipeline de 10 fases?**
+R: Edite `navigator-pipeline-map.yaml` pra encaixar no seu workflow. Voce pode adicionar, remover ou reordenar fases.
+
+**P: Posso usar o Navigator sem os agentes AIOS?**
+R: O Navigator gera comandos pra agentes AIOS, mas o roadmap, checkpoints e deteccao de fase funcionam standalone.
+
+**P: Os dados sao armazenados remotamente?**
+R: Nao. Tudo e local — `.aios/navigator/` na raiz do seu projeto. Nada sai da sua maquina.
+
+> [FAQ completo com 40+ perguntas →](./FAQ.md)
+
+---
+
+## Contribuindo
+
+Contribuicoes sao bem-vindas! Seja corrigindo um bug, adicionando uma feature, ou melhorando a documentacao.
 
 ```bash
-# 1. Fork and clone
+# 1. Fork e clone
 git clone https://github.com/SynkraAI/aios-core.git
 
-# 2. Create a branch
-git checkout -b feat/navigator-improvement
+# 2. Crie uma branch
+git checkout -b feat/navigator-melhoria
 
-# 3. Make changes and test
+# 3. Faca suas mudancas e teste
 @navigator
 *navigator-doctor
 
-# 4. Submit a PR
+# 4. Envie um PR
 ```
 
-> [Contributing Guide →](./CONTRIBUTING.md)
+> [Guia de Contribuicao →](./CONTRIBUTING.md)
 
 ---
 
 ## Roadmap
 
-### v1.0 (Current)
-- [x] 10-phase pipeline with auto-detection
-- [x] Bidirectional roadmap sync
-- [x] Checkpoint system
-- [x] Multi-chat orchestration
-- [x] Git hook auto-updates
-- [x] Health diagnostics (7 checks)
-- [x] 17 passing tests
+### v1.0 (Atual)
+- [x] Pipeline de 10 fases com auto-deteccao
+- [x] Sincronizacao bidirecional de roadmap
+- [x] Sistema de checkpoints
+- [x] Orquestracao multi-chat
+- [x] Auto-update via git hook
+- [x] Diagnostico de saude (7 checks)
+- [x] 17 testes passando
 
-### v2.0 (Planned)
-- [ ] Visual roadmap in AIOS Dashboard
-- [ ] Checkpoint restore (full state recovery)
-- [ ] Agent spawning (auto-delegate without copy-paste)
-- [ ] Multi-project tracking
-- [ ] Session persistence across chats
-- [ ] Custom pipeline templates marketplace
-
----
-
-## License
-
-MIT License — See [LICENSE](../../LICENSE) in the aios-core repository.
+### v2.0 (Planejado)
+- [ ] Roadmap visual no AIOS Dashboard
+- [ ] Restore de checkpoint (recuperacao completa de estado)
+- [ ] Agent spawning (delegacao automatica sem copy-paste)
+- [ ] Tracking multi-projeto
+- [ ] Persistencia de sessao entre chats
+- [ ] Marketplace de templates de pipeline customizados
 
 ---
 
-## Support
+## Licenca
+
+MIT License — Veja [LICENSE](../../LICENSE) no repositorio aios-core.
+
+---
+
+## Suporte
 
 - **Issues:** [github.com/SynkraAI/aios-core/issues](https://github.com/SynkraAI/aios-core/issues)
-- **Discussions:** [github.com/SynkraAI/aios-core/discussions](https://github.com/SynkraAI/aios-core/discussions)
+- **Discussoes:** [github.com/SynkraAI/aios-core/discussions](https://github.com/SynkraAI/aios-core/discussions)
 - **Health Check:** `*navigator-doctor`
 - **Docs:** [QUICKSTART](./QUICKSTART.md) · [FAQ](./FAQ.md) · [TROUBLESHOOTING](./TROUBLESHOOTING.md)
 
 ---
 
 <p align="center">
-  <strong>Navigator Squad</strong> — Never lose track of your project again 🧭<br />
-  <sub>Crafted with care by the <a href="https://github.com/SynkraAI">AIOS community</a></sub>
+  <strong>Navigator Squad</strong> — Nunca mais perca o fio do seu projeto 🧭<br />
+  <sub>by <a href="https://github.com/luizfosc">Luiz Fosc</a></sub>
 </p>
