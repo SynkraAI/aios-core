@@ -22,6 +22,11 @@ Core framework stabilization and community infrastructure:
 - [x] Quality Gates (3 layers: pre-commit, pre-push, CI/CD)
 - [x] Template Engine
 - [x] CodeRabbit integration for automated code review
+- [x] Magic Bob autonomous orchestration system
+- [x] Navigator squad for project navigation
+- [x] IDE sync system (Claude Code, Cursor, Windsurf, Codex)
+- [x] Code Intelligence & Entity Registry (578 entities)
+- [x] 15 squads deployed (audio-reels, content-engine, hormozi, etc.)
 - [ ] Open-source community infrastructure (in progress)
 
 ### Community Building
@@ -31,6 +36,22 @@ Core framework stabilization and community infrastructure:
 - [x] Feature request process (FEATURE_PROCESS.md)
 - [x] Public roadmap (this document!)
 - [ ] Expansion pack registry
+
+## Internal Development Tracking
+
+> For detailed internal tracking, see `.aios/navigator/aios-core/roadmap.md`
+
+| Track | Epic | Progress | Status |
+|-------|------|----------|--------|
+| BOB Validation | EPIC-BOB-VAL | 6/12 (50%) | In Progress |
+| Mind Cloning | EPIC-MC | 0/1 (0%) | Pending |
+| Design Systems | EPIC-DS | 0/3 (0%) | In Progress |
+| Video Transcriber | EPIC-VT | 0/1 (0%) | In Review |
+| CLI DX | EPIC-CLI-DX | 0/1 (0%) | Pending |
+| Synapse Engine | EPIC-SYN | 0/4 (0%) | Pending |
+| Agent Identity | EPIC-6.1 | 0/1 (0%) | Ready |
+
+**Active stories:** 12 | **Completed:** 15 | **Velocity:** ~12 commits/day
 
 ## Next Up (Q2 2026)
 
@@ -116,4 +137,4 @@ This roadmap represents our current plans and is subject to change based on comm
 
 ---
 
-*Last updated: 2025-12-10*
+*Last updated: 2026-02-19*
