@@ -47,7 +47,7 @@ Navigator squad is production-ready with complete functionality for project navi
   - `checkpoint-validation.md`
   - `orchestration-validation.md`
 
-#### Sprint 4: Documentation & Polish
+#### Sprint 4: Documentation & Community Release
 - Mermaid diagrams in README (5 visual diagrams):
   - Navigator component architecture
   - AIOS 10-phase pipeline
@@ -61,11 +61,16 @@ Navigator squad is production-ready with complete functionality for project navi
   - Annotated roadmap template
   - Checkpoint JSON reference
   - Examples index and learning path
-- Publication preparation:
+- Community-ready documentation rewrite:
+  - README.md polished for open-source audience (centered header, badges, clean visual hierarchy)
+  - QUICKSTART.md simplified with Path A/B flow
+  - INSTALL.md corrected ("included with AIOS Core" as primary path)
+  - FAQ.md with 40+ questions (unchanged, already excellent)
+  - TROUBLESHOOTING.md with error→cause→fix pattern (unchanged)
+  - CONTRIBUTING.md with Code of Conduct (unchanged)
   - CHANGELOG.md (this file)
   - .squadignore
   - LICENSE (MIT)
-  - CONTRIBUTING.md
 
 ### Components
 
@@ -133,7 +138,7 @@ Navigator squad is production-ready with complete functionality for project navi
 - **Test Coverage:** 17 unit tests passing
 - **ESLint:** 0 errors, 0 warnings
 - **Validation:** Passed JSON Schema validation
-- **Documentation:** 2,500+ lines across all docs
+- **Documentation:** 3,000+ lines across all docs
 - **Code Quality:** Follows AIOS coding standards
 
 ### Technical Details

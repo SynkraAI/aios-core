@@ -1,278 +1,169 @@
-# Navigator Quickstart Guide
+# Quickstart Guide
 
-Get started with Navigator in 5 minutes or less.
-
----
-
-## Prerequisites
-
-Before you begin:
-- ✅ AIOS project initialized (`.aios-core/` exists)
-- ✅ Node.js >= 18.0.0 installed
-- ✅ Git available
+Get Navigator running in under 5 minutes.
 
 ---
 
-## 1. Verify Navigator Installation (30 seconds)
+## Step 1: Health Check (30 seconds)
 
 ```bash
 @navigator
-```
-
-**Expected output:**
-```
-🧭 Navigator Agent ready
-
-Available commands:
-  *map-project
-  *where-am-i
-  *auto-navigate
-  ...
-```
-
----
-
-## 2. Run Health Check (15 seconds)
-
-```bash
 *navigator-doctor
 ```
 
-**Expected output:**
-```
-🏥 Navigator Health Check
-
-✓ Node.js Version: v20.11.0 (>= 18.0.0)
-✓ Git: Available
-✓ NPM Dependencies: All installed
-✓ Git Hooks: Installed
-✓ Directory Structure: Valid
-✓ Pipeline Map: Valid YAML
-✓ Scripts: Executable
-
-✅ Navigator is healthy! (7/7 checks passed)
-```
-
-**If any check fails**, see [Troubleshooting](#troubleshooting) below.
+All 7 checks should pass. If not, see [INSTALL.md](./INSTALL.md).
 
 ---
 
-## 3. Choose Your Path (2 minutes)
+## Step 2: Choose Your Path
 
-### Path A: New Project (Greenfield)
+### Path A — New Project
 
-Starting from scratch?
+Starting from scratch? Map your project:
 
 ```bash
 *map-project
 ```
 
-**Navigator will ask:**
+Navigator asks you to describe your project in plain text:
+
 ```
-📋 Describe your project:
+> SaaS task manager with Kanban board, real-time collaboration,
+  and team analytics. Next.js frontend, Supabase backend.
 ```
 
-**Example response:**
-```
-Blog platform with Next.js frontend, Node.js backend,
-PostgreSQL database. Features: user auth, post CRUD,
-comments, search, admin panel.
-```
+Navigator will:
+1. Parse entities, workflows, and complexity
+2. Ask 3-5 clarifying questions (stack, integrations, timeline)
+3. Generate a 10-phase roadmap
+4. Save it to `.aios/navigator/{project}/roadmap.md`
 
-**Navigator generates:**
-```
-✅ Roadmap generated!
+**Then start navigating:**
 
-Saved to:
-  - .aios/navigator/blog-platform/roadmap.md
-  - docs/roadmap.md (local copy)
-
-Starting point: Phase 1 (Pesquisa) → @analyst
-```
-
-**Next steps:**
 ```bash
 *auto-navigate
-# Follow the suggested command
+# → "Phase 1 (Research) — Activate @analyst with *brainstorm"
 ```
 
 ---
 
-### Path B: Existing Project (Brownfield)
+### Path B — Existing Project
 
-Already have code?
+Already have code? Detect where you are:
 
 ```bash
 *where-am-i
 ```
 
-**Navigator shows:**
+Navigator scans your file system and shows:
+
 ```
-📍 Current Phase: 7 — Desenvolvimento (42% complete)
+📍 Phase 7 — Development (42% complete)
 
-✅ Completed: Research, PRD, Architecture, Epics, Stories, Validation
-🔄 In Progress: Development (Story 7.15/7.34)
-⏳ Pending: QA, Fixes, Deploy
+✅ Done: Research, PRD, Architecture, Epics, Stories, Validation
+🔄 Active: Story 7.3 (auth middleware) — @dev
+⏳ Pending: QA, Fix Loop, Deploy
 
-Next: Continue Story 7.15 with @dev
+Next: Continue Story 7.3 → @dev *develop
 ```
 
-**Next steps:**
+**Then continue:**
+
 ```bash
-@dev
-# Resume development where you left off
+*auto-navigate
+# → Activates the right agent for your current phase
 ```
 
 ---
 
-## 4. Work Through Phases (ongoing)
+## Step 3: Daily Workflow
 
-Follow this cycle:
+Once mapped, your daily cycle is:
 
-1. **Check current status**
-   ```bash
-   *where-am-i
-   ```
+```bash
+# 1. Check where you are
+*where-am-i
 
-2. **Navigate to next agent**
-   ```bash
-   *auto-navigate
-   ```
+# 2. Navigate to next step
+*auto-navigate
 
-3. **Complete the phase**
-   ```bash
-   # Execute the suggested command
-   @agent *task
-   ```
+# 3. Work with the delegated agent
+@dev  # or whichever agent Navigator suggests
 
-4. **Repeat** until all 10 phases complete
+# 4. Repeat
+```
+
+Navigator updates the roadmap automatically via git hooks.
 
 ---
 
-## 5. Track Progress (anytime)
+## Step 4: Track Progress
 
-### Quick Status
+### Quick status
 
 ```bash
 *where-am-i
 ```
 
-### Detailed Report
+### Detailed report
 
 ```bash
 *status-report
 ```
 
-Generates:
-- Current phase and completion %
-- Completed/active/pending stories
-- Blockers and next steps
+Generates a markdown report with:
+- Phase completion percentages
+- Active and completed stories
+- Blockers and risks
 - Velocity metrics
 
----
+### Create a checkpoint
 
-## Troubleshooting
-
-### Issue: Health check fails on "NPM Dependencies"
-
-**Fix:**
 ```bash
-npm install js-yaml glob inquirer
+*checkpoint
 ```
 
-### Issue: "Git hooks not installed"
-
-**Fix:**
-```bash
-npm run prepare
-node squads/navigator/scripts/install-hooks.js install
-```
-
-### Issue: "Pipeline map invalid"
-
-**Fix:**
-```bash
-# Validate YAML syntax
-cat squads/navigator/data/navigator-pipeline-map.yaml
-# Fix any YAML errors
-```
-
-### Issue: "Phase detection returns wrong phase"
-
-**Fix:**
-```bash
-# Check if output files exist
-ls docs/stories/story-*.md
-# Verify they match patterns in pipeline map
-```
-
-### More help
-
-See [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for comprehensive guide.
+Save a snapshot before risky operations. Restore later with `*resume-project`.
 
 ---
 
 ## Common Commands
 
-| Command | Purpose | When to Use |
-|---------|---------|-------------|
-| `*map-project` | Generate roadmap | Starting new project |
-| `*where-am-i` | Check status | Daily/after break |
-| `*auto-navigate` | Get next step | Advance to next phase |
-| `*checkpoint` | Save snapshot | Before major changes |
-| `*status-report` | Full report | Weekly meetings |
-| `*orchestrate` | Parallel execution | Large epics (8+ stories) |
-| `*navigator-doctor` | Health check | Debugging issues |
+| Command | When to use |
+|---------|-------------|
+| `*map-project` | Starting a new project |
+| `*where-am-i` | Daily check / after a break |
+| `*auto-navigate` | Advance to next phase |
+| `*checkpoint` | Before major changes |
+| `*status-report` | Team meetings |
+| `*orchestrate {epic}` | Large epics (8+ stories) |
+| `*navigator-doctor` | Debugging |
+
+---
+
+## Tips
+
+1. **Run `*where-am-i` every morning** — make it your first command
+2. **Create checkpoints before breaks** — never lose context
+3. **Use `*orchestrate` for large epics** — parallelize across 4 chats
+4. **Enable git hooks** — automatic roadmap updates on every commit
+5. **Share roadmaps with your team** — the `docs/roadmap.md` local copy is gitignore-friendly
 
 ---
 
 ## Next Steps
 
-### Learn More
-
-- **Examples:** [examples/](./examples/) - Practical tutorials
-- **Full Guide:** [README.md](./README.md) - Complete documentation
-- **FAQ:** [FAQ.md](./FAQ.md) - Common questions
-
-### Advanced Features
-
-- **Multi-chat orchestration:** See [example-3](./examples/example-3-multi-chat-epic.md)
-- **Custom pipelines:** Edit `data/navigator-pipeline-map.yaml`
-- **TypeScript migration:** See [TYPESCRIPT-MIGRATION.md](./TYPESCRIPT-MIGRATION.md)
+- [Examples](./examples/) — See Navigator in action with real scenarios
+- [FAQ](./FAQ.md) — 40+ questions answered
+- [Full README](./README.md) — Architecture, diagrams, and deep details
 
 ---
 
-## Tips for Success
+**Ready?**
 
-1. **Run `*where-am-i` daily** - Make it your morning ritual
-2. **Create checkpoints before breaks** - Never lose context
-3. **Enable git hooks** - Automatic roadmap updates
-4. **Share roadmap with team** - Everyone stays aligned
-5. **Use `*orchestrate` for large epics** - Save time with parallelization
-
----
-
-## You're Ready! 🎉
-
-You now know enough to:
-- ✅ Check Navigator health
-- ✅ Map new projects
-- ✅ Detect current phase
-- ✅ Navigate through pipeline
-- ✅ Track progress
-
-**Get started:**
 ```bash
 @navigator
 *map-project
 ```
 
 Happy navigating! 🧭
-
----
-
-**Questions?** See [FAQ.md](./FAQ.md) or open an issue on GitHub.
-
----
-
-*Navigator Quickstart v1.0 - 5 minute setup*

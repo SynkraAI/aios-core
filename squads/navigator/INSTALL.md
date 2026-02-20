@@ -1,29 +1,55 @@
-# Navigator Squad - Installation Guide
+# Installation Guide
 
-## Automatic Installation (Recommended)
+## Prerequisites
 
-### Via AIOS Installer (Future)
+- **Node.js** >= 18.0.0
+- **Git** (any version)
+- **AIOS Core** initialized (`.aios-core/` exists in your project)
+
+---
+
+## Included with AIOS Core
+
+Navigator ships with AIOS Core. After installing AIOS, Navigator is already available:
 
 ```bash
-npx aios-core install --squad navigator
+# Install AIOS Core (Navigator is included)
+npx aios-core install
+
+# Activate Navigator
+@navigator
+
+# Verify everything works
+*navigator-doctor
 ```
 
-This will:
-1. Copy squad files to project
-2. Install git hooks automatically
-3. Install NPM dependencies
-4. Run health check
+If the health check passes (7/7), you're ready to go. Skip to [Verify Installation](#verify-installation).
 
-### Manual Installation (Current)
+---
+
+## Manual Setup
+
+If health check reports issues, fix them manually:
+
+### 1. Install Dependencies
 
 ```bash
-# 1. Install NPM dependencies
 npm install js-yaml glob inquirer
+```
 
-# 2. Install git hooks
+### 2. Install Git Hooks
+
+```bash
 node squads/navigator/scripts/install-hooks.js
+```
 
-# 3. Verify installation
+This adds a post-commit hook to `.husky/post-commit` that automatically updates your roadmap when stories change. The hook is:
+- **Non-blocking** — runs asynchronously
+- **Silent** — failures don't interrupt commits
+
+### 3. Verify
+
+```bash
 @navigator
 *navigator-doctor
 ```
@@ -32,93 +58,31 @@ node squads/navigator/scripts/install-hooks.js
 
 ## Git Hooks
 
-Navigator uses a post-commit git hook to automatically update roadmaps when stories change.
+Navigator uses a post-commit hook to keep roadmaps in sync automatically.
 
-### Install Hook
+### Manage Hooks
 
 ```bash
+# Install
 node squads/navigator/scripts/install-hooks.js
-```
 
-**What it does:**
-- Adds Navigator hook to `.husky/post-commit`
-- Non-blocking (async execution)
-- Silent failures (won't block commits)
+# Check status
+node squads/navigator/scripts/install-hooks.js --status
 
-### Check Installation
-
-```bash
-node squads/navigator/scripts/install-hooks.js --check
-```
-
-### Uninstall Hook
-
-```bash
+# Uninstall
 node squads/navigator/scripts/install-hooks.js --uninstall
 ```
 
-### View Status
+### What the Hook Does
 
-```bash
-node squads/navigator/scripts/install-hooks.js --status
-```
-
----
-
-## Dependencies
-
-### Required
-
-- **Node.js** >= 18.0.0
-- **Git** (any version)
-- **NPM Packages:**
-  - `js-yaml` - YAML parsing for pipeline map
-  - `glob` - File pattern matching
-  - `inquirer` - Interactive prompts
-
-### Optional
-
-- **Husky** - Git hooks management (recommended)
+On every commit, the hook checks if any files in `docs/stories/` were changed. If so, it:
+1. Detects the current phase
+2. Syncs the roadmap (central + local)
+3. Creates an auto-checkpoint if a phase transition occurred
 
 ---
 
-## Directory Structure
-
-After installation, Navigator files will be in:
-
-```
-./squads/navigator/
-├── squad.yaml              # Manifest
-├── README.md               # Documentation
-├── INSTALL.md              # This file
-├── agents/
-│   └── navigator.md        # Vega persona definition
-├── tasks/
-│   ├── nav-map-project.md
-│   ├── nav-where-am-i.md
-│   ├── nav-auto-navigate.md
-│   └── ... (10 tasks total)
-├── templates/
-│   ├── nav-roadmap-tmpl.md
-│   └── ... (4 templates)
-├── scripts/
-│   ├── navigator/
-│   │   ├── roadmap-sync.js
-│   │   ├── phase-detector.js
-│   │   ├── checkpoint-manager.js
-│   │   ├── orchestrator.js
-│   │   ├── post-commit-hook.js
-│   │   └── doctor.js
-│   └── install-hooks.js
-└── data/
-    └── navigator-pipeline-map.yaml
-```
-
----
-
-## Verification
-
-After installation, verify everything works:
+## Verify Installation
 
 ```bash
 @navigator
@@ -145,93 +109,65 @@ After installation, verify everything works:
 
 ---
 
-## Troubleshooting
+## Directory Structure
 
-### Issue: Health check fails - Missing dependencies
+After installation, Navigator files live in:
 
-**Solution:**
-```bash
-npm install js-yaml glob inquirer
+```
+squads/navigator/
+├── squad.yaml              # Manifest
+├── agents/
+│   └── navigator.md        # Vega persona
+├── tasks/                  # 10 task definitions
+├── scripts/
+│   ├── navigator/          # Core engine (6 scripts)
+│   └── install-hooks.js    # Hook installer
+├── templates/              # 4 Mustache-style templates
+├── data/
+│   └── navigator-pipeline-map.yaml
+└── examples/               # Practical tutorials
 ```
 
-### Issue: Git hook not working
+Runtime data is stored in:
 
-**Solution:**
-```bash
-# Reinstall Husky
-npm run prepare
-
-# Install Navigator hook
-node squads/navigator/scripts/install-hooks.js
-
-# Verify
-node squads/navigator/scripts/install-hooks.js --check
 ```
-
-### Issue: Permission denied on scripts
-
-**Solution:**
-```bash
-chmod +x squads/navigator/scripts/**/*.js
-```
-
----
-
-## Integration with AIOS Installer
-
-To integrate Navigator with `npx aios-core install`, add to installer:
-
-```javascript
-// packages/installer/src/install-squads.js
-
-async function installNavigatorSquad() {
-  // 1. Check prerequisites
-  await checkNodeVersion('18.0.0');
-  await checkGitAvailable();
-
-  // 2. Install NPM dependencies
-  await installDependencies(['js-yaml', 'glob', 'inquirer']);
-
-  // 3. Install git hooks
-  await exec('node squads/navigator/scripts/install-hooks.js');
-
-  // 4. Run health check
-  const healthCheck = await exec('node squads/navigator/scripts/navigator/doctor.js');
-
-  if (healthCheck.exitCode !== 0) {
-    throw new Error('Navigator health check failed');
-  }
-
-  console.log('✓ Navigator squad installed successfully');
-}
+.aios/navigator/{project-name}/
+├── roadmap.md              # Central roadmap (source of truth)
+└── checkpoints/            # Project state snapshots
 ```
 
 ---
 
 ## Uninstallation
 
-To remove Navigator:
-
 ```bash
-# 1. Uninstall git hooks
+# 1. Remove git hooks
 node squads/navigator/scripts/install-hooks.js --uninstall
 
-# 2. Remove squad directory
-rm -rf squads/navigator/
+# 2. Remove runtime data (optional)
+rm -rf .aios/navigator/
 
-# 3. (Optional) Remove dependencies if not used by other squads
-npm uninstall js-yaml glob inquirer
+# 3. Remove squad files (optional)
+rm -rf squads/navigator/
 ```
+
+---
+
+## Troubleshooting
+
+| Issue | Fix |
+|-------|-----|
+| Missing dependencies | `npm install js-yaml glob inquirer` |
+| Git hook not triggering | `npm run prepare && node squads/navigator/scripts/install-hooks.js` |
+| Permission denied on scripts | `chmod +x squads/navigator/scripts/**/*.js` |
+| Pipeline map invalid | Check YAML syntax in `data/navigator-pipeline-map.yaml` |
+
+For more, see [TROUBLESHOOTING.md](./TROUBLESHOOTING.md).
 
 ---
 
 ## Support
 
-For issues or questions:
-- GitHub Issues: https://github.com/SynkraAI/aios-core/issues
-- Health Check: `*navigator-doctor`
-- Documentation: `squads/navigator/README.md`
-
----
-
-*Navigator Squad Installation Guide*
+- **Health Check:** `*navigator-doctor`
+- **Issues:** [github.com/SynkraAI/aios-core/issues](https://github.com/SynkraAI/aios-core/issues)
+- **Docs:** [README.md](./README.md) · [QUICKSTART.md](./QUICKSTART.md)
