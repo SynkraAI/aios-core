@@ -6,13 +6,16 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x] # Testa nas versões modernas do Node
+        node-version: [20.x, 22.x] # Atualizado: Removido Node 18 (EOL), adicionado Node 22 (LTS)
 
     steps:
     - name: Checkout code
@@ -31,9 +34,6 @@ jobs:
       run: npm run lint --if-present
 
     - name: Run Unit Tests (SimulatedLLM Mode)
-      # Este passo usa sua infraestrutura de testes simulados
       run: npm test
       env:
         CI: true
-        # Nenhuma chave de API real necessária graças ao SimulatedLLM
-        
