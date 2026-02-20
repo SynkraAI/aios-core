@@ -12,7 +12,7 @@
 
 'use strict';
 
-const { execaSync } = require('execa');
+const { sync: execaSync } = require('execa');
 const semver = require('semver');
 const chalk = require('chalk');
 
@@ -98,6 +98,7 @@ function checkDependency(dep, osInfo) {
     const { stdout } = execaSync(dep.command, [dep.versionFlag], {
       timeout: 5000,
       reject: false,
+      env: process.env,
     });
 
     if (stdout) {
@@ -128,6 +129,7 @@ function checkDockerRunning() {
     const { stdout, exitCode } = execaSync('docker', ['info'], {
       timeout: 10000,
       reject: false,
+      env: process.env,
     });
 
     return {

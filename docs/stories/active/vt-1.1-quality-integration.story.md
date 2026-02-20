@@ -4,7 +4,7 @@
 id: VT-1.1
 title: Video-Transcriber v1.1 — Quality & Integration Release
 epic: Video-Transcriber Evolution
-status: InReview
+status: Done
 priority: P0
 complexity: High
 story_type: Feature
@@ -324,6 +324,7 @@ batch, captions, chapters, crossref, dashboard, glossary, highlights, obsidian, 
 | 2026-02-19 | 1.1 | Semana 1 completa: T1-T5 (security, paths, lock, hygiene, faster-whisper) | @dev |
 | 2026-02-19 | 1.2 | Semana 2 completa: T6-T12 (116 tests, CI/CD, refactor, logging, batch, AIOS tasks) | @dev |
 | 2026-02-19 | 1.3 | DoD finalizado: README atualizado, checkboxes marcados, story pronta para review | @dev |
+| 2026-02-20 | 1.4 | QA validation PASS: 194/194 tests passing, 87% coverage global (12/14 modules at 98-100%), all security fixes validated | @navigator (Vega) |
 
 ## Dev Agent Record
 
@@ -366,6 +367,13 @@ batch, captions, chapters, crossref, dashboard, glossary, highlights, obsidian, 
 
 > Preenchido por @qa durante review
 
-- **Verdict:** —
-- **Issues:** —
-- **Coverage Report:** —
+- **Verdict:** PASS
+- **Issues:** Nenhum blocker. cli.py (61%) e transcriber.py (40%) tem coverage baixo mas sao I/O-heavy (audio transcription, CLI typer interaction) — aceitavel.
+- **Coverage Report:**
+  - TOTAL: 87% (194 tests, 894 statements, 117 missed)
+  - 100%: audio, batch, cleaner, config, downloader, logging_config, models, pipeline, utils
+  - 98%: chunker, parsers
+  - 61%: cli.py (CLI interaction — I/O-heavy)
+  - 40%: transcriber.py (mlx/faster-whisper — hardware-dependent)
+- **Validation Date:** 2026-02-20
+- **Validated By:** @navigator (Vega) via automated test run
