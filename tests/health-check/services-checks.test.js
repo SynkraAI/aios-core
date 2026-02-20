@@ -63,8 +63,9 @@ describe('ApiEndpointsCheck', () => {
 
   test('execute returns pass when all endpoints reachable', async () => {
     https.request.mockImplementation((options, callback) => {
-      callback({ statusCode: 200 });
-      return { on: jest.fn(), end: jest.fn(), destroy: jest.fn() };
+      const req = { on: jest.fn(), end: jest.fn(), destroy: jest.fn() };
+      process.nextTick(() => callback({ statusCode: 200 }));
+      return req;
     });
 
     const result = await check.execute({});
@@ -95,13 +96,12 @@ describe('ApiEndpointsCheck', () => {
   });
 
   test('execute returns warning when non-critical endpoint fails', async () => {
-    let callCount = 0;
     https.request.mockImplementation((options, callback) => {
-      callCount++;
-      if (callCount === 1) {
+      if (options.hostname && options.hostname.includes('npm')) {
         // npm Registry (critical) succeeds
-        callback({ statusCode: 200 });
-        return { on: jest.fn(), end: jest.fn(), destroy: jest.fn() };
+        const req = { on: jest.fn(), end: jest.fn(), destroy: jest.fn() };
+        process.nextTick(() => callback({ statusCode: 200 }));
+        return req;
       }
       // GitHub API (non-critical) fails
       const req = {
@@ -124,8 +124,9 @@ describe('ApiEndpointsCheck', () => {
 
   test('checkEndpoint resolves for 401/403 (auth required but reachable)', async () => {
     https.request.mockImplementation((options, callback) => {
-      callback({ statusCode: 403 });
-      return { on: jest.fn(), end: jest.fn(), destroy: jest.fn() };
+      const req = { on: jest.fn(), end: jest.fn(), destroy: jest.fn() };
+      process.nextTick(() => callback({ statusCode: 403 }));
+      return req;
     });
 
     const time = await check.checkEndpoint('api.example.com', '/');

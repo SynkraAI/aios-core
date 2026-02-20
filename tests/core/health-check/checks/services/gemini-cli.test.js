@@ -131,7 +131,6 @@ describe('GeminiCliCheck', () => {
         throw new Error('unknown');
       });
 
-      let callCount = 0;
       fs.access.mockImplementation((p) => {
         if (p.includes('rules.md')) return Promise.reject(new Error('ENOENT'));
         return Promise.resolve(undefined);

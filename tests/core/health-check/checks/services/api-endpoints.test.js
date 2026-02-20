@@ -32,14 +32,16 @@ describe('ApiEndpointsCheck', () => {
 
   function mockRequestError(errorMsg) {
     https.request.mockImplementation((_opts, _callback) => {
+      let errorCb;
       const req = {
-        on: jest.fn(),
+        on: jest.fn((event, handler) => {
+          if (event === 'error') errorCb = handler;
+        }),
         end: jest.fn(),
         destroy: jest.fn(),
       };
       process.nextTick(() => {
-        const errorHandler = req.on.mock.calls.find((c) => c[0] === 'error');
-        if (errorHandler) errorHandler[1](new Error(errorMsg));
+        if (errorCb) errorCb(new Error(errorMsg));
       });
       return req;
     });
@@ -92,20 +94,20 @@ describe('ApiEndpointsCheck', () => {
 
   describe('execute - non-critical failure only', () => {
     test('warns when only non-critical endpoints fail', async () => {
-      let callIndex = 0;
-      https.request.mockImplementation((_opts, callback) => {
-        const idx = callIndex++;
+      https.request.mockImplementation((opts, callback) => {
+        let errorCb;
         const req = {
-          on: jest.fn(),
+          on: jest.fn((event, handler) => {
+            if (event === 'error') errorCb = handler;
+          }),
           end: jest.fn(),
           destroy: jest.fn(),
         };
         process.nextTick(() => {
-          if (idx === 0) {
+          if (opts.hostname && opts.hostname.includes('npm')) {
             callback({ statusCode: 200 });
           } else {
-            const errorHandler = req.on.mock.calls.find((c) => c[0] === 'error');
-            if (errorHandler) errorHandler[1](new Error('timeout'));
+            if (errorCb) errorCb(new Error('timeout'));
           }
         });
         return req;
@@ -136,14 +138,16 @@ describe('ApiEndpointsCheck', () => {
 
     test('rejects on timeout', async () => {
       https.request.mockImplementation(() => {
+        let timeoutCb;
         const req = {
-          on: jest.fn(),
+          on: jest.fn((event, handler) => {
+            if (event === 'timeout') timeoutCb = handler;
+          }),
           end: jest.fn(),
           destroy: jest.fn(),
         };
         process.nextTick(() => {
-          const timeoutHandler = req.on.mock.calls.find((c) => c[0] === 'timeout');
-          if (timeoutHandler) timeoutHandler[1]();
+          if (timeoutCb) timeoutCb();
         });
         return req;
       });
