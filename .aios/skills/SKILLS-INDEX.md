@@ -52,8 +52,9 @@ Skills runtime carregam automaticamente. Slash commands precisam ser invocados e
 | `app-builder/` | Builder de aplicacoes |
 | `obsidian-app-filler/` | Preenchimento de apps Obsidian |
 | `obsidian-tag-manager/` | Gerenciamento de tags Obsidian |
+| `deep-search/` | Deep research pipeline para qualquer dominio (people, travel, market, products, technical, general) |
 
-**Outras:** angular, angular-state-management, avalonia-viewmodels-zafiro, cloud-penetration-testing, code-refactoring-refactor-clean, decision-tree-generator, game-development, godot-gdscript-patterns, mcp-builder, nextjs-react-expert, skill-creator, superpowers, synapse, system-prompt-architect, tech-search, unreal-engine-cpp-pro, vulnerability-scanner
+**Outras:** angular, angular-state-management, avalonia-viewmodels-zafiro, cloud-penetration-testing, code-refactoring-refactor-clean, decision-tree-generator, deep-search, game-development, godot-gdscript-patterns, mcp-builder, nextjs-react-expert, skill-creator, superpowers, synapse, system-prompt-architect, tech-search, unreal-engine-cpp-pro, vulnerability-scanner
 
 Estas skills sao distribuidas via `aios install` e funcionam automaticamente.
 

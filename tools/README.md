@@ -1,6 +1,6 @@
 # AIOS Tools
 
-Auto-generated tools registry. Updated: 2026-02-19
+Auto-generated tools registry. Updated: 2026-02-20
 
 ## Available Tools
 
@@ -25,6 +25,12 @@ Auto-generated tools registry. Updated: 2026-02-19
 - **Path:** `tools/hotmart-downloader/`
 - **Docs:** [README](hotmart-downloader/README.md)
 
+### transcription-dashboard
+
+- **Language:** Unknown
+- **Description:** No description available
+- **Path:** `tools/transcription-dashboard/`
+
 ### video-transcriber
 
 - **Language:** Python
@@ -35,5 +41,5 @@ Auto-generated tools registry. Updated: 2026-02-19
 
 ---
 
-**Total Tools:** 4
+**Total Tools:** 5
 **Auto-indexed:** Yes
