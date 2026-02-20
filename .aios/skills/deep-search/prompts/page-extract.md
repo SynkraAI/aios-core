@@ -1,3 +1,8 @@
+## PURPOSE
+This file is the **reference documentation** for the extraction format used by deep-search workers.
+Workers use inline domain-specific extraction prompts (defined in SKILL.md worker template).
+This file documents the full format, examples for all 6 domains, and quality gates.
+
 ## ROLE
 General-purpose content extractor. Extracts structured, relevant information from any web page.
 

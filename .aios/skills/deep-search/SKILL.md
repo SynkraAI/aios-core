@@ -102,7 +102,8 @@ tool_hierarchy:
     detection: "Try Exa first. If 401/429/503, set exa_available=false, use WebSearch."
 
   deep_read:
-    only: "WebFetch with prompts/page-extract.md prompt"
+    only: "WebFetch with domain-specific extraction prompt (inline in worker template)"
+    reference: "prompts/page-extract.md contains full examples and format documentation"
     note: "No ETL, no Bash, no external scripts. Pure WebFetch."
 
   workers:
@@ -132,27 +133,32 @@ workflow:
 
            - PEOPLE signals: names (capitalized words), "who is", "biography",
              "career", "founder", "CEO", "author", "researcher", "profile",
-             "linkedin", "social media", "net worth"
+             "linkedin", "social media", "net worth",
+             "quem é", "biografia", "carreira", "fundador", "perfil"
              → inferred_context.domain = "people"
 
            - TRAVEL signals: "flight", "hotel", "trip", "travel", "visa",
              "airport", "airline", "booking", "itinerary", "route",
-             city/country names with transport context, "passagem", "voo"
+             city/country names with transport context, "passagem", "voo",
+             "hospedagem", "viagem", "quanto custa ir", "roteiro"
              → inferred_context.domain = "travel"
 
            - MARKET signals: "market", "trend", "industry", "competitor",
              "market size", "TAM", "growth rate", "forecast", "valuation",
-             "investment", "stock", "pricing strategy", "mercado"
+             "investment", "stock", "pricing strategy", "mercado",
+             "concorrente", "setor", "quanto vale", "tendência", "previsão"
              → inferred_context.domain = "market"
 
            - PRODUCTS signals: "review", "best", "top", "recommend",
              "compare", "vs", "alternative", "buy", "price", "specs",
-             "features", "warranty", "onde comprar", "qual melhor"
+             "features", "warranty", "onde comprar", "qual melhor",
+             "avaliação", "comparar", "vale a pena", "custo benefício"
              → inferred_context.domain = "products"
 
            - TECHNICAL signals: "code", "implement", "how to", "api",
              "bug", "error", "library", "sdk", "framework", "database",
-             "deploy", "architecture", "algorithm"
+             "deploy", "architecture", "algorithm",
+             "como fazer", "como implementar", "como configurar", "erro"
              → inferred_context.domain = "technical"
 
            - GENERAL: No strong signals from above
@@ -197,14 +203,12 @@ workflow:
       name: "Query Decomposition"
       model_tier: "MAIN MODEL"
       description: |
-        Decomposes user query into 5-7 atomic, directly searchable sub-queries.
+        Decomposes user query into exactly 5 atomic, directly searchable sub-queries.
         Uses extended thinking for deeper analysis.
-        Sub-queries are domain-aware.
+        Sub-queries are domain-aware. Hard limit: 5 (one per worker).
 
       execution: |
-        ultrathink
-
-        1. DEEP ANALYSIS (use extended thinking):
+        1. DEEP ANALYSIS (use extended thinking for thorough decomposition):
            - What are the REAL questions behind this query?
            - What would a domain expert want to know?
            - What gaps might standard searches miss?
@@ -260,11 +264,12 @@ workflow:
              - Practical implications
              - Expert opinions / authoritative sources
 
-        3. GENERATE 5-7 sub-queries that:
+        3. GENERATE exactly 5 sub-queries that:
            - Cover ORTHOGONAL angles (not overlapping)
            - Include at least one "devil's advocate" query
            - Include at least one "expert-level" query
            - Are directly searchable (not abstract)
+           - HARD LIMIT: exactly 5 (matches max_parallel workers — one worker per query)
 
         4. INCORPORATE inferred_context:
            - If focus=comparison → ensure queries cover both/all sides
@@ -294,8 +299,9 @@ workflow:
 
       execution: |
         1. PRE-CHECK MCP AVAILABILITY (main model, before dispatch):
-           - Try Exa: mcp__exa__web_search_exa("test", 1)
-             → If 401/429/503: exa_available = false
+           - Use ToolSearch("exa") to check if Exa MCP tools are loaded
+             → If not found or returns error: exa_available = false
+             → Do NOT burn a real API call just to test availability
 
         2. DISPATCH WORKERS:
            For EACH sub-query, create a Task call:
@@ -303,14 +309,20 @@ workflow:
            Task(
              subagent_type: "general-purpose",
              model: "haiku",
+             max_turns: 10,
              prompt: <WORKER_PROMPT>
            )
 
-           Dispatch ALL Task calls in a SINGLE message for parallel execution.
-           Max 5 workers.
+           ⚠️ PARALLEL DISPATCH IS MANDATORY:
+           You MUST dispatch ALL 5 Task calls in a SINGLE message (one message, multiple tool use blocks).
+           This is the #1 performance optimization. Sequential dispatch is 3-5x slower.
+           Max 5 workers. One worker per sub-query.
 
            WORKER PROMPT TEMPLATE:
            ```
+           CRITICAL: Your ENTIRE output MUST be ONLY a <research_results>JSON</research_results> block.
+           No text before or after the tags. No markdown fences. No explanations. Nothing else.
+
            You are a research worker. Search and extract information for ONE specific query.
 
            QUERY: {sub_query}
@@ -370,9 +382,6 @@ workflow:
               }
               </research_results>
 
-           CRITICAL: Output ONLY the <research_results> block. No explanations,
-           no markdown fences, no extra text before or after the tags.
-
            IMPORTANT:
            - Do NOT synthesize or write reports. Just search and return raw findings.
            - Be HONEST about credibility (LOW if source is generic/outdated).
@@ -388,7 +397,7 @@ workflow:
              → ELSE: parse JSON from match content
            - Deduplicate by URL (keep highest credibility)
            - Textual deduplication on key_findings:
-             → IF finding overlaps >= 80% with existing finding → merge, cite both sources
+             → IF two findings convey the same information → merge, cite both sources
              → ELSE → keep as separate finding
            - Build unified results with tool attribution
 
@@ -415,7 +424,8 @@ workflow:
         Max 2 waves total. Includes domain_completeness check.
 
       execution: |
-        Wrap in Task(model: "haiku"):
+        ⚠️ MANDATORY: This phase MUST run as Task(model: "haiku", subagent_type: "general-purpose").
+        Do NOT evaluate inline in main model — delegate to Haiku to save tokens.
 
         1. Calculate metrics:
            - coverage_score (0-100): How well do findings answer the original query?
@@ -595,6 +605,7 @@ workflow:
       description: "Save complete research to docs/research/"
       structure:
         folder: "docs/research/{YYYY-MM-DD}-{slug}/"
+        slug_rules: "lowercase, strip accents (é→e, ã→a, ç→c), replace spaces/punctuation with hyphens, max 50 chars"
         files:
           - name: "README.md"
             content: "Index + TL;DR + domain badge"
