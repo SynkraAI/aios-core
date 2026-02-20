@@ -15,6 +15,8 @@ Usage:
     python petition-to-pdf.py PETICAO_INICIAL.md --css custom_style.css
 """
 
+from __future__ import annotations
+
 import argparse
 import os
 import re
@@ -89,8 +91,8 @@ def markdown_to_html(md_path: str, css_path: str = "") -> str:
         pattern = (
             rf'<link\s[^>]*href="(?:{css_path_escaped}|{css_filename})"[^>]*/?\s*>'
         )
-        replacement = f"<style>\n{css_content}\n</style>"
-        html_content = re.sub(pattern, replacement, html_content, count=1)
+        inline_style = f"<style>\n{css_content}\n</style>"
+        html_content = re.sub(pattern, lambda m: inline_style, html_content, count=1)
 
     return html_content
 
