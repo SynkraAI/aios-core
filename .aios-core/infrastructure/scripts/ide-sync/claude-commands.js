@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const { readSourceFile } = require('../skills-sync/renderers/agent-skill');
 
 function transform(agentData) {
   const sourcePath = `.aios-core/development/agents/${agentData.filename}`;
@@ -8,7 +9,14 @@ function transform(agentData) {
   const agent = agentData.agent || {};
   const title = agent.title || 'AIOS Agent';
   const name = agent.name || agentData.id;
+  const sourceContent = readSourceFile(sourcePath);
 
+  if (sourceContent) {
+    return `${sourceContent}
+`;
+  }
+
+  // Fallback: source file not found, use pointer-based content
   return `# AIOS ${title} (${name}) — Interactive Session
 
 ## Activation Flow

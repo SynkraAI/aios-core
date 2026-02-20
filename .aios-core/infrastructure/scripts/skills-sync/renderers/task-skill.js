@@ -1,6 +1,6 @@
 'use strict';
 
-const { trimText } = require('./agent-skill');
+const { trimText, readSourceFile, stripFrontmatter } = require('./agent-skill');
 
 function normalizeTaskId(taskId) {
   const id = String(taskId || '').trim().replace(/^aios-task-/, '');
@@ -131,6 +131,32 @@ function buildClaudeTaskSkillContent(taskSpec) {
     : '- Execute non-interactive flow unless blocked by missing context.';
   const requiredContext = getRequiredContextPaths(normalizedAgent);
 
+  const taskSourcePath = `.aios-core/development/tasks/${taskSpec.filename}`;
+  const taskSourceContent = readSourceFile(taskSourcePath);
+
+  if (taskSourceContent) {
+    const taskBody = stripFrontmatter(taskSourceContent);
+    return `---
+name: ${skillId}
+description: ${toYamlString(description)}
+context: fork
+agent: ${agentName}
+owner: ${toYamlString(normalizedAgent)}
+intent: "aios-task-workflow"
+source: ${toYamlString(taskSourcePath)}
+required-context:
+${requiredContext.map((p) => `  - "${p}"`).join('\n')}
+${commandHint ? `command: ${toYamlString(commandHint)}\n` : ''}---
+
+${taskBody.trim()}
+
+## Guardrails
+- Do not invent requirements outside the task definition.
+- Keep outputs aligned with the active story/epic scope.
+- Escalate when constitutional or quality gates would be violated.
+`;
+  }
+
   return `---
 name: ${skillId}
 description: ${toYamlString(description)}
@@ -138,7 +164,7 @@ context: fork
 agent: ${agentName}
 owner: ${toYamlString(normalizedAgent)}
 intent: "aios-task-workflow"
-source: ${toYamlString(`.aios-core/development/tasks/${taskSpec.filename}`)}
+source: ${toYamlString(taskSourcePath)}
 required-context:
 ${requiredContext.map((p) => `  - "${p}"`).join('\n')}
 ${commandHint ? `command: ${toYamlString(commandHint)}\n` : ''}---

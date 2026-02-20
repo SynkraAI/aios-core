@@ -39,9 +39,8 @@ describe('Codex Skills Sync', () => {
 
     const content = fs.readFileSync(expected, 'utf8');
     expect(content).toContain('name: architect');
-    expect(content).toContain('Activation Protocol');
-    expect(content).toContain('.aios-core/development/agents/architect/architect.md');
-    expect(content).toContain('Present yourself with a brief greeting');
+    // With embed, the full agent source is included directly
+    expect(content).toContain('ACTIVATION-NOTICE');
   });
 
   it('supports global installation path when --global mode is enabled', () => {
@@ -89,6 +88,7 @@ describe('Codex Skills Sync', () => {
     const content = buildSkillContent(sample);
     expect(content.startsWith('---')).toBe(true);
     expect(content).toContain('name: dev');
-    expect(content).toContain('`*help` - Show commands');
+    // With embed, full agent content is included; with fallback, starter commands appear
+    expect(content).toContain('ACTIVATION-NOTICE');
   });
 });

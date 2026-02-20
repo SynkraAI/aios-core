@@ -69,6 +69,33 @@ describe('task-skill renderer', () => {
       expect(content).toContain('agent: dev');
       expect(content).toContain('owner: "dev"');
       expect(content).toContain('source: ".aios-core/development/tasks/build-resume.md"');
+      // With embed, should contain the actual task content and guardrails
+      expect(content).toContain('## Guardrails');
+    });
+
+    it('embeds full task source content when file exists', () => {
+      const content = buildClaudeTaskSkillContent({
+        id: 'build-resume',
+        filename: 'build-resume.md',
+        title: 'Task: Build Resume',
+        agent: 'dev',
+        elicit: false,
+      });
+
+      // Should contain the actual task file content (Purpose section)
+      expect(content).toContain('Resume an autonomous build');
+      expect(content).toContain('## Guardrails');
+    });
+
+    it('falls back to pointer when task source file not found', () => {
+      const content = buildClaudeTaskSkillContent({
+        id: 'fake-task',
+        filename: 'nonexistent-task.md',
+        title: 'Fake Task',
+        agent: 'dev',
+        elicit: false,
+      });
+
       expect(content).toContain('## Mission');
       expect(content).toContain('## Execution Protocol');
       expect(content).toContain('## Guardrails');
@@ -87,10 +114,10 @@ describe('task-skill renderer', () => {
       expect(content).toContain('name: aios-master-some-task');
     });
 
-    it('includes elicit interaction note when elicit is true', () => {
+    it('includes elicit interaction note in fallback mode', () => {
       const content = buildClaudeTaskSkillContent({
         id: 'elicit-task',
-        filename: 'elicit-task.md',
+        filename: 'nonexistent-elicit-task.md',
         title: 'Elicit Task',
         agent: 'analyst',
         elicit: true,
@@ -100,10 +127,10 @@ describe('task-skill renderer', () => {
       expect(content).toContain('user interaction points');
     });
 
-    it('renders Canonical Command section when command is present', () => {
+    it('renders Canonical Command section in fallback mode', () => {
       const content = buildClaudeTaskSkillContent({
-        id: 'push',
-        filename: 'push.md',
+        id: 'fake-push',
+        filename: 'nonexistent-push.md',
         title: 'Push',
         command: '*push',
         agent: 'devops',
@@ -114,10 +141,10 @@ describe('task-skill renderer', () => {
       expect(content).toContain('`*push`');
     });
 
-    it('omits Canonical Command section when no command', () => {
+    it('omits Canonical Command section when no command in fallback', () => {
       const content = buildClaudeTaskSkillContent({
         id: 'no-cmd',
-        filename: 'no-cmd.md',
+        filename: 'nonexistent-no-cmd.md',
         title: 'No Command',
         agent: 'dev',
         elicit: false,
@@ -141,10 +168,10 @@ describe('task-skill renderer', () => {
       expect(content).toContain('.aios-core/development/agents/dev/agent-context.md');
     });
 
-    it('includes Required Context Loading section in body (AGF-1)', () => {
+    it('includes Required Context Loading in fallback mode (AGF-1)', () => {
       const content = buildClaudeTaskSkillContent({
-        id: 'push',
-        filename: 'push.md',
+        id: 'fake-push',
+        filename: 'nonexistent-push.md',
         title: 'Push',
         agent: 'devops',
         elicit: false,

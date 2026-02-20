@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
 
 function trimText(text, max = 220) {
@@ -32,6 +33,20 @@ function buildStarterCommands(commands) {
     .join('\n');
 }
 
+function readSourceFile(relativePath) {
+  const fullPath = path.join(process.cwd(), relativePath);
+  try {
+    return fs.readFileSync(fullPath, 'utf8');
+  } catch {
+    return null;
+  }
+}
+
+function stripFrontmatter(content) {
+  const match = content.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/);
+  return match ? content.slice(match[0].length) : content;
+}
+
 function buildAgentSkillContent(agentSpec) {
   const metadata = agentSpec.metadata || {};
   const name = metadata.name || agentSpec.id;
@@ -41,6 +56,19 @@ function buildAgentSkillContent(agentSpec) {
   const description = trimText(`${title} (${name}). ${whenToUse}`, 180);
   const starterCommands = buildStarterCommands(agentSpec.commands || []);
   const agentDir = path.dirname(`.aios-core/development/agents/${agentSpec.filename}`);
+
+  const sourcePath = `.aios-core/development/agents/${agentSpec.filename}`;
+  const sourceContent = readSourceFile(sourcePath);
+
+  if (sourceContent) {
+    return `---
+name: ${skillName}
+description: ${description}
+---
+
+${sourceContent}
+`;
+  }
 
   return `---
 name: ${skillName}
@@ -73,5 +101,7 @@ ${starterCommands || '- `*help` - List available commands'}
 module.exports = {
   trimText,
   getAgentSkillId,
+  readSourceFile,
+  stripFrontmatter,
   buildAgentSkillContent,
 };
