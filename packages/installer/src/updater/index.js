@@ -19,7 +19,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const https = require('https');
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 const { hashFile, hashesMatch } = require('../installer/file-hasher');
 const { PostInstallValidator, formatReport: formatValidationReport } = require('../installer/post-install-validator');
 
@@ -45,6 +45,13 @@ const FileAction = {
   DELETED: 'deleted',
   UNCHANGED: 'unchanged',
 };
+
+/**
+ * Published npm package name.
+ * The package is published as unscoped 'aios-core' on the npm registry.
+ * @constant {string}
+ */
+const NPM_PACKAGE_NAME = 'aios-core';
 
 /**
  * AIOS Updater Class
@@ -118,7 +125,7 @@ class AIOSUpdater {
         if (!isOnline) {
           result.error = 'You appear to be offline. Please check your internet connection.';
         } else {
-          result.error = 'Package @synkra/aios-core not found on npm registry. This may be a local development installation.';
+          result.error = `Package ${NPM_PACKAGE_NAME} not found on npm registry. This may be a local development installation.`;
         }
         return result;
       }
@@ -165,7 +172,7 @@ class AIOSUpdater {
     }
 
     // Fallback to package.json
-    const packageJsonPath = path.join(this.projectRoot, 'node_modules', '@synkra', 'aios-core', 'package.json');
+    const packageJsonPath = path.join(this.projectRoot, 'node_modules', NPM_PACKAGE_NAME, 'package.json');
     if (fs.existsSync(packageJsonPath)) {
       try {
         const pkg = await fs.readJson(packageJsonPath);
@@ -199,7 +206,7 @@ class AIOSUpdater {
   async getLatestVersion() {
     return new Promise((resolve) => {
       const request = https.get(
-        'https://registry.npmjs.org/@synkra/aios-core/latest',
+        `https://registry.npmjs.org/${NPM_PACKAGE_NAME}/latest`,
         { timeout: this.options.timeout },
         (res) => {
           let data = '';
@@ -585,12 +592,17 @@ class AIOSUpdater {
       error: null,
     };
 
-    try {
-      // Use npm to update the package
-      const cmd = `npm install @synkra/aios-core@${targetVersion} --save-exact`;
-      this.log(`Running: ${cmd}`);
+    if (!targetVersion) {
+      result.error = 'Cannot update: target version is null. Check your internet connection or try again later.';
+      return result;
+    }
 
-      execSync(cmd, {
+    try {
+      // Use npm to update the package (execFileSync avoids shell injection)
+      const args = ['install', `${NPM_PACKAGE_NAME}@${targetVersion}`, '--save-exact'];
+      this.log(`Running: npm ${args.join(' ')}`);
+
+      execFileSync('npm', args, {
         cwd: this.projectRoot,
         stdio: this.options.verbose ? 'inherit' : 'pipe',
         timeout: 120000, // 2 minutes
