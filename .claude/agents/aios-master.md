@@ -3,6 +3,7 @@ name: aios-master
 description: Use when you need comprehensive expertise across all domains, framework component creation/modification, workflow orchestration, or running tasks that don't require a specialized persona.
 memory: project
 model: sonnet
+permissionMode: bypassPermissions
 skills:
   - aios-master
   - project-context

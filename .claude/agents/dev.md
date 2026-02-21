@@ -3,6 +3,7 @@ name: dev
 description: Use for code implementation, debugging, refactoring, and development best practices
 memory: project
 model: sonnet
+permissionMode: bypassPermissions
 skills:
   - dev
   - project-context

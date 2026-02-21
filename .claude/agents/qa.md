@@ -3,6 +3,7 @@ name: qa
 description: Use for comprehensive test architecture review, quality gate decisions, and code improvement. Provides thorough analysis including requirements traceability, risk assessment, and test strategy. Advisory only - teams choose their quality...
 memory: project
 model: sonnet
+permissionMode: acceptEdits
 skills:
   - qa
   - project-context

@@ -3,6 +3,7 @@ name: analyst
 description: Use for market research, competitive analysis, user research, brainstorming session facilitation, structured ideation workshops, feasibility studies, industry trends analysis, project discovery (brownfield documentation), and research re...
 memory: project
 model: sonnet
+permissionMode: default
 skills:
   - analyst
   - project-context

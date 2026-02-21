@@ -3,6 +3,7 @@ name: squad-creator
 description: Use to create, validate, publish and manage squads
 memory: project
 model: sonnet
+permissionMode: acceptEdits
 skills:
   - squad-creator
   - project-context

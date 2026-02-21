@@ -3,6 +3,7 @@ name: po
 description: Use for backlog management, story refinement, acceptance criteria, sprint planning, and prioritization decisions
 memory: project
 model: sonnet
+permissionMode: default
 skills:
   - po
   - project-context

@@ -3,6 +3,7 @@ name: devops
 description: Use for repository operations, version management, CI/CD, quality gates, and GitHub push operations. ONLY agent authorized to push to remote repository.
 memory: project
 model: sonnet
+permissionMode: bypassPermissions
 skills:
   - devops
   - project-context

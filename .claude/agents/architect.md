@@ -3,6 +3,7 @@ name: architect
 description: Use for system architecture (fullstack, backend, frontend, infrastructure), technology stack selection (technical evaluation), API design (REST/GraphQL/tRPC/WebSocket), security architecture, performance optimization, deployment strategy...
 memory: project
 model: sonnet
+permissionMode: acceptEdits
 skills:
   - architect
   - project-context
