@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-20T22:30:07.846Z"
+generated_at: "2026-02-21T01:48:52.552Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1048
 files:
@@ -1045,7 +1045,7 @@ files:
     type: data
     size: 34251
   - path: data/entity-registry.yaml
-    hash: sha256:5b6223eb4b7fdc532ed707ddb573ea614ec2d824f6c6ac436c9965ac0d9bea9c
+    hash: sha256:8cb1291ecb42f9f72881b3552639d9dd5b85cf6a4c9cc7dce5e6baad8ce14118
     type: data
     size: 292792
   - path: data/learned-patterns.yaml
@@ -2857,9 +2857,9 @@ files:
     type: script
     size: 1953
   - path: infrastructure/scripts/git-wrapper.js
-    hash: sha256:e4354cbceb1d3fe64f0a32b3b69e3f12e55f4a5770412b7cd31f92fe2cf3278c
+    hash: sha256:7cb6157df998542e8ab5657939148e926a540786f8e66a342144d7cf22ed62cb
     type: script
-    size: 9735
+    size: 10419
   - path: infrastructure/scripts/gotchas-documenter.js
     hash: sha256:8fc0003beff9149ce8f6667b154466442652cccc7a98f41166a6f1aad4a8efd3
     type: script

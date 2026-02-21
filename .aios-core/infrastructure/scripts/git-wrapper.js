@@ -7,7 +7,8 @@ const chalk = require('chalk');
  * GitWrapper - Centralized git operations for AIOS
  *
  * Refactored to use execa for cross-platform compatibility
- * All git operations route through execGit() method
+ * All git operations route through execGitArgs() with array-based arguments
+ * Security: No string splitting to prevent injection via spaces in arguments
  */
 class GitWrapper {
   constructor(rootPath) {
@@ -16,16 +17,14 @@ class GitWrapper {
   }
 
   /**
-   * Execute git command using execa
+   * Execute git command using execa with array arguments (secure)
    *
-   * @param {string} command - Git command with arguments as string
+   * @param {string[]} args - Git arguments as array
    * @param {object} options - Execution options
    * @returns {string} Command stdout output
    */
-  async execGit(command, options = {}) {
+  async execGitArgs(args, options = {}) {
     try {
-      // Split command string into array for execa
-      const args = command.split(' ');
       const { stdout, stderr } = await execa(this.gitPath, args, {
         cwd: this.rootPath,
         ...options,
@@ -42,11 +41,24 @@ class GitWrapper {
   }
 
   /**
+   * Execute git command using string (deprecated — use execGitArgs instead)
+   * Maintained for backwards compatibility with branch-manager, conflict-resolver, worktree-manager.
+   * @deprecated Use execGitArgs() with array arguments for security
+   * @param {string} command - Git command with arguments as string
+   * @param {object} options - Execution options
+   * @returns {string} Command stdout output
+   */
+  async execGit(command, options = {}) {
+    const args = command.split(' ');
+    return this.execGitArgs(args, options);
+  }
+
+  /**
    * Check if current directory is a git repository
    */
   async isGitInitialized() {
     try {
-      await this.execGit('rev-parse --git-dir');
+      await this.execGitArgs(['rev-parse', '--git-dir']);
       return true;
     } catch (error) {
       return false;
@@ -58,7 +70,7 @@ class GitWrapper {
    */
   async initializeRepository() {
     try {
-      await this.execGit('init');
+      await this.execGitArgs(['init']);
       return true;
     } catch (error) {
       throw new Error(`Failed to initialize git repository: ${error.message}`);
@@ -70,7 +82,7 @@ class GitWrapper {
    */
   async getCurrentBranch() {
     try {
-      return await this.execGit('rev-parse --abbrev-ref HEAD');
+      return await this.execGitArgs(['rev-parse', '--abbrev-ref', 'HEAD']);
     } catch (error) {
       throw new Error(`Failed to get current branch: ${error.message}`);
     }
@@ -82,9 +94,9 @@ class GitWrapper {
   async createBranch(branchName, baseBranch = null) {
     try {
       if (baseBranch) {
-        await this.execGit(`checkout -b ${branchName} ${baseBranch}`);
+        await this.execGitArgs(['checkout', '-b', branchName, baseBranch]);
       } else {
-        await this.execGit(`checkout -b ${branchName}`);
+        await this.execGitArgs(['checkout', '-b', branchName]);
       }
       return true;
     } catch (error) {
@@ -97,7 +109,7 @@ class GitWrapper {
    */
   async checkoutBranch(branchName) {
     try {
-      await this.execGit(`checkout ${branchName}`);
+      await this.execGitArgs(['checkout', branchName]);
       return true;
     } catch (error) {
       throw new Error(`Failed to checkout branch ${branchName}: ${error.message}`);
@@ -121,10 +133,10 @@ class GitWrapper {
     try {
       if (Array.isArray(files)) {
         for (const file of files) {
-          await this.execGit(`add ${file}`);
+          await this.execGitArgs(['add', file]);
         }
       } else {
-        await this.execGit(`add ${files}`);
+        await this.execGitArgs(['add', files]);
       }
       return true;
     } catch (error) {
@@ -171,7 +183,7 @@ ${JSON.stringify(metadata, null, 2)}`;
    */
   async getStatus() {
     try {
-      const output = await this.execGit('status --porcelain');
+      const output = await this.execGitArgs(['status', '--porcelain']);
 
       const status = {
         clean: !output,
@@ -208,7 +220,7 @@ ${JSON.stringify(metadata, null, 2)}`;
    */
   async getHistory(limit = 10) {
     try {
-      const output = await this.execGit(`log --oneline -n ${limit}`);
+      const output = await this.execGitArgs(['log', '--oneline', '-n', String(limit)]);
       return output.split('\n').map(line => {
         const [hash, ...messageParts] = line.split(' ');
         return {
@@ -226,7 +238,7 @@ ${JSON.stringify(metadata, null, 2)}`;
    */
   async getConflicts() {
     try {
-      const output = await this.execGit('diff --name-only --diff-filter=U');
+      const output = await this.execGitArgs(['diff', '--name-only', '--diff-filter=U']);
       return output ? output.split('\n').filter(f => f.trim()) : [];
     } catch (error) {
       return [];
@@ -271,10 +283,10 @@ ${JSON.stringify(metadata, null, 2)}`;
    */
   async createTag(tagName, message = null) {
     const tagArgs = message
-      ? `tag -a ${tagName} -m "${message}"`
-      : `tag ${tagName}`;
+      ? ['tag', '-a', tagName, '-m', message]
+      : ['tag', tagName];
 
-    return await this.execGit(tagArgs);
+    return await this.execGitArgs(tagArgs);
   }
 
   /**
@@ -311,25 +323,25 @@ ${JSON.stringify(metadata, null, 2)}`;
    */
   async getDiff(files = null, options = {}) {
     try {
-      let diffCommand = 'diff';
+      const diffArgs = ['diff'];
 
       if (options.staged) {
-        diffCommand += ' --staged';
+        diffArgs.push('--staged');
       }
 
       if (options.nameOnly) {
-        diffCommand += ' --name-only';
+        diffArgs.push('--name-only');
       }
 
       if (files) {
         if (Array.isArray(files)) {
-          diffCommand += ' ' + files.join(' ');
+          diffArgs.push(...files);
         } else {
-          diffCommand += ' ' + files;
+          diffArgs.push(files);
         }
       }
 
-      return await this.execGit(diffCommand);
+      return await this.execGitArgs(diffArgs);
     } catch (error) {
       return '';
     }
@@ -339,22 +351,22 @@ ${JSON.stringify(metadata, null, 2)}`;
    * Stash changes
    */
   async stash(message = null) {
-    const stashCommand = message
-      ? `stash save "${message}"`
-      : 'stash';
+    const stashArgs = message
+      ? ['stash', 'save', message]
+      : ['stash'];
 
-    return await this.execGit(stashCommand);
+    return await this.execGitArgs(stashArgs);
   }
 
   /**
    * Apply stashed changes
    */
   async stashApply(stashRef = null) {
-    const applyCommand = stashRef
-      ? `stash apply ${stashRef}`
-      : 'stash apply';
+    const applyArgs = stashRef
+      ? ['stash', 'apply', stashRef]
+      : ['stash', 'apply'];
 
-    return await this.execGit(applyCommand);
+    return await this.execGitArgs(applyArgs);
   }
 
   /**
@@ -362,7 +374,7 @@ ${JSON.stringify(metadata, null, 2)}`;
    */
   async getRemotes() {
     try {
-      const output = await this.execGit('remote -v');
+      const output = await this.execGitArgs(['remote', '-v']);
       const remotes = {};
 
       if (!output) return remotes;
@@ -387,14 +399,14 @@ ${JSON.stringify(metadata, null, 2)}`;
    * Add remote repository
    */
   async addRemote(name, url) {
-    return await this.execGit(`remote add ${name} ${url}`);
+    return await this.execGitArgs(['remote', 'add', name, url]);
   }
 
   /**
    * Remove remote repository
    */
   async removeRemote(name) {
-    return await this.execGit(`remote remove ${name}`);
+    return await this.execGitArgs(['remote', 'remove', name]);
   }
 
   /**
