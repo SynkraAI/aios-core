@@ -35,7 +35,7 @@ AIOS supports multiple AI-powered development platforms. Choose the one that bes
 | Codex CLI | Limited | `/skills` then `aios-<agent-id>` | Limited (some checks need manual sync) | Run `npm run sync:ide:codex` and follow `/skills` flow |
 | Cursor | Limited | `@agent` + synced rules | Not available | Follow synced rules and run validators manually (`npm run validate:parity`) |
 | GitHub Copilot | Limited | chat modes + repo instructions | Not available | Use repo instructions and VS Code MCP config for context |
-| AntiGravity | Limited | workflow-driven activation | Not available | Use generated workflows and run validators manually |
+| AntiGravity | Works | workflow-driven activation (`aios-execute-story`) | Not available | Uses native workflows for deep execution |
 
 Legend:
 - `Works`: fully recommended for new users in AIOS 4.2.11.
@@ -258,6 +258,7 @@ special_features:
   - Google Cloud integration
   - Workflow system
   - Native Firebase tools
+  - Deep Execution Engine (Workflows nativos para Dev e QA)
 ```
 
 **Setup:**

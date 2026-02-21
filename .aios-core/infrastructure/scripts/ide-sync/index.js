@@ -271,6 +271,35 @@ async function commandSync(options) {
       result.commandFiles = [];
     }
 
+    // Antigravity: also sync static workflow templates
+    if (ideName === 'antigravity') {
+      try {
+        const sourceDir = path.join(projectRoot, '.aios-core', 'product', 'templates', 'ide-rules', 'antigravity', 'workflows');
+        const targetDir = path.join(projectRoot, '.agent', 'workflows');
+
+        if (fs.existsSync(sourceDir)) {
+          if (!options.dryRun) {
+            fs.ensureDirSync(targetDir);
+            const files = fs.readdirSync(sourceDir);
+            for (const file of files) {
+              if (file.endsWith('.md')) {
+                fs.copyFileSync(path.join(sourceDir, file), path.join(targetDir, file));
+                result.files.push({
+                  agent: 'Workflow',
+                  filename: file,
+                  path: path.join(targetDir, file)
+                });
+              }
+            }
+          } else {
+            // Mock behavior for dry run
+            result.files.push({ agent: 'Workflow', filename: 'aios-execute-story.md' });
+            result.files.push({ agent: 'Workflow', filename: 'aios-qa-review.md' });
+          }
+        }
+      } catch (e) { /* ignore */ }
+    }
+
     results.push(result);
 
     // Generate redirects for this IDE
