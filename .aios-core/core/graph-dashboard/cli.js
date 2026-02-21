@@ -9,9 +9,11 @@ const { renderStatus } = require('./renderers/status-renderer');
 const { formatAsJson } = require('./formatters/json-formatter');
 const { formatAsDot } = require('./formatters/dot-formatter');
 const { formatAsMermaid } = require('./formatters/mermaid-formatter');
+const { formatAsHtml } = require('./formatters/html-formatter');
 
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
 
 const MAX_SUMMARY_PER_CATEGORY = 5;
 const DEFAULT_WATCH_INTERVAL_MS = 5000;
@@ -21,6 +23,7 @@ const FORMAT_MAP = {
   json: formatAsJson,
   dot: formatAsDot,
   mermaid: formatAsMermaid,
+  html: formatAsHtml,
 };
 
 const VALID_FORMATS = ['ascii', ...Object.keys(FORMAT_MAP)];
@@ -28,6 +31,10 @@ const VALID_FORMATS = ['ascii', ...Object.keys(FORMAT_MAP)];
 const WATCH_FORMAT_MAP = {
   dot: { formatter: formatAsDot, filename: 'graph.dot' },
   mermaid: { formatter: formatAsMermaid, filename: 'graph.mmd' },
+  html: {
+    formatter: (graphData) => formatAsHtml(graphData, { autoRefresh: true, refreshInterval: 5 }),
+    filename: 'graph.html',
+  },
 };
 
 const COMMANDS = {
@@ -100,6 +107,10 @@ async function handleDeps(args) {
   const source = new CodeIntelSource();
   const graphData = await source.getData();
 
+  if (format === 'html') {
+    return handleHtmlOutput(graphData);
+  }
+
   if (format !== 'ascii') {
     const formatter = FORMAT_MAP[format];
     process.stdout.write(formatter(graphData) + '\n');
@@ -112,13 +123,50 @@ async function handleDeps(args) {
 }
 
 /**
+ * Write HTML graph to .aios/graph.html and open in default browser.
+ * @param {Object} graphData - Normalized graph data
+ * @param {Object} [options] - Options passed to formatAsHtml
+ * @returns {string} Output file path
+ */
+function handleHtmlOutput(graphData, options = {}) {
+  const outputDir = path.resolve(process.cwd(), '.aios');
+  const outputPath = path.join(outputDir, 'graph.html');
+
+  fs.mkdirSync(outputDir, { recursive: true });
+
+  const html = formatAsHtml(graphData, options);
+  fs.writeFileSync(outputPath, html, 'utf8');
+
+  const nodeCount = (graphData.nodes || []).length;
+  console.log(`HTML graph written to ${outputPath} (${nodeCount} entities)`);
+
+  openInBrowser(outputPath);
+  return outputPath;
+}
+
+/**
+ * Open a file in the default browser (cross-platform).
+ * @param {string} filePath - Absolute path to file
+ */
+function openInBrowser(filePath) {
+  const platform = process.platform;
+  const cmd = platform === 'win32' ? 'start ""' : platform === 'darwin' ? 'open' : 'xdg-open';
+
+  exec(`${cmd} "${filePath}"`, (err) => {
+    if (err) {
+      console.log(`Could not open browser automatically. Open manually: ${filePath}`);
+    }
+  });
+}
+
+/**
  * Handle --watch mode: regenerate graph file on interval and on file changes.
- * Writes to .aios/graph.dot (or .aios/graph.mmd if --format=mermaid).
+ * Writes to .aios/graph.dot, .aios/graph.mmd, or .aios/graph.html.
  * @param {Object} args - Parsed CLI args
  * @returns {Object} Watch state for cleanup (used by tests)
  */
 async function handleWatch(args) {
-  const watchFormat = args.format === 'mermaid' ? 'mermaid' : 'dot';
+  const watchFormat = WATCH_FORMAT_MAP[args.format] ? args.format : 'dot';
   const { formatter, filename } = WATCH_FORMAT_MAP[watchFormat];
   const intervalMs = (args.interval || 5) * 1000;
   const outputDir = path.resolve(process.cwd(), '.aios');
@@ -210,14 +258,16 @@ Commands:
   --help, -h      Show this help message
 
 Options:
-  --format=FORMAT Output format: ascii (default), json, dot, mermaid
-  --watch         Live mode: regenerate .aios/graph.dot (or .mmd) on interval
+  --format=FORMAT Output format: ascii (default), json, dot, mermaid, html
+  --watch         Live mode: regenerate graph file on interval
   --interval=N    Seconds between regeneration in watch mode (default: 5)
 
 Examples:
   aios graph --deps                        Show dependency tree
   aios graph --deps --format=json          Output as JSON
+  aios graph --deps --format=html          Interactive HTML graph (opens browser)
   aios graph --deps --watch                Live DOT file for VS Code preview
+  aios graph --deps --watch --format=html  Live HTML with auto-refresh
   aios graph --deps --watch --format=mermaid  Live Mermaid file
   aios graph --deps --watch --interval=10  Refresh every 10 seconds
   aios graph --stats                       Show entity stats and cache metrics
@@ -300,6 +350,8 @@ module.exports = {
   handleHelp,
   handleWatch,
   handleSummary,
+  handleHtmlOutput,
+  openInBrowser,
   MAX_SUMMARY_PER_CATEGORY,
   DEFAULT_WATCH_INTERVAL_MS,
   DEBOUNCE_MS,
