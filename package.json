@@ -71,6 +71,7 @@
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
     "ansi-to-html": "^0.7.2",
+    "asciichart": "^1.5.25",
     "chalk": "^4.1.2",
     "chokidar": "^3.5.3",
     "cli-progress": "^3.12.0",

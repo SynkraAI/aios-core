@@ -2,7 +2,7 @@
 
 ## Status
 
-Ready for Review
+Done
 
 ## Executor Assignment
 
@@ -281,6 +281,8 @@ const isTTY = process.stdout.isTTY;
 | 2026-02-21 | 1.1 | PO validation: GO (8.5/10) — Draft → Ready | Pax (@po) |
 | 2026-02-21 | 1.2 | Should-fixes applied: _registryToTree pseudocode + self-healing severity harmonized | Pax (@po) |
 | 2026-02-21 | 2.0 | Implementation complete: all 6 tasks done, 36 tests passing, full regression OK | Dex (@dev) |
+| 2026-02-21 | 2.1 | QA review PASS (95/100): 3 observations resolved, 43 tests passing, coverage improved | Quinn (@qa) |
+| 2026-02-21 | 3.0 | Story closed. Commits: 82debb2b (impl) + 62295a3b (QA). All 7 ACs met. Status → Done | Pax (@po) |
 
 ## Dev Agent Record
 

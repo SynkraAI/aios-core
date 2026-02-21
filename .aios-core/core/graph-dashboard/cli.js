@@ -1,10 +1,14 @@
 'use strict';
 
 const { CodeIntelSource } = require('./data-sources/code-intel-source');
+const { RegistrySource } = require('./data-sources/registry-source');
+const { MetricsSource } = require('./data-sources/metrics-source');
 const { renderTree } = require('./renderers/tree-renderer');
+const { renderStats } = require('./renderers/stats-renderer');
 
 const COMMANDS = {
   '--deps': handleDeps,
+  '--stats': handleStats,
   '--help': handleHelp,
   '-h': handleHelp,
 };
@@ -31,6 +35,8 @@ function parseArgs(argv) {
       args.command = '--help';
     } else if (arg === '--deps') {
       args.command = '--deps';
+    } else if (arg === '--stats') {
+      args.command = '--stats';
     } else if (arg === '--format' && i + 1 < argv.length) {
       args.format = argv[++i];
     } else if (arg.startsWith('--format=')) {
@@ -49,13 +55,30 @@ function parseArgs(argv) {
  * Handle --deps command: render dependency tree.
  * @param {Object} args - Parsed CLI args
  */
-async function handleDeps(args) {
+async function handleDeps(_args) {
   const source = new CodeIntelSource();
   const graphData = await source.getData();
   const isTTY = process.stdout.isTTY;
   const output = renderTree(graphData, { color: isTTY, unicode: isTTY });
 
   console.log(output);
+}
+
+/**
+ * Handle --stats command: render entity statistics and cache metrics.
+ * @param {Object} args - Parsed CLI args
+ */
+async function handleStats(_args) {
+  const registrySource = new RegistrySource();
+  const metricsSource = new MetricsSource();
+  const [registryData, metricsData] = await Promise.all([
+    registrySource.getData(),
+    metricsSource.getData(),
+  ]);
+  const isTTY = process.stdout.isTTY;
+  const output = renderStats(registryData, metricsData, { isTTY: !!isTTY });
+
+  process.stdout.write(output + '\n');
 }
 
 /**
@@ -67,6 +90,7 @@ Usage: aios graph [command] [options]
 
 Commands:
   --deps          Show dependency tree as ASCII text
+  --stats         Show entity statistics and cache metrics
   --help, -h      Show this help message
 
 Options:
@@ -75,7 +99,8 @@ Options:
 Examples:
   aios graph --deps                 Show dependency tree
   aios graph --deps --format=json   Output as JSON
-  aios graph --deps | grep helper   Search in dependency tree
+  aios graph --stats                Show entity stats and cache metrics
+  aios graph --stats | head -10     Pipe-friendly stats output
 `.trim();
 
   console.log(usage);
@@ -119,6 +144,7 @@ module.exports = {
   run,
   parseArgs,
   handleDeps,
+  handleStats,
   handleHelp,
   handleSummary,
 };

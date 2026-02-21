@@ -15,6 +15,33 @@ jest.mock('../../.aios-core/core/graph-dashboard/data-sources/code-intel-source'
   })),
 }));
 
+jest.mock('../../.aios-core/core/graph-dashboard/data-sources/registry-source', () => ({
+  RegistrySource: jest.fn().mockImplementation(() => ({
+    getData: jest.fn().mockResolvedValue({
+      totalEntities: 42,
+      categories: { tasks: { count: 30, pct: 71.4 }, agents: { count: 12, pct: 28.6 } },
+      lastUpdated: '2026-02-21T04:07:07.055Z',
+      version: '1.0.0',
+      timestamp: Date.now(),
+    }),
+  })),
+}));
+
+jest.mock('../../.aios-core/core/graph-dashboard/data-sources/metrics-source', () => ({
+  MetricsSource: jest.fn().mockImplementation(() => ({
+    getData: jest.fn().mockResolvedValue({
+      cacheHits: 0,
+      cacheMisses: 0,
+      cacheHitRate: 0,
+      circuitBreakerState: 'CLOSED',
+      latencyLog: [],
+      providerAvailable: false,
+      activeProvider: null,
+      timestamp: Date.now(),
+    }),
+  })),
+}));
+
 const { parseArgs, handleHelp, run } = require('../../.aios-core/core/graph-dashboard/cli');
 
 describe('cli', () => {
@@ -82,6 +109,12 @@ describe('cli', () => {
 
       expect(args.format).toBe('ascii');
     });
+
+    it('should parse --stats command', () => {
+      const args = parseArgs(['--stats']);
+
+      expect(args.command).toBe('--stats');
+    });
   });
 
   describe('handleHelp', () => {
@@ -119,6 +152,19 @@ describe('cli', () => {
 
       const output = consoleLogSpy.mock.calls[0][0];
       expect(output).toContain('Dependency Graph');
+    });
+
+    it('should render stats for --stats', async () => {
+      const stdoutWriteSpy = jest.spyOn(process.stdout, 'write').mockImplementation();
+
+      await run(['--stats']);
+
+      const output = stdoutWriteSpy.mock.calls[0][0];
+      expect(output).toContain('Entity Statistics');
+      expect(output).toContain('tasks');
+      expect(output).toContain('42');
+      expect(output).toContain('[OFFLINE]');
+      stdoutWriteSpy.mockRestore();
     });
 
     it('should exit with error for unknown command', async () => {
