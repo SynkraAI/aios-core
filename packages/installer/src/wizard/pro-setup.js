@@ -349,7 +349,7 @@ async function stepLicenseGateWithEmail() {
     checkSpinner.fail(t('proNoAccess'));
     console.log('');
     showInfo(t('proContactSupport'));
-    showInfo('  Email: support@synkra.ai');
+    showInfo('  Issues: https://github.com/SynkraAI/aios-core/issues');
     showInfo('  ' + t('proPurchase'));
     return { success: false, error: t('proEmailNotBuyer') };
   }
