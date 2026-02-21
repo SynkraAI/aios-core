@@ -1,6 +1,6 @@
 # Contributing to Synkra AIOS
 
-> **[Versao em Portugues](CONTRIBUTING-PT.md)**
+> **[Versao em Portugues](docs/pt/contributing.md)**
 
 Welcome to AIOS! Thank you for your interest in contributing. This guide will help you understand our development workflow, contribution process, and how to submit your changes.
 
@@ -549,7 +549,7 @@ git push --force-with-lease
 
 ### Q: Can I contribute in Portuguese?
 
-**A:** Yes! We accept PRs in Portuguese. See [CONTRIBUTING-PT.md](CONTRIBUTING-PT.md).
+**A:** Yes! We accept PRs in Portuguese. See [CONTRIBUTING-PT](docs/pt/contributing.md).
 
 ### Q: How do I become a maintainer?
 
