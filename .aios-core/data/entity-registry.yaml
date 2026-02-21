@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-21T16:22:43.454Z'
+  lastUpdated: '2026-02-21T18:31:55.282Z'
   entityCount: 511
   checksumAlgorithm: sha256
 entities:
@@ -4807,29 +4807,26 @@ entities:
       purpose: '[AIOS] Executar uma História de Desenvolvimento (Story) com o Agente Dev'
       keywords:
         - aios
-        - antigravity
         - execute
         - story
         - 'aios:'
         - execution
         - engine
         - workflow
-
       usedBy: []
       dependencies: []
       adaptability:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:c064e3a7369e1b46528e95f864195f2e7bf8daf338ef54b32699d5379b847bab
-      lastVerified: '2026-02-21T16:22:43.453Z'
+      checksum: sha256:f2c462193d72100efa68499c57bed132ed220e6f3964e0db29f53a7ca9d09871
+      lastVerified: '2026-02-21T18:31:55.280Z'
     aios-qa-review:
       path: .aios-core/product/templates/ide-rules/antigravity/workflows/aios-qa-review.md
       type: template
       purpose: '[AIOS] Executar revisão de Qualidade (QA) em uma Story recém-finalizada'
       keywords:
         - aios
-        - antigravity
         - qa
         - review
         - 'aios:'
@@ -4841,8 +4838,8 @@ entities:
         score: 0.5
         constraints: []
         extensionPoints: []
-      checksum: sha256:dcee4cd7d514bf2d08e6666f626fc7761071fb890f371b6e3373e18f5049a10a
-      lastVerified: '2026-02-21T16:22:43.454Z'
+      checksum: sha256:ea1bae33fabb6d52be30e1f9d3d17c5afc258000adae57488aa94a187ec27552
+      lastVerified: '2026-02-21T18:31:55.281Z'
   scripts:
     agent-assignment-resolver:
       path: .aios-core/development/scripts/agent-assignment-resolver.js
@@ -6053,7 +6050,11 @@ entities:
         - blast-radius
         - conventions
         - reuse
-      usedBy: []
+      usedBy:
+        - dev-develop-story
+        - create-service
+        - dev-suggest-refactoring
+        - build-autonomous
       dependencies:
         - code-intel
       adaptability:
