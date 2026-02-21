@@ -106,6 +106,12 @@ def is_safe_context(command: str) -> bool:
         if re.search(allowed, command_lower):
             return True
 
+    # Check if SQL content matches safe context patterns (read-only, metadata, etc.)
+    sql = extract_sql_from_command(command)
+    for safe_pattern in SAFE_CONTEXTS:
+        if re.search(safe_pattern, sql, re.IGNORECASE):
+            return True
+
     return False
 
 def detect_dangerous_sql(command: str) -> list[tuple[str, str]]:
