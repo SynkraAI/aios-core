@@ -324,8 +324,15 @@ describe('SynapseEngine', () => {
       });
 
       const result = await engine.process('test', { prompt_count: 30 });
-      // L0, L1, L2 should be loaded; L3 also since MODERATE allows it
-      expect(result.metrics.layers_loaded).toBeGreaterThanOrEqual(3);
+
+      // MODERATE activates L3 (workflow) that FRESH skips — must load more layers
+      expect(result.metrics.layers_loaded).toBeGreaterThanOrEqual(4);
+
+      // Verify workflow layer (L3) is loaded, not skipped — the key differentiator from FRESH
+      const workflowEntry = result.metrics.per_layer.workflow;
+      if (workflowEntry) {
+        expect(workflowEntry.status).not.toBe('skipped');
+      }
     });
   });
 
@@ -473,6 +480,35 @@ describe('SynapseEngine', () => {
       await engine.process('test', { prompt_count: 50, active_agent: 'qa' });
 
       expect(mockGetMemoryHints).toHaveBeenCalledWith('qa', 'DEPLETED', 300);
+    });
+  });
+
+  describe('process() — bracket in return value (QW-1)', () => {
+    test('should return bracket field in result', async () => {
+      contextTracker.calculateBracket.mockReturnValue('FRESH');
+      const result = await engine.process('test', { prompt_count: 0 });
+      expect(result.bracket).toBe('FRESH');
+    });
+
+    test('should return MODERATE bracket when context is 55%', async () => {
+      contextTracker.estimateContextPercent.mockReturnValue(55);
+      contextTracker.calculateBracket.mockReturnValue('MODERATE');
+      const result = await engine.process('test', { prompt_count: 60 });
+      expect(result.bracket).toBe('MODERATE');
+    });
+
+    test('should return DEPLETED bracket when context is 30%', async () => {
+      contextTracker.estimateContextPercent.mockReturnValue(30);
+      contextTracker.calculateBracket.mockReturnValue('DEPLETED');
+      const result = await engine.process('test', { prompt_count: 100 });
+      expect(result.bracket).toBe('DEPLETED');
+    });
+
+    test('should return CRITICAL bracket when context is 10%', async () => {
+      contextTracker.estimateContextPercent.mockReturnValue(10);
+      contextTracker.calculateBracket.mockReturnValue('CRITICAL');
+      const result = await engine.process('test', { prompt_count: 120 });
+      expect(result.bracket).toBe('CRITICAL');
     });
   });
 

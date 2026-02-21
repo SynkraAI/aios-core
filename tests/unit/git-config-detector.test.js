@@ -24,6 +24,9 @@ describe('GitConfigDetector', () => {
   beforeEach(() => {
     jest.useFakeTimers();
     detector = new GitConfigDetector(5 * 60 * 1000); // 5 minute TTL
+    // QW-5: _detectBranchDirect uses fs (not execSync), so mock it to force
+    // fallback to _getCurrentBranchExec which uses the mocked execSync.
+    jest.spyOn(GitConfigDetector.prototype, '_detectBranchDirect').mockReturnValue(undefined);
     jest.clearAllMocks();
   });
 

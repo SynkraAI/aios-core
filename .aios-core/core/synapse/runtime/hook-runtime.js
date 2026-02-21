@@ -32,7 +32,7 @@ function resolveHookRuntime(input) {
     const session = loadSession(sessionId, sessionsDir) || { prompt_count: 0 };
     const engine = new SynapseEngine(synapsePath);
 
-    return { engine, session };
+    return { engine, session, sessionId, sessionsDir, cwd };
   } catch (error) {
     if (process.env.DEBUG === '1') {
       console.error(`[hook-runtime] Failed to resolve runtime: ${error.message}`);

@@ -266,7 +266,7 @@ dependencies:
       max_iterations = 3
 
       WHILE iteration < max_iterations:
-        1. Run: wsl bash -c 'cd /mnt/c/.../@synkra/aios-core && ~/.local/bin/coderabbit --prompt-only -t committed --base main'
+        1. Run: wsl bash -c 'cd /mnt/c/.../aios-core && ~/.local/bin/coderabbit --prompt-only -t committed --base main'
         2. Parse output for all severity levels
 
         critical_issues = filter(output, severity == "CRITICAL")

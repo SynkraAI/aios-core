@@ -323,7 +323,7 @@ class SynapseEngine {
       needsHandoffWarning(bracket),
     );
 
-    return { xml, metrics: summary };
+    return { xml, metrics: summary, bracket };
   }
 
   /**

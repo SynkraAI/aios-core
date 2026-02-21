@@ -792,3 +792,21 @@ module.exports = {
   // ACT-12: Single English fallback (language delegated to Claude Code settings.json)
   FALLBACK_PHRASE,
 };
+
+// CLI entrypoint: `node unified-activation-pipeline.js <agentId>`
+if (require.main === module) {
+  const agentId = process.argv[2];
+  if (!agentId || !ALL_AGENT_IDS.includes(agentId)) {
+    console.error(`Usage: node unified-activation-pipeline.js <agentId>\nValid agents: ${ALL_AGENT_IDS.join(', ')}`);
+    process.exit(1);
+  }
+  UnifiedActivationPipeline.activate(agentId)
+    .then(result => {
+      console.log(result.greeting);
+      process.exit(0);
+    })
+    .catch(err => {
+      console.error(`Activation error: ${err.message}`);
+      process.exit(1);
+    });
+}

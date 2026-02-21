@@ -321,7 +321,7 @@ ideSync:
     github-copilot:
       enabled: true
       path: .github/agents
-      format: full-markdown-yaml
+      format: github-copilot
     cursor:
       enabled: true
       path: .cursor/rules/agents
