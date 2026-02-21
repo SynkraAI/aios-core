@@ -546,6 +546,30 @@ npm install && npm test  # All tests pass without pro/
 
 The `pro/` directory will simply not exist in your clone — this is expected and all features, tests, and CI pass without it.
 
+#### Fork Workflow
+
+When forking and syncing with upstream, **do NOT use `--recurse-submodules`**:
+
+```bash
+# Fork and clone (without submodules)
+git clone https://github.com/<your-fork>/aios-core.git
+cd aios-core
+
+# Add upstream and sync
+git remote add upstream https://github.com/SynkraAI/aios-core.git
+git fetch upstream
+git merge upstream/main
+
+# Push normally — the pro/ submodule reference is ignored
+git push origin main
+```
+
+The `.gitmodules` file includes `ignore = all` for the `pro` submodule, so Git will not attempt to resolve the private submodule reference during push operations. If you encounter any issues, you can also run:
+
+```bash
+git config submodule.pro.active false
+```
+
 ### For Team Members (with Pro Access)
 
 ```bash
