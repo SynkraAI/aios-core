@@ -335,9 +335,10 @@ When you submit a PR, the following checks run automatically:
 | -------------- | ---------------------- | -------- |
 | **ESLint**     | Code style and quality | Yes      |
 | **TypeScript** | Type checking          | Yes      |
-| **Build**      | Build verification     | Yes      |
-| **Tests**      | Jest test suite        | Yes      |
-| **Coverage**   | Minimum 80% coverage   | Yes      |
+| **Jest Tests** | Test suite (Node 18 & 20) | Yes   |
+| **Validation Summary** | Aggregate gate  | Yes      |
+| **Build**      | Build verification     | No (advisory) |
+| **Coverage**   | Coverage reporting     | No (advisory) |
 
 ### CodeRabbit AI Review
 
@@ -438,7 +439,7 @@ All of these must pass before a PR can be merged:
 
 ### CODEOWNERS
 
-Critical paths require approval from `@Pedrovaleriolopez` (lead maintainer) **or** `@SynkraAI` (organization):
+Critical paths require approval from `@Pedrovaleriolopez` or `@oalanicolas` (maintainers):
 
 | Path | Why |
 |------|-----|
@@ -448,7 +449,7 @@ Critical paths require approval from `@Pedrovaleriolopez` (lead maintainer) **or
 | `.github/` | CI/CD workflows, branch protection |
 | `.aios-core/core-config.yaml` | Framework configuration |
 
-All other paths require review from `@SynkraAI` (organization).
+All other paths require review from any maintainer (`@Pedrovaleriolopez` or `@oalanicolas`).
 
 See [`.github/CODEOWNERS`](.github/CODEOWNERS) for the full ownership map.
 

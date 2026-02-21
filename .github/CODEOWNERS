@@ -7,102 +7,102 @@
 # See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 #
 # Owners:
-#   @SynkraAI (organization) - default for all paths
-#   @Pedrovaleriolopez (lead maintainer) - required for critical paths
+#   @Pedrovaleriolopez (lead maintainer)
+#   @oalanicolas (maintainer)
 #
-# All PRs require approval from an org member before merge.
-# This is a public open-source repository - no GitHub Teams needed.
+# All PRs require approval from a maintainer before merge.
+# Note: Org handles (e.g. @SynkraAI) cannot approve PRs — only user accounts can.
 
 # ============================================
 # Default Owner (fallback)
 # ============================================
-* @SynkraAI
+* @Pedrovaleriolopez @oalanicolas
 
 # ============================================
 # Critical Paths (requires lead maintainer review)
 # ============================================
 # Orchestration layer (MasterOrchestrator, BobOrchestrator, GateEvaluator)
-.aios-core/core/orchestration/ @Pedrovaleriolopez @SynkraAI
+.aios-core/core/orchestration/ @Pedrovaleriolopez @oalanicolas
 
 # Execution engine (WaveExecutor, ParallelExecutor)
-.aios-core/core/execution/ @Pedrovaleriolopez @SynkraAI
+.aios-core/core/execution/ @Pedrovaleriolopez @oalanicolas
 
 # Packages (installer, CLI, shared libraries)
-packages/ @Pedrovaleriolopez @SynkraAI
+packages/ @Pedrovaleriolopez @oalanicolas
 
 # CI/CD configurations
-.github/ @Pedrovaleriolopez @SynkraAI
+.github/ @Pedrovaleriolopez @oalanicolas
 
 # ============================================
 # Framework Core (requires senior review)
 # ============================================
 # Agent definitions
-.aios-core/development/agents/ @SynkraAI
+.aios-core/development/agents/ @Pedrovaleriolopez @oalanicolas
 
 # Task definitions
-.aios-core/development/tasks/ @SynkraAI
+.aios-core/development/tasks/ @Pedrovaleriolopez @oalanicolas
 
 # Workflow definitions
-.aios-core/development/workflows/ @SynkraAI
+.aios-core/development/workflows/ @Pedrovaleriolopez @oalanicolas
 
 # Templates
-.aios-core/product/templates/ @SynkraAI
-templates/ @SynkraAI
+.aios-core/product/templates/ @Pedrovaleriolopez @oalanicolas
+templates/ @Pedrovaleriolopez @oalanicolas
 
 # CLI utilities
-.aios-core/cli/ @SynkraAI
+.aios-core/cli/ @Pedrovaleriolopez @oalanicolas
 
 # ============================================
 # Infrastructure
 # ============================================
 # Docker configurations
-.docker/ @SynkraAI
+.docker/ @Pedrovaleriolopez @oalanicolas
 
 # Framework configuration
-.aios-core/core-config.yaml @Pedrovaleriolopez @SynkraAI
+.aios-core/core-config.yaml @Pedrovaleriolopez @oalanicolas
 
 # Package management
-package.json @SynkraAI
-package-lock.json @SynkraAI
+package.json @Pedrovaleriolopez @oalanicolas
+package-lock.json @Pedrovaleriolopez @oalanicolas
 
 # ============================================
 # Documentation (more permissive)
 # ============================================
 # General docs
-docs/ @SynkraAI
+docs/ @Pedrovaleriolopez @oalanicolas
 
 # Architecture decisions
-docs/architecture/ @SynkraAI
+docs/architecture/ @Pedrovaleriolopez @oalanicolas
 
 # Framework standards
-docs/framework/ @SynkraAI
+docs/framework/ @Pedrovaleriolopez @oalanicolas
 
 # User guides
-docs/guides/ @SynkraAI
+docs/guides/ @Pedrovaleriolopez @oalanicolas
 
 # ============================================
 # Security-Sensitive Files
 # ============================================
 # This file
-.github/CODEOWNERS @Pedrovaleriolopez @SynkraAI
+.github/CODEOWNERS @Pedrovaleriolopez @oalanicolas
 
 # Release workflows
-.github/workflows/semantic-release.yml @Pedrovaleriolopez @SynkraAI
-.github/workflows/npm-publish.yml @Pedrovaleriolopez @SynkraAI
-.github/workflows/release.yml @Pedrovaleriolopez @SynkraAI
+.github/workflows/semantic-release.yml @Pedrovaleriolopez @oalanicolas
+.github/workflows/npm-publish.yml @Pedrovaleriolopez @oalanicolas
+.github/workflows/release.yml @Pedrovaleriolopez @oalanicolas
 
 # Pro submodule workflows
-.github/workflows/pro-integration.yml @Pedrovaleriolopez @SynkraAI
-.github/workflows/publish-pro.yml @Pedrovaleriolopez @SynkraAI
+.github/workflows/pro-integration.yml @Pedrovaleriolopez @oalanicolas
+.github/workflows/publish-pro.yml @Pedrovaleriolopez @oalanicolas
 
 # Security configurations
-security/ @SynkraAI
+security/ @Pedrovaleriolopez @oalanicolas
 
 # Environment files (should not be committed, but protect pattern)
-.env* @SynkraAI
+.env* @Pedrovaleriolopez @oalanicolas
 
 # Configuration files
-*.config.js @SynkraAI
-*.config.ts @SynkraAI
-tsconfig.json @SynkraAI
-eslint.config.* @SynkraAI
+*.config.js @Pedrovaleriolopez @oalanicolas
+*.config.ts @Pedrovaleriolopez @oalanicolas
+tsconfig.json @Pedrovaleriolopez @oalanicolas
+eslint.config.* @Pedrovaleriolopez @oalanicolas
