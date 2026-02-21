@@ -273,10 +273,13 @@ class SubtaskVerifier {
     this._log(`Running command: ${config.command}`, 'info');
 
     if (!execa) {
-      // Fallback to child_process
-      const { execSync } = require('child_process');
+      // Fallback to child_process (no shell for security)
+      const { execFileSync } = require('child_process');
       try {
-        const output = execSync(config.command, {
+        const parts = config.command.split(' ');
+        const program = parts[0];
+        const args = parts.slice(1);
+        const output = execFileSync(program, args, {
           cwd: this.cwd,
           timeout,
           encoding: 'utf8',
@@ -301,7 +304,6 @@ class SubtaskVerifier {
 
       const { stdout, stderr, exitCode } = await execa(program, args, {
         cwd: this.cwd,
-        shell: true,
         timeout,
         encoding: 'utf8',
         env: { ...process.env, CI: 'true' },

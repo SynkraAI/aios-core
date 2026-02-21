@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-20T22:30:07.846Z"
+generated_at: "2026-02-21T01:28:45.363Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1048
 files:
@@ -1045,7 +1045,7 @@ files:
     type: data
     size: 34251
   - path: data/entity-registry.yaml
-    hash: sha256:5b6223eb4b7fdc532ed707ddb573ea614ec2d824f6c6ac436c9965ac0d9bea9c
+    hash: sha256:8cb1291ecb42f9f72881b3552639d9dd5b85cf6a4c9cc7dce5e6baad8ce14118
     type: data
     size: 292792
   - path: data/learned-patterns.yaml
@@ -3065,9 +3065,9 @@ files:
     type: script
     size: 22266
   - path: infrastructure/scripts/sandbox-tester.js
-    hash: sha256:019af2e23de70d7dacb49faf031ba0c1f5553ecebe52f361bab74bfca73ba609
+    hash: sha256:99b0d340d472d8a543e66547412b47f0bba1ac9ce583d88111f87bcf7764d237
     type: script
-    size: 15702
+    size: 15750
   - path: infrastructure/scripts/security-checker.js
     hash: sha256:467c7366b60460ef1840492ebe6f9d9eb57c307da6b7e71c6dd35bdddf85f4c0
     type: script
@@ -3105,9 +3105,9 @@ files:
     type: script
     size: 39109
   - path: infrastructure/scripts/subtask-verifier.js
-    hash: sha256:ceb0450fa12fa48f0255bb4565858eb1a97b28c30b98d36cb61d52d72e08b054
+    hash: sha256:0da3348f012641f680c34cc92ebe70093b869c5e97f6ca4f03d716ed56e87a60
     type: script
-    size: 22394
+    size: 22524
   - path: infrastructure/scripts/task-skills-sync/index.js
     hash: sha256:1a48832b277eb3a1ad56f36aa12973ac3c79b3343ee91923cdb75489eaaf9459
     type: script

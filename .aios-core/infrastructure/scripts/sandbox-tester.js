@@ -441,6 +441,7 @@ class SandboxTester {
   /**
    * Execute command in sandbox with timeout
    * Refactored to use execa for cross-platform compatibility
+   * Security: shell: false to prevent shell metacharacter injection
    */
   async runCommand(cwd, command, options = {}) {
     const timeout = options.timeout || 30000;
@@ -453,7 +454,6 @@ class SandboxTester {
 
       const { stdout } = await execa(program, args, {
         cwd,
-        shell: true,
         timeout,
         encoding: 'utf8',
         env: { ...process.env, CI: 'true', NODE_ENV: 'test' },
