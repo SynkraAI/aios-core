@@ -6047,6 +6047,27 @@ entities:
         extensionPoints: []
       checksum: sha256:0c38edbf0572a2e2ddb5c2f904b6b12472f78c2cda1af14e14ca36b05005683d
       lastVerified: '2026-02-17T15:35:57.643Z'
+    qa-helper:
+      path: .aios-core/core/code-intel/helpers/qa-helper.js
+      type: module
+      purpose: Code intelligence helper for @qa agent tasks (blast radius, test coverage, reference impact, gate influence)
+      keywords:
+        - qa
+        - helper
+        - blast-radius
+        - test-coverage
+        - gate-influence
+      usedBy:
+        - qa-gate
+        - qa-review-story
+      dependencies:
+        - index
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: pending
+      lastVerified: '2026-02-20T00:00:00.000Z'
     registry-syncer:
       path: .aios-core/core/code-intel/registry-syncer.js
       type: module

@@ -370,6 +370,29 @@ If self-healing fails:
 
 ---
 
+### 0b. Code Intelligence: Reference Impact (Optional)
+
+> This step is **conditional** — only executes when a code intelligence provider is available.
+> If `isCodeIntelAvailable()` returns false, skip silently and proceed to Risk Assessment.
+
+After CodeRabbit self-healing (Step 0), if code intelligence is available:
+
+1. Collect modified files from the story's File List
+2. Call `getReferenceImpact(files)` from `.aios-core/core/code-intel/helpers/qa-helper.js`
+3. If result is not null, include reference impact in the review:
+   ```
+   ### Reference Impact (Code Intelligence)
+   | Modified File | Consumers Affected |
+   |--------------|-------------------|
+   | {file} | {consumers.length} consumers ({list of consumer files}) |
+   ```
+4. Files with many consumers (>10) should trigger deeper review of those changes
+5. This data supplements Risk Assessment (Step 1) — high consumer count may auto-escalate to deep review
+
+> **Fallback guarantee:** If code intelligence is unavailable or `getReferenceImpact` returns null, the review continues exactly as before — no reference impact section is added.
+
+---
+
 ### 1. Risk Assessment (Determines Review Depth)
 
 **Auto-escalate to deep review when:**

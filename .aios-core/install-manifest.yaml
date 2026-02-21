@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-21T01:57:30.378Z"
+generated_at: "2026-02-21T02:18:21.045Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1007
+file_count: 1008
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -192,6 +192,10 @@ files:
     hash: sha256:2418a5f541003c73cc284e88a6b0cb666896a47ffd5ed4c08648269d281efc4c
     type: core
     size: 5770
+  - path: core/code-intel/helpers/qa-helper.js
+    hash: sha256:ca069dad294224dd5c3369826fb39d5c24287d49d74360049f8bbc55f190eeda
+    type: core
+    size: 5184
   - path: core/code-intel/index.js
     hash: sha256:ca8c54c2decbf64183d890ab42dc8ca2deafa675d4433492cb6ce423a284ad4d
     type: core
@@ -1045,9 +1049,9 @@ files:
     type: data
     size: 34251
   - path: data/entity-registry.yaml
-    hash: sha256:8749c784e810b98c2e4e21835dec21fae26a7fc1938fe24740aacfd4fc7cf854
+    hash: sha256:3cf33c1fcd63fd4513662fbbaa40e7f2fb3657952d8636ac8f0ceae61f5b3a48
     type: data
-    size: 293088
+    size: 293680
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1993,9 +1997,9 @@ files:
     type: task
     size: 15580
   - path: development/tasks/qa-gate.md
-    hash: sha256:5e28ae6a98fd0520f8f4ebc07a825ca31f9590804dc6bde45969e61579782ca8
+    hash: sha256:995b9b153ee88786e86eecef6f3b682f7feacd220c9576c32e5d2f2b6ef4eb1a
     type: task
-    size: 8442
+    size: 10378
   - path: development/tasks/qa-generate-tests.md
     hash: sha256:6155f078cc4f24e04b7b3379bf70dacd26e71fbf7f0e829dca52ce395ff48d3c
     type: task
@@ -2021,9 +2025,9 @@ files:
     type: task
     size: 35266
   - path: development/tasks/qa-review-story.md
-    hash: sha256:c6e1db10fa2ad01110206b538f10ef2fc3b26806e1d4eaa63931f4fb77ef4625
+    hash: sha256:f9ad6d2fe787f602315edab92c6703eeb7bfbe080af7d326967dc123e48282bb
     type: task
-    size: 23292
+    size: 24411
   - path: development/tasks/qa-risk-profile.md
     hash: sha256:95873134bd7eb1b0cec8982709051dd1c2f97c983b404478d990c88a2fadd5d5
     type: task
