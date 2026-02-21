@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-21T14:14:02.326Z'
-  entityCount: 530
+  lastUpdated: '2026-02-21T16:50:25.387Z'
+  entityCount: 531
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -3958,7 +3958,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:a76192c203ff0e709ba52dfa595f2d81351e4c52180407b9d05b99dbea8de709
-      lastVerified: '2026-02-21T01:49:51.214Z'
+      lastVerified: '2026-02-21T15:19:55.377Z'
     resolve-github-issue:
       path: .aios-core/development/tasks/resolve-github-issue.md
       type: task
@@ -6076,7 +6076,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:a9f9741b1426732f19803bf9f292b15d8eed0fb875cf02df70735f48512f2310
-      lastVerified: '2026-02-21T01:49:51.213Z'
+      lastVerified: '2026-02-21T15:19:55.376Z'
   modules:
     dev-helper:
       path: .aios-core/core/code-intel/helpers/dev-helper.js
@@ -6691,7 +6691,6 @@ entities:
         - check
       usedBy:
         - check-registry
-        - engine
         - console
         - json
         - markdown
@@ -6760,18 +6759,21 @@ entities:
     engine:
       path: .aios-core/core/health-check/engine.js
       type: module
-      purpose: Entity at .aios-core\core\health-check\engine.js
+      purpose: Entity at .aios-core\core\synapse\engine.js
       keywords:
         - engine
       usedBy: []
       dependencies:
-        - base-check
+        - context-tracker
+        - context-builder
+        - formatter
+        - memory-bridge
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:6f566c016c8a3216d929dace4ebcbd151c6d0866d67754d7ea5c16cdd37ea94f
-      lastVerified: '2026-02-21T13:19:28.570Z'
+      checksum: sha256:9a49aa4df10911d46ba81a11c501d973c3c51748b5f0fb74ba17b3dda7a96e9b
+      lastVerified: '2026-02-21T16:50:08.031Z'
     ideation-engine:
       path: .aios-core/core/ideation/ideation-engine.js
       type: module
@@ -8689,14 +8691,15 @@ entities:
         - context
         - tracker
       usedBy:
+        - engine
         - pipeline-collector
       dependencies: []
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:3b09f8323fab171e3aaa7a3a079b6cd65f6fd5775e661c24c295a4775cb31a68
-      lastVerified: '2026-02-11T02:17:11.045Z'
+      checksum: sha256:48e94db7b1778dedecc8eae829139579ad7778ff47668597ebe766610696553f
+      lastVerified: '2026-02-21T16:50:08.030Z'
     memory-bridge:
       path: .aios-core/core/synapse/memory/memory-bridge.js
       type: module
@@ -8704,7 +8707,8 @@ entities:
       keywords:
         - memory
         - bridge
-      usedBy: []
+      usedBy:
+        - engine
       dependencies:
         - tokens
         - feature-gate
@@ -8721,7 +8725,8 @@ entities:
       purpose: Entity at .aios-core\core\synapse\output\formatter.js
       keywords:
         - formatter
-      usedBy: []
+      usedBy:
+        - engine
       dependencies:
         - tokens
       adaptability:
@@ -8753,7 +8758,8 @@ entities:
       keywords:
         - context
         - builder
-      usedBy: []
+      usedBy:
+        - engine
       dependencies: []
       adaptability:
         score: 0.4
@@ -8774,8 +8780,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:2fdd54f36a1bbb4ba05d6577c607cf2d6711dcf9a06284fc935676189a461fa2
-      lastVerified: '2026-02-16T20:22:35.904Z'
+      checksum: sha256:e897f9b755c72598b259284c1ae02ca27034aceb698c1971886bc79f997a747b
+      lastVerified: '2026-02-21T16:50:08.032Z'
     migration-config:
       path: .aios-core/core/migration/migration-config.yaml
       type: module
@@ -9049,12 +9055,13 @@ entities:
         - json-formatter
         - dot-formatter
         - mermaid-formatter
+        - html-formatter
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:a25c466dd2837db29638d8180c8f334b41b7bd08eebb17178732a75643d6ade0
-      lastVerified: '2026-02-21T13:40:50.155Z'
+      checksum: sha256:243a22ac68520b78d1924fbaad2c4de69e328ff1e90e55f01f241372b09cf65d
+      lastVerified: '2026-02-21T16:50:25.383Z'
     code-intel-source:
       path: .aios-core/core/graph-dashboard/data-sources/code-intel-source.js
       type: module
@@ -9222,6 +9229,22 @@ entities:
         extensionPoints: []
       checksum: sha256:8e971ae267a570fac96782ee2d1ddb7787cc1efde9e17a2f23c9261ae0286acb
       lastVerified: '2026-02-21T13:40:50.159Z'
+    html-formatter:
+      path: .aios-core/core/graph-dashboard/formatters/html-formatter.js
+      type: module
+      purpose: Entity at .aios-core\core\graph-dashboard\formatters\html-formatter.js
+      keywords:
+        - html
+        - formatter
+      usedBy:
+        - cli
+      dependencies: []
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:72197a34dace31f77b187358f126b25bb5ec886edade8353b888ef290ab74c1a
+      lastVerified: '2026-02-21T16:50:25.385Z'
   agents:
     aios-master:
       path: .aios-core/development/agents/aios-master.md
@@ -9471,7 +9494,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:c6dbaae38c0e3030dbffebcbcf95e5e766e0294a7a678531531cbd7ad6e54e2b
-      lastVerified: '2026-02-21T01:49:51.212Z'
+      lastVerified: '2026-02-21T15:19:55.374Z'
   data:
     agent-config-requirements:
       path: .aios-core/data/agent-config-requirements.yaml
