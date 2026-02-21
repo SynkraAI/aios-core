@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-21T13:55:38.146Z"
+generated_at: "2026-02-21T14:13:53.860Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1025
+file_count: 1027
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -1109,7 +1109,7 @@ files:
     type: data
     size: 34235
   - path: data/entity-registry.yaml
-    hash: sha256:1d1691659848e0d0f23a92e3c5c84224b26fa09a2463b7829e381fbe40b66010
+    hash: sha256:4bca5c53d44d4459d106d0901aff2cd82d2cd4b0ba5dd724f98c15a2e026fb95
     type: data
     size: 302368
   - path: data/learned-patterns.yaml
@@ -1177,9 +1177,9 @@ files:
     type: agent
     size: 22904
   - path: development/agents/devops.md
-    hash: sha256:958dd617e0c3d4fd3419102df22e6c3f3acdbab30f1333e687ce6191e41113f8
+    hash: sha256:143dc22da0d91fbeb2212562f92dfc51ddb4a71029e8b7b85ea0e180dc61e018
     type: agent
-    size: 20130
+    size: 20670
   - path: development/agents/pm.md
     hash: sha256:e724b248d30c0e67e316e72d5d408c4c57b2da0bfe0cc014e48415531703e765
     type: agent
@@ -2120,6 +2120,10 @@ files:
     hash: sha256:969e7ee512c837ef3161ad786b0177ae14818671d7ee2fa989a24e060932a9ed
     type: task
     size: 8651
+  - path: development/tasks/resolve-github-issue.md
+    hash: sha256:c29abaafa58746b6240a62ad7126646e123f58443b33950a4df9797406ef6b30
+    type: task
+    size: 18271
   - path: development/tasks/run-design-system-pipeline.md
     hash: sha256:89482d6d061afa53e155267f51b52b4ae475d27e05320401123209a92994262f
     type: task
@@ -2268,6 +2272,10 @@ files:
     hash: sha256:d4ccfa417bd80734ee0b7dbbccbdc8e00fd8af5a62705aa1e1d031b2311f2883
     type: task
     size: 3341
+  - path: development/tasks/triage-github-issues.md
+    hash: sha256:0a0d97af3e0fec311ea13dbd7e1eb32fbaa769ab57cd4be0cac94e016a0a5283
+    type: task
+    size: 10008
   - path: development/tasks/undo-last.md
     hash: sha256:e99b5aed1331dbedcd3ef771fa8cf43b59725eee7c222a21f32183baedc7a432
     type: task
