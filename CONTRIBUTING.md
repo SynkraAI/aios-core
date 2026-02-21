@@ -14,6 +14,7 @@ Welcome to AIOS! Thank you for your interest in contributing. This guide will he
 - [Contributing Squads](#contributing-squads)
 - [Code Review Process](#code-review-process)
 - [Validation System](#validation-system)
+- [Branch Protection & PR Requirements](#branch-protection--pr-requirements)
 - [Code Standards](#code-standards)
 - [Testing Requirements](#testing-requirements)
 - [Frequently Asked Questions](#frequently-asked-questions)

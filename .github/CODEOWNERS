@@ -49,8 +49,7 @@ packages/ @Pedrovaleriolopez @SynkraAI
 .aios-core/product/templates/ @SynkraAI
 templates/ @SynkraAI
 
-# Core utilities
-.aios-core/core/ @SynkraAI
+# CLI utilities
 .aios-core/cli/ @SynkraAI
 
 # ============================================
