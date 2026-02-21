@@ -564,15 +564,23 @@ git rebase upstream/main
 git push --force-with-lease origin main
 ```
 
-> **Submodule push error?** If you see `remote: fatal: did not receive expected object` when pushing after syncing, it means the `pro/` submodule pointer changed upstream and your fork cannot resolve the private reference. Fix it by resetting the submodule pointer to your fork's version:
+> **Submodule push error?** If you see `remote: fatal: did not receive expected object` when pushing after syncing, it means the `pro/` submodule pointer changed upstream and your fork cannot resolve the private reference.
 >
+> **If your fork already had a successful push before** (existing submodule pointer):
 > ```bash
 > git checkout origin/main -- pro
 > git commit -m "chore: reset pro submodule pointer for fork"
 > git push origin main
 > ```
+>
+> **If this is a new fork** (no previous pro pointer on remote):
+> ```bash
+> git rm --cached pro
+> git commit -m "chore: remove pro submodule reference for fork"
+> git push origin main
+> ```
 
-You can also suppress submodule noise in `git status` locally:
+You can also suppress submodule noise in `git status` locally (these settings are local-only and do not affect remote pushes):
 
 ```bash
 git config submodule.pro.ignore all
