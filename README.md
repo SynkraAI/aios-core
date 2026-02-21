@@ -1,5 +1,7 @@
 # Synkra AIOS: Framework Universal de Agentes IA 🚀
 
+> 🌍 [English](README.en.md) | **[Português](README.md)**
+
 [![Versão NPM](https://img.shields.io/npm/v/aios-core.svg)](https://www.npmjs.com/package/aios-core)
 [![Licença: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Versão Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
