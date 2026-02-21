@@ -6354,8 +6354,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:123825dc7af75eeab03c78c593b36af2800189e7e4a07fe4a2e397b26c8aefdf
-      lastVerified: '2026-02-08T13:33:24.332Z'
+      checksum: sha256:921edfba95c223926067e28d71810d6f3e1db476da5128c77a7104fa4cda3786
+      lastVerified: '2026-02-13T14:18:02.396Z'
     build-state-manager:
       path: .aios-core/core/execution/build-state-manager.js
       type: module
@@ -6490,8 +6490,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:7bc03f948ccedfb03a6e4ab7fadb01ab0ea0d3d4dfd71b909cfe2ef3341d7281
-      lastVerified: '2026-02-08T13:33:24.334Z'
+      checksum: sha256:3b213fef7d9e287374de6a955a241eb45666e5b70b772e3b533c2b7f618bf572
+      lastVerified: '2026-02-13T14:18:02.397Z'
     wave-executor:
       path: .aios-core/core/execution/wave-executor.js
       type: module
