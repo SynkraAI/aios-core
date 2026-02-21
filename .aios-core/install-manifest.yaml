@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-21T13:19:10.825Z"
+generated_at: "2026-02-21T13:40:39.136Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1020
+file_count: 1024
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -349,9 +349,9 @@ files:
     type: core
     size: 11060
   - path: core/graph-dashboard/cli.js
-    hash: sha256:de1be3131ef929fd6574bc3c6b7a5937f430d63f2572cd4108a85e0eefdef125
+    hash: sha256:a25c466dd2837db29638d8180c8f334b41b7bd08eebb17178732a75643d6ade0
     type: core
-    size: 3734
+    size: 5563
   - path: core/graph-dashboard/data-sources/code-intel-source.js
     hash: sha256:c3679ef97f08753915bbf8583e8aec4b560db9516f4eced50ee7fe13e8961deb
     type: core
@@ -364,6 +364,18 @@ files:
     hash: sha256:32d2a4bd5b102823d5933e5f9a648ae7e647cb1918092063161fed80d32b844b
     type: core
     size: 2521
+  - path: core/graph-dashboard/formatters/dot-formatter.js
+    hash: sha256:4c369343f2b617a730951eb137d5ba74087bfd9f5dddbbf439e1fc2f87117d7a
+    type: core
+    size: 1162
+  - path: core/graph-dashboard/formatters/json-formatter.js
+    hash: sha256:0544ec384f716130a5141edc7ad6733dccd82b86e37fc1606f1120b0037c3f8d
+    type: core
+    size: 381
+  - path: core/graph-dashboard/formatters/mermaid-formatter.js
+    hash: sha256:a6a5361cb7cdce2632d348ad32c659a3c383471fd338e76d578cc83c0888b2d7
+    type: core
+    size: 1568
   - path: core/graph-dashboard/index.js
     hash: sha256:d4e43c674dd7c119afd0afacc5b899c35de82890a61a3bcefc957819314f8cee
     type: core
@@ -372,6 +384,10 @@ files:
     hash: sha256:375f904e8592a546f594f63b2c717db03db500e7070372db6de5524ac74ba474
     type: core
     size: 6193
+  - path: core/graph-dashboard/renderers/status-renderer.js
+    hash: sha256:8e971ae267a570fac96782ee2d1ddb7787cc1efde9e17a2f23c9261ae0286acb
+    type: core
+    size: 2954
   - path: core/graph-dashboard/renderers/tree-renderer.js
     hash: sha256:067bb5aefdfff0442a6132b89cec9ac61e84c9a9295097209a71c839978cef10
     type: core
@@ -1093,9 +1109,9 @@ files:
     type: data
     size: 34235
   - path: data/entity-registry.yaml
-    hash: sha256:6edba57ef75871729e0521d46f537bcebd959b1e828db2cecb745a4b5f5d8b0b
+    hash: sha256:ea5f279f80ebb17b616784c90915d8e1db46b607a53a6db57db2f5105fb7c89e
     type: data
-    size: 299323
+    size: 300151
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data

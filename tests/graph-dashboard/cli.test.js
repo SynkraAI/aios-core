@@ -148,10 +148,15 @@ describe('cli', () => {
     });
 
     it('should render summary (default) when no command', async () => {
+      const stdoutWriteSpy = jest.spyOn(process.stdout, 'write').mockImplementation();
+
       await run([]);
 
-      const output = consoleLogSpy.mock.calls[0][0];
+      const output = stdoutWriteSpy.mock.calls[0][0];
+      expect(output).toContain('AIOS Graph Dashboard');
       expect(output).toContain('Dependency Graph');
+      expect(output).toContain('Provider Status');
+      stdoutWriteSpy.mockRestore();
     });
 
     it('should render stats for --stats', async () => {
