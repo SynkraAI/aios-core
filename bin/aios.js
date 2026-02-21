@@ -475,7 +475,8 @@ Examples:
       fixAction: async () => {
         console.log('  🔧 Installing AIOS...');
         try {
-          execSync('npx aios-core install --force --quiet', { stdio: 'inherit', timeout: 60000 });
+          // Use local wizard instead of npx to avoid supply chain risk
+          await runWizard({ force: true, quiet: true });
           console.log('  ✓ Installation complete');
         } catch (installError) {
           console.error(`  ✗ Installation failed: ${installError.message}`);

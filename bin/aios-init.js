@@ -36,14 +36,15 @@ const execAsync = promisify(exec);
 /**
  * Execute command with inherited stdio (for npm install -g that needs user interaction)
  * INS-2 Performance: Async version that doesn't block event loop
- * @param {string} command - Command to execute
+ * Security: Uses array args without shell interpretation
+ * @param {string} program - Program to execute
+ * @param {string[]} args - Arguments array
  * @param {object} options - Spawn options
  * @returns {Promise<void>}
  */
-function spawnAsync(command, options = {}) {
+function spawnAsync(program, args = [], options = {}) {
   return new Promise((resolve, reject) => {
-    const [cmd, ...args] = command.split(' ');
-    const child = spawn(cmd, args, { stdio: 'inherit', shell: true, ...options });
+    const child = spawn(program, args, { stdio: 'inherit', ...options });
     child.on('close', (code) => {
       if (code === 0) {
         resolve();
@@ -480,7 +481,7 @@ async function main() {
           console.log(chalk.blue(`📥 Installing ${tool.name}...`));
           try {
             // INS-2 Performance: Use async spawn instead of sync (AC7)
-            await spawnAsync(`npm install -g ${tool.npm}`);
+            await spawnAsync('npm', ['install', '-g', tool.npm]);
             console.log(chalk.green('✓') + ` ${tool.name} installed successfully`);
 
             // Show post-install instructions
