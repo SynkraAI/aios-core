@@ -269,6 +269,16 @@ special_features:
 2. Configure Google Cloud credentials
 3. Agents synchronized as workflows
 
+**Configuration:**
+
+```bash
+# Sync AntiGravity workflows
+npm run sync:ide:antigravity
+
+# Verify setup
+ls -la .agent/workflows/
+```
+
 ---
 
 ### Gemini CLI
