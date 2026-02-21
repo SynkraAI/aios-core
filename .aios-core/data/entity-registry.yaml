@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-21T01:49:51.215Z'
-  entityCount: 512
+  lastUpdated: '2026-02-21T02:18:28.352Z'
+  entityCount: 513
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -2469,8 +2469,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:5e28ae6a98fd0520f8f4ebc07a825ca31f9590804dc6bde45969e61579782ca8
-      lastVerified: '2026-02-08T13:33:24.216Z'
+      checksum: sha256:995b9b153ee88786e86eecef6f3b682f7feacd220c9576c32e5d2f2b6ef4eb1a
+      lastVerified: '2026-02-21T02:18:28.351Z'
     qa-generate-tests:
       path: .aios-core/development/tasks/qa-generate-tests.md
       type: task
@@ -2616,8 +2616,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:c6e1db10fa2ad01110206b538f10ef2fc3b26806e1d4eaa63931f4fb77ef4625
-      lastVerified: '2026-02-08T13:33:24.222Z'
+      checksum: sha256:f9ad6d2fe787f602315edab92c6703eeb7bfbe080af7d326967dc123e48282bb
+      lastVerified: '2026-02-21T02:18:28.352Z'
     qa-risk-profile:
       path: .aios-core/development/tasks/qa-risk-profile.md
       type: task
@@ -6050,24 +6050,43 @@ entities:
     qa-helper:
       path: .aios-core/core/code-intel/helpers/qa-helper.js
       type: module
-      purpose: Code intelligence helper for @qa agent tasks (blast radius, test coverage, reference impact, gate influence)
+      purpose: Entity at .aios-core\core\code-intel\helpers\qa-helper.js
       keywords:
         - qa
         - helper
-        - blast-radius
-        - test-coverage
-        - gate-influence
-      usedBy:
-        - qa-gate
-        - qa-review-story
+      usedBy: []
       dependencies:
         - index
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: pending
-      lastVerified: '2026-02-20T00:00:00.000Z'
+      checksum: sha256:ca069dad294224dd5c3369826fb39d5c24287d49d74360049f8bbc55f190eeda
+      lastVerified: '2026-02-21T02:18:28.350Z'
+    planning-helper:
+      path: .aios-core/core/code-intel/helpers/planning-helper.js
+      type: module
+      purpose: Code intelligence helper for @pm/@architect tasks (brownfield, PRD, implementation planning)
+      keywords:
+        - planning
+        - helper
+        - brownfield
+        - prd
+        - code-intel
+      usedBy:
+        - brownfield-create-epic
+        - analyze-project-structure
+        - plan-create-context
+        - plan-create-implementation
+        - create-doc
+      dependencies:
+        - index
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: ''
+      lastVerified: '2026-02-21T12:00:00.000Z'
     registry-syncer:
       path: .aios-core/core/code-intel/registry-syncer.js
       type: module
@@ -6120,6 +6139,7 @@ entities:
         - index
       usedBy:
         - dev-helper
+        - qa-helper
       dependencies:
         - registry-loader
         - incremental-decision-engine

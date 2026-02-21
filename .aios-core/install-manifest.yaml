@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-21T02:18:21.045Z"
+generated_at: "2026-02-21T02:40:23.465Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1008
+file_count: 1009
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -192,6 +192,10 @@ files:
     hash: sha256:2418a5f541003c73cc284e88a6b0cb666896a47ffd5ed4c08648269d281efc4c
     type: core
     size: 5770
+  - path: core/code-intel/helpers/planning-helper.js
+    hash: sha256:2edcf275122125205a9e737035c8b25efdc4af13e7349ffc10c3ebe8ebe7654d
+    type: core
+    size: 6863
   - path: core/code-intel/helpers/qa-helper.js
     hash: sha256:ca069dad294224dd5c3369826fb39d5c24287d49d74360049f8bbc55f190eeda
     type: core
@@ -1049,9 +1053,9 @@ files:
     type: data
     size: 34251
   - path: data/entity-registry.yaml
-    hash: sha256:3cf33c1fcd63fd4513662fbbaa40e7f2fb3657952d8636ac8f0ceae61f5b3a48
+    hash: sha256:7cddbc9cb2912fb30bba246388febb491b2877c53886e468b746cf1a86a09d9c
     type: data
-    size: 293680
+    size: 294286
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1477,9 +1481,9 @@ files:
     type: task
     size: 15464
   - path: development/tasks/analyze-project-structure.md
-    hash: sha256:3336ea3c394e4746d65f999f3901c470bf21d17e0ae8faabd8b332482c04127b
+    hash: sha256:35e41cbcdf5731187f1051bfdfea70ad39b022d189325f2ae3c6f98bab6d8cba
     type: task
-    size: 14542
+    size: 16149
   - path: development/tasks/apply-qa-fixes.md
     hash: sha256:9a7a3d6ab17732f22bae79257a8519d4e9175dd0f862b863185e03620d2753ce
     type: task
@@ -1525,9 +1529,9 @@ files:
     type: task
     size: 7609
   - path: development/tasks/brownfield-create-epic.md
-    hash: sha256:548b1aaa7c4dbfe7054f6bfe344483c2e04c496dac4a88fd0985a2af54a9c312
+    hash: sha256:5f08daf94281cf0a9c77339c0e88e8c6d7e2388ea8b3f094384c8f371d87c14c
     type: task
-    size: 16437
+    size: 17900
   - path: development/tasks/brownfield-create-story.md
     hash: sha256:af393075ac90c4ab6792095cd542e3b64ece0a6c5f0659dda87164802b3b939b
     type: task
@@ -1601,9 +1605,9 @@ files:
     type: task
     size: 12254
   - path: development/tasks/create-doc.md
-    hash: sha256:8788f29a37727921a651cd889da4ade9f6ce8a33a274e9d213fde232945d506c
+    hash: sha256:ad95f32e687a57b24449273c6916023cfbb95229d55561ff68b06c2f4c8cddd4
     type: task
-    size: 8681
+    size: 10334
   - path: development/tasks/create-next-story.md
     hash: sha256:f650cbb2056c31cf4b85fb83b4e030ccf613cd5270d1453b80bbc00dc6344a60
     type: task
@@ -1913,13 +1917,13 @@ files:
     type: task
     size: 7372
   - path: development/tasks/plan-create-context.md
-    hash: sha256:be1938fa011eb550d9710872ac461d9317c85c26268ba181d304ad7d4856ed5d
+    hash: sha256:a2254e15e331e2e49f4b849b0650b0e627c73a8cbf16f0e04de55e2b30f1900f
     type: task
-    size: 20202
+    size: 21756
   - path: development/tasks/plan-create-implementation.md
-    hash: sha256:6d794e93bf32fcfdc601530ab9a09d435d34535e5964d01cd2b7388e52049c38
+    hash: sha256:0d8db44dd5c573bac94f0419464ddc20f5ebc81a485df47930cd6fc8f9f64109
     type: task
-    size: 18893
+    size: 20649
   - path: development/tasks/plan-execute-subtask.md
     hash: sha256:fcce92949e2d35b03e9b056ce28894f83566abaf0158e4591c9165b97a6833f6
     type: task
