@@ -551,22 +551,31 @@ The `pro/` directory will simply not exist in your clone — this is expected an
 When forking and syncing with upstream, **do NOT use `--recurse-submodules`**:
 
 ```bash
-# Fork and clone (without submodules)
+# Fork via GitHub UI, then clone (without submodules)
 git clone https://github.com/<your-fork>/aios-core.git
 cd aios-core
 
 # Add upstream and sync
 git remote add upstream https://github.com/SynkraAI/aios-core.git
 git fetch upstream
-git merge upstream/main
+git rebase upstream/main
 
-# Push normally — the pro/ submodule reference is ignored
-git push origin main
+# Push (use --force-with-lease after rebase)
+git push --force-with-lease origin main
 ```
 
-The `.gitmodules` file includes `ignore = all` for the `pro` submodule, so Git will not attempt to resolve the private submodule reference during push operations. If you encounter any issues, you can also run:
+> **Submodule push error?** If you see `remote: fatal: did not receive expected object` when pushing after syncing, it means the `pro/` submodule pointer changed upstream and your fork cannot resolve the private reference. Fix it by resetting the submodule pointer to your fork's version:
+>
+> ```bash
+> git checkout origin/main -- pro
+> git commit -m "chore: reset pro submodule pointer for fork"
+> git push origin main
+> ```
+
+You can also suppress submodule noise in `git status` locally:
 
 ```bash
+git config submodule.pro.ignore all
 git config submodule.pro.active false
 ```
 
