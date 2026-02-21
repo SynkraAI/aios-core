@@ -162,6 +162,9 @@ projectStatus:
   statusFile: .aios/project-status.yaml
   maxModifiedFiles: 5
   maxRecentCommits: 2
+synapse:
+  session:
+    staleTTLHours: 168 # 7 days — sessions older than this are cleaned up on first prompt
 agentIdentity:
   greeting:
     preference: auto

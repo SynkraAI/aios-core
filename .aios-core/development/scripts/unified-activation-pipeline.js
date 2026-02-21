@@ -53,6 +53,7 @@ const { PermissionMode } = require('../../core/permissions');
 const GreetingPreferenceManager = require('./greeting-preference-manager');
 const ContextDetector = require('../../core/session/context-detector');
 const WorkflowNavigator = require('./workflow-navigator');
+const { atomicWriteSync } = require('../../core/synapse/utils/atomic-write');
 // BUG-1 fix (INS-1): Graceful degradation when pro-detector is not available
 // In installed projects, bin/utils/pro-detector.js does not exist
 let isProAvailable, loadProModule;
@@ -710,7 +711,7 @@ class UnifiedActivationPipeline {
       };
 
       const bridgePath = path.join(sessionsDir, '_active-agent.json');
-      fsSync.writeFileSync(bridgePath, JSON.stringify(bridgeData, null, 2), 'utf8');
+      atomicWriteSync(bridgePath, JSON.stringify(bridgeData, null, 2));
 
       const duration = Date.now() - start;
       metrics.loaders.synapseSession = { duration, status: 'ok', start, end: start + duration };
@@ -756,9 +757,9 @@ class UnifiedActivationPipeline {
           status: info.status || 'unknown',
         };
       }
-      fsSync.writeFileSync(
+      atomicWriteSync(
         path.join(metricsDir, 'uap-metrics.json'),
-        JSON.stringify(data, null, 2), 'utf8',
+        JSON.stringify(data, null, 2),
       );
     } catch {
       // Fire-and-forget: never block the activation pipeline

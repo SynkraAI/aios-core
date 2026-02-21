@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-21T19:42:07.110Z"
+generated_at: "2026-02-21T19:46:39.779Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1033
 files:
@@ -941,9 +941,9 @@ files:
     type: core
     size: 9179
   - path: core/session/context-detector.js
-    hash: sha256:aebb529ccd1bb460ac57e1fe2272fa8cbfa560aee8b387ef02f4a4529d280367
+    hash: sha256:7323a5416e3826524aac7f3e68625465ca013c862f7fdbc5fd6e4487ecd738ec
     type: core
-    size: 7279
+    size: 7107
   - path: core/session/context-loader.js
     hash: sha256:eaef1e3a11feb2d355c5dc8fc2813ae095e27911cdf1261e5d003b22be16d8f0
     type: core
@@ -1069,9 +1069,9 @@ files:
     type: script
     size: 6160
   - path: core/synapse/session/session-manager.js
-    hash: sha256:a622b938451f0ae762b47b35f9353f72dc7f7de31dad54fc565bf44a33a6cbed
+    hash: sha256:98e8c8fa15b074b6102bcd51c6f91f101743338e8cde6de9c31d6b6eea5d6580
     type: core
-    size: 11194
+    size: 11185
   - path: core/synapse/utils/atomic-write.js
     hash: sha256:efeef0fbcebb184df5b79f4ba4b4b7fe274c3ba7d1c705ce1af92628e920bd8b
     type: core
