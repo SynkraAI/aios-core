@@ -447,6 +447,43 @@ npx aios-core@latest install
 # 3. Configurar agentes e workflows
 ```
 
+### 🌐 Instalação Global de Agentes (Usar em Qualquer Projeto)
+
+Quer usar agentes AIOS em **qualquer projeto** com Kiro CLI? Instale-os globalmente:
+
+```bash
+# Do diretório aios-core
+npm run install:agents:global
+
+# Ou diretamente
+node scripts/install-agents-globally.js
+```
+
+**Isso permite:**
+- ✅ Usar agentes AIOS (`@architect`, `@dev`, `@qa`, etc.) em qualquer sessão Kiro CLI
+- ✅ Ativar agentes sem precisar estar em um projeto AIOS
+- ✅ Acesso instantâneo a todos os 12 agentes especializados
+
+**Uso após instalação global:**
+```bash
+# Em qualquer projeto
+kiro-cli chat
+
+# Ativar agente
+@architect
+@dev
+@qa
+
+# Usar comandos do agente
+*help
+*create-plan
+
+# Sair do agente
+*exit
+```
+
+📖 **[Documentação completa de instalação global](scripts/README-global-agents.md)**
+
 ## 🌟 Além do Desenvolvimento de Software - Squads
 
 O framework de linguagem natural do AIOS funciona em QUALQUER domínio. Os Squads fornecem agentes IA especializados para escrita criativa, estratégia de negócios, saúde e bem-estar, educação e muito mais. Além disso, os Squads podem expandir o núcleo do Synkra AIOS com funcionalidade específica que não é genérica para todos os casos. [Veja o Guia de Squads](docs/guides/squads-guide.md) e aprenda a criar os seus próprios!
