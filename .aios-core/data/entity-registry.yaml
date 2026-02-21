@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-21T02:18:28.352Z'
-  entityCount: 513
+  lastUpdated: '2026-02-21T02:41:02.705Z'
+  entityCount: 514
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -154,14 +154,16 @@ entities:
         - structure
       usedBy: []
       dependencies:
+        - code-intel
+        - planning-helper
         - filesystem access
         - glob tool
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:3336ea3c394e4746d65f999f3901c470bf21d17e0ae8faabd8b332482c04127b
-      lastVerified: '2026-02-08T13:33:24.174Z'
+      checksum: sha256:35e41cbcdf5731187f1051bfdfea70ad39b022d189325f2ae3c6f98bab6d8cba
+      lastVerified: '2026-02-21T02:41:02.702Z'
     apply-qa-fixes:
       path: .aios-core/development/tasks/apply-qa-fixes.md
       type: task
@@ -290,14 +292,16 @@ entities:
         - task
       usedBy: []
       dependencies:
+        - code-intel
+        - planning-helper
         - executor-assignment
         - N/A
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:548b1aaa7c4dbfe7054f6bfe344483c2e04c496dac4a88fd0985a2af54a9c312
-      lastVerified: '2026-02-08T13:33:24.177Z'
+      checksum: sha256:5f08daf94281cf0a9c77339c0e88e8c6d7e2388ea8b3f094384c8f371d87c14c
+      lastVerified: '2026-02-21T02:41:02.703Z'
     brownfield-create-story:
       path: .aios-core/development/tasks/brownfield-create-story.md
       type: task
@@ -643,13 +647,15 @@ entities:
         - during
       usedBy: []
       dependencies:
+        - code-intel
+        - planning-helper
         - N/A
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:8788f29a37727921a651cd889da4ade9f6ce8a33a274e9d213fde232945d506c
-      lastVerified: '2026-02-08T13:33:24.181Z'
+      checksum: sha256:ad95f32e687a57b24449273c6916023cfbb95229d55561ff68b06c2f4c8cddd4
+      lastVerified: '2026-02-21T02:41:02.703Z'
     create-next-story:
       path: .aios-core/development/tasks/create-next-story.md
       type: task
@@ -2061,13 +2067,15 @@ entities:
         - 'pipeline:'
       usedBy: []
       dependencies:
-        - 'path: ''{dependency file}'''
+        - code-intel
+        - planning-helper
+        - 'symbol: ''{symbol}'''
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:be1938fa011eb550d9710872ac461d9317c85c26268ba181d304ad7d4856ed5d
-      lastVerified: '2026-02-08T13:33:24.210Z'
+      checksum: sha256:a2254e15e331e2e49f4b849b0650b0e627c73a8cbf16f0e04de55e2b30f1900f
+      lastVerified: '2026-02-21T02:41:02.704Z'
     plan-create-implementation:
       path: .aios-core/development/tasks/plan-create-implementation.md
       type: task
@@ -2081,13 +2089,15 @@ entities:
         - execution
         - 'pipeline:'
       usedBy: []
-      dependencies: []
+      dependencies:
+        - code-intel
+        - planning-helper
       adaptability:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:6d794e93bf32fcfdc601530ab9a09d435d34535e5964d01cd2b7388e52049c38
-      lastVerified: '2026-02-08T13:33:24.210Z'
+      checksum: sha256:0d8db44dd5c573bac94f0419464ddc20f5ebc81a485df47930cd6fc8f9f64109
+      lastVerified: '2026-02-21T02:41:02.704Z'
     plan-execute-subtask:
       path: .aios-core/development/tasks/plan-execute-subtask.md
       type: task
@@ -6066,26 +6076,50 @@ entities:
     planning-helper:
       path: .aios-core/core/code-intel/helpers/planning-helper.js
       type: module
-      purpose: Code intelligence helper for @pm/@architect tasks (brownfield, PRD, implementation planning)
+      purpose: '{totalDeps: number, depth: string}}|null>}'
       keywords:
         - planning
         - helper
-        - brownfield
-        - prd
-        - code-intel
       usedBy:
-        - brownfield-create-epic
         - analyze-project-structure
+        - brownfield-create-epic
+        - create-doc
         - plan-create-context
         - plan-create-implementation
-        - create-doc
       dependencies:
         - index
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: ''
+      checksum: sha256:2edcf275122125205a9e737035c8b25efdc4af13e7349ffc10c3ebe8ebe7654d
+      lastVerified: '2026-02-21T02:41:02.701Z'
+    story-helper:
+      path: .aios-core/core/code-intel/helpers/story-helper.js
+      type: module
+      purpose: >-
+        Code intelligence helper for @sm/@po agent tasks. Provides duplicate story
+        detection, relevant file suggestions, and no-duplicate validation for story
+        creation and validation workflows.
+      keywords:
+        - story
+        - helper
+        - duplicate
+        - detection
+        - validation
+        - code-intel
+      usedBy:
+        - create-next-story
+        - validate-next-story
+      dependencies:
+        - index
+      adaptability:
+        score: 0.5
+        constraints:
+          - Consumes code-intel enricher and client APIs only
+        extensionPoints:
+          - Additional story-awareness functions can be added
+      checksum: sha256:pending
       lastVerified: '2026-02-21T12:00:00.000Z'
     registry-syncer:
       path: .aios-core/core/code-intel/registry-syncer.js
@@ -6140,6 +6174,7 @@ entities:
       usedBy:
         - dev-helper
         - qa-helper
+        - planning-helper
       dependencies:
         - registry-loader
         - incremental-decision-engine

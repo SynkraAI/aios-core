@@ -239,6 +239,16 @@ To identify the next logical story based on project progress and epic definition
 - **If no story files exist:** The next story is ALWAYS 1.1 (first story of first epic)
 - Announce the identified story to the user: "Identified next story for preparation: {epicNum}.{storyNum} - {Story Title}"
 
+### 1.2 Code Intelligence: Duplicate Detection & File Suggestions (Auto-skip if unavailable)
+
+- **Check code intelligence availability:** Call `isCodeIntelAvailable()` from `.aios-core/core/code-intel`
+- **If available:**
+  - Call `detectDuplicateStory(storyDescription)` from `.aios-core/core/code-intel/helpers/story-helper`
+    - If matches found: Display advisory warning to user — "Similar functionality found: {warning}". This is **advisory only** and does NOT block story creation.
+  - Call `suggestRelevantFiles(storyDescription)` from `.aios-core/core/code-intel/helpers/story-helper`
+    - If files found: Pre-populate a "Suggested Files" note in the Dev Notes section with the relevant file references
+- **If NOT available:** Skip this step silently — story creation proceeds exactly as before
+
 ### 2. Gather Story Requirements and Previous Story Context
 
 - Extract story requirements from the identified epic file
