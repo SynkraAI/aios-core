@@ -438,7 +438,7 @@ All of these must pass before a PR can be merged:
 
 ### CODEOWNERS
 
-Critical paths require review from `@Pedrovaleriolopez` (lead maintainer):
+Critical paths require approval from `@Pedrovaleriolopez` (lead maintainer) **or** `@SynkraAI` (organization):
 
 | Path | Why |
 |------|-----|
@@ -456,7 +456,7 @@ See [`.github/CODEOWNERS`](.github/CODEOWNERS) for the full ownership map.
 
 - **Force push to main:** Blocked
 - **Branch deletions:** Blocked
-- **Admin bypass:** Lead maintainer only, for emergency fixes
+- **Admin bypass:** Disabled (`enforce_admins: true`)
 
 ---
 
