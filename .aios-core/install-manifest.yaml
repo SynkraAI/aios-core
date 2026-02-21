@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-21T15:08:54.979Z"
+generated_at: "2026-02-21T16:22:37.876Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1009
+file_count: 1011
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -1045,9 +1045,9 @@ files:
     type: data
     size: 34251
   - path: data/entity-registry.yaml
-    hash: sha256:9cbf837d0b2151304c3ce8d28e6ac8efa1ef4b35a9dc4074bdbfaa9fd4afc77f
+    hash: sha256:ead24393a64eb6d91a64343c5106d63a9b6627e6979b0a68276e6d6d7e025d88
     type: data
-    size: 291887
+    size: 293038
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -2493,9 +2493,9 @@ files:
     type: code
     size: 753
   - path: infrastructure/contracts/compatibility/aios-4.0.4.yaml
-    hash: sha256:306728391cf6dd42457e5381bad0e20de314a165d8f389cd25716c5c4878932a
+    hash: sha256:efb06b3450bc3ed3c1d832b7f6be3ad69821575986a2461bb9d72723c4caf7c5
     type: infrastructure
-    size: 1072
+    size: 1104
   - path: infrastructure/index.js
     hash: sha256:8e05caec57188938d6f348444ad3abce2c06b53bdb46993fb2e8ff81c27fca4c
     type: infrastructure
@@ -2757,9 +2757,9 @@ files:
     type: script
     size: 5534
   - path: infrastructure/scripts/ide-sync/index.js
-    hash: sha256:7905f674bece4c6faac6c95dea5f666d783e0b70d5e919e0f3479aa9563753ed
+    hash: sha256:c7f8752a03c3b65f8c7780aa414643c98b4ad5edc234853f50a9eac7e01d486b
     type: script
-    size: 15939
+    size: 15249
   - path: infrastructure/scripts/ide-sync/README.md
     hash: sha256:4b7ce30ded1d8a81c2d293711d6f20cd97fad5c8d014c4102c80e4a54978711f
     type: script
@@ -2780,6 +2780,10 @@ files:
     hash: sha256:fe38ba6960cc7e1dd2f1de963cdfc5a4be83eb5240c696e9eea607421a23cf22
     type: script
     size: 2427
+  - path: infrastructure/scripts/ide-sync/utils/antigravity-workflows.js
+    hash: sha256:6ee20f1b83c1d8aa498878bb294a5331e6ec1165b2f2f503844d3f64475cb094
+    type: script
+    size: 1751
   - path: infrastructure/scripts/ide-sync/validator.js
     hash: sha256:356c78125db7f88d14f4e521808e96593d729291c3d7a1c36cb02f78b4aef8fc
     type: script
@@ -2996,6 +3000,10 @@ files:
     hash: sha256:3a800a109edfeced0391550119b2b90f58405c65d6e0d4f1119e611c33ccbac2
     type: script
     size: 14900
+  - path: infrastructure/scripts/validate-antigravity-integration.js
+    hash: sha256:1a1550a8d20375dae75876eb584b60dbf0bb9ec3b89fbeb96ae0a42cd242ed17
+    type: script
+    size: 2641
   - path: infrastructure/scripts/validate-claude-integration.js
     hash: sha256:d7b71db77de1d5d6dc9f6c31cd756279fec85e5fa5257d5077ff5ea09575c118
     type: script
@@ -3013,9 +3021,9 @@ files:
     type: script
     size: 6692
   - path: infrastructure/scripts/validate-parity.js
-    hash: sha256:527948d4a35a85c2f558b261f4b0a921d0482cab979e7dffe988b6fa11b7b2a1
+    hash: sha256:25fefc9b374b3fc99d1bb4d576adc65d6c47c93092f49a782bde5b6eb778ceb0
     type: script
-    size: 12683
+    size: 12963
   - path: infrastructure/scripts/validate-paths.js
     hash: sha256:4360d0735ec2c717a97c1670855c5423cf5172005a93c4698b5305ccec48bc2e
     type: script
@@ -3521,13 +3529,13 @@ files:
     type: template
     size: 3081
   - path: product/templates/ide-rules/antigravity/workflows/aios-execute-story.md
-    hash: sha256:f1de439aad27a2c83ae5002640c4ea0ab60131546202d263e303d6cdb3993275
+    hash: sha256:c064e3a7369e1b46528e95f864195f2e7bf8daf338ef54b32699d5379b847bab
     type: workflow
-    size: 1492
+    size: 1503
   - path: product/templates/ide-rules/antigravity/workflows/aios-qa-review.md
-    hash: sha256:fac25ec9fd507c3706f6ee73cd5910757ae071d64594cc8f4fb39670be6d6a15
+    hash: sha256:dcee4cd7d514bf2d08e6666f626fc7761071fb890f371b6e3373e18f5049a10a
     type: workflow
-    size: 1040
+    size: 1047
   - path: product/templates/ide-rules/claude-rules.md
     hash: sha256:13d5fb7858534f6d49150a5dff642faa276c17b9d242f995369c5e7e1d37ae40
     type: template

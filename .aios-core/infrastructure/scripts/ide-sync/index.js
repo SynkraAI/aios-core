@@ -31,6 +31,9 @@ const claudeCodeTransformer = require('./transformers/claude-code');
 const cursorTransformer = require('./transformers/cursor');
 const antigravityTransformer = require('./transformers/antigravity');
 
+// Utilities
+const { syncAntigravityWorkflows } = require('./utils/antigravity-workflows');
+
 // ANSI colors for output
 const colors = {
   reset: '\x1b[0m',
@@ -273,31 +276,7 @@ async function commandSync(options) {
 
     // Antigravity: also sync static workflow templates
     if (ideName === 'antigravity') {
-      try {
-        const sourceDir = path.join(projectRoot, '.aios-core', 'product', 'templates', 'ide-rules', 'antigravity', 'workflows');
-        const targetDir = path.join(projectRoot, '.agent', 'workflows');
-
-        if (fs.existsSync(sourceDir)) {
-          if (!options.dryRun) {
-            fs.ensureDirSync(targetDir);
-            const files = fs.readdirSync(sourceDir);
-            for (const file of files) {
-              if (file.endsWith('.md')) {
-                fs.copyFileSync(path.join(sourceDir, file), path.join(targetDir, file));
-                result.files.push({
-                  agent: 'Workflow',
-                  filename: file,
-                  path: path.join(targetDir, file)
-                });
-              }
-            }
-          } else {
-            // Mock behavior for dry run
-            result.files.push({ agent: 'Workflow', filename: 'aios-execute-story.md' });
-            result.files.push({ agent: 'Workflow', filename: 'aios-qa-review.md' });
-          }
-        }
-      } catch (e) { /* ignore */ }
+      syncAntigravityWorkflows(projectRoot, options.dryRun, result.files, options.verbose);
     }
 
     results.push(result);
@@ -310,7 +289,8 @@ async function commandSync(options) {
       console.log(`   ${colors.dim}Target: ${result.targetDir}${colors.reset}`);
     }
 
-    const agentCount = result.files.length;
+    const agentCount = result.files.filter(f => f.agent !== 'Workflow').length;
+    const workflowCount = result.files.filter(f => f.agent === 'Workflow').length;
     const commandCount = (result.commandFiles || []).length;
     const redirectCount = redirectResult.written.length;
     const errorCount = result.errors.length;
@@ -322,7 +302,7 @@ async function commandSync(options) {
       }
 
       console.log(
-        `   ${status} ${agentCount} agents${commandCount > 0 ? `, ${commandCount} commands` : ''}, ${redirectCount} redirects${errorCount > 0 ? `, ${errorCount} errors` : ''}`
+        `   ${status} ${agentCount} agents${workflowCount > 0 ? `, ${workflowCount} workflows` : ''}${commandCount > 0 ? `, ${commandCount} commands` : ''}, ${redirectCount} redirects${errorCount > 0 ? `, ${errorCount} errors` : ''}`
       );
 
       if (options.verbose && result.errors.length > 0) {
