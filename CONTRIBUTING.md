@@ -412,6 +412,53 @@ AIOS implements a **Defense in Depth** strategy with 3 validation layers:
 
 ---
 
+## Branch Protection & PR Requirements
+
+All changes to `main` must go through a Pull Request. Direct pushes are blocked.
+
+### Required Status Checks
+
+All of these must pass before a PR can be merged:
+
+| Check | Description |
+|-------|-------------|
+| **ESLint** | Code style and quality |
+| **TypeScript Type Checking** | No type errors |
+| **Jest Tests (Node 18)** | Full test suite on Node 18 |
+| **Jest Tests (Node 20)** | Full test suite on Node 20 |
+| **Validation Summary** | Aggregate gate |
+
+### PR Review Rules
+
+- **1 approval required** from a CODEOWNERS reviewer
+- **Stale reviews are dismissed** when new commits are pushed
+- **Conversation resolution required** — all review threads must be resolved
+- **CODEOWNERS review required** — changes to critical paths need the designated owner's approval
+
+### CODEOWNERS
+
+Critical paths require review from `@Pedrovaleriolopez` (lead maintainer):
+
+| Path | Why |
+|------|-----|
+| `.aios-core/core/orchestration/` | Orchestration layer (MasterOrchestrator, GateEvaluator) |
+| `.aios-core/core/execution/` | Execution engine (WaveExecutor, ParallelExecutor) |
+| `packages/` | Installer, CLI, shared libraries |
+| `.github/` | CI/CD workflows, branch protection |
+| `.aios-core/core-config.yaml` | Framework configuration |
+
+All other paths require review from `@SynkraAI` (organization).
+
+See [`.github/CODEOWNERS`](.github/CODEOWNERS) for the full ownership map.
+
+### Force Push & Deletions
+
+- **Force push to main:** Blocked
+- **Branch deletions:** Blocked
+- **Admin bypass:** Lead maintainer only, for emergency fixes
+
+---
+
 ## Code Standards
 
 ### JavaScript/TypeScript

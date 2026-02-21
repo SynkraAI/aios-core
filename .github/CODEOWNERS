@@ -1,12 +1,15 @@
 # AIOS Code Owners
-# Story: COLLAB-1, COLLAB-2
-# Last Updated: 2025-12-30
+# Issue: #99 (Governance)
+# Last Updated: 2026-02-21
 #
 # Format: <pattern> <owners>
 # Later patterns take precedence over earlier ones
 # See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 #
-# Owner: @SynkraAI (organization)
+# Owners:
+#   @SynkraAI (organization) - default for all paths
+#   @Pedrovaleriolopez (lead maintainer) - required for critical paths
+#
 # All PRs require approval from an org member before merge.
 # This is a public open-source repository - no GitHub Teams needed.
 
@@ -14,6 +17,21 @@
 # Default Owner (fallback)
 # ============================================
 * @SynkraAI
+
+# ============================================
+# Critical Paths (requires lead maintainer review)
+# ============================================
+# Orchestration layer (MasterOrchestrator, BobOrchestrator, GateEvaluator)
+.aios-core/core/orchestration/ @Pedrovaleriolopez @SynkraAI
+
+# Execution engine (WaveExecutor, ParallelExecutor)
+.aios-core/core/execution/ @Pedrovaleriolopez @SynkraAI
+
+# Packages (installer, CLI, shared libraries)
+packages/ @Pedrovaleriolopez @SynkraAI
+
+# CI/CD configurations
+.github/ @Pedrovaleriolopez @SynkraAI
 
 # ============================================
 # Framework Core (requires senior review)
@@ -38,14 +56,11 @@ templates/ @SynkraAI
 # ============================================
 # Infrastructure
 # ============================================
-# CI/CD configurations
-.github/ @SynkraAI
-
 # Docker configurations
 .docker/ @SynkraAI
 
 # Framework configuration
-.aios-core/core-config.yaml @SynkraAI
+.aios-core/core-config.yaml @Pedrovaleriolopez @SynkraAI
 
 # Package management
 package.json @SynkraAI
@@ -70,12 +85,16 @@ docs/guides/ @SynkraAI
 # Security-Sensitive Files
 # ============================================
 # This file
-.github/CODEOWNERS @SynkraAI
+.github/CODEOWNERS @Pedrovaleriolopez @SynkraAI
 
 # Release workflows
-.github/workflows/semantic-release.yml @SynkraAI
-.github/workflows/npm-publish.yml @SynkraAI
-.github/workflows/release.yml @SynkraAI
+.github/workflows/semantic-release.yml @Pedrovaleriolopez @SynkraAI
+.github/workflows/npm-publish.yml @Pedrovaleriolopez @SynkraAI
+.github/workflows/release.yml @Pedrovaleriolopez @SynkraAI
+
+# Pro submodule workflows
+.github/workflows/pro-integration.yml @Pedrovaleriolopez @SynkraAI
+.github/workflows/publish-pro.yml @Pedrovaleriolopez @SynkraAI
 
 # Security configurations
 security/ @SynkraAI
