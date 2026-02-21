@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-21T03:00:35.120Z"
+generated_at: "2026-02-21T03:32:32.778Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1010
+file_count: 1011
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -192,6 +192,10 @@ files:
     hash: sha256:2418a5f541003c73cc284e88a6b0cb666896a47ffd5ed4c08648269d281efc4c
     type: core
     size: 5770
+  - path: core/code-intel/helpers/devops-helper.js
+    hash: sha256:c40cfa9ac2f554a707ff68c7709ae436349041bf00ad2f42811ccbe8ba842462
+    type: core
+    size: 5115
   - path: core/code-intel/helpers/planning-helper.js
     hash: sha256:2edcf275122125205a9e737035c8b25efdc4af13e7349ffc10c3ebe8ebe7654d
     type: core
@@ -1057,9 +1061,9 @@ files:
     type: data
     size: 34251
   - path: data/entity-registry.yaml
-    hash: sha256:6e774a2e37314923ec63554fa0fc0b8908538bc62ba08325e2a6593fe1f06479
+    hash: sha256:fef8dd82dd7b2ca8c692d279e4fcb6dfcd8ec9c0228abaa6e34fdfcac39e9323
     type: data
-    size: 295356
+    size: 295648
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1805,13 +1809,13 @@ files:
     type: task
     size: 13659
   - path: development/tasks/github-devops-github-pr-automation.md
-    hash: sha256:907476b248dc063e8bbd48bb884fa667dca93f6469394500e4ad567aa33953ba
+    hash: sha256:a22ce2681c4713fecbff8dc0d3fba0ac5e139cb9469884914bb293dad49dbd82
     type: task
-    size: 17713
+    size: 19280
   - path: development/tasks/github-devops-pre-push-quality-gate.md
-    hash: sha256:5466ed17c850945f4418ec8911a269ca90e2fb7d6fef80beab2cadf3abc0dbd5
+    hash: sha256:0bba5a9e3eb06f10495ee94614acaa9b5723a0177641300b154d40766d467f76
     type: task
-    size: 21603
+    size: 23660
   - path: development/tasks/github-devops-repository-cleanup.md
     hash: sha256:41bab1eb9841602af7c806ddc7c03d6d36e8a2390e290d87818037076fe5fb05
     type: task

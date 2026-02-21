@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-21T02:41:02.705Z'
-  entityCount: 514
+  lastUpdated: '2026-02-21T03:03:01.120Z'
+  entityCount: 515
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -674,8 +674,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:f650cbb2056c31cf4b85fb83b4e030ccf613cd5270d1453b80bbc00dc6344a60
-      lastVerified: '2026-02-08T13:33:24.181Z'
+      checksum: sha256:a7856701c88063e8b81f87ee4aad6c8682eabf78eb23219e3069927d1a19ad8b
+      lastVerified: '2026-02-21T03:03:01.119Z'
     create-service:
       path: .aios-core/development/tasks/create-service.md
       type: task
@@ -3643,8 +3643,8 @@ entities:
         score: 0.8
         constraints: []
         extensionPoints: []
-      checksum: sha256:f834d96cc0f6a0e2aee46ce7b98192e0cea5847f442db0075e066ab6230c1774
-      lastVerified: '2026-02-08T13:33:24.260Z'
+      checksum: sha256:4981bc84d5f7a1e9d86da5afe5a63e6065015e650fed97fa61686d54aef3bcf6
+      lastVerified: '2026-02-21T03:03:01.120Z'
     validate-tech-preset:
       path: .aios-core/development/tasks/validate-tech-preset.md
       type: task
@@ -6097,29 +6097,39 @@ entities:
     story-helper:
       path: .aios-core/core/code-intel/helpers/story-helper.js
       type: module
-      purpose: >-
-        Code intelligence helper for @sm/@po agent tasks. Provides duplicate story
-        detection, relevant file suggestions, and no-duplicate validation for story
-        creation and validation workflows.
+      purpose: Entity at .aios-core\core\code-intel\helpers\story-helper.js
       keywords:
         - story
         - helper
-        - duplicate
-        - detection
-        - validation
-        - code-intel
-      usedBy:
-        - create-next-story
-        - validate-next-story
+      usedBy: []
       dependencies:
         - index
       adaptability:
-        score: 0.5
-        constraints:
-          - Consumes code-intel enricher and client APIs only
-        extensionPoints:
-          - Additional story-awareness functions can be added
-      checksum: sha256:pending
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:778466253ac66103ebc3b1caf71f44b06a0d5fb3d39fe8d3d473dd4bc73fefc6
+      lastVerified: '2026-02-21T03:03:01.118Z'
+    devops-helper:
+      path: .aios-core/core/code-intel/helpers/devops-helper.js
+      type: module
+      purpose: Code intelligence helper for @devops agent — pre-push impact analysis and PR enrichment
+      keywords:
+        - devops
+        - helper
+        - impact
+        - blast-radius
+        - pre-push
+        - pr-enrichment
+      usedBy:
+        - github-devops-pre-push-quality-gate
+        - github-devops-github-pr-automation
+      dependencies:
+        - index
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
       lastVerified: '2026-02-21T12:00:00.000Z'
     registry-syncer:
       path: .aios-core/core/code-intel/registry-syncer.js
@@ -6175,6 +6185,7 @@ entities:
         - dev-helper
         - qa-helper
         - planning-helper
+        - story-helper
       dependencies:
         - registry-loader
         - incremental-decision-engine
