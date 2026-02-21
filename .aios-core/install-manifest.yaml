@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-21T04:07:00.335Z"
+generated_at: "2026-02-21T04:59:31.820Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1013
+file_count: 1017
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -348,6 +348,22 @@ files:
     hash: sha256:4e2324edb37ae0729062b5ac029f2891e050e7efd3a48d0f4a1dc4f227a6716b
     type: core
     size: 11060
+  - path: core/graph-dashboard/cli.js
+    hash: sha256:80330795dbd225ff2f5f5939952e2e716f490b993d94f3616ae92b2e78fe1c8e
+    type: core
+    size: 2761
+  - path: core/graph-dashboard/data-sources/code-intel-source.js
+    hash: sha256:c3679ef97f08753915bbf8583e8aec4b560db9516f4eced50ee7fe13e8961deb
+    type: core
+    size: 5411
+  - path: core/graph-dashboard/index.js
+    hash: sha256:d4e43c674dd7c119afd0afacc5b899c35de82890a61a3bcefc957819314f8cee
+    type: core
+    size: 528
+  - path: core/graph-dashboard/renderers/tree-renderer.js
+    hash: sha256:067bb5aefdfff0442a6132b89cec9ac61e84c9a9295097209a71c839978cef10
+    type: core
+    size: 3599
   - path: core/health-check/base-check.js
     hash: sha256:f1b588ddd75f67f8126a0f7c2d90b023b7e9b1b888a71e8cb83928764a8e9658
     type: core
@@ -1065,7 +1081,7 @@ files:
     type: data
     size: 34251
   - path: data/entity-registry.yaml
-    hash: sha256:125d7d02e63fe287e4b5a64cae91871e220d92b09142872b7803dc67f654090e
+    hash: sha256:ac2a975b40c5de39bea5ae61ceb12cac266310b5d916e0935b4787bcb62020a4
     type: data
     size: 296285
   - path: data/learned-patterns.yaml

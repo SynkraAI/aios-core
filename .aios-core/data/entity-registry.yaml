@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-21T03:32:38.969Z'
-  entityCount: 516
+  lastUpdated: '2026-02-21T04:07:07.055Z'
+  entityCount: 517
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -5673,8 +5673,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:dd1ad8050ac6ea04ff634434be9b97f67239ee0a7342d669bc5618eb2b7a7f5b
-      lastVerified: '2026-02-16T01:21:26.585Z'
+      checksum: sha256:f822840facd618447032b71aefbde464dd2bce4aba630e5b4ec5241435761919
+      lastVerified: '2026-02-21T04:07:07.054Z'
     usage-tracker:
       path: .aios-core/development/scripts/usage-tracker.js
       type: script
@@ -6135,21 +6135,19 @@ entities:
     creation-helper:
       path: .aios-core/core/code-intel/helpers/creation-helper.js
       type: module
-      purpose: Code intelligence helper for squad-creator and artefact creation tasks
+      purpose: Entity at .aios-core\core\code-intel\helpers\creation-helper.js
       keywords:
         - creation
         - helper
-        - squad-creator
-        - code-intel
-      usedBy:
-        - registry-updater
+      usedBy: []
       dependencies:
         - index
       adaptability:
         score: 0.4
         constraints: []
         extensionPoints: []
-      lastVerified: '2026-02-21T12:00:00.000Z'
+      checksum: sha256:e674fdbe6979dbe961853f080d5971ba264dee23ab70abafcc21ee99356206e7
+      lastVerified: '2026-02-21T04:07:07.052Z'
     registry-syncer:
       path: .aios-core/core/code-intel/registry-syncer.js
       type: module
@@ -6206,6 +6204,7 @@ entities:
         - planning-helper
         - story-helper
         - devops-helper
+        - creation-helper
       dependencies:
         - registry-loader
         - incremental-decision-engine
@@ -8454,7 +8453,7 @@ entities:
     registry-updater:
       path: .aios-core/core/ids/registry-updater.js
       type: module
-      purpose: Entity at .aios-core/core/ids/registry-updater.js
+      purpose: Entity at .aios-core\core\ids\registry-updater.js
       keywords:
         - registry
         - updater
@@ -8466,8 +8465,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:6d87ec21d32acff1ba9b9d13025118c106ce6db59c1339c3a6ef4b2a02fd7f52
-      lastVerified: '2026-02-14T05:21:37.024Z'
+      checksum: sha256:09dd5709f5a6462a8e048dcbb65ec33f3b7a0c845d0e4b97d1ce1463a9d3e746
+      lastVerified: '2026-02-21T04:07:07.054Z'
     core-config:
       path: .aios-core/core-config.yaml
       type: module

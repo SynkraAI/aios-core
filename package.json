@@ -5,7 +5,8 @@
   "bin": {
     "aios": "bin/aios.js",
     "aios-core": "bin/aios.js",
-    "aios-minimal": "bin/aios-minimal.js"
+    "aios-minimal": "bin/aios-minimal.js",
+    "aios-graph": "bin/aios-graph.js"
   },
   "preferGlobal": false,
   "workspaces": [
