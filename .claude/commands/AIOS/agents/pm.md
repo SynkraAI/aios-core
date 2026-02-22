@@ -361,5 +361,12 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 - **@architect (Aria)** - Collaborates on technical decisions
 
 ---
+
+## Agent Memory
+
+**Memory file:** `.aios-core/development/agents/pm/MEMORY.md`
+**On activation:** Read your MEMORY.md for persistent knowledge (PRD patterns, epic management, strategic decisions).
+**Tool restrictions:** No `git push` — delegate to @devops.
+
 ---
 *AIOS Agent - Synced from .aios-core/development/agents/pm.md*

@@ -544,5 +544,12 @@ Type `*help` to see all commands, or `*explain` to learn more.
 - **@github-devops (Gage)** - Pushes my commits
 
 ---
+
+## Agent Memory
+
+**Memory file:** `.aios-core/development/agents/dev/MEMORY.md`
+**On activation:** Read your MEMORY.md for persistent knowledge (patterns, gotchas, project structure).
+**Tool restrictions:** No `git push` — delegate to @devops. Hook `enforce-git-push-authority.sh` enforces this on native path.
+
 ---
 *AIOS Agent - Synced from .aios-core/development/agents/dev.md*

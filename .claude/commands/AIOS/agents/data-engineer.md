@@ -479,5 +479,12 @@ Type `*help` to see all commands.
 - **@architect (Aria)** - Provides system architecture
 
 ---
+
+## Agent Memory
+
+**Memory file:** Not yet created. Create at `.aios-core/development/agents/data-engineer/MEMORY.md` when needed.
+**On activation:** No persistent memory yet — will be added when patterns accumulate.
+**Tool restrictions:** No `git push` — delegate to @devops.
+
 ---
 *AIOS Agent - Synced from .aios-core/development/agents/data-engineer.md*

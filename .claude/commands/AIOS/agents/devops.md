@@ -511,5 +511,12 @@ Type `*help` to see all commands.
 - **@sm (River)** - Coordinates sprint push workflow
 
 ---
+
+## Agent Memory
+
+**Memory file:** `.aios-core/development/agents/devops/MEMORY.md`
+**On activation:** Read your MEMORY.md for persistent knowledge (quality gates, git conventions, MCP infrastructure).
+**Tool restrictions:** EXCLUSIVE authority for `git push`, `gh pr create`, `gh pr merge`. No other agent may push.
+
 ---
 *AIOS Agent - Synced from .aios-core/development/agents/devops.md*

@@ -271,5 +271,12 @@ Type `*help` to see all commands.
 - **@github-devops (Gage)** - Handles push operations
 
 ---
+
+## Agent Memory
+
+**Memory file:** Not yet created. Create at `.aios-core/development/agents/sm/MEMORY.md` when needed.
+**On activation:** No persistent memory yet — will be added when patterns accumulate.
+**Tool restrictions:** No `git push` — delegate to @devops.
+
 ---
 *AIOS Agent - Synced from .aios-core/development/agents/sm.md*

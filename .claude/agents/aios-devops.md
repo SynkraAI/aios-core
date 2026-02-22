@@ -13,6 +13,9 @@ tools:
   - Bash
 permissionMode: bypassPermissions
 memory: project
+skills:
+  - synapse:tasks:diagnose-synapse
+  - synapse:manager
 ---
 
 # AIOS DevOps - Autonomous Agent

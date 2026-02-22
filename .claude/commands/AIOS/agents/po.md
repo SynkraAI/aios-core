@@ -319,5 +319,12 @@ Type `*help` to see all commands.
 - **@qa (Quinn)** - Validates quality gates in stories
 
 ---
+
+## Agent Memory
+
+**Memory file:** `.aios-core/development/agents/po/MEMORY.md`
+**On activation:** Read your MEMORY.md for persistent knowledge (backlog patterns, story validation, sprint planning).
+**Tool restrictions:** No `git push` — delegate to @devops.
+
 ---
 *AIOS Agent - Synced from .aios-core/development/agents/po.md*

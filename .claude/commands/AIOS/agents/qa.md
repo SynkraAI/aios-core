@@ -433,5 +433,12 @@ Type `*help` to see all commands.
 - **CodeRabbit** - Automated pre-review
 
 ---
+
+## Agent Memory
+
+**Memory file:** `.aios-core/development/agents/qa/MEMORY.md`
+**On activation:** Read your MEMORY.md for persistent knowledge (review patterns, quality gates, common issues).
+**Tool restrictions:** No `git push` — delegate to @devops. Hook `enforce-git-push-authority.sh` enforces this on native path.
+
 ---
 *AIOS Agent - Synced from .aios-core/development/agents/qa.md*

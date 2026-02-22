@@ -458,5 +458,12 @@ Type `*help` to see all commands, or `*yolo` to skip confirmations.
 - **@pm (Morgan)** - Receives requirements from
 
 ---
+
+## Agent Memory
+
+**Memory file:** `.aios-core/development/agents/architect/MEMORY.md`
+**On activation:** Read your MEMORY.md for persistent knowledge (architecture decisions, patterns, tech stack).
+**Tool restrictions:** No `git push` — delegate to @devops. Hook `enforce-git-push-authority.sh` enforces this on native path.
+
 ---
 *AIOS Agent - Synced from .aios-core/development/agents/architect.md*
