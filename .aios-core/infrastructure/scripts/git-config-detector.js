@@ -115,15 +115,13 @@ class GitConfigDetector {
    * @returns {boolean} True if git repository
    */
   _isGitRepository() {
+    // NOG-18: Replace execSync (~34ms) with synchronous fs check (~0.05ms).
+    // .git/HEAD exists in normal repos AND worktrees (as file or via gitdir link).
     try {
-      const output = execSync('git rev-parse --is-inside-work-tree', {
-        encoding: 'utf8',
-        timeout: GIT_TIMEOUT,
-        stdio: ['pipe', 'pipe', 'ignore'], // Suppress stderr
-      }).trim();
-
-      return output === 'true';
-    } catch (error) {
+      const gitPath = path.join(process.cwd(), '.git');
+      // .git can be a directory (normal repo) or a file (worktree with "gitdir:" pointer)
+      return fs.existsSync(gitPath);
+    } catch {
       return false;
     }
   }

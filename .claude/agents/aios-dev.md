@@ -12,6 +12,7 @@ tools:
   - Write
   - Edit
   - Bash
+  - Task
 permissionMode: bypassPermissions
 memory: project
 ---

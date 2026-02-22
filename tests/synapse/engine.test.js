@@ -271,10 +271,12 @@ describe('SynapseEngine', () => {
       expect(contextTracker.calculateBracket).toHaveBeenCalledWith(72);
     });
 
-    test('should call getActiveLayers with bracket', async () => {
+    test('should NOT call getActiveLayers in non-legacy mode (NOG-18)', async () => {
+      // NOG-18: In non-legacy mode, activeLayers = DEFAULT_ACTIVE_LAYERS [0,1,2]
+      // getActiveLayers is only called in SYNAPSE_LEGACY_MODE=true
       contextTracker.calculateBracket.mockReturnValue('MODERATE');
       await engine.process('test', {});
-      expect(contextTracker.getActiveLayers).toHaveBeenCalledWith('MODERATE');
+      expect(contextTracker.getActiveLayers).not.toHaveBeenCalled();
     });
 
     test('should call formatSynapseRules with correct args', async () => {
@@ -316,7 +318,9 @@ describe('SynapseEngine', () => {
       }
     });
 
-    test('should execute all L0-L7 in MODERATE bracket', async () => {
+    test('should only execute L0-L2 in non-legacy mode (NOG-18)', async () => {
+      // NOG-18: In non-legacy mode, only L0-L2 are active regardless of bracket.
+      // getActiveLayers mock is overridden by DEFAULT_ACTIVE_LAYERS = [0,1,2].
       contextTracker.getActiveLayers.mockReturnValue({
         layers: [0, 1, 2, 3, 4, 5, 6, 7],
         memoryHints: false,
@@ -325,13 +329,13 @@ describe('SynapseEngine', () => {
 
       const result = await engine.process('test', { prompt_count: 30 });
 
-      // MODERATE activates L3 (workflow) that FRESH skips — must load more layers
-      expect(result.metrics.layers_loaded).toBeGreaterThanOrEqual(4);
+      // NOG-18: Only L0-L2 active — max 3 layers loaded
+      expect(result.metrics.layers_loaded).toBeLessThanOrEqual(3);
 
-      // Verify workflow layer (L3) is loaded, not skipped — the key differentiator from FRESH
+      // Verify L3+ layers are skipped
       const workflowEntry = result.metrics.per_layer.workflow;
       if (workflowEntry) {
-        expect(workflowEntry.status).not.toBe('skipped');
+        expect(workflowEntry.status).toBe('skipped');
       }
     });
   });

@@ -245,6 +245,12 @@ Seguir Conventional Commits:
 - Use execução paralela para operações independentes
 - Cache dados frequentemente acessados durante a sessão
 
+### Context Management (NOG-18)
+- Use `/compact` when context feels heavy or approaching limits
+- Context brackets (SYNAPSE) replaced by native compaction
+- Agent memory persists in `.aios-core/development/agents/{id}/MEMORY.md`
+- Rules with `paths:` frontmatter only load when working on matching files
+
 ### Gerenciamento de Sessão
 - Rastreie progresso da story durante a sessão
 - Atualize checkboxes imediatamente após completar tasks

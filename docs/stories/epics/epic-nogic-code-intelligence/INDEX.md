@@ -71,7 +71,14 @@ Criar camada de code intelligence provider-agnostic em todas as tasks do AIOS, c
 ### Wave 8: Native-First Optimization (from NOG-17 audit + tech research)
 | Story | Title | Agent | Points | Status | Blocked By |
 |-------|-------|-------|--------|--------|------------|
-| [NOG-18](story-NOG-18-synapse-native-first-migration.md) | SYNAPSE Native-First Migration | @dev + @architect | 8 | Draft | NOG-17 |
+| [NOG-18](story-NOG-18-synapse-native-first-migration.md) | SYNAPSE Native-First Migration | @dev + @architect | 8 | InReview | NOG-17 |
+
+### Wave 8B: Native-First Follow-up (descoped from NOG-18)
+| Story | Title | Agent | Points | Status | Blocked By |
+|-------|-------|-------|--------|--------|------------|
+| NOG-19 | Pipeline Audit Validation | @dev + @qa | 3 | Draft | NOG-18 |
+| NOG-20 | Agent Frontmatter & Validation | @dev | 3 | Draft | NOG-18 |
+| NOG-21 | Greeting Builder Native Migration | @dev | 3 | Draft | NOG-18 |
 
 ### Wave 7: Registry Quality (from GD-7 gap analysis + registry governance research)
 | Story | Title | Agent | Points | Status | Blocked By |
