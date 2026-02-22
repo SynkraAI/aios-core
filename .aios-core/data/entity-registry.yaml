@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-16T20:22:35.905Z'
-  entityCount: 508
+  lastUpdated: '2026-02-21T18:31:55.282Z'
+  entityCount: 511
   checksumAlgorithm: sha256
 entities:
   tasks:
@@ -4801,6 +4801,45 @@ entities:
         extensionPoints: []
       checksum: sha256:173adec3131f0924bc7d64c10f54386bb85dcadc14e6ff3fb9bb2f8172caf162
       lastVerified: '2026-02-16T04:49:07.415Z'
+    aios-execute-story:
+      path: .aios-core/product/templates/ide-rules/antigravity/workflows/aios-execute-story.md
+      type: template
+      purpose: '[AIOS] Executar uma História de Desenvolvimento (Story) com o Agente Dev'
+      keywords:
+        - aios
+        - execute
+        - story
+        - 'aios:'
+        - execution
+        - engine
+        - workflow
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:f2c462193d72100efa68499c57bed132ed220e6f3964e0db29f53a7ca9d09871
+      lastVerified: '2026-02-21T18:31:55.280Z'
+    aios-qa-review:
+      path: .aios-core/product/templates/ide-rules/antigravity/workflows/aios-qa-review.md
+      type: template
+      purpose: '[AIOS] Executar revisão de Qualidade (QA) em uma Story recém-finalizada'
+      keywords:
+        - aios
+        - qa
+        - review
+        - 'aios:'
+        - evolution
+        - workflow
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:ea1bae33fabb6d52be30e1f9d3d17c5afc258000adae57488aa94a187ec27552
+      lastVerified: '2026-02-21T18:31:55.281Z'
   scripts:
     agent-assignment-resolver:
       path: .aios-core/development/scripts/agent-assignment-resolver.js
@@ -6000,7 +6039,9 @@ entities:
     dev-helper:
       path: .aios-core/core/code-intel/helpers/dev-helper.js
       type: module
-      purpose: Code intelligence helper for @dev agent tasks - IDS G4 automation, duplicate detection, conventions, blast radius
+      purpose: >-
+        Code intelligence helper for @dev agent tasks - IDS G4 automation, duplicate detection, conventions, blast
+        radius
       keywords:
         - code-intel
         - dev-helper
