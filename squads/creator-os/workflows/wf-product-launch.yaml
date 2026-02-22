@@ -1,0 +1,91 @@
+# Workflow: Product Launch Pipeline
+# System Design → Offer → Content → Launch → Grow
+# Squad: Creator OS
+# Version: 1.0.0
+
+id: wf-product-launch
+name: "Product Launch Pipeline"
+description: "Pipeline completo para lancar produto digital: diagnostico, oferta, conteudo de lancamento, distribuicao"
+version: "1.0.0"
+squad: "creator-os"
+
+trigger:
+  command: "*launch"
+
+inputs:
+  - name: product_type
+    type: string
+    required: false
+    default: "auto"
+    options: ["ebook", "template", "curso", "mentoria", "auto"]
+  - name: timeline
+    type: string
+    required: false
+    default: "90d"
+    options: ["30d", "60d", "90d"]
+
+phases:
+  phase_1:
+    name: "System Diagnostic"
+    agent: "justin-welsh"
+    task: "create-content-system"
+    description: "Diagnosticar estado atual e desenhar Content Operating System"
+    outputs:
+      - creator_profile: "yaml"
+      - content_system: "yaml"
+      - content_matrix: "12-cell matrix"
+
+  phase_2:
+    name: "Offer Design"
+    agent: "dan-koe"
+    task: "create-offer"
+    description: "Desenhar oferta irresistivel + product stack + pricing"
+    inputs:
+      - creator_profile: "${phase_1.outputs.creator_profile}"
+    outputs:
+      - business_model: "yaml"
+      - product_stack: "yaml"
+      - pricing_strategy: "yaml"
+
+  phase_3:
+    name: "Launch Content"
+    agent: "nicolas-cole"
+    task: "distill-content"
+    description: "Criar conteudo de lancamento: landing page copy, email sequence, social proof"
+    inputs:
+      - offer: "${phase_2.outputs.business_model}"
+    outputs:
+      - landing_page_copy: "string"
+      - email_sequence: "list[5-7 emails]"
+      - launch_posts: "list[10 posts]"
+
+  phase_4:
+    name: "Distribution Strategy"
+    agent: "sahil-bloom"
+    task: "distribute-content"
+    description: "Plano de lancamento: pre-launch, launch, post-launch"
+    inputs:
+      - content: "${phase_3.outputs}"
+      - offer: "${phase_2.outputs}"
+    outputs:
+      - launch_calendar: "yaml (30 dias)"
+      - growth_plan: "yaml"
+      - metrics_dashboard: "yaml"
+
+  phase_5:
+    name: "Launch Plan"
+    agent: "creator-os-chief"
+    task: "launch-plan"
+    description: "Consolidar tudo em plano 30-60-90 dias"
+    inputs:
+      - all_phases: "${phase_1, phase_2, phase_3, phase_4}"
+    outputs:
+      - launch_plan_30_60_90: "yaml"
+      - checklist: "markdown"
+
+execution:
+  mode: "sequential"
+  error_handling:
+    phase_failure: "halt_and_report"
+  state_persistence: true
+  estimated_time: "15-30 min"

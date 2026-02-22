@@ -1,0 +1,532 @@
+genius_profile:
+  metadata:
+    aluno: "Joao Rosa"
+    slug: "joao-rosa"
+    date: "2026-02-18"
+    assessment_id: "assessment_joao_rosa_2026-02-18T00:00:00Z"
+    version: "1.0.0"
+    overall_confidence: 0.75
+    note: "Confianca moderada-alta. Sem assessments formais anteriores para calibracao. Todas as inferencias baseadas nas 43 respostas do assessment unificado."
+
+  # ================================================================
+  # TIER 0: GAY HENDRICKS - Zone of Genius Model
+  # ================================================================
+  tier_0_hendricks:
+    agent: "gay-hendricks"
+    confidence: 0.78
+
+    zone_distribution:
+      incompetence: 25
+      competence: 15
+      excellence: 35
+      genius: 25
+      note: "Joao opera predominantemente entre Excelencia e Genialidade, mas ainda gasta ~40% do tempo em zonas de Incompetencia/Competencia (admin, burocracia, operacional)."
+
+    zona_atual: "Excelencia com lampejo de Genialidade"
+    zona_atual_evidencia:
+      - "Reconhecido como criativo e visionario (Excelencia confirmada)"
+      - "Enxerga tendencias antes dos outros (Genialidade em emergencia)"
+      - "Simplifica complexidade (talento raro, sinal de Genialidade)"
+      - "Diz que tudo que faz bem tambem gosta - alinhamento alto"
+      - "Mas ainda preso em tarefas admin/burocraticas (40% do tempo)"
+
+    genius_hypothesis:
+      statement: "A Zona de Genialidade do Joao esta em ENXERGAR TENDENCIAS INVISIVEIS E TRANSFORMA-LAS EM SISTEMAS ESCALÁVEIS, simplificando complexidade para que outros possam agir."
+      confidence: 0.75
+      four_questions:
+        what_i_love: "Pesquisar, criar coisas novas, planejar estrategias, resolver problemas complexos"
+        what_gives_energy: "Pesquisa profunda, criacao de sistemas, estrategia de longo prazo"
+        what_seems_easy: "Enxergar tendencias e oportunidades antes dos outros"
+        what_others_value: "Explicar coisas complexas de forma simples"
+
+    upper_limit_problem:
+      type: "Dimming Brilliance / Fear of Outshining"
+      intensity: "moderate"
+      evidence:
+        - "Falta de clareza como bloqueio principal - classico ULP de excesso de opcoes"
+        - "10+ anos de experiencia + pricing confortavel + visao criativa MAS nao consegue escolher UM caminho"
+        - "Meta agressiva (50k+) mas dedicacao parcial (10-20h) - incongruencia sugere auto-sabotagem inconsciente"
+        - "Prefere melhorar existente (mais seguro) em vez de criar do zero (mais arriscado mas alinhado com genialidade)"
+      pattern: "Joao provavelmente se dispersa em multiplos projetos/ideias em vez de apostar tudo em UM, porque brilhar de verdade em uma coisa so expoe ao risco de fracasso publico."
+
+    thermostat_score: 65
+    thermostat_note: "Termostato calibrado acima da media (pricing confortavel, meta alta) mas com trava no ponto de comprometimento total. Precisa subir de 65 para 80+ para desbloquear o proximo nivel."
+
+    big_leap_plan:
+      immediate: "Escolher UMA oportunidade de negocio e comprometer-se por 90 dias sem pivotar"
+      short_term: "Eliminar 80% das atividades de Zona de Incompetencia (admin, burocracia) via automacao/delegacao"
+      medium_term: "Operar 80%+ do tempo na Zona de Genialidade (trends + criacao + sistemas)"
+
+  # ================================================================
+  # TIER 1: DON CLIFTON - CliftonStrengths
+  # ================================================================
+  tier_1_clifton:
+    agent: "don-clifton"
+    confidence: 0.72
+
+    top_5:
+      - theme: "Strategic"
+        rank: 1
+        evidence:
+          - "Enxerga tendencias e oportunidades antes dos outros"
+          - "Padrao de sucesso: resolver problemas complexos"
+          - "Pensador Estrategico no time"
+          - "Planeja estrategias como atividade energizante"
+        domain: "Strategic Thinking"
+
+      - theme: "Ideation"
+        rank: 2
+        evidence:
+          - "Criativo e visionario (como outros o descrevem)"
+          - "Criar projetos inovadores (se dinheiro nao importasse)"
+          - "Energizado por criar coisas novas"
+          - "Auto-identifica como CRIADOR"
+        domain: "Strategic Thinking"
+
+      - theme: "Futuristic"
+        rank: 3
+        evidence:
+          - "Fast follower (entra cedo em tendencias)"
+          - "Planejar estrategias e visao de longo prazo energiza"
+          - "Enxerga tendencias antes dos outros"
+          - "Quer lancar produto em 90 dias (orientado ao futuro)"
+        domain: "Strategic Thinking"
+
+      - theme: "Learner"
+        rank: 4
+        evidence:
+          - "Perde nocao do tempo pesquisando e aprendendo"
+          - "Procura mentores para aprender"
+          - "Gosta de melhorar coisas existentes (aprendizado aplicado)"
+        domain: "Strategic Thinking"
+
+      - theme: "Command"
+        rank: 5
+        evidence:
+          - "Comunicacao direta e objetiva"
+          - "Questiona e desafia feedback critico"
+          - "Confortavel com precificacao (cobro bem)"
+          - "Quer gerar riqueza e oportunidades (ousadia)"
+        domain: "Influencing"
+
+    quasi_strengths_6_10:
+      - "Activator (comeca a executar logo)"
+      - "Self-Assurance (confianca no proprio julgamento)"
+      - "Achiever (acelera ate o deadline)"
+      - "Significance (quer impacto no mundo)"
+      - "Analytical (mais analitico que intuitivo)"
+
+    domain_distribution:
+      strategic_thinking: 55
+      influencing: 25
+      executing: 15
+      relationship_building: 5
+
+    strength_statement: "Joao e um pensador estrategico que enxerga padroes invisiveis, gera ideias inovadoras, e age com comando direto para transformar visao em realidade."
+
+    blind_spots:
+      - theme: "Strategic"
+        shadow: "Pode parecer arrogante ao desconsiderar opcoes que outros sugerem"
+        mitigation: "Validar com dados antes de descartar alternativas"
+      - theme: "Ideation"
+        shadow: "Excesso de ideias sem execucao completa (brilha e abandona)"
+        mitigation: "Limitar a 1-2 projetos ativos simultaneamente"
+      - theme: "Command"
+        shadow: "Comunicacao muito direta pode alienar pessoas mais sensiveis"
+        mitigation: "Calibrar tom conforme o interlocutor"
+
+  # ================================================================
+  # TIER 1: DAN SULLIVAN - Unique Ability
+  # ================================================================
+  tier_1_sullivan:
+    agent: "dan-sullivan"
+    confidence: 0.73
+
+    unique_ability_declaration: "Eu transformo complexidade em oportunidades de negocio escaláveis, porque naturalmente enxergo tendencias antes dos outros, simplifico o que parece dificil, e crio sistemas que geram valor de forma autonoma."
+
+    four_zones:
+      incompetence:
+        activities:
+          - "Tarefas administrativas e burocraticas"
+          - "Reunioes longas sem pauta definida"
+          - "Trabalho repetitivo e operacional"
+          - "Analise detalhada de numeros e planilhas"
+        action: "ELIMINAR - delegar ou automatizar imediatamente"
+
+      competence:
+        activities:
+          - "Gestao operacional do dia a dia"
+          - "Follow-up e acompanhamento de processos"
+          - "Relatorios e documentacao rotineira"
+        action: "DELEGAR - contratar VA ou usar AI para cobrir"
+
+      excellence:
+        activities:
+          - "Resolucao de problemas complexos"
+          - "Planejamento estrategico"
+          - "Comunicacao direta e clara"
+        action: "TRANSICIONAR - mover gradualmente para UA, manter apenas o essencial"
+
+      unique_ability:
+        activities:
+          - "Enxergar tendencias e oportunidades antes dos outros"
+          - "Simplificar complexidade para que outros entendam e ajam"
+          - "Criar sistemas e produtos escaláveis"
+          - "Pesquisar profundamente e sintetizar conhecimento"
+        action: "MAXIMIZAR - operar 80%+ do tempo aqui"
+
+    time_distribution:
+      current:
+        incompetence: 25
+        competence: 20
+        excellence: 35
+        unique_ability: 20
+      ideal:
+        incompetence: 0
+        competence: 5
+        excellence: 15
+        unique_ability: 80
+
+    who_not_how:
+      readiness: "ALTA"
+      style: "Via tecnologia/AI, nao via pessoas (prefere trabalhar sozinho)"
+      evidence: "Adora delegar + AI intermediario + automatizar sistemas"
+      priority_delegation:
+        - "Admin e burocracia → AI + automacao"
+        - "Trabalho repetitivo → sistemas automatizados"
+        - "Analise de dados → dashboards automaticos"
+        - "Follow-up → workflows automatizados"
+
+    ten_x_vision:
+      stays_20_percent:
+        - "Identificar tendencias de mercado"
+        - "Criar MVPs e prototipos"
+        - "Definir estrategia de produto"
+        - "Pesquisar e aprender profundamente"
+      leaves_80_percent:
+        - "Toda burocracia e admin"
+        - "Reunioes operacionais"
+        - "Trabalho repetitivo"
+        - "Analise detalhada de numeros"
+        - "Gestao operacional do dia a dia"
+
+    gap_vs_gain:
+      current_mode: "GAP (focado no que falta - clareza)"
+      gain_reframe: "10+ anos de experiencia, pricing confortavel, visao criativa e estrategica, talento raro de simplificar complexidade, capacidade de enxergar tendencias. Joao ja TEM tudo que precisa - o que falta e FOCO em uma direcao."
+
+  # ================================================================
+  # TIER 1: ROGER HAMILTON - Wealth Dynamics
+  # ================================================================
+  tier_1_hamilton:
+    agent: "roger-hamilton"
+    confidence: 0.80
+
+    primary_profile: "Creator"
+    primary_evidence:
+      - "Auto-identificacao direta: CRIADOR"
+      - "Criar projetos inovadores (sonho de vida)"
+      - "Comecar a executar logo"
+      - "Agir rapido"
+      - "Criativo e visionario (percepcao externa)"
+      - "Muitas ideias, comeca coisas novas"
+
+    secondary_profile: "Mechanic"
+    secondary_evidence:
+      - "Melhorar algo existente e tornar excelente"
+      - "Automatizar sistemas"
+      - "Gosta de coisas tangiveis"
+      - "Fast follower (nao pioneiro, otimiza o que existe)"
+
+    energy_quadrant: "Dynamo (Primavera)"
+    energy_note: "Energia criativa e inovadora, com influencia significativa de Tempo (pesquisa, aprendizado, sistemas). O eixo Dynamo-Tempo e o mais forte."
+
+    wealth_spectrum:
+      current_level: "Level 3-4 (Orange Controller → Yellow Player)"
+      evidence:
+        - "Empreendedor com negocio proprio (Level 3+)"
+        - "10+ anos experiencia (Level 3+)"
+        - "Pricing confortavel (Level 4)"
+        - "Falta clareza no proximo passo (trava entre 3 e 4)"
+        - "Meta agressiva 50k+ (aspirando Level 5)"
+      next_level_actions:
+        - "Definir UMA oferta principal e focar 100% nela"
+        - "Criar produto escalavel (SaaS ou sistema automatizado)"
+        - "Sair do operacional e focar em criacao + estrategia"
+
+    flow_blockage:
+      diagnosis: "Creator forcado em Steel (admin, burocracia, analise detalhada)"
+      impact: "Energia criativa bloqueada por tarefas operacionais. O 'falta de clareza' e sintoma de energia Dynamo reprimida."
+      solution: "Eliminar atividades Steel do dia a dia. Quando o Creator flui livremente, a clareza vem."
+
+    squad_natural:
+      primary_match: "Squads de criacao e inovacao"
+      complementary_need: "Precisa de perfis Tempo e Steel no squad para operacao e follow-through"
+
+  # ================================================================
+  # TIER 1: ALEX HORMOZI - Value Equation & Monetizacao
+  # ================================================================
+  tier_1_hormozi:
+    agent: "alex-hormozi"
+    confidence: 0.70
+
+    value_equation:
+      dream_outcome:
+        score: 7
+        description: "Lancar produto/servico no mercado em 90 dias"
+        improvement: "Especificar: QUE produto, para QUEM, resolvendo QUAL problema"
+      perceived_likelihood:
+        score: 5
+        description: "10+ anos experiencia da credibilidade, mas sem track record em produto escalavel"
+        improvement: "Criar caso de uso piloto e coletar depoimentos rapido"
+      time_delay:
+        score: 6
+        description: "Produto pode entregar valor relativamente rapido"
+        improvement: "Encurtar para resultado em 7 dias para primeiros clientes"
+      effort_sacrifice:
+        score: 5
+        description: "10-20h/semana e moderado. Precisa de alavanca"
+        improvement: "Automatizar entrega via AI e sistemas para reduzir esforco do cliente"
+      total_score: 1.17
+      classification: "PRECISA MELHORAR - oferta nao esta otimizada ainda"
+      formula_note: "(7 x 5) / (6 x 5) = 35/30 = 1.17"
+
+    grand_slam_offer:
+      target_market: "Empreendedores e gestores que querem escalar usando AI e automacao"
+      dream_outcome: "Sistema automatizado que gera receita recorrente sem depender 100% do dono"
+      core_offer_direction: "Produto SaaS ou plataforma de automacao para pequenos negocios"
+      pricing_strategy: "Freemium → Premium (R$197-497/mes recorrente)"
+      value_ratio_target: "3:1 minimo (R$1500 de valor percebido por R$497 cobrado)"
+
+    core_4_strategy:
+      primary: "Free Content"
+      primary_rationale: "Creator + simplifica complexidade + comunica direto = conteudo educativo sobre tendencias e automacao"
+      secondary: "Warm Outreach"
+      secondary_rationale: "10+ anos de network + credibilidade em gestao/lideranca"
+
+    revenue_roadmap:
+      days_30:
+        actions:
+          - "Definir oferta principal com Value Equation otimizada"
+          - "Criar MVP do produto (landing page + funcionalidade core)"
+          - "10 conversas de validacao com mercado-alvo"
+          - "Publicar 8 conteudos (LinkedIn + YouTube) sobre tendencias + automacao"
+        target: "5 usuarios beta (gratuito ou simbolico)"
+        revenue_conservative: "R$0 (validacao)"
+
+      days_60:
+        actions:
+          - "Lancar MVP para primeiros clientes pagantes"
+          - "Coletar 5 depoimentos e casos de uso"
+          - "Dobrar producao de conteudo"
+          - "Warm outreach para 50 contatos quentes"
+        target: "20-50 clientes pagantes"
+        revenue_conservative: "R$5.000-15.000/mes"
+
+      days_90:
+        actions:
+          - "Iterar produto com feedback dos primeiros clientes"
+          - "Implementar upsell e aumentar ticket"
+          - "Iniciar estrategia de paid ads (se ROI validado)"
+          - "Criar programa de referral"
+        target: "100+ clientes pagantes"
+        revenue_conservative: "R$15.000-30.000/mes"
+        revenue_optimistic: "R$50.000+/mes"
+
+  # ================================================================
+  # TIER 2: KATHY KOLBE - Kolbe Action Modes
+  # ================================================================
+  tier_2_kolbe:
+    agent: "kathy-kolbe"
+    confidence: 0.68
+
+    four_modes:
+      fact_finder:
+        score: 4
+        classification: "Balanced (tende a Simplifier)"
+        evidence:
+          - "Mais analitico que intuitivo (4-5 range)"
+          - "MAS foca no resultado geral, nao detalhista (puxa para 3-4)"
+          - "Procura mentor (pesquisa via pessoa, nao via dados)"
+        note: "Pesquisa o suficiente para agir, nao se perde em analise"
+
+      follow_thru:
+        score: 3
+        classification: "Adaptable (baixo)"
+        evidence:
+          - "Mais flexibilidade - estrutura demais sufoca"
+          - "Burocracia e processos drenam energia"
+          - "Alternando 2-3 projetos (baixa linearidade)"
+          - "Acelera ate deadline (nao segue cronograma)"
+        note: "NAO e desorganizado - e adaptavel. Traz valor em ambientes caoticos"
+
+      quick_start:
+        score: 8
+        classification: "Innovator (alto)"
+        evidence:
+          - "Comeca a executar logo e ajusta no caminho"
+          - "Age rapido com a melhor opcao disponivel"
+          - "Criar projetos inovadores"
+          - "Riscos calculados (mas age)"
+          - "Criador (Hamilton) confirma"
+          - "Entrega rapido e itera"
+        note: "Modo dominante. Joao e um starter natural - inicia, prototipa, testa"
+
+      implementor:
+        score: 6
+        classification: "Balanced-High"
+        evidence:
+          - "Prefere coisas tangiveis"
+          - "Gosta de prototipos e ferramentas"
+          - "Quer ver resultado concreto"
+        note: "Precisa ver resultado tangivel para se satisfazer, nao fica so na teoria"
+
+    dominant_mo: "Quick Start"
+    secondary_mo: "Implementor"
+    kolbe_string: "4-3-8-6"
+
+    execution_style:
+      description: "Sprint & Build - trabalha em explosoes de criacao com resultado tangivel"
+      strengths:
+        - "Prototipagem rapida"
+        - "Pivota facilmente quando algo nao funciona"
+        - "Gera muitas opcoes e testa rapido"
+        - "Lida bem com ambiguidade e caos"
+      risks:
+        - "Pode abandonar projetos antes de dar retorno"
+        - "Dificuldade em manter consistencia pos-lancamento"
+        - "Subestima importancia de processos e documentacao"
+
+    delegation_map:
+      do_yourself:
+        - "Ideacao e brainstorming"
+        - "Prototipagem e MVPs"
+        - "Decisoes estrategicas rapidas"
+        - "Pesquisa de tendencias"
+      delegate:
+        - "Documentacao e processos (precisa de Follow Thru 7+)"
+        - "Follow-up com clientes (precisa de Follow Thru + Fact Finder)"
+        - "Analise detalhada de metricas (precisa de Fact Finder 7+)"
+        - "Suporte ao cliente (precisa de Follow Thru + Implementor)"
+      automate:
+        - "Tarefas administrativas"
+        - "Relatorios e dashboards"
+        - "Email marketing e nurturing"
+        - "Onboarding de clientes"
+
+    conative_stress_alerts:
+      - trigger: "Ser forcado a seguir processos rigidos por longos periodos"
+        severity: "ALTA"
+        prevention: "Criar 'janelas de caos' no calendario - tempo livre para inovar"
+      - trigger: "Projetos que exigem Follow Thru extenso sem suporte"
+        severity: "MEDIA"
+        prevention: "Sempre ter um parceiro ou sistema de Follow Thru 7+ no squad"
+
+  # ================================================================
+  # TIER 2: SALLY HOGSHEAD - Fascination Advantage
+  # ================================================================
+  tier_2_hogshead:
+    agent: "sally-hogshead"
+    confidence: 0.72
+
+    primary_advantage: "Innovation"
+    primary_evidence:
+      - "Criativo e visionario (percepcao externa)"
+      - "Quick Start 8 (Kolbe confirma)"
+      - "Enxerga tendencias antes dos outros"
+      - "Criar projetos inovadores (desejo autentico)"
+      - "CRIADOR (Hamilton confirma)"
+
+    secondary_advantage: "Power"
+    secondary_evidence:
+      - "Comunicacao direta e objetiva"
+      - "Questiona e desafia feedback"
+      - "Confortavel com pricing alto"
+      - "Command no Top 5 (Clifton confirma)"
+      - "Quer gerar riqueza e oportunidades"
+
+    archetype: "The Maverick Leader"
+    archetype_description: "Lidera pela inovacao, nao pela autoridade. Desafia o status quo com visao pratica. Comunica direto, inspira pela ousadia, e transforma ideias em acoes concretas."
+    archetype_examples:
+      - "Elon Musk (Innovation + Power)"
+      - "Steve Jobs (Innovation + Power)"
+      - "Reid Hoffman (Innovation + Power)"
+
+    anthem: "Eu transformo tendencias invisiveis em oportunidades concretas de negocio."
+    anthem_variations:
+      - "Eu simplifico o complexo para que outros lucrem."
+      - "Eu vejo o futuro antes dele chegar e construo pontes ate la."
+
+    brand_voice:
+      tom: "Direto, confiante, visionario mas pratico"
+      vocabulario:
+        use: ["acao", "inovacao", "resultado", "sistema", "escala", "tendencia", "oportunidade", "futuro"]
+        avoid: ["talvez", "complicado", "impossivel", "algum dia", "esperanca"]
+      canais_ideais:
+        - canal: "LinkedIn"
+          uso: "Thought leadership sobre tendencias e automacao"
+          frequencia: "3-5x/semana"
+        - canal: "YouTube"
+          uso: "Deep dives em tendencias e tutoriais de sistemas"
+          frequencia: "1-2x/semana"
+        - canal: "Newsletter"
+          uso: "Curadoria de tendencias + insights exclusivos"
+          frequencia: "1x/semana"
+
+  # ================================================================
+  # SINTESE CRUZADA
+  # ================================================================
+  synthesis:
+    convergences:
+      - id: "conv_1"
+        insight: "CRIADOR-INOVADOR ESTRATEGICO"
+        frameworks_aligned: ["hendricks", "clifton", "hamilton", "hogshead", "kolbe"]
+        count: 5
+        description: "Todos os frameworks convergem: Joao e um criador estrategico que gera valor atraves de inovacao aplicada. Nao e um criador artistico - e um criador de SISTEMAS e OPORTUNIDADES."
+
+      - id: "conv_2"
+        insight: "SIMPLIFICADOR DE COMPLEXIDADE"
+        frameworks_aligned: ["clifton", "sullivan", "hogshead"]
+        count: 3
+        description: "Clifton (Strategic), Sullivan (UA de simplificar), e Hogshead (Innovation) todos apontam para o mesmo talento: pegar algo complexo e tornar acessivel. Este e provavelmente o core da sua Zona de Genialidade."
+
+      - id: "conv_3"
+        insight: "ANTI-OPERACIONAL"
+        frameworks_aligned: ["hendricks", "sullivan", "kolbe", "hamilton"]
+        count: 4
+        description: "Todas as fontes convergem: atividades operacionais, burocraticas e repetitivas sao kryptonita para Joao. Follow Thru baixo (Kolbe), admin drena (Hendricks), eliminar incompetencia (Sullivan), Creator bloqueado por Steel (Hamilton)."
+
+      - id: "conv_4"
+        insight: "ORIENTADO A ESCALA VIA SISTEMAS"
+        frameworks_aligned: ["hamilton", "hormozi", "sullivan", "kolbe"]
+        count: 4
+        description: "Creator + Mechanic (Hamilton), produto escalavel (Hormozi), Who Not How via tecnologia (Sullivan), Quick Start + Implementor (Kolbe) = o caminho natural e criar PRODUTOS que escalem via AUTOMACAO."
+
+      - id: "conv_5"
+        insight: "BLOQUEIO DE FOCO, NAO DE CAPACIDADE"
+        frameworks_aligned: ["hendricks", "sullivan", "hamilton"]
+        count: 3
+        description: "ULP (Hendricks), Gap Thinking (Sullivan), e Flow Blockage (Hamilton) todos dizem a mesma coisa: Joao TEM a capacidade mas esta DISPERSO. O desbloqueio e FOCO em uma coisa so por 90 dias."
+
+    unique_insights:
+      - framework: "kolbe"
+        insight: "String 4-3-8-6 sugere que Joao funciona melhor em sprints de criacao com entregaveis tangiveis. NAO funciona em processos longos e lineares. O squad precisa acomodar esse ritmo."
+
+      - framework: "hogshead"
+        insight: "Arquetipo 'Maverick Leader' (Innovation + Power) e otimo para posicionamento de marca pessoal. O mundo presta atencao quando Joao fala com convicção sobre tendencias futuras."
+
+      - framework: "hormozi"
+        insight: "Value Equation atual em 1.17 - precisa chegar a 3.0+ para ser irresistivel. O gap esta em Perceived Likelihood (falta de prova social) e Effort/Sacrifice (precisa facilitar a vida do cliente)."
+
+    contradictions:
+      - contradiction: "Pesquisador vs Executor Rapido"
+        frameworks: ["kolbe (QS 8)", "assessment (flow em pesquisar)"]
+        resolution: "NAO e contradicao real. Joao pesquisa RAPIDO e PROFUNDO para identificar tendencias, depois age rapido. O ciclo e: pesquisar → insight → acao rapida. E um padrao Creator-Learner."
+
+      - contradiction: "Solo vs Escala"
+        frameworks: ["assessment (sozinho)", "hormozi (escalar para muitos)"]
+        resolution: "Resolvido via produto/sistema. Joao quer escalar SEM equipe grande - via SaaS, automacao e AI. E o caminho do 'Lord' (Hamilton) - escala por sistemas, nao por pessoas."
+
+    meta_insights:
+      - "O negocio ideal do Joao e um PRODUTO DIGITAL ESCALAVEL que SIMPLIFICA algo complexo para empreendedores, construido com AUTOMACAO/AI, vendido via CONTEUDO EDUCATIVO, e que funciona AUTONOMAMENTE depois de criado."
+      - "O bloqueio de clareza se resolve com UMA aposta: escolher UM nicho, UM problema, UM produto, e ir all-in por 90 dias."
+      - "O squad ideal precisa ter Follow Thru alto e Fact Finder alto para compensar as lacunas do Joao, permitindo que ele fique 100% na zona de criacao e estrategia."

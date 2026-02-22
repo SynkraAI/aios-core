@@ -1,0 +1,1439 @@
+# wf-discover-tools.yaml
+# Workflow: Deep Tool Discovery with Parallel Sub-Agents
+# Version: 2.0
+# Last Updated: 2026-02-03
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow:
+  id: wf-discover-tools
+  name: "Deep Tool Discovery"
+  version: "2.0"
+  purpose: |
+    Orquestrar pesquisa PROFUNDA e PARALELA de ferramentas que potencializam
+    os entregáveis de um squad, usando subagentes especializados para cada
+    categoria de ferramenta.
+  orchestrator: "@squad-chief"
+  mode: "autonomous"
+
+  philosophy: |
+    "A squad should leverage ALL available tools to deliver maximum value
+    with minimum user intervention."
+
+    Este workflow NÃO é um check superficial - é uma pesquisa PROFUNDA
+    que lança 5 subagentes em PARALELO, cada um especializado em uma
+    categoria de ferramenta.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXECUTION STRATEGY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+execution_strategy:
+  mode: "parallel_then_synthesize"
+  description: |
+    1. PHASE 0: Capability Gap Analysis (sequential, fast)
+    2. PHASE 1: Deep Search (5 subagents in PARALLEL)
+       - MCP Discovery Agent
+       - API Discovery Agent
+       - CLI Discovery Agent
+       - Library Discovery Agent
+       - GitHub Project Discovery Agent
+    3. PHASE 2: Synthesis & Scoring (sequential, after all agents complete)
+    4. PHASE 3: Decision Matrix & Integration Plan
+
+  parallelization:
+    enabled: true
+    max_concurrent_agents: 5
+    timeout_per_agent: "15 minutes"
+    fail_strategy: "continue_others"  # Don't block if one agent fails
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - name: domain
+      type: string
+      description: "Squad domain (e.g., 'copywriting', 'legal', 'cybersecurity')"
+      example: "copywriting"
+
+    - name: use_cases
+      type: list
+      description: "Key use cases the squad must handle"
+      example: ["sales pages", "email sequences", "ad copy"]
+
+  optional:
+    - name: existing_tools
+      type: list
+      description: "Tools already in use (to avoid duplicates)"
+      default: []
+
+    - name: budget_tier
+      type: enum
+      values: ["free_only", "low_cost", "enterprise"]
+      default: "low_cost"
+
+    - name: priority_capabilities
+      type: list
+      description: "Capabilities to prioritize in search"
+      default: []
+
+    - name: search_depth
+      type: enum
+      values: ["quick", "standard", "exhaustive"]
+      default: "standard"
+      description: |
+        quick: 5 results per category, 5 min timeout
+        standard: 15 results per category, 10 min timeout
+        exhaustive: 30 results per category, 20 min timeout
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PRECONDITIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+preconditions:
+  - "squad-chief agent is active"
+  - "WebSearch/EXA tool available"
+  - "WebFetch tool available"
+  - "Task tool available (for spawning subagents)"
+  - "Write permissions for data/tool-registry.yaml"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0: CAPABILITY GAP ANALYSIS
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_0
+    name: "CAPABILITY GAP ANALYSIS"
+    purpose: "Map required capabilities and identify gaps that need tools"
+    duration: "5-10 minutes"
+    mode: "sequential"
+
+    steps:
+      - id: step_0_1
+        name: "Map Use Case Requirements"
+        action: "Analyze each use case to identify required capabilities"
+        logic: |
+          for each use_case in inputs.use_cases:
+            analyze:
+              - INPUT_NEEDS: What data/info does this use case need?
+              - PROCESSING_NEEDS: What transformations/analysis?
+              - OUTPUT_NEEDS: What should be produced?
+              - INTEGRATION_NEEDS: What external systems?
+              - AUTOMATION_POTENTIAL: What can be automated?
+
+        output:
+          capability_requirements:
+            - use_case: "sales pages"
+              capabilities:
+                - { name: "competitor_analysis", priority: "high" }
+                - { name: "headline_generation", priority: "high" }
+                - { name: "screenshot_capture", priority: "medium" }
+
+      - id: step_0_2
+        name: "Check Existing Coverage"
+        action: "Load tool-registry.yaml and check what's already covered"
+        logic: |
+          load: "data/tool-registry.yaml"
+
+          for each capability in capability_requirements:
+            check:
+              - native_tools_coverage
+              - installed_mcp_coverage
+              - known_mcp_coverage
+
+            classify:
+              - COVERED: Tool exists and is installed
+              - KNOWN: Tool exists but not installed
+              - GAP: No known tool for this capability
+
+        output:
+          coverage_report:
+            covered: []
+            known_not_installed: []
+            gaps: []  # These go to deep search
+
+      - id: step_0_3
+        name: "Prioritize Gaps"
+        action: "Score and prioritize capability gaps for deep search"
+        scoring:
+          impact:
+            weight: 0.35
+            question: "How much value does filling this gap add?"
+          frequency:
+            weight: 0.25
+            question: "How often is this capability needed?"
+          user_dependency:
+            weight: 0.25
+            question: "How much manual work does the gap require?"
+          uniqueness:
+            weight: 0.15
+            question: "Is this a differentiating capability?"
+
+        output:
+          prioritized_gaps:
+            - capability: "competitor_analysis"
+              priority_score: 8.7
+              search_keywords: ["competitor", "analysis", "monitoring", "scraping"]
+            - capability: "email_automation"
+              priority_score: 8.2
+              search_keywords: ["email", "smtp", "sendgrid", "mailgun"]
+
+    checkpoint:
+      id: CP_GAP_ANALYSIS
+      name: "Gap Analysis Complete"
+      blocking: true
+      criteria:
+        - capabilities_mapped: true
+        - gaps_identified: ">= 1"
+        - gaps_prioritized: true
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: PARALLEL DEEP SEARCH
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_1
+    name: "PARALLEL DEEP SEARCH"
+    purpose: "Launch 5 specialized subagents to search each tool category"
+    duration: "10-20 minutes (parallel)"
+    mode: "parallel"
+
+    description: |
+      This phase launches 5 subagents SIMULTANEOUSLY using the Task tool.
+      Each subagent is specialized in searching one category of tools.
+      All agents receive the same inputs (domain, gaps, keywords) but
+      search in different ecosystems.
+
+    parallel_agents:
+      # ─────────────────────────────────────────────────────────────────────────
+      # AGENT 1: MCP DISCOVERY
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: agent_mcp
+        name: "MCP Discovery Agent"
+        task_prompt: |
+          You are a specialized MCP (Model Context Protocol) discovery agent.
+
+          ## Your Mission
+          Find MCP servers that can fill these capability gaps for a {domain} squad:
+          {prioritized_gaps}
+
+          ## Search Strategy
+
+          ### 1. Official Sources (Priority 1)
+          - https://github.com/modelcontextprotocol/servers
+          - https://github.com/anthropics/anthropic-tools
+          - https://glama.ai/mcp/servers
+
+          ### 2. Community Sources (Priority 2)
+          Search GitHub with these queries:
+          - "topic:mcp-server {keyword}"
+          - "mcp server {domain}" in:readme
+          - "model context protocol {capability}"
+
+          ### 3. Filter Criteria
+          - Stars >= 10 (quality signal)
+          - Updated within 6 months (maintained)
+          - Has README with installation docs
+          - Compatible with Claude (anthropic/claude mentions)
+
+          ## For Each MCP Found, Extract:
+          ```yaml
+          mcp:
+            name: ""
+            source_url: ""
+            description: ""
+            capabilities: []
+            installation:
+              method: "npm | pip | docker"
+              command: ""
+            requirements: []
+            last_updated: ""
+            stars: N
+            quality_signals:
+              has_docs: true/false
+              has_examples: true/false
+              active_maintenance: true/false
+            fills_gaps: []  # Which of our gaps does this fill?
+          ```
+
+          ## Output Format
+          Return a YAML list of all MCPs found, sorted by relevance to our gaps.
+          Include at least {search_depth_count} results.
+
+        subagent_type: "Explore"
+        timeout: "{search_timeout}"
+        output_key: "mcp_results"
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # AGENT 2: API DISCOVERY
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: agent_api
+        name: "API Discovery Agent"
+        task_prompt: |
+          You are a specialized API discovery agent.
+
+          ## Your Mission
+          Find REST/GraphQL APIs that can fill these capability gaps for a {domain} squad:
+          {prioritized_gaps}
+
+          ## Search Strategy
+
+          ### 1. API Directories
+          - RapidAPI: https://rapidapi.com/search/{domain}
+          - Public APIs: https://github.com/public-apis/public-apis
+          - API List: https://apilist.fun
+          - ProgrammableWeb categories
+
+          ### 2. Search Queries
+          - "{domain} API"
+          - "{capability} REST API"
+          - "best {domain} APIs 2025 2026"
+          - "{domain} SaaS API integration"
+
+          ### 3. For Each API, Evaluate:
+
+          **Pricing:**
+          - Free tier available?
+          - Free requests/month?
+          - Paid starting price?
+
+          **Reliability:**
+          - Documented uptime (99.X%)?
+          - Status page exists?
+
+          **Documentation:**
+          - OpenAPI/Swagger spec?
+          - Code examples?
+          - SDKs available?
+
+          **Authentication:**
+          - Type: API key | OAuth | JWT
+          - Complexity: Simple | Moderate | Complex
+
+          **Rate Limits:**
+          - Requests/second
+          - Requests/day
+          - Burst limit
+
+          ## For Each API Found, Extract:
+          ```yaml
+          api:
+            name: ""
+            url: ""
+            description: ""
+            capabilities: []
+            pricing:
+              free_tier: true/false
+              free_requests: "N/month"
+              paid_starting: "$X/month"
+            reliability:
+              uptime: "99.X%"
+              status_page: true/false
+            documentation:
+              openapi_spec: true/false
+              code_examples: true/false
+              sdks: ["python", "node", "etc"]
+            auth:
+              type: "api_key | oauth | jwt"
+              complexity: "simple | moderate | complex"
+            rate_limits:
+              per_second: N
+              per_day: N
+            fills_gaps: []
+          ```
+
+          ## Output Format
+          Return a YAML list of all APIs found, sorted by:
+          1. Free tier availability
+          2. Relevance to our gaps
+          3. Documentation quality
+
+          Include at least {search_depth_count} results.
+
+        subagent_type: "Explore"
+        timeout: "{search_timeout}"
+        output_key: "api_results"
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # AGENT 3: CLI DISCOVERY
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: agent_cli
+        name: "CLI Tool Discovery Agent"
+        task_prompt: |
+          You are a specialized CLI tool discovery agent.
+
+          ## Your Mission
+          Find command-line tools that can fill these capability gaps for a {domain} squad:
+          {prioritized_gaps}
+
+          ## Search Strategy
+
+          ### 1. Awesome Lists
+          - https://github.com/agarrharr/awesome-cli-apps
+          - https://github.com/alebcay/awesome-shell
+          - https://github.com/topics/awesome-{domain}
+          - https://github.com/sindresorhus/awesome
+
+          ### 2. Package Managers
+          - Homebrew: "brew search {keyword}"
+          - npm: "npm search {keyword} cli"
+          - pip/PyPI: "{keyword} cli tool"
+
+          ### 3. Search Queries
+          - "{domain} CLI tool"
+          - "best {domain} command line tools"
+          - "awesome {domain} CLI github"
+          - "{capability} terminal tool"
+
+          ### 4. Filter Criteria
+          - Easy installation (brew/npm/pip)
+          - Cross-platform (macOS + Linux at minimum)
+          - Good documentation (--help, man page)
+          - Scriptable output (JSON/YAML option)
+          - Active maintenance
+
+          ## For Each CLI Found, Extract:
+          ```yaml
+          cli:
+            name: ""
+            description: ""
+            capabilities: []
+            installation:
+              homebrew: "brew install X"
+              npm: "npm install -g X"
+              pip: "pip install X"
+              other: ""
+            platforms: ["macos", "linux", "windows"]
+            documentation:
+              help_flag: true/false
+              man_page: true/false
+              online_docs: "url"
+            output_formats: ["json", "yaml", "text"]
+            github:
+              url: ""
+              stars: N
+              last_updated: ""
+            fills_gaps: []
+          ```
+
+          ## Output Format
+          Return a YAML list of all CLIs found, sorted by:
+          1. Installation ease
+          2. Relevance to our gaps
+          3. Cross-platform support
+
+          Include at least {search_depth_count} results.
+
+        subagent_type: "Explore"
+        timeout: "{search_timeout}"
+        output_key: "cli_results"
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # AGENT 4: LIBRARY DISCOVERY
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: agent_library
+        name: "Library Discovery Agent"
+        task_prompt: |
+          You are a specialized library/SDK discovery agent.
+
+          ## Your Mission
+          Find Python/Node libraries that can fill these capability gaps for a {domain} squad:
+          {prioritized_gaps}
+
+          ## Search Strategy
+
+          ### 1. Package Registries
+          **PyPI (Python):**
+          - Search: "{domain}", "{capability}"
+          - Filter: downloads > 10,000/month
+          - Check: Python 3.8+ support
+
+          **npm (Node.js):**
+          - Search: "{domain}", "@{company}/{domain}"
+          - Filter: downloads > 5,000/week
+          - Check: Node 16+ support
+
+          ### 2. Search Queries
+          - "python {domain} library"
+          - "node {domain} package"
+          - "{domain} SDK"
+          - "{capability} python library"
+          - "best {domain} npm packages 2025"
+
+          ### 3. Quality Criteria
+          - Type hints (TypeScript/Python types)
+          - Test coverage > 80%
+          - Active maintenance (release < 6 months)
+          - Minimal dependencies
+          - Good documentation with examples
+
+          ## For Each Library Found, Extract:
+          ```yaml
+          library:
+            name: ""
+            language: "python | node | both"
+            description: ""
+            capabilities: []
+            installation:
+              pip: "pip install X"
+              npm: "npm install X"
+            version:
+              current: "X.Y.Z"
+              python_support: ">=3.8"
+              node_support: ">=16"
+            quality:
+              type_hints: true/false
+              test_coverage: "X%"
+              last_release: "YYYY-MM-DD"
+              dependencies_count: N
+            documentation:
+              docs_site: "url"
+              examples: true/false
+              api_reference: true/false
+            stats:
+              pypi_downloads: "N/month"
+              npm_downloads: "N/week"
+              github_stars: N
+            fills_gaps: []
+          ```
+
+          ## Output Format
+          Return a YAML list of all libraries found, sorted by:
+          1. Language preference (Python first, then Node)
+          2. Relevance to our gaps
+          3. Quality metrics
+
+          Include at least {search_depth_count} results.
+
+        subagent_type: "Explore"
+        timeout: "{search_timeout}"
+        output_key: "library_results"
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # AGENT 5: GITHUB PROJECT DISCOVERY
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: agent_github
+        name: "GitHub Project Discovery Agent"
+        task_prompt: |
+          You are a specialized GitHub project discovery agent.
+
+          ## Your Mission
+          Find open-source projects that can fill these capability gaps for a {domain} squad:
+          {prioritized_gaps}
+
+          Focus on REUSABLE COMPONENTS - scripts, modules, or tools that can be
+          extracted and integrated into our squad.
+
+          ## Search Strategy
+
+          ### 1. GitHub Topics
+          - topic:{domain}
+          - topic:{domain}-automation
+          - topic:awesome-{domain}
+          - topic:{capability}
+
+          ### 2. GitHub Collections
+          - https://github.com/collections/{domain}
+          - https://github.com/topics/{domain}
+
+          ### 3. Search Queries
+          - "{domain} automation github stars:>100"
+          - "awesome {domain} github"
+          - "{capability} tool github"
+          - "{domain} toolkit"
+          - "{domain} scripts"
+
+          ### 4. Filter Criteria
+          - Stars >= 100 (quality signal)
+          - Updated within 1 year
+          - Has LICENSE (MIT, Apache-2.0, BSD preferred)
+          - Has README with usage docs
+          - Language: Python, JavaScript, TypeScript, Go
+
+          ### 5. Reusability Analysis
+          For each project, analyze:
+          - Can scripts be run standalone?
+          - Can modules be imported?
+          - Does it expose an API?
+          - Are there reusable prompt templates?
+          - Are there automation workflows?
+
+          ## For Each Project Found, Extract:
+          ```yaml
+          github_project:
+            name: ""
+            url: ""
+            description: ""
+            capabilities: []
+            stats:
+              stars: N
+              forks: N
+              last_commit: "YYYY-MM-DD"
+              contributors: N
+            technical:
+              language: ""
+              license: ""
+              dependencies: []
+            reusability:
+              standalone_scripts: true/false
+              importable_modules: true/false
+              api_endpoints: true/false
+              prompt_templates: true/false
+              automation_workflows: true/false
+            integration_effort:
+              estimate: "low | medium | high"
+              notes: ""
+            fills_gaps: []
+          ```
+
+          ## Output Format
+          Return a YAML list of all projects found, sorted by:
+          1. Reusability potential
+          2. Stars/quality signals
+          3. Relevance to our gaps
+
+          Include at least {search_depth_count} results.
+
+        subagent_type: "Explore"
+        timeout: "{search_timeout}"
+        output_key: "github_results"
+
+    # Agent execution logic
+    execution:
+      launch_all_parallel: true
+      wait_for_all: true
+      collect_results:
+        - mcp_results
+        - api_results
+        - cli_results
+        - library_results
+        - github_results
+
+    checkpoint:
+      id: CP_DEEP_SEARCH
+      name: "Deep Search Complete"
+      blocking: true
+      criteria:
+        - at_least_3_agents_succeeded: true
+        - total_tools_found: ">= 10"
+      on_partial_failure:
+        action: "Continue with available results, note failures"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: COMPARATIVE EVALUATION (Tiers Relativos)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_2
+    name: "COMPARATIVE EVALUATION"
+    purpose: "Evaluate tools using RELATIVE TIERS - comparing tools against each other, not absolute values"
+    duration: "10-15 minutes"
+    mode: "sequential"
+    depends_on: ["phase_1"]
+
+    framework_reference: "data/tool-evaluation-framework.md"
+
+    philosophy: |
+      NÃO EXISTEM VALORES ABSOLUTOS UNIVERSAIS.
+
+      Um projeto com 30 stars pode ser EXCELENTE se for o melhor do nicho.
+      Um projeto com 10,000 stars pode ser MEDIANO se todos os concorrentes
+      tiverem 50,000.
+
+      SEMPRE comparar ferramentas ENTRE SI, dentro do contexto da pesquisa.
+
+    principles:
+      - "COMPARAÇÃO RELATIVA - Tiers baseados nos projetos encontrados, não em números mágicos"
+      - "CONTEXTO DE DOMÍNIO - Ferramentas de nicho competem com ferramentas de nicho"
+      - "FLAGS, NÃO VETOS - Problemas são destacados para decisão humana, não eliminados automaticamente"
+      - "DADOS > HEURÍSTICAS - Normalizar dentro do dataset encontrado"
+
+    steps:
+      - id: step_2_1
+        name: "Consolidate & Deduplicate"
+        action: "Merge all subagent results and remove duplicates"
+        logic: |
+          all_tools = []
+          for category in [mcp, api, cli, library, github]:
+            for tool in category_results:
+              tool.category = category
+              tool.source_agent = agent_name
+              all_tools.append(tool)
+
+          deduplicated = deduplicate_by_name_and_url(all_tools)
+
+        output:
+          consolidated_tools:
+            total: N
+            by_category: { mcp: N, api: N, cli: N, library: N, github: N }
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # STEP 2.2: COLLECT RAW METRICS
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: step_2_2
+        name: "Collect Raw Metrics"
+        action: "Gather all metrics for each tool to enable relative comparison"
+
+        metrics_to_collect:
+          social_proof:
+            - github_stars
+            - github_forks
+            - npm_downloads_weekly
+            - pypi_downloads_monthly
+            - contributors_count
+            - open_issues_count
+            - closed_issues_count
+            - last_commit_days_ago
+            - releases_last_year
+            - stackoverflow_questions
+
+          security:
+            - critical_cves_count
+            - high_cves_count
+            - medium_cves_count
+            - deps_vulnerabilities_count
+            - has_security_policy
+            - has_security_audit
+            - signed_releases
+
+          maturity:
+            - age_months
+            - major_version
+            - has_documentation
+            - has_examples
+            - has_tests
+
+        output:
+          raw_metrics_matrix:
+            tool_name: { metric_name: value, ... }
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # STEP 2.3: CALCULATE RELATIVE TIERS (Percentis)
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: step_2_3
+        name: "Calculate Relative Tiers"
+        action: "For each dimension, rank tools by percentile within the dataset"
+
+        tier_calculation:
+          method: "percentile"
+          tiers:
+            tier_1: "Top 20% (above P80)"
+            tier_2: "21-50% (P50 to P80)"
+            tier_3: "51-80% (P20 to P50)"
+            tier_4: "Bottom 20% (below P20)"
+
+          dimensions:
+            social_proof:
+              components:
+                - name: "popularity"
+                  metrics: [github_stars, npm_downloads, pypi_downloads]
+                  weight: 0.30
+                - name: "community_health"
+                  metrics: [contributors_count, issues_response_ratio]
+                  weight: 0.25
+                - name: "activity"
+                  metrics: [last_commit_days_ago, releases_last_year]
+                  weight: 0.25
+                  inverse: [last_commit_days_ago]  # Lower is better
+                - name: "adoption"
+                  metrics: [stackoverflow_questions]
+                  weight: 0.20
+
+            security:
+              note: "For CVEs, compare relative counts - lower tier = fewer CVEs"
+              components:
+                - name: "vulnerabilities"
+                  metrics: [critical_cves, high_cves, deps_vulnerabilities]
+                  weight: 0.60
+                  inverse: true  # Fewer is better
+                - name: "practices"
+                  metrics: [has_security_policy, has_security_audit, signed_releases]
+                  weight: 0.40
+
+            maturity:
+              components:
+                - name: "longevity"
+                  metrics: [age_months, major_version]
+                  weight: 0.40
+                - name: "documentation"
+                  metrics: [has_documentation, has_examples]
+                  weight: 0.30
+                - name: "quality"
+                  metrics: [has_tests]
+                  weight: 0.30
+
+        output:
+          tier_matrix:
+            tool_name:
+              social_proof_tier: 1-4
+              security_tier: 1-4
+              maturity_tier: 1-4
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # STEP 2.4: FLAG ATTENTION ITEMS (Not VETOs)
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: step_2_4
+        name: "Flag Attention Items"
+        action: "Identify items that require human attention (flags, not automatic vetos)"
+
+        note: |
+          FLAGS highlight concerns but do NOT automatically eliminate tools.
+          A tool with a flag may still be the best option if all alternatives
+          have worse issues.
+
+        flags:
+          security:
+            - flag: "🔴 CRITICAL_CVE"
+              condition: "Has unpatched critical CVE"
+              action: "Highlight for human review"
+              note: "Check if patch available or workaround exists"
+
+            - flag: "🟠 HIGH_CVE"
+              condition: "Has unpatched high CVE"
+              action: "Compare with alternatives"
+
+            - flag: "🟡 SECURITY_INCIDENT"
+              condition: "History of security incident"
+              action: "Research if resolved"
+
+          maturity:
+            - flag: "🔵 VERY_NEW"
+              condition: "Project < 3 months old"
+              action: "May be innovative or unstable"
+
+            - flag: "🟤 SINGLE_MAINTAINER"
+              condition: "Only 1 contributor"
+              action: "Bus factor concern"
+
+            - flag: "⚪ NO_RECENT_RELEASES"
+              condition: "No releases in 12 months"
+              action: "Check if stable or abandoned"
+
+          licensing:
+            - flag: "⚫ NO_LICENSE"
+              condition: "No OSS license"
+              action: "Cannot use without license clarification"
+
+        output:
+          flagged_tools:
+            tool_name: [list of flags]
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # STEP 2.5: COST-BENEFIT COMPARISON (Relative)
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: step_2_5
+        name: "Cost-Benefit Comparison"
+        action: "Compare paid vs OSS alternatives within same tier"
+
+        principle: |
+          NO fixed ROI thresholds.
+          Compare tiers between paid and OSS options for same capability.
+          Present analysis for human decision.
+
+        analysis:
+          step_1:
+            action: "Group tools by capability gap they fill"
+
+          step_2:
+            action: "For each gap, identify paid and OSS options"
+
+          step_3:
+            action: "Compare tiers within each group"
+            logic: |
+              If OSS is Tier 1-2 and Paid is also Tier 1-2:
+                → Prefer OSS (cost advantage)
+              If Paid is Tier 1 and OSS is Tier 3-4:
+                → Present both with tier comparison
+              If only Paid options exist:
+                → Present with cost analysis
+
+          step_4:
+            action: "Generate comparison table for human decision"
+
+        output:
+          cost_comparison:
+            by_capability:
+              capability_name:
+                oss_options: [{ tool, tier, cost: "free" }]
+                paid_options: [{ tool, tier, cost: "$X/mo" }]
+                recommendation: "OSS Tier 1 exists" | "Consider paid" | "Only paid available"
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # STEP 2.6: RICE SCORING (Relative)
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: step_2_6
+        name: "RICE Scoring (Relative)"
+        action: "Calculate RICE for each tool, then rank by percentile"
+
+        rice_components:
+          reach:
+            description: "Proportion of squad use cases affected"
+            calculation: "(use_cases_affected / total_use_cases) * 10"
+
+          impact:
+            description: "Magnitude of benefit when implemented"
+            assessment:
+              - "Manual work reduction %"
+              - "Quality improvement %"
+              - "Necessity (can squad work without it?)"
+              - "Differentiation value"
+            calculation: "weighted average of assessments"
+
+          confidence:
+            description: "Certainty about Reach and Impact estimates"
+            based_on:
+              - "Have we tested similar tool?"
+              - "Quality of documentation"
+              - "Number of reviews/case studies"
+              - "Community activity"
+
+          effort:
+            description: "Time and resources to implement"
+            components:
+              - installation_complexity
+              - integration_effort
+              - learning_curve
+              - maintenance_burden
+
+        formula: "RICE = (Reach * Impact * Confidence) / Effort"
+
+        tier_assignment: |
+          Calculate RICE for ALL tools, then assign tiers by percentile:
+          - Tier 1: Top 20% RICE scores
+          - Tier 2: 21-50%
+          - Tier 3: 51-80%
+          - Tier 4: Bottom 20%
+
+          NOTE: NO absolute threshold like "RICE > 50 is good".
+          A tool with RICE 15 can be Tier 1 if it's the best in the dataset.
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # STEP 2.7: WSJF SCORING (Relative)
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: step_2_7
+        name: "WSJF Scoring (Relative)"
+        action: "Calculate WSJF for prioritization, rank by percentile"
+
+        cost_of_delay:
+          user_business_value:
+            weight: 0.40
+            question: "How much business value does user gain?"
+            comparison: "Rank tools against each other"
+
+          time_criticality:
+            weight: 0.30
+            question: "How urgent is this capability?"
+            context: "Depends on squad project timeline"
+
+          risk_reduction:
+            weight: 0.30
+            question: "How much risk does this tool mitigate?"
+
+        job_duration:
+          description: "Estimated implementation time"
+          mapping:
+            1: "< 1 hour"
+            2: "1-4 hours"
+            3: "1 day"
+            5: "1 week"
+            7: "2-4 weeks"
+            10: "> 3 months"
+
+        formula: "WSJF = Cost_of_Delay / Job_Duration"
+
+        tier_assignment: |
+          Same as RICE - assign tiers by percentile within dataset.
+          High WSJF = High value, low effort (prioritize first)
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # STEP 2.8: COMPOSITE TIER & RANKING
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: step_2_8
+        name: "Calculate Composite Tier"
+        action: "Combine all dimension tiers into final ranking"
+
+        composite_calculation:
+          weights:
+            rice_tier: 0.30
+            wsjf_tier: 0.25
+            social_proof_tier: 0.20
+            security_tier: 0.15
+            maturity_tier: 0.10
+
+          formula: |
+            # Convert tiers to scores (Tier 1 = 4, Tier 2 = 3, etc.)
+            tier_to_score = {1: 4, 2: 3, 3: 2, 4: 1}
+
+            composite_score = sum(tier_to_score[tier] * weight for each dimension)
+
+            # Convert back to tier
+            if composite_score >= 3.5: Tier 1
+            elif composite_score >= 2.5: Tier 2
+            elif composite_score >= 1.5: Tier 3
+            else: Tier 4
+
+        decision_matrix:
+          note: "Based on VALUE tier (RICE+WSJF) vs EFFORT tier"
+          quadrants:
+            quick_wins:
+              criteria: "Tier 1-2 Value AND Tier 1-2 Effort"
+              action: "Implement first"
+
+            strategic:
+              criteria: "Tier 1-2 Value AND Tier 3-4 Effort"
+              action: "Plan and schedule"
+
+            fill_ins:
+              criteria: "Tier 3-4 Value AND Tier 1-2 Effort"
+              action: "If time permits"
+
+            backlog:
+              criteria: "Tier 3-4 Value AND Tier 3-4 Effort"
+              action: "Low priority"
+
+        output:
+          ranked_tools:
+            - tool: "Tool A"
+              composite_tier: 1
+              quadrant: "Quick Win"
+              flags: []
+              tiers:
+                rice: 1
+                wsjf: 1
+                social_proof: 2
+                security: 1
+                maturity: 2
+
+      - id: step_2_9
+        name: "Generate Comparative Report"
+        action: "Create report showing relative rankings and comparisons"
+
+        report_sections:
+          tier_distribution:
+            description: "How many tools in each tier"
+            format: |
+              Tier 1 (Top 20%): N tools
+              Tier 2 (21-50%): N tools
+              Tier 3 (51-80%): N tools
+              Tier 4 (Bottom 20%): N tools
+
+          top_by_category:
+            description: "Best tools per category"
+            categories: [mcp, api, cli, library, github]
+            show: "Top 3 per category with tier info"
+
+          gap_coverage:
+            description: "Which gaps have Tier 1-2 options"
+            format: |
+              ✅ Gap X: Tool A (Tier 1), Tool B (Tier 2)
+              ⚠️ Gap Y: Only Tier 3-4 options available
+              ❌ Gap Z: No tools found
+
+          flags_summary:
+            description: "All flagged items requiring attention"
+            format: |
+              🔴 CRITICAL_CVE: Tool X, Tool Y
+              🔵 VERY_NEW: Tool Z
+
+          paid_vs_oss:
+            description: "Comparison for gaps where both exist"
+
+        output:
+          comparative_report:
+            tier_distribution: {}
+            top_overall: []
+            top_by_category: {}
+            gap_coverage: {}
+            flags_summary: {}
+            paid_vs_oss_analysis: {}
+
+    checkpoint:
+      id: CP_SCORING
+      name: "Scoring Complete"
+      blocking: true
+      criteria:
+        - all_tools_scored: true
+        - rankings_generated: true
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: DECISION MATRIX & INTEGRATION PLAN
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_3
+    name: "DECISION MATRIX & INTEGRATION PLAN"
+    purpose: "Create actionable decision matrix and implementation plan"
+    duration: "5-10 minutes"
+    mode: "sequential"
+    depends_on: ["phase_2"]
+
+    steps:
+      - id: step_3_1
+        name: "Generate Decision Matrix"
+        action: "Create impact vs effort quadrant matrix"
+        matrix:
+          quadrants:
+            quick_wins:
+              criteria: "impact_score >= 7 AND effort_score >= 7"
+              action: "Implement immediately"
+              priority: 1
+
+            strategic:
+              criteria: "impact_score >= 7 AND effort_score < 7"
+              action: "Plan for implementation"
+              priority: 2
+
+            fill_ins:
+              criteria: "impact_score < 7 AND effort_score >= 7"
+              action: "Nice to have, low priority"
+              priority: 3
+
+            avoid:
+              criteria: "impact_score < 7 AND effort_score < 7"
+              action: "Don't implement"
+              priority: 4
+
+        output:
+          decision_matrix:
+            quick_wins: []
+            strategic: []
+            fill_ins: []
+            avoid: []
+
+      - id: step_3_2
+        name: "Generate Integration Plan"
+        action: "Create phased implementation plan"
+        plan_structure:
+          immediate:
+            timeframe: "Today"
+            criteria: "Quick wins with < 30 min setup"
+            actions:
+              - tool_name: ""
+                action: "Install via {command}"
+                effort: "5-30 min"
+                fills_gap: ""
+
+          short_term:
+            timeframe: "This Week"
+            criteria: "Quick wins and high-value strategic"
+            actions:
+              - tool_name: ""
+                action: "Configure and integrate"
+                effort: "1-4 hours"
+                fills_gap: ""
+
+          medium_term:
+            timeframe: "This Month"
+            criteria: "Strategic tools requiring planning"
+            actions:
+              - tool_name: ""
+                action: "Full integration with squad"
+                effort: "1-2 days"
+                fills_gap: ""
+
+          backlog:
+            timeframe: "Future"
+            criteria: "Fill-ins and tools needing evaluation"
+            actions:
+              - tool_name: ""
+                action: "Evaluate when time permits"
+                reason: ""
+
+        output:
+          integration_plan:
+            immediate: []
+            short_term: []
+            medium_term: []
+            backlog: []
+
+      - id: step_3_3
+        name: "Update Tool Registry"
+        action: "Add discovered tools to global registry"
+        updates:
+          - add_to: "mcp_servers"
+            status: "discovered"
+            tools: "{new_mcps}"
+
+          - add_to: "domain_recommendations.{domain}"
+            essential: "{quick_wins}"
+            recommended: "{strategic}"
+            optional: "{fill_ins}"
+
+          - add_to: "capability_mapping"
+            new_mappings: "{gap_to_tool_mappings}"
+
+        output:
+          registry_updates:
+            mcps_added: N
+            apis_added: N
+            mappings_added: N
+
+      - id: step_3_4
+        name: "Generate Reports"
+        action: "Create comprehensive documentation"
+        reports:
+          - name: "Tool Discovery Report"
+            location: "squads/{pack_name}/docs/tool-discovery-report.md"
+            sections:
+              - executive_summary
+              - capability_gaps_analyzed
+              - tools_discovered_by_category
+              - decision_matrix_visual
+              - top_recommendations
+              - detailed_tool_profiles
+
+          - name: "Integration Plan"
+            location: "squads/{pack_name}/docs/tool-integration-plan.md"
+            sections:
+              - timeline_overview
+              - immediate_actions
+              - short_term_plan
+              - medium_term_plan
+              - backlog
+
+          - name: "Capability-Tools Mapping"
+            location: "squads/{pack_name}/data/capability-tools.yaml"
+            format: "yaml"
+
+    checkpoint:
+      id: CP_DECISION
+      name: "Decision Matrix Complete"
+      blocking: true
+      criteria:
+        - matrix_generated: true
+        - plan_created: true
+        - registry_updated: true
+        - reports_generated: true
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: HANDOFF
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_4
+    name: "HANDOFF"
+    purpose: "Present findings and get approval"
+    duration: "2-5 minutes"
+    mode: "interactive"
+    depends_on: ["phase_3"]
+
+    steps:
+      - id: step_4_1
+        name: "Present Summary"
+        action: "Display comprehensive discovery summary"
+        template: |
+          ═══════════════════════════════════════════════════════════════════
+          🔧 DEEP TOOL DISCOVERY COMPLETE
+          ═══════════════════════════════════════════════════════════════════
+
+          DOMAIN: {domain}
+          CAPABILITY GAPS ANALYZED: {gaps_count}
+          TOTAL TOOLS DISCOVERED: {tools_count}
+
+          ┌─────────────────────────────────────────────────────────────────┐
+          │ DISCOVERY BY CATEGORY                                           │
+          ├─────────────────────────────────────────────────────────────────┤
+          │ MCPs:           {mcp_count:>3} found │ Top: {top_mcp}           │
+          │ APIs:           {api_count:>3} found │ Top: {top_api}           │
+          │ CLIs:           {cli_count:>3} found │ Top: {top_cli}           │
+          │ Libraries:      {lib_count:>3} found │ Top: {top_lib}           │
+          │ GitHub Projects:{gh_count:>3} found │ Top: {top_gh}            │
+          └─────────────────────────────────────────────────────────────────┘
+
+          ┌─────────────────────────────────────────────────────────────────┐
+          │ DECISION MATRIX                                                 │
+          ├─────────────────────────────────────────────────────────────────┤
+          │ 🚀 QUICK WINS:     {quick_wins_count:>2} tools (implement now)  │
+          │ 📋 STRATEGIC:      {strategic_count:>2} tools (plan for later)  │
+          │ 📦 FILL-INS:       {fillins_count:>2} tools (nice to have)      │
+          │ ❌ AVOID:          {avoid_count:>2} tools (not worth effort)    │
+          └─────────────────────────────────────────────────────────────────┘
+
+          TOP 5 QUICK WINS:
+          {quick_wins_table}
+
+          REPORTS GENERATED:
+          • squads/{pack_name}/docs/tool-discovery-report.md
+          • squads/{pack_name}/docs/tool-integration-plan.md
+          • squads/{pack_name}/data/capability-tools.yaml
+
+          ═══════════════════════════════════════════════════════════════════
+
+      - id: step_4_2
+        name: "Request Approval"
+        action: "Ask user to approve integration plan"
+        question: "How would you like to proceed?"
+        options:
+          - id: "approve_all"
+            label: "Approve all quick wins - integrate now"
+            action: "Execute immediate actions from integration plan"
+
+          - id: "review_first"
+            label: "Review detailed report first"
+            action: "Open tool-discovery-report.md"
+
+          - id: "selective"
+            label: "Select specific tools to integrate"
+            action: "Present tool list for selection"
+
+          - id: "skip"
+            label: "Skip tool integration for now"
+            action: "Save reports, continue to next phase"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  primary:
+    - name: "Tool Discovery Report"
+      location: "squads/{pack_name}/docs/tool-discovery-report.md"
+      description: "Comprehensive research findings with all discovered tools"
+
+    - name: "Integration Plan"
+      location: "squads/{pack_name}/docs/tool-integration-plan.md"
+      description: "Prioritized implementation timeline"
+
+    - name: "Decision Matrix"
+      location: "Embedded in tool-discovery-report.md"
+      description: "Impact vs Effort quadrant visualization"
+
+  secondary:
+    - name: "Capability-Tools Mapping"
+      location: "squads/{pack_name}/data/capability-tools.yaml"
+      description: "Squad-specific capability to tool mapping"
+
+    - name: "Updated Tool Registry"
+      location: "data/tool-registry.yaml"
+      description: "Global registry updated with discoveries"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# HEURISTICS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+heuristics:
+  - id: SC_TLD_001
+    name: "Tool Discovery Complete"
+    phase: "phase_3"
+    blocking: true
+    criteria:
+      - parallel_agents_executed: ">= 3 of 5"
+      - tools_discovered: ">= 5"  # At least some tools found
+      - tier_distribution_calculated: true
+      - comparative_report_generated: true
+    notes:
+      - "No minimum tool count threshold - even 5 tools can be valuable if ranked"
+      - "Quality is determined by relative ranking, not absolute counts"
+
+  - id: SC_TLD_002
+    name: "Relative Ranking Complete"
+    phase: "phase_2.step_2_3"
+    blocking: true
+    criteria:
+      - all_tools_have_tiers: true
+      - percentile_calculation_done: true
+    notes:
+      - "NO absolute thresholds - all tools get tiers based on comparison"
+      - "Even Tier 4 tools are included - they may be the only option"
+
+  - id: SC_TLD_003
+    name: "Flags Identified"
+    phase: "phase_2.step_2_4"
+    blocking: false
+    criteria:
+      - security_flags_checked: true
+      - maturity_flags_checked: true
+      - license_flags_checked: true
+    notes:
+      - "Flags are for ATTENTION, not automatic elimination"
+      - "A tool with flags may still be recommended if best in tier"
+
+  - id: SC_TLD_004
+    name: "Cost Comparison Done"
+    phase: "phase_2.step_2_5"
+    blocking: false
+    criteria:
+      - paid_vs_oss_grouped: true
+      - tier_comparison_per_gap: true
+    notes:
+      - "NO fixed ROI thresholds"
+      - "Present tier comparison for human decision"
+      - "OSS preferred when same tier as paid"
+
+  - id: SC_TLD_005
+    name: "Decision Matrix Generated"
+    phase: "phase_2.step_2_8"
+    blocking: true
+    criteria:
+      - quadrants_assigned: true  # Quick Win, Strategic, Fill-in, Backlog
+      - recommendations_by_gap: true
+    notes:
+      - "Quadrants based on relative tiers, not absolute scores"
+      - "All tools get a quadrant - none automatically excluded"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SEARCH DEPTH CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+search_depth_config:
+  quick:
+    results_per_category: 5
+    timeout_minutes: 5
+    use_case: "Fast exploration"
+
+  standard:
+    results_per_category: 15
+    timeout_minutes: 10
+    use_case: "Normal squad creation"
+
+  exhaustive:
+    results_per_category: 30
+    timeout_minutes: 20
+    use_case: "Enterprise squads, complex domains"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  agent_timeout:
+    action: "Continue with other agents, mark as partial"
+    retry: false
+
+  agent_failure:
+    action: "Log error, continue with other agents"
+    retry_count: 1
+
+  no_tools_found:
+    action: "Expand search to adjacent domains"
+    fallback: "Mark as 'custom development needed'"
+
+  scoring_failure:
+    action: "Use default scores, flag for manual review"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "2.0"
+  created: "2026-02-03"
+  updated: "2026-02-03"
+  author: "squad-chief"
+  lines: "900+"
+  purpose: "Deep parallel tool discovery with RELATIVE TIERS - comparing tools against each other, not absolute values"
+  philosophy: "Não existem valores absolutos universais. Um projeto com 30 stars pode ser excelente se for o melhor do nicho."
+  changelog:
+    v2.0:
+      - "MAJOR: Replaced absolute thresholds with RELATIVE TIERS"
+      - "Tools compared by PERCENTILE within dataset (Top 20%, 21-50%, etc.)"
+      - "Replaced VETOs with FLAGS requiring human attention"
+      - "No tool automatically eliminated - Tier 4 may still be best option"
+      - "Cost comparison: tier-based, no fixed ROI thresholds"
+      - "RICE/WSJF scores ranked relatively, not against fixed values"
+      - "Framework reference: data/tool-evaluation-framework.md v2.0"
+    v1.1:
+      - "Added RICE Framework scoring"
+      - "Added WSJF Framework scoring"
+      - "Added Security/Social Proof gates (replaced in v2.0)"
+    v1.0:
+      - "Initial release with 5 parallel sub-agents"

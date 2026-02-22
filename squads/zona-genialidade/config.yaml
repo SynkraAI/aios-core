@@ -1,0 +1,113 @@
+## ============================================================================
+## ZONA GENIALIDADE SQUAD - Configuration
+## ============================================================================
+## Descobre perfil comportamental, mapeia zona de genialidade,
+## recomenda squad ideal e cria plano de monetizacao
+## ============================================================================
+
+name: zona-genialidade
+title: "Zona Genialidade"
+version: "1.0.0"
+author: "Jose Carlos Amorim"
+description: >
+  Squad que identifica a zona de genialidade do usuario atraves de assessment
+  comportamental unificado (30 min max), analise multi-framework autonoma
+  e entrega um Blueprint completo com squad recomendado e plano de monetizacao.
+
+## Slash command prefix for Claude Code
+slash_prefix: "ZonaGenialidade"
+pattern_prefix: "ZG"
+
+## Target audience
+target_user: "Alunos do Cohort Fundamentals"
+
+## Use cases
+use_cases:
+  - id: UC1
+    name: "Diagnostico Comportamental"
+    description: "DISC, Enneagram, Clifton, Big Five integrados"
+  - id: UC2
+    name: "Mapeamento Zona de Genialidade"
+    description: "Cruzar perfil com habilidades, paixoes e mercado"
+  - id: UC3
+    name: "Recomendacao de Squad Ideal"
+    description: "Qual squad criar/operar baseado no perfil"
+  - id: UC4
+    name: "Plano de Monetizacao"
+    description: "Como transformar zona de genialidade em receita"
+
+## Tier structure
+tiers:
+  orchestrator:
+    - zona-genialidade-chief
+  tier_0:
+    - gay-hendricks
+  tier_1:
+    - don-clifton
+    - dan-sullivan
+    - roger-hamilton
+    - alex-hormozi
+  tier_2:
+    - kathy-kolbe
+    - sally-hogshead
+
+## Tasks
+tasks:
+  - start
+  - run-assessment
+  - analyze-genius-profile
+  - recommend-squad
+  - generate-blueprint
+
+## Quality gates
+quality_gates:
+  - id: QG-001
+    name: "Intake Validated"
+    transition: "Input -> Tier 0"
+    blocking: true
+  - id: QG-002
+    name: "Assessment Complete"
+    transition: "Assessment -> Analysis"
+    blocking: true
+  - id: QG-003
+    name: "Profile Synthesized"
+    transition: "Analysis -> Matching"
+    blocking: true
+  - id: QG-004
+    name: "Blueprint Reviewed"
+    transition: "Output -> Entrega"
+    blocking: true
+
+## Dependencies (expansion packs that complement this squad)
+dependencies:
+  optional:
+    - mentoria-engine     # Phase 1 genius zone discovery
+    - onboarding-intelligence  # DISC/Enneagram/Clifton profiles
+    - innerlens           # Big Five analysis
+    - squad-creator       # Create recommended squads
+
+## Research foundation
+research:
+  minds_count: 7
+  minds:
+    - name: "Gay Hendricks"
+      tier: 0
+      frameworks: ["Zone of Genius Model", "Upper Limit Problem", "Big Leap Process"]
+    - name: "Don Clifton / Gallup"
+      tier: 1
+      frameworks: ["CliftonStrengths 34", "4 Domains of Strength"]
+    - name: "Dan Sullivan"
+      tier: 1
+      frameworks: ["Unique Ability", "Who Not How", "10x Is Easier Than 2x"]
+    - name: "Roger Hamilton"
+      tier: 1
+      frameworks: ["Wealth Dynamics 8 Profiles", "Wealth Spectrum"]
+    - name: "Alex Hormozi"
+      tier: 1
+      frameworks: ["Value Equation", "Grand Slam Offer", "Core 4"]
+    - name: "Kathy Kolbe"
+      tier: 2
+      frameworks: ["Kolbe A Index", "4 Action Modes", "Conative Strengths"]
+    - name: "Sally Hogshead"
+      tier: 2
+      frameworks: ["Fascination Advantage", "42 Archetypes", "7 Advantages"]

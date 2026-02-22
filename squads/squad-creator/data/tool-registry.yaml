@@ -1,0 +1,700 @@
+# Tool Registry - AIOS Global Tool Catalog
+# ═══════════════════════════════════════════════════════════════════════════════
+# Registro global de ferramentas disponíveis no ecossistema AIOS.
+# Atualizado automaticamente pela task `discover-tools.md`
+# ═══════════════════════════════════════════════════════════════════════════════
+
+version: "2.0"
+last_updated: "2026-02-05"
+updated_by: "squad-chief"
+last_discovery: "2026-02-05 - squad-creator domain"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CATEGORIAS DE FERRAMENTAS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+categories:
+  mcp:
+    description: "Model Context Protocol servers - extend Claude's capabilities"
+    discovery_sources:
+      - "https://github.com/modelcontextprotocol"
+      - "https://github.com/topics/mcp-server"
+      - "https://glama.ai/mcp/servers"
+
+  api:
+    description: "REST/GraphQL APIs for data and services"
+    discovery_sources:
+      - "https://rapidapi.com"
+      - "https://publicapis.dev"
+      - "https://github.com/public-apis/public-apis"
+
+  cli:
+    description: "Command-line tools executable via Bash"
+    discovery_sources:
+      - "https://github.com/agarrharr/awesome-cli-apps"
+      - "homebrew formulae"
+      - "npm packages"
+
+  library:
+    description: "Code libraries (Python, Node, etc.)"
+    discovery_sources:
+      - "pypi.org"
+      - "npmjs.com"
+      - "github.com"
+
+  github_project:
+    description: "Open source projects with reusable components"
+    discovery_sources:
+      - "github.com/topics"
+      - "github.com/collections"
+
+  skill_library:
+    description: "Pre-built AI agent skills and prompts"
+    discovery_sources:
+      - "langchain hub"
+      - "promptbase"
+      - "github.com/topics/ai-agents"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FERRAMENTAS RECOMENDADAS PARA SQUAD-CREATOR (Discovery 2026-02-05)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+squad_creator_recommendations:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PRIORIDADE 1: QUICK WINS (Instalar ASAP)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  priority_1_quick_wins:
+    mcp-youtube-transcript:
+      status: recommended
+      priority: 1
+      category: source_acquisition
+      purpose: "Extrair transcrições de vídeos YouTube para clonagem de minds"
+      capabilities:
+        - "extract_youtube_transcripts"
+        - "multi_language_support"
+        - "video_metadata"
+        - "automatic_paragraph_segmentation"
+      install_command: "npx -y @jkawamoto/mcp-youtube-transcript"
+      github: "https://github.com/jkawamoto/mcp-youtube-transcript"
+      stars: 271
+      impact: 10
+      effort: low
+      use_cases:
+        - "Extrair transcripts de entrevistas de experts"
+        - "Capturar keynotes e masterclasses"
+        - "Coletar podcasts em vídeo"
+      integration_point: "auto-acquire-sources.md, collect-sources.md"
+
+    firecrawl-mcp:
+      status: recommended
+      priority: 1
+      category: web_scraping
+      purpose: "Scraping avançado de websites, artigos e blogs de experts"
+      capabilities:
+        - "web_scraping"
+        - "markdown_conversion"
+        - "structured_data_extraction"
+        - "anti_bot_handling"
+        - "batch_processing"
+      install_command: "env FIRECRAWL_API_KEY=fc-YOUR_KEY npx -y firecrawl-mcp"
+      github: "https://github.com/mendableai/firecrawl-mcp-server"
+      stars: 3303
+      impact: 10
+      effort: low
+      api_key_required: true
+      free_tier: true
+      use_cases:
+        - "Extrair artigos de blogs de experts"
+        - "Scraping de newsletters"
+        - "Converter landing pages em markdown"
+      integration_point: "auto-acquire-sources.md, deep-research-pre-agent.md"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PRIORIDADE 2: ENHANCEMENT (Próxima semana)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  priority_2_enhancement:
+    mcp-perplexity:
+      status: recommended
+      priority: 2
+      category: research
+      purpose: "Deep research com citações para validar frameworks de experts"
+      capabilities:
+        - "deep_research"
+        - "citation_extraction"
+        - "real_time_information"
+        - "multi_source_synthesis"
+      install_command: "npx -y mcp-perplexity"
+      github: "https://github.com/daniel-lxs/mcp-perplexity"
+      impact: 9
+      effort: low
+      api_key_required: true
+      use_cases:
+        - "Validar existência de frameworks documentados"
+        - "Research iterativo com devil's advocate"
+        - "Encontrar fontes primárias de experts"
+      integration_point: "mind-research-loop.md, deep-research-pre-agent.md"
+
+    knowledge-graph-memory:
+      status: recommended
+      priority: 2
+      category: knowledge_management
+      purpose: "Persistir Mind DNA entre sessões via knowledge graph"
+      capabilities:
+        - "entity_storage"
+        - "relationship_mapping"
+        - "persistent_memory"
+        - "semantic_search"
+      install_command: "npx -y @modelcontextprotocol/server-memory"
+      github: "https://github.com/modelcontextprotocol/servers/tree/main/src/memory"
+      stars: 77100
+      impact: 9
+      effort: medium
+      use_cases:
+        - "Armazenar Voice DNA e Thinking DNA"
+        - "Relacionar minds com seus frameworks"
+        - "Recuperar context de sessões anteriores"
+      integration_point: "wf-clone-mind.yaml, create-agent.md"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PRIORIDADE 3: ADVANCED (Futuro)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  priority_3_advanced:
+    supadata-mcp:
+      status: known
+      priority: 3
+      category: source_acquisition
+      purpose: "Multi-platform transcript extraction (YouTube, TikTok, Twitter)"
+      capabilities:
+        - "youtube_transcripts"
+        - "tiktok_transcripts"
+        - "twitter_video_transcripts"
+        - "batch_processing"
+      install_command: "npx -y supadata-mcp"
+      impact: 8
+      effort: medium
+      use_cases:
+        - "Extrair de múltiplas plataformas"
+        - "Capturar conteúdo de social media de experts"
+
+    mcp-omnisearch:
+      status: known
+      priority: 3
+      category: research
+      purpose: "Unified access to multiple search engines"
+      capabilities:
+        - "tavily_search"
+        - "brave_search"
+        - "kagi_search"
+        - "perplexity_integration"
+        - "jina_content_processing"
+      github: "https://github.com/spences10/mcp-omnisearch"
+      impact: 8
+      effort: high
+      use_cases:
+        - "Search unificado quando Exa não encontra"
+        - "Fallback para múltiplas engines"
+
+    cognee-mcp:
+      status: known
+      priority: 3
+      category: knowledge_management
+      purpose: "Advanced knowledge graph with LLM memory"
+      capabilities:
+        - "advanced_knowledge_graph"
+        - "llm_memory"
+        - "context_aware_retrieval"
+      impact: 9
+      effort: high
+      use_cases:
+        - "Knowledge graph avançado para squads complexos"
+        - "Memória de longo prazo entre projetos"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # CLI TOOLS (Complementares)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  cli_tools:
+    yt2doc:
+      status: known
+      category: cli
+      purpose: "YouTube e Apple Podcasts para Markdown"
+      install_command: "pip install yt2doc"
+      github: "https://github.com/shun-liang/yt2doc"
+      use_cases:
+        - "Backup quando MCP não disponível"
+        - "Processar Apple Podcasts"
+
+    summarize:
+      status: known
+      category: cli
+      purpose: "CLI + Chrome extension para summarization"
+      install_command: "npm i -g @steipete/summarize"
+      github: "https://github.com/steipete/summarize"
+      stars: 863
+      use_cases:
+        - "Summarizar URLs rapidamente"
+        - "Processar PDFs e áudio"
+
+    yt-dlp:
+      status: known
+      category: cli
+      purpose: "Download de vídeos YouTube (dependência de vários MCPs)"
+      install_command: "brew install yt-dlp"
+      use_cases:
+        - "Dependência para YouTube MCPs"
+        - "Download de áudio para Whisper"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FERRAMENTAS NATIVAS DO CLAUDE CODE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+native_tools:
+  read:
+    type: native
+    category: file_operations
+    capabilities: ["read_files", "read_images", "read_notebooks"]
+    description: "Read file contents, images, and Jupyter notebooks"
+
+  write:
+    type: native
+    category: file_operations
+    capabilities: ["create_files", "overwrite_files"]
+    description: "Write content to files"
+
+  edit:
+    type: native
+    category: file_operations
+    capabilities: ["edit_files", "find_replace"]
+    description: "Surgical edits to existing files"
+
+  bash:
+    type: native
+    category: system
+    capabilities: ["run_commands", "git_operations", "npm", "docker"]
+    description: "Execute shell commands"
+
+  glob:
+    type: native
+    category: search
+    capabilities: ["find_files_by_pattern"]
+    description: "Find files matching glob patterns"
+
+  grep:
+    type: native
+    category: search
+    capabilities: ["search_content", "regex_search"]
+    description: "Search file contents with regex"
+
+  web_search:
+    type: native
+    category: research
+    capabilities: ["search_web", "current_events"]
+    description: "Search the web for information"
+
+  web_fetch:
+    type: native
+    category: research
+    capabilities: ["fetch_url", "extract_content"]
+    description: "Fetch and process web page content"
+
+  task:
+    type: native
+    category: orchestration
+    capabilities: ["spawn_agents", "parallel_execution"]
+    description: "Launch specialized sub-agents"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MCP SERVERS DISPONÍVEIS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+mcp_servers:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # INSTALLED & CONFIGURED
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  desktop-commander:
+    status: installed
+    category: system
+    capabilities:
+      - "file_operations"
+      - "process_management"
+      - "directory_listing"
+      - "search_files"
+      - "search_content"
+      - "pdf_operations"
+      - "excel_operations"
+    tools:
+      - read_file
+      - write_file
+      - edit_block
+      - list_directory
+      - start_process
+      - interact_with_process
+      - start_search
+      - write_pdf
+    use_cases:
+      - "File system operations"
+      - "Process automation"
+      - "Data file processing"
+
+  exa:
+    status: installed
+    category: research
+    capabilities:
+      - "web_search"
+      - "company_research"
+      - "code_context"
+    tools:
+      - web_search_exa
+      - company_research_exa
+      - get_code_context_exa
+    use_cases:
+      - "Deep web research"
+      - "Competitive analysis"
+      - "Code documentation lookup"
+
+  context7:
+    status: installed
+    category: documentation
+    capabilities:
+      - "library_docs"
+      - "api_reference"
+    tools:
+      - resolve-library-id
+      - query-docs
+    use_cases:
+      - "Library documentation lookup"
+      - "API reference"
+      - "Code examples"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # KNOWN BUT NOT INSTALLED (Candidates for discovery)
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  playwright:
+    status: known
+    category: browser_automation
+    capabilities:
+      - "browser_automation"
+      - "screenshots"
+      - "web_testing"
+    source: "https://github.com/anthropics/anthropic-tools/tree/main/computer-use"
+    install_command: "npm install @anthropic/mcp-server-playwright"
+
+  github:
+    status: known
+    category: development
+    capabilities:
+      - "repo_management"
+      - "issue_tracking"
+      - "pr_management"
+    source: "https://github.com/modelcontextprotocol/servers/tree/main/src/github"
+
+  slack:
+    status: known
+    category: communication
+    capabilities:
+      - "send_messages"
+      - "read_channels"
+      - "manage_threads"
+    source: "https://github.com/modelcontextprotocol/servers/tree/main/src/slack"
+
+  notion:
+    status: known
+    category: productivity
+    capabilities:
+      - "read_pages"
+      - "create_pages"
+      - "manage_databases"
+    source: "https://github.com/modelcontextprotocol/servers/tree/main/src/notion"
+
+  filesystem:
+    status: known
+    category: file_operations
+    capabilities:
+      - "sandboxed_file_access"
+    source: "https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem"
+
+  memory:
+    status: known
+    category: knowledge
+    capabilities:
+      - "persistent_memory"
+      - "knowledge_graph"
+    source: "https://github.com/modelcontextprotocol/servers/tree/main/src/memory"
+
+  puppeteer:
+    status: known
+    category: browser_automation
+    capabilities:
+      - "headless_browser"
+      - "web_scraping"
+      - "pdf_generation"
+    source: "https://github.com/modelcontextprotocol/servers/tree/main/src/puppeteer"
+
+  brave-search:
+    status: known
+    category: research
+    capabilities:
+      - "web_search"
+      - "news_search"
+    source: "https://github.com/modelcontextprotocol/servers/tree/main/src/brave-search"
+
+  google-drive:
+    status: known
+    category: storage
+    capabilities:
+      - "file_storage"
+      - "document_access"
+    source: "https://github.com/modelcontextprotocol/servers/tree/main/src/gdrive"
+
+  postgres:
+    status: known
+    category: database
+    capabilities:
+      - "sql_queries"
+      - "schema_inspection"
+    source: "https://github.com/modelcontextprotocol/servers/tree/main/src/postgres"
+
+  sqlite:
+    status: known
+    category: database
+    capabilities:
+      - "local_database"
+      - "sql_queries"
+    source: "https://github.com/modelcontextprotocol/servers/tree/main/src/sqlite"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CAPABILITY → TOOL MAPPING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+capability_mapping:
+  # Research & Discovery
+  web_research:
+    primary: [exa, web_search]
+    fallback: [web_fetch]
+
+  company_analysis:
+    primary: [exa]
+    requires_install: [crunchbase_api]
+
+  code_documentation:
+    primary: [context7, exa]
+
+  # File Operations
+  read_files:
+    primary: [read, desktop-commander]
+
+  write_files:
+    primary: [write, edit, desktop-commander]
+
+  pdf_processing:
+    primary: [desktop-commander]
+    requires_install: [pdf-reader-mcp]
+
+  excel_processing:
+    primary: [desktop-commander]
+
+  # Browser Automation
+  web_scraping:
+    requires_install: [playwright, puppeteer]
+    fallback: [web_fetch]
+
+  screenshots:
+    requires_install: [playwright]
+
+  form_filling:
+    requires_install: [playwright]
+
+  # Communication
+  send_notifications:
+    requires_install: [slack, discord-mcp]
+
+  email:
+    requires_install: [gmail-mcp, sendgrid-api]
+
+  # Database
+  sql_queries:
+    requires_install: [postgres, sqlite]
+    native_alternative: "bash + psql/sqlite3 CLI"
+
+  # AI/ML
+  embeddings:
+    requires_install: [openai-api, cohere-api]
+
+  transcription:
+    requires_install: [assemblyai, whisper-api]
+
+  image_generation:
+    requires_install: [dalle-api, midjourney-api, stability-api]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DOMAIN → RECOMMENDED TOOLS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+domain_recommendations:
+  copywriting:
+    essential:
+      - exa  # Research competitors, swipe files
+      - web_fetch  # Analyze landing pages
+    recommended:
+      - playwright  # Screenshot landing pages
+    optional:
+      - grammarly-api  # Grammar/style checking
+
+  legal:
+    essential:
+      - exa  # Legal research
+      - desktop-commander  # PDF contract analysis
+    recommended:
+      - postgres  # Case database
+    optional:
+      - docusign-api  # Contract signing
+
+  data_engineering:
+    essential:
+      - postgres  # Database operations
+      - desktop-commander  # File processing
+    recommended:
+      - sqlite  # Local data storage
+    optional:
+      - snowflake-api  # Cloud data warehouse
+
+  cybersecurity:
+    essential:
+      - bash  # Security tools (nmap, etc.)
+      - exa  # Threat intelligence
+    recommended:
+      - shodan-api  # Network scanning
+    optional:
+      - virustotal-api  # Malware analysis
+
+  design:
+    essential:
+      - desktop-commander  # File operations
+      - playwright  # Screenshots
+    recommended:
+      - figma-api  # Design files
+    optional:
+      - cloudinary-api  # Image optimization
+
+  marketing:
+    essential:
+      - exa  # Market research
+      - web_fetch  # Competitor analysis
+    recommended:
+      - google-analytics-api
+      - social-media-apis
+    optional:
+      - mailchimp-api  # Email marketing
+
+  development:
+    essential:
+      - github  # Repo management
+      - context7  # Documentation
+      - bash  # Build tools
+    recommended:
+      - postgres  # Database
+      - docker-mcp  # Containerization
+    optional:
+      - vercel-api  # Deployment
+      - sentry-api  # Error tracking
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DISCOVERY QUERIES (for discover-tools.md task)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+discovery_queries:
+  mcp_servers:
+    - "MCP server {domain} site:github.com"
+    - "Model Context Protocol {domain}"
+    - "anthropic MCP {domain}"
+
+  apis:
+    - "{domain} API REST"
+    - "best {domain} APIs 2025 2026"
+    - "{domain} API integration"
+
+  cli_tools:
+    - "{domain} CLI tool"
+    - "best {domain} command line tools"
+    - "awesome {domain} CLI github"
+
+  github_projects:
+    - "{domain} automation github"
+    - "awesome {domain} github"
+    - "{domain} toolkit github stars:>100"
+
+  libraries:
+    - "python {domain} library"
+    - "node {domain} package npm"
+    - "{domain} SDK"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY SCORING FOR DISCOVERED TOOLS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_criteria:
+  mcp_server:
+    - name: "official_source"
+      weight: 0.3
+      check: "Is it from modelcontextprotocol org or anthropic?"
+    - name: "documentation"
+      weight: 0.2
+      check: "Has README with setup instructions?"
+    - name: "maintenance"
+      weight: 0.2
+      check: "Updated in last 6 months?"
+    - name: "stars"
+      weight: 0.15
+      check: "GitHub stars > 50?"
+    - name: "issues_resolved"
+      weight: 0.15
+      check: "Responsive to issues?"
+
+  api:
+    - name: "reliability"
+      weight: 0.3
+      check: "Uptime > 99%?"
+    - name: "documentation"
+      weight: 0.25
+      check: "Complete API docs?"
+    - name: "pricing"
+      weight: 0.2
+      check: "Free tier available?"
+    - name: "rate_limits"
+      weight: 0.15
+      check: "Reasonable rate limits?"
+    - name: "auth_complexity"
+      weight: 0.1
+      check: "Simple auth (API key vs OAuth)?"
+
+  cli:
+    - name: "installation"
+      weight: 0.3
+      check: "Easy install (brew/npm/pip)?"
+    - name: "documentation"
+      weight: 0.25
+      check: "Good --help and man pages?"
+    - name: "cross_platform"
+      weight: 0.2
+      check: "Works on macOS/Linux/Windows?"
+    - name: "maintenance"
+      weight: 0.15
+      check: "Active development?"
+    - name: "community"
+      weight: 0.1
+      check: "Active community/support?"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  created: "2026-02-03"
+  purpose: "Central registry of tools available for AIOS squads"
+  updated_by_task: "discover-tools.md"
+  refresh_frequency: "Per squad creation or monthly"
