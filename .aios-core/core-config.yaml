@@ -355,4 +355,14 @@ autoClaude:
     enabled: false
   qa:
     enabled: false
+# Boundary Mapping — Framework-Project Separation (Epic BM)
+# Controls deterministic protection of framework core files via Claude Code deny rules.
+# When frameworkProtection is true (default), .claude/settings.json includes deny rules
+# that block Edit/Write operations on .aios-core/core/**, bin/**, and other L1/L2 paths.
+# Set to false for framework contributors who need to edit core files directly.
+# NOTE: This flag is read by the installer during settings.json generation.
+# Changing this value alone does NOT add/remove deny rules — re-run the installer.
+boundary:
+  frameworkProtection: true
+
 # Memory Intelligence System (Epic MIS) configuration placeholder — MIS-2+

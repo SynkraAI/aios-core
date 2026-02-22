@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(.aios-core/core/**)",
+      "Write(.aios-core/core/**)",
+      "Edit(.aios-core/development/tasks/**)",
+      "Write(.aios-core/development/tasks/**)",
+      "Edit(.aios-core/development/templates/**)",
+      "Write(.aios-core/development/templates/**)",
+      "Edit(.aios-core/development/checklists/**)",
+      "Write(.aios-core/development/checklists/**)",
+      "Edit(.aios-core/development/workflows/**)",
+      "Write(.aios-core/development/workflows/**)",
+      "Edit(.aios-core/infrastructure/**)",
+      "Write(.aios-core/infrastructure/**)",
+      "Edit(.aios-core/constitution.md)",
+      "Write(.aios-core/constitution.md)",
+      "Edit(bin/aios.js)",
+      "Write(bin/aios.js)",
+      "Edit(bin/aios-init.js)",
+      "Write(bin/aios-init.js)"
+    ],
+    "allow": [
+      "Edit(.aios-core/data/**)",
+      "Write(.aios-core/data/**)",
+      "Edit(.aios-core/development/agents/*/MEMORY.md)",
+      "Write(.aios-core/development/agents/*/MEMORY.md)",
+      "Read(.aios-core/**)"
+    ]
+  }
+}
