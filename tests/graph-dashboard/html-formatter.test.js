@@ -757,6 +757,78 @@ describe('html-formatter', () => {
     });
   });
 
+  describe('GD-14: Export & Minimap', () => {
+    it('should include EXPORT section with PNG and JSON buttons', () => {
+      const sidebar = _buildSidebar(MOCK_GRAPH_DATA.nodes);
+      expect(sidebar).toContain('EXPORT');
+      expect(sidebar).toContain('btn-export-png');
+      expect(sidebar).toContain('btn-export-json');
+      expect(sidebar).toContain('>PNG<');
+      expect(sidebar).toContain('>JSON<');
+    });
+
+    it('should have ARIA labels on export buttons', () => {
+      const sidebar = _buildSidebar(MOCK_GRAPH_DATA.nodes);
+      expect(sidebar).toContain('aria-label="Export graph as PNG image"');
+      expect(sidebar).toContain('aria-label="Export graph data as JSON file"');
+    });
+
+    it('should include PNG export handler using toDataURL', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('btn-export-png');
+      expect(html).toContain("toDataURL('image/png')");
+      expect(html).toContain('getTimestampFilename');
+    });
+
+    it('should include JSON export handler serializing nodes and edges', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('btn-export-json');
+      expect(html).toContain('JSON.stringify');
+      expect(html).toContain('metadata');
+      expect(html).toContain('timestamp');
+    });
+
+    it('should include minimap container with canvas element', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('minimap-container');
+      expect(html).toContain('minimap-canvas');
+      expect(html).toContain('<canvas id="minimap-canvas"');
+    });
+
+    it('should include minimap toggle button', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('minimap-toggle');
+      expect(html).toContain('aria-label="Toggle minimap"');
+    });
+
+    it('should use THEME tokens for minimap styling', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('#minimap-container');
+      expect(html).toContain(THEME.bg.surface);
+      expect(html).toContain(THEME.border.subtle);
+    });
+
+    it('should include drawMinimap function with viewport rectangle', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('function drawMinimap');
+      expect(html).toContain('getViewPosition');
+      expect(html).toContain('getScale');
+      expect(html).toContain('strokeRect');
+    });
+
+    it('should include minimap click-to-pan using network.moveTo', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('network.moveTo');
+      expect(html).toContain('easeInOutQuad');
+    });
+
+    it('should throttle minimap updates with requestAnimationFrame', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('scheduleMinimapUpdate');
+      expect(html).toContain('requestAnimationFrame');
+    });
+  });
+
   describe('CLI integration (FORMAT_MAP)', () => {
     it('should have html in FORMAT_MAP', () => {
       const { FORMAT_MAP } = require('../../.aios-core/core/graph-dashboard/cli');

@@ -250,6 +250,14 @@ function _buildSidebar(nodes) {
           <button class="layout-btn" data-layout="circular">Circular</button>
         </div>
       </div>
+      <div class="filter-section">
+        <div class="section-title">EXPORT</div>
+        <div class="gold-line"></div>
+        <div class="export-buttons">
+          <button class="export-btn" id="btn-export-png" aria-label="Export graph as PNG image">PNG</button>
+          <button class="export-btn" id="btn-export-json" aria-label="Export graph data as JSON file">JSON</button>
+        </div>
+      </div>
       <div class="filter-section actions">
         <button id="btn-reset" class="action-btn">Reset / Show All</button>
         <button id="btn-exit-focus" class="action-btn" style="display:none">Exit Focus Mode</button>
@@ -383,6 +391,30 @@ function formatAsHtml(graphData, options = {}) {
     }
     .size-btn:hover, .layout-btn:hover { border-color: ${THEME.border.gold}; }
     .size-btn.active, .layout-btn.active { background: ${THEME.accent.gold}; color: ${THEME.bg.base}; border-color: ${THEME.accent.gold}; }
+    .export-buttons { display: flex; gap: 6px; }
+    .export-btn {
+      flex: 1; padding: 6px 0; background: ${THEME.bg.surface}; border: 1px solid ${THEME.border.subtle};
+      color: ${THEME.text.secondary}; border-radius: ${THEME.radius.md}; cursor: pointer;
+      font-size: 11px; font-family: inherit; text-align: center;
+    }
+    .export-btn:hover { border-color: ${THEME.border.gold}; color: ${THEME.text.primary}; }
+    #minimap-container {
+      position: fixed; bottom: 16px; right: 16px; width: 200px; z-index: 400;
+      background: ${THEME.bg.surface}; border: 1px solid ${THEME.border.subtle};
+      border-radius: ${THEME.radius.md}; overflow: hidden;
+    }
+    #minimap-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 4px 8px; font-size: 10px; color: ${THEME.text.tertiary};
+    }
+    #minimap-toggle {
+      background: none; border: none; color: ${THEME.text.tertiary}; cursor: pointer;
+      font-size: 12px; padding: 0 2px;
+    }
+    #minimap-toggle:hover { color: ${THEME.text.primary}; }
+    #minimap-canvas { display: block; width: 200px; height: 150px; }
+    #minimap-container.collapsed #minimap-canvas { display: none; }
+    #minimap-container.collapsed { width: auto; }
     #node-tooltip {
       display: none; position: fixed; z-index: 500;
       background: ${THEME.tooltip.bg}; border: 1px solid ${THEME.tooltip.border};
@@ -400,6 +432,13 @@ function formatAsHtml(graphData, options = {}) {
   ${sidebar}
   <div id="node-tooltip" role="tooltip"></div>
   <div id="graph"></div>
+  <div id="minimap-container">
+    <div id="minimap-header">
+      <span>Map</span>
+      <button id="minimap-toggle" aria-label="Toggle minimap">&#x2715;</button>
+    </div>
+    <canvas id="minimap-canvas" width="200" height="150"></canvas>
+  </div>
   <script>
     (function() {
       var statusEl = document.getElementById('status');
@@ -455,6 +494,7 @@ function formatAsHtml(graphData, options = {}) {
         visibleNodeIds = new Set(nodesView.getIds());
         edgesView.refresh();
         updateMetrics();
+        if (typeof scheduleMinimapUpdate === 'function') scheduleMinimapUpdate();
       }
 
       // --- Network ---
@@ -562,6 +602,10 @@ function formatAsHtml(graphData, options = {}) {
             enterFocusMode(params.nodes[0]);
           }
         });
+
+        // --- Minimap sync on network events ---
+        network.on('zoom', function() { if (typeof scheduleMinimapUpdate === 'function') scheduleMinimapUpdate(); });
+        network.on('dragEnd', function() { if (typeof scheduleMinimapUpdate === 'function') scheduleMinimapUpdate(); });
       }
       bindNetworkEvents();
 
@@ -1061,7 +1105,167 @@ function formatAsHtml(graphData, options = {}) {
           (focusNodeId ? '<b>Focus:</b> ' + focusNodeId + '<br>' : '');
       }
 
+      // --- Export (GD-14) ---
+      function getTimestampFilename(ext) {
+        var d = new Date();
+        var pad = function(n) { return n < 10 ? '0' + n : '' + n; };
+        return 'aios-graph-' + d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + '-' + pad(d.getHours()) + pad(d.getMinutes()) + '.' + ext;
+      }
+
+      document.getElementById('btn-export-png').addEventListener('click', function() {
+        try {
+          var dataURL = network.canvas.canvas.toDataURL('image/png');
+          var a = document.createElement('a');
+          a.href = dataURL;
+          a.download = getTimestampFilename('png');
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          alert('PNG export failed: ' + e.message);
+        }
+      });
+
+      document.getElementById('btn-export-json').addEventListener('click', function() {
+        var exportNodes = [];
+        nodesDataset.forEach(function(n) {
+          exportNodes.push({ id: n.id, label: n.label, category: n.group, lifecycle: n.lifecycle, path: n.path });
+        });
+        var exportEdges = [];
+        edgesDataset.forEach(function(e) {
+          exportEdges.push({ from: e.from, to: e.to });
+        });
+        var exportData = {
+          nodes: exportNodes,
+          edges: exportEdges,
+          metadata: { total: exportNodes.length, timestamp: new Date().toISOString() }
+        };
+        var blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = getTimestampFilename('json');
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(a.href);
+      });
+
+      // --- Minimap (GD-14) ---
+      var minimapCanvas = document.getElementById('minimap-canvas');
+      var minimapCtx = minimapCanvas.getContext('2d');
+      var minimapContainer = document.getElementById('minimap-container');
+      var minimapVisible = true;
+
+      document.getElementById('minimap-toggle').addEventListener('click', function() {
+        minimapVisible = !minimapVisible;
+        minimapContainer.classList.toggle('collapsed', !minimapVisible);
+        this.innerHTML = minimapVisible ? '&#x2715;' : '&#x25A1;';
+        if (minimapVisible) drawMinimap();
+      });
+
+      function drawMinimap() {
+        if (!minimapVisible) return;
+        var cw = minimapCanvas.width;
+        var ch = minimapCanvas.height;
+        minimapCtx.clearRect(0, 0, cw, ch);
+        minimapCtx.fillStyle = '${THEME.bg.surface}';
+        minimapCtx.fillRect(0, 0, cw, ch);
+
+        var positions = network.getPositions();
+        var ids = Object.keys(positions);
+        if (ids.length === 0) return;
+
+        // Compute bounding box
+        var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+        for (var i = 0; i < ids.length; i++) {
+          var p = positions[ids[i]];
+          if (p.x < minX) minX = p.x;
+          if (p.x > maxX) maxX = p.x;
+          if (p.y < minY) minY = p.y;
+          if (p.y > maxY) maxY = p.y;
+        }
+        var pad = 50;
+        minX -= pad; maxX += pad; minY -= pad; maxY += pad;
+        var rangeX = maxX - minX || 1;
+        var rangeY = maxY - minY || 1;
+        var scaleX = cw / rangeX;
+        var scaleY = ch / rangeY;
+
+        // Draw edges
+        minimapCtx.strokeStyle = '${THEME.border.subtle}';
+        minimapCtx.lineWidth = 0.5;
+        var visibleIds = new Set(nodesView.getIds());
+        allEdgesData.forEach(function(e) {
+          if (!visibleIds.has(e.from) || !visibleIds.has(e.to)) return;
+          var pf = positions[e.from];
+          var pt = positions[e.to];
+          if (!pf || !pt) return;
+          minimapCtx.beginPath();
+          minimapCtx.moveTo((pf.x - minX) * scaleX, (pf.y - minY) * scaleY);
+          minimapCtx.lineTo((pt.x - minX) * scaleX, (pt.y - minY) * scaleY);
+          minimapCtx.stroke();
+        });
+
+        // Draw nodes as 2px dots
+        minimapCtx.fillStyle = '${THEME.text.secondary}';
+        for (var ni = 0; ni < ids.length; ni++) {
+          if (!visibleIds.has(ids[ni])) continue;
+          var np = positions[ids[ni]];
+          minimapCtx.beginPath();
+          minimapCtx.arc((np.x - minX) * scaleX, (np.y - minY) * scaleY, 2, 0, 2 * Math.PI);
+          minimapCtx.fill();
+        }
+
+        // Draw viewport rectangle
+        var viewPos = network.getViewPosition();
+        var scale = network.getScale();
+        var graphEl = document.getElementById('graph');
+        var vw = graphEl.clientWidth / scale;
+        var vh = graphEl.clientHeight / scale;
+        var vx = (viewPos.x - vw / 2 - minX) * scaleX;
+        var vy = (viewPos.y - vh / 2 - minY) * scaleY;
+        var vrw = vw * scaleX;
+        var vrh = vh * scaleY;
+        minimapCtx.strokeStyle = '${THEME.accent.gold}';
+        minimapCtx.lineWidth = 1.5;
+        minimapCtx.globalAlpha = 0.6;
+        minimapCtx.strokeRect(vx, vy, vrw, vrh);
+        minimapCtx.fillStyle = '${THEME.accent.gold}';
+        minimapCtx.globalAlpha = 0.08;
+        minimapCtx.fillRect(vx, vy, vrw, vrh);
+        minimapCtx.globalAlpha = 1.0;
+
+        // Store transform for click handler
+        minimapCanvas._transform = { minX: minX, minY: minY, scaleX: scaleX, scaleY: scaleY };
+      }
+
+      minimapCanvas.addEventListener('click', function(evt) {
+        var rect = minimapCanvas.getBoundingClientRect();
+        var cx = evt.clientX - rect.left;
+        var cy = evt.clientY - rect.top;
+        var t = minimapCanvas._transform;
+        if (!t) return;
+        var gx = cx / t.scaleX + t.minX;
+        var gy = cy / t.scaleY + t.minY;
+        network.moveTo({ position: { x: gx, y: gy }, animation: { duration: 300, easingFunction: 'easeInOutQuad' } });
+      });
+
+      var minimapUpdatePending = false;
+      function scheduleMinimapUpdate() {
+        if (minimapUpdatePending) return;
+        minimapUpdatePending = true;
+        requestAnimationFrame(function() {
+          minimapUpdatePending = false;
+          drawMinimap();
+        });
+      }
+
+      network.on('zoom', scheduleMinimapUpdate);
+      network.on('dragEnd', scheduleMinimapUpdate);
+      network.on('stabilizationIterationsDone', function() { setTimeout(drawMinimap, 200); });
+
       updateMetrics();
+      setTimeout(drawMinimap, 1000);
     })();
   </script>
 </body>
