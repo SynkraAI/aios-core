@@ -7,7 +7,7 @@
 | **Story ID** | NOG-14 |
 | **Epic** | NOGIC — Code Intelligence Integration |
 | **Type** | Architecture Decision Record |
-| **Status** | Ready for Review |
+| **Status** | Done |
 | **Priority** | P2 |
 | **Points** | 2 |
 | **Agent** | @architect (Aria) — primary + @qa (Quinn) — security review |
@@ -113,8 +113,8 @@ The ADR must define policy for each guardrail:
   - [x] 3.5 Evaluate approval gate vs auto-validation trade-off
   - [x] 3.6 Define TTL policy
 - [x] 4. Write ADR document
-- [ ] 5. @qa security review
-- [ ] 6. @pm approval
+- [x] 5. @qa security review
+- [x] 6. @pm approval
 
 ---
 
@@ -214,3 +214,5 @@ Ready for Done — Story pronta para @pm approval (Task 6) e depois commit/push 
 | 2026-02-21 | @architect (Aria) | Tasks 1-4 complete. ADR-SYNAPSE-001 created. Status: Ready → Ready for Review. |
 | 2026-02-21 | @qa (Quinn) | QA Security Review: PASS (95/100). All ACs verified, 3 future notes (LOW). Gate file created. |
 | 2026-02-21 | @pm (Morgan) | PM Approval: APPROVED. ADR status Proposed → Accepted. Story ready for commit/push. |
+| 2026-02-21 | @devops (Gage) | Commit b8d64d82 pushed to feat/epic-nogic-code-intelligence. |
+| 2026-02-21 | @po (Pax) | Story closed. Status: Ready for Review → Done. All tasks complete. Wave 6 complete. |

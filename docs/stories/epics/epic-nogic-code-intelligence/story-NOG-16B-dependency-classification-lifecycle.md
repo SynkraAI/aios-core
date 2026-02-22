@@ -7,7 +7,7 @@
 | **Story ID** | NOG-16B |
 | **Epic** | NOGIC — Code Intelligence Integration |
 | **Type** | Enhancement |
-| **Status** | Ready for Review |
+| **Status** | Done |
 | **Priority** | P1 |
 | **Points** | 3 |
 | **Agent** | @dev (Dex) |
@@ -288,6 +288,8 @@ Claude Opus 4.6
 |---------|------|--------|---------|
 | 1.0 | 2026-02-21 | Research | Story created from registry governance research (Backstage lifecycle + DataHub aspects + Rush phantom detection) |
 | 2.0 | 2026-02-22 | @dev (Dex) | Implemented all 5 tasks: dependency classification, lifecycle detection, override extraction, tests, validation |
+| 3.0 | 2026-02-22 | @qa (Quinn) | QA PASS — quality_score: 100, 7/7 ACs covered, 68 tests (20 new), 0 risks |
+| 4.0 | 2026-02-22 | @po (Pax) | Story closed. Commit 73b58c32 pushed to feat/epic-nogic-code-intelligence. Status → Done |
 
 ## QA Results
 

@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-22T00:44:31.725Z'
+  lastUpdated: '2026-02-22T01:14:10.330Z'
   entityCount: 712
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -7127,7 +7127,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:10a9d837a4a522a77ac561c5d5a632e4a2f13f2cc2d853eb6bd7fbb4a5052102
-      lastVerified: '2026-02-22T00:44:31.606Z'
+      lastVerified: '2026-02-22T00:56:40.437Z'
     refactoring-suggester:
       path: .aios-core/development/scripts/refactoring-suggester.js
       type: script
@@ -10058,6 +10058,7 @@ entities:
       usedBy:
         - cli
       dependencies:
+        - code-intel
         - registry-loader
       externalDeps: []
       plannedDeps:
@@ -10067,8 +10068,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:656ef6ef688f18bca3941caa9690e0c7c4ee235e05365a5748748b1776ecccc1
-      lastVerified: '2026-02-22T00:44:31.635Z'
+      checksum: sha256:e508d6cbadcd2358fa7756dcaceefbaa510bd89155e036e2cbd386585408ff8f
+      lastVerified: '2026-02-22T01:14:10.326Z'
     metrics-source:
       path: .aios-core/core/graph-dashboard/data-sources/metrics-source.js
       type: module
@@ -10145,8 +10146,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:8e290499f771dff284b9c307e477d2e06467dc71e6638fd7e1c552cccd03ed8b
-      lastVerified: '2026-02-22T00:44:31.636Z'
+      checksum: sha256:e13e19d566196d8ff53a8b77615973d3003bbeb354c9651c1fbd3683b09d58cc
+      lastVerified: '2026-02-22T01:14:10.328Z'
     json-formatter:
       path: .aios-core/core/graph-dashboard/formatters/json-formatter.js
       type: module

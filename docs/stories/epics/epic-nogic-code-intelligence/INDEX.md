@@ -59,9 +59,14 @@ Criar camada de code intelligence provider-agnostic em todas as tasks do AIOS, c
 |-------|-------|-------|--------|--------|------------|
 | [NOG-10](story-NOG-10-phase0a-safe-quick-wins.md) | Phase 0A — Safe Quick Wins | @dev | 3 | Done | NOG-9 |
 | [NOG-11](story-NOG-11-token-usage-source-discovery.md) | Token Usage Source Discovery | @architect + @dev | 3 | Done | NOG-10 |
-| [NOG-12](story-NOG-12-state-persistence-hardening.md) | State Persistence Hardening | @dev | 3 | Draft | NOG-10 |
-| [NOG-13](story-NOG-13-fsmonitor-experimental.md) | Git fsmonitor Experimental (Opt-in) | @dev | 1 | Draft | NOG-10 |
-| [NOG-14](story-NOG-14-adr-memory-self-editing-security.md) | ADR: Memory Self-Editing Security | @architect + @qa | 2 | Draft | NOG-9 |
+| [NOG-12](story-NOG-12-state-persistence-hardening.md) | State Persistence Hardening | @dev | 3 | Done | NOG-10 |
+| [NOG-13](story-NOG-13-fsmonitor-experimental.md) | Git fsmonitor Experimental (Opt-in) | @dev | 1 | Done | NOG-10 |
+| [NOG-14](story-NOG-14-adr-memory-self-editing-security.md) | ADR: Memory Self-Editing Security | @architect + @qa | 2 | Done | NOG-9 |
+
+### Wave 6B: Pipeline Audit (post-Wave 6 validation)
+| Story | Title | Agent | Points | Status | Blocked By |
+|-------|-------|-------|--------|--------|------------|
+| [NOG-17](story-NOG-17-e2e-pipeline-audit.md) | E2E Pipeline Audit — Essential vs Cosmetic | @dev + @qa | 5 | Ready | None (Wave 6 complete) |
 
 ### Wave 7: Registry Quality (from GD-7 gap analysis + registry governance research)
 | Story | Title | Agent | Points | Status | Blocked By |
