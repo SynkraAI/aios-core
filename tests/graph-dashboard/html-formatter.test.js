@@ -829,6 +829,63 @@ describe('html-formatter', () => {
     });
   });
 
+  describe('GD-15: Clustering & Statistics', () => {
+    it('should include CLUSTERING section with toggle button', () => {
+      const sidebar = _buildSidebar(MOCK_GRAPH_DATA.nodes);
+      expect(sidebar).toContain('CLUSTERING');
+      expect(sidebar).toContain('btn-cluster-category');
+      expect(sidebar).toContain('Cluster by Category');
+    });
+
+    it('should include cluster function using network.cluster() in script', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('function clusterByCategory');
+      expect(html).toContain('network.cluster(');
+      expect(html).toContain('joinCondition');
+      expect(html).toContain('clusterNodeProperties');
+    });
+
+    it('should include cluster handler with openCluster on double-click', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('network.isCluster(nodeId)');
+      expect(html).toContain('network.openCluster(nodeId)');
+    });
+
+    it('should include STATISTICS section with 4 metric elements', () => {
+      const sidebar = _buildSidebar(MOCK_GRAPH_DATA.nodes);
+      expect(sidebar).toContain('STATISTICS');
+      expect(sidebar).toContain('stat-nodes');
+      expect(sidebar).toContain('stat-edges');
+      expect(sidebar).toContain('stat-density');
+      expect(sidebar).toContain('stat-avg-degree');
+    });
+
+    it('should include computeGraphStats function in script', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('function computeGraphStats');
+      expect(html).toContain('density');
+      expect(html).toContain('avgDegree');
+    });
+
+    it('should include top-5 connected list element', () => {
+      const sidebar = _buildSidebar(MOCK_GRAPH_DATA.nodes);
+      expect(sidebar).toContain('stat-top5');
+      expect(sidebar).toContain('Top 5 Connected');
+    });
+
+    it('should use THEME tokens for statistics styling', () => {
+      const sidebar = _buildSidebar(MOCK_GRAPH_DATA.nodes);
+      expect(sidebar).toContain(THEME.text.secondary);
+      expect(sidebar).toContain(THEME.text.primary);
+    });
+
+    it('should include updateStatistics in refreshFilters for dynamic updates', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('updateStatistics');
+      expect(html).toContain('function updateStatistics');
+    });
+  });
+
   describe('CLI integration (FORMAT_MAP)', () => {
     it('should have html in FORMAT_MAP', () => {
       const { FORMAT_MAP } = require('../../.aios-core/core/graph-dashboard/cli');

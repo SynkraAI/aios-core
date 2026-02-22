@@ -258,6 +258,24 @@ function _buildSidebar(nodes) {
           <button class="export-btn" id="btn-export-json" aria-label="Export graph data as JSON file">JSON</button>
         </div>
       </div>
+      <div class="filter-section">
+        <div class="section-title">CLUSTERING</div>
+        <div class="gold-line"></div>
+        <button id="btn-cluster-category" class="action-btn">Cluster by Category</button>
+      </div>
+      <div class="filter-section">
+        <div class="section-title">STATISTICS</div>
+        <div class="gold-line"></div>
+        <div id="stats-panel">
+          <div class="stat-row"><span class="stat-label" style="color:${THEME.text.secondary}">Total Nodes</span> <span class="stat-value" id="stat-nodes" style="color:${THEME.text.primary}">0</span></div>
+          <div class="stat-row"><span class="stat-label" style="color:${THEME.text.secondary}">Total Edges</span> <span class="stat-value" id="stat-edges" style="color:${THEME.text.primary}">0</span></div>
+          <div class="stat-row"><span class="stat-label" style="color:${THEME.text.secondary}">Graph Density</span> <span class="stat-value" id="stat-density" style="color:${THEME.text.primary}">0</span></div>
+          <div class="stat-row"><span class="stat-label" style="color:${THEME.text.secondary}">Avg Degree</span> <span class="stat-value" id="stat-avg-degree" style="color:${THEME.text.primary}">0</span></div>
+          <div class="gold-line"></div>
+          <div class="stat-label" style="color:${THEME.text.secondary};margin-bottom:4px">Top 5 Connected</div>
+          <div id="stat-top5"></div>
+        </div>
+      </div>
       <div class="filter-section actions">
         <button id="btn-reset" class="action-btn">Reset / Show All</button>
         <button id="btn-exit-focus" class="action-btn" style="display:none">Exit Focus Mode</button>
@@ -398,6 +416,12 @@ function formatAsHtml(graphData, options = {}) {
       font-size: 11px; font-family: inherit; text-align: center;
     }
     .export-btn:hover { border-color: ${THEME.border.gold}; color: ${THEME.text.primary}; }
+    .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 2px 0; font-size: 11px; }
+    .stat-label { font-size: 11px; }
+    .stat-value { font-size: 11px; font-weight: 600; }
+    .top5-item { display: flex; justify-content: space-between; font-size: 11px; padding: 1px 0; }
+    .top5-name { color: ${THEME.text.secondary}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 160px; }
+    .top5-degree { color: ${THEME.text.primary}; font-weight: 600; margin-left: 8px; flex-shrink: 0; }
     #minimap-container {
       position: fixed; bottom: 16px; right: 16px; width: 200px; z-index: 400;
       background: ${THEME.bg.surface}; border: 1px solid ${THEME.border.subtle};
@@ -494,6 +518,7 @@ function formatAsHtml(graphData, options = {}) {
         visibleNodeIds = new Set(nodesView.getIds());
         edgesView.refresh();
         updateMetrics();
+        if (typeof updateStatistics === 'function') updateStatistics();
         if (typeof scheduleMinimapUpdate === 'function') scheduleMinimapUpdate();
       }
 
@@ -1264,7 +1289,133 @@ function formatAsHtml(graphData, options = {}) {
       network.on('dragEnd', scheduleMinimapUpdate);
       network.on('stabilizationIterationsDone', function() { setTimeout(drawMinimap, 200); });
 
+      // --- Clustering (GD-15) ---
+      var isClustered = false;
+      var categoryColors = ${JSON.stringify(Object.fromEntries(Object.entries(CATEGORY_COLORS).map(([k, v]) => [k, v.color])))};
+
+      function clusterByCategory() {
+        var categories = new Set();
+        nodesView.forEach(function(node) { categories.add(node.group); });
+        categories.forEach(function(cat) {
+          var catNodes = [];
+          nodesView.forEach(function(node) {
+            if (node.group === cat) catNodes.push(node.id);
+          });
+          if (catNodes.length === 0) return;
+          var clusterSize = Math.max(20, Math.min(50, 20 + (catNodes.length / allNodesData.length) * 30));
+          network.cluster({
+            joinCondition: function(nodeOptions) {
+              return nodeOptions.group === cat && visibleNodeIds.has(nodeOptions.id);
+            },
+            clusterNodeProperties: {
+              label: cat + ' (' + catNodes.length + ')',
+              shape: 'dot',
+              size: clusterSize,
+              color: { background: categoryColors[cat] || '${THEME.text.tertiary}', border: '${THEME.border.gold}' },
+              font: { color: '${THEME.text.primary}', size: 12 }
+            }
+          });
+        });
+        isClustered = true;
+        network.setOptions({ physics: { stabilization: { iterations: 50 } } });
+      }
+
+      function unclusterAll() {
+        var clusterIds = [];
+        nodesDataset.forEach(function(node) {
+          if (network.isCluster(node.id)) clusterIds.push(node.id);
+        });
+        // Also check generated cluster node IDs
+        network.body.data.nodes.forEach(function(node) {
+          if (network.isCluster(node.id) && clusterIds.indexOf(node.id) === -1) clusterIds.push(node.id);
+        });
+        for (var i = 0; i < clusterIds.length; i++) {
+          try { network.openCluster(clusterIds[i]); } catch(e) { /* already opened */ }
+        }
+        isClustered = false;
+      }
+
+      document.getElementById('btn-cluster-category').addEventListener('click', function() {
+        if (isClustered) {
+          unclusterAll();
+          this.textContent = 'Cluster by Category';
+        } else {
+          clusterByCategory();
+          this.textContent = 'Uncluster All';
+        }
+        updateStatistics();
+      });
+
+      // Double-click: cluster check before focus mode (Risk #3 mitigation)
+      // Override the doubleClick handler from bindNetworkEvents
+      network.off('doubleClick');
+      network.on('doubleClick', function(params) {
+        if (params.nodes.length === 1) {
+          var nodeId = params.nodes[0];
+          if (network.isCluster(nodeId)) {
+            network.openCluster(nodeId);
+            updateStatistics();
+          } else {
+            enterFocusMode(nodeId);
+          }
+        }
+      });
+
+      // --- Statistics (GD-15) ---
+      function computeGraphStats(nodeIds, edgesArr) {
+        var V = nodeIds.length;
+        var visibleSet = new Set(nodeIds);
+        var visibleEdges = [];
+        for (var i = 0; i < edgesArr.length; i++) {
+          if (visibleSet.has(edgesArr[i].from) && visibleSet.has(edgesArr[i].to)) {
+            visibleEdges.push(edgesArr[i]);
+          }
+        }
+        var E = visibleEdges.length;
+        var density = V > 1 ? (2 * E / (V * (V - 1))) : 0;
+        var avgDegree = V > 0 ? (2 * E / V) : 0;
+
+        // Top 5 by degree
+        var degMap = {};
+        for (var j = 0; j < visibleEdges.length; j++) {
+          degMap[visibleEdges[j].from] = (degMap[visibleEdges[j].from] || 0) + 1;
+          degMap[visibleEdges[j].to] = (degMap[visibleEdges[j].to] || 0) + 1;
+        }
+        var sorted = Object.keys(degMap).map(function(id) { return { id: id, degree: degMap[id] }; });
+        sorted.sort(function(a, b) { return b.degree - a.degree; });
+        var top5 = sorted.slice(0, 5);
+        // Resolve labels
+        for (var k = 0; k < top5.length; k++) {
+          var nd = nodesDataset.get(top5[k].id);
+          top5[k].label = nd ? nd.label : top5[k].id;
+        }
+
+        return { nodeCount: V, edgeCount: E, density: density, avgDegree: avgDegree, top5: top5 };
+      }
+
+      function updateStatistics() {
+        var visIds = nodesView.getIds();
+        var stats = computeGraphStats(visIds, allEdgesData);
+        var elNodes = document.getElementById('stat-nodes');
+        var elEdges = document.getElementById('stat-edges');
+        var elDensity = document.getElementById('stat-density');
+        var elAvgDeg = document.getElementById('stat-avg-degree');
+        var elTop5 = document.getElementById('stat-top5');
+        if (elNodes) elNodes.textContent = stats.nodeCount;
+        if (elEdges) elEdges.textContent = stats.edgeCount;
+        if (elDensity) elDensity.textContent = stats.density.toFixed(2);
+        if (elAvgDeg) elAvgDeg.textContent = stats.avgDegree.toFixed(1);
+        if (elTop5) {
+          var html = '';
+          for (var i = 0; i < stats.top5.length; i++) {
+            html += '<div class="top5-item"><span class="top5-name">' + stats.top5[i].label + '</span><span class="top5-degree">' + stats.top5[i].degree + '</span></div>';
+          }
+          elTop5.innerHTML = html;
+        }
+      }
+
       updateMetrics();
+      updateStatistics();
       setTimeout(drawMinimap, 1000);
     })();
   </script>

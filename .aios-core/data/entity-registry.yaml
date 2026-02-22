@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-22T02:57:45.085Z'
-  entityCount: 712
+  lastUpdated: '2026-02-22T04:50:37.613Z'
+  entityCount: 713
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -7397,10 +7397,12 @@ entities:
         - context-loader
         - project-status-loader
         - git-config-detector
+        - permissions
         - greeting-preference-manager
         - context-detector
         - workflow-navigator
         - atomic-write
+        - pro-detector
       externalDeps: []
       plannedDeps:
         - permissions
@@ -7410,8 +7412,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:b4daf67b5d9adfa355c6f017c6bb5d790387f1f88a7ecbc7595285d9072b0d34
-      lastVerified: '2026-02-22T00:44:31.608Z'
+      checksum: sha256:54dff85f760679f85a9eaa8ad7c76223a24c4a6c1192eb0080ac6c3d11fe9157
+      lastVerified: '2026-02-22T04:35:08.533Z'
     usage-tracker:
       path: .aios-core/development/scripts/usage-tracker.js
       type: script
@@ -8471,7 +8473,6 @@ entities:
         - check
       usedBy:
         - check-registry
-        - engine
         - console
         - json
         - markdown
@@ -8546,12 +8547,15 @@ entities:
     engine:
       path: .aios-core/core/health-check/engine.js
       type: module
-      purpose: Entity at .aios-core\core\health-check\engine.js
+      purpose: Entity at .aios-core\core\synapse\engine.js
       keywords:
         - engine
       usedBy: []
       dependencies:
-        - base-check
+        - context-tracker
+        - context-builder
+        - formatter
+        - memory-bridge
       externalDeps: []
       plannedDeps: []
       lifecycle: experimental
@@ -8559,8 +8563,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:6f566c016c8a3216d929dace4ebcbd151c6d0866d67754d7ea5c16cdd37ea94f
-      lastVerified: '2026-02-22T00:44:31.620Z'
+      checksum: sha256:47bab93a2144edce875ee68cc2717fee1bd824c9affdd5964454f5141310b8e0
+      lastVerified: '2026-02-22T04:35:08.522Z'
     ideation-engine:
       path: .aios-core/core/ideation/ideation-engine.js
       type: module
@@ -10146,8 +10150,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:8961110d25904185a8d95e967571d22692bbadad7e26ce6b22210cf771853149
-      lastVerified: '2026-02-22T02:57:45.082Z'
+      checksum: sha256:7683d294c087dd5c9ac6017a1fbfccef4d5e1e6234d3102f05338c5f01aa1453
+      lastVerified: '2026-02-22T04:50:37.608Z'
     json-formatter:
       path: .aios-core/core/graph-dashboard/formatters/json-formatter.js
       type: module
@@ -10546,7 +10550,8 @@ entities:
       keywords:
         - context
         - builder
-      usedBy: []
+      usedBy:
+        - engine
       dependencies: []
       externalDeps: []
       plannedDeps: []
@@ -10565,6 +10570,7 @@ entities:
         - context
         - tracker
       usedBy:
+        - engine
         - pipeline-collector
       dependencies: []
       externalDeps: []
@@ -10840,7 +10846,8 @@ entities:
       keywords:
         - memory
         - bridge
-      usedBy: []
+      usedBy:
+        - engine
       dependencies:
         - tokens
       externalDeps: []
@@ -10860,7 +10867,8 @@ entities:
       purpose: Entity at .aios-core\core\synapse\output\formatter.js
       keywords:
         - formatter
-      usedBy: []
+      usedBy:
+        - engine
       dependencies:
         - tokens
       externalDeps: []
@@ -12598,6 +12606,22 @@ entities:
         extensionPoints: []
       checksum: sha256:ae3f98570fa6cbd714ecd0aa2f44c7db005f0469b5bd04191d8da3b133bc65f1
       lastVerified: '2026-02-22T00:44:31.669Z'
+    MEMORY:
+      path: .aios-core/development/agents/qa/MEMORY.md
+      type: agent
+      purpose: QA Agent Memory (Quinn)
+      keywords:
+        - memory
+        - agent
+        - (quinn)
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.3
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:2d6c8fa60c806678f3574e0a595daf6ab6781cd24557b7413cf79477157950a7
+      lastVerified: '2026-02-22T04:35:08.533Z'
   checklists:
     agent-quality-gate:
       path: .aios-core/development/checklists/agent-quality-gate.md
@@ -13848,8 +13872,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:7f4482ac2deb7d131db9ab33ce82b37a1b43e7064805314898466729a2d93947
-      lastVerified: '2026-02-22T00:44:31.699Z'
+      checksum: sha256:52ed96d98fc6f9e83671d7d27f78dcff4f2475f3b8e339dc31922f6b2814ad78
+      lastVerified: '2026-02-22T04:35:08.537Z'
     git-wrapper:
       path: .aios-core/infrastructure/scripts/git-wrapper.js
       type: script

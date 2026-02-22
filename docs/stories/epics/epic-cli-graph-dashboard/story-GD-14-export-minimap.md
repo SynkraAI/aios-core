@@ -7,7 +7,7 @@
 | **Story ID** | GD-14 |
 | **Epic** | CLI Graph Dashboard |
 | **Type** | Enhancement |
-| **Status** | Ready for Review |
+| **Status** | Done |
 | **Priority** | P2 |
 | **Points** | 5 |
 | **Agent** | @dev (Dex) |
@@ -275,3 +275,4 @@ None. Clean implementation with all risks mitigated.
 | 1.1 | 2026-02-22 | @po (Pax) | Validated GO (9/10): added Risks section (3 risks with mitigations), updated Blocked By GD-13 to Done, fixed test command and added baseline count 105. Status Draft -> Ready |
 | 1.2 | 2026-02-22 | @dev (Dex) | Implemented Tasks 1-5. 10 new tests, all 115 pass. Fixed THEME.bg.card → THEME.bg.surface. Status Ready → Ready for Review |
 | 1.3 | 2026-02-22 | @qa (Quinn) | QA Review: PASS. 17/17 ACs verified, 115/115 tests, zero observations |
+| 1.4 | 2026-02-22 | @po (Pax) | Story closed. Commit 540befdc pushed to feat/epic-nogic-code-intelligence. Status Ready for Review -> Done |

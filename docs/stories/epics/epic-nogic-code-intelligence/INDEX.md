@@ -76,9 +76,9 @@ Criar camada de code intelligence provider-agnostic em todas as tasks do AIOS, c
 ### Wave 8B: Native-First Follow-up (descoped from NOG-18)
 | Story | Title | Agent | Points | Status | Blocked By |
 |-------|-------|-------|--------|--------|------------|
-| NOG-19 | Pipeline Audit Validation | @dev + @qa | 3 | Draft | NOG-18 |
-| NOG-20 | Agent Frontmatter & Validation | @dev | 3 | Draft | NOG-18 |
-| NOG-21 | Greeting Builder Native Migration | @dev | 3 | Draft | NOG-18 |
+| [NOG-19](story-NOG-19-pipeline-audit-validation.md) | Pipeline Audit Validation | @dev + @qa | 3 | Ready | NOG-18 |
+| [NOG-20](story-NOG-20-agent-frontmatter-validation.md) | Agent Frontmatter & Validation | @dev | 3 | Ready | NOG-18 |
+| [NOG-21](story-NOG-21-greeting-builder-native-migration.md) | Greeting Builder Native Migration | @dev | 3 | Ready | NOG-18 |
 
 ### Wave 7: Registry Quality (from GD-7 gap analysis + registry governance research)
 | Story | Title | Agent | Points | Status | Blocked By |

@@ -171,3 +171,57 @@ Commit: 3581eaa2 | Branch: feat/epic-nogic-code-intelligence
 | SYNAPSE p95 | 0.90ms | 1.15ms | +0.25ms | REGRESSED |
 | Bracket | CRITICAL | MODERATE | changed | CHANGED |
 
+---
+
+## Snapshot: NOG-18-after (2026-02-22)
+Commit: 540befdc | Branch: feat/epic-nogic-code-intelligence
+
+### UAP Activation (6 agents)
+| Agent | Total (ms) | Quality | Slowest Loader | Code-Intel |
+|-------|-----------|---------|----------------|------------|
+| dev | 94.00 | full | gitConfig (27.00ms) | disconnected |
+| qa | 26.00 | full | gitConfig (21.00ms) | disconnected |
+| architect | 26.00 | full | gitConfig (22.00ms) | disconnected |
+| devops | 23.00 | full | gitConfig (18.00ms) | disconnected |
+| sm | 26.00 | full | permissionMode (22.00ms) | disconnected |
+| po | 25.00 | full | gitConfig (20.00ms) | disconnected |
+
+### SYNAPSE Pipeline
+| Metric | Value |
+|--------|-------|
+| p50 | 0.41ms |
+| p95 | 0.70ms |
+| Layers loaded | 2/8 |
+| Total rules | 59 |
+
+### Session State
+| Field | Value |
+|-------|-------|
+| Bracket | FRESH |
+| Prompt count | 0 |
+
+### Diff vs NOG-13
+| Metric | Before | After | Delta | Status |
+|--------|--------|-------|-------|--------|
+| UAP total (dev) | 455.00ms | 94.00ms | -361.00ms | IMPROVED |
+|   dev.gitConfig | 131.00ms | 27.00ms | -104.00ms | IMPROVED |
+|   dev.permissionMode | 132.00ms | 27.00ms | -105.00ms | IMPROVED |
+| UAP total (qa) | 357.00ms | 26.00ms | -331.00ms | IMPROVED |
+|   qa.gitConfig | 79.00ms | 21.00ms | -58.00ms | IMPROVED |
+|   qa.permissionMode | 80.00ms | 21.00ms | -59.00ms | IMPROVED |
+| UAP total (architect) | 84.00ms | 26.00ms | -58.00ms | IMPROVED |
+|   architect.gitConfig | 75.00ms | 22.00ms | -53.00ms | IMPROVED |
+|   architect.permissionMode | 75.00ms | 22.00ms | -53.00ms | IMPROVED |
+| UAP total (devops) | 122.00ms | 23.00ms | -99.00ms | IMPROVED |
+|   devops.gitConfig | 111.00ms | 18.00ms | -93.00ms | IMPROVED |
+|   devops.permissionMode | 112.00ms | 18.00ms | -94.00ms | IMPROVED |
+| UAP total (sm) | 80.00ms | 26.00ms | -54.00ms | IMPROVED |
+|   sm.gitConfig | 72.00ms | 21.00ms | -51.00ms | IMPROVED |
+|   sm.permissionMode | 73.00ms | 22.00ms | -51.00ms | IMPROVED |
+| UAP total (po) | 110.00ms | 25.00ms | -85.00ms | IMPROVED |
+|   po.gitConfig | 101.00ms | 20.00ms | -81.00ms | IMPROVED |
+|   po.permissionMode | 101.00ms | 20.00ms | -81.00ms | IMPROVED |
+| SYNAPSE p50 | 0.77ms | 0.41ms | -0.36ms | IMPROVED |
+| SYNAPSE p95 | 1.04ms | 0.70ms | -0.34ms | IMPROVED |
+| Bracket | FRESH | FRESH | same | NEUTRAL |
+
