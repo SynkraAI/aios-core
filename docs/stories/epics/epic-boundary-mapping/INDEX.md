@@ -33,14 +33,14 @@ Estabelecer separação determinística entre artefatos do **framework AIOS** (i
 
 | Story | Title | Agent | Points | Status | Blocked By |
 |-------|-------|-------|--------|--------|------------|
-| [BM-1](story-BM-1-permission-deny-rules.md) | Permission Deny Rules & Toggleable Config | @dev | 3 | Ready | - |
-| [BM-2](story-BM-2-claude-md-boundary-section.md) | CLAUDE.md Boundary Section & Progressive Disclosure | @dev | 2 | Draft | - |
+| [BM-1](story-BM-1-permission-deny-rules.md) | Permission Deny Rules & Toggleable Config | @dev | 3 | Done | - |
+| [BM-2](story-BM-2-claude-md-boundary-section.md) | CLAUDE.md Boundary Section & Progressive Disclosure | @dev | 2 | Done | - |
 
 ### Wave 2: Commit-Time Protection (Sequential after Wave 1)
 
 | Story | Title | Agent | Points | Status | Blocked By |
 |-------|-------|-------|--------|--------|------------|
-| [BM-3](story-BM-3-pre-commit-framework-guard.md) | Pre-Commit Hook Framework Guard | @devops | 3 | Draft | BM-1 |
+| [BM-3](story-BM-3-pre-commit-framework-guard.md) | Pre-Commit Hook Framework Guard | @devops | 3 | Ready for Review | BM-1 (Done) |
 
 ### Wave 3: Config Surface (Sequential after Wave 2)
 
