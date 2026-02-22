@@ -231,6 +231,25 @@ function _buildSidebar(nodes) {
         </div>
         <div id="depth-node-count" style="color:${THEME.text.tertiary};font-size:11px;margin-top:6px"></div>
       </div>
+      <div class="filter-section">
+        <div class="section-title">NODE SIZE</div>
+        <div class="gold-line"></div>
+        <div class="size-buttons">
+          <button class="size-btn active" data-sizing="uniform">Uniform</button>
+          <button class="size-btn" data-sizing="degree">By Degree</button>
+          <button class="size-btn" data-sizing="in-degree">By In-Degree</button>
+          <button class="size-btn" data-sizing="out-degree">By Out-Degree</button>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="section-title">LAYOUT</div>
+        <div class="gold-line"></div>
+        <div class="layout-buttons">
+          <button class="layout-btn active" data-layout="force">Force</button>
+          <button class="layout-btn" data-layout="hierarchical">Hierarchical</button>
+          <button class="layout-btn" data-layout="circular">Circular</button>
+        </div>
+      </div>
       <div class="filter-section actions">
         <button id="btn-reset" class="action-btn">Reset / Show All</button>
         <button id="btn-exit-focus" class="action-btn" style="display:none">Exit Focus Mode</button>
@@ -356,6 +375,14 @@ function formatAsHtml(graphData, options = {}) {
     }
     .depth-btn:hover { border-color: ${THEME.border.gold}; }
     .depth-btn.active { background: ${THEME.accent.gold}; color: ${THEME.bg.base}; border-color: ${THEME.accent.gold}; }
+    .size-buttons, .layout-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
+    .size-btn, .layout-btn {
+      flex: 1; min-width: 45%; padding: 4px 0; background: ${THEME.border.default}; border: 1px solid ${THEME.border.subtle};
+      color: ${THEME.text.secondary}; border-radius: ${THEME.radius.md}; cursor: pointer;
+      font-size: 11px; font-family: inherit; text-align: center;
+    }
+    .size-btn:hover, .layout-btn:hover { border-color: ${THEME.border.gold}; }
+    .size-btn.active, .layout-btn.active { background: ${THEME.accent.gold}; color: ${THEME.bg.base}; border-color: ${THEME.accent.gold}; }
     #node-tooltip {
       display: none; position: fixed; z-index: 500;
       background: ${THEME.tooltip.bg}; border: 1px solid ${THEME.tooltip.border};
@@ -459,18 +486,6 @@ function formatAsHtml(graphData, options = {}) {
         }
       });
 
-      network.on('stabilizationProgress', function(params) {
-        var pct = Math.round(params.iterations / params.total * 100);
-        statusEl.textContent = 'Stabilizing... ' + pct + '%';
-      });
-
-      network.on('stabilizationIterationsDone', function() {
-        statusEl.textContent = 'Graph ready — ${nodeCount} nodes';
-        statusEl.style.color = '${THEME.status.success}';
-        network.fit({ animation: { duration: 500 } });
-        setTimeout(function() { statusEl.style.display = 'none'; }, 4000);
-      });
-
       // --- Tooltip ---
       var tooltipEl = document.getElementById('node-tooltip');
 
@@ -513,27 +528,42 @@ function formatAsHtml(graphData, options = {}) {
         container.removeAttribute('aria-describedby');
       }
 
-      network.on('click', function(params) {
-        if (params.nodes.length === 1) {
-          var nodeId = params.nodes[0];
-          var canvasPos = network.getPosition(nodeId);
-          var domPos = network.canvasToDOM(canvasPos);
-          showTooltip(nodeId, domPos);
-        } else {
-          hideTooltip();
-        }
-      });
-
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') hideTooltip();
       });
 
-      // --- Focus Mode ---
-      network.on('doubleClick', function(params) {
-        if (params.nodes.length === 1) {
-          enterFocusMode(params.nodes[0]);
-        }
-      });
+      function bindNetworkEvents() {
+        network.on('stabilizationProgress', function(params) {
+          var pct = Math.round(params.iterations / params.total * 100);
+          statusEl.textContent = 'Stabilizing... ' + pct + '%';
+        });
+
+        network.on('stabilizationIterationsDone', function() {
+          statusEl.textContent = 'Graph ready — ${nodeCount} nodes';
+          statusEl.style.color = '${THEME.status.success}';
+          network.fit({ animation: { duration: 500 } });
+          setTimeout(function() { statusEl.style.display = 'none'; }, 4000);
+        });
+
+        network.on('click', function(params) {
+          if (params.nodes.length === 1) {
+            var nodeId = params.nodes[0];
+            var canvasPos = network.getPosition(nodeId);
+            var domPos = network.canvasToDOM(canvasPos);
+            showTooltip(nodeId, domPos);
+          } else {
+            hideTooltip();
+          }
+        });
+
+        // --- Focus Mode ---
+        network.on('doubleClick', function(params) {
+          if (params.nodes.length === 1) {
+            enterFocusMode(params.nodes[0]);
+          }
+        });
+      }
+      bindNetworkEvents();
 
       // --- BFS Algorithm (GD-12) ---
       function getNeighborsAtDepth(net, nodeId, maxDepth) {
@@ -881,6 +911,144 @@ function formatAsHtml(graphData, options = {}) {
         this.textContent = physicsPaused ? 'Resume' : 'Pause';
         this.style.color = physicsPaused ? '${THEME.text.secondary}' : '';
       });
+
+      // --- Degree Computation (GD-13) ---
+      function computeDegrees(edgesArr) {
+        var degrees = {};
+        for (var i = 0; i < edgesArr.length; i++) {
+          var e = edgesArr[i];
+          if (!degrees[e.from]) degrees[e.from] = { total: 0, in: 0, out: 0 };
+          if (!degrees[e.to]) degrees[e.to] = { total: 0, in: 0, out: 0 };
+          degrees[e.from].out++;
+          degrees[e.from].total++;
+          degrees[e.to].in++;
+          degrees[e.to].total++;
+        }
+        return degrees;
+      }
+
+      var nodeDegrees = computeDegrees(allEdgesData);
+      var currentSizingMode = 'uniform';
+
+      function applySizing(mode) {
+        currentSizingMode = mode;
+        var sizeBtns = document.querySelectorAll('.size-btn');
+        for (var i = 0; i < sizeBtns.length; i++) {
+          sizeBtns[i].classList.toggle('active', sizeBtns[i].getAttribute('data-sizing') === mode);
+        }
+        if (mode === 'uniform') {
+          var resetUpdates = [];
+          allNodesData.forEach(function(n) { resetUpdates.push({ id: n.id, size: undefined }); });
+          nodesDataset.update(resetUpdates);
+          return;
+        }
+        var field = mode === 'degree' ? 'total' : (mode === 'in-degree' ? 'in' : 'out');
+        var maxDeg = 0;
+        allNodesData.forEach(function(n) {
+          var d = nodeDegrees[n.id] ? nodeDegrees[n.id][field] : 0;
+          if (d > maxDeg) maxDeg = d;
+        });
+        var minSize = 10, maxSize = 40;
+        var updates = [];
+        allNodesData.forEach(function(n) {
+          var d = nodeDegrees[n.id] ? nodeDegrees[n.id][field] : 0;
+          var size = maxDeg > 0 ? minSize + (d / maxDeg) * (maxSize - minSize) : minSize;
+          updates.push({ id: n.id, size: size });
+        });
+        nodesDataset.update(updates);
+      }
+
+      var sizeBtns = document.querySelectorAll('.size-btn');
+      for (var si = 0; si < sizeBtns.length; si++) {
+        sizeBtns[si].addEventListener('click', function() {
+          applySizing(this.getAttribute('data-sizing'));
+        });
+      }
+
+      // --- Layout Switching (GD-13) ---
+      var currentLayout = 'force';
+
+      var baseNetworkOptions = {
+        physics: {
+          stabilization: { iterations: ${isLargeGraph ? 200 : 100}, updateInterval: 25 },
+          barnesHut: {
+            gravitationalConstant: ${isLargeGraph ? -2000 : -3000},
+            springLength: ${isLargeGraph ? 200 : 150},
+            springConstant: 0.01,
+            damping: 0.3
+          }
+        },
+        nodes: {
+          font: { color: '${THEME.text.secondary}', size: ${isLargeGraph ? 10 : 12} },
+          borderWidth: 2,
+          scaling: { min: 5, max: 20 }
+        },
+        edges: {
+          color: { color: '${THEME.border.default}', highlight: '${THEME.border.highlight}' },
+          smooth: ${isLargeGraph ? 'false' : '{ type: "cubicBezier" }'}
+        },
+        interaction: {
+          hover: true,
+          tooltipDelay: 200,
+          hideEdgesOnDrag: true,
+          hideEdgesOnZoom: ${isLargeGraph ? 'true' : 'false'}
+        }
+      };
+
+      function rebuildNetwork(opts) {
+        network.destroy();
+        network = new vis.Network(container, { nodes: nodesView, edges: edgesView }, opts);
+        network.on('stabilizationIterationsDone', function() {
+          network.fit({ animation: { duration: 500 } });
+        });
+        bindNetworkEvents();
+      }
+
+      function switchLayout(layout) {
+        currentLayout = layout;
+        var layoutBtns = document.querySelectorAll('.layout-btn');
+        for (var i = 0; i < layoutBtns.length; i++) {
+          layoutBtns[i].classList.toggle('active', layoutBtns[i].getAttribute('data-layout') === layout);
+        }
+        // Dim/enable physics controls based on layout
+        var physicsSection = document.querySelector('.physics-section');
+        if (physicsSection) {
+          physicsSection.style.opacity = layout === 'force' ? '1' : '0.4';
+          physicsSection.style.pointerEvents = layout === 'force' ? 'auto' : 'none';
+        }
+        if (layout === 'force') {
+          var forceOpts = JSON.parse(JSON.stringify(baseNetworkOptions));
+          forceOpts.layout = { hierarchical: { enabled: false } };
+          rebuildNetwork(forceOpts);
+        } else if (layout === 'hierarchical') {
+          var hierOpts = JSON.parse(JSON.stringify(baseNetworkOptions));
+          hierOpts.physics = { enabled: false };
+          hierOpts.layout = { hierarchical: { enabled: true, direction: 'UD', sortMethod: 'directed', levelSeparation: 150, nodeSpacing: 100, treeSpacing: 200 } };
+          rebuildNetwork(hierOpts);
+        } else if (layout === 'circular') {
+          network.setOptions({
+            physics: { enabled: false },
+            layout: { hierarchical: { enabled: false } }
+          });
+          var ids = nodesView.getIds();
+          var count = ids.length;
+          var radius = Math.max(200, count * 3);
+          var posUpdates = [];
+          for (var ci = 0; ci < count; ci++) {
+            var angle = (2 * Math.PI * ci) / count;
+            posUpdates.push({ id: ids[ci], x: radius * Math.cos(angle), y: radius * Math.sin(angle) });
+          }
+          nodesDataset.update(posUpdates);
+          network.fit({ animation: { duration: 500 } });
+        }
+      }
+
+      var layoutBtns = document.querySelectorAll('.layout-btn');
+      for (var li = 0; li < layoutBtns.length; li++) {
+        layoutBtns[li].addEventListener('click', function() {
+          switchLayout(this.getAttribute('data-layout'));
+        });
+      }
 
       // --- Metrics ---
       function updateMetrics() {

@@ -7,12 +7,12 @@
 | **Story ID** | GD-13 |
 | **Epic** | CLI Graph Dashboard |
 | **Type** | Enhancement |
-| **Status** | Draft |
+| **Status** | Ready for Review |
 | **Priority** | P1 |
 | **Points** | 5 |
 | **Agent** | @dev (Dex) |
 | **Quality Gate** | @qa (Quinn) |
-| **Blocked By** | GD-11 (Physics Control Panel) |
+| **Blocked By** | ~~GD-11~~ (Done — Physics Control Panel) |
 | **Branch** | `feat/epic-nogic-code-intelligence` |
 | **Origin** | Tech Search: graph-dashboard-controls (2026-02-22) |
 
@@ -91,40 +91,40 @@ Degree = number of connections per node. Computed from edges: count edges where 
 
 > **Execution order:** Task 1 → Task 2 → Task 3 → Task 4 → Task 5
 
-- [ ] **Task 1: Degree computation** (AC: 4, 5, 6, 7)
-  - [ ] 1.1 Add `computeDegrees(edges)` function: returns `{ nodeId: { total, in, out } }`
-  - [ ] 1.2 Count in-degree: edges where `to === nodeId`
-  - [ ] 1.3 Count out-degree: edges where `from === nodeId`
-  - [ ] 1.4 Total degree = in + out
-  - [ ] 1.5 Normalize to size range: `minSize + (degree / maxDegree) * (maxSize - minSize)` where min=10, max=40
+- [x] **Task 1: Degree computation** (AC: 4, 5, 6, 7)
+  - [x] 1.1 Add `computeDegrees(edges)` function: returns `{ nodeId: { total, in, out } }`
+  - [x] 1.2 Count in-degree: edges where `to === nodeId`
+  - [x] 1.3 Count out-degree: edges where `from === nodeId`
+  - [x] 1.4 Total degree = in + out
+  - [x] 1.5 Normalize to size range: `minSize + (degree / maxDegree) * (maxSize - minSize)` where min=10, max=40
 
-- [ ] **Task 2: Node sizing UI** (AC: 1, 2, 3, 8)
-  - [ ] 2.1 Add "NODE SIZE" section with section-label header
-  - [ ] 2.2 Add 4 radio-style toggle buttons: Uniform / By Degree / By In-Degree / By Out-Degree
-  - [ ] 2.3 Default: "Uniform" active
-  - [ ] 2.4 On mode change: recompute node sizes and batch update DataSet
-  - [ ] 2.5 Gold-line separator below header
+- [x] **Task 2: Node sizing UI** (AC: 1, 2, 3, 8)
+  - [x] 2.1 Add "NODE SIZE" section with section-label header
+  - [x] 2.2 Add 4 radio-style toggle buttons: Uniform / By Degree / By In-Degree / By Out-Degree
+  - [x] 2.3 Default: "Uniform" active
+  - [x] 2.4 On mode change: recompute node sizes and batch update DataSet
+  - [x] 2.5 Gold-line separator below header
 
-- [ ] **Task 3: Layout switching UI** (AC: 9, 10, 16)
-  - [ ] 3.1 Add "LAYOUT" section with section-label header
-  - [ ] 3.2 Add 3 toggle buttons: Force / Hierarchical / Circular
-  - [ ] 3.3 Default: "Force" active with `THEME.border.gold` highlight
-  - [ ] 3.4 Gold-line separator below header
+- [x] **Task 3: Layout switching UI** (AC: 9, 10, 16)
+  - [x] 3.1 Add "LAYOUT" section with section-label header
+  - [x] 3.2 Add 3 toggle buttons: Force / Hierarchical / Circular
+  - [x] 3.3 Default: "Force" active with `THEME.border.gold` highlight
+  - [x] 3.4 Gold-line separator below header
 
-- [ ] **Task 4: Layout switching logic** (AC: 11, 12, 13, 14, 15, 18)
-  - [ ] 4.1 Force layout: `network.setOptions({ physics: { enabled: true, solver: 'barnesHut' }, layout: { hierarchical: { enabled: false } } })`
-  - [ ] 4.2 Hierarchical layout: `network.setOptions({ physics: { enabled: false }, layout: { hierarchical: { enabled: true, direction: 'UD', sortMethod: 'directed', levelSeparation: 150, nodeSpacing: 100, treeSpacing: 200 } } })`
-  - [ ] 4.3 Circular layout: compute x/y using `Math.cos/sin`, set positions, disable physics
-  - [ ] 4.4 Preserve current filter/focus state across layout changes
+- [x] **Task 4: Layout switching logic** (AC: 11, 12, 13, 14, 15, 18)
+  - [x] 4.1 Force layout: `network.setOptions({ physics: { enabled: true, solver: 'barnesHut' }, layout: { hierarchical: { enabled: false } } })`
+  - [x] 4.2 Hierarchical layout: `network.setOptions({ physics: { enabled: false }, layout: { hierarchical: { enabled: true, direction: 'UD', sortMethod: 'directed', levelSeparation: 150, nodeSpacing: 100, treeSpacing: 200 } } })`
+  - [x] 4.3 Circular layout: compute x/y using `Math.cos/sin`, set positions, disable physics
+  - [x] 4.4 Preserve current filter/focus state across layout changes
 
-- [ ] **Task 5: Update tests** (AC: 19)
-  - [ ] 5.1 Test: NODE SIZE section exists with 4 toggle options
-  - [ ] 5.2 Test: LAYOUT section exists with 3 toggle buttons (Force/Hierarchical/Circular)
-  - [ ] 5.3 Test: computeDegrees function exists in script output
-  - [ ] 5.4 Test: layout switch handlers call network.setOptions
-  - [ ] 5.5 Test: circular layout uses Math.cos and Math.sin
-  - [ ] 5.6 Test: section-label headers present for both sections
-  - [ ] 5.7 Run full suite: `npm test` — zero regressions
+- [x] **Task 5: Update tests** (AC: 19)
+  - [x] 5.1 Test: NODE SIZE section exists with 4 toggle options
+  - [x] 5.2 Test: LAYOUT section exists with 3 toggle buttons (Force/Hierarchical/Circular)
+  - [x] 5.3 Test: computeDegrees function exists in script output
+  - [x] 5.4 Test: layout switch handlers call network.setOptions
+  - [x] 5.5 Test: circular layout uses Math.cos and Math.sin
+  - [x] 5.6 Test: section-label headers present for both sections
+  - [x] 5.7 Run full suite: `npm test` — zero regressions (105/105 html-formatter, 6785 total)
 
 - [ ] **Task 6: Visual validation**
   - [ ] 6.1 Generate graph and toggle "By Degree" — verify hub nodes are larger
@@ -162,6 +162,15 @@ GD-11 (Physics Controls) → GD-13 (Metrics & Layout)
 **Complexity:** Medium
 **Estimation:** 5-7 hours
 
+## Risks
+
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+| Physics controls (GD-11) visible during hierarchical/circular layout where physics is off | User confusion — sliders appear active but have no effect | Disable/dim physics controls when layout != Force. Re-enable on Force switch. |
+| Circular layout performance with 712 nodes | `cos/sin` computation + position assignment on all nodes may cause visible delay | Single `nodesDataset.update()` batch call. Pre-compute positions array before update. |
+| Hierarchical layout with filtered nodes | Gaps in tree hierarchy when nodes hidden by category/lifecycle filters | Accept gaps as expected behavior — hierarchical shows filtered subset. Document in AC 18 note. |
+| Hierarchical `sortMethod: 'directed'` requires edge directionality | If edges are bidirectional or undirected, tree may not render properly | AIOS entity registry uses directed `dependsOn` edges — compatible with directed sort. |
+
 ## Dev Notes
 
 ### Technical References
@@ -176,19 +185,27 @@ GD-11 (Physics Controls) → GD-13 (Metrics & Layout)
 ## Testing
 
 ```bash
-npm test -- --testPathPattern="graph-dashboard"
+npx jest tests/graph-dashboard/html-formatter.test.js
 ```
+
+**Baseline:** 93 tests (post GD-12). Zero regressions expected.
 
 ## Dev Agent Record
 
 ### Agent Model Used
-*(To be filled by @dev)*
+Claude Opus 4.6
 
 ### Debug Log References
-*(To be filled by @dev)*
+- 93/93 baseline tests pass before changes
+- 105/105 after adding 12 GD-13 tests
+- Full suite: 6785 passed (9 pre-existing failures unrelated)
 
 ### Completion Notes
-*(To be filled by @dev)*
+- `computeDegrees(edges)` — O(E) single pass, returns `{ nodeId: { total, in, out } }`
+- `applySizing(mode)` — normalizes degrees to 10-40px range via DataSet batch update
+- `switchLayout(layout)` — Force (barnesHut), Hierarchical (UD/directed), Circular (cos/sin positions)
+- Physics controls dimmed when layout != force (risk mitigation from story)
+- Circular radius auto-scales: `Math.max(200, count * 3)`
 
 ## File List
 
@@ -199,10 +216,54 @@ npm test -- --testPathPattern="graph-dashboard"
 
 ## QA Results
 
-*(To be filled by @qa)*
+### Gate Decision: PASS
+
+**Reviewer:** @qa (Quinn) | **Date:** 2026-02-22 | **Model:** Claude Opus 4.6
+
+### AC Traceability (19/19 PASS)
+
+| AC | Description | Status |
+|----|-------------|--------|
+| 1 | NODE SIZE section with 4 toggle options | PASS |
+| 2 | NODE SIZE header section-label pattern | PASS |
+| 3 | Uniform mode default | PASS |
+| 4 | By Degree scales 10-40px | PASS |
+| 5 | By In-Degree incoming edges | PASS |
+| 6 | By Out-Degree outgoing edges | PASS |
+| 7 | Size computation from edges, normalized | PASS |
+| 8 | DataSet batch update on mode change | PASS |
+| 9 | LAYOUT section with 3 buttons | PASS |
+| 10 | LAYOUT header section-label | PASS |
+| 11 | Force: barnesHut, hierarchical disabled | PASS |
+| 12 | Hierarchical: UD/directed/150/100 | PASS |
+| 13 | Circular: Math.cos/sin, physics disabled | PASS |
+| 14 | Layout via network.setOptions() | PASS |
+| 15 | Circular sets x/y, disables physics | PASS |
+| 16 | Active layout highlighted gold | PASS |
+| 17 | All CSS from THEME tokens | PASS |
+| 18 | Layout preserves filter/focus state | PASS |
+| 19 | Tests cover sizing + layout | PASS |
+
+### Test Results
+
+- **105/105** tests pass (12 new GD-13 + 93 baseline)
+- Zero regressions
+
+### Code Quality
+
+- THEME compliance: 100% — zero hardcoded hex
+- Performance: batch DataSet updates, radius auto-scale
+- Risk mitigation applied: physics controls dimmed when layout != force
+
+### Observations
+
+None. Clean implementation aligned with all ACs.
 
 ## Change Log
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0 | 2026-02-22 | @sm (River) | Story drafted from tech-search research |
+| 1.1 | 2026-02-22 | @po (Pax) | Validated GO (8.3/10): added Risks section (4 risks with mitigations), updated Blocked By to Done, fixed test command, added test baseline count 93. Status Draft → Ready |
+| 1.2 | 2026-02-22 | @dev (Dex) | Implemented Tasks 1-5. 12 new tests, all 105 pass. Status Ready → Ready for Review |
+| 1.3 | 2026-02-22 | @qa (Quinn) | QA Review: PASS. 19/19 ACs verified, 105/105 tests, zero observations |

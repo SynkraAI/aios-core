@@ -660,6 +660,103 @@ describe('html-formatter', () => {
     });
   });
 
+  describe('GD-13: Graph Metrics & Layout Switching', () => {
+    it('should include NODE SIZE section with section-label header', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('NODE SIZE');
+      const sidebar = _buildSidebar(MOCK_GRAPH_DATA.nodes);
+      expect(sidebar).toContain('NODE SIZE');
+      expect(sidebar).toContain('gold-line');
+    });
+
+    it('should include 4 sizing toggle buttons (Uniform, By Degree, By In-Degree, By Out-Degree)', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('data-sizing="uniform"');
+      expect(html).toContain('data-sizing="degree"');
+      expect(html).toContain('data-sizing="in-degree"');
+      expect(html).toContain('data-sizing="out-degree"');
+      expect(html).toContain('Uniform');
+      expect(html).toContain('By Degree');
+      expect(html).toContain('By In-Degree');
+      expect(html).toContain('By Out-Degree');
+    });
+
+    it('should have Uniform as default active sizing mode', () => {
+      const sidebar = _buildSidebar(MOCK_GRAPH_DATA.nodes);
+      expect(sidebar).toContain('size-btn active" data-sizing="uniform"');
+    });
+
+    it('should include LAYOUT section with section-label header', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('LAYOUT');
+      const sidebar = _buildSidebar(MOCK_GRAPH_DATA.nodes);
+      expect(sidebar).toContain('LAYOUT');
+    });
+
+    it('should include 3 layout toggle buttons (Force, Hierarchical, Circular)', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('data-layout="force"');
+      expect(html).toContain('data-layout="hierarchical"');
+      expect(html).toContain('data-layout="circular"');
+      expect(html).toContain('>Force<');
+      expect(html).toContain('>Hierarchical<');
+      expect(html).toContain('>Circular<');
+    });
+
+    it('should have Force as default active layout', () => {
+      const sidebar = _buildSidebar(MOCK_GRAPH_DATA.nodes);
+      expect(sidebar).toContain('layout-btn active" data-layout="force"');
+    });
+
+    it('should include computeDegrees function in script output', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('function computeDegrees');
+      expect(html).toContain('.out++');
+      expect(html).toContain('.in++');
+      expect(html).toContain('.total++');
+    });
+
+    it('should include switchLayout function with rebuildNetwork for force/hierarchical', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('function switchLayout');
+      expect(html).toContain('function rebuildNetwork');
+      expect(html).toContain('network.destroy()');
+      expect(html).toContain("direction: 'UD'");
+      expect(html).toContain("sortMethod: 'directed'");
+      expect(html).toContain('levelSeparation: 150');
+      expect(html).toContain('nodeSpacing: 100');
+    });
+
+    it('should include circular layout with Math.cos and Math.sin', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('Math.cos');
+      expect(html).toContain('Math.sin');
+      expect(html).toContain('2 * Math.PI');
+    });
+
+    it('should include applySizing function with min/max normalization', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('function applySizing');
+      expect(html).toContain('minSize');
+      expect(html).toContain('maxSize');
+      expect(html).toContain('nodesDataset.update');
+    });
+
+    it('should use section-label pattern (uppercase, gold, letter-spacing) for both headers', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('.section-title');
+      expect(html).toContain('text-transform: uppercase');
+      expect(html).toContain(THEME.accent.gold);
+      expect(html).toContain('letter-spacing: 0.2em');
+    });
+
+    it('should dim physics controls when layout is not force', () => {
+      const html = formatAsHtml(MOCK_GRAPH_DATA);
+      expect(html).toContain('physics-section');
+      expect(html).toContain("physicsSection.style.opacity = layout === 'force'");
+    });
+  });
+
   describe('CLI integration (FORMAT_MAP)', () => {
     it('should have html in FORMAT_MAP', () => {
       const { FORMAT_MAP } = require('../../.aios-core/core/graph-dashboard/cli');

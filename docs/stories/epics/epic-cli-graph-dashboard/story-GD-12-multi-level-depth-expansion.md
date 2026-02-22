@@ -7,7 +7,7 @@
 | **Story ID** | GD-12 |
 | **Epic** | CLI Graph Dashboard |
 | **Type** | Enhancement |
-| **Status** | Ready for Review |
+| **Status** | Done |
 | **Priority** | P0 |
 | **Points** | 5 |
 | **Agent** | @dev (Dex) |
@@ -322,3 +322,4 @@ Claude Opus 4.6
 | 1.1 | 2026-02-22 | @po (Pax) | Validated GO (9.6/10): updated test count 75→84+, added Risks section, clarified vis-network edge auto-hide for AC 11. Status Draft → Ready |
 | 1.2 | 2026-02-22 | @dev (Dex) | Implemented Tasks 1-6. 9 new tests, all 93 pass. Status Ready → Ready for Review |
 | 1.3 | 2026-02-22 | @dev (Dex) | Fixed QA observations O-1 (removed dead code) and O-3 (Reset button depth cleanup). 93/93 tests pass. |
+| 1.4 | 2026-02-22 | @po (Pax) | Story closed. Pushed as commit `ee678cb1`. Status Ready for Review → Done |
