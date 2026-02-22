@@ -20,7 +20,11 @@ const SCAN_CONFIG = [
   { category: 'data', basePath: '.aios-core/data', glob: '**/*.{yaml,yml,md}', type: 'data' },
   { category: 'workflows', basePath: '.aios-core/development/workflows', glob: '**/*.{yaml,yml}', type: 'workflow' },
   { category: 'utils', basePath: '.aios-core/core/utils', glob: '**/*.js', type: 'util' },
-  { category: 'tools', basePath: '.aios-core/development/tools', glob: '**/*.{md,js,sh}', type: 'tool' }
+  { category: 'tools', basePath: '.aios-core/development/tools', glob: '**/*.{md,js,sh}', type: 'tool' },
+  { category: 'infra-scripts', basePath: '.aios-core/infrastructure/scripts', glob: '**/*.js', type: 'script' },
+  { category: 'infra-tools', basePath: '.aios-core/infrastructure/tools', glob: '**/*.{yaml,yml,md}', type: 'tool' },
+  { category: 'product-checklists', basePath: '.aios-core/product/checklists', glob: '**/*.md', type: 'checklist' },
+  { category: 'product-data', basePath: '.aios-core/product/data', glob: '**/*.{yaml,yml,md}', type: 'data' }
 ];
 
 const ADAPTABILITY_DEFAULTS = {
@@ -35,6 +39,23 @@ const ADAPTABILITY_DEFAULTS = {
   util: 0.6,
   tool: 0.7
 };
+
+const SENTINEL_VALUES = new Set(['n/a', 'na', 'none', 'tbd', 'todo', '-', '']);
+
+function isSentinel(value) {
+  return SENTINEL_VALUES.has(value.toLowerCase().trim());
+}
+
+function isNoise(value) {
+  const trimmed = value.trim();
+  // Very short fragments (1-2 chars) unless they are known agent refs
+  if (trimmed.length <= 2 && !KNOWN_AGENTS.includes(trimmed)) return true;
+  // Natural language fragments (contains spaces and > 2 words)
+  if (trimmed.includes(' ') && trimmed.split(/\s+/).length > 2) return true;
+  // Template placeholders
+  if (trimmed.includes('{{') || trimmed.includes('${')) return true;
+  return false;
+}
 
 function computeChecksum(filePath) {
   const content = fs.readFileSync(filePath);
@@ -113,7 +134,7 @@ const MD_LINK_RE = /\[([^\]]+)\]\(([^)]+\.(?:md|yaml|js))\)/g;
 // Pattern D: Agent references
 const AGENT_REF_RE = new RegExp('@(' + KNOWN_AGENTS.join('|') + ')\\b', 'g');
 
-function extractYamlDependencies(filePath, entityType) {
+function extractYamlDependencies(filePath, entityType, verbose = false) {
   const deps = new Set();
   const fieldMap = YAML_DEP_FIELDS[entityType];
   if (!fieldMap) return [];
@@ -154,8 +175,17 @@ function extractYamlDependencies(filePath, entityType) {
     if (Array.isArray(items)) {
       for (const item of items) {
         if (typeof item === 'string') {
-          const cleaned = item.replace(/#.*$/, '').trim();
-          if (cleaned) deps.add(cleaned.replace(/\.md$/, ''));
+          const cleaned = item.replace(/#.*$/, '').trim().replace(/\.md$/, '');
+          if (!cleaned) continue;
+          if (isSentinel(cleaned)) {
+            if (verbose) console.log(`[IDS] Filtered sentinel "${cleaned}" from YAML deps in "${filePath}"`);
+            continue;
+          }
+          if (isNoise(cleaned)) {
+            if (verbose) console.log(`[IDS] Filtered noise "${cleaned}" from YAML deps in "${filePath}"`);
+            continue;
+          }
+          deps.add(cleaned);
         }
       }
     }
@@ -179,14 +209,26 @@ function extractYamlDependencies(filePath, entityType) {
   return [...deps];
 }
 
-function extractMarkdownCrossReferences(content, entityId) {
+function extractMarkdownCrossReferences(content, entityId, verbose = false) {
   const deps = new Set();
+
+  const addDep = (ref) => {
+    if (ref === entityId) return;
+    if (isSentinel(ref)) {
+      if (verbose) console.log(`[IDS] Filtered sentinel "${ref}" from MD cross-refs in "${entityId}"`);
+      return;
+    }
+    if (isNoise(ref)) {
+      if (verbose) console.log(`[IDS] Filtered noise "${ref}" from MD cross-refs in "${entityId}"`);
+      return;
+    }
+    deps.add(ref);
+  };
 
   // Pattern A: YAML block items (- filename.md)
   let match;
   while ((match = YAML_BLOCK_RE.exec(content)) !== null) {
-    const ref = match[1].replace(/\.md$/, '');
-    if (ref !== entityId) deps.add(ref);
+    addDep(match[1].replace(/\.md$/, ''));
   }
 
   // Pattern B: Label lists (- **Tasks:** a.md, b.md)
@@ -195,8 +237,7 @@ function extractMarkdownCrossReferences(content, entityId) {
     for (const item of items) {
       const fileMatch = item.trim().match(/([\w.-]+\.(?:md|yaml|js))/);
       if (fileMatch) {
-        const ref = fileMatch[1].replace(/\.md$/, '');
-        if (ref !== entityId) deps.add(ref);
+        addDep(fileMatch[1].replace(/\.md$/, ''));
       }
     }
   }
@@ -205,7 +246,7 @@ function extractMarkdownCrossReferences(content, entityId) {
   while ((match = MD_LINK_RE.exec(content)) !== null) {
     const linkPath = match[2];
     const basename = path.basename(linkPath, path.extname(linkPath));
-    if (basename !== entityId) deps.add(basename);
+    addDep(basename);
   }
 
   // Pattern D: Agent references (@dev, @qa, etc.)
@@ -216,7 +257,7 @@ function extractMarkdownCrossReferences(content, entityId) {
   return [...deps];
 }
 
-function detectDependencies(content, entityId) {
+function detectDependencies(content, entityId, verbose = false) {
   const deps = new Set();
 
   const requireMatches = content.matchAll(/require\s*\(\s*['"]([^'"]+)['"]\s*\)/g);
@@ -242,14 +283,23 @@ function detectDependencies(content, entityId) {
     const items = depListMatch[1].matchAll(/-\s+(.+)/g);
     for (const item of items) {
       const dep = item[1].trim().replace(/\.md$/, '');
-      if (dep !== entityId) deps.add(dep);
+      if (dep === entityId) continue;
+      if (isSentinel(dep)) {
+        if (verbose) console.log(`[IDS] Filtered sentinel "${dep}" from "${entityId}"`);
+        continue;
+      }
+      if (isNoise(dep)) {
+        if (verbose) console.log(`[IDS] Filtered noise "${dep}" from "${entityId}"`);
+        continue;
+      }
+      deps.add(dep);
     }
   }
 
   return [...deps];
 }
 
-function scanCategory(config) {
+function scanCategory(config, verbose = false) {
   const absBase = path.resolve(REPO_ROOT, config.basePath);
 
   if (!fs.existsSync(absBase)) {
@@ -283,23 +333,22 @@ function scanCategory(config) {
     const relPath = path.relative(REPO_ROOT, filePath).replace(/\\/g, '/');
     const keywords = extractKeywords(filePath, content);
     const purpose = extractPurpose(content, filePath);
-    const baseDeps = detectDependencies(content, entityId);
+    const baseDeps = detectDependencies(content, entityId, verbose);
 
     // Semantic YAML extraction for agents and workflows
     const yamlCategories = ['agents', 'workflows'];
     const yamlDeps = yamlCategories.includes(config.category)
-      ? extractYamlDependencies(filePath, config.type)
+      ? extractYamlDependencies(filePath, config.type, verbose)
       : [];
 
-    // Markdown cross-reference extraction for tasks, checklists, templates
-    const mdCategories = ['tasks', 'checklists', 'templates'];
+    // Markdown cross-reference extraction for tasks, checklists, templates, product-checklists
+    const mdCategories = ['tasks', 'checklists', 'templates', 'product-checklists'];
     const mdDeps = mdCategories.includes(config.category)
-      ? extractMarkdownCrossReferences(content, entityId)
+      ? extractMarkdownCrossReferences(content, entityId, verbose)
       : [];
 
-    // Merge all dependencies (deduplicated)
-    const allDeps = new Set([...baseDeps, ...yamlDeps, ...mdDeps]);
-    const dependencies = [...allDeps];
+    // Merge all dependencies (deduplicated — each extractor already filters sentinel/noise)
+    const dependencies = [...new Set([...baseDeps, ...yamlDeps, ...mdDeps])];
     const checksum = computeChecksum(filePath);
     const defaultScore = ADAPTABILITY_DEFAULTS[config.type] || 0.5;
 
@@ -323,8 +372,7 @@ function scanCategory(config) {
   return entities;
 }
 
-function resolveUsedBy(allEntities) {
-  // Build name index: maps entity IDs, filenames, and basenames to [category, id]
+function buildNameIndex(allEntities) {
   const nameIndex = new Map();
   for (const [category, entities] of Object.entries(allEntities)) {
     for (const [id, entity] of Object.entries(entities)) {
@@ -341,6 +389,25 @@ function resolveUsedBy(allEntities) {
       }
     }
   }
+  return nameIndex;
+}
+
+function countResolution(allEntities, nameIndex) {
+  let total = 0;
+  let resolved = 0;
+  for (const entities of Object.values(allEntities)) {
+    for (const entity of Object.values(entities)) {
+      for (const dep of entity.dependencies) {
+        total++;
+        if (nameIndex.has(dep)) resolved++;
+      }
+    }
+  }
+  return { total, resolved, unresolved: total - resolved };
+}
+
+function resolveUsedBy(allEntities) {
+  const nameIndex = buildNameIndex(allEntities);
 
   // Reset usedBy to avoid duplicates on re-scan
   for (const entities of Object.values(allEntities)) {
@@ -365,7 +432,9 @@ function resolveUsedBy(allEntities) {
   }
 }
 
-function populate() {
+function populate(options = {}) {
+  const verbose = options.verbose || process.argv.includes('--verbose') || process.env.AIOS_DEBUG === 'true';
+
   console.log('[IDS] Starting entity registry population...');
 
   const allEntities = {};
@@ -373,7 +442,7 @@ function populate() {
 
   for (const config of SCAN_CONFIG) {
     console.log(`[IDS] Scanning ${config.category} in ${config.basePath}...`);
-    const entities = scanCategory(config);
+    const entities = scanCategory(config, verbose);
     const count = Object.keys(entities).length;
     allEntities[config.category] = entities;
     totalCount += count;
@@ -382,6 +451,12 @@ function populate() {
 
   console.log('[IDS] Resolving usedBy relationships...');
   resolveUsedBy(allEntities);
+
+  // Resolution rate metric
+  const nameIndex = buildNameIndex(allEntities);
+  const { total, resolved, unresolved } = countResolution(allEntities, nameIndex);
+  const rate = total > 0 ? Math.round(resolved / total * 100) : 0;
+  console.log(`[IDS] Resolution rate: ${rate}% (${resolved}/${total} deps resolved, ${unresolved} unresolved)`);
 
   const categories = SCAN_CONFIG.map((c) => ({
     id: c.category,
@@ -394,7 +469,8 @@ function populate() {
       version: '1.0.0',
       lastUpdated: new Date().toISOString(),
       entityCount: totalCount,
-      checksumAlgorithm: 'sha256'
+      checksumAlgorithm: 'sha256',
+      resolutionRate: rate
     },
     entities: allEntities,
     categories
@@ -428,7 +504,11 @@ function getCategoryDescription(category) {
     data: 'Configuration and reference data files',
     workflows: 'Multi-phase orchestration workflows',
     utils: 'Shared utility libraries and helpers',
-    tools: 'Development tool definitions and configurations'
+    tools: 'Development tool definitions and configurations',
+    'infra-scripts': 'Infrastructure automation and utility scripts',
+    'infra-tools': 'Infrastructure tool definitions and configurations',
+    'product-checklists': 'Product validation and review checklists',
+    'product-data': 'Product reference data and configuration files'
   };
   return descriptions[category] || category;
 }
@@ -455,8 +535,13 @@ module.exports = {
   extractMarkdownCrossReferences,
   computeChecksum,
   resolveUsedBy,
+  buildNameIndex,
+  countResolution,
+  isSentinel,
+  isNoise,
   SCAN_CONFIG,
   ADAPTABILITY_DEFAULTS,
+  SENTINEL_VALUES,
   YAML_DEP_FIELDS,
   KNOWN_AGENTS,
   REPO_ROOT,

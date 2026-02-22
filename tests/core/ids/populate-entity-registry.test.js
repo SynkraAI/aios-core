@@ -12,7 +12,12 @@ const {
   computeChecksum,
   scanCategory,
   resolveUsedBy,
+  buildNameIndex,
+  countResolution,
+  isSentinel,
+  isNoise,
   SCAN_CONFIG,
+  SENTINEL_VALUES,
 } = require('../../../.aios-core/development/scripts/populate-entity-registry');
 
 const FIXTURES = path.resolve(__dirname, 'fixtures');
@@ -197,21 +202,40 @@ describe('populate-entity-registry (AC: 3, 4, 12)', () => {
     });
   });
 
-  describe('SCAN_CONFIG (NOG-15 AC1)', () => {
-    it('has 10 categories (7 existing + 3 new)', () => {
-      expect(SCAN_CONFIG).toHaveLength(10);
+  describe('SCAN_CONFIG (NOG-16A AC1)', () => {
+    it('has 14 categories (10 existing + 4 new)', () => {
+      expect(SCAN_CONFIG).toHaveLength(14);
       const categories = SCAN_CONFIG.map((c) => c.category);
       expect(categories).toContain('workflows');
       expect(categories).toContain('utils');
       expect(categories).toContain('tools');
+      expect(categories).toContain('infra-scripts');
+      expect(categories).toContain('infra-tools');
+      expect(categories).toContain('product-checklists');
+      expect(categories).toContain('product-data');
     });
 
-    it('preserves all 7 original categories', () => {
+    it('preserves all 10 original categories', () => {
       const categories = SCAN_CONFIG.map((c) => c.category);
-      const originals = ['tasks', 'templates', 'scripts', 'modules', 'agents', 'checklists', 'data'];
+      const originals = ['tasks', 'templates', 'scripts', 'modules', 'agents', 'checklists', 'data', 'workflows', 'utils', 'tools'];
       for (const cat of originals) {
         expect(categories).toContain(cat);
       }
+    });
+
+    it('new categories have correct types', () => {
+      const infraScripts = SCAN_CONFIG.find((c) => c.category === 'infra-scripts');
+      expect(infraScripts.type).toBe('script');
+      expect(infraScripts.basePath).toContain('infrastructure/scripts');
+
+      const infraTools = SCAN_CONFIG.find((c) => c.category === 'infra-tools');
+      expect(infraTools.type).toBe('tool');
+
+      const productChecklists = SCAN_CONFIG.find((c) => c.category === 'product-checklists');
+      expect(productChecklists.type).toBe('checklist');
+
+      const productData = SCAN_CONFIG.find((c) => c.category === 'product-data');
+      expect(productData.type).toBe('data');
     });
   });
 
@@ -399,6 +423,151 @@ describe('populate-entity-registry (AC: 3, 4, 12)', () => {
 
       resolveUsedBy(entities);
       expect(entities.scripts['helper'].usedBy).toContain('my-task');
+    });
+  });
+
+  describe('isSentinel() (NOG-16A AC2)', () => {
+    it('filters N/A and variants', () => {
+      expect(isSentinel('N/A')).toBe(true);
+      expect(isSentinel('n/a')).toBe(true);
+      expect(isSentinel('na')).toBe(true);
+      expect(isSentinel('NA')).toBe(true);
+    });
+
+    it('filters none, tbd, todo', () => {
+      expect(isSentinel('none')).toBe(true);
+      expect(isSentinel('None')).toBe(true);
+      expect(isSentinel('TBD')).toBe(true);
+      expect(isSentinel('tbd')).toBe(true);
+      expect(isSentinel('TODO')).toBe(true);
+      expect(isSentinel('todo')).toBe(true);
+    });
+
+    it('filters dash and empty string', () => {
+      expect(isSentinel('-')).toBe(true);
+      expect(isSentinel('')).toBe(true);
+    });
+
+    it('preserves real entity names', () => {
+      expect(isSentinel('todo-list')).toBe(false);
+      expect(isSentinel('dev')).toBe(false);
+      expect(isSentinel('create-doc')).toBe(false);
+      expect(isSentinel('navigation')).toBe(false);
+    });
+
+    it('handles whitespace trimming', () => {
+      expect(isSentinel('  N/A  ')).toBe(true);
+      expect(isSentinel(' tbd ')).toBe(true);
+    });
+  });
+
+  describe('isNoise() (NOG-16A AC3)', () => {
+    it('filters natural language fragments (>2 words with spaces)', () => {
+      expect(isNoise('Docker MCP Toolkit')).toBe(true);
+      expect(isNoise('filesystem access control')).toBe(true);
+    });
+
+    it('filters very short fragments (<= 2 chars) unless known agent', () => {
+      expect(isNoise('a')).toBe(true);
+      expect(isNoise('ab')).toBe(true);
+      // Known agent refs like 'qa', 'pm', 'po', 'sm' are preserved
+      expect(isNoise('qa')).toBe(false);
+      expect(isNoise('pm')).toBe(false);
+    });
+
+    it('filters template placeholders', () => {
+      expect(isNoise('{{variable}}')).toBe(true);
+      expect(isNoise('${ENV_VAR}')).toBe(true);
+    });
+
+    it('preserves valid entity names', () => {
+      expect(isNoise('dev')).toBe(false);
+      expect(isNoise('create-doc')).toBe(false);
+      expect(isNoise('task-a')).toBe(false);
+      expect(isNoise('coderabbit')).toBe(false);
+    });
+
+    it('preserves two-word names (not >2 words)', () => {
+      expect(isNoise('my-task')).toBe(false);
+      expect(isNoise('code review')).toBe(false);
+    });
+  });
+
+  describe('sentinel filter in detectDependencies() (NOG-16A AC2)', () => {
+    it('filters sentinel deps from YAML dependency lists', () => {
+      const content = 'dependencies:\n  - task-a.md\n  - N/A\n  - none\n  - task-b.md\n';
+      const deps = detectDependencies(content, 'main');
+      expect(deps).toContain('task-a');
+      expect(deps).toContain('task-b');
+      expect(deps).not.toContain('N/A');
+      expect(deps).not.toContain('none');
+    });
+
+    it('filters noise deps from YAML dependency lists', () => {
+      const content = 'dependencies:\n  - task-a.md\n  - Docker MCP Toolkit\n  - task-b.md\n';
+      const deps = detectDependencies(content, 'main');
+      expect(deps).toContain('task-a');
+      expect(deps).toContain('task-b');
+      expect(deps).not.toContain('Docker MCP Toolkit');
+    });
+  });
+
+  describe('buildNameIndex() (NOG-16A AC5)', () => {
+    it('builds index from entity IDs, filenames, and basenames', () => {
+      const entities = {
+        tasks: {
+          'task-a': { path: '.aios-core/development/tasks/task-a.md', dependencies: [], usedBy: [] },
+        },
+        scripts: {
+          'helper': { path: '.aios-core/development/scripts/helper.js', dependencies: [], usedBy: [] },
+        },
+      };
+      const index = buildNameIndex(entities);
+      expect(index.has('task-a')).toBe(true);
+      expect(index.has('task-a.md')).toBe(true);
+      expect(index.has('helper')).toBe(true);
+      expect(index.has('helper.js')).toBe(true);
+    });
+  });
+
+  describe('countResolution() (NOG-16A AC5)', () => {
+    it('calculates correct resolution metrics', () => {
+      const entities = {
+        tasks: {
+          'task-a': { path: 'a.md', dependencies: ['util-x', 'unknown-ref'], usedBy: [] },
+        },
+        scripts: {
+          'util-x': { path: 'x.js', dependencies: [], usedBy: [] },
+        },
+      };
+      const nameIndex = buildNameIndex(entities);
+      const { total, resolved, unresolved } = countResolution(entities, nameIndex);
+      expect(total).toBe(2);
+      expect(resolved).toBe(1);
+      expect(unresolved).toBe(1);
+    });
+
+    it('returns 0 for empty entities', () => {
+      const entities = {};
+      const nameIndex = buildNameIndex(entities);
+      const { total, resolved, unresolved } = countResolution(entities, nameIndex);
+      expect(total).toBe(0);
+      expect(resolved).toBe(0);
+      expect(unresolved).toBe(0);
+    });
+  });
+
+  describe('regression: real deps preserved (NOG-16A AC6)', () => {
+    it('dev agent still has 40+ dependencies after filtering (all extractors combined)', () => {
+      const devAgentPath = path.resolve(__dirname, '../../../.aios-core/development/agents/dev.md');
+      if (!fs.existsSync(devAgentPath)) return;
+
+      const content = fs.readFileSync(devAgentPath, 'utf8');
+      const baseDeps = detectDependencies(content, 'dev');
+      const yamlDeps = extractYamlDependencies(devAgentPath, 'agent');
+      const mdDeps = extractMarkdownCrossReferences(content, 'dev');
+      const allDeps = new Set([...baseDeps, ...yamlDeps, ...mdDeps]);
+      expect(allDeps.size).toBeGreaterThanOrEqual(40);
     });
   });
 

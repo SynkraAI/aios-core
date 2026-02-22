@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-21T19:46:39.779Z"
+generated_at: "2026-02-22T00:23:57.068Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1033
 files:
@@ -1117,9 +1117,9 @@ files:
     type: data
     size: 34235
   - path: data/entity-registry.yaml
-    hash: sha256:d68850b7dae8dec63a028498b319c7547ffae1b67ee74fa546d955b1f38d06a3
+    hash: sha256:5515e1055ee321dd9b3adb8d69f59a3f75d8a21d03c83de4519a74d14463f338
     type: data
-    size: 356706
+    size: 437429
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1185,7 +1185,7 @@ files:
     type: agent
     size: 22904
   - path: development/agents/devops.md
-    hash: sha256:fe296e183b60bf2926de9015ca02ee9c95740ad8d9e39b421e18945e645c27ba
+    hash: sha256:fe3cd24e22f603a07ef16857cfe82bd6ae87a32365e2d33146ec2180c94d1248
     type: agent
     size: 20933
   - path: development/agents/pm.md
@@ -1385,9 +1385,9 @@ files:
     type: script
     size: 24167
   - path: development/scripts/populate-entity-registry.js
-    hash: sha256:50ea2c8feb2677e451f2f7c68b7652d5371929b86cf78b28bb145c59c4ff49bb
+    hash: sha256:81cebf1518d160d86ff3fdd4f38cd8fb888897ba9f82f0d05a90f733949cda43
     type: script
-    size: 14495
+    size: 17955
   - path: development/scripts/refactoring-suggester.js
     hash: sha256:d5183f79fae9dc4bf4d3c9136b3622e43a63643a7df622742c350931e45f18f4
     type: script
@@ -1485,9 +1485,9 @@ files:
     type: script
     size: 18196
   - path: development/scripts/unified-activation-pipeline.js
-    hash: sha256:b4daf67b5d9adfa355c6f017c6bb5d790387f1f88a7ecbc7595285d9072b0d34
+    hash: sha256:34fd4ca8c0e845a9596d708a0eec7545ef59059327d303cf50f20e3f09d45c2f
     type: script
-    size: 29838
+    size: 30126
   - path: development/scripts/usage-tracker.js
     hash: sha256:b3079713787de7c6ac38a742255861f04e8359ef1b227836040920a64b7e8aac
     type: script
@@ -2145,7 +2145,7 @@ files:
     type: task
     size: 18271
   - path: development/tasks/review-contributor-pr.md
-    hash: sha256:7824a74cd830342aae0831119162d39fff28851b8d4480d375af7bfd12f986d2
+    hash: sha256:257ae093707a89dd1faef9449547eea23a188eecea22fc2e178a54ea5fff0b05
     type: task
     size: 5254
   - path: development/tasks/run-design-system-pipeline.md
