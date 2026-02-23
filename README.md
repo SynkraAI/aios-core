@@ -482,7 +482,22 @@ kiro-cli chat
 *exit
 ```
 
-📖 **[Documentação completa de instalação global](scripts/README-global-agents.md)**
+**Instalação Global vs Local:**
+
+| Aspecto | Global | Local (Projeto) |
+|---------|--------|-----------------|
+| **Localização** | `~/.kiro/agents/aios/` | `.aios-core/development/agents/` |
+| **Configuração** | `~/.kiro/settings/agents.json` | `.aios-core/core-config.yaml` |
+| **Escopo** | Todos os projetos | Apenas projeto atual |
+| **Contexto** | Genérico | Específico (PRD, Arquitetura, Stories) |
+| **Precedência** | Baixa | Alta (local sobrescreve global) |
+
+**Quando usar:**
+- **Global:** Acesso rápido em qualquer projeto sem setup AIOS
+- **Local:** Desenvolvimento AIOS completo com contexto do projeto
+
+📖 **[Documentação completa de instalação global](scripts/README-global-agents.md)**  
+📖 **[Guia detalhado: Global vs Local](docs/guides/global-vs-local-installation.md)**
 
 ## 🌟 Além do Desenvolvimento de Software - Squads
 

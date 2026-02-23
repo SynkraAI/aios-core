@@ -114,6 +114,32 @@ rm ~/.kiro/settings/agents.json
 - Reinstall: `node scripts/install-agents-globally.js`
 - Verify source files exist in `.aios-core/development/agents/`
 
+## Global vs Local Installation
+
+**Key Differences:**
+
+| Aspect | Global | Local (Project) |
+|--------|--------|-----------------|
+| **Location** | `~/.kiro/agents/aios/` | `.aios-core/development/agents/` |
+| **Configuration** | `~/.kiro/settings/agents.json` | `.aios-core/core-config.yaml` + `AGENTS.md` |
+| **Scope** | All projects | Current project only |
+| **Context** | Generic | Project-specific (PRD, Architecture, Stories) |
+| **Precedence** | Low | High (local overrides global) |
+
+**When to Use:**
+
+- **Global:** Quick access to agents in any project without AIOS setup
+- **Local:** Full AIOS development with project context and workflows
+
+**Coexistence:**
+
+When both exist, Kiro CLI uses this precedence:
+1. Local agents (`.aios-core/development/agents/`) - if in AIOS project
+2. Global agents (`~/.kiro/agents/aios/`) - fallback
+3. Error if neither found
+
+📖 **[Complete documentation: Global vs Local Installation](../docs/guides/global-vs-local-installation.md)**
+
 ## Notes
 
 - This is separate from project-local agent configuration (`AGENTS.md`)
