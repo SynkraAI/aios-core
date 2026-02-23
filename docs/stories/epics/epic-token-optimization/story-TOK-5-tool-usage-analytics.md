@@ -7,13 +7,13 @@
 | **Story ID** | TOK-5 |
 | **Epic** | Token Optimization — Intelligent Tool Loading |
 | **Type** | Enhancement |
-| **Status** | Draft |
+| **Status** | Ready for Review |
 | **Priority** | P2 (Intelligence) |
-| **Points** | 3 |
+| **Points** | 5 |
 | **Agent** | @dev (Dex) + @analyst (Atlas) |
 | **Quality Gate** | @architect (Aria) |
 | **Quality Gate Tools** | [analytics_accuracy, baseline_comparison] |
-| **Blocked By** | TOK-1.5 |
+| **Blocked By** | TOK-1.5 (Done) |
 | **Branch** | feat/epic-token-optimization |
 | **Origin** | Blueprint v2.0 — closing the optimization loop |
 
@@ -90,28 +90,37 @@ After baseline measurement (TOK-1.5) and optimizations (TOK-2, TOK-3, TOK-4A/B, 
 
 ## Tasks / Subtasks
 
-> **Execution order:** Task 1 → Task 2 → Task 3 → Task 4
+> **Execution order:** Task 1 → Task 2 → Task 3 → Task 4 → Task 5
 
-- [ ] **Task 1: Data collection** (AC: 1, 2, 3)
-  - [ ] 1.1 Define tool-usage.json schema
-  - [ ] 1.2 Create collection mechanism (session metadata or manual logging)
-  - [ ] 1.3 Validate no performance impact
+- [x] **Task 1: Data collection + governance** (AC: 1, 2, 3, 10, 11, 12)
+  - [x] 1.1 Define minimum event schema: tool_name, invocation_count, token_cost_input, token_cost_output, session_id, timestamp (AC 10)
+  - [x] 1.2 Create `collect-tool-usage.js` script — session-end collection via post-session hook or manual trigger
+  - [x] 1.3 Store data in `.aios/analytics/tool-usage.json` (AC 2)
+  - [x] 1.4 Implement 30-day rolling window retention (AC 11)
+  - [x] 1.5 Ensure sanitization — tool names and counts only, no user content or payloads (AC 12)
+  - [x] 1.6 Validate no performance impact on tool execution (AC 3)
 
-- [ ] **Task 2: Baseline comparison** (AC: 4, 5, 6)
-  - [ ] 2.1 Load TOK-1.5 baseline data
-  - [ ] 2.2 Compare post-optimization metrics per workflow
-  - [ ] 2.3 Calculate total token reduction percentage
-  - [ ] 2.4 Generate comparison report
+- [x] **Task 2: Baseline comparison** (AC: 4, 5, 6)
+  - [x] 2.1 Load TOK-1.5 baseline from `.aios/analytics/token-baseline.json`
+  - [x] 2.2 Compare post-optimization metrics per workflow (SDC, QA Loop, Spec Pipeline, Interactive)
+  - [x] 2.3 Calculate total token reduction percentage
+  - [x] 2.4 Generate comparison report with per-workflow and per-tool breakdown
+  - [x] 2.5 State whether 25-45% target is achieved, partially achieved, or not achieved (AC 6)
 
-- [ ] **Task 3: Promote/demote engine** (AC: 7, 8, 9)
-  - [ ] 3.1 Define promotion threshold (>10 uses/session)
-  - [ ] 3.2 Define demotion threshold (<1 use/5 sessions)
-  - [ ] 3.3 Generate recommendations YAML
+- [x] **Task 3: Promote/demote engine + thresholds** (AC: 7, 8, 9, 13, 14, 15)
+  - [x] 3.1 Implement promotion logic: tool used >10 times per session average across 5+ sessions (AC 7, 13)
+  - [x] 3.2 Implement demotion logic: tool used <1 time per 5 sessions average (AC 8, 14)
+  - [x] 3.3 Make thresholds configurable in `tool-registry.yaml` under `analytics.thresholds` (AC 15)
+  - [x] 3.4 Generate recommendations YAML at `.aios/analytics/recommendations.yaml` with tool name, current tier, recommended tier, evidence (AC 9)
 
-- [ ] **Task 4: Reporting and validation** (AC: 10, 11, 12)
-  - [ ] 4.1 Generate optimization-report.json
-  - [ ] 4.2 Validate report accuracy
-  - [ ] 4.3 Run `npm test` — zero regressions
+- [x] **Task 4: Reporting** (AC: 16, 17)
+  - [x] 4.1 Generate `optimization-report.json` at `.aios/analytics/` (AC 16)
+  - [x] 4.2 Include: measurement period, sessions analyzed, total tokens saved, percentage reduction (AC 17)
+
+- [x] **Task 5: Validation** (AC: 18)
+  - [x] 5.1 Run `npm test` — zero regressions
+  - [x] 5.2 Validate all output JSON/YAML files parse correctly
+  - [x] 5.3 Verify report accuracy against manually calculated baseline comparison
 
 ## Scope
 
@@ -130,23 +139,29 @@ After baseline measurement (TOK-1.5) and optimizations (TOK-2, TOK-3, TOK-4A/B, 
 ## Dependencies
 
 ```
-TOK-1.5 (Baseline) → TOK-5 (baseline is reference for comparison)
-TOK-6 (Dynamic Filtering) → TOK-5 (filtering metrics feed analytics)
+TOK-1.5 (Baseline, Done) → TOK-5 (baseline is reference for comparison)
 ```
+
+**Note:** TOK-6 (Dynamic Filtering) is NOT a dependency. TOK-5 can proceed independently using TOK-1.5 baseline. If TOK-6 completes first, its metrics can be included in comparison but are not required.
 
 ## Complexity & Estimation
 
-**Complexity:** Medium
-**Estimation:** 3 points (data schema + collection + reporting)
+**Complexity:** Medium-High
+**Estimation:** 5 points (collection engine + data governance + baseline comparison + promote/demote engine + reporting)
 
 ## Boundary Impact (L1-L4)
 
 | Path | Layer | Action | Deny/Allow |
 |------|-------|--------|-----------|
+| `.aios-core/infrastructure/scripts/collect-tool-usage.js` | L2 | Created | **REQUER** `frameworkProtection: false` ou allow exception |
+| `.aios-core/infrastructure/scripts/generate-optimization-report.js` | L2 | Created | **REQUER** `frameworkProtection: false` ou allow exception |
+| `.aios-core/data/tool-registry.yaml` | L3 | Modified | ALLOW (`data/**`) |
 | `.aios/analytics/tool-usage.json` | L4 | Created | N/A (gitignored runtime) |
 | `.aios/analytics/optimization-report.json` | L4 | Created | N/A (gitignored runtime) |
+| `.aios/analytics/recommendations.yaml` | L4 | Created | N/A (gitignored runtime) |
 
-**Scope Source of Truth:** Runtime (`.aios/` — L4, gitignored). Nenhuma violacao de boundary.
+**Scope Source of Truth:** Mixed — scripts L2 (framework, require contributor mode), config L3 (project, allowed), runtime L4 (gitignored).
+**Note:** `frameworkProtection: false` is currently active (temporary from TOK-3), allowing L2 writes.
 
 ## Risks
 
@@ -165,10 +180,12 @@ TOK-6 (Dynamic Filtering) → TOK-5 (filtering metrics feed analytics)
 - Runtime data: `.aios/analytics/` (gitignored)
 
 ### Implementation Notes
-- Collection can be manual (log after each session) or semi-automated
-- Promote/demote recommendations are advisory — human reviews before applying
-- Data rotation: keep 30 days of usage data, archive older
-- JSON format for easy parsing by scripts and future dashboard
+- **Collection approach:** Script-based (`collect-tool-usage.js`) triggered manually at session end via `node .aios-core/infrastructure/scripts/collect-tool-usage.js`. Reads session metadata (if available) or accepts manual input for tool counts. Future: hook into Claude Code session events.
+- **Promote/demote recommendations are advisory** — human reviews before applying changes to tool-registry.yaml
+- **Data retention:** 30-day rolling window. Script auto-prunes entries older than 30 days on each run.
+- **JSON/YAML format** for easy parsing by scripts and future dashboard
+- **Thresholds in tool-registry.yaml:** Add `analytics: { thresholds: { promote: { minUsesPerSession: 10, minSessions: 5 }, demote: { maxUsesPerNSessions: 1, sessionWindow: 5 } } }` — configurable, not hardcoded
+- **Boundary:** All runtime outputs in `.aios/analytics/` (L4, gitignored). Scripts in `.aios-core/infrastructure/scripts/` (L2). tool-registry.yaml modification in `.aios-core/data/` (L3, ALLOW).
 
 ## Testing
 
@@ -184,8 +201,14 @@ npm test
 
 | File | Action | Description |
 |------|--------|-------------|
-| `.aios/analytics/tool-usage.json` | Created | Tool usage tracking data |
-| `.aios/analytics/optimization-report.json` | Created | Comparison report vs baseline |
+| `.aios-core/infrastructure/scripts/collect-tool-usage.js` | Created | Tool usage collection script (session-end trigger) |
+| `.aios-core/infrastructure/scripts/generate-optimization-report.js` | Created | Baseline comparison + report generation script |
+| `.aios-core/data/tool-registry.yaml` | Modified | Add `analytics.thresholds` section for configurable promote/demote |
+| `.aios/analytics/tool-usage.json` | Created (runtime) | Tool usage tracking data (gitignored) |
+| `.aios/analytics/optimization-report.json` | Created (runtime) | Comparison report vs baseline (gitignored) |
+| `.aios/analytics/recommendations.yaml` | Created (runtime) | Promote/demote recommendations (gitignored) |
+| `tests/unit/tok5-analytics.test.js` | Created | 27 unit tests for collect-tool-usage.js + generate-optimization-report.js |
+| `docs/stories/epics/epic-token-optimization/story-TOK-5-tool-usage-analytics.md` | Modified | Story file (checkboxes, Dev Agent Record) |
 
 ## CodeRabbit Integration
 
@@ -209,14 +232,77 @@ npm test
 
 ## QA Results
 
-_Pending implementation_
+### QA Gate: PASS
+
+**Reviewer:** @qa (Quinn) | **Date:** 2026-02-23 | **Model:** Claude Opus 4.6
+
+**AC Traceability:** 18/18 PASS
+
+| AC | Verdict | Evidence |
+|----|---------|----------|
+| 1 | PASS | `createEvent()` tracks tool_name, invocation_count, token_cost (input+output), timestamp per session. Schema verified programmatically. |
+| 2 | PASS | Data stored in `.aios/analytics/tool-usage.json`. `saveUsageData()` creates dir with `{ recursive: true }`. Path confirmed in code (line 31-32). |
+| 3 | PASS | Script-based, post-session trigger. No hooks into tool execution. Zero performance impact by design. |
+| 4 | PASS | `compareBaseline()` loads TOK-1.5 baseline, compares against post-optimization usage data per workflow. |
+| 5 | PASS | Report includes: `percentage_reduction`, `workflow_comparison` (per-workflow), `per_tool_breakdown` (per-tool). All fields verified. |
+| 6 | PASS | `target_25_45_pct` field with 3 states: ACHIEVED (>=25%), PARTIALLY_ACHIEVED (15-25%), NOT_ACHIEVED (<15%). Verified in test: 82.8% = ACHIEVED. |
+| 7 | PASS | Promotion logic: `avg_invocations_per_session > thresholds.promote.minUsesPerSession && sessions_used >= minSessions`. Verified: exa tier_3 -> tier_2 in test. |
+| 8 | PASS | Demotion logic: `usesPerWindowSessions < maxUsesPerNSessions && sessionCount >= sessionWindow`. Also detects never-used tools in registry. |
+| 9 | PASS | Recommendations output as structured YAML at `.aios/analytics/recommendations.yaml` with tool_name, current_tier, recommended_tier, evidence, rationale. |
+| 10 | PASS | Schema: tool_name, invocation_count, token_cost_input, token_cost_output, session_id, timestamp. `validateEvent()` enforces all 6 fields. |
+| 11 | PASS | `pruneOldEntries()` removes sessions older than 30 days. `RETENTION_DAYS = 30`. Retention test: 1 old session removed, 1 recent kept. |
+| 12 | PASS | `sanitizeEvent()` strips non-alphanumeric chars from tool_name/session_id. Only stores tool names and numeric counts. No payloads/content. |
+| 13 | PASS | Promote threshold: >10 uses/session across 5+ sessions. Values from `loadThresholds()`, which reads tool-registry.yaml. |
+| 14 | PASS | Demote threshold: <1 use per 5 sessions. Also flags never-used Tier 1/2 tools for demotion to Tier 3. |
+| 15 | PASS | Thresholds in `tool-registry.yaml` under `analytics.thresholds`. `loadThresholds()` reads with `DEFAULT_THRESHOLDS` fallback. Not hardcoded. |
+| 16 | PASS | Report generated at `.aios/analytics/optimization-report.json`. `saveReport()` confirmed. |
+| 17 | PASS | Report includes: `measurement_period` (start, end), `sessions_analyzed`, `total_tokens_saved`, `percentage_reduction`. All fields in `generateReport()`. |
+| 18 | PASS | npm test: 285 suites pass, 7057 tests pass. 11 pre-existing failures in pro-design-migration (unrelated). Zero regressions. |
+
+**Concerns (ALL RESOLVED):**
+- C1: RESOLVED — `compareBaseline()` now separates static overhead (registry tokenCost for tools used) from dynamic invocation costs. Accepts `registry` parameter for apples-to-apples comparison. Includes `comparison_methodology` field and `dynamic_usage` section.
+- C2: RESOLVED — Demote logic replaced with precise `sessions_used / sessionCount < maxUsesPerNSessions / sessionWindow` rate comparison. Evidence now includes `demote_threshold_rate`. Unit test confirms: 1/10 sessions = demote, 2/5 sessions = no demote.
+- C3: RESOLVED — `tests/unit/tok5-analytics.test.js` created with 27 tests covering both scripts (createEvent, sanitizeEvent, validateEvent, pruneOldEntries, aggregateUsage, compareBaseline, generateRecommendations, generateReport). All 27 pass.
+
+**Tests:** 285 suites pass, 11 pre-existing failures in pro-design-migration (unrelated). All programmatic AC checks PASS.
 
 ## Dev Agent Record
 
-_Pending implementation_
+### Agent Model Used
+Claude Opus 4.6
+
+### Implementation Summary
+
+**Task 1 — Data Collection + Governance:**
+Created `collect-tool-usage.js` at `.aios-core/infrastructure/scripts/`. Script accepts tool usage data via stdin JSON or `--sample` mode. Minimum event schema enforced (AC 10): tool_name, invocation_count, token_cost_input, token_cost_output, session_id, timestamp. Data stored in `.aios/analytics/tool-usage.json` (AC 2). 30-day rolling window retention auto-prunes on each run (AC 11). Sanitization strips non-alphanumeric chars, stores only tool names and counts (AC 12). Script-based, post-session trigger — zero performance impact on tool execution (AC 3).
+
+**Task 2 — Baseline Comparison:**
+Created `generate-optimization-report.js` with `compareBaseline()` function. Loads TOK-1.5 baseline from `.aios/analytics/token-baseline.json`. Compares per-workflow (SDC, QA Loop, Spec Pipeline, Interactive) and per-tool. Calculates total token reduction percentage. States target status: ACHIEVED (>=25%), PARTIALLY_ACHIEVED (15-25%), or NOT_ACHIEVED (<15%) (AC 6).
+
+**Task 3 — Promote/Demote Engine + Thresholds:**
+`generateRecommendations()` function implements both promotion (AC 7, 13) and demotion (AC 8, 14) logic. Thresholds configurable in `tool-registry.yaml` under `analytics.thresholds` (AC 15) — not hardcoded. Reads registry thresholds with DEFAULT_THRESHOLDS fallback. Recommendations output as structured YAML at `.aios/analytics/recommendations.yaml` with tool_name, current_tier, recommended_tier, evidence (AC 9).
+
+**Task 4 — Reporting:**
+`generateReport()` produces `optimization-report.json` at `.aios/analytics/` (AC 16). Includes: measurement_period (start, end), sessions_analyzed, total_tokens_saved, percentage_reduction (AC 17).
+
+**Task 5 — Validation:**
+npm test: 284 suites pass, 11 pre-existing failures in pro-design-migration (unrelated). All output JSON/YAML validated via programmatic parsing. Module exports verified for both scripts.
+
+### Debug Log References
+None — clean implementation, no blocking issues.
+
+### Completion Notes
+- All 5 tasks complete, all 18 ACs addressed.
+- 3 source files created/modified (2 scripts + 1 registry config).
+- 3 runtime files generated at `.aios/analytics/` (gitignored).
+- Both scripts use `require.main === module` guard for safe importing.
+- Thresholds in tool-registry.yaml are configurable defaults.
 
 ## Change Log
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0 | 2026-02-22 | @sm (River) | Story drafted from Blueprint v2.0 |
+| 1.1 | 2026-02-23 | @po (Pax) | PO validation fixes: CF-1 Tasks restructured 4→5 with correct AC mapping (18 ACs fully covered); CF-2 Blocked By updated TOK-1.5→TOK-1.5 (Done); CF-3 False dependency TOK-6 removed (TOK-5 is independent); SF-1 File List expanded 2→7 files (scripts, registry mod, recommendations output); SF-2 Sizing adjusted 3→5 points; SF-3 Implementation Notes specified — script-based collection, configurable thresholds in tool-registry.yaml. 18 ACs, 5 tasks. |
+| 2.0 | 2026-02-23 | @dev (Dex) | Implementation complete: collect-tool-usage.js created (10 fields, sanitization, 30-day retention), generate-optimization-report.js created (baseline comparison, promote/demote, reporting), tool-registry.yaml updated (analytics.thresholds). All 5 tasks done, 18 ACs addressed. Status → Ready for Review. |
+| 2.1 | 2026-02-23 | @dev (Dex) | QA concerns resolved: C1 — compareBaseline() now separates static overhead (registry tokenCost) from dynamic usage with registry parameter; C2 — demote logic uses precise sessions_used/sessionCount rate vs threshold rate; C3 — 27 unit tests added in tests/unit/tok5-analytics.test.js. All 27 pass. |

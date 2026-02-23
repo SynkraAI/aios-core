@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-23T21:01:14.757Z"
+generated_at: "2026-02-23T22:35:20.786Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1075
+file_count: 1077
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -1197,9 +1197,9 @@ files:
     type: data
     size: 9573
   - path: data/entity-registry.yaml
-    hash: sha256:e9bffed17f53ba50bec0e7d9fcb69135d69a6f7035db197869d51ccbbbe6c93b
+    hash: sha256:e769a79cee0bb3123239501b3c7da54bdcc1c372f787a39bc9beda1cca18c4c1
     type: data
-    size: 512529
+    size: 514554
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1233,9 +1233,9 @@ files:
     type: data
     size: 4622
   - path: data/tool-registry.yaml
-    hash: sha256:156b38d45cc508f5cec9ea83840450d614f37e31e5a745e821a5c57c9d2ebd3e
+    hash: sha256:ff50eb8ac77e732262e6e6957c465519dee9df039291a2ccc94429c8a0fe758a
     type: data
-    size: 13885
+    size: 14667
   - path: data/tool-search-validation.js
     hash: sha256:569063d2d48cef7c41d1f62b4541ff5ca31924d9d1af816f0588b39ef25c56ec
     type: data
@@ -2912,6 +2912,10 @@ files:
     hash: sha256:5ecea0783dcd25191ec7e486c42089bc8d71a336549c2d3142945e7f7de2f6aa
     type: script
     size: 4572
+  - path: infrastructure/scripts/collect-tool-usage.js
+    hash: sha256:a774697a1675069484cb9f806c6c0532ad77e70c880a9df95cf08208baf71ff7
+    type: script
+    size: 10730
   - path: infrastructure/scripts/commit-message-generator.js
     hash: sha256:e1286241b9aa6d8918eb682bea331a8ba555341124b1e21c12cc44625ca90a6f
     type: script
@@ -2996,6 +3000,10 @@ files:
     hash: sha256:2b1bb5ecd76b6a4041b76b18905a88959179ec348be9e11cd520f4bee4719a53
     type: script
     size: 24263
+  - path: infrastructure/scripts/generate-optimization-report.js
+    hash: sha256:b247a2771eac3d46e5ec10af339959251a290fe7fd75fd916d7722e6840d5338
+    type: script
+    size: 18899
   - path: infrastructure/scripts/generate-settings-json.js
     hash: sha256:49156215778d2da818e06759464292e270f769bd51bbdd60f19c5b59af6b4db6
     type: script

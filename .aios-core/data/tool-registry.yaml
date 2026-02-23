@@ -599,3 +599,20 @@ task_bindings:
     optional:
       - WebFetch
     execution_mode: programmatic  # TOK-3: multi-search + filter in single Bash block
+
+# =============================================================================
+# ANALYTICS CONFIGURATION (TOK-5)
+# =============================================================================
+# Configurable thresholds for promote/demote recommendations.
+# These values are read by generate-optimization-report.js.
+# Adjust based on observed usage patterns.
+# =============================================================================
+
+analytics:
+  thresholds:
+    promote:
+      minUsesPerSession: 10   # Tool used >N times per session average
+      minSessions: 5          # Across M+ sessions to be statistically meaningful
+    demote:
+      maxUsesPerNSessions: 1  # Tool used <N times per window
+      sessionWindow: 5        # Window of M sessions for demote calculation
