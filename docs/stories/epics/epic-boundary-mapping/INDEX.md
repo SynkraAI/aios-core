@@ -52,13 +52,13 @@ Estabelecer separação determinística entre artefatos do **framework AIOS** (i
 
 | Story | Title | Agent | Points | Status | Blocked By |
 |-------|-------|-------|--------|--------|------------|
-| [BM-5](story-BM-5-entity-layer-classification.md) | Entity Registry Layer Classification (L1-L4) | @dev | 3 | Draft | BM-4 |
+| [BM-5](story-BM-5-entity-layer-classification.md) | Entity Registry Layer Classification (L1-L4) | @dev | 3 | Done | BM-4 (Done) |
 
 ### Wave 5: Memory & Config Evolution (after Wave 4)
 
 | Story | Title | Agent | Points | Status | Blocked By |
 |-------|-------|-------|--------|--------|------------|
-| [BM-6](story-BM-6-agent-memory-lifecycle.md) | Agent Memory Lifecycle & Config Evolution | @dev + @architect | 5 | Draft | BM-5 |
+| [BM-6](story-BM-6-agent-memory-lifecycle.md) | Agent Memory Lifecycle & Config Evolution | @dev | 5 | Done | BM-5 (Done) |
 
 ### Backlog (Future — Post-Epic Evaluation)
 
@@ -94,13 +94,13 @@ Cada story é auto-contida e entrega valor incremental. BM-1 sozinha já protege
 
 ## Definition of Done
 
-- [ ] All active stories completed with acceptance criteria met
-- [ ] `.claude/settings.json` deny rules protecting `.aios-core/core/`
-- [ ] `core-config.yaml` toggle for contributor mode (enable/disable deny rules)
-- [ ] Pre-commit hook blocking framework file commits
-- [ ] Entity registry classifying entities by layer (L1-L4)
-- [ ] Agent MEMORY.md with structured lifecycle
-- [ ] Zero regression in existing functionality
+- [x] All active stories completed with acceptance criteria met
+- [x] `.claude/settings.json` deny rules protecting `.aios-core/core/`
+- [x] `core-config.yaml` toggle for contributor mode (enable/disable deny rules)
+- [x] Pre-commit hook blocking framework file commits
+- [x] Entity registry classifying entities by layer (L1-L4)
+- [x] Agent MEMORY.md with structured lifecycle
+- [x] Zero regression in existing functionality
 
 ## Risk Mitigation
 
