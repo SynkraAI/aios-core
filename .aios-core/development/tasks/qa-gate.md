@@ -419,4 +419,12 @@ Gate: CONCERNS → qa.qaLocation/gates/{epic}.{story}-{slug}.yml
 - Always write to standard path
 - Always update story with gate reference
 - Clear, actionable findings
+
+## Handoff
+next_agent: @devops
+next_command: *push
+condition: QA gate verdict is PASS
+alternatives:
+  - agent: @dev, command: *apply-qa-fixes, condition: QA gate verdict is FAIL or CONCERNS
+  - agent: @po, command: *close-story {story-id}, condition: QA gate verdict is WAIVED
  

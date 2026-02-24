@@ -26,6 +26,11 @@ activation-instructions:
          - Branch name, modified file count, current story reference, last commit message
       4. Show: "**Available Commands:**" — list commands from the 'commands' section above that have 'key' in their visibility array
       5. Show: "Type `*guide` for comprehensive usage instructions."
+      5.5. Check `.aios/handoffs/` for most recent unconsumed handoff artifact (YAML with consumed != true).
+           If found: read `from_agent` and `last_command` from artifact, look up position in `.aios-core/data/workflow-chains.yaml` matching from_agent + last_command, and show: "💡 **Suggested:** `*{next_command} {args}`"
+           If chain has multiple valid next steps, also show: "Also: `*{alt1}`, `*{alt2}`"
+           Mark artifact as consumed: true.
+           If no artifact or no match found: skip this step silently.
       6. Show: "{persona_profile.communication.signature_closing}"
       # FALLBACK: If native greeting fails, run: node .aios-core/development/scripts/unified-activation-pipeline.js qa
   - STEP 4: Display the greeting assembled in STEP 3

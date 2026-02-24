@@ -851,3 +851,10 @@ Called via `@github-devops *pre-push` command.
 - Security scan is mandatory (TR-3.14.11)
 - User always has final approval
 - Detailed logging for troubleshooting
+
+## Handoff
+next_agent: @devops
+next_command: *push
+condition: All quality checks PASS
+alternatives:
+  - agent: @dev, command: *run-tests, condition: Quality checks FAIL, needs fixes
