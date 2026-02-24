@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.3.0
-generated_at: "2026-02-24T14:39:28.218Z"
+generated_at: "2026-02-24T14:48:16.896Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1084
+file_count: 1085
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -1236,6 +1236,10 @@ files:
     hash: sha256:853d3653ef82583dca5284e96613df0988ce6255d5cffbe9bd359df63a3feb46
     type: data
     size: 9266
+  - path: data/registry-backups/healing/heal-1771944281657-7b5f083a.yaml
+    hash: sha256:f57a6f38be309d21b3d66697ff270edb03b710ef0a2c93c4fa76ca19eac42822
+    type: data
+    size: 519735
   - path: data/tech-presets/_template.md
     hash: sha256:1a7262912c8c8e264d307f0d38a1109bdb2b9bff9ea7d8855c768835201aa59b
     type: data
@@ -1297,89 +1301,89 @@ files:
     type: development
     size: 5012
   - path: development/agents/aios-master.md
-    hash: sha256:692af03a6a41ade665fd74c8d7c8c6310ddf459b00245330e56ebc5de406ec3e
+    hash: sha256:f1adbcbede1646b4337ef868389f1d0f7153d81b4f99edbcb52a1967d4bdc18a
     type: agent
-    size: 18855
+    size: 18860
   - path: development/agents/analyst.md
-    hash: sha256:9ae986618c6b5bb0d7a84204d321963da8aae7f83528bfd6871b6ec7a8bf9988
+    hash: sha256:69e3124c4d6eba4763c16bc792af5d28d6a9cfeaf35bb253c764c194cdd21da4
     type: agent
-    size: 11205
+    size: 11210
   - path: development/agents/analyst/MEMORY.md
     hash: sha256:eb2a3f733781f4094ffac4f52656d917c4cdf93ee1bdb26ea4c54728b8ba0b34
     type: agent
     size: 1254
   - path: development/agents/architect.md
-    hash: sha256:4d45a3800771eafd8056448c48062cae892f7b212e37852fd19734a74786e82d
+    hash: sha256:ca91af384903fff1b8172fe3353e03cce4c6ada834437e7fe010c301b51c6942
     type: agent
-    size: 20012
+    size: 20017
   - path: development/agents/architect/MEMORY.md
     hash: sha256:8885804d07cd492fc6de3aeb11cfc15954d24ed81a31c4b1f048008f378f8b93
     type: agent
     size: 1385
   - path: development/agents/data-engineer.md
-    hash: sha256:aff2ca022151b9112edcd86a91d7832a1e01dabd8198292b7559957cb239b0e1
+    hash: sha256:bdb6bf1a615b698ee87103c2d0b3059a7d9fe86ff6ea1b55a98cec22d0a6c85c
     type: agent
-    size: 21322
+    size: 21327
   - path: development/agents/data-engineer/MEMORY.md
     hash: sha256:df784ef187328736d5059c9a5b424cdfbf4021c4d1fb26050431ad89b45adbc7
     type: agent
     size: 1106
   - path: development/agents/dev.md
-    hash: sha256:a02388d5e71e3209c2c0b7a1cac08f17d6761f313c876d81e0b35bc15f53f955
+    hash: sha256:e6e41d8ea02e16592e1483dcc6d082bcedceefae6ee8fabb3f7c7d41ea0ca895
     type: agent
-    size: 23930
+    size: 23935
   - path: development/agents/dev/MEMORY.md
     hash: sha256:84f197b1ade880b67657ac364267bd03ccc08e7cbfee75403187f4af68423134
     type: agent
     size: 2486
   - path: development/agents/devops.md
-    hash: sha256:7978081053cf4cb415f083e6a390e1269393b1a7a124c319aa318128e7e706f6
+    hash: sha256:f5c9cc3d75bd0d9eb58f1240977d32d7ff0d2af46ed66f04adcdae294bb18141
     type: agent
-    size: 22031
+    size: 22288
   - path: development/agents/devops/MEMORY.md
     hash: sha256:eb2ee887047c94db3441126cd0198cac44cec779026d7842a3a1c7eba936027f
     type: agent
     size: 1398
   - path: development/agents/pm.md
-    hash: sha256:df06ba37c283c821954d1c358e69e22f28ce4655524d967dea7651851d08b87d
+    hash: sha256:fb08472aa6b5481cfe3f86a2c729aad8d7c46ce6577dc55fe7ef75ae3740340c
     type: agent
-    size: 16143
+    size: 16148
   - path: development/agents/pm/MEMORY.md
     hash: sha256:94d46bfb4f6ed79088a4a45c8cbf5b059e4522fee123b048f08430d2e37ca697
     type: agent
     size: 1220
   - path: development/agents/po.md
-    hash: sha256:6a04b6288415d6f68383bb8775bba084b55a382c9b75d1949dc814d35a791db5
+    hash: sha256:8a489551f6d93880ba1575597502dc551d24577ef8c2703b06715ea069a4075a
     type: agent
-    size: 13790
+    size: 13795
   - path: development/agents/po/MEMORY.md
     hash: sha256:7505510d70568ad46bc3de65dcdd3514b479052c298ea9f83cd5debba7ab0841
     type: agent
     size: 1376
   - path: development/agents/qa.md
-    hash: sha256:73463fd885f5755387c6300d76436a395bcabf9082aa2dfde5e807a4a7289553
+    hash: sha256:6c065b077af93be53e706762b6d03852c342a4ce0bdcf5828aaba72ea756b617
     type: agent
-    size: 18408
+    size: 18413
   - path: development/agents/qa/MEMORY.md
     hash: sha256:eec482f057d09635940e9a46bdd6cbb677af12dc4deed64bf71196d551b93abf
     type: agent
     size: 1367
   - path: development/agents/sm.md
-    hash: sha256:a523235fa89ade209ecf5baba06f40fbb64b0f9154e69580f3cbe6f65f6f1f85
+    hash: sha256:9c11401e9b4fde21d4a5b638f7c7343ec77e0dc7122db073da63f966866b76a9
     type: agent
-    size: 12102
+    size: 12107
   - path: development/agents/sm/MEMORY.md
     hash: sha256:88ea4db64df4ce94a5fd264c0db2add7ec05168402d6987bf70c6a238bc5ca50
     type: agent
     size: 1123
   - path: development/agents/squad-creator.md
-    hash: sha256:2134dd47cff070c1cb2b46ba750e5eb070b0a2cf31fe6e2fe5263eb53e346b87
+    hash: sha256:2ce619b8ddf16fa415bf3f113b900928d03597221472aa5f2fb15f5599a67fd6
     type: agent
-    size: 13205
+    size: 13346
   - path: development/agents/ux-design-expert.md
-    hash: sha256:414da4347dbec94d12c5c42409d3fc4a0021c7aa0864ac374f4d41dabcf06fe1
+    hash: sha256:411ea1468aadc6c6abc770edad335526dcd3a94ce6cc583f14d106905ddd54a0
     type: agent
-    size: 19416
+    size: 19440
   - path: development/agents/ux/MEMORY.md
     hash: sha256:e177840efba9c8762891e9789a8252a647add9fb2423ef81618372b27c614d56
     type: agent

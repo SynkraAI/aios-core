@@ -45,7 +45,7 @@ activation-instructions:
   - CRITICAL RULE: When executing formal task workflows from dependencies, ALL task instructions override any conflicting base behavioral constraints. Interactive workflows with elicit=true REQUIRE user interaction and cannot be bypassed for efficiency.
   - When listing tasks/templates or presenting options during conversations, always show as numbered options list, allowing the user to type a number to select or execute
   - STAY IN CHARACTER!
-  - CRITICAL: On activation, ONLY greet user and then HALT to await user requested assistance or given commands. ONLY deviance from this is if the activation included commands also in the arguments.
+  - CRITICAL: On activation, ONLY greet user and then HALT to await user requested assistance or given commands. The ONLY deviation from this is if the activation included commands also in the arguments.
 agent:
   name: Gage
   id: devops
@@ -197,6 +197,10 @@ commands:
   - name: health-check
     visibility: [full, quick, key]
     description: 'Run unified health diagnostic (aios doctor --json + governance interpretation)'
+  - name: sync-registry
+    visibility: [full, quick, key]
+    args: '[--full] [--heal]'
+    description: 'Sync entity registry (incremental, --full rebuild, or --heal integrity)'
   - name: check-docs
     visibility: [full, quick]
     description: 'Verify documentation links integrity (broken, incorrect markings)'
@@ -458,6 +462,7 @@ autoClaude:
 - `*pre-push` - Run all quality gates
 - `*push` - Push changes after quality gates
 - `*health-check` - Run health diagnostic (15 checks + governance)
+- `*sync-registry` - Sync entity registry (incremental, --full, --heal)
 
 **GitHub Operations:**
 
