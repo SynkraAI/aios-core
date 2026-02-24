@@ -1,0 +1,486 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW: Knowledge Extraction Pipeline
+# Version: 1.0.0
+# Purpose: Extract author knowledge → Framework → SOP → Checklist
+# Pattern: Zero invention - 100% source-based extraction
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow-id: wf-extraction-pipeline
+name: Knowledge Extraction Pipeline (Framework → SOP → Checklist)
+version: 1.0.0
+estimated-time: 2-4 hours per triplet
+complexity: medium
+
+description: |
+  Workflow para extração sistemática de conhecimento de autores/experts.
+  Garante que todo conteúdo é extraído LITERALMENTE das fontes - zero invenção.
+
+  Sequência obrigatória:
+  1. SOURCES → Coleta e validação de material fonte
+  2. FRAMEWORK → Modelo conceitual (fórmulas, princípios, componentes)
+  3. SOP → Processo operacional (steps, executores, guardrails)
+  4. CHECKLIST → Validação do processo (checkboxes derivados do SOP)
+
+  Princípio Core: "Se não está na fonte, não existe no output."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ANTI-INVENTION GATES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+anti_invention_philosophy: |
+  O único jeito de garantir zero invenção é:
+  1. Exigir citação literal para cada afirmação
+  2. Manter Appendix D com 50+ referências por artefato
+  3. Validar triangulação (3+ fontes confirmam padrão)
+  4. Nunca usar "best practice" ou "geralmente se faz"
+
+  Se você não consegue citar a fonte, você está inventando.
+
+invention_red_flags:
+  - "Geralmente se recomenda..."
+  - "Best practices sugerem..."
+  - "Na minha experiência..."
+  - "É comum fazer..."
+  - "Experts concordam que..."
+  - Qualquer afirmação sem [SOURCE: página/minuto]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SPECIALIST AGENTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+specialists:
+  primary:
+    agent: "@tim-ferriss"
+    role: "Expert Deconstructor & Knowledge Extractor"
+    responsibilities:
+      - "Extração literal de conteúdo das fontes"
+      - "Mapeamento de frameworks conceituais"
+      - "Transformação em SOPs operacionais"
+      - "Geração de checklists de validação"
+    invoke_for:
+      - "Phase 1: Framework extraction"
+      - "Phase 2: SOP extraction"
+      - "Phase 3: Checklist generation"
+
+  process_validator:
+    agent: "@pedro-valerio"
+    role: "Process Absolutist"
+    responsibilities:
+      - "Validar se gates impedem invenção"
+      - "Verificar cobertura de fontes"
+      - "Auditar Appendix D"
+    invoke_for:
+      - "Quality gate validation"
+      - "Invention detection"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - author_name: "Nome do autor/expert"
+    - topic: "Tópico específico a extrair (ex: Value Equation, Core Four)"
+    - sources_path: "Caminho para material fonte (livros, transcrições, etc.)"
+  optional:
+    - output_squad: "Squad destino (default: mesmo do autor)"
+    - format: "framework|sop|checklist|triplet (default: triplet)"
+    - depth: "quick|standard|deep (default: standard)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0: SOURCE VALIDATION (BLOCKING GATE)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 0
+    name: Source Validation
+    duration: 15-30 min
+    blocking: true
+
+    purpose: |
+      "Single source = hypothesis; three sources = pattern"
+      NUNCA extrair sem validar que fontes são suficientes.
+
+    steps:
+      - step: 1
+        action: "Inventariar fontes disponíveis"
+        output: "Lista de arquivos/URLs com tipo e tamanho"
+
+      - step: 2
+        action: "Classificar por relevância ao tópico"
+        criteria:
+          - "Fonte menciona {topic} diretamente?"
+          - "Autor explica processo/framework?"
+          - "Tem exemplos práticos?"
+          - "Tem citações/quotes utilizáveis?"
+
+      - step: 3
+        action: "Validar cobertura mínima"
+        checks:
+          - "5+ páginas/minutos sobre o tópico"
+          - "3+ citações diretas do autor"
+          - "2+ exemplos práticos"
+          - "1+ framework/processo identificável"
+
+    checkpoint:
+      gate: "SOURCE_COVERAGE"
+      blocking: true
+      criteria:
+        - "5+ páginas ou 10+ minutos de conteúdo relevante"
+        - "3+ citações diretas utilizáveis"
+        - "Autor explica o 'porquê', não só o 'o quê'"
+        - "Exemplos práticos documentados"
+
+      decision_matrix:
+        GO: "4/4 checks passam → prosseguir"
+        CONDITIONAL: "3/4 + plano de aquisição → flag e prosseguir"
+        NO_GO: "<3/4 → PARAR, buscar mais fontes"
+
+      action_if_fail: |
+        ❌ NO-GO: Fontes insuficientes para extração.
+
+        Ações:
+        1. Identificar gaps específicos
+        2. Buscar fontes adicionais (livros, podcasts, vídeos)
+        3. Re-executar Phase 0 após aquisição
+
+        NUNCA prosseguir com fontes insuficientes.
+
+    output:
+      file: "source_inventory.yaml"
+      content:
+        - sources_list
+        - coverage_score
+        - gaps_identified
+        - go_decision
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: FRAMEWORK EXTRACTION
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 1
+    name: Framework Extraction
+    duration: 30-60 min
+    skip_if: "format == 'sop' OR format == 'checklist'"
+
+    purpose: |
+      Extrair o MODELO CONCEITUAL do autor.
+      Framework = "QUAL é o modelo mental do autor?"
+
+      Foco: Fórmulas, princípios, componentes, relações.
+      NÃO foco: Processo passo-a-passo (isso é SOP).
+
+    steps:
+      - step: 1
+        action: "Identificar fórmula/equação central"
+        question: "O autor resume o conceito em uma fórmula?"
+        example: "Value = (Dream Outcome × Likelihood) / (Time × Effort)"
+        output: "core_formula"
+
+      - step: 2
+        action: "Mapear componentes/pilares"
+        question: "Quais são os elementos fundamentais?"
+        example: "Os 4 pilares da Value Equation"
+        output: "components[]"
+
+      - step: 3
+        action: "Extrair princípios/axiomas"
+        question: "Quais verdades o autor considera absolutas?"
+        example: "Price is what you pay. Value is what you get."
+        output: "principles[]"
+
+      - step: 4
+        action: "Documentar relações entre componentes"
+        question: "Como os elementos se conectam?"
+        output: "relationships[]"
+
+      - step: 5
+        action: "Coletar exemplos práticos do autor"
+        question: "Como o autor demonstra o framework?"
+        output: "examples[]"
+
+      - step: 6
+        action: "Compilar citações literais"
+        requirement: "Mínimo 15 citações com [SOURCE: página/minuto]"
+        output: "quotes[] with source references"
+
+    checkpoint:
+      gate: "FRAMEWORK_QUALITY"
+      criteria:
+        - "Fórmula central identificada com citação"
+        - "3+ componentes documentados"
+        - "5+ princípios extraídos"
+        - "3+ exemplos do autor (não inventados)"
+        - "15+ citações literais com fonte"
+        - "Zero afirmações sem citação"
+      score_minimum: "6/6 obrigatório"
+
+    output:
+      file: "{topic}-framework.md"
+      location: "squads/{squad}/docs/frameworks/"
+      structure:
+        - "Executive Summary"
+        - "Core Formula"
+        - "Components/Pillars"
+        - "Principles"
+        - "Examples (from author)"
+        - "Implementation Guidance"
+        - "Key Quotes"
+        - "Source References"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: SOP EXTRACTION
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 2
+    name: SOP Extraction
+    duration: 45-90 min
+    skip_if: "format == 'framework' OR format == 'checklist'"
+    depends_on: "Phase 1 (if triplet mode)"
+
+    purpose: |
+      Extrair o PROCESSO OPERACIONAL do autor.
+      SOP = "COMO o autor aplica esse modelo?"
+
+      Foco: Steps sequenciais, executores, guardrails, decisões.
+      Base: Framework extraído na Phase 1.
+
+    steps:
+      - step: 1
+        action: "Identificar processo do autor"
+        question: "O autor descreve uma sequência de ações?"
+        source: "Framework + exemplos práticos"
+        output: "process_outline"
+
+      - step: 2
+        action: "Decompor em steps atômicos"
+        format: |
+          Step X: [Verbo] + [Objeto] + [Contexto]
+          - Description: O que fazer
+          - Cognitive Type: Perception|Analysis|Synthesis|Judgment|Creativity|Memory|Empathy|Accountability
+          - Executor: Human|Agent|Worker|Hybrid
+          - Precondition: O que deve existir antes
+          - Output: O que é produzido
+          - Guardrails: Limites e validações
+          - Decision Rule: SE/ENTÃO para próximo step
+        output: "steps[]"
+
+      - step: 3
+        action: "Mapear decision rules"
+        question: "Onde o autor indica decisões/bifurcações?"
+        format: "SE [condição] ENTÃO [ação] SENÃO [ação alternativa]"
+        output: "decision_rules[]"
+
+      - step: 4
+        action: "Documentar exceções"
+        question: "O autor menciona casos especiais?"
+        output: "exceptions[]"
+
+      - step: 5
+        action: "Definir outputs esperados"
+        question: "O que cada fase produz?"
+        output: "outputs[]"
+
+      - step: 6
+        action: "Compilar Appendix D"
+        requirement: "50+ referências com [SOURCE: página/minuto]"
+        format: |
+          | ID | Citação | Fonte | Página/Min | Seção SOP |
+        output: "appendix_d"
+
+    checkpoint:
+      gate: "SOP_QUALITY"
+      criteria:
+        - "8+ steps documentados"
+        - "Cada step tem 8 campos completos"
+        - "Decision rules para cada bifurcação"
+        - "Appendix D com 50+ referências"
+        - "Zero steps inventados (todos têm fonte)"
+        - "Fluxo lógico do início ao fim"
+      score_minimum: "6/6 obrigatório"
+
+    output:
+      files:
+        - file: "{topic}-sop.md"
+          location: "squads/{squad}/docs/sops/"
+          structure:
+            - "Part 1: Purpose & Value Proposition"
+            - "Part 2: Scope & Boundaries"
+            - "Part 3: Preconditions"
+            - "Part 4: Core Framework Summary"
+            - "Part 5: Process Steps (detailed)"
+            - "Part 6: Decision Rules"
+            - "Part 7: Exceptions"
+            - "Part 8: Outputs"
+            - "Part 9: Validation Criteria"
+            - "Part 10: Escalation Paths"
+            - "Part 11: Revision History"
+            - "Appendix D: Source References (50+)"
+
+        - file: "{topic}-squad-blueprint.yaml"
+          location: "squads/{squad}/docs/sops/"
+          structure:
+            - "sop_metadata"
+            - "executor_matrix"
+            - "agents"
+            - "quality_gates"
+            - "workflows"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: CHECKLIST GENERATION
+  # ─────────────────────────────────────────────────────────────────────────────
+  - phase: 3
+    name: Checklist Generation
+    duration: 15-30 min
+    skip_if: "format == 'framework' OR format == 'sop'"
+    depends_on: "Phase 2"
+
+    purpose: |
+      Gerar checklist de VALIDAÇÃO baseado no SOP.
+      Checklist = "COMO validar que seguimos o processo?"
+
+      Regra: 100% derivado do SOP - cada checkbox mapeia para um step.
+
+    steps:
+      - step: 1
+        action: "Ler SOP completo"
+        input: "{topic}-sop.md"
+
+      - step: 2
+        action: "Para cada step, criar checkboxes"
+        format: |
+          ### Step X: [Nome do Step]
+          - [ ] [Precondition check]
+          - [ ] [Action completion check]
+          - [ ] [Output validation check]
+          - [ ] [Guardrail verification]
+
+      - step: 3
+        action: "Adicionar gate checkboxes"
+        format: |
+          ### Quality Gate: [Nome]
+          - [ ] [Criterio 1]
+          - [ ] [Criterio 2]
+          - [ ] [Score mínimo atingido?]
+
+      - step: 4
+        action: "Validar correspondência 1:1"
+        check: "Cada checkbox tem step correspondente no SOP?"
+
+    checkpoint:
+      gate: "CHECKLIST_QUALITY"
+      criteria:
+        - "100% dos steps têm checkboxes"
+        - "Cada checkbox mapeia para step específico"
+        - "Zero checkboxes inventados"
+        - "Gates de qualidade incluídos"
+        - "Sequência lógica mantida"
+      score_minimum: "5/5 obrigatório"
+
+    output:
+      file: "{topic}-sop-checklist.md"
+      location: "squads/{squad}/checklists/"
+      structure:
+        - "Header (SOP reference, version)"
+        - "Preconditions checklist"
+        - "Step-by-step checklist"
+        - "Quality gates checklist"
+        - "Final validation checklist"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VALIDATION GATES (SUMMARY)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_gates:
+  - gate: SOURCE_COVERAGE
+    phase: 0
+    blocking: true
+    purpose: "Garantir material suficiente antes de extrair"
+
+  - gate: FRAMEWORK_QUALITY
+    phase: 1
+    blocking: true
+    purpose: "Validar modelo conceitual completo e citado"
+
+  - gate: SOP_QUALITY
+    phase: 2
+    blocking: true
+    purpose: "Validar processo operacional com 50+ fontes"
+
+  - gate: CHECKLIST_QUALITY
+    phase: 3
+    blocking: true
+    purpose: "Validar correspondência 1:1 com SOP"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ANTI-INVENTION CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+anti_invention_checklist:
+  framework:
+    - "Toda fórmula tem citação literal?"
+    - "Todo princípio vem de quote do autor?"
+    - "Todo exemplo é do autor (não inventado)?"
+    - "Nenhum 'best practice' genérico adicionado?"
+    - "15+ citações com [SOURCE: página/minuto]?"
+
+  sop:
+    - "Todo step tem exemplo ou instrução do autor?"
+    - "Appendix D tem 50+ referências?"
+    - "Nenhum step veio de 'experiência geral'?"
+    - "Decision rules extraídos do autor?"
+    - "Guardrails baseados em avisos do autor?"
+
+  checklist:
+    - "Todo checkbox mapeia para step do SOP?"
+    - "Nenhum checkbox inventado 'por segurança'?"
+    - "Sequência reflete o SOP fielmente?"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUT SUMMARY (TRIPLET)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+triplet_output:
+  description: "Conjunto completo de artefatos por tópico"
+
+  files:
+    - type: "Framework"
+      path: "squads/{squad}/docs/frameworks/{topic}-framework.md"
+      purpose: "Modelo conceitual - QUAL é o modelo mental"
+
+    - type: "SOP"
+      path: "squads/{squad}/docs/sops/{topic}-sop.md"
+      purpose: "Processo operacional - COMO aplicar o modelo"
+
+    - type: "Blueprint"
+      path: "squads/{squad}/docs/sops/{topic}-squad-blueprint.yaml"
+      purpose: "Configuração para agentes executarem o SOP"
+
+    - type: "Checklist"
+      path: "squads/{squad}/checklists/{topic}-sop-checklist.md"
+      purpose: "Validação - COMO verificar que seguiu o processo"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXECUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+execution:
+  mode: sequential
+  parallel_phases: []  # Todas sequenciais - cada fase depende da anterior
+
+  commands:
+    full_triplet: "*extract-knowledge {author} --topic {topic} --sources {path}"
+    framework_only: "*extract-knowledge {author} --topic {topic} --format framework"
+    sop_only: "*extract-knowledge {author} --topic {topic} --format sop --framework {framework_path}"
+    checklist_only: "*extract-knowledge {author} --topic {topic} --format checklist --sop {sop_path}"
+
+  next_steps:
+    after_triplet:
+      - "Validar Appendix D (50+ fontes)"
+      - "Rodar anti-invention checklist"
+      - "Integrar ao squad config.yaml"
+
+overall_pass: |
+  All 4 gates PASS + Anti-invention checklist 100% + Triplet files created

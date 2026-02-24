@@ -1,0 +1,275 @@
+squad_recommendation:
+  metadata:
+    aluno: "Joao Rosa"
+    slug: "joao-rosa"
+    date: "2026-02-18"
+    profile_id: "genius_profile_joao_rosa_2026-02-18"
+    algorithm_version: "1.0.0"
+    squads_evaluated: 18
+    squads_above_threshold: 8
+    threshold: 0.30
+
+  # ================================================================
+  # INPUT SUMMARY (from genius-profile.yaml)
+  # ================================================================
+  profile_summary:
+    hamilton_primary: "Creator"
+    hamilton_secondary: "Mechanic"
+    kolbe_string: "4-3-8-6"
+    clifton_domain: "Strategic Thinking (55%)"
+    clifton_top_5: ["Strategic", "Ideation", "Futuristic", "Learner", "Command"]
+    hormozi_value_score: 1.17
+    sullivan_ua: "Transformar complexidade em oportunidades de negocio escaláveis"
+    hendricks_zone: "Excelencia com lampejo de Genialidade"
+    hogshead_archetype: "The Maverick Leader (Innovation + Power)"
+    wealth_spectrum: "Level 3-4"
+    convergences: 5
+    bloqueio: "Falta de clareza"
+    meta_90d: "Lancar um produto/servico"
+    meta_receita: "50k+/mes"
+    tempo: "10-20h/semana"
+    ai_level: "Intermediario"
+
+  # ================================================================
+  # SCORING MATRIX (Top 8)
+  # ================================================================
+  scoring_matrix:
+    - squad: "creator_os"
+      score_hamilton: 0.40
+      score_kolbe: 0.255
+      score_clifton: 0.15
+      score_context: 0.07
+      score_total: 0.875
+      rank: 1
+
+    - squad: "content_distillery"
+      score_hamilton: 0.36
+      score_kolbe: 0.21
+      score_clifton: 0.14
+      score_context: 0.075
+      score_total: 0.785
+      rank: 2
+
+    - squad: "aios_methodology"
+      score_hamilton: 0.30
+      score_kolbe: 0.24
+      score_clifton: 0.14
+      score_context: 0.085
+      score_total: 0.765
+      rank: 3
+
+    - squad: "ai_studio_prompt_builder"
+      score_hamilton: 0.36
+      score_kolbe: 0.195
+      score_clifton: 0.12
+      score_context: 0.07
+      score_total: 0.745
+      rank: 4
+
+    - squad: "mmos_mind_mapper"
+      score_hamilton: 0.28
+      score_kolbe: 0.21
+      score_clifton: 0.14
+      score_context: 0.065
+      score_total: 0.695
+      rank: 5
+
+    - squad: "tool_discovery"
+      score_hamilton: 0.24
+      score_kolbe: 0.225
+      score_clifton: 0.12
+      score_context: 0.075
+      score_total: 0.660
+      rank: 6
+
+    - squad: "stories_10x"
+      score_hamilton: 0.32
+      score_kolbe: 0.18
+      score_clifton: 0.10
+      score_context: 0.05
+      score_total: 0.650
+      rank: 7
+
+    - squad: "dopamine_learning"
+      score_hamilton: 0.24
+      score_kolbe: 0.18
+      score_clifton: 0.12
+      score_context: 0.06
+      score_total: 0.600
+      rank: 8
+
+  # ================================================================
+  # TOP 3 RECOMMENDATIONS
+  # ================================================================
+  top_3:
+    - rank: 1
+      squad: "creator_os"
+      score: 0.875
+      nome_display: "Creator OS"
+      categoria: "Creation Content"
+
+      racional: |
+        O Creator OS e o squad #1 para o Joao porque ataca DIRETAMENTE seu perfil:
+
+        1. HAMILTON MATCH (perfeito): Creator e o perfil primario do Joao. Este squad
+           foi desenhado para Creators que querem construir seu sistema operacional de criacao.
+
+        2. KOLBE MATCH (forte): QS 8 do Joao e ideal para este squad que exige inovacao
+           constante e prototipagem rapida. O IM 6 permite que ele construa coisas tangiveis.
+
+        3. CLIFTON MATCH (forte): Strategic Thinking dominante + Ideation + Futuristic
+           sao exatamente os temas que alimentam a criacao de conteudo estrategico.
+
+        4. CONTEXT: Seu desejo de lancar produto em 90 dias, automatizar sistemas, e
+           vender em escala alinha perfeitamente com a proposta do Creator OS.
+
+      por_que_funciona:
+        - "Joao ja E um Creator - este squad potencializa o que ele faz naturalmente"
+        - "Oferece estrutura sem rigidez (flexibilidade que ele precisa)"
+        - "Escalavel via conteudo e produto digital (alinhado com meta de 50k+)"
+        - "Permite trabalhar sozinho com AI como alavanca"
+
+      riscos:
+        - "Pode se perder em criacao sem monetizacao se nao tiver disciplina no Core 4"
+        - "Precisa de suporte de Follow Thru para manter consistencia de publicacao"
+
+      proximo_passo: "Definir o NICHO e PROBLEMA especifico que o Creator OS vai resolver. Comecar com 1 tipo de conteudo (LinkedIn posts) e iterar."
+
+    - rank: 2
+      squad: "content_distillery"
+      score: 0.785
+      nome_display: "Content Distillery"
+      categoria: "Creation Content"
+
+      racional: |
+        O Content Distillery e o squad #2 porque explora o TALENTO MAIS RARO do Joao:
+        simplificar complexidade. Este squad transforma conhecimento denso em conteudo
+        digerivel e distribuivel em escala.
+
+        1. HAMILTON: Creator (simplifica e cria) + Mechanic (melhora o que existe) =
+           pegar informacao complexa e destilar em formato acessivel.
+
+        2. SULLIVAN: UA de "transformar complexidade em oportunidades" e EXATAMENTE
+           o que uma destilaria de conteudo faz - pega o complexo e entrega o simples.
+
+        3. HOGSHEAD: Innovation + Power = conteudo que INOVA na forma de comunicar
+           e tem AUTORIDADE no que diz.
+
+      por_que_funciona:
+        - "Explora sua habilidade #1: simplificar complexidade"
+        - "Produto escalavel (conteudo pode ser automatizado e distribuido)"
+        - "Pode ser monetizado como servico (para empresas) ou produto (para criadores)"
+        - "AI intermediario e suficiente para operar ferramentas de content distillation"
+
+      riscos:
+        - "Mercado de conteudo e competitivo - precisa de diferenciacao forte"
+        - "Pode parecer 'generico' se nao escolher um nicho vertical"
+
+      proximo_passo: "Escolher 1 vertical (ex: AI para gestores) e criar 10 pecas de conteudo 'destilado' como prova de conceito."
+
+    - rank: 3
+      squad: "aios_methodology"
+      score: 0.765
+      nome_display: "AIOS Methodology"
+      categoria: "Technology & Systems"
+
+      racional: |
+        O AIOS Methodology e o squad #3 porque une TODOS os desejos do Joao em um
+        pacote tecnologico:
+
+        1. AUTOMATIZACAO: Joao quer "automatizar sistemas que geram receita recorrente"
+           - AIOS e literalmente um framework de automacao com AI.
+
+        2. CREATOR + MECHANIC: Cria sistemas novos E melhora os existentes. AIOS
+           permite ambos - criar squads do zero ou otimizar workflows existentes.
+
+        3. TECH-READY: Com nivel intermediario em AI, Joao ja tem base para operar
+           este squad. O aprendizado via mentor (seu estilo) se encaixa na comunidade.
+
+        4. ESCALA: AIOS permite criar produtos (squads como servico) que escalam
+           sem depender do dono - alinhado com a meta de automacao.
+
+      por_que_funciona:
+        - "Combina criacao + sistemas + automacao em um framework unico"
+        - "Permite monetizar como 'Squad as a Service' (B2B escalavel)"
+        - "Joao aprende fazendo (Quick Start 8) dentro do proprio framework"
+        - "AI e a alavanca central - maximiza seu nivel intermediario"
+
+      riscos:
+        - "Curva de aprendizado tecnico pode ser intensa no inicio"
+        - "Precisa de tempo para dominar o framework antes de monetizar"
+        - "Mercado de AI/automacao e concorrido - precisa de posicionamento claro"
+
+      proximo_passo: "Comecar criando 1 squad simples para seu proprio negocio. Usar a experiencia como case study para vender o servico."
+
+  # ================================================================
+  # DREAM SQUAD
+  # ================================================================
+  dream_squad:
+    nome: "Trend Distiller OS"
+    conceito: |
+      Um squad personalizado que combina os 3 melhores fits em uma unica maquina:
+
+      1. CREATOR OS (base): Sistema operacional de criacao de Joao
+      2. CONTENT DISTILLERY (motor): Simplificar complexidade em conteudo escalavel
+      3. AIOS METHODOLOGY (infra): Automacao e AI como alavanca de escala
+
+      O resultado e um "Trend Distiller" - um sistema que:
+      - IDENTIFICA tendencias de mercado (Strategic + Futuristic)
+      - SIMPLIFICA em conteudo acessivel (UA de Joao)
+      - DISTRIBUI em escala via automacao (AIOS + AI)
+      - MONETIZA via produto digital (SaaS ou plataforma)
+
+      Essencialmente: Joao faz o que faz naturalmente (pesquisa tendencias + simplifica)
+      e o squad transforma isso em receita recorrente escalavel.
+
+    composicao_ideal:
+      - role: "Trend Scout"
+        kolbe_ideal: "7-3-8-4"
+        descricao: "Pesquisa e identifica tendencias (Joao faz isso naturalmente)"
+      - role: "Content Architect"
+        kolbe_ideal: "6-7-5-4"
+        descricao: "Estrutura e sistematiza o conteudo (complementa Follow Thru baixo)"
+      - role: "Automation Engineer"
+        kolbe_ideal: "5-8-4-7"
+        descricao: "Constroi os sistemas de distribuicao e automacao"
+      - role: "Growth Operator"
+        kolbe_ideal: "7-6-6-3"
+        descricao: "Analisa metricas e otimiza canais de aquisicao"
+
+    caminho_para_dream_squad:
+      fase_1: "Comecar sozinho com Creator OS + AI como assistente (0-30 dias)"
+      fase_2: "Adicionar Content Distillery para escalar producao de conteudo (30-60 dias)"
+      fase_3: "Integrar AIOS para automatizar distribuicao e operacao (60-90 dias)"
+      fase_4: "Contratar/delegar roles complementares conforme receita crescer (90+ dias)"
+
+  # ================================================================
+  # ANTI-RECOMMENDATIONS
+  # ================================================================
+  anti_recommendations:
+    - squad: "meddpicc_qualifier"
+      score: 0.28
+      motivo: "Squad de vendas consultivas - exige Follow Thru alto (7+) e Fact Finder alto (7+). Joao tem 3 e 4 respectivamente. Seria tortura operacional."
+
+    - squad: "marketing_ops"
+      score: 0.25
+      motivo: "Operacao de marketing e 80% Follow Thru. Processo, consistencia, metricas detalhadas - tudo que drena energia do Joao."
+
+    - squad: "etl_data_collector"
+      score: 0.22
+      motivo: "Coleta e processamento de dados e pura zona de Incompetencia para Joao (analise detalhada de numeros drena)."
+
+  # ================================================================
+  # NEXT STEP IMEDIATO
+  # ================================================================
+  next_step:
+    acao: "Criar o Creator OS pessoal do Joao"
+    especifico: |
+      HOJE: Abrir um documento e responder 3 perguntas:
+      1. Qual TENDENCIA de mercado voce enxerga que poucos estao vendo?
+      2. Como voce SIMPLIFICARIA essa tendencia para empreendedores entenderem?
+      3. Qual PRODUTO voce criaria em torno disso? (SaaS, curso, ferramenta, comunidade)
+
+      Com essas 3 respostas, voce tem o nucleo do seu Creator OS.
+    prazo: "Hoje, em 30 minutos"
+    por_que_agora: "A falta de clareza so se resolve com DECISAO, nao com mais pesquisa. Estas 3 perguntas forcam uma decisao."

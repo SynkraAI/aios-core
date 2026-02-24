@@ -1,0 +1,921 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW: Research Then Create Agent
+# Version: 2.1.0
+# Purpose: Create high-quality agents based on deep research, not generic LLM knowledge
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow-id: wf-research-then-create-agent
+name: Research Then Create Agent
+version: 2.1.0
+estimated-time: 30-60 minutes
+complexity: high
+
+description: |
+  Create high-quality agents based on deep research about domain best practices,
+  not generic LLM knowledge.
+
+  Key insight: Agents created without research are weak and generic.
+
+  This workflow ensures agents are built on REAL frameworks and methodologies
+  from domain experts. All claims are traceable to sources.
+
+  Quality Standard: AIOS Level (800+ lines, full semantic depth)
+
+orchestrator: "@squad-chief"
+mode: YOLO  # 100% autonomous, no human intervention
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY STANDARDS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_standards:
+  agent_minimum_lines: 800
+  task_minimum_lines: 600
+  research_minimum_lines: 500
+  primary_sources_minimum: 3
+
+  required_agent_sections:
+    - "Identity (agent, persona, metadata)"
+    - "Operational (frameworks, commands)"
+    - "Voice DNA (starters, metaphors, vocabulary, states)"
+    - "Quality (examples, anti-patterns, completion)"
+    - "Credibility (if applicable)"
+    - "Integration (handoffs, synergies)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FRAMEWORKS USED
+# ═══════════════════════════════════════════════════════════════════════════════
+
+frameworks:
+  - id: tier-system-framework
+    file: "data/tier-system-framework.md"
+    usage: "Agent tier classification (Step 1, 7)"
+
+  - id: quality-dimensions-framework
+    file: "data/quality-dimensions-framework.md"
+    usage: "Research & output validation (Step 5, 8)"
+
+  - id: decision-heuristics-framework
+    file: "data/decision-heuristics-framework.md"
+    usage: "Checkpoint logic (Step 5, 8)"
+
+  - id: executor-matrix-framework
+    file: "data/executor-matrix-framework.md"
+    usage: "Task executor assignment (Step 9)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  - name: agent_purpose
+    type: string
+    required: true
+    description: "What the agent should do"
+    examples:
+      - "Create sales pages"
+      - "Audit copy for persuasion"
+
+  - name: domain
+    type: string
+    required: true
+    description: "Domain/area of expertise"
+    examples:
+      - "copywriting"
+      - "sales"
+      - "marketing"
+
+  - name: specialist_slug
+    type: string
+    required: false
+    description: "If based on human expert (kebab-case)"
+    examples:
+      - "gary-halbert"
+      - "david-ogilvy"
+
+  - name: specialist_name
+    type: string
+    required: false
+    description: "Human-readable name of specialist"
+    examples:
+      - "Gary Halbert"
+      - "David Ogilvy"
+
+  - name: pack_name
+    type: string
+    required: true
+    description: "Target squad name"
+    examples:
+      - "copy"
+      - "sales"
+
+  - name: output_dir
+    type: path
+    required: false
+    default: "docs/research/"
+    description: "Research output directory"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  research:
+    - name: "research_document"
+      path: "docs/research/{specialist_slug}-{topic}-research.md"
+      description: "Comprehensive research document with citations"
+
+  agent:
+    - name: "agent_definition"
+      path: "squads/{pack_name}/agents/{agent_id}.md"
+      description: "Complete agent definition (800+ lines)"
+
+  tasks:
+    - name: "agent_tasks"
+      path: "squads/{pack_name}/tasks/{task_id}.md"
+      description: "Agent tasks based on framework (600+ lines each)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PRECONDITIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+preconditions:
+  - "Squad exists at squads/{pack_name}/"
+  - "If specialist: check if mind exists in outputs/minds/{specialist_slug}/"
+  - "WebSearch tool available (for external research)"
+  - "Write permissions for output directories"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES (STEPS)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: STEP-1
+    name: "Parse & Classify Input"
+    tier: 0
+    duration: "< 30 seconds"
+    description: |
+      Parse input parameters and classify agent type.
+      Determine if specialist-based or generic.
+
+    actions:
+      - "Extract agent_purpose, domain, specialist info"
+      - "Classify agent type (generic vs specialist_based)"
+      - "Validate pack_name exists"
+      - "Set output paths"
+
+    decision_point:
+      if_specialist_slug: "GOTO Step 2 (Check Local Knowledge)"
+      else: "GOTO Step 3 (Generate Research Prompt)"
+
+    tier_classification:
+      apply_framework: "tier-system-framework"
+      logic: |
+        - IF agent performs diagnosis/analysis FIRST → Tier 0
+        - ELSE IF agent is primary expert with track record → Tier 1
+        - ELSE IF agent creates frameworks/systems → Tier 2
+        - ELSE IF agent specializes in specific format → Tier 3
+        - ELSE IF agent is validation/checklist tool → Tools
+
+      preliminary_tier: "Estimate based on agent_purpose"
+      final_tier: "Confirmed in Step 7 after research"
+
+    output:
+      classification:
+        agent_type: "specialist_based | generic"
+        agent_purpose: "string"
+        domain: "string"
+        specialist:
+          slug: "string"
+          name: "string"
+        pack_name: "string"
+        research_output: "path"
+
+    checkpoint:
+      criteria:
+        - "Input parsed successfully"
+        - "Agent type classified"
+        - "Output paths set"
+      human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: STEP-2
+    name: "Check Local Knowledge"
+    tier: 0
+    duration: "1-2 minutes"
+    condition: "Only if agent_type == specialist_based"
+    description: |
+      Search for existing local knowledge about the specialist.
+      Catalog what we already have vs what we need.
+
+    search_locations:
+      primary_sources:
+        path: "outputs/minds/{specialist_slug}/sources/"
+        description: "Raw materials, transcripts, books, articles"
+        priority: 1
+
+      analysis:
+        path: "outputs/minds/{specialist_slug}/analysis/"
+        description: "Identity core, cognitive spec, frameworks"
+        priority: 2
+
+      existing_research:
+        path: "docs/research/{specialist_slug}-*.md"
+        description: "Previous deep research documents"
+        priority: 3
+
+      synthesis:
+        path: "outputs/minds/{specialist_slug}/synthesis/"
+        description: "Communication style, mental models"
+        priority: 4
+
+    output:
+      local_knowledge_catalog:
+        found_sources: "array of files with metadata"
+        found_research: "array of research files"
+        total_local_lines: "number"
+        coverage_assessment: "string"
+        gaps_identified: "array"
+
+    output_example: |
+      📂 Local Knowledge Check for 'gary_halbert':
+
+      Found Resources:
+        ✅ outputs/minds/gary_halbert/sources/ (12 files, 4,200 lines)
+        ✅ outputs/minds/gary_halbert/analysis/identity-core.yaml
+        ✅ docs/research/gary-halbert-direct-mail-research.md (890 lines)
+
+      Coverage: 70% (strong foundation)
+      Gaps: Sales page specific structure, digital adaptation
+
+      → Research prompt will focus on GAPS only
+
+    checkpoint:
+      criteria:
+        - "Local knowledge catalogued"
+        - "Gaps identified"
+      human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: STEP-3
+    name: "Generate Research Prompt"
+    tier: 1
+    duration: "1-2 minutes"
+    description: |
+      Generate a structured research prompt based on inputs
+      and local knowledge gaps.
+
+    reference: "templates/research-prompt-tmpl.md"
+
+    prompt_components:
+      - "REFINED_TOPIC: Strategic title expanding scope"
+      - "CONTEXT: Purpose and practical objectives"
+      - "SCOPE: 4-6 specific angles to investigate"
+      - "REQUIREMENTS: 3-4 parameters for research"
+      - "RECOMMENDED_SOURCES: 3-4 specific source types"
+      - "EXPECTED_RESULTS: 3-5 concrete deliverables"
+      - "CLARIFYING_QUESTIONS: 2-3 questions to refine"
+
+    adaptation_logic:
+      if_local_lines_gt_1000:
+        prompt_mode: "complementary"
+        prompt_focus: "gaps_identified"
+        prompt_note: "Already have {lines} of material. Focus on GAPS."
+      else:
+        prompt_mode: "comprehensive"
+        prompt_focus: "full_framework"
+        prompt_note: "No existing material. Conduct comprehensive research."
+
+    checkpoint:
+      criteria:
+        - "Research prompt generated with all 7 components"
+        - "Prompt adapted based on local knowledge"
+      human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: STEP-4
+    name: "Execute Deep Research"
+    tier: 1
+    duration: "5-15 minutes"
+    description: |
+      Execute deep research combining local knowledge and web search.
+      Autonomous execution in YOLO mode.
+
+    execution_phases:
+      phase_1_local:
+        condition: "IF local_knowledge.total_lines > 0"
+        actions:
+          - "Read all found local files"
+          - "Extract relevant sections for agent purpose"
+          - "Create local_synthesis.md with key insights"
+          - "Mark what's already covered"
+        output: "Local knowledge synthesized"
+
+      phase_2_web:
+        method: "WebSearch + WebFetch"
+        queries:
+          - "{specialist_name} {topic} methodology"
+          - "{specialist_name} {topic} framework process"
+          - "{specialist_name} {topic} examples case studies"
+          - "{topic} best practices {domain}"
+          - "{specialist_name} quotes rules principles"
+        for_each_query:
+          - "Execute WebSearch"
+          - "For top 5-10 results: WebFetch content"
+          - "Extract relevant sections"
+          - "Note source URL"
+          - "Compile findings"
+        output: "Web research compiled"
+
+      phase_3_consolidate:
+        actions:
+          - "Merge local_synthesis + web_findings"
+          - "Remove duplicates"
+          - "Organize by research prompt sections"
+          - "Add source citations throughout"
+          - "Format as comprehensive research document"
+        output: "docs/research/{specialist_slug}-{topic}-research.md"
+
+    checkpoint:
+      criteria:
+        - "Research document created"
+        - "Contains local + web sources"
+        - "Citations included"
+      human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: STEP-5
+    name: "Validate Research Quality"
+    tier: 2
+    duration: "1-2 minutes"
+    gate_type: BLOCKING
+    description: |
+      Validate research quality before proceeding.
+      Apply quality dimensions and decision heuristics.
+
+    frameworks_applied:
+      - "quality-dimensions-framework.md"
+      - "decision-heuristics-framework.md"
+
+    quality_dimensions:
+      accuracy:
+        weight: 1.0
+        threshold: 7.0
+        veto_power: true
+        check: "Are claims verified by primary sources?"
+
+      coherence:
+        weight: 0.9
+        threshold: 6.0
+        check: "Is research internally consistent?"
+
+      strategic_alignment:
+        weight: 0.9
+        threshold: 6.0
+        check: "Does research cover what we need for agent?"
+
+      operational_excellence:
+        weight: 0.8
+        threshold: 6.0
+        check: "Are processes actionable, not just theory?"
+
+    heuristic:
+      id: "SC_RES_001"
+      name: "Research Quality Gate"
+      from_framework: "decision-heuristics-framework"
+
+      weights:
+        primary_evidence: 0.9
+        scope_coverage: 0.8
+        actionability: 0.8
+        source_credibility: 0.7
+
+      thresholds:
+        total_lines: 500
+        primary_sources: 3
+        scope_coverage: "4 of 6 sections"
+
+      veto_conditions:
+        - condition: "total_lines < 500"
+          action: "VETO - Retry research with broader queries"
+        - condition: "primary_sources < 2"
+          action: "VETO - Insufficient primary evidence"
+
+      decision_tree: |
+        IF total_lines < 500 → VETO (retry max 2x)
+        ELSE IF primary_sources < 3 → REVIEW (flag, continue)
+        ELSE IF quality_score >= 80% → APPROVE
+        ELSE → REVIEW (continue with warning)
+
+    validation_criteria:
+      minimum_requirements:
+        total_lines: 500
+        primary_sources: 3
+        sections_covered: 4
+        actionable_frameworks: 1
+
+      quality_checks:
+        - check: "Has primary evidence (quotes, examples)"
+          weight: "30%"
+        - check: "Covers scope sections adequately"
+          weight: "25%"
+        - check: "Contains actionable processes"
+          weight: "25%"
+        - check: "Sources are credible and cited"
+          weight: "20%"
+
+      scoring:
+        pass: ">= 80%"
+        conditional: "60-79%"
+        fail: "< 60%"
+
+    decision_logic:
+      if_lines_lt_500:
+        status: "FAIL"
+        action: "Retry research with broader queries"
+        max_retries: 2
+      elif_primary_sources_lt_3:
+        status: "CONDITIONAL"
+        action: "Flag for manual enrichment, continue"
+      elif_quality_gte_80:
+        status: "PASS"
+        action: "Continue to Step 6"
+      else:
+        status: "CONDITIONAL"
+        action: "Continue with warning, document gaps"
+
+    checkpoint:
+      criteria:
+        - "Research meets minimum line count"
+        - "Quality score calculated"
+        - "Pass/Fail determined"
+      human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: STEP-6
+    name: "Extract Framework from Research"
+    tier: 2
+    duration: "3-5 minutes"
+    description: |
+      Extract actionable framework components from research.
+      Transform raw research into structured agent inputs.
+
+    extraction_components:
+      principles:
+        instruction: "Extract explicit rules/principles stated by the expert"
+        format: "Bullet list with source citation"
+
+      process:
+        instruction: "Extract step-by-step process the expert uses"
+        format: "Numbered workflow"
+
+      structure:
+        instruction: "Extract structural anatomy of the output"
+        format: "Template with sections"
+
+      quality_criteria:
+        instruction: "Extract what expert considers good vs bad"
+        format: "Do/Don't list"
+
+      checklist:
+        instruction: "Derive validation checklist from expert criteria"
+        format: "Checkbox list"
+
+    output:
+      extracted_framework:
+        name: "string"
+        source: "path"
+        principles: "array"
+        process: "array (numbered steps)"
+        structure: "array (sections with purpose)"
+        quality_criteria:
+          excellent: "array"
+          weak: "array"
+        checklist: "array"
+
+    checkpoint:
+      criteria:
+        - "Framework extracted with all components"
+        - "Each component has source citations"
+      human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: STEP-7
+    name: "Create Agent Definition"
+    tier: 2
+    duration: "3-5 minutes"
+    description: |
+      Create agent definition using extracted framework.
+      Must include all 6 levels per AIOS standard.
+
+    dependency: "tasks/create-agent.md"
+    framework: "tier-system-framework.md"
+
+    tier_confirmation:
+      tier_0_indicators:
+        - "Agent performs diagnosis BEFORE others act"
+        - "Establishes baseline understanding"
+        - "Analytical/audit focus"
+
+      tier_1_indicators:
+        - "Agent is primary expert for deliverables"
+        - "Has documented track record"
+        - "Creates main outputs"
+
+      tier_2_indicators:
+        - "Agent creates replicable frameworks"
+        - "Systematizes processes"
+        - "Teaching/methodology focus"
+
+      tier_3_indicators:
+        - "Agent specializes in specific format"
+        - "Channel-specific optimization"
+        - "Applied after core content exists"
+
+    auto_fill_from_framework:
+      persona:
+        role: "Derived from specialist expertise"
+        style: "Derived from specialist's known style"
+        identity: "Based on {specialist_name}'s methodology"
+        focus: "Derived from principles"
+
+      core_principles: "Direct from extracted_framework.principles"
+      knowledge_areas: "Derived from research scope"
+      capabilities: "Derived from research expected_results"
+
+    required_levels:
+      - "Level 1: Identity (agent, persona, metadata)"
+      - "Level 2: Operational (frameworks, commands)"
+      - "Level 3: Voice DNA (starters, metaphors, vocabulary, states)"
+      - "Level 4: Quality (examples, anti-patterns, completion)"
+      - "Level 5: Credibility (if applicable)"
+      - "Level 6: Integration (handoffs, synergies)"
+
+    checkpoint:
+      criteria:
+        - "Agent definition created"
+        - "All 6 levels present"
+        - "Tier assigned"
+      human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: STEP-8
+    name: "Quality Gate (Agent Validation)"
+    tier: 3
+    duration: "1-2 minutes"
+    gate_type: BLOCKING
+    description: |
+      Validate agent against quality gate.
+      Must pass all blocking requirements.
+
+    frameworks_applied:
+      - "quality-dimensions-framework.md"
+      - "decision-heuristics-framework.md"
+
+    quality_dimensions:
+      accuracy:
+        weight: 1.0
+        threshold: 7.0
+        veto_power: true
+        check: "Is agent based on verified research, not invented?"
+
+      coherence:
+        weight: 0.9
+        threshold: 6.0
+        check: "Is agent internally consistent?"
+
+      operational_excellence:
+        weight: 0.8
+        threshold: 6.0
+        check: "Are commands and workflows well-defined?"
+
+      scoring:
+        method: "weighted_average"
+        pass_threshold: 7.0
+        per_dimension_min: 6.0
+
+    heuristic:
+      id: "SC_AGT_001"
+      name: "Agent Quality Gate"
+      from_framework: "decision-heuristics-framework"
+
+      blocking_requirements:
+        - check: "agent_lines >= 800"
+          fail_action: "Loop to Step 7 - add more detail"
+        - check: "vocabulary.always_use.length >= 5"
+          fail_action: "Add vocabulary from research"
+        - check: "vocabulary.never_use.length >= 3"
+          fail_action: "Add anti-patterns from research"
+        - check: "output_examples.length >= 3"
+          fail_action: "Add real examples from research"
+        - check: "anti_patterns.never_do.length >= 5"
+          fail_action: "Extract warnings from expert"
+        - check: "completion_criteria defined"
+          fail_action: "Define when agent task is done"
+        - check: "handoff_to defined"
+          fail_action: "Define handoffs to other agents"
+
+      decision_tree: |
+        FOR each blocking_requirement:
+          IF check FAILS → Log specific fix needed
+
+        IF any FAIL → VETO (loop to Step 7 with fixes)
+        ELSE → APPROVE (proceed to Step 9)
+
+    checklist: "checklists/agent-quality-gate.md"
+
+    on_fail:
+      action: "Loop back to Step 7"
+      provide: "Specific fixes needed"
+      max_loops: 2
+
+    on_pass:
+      action: "Continue to Step 9"
+      log: "Quality Gate PASSED"
+
+    checkpoint:
+      criteria:
+        - "All blocking requirements pass"
+        - "Quality score >= 7.0"
+      human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: STEP-9
+    name: "Create Agent Tasks"
+    tier: 3
+    duration: "10-20 minutes per task"
+    description: |
+      Create tasks for the agent based on extracted framework.
+      Each task must be 600+ lines with primary evidence.
+
+    framework: "executor-matrix-framework.md"
+
+    executor_assignment:
+      decision_tree:
+        - "IF step requires creativity/judgment → Human or Hybrid"
+        - "IF step requires data analysis → Agent"
+        - "IF step is deterministic/API → Worker"
+
+      common_patterns:
+        research_step:
+          executor: "Agent"
+          rationale: "Pattern recognition, data gathering"
+        creative_step:
+          executor: "Human"
+          rationale: "Requires originality and judgment"
+        review_step:
+          executor: "Hybrid"
+          rationale: "AI drafts, human validates"
+        automation_step:
+          executor: "Worker"
+          rationale: "Deterministic, repeatable"
+
+    task_identification:
+      source: "agent_definition.capabilities"
+      example_tasks:
+        - "create-sales-page → Main task"
+        - "analyze-sales-page → Audit task"
+        - "optimize-headline → Support task"
+
+    task_structure:
+      - purpose: "From capability description"
+      - methodology: "From extracted_framework.process"
+      - steps: "Detailed from research"
+      - quality_gates: "From extracted_framework.checklist"
+      - examples: "From research primary sources"
+      - templates: "Derived from extracted_framework.structure"
+
+    requirements:
+      min_lines: 600
+      must_include:
+        - "Methodology source citation"
+        - "Step-by-step process from expert"
+        - "Real examples analyzed"
+        - "Quality checklist derived from expert"
+        - "Anti-patterns from expert"
+      must_not:
+        - "Generic steps not from research"
+        - "Invented examples"
+        - "Vague instructions"
+
+    checkpoint:
+      criteria:
+        - "All tasks created with 600+ lines"
+        - "Each task based on extracted framework"
+        - "Executor assigned to each task step"
+      human_review: true
+      message: "Review created tasks for completeness"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FINAL OUTPUT SUMMARY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+final_output:
+  template: |
+    ══════════════════════════════════════════════════════════════════════════
+    ✅ WORKFLOW COMPLETED: Research Then Create Agent
+    ══════════════════════════════════════════════════════════════════════════
+
+    📊 Summary:
+
+    🔬 Research Phase:
+       • Research document: {research_path}
+       • Total lines: {lines}
+       • Sources: {local_pct}% local + {web_pct}% web
+       • Quality score: {score}% {status}
+
+    🧬 Framework Extraction:
+       • Principles extracted: {N}
+       • Process steps: {N}
+       • Structure sections: {N}
+       • Quality criteria: {N}
+
+    🤖 Agent Created:
+       • ID: {agent_id}
+       • Path: {agent_path}
+       • Methodology: {specialist_name}
+       • Based on: Primary research, not generic LLM
+
+    📝 Tasks Created:
+       • {task_1} ({lines} lines)
+       • {task_2} ({lines} lines)
+       • Total: {total_lines} lines of research-backed tasks
+
+    📂 Files Generated:
+       1. {research_path}
+       2. {agent_path}
+       3. {task_paths}
+
+    ✅ Quality Guarantee:
+       • All content traceable to primary sources
+       • No generic LLM-invented methodology
+       • Tasks exceed 600-line minimum
+       • Agent ready for activation: @{agent_id}
+
+    ══════════════════════════════════════════════════════════════════════════
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  research_failures:
+    - error: "No local knowledge found"
+      cause: "Mind doesn't exist"
+      resolution: "Continue with web-only research"
+
+    - error: "WebSearch rate limit"
+      cause: "Too many queries"
+      resolution: "Backoff and retry"
+
+    - error: "< 500 lines after research"
+      cause: "Insufficient sources"
+      resolution: "Retry with broader queries (max 2)"
+
+    - error: "No primary sources"
+      cause: "Only secondary content"
+      resolution: "Flag warning, continue"
+
+  validation_failures:
+    - error: "Research too thin"
+      cause: "Niche topic"
+      resolution: "Accept CONDITIONAL, document gaps"
+
+    - error: "No actionable framework"
+      cause: "Theory-only sources"
+      resolution: "Retry with 'process' 'how-to' queries"
+
+    - error: "Quality < 60%"
+      cause: "Poor research"
+      resolution: "STOP, return to user"
+
+  agent_creation_failures:
+    - error: "Agent ID exists"
+      cause: "Duplicate"
+      resolution: "Prompt for new name or update existing"
+
+    - error: "Task < 600 lines"
+      cause: "Insufficient research"
+      resolution: "Add more detail from sources"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY GUARANTEES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_guarantees:
+  - "No agent created without research foundation"
+  - "All claims traceable to sources"
+  - "Tasks based on REAL processes, not invented ones"
+  - "All agents have voice_dna, output_examples, anti_patterns"
+  - "All agents have completion_criteria and handoffs"
+  - "Minimum 800 lines enforced by Quality Gate"
+
+anti_pattern_prevented: |
+  ❌ OLD WAY (Problem):
+     User: "Create copywriter agent"
+     LLM: *invents generic copywriting advice*
+     Result: Weak, generic agent
+
+  ✅ NEW WAY (This workflow):
+     User: "Create copywriter agent based on Gary Halbert"
+     Workflow: *researches Halbert's REAL methodology*
+     Result: Agent with authentic, traceable expertise
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INTEGRATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+integration:
+  upstream:
+    - "User request for new agent"
+    - "Existing minds in outputs/minds/"
+    - "Existing research in docs/research/"
+
+  downstream:
+    - task: "create-agent.md"
+      step: "Step 7"
+    - task: "create-task.md"
+      step: "Step 9"
+    - system: "Agent activation system"
+
+  lateral_planned:
+    - "upgrade-agent-with-research - For existing weak agents"
+    - "bulk-research-agents - Multiple agents at once"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# USAGE EXAMPLES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+examples:
+  - name: "Specialist-Based Agent"
+    command: |
+      @squad-chief
+      *workflow research-then-create-agent \
+        --agent-purpose "Create high-converting sales pages" \
+        --domain "copywriting" \
+        --specialist-slug "gary-halbert" \
+        --specialist-name "Gary Halbert" \
+        --pack-name "copy"
+
+  - name: "Generic Domain Agent"
+    command: |
+      @squad-chief
+      *workflow research-then-create-agent \
+        --agent-purpose "Conduct user interviews for product discovery" \
+        --domain "product-management" \
+        --pack-name "product"
+
+  - name: "Multiple Specialists (Blended)"
+    command: |
+      @squad-chief
+      *workflow research-then-create-agent \
+        --agent-purpose "Create VSL scripts" \
+        --domain "copywriting" \
+        --specialist-slug "jon-benson" \
+        --specialist-name "Jon Benson" \
+        --secondary-specialists "eugene-schwartz,gary-halbert" \
+        --pack-name "copy"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RELATED RESOURCES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+related_resources:
+  tasks:
+    - "tasks/deep-research-pre-agent.md"
+    - "tasks/create-agent.md"
+    - "tasks/create-task.md"
+
+  templates:
+    - "templates/research-prompt-tmpl.md"
+    - "templates/agent-tmpl.md"
+
+  checklists:
+    - "checklists/agent-quality-gate.md"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "2.1.0"
+  migrated_from: "research-then-create-agent.md"
+  migration_date: "2026-02-05"
+  created: "2026-01-22"
+  updated: "2026-02-05"
+  author: "Squad Architect"
+  changelog:
+    - version: "2.1.0"
+      date: "2026-02-05"
+      changes:
+        - "Migrated from .md to .yaml format"
+        - "Structured phases with formal checkpoints"
+        - "Added explicit heuristic references"
+    - version: "2.0.0"
+      date: "2026-01-22"
+      changes:
+        - "Added Quality Gate step (Step 8) with blocking validation"
+        - "Uses agent-tmpl-v2.md template"
+        - "Requires all 6 levels"
+        - "Minimum 800 lines per agent"

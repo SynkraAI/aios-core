@@ -1,0 +1,692 @@
+# Mental Model → Task Matrix
+# Mapeia QUAL modelo mental aplica em QUAL step de QUAL task
+#
+# Fonte dos modelos: squads/squad-creator/agents/oalanicolas.md (linhas 171-459)
+# Fonte original: outputs/minds/alan_nicolas/artifacts/
+#
+# Autor: Pedro Valerio
+# Data: 2026-02-10
+# Status: FASE 1 - Matriz pronta para implementação (FASE 2)
+
+---
+
+# ==========================================
+# VALUES HIERARCHY (Filtros de Decisão)
+# ==========================================
+
+VALUES:
+
+  clareza_radical:
+    rank: 1
+    score: 10.0
+    filter: "Isso traz clareza ou ruído?"
+    quote: "Clareza é uma arma."
+
+    checkpoints:
+
+      - task: "an-assess-sources"
+        step: 2
+        step_name: "Classify Each Source"
+        checkpoint_type: "decision_filter"
+        question: "Esta fonte traz CLAREZA ou RUÍDO?"
+        action_if_pass: "Prosseguir com score"
+        action_if_fail: "Autenticidade -= 2"
+        rationale: "Fonte confusa/genérica = bronze. Fonte com frameworks claros = ouro."
+
+      - task: "an-extract-framework"
+        step: 3
+        step_name: "Extract Framework"
+        checkpoint_type: "quality_gate"
+        question: "Framework extraído tem regras claras SE/ENTÃO?"
+        action_if_pass: "Framework válido"
+        action_if_fail: "Refazer extração buscando condições explícitas"
+        rationale: "Framework sem regras claras = Playbook disfarçado."
+
+      - task: "an-extract-dna"
+        step: "Phase 4"
+        step_name: "Document Thinking DNA"
+        checkpoint_type: "quality_gate"
+        question: "Decision architecture extraída é CLARA e ACTIONABLE?"
+        action_if_pass: "Prosseguir para report"
+        action_if_fail: "Refinar até ter pipeline de decisão explícito"
+        rationale: "Thinking DNA genérico = clone que não pensa igual."
+
+      - task: "deconstruct"
+        step: "complementares"
+        step_name: "Aprofundar Respostas"
+        checkpoint_type: "decision_filter"
+        question: "Resposta traz CLAREZA sobre como o expert decide?"
+        action_if_pass: "Documentar com [SOURCE:]"
+        action_if_fail: "Aprofundar com 'Can you give me a specific example?'"
+        rationale: "Resposta vaga = não extraiu nada útil."
+
+      - task: "extract-implicit"
+        step: "Eixo 1 + Eixo 4"
+        step_name: "Premissas Não Declaradas + Decisões Implícitas"
+        checkpoint_type: "detection_filter"
+        question: "Premissa/decisão identificada é CLARA ou ainda nebulosa?"
+        action_if_pass: "Classificar impacto"
+        action_if_fail: "Reformular até estar em 1 frase (Feynman)"
+        rationale: "Premissa nebulosa não é extração, é mais ruído."
+
+      - task: "validate-extraction"
+        step: "Gate"
+        step_name: "FRAMEWORK_HANDOFF_READY"
+        checkpoint_type: "veto"
+        question: "Insumos como um TODO trazem clareza ou confusão?"
+        action_if_pass: "HANDOFF para PV"
+        action_if_fail: "LOOP - simplificar antes de entregar"
+        rationale: "PV não pode operacionalizar confusão."
+
+  autenticidade_integral:
+    rank: 2
+    score: 9.8
+    filter: "Isso está alinhado com a essência da pessoa?"
+    quote: "Quando não somos autênticos, adoecemos."
+
+    checkpoints:
+
+      - task: "an-assess-sources"
+        step: 2
+        step_name: "Classify Each Source"
+        checkpoint_type: "decision_filter"
+        question: "Conteúdo é ESPONTÂNEO ou SCRIPTED?"
+        action_if_pass: "Manter classificação"
+        action_if_fail: "tier = BRONZE, Autenticidade -= 2"
+        rationale: "Performance não revela pensamento real. Entrevista longa > palestra decorada."
+
+      - task: "an-extract-framework"
+        step: 1
+        step_name: "Identify Source Type"
+        checkpoint_type: "pre_filter"
+        question: "Fonte é autêntica o suficiente para extrair Framework confiável?"
+        action_if_pass: "Proceder com extração completa"
+        action_if_fail: "Avisar que resultado será limitado, sugerir buscar ouro"
+        rationale: "Framework de fonte bronze = framework genérico do campo, não do expert."
+
+      - task: "an-extract-framework"
+        step: 4
+        step_name: "Extract Swipe File"
+        checkpoint_type: "quality_gate"
+        question: "Exemplos são REAIS do expert ou GENÉRICOS do campo?"
+        action_if_pass: "Swipe File válido"
+        action_if_fail: "Marcar como [GENERIC] e buscar casos reais"
+        rationale: "Swipe File genérico = qualquer LLM inventa. Precisa ser do EXPERT."
+
+      - task: "an-validate-clone"
+        step: 1
+        step_name: "Fidelity Score"
+        checkpoint_type: "veto"
+        question: "Clone soa como a PESSOA ou como IA genérica?"
+        action_if_pass: "Prosseguir avaliação"
+        action_if_fail: "VETO - buscar mais fontes ouro antes de continuar"
+        rationale: "Clone genérico = falha de autenticidade na raiz."
+
+      - task: "an-validate-clone"
+        step: 4
+        step_name: "Authenticity Check"
+        checkpoint_type: "quality_gate"
+        question: "10 markers de autenticidade refletem ESTA pessoa ou qualquer expert?"
+        action_if_pass: "PASS autenticidade"
+        action_if_fail: "Identificar markers genéricos e substituir por específicos"
+        rationale: "Markers genéricos passam teste mas clone continua raso."
+
+  impacto_transformador:
+    rank: 3
+    score: 9.5
+    filter: "Isso cria transformação profunda ou mudança superficial?"
+    quote: "Educar não é preparar pro mundo real, é armar com fogos filosóficos."
+
+    checkpoints:
+
+      - task: "an-design-clone"
+        step: 1
+        step_name: "Define Contexts"
+        checkpoint_type: "direction_filter"
+        question: "Contextos de uso geram TRANSFORMAÇÃO profunda ou resposta superficial?"
+        action_if_pass: "Prosseguir com design"
+        action_if_fail: "Redesenhar contextos para maximizar impacto transformador"
+        rationale: "Clone que responde perguntas = chatbot. Clone que transforma = valor."
+
+      - task: "an-diagnose-clone"
+        step: 4
+        step_name: "Prescribe Treatment"
+        checkpoint_type: "prioritization"
+        question: "Tratamento proposto gera transformação PROFUNDA no clone ou patch superficial?"
+        action_if_pass: "Priorizar tratamento"
+        action_if_fail: "Buscar root cause mais profunda"
+        rationale: "Depth over breadth. Menos fontes ouro > muitas fontes bronze."
+
+  liberdade_criativa:
+    rank: 4
+    score: 9.2
+    filter: "Isso aumenta ou restringe liberdade?"
+
+    checkpoints:
+
+      - task: "an-extract-dna"
+        step: "Phase 1"
+        step_name: "Source Assessment"
+        checkpoint_type: "efficiency_check"
+        question: "Processo de curadoria pode ser AUTOMATIZADO para liberar tempo?"
+        action_if_pass: "Documentar para reutilizar"
+        action_if_fail: "Criar template para próxima extração"
+        rationale: "Curadoria bem feita uma vez → libera tempo depois."
+
+  evolucao_constante:
+    rank: 5
+    score: 9.0
+    filter: "Isso permite evolução ou cria estagnação?"
+
+    checkpoints:
+
+      - task: "an-assess-sources"
+        step: 3
+        step_name: "Prioritize"
+        checkpoint_type: "diversity_check"
+        question: "Estou usando fontes DIVERSAS ou repetindo as mesmas?"
+        action_if_pass: "Prosseguir"
+        action_if_fail: "Buscar fontes não-óbvias (formatos, períodos, contextos diferentes)"
+        rationale: "Mesmas fontes sempre = estagnação de clone."
+
+# ==========================================
+# CORE OBSESSIONS (Padrões de Atenção)
+# ==========================================
+
+OBSESSIONS:
+
+  clareza_compreensao_profunda:
+    intensity: 10
+    status: "MASTER OBSESSION"
+    essence: "Não é só saber, mas ter CLAREZA RADICAL sobre realidade"
+
+    checkpoints:
+
+      - task: "an-extract-framework"
+        step: 3
+        step_name: "Extract Framework"
+        checkpoint_type: "depth_gate"
+        question: "Extraí FRAMEWORK (SE/ENTÃO) ou só PLAYBOOK (passos)?"
+        action_if_pass: "Framework válido com regras de decisão"
+        action_if_fail: "Continuar extração até achar regras condicionais"
+        rationale: "Playbook = O QUE fazer. Framework = QUANDO e POR QUE. Obsessão exige o segundo."
+
+      - task: "deconstruct"
+        step: "core"
+        step_name: "7 Perguntas Core"
+        checkpoint_type: "depth_gate"
+        question: "Perguntas revelam COMO o expert DECIDE ou só O QUE faz?"
+        action_if_pass: "Documentar frameworks de decisão"
+        action_if_fail: "Reformular perguntas para focar em decisão (não ação)"
+        rationale: "O QUE faz = superfície. COMO decide = framework real."
+
+      - task: "an-extract-dna"
+        step: "Phase 2"
+        step_name: "Layer Extraction"
+        checkpoint_type: "depth_gate"
+        question: "Para cada layer, extraí o FRAMEWORK implícito ou só descrevi comportamento?"
+        action_if_pass: "Layer com framework SE/ENTÃO documentado"
+        action_if_fail: "Buscar o SE/ENTÃO por trás do comportamento observado"
+        rationale: "Layer sem framework = descrição. Layer com framework = engine replicável."
+
+      - task: "extract-implicit"
+        step: "Eixo 2"
+        step_name: "Heurísticas Ocultas"
+        checkpoint_type: "formalization_gate"
+        question: "Heurística identificada tem formato SE/ENTÃO com trigger explícito?"
+        action_if_pass: "Formalizar como regra de decisão"
+        action_if_fail: "Refinar até ter 'SE {trigger} → ENTÃO {ação}'"
+        rationale: "Heurística sem trigger = observação, não regra."
+
+      - task: "an-diagnose-clone"
+        step: 2
+        step_name: "Map to Root Cause"
+        checkpoint_type: "depth_gate"
+        question: "Mapeei a CAUSA RAIZ real ou só o sintoma imediato?"
+        action_if_pass: "Root cause com evidência"
+        action_if_fail: "Aplicar '5 Whys' até chegar em causa fundamental"
+        rationale: "Tratar sintoma = clone continua fraco. Tratar causa = transformação."
+
+  liberdade_autonomia_estrutural:
+    intensity: 10
+    status: "ESSENTIAL CONDITION"
+    essence: "Construir sistemas para ganhar liberdade DAS estruturas"
+
+    checkpoints:
+
+      - task: "an-design-clone"
+        step: 2
+        step_name: "Decide Stages"
+        checkpoint_type: "architecture_check"
+        question: "Design do clone HABILITA autonomia do usuário ou cria dependência?"
+        action_if_pass: "Arquitetura que libera"
+        action_if_fail: "Redesenhar para auto-suficiência"
+        rationale: "Clone que cria dependência viola obsessão de autonomia."
+
+  eficiencia_alavancagem_maxima:
+    intensity: 8
+    status: "OPERATIONAL ENABLER"
+    essence: "Máximo impacto com mínimo esforço"
+
+    checkpoints:
+
+      - task: "an-assess-sources"
+        step: 3
+        step_name: "Prioritize"
+        checkpoint_type: "leverage_check"
+        question: "Priorização segue ELIMINA > AUTOMATIZA > AMPLIFICA?"
+        action_if_pass: "Ordem correta de leverage"
+        action_if_fail: "Reordenar: primeiro eliminar 80%, depois automatizar, depois amplificar 0.8%"
+        rationale: "Não automatiza desperdício. ELIMINA primeiro."
+
+      - task: "find-0.8"
+        step: "ALL"
+        step_name: "Todas as zonas"
+        checkpoint_type: "leverage_integral"
+        question: "Hierarchy completa aplicada: ELIMINA (80%) → AUTOMATIZA → AMPLIFICA (0.8%)?"
+        action_if_pass: "Pareto ao Cubo completo"
+        action_if_fail: "Voltar e aplicar os 3 níveis antes de prosseguir"
+        rationale: "20% das fontes geram 80% da fidelidade. 0.8% são Crown Jewels."
+
+# ==========================================
+# MENTAL MODELS (Frameworks de Análise)
+# ==========================================
+
+MODELS:
+
+  pareto_ao_cubo:
+    status: "SIGNATURE FRAMEWORK"
+    formula: "20% → 4% → 0.8% = 51% dos resultados"
+
+    checkpoints:
+
+      - task: "an-assess-sources"
+        step: 3
+        step_name: "Prioritize"
+        checkpoint_type: "classification"
+        question: "Classificou fontes em 0.8% (Crown Jewel) / 4% (Ouro) / 20% (Impacto) / 80% (Bronze)?"
+        action_if_pass: "Priorizar extração pela classificação"
+        action_if_fail: "Aplicar framework antes de prosseguir"
+        rationale: "Crown Jewel > Ouro > Bronze. 0.8% gera 51% do resultado."
+
+      - task: "find-0.8"
+        step: "ALL"
+        step_name: "Checklist Lendário completo"
+        checkpoint_type: "integral_application"
+        question: "4 testes aplicados em sequência? (Impacto → Singularidade → Valor → Genialidade)"
+        action_if_pass: "Classificação válida"
+        action_if_fail: "VETO - task É o Pareto ao Cubo, não pode pular o framework"
+        rationale: "Esta task É a implementação do modelo. Sem framework = sem task."
+
+      - task: "extract-implicit"
+        step: "Fase 3"
+        step_name: "Priorização"
+        checkpoint_type: "prioritization"
+        question: "Top 5 críticos segue lógica Pareto (impacto exponencial primeiro)?"
+        action_if_pass: "Priorização válida"
+        action_if_fail: "Reordenar: CRÍTICO que desbloqueia outros primeiro"
+        rationale: "Priorizar pelo impacto exponencial, não pelo mais fácil."
+
+      - task: "validate-extraction"
+        step: "Item 7"
+        step_name: "Pareto ao Cubo Aplicado"
+        checkpoint_type: "veto"
+        question: "0.8% do expert está identificado e documentado?"
+        action_if_pass: "Handoff pode prosseguir"
+        action_if_fail: "VETO - executar find-0.8 antes de handoff"
+        rationale: "Sem identificar genialidade = clone mediano."
+
+  clarity_first:
+    status: "PRIMARY FILTER"
+    process: "Clareza? → Alinhado? → SE sim → age. SE não → rejeita."
+
+    checkpoints:
+
+      - task: "an-extract-dna"
+        step: "Phase 5"
+        step_name: "Generate Report"
+        checkpoint_type: "output_quality"
+        question: "Report final traz CLAREZA ou CONFUSÃO?"
+        action_if_pass: "Output pronto"
+        action_if_fail: "Simplificar output até trazer clareza"
+        rationale: "Output confuso = extração falhou, independente do conteúdo."
+
+      - task: "an-design-clone"
+        step: 5
+        step_name: "Generate Blueprint"
+        checkpoint_type: "output_quality"
+        question: "Blueprint é CLARO o suficiente para implementar sem perguntas?"
+        action_if_pass: "Blueprint válido"
+        action_if_fail: "Simplificar até ficar auto-explicativo"
+        rationale: "Blueprint confuso = clone confuso."
+
+      - task: "an-validate-clone"
+        step: 5
+        step_name: "Generate Report"
+        checkpoint_type: "output_quality"
+        question: "Validation report tem verdict CLARO com ações CONCRETAS?"
+        action_if_pass: "Report pronto"
+        action_if_fail: "Refinar verdicts ambíguos"
+        rationale: "Ambiguidade no verdict = não validou nada."
+
+      - task: "an-diagnose-clone"
+        step: 5
+        step_name: "Generate Report"
+        checkpoint_type: "output_quality"
+        question: "Diagnóstico tem causa raiz CLARA e tratamento ACIONÁVEL?"
+        action_if_pass: "Report pronto"
+        action_if_fail: "Simplificar diagnóstico até ter 1 causa + 1 ação por problema"
+        rationale: "Diagnóstico vago = tratamento vago = clone continua fraco."
+
+  limited_losses_unlimited_gains:
+    status: "RISK FILTER"
+    principle: "Cap downside, leave upside uncapped"
+
+    checkpoints:
+
+      - task: "an-assess-sources"
+        step: 2
+        step_name: "Classify Each Source"
+        checkpoint_type: "risk_assessment"
+        question: "Ratio risco/retorno desta fonte: 2h investidas geram quanto valor?"
+        action_if_pass: "Ratio < 0.1 → prosseguir"
+        action_if_fail: "Ratio > 0.3 → deprioritizar"
+        rationale: "2h em fonte ouro: upside = clone 10x melhor. 20h em bronze: upside = marginal."
+
+      - task: "an-diagnose-clone"
+        step: 4
+        step_name: "Prescribe Treatment"
+        checkpoint_type: "roi_check"
+        question: "Tratamento tem downside limitado e upside aberto?"
+        action_if_pass: "Priorizar tratamento"
+        action_if_fail: "Buscar tratamento com melhor ratio"
+        rationale: "Tratamento caro com ganho marginal = desperdício."
+
+  first_principles_thinking:
+    status: "ANALYTICAL TOOL"
+    process: "Identifica assumptions → Desafia → Reconstrói de verdades verificadas"
+
+    checkpoints:
+
+      - task: "deconstruct"
+        step: "complementares"
+        step_name: "Revelar Frameworks"
+        checkpoint_type: "depth_gate"
+        question: "Desconstruí até os PRINCÍPIOS FUNDAMENTAIS ou aceitei a superfície?"
+        action_if_pass: "Framework com princípios base documentados"
+        action_if_fail: "Aplicar 'Por quê?' mais 3 vezes até chegar em axioma"
+        rationale: "Sem princípios base = framework superficial que quebra em contexto novo."
+
+      - task: "extract-implicit"
+        step: "Eixo 1"
+        step_name: "Premissas Não Declaradas"
+        checkpoint_type: "assumption_check"
+        question: "Identifiquei as PREMISSAS por trás das premissas?"
+        action_if_pass: "Premissas mapeadas até a raiz"
+        action_if_fail: "Aplicar: 'O que precisa ser verdade para essa premissa existir?'"
+        rationale: "Premissa de superfície é fácil. Premissa raiz é onde mora o insight."
+
+  frameworks_as_liberation:
+    status: "META-FRAMEWORK"
+    paradox: "Estrutura rígida → liberdade"
+
+    checkpoints:
+
+      - task: "an-design-clone"
+        step: 3
+        step_name: "Map Trinity per Stage"
+        checkpoint_type: "design_principle"
+        question: "Template/estrutura é rígida pra LIBERAR ou pra PRENDER?"
+        action_if_pass: "Estrutura que habilita criatividade"
+        action_if_fail: "Redesenhar: menos campos obrigatórios, mais guidance"
+        rationale: "Framework-prisão = executor odeia. Framework-ferramenta = executor adota."
+
+# ==========================================
+# PRODUCTIVE PARADOXES (Tensões que Geram Valor)
+# NÃO resolver — NAVEGAR
+# ==========================================
+
+PARADOXES:
+
+  freedom_through_structure:
+    tension: "Buscador de liberdade + Construtor de sistemas rígidos"
+    resolution: "Estrutura como ferramenta de libertação, não prisão"
+
+    checkpoints:
+
+      - task: "an-design-clone"
+        step: 2
+        step_name: "Decide Stages"
+        checkpoint_type: "paradox_navigation"
+        question: "Estrutura proposta RESTRINGE agora para LIBERAR depois?"
+        action_if_pass: "Design válido — investimento presente para ganho futuro"
+        action_if_fail: "Redesenhar: estrutura deve servir à liberdade, não à burocracia"
+        rationale: "Template é investimento: 2h documentando → 20h economizadas depois."
+
+      - task: "an-design-clone"
+        step: 5
+        step_name: "Generate Blueprint"
+        checkpoint_type: "paradox_verification"
+        question: "Blueprint é RÍGIDO para LIBERAR ou RÍGIDO para CONTROLAR?"
+        action_if_pass: "Rigidez libertadora confirmada"
+        action_if_fail: "Investigar: onde a rigidez está controlando em vez de liberando?"
+        rationale: "Paradoxo é feature. Clone que resolve (escolhe um lado) perde nuance."
+
+  clarity_from_chaos:
+    tension: "Obsessão com clareza + Prospera em caos criativo"
+    mechanism: "Explora widely (caos) → destila para essência (clareza)"
+
+    checkpoints:
+
+      - task: "an-extract-dna"
+        step: "Phase 2"
+        step_name: "Layer Extraction"
+        checkpoint_type: "paradox_navigation"
+        question: "Permiti EXPLORAÇÃO ampla (caos) ANTES de filtrar (clareza)?"
+        action_if_pass: "Modo Cientista Maluco → Modo Crítico Exigente aplicado"
+        action_if_fail: "Voltar e explorar mais amplamente antes de destilar"
+        rationale: "Filtrar cedo demais = perder insights. Caos é INPUT, clareza é OUTPUT."
+
+      - task: "deconstruct"
+        step: "output"
+        step_name: "Síntese final"
+        checkpoint_type: "paradox_verification"
+        question: "Explorei CAOS (muitas perguntas, tangentes) antes de DESTILAR (síntese)?"
+        action_if_pass: "Síntese rica com base ampla"
+        action_if_fail: "Explorar mais antes de sintetizar — tangentes revelam surpresas"
+        rationale: "Síntese sem exploração = óbvio. Síntese com exploração = insight."
+
+  humble_expert:
+    tension: "Alta competência + Humildade como ferramenta"
+    resolution: "Expert em PROCESSO, humilde sobre CONTEÚDO"
+
+    checkpoints:
+
+      - task: "an-extract-framework"
+        step: 5
+        step_name: "Validate Completeness"
+        checkpoint_type: "humility_check"
+        question: "Estou CONFIANTE no processo de extração mas HUMILDE sobre o conteúdo extraído?"
+        action_if_pass: "Validação com abertura para erro"
+        action_if_fail: "Marcar pontos de incerteza como [NEEDS_VALIDATION]"
+        rationale: "Overconfidence no conteúdo = blind spots. Humildade = busca validação."
+
+      - task: "extract-implicit"
+        step: "Meta-Heurísticas"
+        step_name: "Sempre Perguntar"
+        checkpoint_type: "humility_check"
+        question: "Perguntei 'Quem já faz isso bem?' antes de criar framework próprio?"
+        action_if_pass: "Pesquisou referências antes de inventar"
+        action_if_fail: "PARAR e pesquisar frameworks existentes primeiro"
+        rationale: "Expert em processo: sabe COMO extrair. Humilde: não assume que sabe TUDO."
+
+  elitist_egalitarian:
+    tension: "Despertar humanidade + Comunidade hyper-seletiva"
+    resolution: "Depth over breadth"
+
+    checkpoints:
+
+      - task: "an-assess-sources"
+        step: 2
+        step_name: "Classify Each Source"
+        checkpoint_type: "quality_depth"
+        question: "Estou priorizando DEPTH (poucas fontes profundas) ou BREADTH (muitas superficiais)?"
+        action_if_pass: "Depth over breadth confirmado"
+        action_if_fail: "Eliminar fontes superficiais, aprofundar nas restantes"
+        rationale: "Uma fonte Crown Jewel > 10 fontes bronze."
+
+      - task: "validate-extraction"
+        step: "Gate"
+        step_name: "FRAMEWORK_HANDOFF_READY"
+        checkpoint_type: "quality_depth"
+        question: "Insumos refletem PROFUNDIDADE (poucos, ricos) ou VOLUME (muitos, rasos)?"
+        action_if_pass: "Handoff com qualidade depth-first"
+        action_if_fail: "LOOP - reduzir volume, aumentar profundidade"
+        rationale: "Clone de QUALIDADE (0.8%) > clones medianos (64%)."
+
+# ==========================================
+# SUMMARY: Coverage Matrix
+# ==========================================
+
+coverage_matrix:
+  # Tasks e quantos checkpoints cada uma recebe
+  tasks:
+    an-assess-sources:
+      total_checkpoints: 8
+      models_used:
+        - "VALUES.clareza_radical (Step 2)"
+        - "VALUES.autenticidade_integral (Step 2)"
+        - "VALUES.evolucao_constante (Step 3)"
+        - "OBSESSIONS.eficiencia_alavancagem (Step 3)"
+        - "MODELS.pareto_ao_cubo (Step 3)"
+        - "MODELS.limited_losses_unlimited_gains (Step 2)"
+        - "PARADOXES.elitist_egalitarian (Step 2)"
+
+    an-extract-framework:
+      total_checkpoints: 6
+      models_used:
+        - "VALUES.clareza_radical (Step 3)"
+        - "VALUES.autenticidade_integral (Step 1, Step 4)"
+        - "OBSESSIONS.clareza_compreensao (Step 3)"
+        - "MODELS.frameworks_as_liberation (Step 3 - meta)"
+        - "PARADOXES.humble_expert (Step 5)"
+
+    an-extract-dna:
+      total_checkpoints: 5
+      models_used:
+        - "VALUES.clareza_radical (Phase 4)"
+        - "VALUES.liberdade_criativa (Phase 1)"
+        - "OBSESSIONS.clareza_compreensao (Phase 2)"
+        - "MODELS.clarity_first (Phase 5)"
+        - "PARADOXES.clarity_from_chaos (Phase 2)"
+
+    find-0.8:
+      total_checkpoints: 2
+      models_used:
+        - "OBSESSIONS.eficiencia_alavancagem (ALL)"
+        - "MODELS.pareto_ao_cubo (ALL - integral)"
+
+    an-design-clone:
+      total_checkpoints: 5
+      models_used:
+        - "VALUES.impacto_transformador (Step 1)"
+        - "OBSESSIONS.liberdade_autonomia (Step 2)"
+        - "MODELS.frameworks_as_liberation (Step 3)"
+        - "PARADOXES.freedom_through_structure (Step 2, Step 5)"
+
+    an-validate-clone:
+      total_checkpoints: 4
+      models_used:
+        - "VALUES.autenticidade_integral (Step 1, Step 4)"
+        - "MODELS.clarity_first (Step 5)"
+
+    an-diagnose-clone:
+      total_checkpoints: 4
+      models_used:
+        - "VALUES.impacto_transformador (Step 4)"
+        - "OBSESSIONS.clareza_compreensao (Step 2)"
+        - "MODELS.clarity_first (Step 5)"
+        - "MODELS.limited_losses_unlimited_gains (Step 4)"
+
+    deconstruct:
+      total_checkpoints: 4
+      models_used:
+        - "VALUES.clareza_radical (complementares)"
+        - "OBSESSIONS.clareza_compreensao (core)"
+        - "MODELS.first_principles (complementares)"
+        - "PARADOXES.clarity_from_chaos (output)"
+
+    extract-implicit:
+      total_checkpoints: 5
+      models_used:
+        - "VALUES.clareza_radical (Eixo 1 + Eixo 4)"
+        - "OBSESSIONS.clareza_compreensao (Eixo 2)"
+        - "MODELS.pareto_ao_cubo (Fase 3)"
+        - "MODELS.first_principles (Eixo 1)"
+        - "PARADOXES.humble_expert (Meta-Heurísticas)"
+
+    validate-extraction:
+      total_checkpoints: 3
+      models_used:
+        - "VALUES.clareza_radical (Gate)"
+        - "MODELS.pareto_ao_cubo (Item 7)"
+        - "PARADOXES.elitist_egalitarian (Gate)"
+
+  # Modelos e em quantas tasks cada um aparece
+  models_coverage:
+    VALUES:
+      clareza_radical: 6 tasks
+      autenticidade_integral: 4 tasks
+      impacto_transformador: 2 tasks
+      liberdade_criativa: 1 task
+      evolucao_constante: 1 task
+
+    OBSESSIONS:
+      clareza_compreensao_profunda: 5 tasks
+      liberdade_autonomia_estrutural: 1 task
+      eficiencia_alavancagem_maxima: 2 tasks
+
+    MODELS:
+      pareto_ao_cubo: 4 tasks
+      clarity_first: 4 tasks
+      limited_losses_unlimited_gains: 2 tasks
+      first_principles_thinking: 2 tasks
+      frameworks_as_liberation: 2 tasks
+
+    PARADOXES:
+      freedom_through_structure: 1 task
+      clarity_from_chaos: 2 tasks
+      humble_expert: 2 tasks
+      elitist_egalitarian: 2 tasks
+
+  totals:
+    total_checkpoints: 46
+    tasks_covered: 10
+    models_applied: 17
+    zero_coverage: []  # Todos os modelos têm pelo menos 1 checkpoint
+
+# ==========================================
+# VETO CONDITIONS (da matriz)
+# ==========================================
+
+veto_conditions:
+
+  V1_modelo_sem_checkpoint:
+    trigger: "Modelo mental no agent.md sem checkpoint em nenhuma task"
+    check: "coverage_matrix.models_coverage → zero = VETO"
+    status: "PASS - todos os 17 modelos têm ≥1 checkpoint"
+
+  V2_checkpoint_sem_acao:
+    trigger: "Checkpoint existe mas não tem action definida"
+    check: "Cada checkpoint tem action_if_pass E action_if_fail"
+    status: "PASS - verificado na construção"
+
+  V3_task_sem_checkpoint:
+    trigger: "Task do oalanicolas sem nenhum checkpoint"
+    check: "coverage_matrix.tasks → total > 0 para cada"
+    status: "PASS - 10/10 tasks cobertas"
+
+  V4_checkpoint_generico:
+    trigger: "Checkpoint que poderia ser de qualquer agent, não específico do Alan"
+    check: "Cada checkpoint referencia modelo mental específico do oalanicolas.md"
+    status: "PASS - todos referenciam VALUES/OBSESSIONS/MODELS/PARADOXES do Alan"

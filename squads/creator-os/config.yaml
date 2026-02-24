@@ -1,0 +1,102 @@
+squad:
+  name: "creator-os"
+  title: "Creator OS"
+  version: "1.0.0"
+  description: "Sistema operacional para criadores solopreneurs. Identifica tendencias, simplifica complexidade em conteudo acessivel, distribui em escala via automacao, e monetiza via produto digital."
+  created: "2026-02-18"
+  created_for: "Joao Rosa"
+  genius_profile: "squads/zona-genialidade/data/joao-rosa/genius-zone-blueprint.md"
+
+  category: "Creator Economy"
+  complexity: "medium"
+  mode: "yolo"
+
+  agents:
+    orchestrator:
+      id: "creator-os-chief"
+      name: "Creator OS Chief"
+      role: "Orquestra o sistema operacional de criacao"
+
+    tier_0:
+      - id: "justin-welsh"
+        name: "Justin Welsh"
+        role: "Solopreneur System Architect"
+        framework: "The Creator MBA / Content Operating System"
+
+    tier_1:
+      - id: "tiago-forte"
+        name: "Tiago Forte"
+        role: "Knowledge Architect"
+        framework: "Building a Second Brain (BASB) / PARA Method"
+
+      - id: "nicolas-cole"
+        name: "Nicolas Cole"
+        role: "Writing System Engineer"
+        framework: "The Art and Business of Online Writing / Ship 30 for 30"
+
+      - id: "dan-koe"
+        name: "Dan Koe"
+        role: "One-Person Business Strategist"
+        framework: "The One-Person Business Model / The Art of Focus"
+
+    tier_2:
+      - id: "sahil-bloom"
+        name: "Sahil Bloom"
+        role: "Distribution & Growth Architect"
+        framework: "Newsletter Growth Framework / Content Repurposing System"
+
+  tasks:
+    - id: "create-content-system"
+      name: "Design Content Operating System"
+      type: "interactive"
+
+    - id: "research-trend"
+      name: "Research & Identify Trends"
+      type: "autonomous"
+
+    - id: "distill-content"
+      name: "Distill Complex Topic into Content"
+      type: "autonomous"
+
+    - id: "create-offer"
+      name: "Create Digital Offer"
+      type: "hybrid"
+
+    - id: "distribute-content"
+      name: "Distribute Content"
+      type: "autonomous"
+
+    - id: "launch-plan"
+      name: "Create 30-60-90 Launch Plan"
+      type: "autonomous"
+
+  workflows:
+    - id: "wf-content-pipeline"
+      name: "Content Pipeline (Trend → Content → Distribute)"
+      phases: 4
+
+    - id: "wf-product-launch"
+      name: "Product Launch Pipeline"
+      phases: 5
+
+  quality_gates:
+    - id: "QG-CO-001"
+      name: "Content System Designed"
+      blocking: true
+
+    - id: "QG-CO-002"
+      name: "Trend Validated"
+      blocking: true
+
+    - id: "QG-CO-003"
+      name: "Content Quality Check"
+      blocking: true
+
+  research_foundation:
+    minds: 5
+    frameworks:
+      - "The Creator MBA (Justin Welsh)"
+      - "Building a Second Brain (Tiago Forte)"
+      - "Art of Online Writing (Nicolas Cole)"
+      - "One-Person Business (Dan Koe)"
+      - "Newsletter Growth (Sahil Bloom)"

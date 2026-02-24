@@ -1,0 +1,518 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW: Automated Source Acquisition
+# ═══════════════════════════════════════════════════════════════════════════════
+# Versão: 2.0.0
+# Autor: Squad Architect
+# Atualizado: 2026-02-05
+# Princípio: "More sources = higher fidelity. Automate the obvious."
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow:
+  id: wf-auto-acquire-sources
+  name: Automated Source Acquisition
+  version: "2.0.0"
+  description: |
+    Workflow automatizado para aquisição de fontes de elite minds.
+    Utiliza MCPs e ferramentas descobertas para maximizar cobertura.
+
+  estimated_time: "15-30 min"
+  complexity: medium
+  elicit: false  # Executa automaticamente sem input do usuário
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS & OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - mind_name: "Nome completo do expert"
+    - domain: "Área de expertise"
+  optional:
+    - target_count: "Número alvo de fontes (default: 15)"
+    - focus: "youtube|books|podcasts|articles|all (default: all)"
+    - output_path: "Path para salvar (default: outputs/minds/{slug}/sources/)"
+
+outputs:
+  primary:
+    - sources_inventory.yaml: "Inventário consolidado de todas as fontes"
+    - acquisition_report.md: "Relatório de aquisição"
+  secondary:
+    - transcripts/: "Pasta com transcrições extraídas"
+    - articles/: "Pasta com artigos em markdown"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TOOL DEPENDENCIES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+tools:
+  required:
+    - name: exa
+      status: installed
+      purpose: "Web search para encontrar fontes"
+      tools_used:
+        - web_search_exa
+        - company_research_exa
+
+  recommended:
+    - name: mcp-youtube-transcript
+      status: recommended
+      purpose: "Extrair transcrições do YouTube"
+      install: "npx -y @jkawamoto/mcp-youtube-transcript"
+      fallback: "Use Exa + WebFetch para buscar transcripts existentes"
+
+    - name: firecrawl-mcp
+      status: recommended
+      purpose: "Scraping de artigos e blogs"
+      install: "env FIRECRAWL_API_KEY=fc-KEY npx -y firecrawl-mcp"
+      fallback: "Use WebFetch nativo"
+
+  optional:
+    - name: mcp-perplexity
+      purpose: "Deep research com citações"
+      install: "npx -y mcp-perplexity"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0: SETUP
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - phase: 0
+    name: "Setup & Tool Check"
+    duration: "1 min"
+
+    steps:
+      - step: 0.1
+        name: "Generate slug"
+        action: |
+          slug = mind_name.lower().replace(" ", "_").replace("-", "_")
+          output_path = f"outputs/minds/{slug}/sources/"
+
+      - step: 0.2
+        name: "Create directory structure"
+        action: |
+          mkdir -p {output_path}/transcripts
+          mkdir -p {output_path}/articles
+          mkdir -p {output_path}/books
+
+      - step: 0.3
+        name: "Check available tools"
+        action: |
+          Check which MCPs are installed:
+          - [x] exa (always available)
+          - [ ] mcp-youtube-transcript
+          - [ ] firecrawl-mcp
+          - [ ] mcp-perplexity
+
+          Set tool_mode based on availability.
+
+    checkpoint:
+      condition: "Directory structure created"
+      on_fail: "Create directories manually"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: YOUTUBE MINING
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - phase: 1
+    name: "YouTube Transcript Mining"
+    duration: "5 min"
+    parallel: true
+
+    steps:
+      - step: 1.1
+        name: "Search YouTube content"
+        tool: exa.web_search_exa
+        queries:
+          - '"{mind_name}" interview YouTube'
+          - '"{mind_name}" podcast YouTube'
+          - '"{mind_name}" keynote speech'
+          - '"{mind_name}" masterclass'
+          - '"{mind_name}" {domain} advice'
+
+      - step: 1.2
+        name: "Extract video URLs"
+        action: |
+          From Exa results, extract YouTube URLs.
+          Filter by:
+          - Duration > 10 min (substantial content)
+          - Expert is main speaker/interviewee
+          - High engagement (views > 10k preferred)
+
+      - step: 1.3
+        name: "Extract transcripts"
+        tool_priority:
+          1: mcp-youtube-transcript  # Se instalado
+          2: exa + WebFetch          # Fallback: buscar transcripts existentes
+          3: manual_note             # Último recurso: marcar para download manual
+
+        action_if_mcp_available: |
+          For each video_url:
+            transcript = mcp__youtube_transcript__get_transcript(video_url)
+            save to {output_path}/transcripts/YT_{index}.md
+
+        action_fallback: |
+          For each video_url:
+            search = exa.web_search_exa("{video_title} transcript")
+            if transcript_found:
+              content = WebFetch(transcript_url)
+              save to {output_path}/transcripts/YT_{index}.md
+            else:
+              add to manual_download_queue
+
+    output:
+      youtube_sources:
+        count: 0
+        items: []
+
+    checkpoint:
+      condition: "5+ YouTube sources found"
+      on_partial: "Continue with available sources"
+      on_fail: "Log warning, proceed to next phase"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: BOOK MINING
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - phase: 2
+    name: "Book Summary Mining"
+    duration: "5 min"
+    parallel: true
+
+    steps:
+      - step: 2.1
+        name: "Identify books by expert"
+        tool: exa.web_search_exa
+        queries:
+          - '"{mind_name}" books author'
+          - 'books written by "{mind_name}"'
+          - '"{mind_name}" bibliography'
+
+      - step: 2.2
+        name: "Find book summaries"
+        tool: exa.web_search_exa
+        for_each_book:
+          queries:
+            - '"{book_title}" summary'
+            - '"{book_title}" book notes'
+            - '"{book_title}" key takeaways'
+            - '"{book_title}" chapter summary site:shortform.com OR site:blinkist.com'
+
+      - step: 2.3
+        name: "Extract summaries"
+        tool_priority:
+          1: firecrawl-mcp       # Se instalado
+          2: WebFetch            # Fallback nativo
+
+        action: |
+          For each summary_url:
+            if firecrawl available:
+              content = firecrawl.scrape(summary_url, format="markdown")
+            else:
+              content = WebFetch(summary_url, prompt="Extract book summary")
+
+            save to {output_path}/books/BK_{index}.md
+
+    output:
+      book_sources:
+        count: 0
+        items: []
+
+    checkpoint:
+      condition: "Main books identified"
+      on_fail: "Expert may not have books, continue"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: PODCAST MINING
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - phase: 3
+    name: "Podcast Archive Mining"
+    duration: "5 min"
+    parallel: true
+
+    steps:
+      - step: 3.1
+        name: "Find podcast appearances"
+        tool: exa.web_search_exa
+        queries:
+          - '"{mind_name}" podcast guest'
+          - '"{mind_name}" podcast interview'
+          - '"{mind_name}" appeared on podcast'
+          - 'site:spotify.com "{mind_name}"'
+          - 'site:podcasts.apple.com "{mind_name}"'
+
+      - step: 3.2
+        name: "Extract podcast info"
+        action: |
+          For each podcast appearance:
+            - Show name
+            - Episode title
+            - Host
+            - Duration
+            - URL
+            - Transcript availability
+
+      - step: 3.3
+        name: "Get transcripts"
+        note: |
+          Podcast transcripts are harder to get automatically.
+          Strategy:
+          1. Check if show provides transcripts
+          2. Search for fan-made transcripts
+          3. Mark for manual Whisper processing if audio available
+
+    output:
+      podcast_sources:
+        count: 0
+        items: []
+
+    checkpoint:
+      condition: "3+ podcast appearances found"
+      on_partial: "Continue with available"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: ARTICLE MINING
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - phase: 4
+    name: "Article & Blog Mining"
+    duration: "5 min"
+    parallel: true
+
+    steps:
+      - step: 4.1
+        name: "Find content BY the expert"
+        tool: exa.web_search_exa
+        queries:
+          - '"{mind_name}" blog'
+          - '"{mind_name}" newsletter'
+          - '"{mind_name}" articles'
+          - 'site:medium.com author:"{mind_name}"'
+          - 'site:linkedin.com/pulse "{mind_name}"'
+        tier: 1  # Primary - expert's own words
+
+      - step: 4.2
+        name: "Find content ABOUT the expert"
+        tool: exa.web_search_exa
+        queries:
+          - '"{mind_name}" methodology explained'
+          - '"{mind_name}" framework analysis'
+          - '"{mind_name}" principles breakdown'
+          - '"{mind_name}" biography profile'
+        tier: 2  # Secondary - about the expert
+
+      - step: 4.3
+        name: "Extract articles"
+        tool_priority:
+          1: firecrawl-mcp
+          2: WebFetch
+
+        action: |
+          For each article_url:
+            if firecrawl available:
+              content = firecrawl.scrape(article_url, format="markdown")
+            else:
+              content = WebFetch(article_url, prompt="Extract main article content")
+
+            save to {output_path}/articles/AR_{index}.md
+
+    output:
+      article_sources:
+        count: 0
+        items: []
+
+    checkpoint:
+      condition: "Articles found and extracted"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 5: CONSOLIDATION
+  # ─────────────────────────────────────────────────────────────────────────────
+
+  - phase: 5
+    name: "Consolidation & Inventory"
+    duration: "2 min"
+
+    steps:
+      - step: 5.1
+        name: "Merge all sources"
+        action: |
+          Combine all phase outputs into unified inventory.
+
+      - step: 5.2
+        name: "Classify by tier"
+        tiers:
+          tier_1:
+            description: "Primary - Expert speaking/writing directly"
+            sources: ["interviews", "own_articles", "keynotes", "books_full"]
+          tier_2:
+            description: "Secondary - Curated content about expert"
+            sources: ["book_summaries", "analysis_articles", "profiles"]
+          tier_3:
+            description: "Tertiary - Condensed/derived content"
+            sources: ["quick_summaries", "quotes_only", "wiki"]
+
+      - step: 5.3
+        name: "Generate inventory file"
+        output_template: |
+          # ═══════════════════════════════════════════════════════════════
+          # AUTO-ACQUIRED SOURCES - {MIND_NAME}
+          # Domain: {DOMAIN}
+          # Acquired: {DATE}
+          # Workflow: wf-auto-acquire-sources v2.0
+          # ═══════════════════════════════════════════════════════════════
+
+          metadata:
+            mind_name: "{mind_name}"
+            slug: "{slug}"
+            domain: "{domain}"
+            acquisition_date: "{date}"
+            workflow_version: "2.0.0"
+            auto_acquired: true
+            tools_used:
+              - exa: true
+              - youtube_transcript_mcp: {yes/no}
+              - firecrawl_mcp: {yes/no}
+
+          summary:
+            total_sources: {total}
+            by_type:
+              youtube: {count}
+              books: {count}
+              podcasts: {count}
+              articles: {count}
+            by_tier:
+              tier_1: {count}
+              tier_2: {count}
+              tier_3: {count}
+            estimated_content:
+              hours_video: {hours}
+              pages_text: {pages}
+
+          sources:
+            youtube:
+              - id: "YT01"
+                title: ""
+                url: ""
+                duration: ""
+                transcript_path: ""
+                tier: 1
+
+            books:
+              - id: "BK01"
+                title: ""
+                year: ""
+                summary_path: ""
+                full_available: false
+                tier: 2
+
+            podcasts:
+              - id: "PD01"
+                show: ""
+                episode: ""
+                url: ""
+                transcript_path: ""
+                tier: 1
+
+            articles:
+              - id: "AR01"
+                title: ""
+                author: ""
+                url: ""
+                content_path: ""
+                tier: 1  # 1 if by expert, 2 if about
+
+          manual_queue:
+            # Sources that need manual processing
+            - source_id: ""
+              reason: ""
+              action_needed: ""
+
+      - step: 5.4
+        name: "Generate acquisition report"
+        action: |
+          Create acquisition_report.md with:
+          - Summary of what was found
+          - Gaps identified
+          - Recommendations for quality improvement
+          - Next steps
+
+    checkpoint:
+      condition: "sources_inventory.yaml created"
+      blocking: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY GATE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_gate:
+  id: "SRC_ACQ_001"
+  name: "Source Acquisition Quality Gate"
+
+  minimum_requirements:
+    total_sources: 10
+    tier_1_sources: 5
+    youtube_with_transcript: 3
+
+  scoring:
+    excellent: "20+ sources, 60%+ tier 1"
+    good: "15+ sources, 50%+ tier 1"
+    acceptable: "10+ sources, 40%+ tier 1"
+    needs_improvement: "<10 sources or <40% tier 1"
+
+  recommendations:
+    if_low_youtube: "Consider manual transcript extraction with Whisper"
+    if_no_books: "Expert may not be an author - focus on interviews"
+    if_low_tier_1: "Prioritize finding primary sources, search harder"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INTEGRATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+integration:
+  triggers:
+    - workflow: "wf-clone-mind.yaml"
+      phase: "Phase 1 - Source Collection"
+      mode: "auto"
+
+    - command: "*auto-acquire-sources"
+      mode: "standalone"
+
+    - task: "collect-sources.md"
+      phase: "Fase 1"
+      mode: "parallel"
+
+  outputs_used_by:
+    - task: "extract-voice-dna.md"
+      uses: "sources_inventory.yaml, transcripts/"
+
+    - task: "extract-thinking-dna.md"
+      uses: "sources_inventory.yaml, articles/"
+
+    - workflow: "wf-clone-mind.yaml"
+      uses: "All outputs"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  created: "2026-02-05"
+  author: "Squad Architect"
+  based_on: "Tool Discovery 2026-02-05"
+  changelog:
+    - version: "2.0.0"
+      date: "2026-02-05"
+      changes:
+        - "Integração com MCPs descobertos (youtube-transcript, firecrawl)"
+        - "Fallbacks para quando MCPs não estão instalados"
+        - "Quality gate com scoring"
+        - "Parallel execution nas fases"
+    - version: "1.0.0"
+      date: "2026-02-01"
+      changes:
+        - "Versão inicial baseada em auto-acquire-sources.md"

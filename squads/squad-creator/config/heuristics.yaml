@@ -1,0 +1,753 @@
+# HEURISTICS ENGINE - Squad-Creator
+# Source patterns: PV_BS_001, PV_PA_001, PV_PM_001, AN_KE_001, AN_KE_002, AN_KE_003
+# Version: 2.0
+# Last Updated: 2026-02-10
+
+heuristics_engine:
+  version: "2.0"
+  philosophy: |
+    "Se você cria impossibilidades, cada um vai ter infinitas possibilidades
+    de pegar aquilo e adaptar para a realidade dele."
+    Heurísticas são atalhos de decisão baseados em padrões comprovados.
+
+  source_artifacts:
+    # Pedro Valério (Build)
+    - "minds/pedro_valerio/heuristics/PV_BS_001.md"
+    - "minds/pedro_valerio/heuristics/PV_PA_001.md"
+    - "minds/pedro_valerio/heuristics/PV_PM_001.md"
+    # OalaNicolas (Extraction)
+    - "minds/oalanicolas/heuristics/AN_KE_001.md"
+    - "minds/oalanicolas/heuristics/AN_KE_002.md"
+    - "minds/oalanicolas/heuristics/AN_KE_003.md"
+
+  # ============================================
+  # SC_HE_001 - VISION ALIGNMENT (Future Back-Casting)
+  # ============================================
+  SC_HE_001:
+    name: "Vision Alignment"
+    source: "PV_BS_001"
+    phase: "architecture"
+    mode: "*eng-*"
+    description: |
+      Strategic alignment validation using future back-casting.
+      Evaluates whether proposed actions directly enable the squad vision.
+
+    weights:
+      squad_vision_clarity: 0.9
+      agent_coverage: 0.8
+      workflow_coherence: 0.7
+
+    thresholds:
+      vision_clarity: 0.7
+      agent_coverage: 0.8
+      workflow_coherence: 0.7
+
+    decision_tree: |
+      IF (squad_vision_clarity >= 0.7 AND agent_coverage >= 0.8)
+        THEN APPROVE → Proceed to DNA extraction
+
+      ELSE IF (squad_vision_clarity >= 0.7 AND agent_coverage < 0.8)
+        THEN REVIEW → Add missing agents
+
+      ELSE IF (squad_vision_clarity < 0.7)
+        THEN VETO → Return to Discovery, clarify vision
+
+    veto_conditions:
+      - condition: "squad_vision_clarity < 0.7"
+        action: "VETO - Vision unclear"
+        recovery: "Define clear squad purpose and scope"
+        maps_to: "SC_VC_002"
+
+    validation_questions:
+      - "O propósito do squad está claramente definido?"
+      - "Quais problemas específicos esse squad resolve?"
+      - "Os agents cobrem todas as capabilities necessárias?"
+      - "Os workflows conectam os agents corretamente?"
+
+    output:
+      type: "decision"
+      values: ["APPROVE", "REVIEW", "VETO"]
+
+    integration:
+      checkpoint: "architecture-review"
+      pass_action: "Proceed to Phase 3 (DNA Extraction)"
+      fail_action: "Return to Discovery with feedback"
+
+  # ============================================
+  # SC_HE_002 - AGENT COHERENCE (Systemic Coherence Scan)
+  # ============================================
+  SC_HE_002:
+    name: "Agent Coherence"
+    source: "PV_PA_001"
+    phase: "agent_creation"
+    mode: "*arq-*"
+    description: |
+      Coherence validation for agent DNA and behavior.
+      Truthfulness (authenticity to source) has VETO power.
+
+    weights:
+      dna_authenticity: 1.0     # VETO power
+      voice_coherence: 0.9
+      thinking_coherence: 0.8
+      behavior_consistency: 0.7
+
+    thresholds:
+      dna_authenticity: 0.7     # Must be authentic
+      voice_coherence: 0.7
+      thinking_coherence: 0.7
+      behavior_consistency: 0.8
+
+    decision_tree: |
+      PRIMARY BRANCH:
+        IF (dna_authenticity < 0.7 OR fabricated_content_detected)
+          THEN VETO → Agent is not authentic to source
+
+      SECONDARY BRANCH:
+        ELSE IF (voice_coherence < 0.7 OR thinking_coherence < 0.7)
+          THEN REVIEW → DNA needs refinement
+
+      TERTIARY BRANCH:
+        ELSE IF (behavior_consistency < 0.8)
+          THEN REVIEW → Run more smoke tests
+
+      SUCCESS:
+        IF (all thresholds met)
+          THEN APPROVE → Agent ready for integration
+
+    veto_conditions:
+      - condition: "dna_authenticity < 0.7"
+        action: "VETO - Agent not authentic"
+        recovery: "Return to DNA extraction with more sources"
+        maps_to: "SC_VC_005"
+
+      - condition: "fabricated_content_detected = true"
+        action: "VETO - Fabricated content found"
+        recovery: "Remove fabricated content, verify all claims"
+        maps_to: "SC_VC_003"
+
+    validation_questions:
+      - "O agent soa como a pessoa real?"
+      - "Os frameworks usados são documentados ou inventados?"
+      - "As citações têm [SOURCE:] verificável?"
+      - "O comportamento é consistente em múltiplos testes?"
+
+    authenticity_assessment:
+      authentic:
+        description: "DNA matches verifiable sources"
+        score_range: [0.7, 1.0]
+        action: "APPROVE"
+
+      questionable:
+        description: "Some content cannot be verified"
+        score_range: [0.4, 0.7]
+        action: "REVIEW - Verify sources"
+
+      fabricated:
+        description: "Content clearly invented or contradicts sources"
+        score_range: [0.0, 0.4]
+        action: "VETO - Remove fabricated content"
+
+    output:
+      type: "decision"
+      values: ["APPROVE", "REVIEW", "VETO"]
+
+    integration:
+      checkpoint: "agent-coherence-review"
+      pass_action: "Proceed to Smoke Tests"
+      fail_action: "Return to DNA extraction with gaps"
+
+  # ============================================
+  # SC_HE_003 - WORKFLOW AUTOMATION (Automation Tipping Point)
+  # ============================================
+  SC_HE_003:
+    name: "Workflow Automation"
+    source: "PV_PM_001"
+    phase: "workflow_design"
+    mode: "*auto-*"
+    description: |
+      Determine automation level for workflow steps.
+      Guardrails are REQUIRED for any automation.
+
+    weights:
+      task_frequency: 0.7
+      task_complexity: 0.8
+      automation_feasibility: 0.8
+      guardrails_present: 1.0   # VETO power
+
+    thresholds:
+      frequency: "2x per workflow run"
+      complexity_for_human: 0.7
+      automation_feasibility: 0.5
+      guardrails_required: true
+
+    decision_tree: |
+      GUARDRAIL CHECK:
+        IF (guardrails_missing AND automation_proposed)
+          THEN VETO → Define guardrails first
+
+      AUTOMATION BRANCH:
+        IF (automation_feasibility >= 0.5 AND frequency >= 2x)
+          THEN AUTOMATE → Create Worker or Agent task
+
+      HYBRID BRANCH:
+        ELSE IF (complexity >= 0.7 AND automation_feasibility >= 0.3)
+          THEN HYBRID → AI prepares, human validates
+
+      HUMAN BRANCH:
+        ELSE IF (requires_judgment = true)
+          THEN KEEP_HUMAN → Requires human creativity/judgment
+
+      ELIMINATION BRANCH:
+        ELSE IF (value < 0.3)
+          THEN ELIMINATE → Task adds no value
+
+    veto_conditions:
+      - condition: "guardrails_missing = true"
+        action: "VETO - No automation without guardrails"
+        recovery: "Define 5 required guardrails"
+        maps_to: "SC_VC_007"
+
+      - condition: "status_can_go_backwards = true"
+        action: "VETO - Unidirectional flow violated"
+        recovery: "Redesign status flow"
+        maps_to: "SC_VC_008"
+
+    required_guardrails:
+      - name: "loop_prevention"
+        description: "Max iterations, deduplication"
+        validation: "Check for infinite loop potential"
+
+      - name: "idempotency"
+        description: "Same input → same output"
+        validation: "Run same input 3x, compare outputs"
+
+      - name: "audit_trail"
+        description: "Log all state changes"
+        validation: "Verify logging configuration"
+
+      - name: "manual_escape"
+        description: "Human override route"
+        validation: "Test manual intervention path"
+
+      - name: "retry_logic"
+        description: "Graceful failure handling"
+        validation: "Test failure scenarios"
+
+    automation_decision_matrix:
+      - frequency: "high (>4x)"
+        complexity: "low"
+        decision: "AUTOMATE (Worker)"
+
+      - frequency: "high"
+        complexity: "high"
+        decision: "HYBRID (AI + Human)"
+
+      - frequency: "low (<2x)"
+        complexity: "high"
+        decision: "HUMAN"
+
+      - frequency: "low"
+        complexity: "low"
+        decision: "ELIMINATE or MANUAL"
+
+    validation_questions:
+      - "Quantas vezes essa task é executada por workflow?"
+      - "A task requer julgamento humano?"
+      - "Os 5 guardrails estão implementados?"
+      - "O fluxo é unidirecional (sem voltar status)?"
+
+    output:
+      type: "decision"
+      values: ["AUTOMATE", "HYBRID", "HUMAN", "ELIMINATE", "VETO"]
+
+    integration:
+      checkpoint: "workflow-automation-review"
+      pass_action: "Proceed to Task Definitions"
+      fail_action: "Add guardrails or redesign workflow"
+
+  # ============================================
+  # AN_HE_001 - KNOWLEDGE EXTRACTION ARCHITECTURE
+  # ============================================
+  AN_HE_001:
+    name: "Knowledge Extraction Architecture"
+    source: "AN_KE_001"
+    phase: "dna_extraction"
+    agent: "@oalanicolas"
+    description: |
+      Primary framework for knowledge extraction with traceability.
+      Pipeline: Discovery → Classification → Pareto → Deconstruction → Extraction → Validation
+
+    weights:
+      source_quality: 0.9
+      citation_coverage: 0.8
+      trinity_completeness: 0.7
+
+    thresholds:
+      citations_minimum: 15
+      signature_phrases_minimum: 5
+      ouro_ratio_minimum: 0.6
+
+    decision_tree: |
+      IF (source_quality >= 0.6 AND citations >= 15 AND trinity_complete)
+        THEN APPROVE → Proceed to handoff
+
+      ELSE IF (source_quality >= 0.6 AND citations < 15)
+        THEN REVIEW → Extract more citations
+
+      ELSE IF (source_quality < 0.6)
+        THEN VETO → Return to source curation
+
+    veto_conditions:
+      - condition: "citations < 15"
+        action: "VETO - Insufficient citations"
+        maps_to: "AN_VC_004"
+      - condition: "ouro_ratio < 0.6"
+        action: "VETO - Too much bronze"
+        maps_to: "AN_VC_003"
+
+    validation_questions:
+      - "Fontes majoritariamente ouro?"
+      - "15+ citações com [SOURCE:]?"
+      - "Trindade completa?"
+      - "Zero [INFERRED] não validados?"
+
+    output:
+      type: "decision"
+      values: ["APPROVE", "REVIEW", "VETO"]
+
+    integration:
+      checkpoint: "dna-extraction-complete"
+      pass_action: "Handoff to @pedro-valerio"
+      fail_action: "Loop back to source curation"
+
+  # ============================================
+  # AN_HE_002 - TRINITY FRAMEWORK
+  # ============================================
+  AN_HE_002:
+    name: "Trinity Framework"
+    source: "AN_KE_002"
+    phase: "dna_extraction"
+    agent: "@oalanicolas"
+    description: |
+      Playbook + Framework + Swipe File trinity validation.
+      Clone needs all THREE to function well.
+
+    components:
+      playbook:
+        definition: "A receita completa - passo a passo"
+        validation: "Has sequential steps with dependencies"
+      framework:
+        definition: "A forma/estrutura - SE X, ENTÃO Y"
+        validation: "Has decision rules"
+      swipe_file:
+        definition: "Exemplos validados - provas que funcionam"
+        validation: "Has real output examples"
+
+    decision_tree: |
+      IF (has_playbook AND has_framework AND has_swipe)
+        THEN APPROVE → Trinity complete
+
+      ELSE IF (has_playbook AND has_framework AND NOT has_swipe)
+        THEN REVIEW → Search for output examples
+
+      ELSE IF (has_playbook AND NOT has_framework)
+        THEN VETO → Extract decision rules first
+
+      ELSE IF (NOT has_playbook)
+        THEN VETO → Start with step-by-step extraction
+
+    veto_conditions:
+      - condition: "any_component_missing"
+        action: "VETO - Complete trinity before handoff"
+        maps_to: "AN_VC_002"
+
+    validation_questions:
+      - "O clone sabe O QUE fazer? (Playbook)"
+      - "O clone sabe QUANDO/COMO decidir? (Framework)"
+      - "O clone tem referência de QUALIDADE? (Swipe)"
+
+    output:
+      type: "decision"
+      values: ["APPROVE", "REVIEW", "VETO"]
+
+  # ============================================
+  # AN_HE_003 - PARETO AO CUBO
+  # ============================================
+  AN_HE_003:
+    name: "Pareto ao Cubo"
+    source: "AN_KE_003"
+    phase: "source_classification"
+    agent: "@oalanicolas"
+    description: |
+      4-zone classification: 0,8% genius, 4% excellence, 20% impact, 80% eliminate.
+      0,8% produces 51% of results. Protect genius, eliminate waste.
+
+    zones:
+      - id: "zone_0.8"
+        name: "Zona de Genialidade"
+        percentage: "0,8%"
+        result: "~51%"
+        action: "PROTEGER"
+      - id: "zone_4"
+        name: "Zona de Excelência"
+        percentage: "4%"
+        result: "~64% cumulativo"
+        action: "DESENVOLVER"
+      - id: "zone_20"
+        name: "Zona de Impacto"
+        percentage: "20%"
+        result: "~80% cumulativo"
+        action: "MANTER"
+      - id: "zone_80"
+        name: "Zona de Merda"
+        percentage: "80%"
+        result: "~20%"
+        action: "ELIMINAR"
+
+    classification_flow:
+      - "1. Impacto: Se eu parar de fazer isso, o que acontece?"
+      - "2. Singularidade: Só eu consigo fazer isso?"
+      - "3. Valor: Isso gera resultado desproporcional?"
+      - "4. Genialidade: Isso me coloca em flow?"
+
+    veto_conditions:
+      - condition: "classification_not_applied"
+        action: "REVIEW - Apply Pareto ao Cubo before proceeding"
+        maps_to: "AN_VC_001"
+      - condition: "volume_without_curation"
+        action: "VETO - Curadoria primeiro, volume depois"
+        maps_to: "AN_VC_001"
+
+    validation_questions:
+      - "Classifiquei todas as fontes/atividades em 4 zonas?"
+      - "O 0,8% está claramente identificado?"
+      - "O 80% está marcado para eliminação?"
+
+    output:
+      type: "classification"
+      format: "4 zonas com [SOURCE:]"
+
+  # ============================================
+  # AN_HE_004 - DISCOVERY BEFORE IMPLEMENTATION
+  # ============================================
+  AN_HE_004:
+    name: "Discovery Before Implementation"
+    source: "AN_KE_004"
+    phase: "discovery"
+    agent: "@oalanicolas"
+    description: |
+      Map existing systems BEFORE proposing new ones.
+      Flow: Existing → Gap → Options → Recommendation
+
+    pipeline:
+      - "Search existing in squads/, .claude/, docs/"
+      - "Document findings"
+      - "Identify gaps"
+      - "Present options"
+      - "Recommend with evidence"
+
+    veto_conditions:
+      - condition: "proposal_without_discovery"
+        action: "VETO - Map existing first"
+        maps_to: "AN_VC_006"
+      - condition: "create_when_similar_exists"
+        action: "VETO - Extend existing instead"
+        maps_to: "AN_VC_006"
+
+  # ============================================
+  # AN_HE_005 - DETERMINISM FIRST
+  # ============================================
+  AN_HE_005:
+    name: "Determinism First"
+    source: "AN_KE_005"
+    phase: "implementation"
+    agent: "@oalanicolas"
+    description: |
+      Prioritize deterministic solutions over LLM.
+      Ladder: Code > SQL > Regex > LLM (only for creativity)
+
+    priority_ladder:
+      - "1. Script/código determinístico"
+      - "2. Query SQL direta"
+      - "3. Regex/pattern matching"
+      - "4. LLM (só quando criatividade é necessária)"
+
+    veto_conditions:
+      - condition: "llm_when_code_suffices"
+        action: "VETO - Use deterministic solution"
+        maps_to: "AN_VC_007"
+
+  # ============================================
+  # AN_HE_006 - VERIFICATION FIRST
+  # ============================================
+  AN_HE_006:
+    name: "Verification First"
+    source: "AN_KE_006"
+    phase: "validation"
+    agent: "@oalanicolas"
+    description: |
+      Verify PHYSICALLY before theorizing.
+      Check: file exists, server responds, user repeated 2x, hard refresh
+
+    verification_order:
+      - "ls -la /exact/path/"
+      - "curl -I http://localhost:PORT/path"
+      - "User repeated 2x? → STOP, do exactly"
+      - "Hard refresh (Cmd+Shift+R)"
+
+    veto_conditions:
+      - condition: "debug_without_verification"
+        action: "VETO - Verify physically first"
+        maps_to: "AN_VC_007"
+
+  # ============================================
+  # AN_HE_007 - REUSE > CREATE
+  # ============================================
+  AN_HE_007:
+    name: "REUSE > CREATE"
+    source: "AN_KE_007"
+    phase: "discovery"
+    agent: "@oalanicolas"
+    description: |
+      ALWAYS check if similar exists before creating new.
+      Search: squads/, .claude/agents/, .claude/skills/, app/components/
+
+    decision_matrix:
+      - similarity: ">= 80%"
+        action: "REUSE - Use existing"
+      - similarity: "50-79%"
+        action: "ADAPT - Fork and modify"
+      - similarity: "20-49%"
+        action: "REFERENCE - Use as template"
+      - similarity: "< 20%"
+        action: "CREATE - Document why"
+
+    veto_conditions:
+      - condition: "create_without_search"
+        action: "VETO - Search first"
+        maps_to: "AN_VC_006"
+
+  # ============================================
+  # AN_HE_008 - PATTERN RECOGNITION (2x Rule)
+  # ============================================
+  AN_HE_008:
+    name: "Pattern Recognition (2x Rule)"
+    source: "AN_KE_008"
+    phase: "continuous"
+    agent: "@oalanicolas"
+    description: |
+      If user corrects/says something 2x, it's a pattern.
+      Action: Document as rule IMMEDIATELY in CLAUDE.md
+
+    rule_categories:
+      - "NEVER - prohibited patterns"
+      - "ALWAYS - required patterns"
+      - "IF/THEN - conditional patterns"
+      - "PRIORITY - ordering patterns"
+
+    veto_conditions:
+      - condition: "ignore_repeated_correction"
+        action: "VETO - Document as rule now"
+        maps_to: "AN_VC_008"
+
+  # ============================================
+  # AN_HE_009 - META DECISION FLOW
+  # ============================================
+  AN_HE_009:
+    name: "Meta Decision Flow"
+    source: "AN_KE_009"
+    phase: "any"
+    agent: "@oalanicolas"
+    description: |
+      10-step master decision framework.
+      VERIFY → REUSE → PRECISE → SIMPLIFY → PRESERVE → FOCUS → SILENCE → CONSISTENT → VALIDATE → CHOOSE
+
+    steps:
+      - "1. VERIFY - Verify before assuming"
+      - "2. REUSE - Reuse before creating"
+      - "3. PRECISE - Be precise, not vague"
+      - "4. SIMPLIFY - Simplify before complicating"
+      - "5. PRESERVE - Preserve what works"
+      - "6. FOCUS - Focus on what was asked"
+      - "7. SILENCE - When wrong, fix in silence"
+      - "8. CONSISTENT - Be consistent with patterns"
+      - "9. VALIDATE - Validate before finalizing"
+      - "10. CHOOSE - Choose and commit"
+
+    shortcuts:
+      quick: ["1", "2", "6", "10"]
+      code: ["1", "2", "4", "5", "8", "9"]
+      creation: ["1", "2", "3", "4", "8", "9", "10"]
+      debugging: ["1", "5", "7", "9"]
+
+    veto_conditions:
+      - condition: "skip_verify"
+        action: "VETO - Verify first"
+        maps_to: "AN_VC_007"
+      - condition: "skip_reuse_check"
+        action: "VETO - Check existing first"
+        maps_to: "AN_VC_006"
+
+  # ============================================
+  # MODE ROUTER
+  # ============================================
+  mode_router:
+    # Pedro Valério Modes
+    "*eng-*":
+      heuristics: ["SC_HE_001"]
+      focus: "Vision alignment, gap identification"
+      patterns: ["HO-HE-001", "HO-VC-001"]
+
+    "*arq-*":
+      heuristics: ["SC_HE_002"]
+      focus: "Agent coherence, structure validation"
+      patterns: ["HO-TP-001", "HO-EP-001/002/003/004"]
+
+    "*auto-*":
+      heuristics: ["SC_HE_003"]
+      focus: "Automation decisions, guardrails"
+      patterns: ["HO-HE-003", "HO-VC-003", "HO-QG-001"]
+
+    "*tmpl-*":
+      heuristics: ["SC_HE_001", "SC_HE_002"]
+      focus: "Template quality, replicability"
+      patterns: ["HO-QG-001", "HO-CV-001", "HO-AX-001"]
+
+    # OalaNicolas Modes
+    "*assess-sources*":
+      heuristics: ["AN_HE_003"]
+      agent: "@oalanicolas"
+      focus: "Source classification, Pareto ao Cubo"
+      veto_check: ["AN_VC_001", "AN_VC_003"]
+
+    "*extract-*":
+      heuristics: ["AN_HE_001", "AN_HE_002"]
+      agent: "@oalanicolas"
+      focus: "DNA extraction, Trinity validation"
+      veto_check: ["AN_VC_002", "AN_VC_004"]
+
+    "*validate-extraction*":
+      heuristics: ["AN_HE_001"]
+      agent: "@oalanicolas"
+      focus: "Self-validation before handoff"
+      veto_check: ["AN_VC_005"]
+
+    "*find-0.8*":
+      heuristics: ["AN_HE_003"]
+      agent: "@oalanicolas"
+      focus: "Pareto ao Cubo classification"
+
+  # ============================================
+  # HEURISTIC → VETO MAPPING
+  # ============================================
+  veto_mapping:
+    # Pedro Valério Heuristics
+    SC_HE_001:
+      triggers:
+        - "squad_vision_clarity < 0.7"
+      maps_to: ["SC_VC_002"]
+
+    SC_HE_002:
+      triggers:
+        - "dna_authenticity < 0.7"
+        - "fabricated_content_detected"
+      maps_to: ["SC_VC_003", "SC_VC_004", "SC_VC_005"]
+
+    SC_HE_003:
+      triggers:
+        - "guardrails_missing"
+        - "status_can_go_backwards"
+      maps_to: ["SC_VC_007", "SC_VC_008"]
+
+    # OalaNicolas Heuristics
+    AN_HE_001:
+      triggers:
+        - "citations < 15"
+        - "ouro_ratio < 0.6"
+        - "trinity_incomplete"
+        - "self_validation_failed"
+      maps_to: ["AN_VC_001", "AN_VC_002", "AN_VC_003", "AN_VC_004", "AN_VC_005"]
+
+    AN_HE_002:
+      triggers:
+        - "playbook_missing"
+        - "framework_missing"
+        - "swipe_missing"
+      maps_to: ["AN_VC_002"]
+
+    AN_HE_003:
+      triggers:
+        - "classification_not_applied"
+        - "volume_without_curation"
+      maps_to: ["AN_VC_001"]
+
+    # OalaNicolas Heuristics (CLAUDE.md Extraction)
+    AN_HE_004:
+      triggers:
+        - "proposal_without_discovery"
+        - "create_when_similar_exists"
+      maps_to: ["AN_VC_006"]
+
+    AN_HE_005:
+      triggers:
+        - "llm_when_code_suffices"
+      maps_to: ["AN_VC_007"]
+
+    AN_HE_006:
+      triggers:
+        - "debug_without_verification"
+        - "assume_without_checking"
+      maps_to: ["AN_VC_007"]
+
+    AN_HE_007:
+      triggers:
+        - "create_without_search"
+        - "create_when_80_percent_exists"
+      maps_to: ["AN_VC_006"]
+
+    AN_HE_008:
+      triggers:
+        - "ignore_repeated_correction"
+        - "batch_without_single_validation"
+      maps_to: ["AN_VC_008"]
+
+    AN_HE_009:
+      triggers:
+        - "skip_verify"
+        - "skip_reuse_check"
+        - "skip_validation"
+      maps_to: ["AN_VC_006", "AN_VC_007"]
+
+  # ============================================
+  # VALIDATION CHECKLIST
+  # ============================================
+  validation_checklist:
+    - check: "Todas as 12 heurísticas têm veto mapping (3 SC_HE + 9 AN_HE)"
+      required: true
+    - check: "Todas as heurísticas mapeiam para veto conditions"
+      required: true
+    - check: "Cada modo tem heurísticas associadas"
+      required: true
+    - check: "Validation questions são acionáveis"
+      required: true
+    - check: "Thresholds têm valores numéricos claros"
+      required: true
+
+  # ============================================
+  # SUMMARY
+  # ============================================
+  summary:
+    total_heuristics: 12
+    pedro_valerio:
+      count: 3
+      ids: ["SC_HE_001", "SC_HE_002", "SC_HE_003"]
+    oalanicolas:
+      count: 9
+      extraction_heuristics:
+        count: 3
+        ids: ["AN_HE_001", "AN_HE_002", "AN_HE_003"]
+        source: "DNA Extraction Pipeline"
+      methodology_heuristics:
+        count: 6
+        ids: ["AN_HE_004", "AN_HE_005", "AN_HE_006", "AN_HE_007", "AN_HE_008", "AN_HE_009"]
+        source: "CLAUDE.md - Alan's Personal Rules"

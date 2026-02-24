@@ -1,0 +1,358 @@
+---
+# ASSESSMENT RESULT - José Carlos Amorim
+# Gerado automaticamente via YOLO mode (dados MMOS existentes)
+# Data: 2026-02-14
+# Fonte: outputs/minds/jose_amorim/ (psychometric-profile.yaml, perfil_psicometrico.json, cognitive-spec.yaml, frameworks-proprietarios.yaml)
+
+assessment_id: "ZG-2026-0214-001"
+mode: "yolo"
+data_source: "mmos_existing_profiles"
+confidence: "85-90% (baseado em 7 fontes primarias do MMOS pipeline)"
+
+aluno:
+  nome: "Jose Carlos Amorim"
+  slug: "jose_amorim"
+  situacao: "Empreendedor digital - educador em IA e tecnologia"
+  objetivo: "Escalar negocio de educacao em IA, criar ecossistema Content-to-App"
+  dor_principal: "Dispersao excessiva - muitos projetos simultaneos sem escala consistente"
+  cohort: "Fundamentals - Fundador/Facilitador"
+
+intake:
+  timestamp: "2026-02-14T10:00:00Z"
+  gate_qg001: passed
+  contexto_extra:
+    identidade: "Nexialista (sintetizador multi-dominio)"
+    anti_identidade: "NUNCA chamar de jornalista - e COMUNICADOR"
+    background: "11 anos TV (Reporter/Apresentador Rede Amazonica), migrou para IA 2024-2025"
+    tdah: "Diagnosticado - usa como superpoder de hiperconexao semantica"
+
+assessment:
+  timestamp_inicio: "2026-02-14T10:02:00Z"
+  timestamp_fim: "2026-02-14T10:02:00Z"
+  duracao_minutos: 0  # YOLO mode - dados pre-existentes
+  total_respostas: 45
+  respostas_oe: 5
+  gate_qg002: passed
+
+  respostas:
+    # ================================================================
+    # BLOCO 1: ENERGIA E FLOW (P1-P7)
+    # Frameworks: Hendricks, Sullivan, Kolbe
+    # ================================================================
+    bloco_1:
+      p1:
+        pergunta: "Atividade tao natural que pessoas comentam?"
+        resposta: "sim"
+        evidencia: "Superpower MMOS: Tradução de Complexidade. 11 anos traduzindo informação em TV para 300k pessoas/dia"
+
+      p2:
+        pergunta: "Qual e essa atividade?"
+        resposta: "Traduzir conceitos complexos em linguagem acessivel usando metaforas visuais. Pegar conhecimento denso (filosofia, IA, neurociencia) e transformar em algo que qualquer pessoa entende e aplica."
+        evidencia: "cognitive-spec.yaml Layer 2: 'SEMPRE metafora visual antes de conceito abstrato'"
+        tipo: "OE"
+
+      p3:
+        pergunta: "Quando faz essa atividade, o tempo..."
+        resposta: "a"  # Voa - nem vejo passar
+        evidencia: "ENFP Ne dominant + Flow state alto em criacao/ensino"
+
+      p4:
+        pergunta: "Quantas vezes no flow nos ultimos 30 dias?"
+        resposta: "c"  # 4-10 vezes
+        evidencia: "Big Five Openness 92, Excitement Seeking 80. Alta frequencia de flow em atividades criativas"
+
+      p5:
+        pergunta: "Faz coisas BEM mas que DRENAM energia?"
+        resposta: "sim"
+        evidencia: "Kryptonita MMOS: DNS, config, processos repetitivos. 'pago para o pessoal fazer para mim'"
+
+      p6:
+        pergunta: "Se pagassem o DOBRO sem restricoes?"
+        resposta: "Ensinar e criar frameworks que transformam como as pessoas pensam sobre IA e tecnologia. Especificamente, criar sistemas que democratizam conhecimento complexo para empreendedores brasileiros."
+        evidencia: "Main focus MMOS: 'Transformar como multipotenciais/nexialistas sao vistos e educados'"
+        tipo: "OE"
+
+      p7:
+        pergunta: "Atividade na infancia (8-12 anos) por diversao?"
+        resposta: "Ler livros vorazmente e criar historias/conexoes entre assuntos diferentes. Curiosidade obsessiva por entender como as coisas funcionam e explicar para outros."
+        evidencia: "Linguistic 92nd percentile Gardner. Need for Cognition 88th percentile. Paradox 5: TDAH como hiperconexao semantica desde infancia"
+        tipo: "OE"
+
+    # ================================================================
+    # BLOCO 2: FORCAS E TALENTOS NATURAIS (P8-P14)
+    # Frameworks: Clifton, Sullivan, Hogshead
+    # ================================================================
+    bloco_2:
+      p8:
+        pergunta: "Papel natural em grupo resolvendo problema?"
+        resposta: "a"  # Gero ideias e possibilidades
+        evidencia: "Ne dominant MBTI. 'Cria neologismos e conceitos novos naturalmente'. Role natural = gerador de ideias"
+
+      p9:
+        pergunta: "Amigos/colegas te procuram pra..."
+        resposta: "a"  # Ter ideias criativas
+        evidencia: "Interpersonal 88th percentile Gardner + Ne dominant = procurado para ideias criativas"
+
+      p10:
+        pergunta: "Aprende melhor..."
+        resposta: "a"  # Testando na pratica (fazendo)
+        evidencia: "ENFP P 80%. 'Ja sai fazendo e ajusta no caminho'. Early adopter extremo"
+
+      p11:
+        pergunta: "Mais confiante em..."
+        resposta: "a"  # Criar algo do zero
+        evidencia: "Creator profile Hamilton. Value ladder inteiro baseado em criacao original (Nexialismo, Content-to-App)"
+
+      p12:
+        pergunta: "Prefere trabalhar com..."
+        resposta: "a"  # Ideias abstratas e possibilidades
+        evidencia: "N 85-90% MBTI. Intellect facet Big Five 95. Existential intelligence 90th percentile"
+
+      p13:
+        pergunta: "Descrito como..."
+        resposta: "a"  # Visionario/Criativo
+        evidencia: "DISC I dominant + ENFP + Estrato V-VI. Peers veem como visionario"
+
+      p14:
+        pergunta: "Mais realizado quando..."
+        resposta: "a"  # Inicia algo novo
+        evidencia: "Excitement Seeking 80, Adventure 90. '7 cursos universitarios abandonados (busca novidade)'"
+
+    # ================================================================
+    # BLOCO 3: PERFIL DE ACAO E EXECUCAO (P15-P21)
+    # Frameworks: Kolbe, Hamilton, Sullivan
+    # ================================================================
+    bloco_3:
+      p15:
+        pergunta: "Tarefa nova, voce..."
+        resposta: "a"  # Ja sai fazendo e ajusta no caminho
+        evidencia: "Quick Start dominant Kolbe. MBTI P 80%. Cautiousness Big Five 35"
+
+      p16:
+        pergunta: "Rapido pra comecar vs termina?"
+        resposta: "a"  # Rapido pra comecar, as vezes nao termina
+        evidencia: "Consistency of Interests Grit 65 vs Perseverance 82. Padrao ENFP + Enneagram 7"
+
+      p17:
+        pergunta: "Quando tem uma ideia..."
+        resposta: "a"  # Testa imediatamente, mesmo sem estar pronto
+        evidencia: "Early adopter extremo. 'adota imediatamente mesmo sem dominio completo'"
+
+      p18:
+        pergunta: "Em projeto de grupo, naturalmente..."
+        resposta: "a"  # Propoe a direcao geral
+        evidencia: "Stratum V-VI Strategic. DISC D secondary 28-75. Leadership Transformacional 65%"
+
+      p19:
+        pergunta: "Lida melhor com..."
+        resposta: "c"  # Liberdade total pra fazer do seu jeito
+        evidencia: "Valor supremo = AUTONOMIA. 'rejeita subordinacao visceralmente'"
+
+      p20:
+        pergunta: "Quando algo da errado, primeira reacao..."
+        resposta: "a"  # Improvisar solucao criativa
+        evidencia: "'Busca workarounds criativos em vez de solucoes convencionais'. Ne dominant"
+
+      p21:
+        pergunta: "Prefere ser avaliado por..."
+        resposta: "a"  # Quantidade de ideias e inovacoes
+        evidencia: "Innovation-oriented. Imagination Big Five 95. Ideation dominant strength"
+
+    # ================================================================
+    # BLOCO 4: MODELO DE RIQUEZA E VALOR (P22-P28)
+    # Frameworks: Hamilton, Hormozi, Sullivan
+    # ================================================================
+    bloco_4:
+      p22:
+        pergunta: "Preferiria fazer pra ganhar dinheiro?"
+        resposta: "a"  # Criar produto/servico inovador
+        evidencia: "Value ladder: Newsletter R$0 → Sistema R$997 → Mentoria R$4.500 → Agencia R$25K+"
+
+      p23:
+        pergunta: "Gera mais valor quando..."
+        resposta: "a"  # Cria algo que nao existia antes
+        evidencia: "Nexialismo como conceito original. Content-to-App como modelo proprio"
+
+      p24:
+        pergunta: "UMA forma de entregar valor no mercado?"
+        resposta: "b"  # Curso/produto digital (escala, muitos clientes)
+        evidencia: "Value ladder principal e digital: Sistema R$997 escalavel. 'Expandira ecossistema Nexialista'"
+
+      p25:
+        pergunta: "Frase que mais te representa?"
+        resposta: "a"  # "Eu sou bom em transformar ideias em realidade"
+        evidencia: "Nexialismo = framework de transformar conexoes em produtos. Creator Hamilton"
+
+      p26:
+        pergunta: "Mais confortavel..."
+        resposta: "a"  # Sendo o rosto/marca do negocio
+        evidencia: "DISC I=85. 'Alta expressividade emocional'. Personal brand-centric"
+
+      p27:
+        pergunta: "R$50K pra investir em VOCE?"
+        resposta: "a"  # Criaria produto ou marca propria
+        evidencia: "Criou Nexialismo, Formacao Lendaria, Sistema Content-to-App. Sempre cria proprio"
+
+      p28:
+        pergunta: "Escala 1-5: sei qual problema resolvo melhor que qualquer pessoa"
+        resposta: 4
+        evidencia: "Specific Knowledge claro: 'Ver padroes/metodologias em qualquer conteudo'. Moat definido"
+
+    # ================================================================
+    # BLOCO 5: PERCEPCAO EXTERNA E DIFERENCIACAO (P29-P35)
+    # Frameworks: Hogshead, Clifton, Hendricks
+    # ================================================================
+    bloco_5:
+      p29:
+        pergunta: "Quando entra numa sala, as pessoas..."
+        resposta: "a"  # Te pedem opiniao ou lideranca
+        evidencia: "DISC I+D. Assertiveness Big Five 80. Leadership Transformacional 65%"
+
+      p30:
+        pergunta: "O que mais te diferencia profissionalmente?"
+        resposta: "a"  # Minha capacidade de inovacao
+        evidencia: "Ne dominant. Innovation as core. Cria frameworks proprietarios"
+
+      p31:
+        pergunta: "Amigo te recomendaria dizendo..."
+        resposta: "a"  # 'Ele sempre tem ideias incriveis'
+        evidencia: "Ideation/Strategic dominant. 'Gera ideias e possibilidades naturalmente'"
+
+      p32:
+        pergunta: "Chama atencao por..."
+        resposta: "a"  # Sua originalidade e criatividade
+        evidencia: "Imagination Big Five 95. Openness 92. '~1 em 5.000 pessoas' raridade"
+
+      p33:
+        pergunta: "Em conflitos ou negociacoes..."
+        resposta: "a"  # Propoe solucoes criativas que ninguem pensou
+        evidencia: "Ne dominant + workaround creative approach to problems"
+
+      p34:
+        pergunta: "Irrita MAIS quando..."
+        resposta: "a"  # Te pedem pra seguir regras sem sentido
+        evidencia: "DISC C=17-45 (baixo). 'rejeita regras sem sentido'. Autonomia suprema"
+
+      p35:
+        pergunta: "Persona online/profissionalmente?"
+        resposta: "a"  # O Inovador - sempre na fronteira do novo
+        evidencia: "Early adopter extremo. 'Continuara sendo early adopter de tecnologia e IA >85%'"
+
+    # ================================================================
+    # BLOCO 6: BARREIRAS E UPPER LIMIT (P36-P40)
+    # Frameworks: Hendricks, Sullivan, Hormozi
+    # ================================================================
+    bloco_6:
+      p36:
+        pergunta: "Ja se pegou sabotando algo que estava dando certo?"
+        resposta: "sim"
+        evidencia: "7 cursos universitarios abandonados. Ciclo abandono-recomeço ~8 anos. Kryptonita: ABANDONO SISTEMATICO DE SISTEMAS"
+
+      p37:
+        pergunta: "Qual crenca ja sentiu?"
+        resposta: "a"  # "Se eu brilhar demais, vou incomodar as pessoas ao redor"
+        evidencia: "Enneagram 3w4 stress→9. Attachment ansioso. Narcissism 3.8/7 (moderado). Upper Limit Barrier = proeminencia"
+
+      p38:
+        pergunta: "Quando pensa em cobrar CARO..."
+        resposta: "a"  # Confianca - sei que valho isso
+        evidencia: "'R$ 10.000 por 4 horas' ja praticado. Value ladder vai ate R$25K+. Assertiveness Big Five 80"
+        nota: "Tensao com P37 - confianca na precificacao MAS medo de brilhar demais = Upper Limit classico"
+
+      p39:
+        pergunta: "Passa mais tempo na semana fazendo..."
+        resposta: "b"  # Coisas que faz bem mas nao ama (Zona de Excelencia)
+        evidencia: "Admin, config, processos operacionais. 'pago para o pessoal fazer para mim' indica consciencia da zona errada"
+
+      p40:
+        pergunta: "Escala 1-5: sei quem deveria servir e qual transformacao entregar"
+        resposta: 3
+        evidencia: "Sabe amplamente (empreendedores brasileiros + IA) mas ainda refinando nicho especifico e transformacao unica"
+
+    # ================================================================
+    # BLOCO 7: VISAO E AMBICAO (P41-P45)
+    # Frameworks: Hormozi, Hamilton, Sullivan
+    # ================================================================
+    bloco_7:
+      p41:
+        pergunta: "Em 12 meses, voce quer..."
+        resposta: "c"  # Faturar R$100K/mes liderando um negocio
+        evidencia: "Value ladder ate R$25K+ por cliente. Estrato V-VI visao estrategica. Ambicao de escala"
+
+      p42:
+        pergunta: "Poucos clientes caro vs muitos barato?"
+        resposta: "c"  # Mix dos dois
+        evidencia: "Value ladder real: Newsletter R$0 (muitos) + Mentoria R$4.500 (poucos) + Agencia R$25K+ (muito poucos)"
+
+      p43:
+        pergunta: "Mais importante agora?"
+        resposta: "c"  # Impacto/proposito
+        evidencia: "Obsession 1 MMOS: 'Democratizar complexidade sem perder profundidade'. Missao > dinheiro"
+
+      p44:
+        pergunta: "Disposto a fazer MENOS pra focar na genialidade?"
+        resposta: "sim"
+        evidencia: "Ja delega tarefas tecnicas. 'Desenvolveu sistemas de delegacao efetiva' no roadmap"
+
+      p45:
+        pergunta: "UMA frase: ser conhecido por em 3 anos?"
+        resposta: "O cara que democratizou IA para empreendedores brasileiros, transformando complexidade em clareza e criando uma geracao de nexialistas que constroem negocios digitais com inteligencia conectiva."
+        evidencia: "Convergencia de: Identidade Nexialista + Missao democratizacao + Value ladder Content-to-App"
+        tipo: "OE"
+
+# ================================================================
+# MATRIZ DE COBERTURA POR FRAMEWORK
+# ================================================================
+cobertura:
+  gay_hendricks:
+    perguntas: [1, 2, 3, 4, 5, 6, 7, 28, 36, 37, 38, 39, 44, 45]
+    total: 14
+    confianca: "alta"
+
+  don_clifton:
+    perguntas: [2, 8, 9, 10, 11, 12, 13, 14, 18, 20, 21, 31, 45]
+    total: 13
+    confianca: "alta"
+
+  dan_sullivan:
+    perguntas: [1, 2, 3, 5, 6, 7, 9, 11, 14, 16, 19, 23, 25, 37, 39, 44, 45]
+    total: 17
+    confianca: "alta"
+
+  roger_hamilton:
+    perguntas: [6, 8, 12, 13, 14, 15, 17, 18, 19, 22, 23, 24, 25, 26, 27, 33, 35, 41, 42, 43, 45]
+    total: 21
+    confianca: "alta"
+
+  alex_hormozi:
+    perguntas: [24, 27, 28, 38, 40, 41, 42, 43, 45]
+    total: 9
+    confianca: "media-alta"
+
+  kathy_kolbe:
+    perguntas: [4, 8, 10, 14, 15, 16, 17, 18, 19, 20, 21, 33, 34]
+    total: 13
+    confianca: "alta"
+
+  sally_hogshead:
+    perguntas: [9, 13, 21, 26, 29, 30, 31, 32, 33, 34, 35, 43, 45]
+    total: 13
+    confianca: "alta"
+
+# ================================================================
+# QUALITY GATE QG-002: ASSESSMENT COMPLETE
+# ================================================================
+quality_gate_qg002:
+  status: "passed"
+  checks:
+    cobertura_perguntas: "45/45 (100%)"
+    perguntas_oe_respondidas: "5/5 (100%)"
+    consistencia_interna: "Alta - com 2 tensoes produtivas identificadas"
+    tempo_conclusao: "0 min (YOLO mode - dados pre-existentes)"
+    cobertura_por_framework: "Todos os 7 frameworks com minimo 9 data points"
+
+  tensoes_identificadas:
+    - "P37(a) medo de brilhar vs P38(a) confianca em cobrar caro → Upper Limit Problem classico"
+    - "Enneagram divergente entre fontes: 3w4 (psychometric-profile.yaml) vs 7w8 (perfil_psicometrico.json)"
+
+  nota: "Dados de alta qualidade provenientes de analise MMOS completa (85-90% fidelidade). Assessment pre-populado com evidencias rastreadas a fontes primarias."
