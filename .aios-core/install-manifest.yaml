@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.2.13
-generated_at: "2026-02-23T23:57:54.234Z"
+generated_at: "2026-02-24T00:17:49.885Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1080
 files:
@@ -1209,9 +1209,9 @@ files:
     type: data
     size: 9573
   - path: data/entity-registry.yaml
-    hash: sha256:38e7af4df89d71df0ef606c6d16da4e1b049177969b348443a6926f6b189980e
+    hash: sha256:9b756a561f38a756fdd7252a1885ed7dc7794547d4e55923044410d182e300a7
     type: data
-    size: 516294
+    size: 516169
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1317,9 +1317,9 @@ files:
     type: agent
     size: 2486
   - path: development/agents/devops.md
-    hash: sha256:143dc22da0d91fbeb2212562f92dfc51ddb4a71029e8b7b85ea0e180dc61e018
+    hash: sha256:74b46ddd9a7aa51eef5a2b197c34ed3aaae456f764121c76afa0e453f42065ae
     type: agent
-    size: 20670
+    size: 21002
   - path: development/agents/devops/MEMORY.md
     hash: sha256:eb2ee887047c94db3441126cd0198cac44cec779026d7842a3a1c7eba936027f
     type: agent
