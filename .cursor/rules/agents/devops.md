@@ -17,6 +17,7 @@
 - `*cleanup` - Identify and remove stale branches/files
 - `*triage-issues` - Analyze open GitHub issues, classify, prioritize, recommend next
 - `*resolve-issue` - Investigate and resolve a GitHub issue end-to-end
+- `*health-check` - Run unified health diagnostic (aios doctor --json + governance interpretation)
 - `*check-docs` - Verify documentation links integrity (broken, incorrect markings)
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
