@@ -462,4 +462,11 @@ Provide a structured validation report including:
 - **NO-GO**: Story requires fixes before implementation
 - **Implementation Readiness Score**: 1-10 scale
 - **Confidence Level**: High/Medium/Low for successful implementation
+
+## Handoff
+next_agent: @dev
+next_command: *develop {story-id}
+condition: Story status is Approved (GO decision)
+alternatives:
+  - agent: @sm, command: *draft, condition: Story rejected (NO-GO), needs rework
  

@@ -711,3 +711,10 @@ github:
 - Gracefully handles missing story file
 - Uses GitHub CLI for reliability
 - Repository context from detector
+
+## Handoff
+next_agent: @po
+next_command: *close-story {story-id}
+condition: PR merged successfully
+alternatives:
+  - agent: @dev, command: *apply-qa-fixes, condition: PR review requested changes

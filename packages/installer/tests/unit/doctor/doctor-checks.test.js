@@ -275,18 +275,79 @@ describe('graph-dashboard check', () => {
 });
 
 describe('code-intel check', () => {
-  it('should return INFO when not configured', async () => {
+  // The code-intel check does a real require() of index.js and triggers
+  // provider auto-detection. Tests that need provider detection must use
+  // the real projectRoot and real fs (jest.requireActual).
+  const realFs = jest.requireActual('fs');
+  const realProjectRoot = path.join(__dirname, '..', '..', '..', '..', '..');
+
+  it('should return INFO when code-intel dir does not exist', async () => {
     fs.existsSync.mockReturnValue(false);
     const result = await codeIntelCheck.run(mockContext);
     expect(result.status).toBe('INFO');
   });
 
-  it('should PASS when configured in core-config', async () => {
-    fs.existsSync.mockReturnValue(true);
-    fs.readFileSync.mockReturnValue('codeIntel:\n  provider: test');
-
+  it('should WARN when index.js missing but dir exists', async () => {
+    fs.existsSync.mockImplementation((p) => {
+      // Dir exists, but index.js does not
+      if (p.includes('index.js')) return false;
+      return true;
+    });
     const result = await codeIntelCheck.run(mockContext);
+    expect(result.status).toBe('WARN');
+    expect(result.message).toContain('index.js not found');
+  });
+
+  it('should PASS with RegistryProvider when entity-registry exists', async () => {
+    // Use real fs + real project root so require() resolves the actual module
+    // and RegistryProvider can load the real entity-registry.yaml
+    const realContext = {
+      ...mockContext,
+      projectRoot: realProjectRoot,
+    };
+
+    // Temporarily restore real fs for this test
+    fs.existsSync.mockImplementation(realFs.existsSync);
+    fs.readFileSync.mockImplementation(realFs.readFileSync);
+    fs.statSync.mockImplementation(realFs.statSync);
+
+    // Only run if entity-registry actually exists (skip in CI without registry)
+    const registryPath = path.join(realProjectRoot, '.aios-core', 'data', 'entity-registry.yaml');
+    if (!realFs.existsSync(registryPath)) {
+      return; // skip — no registry available
+    }
+
+    const result = await codeIntelCheck.run(realContext);
     expect(result.status).toBe('PASS');
+    expect(result.message).toContain('RegistryProvider');
+  });
+
+  it('should WARN when provider detection fails (no valid registry)', async () => {
+    // Use real project root so require() works, but mock registry as empty
+    const realContext = {
+      ...mockContext,
+      projectRoot: realProjectRoot,
+    };
+
+    // Real existsSync for module resolution, mocked readFileSync for empty registry
+    fs.existsSync.mockImplementation((p) => {
+      if (p.includes('entity-registry.yaml')) return true;
+      return realFs.existsSync(p);
+    });
+    fs.statSync.mockImplementation((p) => {
+      if (p.includes('entity-registry.yaml')) return { mtimeMs: Date.now(), size: 10 };
+      return realFs.statSync(p);
+    });
+    fs.readFileSync.mockImplementation((p, enc) => {
+      if (typeof p === 'string' && p.includes('entity-registry.yaml')) {
+        return 'metadata:\n  entityCount: 0';
+      }
+      return realFs.readFileSync(p, enc);
+    });
+
+    const result = await codeIntelCheck.run(realContext);
+    // Without valid entities, provider won't be available → WARN or INFO
+    expect(['WARN', 'INFO']).toContain(result.status);
   });
 });
 
@@ -295,9 +356,8 @@ describe('ide-sync check', () => {
     fs.existsSync.mockReturnValue(true);
     fs.readdirSync.mockImplementation((p) => {
       if (p.includes('commands')) return ['dev.md', 'qa.md'];
-      return ['dev', 'qa'];
+      return ['dev.md', 'qa.md'];
     });
-    fs.statSync.mockReturnValue({ isDirectory: () => true });
 
     const result = await ideSyncCheck.run(mockContext);
     expect(result.status).toBe('PASS');
@@ -307,9 +367,8 @@ describe('ide-sync check', () => {
     fs.existsSync.mockReturnValue(true);
     fs.readdirSync.mockImplementation((p) => {
       if (p.includes('commands')) return ['dev.md', 'qa.md', 'pm.md'];
-      return ['dev', 'qa'];
+      return ['dev.md', 'qa.md'];
     });
-    fs.statSync.mockReturnValue({ isDirectory: () => true });
 
     const result = await ideSyncCheck.run(mockContext);
     expect(result.status).toBe('WARN');

@@ -1048,7 +1048,8 @@ async function copySkillFiles(projectRoot, _sourceRoot) {
 
 /**
  * Copy extra .claude/commands/ files during installation (Story INS-4.3, Gap #12)
- * Copies all .md files recursively EXCLUDING AIOS/agents/ (already copied by copyAgentFiles)
+ * Uses an allowlist of distributable top-level directories to prevent leaking
+ * private squads or project-specific content into installed projects.
  * @param {string} projectRoot - Project root directory
  * @param {string} [_sourceRoot] - Override source root for testing (default: __dirname-relative)
  * @returns {Promise<{count: number, skipped: boolean}>} Copy result
@@ -1068,6 +1069,21 @@ async function copyExtraCommandFiles(projectRoot, _sourceRoot) {
     return { count: 0, skipped: true };
   }
 
+  // Allowlist: only these top-level entries are distributable.
+  // Squad commands (cohort-squad/, design-system/, squad-creator-pro/, etc.)
+  // are private and must NOT be copied to installed projects.
+  const DISTRIBUTABLE_ENTRIES = new Set([
+    'AIOS',       // Core agent/script commands (agents/ sub-dir excluded below)
+    'synapse',    // SYNAPSE context engine commands
+    'greet.md',   // Greeting skill
+  ]);
+
+  // Within AIOS/, these sub-dirs are excluded (private or handled separately)
+  const AIOS_EXCLUDED = new Set([
+    'AIOS/agents',   // Already handled by copyAgentFiles()
+    'AIOS/stories',  // Project-specific story skills, not distributable
+  ]);
+
   await fs.ensureDir(targetDir);
 
   let count = 0;
@@ -1078,8 +1094,13 @@ async function copyExtraCommandFiles(projectRoot, _sourceRoot) {
     for (const entry of entries) {
       const entryRelative = relativePath ? `${relativePath}/${entry.name}` : entry.name;
 
-      // EXCLUDE AIOS/agents/ — already handled by copyAgentFiles()
-      if (entryRelative === 'AIOS/agents' || entryRelative.startsWith('AIOS/agents/')) {
+      // At top level, only copy distributable entries
+      if (!relativePath && !DISTRIBUTABLE_ENTRIES.has(entry.name)) {
+        continue;
+      }
+
+      // Within AIOS/, skip excluded sub-directories
+      if (AIOS_EXCLUDED.has(entryRelative) || [...AIOS_EXCLUDED].some(ex => entryRelative.startsWith(ex + '/'))) {
         continue;
       }
 

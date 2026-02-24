@@ -8,6 +8,54 @@ You are working with Synkra AIOS, an AI-Orchestrated System for Full Stack Devel
 Synkra AIOS is a meta-framework that orchestrates AI agents to handle complex development workflows. Always recognize and work within this architecture.
 <!-- AIOS-MANAGED-END: core-framework -->
 
+<!-- AIOS-MANAGED-START: constitution -->
+## Constitution
+
+O AIOS possui uma **Constitution formal** com princípios inegociáveis e gates automáticos.
+
+**Documento completo:** `.aios-core/constitution.md`
+
+**Princípios fundamentais:**
+
+| Artigo | Princípio | Severidade |
+|--------|-----------|------------|
+| I | CLI First | NON-NEGOTIABLE |
+| II | Agent Authority | NON-NEGOTIABLE |
+| III | Story-Driven Development | MUST |
+| IV | No Invention | MUST |
+| V | Quality First | MUST |
+| VI | Absolute Imports | SHOULD |
+
+**Gates automáticos bloqueiam violações.** Consulte a Constitution para detalhes completos.
+<!-- AIOS-MANAGED-END: constitution -->
+
+<!-- AIOS-MANAGED-START: sistema-de-agentes -->
+## Sistema de Agentes
+
+### Ativação de Agentes
+Use `@agent-name` ou `/AIOS:agents:agent-name`:
+
+| Agente | Persona | Escopo Principal |
+|--------|---------|------------------|
+| `@dev` | Dex | Implementação de código |
+| `@qa` | Quinn | Testes e qualidade |
+| `@architect` | Aria | Arquitetura e design técnico |
+| `@pm` | Morgan | Product Management |
+| `@po` | Pax | Product Owner, stories/epics |
+| `@sm` | River | Scrum Master |
+| `@analyst` | Alex | Pesquisa e análise |
+| `@data-engineer` | Dara | Database design |
+| `@ux-design-expert` | Uma | UX/UI design |
+| `@devops` | Gage | CI/CD, git push (EXCLUSIVO) |
+
+### Comandos de Agentes
+Use prefixo `*` para comandos:
+- `*help` - Mostrar comandos disponíveis
+- `*create-story` - Criar story de desenvolvimento
+- `*task {name}` - Executar task específica
+- `*exit` - Sair do modo agente
+<!-- AIOS-MANAGED-END: sistema-de-agentes -->
+
 <!-- AIOS-MANAGED-START: agent-system -->
 ## Agent System
 

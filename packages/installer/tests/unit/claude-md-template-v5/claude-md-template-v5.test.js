@@ -50,11 +50,11 @@ describe('CLAUDE.md Template v5 (Story INS-4.4)', () => {
       expect(templateContent).toContain('## Graph Dashboard');
     });
 
-    test('template has exactly 9 AIOS-MANAGED sections total', () => {
+    test('template has exactly 11 AIOS-MANAGED sections total', () => {
       const startMatches = templateContent.match(/<!-- AIOS-MANAGED-START:/g);
       const endMatches = templateContent.match(/<!-- AIOS-MANAGED-END:/g);
-      expect(startMatches.length).toBe(9);
-      expect(endMatches.length).toBe(9);
+      expect(startMatches.length).toBe(11);
+      expect(endMatches.length).toBe(11);
     });
   });
 

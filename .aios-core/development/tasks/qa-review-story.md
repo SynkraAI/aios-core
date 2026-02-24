@@ -703,4 +703,12 @@ After review:
 
 - **No Action Required**: The sync happens transparently when using story-manager utilities. If sync fails, story file is still saved locally with a warning message.
 
+## Handoff
+next_agent: @dev
+next_command: *apply-qa-fixes
+condition: QA verdict is REJECT
+alternatives:
+  - agent: @devops, command: *push, condition: QA verdict is APPROVE
+  - agent: @dev, command: *fix-qa-issues, condition: Structured fix from QA_FIX_REQUEST.md
+
 - **Manual Sync**: If needed, use: `npm run sync-story -- --story {epic}.{story}` 

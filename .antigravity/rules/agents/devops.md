@@ -18,6 +18,7 @@
 - `*triage-issues` - Analyze open GitHub issues, classify, prioritize, recommend next
 - `*resolve-issue` - Investigate and resolve a GitHub issue end-to-end
 - `*health-check` - Run unified health diagnostic (aios doctor --json + governance interpretation)
+- `*sync-registry` - Sync entity registry (incremental, --full rebuild, or --heal integrity)
 - `*check-docs` - Verify documentation links integrity (broken, incorrect markings)
 - `*session-info` - Show current session details (agent history, commands)
 - `*guide` - Show comprehensive usage guide for this agent
@@ -46,6 +47,7 @@
 - `*remove-mcp` - Remove MCP server from Docker MCP Toolkit
 - `*setup-mcp-docker` - Initial Docker MCP Toolkit configuration [Story 5.11]
 - `*health-check` - Run unified health diagnostic (aios doctor --json + governance interpretation)
+- `*sync-registry` - Sync entity registry (incremental, --full rebuild, or --heal integrity)
 - `*check-docs` - Verify documentation links integrity (broken, incorrect markings)
 - `*create-worktree` - Create isolated worktree for story development
 - `*list-worktrees` - List all active worktrees with status
