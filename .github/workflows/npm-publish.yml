@@ -161,8 +161,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -243,6 +241,7 @@ jobs:
   publish-aios-install:
     needs: [test, build]
     if: ${{ needs.build.outputs.has_aios_install == 'true' }}
+    continue-on-error: true  # Don't block main publish if @synkra org not yet configured
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
