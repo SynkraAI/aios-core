@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 4.3.0
-generated_at: "2026-02-24T00:57:34.370Z"
+generated_at: "2026-02-24T01:25:08.188Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1080
+file_count: 1081
 files:
   - path: cli/commands/config/index.js
     hash: sha256:ebcad2ce3807eda29dcddff76d7a95ddc9b7fa160df21fd608f94b802237e862
@@ -181,9 +181,9 @@ files:
     type: config
     size: 10999
   - path: core/code-intel/code-intel-client.js
-    hash: sha256:bd88497c8c8f312e95f746121e627c088e93d27af093d411f0521712bd17ba94
+    hash: sha256:3475d63b39105ad03491706a64c675264f11bce150aa5386442d35064bc1172e
     type: core
-    size: 7541
+    size: 8044
   - path: core/code-intel/code-intel-enricher.js
     hash: sha256:0bea0c1953a21621afbb4c9755e782842940cf54cdc88a4318dd7242f1fb02a8
     type: core
@@ -213,17 +213,21 @@ files:
     type: core
     size: 4323
   - path: core/code-intel/index.js
-    hash: sha256:ca8c54c2decbf64183d890ab42dc8ca2deafa675d4433492cb6ce423a284ad4d
+    hash: sha256:c8103fb966def9e8ed53dc1840e0e853b5fa4f13291a73a179cbae3545f38754
     type: core
-    size: 3802
+    size: 3893
   - path: core/code-intel/providers/code-graph-provider.js
-    hash: sha256:0c5ffd7b3faf82453ed1cb77f52ef10a3e67d3a1b2e2df5aac89a4fb2ac6583b
+    hash: sha256:83251871bc2d65864a4e148e3921408e74662a2739bfbd12395a2daaa4bde9a0
     type: core
-    size: 6335
+    size: 6519
   - path: core/code-intel/providers/provider-interface.js
-    hash: sha256:7d16aa715155e9c077720a6bffc7e9e5411b65f821b6b4e5e909f226796e7acb
+    hash: sha256:74df278e31f240ee4499f10989c4b6f8c7c7cba6e8f317cb433a23fd6693c487
     type: core
-    size: 3079
+    size: 3282
+  - path: core/code-intel/providers/registry-provider.js
+    hash: sha256:a019168a151a07f60a655a6ec1833154ac73ec868ac9c22afe472d4ea565a2ba
+    type: core
+    size: 15619
   - path: core/code-intel/registry-syncer.js
     hash: sha256:011318e2ba5c250daae2e565a8e8fb1570c99b7569e631276a2bf46e887fc514
     type: core
@@ -1209,9 +1213,9 @@ files:
     type: data
     size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:0c18fd41de2194847109bef77fb8a11767468355d0503c66e81f3dd13d2741b9
+    hash: sha256:1d8122d4e0298eb73e7cc78881a011178a78782b282bf7651a83e4c903de65af
     type: data
-    size: 517319
+    size: 517035
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1245,9 +1249,9 @@ files:
     type: data
     size: 4622
   - path: data/tool-registry.yaml
-    hash: sha256:f619a2c25a22ad2a6250b224e16870772b7568b6cc6ee01a46af534aa4b9f0c4
+    hash: sha256:ac7c1395b44bd93d59b279fe4f936817829eb2248cf3e8fca2b0a0014b920e23
     type: data
-    size: 15178
+    size: 15679
   - path: data/tool-search-validation.js
     hash: sha256:8757bf087692f002d67115dbe1c8244bbd869600e4f52c49b0d9b07cb9fbb783
     type: data
