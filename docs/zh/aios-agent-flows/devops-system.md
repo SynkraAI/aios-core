@@ -585,8 +585,6 @@ npm audit --audit-level=moderate
 ### AIOS 文档
 
 - [MCP 使用规则](../../../.claude/rules/mcp-usage.md)
-- [N8N 操作](../../../.claude/rules/n8n-operations.md)
-- [文档结构](../../../.claude/rules/documentation-structure.md)
 
 ### 外部文档
 

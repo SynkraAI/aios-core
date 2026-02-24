@@ -88,7 +88,7 @@ docs/
 - [快速入门](../zh/getting-started.md)
 - [安装指南](../zh/installation/README.md)
 - [架构总览](../zh/architecture/ARCHITECTURE-INDEX.md)
-- [代理参考](../zh/agent-reference-guide.md)
+- [代理参考](../zh/meta-agent-commands.md)
 - [故障排查](../zh/troubleshooting.md)
 
 ---
@@ -115,11 +115,11 @@ Seguimos prácticas estándar de la industria para i18n:
 
 | Sección         | EN  | PT  | ES  | ZH  |
 | --------------- | --- | --- | --- | --- |
-| Getting Started | ✅  | ✅  | ✅  | 🟡  |
-| Guides          | ✅  | ✅  | ✅  | 🟡  |
-| Installation    | ✅  | ✅  | ✅  | 🟡  |
-| Architecture    | ✅  | ✅  | ✅  | 🟡  |
-| Framework       | ✅  | ✅  | ✅  | 🟡  |
+| Getting Started | ✅  | ✅  | ✅  | ✅  |
+| Guides          | ✅  | ✅  | ✅  | ✅  |
+| Installation    | ✅  | ✅  | ✅  | ✅  |
+| Architecture    | ✅  | ✅  | ✅  | ✅  |
+| Framework       | ✅  | ✅  | ✅  | ✅  |
 | Platforms       | ✅  | ✅  | ✅  | ❌  |
 
 ---

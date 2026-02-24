@@ -489,7 +489,7 @@ QA循环中的责任:
 
 **审查过程:**
 
-```mermaid
+```text
 flowchart TD
     subgraph PRE["审查前"]
         P1["CodeRabbit 自我修复循环"]

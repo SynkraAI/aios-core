@@ -723,7 +723,7 @@ cat docs/prd/PRD.md  # 或按配置定位
 - 范围不清晰
 
 **解决方案:**
-1. 审查 10 个检查检查清单
+1. 审查 10 个检查清单
 2. 确保验收标准为 Given/When/Then 格式
 3. 用架构参考填充开发备注
 
@@ -739,7 +739,7 @@ cat docs/prd/PRD.md  # 或按配置定位
 **解决方案:**
 ```bash
 # 检查 CodeRabbit 输出
-wsl bash -c 'cd /mnt/c/.../@synkra/aios-core && ~/.local/bin/coderabbit --prompt-only -t uncommitted'
+wsl bash -c 'cd ${PROJECT_ROOT} && ~/.local/bin/coderabbit --prompt-only -t uncommitted'
 
 # 手动修正问题
 # 然后重新执行 *develop
@@ -755,7 +755,7 @@ wsl bash -c 'cd /mnt/c/.../@synkra/aios-core && ~/.local/bin/coderabbit --prompt
 - 安全问题
 
 **解决方案:**
-1. 审查生成的 `qa-gate.yml`
+1. 审查生成的 `{qaLocation}/gates/{epic}.{story}-{slug}.yml`
 2. 在 @dev 上执行 `*apply-qa-fixes`
 3. 重新提交以审查
 

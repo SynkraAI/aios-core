@@ -568,7 +568,7 @@ sequenceDiagram
 mindmap
   root((棕地项目<br/>发现))
     收集
-      architect["@architect<br/>Aria (愿景)<br/>系统和整合"]
+      architect["@architect<br/>Aria (愿景家)<br/>系统和整合"]
       data-engineer["@data-engineer<br/>Dara (智者)<br/>数据库"]
       ux-design-expert["@ux-design-expert<br/>Uma (同情者)<br/>前端/UX"]
     验证
@@ -710,7 +710,7 @@ flowchart LR
 
 ### 最终工件结构
 
-```
+```text
 docs/
 ├── architecture/
 │   └── system-architecture.md         [阶段1]
@@ -772,7 +772,7 @@ flowchart TD
 
 **批准标准：**
 - 所有债务由专家验证
-- 未识别的关键缺口
+- 无未识别的关键缺口
 - 依赖关系有意义
 - 风险已映射
 
@@ -880,10 +880,6 @@ flowchart TD
 | @qa | `.aios-core/development/agents/qa.md` |
 | @analyst | `.aios-core/development/agents/analyst.md` |
 | @pm | `.aios-core/development/agents/pm.md` |
-
-### 相关文档
-
-- [ADR-025：文档结构](../../architecture/ADR-025-DOCUMENTATION-STRUCTURE.md)
 
 ---
 

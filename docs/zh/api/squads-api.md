@@ -1,4 +1,4 @@
-<!-- 翻译: zh-CN | 原文: /docs/pt/api/squads-api.md | 同步: 2026-02-22 -->
+<!-- 翻译: zh-CN | 原文: /docs/api/squads-api.md | 同步: 2026-02-22 -->
 
 # Squads API 参考
 
@@ -20,13 +20,13 @@ Squads API允许：
 
 ### API密钥（CLI推荐）
 
-```bash
+```http
 Authorization: Bearer sk_your_api_key
 ```
 
 ### JWT令牌（Web应用）
 
-```bash
+```http
 Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
 ```
 
@@ -549,7 +549,7 @@ curl -X POST https://api.synkra.ai/api/squads/validate \
 
 速率限制头：
 
-```
+```http
 X-RateLimit-Limit: 60
 X-RateLimit-Remaining: 45
 X-RateLimit-Reset: 1703577600

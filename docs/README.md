@@ -1,8 +1,7 @@
 # Synkra AIOS Documentation
 
 > 🌐 **EN** | [PT](./pt/README.md) | [ES](./es/README.md) | [ZH](./zh/README.md)
-
-> **AI-Orchestrated System for Full Stack Development**
+> **AI-Orchestrated System for Full-Stack Development**
 
 ---
 

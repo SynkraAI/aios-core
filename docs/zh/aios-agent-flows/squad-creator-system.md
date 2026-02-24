@@ -276,7 +276,7 @@ flowchart TB
 
 ## 流程图：验证管道
 
-```mermaid
+```text
 flowchart TB
     START["*validate-squad {name}"]
 
@@ -430,7 +430,7 @@ flowchart TB
 
 ## 代理之间的协作图
 
-```mermaid
+```text
 flowchart LR
     subgraph SQUAD_CREATOR["@squad-creator (Craft)"]
         SC_CREATE["*create-squad"]

@@ -89,4 +89,4 @@
 
 ---
 
-_另请参阅：[社区手册](../COMMUNITY.md) | [贡献指南](../CONTRIBUTING.md)_
+_另请参阅：[社区手册](./community.md) | [贡献指南](./contributing.md)_

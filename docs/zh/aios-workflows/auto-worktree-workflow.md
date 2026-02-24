@@ -235,6 +235,10 @@ const manager = new WorktreeManager();
 const exists = await manager.exists(storyId);
 
 if (exists) {
+  const config = await manager.getConfig();
+  if (!config.autoSwitch) {
+    return { exists: true, action: 'skip' };
+  }
   return { exists: true, action: 'switch' };
 }
 return { exists: false, action: 'create' };

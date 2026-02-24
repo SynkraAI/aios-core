@@ -342,7 +342,7 @@ graph TD
 #### 计算的指标
 
 1. **节省的开发时间** (小时/月)
-2. **视觉不一致的降低** (%)
+2. **视觉不一致降低** (%)
 3. **功能交付速度** (平均时间)
 4. **降低的维护成本** ($)
 5. **组件重用率** (%)
@@ -481,7 +481,7 @@ graph TD
 
 #### 阶段 1: 构建和编译
 
-```
+```text
 outputs/design-system/
 ├── build_report.json
 ├── compiled/
@@ -495,7 +495,7 @@ outputs/design-system/
 
 #### 阶段 2: 文档
 
-```
+```text
 outputs/design-system/
 ├── docs/
 │   ├── pattern-library/
@@ -512,7 +512,7 @@ outputs/design-system/
 
 #### 阶段 3: 质量保证
 
-```
+```text
 outputs/design-system/
 ├── a11y/
 │   ├── audit-report.html
@@ -522,7 +522,7 @@ outputs/design-system/
 
 #### 阶段 4: ROI 分析
 
-```
+```text
 outputs/design-system/
 ├── metrics/
 │   ├── roi-report.pdf
