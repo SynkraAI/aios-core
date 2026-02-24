@@ -36,10 +36,8 @@ async function run(context) {
   }
 
   const sourceAgents = fs.readdirSync(agentsSourceDir)
-    .filter((entry) => {
-      const entryPath = path.join(agentsSourceDir, entry);
-      return fs.statSync(entryPath).isDirectory();
-    });
+    .filter((f) => f.endsWith('.md'))
+    .map((f) => f.replace('.md', ''));
 
   const ideFiles = fs.readdirSync(agentsIdeDir)
     .filter((f) => f.endsWith('.md'));

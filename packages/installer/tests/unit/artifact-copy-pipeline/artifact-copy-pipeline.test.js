@@ -129,26 +129,36 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
         fs.mkdirSync(agentsDir, { recursive: true });
         fs.writeFileSync(path.join(agentsDir, 'dev.md'), '# Dev Agent', 'utf8');
 
-        // Create AIOS/stories/story.md (should be INCLUDED)
+        // Create AIOS/stories/story.md (should be EXCLUDED — project-specific)
         const storiesDir = path.join(cmdDir, 'AIOS', 'stories');
         fs.mkdirSync(storiesDir, { recursive: true });
         fs.writeFileSync(path.join(storiesDir, 'story.md'), '# Story', 'utf8');
 
+        // Create squad directory (should be EXCLUDED — private)
+        const squadDir = path.join(cmdDir, 'cohort-squad');
+        fs.mkdirSync(squadDir, { recursive: true });
+        fs.writeFileSync(path.join(squadDir, 'manager.md'), '# Squad', 'utf8');
+
         // Call the REAL exported function with _sourceRoot override
         const result = await copyExtraCommandFiles(targetRoot, sourceRoot);
 
-        expect(result.count).toBe(4); // greet.md, manager.md, add-rule.md, story.md
+        expect(result.count).toBe(3); // greet.md, manager.md, add-rule.md
         expect(result.skipped).toBe(false);
 
-        // Verify extras copied
+        // Verify distributable entries copied
         const targetCmd = path.join(targetRoot, '.claude', 'commands');
         expect(fs.existsSync(path.join(targetCmd, 'greet.md'))).toBe(true);
         expect(fs.existsSync(path.join(targetCmd, 'synapse', 'manager.md'))).toBe(true);
         expect(fs.existsSync(path.join(targetCmd, 'synapse', 'tasks', 'add-rule.md'))).toBe(true);
-        expect(fs.existsSync(path.join(targetCmd, 'AIOS', 'stories', 'story.md'))).toBe(true);
 
-        // Verify AIOS/agents/ was excluded
+        // Verify AIOS/agents/ was excluded (handled by copyAgentFiles)
         expect(fs.existsSync(path.join(targetCmd, 'AIOS', 'agents', 'dev.md'))).toBe(false);
+
+        // Verify AIOS/stories/ was excluded (project-specific)
+        expect(fs.existsSync(path.join(targetCmd, 'AIOS', 'stories', 'story.md'))).toBe(false);
+
+        // Verify squad directories not copied (private)
+        expect(fs.existsSync(path.join(targetCmd, 'cohort-squad'))).toBe(false);
       } finally {
         cleanup(sourceRoot);
         cleanup(targetRoot);

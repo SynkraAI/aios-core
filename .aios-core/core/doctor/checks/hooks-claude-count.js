@@ -61,10 +61,21 @@ async function run(context) {
     try {
       const settingsLocal = JSON.parse(fs.readFileSync(settingsLocalPath, 'utf8'));
       const hooks = settingsLocal.hooks || {};
-      const allHookCommands = Object.values(hooks).flat().map((h) => {
-        if (typeof h === 'string') return h;
-        return h.command || h.matcher || '';
-      });
+      // Claude Code hooks schema: { EventName: [{ matcher, hooks: [{ type, command }] }] }
+      const allHookCommands = [];
+      for (const entries of Object.values(hooks)) {
+        if (!Array.isArray(entries)) continue;
+        for (const entry of entries) {
+          if (entry && Array.isArray(entry.hooks)) {
+            for (const h of entry.hooks) {
+              if (h && h.command) allHookCommands.push(h.command);
+            }
+          }
+          // Fallback: flat string or direct command
+          if (typeof entry === 'string') allHookCommands.push(entry);
+          if (entry && typeof entry.command === 'string') allHookCommands.push(entry.command);
+        }
+      }
       const hooksStr = allHookCommands.join('\n');
 
       // Check if at least some hook files are referenced in settings
