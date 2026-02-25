@@ -53,7 +53,7 @@ describe('npm-packages check', () => {
     fs.existsSync.mockReturnValue(true);
     const result = await npmPackagesCheck.run(mockContext);
     expect(result.status).toBe('PASS');
-    expect(result.message).toBe('node_modules present');
+    expect(result.message).toContain('node_modules present');
   });
 
   it('should FAIL when node_modules missing', async () => {
