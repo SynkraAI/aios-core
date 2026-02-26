@@ -4,7 +4,7 @@
 **Sprint:** 1 | **Phase:** MVP
 **Priority:** 🔴 CRITICAL
 **Story Points:** 3
-**Status:** Ready for Review
+**Status:** InReview
 **Assigned to:** @dev (Dex)
 **Prepared by:** River (Scrum Master)
 
@@ -267,10 +267,48 @@ describe('URLExtractor - Shopee', () => {
 
 ---
 
+## Dev Agent Record
+
+### Implementation Completed ✅
+
+**Status:** InReview → Ready for QA
+**Developer:** @dev (Dex)
+**Completion Date:** 2026-02-26
+
+#### Implementation Summary
+- **Service:** `URLExtractor` with complete Shopee extraction (Phase 1)
+- **Test Coverage:** 32/32 tests passing (100%)
+  - AC-038.1: Product ID extraction (5 tests)
+  - AC-038.2: Price parsing all formats (6 tests)
+  - AC-038.3: Discount calculation (5 tests)
+  - AC-038.4: Title extraction (4 tests)
+  - AC-038.5: URL normalization (5 tests)
+  - Edge cases (7 tests)
+
+#### Quality Checks
+- ✅ All 32 tests passing (100% AC coverage)
+- ✅ `npm run typecheck` — PASS
+- ✅ `npm run build` — PASS
+- ✅ Git commit: `2a83403b` (feat: implement ZAP-038)
+
+#### Key Implementation Details
+- **Price Parsing:** Smart separator detection (rightmost = decimal)
+  - Supports: "1.999,99" (BR) / "1999" / "2.000,00" / "1,999.99" (US)
+  - Logic handles all combinations of dots and commas
+- **Title Extraction:** Two-fallback heuristic
+  - Try "Shopee: {title}" prefix extraction
+  - Fallback to text before first "R$"
+  - Final fallback: "Shopee Product {id}"
+- **Discount Validation:** Rejects >95% (data quality) and negative (logic error)
+- **Stubs:** ML and Amazon extraction stubs for Phase 3-4
+
+---
+
 ## Change Log
 
 | Date | Author | Change |
 |------|--------|--------|
+| 2026-02-26 | Dex (@dev) | Implementation complete — 32/32 tests PASS, quality gates passed, ready for QA |
 | 2026-02-26 | River (SM) | Story created — Phase 1 (Shopee only) |
 
 ---
