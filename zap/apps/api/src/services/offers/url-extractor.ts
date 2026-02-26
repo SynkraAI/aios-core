@@ -7,6 +7,8 @@ export interface OfferData {
   discount_percent: number
   original_url: string
   normalized_url: string
+  product_image_url?: string
+  original_affiliate_id?: string
 }
 
 /**
@@ -133,6 +135,136 @@ export class URLExtractor {
 
     // Case 4: No separators
     return parseFloat(cleaned)
+  }
+
+  /**
+   * Generic extract method that routes to marketplace-specific extractors
+   * AC-041.3: Used by OfferParserWorker to extract offer data from text
+   */
+  extract(text: string, marketplace: 'shopee' | 'mercadolivre' | 'amazon'): Partial<OfferData> | null {
+    if (marketplace === 'shopee') {
+      return this.extractShopeeFromText(text)
+    }
+
+    if (marketplace === 'mercadolivre') {
+      // Basic Mercado Livre extraction (Phase 3)
+      const idMatch = text.match(/\b(\d{10,})\b/i)
+      const productId = idMatch ? idMatch[1] : `ml-${Date.now()}`
+
+      const priceMatch = text.match(/R\$\s*([\d.,]+)/i)
+      if (!priceMatch) return null
+
+      const price = this.parsePrice(priceMatch[1])
+      if (price <= 0) return null
+
+      const titleMatch = text.match(/mercado\s*livre:\s*(.+?)(?=R\$|$)/i)
+      const product_title = titleMatch ? titleMatch[1].trim() : `Mercado Livre Product ${productId}`
+
+      return {
+        marketplace: 'mercadolivre',
+        product_id: productId,
+        product_title,
+        original_price: price,
+        discounted_price: price,
+        discount_percent: 0,
+        original_url: `https://www.mercadolivre.com.br/`,
+        normalized_url: `https://www.mercadolivre.com.br/`
+      }
+    }
+
+    if (marketplace === 'amazon') {
+      // Basic Amazon extraction (Phase 4)
+      const asinMatch = text.match(/\bB[0-9A-Z]{9}\b/i)
+      const productId = asinMatch ? asinMatch[1] : `amazon-${Date.now()}`
+
+      const priceMatch = text.match(/\$\s*([\d.,]+)/i)
+      if (!priceMatch) return null
+
+      const price = this.parsePrice(priceMatch[1])
+      if (price <= 0) return null
+
+      const titleMatch = text.match(/amazon:\s*(.+?)(?=\$|$)/i)
+      const product_title = titleMatch ? titleMatch[1].trim() : `Amazon Product ${productId}`
+
+      return {
+        marketplace: 'amazon',
+        product_id: productId,
+        product_title,
+        original_price: price,
+        discounted_price: price,
+        discount_percent: 0,
+        original_url: `https://www.amazon.com/`,
+        normalized_url: `https://www.amazon.com/`
+      }
+    }
+
+    return null
+  }
+
+  /**
+   * Extract Shopee offer from text with flexible price parsing
+   * Handles both "R$100 → R$80" and single price "R$100" formats
+   */
+  private extractShopeeFromText(text: string): Partial<OfferData> | null {
+    if (!text) return null
+
+    // Extract product ID from common patterns
+    const idMatch = text.match(/product[_-]?(\d+)|p[_-](\d+)|\b(\d{8,})\b/i)
+    const productId = idMatch ? (idMatch[1] || idMatch[2] || idMatch[3]) : `shopee-${Date.now()}`
+
+    // Try to extract two prices (original → discounted)
+    let priceMatch = text.match(/R\$\s*([\d.,]+)\s*(?:→|por)\s*R\$\s*([\d.,]+)/i)
+
+    if (priceMatch) {
+      // Two prices found
+      const original_price = this.parsePrice(priceMatch[1])
+      const discounted_price = this.parsePrice(priceMatch[2])
+
+      if (original_price <= 0 || discounted_price <= 0) return null
+
+      const discount_percent = Math.round(
+        ((original_price - discounted_price) / original_price) * 100
+      )
+
+      if (discount_percent > 95 || discount_percent < 0) return null
+
+      const titleMatch = text.match(/shopee:\s*(.+?)(?=R\$|$)/i)
+      const product_title = titleMatch ? titleMatch[1].trim() : `Shopee Product ${productId}`
+
+      return {
+        marketplace: 'shopee',
+        product_id: productId,
+        product_title,
+        original_price,
+        discounted_price,
+        discount_percent,
+        original_url: `https://shopee.com.br/search?keyword=${encodeURIComponent(product_title)}`,
+        normalized_url: `https://shopee.com.br/search?keyword=${encodeURIComponent(product_title)}`
+      }
+    }
+
+    // Try single price
+    priceMatch = text.match(/R\$\s*([\d.,]+)/i)
+    if (priceMatch) {
+      const price = this.parsePrice(priceMatch[1])
+      if (price <= 0) return null
+
+      const titleMatch = text.match(/shopee:\s*(.+?)(?=R\$|$)/i)
+      const product_title = titleMatch ? titleMatch[1].trim() : `Shopee Product ${productId}`
+
+      return {
+        marketplace: 'shopee',
+        product_id: productId,
+        product_title,
+        original_price: price,
+        discounted_price: price,
+        discount_percent: 0,
+        original_url: `https://shopee.com.br/search?keyword=${encodeURIComponent(product_title)}`,
+        normalized_url: `https://shopee.com.br/search?keyword=${encodeURIComponent(product_title)}`
+      }
+    }
+
+    return null
   }
 
   /**
