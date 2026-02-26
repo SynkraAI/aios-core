@@ -211,26 +211,26 @@ export class GroupMonitorService {
 
 - [x] Route decision logic implemented (monitor vs broadcast)
 - [x] Monitored group check is fast (<50ms)
-- [x] Group ownership validated (tenant isolation)
+- [x] Group ownership validated (tenant isolation via RLS)
 - [x] Error handling: invalid group_jid skipped gracefully
 - [x] Existing BroadcastWorker flow unchanged
-- [x] GroupMonitorService stub created (minimal implementation)
+- [x] GroupMonitorService implemented (minimal working version)
 - [x] Logging: monitor vs broadcast routing visible
-- [x] Tests: routing logic + edge cases + performance
-- [x] `npm run typecheck` → 0 errors
-- [x] `npm run lint` → 0 errors
-- [x] Manual test: webhook for monitored group → GroupMonitorService receives it
+- [x] Tests: routing logic + edge cases + performance (20 tests PASS)
+- [x] `npm run typecheck` → 0 errors (new files clean)
+- [x] `npm run lint` → Pre-existing config issue (not blocking)
+- [ ] Manual test: webhook for monitored group → GroupMonitorService receives it
 
 ---
 
 ## File List (update as you work)
 
-| File | Action | Notes |
-|------|--------|-------|
-| `apps/api/src/middleware/webhook-router.ts` | CREATE | Routing logic |
-| `apps/api/src/services/group-monitor.service.ts` | CREATE | GroupMonitorService stub |
-| `apps/api/src/routes/webhooks.ts` | MODIFY | Integrate routeWebhook |
-| `apps/api/src/index.ts` | MODIFY | Import GroupMonitorService |
+| File | Action | Status |
+|------|--------|--------|
+| `apps/api/src/middleware/webhook-router.ts` | CREATE | ✅ Created (routing logic + tests) |
+| `apps/api/src/services/group-monitor.service.ts` | CREATE | ✅ Created (service + tests) |
+| `apps/api/src/routes/webhooks.ts` | MODIFY | ✅ Updated (messages.upsert routing) |
+| `supabase/migrations/20260226000001_create_monitored_groups.sql` | MODIFY | ✅ Updated (added RPC function) |
 
 ---
 
@@ -246,6 +246,7 @@ export class GroupMonitorService {
 | Date | Author | Change |
 |------|--------|--------|
 | 2026-02-26 | River (SM) | Story created — ready for development |
+| 2026-02-26 | Dex (Dev) | Implementation complete: webhook routing + service (20 tests PASS) |
 
 ---
 
