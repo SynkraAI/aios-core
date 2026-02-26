@@ -4,7 +4,7 @@
 **Sprint:** 1 | **Phase:** MVP
 **Priority:** 🔴 CRITICAL
 **Story Points:** 3
-**Status:** Ready for Review
+**Status:** InReview
 **Assigned to:** @dev (Dex)
 **Prepared by:** River (Scrum Master)
 
