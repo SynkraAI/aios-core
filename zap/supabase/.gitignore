@@ -1,0 +1,10 @@
+# Supabase local development (git-ignored)
+.env
+.env.local
+.env.*.local
+postgres/
+vector/
+
+# BUT: Migrations are committed to git
+!migrations/
+!.gitignore
