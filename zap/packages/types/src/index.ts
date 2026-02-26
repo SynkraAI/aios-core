@@ -32,6 +32,23 @@ export interface WhatsAppConnection {
   createdAt: string
 }
 
+// ---- Monitored Groups (for competitor monitoring) ----
+export type MonitoredGroupStatus = 'active' | 'paused' | 'deleted'
+
+export interface MonitoredGroup {
+  id: string
+  tenant_id: string
+  connection_id: string
+  group_name: string
+  group_jid: string
+  status: MonitoredGroupStatus
+  monitored_since: string
+  last_message_at: string | null
+  message_count: number
+  created_at: string
+  updated_at: string
+}
+
 // ---- Project & Phases ----
 export interface Project {
   id: string

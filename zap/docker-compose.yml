@@ -37,7 +37,7 @@ services:
       - zap_network
 
   evolution:
-    image: atendai/evolution-api:v2.2.3
+    image: atendai/evolution-api:homolog
     ports:
       - "8080:8080"
     environment:
@@ -47,10 +47,20 @@ services:
       - DATABASE_PROVIDER=postgresql
       - DATABASE_CONNECTION_URI=postgresql://postgres:postgres@evolution-db:5432/evolution?schema=public
       - DATABASE_URL=postgresql://postgres:postgres@evolution-db:5432/evolution?schema=public
-      - REDIS_ENABLED=true
-      - REDIS_URI=redis://redis:6379
-      - REDIS_PREFIX_KEY=evolution
-      - LOG_LEVEL=WARN
+      - CACHE_REDIS_ENABLED=true
+      - CACHE_REDIS_URI=redis://redis:6379/6
+      - CACHE_REDIS_PREFIX_KEY=evolution
+      - CACHE_REDIS_SAVE_INSTANCES=false
+      - LOG_LEVEL=ERROR,WARN,LOG
+      - LOG_BAILEYS=error
+      - CONFIG_SESSION_PHONE_VERSION=2.3000.1033105955
+      - QRCODE_LIMIT=10
+      - QRCODE_EXPIRATION_TIME=60
+      - WEBHOOK_GLOBAL_ENABLED=true
+      - WEBHOOK_GLOBAL_URL=http://api:3001/webhooks/evolution
+      - WEBHOOK_GLOBAL_WEBHOOK_BY_EVENTS=false
+      - WEBHOOK_EVENTS_CONNECTION_UPDATE=true
+      - WEBHOOK_EVENTS_CONTACTS_UPSERT=true
     volumes:
       - evolution_instances:/evolution/instances
     depends_on:
