@@ -22,6 +22,8 @@ module.exports = [
       '**/.next/**',
       // Dashboard has its own ESLint config
       'apps/dashboard/**',
+      // ZAP monorepo - has its own ESLint setup
+      'zap/**',
       '**/.aios-core/_legacy-v4.31.0/**',
       '**/web-bundles/**',
       '**/*.min.js',
