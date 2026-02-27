@@ -258,7 +258,7 @@ class YAMLValidator {
 
     let maxDepth = currentDepth;
     for (const value of Object.values(obj)) {
-      if (typeof value === 'object') {
+      if (typeof value === 'object' && value !== null) {
         const depth = this.getMaxDepth(value, currentDepth + 1);
         maxDepth = Math.max(maxDepth, depth);
       }

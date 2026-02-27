@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-11T02:24:20.765Z"
+generated_at: "2026-03-11T02:24:31.156Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1089
 files:
@@ -1717,9 +1717,9 @@ files:
     type: script
     size: 25481
   - path: development/scripts/yaml-validator.js
-    hash: sha256:916864f9e56e1ccb7fc1596bd2da47400e4037f848a0d4e2bc46d0fa24cc544f
+    hash: sha256:dfd859f6ef6111b5ad8215d2607a48566d2a2acee490a8c266cedfe51fa8280c
     type: script
-    size: 10334
+    size: 10352
   - path: development/tasks/add-mcp.md
     hash: sha256:badc8a9859cb313e908d4ea0f4c4d7bc1be723214e38f26d55c366689fe5e3f0
     type: task
@@ -3361,9 +3361,9 @@ files:
     type: script
     size: 21677
   - path: infrastructure/scripts/yaml-validator.js
-    hash: sha256:2039ecb9a9d3f639c734c65704018efd2c4656c4995f0b0e537670f7417bf23b
+    hash: sha256:14e4c73c7deaecbb0ee81159ff401186a5124d60e8e9d1eaefffd9157bb28758
     type: script
-    size: 10362
+    size: 10380
   - path: infrastructure/templates/aiox-sync.yaml.template
     hash: sha256:0040ad8a9e25716a28631b102c9448b72fd72e84f992c3926eb97e9e514744bb
     type: template
