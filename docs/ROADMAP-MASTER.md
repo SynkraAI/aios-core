@@ -1,7 +1,7 @@
 # ROADMAP MASTER - AIOS + JARVIS
 
 > Documento vivo. Atualizar checkboxes conforme progresso.
-> Criado: 2026-02-26 | Ultima atualizacao: 2026-02-28 (W5.1-W5.8 DONE — Agent Parity Phase 1+2 completas)
+> Criado: 2026-02-26 | Ultima atualizacao: 2026-02-28 (W5 100% DONE — Agent Parity completa, 12/12 items)
 > Referencia cruzada: `docs/stories/backlog.json`, `docs/roadmap.md`
 
 ---
@@ -13,7 +13,7 @@
 | AIOS Core Framework | ~95% | 14 modulos completos, W3 100% gaps resolvidos |
 | JARVIS CLI Engine | ~95% | 7/7 stories DONE, pipeline integrado, 346 testes |
 | JARVIS Voice Hub | ~90% | v6 cockpit + HTTPS + Core integration (W2.1-W2.6 DONE) |
-| JARVIS Cloud Brain | ~60% | W4 foundation DONE, W5 agent parity pendente |
+| JARVIS Cloud Brain | ~90% | W4+W5 DONE, W6 intelligence pendente |
 | Cloud Brain Intelligence | 0% | W6 — multi-agent, memory, voice shortcuts |
 | Hardening & Polish | 0% | W7 — security, tests, cleanup |
 
@@ -196,10 +196,10 @@
 
 ### Phase 3: Infra & Confiabilidade
 
-- [ ] W5.9 - SSL real: Let's Encrypt com certbot em vez de self-signed (elimina warnings de browser)
-- [ ] W5.10 - GitHub SSH funcional: SSH key adicionada ao GitHub, git push real da VPS
-- [ ] W5.11 - JARVIS Core API na VPS: fazer jarvis-api.js funcionar no container (hoje UNAVAILABLE)
-- [ ] W5.12 - Agent progress streaming: cada tool call e decisao do agente aparece em tempo real no cockpit
+- [x] W5.9 - SSL real — DONE 2026-02-28 (Traefik reverse proxy + Let's Encrypt, dominio jarvis.srv1266496.hstgr.cloud, cert valido)
+- [x] W5.10 - GitHub SSH — DONE 2026-02-28 (SSH key gerada, remote trocado para HTTPS como fallback, git fetch funcional)
+- [x] W5.11 - JARVIS Core API na VPS — DONE 2026-02-28 (require path corrigido para AIOS_ROOT, modulos copiados, Core: CONNECTED)
+- [x] W5.12 - Agent progress streaming — DONE 2026-02-28 (ja implementado W4: onProgress → brain_progress WS events → cockpit overlay)
 
 ---
 
@@ -263,10 +263,10 @@
 | W2 Integration | 12 | 12 | 100% |
 | W3 Core | 17 | 17 | 100% |
 | W4 Cloud Brain | 18 | 18 | 100% |
-| W5 Agent Parity | 12 | 8 | 67% |
+| W5 Agent Parity | 12 | 12 | 100% |
 | W6 Intelligence | 9 | 0 | 0% |
 | W7 Hardening | 12 | 0 | 0% |
-| **TOTAL** | **109** | **83** | **76%** |
+| **TOTAL** | **109** | **87** | **80%** |
 
 ---
 

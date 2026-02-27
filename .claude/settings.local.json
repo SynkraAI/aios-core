@@ -37,7 +37,8 @@
       "Bash(ssh:*)",
       "Bash(scp:*)",
       "Bash(gh auth:*)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "Bash(npx eslint:*)"
     ]
   },
   "hooks": {
