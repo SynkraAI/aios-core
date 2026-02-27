@@ -1,7 +1,7 @@
 # ROADMAP MASTER - AIOS + JARVIS
 
 > Documento vivo. Atualizar checkboxes conforme progresso.
-> Criado: 2026-02-26 | Ultima atualizacao: 2026-02-28 (W4 100% DONE — Cloud Brain completo, 18/18 items)
+> Criado: 2026-02-26 | Ultima atualizacao: 2026-02-28 (W5-W7 redefinidas — Agent Parity + Intelligence + Hardening)
 > Referencia cruzada: `docs/stories/backlog.json`, `docs/roadmap.md`
 
 ---
@@ -11,11 +11,11 @@
 | Area | Progresso | Notas |
 |------|-----------|-------|
 | AIOS Core Framework | ~95% | 14 modulos completos, W3 100% gaps resolvidos |
-| JARVIS CLI Engine | ~95% | 7/7 stories DONE, pipeline integrado, 330 testes |
-| JARVIS Voice Hub | ~90% | v6 cockpit + Core integration (W2.1-W2.6 DONE) |
-| Squads & Marketplace | ~5% | Apenas _example/ existe |
-| Pro Module | ~10% | Scaffolding existe, PRO-11 pendente |
-| JARVIS Cloud Brain (W4) | 100% | 18/18 DONE — Cloud Brain + LLM Strategy + Git & CI + Cockpit UX |
+| JARVIS CLI Engine | ~95% | 7/7 stories DONE, pipeline integrado, 346 testes |
+| JARVIS Voice Hub | ~90% | v6 cockpit + HTTPS + Core integration (W2.1-W2.6 DONE) |
+| JARVIS Cloud Brain | ~60% | W4 foundation DONE, W5 agent parity pendente |
+| Cloud Brain Intelligence | 0% | W6 — multi-agent, memory, voice shortcuts |
+| Hardening & Polish | 0% | W7 — security, tests, cleanup |
 
 ---
 
@@ -175,39 +175,82 @@
 
 ---
 
-## WAVE 5 — SQUADS & MARKETPLACE (2-3 sessoes)
+## WAVE 5 — CLOUD BRAIN: AGENT PARITY (3-4 sessoes)
 
-> Tornar squads reais e utilizaveis.
+> Todos os agentes AIOS funcionando na VPS com paridade total ao CLI local.
+> Cada @agent com persona real, tools especificos, authority rules e workflows.
 
-- [ ] W5.1 - Criar starter squads (web-dev, mobile, data-science)
-- [ ] W5.2 - Squad registry (catalogo de squads disponiveis)
-- [ ] W5.3 - `npx aios-core squad install <name>` flow
-- [ ] W5.4 - Squad config: tool overrides, agent compositions
-- [ ] W5.5 - Documentar como criar squads custom
+### Phase 1: Agent Personas & Authority (paridade de identidade)
+
+- [ ] W5.1 - Agent persona injection: carregar persona completa (greeting, communication style, signature) no system prompt do Cloud Brain, nao so o YAML cru
+- [ ] W5.2 - Agent authority enforcement: implementar delegation matrix no Cloud Brain (@dev nao faz push, @devops nao faz code, etc.)
+- [ ] W5.3 - Agent-specific tools: filtrar tools por agente (dev = read/write/edit/git_commit, devops = git_push/git_branch, qa = run_tests/search_code)
+- [ ] W5.4 - Agent MEMORY.md: carregar e atualizar MEMORY.md por agente na VPS (persistencia entre sessoes)
+
+### Phase 2: Workflows & Tasks (paridade de execucao)
+
+- [ ] W5.5 - Task loader: Cloud Brain carrega e executa tasks de `.aios-core/development/tasks/` (dev-develop-story, qa-gate, create-next-story, etc.)
+- [ ] W5.6 - Story-driven mode: agentes trabalham a partir de stories reais em `docs/stories/`, atualizam checkboxes e file lists
+- [ ] W5.7 - Agent handoff cloud: implementar protocolo de handoff entre agentes no Cloud Brain (compaction artifact, context transfer)
+- [ ] W5.8 - QA Loop cloud: ciclo review-fix automatico via Cloud Brain (qa review → dev fix → re-review, max 5 iteracoes)
+
+### Phase 3: Infra & Confiabilidade
+
+- [ ] W5.9 - SSL real: Let's Encrypt com certbot em vez de self-signed (elimina warnings de browser)
+- [ ] W5.10 - GitHub SSH funcional: SSH key adicionada ao GitHub, git push real da VPS
+- [ ] W5.11 - JARVIS Core API na VPS: fazer jarvis-api.js funcionar no container (hoje UNAVAILABLE)
+- [ ] W5.12 - Agent progress streaming: cada tool call e decisao do agente aparece em tempo real no cockpit
 
 ---
 
-## WAVE 6 — PRO MODULE & MONETIZACAO (2-3 sessoes)
+## WAVE 6 — CLOUD BRAIN: INTELLIGENCE (2-3 sessoes)
 
-- [ ] W6.1 - PRO-11: Email auth + buyer-based activation
-- [ ] W6.2 - Pro feature gates (quais features sao pro-only)
-- [ ] W6.3 - License validation flow
-- [ ] W6.4 - Onboarding experience (time-to-first-value <= 10min)
+> JARVIS mais inteligente: contexto de projeto, memoria de longo prazo, multi-agent.
+
+### Phase 1: Context & Memory
+
+- [ ] W6.1 - Project context injection: injetar CLAUDE.md, constitution, story ativa e git status no system prompt de cada agente
+- [ ] W6.2 - Conversation memory: persistir historico de conversas por sessao no servidor (hoje so localStorage no browser)
+- [ ] W6.3 - Cross-session learning: JARVIS aprende padroes do projeto e preferencias do usuario entre sessoes
+
+### Phase 2: Multi-Agent & Orchestration
+
+- [ ] W6.4 - Multi-agent missions: JARVIS orquestra multiplos agentes em sequencia para uma missao (ex: @sm cria story → @dev implementa → @qa testa)
+- [ ] W6.5 - Parallel agent execution: rodar agentes independentes em paralelo (ex: @qa e @dev em tasks diferentes)
+- [ ] W6.6 - Agent routing inteligente: Opus analisa comando e decide automaticamente qual agente(s) acionar, sem precisar de @mention explicito
+
+### Phase 3: Voice & UX
+
+- [ ] W6.7 - Voice command shortcuts: "JARVIS, roda os testes" → detecta intent e executa direto sem confirmar
+- [ ] W6.8 - Voice status reports: JARVIS fala o status do projeto, progresso da story, resultados de teste
+- [ ] W6.9 - Mobile cockpit polish: UX otimizada para uso no celular (gestos, layout responsivo, notificacoes)
 
 ---
 
-## WAVE 7 — CLEANUP & POLISH (1-2 sessoes)
+## WAVE 7 — HARDENING & POLISH (2-3 sessoes)
 
-- [ ] W7.1 - Arquivar 5 deprecated standards docs
-- [ ] W7.2 - Remover 3 orphaned SQL template queries
-- [ ] W7.3 - Arquivar 5 dead migration scripts
-- [ ] W7.4 - Resolver 3 ghost directories
-- [ ] W7.5 - Adicionar testes para 10+ core modules sem coverage
-- [ ] W7.6 - Arquivar 5 orphaned infrastructure scripts
-- [ ] W7.7 - Wiring ideation-engine e timeline-manager (ou remover)
-- [ ] W7.8 - Rollback cleanup + edge case tests pro-scaffolder
-- [ ] W7.9 - E2E tests para SDC workflow completo
-- [ ] W7.10 - Security audit (endpoints sem auth, tool blocklists)
+> Estabilidade, seguranca, testes e cleanup para producao.
+
+### Phase 1: Security & Auth
+
+- [ ] W7.1 - Rate limiting: proteger endpoints do Cloud Brain contra abuse
+- [ ] W7.2 - Tool sandboxing: isolar execucao de comandos perigosos (containers, timeouts, resource limits)
+- [ ] W7.3 - Audit log: registrar todas as acoes dos agentes (quem fez o que, quando, qual tool)
+- [ ] W7.4 - Security audit: revisar tool blocklists, path traversal, injection vectors
+
+### Phase 2: Testing & Reliability
+
+- [ ] W7.5 - Cloud Brain tests: testes unitarios para orchestrate(), executeAgent(), executeTool()
+- [ ] W7.6 - E2E tests: fluxo completo voice → intent → agent → tool → response
+- [ ] W7.7 - Error recovery: retry automatico, fallback graceful, reconexao WebSocket
+- [ ] W7.8 - Health monitoring: alertas quando container cai, OpenAI desconecta, ou disco enche
+
+### Phase 3: Cleanup
+
+- [ ] W7.9 - Arquivar deprecated docs, orphaned scripts e ghost directories
+- [ ] W7.10 - Dead code removal: remover modules nao-usados (ideation-engine, timeline-manager)
+- [ ] W7.11 - Testes para core modules sem coverage (10+ modules)
+- [ ] W7.12 - Performance: cache de agent prompts, connection pooling, lazy loading
 
 ---
 
@@ -220,10 +263,10 @@
 | W2 Integration | 12 | 12 | 100% |
 | W3 Core | 17 | 17 | 100% |
 | W4 Cloud Brain | 18 | 18 | 100% |
-| W5 Squads | 5 | 0 | 0% |
-| W6 Pro | 4 | 0 | 0% |
-| W7 Cleanup | 10 | 0 | 0% |
-| **TOTAL** | **95** | **75** | **79%** |
+| W5 Agent Parity | 12 | 0 | 0% |
+| W6 Intelligence | 9 | 0 | 0% |
+| W7 Hardening | 12 | 0 | 0% |
+| **TOTAL** | **109** | **75** | **69%** |
 
 ---
 
