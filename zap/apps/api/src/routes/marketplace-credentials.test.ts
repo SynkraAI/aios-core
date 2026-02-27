@@ -35,7 +35,7 @@ describe('Marketplace Credentials API', () => {
 
     // Mock auth middleware
     app.use('*', (c, next) => {
-      c.set('auth', { tenantId, userId })
+      c.set('auth', { tenantId, userId, role: 'admin', email: 'test@example.com' })
       return next()
     })
 
@@ -110,7 +110,7 @@ describe('Marketplace Credentials API', () => {
       const res = await app.request(req)
       expect(res.status).toBe(201)
 
-      const json = await res.json()
+      const json = (await res.json()) as any
       expect(json.data.marketplace).toBe('shopee')
       expect(json.data.affiliate_id).toBe('shopee_user_123')
       expect(json.data.configured).toBe(true)
@@ -130,7 +130,7 @@ describe('Marketplace Credentials API', () => {
       const res = await app.request(req)
       expect(res.status).toBe(201)
 
-      const json = await res.json()
+      const json = (await res.json()) as any
       expect(json.data.marketplace).toBe('mercadolivre')
       expect(json.data.account_tag).toBe('ML_ACCOUNT_ABC')
     })
@@ -148,7 +148,7 @@ describe('Marketplace Credentials API', () => {
       const res = await app.request(req)
       expect(res.status).toBe(201)
 
-      const json = await res.json()
+      const json = (await res.json()) as any
       expect(json.data.marketplace).toBe('amazon')
       expect(json.data.associates_id).toBe('amzn-associates-123')
     })
@@ -232,7 +232,7 @@ describe('Marketplace Credentials API', () => {
       const res = await app.request(getReq)
       expect(res.status).toBe(200)
 
-      const json = await res.json()
+      const json = (await res.json()) as any
 
       // Should expose affiliate_id but not api_key
       expect(json.shopee.configured).toBe(true)
@@ -265,7 +265,7 @@ describe('Marketplace Credentials API', () => {
       const res = await app.request(req)
       expect(res.status).toBe(200)
 
-      const json = await res.json()
+      const json = (await res.json()) as any
       expect(json.shopee.configured).toBe(false)
       expect(json.mercadolivre.configured).toBe(false)
       expect(json.amazon.configured).toBe(false)
@@ -293,7 +293,7 @@ describe('Marketplace Credentials API', () => {
       const res = await app.request(deleteReq)
       expect(res.status).toBe(200)
 
-      const json = await res.json()
+      const json = (await res.json()) as any
       expect(json.success).toBe(true)
     })
 
@@ -304,7 +304,7 @@ describe('Marketplace Credentials API', () => {
       const res = await app.request(req)
       expect(res.status).toBe(400)
 
-      const json = await res.json()
+      const json = (await res.json()) as any
       expect(json.error).toBe('Invalid marketplace')
     })
 

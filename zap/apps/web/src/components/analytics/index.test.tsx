@@ -4,11 +4,11 @@
  */
 
 import { describe, it, expect } from 'vitest'
-import { OverviewCards } from './overview-cards.tsx'
-import { MarketplaceTable } from './marketplace-table.tsx'
-import { TrendingProducts } from './trending-products.tsx'
-import { SpyInsights } from './spy-insights.tsx'
-import { DateRangeFilter } from './date-range-filter.tsx'
+import { OverviewCards } from './overview-cards'
+import { MarketplaceTable } from './marketplace-table'
+import { TrendingProducts } from './trending-products'
+import { SpyInsights } from './spy-insights'
+import { DateRangeFilter } from './date-range-filter'
 
 describe('Analytics Components', () => {
   describe('Component Exports', () => {

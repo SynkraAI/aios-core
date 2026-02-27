@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { useAnalyticsStore } from './analytics.ts'
+import { useAnalyticsStore } from './analytics'
 
 // Mock fetch globally
 const fetchMock = vi.fn() as any

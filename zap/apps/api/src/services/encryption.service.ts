@@ -77,7 +77,7 @@ export class EncryptionService {
       encrypted += cipher.final('hex')
 
       // Get authentication tag for AEAD
-      const authTag = cipher.getAuthTag()
+      const authTag = (cipher as any).getAuthTag()
 
       // Format: iv::authTag::ciphertext (all hex)
       const result = `${iv.toString('hex')}::${authTag.toString('hex')}::${encrypted}`
@@ -124,7 +124,8 @@ export class EncryptionService {
 
       // Decrypt
       const decipher = crypto.createDecipheriv(this.algorithm, key, iv)
-      decipher.setAuthTag(authTag)
+      const decipherWithAuth = decipher as any
+      decipherWithAuth.setAuthTag(authTag)
 
       let decrypted = decipher.update(ciphertext, 'hex', 'utf8')
       decrypted += decipher.final('utf8')

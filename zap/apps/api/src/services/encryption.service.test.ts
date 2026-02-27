@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { EncryptionService } from './encryption.service'
+import { EncryptionService } from './encryption.service.js'
 
 describe('EncryptionService', () => {
   let encryption: EncryptionService
@@ -25,7 +25,7 @@ describe('EncryptionService', () => {
       expect(parts).toHaveLength(3)
 
       // Each part should be hex
-      parts.forEach((part) => {
+      parts.forEach((part: string) => {
         expect(/^[0-9a-f]+$/.test(part)).toBe(true)
       })
     })
@@ -140,11 +140,14 @@ describe('EncryptionService', () => {
     })
 
     it('does not log plaintext in decrypt()', () => {
-      const loggerSpy = vi.spyOn(console.log, 'toString')
+      const loggerSpy = vi.spyOn(console, 'log')
       const plaintext = 'sk_live_secret'
       const encrypted = encryption.encrypt(plaintext, testTenantId)
 
       encryption.decrypt(encrypted, testTenantId)
+
+      const logs = loggerSpy.mock.calls.join(' ')
+      expect(logs).not.toContain(plaintext)
 
       loggerSpy.mockRestore()
     })

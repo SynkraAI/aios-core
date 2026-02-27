@@ -1,14 +1,14 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { ShopeeStrategy } from './shopee.strategy.js'
-import { supabaseAdmin } from '../../db/client.js'
+import { supabaseAdmin } from '../../../db/client.js'
 
-vi.mock('../../db/client.js', () => ({
+vi.mock('../../../db/client.js', () => ({
   supabaseAdmin: {
     from: vi.fn(),
   },
 }))
 
-vi.mock('../../lib/logger.js', () => ({
+vi.mock('../../../lib/logger.js', () => ({
   logger: {
     error: vi.fn(),
     debug: vi.fn(),
