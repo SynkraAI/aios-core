@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-27T16:35:29.476Z'
+  lastUpdated: '2026-02-27T16:36:30.217Z'
   entityCount: 754
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -6695,7 +6695,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:ee6a168f54b6143746fc082ff111b40f009e5101b66833cea32390437e7691ab
-      lastVerified: '2026-02-27T16:35:29.463Z'
+      lastVerified: '2026-02-27T16:36:30.205Z'
     agent-exit-hooks:
       path: .aios-core/development/scripts/agent-exit-hooks.js
       layer: L2
@@ -7146,7 +7146,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:5a40be381b585870e175274e1cc1ebdf9da528b29da5808f3d1f2a65744e97c1
-      lastVerified: '2026-02-27T16:35:29.466Z'
+      lastVerified: '2026-02-27T16:36:30.208Z'
     greeting-config-cli:
       path: .aios-core/development/scripts/greeting-config-cli.js
       layer: L2
@@ -7654,7 +7654,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:a4540a350684e89c295b4ba4aaf10cf8bea479399a758e0444509c4ffbb1b6dc
-      lastVerified: '2026-02-27T16:35:29.468Z'
+      lastVerified: '2026-02-27T16:36:30.210Z'
     usage-tracker:
       path: .aios-core/development/scripts/usage-tracker.js
       layer: L2
@@ -7780,7 +7780,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:ac36116a605662b5c1377708426485a472915ae7aaa04e3be3386bd2fd0af8c9
-      lastVerified: '2026-02-27T16:35:29.468Z'
+      lastVerified: '2026-02-27T16:36:30.210Z'
     workflow-state-manager:
       path: .aios-core/development/scripts/workflow-state-manager.js
       layer: L2
@@ -8098,7 +8098,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:085209bd730925e9da6a0d65723222b3bfbd1629e375e507be1580dafd3bb5e3
-      lastVerified: '2026-02-27T16:35:29.467Z'
+      lastVerified: '2026-02-27T16:36:30.209Z'
   modules:
     index.esm:
       path: .aios-core/core/index.esm.js
@@ -8262,7 +8262,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:f0eb41e774dbb05c283cb65e929ad53b4b2beefbe3385fb6c90e109773f66788
-      lastVerified: '2026-02-27T16:35:29.445Z'
+      lastVerified: '2026-02-27T16:36:30.188Z'
     config-cache:
       path: .aios-core/core/config/config-cache.js
       layer: L1
@@ -8496,7 +8496,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:9c7159f1c7b134dea890fb1d97d8fca41168e5993388a7059ff5974de443e66e
-      lastVerified: '2026-02-27T16:35:29.457Z'
+      lastVerified: '2026-02-27T16:36:30.199Z'
     task-elicitation:
       path: .aios-core/core/elicitation/task-elicitation.js
       layer: L1
@@ -8675,7 +8675,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:ab4e13af764ebdccb1b518f6d5cb4dea54d693af6eda60b95033982a65c69e63
-      lastVerified: '2026-02-27T16:35:29.445Z'
+      lastVerified: '2026-02-27T16:36:30.189Z'
     parallel-executor:
       path: .aios-core/core/execution/parallel-executor.js
       layer: L1
@@ -8796,7 +8796,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:8755d71accf32472580a4e3ca9b9564a2274ec3d28cb9f947cf03bc996e38ecb
-      lastVerified: '2026-02-27T16:35:29.446Z'
+      lastVerified: '2026-02-27T16:36:30.189Z'
     wave-executor:
       path: .aios-core/core/execution/wave-executor.js
       layer: L1
@@ -9148,7 +9148,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:5a468553b9dbada2e6b100ddd35acb8d42a432cb5d399b13d6165eaba1246d2e
-      lastVerified: '2026-02-27T16:35:29.447Z'
+      lastVerified: '2026-02-27T16:36:30.190Z'
     delegation-bridge:
       path: .aios-core/core/jarvis/delegation-bridge.js
       layer: L1
@@ -9164,7 +9164,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:b0bbae98bf4d7aebf32e8cf6c94e7e3a9b3fb7abf31108fe94dfde48d3b5f158
-      lastVerified: '2026-02-27T16:35:29.450Z'
+      lastVerified: '2026-02-27T16:36:30.193Z'
     intent-engine:
       path: .aios-core/core/jarvis/intent-engine.js
       layer: L1
@@ -9180,7 +9180,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:953ecd07f69ac403ae918522d17eb68ba09d1c6b5cfda754be52841afc5b6ac5
-      lastVerified: '2026-02-27T16:35:29.451Z'
+      lastVerified: '2026-02-27T16:36:30.194Z'
     jarvis-api:
       path: .aios-core/core/jarvis/jarvis-api.js
       layer: L1
@@ -9196,7 +9196,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:a6296aaaa3ef3ae6033aa901ad32e3714d041b32653ff22587dcd758eef980af
-      lastVerified: '2026-02-27T16:35:29.452Z'
+      lastVerified: '2026-02-27T16:36:30.196Z'
     jarvis-bootstrap:
       path: .aios-core/core/jarvis/jarvis-bootstrap.js
       layer: L1
@@ -9212,7 +9212,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:c5027d245befd4105228c060cac72bd4f265e3cc7341445e7c1c679d77370c42
-      lastVerified: '2026-02-27T16:35:29.453Z'
+      lastVerified: '2026-02-27T16:36:30.197Z'
     mission-planner:
       path: .aios-core/core/jarvis/mission-planner.js
       layer: L1
@@ -9228,7 +9228,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:4198e9f1e9beba82ce53f78462356414929f9038a506a14535891b988f4b03ff
-      lastVerified: '2026-02-27T16:35:29.455Z'
+      lastVerified: '2026-02-27T16:36:30.198Z'
     progress-reporter:
       path: .aios-core/core/jarvis/progress-reporter.js
       layer: L1
@@ -9244,7 +9244,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:3e5846712421c28ef26f9604b6fcc5397af04629c90c967e2472d05548fcc567
-      lastVerified: '2026-02-27T16:35:29.456Z'
+      lastVerified: '2026-02-27T16:36:30.199Z'
     manifest-generator:
       path: .aios-core/core/manifest/manifest-generator.js
       layer: L1
@@ -10767,7 +10767,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:97d5ec2041501e584b5c887987615eb4275f2bf9a625b2adaf455364230b63e4
-      lastVerified: '2026-02-27T16:35:29.443Z'
+      lastVerified: '2026-02-27T16:36:30.187Z'
     entity-registry:
       path: .aios-core/core/doctor/checks/entity-registry.js
       layer: L1
@@ -12846,7 +12846,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:cd6c3cac68c80ddbc8aad30ef2cc75da2a54505e926264d3f1b5cb8351908b66
-      lastVerified: '2026-02-27T16:35:29.441Z'
+      lastVerified: '2026-02-27T16:36:30.185Z'
     autonomy-rules:
       path: .aios-core/core/jarvis/config/autonomy-rules.yaml
       layer: L1
@@ -12863,7 +12863,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:3399f7069f64f9d886947335b1d1087207158ef53364240185f6c8430d7d5493
-      lastVerified: '2026-02-27T16:35:29.448Z'
+      lastVerified: '2026-02-27T16:36:30.191Z'
     jarvis-surface-criteria:
       path: .aios-core/core/jarvis/config/jarvis-surface-criteria.yaml
       layer: L1
@@ -12881,7 +12881,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:11847fbaa9500bcd4294ec8fa7896a1b83e0b613f024269845bae1b6e64ac529
-      lastVerified: '2026-02-27T16:35:29.448Z'
+      lastVerified: '2026-02-27T16:36:30.192Z'
     intent-patterns:
       path: .aios-core/core/jarvis/intent-patterns.yaml
       layer: L1
@@ -12899,7 +12899,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:57bd3afa2471d0fa097253d19435ae0aae8f93f1ef939d7c611612edfa750e47
-      lastVerified: '2026-02-27T16:35:29.452Z'
+      lastVerified: '2026-02-27T16:36:30.195Z'
   agents:
     aios-master:
       path: .aios-core/development/agents/aios-master.md
@@ -13569,7 +13569,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:16f7861ec19ec92290bed75fcce62e3ce3b304219b8d660646912cdf9ec576fc
-      lastVerified: '2026-02-27T16:35:29.462Z'
+      lastVerified: '2026-02-27T16:36:30.205Z'
     sm:
       path: .aios-core/development/agents/sm.md
       layer: L2
@@ -13975,7 +13975,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:3b4b2905e2d6a8d68e7bafb981241c561a25e2775d1a3728938d2dc03a001d62
-      lastVerified: '2026-02-27T16:35:29.462Z'
+      lastVerified: '2026-02-27T16:36:30.204Z'
     tool-registry:
       path: .aios-core/data/tool-registry.yaml
       layer: L3
@@ -14121,7 +14121,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:614f8afcc8bc68f42020deb59988a762950bc67057dd8448933e6ea99564f420
-      lastVerified: '2026-02-27T16:35:29.458Z'
+      lastVerified: '2026-02-27T16:36:30.200Z'
     go:
       path: .aios-core/data/tech-presets/go.md
       layer: L3
@@ -14138,7 +14138,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:47fbfbcea3791c47c35a1ba2a031f5ff02025c874a71ee857d920078b556e52a
-      lastVerified: '2026-02-27T16:35:29.459Z'
+      lastVerified: '2026-02-27T16:36:30.201Z'
     java:
       path: .aios-core/data/tech-presets/java.md
       layer: L3
@@ -14155,7 +14155,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:07f19dd559db4f0abeb42ff3bf1cd47e3e80818c1668a0c042f4a28f32b479a8
-      lastVerified: '2026-02-27T16:35:29.459Z'
+      lastVerified: '2026-02-27T16:36:30.202Z'
     php:
       path: .aios-core/data/tech-presets/php.md
       layer: L3
@@ -14174,7 +14174,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:1f819bc6e597ad26bf970bf9af19c46b5b61f23c9573a77727824eb8a9f74cbd
-      lastVerified: '2026-02-27T16:35:29.460Z'
+      lastVerified: '2026-02-27T16:36:30.203Z'
     rust:
       path: .aios-core/data/tech-presets/rust.md
       layer: L3
@@ -14191,7 +14191,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:ba5d60a2bcc00b1790c538616923a2d3e53e4fe2aeb38dd6e34e48308c5d97f2
-      lastVerified: '2026-02-27T16:35:29.461Z'
+      lastVerified: '2026-02-27T16:36:30.203Z'
   workflows:
     auto-worktree:
       path: .aios-core/development/workflows/auto-worktree.yaml
@@ -14486,7 +14486,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:2e4dade500de2590da030165486812e6236539861fef964d5dd8f2532c758160
-      lastVerified: '2026-02-27T16:35:29.471Z'
+      lastVerified: '2026-02-27T16:36:30.213Z'
     spec-pipeline:
       path: .aios-core/development/workflows/spec-pipeline.yaml
       layer: L2
@@ -14697,7 +14697,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:51f377f8d22a713601413a512822b17c239a166b189fc5ca732a440822b392be
-      lastVerified: '2026-02-27T16:35:29.471Z'
+      lastVerified: '2026-02-27T16:36:30.214Z'
     backup-manager:
       path: .aios-core/infrastructure/scripts/backup-manager.js
       layer: L2
