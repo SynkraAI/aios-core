@@ -1,12 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { Send } from 'lucide-react'
 import type { CapturedOffer } from '@/stores/captured-offers'
 
 interface CapturedOffersTableProps {
   offers: CapturedOffer[]
   loading?: boolean
   onRowClick: (offer: CapturedOffer) => void
+  onReplicateClick: (offer: CapturedOffer) => void
   total: number
   currentPage: number
   onPageChange: (page: number) => void
@@ -18,6 +20,7 @@ export function CapturedOffersTable({
   offers,
   loading = false,
   onRowClick,
+  onReplicateClick,
   total,
   currentPage,
   onPageChange,
@@ -125,9 +128,9 @@ export function CapturedOffersTable({
       {/* Empty state */}
       {!loading && offers.length === 0 && (
         <div className="p-8 text-center bg-gray-50 rounded">
-          <p className="text-gray-600 text-lg font-medium">No captured offers yet</p>
+          <p className="text-gray-600 text-lg font-medium">Nenhuma oferta capturada ainda</p>
           <p className="text-gray-500 text-sm mt-1">
-            Offers will appear here as competitors post in monitored groups
+            As ofertas aparecerão aqui conforme os concorrentes postarem em grupos monitorados
           </p>
         </div>
       )}
@@ -159,6 +162,9 @@ export function CapturedOffersTable({
                   </th>
                   <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
                     Duplicate
+                  </th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                    Actions
                   </th>
                 </tr>
               </thead>
@@ -223,6 +229,20 @@ export function CapturedOffersTable({
                           Duplicate
                         </span>
                       )}
+                    </td>
+
+                    {/* Actions */}
+                    <td className="px-6 py-4">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          onReplicateClick(offer)
+                        }}
+                        className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary text-white text-xs font-medium rounded-md hover:bg-primary/90 transition-colors"
+                      >
+                        <Send className="w-3 h-3" />
+                        Replicar
+                      </button>
                     </td>
                   </tr>
                 ))}
