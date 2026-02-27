@@ -6,14 +6,7 @@ import { URLExtractor } from '../services/offers/url-extractor.js'
 import { deduplicationService } from '../services/offers/deduplication.service.js'
 import { supabaseAdmin } from '../db/client.js'
 import { addDays } from 'date-fns'
-
-interface OfferParserJobData {
-  message_id: string
-  text: string
-  group_jid: string
-  tenant_id: string
-  timestamp: string | Date
-}
+import type { OfferParserJob } from '@zap/types'
 
 /**
  * AC-041: OfferParserWorker processes messages from offer-parser queue
@@ -26,7 +19,7 @@ interface OfferParserJobData {
 export const offerParserWorker = new Worker(
   'offer-parser',
   async (job) => {
-    const { message_id, text, group_jid, tenant_id, timestamp } = job.data as OfferParserJobData
+    const { message_id, text, group_jid, tenant_id, timestamp, media_url } = job.data as OfferParserJob
 
     logger.info('Processing offer', {
       message_id,
@@ -96,7 +89,8 @@ export const offerParserWorker = new Worker(
           marketplace,
           product_id: extracted.product_id,
           product_title: extracted.product_title,
-          product_image_url: extracted.product_image_url,
+          // AC-034.7: Use message image if available (from imageMessage or webPreviewMessage), else extracted
+          product_image_url: media_url || extracted.product_image_url,
           original_price: extracted.original_price,
           discounted_price: extracted.discounted_price,
           discount_percent: extracted.discount_percent,

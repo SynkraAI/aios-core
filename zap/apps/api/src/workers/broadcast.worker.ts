@@ -187,10 +187,31 @@ export const offerReplicationWorker = new Worker<OfferReplicationJobData>(
           discountedPrice: parsedOffer.price || 0,
           affiliateUrl,
           marketplace: parsedOffer.marketplace,
+          productImageUrl: parsedOffer.productImageUrl, // AC-034.7: Include image if available
         })
 
-        // AC-049.3: Send via SessionManager
-        await sessionManager.sendTextToGroup(tenantId, connectionId, group.waGroupId, messageText)
+        // AC-049.3, AC-034.7: Send via SessionManager
+        // NOVIDADE: If image is available, send image with caption; otherwise send text only
+        if (parsedOffer.productImageUrl) {
+          await sessionManager.sendImageToGroup(
+            tenantId,
+            connectionId,
+            group.waGroupId,
+            parsedOffer.productImageUrl,
+            messageText
+          )
+          logger.info('Offer sent to group with image', {
+            offerId,
+            groupId: group.groupId,
+            imageUrl: parsedOffer.productImageUrl.substring(0, 50) + '...',
+          })
+        } else {
+          await sessionManager.sendTextToGroup(tenantId, connectionId, group.waGroupId, messageText)
+          logger.info('Offer sent to group (text only)', {
+            offerId,
+            groupId: group.groupId,
+          })
+        }
 
         // AC-050.4: Reset failure counter on successful send
         await antiBanEngine.resetFailureCount(group.groupId, redisConnection)

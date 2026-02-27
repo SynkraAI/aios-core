@@ -292,6 +292,7 @@ offersRouter.post('/captured-offers/:id/replicate', async (c) => {
     }
 
     // AC-049.4: Prepare job data
+    // AC-034.7: Include product image for image-based replication
     const targetGroupsForJob = groups.map((g) => ({
       groupId: g.id,
       waGroupId: g.wa_group_id,
@@ -306,6 +307,7 @@ offersRouter.post('/captured-offers/:id/replicate', async (c) => {
         productId: offer.product_id,
         price: offer.discounted_price || offer.original_price,
         originalUrl: offer.original_url,
+        productImageUrl: offer.product_image_url, // AC-034.7: From message image or link preview
       },
       targetGroups: targetGroupsForJob,
       affiliateLinks,

@@ -9,6 +9,7 @@ export interface FormatOfferMessageInput {
   discountedPrice: number
   affiliateUrl: string
   marketplace: 'shopee' | 'mercadolivre' | 'amazon'
+  productImageUrl?: string // AC-034.7: NOVIDADE - include image from message
 }
 
 export function formatOfferMessage(data: FormatOfferMessageInput): string {

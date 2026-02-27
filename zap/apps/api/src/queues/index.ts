@@ -125,16 +125,11 @@ export interface TriggerJobData {
 }
 
 // AC-041: OfferParserWorker job payload
-export interface OfferParserJobData {
-  message_id: string
-  text: string
-  group_jid: string
-  tenant_id: string
-  timestamp: string | Date
-}
+// See @zap/types for OfferParserJob (includes media_url for AC-034.7: NOVIDADE)
 
 // AC-048: OfferReplicationQueue job payload
 // Triggered by offer-parser → schedules across multiple groups with rate limiting
+// AC-034.7: Include product_image_url for image-based replication
 export interface OfferReplicationJobData {
   offerId: string                    // Unique offer ID
   tenantId: string
@@ -144,6 +139,7 @@ export interface OfferReplicationJobData {
     marketplace: 'shopee' | 'mercadolivre' | 'amazon'
     price?: number
     originalUrl: string
+    productImageUrl?: string         // AC-034.7: From captured_offers
   }
   targetGroups: Array<{
     groupId: string
