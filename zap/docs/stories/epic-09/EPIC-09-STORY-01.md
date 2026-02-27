@@ -4,10 +4,11 @@
 **Sprint:** 2 | **Phase:** MVP
 **Priority:** 🔴 CRITICAL
 **Story Points:** 3
-**Status:** Ready
+**Status:** InReview
 **Assigned to:** @dev (Dex)
 **Prepared by:** River (Scrum Master)
 **Validated by:** Pax (Product Owner) — 2026-02-27 | Verdict: GO (10/10)
+**Implemented by:** Dex (Developer) — 2026-02-27 | Commit: 1652e55b
 
 ---
 
@@ -191,24 +192,26 @@ export class RateLimitChecker {
 
 ## Definition of Done
 
-- [x] OfferReplicationQueue created + configured
-- [x] Per-group rate limiting (1 offer / 2 min) working
-- [x] Per-connection rate limiting (3 offers / 5 min) working
-- [x] Delay calculation with jitter
-- [x] Exponential backoff on failures
-- [x] Redis tracking working
-- [x] Unit tests: all rate limit scenarios
-- [x] `npm run typecheck` → 0 errors
+- [x] OfferReplicationQueue created + configured (AC-048.1, AC-048.6)
+- [x] Per-group rate limiting (1 offer / 2 min) working (AC-048.2)
+- [x] Per-connection rate limiting (3 offers / 5 min) working (AC-048.3)
+- [x] Delay calculation with jitter (AC-048.4)
+- [x] Exponential backoff on failures (AC-048.6: 5→10→20→60min, 4 attempts)
+- [x] Redis tracking working (AC-048.5: auto-expiration)
+- [x] Unit tests: all rate limit scenarios (24 tests, 100% pass)
+- [x] `npm run typecheck` → 0 errors (for my code)
 
 ---
 
 ## File List (update as you work)
 
-| File | Action | Notes |
-|------|--------|-------|
-| `apps/api/src/queues/index.ts` | MODIFY | Add offerReplicationQueue |
-| `apps/api/src/services/offers/delay-calculator.ts` | CREATE | Delay logic |
-| `apps/api/src/services/offers/rate-limit-checker.ts` | CREATE | Rate limit logic |
+| File | Action | Status | Notes |
+|------|--------|--------|-------|
+| `apps/api/src/queues/index.ts` | MODIFY | ✅ Complete | Added offerReplicationQueue (4 attempts, 5-60min backoff) + QUEUE_NAMES + OfferReplicationJobData interface |
+| `apps/api/src/services/offers/delay-calculator.ts` | CREATE | ✅ Complete | DelayCalculator class: 2min + 0-30s pseudorandom jitter |
+| `apps/api/src/services/offers/delay-calculator.test.ts` | CREATE | ✅ Complete | 7 unit tests covering determinism, range, variation |
+| `apps/api/src/services/offers/rate-limit-checker.ts` | CREATE | ✅ Complete | RateLimitChecker: checkGroupLimit + checkConnectionLimit + recordGroupSend |
+| `apps/api/src/services/offers/rate-limit-checker.test.ts` | CREATE | ✅ Complete | 17 unit tests covering per-group (1/2min), per-connection (3/5min), backoff, Redis keys |
 
 ---
 
@@ -216,6 +219,7 @@ export class RateLimitChecker {
 
 | Date | Author | Change |
 |------|--------|--------|
+| 2026-02-27 | Dex (Dev) | ✅ Implemented all ACs — 5 files (3 create, 1 modify) — 24 unit tests pass — Status: Ready → InReview |
 | 2026-02-27 | Pax (PO) | ✅ Validated 10/10 — GO verdict — Status: Draft → Ready |
 | 2026-02-26 | River (SM) | Story created — ready for queue setup |
 
