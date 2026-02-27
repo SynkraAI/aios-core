@@ -88,7 +88,7 @@ describe('Onboarding smoke flow (AIOS-DIFF-4.0.5)', () => {
 
     const elapsedSeconds = (Date.now() - startedAt) / 1000;
     expect(greeting).toContain('Agent dev loaded');
-    expect(greeting).toContain('Available Commands');
+    expect(greeting).toContain('Type `*help` to see available commands');
     expect(greeting).toContain('*help');
 
     // Target for real user path is <=10 min.
