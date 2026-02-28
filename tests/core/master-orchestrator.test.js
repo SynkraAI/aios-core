@@ -427,6 +427,28 @@ describe('MasterOrchestrator', () => {
       expect(orchestrator.getProgressPercentage()).toBe(67); // 2 of 3
     });
 
+    it('should return 0 when all epics are on-demand (no division by zero)', async () => {
+      await orchestrator.initialize();
+
+      // Temporarily make all epics on-demand to trigger the zero-division guard
+      const originalConfig = {};
+      for (const [num, cfg] of Object.entries(EPIC_CONFIG)) {
+        originalConfig[num] = cfg.onDemand;
+        cfg.onDemand = true;
+      }
+
+      try {
+        const progress = orchestrator.getProgressPercentage();
+        expect(progress).toBe(0);
+        expect(Number.isNaN(progress)).toBe(false);
+      } finally {
+        // Restore original config
+        for (const [num, val] of Object.entries(originalConfig)) {
+          EPIC_CONFIG[num].onDemand = val;
+        }
+      }
+    });
+
     it('should return status summary', async () => {
       await orchestrator.initialize();
       await orchestrator.executeEpic(3);
