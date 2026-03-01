@@ -1,0 +1,437 @@
+# AIOS ↔ OpenClaw Federation Contract
+# Version: 1.0.0
+# Protocol: Model Context Protocol (MCP)
+# This contract is the single source of truth for bidirectional tool definitions.
+
+contract:
+  version: "1.0.0"
+  protocol: "mcp/2024-11-05"
+  created: "2026-02-28"
+  description: "Bidirectional MCP federation between AIOS Core and OpenClaw Gateway"
+
+  parties:
+    provider:
+      name: "aios-core"
+      description: "AI-Orchestrated System for Full Stack Development"
+      transport: "stdio"
+    consumer:
+      name: "openclaw-gateway"
+      description: "WhatsApp/Telegram messaging gateway"
+      transport: "stdio"
+
+  # ============================================================
+  # AIOS-EXPOSED TOOLS
+  # These tools are served by the AIOS MCP Server.
+  # OpenClaw (or any MCP client) can invoke these.
+  # ============================================================
+  aios_tools:
+    - name: "aios_agent_execute"
+      description: "Execute an AIOS agent with a given prompt and optional story context. Returns the agent's response."
+      input_schema:
+        type: "object"
+        required:
+          - "agent"
+          - "prompt"
+        properties:
+          agent:
+            type: "string"
+            enum: ["dev", "qa", "architect", "pm", "po", "sm", "analyst", "data-engineer", "ux-design-expert", "devops", "aios-master"]
+            description: "The AIOS agent to execute"
+          prompt:
+            type: "string"
+            minLength: 1
+            maxLength: 10000
+            description: "The prompt/instruction for the agent"
+          story_id:
+            type: "string"
+            description: "Optional story ID for context (e.g., 'MCPF-1')"
+          sender:
+            type: "string"
+            description: "Identifier of the message sender (e.g., phone number, username)"
+          channel:
+            type: "string"
+            enum: ["whatsapp", "telegram", "cli", "api"]
+            default: "api"
+            description: "The channel the request originated from"
+        additionalProperties: false
+      output_schema:
+        type: "object"
+        required:
+          - "success"
+          - "agent"
+          - "timestamp"
+        properties:
+          success:
+            type: "boolean"
+          agent:
+            type: "string"
+          response:
+            type: "string"
+            description: "The agent's text response"
+          story_id:
+            type: "string"
+          timestamp:
+            type: "string"
+            format: "date-time"
+          execution_ms:
+            type: "number"
+        additionalProperties: false
+      errors:
+        - code: "AGENT_NOT_FOUND"
+          description: "The specified agent does not exist"
+          http_equiv: 404
+        - code: "EXECUTION_TIMEOUT"
+          description: "Agent execution exceeded timeout limit"
+          http_equiv: 504
+        - code: "AGENT_BUSY"
+          description: "Agent is currently executing another task"
+          http_equiv: 429
+        - code: "INVALID_PROMPT"
+          description: "The prompt is empty or exceeds max length"
+          http_equiv: 400
+
+    - name: "aios_system_status"
+      description: "Get current AIOS system status including agent availability, active stories, and health metrics."
+      input_schema:
+        type: "object"
+        properties:
+          include_agents:
+            type: "boolean"
+            default: true
+            description: "Include agent availability info"
+          include_stories:
+            type: "boolean"
+            default: true
+            description: "Include active stories summary"
+          include_health:
+            type: "boolean"
+            default: false
+            description: "Include detailed health metrics"
+        additionalProperties: false
+      output_schema:
+        type: "object"
+        required:
+          - "status"
+          - "timestamp"
+        properties:
+          status:
+            type: "string"
+            enum: ["healthy", "degraded", "offline"]
+          timestamp:
+            type: "string"
+            format: "date-time"
+          version:
+            type: "string"
+          agents:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                name:
+                  type: "string"
+                available:
+                  type: "boolean"
+              required:
+                - "name"
+                - "available"
+          active_stories:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id:
+                  type: "string"
+                title:
+                  type: "string"
+                status:
+                  type: "string"
+              required:
+                - "id"
+                - "status"
+          health:
+            type: "object"
+            properties:
+              uptime_seconds:
+                type: "number"
+              memory_mb:
+                type: "number"
+        additionalProperties: false
+      errors:
+        - code: "SYSTEM_UNAVAILABLE"
+          description: "AIOS system is not running or unreachable"
+          http_equiv: 503
+
+    - name: "aios_story_list"
+      description: "List AIOS development stories with optional filtering by status."
+      input_schema:
+        type: "object"
+        properties:
+          status:
+            type: "string"
+            enum: ["Draft", "Ready", "InProgress", "Ready for Review", "Done", "all"]
+            default: "all"
+            description: "Filter stories by status"
+          limit:
+            type: "integer"
+            minimum: 1
+            maximum: 50
+            default: 10
+            description: "Maximum number of stories to return"
+        additionalProperties: false
+      output_schema:
+        type: "object"
+        required:
+          - "stories"
+          - "total"
+        properties:
+          stories:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id:
+                  type: "string"
+                title:
+                  type: "string"
+                status:
+                  type: "string"
+                lead:
+                  type: "string"
+                path:
+                  type: "string"
+              required:
+                - "id"
+                - "title"
+                - "status"
+          total:
+            type: "integer"
+        additionalProperties: false
+      errors:
+        - code: "INVALID_FILTER"
+          description: "The specified filter criteria are invalid"
+          http_equiv: 400
+
+  # ============================================================
+  # OPENCLAW-EXPOSED TOOLS
+  # These tools wrap the OpenClaw CLI and are consumed by AIOS.
+  # The adapter translates MCP calls to CLI invocations.
+  # ============================================================
+  openclaw_tools:
+    - name: "openclaw_send_message"
+      description: "Send a message via OpenClaw to a specific target (WhatsApp/Telegram number or group)."
+      input_schema:
+        type: "object"
+        required:
+          - "target"
+          - "message"
+        properties:
+          target:
+            type: "string"
+            description: "Phone number (e.g., +5528999301848) or group ID"
+          message:
+            type: "string"
+            minLength: 1
+            maxLength: 4096
+            description: "Message text to send"
+          channel:
+            type: "string"
+            enum: ["whatsapp", "telegram"]
+            default: "whatsapp"
+            description: "Messaging channel to use"
+          agent_tag:
+            type: "string"
+            description: "Optional agent tag prefix (e.g., '[AIOS-Master]')"
+        additionalProperties: false
+      output_schema:
+        type: "object"
+        required:
+          - "success"
+          - "timestamp"
+        properties:
+          success:
+            type: "boolean"
+          message_id:
+            type: "string"
+          timestamp:
+            type: "string"
+            format: "date-time"
+          delivery_status:
+            type: "string"
+            enum: ["sent", "delivered", "failed", "queued"]
+        additionalProperties: false
+      errors:
+        - code: "CHANNEL_OFFLINE"
+          description: "The messaging channel is not connected"
+          http_equiv: 503
+        - code: "DELIVERY_FAILED"
+          description: "Message delivery failed after retries"
+          http_equiv: 502
+        - code: "INVALID_TARGET"
+          description: "The target phone number or group ID is invalid"
+          http_equiv: 400
+        - code: "MESSAGE_TOO_LONG"
+          description: "Message exceeds maximum length"
+          http_equiv: 413
+
+    - name: "openclaw_channel_status"
+      description: "Get the current status of OpenClaw messaging channels (WhatsApp, Telegram)."
+      input_schema:
+        type: "object"
+        properties:
+          channel:
+            type: "string"
+            enum: ["whatsapp", "telegram", "all"]
+            default: "all"
+            description: "Which channel to check"
+        additionalProperties: false
+      output_schema:
+        type: "object"
+        required:
+          - "channels"
+          - "timestamp"
+        properties:
+          channels:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                name:
+                  type: "string"
+                linked:
+                  type: "boolean"
+                phone:
+                  type: "string"
+                uptime_seconds:
+                  type: "number"
+              required:
+                - "name"
+                - "linked"
+          gateway_status:
+            type: "string"
+            enum: ["running", "stopped", "error"]
+          timestamp:
+            type: "string"
+            format: "date-time"
+        additionalProperties: false
+      errors:
+        - code: "GATEWAY_UNREACHABLE"
+          description: "OpenClaw gateway process is not running"
+          http_equiv: 503
+
+    - name: "openclaw_session_info"
+      description: "Get detailed session information from the OpenClaw gateway including active conversations and agent mappings."
+      input_schema:
+        type: "object"
+        properties:
+          include_conversations:
+            type: "boolean"
+            default: false
+            description: "Include active conversation list"
+          include_agent_map:
+            type: "boolean"
+            default: false
+            description: "Include agent-to-channel mapping"
+        additionalProperties: false
+      output_schema:
+        type: "object"
+        required:
+          - "session_id"
+          - "timestamp"
+        properties:
+          session_id:
+            type: "string"
+          started_at:
+            type: "string"
+            format: "date-time"
+          dm_policy:
+            type: "string"
+          model:
+            type: "string"
+          heartbeat_seconds:
+            type: "number"
+          active_conversations:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                contact:
+                  type: "string"
+                last_message_at:
+                  type: "string"
+                  format: "date-time"
+                message_count:
+                  type: "integer"
+          agent_map:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                agent:
+                  type: "string"
+                channel:
+                  type: "string"
+                active:
+                  type: "boolean"
+          timestamp:
+            type: "string"
+            format: "date-time"
+        additionalProperties: false
+      errors:
+        - code: "GATEWAY_UNREACHABLE"
+          description: "OpenClaw gateway process is not running"
+          http_equiv: 503
+
+  # ============================================================
+  # HANDOFF PROTOCOL
+  # Structured format for agent ↔ OpenClaw data exchange.
+  # ============================================================
+  handoff:
+    format: "structured"
+    max_payload_tokens: 500
+    required_fields:
+      - "from"
+      - "to"
+      - "action"
+      - "timestamp"
+    schema:
+      type: "object"
+      required:
+        - "from"
+        - "to"
+        - "action"
+        - "timestamp"
+      properties:
+        from:
+          type: "string"
+          description: "Source system or agent (e.g., 'aios:@dev', 'openclaw:whatsapp')"
+        to:
+          type: "string"
+          description: "Destination system or agent"
+        action:
+          type: "string"
+          enum: ["execute", "notify", "query", "respond"]
+          description: "Type of handoff action"
+        timestamp:
+          type: "string"
+          format: "date-time"
+        context:
+          type: "object"
+          properties:
+            story_id:
+              type: "string"
+            agent:
+              type: "string"
+            channel:
+              type: "string"
+            sender:
+              type: "string"
+          additionalProperties: true
+        payload:
+          type: "string"
+          maxLength: 10000
+          description: "Main content of the handoff"
+        metadata:
+          type: "object"
+          additionalProperties: true
+          description: "Optional metadata (trace IDs, correlation IDs, etc.)"
+      additionalProperties: false

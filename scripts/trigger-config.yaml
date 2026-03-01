@@ -1,0 +1,64 @@
+# Event-Driven CI/CD Trigger Configuration
+# Maps GitHub/local events to AIOS agent actions
+
+triggers:
+  # Build/test failure → autonomous debug session
+  ci_failure:
+    events:
+      - "check_suite.completed"
+      - "workflow_run.completed"
+    condition: "status === 'failure'"
+    agent: "@dev"
+    command: >
+      claude --dangerously-skip-permissions
+      "Analise o log de erro do build/teste recente e proponha um fix."
+    timeout_ms: 120000
+    max_retries: 1
+
+  # Test failure → QA triage
+  test_failure:
+    events:
+      - "check_run.completed"
+    condition: "conclusion === 'failure' && name.includes('test')"
+    agent: "@qa"
+    command: >
+      claude --dangerously-skip-permissions
+      "O teste '{{check_name}}' falhou. Analise o log e identifique a causa raiz."
+    timeout_ms: 90000
+    max_retries: 0
+
+  # Push to main → post-merge validation
+  push_main:
+    events:
+      - "push"
+    condition: "ref === 'refs/heads/main'"
+    agent: "@devops"
+    command: >
+      claude --dangerously-skip-permissions
+      "Valide o push recente para main. Verifique lint, typecheck e testes."
+    timeout_ms: 180000
+    max_retries: 0
+
+  # PR opened → auto-review
+  pr_opened:
+    events:
+      - "pull_request.opened"
+      - "pull_request.synchronize"
+    condition: "action === 'opened' || action === 'synchronize'"
+    agent: "@qa"
+    command: >
+      claude --dangerously-skip-permissions
+      "Revise o PR #{{pr_number}}: {{pr_title}}. Faça code review focando em segurança, performance e aderência aos padrões."
+    timeout_ms: 120000
+    max_retries: 0
+
+# Server configuration
+server:
+  port: 3000
+  host: "127.0.0.1"
+  secret_env: "WEBHOOK_SECRET"
+
+# Logging
+logging:
+  level: "info"
+  file: ".aios/logs/webhook-trigger.log"

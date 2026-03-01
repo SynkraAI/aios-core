@@ -1,0 +1,28 @@
+[Unit]
+Description=AIOS Telegram Observability Bridge
+Documentation=https://github.com/synkra/aios-core
+After=network.target aios-session-daemon.service
+Wants=aios-session-daemon.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/aios-core/packages/telegram-bridge
+ExecStart=/usr/bin/node src/index.js
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=aios-telegram-bridge
+
+# Environment
+EnvironmentFile=/home/ubuntu/aios-core/packages/telegram-bridge/.env
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/home/ubuntu/aios-core/.aios
+
+[Install]
+WantedBy=multi-user.target

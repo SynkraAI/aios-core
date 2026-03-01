@@ -1,0 +1,22 @@
+{
+  "name": "@aios/telegram-bridge",
+  "version": "0.1.0",
+  "description": "AIOS Telegram Observability Bridge — Multi-bot real-time agent monitoring via inbox/outbox IPC",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test tests/*.test.js",
+    "install-service": "bash scripts/install-service.sh"
+  },
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "dotenv": "^16.6.1",
+    "grammy": "^1.40.1",
+    "pino": "^9.14.0",
+    "yaml": "^2.8.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

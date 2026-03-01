@@ -1,0 +1,31 @@
+{
+  "name": "@aios/session-daemon",
+  "version": "0.1.0",
+  "description": "AIOS Session Daemon — Persistent Claude Code session manager with inbox/outbox IPC",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "aios-daemon": "src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "cli": "node src/cli.js",
+    "test": "node --test tests/",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.2.63",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "chokidar": "^4.0.3",
+    "pino": "^9.6.0",
+    "yaml": "^2.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -10,5 +10,9 @@
       "Bash(git push:*)",
       "Bash(node -e:*)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "openclaw-bridge"
+  ],
+  "enableAllProjectMcpServers": true
 }

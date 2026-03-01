@@ -1,0 +1,68 @@
+version: "1.0"
+
+session:
+  model: "claude-opus-4-6"
+  cwd: "/home/ubuntu/aios-core"
+  permission_mode: "bypassPermissions"
+  setting_sources: ["user", "project", "local"]
+  system_prompt:
+    type: "preset"
+    preset: "claude_code"
+  include_partial_messages: true
+  persist_session: true
+  allowed_tools:
+    - Read
+    - Write
+    - Edit
+    - Bash
+    - Grep
+    - Glob
+    - WebSearch
+    - WebFetch
+    - Task
+
+queue:
+  max_size: 50
+  max_retries: 3
+  retry_backoff_ms: [5000, 15000, 45000]
+  overflow_behavior: "reject"
+
+inbox:
+  watch_directory: ".aios/inbox/pending"
+  poll_interval_ms: 5000
+  retention_days: 7
+
+outbox:
+  write_directory: ".aios/outbox/pending"
+  retention_days: 7
+
+health:
+  write_interval_ms: 10000
+  state_directory: ".aios/daemon"
+  watchdog_interval_ms: 30000
+
+recovery:
+  max_session_retries: 3
+  session_retry_backoff_ms: [5000, 15000, 45000]
+
+context:
+  token_warning_threshold: 150000
+  auto_restart: false
+
+authorization:
+  allowed_senders:
+    - channel: telegram
+      sender_id: "6854910830"
+    - channel: whatsapp
+      sender_id: "+5528999301848"
+    - channel: cli
+      sender_id: "system"
+    - channel: systemd_timer
+      sender_id: "system"
+  reject_unknown: true
+
+observability:
+  message_granularity: "milestone"
+  max_outbox_message_length: 4096
+  truncate_tool_output: true
+  truncate_max_chars: 500

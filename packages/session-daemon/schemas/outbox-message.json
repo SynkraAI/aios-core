@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AIOS Outbox Message",
+  "type": "object",
+  "required": ["schema_version", "id", "in_reply_to", "timestamp", "channel", "content", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "2.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^reply-[0-9]+-[a-f0-9]{4}$"
+    },
+    "in_reply_to": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "channel": {
+      "type": "string",
+      "enum": ["telegram", "whatsapp", "cli"]
+    },
+    "target": {
+      "type": "object",
+      "properties": {
+        "sender_id": { "type": "string" },
+        "chat_id": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "content": {
+      "type": "object",
+      "required": ["type", "message"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["ack", "progress", "agent_switch", "tool_use", "error", "final"]
+        },
+        "message": {
+          "type": "string"
+        },
+        "agent": {
+          "type": "string"
+        },
+        "tool": {
+          "type": "string"
+        },
+        "expects_reply": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "sending", "sent", "failed"]
+    }
+  },
+  "additionalProperties": false
+}

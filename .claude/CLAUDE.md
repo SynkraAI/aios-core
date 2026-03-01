@@ -376,3 +376,81 @@ tail -f .aios/logs/agent.log
 
 *Synkra AIOS Claude Code Configuration v4.0*
 *CLI First | Observability Second | UI Third*
+
+
+---
+
+<!-- PROJECT-CUSTOMIZED: OpenClaw Gateway Integration -->
+## OpenClaw - Gateway de Mensagens
+
+O OpenClaw conecta WhatsApp/Telegram ao AIOS, permitindo orquestrar agentes via chat.
+
+### Arquitetura
+```
+WhatsApp/Telegram → OpenClaw Gateway → AIOS Agents → Resposta ao usuário
+```
+
+### Comandos Essenciais
+| Comando | Descrição |
+|---------|-----------|
+| `openclaw status` | Status do gateway, canais e sessões |
+| `openclaw status --deep` | Status detalhado com probes |
+| `openclaw channels login whatsapp` | Linkar WhatsApp via QR code |
+| `openclaw channels logout whatsapp` | Desconectar WhatsApp |
+| `openclaw message send --to +NUMBER --body "texto"` | Enviar mensagem direta |
+| `openclaw agent --to +NUMBER --message "texto" --deliver` | Executar agente e entregar resposta |
+| `openclaw logs --follow` | Logs em tempo real |
+| `openclaw config set KEY VALUE` | Alterar configuração |
+| `openclaw doctor --fix` | Diagnosticar e corrigir problemas |
+
+### Serviço systemd
+```bash
+systemctl status openclaw-gateway    # Ver status
+systemctl restart openclaw-gateway   # Reiniciar
+systemctl stop openclaw-gateway      # Parar
+journalctl -u openclaw-gateway -f    # Logs do serviço
+```
+
+### Paths Importantes
+| Path | Descrição |
+|------|-----------|
+| `/root/.openclaw/openclaw.json` | Configuração principal |
+| `/root/.openclaw/credentials/` | Credenciais WhatsApp/Telegram |
+| `/root/.openclaw/skills/` | Skills customizadas |
+| `/root/.openclaw/skills/aios-bridge/` | Skill que conecta OpenClaw ao AIOS |
+| `/root/.openclaw/agents/main/` | Agente principal e sessões |
+
+### Configuração Atual
+- **Canal**: WhatsApp (+5528999301848)
+- **dmPolicy**: open (qualquer um pode enviar DM)
+- **Modelo**: anthropic/claude-sonnet-4-5-20250929
+- **Heartbeat**: 30s
+- **Reconnect**: infinito (maxAttempts: 0)
+
+### Troubleshooting WhatsApp
+1. Se desconectar: `openclaw channels login whatsapp` (re-scanear QR)
+2. Se porta ocupada: `pkill -9 -f openclaw && sleep 2 && systemctl start openclaw-gateway`
+3. Se mensagens não chegam: verificar `openclaw status` → campo "linked"
+4. Se sessão instável: `openclaw channels logout whatsapp && openclaw channels login whatsapp`
+
+### AIOS Bridge Skill
+A skill `aios-bridge` em `/root/.openclaw/skills/aios-bridge/` permite que mensagens
+do WhatsApp disparem a orquestração AIOS. Quando alguém manda uma mensagem, o OpenClaw
+pode acionar @analyst, @architect, @pm, @dev ou @qa conforme o contexto.
+
+
+### Canal Bidirecional (Notificação Ativa)
+Você (Claude Code / AIOS-Master) tem permissão de notificar o Lucas (via WhatsApp) de forma proativa.
+Quando terminar uma tarefa longa, ocorrer um erro crítico que bloqueia seu trabalho, ou precisar de aprovação, execute o comando abaixo no bash:
+```bash
+sudo /usr/bin/openclaw message send --target +5528999301848 --message "[AIOS-Master] Sua mensagem aqui..."
+```
+Não espere o Lucas perguntar o status se você finalizar algo importante, envie uma notificação diretamente para ele preenchendo o texto do !
+
+### Canal Bidirecional (Notificacao Ativa)
+Voce (Claude Code / AIOS-Master) tem a obrigaçao de notificar o Lucas (via WhatsApp) de forma proativa.
+Quando terminar uma tarefa longa, ocorrer um erro que bloqueie seu trabalho, ou precisar de aprovacao para continuar, execute o comando abaixo no bash:
+```bash
+sudo /usr/bin/openclaw message send --target +5528999301848 --message "[AIOS-Master] Sua mensagem aqui, resumindo a situacao..."
+```
+Nao espere passivamente! Envie o status ativamente usando esta ferramenta, ela eh o seu canal oficial de retorno assincrono para o mundo externo.

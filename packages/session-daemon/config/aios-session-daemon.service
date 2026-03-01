@@ -1,0 +1,47 @@
+[Unit]
+Description=AIOS Session Daemon — Persistent Claude Code session manager
+Documentation=https://github.com/synkra/aios-core
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+# Unset CLAUDECODE to prevent nested session detection
+# SDK spawns `claude` subprocess which checks for this env var
+Environment=AIOS_CWD=/home/ubuntu/aios-core
+Environment=NODE_ENV=production
+UnsetEnvironment=CLAUDECODE
+UnsetEnvironment=CLAUDE_CODE_ENTRYPOINT
+
+ExecStart=/usr/bin/node /home/ubuntu/aios-core/packages/session-daemon/src/cli.js start
+
+WorkingDirectory=/home/ubuntu/aios-core
+User=ubuntu
+Group=ubuntu
+
+# Restart policy
+Restart=on-failure
+RestartSec=10
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+# Resource limits
+MemoryMax=2G
+MemoryHigh=1G
+CPUQuota=200%
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=aios-daemon
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/home/ubuntu/aios-core/.aios
+ReadWritePaths=/home/ubuntu/aios-core/packages/session-daemon
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

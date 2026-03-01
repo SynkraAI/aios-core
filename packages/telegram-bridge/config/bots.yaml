@@ -1,0 +1,53 @@
+# Bot Configuration for AIOS Telegram Observability Bridge
+# Each bot maps to one AIOS agent and has a mode (command or observe).
+
+bots:
+  # Phase 1 bots (essential)
+  master:
+    agent_id: aios-master
+    token_env: TELEGRAM_MASTER_TOKEN
+    username: aios_master_bot
+    mode: command
+    phase: 1
+    description: "Command entry point. Sends commands to AIOS Master."
+
+  dev:
+    agent_id: dev
+    token_env: TELEGRAM_DEV_TOKEN
+    username: aios_dev_bot
+    mode: observe
+    phase: 1
+    description: "Observability for @dev (Dex). Code implementation, tests, git."
+
+  qa:
+    agent_id: qa
+    token_env: TELEGRAM_QA_TOKEN
+    username: aios_qa_bot
+    mode: observe
+    phase: 1
+    description: "Observability for @qa (Quinn). Test results, quality gates."
+
+  architect:
+    agent_id: architect
+    token_env: TELEGRAM_ARCH_TOKEN
+    username: aios_arch_bot
+    mode: observe
+    phase: 1
+    description: "Observability for @architect (Aria). Architecture decisions."
+
+# Maps every AIOS agent to its Telegram bot.
+# Agents without dedicated bots fall back to master.
+agent_to_bot_map:
+  aios-master: master
+  dev: dev
+  qa: qa
+  architect: architect
+  pm: master
+  devops: master
+  analyst: master
+  po: master
+  sm: master
+  data-engineer: master
+  ux-design-expert: master
+  squad-creator: master
+  gateway: master

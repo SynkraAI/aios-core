@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AIOS Inbox Message",
+  "type": "object",
+  "required": ["schema_version", "id", "timestamp", "source", "command", "priority", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "2.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^msg-[0-9]+-[a-f0-9]{4}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "object",
+      "required": ["channel", "sender_id"],
+      "properties": {
+        "channel": {
+          "type": "string",
+          "enum": ["telegram", "whatsapp", "cli", "systemd_timer"]
+        },
+        "sender_id": {
+          "type": "string"
+        },
+        "sender_name": {
+          "type": "string"
+        },
+        "message_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "command": {
+      "type": "string",
+      "minLength": 1
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["critical", "high", "normal", "low"],
+      "default": "normal"
+    },
+    "classification": {
+      "type": "object",
+      "properties": {
+        "intent": {
+          "type": "string",
+          "enum": ["command", "feature_request", "bug_report", "status_query", "casual", "followup", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "thread": {
+      "type": "object",
+      "properties": {
+        "thread_id": { "type": "string" },
+        "is_followup": { "type": "boolean", "default": false },
+        "parent_id": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "reply_to": {
+      "type": "object",
+      "required": ["channel"],
+      "properties": {
+        "channel": { "type": "string" },
+        "target": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "in_progress", "processed", "failed"],
+      "default": "pending"
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

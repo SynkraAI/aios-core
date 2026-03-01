@@ -36,6 +36,61 @@
 - Post-commit hook: `.aios-core/infrastructure/scripts/git-hooks/post-commit.js` + `.husky/post-commit`
 - Validate agents task: `.aios-core/development/tasks/validate-agents.md`
 
+## @gateway Personal Memory Guardian Architecture (2026-03-01)
+- Redesigned @gateway from stateless relay to Personal Memory Guardian
+- Architecture doc: `docs/architecture/gateway-personal-memory-architecture.md` (1757 lines)
+- Supersedes: `docs/architecture/gateway-agent-architecture.md` (relay-only, infrastructure reused)
+- Key decision: @gateway = Alan Turing (unified entity, not separate)
+- Personal memory: 7-domain YAML schema (identity, career, personality, relationships, active context, conversation patterns, voice DNA)
+- Storage: Hybrid YAML (stable data) + SQLite (dynamic data, mood tracking, search)
+- Context filtering: 4-stage pipeline (classify -> extract -> route -> enrich)
+- Privacy: 5-tier system (T0 forbidden -> T4 public), field-level manifest
+- Context hints: anonymous signals (user_energy, deadline_pressure) forwarded to agents without personal detail
+- 6 conversation modes: casual, technical_request, status_update, emotional_support, command_execution, mixed
+- Voice DNA synced from LinkedIn SKILL.md, applied to ALL responses
+- Personal memory stored in /root/.openclaw/workspace/personal/ (root-owned, 600 perms)
+- 7-phase implementation plan: Foundation -> Filter Engine -> Conversation Modes -> Memory Learning -> AIOS Integration -> Hardening -> Evolution
+- Relay infrastructure (inbox/outbox IPC, contract validation, rate limiting) fully reused from v1
+
+## Session Daemon Phase 0 Architecture (2026-03-01)
+- Architecture doc: `docs/architecture/session-daemon-phase0.md`
+- Purpose: Solve the statefulness problem for external command ingestion
+- SELECTED: Claude Agent SDK V2 (`@anthropic-ai/claude-agent-sdk` v0.2.63)
+- Key APIs: `unstable_v2_createSession()`, `unstable_v2_resumeSession()`, `session.send()`, `session.stream()`
+- V2 is preview/unstable -- thin adapter pattern isolates instability, V1 `query()` with `resume` fallback
+- Package: `packages/session-daemon/` (new, does not exist yet)
+- Components: InboxWatcher, CommandQueue (FIFO), SessionAdapter, StreamProcessor, OutboxWriter, HealthMonitor
+- Session config: settingSources=["user","project","local"], systemPrompt preset=claude_code, permissionMode=bypassPermissions
+- Sequential processing: one command at a time, prevents git/file conflicts
+- Crash recovery: session.json + queue.json persisted, resumeSession() on restart, max 3 retries
+- Health: .aios/daemon/health.json written every 10s, systemd watchdog at 60s
+- Coexistence: daemon is secondary to interactive session (CLI First), advisory detection only
+- Server: 7.8GB RAM, 2 cores, Node v22. SDK subprocess ~500MB + daemon ~100MB
+- Known risk: sessions-index.json bug (Feb 2026) may affect resumeSession()
+- 5 stories, estimated 9-11 days total
+
+## Telegram Observability Bridge Architecture (2026-03-01)
+- Architecture doc: `docs/architecture/telegram-observability-bridge.md`
+- Validation: `docs/architecture/telegram-observability-validation.md` (FAIL: 15 FAIL, 11 CONCERNS, 5 PASS)
+- Fatal flaw identified: `claude --print` stateless -- solved by Session Daemon (Phase 0)
+- Purpose: Real-time multi-bot Telegram channel for AIOS agent observability
+- Session arch: Option A selected (single Claude Code session, agent switching)
+- Framework: grammY (Telegram bot)
+- Package location: `packages/telegram-bridge/`
+- Phase 1 bots: master, dev, qa, architect (4 bots)
+- Bridge becomes thin inbox producer + outbox consumer on top of Session Daemon
+- No OpenClaw dependency -- direct Claude CLI / SDK integration
+- systemd service: `aios-telegram-bridge.service`
+- Agent detection: heuristic-based (greeting patterns, @agent echo, handoff artifacts)
+
+## Channel Architecture (2026-03-01)
+- WhatsApp: Personal channel via OpenClaw + @gateway (Alan Turing persona)
+- Telegram: Professional operations via grammY + Session Daemon
+- Both channels share the Session Daemon as the single AIOS session
+- Both write to shared .aios/inbox/, both read from .aios/outbox/ (filtered by channel field)
+- WhatsApp: OpenClaw writes inbox, reads outbox channel=whatsapp
+- Telegram: Bridge writes inbox, reads outbox channel=telegram
+
 ## Pre-existing Test Failures (not EPIC-ACT related)
 - squads/mmos-squad/ (6 suites): missing clickup module
 - tests/core/orchestration/ (2 suites): greenfield-handler, terminal-spawner

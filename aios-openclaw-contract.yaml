@@ -1,0 +1,366 @@
+# =============================================================================
+# AIOS <-> OpenClaw Federation Contract v1.0.0
+# =============================================================================
+# This contract is the single source of truth for the OpenClaw <-> AIOS
+# message interface. Both sides validate against this file.
+#
+# Story: OCLAW-1.1 — MCP Federation: Contract-First Handoff
+# Phase: 1 of 3
+# =============================================================================
+
+meta:
+  version: "1.0.0"
+  protocol: "contract-first-handoff"
+  created: "2026-02-28"
+  updated: "2026-02-28"
+  compatibility:
+    openclaw_min: "1.0.0"
+    aios_min: "4.4.0"
+  defaults:
+    timeout_ms: 60000
+    max_response_chars: 4096
+    rate_limit:
+      requests_per_minute: 10
+      burst: 3
+
+# =============================================================================
+# INTENTS
+# =============================================================================
+
+intents:
+
+  # ---------------------------------------------------------------------------
+  # feature_request — User wants a new feature or enhancement
+  # ---------------------------------------------------------------------------
+  feature_request:
+    description: >
+      User requests a new feature or enhancement to the product.
+      Routed to @pm for requirements gathering, then to @architect for
+      complexity assessment if needed.
+    routing:
+      primary_agent: pm
+      fallback_agent: architect
+      workflow: spec-pipeline
+    input_schema:
+      required:
+        title:
+          type: string
+          max_length: 200
+          description: "Short title for the feature request"
+        description:
+          type: string
+          max_length: 2000
+          description: "Detailed description of what the user wants"
+      optional:
+        priority:
+          type: enum
+          values: [low, medium, high, critical]
+          default: medium
+          description: "Requested priority level"
+        context:
+          type: string
+          max_length: 1000
+          description: "Additional context (current workaround, affected area, etc.)"
+        user_id:
+          type: string
+          description: "Identifier of the requesting user"
+    output_schema:
+      status:
+        type: enum
+        values: [received, in_analysis, scheduled, rejected]
+      message:
+        type: string
+        description: "Human-readable response for the user"
+      data:
+        request_id:
+          type: string
+          description: "Unique ID for tracking this request"
+        estimated_complexity:
+          type: enum
+          values: [simple, standard, complex, unknown]
+          nullable: true
+        next_steps:
+          type: string
+          description: "What happens next with this request"
+    examples:
+      - input:
+          message: "Quero poder exportar relatorios em PDF"
+          classified_as: feature_request
+          extracted:
+            title: "Exportar relatorios em PDF"
+            description: "Usuario quer funcionalidade de exportar relatorios do sistema em formato PDF"
+            priority: medium
+        output:
+          status: received
+          message: >
+            Recebi seu pedido de feature: "Exportar relatorios em PDF".
+            Vou encaminhar para analise de requisitos. Voce recebera
+            atualizacoes sobre o andamento.
+          data:
+            request_id: "FR-2026-0001"
+            estimated_complexity: unknown
+            next_steps: "@pm fara analise de requisitos e retornara com estimativa"
+      - input:
+          message: "Would be great to have dark mode in the dashboard"
+          classified_as: feature_request
+          extracted:
+            title: "Dark mode for dashboard"
+            description: "User wants a dark mode theme option for the dashboard UI"
+            priority: low
+        output:
+          status: received
+          message: >
+            Feature request received: "Dark mode for dashboard".
+            Forwarding to product management for analysis.
+          data:
+            request_id: "FR-2026-0002"
+            estimated_complexity: standard
+            next_steps: "@pm will assess requirements and provide timeline estimate"
+
+  # ---------------------------------------------------------------------------
+  # bug_report — User reports a bug or unexpected behavior
+  # ---------------------------------------------------------------------------
+  bug_report:
+    description: >
+      User reports a bug, error, or unexpected behavior in the system.
+      Routed to @qa for triage and severity classification, then to @dev
+      for investigation and fix.
+    routing:
+      primary_agent: qa
+      secondary_agent: dev
+      workflow: story-development-cycle
+    input_schema:
+      required:
+        title:
+          type: string
+          max_length: 200
+          description: "Short summary of the bug"
+        description:
+          type: string
+          max_length: 2000
+          description: "What happened vs what was expected"
+      optional:
+        severity:
+          type: enum
+          values: [low, medium, high, critical]
+          default: medium
+          description: "How severely this affects the user"
+        steps_to_reproduce:
+          type: string
+          max_length: 2000
+          description: "Step-by-step reproduction instructions"
+        environment:
+          type: string
+          max_length: 500
+          description: "Browser, OS, version, or any environment details"
+        screenshot_url:
+          type: string
+          description: "URL to screenshot or error image (if sent via chat)"
+        user_id:
+          type: string
+          description: "Identifier of the reporting user"
+    output_schema:
+      status:
+        type: enum
+        values: [received, triaging, investigating, fixing, resolved, wont_fix]
+      message:
+        type: string
+        description: "Human-readable response for the user"
+      data:
+        bug_id:
+          type: string
+          description: "Unique ID for tracking this bug"
+        severity_assessed:
+          type: enum
+          values: [low, medium, high, critical]
+          nullable: true
+        assigned_to:
+          type: string
+          description: "Agent or person handling the bug"
+          nullable: true
+        eta:
+          type: string
+          description: "Estimated time for resolution (if available)"
+          nullable: true
+    examples:
+      - input:
+          message: "O login ta dando erro 500 quando uso email com acento"
+          classified_as: bug_report
+          extracted:
+            title: "Erro 500 no login com email acentuado"
+            description: "Login retorna HTTP 500 quando o email contem caracteres acentuados. Esperado: login funcionar normalmente ou mensagem de erro amigavel."
+            severity: high
+            steps_to_reproduce: "1. Ir para /login\n2. Digitar email com acento (ex: joao@empresa.com.br)\n3. Clicar em Entrar\n4. Erro 500 aparece"
+        output:
+          status: triaging
+          message: >
+            Bug registrado: "Erro 500 no login com email acentuado".
+            Classificado como severidade ALTA. @qa esta analisando e
+            @dev sera acionado para correcao.
+          data:
+            bug_id: "BUG-2026-0001"
+            severity_assessed: high
+            assigned_to: "@qa (triage) -> @dev (fix)"
+            eta: null
+      - input:
+          message: "Dashboard shows wrong numbers on the weekly report"
+          classified_as: bug_report
+          extracted:
+            title: "Incorrect numbers on weekly report dashboard"
+            description: "Weekly report in dashboard displays incorrect totals. Numbers don't match the raw data exports."
+            severity: medium
+        output:
+          status: received
+          message: >
+            Bug reported: "Incorrect numbers on weekly report dashboard".
+            QA team will investigate the data discrepancy.
+          data:
+            bug_id: "BUG-2026-0002"
+            severity_assessed: medium
+            assigned_to: "@qa"
+            eta: null
+
+  # ---------------------------------------------------------------------------
+  # status_query — User asks about project/sprint/story status
+  # ---------------------------------------------------------------------------
+  status_query:
+    description: >
+      User asks about the current status of the project, sprint, stories,
+      or a specific request they previously submitted. Routed to @sm for
+      sprint-level info or @po for story-level details.
+    routing:
+      primary_agent: sm
+      fallback_agent: po
+      workflow: null  # No workflow triggered, read-only query
+    input_schema:
+      required:
+        query:
+          type: string
+          max_length: 500
+          description: "What the user wants to know about"
+      optional:
+        scope:
+          type: enum
+          values: [project, sprint, story, request, agent]
+          default: project
+          description: "Scope of the status query"
+        reference_id:
+          type: string
+          description: "Specific ID to query (story ID, request ID, bug ID)"
+        user_id:
+          type: string
+          description: "Identifier of the asking user"
+    output_schema:
+      status:
+        type: enum
+        values: [success, partial, not_found]
+      message:
+        type: string
+        description: "Human-readable status summary"
+      data:
+        scope:
+          type: string
+          description: "What scope was queried"
+        items:
+          type: array
+          description: "List of status items (stories, requests, etc.)"
+          item_schema:
+            id:
+              type: string
+            title:
+              type: string
+            status:
+              type: string
+            updated:
+              type: string
+              format: date
+        summary:
+          type: string
+          description: "Executive summary of current status"
+    examples:
+      - input:
+          message: "Como ta o andamento do projeto?"
+          classified_as: status_query
+          extracted:
+            query: "Andamento geral do projeto"
+            scope: project
+        output:
+          status: success
+          message: >
+            Status do projeto AIOS Core:
+            - Sprint atual: 3 stories ativas, 1 em review
+            - Ultima entrega: v4.4.6 (2026-02-27)
+            - Proxima milestone: Federation Phase 1
+          data:
+            scope: project
+            items:
+              - id: "CODEINTEL-RP-001"
+                title: "Code-Intel RegistryProvider"
+                status: "Ready for Review"
+                updated: "2026-02-27"
+              - id: "OCLAW-1.1"
+                title: "MCP Federation Contract-First"
+                status: "Ready"
+                updated: "2026-02-28"
+            summary: "Projeto em ritmo saudavel. 2 stories ativas, pipeline funcionando."
+      - input:
+          message: "What happened with my bug report about login?"
+          classified_as: status_query
+          extracted:
+            query: "Status of login bug report"
+            scope: request
+            reference_id: "BUG-2026-0001"
+        output:
+          status: success
+          message: >
+            Your bug report "Erro 500 no login com email acentuado" (BUG-2026-0001):
+            Status: Fixing — @dev is working on the fix.
+            Estimated resolution: today.
+          data:
+            scope: request
+            items:
+              - id: "BUG-2026-0001"
+                title: "Erro 500 no login com email acentuado"
+                status: "fixing"
+                updated: "2026-02-28"
+            summary: "Bug is actively being fixed by @dev."
+
+# =============================================================================
+# ERROR RESPONSES
+# =============================================================================
+
+errors:
+  unknown_intent:
+    code: "ERR_UNKNOWN_INTENT"
+    message: "Nao entendi seu pedido. Tente reformular como: pedido de feature, reporte de bug, ou pergunta sobre status."
+    suggestion: "Exemplos: 'Quero uma funcionalidade de X', 'Encontrei um bug em Y', 'Como esta o status do projeto?'"
+
+  validation_failed:
+    code: "ERR_VALIDATION_FAILED"
+    message: "Faltam informacoes obrigatorias: {missing_fields}"
+    suggestion: "Por favor, inclua: {missing_fields_description}"
+
+  timeout:
+    code: "ERR_TIMEOUT"
+    message: "O agente AIOS demorou mais que o esperado para responder. Tente novamente em alguns minutos."
+    suggestion: "Se o problema persistir, use o CLI diretamente: npx aios-core info"
+
+  rate_limited:
+    code: "ERR_RATE_LIMITED"
+    message: "Muitas requisicoes em pouco tempo. Aguarde {wait_seconds}s antes de tentar novamente."
+    suggestion: "Limite: {rate_limit.requests_per_minute} requisicoes por minuto"
+
+  agent_unavailable:
+    code: "ERR_AGENT_UNAVAILABLE"
+    message: "O agente {agent_name} nao esta disponivel no momento."
+    suggestion: "Alternativa: use o CLI com 'npx aios-core' ou tente novamente em alguns minutos."
+
+# =============================================================================
+# PAGINATION
+# =============================================================================
+
+pagination:
+  enabled: true
+  max_chars_per_chunk: 4096
+  chunk_format: "[{current}/{total}] {content}"
+  continuation_prompt: "Envie 'mais' ou 'next' para ver a proxima parte."
