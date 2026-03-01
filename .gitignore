@@ -114,6 +114,12 @@ aios-memory-layer-mvp/        # Separate memory layer project
 memory/                       # Memory squad
 performance/                  # Performance squad
 scripts/                      # Project-specific scripts (not part of core)
+!scripts/orchestrator-poc-single.mjs  # E7.0.1 — PoC single agent
+!scripts/orchestrator-poc-sdc.mjs     # E7.0.2 — PoC SDC chain
+!scripts/poc-lib.mjs                  # E7.0.2 — shared library
+!scripts/poc-agent-config.json        # E7.0.2 — agent configs
+!scripts/poc-prompts/                 # E7.0.1 — test prompts
+scripts/poc-output/                   # E7 PoC output (always ignored)
 security/                     # Security squad
 telemetry/                    # Telemetry squad
 tests/                        # Test files for expansion projects

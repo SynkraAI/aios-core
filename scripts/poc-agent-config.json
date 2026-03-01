@@ -1,0 +1,57 @@
+{
+  "sm": {
+    "id": "sm",
+    "phase": 1,
+    "phaseName": "SM:CREATE",
+    "persona": ".claude/commands/AIOS/agents/sm.md",
+    "allowedTools": "Read,Write,Grep,Glob",
+    "disallowedTools": ["Bash", "Edit"],
+    "model": "claude-sonnet-4-6",
+    "maxBudgetUsd": 3.00,
+    "settingSources": "user,project"
+  },
+  "po": {
+    "id": "po",
+    "phase": 2,
+    "phaseName": "PO:VALIDATE",
+    "persona": ".claude/commands/AIOS/agents/po.md",
+    "allowedTools": "Read,Grep,Glob",
+    "disallowedTools": ["Edit", "Write", "Bash"],
+    "model": "claude-sonnet-4-6",
+    "maxBudgetUsd": 2.00,
+    "settingSources": "user,project"
+  },
+  "dev": {
+    "id": "dev",
+    "phase": 3,
+    "phaseName": "DEV:IMPLEMENT",
+    "persona": ".claude/commands/AIOS/agents/dev.md",
+    "allowedTools": "Read,Edit,Write,Bash,Grep,Glob",
+    "disallowedTools": [],
+    "model": "claude-sonnet-4-6",
+    "maxBudgetUsd": 15.00,
+    "settingSources": "user,project"
+  },
+  "qa": {
+    "id": "qa",
+    "phase": 4,
+    "phaseName": "QA:GATE",
+    "persona": ".claude/commands/AIOS/agents/qa.md",
+    "allowedTools": "Read,Grep,Glob,Bash",
+    "disallowedTools": ["Edit", "Write"],
+    "model": "claude-sonnet-4-6",
+    "maxBudgetUsd": 5.00,
+    "settingSources": "user,project"
+  },
+  "devops": {
+    "id": "devops",
+    "phase": 5,
+    "phaseName": "DEVOPS:PUSH",
+    "persona": ".claude/commands/AIOS/agents/devops.md",
+    "allowedTools": "Read,Bash,Grep,Glob",
+    "disallowedTools": ["Edit", "Write"],
+    "model": "claude-sonnet-4-6",
+    "maxBudgetUsd": 3.00,
+    "settingSources": "user,project"
+  }
+}

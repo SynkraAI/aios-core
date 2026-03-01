@@ -1,0 +1,27 @@
+# Log rotation for AIOS Orchestrator (NFR-006, CP-15)
+#
+# Install to: /etc/logrotate.d/aios-orchestrator
+# Maximum 5 log files retained, each max 10MB.
+#
+# Note: Option B (logrotate) was chosen over Option A (pino-roll)
+# to keep the orchestrator dependency-free and use the standard
+# Ubuntu system logrotate mechanism.
+
+/home/ubuntu/aios-core/.aios/logs/orchestrator.log {
+    daily
+    missingok
+    rotate 5
+    compress
+    maxsize 10M
+    copytruncate
+    notifempty
+}
+
+/home/ubuntu/aios-core/.aios/logs/overnight-*.log {
+    daily
+    missingok
+    rotate 5
+    compress
+    maxsize 10M
+    notifempty
+}

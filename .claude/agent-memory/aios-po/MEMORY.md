@@ -36,6 +36,35 @@
 - RegistryUpdater API: processChanges([{action, filePath}]) AND onAgentTaskComplete(task, artifacts) -- story should prefer onAgentTaskComplete for audit
 - bin/aios-ids.js currently: ids:query, ids:create-review. IDS-7 adds: ids:stats, ids:impact
 
+## E7 Phase 0 Validation (2026-03-01)
+- E7.0.1: 9/10 GO, E7.0.2: 9/10 GO, E7.0.3: 10/10 GO
+- Transversal issue: `--setting-sources` flag not mentioned in E7.0.1/E7.0.2 but exists in CLI v2.1.62
+- Transversal issue: `--permission-mode bypassPermissions` or `--dangerously-skip-permissions` needed for autonomous execution
+- Claude CLI v2.1.62: all flags referenced in stories verified (system-prompt, allowed-tools, model, max-budget-usd, output-format json, setting-sources)
+- Validation report: `/home/ubuntu/aios-core/docs/stories/active/validation-phase0.md`
+
+## Claude CLI Flags (verified 2026-03-01)
+- `--system-prompt <prompt>` -- replaces default system prompt (string, not file)
+- `--setting-sources <sources>` -- comma-separated: user, project, local (loads CLAUDE.md + rules)
+- `--allowed-tools <tools>` -- comma or space-separated, supports sub-restrictions like `Bash(git:*)`
+- `--permission-mode <mode>` -- choices: acceptEdits, bypassPermissions, default, dontAsk, plan
+- `--max-budget-usd` -- only works with `--print`
+- `--output-format` -- choices: text, json, stream-json (only works with `--print`)
+
+## E7 Phase 1 Validation (2026-03-01)
+- 8 stories (E7.1.1 through E7.1.8) all scored 10/10 GO
+- FR coverage: 28/29 (FR-006 explicitly Phase 2), NFR: 13/13, CON: 7/7
+- All 14 architecture validation CONCERNS addressed by stories
+- 8 should-fix items identified (all non-blocking)
+- Top should-fixes: (1) E7.1.1 AC5 missing explicit budgets for 4 agents, (2) E7.1.4 AC4 N1 false positive risk in variable pattern, (3) E7.1.4 AC4 N3 heredoc delimiter should be \w+ not fixed list
+- Critical path: E7.1.1 -> E7.1.2 -> E7.1.3 -> E7.1.6 -> E7.1.7 -> E7.1.8
+- Parallel after E7.1.1: E7.1.2 + E7.1.4 + E7.1.5 (all only need registry)
+- E7.1.7 correctly assigned to @devops (Gage) -- systemd is devops-exclusive
+- Validation report: `/home/ubuntu/aios-core/docs/stories/active/validation-phase1.md`
+
 ## Validation Anti-Patterns
 - Epic INDEX claiming file exists when it doesn't (index.js) -- always verify with Glob
 - Story pseudo-code may not match exact API signatures -- always grep for actual method names in source
+- Stories using `--system-prompt` without `--setting-sources` risk not loading CLAUDE.md/rules
+- Stories requiring autonomous execution must include `--permission-mode` or `--dangerously-skip-permissions`
+- Validation report CONCERN numbering can drift between rodadas -- always verify against final rodada

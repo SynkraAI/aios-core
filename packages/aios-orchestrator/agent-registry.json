@@ -1,0 +1,169 @@
+{
+  "schema": "aios-agent-registry-v1",
+  "version": "1.0.0",
+  "agents": {
+    "sm": {
+      "id": "sm",
+      "persona": "River",
+      "role": "Scrum Master — Story creation and sprint management",
+      "model": "claude-sonnet-4-6",
+      "maxBudgetUsd": 3.0,
+      "permissionMode": "bypassPermissions",
+      "allowedTools": ["Read", "Write", "Grep", "Glob"],
+      "disallowedTools": ["Bash", "Edit"],
+      "systemPromptFile": ".claude/commands/AIOS/agents/sm.md",
+      "systemPromptAppend": "",
+      "bashRestrictions": null,
+      "workflows": ["sdc:create"]
+    },
+    "po": {
+      "id": "po",
+      "persona": "Pax",
+      "role": "Product Owner — Story validation and backlog prioritization",
+      "model": "claude-sonnet-4-6",
+      "maxBudgetUsd": 2.0,
+      "permissionMode": "bypassPermissions",
+      "allowedTools": ["Read", "Grep", "Glob"],
+      "disallowedTools": ["Edit", "Write", "Bash"],
+      "systemPromptFile": ".claude/commands/AIOS/agents/po.md",
+      "systemPromptAppend": "",
+      "bashRestrictions": null,
+      "workflows": ["sdc:validate"]
+    },
+    "dev": {
+      "id": "dev",
+      "persona": "Dex",
+      "role": "Implementation — Full stack development and code implementation",
+      "model": "claude-sonnet-4-6",
+      "maxBudgetUsd": 15.0,
+      "permissionMode": "bypassPermissions",
+      "allowedTools": ["Read", "Edit", "Write", "Bash", "Grep", "Glob"],
+      "disallowedTools": [],
+      "systemPromptFile": ".claude/commands/AIOS/agents/dev.md",
+      "systemPromptAppend": "",
+      "bashRestrictions": {
+        "blocked": ["git push", "gh pr create", "gh pr merge", "git push --force"],
+        "reason": "Delegate to @devops for all remote git operations"
+      },
+      "workflows": ["sdc:implement", "qa-loop:fix"]
+    },
+    "qa": {
+      "id": "qa",
+      "persona": "Quinn",
+      "role": "Quality Assurance — Testing, code review, and quality gates",
+      "model": "claude-sonnet-4-6",
+      "maxBudgetUsd": 5.0,
+      "permissionMode": "bypassPermissions",
+      "allowedTools": ["Read", "Grep", "Glob", "Bash"],
+      "disallowedTools": ["Edit", "Write"],
+      "systemPromptFile": ".claude/commands/AIOS/agents/qa.md",
+      "systemPromptAppend": "",
+      "bashRestrictions": {
+        "blocked": ["git push", "gh pr create", "gh pr merge"],
+        "reason": "QA agent is read-only; delegate remote operations to @devops"
+      },
+      "workflows": ["sdc:gate", "qa-loop:review"]
+    },
+    "devops": {
+      "id": "devops",
+      "persona": "Gage",
+      "role": "DevOps — CI/CD, git push (exclusive), infrastructure management",
+      "model": "claude-sonnet-4-6",
+      "maxBudgetUsd": 3.0,
+      "permissionMode": "bypassPermissions",
+      "allowedTools": ["Read", "Bash", "Grep", "Glob"],
+      "disallowedTools": ["Edit", "Write"],
+      "systemPromptFile": ".claude/commands/AIOS/agents/devops.md",
+      "systemPromptAppend": "",
+      "bashRestrictions": null,
+      "workflows": ["sdc:push"]
+    },
+    "architect": {
+      "id": "architect",
+      "persona": "Aria",
+      "role": "Architecture — System design, technology selection, complexity assessment",
+      "model": "claude-opus-4-6",
+      "maxBudgetUsd": 5.0,
+      "permissionMode": "bypassPermissions",
+      "allowedTools": ["Read", "Grep", "Glob", "WebSearch", "WebFetch"],
+      "disallowedTools": ["Edit", "Write", "Bash"],
+      "systemPromptFile": ".claude/commands/AIOS/agents/architect.md",
+      "systemPromptAppend": "",
+      "bashRestrictions": null,
+      "workflows": ["spec:assess", "spec:plan"]
+    },
+    "pm": {
+      "id": "pm",
+      "persona": "Morgan",
+      "role": "Product Management — Epic orchestration, requirements gathering, spec writing",
+      "model": "claude-sonnet-4-6",
+      "maxBudgetUsd": 3.0,
+      "permissionMode": "bypassPermissions",
+      "allowedTools": ["Read", "Write", "Grep", "Glob"],
+      "disallowedTools": ["Bash", "Edit"],
+      "systemPromptFile": ".claude/commands/AIOS/agents/pm.md",
+      "systemPromptAppend": "",
+      "bashRestrictions": null,
+      "workflows": ["spec:gather", "spec:write"]
+    },
+    "analyst": {
+      "id": "analyst",
+      "persona": "Alex",
+      "role": "Research and Analysis — Technical research, competitive analysis",
+      "model": "claude-sonnet-4-6",
+      "maxBudgetUsd": 3.0,
+      "permissionMode": "bypassPermissions",
+      "allowedTools": ["Read", "Grep", "Glob", "WebSearch", "WebFetch"],
+      "disallowedTools": ["Edit", "Write", "Bash"],
+      "systemPromptFile": ".claude/commands/AIOS/agents/analyst.md",
+      "systemPromptAppend": "",
+      "bashRestrictions": null,
+      "workflows": ["spec:research"]
+    },
+    "data-engineer": {
+      "id": "data-engineer",
+      "persona": "Dara",
+      "role": "Database — Schema design, query optimization, migrations, RLS policies",
+      "model": "claude-sonnet-4-6",
+      "maxBudgetUsd": 10.0,
+      "permissionMode": "bypassPermissions",
+      "allowedTools": ["Read", "Edit", "Write", "Bash", "Grep", "Glob"],
+      "disallowedTools": [],
+      "systemPromptFile": ".claude/commands/AIOS/agents/data-engineer.md",
+      "systemPromptAppend": "",
+      "bashRestrictions": {
+        "blocked": ["git push", "gh pr create", "gh pr merge"],
+        "reason": "Delegate remote git operations to @devops"
+      },
+      "workflows": ["brownfield:schema"]
+    },
+    "ux-design-expert": {
+      "id": "ux-design-expert",
+      "persona": "Uma",
+      "role": "UX/UI Design — User experience design, frontend specifications",
+      "model": "claude-sonnet-4-6",
+      "maxBudgetUsd": 2.0,
+      "permissionMode": "bypassPermissions",
+      "allowedTools": ["Read", "Grep", "Glob", "WebSearch"],
+      "disallowedTools": ["Edit", "Write", "Bash"],
+      "systemPromptFile": ".claude/commands/AIOS/agents/ux-design-expert.md",
+      "systemPromptAppend": "",
+      "bashRestrictions": null,
+      "workflows": ["brownfield:frontend"]
+    },
+    "aios-master": {
+      "id": "aios-master",
+      "persona": "AIOS Master",
+      "role": "Framework Governance — Constitutional enforcement, agent boundary overrides",
+      "model": "claude-opus-4-6",
+      "maxBudgetUsd": 20.0,
+      "permissionMode": "bypassPermissions",
+      "allowedTools": [],
+      "disallowedTools": [],
+      "systemPromptFile": ".claude/commands/AIOS/agents/aios-master.md",
+      "systemPromptAppend": "",
+      "bashRestrictions": null,
+      "workflows": ["governance"]
+    }
+  }
+}

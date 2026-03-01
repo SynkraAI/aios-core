@@ -18,6 +18,25 @@
 - GreetingPreferenceManager reads from `.aios-core/core-config.yaml` (agentIdentity.greeting.preference)
 - The *yolo command cycles PermissionMode; it does NOT directly change greeting preference
 
+## SDK Orchestrator Architecture (2026-03-01)
+- Architecture doc: `docs/architecture/sdk-orchestrator-architecture.md`
+- SUPERSEDES: `docs/architecture/autonomous-agents-architecture.md` (2034 lines -> ~500 LOC)
+- Core idea: single Node.js process orchestrates isolated SDK `query()` calls per agent
+- 5 components: Agent Registry (JSON), Workflow Engine (SDC state machine), Session Manager, Governance Hooks, Comms Bridge
+- Each agent = 1 `query()` with own systemPrompt, allowedTools, disallowedTools, model, maxBudgetUsd
+- Authority matrix enforced via PreToolUse hooks (bash command filtering, file path restrictions)
+- Comms Bridge writes to `.aios/outbox/pending/` (same as Telegram Bridge watches)
+- State persisted to `.aios/orchestrator/workflow-state.json` for crash recovery
+- Phase 0: shell script POC with `claude -p` (2-3 days)
+- Phase 1: SDK orchestrator.mjs (1-2 weeks, 7 stories)
+- Phase 2: Agent Teams integration (future, when experimental stabilizes)
+- Cost per story: $0.76-5.73 (Sonnet), up to $12 with retries
+- RAM: ~800MB peak (orchestrator + 1 ephemeral query)
+- Package: `packages/aios-orchestrator/`
+- Key decisions: query() over streamInput() (simplicity), ephemeral over persistent workers (RAM), JSON over SQLite (zero deps)
+- Session Daemon remains for interactive use; Orchestrator for automated workflows
+- SDK exports used: query(), HOOK_EVENTS, EXIT_REASONS
+
 ## Architecture Patterns to Track
 - Agent activation: UnifiedActivationPipeline is now THE single entry point for all 12 agents (ACT-6)
 - Previous two paths (Direct 9 agents + CLI wrapper 3 agents) are now unified

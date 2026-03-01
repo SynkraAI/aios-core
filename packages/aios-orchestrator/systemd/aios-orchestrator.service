@@ -1,0 +1,36 @@
+[Unit]
+Description=AIOS SDK Orchestrator
+After=network.target
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/aios-core
+ExecStart=/usr/bin/node packages/aios-orchestrator/orchestrator.mjs --workflow sdc --story %i --no-interactive
+Restart=on-failure
+RestartSec=10
+
+# Resource limits (CON-001 / R6 mitigation)
+MemoryMax=512M
+
+# Environment
+Environment=AIOS_LOG_LEVEL=info
+EnvironmentFile=-/home/ubuntu/aios-core/.env
+
+# Watchdog — safety net for hung processes (CP-13)
+WatchdogSec=600
+NotifyAccess=main
+
+# Graceful shutdown
+TimeoutStopSec=30
+KillSignal=SIGTERM
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=aios-orchestrator
+
+[Install]
+WantedBy=multi-user.target

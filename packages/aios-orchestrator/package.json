@@ -1,0 +1,19 @@
+{
+  "name": "@aios/orchestrator",
+  "version": "0.1.0",
+  "description": "AIOS SDK Orchestrator — Multi-agent workflow orchestration via Claude Agent SDK",
+  "type": "module",
+  "main": "orchestrator.mjs",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "start": "node orchestrator.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.2.63",
+    "pino": "^9.6.0",
+    "yaml": "^2.7.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

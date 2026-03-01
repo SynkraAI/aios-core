@@ -93,6 +93,7 @@ export class SessionAdapter {
       permissionMode: this.config.permissionMode,
       includePartialMessages: this.config.includePartialMessages,
       persistSession: this.config.persistSession,
+      env: this._getCleanEnv(),
     });
 
     // V2 session has sessionId available after creation
@@ -136,6 +137,7 @@ export class SessionAdapter {
       systemPrompt: this.config.systemPrompt,
       permissionMode: this.config.permissionMode,
       includePartialMessages: this.config.includePartialMessages,
+      env: this._getCleanEnv(),
     });
 
     this.sessionId = sessionId;
@@ -178,6 +180,13 @@ export class SessionAdapter {
     }
   }
 
+  /** @private Build clean env for SDK (strips nested-session guard) */
+  _getCleanEnv() {
+    const env = { ...process.env };
+    delete env.CLAUDECODE;
+    return env;
+  }
+
   /** @private V1: send via query() with resume */
   async *sendV1(prompt) {
     const options = {
@@ -188,6 +197,7 @@ export class SessionAdapter {
       model: this.config.model,
       includePartialMessages: this.config.includePartialMessages,
       allowedTools: this.config.allowedTools,
+      env: this._getCleanEnv(),
       ...(this.config.maxTurns && { maxTurns: this.config.maxTurns }),
     };
 

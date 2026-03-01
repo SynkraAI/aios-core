@@ -1,0 +1,8 @@
+List all story files currently in docs/stories/active/ and return a JSON object with the count and file names. Use Glob or Read tools only. Do NOT use Bash. Return your answer in this exact format:
+
+```json
+{
+  "count": <number>,
+  "files": ["file1.md", "file2.md", ...]
+}
+```
