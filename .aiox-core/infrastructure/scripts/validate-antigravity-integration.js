@@ -5,10 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 function getDefaultOptions() {
-    const projectRoot = process.cwd();
     return {
-        projectRoot,
-        workflowsDir: path.join(projectRoot, '.aios-core', 'product', 'templates', 'ide-rules', 'antigravity', 'workflows'),
         quiet: false,
         json: false,
     };

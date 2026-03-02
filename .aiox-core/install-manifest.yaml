@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-09T22:35:39.087Z"
+generated_at: "2026-03-09T22:35:39.576Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1091
 files:
@@ -3329,9 +3329,9 @@ files:
     type: script
     size: 14900
   - path: infrastructure/scripts/validate-antigravity-integration.js
-    hash: sha256:5f717462d1ec8fb513261658d1f36c8d7b12c8393b0b4f42847578b0c81ebff8
+    hash: sha256:29a998143dd71cfb9579a5319e8a5c2b096b8dd5f65d48c7ab9da3fe06dd71ee
     type: script
-    size: 2804
+    size: 2619
   - path: infrastructure/scripts/validate-claude-integration.js
     hash: sha256:3b4e996c2597966fad966d1b2beaecdbda003f6529c41687dfe419d62a319ec6
     type: script
