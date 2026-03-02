@@ -1,0 +1,319 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Squad: Brand Studio
+# Domain: Brand Strategy & Identity — Full-Spectrum Agency
+# Created: 2026-03-02
+# Version: 1.0.0
+# ═══════════════════════════════════════════════════════════════════════════════
+
+squad:
+  name: brand-studio
+  display_name: "Brand Studio Squad"
+  version: "1.0.0"
+  domain: "Brand Strategy & Identity — Full-Spectrum Agency"
+  description: |
+    Squad de branding completo que opera como uma agência de alto nível.
+    Cada especialista é clonado dos maiores nomes do mundo em estratégia,
+    identidade visual, naming, voz de marca e pesquisa de consumidor.
+    O fluxo segue o modelo real de agência: briefing → estratégia →
+    execução especializada → revisão integrada → entrega final.
+
+  philosophy: |
+    "A brand is not what you say it is. It's what they say it is."
+    — Marty Neumeier
+
+    Marcas extraordinárias são construídas pela convergência de três
+    forças: estratégia clara (o porquê), identidade diferenciada
+    (o quê), e execução consistente (o como). Este squad domina as
+    três dimensões com profundidade de especialista real.
+
+  keywords:
+    - branding
+    - brand-strategy
+    - visual-identity
+    - naming
+    - brand-voice
+    - consumer-insights
+    - positioning
+    - brand-purpose
+    - design
+    - copywriting
+    - market-research
+    - brand-architecture
+
+  entry_agent: marty-neumeier
+  created_by: "squad-creator"
+  created_at: "2026-03-02"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TIER ARCHITECTURE — AGENCY FLOW
+# ─────────────────────────────────────────────────────────────────────────────
+
+tiers:
+  tier_0:
+    name: "Brand Chief — Orchestration & Creative Direction"
+    agents:
+      - marty-neumeier
+    purpose: |
+      Ponto de entrada único. Recebe solicitações, avalia escopo,
+      direciona para Account Director para coleta de briefing,
+      e integra todos os entregáveis em um brand system coerente.
+      Árbitro final de toda decisão criativa e estratégica.
+
+  tier_1:
+    name: "Account Direction — Briefing & Brand Equity"
+    agents:
+      - david-aaker
+    purpose: |
+      Coleta o briefing completo com rigor de brand equity.
+      Mapeia ativos de marca existentes, avalia patrimônio da marca,
+      distribui trabalho para especialistas e garante coerência
+      entre todos os entregáveis.
+
+  tier_2:
+    name: "Brand Specialists — Core Execution"
+    agents:
+      - simon-sinek
+      - alexandra-watkins
+      - paula-scher
+      - ann-handley
+      - malcolm-gladwell
+    purpose: |
+      Especialistas de classe mundial executando suas áreas de domínio.
+      Cada um opera com seus frameworks exclusivos e entrega
+      componentes específicos do brand system.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AGENT REGISTRY
+# ─────────────────────────────────────────────────────────────────────────────
+
+agents:
+  marty-neumeier:
+    file: agents/marty-neumeier.md
+    tier: 0
+    based_on: "Marty Neumeier — Author of The Brand Gap, Zag, The Brand Flip"
+    icon: "🎯"
+    focus: "Brand orchestration, creative direction, brand system integration, final arbiter"
+    deliverable: "Brand System Report — integração de todos os componentes"
+
+  david-aaker:
+    file: agents/david-aaker.md
+    tier: 1
+    based_on: "David Aaker — Father of Modern Brand Management, Building Strong Brands"
+    icon: "📋"
+    focus: "Brand briefing, brand equity framework, portfolio architecture, client management"
+    deliverable: "Brand Briefing Document + Brand Equity Map"
+
+  simon-sinek:
+    file: agents/simon-sinek.md
+    tier: 2
+    based_on: "Simon Sinek — Author of Start With Why, Find Your Why"
+    icon: "🔵"
+    focus: "Brand purpose, Golden Circle, WHY definition, positioning, manifesto"
+    deliverable: "Brand Purpose Statement + Brand Manifesto"
+
+  alexandra-watkins:
+    file: agents/alexandra-watkins.md
+    tier: 2
+    based_on: "Alexandra Watkins — Author of Hello, My Name Is Awesome, Founder of Eat My Words"
+    icon: "✍️"
+    focus: "Brand naming, SMILE & SCRATCH criteria, name shortlist, domain strategy"
+    deliverable: "Brand Name Candidates + Naming Rationale"
+
+  paula-scher:
+    file: agents/paula-scher.md
+    tier: 2
+    based_on: "Paula Scher — Partner at Pentagram, legendary graphic designer"
+    icon: "🎨"
+    focus: "Visual identity, logo concept, typography, color palette, brand guidelines"
+    deliverable: "Visual Identity Brief + Brand Guidelines Direction"
+
+  ann-handley:
+    file: agents/ann-handley.md
+    tier: 2
+    based_on: "Ann Handley — Author of Everybody Writes, Chief Content Officer at MarketingProfs"
+    icon: "🗣️"
+    focus: "Brand voice, tone of voice, messaging framework, taglines, copywriting principles"
+    deliverable: "Brand Voice Guide + Core Messaging"
+
+  malcolm-gladwell:
+    file: agents/malcolm-gladwell.md
+    tier: 2
+    based_on: "Malcolm Gladwell — Author of The Tipping Point, Blink, Outliers"
+    icon: "🔍"
+    focus: "Consumer insights, cultural moments, tipping point analysis, audience archetypes"
+    deliverable: "Consumer Insights Report + Audience Archetypes"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AGENCY WORKFLOW — HOW PROJECTS FLOW
+# ─────────────────────────────────────────────────────────────────────────────
+
+workflow:
+  standard_brand_project:
+    name: "Full Brand Creation"
+    phases:
+      - phase: 1
+        name: "Intake"
+        agent: marty-neumeier
+        task: brand-intake.md
+        output: "Project scope + brief para Aaker"
+
+      - phase: 2
+        name: "Briefing"
+        agent: david-aaker
+        task: brand-briefing.md
+        output: "Brand Briefing Document completo"
+
+      - phase: 3
+        name: "Research"
+        agent: malcolm-gladwell
+        task: brand-research.md
+        input: "Brand Briefing Document"
+        output: "Consumer Insights Report"
+
+      - phase: 4
+        name: "Purpose & Strategy"
+        agent: simon-sinek
+        task: brand-strategy.md
+        input: "Brand Briefing + Consumer Insights"
+        output: "Brand Purpose Statement + Manifesto"
+
+      - phase: 5
+        name: "Naming"
+        agent: alexandra-watkins
+        task: brand-naming.md
+        input: "Brand Briefing + Brand Purpose"
+        output: "Name Candidates (3-5) + Rationale"
+
+      - phase: 6
+        name: "Visual Identity"
+        agent: paula-scher
+        task: brand-identity.md
+        input: "Brand Purpose + Name + Consumer Insights"
+        output: "Visual Identity Brief + Guidelines"
+
+      - phase: 7
+        name: "Brand Voice"
+        agent: ann-handley
+        task: brand-voice.md
+        input: "Brand Purpose + Name + Audience"
+        output: "Brand Voice Guide + Core Messages"
+
+      - phase: 8
+        name: "Integration & Review"
+        agent: marty-neumeier
+        task: brand-review.md
+        input: "All specialist deliverables"
+        output: "Final Brand System Report"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# HANDOFF MATRIX
+# ─────────────────────────────────────────────────────────────────────────────
+
+handoffs:
+  marty-neumeier:
+    routes_to: [david-aaker, simon-sinek, alexandra-watkins, paula-scher, ann-handley, malcolm-gladwell]
+    escalation: null  # Chief has no escalation — he IS the top
+
+  david-aaker:
+    distributes_to: [simon-sinek, malcolm-gladwell, alexandra-watkins, paula-scher, ann-handley]
+    reports_to: marty-neumeier
+
+  simon-sinek:
+    collaborates_with: [david-aaker, ann-handley]
+    reports_to: marty-neumeier
+
+  alexandra-watkins:
+    collaborates_with: [simon-sinek, ann-handley]
+    reports_to: marty-neumeier
+
+  paula-scher:
+    collaborates_with: [simon-sinek, ann-handley, alexandra-watkins]
+    reports_to: marty-neumeier
+
+  ann-handley:
+    collaborates_with: [simon-sinek, paula-scher]
+    reports_to: marty-neumeier
+
+  malcolm-gladwell:
+    feeds_into: [simon-sinek, alexandra-watkins, paula-scher, ann-handley]
+    reports_to: david-aaker
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TASKS REGISTRY
+# ─────────────────────────────────────────────────────────────────────────────
+
+tasks:
+  brand-intake.md:
+    owner: marty-neumeier
+    phase: 1
+    description: "Coleta inicial de escopo e definição do projeto"
+
+  brand-briefing.md:
+    owner: david-aaker
+    phase: 2
+    description: "Briefing completo com framework de brand equity"
+
+  brand-research.md:
+    owner: malcolm-gladwell
+    phase: 3
+    description: "Pesquisa de consumidor e análise cultural"
+
+  brand-strategy.md:
+    owner: simon-sinek
+    phase: 4
+    description: "Definição de propósito, WHY e posicionamento"
+
+  brand-naming.md:
+    owner: alexandra-watkins
+    phase: 5
+    description: "Geração e validação de nomes de marca"
+
+  brand-identity.md:
+    owner: paula-scher
+    phase: 6
+    description: "Direção de identidade visual e sistema de design"
+
+  brand-voice.md:
+    owner: ann-handley
+    phase: 7
+    description: "Voz de marca, tom e messaging framework"
+
+  brand-review.md:
+    owner: marty-neumeier
+    phase: 8
+    description: "Revisão integrada e entrega do brand system"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# QUALITY STANDARDS
+# ─────────────────────────────────────────────────────────────────────────────
+
+quality:
+  brand_differentiation:
+    rule: "Every brand element must pass the ZAG test — is it truly different?"
+    owner: marty-neumeier
+
+  naming_criteria:
+    rule: "All names pass SMILE (Suggestive, Meaningful, Imagery, Legs, Emotional) and avoid SCRATCH (Spelling, Copycat, Restrictive, Annoying, Tame, Curse, Hard)"
+    owner: alexandra-watkins
+
+  purpose_alignment:
+    rule: "Every deliverable traces back to the WHY defined by Simon Sinek's framework"
+    owner: simon-sinek
+
+  voice_consistency:
+    rule: "All written content passes the Ann Handley voice audit"
+    owner: ann-handley
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SETTINGS
+# ─────────────────────────────────────────────────────────────────────────────
+
+settings:
+  greeting:
+    level: archetypal
+    show_project_status: true
+
+  activation:
+    prefix: "brand-studio"
+    example: "@brand-studio:marty-neumeier"
+    shortcut: "@marty-neumeier"
