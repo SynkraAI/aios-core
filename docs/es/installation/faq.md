@@ -310,6 +310,7 @@ tar -xzvf aios-offline.tar.gz
 **Línea de comandos:**
 
 ```bash
+npx aios-core install --ide cursor claude-code windsurf
 ```
 
 Cada IDE obtiene su propio directorio de configuración:

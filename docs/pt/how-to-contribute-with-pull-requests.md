@@ -18,17 +18,17 @@ Um pull request (PR) é como você propõe mudanças para um projeto no GitHub. 
 
 **Obrigatório antes de submeter PRs:**
 
-- **Para correções de bugs**: Crie uma issue usando o [template de bug report](https://github.com/SynkraAIinc/aios-core/issues/new?template=bug_report.md)
+- **Para correções de bugs**: Crie uma issue usando o [template de bug report](https://github.com/SynkraAI/aios-core/issues/new?template=bug_report.md)
 - **Para novas features**:
   1. Discuta no Discord no [canal #general-dev](https://discord.gg/gk8jAdXWmj)
-  2. Crie uma issue usando o [template de feature request](https://github.com/SynkraAIinc/aios-core/issues/new?template=feature_request.md)
+  2. Crie uma issue usando o [template de feature request](https://github.com/SynkraAI/aios-core/issues/new?template=feature_request.md)
 - **Para mudanças grandes**: Sempre abra uma issue primeiro para discutir o alinhamento
 
 ## Guia Passo a Passo
 
 ### 1. Fazer Fork do Repositório
 
-1. Vá para o [repositório Synkra AIOS](https://github.com/SynkraAIinc/aios-core)
+1. Vá para o [repositório Synkra AIOS](https://github.com/SynkraAI/aios-core)
 2. Clique no botão "Fork" no canto superior direito
 3. Isso cria sua própria cópia do projeto
 
@@ -137,8 +137,8 @@ git push origin fix/typo-in-readme
 
 ## Precisa de Ajuda?
 
-- 🐛 Reporte bugs usando o [template de bug report](https://github.com/SynkraAIinc/aios-core/issues/new?template=bug_report.md)
-- 💡 Sugira features usando o [template de feature request](https://github.com/SynkraAIinc/aios-core/issues/new?template=feature_request.md)
+- 🐛 Reporte bugs usando o [template de bug report](https://github.com/SynkraAI/aios-core/issues/new?template=bug_report.md)
+- 💡 Sugira features usando o [template de feature request](https://github.com/SynkraAI/aios-core/issues/new?template=feature_request.md)
 - 📖 Leia as [Diretrizes de Contribuição](../../CONTRIBUTING.md) completas
 
 ## Exemplo: PRs Bons vs Ruins
