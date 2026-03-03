@@ -471,18 +471,24 @@ Provide a structured validation report including:
 
 #### IF verdict is GO (score >= 7):
 
+0. **Pre-check (blocking):**
+   - If current Status is not `**Draft**`, HALT and log: "Cannot apply GO transition: expected Draft, found {current status}."
+   - If Change Log section is missing, HALT and request user to restore template structure.
 1. **Update story Status field** in the story file: change `**Draft**` to `**Ready**`
 2. **Add Change Log entry:**
-   ```
+   ```text
    | {today's date} | {next version} | Validated GO ({score}/10) — Status: Draft → Ready | @po |
    ```
 3. **Log:** "✅ Story status updated: Draft → Ready"
 
 #### IF verdict is NO-GO (score < 7):
 
+0. **Pre-check (blocking):**
+   - If current Status is not `**Draft**`, HALT and log: "Cannot apply NO-GO outcome: expected Draft, found {current status}."
+   - If Change Log section is missing, HALT and request user to restore template structure.
 1. **Keep** story Status as `**Draft**`
 2. **Add Change Log entry:**
-   ```
+   ```text
    | {today's date} | {next version} | Validation NO-GO — {reason summary} | @po |
    ```
 3. **Log:** "❌ Story remains Draft — fixes required before re-validation"
