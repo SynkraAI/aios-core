@@ -740,6 +740,17 @@ This project was originally derived from the [BMad Method](https://github.com/bm
 
 [![Contributors](https://contrib.rocks/image?repo=SynkraAI/aios-core)](https://github.com/SynkraAI/aios-core/graphs/contributors)
 
+### 🌟 Contribuidores da Comunidade
+
+<!-- prettier-ignore-start -->
+<!-- Manually maintained — add new community contributors here -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/nikolasdehor"><img src="https://github.com/nikolasdehor.png?size=100" width="100px;" alt="Nikolas de Hor"/><br /><sub><b>Nikolas de Hor</b></sub></a><br />💻🐛⚠️👀</td>
+  </tr>
+</table>
+<!-- prettier-ignore-end -->
+
 <sub>Construído com ❤️ para a comunidade de desenvolvimento assistido por IA</sub>
 
 ---
