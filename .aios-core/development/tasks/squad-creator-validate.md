@@ -67,6 +67,13 @@ Validates a squad against the JSON Schema and TASK-FORMAT-SPECIFICATION-V1.
 - Warns if project-level reference doesn't exist
 - Errors if local reference doesn't exist
 
+### 6. Internalization Gate
+- Scans all agent files in `agents/` for presence of `dependencies.context` key
+- **CRITICAL ERROR** if any agent contains `dependencies.context` — external runtime dependencies are forbidden
+- Checks that agent YAML has substantive `core_principles` (not empty or single-item)
+- Checks that agent `commands` have descriptions longer than 10 chars (signals real behavioral guidance)
+- Warns if agent `persona` sections are skeletal (role/identity under 30 chars)
+
 ## Flow
 
 ```
@@ -79,7 +86,8 @@ Validates a squad against the JSON Schema and TASK-FORMAT-SPECIFICATION-V1.
    ├── validateStructure() → Directory check
    ├── validateTasks() → Task format check
    ├── validateAgents() → Agent format check
-   └── validateConfigReferences() → Config path check (SQS-10)
+   ├── validateConfigReferences() → Config path check (SQS-10)
+   └── validateInternalization() → Internalization gate (forbidden dependencies.context)
 
 3. Format and display result
    ├── Show errors (if any)
@@ -120,6 +128,9 @@ Result: VALID (with warnings)
 | `TASK_MISSING_FIELD` | Warning | Task missing recommended field |
 | `AGENT_INVALID_FORMAT` | Warning | Agent file may not follow format |
 | `INVALID_NAMING` | Warning | Filename not in kebab-case |
+| `AGENT_EXTERNAL_DEP` | Error | Agent contains dependencies.context (forbidden — must internalize) |
+| `AGENT_SHALLOW_PRINCIPLES` | Warning | Agent core_principles is empty or has fewer than 3 entries |
+| `AGENT_SKELETAL_PERSONA` | Warning | Agent persona.role/identity are too brief to be operational |
 
 ## Implementation
 

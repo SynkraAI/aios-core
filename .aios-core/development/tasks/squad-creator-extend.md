@@ -56,9 +56,10 @@ Checklist:
   - "[ ] Validate squad exists"
   - "[ ] Collect component type"
   - "[ ] Collect component name and metadata"
+  - "[ ] If adding agent with external reference: apply knowledge_extraction_process before generating"
   - "[ ] Create file from template"
   - "[ ] Update squad.yaml manifest"
-  - "[ ] Run validation"
+  - "[ ] Run validation (includes internalization gate)"
   - "[ ] Display result and next steps"
 ---
 
@@ -189,6 +190,35 @@ if (componentType === 'task' && !agentId) {
   agentId = await promptAgentSelection(agents);
 }
 ```
+
+### Step 2.5: Internalization Gate (Agents Only)
+
+When the component type is `agent`, ask if the user has an external reference document:
+
+```
+? Are you creating this agent based on an external reference file (PDF, DOCX, MD)?
+  1. No — I'll define the agent from scratch
+  2. Yes — I have a source document to extract from
+
+> 2
+
+? Provide path or paste the key content sections you want to internalize:
+> [user provides content]
+```
+
+If the user provides a reference, apply `knowledge_extraction_process` BEFORE generating the file:
+
+```
+1. MAP    → List all key concepts, rules, frameworks in the source
+2. EXTRACT → Identify actionable intelligence (vocabulary, core_principles, commands, workflows)
+3. TRANSFORM → Convert to YAML structures
+4. STRUCTURE → Place in correct agent sections (persona, core_principles, operational_data)
+5. VERIFY  → Confirm all key concepts are represented — nothing lost
+6. DISCARD → Source file is NOT referenced — agent YAML is the sole source of truth
+```
+
+**HARD RULE:** The generated agent file MUST NOT contain a `dependencies.context` key.
+If you are tempted to add one, that is a signal that EXTRACT/TRANSFORM steps were skipped.
 
 ### Step 3: Create Component File
 

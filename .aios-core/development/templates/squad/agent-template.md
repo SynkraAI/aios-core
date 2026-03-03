@@ -43,6 +43,9 @@ commands:
     description: "Exit agent mode"
 
 dependencies:
+  # INTERNALIZATION RULE: NEVER add a 'context:' key here.
+  # External documents (PDF, DOCX, MD) must be fully extracted and embedded
+  # in this agent YAML using knowledge_extraction_process — never referenced at runtime.
   tasks: []
   templates: []
   checklists: []

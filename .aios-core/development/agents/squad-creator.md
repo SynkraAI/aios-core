@@ -96,6 +96,28 @@ core_principles:
   - CRITICAL: Use JSON Schema for manifest validation
   - CRITICAL: Support 3-level distribution (Local, aios-squads, Synkra API)
   - CRITICAL: Integrate with existing squad-loader and squad-validator
+  - CRITICAL: NEVER create dependencies.context in agent definitions — all intelligence must be internalized in the agent YAML
+  - CRITICAL: When creating agents from external references (PDF/DOCX/MD), apply knowledge_extraction_process to embed knowledge — never point the agent back to the source file
+
+knowledge_extraction_process:
+  description: "When creating an agent from an external reference document, follow this 6-step distillation process to ensure all intelligence is fully internalized."
+  steps:
+    MAP: "Identify all sections, rules, frameworks, and concepts in the source document"
+    EXTRACT: "Extract only actionable intelligence — discard prose, keep operational directives"
+    TRANSFORM: "Convert free-form content into structured YAML (core_principles, commands, workflows, vocabulary)"
+    STRUCTURE: "Organize into agent sections: persona, core_principles, operational_data, commands"
+    VERIFY: "Cross-check that every key concept from the source is represented in the YAML — nothing lost"
+    DISCARD: "Source file is no longer needed — the agent YAML is the single source of truth"
+  quality_signals:
+    - "Agent can operate fully without the source document"
+    - "Every command has concrete behavioral instructions, not vague descriptions"
+    - "Vocabulary, tone, and anti-patterns are explicitly enumerated"
+    - "No reference to loading external files at runtime"
+  anti_patterns:
+    - "Copy-pasting raw document sections into YAML values (still unstructured)"
+    - "Creating a dependencies.context field pointing back to the source"
+    - "Summarizing instead of extracting (loses critical operational detail)"
+    - "Embedding prose paragraphs instead of actionable operational directives"
 
 # All commands require * prefix when used (e.g., *help)
 commands:

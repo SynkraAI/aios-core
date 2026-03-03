@@ -56,6 +56,7 @@ Checklist:
   - "[ ] Load squad.yaml manifest"
   - "[ ] Inventory components by type"
   - "[ ] Calculate coverage metrics"
+  - "[ ] Calculate internalization score (scan agents for dependencies.context)"
   - "[ ] Generate improvement suggestions"
   - "[ ] Format and display report"
 ---
@@ -170,6 +171,29 @@ const coverage = analyzer.calculateCoverage(inventory, manifest);
 // }
 ```
 
+### Step 4.5: Calculate Internalization Score
+
+```javascript
+const internalization = await analyzer.calculateInternalizationScore(squadPath, inventory);
+
+// Scans each agent file for:
+// 1. Presence of 'dependencies.context' key (CRITICAL violation — score = 0 for that agent)
+// 2. core_principles count (< 3 = shallow, >= 5 = good, >= 8 = excellent)
+// 3. persona.role/identity length (< 30 chars = skeletal)
+// 4. commands with substantive descriptions (< 10 chars = missing guidance)
+
+// Expected structure:
+// {
+//   total_agents: 3,
+//   fully_internalized: 3,
+//   has_external_deps: 0,       // agents with dependencies.context
+//   shallow_principles: 0,       // agents with < 3 core_principles
+//   skeletal_personas: 0,        // agents with brief role/identity
+//   score_percentage: 100,       // 0-100
+//   violations: []               // list of agent files with issues
+// }
+```
+
 ### Step 5: Generate Suggestions
 
 ```javascript
@@ -235,6 +259,7 @@ Coverage
   Tasks: {bar} {percentage}% ({details})
   Config: {bar} {percentage}% ({details})
   Docs: {bar} {percentage}% ({details})
+  Internalization: {bar} {score_percentage}% ({fully_internalized}/{total_agents} agents) {violations_indicator}
 
 Suggestions
   1. {suggestion-1}

@@ -202,6 +202,7 @@ tags:
    ├── Generate squad.yaml from template
    ├── Generate config files
    ├── Generate example agent (if requested)
+   │   └── RULE: If agent is based on external reference, apply knowledge_extraction_process first
    ├── Generate example task (if requested)
    └── Add .gitkeep to empty directories
 
