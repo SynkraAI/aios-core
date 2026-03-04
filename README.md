@@ -27,7 +27,7 @@ npx aiox-core init meu-projeto
 
 # projeto existente
 cd seu-projeto
-npx aiox-core install
+npx aios-core install         
 ```
 2. Escolha sua IDE/CLI e o caminho de ativação:
 - Claude Code: `/agent-name`
