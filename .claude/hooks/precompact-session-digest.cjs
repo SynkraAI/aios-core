@@ -57,6 +57,8 @@ async function main() {
   // Same pattern as synapse-engine.cjs — robust against incorrect cwd
   const runnerPath = path.join(
     PROJECT_ROOT,
+    'node_modules',
+    'aios-core',
     '.aios-core',
     'hooks',
     'unified',

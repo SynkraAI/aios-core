@@ -66,32 +66,19 @@ async function main() {
 
   const output = JSON.stringify(buildHookOutput(result.xml));
 
-  // Write and flush stdout (callback may not exist in mocked environments)
   const flushed = process.stdout.write(output);
   if (!flushed) {
     await new Promise((resolve) => process.stdout.once('drain', resolve));
   }
 }
 
-/**
- * Safely exit the process — no-op inside Jest workers to prevent worker crashes.
- * @param {number} code - Exit code
- */
-function safeExit(code) {
-  if (process.env.JEST_WORKER_ID) return;
-  process.exit(code);
-}
-
-/** Entry point runner — sets safety timeout and executes main(). */
+/** Entry point runner — lets Node exit naturally (no process.exit). */
 function run() {
-  const timer = setTimeout(() => safeExit(0), HOOK_TIMEOUT_MS);
+  const timer = setTimeout(() => {}, HOOK_TIMEOUT_MS);
   timer.unref();
   main()
-    .then(() => safeExit(0))
-    .catch(() => {
-      // Silent exit — stderr output triggers "hook error" in Claude Code UI
-      safeExit(0);
-    });
+    .then(() => {})
+    .catch(() => {});
 }
 
 if (require.main === module) run();
