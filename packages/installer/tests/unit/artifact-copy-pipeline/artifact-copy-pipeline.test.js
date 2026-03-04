@@ -174,7 +174,7 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
       expect(config).toBeDefined();
       expect(config.event).toBe('UserPromptSubmit');
       expect(config.matcher).toBeNull();
-      expect(config.timeout).toBe(10);
+      expect(config.timeout).toBeUndefined(); // Claude Code manages timeouts
     });
 
     test('maps code-intel-pretool.cjs to PreToolUse with Write|Edit matcher', () => {
@@ -182,7 +182,7 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
       expect(config).toBeDefined();
       expect(config.event).toBe('PreToolUse');
       expect(config.matcher).toBe('Write|Edit');
-      expect(config.timeout).toBe(10);
+      expect(config.timeout).toBeUndefined(); // Claude Code manages timeouts
     });
 
     test('maps precompact-session-digest.cjs to PreCompact', () => {
@@ -190,7 +190,7 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
       expect(config).toBeDefined();
       expect(config.event).toBe('PreCompact');
       expect(config.matcher).toBeNull();
-      expect(config.timeout).toBe(10);
+      expect(config.timeout).toBeUndefined(); // Claude Code manages timeouts
     });
 
     test('covers all 3 known hooks', () => {
@@ -204,7 +204,7 @@ describe('artifact-copy-pipeline (Story INS-4.3)', () => {
     test('DEFAULT_HOOK_CONFIG falls back to UserPromptSubmit', () => {
       expect(DEFAULT_HOOK_CONFIG.event).toBe('UserPromptSubmit');
       expect(DEFAULT_HOOK_CONFIG.matcher).toBeNull();
-      expect(DEFAULT_HOOK_CONFIG.timeout).toBe(10);
+      expect(DEFAULT_HOOK_CONFIG.timeout).toBeUndefined(); // Claude Code manages timeouts
     });
   });
 

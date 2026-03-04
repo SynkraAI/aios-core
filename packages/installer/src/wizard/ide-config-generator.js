@@ -703,9 +703,14 @@ async function copyClaudeHooksFolder(projectRoot) {
 }
 
 /**
- * Hook event mapping: fileName → { event, matcher, timeout }
+ * Hook event mapping: fileName → { event, matcher }
  * Maps each .cjs hook file to its correct Claude Code event.
  * Extensible: add new hooks here as they are created.
+ *
+ * NOTE: timeout is intentionally omitted — Claude Code manages hook timeouts
+ * natively (default 60s). Overriding with low values (e.g. 10) caused
+ * premature kills on Windows. Each hook has its own internal safety timeout
+ * (e.g. synapse-engine.cjs uses 5s via setTimeout + unref).
  *
  * @see Story MIS-3.1 - Fix Session-Digest Hook Registration
  * @see https://code.claude.com/docs/en/hooks (Claude Code Hooks Documentation)
@@ -714,17 +719,14 @@ const HOOK_EVENT_MAP = {
   'synapse-engine.cjs': {
     event: 'UserPromptSubmit',
     matcher: null,
-    timeout: 10,
   },
   'code-intel-pretool.cjs': {
     event: 'PreToolUse',
     matcher: 'Write|Edit',
-    timeout: 10,
   },
   'precompact-session-digest.cjs': {
     event: 'PreCompact',
     matcher: null,
-    timeout: 10,
   },
 };
 
@@ -732,7 +734,6 @@ const HOOK_EVENT_MAP = {
 const DEFAULT_HOOK_CONFIG = {
   event: 'UserPromptSubmit',
   matcher: null,
-  timeout: 10,
 };
 
 /**
@@ -759,8 +760,6 @@ async function createClaudeSettingsLocal(projectRoot) {
     return null;
   }
 
-  const isWindows = process.platform === 'win32';
-
   let settings = {};
 
   // Merge with existing settings if present
@@ -781,7 +780,6 @@ async function createClaudeSettingsLocal(projectRoot) {
 
   // Register each .cjs hook file under its correct event
   for (const hookFileName of hookFiles) {
-    const hookFilePath = path.join(hooksDir, hookFileName);
     const hookConfig = HOOK_EVENT_MAP[hookFileName] || DEFAULT_HOOK_CONFIG;
     const eventName = hookConfig.event;
 
@@ -790,10 +788,10 @@ async function createClaudeSettingsLocal(projectRoot) {
       settings.hooks[eventName] = [];
     }
 
-    // Windows workaround: $CLAUDE_PROJECT_DIR has known bug on Windows (GH #6023/#5814)
-    const hookCommand = isWindows
-      ? `node "${hookFilePath.replace(/\\/g, '\\\\')}"` // Absolute path with escaped backslashes
-      : `node "$CLAUDE_PROJECT_DIR/.claude/hooks/${hookFileName}"`;
+    // Use relative path — works on all platforms, no $CLAUDE_PROJECT_DIR bugs
+    // (GH #6023/#5814), no fragile absolute Windows paths with escaped backslashes.
+    // Claude Code resolves relative paths from the project root (cwd).
+    const hookCommand = `node .claude/hooks/${hookFileName}`;
 
     // Check if this hook is already registered under this event
     const hookBaseName = hookFileName.replace('.cjs', '');
@@ -810,7 +808,6 @@ async function createClaudeSettingsLocal(projectRoot) {
           {
             type: 'command',
             command: hookCommand,
-            timeout: hookConfig.timeout,
           },
         ],
       };
