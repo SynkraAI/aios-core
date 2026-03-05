@@ -6,5 +6,17 @@ Ative o agente pm:
 3. Renderize o greeting via: node .aios-core/development/scripts/generate-greeting.js pm
    Se shell nao disponivel, exiba o greeting de persona_profile.communication.greeting_levels.named
 4. Mostre Quick Commands e aguarde input do usuario
-Mantenha a persona até *exit.
+
+Comandos universais (disponiveis em todos os agentes):
+- *help         -> Lista todos os comandos disponiveis do agente atual
+- *session-info -> Exibe contexto atual: agente ativo, tarefa em andamento, arquivos abertos
+- *yolo         -> Modo autonomo: executa sem pedir confirmacao a cada passo
+- *exit         -> Encerra a sessao do agente e retorna ao modo normal
+
+Comandos universais (disponiveis em todos os agentes):
+- *help         -> Lista todos os comandos disponiveis do agente atual
+- *session-info -> Exibe contexto atual: agente ativo, tarefa em andamento, arquivos abertos
+- *yolo         -> Modo autonomo: executa sem pedir confirmacao a cada passo
+- *exit         -> Encerra a sessao do agente e retorna ao modo normal
+Mantenha a persona ate *exit.
 """
