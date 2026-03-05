@@ -140,9 +140,8 @@ class VariableElicitation {
    * @returns {Promise<number>} Next available number
    */
   async getNextNumber(docType) {
-    const fs = require('fs').promises;
     const path = require('path');
-    const glob = require('glob');
+    const fg = require('fast-glob');
 
     const patterns = {
       adr: 'docs/architecture/decisions/adr-*.md',
@@ -156,7 +155,7 @@ class VariableElicitation {
     const pattern = patterns[docType] || `**/${docType}-*.md`;
 
     try {
-      const files = glob.sync(pattern, { cwd: process.cwd() });
+      const files = fg.sync(pattern, { cwd: process.cwd() });
       const numbers = files.map(f => {
         const match = path.basename(f).match(new RegExp(`${docType}-(\\d+)`));
         return match ? parseInt(match[1], 10) : 0;

@@ -37,6 +37,138 @@ try {
 const LICENSE_SERVER_URL = process.env.AIOX_LICENSE_API_URL || 'https://aiox-license-server.vercel.app';
 
 /**
+ * Inline License Client — lightweight HTTP client for pre-bootstrap license checks.
+ *
+ * Used when @aiox-fullstack/pro is not yet installed (first install scenario).
+ * Implements the same interface subset as LicenseApiClient using Node.js native https.
+ */
+class InlineLicenseClient {
+  constructor(baseUrl = LICENSE_SERVER_URL) {
+    this.baseUrl = baseUrl;
+  }
+
+  /**
+   * Make an HTTPS request and return parsed JSON.
+   * @param {string} method - HTTP method
+   * @param {string} urlPath - URL path (e.g., '/api/v1/auth/check-email')
+   * @param {Object} [body] - JSON body for POST requests
+   * @param {Object} [headers] - Additional headers
+   * @returns {Promise<Object>} Parsed JSON response
+   */
+  _request(method, urlPath, body, headers = {}) {
+    return new Promise((resolve, reject) => {
+      const https = require('https');
+      const url = new URL(urlPath, this.baseUrl);
+
+      const options = {
+        hostname: url.hostname,
+        port: url.port || 443,
+        path: url.pathname + url.search,
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'User-Agent': 'aiox-installer',
+          ...headers,
+        },
+        timeout: 15000,
+      };
+
+      const req = https.request(options, (res) => {
+        let data = '';
+        res.on('data', (chunk) => { data += chunk; });
+        res.on('end', () => {
+          try {
+            const parsed = JSON.parse(data);
+            if (res.statusCode >= 400) {
+              const err = new Error(parsed.message || `HTTP ${res.statusCode}`);
+              err.code = parsed.code;
+              reject(err);
+            } else {
+              resolve(parsed);
+            }
+          } catch {
+            reject(new Error(`Invalid JSON response (HTTP ${res.statusCode})`));
+          }
+        });
+      });
+
+      req.on('error', (err) => {
+        const networkErr = new Error(err.message);
+        networkErr.code = 'NETWORK_ERROR';
+        reject(networkErr);
+      });
+
+      req.on('timeout', () => {
+        req.destroy();
+        const timeoutErr = new Error('Request timeout');
+        timeoutErr.code = 'NETWORK_ERROR';
+        reject(timeoutErr);
+      });
+
+      if (body) {
+        req.write(JSON.stringify(body));
+      }
+      req.end();
+    });
+  }
+
+  /** @returns {Promise<boolean>} true if license server is reachable */
+  async isOnline() {
+    try {
+      await this._request('GET', '/health');
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Check if email is a buyer and has an account.
+   * @param {string} email
+   * @returns {Promise<{isBuyer: boolean, hasAccount: boolean}>}
+   */
+  async checkEmail(email) {
+    return this._request('POST', '/api/v1/auth/check-email', { email });
+  }
+
+  /**
+   * Login with email and password.
+   * @param {string} email
+   * @param {string} password
+   * @returns {Promise<{sessionToken: string, emailVerified: boolean}>}
+   */
+  async login(email, password) {
+    return this._request('POST', '/api/v1/auth/login', { email, password });
+  }
+
+  /**
+   * Create a new account.
+   * @param {string} email
+   * @param {string} password
+   * @returns {Promise<Object>}
+   */
+  async signup(email, password) {
+    return this._request('POST', '/api/v1/auth/signup', { email, password });
+  }
+
+  /**
+   * Activate Pro using an authenticated session.
+   * @param {string} token - Session token
+   * @param {string} machineId - Machine fingerprint
+   * @param {string} version - aiox-core version
+   * @returns {Promise<Object>} Activation result
+   */
+  async activateByAuth(token, machineId, version) {
+    return this._request('POST', '/api/v1/auth/activate-pro', {
+      machineId,
+      version,
+    }, {
+      Authorization: `Bearer ${token}`,
+    });
+  }
+}
+
+/**
  * License key format: PRO-XXXX-XXXX-XXXX-XXXX
  */
 const LICENSE_KEY_PATTERN = /^PRO-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
@@ -212,6 +344,27 @@ function loadFeatureGate() {
 }
 
 /**
+ * Get a license API client instance.
+ *
+ * Prefers the full LicenseApiClient from @aiox-fullstack/pro when available.
+ * Falls back to InlineLicenseClient (native https) for pre-bootstrap scenarios.
+ *
+ * @returns {Object} Client instance with isOnline, checkEmail, login, signup, activateByAuth
+ */
+function getLicenseClient() {
+  const loader = module.exports._testing ? module.exports._testing.loadLicenseApi : loadLicenseApi;
+  const licenseModule = loader();
+
+  if (licenseModule) {
+    const { LicenseApiClient } = licenseModule;
+    return new LicenseApiClient();
+  }
+
+  // Fallback: use inline client for pre-bootstrap (no @aiox-fullstack/pro yet)
+  return new InlineLicenseClient();
+}
+
+/**
  * Try to load the pro scaffolder via lazy import.
  *
  * @returns {{ scaffoldProContent: Function }|null} Scaffolder or null
@@ -351,18 +504,7 @@ async function stepLicenseGateWithEmail() {
   const trimmedEmail = email.trim();
 
   // Step 2: Check buyer status + account existence
-  const loader = module.exports._testing ? module.exports._testing.loadLicenseApi : loadLicenseApi;
-  const licenseModule = loader();
-
-  if (!licenseModule) {
-    return {
-      success: false,
-      error: t('proModuleNotAvailable'),
-    };
-  }
-
-  const { LicenseApiClient } = licenseModule;
-  const client = new LicenseApiClient();
+  const client = getLicenseClient();
 
   // Check connectivity
   const online = await client.isOnline();
@@ -630,18 +772,7 @@ async function createAccountFlow(client, email) {
  * @returns {Promise<Object>} Result with { success, key, activationResult }
  */
 async function authenticateWithEmail(email, password) {
-  const loader = module.exports._testing ? module.exports._testing.loadLicenseApi : loadLicenseApi;
-  const licenseModule = loader();
-
-  if (!licenseModule) {
-    return {
-      success: false,
-      error: t('proModuleNotAvailable'),
-    };
-  }
-
-  const { LicenseApiClient } = licenseModule;
-  const client = new LicenseApiClient();
+  const client = getLicenseClient();
 
   // Check connectivity
   const online = await client.isOnline();
@@ -947,19 +1078,7 @@ async function stepLicenseGateWithKey(key) {
  * @returns {Promise<Object>} Result with { success, data?, error? }
  */
 async function validateKeyWithApi(key) {
-  // Use exports._testing for testability (allows mock injection)
-  const loader = module.exports._testing ? module.exports._testing.loadLicenseApi : loadLicenseApi;
-  const licenseModule = loader();
-
-  if (!licenseModule) {
-    return {
-      success: false,
-      error: t('proModuleNotAvailable'),
-    };
-  }
-
-  const { LicenseApiClient } = licenseModule;
-  const client = new LicenseApiClient();
+  const client = getLicenseClient();
 
   try {
     // Check if API is reachable
@@ -1232,49 +1351,7 @@ async function runProWizard(options = {}) {
     showProHeader();
   }
 
-  // Pre-check: If license module is not available (brownfield upgrade from older version),
-  // install @aiox-fullstack/pro first to get the license API, then proceed with gate.
-  if (!loadLicenseApi()) {
-    const fs = require('fs');
-    const path = require('path');
-    const { execSync } = require('child_process');
-
-    showInfo(t('proModuleBootstrap'));
-
-    // Ensure package.json exists
-    const packageJsonPath = path.join(targetDir, 'package.json');
-    if (!fs.existsSync(packageJsonPath)) {
-      execSync('npm init -y', { cwd: targetDir, stdio: 'pipe' });
-    }
-
-    // Install @aiox-fullstack/pro to get license module
-    const proDir = path.join(targetDir, 'node_modules', '@aiox-fullstack', 'pro');
-    if (!fs.existsSync(proDir)) {
-      const installSpinner = createSpinner(t('proInstallingPackage'));
-      installSpinner.start();
-      try {
-        execSync('npm install @aiox-fullstack/pro', {
-          cwd: targetDir,
-          stdio: 'pipe',
-          timeout: 120000,
-        });
-        installSpinner.succeed(t('proPackageInstalled'));
-      } catch (err) {
-        installSpinner.fail(t('proPackageInstallFailed'));
-        result.error = tf('proNpmInstallFailed', { message: err.message });
-        return result;
-      }
-    }
-
-    // Clear require cache so loadLicenseApi() picks up newly installed module
-    Object.keys(require.cache).forEach((key) => {
-      if (key.includes('license-api') || key.includes('@aiox-fullstack')) {
-        delete require.cache[key];
-      }
-    });
-  }
-
-  // Step 1: License Gate
+  // Step 1: License Gate (uses InlineLicenseClient if @aiox-fullstack/pro not yet installed)
   const licenseResult = await stepLicenseGate({
     key: options.key || process.env.AIOX_PRO_KEY,
     email: options.email || process.env.AIOX_PRO_EMAIL,
@@ -1341,6 +1418,8 @@ module.exports = {
     loadLicenseApi,
     loadFeatureGate,
     loadProScaffolder,
+    getLicenseClient,
+    InlineLicenseClient,
     LICENSE_SERVER_URL,
     MAX_RETRIES,
     LICENSE_KEY_PATTERN,
