@@ -76,7 +76,7 @@ steps:
   - name: Read Story Status (MANDATORY)
     action: |
       For EACH story file found in Step 2:
-        Read the first 20 lines and extract:
+        Read the file and extract:
           - Story title: first line starting with "# "
           - Status: the line immediately after "## Status" heading,
             trimmed of "**" markers and whitespace.
@@ -241,7 +241,7 @@ duration_expected: 10-30 seconds
 cost_estimated: $0.001-0.005
 token_usage: ~1,000-5,000 tokens
 optimization: |
-  Read only the first 20 lines of each story file (status is in the ## Status section).
+  Read each story file and search for the ## Status section heading.
   Use parallel Read calls for multiple story files.
   Cache nothing — always read fresh.
 ```
