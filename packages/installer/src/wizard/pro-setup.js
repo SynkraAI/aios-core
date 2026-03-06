@@ -1190,50 +1190,23 @@ async function stepInstallScaffold(targetDir, options = {}) {
 
   const path = require('path');
   const fs = require('fs');
-  const { execSync } = require('child_process');
 
-  const proSourceDir = path.join(targetDir, 'node_modules', '@aiox-fullstack', 'pro');
+  // Resolve pro source directory from multiple locations:
+  // 1. Bundled in aiox-core package (pro/ submodule — npx and local dev)
+  // 2. @aiox-fullstack/pro in node_modules (legacy brownfield)
+  const bundledProDir = path.resolve(__dirname, '..', '..', '..', '..', 'pro');
+  const npmProDir = path.join(targetDir, 'node_modules', '@aiox-fullstack', 'pro');
 
-  // Step 2a: Ensure package.json exists (greenfield projects)
-  const packageJsonPath = path.join(targetDir, 'package.json');
-  if (!fs.existsSync(packageJsonPath)) {
-    const initSpinner = createSpinner(t('proInitPackageJson'));
-    initSpinner.start();
-    try {
-      execSync('npm init -y', { cwd: targetDir, stdio: 'pipe' });
-      initSpinner.succeed(t('proPackageJsonCreated'));
-    } catch (err) {
-      initSpinner.fail(t('proPackageJsonFailed'));
-      return { success: false, error: tf('proNpmInitFailed', { message: err.message }) };
-    }
-  }
-
-  // Step 2b: Install @aiox-fullstack/pro if not present
-  if (!fs.existsSync(proSourceDir)) {
-    const installSpinner = createSpinner(t('proInstallingPackage'));
-    installSpinner.start();
-    try {
-      execSync('npm install @aiox-fullstack/pro', {
-        cwd: targetDir,
-        stdio: 'pipe',
-        timeout: 120000,
-      });
-      installSpinner.succeed(t('proPackageInstalled'));
-    } catch (err) {
-      installSpinner.fail(t('proPackageInstallFailed'));
-      return {
-        success: false,
-        error: tf('proNpmInstallFailed', { message: err.message }),
-      };
-    }
-
-    // Validate installation
-    if (!fs.existsSync(proSourceDir)) {
-      return {
-        success: false,
-        error: t('proPackageNotFound'),
-      };
-    }
+  let proSourceDir;
+  if (fs.existsSync(bundledProDir) && fs.existsSync(path.join(bundledProDir, 'squads'))) {
+    proSourceDir = bundledProDir;
+  } else if (fs.existsSync(npmProDir)) {
+    proSourceDir = npmProDir;
+  } else {
+    return {
+      success: false,
+      error: t('proPackageNotFound'),
+    };
   }
 
   // Step 2c: Scaffold pro content
