@@ -11,7 +11,7 @@ interface SeasonSelectorProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const SEASONS: { key: Season; label: string; emoji: string; color: string }[] = [
   { key: 'primavera', label: 'Primavera', emoji: '\uD83C\uDF31', color: '#5EA142' },
-  { key: 'verao', label: 'Verao', emoji: '\u2600\uFE0F', color: '#D48113' },
+  { key: 'verao', label: 'Verão', emoji: '\u2600\uFE0F', color: '#D48113' },
   { key: 'outono', label: 'Outono', emoji: '\uD83C\uDF42', color: '#C97A46' },
   { key: 'inverno', label: 'Inverno', emoji: '\u2744\uFE0F', color: '#185474' },
 ] as const
@@ -26,7 +26,7 @@ export function SeasonSelector({
     <div
       className={cn('flex items-center gap-2', className)}
       role="radiogroup"
-      aria-label="Selecionar estacao"
+      aria-label="Selecionar estação"
       {...props}
     >
       {SEASONS.map((season) => {

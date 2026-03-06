@@ -12,9 +12,9 @@ export interface SeasonInfo {
 }
 
 const SEASON_MAP: Record<Season, Omit<SeasonInfo, 'season'>> = {
-  primavera: { label: 'Primavera', element: 'Madeira', organ: 'Figado' },
-  verao: { label: 'Verão', element: 'Fogo', organ: 'Coracao' },
-  outono: { label: 'Outono', element: 'Metal', organ: 'Pulmao' },
+  primavera: { label: 'Primavera', element: 'Madeira', organ: 'Fígado' },
+  verao: { label: 'Verão', element: 'Fogo', organ: 'Coração' },
+  outono: { label: 'Outono', element: 'Metal', organ: 'Pulmão' },
   inverno: { label: 'Inverno', element: 'Água', organ: 'Rim' },
 } as const
 
@@ -56,7 +56,7 @@ const SeasonContext = createContext<SeasonContextValue | null>(null)
 
 interface SeasonProviderProps {
   children: ReactNode
-  /** Forcar uma estação especifica (para preview/testing) */
+  /** Forçar uma estação específica (para preview/testing) */
   forceSeason?: Season
 }
 

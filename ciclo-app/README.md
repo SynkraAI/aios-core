@@ -35,17 +35,17 @@ ciclo-app/
 - Node.js >= 18.17
 - pnpm >= 9.0 (`npm install -g pnpm`)
 
-### Instalacao
+### Instalação
 
 ```bash
-# 1. Clone o repositorio
+# 1. Clone o repositório
 git clone <repo-url>
 cd ciclo-app
 
-# 2. Instale as dependencias
+# 2. Instale as dependências
 pnpm install
 
-# 3. Configure as variaveis de ambiente
+# 3. Configure as variáveis de ambiente
 cp .env.example .env.local
 # Edite .env.local com suas credenciais do Supabase
 
@@ -74,9 +74,9 @@ pnpm dev
 | admin | 3001 | http://localhost:3001 |
 | landing | 3002 | http://localhost:3002 |
 
-## Variaveis de Ambiente
+## Variáveis de Ambiente
 
-Veja `.env.example` para a lista completa. Variaveis obrigatórias:
+Veja `.env.example` para a lista completa. Variáveis obrigatórias:
 
 - `DATABASE_URL` — Connection string pooled do Supabase (runtime)
 - `DIRECT_URL` — Connection string direct do Supabase (migrations)

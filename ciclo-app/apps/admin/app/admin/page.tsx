@@ -293,7 +293,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminDashboar
             Dashboard
           </h1>
           <p className="mt-1 text-sm text-base-dark/60">
-            Visao geral do Ciclo das Estações
+            Visão geral do Ciclo das Estações
           </p>
         </div>
         <Suspense fallback={<Skeleton className="h-9 w-64 bg-base-dark/10" />}>

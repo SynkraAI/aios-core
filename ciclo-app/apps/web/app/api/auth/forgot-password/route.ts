@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
     // Always return success to prevent email enumeration
     const successResponse = NextResponse.json({
-      message: 'Se o email estiver cadastrado, você recebera instruções para redefinir sua senha.',
+      message: 'Se o email estiver cadastrado, você receberá instruções para redefinir sua senha.',
     })
 
     const user = await prisma.user.findUnique({

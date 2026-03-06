@@ -77,7 +77,7 @@ export function renderReminder7dEmail(data: Reminder7dEmailData): EmailRenderRes
       Veja todos os detalhes do evento:
     </p>
 
-    ${buttonBlock('Ver Pagina do Evento', data.eventPageUrl)}
+    ${buttonBlock('Ver Página do Evento', data.eventPageUrl)}
   `
 
   const html = emailLayout(content, `Falta 1 semana para ${data.eventName}`)
@@ -92,13 +92,13 @@ export function renderReminder7dEmail(data: Reminder7dEmailData): EmailRenderRes
 
   const text = `LEMBRETE: FALTA 1 SEMANA - Ciclo das Estações
 
-Ola, ${data.participantName}! Falta apenas uma semana para o seu evento.
+Olá, ${data.participantName}! Falta apenas uma semana para o seu evento.
 
 Evento: ${data.eventName}
 Data: ${data.eventDate}
 Local: ${data.eventLocation}
 ${whatToBringText}${directionsText}
-Pagina do evento: ${data.eventPageUrl}
+Página do evento: ${data.eventPageUrl}
 
 ---
 ${BRAND.footer}`

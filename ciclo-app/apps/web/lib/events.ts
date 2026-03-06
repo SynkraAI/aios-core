@@ -1,6 +1,6 @@
 /**
  * Data fetching functions for public event pages.
- * Story E2.5 — Pagina Publica do Evento (SSR)
+ * Story E2.5 — Página Pública do Evento (SSR)
  */
 import { prisma } from '@ciclo/database'
 

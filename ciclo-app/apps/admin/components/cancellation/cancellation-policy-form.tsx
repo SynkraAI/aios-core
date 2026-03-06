@@ -83,7 +83,7 @@ export function CancellationPolicyForm({
           : await updateEventPolicy(eventId!, policy)
 
       if (result.success) {
-        setMessage({ type: 'success', text: 'Politica salva com sucesso.' })
+        setMessage({ type: 'success', text: 'Política salva com sucesso.' })
         router.refresh()
       } else {
         setMessage({ type: 'error', text: result.error ?? 'Erro ao salvar.' })
@@ -231,7 +231,7 @@ export function CancellationPolicyForm({
           disabled={isLoading}
           className="rounded-md bg-green-700 px-6 py-2 text-sm font-semibold text-white hover:bg-green-800 disabled:opacity-50"
         >
-          {isLoading ? 'Salvando...' : 'Salvar Politica'}
+          {isLoading ? 'Salvando...' : 'Salvar Política'}
         </button>
 
         {mode === 'event' && initialPolicy && (

@@ -44,7 +44,7 @@ export default function ForgotPasswordPage() {
           Email Enviado
         </h1>
         <p className="mb-6 text-center text-stone-600">
-          Se o email estiver cadastrado, você recebera instruções para redefinir sua senha.
+          Se o email estiver cadastrado, você receberá instruções para redefinir sua senha.
           Verifique sua caixa de entrada e spam.
         </p>
         <Link

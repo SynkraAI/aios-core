@@ -59,7 +59,7 @@ export const MandalaPattern = React.forwardRef<SVGSVGElement, MandalaPatternProp
             />
           )
         })}
-        {/* Pontos nos intersecoes */}
+        {/* Pontos nas interseções */}
         {Array.from({ length: rings }, (_, ri) =>
           Array.from({ length: petals }, (_, pi) => {
             const r = ((ri + 1) / rings) * 45

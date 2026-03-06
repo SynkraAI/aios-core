@@ -176,13 +176,13 @@ function validateForm(form: TicketFormData): FormErrors {
 
   const regularPrice = parseFloat(form.regularPrice)
   if (!form.regularPrice || isNaN(regularPrice) || regularPrice <= 0) {
-    errors.regularPrice = 'Preco regular deve ser maior que zero.'
+    errors.regularPrice = 'Preço regular deve ser maior que zero.'
   }
 
   if (form.earlyBirdPrice) {
     const ebPrice = parseFloat(form.earlyBirdPrice)
     if (isNaN(ebPrice) || ebPrice <= 0) {
-      errors.earlyBirdPrice = 'Preco early bird deve ser maior que zero.'
+      errors.earlyBirdPrice = 'Preço early bird deve ser maior que zero.'
     } else if (!isNaN(regularPrice) && ebPrice >= regularPrice) {
       // Warning, não bloqueante — usamos console.warn em vez de bloquear
       // AC-11: warning, não bloqueante
@@ -281,21 +281,21 @@ function TicketForm({
         <TagInput
           tags={form.includes}
           onChange={(tags) => update('includes', tags)}
-          placeholder="Ex: Refeicoes, Workshops, Materiais"
+          placeholder="Ex: Refeições, Workshops, Materiais"
         />
       </div>
 
       {/* Pricing */}
       <fieldset className="space-y-3">
         <legend className="text-sm font-semibold text-gray-900">
-          Precos (em Reais)
+          Preços (em Reais)
         </legend>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {/* Preco Regular */}
+          {/* Preço Regular */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Preco Regular (R$) *
+              Preço Regular (R$) *
             </label>
             <Input
               type="number"
@@ -336,7 +336,7 @@ function TicketForm({
           {/* Early Bird */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Preco Early Bird (R$)
+              Preço Early Bird (R$)
             </label>
             <Input
               type="number"
@@ -370,7 +370,7 @@ function TicketForm({
           {/* Last Minute */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Preco Last Minute (R$)
+              Preço Last Minute (R$)
             </label>
             <Input
               type="number"
@@ -384,7 +384,7 @@ function TicketForm({
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Data Inicio Last Minute
+              Data Início Last Minute
             </label>
             <input
               type="datetime-local"
@@ -451,7 +451,7 @@ export function TicketTypeManager({
       const eb = parseFloat(form.earlyBirdPrice)
       const reg = parseFloat(form.regularPrice)
       if (!isNaN(eb) && !isNaN(reg) && eb >= reg) {
-        return 'Atenção: o preco early bird esta igual ou maior que o preco regular.'
+        return 'Atenção: o preço early bird está igual ou maior que o preço regular.'
       }
     }
     return null

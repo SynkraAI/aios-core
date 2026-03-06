@@ -27,7 +27,7 @@ export async function requireRole(requiredRole: UserRole) {
 
   if (!hasPermission(session.user.role, requiredRole)) {
     throw new Error(
-      `Acesso negado. Requer permissao de nivel ${requiredRole} ou superior.`
+      `Acesso negado. Requer permissão de nível ${requiredRole} ou superior.`
     )
   }
 

@@ -85,7 +85,7 @@ export default async function PaymentPage({ params }: PageProps) {
       {policyNote && (
         <div className="mx-auto mt-4 max-w-2xl px-4">
           <p className="text-xs text-gray-500 text-center">
-            Politica de cancelamento: {policyNote}{' '}
+            Política de cancelamento: {policyNote}{' '}
             <a
               href={`/eventos/${event.slug}#cancelamento-heading`}
               className="underline hover:text-gray-700"

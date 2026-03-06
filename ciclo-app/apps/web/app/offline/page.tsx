@@ -39,7 +39,7 @@ export default function OfflinePage() {
           </li>
           <li className="flex items-start gap-2">
             <span className="mt-1 text-[#8B7355]" aria-hidden="true">&#x2714;</span>
-            <span>Navegar por paginas que já visitou</span>
+            <span>Navegar por páginas que já visitou</span>
           </li>
         </ul>
       </div>

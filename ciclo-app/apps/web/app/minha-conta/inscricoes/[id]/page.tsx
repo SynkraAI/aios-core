@@ -189,7 +189,7 @@ export default async function RegistrationDetailPage({ params }: PageProps) {
         </dl>
       </div>
 
-      {/* Politica de cancelamento */}
+      {/* Política de cancelamento */}
       {canCancel && policyRules.length > 0 && (
         <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 mb-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-3">
@@ -233,7 +233,7 @@ export default async function RegistrationDetailPage({ params }: PageProps) {
       {canCancel && paidAmount > 0 && (
         <div className="rounded-lg border border-amber-200 bg-amber-50 p-6 mb-6">
           <h2 className="text-lg font-semibold text-amber-900 mb-2">
-            Previa de Reembolso
+            Prévia de Reembolso
           </h2>
           <p className="text-sm text-amber-800">
             Se você cancelar agora ({daysUntilEvent} dias antes do evento):
@@ -258,7 +258,7 @@ export default async function RegistrationDetailPage({ params }: PageProps) {
               Cancelar Inscrição
             </h2>
             <p className="text-sm text-gray-600 mb-4">
-              Ao cancelar, sua vaga será liberada. O reembolso (se aplicavel) sera
+              Ao cancelar, sua vaga será liberada. O reembolso (se aplicável) será
               processado pelo administrador.
             </p>
             <CancelRegistrationForm

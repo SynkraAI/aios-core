@@ -85,7 +85,7 @@ export function ImageGalleryManager({ eventId, images: initialImages }: ImageGal
   return (
     <div className="space-y-4">
       <p className="text-xs text-gray-500">
-        Upload via Supabase Storage sera implementado em fase posterior.
+        Upload via Supabase Storage será implementado em fase posterior.
         Por enquanto, insira URLs de imagem diretamente.
       </p>
 

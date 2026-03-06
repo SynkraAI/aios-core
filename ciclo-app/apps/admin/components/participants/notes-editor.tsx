@@ -54,9 +54,9 @@ export function NotesEditor({ userId, existingNotes }: NotesEditorProps) {
 
       if (result.success) {
         setNoteText('')
-        setFeedback({ type: 'success', message: 'Anotacao salva com sucesso.' })
+        setFeedback({ type: 'success', message: 'Anotação salva com sucesso.' })
       } else {
-        setFeedback({ type: 'error', message: result.error ?? 'Erro ao salvar anotacao.' })
+        setFeedback({ type: 'error', message: result.error ?? 'Erro ao salvar anotação.' })
       }
     })
   }
@@ -78,20 +78,20 @@ export function NotesEditor({ userId, existingNotes }: NotesEditorProps) {
       )}
 
       {existingNotes.length === 0 && (
-        <p className="mb-4 text-sm text-gray-500">Nenhuma anotacao registrada.</p>
+        <p className="mb-4 text-sm text-gray-500">Nenhuma anotação registrada.</p>
       )}
 
       {/* New note input */}
       <div>
         <label htmlFor="noteText" className="block text-sm font-medium text-gray-700">
-          Nova anotacao
+          Nova anotação
         </label>
         <textarea
           id="noteText"
           value={noteText}
           onChange={(e) => setNoteText(e.target.value)}
           rows={3}
-          placeholder="Escreva uma anotacao interna sobre este participante..."
+          placeholder="Escreva uma anotação interna sobre este participante..."
           className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
         <div className="mt-2 flex items-center gap-3">
@@ -100,7 +100,7 @@ export function NotesEditor({ userId, existingNotes }: NotesEditorProps) {
             onClick={handleSave}
             disabled={isPending || !noteText.trim()}
           >
-            {isPending ? 'Salvando...' : 'Salvar Anotacao'}
+            {isPending ? 'Salvando...' : 'Salvar Anotação'}
           </Button>
           {feedback && (
             <span

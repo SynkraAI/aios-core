@@ -170,12 +170,12 @@ export function RoomForm({ room, mode }: RoomFormProps) {
 
       {/* Pricing & Capacity */}
       <fieldset className="space-y-4">
-        <legend className="text-lg font-semibold text-gray-900">Preco e Capacidade</legend>
+        <legend className="text-lg font-semibold text-gray-900">Preço e Capacidade</legend>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="priceReais" className="block text-sm font-medium text-gray-700">
-              Preco por noite (R$) *
+              Preço por noite (R$) *
             </label>
             <Input
               id="priceReais"
@@ -186,7 +186,7 @@ export function RoomForm({ room, mode }: RoomFormProps) {
               inputMode="decimal"
             />
             <p className="mt-1 text-xs text-gray-500">
-              Informe o valor em reais. Sera armazenado em centavos internamente.
+              Informe o valor em reais. Será armazenado em centavos internamente.
             </p>
             {errors.priceReais && <p className="mt-1 text-sm text-red-600">{errors.priceReais}</p>}
           </div>

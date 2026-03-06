@@ -1,8 +1,8 @@
 /**
  * Cancellation policy calculation utilities
  * Pure functions — no side effects, fully testable
- * Story E3.5 — Política de Cancelamento Editavel
- * PRD Ref: FR-02.3, Apendice A
+ * Story E3.5 — Política de Cancelamento Editável
+ * PRD Ref: FR-02.3, Apêndice A
  */
 
 // ============================================================
@@ -26,11 +26,11 @@ export interface RefundResult {
 }
 
 // ============================================================
-// Default Policy (Apendice A)
+// Default Policy (Apêndice A)
 // ============================================================
 
 /**
- * Politica padrão conforme Apendice A do PRD:
+ * Política padrão conforme Apêndice A do PRD:
  * - +15 dias antes do evento: 80% reembolso
  * - 7 a 14 dias antes do evento: 50% reembolso
  * - <7 dias antes do evento: 0% reembolso
@@ -50,7 +50,7 @@ export const DEFAULT_CANCELLATION_POLICY: CancellationPolicy = {
 // ============================================================
 
 /**
- * Calcula a diferenca em dias entre duas datas (somente parte de data, sem horário).
+ * Calcula a diferença em dias entre duas datas (somente parte de data, sem horário).
  * Retorna número inteiro de dias.
  */
 function diffInDays(eventDate: Date, cancelDate: Date): number {
@@ -67,9 +67,9 @@ function diffInDays(eventDate: Date, cancelDate: Date): number {
  * O sistema itera as regras de cima para baixo e aplica a primeira
  * cujo threshold <= daysRemaining.
  *
- * @param eventDate - Data de inicio do evento
+ * @param eventDate - Data de início do evento
  * @param cancelDate - Data do pedido de cancelamento
- * @param policy - Politica de cancelamento a aplicar
+ * @param policy - Política de cancelamento a aplicar
  * @param paymentAmount - Valor pago em centavos
  * @returns Resultado com percentual, valor de reembolso e regra aplicada
  */
@@ -97,7 +97,7 @@ export function calculateRefund(
     }
   }
 
-  // Nenhuma regra aplicavel (nao deveria acontecer com regra de 0 dias)
+  // Nenhuma regra aplicável (não deveria acontecer com regra de 0 dias)
   return { refundPercent: 0, refundAmount: 0, rule: null }
 }
 
@@ -141,9 +141,9 @@ export function validateCancellationPolicy(policy: CancellationPolicy): string[]
 }
 
 /**
- * Converte modelo do banco (CancellationPolicy do Prisma) para CancellationPolicy do dominio.
+ * Converte modelo do banco (CancellationPolicy do Prisma) para CancellationPolicy do domínio.
  * O modelo do Prisma usa campos fixos (earlyDaysThreshold, midDaysLowerThreshold, etc.)
- * enquanto o dominio usa array de regras flexivel.
+ * enquanto o domínio usa array de regras flexível.
  */
 export function dbPolicyToDomain(dbPolicy: {
   earlyDaysThreshold: number
@@ -166,7 +166,7 @@ export function dbPolicyToDomain(dbPolicy: {
 }
 
 /**
- * Converte CancellationPolicy do dominio para campos do modelo Prisma.
+ * Converte CancellationPolicy do domínio para campos do modelo Prisma.
  * Espera exatamente 3 regras ordenadas por daysBeforeEvent desc.
  */
 export function domainPolicyToDb(policy: CancellationPolicy): {

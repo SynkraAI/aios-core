@@ -15,7 +15,7 @@ export function SidebarNav({ items, onItemClick }: SidebarNavProps) {
   const pathname = usePathname()
 
   return (
-    <nav className="flex flex-col gap-1 px-3 py-2" aria-label="Navegacao do admin">
+    <nav className="flex flex-col gap-1 px-3 py-2" aria-label="Navegação do admin">
       {items.map((item) => {
         const isActive =
           item.href === '/admin'

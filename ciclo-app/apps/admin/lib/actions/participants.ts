@@ -72,7 +72,7 @@ export interface ParticipantActionResult {
 // ============================================================
 
 /**
- * Lista participantes com filtros e paginacao (offset-based)
+ * Lista participantes com filtros e paginação (offset-based)
  * AC-1, AC-2, AC-3
  */
 export async function getParticipants(
@@ -173,7 +173,7 @@ export async function getParticipants(
 }
 
 /**
- * Busca perfil completo do participante com historico de inscrições
+ * Busca perfil completo do participante com histórico de inscrições
  * AC-4
  */
 export async function getParticipant(id: string): Promise<ParticipantDetail | null> {
@@ -327,7 +327,7 @@ export async function promoteRole(
     if (!allowed.includes(newRole)) {
       return {
         success: false,
-        error: `Promoção invalida: ${user.role} -> ${newRole}. Permitido: ${allowed.join(', ') || 'nenhuma'}`,
+        error: `Promoção inválida: ${user.role} -> ${newRole}. Permitido: ${allowed.join(', ') || 'nenhuma'}`,
       }
     }
 

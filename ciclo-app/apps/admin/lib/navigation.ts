@@ -65,7 +65,7 @@ export const NAV_ITEMS: NavItem[] = [
     roles: ['ADMIN'],
   },
   {
-    label: 'Espacos',
+    label: 'Espaços',
     href: '/admin/espacos',
     icon: 'MapPin',
     roles: ['ADMIN'],
@@ -100,6 +100,6 @@ export const ROUTE_LABELS: Record<string, string> = {
   participantes: 'Participantes',
   leads: 'Leads',
   produtos: 'Produtos',
-  espacos: 'Espacos',
+  espacos: 'Espaços',
   configurações: 'Configurações',
 }

@@ -80,8 +80,8 @@ function DeleteModal({ eventName, onConfirm, onCancel }: DeleteModalProps) {
           Tem certeza que deseja excluir o evento <strong>{eventName}</strong>?
         </p>
         <p className="mt-1 text-xs text-gray-500">
-          Se houver inscrições, o evento sera marcado como deletado (soft delete).
-          Caso contrario, sera removido permanentemente.
+          Se houver inscrições, o evento será marcado como deletado (soft delete).
+          Caso contrário, será removido permanentemente.
         </p>
         <div className="mt-4 flex justify-end gap-3">
           <Button variant="outline" size="sm" onClick={onCancel}>

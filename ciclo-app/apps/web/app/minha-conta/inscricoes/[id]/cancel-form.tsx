@@ -84,7 +84,7 @@ export function CancelRegistrationForm({
         </p>
         {refundAmount > 0 ? (
           <p className="text-sm text-red-600 mt-1">
-            Você recebera um reembolso de {refundPercent}% ({formatCurrency(refundAmount)}).
+            Você receberá um reembolso de {refundPercent}% ({formatCurrency(refundAmount)}).
           </p>
         ) : (
           <p className="text-sm text-red-600 mt-1">

@@ -4,7 +4,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://ciclodasestações
 
 export const metadata: Metadata = {
   title: 'Política de Privacidade',
-  description: 'Politica de privacidade do Ciclo das Estações — Base Tríade. LGPD, dados coletados, finalidade e seus direitos.',
+  description: 'Política de privacidade do Ciclo das Estações — Base Tríade. LGPD, dados coletados, finalidade e seus direitos.',
   alternates: {
     canonical: `${BASE_URL}/privacidade`,
   },
@@ -27,14 +27,14 @@ export default function PrivacidadePage() {
           </h2>
           <p>
             Coletamos nome, email e preferências de estações de interesse quando você
-            preenche o formulário de interesse. Dados de UTM (origem do acesso) sao
+            preenche o formulário de interesse. Dados de UTM (origem do acesso) são
             coletados automaticamente para fins de análise de marketing.
           </p>
           <h2 className="font-heading text-lg font-semibold text-foreground">
             Finalidade
           </h2>
           <p>
-            Seus dados sao utilizados exclusivamente para envio de informações sobre
+            Seus dados são utilizados exclusivamente para envio de informações sobre
             eventos do Ciclo das Estações e comunicações relacionadas ao programa.
           </p>
           <h2 className="font-heading text-lg font-semibold text-foreground">
@@ -45,7 +45,7 @@ export default function PrivacidadePage() {
             momento através do email contato@basetriade.com.
           </p>
           <p className="mt-8 text-xs">
-            Ultima atualização: Março de 2026
+            Última atualização: Março de 2026
           </p>
         </div>
       </div>

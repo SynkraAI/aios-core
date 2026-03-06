@@ -63,7 +63,7 @@ function DeleteModal({ facilitatorName, error, onConfirm, onCancel }: DeleteModa
           </div>
         )}
         <p className="mt-1 text-xs text-gray-500">
-          Se o facilitador estiver associado a atividades em eventos futuros, a exclusão sera impedida.
+          Se o facilitador estiver associado a atividades em eventos futuros, a exclusão será impedida.
         </p>
         <div className="mt-4 flex justify-end gap-3">
           <Button variant="outline" size="sm" onClick={onCancel}>

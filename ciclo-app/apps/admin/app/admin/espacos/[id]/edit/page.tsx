@@ -26,7 +26,7 @@ export default async function EditRoomPage({ params }: EditRoomPageProps) {
       <div className="mb-8">
         <nav className="mb-4 text-sm text-gray-500">
           <Link href="/admin/espacos" className="hover:text-gray-700">
-            Espacos
+            Espaços
           </Link>
           <span className="mx-2">/</span>
           <span className="text-gray-900">{room.name}</span>

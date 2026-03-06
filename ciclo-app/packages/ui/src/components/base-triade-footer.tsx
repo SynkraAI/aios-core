@@ -24,7 +24,7 @@ export function BaseTriadeFooter({ variant = 'default', className, ...props }: B
             variant === 'default' ? 'text-sm' : 'text-xs',
           )}
         >
-          iAi &middot; ECOssistema Base Triade&trade;
+          iAi &middot; ECOssistema Base Tríade&trade;
         </p>
       </div>
     </footer>

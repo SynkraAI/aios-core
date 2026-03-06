@@ -16,7 +16,7 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'Ciclo das Estações | Autocuidado Ciclico para Terapeutas',
+  title: 'Ciclo das Estações | Autocuidado Cíclico para Terapeutas',
   description:
     'O primeiro programa de autocuidado cíclico do Brasil. Eventos sazonais, comunidade e jornada de transformação para terapeutas holísticos.',
   openGraph: {

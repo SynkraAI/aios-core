@@ -11,35 +11,35 @@ export const revalidate = 300
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://ciclodaseestacoes.com.br'
 
 export const metadata: Metadata = {
-  title: 'Ciclo das Estacoes — Jornadas de Autoconhecimento | Base Triade',
+  title: 'Ciclo das Estações — Jornadas de Autoconhecimento | Base Tríade',
   description:
-    'Programa de autocuidado ciclico com Medicina Tradicional Chinesa, Ayurveda e Yoga. Eventos sazonais presenciais em Barra Velha, SC.',
+    'Programa de autocuidado cíclico com Medicina Tradicional Chinesa, Ayurveda e Yoga. Eventos sazonais presenciais em Barra Velha, SC.',
   alternates: { canonical: BASE_URL },
   openGraph: {
-    title: 'Ciclo das Estacoes — Jornadas de Autoconhecimento',
+    title: 'Ciclo das Estações — Jornadas de Autoconhecimento',
     description:
-      'Programa de autocuidado ciclico com MTC, Ayurveda e Yoga. Eventos sazonais em Barra Velha, SC.',
+      'Programa de autocuidado cíclico com MTC, Ayurveda e Yoga. Eventos sazonais em Barra Velha, SC.',
     type: 'website',
     url: BASE_URL,
-    images: [{ url: `${BASE_URL}/og-default.svg`, width: 1200, height: 630, alt: 'Ciclo das Estacoes' }],
+    images: [{ url: `${BASE_URL}/og-default.svg`, width: 1200, height: 630, alt: 'Ciclo das Estações' }],
   },
 }
 
 const SEASONS_MANDALA = [
-  { slug: 'primavera', name: 'Primavera', element: 'Madeira', organ: 'Figado', emoji: '\uD83C\uDF31', color: '#90EE90', nextEvent: 'Equinocio Set 2026', cssClass: 'primavera' },
-  { slug: 'verao', name: 'Verao', element: 'Fogo', organ: 'Coracao', emoji: '\u2600\uFE0F', color: '#FFD700', nextEvent: 'Solsticio Dez 2026', cssClass: 'verao' },
-  { slug: 'outono', name: 'Outono', element: 'Metal', organ: 'Pulmao', emoji: '\uD83C\uDF42', color: '#D2691E', nextEvent: 'Equinocio Mar 2026', cssClass: 'outono' },
-  { slug: 'inverno', name: 'Inverno', element: 'Agua', organ: 'Rins', emoji: '\u2744\uFE0F', color: '#4682B4', nextEvent: 'Solsticio Jun 2026', cssClass: 'inverno' },
+  { slug: 'primavera', name: 'Primavera', element: 'Madeira', organ: 'Fígado', emoji: '\uD83C\uDF31', color: '#90EE90', nextEvent: 'Equinócio Set 2026', cssClass: 'primavera' },
+  { slug: 'verao', name: 'Verão', element: 'Fogo', organ: 'Coração', emoji: '\u2600\uFE0F', color: '#FFD700', nextEvent: 'Solstício Dez 2026', cssClass: 'verao' },
+  { slug: 'outono', name: 'Outono', element: 'Metal', organ: 'Pulmão', emoji: '\uD83C\uDF42', color: '#D2691E', nextEvent: 'Equinócio Mar 2026', cssClass: 'outono' },
+  { slug: 'inverno', name: 'Inverno', element: 'Água', organ: 'Rins', emoji: '\u2744\uFE0F', color: '#4682B4', nextEvent: 'Solstício Jun 2026', cssClass: 'inverno' },
 ] as const
 
 const DEFAULT_VALUES = [
-  { icon: '\uD83C\uDF3F', title: 'Autocuidado Ciclico', text: 'Praticas ancestrais em harmonia com os ciclos da natureza' },
+  { icon: '\uD83C\uDF3F', title: 'Autocuidado Cíclico', text: 'Práticas ancestrais em harmonia com os ciclos da natureza' },
   { icon: '\uD83E\uDDD1\u200D\uD83E\uDD1D\u200D\uD83E\uDDD1', title: 'Comunidade de Terapeutas', text: 'Encontros presenciais com terapeutas e buscadores' },
-  { icon: '\uD83C\uDF3E', title: 'Reconexao com a Natureza', text: 'Jornada GET137 de 137 dias entre estacoes' },
+  { icon: '\uD83C\uDF3E', title: 'Reconexão com a Natureza', text: 'Jornada GET137 de 137 dias entre estações' },
 ] as const
 
 const ELEMENT_MAP: Record<string, string> = {
-  Wood: 'Madeira', Fire: 'Fogo', Earth: 'Terra', Metal: 'Metal', Water: 'Agua',
+  Wood: 'Madeira', Fire: 'Fogo', Earth: 'Terra', Metal: 'Metal', Water: 'Água',
 }
 
 function formatDate(date: Date): string {
@@ -79,8 +79,8 @@ export default async function HomePage() {
     ]),
   ])
 
-  const heroTagline = (siteContents.get('hero_tagline') as string | null) ?? 'O programa de autocuidado ciclico da Base Triade'
-  const aboutProgram = (siteContents.get('about_program') as string | null) ?? 'O Ciclo das Estacoes e um programa da Base Triade que integra Medicina Tradicional Chinesa, Ayurveda e Yoga em jornadas sazonais de autoconhecimento.'
+  const heroTagline = (siteContents.get('hero_tagline') as string | null) ?? 'O programa de autocuidado cíclico da Base Tríade'
+  const aboutProgram = (siteContents.get('about_program') as string | null) ?? 'O Ciclo das Estações é um programa da Base Tríade que integra Medicina Tradicional Chinesa, Ayurveda e Yoga em jornadas sazonais de autoconhecimento.'
 
   const valueProps = DEFAULT_VALUES.map((def, i) => {
     const idx = i + 1
@@ -94,7 +94,7 @@ export default async function HomePage() {
   const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Base Triade',
+    name: 'Base Tríade',
     url: BASE_URL,
     logo: `${BASE_URL}/og-default.svg`,
     sameAs: ['https://instagram.com/podprana', 'https://instagram.com/koch.milenar'],
@@ -105,28 +105,28 @@ export default async function HomePage() {
     <div className="flex flex-col">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
 
-      {/* ===== HERO — Terroso Base Triade ===== */}
+      {/* ===== HERO — Terroso Base Tríade ===== */}
       <section className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden bg-background px-4 py-24 text-center">
-        {/* Conteudo hero */}
+        {/* Conteúdo hero */}
         <div className="relative z-10 mx-auto max-w-3xl">
           <h1 className="font-heading text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl" style={{ letterSpacing: '-0.02em' }}>
-            Ciclo das Estacoes
+            Ciclo das Estações
           </h1>
           <p className="mt-3 text-lg text-muted-foreground sm:text-xl">
             {heroTagline}
           </p>
         </div>
 
-        {/* Mandala das 4 Estacoes — Navegacao Central */}
-        <nav className="relative z-10 mt-12 w-full max-w-[800px] px-4" aria-label="Mandala de navegacao das 4 Estacoes">
-          <h2 className="sr-only">Mandala de navegacao das 4 Estacoes</h2>
+        {/* Mandala das 4 Estações — Navegação Central */}
+        <nav className="relative z-10 mt-12 w-full max-w-[800px] px-4" aria-label="Mandala de navegação das 4 Estações">
+          <h2 className="sr-only">Mandala de navegação das 4 Estações</h2>
           <div className="seasons-mandala">
             {SEASONS_MANDALA.map((season) => (
               <Link
                 key={season.slug}
                 href={`/eventos?season=${season.slug}`}
                 className={`season-card ${season.cssClass}`}
-                aria-label={`Estacao ${season.name} — Elemento ${season.element}, Orgao ${season.organ}, proximo evento: ${season.nextEvent}`}
+                aria-label={`Estação ${season.name} — Elemento ${season.element}, Órgão ${season.organ}, próximo evento: ${season.nextEvent}`}
               >
                 <span className="text-4xl" aria-hidden="true">{season.emoji}</span>
                 <span className="mt-3 font-heading text-base font-semibold text-foreground">{season.name}</span>
@@ -191,14 +191,14 @@ export default async function HomePage() {
 
       <SacredDivider variant="sacred" />
 
-      {/* ===== PROXIMOS EVENTOS ===== */}
+      {/* ===== PRÓXIMOS EVENTOS ===== */}
       <section id="eventos" className="bg-background px-4 py-16 sm:py-24">
         <div className="mx-auto max-w-6xl">
           <h2 className="text-center font-heading text-3xl font-bold sm:text-4xl" style={{ color: '#8B4513' }}>
-            Proximos Eventos
+            Próximos Eventos
           </h2>
           <p className="mt-2 text-center text-muted-foreground">
-            Jornadas sazonais para reconexao e transformacao
+            Jornadas sazonais para reconexão e transformação
           </p>
 
           {events.length > 0 ? (
@@ -271,14 +271,14 @@ export default async function HomePage() {
 
       <SacredDivider variant="line" />
 
-      {/* ===== FORMULARIO DE INTERESSE ===== */}
+      {/* ===== FORMULÁRIO DE INTERESSE ===== */}
       <section id="interesse" className="bg-background px-4 py-16 sm:py-24">
         <div className="mx-auto max-w-6xl">
           <h2 className="text-center font-heading text-3xl font-bold sm:text-4xl" style={{ color: '#2d1810' }}>
-            Receba o Chamado das Estacoes
+            Receba o Chamado das Estações
           </h2>
           <p className="mt-2 text-center text-muted-foreground">
-            Receba novidades sobre os proximos eventos e jornadas
+            Receba novidades sobre os próximos eventos e jornadas
           </p>
           <div className="mt-10">
             <Suspense fallback={<div className="mx-auto h-64 max-w-md animate-pulse rounded-xl border border-[#e8ddd0] bg-white" />}>
@@ -342,7 +342,7 @@ export default async function HomePage() {
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                 <li>
                   <Link href="/privacidade" className="hover:text-[#8B4513] transition-colors">
-                    Politica de Privacidade
+                    Política de Privacidade
                   </Link>
                 </li>
               </ul>

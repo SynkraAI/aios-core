@@ -1,16 +1,16 @@
 /**
- * Seed de Producao — Ciclo das Estações
- * Story: E4.7 — Checklist de Lancamento (AC-5)
+ * Seed de Produção — Ciclo das Estações
+ * Story: E4.7 — Checklist de Lançamento (AC-5)
  *
  * Dados iniciais para o ambiente de produção:
  * - 1 admin user (Bob)
  * - Facilitadoras iniciais (Daniela Lopper, Milena Koch) como isFeatured
- * - 5 espacos Casa do Sol (R$250/noite cada)
- * - Politica de cancelamento global
+ * - 5 espaços Casa do Sol (R$250/noite cada)
+ * - Política de cancelamento global
  * - 1 evento template (Outono 2026)
  * - Produto Passaporte Anual (R$1.997)
  *
- * Precos em CENTAVOS (Int) — R$250 = 25000
+ * Preços em CENTAVOS (Int) — R$250 = 25000
  *
  * Uso: cd packages/database && npx prisma db seed
  */
@@ -48,18 +48,18 @@ async function main() {
     update: {
       name: 'Daniela Lopper',
       role: 'Apresentadora e Facilitadora',
-      bio: 'Criadora do @podprana, referencia em saúde integrativa e bem-estar.',
+      bio: 'Criadora do @podprana, referência em saúde integrativa e bem-estar.',
       instagram: '@podprana',
-      specialties: ['Saúde Integrativa', 'Bem-estar', 'Facilitacao'],
+      specialties: ['Saúde Integrativa', 'Bem-estar', 'Facilitação'],
       isFeatured: true,
     },
     create: {
       id: 'facilitator-daniela-lopper',
       name: 'Daniela Lopper',
       role: 'Apresentadora e Facilitadora',
-      bio: 'Criadora do @podprana, referencia em saúde integrativa e bem-estar.',
+      bio: 'Criadora do @podprana, referência em saúde integrativa e bem-estar.',
       instagram: '@podprana',
-      specialties: ['Saúde Integrativa', 'Bem-estar', 'Facilitacao'],
+      specialties: ['Saúde Integrativa', 'Bem-estar', 'Facilitação'],
       isFeatured: true,
     },
   })
@@ -88,14 +88,14 @@ async function main() {
   console.log(`  [OK] Facilitadora: ${milena.name} (${milena.instagram})`)
 
   // ----------------------------------------------------------
-  // 3. Espacos Casa do Sol — 5 quartos (R$250/noite cada)
+  // 3. Espaços Casa do Sol — 5 quartos (R$250/noite cada)
   // ----------------------------------------------------------
   const roomsData = [
     {
       id: 'room-quarto-terra',
       name: 'Quarto Terra',
       theme: 'Elemento Terra',
-      description: 'Quarto com decoracao em tons terrosos, materiais naturais e conexao com a estabilidade da terra.',
+      description: 'Quarto com decoração em tons terrosos, materiais naturais e conexão com a estabilidade da terra.',
       pricePerNight: 25000, // R$250
       capacity: 2,
     },
@@ -119,7 +119,7 @@ async function main() {
       id: 'room-quarto-ar',
       name: 'Quarto Ar',
       theme: 'Elemento Ar',
-      description: 'Quarto leve e arejado, com tons claros que remetem a leveza e expansao do ar.',
+      description: 'Quarto leve e arejado, com tons claros que remetem à leveza e expansão do ar.',
       pricePerNight: 25000, // R$250
       capacity: 2,
     },
@@ -127,7 +127,7 @@ async function main() {
       id: 'room-cabana-beija-flor',
       name: 'Cabana Beija-Flor',
       theme: 'Natureza Viva',
-      description: 'Cabana independente cercada pela natureza, perfeita para conexao com o ambiente natural.',
+      description: 'Cabana independente cercada pela natureza, perfeita para conexão com o ambiente natural.',
       pricePerNight: 25000, // R$250
       capacity: 2,
     },
@@ -150,7 +150,7 @@ async function main() {
       },
     })
   }
-  console.log(`  [OK] Espacos Casa do Sol: ${roomsData.length} quartos (R$250/noite cada)`)
+  console.log(`  [OK] Espaços Casa do Sol: ${roomsData.length} quartos (R$250/noite cada)`)
 
   // ----------------------------------------------------------
   // 4. Política de Cancelamento Global
@@ -170,15 +170,15 @@ async function main() {
         midRefundPercent: 50,
         transferAllowed: true,
         description:
-          'Politica padrão: cancelamento com mais de 15 dias = reembolso de 80%. ' +
+          'Política padrão: cancelamento com mais de 15 dias = reembolso de 80%. ' +
           'Entre 7 e 14 dias = reembolso de 50%. Menos de 7 dias = sem reembolso. ' +
           'Transferência de ingresso permitida a qualquer momento.',
         isActive: true,
       },
     })
-    console.log('  [OK] Politica de cancelamento global criada')
+    console.log('  [OK] Política de cancelamento global criada')
   } else {
-    console.log('  [SKIP] Politica de cancelamento global já existe')
+    console.log('  [SKIP] Política de cancelamento global já existe')
   }
 
   // ----------------------------------------------------------
@@ -196,16 +196,16 @@ async function main() {
       startDate: new Date('2026-05-16T08:00:00-03:00'),
       endDate: new Date('2026-05-17T18:00:00-03:00'),
       elementMTC: 'Metal',
-      organMTC: 'Pulmao',
+      organMTC: 'Pulmão',
       description:
         'O Outono 2026 é o primeiro evento oficial do Ciclo das Estações. ' +
         'Uma jornada imersiva de colheita interior, práticas integrativas e ' +
-        'reconexão com os ritmos naturais na transicao para o outono.',
+        'reconexão com os ritmos naturais na transição para o outono.',
       includedPractices: [
         'Yoga',
         'Meditação',
         'Sound Healing',
-        'Nutricao Ayurvedica',
+        'Nutrição Ayurvédica',
         'Terapias Naturais',
       ],
       capacity: 50,
@@ -238,12 +238,12 @@ async function main() {
   const ticketTypesData = [
     {
       name: 'Passaporte Completo',
-      description: 'Acesso completo ao evento (sabado + domingo), incluindo todas as atividades e alimentação.',
+      description: 'Acesso completo ao evento (sábado + domingo), incluindo todas as atividades e alimentação.',
       includes: [
         'Acesso a todas as atividades',
         'Alimentação consciente inclusa',
         'Material de apoio',
-        'Certificado de participacao',
+        'Certificado de participação',
       ],
       earlyBirdPrice: 28700, // R$287
       regularPrice: 34700, // R$347
@@ -254,12 +254,12 @@ async function main() {
       quantitySold: 0,
     },
     {
-      name: 'Day Pass Sabado',
-      description: 'Acesso ao dia principal do evento no sabado.',
+      name: 'Day Pass Sábado',
+      description: 'Acesso ao dia principal do evento no sábado.',
       includes: [
-        'Acesso sabado completo',
+        'Acesso sábado completo',
         'Alimentação inclusa',
-        'Participacao nas atividades do dia',
+        'Participação nas atividades do dia',
       ],
       earlyBirdPrice: 19700, // R$197
       regularPrice: 24700, // R$247

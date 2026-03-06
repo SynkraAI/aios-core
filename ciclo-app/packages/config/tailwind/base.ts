@@ -27,7 +27,7 @@ const config: Partial<Config> = {
         'base-coral': '#CD684D',
         'base-violet': '#932E88',
 
-        // === ESPECTRO VIOLETA (Alta Frequencia) ===
+        // === ESPECTRO VIOLETA (Alta Frequência) ===
         violet: {
           50: '#FDF4FF',
           100: '#FAE8FF',

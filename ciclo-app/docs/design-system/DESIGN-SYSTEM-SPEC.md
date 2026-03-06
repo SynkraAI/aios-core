@@ -1,5 +1,5 @@
-# Ciclo das Estacoes — Design System Specification
-# "Frequencia Violeta" — O Design System do Sagrado
+# Ciclo das Estações — Design System Specification
+# "Frequência Violeta" — O Design System do Sagrado
 
 > *"O resgate da harmonia entre a humanidade e a natureza"*
 > Onde a geometria sagrada encontra a tecnologia ancestral.
@@ -8,44 +8,44 @@
 
 ## 1. Filosofia de Design
 
-### Conceito Central: FREQUENCIA VIOLETA
+### Conceito Central: FREQUÊNCIA VIOLETA
 
-O Ciclo das Estacoes e o brace espiritual da Base Triade. Enquanto a Base Triade
-ancora na terra (verde profundo), o Ciclo eleva para o ceu (violeta). A fusao
-dessas duas frequencias cria algo que nao existe no mercado: **natureza mistica
-digital** — um app que parece ter sido desenhado por uma civilizacao ancestral
-que domina tecnologia quantica.
+O Ciclo das Estações é o braço espiritual da Base Tríade. Enquanto a Base Tríade
+ancora na terra (verde profundo), o Ciclo eleva para o céu (violeta). A fusão
+dessas duas frequências cria algo que não existe no mercado: **natureza mística
+digital** — um app que parece ter sido desenhado por uma civilização ancestral
+que domina tecnologia quântica.
 
 ### Pilares Visuais
 
-1. **Mandala como Grid** — Todo layout e uma mandala. Secoes irradiam do centro.
-2. **Violeta como Frequencia** — Nao e uma cor, e uma vibracao. Gradientes vivos.
+1. **Mandala como Grid** — Todo layout é uma mandala. Seções irradiam do centro.
+2. **Violeta como Frequência** — Não é uma cor, é uma vibração. Gradientes vivos.
 3. **Geometria Sagrada como Estrutura** — Icosaedro, Flor da Vida, Triskle.
-4. **Natureza como Textura** — Bambu, agua, floresta atlantica, insetos.
-5. **Sazonalidade como Identidade** — Cada estacao transforma toda a UI.
+4. **Natureza como Textura** — Bambu, água, floresta atlântica, insetos.
+5. **Sazonalidade como Identidade** — Cada estação transforma toda a UI.
 
-### Referencia Estetica
+### Referência Estética
 
 Imagine o encontro entre:
-- A profundidade mistica de um templo tibetano
-- A elegancia digital do Apple Vision Pro
-- A organicidade da Mata Atlantica
-- A geometria de um caleidoscopio cosmico
-- A sofisticacao de marcas como Aesop + Goop + Headspace
+- A profundidade mística de um templo tibetano
+- A elegância digital do Apple Vision Pro
+- A organicidade da Mata Atlântica
+- A geometria de um caleidoscópio cósmico
+- A sofisticação de marcas como Aesop + Goop + Headspace
 
 ---
 
 ## 2. Sistema de Cores
 
-### 2.1 Paleta Base Triade (Herdada)
+### 2.1 Paleta Base Tríade (Herdada)
 
 | Token | Hex | Uso |
 |-------|-----|-----|
 | `base-forest` | `#24451F` | Verde mais profundo — fundos escuros |
-| `base-dark` | `#213B2C` | Verde institucional primario |
-| `base-green` | `#3F6E36` | Verde medio — acentos |
+| `base-dark` | `#213B2C` | Verde institucional primário |
+| `base-green` | `#3F6E36` | Verde médio — acentos |
 | `base-emerald` | `#5EA142` | Verde vibrante — CTAs natureza |
-| `base-teal` | `#5184A7` | Azul-petrol — elemento agua |
+| `base-teal` | `#5184A7` | Azul-petrol — elemento água |
 | `base-ocean` | `#185474` | Azul profundo — profundidade |
 | `base-sky` | `#8DC2DB` | Azul claro — ar, leveza |
 | `base-amber` | `#D48113` | Laranja quente — terra, fogo |
@@ -56,38 +56,38 @@ Imagine o encontro entre:
 | `base-coral` | `#CD684D` | Coral vivo — energia vital |
 | `base-violet` | `#932E88` | VIOLETA ORIGINAL — a semente |
 
-### 2.2 Espectro Violeta (Nova Camada — Alta Frequencia)
+### 2.2 Espectro Violeta (Nova Camada — Alta Frequência)
 
-O violeta `#932E88` da Base Triade se expande em um espectro completo:
+O violeta `#932E88` da Base Tríade se expande em um espectro completo:
 
-| Token | Hex | Nome Poetico | Uso |
+| Token | Hex | Nome Poético | Uso |
 |-------|-----|--------------|-----|
 | `violet-50` | `#FDF4FF` | Orvalho Lunar | Backgrounds sutis |
-| `violet-100` | `#FAE8FF` | Nevoa Ametista | Hover states |
-| `violet-200` | `#F0BBFE` | Aurora Mistica | Bordas suaves |
+| `violet-100` | `#FAE8FF` | Névoa Ametista | Hover states |
+| `violet-200` | `#F0BBFE` | Aurora Mística | Bordas suaves |
 | `violet-300` | `#E089FC` | Flor de Lavanda | Tags, badges |
 | `violet-400` | `#C945E8` | Chama Violeta | Acentos ativos |
-| `violet-500` | `#A830C0` | Cristal Ametista | Primario violeta |
-| `violet-600` | `#932E88` | Frequencia Original | Bridge c/ Base Triade |
-| `violet-700` | `#7B1FA2` | Coroa Csmica | Headings, CTAs |
+| `violet-500` | `#A830C0` | Cristal Ametista | Primário violeta |
+| `violet-600` | `#932E88` | Frequência Original | Bridge c/ Base Tríade |
+| `violet-700` | `#7B1FA2` | Coroa Cósmica | Headings, CTAs |
 | `violet-800` | `#5C1680` | Noite Sagrada | Fundos escuros |
 | `violet-900` | `#3B0764` | Abismo Estelar | Hero sections |
 | `violet-950` | `#1E0338` | Void Ancestral | Maximum depth |
 
-### 2.3 Paleta Sazonal (4 Estacoes = 4 Universos)
+### 2.3 Paleta Sazonal (4 Estações = 4 Universos)
 
-Cada estacao transforma a UI inteira via CSS custom properties:
+Cada estação transforma a UI inteira via CSS custom properties:
 
-#### PRIMAVERA — Renascimento (Madeira/Figado — MTC)
+#### PRIMAVERA — Renascimento (Madeira/Fígado — MTC)
 | Token | Hex | Elemento |
 |-------|-----|----------|
 | `season-primary` | `#5EA142` | Verde novo, broto |
 | `season-secondary` | `#E089FC` | Violeta suave, flor |
-| `season-accent` | `#F5C6D0` | Rosa petala |
+| `season-accent` | `#F5C6D0` | Rosa pétala |
 | `season-glow` | `#A8E6A1` | Verde luminoso |
 | `season-bg` | `#F0FFF0` | Branco esverdeado |
 
-#### VERAO — Plenitude (Fogo/Coracao — MTC)
+#### VERÃO — Plenitude (Fogo/Coração — MTC)
 | Token | Hex | Elemento |
 |-------|-----|----------|
 | `season-primary` | `#D48113` | Laranja solar |
@@ -96,16 +96,16 @@ Cada estacao transforma a UI inteira via CSS custom properties:
 | `season-glow` | `#FFD700` | Dourado solar |
 | `season-bg` | `#FFFBF0` | Branco dourado |
 
-#### OUTONO — Recolhimento (Metal/Pulmao — MTC)
+#### OUTONO — Recolhimento (Metal/Pulmão — MTC)
 | Token | Hex | Elemento |
 |-------|-----|----------|
 | `season-primary` | `#C97A46` | Cobre folhas |
 | `season-secondary` | `#7B1FA2` | Violeta profundo |
 | `season-accent` | `#8B4513` | Marrom terroso |
-| `season-glow` | `#DEB887` | Dourado palido |
-| `season-bg` | `#FFF8F0` | Branco ambar |
+| `season-glow` | `#DEB887` | Dourado pálido |
+| `season-bg` | `#FFF8F0` | Branco âmbar |
 
-#### INVERNO — Introspeccao (Agua/Rins — MTC)
+#### INVERNO — Introspecção (Água/Rins — MTC)
 | Token | Hex | Elemento |
 |-------|-----|----------|
 | `season-primary` | `#185474` | Azul profundo |
@@ -126,7 +126,7 @@ Cada estacao transforma a UI inteira via CSS custom properties:
   #24451F 360deg
 );
 
-/* Gradiente Frequencia Violeta — hero sections */
+/* Gradiente Frequência Violeta — hero sections */
 --gradient-violet-freq: linear-gradient(
   135deg,
   #1E0338 0%,
@@ -169,17 +169,17 @@ Cada estacao transforma a UI inteira via CSS custom properties:
 
 ## 3. Tipografia
 
-### Stack Tipografico (Herdado + Elevado)
+### Stack Tipográfico (Herdado + Elevado)
 
-| Nivel | Fonte | Uso | Peso |
+| Nível | Fonte | Uso | Peso |
 |-------|-------|-----|------|
-| Display | **Artega** | Titulos hero, numeros grandes | 700 |
-| Heading | **Zilla Slab** | H1-H3, secoes principais | 500-700 |
+| Display | **Artega** | Títulos hero, números grandes | 700 |
+| Heading | **Zilla Slab** | H1-H3, seções principais | 500-700 |
 | Body | **Libre Franklin** | Texto corrido, UI | 400-600 |
-| Accent | **Caveat** | Citacoes, anotacoes, handwritten | 400-700 |
-| Mono | **JetBrains Mono** | Codigos, dados tecnicos | 400 |
+| Accent | **Caveat** | Citações, anotações, handwritten | 400-700 |
+| Mono | **JetBrains Mono** | Códigos, dados técnicos | 400 |
 
-### Escala Tipografica (Fluid — clamp)
+### Escala Tipográfica (Fluid — clamp)
 
 ```css
 --text-xs: clamp(0.694rem, 0.65vi + 0.55rem, 0.75rem);
@@ -202,12 +202,12 @@ Cada estacao transforma a UI inteira via CSS custom properties:
 
 | Motivo | Origem | Uso no App |
 |--------|--------|------------|
-| **Triskle** | Logo Base Triade | Loading spinner, watermark, favicon |
-| **Icosaedro** | Solidos de Platao (agua) | Containers, cards premium |
+| **Triskle** | Logo Base Tríade | Loading spinner, watermark, favicon |
+| **Icosaedro** | Sólidos de Platão (água) | Containers, cards premium |
 | **Flor da Vida** | Geometria sagrada universal | Background patterns, mandalas |
-| **Hexagono** | Colmeia Base Triade | Grid de nucleos, nav icons |
-| **Triangulo** | Trinidade | Section dividers, badges |
-| **Circulo** | Ciclo, estacoes | Avatars, progress, timers |
+| **Hexágono** | Colmeia Base Tríade | Grid de núcleos, nav icons |
+| **Triângulo** | Trinidade | Section dividers, badges |
+| **Círculo** | Ciclo, estações | Avatars, progress, timers |
 
 ### 4.2 Mandala Components (CSS puro)
 
@@ -215,11 +215,11 @@ Cada estacao transforma a UI inteira via CSS custom properties:
 /* Mandala como background decorativo */
 .mandala-bg {
   background-image:
-    /* Circulos concentricos */
+    /* Círculos concêntricos */
     radial-gradient(circle at 50% 50%, transparent 20%, rgba(147,46,136,0.03) 20.5%, transparent 21%),
     radial-gradient(circle at 50% 50%, transparent 35%, rgba(147,46,136,0.03) 35.5%, transparent 36%),
     radial-gradient(circle at 50% 50%, transparent 50%, rgba(147,46,136,0.03) 50.5%, transparent 51%),
-    /* Petalas rotacionadas */
+    /* Pétalas rotacionadas */
     conic-gradient(from 0deg at 50% 50%,
       transparent 0deg, rgba(147,46,136,0.02) 15deg,
       transparent 30deg, rgba(147,46,136,0.02) 45deg,
@@ -248,19 +248,19 @@ Cada estacao transforma a UI inteira via CSS custom properties:
 
 ### 4.3 Pattern Library (SVG Patterns)
 
-Padroes organicos inspirados nos insetos da Mata Atlantica (como documentado no brand book):
-- `pattern-organic`: Linhas organicas fluidas (background sutil)
-- `pattern-hexgrid`: Grid hexagonal (secoes de nucleos)
+Padrões orgânicos inspirados nos insetos da Mata Atlântica (como documentado no brand book):
+- `pattern-organic`: Linhas orgânicas fluidas (background sutil)
+- `pattern-hexgrid`: Grid hexagonal (seções de núcleos)
 - `pattern-sacred`: Flor da Vida simplificada (hero backgrounds)
 - `pattern-triskle`: Triskles repetidos (footer, watermarks)
-- `pattern-waves`: Ondas do mar (elemento agua — Inverno)
+- `pattern-waves`: Ondas do mar (elemento água — Inverno)
 - `pattern-leaves`: Folhas abstratas (elemento madeira — Primavera)
 
 ---
 
-## 5. Espacamento & Layout
+## 5. Espaçamento & Layout
 
-### 5.1 Escala de Espacamento (Golden Ratio inspired)
+### 5.1 Escala de Espaçamento (Golden Ratio inspired)
 
 ```css
 --space-1: 0.25rem;   /* 4px */
@@ -277,13 +277,13 @@ Padroes organicos inspirados nos insetos da Mata Atlantica (como documentado no 
 ### 5.2 Grid Mandala
 
 O layout principal usa um grid radial conceitual:
-- **Centro**: Logo/Triskle ou conteudo hero
-- **Primeiro anel**: Navegacao principal / CTA
-- **Segundo anel**: Cards de conteudo / Eventos
-- **Terceiro anel**: Informacoes complementares
-- **Borda**: Footer / Navegacao secundaria
+- **Centro**: Logo/Triskle ou conteúdo hero
+- **Primeiro anel**: Navegação principal / CTA
+- **Segundo anel**: Cards de conteúdo / Eventos
+- **Terceiro anel**: Informações complementares
+- **Borda**: Footer / Navegação secundária
 
-Na pratica (CSS Grid):
+Na prática (CSS Grid):
 ```css
 .mandala-layout {
   display: grid;
@@ -300,23 +300,23 @@ Na pratica (CSS Grid):
 }
 ```
 
-### 5.3 Border Radius (Organico)
+### 5.3 Border Radius (Orgânico)
 
 ```css
---radius-sm: 0.375rem;    /* Botoes pequenos */
+--radius-sm: 0.375rem;    /* Botões pequenos */
 --radius-md: 0.75rem;     /* Cards */
 --radius-lg: 1.5rem;      /* Containers */
 --radius-xl: 2.5rem;      /* Modals */
 --radius-full: 9999px;    /* Avatares, pills */
---radius-organic: 30% 70% 70% 30% / 30% 30% 70% 70%; /* Forma organica */
---radius-petal: 50% 0% 50% 0%; /* Forma petala */
+--radius-organic: 30% 70% 70% 30% / 30% 30% 70% 70%; /* Forma orgânica */
+--radius-petal: 50% 0% 50% 0%; /* Forma pétala */
 ```
 
 ---
 
-## 6. Efeitos & Animacoes
+## 6. Efeitos & Animações
 
-### 6.1 Glassmorphism Mistico
+### 6.1 Glassmorphism Místico
 
 ```css
 .glass-sacred {
@@ -360,21 +360,21 @@ Na pratica (CSS Grid):
 }
 ```
 
-### 6.3 Animacoes Sagradas
+### 6.3 Animações Sagradas
 
 ```css
-/* Respiracao — pulsacao suave (como meditacao) */
+/* Respiração — pulsação suave (como meditação) */
 @keyframes breathe {
   0%, 100% { transform: scale(1); opacity: 0.8; }
   50% { transform: scale(1.05); opacity: 1; }
 }
 
-/* Mandala giratoria lenta */
+/* Mandala giratória lenta */
 @keyframes mandala-slow {
   to { transform: rotate(360deg); }
 }
 
-/* Fade ethereal — entrada mistica */
+/* Fade ethereal — entrada mística */
 @keyframes ethereal-in {
   from {
     opacity: 0;
@@ -394,7 +394,7 @@ Na pratica (CSS Grid):
   100% { background-position: 200% center; }
 }
 
-/* Duracao padrao respeitando preferencia do usuario */
+/* Duração padrão respeitando preferência do usuário */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -405,53 +405,53 @@ Na pratica (CSS Grid):
 
 ---
 
-## 7. Componentes Atomicos
+## 7. Componentes Atômicos
 
 ### 7.1 Atoms
 
-| Componente | Descricao | Variantes |
+| Componente | Descrição | Variantes |
 |------------|-----------|-----------|
 | `Button` | CTA principal | primary, sacred, ghost, season |
-| `Badge` | Tags de estacao/elemento | season, element, status |
-| `Icon` | Icones sagrados (SVG) | triskle, hexagon, element |
+| `Badge` | Tags de estação/elemento | season, element, status |
+| `Icon` | Ícones sagrados (SVG) | triskle, hexagon, element |
 | `Avatar` | Foto com borda mandala | sm, md, lg, sacred |
-| `Divider` | Separador geometrico | line, mandala, wave, sacred |
+| `Divider` | Separador geométrico | line, mandala, wave, sacred |
 | `Spinner` | Loading Triskle animado | sm, md, lg |
 | `Chip` | Elemento MTC / Ayurveda | wood, fire, earth, metal, water |
 
 ### 7.2 Molecules
 
-| Componente | Descricao |
+| Componente | Descrição |
 |------------|-----------|
-| `EventCard` | Card de evento sazonal com gradiente da estacao |
-| `SeasonSelector` | Seletor visual das 4 estacoes (mandala interativa) |
-| `PracticeCard` | Card de pratica (Yoga, MTC, Ayurveda) |
+| `EventCard` | Card de evento sazonal com gradiente da estação |
+| `SeasonSelector` | Seletor visual das 4 estações (mandala interativa) |
+| `PracticeCard` | Card de prática (Yoga, MTC, Ayurveda) |
 | `TestimonialCard` | Depoimento com foto em frame mandala |
-| `PricingTier` | Tier de preco com gradiente violeta |
+| `PricingTier` | Tier de preço com gradiente violeta |
 | `CheckInQR` | QR code estilizado com borda sagrada |
 
 ### 7.3 Organisms
 
-| Componente | Descricao |
+| Componente | Descrição |
 |------------|-----------|
 | `HeroSacred` | Hero com mandala animada de fundo |
-| `NavigationMandala` | Nav com icones hexagonais |
-| `EventTimeline` | Timeline circular das estacoes |
-| `SeasonDashboard` | Dashboard adaptativo por estacao |
-| `FooterTriade` | Footer com pattern organico |
+| `NavigationMandala` | Nav com ícones hexagonais |
+| `EventTimeline` | Timeline circular das estações |
+| `SeasonDashboard` | Dashboard adaptativo por estação |
+| `FooterTriade` | Footer com pattern orgânico |
 | `SplashScreen` | Tela de carregamento com Triskle girando |
 
 ---
 
-## 8. Implementacao Tecnica
+## 8. Implementação Técnica
 
 ### 8.1 Tailwind Config (Extendido)
 
-O design system sera implementado via:
-1. **CSS Custom Properties** para tokens dinamicos (estacoes)
-2. **Tailwind extend** para tokens estaticos
+O design system será implementado via:
+1. **CSS Custom Properties** para tokens dinâmicos (estações)
+2. **Tailwind extend** para tokens estáticos
 3. **CSS @layer** para componentes base
-4. **Framer Motion** para animacoes React
+4. **Framer Motion** para animações React
 
 ### 8.2 Arquitetura de Arquivos
 
@@ -467,7 +467,7 @@ packages/ui/
       animations.css       # Keyframes sagrados
     patterns/
       mandala.svg          # SVG pattern mandala
-      organic.svg          # Pattern organico (insetos)
+      organic.svg          # Pattern orgânico (insetos)
       hexgrid.svg          # Grid hexagonal
       sacred-geometry.svg  # Flor da Vida
       triskle.svg          # Triskle simplificado
@@ -477,7 +477,7 @@ packages/ui/
       organisms/           # HeroSacred, NavigationMandala, etc
     themes/
       primavera.css        # Overrides Primavera
-      verao.css            # Overrides Verao
+      verao.css            # Overrides Verão
       outono.css           # Overrides Outono
       inverno.css          # Overrides Inverno
 ```
@@ -486,12 +486,12 @@ packages/ui/
 
 ## 9. Acessibilidade (WCAG AA)
 
-| Requisito | Implementacao |
+| Requisito | Implementação |
 |-----------|---------------|
-| Contraste minimo 4.5:1 | Todas combinacoes de cor validadas |
+| Contraste mínimo 4.5:1 | Todas combinações de cor validadas |
 | Contraste violeta/branco | `#7B1FA2` sobre branco = 7.2:1 |
 | Contraste verde/cream | `#213B2C` sobre `#F5EED4` = 9.1:1 |
-| Reduced motion | Todas animacoes respeitam `prefers-reduced-motion` |
+| Reduced motion | Todas animações respeitam `prefers-reduced-motion` |
 | Focus visible | Outline violeta luminoso (`glow-violet`) |
 | Dark mode | Fundo `#1E0338` com texto `#F5EED4` = 12.4:1 |
 | Screen readers | Elementos decorativos marcados `aria-hidden` |
@@ -500,21 +500,21 @@ packages/ui/
 
 ## 10. Diferenciais Competitivos
 
-| O que existe no mercado | O que nos fazemos |
+| O que existe no mercado | O que nós fazemos |
 |-------------------------|-------------------|
-| Sites holisticos amadores | Design system profissional de nivel Aesop |
-| Verde generico + lotus clipart | Violeta alta frequencia + geometria sagrada |
-| Layouts estaticos | UI que RESPIRA — muda com a estacao |
-| Fundos brancos sem vida | Glassmorphism mistico com mandalas |
-| Tipografia generica | 5 fontes com hierarquia poetica |
-| Animacoes de template | Triskle girando, mandalas pulsando |
-| Sem identidade visual | 100% alinhado com Base Triade |
+| Sites holísticos amadores | Design system profissional de nível Aesop |
+| Verde genérico + lotus clipart | Violeta alta frequência + geometria sagrada |
+| Layouts estáticos | UI que RESPIRA — muda com a estação |
+| Fundos brancos sem vida | Glassmorphism místico com mandalas |
+| Tipografia genérica | 5 fontes com hierarquia poética |
+| Animações de template | Triskle girando, mandalas pulsando |
+| Sem identidade visual | 100% alinhado com Base Tríade |
 
 ---
 
-*Especificacao criada por @ux-design-expert (Uma)*
-*Ciclo das Estacoes — Frequencia Violeta Design System v1.0*
-*Base Triade — O resgate da harmonia entre a humanidade e a natureza*
+*Especificação criada por @ux-design-expert (Uma)*
+*Ciclo das Estações — Frequência Violeta Design System v1.0*
+*Base Tríade — O resgate da harmonia entre a humanidade e a natureza*
 
 Sources:
 - [Sacred Creative - Spiritual Website Design](https://www.sacredcreativellc.com/website-design)

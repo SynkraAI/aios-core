@@ -255,7 +255,7 @@ export async function togglePublish(id: string): Promise<EventActionResult> {
     console.error('Failed to toggle publish:', error)
     return {
       success: false,
-      error: `Falha ao alterar publicacao: ${error instanceof Error ? error.message : 'Erro desconhecido'}`,
+      error: `Falha ao alterar publicação: ${error instanceof Error ? error.message : 'Erro desconhecido'}`,
     }
   }
 }

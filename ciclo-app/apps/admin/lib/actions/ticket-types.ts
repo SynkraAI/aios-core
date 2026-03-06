@@ -43,7 +43,7 @@ export async function createTicketType(
       return { success: false, error: 'Nome é obrigatório.' }
     }
     if (input.regularPrice <= 0) {
-      return { success: false, error: 'Preco regular deve ser maior que zero.' }
+      return { success: false, error: 'Preço regular deve ser maior que zero.' }
     }
 
     const ticketType = await prisma.ticketType.create({
@@ -85,7 +85,7 @@ export async function updateTicketType(
       return { success: false, error: 'Nome é obrigatório.' }
     }
     if (input.regularPrice <= 0) {
-      return { success: false, error: 'Preco regular deve ser maior que zero.' }
+      return { success: false, error: 'Preço regular deve ser maior que zero.' }
     }
 
     await prisma.ticketType.update({

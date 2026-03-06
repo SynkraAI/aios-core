@@ -44,7 +44,7 @@ export function renderFeedbackEmail(data: FeedbackEmailData): EmailRenderResult 
     ${divider()}
 
     <p style="margin: 0 0 8px; font-size: 14px; color: ${BRAND.colors.text}; line-height: 1.6;">
-      Você também pode deixar um depoimento sobre sua vivencia. Compartilhe o que sentiu, aprendeu e levou consigo:
+      Você também pode deixar um depoimento sobre sua vivência. Compartilhe o que sentiu, aprendeu e levou consigo:
     </p>
 
     ${buttonBlock('Deixar Depoimento', data.testimonialUrl)}

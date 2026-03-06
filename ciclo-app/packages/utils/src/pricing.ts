@@ -28,16 +28,16 @@ export interface PricingResult {
 // ============================================================
 
 /**
- * Calcula o preco atual baseado na data e nas faixas de pricing
+ * Calcula o preço atual baseado na data e nas faixas de pricing
  *
  * Regras:
  * - Se currentDate <= earlyBirdDeadline -> earlyBirdPrice
  * - Se currentDate >= lastMinuteStart -> lastMinutePrice (ou regularPrice se null)
- * - Caso contrario -> regularPrice
+ * - Caso contrário -> regularPrice
  *
  * @param ticket - Dados de pricing do ingresso
  * @param currentDate - Data atual (injetada para testabilidade)
- * @returns Preco em centavos
+ * @returns Preço em centavos
  */
 export function calculateCurrentPrice(
   ticket: TicketPricing,
@@ -47,11 +47,11 @@ export function calculateCurrentPrice(
 }
 
 /**
- * Calcula preco e faixa de pricing atual
+ * Calcula preço e faixa de pricing atual
  *
  * @param ticket - Dados de pricing do ingresso
  * @param currentDate - Data atual (injetada para testabilidade)
- * @returns Objeto com preco em centavos e faixa (tier)
+ * @returns Objeto com preço em centavos e faixa (tier)
  */
 export function calculatePricing(
   ticket: TicketPricing,

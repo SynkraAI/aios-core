@@ -6,7 +6,7 @@ type EventStatus = 'disponivel' | 'esgotado' | 'em-breve'
 
 const STATUS_CONFIG: Record<EventStatus, { label: string; className: string }> = {
   disponivel: {
-    label: 'Disponivel',
+    label: 'Disponível',
     className: 'bg-base-emerald/15 text-base-emerald border-base-emerald/20',
   },
   esgotado: {
@@ -23,7 +23,7 @@ const ELEMENT_ICONS: Record<string, string> = {
   Madeira: '\u6728',
   Fogo: '\u706B',
   Metal: '\u91D1',
-  Agua: '\u6C34',
+  Água: '\u6C34',
   Terra: '\u571F',
 } as const
 

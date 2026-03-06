@@ -9,7 +9,7 @@ import { RolePromotion } from '../../../../components/participants/role-promotio
 
 export const metadata: Metadata = {
   title: 'Detalhe do Participante',
-  description: 'Perfil completo do participante com historico',
+  description: 'Perfil completo do participante com histórico',
 }
 
 // ============================================================
@@ -117,7 +117,7 @@ export default async function ParticipanteDetailPage({ params }: ParticipanteDet
       {/* Registration History */}
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle>Historico de Inscrições</CardTitle>
+          <CardTitle>Histórico de Inscrições</CardTitle>
         </CardHeader>
         <CardContent>
           {participant.registrations.length === 0 ? (

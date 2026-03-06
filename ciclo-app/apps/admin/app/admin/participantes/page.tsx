@@ -7,7 +7,7 @@ import { ParticipantListClient } from '../../../components/participants/particip
 
 export const metadata: Metadata = {
   title: 'Participantes (CRM)',
-  description: 'CRM de participantes com historico, filtros e export',
+  description: 'CRM de participantes com histórico, filtros e export',
 }
 
 interface ParticipantesPageProps {
@@ -41,7 +41,7 @@ export default async function ParticipantesPage({ searchParams }: ParticipantesP
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900">Participantes (CRM)</h1>
         <p className="mt-1 text-sm text-gray-600">
-          Gerenciar participantes, visualizar historico e exportar dados.
+          Gerenciar participantes, visualizar histórico e exportar dados.
         </p>
       </div>
 

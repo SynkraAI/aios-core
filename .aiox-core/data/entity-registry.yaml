@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-03-06T20:15:03.182Z'
+  lastUpdated: '2026-03-06T20:49:01.252Z'
   entityCount: 745
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -10719,7 +10719,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:f37570c1b5c4f1ecbc94c3207c60845f863429a9f1cb551e59593affc7c4f1b4
-      lastVerified: '2026-03-06T20:15:03.175Z'
+      lastVerified: '2026-03-06T20:49:01.239Z'
     entity-registry:
       path: .aiox-core/core/doctor/checks/entity-registry.js
       layer: L1

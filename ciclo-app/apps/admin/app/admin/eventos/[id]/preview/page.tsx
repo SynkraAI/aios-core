@@ -11,7 +11,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Preview Evento',
-  description: 'Visualização do evento como sera exibido publicamente',
+  description: 'Visualização do evento como será exibido publicamente',
 }
 
 interface PreviewEventPageProps {
@@ -42,7 +42,7 @@ export default async function PreviewEventPage({ params }: PreviewEventPageProps
       {/* Admin bar */}
       <div className="mb-6 flex items-center justify-between rounded-lg bg-yellow-50 border border-yellow-200 p-3">
         <span className="text-sm font-medium text-yellow-800">
-          Preview - Visao publica do evento
+          Preview - Visão pública do evento
         </span>
         <Link
           href={`/admin/eventos/${id}`}
@@ -179,7 +179,7 @@ export default async function PreviewEventPage({ params }: PreviewEventPageProps
                 )}
                 {event.organMTC && (
                   <div>
-                    <dt className="font-medium text-gray-500">Sistema de Orgaos</dt>
+                    <dt className="font-medium text-gray-500">Sistema de Órgãos</dt>
                     <dd className="text-gray-900">{event.organMTC}</dd>
                   </div>
                 )}

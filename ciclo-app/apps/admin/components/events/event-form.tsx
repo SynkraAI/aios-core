@@ -292,14 +292,14 @@ export function EventForm({ event, mode }: EventFormProps) {
           />
           {errors.slug && <p className="mt-1 text-sm text-red-600">{errors.slug}</p>}
           <p className="mt-1 text-xs text-gray-500">
-            Gerado automaticamente do nome. Editavel manualmente.
+            Gerado automaticamente do nome. Editável manualmente.
           </p>
         </div>
       </fieldset>
 
       {/* Season & Astronomical */}
       <fieldset className="space-y-4">
-        <legend className="text-lg font-semibold text-gray-900">Estação e Evento Astronomico</legend>
+        <legend className="text-lg font-semibold text-gray-900">Estação e Evento Astronômico</legend>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
@@ -323,7 +323,7 @@ export function EventForm({ event, mode }: EventFormProps) {
 
           <div>
             <label htmlFor="astronomicalEvent" className="block text-sm font-medium text-gray-700">
-              Evento Astronomico
+              Evento Astronômico
             </label>
             <select
               id="astronomicalEvent"
@@ -348,7 +348,7 @@ export function EventForm({ event, mode }: EventFormProps) {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
-              Data Inicio *
+              Data Início *
             </label>
             <input
               id="startDate"
@@ -397,13 +397,13 @@ export function EventForm({ event, mode }: EventFormProps) {
 
           <div>
             <label htmlFor="organMTC" className="block text-sm font-medium text-gray-700">
-              Sistema de Orgaos MTC
+              Sistema de Órgãos MTC
             </label>
             <Input
               id="organMTC"
               value={organMTC}
               onChange={(e) => setOrganMTC(e.target.value)}
-              placeholder="Ex: Figado/Vesicula Biliar"
+              placeholder="Ex: Fígado/Vesícula Biliar"
             />
           </div>
         </div>
@@ -426,7 +426,7 @@ export function EventForm({ event, mode }: EventFormProps) {
             placeholder="Descreva o evento... (Rich text em fase posterior)"
           />
           <p className="mt-1 text-xs text-gray-500">
-            Editor rich text sera adicionado em fase posterior.
+            Editor rich text será adicionado em fase posterior.
           </p>
         </div>
       </fieldset>

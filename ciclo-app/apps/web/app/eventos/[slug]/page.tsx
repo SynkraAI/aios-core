@@ -1,5 +1,5 @@
 /**
- * Pagina publica do evento — Server Component (SSR/ISR)
+ * Página pública do evento — Server Component (SSR/ISR)
  * Story E2.5 — AC-1 a AC-12
  */
 import type { Metadata } from 'next'
@@ -11,7 +11,7 @@ import { calculatePricing, centavosToReais } from '@ciclo/utils'
 import { CancellationPolicyDisplay } from './cancellation-policy-display'
 import { Badge, SeasonalBadge } from '@ciclo/ui'
 
-// ISR: revalida a cada 60 segundos (AC-12, preco dinâmico)
+// ISR: revalida a cada 60 segundos (AC-12, preço dinâmico)
 export const revalidate = 60
 
 // ---------------------------------------------------------------------------
@@ -241,7 +241,7 @@ export default async function EventPage({ params }: PageProps) {
 
       <div className="mx-auto max-w-4xl px-4 pb-24">
         {/* ============================================================ */}
-        {/* DESCRICAO (AC-3) */}
+        {/* DESCRIÇÃO (AC-3) */}
         {/* ============================================================ */}
         {event.description && (
           <section className="mt-12" aria-labelledby="descrição-heading">
@@ -256,7 +256,7 @@ export default async function EventPage({ params }: PageProps) {
         )}
 
         {/* ============================================================ */}
-        {/* PRATICAS INCLUIDAS (AC-4) */}
+        {/* PRÁTICAS INCLUÍDAS (AC-4) */}
         {/* ============================================================ */}
         {event.includedPractices.length > 0 && (
           <section className="mt-12" aria-labelledby="práticas-heading">
@@ -517,7 +517,7 @@ export default async function EventPage({ params }: PageProps) {
         )}
 
         {/* ============================================================ */}
-        {/* POLITICA DE CANCELAMENTO (AC-4: exibido na página publica) */}
+        {/* POLÍTICA DE CANCELAMENTO (AC-4: exibido na página pública) */}
         {/* ============================================================ */}
         <CancellationPolicyDisplay eventId={event.id} eventPolicy={event.cancellationPolicy} />
       </div>

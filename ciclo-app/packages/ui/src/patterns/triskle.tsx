@@ -24,7 +24,7 @@ export const Triskle = React.forwardRef<SVGSVGElement, TriskleProps>(
         aria-hidden="true"
         {...props}
       >
-        {/* Triskle — tres espirais convergindo ao centro */}
+        {/* Triskle — três espirais convergindo ao centro */}
         <g stroke={color} strokeWidth="2" fill="none" strokeLinecap="round">
           {/* Espiral 1 — topo (0deg) */}
           <path d="M50 50 C50 35, 60 20, 50 10 C40 20, 35 35, 50 50" opacity="0.9" />

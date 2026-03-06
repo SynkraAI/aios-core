@@ -58,7 +58,7 @@ function DeleteModal({ roomName, error, onConfirm, onCancel }: DeleteModalProps)
           </div>
         )}
         <p className="mt-1 text-xs text-gray-500">
-          Se o quarto possuir inscrições ativas, a exclusão sera impedida.
+          Se o quarto possuir inscrições ativas, a exclusão será impedida.
         </p>
         <div className="mt-4 flex justify-end gap-3">
           <Button variant="outline" size="sm" onClick={onCancel}>
@@ -146,7 +146,7 @@ export function RoomListClient({ rooms }: RoomListClientProps) {
                 Tema
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                Preco/Noite
+                Preço/Noite
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                 Capacidade

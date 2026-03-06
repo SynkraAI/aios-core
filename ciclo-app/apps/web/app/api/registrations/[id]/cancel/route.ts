@@ -157,7 +157,7 @@ export async function POST(
         amount: refundAmount,
         note: refundAmount > 0
           ? 'Reembolso será processado pelo administrador.'
-          : 'Nenhum reembolso aplicavel conforme a política de cancelamento.',
+          : 'Nenhum reembolso aplicável conforme a política de cancelamento.',
       },
     })
   } catch (error) {

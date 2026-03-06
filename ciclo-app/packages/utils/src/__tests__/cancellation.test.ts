@@ -106,7 +106,7 @@ describe('calculateRefund', () => {
   })
 
   // ============================================================
-  // Politica customizada
+  // Política customizada
   // ============================================================
 
   describe('com política customizada', () => {
@@ -218,7 +218,7 @@ describe('validateCancellationPolicy', () => {
 // ============================================================
 
 describe('dbPolicyToDomain', () => {
-  it('deve converter modelo do banco para dominio corretamente', () => {
+  it('deve converter modelo do banco para domínio corretamente', () => {
     const dbPolicy = {
       earlyDaysThreshold: 15,
       earlyRefundPercent: 80,
@@ -236,7 +236,7 @@ describe('dbPolicyToDomain', () => {
 })
 
 describe('domainPolicyToDb', () => {
-  it('deve converter dominio para modelo do banco corretamente', () => {
+  it('deve converter domínio para modelo do banco corretamente', () => {
     const result = domainPolicyToDb(DEFAULT_CANCELLATION_POLICY)
     expect(result.earlyDaysThreshold).toBe(15)
     expect(result.earlyRefundPercent).toBe(80)

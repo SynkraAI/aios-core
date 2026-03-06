@@ -201,14 +201,14 @@ export function PixPaymentClient({
           <li>2. Selecione a opção PIX</li>
           <li>3. Escaneie o QR Code acima ou copie o código</li>
           <li>4. Confirme o pagamento</li>
-          <li>5. Águarde a confirmação automatica nesta pagina</li>
+          <li>5. Aguarde a confirmação automática nesta página</li>
         </ol>
       </div>
 
       {/* Status indicator */}
       <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
         <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-amber-400" />
-        Águardando pagamento...
+        Aguardando pagamento...
       </div>
     </div>
   )

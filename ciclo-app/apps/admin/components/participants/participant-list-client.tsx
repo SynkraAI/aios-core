@@ -326,7 +326,7 @@ export function ParticipantListClient({
       {totalPages > 1 && (
         <div className="mt-4 flex items-center justify-between">
           <p className="text-sm text-gray-600">
-            Pagina {page} de {totalPages} ({total} participantes)
+            Página {page} de {totalPages} ({total} participantes)
           </p>
           <div className="flex gap-1">
             <Button

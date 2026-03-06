@@ -287,7 +287,7 @@ export function FacilitatorForm({ facilitator, mode }: FacilitatorFormProps) {
             placeholder="usuario (sem @)"
           />
           <p className="mt-1 text-xs text-gray-500">
-            O @ sera removido automaticamente se informado.
+            O @ será removido automaticamente se informado.
           </p>
         </div>
       </fieldset>
@@ -307,7 +307,7 @@ export function FacilitatorForm({ facilitator, mode }: FacilitatorFormProps) {
             placeholder="https://exemplo.com/foto.jpg"
           />
           <p className="mt-1 text-xs text-gray-500">
-            Upload via Supabase Storage sera adicionado em fase posterior.
+            Upload via Supabase Storage será adicionado em fase posterior.
           </p>
         </div>
 
@@ -346,7 +346,7 @@ export function FacilitatorForm({ facilitator, mode }: FacilitatorFormProps) {
           <span className="text-sm font-medium text-gray-700">Destaque</span>
         </label>
         <p className="text-xs text-gray-500">
-          Facilitadores em destaque aparecem primeiro na página publica do evento.
+          Facilitadores em destaque aparecem primeiro na página pública do evento.
         </p>
       </fieldset>
 

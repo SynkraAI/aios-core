@@ -26,7 +26,7 @@ interface MassCancellationResult {
  * Todos os inscritos recebem crédito integral ou conforme política (80%).
  *
  * MVP: reembolso eh placeholder — admin processa manualmente.
- * Notificacao via E4.1 (placeholder — log por enquanto).
+ * Notificação via E4.1 (placeholder — log por enquanto).
  */
 export async function massCancelEvent(
   eventId: string,

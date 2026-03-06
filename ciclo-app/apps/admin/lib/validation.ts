@@ -179,11 +179,11 @@ export function validateRoomForm(data: RoomFormData): RoomFormErrors {
 
   // Price: required, valid number > 0
   if (!data.priceReais.trim()) {
-    errors.priceReais = 'Preco é obrigatório'
+    errors.priceReais = 'Preço é obrigatório'
   } else {
     const price = parseFloat(data.priceReais.replace(',', '.'))
     if (isNaN(price) || price <= 0) {
-      errors.priceReais = 'Preco deve ser um valor positivo'
+      errors.priceReais = 'Preço deve ser um valor positivo'
     }
   }
 
