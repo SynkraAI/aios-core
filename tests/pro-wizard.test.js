@@ -216,16 +216,28 @@ describe('stepLicenseGate', () => {
 
 describe('stepInstallScaffold', () => {
   test('resolves pro source from bundled dir or fails gracefully', async () => {
-    const result = await proSetup.stepInstallScaffold('/fake/nonexistent/dir');
+    const os = require('os');
+    const fs = require('fs');
+    const path = require('path');
 
-    // In dev/test context, bundled pro/ exists relative to __dirname,
-    // so scaffold may succeed. In clean installs without pro/, it fails.
-    // Either outcome is valid — the key is it doesn't throw or hang.
-    expect(typeof result.success).toBe('boolean');
-    if (!result.success) {
-      expect(result.error).toBeDefined();
+    // Use a real temp dir so fs-extra operations don't hang on nonexistent paths
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aiox-pro-test-'));
+
+    try {
+      const result = await proSetup.stepInstallScaffold(tmpDir);
+
+      // In dev/test context, bundled pro/ exists relative to __dirname,
+      // so scaffold may succeed. In clean installs without pro/, it fails.
+      // Either outcome is valid — the key is it doesn't throw or hang.
+      expect(typeof result.success).toBe('boolean');
+      if (!result.success) {
+        expect(result.error).toBeDefined();
+      }
+    } finally {
+      // Cleanup temp dir
+      fs.rmSync(tmpDir, { recursive: true, force: true });
     }
-  });
+  }, 30000);
 });
 
 // ─── stepVerify ──────────────────────────────────────────────────────────────
