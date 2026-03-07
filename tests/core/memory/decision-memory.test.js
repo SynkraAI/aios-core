@@ -206,9 +206,10 @@ describe('DecisionMemory', () => {
       mem.updateOutcome(d.id, Outcome.FAILURE);
       const afterFailure = d.confidence;
 
-      d.outcome = Outcome.PENDING; // reset to allow re-update
-      mem.updateOutcome(d.id, Outcome.SUCCESS);
-      expect(d.confidence).toBeGreaterThan(afterFailure);
+      // Record a fresh decision and mark it as success
+      const d2 = mem.recordDecision({ description: 'Enable compression v2' });
+      mem.updateOutcome(d2.id, Outcome.SUCCESS);
+      expect(d2.confidence).toBeGreaterThan(afterFailure);
     });
 
     it('should decrease confidence on failure', () => {
@@ -222,15 +223,18 @@ describe('DecisionMemory', () => {
 
     it('should not go below minimum confidence', () => {
       const mem = createMemory({ minConfidence: 0.1 });
-      const d = mem.recordDecision({ description: 'Bad idea' });
 
-      // Multiple failures
+      // Record multiple decisions and fail each one
+      const decisions = [];
       for (let i = 0; i < 10; i++) {
-        d.outcome = Outcome.PENDING;
+        const d = mem.recordDecision({ description: `Bad idea ${i}` });
         mem.updateOutcome(d.id, Outcome.FAILURE);
+        decisions.push(d);
       }
 
-      expect(d.confidence).toBeGreaterThanOrEqual(0.1);
+      for (const d of decisions) {
+        expect(d.confidence).toBeGreaterThanOrEqual(0.1);
+      }
     });
 
     it('should return null for unknown decision ID', () => {
@@ -242,6 +246,12 @@ describe('DecisionMemory', () => {
       const mem = createMemory();
       const d = mem.recordDecision({ description: 'test' });
       expect(() => mem.updateOutcome(d.id, 'invalid')).toThrow('Invalid outcome');
+    });
+
+    it('should throw when setting outcome to PENDING', () => {
+      const mem = createMemory();
+      const d = mem.recordDecision({ description: 'test pending rejection' });
+      expect(() => mem.updateOutcome(d.id, Outcome.PENDING)).toThrow('Cannot set outcome back to PENDING');
     });
 
     it('should emit OUTCOME_UPDATED event', () => {

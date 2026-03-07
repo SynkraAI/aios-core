@@ -81,6 +81,18 @@ const Events = {
   DECISIONS_INJECTED: 'decisions:injected',
 };
 
+const STOP_WORDS = new Set([
+  'the', 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been',
+  'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will',
+  'would', 'could', 'should', 'may', 'might', 'can', 'shall',
+  'to', 'of', 'in', 'for', 'on', 'with', 'at', 'by', 'from',
+  'as', 'into', 'through', 'during', 'before', 'after', 'and',
+  'but', 'or', 'nor', 'not', 'so', 'yet', 'both', 'either',
+  'neither', 'each', 'every', 'all', 'any', 'few', 'more',
+  'most', 'other', 'some', 'such', 'no', 'only', 'own', 'same',
+  'than', 'too', 'very', 'just', 'because', 'que', 'para',
+  'com', 'por', 'uma', 'como', 'mais', 'dos', 'das', 'nos',
+]);
 const CATEGORY_KEYWORDS = {
   [DecisionCategory.ARCHITECTURE]: [
     'architecture', 'design', 'pattern', 'module', 'refactor',
@@ -99,7 +111,7 @@ const CATEGORY_KEYWORDS = {
     'restart', 'rollback', 'backup', 'restore',
   ],
   [DecisionCategory.WORKFLOW]: [
-    'workflow', 'pipeline', 'ci', 'deploy', 'release',
+    'workflow', 'pipeline', 'ci',
     'merge', 'branch', 'review', 'approve',
   ],
   [DecisionCategory.TESTING]: [
@@ -169,16 +181,22 @@ class DecisionMemory extends EventEmitter {
       fs.mkdirSync(dir, { recursive: true });
     }
 
+    this.decisions = this.decisions.slice(-this.config.maxDecisions);
+
     const data = {
       schemaVersion: this.config.schemaVersion,
       version: this.config.version,
       updatedAt: new Date().toISOString(),
       stats: this.getStats(),
-      decisions: this.decisions.slice(-this.config.maxDecisions),
+      decisions: this.decisions,
       patterns: this.patterns,
     };
 
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    try {
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    } catch {
+      return;
+    }
   }
 
   /**
@@ -240,6 +258,10 @@ class DecisionMemory extends EventEmitter {
 
     if (!Object.values(Outcome).includes(outcome)) {
       throw new Error(`Invalid outcome: ${outcome}. Use: ${Object.values(Outcome).join(', ')}`);
+    }
+
+    if (outcome === Outcome.PENDING) {
+      throw new Error('Cannot set outcome back to PENDING');
     }
 
     decision.outcome = outcome;
@@ -421,24 +443,11 @@ class DecisionMemory extends EventEmitter {
    * @private
    */
   _extractKeywords(text) {
-    const stopWords = new Set([
-      'the', 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been',
-      'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will',
-      'would', 'could', 'should', 'may', 'might', 'can', 'shall',
-      'to', 'of', 'in', 'for', 'on', 'with', 'at', 'by', 'from',
-      'as', 'into', 'through', 'during', 'before', 'after', 'and',
-      'but', 'or', 'nor', 'not', 'so', 'yet', 'both', 'either',
-      'neither', 'each', 'every', 'all', 'any', 'few', 'more',
-      'most', 'other', 'some', 'such', 'no', 'only', 'own', 'same',
-      'than', 'too', 'very', 'just', 'because', 'que', 'para',
-      'com', 'por', 'uma', 'como', 'mais', 'dos', 'das', 'nos',
-    ]);
-
     return text
       .toLowerCase()
       .replace(/[^a-z0-9\s-]/g, ' ')
       .split(/\s+/)
-      .filter(w => w.length > 2 && !stopWords.has(w))
+      .filter(w => w.length > 2 && !STOP_WORDS.has(w))
       .slice(0, 20);
   }
 
@@ -475,7 +484,7 @@ class DecisionMemory extends EventEmitter {
       1 - (ageDays / this.config.confidenceDecayDays) * 0.5,
     );
 
-    return confidence * decayFactor;
+    return Math.max(this.config.minConfidence, confidence * decayFactor);
   }
 
   /**
@@ -487,7 +496,7 @@ class DecisionMemory extends EventEmitter {
     const similar = this.decisions.filter(d =>
       d.id !== newDecision.id &&
       d.category === newDecision.category &&
-      this._keywordSimilarity(d.keywords, newDecision.keywords) > 0.4,
+      this._keywordSimilarity(d.keywords, newDecision.keywords) > this.config.similarityThreshold,
     );
 
     if (similar.length >= this.config.patternThreshold - 1) {

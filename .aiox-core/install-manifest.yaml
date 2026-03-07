@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-11T02:22:41.056Z"
+generated_at: "2026-03-11T02:23:22.238Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1090
 files:
@@ -789,9 +789,9 @@ files:
     type: core
     size: 8850
   - path: core/memory/decision-memory.js
-    hash: sha256:7c9189410dffa771db9866e40f1ccb4b8c3bac5d57b4a20f2ef99235ae71ad42
+    hash: sha256:7fbbc767df837c2d2a9daffdb5ae3d4013d536051572ae4845ec665649a3fabb
     type: core
-    size: 18911
+    size: 19099
   - path: core/memory/gotchas-memory.js
     hash: sha256:0063eff42caf0dda759c0390ac323e7b102f5507f27b8beb7b0acc2fbec407c4
     type: core
@@ -1225,9 +1225,9 @@ files:
     type: data
     size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:151aca46769c614f0238e7a8e2968884c3888b438ff1c634f0eeb2505e325b83
+    hash: sha256:e56c409180737aaa92d8765a8a42dfa6f40704e490a3fb71720080cdf9f92552
     type: data
-    size: 521804
+    size: 522325
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
