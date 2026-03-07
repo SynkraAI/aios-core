@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
 import { BaseTriadeFooter, BaseTriadeWatermark } from '@ciclo/ui'
 import { SessionProvider } from './providers/session-provider'
+import { Navbar } from '../components/navbar'
 import { SwRegister } from '../components/pwa/sw-register'
 import { InstallBanner } from '../components/pwa/install-banner'
 import './globals.css'
@@ -61,6 +62,7 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col">
         <SessionProvider>
           <SwRegister />
+          <Navbar />
           <BaseTriadeWatermark />
           <main className="relative z-10 flex-1">{children}</main>
           <BaseTriadeFooter className="relative z-10" />

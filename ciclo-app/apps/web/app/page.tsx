@@ -5,6 +5,16 @@ import { prisma } from '@ciclo/database'
 import { EventCard, SacredDivider, Triskle } from '@ciclo/ui'
 import { getSiteContents } from '../lib/site-content'
 import { LeadCaptureForm } from '../components/lead-capture-form'
+import {
+  HERO_CONTENT,
+  SOBRE_CONTENT,
+  PROPOSITOS,
+  PROGRAMACAO,
+  FACILITADORAS,
+  FAQ_ITEMS,
+  CANCELAMENTO,
+  INFO_PRATICAS,
+} from '../lib/home-content'
 
 export const dynamic = 'force-dynamic'
 
@@ -26,16 +36,10 @@ export const metadata: Metadata = {
 }
 
 const SEASONS_MANDALA = [
-  { slug: 'primavera', name: 'Primavera', element: 'Madeira', organ: 'Fígado', emoji: '\uD83C\uDF31', color: '#90EE90', nextEvent: 'Equinócio Set 2026', cssClass: 'primavera' },
-  { slug: 'verao', name: 'Verão', element: 'Fogo', organ: 'Coração', emoji: '\u2600\uFE0F', color: '#FFD700', nextEvent: 'Solstício Dez 2026', cssClass: 'verao' },
-  { slug: 'outono', name: 'Outono', element: 'Metal', organ: 'Pulmão', emoji: '\uD83C\uDF42', color: '#D2691E', nextEvent: 'Equinócio Mar 2026', cssClass: 'outono' },
-  { slug: 'inverno', name: 'Inverno', element: 'Água', organ: 'Rins', emoji: '\u2744\uFE0F', color: '#4682B4', nextEvent: 'Solstício Jun 2026', cssClass: 'inverno' },
-] as const
-
-const DEFAULT_VALUES = [
-  { icon: '\uD83C\uDF3F', title: 'Autocuidado Cíclico', text: 'Práticas ancestrais em harmonia com os ciclos da natureza' },
-  { icon: '\uD83E\uDDD1\u200D\uD83E\uDD1D\u200D\uD83E\uDDD1', title: 'Comunidade de Terapeutas', text: 'Encontros presenciais com terapeutas e buscadores' },
-  { icon: '\uD83C\uDF3E', title: 'Reconexão com a Natureza', text: 'Jornada GET137 de 137 dias entre estações' },
+  { slug: 'primavera', name: 'Primavera', element: 'Madeira', organ: 'Fígado', emoji: '\uD83C\uDF31', cssClass: 'primavera' },
+  { slug: 'verao', name: 'Verão', element: 'Fogo', organ: 'Coração', emoji: '\u2600\uFE0F', cssClass: 'verao' },
+  { slug: 'outono', name: 'Outono', element: 'Metal', organ: 'Pulmão', emoji: '\uD83C\uDF42', cssClass: 'outono' },
+  { slug: 'inverno', name: 'Inverno', element: 'Água', organ: 'Rins', emoji: '\u2744\uFE0F', cssClass: 'inverno' },
 ] as const
 
 const ELEMENT_MAP: Record<string, string> = {
@@ -73,23 +77,11 @@ export default async function HomePage() {
       orderBy: { createdAt: 'desc' },
       take: 6,
     }),
-    getSiteContents([
-      'hero_tagline', 'value_1_title', 'value_1_text', 'value_2_title', 'value_2_text',
-      'value_3_title', 'value_3_text', 'about_program',
-    ]),
+    getSiteContents(['hero_tagline', 'about_program']),
   ])
 
-  const heroTagline = (siteContents.get('hero_tagline') as string | null) ?? 'O programa de autocuidado cíclico da Base Tríade'
-  const aboutProgram = (siteContents.get('about_program') as string | null) ?? 'O Ciclo das Estações é um programa da Base Tríade que integra Medicina Tradicional Chinesa, Ayurveda e Yoga em jornadas sazonais de autoconhecimento.'
-
-  const valueProps = DEFAULT_VALUES.map((def, i) => {
-    const idx = i + 1
-    return {
-      icon: def.icon,
-      title: (siteContents.get(`value_${idx}_title`) as string | null) ?? def.title,
-      text: (siteContents.get(`value_${idx}_text`) as string | null) ?? def.text,
-    }
-  })
+  const heroTagline = (siteContents.get('hero_tagline') as string | null) ?? HERO_CONTENT.tagline
+  const aboutProgram = (siteContents.get('about_program') as string | null) ?? null
 
   const organizationJsonLd = {
     '@context': 'https://schema.org',
@@ -102,23 +94,28 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col" id="inicio">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
 
-      {/* ===== HERO — Terroso Base Tríade ===== */}
-      <section className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden bg-background px-4 py-24 text-center">
-        {/* Conteúdo hero */}
-        <div className="relative z-10 mx-auto max-w-3xl">
-          <h1 className="font-heading text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl" style={{ letterSpacing: '-0.02em' }}>
-            Ciclo das Estações
+      {/* ===== HERO — Compacto ===== */}
+      <section className="flex flex-col items-center bg-background px-4 pb-6 pt-12 text-center md:pb-10 md:pt-16">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#8B4513' }}>
+            {HERO_CONTENT.locationBadge}
+          </p>
+          <h1 className="mt-3 font-heading text-[28px] font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl" style={{ color: '#2d1810' }}>
+            {HERO_CONTENT.titulo}
           </h1>
-          <p className="mt-3 text-lg text-muted-foreground sm:text-xl">
+          <p className="mt-3 text-base leading-relaxed sm:text-lg" style={{ color: '#6b5744' }}>
             {heroTagline}
+          </p>
+          <p className="mt-1 text-[13px] sm:text-sm" style={{ color: 'rgba(139, 69, 19, 0.7)' }}>
+            {HERO_CONTENT.subtitulo}
           </p>
         </div>
 
-        {/* Mandala das 4 Estações — Navegação Central */}
-        <nav className="relative z-10 mt-12 w-full max-w-[800px] px-4" aria-label="Mandala de navegação das 4 Estações">
+        {/* Mandala das 4 Estacoes */}
+        <nav className="relative z-10 mt-8 w-full" aria-label="Mandala de navegação das 4 Estações">
           <h2 className="sr-only">Mandala de navegação das 4 Estações</h2>
           <div className="seasons-mandala">
             {SEASONS_MANDALA.map((season) => (
@@ -126,84 +123,151 @@ export default async function HomePage() {
                 key={season.slug}
                 href={`/eventos?season=${season.slug}`}
                 className={`season-card ${season.cssClass}`}
-                aria-label={`Estação ${season.name} — Elemento ${season.element}, Órgão ${season.organ}, próximo evento: ${season.nextEvent}`}
+                aria-label={`Estação ${season.name} — Elemento ${season.element}, Órgão ${season.organ}`}
               >
-                <span className="text-4xl" aria-hidden="true">{season.emoji}</span>
-                <span className="mt-3 font-heading text-base font-semibold text-foreground">{season.name}</span>
-                <span className="mt-1 text-xs text-muted-foreground">{season.element} / {season.organ}</span>
-                <span className="mt-2 text-xs text-[#8B4513]">{season.nextEvent}</span>
+                <span className="season-emoji" aria-hidden="true">{season.emoji}</span>
+                <span className="season-name mt-2 font-heading font-semibold text-foreground">{season.name}</span>
+                <span className="season-info mt-1 text-muted-foreground">{season.element} / {season.organ}</span>
               </Link>
             ))}
-            {/* Centro: Triskle */}
             <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2" aria-hidden="true">
               <div style={{ animation: 'watermark-rotate 137s linear infinite' }}>
-                <Triskle size={56} color="#8B4513" className="opacity-60" />
+                <Triskle size={36} color="#8B4513" className="opacity-50 md:hidden" />
+                <Triskle size={56} color="#8B4513" className="hidden opacity-60 md:block" />
               </div>
             </div>
           </div>
         </nav>
 
-        {/* CTA */}
-        <div className="relative z-10 mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+        {/* CTAs */}
+        <div className="mt-8 flex w-full max-w-sm flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center">
           <a
             href="#eventos"
-            className="inline-flex items-center gap-2 rounded-lg bg-[#D2691E] px-8 py-3.5 font-medium text-white shadow-sm transition-all hover:brightness-90"
+            className="inline-flex w-full items-center justify-center rounded-lg px-8 py-3.5 text-base font-medium text-white shadow-sm transition-all hover:brightness-90 sm:w-auto"
+            style={{ backgroundColor: '#D2691E' }}
           >
             Conhecer Eventos
           </a>
           <a
             href="#interesse"
-            className="inline-flex items-center gap-2 rounded-lg border border-[#d4a574] px-8 py-3.5 font-medium text-foreground transition-all hover:bg-[#d4a574]/10"
+            className="inline-flex w-full items-center justify-center rounded-lg border px-8 py-3.5 text-base font-medium text-foreground transition-all hover:bg-[#d4a574]/10 sm:w-auto"
+            style={{ borderColor: '#d4a574' }}
           >
-            Manifeste Interesse
+            Receber Chamado
           </a>
         </div>
       </section>
 
       <SacredDivider variant="line" />
 
-      {/* ===== PROPOSTA DE VALOR ===== */}
-      <section className="bg-background px-4 py-16 sm:py-24">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="text-center font-heading text-3xl font-bold sm:text-4xl" style={{ color: '#8B4513' }}>
-            Por que participar?
+      {/* ===== SOBRE O PROGRAMA ===== */}
+      <section id="sobre" className="section-padding bg-background">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#8B4513' }}>
+            {SOBRE_CONTENT.missao}
+          </p>
+          <h2 className="mt-3 font-heading text-[22px] font-bold sm:text-3xl" style={{ color: '#2d1810' }}>
+            {SOBRE_CONTENT.titulo}
           </h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
-            {valueProps.map((item) => (
+          {aboutProgram ? (
+            <p className="mt-6 text-sm leading-relaxed sm:text-base" style={{ color: '#6b5744', maxWidth: '640px', margin: '1.5rem auto 0' }}>
+              {aboutProgram}
+            </p>
+          ) : (
+            SOBRE_CONTENT.paragrafos.map((p, i) => (
+              <p key={i} className="mt-4 text-sm leading-relaxed sm:text-base" style={{ color: '#6b5744', maxWidth: '640px', margin: i === 0 ? '1.5rem auto 0' : '1rem auto 0' }}>
+                {p}
+              </p>
+            ))
+          )}
+        </div>
+      </section>
+
+      <SacredDivider variant="sacred" />
+
+      {/* ===== PROPOSITOS DA VIVENCIA ===== */}
+      <section className="section-padding bg-background">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="text-center font-heading text-[22px] font-bold sm:text-3xl" style={{ color: '#8B4513' }}>
+            Propósitos da Vivência
+          </h2>
+          <p className="mt-2 text-center text-[13px] text-muted-foreground">
+            O que cada jornada desperta em você
+          </p>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {PROPOSITOS.map((p) => (
               <div
-                key={item.title}
-                className="card-seasonal flex flex-col items-center p-6 text-center"
+                key={p.titulo}
+                className="flex items-start gap-3 rounded-lg border bg-white p-3 sm:p-4"
+                style={{ borderColor: '#e8ddd0' }}
               >
-                <span className="text-4xl" aria-hidden="true">
-                  {item.icon}
-                </span>
-                <h3 className="mt-4 font-heading text-lg font-semibold text-foreground">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {item.text}
-                </p>
+                <span className="shrink-0 text-2xl" aria-hidden="true">{p.emoji}</span>
+                <div>
+                  <h3 className="text-sm font-semibold" style={{ color: '#2d1810' }}>{p.titulo}</h3>
+                  <p className="mt-1 text-xs leading-relaxed sm:text-[13px]" style={{ color: '#6b5744' }}>{p.descricao}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      <SacredDivider variant="line" />
+
+      {/* ===== PROGRAMACAO TIPICA ===== */}
+      <section className="section-padding bg-background">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#8B4513' }}>
+            Exemplo de uma jornada
+          </p>
+          <h2 className="mt-2 font-heading text-[22px] font-bold sm:text-3xl" style={{ color: '#2d1810' }}>
+            Programação Típica
+          </h2>
+          <p className="mt-1 text-[13px] text-muted-foreground">
+            Baseada na Jornada Renascença — Equinócio de Primavera
+          </p>
+
+          <div className="mt-8 space-y-0">
+            {PROGRAMACAO.map((item, i) => (
+              <div
+                key={item.horario}
+                className="relative pb-6 pl-6 sm:pl-8"
+                style={{
+                  borderLeft: i < PROGRAMACAO.length - 1 ? '2px solid #d4a574' : '2px solid transparent',
+                }}
+              >
+                {/* Dot */}
+                <div
+                  className="absolute left-[-5px] top-[2px] h-2 w-2 rounded-full"
+                  style={{ backgroundColor: '#8B4513' }}
+                />
+                <p className="text-[13px] font-semibold" style={{ color: '#8B4513' }}>{item.horario}</p>
+                <p className="text-sm font-semibold" style={{ color: '#2d1810' }}>{item.titulo}</p>
+                <p className="mt-0.5 text-xs" style={{ color: '#6b5744' }}>{item.descricao}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-2 text-[11px] italic" style={{ color: '#6b5744' }}>
+            * Programação varia conforme a estação e o tema da jornada
+          </p>
+        </div>
+      </section>
+
       <SacredDivider variant="sacred" />
 
-      {/* ===== PRÓXIMOS EVENTOS ===== */}
-      <section id="eventos" className="bg-background px-4 py-16 sm:py-24">
+      {/* ===== PROXIMOS EVENTOS ===== */}
+      <section id="eventos" className="section-padding bg-background">
         <div className="mx-auto max-w-6xl">
-          <h2 className="text-center font-heading text-3xl font-bold sm:text-4xl" style={{ color: '#8B4513' }}>
+          <h2 className="text-center font-heading text-[22px] font-bold sm:text-3xl" style={{ color: '#8B4513' }}>
             Próximos Eventos
           </h2>
-          <p className="mt-2 text-center text-muted-foreground">
+          <p className="mt-2 text-center text-muted-foreground text-sm">
             Jornadas sazonais para reconexão e transformação
           </p>
 
           {events.length > 0 ? (
             <>
-              <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="mt-8 grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {events.map((event) => {
                   const lowestPrice = event.ticketTypes[0]?.earlyBirdPrice ?? event.ticketTypes[0]?.regularPrice
                   return (
@@ -219,34 +283,74 @@ export default async function HomePage() {
                   )
                 })}
               </div>
-              <div className="mt-8 text-center">
+              <div className="mt-6 text-center">
                 <Link href="/eventos" className="inline-flex items-center gap-1 text-sm font-medium text-[#8B4513] underline-offset-4 hover:text-foreground hover:underline">
                   Ver Todos os Eventos
                 </Link>
               </div>
             </>
           ) : (
-            <p className="mt-10 text-center text-muted-foreground">Novos eventos em breve!</p>
+            <div className="mx-auto mt-8 max-w-sm rounded-lg border bg-white p-6 text-center" style={{ borderColor: '#e8ddd0' }}>
+              <p className="text-sm text-muted-foreground">Novos eventos em breve!</p>
+              <a href="#interesse" className="mt-3 inline-block text-sm font-medium text-[#8B4513] underline-offset-4 hover:underline">
+                Receba o chamado quando abrirem
+              </a>
+            </div>
           )}
+        </div>
+      </section>
+
+      <SacredDivider variant="line" />
+
+      {/* ===== FACILITADORAS ===== */}
+      <section id="facilitadoras" className="section-padding bg-background">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="text-center font-heading text-[22px] font-bold sm:text-3xl" style={{ color: '#8B4513' }}>
+            Facilitadoras e Terapeutas
+          </h2>
+          <p className="mt-2 text-center text-[13px] text-muted-foreground">
+            Profissionais que conduzem as vivências
+          </p>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {FACILITADORAS.map((f) => (
+              <div
+                key={f.nome}
+                className="flex items-start gap-3 rounded-lg border bg-white p-3 sm:flex-col sm:items-center sm:p-4 sm:text-center"
+                style={{ borderColor: '#e8ddd0' }}
+              >
+                {/* Avatar iniciais */}
+                <div
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-semibold sm:h-16 sm:w-16 sm:text-base"
+                  style={{ backgroundColor: 'rgba(212, 165, 116, 0.15)', color: '#8B4513' }}
+                >
+                  {f.iniciais}
+                </div>
+                <div className="min-w-0">
+                  <h3 className="text-sm font-semibold" style={{ color: '#2d1810' }}>{f.nome}</h3>
+                  <p className="text-xs font-medium" style={{ color: '#8B4513' }}>{f.papel}</p>
+                  <p className="mt-1 text-xs leading-relaxed" style={{ color: '#6b5744' }}>
+                    <span className="line-clamp-3 sm:line-clamp-none">{f.bio}</span>
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       <SacredDivider variant="sacred" />
 
       {/* ===== DEPOIMENTOS ===== */}
-      <section className="bg-background px-4 py-16 sm:py-24">
+      <section className="section-padding bg-background">
         <div className="mx-auto max-w-6xl">
-          <h2 className="text-center font-heading text-3xl font-bold sm:text-4xl" style={{ color: '#8B4513' }}>
+          <h2 className="text-center font-heading text-[22px] font-bold sm:text-3xl" style={{ color: '#8B4513' }}>
             Depoimentos
           </h2>
 
           {testimonials.length > 0 ? (
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {testimonials.map((testimonial) => (
-                <div
-                  key={testimonial.id}
-                  className="card-seasonal p-6"
-                >
+                <div key={testimonial.id} className="card-seasonal p-4">
                   <div className="flex items-center gap-1" aria-label={`${testimonial.rating} de 5 estrelas`}>
                     {renderStars(testimonial.rating)}
                   </div>
@@ -262,7 +366,7 @@ export default async function HomePage() {
               ))}
             </div>
           ) : (
-            <p className="mt-10 text-center text-muted-foreground">
+            <p className="mt-8 text-center text-muted-foreground text-sm">
               Depoimentos em breve — participe de um evento!
             </p>
           )}
@@ -271,16 +375,85 @@ export default async function HomePage() {
 
       <SacredDivider variant="line" />
 
-      {/* ===== FORMULÁRIO DE INTERESSE ===== */}
-      <section id="interesse" className="bg-background px-4 py-16 sm:py-24">
+      {/* ===== FAQ ===== */}
+      <section id="faq" className="section-padding bg-background">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-center font-heading text-[22px] font-bold sm:text-3xl" style={{ color: '#2d1810' }}>
+            Perguntas Frequentes
+          </h2>
+          <div className="mt-8 space-y-2">
+            {FAQ_ITEMS.map((item) => (
+              <details
+                key={item.pergunta}
+                className="group rounded-lg border bg-white"
+                style={{ borderColor: '#e8ddd0' }}
+              >
+                <summary className="flex cursor-pointer items-center justify-between px-4 py-3 text-sm font-semibold" style={{ color: '#2d1810' }}>
+                  {item.pergunta}
+                  <svg
+                    className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180"
+                    style={{ color: '#d4a574' }}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div className="border-t px-4 py-3 text-[13px] leading-relaxed" style={{ borderColor: '#e8ddd0', color: '#6b5744' }}>
+                  {item.resposta}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <SacredDivider variant="sacred" />
+
+      {/* ===== POLITICA DE CANCELAMENTO ===== */}
+      <section className="section-padding bg-background">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-center font-heading text-[22px] font-bold sm:text-3xl" style={{ color: '#2d1810' }}>
+            Política de Cancelamento
+          </h2>
+          <div className="mt-8 overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr style={{ backgroundColor: '#fef9f0' }}>
+                  <th className="px-4 py-3 text-[11px] font-semibold uppercase tracking-wider" style={{ color: '#8B4513' }}>Prazo</th>
+                  <th className="px-4 py-3 text-[11px] font-semibold uppercase tracking-wider" style={{ color: '#8B4513' }}>Política</th>
+                </tr>
+              </thead>
+              <tbody>
+                {CANCELAMENTO.map((rule) => (
+                  <tr key={rule.prazo} className="border-t" style={{ borderColor: '#e8ddd0' }}>
+                    <td className="px-4 py-3 text-[13px] font-medium" style={{ color: '#2d1810' }}>{rule.prazo}</td>
+                    <td className="px-4 py-3 text-[13px]" style={{ color: '#6b5744' }}>{rule.politica}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-center text-xs" style={{ color: '#6b5744' }}>
+            Transferência de inscrição sempre permitida sem custo adicional
+          </p>
+        </div>
+      </section>
+
+      <SacredDivider variant="line" />
+
+      {/* ===== LEAD CAPTURE ===== */}
+      <section id="interesse" className="section-padding bg-background">
         <div className="mx-auto max-w-6xl">
-          <h2 className="text-center font-heading text-3xl font-bold sm:text-4xl" style={{ color: '#2d1810' }}>
+          <h2 className="text-center font-heading text-[22px] font-bold sm:text-3xl" style={{ color: '#2d1810' }}>
             Receba o Chamado das Estações
           </h2>
-          <p className="mt-2 text-center text-muted-foreground">
+          <p className="mt-2 text-center text-sm text-muted-foreground">
             Receba novidades sobre os próximos eventos e jornadas
           </p>
-          <div className="mt-10">
+          <div className="mt-8">
             <Suspense fallback={<div className="mx-auto h-64 max-w-md animate-pulse rounded-xl border border-[#e8ddd0] bg-white" />}>
               <LeadCaptureForm />
             </Suspense>
@@ -290,63 +463,27 @@ export default async function HomePage() {
 
       <SacredDivider variant="sacred" />
 
-      {/* ===== SOBRE O PROGRAMA ===== */}
-      <section className="bg-background px-4 py-16 sm:py-24">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-heading text-3xl font-bold sm:text-4xl" style={{ color: '#8B4513' }}>
-            Sobre o Programa
-          </h2>
-          <p className="mt-6 text-base leading-relaxed text-muted-foreground" style={{ maxWidth: '720px', margin: '1.5rem auto 0' }}>
-            {aboutProgram}
-          </p>
-        </div>
-      </section>
-
-      {/* ===== FOOTER SECTION — Links adicionais ===== */}
-      <section className="border-t border-[#e8ddd0] bg-background px-4 py-12">
+      {/* ===== INFORMACOES PRATICAS ===== */}
+      <section id="contato" className="section-padding bg-background">
         <div className="mx-auto max-w-6xl">
-          <div className="grid gap-8 sm:grid-cols-3">
-            <div>
-              <h3 className="font-heading text-sm font-semibold uppercase tracking-wider text-foreground">
-                Facilitadoras
-              </h3>
-              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <a href="https://instagram.com/podprana" target="_blank" rel="noopener noreferrer" className="hover:text-[#8B4513] transition-colors">
-                    Daniela Lopper — @podprana
-                  </a>
-                </li>
-                <li>
-                  <a href="https://instagram.com/koch.milenar" target="_blank" rel="noopener noreferrer" className="hover:text-[#8B4513] transition-colors">
-                    Milena Koch — @koch.milenar
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-heading text-sm font-semibold uppercase tracking-wider text-foreground">
-                Contato
-              </h3>
-              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <a href="mailto:contato@basetriade.com" className="hover:text-[#8B4513] transition-colors">
-                    contato@basetriade.com
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-heading text-sm font-semibold uppercase tracking-wider text-foreground">
-                Legal
-              </h3>
-              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <Link href="/privacidade" className="hover:text-[#8B4513] transition-colors">
-                    Política de Privacidade
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          <h2 className="text-center font-heading text-[22px] font-bold sm:text-3xl" style={{ color: '#2d1810' }}>
+            Informações Práticas
+          </h2>
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {INFO_PRATICAS.map((info) => (
+              <div
+                key={info.titulo}
+                className="rounded-lg border bg-white p-4"
+                style={{ borderColor: '#e8ddd0' }}
+              >
+                <h3 className="text-sm font-semibold" style={{ color: '#2d1810' }}>{info.titulo}</h3>
+                <ul className="mt-2 space-y-1">
+                  {info.linhas.map((linha) => (
+                    <li key={linha} className="text-[13px]" style={{ color: '#6b5744' }}>{linha}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </section>

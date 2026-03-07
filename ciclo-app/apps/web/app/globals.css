@@ -11,6 +11,7 @@
   :root {
     /* === BASE TRIADE — Identidade Visual Core === */
     --base-dark: #2d1810;
+    --base-forest: #213B2C;
     --base-golden: #d4a574;
     --base-sienna: #8B4513;
     --base-bg: #fef9f0;
@@ -121,13 +122,31 @@
     transform: translateY(-2px);
   }
 
+  /* --- Section padding responsive --- */
+  .section-padding {
+    padding: 40px 16px;
+  }
+
+  @media (min-width: 768px) {
+    .section-padding {
+      padding: 56px 24px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-padding {
+      padding: 80px 32px;
+    }
+  }
+
   /* --- Mandala layout for seasons --- */
   .seasons-mandala {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    max-width: 800px;
+    gap: 0.75rem;
+    max-width: 320px;
     margin: 0 auto;
+    padding: 0 0.5rem;
     position: relative;
   }
 
@@ -137,11 +156,44 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     border: 2px solid var(--base-golden);
     opacity: 0.3;
+  }
+
+  @media (min-width: 375px) {
+    .seasons-mandala {
+      gap: 1rem;
+      max-width: 380px;
+    }
+    .seasons-mandala::before {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .seasons-mandala {
+      gap: 1.25rem;
+      max-width: 480px;
+    }
+    .seasons-mandala::before {
+      width: 64px;
+      height: 64px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .seasons-mandala {
+      gap: 1.5rem;
+      max-width: 560px;
+    }
+    .seasons-mandala::before {
+      width: 80px;
+      height: 80px;
+    }
   }
 
   /* --- Season card in mandala --- */
@@ -149,12 +201,59 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem 1.5rem;
-    border-radius: 1rem;
+    padding: 0.75rem 0.5rem;
+    border-radius: 0.75rem;
     text-align: center;
     transition: all 0.3s ease;
     cursor: pointer;
     border: 1px solid transparent;
+  }
+
+  .season-card .season-emoji {
+    font-size: 1.5rem;
+  }
+
+  .season-card .season-name {
+    font-size: 0.8125rem;
+  }
+
+  .season-card .season-info {
+    font-size: 0.625rem;
+  }
+
+  @media (min-width: 375px) {
+    .season-card {
+      padding: 1rem 0.75rem;
+    }
+    .season-card .season-emoji {
+      font-size: 1.75rem;
+    }
+    .season-card .season-name {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .season-card {
+      padding: 1.5rem 1rem;
+      border-radius: 0.75rem;
+    }
+    .season-card .season-emoji {
+      font-size: 2rem;
+    }
+    .season-card .season-name {
+      font-size: 1rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .season-card {
+      padding: 2rem 1.5rem;
+      border-radius: 1rem;
+    }
+    .season-card .season-emoji {
+      font-size: 2.5rem;
+    }
   }
 
   .season-card:hover {
