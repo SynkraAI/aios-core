@@ -76,6 +76,12 @@ class ConfigCache {
     // increment hits/misses and inflate cache statistics (fixes #497)
     if (!this.cache.has(key)) return false;
 
+    // If timestamp is missing, maps are out-of-sync — treat as invalid
+    if (!this.timestamps.has(key)) {
+      this.cache.delete(key);
+      return false;
+    }
+
     const timestamp = this.timestamps.get(key);
     if (Date.now() - timestamp > this.ttl) {
       this.cache.delete(key);

@@ -11,7 +11,9 @@
 
 jest.useFakeTimers();
 
-const { ConfigCache, globalConfigCache } = require('../../../.aios-core/core/config/config-cache');
+const { ConfigCache, globalConfigCache } = require('../../../.aiox-core/core/config/config-cache');
+
+afterAll(() => jest.useRealTimers());
 
 describe('config-cache', () => {
   let cache;
@@ -115,6 +117,14 @@ describe('config-cache', () => {
       cache.has('missing'); // should NOT touch stats
       expect(cache.hits).toBe(0);
       expect(cache.misses).toBe(0);
+    });
+
+    test('returns false and cleans up when timestamp is missing (out-of-sync maps)', () => {
+      cache.set('key1', 'value1');
+      // Simulate out-of-sync: delete timestamp but keep cache entry
+      cache.timestamps.delete('key1');
+      expect(cache.has('key1')).toBe(false);
+      expect(cache.size).toBe(0);
     });
 
     test('has() + get() counts exactly one hit, not two (fix #497)', () => {
