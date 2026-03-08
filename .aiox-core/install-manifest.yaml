@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-11T02:23:14.237Z"
+generated_at: "2026-03-11T02:23:25.890Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1091
 files:
@@ -829,9 +829,9 @@ files:
     type: core
     size: 19293
   - path: core/orchestration/cognitive-load-balancer.js
-    hash: sha256:1b1903400ef45fe55b1cd02a0a824fd4a17fdfe368bf319ce2951ca59fee734b
+    hash: sha256:b3c3c865f2751cb3b39807c782cad21268900c558b7c9dc8a3607108699ff2bc
     type: core
-    size: 32804
+    size: 35031
   - path: core/orchestration/condition-evaluator.js
     hash: sha256:8bf565cf56194340ff4e1d642647150775277bce649411d0338faa2c96106745
     type: core
@@ -1229,7 +1229,7 @@ files:
     type: data
     size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:85c566837111c7cdf46f672a41959ee38accde60c8820cbc5bbb04b8f98203f0
+    hash: sha256:eceaba9d1de06b854c8dd7b0229c3b2b99c6dac0938d9c841a042e45e214b2f2
     type: data
     size: 522285
   - path: data/learned-patterns.yaml

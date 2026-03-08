@@ -201,16 +201,26 @@ class CognitiveLoadBalancer extends EventEmitter {
    * @param {number} [profile.processingSpeed=1.0] - Processing speed multiplier
    * @returns {Object} Registered agent profile
    * @throws {Error} If agentId is not a non-empty string
+   * @throws {Error} If profile is provided but is not an object
    */
   registerAgent(agentId, profile = {}) {
     if (!agentId || typeof agentId !== 'string') {
       throw new Error('agentId must be a non-empty string');
     }
 
-    const agentProfile = createAgentProfile(agentId, profile);
+    // Validate profile overrides must be object or undefined
+    if (profile !== undefined && profile !== null && typeof profile !== 'object') {
+      throw new Error('profile must be an object or undefined');
+    }
+
+    const agentProfile = createAgentProfile(agentId, profile || {});
     this.agents.set(agentId, agentProfile);
 
     this.emit('agent:registered', { agentId, profile: agentProfile });
+
+    // Process queue when new agent registers so queued tasks get assigned
+    this._processQueue();
+
     return agentProfile;
   }
 
@@ -261,6 +271,8 @@ class CognitiveLoadBalancer extends EventEmitter {
    * @param {number} [taskInput.complexity=5] - Complexity 1-10
    * @param {string[]} [taskInput.requiredSpecialties=[]] - Required specialties
    * @returns {Object} Submission result with taskId and assignedTo
+   * @throws {Error} If task input is not a non-null object
+   * @throws {Error} If task with same ID already exists
    */
   submitTask(taskInput) {
     if (!taskInput || typeof taskInput !== 'object') {
@@ -268,6 +280,12 @@ class CognitiveLoadBalancer extends EventEmitter {
     }
 
     const task = createTask(taskInput);
+
+    // Reject duplicate task IDs
+    if (this.tasks.has(task.id)) {
+      throw new Error(`Task '${task.id}' already exists`);
+    }
+
     this.tasks.set(task.id, task);
     this.metrics.totalSubmitted++;
 
@@ -308,11 +326,20 @@ class CognitiveLoadBalancer extends EventEmitter {
    * @param {string} agentId - Target agent
    * @returns {Object} Assignment result
    * @throws {Error} If task or agent not found
+   * @throws {Error} If task is already completed or failed
    */
   assignTask(taskId, agentId) {
     const task = this.tasks.get(taskId);
     if (!task) {
       throw new Error(`Task '${taskId}' not found`);
+    }
+
+    // Enforce task state transitions - cannot assign completed/failed tasks
+    if (task.status === TaskStatus.COMPLETED) {
+      throw new Error(`Task '${taskId}' is already completed`);
+    }
+    if (task.status === TaskStatus.FAILED) {
+      throw new Error(`Task '${taskId}' is already failed`);
     }
 
     const agent = this.agents.get(agentId);
@@ -348,11 +375,20 @@ class CognitiveLoadBalancer extends EventEmitter {
    * @param {*} [result=null] - Task result
    * @returns {Object} Completion info
    * @throws {Error} If task not found
+   * @throws {Error} If task is already completed or failed
    */
-  completeTask(taskId, result = null) {
+  async completeTask(taskId, result = null) {
     const task = this.tasks.get(taskId);
     if (!task) {
       throw new Error(`Task '${taskId}' not found`);
+    }
+
+    // Enforce task state transitions
+    if (task.status === TaskStatus.COMPLETED) {
+      throw new Error(`Task '${taskId}' is already completed`);
+    }
+    if (task.status === TaskStatus.FAILED) {
+      throw new Error(`Task '${taskId}' is already failed`);
     }
 
     task.status = TaskStatus.COMPLETED;
@@ -375,8 +411,8 @@ class CognitiveLoadBalancer extends EventEmitter {
     // Try to process queue after freeing capacity
     this._processQueue();
 
-    // Persist metrics
-    this._persistMetrics();
+    // Await metrics persistence instead of fire-and-forget
+    await this._persistMetrics();
 
     return {
       taskId,
@@ -391,11 +427,20 @@ class CognitiveLoadBalancer extends EventEmitter {
    * @param {string|Error} [error='Unknown error'] - Error description
    * @returns {Object} Failure info
    * @throws {Error} If task not found
+   * @throws {Error} If task is already completed or failed
    */
-  failTask(taskId, error = 'Unknown error') {
+  async failTask(taskId, error = 'Unknown error') {
     const task = this.tasks.get(taskId);
     if (!task) {
       throw new Error(`Task '${taskId}' not found`);
+    }
+
+    // Enforce task state transitions
+    if (task.status === TaskStatus.COMPLETED) {
+      throw new Error(`Task '${taskId}' is already completed`);
+    }
+    if (task.status === TaskStatus.FAILED) {
+      throw new Error(`Task '${taskId}' is already failed`);
     }
 
     const errorMessage = error instanceof Error ? error.message : String(error);
@@ -416,8 +461,8 @@ class CognitiveLoadBalancer extends EventEmitter {
     // Try to process queue after freeing capacity
     this._processQueue();
 
-    // Persist metrics
-    this._persistMetrics();
+    // Await metrics persistence instead of fire-and-forget
+    await this._persistMetrics();
 
     return {
       taskId,
@@ -727,6 +772,9 @@ class CognitiveLoadBalancer extends EventEmitter {
    * @private
    */
   _assignTaskToAgent(task, agent) {
+    // Save previous status for transition-only events
+    const previousStatus = agent.status;
+
     task.assignedTo = agent.id;
     task.status = TaskStatus.ASSIGNED;
     task.startedAt = Date.now();
@@ -737,9 +785,9 @@ class CognitiveLoadBalancer extends EventEmitter {
     this._updateAgentStatus(agent);
     this.emit('task:assigned', { taskId: task.id, agentId: agent.id });
 
-    // Check if agent became overloaded
-    const loadPct = agent.maxLoad > 0 ? (agent.currentLoad / agent.maxLoad) * 100 : 100;
-    if (loadPct >= OVERLOAD_THRESHOLD) {
+    // Only emit agent:overloaded on actual status transition
+    if (agent.status === AgentStatus.OVERLOADED && previousStatus !== AgentStatus.OVERLOADED) {
+      const loadPct = agent.maxLoad > 0 ? (agent.currentLoad / agent.maxLoad) * 100 : 100;
       this.emit('agent:overloaded', { agentId: agent.id, load: loadPct });
     }
   }
@@ -751,6 +799,9 @@ class CognitiveLoadBalancer extends EventEmitter {
    * @private
    */
   _removeTaskFromAgent(agent, taskId) {
+    // Save previous status for transition-only events
+    const previousStatus = agent.status;
+
     const idx = agent.activeTasks.indexOf(taskId);
     if (idx !== -1) {
       agent.activeTasks.splice(idx, 1);
@@ -763,9 +814,10 @@ class CognitiveLoadBalancer extends EventEmitter {
 
     this._updateAgentStatus(agent);
 
-    // Check if agent became available again
-    const loadPct = agent.maxLoad > 0 ? (agent.currentLoad / agent.maxLoad) * 100 : 100;
-    if (loadPct < OVERLOAD_THRESHOLD && agent.status !== AgentStatus.OFFLINE) {
+    // Only emit agent:available on transition FROM overloaded
+    if (agent.status !== AgentStatus.OVERLOADED && agent.status !== AgentStatus.OFFLINE
+        && previousStatus === AgentStatus.OVERLOADED) {
+      const loadPct = agent.maxLoad > 0 ? (agent.currentLoad / agent.maxLoad) * 100 : 100;
       this.emit('agent:available', { agentId: agent.id, load: loadPct });
     }
   }
@@ -914,8 +966,9 @@ class CognitiveLoadBalancer extends EventEmitter {
 
       await fs.mkdir(metricsDir, { recursive: true });
       await fs.writeFile(metricsPath, JSON.stringify(this.getMetrics(), null, 2), 'utf8');
-    } catch {
-      // Silently ignore persistence errors in production
+    } catch (err) {
+      // Log persistence errors with context instead of silently ignoring
+      console.error(`Failed to persist load balancer metrics: ${err.message}`);
     }
   }
 }
