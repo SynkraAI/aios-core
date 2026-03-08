@@ -53,6 +53,7 @@ function generateId(prefix) {
  */
 function deepClone(value) {
   if (value === null || value === undefined) return value;
+  if (typeof structuredClone === 'function') return structuredClone(value);
   return JSON.parse(JSON.stringify(value));
 }
 
@@ -84,6 +85,8 @@ class TimeTravelEngine extends EventEmitter {
     /** @type {Map<string, Object>} */
     this.timelines = new Map();
 
+    this._loaded = false;
+
     this._stats = {
       timelinesCreated: 0,
       checkpointsCreated: 0,
@@ -91,6 +94,11 @@ class TimeTravelEngine extends EventEmitter {
       rewindsPerformed: 0,
       restoresPerformed: 0,
     };
+
+    // Sync load persisted timelines on startup
+    if (this.autoPersist) {
+      this._loadFromDiskSync();
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -152,11 +160,7 @@ class TimeTravelEngine extends EventEmitter {
   async checkpoint(timelineId, state, label = '') {
     const timeline = this._getTimeline(timelineId);
 
-    const activeCount = timeline.checkpoints.filter(
-      (cp) => cp.status === CheckpointStatus.ACTIVE
-    ).length;
-
-    if (activeCount >= this.maxCheckpointsPerTimeline) {
+    if (timeline.checkpoints.length >= this.maxCheckpointsPerTimeline) {
       throw new Error(
         `Timeline has reached maximum of ${this.maxCheckpointsPerTimeline} checkpoints`
       );
@@ -169,7 +173,7 @@ class TimeTravelEngine extends EventEmitter {
       state: deepClone(state),
       label: label ?? '',
       timestamp: new Date().toISOString(),
-      index: activeCount,
+      index: timeline.checkpoints.length,
       status: CheckpointStatus.ACTIVE,
     };
 
@@ -395,29 +399,49 @@ class TimeTravelEngine extends EventEmitter {
     const tl1 = this._getTimeline(timelineId1);
     const tl2 = this._getTimeline(timelineId2);
 
-    // Find shared checkpoints by comparing state content
+    // Find shared checkpoints using lineage (parent relationship)
     const sharedCheckpoints = [];
     let commonAncestorIndex = -1;
+    let forkPointIndex = 0;
 
-    const minLen = Math.min(tl1.checkpoints.length, tl2.checkpoints.length);
-    for (let i = 0; i < minLen; i++) {
-      const s1 = JSON.stringify(tl1.checkpoints[i].state);
-      const s2 = JSON.stringify(tl2.checkpoints[i].state);
+    // Check if tl2 is a fork of tl1 (or vice versa)
+    if (tl2.parentId === timelineId1) {
+      // tl2 was forked from tl1 — use parentCheckpointId to find fork point
+      const forkCpId = tl2.parentCheckpointId;
+      const forkCpIdx = tl1.checkpoints.findIndex((cp) => cp.id === forkCpId);
 
-      if (s1 === s2) {
-        sharedCheckpoints.push({
-          index: i,
-          label: tl1.checkpoints[i].label,
-          state: deepClone(tl1.checkpoints[i].state),
-        });
-        commonAncestorIndex = i;
-      } else {
-        break;
+      if (forkCpIdx >= 0) {
+        for (let i = 0; i <= forkCpIdx; i++) {
+          sharedCheckpoints.push({
+            index: i,
+            label: tl1.checkpoints[i].label,
+            state: deepClone(tl1.checkpoints[i].state),
+          });
+          commonAncestorIndex = i;
+        }
+        forkPointIndex = forkCpIdx + 1;
+      }
+    } else if (tl1.parentId === timelineId2) {
+      // tl1 was forked from tl2 — use parentCheckpointId to find fork point
+      const forkCpId = tl1.parentCheckpointId;
+      const forkCpIdx = tl2.checkpoints.findIndex((cp) => cp.id === forkCpId);
+
+      if (forkCpIdx >= 0) {
+        for (let i = 0; i <= forkCpIdx; i++) {
+          sharedCheckpoints.push({
+            index: i,
+            label: tl2.checkpoints[i].label,
+            state: deepClone(tl2.checkpoints[i].state),
+          });
+          commonAncestorIndex = i;
+        }
+        forkPointIndex = forkCpIdx + 1;
       }
     }
+    // For unrelated timelines, sharedCheckpoints stays empty
 
     // Divergent checkpoints
-    const onlyInTimeline1 = tl1.checkpoints.slice(sharedCheckpoints.length).map((cp) => ({
+    const onlyInTimeline1 = tl1.checkpoints.slice(forkPointIndex).map((cp) => ({
       checkpointId: cp.id,
       label: cp.label,
       index: cp.index,
@@ -645,12 +669,42 @@ class TimeTravelEngine extends EventEmitter {
       const filePath = path.join(this.storageDir, `${timeline.id}.json`);
       await fs.promises.writeFile(filePath, JSON.stringify(timeline, null, 2), 'utf-8');
     } catch (error) {
-      this.emit('error', {
-        operation: 'persist',
-        timelineId: timeline.id,
-        error: error.message,
-      });
+      if (this.listenerCount('error') > 0) {
+        this.emit('error', {
+          operation: 'persist',
+          timelineId: timeline.id,
+          error: error.message,
+        });
+      }
     }
+  }
+
+  /**
+   * Load all timelines from disk (sync, used by constructor)
+   * @private
+   */
+  _loadFromDiskSync() {
+    if (this._loaded) return;
+    try {
+      const files = fs.readdirSync(this.storageDir);
+      const jsonFiles = files.filter((f) => f.endsWith('.json'));
+
+      for (const file of jsonFiles) {
+        try {
+          const filePath = path.join(this.storageDir, file);
+          const data = fs.readFileSync(filePath, 'utf-8');
+          const timeline = JSON.parse(data);
+          if (timeline.id) {
+            this.timelines.set(timeline.id, timeline);
+          }
+        } catch (_err) {
+          // Skip corrupt files
+        }
+      }
+    } catch (_err) {
+      // Directory may not exist yet
+    }
+    this._loaded = true;
   }
 
   /**
@@ -658,6 +712,7 @@ class TimeTravelEngine extends EventEmitter {
    * @private
    */
   async _loadFromDisk() {
+    if (this._loaded) return;
     try {
       const files = await fs.promises.readdir(this.storageDir);
       const jsonFiles = files.filter((f) => f.endsWith('.json'));
@@ -677,6 +732,7 @@ class TimeTravelEngine extends EventEmitter {
     } catch (_err) {
       // Directory may not exist yet
     }
+    this._loaded = true;
   }
 }
 

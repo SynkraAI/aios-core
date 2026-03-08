@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-11T02:25:32.615Z"
+generated_at: "2026-03-11T02:25:38.874Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1090
 files:
@@ -437,9 +437,9 @@ files:
     type: core
     size: 25738
   - path: core/execution/time-travel.js
-    hash: sha256:535683b7d272798246e526bde570535fa20a694fcf38fc4e5caa6039e3c36bfc
+    hash: sha256:eb133cf60cb26c7771c07bfbc4809872d688f94abdbee995e14a7d4efc379da0
     type: core
-    size: 19783
+    size: 21615
   - path: core/execution/wave-executor.js
     hash: sha256:4e2324edb37ae0729062b5ac029f2891e050e7efd3a48d0f4a1dc4f227a6716b
     type: core
@@ -1225,9 +1225,9 @@ files:
     type: data
     size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:151aca46769c614f0238e7a8e2968884c3888b438ff1c634f0eeb2505e325b83
+    hash: sha256:c2b44be42b65aa41e7cf5bd749b75c9356334c5f81b8d5b1defe0816e3b5540a
     type: data
-    size: 521804
+    size: 522289
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
