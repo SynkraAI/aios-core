@@ -8,4 +8,4 @@
 | 4 | luiz-fosc-mind-clone | Research INPI concluida | tech-search | 2026-03-05 | Registrar marca ou alternativas |
 | 5 | storytelling-masters-fosc | Research Fala Magnetica | tech-search | 2026-03-05 | Definir nome alternativo |
 | 6 | high-ticket-sales | 25 livros mapeados | tech-search | 2026-03-04 | Definir ordem de leitura |
-| 7 | **renner-silva** | **Distill completo, KB update pendente** | **Kaizen + squad-chief** | **2026-03-09** | **Criar KB18/KB19, atualizar KB01/KB02/KB04** |
+| 7 | **renner-silva** | **Clone v1.2 pronto (9.5/10)** | **Kaizen + squad-chief** | **2026-03-09** | **Expandir ME-01 a ME-07, incorporar 15 FPs em KB07** |
