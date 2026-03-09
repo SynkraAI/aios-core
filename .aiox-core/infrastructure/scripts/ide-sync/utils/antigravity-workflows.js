@@ -16,7 +16,7 @@ const colors = {
  */
 function syncAntigravityWorkflows(projectRoot, dryRun, resultFiles, verbose = false) {
     try {
-        const sourceDir = path.join(projectRoot, '.aios-core', 'product', 'templates', 'ide-rules', 'antigravity', 'workflows');
+        const sourceDir = path.join(projectRoot, '.aiox-core', 'product', 'templates', 'ide-rules', 'antigravity', 'workflows');
         const targetDir = path.join(projectRoot, '.agent', 'workflows');
 
         if (fs.existsSync(sourceDir)) {

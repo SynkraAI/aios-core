@@ -25,7 +25,7 @@ function validateAntigravityIntegration(options = {}) {
         ...getDefaultOptions(),
         ...options,
         projectRoot,
-        workflowsDir: options.workflowsDir || path.join(projectRoot, '.aios-core', 'product', 'templates', 'ide-rules', 'antigravity', 'workflows'),
+        workflowsDir: options.workflowsDir || path.join(projectRoot, '.aiox-core', 'product', 'templates', 'ide-rules', 'antigravity', 'workflows'),
     };
     const errors = [];
     const warnings = [];

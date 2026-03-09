@@ -3,7 +3,7 @@
 const fs = require('fs-extra');
 const os = require('os');
 const path = require('path');
-const { syncAntigravityWorkflows } = require('../../../.aios-core/infrastructure/scripts/ide-sync/utils/antigravity-workflows');
+const { syncAntigravityWorkflows } = require('../../../.aiox-core/infrastructure/scripts/ide-sync/utils/antigravity-workflows');
 
 describe('antigravity-workflows', () => {
     let tmpRoot;
@@ -12,7 +12,7 @@ describe('antigravity-workflows', () => {
         tmpRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'ide-sync-antigravity-'));
 
         // Create source template dir
-        const sourceDir = path.join(tmpRoot, '.aios-core', 'product', 'templates', 'ide-rules', 'antigravity', 'workflows');
+        const sourceDir = path.join(tmpRoot, '.aiox-core', 'product', 'templates', 'ide-rules', 'antigravity', 'workflows');
         await fs.ensureDir(sourceDir);
 
         // Create a mock template

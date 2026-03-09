@@ -16,7 +16,7 @@ const { spawnSync } = require('child_process');
 const { getIDEConfig } = require('../config/ide-configs');
 const { validateProjectName } = require('./validators');
 const { getMergeStrategy, hasMergeStrategy } = require('../merger/index.js');
-const { syncAntigravityWorkflows } = require('../../../../.aios-core/infrastructure/scripts/ide-sync/utils/antigravity-workflows');
+const { syncAntigravityWorkflows } = require('../../../../.aiox-core/infrastructure/scripts/ide-sync/utils/antigravity-workflows');
 
 /**
  * Render template with variables
