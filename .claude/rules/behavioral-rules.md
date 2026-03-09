@@ -25,3 +25,16 @@
 - Investigate root cause when error persists
 - Commit before moving to next task
 - Create handoff in "docs/sessions/YYYY-MM/" at end of session
+
+## PROJECT STRUCTURE (MANDATORY)
+
+Every project in `docs/projects/{name}/` MUST have:
+1. `INDEX.md` — project state, last session, next step, history, squads, key files
+2. `sessions/` — checkpoint/resume session files (with `.gitkeep`)
+3. A row in `docs/projects/ACTIVE.md`
+
+When creating a new project:
+- Use `/new-project` slash command (preferred)
+- OR manually create the 3 items above following existing INDEX.md as template
+- NEVER create a project directory without INDEX.md and sessions/
+- ALWAYS update ACTIVE.md when adding or changing project status
