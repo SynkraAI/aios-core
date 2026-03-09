@@ -1,0 +1,98 @@
+<!--
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║         ██████╗ ██████╗ ███╗   ███╗██████╗  █████╗ ████████╗                ║
+║        ██╔════╝██╔═══██╗████╗ ████║██╔══██╗██╔══██╗╚══██╔══╝                ║
+║        ██║     ██║   ██║██╔████╔██║██████╔╝███████║   ██║                    ║
+║        ██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██╔══██║   ██║                    ║
+║        ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ██║  ██║   ██║                    ║
+║         ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚═╝  ╚═╝   ╚═╝                    ║
+║                                                                              ║
+║                                                                              ║
+║              ♥ ♥               ╔══╗══╗               ♥ ♥                    ║
+║             ♥   ♥              ║  ║  ║              ♥   ♥                   ║
+║            ♥     ♥             ║  ║  ║             ♥     ♥                  ║
+║             ♥   ♥    ┌─────┐  ╠══╬══╣  ┌─────┐    ♥   ♥                   ║
+║              ♥ ♥     │TYPE │══╣  ║  ╠══│TYPE │     ♥ ♥                    ║
+║               ♥      │  1  │  ╠══╬══╣  │  2  │      ♥                     ║
+║                      └─────┘  ║  ║  ║  └─────┘                            ║
+║                               ╚══╩══╝                                      ║
+║                                                                              ║
+║          ┌──────────────────────────────────────────────────┐                ║
+║          │   COMPATIBILITY ANALYSIS REPORT                  │                ║
+║          │   ─────────────────────────────                  │                ║
+║          │   Connection  ◆  Friction  ◆  Dynamics           │                ║
+║          │   Exercises   ◆  Assessment                      │                ║
+║          │                                                  │                ║
+║          │   ◈ Two minds, one analysis ◈                    │                ║
+║          │                          Dr. Typus v1.0          │                ║
+║          └──────────────────────────────────────────────────┘                ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+-->
+
+# template: compatibility-report
+
+Compatibility Analysis Report Template
+
+---
+
+```markdown
+# Compatibilidade: {TYPE1} × {TYPE2}
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--                       QUICK PROFILE                               -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+## Perfil Rápido
+| | {TYPE1} | {TYPE2} |
+|---|---------|---------|
+| Role | {ROLE1} | {ROLE2} |
+| Temperamento | {TEMP1} | {TEMP2} |
+| Funções Dom/Aux | {FN1} | {FN2} |
+| Pairing | {PAIRING_CATEGORY} |
+
+<!-- ♥─────────────────────────────────────────────────────────────────♥ -->
+<!--                    CONNECTION & FRICTION                           -->
+<!-- ♥─────────────────────────────────────────────────────────────────♥ -->
+
+## Pontos de Conexão
+{CONNECTION_POINTS}
+
+## Potenciais Fricções
+{FRICTION_POINTS}
+
+<!-- ◈─────────────────────────────────────────────────────────────────◈ -->
+<!--                    CONTEXT DYNAMICS                                -->
+<!-- ◈─────────────────────────────────────────────────────────────────◈ -->
+
+## Dinâmica por Contexto
+
+### Romântico
+- **Equilibrado:** {ROMANTIC_BALANCED}
+- **Desequilibrado:** {ROMANTIC_UNBALANCED}
+- **Reequilibrando:** {ROMANTIC_REBALANCING}
+
+### Amizade
+- **Equilibrado:** {FRIEND_BALANCED}
+- **Desequilibrado:** {FRIEND_UNBALANCED}
+- **Reequilibrando:** {FRIEND_REBALANCING}
+
+### Trabalho
+- **Equilibrado:** {WORK_BALANCED}
+- **Desequilibrado:** {WORK_UNBALANCED}
+- **Reequilibrando:** {WORK_REBALANCING}
+
+<!-- ╠══════════════════════════════════════════════════════════════════╣ -->
+<!--                  EXERCISES & SUMMARY                              -->
+<!-- ╠══════════════════════════════════════════════════════════════════╣ -->
+
+## Exercícios Práticos
+{EXERCISES}
+
+## Resumo
+{OVERALL_ASSESSMENT}
+
+---
+*Gerado por Dr. Typus — Squad MBTI Expert v1.0*
+```

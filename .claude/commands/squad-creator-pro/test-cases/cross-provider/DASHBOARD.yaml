@@ -1,0 +1,11 @@
+cross_provider_dashboard:
+  generated_at: null
+  workflow: "wf-cross-provider-qualification"
+  status: "not_generated"
+  summary:
+    total_tasks_tested: 0
+    qualified_models: []
+    blocked_models: []
+  results: []
+  next_actions:
+    - "Run cross-provider qualification workflow to populate this dashboard."

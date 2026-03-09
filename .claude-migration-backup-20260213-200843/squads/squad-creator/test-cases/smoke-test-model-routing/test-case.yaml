@@ -1,0 +1,100 @@
+# Test Case: smoke-test-model-routing
+# Model Tier Qualification - Wave 3A
+# Similar to: validate-squad (hybrid with worker scripts)
+
+test_case:
+  name: "smoke-test-model-routing-standard"
+  version: "1.0"
+  created: "2026-02-11"
+  task_file: "tasks/smoke-test-model-routing.md"
+  wave: "3A"
+  priority: 2
+  similar_to: "validate-squad"
+  confidence: "HIGH"
+
+input:
+  # Test model routing for a known task
+  target: "squads/squad-creator/tasks/pv-axioma-assessment.md"
+  params:
+    expected_tier: "haiku"
+  context_files:
+    - "squads/squad-creator/config/model-routing.yaml"
+
+expected_output:
+  sections:
+    - routing_result
+    - validation_checks
+    - tier_decision
+    - evidence
+
+  fields:
+    - name: "detected_tier"
+      type: "enum"
+      values: ["haiku", "sonnet", "opus", "script"]
+    - name: "matches_expected"
+      type: "boolean"
+    - name: "validation_passed"
+      type: "boolean"
+
+  validations:
+    - "Deve detectar tier baseado em task metadata"
+    - "Deve validar contra model-routing.yaml"
+    - "Deve reportar match/mismatch"
+    - "Scripts devem rodar antes do LLM"
+
+baseline:
+  opus_output: "opus-baseline.yaml"
+  opus_score: 10.0
+  opus_tokens:
+    input: 0
+    output: 0
+  opus_latency_ms: 0
+
+evaluation:
+  completeness:
+    required_sections:
+      - "detected_tier: resultado da detecção"
+      - "validation_checks: lista de checks"
+      - "evidence: justificativa"
+    optional_sections:
+      - "recommendations: se mismatch"
+
+  accuracy:
+    numeric_tolerance: 0.05
+    enum_exact_match: true
+
+  reasoning:
+    minimum_justifications: 3
+    requires_evidence: true
+
+  format:
+    expected_format: "yaml"
+    parseable: true
+
+  actionability:
+    minimum_recommendations: 0
+    specificity: "high"
+
+compensation_history:
+  attempts: []
+
+results:
+  haiku:
+    score: null
+    percentage: null
+    qualified: null
+    output_file: "haiku-output.yaml"
+
+  opus:
+    score: 10.0
+    percentage: 100
+    qualified: true
+    output_file: "opus-baseline.yaml"
+
+  final_tier: null
+  recommendation: null
+
+wave_3a_notes:
+  rationale: "Hybrid task with worker scripts, similar to validate-squad (91% match)"
+  expected_fixes: "None - scripts do heavy lifting"
+  estimated_effort: "20 min"

@@ -1,0 +1,13 @@
+qualification_dashboard:
+  generated_at: null
+  workflow: "wf-model-tier-qualification"
+  status: "not_generated"
+  summary:
+    total_tested: 0
+    haiku_qualified: 0
+    sonnet_qualified: 0
+    opus_required: 0
+    total_savings_projected: "0%"
+  results: []
+  next_actions:
+    - "Run qualification workflow to populate this dashboard."

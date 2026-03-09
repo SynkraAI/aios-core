@@ -1,0 +1,172 @@
+# Deep Research Skill Configuration
+# Configuration for the general-purpose deep research pipeline
+
+# Token budgets per phase
+tokens:
+  decomposition_output: 500    # Max tokens for query decomposition output
+  source_content_max: 1200     # Max tokens per individual source (truncates longer)
+  synthesis_input_max: 6000    # Max total tokens fed to synthesis phase
+  final_report_max: 3000       # Soft limit for final report output
+
+# Iteration parameters
+iteration:
+  max_iterations: 3            # Hard cap on search waves (1 = single wave)
+  coverage_threshold: 0.8      # Stop when coverage >= 80%
+  min_new_info_ratio: 0.1      # Stop when new info < 10%
+
+# Search wave configuration
+search_waves:
+  max_waves: 3
+  coverage_threshold: 85
+  min_coverage_to_proceed: 50
+
+# Research type auto-detection
+auto_detection:
+  # Disambiguation: when multiple types match, use priority order.
+  # If top-2 scores differ by < multi_match_threshold, ask user to clarify.
+  disambiguation:
+    priority_order:
+      - people       # "quem e X" always wins — most specific intent
+      - competitive  # "X vs Y" is explicit comparison
+      - market       # "mercado X" strong signal
+      - books        # "livros sobre X" explicit
+      - strategy     # "como fazer X" action-oriented
+      - industry     # sector/ecosystem analysis
+      - academic     # papers, studies, research
+      - regulatory   # laws, compliance
+      - cultural     # trends, behavior
+      - general      # fallback if nothing matches
+
+    multi_match_threshold: 0.3  # If score diff < 0.3 between top-2, ask user
+
+  # Keywords per type
+  market:
+    - "mercado"
+    - "market"
+    - "tamanho"
+    - "oportunidade"
+    - "market size"
+    - "TAM"
+    - "SAM"
+    - "SOM"
+    - "segmento"
+  people:
+    - "quem"
+    - "expert"
+    - "especialista"
+    - "autor"
+    - "influencer"
+    - "biografia"
+    - "fundador"
+    - "CEO"
+    - "lider"
+  books:
+    - "livro"
+    - "livros"
+    - "book"
+    - "books"
+    - "leitura"
+    - "bibliografia"
+    - "autor"
+    - "publicacao"
+  strategy:
+    - "estrategia"
+    - "strategy"
+    - "positioning"
+    - "posicionamento"
+    - "modelo de negocio"
+    - "business model"
+    - "go-to-market"
+    - "GTM"
+  product:
+    - "produto"
+    - "product"
+    - "validar"
+    - "MVP"
+    - "product-market fit"
+    - "PMF"
+    - "proposta de valor"
+  competitive:
+    - "concorrente"
+    - "competitor"
+    - "analise competitiva"
+    - "competitive analysis"
+    - "benchmark"
+    - "rival"
+  industry:
+    - "industria"
+    - "setor"
+    - "industry"
+    - "ecossistema"
+    - "cadeia de valor"
+    - "value chain"
+    - "regulacao"
+  cultural:
+    - "cultura"
+    - "tendencia"
+    - "comportamento"
+    - "geracao"
+    - "lifestyle"
+    - "zeitgeist"
+    - "movimento"
+  academic:
+    - "paper"
+    - "artigo cientifico"
+    - "estudo"
+    - "pesquisa academica"
+    - "tese"
+    - "dissertacao"
+    - "revisao sistematica"
+    - "meta-analise"
+    - "arxiv"
+    - "scholar"
+  regulatory:
+    - "lei"
+    - "regulacao"
+    - "compliance"
+    - "norma"
+    - "legislacao"
+    - "juridico"
+    - "LGPD"
+    - "regulamentacao"
+    - "marco legal"
+
+# Playwright Deep Research Phase Configuration
+playwright_deep_research:
+  enabled: true
+  description: |
+    Browser automation phase that queries multiple LLMs (Grok, Claude.ai, Gemini)
+    for deep research when traditional search doesn't achieve sufficient coverage.
+
+  auto_trigger_threshold: 0.70
+  manual_trigger_keywords:
+    - "--deep"
+    - "*deep"
+    - "multiple perspectives"
+    - "cross-reference"
+
+  timeout_per_llm: 60
+  retry_count: 2
+  retry_delay: 5
+
+  llms:
+    - name: grok
+      url: https://grok.x.ai
+      enabled: true
+      priority: 1
+    - name: claude
+      url: https://claude.ai
+      enabled: true
+      priority: 2
+    - name: gemini
+      url: https://gemini.google.com
+      enabled: true
+      priority: 3
+
+# MCP tool dependencies
+mcp_dependencies:
+  exa:
+    tools:
+      - mcp__exa__web_search_exa
+    required: false
+    fallback: "WebSearch native"

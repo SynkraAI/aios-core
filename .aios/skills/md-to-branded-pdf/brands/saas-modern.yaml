@@ -1,0 +1,21 @@
+# SaaS Modern — Clean SaaS landing page
+# Ideal for: SaaS products, startup landing pages, B2B platforms
+# Inspired by: PageUI, Open SaaS, SaaS Boilerplate
+
+name: SaaS Modern
+theme: dark
+colors:
+  primary: "#6366F1"
+  primary_light: "#818CF8"
+  accent: "#EC4899"
+  background: "#0F0F1A"
+  card: "#1A1A2E"
+  border: "#2A2A3E"
+  text: "#E0E0F0"
+  text_muted: "#9999B8"
+  white: "#FFFFFF"
+  highlight: "#A78BFA"
+font: "Inter"
+cover:
+  gradient_primary: "rgba(99,102,241,0.25)"
+  gradient_secondary: "rgba(236,72,153,0.10)"

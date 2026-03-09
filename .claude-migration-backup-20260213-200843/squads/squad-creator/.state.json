@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "workflow": null,
+  "current_phase": null,
+  "started_at": null,
+  "last_updated": null,
+  "mode": null,
+  "inputs": {},
+  "phase_status": {
+    "phase_0": "pending",
+    "phase_0_5": "pending",
+    "phase_1": "pending",
+    "phase_2": "pending",
+    "phase_3": "pending",
+    "phase_4": "pending",
+    "phase_5": "pending",
+    "phase_6": "pending"
+  },
+  "checkpoints_passed": [],
+  "subagent_results": {
+    "oalanicolas": {},
+    "pedro-valerio": {}
+  },
+  "minds_to_clone": [],
+  "minds_cloned": [],
+  "metrics": {
+    "total_duration_minutes": 0,
+    "agents_created": 0,
+    "quality_scores": [],
+    "tools_discovered": 0
+  }
+}

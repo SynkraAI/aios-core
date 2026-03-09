@@ -1,0 +1,488 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# PV Modernization Score Assessment
+# Workflow: wf-clone-mind.yaml
+# Assessor: Claude Opus 4.6 (Baseline)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  model: "claude-opus-4-6"
+  model_role: "baseline-assessor"
+  timestamp: "2026-02-11T00:00:00Z"
+  task: "pv-modernization-score"
+  framework: "squads/squad-creator/data/pv-workflow-validation.yaml"
+  target_workflow: "squads/squad-creator/workflows/wf-clone-mind.yaml"
+  workflow_version: "2.1.0"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SCORE SUMMARY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+modernization_score:
+  workflow: "Clone Mind (Complete DNA Extraction)"
+  file: "squads/squad-creator/workflows/wf-clone-mind.yaml"
+  date: "2026-02-11"
+  score: "2/12"
+  interpretation: "Majoritariamente legado - rewrite necessario"
+
+  # ═════════════════════════════════════════════════════════════════════════════
+  # PATTERN-BY-PATTERN ASSESSMENT
+  # ═════════════════════════════════════════════════════════════════════════════
+
+  patterns:
+
+    - id: 1
+      name: "Teams Architecture"
+      status: "FAIL"
+      check: "TeamCreate, TaskCreate, Task tool usados"
+      legacy_if: "YAML declarativo sem Teams"
+      evidence: |
+        The workflow is a declarative YAML file with phases, steps, and
+        checkpoints defined statically. There is NO use of TeamCreate,
+        TaskCreate, or the Task tool anywhere in the file. The workflow
+        describes execution via a sequential phase model with
+        `execution.mode: sequential` and `parallel_phases: [1, 2]` declared
+        as configuration, not via actual Task tool invocations.
+
+        The specialists section (lines 21-46) defines agents declaratively
+        with `agent: "@oalanicolas"` and `agent: "@pedro-valerio"` but does
+        not use the Teams API to spawn, coordinate, or manage them.
+
+        This is the classic legacy pattern: YAML-as-orchestration rather than
+        imperative Teams-based orchestration.
+
+    - id: 2
+      name: "SKILL.md Frontmatter"
+      check: "YAML frontmatter com name: e description:"
+      legacy_if: "Arquivo .yaml ou sem frontmatter"
+      status: "FAIL"
+      evidence: |
+        The workflow is a `.yaml` file (wf-clone-mind.yaml), not a SKILL.md
+        file. While it has top-level `name:` and `description:` keys, these
+        are YAML document keys, not SKILL.md frontmatter (which uses YAML
+        frontmatter delimited by `---` at the top of a Markdown file).
+
+        Modern AIOS workflows should be SKILL.md files with proper frontmatter
+        including `name:`, `description:`, and optionally `context: fork`,
+        `agent:`, `allowed-tools:`, etc. This workflow uses none of those
+        SKILL.md conventions.
+
+        The file format itself (.yaml) is the legacy indicator per the
+        checklist definition.
+
+    - id: 3
+      name: "Blocking Execution"
+      check: "Task tool SEM run_in_background para fases sequenciais"
+      legacy_if: "Sleep loops ou polling"
+      status: "FAIL"
+      evidence: |
+        The workflow declares `execution.mode: sequential` (line 521) and uses
+        `blocking: true` flags on phases (lines 129, 343), but this is purely
+        declarative YAML configuration. There is no actual use of the Task tool
+        (with or without run_in_background) to implement blocking execution.
+
+        No sleep loops or polling are present either - the workflow simply
+        describes the blocking semantics declaratively without implementing
+        them through the modern Task tool pattern.
+
+        The modern pattern requires using the Task tool directly (without
+        run_in_background) for sequential phases, which is absent.
+
+    - id: 4
+      name: "Parallel Execution"
+      check: "Task tool COM run_in_background: true para fases paralelas"
+      legacy_if: "Parallel apenas conceitual"
+      status: "FAIL"
+      evidence: |
+        Line 522 declares `parallel_phases: [1, 2]` with a comment
+        "# Voice e Thinking podem rodar em paralelo", but this is conceptual
+        parallelism only. There is no actual use of `run_in_background: true`
+        on any Task tool invocation.
+
+        The parallel execution is described as a configuration hint, not
+        implemented through the modern pattern of spawning background tasks.
+        This is exactly the "Parallel apenas conceitual" legacy pattern
+        described in the checklist.
+
+    - id: 5
+      name: "Context Preamble"
+      check: "Agente carrega git status, gotchas, preferences"
+      legacy_if: "Sem context loading"
+      status: "FAIL"
+      evidence: |
+        There is no context preamble anywhere in the workflow. No reference to:
+        - `git status` loading
+        - Gotchas or known issues
+        - User preferences loading
+        - Any form of environment/context bootstrapping before execution
+
+        The workflow jumps directly into phases without establishing execution
+        context. Modern workflows should load project state (git status,
+        active gotchas, user preferences) before beginning work so agents
+        operate with full situational awareness.
+
+    - id: 6
+      name: "File-Based Communication"
+      check: "Fases comunicam via outputs/{slug}/01-phase.md"
+      legacy_if: "Inline output blocks"
+      status: "PASS"
+      evidence: |
+        The workflow consistently uses file-based communication between phases
+        via the `outputs/minds/{mind_slug}/` directory. Specific evidence:
+
+        - Phase 0a outputs to `outputs/minds/{mind_slug}/acquired_sources.yaml` (line 119)
+        - Phase 0b outputs to `outputs/minds/{mind_slug}/sources_inventory.yaml` (line 205)
+        - Phase 1 outputs to `outputs/minds/{mind_slug}/voice_dna.yaml` (line 233)
+        - Phase 2 outputs to `outputs/minds/{mind_slug}/thinking_dna.yaml` (line 283)
+        - Phase 4 outputs to `outputs/minds/{mind_slug}/smoke_test_result.yaml` (line 400)
+        - Phase 5 outputs to `outputs/minds/{mind_slug}/quality_dashboard.md` (line 429)
+
+        Each phase produces a named file, and downstream phases reference
+        these files (e.g., `required_for: ["Phase 1", "Phase 2"]` on line 206).
+        While the naming convention is not `01-phase.md` format, the
+        principle of file-based inter-phase communication is well implemented.
+
+    - id: 7
+      name: "Agent File References"
+      check: "Read your agent file at .claude/commands/..."
+      legacy_if: "Personas hardcoded no workflow"
+      status: "FAIL"
+      evidence: |
+        The workflow references specialists by handle only:
+        - `agent: "@oalanicolas"` (line 23)
+        - `agent: "@pedro-valerio"` (line 39)
+        - `specialist: "@oalanicolas"` (lines 153, 217, 252, 268, 300)
+
+        There is no instruction to "Read your agent file at..." any path.
+        The agents are referenced by name/handle but there is no directive
+        to load their actual agent definition files (e.g., from
+        `.claude/agents/` or `.claude/commands/`).
+
+        Modern workflows should explicitly instruct agents to read their
+        identity files so they operate with their full persona, not just
+        a name reference. The specialist_guidance blocks (lines 217-220,
+        268-270) partially describe what agents should do, but this is
+        guidance hardcoded in the workflow, not a reference to an
+        external agent file.
+
+    - id: 8
+      name: "Task Dependencies"
+      check: "blockedBy na criacao de tasks"
+      legacy_if: "depends_on declarativo"
+      status: "FAIL"
+      evidence: |
+        There is no use of `blockedBy` anywhere in the workflow. Phase
+        dependencies are expressed through:
+
+        - Sequential ordering (implicit: phases run in order)
+        - `required_for: ["Phase 1", "Phase 2"]` (line 206) - declarative dependency
+        - `blocking: true` flags on phases (lines 129, 343)
+        - `skip_if:` conditions (lines 74, 99, 215, 265)
+
+        These are all declarative dependency patterns. The modern pattern
+        requires using `blockedBy` when creating tasks via TaskCreate, which
+        allows the Teams runtime to manage dependencies dynamically. The
+        `required_for` pattern on line 206 is closest to a dependency
+        declaration but uses the legacy declarative style.
+
+    - id: 9
+      name: "bypassPermissions Mode"
+      check: "mode: bypassPermissions explicito"
+      legacy_if: "Permissoes implicitas"
+      status: "FAIL"
+      evidence: |
+        There is no mention of `bypassPermissions`, `permissionMode`, or
+        any explicit permission configuration anywhere in the workflow.
+
+        The workflow does not specify how agents should handle permission
+        prompts during execution. Modern workflows should explicitly declare
+        `mode: bypassPermissions` (or equivalent) for autonomous agent
+        execution, or explicitly require permission checks where needed.
+
+        The absence means agents would run with default permission behavior,
+        which is the implicit/legacy pattern.
+
+    - id: 10
+      name: "Proper Finalization"
+      check: "shutdown_request + TeamDelete no fim"
+      legacy_if: "Sem cleanup de team"
+      status: "FAIL"
+      evidence: |
+        There is no `shutdown_request`, `shutdown`, `TeamDelete`, or any
+        cleanup/finalization step at the end of the workflow. The workflow
+        ends at Phase 5 (Quality Dashboard Generation) without any team
+        teardown procedure.
+
+        The `next_steps` section (lines 531-533) references the follow-on
+        task (`create-agent.md`) but does not include shutdown or cleanup
+        of any team resources.
+
+        Since no team is created (Pattern 1 fails), there is technically
+        nothing to tear down. However, the absence of proper finalization
+        is itself a legacy indicator - modern workflows should include
+        explicit cleanup even if only to mark completion state.
+
+    - id: 11
+      name: "Anti-Pattern Documentation"
+      check: "Secao NEVER DO THIS presente"
+      legacy_if: "Sem documentacao de anti-patterns"
+      status: "FAIL"
+      evidence: |
+        There is no "NEVER DO THIS" section or equivalent anti-pattern
+        documentation in the workflow. While the workflow mentions
+        "anti-patterns" in the context of DNA extraction content (lines
+        220, 227, 277, 510-511), these refer to the EXPERT's anti-patterns
+        being extracted as data, not to anti-patterns of the WORKFLOW itself.
+
+        The workflow does not document:
+        - Common mistakes when running this workflow
+        - Things operators should never do
+        - Known failure modes to avoid
+        - Forbidden shortcuts or misuses
+
+        Modern workflows should include a "NEVER DO THIS" section that
+        prevents common misuse patterns, such as: "NEVER skip source
+        validation", "NEVER run smoke tests with mock data", etc.
+
+    - id: 12
+      name: "Artifact Output Directory"
+      check: "outputs/{workflow}/{slug}/ estruturado"
+      legacy_if: "Outputs em locais arbitrarios"
+      status: "PASS"
+      evidence: |
+        The workflow uses a structured, consistent output directory:
+        `outputs/minds/{mind_slug}/` for all artifacts. Evidence:
+
+        - `outputs/minds/{mind_slug}/acquired_sources.yaml` (line 119)
+        - `outputs/minds/{mind_slug}/sources_inventory.yaml` (line 205)
+        - `outputs/minds/{mind_slug}/voice_dna.yaml` (line 233)
+        - `outputs/minds/{mind_slug}/thinking_dna.yaml` (line 283)
+        - `outputs/minds/{mind_slug}/smoke_test_result.yaml` (line 400)
+        - `outputs/minds/{mind_slug}/quality_dashboard.md` (line 429)
+        - `outputs/minds/{mind_slug}/mind_dna_complete.yaml` (line 79, in check)
+
+        The pattern is `outputs/minds/{slug}/` rather than the strict
+        `outputs/{workflow}/{slug}/` template, but the structure is
+        well-organized, consistent, and non-arbitrary. All outputs go
+        to a predictable, slug-based directory under outputs/.
+
+  # ═════════════════════════════════════════════════════════════════════════════
+  # SCORING INTERPRETATION
+  # ═════════════════════════════════════════════════════════════════════════════
+
+  score_breakdown:
+    passed:
+      - id: 6
+        name: "File-Based Communication"
+      - id: 12
+        name: "Artifact Output Directory"
+    failed:
+      - id: 1
+        name: "Teams Architecture"
+      - id: 2
+        name: "SKILL.md Frontmatter"
+      - id: 3
+        name: "Blocking Execution"
+      - id: 4
+        name: "Parallel Execution"
+      - id: 5
+        name: "Context Preamble"
+      - id: 7
+        name: "Agent File References"
+      - id: 8
+        name: "Task Dependencies"
+      - id: 9
+        name: "bypassPermissions Mode"
+      - id: 10
+        name: "Proper Finalization"
+      - id: 11
+        name: "Anti-Pattern Documentation"
+
+  interpretation: |
+    Score 2/12 falls in the "Majoritariamente legado" range (1-4/12).
+    Action: Rewrite necessario.
+
+    The workflow has strong domain logic and well-designed quality gates,
+    but its execution model is entirely declarative YAML. The two passing
+    patterns (file-based communication and structured output directory)
+    show good architectural instincts around artifact management, but
+    the core orchestration layer uses none of the modern AIOS primitives
+    (Teams, Tasks, SKILL.md, blockedBy, bypassPermissions, etc.).
+
+    This is a classic "content-rich but execution-legacy" workflow: the
+    WHAT is excellent (phases, checkpoints, rework loops, specialist
+    routing), but the HOW is pre-Teams era.
+
+  # ═════════════════════════════════════════════════════════════════════════════
+  # RECOMMENDATIONS
+  # ═════════════════════════════════════════════════════════════════════════════
+
+  recommendations:
+
+    - priority: "high"
+      pattern: "Teams Architecture (Pattern 1)"
+      action: |
+        Convert the workflow to use TeamCreate at initialization, then
+        TaskCreate for each phase. The specialists section should spawn
+        real agents via Task tool rather than declaring them as YAML config.
+        The existing phase structure maps cleanly to tasks: Phase 0b, 1, 2,
+        3, 4, 5 each become a TaskCreate invocation.
+      effort: "high - requires full orchestration rewrite"
+      preserves: "All phase logic, checkpoints, and quality gates"
+
+    - priority: "high"
+      pattern: "SKILL.md Frontmatter (Pattern 2)"
+      action: |
+        Migrate from wf-clone-mind.yaml to a SKILL.md file with proper
+        frontmatter: name, description, context: fork, agent specification,
+        and allowed-tools. The current YAML content becomes the skill body
+        or supporting documentation loaded via progressive disclosure.
+      effort: "medium - format conversion with frontmatter design"
+      preserves: "All content; changes container format only"
+
+    - priority: "high"
+      pattern: "Blocking + Parallel Execution (Patterns 3 & 4)"
+      action: |
+        Replace the declarative `execution.mode: sequential` and
+        `parallel_phases: [1, 2]` with actual Task tool invocations.
+        Sequential phases use Task without run_in_background. Phases 1
+        and 2 (Voice DNA + Thinking DNA) use Task WITH run_in_background
+        to achieve real parallelism. Use TaskOutput to synchronize before
+        Phase 3 (Synthesis).
+      effort: "high - core execution model change"
+      preserves: "Phase ordering logic and parallel optimization intent"
+
+    - priority: "medium"
+      pattern: "Context Preamble (Pattern 5)"
+      action: |
+        Add a preamble step before Phase -1 that loads: git status of the
+        project, any active gotchas from .claude/rules/, user preferences,
+        and current state of outputs/minds/ directory. This ensures agents
+        start with full situational awareness.
+      effort: "low - add initialization block"
+      preserves: "No existing content affected"
+
+    - priority: "medium"
+      pattern: "Agent File References (Pattern 7)"
+      action: |
+        Replace inline specialist references (agent: "@oalanicolas") with
+        instructions to read the actual agent definition files. For example:
+        "Read your agent file at .claude/agents/oalanicolas.md" so the
+        agent loads its full persona, not just a name handle.
+      effort: "low - update references to point to file paths"
+      preserves: "Specialist routing logic"
+
+    - priority: "medium"
+      pattern: "Task Dependencies (Pattern 8)"
+      action: |
+        When creating tasks via TaskCreate, use `blockedBy` to express
+        phase dependencies. Example: Phase 1 task blockedBy Phase 0b
+        task ID. This replaces the declarative `required_for` pattern
+        and enables the Teams runtime to manage execution order.
+      effort: "medium - requires task ID management"
+      preserves: "Dependency graph between phases"
+
+    - priority: "medium"
+      pattern: "bypassPermissions Mode (Pattern 9)"
+      action: |
+        Add explicit permission mode configuration. For autonomous execution
+        (the typical clone-mind use case), set bypassPermissions mode on
+        agent spawning. For phases that modify files or create artifacts,
+        this prevents permission prompt interruptions.
+      effort: "low - add configuration flag"
+      preserves: "No existing behavior affected"
+
+    - priority: "medium"
+      pattern: "Proper Finalization (Pattern 10)"
+      action: |
+        Add a finalization phase after Phase 5 that: sends shutdown_request
+        to all spawned agents, calls TeamDelete to clean up team resources,
+        and produces a final execution summary. This ensures no orphaned
+        agents or team state after workflow completion.
+      effort: "low - add cleanup phase"
+      preserves: "No existing phases affected"
+
+    - priority: "low"
+      pattern: "Anti-Pattern Documentation (Pattern 11)"
+      action: |
+        Add a "NEVER DO THIS" section documenting workflow anti-patterns:
+        - NEVER skip source validation (Phase 0b) even for "quick" clones
+        - NEVER run smoke tests with fabricated data
+        - NEVER merge Voice + Thinking DNA without consistency check
+        - NEVER use less than 10 sources for production-grade clones
+        - NEVER bypass quality gates by hardcoding pass results
+      effort: "low - documentation addition"
+      preserves: "No existing content affected"
+
+  # ═════════════════════════════════════════════════════════════════════════════
+  # PRESERVATION NOTES
+  # ═════════════════════════════════════════════════════════════════════════════
+
+  preservation_notes:
+    must_keep:
+      - "Phase structure and ordering (including skip_if conditions)"
+      - "All quality gate definitions with blocking/non-blocking distinction"
+      - "Checkpoint criteria and scoring thresholds"
+      - "Rework loop logic with retry_max and escalation paths"
+      - "Source classification heuristics (ouro vs bronze)"
+      - "Smoke test definitions with validates and pass_criteria"
+      - "Output template structure (mind_dna format)"
+      - "Specialist routing logic (who handles which phase)"
+      - "File-based communication paths (outputs/minds/{slug}/)"
+      - "Brownfield/greenfield mode branching"
+      - "Tool priority fallback chain in Phase 0a"
+      - "Decision matrix patterns (GO/CONDITIONAL/NO_GO)"
+
+    domain_logic_quality: |
+      The workflow's domain logic is excellent. The phased approach to
+      mind cloning (source acquisition -> classification -> voice DNA ->
+      thinking DNA -> synthesis -> smoke tests -> dashboard) is well
+      thought out. Quality gates with blocking semantics, rework loops
+      with retry limits, and specialist invocation patterns show mature
+      process design.
+
+      The refactor should change HOW this logic executes (via Teams/Tasks)
+      while preserving WHAT it does (the exact same phases, gates, and
+      criteria). This is a textbook "execution model migration" where
+      the business logic is sound but the orchestration primitives are
+      outdated.
+
+  # ═════════════════════════════════════════════════════════════════════════════
+  # REFACTOR PRIORITY ORDER
+  # ═════════════════════════════════════════════════════════════════════════════
+
+  refactor_priority_order:
+    - step: 1
+      action: "Convert to SKILL.md format (Pattern 2)"
+      reason: "Foundation - all other changes build on this format"
+
+    - step: 2
+      action: "Implement Teams Architecture (Pattern 1)"
+      reason: "Core orchestration - enables Patterns 3, 4, 8, 10"
+
+    - step: 3
+      action: "Implement Blocking + Parallel Execution (Patterns 3 & 4)"
+      reason: "Depends on Teams being in place"
+
+    - step: 4
+      action: "Add Task Dependencies with blockedBy (Pattern 8)"
+      reason: "Natural extension of Task-based execution"
+
+    - step: 5
+      action: "Add Context Preamble (Pattern 5)"
+      reason: "Quick win for agent awareness"
+
+    - step: 6
+      action: "Add Agent File References (Pattern 7)"
+      reason: "Quick win for persona fidelity"
+
+    - step: 7
+      action: "Add bypassPermissions (Pattern 9)"
+      reason: "Configuration flag addition"
+
+    - step: 8
+      action: "Add Proper Finalization (Pattern 10)"
+      reason: "Cleanup phase after Teams implementation"
+
+    - step: 9
+      action: "Add Anti-Pattern Documentation (Pattern 11)"
+      reason: "Documentation pass after all structural changes"

@@ -1,0 +1,73 @@
+{
+  "timestamp": "2026-02-23T09:48:02.177912",
+  "service": "Renan Vieira — Whisper Transcription",
+  "total_videos": 45,
+  "completed": 22,
+  "failed": 0,
+  "remaining": 23,
+  "percent": 48.9,
+  "estimated_hours_remaining": 3.45,
+  "recent_transcriptions": [
+    {
+      "name": "Como funciona esse funil/01 - Aulas/20 - Configurando Planilha typeboot",
+      "step": "complete",
+      "size_mb": 0.0,
+      "time": "09:48"
+    },
+    {
+      "name": "Como funciona esse funil/01 - Aulas/19 - Como fazer trackeamento das utms do Facebook",
+      "step": "complete",
+      "size_mb": 0.0,
+      "time": "09:48"
+    },
+    {
+      "name": "Como funciona esse funil/01 - Aulas/18 - Instalando link typeboot",
+      "step": "complete",
+      "size_mb": 0.0,
+      "time": "09:48"
+    },
+    {
+      "name": "Como funciona esse funil/01 - Aulas/17 - Criando o formulário de perguntas do typebot",
+      "step": "complete",
+      "size_mb": 0.0,
+      "time": "09:48"
+    },
+    {
+      "name": "Como funciona esse funil/01 - Aulas/16 - Baixe o robo typeboot",
+      "step": "complete",
+      "size_mb": 0.0,
+      "time": "09:48"
+    },
+    {
+      "name": "Como funciona esse funil/01 - Aulas/15 - Como editar a página no Greatpages",
+      "step": "complete",
+      "size_mb": 0.0,
+      "time": "09:48"
+    },
+    {
+      "name": "Como funciona esse funil/01 - Aulas/14 - Modelos de pagina sessão estratégica",
+      "step": "complete",
+      "size_mb": 0.0,
+      "time": "09:48"
+    },
+    {
+      "name": "Como funciona esse funil/01 - Aulas/13 - Ferramenta poderosa de construção de páginas",
+      "step": "complete",
+      "size_mb": 0.0,
+      "time": "09:48"
+    },
+    {
+      "name": "Como funciona esse funil/01 - Aulas/12 - Como fazer o anúncio utilizando o canva",
+      "step": "complete",
+      "size_mb": 0.0,
+      "time": "09:48"
+    },
+    {
+      "name": "Como funciona esse funil/01 - Aulas/11 - Como escrever a copy dos anúncios",
+      "step": "complete",
+      "size_mb": 0.0,
+      "time": "09:48"
+    }
+  ],
+  "is_running": true
+}

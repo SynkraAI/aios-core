@@ -1,0 +1,24 @@
+# Specta — Dark purple with pink gradient accents
+# Ideal for: creator platforms, video tools, premium SaaS
+# Inspired by: Page UI / Specta template (Fancy Purple + Pink accents)
+# Theme: dark | Base: warm dark #0a0806 + purple radial overlay
+# Visual result: deep navy-purple due to overlay
+
+name: Specta
+theme: dark
+colors:
+  primary: "#A855F7"
+  primary_light: "#C084FC"
+  accent: "#EC4899"
+  background: "#0C0A1A"
+  card: "#161330"
+  border: "#272640"
+  text: "#F2F2F2"
+  text_muted: "#9CA3AF"
+  white: "#FAF5FF"
+  highlight: "#F472B6"
+font: "Inter"
+display_font: "Syne"
+cover:
+  gradient_primary: "rgba(168,85,247,0.15)"
+  gradient_secondary: "rgba(236,72,153,0.08)"

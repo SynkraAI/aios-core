@@ -1,0 +1,97 @@
+# Qualification Report - qa-after-creation
+# Generated: 2026-02-11
+# Workflow: wf-model-tier-qualification v2.0
+
+qualification_report:
+  task_name: "qa-after-creation"
+  test_date: "2026-02-11"
+  workflow_version: "2.0"
+
+  baseline:
+    model: "opus"
+    final_score: 8.32
+    result: "APPROVED"
+    type_detection: "EXPERT (95% confidence)"
+    methodology: "Full 6-phase validation including type detection"
+    tokens: 113793
+    tool_uses: 39
+    duration_ms: 206004
+
+  rounds:
+    - round: 1
+      model: "haiku"
+      final_score: 9.9
+      result: "APPROVED"
+      type_detection: "N/A (not executed)"
+      methodology: "5-phase quick validation (simplified)"
+      tokens: 59289
+      tool_uses: 26
+      duration_ms: 170335
+      quality_vs_baseline: "119%"
+      gaps:
+        - "Haiku gave HIGHER score than Opus (9.9 vs 8.32)"
+        - "Haiku did NOT do type detection (Opus did EXPERT 95%)"
+        - "Different validation methodology applied"
+        - "Haiku used simplified checklist-based scoring"
+        - "Opus used full validate-squad integration"
+
+  decision:
+    veto_triggered: false
+    veto_id: null
+    final: "HAIKU_QUALIFIED_WITH_CAVEAT"
+    recommended_tier: "haiku"
+    quality_achieved: "119%"
+    threshold_required: "90%"
+
+    caveats:
+      - "Haiku score inflation (+19% vs Opus)"
+      - "Different validation depth (Haiku simplified)"
+      - "Type detection skipped in Haiku approach"
+
+    rationale: |
+      Both models produced APPROVED result - the final decision matches.
+      Score difference (9.9 vs 8.32) is due to methodology difference:
+      - Opus integrated full validate-squad (more rigorous)
+      - Haiku used simplified checklist approach (faster, less deep)
+
+      For QA-after-creation, the key outcome is APPROVED/REJECTED.
+      Both reached same conclusion → Haiku is viable for this task.
+
+  cost_analysis:
+    opus_per_run: "$0.68"
+    haiku_per_run: "$0.012"
+    savings_if_haiku: "98.2%"
+    savings_applicable: true
+    reason: "Same final decision (APPROVED). Score difference acceptable for QA pass/fail."
+
+  methodology_note: |
+    qa-after-creation is a GATEKEEPER task:
+    - Primary purpose: Pass/Fail decision after component creation
+    - Secondary purpose: Quality score for tracking
+
+    For pass/fail: HAIKU MATCHES OPUS ✓
+    For score precision: HAIKU INFLATES (+19%)
+
+    Recommendation: Use Haiku for QA gating decisions.
+    If precise score needed, use Opus or add calibration.
+
+  learning:
+    pattern_identified: |
+      GATEKEEPER tasks (binary pass/fail) are HAIKU-ELIGIBLE
+      even if scores differ, as long as final decision matches.
+
+    similar_tasks:
+      - "qa-after-creation (qualified)"
+      - "validate-extraction (likely qualified)"
+      - "security-scan (likely qualified)"
+
+    different_from:
+      - "validate-squad (requires type detection)"
+      - "pv-modernization-score (requires interpretation)"
+
+metadata:
+  validator: "@pedro-valerio"
+  note: "Output files not created by agents (I/O issue). Report based on completion notifications."
+  tokens_opus: 113793
+  tokens_haiku: 59289
+  total_cost: "$0.69"

@@ -123,6 +123,38 @@ phases:
       Pode rodar em paralelo com o parsing.
     rollback: "No rollback needed - read-only operation"
 
+  - id: phase-2b-resolve-phones
+    name: "Resolve Phone Numbers (Interactive)"
+    agent: prospector-chief
+    model: sonnet
+    task: tasks/resolve-phone-numbers.md
+    timeout_minutes: 60
+    depends_on:
+      - phase-1b-validate-parse
+    inputs:
+      - parsed_contacts
+      - group_name
+    outputs:
+      - contacts_with_phones
+      - phone_book_path
+      - phone_resolution_summary
+    veto_conditions:
+      - condition: "validate-parsed-data not completed"
+        severity: BLOCKING
+        action: HALT
+      - condition: "All contacts already have phones"
+        severity: INFO
+        action: SKIP_PHASE
+      - condition: "All contacts skipped by user"
+        severity: WARNING
+        action: "LOG_AND_CONTINUE (pipeline produces empty results)"
+    description: |
+      Fase interativa: apresentar contatos sem telefone ao usuario.
+      Resolver numeros no formato E.164 (+55XXXXXXXXXXX).
+      Salvar phone-book per group em data/phone-books/{group-slug}.json.
+      Reutilizar phone-book se grupo ja foi processado antes.
+    rollback: "No rollback needed - phone-book is additive"
+
   - id: phase-3-analyze
     name: "Analyze & Score Prospects"
     agent: prospect-analyst
@@ -130,29 +162,30 @@ phases:
     task: tasks/analyze-prospects.md
     timeout_minutes: 30
     depends_on:
-      - phase-1b-validate-parse
+      - phase-2b-resolve-phones
       - phase-2-load-kb
     inputs:
-      - parsed_contacts
+      - contacts_with_phones
       - ensinio_kb
     outputs:
       - scored_prospects
+      - disqualified_prospects
     quality_gate: QG-002
     veto_conditions:
-      - condition: "Parsed contacts not available"
+      - condition: "Contacts with phones not available"
         severity: BLOCKING
         action: HALT
       - condition: "KB not loaded"
         severity: BLOCKING
         action: HALT
-      - condition: "> 50% contacts have no phone"
-        severity: WARNING
-        action: LOG_AND_CONTINUE
     description: |
+      Red flag pre-screen (BLOQUEADOR = score 0, excluir).
+      ICP match assessment (bonus scoring).
       Cruzar cada contato com solucoes Ensinio.
-      Scoring de temperatura (1-10).
+      Scoring de temperatura (1-10) com v2.1 criteria.
       Classificar: cliente potencial vs parceiro.
       Filtrar score >= 3.
+      Selecionar argumento recomendado por score range.
     rollback: "Re-analyze with adjusted scoring criteria"
 
   - id: phase-3b-validate-scoring

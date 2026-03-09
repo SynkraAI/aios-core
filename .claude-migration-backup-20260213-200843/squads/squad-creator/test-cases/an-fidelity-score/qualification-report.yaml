@@ -1,0 +1,94 @@
+# Qualification Report - an-fidelity-score
+# Generated: 2026-02-11
+# Workflow: wf-model-tier-qualification v2.0
+
+qualification_report:
+  task_name: "an-fidelity-score"
+  task_version: "2.0.0"
+  test_date: "2026-02-11"
+  workflow_version: "2.0"
+
+  baseline:
+    model: "opus"
+    final_score: "82.22%"
+    classification: "Intermediate (V2.0)"
+    observable_raw: "17/20"
+    deep_raw: "16/20"
+    tokens: 45538
+    tool_uses: 6
+    duration_ms: 122128
+
+  rounds:
+    - round: 1
+      model: "haiku"
+      final_score: "81.67%"
+      classification: "Intermediate (V2.0)"
+      observable_raw: "18/20"
+      deep_raw: "15/20"
+      quality_vs_baseline: "99.3%"
+      tokens: 65597
+      tool_uses: 10
+      duration_ms: 127989
+      gaps: []  # No significant gaps!
+      match_classification: true
+      match_major_gaps: true
+
+  decision:
+    veto_triggered: false
+    veto_id: null
+    final: "HAIKU_QUALIFIED"
+    recommended_tier: "haiku"
+    quality_achieved: "99.3%"
+    threshold_required: "90%"
+    compensation_needed: false
+
+    rationale: |
+      Task v2.0 with binary checklists WORKS!
+      - Same classification: Intermediate V2.0 ✓
+      - Score difference: only 0.55% ✓
+      - Major gaps identified: same (Layer 8 Paradoxes) ✓
+      - Quality: 99.3% of Opus ✓
+
+      Binary checkpoint methodology eliminates subjective scoring.
+      Haiku can count checkpoints as accurately as Opus.
+
+  cost_analysis:
+    opus_per_run: "$0.27"  # Based on 45K tokens
+    haiku_per_run: "$0.008"  # Based on 65K tokens (cheaper rate)
+    savings_if_haiku: "97%"
+    savings_applicable: true
+
+  methodology_validation:
+    before_v2:
+      scoring: "1-5 subjective"
+      haiku_risk: "Under-scoring or over-scoring"
+    after_v2:
+      scoring: "0-5 binary checkpoint count"
+      haiku_result: "99.3% match with Opus"
+    conclusion: |
+      Converting subjective scoring to binary checklists
+      eliminates the interpretation gap between models.
+      This pattern should be applied to other scoring tasks.
+
+  similar_tasks_to_update:
+    - "an-clone-review (has Quality 1-5 scoring)"
+    - "an-diagnose-clone (has diagnostic scoring)"
+    - "an-validate-clone (has validation scoring)"
+    - "pv-audit (has audit scoring)"
+
+  learning:
+    pattern_confirmed: |
+      BINARY CHECKPOINT CONVERSION is the key to Haiku compatibility.
+
+      Before: "Evaluate quality 1-5" (requires judgment)
+      After: "Count checkpoints passed 0-5" (deterministic)
+
+      Both models can COUNT equally well.
+      The difference was in JUDGING, not COUNTING.
+
+metadata:
+  validator: "@pedro-valerio"
+  task_optimized: true
+  optimization_type: "Binary checkpoint conversion"
+  v1_to_v2_effort: "~2 hours"
+  roi: "97% cost savings per execution"

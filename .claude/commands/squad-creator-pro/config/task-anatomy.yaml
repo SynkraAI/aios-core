@@ -1,0 +1,263 @@
+# TASK ANATOMY SCHEMA - Squad-Creator
+# Source pattern: HO-TP-001
+# Version: 1.0
+# Last Updated: 2026-02-10
+
+task_anatomy:
+  version: "1.0"
+  source_pattern: "HO-TP-001"
+  philosophy: |
+    "O que não tem responsável será feito por ninguém."
+    "O que não tem data pode ser feito qualquer hora."
+    Tasks sem os 8 campos são receita para falha.
+
+  # ============================================
+  # 8 REQUIRED FIELDS
+  # ============================================
+  required_fields:
+    - field: "task_name"
+      type: "string"
+      validation: "starts_with_verb"
+      pattern: "^(Extract|Validate|Generate|Create|Audit|Design|Build|Test|Review|Analyze|Map|Define|Implement|Configure)\\s.+"
+      error: "Task name must start with action verb (e.g., Extract, Validate, Generate)"
+      examples:
+        valid:
+          - "Extract Mind DNA"
+          - "Validate Agent Coherence"
+          - "Generate Workflow YAML"
+        invalid:
+          - "Mind DNA extraction"  # noun phrase
+          - "The extraction task"  # article
+          - "DNA"  # too vague
+
+    - field: "status"
+      type: "enum"
+      values:
+        - "pending"
+        - "in_progress"
+        - "review"
+        - "completed"
+        - "blocked"
+      error: "Invalid status value"
+      flow: "pending → in_progress → review → completed (unidirectional)"
+
+    - field: "responsible_executor"
+      type: "string"
+      validation: "role_or_agent_ref"
+      pattern: "^(@[a-z-]+:[a-z-]+|[A-Z][a-z]+\\s?[A-Z]?[a-z]*|Human|System)$"
+      error: "Must be role name or @agent reference"
+      examples:
+        valid:
+          - "@squad-creator:analyzer"
+          - "@oalanicolas"
+          - "Squad Lead"
+          - "Human"
+          - "System"
+        invalid:
+          - "someone"  # vague
+          - "TBD"  # undefined
+          - ""  # empty
+
+    - field: "execution_type"
+      type: "enum"
+      values:
+        - value: "Human"
+          description: "Requires judgment, creativity, relationships"
+          cost: "$$$"
+          speed: "hours to days"
+        - value: "Agent"
+          description: "AI reasoning, generation, pattern recognition"
+          cost: "$$$$"
+          speed: "seconds to minutes"
+        - value: "Hybrid"
+          description: "AI prepares, human validates"
+          cost: "$$"
+          speed: "minutes to hours"
+        - value: "Worker"
+          description: "Deterministic, no judgment required"
+          cost: "$"
+          speed: "sub-second to seconds"
+      error: "Must be one of: Human, Agent, Hybrid, Worker"
+      decision_tree: |
+        IF task is 100% deterministic → Worker
+        ELSE IF requires AI reasoning → Agent
+        ELSE IF AI + human validation → Hybrid
+        ELSE → Human
+
+    - field: "estimated_time"
+      type: "string"
+      validation: "has_unit"
+      pattern: "^\\d+(-\\d+)?\\s?(m|min|h|hour|hours|d|day|days)$"
+      error: "Must include time unit (m, h, d) or range"
+      examples:
+        valid:
+          - "30m"
+          - "2h"
+          - "1-2h"
+          - "3 days"
+        invalid:
+          - "30"  # no unit
+          - "quick"  # vague
+          - "ASAP"  # not a time
+
+    - field: "input"
+      type: "array"
+      validation: "non_empty"
+      min_items: 1
+      error: "Input array must have at least 1 item"
+      description: "What this task receives to process"
+      examples:
+        - "Agent markdown file"
+        - "DNA extraction template"
+        - "Source transcripts"
+
+    - field: "output"
+      type: "array"
+      validation: "non_empty"
+      min_items: 1
+      error: "Output array must have at least 1 item"
+      description: "What this task produces"
+      examples:
+        - "DNA YAML file"
+        - "Validation report"
+        - "Agent configuration"
+
+    - field: "action_items"
+      type: "array"
+      validation: "non_empty"
+      min_items: 1
+      error: "Action items must have at least 1 step"
+      description: "Step-by-step execution instructions"
+      format: "Each item should be imperative: 'Do X', 'Verify Y', 'Generate Z'"
+
+  # ============================================
+  # OPTIONAL FIELDS (RECOMMENDED)
+  # ============================================
+  optional_fields:
+    - field: "acceptance_criteria"
+      type: "array"
+      recommended: true
+      description: "Definition of Done for this task"
+      examples:
+        - "All axiomas extracted"
+        - "DNA passes coherence check"
+        - "YAML is well-formed"
+
+    - field: "tools"
+      type: "array"
+      description: "Tools/systems used to execute"
+      examples:
+        - "Claude API"
+        - "ClickUp"
+        - "Notion"
+
+    - field: "templates"
+      type: "array"
+      description: "Templates to use during execution"
+      examples:
+        - "dna-extraction-template.yaml"
+        - "agent-tmpl.md"
+
+    - field: "quality_gate"
+      type: "string"
+      description: "Quality gate ID that validates output"
+      examples:
+        - "QG-SC-3.1"
+        - "QG-SC-4.1"
+
+    - field: "handoff"
+      type: "object"
+      description: "What happens after task completes"
+      schema:
+        to: "string (next task or agent)"
+        trigger: "string (condition that triggers handoff)"
+        template: "string (optional handoff template)"
+
+    - field: "veto_conditions"
+      type: "array"
+      description: "Conditions that BLOCK task completion"
+      examples:
+        - "DNA has < 15 verified quotes"
+        - "Smoke tests < 3 passing"
+
+    - field: "dependencies"
+      type: "array"
+      description: "Tasks that must complete first"
+
+  # ============================================
+  # VALIDATION RESULT
+  # ============================================
+  validation_result:
+    pass:
+      condition: "All 8 required fields present and valid"
+      action: "Task can proceed"
+
+    fail:
+      condition: "Any required field missing or invalid"
+      action: "VETO - Task anatomy incomplete"
+      recovery: "Fix missing/invalid fields before proceeding"
+
+  # ============================================
+  # EXAMPLE COMPLETE TASK
+  # ============================================
+  example:
+    task_name: "Extract Mind DNA"
+    status: "pending"
+    responsible_executor: "@squad-creator:analyzer"
+    execution_type: "Agent"
+    estimated_time: "2-3h"
+    input:
+      - "Agent markdown file"
+      - "DNA extraction template"
+    output:
+      - "DNA YAML file"
+      - "Extraction report"
+    action_items:
+      - "Parse agent markdown structure"
+      - "Extract Voice DNA (signature phrases, vocabulary, tone)"
+      - "Extract Thinking DNA (frameworks, heuristics, anti-patterns)"
+      - "Validate coherence across sections"
+      - "Generate DNA YAML file"
+    acceptance_criteria:
+      - "All Voice DNA fields populated"
+      - "All Thinking DNA fields populated"
+      - "Coherence score >= 0.7"
+      - "YAML is valid and parseable"
+    tools:
+      - "Claude API (Opus)"
+    templates:
+      - "dna-extraction-template.yaml"
+    quality_gate: "QG-SC-3.1"
+    handoff:
+      to: "create-agent"
+      trigger: "dna_extraction_complete"
+    veto_conditions:
+      - "< 15 verified quotes"
+      - "< 5 signature phrases"
+      - "Coherence score < 0.7"
+
+  # ============================================
+  # VALIDATION CHECKLIST
+  # ============================================
+  validation_checklist:
+    - check: "task_name começa com verbo de ação"
+      required: true
+    - check: "status é valor válido do enum"
+      required: true
+    - check: "responsible_executor é role ou @agent"
+      required: true
+    - check: "execution_type é um dos 4 tipos"
+      required: true
+    - check: "estimated_time tem unidade (h/m/d)"
+      required: true
+    - check: "input array não vazio"
+      required: true
+    - check: "output array não vazio"
+      required: true
+    - check: "action_items tem >= 1 step"
+      required: true
+    - check: "acceptance_criteria definido"
+      required: false
+      recommended: true
+    - check: "Sem typos ou caracteres inválidos"
+      required: true

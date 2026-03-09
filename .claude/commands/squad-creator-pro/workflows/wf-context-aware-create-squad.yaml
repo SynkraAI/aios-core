@@ -1,0 +1,56 @@
+workflow:
+  id: wf-context-aware-create-squad
+  name: Context-Aware Squad Creation
+  version: "1.0.0"
+  purpose: Create squads using context detection, parallel discovery, and hard final gates
+  orchestrator: "@squad-chief"
+  type: greenfield_or_resume
+
+  sequence:
+    - import: "modules/module-discovery.yaml"
+
+    - phase: architecture
+      task: create-squad
+      notes: "Use detected context and merged discovery as mandatory inputs; classify workspace integration level and contract"
+      requires:
+        - outputs/squad_creation/{squad_name}/context-detection.yaml
+        - outputs/discovery/{domain}/discovery-merged.yaml
+      outputs:
+        - outputs/squad_creation/{squad_name}/workspace-integration-level.yaml
+
+    - phase: creation
+      task: create-agent
+
+    - phase: creation-tasks
+      task: create-task
+
+    - phase: creation-workflows
+      task: create-workflow
+
+    - import: "modules/module-integration.yaml"
+
+    - import: "modules/module-quality-gates.yaml"
+
+  checkpoints:
+    - id: CP_CTX
+      phase: discovery-context
+      decision: CONTINUE_OR_CLARIFY
+
+    - id: CP_ARCH
+      phase: architecture
+      decision: APPROVE_ARCHITECTURE
+
+    - id: CP_WORKSPACE
+      phase: architecture
+      decision: WORKSPACE_CONTRACT_VALID
+
+    - id: CP_FINAL
+      phase: quality-final-artifacts
+      decision: PASS_OR_REVISE
+
+  outputs:
+    - squads/{squad_name}/
+    - .claude/commands/{slash_prefix}/agents/{entry_agent}.md
+    - .codex/skills/{entry_agent}/SKILL.md
+    - outputs/squad_creation/{squad_name}/workspace-integration-level.yaml
+    - outputs/squad_creation/{squad_name}/creation-report.yaml

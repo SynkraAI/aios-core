@@ -1,0 +1,63 @@
+workflow:
+  id: wf-workspace-integration-hardening
+  name: Workspace Integration Hardening
+  version: "1.0.0"
+  purpose: Orquestrar auditoria + remediação de integração de um squad com o workspace usando contrato template-first
+  orchestrator: "@squad-chief"
+  type: brownfield
+
+  sequence:
+    - phase: baseline
+      task: validate-squad
+      notes: "Captura score base e bloqueios estruturais iniciais"
+
+    - phase: workspace-audit
+      task: workspace-integration-hardening
+      notes: "Executar em modo --audit --strict para mapear gaps de contrato e template"
+      outputs:
+        - outputs/squad_upgrade/{squad_name}/workspace-hardening-audit.yaml
+
+    - phase: workspace-remediation
+      task: workspace-integration-hardening
+      notes: "Executar em modo --apply --strict para corrigir contrato, outputs canônicos e templates"
+      outputs:
+        - outputs/squad_upgrade/{squad_name}/workspace-hardening-remediation.yaml
+
+    - phase: workspace-revalidation
+      task: workspace-integration-hardening
+      notes: "Executar em modo --audit --strict após correções"
+      outputs:
+        - outputs/squad_upgrade/{squad_name}/workspace-hardening-final.yaml
+
+    - phase: quality
+      task: validate-squad
+      notes: "Validação final de qualidade após hardening"
+
+    - import: "modules/module-quality-gates.yaml"
+
+  checkpoints:
+    - id: CP_BASELINE
+      phase: baseline
+      decision: CONTINUE_OR_ABORT
+
+    - id: CP_AUDIT
+      phase: workspace-audit
+      decision: GAPS_MAPPED
+
+    - id: CP_REMEDIATION
+      phase: workspace-remediation
+      decision: REMEDIATION_APPLIED
+
+    - id: CP_WORKSPACE
+      phase: workspace-revalidation
+      decision: WORKSPACE_CONTRACT_VALID
+
+    - id: CP_FINAL
+      phase: quality-final-artifacts
+      decision: PASS_OR_REVISE
+
+  outputs:
+    - outputs/squad_upgrade/{squad_name}/workspace-hardening-audit.yaml
+    - outputs/squad_upgrade/{squad_name}/workspace-hardening-remediation.yaml
+    - outputs/squad_upgrade/{squad_name}/workspace-hardening-final.yaml
+    - outputs/squad_upgrade/{squad_name}/workspace-hardening-summary.md

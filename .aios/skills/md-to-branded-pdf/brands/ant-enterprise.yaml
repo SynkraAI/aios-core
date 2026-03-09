@@ -1,0 +1,21 @@
+# Ant Enterprise — Enterprise-grade clean
+# Ideal for: enterprise software, internal tools, documentation, B2B platforms
+# Inspired by: Ant Design
+
+name: Ant Enterprise
+theme: light
+colors:
+  primary: "#1677FF"
+  primary_light: "#4096FF"
+  accent: "#FA8C16"
+  background: "#F5F5F5"
+  card: "#FFFFFF"
+  border: "#D9D9D9"
+  text: "#262626"
+  text_muted: "#8C8C8C"
+  white: "#141414"
+  highlight: "#1677FF"
+font: "Inter"
+cover:
+  gradient_primary: "rgba(22,119,255,0.08)"
+  gradient_secondary: "rgba(250,140,22,0.05)"

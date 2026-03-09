@@ -1,0 +1,20 @@
+# Aurora Green — Vibrant green-to-cyan gradient feel
+# Ideal for: fintech, crypto, growth/analytics, developer tools
+
+name: Aurora Green
+theme: dark
+colors:
+  primary: "#16A34A"
+  primary_light: "#4ADE80"
+  accent: "#8B5CF6"
+  background: "#0A120E"
+  card: "#12201A"
+  border: "#1E3328"
+  text: "#D1E8DB"
+  text_muted: "#6B9A80"
+  white: "#F0FDF4"
+  highlight: "#22C55E"
+font: "Geist"
+cover:
+  gradient_primary: "rgba(22,163,74,0.22)"
+  gradient_secondary: "rgba(139,92,246,0.10)"

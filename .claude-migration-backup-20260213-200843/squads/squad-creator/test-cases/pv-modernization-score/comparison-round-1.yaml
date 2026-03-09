@@ -1,0 +1,242 @@
+# Comparison Report - pv-modernization-score
+# Generated: 2026-02-11
+# Workflow version: 2.0
+
+comparison:
+  task: "pv-modernization-score"
+  target: "squads/squad-creator/workflows/wf-clone-mind.yaml"
+  date: "2026-02-11"
+
+  models:
+    opus:
+      score: "2/12"
+      interpretation: "Majoritariamente legado - rewrite necessário"
+      tokens_total: 45169
+      tool_uses: 19
+      duration_ms: 161256
+      cost_usd: 0.68  # Estimated from token count
+    haiku:
+      score: "9/12"
+      interpretation: "Quase moderno - ajustes menores"
+      tokens_total: 48280
+      tool_uses: 12
+      duration_ms: 86633
+      cost_usd: 0.012  # Estimated from token count
+
+  # ════════════════════════════════════════════════════════
+  # PATTERN-BY-PATTERN COMPARISON
+  # ════════════════════════════════════════════════════════
+
+  pattern_comparison:
+    - id: 1
+      name: "Teams Architecture"
+      opus: FAIL
+      haiku: FAIL
+      agreement: true
+      correct: "BOTH"
+
+    - id: 2
+      name: "SKILL.md Frontmatter"
+      opus: FAIL
+      haiku: FAIL
+      agreement: true
+      correct: "BOTH"
+
+    - id: 3
+      name: "Blocking Execution"
+      opus: FAIL
+      haiku: PASS
+      agreement: false
+      correct: "OPUS"
+      analysis: |
+        Check requires: "Task tool SEM run_in_background"
+        Legacy if: "Sleep loops ou polling"
+        Workflow has: "blocking: true" flags (YAML config), NOT Task tool usage.
+        Haiku error: Conflated declarative YAML flags with actual Task tool implementation.
+        Opus correctly identified that declarative config ≠ modern execution pattern.
+
+    - id: 4
+      name: "Parallel Execution"
+      opus: FAIL
+      haiku: PASS
+      agreement: false
+      correct: "OPUS"
+      analysis: |
+        Check requires: "Task COM run_in_background: true"
+        Legacy if: "Parallel apenas conceitual"
+        Workflow has: "parallel_phases: [1, 2]" as config hint, no actual run_in_background.
+        Haiku error: Counted "architecturally supported" as PASS. The check is for IMPLEMENTATION.
+        Opus correctly applied: conceptual != implemented.
+
+    - id: 5
+      name: "Context Preamble"
+      opus: FAIL
+      haiku: PASS
+      agreement: false
+      correct: "OPUS"
+      analysis: |
+        Check requires: "git status, gotchas, preferences"
+        Legacy if: "Sem context loading"
+        Workflow has: Inputs section with mode/focus params, Phase -1 brownfield check.
+        Haiku error: Conflated "inputs" with "context preamble". Inputs ≠ git status/gotchas/prefs.
+        Opus correctly noted: no git status, no gotchas, no preferences.
+
+    - id: 6
+      name: "File-Based Communication"
+      opus: PASS
+      haiku: PASS
+      agreement: true
+      correct: "BOTH"
+
+    - id: 7
+      name: "Agent File References"
+      opus: FAIL
+      haiku: PASS
+      agreement: false
+      correct: "OPUS"
+      analysis: |
+        Check requires: "Read agent file at .claude/commands/..."
+        Legacy if: "Hardcoded personas"
+        Workflow has: @oalanicolas and @pedro-valerio references.
+        Haiku error: Counted @ notation as "agent file references". The check is for
+        explicit READ instructions to load agent definition files, not just naming agents.
+        Opus correctly identified: referencing by name ≠ loading agent file.
+
+    - id: 8
+      name: "Task Dependencies"
+      opus: FAIL
+      haiku: PASS
+      agreement: false
+      correct: "OPUS"
+      analysis: |
+        Check requires: "blockedBy na criação de tasks"
+        Legacy if: "depends_on declarativo"
+        Workflow has: "required_for: ['Phase 1', 'Phase 2']" (declarative).
+        Haiku error: Counted declarative required_for as equivalent to blockedBy.
+        Opus correctly identified: declarative ≠ imperative blockedBy pattern.
+
+    - id: 9
+      name: "bypassPermissions Mode"
+      opus: FAIL
+      haiku: FAIL
+      agreement: true
+      correct: "BOTH"
+
+    - id: 10
+      name: "Proper Finalization"
+      opus: FAIL
+      haiku: FAIL
+      agreement: true
+      correct: "BOTH"
+
+    - id: 11
+      name: "Anti-Pattern Documentation"
+      opus: FAIL
+      haiku: PASS
+      agreement: false
+      correct: "OPUS"
+      analysis: |
+        Check requires: "Seção NEVER DO THIS presente"
+        Legacy if: "Sem documentação de anti-patterns"
+        Workflow has: Error handling (action_if_fail), but NO explicit "NEVER DO THIS" section.
+        Haiku error: Conflated error handling with anti-pattern documentation.
+        Opus correctly noted: error handling ≠ NEVER DO THIS section.
+
+    - id: 12
+      name: "Artifact Output Directory"
+      opus: PASS
+      haiku: PASS
+      agreement: true
+      correct: "BOTH"
+
+  # ════════════════════════════════════════════════════════
+  # SCORING ACROSS 5 DIMENSIONS
+  # ════════════════════════════════════════════════════════
+
+  dimension_scores:
+    completeness:
+      weight: 0.30
+      score: 10
+      note: "Both outputs have all 12 patterns, recommendations, scores"
+
+    accuracy:
+      weight: 0.30
+      score: 2
+      note: |
+        CRITICAL FAILURE: Haiku gave 9/12, Opus gave 2/12.
+        Opus is correct on all 7 disagreements.
+        Haiku passed 7 patterns that should have FAILED.
+        This is not a calibration issue - it's judgment quality.
+
+    reasoning:
+      weight: 0.20
+      score: 3
+      note: |
+        Haiku reasoning was plausible but WRONG. It interpreted spirit
+        instead of letter. For a validation checklist, letter matters.
+        Example: "architecturally supported" ≠ "implemented"
+
+    format:
+      weight: 0.10
+      score: 9
+      note: "Both outputs are valid YAML, well structured"
+
+    actionability:
+      weight: 0.10
+      score: 7
+      note: "Haiku recommendations were decent but based on wrong assessment"
+
+  quality_score_weighted: 42.0  # (10*0.3 + 2*0.3 + 3*0.2 + 9*0.1 + 7*0.1) * 10 = 42%
+
+  # ════════════════════════════════════════════════════════
+  # DECISION
+  # ════════════════════════════════════════════════════════
+
+  decision:
+    veto_triggered: true
+    veto_id: "MTQ_VC_004"
+    veto_reason: |
+      Haiku gave OPPOSITE assessment to Opus.
+      Opus: 2/12 "rewrite needed" → Haiku: 9/12 "minor adjustments"
+      Haiku was wrong on 7/12 patterns (all in Opus's favor).
+      No compensation can fix fundamental judgment errors.
+
+    final_decision: "OPUS_REQUIRED"
+    recommended_tier: "opus"
+    compensation_attempted: false
+    compensation_reason: "MTQ_VC_004 veto = no compensation, immediate escalate"
+
+  # ════════════════════════════════════════════════════════
+  # ROOT CAUSE ANALYSIS
+  # ════════════════════════════════════════════════════════
+
+  root_cause:
+    pattern: "Charitable interpretation of strict checks"
+    description: |
+      The pv-modernization-score task LOOKS deterministic (12-point PASS/FAIL checklist)
+      but actually requires STRICT LITERAL interpretation of each check definition.
+
+      Each check has a "check_for" (exact implementation) and "legacy_if" (what fails).
+      Opus applied these LITERALLY. Haiku applied them CHARITABLY.
+
+      Example:
+        Check: "Task tool COM run_in_background"
+        Opus: "No Task tool usage anywhere → FAIL"
+        Haiku: "parallel_phases config exists → PASS (architecturally supported)"
+
+      The task requires JUDGMENT about what counts as "implemented" vs "described".
+      This is exactly the kind of nuanced evaluation where Haiku falls short.
+
+    learning: |
+      NOT ALL CHECKLIST TASKS ARE HAIKU-ELIGIBLE.
+      If checklist items require interpretation of "implemented vs described",
+      the task needs Opus-level reasoning.
+
+      Haiku-eligible checklists: Binary checks (file exists? field present? score > X?)
+      Opus-required checklists: Interpretation checks (is this REALLY implemented?)
+
+  cost_analysis:
+    opus_cost: 0.68
+    haiku_cost: 0.012
+    savings_if_haiku: "98.2%"
+    but: "Quality at 42% vs baseline = UNACCEPTABLE"

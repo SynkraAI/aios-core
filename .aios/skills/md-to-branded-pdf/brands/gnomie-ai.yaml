@@ -1,0 +1,22 @@
+# Gnomie AI — Warm mauve light theme with red CTAs
+# Ideal for: AI products, B2C apps, wellness tech, lifestyle brands
+# Inspired by: Page UI / Gnomie AI template (Mauve Smoke + Blood Red)
+# Theme: light | Primary: #8F666F | Secondary: #EF4444
+
+name: Gnomie AI
+theme: light
+colors:
+  primary: "#8F666F"
+  primary_light: "#B98B94"
+  accent: "#EF4444"
+  background: "#FFFFFF"
+  card: "#FFFFFF"
+  border: "#E5E7EB"
+  text: "#0A0A0A"
+  text_muted: "#51363F"
+  white: "#26191F"
+  highlight: "#EF4444"
+font: "Montserrat"
+cover:
+  gradient_primary: "rgba(143,102,111,0.08)"
+  gradient_secondary: "rgba(239,68,68,0.05)"

@@ -1,0 +1,1 @@
+Read the agent definition at `squads/agent-autonomy/agents/ecosystem-scout.md` and the task at `squads/agent-autonomy/tasks/search-ecosystem.md`. Search for open-source libraries, repos, and benchmarks relevant to the user's autonomy needs using the evaluation rubric.

@@ -1,0 +1,20 @@
+# Ocean Depth — Deep sea blues with teal highlights
+# Ideal for: maritime, health/wellness, science, environmental
+
+name: Ocean Depth
+theme: dark
+colors:
+  primary: "#0891B2"
+  primary_light: "#22D3EE"
+  accent: "#14B8A6"
+  background: "#0A1520"
+  card: "#0F1F2E"
+  border: "#1A3040"
+  text: "#C8E0F0"
+  text_muted: "#6896B0"
+  white: "#ECFEFF"
+  highlight: "#06B6D4"
+font: "Outfit"
+cover:
+  gradient_primary: "rgba(8,145,178,0.22)"
+  gradient_secondary: "rgba(20,184,166,0.10)"

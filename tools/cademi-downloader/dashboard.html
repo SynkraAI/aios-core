@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cademi Download Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .header h1 {
+      font-size: 1.8rem;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+    .header .subtitle {
+      color: #888;
+      font-size: 0.9rem;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+    .status-running { background: #064e3b; color: #6ee7b7; }
+    .status-stopped { background: #4a1d1d; color: #fca5a5; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .card .label {
+      color: #888;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .card .value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .card .value.accent { color: #60a5fa; }
+    .card .value.green { color: #6ee7b7; }
+    .card .value.yellow { color: #fcd34d; }
+    .card .value.red { color: #fca5a5; }
+
+    .progress-container {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 24px;
+      background: #2a2a2a;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 0.75rem;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #8b5cf6, #60a5fa);
+      border-radius: 12px;
+      transition: width 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .current-banner {
+      background: #1a0f2e;
+      border: 1px solid #4c1d95;
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .current-banner .dot {
+      width: 10px;
+      height: 10px;
+      background: #a78bfa;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse 1.5s infinite;
+    }
+    .current-banner .current-name {
+      font-size: 0.95rem;
+      color: #a78bfa;
+      font-weight: 600;
+    }
+    .current-banner .current-label {
+      font-size: 0.7rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .section {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .section h2 {
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section h2 .badge {
+      font-size: 0.7rem;
+      background: #333;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      color: #888;
+    }
+    .queue-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #222;
+    }
+    .queue-item:last-child { border-bottom: none; }
+    .queue-item .pos {
+      width: 28px;
+      font-size: 0.75rem;
+      color: #555;
+      flex-shrink: 0;
+    }
+    .queue-item .name {
+      flex: 1;
+      font-size: 0.85rem;
+      color: #ccc;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right: 1rem;
+    }
+    .status-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .tag-active { background: #1a0f2e; color: #a78bfa; }
+    .tag-pending { background: #1e1e1e; color: #666; }
+    .tag-done { background: #1a2e1a; color: #6ee7b7; }
+    .tag-failed { background: #4a1d1d; color: #fca5a5; }
+    .tag-skipped { background: #2e2a1a; color: #fcd34d; }
+
+    .recent-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #222;
+    }
+    .recent-item:last-child { border-bottom: none; }
+    .recent-item .name {
+      flex: 1;
+      font-size: 0.85rem;
+      color: #ccc;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right: 1rem;
+    }
+    .recent-item .meta {
+      font-size: 0.75rem;
+      color: #888;
+      flex-shrink: 0;
+    }
+
+    .refresh-info {
+      text-align: center;
+      color: #555;
+      font-size: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .error-msg {
+      text-align: center;
+      color: #fca5a5;
+      background: #4a1d1d;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 2rem 0;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .pulse { animation: pulse 2s infinite; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Cademi Download Dashboard</h1>
+    <p class="subtitle" id="serviceName">Renan Vieira — Mentoria 50K</p>
+    <div id="statusBadge" class="status-badge status-stopped">Carregando...</div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="label">Cursos</div>
+      <div class="value accent" id="totalCourses">--</div>
+    </div>
+    <div class="card">
+      <div class="label">Cursos OK</div>
+      <div class="value green" id="completedCourses">--</div>
+    </div>
+    <div class="card">
+      <div class="label">Total Aulas</div>
+      <div class="value" id="totalLessons">--</div>
+    </div>
+    <div class="card">
+      <div class="label">Aulas OK</div>
+      <div class="value green" id="completedLessons">--</div>
+    </div>
+    <div class="card">
+      <div class="label">Falhas</div>
+      <div class="value red" id="failedLessons">0</div>
+    </div>
+    <div class="card">
+      <div class="label">Skipped</div>
+      <div class="value yellow" id="skippedLessons">0</div>
+    </div>
+  </div>
+
+  <div class="progress-container">
+    <div class="label">Progresso Geral (Download)</div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressBar" style="width: 0%">0%</div>
+    </div>
+  </div>
+
+  <div class="section" id="transcriptionSection">
+    <h2>Fase 2: Transcrição Whisper <span class="badge" id="transcriptionStatus">Aguardando</span></h2>
+    <div class="label" style="font-size:0.75rem;margin-bottom:0.5rem;color:#888;">Progresso: <span id="transcriptionPct">0%</span> (<span id="transcriptionDone">0</span>/<span id="transcriptionTotal">0</span>)</div>
+    <div class="progress-bar-bg" style="height:12px;margin-top:0;">
+      <div class="progress-bar-fill" id="transcriptionBar" style="width: 0%; height:12px; background:linear-gradient(90deg, #10b981, #3b82f6);"></div>
+    </div>
+    <div id="recentTranscriptions" style="margin-top:1rem; font-size:0.85rem; color:#ccc;"></div>
+  </div>
+
+  <div id="currentBanner" class="current-banner" style="display:none;">
+    <div class="dot"></div>
+    <div>
+      <div class="current-label">Baixando agora</div>
+      <div class="current-name" id="currentName">--</div>
+    </div>
+  </div>
+
+  <div class="section" id="queueSection" style="display:none;">
+    <h2>Fila de Cursos</h2>
+    <div id="queueList"></div>
+  </div>
+
+  <div class="section">
+    <h2>Downloads Recentes</h2>
+    <div id="recentList">
+      <p style="color: #555; text-align: center;">Aguardando...</p>
+    </div>
+  </div>
+
+  <div class="refresh-info">
+    Atualiza automaticamente a cada <strong>5 segundos</strong> |
+    Ultima atualizacao: <span id="lastUpdate">--</span>
+  </div>
+
+  <div id="errorMsg" class="error-msg" style="display:none;"></div>
+
+  <script>
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    async function fetchStatus() {
+      try {
+        const [downloadRes, transcriptionRes] = await Promise.all([
+          fetch('/cademi-download-status.json?t=' + Date.now()),
+          fetch('/renan-transcription-status.json?t=' + Date.now()).catch(() => null)
+        ]);
+
+        if (downloadRes.ok) {
+          const downloadData = await downloadRes.json();
+          updateDownloadUI(downloadData);
+        }
+
+        if (transcriptionRes && transcriptionRes.ok) {
+          const transcriptionData = await transcriptionRes.json();
+          updateTranscriptionUI(transcriptionData);
+        }
+
+        document.getElementById('errorMsg').style.display = 'none';
+      } catch (err) {
+        document.getElementById('errorMsg').textContent =
+          'Erro ao carregar status: ' + err.message;
+        document.getElementById('errorMsg').style.display = 'block';
+      }
+    }
+
+    function updateDownloadUI(data) {
+      document.getElementById('totalCourses').textContent = data.total_courses || 0;
+      document.getElementById('completedCourses').textContent = data.completed_courses || 0;
+      document.getElementById('totalLessons').textContent = data.total_lessons || 0;
+      document.getElementById('completedLessons').textContent = data.completed_lessons || 0;
+      document.getElementById('failedLessons').textContent = data.failed_lessons || 0;
+      document.getElementById('skippedLessons').textContent = data.skipped_lessons || 0;
+
+      if (data.service) {
+        document.getElementById('serviceName').textContent = data.service;
+      }
+
+      const pct = (data.percent || 0).toFixed(1);
+      const bar = document.getElementById('progressBar');
+      bar.style.width = pct + '%';
+      bar.textContent = pct + '%';
+
+      const badge = document.getElementById('statusBadge');
+      if (data.is_running) {
+        badge.textContent = 'Rodando';
+        badge.className = 'status-badge status-running pulse';
+      } else {
+        badge.textContent = data.completed_courses > 0 ? 'Concluido' : 'Parado';
+        badge.className = 'status-badge status-stopped';
+      }
+
+      // Current banner
+      const banner = document.getElementById('currentBanner');
+      if (data.current_course && data.is_running) {
+        let label = data.current_course;
+        if (data.current_lesson) {
+          label += ' / ' + data.current_lesson;
+        }
+        document.getElementById('currentName').textContent = label;
+        banner.style.display = 'flex';
+      } else {
+        banner.style.display = 'none';
+      }
+
+      // Course queue
+      const queueSection = document.getElementById('queueSection');
+      const queueList = document.getElementById('queueList');
+      if (data.queue && data.queue.length > 0) {
+        queueSection.style.display = 'block';
+        queueList.innerHTML = data.queue.map((item, i) => {
+          let tagClass = 'tag-pending';
+          let tagText = 'Na fila';
+          if (item.status === 'active') { tagClass = 'tag-active'; tagText = 'Baixando'; }
+          else if (item.status === 'done') { tagClass = 'tag-done'; tagText = 'Pronto'; }
+          else if (item.status === 'failed') { tagClass = 'tag-failed'; tagText = 'Falhou'; }
+          else if (item.status === 'skipped') { tagClass = 'tag-skipped'; tagText = 'Pulado'; }
+          return `
+            <div class="queue-item">
+              <span class="pos">${i + 1}.</span>
+              <span class="name" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</span>
+              <span class="status-tag ${tagClass}">${tagText}</span>
+            </div>`;
+        }).join('');
+      } else {
+        queueSection.style.display = 'none';
+      }
+
+      // Recent downloads
+      const list = document.getElementById('recentList');
+      if (data.recent_downloads && data.recent_downloads.length > 0) {
+        list.innerHTML = data.recent_downloads.map(item => `
+          <div class="recent-item">
+            <span class="name" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</span>
+            <span class="meta">${escapeHtml(String(item.time || ''))}</span>
+          </div>
+        `).join('');
+      } else {
+        list.innerHTML = '<p style="color:#555;text-align:center;">Nenhum download recente</p>';
+      }
+
+      document.getElementById('lastUpdate').textContent =
+        new Date().toLocaleTimeString('pt-BR');
+    }
+
+    function updateTranscriptionUI(data) {
+      if (!data) return;
+      
+      const pct = (data.percent || 0).toFixed(1);
+      const bar = document.getElementById('transcriptionBar');
+      bar.style.width = pct + '%';
+      
+      document.getElementById('transcriptionPct').textContent = pct + '%';
+      document.getElementById('transcriptionDone').textContent = data.completed || 0;
+      document.getElementById('transcriptionTotal').textContent = data.total_videos || 0;
+      
+      const statusBadge = document.getElementById('transcriptionStatus');
+      if (data.is_running) {
+        statusBadge.textContent = 'Transcrevendo...';
+        statusBadge.style.color = '#3b82f6';
+      } else {
+        statusBadge.textContent = 'Pausado';
+        statusBadge.style.color = '#888';
+      }
+
+      const recentDiv = document.getElementById('recentTranscriptions');
+      if (data.recent_transcriptions && data.recent_transcriptions.length > 0) {
+        recentDiv.innerHTML = data.recent_transcriptions.slice(0, 3).map(t => `
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
+            <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; margin-right:1rem;">
+              ${t.complete ? '✅' : '⏳'} ${escapeHtml(t.name)}
+            </span>
+            <span style="color:#666; font-size:0.75rem;">${t.time}</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    fetchStatus();
+    setInterval(fetchStatus, 5000);
+  </script>
+</body>
+</html>

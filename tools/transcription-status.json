@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-03-02T04:16:31",
+  "service": "conversao-extrema-fix-complete",
+  "total_videos": 204,
+  "completed": 204,
+  "failed": 0,
+  "remaining": 0,
+  "percent": 100.0,
+  "estimated_hours_remaining": 0,
+  "current_item": "",
+  "current_module": "COMPLETE",
+  "recent_transcriptions": [],
+  "is_running": false
+}

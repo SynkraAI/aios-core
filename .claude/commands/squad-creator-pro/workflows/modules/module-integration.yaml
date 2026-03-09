@@ -1,0 +1,34 @@
+module:
+  id: module-integration
+  name: Integration Module
+  purpose: Shared integration and publish-ready steps
+
+  phases:
+    - id: integration-register
+      task: refresh-registry
+      outputs:
+        - squads/squad-registry.yaml
+
+    - id: integration-workspace-governance
+      task: create-documentation
+      notes: "Persist workspace integration contract in config/README for generated squads"
+      outputs:
+        - squads/{squad_name}/config.yaml
+        - squads/{squad_name}/README.md
+        - outputs/squad_creation/{squad_name}/workspace-integration-level.yaml
+
+    - id: integration-commands
+      task: sync-ide-command
+      outputs:
+        - .claude/commands/{slash_prefix}/agents/{entry_agent}.md
+
+    - id: integration-codex-chief-skill
+      task: sync-chief-codex-skill
+      outputs:
+        - .codex/skills/{entry_agent}/SKILL.md
+
+    - id: integration-docs
+      task: create-documentation
+      outputs:
+        - squads/{squad_name}/README.md
+        - squads/{squad_name}/docs/

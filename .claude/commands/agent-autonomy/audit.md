@@ -1,0 +1,1 @@
+Read the agent definition at `squads/agent-autonomy/agents/autonomy-auditor.md` and the task at `squads/agent-autonomy/tasks/audit-agent.md`. Execute the audit task on the agent specified by the user, using the autonomy checklist at `squads/agent-autonomy/checklists/autonomy-checklist.md`.

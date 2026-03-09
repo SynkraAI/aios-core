@@ -1,0 +1,99 @@
+version: "1.0"
+last_updated: "2026-02-17"
+maintainer: "squad-chief"
+policy: "internal-first"
+
+description: >
+  Catalogo de capacidades internas disponiveis no workspace para ser consultado
+  antes de qualquer descoberta externa.
+
+internal_assets:
+  design_system_native:
+    type: domain
+    path: "workspace/domains/design-system"
+    provides:
+      - capability: ds_token_catalog
+        primary_tool: "workspace/domains/design-system/metadata/tokens/index.json"
+      - capability: ds_component_catalog
+        primary_tool: "workspace/domains/design-system/metadata/components.json"
+      - capability: ds_guidelines_catalog
+        primary_tool: "workspace/domains/design-system/metadata/guidelines/usage.json"
+      - capability: ds_mcp_runtime
+        primary_tool: "workspace/domains/design-system/mcp/server.ts"
+      - capability: ds_registry_queries
+        primary_tool: "workspace/domains/design-system/mcp/handlers/registry.ts"
+      - capability: ds_context_contract
+        primary_tool: "workspace/domains/design-system/context.yaml"
+
+  design_system_ops:
+    type: scripts
+    path: "scripts/design-system"
+    provides:
+      - capability: ds_manifest_sync
+        primary_tool: "scripts/design-system/sync_design_manifest.cjs"
+      - capability: ds_manifest_drift_validation
+        primary_tool: "scripts/design-system/validate_design_manifest_drift.cjs"
+      - capability: ds_component_metadata_generation
+        primary_tool: "scripts/design-system/generate_components_metadata.cjs"
+      - capability: ds_component_metadata_validation
+        primary_tool: "scripts/design-system/validate_components_metadata.cjs"
+      - capability: ds_task_checklist_validation
+        primary_tool: "scripts/design-system/validate_task_checklist_bindings.cjs"
+      - capability: ds_mcp_skeleton_validation
+        primary_tool: "scripts/design-system/validate_mcp_skeleton.cjs"
+      - capability: ds_mcp_tool_healthcheck
+        primary_tool: "scripts/design-system/test_mcp_tools.cjs"
+
+  etl_ops:
+    type: squad
+    path: "squads/etl-ops"
+    provides:
+      - capability: youtube_transcripts
+        primary_tool: "node infrastructure/services/etl/bin/youtube-transcript.js"
+      - capability: youtube_channel_pipeline
+        primary_tool: "node infrastructure/services/etl/bin/youtube-pipeline.js"
+      - capability: youtube_metadata
+        primary_tool: "node infrastructure/services/etl/bin/youtube-metadata.js"
+      - capability: web_page_extraction
+        primary_tool: "node infrastructure/services/etl/bin/fetch-page.js"
+      - capability: transcript_cleanup
+        primary_tool: "node infrastructure/services/etl/bin/youtube-clean-transcript.js"
+      - capability: audio_transcription
+        primary_tool: "node infrastructure/services/etl/bin/transcribe.js"
+      - capability: epub_to_markdown
+        primary_tool: "node infrastructure/services/etl/bin/ebook-to-markdown.js"
+      - capability: document_collectors
+        primary_tool: "infrastructure/services/etl/collectors/*"
+
+  aiox_core_infrastructure:
+    type: framework
+    path: ".aiox-core/infrastructure"
+    provides:
+      - capability: path_validation
+        primary_tool: ".aiox-core/infrastructure/scripts/validate-paths.js"
+      - capability: agent_validation
+        primary_tool: ".aiox-core/infrastructure/scripts/validate-agents.js"
+      - capability: yaml_validation
+        primary_tool: ".aiox-core/infrastructure/scripts/yaml-validator.js"
+      - capability: dependency_analysis
+        primary_tool: ".aiox-core/infrastructure/scripts/dependency-analyzer.js"
+      - capability: capability_analysis
+        primary_tool: ".aiox-core/infrastructure/scripts/capability-analyzer.js"
+      - capability: doc_sync
+        primary_tool: ".aiox-core/infrastructure/scripts/documentation-synchronizer.js"
+
+decision_policy:
+  rules:
+    - id: IF_001
+      rule: "Se capability estiver coberta internamente, nao recomendar tool externa como primary."
+    - id: IF_002
+      rule: "Ferramenta externa so entra como fallback ou enhancement com justificativa."
+    - id: IF_003
+      rule: "Pesquisa externa obrigatoria apenas para gaps nao cobertos internamente."
+
+output_contract:
+  required_sections:
+    - "internal_coverage_summary"
+    - "external_search_scope"
+    - "external_only_gaps"
+    - "internal_vs_external_decisions"

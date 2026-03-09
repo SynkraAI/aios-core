@@ -3,14 +3,14 @@
 # Updated: 2026-03-02
 
 name: ensinio-whatsapp-prospector
-version: "2.0.0"
+version: "3.0.0"
 entry_agent: prospector-chief
 
 squad:
   name: ensinio-whatsapp-prospector
   display_name: "Ensinio WhatsApp Prospector"
-  version: "2.0.0"
-  domain: "sales prospecting, whatsapp analysis, lead generation, outreach"
+  version: "3.0.0"
+  domain: "sales prospecting, whatsapp analysis, lead generation, outreach, icp matching"
   description: |
     Squad especializado em prospectar leads a partir de exports de grupos de WhatsApp.
     Parseia chats, analisa fit com solucoes Ensinio, gera mensagens personalizadas
@@ -81,10 +81,21 @@ layers:
 workflows:
   full_pipeline:
     file: workflows/full-pipeline.yaml
-    description: "Pipeline completo: Parse -> Validate -> Analyze -> Score Validate -> Write -> Validate Batch -> Output"
-    phases: 8
+    description: "Pipeline completo: Parse -> Validate -> Resolve Phones -> Analyze -> Score Validate -> Write -> Validate Batch -> Output"
+    phases: 9
+  batch_pipeline:
+    file: workflows/batch-pipeline.yaml
+    description: "Pipeline batch: Processa multiplos grupos de WhatsApp e consolida numa unica planilha"
+    phases: 4
 
 quality_gates:
+  - id: QG-000.5
+    name: "Phone Resolution"
+    transition: "Parsed Contacts -> Contacts with Phones"
+    type: interactive
+    criteria: "All meaningful contacts have phone or are explicitly skipped"
+    checklist: checklists/phone-validation-checklist.md
+
   - id: QG-001
     name: "Parse Validation"
     transition: "Raw ZIP -> Structured Contacts"
@@ -123,7 +134,16 @@ settings:
   show_greeting: true
   language: pt-BR
   google_sheets_id: "124EQQAkmt9D7-49LbR-Jx64DhxdtCwceUQgqolk5ZFI"
-  ensinio_kb_source: "data/ensinio-solutions-kb.md"
+  ensinio_kb_source: "ensinio-mind/data/ensinio-solutions-kb.md"
+  ensinio_mind_sources:
+    icps: "ensinio-mind/data/ensinio-icps.md"
+    red_flags: "ensinio-mind/data/ensinio-red-flags.md"
+    arguments: "ensinio-mind/data/ensinio-arguments.md"
+    sales_playbook: "ensinio-mind/data/ensinio-sales-playbook.md"
+    sales_cycle: "ensinio-mind/data/ensinio-sales-cycle.md"
+  phone_books_dir: "data/phone-books"
+  phone_format: "E.164"
+  default_country_code: "+55"
   min_score_threshold: 3
   max_rework_iterations: 2
   batch_size: 50

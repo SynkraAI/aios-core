@@ -1,0 +1,20 @@
+# Carbon Steel — Industrial dark theme with metallic accents
+# Ideal for: engineering, automotive, B2B tech, infrastructure
+
+name: Carbon Steel
+theme: dark
+colors:
+  primary: "#3B82F6"
+  primary_light: "#60A5FA"
+  accent: "#F43F5E"
+  background: "#111111"
+  card: "#1A1A1A"
+  border: "#2A2A2A"
+  text: "#D4D4D4"
+  text_muted: "#737373"
+  white: "#F5F5F5"
+  highlight: "#3B82F6"
+font: "IBM Plex Sans"
+cover:
+  gradient_primary: "rgba(59,130,246,0.18)"
+  gradient_secondary: "rgba(244,63,94,0.08)"

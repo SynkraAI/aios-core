@@ -1,0 +1,20 @@
+# Terracotta — Warm earthy tones with natural feel
+# Ideal for: architecture, interior design, sustainability, craft brands
+
+name: Terracotta
+theme: dark
+colors:
+  primary: "#B45309"
+  primary_light: "#D97706"
+  accent: "#65A30D"
+  background: "#1C1410"
+  card: "#292018"
+  border: "#3D3024"
+  text: "#E8DDD0"
+  text_muted: "#A69280"
+  white: "#FEF3C7"
+  highlight: "#CA8A04"
+font: "Source Serif 4"
+cover:
+  gradient_primary: "rgba(180,83,9,0.20)"
+  gradient_secondary: "rgba(217,119,6,0.08)"

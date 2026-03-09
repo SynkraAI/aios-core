@@ -1,0 +1,23 @@
+# Emerald AI — Dark theme with sky blue primary and neutral gray
+# Ideal for: AI/SaaS products, developer tools, cloud platforms
+# Inspired by: Page UI / Emerald AI template (Sky Blue + Gray Concrete)
+# Theme: dark | Base: warm dark + blue overlay = deep tech blue
+
+name: Emerald AI
+theme: dark
+colors:
+  primary: "#0EA5E9"
+  primary_light: "#38BDF8"
+  accent: "#7DD3FC"
+  background: "#080C14"
+  card: "#111827"
+  border: "#1F2937"
+  text: "#F2F2F2"
+  text_muted: "#9CA3AF"
+  white: "#F0F9FF"
+  highlight: "#38BDF8"
+font: "Inter"
+display_font: "Rubik"
+cover:
+  gradient_primary: "rgba(14,165,233,0.15)"
+  gradient_secondary: "rgba(107,114,128,0.06)"

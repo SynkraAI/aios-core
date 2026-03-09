@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-03-09T13:00:00",
+  "service": "Renner Silva",
+  "source_path": "/Users/luizfosc/Dropbox/Dropbox Particular Fosc/+PROJETOS Palestras + Mágicas/LUIZFOSC/CURSOS E TRANSCRIÇÕES/Renner Silva/",
+  "total_files": 9,
+  "files": [
+    {"name": "mentoria-dia-21/transcription_clean.md", "lines": 13130, "type": "mentoria", "status": "transcribed"},
+    {"name": "mentoria-dia-22/transcription_clean.md", "lines": 18294, "type": "mentoria", "status": "transcribed"},
+    {"name": "mentoria-dia-23/transcription_clean.md", "lines": 10967, "type": "mentoria", "status": "transcribed"},
+    {"name": "mentoria-dia-24/transcription_clean.md", "lines": 2178, "type": "mentoria", "status": "transcribed"},
+    {"name": "YT-romanni/transcription_clean.md", "lines": 2970, "type": "youtube", "status": "transcribed"},
+    {"name": "YT02-formula-magica/transcription_clean.md", "lines": 3699, "type": "youtube", "status": "transcribed"},
+    {"name": "YT03-8-passos-roteiro/transcription_clean.md", "lines": 5364, "type": "youtube", "status": "transcribed"},
+    {"name": "PESQUISA-METODO-SIM-COMPLETA.md", "lines": 1327, "type": "research", "status": "ready"},
+    {"name": "Transcrição Live Renner (método).md", "lines": 478, "type": "live", "status": "transcribed"}
+  ],
+  "total_lines": 58407,
+  "phases": {
+    "transcribe": {"done": 9, "total": 9},
+    "sculpt": {"done": 7, "total": 9, "note": "7 transcription_clean.md files already sculpted"},
+    "distill": {"done": 9, "total": 9, "note": "All 9 files distilled 2026-03-09 via 6 parallel agents"},
+    "kb_update": {"done": 9, "total": 9, "note": "Complete: KB18 created, KB19 created, KB01 v1.4, KB02 v1.3, KB04 v1.3 updated"}
+  },
+  "distill_output": "docs/projects/renner-silva/data/distill-consolidado-2026-03-09.md",
+  "note": "Pipeline COMPLETE. Clone v1.2: 19 KBs (17 original + KB18 + KB19). All sources processed."
+}

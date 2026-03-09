@@ -1,0 +1,21 @@
+# Magic UI — Animated dark with shimmer effects
+# Ideal for: component libraries, developer tools, design systems, SaaS products
+# Inspired by: magicuidesign/magicui
+
+name: Magic UI
+theme: dark
+colors:
+  primary: "#8B5CF6"
+  primary_light: "#A78BFA"
+  accent: "#F472B6"
+  background: "#09090B"
+  card: "#18181B"
+  border: "#27272A"
+  text: "#E4E4E7"
+  text_muted: "#71717A"
+  white: "#FAFAFA"
+  highlight: "#C084FC"
+font: "Geist"
+cover:
+  gradient_primary: "rgba(139,92,246,0.20)"
+  gradient_secondary: "rgba(244,114,182,0.08)"

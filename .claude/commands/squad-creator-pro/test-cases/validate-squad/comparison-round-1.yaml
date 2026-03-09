@@ -1,0 +1,223 @@
+# Comparison Report - validate-squad
+# Generated: 2026-02-11
+# Workflow version: 2.0
+
+comparison:
+  task: "validate-squad"
+  target: "squads/copy"
+  date: "2026-02-11"
+
+  models:
+    opus:
+      score: "7.89/10"
+      decision: "PASS"
+      type_detected: "Expert"
+      cost_estimate_usd: 0.68
+      tokens_total: 144491
+      tool_uses: 47
+      duration_ms: 285370
+      output_file: "opus-baseline.yaml"
+      output_lines: 530
+
+    haiku:
+      score: "6.5/10"
+      decision: "CONDITIONAL"
+      type_detected: "Pipeline"
+      cost_estimate_usd: 0.012
+      tokens_total: 85365
+      tool_uses: 31
+      duration_ms: 151018
+      output_file: "haiku-round-1.yaml"
+      output_lines: 194
+
+  # ═══════════════════════════════════════════════════════════════
+  # CRITICAL DIVERGENCES
+  # ═══════════════════════════════════════════════════════════════
+
+  critical_divergences:
+    - id: "DIV-001"
+      dimension: "Type Detection"
+      opus: "Expert (confidence 0.92)"
+      haiku: "Pipeline (confidence 0.70)"
+      correct: "OPUS"
+      impact: "CASCADING - Wrong type → wrong Phase 4 checks → wrong final score"
+      evidence: |
+        squads/copy has 24 agents with real copywriter names (Hopkins, Halbert, Schwartz, etc.)
+        22/24 have voice_dna sections (91.7%)
+        Tier 0-3 + Tool organization
+        Task definition says: "if real_person_names_in_agents: expert" (tie-breaker)
+        Haiku scored expert=6 pipeline=7 (marginal) but should have applied tie-breaker
+
+    - id: "DIV-002"
+      dimension: "Missing File Detection"
+      opus: "Found alex-hormozi.md missing despite being in config.yaml"
+      haiku: "Reported all references valid (7/7 passed)"
+      correct: "OPUS"
+      impact: "Haiku missed a real structural finding"
+      evidence: "alex-hormozi.md is listed in config.yaml agents section but no file exists"
+
+    - id: "DIV-003"
+      dimension: "Phase 4 Check Suite"
+      opus: "Ran Expert checks (voice_dna, objection_algorithms, output_examples, tier_organization)"
+      haiku: "Ran Pipeline checks (workflow_definition, phase_checkpoints, orchestrator_completeness, intermediate_outputs)"
+      correct: "OPUS"
+      impact: "Haiku validated wrong properties - never checked voice_dna quality"
+
+    - id: "DIV-004"
+      dimension: "Documentation Score"
+      opus: "9.0/10 - README 812 lines + ARCHITECTURE.md exceptional"
+      haiku: "5.0/10 - 'adequate but could be more comprehensive'"
+      correct: "OPUS"
+      impact: "2.0 point tier_3 impact. Haiku was overly critical on a well-documented squad"
+
+    - id: "DIV-005"
+      dimension: "Data File Count"
+      opus: "16 data files found, 81.25% usage"
+      haiku: "4 data files found"
+      correct: "OPUS"
+      impact: "Haiku undercounted data files by 75%"
+
+    - id: "DIV-006"
+      dimension: "Optimization Opportunities"
+      opus: "5.0/10 - No execution_type fields on any tasks"
+      haiku: "Not assessed at all"
+      correct: "OPUS"
+      impact: "Haiku skipped a required Tier 3 dimension"
+
+  # ═══════════════════════════════════════════════════════════════
+  # 5-DIMENSION SCORING
+  # ═══════════════════════════════════════════════════════════════
+
+  dimension_scores:
+    completeness:
+      weight: 0.30
+      score: 5
+      max: 10
+      evidence: |
+        Opus: 530 lines, 16 Phase 1 checks, 3 sampled tasks, 3 sampled checklists, per-criterion scoring
+        Haiku: 194 lines, 7 Phase 1 checks, no specific samples named, generic evidence
+        Haiku has 37% of Opus line count. All phases present but lacking detail.
+
+    accuracy:
+      weight: 0.30
+      score: 2
+      max: 10
+      evidence: |
+        CRITICAL: Wrong type detection (Expert vs Pipeline) cascades through entire assessment
+        Missed alex-hormozi.md finding
+        Ran wrong Phase 4 check suite
+        Documentation scored 4 points lower than reality
+        Undercounted data files by 75%
+        Final decision in different band (PASS vs CONDITIONAL)
+
+    reasoning:
+      weight: 0.20
+      score: 4
+      max: 10
+      evidence: |
+        Haiku detected 22 agents with voice_dna but still classified as Pipeline
+        Generic evidence ("22 agents with voice_dna") without connecting to type detection
+        No file-level citations or line counts
+        Phase 4 reasoning is internally consistent but for WRONG type
+
+    format:
+      weight: 0.10
+      score: 8
+      max: 10
+      evidence: |
+        Both outputs are valid YAML
+        Both parseable
+        Haiku structure matches requested schema
+        Minor: Haiku missing optimization_opportunities in phase_3
+
+    actionability:
+      weight: 0.10
+      score: 4
+      max: 10
+      evidence: |
+        Haiku recommendations target Pipeline improvements (workflow outputs, phase specs)
+        Should have targeted Expert improvements (voice_dna gaps, alex-hormozi)
+        Opus correctly identified critical (alex-hormozi) vs high vs medium priorities
+
+  quality_score:
+    raw: "(5*0.30) + (2*0.30) + (4*0.20) + (8*0.10) + (4*0.10)"
+    calculated: "1.5 + 0.6 + 0.8 + 0.8 + 0.4 = 4.1"
+    percentage: "41%"
+    threshold: "90%"
+    delta: "-49%"
+
+  # ═══════════════════════════════════════════════════════════════
+  # DECISION
+  # ═══════════════════════════════════════════════════════════════
+
+  decision:
+    veto_triggered: "MTQ_VC_004 (soft)"
+    veto_reason: |
+      Opus: PASS (7.89) vs Haiku: CONDITIONAL (6.5)
+      Different classification bands. Root cause: wrong type detection.
+      Not classic PASS vs FAIL, but cascading error makes assessment unreliable.
+    quality_score: "41%"
+    threshold: "90%"
+    gap: "49 percentage points below threshold"
+    final: "OPUS_REQUIRED"
+    compensation_viable: false
+    compensation_reason: |
+      Type detection error is not fixable with prompt compensation.
+      COMP_001 (Scoring Calibration) won't fix wrong type classification.
+      COMP_002 (Output Example) might help but type detection is upstream.
+      The issue is judgment-level: Haiku cannot correctly weigh competing signals
+      to determine squad type when signals are mixed.
+
+  # ═══════════════════════════════════════════════════════════════
+  # ROOT CAUSE ANALYSIS
+  # ═══════════════════════════════════════════════════════════════
+
+  root_cause_analysis:
+    primary_failure: "Type Detection (Phase 0)"
+    cascading_effects:
+      - "Phase 4 ran Pipeline checks instead of Expert checks"
+      - "Voice DNA quality never assessed"
+      - "Objection algorithms never assessed"
+      - "Tier organization never assessed"
+      - "Final score lowered by wrong contextual checks"
+      - "Recommendations target wrong type of improvements"
+
+    why_haiku_failed: |
+      The type detection algorithm requires WEIGHING competing signals:
+      - 24 agents with voice_dna → Expert signal (strong)
+      - 14 workflows → Pipeline signal (moderate)
+      - task_agent_ratio 3.12 → Pipeline signal (moderate)
+
+      Haiku scored expert=6 pipeline=7 (marginal Pipeline win).
+      But the tie-breaking rule says: "if real_person_names_in_agents: expert"
+      Haiku either didn't apply the tie-breaker or didn't give enough weight
+      to voice_dna presence (22/24 = 91.7%).
+
+      This is an INTERPRETATION task, not a BINARY task.
+      Haiku lacks the judgment to weigh competing contextual signals correctly.
+
+    pattern_match: |
+      Same pattern as pv-modernization-score: checklist with INTERPRETIVE items.
+      validate-squad requires interpreting squad characteristics to classify type.
+      Haiku treats each signal independently instead of holistically.
+
+  # ═══════════════════════════════════════════════════════════════
+  # LESSON FOR FRAMEWORK
+  # ═══════════════════════════════════════════════════════════════
+
+  lesson:
+    category: "interpretive_classification"
+    description: |
+      Tasks that require classifying something by weighing competing signals
+      are NOT suitable for Haiku. Even when the algorithm is well-defined,
+      the WEIGHT ASSIGNMENT step requires judgment that Haiku cannot provide.
+    rule: |
+      IF task requires:
+        - Weighing competing signals
+        - Classification with tie-breaking logic
+        - Contextual interpretation of findings
+      THEN: OPUS_REQUIRED
+    applies_to:
+      - "validate-squad (type detection + quality scoring)"
+      - "pv-modernization-score (pattern interpretation)"
+      - "Any task with multi-signal classification"

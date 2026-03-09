@@ -1,0 +1,177 @@
+# Squad Registry
+# Purpose: Central registry of all squads in this project (towerdefense)
+# Usage: Load on squad-creator activation to check for duplicates and understand ecosystem
+# Updated: 2026-02-05
+
+metadata:
+  version: "2.1.0"
+  last_updated: "2026-02-05"
+  maintainer: "squad-creator"
+  project: "towerdefense"
+  # Totals (updated by *refresh-registry)
+  total_squads: 1
+  total_agents: 5
+  total_tasks: 23
+  total_checklists: 10
+  total_workflows: 7
+  total_templates: 13
+  total_data_files: 16
+
+# ============================================================================
+# SQUAD-CREATOR SPECIALISTS
+# These are meta-agents that help CREATE other agents/squads
+# ============================================================================
+
+specialists:
+  oalanicolas:
+    name: "Alan Nicolas"
+    id: "oalanicolas"
+    title: "Mind Cloning Architect & DNA Extraction Specialist"
+    path: "squads/squad-creator/agents/oalanicolas.md"
+    domain: "mind-cloning"
+    tier: 1
+    invoke_when:
+      - "Need to extract Voice DNA or Thinking DNA"
+      - "Need to curate sources (classify ouro vs bronze)"
+      - "Need to validate clone fidelity (85-97%)"
+      - "Need Playbook + Framework + Swipe File trinity"
+      - "Clone is weak/generic and needs diagnosis"
+    commands:
+      - "*extract-dna {mind} - Extrair DNA Mental™ completo"
+      - "*assess-sources - Avaliar fontes (ouro vs bronze)"
+      - "*design-clone - Arquitetar clone com estágios"
+      - "*validate-clone - Validar fidelidade"
+      - "*diagnose-clone - Diagnosticar clone fraco"
+    philosophy: "Se entrar cocô, sai cocô. Curadoria > Volume."
+    synergy_with: "@pedro-valerio (validates process after DNA is extracted)"
+
+  pedro_valerio:
+    name: "Pedro Valério"
+    id: "pedro-valerio"
+    title: "Process Absolutist & Automation Architect"
+    path: "squads/squad-creator/agents/pedro-valerio.md"
+    domain: "process-design"
+    tier: 0  # Diagnostic/Audit
+    invoke_when:
+      - "Need to audit workflow for process failures"
+      - "Need to create veto conditions for checkpoints"
+      - "Need to identify gaps de tempo in handoffs"
+      - "Need to ensure fluxo unidirecional"
+      - "Process allows wrong paths (caminhos errados)"
+    commands:
+      - "*audit {workflow} - Auditar por falhas de processo"
+      - "*design-heuristic - Criar decision heuristic com veto"
+      - "*find-automation - Identificar automações faltando"
+      - "*gap-analysis - Mapear gaps de tempo"
+      - "*veto-check - Validar checkpoints"
+    philosophy: "A melhor coisa é impossibilitar caminhos."
+    synergy_with: "@oalanicolas (extracts DNA, Pedro validates process)"
+
+# ============================================================================
+# SQUADS BY DOMAIN
+# ============================================================================
+
+squads:
+  # --------------------------------------------------------------------------
+  # META & FRAMEWORKS
+  # --------------------------------------------------------------------------
+  squad-creator:
+    path: "squads/squad-creator/"
+    version: "2.9.0"
+    domain: "meta"
+    purpose: "Meta-squad para criar squads de agentes baseados em elite minds reais. Especialistas: @oalanicolas (mind cloning), @pedro-valerio (process design)."
+    keywords:
+      - "squad"
+      - "create"
+      - "agent"
+      - "mind cloning"
+      - "DNA extraction"
+      - "voice DNA"
+      - "thinking DNA"
+      - "elite minds"
+      - "frameworks"
+      - "validation"
+      - "quality gate"
+    agents: 5
+    tasks: 23
+    workflows: 7
+    checklists: 10
+    templates: 13
+    data_files: 16
+    agent_names:
+      - "squad-architect"
+      - "squad-diagnostician"
+      - "oalanicolas"
+      - "pedro-valerio"
+      - "sop-extractor"
+    highlights:
+      - "5 specialized agents (squad-architect, squad-diagnostician, oalanicolas, pedro-valerio, sop-extractor)"
+      - "Mind research loop with devil's advocate (3-5 iterations)"
+      - "Voice DNA + Thinking DNA extraction"
+      - "Quality gates: SC_AGT_001, SC_AGT_003"
+      - "Deep Tool Discovery with 5 parallel sub-agents"
+      - "YOLO mode (60-75% fidelity) and QUALITY mode (85-95% fidelity)"
+    example_use: "Create a copywriting squad with agents based on Gary Halbert and Eugene Schwartz"
+    is_meta: true
+    quality_reference: true
+
+# ============================================================================
+# DOMAIN INDEX (for quick lookup)
+# ============================================================================
+
+domain_index:
+  # Meta/Framework
+  squad_creation: "squad-creator"
+  new_squad: "squad-creator"
+  agent_creation: "squad-creator"
+  mind_cloning: "squad-creator"
+  dna_extraction: "squad-creator"
+  voice_dna: "squad-creator"
+  thinking_dna: "squad-creator"
+  elite_minds: "squad-creator"
+  frameworks: "squad-creator"
+  validation: "squad-creator"
+  quality_gates: "squad-creator"
+  sop_extraction: "squad-creator"
+
+# ============================================================================
+# GAP ANALYSIS (domains without squads in this project)
+# ============================================================================
+
+# Use *create-squad to create squads for any domain.
+# The system will research elite minds automatically.
+#
+# Example domains you can create:
+#   - copywriting (persuasive writing)
+#   - databases (SQL, migrations, Supabase)
+#   - design_systems (UI/UX components)
+#   - legal (contracts, compliance)
+#   - finance (investments, accounting)
+#   - sales (negotiation, closing)
+#   - marketing (digital, content)
+
+gaps: []  # No external dependencies - create any squad locally
+
+# ============================================================================
+# QUALITY REFERENCES
+# ============================================================================
+
+quality_references:
+  - squad: "squad-creator"
+    reason: "Gold standard for meta-squad architecture"
+    learn:
+      - "Mind cloning workflow (Voice + Thinking DNA)"
+      - "Quality gates and validation system"
+      - "Specialist agents with clear responsibilities"
+    score: 9.0
+
+# ============================================================================
+# NAMING CONVENTIONS
+# ============================================================================
+
+conventions:
+  squad_folder: "kebab-case"  # e.g., squad-creator
+  agent_files: "kebab-case.md"  # e.g., squad-architect.md
+  task_files: "kebab-case.md"  # e.g., create-squad.md
+  config_name: "must match folder"  # config.yaml name = folder name
+  slashPrefix: "camelCase"  # e.g., squadCreator

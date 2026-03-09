@@ -1,0 +1,22 @@
+# Screenshot Two — Fresh green with clever blue dual-color scheme
+# Ideal for: developer tools, productivity apps, fintech, eco-tech
+# Inspired by: Page UI / ScreenshotTwo template (Apple Green + Clever Blue)
+# Theme: light | Energetic green primary with blue secondary
+
+name: Screenshot Two
+theme: light
+colors:
+  primary: "#22C55E"
+  primary_light: "#4ADE80"
+  accent: "#3B82F6"
+  background: "#FFFFFF"
+  card: "#FFFFFF"
+  border: "#E5E7EB"
+  text: "#0A0A0A"
+  text_muted: "#15803D"
+  white: "#052E16"
+  highlight: "#3B82F6"
+font: "DM Sans"
+cover:
+  gradient_primary: "rgba(34,197,94,0.06)"
+  gradient_secondary: "rgba(59,130,246,0.04)"

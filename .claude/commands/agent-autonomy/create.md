@@ -1,0 +1,1 @@
+Read the agent definition at `squads/agent-autonomy/agents/agent-architect.md` and the task at `squads/agent-autonomy/tasks/create-autonomous-agent.md`. Follow the workflow at `squads/agent-autonomy/workflows/create-agent-flow.md` to create a new autonomous agent based on the user's requirements.

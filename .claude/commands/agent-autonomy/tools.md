@@ -1,0 +1,1 @@
+Read the agent definition at `squads/agent-autonomy/agents/tool-smith.md` and the task at `squads/agent-autonomy/tasks/suggest-tools.md`. Suggest and/or build tools following ACI principles and the IMPACT framework for the agent specified by the user.

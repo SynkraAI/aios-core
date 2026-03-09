@@ -1,0 +1,1604 @@
+# wf-create-squad.yaml
+# Master Workflow: Complete Squad Creation Orchestration
+# Version: 2.7
+# Last Updated: 2026-02-10
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow:
+  id: wf-create-squad
+  name: "Create Complete Squad"
+  version: "2.6"
+  purpose: "Orchestrate the complete creation of an AIOS squad from research to validation"
+  orchestrator: "@squad-chief"
+  mode: "yolo"  # yolo | quality | hybrid
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SPECIALIST AGENTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+specialists:
+  mind_cloning:
+    agent: "@oalanicolas"
+    role: "Mind Cloning Architect"
+    invoke_in_phases: ["phase_3"]
+    responsibilities:
+      - "Curadoria de fontes (ouro vs bronze)"
+      - "Extração de Voice DNA + Thinking DNA"
+      - "Validação de fidelidade (85-97%)"
+      - "Playbook + Framework + Swipe File trinity"
+
+  process_design:
+    agent: "@pedro-valerio"
+    role: "Process Absolutist"
+    invoke_in_phases: ["phase_5"]
+    responsibilities:
+      - "Validar se workflows impedem caminhos errados"
+      - "Criar veto conditions em quality gates"
+      - "Auditar checkpoints para gaps de tempo"
+      - "Garantir fluxo unidirecional"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# YOLO MODE CONFIGURATION (RUN AUTONOMOUSLY, STOP ONLY WHEN DATA MISSING)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+yolo_mode:
+  philosophy: |
+    "Run autonomously until you hit a wall.
+     Only stop when data is genuinely missing.
+     Warn about quality trade-offs, but don't block."
+
+  auto_proceed_when:
+    - "10+ fontes web encontradas por mind"
+    - "Triangulação possível (3+ fontes por claim principal)"
+    - "Quality gates passam automaticamente"
+    - "Usuário escolheu YOLO mode no pre-flight"
+
+  must_stop_when:
+    - "< 5 fontes encontradas para um mind (muito obscuro)"
+    - "Usuário disse que tem materiais mas não forneceu path"
+    - "Quality gate CRÍTICO falha sem recovery possível"
+    - "Usuário marcou que conhece expert (DNA validation obrigatória)"
+
+  quality_warning: |
+    ═══════════════════════════════════════════════════════════════════
+    ⚠️ AVISO DE QUALIDADE - YOLO MODE
+    ═══════════════════════════════════════════════════════════════════
+
+    COM materiais próprios (livros, PDFs, cursos):
+    ┌─────────────────────────────────────────────────────────────────┐
+    │ • Fidelidade: 85-95%                                            │
+    │ • Frameworks: Completos                                         │
+    │ • Voice DNA: Preciso (de fontes originais)                      │
+    │ • Contradições: Capturadas (aparecem em long-form)              │
+    └─────────────────────────────────────────────────────────────────┘
+
+    APENAS com pesquisa web:
+    ┌─────────────────────────────────────────────────────────────────┐
+    │ • Fidelidade: 60-75%                                            │
+    │ • Frameworks: Parciais (só o que é público)                     │
+    │ • Voice DNA: Aproximado                                         │
+    │ • Contradições: Podem faltar (não aparecem em highlights)       │
+    └─────────────────────────────────────────────────────────────────┘
+
+    "Materiais próprios = CLONE. Web only = APROXIMAÇÃO."
+    ═══════════════════════════════════════════════════════════════════
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PRE-FLIGHT: AVISO INICIAL DO QUE VAI PRECISAR
+# ═══════════════════════════════════════════════════════════════════════════════
+
+pre_flight:
+  trigger: "Início do workflow (ANTES de tudo)"
+  blocking: true  # Precisa de resposta para continuar
+  purpose: "Informar usuário sobre o que vai precisar e escolher modo"
+
+  message: |
+    ═══════════════════════════════════════════════════════════════════
+    📋 PRE-FLIGHT: CRIAÇÃO DE SQUAD
+    ═══════════════════════════════════════════════════════════════════
+
+    Vou criar um squad de {domain}.
+
+    PARA MÁXIMA QUALIDADE, idealmente você teria:
+    ┌─────────────────────────────────────────────────────────────────┐
+    │ 📚 POR CADA EXPERT:                                             │
+    │ • 2-3 livros principais (PDF ou referência)                     │
+    │ • 5-10 entrevistas/podcasts (links ou transcrições)             │
+    │ • Artigos/newsletters escritos pelo expert                      │
+    │ • Cursos/workshops (se tiver acesso)                            │
+    └─────────────────────────────────────────────────────────────────┘
+
+    ⏱️ TEMPO ESTIMADO:
+    • Com materiais: 4-5 horas
+    • Só web: 6-8 horas (mais pesquisa, menos qualidade)
+
+    ═══════════════════════════════════════════════════════════════════
+
+  questions:
+    - id: "execution_mode"
+      question: "Como você quer executar?"
+      required: true
+      options:
+        - id: "yolo"
+          label: "🚀 YOLO MODE - Não tenho materiais"
+          description: "Rodo automaticamente com pesquisa web. Paro só se algo crítico faltar."
+          quality: "60-75%"
+          interaction: "Mínima (só aprovação final)"
+
+        - id: "quality"
+          label: "💎 QUALITY MODE - Tenho materiais para fornecer"
+          description: "Você fornece materiais. Valido DNA extraído com você."
+          quality: "85-95%"
+          interaction: "Moderada (coleta + validação)"
+
+        - id: "hybrid"
+          label: "🔀 HYBRID MODE - Tenho materiais de alguns"
+          description: "Mix: alguns experts com materiais, outros com web."
+          quality: "Variável por expert"
+          interaction: "Por expert"
+
+    - id: "expert_knowledge"
+      question: "Você conhece PROFUNDAMENTE algum expert do domínio?"
+      description: "Se sim, vou pedir para validar o DNA extraído"
+      required: true
+      options:
+        - id: "yes"
+          label: "Sim - Posso validar"
+          action: "CP3 (DNA Validation) será OBRIGATÓRIO"
+
+        - id: "no"
+          label: "Não - Confio na extração"
+          action: "CP3 será AUTOMÁTICO"
+
+    - id: "time_commitment"
+      question: "Quanto tempo você tem para interações?"
+      required: true
+      options:
+        - id: "minimal"
+          label: "Mínimo - Só me chame se for CRÍTICO"
+          checkpoints: ["CP6 only"]
+
+        - id: "moderate"
+          label: "Moderado - Checkpoints principais"
+          checkpoints: ["CP1", "CP3", "CP6"]
+
+        - id: "high"
+          label: "Alto - Validar cada etapa"
+          checkpoints: ["ALL"]
+
+  decision_matrix:
+    yolo_minimal:
+      checkpoints_active: ["CP6"]
+      auto_proceed: true
+      stops_for: ["Critical failures only"]
+
+    yolo_moderate:
+      checkpoints_active: ["CP1", "CP6"]
+      auto_proceed: true
+      stops_for: ["Mind selection", "Final approval"]
+
+    quality_any:
+      checkpoints_active: ["CP_MATERIALS", "CP1", "CP3", "CP4", "CP6"]
+      auto_proceed: false
+      stops_for: ["Materials collection", "DNA validation"]
+
+    hybrid_any:
+      checkpoints_active: ["CP_MATERIALS per mind", "CP3 for known experts", "CP6"]
+      auto_proceed: "per mind based on materials"
+
+  post_pre_flight: |
+    {quality_warning}
+
+    Modo selecionado: {execution_mode}
+    Checkpoints ativos: {active_checkpoints}
+
+    Posso começar?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE: MATERIALS COLLECTION (QUALITY/HYBRID MODE ONLY)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phase_materials:
+  id: phase_materials
+  name: "MATERIALS COLLECTION"
+  condition: "mode == 'quality' OR mode == 'hybrid'"
+  trigger: "After minds are identified (post Phase 1)"
+  blocking: true
+
+  purpose: |
+    Coletar materiais do usuário ANTES de iniciar extração.
+    Materiais do usuário = Tier 0 (máxima confiança).
+
+  prompt_template: |
+    ═══════════════════════════════════════════════════════════════════
+    📚 COLETA DE MATERIAIS
+    ═══════════════════════════════════════════════════════════════════
+
+    Identifiquei {minds_count} elite minds para seu squad:
+    {minds_list}
+
+    PARA CADA EXPERT, me diga se você tem materiais:
+
+    {for_each_mind}
+    ┌─────────────────────────────────────────────────────────────────┐
+    │ {mind_name}                                                     │
+    │                                                                 │
+    │ Você tem materiais deste expert?                                │
+    │ □ Sim - Path/links: _______________________________             │
+    │ □ Não - Use pesquisa web                                        │
+    │                                                                 │
+    │ Tipos que você tem:                                             │
+    │ □ Livros (PDF)                                                  │
+    │ □ Transcrições de cursos                                        │
+    │ □ Entrevistas/podcasts                                          │
+    │ □ Artigos/newsletters                                           │
+    │ □ Outros: ______________                                        │
+    └─────────────────────────────────────────────────────────────────┘
+    {end_for_each}
+
+    Quando terminar, me avise para prosseguir.
+    ═══════════════════════════════════════════════════════════════════
+
+  processing:
+    for_each_response:
+      if_has_materials:
+        - action: "Index materials as Tier 0"
+        - action: "Validate files exist/accessible"
+        - action: "Add to sources_inventory"
+
+      if_no_materials:
+        - action: "Mark mind for web-only research"
+        - action: "Warn about reduced quality for this mind"
+
+  output:
+    materials_inventory:
+      per_mind:
+        - mind_name: ""
+          has_user_materials: true/false
+          materials_path: ""
+          material_types: []
+          expected_quality: "85-95% | 60-75%"
+
+  quality_standard:
+    agents: "300+ lines, voice_dna, output_examples"
+    workflows: "500+ lines, 3+ phases, checkpoints"
+    tasks: "500+ lines complex, 300+ simple, Task Anatomy (8 fields)"
+    overall_score: ">= 7.0"
+
+  frameworks_used:
+    - id: "tier-system-framework"
+      file: "data/tier-system-framework.md"
+      applied_in: ["phase_2", "phase_3"]
+
+    - id: "quality-dimensions-framework"
+      file: "data/quality-dimensions-framework.md"
+      applied_in: ["phase_1", "phase_5"]
+
+    - id: "decision-heuristics-framework"
+      file: "data/decision-heuristics-framework.md"
+      applied_in: ["phase_0", "phase_1", "phase_3", "phase_5"]
+
+    - id: "executor-matrix-framework"
+      file: "data/executor-matrix-framework.md"
+      applied_in: ["phase_3"]
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # CONFIG FILES (Updated 2026-02-10 - Added AN_* heuristics/vetos)
+  # ═══════════════════════════════════════════════════════════════════════════════
+  config_files:
+    - id: "heuristics-engine"
+      file: "config/heuristics.yaml"
+      version: "2.0"
+      purpose: "6 heuristics: SC_HE_001-003 (PV) + AN_HE_001-003 (AN) with veto mappings"
+      agents:
+        pedro_valerio: ["SC_HE_001", "SC_HE_002", "SC_HE_003"]
+        oalanicolas: ["AN_HE_001", "AN_HE_002", "AN_HE_003"]
+      applied_in: ["phase_0", "phase_3", "phase_5"]
+
+    - id: "veto-conditions"
+      file: "config/veto-conditions.yaml"
+      version: "2.0"
+      purpose: "15 veto conditions: SC_VC_001-010 (PV) + AN_VC_001-005 (AN)"
+      agents:
+        pedro_valerio: ["SC_VC_001", "SC_VC_002", "SC_VC_003", "SC_VC_004", "SC_VC_005",
+                        "SC_VC_006", "SC_VC_007", "SC_VC_008", "SC_VC_009", "SC_VC_010"]
+        oalanicolas: ["AN_VC_001", "AN_VC_002", "AN_VC_003", "AN_VC_004", "AN_VC_005"]
+      applied_in: ["phase_0", "phase_1", "phase_3", "phase_5"]
+
+    - id: "axioma-validator"
+      file: "config/axioma-validator.yaml"
+      purpose: "10 axioma dimensions (D1-D10) for quality scoring"
+      applied_in: ["phase_5"]
+
+    - id: "quality-gates"
+      file: "config/quality-gates.yaml"
+      purpose: "10 quality gates (QG-SC-1.1 to 6.2) for checkpoints"
+      applied_in: ["phase_0", "phase_1", "phase_3", "phase_4", "phase_5"]
+
+    - id: "task-anatomy"
+      file: "config/task-anatomy.yaml"
+      purpose: "8 mandatory fields for task validation"
+      applied_in: ["phase_3", "phase_5"]
+
+  validation_script: "scripts/coherence-validator.py"
+  pattern_library: "docs/PATTERN-LIBRARY.md"
+
+  estimated_duration:
+    incremental: "60-90 minutes"
+    yolo: "30-45 minutes"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - name: domain
+      type: string
+      description: "Domain expertise area (e.g., 'copywriting', 'legal', 'data')"
+      example: "copywriting"
+
+    - name: purpose
+      type: string
+      description: "What the squad should accomplish"
+      example: "Create high-converting sales pages and marketing copy"
+
+    - name: target_user
+      type: string
+      description: "Who will use this squad"
+      example: "Marketing teams at SaaS companies"
+
+    - name: use_cases
+      type: list
+      description: "3-5 key use cases"
+      example:
+        - "Sales pages"
+        - "Email sequences"
+        - "Ad copy"
+        - "Landing pages"
+
+  optional:
+    - name: mode
+      type: enum
+      values: ["incremental", "yolo"]
+      default: "incremental"
+      description: "Workflow execution mode"
+
+    - name: pack_name
+      type: string
+      description: "Override default pack name (kebab-case)"
+      example: "copy"
+
+    - name: existing_research
+      type: path
+      description: "Path to existing research if available"
+      example: "docs/research/copywriting-research.md"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PRECONDITIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+preconditions:
+  system:
+    - "squad-chief agent is active"
+    - "WebSearch tool available for research"
+    - "Write permissions for squads/ directory"
+    - "All 4 frameworks loaded and accessible"
+
+  user:
+    - "Clear domain understanding"
+    - "Defined use cases (3-5)"
+    - "Available for checkpoints (incremental mode)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0: DISCOVERY
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_0
+    name: "DISCOVERY"
+    purpose: "Validate domain viability and define pack structure"
+    duration: "5-10 minutes"
+    mode: "interactive"
+
+    steps:
+      - id: step_0_0
+        name: "Scope Complexity Check (PRD Gate)"
+        action: "Map workflows and check if PRD is required"
+        heuristic:
+          id: SC_SCP_001
+          name: "Scope Complexity Gate"
+          blocking: true
+          reference: "data/decision-heuristics-framework.md#10"
+        workflow:
+          - "Map ALL workflows the squad needs to handle"
+          - "Count total workflows"
+          - "Estimate agents needed"
+          - "Check for existing similar squads"
+        thresholds:
+          workflows_require_prd: 10
+          agents_require_prd: 8
+        decision:
+          if_workflows_gte_10:
+            action: "VETO - PRD Required"
+            message: |
+              ═══════════════════════════════════════════════════════════════════
+              ❌ ESCOPO GRANDE DEMAIS PARA CRIAÇÃO DIRETA
+              ═══════════════════════════════════════════════════════════════════
+
+              Mapeei {workflows_count} workflows.
+              Threshold para criação direta: < 10 workflows.
+
+              AÇÃO NECESSÁRIA:
+              ┌─────────────────────────────────────────────────────────────────┐
+              │ 1. Criar PRD: docs/projects/{domain}/prd.md                     │
+              │ 2. Dividir em Epics (por Tier ou funcionalidade)                │
+              │ 3. Criar Stories com acceptance criteria                        │
+              │ 4. Implementar por fases                                        │
+              └─────────────────────────────────────────────────────────────────┘
+
+              Benefícios do PRD:
+              • Nenhum workflow esquecido
+              • Roadmap claro de implementação
+              • Validação por Epic
+              • Possibilidade de pausa/retomada
+
+              Quer que eu crie o PRD agora? (Sim/Não)
+              ═══════════════════════════════════════════════════════════════════
+            next_action: "Create PRD using templates/squad-prd-tmpl.md"
+            reference_files:
+              - "data/pm-best-practices.md"
+              - "templates/squad-prd-tmpl.md"
+
+            # ═══════════════════════════════════════════════════════════════════
+            # CRITICAL: Story Generation Rules for Agents
+            # ═══════════════════════════════════════════════════════════════════
+            story_generation_rules:
+              agent_stories:
+                template: "templates/story-create-agent-tmpl.md"
+                rule: |
+                  ❌ NUNCA especificar agent YAML inline na story
+                  ✅ SEMPRE referenciar workflow de criação
+
+                wrong_pattern: |
+                  # Story especifica o agent completo (200+ linhas de YAML)
+                  # Executor apenas copia → Agent genérico/fraco
+
+                correct_pattern: |
+                  # Story referencia workflow
+                  workflow: "wf-clone-mind.yaml" | "create-agent.md"
+                  inputs: [agent_id, domain, sources_path]
+                  quality_gates: [SC_AGT_001, SC_AGT_002, SC_AGT_003]
+                  # Executor EXECUTA workflow → Agent com profundidade
+
+                quality_gates_required:
+                  - "SC_AGT_001: Structure (300+ lines)"
+                  - "SC_AGT_002: Content (all levels present)"
+                  - "SC_AGT_003: Depth (frameworks with theory)"
+                  - "SMOKE_TEST: 3/3 behavioral tests"
+
+                rationale: |
+                  Stories com especificação inline geram agents fracos porque:
+                  1. Pulam pesquisa de fontes
+                  2. Pulam extração de thinking DNA
+                  3. Pulam extração de voice DNA
+                  4. Não passam no depth gate (SC_AGT_003)
+
+                  Referência de qualidade: squads com agents de 1500+ lines com profundidade
+
+          if_agents_gte_8:
+            action: "VETO - Roadmap Required"
+            message: "Muitos agents ({agents_count}) - precisa roadmap"
+          else:
+            action: "PROCEED"
+            message: "Escopo adequado para criação direta"
+        output:
+          workflows_mapped: "count"
+          agents_needed: "count"
+          prd_required: "true|false"
+          decision: "proceed|prd_required"
+
+      - id: step_0_1
+        name: "Validate Domain Viability"
+        action: "Assess if domain has sufficient documented frameworks"
+        depends_on: "step_0_0.decision == 'proceed'"
+        heuristic:
+          id: SC_DSC_001
+          name: "Discovery Complete"
+          blocking: true
+        criteria:
+          documented_methodologies: ">= 2"
+          elite_practitioners: ">= 3"
+          validation_possible: true
+        output:
+          viability_score: "0-10"
+          recommendation: "proceed | limited_scope | abort"
+
+      - id: step_0_2
+        name: "Check Existing Squads"
+        action: "Search for similar squads that might overlap"
+        search_paths:
+          - "squads/*"
+          - ".claude/commands/*"
+        decision:
+          if_80_percent_overlap: "suggest extend existing"
+          if_partial_overlap: "warn about integration"
+          if_no_overlap: "proceed"
+
+      - id: step_0_3
+        name: "Define Pack Structure"
+        action: "Elicit pack metadata"
+        elicit:
+          - pack_name: "kebab-case identifier"
+          - pack_title: "Human-readable title"
+          - version: "1.0.0"
+          - slash_prefix: "camelCase"
+          - pattern_prefix: "2-letter code"
+        output:
+          pack_config: "Initial config.yaml content"
+
+    checkpoint:
+      id: CP_PHASE_0
+      name: "Discovery Complete"
+      blocking: true
+      criteria:
+        - viability_score: ">= 6"
+        - pack_name: "defined"
+        - no_duplicate: true
+      on_fail:
+        action: "Present issues, suggest alternatives"
+      approval:
+        incremental: "Human approval required"
+        yolo: "Auto-approve if criteria met"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0.5: DEEP TOOL DISCOVERY (Parallel Sub-Agents)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_0_5
+    name: "DEEP TOOL DISCOVERY"
+    purpose: "Launch parallel sub-agents for deep research of MCPs, APIs, CLIs, Libraries, GitHub projects"
+    duration: "15-25 minutes"
+    mode: "autonomous"
+    depends_on: ["phase_0"]
+
+    philosophy: |
+      "A squad should leverage ALL available tools to deliver maximum value
+      with minimum user intervention."
+
+      This phase launches 5 SPECIALIZED SUB-AGENTS in PARALLEL:
+      1. MCP Discovery Agent - Model Context Protocol servers
+      2. API Discovery Agent - REST/GraphQL services
+      3. CLI Discovery Agent - Command-line tools
+      4. Library Discovery Agent - Python/Node packages
+      5. GitHub Project Discovery Agent - Reusable components
+
+      Each agent performs DEEP SEARCH in its category, then results are
+      synthesized into a decision matrix (Impact vs Effort).
+
+    execute:
+      workflow: "workflows/wf-discover-tools.yaml"
+      inputs:
+        domain: "{domain}"
+        use_cases: "{use_cases}"
+        budget_tier: "{from pre_flight or default: low_cost}"
+        search_depth: "standard"  # quick | standard | exhaustive
+
+    parallel_execution:
+      enabled: true
+      agents:
+        - name: "MCP Discovery Agent"
+          searches: ["modelcontextprotocol/servers", "github topics:mcp-server", "glama.ai/mcp"]
+
+        - name: "API Discovery Agent"
+          searches: ["RapidAPI", "PublicAPIs", "ProgrammableWeb"]
+
+        - name: "CLI Discovery Agent"
+          searches: ["awesome-cli-apps", "homebrew", "npm cli tools"]
+
+        - name: "Library Discovery Agent"
+          searches: ["PyPI", "npm", "GitHub SDKs"]
+
+        - name: "GitHub Project Discovery Agent"
+          searches: ["github topics", "github collections", "awesome lists"]
+
+    synthesis:
+      scoring_dimensions:
+        impact:
+          - capability_coverage: 0.20
+          - automation_potential: 0.15
+          - quality_improvement: 0.15
+          - uniqueness: 0.10
+        effort:
+          - installation_complexity: 0.10
+          - integration_effort: 0.10
+          - maintenance_burden: 0.10
+          - cost: 0.10
+
+      decision_matrix:
+        quick_wins: "impact >= 7 AND effort_score >= 7"
+        strategic: "impact >= 7 AND effort_score < 7"
+        fill_ins: "impact < 7 AND effort_score >= 7"
+        avoid: "impact < 7 AND effort_score < 7"
+
+    outputs:
+      - "squads/{pack_name}/docs/tool-discovery-report.md"
+      - "squads/{pack_name}/docs/tool-integration-plan.md"
+      - "squads/{pack_name}/data/capability-tools.yaml"
+      - "data/tool-registry.yaml (updated)"
+
+    checkpoint:
+      id: CP_PHASE_0_5
+      name: "Deep Tool Discovery Complete"
+      blocking: true  # BLOCKING - Tools are essential for squad value
+      heuristic: SC_TLD_001
+      criteria:
+        # Execution criteria
+        - parallel_agents_executed: ">= 3 of 5"  # At least 3 agents must complete
+        - total_tools_discovered: ">= 10"
+        # Quality criteria
+        - decision_matrix_generated: true
+        - integration_plan_created: true
+        - reports_generated: true
+        # Registry criteria
+        - capability_mapping_created: true
+        - tool_registry_updated: true
+      veto_conditions:
+        - all_agents_failed: "VETO - Retry required"
+        - zero_tools_found: "VETO - Domain may be too niche, manual research needed"
+      output:
+        tools_discovered: "count"
+        quick_wins: "count"
+        strategic: "count"
+        decision_matrix: "generated"
+        report_path: "squads/{pack_name}/docs/tool-discovery-report.md"
+        integration_plan_path: "squads/{pack_name}/docs/tool-integration-plan.md"
+
+    yolo_mode_behavior: |
+      In YOLO mode:
+      - Execute all 5 parallel agents
+      - Generate decision matrix automatically
+      - Add quick_wins to squad dependencies
+      - Log summary (skip detailed presentation)
+      - Continue to Phase 1 immediately
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: RESEARCH
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_1
+    name: "RESEARCH"
+    purpose: "Identify elite minds with documented frameworks"
+    duration: "15-30 minutes"
+    mode: "autonomous"
+    depends_on: ["phase_0", "phase_0_5"]
+
+    steps:
+      - id: step_1_1
+        name: "Execute Mind Research Loop"
+        action: "Run iterative research workflow"
+        execute:
+          workflow: "workflows/mind-research-loop.md"
+          inputs:
+            domain: "{domain}"
+            min_minds: 5
+            max_minds: 10
+            iterations: "3-5"
+        output:
+          minds_list: "Curated list of elite minds"
+          frameworks_per_mind: "Documented frameworks"
+          tier_preliminary: "Initial tier classification"
+
+      - id: step_1_2
+        name: "Validate Research Quality"
+        action: "Apply quality dimensions to research output"
+        framework: "quality-dimensions-framework"
+        dimensions:
+          - accuracy: "Minds are real with verifiable work"
+          - coherence: "Frameworks complement each other"
+          - strategic_alignment: "Cover the use cases"
+        heuristic:
+          id: SC_RES_001
+          name: "Research Quality Gate"
+          blocking: true
+          threshold: 7.0
+          veto_conditions:
+            - minds_count: "< 3"
+            - no_tier_0: true
+
+    checkpoint:
+      id: CP_PHASE_1
+      name: "Research Complete"
+      blocking: true
+      criteria:
+        - minds_found: ">= 5"
+        - all_have_frameworks: true
+        - tier_0_covered: true
+        - use_cases_coverage: ">= 80%"
+      output:
+        minds_table: |
+          | Mind | Tier | Frameworks | Use Cases |
+          |------|------|------------|-----------|
+          | ... | ... | ... | ... |
+
+    fallback:
+      on_minds_below_5:
+        action: "Expand search to adjacent domains"
+        retry_with:
+          - "Related experts in broader {domain}"
+          - "Historical figures in {domain}"
+          - "Practitioners vs theorists mix"
+        max_iterations: 2
+      on_no_tier_0:
+        action: "Research for diagnostic/analysis experts"
+        search_queries:
+          - '"{domain}" diagnostic framework"'
+          - '"{domain}" assessment methodology"'
+      on_retry_fail: |
+        ESCALATE: Cannot find 5+ elite minds for {domain}.
+        → Present available minds (even if < 5)
+        → Ask user for manual expert suggestions
+        → Proceed with reduced scope if user approves
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: ARCHITECTURE
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_2
+    name: "ARCHITECTURE"
+    purpose: "Design squad structure and relationships"
+    duration: "10-20 minutes"
+    mode:
+      incremental: "interactive"
+      yolo: "autonomous"
+    depends_on: ["phase_1"]
+
+    steps:
+      - id: step_2_1
+        name: "Define Tier Structure"
+        action: "Assign minds to tiers using tier-system-framework"
+        framework: "tier-system-framework"
+        structure:
+          orchestrator:
+            required: true
+            purpose: "Coordinates all tiers, routes requests"
+          tier_0:
+            required: true
+            purpose: "Diagnosis, analysis, classification"
+          tier_1:
+            purpose: "Masters with proven results"
+          tier_2:
+            purpose: "Systematizers, framework creators"
+          tier_3:
+            purpose: "Format/channel specialists"
+          tools:
+            purpose: "Validation, checklists, calculators"
+
+      - id: step_2_2
+        name: "Plan Agent Relationships"
+        action: "Define handoffs and synergies"
+        define:
+          handoff_map: "Who hands off to whom"
+          synergies: "Agents that work well together"
+          conflicts: "Agents that shouldn't be combined"
+
+      - id: step_2_3
+        name: "Design Quality Gates"
+        action: "Define validation points between phases"
+        template:
+          - id: "QG-001"
+            transition: "Input → Tier 0"
+            type: "routing"
+          - id: "QG-002"
+            transition: "Tier 0 → Tier 1"
+            type: "blocking"
+          - id: "QG-003"
+            transition: "Execution → Output"
+            type: "blocking"
+
+    checkpoint:
+      id: CP_PHASE_2
+      name: "Architecture Approved"
+      blocking: true
+      criteria:
+        - tier_0_defined: true
+        - orchestrator_planned: true
+        - quality_gates: ">= 3"
+        - handoff_map: "complete"
+      approval:
+        incremental: "Human review architecture"
+        yolo: "Auto-approve if criteria met"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: CREATION
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_3
+    name: "CREATION"
+    purpose: "Create all squad components"
+    duration: "30-60 minutes"
+    mode: "autonomous"
+    depends_on: ["phase_2"]
+
+    steps:
+      - id: step_3_1
+        name: "Create Directory Structure"
+        action: "Initialize pack directories"
+        create:
+          base: "squads/{pack_name}/"
+          subdirs:
+            - agents/
+            - tasks/
+            - workflows/
+            - templates/
+            - checklists/
+            - data/
+            - docs/
+          files:
+            - config.yaml
+            - README.md
+
+      - id: step_3_2
+        name: "Clone Mind & Create Agents"
+        action: "Execute full mind cloning pipeline for each mind"
+        specialist: "@oalanicolas"
+        specialist_guidance: |
+          Apply DNA Mental™ 8-layer architecture.
+          Curate sources (ouro > bronze).
+          Extract Playbook + Framework + Swipe File trinity.
+          Validate fidelity 85%+ for quality mode.
+        execute:
+          workflow: "workflows/wf-clone-mind.yaml"
+          for_each: "minds_list"
+          inputs_per_mind:
+            mind_name: "{mind.name}"
+            domain: "{domain}"
+            user_materials: "{materials_inventory[mind.name]}"
+          sub_phases:
+            - "Phase 0: Source Collection (collect-sources.md)"
+            - "Phase 1: Voice DNA Extraction (extract-voice-dna.md)"
+            - "Phase 2: Thinking DNA Extraction (extract-thinking-dna.md)"
+            - "Phase 3: Synthesis → mind_dna_complete.yaml"
+          final_step:
+            task: "create-agent.md"
+            input: "mind_dna_complete.yaml"
+          quality_gate:
+            id: SC_AGT_001
+            blocking: true
+            retry_on_fail: true
+
+        conditional_checkpoints:
+          yolo_mode:
+            - "Auto-proceed unless sources < 5"
+          quality_mode:
+            - "CP_SOURCES: Validate sources per mind"
+            - "CP_DNA: Validate DNA if user knows expert"
+          hybrid_mode:
+            - "Per-mind based on materials_inventory"
+
+        fallback:
+          on_clone_fail:
+            action: "Isolate failed mind, continue with remaining"
+            recovery_path:
+              - "Log failure reason (sources_insufficient | dna_incomplete | smoke_test_fail)"
+              - "Create placeholder agent with reduced fidelity warning"
+              - "Add to remediation_queue for later improvement"
+              - "Continue squad creation with available agents"
+          on_multiple_fails:
+            threshold: "> 50% of minds fail"
+            action: |
+              ESCALATE: Too many agent creation failures.
+              → Present failure analysis
+              → Ask user to provide additional materials
+              → Option: create squad with reduced scope
+          max_retries_per_mind: 2
+
+      - id: step_3_3
+        name: "Create Orchestrator"
+        action: "Create squad orchestrator agent"
+        template: "templates/agent-tmpl.md"
+        special:
+          tier: "orchestrator"
+          capabilities:
+            - "Route requests to appropriate tier"
+            - "Manage multi-agent workflows"
+            - "Track context across handoffs"
+
+      - id: step_3_4
+        name: "Create Workflows"
+        action: "Create multi-phase workflows"
+        criteria:
+          - spans_multiple_agents: true
+          - has_checkpoints: true
+        execute:
+          task: "tasks/create-workflow.md"
+        quality:
+          min_lines: 500
+          min_phases: 3
+
+      - id: step_3_5
+        name: "Create Tasks"
+        action: "Create atomic tasks with Task Anatomy"
+        framework: "executor-matrix-framework"
+        execute:
+          task: "tasks/create-task.md"
+        quality:
+          simple: "300+ lines"
+          complex: "500+ lines"
+          anatomy_fields: 8
+
+    checkpoint:
+      id: CP_PHASE_3
+      name: "Creation Complete"
+      blocking: true
+      criteria:
+        - orchestrator_created: true
+        - tier_0_agents: ">= 1"
+        - all_agents_pass_quality: true
+        - workflows_have_checkpoints: true
+      metrics:
+        agents_created: "count"
+        total_lines: "sum"
+        quality_scores: "average"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: INTEGRATION
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_4
+    name: "INTEGRATION"
+    purpose: "Wire components and generate documentation"
+    duration: "10-15 minutes"
+    mode: "autonomous"
+    depends_on: ["phase_3"]
+
+    steps:
+      - id: step_4_1
+        name: "Wire Dependencies"
+        action: "Verify and link all component dependencies"
+        for_each_agent:
+          - verify_tasks_exist: true
+          - verify_templates_exist: true
+          - verify_checklists_exist: true
+          - update_dependencies: true
+        create_missing:
+          action: "Create stubs with TODO"
+
+      - id: step_4_2
+        name: "Create Knowledge Base"
+        action: "Generate domain knowledge documentation"
+        output:
+          file: "data/{pack_name}-kb.md"
+          sections:
+            - domain_overview
+            - key_concepts
+            - best_practices
+            - common_patterns
+            - anti_patterns
+
+      - id: step_4_3
+        name: "Generate README"
+        action: "Create comprehensive documentation"
+        template: "templates/readme-tmpl.md"
+        sections:
+          - overview
+          - installation
+          - quick_start
+          - agents_list
+          - workflows_list
+          - tasks_list
+          - usage_examples
+
+      - id: step_4_4
+        name: "Finalize config.yaml"
+        action: "Complete pack configuration"
+        validate:
+          - yaml_syntax: true
+          - all_components_listed: true
+          - version_correct: true
+
+    checkpoint:
+      id: CP_PHASE_4
+      name: "Integration Complete"
+      blocking: false  # Non-blocking, warnings only
+      criteria:
+        - all_dependencies_wired: true
+        - readme_complete: true
+        - config_valid: true
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 5: VALIDATION
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_5
+    name: "VALIDATION"
+    purpose: "Validate squad meets quality standards"
+    duration: "5-10 minutes"
+    mode: "autonomous"
+    depends_on: ["phase_4"]
+    specialist: "@pedro-valerio"
+    specialist_guidance: |
+      Audit all workflows for:
+      - Veto conditions in every checkpoint
+      - Zero caminhos errados possíveis
+      - Fluxo unidirecional (cards nunca voltam)
+      - Zero gaps de tempo em handoffs
+      Apply: "Se executor CONSEGUE fazer errado → processo está errado"
+
+    steps:
+      - id: step_5_1
+        name: "Run Squad Checklist"
+        action: "Execute comprehensive validation"
+        checklist: "checklists/squad-checklist.md"
+        categories:
+          - structure
+          - agents
+          - workflows
+          - tasks
+          - documentation
+          - integration
+
+      - id: step_5_2
+        name: "Quality Dimensions Scoring"
+        action: "Score squad against quality dimensions"
+        framework: "quality-dimensions-framework"
+        dimensions:
+          accuracy:
+            weight: 0.20
+            check: "Agents based on real minds"
+          coherence:
+            weight: 0.20
+            check: "Components work together"
+          strategic_alignment:
+            weight: 0.15
+            check: "Squad serves stated purpose"
+          operational_excellence:
+            weight: 0.20
+            check: "Squad is usable"
+          innovation_capacity:
+            weight: 0.10
+            check: "Squad can grow"
+          risk_management:
+            weight: 0.15
+            check: "Guardrails in place"
+        threshold: 7.0
+        veto_if_below_5:
+          - accuracy
+          - coherence
+          - operational_excellence
+
+      - id: step_5_3
+        name: "Fix Blocking Issues"
+        action: "Resolve any blocking validation failures"
+        for_each_failure:
+          - identify_root_cause: true
+          - determine_fix: true
+          - execute_fix: true
+          - revalidate: true
+        max_iterations: 3
+        on_max_exceeded:
+          action: "Report remaining issues to human"
+
+    checkpoint:
+      id: CP_PHASE_5
+      name: "Squad Validated"
+      blocking: true
+      criteria:
+        - checklist_pass: true
+        - quality_score: ">= 7.0"
+        - no_blocking_issues: true
+      output:
+        final_score: "X/10"
+        status: "PASS | FAIL"
+        issues_remaining: "count"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 6: HANDOFF
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_6
+    name: "HANDOFF"
+    purpose: "Present squad and document next steps"
+    duration: "2-5 minutes"
+    mode: "interactive"
+    depends_on: ["phase_5"]
+
+    steps:
+      - id: step_6_0
+        name: "Generate Quality Dashboard"
+        action: "Create comprehensive quality metrics dashboard"
+        template: "templates/quality-dashboard-tmpl.md"
+        output:
+          file: "squads/{pack_name}/docs/quality-dashboard.md"
+        metrics:
+          per_agent:
+            - sources_count
+            - tier_1_ratio
+            - voice_score
+            - thinking_score
+            - fidelity_estimate
+          squad_level:
+            - coverage_gaps
+            - handoff_clarity
+            - integration_test_status
+          triangulation:
+            - claims_validated
+            - overall_score
+
+      - id: step_6_1
+        name: "Present Squad Summary"
+        action: "Display final creation summary"
+        present:
+          created:
+            - agents: "count"
+            - workflows: "count"
+            - tasks: "count"
+            - templates: "count"
+            - checklists: "count"
+          quality:
+            - overall_score: "X/10"
+            - research_foundation: "X elite minds"
+            - tier_coverage: "Full/Partial"
+            - fidelity_estimate: "X%"
+            - dashboard: "squads/{pack_name}/docs/quality-dashboard.md"
+          activation:
+            - install: "npm run install:squad {pack_name}"
+            - activate: "@{pack_name}"
+
+      - id: step_6_2
+        name: "Document Next Steps"
+        action: "Provide recommendations for squad usage"
+        recommendations:
+          immediate:
+            - "Test squad with sample request"
+            - "Activate orchestrator and verify routing"
+          optional:
+            - "Add more Tier 3 specialists"
+            - "Create additional templates"
+            - "Add integration tests"
+
+    output:
+      squad_path: "squads/{pack_name}/"
+      activation_command: "@{pack_name}"
+      quality_score: "X/10"
+      agents_created: "count"
+      status: "COMPLETE"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TRANSITIONS (Explicit conditions for phase progression)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+transitions:
+  - from: pre_flight
+    to: phase_0
+    condition: execution_mode_selected
+    description: "User selected YOLO/QUALITY/HYBRID mode"
+
+  - from: phase_0
+    to: phase_0_5
+    condition: discovery_complete
+    checkpoint_required: true
+    heuristic: SC_HE_001
+    veto_check: SC_VC_001
+    description: "Domain viable, pack structure defined"
+
+  - from: phase_0_5
+    to: phase_1
+    condition: tools_discovered
+    checkpoint_required: true
+    description: "Tool discovery complete, decision matrix generated"
+
+  - from: phase_1
+    to: phase_materials
+    condition: minds_identified AND mode != 'yolo'
+    checkpoint_required: true
+    veto_check: SC_VC_002
+    description: "Elite minds found, materials collection needed"
+
+  - from: phase_1
+    to: phase_2
+    condition: minds_identified AND mode == 'yolo'
+    checkpoint_required: true
+    description: "Elite minds found, skip materials (YOLO mode)"
+
+  - from: phase_materials
+    to: phase_2
+    condition: materials_collected
+    description: "User materials indexed"
+
+  - from: phase_2
+    to: phase_3
+    condition: architecture_approved
+    checkpoint_required: true
+    heuristic: SC_HE_002
+    veto_check: SC_VC_005
+    description: "Tier structure and handoffs defined"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # PHASE 3 SUB-TRANSITIONS (@oalanicolas DNA Extraction Pipeline)
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  - from: phase_3
+    to: phase_3_sources
+    condition: architecture_approved
+    checkpoint_required: true
+    agent: "@oalanicolas"
+    description: "Architecture approved, start source curation"
+
+  - from: phase_3_sources
+    to: phase_3_extraction
+    condition: sources_curated AND ouro_ratio >= 0.6
+    checkpoint_required: true
+    agent: "@oalanicolas"
+    heuristic: AN_HE_003
+    veto_check: [AN_VC_001, AN_VC_003]
+    description: "Sources curated with Pareto ao Cubo, proceed to extraction"
+
+  - from: phase_3_extraction
+    to: phase_3_validation
+    condition: dna_extracted AND trinity_complete
+    checkpoint_required: true
+    agent: "@oalanicolas"
+    heuristic: AN_HE_001
+    veto_check: [AN_VC_002, AN_VC_004]
+    description: "DNA extracted with trinity complete (Playbook + Framework + Swipe)"
+
+  - from: phase_3_validation
+    to: phase_3_handoff
+    condition: self_validation_passed
+    checkpoint_required: true
+    agent: "@oalanicolas"
+    heuristic: AN_HE_002
+    veto_check: AN_VC_005
+    description: "Self-validation passed (15+ citations, 5+ phrases, trinity complete)"
+
+  - from: phase_3_handoff
+    to: phase_3_build
+    condition: insumos_ready
+    checkpoint_required: true
+    handoff_from: "@oalanicolas"
+    handoff_to: "@pedro-valerio"
+    handoff_format: "INSUMOS_READY"
+    description: "Insumos validated, handoff to @pedro-valerio for agent creation"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  - from: phase_3
+    to: phase_4
+    condition: agents_created AND quality_gate_passed
+    checkpoint_required: true
+    veto_check: [SC_VC_003, SC_VC_004, SC_VC_006]
+    description: "All agents pass SC_AGT_001, smoke tests pass"
+
+  - from: phase_4
+    to: phase_5
+    condition: integration_complete
+    checkpoint_required: false
+    description: "Dependencies wired, docs generated"
+
+  - from: phase_5
+    to: phase_6
+    condition: validation_passed AND axioma_score >= 7.0
+    checkpoint_required: true
+    heuristic: SC_HE_003
+    veto_check: [SC_VC_007, SC_VC_008, SC_VC_009, SC_VC_010]
+    description: "All quality gates pass, no blocking issues"
+
+  - from: phase_6
+    to: complete
+    condition: handoff_accepted
+    description: "User acknowledged squad creation"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  primary:
+    - name: "Squad Directory"
+      location: "squads/{pack_name}/"
+      description: "Complete squad structure"
+
+    - name: "Agents"
+      location: "squads/{pack_name}/agents/"
+      description: "All agent definitions"
+
+    - name: "Workflows"
+      location: "squads/{pack_name}/workflows/"
+      description: "Multi-phase workflows"
+
+    - name: "Tasks"
+      location: "squads/{pack_name}/tasks/"
+      description: "Atomic tasks"
+
+    - name: "Documentation"
+      location: "squads/{pack_name}/README.md"
+      description: "Usage documentation"
+
+  secondary:
+    - name: "Research Files"
+      location: "docs/research/{domain}-*.md"
+      description: "Research documentation"
+
+    - name: "Tool Discovery Report"
+      location: "squads/{pack_name}/docs/tool-discovery-report.md"
+      description: "Comprehensive tool research findings (MCPs, APIs, CLIs, Libraries)"
+
+    - name: "Tool Integration Plan"
+      location: "squads/{pack_name}/docs/tool-integration-plan.md"
+      description: "Prioritized implementation steps for discovered tools"
+
+    - name: "Capability-Tools Mapping"
+      location: "squads/{pack_name}/data/capability-tools.yaml"
+      description: "Squad-specific capability to tool mapping"
+
+    - name: "Session Report"
+      location: "squads/{pack_name}/docs/creation-report.md"
+      description: "Creation session documentation"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# HEURISTICS REFERENCE
+# ═══════════════════════════════════════════════════════════════════════════════
+# NOTE: Core heuristics (SC_HE_001-003) and veto conditions (SC_VC_001-010)
+# are defined in config/heuristics.yaml and config/veto-conditions.yaml.
+# The heuristics below are workflow-specific (SC_SCP_*, SC_DSC_*, SC_TLD_*, etc.)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+heuristics:
+  - id: SC_SCP_001
+    name: "Scope Complexity Gate (PRD Gate)"
+    phase: "phase_0"
+    blocking: true
+    thresholds:
+      workflows: ">= 10 → PRD required"
+      agents: ">= 8 → PRD required"
+
+  - id: SC_DSC_001
+    name: "Discovery Complete"
+    phase: "phase_0"
+    blocking: true
+
+  - id: SC_TLD_001
+    name: "Deep Tool Discovery Complete"
+    phase: "phase_0_5"
+    blocking: true
+    description: |
+      5 parallel sub-agents executed deep search for MCPs, APIs, CLIs, Libraries, GitHub projects.
+      Tools ranked by RELATIVE TIERS (percentile comparison), not absolute thresholds.
+      Comparative report generated with flags for human attention.
+    criteria:
+      - parallel_agents_executed: ">= 3 of 5"
+      - tools_discovered: ">= 5"  # Minimum, but quality determined by ranking
+      - tier_distribution_calculated: true
+      - comparative_report_generated: true
+    notes:
+      - "No tool automatically eliminated - all get tiers"
+      - "Even Tier 4 tools included as they may be best option"
+
+  - id: SC_TLD_002
+    name: "Relative Ranking Complete"
+    phase: "phase_0_5.step_2_3"
+    blocking: true
+    description: "All tools ranked by percentile within dataset found"
+    criteria:
+      - all_tools_have_tiers: true
+      - percentile_calculation_done: true
+    notes:
+      - "NO absolute thresholds like 'stars >= 100'"
+      - "30 stars can be Tier 1 if best in niche"
+
+  - id: SC_TLD_003
+    name: "Attention Flags Identified"
+    phase: "phase_0_5.step_2_4"
+    blocking: false
+    description: "Security, maturity, and license flags identified for human review"
+    criteria:
+      - flags_checked: true
+    notes:
+      - "FLAGS require attention, not automatic elimination"
+      - "Tool with flag may still be recommended if best available"
+
+  - id: SC_TLD_004
+    name: "Cost Comparison Complete"
+    phase: "phase_0_5.step_2_5"
+    blocking: false
+    description: "Paid vs OSS compared by tier within same capability"
+    criteria:
+      - paid_vs_oss_grouped_by_capability: true
+      - tier_comparison_generated: true
+    notes:
+      - "NO fixed ROI thresholds"
+      - "OSS preferred when same tier as paid"
+      - "Present analysis for human decision"
+
+  - id: SC_TLD_005
+    name: "Decision Matrix Generated"
+    phase: "phase_0_5.step_2_8"
+    blocking: true
+    description: "Tools assigned to quadrants based on relative tiers"
+    criteria:
+      - quadrants_assigned: true
+      - recommendations_per_gap: true
+    notes:
+      - "Quick Win = Tier 1-2 Value + Tier 1-2 Effort"
+      - "No tool excluded - all get quadrant assignment"
+
+  - id: SC_RES_001
+    name: "Research Quality Gate"
+    phase: "phase_1"
+    blocking: true
+
+  - id: SC_ARC_001
+    name: "Architecture Approved"
+    phase: "phase_2"
+    blocking: true
+
+  - id: SC_AGT_001
+    name: "Agent Quality Gate"
+    phase: "phase_3"
+    blocking: true
+
+  - id: SC_CRT_001
+    name: "Creation Quality"
+    phase: "phase_3"
+    blocking: true
+
+  - id: SC_INT_001
+    name: "Integration Complete"
+    phase: "phase_4"
+    blocking: false
+
+  - id: SC_VAL_001
+    name: "Squad Validated"
+    phase: "phase_5"
+    blocking: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+# Veto conditions (SC_VC_001-010) from config/veto-conditions.yaml
+# are applied at each checkpoint. When a veto is triggered:
+# - BLOCKING vetos halt the workflow until resolved
+# - Veto recovery actions are specified in the config
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  # Veto condition mapping (from config/veto-conditions.yaml v2.0)
+  veto_conditions_reference:
+    # Pedro Valério (SC_VC_*)
+    phase_0_discovery: ["SC_VC_001"]  # Domain Viability
+    phase_2_architecture: ["SC_VC_002"]  # Vision Clarity
+    phase_3_dna_extraction: ["SC_VC_003", "SC_VC_004"]  # Source Quality, DNA Completeness
+    phase_3_agent_creation: ["SC_VC_005", "SC_VC_006"]  # Agent Coherence, Smoke Test
+    phase_5_validation: ["SC_VC_007", "SC_VC_008", "SC_VC_009", "SC_VC_010"]  # Guardrail, Unidirectional, Axioma, Task Anatomy
+
+    # OalaNicolas (AN_VC_*) - Phase 3 sub-phases
+    phase_3_sources: ["AN_VC_001", "AN_VC_003"]  # Volume Without Curation, Bronze Majority
+    phase_3_extraction: ["AN_VC_002", "AN_VC_004"]  # Trinity Incomplete, Citation Missing
+    phase_3_validation: ["AN_VC_005"]  # Handoff Without Validation
+
+  research_fails:
+    - action: "Retry with different queries"
+    - if_still_fails: "Abort with explanation"
+    - veto_triggered: "SC_VC_001 (Domain Viability)"
+
+  agent_creation_fails:
+    - action: "Identify missing research"
+    - action: "Supplement research"
+    - action: "Retry creation"
+    - if_still_fails: "Create simpler agent, note for improvement"
+    - veto_triggered: "SC_VC_005 (Agent Coherence) or SC_VC_006 (Smoke Test)"
+
+  validation_fails:
+    - action: "Log specific failures"
+    - action: "Attempt automated fix"
+    - if_cannot_fix: "Report to human for decision"
+    - run_coherence_validator: "python scripts/coherence-validator.py"
+
+  checkpoint_fails:
+    - blocking_checkpoint:
+        action: "Halt and report"
+        require: "Human intervention or fix"
+        check_vetos: "config/veto-conditions.yaml"
+    - non_blocking_checkpoint:
+        action: "Log warning"
+        proceed: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METRICS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metrics:
+  track:
+    - duration_per_phase: "minutes"
+    - agents_created: "count"
+    - total_lines_generated: "sum"
+    - quality_scores: "per component"
+    - checkpoint_passes: "count"
+    - issues_fixed: "count"
+    - tools_discovered: "count"
+    - tools_integrated: "count"
+    - capability_gaps_filled: "count"
+
+  report_at_end: true
+  save_to: "squads/{pack_name}/docs/metrics.yaml"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW VERSION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "2.7"
+  created: "2026-02-01"
+  last_updated: "2026-02-10"
+  author: "squad-chief"
+  lines: "900+"
+  changelog:
+    - version: "2.7"
+      date: "2026-02-10"
+      changes:
+        - "MAJOR: Integrated @oalanicolas heuristics and veto conditions into workflow"
+        - "Added AN_HE_001-003 (Knowledge Extraction, Trinity, Pareto ao Cubo)"
+        - "Added AN_VC_001-005 (Volume, Trinity, Bronze, Citation, Handoff)"
+        - "Added Phase 3 sub-transitions for DNA extraction pipeline"
+        - "Sub-phases: phase_3_sources → phase_3_extraction → phase_3_validation → phase_3_handoff → phase_3_build"
+        - "Updated config_files to reference heuristics.yaml v2.0 and veto-conditions.yaml v2.0"
+        - "Updated error_handling with AN_VC_* veto references"
+        - "Total heuristics: 6 (3 SC_HE + 3 AN_HE)"
+        - "Total veto conditions: 15 (10 SC_VC + 5 AN_VC)"
+
+    - version: "2.6"
+      date: "2026-02-03"
+      changes:
+        - "MAJOR: Replaced absolute thresholds with RELATIVE TIERS"
+        - "Tools compared by PERCENTILE within dataset (Top 20%, 21-50%, etc.)"
+        - "Replaced VETOs with FLAGS requiring human attention"
+        - "No tool automatically eliminated - Tier 4 may still be best option"
+        - "Cost comparison: tier-based, no fixed ROI thresholds"
+        - "Updated tool-evaluation-framework.md to v2.0"
+        - "Updated wf-discover-tools.yaml to v2.0"
+        - "Philosophy: 30 stars can be Tier 1 if best in niche"
+    - version: "2.5"
+      date: "2026-02-03"
+      changes:
+        - "RICE + WSJF frameworks for tool evaluation"
+        - "Security/Social Proof gates (replaced by relative tiers in v2.6)"
+    - version: "2.4.1"
+      date: "2026-02-03"
+      changes:
+        - "MAJOR: Upgraded PHASE 0.5 to DEEP TOOL DISCOVERY with 5 parallel sub-agents"
+        - "Created workflows/wf-discover-tools.yaml (800+ lines) - complete parallel discovery workflow"
+        - "Sub-agents: MCP Agent, API Agent, CLI Agent, Library Agent, GitHub Agent"
+        - "8-dimensional scoring: Impact (60%) + Effort (40%)"
+        - "Decision Matrix: Quick Wins | Strategic | Fill-ins | Avoid"
+        - "SC_TLD_001 is now BLOCKING (was non-blocking)"
+        - "Veto conditions: all_agents_failed, zero_tools_found"
+    - version: "2.4"
+      date: "2026-02-03"
+      changes:
+        - "Added PHASE 0.5: TOOL DISCOVERY (basic version)"
+        - "Created data/tool-registry.yaml - global tool catalog"
+        - "Created tasks/discover-tools.md - lightweight discovery task"
+    - version: "2.3"
+      date: "2026-02-03"
+      changes:
+        - "Added SC_SCP_001: Scope Complexity Gate (PRD Gate)"
+        - "Squads with >= 10 workflows require PRD before creation"
+        - "Squads with >= 8 agents require roadmap"
+        - "New step_0_0 in Discovery phase for early scope detection"
+    - version: "2.2"
+      date: "2026-02-03"
+      changes:
+        - "Added specialist agents: @oalanicolas (mind cloning), @pedro-valerio (process design)"
+        - "Integrated specialists into Phase 3 (Creation) and Phase 5 (Validation)"
+    - version: "2.1"
+      date: "2026-02-03"
+      changes:
+        - "Added auto-acquire-sources.md integration"
+        - "Added update-mind.md for brownfield support"
+        - "Added quality-dashboard generation in handoff"
+    - version: "2.0"
+      date: "2026-02-03"
+      changes:
+        - "Added YOLO mode configuration"
+        - "Added pre-flight questionnaire"
+        - "Added phase_materials for QUALITY/HYBRID modes"

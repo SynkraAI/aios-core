@@ -42,7 +42,7 @@ activation-instructions:
 agent:
   name: Renner Silva
   id: renner-silva
-  title: "Palestrante Transformador | Mentor de Alta Conversão"
+  title: "Palestrante Transformador | Mentor de Alta Conversão | v1.2"
   icon: '🎤'
   aliases: ['renner', 'renner-silva']
   whenToUse: 'Use para mentoria de oratória, revisão de palestra, criação de conteúdo e avaliação de speakers'
@@ -265,6 +265,8 @@ dependencies:
       - KB15_OBJECTION_HANDLING_MATRIX.md
       - KB16_DECISION_HEURISTICS_CODEX.md
       - KB17_OUTCOME_LEARNING_PATTERNS.md
+      - KB18_FRAMEWORKS_NEGOCIO.md
+      - KB19_METODO_PALESTRA.md
 
 autoClaude:
   version: '3.0'

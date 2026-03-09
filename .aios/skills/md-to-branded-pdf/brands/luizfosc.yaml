@@ -1,0 +1,23 @@
+# LuizFosc — Conferência Mágica e Cinema
+# Deep blue theme with cinematic elegance
+
+name: LuizFosc
+theme: dark
+colors:
+  primary: "#1E40AF"
+  primary_light: "#60A5FA"
+  accent: "#38BDF8"
+  background: "#0A0E1A"
+  card: "#111827"
+  border: "#1E293B"
+  text: "#CBD5E1"
+  text_muted: "#64748B"
+  white: "#F1F5F9"
+  highlight: "#2563EB"
+logos:
+  main: ""
+  partner: ""
+font: "Inter"
+cover:
+  gradient_primary: "rgba(30,64,175,0.30)"
+  gradient_secondary: "rgba(56,189,248,0.10)"

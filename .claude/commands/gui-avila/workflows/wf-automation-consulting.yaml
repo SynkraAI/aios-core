@@ -1,0 +1,125 @@
+# Workflow: Automation Consulting
+# Full diagnostic → blueprint → implementation pipeline
+# Version: 1.0.0
+
+workflow:
+  name: wf-automation-consulting
+  version: 1.0.0
+  description: "Pipeline completo de consultoria de automação: diagnóstico → blueprint → implementação"
+  agent: gui-avila
+  trigger: "User quer automação completa do negócio (não sabe por onde começar)"
+  estimated_duration: "45-90 min"
+
+phases:
+  - id: phase_1
+    name: "Diagnóstico"
+    task: automation-diagnostic.md
+    agent: gui-avila
+    duration: "15-20 min"
+    inputs:
+      - business_context (from user)
+      - pain_points (from user)
+      - current_tools (from user)
+    outputs:
+      - diagnostic_report
+      - quick_wins
+    checkpoint:
+      gate: "Gargalos identificados e priorizados?"
+      pass: "Mínimo 2 gargalos com horas/semana e custo oculto"
+      fail_action: "Voltar ao Step 1 do diagnostic com perguntas mais específicas"
+    veto_conditions:
+      - "Sem pain points após 3 tentativas → ABORT: 'Talvez você não precise de automação agora'"
+      - "Negócio sem receita → REDIRECT: 'Primeiro fatura, depois automatiza'"
+
+  - id: phase_2
+    name: "Blueprint"
+    task: automation-blueprint.md
+    agent: gui-avila
+    duration: "25-35 min"
+    depends_on: [phase_1]
+    inputs:
+      - diagnostic_report (from phase_1)
+      - quick_wins (from phase_1)
+      - budget (from user)
+    outputs:
+      - system_map
+      - tool_stack
+      - integration_map
+      - implementation_phases
+      - cost_analysis
+    checkpoint:
+      gate: "Sistema mapeado ponta-a-ponta com ROI?"
+      pass: "Stack definido + custo vs ROI documentado + fases de implementação"
+      fail_action: "Identificar gaps no mapa e preencher antes de avançar"
+    veto_conditions:
+      - "Stack com >8 ferramentas → SIMPLIFY antes de avançar"
+      - "ROI negativo → RETHINK: quais automações realmente valem?"
+
+  - id: phase_3
+    name: "Implementação Guiada"
+    description: "Guiar implementação da Fase 1 (quick win) em tempo real"
+    agent: gui-avila
+    duration: "15-25 min"
+    depends_on: [phase_2]
+    inputs:
+      - implementation_phases (from phase_2)
+      - tool_stack (from phase_2)
+    outputs:
+      - quick_win_implemented
+      - next_steps_roadmap
+    checkpoint:
+      gate: "Quick win implementado e funcionando?"
+      pass: "1 automação ativa + teste com dado real + usuário confirmou"
+      fail_action: "Debug da automação, simplificar se necessário"
+    routing:
+      clickup_needed: "*clickup-setup"
+      chatbot_needed: "*chatbot-setup"
+      escola_needed: "*ensinio-setup"
+    veto_conditions:
+      - "Implementar mais de 1 ferramenta ao mesmo tempo → BLOCK: '1 de cada vez'"
+
+  - id: phase_4
+    name: "Quality Check"
+    description: "Validar qualidade da automação usando checklist"
+    agent: gui-avila
+    duration: "5-10 min"
+    depends_on: [phase_3]
+    inputs:
+      - quick_win_implemented (from phase_3)
+      - system_map (from phase_2)
+    outputs:
+      - quality_score
+      - recommendations
+    checklist: automation-quality-checklist.md
+    checkpoint:
+      gate: "Score >= 7/10?"
+      pass: "Entregar com confiança + roadmap para próximas fases"
+      fail_action: "Corrigir items faltantes usando auto-correction guide"
+
+flow_diagram: |
+  USER REQUEST
+      ↓
+  [Phase 1: Diagnóstico] ─── 15-20min
+      │ diagnostic_report + quick_wins
+      ↓ CHECKPOINT: gargalos identificados?
+  [Phase 2: Blueprint] ─── 25-35min
+      │ system_map + tool_stack + ROI
+      ↓ CHECKPOINT: sistema mapeado com ROI?
+  [Phase 3: Implementação] ─── 15-25min
+      │ quick_win_implemented
+      │   ├→ *clickup-setup (se ClickUp)
+      │   ├→ *chatbot-setup (se bot)
+      │   └→ *ensinio-setup (se escola)
+      ↓ CHECKPOINT: quick win funcionando?
+  [Phase 4: Quality Check] ─── 5-10min
+      │ quality_score + recommendations
+      ↓ CHECKPOINT: score >= 7/10?
+  ENTREGA FINAL
+      → Diagnóstico + Blueprint + Quick Win + Roadmap
+
+completion_criteria:
+  - "Diagnóstico entregue com gargalos priorizados"
+  - "Blueprint com sistema completo + stack + ROI"
+  - "Quick win implementado e testado com dado real"
+  - "Quality check >= 7/10"
+  - "Roadmap de próximas fases entregue"

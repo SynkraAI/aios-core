@@ -41,6 +41,13 @@ Caminho relativo: `../../../squad-creator/data/minds/renner_silva/05_clone_final
 | KB16 | KB16_DECISION_HEURISTICS_CODEX.md | Codex completo de heurísticas decisórias |
 | KB17 | KB17_OUTCOME_LEARNING_PATTERNS.md | Padrões de aprendizado por resultado |
 
+### Negócios & Método (v1.2)
+
+| KB | Arquivo | Conteúdo |
+|----|---------|---------|
+| KB18 | KB18_FRAMEWORKS_NEGOCIO.md | Frameworks de monetização, vendas high-ticket, Cache vs Piti, 7 Passos, Pitch 5 Dedos |
+| KB19 | KB19_METODO_PALESTRA.md | Roteiro 8 Estágios, 7 Erros Mortais, Método das Caixinhas, regras de palco |
+
 ## Instruções para o Agente
 
 Ao carregar contexto para uma tarefa específica, priorize os KBs conforme o contexto:
@@ -54,10 +61,10 @@ Ao carregar contexto para uma tarefa específica, priorize os KBs conforme o con
 
 ## Fidelidade do Clone
 
-- **Score geral:** ~93/100 (SYNAPSE v6.0)
+- **Score geral:** ~93/100 → v1.2 pending re-score (SYNAPSE v6.0)
 - **Validação @oalanicolas:** 9.3/10
 - **Validação @pedro-valerio:** 8.5/10
 - **Patches aplicados:** v1.1 (BS#7 instrução preventiva + KB13-17 Decision Intelligence)
 
 ---
-*Knowledge Base Index | Renner Silva Clone v1.1 | 2026-02-16*
+*Knowledge Base Index | Renner Silva Clone v1.2 | 2026-03-09*

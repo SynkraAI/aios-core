@@ -1,0 +1,106 @@
+# Test Case: pv-audit
+# Model Tier Qualification - Wave 3A
+# Similar to: pv-axioma-assessment (formula-based scoring)
+
+test_case:
+  name: "pv-audit-standard"
+  version: "1.0"
+  created: "2026-02-11"
+  task_file: "tasks/pv-audit.md"
+  wave: "3A"
+  priority: 1
+  similar_to: "pv-axioma-assessment"
+  confidence: "HIGH"
+
+input:
+  # Use a real workflow/process to audit
+  target: "squads/squad-creator/workflows/wf-create-squad.yaml"
+  params:
+    audit_type: "process"
+  context_files:
+    - "squads/squad-creator/data/pv-meta-axiomas.yaml"
+
+expected_output:
+  sections:
+    - audit_report
+    - veto_conditions
+    - checkpoints
+    - flow_analysis
+    - recommendations
+
+  fields:
+    - name: "veto_conditions_found"
+      type: "number"
+      range: [0, 50]
+    - name: "flow_is_unidirectional"
+      type: "boolean"
+    - name: "has_gaps"
+      type: "boolean"
+    - name: "overall_status"
+      type: "enum"
+      values: ["PASS", "NEEDS_WORK", "FAIL"]
+
+  validations:
+    - "Deve verificar veto conditions em cada checkpoint"
+    - "Deve verificar fluxo unidirecional (cards nunca voltam)"
+    - "Deve identificar gaps de tempo entre handoffs"
+    - "Deve usar Process Absolutism principles"
+
+baseline:
+  opus_output: "opus-baseline.yaml"
+  opus_score: 10.0
+  opus_tokens:
+    input: 0
+    output: 0
+  opus_latency_ms: 0
+
+evaluation:
+  completeness:
+    required_sections:
+      - "veto_conditions: lista de condições bloqueantes"
+      - "flow_analysis: verificação de unidirecionalidade"
+      - "checkpoints: validação por fase"
+      - "recommendations: melhorias sugeridas"
+    optional_sections:
+      - "gaps_identified: tempo entre handoffs"
+
+  accuracy:
+    numeric_tolerance: 0.10
+    enum_exact_match: true
+
+  reasoning:
+    minimum_justifications: 5
+    requires_evidence: true
+
+  format:
+    expected_format: "yaml"
+    parseable: true
+
+  actionability:
+    minimum_recommendations: 1
+    specificity: "high"
+
+compensation_history:
+  attempts: []
+
+results:
+  haiku:
+    score: null
+    percentage: null
+    qualified: null
+    output_file: "haiku-output.yaml"
+
+  opus:
+    score: 10.0
+    percentage: 100
+    qualified: true
+    output_file: "opus-baseline.yaml"
+
+  final_tier: null
+  recommendation: null
+
+# Wave 3A specific
+wave_3a_notes:
+  rationale: "Similar to pv-axioma-assessment which achieved 98.2% match"
+  expected_fixes: "Probably none - formula-based"
+  estimated_effort: "30 min"

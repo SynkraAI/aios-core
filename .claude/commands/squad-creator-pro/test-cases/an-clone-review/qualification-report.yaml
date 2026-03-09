@@ -1,0 +1,82 @@
+# Qualification Report - an-clone-review
+# Generated: 2026-02-11
+# Workflow: wf-model-tier-qualification v2.0
+
+qualification_report:
+  task_name: "an-clone-review"
+  task_version: "2.0.0"
+  test_date: "2026-02-11"
+  workflow_version: "2.0"
+
+  baseline:
+    model: "opus"
+    scores:
+      trinity_percentage: "93.3%"
+      fidelity_estimate: "100%"
+      verdict: "SOLID"
+    details:
+      playbook: "5/5"
+      framework: "5/5"
+      swipe_file: "4/5"
+      total: "14/15"
+
+  candidate:
+    model: "haiku"
+    scores:
+      trinity_percentage: "73.3%"
+      fidelity_estimate: "100%"
+      verdict: "NEEDS_WORK"
+    details:
+      playbook: "5/5"
+      framework: "5/5"
+      swipe_file: "1/5"  # Major difference
+      total: "11/15"
+
+  comparison:
+    trinity_match: 78.6%  # 11/14
+    fidelity_match: 100%
+    verdict_match: false  # SOLID vs NEEDS_WORK
+
+  analysis:
+    root_cause: |
+      Haiku was more conservative in swipe_file scoring:
+      - Opus found examples in persona file (delegated)
+      - Haiku only counted wrapper file (stricter interpretation)
+
+      The task v2.0 says "Onde procurar: examples: ou swipe: ou samples:"
+      Victoria's persona file has examples section, but wrapper doesn't.
+      Haiku interpreted "clone file" literally, Opus looked at full context.
+
+    pattern: "Literal vs contextual interpretation"
+
+  qualification_decision:
+    qualified: false
+    reason: "MTQ_VC_004 - Verdict mismatch (SOLID vs NEEDS_WORK)"
+    veto_triggered: true
+    quality_percentage: "78.6%"  # Trinity match (11/14)
+    final_status: "OPUS REQUIRED"
+
+  recommendation:
+    action: "CLARIFY_TASK"
+    details: |
+      Task needs clarification: Should trinity review include delegated persona files?
+
+      Options:
+      1. Clarify scope: "Review clone file AND referenced persona files"
+      2. Keep strict: "Review only the main clone file"
+      3. Add parameter: "scope: [wrapper_only | full_context]"
+
+    compensatable: true
+    compensation: |
+      Add to task v2.1:
+      "NOTE: If clone wrapper delegates to persona file, INCLUDE persona in review scope."
+
+  economics:
+    opus_cost: "~$0.45 (22K tokens)"
+    haiku_cost: "~$0.02 (9K tokens)"
+    potential_savings: "95% if qualified"
+    actual_savings: "0% (not qualified)"
+
+metadata:
+  test_target: ".claude/agents/mmos-victoria.md"
+  test_duration: "~3 minutes each"

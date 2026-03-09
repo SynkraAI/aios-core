@@ -1,0 +1,1 @@
+Read the agent definitions at `squads/agent-autonomy/agents/agent-architect.md` and `squads/agent-autonomy/agents/reasoning-engineer.md`. Execute the task at `squads/agent-autonomy/tasks/optimize-agent.md` following the workflow at `squads/agent-autonomy/workflows/audit-optimize-cycle.md`.

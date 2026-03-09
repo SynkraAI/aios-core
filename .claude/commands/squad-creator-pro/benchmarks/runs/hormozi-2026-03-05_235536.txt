@@ -1,0 +1,12 @@
+# Benchmark Run: hormozi @ 2026-03-05_235536
+expert: hormozi
+date: 2026-03-05_235536
+output_file: /tmp/hormozi-full-extraction.yaml
+frameworks: 7/7 (100%)
+inversions: 5/5 (100%)
+phrases: 9/10 (90%)
+voice_clean: 5/10 (50%)
+false_positives: 0/5
+citations: 00
+overall: 81%
+grade: A

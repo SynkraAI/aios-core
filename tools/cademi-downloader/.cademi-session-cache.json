@@ -1,0 +1,65 @@
+{
+  "cookies": [
+    {
+      "name": "app_v4_session",
+      "value": "UVqTkUw94dIBEPTDiLtFxMFpLDagXX6Fx011GFZ4",
+      "domain": "renanvieira.cademi.com.br",
+      "path": "/",
+      "expires": 1772729748.684326,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__cflb",
+      "value": "0H28vgVpMjqdo6NnkSWchYSZJ5wYmaiucmgmrHzjkex",
+      "domain": "renanvieira.cademi.com.br",
+      "path": "/",
+      "expires": 1772805344.788373,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.1963838040.1772722545",
+      "domain": ".cademi.com.br",
+      "path": "/",
+      "expires": 1807282545.444779,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "XSRF-TOKEN",
+      "value": "eyJpdiI6IkhtdnhXN2tZSCs0a2dSOEs0KzZUNHc9PSIsInZhbHVlIjoiVHU3QnloelZzbE1nU3JIQUd2RHlnRHhzWXJPV09Nei9xTVExY0N4VXE4aTlLbzlDNjNtREFablhpWU1wcUNhUFU1TDloajlpV29JTkdpRzk4NDE3YTM5YlhENmVydnBoL01HUzF3NFpYSG5ad1pHTUxKZndiR0dqa3VMa0ViRnAiLCJtYWMiOiJiNjE4MDI3MjgxNjc0NGRiNzMyOGU0MzAyZjA5NDY2NzVkOTNmNTg2YzJiYTcyM2FkOWE1NDNmMWNjZGMzMWIwIn0%3D",
+      "domain": "renanvieira.cademi.com.br",
+      "path": "/",
+      "expires": 1772729748.684263,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ga_37GXT4VGQK",
+      "value": "GS2.1.s1772722545$o1$g1$t1772722548$j57$l0$h0",
+      "domain": ".cademi.com.br",
+      "path": "/",
+      "expires": 1807282548.736089,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_fbp",
+      "value": "fb.2.1772722549899.909778723501404606",
+      "domain": ".cademi.com.br",
+      "path": "/",
+      "expires": 1780498549,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "cached_at": 1772722565
+}

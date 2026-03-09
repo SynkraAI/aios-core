@@ -1,0 +1,47 @@
+# Tim Ferriss Squad - Source Index
+# DNA Extraction Sources
+# Version: 1.0.0
+
+metadata:
+  mind_slug: "tim_ferriss"
+  expert_name: "Tim Ferriss"
+  extraction_date: "2026-02-12"
+  total_sources: 14
+
+sources:
+  tier_0:
+    - id: "S01"
+      title: "Trabalhe 4 Horas Por Semana (The 4-Hour Workweek)"
+      type: "book"
+      format: "epub"
+      year: "2007"
+      key_frameworks: ["DEAL"]
+      value: "GOLD"
+
+  tier_1:
+    - id: "S06"
+      title: "The Tim Ferriss Show - 825+ Podcast Episodes"
+      type: "podcast"
+      year: "2014-2026"
+      url: "https://tim.blog/podcast/"
+      transcripts_available: true
+      key_extraction: "Voice DNA, Interviewing Style"
+      value: "GOLD"
+
+    - id: "S07"
+      title: "DEAL Framework - Official Documentation"
+      type: "framework"
+      year: "2024"
+      url: "https://tim.blog/2024/12/18/the-4-hour-workweek/"
+      key_frameworks: ["DEAL"]
+      value: "GOLD"
+
+    - id: "S08"
+      title: "DiSSS + CaFE Framework - Official Documentation"
+      type: "framework"
+      year: "2016"
+      url: "https://tim.blog/2016/10/06/the-art-and-science-of-learning-anything-faster/"
+      key_frameworks: ["DiSSS", "CaFE"]
+      value: "GOLD"
+
+# Full source inventory: outputs/minds/tim_ferriss/sources_inventory.yaml

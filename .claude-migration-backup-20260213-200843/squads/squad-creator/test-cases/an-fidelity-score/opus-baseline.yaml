@@ -1,0 +1,266 @@
+# Fidelity Score Report - Opus Baseline
+# Task: an-fidelity-score v2.0
+# Target: Victoria (Viability Specialist)
+# Model: Opus (baseline for Haiku comparison)
+
+fidelity_report:
+  clone: "Victoria (Viability Specialist)"
+  clone_file: ".claude/agents/mmos-victoria.md"
+  persona_file: ".claude/commands/MMOS/agents/victoria-viability-specialist.md"
+  date: "2026-02-11"
+  evaluator: "Opus (baseline)"
+
+  scores:
+    observable:
+      behavioral_patterns:
+        score: 5
+        checkpoints_passed: [1, 2, 3, 4, 5]
+        checkpoints_failed: []
+        evidence:
+          checkpoint_1_greeting_ritual: "activation-instructions Step 3: 'Greet user with your name/role and mention *help command'"
+          checkpoint_2_response_structure: "output_examples section provides detailed response formats; format: field specified for outputs"
+          checkpoint_3_modes_states: "behavioral_states: section with assessment_mode, jtbd_analysis, deployment_planning"
+          checkpoint_4_trigger_responses: "objection_algorithms: section with 3 specific objection handling patterns"
+          checkpoint_5_anti_patterns: "anti_patterns: section with 10 items (AVOID: Building impressive minds with no deployment path, etc.)"
+
+      communication_style:
+        score: 5
+        checkpoints_passed: [1, 2, 3, 4, 5]
+        checkpoints_failed: []
+        evidence:
+          checkpoint_1_signature_phrases: "sentence_starters: with authority, teaching, challenging, encouraging, transitioning phrases"
+          checkpoint_2_vocabulary_always: "vocabulary.always_use: with 10 terms (job to be done, deployment, production readiness, etc.)"
+          checkpoint_3_vocabulary_never: "vocabulary.never_use: with 5 forbidden terms (hopefully, probably works, good enough, etc.)"
+          checkpoint_4_sentence_structure: "sentence_structure: with pattern, example, and rhythm"
+          checkpoint_5_metaphors_analogies: "metaphors: section with 5 metaphors (hiring, bridge, three_dimensions, competing_solutions, day_one_trap)"
+
+      routines_habits:
+        score: 4
+        checkpoints_passed: [1, 2, 3, 4]
+        checkpoints_failed: [5]
+        evidence:
+          checkpoint_1_opening_ritual: "activation-instructions Step 3: 'Greet user with your name/role and mention *help command'"
+          checkpoint_2_workflow_steps: "signature_methods: has detailed workflows with steps; commands: has sequenced procedures"
+          checkpoint_3_checkpoint_habit: "validation_gates: with 8 gates; completion_criteria.validation_checklist:"
+          checkpoint_4_closing_ritual: "completion_criteria.handoff_to: defines who to hand off to; final_test: defines completion verification"
+          checkpoint_5_error_handling: "NOT FOUND - No explicit on_error: or fallback: section"
+
+      recognition_patterns:
+        score: 3
+        checkpoints_passed: [1, 2, 3]
+        checkpoints_failed: [4, 5]
+        evidence:
+          checkpoint_1_red_flags: "anti_patterns: list of things to avoid (10 items)"
+          checkpoint_2_green_flags: "quality_standards: defines good signals; completion_criteria.task_done_when:"
+          checkpoint_3_decision_rules: "core_principles: with 5 sub-sections; methodological_toolkit:"
+          checkpoint_4_pattern_ids: "NOT FOUND - No explicit XX_YY_NNN pattern naming convention"
+          checkpoint_5_thresholds: "NOT FOUND - No explicit threshold:, minimum:, or maximum: numeric values"
+
+      subtotal_raw: 17
+      subtotal_weighted: 13.6
+
+    deep:
+      mental_models:
+        score: 5
+        checkpoints_passed: [1, 2, 3, 4, 5]
+        checkpoints_failed: []
+        evidence:
+          checkpoint_1_primary_framework: "signature_methods.christensen_framework: is the primary framework"
+          checkpoint_2_decision_architecture: "validation_gates: with 8 gates is the decision pipeline"
+          checkpoint_3_named_frameworks: "signature_methods: has 7+ named frameworks (jobs_to_be_done_analysis, circumstances_mapping, competitive_landscape, etc.)"
+          checkpoint_4_framework_steps: "Each framework has description:, components:, elements:, or categories: with steps"
+          checkpoint_5_anti_patterns: "anti_patterns: section with 10 thinking anti-patterns"
+
+      values_hierarchy:
+        score: 5
+        checkpoints_passed: [1, 2, 3, 4, 5]
+        checkpoints_failed: []
+        evidence:
+          checkpoint_1_core_beliefs: "core_principles: with 5 sub-sections containing 5 beliefs each (25+ belief statements)"
+          checkpoint_2_what_defends: "persona.focus: lists what Victoria defends (USE CASE CLARITY, DEPLOYMENT READINESS, etc.)"
+          checkpoint_3_what_rejects: "vocabulary.never_use: and anti_patterns: list what is rejected"
+          checkpoint_4_trade_offs: "methodological_toolkit.minimum_viable_deployment: discusses tradeoffs; objection_algorithms: shows trade-off reasoning"
+          checkpoint_5_non_negotiables: "validation_gates: are blocking gates; core_principles.viability_methodology: 'DEPLOY OR DIE' shows non-negotiable stance"
+
+      core_obsessions:
+        score: 5
+        checkpoints_passed: [1, 2, 3, 4, 5]
+        checkpoints_failed: []
+        evidence:
+          checkpoint_1_recurring_themes: "'Jobs to be Done' appears 15+ times; 'deployment' 20+ times; 'viability' throughout"
+          checkpoint_2_named_obsessions: "persona.focus: lists 6 named focus areas; core_principles.christensen_foundation:"
+          checkpoint_3_hills_to_die_on: "core_principles.viability_methodology: 'DEPLOY OR DIE' is a hill-to-die-on statement"
+          checkpoint_4_mission_statement: "persona.identity: contains clear mission/purpose statement"
+          checkpoint_5_legacy_thinking: "core_principles.viability_methodology: 'SUSTAINABLE VALUE: Value must persist' shows legacy thinking"
+
+      productive_paradoxes:
+        score: 1
+        checkpoints_passed: [4]
+        checkpoints_failed: [1, 2, 3, 5]
+        evidence:
+          checkpoint_1_contradictions_section: "NOT FOUND - No explicit contradictions: or paradoxes: section"
+          checkpoint_2_named_paradoxes: "NOT FOUND - No explicitly named paradoxes"
+          checkpoint_3_feature_not_bug: "NOT FOUND - No text indicating intentional contradictions"
+          checkpoint_4_context_dependent: "behavioral_states: shows different behavior in different contexts (assessment_mode vs jtbd_analysis vs deployment_planning)"
+          checkpoint_5_integration_note: "NOT FOUND - No explanation of how paradoxes work together"
+
+      subtotal_raw: 16
+      subtotal_weighted: 16.0
+
+    overall:
+      total_weighted: 29.6
+      max_possible: 36
+      percentage: "82.22%"
+      classification: "intermediate"
+      version: "V2.0"
+
+  gaps:
+    - layer: "Layer 3: Routines & Habits"
+      checkpoint_failed: 5
+      checkpoint_name: "Error handling"
+      what_to_add: "Section on_error: or fallback: defining behavior when things go wrong"
+      where_to_add: "Inside behavioral_states: or as new sibling section"
+      example: |
+        error_handling:
+          on_error:
+            validation_failure: "Re-run checklist, identify specific failing gate"
+            integration_failure: "Document failure, escalate to Constantin"
+            unclear_job_to_be_done: "Return to JTBD analysis, elicit from stakeholder"
+          fallback:
+            incomplete_artifacts: "Work with available, document gaps"
+            missing_stakeholder: "Use documented requirements, flag assumptions"
+
+    - layer: "Layer 4: Recognition Patterns"
+      checkpoint_failed: 4
+      checkpoint_name: "Pattern IDs"
+      what_to_add: "Heuristics with XX_YY_NNN naming convention"
+      where_to_add: "New section heuristics: after core_principles:"
+      example: |
+        heuristics:
+          VI_JT_001:
+            name: "Job Clarity Threshold"
+            rule: "If job-to-be-done cannot be stated in one sentence, it's not clear enough"
+          VI_DR_001:
+            name: "Deployment Readiness Gate"
+            rule: "No deployment without passing all 8 validation gates"
+          VI_HO_001:
+            name: "Handoff Completeness Check"
+            rule: "Handoff incomplete if receiver cannot operate independently"
+
+    - layer: "Layer 4: Recognition Patterns"
+      checkpoint_failed: 5
+      checkpoint_name: "Thresholds"
+      what_to_add: "Numeric thresholds for decision-making"
+      where_to_add: "Inside heuristics: or quality_standards:"
+      example: |
+        thresholds:
+          minimum_use_cases: 3
+          minimum_test_coverage: 80
+          maximum_deployment_time: "4 hours"
+          minimum_stakeholder_approval: 1
+          maximum_open_issues: 0
+
+    - layer: "Layer 8: Productive Paradoxes"
+      checkpoint_failed: 1
+      checkpoint_name: "Contradictions section"
+      what_to_add: "Explicit contradictions: or paradoxes: section"
+      where_to_add: "After core_principles: as sibling section"
+      example: |
+        productive_paradoxes:
+          speed_vs_thoroughness:
+            tension: "Victoria values deployment speed but also comprehensive testing"
+            resolution: "MVP first, then iterate. Speed to learn, not speed to fail."
+          simplicity_vs_completeness:
+            tension: "Wants minimal viable deployment but complete handoff packages"
+            resolution: "Deployment is minimal, documentation is complete."
+
+    - layer: "Layer 8: Productive Paradoxes"
+      checkpoint_failed: 2
+      checkpoint_name: "Named paradoxes"
+      what_to_add: "2+ paradoxes with descriptive names"
+      where_to_add: "Inside productive_paradoxes: section"
+      example: |
+        productive_paradoxes:
+          the_christensen_paradox:
+            description: "Disruptive solutions often look worse initially"
+            implication: "Victoria evaluates trajectory, not just current state"
+          the_documentation_paradox:
+            description: "Writing docs feels like slowing down but speeds up long-term"
+            implication: "Victoria insists on documentation even under time pressure"
+
+    - layer: "Layer 8: Productive Paradoxes"
+      checkpoint_failed: 3
+      checkpoint_name: "'Feature not bug' framing"
+      what_to_add: "Explicit statement that contradictions are intentional and valuable"
+      where_to_add: "Inside productive_paradoxes: section"
+      example: |
+        productive_paradoxes:
+          meta_note: |
+            These paradoxes are features, not bugs. Victoria's effectiveness
+            comes from holding multiple truths simultaneously. The tension
+            creates better outcomes than either extreme alone.
+
+    - layer: "Layer 8: Productive Paradoxes"
+      checkpoint_failed: 5
+      checkpoint_name: "Integration note"
+      what_to_add: "Explanation of how paradoxes work together"
+      where_to_add: "End of productive_paradoxes: section"
+      example: |
+        productive_paradoxes:
+          integration: |
+            All of Victoria's paradoxes share a common resolution pattern:
+            optimize for learning velocity. Speed serves learning, thoroughness
+            serves sustainability, simplicity serves adoption. When in doubt,
+            ask: "What helps us learn faster while building sustainable value?"
+
+  trajectory:
+    current_version: "V2.0"
+    next_milestone: "V3.0 (Premium at 85%)"
+    gaps_to_close: 6
+    estimated_effort: "~2-3 hours"
+    priority_gaps:
+      - "Layer 8: Add productive_paradoxes section (4 checkpoints, +4 points = +11.1%)"
+      - "Layer 4: Add heuristics with pattern IDs and thresholds (+2 points = +4.4%)"
+      - "Layer 3: Add error_handling section (+1 point = +2.2%)"
+
+  analysis:
+    strengths:
+      - "Excellent mental models (5/5): Christensen framework deeply integrated"
+      - "Strong values hierarchy (5/5): Clear beliefs, defenses, and non-negotiables"
+      - "Complete communication style (5/5): Voice DNA fully specified"
+      - "Comprehensive behavioral patterns (5/5): All states and triggers defined"
+      - "Clear obsessions (5/5): Jobs-to-be-Done permeates entire agent"
+
+    weaknesses:
+      - "Missing productive paradoxes (1/5): No explicit tension documentation"
+      - "Incomplete recognition patterns (3/5): No numeric thresholds or pattern IDs"
+      - "Missing error handling (4/5): No fallback procedures defined"
+
+    recommendations:
+      immediate:
+        - "Add productive_paradoxes: section with Victoria's key tensions"
+        - "Define numeric thresholds for validation gates"
+        - "Add heuristic pattern IDs (VI_XX_NNN format)"
+      future:
+        - "Consider adding error_handling: to behavioral_states:"
+        - "Document context-dependent behavior more explicitly"
+
+  notes:
+    calibration: "Scoring was generous as per v2.0 calibration guidance - evidence was counted if present"
+    borderline_cases:
+      - "Checkpoint 4.1 (red_flags): anti_patterns: counted as red flags"
+      - "Checkpoint 4.2 (green_flags): quality_standards: counted as green flags"
+      - "Checkpoint 6.5 (non-negotiables): DEPLOY OR DIE statement counted as non-negotiable"
+      - "Checkpoint 7.5 (legacy_thinking): SUSTAINABLE VALUE statement counted as legacy thinking"
+    victoria_specific: "Victoria is a strong agent with deep Christensen integration. The main gap is Layer 8 (paradoxes) which requires explicit documentation of tensions."
+
+metadata:
+  task_version: "2.0.0"
+  scoring_method: "Binary checkpoint counting"
+  model_used: "opus"
+  model_role: "baseline"
+  purpose: "Establish baseline for Haiku comparison in model tier qualification"
+  execution_date: "2026-02-11"
+  total_checkpoints: 40
+  passed_checkpoints: 33
+  pass_rate: "82.5%"

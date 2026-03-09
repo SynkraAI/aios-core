@@ -1,0 +1,20 @@
+# Neon Cyber — Bold cyberpunk with electric colors
+# Ideal for: gaming, tech events, edgy brands, hackathons
+
+name: Neon Cyber
+theme: dark
+colors:
+  primary: "#A855F7"
+  primary_light: "#C084FC"
+  accent: "#22D3EE"
+  background: "#09090B"
+  card: "#18181B"
+  border: "#27272A"
+  text: "#E4E4E7"
+  text_muted: "#71717A"
+  white: "#FAFAFA"
+  highlight: "#D946EF"
+font: "Space Grotesk"
+cover:
+  gradient_primary: "rgba(168,85,247,0.25)"
+  gradient_secondary: "rgba(34,211,238,0.12)"

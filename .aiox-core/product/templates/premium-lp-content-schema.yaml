@@ -1,0 +1,473 @@
+# ============================================================
+# PREMIUM LP — CONTENT SCHEMA
+# Defines the payload the squad sends to the design agent
+# after elicitation and copy generation.
+# ============================================================
+# Usage: The *generate command validates input against this
+# schema before rendering the HTML template.
+# ============================================================
+
+version: "1.0"
+
+# ============================================================
+# CONFIG — Template & tier selection
+# ============================================================
+config:
+  template:
+    type: string
+    required: true
+    default: "nocturne_cian"
+    enum:
+      - nocturne_cian
+      - obsidian_gold
+      - carbon_blue
+      - midnight_violet
+      - eclipse_rose
+      - stealth_emerald
+      - crimson_noir
+      - arctic_frost
+    description: "Visual theme applied via token overrides"
+
+  tier:
+    type: string
+    required: true
+    default: "enhanced"
+    enum:
+      - base        # CSS only, no JS effects
+      - enhanced    # + scroll reveals, grain, progress bar, gradient text
+      - maximum     # + cursor, text split, counters, parallax, magnetic, conic, mesh
+    description: "Effect complexity level"
+
+  lang:
+    type: string
+    required: false
+    default: "pt-BR"
+    description: "Content language for html lang attribute"
+
+# ============================================================
+# NAV — Top navigation bar
+# ============================================================
+nav:
+  brand:
+    type: string
+    required: true
+    example: "JCA"
+    description: "Short brand name or initials (max 5 chars)"
+
+  links:
+    type: array
+    required: false
+    min_items: 0
+    max_items: 5
+    item_schema:
+      label:
+        type: string
+        example: "Expertise"
+      href:
+        type: string
+        example: "#expertise"
+    description: "Anchor links to page sections"
+
+  cta:
+    type: object
+    required: false
+    schema:
+      label:
+        type: string
+        example: "Agendar"
+      href:
+        type: string
+        example: "#cta"
+    description: "Optional nav CTA button"
+
+# ============================================================
+# HERO — Main hero section
+# ============================================================
+hero:
+  eyebrow:
+    type: object
+    required: false
+    schema:
+      number:
+        type: string
+        example: "01"
+      label:
+        type: string
+        example: "Personal Brand"
+    description: "Section eyebrow (number + label)"
+
+  name:
+    type: string
+    required: true
+    example: "Jose Carlos Amorim"
+    description: "Full name displayed as hero heading"
+
+  labels:
+    type: array
+    required: true
+    min_items: 1
+    max_items: 4
+    item_schema:
+      type: string
+      example: "AI Architect"
+    description: "Tags displayed below the name"
+
+  description:
+    type: string
+    required: true
+    max_length: 200
+    example: "Transformo especialistas em marcas pessoais premium com IA e sistemas que escalam."
+    description: "Hero paragraph (1-2 sentences)"
+
+  cta_primary:
+    type: object
+    required: true
+    schema:
+      label:
+        type: string
+        example: "Agendar Conversa"
+      href:
+        type: string
+        example: "https://cal.com/joseamorim"
+    description: "Primary CTA button"
+
+  cta_secondary:
+    type: object
+    required: false
+    schema:
+      label:
+        type: string
+        example: "Ver Portfolio"
+      href:
+        type: string
+        example: "#expertise"
+    description: "Ghost CTA button"
+
+# ============================================================
+# PHOTO — Portrait treatment
+# ============================================================
+photo:
+  url:
+    type: string
+    required: true
+    example: "photo.png"
+    description: "Path or URL to portrait image (PNG with transparent bg preferred)"
+
+  alt:
+    type: string
+    required: false
+    default: "Portrait"
+    description: "Alt text for accessibility"
+
+  treatment:
+    type: string
+    required: false
+    default: "cinematic"
+    enum:
+      - cinematic    # Full mask + aura + rings (default)
+      - clean        # Mask only, no effects
+      - raw          # No treatment, image as-is
+    description: "Photo post-processing style"
+
+# ============================================================
+# PROOF — Social proof bar (metrics)
+# ============================================================
+proof:
+  eyebrow:
+    type: object
+    required: false
+    schema:
+      number:
+        type: string
+        example: "02"
+      label:
+        type: string
+        example: "Track Record"
+
+  items:
+    type: array
+    required: true
+    min_items: 2
+    max_items: 6
+    item_schema:
+      number:
+        type: string
+        example: "150"
+        description: "Numeric value (counter-animated in maximum tier)"
+      suffix:
+        type: string
+        required: false
+        example: "+"
+        description: "Suffix after number (e.g., +, %, k)"
+      label:
+        type: string
+        example: "Clientes Atendidos"
+    description: "Metric items displayed in grid"
+
+# ============================================================
+# EXPERTISE — Bento grid of specialties
+# ============================================================
+expertise:
+  eyebrow:
+    type: object
+    required: false
+    schema:
+      number:
+        type: string
+        example: "03"
+      label:
+        type: string
+        example: "Expertise"
+
+  heading:
+    type: string
+    required: false
+    example: "Areas de Expertise"
+    description: "Optional section heading"
+
+  cards:
+    type: array
+    required: true
+    min_items: 2
+    max_items: 8
+    item_schema:
+      title:
+        type: string
+        example: "AI Systems"
+      description:
+        type: string
+        max_length: 150
+        example: "Arquiteturas de IA que transformam operacoes manuais em sistemas autonomos."
+      featured:
+        type: boolean
+        default: false
+        description: "If true, card spans 2 rows in bento grid (max 1 featured)"
+      tags:
+        type: array
+        required: false
+        max_items: 4
+        item_schema:
+          type: string
+          example: "Claude"
+        description: "Technology/skill tags displayed on card"
+    description: "Expertise cards in bento grid layout"
+
+# ============================================================
+# QUOTE — Testimonial or philosophy statement
+# ============================================================
+quote:
+  eyebrow:
+    type: object
+    required: false
+    schema:
+      number:
+        type: string
+        example: "04"
+      label:
+        type: string
+        example: "Philosophy"
+
+  text:
+    type: string
+    required: true
+    max_length: 300
+    example: "Technology is the amplifier. The human is the signal."
+    description: "The quote text"
+
+  attribution:
+    type: object
+    required: false
+    schema:
+      name:
+        type: string
+        example: "Jose Carlos Amorim"
+      role:
+        type: string
+        example: "Founder, MMOS"
+    description: "Who said it and their role"
+
+# ============================================================
+# STACK — Experience / career timeline
+# ============================================================
+stack:
+  eyebrow:
+    type: object
+    required: false
+    schema:
+      number:
+        type: string
+        example: "05"
+      label:
+        type: string
+        example: "Stack"
+
+  heading:
+    type: string
+    required: false
+    example: "Professional Stack"
+
+  items:
+    type: array
+    required: true
+    min_items: 2
+    max_items: 10
+    item_schema:
+      name:
+        type: string
+        example: "AI Architecture"
+      detail:
+        type: string
+        example: "Claude, GPT-4, LangChain, Vector DBs"
+        description: "Supporting detail or technologies"
+    description: "Stack items displayed as a vertical list"
+
+# ============================================================
+# CTA — Final call to action
+# ============================================================
+cta:
+  eyebrow:
+    type: object
+    required: false
+    schema:
+      number:
+        type: string
+        example: "06"
+      label:
+        type: string
+        example: "Next Step"
+
+  heading:
+    type: string
+    required: true
+    example: "Vamos Conversar?"
+    description: "CTA section heading"
+
+  description:
+    type: string
+    required: false
+    max_length: 200
+    example: "Agende uma conversa para explorar como posso ajudar a transformar sua marca pessoal."
+
+  primary:
+    type: object
+    required: true
+    schema:
+      label:
+        type: string
+        example: "Agendar Agora"
+      href:
+        type: string
+        example: "https://cal.com/joseamorim"
+
+  secondary:
+    type: object
+    required: false
+    schema:
+      label:
+        type: string
+        example: "Ver Portfolio"
+      href:
+        type: string
+        example: "https://joseamorim.com"
+
+# ============================================================
+# FOOTER — Bottom section
+# ============================================================
+footer:
+  copyright:
+    type: string
+    required: false
+    default: "auto"
+    description: "Copyright text. 'auto' generates: (c) {year} {hero.name}"
+
+  links:
+    type: array
+    required: false
+    max_items: 4
+    item_schema:
+      label:
+        type: string
+        example: "LinkedIn"
+      href:
+        type: string
+        example: "https://linkedin.com/in/joseamorim"
+    description: "Footer social/external links"
+
+# ============================================================
+# EXAMPLE PAYLOAD (complete)
+# ============================================================
+example_payload:
+  config:
+    template: "nocturne_cian"
+    tier: "enhanced"
+    lang: "pt-BR"
+
+  nav:
+    brand: "JCA"
+    links:
+      - { label: "Expertise", href: "#expertise" }
+      - { label: "Stack", href: "#stack" }
+      - { label: "Contato", href: "#cta" }
+    cta: { label: "Agendar", href: "#cta" }
+
+  hero:
+    eyebrow: { number: "01", label: "Personal Brand" }
+    name: "Jose Carlos Amorim"
+    labels: ["AI Architect", "Brand Strategist", "Systems Thinker"]
+    description: "Transformo especialistas em marcas pessoais premium com IA e sistemas que escalam."
+    cta_primary: { label: "Agendar Conversa", href: "https://cal.com/joseamorim" }
+    cta_secondary: { label: "Ver Portfolio", href: "#expertise" }
+
+  photo:
+    url: "photo.png"
+    alt: "Jose Carlos Amorim"
+    treatment: "cinematic"
+
+  proof:
+    eyebrow: { number: "02", label: "Track Record" }
+    items:
+      - { number: "150", suffix: "+", label: "Clientes Atendidos" }
+      - { number: "12", label: "Anos de Experiencia" }
+      - { number: "97", suffix: "%", label: "Taxa de Satisfacao" }
+      - { number: "50", suffix: "M+", label: "Revenue Gerado" }
+
+  expertise:
+    eyebrow: { number: "03", label: "Expertise" }
+    cards:
+      - title: "AI Systems"
+        description: "Arquiteturas de IA que transformam operacoes manuais em sistemas autonomos."
+        featured: true
+        tags: ["Claude", "GPT-4", "LangChain"]
+      - title: "Brand Strategy"
+        description: "Posicionamento premium para especialistas que querem dominar seu nicho."
+        tags: ["Positioning", "Messaging"]
+      - title: "Sales Systems"
+        description: "Funis e automacoes que convertem trafego em receita previsivel."
+        tags: ["Funnels", "CRM"]
+
+  quote:
+    eyebrow: { number: "04", label: "Philosophy" }
+    text: "Technology is the amplifier. The human is the signal."
+    attribution: { name: "Jose Carlos Amorim", role: "Founder, MMOS" }
+
+  stack:
+    eyebrow: { number: "05", label: "Stack" }
+    heading: "Professional Stack"
+    items:
+      - { name: "AI Architecture", detail: "Claude, GPT-4, LangChain, Vector DBs" }
+      - { name: "Web Development", detail: "Next.js, React, TypeScript, Tailwind" }
+      - { name: "Marketing", detail: "Funnels, Email, Paid Traffic, SEO" }
+      - { name: "Design", detail: "Figma, Framer, Design Systems" }
+
+  cta:
+    eyebrow: { number: "06", label: "Next Step" }
+    heading: "Vamos Conversar?"
+    description: "Agende uma conversa para explorar como posso ajudar."
+    primary: { label: "Agendar Agora", href: "https://cal.com/joseamorim" }
+    secondary: { label: "LinkedIn", href: "https://linkedin.com/in/joseamorim" }
+
+  footer:
+    copyright: "auto"
+    links:
+      - { label: "LinkedIn", href: "https://linkedin.com/in/joseamorim" }
+      - { label: "Instagram", href: "https://instagram.com/joseamorim" }

@@ -1,0 +1,337 @@
+# Extraction: MentorIA Processos - December 19
+# Source: /Users/alan/Code/mmos/outputs/minds/pedro_valerio/sources/reuniões/MentorIAProcessos - December 19.md
+# Extracted by: @oalanicolas (*extract-framework)
+# Date: 2026-03-05
+# Classification: OURO (reuniao ao vivo, pensamento espontaneo, demonstracao de tela)
+
+metadata:
+  source_type: "reuniao_mentoria_zoom"
+  duration: "149 min"
+  participants:
+    - name: "Alan Nicolas"
+      role: "mentor"
+    - name: "Pedro Valerio"
+      role: "mentorado/especialista_processos"
+    - name: "Rodrigo Faerman"
+      role: "mentorado"
+    - name: "Mateus (Termica)"
+      role: "mentorado"
+    - name: "Tayna Puri"
+      role: "mentorado"
+    - name: "Igor Antiqueira"
+      role: "mentorado"
+  classification: "OURO"
+  gap_analysis:
+    prometido: "Reuniao sobre processos e automacao com IA para o negocio"
+    entregue: "Masterclass pratica de design de processos, automacao de depoimentos, pesquisa de marketing, criacao de criativos, estruturacao em ClickUp, e filosofia de gestao de times com processos"
+    gap_size: "ALTO"
+    implicacao: "Gap alto = fonte altamente autentica. Desvios revelam frameworks mentais reais de AMBOS (AN e PV)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PLAYBOOK: PROCESSO DE DEPOIMENTOS + PESQUISA DE MARKETING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+playbook:
+  name: "Processo de Automacao de Depoimentos + Pesquisa de Marketing"
+  source: "Alan Nicolas - MentorIA Processos Dec 19"
+
+  steps:
+    - step: 1
+      action: "Mapear fontes de input"
+      details: "Identificar TODAS as fontes de dados: depoimentos (WhatsApp, Instagram, Zoom), formularios de pesquisa, NPS, comentarios YouTube, grupos de alunos"
+      source: "[SOURCE: @6:00-10:00]"
+
+    - step: 2
+      action: "Criar processo de captura (manual primeiro)"
+      details: "Captura manual dos depoimentos: print WhatsApp, envio para grupo dedicado, pessoa classifica e organiza no Drive. NAO automatizar antes de entender o processo"
+      source: "[SOURCE: @23:00-26:00]"
+
+    - step: 3
+      action: "Classificar depoimentos (Ruim/Bom/Lendario)"
+      details: "Usar IA (Gemini API) para extrair texto do arquivo (imagem/audio/video), classificar em 3 niveis. Ruim = 'seu curso e bom' (generico). Lendario = jornada de transformacao com ganho emocional e numeros"
+      source: "[SOURCE: @30:00-34:00]"
+
+    - step: 4
+      action: "Salvar em banco de dados estruturado"
+      details: "Cada depoimento vira registro com ID, nome, produto, tipo (imagem/audio/video), classificacao, texto/transcricao. Novo registro para cada formato (mesmo aluno pode ter registro de texto + registro de video)"
+      source: "[SOURCE: @49:00-53:00]"
+
+    - step: 5
+      action: "Executar follow-up baseado na classificacao"
+      details: "SE lendario -> avisar time de marketing + solicitar video/audio. SE ruim -> pedir para pessoa contar mais da jornada. SE bom -> solicitar depoimento em video"
+      source: "[SOURCE: @34:00-40:00]"
+
+    - step: 6
+      action: "Distribuir depoimentos nos grupos corretos"
+      details: "Regra: depoimento vai para grupo do MESMO nivel ou UM nivel abaixo. Mentoria -> mentoria + formacao. Formacao -> formacao + comunidade. Se lendario e significativo -> pode subir nivel"
+      source: "[SOURCE: @37:00-40:00]"
+
+    - step: 7
+      action: "Alimentar pesquisa de marketing com dados estruturados"
+      details: "Depoimentos classificados viram input para: documento de pesquisa (80% do resultado de marketing), criacao de criativos, copy de paginas de venda, quebra de objecoes do time de vendas"
+      source: "[SOURCE: @10:00-12:00, @55:00-58:00]"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FRAMEWORK: REGRAS SE/ENTAO (AN + PV)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+framework:
+  name: "Framework de Processos + Automacao (AN + PV)"
+
+  rules:
+    # --- ALAN NICOLAS ---
+    - id: "AN-PROC-001"
+      condition: "SE vai automatizar um processo"
+      action: "ENTAO primeiro desenhar o processo manual completo, depois automatizar"
+      rationale: "AN viu que 'o buraco era mais embaixo' quando comecou a desenhar"
+      source: "[SOURCE: @26:00-28:00]"
+
+    - id: "AN-PROC-002"
+      condition: "SE depoimento e lendario E nao tem video/audio"
+      action: "ENTAO solicitar via WhatsApp que a pessoa grave video/audio"
+      rationale: "Video vale muito mais e pode virar anuncio automaticamente"
+      source: "[SOURCE: @45:00-48:00]"
+
+    - id: "AN-PROC-003"
+      condition: "SE depoimento e ruim (generico)"
+      action: "ENTAO pedir para pessoa contar mais da jornada, explicar antes/depois"
+      rationale: "Depoimento ruim pode virar lendario com o estimulo certo"
+      source: "[SOURCE: @68:00-70:00]"
+
+    - id: "AN-PROC-004"
+      condition: "SE depoimento e lendario"
+      action: "ENTAO subir automaticamente como remarketing no Facebook Ads, rodar 1 semana so para alunos primeiro, depois abrir para prospects"
+      rationale: "Gera comentarios de alunos que reforcam prova social antes de mostrar para frios"
+      source: "[SOURCE: @68:00-70:00]"
+
+    - id: "AN-PROC-005"
+      condition: "SE precisa distribuir depoimento para grupos"
+      action: "ENTAO enviar para grupo do MESMO nivel ou UM abaixo. EXCECAO: se lendario E significativo -> pode subir"
+      rationale: "Nao faz sentido mandar print de 3mil reais no grupo da mentoria que cria negocios milionarios"
+      source: "[SOURCE: @37:00-40:00]"
+
+    - id: "AN-PROC-006"
+      condition: "SE processo tem interacao humana"
+      action: "ENTAO marcar em vermelho no diagrama, minimizar ao maximo"
+      rationale: "Quero o maximo de automacao de todas estruturas que nao envolva o humano"
+      source: "[SOURCE: @25:00-26:00]"
+
+    - id: "AN-PROC-007"
+      condition: "SE quer aprender marketing de verdade"
+      action: "ENTAO estudar marketing direto raiz (Dan Kennedy, Eugene Schwartz, Gary Halbert) em vez dos modernos"
+      rationale: "Marketing dos anos 90 pra tras e marketing raiz — sem segmentacao facil, tinham que acertar na copy"
+      source: "[SOURCE: @10:00-15:00]"
+
+    - id: "AN-PROC-008"
+      condition: "SE documento de pesquisa esta completo (40-46 paginas)"
+      action: "ENTAO representa 80-90% do resultado do marketing"
+      rationale: "AN tem exemplos documentados: 46 paginas de pesquisa para webinar"
+      source: "[SOURCE: @10:00-12:00, @16:00-18:00]"
+
+    - id: "AN-PROC-009"
+      condition: "SE criando criativos"
+      action: "ENTAO quantidade 90% IA supera qualidade 100% humano. A cada 60-70 criativos, 1 e hit"
+      rationale: "Volume testavel > perfeicao unitaria. IA faz 100 enquanto humano faz 1"
+      source: "[SOURCE: @2:17:00-2:19:00]"
+
+    - id: "AN-PROC-010"
+      condition: "SE equipe precisa usar processos mas nao entende como funciona"
+      action: "ENTAO criar apenas alertas e interacoes minimas (analogia do painel do carro)"
+      rationale: "Nao precisa saber como funciona o carburador. So precisa saber: piscou, bota agua"
+      source: "[SOURCE: @1:13:00-1:16:00]"
+
+    # --- PEDRO VALERIO ---
+    - id: "PV-PROC-001"
+      condition: "SE vai implementar ferramenta nova no time"
+      action: "ENTAO limitar visualizacao da informacao. Cada pessoa ve SO o que precisa executar"
+      rationale: "PV tentou treinar todo mundo em ClickUp -> caos. Limitou visao -> funcionou"
+      source: "[SOURCE: @1:24:00-1:28:00]"
+
+    - id: "PV-PROC-002"
+      condition: "SE card/tarefa voltou no fluxo"
+      action: "ENTAO criar automacao que IMPEDE o card de voltar"
+      rationale: "Nada volta num fluxo. Impossibilitar caminhos educa o sistema"
+      source: "[SOURCE: @1:32:00-1:33:00]"
+
+    - id: "PV-PROC-003"
+      condition: "SE erro acontece na ponta (executor)"
+      action: "ENTAO culpa e de quem esta logo acima (falta de informacao)"
+      rationale: "Responsabiliza comunicacao top-down, gera potencial de mudanca no processo"
+      source: "[SOURCE: @1:27:00-1:28:00]"
+
+    - id: "PV-PROC-004"
+      condition: "SE qualquer processo repetivel"
+      action: "ENTAO estruturar em: Fases -> Marcos de cada fase -> Tarefas de cada marco -> Checklist de cada tarefa (com tutorial)"
+      rationale: "Hierarquia universal que PV usa para TUDO. Template no ClickUp"
+      source: "[SOURCE: @1:47:00-1:52:00]"
+
+    - id: "PV-PROC-005"
+      condition: "SE quer que time adote processo"
+      action: "ENTAO primeiro pedir que cada pessoa descreva o que FAZ no dia a dia (brainstorm individual -> debate -> estruturar no formato padrao)"
+      rationale: "PV fez isso: pediu pra cada um descrever, depois debateu, depois colocou na estrutura dele"
+      source: "[SOURCE: @2:23:00-2:25:00]"
+
+    - id: "PV-PROC-006"
+      condition: "SE precisa decidir por onde comecar a estruturar processos"
+      action: "ENTAO comecar pela MAIOR DOR que resolve o MAIOR PROBLEMA que gera mais dinheiro"
+      rationale: "Comecei no conteudo final para o cliente, nao na cultura"
+      source: "[SOURCE: @1:55:00-1:56:00]"
+
+    - id: "PV-PROC-007"
+      condition: "SE tarefa tem tempo estimado"
+      action: "ENTAO consegue calcular workload do responsavel e prever gargalos"
+      rationale: "Tempo estimado + multiplas tarefas = visao de capacidade real"
+      source: "[SOURCE: @1:38:00-1:40:00]"
+
+    - id: "PV-PROC-008"
+      condition: "SE processo interno vs cliente"
+      action: "ENTAO controlar tudo que e interno. Para externo, facilitar pro cliente com a ferramenta que ele preferir"
+      rationale: "87-88% dos clientes preferem Google Docs para revisao de copy"
+      source: "[SOURCE: @1:49:00-1:51:00]"
+
+    - id: "PV-PROC-009"
+      condition: "SE precisa criar criativos para TikTok"
+      action: "ENTAO seguir pipeline: ETL de briefing -> Trend Hunter (research) -> Ideation (tipos de conteudo) -> Copy Writing -> Revisao humana"
+      rationale: "Pipeline de 4 fases que PV esta construindo/automatizando"
+      source: "[SOURCE: @2:04:00-2:09:00]"
+
+    - id: "PV-PROC-010"
+      condition: "SE conteudo TikTok"
+      action: "ENTAO duracao entre 22-34 segundos. Ter thumbstopping nos 3 primeiros segundos. Empilhamento de pressao"
+      rationale: "15 tipos de conteudo nativo validados com performance real"
+      source: "[SOURCE: @2:12:00-2:16:00]"
+
+  veto:
+    - condition: "SE automatizando processo que nao foi desenhado manualmente primeiro"
+      action: "NUNCA automatizar sem entender o processo"
+      source: "[SOURCE: @26:00-28:00]"
+    - condition: "SE todos tem acesso irrestrito a tudo no sistema"
+      action: "NUNCA dar visao total. Limitar visualizacao por funcao"
+      source: "[SOURCE: PV @1:24:00-1:28:00]"
+    - condition: "SE card volta no fluxo"
+      action: "NUNCA permitir. Criar impossibilidade sistemica"
+      source: "[SOURCE: PV @1:32:00-1:33:00]"
+    - condition: "SE quer que time entenda todo o sistema"
+      action: "NUNCA explicar como funciona o carburador. So mostrar o painel"
+      source: "[SOURCE: AN @1:13:00-1:16:00]"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SWIPE FILE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+swipe_file:
+  cases:
+    - title: "Documento de pesquisa 46 paginas -> Webinar"
+      context: "AN criou documento de 46 paginas de pesquisa para um webinar"
+      result: "Representa 80-90% do resultado do marketing"
+      lesson: "Pesquisa profunda > criativo bonito"
+      source: "[SOURCE: @16:00-18:00]"
+
+    - title: "TikTok 50k seguidores em 30 dias"
+      context: "AN criou processo simples de animacao/edicao para TikTok"
+      result: "50k seguidores em 30 dias, com menos de 1h/dia de trabalho"
+      lesson: "Processo bem definido + pessoa executando = resultado exponencial"
+      source: "[SOURCE: @49:00-52:00]"
+
+    - title: "R$1M/mes com time de 3 e mesma copy"
+      context: "2017, mesmo video de vendas rodando o ano todo, time de 3 pessoas"
+      result: "R$1M/mes faturando, mesma copy, mesmo VSL"
+      lesson: "Processo de teste continuo > trocar tudo"
+      source: "[SOURCE: @49:00-53:00]"
+
+    - title: "PV: 99 projetos no ClickUp"
+      context: "PV estruturou toda operacao da agencia TTCX no ClickUp"
+      result: "99 projetos rodando, dashboards em tempo real"
+      lesson: "Estruturacao rigida + automacao + limitacao de visao = escala sem caos"
+      source: "[SOURCE: @1:36:00-1:47:00]"
+
+    - title: "PV: Template ClickUp para novo cliente"
+      context: "Quando entra cliente novo, PV clica um botao e template gera tudo"
+      result: "Onboarding de cliente automatizado, zero erro humano"
+      lesson: "Template bem feito > processo manual repetido"
+      source: "[SOURCE: @1:49:00-1:52:00]"
+
+    - title: "PV: Trend Hunter -> 15 tipos de conteudo validados"
+      context: "Time de copys + pessoa dedicada fazendo pesquisa de trends TikTok"
+      result: "15 formatos de conteudo nativo que performam como anuncio. Criativos com 47M views"
+      lesson: "Pesquisa continua de trends -> repertorio -> criativos que performam"
+      source: "[SOURCE: @2:04:00-2:14:00]"
+
+    - title: "A cada 60-70 criativos, 1 hit (R$200k/dia)"
+      context: "AN tinha dado de que a cada 60-70 criativos, 1 performava com ROAS 5-6x"
+      result: "R$200k/dia de venda com um unico criativo vencedor"
+      lesson: "Volume testavel >> perfeicao"
+      source: "[SOURCE: @2:17:00-2:19:00]"
+
+  analogies:
+    - concept: "Processos para o time"
+      analogy: "Painel do carro piscando: nao precisa saber do carburador, so que tem que botar agua"
+      source: "[SOURCE: AN @1:13:00-1:16:00]"
+
+    - concept: "Limitar visao do executor"
+      analogy: "Cabresto do cavalo: limita para que siga o caminho certo"
+      source: "[SOURCE: PV @1:24:00-1:28:00]"
+
+    - concept: "Criatividade como combinacao"
+      analogy: "Nao vejo coisas vindo do zero, vejo vindo de referencias"
+      source: "[SOURCE: AN @2:00:00-2:02:00]"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PARADIGM INVERSIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+paradigm_inversions:
+  - id: "INV-001"
+    conventional: "Automatize tudo o mais rapido possivel"
+    expert_position: "Desenhe manualmente primeiro, automatize depois"
+    reasoning: "Sem entender o processo, a automacao nao funciona"
+    evidence: "[SOURCE: AN @26:00-28:00]"
+
+  - id: "INV-002"
+    conventional: "Treinar o time para entender a ferramenta/processo"
+    expert_position: "Limitar a visao e impossibilitar caminhos errados"
+    reasoning: "PV tentou treinar todo mundo -> caos. Limitou visao -> funcionou"
+    evidence: "[SOURCE: PV @1:24:00-1:33:00]"
+
+  - id: "INV-003"
+    conventional: "Humano precisa criar criativos de qualidade"
+    expert_position: "IA fazendo 100 criativos a 90% > humano fazendo 1 a 100%"
+    reasoning: "Descoberta de hit e probabilistica, nao deterministica"
+    evidence: "[SOURCE: AN @2:17:00-2:19:00]"
+
+  - id: "INV-004"
+    conventional: "Depoimento bom e qualquer feedback positivo"
+    expert_position: "Depoimento 'ta bom, gostei' e RUIM. Lendario = jornada de transformacao"
+    reasoning: "Depoimento sem jornada nao converte"
+    evidence: "[SOURCE: AN @33:00-35:00]"
+
+  - id: "INV-005"
+    conventional: "Erro do executor e culpa do executor"
+    expert_position: "Erro na ponta = falha de comunicacao de quem esta acima"
+    reasoning: "Potencial de mudanca esta no processo, nao na pessoa"
+    evidence: "[SOURCE: PV @1:27:00-1:28:00]"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PV INSIGHT: 3 TIPOS DE DOCUMENTADORES DE PROCESSO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+pv_3_types_of_documenters:
+  source: "[SOURCE: PV @2:25:00-2:27:00]"
+  context: "Quando PV pediu para cada membro do time descrever o que faz no dia a dia"
+  types:
+    - type: "Supervalorizador"
+      behavior: "Descreve todas tarefas como muito dificeis e demoradas"
+      motivation: "Quer mostrar que seu trabalho e complexo/importante"
+      adaptacao: "Desafiar tempos estimados com dados reais"
+
+    - type: "Resumidor"
+      behavior: "Bota tudo em blocos grandes, so marcos, nao divide em tarefas"
+      motivation: "Nao quer passar que esta cheia de coisa. Quer menos trabalho"
+      adaptacao: "Pedir detalhamento especifico de cada marco"
+
+    - type: "Criterioso (ideal)"
+      behavior: "Retrata realidade exatamente como e, super documenta"
+      motivation: "Habito natural de documentacao, vai a fundo"
+      adaptacao: "Dar autonomia, usar como referencia para os outros"
+
+  insight: "Saber o tipo de documentador ANTES de estruturar o processo muda como voce interpreta o dump"

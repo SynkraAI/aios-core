@@ -1,0 +1,14 @@
+{
+  "name": "md-to-landing-page",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Converts Markdown files to high-conversion landing pages with branded visual identity",
+  "main": "convert.mjs",
+  "scripts": {
+    "convert": "node convert.mjs"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "marked": "^15.0.0"
+  }
+}

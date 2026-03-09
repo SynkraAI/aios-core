@@ -1,7 +1,7 @@
 # Renner Silva — Squad Deployável
 
 > Clone mental de Renner Silva — referência em oratória, liderança e desenvolvimento humano.
-> Fidelidade ~93/100 | SYNAPSE v6.0 | Clone Mental v1.1
+> Fidelidade ~93/100 (v1.1) → v1.2 pending re-score | SYNAPSE v6.0 | Clone Mental v1.2
 
 ---
 
@@ -101,7 +101,7 @@ squads/renner-silva/
 
 ## Knowledge Base
 
-O agente tem acesso a 17 Knowledge Bases em:
+O agente tem acesso a 19 Knowledge Bases em:
 `squads/squad-creator/data/minds/renner_silva/05_clone_final/knowledge_base/`
 
 | Grupo | KBs |
@@ -109,6 +109,7 @@ O agente tem acesso a 17 Knowledge Bases em:
 | Identidade & Linguagem | KB01-KB04, KB12 |
 | Arquitetura Mental | KB05-KB11 |
 | Decision Intelligence v1.1 | KB13-KB17 |
+| Negócios & Método v1.2 | KB18-KB19 |
 
 Ver `data/README.md` para índice completo com descrições.
 
@@ -201,5 +202,5 @@ O clone foi criado através do pipeline completo do squad `icp-cloning`:
 
 ---
 
-*Renner Silva Squad v1.0.0 | Mind Clone v1.1 | 2026-02-17*
+*Renner Silva Squad v1.1.0 | Mind Clone v1.2 | 2026-03-09*
 *4ª geração de magos da palavra — transformação, não entretenimento.*

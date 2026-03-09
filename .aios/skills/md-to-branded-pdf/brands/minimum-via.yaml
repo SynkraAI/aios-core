@@ -1,0 +1,22 @@
+# Minimum Via — Clean light with muted sea blue + lilac accents
+# Ideal for: productized agencies, minimalist products, consulting
+# Inspired by: Page UI / Minimum Via template (Sea Abyss + Lilac Delight)
+# Theme: light | Text-first minimal design with serif fonts
+
+name: Minimum Via
+theme: light
+colors:
+  primary: "#446E88"
+  primary_light: "#6491AC"
+  accent: "#6769FF"
+  background: "#FFFFFF"
+  card: "#FFFFFF"
+  border: "#E5E7EB"
+  text: "#0A0A0A"
+  text_muted: "#385166"
+  white: "#1B2631"
+  highlight: "#6769FF"
+font: "Inter"
+cover:
+  gradient_primary: "rgba(68,110,136,0.06)"
+  gradient_secondary: "rgba(103,105,255,0.04)"

@@ -1,0 +1,10 @@
+Backup criado em: sex 13 fev 2026 20:08:44 -03
+Backup de: .claude/, squads/, .aios-core/development/, .aios/skills/
+
+Para restaurar:
+  cp -R .claude-migration-backup-20260213-200843/.claude/ .claude/
+  cp -R .claude-migration-backup-20260213-200843/squads/ squads/
+  cp -R .claude-migration-backup-20260213-200843/.aios-core-development/ .aios-core/development/
+  cp -R .claude-migration-backup-20260213-200843/.aios-skills/ .aios/skills/
+
+Total de arquivos backupados:     1948

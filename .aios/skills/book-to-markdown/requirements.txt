@@ -1,0 +1,6 @@
+# Required
+pymupdf>=1.23.0         # PDF metadata extraction
+pymupdf4llm>=0.0.17     # Fast PDF-to-Markdown conversion
+
+# Optional - uncomment as needed
+# marker-pdf>=1.0.0      # For precise PDF mode (complex layouts, formulas)

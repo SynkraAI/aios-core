@@ -1,0 +1,20 @@
+# Arctic Frost — Clean light theme with icy blue accents
+# Ideal for: SaaS products, documentation, corporate reports
+
+name: Arctic Frost
+theme: light
+colors:
+  primary: "#2563EB"
+  primary_light: "#3B82F6"
+  accent: "#06B6D4"
+  background: "#F8FAFC"
+  card: "#FFFFFF"
+  border: "#E2E8F0"
+  text: "#334155"
+  text_muted: "#94A3B8"
+  white: "#0F172A"
+  highlight: "#2563EB"
+font: "Inter"
+cover:
+  gradient_primary: "rgba(37,99,235,0.08)"
+  gradient_secondary: "rgba(6,182,212,0.05)"

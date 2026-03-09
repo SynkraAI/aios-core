@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Themes Preview — md-to-branded</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Geist:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&family=Syne:wght@400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #09090B;
+    color: #E4E4E7;
+    line-height: 1.6;
+  }
+
+  /* ---- PAGE HEADER ---- */
+  .page-header {
+    text-align: center;
+    padding: 60px 24px 40px;
+    border-bottom: 1px solid #27272A;
+  }
+  .page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #A855F7, #22D3EE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .page-header p { color: #71717A; font-size: 1.1rem; }
+  .page-header .count { color: #A855F7; font-weight: 600; }
+
+  /* ---- THEME GRID ---- */
+  .themes-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 32px;
+  }
+
+  /* ---- THEME CARD (outer wrapper) ---- */
+  .theme-card {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #27272A;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .theme-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  /* ---- THEME HEADER ---- */
+  .theme-header {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .theme-name { font-size: 1.2rem; font-weight: 700; }
+  .theme-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .theme-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .theme-font { font-size: 0.75rem; opacity: 0.6; }
+
+  /* ---- COLOR PALETTE ROW ---- */
+  .color-palette {
+    display: flex;
+    padding: 0 24px 16px;
+    gap: 6px;
+  }
+  .color-swatch {
+    flex: 1;
+    height: 32px;
+    border-radius: 8px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .color-swatch:hover { transform: scaleY(1.3); }
+  .color-swatch .tooltip {
+    display: none;
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    background: #000;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 10;
+  }
+  .color-swatch:hover .tooltip { display: block; }
+
+  /* ---- SAMPLE COMPONENTS ---- */
+  .sample-area {
+    padding: 24px;
+  }
+
+  /* Mini hero */
+  .mini-hero {
+    padding: 32px 20px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mini-hero h2 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+    position: relative;
+    z-index: 1;
+  }
+  .mini-hero .mini-subtitle {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    position: relative;
+    z-index: 1;
+  }
+  .mini-hero .mini-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 4px 14px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Mini cards */
+  .mini-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .mini-card {
+    padding: 14px;
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+  }
+  .mini-card h4 { font-size: 0.8rem; font-weight: 700; margin-bottom: 2px; }
+  .mini-card p { font-size: 0.7rem; opacity: 0.6; margin: 0; }
+
+  /* Mini stats */
+  .mini-stats {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .mini-stat {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+  }
+  .mini-stat-value { font-size: 1.2rem; font-weight: 800; }
+  .mini-stat-label { font-size: 0.65rem; opacity: 0.6; }
+
+  /* Mini callout */
+  .mini-callout {
+    border-left-width: 3px;
+    border-left-style: solid;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 0.75rem;
+    margin-bottom: 12px;
+  }
+
+  /* Mini table */
+  .mini-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.72rem;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .mini-table th {
+    text-align: left;
+    padding: 8px 10px;
+    font-weight: 600;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+  }
+  .mini-table td {
+    padding: 6px 10px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+
+  /* Mini buttons row */
+  .mini-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .mini-btn {
+    flex: 1;
+    padding: 8px 0;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .mini-btn:hover { opacity: 0.85; }
+  .mini-btn-outline {
+    background: transparent;
+    border-width: 1px;
+    border-style: solid;
+  }
+
+  /* Mini code block */
+  .mini-code {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.7rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    border-width: 1px;
+    border-style: solid;
+  }
+
+  /* ---- CLI SNIPPET ---- */
+  .cli-snippet {
+    background: #18181B;
+    border-top: 1px solid #27272A;
+    padding: 14px 24px;
+    font-family: 'SF Mono', monospace;
+    font-size: 0.72rem;
+    color: #71717A;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cli-snippet code { color: #A8A29E; }
+  .cli-snippet .cli-brand { color: #22D3EE; }
+  .copy-btn {
+    background: #27272A;
+    border: none;
+    color: #A8A29E;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    transition: background 0.2s;
+  }
+  .copy-btn:hover { background: #3F3F46; }
+
+  /* ---- FOOTER ---- */
+  .page-footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid #27272A;
+    color: #52525B;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 900px) {
+    .themes-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <h1>Brand Themes Preview</h1>
+  <p><span class="count">24 temas</span> para md-to-branded</p>
+</header>
+
+<div class="themes-grid" id="grid"></div>
+
+<footer class="page-footer">
+  <p>md-to-branded &mdash; <code>node convert.mjs input.md --brand=&lt;name&gt;</code></p>
+</footer>
+
+<script>
+const themes = [
+  {
+    id: 'luizfosc',
+    name: 'LuizFosc',
+    theme: 'dark',
+    font: 'Inter',
+    useCase: 'Cinematic & Professional',
+    colors: {
+      primary: '#1E40AF', primary_light: '#60A5FA', accent: '#38BDF8',
+      background: '#0A0E1A', card: '#111827', border: '#1E293B',
+      text: '#CBD5E1', text_muted: '#64748B', white: '#F1F5F9',
+    },
+    gradient_primary: 'rgba(30,64,175,0.30)',
+    gradient_secondary: 'rgba(56,189,248,0.10)',
+  },
+  {
+    id: 'example',
+    name: 'Example (Default)',
+    theme: 'dark',
+    font: 'Inter',
+    useCase: 'Modern Tech',
+    colors: {
+      primary: '#6C3CE1', primary_light: '#8B5CF6', accent: '#06D6A0',
+      background: '#0F0F1A', card: '#1A1A2E', border: '#2A2A3E',
+      text: '#E0E0F0', text_muted: '#9999B8', white: '#FFFFFF',
+    },
+    gradient_primary: 'rgba(108,60,225,0.25)',
+    gradient_secondary: 'rgba(139,92,246,0.1)',
+  },
+  {
+    id: 'emerald-noir',
+    name: 'Emerald Noir',
+    theme: 'dark',
+    font: 'Plus Jakarta Sans',
+    useCase: 'Consulting & Finance',
+    colors: {
+      primary: '#059669', primary_light: '#34D399', accent: '#F59E0B',
+      background: '#0C1117', card: '#151D28', border: '#1E2A38',
+      text: '#D1D5DB', text_muted: '#6B7280', white: '#F9FAFB',
+    },
+    gradient_primary: 'rgba(5,150,105,0.20)',
+    gradient_secondary: 'rgba(52,211,153,0.08)',
+  },
+  {
+    id: 'sunset-blaze',
+    name: 'Sunset Blaze',
+    theme: 'dark',
+    font: 'DM Sans',
+    useCase: 'Creative & Marketing',
+    colors: {
+      primary: '#EA580C', primary_light: '#FB923C', accent: '#FACC15',
+      background: '#1A0F0A', card: '#2A1A12', border: '#3D271A',
+      text: '#F5E6D8', text_muted: '#A8876E', white: '#FFF7ED',
+    },
+    gradient_primary: 'rgba(234,88,12,0.25)',
+    gradient_secondary: 'rgba(251,146,60,0.10)',
+  },
+  {
+    id: 'arctic-frost',
+    name: 'Arctic Frost',
+    theme: 'light',
+    font: 'Inter',
+    useCase: 'SaaS & Corporate',
+    colors: {
+      primary: '#2563EB', primary_light: '#3B82F6', accent: '#06B6D4',
+      background: '#F8FAFC', card: '#FFFFFF', border: '#E2E8F0',
+      text: '#334155', text_muted: '#94A3B8', white: '#0F172A',
+    },
+    gradient_primary: 'rgba(37,99,235,0.08)',
+    gradient_secondary: 'rgba(6,182,212,0.05)',
+  },
+  {
+    id: 'rose-gold',
+    name: 'Rose Gold',
+    theme: 'dark',
+    font: 'Playfair Display',
+    useCase: 'Luxury & Fashion',
+    colors: {
+      primary: '#BE185D', primary_light: '#F472B6', accent: '#D4A574',
+      background: '#1A0A14', card: '#261320', border: '#3D1E30',
+      text: '#F0D4E4', text_muted: '#A67A94', white: '#FFF1F2',
+    },
+    gradient_primary: 'rgba(190,24,93,0.20)',
+    gradient_secondary: 'rgba(212,165,116,0.10)',
+  },
+  {
+    id: 'neon-cyber',
+    name: 'Neon Cyber',
+    theme: 'dark',
+    font: 'Space Grotesk',
+    useCase: 'Gaming & Events',
+    colors: {
+      primary: '#A855F7', primary_light: '#C084FC', accent: '#22D3EE',
+      background: '#09090B', card: '#18181B', border: '#27272A',
+      text: '#E4E4E7', text_muted: '#71717A', white: '#FAFAFA',
+    },
+    gradient_primary: 'rgba(168,85,247,0.25)',
+    gradient_secondary: 'rgba(34,211,238,0.12)',
+  },
+  {
+    id: 'terracotta',
+    name: 'Terracotta',
+    theme: 'dark',
+    font: 'Source Serif 4',
+    useCase: 'Architecture & Craft',
+    colors: {
+      primary: '#B45309', primary_light: '#D97706', accent: '#65A30D',
+      background: '#1C1410', card: '#292018', border: '#3D3024',
+      text: '#E8DDD0', text_muted: '#A69280', white: '#FEF3C7',
+    },
+    gradient_primary: 'rgba(180,83,9,0.20)',
+    gradient_secondary: 'rgba(217,119,6,0.08)',
+  },
+  {
+    id: 'ocean-depth',
+    name: 'Ocean Depth',
+    theme: 'dark',
+    font: 'Outfit',
+    useCase: 'Health & Science',
+    colors: {
+      primary: '#0891B2', primary_light: '#22D3EE', accent: '#14B8A6',
+      background: '#0A1520', card: '#0F1F2E', border: '#1A3040',
+      text: '#C8E0F0', text_muted: '#6896B0', white: '#ECFEFF',
+    },
+    gradient_primary: 'rgba(8,145,178,0.22)',
+    gradient_secondary: 'rgba(20,184,166,0.10)',
+  },
+  {
+    id: 'minimal-sand',
+    name: 'Minimal Sand',
+    theme: 'light',
+    font: 'Libre Baskerville',
+    useCase: 'Editorial & Portfolio',
+    colors: {
+      primary: '#78716C', primary_light: '#A8A29E', accent: '#D97706',
+      background: '#FAF9F6', card: '#FFFFFF', border: '#E7E5E4',
+      text: '#44403C', text_muted: '#A8A29E', white: '#1C1917',
+    },
+    gradient_primary: 'rgba(120,113,108,0.06)',
+    gradient_secondary: 'rgba(217,119,6,0.04)',
+  },
+  {
+    id: 'carbon-steel',
+    name: 'Carbon Steel',
+    theme: 'dark',
+    font: 'IBM Plex Sans',
+    useCase: 'Engineering & B2B Tech',
+    colors: {
+      primary: '#3B82F6', primary_light: '#60A5FA', accent: '#F43F5E',
+      background: '#111111', card: '#1A1A1A', border: '#2A2A2A',
+      text: '#D4D4D4', text_muted: '#737373', white: '#F5F5F5',
+    },
+    gradient_primary: 'rgba(59,130,246,0.18)',
+    gradient_secondary: 'rgba(244,63,94,0.08)',
+  },
+  {
+    id: 'aurora-green',
+    name: 'Aurora Green',
+    theme: 'dark',
+    font: 'Geist',
+    useCase: 'Fintech & Developer Tools',
+    colors: {
+      primary: '#16A34A', primary_light: '#4ADE80', accent: '#8B5CF6',
+      background: '#0A120E', card: '#12201A', border: '#1E3328',
+      text: '#D1E8DB', text_muted: '#6B9A80', white: '#F0FDF4',
+    },
+    gradient_primary: 'rgba(22,163,74,0.22)',
+    gradient_secondary: 'rgba(139,92,246,0.10)',
+  },
+  // ---- Phase 4: New Premium Themes ----
+  {
+    id: 'magic-ui',
+    name: 'Magic UI',
+    theme: 'dark',
+    font: 'Geist',
+    useCase: 'Component Libraries & Dev Tools',
+    colors: {
+      primary: '#8B5CF6', primary_light: '#A78BFA', accent: '#F472B6',
+      background: '#09090B', card: '#18181B', border: '#27272A',
+      text: '#E4E4E7', text_muted: '#71717A', white: '#FAFAFA',
+    },
+    gradient_primary: 'rgba(139,92,246,0.20)',
+    gradient_secondary: 'rgba(244,114,182,0.08)',
+  },
+  {
+    id: 'saas-modern',
+    name: 'SaaS Modern',
+    theme: 'dark',
+    font: 'Inter',
+    useCase: 'SaaS & Startup Landing Pages',
+    colors: {
+      primary: '#6366F1', primary_light: '#818CF8', accent: '#EC4899',
+      background: '#0F0F1A', card: '#1A1A2E', border: '#2A2A3E',
+      text: '#E0E0F0', text_muted: '#9999B8', white: '#FFFFFF',
+    },
+    gradient_primary: 'rgba(99,102,241,0.25)',
+    gradient_secondary: 'rgba(236,72,153,0.10)',
+  },
+  {
+    id: 'horizon-vivid',
+    name: 'Horizon Vivid',
+    theme: 'dark',
+    font: 'DM Sans',
+    useCase: 'Dashboards & Data Products',
+    colors: {
+      primary: '#7C3AED', primary_light: '#A78BFA', accent: '#06B6D4',
+      background: '#0B0E17', card: '#111827', border: '#1E293B',
+      text: '#E2E8F0', text_muted: '#94A3B8', white: '#F8FAFC',
+    },
+    gradient_primary: 'rgba(124,58,237,0.22)',
+    gradient_secondary: 'rgba(6,182,212,0.10)',
+  },
+  {
+    id: 'tabler-pro',
+    name: 'Tabler Pro',
+    theme: 'light',
+    font: 'Inter',
+    useCase: 'Admin & Reports',
+    colors: {
+      primary: '#206BC4', primary_light: '#4299E1', accent: '#2FB344',
+      background: '#F4F6FA', card: '#FFFFFF', border: '#E6E7E9',
+      text: '#1D273B', text_muted: '#656D77', white: '#1D273B',
+    },
+    gradient_primary: 'rgba(32,107,196,0.08)',
+    gradient_secondary: 'rgba(47,179,68,0.05)',
+  },
+  {
+    id: 'portfolio-3d',
+    name: 'Portfolio 3D',
+    theme: 'dark',
+    font: 'Space Grotesk',
+    useCase: 'Creative Portfolios & Agency',
+    colors: {
+      primary: '#06B6D4', primary_light: '#22D3EE', accent: '#F472B6',
+      background: '#030712', card: '#111827', border: '#1F2937',
+      text: '#D1D5DB', text_muted: '#6B7280', white: '#F9FAFB',
+    },
+    gradient_primary: 'rgba(6,182,212,0.20)',
+    gradient_secondary: 'rgba(244,114,182,0.12)',
+  },
+  {
+    id: 'ant-enterprise',
+    name: 'Ant Enterprise',
+    theme: 'light',
+    font: 'Inter',
+    useCase: 'Enterprise & Internal Tools',
+    colors: {
+      primary: '#1677FF', primary_light: '#4096FF', accent: '#FA8C16',
+      background: '#F5F5F5', card: '#FFFFFF', border: '#D9D9D9',
+      text: '#262626', text_muted: '#8C8C8C', white: '#141414',
+    },
+    gradient_primary: 'rgba(22,119,255,0.08)',
+    gradient_secondary: 'rgba(250,140,22,0.05)',
+  },
+  // ---- Page UI Templates ----
+  {
+    id: 'specta',
+    name: 'Specta',
+    theme: 'dark',
+    font: 'Syne',
+    useCase: 'Creator Platforms & Video Tools',
+    colors: {
+      primary: '#A855F7', primary_light: '#C084FC', accent: '#EC4899',
+      background: '#0C0A1A', card: '#161330', border: '#272640',
+      text: '#F2F2F2', text_muted: '#9CA3AF', white: '#FAF5FF',
+    },
+    gradient_primary: 'rgba(168,85,247,0.15)',
+    gradient_secondary: 'rgba(236,72,153,0.08)',
+  },
+  {
+    id: 'gnomie-ai',
+    name: 'Gnomie AI',
+    theme: 'light',
+    font: 'Montserrat',
+    useCase: 'AI Products & Lifestyle Brands',
+    colors: {
+      primary: '#8F666F', primary_light: '#B98B94', accent: '#EF4444',
+      background: '#FFFFFF', card: '#FFFFFF', border: '#E5E7EB',
+      text: '#0A0A0A', text_muted: '#51363F', white: '#26191F',
+    },
+    gradient_primary: 'rgba(143,102,111,0.08)',
+    gradient_secondary: 'rgba(239,68,68,0.05)',
+  },
+  {
+    id: 'emerald-ai',
+    name: 'Emerald AI',
+    theme: 'dark',
+    font: 'Rubik',
+    useCase: 'AI/SaaS & Cloud Platforms',
+    colors: {
+      primary: '#0EA5E9', primary_light: '#38BDF8', accent: '#7DD3FC',
+      background: '#080C14', card: '#111827', border: '#1F2937',
+      text: '#F2F2F2', text_muted: '#9CA3AF', white: '#F0F9FF',
+    },
+    gradient_primary: 'rgba(14,165,233,0.15)',
+    gradient_secondary: 'rgba(107,114,128,0.06)',
+  },
+  {
+    id: 'minimum-via',
+    name: 'Minimum Via',
+    theme: 'light',
+    font: 'Inter',
+    useCase: 'Minimalist Products & Agencies',
+    colors: {
+      primary: '#446E88', primary_light: '#6491AC', accent: '#6769FF',
+      background: '#FFFFFF', card: '#FFFFFF', border: '#E5E7EB',
+      text: '#0A0A0A', text_muted: '#385166', white: '#1B2631',
+    },
+    gradient_primary: 'rgba(68,110,136,0.06)',
+    gradient_secondary: 'rgba(103,105,255,0.04)',
+  },
+  {
+    id: 'front-centre',
+    name: 'Front Centre',
+    theme: 'light',
+    font: 'Inter',
+    useCase: 'Developer Tools & Technical Docs',
+    colors: {
+      primary: '#4F4646', primary_light: '#636663', accent: '#6B7280',
+      background: '#FFFFFF', card: '#FFFFFF', border: '#E5E7EB',
+      text: '#0A0A0A', text_muted: '#4B5563', white: '#0F0D0D',
+    },
+    gradient_primary: 'rgba(79,70,70,0.05)',
+    gradient_secondary: 'rgba(107,114,128,0.03)',
+  },
+  {
+    id: 'screenshot-two',
+    name: 'Screenshot Two',
+    theme: 'light',
+    font: 'DM Sans',
+    useCase: 'Productivity & Fintech Apps',
+    colors: {
+      primary: '#22C55E', primary_light: '#4ADE80', accent: '#3B82F6',
+      background: '#FFFFFF', card: '#FFFFFF', border: '#E5E7EB',
+      text: '#0A0A0A', text_muted: '#15803D', white: '#052E16',
+    },
+    gradient_primary: 'rgba(34,197,94,0.06)',
+    gradient_secondary: 'rgba(59,130,246,0.04)',
+  },
+];
+
+const grid = document.getElementById('grid');
+
+themes.forEach(t => {
+  const c = t.colors;
+  const colorEntries = [
+    ['primary', c.primary],
+    ['primary_light', c.primary_light],
+    ['accent', c.accent],
+    ['background', c.background],
+    ['card', c.card],
+    ['border', c.border],
+    ['text', c.text],
+    ['text_muted', c.text_muted],
+    ['white', c.white],
+  ];
+
+  const swatches = colorEntries.map(([name, hex]) =>
+    `<div class="color-swatch" style="background:${hex}" title="${name}: ${hex}">
+      <span class="tooltip">${name}: ${hex}</span>
+    </div>`
+  ).join('');
+
+  const badgeColor = t.theme === 'light'
+    ? `background:${c.primary};color:${c.card}`
+    : `background:${c.primary};color:${c.white}`;
+
+  const themeBadge = t.theme === 'light'
+    ? `background:#E2E8F0;color:#334155`
+    : `background:#27272A;color:#A1A1AA`;
+
+  grid.innerHTML += `
+  <div class="theme-card" style="background:${c.background}">
+    <div class="theme-header">
+      <div>
+        <div class="theme-name" style="color:${c.white};font-family:'${t.font}',sans-serif">${t.name}</div>
+        <div class="theme-font" style="color:${c.text_muted}">${t.font} &middot; ${t.useCase}</div>
+      </div>
+      <div class="theme-meta">
+        <span class="theme-badge" style="${themeBadge}">${t.theme}</span>
+      </div>
+    </div>
+
+    <div class="color-palette">${swatches}</div>
+
+    <div class="sample-area" style="font-family:'${t.font}',sans-serif">
+      <!-- Mini Hero -->
+      <div class="mini-hero" style="background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, ${t.gradient_primary} 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, ${t.gradient_secondary} 0%, transparent 60%),
+        ${c.background}">
+        <div class="mini-badge" style="background:${c.primary}22;border:1px solid ${c.primary}44;color:${c.primary_light}">Proposta Comercial</div>
+        <h2 style="color:${c.white}">Transforme sua <span style="background:linear-gradient(135deg,${c.primary},${c.primary_light});-webkit-background-clip:text;-webkit-text-fill-color:transparent">Presenca Digital</span></h2>
+        <div class="mini-subtitle" style="color:${c.text_muted}">Solucoes premium para marcas que querem crescer</div>
+      </div>
+
+      <!-- Mini Stats -->
+      <div class="mini-stats">
+        <div class="mini-stat" style="background:${c.card};border-color:${c.border}">
+          <div class="mini-stat-value" style="color:${c.primary_light}">147%</div>
+          <div class="mini-stat-label" style="color:${c.text_muted}">Growth</div>
+        </div>
+        <div class="mini-stat" style="background:${c.card};border-color:${c.border}">
+          <div class="mini-stat-value" style="color:${c.primary_light}">24/7</div>
+          <div class="mini-stat-label" style="color:${c.text_muted}">Support</div>
+        </div>
+        <div class="mini-stat" style="background:${c.card};border-color:${c.border}">
+          <div class="mini-stat-value" style="color:${c.accent}">R$ 2.4M</div>
+          <div class="mini-stat-label" style="color:${c.text_muted}">Revenue</div>
+        </div>
+      </div>
+
+      <!-- Mini Cards -->
+      <div class="mini-cards">
+        <div class="mini-card" style="background:${c.card};border-color:${c.border}">
+          <h4 style="color:${c.white}">Estrategia Digital</h4>
+          <p style="color:${c.text_muted}">SEO, analytics e conversao otimizada</p>
+        </div>
+        <div class="mini-card" style="background:${c.card};border-color:${c.border}">
+          <h4 style="color:${c.white}">Design Premium</h4>
+          <p style="color:${c.text_muted}">UI/UX com identidade unica</p>
+        </div>
+      </div>
+
+      <!-- Mini Callout -->
+      <div class="mini-callout" style="background:${c.primary}14;border-left-color:${c.primary};color:${c.text}">
+        <strong style="color:${c.white}">Destaque:</strong> Inclui suporte prioritario e revisoes ilimitadas durante o projeto.
+      </div>
+
+      <!-- Mini Table -->
+      <table class="mini-table">
+        <thead>
+          <tr style="background:${c.card}">
+            <th style="color:${c.white};border-bottom-color:${c.primary}">Plano</th>
+            <th style="color:${c.white};border-bottom-color:${c.primary}">Preco</th>
+            <th style="color:${c.white};border-bottom-color:${c.primary}">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:${c.text};border-bottom-color:${c.border}">Starter</td>
+            <td style="color:${c.text};border-bottom-color:${c.border}">R$ 2.900</td>
+            <td style="color:${c.accent};border-bottom-color:${c.border}">&#10003; Disponivel</td>
+          </tr>
+          <tr style="background:${c.card}40">
+            <td style="color:${c.text};border-bottom-color:${c.border}">Enterprise</td>
+            <td style="color:${c.text};border-bottom-color:${c.border}">R$ 12.000</td>
+            <td style="color:${c.primary_light};border-bottom-color:${c.border}">&#9733; Premium</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Mini Buttons -->
+      <div class="mini-buttons">
+        <div class="mini-btn" style="background:${c.primary};color:${c.white}">Primary Button</div>
+        <div class="mini-btn mini-btn-outline" style="border-color:${c.primary};color:${c.primary_light}">Outline</div>
+        <div class="mini-btn" style="background:${c.accent};color:${t.theme === 'light' ? c.card : c.background}">Accent</div>
+      </div>
+
+      <!-- Mini Code -->
+      <div class="mini-code" style="background:${c.card};border-color:${c.border};color:${c.text}">
+        <span style="color:${c.primary_light}">const</span> brand = <span style="color:${c.accent}">loadBrand</span>(<span style="color:${c.primary_light}">'${t.id}'</span>);
+      </div>
+    </div>
+
+    <div class="cli-snippet" style="background:${c.card};border-top:1px solid ${c.border}">
+      <code style="color:${c.text_muted}">node convert.mjs input.md --brand=<span class="cli-brand" style="color:${c.accent}">${t.id}</span></code>
+      <button class="copy-btn" onclick="navigator.clipboard.writeText('node convert.mjs input.md --brand=${t.id}');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)" style="background:${c.border};color:${c.text_muted}">Copy</button>
+    </div>
+  </div>`;
+});
+</script>
+
+</body>
+</html>

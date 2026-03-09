@@ -1,0 +1,20 @@
+# Emerald Noir — Luxury dark theme with emerald green accents
+# Ideal for: consulting, finance, premium services
+
+name: Emerald Noir
+theme: dark
+colors:
+  primary: "#059669"
+  primary_light: "#34D399"
+  accent: "#F59E0B"
+  background: "#0C1117"
+  card: "#151D28"
+  border: "#1E2A38"
+  text: "#D1D5DB"
+  text_muted: "#6B7280"
+  white: "#F9FAFB"
+  highlight: "#10B981"
+font: "Plus Jakarta Sans"
+cover:
+  gradient_primary: "rgba(5,150,105,0.20)"
+  gradient_secondary: "rgba(52,211,153,0.08)"

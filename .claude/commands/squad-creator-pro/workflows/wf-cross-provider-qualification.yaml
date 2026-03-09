@@ -1,0 +1,711 @@
+# wf-cross-provider-qualification.yaml
+# Workflow para qualificar modelos EXTERNOS (Kimi K2.5, GLM-5, etc) vs Opus
+# Version: 1.0
+# Created: 2026-02-12
+# Author: @architect (The Architect)
+
+workflow:
+  id: wf-cross-provider-qualification
+  name: "Cross-Provider Model Qualification"
+  version: "1.0"
+  purpose: "Testar se modelos externos (via OpenRouter) podem substituir Opus em tasks específicas"
+  orchestrator: "@pedro-valerio"
+  mode: "autonomous"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHILOSOPHY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+philosophy:
+  core: |
+    "Não assumir. Provar com dados."
+    "Custo importa, mas qualidade é inegociável."
+    "PT-BR é obrigatório para nosso pipeline."
+    "Latência conta — modelo lento é modelo inútil."
+
+  key_differences_from_tier_qualification:
+    - "Modelos externos via LLM Router/OpenRouter (não Task tool)"
+    - "Latência tracking obrigatório"
+    - "Múltiplos runs para medir reliability"
+    - "Fase específica para PT-BR quality"
+    - "Privacy risk flag obrigatório"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXTERNAL MODELS REGISTRY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+external_models:
+  glm5:
+    provider: openrouter
+    model_id: "z-ai/glm-5"
+    display_name: "GLM-5"
+    cost_per_mtok:
+      input: 0.80
+      output: 3.20
+    context_window: 200000
+    validation_report: "docs/model-discovery/scans/2026-02-12/validation-glm-5.md"
+    verdict: "ADD_CONDITIONAL"
+    privacy_risk: "moderate"  # Singapore entity, China parent
+    pt_br_status: "unknown"
+
+  kimi:
+    provider: openrouter
+    model_id: "moonshotai/kimi-k2.5"
+    display_name: "Kimi K2.5"
+    cost_per_mtok:
+      input: 0.50
+      output: 2.80
+    context_window: 256000
+    validation_report: "docs/model-discovery/scans/2026-02-08/validation-kimi-k2-5.md"
+    verdict: "MONITOR"
+    privacy_risk: "high"  # China, trains on prompts
+    pt_br_status: "unknown"
+    latency_warning: "HIGH (15-200s per request)"
+
+  # Baseline para comparação
+  opus:
+    provider: anthropic
+    model_id: "claude-opus-4-6"
+    display_name: "Claude Opus 4.6"
+    cost_per_mtok:
+      input: 5.00
+      output: 25.00
+    context_window: 1000000
+    privacy_risk: "low"
+    pt_br_status: "excellent"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VETO CONDITIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+veto_conditions:
+  - id: CPQ_VC_001
+    trigger: "Task não está no test_input_registry"
+    action: "BLOCK - Adicionar input ao registry primeiro"
+
+  - id: CPQ_VC_002
+    trigger: "Opus baseline falha ou output vazio"
+    action: "BLOCK - Não há baseline para comparar"
+
+  - id: CPQ_VC_003
+    trigger: "Modelo externo retorna erro em >50% dos runs"
+    action: "BLOCK - Modelo não é confiável para esta task"
+
+  - id: CPQ_VC_004
+    trigger: "Decisão oposta ao Opus (PASS vs FAIL)"
+    action: "BLOCK - Modelo não qualificado (decisão errada)"
+
+  - id: CPQ_VC_005
+    trigger: "PT-BR quality score < 7.0/10"
+    action: "BLOCK - Modelo não qualificado para PT-BR"
+
+  - id: CPQ_VC_006
+    trigger: "Latência média > 60s"
+    action: "FLAG - Só usar para batch/async jobs"
+
+  - id: CPQ_VC_007
+    trigger: "Privacy risk = high AND task envolve dados sensíveis"
+    action: "BLOCK - Usar self-hosted ou escolher outro modelo"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TEST INPUT REGISTRY (Cross-Provider Candidates)
+# ═══════════════════════════════════════════════════════════════════════════════
+# Tasks Opus-tier que podem ser testadas com modelos externos
+
+cross_provider_candidates:
+  # === DNA EXTRACTION (High Value, High Cost) ===
+  extract-voice-dna:
+    current_tier: opus
+    test_with: [glm5, kimi]
+    expected_savings: "80-90%"
+    risk: "Quality degradation in voice capture"
+    test_input:
+      target: "outputs/minds/pedro_valerio/sources/"
+      type: "sources_directory"
+    pt_br_critical: true
+
+  extract-thinking-dna:
+    current_tier: opus
+    test_with: [glm5, kimi]
+    expected_savings: "80-90%"
+    risk: "Missing mental models"
+    test_input:
+      target: "outputs/minds/pedro_valerio/sources/"
+      type: "sources_directory"
+    pt_br_critical: true
+
+  # === RESEARCH (Good Candidate) ===
+  deep-research-pre-agent:
+    current_tier: opus
+    test_with: [glm5, kimi]
+    expected_savings: "80-90%"
+    risk: "Superficial research"
+    test_input:
+      target: "Pedro Valério"
+      type: "person_name"
+    pt_br_critical: false
+    note: "Kimi Agent Swarm could excel here"
+
+  # === AGENT CREATION ===
+  create-agent:
+    current_tier: opus
+    test_with: [glm5]  # GLM-5 has lower hallucination
+    expected_savings: "80%"
+    risk: "Generic agent without depth"
+    test_input:
+      target: "outputs/minds/pedro_valerio/"
+      type: "mind_directory"
+    pt_br_critical: true
+
+  an-design-clone:
+    current_tier: opus
+    test_with: [glm5]
+    expected_savings: "80%"
+    risk: "Incomplete clone structure"
+    test_input:
+      target: "outputs/minds/pedro_valerio/"
+      type: "mind_directory"
+    pt_br_critical: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - name: task_name
+      type: string
+      description: "Nome da task (sem .md)"
+      example: "extract-voice-dna"
+      validation: "Must exist in cross_provider_candidates"
+
+    - name: candidate_model
+      type: enum
+      values: ["glm5", "kimi"]
+      description: "Modelo externo a testar"
+
+  optional:
+    - name: threshold
+      type: number
+      default: 0.85
+      description: "Threshold mínimo de qualidade vs Opus"
+
+    - name: reliability_runs
+      type: number
+      default: 3
+      description: "Número de runs para medir reliability"
+
+    - name: skip_pt_br
+      type: boolean
+      default: false
+      description: "Pular teste PT-BR (não recomendado)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0: PRE-FLIGHT VALIDATION
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_0
+    name: "PRE-FLIGHT"
+    purpose: "Validar inputs, verificar modelo disponível, criar diretório"
+    duration: "< 1 min"
+
+    steps:
+      - id: step_0_1
+        name: "Check cross_provider_candidates"
+        action: "Lookup task_name in cross_provider_candidates"
+        veto_if: "task_name not in registry → CPQ_VC_001"
+
+      - id: step_0_2
+        name: "Check model in test_with list"
+        action: "Verify candidate_model is in task's test_with array"
+        veto_if: "Model not allowed for this task"
+
+      - id: step_0_3
+        name: "Check model availability"
+        action: |
+          Bash: node infrastructure/services/llm-router/bin/check-model.js {candidate_model}
+          Verify model responds to ping
+        veto_if: "Model unavailable or API error"
+
+      - id: step_0_4
+        name: "Read task file"
+        action: "Read squads/squad-creator-pro/tasks/{task_name}.md completely"
+        output:
+          task_prompt: "Full task content"
+
+      - id: step_0_5
+        name: "Create test directory"
+        action: "mkdir -p squads/squad-creator-pro/test-cases/cross-provider/{task_name}/{candidate_model}/"
+
+    checkpoint:
+      id: CP_PREFLIGHT
+      blocking: true
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: BASELINE EXECUTION (Opus)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_1
+    name: "OPUS BASELINE"
+    purpose: "Executar task em Opus para estabelecer baseline de qualidade"
+    duration: "2-5 min"
+
+    steps:
+      - id: step_1_1
+        name: "Execute in Opus"
+        action: |
+          Task(
+            subagent_type: "general-purpose",
+            model: "opus",
+            prompt: "Read squads/squad-creator-pro/tasks/{task_name}.md completely.
+                     Execute the task with input: {test_input.target}
+                     Save output as YAML to test-cases/cross-provider/{task_name}/{candidate_model}/opus-baseline.yaml
+                     Include metadata: tokens used, duration_ms."
+          )
+        output:
+          opus_result: "Full output saved to file"
+          opus_tokens: { input: 0, output: 0 }
+          opus_latency_ms: 0
+          opus_cost_usd: 0
+
+    checkpoint:
+      id: CP_BASELINE
+      blocking: true
+      veto_if: "Output empty or error → CPQ_VC_002"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: CANDIDATE EXECUTION (Multiple Runs for Reliability)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_2
+    name: "CANDIDATE RELIABILITY TEST"
+    purpose: "Executar modelo externo N vezes para medir reliability e variance"
+    duration: "5-15 min (depends on model latency)"
+
+    steps:
+      - id: step_2_1
+        name: "Execute reliability runs"
+        action: |
+          FOR i in 1..{reliability_runs}:
+
+            start_time = now()
+
+            # Call via LLM Router
+            result = Bash(
+              node infrastructure/services/llm-router/index.js \
+                --task "{task_name}" \
+                --model "{candidate_model}" \
+                --input "{test_input.target}" \
+                --output "test-cases/cross-provider/{task_name}/{candidate_model}/run-{i}.yaml"
+            )
+
+            end_time = now()
+
+            Record:
+              - run_number: i
+              - success: true/false
+              - latency_ms: end_time - start_time
+              - tokens: { input, output }
+              - error: null or error_message
+
+        output:
+          runs: "Array of run results"
+          success_rate: "N successful / N total"
+          avg_latency_ms: "Average latency"
+          latency_variance: "Min/max/stddev"
+          total_cost_usd: "Sum of all runs"
+
+      - id: step_2_2
+        name: "Check reliability threshold"
+        action: |
+          IF success_rate < 0.5:
+            → VETO (CPQ_VC_003)
+
+          IF avg_latency_ms > 60000:
+            → FLAG as "batch-only" (CPQ_VC_006)
+        output:
+          reliability_verdict: "PASS | BATCH_ONLY | FAIL"
+
+    checkpoint:
+      id: CP_RELIABILITY
+      blocking: true
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: QUALITY COMPARISON
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_3
+    name: "QUALITY COMPARISON"
+    purpose: "Comparar output do melhor run com Opus baseline"
+    duration: "2-3 min"
+
+    steps:
+      - id: step_3_1
+        name: "Select best run"
+        action: |
+          Select the successful run with:
+          1. Lowest latency (if all similar quality)
+          2. Most complete output (section count)
+        output:
+          best_run_file: "run-{N}.yaml"
+
+      - id: step_3_2
+        name: "Compare across 5 dimensions"
+        action: |
+          Same comparison as wf-model-tier-qualification:
+
+          1. COMPLETENESS (weight: 0.30)
+             - Section count: candidate vs opus
+
+          2. ACCURACY (weight: 0.30)
+             - Key decisions match (PASS/FAIL, scores)
+             - VETO CHECK: opposite decision → CPQ_VC_004
+
+          3. REASONING (weight: 0.20)
+             - Evidence depth and specificity
+
+          4. FORMAT (weight: 0.10)
+             - YAML valid, structure matches
+
+          5. ACTIONABILITY (weight: 0.10)
+             - Recommendations count and quality
+
+        output:
+          dimension_scores: "Per-dimension breakdown"
+          quality_score: "Weighted percentage (0-100%)"
+          gaps: "List of gap types"
+
+      - id: step_3_3
+        name: "Calculate cost savings"
+        action: |
+          opus_cost = (opus_tokens.input * 5.00 / 1_000_000) + (opus_tokens.output * 25.00 / 1_000_000)
+          candidate_cost = (candidate_tokens.input * model.cost.input / 1_000_000) + (candidate_tokens.output * model.cost.output / 1_000_000)
+
+          # Adjust for reliability (cost of retries)
+          effective_candidate_cost = candidate_cost / success_rate
+
+          savings_pct = (1 - effective_candidate_cost / opus_cost) * 100
+        output:
+          opus_cost_usd: 0
+          candidate_cost_usd: 0
+          effective_cost_usd: 0
+          savings_percentage: 0
+
+    checkpoint:
+      id: CP_QUALITY
+      blocking: true
+      output:
+        saved_to: "test-cases/cross-provider/{task_name}/{candidate_model}/quality-comparison.yaml"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: PT-BR QUALITY TEST
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_4
+    name: "PT-BR QUALITY TEST"
+    purpose: "Testar qualidade do modelo em português brasileiro"
+    duration: "3-5 min"
+    condition: "NOT skip_pt_br AND task.pt_br_critical"
+
+    pt_br_test_prompts:
+      - id: ptbr_1
+        name: "Technical Writing"
+        prompt: |
+          Escreva uma documentação técnica de 500 palavras sobre arquitetura de microsserviços.
+          Inclua: definição, benefícios, desafios, e quando usar.
+          Use linguagem técnica mas acessível.
+        eval_criteria:
+          - fluency: "Português natural, não traduzido"
+          - accuracy: "Termos técnicos corretos"
+          - completeness: "Todos os pontos cobertos"
+
+      - id: ptbr_2
+        name: "Framework Extraction"
+        prompt: |
+          Dado o seguinte texto sobre metodologia de vendas:
+
+          "O fechamento acontece quando você elimina todas as objeções do cliente.
+          Primeiro, identifique a objeção real. Depois, concorde parcialmente.
+          Por fim, apresente uma perspectiva diferente que resolve a objeção."
+
+          Extraia o framework em formato YAML com: nome, etapas, e quando aplicar.
+        eval_criteria:
+          - understanding: "Captou a essência do método"
+          - structure: "YAML válido e bem organizado"
+          - no_hallucination: "Não inventou etapas extras"
+
+      - id: ptbr_3
+        name: "Voice Consistency"
+        prompt: |
+          Você é Pedro Valério, especialista em processos e automação.
+          Sua filosofia é: "Se o executor consegue errar, o processo está errado."
+
+          Responda à pergunta: "Como você abordaria a criação de um novo workflow?"
+
+          Mantenha sua voz e perspectiva consistentes.
+        eval_criteria:
+          - voice_match: "Soa como o personagem"
+          - philosophy_applied: "Usa os princípios mencionados"
+          - natural_pt_br: "Português fluente"
+
+    steps:
+      - id: step_4_1
+        name: "Execute PT-BR prompts"
+        action: |
+          FOR each prompt in pt_br_test_prompts:
+            result = Bash(
+              node infrastructure/services/llm-router/index.js \
+                --model "{candidate_model}" \
+                --prompt "{prompt.prompt}" \
+                --output "test-cases/cross-provider/{task_name}/{candidate_model}/ptbr-{prompt.id}.yaml"
+            )
+
+      - id: step_4_2
+        name: "Evaluate PT-BR quality"
+        action: |
+          Task(
+            subagent_type: "general-purpose",
+            model: "opus",  # Opus avalia PT-BR quality
+            prompt: "Avalie a qualidade do português brasileiro nos outputs anexados.
+
+                     Para cada output, score de 1-10:
+                     - Fluência (português natural, não traduzido)
+                     - Precisão (termos técnicos corretos)
+                     - Completude (resposta completa)
+
+                     Overall PT-BR Score = média dos scores.
+
+                     VETO se overall < 7.0"
+          )
+        output:
+          ptbr_scores: "Per-prompt breakdown"
+          ptbr_overall: "Overall score (0-10)"
+
+      - id: step_4_3
+        name: "PT-BR verdict"
+        action: |
+          IF ptbr_overall < 7.0:
+            → VETO (CPQ_VC_005)
+            verdict = "PT-BR NOT QUALIFIED"
+          ELSE IF ptbr_overall < 8.0:
+            verdict = "PT-BR ACCEPTABLE (with caveats)"
+          ELSE:
+            verdict = "PT-BR QUALIFIED"
+        output:
+          ptbr_verdict: "QUALIFIED | ACCEPTABLE | NOT_QUALIFIED"
+
+    checkpoint:
+      id: CP_PTBR
+      blocking: true
+      veto_if: "ptbr_overall < 7.0 → CPQ_VC_005"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 5: GENERATE REPORT
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_5
+    name: "GENERATE REPORT"
+    purpose: "Criar relatório final com toda evidência"
+    duration: "1-2 min"
+
+    steps:
+      - id: step_5_1
+        name: "Generate qualification report"
+        action: |
+          Create test-cases/cross-provider/{task_name}/{candidate_model}/qualification-report.yaml:
+
+          cross_provider_qualification_report:
+            task_name: "{task_name}"
+            candidate_model: "{candidate_model}"
+            test_date: "{today}"
+            workflow_version: "1.0"
+
+            baseline:
+              model: "opus"
+              cost_usd: "{opus_cost}"
+              tokens: { input: X, output: Y }
+              latency_ms: Z
+              file: "opus-baseline.yaml"
+
+            candidate:
+              model: "{candidate_model}"
+              provider: "{model.provider}"
+
+              reliability:
+                runs: {reliability_runs}
+                success_rate: "{success_rate}%"
+                avg_latency_ms: {avg_latency}
+                latency_range: "{min_ms}-{max_ms}ms"
+                verdict: "{reliability_verdict}"
+
+              quality:
+                overall_score: "{quality_score}%"
+                dimension_scores: {dimension_scores}
+                gaps: [{gaps}]
+
+              cost:
+                per_run_usd: "{candidate_cost}"
+                effective_usd: "{effective_cost}" # adjusted for retries
+                vs_opus_savings: "{savings_pct}%"
+
+              pt_br:
+                tested: true/false
+                overall_score: "{ptbr_overall}/10"
+                verdict: "{ptbr_verdict}"
+
+            decision:
+              final: "{QUALIFIED | QUALIFIED_BATCH_ONLY | NOT_QUALIFIED}"
+              recommended_use: "{task types}"
+              caveats: ["{list of caveats}"]
+
+            privacy_assessment:
+              risk_level: "{model.privacy_risk}"
+              recommendation: "{self-host | api | do-not-use}"
+
+            evidence_files:
+              - "opus-baseline.yaml"
+              - "run-1.yaml"
+              - "run-2.yaml"
+              - "run-3.yaml"
+              - "quality-comparison.yaml"
+              - "ptbr-*.yaml"
+              - "qualification-report.yaml"
+
+      - id: step_5_2
+        name: "Update model-routing.yaml"
+        condition: "decision is QUALIFIED or QUALIFIED_BATCH_ONLY"
+        action: |
+          Add to model-routing.yaml under external_alternatives:
+
+          {task_name}:
+            external_alternative:
+              model: "{candidate_model}"
+              qualified: true
+              quality_vs_opus: "{quality_score}%"
+              savings: "{savings_pct}%"
+              batch_only: true/false
+              pt_br_qualified: true/false
+              tested_date: "{today}"
+
+      - id: step_5_3
+        name: "Display summary"
+        action: |
+          ╔══════════════════════════════════════════════════════════════════════════╗
+          ║  CROSS-PROVIDER QUALIFICATION RESULT                                     ║
+          ╠══════════════════════════════════════════════════════════════════════════╣
+          ║  Task: {task_name}                                                       ║
+          ║  Candidate: {candidate_model} ({model.display_name})                     ║
+          ║                                                                          ║
+          ║  RELIABILITY                                                             ║
+          ║  ├─ Success Rate: {success_rate}%                                        ║
+          ║  ├─ Avg Latency: {avg_latency}ms                                         ║
+          ║  └─ Verdict: {reliability_verdict}                                       ║
+          ║                                                                          ║
+          ║  QUALITY                                                                 ║
+          ║  ├─ vs Opus: {quality_score}%                                            ║
+          ║  └─ Gaps: {gaps_count}                                                   ║
+          ║                                                                          ║
+          ║  PT-BR                                                                   ║
+          ║  ├─ Score: {ptbr_overall}/10                                             ║
+          ║  └─ Verdict: {ptbr_verdict}                                              ║
+          ║                                                                          ║
+          ║  COST                                                                    ║
+          ║  ├─ Opus: ${opus_cost}/run                                               ║
+          ║  ├─ {candidate}: ${candidate_cost}/run                                   ║
+          ║  └─ SAVINGS: {savings_pct}%                                              ║
+          ║                                                                          ║
+          ║  ══════════════════════════════════════════════════════════════════════  ║
+          ║  DECISION: {final_decision}                                              ║
+          ║  PRIVACY: {privacy_risk} → {privacy_recommendation}                      ║
+          ╚══════════════════════════════════════════════════════════════════════════╝
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# BATCH EXECUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+batch_mode:
+  description: "Testar múltiplas tasks com múltiplos modelos"
+
+  execution_strategy:
+    # Fase 1: GLM-5 (melhor candidato baseado em validation reports)
+    wave_1_glm5:
+      model: glm5
+      tasks:
+        - extract-voice-dna
+        - extract-thinking-dna
+        - create-agent
+        - deep-research-pre-agent
+
+    # Fase 2: Kimi K2.5 (se GLM-5 não qualificar)
+    wave_2_kimi:
+      model: kimi
+      tasks:
+        - deep-research-pre-agent  # Kimi Swarm pode excel aqui
+      condition: "Only if GLM-5 not qualified for task"
+
+  consolidated_report:
+    output: "squads/squad-creator-pro/test-cases/cross-provider/DASHBOARD.yaml"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FAILURE PATHS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+failure_paths:
+  - scenario: "Model API unavailable"
+    action: "Skip model, try next in wave. Log error."
+
+  - scenario: ">50% runs fail"
+    action: "Mark as NOT_QUALIFIED. Model unreliable."
+
+  - scenario: "Opposite decision (PASS vs FAIL)"
+    action: "Mark as NOT_QUALIFIED. Quality unacceptable."
+
+  - scenario: "PT-BR score < 7.0"
+    action: "Mark as NOT_QUALIFIED for PT-BR tasks. May still qualify for EN-only."
+
+  - scenario: "Latency > 60s avg"
+    action: "Mark as QUALIFIED_BATCH_ONLY. Not for sync use."
+
+  - scenario: "Privacy risk = high AND sensitive task"
+    action: "Recommend self-hosting. Do not use API for sensitive data."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  per_task:
+    - "test-cases/cross-provider/{task_name}/{model}/opus-baseline.yaml"
+    - "test-cases/cross-provider/{task_name}/{model}/run-{N}.yaml"
+    - "test-cases/cross-provider/{task_name}/{model}/quality-comparison.yaml"
+    - "test-cases/cross-provider/{task_name}/{model}/ptbr-{id}.yaml"
+    - "test-cases/cross-provider/{task_name}/{model}/qualification-report.yaml"
+
+  batch:
+    - "test-cases/cross-provider/DASHBOARD.yaml"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0"
+  created: "2026-02-12"
+  author: "@architect"
+
+  dependencies:
+    - "infrastructure/services/llm-router/" # Para chamar modelos externos
+    - "wf-model-tier-qualification.yaml"    # Comparison logic
+    - "validation-glm-5.md"                 # GLM-5 validation report
+    - "validation-kimi-k2-5.md"             # Kimi validation report
+
+  changelog:
+    - version: "1.0"
+      date: "2026-02-12"
+      changes:
+        - "Initial workflow based on tier-qualification pattern"
+        - "Added external_models registry (GLM-5, Kimi K2.5)"
+        - "Added Phase 2: Reliability test (multiple runs)"
+        - "Added Phase 4: PT-BR quality test"
+        - "Added privacy risk assessment"
+        - "Added latency tracking and batch-only verdict"
+        - "5 cross_provider_candidates defined"

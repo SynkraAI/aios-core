@@ -1,0 +1,21 @@
+# Tabler Pro — Professional admin/report
+# Ideal for: admin dashboards, reports, data-heavy presentations, enterprise
+# Inspired by: Tabler
+
+name: Tabler Pro
+theme: light
+colors:
+  primary: "#206BC4"
+  primary_light: "#4299E1"
+  accent: "#2FB344"
+  background: "#F4F6FA"
+  card: "#FFFFFF"
+  border: "#E6E7E9"
+  text: "#1D273B"
+  text_muted: "#656D77"
+  white: "#1D273B"
+  highlight: "#206BC4"
+font: "Inter"
+cover:
+  gradient_primary: "rgba(32,107,196,0.08)"
+  gradient_secondary: "rgba(47,179,68,0.05)"

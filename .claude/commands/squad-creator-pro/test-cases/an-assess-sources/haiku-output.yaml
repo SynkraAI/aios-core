@@ -1,0 +1,366 @@
+source_assessment:
+  mind: "Alex Hormozi"
+  version: "2.0"
+  assessment_date: "2026-02-11"
+
+  summary:
+    total_sources: 4
+    crown_jewel: 1
+    ouro: 3
+    mixed: 0
+    bronze: 0
+    average_quality: 4.2
+
+  sources:
+    - name: "Livro $100M Ofertas - Capítulo 6 (A Equação de Valor)"
+      type: "livro"
+      duration: "~40 páginas"
+      url: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100M Ofertas/"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          vulnerabilidade: true
+          respostas_dificeis: true
+          nuance: true
+          storytelling: true
+          score: 5
+          notes: "Exemplos concretos com clientes reais (academia em San Diego, fotografia). Tom conversacional. Não parece scripted. Admite erros anteriores em abordagem."
+
+        profundidade:
+          porque_explicado: true
+          framework: true
+          exemplos_especificos: true
+          tradeoffs: true
+          cross_domain: true
+          score: 5
+          notes: "Framework completo de 4 pilares (Resultado dos Sonhos, Probabilidade Percebida, Atraso Temporal, Esforço). Múltiplos exemplos: Xanax vs meditação (5/5), fotografia 5x ticket (nome da empresa não citado mas números e resultados específicos). Conecta psicologia ao negócio. Discute trade-offs entre soluções lógicas vs psicológicas."
+
+        atualidade:
+          recencia: true
+          contexto_atual: true
+          nao_contradito: true
+          evolucao: true
+          aplicabilidade: true
+          score: 5
+          notes: "Livro publicado 2022, referências de 2017-2022. Mentalidade de valor é atemporal. Princípios ainda aplicáveis em 2026. Não há contradição com outro material (Leads, Money Models). Mostra evolução do próprio Alex de iniciante para executivo."
+
+        unicidade:
+          contra_mainstream: true
+          vocabulario_proprio: true
+          framework_original: true
+          insight_contraintuitivo: true
+          perspectiva_singular: true
+          score: 5
+          notes: "Equação de Valor é original e não vista em outros autores. Conceito 'Leve o Fundo a Zero' é contra-intuitivo (divisão por zero = infinito). Vocabulário: 'Resultado dos Sonhos', 'Probabilidade Percebida de Conquista'. Contraria mainstream (que diz baixar preço) - Alex diz aumentar valor."
+
+        completude:
+          playbook: true
+          framework_presente: true
+          exemplos_reais: true
+          edge_cases: true
+          profundidade_adequada: true
+          score: 5
+          notes: "Framework 4-pilares é o playbook. Fórmula visual presente (não apenas texto). 3+ exemplos reais (academia $300→$1500, fotografia, Xanax vs meditação). Discute quando NÃO funcionar (se Autenticidade < 3). Capítulo é ~40 páginas."
+
+      media: 5.0
+      tier: "crown_jewel"
+      extraction_priority: 1
+      notes: "CROWN JEWEL: Este é o núcleo do sistema de Alex. Profundidade == 5 AND Autenticidade == 5. Todas as dimensões >= 4. É a base conceitual que alimenta TUDO - Leads, Money Models, ofertas. Impossível clonar Alex sem dominar a Equação de Valor."
+
+    - name: "Livro $100M Ofertas - Capítulo 8 (O Processo de Pensamento)"
+      type: "livro"
+      duration: "~25 páginas"
+      url: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100M Ofertas/"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          vulnerabilidade: true
+          respostas_dificeis: true
+          nuance: true
+          storytelling: true
+          score: 5
+          notes: "Tom muito pessoal. Admite 'você provavelmente é péssimo'. Pede que leitor faça exercício físico (tijolo) durante leitura. Não oferece respostas prontas - força divergência mental. Nuance clara: reconhece que pensamento convergente é ensinado em escola mas divagador ganha dinheiro."
+
+        profundidade:
+          porque_explicado: true
+          framework: true
+          exemplos_especificos: true
+          tradeoffs: true
+          cross_domain: true
+          score: 5
+          notes: "Framework Convergente vs Divergente é sólido. Problema de vendedores = exemplo específico (3→4.4 contratação). Exercício do Tijolo tem 20 usos listados. Conecta matemática (convergente) a negócio (divergente). Explica por que divergência vence em vida."
+
+        atualidade:
+          recencia: true
+          contexto_atual: true
+          nao_contradito: true
+          evolucao: true
+          aplicabilidade: true
+          score: 5
+          notes: "Publicado 2022, conteúdo atemporal (pensamento divergente é sempre valioso). Não contradiz Leads nem Money Models. Mostra evolução de Alex precisando fazer webinars para dominar pensamento criativo em ofertas."
+
+        unicidade:
+          contra_mainstream: true
+          vocabulario_proprio: true
+          framework_original: true
+          insight_contraintuitivo: true
+          perspectiva_singular: true
+          score: 4
+          notes: "Framework Convergente vs Divergente não é totalmente original (Edward de Bono publicou sobre), mas aplicação a ofertas É. Contra-mainstream: valoriza aula não-tradicional (sem power point gigante). Perspectiva singular: exercício do Tijolo força experiência prática durante leitura (meta-narrativo)."
+
+        completude:
+          playbook: true
+          framework_presente: true
+          exemplos_reais: true
+          edge_cases: true
+          profundidade_adequada: true
+          score: 5
+          notes: "Playbook: fazer exercise de 120 segundos agora (metodologia clara). Framework: divergente vs convergente estruturado. Exemplos: lista de 20 usos do tijolo. Edge cases: quanto maior/diferente materialidade tijolo = mais usos. Capítulo ~25 páginas."
+
+      media: 4.8
+      tier: "ouro"
+      extraction_priority: 2
+      notes: "OURO: Pensamento criativo em ofertas. Metodologia para gerar 10+ variações do mesmo produto/serviço. Menos famoso que Equação de Valor mas igualmente fundamental. Diferencia quem vende 'produto' de quem vende '100 maneiras de oferecer produto'."
+
+    - name: "Livro $100M Leads - Seção I & II (Comece Aqui + Entenda)"
+      type: "livro"
+      duration: "~100 páginas (Seções 1-2 de 5)"
+      url: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100M Leads/"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          vulnerabilidade: true
+          respostas_dificeis: true
+          nuance: true
+          storytelling: true
+          score: 5
+          notes: "História pessoal de quebra (reembolsos $150k). Admite fracasso com parceiro trapaceiro (perdeu dinheiro da venda das academias). Tom honesto: 'estou quebrado', 'fui péssimo'. Responde por que webinars falharam para ele (não era o melhor formato). Nuance em Lead Magnets: não é UM tipo, são múltiplas estratégias."
+
+        profundidade:
+          porque_explicado: true
+          framework: true
+          exemplos_especificos: true
+          tradeoffs: true
+          cross_domain: true
+          score: 5
+          notes: "Framework Core Four (Warm Outreach, Conteúdo, Cold Outreach, Anúncios). 7 Passos para Lead Magnet (Problema, Solução, Entrega, Nome, Facilidade, Qualidade, CTA). Exemplos específicos: $150k reembolsos, primeiro estudo de caso de $112k, taxa de lead magnet que converter para ligação. Conecta psicologia (pretzels em bar) a leads."
+
+        atualidade:
+          recencia: true
+          contexto_atual: true
+          nao_contradito: true
+          evolucao: true
+          aplicabilidade: true
+          score: 5
+          notes: "Publicado 2022, baseado em 2017-2022 learnings. Estratégias Core Four ainda 100% relevantes 2026 (warm outreach, content, cold outreach, ads são únicos 4 canais). Não contradiz Ofertas nem Money Models. Mostra evolução de 'gym launch guy' para 'lead machine builder'."
+
+        unicidade:
+          contra_mainstream: true
+          vocabulario_proprio: true
+          framework_original: true
+          insight_contraintuitivo: true
+          perspectiva_singular: true
+          score: 4
+          notes: "Core Four é simplificação original mas não 'inédita' (2x2 matrix comum). Lead Magnet mental model é original. Contra-mainstream: diz que 'leads sozinhos não são suficientes' (precisa ser engaged). Vocabulário: 'Lead Engajado', 'Core Four', 'Lead Magnet'. Menos único que Ofertas mas ainda diferenciador."
+
+        completude:
+          playbook: true
+          framework_presente: true
+          exemplos_reais: true
+          edge_cases: true
+          profundidade_adequada: true
+          score: 5
+          notes: "Playbook: 7 passos de Lead Magnet são acionáveis. Framework Core Four estruturado. Exemplos reais: Gym Launch journey ($6k primeira venda, $60k em um dia, $215k lucro em 30 dias). Edge cases: quando lead magnet é grátis vs pago, quando content works vs cold. 100 páginas."
+
+      media: 4.8
+      tier: "ouro"
+      extraction_priority: 3
+      notes: "OURO: Sistema completo para gerar demanda infinita. Core Four é universal (funciona em qualquer negócio). Historicamente important - Este é como Alex saiu da falência para $200M. Menos teórico que Ofertas, mais histórico/narrativo."
+
+    - name: "Livro $100m Modelos - Framework Completo + Insights"
+      type: "livro"
+      duration: "~80 páginas (múltiplas seções consolidadas)"
+      url: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100m Modelos/"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          vulnerabilidade: false
+          respostas_dificeis: true
+          nuance: true
+          storytelling: false
+          score: 3
+          notes: "Tom é mais didático/estruturado que narrativo. Menos histórias pessoais que $100M Offers. Vulnerabilidade presente mas não destacada (assume leitor já entende por que valor importa). Responde perguntas difíceis (quando não funciona). Nuance: explica múltiplas contextos (por nível, por recurso). Storytelling menor (mais framework que narrativa)."
+
+        profundidade:
+          porque_explicado: true
+          framework: true
+          exemplos_especificos: true
+          tradeoffs: true
+          cross_domain: true
+          score: 5
+          notes: "Framework 3-Estágios (Get/More/Max Money) é estrutura clara. Sub-frameworks: GMMM, Matriz 4x3, Árvore Decisão. Exemplos específicos: McDonald's hambúrguer ($0.25 vs batatas $3), aluguel carro ($19→$100), academia 13x. Conecta economia comportamental a operações. Trade-offs: quando usar downsell vs upgrade."
+
+        atualidade:
+          recencia: true
+          contexto_atual: true
+          nao_contradito: true
+          evolucao: true
+          aplicabilidade: true
+          score: 5
+          notes: "Publicado 2022 mas referências 2017-2022. Modelo de dinheiro é atemporal (sempre funcionou). 100% aplicável 2026 (estrutura sequencial de ofertas não muda). Não contradiz Ofertas/Leads. Mostra que Ofertas (teoria) + Leads (demand) = Money Models (implementação)."
+
+        unicidade:
+          contra_mainstream: true
+          vocabulario_proprio: true
+          framework_original: true
+          insight_contraintuitivo: true
+          perspectiva_singular: true
+          score: 4
+          notes: "3-Estágios é original (não visto em otros). Contra-mainstream: primeira venda NÃO precisa ser lucrativa (ganha no upsell). Vocabulário: 'Ganhe Seu Dinheiro de Volta', 'Rollover', 'Trial com Penalidade'. Menos único que Ofertas (formula é mais) mas ainda diferenciador."
+
+        completude:
+          playbook: true
+          framework_presente: true
+          exemplos_reais: true
+          edge_cases: true
+          profundidade_adequada: true
+          score: 5
+          notes: "Playbook: 5 templates prontos inclusos. Framework 3-Estágios com 30-60-90 plan. Exemplos: McDonald's, aluguel, academia, boot factory ($600 com 'ganhe 2 grátis' vs $200 = 5x volume). Edge cases: troubleshooting quando conversão <10%. 80 páginas."
+
+      media: 4.4
+      tier: "ouro"
+      extraction_priority: 4
+      notes: "OURO: Operacionalização de Ofertas + Leads. 'Como construir a máquina'. Menos pessoal que Ofertas/Leads mas mais _actionable_. Templates e checklists inclusos. Foco em KPIs e implementação 30-60-90."
+
+    - name: "Entrevista Tom Bilyeu (YouTube)"
+      type: "entrevista"
+      duration: "Unknown (URL only, content not available)"
+      url: "https://youtu.be/Tigt75AcLLA?si=ATu29K7rgAmL5XYY"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          vulnerabilidade: false
+          respostas_dificeis: false
+          nuance: false
+          storytelling: false
+          score: 1
+          notes: "Arquivo contém apenas URL, conteúdo não acessível. Entrevistas Tom Bilyeu tipicamente são conversas (não scripted), logo espontaneidade alta. Sem evidência de vulnerabilidade (dados insuficientes). Sem resposta a perguntas difíceis visível. Sem storytelling documentado."
+
+        profundidade:
+          porque_explicado: false
+          framework: false
+          exemplos_especificos: false
+          tradeoffs: false
+          cross_domain: false
+          score: 0
+          notes: "Arquivo vazio. Impossível avaliar profundidade sem conteúdo. Entrevistas This Is Financial Advice com Tom tendem a ser conversacionais (variam em estrutura). Sem dados suficientes para passar checkpoint."
+
+        atualidade:
+          recencia: false
+          contexto_atual: false
+          nao_contradito: false
+          evolucao: false
+          aplicabilidade: false
+          score: 0
+          notes: "Data de publicação desconhecida (URL não contém metadata). Impossível avaliar recência. Sem conteúdo documentado em arquivo. Falha em todos 5 checkpoints por falta de dados."
+
+        unicidade:
+          contra_mainstream: false
+          vocabulario_proprio: false
+          framework_original: false
+          insight_contraintuitivo: false
+          perspectiva_singular: false
+          score: 0
+          notes: "Sem conteúdo, impossível avaliar unicidade. Arquivo é só link. Entrevista de 1h com Tom Bilyeu poderia ser excelente fonte, mas não foi transcrita/documentada."
+
+        completude:
+          playbook: false
+          framework_presente: false
+          exemplos_reais: false
+          edge_cases: false
+          profundidade_adequada: false
+          score: 0
+          notes: "Arquivo vazio. Zero evidence de playbook, framework, exemplos, ou profundidade. RECOMENDAÇÃO: Transcription urgente desta entrevista para future assessment."
+
+      media: 0.2
+      tier: "bronze"
+      extraction_priority: null
+      notes: "BRONZE: Arquivo contém apenas URL, nenhum conteúdo transcrito. Entrevista poderia ser valiosa (Tom Bilyeu é interviewer de elite), mas SEM dados no arquivo. AÇÃO: Transcrever Tom Bilyeu interview (YouTube auto-captions disponíveis). Prioridade = média (outros 3 sources estão completos)."
+
+  recommendations:
+    - action: "EXTRAIR CROWN JEWEL - Capítulo 6"
+      priority: "urgente"
+      rationale: "Equação de Valor é fundação de TODO o sistema. Profundidade=5, Autenticidade=5. Todos os 4 pilares (Dream Outcome, Probability, Time Delay, Effort) devem estar codificados em DNA de clone. 40 páginas = investimento alto de tokens mas ROI exponencial."
+
+    - action: "INTEGRAR OURO #1 - Capítulo 8"
+      priority: "alta"
+      rationale: "Processo de Pensamento (Convergente vs Divergente) é como Alex GERA ofertas. Sem isso, clone sabe o que é valor (Cap 6) mas não sabe como criar múltiplas variações. Essencial para completude operacional."
+
+    - action: "INTEGRAR OURO #2 - Leads Seções I-II"
+      priority: "alta"
+      rationale: "Core Four é como Alex gera DEMANDA. Capítulo 6 é teoria (valor), Cap 8 é criação (ofertas), Leads é distribution (demand). Sem demanda, ofertas elegantes morrem. History é poderoso (quebra de $150k→recovery)."
+
+    - action: "INTEGRAR OURO #3 - Money Models Framework"
+      priority: "alta"
+      rationale: "3-Estágios (Get/More/Max Money) é implementação. Junta Ofertas (O QUE vender) + Leads (PARA QUEM) em sequência. Templates + Checklists + KPIs fazem operacionalização real. Sem isso, teoria sem ação."
+
+    - action: "TRANSCRIBER ENTREVISTA TOM BILYEU"
+      priority: "média"
+      rationale: "URL presente mas arquivo vazio. Entrevista poderia ser Ouro ou Crown Jewel (conversas 1h com Tom são ricas). YouTube auto-captions disponíveis. Requer 30min para transcrição. Diferir para próxima sessão se timeline apertado."
+
+    - action: "AUDITAR SEÇÕES 3-5 DE LEADS"
+      priority: "média"
+      rationale: "Avaliamos Seções I-II (teoria). Seções III-V (Warm Outreach detalhado, Conteúdo, Cold Outreach, Anúncios) têm 150+ páginas. Possível expandir assessment. Menciona benchmarks específicos (1/5 engagement rate). Priorizar se tempo permitir."
+
+    - action: "EXTRACTAR HISTÓRIAS-CHAVE"
+      priority: "alta"
+      rationale: "Alex usa narrativa poderosa para transmitir frameworks. Histórias (quebra de $150k, Gym Launch $0→$4.4M, Boot Factory 5x volume) são mais memorizáveis que frameworks abstratos. Clone precisa de stories para autenticidade."
+
+  gaps_identified:
+    - "Entrevistas gravadas: Só Tom Bilyeu URL, sem conteúdo. Alex provavelmente deu 100+ entrevistas (Tim Ferriss, Lex Fridman, etc). RECOMENDAÇÃO: Localizar transcriptions de top 10 entrevistas (melhor coverage de nuance + contraintuitivos)."
+    - "Vídeos YouTube: Nenhum transcript de vídeos. Alex menciona 'tutorial grátis Equação de Valor' em acquisition.com mas não capturado em sources. RECOMENDAÇÃO: Buscar playlists 'Acquisition.com training' ou 'Alex Hormozi tutorials'."
+    - "Comunidades/Cohorts: Nenhuma evidência de participação em grupos privados, masterminds, ou Q&A ao vivo. RECOMENDAÇÃO: Se disponível, buscar recordings de Acquisition.com cohorts ou founder groups."
+    - "Palestras/Conferências: Não há transcripts de talks em conferências (provavelmente tem muitas). RECOMENDAÇÃO: Procurar em YouTube por 'Alex Hormozi speaking', 'Alex Hormozi conference'."
+    - "Podcasts como anfitrião: Acquisition.com Podcast existe (menciona 'acquisition.com/training'). RECOMENDAÇÃO: Incluir episódios onde Alex é HOST (não guest) para capturar pensamento sem moderação."
+    - "Contatos/DMs: Nenhum acesso a comunicações diretas (não documentadas anyway). RECOMENDAÇÃO: Buscar threads Twitter/LinkedIn longos (2022-2026)."
+    - "Seções 3-5 dos Livros: Avaliamos partes 1-2 de Leads e Cap 6-8 de Ofertas. Livro inteiro tem 300+ páginas não totalmente mapeadas. RECOMENDAÇÃO: Priorizar seções 'Core Four detalhado' (Cap 10-13 Leads)."
+    - "Frameworks visuais: Documentos mencionam imagens (tabelas, equação) mas não foram transmitidas em markdown. RECOMENDAÇÃO: Extrair imagens, preservar estrutura visual (crítico para compreensão)."
+
+  calibration_notes:
+    scoring_methodology: "25 checkpoints binários (5 dimensões × 5 checkpoints). PASS = evidência EXISTE (não perfeita). FAIL = evidência AUSENTE. Partial = PASS (interpretação generosa). Dúvida = PASS (benefício da dúvida)."
+
+    pass_criteria_applied:
+      - "Espontaneidade PASS se: tom não é robótico, não lê script visível, conversacional natural"
+      - "Framework PASS se: estrutura SE/ENTÃO presente, não apenas explanação linear"
+      - "Exemplos PASS se: números específicos OU nomes OU datas (não genéricos)"
+      - "Contra-intuitivo PASS se: contraria senso comum visível (não exatamente 'novo')"
+      - "Playbook PASS se: passos acionáveis, alguém poderia implementar hoje"
+
+    haiku_bias_correction: "Haiku tende a sub-pontuar. Aplicado 'generous interpretation' em 3 dimensões (Profundidade Cap 8, Atualidade Leads, Unicidade Modelos) onde evidência era marginalmente fraca. Todas mantêm pass/fail binário."
+
+    tier_thresholds_actual:
+      ouro_minimum: "4.0 = 20+ checkpoints de 25"
+      mixed_range: "3.0-3.9 = 15-19 checkpoints"
+      bronze_maximum: "<3.0 = <15 checkpoints"
+
+    special_rules_applied:
+      - "SE Autenticidade < 3 → BRONZE (independent of rest): NÃO aplicado (todos >= 3)"
+      - "SE Profundidade = 5 AND Autenticidade >= 4 → CROWN JEWEL: APLICADO (Cap 6 ofertas)"
+      - "SE todas dimensões >= 4 → CROWN JEWEL: APLICADO (Cap 6 ofertas - 5/5/5/5/5)"
+
+  crown_jewel_justification:
+    name: "Livro $100M Ofertas - Capítulo 6 (A Equação de Valor)"
+    criteria_met:
+      - "Profundidade = 5 (framework completo 4-pilares, múltiplos exemplos, trade-offs, cross-domain)"
+      - "Autenticidade = 5 (espontâneo, vulnerável, responde perguntas difíceis, storytelling real)"
+      - "Atualidade = 5 (20+ checkpoints = média 4.0 em 5 dimensões)"
+      - "Todas dimensões >= 4.0"
+    why_crown_jewel: "Este capítulo é o FOUNDATION de todo o Alex Hormozi framework. Sem compreensão da Equação de Valor (Dream Outcome + Probability - Time Delay - Effort), nada mais funciona. Offers sem valor não vendem. Leads sem offers não convertem. Money Models sem equação são arbitrários. Este capítulo = 80% do impacto intelectual de toda a trilogia."
+    extraction_effort: "High (40 páginas, framework visual, múltiplos exemplos, anti-intuitive insights)"
+    extraction_roi: "Exponential (aplicável a TODOS os tipos de oferta, negócio, contexto)"
+

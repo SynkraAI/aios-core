@@ -1,0 +1,371 @@
+# AXIOMA VALIDATOR - Squad-Creator
+# Source artifact: minds/pedro_valerio/artifacts/META_AXIOMAS.md
+# Version: 1.0
+# Last Updated: 2026-02-10
+
+axioma_validator:
+  version: "1.0"
+  source_artifact: "minds/pedro_valerio/artifacts/META_AXIOMAS.md"
+  philosophy: |
+    "A verdade é coerência sistêmica verificada por dados."
+    Axiomas são critérios invisíveis que explicam TUDO.
+    Se não explica, não é axioma. Se não é verificável, não é verdade.
+
+  # ============================================
+  # SCORING CONFIGURATION
+  # ============================================
+  scoring:
+    overall_threshold: 7.0
+    minimum_per_dimension: 6.0
+    truthfulness_threshold: 7.0  # VETO power
+    veto_on_truthfulness_failure: true
+
+    scale:
+      0-3: "CRITICAL - Fundamental issues"
+      4-5: "POOR - Major improvements needed"
+      6-7: "ACCEPTABLE - Minor improvements needed"
+      8-9: "GOOD - Meets standards"
+      10: "EXCELLENT - Exceeds standards"
+
+  # ============================================
+  # 10 DIMENSIONS
+  # ============================================
+  dimensions:
+    # DIMENSION 1: TRUTHFULNESS (VETO POWER)
+    D1_truthfulness:
+      id: "D1"
+      name: "Verdade (Truthfulness)"
+      weight: 1.0
+      threshold: 7.0
+      veto_power: true
+      description: "Truth as systemic coherence verified by data"
+
+      validation_for_squad:
+        - "Todas as citações têm [SOURCE:] verificável?"
+        - "Os frameworks são documentados ou inventados?"
+        - "As inferências estão marcadas como tal?"
+        - "Existe evidência para cada claim?"
+
+      validation_for_agent:
+        - "O agent soa como a pessoa real?"
+        - "As signature phrases são verificáveis?"
+        - "O DNA está baseado em fontes primárias?"
+        - "Nenhum conteúdo fabricado?"
+
+      red_flags:
+        - "Citações sem fonte"
+        - "Frameworks 'inspirados em' sem documentação"
+        - "Afirmações categóricas sem evidência"
+        - "Inferências apresentadas como fatos"
+
+      veto_trigger: "score < 7.0 OR fabricated_content_detected"
+      maps_to_veto: "SC_VC_003"
+
+    # DIMENSION 2: COHERENCE
+    D2_coherence:
+      id: "D2"
+      name: "Coerência (Coherence)"
+      weight: 0.9
+      threshold: 6.0
+      veto_power: false
+      description: "Alignment between structure and behavior"
+
+      validation_for_squad:
+        - "Os agents conversam de forma consistente?"
+        - "Os workflows refletem a estrutura documentada?"
+        - "As tasks seguem o task anatomy?"
+        - "Não há contradições entre components?"
+
+      validation_for_agent:
+        - "Voice DNA é consistente com Thinking DNA?"
+        - "Anti-patterns são respeitados?"
+        - "Comportamento é previsível?"
+        - "10 execuções do mesmo input = mesmo output?"
+
+      red_flags:
+        - "Agent muda de personalidade"
+        - "Workflow permite caminhos conflitantes"
+        - "Tasks com campos inconsistentes"
+
+      maps_to_veto: "SC_VC_005"
+
+    # DIMENSION 3: STRATEGIC ALIGNMENT
+    D3_strategic_alignment:
+      id: "D3"
+      name: "Alinhamento Estratégico (Strategic Alignment)"
+      weight: 0.9
+      threshold: 6.0
+      veto_power: false
+      description: "Connection to squad vision and purpose"
+
+      validation_for_squad:
+        - "O propósito do squad está claro?"
+        - "Todos os agents servem ao propósito?"
+        - "Workflows conectam ao outcome final?"
+        - "Não há components órfãos?"
+
+      validation_for_agent:
+        - "O agent tem papel claro no squad?"
+        - "Capabilities cobrem necessidades?"
+        - "Handoffs estão definidos?"
+
+      red_flags:
+        - "Squad sem propósito claro"
+        - "Agent que não conecta com outros"
+        - "Workflow que não entrega valor"
+
+      maps_to_veto: "SC_VC_002"
+
+    # DIMENSION 4: OPERATIONAL EXCELLENCE
+    D4_operational_excellence:
+      id: "D4"
+      name: "Excelência Operacional (Operational Excellence)"
+      weight: 0.8
+      threshold: 6.0
+      veto_power: false
+      description: "Process quality and efficiency"
+
+      validation_for_squad:
+        - "Workflows têm fluxo unidirecional?"
+        - "Tasks têm os 8 campos obrigatórios?"
+        - "Checkpoints estão definidos?"
+        - "Tempo de execução é razoável?"
+
+      validation_for_agent:
+        - "Greeting funciona corretamente?"
+        - "Comandos executam sem erro?"
+        - "Handoffs triggam no momento certo?"
+
+      red_flags:
+        - "Status que volta no fluxo"
+        - "Task sem owner ou deadline"
+        - "Gap de tempo entre handoffs"
+
+      maps_to_veto: "SC_VC_008, SC_VC_010"
+
+    # DIMENSION 5: INNOVATION CAPACITY
+    D5_innovation_capacity:
+      id: "D5"
+      name: "Capacidade de Inovação (Innovation Capacity)"
+      weight: 0.7
+      threshold: 5.0
+      veto_power: false
+      description: "Ability to create novel solutions"
+
+      validation_for_squad:
+        - "O squad traz algo novo ao domínio?"
+        - "Combina capabilities de forma única?"
+        - "Resolve problemas de forma diferente?"
+
+      validation_for_agent:
+        - "O agent tem perspectiva única?"
+        - "Frameworks são aplicados de forma criativa?"
+        - "Existe 'singularidade humana' preservada?"
+
+      red_flags:
+        - "Cópia de outro squad sem adaptação"
+        - "Agent genérico sem personalidade"
+        - "Zero diferenciação"
+
+    # DIMENSION 6: RISK MANAGEMENT
+    D6_risk_management:
+      id: "D6"
+      name: "Gestão de Riscos (Risk Management)"
+      weight: 0.8
+      threshold: 6.0
+      veto_power: false
+      description: "Identification and mitigation of risks"
+
+      validation_for_squad:
+        - "Veto conditions cobrem riscos críticos?"
+        - "Existe manual escape route?"
+        - "Guardrails estão implementados (5)?"
+        - "Failure modes documentados?"
+
+      validation_for_agent:
+        - "Anti-patterns estão definidos?"
+        - "Immune system (rejeições) existe?"
+        - "Smoke tests cobrem edge cases?"
+
+      red_flags:
+        - "Zero veto conditions"
+        - "Automação sem guardrails"
+        - "Sem tratamento de erros"
+
+      maps_to_veto: "SC_VC_007"
+
+    # DIMENSION 7: RESOURCE OPTIMIZATION
+    D7_resource_optimization:
+      id: "D7"
+      name: "Otimização de Recursos (Resource Optimization)"
+      weight: 0.8
+      threshold: 6.0
+      veto_power: false
+      description: "Efficient use of tokens, time, context"
+
+      validation_for_squad:
+        - "Agents são lazy-loaded?"
+        - "Data files só carregam quando necessário?"
+        - "Context window é respeitado?"
+        - "Duplicação é evitada?"
+
+      validation_for_agent:
+        - "Greeting é conciso?"
+        - "Instructions são mínimas necessárias?"
+        - "Sem dados hard-coded que deveriam ser lazy?"
+
+      red_flags:
+        - "Agent com 50k+ tokens no prompt"
+        - "Carrega todos os data files no startup"
+        - "Duplicação de informação"
+
+    # DIMENSION 8: STAKEHOLDER VALUE
+    D8_stakeholder_value:
+      id: "D8"
+      name: "Valor para Stakeholders (Stakeholder Value)"
+      weight: 0.7
+      threshold: 6.0
+      veto_power: false
+      description: "Value delivered to users"
+
+      validation_for_squad:
+        - "O squad resolve um problema real?"
+        - "O output é acionável?"
+        - "Existe documentação de uso?"
+        - "Onboarding é simples?"
+
+      validation_for_agent:
+        - "User consegue usar sem treinamento?"
+        - "Output é útil e aplicável?"
+        - "Feedback loop existe?"
+
+      red_flags:
+        - "Squad sem caso de uso claro"
+        - "Agent precisa de manual para usar"
+        - "Output não é acionável"
+
+    # DIMENSION 9: SUSTAINABILITY
+    D9_sustainability:
+      id: "D9"
+      name: "Sustentabilidade (Sustainability)"
+      weight: 0.7
+      threshold: 6.0
+      veto_power: false
+      description: "Long-term viability and maintainability"
+
+      validation_for_squad:
+        - "Estrutura é self-contained?"
+        - "Dependências externas mínimas?"
+        - "Documentação atualizada?"
+        - "Versionamento implementado?"
+
+      validation_for_agent:
+        - "DNA é portável (não depende de arquivos externos)?"
+        - "Pode ser atualizado sem reescrever?"
+        - "Backward compatible?"
+
+      red_flags:
+        - "Depende de APIs externas instáveis"
+        - "Zero documentação"
+        - "Mudança quebra tudo"
+
+    # DIMENSION 10: ADAPTABILITY
+    D10_adaptability:
+      id: "D10"
+      name: "Adaptabilidade (Adaptability)"
+      weight: 0.6
+      threshold: 5.0
+      veto_power: false
+      description: "Ability to respond to change"
+
+      validation_for_squad:
+        - "Pode adicionar novos agents facilmente?"
+        - "Workflows são modulares?"
+        - "Configs são externalizados?"
+
+      validation_for_agent:
+        - "Modos de operação são extensíveis?"
+        - "Pode adicionar novos comandos?"
+        - "DNA pode ser refinado incrementalmente?"
+
+      red_flags:
+        - "Estrutura monolítica"
+        - "Hard-coded values"
+        - "Zero extensibilidade"
+
+  # ============================================
+  # ASSESSMENT WORKFLOW
+  # ============================================
+  assessment_workflow:
+    steps:
+      - step: 1
+        name: "Collect Evidence"
+        action: "Gather data for each dimension"
+
+      - step: 2
+        name: "Score Dimensions"
+        action: "Rate 0-10 with evidence"
+
+      - step: 3
+        name: "Check Veto Conditions"
+        action: "Truthfulness < 7.0 = VETO"
+
+      - step: 4
+        name: "Calculate Weighted Average"
+        action: "Sum(score × weight) / Sum(weights)"
+
+      - step: 5
+        name: "Determine Status"
+        action: |
+          IF truthfulness < 7.0 → VETO
+          ELSE IF overall < 7.0 → REVIEW
+          ELSE IF any dimension < 6.0 → REVIEW
+          ELSE → PASS
+
+  # ============================================
+  # OUTPUT TEMPLATE
+  # ============================================
+  output_template:
+    format: |
+      ## Axioma Assessment: {squad_or_agent_name}
+
+      **Date:** {date}
+      **Assessor:** @pedro-valerio
+      **Overall Score:** {overall_score}/10
+      **Status:** {PASS | REVIEW | VETO}
+
+      ### Dimension Scores
+
+      | # | Dimension | Score | Threshold | Status |
+      |---|-----------|-------|-----------|--------|
+      | D1 | Truthfulness | {score} | 7.0 | {status} |
+      | D2 | Coherence | {score} | 6.0 | {status} |
+      | D3 | Strategic Alignment | {score} | 6.0 | {status} |
+      | D4 | Operational Excellence | {score} | 6.0 | {status} |
+      | D5 | Innovation Capacity | {score} | 5.0 | {status} |
+      | D6 | Risk Management | {score} | 6.0 | {status} |
+      | D7 | Resource Optimization | {score} | 6.0 | {status} |
+      | D8 | Stakeholder Value | {score} | 6.0 | {status} |
+      | D9 | Sustainability | {score} | 6.0 | {status} |
+      | D10 | Adaptability | {score} | 5.0 | {status} |
+
+      ### Veto Conditions Triggered
+      {list_or_none}
+
+      ### Recommendations
+      {prioritized_list}
+
+  # ============================================
+  # INTEGRATION
+  # ============================================
+  integration:
+    veto_mapping:
+      D1_truthfulness: "SC_VC_003, SC_VC_009"
+      D2_coherence: "SC_VC_005"
+      D3_strategic_alignment: "SC_VC_002"
+      D4_operational_excellence: "SC_VC_008, SC_VC_010"
+      D6_risk_management: "SC_VC_007"
+
+    quality_gate_reference: "config/quality-gates.yaml"
+    heuristics_reference: "config/heuristics.yaml"
+    veto_reference: "config/veto-conditions.yaml"

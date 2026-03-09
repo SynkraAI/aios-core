@@ -1,7 +1,7 @@
 # KB02 | LINGUAGEM SWIPE FILE
 
-**Version:** v1.2
-**Date:** 2026-02-22
+**Version:** v1.3
+**Date:** 2026-03-09
 **Purpose:** Complete language reference including tone, anti-patterns, paraphonics, voice patterns, and vocabulary swipe file
 
 ---
@@ -794,11 +794,46 @@ alguém que nos veja, de verdade." (universal truth)
 
 ---
 
+## FINGERPRINTS NOVOS (v1.3 — Distill 2026-03-09)
+
+### Dados Quantitativos Reais (medidos em Mentoria Dia 21)
+
+| Fingerprint | Frequência Real | Estimativa v1.2 | Delta |
+|-------------|----------------|-----------------|-------|
+| "Olha só" | 61x/sessão | 30+ | +100% |
+| "Beleza" | 57x/sessão | 50+ | Confirmado |
+| "Sim ou não?" | 50x/sessão | 40+ | Confirmado |
+| "Verdade/100% verdadeiro" | 105x/sessão | N/A | NOVO dado |
+| "Porque" (causalidade) | 150x+/sessão | N/A | NOVO |
+
+### 15 Fingerprints Novos Identificados
+
+| # | Fingerprint | Frequência | Fonte | Contexto de Uso |
+|---|-------------|------------|-------|-----------------|
+| 1 | "Confia no pai que a palestra sai" | 7x+ | Mentoria 21, YT03 | Encorajamento antes de desafio |
+| 2 | "Decidir é mais importante que acreditar" | Alta | YT03 | Confronto com inação |
+| 3 | "A ordem de apresentação dos fatos é mais importante que os próprios fatos" | Alta | YT03 | Ensino de storytelling |
+| 4 | "Sem emoção não há transformação" | Muito Alta | YT03 | Princípio core do método |
+| 5 | "O que é ruim de viver é bom de contar" | Alta | YT03 | Encorajamento para vulnerabilidade |
+| 6 | "Tudo que é previsível não surpreende" | Alta | YT03 | Critica a cronologia em palestra |
+| 7 | "Guarda essa chave aí" | Alta | YT03 | Marcador de insight importante |
+| 8 | "Conteúdo sem alma é só informação" | Alta | YT03 | Diferencial do método |
+| 9 | "Águia voa com águia" | Média | YT03, Mentoria 23 | Seleção de pares/mentorados |
+| 10 | "Porquem" (não porque) | Média | YT-romanni, YT02 | Propósito > justificativa |
+| 11 | "Comigo ninguém perde" | Alta | YT03 | Garantia de entrega |
+| 12 | "Vender é fácil, entregar com paz é o segredo" | Alta | Mentoria 23 | Ética de negócios |
+| 13 | "A melhor palestra é a que você é recontratado" | Alta | Mentoria 23 | Métrica real de sucesso |
+| 14 | "Não escolher já é uma escolha" | Alta | YT-romanni | Confronto com indecisão |
+| 15 | "Sonha grande, não negocia, cola com quem já fez" | Alta | Mentoria 23 | Mantra de crescimento |
+
+---
+
 ## VERSION HISTORY
 
 **v1.0:** Basic tone, anti-patterns list
 **v1.2:** Complete expansion with paraphonics, voice patterns, vocabulary swipe file, sentence structures, contextual shifts
+**v1.3:** Added 15 new fingerprints from distill + quantitative frequency data from Mentoria Dia 21 (61x 'Olha só', 105x 'verdade', 150x+ 'porque')
 
 ---
 
-*KB02 | Renner Silva Clone v1.2 | 2026-02-22*
+*KB02 | Renner Silva Clone v1.3 | 2026-03-09*

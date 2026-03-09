@@ -1,0 +1,69 @@
+# Test Case: an-assess-sources v2.0
+# Target: Alex Hormozi mind
+# Purpose: Validate Binary Checkpoint Conversion for Haiku compatibility
+
+test_case:
+  task: "an-assess-sources"
+  task_version: "2.0.0"
+  test_date: "2026-02-11"
+  workflow_version: "wf-model-tier-qualification v2.0"
+
+target:
+  mind: "alex_hormozi"
+  mind_path: "outputs/minds/alex_hormozi"
+
+# Sources to assess (subset for test - representative sample)
+sources_for_assessment:
+  - name: "Livro $100M Offers"
+    type: "livro"
+    path: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100M Ofertas/"
+    description: "18 capítulos - Framework central de criação de ofertas"
+    estimated_duration: "~200 páginas"
+
+  - name: "Livro $100M Leads"
+    type: "livro"
+    path: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100M Leads/"
+    description: "5 seções - Geração de leads e aquisição"
+    estimated_duration: "~250 páginas"
+
+  - name: "Livro $100M Money Models"
+    type: "livro"
+    path: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100m Modelos/"
+    description: "8 seções - Modelos de negócio e monetização"
+    estimated_duration: "~150 páginas"
+
+  - name: "Entrevista Tom Bilyeu (Impact Theory)"
+    type: "entrevista"
+    path: "outputs/minds/alex_hormozi/sources/interviews/Entrevista Tom Biley.md"
+    description: "Entrevista longa com perguntas profundas"
+    estimated_duration: "~2 horas"
+
+# Qualification criteria
+qualification:
+  veto_conditions:
+    - "MTQ_VC_001: Haiku score differs by >10% from Opus"
+    - "MTQ_VC_004: Different tier classification"
+
+  expected_outcome:
+    with_binary_checkpoints: "High match rate (>95%)"
+    rationale: "25 binary checkpoints should eliminate subjective scoring variance"
+
+# Test execution plan
+execution:
+  phase_1_opus_baseline:
+    model: "opus"
+    output: "opus-baseline.yaml"
+    purpose: "Establish reference scores"
+
+  phase_2_haiku_test:
+    model: "haiku"
+    output: "haiku-output.yaml"
+    purpose: "Test Haiku compatibility with v2.0 binary checkpoints"
+
+  phase_3_comparison:
+    output: "qualification-report.yaml"
+    metrics:
+      - "Per-source tier match"
+      - "Per-dimension score variance"
+      - "Overall classification match"
+      - "Crown Jewel identification match"

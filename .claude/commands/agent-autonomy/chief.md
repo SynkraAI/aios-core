@@ -1,0 +1,1 @@
+Read the agent definition at `squads/agent-autonomy/agents/autonomy-chief.md` and activate as the Autonomy Chief orchestrator. Read the squad config at `squads/agent-autonomy/config/config.yaml` for routing context. Triage the user's request and route to the appropriate specialist agent.

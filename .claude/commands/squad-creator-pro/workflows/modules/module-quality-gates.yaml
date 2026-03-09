@@ -1,0 +1,20 @@
+module:
+  id: module-quality-gates
+  name: Quality Gates Module
+  purpose: Shared final quality gates for any squad pipeline
+
+  phases:
+    - id: quality-workspace-governance
+      task: validate-squad
+      gate: blocking
+      pass_if: "workspace_integration_level_defined and workspace_integration_level_valid and workspace_requirements_met"
+
+    - id: quality-structural
+      task: validate-squad
+      gate: blocking
+      pass_if: "score >= 7.0 and critical_findings == 0"
+
+    - id: quality-final-artifacts
+      task: validate-final-artifacts
+      gate: blocking
+      pass_if: "result == 'PASS'"

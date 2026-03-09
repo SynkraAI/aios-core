@@ -1,0 +1,22 @@
+# Front Centre — Ultra-sober light theme with monospace character
+# Ideal for: developer tools, CLIs, technical docs, open-source
+# Inspired by: Page UI / Front Centre template (Midnight Universe + Gray)
+# Theme: light | Monochromatic with near-black primary
+
+name: Front Centre
+theme: light
+colors:
+  primary: "#4F4646"
+  primary_light: "#636663"
+  accent: "#6B7280"
+  background: "#FFFFFF"
+  card: "#FFFFFF"
+  border: "#E5E7EB"
+  text: "#0A0A0A"
+  text_muted: "#4B5563"
+  white: "#0F0D0D"
+  highlight: "#373231"
+font: "Inter"
+cover:
+  gradient_primary: "rgba(79,70,70,0.05)"
+  gradient_secondary: "rgba(107,114,128,0.03)"

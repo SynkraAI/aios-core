@@ -1,0 +1,105 @@
+# Test Case: an-extract-dna
+# Model Tier Qualification - Wave 3A
+# Similar to: an-assess-sources (formulaic scoring)
+
+test_case:
+  name: "an-extract-dna-standard"
+  version: "1.0"
+  created: "2026-02-11"
+  task_file: "tasks/an-extract-dna.md"
+  wave: "3A"
+  priority: 5
+  similar_to: "an-assess-sources"
+  confidence: "HIGH"
+
+input:
+  # Use existing sources for DNA extraction
+  target: "squads/squad-creator/minds/pedro_valerio"
+  params:
+    focus: "both"  # voice + thinking
+  context_files:
+    - "squads/squad-creator/minds/pedro_valerio/sources/"
+
+expected_output:
+  sections:
+    - source_map
+    - curadoria_score
+    - voice_dna_preview
+    - thinking_dna_preview
+    - quality_assessment
+
+  fields:
+    - name: "curadoria_score"
+      type: "number"
+      range: [0, 10]
+    - name: "sources_processed"
+      type: "number"
+    - name: "ouro_percentage"
+      type: "number"
+      range: [0, 100]
+    - name: "extraction_ready"
+      type: "boolean"
+
+  validations:
+    - "Deve gerar Source Map com score de curadoria"
+    - "Deve classificar fontes como ouro vs bronze"
+    - "Deve validar cobertura mínima para extração"
+    - "Score de curadoria deve ser calculado (não subjetivo)"
+
+baseline:
+  opus_output: "opus-baseline.yaml"
+  opus_score: 10.0
+  opus_tokens:
+    input: 0
+    output: 0
+  opus_latency_ms: 0
+
+evaluation:
+  completeness:
+    required_sections:
+      - "source_map: mapa de fontes com metadata"
+      - "curadoria_score: score calculado"
+      - "quality_assessment: avaliação de prontidão"
+    optional_sections:
+      - "voice_dna_preview: preview do que será extraído"
+      - "thinking_dna_preview: preview do que será extraído"
+
+  accuracy:
+    numeric_tolerance: 0.10
+    enum_exact_match: true
+
+  reasoning:
+    minimum_justifications: 3
+    requires_evidence: true
+
+  format:
+    expected_format: "yaml"
+    parseable: true
+
+  actionability:
+    minimum_recommendations: 1
+    specificity: "high"
+
+compensation_history:
+  attempts: []
+
+results:
+  haiku:
+    score: null
+    percentage: null
+    qualified: null
+    output_file: "haiku-output.yaml"
+
+  opus:
+    score: 10.0
+    percentage: 100
+    qualified: true
+    output_file: "opus-baseline.yaml"
+
+  final_tier: null
+  recommendation: null
+
+wave_3a_notes:
+  rationale: "Hybrid with 'score de curadoria' - formulaic calculation"
+  expected_fixes: "Binary checkpoints for source quality"
+  estimated_effort: "30 min"

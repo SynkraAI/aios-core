@@ -1,0 +1,172 @@
+{
+  "service": "Cademi Course Downloader",
+  "timestamp": "2026-03-03T22:18:20",
+  "is_running": true,
+  "total_courses": 23,
+  "completed_courses": 1,
+  "failed_courses": 0,
+  "current_course": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês.",
+  "current_course_index": 3,
+  "total_lessons": 58,
+  "completed_lessons": 32,
+  "failed_lessons": 1,
+  "skipped_lessons": 13,
+  "percent": 79.3,
+  "current_lesson": "Checklist para verificar a sua promessa",
+  "queue": [
+    {
+      "name": "Agente de IA - Expert em criação de mentorias High Ticket",
+      "status": "skipped"
+    },
+    {
+      "name": "Como Fazer 50 Mil Reais",
+      "status": "skipped"
+    },
+    {
+      "name": "Como criar, estruturar e entregar sua mentoria.",
+      "status": "done"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês.",
+      "status": "active"
+    },
+    {
+      "name": "COMO GRAVAR VÍDEOS QUE CONVERTEM",
+      "status": "pending"
+    },
+    {
+      "name": "FUNIL SESSÃO ESTRATÉGICA",
+      "status": "pending"
+    },
+    {
+      "name": "Funil - STORIES 50K",
+      "status": "pending"
+    },
+    {
+      "name": "Funil - Vendas humanizadas pelo Instagram - Social Selling",
+      "status": "pending"
+    },
+    {
+      "name": "Funil 50k por manychat",
+      "status": "pending"
+    },
+    {
+      "name": "Criando uma página profissional da mentoria",
+      "status": "pending"
+    },
+    {
+      "name": "Funil - Como vender ebook e depois vender mentoria.",
+      "status": "pending"
+    },
+    {
+      "name": "Funil - Método 30D",
+      "status": "pending"
+    },
+    {
+      "name": "Vendas por VSL",
+      "status": "pending"
+    },
+    {
+      "name": "FUNIL - PROJETO 100K",
+      "status": "pending"
+    },
+    {
+      "name": "Como vender e estruturar um time comercial.",
+      "status": "pending"
+    },
+    {
+      "name": "Implementando o CRM",
+      "status": "pending"
+    },
+    {
+      "name": "MENTORIA 50k",
+      "status": "pending"
+    },
+    {
+      "name": "Ebook Mentor 50K",
+      "status": "pending"
+    },
+    {
+      "name": "Palestra Como Faturar de 10 mil a 100 Mil todos os meses com curso ou mentoria.",
+      "status": "pending"
+    },
+    {
+      "name": "Imersão Funil 50K",
+      "status": "pending"
+    },
+    {
+      "name": "Imersão funil 50k em Aulas",
+      "status": "pending"
+    },
+    {
+      "name": "Plano 50k",
+      "status": "pending"
+    },
+    {
+      "name": "Templates para gerar reuniões no Instagram",
+      "status": "pending"
+    }
+  ],
+  "recent_downloads": [
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / Checklist para verificar a sua promessa",
+      "time": "22:18"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / Criando sua oferta milionária",
+      "time": "22:17"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / Exemplos de promessa",
+      "time": "22:16"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / O que precisa ter em uma promessa",
+      "time": "22:16"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / Dados demográficos do seu público",
+      "time": "22:15"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / A importância do persona",
+      "time": "22:15"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / Descubra como definir o público e se comunicar e converter em vendas",
+      "time": "22:14"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / Chegou a hora de criar a sua oferta irresistível",
+      "time": "22:13"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / Serei expert, por onde começo?",
+      "time": "22:13"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / Serei cooprodutor por onde eu começo?",
+      "time": "22:12"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / O que você pode vender na internet?",
+      "time": "22:12"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / Ser Produtor ou Cooprodutor",
+      "time": "22:11"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / Começando do zero",
+      "time": "22:11"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / Comece por aqui",
+      "time": "22:11"
+    },
+    {
+      "name": "Crie a oferta irresistível da sua mentoria em 7 dias para fazer 50 mil reais por mês. / Próximo",
+      "time": "22:10"
+    }
+  ]
+}

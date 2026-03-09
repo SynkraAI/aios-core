@@ -1,0 +1,20 @@
+# Sunset Blaze — Warm gradient with fiery orange and coral
+# Ideal for: creative agencies, startups, marketing
+
+name: Sunset Blaze
+theme: dark
+colors:
+  primary: "#EA580C"
+  primary_light: "#FB923C"
+  accent: "#FACC15"
+  background: "#1A0F0A"
+  card: "#2A1A12"
+  border: "#3D271A"
+  text: "#F5E6D8"
+  text_muted: "#A8876E"
+  white: "#FFF7ED"
+  highlight: "#F97316"
+font: "DM Sans"
+cover:
+  gradient_primary: "rgba(234,88,12,0.25)"
+  gradient_secondary: "rgba(251,146,60,0.10)"

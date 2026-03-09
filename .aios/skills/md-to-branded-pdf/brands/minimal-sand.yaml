@@ -1,0 +1,20 @@
+# Minimal Sand — Ultra-clean light theme with warm neutrals
+# Ideal for: editorial, blog, portfolio, minimalist brands
+
+name: Minimal Sand
+theme: light
+colors:
+  primary: "#78716C"
+  primary_light: "#A8A29E"
+  accent: "#D97706"
+  background: "#FAF9F6"
+  card: "#FFFFFF"
+  border: "#E7E5E4"
+  text: "#44403C"
+  text_muted: "#A8A29E"
+  white: "#1C1917"
+  highlight: "#78716C"
+font: "Libre Baskerville"
+cover:
+  gradient_primary: "rgba(120,113,108,0.06)"
+  gradient_secondary: "rgba(217,119,6,0.04)"

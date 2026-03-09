@@ -1,0 +1,21 @@
+# Horizon Vivid — Vibrant dashboard-inspired
+# Ideal for: dashboards, admin panels, data products, fintech
+# Inspired by: Horizon UI Chakra
+
+name: Horizon Vivid
+theme: dark
+colors:
+  primary: "#7C3AED"
+  primary_light: "#A78BFA"
+  accent: "#06B6D4"
+  background: "#0B0E17"
+  card: "#111827"
+  border: "#1E293B"
+  text: "#E2E8F0"
+  text_muted: "#94A3B8"
+  white: "#F8FAFC"
+  highlight: "#8B5CF6"
+font: "DM Sans"
+cover:
+  gradient_primary: "rgba(124,58,237,0.22)"
+  gradient_secondary: "rgba(6,182,212,0.10)"

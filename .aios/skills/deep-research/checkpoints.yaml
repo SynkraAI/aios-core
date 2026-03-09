@@ -1,0 +1,229 @@
+# Deep Research Pipeline Checkpoints & Veto Conditions
+# Every phase has explicit blocking conditions that HALT the pipeline.
+# Principle: "If executor CAN do it wrong, process IS wrong" - @pedro-valerio
+
+checkpoints:
+
+  # ═══════════════════════════════════════════════════════════════
+  # Phase 0: Auto-Detect Research Type
+  # ═══════════════════════════════════════════════════════════════
+  phase_0_auto_detect:
+    description: "Detect research type and infer context"
+    veto_conditions:
+      - id: V0.1
+        condition: "research_type == 'unknown' AND no keywords matched"
+        blocking: true
+        action: "HALT: Ask user to clarify research intent"
+        error_message: "Cannot determine research type. Please clarify: what kind of research do you need? (market, people, books, strategy, competitive, industry, cultural)"
+
+      - id: V0.2
+        condition: "multiple_types_matched AND score_diff < 0.3"
+        blocking: true
+        action: "HALT: Ask user to disambiguate"
+        error_message: "Query matches multiple research types ({types}). Which focus do you prefer?"
+
+    quality_gate:
+      pass: "research_type detected with confidence >= 0.7"
+      output_format: "{ research_type, confidence, inferred_context }"
+
+  # ═══════════════════════════════════════════════════════════════
+  # Phase 1.5: Query Decomposition
+  # ═══════════════════════════════════════════════════════════════
+  phase_1_5_decompose:
+    description: "Decompose query into 5-7 searchable sub-queries"
+    veto_conditions:
+      - id: V1.1
+        condition: "sub_queries.length < 5"
+        blocking: true
+        action: "HALT: Regenerate decomposition"
+        error_message: "Decomposition produced only {count} sub-queries. Minimum is 5."
+
+      - id: V1.2
+        condition: "sub_queries.length > 7"
+        blocking: false
+        action: "WARN: Trim to top 7 by priority"
+        error_message: "Too many sub-queries ({count}). Trimming to 7."
+
+      - id: V1.3
+        condition: "any sub_query.length < 10 characters"
+        blocking: true
+        action: "HALT: Sub-query too vague"
+        error_message: "Sub-query '{query}' is too short/vague to be searchable."
+
+      - id: V1.4
+        condition: "all sub_queries are in same language AND topic benefits from bilingual"
+        blocking: false
+        action: "WARN: Add queries in other language for broader coverage"
+
+    quality_gate:
+      pass: "5-7 sub-queries, all searchable, bilingual when beneficial"
+      output_format: "JSON with main_topic, research_type, sub_queries, priority_sources"
+
+  # ═══════════════════════════════════════════════════════════════
+  # Phase 2: Generate Research Prompt
+  # ═══════════════════════════════════════════════════════════════
+  phase_2_generate_prompt:
+    description: "Generate structured research prompt from template"
+    veto_conditions:
+      - id: V2.1
+        condition: "prompt contains '{{' (unfilled template variables)"
+        blocking: true
+        action: "HALT: Fill all template variables before proceeding"
+        error_message: "Prompt contains unfilled variables: {variables}. Cannot proceed."
+
+      - id: V2.2
+        condition: "prompt.length < 200 tokens"
+        blocking: true
+        action: "HALT: Prompt too short, likely malformed"
+        error_message: "Generated prompt is only {length} tokens. Expected >= 200."
+
+      - id: V2.3
+        condition: "TOPIC is empty or RESEARCH_TYPE is empty"
+        blocking: true
+        action: "HALT: Critical fields missing"
+        error_message: "TOPIC or RESEARCH_TYPE not set. Cannot generate prompt."
+
+    quality_gate:
+      pass: "All variables filled, prompt >= 200 tokens, type-specific scope included"
+      output_format: "Filled prompt markdown"
+
+  # ═══════════════════════════════════════════════════════════════
+  # Phase 3: Dispatch Subagents (Search)
+  # ═══════════════════════════════════════════════════════════════
+  phase_3_dispatch:
+    description: "Execute parallel search via Haiku subagents"
+    veto_conditions:
+      - id: V3.1
+        condition: "successful_subagents < 3 AND total_sources < 5"
+        blocking: true
+        action: "HALT: Insufficient search results"
+        error_message: "Only {count} subagents returned results with {sources} total sources. Minimum: 3 subagents OR 5 sources."
+
+      - id: V3.2
+        condition: "all_subagents_failed"
+        blocking: true
+        action: "HALT: Complete search failure"
+        error_message: "All search subagents failed. Check tool availability (Exa, WebSearch, ETL)."
+
+      - id: V3.3
+        condition: "coverage_after_wave_1 < 20"
+        blocking: true
+        action: "HALT: Topic may be unsearchable"
+        error_message: "Coverage after wave 1 is only {score}%. Topic may be too niche or query too vague. Consider rephrasing."
+
+    quality_gate:
+      pass: ">= 3 successful subagents OR >= 5 total sources"
+      output_format: "Array of source objects with URL, content, credibility score"
+
+  # ═══════════════════════════════════════════════════════════════
+  # Phase 3.5: Evaluate Coverage (per wave)
+  # ═══════════════════════════════════════════════════════════════
+  phase_3_5_evaluate:
+    description: "Evaluate coverage and decide CONTINUE/STOP"
+    veto_conditions:
+      - id: V3.5.1
+        condition: "coverage_delta < 3 between last 2 waves (plateau)"
+        blocking: false
+        action: "FORCE STOP: Plateau detected, continuing won't help"
+        override_continue: true
+
+      - id: V3.5.2
+        condition: "average_source_quality < 0.6 after wave 2"
+        blocking: false
+        action: "WARN: Sources are low quality. Flag in final report."
+
+      - id: V3.5.3
+        condition: "pipeline_elapsed_time > 600 seconds"
+        blocking: true
+        action: "FORCE STOP: Timeout reached"
+        error_message: "Pipeline exceeded 10-minute timeout. Synthesizing with available data."
+
+    quality_gate:
+      pass: "Coverage evaluation complete with CONTINUE/STOP decision"
+      output_format: "JSON with coverage_score, dimension_scores, gaps, decision"
+
+  # ═══════════════════════════════════════════════════════════════
+  # Phase 4: Synthesis — NEW QUALITY GATE
+  # ═══════════════════════════════════════════════════════════════
+  phase_4_synthesis:
+    description: "Synthesize all wave summaries into coherent report"
+    veto_conditions:
+      - id: V4.1
+        condition: "synthesis_output.length < 500 tokens"
+        blocking: true
+        action: "HALT: Synthesis too short, likely incomplete"
+        error_message: "Synthesis produced only {length} tokens. Expected >= 500."
+
+      - id: V4.2
+        condition: "sources_referenced_in_synthesis < 3"
+        blocking: true
+        action: "HALT: Report references too few sources"
+        error_message: "Synthesis references only {count} sources. Minimum: 3."
+
+      - id: V4.3
+        condition: "any report section is empty (Fundamentals, Evidence, Perspectives, Applications)"
+        blocking: true
+        action: "HALT: Report has empty sections"
+        error_message: "Section '{section}' is empty. Fill all mandatory sections."
+
+      - id: V4.4
+        condition: "report does not include executive summary"
+        blocking: false
+        action: "WARN: Add executive summary for completeness"
+
+    quality_gate:
+      pass: "Synthesis >= 500 tokens, >= 3 sources referenced, no empty mandatory sections"
+      output_format: "Structured markdown report"
+
+  # ═══════════════════════════════════════════════════════════════
+  # Phase 4.5: Verify Citations
+  # ═══════════════════════════════════════════════════════════════
+  phase_4_5_verify:
+    description: "Verify all claims against collected sources"
+    veto_conditions:
+      - id: V4.5.1
+        condition: "integrity_score < 60"
+        blocking: true
+        action: "HALT: Too many unsourced/misattributed claims"
+        error_message: "Citation integrity is {score}%. Must be >= 60%. Fix or remove {count} unsourced claims."
+
+      - id: V4.5.2
+        condition: "integrity_score >= 60 AND integrity_score < 70"
+        blocking: false
+        action: "WARN: Flag report as 'REVIEW REQUIRED'"
+        flag: "LOW INTEGRITY - REVIEW REQUIRED"
+
+      - id: V4.5.3
+        condition: "misattributed_claims > 0"
+        blocking: false
+        action: "WARN: Fix misattributed claims before documenting"
+
+    quality_gate:
+      pass: "integrity_score >= 60 (BLOCK below), >= 70 (no flag), >= 80 (high quality)"
+      output_format: "YAML verification summary"
+
+  # ═══════════════════════════════════════════════════════════════
+  # Phase 5: Document
+  # ═══════════════════════════════════════════════════════════════
+  phase_5_document:
+    description: "Generate final output files"
+    veto_conditions:
+      - id: V5.1
+        condition: "output directory already exists AND force != true"
+        blocking: true
+        action: "HALT: Output directory exists"
+        error_message: "Directory {path} already exists. Use --force to overwrite or choose different slug."
+
+    quality_gate:
+      pass: "All 4 files generated (README, query, prompt, report, recommendations)"
+      output_format: "docs/research/{date}-{slug}/ with 4+ files"
+
+# ═══════════════════════════════════════════════════════════════
+# GLOBAL SAFEGUARDS
+# ═══════════════════════════════════════════════════════════════
+global:
+  max_pipeline_duration_seconds: 600  # 10 minutes absolute timeout
+  max_total_tokens: 100000            # Cost protection
+  max_waves: 3                        # Never exceed (even if config says more)
+  min_sources_for_report: 3           # Cannot generate report with fewer
+  plateau_threshold: 3                # coverage_delta below this = plateau

@@ -1,0 +1,23 @@
+# Example brand config — copy and customize for your project
+# Usage: cp example.yaml my-brand.yaml → edit → node convert.mjs input.md --brand=my-brand
+
+name: My Brand
+theme: dark
+colors:
+  primary: "#6C3CE1"
+  primary_light: "#8B5CF6"
+  accent: "#06D6A0"
+  background: "#0F0F1A"
+  card: "#1A1A2E"
+  border: "#2A2A3E"
+  text: "#E0E0F0"
+  text_muted: "#9999B8"
+  white: "#FFFFFF"
+  highlight: "#6C3CE1"
+logos:
+  main: "https://example.com/logo.svg"
+  partner: ""  # optional — co-branding logo
+font: "Inter"
+cover:
+  gradient_primary: "rgba(108,60,225,0.25)"
+  gradient_secondary: "rgba(139,92,246,0.1)"

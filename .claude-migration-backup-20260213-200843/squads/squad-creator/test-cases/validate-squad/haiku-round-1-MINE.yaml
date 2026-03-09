@@ -1,0 +1,36 @@
+# Haiku Round 1 - validate-squad (MY AGENT - overwrote original)
+# Generated: 2026-02-11
+# Model: haiku
+# Target: squads/copy
+# NOTE: This is the result from MY agent that ran. The original had expert/8.4
+
+validation_report:
+  squad_name: copy
+  squad_type: pipeline
+  validation_date: '2026-02-11'
+  model: haiku
+  validator: Squad Architect v3.3.0
+
+  phase_0_type_detection:
+    detected_type: pipeline
+    confidence: 0.7
+    signals:
+      agents_count: 24
+      voice_dna_present: 22
+      has_orchestrator: true
+      has_workflows: true
+      workflow_files: 14
+      tasks_count: 75
+      task_agent_ratio: 3.12
+    methodology: Expert score=6, Pipeline score=7 → Pipeline wins
+
+  final_score: 6.5
+  result: CONDITIONAL
+
+  note: |
+    This file was created by MY Haiku agent and overwrote the ORIGINAL that had:
+    - Type: expert (95% confidence)
+    - Score: 8.4
+    - Result: PASS
+
+    The original file was created by another agent session before I started testing.

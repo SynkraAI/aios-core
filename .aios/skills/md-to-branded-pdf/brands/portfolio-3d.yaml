@@ -1,0 +1,21 @@
+# Portfolio 3D — Dark creative/immersive
+# Ideal for: creative portfolios, agency showcases, art direction, events
+# Inspired by: 3D Portfolio, AnimateIcons
+
+name: Portfolio 3D
+theme: dark
+colors:
+  primary: "#06B6D4"
+  primary_light: "#22D3EE"
+  accent: "#F472B6"
+  background: "#030712"
+  card: "#111827"
+  border: "#1F2937"
+  text: "#D1D5DB"
+  text_muted: "#6B7280"
+  white: "#F9FAFB"
+  highlight: "#A855F7"
+font: "Space Grotesk"
+cover:
+  gradient_primary: "rgba(6,182,212,0.20)"
+  gradient_secondary: "rgba(244,114,182,0.12)"

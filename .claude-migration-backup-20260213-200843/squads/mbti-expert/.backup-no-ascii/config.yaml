@@ -1,0 +1,77 @@
+
+name: mbti-expert
+version: "1.0.0"
+slashPrefix: mbti
+title: "MBTI Expert - Personality Type Specialist"
+description: >-
+  Agente especialista completo em MBTI / 16 Personalidades.
+  Domina o modelo 16Personalities (Big Five), teoria Junguiana classica
+  (funcoes cognitivas), 4 temperamentos (Keirsey), e aplicacoes praticas
+  em relacionamentos, carreira, parentalidade, educacao e desenvolvimento pessoal.
+  Base de conhecimento: 16 perfis premium completos, Apostila GD (5 modulos),
+  perfis Cogni-MGR em portugues, e tese academica sobre MBTI.
+author: "Luiz Fosc"
+icon: "🧠"
+type: specialist
+
+independence: true
+independence_details: |
+  Este squad e completamente auto-contido:
+  - Nao requer banco de dados
+  - Nao requer APIs externas
+  - Todo conhecimento esta nos arquivos data/
+  - Funciona offline
+
+agents:
+  - mbti-expert
+
+tasks:
+  # Core Analysis
+  - identify-type
+  - type-profile
+  - compare-types
+  # Relationships
+  - compatibility-analysis
+  - relationship-dynamics
+  # Career & Development
+  - career-guidance
+  - personal-growth
+  # Parenting & Education
+  - parenting-guide
+  - academic-path
+  # Team & Organization
+  - team-dynamics
+  - leadership-style
+  # Deep Analysis
+  - cognitive-functions
+  - temperament-analysis
+  # Utilities
+  - type-summary
+  - polarities-explainer
+
+templates:
+  - type-report-tmpl
+  - compatibility-report-tmpl
+  - team-analysis-tmpl
+  - career-report-tmpl
+
+checklists:
+  - type-identification-checklist
+
+workflows:
+  - full-type-analysis
+  - team-composition
+
+tags:
+  - mbti
+  - personality
+  - psychology
+  - 16personalities
+  - jung
+  - cognitive-functions
+  - temperaments
+  - career
+  - relationships
+  - personal-development
+  - independent
+  - shareable

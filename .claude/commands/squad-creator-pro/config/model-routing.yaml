@@ -1,0 +1,693 @@
+# ============================================================================
+# Squad Creator Model Routing Configuration
+# ============================================================================
+# Self-contained config for task-to-model routing.
+# Squad Chief consults this before executing tasks to optimize token costs.
+#
+# PHILOSOPHY: "Use the cheapest model that maintains quality"
+# - Haiku: Deterministic tasks (validation, scoring, admin)
+# - Sonnet: Moderate analysis (documentation, templates)
+# - Opus: Complex reasoning (DNA extraction, agent creation)
+#
+# Based on empirical analysis: docs/enhance/squad_creator_token_economy/
+# Expected savings: 60-70% of token consumption (validated)
+# ============================================================================
+
+version: "2.4.0"
+updated: "2026-02-13"
+
+# ============================================================================
+# ROUTING TIERS
+# ============================================================================
+
+tiers:
+  haiku:
+    description: "Fast, cheap. For deterministic tasks with clear patterns."
+    model_id: "haiku"  # Maps to Task tool model parameter
+    cost_per_mtok:
+      input: 1.00
+      output: 5.00
+    best_for:
+      - "Checklist validation"
+      - "Formula-based scoring"
+      - "File operations"
+      - "Registry updates"
+      - "Pattern matching"
+
+  sonnet:
+    description: "Balanced. For moderate analysis and generation."
+    model_id: "sonnet"
+    cost_per_mtok:
+      input: 3.00
+      output: 15.00
+    best_for:
+      - "Documentation generation"
+      - "Template creation"
+      - "Source collection"
+      - "Workflow design"
+
+  opus:
+    description: "Most capable. For complex reasoning and synthesis."
+    model_id: "opus"
+    cost_per_mtok:
+      input: 5.00
+      output: 25.00
+    best_for:
+      - "DNA extraction"
+      - "Agent creation"
+      - "Deep research"
+      - "Creative synthesis"
+      - "Multi-source analysis"
+
+# ============================================================================
+# EXTERNAL PROVIDERS (v2.0 - Cross-Provider Support)
+# ============================================================================
+# External models via OpenRouter that can substitute Opus for cost savings.
+# These require LLM Router or direct API calls (not Task tool).
+
+external_providers:
+  glm5:
+    display_name: "GLM-5"
+    provider: "openrouter"
+    model_id: "z-ai/glm-5"
+    cost_per_mtok:
+      input: 0.80
+      output: 3.20
+    context_window: 200000
+    qualified_date: "2026-02-13"
+    validation_report: "test-cases/cross-provider/extract-voice-dna/glm5/qualification-report.yaml"
+    quality_vs_opus: "85-98% (task/runner dependent)"
+    latency_vs_opus: "25x faster"
+    savings_vs_opus: "97.7%"
+    pt_br_quality: "9/10"
+    privacy_risk: "moderate"  # Singapore entity, China parent
+    best_for:
+      - "Voice DNA extraction (production-ready with v1.4.0 task + v2.0 runner)"
+      - "Batch processing"
+      - "All DNA extraction tasks"
+    not_for:
+      - "Tasks using runner v1 (quality drops to 85%)"
+    notes: |
+      Empirically tested 2026-02-12, quality upgraded 2026-02-13.
+      Record-low hallucination rate.
+      MIT license enables self-hosting.
+      CRITICAL: Quality depends on runner passing FULL task content.
+      Runner v2.0 required for 95%+ quality.
+
+  kimi:
+    display_name: "Kimi K2.5"
+    provider: "openrouter"
+    model_id: "moonshotai/kimi-k2.5"
+    cost_per_mtok:
+      input: 0.50
+      output: 2.80
+    context_window: 256000
+    qualified_date: null  # Not yet tested
+    validation_report: "infrastructure/services/llm-router/docs/model-discovery/scans/2026-02-08/validation-kimi-k2-5.md"
+    verdict: "MONITOR"
+    privacy_risk: "high"  # China, trains on prompts
+    latency_warning: "HIGH (15-200s per request)"
+    notes: |
+      Validation report exists but not empirically tested on squad-creator tasks.
+      Agent Swarm capability may excel on research tasks.
+      High latency is a concern.
+
+# ============================================================================
+# TASK ROUTING MAP
+# ============================================================================
+# Format: task_file -> tier
+# Squad Chief looks up task here before spawning agent
+# ============================================================================
+
+tasks:
+  # --------------------------------------------------------------------------
+  # HAIKU TIER - Immediate candidates (validated)
+  # --------------------------------------------------------------------------
+  # These tasks are deterministic and can safely use Haiku
+
+  ## Validation Tasks
+  qa-after-creation.md:
+    tier: haiku
+    confidence: high
+    reason: "Checklist validation, gatekeeper task (pass/fail)"
+    validated: true
+    test_date: "2026-02-11"
+    test_result: "QUALIFIED (Opus 8.32 APPROVED, Haiku 9.9 APPROVED - same decision)"
+    caveat: "Haiku score inflation +19%, but pass/fail matches"
+
+  validate-squad.md:
+    tier: haiku  # QUALIFIED after re-test with expert_override fix
+    confidence: high
+    reason: "91% voice_dna signal triggers expert override"
+    validated: true
+    test_date: "2026-02-11"
+    test_result: "HAIKU QUALIFIED (expert_override 91% dominant signal)"
+    fix_applied: "Already had dominant signals in v2.0"
+
+  validate-extraction.md:
+    tier: haiku
+    confidence: high
+    reason: "7-item checklist validation, threshold checking"
+    validated: false
+
+  ## Scoring Tasks
+  pv-axioma-assessment.md:
+    tier: haiku
+    confidence: high
+    reason: "12-dimension scoring with scoring calibration"
+    validated: true
+    test_date: "2026-02-11"
+    test_result: "QUALIFIED (Opus 7.85, Haiku 7.77 = 95.5% quality)"
+    note: "Added Scoring Calibration section in v1.1.0"
+
+  pv-modernization-score.md:
+    tier: script  # UPGRADED - 100% deterministic scoring
+    confidence: high
+    reason: "Binary pass/fail checkpoints, no interpretation needed"
+    validated: true
+    test_date: "2026-02-11"
+    test_result: "SCRIPT QUALIFIED (100% deterministic, 0 tokens)"
+    note: "Converted to script-first architecture"
+
+  an-fidelity-score.md:
+    tier: script  # UPGRADED from haiku - can be 100% deterministic
+    confidence: high
+    reason: "8-layer × 5 binary checkpoints - fully scriptable"
+    validated: true
+    test_date: "2026-02-11"
+    test_result: "SCRIPT ELIGIBLE (0 tokens, <1s, 100% deterministic)"
+    script_path: "scripts/fidelity-score.sh"
+    note: "95% of task can be bash script. LLM only for gap recommendations."
+
+  an-clone-review.md:
+    tier: haiku  # QUALIFIED v2.2.0 after scope fix
+    confidence: high
+    reason: "SCOPE DEFINITION added - explicit wrapper + delegated scope"
+    validated: true
+    test_date: "2026-02-11"
+    test_result: "HAIKU QUALIFIED v2.2.0 (Trinity 93.3% SOLID - same as Opus)"
+    fix_applied: "v2.2.0 SCOPE DEFINITION: Review wrapper AND referenced persona files"
+    script_path: "scripts/clone-review.sh"
+    note: "Script handles 90% deterministic checks. Scope fix enabled Haiku for final verdict."
+
+  an-diagnose-clone.md:
+    tier: opus  # CONFIRMED after formal test
+    confidence: high
+    reason: "Requires accurate file content analysis - Haiku simulates instead of reads"
+    validated: true
+    test_date: "2026-02-11"
+    test_result: "OPUS REQUIRED (Haiku 30% vs Opus 85% - wrong file analysis)"
+    fix_attempted: "v2.0.0 with CHECKPOINT CLARIFICATIONS"
+    fix_result: "FAILED - Haiku simulated grep counts incorrectly"
+    note: "Task value is in nuanced LLM analysis, not scriptable"
+
+  an-validate-clone.md:
+    tier: haiku  # QUALIFIED v2.2.0 after strict rules fix
+    confidence: high
+    reason: "CHECKPOINT CLARIFICATIONS added - strict rules, no inference"
+    validated: true
+    test_date: "2026-02-11"
+    test_result: "HAIKU QUALIFIED v2.2.0 (90% AUTH with strict rules)"
+    fix_applied: "v2.2.0 CHECKPOINT CLARIFICATIONS: Explicit SE/ENTÃO, no inference allowed"
+    note: "Strict scoring rules eliminated Haiku generous bias."
+
+  an-assess-sources.md:
+    tier: haiku  # CHANGED back to haiku after v2.2.1 iterative refinement
+    confidence: high
+    reason: "Binary Checkpoints + Scope Definition + No Override Rule = 100% tier match"
+    validated: true
+    test_date: "2026-02-11"
+    test_result: "HAIKU QUALIFIED v2.2.1 (Opus 3 CJ, Haiku 3 CJ - 100% tier match)"
+    iterations_to_qualify: 3
+    fixes_applied:
+      - "v2.0: Binary Checkpoints (25% match)"
+      - "v2.1: Scope Definition (75% match)"
+      - "v2.2.1: No Override Rule (100% match)"
+    note: "Demonstrates iterative task refinement pattern for Haiku qualification."
+
+  ## Admin Tasks
+  refresh-registry.md:
+    tier: haiku
+    confidence: high
+    reason: "Script-based extraction, LLM just formats output"
+
+  squad-analytics.md:
+    tier: haiku
+    confidence: high
+    reason: "Count files, compute metrics - deterministic"
+
+  migrate-workflows-to-yaml.md:
+    tier: haiku
+    confidence: high
+    reason: "Format conversion with clear rules"
+
+  install-commands.md:
+    tier: haiku
+    confidence: high
+    reason: "Script execution, deterministic file operations"
+
+  sync-ide-command.md:
+    tier: haiku
+    confidence: high
+    reason: "File sync operation, no reasoning needed"
+
+  # --------------------------------------------------------------------------
+  # SONNET TIER - Test candidates (moderate confidence)
+  # --------------------------------------------------------------------------
+  # These tasks might work with Haiku but need validation
+
+  ## Documentation Tasks
+  create-documentation.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Template-based but needs some coherence"
+    test_with_haiku: true
+
+  create-template.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Structure design with moderate creativity"
+    test_with_haiku: true
+
+  ## Source Tasks
+  collect-sources.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Web search + validation, some judgment needed"
+    test_with_haiku: true
+
+  auto-acquire-sources.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Tool orchestration, content extraction"
+    test_with_haiku: true
+
+  ## Workflow/Task Creation
+  create-workflow.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Multi-phase design, needs logical coherence"
+
+  create-task.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Task Anatomy compliance, some complexity"
+
+  create-pipeline.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Pipeline design with dependencies"
+
+  ## Analysis Tasks
+  pv-audit.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Process audit requires some reasoning"
+
+  find-0.8.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Pareto analysis needs judgment"
+
+  deconstruct.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Structural analysis, moderate depth"
+
+  optimize.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Q1-Q6 decision tree evaluation"
+
+  update-mind.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Brownfield updates need context awareness"
+
+  upgrade-squad.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Squad upgrade analysis"
+
+  squad-fusion.md:
+    tier: sonnet
+    confidence: medium
+    reason: "Merge logic, moderate complexity"
+
+  next-squad.md:
+    tier: sonnet
+    confidence: high
+    reason: "Registry analysis + multi-dimensional scoring + synthesis. Structured data in, ranked recommendation out."
+
+  # --------------------------------------------------------------------------
+  # OPUS TIER - Keep on Opus (non-negotiable)
+  # --------------------------------------------------------------------------
+  # These tasks require deep reasoning and cannot be downgraded
+
+  ## DNA Extraction (Core Value)
+  extract-voice-dna.md:
+    tier: opus
+    confidence: high
+    reason: "Multi-layer pattern recognition, nuance detection"
+    downgrade_risk: "Quality degradation in voice capture"
+
+  extract-thinking-dna.md:
+    tier: opus
+    confidence: high
+    reason: "Framework synthesis, decision architecture mapping"
+    downgrade_risk: "Missing mental models and heuristics"
+
+  extract-knowledge.md:
+    tier: opus
+    confidence: high
+    reason: "Anti-invention gates need sophisticated reasoning"
+    downgrade_risk: "Hallucinated frameworks"
+
+  extract-sop.md:
+    tier: opus
+    confidence: high
+    reason: "Process extraction from unstructured sources"
+    downgrade_risk: "Incomplete procedures"
+
+  extract-implicit.md:
+    tier: opus
+    confidence: high
+    reason: "Inference of unstated knowledge"
+    downgrade_risk: "Missing implicit patterns"
+
+  ## Agent Creation
+  create-agent.md:
+    tier: opus
+    confidence: high
+    reason: "Creative persona synthesis with voice consistency"
+    downgrade_risk: "Generic agent without depth"
+
+  an-design-clone.md:
+    tier: opus
+    confidence: high
+    reason: "Clone architecture requires holistic design"
+    downgrade_risk: "Incomplete clone structure"
+
+  an-extract-dna.md:
+    tier: opus
+    confidence: high
+    reason: "Specialized DNA extraction"
+    downgrade_risk: "Missing DNA layers"
+
+  an-extract-framework.md:
+    tier: opus
+    confidence: high
+    reason: "Framework identification from sources"
+    downgrade_risk: "Shallow framework extraction"
+
+  ## Research Tasks
+  deep-research-pre-agent.md:
+    tier: opus
+    confidence: high
+    reason: "Web research synthesis, source triangulation"
+    downgrade_risk: "Superficial research"
+
+  discover-tools.md:
+    tier: opus
+    confidence: high
+    reason: "Multi-source tool discovery, scoring"
+    downgrade_risk: "Missing relevant tools"
+
+  ## Squad Creation
+  create-squad.md:
+    tier: opus
+    confidence: high
+    reason: "Full squad orchestration, multi-phase"
+    downgrade_risk: "Incomplete squad structure"
+
+# ============================================================================
+# FALLBACK CONFIGURATION
+# ============================================================================
+# If a model fails, try the next tier up
+
+fallback:
+  haiku:
+    on_failure: sonnet
+    on_quality_below: 0.85
+
+  sonnet:
+    on_failure: opus
+    on_quality_below: 0.80
+
+# ============================================================================
+# USAGE BY SQUAD CHIEF
+# ============================================================================
+#
+# Before executing a task, Squad Chief should:
+#
+# 1. Look up task in this config:
+#    task_config = model_routing.tasks[task_name]
+#
+# 2. Get the tier:
+#    tier = task_config.tier  # haiku, sonnet, or opus
+#
+# 3. Spawn agent with model:
+#    Task(
+#      subagent_type: "appropriate-agent",
+#      model: tier,  # "haiku", "sonnet", or "opus"
+#      prompt: "..."
+#    )
+#
+# 4. If quality check fails, use fallback:
+#    if quality < fallback[tier].on_quality_below:
+#        retry with fallback[tier].on_failure
+#
+# ============================================================================
+
+# ============================================================================
+# METRICS TRACKING
+# ============================================================================
+# Track these metrics to validate routing decisions
+
+metrics:
+  track:
+    - task_name
+    - model_used
+    - tokens_in
+    - tokens_out
+    - latency_ms
+    - quality_score  # If available
+    - fallback_triggered
+
+  report_location: "outputs/metrics/model-routing-{date}.yaml"
+
+# ============================================================================
+# EXTERNAL ALTERNATIVES (Opus Tasks with Qualified External Options)
+# ============================================================================
+# Tasks that can use external models as cost-effective alternatives to Opus.
+# Squad Chief can route to these when cost optimization is prioritized.
+
+external_alternatives:
+  extract-voice-dna.md:
+    primary_tier: opus
+    external_option:
+      model: glm5
+      qualified: true
+      quality_vs_opus: "95-98%"  # UPGRADED 2026-02-13 after task v1.4.0 + runner v2.0
+      savings: "97.7%"
+      pt_br_qualified: true
+      tested_date: "2026-02-13"
+      runner_version: "v2.0"  # Requires runner v2.0 (full task content)
+      task_version: "v1.4.0"  # Requires task v1.4.0 (explicit quality requirements)
+      use_when:
+        - "Batch processing multiple minds"
+        - "Cost-sensitive workflows"
+        - "Production clones (with v1.4.0 task)"
+      avoid_when:
+        - "Runner v1 still in use"
+    evidence: "test-cases/cross-provider/extract-voice-dna/glm5/"
+    notes: |
+      Quality improved from 85% to 95-98% after:
+      1. Task v1.4.0: Added explicit source requirements, example_usage, example_wrong/correct
+      2. Runner v2.0: Passes FULL task content (including QUALITY CHECK section)
+      Key insight: Model follows instructions when they actually reach the prompt.
+
+  extract-knowledge.md:
+    primary_tier: opus
+    external_option:
+      model: glm5
+      qualified: true
+      quality_vs_opus: "95%"
+      savings: "96.8%"
+      tested_date: "2026-02-12"
+      use_when:
+        - "Zero-invention extraction"
+        - "Batch processing sources"
+        - "Cost-sensitive workflows"
+      avoid_when:
+        - "Gap analysis required"
+        - "Verbose examples needed"
+    evidence: "test-cases/cross-provider/extract-knowledge/glm5/"
+    notes: "GLM-5 CONFIRMA record-low hallucination claim. Zero invented content."
+
+  extract-thinking-dna.md:
+    primary_tier: opus
+    external_option:
+      model: glm5
+      qualified: true
+      quality_vs_opus: "100%"
+      savings: "99%"
+      tested_date: "2026-02-12"
+      use_when:
+        - "Framework extraction"
+        - "Heuristic mapping"
+        - "Decision pattern extraction"
+        - "Batch processing minds"
+      avoid_when:
+        - "Need attention_triggers detail"
+    evidence: "outputs/llm-tests/extract-thinking-dna/glm5/"
+    notes: "GLM-5 matched Opus exactly. 19s vs 66s latency. $0.007 vs $0.50 cost."
+
+  # Candidates for future testing
+
+  deep-research-pre-agent.md:
+    primary_tier: opus
+    external_option:
+      model: glm5
+      qualified: true
+      quality_vs_opus: "95%"
+      savings: "97.8%"
+      tested_date: "2026-02-13"
+      use_when:
+        - "Research prompt generation"
+        - "7-component meta-framework"
+        - "Cost-sensitive research pipelines"
+      avoid_when:
+        - "Need GOLD/SILVER/BRONZE confidence naming"
+    evidence: "outputs/llm-tests/deep-research-pre-agent/glm5/"
+    notes: "GLM-5 produced identical 7-component structure. 45.5s latency. $0.0098 cost."
+
+  create-agent.md:
+    primary_tier: opus
+    external_option:
+      model: glm5
+      qualified: true
+      quality_vs_opus: "98%"
+      savings: "99.1%"
+      tested_date: "2026-02-13"
+      runner_version: "v2.0"
+      use_when:
+        - "Agent creation from pre-extracted DNA"
+        - "Batch agent generation"
+        - "Production agents"
+      avoid_when:
+        - "Runner v1 still in use"
+    evidence: "outputs/llm-tests/create-agent/glm5/"
+    notes: |
+      GLM-5 QUALIFIED after runner v2.0 (full task content).
+      Output: 718 lines, all sections complete.
+      Key improvements: 6 heuristics (was 3), 4 objection algorithms,
+      SCOPE with boundary_conditions, veto_conditions, handoff_triggers.
+      $0.02 vs ~$2.50 Opus = 99.1% savings.
+
+# ============================================================================
+# CHANGELOG
+# ============================================================================
+
+changelog:
+  - version: "2.4.0"
+    date: "2026-02-13"
+    changes:
+      - "GLM-5 QUALIFIED for create-agent (98% quality, 99.1% savings)"
+      - "Output: 718 lines with ALL sections complete"
+      - "Key wins: 6 heuristics, 4 objection algorithms, SCOPE with veto conditions"
+      - "$0.02 vs ~$2.50 Opus"
+      - "5 tasks now qualified: extract-voice-dna, extract-knowledge, extract-thinking-dna, deep-research-pre-agent, create-agent"
+
+  - version: "2.3.0"
+    date: "2026-02-13"
+    changes:
+      - "QUALITY IMPROVEMENT: extract-voice-dna GLM-5 quality upgraded 85% → 95-98%"
+      - "Task v1.4.0: Added explicit quality requirements (source:, example_usage:, example_wrong/correct)"
+      - "Runner v2.0: Now passes FULL task content (was passing only ~10% of task)"
+      - "Key insight: QUALITY CHECK section was never reaching the model - fixed"
+      - "Trade-off: +$0.01 cost, +174s latency for +10-13% quality"
+      - "GLM-5 now production-ready for voice DNA extraction"
+
+  - version: "2.2.0"
+    date: "2026-02-13"
+    changes:
+      - "GLM-5 QUALIFIED for deep-research-pre-agent (95% quality, 97.8% savings)"
+      - "GLM-5 produced identical 7-component meta-framework structure"
+      - "45.5s latency, $0.0098 cost"
+      - "4 tasks now qualified: extract-voice-dna, extract-knowledge, extract-thinking-dna, deep-research-pre-agent"
+
+  - version: "2.1.0"
+    date: "2026-02-12"
+    changes:
+      - "GLM-5 QUALIFIED for extract-thinking-dna (100% quality, 99% savings)"
+      - "GLM-5 matched Opus exactly on all categories"
+      - "19s latency vs 66s Opus (3.5x faster)"
+      - "$0.007 cost vs ~$0.50 Opus"
+      - "3 tasks now qualified: extract-voice-dna, extract-knowledge, extract-thinking-dna"
+
+  - version: "2.0.0"
+    date: "2026-02-12"
+    changes:
+      - "MAJOR: Added external_providers section (GLM-5, Kimi K2.5)"
+      - "MAJOR: Added external_alternatives for Opus tasks with cheaper options"
+      - "GLM-5 QUALIFIED for extract-voice-dna (85% quality, 97.7% savings)"
+      - "GLM-5 tested: 1.9s latency (25x faster than Opus)"
+      - "GLM-5 PT-BR quality: 9/10 (QUALIFIED)"
+      - "Created wf-cross-provider-qualification.yaml workflow"
+      - "Created validation-glm-5.md report"
+      - "4 tasks marked as candidates for GLM-5 testing"
+
+  - version: "1.3.0"
+    date: "2026-02-11"
+    changes:
+      - "FORMAL TEST: an-diagnose-clone tested Opus vs Haiku"
+      - "an-diagnose-clone: OPUS REQUIRED (Haiku 30% vs Opus 85%)"
+      - "Fix v2.0.0 attempted with CHECKPOINT CLARIFICATIONS - FAILED"
+      - "Root cause: Haiku simulates file reads instead of accurate analysis"
+      - "Decision: Keep Opus - LLM analysis value > script automation"
+      - "Final stats: 12/14 Haiku/Script (86%), 1/14 Opus (7%), 1/14 deprecated"
+
+  - version: "1.2.0"
+    date: "2026-02-11"
+    changes:
+      - "SYNC WITH BATCH-PROGRESS: 4 tasks re-qualified after fixes"
+      - "validate-squad: HAIKU QUALIFIED (expert_override 91% dominant signal)"
+      - "pv-modernization-score: SCRIPT QUALIFIED (100% deterministic)"
+      - "an-clone-review: HAIKU QUALIFIED v2.2.0 (SCOPE DEFINITION fix)"
+      - "an-validate-clone: HAIKU QUALIFIED v2.2.0 (CHECKPOINT CLARIFICATIONS fix)"
+      - "Total qualified: 12/14 (86%) - matches BATCH-PROGRESS.md"
+      - "Estimated savings: 60-70% token cost reduction"
+
+  - version: "1.1.0"
+    date: "2026-02-11"
+    changes:
+      - "EMPIRICAL VALIDATION: 4 tasks tested with Opus vs Haiku"
+      - "pv-axioma-assessment: HAIKU QUALIFIED (95.5% quality)"
+      - "qa-after-creation: HAIKU QUALIFIED (same pass/fail decision)"
+      - "pv-modernization-score: MOVED TO OPUS (wrong judgment)"
+      - "validate-squad: MOVED TO OPUS (wrong type detection)"
+      - "an-fidelity-score: Task updated to v2.0 Haiku-compatible (pending validation)"
+      - "New haiku count: 13 validated candidates"
+      - "New opus count: 14 (includes 2 moved from haiku)"
+
+  - version: "1.0.2"
+    date: "2026-02-11"
+    changes:
+      - "Corrected task counts: 15 haiku + 14 sonnet + 12 opus = 41 total"
+
+  - version: "1.0.1"
+    date: "2026-02-11"
+    changes:
+      - "Added install-commands.md (haiku)"
+      - "Added sync-ide-command.md (haiku)"
+      - "Total haiku tasks: 15 (was 13)"
+
+  - version: "1.0.0"
+    date: "2026-02-11"
+    changes:
+      - "Initial release based on enhance-workflow discovery"
+      - "13 tasks classified as Haiku-eligible"
+      - "14 tasks classified as Sonnet (test candidates)"
+      - "12 tasks must stay on Opus"
+      - "Expected savings: 25-40%"

@@ -1,0 +1,15 @@
+{
+  "name": "md-to-branded-pdf",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Converts Markdown files to branded PDFs with custom visual identity",
+  "main": "convert.mjs",
+  "scripts": {
+    "convert": "node convert.mjs"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "marked": "^15.0.0",
+    "puppeteer": "^24.0.0"
+  }
+}

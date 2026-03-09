@@ -1,0 +1,1684 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW: SQUAD FUSION v2.0 (Dragon Ball Style)
+# ═══════════════════════════════════════════════════════════════════════════════
+# Fusão de múltiplos squads similares em um único squad otimizado
+# Baseado em padrões de: Git Merge, Database Migration, ETL, M&A, Microservices
+#
+# PRINCÍPIOS FUNDAMENTAIS:
+# 1. IDEMPOTENCY: Rodar 2x = mesmo resultado (sem duplicatas)
+# 2. PROVENANCE: Todo componente rastreável à origem
+# 3. ROLLBACK: Cada fase reversível
+# 4. QUALITY GATES: Validação entre cada fase
+# 5. INCREMENTAL: Nunca Big Bang
+#
+# MODOS:
+# - YOLO: Execução automática com decisões padrão (60-75% qualidade)
+# - QUALITY: Checkpoints humanos em cada fase (85-95% qualidade)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow:
+  id: wf-squad-fusion
+  name: "Squad Fusion Workflow"
+  version: "2.2.0"
+  author: "Squad Architect"
+  icon: "🐉"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # EXECUTOR DISTRIBUTION (após análise com *optimize)
+  # ═══════════════════════════════════════════════════════════════════════════════
+  executor_summary:
+    total_steps: 56
+    distribution:
+      Worker: { count: 44, percent: 79, description: "Determinístico, bash/template" }
+      Agent: { count: 5, percent: 9, description: "Requer LLM para decisão semântica" }
+      Hybrid: { count: 6, percent: 11, description: "Worker + Agent validation" }
+      Human: { count: 1, percent: 1, description: "Aprovação para ações irreversíveis" }
+
+    agent_decision_points:
+      - id: semantic_match_detection
+        reason: "Comparar função real de agents com nomes diferentes"
+      - id: quality_comparison
+        reason: "Avaliar qualidade além de métricas quantitativas"
+      - id: create_golden_records
+        reason: "Decidir versão canônica entre variantes"
+      - id: define_tiers
+        reason: "Organizar agents por função/propósito"
+      - id: define_routing_rules
+        reason: "Mapear especialidades para cenários de uso"
+      - id: create_orchestrator_if_needed
+        reason: "Criar orchestrator com conhecimento dos agents"
+
+  patterns_applied:
+    - "Three-Way Merge (Git)"
+    - "Expand-Contract (Database)"
+    - "ETL Quality Gates"
+    - "Strangler Fig (Microservices)"
+    - "Due Diligence (M&A)"
+    - "Entity Resolution (Deduplication)"
+    - "CDC Event Logging"
+
+  description: |
+    Workflow para fusão de múltiplos squads em um único squad consolidado.
+    Segue o princípio "Dragon Ball Fusion" - combina o melhor de cada fonte.
+
+    GARANTIAS:
+    - Zero perda de componentes (auditado)
+    - Zero duplicatas não-intencionais
+    - 100% rastreabilidade (provenance)
+    - Rollback possível até Phase 6
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+config:
+  modes:
+    yolo:
+      description: "Execução automática, decisões padrão"
+      human_checkpoints: false
+      default_decisions:
+        duplicate_resolution: "keep_highest_quality"
+        scope_filtering: "strict"
+        naming: "auto"
+        cleanup_sources: false  # YOLO nunca deleta fontes
+
+    quality:
+      description: "Checkpoints humanos, decisões validadas"
+      human_checkpoints: true
+      requires_approval:
+        - phase_1_discovery
+        - phase_2_deduplication
+        - phase_3_scope
+        - phase_5_validation
+
+  # Diretórios padrão
+  paths:
+    workspace: "/tmp/fusion-{target_name}-{timestamp}"
+    backup: "backups/squads/pre-fusion-{timestamp}"
+    audit_log: "{workspace}/fusion-audit.yaml"
+
+  # Limiares de qualidade
+  quality_thresholds:
+    min_agent_lines: 300
+    min_task_lines: 100
+    similarity_threshold: 0.85  # Para fuzzy matching
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# UNIVERSAL ANTI-PATTERNS (NUNCA FAZER)
+# ═══════════════════════════════════════════════════════════════════════════════
+anti_patterns:
+  critical:
+    - id: AP_001
+      name: "Big Bang Migration"
+      description: "Tentar fundir tudo de uma vez"
+      risk: "Falha total, impossível debugar"
+      mitigation: "Fases incrementais com validação"
+
+    - id: AP_002
+      name: "Silent Data Loss"
+      description: "Componentes desaparecem sem log"
+      risk: "Funcionalidade perdida descoberta tarde"
+      mitigation: "Audit log de cada operação"
+
+    - id: AP_003
+      name: "Force Override"
+      description: "Resolver conflitos sem análise"
+      risk: "Perda de contexto e funcionalidade"
+      mitigation: "Documentar rationale de cada decisão"
+
+    - id: AP_004
+      name: "No Rollback Plan"
+      description: "Sem backup ou checkpoint"
+      risk: "Preso com erros"
+      mitigation: "Snapshot antes de cada fase destrutiva"
+
+    - id: AP_005
+      name: "Assumption Over Count"
+      description: "Assumir contagens ao invés de executar comandos"
+      risk: "Inventário errado → fusão errada"
+      mitigation: "SEMPRE executar comandos de contagem"
+
+    - id: AP_006
+      name: "Orphaned References"
+      description: "Links quebrados após fusão"
+      risk: "Erros em runtime"
+      mitigation: "Validar todas referências pós-merge"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 0: INITIALIZATION
+# ═══════════════════════════════════════════════════════════════════════════════
+phases:
+  - id: phase_0_init
+    name: "Initialization"
+    description: "Setup workspace e validação inicial"
+    pattern: "Pre-flight checks"
+    rollback: "Trivial - nada modificado ainda"
+
+    inputs:
+      required:
+        - name: source_squads
+          type: "list[string]"
+          description: "Lista de squads a serem fusionados"
+          validation: "Cada squad deve existir em squads/"
+          example: '["media-buy", "media-squad", "meta-ads"]'
+
+        - name: target_name
+          type: "string"
+          description: "Nome do squad resultante (snake_case)"
+          validation: "^[a-z0-9]+(-[a-z0-9]+)*$"
+          example: "traffic-masters"
+
+        - name: target_domain
+          type: "string"
+          description: "Domínio principal"
+          example: "paid_traffic"
+
+      optional:
+        - name: mode
+          type: "enum[yolo, quality]"
+          default: "quality"
+
+        - name: exclude_patterns
+          type: "list[string]"
+          description: "Patterns de agents a excluir"
+          example: '["brand-*", "pr-*", "*-organic"]'
+
+    steps:
+      - id: validate_inputs
+        action: "Validar todos os inputs"
+        checks:
+          - "target_name não existe em squads/"
+          - "source_squads tem pelo menos 2 itens"
+          - "Nenhum squad fonte é igual ao target"
+
+      - id: validate_sources
+        action: "Verificar existência de cada squad fonte"
+        command_template: |
+          for squad in {source_squads}:
+            if not exists("squads/{squad}"):
+              ABORT("Squad não existe: {squad}")
+            if not exists("squads/{squad}/agents") and not exists("squads/{squad}/skills"):
+              WARN("Squad sem agents nem skills: {squad}")
+
+      - id: create_workspace
+        action: "Criar workspace isolado"
+        commands:
+          - "mkdir -p {workspace}/agents"
+          - "mkdir -p {workspace}/tasks"
+          - "mkdir -p {workspace}/skills"
+          - "mkdir -p {workspace}/data"
+          - "mkdir -p {workspace}/templates"
+          - "mkdir -p {workspace}/checklists"
+          - "mkdir -p {workspace}/workflows"
+          - "mkdir -p {workspace}/_audit"
+          - "mkdir -p {workspace}/_conflicts"
+
+      - id: init_audit_log
+        action: "Inicializar log de auditoria"
+        creates: "{workspace}/fusion-audit.yaml"
+        template: |
+          # Fusion Audit Log
+          # Gerado automaticamente - NÃO EDITAR MANUALMENTE
+
+          fusion:
+            id: "{fusion_id}"
+            started_at: "{timestamp}"
+            mode: "{mode}"
+            target: "{target_name}"
+            sources: {source_squads}
+
+          events: []
+
+      - id: create_backup
+        action: "Backup dos squads fonte (pattern: snapshot before)"
+        command_template: |
+          mkdir -p {backup_path}
+          for squad in {source_squads}:
+            tar -czf {backup_path}/{squad}.tar.gz squads/{squad}
+        rationale: "Permite rollback completo até o final"
+
+    output:
+      workspace_path: "string"
+      backup_path: "string"
+      fusion_id: "string"
+      audit_log_path: "string"
+
+    quality_gate:
+      name: "Init Gate"
+      checks:
+        - "Workspace criado com todas subpastas"
+        - "Backup de todos squads fonte existe"
+        - "Audit log inicializado"
+      veto_on: "Qualquer check falhar"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: DISCOVERY (Due Diligence - M&A Pattern)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: phase_1_discovery
+    name: "Discovery (Due Diligence)"
+    description: "Inventário COMPLETO de todos os assets"
+    pattern: "M&A Due Diligence + Schema Discovery"
+    rollback: "Trivial - apenas leitura"
+
+    critical_rule: |
+      🚨 REGRA ABSOLUTA: EXECUTAR COMANDOS, NUNCA ASSUMIR
+
+      A IA DEVE executar CADA comando listado abaixo.
+      NÃO é permitido:
+      - Estimar baseado em um squad
+      - Pular squads "similares"
+      - Arredondar números
+      - Usar contagens de sessões anteriores
+
+      CADA número deve vir de um comando executado NESTA sessão.
+
+    steps:
+      - id: inventory_agents
+        action: "Contar e listar agents de CADA squad"
+        executor: Worker
+        command_per_squad: |
+          echo "=== {squad} AGENTS ===" && \
+          find squads/{squad}/agents -name '*.md' 2>/dev/null | wc -l && \
+          find squads/{squad}/agents -name '*.md' -exec basename {} .md \; 2>/dev/null | sort
+        store_as: "inventory.{squad}.agents"
+
+      - id: inventory_tasks
+        action: "Contar tasks (MÚLTIPLOS LOCAIS)"
+        executor: Worker
+        rationale: "Tasks podem estar em /tasks, /skills/tasks, ou outros locais"
+        command_per_squad: |
+          echo "=== {squad} TASKS ===" && \
+          find squads/{squad} -path '*/tasks/*.md' -type f 2>/dev/null | wc -l && \
+          find squads/{squad} -path '*/tasks/*.md' -type f -exec basename {} .md \; 2>/dev/null | sort
+        store_as: "inventory.{squad}.tasks"
+
+      - id: inventory_skills
+        action: "Contar skills (estrutura especial)"
+        executor: Worker
+        rationale: "Skills usam SKILL.md dentro de subpastas"
+        command_per_squad: |
+          echo "=== {squad} SKILLS ===" && \
+          find squads/{squad} -name 'SKILL.md' -type f 2>/dev/null | wc -l && \
+          find squads/{squad} -name 'SKILL.md' -type f 2>/dev/null | xargs -I {} dirname {} | xargs -I {} basename {}
+        store_as: "inventory.{squad}.skills"
+
+      - id: inventory_data
+        action: "Contar data/knowledge files"
+        executor: Worker
+        command_per_squad: |
+          echo "=== {squad} DATA ===" && \
+          count_data=$(find squads/{squad}/data -name '*.md' -type f 2>/dev/null | wc -l) && \
+          count_knowledge=$(find squads/{squad}/knowledge -name '*.md' -type f 2>/dev/null | wc -l) && \
+          echo "Data: $count_data, Knowledge: $count_knowledge, Total: $((count_data + count_knowledge))"
+        store_as: "inventory.{squad}.data"
+
+      - id: inventory_other
+        action: "Contar templates, checklists, workflows"
+        executor: Worker
+        command_per_squad: |
+          echo "=== {squad} OTHER ===" && \
+          echo "Templates: $(find squads/{squad} -path '*/templates/*.md' -type f 2>/dev/null | wc -l)" && \
+          echo "Checklists: $(find squads/{squad} -path '*/checklists/*.md' -type f 2>/dev/null | wc -l)" && \
+          echo "Workflows: $(find squads/{squad} -path '*/workflows/*.yaml' -o -path '*/workflows/*.md' -type f 2>/dev/null | wc -l)"
+        store_as: "inventory.{squad}.other"
+
+      - id: inventory_quality
+        action: "Medir qualidade dos agents (linhas de código)"
+        executor: Worker
+        rationale: "Linhas = proxy para completude"
+        command_per_squad: |
+          echo "=== {squad} QUALITY ===" && \
+          wc -l squads/{squad}/agents/*.md 2>/dev/null | sort -n
+        store_as: "inventory.{squad}.quality"
+
+      - id: build_inventory_table
+        action: "Construir tabela consolidada"
+        executor: Worker
+        template: |
+          ## 📊 INVENTÁRIO COMPLETO (Discovery)
+
+          | Squad | Agents | Tasks | Skills | Data | Templates | Checklists | Workflows |
+          |-------|--------|-------|--------|------|-----------|------------|-----------|
+          {{#each squads}}
+          | {{name}} | {{agents}} | {{tasks}} | {{skills}} | {{data}} | {{templates}} | {{checklists}} | {{workflows}} |
+          {{/each}}
+          | **TOTAL** | **{{sum.agents}}** | **{{sum.tasks}}** | **{{sum.skills}}** | **{{sum.data}}** | **{{sum.templates}}** | **{{sum.checklists}}** | **{{sum.workflows}}** |
+
+          ### Validação de Soma
+          - Soma calculada: {{sum.agents}} agents
+          - Soma por comando: `{{sum_command_result}}`
+          - Match: {{match_status}}
+
+      - id: cross_reference_map
+        action: "Mapear referências cruzadas entre componentes"
+        executor: Worker
+        rationale: "Pattern: Foreign Key Reconciliation"
+        command: |
+          # Encontrar referências a outros agents/tasks nos arquivos
+          for squad in {source_squads}:
+            grep -r "handoff_to\|depends_on\|uses\|calls" squads/{squad} --include="*.md" --include="*.yaml"
+        store_as: "cross_references"
+
+      - id: log_discovery
+        action: "Registrar no audit log"
+        executor: Worker
+        audit_event:
+          type: "discovery_complete"
+          data: "inventory"
+          timestamp: "{now}"
+
+    checkpoint:
+      type: "human_review"
+      condition: "mode == 'quality'"
+      prompt: |
+        ## Discovery Complete
+
+        {{inventory_table}}
+
+        ### Validação
+        - [ ] Todas as contagens estão corretas?
+        - [ ] Algum squad parece incompleto?
+        - [ ] Cross-references mapeadas?
+
+        Aprovar para continuar?
+      options:
+        - "Aprovar"
+        - "Refazer contagem de squad específico"
+        - "Abortar fusão"
+
+    quality_gate:
+      name: "Discovery Gate"
+      checks:
+        - "Todos squads têm pelo menos 1 agent OU 1 skill"
+        - "Soma manual = soma automática"
+        - "Nenhum squad com 0 assets"
+      veto_on: "Discrepância de contagem > 0"
+
+    output:
+      inventory: "InventoryTable"
+      total_assets: "AssetCounts"
+      cross_references: "list[Reference]"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 2: DEDUPLICATION (Entity Resolution Pattern)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: phase_2_deduplication
+    name: "Deduplication (Entity Resolution)"
+    description: "Identificar e resolver duplicatas"
+    pattern: "Entity Resolution + Fuzzy Matching + Golden Record"
+    rollback: "Trivial - apenas análise"
+
+    steps:
+      - id: exact_match_detection
+        action: "Detectar duplicatas por nome exato"
+        executor: Worker
+        algorithm: |
+          1. Criar set de todos os nomes de agents/tasks
+          2. Identificar nomes que aparecem em múltiplos squads
+          3. Para cada duplicata:
+             a. Comparar conteúdo (hash)
+             b. Se hash igual → duplicata exata
+             c. Se hash diferente → variantes
+        command: |
+          # Listar todos agents de todos squads
+          for squad in {source_squads}:
+            find squads/{squad}/agents -name '*.md' -exec basename {} .md \;
+          # Encontrar duplicados
+          | sort | uniq -d
+
+      - id: semantic_match_detection
+        action: "Detectar duplicatas semânticas (mesma função, nomes diferentes)"
+        executor: Agent
+        rationale: |
+          Pattern: Fuzzy Matching
+          Mapa estático de sinônimos é INSUFICIENTE.
+          LLM precisa ler descrições e comparar função real.
+        semantic_groups:
+          - group: "analyst"
+            patterns: ["ads-analyst", "performance-analyst", "analyst", "metrics-analyst"]
+          - group: "scaler"
+            patterns: ["scale-optimizer", "scaling-specialist", "scaler", "growth-optimizer"]
+          - group: "auditor"
+            patterns: ["fiscal", "compliance-auditor", "auditor", "validator"]
+          - group: "creative"
+            patterns: ["creative-analyst", "creative-strategist", "creative-director", "creative-generator"]
+          - group: "traffic"
+            patterns: ["traffic-manager", "traffic-head", "media-buyer", "ads-manager"]
+
+      - id: quality_comparison
+        action: "Comparar qualidade das variantes"
+        executor: Agent
+        rationale: |
+          Linhas != Qualidade. LLM precisa ler AMBOS os agents e avaliar:
+          - Profundidade do voice_dna
+          - Qualidade dos output_examples
+          - Frameworks documentados
+          - Anti-patterns definidos
+        metrics:
+          - name: "lines"
+            description: "Linhas de código (mais = mais completo)"
+            weight: 0.4
+          - name: "voice_dna"
+            description: "Presença de voice_dna section"
+            weight: 0.2
+          - name: "output_examples"
+            description: "Número de output_examples"
+            weight: 0.2
+          - name: "frameworks"
+            description: "Frameworks documentados"
+            weight: 0.1
+          - name: "recency"
+            description: "Data de última modificação"
+            weight: 0.1
+        command_per_duplicate: |
+          # Para cada par de duplicatas
+          echo "=== Comparando {agent_a} vs {agent_b} ===" && \
+          echo "Linhas A: $(wc -l < squads/{squad_a}/agents/{agent_a}.md)" && \
+          echo "Linhas B: $(wc -l < squads/{squad_b}/agents/{agent_b}.md)" && \
+          echo "voice_dna A: $(grep -c 'voice_dna' squads/{squad_a}/agents/{agent_a}.md)" && \
+          echo "voice_dna B: $(grep -c 'voice_dna' squads/{squad_b}/agents/{agent_b}.md)"
+
+      - id: create_golden_records
+        action: "Criar registros dourados (versão canônica)"
+        executor: Hybrid
+        rationale: |
+          Pattern: Golden Record Creation
+          - YOLO mode: Agent decide baseado em heurísticas
+          - QUALITY mode: Agent recomenda, Human aprova
+        rules:
+          yolo_mode:
+            - "Escolher agent com mais linhas"
+            - "Em empate, escolher mais recente"
+          quality_mode:
+            - "Apresentar comparação ao humano"
+            - "Humano escolhe ou pede merge manual"
+
+      - id: build_dedup_table
+        action: "Construir tabela de deduplicação"
+        executor: Worker
+        template: |
+          ## 🔴 DUPLICATAS DETECTADAS
+
+          ### Duplicatas Exatas (mesmo nome)
+          | Agent | Squad A | Squad B | Linhas A | Linhas B | 🏆 Vencedor | Rationale |
+          |-------|---------|---------|----------|----------|-------------|-----------|
+          {{#each exact_duplicates}}
+          | {{name}} | {{squad_a}} | {{squad_b}} | {{lines_a}} | {{lines_b}} | **{{winner}}** | {{rationale}} |
+          {{/each}}
+
+          ### Duplicatas Semânticas (função similar)
+          | Função | Agent A (Squad) | Agent B (Squad) | Score A | Score B | 🏆 Vencedor |
+          |--------|-----------------|-----------------|---------|---------|-------------|
+          {{#each semantic_duplicates}}
+          | {{function}} | {{agent_a}} ({{squad_a}}) | {{agent_b}} ({{squad_b}}) | {{score_a}} | {{score_b}} | **{{winner}}** |
+          {{/each}}
+
+          ### Decisões de Merge
+          Total duplicatas: {{total_duplicates}}
+          - Resolvidas automaticamente: {{auto_resolved}}
+          - Requerem revisão humana: {{needs_review}}
+
+      - id: log_deduplication
+        action: "Registrar decisões no audit log"
+        executor: Worker
+        audit_event:
+          type: "deduplication_complete"
+          decisions: "dedup_decisions"
+          timestamp: "{now}"
+
+    checkpoint:
+      type: "human_review"
+      condition: "mode == 'quality'"
+      prompt: |
+        ## Deduplication Results
+
+        {{dedup_table}}
+
+        ### Revisão Necessária
+        {{#each needs_review}}
+        - {{agent_a}} vs {{agent_b}}: Qual manter?
+        {{/each}}
+
+        Aprovar resoluções?
+      options:
+        - "Aprovar todas"
+        - "Revisar caso a caso"
+        - "Abortar fusão"
+
+    quality_gate:
+      name: "Deduplication Gate"
+      checks:
+        - "Todas duplicatas têm decisão"
+        - "Nenhum conflito não-resolvido"
+        - "Winners existem no disco"
+      veto_on: "Duplicata sem resolução"
+
+    output:
+      duplicates_found: "number"
+      duplicates_resolved: "list[DedupDecision]"
+      agents_to_keep: "list[{agent, source_squad}]"
+      agents_to_exclude: "list[{agent, reason}]"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3: SCOPE FILTERING
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: phase_3_scope
+    name: "Scope Filtering"
+    description: "Filtrar componentes fora do domínio target"
+    pattern: "Domain-Driven Filtering"
+    rollback: "Trivial - apenas classificação"
+
+    steps:
+      - id: define_domain_keywords
+        action: "Definir keywords do domínio target"
+        executor: Worker
+        example:
+          domain: "paid_traffic"
+          include_keywords:
+            primary: ["ads", "traffic", "campaign", "pixel", "tracking", "attribution"]
+            secondary: ["creative", "copy", "scaling", "optimization", "roas", "cpa", "ctr"]
+            platforms: ["meta", "google", "youtube", "tiktok", "linkedin"]
+          exclude_keywords:
+            explicit: ["brand", "pr", "organic", "seo", "content-marketing"]
+            ambiguous: ["social", "web-design", "email"]  # Requer análise
+
+      - id: classify_agents
+        action: "Classificar cada agent como IN_SCOPE ou OUT_OF_SCOPE"
+        executor: Hybrid
+        rationale: |
+          - Score >= 2 ou < 0: Worker decide (determinístico)
+          - Score 0-2: Agent analisa conteúdo e decide
+        algorithm: |
+          Para cada agent não-excluído por deduplicação:
+            1. Extrair nome e primeiro parágrafo
+            2. Calcular score de relevância:
+               - +2 por cada primary keyword
+               - +1 por cada secondary keyword
+               - -2 por cada exclude keyword
+            3. Se score >= 2: IN_SCOPE
+               Se score < 0: OUT_OF_SCOPE
+               Se 0 <= score < 2: NEEDS_REVIEW
+        command_per_agent: |
+          echo "=== Classificando {agent} ===" && \
+          head -50 squads/{squad}/agents/{agent}.md | \
+          grep -iE "ads|traffic|campaign|pixel|scaling|roas|meta|google" | wc -l
+
+      - id: classify_tasks
+        action: "Classificar tasks pelo mesmo critério"
+        executor: Hybrid
+        note: "Tasks geralmente são mais específicas, menos ambiguidade"
+
+      - id: build_scope_table
+        action: "Construir tabela de classificação"
+        executor: Worker
+        template: |
+          ## 🎯 CLASSIFICAÇÃO DE ESCOPO
+
+          ### ✅ IN_SCOPE ({{in_scope_count}} componentes)
+          {{#each in_scope}}
+          - **{{name}}** ({{squad}}) - Score: {{score}} - {{keywords_matched}}
+          {{/each}}
+
+          ### ❌ OUT_OF_SCOPE ({{out_scope_count}} componentes)
+          {{#each out_of_scope}}
+          - ~~{{name}}~~ ({{squad}}) - Motivo: {{reason}}
+          {{/each}}
+
+          ### ⚠️ NEEDS_REVIEW ({{review_count}} componentes)
+          {{#each needs_review}}
+          - **{{name}}** ({{squad}}) - Score: {{score}} - Ambíguo: {{ambiguity_reason}}
+          {{/each}}
+
+      - id: log_scope
+        action: "Registrar no audit log"
+        executor: Worker
+        audit_event:
+          type: "scope_filtering_complete"
+          in_scope: "in_scope_count"
+          out_of_scope: "out_scope_count"
+          timestamp: "{now}"
+
+    checkpoint:
+      type: "human_review"
+      condition: "mode == 'quality'"
+      prompt: |
+        ## Scope Classification
+
+        {{scope_table}}
+
+        ### Decisões pendentes
+        {{#each needs_review}}
+        - {{name}}: Incluir ou excluir?
+        {{/each}}
+
+        Opções:
+        1. Aprovar como está
+        2. Incluir todos ambíguos
+        3. Excluir todos ambíguos
+        4. Decidir caso a caso
+      options:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+
+    quality_gate:
+      name: "Scope Gate"
+      checks:
+        - "Pelo menos 5 agents IN_SCOPE"
+        - "Nenhum componente sem classificação"
+        - "Exclusões têm rationale"
+      veto_on: "Menos de 5 agents no escopo"
+
+    output:
+      final_components:
+        agents: "list[{name, source}]"
+        tasks: "list[{name, source}]"
+        skills: "list[{name, source}]"
+        data: "list[{name, source}]"
+      excluded_components: "list[{name, reason}]"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 4: COLLECTION (ETL Extract + Transform)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: phase_4_collection
+    name: "Collection (ETL Extract)"
+    description: "Copiar componentes selecionados para workspace"
+    pattern: "ETL Extract + Idempotency + Exactly-Once"
+    rollback: "Deletar workspace e recomeçar"
+
+    critical_rule: |
+      🚨 IDEMPOTENCY: Rodar esta fase 2x deve dar o mesmo resultado
+
+      Cada cópia deve:
+      1. Verificar se já existe no destino
+      2. Se existe E é idêntico → skip
+      3. Se existe E é diferente → CONFLICT (mover para _conflicts/)
+      4. Se não existe → copiar
+
+    steps:
+      - id: collect_agents
+        action: "Copiar agents selecionados"
+        executor: Worker
+        command_per_agent: |
+          source="squads/{source_squad}/agents/{agent}.md"
+          dest="{workspace}/agents/{agent}.md"
+
+          if [ -f "$dest" ]; then
+            if diff -q "$source" "$dest" > /dev/null; then
+              echo "SKIP: {agent} já existe (idêntico)"
+            else
+              echo "CONFLICT: {agent} existe com conteúdo diferente"
+              mv "$dest" "{workspace}/_conflicts/{agent}-{source_squad}.md"
+              cp "$source" "$dest"
+            fi
+          else
+            cp "$source" "$dest"
+            echo "COPIED: {agent}"
+          fi
+        audit_each: true
+
+      - id: collect_tasks
+        action: "Copiar tasks (com dedup por nome)"
+        executor: Worker
+        command: |
+          for squad in {source_squads}:
+            find squads/{squad} -path '*/tasks/*.md' -type f | while read task; do
+              name=$(basename "$task")
+              dest="{workspace}/tasks/$name"
+              # Mesmo padrão de idempotency
+              ...
+            done
+
+      - id: collect_skills
+        action: "Copiar estrutura de skills preservando hierarquia"
+        executor: Worker
+        command: |
+          for squad in {source_squads}:
+            if [ -d "squads/{squad}/skills" ]; then
+              cp -rn squads/{squad}/skills/* {workspace}/skills/ 2>/dev/null || true
+            fi
+
+      - id: collect_data
+        action: "Copiar data e knowledge bases"
+        executor: Worker
+        command: |
+          for squad in {source_squads}:
+            find squads/{squad}/data squads/{squad}/knowledge -name '*.md' -type f 2>/dev/null | while read file; do
+              name=$(basename "$file")
+              cp -n "$file" "{workspace}/data/$name" 2>/dev/null || echo "SKIP: $name exists"
+            done
+
+      - id: collect_templates
+        action: "Copiar templates"
+        executor: Worker
+        command: |
+          for squad in {source_squads}:
+            find squads/{squad} -path '*/templates/*.md' -type f 2>/dev/null | while read file; do
+              name=$(basename "$file")
+              cp -n "$file" "{workspace}/templates/$name" 2>/dev/null || echo "SKIP: $name exists"
+            done
+
+      - id: collect_checklists
+        action: "Copiar checklists"
+        executor: Worker
+        command: |
+          for squad in {source_squads}:
+            find squads/{squad} -path '*/checklists/*.md' -type f 2>/dev/null | while read file; do
+              name=$(basename "$file")
+              cp -n "$file" "{workspace}/checklists/$name" 2>/dev/null || echo "SKIP: $name exists"
+            done
+
+      - id: collect_workflows
+        action: "Copiar workflows"
+        executor: Worker
+        command: |
+          for squad in {source_squads}:
+            find squads/{squad} -path '*/workflows/*.yaml' -o -path '*/workflows/*.md' -type f 2>/dev/null | while read file; do
+              name=$(basename "$file")
+              cp -n "$file" "{workspace}/workflows/$name" 2>/dev/null || echo "SKIP: $name exists"
+            done
+
+      - id: handle_conflicts
+        action: "Listar conflitos para resolução"
+        executor: Hybrid
+        rationale: |
+          - Listar: Worker (ls)
+          - Resolver: Agent decide ou Human aprova
+        command: |
+          ls {workspace}/_conflicts/ 2>/dev/null | wc -l
+        if_conflicts: "Apresentar ao humano para resolução"
+
+      - id: verify_collection
+        action: "Verificar contagens pós-coleta"
+        executor: Worker
+        command: |
+          echo "=== WORKSPACE CONTENTS ===" && \
+          echo "Agents: $(find {workspace}/agents -name '*.md' | wc -l)" && \
+          echo "Tasks: $(find {workspace}/tasks -name '*.md' | wc -l)" && \
+          echo "Skills: $(find {workspace}/skills -name 'SKILL.md' | wc -l)" && \
+          echo "Data: $(find {workspace}/data -name '*.md' | wc -l)" && \
+          echo "Templates: $(find {workspace}/templates -name '*.md' | wc -l)" && \
+          echo "Checklists: $(find {workspace}/checklists -name '*.md' | wc -l)" && \
+          echo "Workflows: $(find {workspace}/workflows -name '*.yaml' -o -name '*.md' | wc -l)" && \
+          echo "Conflicts: $(find {workspace}/_conflicts -name '*.md' | wc -l)"
+
+      - id: reconciliation
+        action: "Reconciliação: comparar esperado vs coletado"
+        executor: Worker
+        rationale: "Pattern: ETL Reconciliation"
+        check: |
+          expected_agents = len(final_components.agents)
+          collected_agents = count({workspace}/agents/*.md)
+          if expected_agents != collected_agents:
+            ALERT("Discrepância: esperado {expected}, coletado {collected}")
+
+      - id: log_collection
+        action: "Registrar no audit log"
+        executor: Worker
+        audit_event:
+          type: "collection_complete"
+          collected: "workspace_contents"
+          conflicts: "conflict_count"
+          timestamp: "{now}"
+
+    quality_gate:
+      name: "Collection Gate"
+      checks:
+        - "Contagem coletada = contagem esperada (ou diferença explicada)"
+        - "Zero conflitos não-resolvidos"
+        - "Todos arquivos copiados são válidos (não vazios)"
+      veto_on: "Discrepância não explicada OU conflito não resolvido"
+
+    output:
+      workspace_contents:
+        agents: "number"
+        tasks: "number"
+        skills: "number"
+        data: "number"
+        templates: "number"
+        checklists: "number"
+        workflows: "number"
+      conflicts_resolved: "number"
+      provenance_map: "map[component -> source_squad]"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 5: VALIDATION (Quality Gates)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: phase_5_validation
+    name: "Validation (Quality Gates)"
+    description: "Validar integridade antes de criar estrutura final"
+    pattern: "ETL Quality Gates + Data Validation"
+    rollback: "Voltar para Phase 4 e corrigir"
+
+    steps:
+      - id: structural_validation
+        action: "Validar estrutura de cada componente"
+        executor: Worker
+        checks:
+          agents:
+            - "Arquivo não vazio"
+            - "YAML frontmatter válido (se presente)"
+            - "Seções obrigatórias presentes"
+          tasks:
+            - "Arquivo não vazio"
+            - "Estrutura de task válida"
+          skills:
+            - "SKILL.md existe em cada pasta de skill"
+
+      - id: reference_validation
+        action: "Validar todas as referências"
+        executor: Worker
+        rationale: "Pattern: Foreign Key Validation"
+        checks:
+          - "handoff_to referencia agents existentes"
+          - "depends_on referencia tasks existentes"
+          - "uses referencia data existente"
+        command: |
+          # Extrair todas referências
+          grep -rh "handoff_to\|depends_on\|uses" {workspace} --include="*.md" | \
+          # Verificar se targets existem
+          while read ref; do
+            target=$(echo "$ref" | extract_target)
+            if ! exists("{workspace}/*/$target*"); then
+              echo "BROKEN REF: $ref"
+            fi
+          done
+
+      - id: quality_validation
+        action: "Validar qualidade mínima"
+        executor: Worker
+        checks:
+          - name: "Agent Lines"
+            rule: "Agents >= 300 linhas (exceto orchestrators)"
+            command: |
+              for agent in {workspace}/agents/*.md; do
+                lines=$(wc -l < "$agent")
+                if [ $lines -lt 300 ]; then
+                  echo "WARN: $(basename $agent) tem apenas $lines linhas"
+                fi
+              done
+
+          - name: "Task Lines"
+            rule: "Tasks >= 100 linhas"
+
+          - name: "Required Sections"
+            rule: "Agents têm voice_dna, output_examples, anti_patterns"
+            command: |
+              for agent in {workspace}/agents/*.md; do
+                if ! grep -q "voice_dna" "$agent"; then
+                  echo "MISSING voice_dna: $(basename $agent)"
+                fi
+                if ! grep -q "output_examples" "$agent"; then
+                  echo "MISSING output_examples: $(basename $agent)"
+                fi
+              done
+
+      - id: build_validation_report
+        action: "Construir relatório de validação"
+        executor: Worker
+        template: |
+          ## ✅ VALIDATION REPORT
+
+          ### Structural Validation
+          - Agents válidos: {{valid_agents}}/{{total_agents}}
+          - Tasks válidas: {{valid_tasks}}/{{total_tasks}}
+          - Skills válidas: {{valid_skills}}/{{total_skills}}
+
+          ### Reference Validation
+          - Referências válidas: {{valid_refs}}/{{total_refs}}
+          - Referências quebradas: {{broken_refs}}
+          {{#if broken_refs}}
+          #### Broken References
+          {{#each broken_ref_details}}
+          - {{source}} → {{target}} ({{type}})
+          {{/each}}
+          {{/if}}
+
+          ### Quality Validation
+          | Metric | Pass | Fail | Warn |
+          |--------|------|------|------|
+          | Agent Lines (>=300) | {{agent_lines.pass}} | {{agent_lines.fail}} | {{agent_lines.warn}} |
+          | Task Lines (>=100) | {{task_lines.pass}} | {{task_lines.fail}} | - |
+          | Required Sections | {{sections.pass}} | {{sections.fail}} | - |
+
+          ### Overall Status
+          {{#if all_pass}}
+          ✅ **PASS** - Pronto para criar estrutura final
+          {{else}}
+          ⚠️ **WARN** - {{warn_count}} avisos, {{fail_count}} falhas
+          {{/if}}
+
+      - id: log_validation
+        action: "Registrar no audit log"
+        executor: Worker
+        audit_event:
+          type: "validation_complete"
+          status: "pass|warn|fail"
+          details: "validation_report"
+          timestamp: "{now}"
+
+    checkpoint:
+      type: "human_review"
+      condition: "mode == 'quality' OR validation_status != 'pass'"
+      prompt: |
+        ## Validation Results
+
+        {{validation_report}}
+
+        {{#if has_failures}}
+        ### ⚠️ Atenção: Existem falhas
+
+        Opções:
+        1. Ignorar falhas e continuar (não recomendado)
+        2. Corrigir falhas manualmente e re-validar
+        3. Abortar fusão
+        {{else}}
+        Aprovar e continuar para criação da estrutura final?
+        {{/if}}
+
+    quality_gate:
+      name: "Validation Gate"
+      checks:
+        - "Zero referências quebradas (HARD FAIL)"
+        - "Zero arquivos vazios (HARD FAIL)"
+        - "90% agents com >= 300 linhas (SOFT FAIL)"
+      veto_on: "Qualquer HARD FAIL"
+
+    output:
+      validation_status: "pass|warn|fail"
+      validation_report: "markdown"
+      issues_to_fix: "list[Issue]"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 6: STRUCTURE CREATION (ETL Load)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: phase_6_structure
+    name: "Structure Creation (ETL Load)"
+    description: "Criar estrutura final do squad fusionado"
+    pattern: "ETL Load + Expand-Contract"
+    rollback: "Deletar squads/{target_name} e workspace permanece intacto"
+
+    steps:
+      - id: create_target_directory
+        action: "Criar estrutura de diretórios"
+        executor: Worker
+        command: |
+          mkdir -p squads/{target_name}/agents
+          mkdir -p squads/{target_name}/tasks
+          mkdir -p squads/{target_name}/skills
+          mkdir -p squads/{target_name}/data
+          mkdir -p squads/{target_name}/templates
+          mkdir -p squads/{target_name}/checklists
+          mkdir -p squads/{target_name}/workflows
+
+      - id: move_components
+        action: "Mover componentes do workspace para destino"
+        executor: Worker
+        rationale: "Move (não copy) para garantir exactly-once"
+        command: |
+          mv {workspace}/agents/* squads/{target_name}/agents/ 2>/dev/null || true
+          mv {workspace}/tasks/* squads/{target_name}/tasks/ 2>/dev/null || true
+          mv {workspace}/skills/* squads/{target_name}/skills/ 2>/dev/null || true
+          mv {workspace}/data/* squads/{target_name}/data/ 2>/dev/null || true
+          mv {workspace}/templates/* squads/{target_name}/templates/ 2>/dev/null || true
+          mv {workspace}/checklists/* squads/{target_name}/checklists/ 2>/dev/null || true
+          mv {workspace}/workflows/* squads/{target_name}/workflows/ 2>/dev/null || true
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # STEPS CRÍTICOS: Definir estrutura semântica (requer LLM)
+      # ─────────────────────────────────────────────────────────────────────────
+      - id: define_tiers
+        action: "Organizar agents em tiers baseado em função"
+        executor: Agent
+        rationale: |
+          Precisa entender o PROPÓSITO de cada agent para classificar:
+          - Tier 0: Diagnóstico/Estratégia (pensar antes de agir)
+          - Tier 1: Especialistas de Plataforma (execução especializada)
+          - Tier 2: Execução/Operação (trabalho do dia-a-dia)
+        prompt: |
+          Analise os agents coletados em {workspace}/agents/ e organize em tiers.
+
+          Para cada agent:
+          1. Leia o arquivo completo
+          2. Identifique sua função principal
+          3. Classifique no tier apropriado
+
+          Output esperado (YAML):
+          ```yaml
+          tiers:
+            tier_0:
+              name: "Strategic/Diagnostic"
+              agents: [agent1, agent2]
+              when_to_use: "Quando precisa de diagnóstico ou estratégia"
+            tier_1:
+              name: "Platform Specialists"
+              agents: [agent3, agent4]
+              when_to_use: "Quando precisa de expertise em plataforma específica"
+            tier_2:
+              name: "Execution/Operations"
+              agents: [agent5, agent6]
+              when_to_use: "Quando precisa de execução operacional"
+          ```
+        store_as: "tiers"
+
+      - id: define_routing_rules
+        action: "Criar regras de routing por especialidade"
+        executor: Agent
+        rationale: |
+          Precisa mapear especialidades de cada agent para criar routing:
+          - Qual agent usar para Meta Ads?
+          - Qual agent usar para Google Ads?
+          - Qual agent usar para scaling?
+        prompt: |
+          Analise os agents em {workspace}/agents/ e crie regras de routing.
+
+          Para cada agent:
+          1. Identifique suas especialidades
+          2. Mapeie para cenários de uso
+
+          Output esperado (YAML):
+          ```yaml
+          routing:
+            meta_ads: [agent-especialista-meta]
+            google_ads: [agent-especialista-google]
+            youtube_ads: [agent-especialista-youtube]
+            scaling: [agent-scaling-1, agent-scaling-2]
+            creative: [agent-creative]
+            analytics: [agent-analytics]
+            compliance: [agent-compliance]
+          ```
+        store_as: "routing_rules"
+
+      - id: generate_config
+        action: "Gerar config.yaml"
+        executor: Worker
+        depends_on: [define_tiers, define_routing_rules]
+        template: |
+          # ═══════════════════════════════════════════════════════════════════════════════
+          # {target_name} - Squad Fusion Result
+          # ═══════════════════════════════════════════════════════════════════════════════
+          # Gerado por wf-squad-fusion v2.0
+          # Data: {timestamp}
+          # Modo: {mode}
+
+          pack:
+            name: "{target_name}"
+            title: "{target_title}"
+            version: "1.0.0"
+            author: "Squad Architect (Fusion)"
+            description: |
+              Fusão de {source_count} squads: {source_list}
+              Domínio: {target_domain}
+            icon: "{icon}"
+            slash_prefix: "{prefix}"
+
+          # ═══════════════════════════════════════════════════════════════════════════════
+          # FUSION METADATA (Provenance)
+          # ═══════════════════════════════════════════════════════════════════════════════
+          fusion:
+            workflow: "wf-squad-fusion"
+            workflow_version: "2.0.0"
+            fusion_id: "{fusion_id}"
+            fusion_date: "{timestamp}"
+            fusion_mode: "{mode}"
+            source_squads:
+            {{#each sources}}
+              - name: "{{name}}"
+                contributed:
+                  agents: {{agents}}
+                  tasks: {{tasks}}
+                  skills: {{skills}}
+            {{/each}}
+            assets_total:
+              agents: {final_agents}
+              tasks: {final_tasks}
+              skills: {final_skills}
+              data: {final_data}
+              templates: {final_templates}
+              checklists: {final_checklists}
+              workflows: {final_workflows}
+            deduplication:
+              duplicates_found: {duplicates_found}
+              duplicates_resolved: {duplicates_resolved}
+            scope_filtering:
+              in_scope: {in_scope}
+              excluded: {excluded}
+
+          # ═══════════════════════════════════════════════════════════════════════════════
+          # ORCHESTRATOR
+          # ═══════════════════════════════════════════════════════════════════════════════
+          orchestrator:
+            agent: "{target_name}-chief"
+            activation: "@{target_name}"
+
+          # ═══════════════════════════════════════════════════════════════════════════════
+          # TIER STRUCTURE
+          # ═══════════════════════════════════════════════════════════════════════════════
+          tiers:
+          {{#each tiers}}
+            tier_{{level}}:
+              name: "{{name}}"
+              agents:
+              {{#each agents}}
+                - {{this}}
+              {{/each}}
+              when_to_use: "{{when}}"
+          {{/each}}
+
+          # ═══════════════════════════════════════════════════════════════════════════════
+          # ROUTING
+          # ═══════════════════════════════════════════════════════════════════════════════
+          routing:
+          {{#each routing_rules}}
+            {{key}}: {{agents}}
+          {{/each}}
+
+      - id: generate_readme
+        action: "Gerar README.md"
+        executor: Worker
+        template: |
+          # {target_name}
+
+          > 🐉 Fusão Dragon Ball de {source_count} squads
+
+          ## Origem
+
+          Este squad foi criado pela fusão de:
+          {{#each sources}}
+          - **{{name}}**: {{agents}} agents, {{tasks}} tasks
+          {{/each}}
+
+          ## 📊 Composição Final
+
+          | Tipo | Quantidade |
+          |------|------------|
+          | Agents | {agents_count} |
+          | Tasks | {tasks_count} |
+          | Skills | {skills_count} |
+          | Data | {data_count} |
+          | Templates | {templates_count} |
+          | Checklists | {checklists_count} |
+          | Workflows | {workflows_count} |
+
+          ## 🎯 Agents por Tier
+
+          {{#each tiers}}
+          ### Tier {{level}}: {{name}}
+          {{#each agents}}
+          - `@{{this}}`
+          {{/each}}
+          {{/each}}
+
+          ## 🔧 Comandos Disponíveis
+
+          {{#each tasks}}
+          - `*{{name}}` - {{description}}
+          {{/each}}
+
+          ## 📈 Skills
+
+          {{#each skills}}
+          - `{{name}}` - {{description}}
+          {{/each}}
+
+          ## 🔗 Provenance
+
+          Cada componente mantém rastreabilidade à sua origem.
+          Ver `config.yaml` seção `fusion` para detalhes completos.
+
+          ---
+
+          *Gerado por wf-squad-fusion v2.0 em {timestamp}*
+
+      - id: create_orchestrator_if_needed
+        action: "Criar orchestrator se não existe"
+        executor: Agent
+        condition: "!exists(squads/{target_name}/agents/{target_name}-chief.md)"
+        rationale: |
+          Orchestrator precisa conhecer TODOS os agents do squad e saber:
+          - Quando acionar cada um
+          - Como fazer handoff entre eles
+          - Quais comandos disponibilizar
+        prompt: |
+          Crie um orchestrator para o squad {target_name}.
+
+          Context:
+          - Agents disponíveis: {agent_list}
+          - Tiers definidos: {tiers}
+          - Routing rules: {routing_rules}
+          - Domínio: {target_domain}
+
+          O orchestrator deve:
+          1. Ter voice_dna próprio (profissional, direto)
+          2. Conhecer todos os agents e suas especialidades
+          3. Saber quando delegar para qual agent
+          4. Ter comandos que façam sentido para o domínio
+
+          Use o template base de:
+          squads/squad-creator/templates/orchestrator-tmpl.md
+
+          Output: Markdown completo do orchestrator
+        output_path: "squads/{target_name}/agents/{target_name}-chief.md"
+
+      - id: preserve_audit_log
+        action: "Mover audit log para destino"
+        executor: Worker
+        command: |
+          mv {workspace}/fusion-audit.yaml squads/{target_name}/fusion-audit.yaml
+          mv {workspace}/_audit/* squads/{target_name}/_audit/ 2>/dev/null || true
+
+      - id: final_count_verification
+        action: "Verificação final de contagem"
+        executor: Worker
+        command: |
+          echo "=== FINAL SQUAD CONTENTS ===" && \
+          echo "Agents: $(find squads/{target_name}/agents -name '*.md' | wc -l)" && \
+          echo "Tasks: $(find squads/{target_name}/tasks -name '*.md' | wc -l)" && \
+          echo "Skills: $(find squads/{target_name}/skills -name 'SKILL.md' | wc -l)" && \
+          echo "Data: $(find squads/{target_name}/data -name '*.md' | wc -l)"
+
+      - id: log_structure_creation
+        action: "Registrar no audit log"
+        executor: Worker
+        audit_event:
+          type: "structure_created"
+          path: "squads/{target_name}"
+          timestamp: "{now}"
+
+    quality_gate:
+      name: "Structure Gate"
+      checks:
+        - "config.yaml existe e é válido"
+        - "README.md existe"
+        - "Pelo menos 1 agent existe"
+        - "Orchestrator existe"
+        - "Contagem final = contagem esperada"
+      veto_on: "Qualquer check falhar"
+
+    output:
+      squad_path: "string"
+      config_valid: "boolean"
+      final_counts: "AssetCounts"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 7: INTEGRATION TEST (Strangler Fig Pattern)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: phase_7_integration
+    name: "Integration Test"
+    description: "Testar squad fusionado antes de cleanup"
+    pattern: "Strangler Fig - Parallel Run"
+    rollback: "Squad fonte ainda existe, pode reverter"
+
+    steps:
+      - id: smoke_test_activation
+        action: "Testar ativação do orchestrator"
+        executor: Hybrid
+        rationale: "Verificar estrutura=Worker, testar comportamento=Agent"
+        test: |
+          # Simular: @{target_name}
+          # Verificar que orchestrator responde
+
+      - id: smoke_test_routing
+        action: "Testar routing entre agents"
+        executor: Hybrid
+        rationale: "Verificar existência=Worker, testar funcionamento=Agent"
+        test: |
+          # Para cada tier, verificar que agents são alcançáveis
+
+      - id: smoke_test_tasks
+        action: "Testar que tasks são executáveis"
+        executor: Worker
+        test: |
+          # Para cada task, verificar sintaxe e dependências
+
+      - id: generate_test_report
+        action: "Gerar relatório de testes"
+        executor: Worker
+        template: |
+          ## 🧪 INTEGRATION TEST REPORT
+
+          ### Activation Tests
+          - Orchestrator activation: {{orchestrator_status}}
+          - Agent count visible: {{agents_visible}}
+
+          ### Routing Tests
+          {{#each routing_tests}}
+          - {{route}}: {{status}}
+          {{/each}}
+
+          ### Task Tests
+          {{#each task_tests}}
+          - *{{task}}: {{status}}
+          {{/each}}
+
+          ### Overall: {{overall_status}}
+
+      - id: log_integration
+        action: "Registrar no audit log"
+        executor: Worker
+        audit_event:
+          type: "integration_test_complete"
+          status: "pass|fail"
+          timestamp: "{now}"
+
+    checkpoint:
+      type: "human_review"
+      condition: "mode == 'quality'"
+      prompt: |
+        ## Integration Test Results
+
+        {{test_report}}
+
+        Squad fusionado está funcional?
+        Aprovar para finalizar (opcional: cleanup de fontes)?
+
+    quality_gate:
+      name: "Integration Gate"
+      checks:
+        - "Orchestrator ativa sem erro"
+        - "Pelo menos 80% dos routing tests passam"
+        - "Pelo menos 90% das tasks são válidas"
+      veto_on: "Orchestrator não ativa"
+
+    output:
+      test_status: "pass|warn|fail"
+      test_report: "markdown"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 7.5: COMMAND SYNC (IDE Integration)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: phase_7_5_command_sync
+    name: "Command Sync (IDE Integration)"
+    description: "Sincronizar commands para .claude/commands/ e remover commands antigos"
+    pattern: "Deploy + Cleanup"
+    rollback: "Re-sync from squads/"
+
+    critical_rule: |
+      🚨 OBRIGATÓRIO: Sempre executar após criar squad fusionado
+
+      Esta fase garante que:
+      1. Novos commands do target squad estão disponíveis
+      2. Commands dos squads fonte removidos são limpos
+      3. IDE reconhece o novo squad imediatamente
+
+    steps:
+      - id: remove_old_commands
+        action: "Remover commands dos squads fonte"
+        executor: Worker
+        command: |
+          for squad in {source_squads}:
+            if [ -d ".claude/commands/{squad}" ]; then
+              rm -rf ".claude/commands/{squad}"
+              echo "✅ Removed: .claude/commands/{squad}"
+            fi
+            if [ -f ".claude/commands/{squad}.md" ]; then
+              rm -f ".claude/commands/{squad}.md"
+              echo "✅ Removed: .claude/commands/{squad}.md"
+            fi
+
+      - id: create_command_structure
+        action: "Criar estrutura de commands do target"
+        executor: Worker
+        command: |
+          mkdir -p .claude/commands/{target_name}/agents
+          mkdir -p .claude/commands/{target_name}/tasks
+          mkdir -p .claude/commands/{target_name}/skills
+
+      - id: copy_agents_to_commands
+        action: "Copiar agents para .claude/commands/"
+        executor: Worker
+        command: |
+          cp squads/{target_name}/agents/*.md .claude/commands/{target_name}/agents/
+          echo "✅ Copied $(ls -1 .claude/commands/{target_name}/agents/*.md | wc -l) agents"
+
+      - id: copy_tasks_to_commands
+        action: "Copiar tasks para .claude/commands/"
+        executor: Worker
+        command: |
+          cp squads/{target_name}/tasks/*.md .claude/commands/{target_name}/tasks/
+          echo "✅ Copied $(ls -1 .claude/commands/{target_name}/tasks/*.md | wc -l) tasks"
+
+      - id: copy_skills_to_commands
+        action: "Copiar skills para .claude/commands/"
+        executor: Worker
+        command: |
+          find squads/{target_name}/skills -name 'SKILL.md' -exec cp {} .claude/commands/{target_name}/skills/ \; 2>/dev/null
+          echo "✅ Copied skills"
+
+      - id: create_main_command
+        action: "Criar arquivo de comando principal"
+        executor: Worker
+        template: |
+          # /{target_name} - {target_title}
+
+          Activate the {target_title} squad.
+
+          ## Instructions
+
+          **Read and follow `squads/{target_name}/agents/{target_name}-chief.md` activation-instructions exactly.**
+
+          Do NOT search for files. Do NOT load additional files on activation.
+          Only read the agent file above and execute its greeting script.
+        output_path: ".claude/commands/{target_name}.md"
+
+      - id: verify_command_sync
+        action: "Verificar sincronização"
+        executor: Worker
+        command: |
+          echo "=== COMMAND SYNC VERIFICATION ==="
+          echo "Main command: $(test -f .claude/commands/{target_name}.md && echo '✅' || echo '❌')"
+          echo "Agents dir: $(test -d .claude/commands/{target_name}/agents && echo '✅' || echo '❌')"
+          echo "Tasks dir: $(test -d .claude/commands/{target_name}/tasks && echo '✅' || echo '❌')"
+          echo "Agent count: $(ls -1 .claude/commands/{target_name}/agents/*.md 2>/dev/null | wc -l)"
+          echo "Task count: $(ls -1 .claude/commands/{target_name}/tasks/*.md 2>/dev/null | wc -l)"
+
+      - id: log_command_sync
+        action: "Registrar no audit log"
+        executor: Worker
+        audit_event:
+          type: "command_sync_complete"
+          target: ".claude/commands/{target_name}"
+          sources_removed: "{source_squads}"
+          timestamp: "{now}"
+
+    quality_gate:
+      name: "Command Sync Gate"
+      checks:
+        - ".claude/commands/{target_name}.md existe"
+        - ".claude/commands/{target_name}/agents/ tem agents"
+        - ".claude/commands/{target_name}/tasks/ tem tasks"
+        - "Commands dos squads fonte foram removidos"
+      veto_on: "Main command não existe"
+
+    output:
+      commands_synced: "boolean"
+      old_commands_removed: "list[string]"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 8: CLEANUP (Optional)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: phase_8_cleanup
+    name: "Cleanup (Optional)"
+    description: "Remover squads fonte após fusão bem-sucedida"
+    pattern: "Expand-Contract - Contract Phase"
+    rollback: "Restaurar do backup"
+
+    prerequisite: "Phase 7 status == pass"
+
+    steps:
+      - id: confirm_cleanup
+        action: "Confirmar com usuário antes de deletar"
+        executor: Human
+        rationale: "Decisão irreversível requer aprovação humana"
+        prompt: |
+          ## ⚠️ CLEANUP CONFIRMATION
+
+          A fusão foi bem-sucedida. Deseja remover os squads fonte?
+
+          Squads a remover:
+          {{#each source_squads}}
+          - squads/{{this}}/
+          {{/each}}
+
+          Backup disponível em: {{backup_path}}
+
+          **Esta ação é irreversível (exceto via restore do backup).**
+
+          Confirmar remoção?
+        options:
+          - "Sim, remover fontes"
+          - "Não, manter fontes (recomendado para teste)"
+          - "Remover apenas depois de X dias"
+
+      - id: remove_sources
+        action: "Remover squads fonte"
+        executor: Worker
+        condition: "user_confirmed_cleanup == true"
+        command: |
+          for squad in {source_squads}:
+            rm -rf squads/{squad}
+            echo "REMOVED: squads/{squad}"
+
+      - id: update_registry
+        action: "Atualizar squad-registry.yaml"
+        executor: Worker
+        command: "Execute *refresh-registry"
+
+      - id: cleanup_workspace
+        action: "Remover workspace temporário"
+        executor: Worker
+        command: "rm -rf {workspace}"
+
+      - id: log_cleanup
+        action: "Registrar no audit log final"
+        executor: Worker
+        audit_event:
+          type: "fusion_complete"
+          sources_removed: "boolean"
+          timestamp: "{now}"
+
+    output:
+      sources_removed: "boolean"
+      final_status: "complete"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# HEURISTICS (Decision Rules)
+# ═══════════════════════════════════════════════════════════════════════════════
+heuristics:
+  - id: H_FUSION_001
+    name: "Sempre Contar, Nunca Assumir"
+    rule: "Executar comandos de contagem para CADA squad"
+    rationale: "IAs erram ao extrapolar de um squad para outros"
+    applies_to: ["phase_1"]
+
+  - id: H_FUSION_002
+    name: "Maior Ganha (Dedup)"
+    rule: "Em duplicatas, agent com mais linhas vence"
+    rationale: "Linhas = proxy para completude"
+    applies_to: ["phase_2"]
+    override: "Humano pode escolher diferente em quality mode"
+
+  - id: H_FUSION_003
+    name: "Escopo Strict"
+    rule: "Na dúvida, EXCLUIR do escopo"
+    rationale: "Mais fácil adicionar depois do que remover"
+    applies_to: ["phase_3"]
+
+  - id: H_FUSION_004
+    name: "Idempotency Always"
+    rule: "Operações devem ser seguras para re-executar"
+    rationale: "Permite recovery de falhas parciais"
+    applies_to: ["phase_4"]
+
+  - id: H_FUSION_005
+    name: "Validate Before Load"
+    rule: "Nunca criar estrutura final sem validação"
+    rationale: "Erros são mais fáceis de corrigir no workspace"
+    applies_to: ["phase_5"]
+
+  - id: H_FUSION_006
+    name: "Parallel Run Before Cutover"
+    rule: "Manter fontes até integration test passar"
+    rationale: "Pattern Strangler Fig - rollback fácil"
+    applies_to: ["phase_7", "phase_8"]
+
+  - id: H_FUSION_007
+    name: "Provenance Sempre"
+    rule: "Todo componente deve ser rastreável à origem"
+    rationale: "Debugging e auditoria futura"
+    applies_to: ["all"]
+
+  - id: H_FUSION_008
+    name: "Log Tudo"
+    rule: "Cada decisão registrada no audit log"
+    rationale: "Reprodutibilidade e accountability"
+    applies_to: ["all"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUICK REFERENCE
+# ═══════════════════════════════════════════════════════════════════════════════
+quick_reference:
+  phases_summary:
+    - "Phase 0: Init - Setup workspace e backup"
+    - "Phase 1: Discovery - Inventário COMPLETO"
+    - "Phase 2: Deduplication - Resolver duplicatas"
+    - "Phase 3: Scope - Filtrar por domínio"
+    - "Phase 4: Collection - Copiar para workspace"
+    - "Phase 5: Validation - Quality gates"
+    - "Phase 6: Structure - Criar squad final"
+    - "Phase 7: Integration - Testar funcionamento"
+    - "Phase 7.5: Command Sync - Sincronizar .claude/commands/"
+    - "Phase 8: Cleanup - Remover fontes (opcional)"
+
+  checkpoints:
+    yolo_mode: "Nenhum (decisões automáticas)"
+    quality_mode:
+      - "After Phase 1 (inventário)"
+      - "After Phase 2 (duplicatas)"
+      - "After Phase 3 (escopo)"
+      - "After Phase 5 (validação)"
+      - "After Phase 7 (integração)"
+      - "After Phase 7.5 (command sync)"
+      - "Before Phase 8 (cleanup)"
+
+  rollback_points:
+    - "Phase 0-3: Trivial (apenas análise)"
+    - "Phase 4: Delete workspace, retry"
+    - "Phase 5: Fix issues, re-validate"
+    - "Phase 6: Delete target squad, workspace intact"
+    - "Phase 7: Keep sources, don't cleanup"
+    - "Phase 7.5: Re-sync commands from squads/"
+    - "Phase 8: Restore from backup"
+
+  time_estimates:
+    yolo_mode: "15-30 minutos"
+    quality_mode: "45-90 minutos"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CHANGELOG
+# ═══════════════════════════════════════════════════════════════════════════════
+changelog:
+  - version: "2.1.0"
+    date: "2026-02-04"
+    changes:
+      - "Adicionado Phase 7.5: Command Sync (IDE Integration)"
+      - "Sincronização automática de .claude/commands/"
+      - "Remoção automática de commands dos squads fonte"
+      - "Atualizado quick_reference com nova fase"
+
+  - version: "2.0.0"
+    date: "2026-02-03"
+    changes:
+      - "Reescrita completa baseada em research de boas práticas"
+      - "Adicionado patterns: Three-Way Merge, Expand-Contract, ETL, Strangler Fig, Entity Resolution"
+      - "8 fases com checkpoints detalhados"
+      - "Heuristics documentadas"
+      - "Anti-patterns documentados"
+      - "Audit log integrado"
+      - "Provenance tracking"
+      - "Idempotency garantida"
+
+  - version: "1.0.0"
+    date: "2026-02-03"
+    changes:
+      - "Versão inicial"

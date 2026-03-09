@@ -1,0 +1,96 @@
+# Opus Baseline Output for pv-axioma-assessment
+# Generated: 2026-02-11
+# Target: squads/squad-creator/workflows/wf-create-squad.yaml
+# Model: opus (baseline = 100%)
+
+axioma_assessment:
+  process_name: "wf-create-squad"
+  assessment_date: "2026-02-11"
+  assessor: "@pedro-valerio"
+  model_used: "opus"
+
+  dimensions:
+    - name: "Verdade"
+      score: 8.5
+      weight: 1.0
+      veto: true
+      status: PASS
+      evidence: "Workflow baseado em evidências documentadas, referencia sources reais"
+
+    - name: "Clareza"
+      score: 8.0
+      weight: 0.9
+      veto: false
+      status: PASS
+      evidence: "Fases claramente definidas, nomenclatura consistente"
+
+    - name: "Simplicidade"
+      score: 7.5
+      weight: 0.8
+      veto: false
+      status: PASS
+      evidence: "Algumas fases poderiam ser consolidadas, mas fluxo é seguível"
+
+    - name: "Completude"
+      score: 9.0
+      weight: 0.9
+      veto: false
+      status: PASS
+      evidence: "Cobre todas as fases necessárias para criar squad"
+
+    - name: "Coerência"
+      score: 8.5
+      weight: 0.9
+      veto: false
+      status: PASS
+      evidence: "Fases seguem sequência lógica, dependências respeitadas"
+
+    - name: "Testabilidade"
+      score: 7.0
+      weight: 0.7
+      veto: false
+      status: PASS
+      evidence: "Gates de validação presentes, mas poderiam ser mais específicos"
+
+    - name: "Rastreabilidade"
+      score: 8.0
+      weight: 0.8
+      veto: false
+      status: PASS
+      evidence: "Outputs de cada fase documentados, permite auditoria"
+
+    - name: "Reversibilidade"
+      score: 6.5
+      weight: 0.6
+      veto: false
+      status: REVIEW
+      evidence: "Não há rollback explícito definido para fases"
+
+    - name: "Escalabilidade"
+      score: 7.5
+      weight: 0.7
+      veto: false
+      status: PASS
+      evidence: "Workflow modular, pode ser adaptado para diferentes squads"
+
+    - name: "Manutenibilidade"
+      score: 8.0
+      weight: 0.8
+      veto: false
+      status: PASS
+      evidence: "YAML bem estruturado, fácil de modificar"
+
+  overall_score: 7.85
+  status: PASS
+  veto_triggered: false
+
+  recommendations:
+    - "Adicionar rollback procedures para cada fase"
+    - "Especificar critérios de PASS/FAIL nos gates"
+    - "Considerar consolidar fases de validação"
+
+metadata:
+  tokens_input: 15000
+  tokens_output: 800
+  latency_ms: 8000
+  timestamp: "2026-02-11T14:00:00Z"

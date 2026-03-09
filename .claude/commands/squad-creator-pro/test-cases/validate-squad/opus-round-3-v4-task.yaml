@@ -1,0 +1,132 @@
+# validate-squad Test Case: Opus Round 3 (Task v4.0)
+# Date: 2026-02-11
+# Task Version: 4.0.0 (GAP ZERO fix: script-first enforcement)
+# Target: squads/copy
+# Model: Opus (via validate-squad.sh hybrid executor)
+# Purpose: Test if v4.0 task instructions produce consistent results
+#          with script-first mandatory preflight
+
+test_metadata:
+  round: 3
+  task_version: "4.0.0"
+  previous_rounds:
+    - round: 1 (haiku, task v3.3.0)  # 6.5/10, 41% quality vs opus
+    - round: 2 (haiku, task v3.3.1)  # 7.02/10, 74% quality vs opus
+    - baseline (opus, task v3.3.0)   # 7.89/10, 100% baseline
+  change_tested: "GAP ZERO fix - mandatory script execution before LLM analysis"
+  script_version: "validate-squad.sh v2.0"
+
+# ============================================================
+# EXECUTION LOG
+# ============================================================
+
+execution:
+  method: "bash squads/squad-creator/scripts/validate-squad.sh copy --json"
+  followed_v4_instructions: true
+  script_ran_first: true
+  preflight_generated: true
+  manual_ls_grep_wc: false  # LLM did NOT collect data manually
+
+# ============================================================
+# SCRIPT OUTPUT (deterministic)
+# ============================================================
+
+script_output:
+  squad: "copy"
+  result: "PASS"
+  final_score: 8
+  type: "expert"
+
+  metrics:
+    agents: 24
+    tasks: 75
+    checklists: 55
+    total_lines: 218222
+
+  deterministic_checks:
+    tier1_fail: 0
+    security_fail: 0
+    xref_fail: 0
+    warnings: 2
+    warning_details:
+      - "No entry_agent defined, using first agent: copy-chief"
+      - "config.yaml missing 'tested: true' flag"
+
+  production:
+    score: 4
+    max: 5
+
+  claude_analysis:
+    prompt_quality: 9
+    structure_coherence: 9
+    coverage: 9
+    documentation: 8
+    quality_score: 8.75
+
+  improvements:
+    - "218K total lines is heavy - consider pruning redundant framework content across agents"
+    - "24 agents may have overlapping capabilities - document differentiation matrix"
+    - "Task-to-checklist ratio (75:55) suggests some tasks lack validation gates"
+    - "Sample task lacks explicit output format/template specification"
+    - "Agent tier system (1-3) referenced but tier routing logic not visible in samples"
+    - "No error handling or fallback guidance when research sources are unavailable"
+
+# ============================================================
+# COMPARISON WITH PREVIOUS ROUNDS
+# ============================================================
+
+comparison:
+  vs_opus_baseline:
+    baseline_score: 7.89
+    this_score: 8.75
+    delta: "+0.86"
+    quality_pct: "110.9%"
+    verdict: "EXCEEDS BASELINE"
+
+  vs_haiku_round_2:
+    haiku_r2_score: 7.02
+    this_score: 8.75
+    delta: "+1.73"
+    quality_pct: "124.6%"
+
+  progression:
+    - { round: "R1 Haiku (v3.3.0)", score: 6.5, quality_vs_opus: "41%" }
+    - { round: "R2 Haiku (v3.3.1)", score: 7.02, quality_vs_opus: "74%" }
+    - { round: "Opus baseline (v3.3.0)", score: 7.89, quality_vs_opus: "100%" }
+    - { round: "R3 Opus (v4.0.0)", score: 8.75, quality_vs_opus: "110.9%" }
+
+# ============================================================
+# GAP ZERO ANALYSIS
+# ============================================================
+
+gap_zero_validation:
+  question: "Did the v4.0 task enforce script-first execution?"
+  answer: "YES - script ran as standalone bash command, LLM received pre-computed data"
+
+  anti_pattern_check:
+    llm_ran_ls_manually: false
+    llm_ran_grep_manually: false
+    llm_ran_wc_manually: false
+    llm_counted_files_manually: false
+    script_output_used_as_input: true
+
+  pv_assessment:
+    impossibilita_caminho_errado: "PARTIAL - script ran first because WE invoked it correctly"
+    enforcement_test_needed: "Need to test with naive Haiku executor that reads task v4.0 cold"
+    next_step: "Run Haiku with task v4.0 to verify it follows EXECUTE FIRST instruction"
+
+# ============================================================
+# VERDICT
+# ============================================================
+
+verdict:
+  score: 8.75
+  result: "PASS"
+  task_version_impact: "Score improved from 7.89 (v3.3.0) to 8.75 (v4.0.0) on same squad"
+  note: |
+    The script-first hybrid approach produces higher and more consistent scores
+    because deterministic checks (88%) are computed exactly, not approximated by LLM.
+    The LLM analysis (12%) receives clean pre-computed data and focuses only on
+    qualitative interpretation.
+
+  next_test: "Run Haiku round 3 with task v4.0 to measure quality vs this Opus baseline"

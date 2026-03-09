@@ -1,0 +1,199 @@
+# Scoring Rubric for Model Tier Qualification
+# Used by model-tier-validator.cjs to evaluate outputs
+
+version: "1.0"
+updated: "2026-02-11"
+
+# Thresholds for tier qualification
+thresholds:
+  haiku: 0.90      # >= 90% of Opus quality
+  sonnet: 0.95     # >= 95% of Opus quality
+  opus: 1.00       # Baseline (100%)
+
+# Quality dimensions with weights
+dimensions:
+  completeness:
+    weight: 0.30
+    description: "Output tem todas as seções/campos esperados?"
+    scoring:
+      - score: 10
+        criteria: "100% das seções presentes"
+      - score: 7
+        criteria: "80-99% das seções presentes"
+      - score: 4
+        criteria: "50-79% das seções presentes"
+      - score: 0
+        criteria: "<50% das seções presentes"
+
+  accuracy:
+    weight: 0.30
+    description: "Scores, decisões, classificações estão corretas?"
+    scoring:
+      - score: 10
+        criteria: "100% match com Opus baseline"
+      - score: 7
+        criteria: "Diferença < 10% vs Opus"
+      - score: 4
+        criteria: "Diferença 10-30% vs Opus"
+      - score: 0
+        criteria: "Diferença > 30% vs Opus"
+
+  reasoning:
+    weight: 0.20
+    description: "Justificativas são coerentes e úteis?"
+    scoring:
+      - score: 10
+        criteria: "Reasoning equivalente ao Opus"
+      - score: 7
+        criteria: "Reasoning mais superficial mas correto"
+      - score: 4
+        criteria: "Reasoning parcialmente incorreto"
+      - score: 0
+        criteria: "Reasoning ausente ou errado"
+
+  format:
+    weight: 0.10
+    description: "Output segue o formato esperado?"
+    scoring:
+      - score: 10
+        criteria: "Formato perfeito, YAML/estrutura válida"
+      - score: 5
+        criteria: "Formato parcial, algumas seções fora de padrão"
+      - score: 0
+        criteria: "Formato quebrado, não parseável"
+
+  actionability:
+    weight: 0.10
+    description: "Recomendações são acionáveis?"
+    scoring:
+      - score: 10
+        criteria: "Tão acionável quanto Opus, específico e útil"
+      - score: 5
+        criteria: "Menos específico, mas ainda útil"
+      - score: 0
+        criteria: "Genérico demais, não acionável"
+
+# Compensation strategies when Haiku fails
+compensations:
+  output_examples:
+    order: 1
+    description: "Adicionar 2-3 exemplos concretos de output no prompt"
+    when: "Output está incompleto ou mal formatado"
+    template: |
+      ## Output Examples
+
+      ### Example 1: Good Output
+      ```yaml
+      {example_1}
+      ```
+
+      ### Example 2: Edge Case
+      ```yaml
+      {example_2}
+      ```
+
+  checklist_inline:
+    order: 2
+    description: "Adicionar checklist de validação no próprio prompt"
+    when: "Está faltando seções ou campos obrigatórios"
+    template: |
+      ## Output Checklist
+      Before returning, verify:
+      - [ ] Section A is present and complete
+      - [ ] Section B has all required fields
+      - [ ] Score is numeric between 0-10
+      - [ ] Recommendations exist if score < 8
+
+  template_strict:
+    order: 3
+    description: "Forçar estrutura exata de output com schema"
+    when: "Formato inconsistente entre execuções"
+    template: |
+      ## Required Output Format
+      You MUST return output in this EXACT structure:
+      ```yaml
+      result:
+        field_1: {type: string, required: true}
+        field_2: {type: number, required: true}
+        sections:
+          - name: {required}
+            content: {required}
+      ```
+
+  validation_script:
+    order: 4
+    description: "Script que valida output e pede correção"
+    when: "Erros são detectáveis programaticamente"
+    implementation: "test-cases/{task-name}/validate-output.cjs"
+    note: "Create task-specific validator if needed"
+
+# Model cost reference (per 1M tokens) - Updated 2026-02-11
+# Source: https://www.anthropic.com/pricing
+costs:
+  haiku:
+    input: 0.25      # $0.25 per 1M input tokens
+    output: 1.25     # $1.25 per 1M output tokens
+    ratio_vs_opus: 60  # 60x cheaper than Opus
+  sonnet:
+    input: 3.00
+    output: 15.00
+    ratio_vs_opus: 5   # 5x cheaper than Opus
+  opus:
+    input: 15.00
+    output: 75.00
+    ratio_vs_opus: 1   # Baseline
+
+# CRITICAL: Cost-First Decision Logic
+# The goal is $$$ savings, NOT token savings
+# A model that uses 3x more tokens but costs 60x less per token = MASSIVE savings
+cost_first_logic:
+  principle: |
+    PRIORITY: $$$ economia > token economia
+
+    Haiku usando 3x mais tokens ainda é 15-20x mais barato que Opus.
+    Sonnet usando 2x mais tokens ainda é 2-4x mais barato que Opus.
+
+    Fórmula de decisão:
+    IF (haiku_quality >= 90% of opus) AND (haiku_cost < opus_cost * 0.5)
+    THEN use haiku
+
+    Não importa quantos tokens Haiku usa - importa quanto CUSTA.
+
+  example_calculation:
+    opus:
+      tokens_in: 15000
+      tokens_out: 800
+      cost: 0.285  # (15K * $15/1M) + (800 * $75/1M)
+    haiku:
+      tokens_in: 55000  # 3.6x more!
+      tokens_out: 3000  # 3.75x more!
+      cost: 0.018  # (55K * $0.25/1M) + (3K * $1.25/1M)
+    savings: 93.7%  # Even using MORE tokens, 93.7% cheaper
+
+# Patterns learned from validation
+patterns:
+  haiku_eligible:
+    - "Scoring com fórmula definida"
+    - "Checklist validation (PASS/FAIL)"
+    - "Format conversion (estrutura clara)"
+    - "Registry updates (determinístico)"
+    - "Template-based generation"
+    - "Numerical calculations"
+
+  haiku_needs_compensation:
+    - pattern: "Multi-step reasoning"
+      compensation: "Chain-of-thought no prompt"
+    - pattern: "Complex output structure"
+      compensation: "template_strict"
+    - pattern: "Quality judgment"
+      compensation: "Rubric inline detalhada"
+    - pattern: "Missing sections"
+      compensation: "checklist_inline"
+
+  haiku_not_eligible:
+    - "Creative synthesis"
+    - "Nuanced analysis requiring broad context"
+    - "Multi-source integration"
+    - "Novel framework creation"
+    - "Complex trade-off decisions"
+    - "Ambiguous requirements interpretation"

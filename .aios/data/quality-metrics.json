@@ -1,0 +1,3110 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-03-03T18:38:35.228Z",
+  "retentionDays": 30,
+  "layers": {
+    "layer1": {
+      "passRate": 0.8333333333333334,
+      "avgTimeMs": 1000,
+      "totalRuns": 174,
+      "lastRun": "2026-03-03T18:38:35.224Z"
+    },
+    "layer2": {
+      "passRate": 1,
+      "avgTimeMs": 150000,
+      "totalRuns": 87,
+      "lastRun": "2026-03-03T18:38:34.187Z",
+      "autoCatchRate": 0,
+      "coderabbit": {
+        "active": true,
+        "findingsCount": 145,
+        "severityBreakdown": {
+          "critical": 0,
+          "high": 29,
+          "medium": 58,
+          "low": 58
+        }
+      },
+      "quinn": {
+        "findingsCount": 87,
+        "topCategories": [
+          "test-coverage",
+          "documentation"
+        ]
+      }
+    },
+    "layer3": {
+      "passRate": 1,
+      "avgTimeMs": 600000,
+      "totalRuns": 29,
+      "lastRun": "2026-03-03T18:38:34.338Z"
+    }
+  },
+  "trends": {
+    "autoCatchRate": [],
+    "passRates": [
+      {
+        "date": "2026-02-12",
+        "value": 0.9
+      },
+      {
+        "date": "2026-02-13",
+        "value": 0.9
+      },
+      {
+        "date": "2026-02-15",
+        "value": 0.9
+      },
+      {
+        "date": "2026-02-19",
+        "value": 0.9
+      },
+      {
+        "date": "2026-02-20",
+        "value": 0.9
+      },
+      {
+        "date": "2026-02-21",
+        "value": 0.9
+      },
+      {
+        "date": "2026-02-22",
+        "value": 0.9
+      },
+      {
+        "date": "2026-02-23",
+        "value": 0.9
+      },
+      {
+        "date": "2026-02-25",
+        "value": 0.9
+      },
+      {
+        "date": "2026-02-26",
+        "value": 0.9
+      },
+      {
+        "date": "2026-03-03",
+        "value": 0.9
+      }
+    ]
+  },
+  "history": [
+    {
+      "timestamp": "2026-02-12T21:53:09.448Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-12T21:53:09.746Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-12T21:53:10.258Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-12T21:53:10.284Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-12T21:53:10.623Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-12T21:53:10.856Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-12T21:53:10.900Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-12T21:53:10.922Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-12T21:53:10.958Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-12T21:53:11.186Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-13T01:49:58.651Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-13T01:49:58.685Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-13T01:49:58.738Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-13T01:49:58.763Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-13T01:49:58.794Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-13T01:49:58.814Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-13T01:49:58.857Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-13T01:49:58.878Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-13T01:49:58.959Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-13T01:49:59.594Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:22:08.278Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:22:08.336Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:22:08.481Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:22:08.508Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:22:08.546Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:22:08.575Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:22:08.602Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:22:08.627Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:22:08.649Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:22:08.693Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:30:38.703Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:30:38.733Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:30:38.921Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:30:38.956Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:30:38.975Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:30:39.003Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:30:39.071Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:30:39.102Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:30:39.180Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:30:39.261Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:32:19.146Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:32:19.235Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:32:19.342Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:32:19.416Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:32:19.473Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:32:19.511Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:32:19.628Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:32:19.675Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:32:19.710Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-15T14:32:19.745Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:18:11.808Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:18:11.969Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:18:12.226Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:18:12.283Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:18:12.334Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:18:12.369Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:18:12.451Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:18:12.485Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:18:12.532Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:18:12.592Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:19:53.185Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:19:53.353Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:19:53.511Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:19:53.555Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:19:53.590Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:19:53.633Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:19:53.680Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:19:53.740Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:19:53.782Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:19:53.868Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:50:52.428Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:50:52.461Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:50:52.519Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:50:52.538Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:50:52.570Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:50:52.611Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:50:52.842Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:50:52.920Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:50:53.073Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:50:53.256Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:51:37.453Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:51:37.498Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:51:37.552Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:51:37.581Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:51:37.603Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:51:37.626Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:51:37.657Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:51:37.711Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:51:37.754Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:51:37.794Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:55:45.870Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:55:45.960Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:55:46.056Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:55:46.166Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:55:46.209Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:55:46.238Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:55:46.299Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:55:46.319Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:55:46.370Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-19T14:55:46.406Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:11:04.354Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:11:04.711Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:11:05.036Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:11:05.207Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:11:05.325Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:11:05.454Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:11:05.611Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:11:06.007Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:11:06.496Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:11:07.474Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:33:32.113Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:33:32.268Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:33:32.566Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:33:32.647Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:33:32.752Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:33:32.887Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:33:32.976Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:33:33.060Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:33:33.186Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-20T04:33:33.307Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:15:49.792Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:15:49.905Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:15:50.032Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:15:50.089Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:15:50.143Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:15:50.187Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:15:50.226Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:15:50.278Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:15:50.327Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:15:50.418Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:17:29.533Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:17:29.649Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:17:29.882Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:17:29.983Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:17:30.034Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:17:30.145Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:17:30.216Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:17:30.279Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:17:30.448Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-20T17:17:30.552Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:16:04.515Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:16:04.547Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:16:04.641Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:16:04.692Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:16:04.711Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:16:04.727Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:16:04.746Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:16:04.764Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:16:04.779Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:16:04.812Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T17:41:01.721Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T17:41:02.335Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T17:41:03.715Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T17:41:04.496Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T17:41:04.932Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T17:41:05.728Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T17:41:06.418Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T17:41:06.589Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T17:41:07.770Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-22T17:41:08.779Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:57:46.552Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:57:46.711Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:57:46.970Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:57:47.037Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:57:47.165Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:57:47.333Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:57:47.425Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:57:47.472Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:57:47.510Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:57:47.773Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:58:48.647Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:58:48.997Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:58:49.621Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:58:49.814Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:58:49.887Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:58:50.098Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:58:50.259Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:58:50.317Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 1,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:58:50.462Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-22T20:58:50.605Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-23T02:53:27.664Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-23T02:53:27.720Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-23T02:53:27.798Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-23T02:53:27.821Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-23T02:53:27.841Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-23T02:53:27.863Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-23T02:53:27.878Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-23T02:53:27.900Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-23T02:53:27.948Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-23T02:53:27.988Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:30:32.952Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:30:33.021Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:30:33.093Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:30:33.138Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:30:33.165Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:30:33.405Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:30:33.471Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:30:33.503Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:30:33.525Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:30:33.657Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:32:28.404Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:32:28.447Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:32:28.499Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:32:28.518Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:32:28.535Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:32:28.555Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:32:28.580Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:32:28.626Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:32:28.655Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:32:28.709Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:48:48.226Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:48:48.265Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:48:48.328Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:48:48.359Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:48:48.402Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:48:48.439Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:48:48.463Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:48:48.491Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:48:48.510Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-25T14:48:48.547Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:18:56.710Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:18:56.725Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:18:56.751Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:18:56.764Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:18:56.776Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:18:56.787Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:18:56.799Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:18:56.809Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:18:56.821Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:18:56.842Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:21:33.635Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:21:33.649Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:21:33.678Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:21:33.690Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:21:33.702Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:21:33.713Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:21:33.725Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:21:33.737Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:21:33.749Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:21:33.772Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:23:48.284Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:23:48.299Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:23:48.327Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:23:48.343Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:23:48.355Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:23:48.366Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:23:48.382Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:23:48.462Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:23:48.480Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:23:48.513Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:25:41.798Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:25:41.813Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:25:41.839Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:25:41.852Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:25:41.864Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:25:41.875Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:25:41.888Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:25:41.904Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:25:41.917Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-25T15:25:41.942Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T02:48:56.223Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T02:48:56.436Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T02:48:56.657Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T02:48:56.811Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T02:48:56.980Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T02:48:57.073Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T02:48:57.170Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T02:48:57.256Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-02-26T02:48:57.402Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-02-26T02:48:57.616Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T02:12:09.850Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T02:12:09.896Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T02:12:09.951Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T02:12:09.989Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T02:12:10.040Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T02:12:10.071Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T02:12:10.109Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T02:12:10.124Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 0,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T02:12:10.180Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-03-03T02:12:10.251Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T18:38:33.044Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T18:38:33.395Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 1500,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T18:38:33.809Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 180000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T18:38:33.974Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 120000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T18:38:34.187Z",
+      "layer": 2,
+      "passed": true,
+      "durationMs": 150000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "pr",
+        "prNumber": 42,
+        "branchName": "feature/test"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T18:38:34.338Z",
+      "layer": 3,
+      "passed": true,
+      "durationMs": 600000,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "manual"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T18:38:34.517Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T18:38:34.582Z",
+      "layer": 1,
+      "passed": false,
+      "durationMs": 1,
+      "findingsCount": 1,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T18:38:34.680Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 0,
+      "findingsCount": 2,
+      "metadata": {
+        "triggeredBy": "hook",
+        "lintErrors": 1,
+        "typeErrors": 1
+      }
+    },
+    {
+      "timestamp": "2026-03-03T18:38:35.224Z",
+      "layer": 1,
+      "passed": true,
+      "durationMs": 2000,
+      "findingsCount": 0,
+      "metadata": {
+        "triggeredBy": "hook"
+      }
+    }
+  ]
+}

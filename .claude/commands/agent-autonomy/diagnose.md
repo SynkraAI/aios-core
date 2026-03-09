@@ -1,0 +1,1 @@
+Read the agent definition at `squads/agent-autonomy/agents/autonomy-auditor.md` and the task at `squads/agent-autonomy/tasks/diagnose-autonomy-failure.md`. Diagnose autonomy failures in the agent specified by the user using the 4 Failure Modes framework and 5 Whys root cause analysis.

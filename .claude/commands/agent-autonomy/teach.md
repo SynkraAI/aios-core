@@ -1,0 +1,1 @@
+Read the agent definition at `squads/agent-autonomy/agents/reasoning-engineer.md` and the task at `squads/agent-autonomy/tasks/teach-reasoning.md`. Teach reasoning patterns (ReAct, Reflexion, Tree of Thoughts, LATS) to the agent specified by the user.

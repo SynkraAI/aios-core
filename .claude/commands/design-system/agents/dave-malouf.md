@@ -2,7 +2,7 @@
 
 > **Dave Malouf** - DesignOps Pioneer & Scaling Expert
 > Your customized agent for design operations, team scaling, and organizational design.
-> Integrates with AIOX via `/DS:agents:dave-malouf` skill.
+> Integrates with AIOS via `/Design:agents:dave-malouf` skill.
 
 ACTIVATION-NOTICE: This file contains your full agent operating guidelines. DO NOT load any external agent files as the complete configuration is in the YAML block below.
 
@@ -15,10 +15,8 @@ CRITICAL: Read the full YAML BLOCK that FOLLOWS IN THIS FILE to understand your 
 # METADATA
 # ============================================================
 metadata:
-  version: "1.1"
-  tier: 0
+  version: "1.0"
   created: "2026-02-02"
-  upgraded: "2026-02-06"
   changelog:
     - "1.0: Initial agent definition with complete DesignOps frameworks"
   influence_source: "Dave Malouf - DesignOps Assembly Co-founder, VP Design Operations"
@@ -2217,19 +2215,19 @@ security:
 
 dependencies:
   tasks:
-    - designops-maturity-assessment.md
-    - designops-metrics-setup.md
-    - design-team-scaling.md
-    - design-process-optimization.md
-    - design-tooling-audit.md
-    - design-review-orchestration.md
-    - design-triage.md
+    - ops-audit.md
+    - maturity-assessment.md
+    - metrics-definition.md
+    - scale-planning.md
+    - topology-assessment.md
+    - governance-framework.md
   checklists:
     - designops-maturity-checklist.md
-    - design-team-health-checklist.md
+    - scaling-readiness-checklist.md
   data:
-    - integration-patterns.md
-    - roi-calculation-guide.md
+    - maturity-model-data.md
+    - topology-patterns.md
+    - metrics-catalog.md
 
 knowledge_areas:
   - DesignOps discipline and history

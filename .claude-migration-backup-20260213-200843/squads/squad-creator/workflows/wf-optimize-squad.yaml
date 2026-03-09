@@ -1,0 +1,684 @@
+# wf-optimize-squad.yaml
+# Workflow completo de otimização de squad — todos os artefatos, não só tasks
+# Version: 1.0
+# Created: 2026-02-11
+# Author: @pedro-valerio
+
+workflow:
+  id: wf-optimize-squad
+  name: "Optimize Squad"
+  version: "1.1"
+  purpose: "Otimizar TODOS os artefatos de um squad: tasks, checklists, templates, agents, workflows, data files"
+  orchestrator: "@pedro-valerio"
+  mode: "autonomous"
+  command: "*optimize-squad {squad_name} [--scan|--implement|--full]"
+
+  # MODEL REQUIREMENTS (PV Audit 2026-02-11)
+  model_requirements:
+    optimization_phases:
+      model: "Opus"
+      reason: |
+        optimize.md classifica tasks como Worker/Agent/Hybrid.
+        Classificação errada = economia negativa (task quebra ou gasta mais tokens).
+        Opus agora = economia real depois. Haiku NÃO qualifica.
+      phases: ["phase_1 (SCAN)", "phase_3 (IMPLEMENT)"]
+
+    validation_phases:
+      model: "Haiku"
+      reason: "Validação usa script + Haiku para testar se otimizações funcionam"
+      phases: ["phase_4 (VALIDATE)"]
+
+    report_phases:
+      model: "Haiku"
+      reason: "Report generation é template-based, não precisa de Opus"
+      phases: ["phase_0 (INVENTORY)", "phase_2 (REPORT)"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHILOSOPHY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+philosophy:
+  core: |
+    "Task é só 1 dos 7 tipos de artefato. Otimizar só task é como
+    trocar o motor e deixar os pneus carecas."
+
+    "Cada artefato tem seus próprios anti-patterns e oportunidades de otimização.
+    O workflow precisa cobrir TODOS ou não cobre nenhum."
+
+  principles:
+    - id: WF_DP_01
+      name: "Full Coverage"
+      rule: "7 artifact types, 7 optimization passes. Nenhum ignorado."
+    - id: WF_DP_02
+      name: "Scan First"
+      rule: "Sempre análise antes de mudança. --scan é o default."
+    - id: WF_DP_03
+      name: "Evidence-Based"
+      rule: "Cada recomendação com ROI estimado e evidência."
+    - id: WF_DP_04
+      name: "Non-Destructive"
+      rule: "Scan não muda nada. Implement pede confirmação. Full é autônomo."
+    - id: WF_DP_05
+      name: "Student-Safe"
+      rule: "Alunos rodam --scan sem risco. Report em linguagem clara."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - name: squad_name
+      type: string
+      description: "Nome do squad a otimizar"
+      example: "copy"
+
+  optional:
+    - name: mode
+      type: enum
+      values: ["scan", "implement", "full"]
+      default: "scan"
+      description: |
+        scan:      Analisa e gera relatório (SAFE, não muda nada)
+        implement: Analisa + implementa melhorias confirmadas
+        full:      Analisa + implementa + testa + gera economia (--hybrid)
+
+    - name: focus
+      type: enum
+      values: ["all", "tasks", "checklists", "templates", "agents", "workflows", "data"]
+      default: "all"
+      description: "Focar em um tipo específico de artefato"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VETO CONDITIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+veto_conditions:
+  - id: WF_OPT_VC_001
+    trigger: "Squad não existe em squads/"
+    action: "BLOCK — Verificar nome do squad."
+
+  - id: WF_OPT_VC_002
+    trigger: "Squad sem config.yaml"
+    action: "BLOCK — Squad inválido. Rodar validate-squad primeiro."
+
+  - id: WF_OPT_VC_003
+    trigger: "--implement ou --full sem rodar --scan antes nesta sessão"
+    action: "BLOCK — Sempre analisar antes de mudar. Rodar --scan primeiro."
+
+  - id: WF_OPT_VC_004
+    trigger: "Mudança em agent voice_dna sem aprovação humana"
+    action: "BLOCK — Voice DNA é identidade. Nunca otimizar automaticamente."
+
+  - id: WF_OPT_VC_005
+    trigger: "Deletar arquivo sem verificar referências"
+    action: "BLOCK — Verificar cross-references antes de remover qualquer coisa."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ARTIFACT TYPES & OPTIMIZATION PATTERNS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+artifact_optimization_map:
+  # Cada tipo de artefato tem seus próprios anti-patterns e otimizações
+
+  tasks:
+    path: "{squad_path}/tasks/*.md"
+    optimizer: "tasks/optimize.md (v4.0)"
+    patterns:
+      - id: TASK_OPT_001
+        name: "Agent→Worker conversion"
+        description: "Tasks determinísticas rodando como Agent"
+        detection: "Phase 1 Q1-Q6 decomposition"
+        savings: "HIGH (90-99% per task)"
+
+      - id: TASK_OPT_002
+        name: "Binary checkpoint conversion"
+        description: "Scoring subjetivo 1-5 → checkpoints binários"
+        detection: "grep 'Score 1-5|Rate from|Avaliar'"
+        savings: "MEDIUM (Haiku qualification)"
+
+      - id: TASK_OPT_003
+        name: "Scope clarification"
+        description: "Escopo ambíguo causa divergência Opus/Haiku"
+        detection: "Task references dynamic paths without explicit file list"
+        savings: "LOW (quality improvement)"
+
+  checklists:
+    path: "{squad_path}/checklists/*.md"
+    patterns:
+      - id: CHK_OPT_001
+        name: "Vague items → specific items"
+        description: "Itens como 'Verificar qualidade' sem critério mensurável"
+        detection: "grep 'verificar|ensure|check that|avaliar' sem threshold adjacente"
+        fix: "Converter para YES/NO com critério grep-able"
+        savings: "MEDIUM (consistency + Haiku qualification)"
+
+      - id: CHK_OPT_002
+        name: "Missing thresholds"
+        description: "Checklist sem score mínimo pra PASS/FAIL"
+        detection: "Checklist without 'threshold|minimum|pass if|score >='"
+        fix: "Adicionar threshold numérico (ex: >= 7/10 = PASS)"
+        savings: "LOW (quality improvement)"
+
+      - id: CHK_OPT_003
+        name: "Missing auto-correction"
+        description: "Item FAIL sem guidance de como corrigir"
+        detection: "Checklist item with FAIL condition but no fix/action/remedy"
+        fix: "Adicionar 'Se FAIL → {ação específica}' para cada item"
+        savings: "LOW (reduces rework cycles)"
+
+      - id: CHK_OPT_004
+        name: "Duplicate items across checklists"
+        description: "Mesmo check repetido em múltiplos checklists"
+        detection: "Fuzzy match de itens entre checklists do squad"
+        fix: "Consolidar em checklist base + extensões por contexto"
+        savings: "LOW (reduces maintenance)"
+
+  templates:
+    path: "{squad_path}/templates/*.md"
+    patterns:
+      - id: TMPL_OPT_001
+        name: "Generic placeholders"
+        description: "Placeholders como {content} sem guidance do que preencher"
+        detection: "Template placeholder without adjacent instruction or example"
+        fix: "Adicionar instrução inline + exemplo concreto por placeholder"
+        savings: "MEDIUM (reduces LLM confusion, better outputs)"
+
+      - id: TMPL_OPT_002
+        name: "Missing output example"
+        description: "Template sem exemplo completo de output preenchido"
+        detection: "Template without '## Example' or '## Sample Output'"
+        fix: "Adicionar 1 exemplo completo preenchido"
+        savings: "HIGH (Haiku follows examples literally = better results)"
+
+      - id: TMPL_OPT_003
+        name: "Template bloat"
+        description: "Template com > 500 linhas desperdiça tokens de contexto"
+        detection: "wc -l > 500"
+        fix: "Separar em template core + extensões lazy-loaded"
+        savings: "MEDIUM (reduces input tokens per execution)"
+
+  agents:
+    path: "{squad_path}/agents/*.md"
+    patterns:
+      - id: AGT_OPT_001
+        name: "Prompt bloat"
+        description: "Agent com > 2000 linhas carregadas integralmente no contexto"
+        detection: "wc -l > 2000"
+        fix: "Separar em core identity (< 500 lines) + lazy-loaded knowledge"
+        savings: "HIGH (reduces input tokens EVERY execution)"
+
+      - id: AGT_OPT_002
+        name: "Redundant framework loading"
+        description: "Mesmo framework copiado em múltiplos agents"
+        detection: "Fuzzy match de seções entre agents do squad"
+        fix: "Extrair para data/ file + reference por path"
+        savings: "HIGH (N agents × M tokens saved = large)"
+
+      - id: AGT_OPT_003
+        name: "Unused data references"
+        description: "Agent referencia data file que não usa em nenhum comando"
+        detection: "Agent lists dependency but no command/task uses it"
+        fix: "Remover referência + validar com author"
+        savings: "LOW (cleanliness)"
+
+      - id: AGT_OPT_004
+        name: "Voice DNA without sources"
+        description: "Voice DNA inventado sem [SOURCE:] verificável"
+        detection: "voice_dna section without SOURCE tags"
+        fix: "FLAG para review humano (WF_OPT_VC_004 protege)"
+        savings: "NONE (quality, not cost)"
+        note: "NEVER auto-modify voice_dna"
+
+  workflows:
+    path: "{squad_path}/workflows/*.yaml"
+    patterns:
+      - id: WF_OPT_001
+        name: "Manual steps that could be scripted"
+        description: "Steps com 'Run manually' ou sem automação"
+        detection: "grep 'manual|manually|by hand|human runs'"
+        fix: "Criar script wrapper para steps determinísticos"
+        savings: "MEDIUM (speed + consistency)"
+
+      - id: WF_OPT_002
+        name: "Missing veto conditions"
+        description: "Workflow sem veto conditions = processo que permite erro"
+        detection: "Workflow without 'veto' section"
+        fix: "Adicionar veto conditions por checkpoint"
+        savings: "LOW (quality + prevents wrong path)"
+
+      - id: WF_OPT_003
+        name: "Bidirectional flow"
+        description: "Status/phases que permitem voltar (anti-pattern PV)"
+        detection: "Workflow with 'retry|go back|return to|re-do'"
+        fix: "Redesenhar como fluxo unidirecional com rework as new iteration"
+        savings: "LOW (process integrity)"
+
+  data:
+    path: "{squad_path}/data/*"
+    patterns:
+      - id: DAT_OPT_001
+        name: "Unreferenced data files"
+        description: "Data file que nenhum agent/task referencia"
+        detection: "Grep filename across all agents/ and tasks/ = 0 matches"
+        fix: "FLAG para review. Pode ser dead weight ou missing reference."
+        savings: "LOW (cleanliness, reduces confusion)"
+
+      - id: DAT_OPT_002
+        name: "Duplicate content across data files"
+        description: "Mesmo conteúdo em múltiplos data files"
+        detection: "Fuzzy content match between data files"
+        fix: "Consolidar em arquivo único + update references"
+        savings: "MEDIUM (reduces maintenance + input tokens)"
+
+      - id: DAT_OPT_003
+        name: "Oversized data files"
+        description: "Data file > 1000 linhas loaded integralmente"
+        detection: "wc -l > 1000"
+        fix: "Chunking: separar em seções lazy-loadable"
+        savings: "HIGH (reduces input tokens when partially used)"
+
+  scripts:
+    path: "{squad_path}/scripts/*"
+    patterns:
+      - id: SCR_OPT_001
+        name: "Existing scripts not referenced in tasks"
+        description: "Script existe mas nenhuma task manda executar (GAP ZERO)"
+        detection: "Script file not grep-able in any task"
+        fix: "Aplicar GAP ZERO: add EXECUTE FIRST + veto condition"
+        savings: "HIGH (script exists but tokens wasted on manual LLM work)"
+
+      - id: SCR_OPT_002
+        name: "Scripts without --json output"
+        description: "Script output não é structured (plain text)"
+        detection: "Script without '--json' flag or YAML/JSON output"
+        fix: "Add structured output for LLM consumption"
+        savings: "LOW (quality of hybrid executor input)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0: INVENTORY
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_0
+    name: "INVENTORY"
+    purpose: "Mapear TODOS os artefatos do squad"
+    duration: "< 1 min"
+    mode: "scan, implement, full"
+
+    steps:
+      - id: step_0_1
+        name: "Enumerate all artifacts"
+        action: |
+          Count and list:
+            agents:     ls {squad_path}/agents/*.md | wc -l
+            tasks:      ls {squad_path}/tasks/*.md | wc -l  (recursive)
+            checklists: ls {squad_path}/checklists/*.md | wc -l
+            templates:  ls {squad_path}/templates/*.md | wc -l
+            workflows:  ls {squad_path}/workflows/*.yaml | wc -l
+            data:       ls {squad_path}/data/* | wc -l (recursive)
+            scripts:    ls {squad_path}/scripts/* | wc -l
+            total_lines: find {squad_path} -type f | xargs wc -l | tail -1
+
+      - id: step_0_2
+        name: "Estimate current token cost"
+        action: |
+          Total lines × 15 tokens/line = estimated total tokens
+          Per-execution estimate:
+            Agent activation = agent file + referenced tasks + data
+            Estimate tokens per typical command execution
+
+    output:
+      inventory:
+        agents: N
+        tasks: N
+        checklists: N
+        templates: N
+        workflows: N
+        data_files: N
+        scripts: N
+        total_lines: N
+        estimated_tokens_per_activation: N
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: SCAN ALL ARTIFACT TYPES
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_1
+    name: "SCAN"
+    purpose: "Detectar anti-patterns em CADA tipo de artefato"
+    duration: "5-15 min"
+    mode: "scan, implement, full"
+
+    steps:
+      - id: step_1_tasks
+        name: "Scan tasks"
+        action: "Run *optimize {squad_name} --scan (optimize.md v4.0 Phase 0-3)"
+        detects: ["TASK_OPT_001", "TASK_OPT_002", "TASK_OPT_003"]
+
+      - id: step_1_checklists
+        name: "Scan checklists"
+        action: |
+          For each checklist in {squad_path}/checklists/:
+            1. grep -c 'verificar|ensure|check that|avaliar' → vague items count
+            2. grep -c 'threshold|minimum|pass if|score >=' → has thresholds?
+            3. grep -c 'Se FAIL|fix:|remedy:|action:' → has auto-correction?
+            4. Cross-match items between checklists → duplicates?
+        detects: ["CHK_OPT_001", "CHK_OPT_002", "CHK_OPT_003", "CHK_OPT_004"]
+
+      - id: step_1_templates
+        name: "Scan templates"
+        action: |
+          For each template in {squad_path}/templates/:
+            1. Count placeholders without adjacent instruction
+            2. grep 'Example|Sample Output' → has example?
+            3. wc -l → bloated?
+        detects: ["TMPL_OPT_001", "TMPL_OPT_002", "TMPL_OPT_003"]
+
+      - id: step_1_agents
+        name: "Scan agents"
+        action: |
+          For each agent in {squad_path}/agents/:
+            1. wc -l → bloated? (> 2000)
+            2. Fuzzy match frameworks between agents → redundant?
+            3. List dependencies → all used in commands?
+            4. Check voice_dna → has [SOURCE:]?
+        detects: ["AGT_OPT_001", "AGT_OPT_002", "AGT_OPT_003", "AGT_OPT_004"]
+
+      - id: step_1_workflows
+        name: "Scan workflows"
+        action: |
+          For each workflow in {squad_path}/workflows/:
+            1. grep 'manual|manually' → scriptable steps?
+            2. Check for veto_conditions section
+            3. grep 'retry|go back|return to' → bidirectional?
+        detects: ["WF_OPT_001", "WF_OPT_002", "WF_OPT_003"]
+
+      - id: step_1_data
+        name: "Scan data files"
+        action: |
+          For each file in {squad_path}/data/:
+            1. grep filename across agents/ and tasks/ → referenced?
+            2. Fuzzy match content between data files → duplicates?
+            3. wc -l → oversized? (> 1000)
+        detects: ["DAT_OPT_001", "DAT_OPT_002", "DAT_OPT_003"]
+
+      - id: step_1_scripts
+        name: "Scan scripts (GAP ZERO)"
+        action: |
+          For each script in {squad_path}/scripts/:
+            1. grep script name across tasks/ → referenced in any task?
+            2. Check for --json flag or structured output
+        detects: ["SCR_OPT_001", "SCR_OPT_002"]
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: GENERATE REPORT
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_2
+    name: "REPORT"
+    purpose: "Relatório consolidado com todas as oportunidades + ROI"
+    duration: "2-5 min"
+    mode: "scan, implement, full"
+
+    report_template: |
+      # Squad Optimization Report: {squad_name}
+
+      **Date:** {date}
+      **Optimizer:** wf-optimize-squad v1.0
+      **Mode:** {scan|implement|full}
+
+      ## Inventory
+
+      | Artifact Type | Count | Total Lines | Est. Tokens |
+      |--------------|-------|-------------|-------------|
+      | Agents       | {n}   | {lines}     | {tokens}    |
+      | Tasks        | {n}   | {lines}     | {tokens}    |
+      | Checklists   | {n}   | {lines}     | {tokens}    |
+      | Templates    | {n}   | {lines}     | {tokens}    |
+      | Workflows    | {n}   | {lines}     | {tokens}    |
+      | Data Files   | {n}   | {lines}     | {tokens}    |
+      | Scripts      | {n}   | {lines}     | —           |
+      | **TOTAL**    | {n}   | {lines}     | {tokens}    |
+
+      ## Findings by Priority
+
+      ### HIGH PRIORITY (token savings)
+
+      | ID | Pattern | Artifact(s) | Est. Savings |
+      |----|---------|-------------|-------------|
+      | {id} | {description} | {files} | {savings} |
+
+      ### MEDIUM PRIORITY (quality + savings)
+
+      | ID | Pattern | Artifact(s) | Est. Savings |
+      |----|---------|-------------|-------------|
+      | {id} | {description} | {files} | {savings} |
+
+      ### LOW PRIORITY (quality improvement)
+
+      | ID | Pattern | Artifact(s) | Impact |
+      |----|---------|-------------|--------|
+      | {id} | {description} | {files} | {impact} |
+
+      ## Summary by Artifact Type
+
+      | Type | Issues | HIGH | MEDIUM | LOW | Est. Monthly Savings |
+      |------|--------|------|--------|-----|---------------------|
+      | Tasks | {n} | {n} | {n} | {n} | ${savings} |
+      | Checklists | {n} | {n} | {n} | {n} | ${savings} |
+      | Templates | {n} | {n} | {n} | {n} | ${savings} |
+      | Agents | {n} | {n} | {n} | {n} | ${savings} |
+      | Workflows | {n} | {n} | {n} | {n} | ${savings} |
+      | Data | {n} | {n} | {n} | {n} | ${savings} |
+      | Scripts | {n} | {n} | {n} | {n} | ${savings} |
+
+      ## Total Potential Savings
+
+      | Period | Before | After | Savings |
+      |--------|--------|-------|---------|
+      | Per execution | ${before} | ${after} | ${savings} ({pct}%) |
+      | Monthly (20 exec) | ${before} | ${after} | ${savings} |
+      | Annual | ${before} | ${after} | ${savings} |
+
+      ## Action Items
+
+      ### Immediate (this session, if --implement)
+      - [ ] {action_1}
+      - [ ] {action_2}
+
+      ### Short-term (next session)
+      - [ ] {action_3}
+
+      ### Requires Human Review
+      - [ ] {action_4} (voice_dna changes — WF_OPT_VC_004)
+
+    output:
+      file: "{squad_path}/docs/optimization-report-{date}.md"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: IMPLEMENT (--implement or --full)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_3
+    name: "IMPLEMENT"
+    purpose: "Aplicar otimizações por tipo de artefato"
+    duration: "15-45 min"
+    mode: "implement, full"
+    condition: "mode != 'scan'"
+
+    steps:
+      - id: step_3_tasks
+        name: "Optimize tasks"
+        action: "Run *optimize {squad_name} --hybrid (optimize.md v4.0 Phases 4-7)"
+        covers: ["TASK_OPT_*"]
+
+      - id: step_3_checklists
+        name: "Optimize checklists"
+        action: |
+          For each checklist with CHK_OPT findings:
+            CHK_OPT_001: Replace vague items with binary YES/NO + grep condition
+            CHK_OPT_002: Add threshold section (## Pass Criteria: score >= N)
+            CHK_OPT_003: Add "Se FAIL →" instruction per item
+            CHK_OPT_004: Extract common items to base checklist
+        covers: ["CHK_OPT_*"]
+
+      - id: step_3_templates
+        name: "Optimize templates"
+        action: |
+          For each template with TMPL_OPT findings:
+            TMPL_OPT_001: Add instruction per placeholder
+            TMPL_OPT_002: Add complete example section
+            TMPL_OPT_003: Split into core + extensions
+        covers: ["TMPL_OPT_*"]
+
+      - id: step_3_agents
+        name: "Optimize agents"
+        action: |
+          For each agent with AGT_OPT findings:
+            AGT_OPT_001: Split into core identity + lazy-loaded sections
+            AGT_OPT_002: Extract shared frameworks to data/ + reference by path
+            AGT_OPT_003: Remove unused dependencies
+            AGT_OPT_004: FLAG for human review (NEVER auto-modify voice_dna)
+        covers: ["AGT_OPT_001", "AGT_OPT_002", "AGT_OPT_003"]
+        veto: "AGT_OPT_004 requires human approval (WF_OPT_VC_004)"
+
+      - id: step_3_workflows
+        name: "Optimize workflows"
+        action: |
+          For each workflow with WF_OPT findings:
+            WF_OPT_001: Create script for manual steps
+            WF_OPT_002: Add veto conditions
+            WF_OPT_003: Redesign bidirectional flows
+        covers: ["WF_OPT_*"]
+
+      - id: step_3_data
+        name: "Optimize data files"
+        action: |
+          For each data file with DAT_OPT findings:
+            DAT_OPT_001: FLAG unreferenced files for review
+            DAT_OPT_002: Consolidate duplicates
+            DAT_OPT_003: Chunk oversized files
+        covers: ["DAT_OPT_*"]
+
+      - id: step_3_scripts
+        name: "Apply GAP ZERO"
+        action: |
+          For each script with SCR_OPT findings:
+            SCR_OPT_001: Add EXECUTE FIRST + veto in referencing tasks
+            SCR_OPT_002: Add --json structured output
+        covers: ["SCR_OPT_*"]
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: VALIDATE (--full)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_4
+    name: "VALIDATE"
+    purpose: "Testar que otimizações não quebraram nada + medir economia real"
+    duration: "5-15 min"
+    mode: "full"
+    condition: "mode == 'full'"
+
+    steps:
+      - id: step_4_1
+        name: "Run validate-squad"
+        action: |
+          bash scripts/validate-squad.sh {squad_name} --json
+          Compare score with pre-optimization baseline.
+          IF score dropped > 0.5 → ROLLBACK and review.
+
+      - id: step_4_2
+        name: "Run Haiku qualification on optimized tasks"
+        action: |
+          For each task that was optimized:
+            Run wf-model-tier-qualification with --fast (Haiku)
+            Record quality vs Opus baseline
+
+      - id: step_4_3
+        name: "Calculate real savings"
+        action: |
+          Compare:
+            - Total lines BEFORE vs AFTER
+            - Estimated tokens BEFORE vs AFTER
+            - Per-execution cost BEFORE vs AFTER
+
+      - id: step_4_4
+        name: "Generate final report"
+        action: |
+          Update optimization-report with ACTUAL results:
+            - Validation score maintained?
+            - Haiku qualifications achieved?
+            - Real token savings measured?
+
+    veto:
+      - id: WF_OPT_VC_VALIDATE
+        trigger: "Validation score dropped > 0.5 after optimization"
+        action: "ROLLBACK — Optimization broke something. Review changes."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMMAND VARIANTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+commands:
+  scan: |
+    *optimize-squad copy
+    *optimize-squad copy --focus checklists
+    # Output: optimization-report.md (no changes made)
+
+  implement: |
+    *optimize-squad copy --implement
+    *optimize-squad copy --implement --focus agents
+    # Output: optimization-report.md + changes applied
+
+  full: |
+    *optimize-squad copy --full
+    # Output: optimization-report.md + changes + validation + economy
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INTEGRATION WITH EXISTING TOOLS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+integrations:
+  optimize_task:
+    tool: "tasks/optimize.md v4.0"
+    used_in: "Phase 1 (scan tasks) + Phase 3 (implement tasks)"
+    relationship: "This workflow ORCHESTRATES optimize.md for tasks"
+
+  validate_squad:
+    tool: "tasks/validate-squad.md v4.0"
+    used_in: "Phase 4 (validate after optimization)"
+    relationship: "Validates that optimization didn't break anything"
+
+  model_tier_qualification:
+    tool: "workflows/wf-model-tier-qualification.yaml v2.0"
+    used_in: "Phase 4 (Haiku qualification for optimized tasks)"
+    relationship: "Tests if optimized tasks can run on cheaper model"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0"
+  created: "2026-02-11"
+  author: "@pedro-valerio"
+  evidence:
+    - "validate-squad hybrid: Haiku 9.0 vs Opus 7.89 (114.1%) after script-first"
+    - "an-fidelity-score binary: 99.3% Opus/Haiku match after checkpoint conversion"
+    - "8 tasks tested in MTQ batch, 5 optimization patterns discovered"
+  changelog:
+    - version: "1.1"
+      date: "2026-02-11"
+      changes:
+        - "ADD: model_requirements section — Opus for optimization, Haiku for validation/reports"
+        - "FIX: PV Audit identified missing model specification (classification errors cascade)"
+
+    - version: "1.0"
+      date: "2026-02-11"
+      changes:
+        - "Initial workflow covering 7 artifact types"
+        - "27 optimization patterns (TASK:3, CHK:4, TMPL:3, AGT:4, WF:3, DAT:3, SCR:2)"
+        - "3 modes: scan (safe), implement, full"
+        - "5 veto conditions"
+        - "Integration with optimize.md, validate-squad, wf-model-tier-qualification"

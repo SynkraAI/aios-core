@@ -1,0 +1,800 @@
+# wf-model-tier-qualification.yaml
+# Workflow automatizado para qualificar tasks em Haiku/Sonnet/Opus
+# Version: 2.0
+# Created: 2026-02-11
+# Updated: 2026-02-11 - v2.0 rewrite with veto conditions, parallel execution,
+#          auto-improve loop, test input registry, and cost-first logic
+
+workflow:
+  id: wf-model-tier-qualification
+  name: "Model Tier Qualification"
+  version: "2.0"
+  purpose: "Testar empiricamente se uma task pode rodar em modelo mais barato mantendo qualidade"
+  orchestrator: "@pedro-valerio"
+  mode: "autonomous"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHILOSOPHY (Alan's Decision Patterns - ADR-001)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+philosophy:
+  core: |
+    "Não assumir. Provar com dados."
+    "Prioridade é $$ economia, não token economia."
+    "Se permitir caminho errado, está errado."
+
+  decision_patterns:
+    - id: DP_01
+      name: "Self-Contained First"
+      rule: "Tudo dentro do squad-creator. Sem dependências externas."
+    - id: DP_02
+      name: "Prove que Funciona"
+      rule: "Validação empírica obrigatória. Documentação ≠ Funcionamento."
+    - id: DP_03
+      name: "Questione o Caminho Errado"
+      rule: "Se executor CONSEGUE errar → redesenhar."
+    - id: DP_04
+      name: "Testar Antes de Escalar"
+      rule: "Nunca batch sem validar 1 primeiro."
+    - id: DP_05
+      name: "Cost-First"
+      rule: "Haiku usando 3x mais tokens = OK se custa 15x menos em $$."
+    - id: DP_06
+      name: "Mantenha Tudo Junto"
+      rule: "Outputs, logs, reports → tudo em test-cases/{task_name}/."
+    - id: DP_07
+      name: "Documente o Processo"
+      rule: "O COMO é mais valioso que o resultado."
+    - id: DP_08
+      name: "Auto-Improve"
+      rule: "Se falhar, aplicar compensações e re-testar AUTOMATICAMENTE."
+
+  cost_reference:
+    haiku:  { input_per_mtok: 0.25,  output_per_mtok: 1.25  }
+    sonnet: { input_per_mtok: 3.00,  output_per_mtok: 15.00 }
+    opus:   { input_per_mtok: 15.00, output_per_mtok: 75.00 }
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VETO CONDITIONS (Global)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+veto_conditions:
+  - id: MTQ_VC_001
+    trigger: "Task sem test_input definido no registry"
+    action: "BLOCK - Não testar. Adicionar input ao registry primeiro."
+
+  - id: MTQ_VC_002
+    trigger: "Opus baseline output vazio ou erro"
+    action: "BLOCK - Não prosseguir sem baseline válido."
+
+  - id: MTQ_VC_003
+    trigger: "Haiku output não parseável (YAML inválido, estrutura quebrada)"
+    action: "BLOCK - Falha de formato. Compensar com COMP_002 ou COMP_003."
+
+  - id: MTQ_VC_004
+    trigger: "Haiku decisão oposta ao Opus (ex: PASS vs FAIL)"
+    action: "BLOCK - Haiku NÃO qualificado. Decisão errada é inaceitável."
+
+  - id: MTQ_VC_005
+    trigger: "Test case sem output salvo em arquivo"
+    action: "BLOCK - Tudo deve ser verificável por humano."
+
+  - id: MTQ_VC_006
+    trigger: "Mais de 2 rounds de compensação sem atingir threshold"
+    action: "ESCALATE - Promover para Sonnet e testar."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TEST INPUT REGISTRY
+# ═══════════════════════════════════════════════════════════════════════════════
+# Cada task precisa de um input REAL para teste.
+# Sem input definido → VETO (MTQ_VC_001)
+
+test_input_registry:
+  # HAIKU CANDIDATES (15 tasks)
+  pv-axioma-assessment:
+    target: "squads/squad-creator/workflows/wf-clone-mind.yaml"
+    type: "workflow_file"
+    tested: true
+
+  pv-modernization-score:
+    target: "squads/squad-creator/workflows/wf-clone-mind.yaml"
+    type: "workflow_file"
+    tested: false
+
+  validate-squad:
+    target: "squads/copy"  # Real squad to validate
+    type: "squad_directory"
+    tested: false
+
+  validate-extraction:
+    target: "outputs/minds/pedro_valerio/extraction-report.yaml"
+    type: "extraction_output"
+    tested: false
+    note: "Needs existing extraction output to validate"
+
+  qa-after-creation:
+    target: "squads/copy"
+    type: "squad_directory"
+    tested: false
+
+  an-fidelity-score:
+    target: "outputs/minds/pedro_valerio"
+    type: "mind_directory"
+    tested: false
+
+  an-clone-review:
+    target: ".claude/agents/mmos-victoria.md"
+    type: "agent_file"
+    tested: false
+
+  an-diagnose-clone:
+    target: ".claude/agents/mmos-victoria.md"
+    type: "agent_file"
+    tested: false
+
+  an-validate-clone:
+    target: ".claude/agents/mmos-victoria.md"
+    type: "agent_file"
+    tested: false
+
+  an-assess-sources:
+    target: "outputs/minds/pedro_valerio/sources/"
+    type: "sources_directory"
+    tested: false
+    note: "Needs mind with sources to assess"
+
+  refresh-registry:
+    target: "squads/"
+    type: "squads_root"
+    tested: false
+
+  squad-analytics:
+    target: "squads/"
+    type: "squads_root"
+    tested: false
+
+  migrate-workflows-to-yaml:
+    target: "squads/squad-creator/workflows/"
+    type: "workflows_directory"
+    tested: false
+
+  install-commands:
+    target: "squads/squad-creator/"
+    type: "squad_directory"
+    tested: false
+
+  sync-ide-command:
+    target: "squads/squad-creator/"
+    type: "squad_directory"
+    tested: false
+
+  # SONNET CANDIDATES (test_with_haiku = true, 4 tasks)
+  create-documentation:
+    target: "squads/copy"
+    type: "squad_directory"
+    tested: false
+    note: "Sonnet candidate, also test in Haiku"
+
+  create-template:
+    target: "squads/squad-creator/tasks/pv-axioma-assessment.md"
+    type: "task_file"
+    tested: false
+    note: "Create template from existing task"
+
+  collect-sources:
+    target: "Pedro Valério"
+    type: "person_name"
+    tested: false
+    note: "Web search for sources"
+
+  auto-acquire-sources:
+    target: "Pedro Valério"
+    type: "person_name"
+    tested: false
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - name: task_name
+      type: string
+      description: "Nome da task (sem .md)"
+      example: "pv-axioma-assessment"
+      validation: "Must exist in test_input_registry"
+
+  optional:
+    - name: target_tier
+      type: enum
+      values: ["haiku", "sonnet"]
+      default: "haiku"
+
+    - name: threshold
+      type: number
+      default: 0.90
+      description: "Threshold mínimo de qualidade vs baseline"
+
+    - name: max_compensation_rounds
+      type: number
+      default: 2
+      description: "Máximo de rounds de compensação antes de escalar"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0: PRE-FLIGHT VALIDATION
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_0
+    name: "PRE-FLIGHT"
+    purpose: "Validar que temos tudo para rodar o teste"
+    duration: "< 30s"
+
+    steps:
+      - id: step_0_1
+        name: "Check test_input_registry"
+        action: "Lookup task_name in test_input_registry"
+        veto_if: "task_name not in registry → MTQ_VC_001"
+        output:
+          test_input: "Input from registry"
+
+      - id: step_0_2
+        name: "Check task file exists"
+        action: "Verify squads/squad-creator/tasks/{task_name}.md exists"
+        veto_if: "File not found"
+
+      - id: step_0_3
+        name: "Read task file"
+        action: "Read COMPLETE task file content"
+        output:
+          task_prompt: "Full task content"
+
+      - id: step_0_4
+        name: "Create test directory"
+        action: "mkdir -p squads/squad-creator/test-cases/{task_name}/"
+
+    checkpoint:
+      id: CP_PREFLIGHT
+      blocking: true
+      criteria:
+        - test_input: "resolved from registry"
+        - task_prompt: "loaded"
+        - test_directory: "created"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: PARALLEL EXECUTION (Opus + Haiku simultaneously)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_1
+    name: "PARALLEL EXECUTION"
+    purpose: "Rodar Opus e Haiku AO MESMO TEMPO para economizar tempo"
+    duration: "2-5 min"
+    execution: "parallel"
+
+    steps:
+      - id: step_1_1
+        name: "Execute in Opus (baseline)"
+        execution: "parallel_a"
+        action: |
+          Task(
+            subagent_type: "general-purpose",
+            model: "opus",
+            prompt: "Read squads/squad-creator/tasks/{task_name}.md completely.
+                     Execute the task with this input: {test_input.target}
+                     Save the output as YAML to squads/squad-creator/test-cases/{task_name}/opus-baseline.yaml
+                     Include metadata: tokens used, duration."
+          )
+        output:
+          opus_result: "Full output saved to file"
+          opus_tokens: { input: 0, output: 0 }
+          opus_latency_ms: 0
+
+      - id: step_1_2
+        name: "Execute in Haiku (candidate)"
+        execution: "parallel_b"
+        action: |
+          Task(
+            subagent_type: "general-purpose",
+            model: "haiku",
+            prompt: "Read squads/squad-creator/tasks/{task_name}.md completely.
+                     Execute the task with this input: {test_input.target}
+                     Save the output as YAML to squads/squad-creator/test-cases/{task_name}/haiku-round-1.yaml
+                     Include metadata: tokens used, duration."
+          )
+        output:
+          haiku_result: "Full output saved to file"
+          haiku_tokens: { input: 0, output: 0 }
+          haiku_latency_ms: 0
+
+    checkpoint:
+      id: CP_EXECUTION
+      blocking: true
+      criteria:
+        - opus_result: "file exists and not empty (MTQ_VC_002)"
+        - haiku_result: "file exists and not empty"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: COMPARE & AUTO-DECIDE
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_2
+    name: "COMPARE & AUTO-DECIDE"
+    purpose: "Comparar outputs, calcular custo, decidir próximo passo"
+    duration: "1-3 min"
+
+    steps:
+      - id: step_2_1
+        name: "Read both outputs"
+        action: |
+          Read opus-baseline.yaml and haiku-round-1.yaml
+          Parse both as structured data
+
+      - id: step_2_2
+        name: "Compare across 5 dimensions"
+        action: |
+          Score each dimension (0-10):
+
+          1. COMPLETENESS (weight: 0.30)
+             - Count sections in Opus vs Haiku
+             - Score = (haiku_sections / opus_sections) * 10
+             - DETERMINISTIC: section count, not judgment
+
+          2. ACCURACY (weight: 0.30)
+             - Compare key decisions (PASS/FAIL, scores, classifications)
+             - Same decision = 10, opposite = 0, close = 7
+             - VETO CHECK: opposite decision → MTQ_VC_004
+
+          3. REASONING (weight: 0.20)
+             - Compare evidence depth
+             - Has specific references = 10, generic = 5, missing = 0
+             - NOTE: More reasoning in Haiku is OK (not a penalty)
+
+          4. FORMAT (weight: 0.10)
+             - YAML valid? Same structure? Parseable?
+             - DETERMINISTIC: parse test
+
+          5. ACTIONABILITY (weight: 0.10)
+             - Count recommendations
+             - More = better (Haiku giving more is a BONUS)
+        output:
+          dimension_scores: "Per-dimension breakdown"
+          quality_score: "Weighted average as percentage (0-100%)"
+          gaps_identified: "List of gap types for compensation matching"
+
+      - id: step_2_3
+        name: "Calculate cost"
+        action: |
+          opus_cost = (opus_tokens.input * 15.00 / 1_000_000) + (opus_tokens.output * 75.00 / 1_000_000)
+          haiku_cost = (haiku_tokens.input * 0.25 / 1_000_000) + (haiku_tokens.output * 1.25 / 1_000_000)
+          savings_pct = (1 - haiku_cost / opus_cost) * 100
+        output:
+          opus_cost_usd: 0
+          haiku_cost_usd: 0
+          savings_percentage: 0
+
+      - id: step_2_4
+        name: "Decision gate"
+        action: |
+          # DECISION TREE (unidirectional, no going back)
+
+          IF quality_score >= threshold * 100:
+            decision = "QUALIFIED"
+            → GOTO phase_4 (report)
+
+          ELSE IF quality_score >= (threshold - 0.05) * 100:
+            # Close to threshold - try compensation
+            decision = "NEEDS_COMPENSATION"
+            → GOTO phase_3 (compensate + re-test)
+
+          ELSE IF quality_score < (threshold - 0.15) * 100:
+            # Too far from threshold - skip compensation, escalate
+            decision = "ESCALATE_TO_SONNET"
+            → GOTO phase_4 (report with sonnet recommendation)
+
+          ELSE:
+            decision = "NEEDS_COMPENSATION"
+            → GOTO phase_3
+
+        output:
+          decision: "QUALIFIED | NEEDS_COMPENSATION | ESCALATE_TO_SONNET"
+          round: 1
+
+    checkpoint:
+      id: CP_DECISION
+      blocking: true
+      output:
+        saved_to: "test-cases/{task_name}/comparison-round-1.yaml"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: AUTO-IMPROVE LOOP (compensate + re-test)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_3
+    name: "AUTO-IMPROVE LOOP"
+    purpose: "Aplicar compensações ao task E re-testar automaticamente"
+    duration: "3-8 min per round"
+    condition: "decision == 'NEEDS_COMPENSATION'"
+    max_iterations: 2
+
+    auto_improve_cycle:
+      description: |
+        Este é o loop que Alan pediu:
+        1. Identificar gaps do round anterior
+        2. Selecionar compensações aplicáveis
+        3. MODIFICAR a task (pv-axioma-assessment.md, etc) com compensações
+        4. Re-executar Haiku com task melhorada
+        5. Comparar novamente
+        6. Se >= threshold → QUALIFIED_WITH_COMPENSATION
+        7. Se < threshold E rounds < max → repetir loop
+        8. Se < threshold E rounds >= max → ESCALATE
+
+    compensations:
+      - id: COMP_001
+        name: "Scoring Calibration"
+        triggers: ["score_variance", "conservative_scoring"]
+        priority: 1
+        action: |
+          Append to task file:
+
+          ## Scoring Calibration (CRITICAL)
+          Score o que EXISTE, não o que FALTA.
+          Se o processo TEM a característica → mínimo 7.0.
+          Gaps vão para recommendations, NÃO reduzem score.
+          Evidence deve ser POSITIVA primeiro.
+
+      - id: COMP_002
+        name: "Output Example"
+        triggers: ["format_issues", "missing_sections", "structure_mismatch"]
+        priority: 2
+        action: |
+          Append to task file:
+
+          ## Output Example
+          Here is the expected output structure:
+          ```yaml
+          {first_100_lines_of_opus_baseline}
+          ```
+
+      - id: COMP_003
+        name: "Completion Checklist"
+        triggers: ["incomplete_output", "missing_fields"]
+        priority: 3
+        action: |
+          Append to task file:
+
+          ## Completion Checklist
+          Before returning, verify ALL items:
+          - [ ] All N sections present
+          - [ ] Each has score + evidence
+          - [ ] Overall score calculated correctly
+          - [ ] Recommendations are specific and actionable
+
+      - id: COMP_004
+        name: "Reasoning Depth"
+        triggers: ["shallow_reasoning", "generic_evidence"]
+        priority: 4
+        action: |
+          Append to task file:
+
+          ## Reasoning Requirements
+          For each item:
+          1. List what the process DOES WELL (positive first)
+          2. Note gaps (for recommendations only)
+          3. Cite specific files, line counts, IDs
+
+    steps:
+      - id: step_3_1
+        name: "Match gaps to compensations"
+        action: |
+          For each gap in gaps_identified:
+            Find matching COMP_* by triggers
+            Add to compensations_to_apply (ordered by priority)
+
+      - id: step_3_2
+        name: "Apply compensations to task file"
+        action: |
+          Read squads/squad-creator/tasks/{task_name}.md
+          Append selected compensations
+          Save modified task
+          Log: test-cases/{task_name}/compensation-round-{N}.yaml
+
+      - id: step_3_3
+        name: "Re-execute in Haiku"
+        action: |
+          Task(
+            subagent_type: "general-purpose",
+            model: "haiku",
+            prompt: "Read squads/squad-creator/tasks/{task_name}.md completely.
+                     Execute with input: {test_input.target}
+                     Save to squads/squad-creator/test-cases/{task_name}/haiku-round-{N+1}.yaml"
+          )
+
+      - id: step_3_4
+        name: "Re-compare"
+        action: "Same comparison as phase_2.step_2_2"
+
+      - id: step_3_5
+        name: "Loop decision"
+        action: |
+          IF quality_score_new >= threshold * 100:
+            decision = "QUALIFIED_WITH_COMPENSATION"
+            → GOTO phase_4
+
+          ELSE IF round >= max_compensation_rounds:
+            decision = "ESCALATE_TO_SONNET"
+            → GOTO phase_4
+
+          ELSE:
+            round += 1
+            → GOTO step_3_1 (loop)
+
+    veto_conditions:
+      - id: MTQ_VC_LOOP
+        trigger: "Same compensation applied twice without improvement"
+        action: "STOP loop. Escalate."
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: GENERATE REPORT
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_4
+    name: "GENERATE REPORT"
+    purpose: "Criar relatório final com TODA a evidência para review humano"
+    duration: "1-2 min"
+
+    steps:
+      - id: step_4_1
+        name: "Generate qualification report"
+        action: |
+          Create test-cases/{task_name}/qualification-report.yaml with ALL data:
+
+          qualification_report:
+            task_name: "{task_name}"
+            test_date: "{today}"
+            workflow_version: "2.0"
+
+            baseline:
+              model: "opus"
+              score: "{opus_overall_score}"
+              cost_usd: "{opus_cost}"
+              tokens: { input: X, output: Y }
+              latency_ms: Z
+              file: "opus-baseline.yaml"
+
+            rounds:
+              - round: 1
+                model: "haiku"
+                score: "{haiku_score}"
+                quality_vs_baseline: "{pct}%"
+                cost_usd: "{haiku_cost}"
+                tokens: { input: X, output: Y }
+                gaps: ["{gap_list}"]
+                file: "haiku-round-1.yaml"
+
+              - round: 2  # if applicable
+                model: "haiku"
+                compensations_applied: ["COMP_001", "COMP_003"]
+                score: "{haiku_score_v2}"
+                quality_vs_baseline: "{pct_v2}%"
+                cost_usd: "{haiku_cost_v2}"
+                file: "haiku-round-2.yaml"
+
+            decision:
+              final: "{QUALIFIED | QUALIFIED_WITH_COMPENSATION | ESCALATE_TO_SONNET | OPUS_REQUIRED}"
+              recommended_tier: "{haiku | sonnet | opus}"
+              quality_achieved: "{final_pct}%"
+              threshold_required: "{threshold}%"
+
+            cost_analysis:
+              opus_per_run: "{opus_cost}"
+              candidate_per_run: "{haiku_cost}"
+              savings_per_run: "{savings}"
+              savings_percentage: "{savings_pct}%"
+              projected_100_runs: "{savings * 100}"
+
+            compensations_applied:
+              - id: "COMP_001"
+                effective: true/false
+                score_before: X
+                score_after: Y
+
+            evidence_files:
+              - "opus-baseline.yaml"
+              - "haiku-round-1.yaml"
+              - "haiku-round-2.yaml"
+              - "comparison-round-1.yaml"
+              - "compensation-round-1.yaml"
+              - "qualification-report.yaml"
+
+      - id: step_4_2
+        name: "Update test-case.yaml"
+        action: |
+          Update test-cases/{task_name}/test-case.yaml with results:
+          - results.haiku.score
+          - results.haiku.cost_usd
+          - results.haiku.qualified
+          - results.final_tier
+
+      - id: step_4_3
+        name: "Update model-routing.yaml"
+        condition: "decision is QUALIFIED or QUALIFIED_WITH_COMPENSATION"
+        action: |
+          node squads/squad-creator/scripts/model-tier-validator.cjs \
+            update-routing {task_name} {recommended_tier} "{reason}"
+
+      - id: step_4_4
+        name: "Display summary"
+        action: |
+          ╔══════════════════════════════════════════════════════════════════╗
+          ║  MODEL TIER QUALIFICATION RESULT                                 ║
+          ╠══════════════════════════════════════════════════════════════════╣
+          ║  Task: {task_name}                                               ║
+          ║                                                                  ║
+          ║  Opus:    {opus_score}/10 | ${opus_cost}                         ║
+          ║  Haiku:   {haiku_score}/10 ({pct}% of baseline) | ${haiku_cost}  ║
+          ║                                                                  ║
+          ║  DECISION: {final_decision}                                      ║
+          ║  TIER: {recommended_tier}                                        ║
+          ║  $$ SAVINGS: {savings_pct}%                                      ║
+          ║  Compensations: {N} applied, {M} effective                       ║
+          ║                                                                  ║
+          ║  Files: test-cases/{task_name}/                                  ║
+          ╚══════════════════════════════════════════════════════════════════╝
+
+    veto_conditions:
+      - id: MTQ_VC_REPORT
+        trigger: "Report file not created"
+        action: "BLOCK - Cannot complete without evidence file."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# BATCH EXECUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+batch_mode:
+  description: |
+    Rodar qualificação em TODAS as tasks candidatas.
+    Usa test_input_registry para saber O QUE testar.
+    Gera consolidated report no final.
+
+  execution_order:
+    # Wave 1: High-confidence Haiku candidates (testáveis agora)
+    wave_1:
+      description: "Tasks com test_input definido e confidence: high"
+      tasks:
+        - pv-axioma-assessment     # ALREADY TESTED ✅
+        - pv-modernization-score
+        - validate-squad
+        - validate-extraction
+        - qa-after-creation
+        - an-fidelity-score
+        - an-clone-review
+        - an-diagnose-clone
+        - an-validate-clone
+        - an-assess-sources
+
+    # Wave 2: Admin tasks (simpler, likely all pass)
+    wave_2:
+      description: "Tasks administrativas (script-based)"
+      tasks:
+        - refresh-registry
+        - squad-analytics
+        - migrate-workflows-to-yaml
+        - install-commands
+        - sync-ide-command
+
+    # Wave 3: Sonnet candidates tested with Haiku
+    wave_3:
+      description: "Tasks sonnet com test_with_haiku=true"
+      tasks:
+        - create-documentation
+        - create-template
+        - collect-sources
+        - auto-acquire-sources
+
+  parallelization:
+    description: |
+      Dentro de cada wave, tasks são executadas SEQUENCIALMENTE
+      (para evitar confusão de outputs e permitir learning).
+      Mas dentro de cada task, Opus+Haiku rodam em PARALELO (Phase 1).
+
+  consolidated_report:
+    output: "squads/squad-creator/test-cases/QUALIFICATION-DASHBOARD.yaml"
+    format: |
+      qualification_dashboard:
+        date: "{today}"
+        workflow_version: "2.0"
+
+        summary:
+          total_tested: N
+          haiku_qualified: N
+          sonnet_qualified: N
+          opus_required: N
+          total_savings_projected: "$X.XX per 100 runs"
+
+        results:
+          - task: "{task_name}"
+            tier: "{recommended}"
+            quality: "{pct}%"
+            cost_savings: "{savings}%"
+            compensations: N
+            status: "QUALIFIED | NEEDS_COMPENSATION | ESCALATE"
+
+        cost_comparison:
+          all_opus: "$X.XX per 100 runs"
+          optimized: "$Y.YY per 100 runs"
+          total_savings: "$Z.ZZ (AA%)"
+
+        next_actions:
+          - "Create skills for qualified Haiku tasks"
+          - "Test Sonnet candidates"
+          - "Review Opus-required tasks"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FAILURE PATHS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+failure_paths:
+  - scenario: "Task file not found"
+    action: "Skip task, log error, continue batch"
+
+  - scenario: "Opus execution fails"
+    action: "STOP for this task. Cannot qualify without baseline. Log and skip."
+
+  - scenario: "Haiku execution fails (timeout, error)"
+    action: "Retry once. If fails again → OPUS_REQUIRED."
+
+  - scenario: "Haiku gives opposite decision (PASS vs FAIL)"
+    action: "IMMEDIATE FAIL. MTQ_VC_004. No compensation can fix wrong decisions."
+
+  - scenario: "Compensation makes quality WORSE"
+    action: "Revert compensation. Try next compensation type. If none left → ESCALATE."
+
+  - scenario: "test_input doesn't exist (file deleted, path wrong)"
+    action: "STOP for this task. Update registry. Log and skip."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  per_task:
+    - "test-cases/{task_name}/opus-baseline.yaml"
+    - "test-cases/{task_name}/haiku-round-1.yaml"
+    - "test-cases/{task_name}/haiku-round-{N}.yaml (if compensated)"
+    - "test-cases/{task_name}/comparison-round-{N}.yaml"
+    - "test-cases/{task_name}/compensation-round-{N}.yaml (if applied)"
+    - "test-cases/{task_name}/qualification-report.yaml"
+
+  batch:
+    - "test-cases/QUALIFICATION-DASHBOARD.yaml"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "2.0"
+  created: "2026-02-11"
+  author: "@pedro-valerio"
+  changelog:
+    - version: "2.0"
+      date: "2026-02-11"
+      changes:
+        - "REWRITE: Added phase_0 (pre-flight validation)"
+        - "REWRITE: Phase 1 now runs Opus + Haiku in PARALLEL"
+        - "REWRITE: Merged old phases 2+3 into phase_2 (compare + decide)"
+        - "REWRITE: Phase 3 is now AUTO-IMPROVE LOOP (compensate + re-test)"
+        - "REWRITE: Phase 4 is report generation"
+        - "NEW: 6 veto conditions (MTQ_VC_001 to MTQ_VC_006)"
+        - "NEW: test_input_registry with 19 tasks mapped"
+        - "NEW: Failure paths for 6 scenarios"
+        - "NEW: Batch mode with 3 waves and consolidated dashboard"
+        - "NEW: Cost-first decision logic from ADR-001"
+        - "NEW: Alan's 8 decision patterns embedded in philosophy"
+        - "FIX: Comparison is now more deterministic (section counts, parse tests)"
+        - "FIX: Scoring Calibration compensation included by default"
+    - version: "1.0"
+      date: "2026-02-11"
+      changes:
+        - "Initial workflow based on empirical testing session"
+        - "4 compensation strategies defined"
+        - "2-round testing with automatic improvement"

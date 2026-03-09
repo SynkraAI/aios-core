@@ -1,0 +1,71 @@
+name: mind-cloning
+version: "1.1.0"
+slashPrefix: mind
+title: "Mind Cloning - Expert DNA Extraction & Replication"
+description: >-
+  Squad especializado em clonar mentes de experts através de extração sistemática
+  de Voice DNA (como comunicam) e Thinking DNA (como pensam). Usa pipeline de
+  3 prompts sequenciais: Collect Sources → Extract Voice DNA → Extract Thinking DNA,
+  seguido de síntese e smoke tests. Baseado nos princípios de curadoria 40/20/40
+  e na Trindade Sagrada (Playbook + Framework + Swipe File). Inclui DNA Mental
+  8-Layer Architecture para validação de completude, stage architecture para clones
+  context-dependent, framework de diagnóstico para clones fracos, e catálogo de
+  heurísticas AN001-AN005 do processo de clonagem.
+author: "Luiz Fosc"
+icon: "🧬"
+type: specialist
+
+independence: true
+independence_details: |
+  Squad 100% independente e auto-contido:
+  - Não requer banco de dados
+  - Não requer APIs externas (opcionais para auto-acquire)
+  - Todo output é em arquivos YAML/Markdown locais
+  - Funciona offline com materiais fornecidos pelo usuário
+
+agents:
+  - mind-cloner
+
+tasks:
+  - collect-sources
+  - extract-voice-dna
+  - extract-thinking-dna
+  - synthesize-mind
+  - smoke-test
+  - clone-mind
+
+templates:
+  - sources-inventory-tmpl
+  - voice-dna-tmpl
+  - thinking-dna-tmpl
+  - mind-dna-complete-tmpl
+  - quality-dashboard-tmpl
+
+checklists:
+  - sources-validation
+  - voice-dna-quality
+  - thinking-dna-quality
+
+workflows:
+  - full-mind-clone
+
+data:
+  - source-tiers
+  - fidelity-levels
+  - curation-principles
+  - dna-mental-8layers
+  - clone-stages-guide
+  - heuristics-catalog
+  - diagnostic-framework
+  - social-proof-cases
+
+tags:
+  - mind-cloning
+  - expert-extraction
+  - voice-dna
+  - thinking-dna
+  - persona
+  - ai-agents
+  - curadoria
+  - dna-mental
+  - diagnostico

@@ -1,0 +1,20 @@
+# Rose Gold — Elegant luxury with soft pink and gold
+# Ideal for: beauty, fashion, wedding, premium branding
+
+name: Rose Gold
+theme: dark
+colors:
+  primary: "#BE185D"
+  primary_light: "#F472B6"
+  accent: "#D4A574"
+  background: "#1A0A14"
+  card: "#261320"
+  border: "#3D1E30"
+  text: "#F0D4E4"
+  text_muted: "#A67A94"
+  white: "#FFF1F2"
+  highlight: "#EC4899"
+font: "Playfair Display"
+cover:
+  gradient_primary: "rgba(190,24,93,0.20)"
+  gradient_secondary: "rgba(212,165,116,0.10)"

@@ -1,0 +1,95 @@
+{
+  "generated_at": "2026-02-07T12:00:00.000Z",
+  "project_name": "aios-core",
+  "project_path": "/Users/luizfosc/aios-core",
+  "system": {
+    "os": "darwin",
+    "os_version": "26.2",
+    "arch": "arm64",
+    "node_version": "v20.20.0",
+    "user": "luizfosc",
+    "hostname": "MacBook-Air-do-Fosc.local",
+    "package_manager": "Homebrew 5.0.13"
+  },
+  "cli_tools": {
+    "essential": {
+      "git": {
+        "installed": true,
+        "version": "2.52.0"
+      },
+      "gh": {
+        "installed": true,
+        "version": "2.86.0",
+        "authenticated": true,
+        "user": "luizfosc",
+        "scopes": ["gist", "read:org", "repo", "workflow"]
+      },
+      "node": {
+        "installed": true,
+        "version": "20.20.0"
+      },
+      "npm": {
+        "installed": true,
+        "version": "10.8.2"
+      }
+    },
+    "infrastructure": {
+      "supabase": {
+        "installed": true,
+        "version": "2.75.0",
+        "authenticated": true
+      },
+      "railway": {
+        "installed": true,
+        "version": "4.29.0",
+        "authenticated": true,
+        "user": "luizfosc@gmail.com"
+      },
+      "netlify": {
+        "installed": true,
+        "version": "23.15.1",
+        "authenticated": true,
+        "user": "Luiz Felipe Paiva"
+      },
+      "docker": {
+        "installed": true,
+        "version": "29.2.0",
+        "running": true
+      }
+    },
+    "quality": {
+      "coderabbit": {
+        "installed": true,
+        "version": "0.3.5"
+      }
+    },
+    "optional": {
+      "pnpm": {
+        "installed": true,
+        "version": "10.28.2"
+      },
+      "bun": {
+        "installed": true,
+        "version": "1.3.8"
+      }
+    }
+  },
+  "repository": {
+    "initialized": true,
+    "remote_url": "https://github.com/SynkraAI/aios-core.git",
+    "branch": "main",
+    "organization": "SynkraAI",
+    "commits": 649
+  },
+  "validation": {
+    "essential_complete": true,
+    "infrastructure_complete": true,
+    "quality_complete": true,
+    "optional_complete": true,
+    "all_services_authenticated": true,
+    "ready_for_development": true
+  },
+  "bootstrap_complete": true,
+  "bootstrap_date": "2026-02-07T12:00:00.000Z",
+  "previous_bootstrap": "2026-02-06T18:50:30.074Z"
+}

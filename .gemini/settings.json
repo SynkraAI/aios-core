@@ -1,0 +1,109 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(.claude/approved-plans/**)",
+      "Read(**/*)",
+      "Write(**/*)",
+      "Edit(**/*)",
+      "Bash",
+      "WebFetch",
+      "WebSearch",
+      "Task",
+      "Glob",
+      "Grep",
+      "NotebookEdit",
+      "Bash(git pull:*)",
+      "Skill(*)"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf /*)",
+      "Bash(sudo rm -rf:*)",
+      "Bash(mkfs:*)",
+      "Bash(dd if=/dev/zero:*)",
+      "Bash(chmod -R 777 /)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "aios-session-init",
+            "type": "command",
+            "command": "node \".gemini/hooks/session-start.js\"",
+            "timeout": 5000,
+            "enabled": true
+          }
+        ]
+      }
+    ],
+    "BeforeAgent": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "aios-context-inject",
+            "type": "command",
+            "command": "node \".gemini/hooks/before-agent.js\"",
+            "timeout": 3000,
+            "enabled": true
+          }
+        ]
+      }
+    ],
+    "BeforeTool": [
+      {
+        "matcher": "write_file|replace|shell|bash|execute",
+        "hooks": [
+          {
+            "name": "aios-security-check",
+            "type": "command",
+            "command": "node \".gemini/hooks/before-tool.js\"",
+            "timeout": 2000,
+            "enabled": true
+          }
+        ]
+      }
+    ],
+    "AfterTool": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "aios-audit-log",
+            "type": "command",
+            "command": "node \".gemini/hooks/after-tool.js\"",
+            "timeout": 2000,
+            "enabled": true
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "aios-session-persist",
+            "type": "command",
+            "command": "node \".gemini/hooks/session-end.js\"",
+            "timeout": 5000,
+            "enabled": true
+          }
+        ]
+      }
+    ]
+  },
+  "outputStyle": "default",
+  "sandbox": {
+    "enabled": false,
+    "alwaysThinkingEnabled": true
+  },
+  "previewFeatures": true,
+  "folderTrust": {
+    "enabled": true
+  }
+}

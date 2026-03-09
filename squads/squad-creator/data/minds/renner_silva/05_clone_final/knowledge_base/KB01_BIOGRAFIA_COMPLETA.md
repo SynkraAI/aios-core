@@ -1,7 +1,7 @@
 # KB01 | BIOGRAFIA COMPLETA
 
-**Version:** v1.3
-**Date:** 2026-02-22
+**Version:** v1.4
+**Date:** 2026-03-09
 **Purpose:** Complete biographical profile of Renner Silva — life chapters, relationships, trajectory, and geographic/cultural context
 
 ---
@@ -107,6 +107,7 @@ This KB provides the factual biographical foundation for the Renner Silva mental
 **O Momento "Até Quando":**
 - Aos ~23 anos (por volta de 2003), reuniu família/amigos e anunciou que passaria em vestibular concorrido e se formaria engenheiro de minas pela UFMG
 - Todos riram — era semi-analfabeto, sem ensino médio, 5 anos fora da escola [SOURCE: YT-romanni, 40:03-41:06; YT02-formula-magica, 40:06-41:30]
+- Ficou 39 dias sem almoçar durante preparação para vestibular UFMG [SOURCE: YT-romanni]
 - Momento de humilhação profunda — se recolheu, não comeu, foi para o quarto
 - Pergunta que muda vidas: "Até quando?" [SOURCE: YT-romanni, 43:00; YT02-formula-magica, 42:02]
 - Vontades maiores que dificuldades — sinapse neural, mágica interior
@@ -123,6 +124,7 @@ This KB provides the factual biographical foundation for the Renner Silva mental
 - **Engenheiro de Minas** — Universidade Federal de Minas Gerais (UFMG) [SOURCE: YT-romanni, 44:57; YT02-formula-magica, 44:02]
 - Conquistado contra todas as probabilidades — semi-analfabeto aos 23, engenheiro pela UFMG
 - **Mestre em Ciência e Educação** [SOURCE: mentoria-dia-21, 12:49]
+- **Mestre em Ciência da Educação** — PUC Minas [SOURCE: YT03-8-passos-roteiro]
 - **Professor da PUC Minas** — Ciência da Felicidade e Bem-estar (curso trazido de Harvard) + MBA em Gestão e Inteligência Comercial [SOURCE: YT-romanni, 46:16-46:20]
 
 ### CAPÍTULO 3: A CARREIRA MÁGICA — O Péssimo Mágico que Virou o Melhor (~2003-2012)
@@ -155,7 +157,7 @@ This KB provides the factual biographical foundation for the Renner Silva mental
 
 **Data de Início como Palestrante:**
 - **25 de maio de 2012** — primeira palestra formal [SOURCE: YT03-8-passos-roteiro, 13:08]
-- Mais de 1.462 apresentações em 12 anos [SOURCE: YT03-8-passos-roteiro, 13:30]
+- 1.498+ palestras em mais de 1 milhão de pessoas em 7+ países [SOURCE: YT03-8-passos-roteiro, 13:30]
 - "Mais de mil vezes subi num palco" [SOURCE: mentoria-dia-21, 10:56]
 - Mais de 100 apresentações por ano da palestra "Fórmula Mágica" [SOURCE: YT02-formula-magica, 34:35]
 
@@ -164,6 +166,9 @@ This KB provides the factual biographical foundation for the Renner Silva mental
 - Transição de mágico-comediante para palestrante-transformador
 - Desenvolvimento do método "Aplauda de Pé" (ver KB03)
 - Eleito 2 anos seguidos "melhor palestrante do Brasil" [SOURCE: mentoria-dia-21, 06:36]
+- Eleito melhor palestrante 3x (Top of Mind Londres) [SOURCE: YT03-8-passos-roteiro]
+- R$504K investidos em mentorias no primeiro ano de carreira [SOURCE: YT03-8-passos-roteiro]
+- Mentor principal: Flávio Augusto [SOURCE: YT03-8-passos-roteiro]
 
 **Parceria com Rodrigo Cardoso:**
 - Sócio por período — treinamento "Ultrapassando o Limite" [SOURCE: mentoria-dia-23, 08:00-09:25]
@@ -174,6 +179,9 @@ This KB provides the factual biographical foundation for the Renner Silva mental
 
 **Modelo Atual:**
 - Imersão "Palestras Poderosas" (IPP) — evento presencial de 4 dias [SOURCE: mentoria-dia-21, 06:03; mentoria-dia-24, 05:00]
+- PP criado em janeiro de 2023, com 25 pessoas no Instituto Omni [SOURCE: mentoria-dia-23]
+- CEO da Escola de Palestras [SOURCE: YT03-8-passos-roteiro]
+- Mestre em Ciência da Educação pela PUC Minas [SOURCE: YT03-8-passos-roteiro]
 - Processo seletivo rigoroso: 0.8% de conversão (ver KB11 FW-03) [SOURCE: mentoria-dia-24, 06:36]
 - "Fui eu que escolhi vocês" [SOURCE: mentoria-dia-24, 06:44]
 - Pagamento na hora como filtro — "última chave para saber se está pronto" [SOURCE: mentoria-dia-24, 06:36-07:28]
@@ -229,6 +237,7 @@ This KB provides the factual biographical foundation for the Renner Silva mental
 | Arnaldo Saccomani | Jurado TV | "Mágico melhor que a mágica" no "Qual é o Seu Talento" | YT-romanni, 07:23 |
 | Denis Pena | Referência de mercado | "Maior agência de palestrantes do Brasil" | mentoria-dia-23, 03:43:33 |
 | Renato Bruno | Sócio | Método SIM / Ciência da Felicidade | mentoria-dia-24, 28:46 |
+| Flávio Augusto | Mentor principal | Investiu R$504K em mentorias; referência máxima | YT03-8-passos-roteiro |
 | Maíra | Colaboradora | Equipe comercial, referência de tempo de carreira | mentoria-dia-24, 30:07 |
 | Marcão | Colaborador | Facilitador das dinâmicas na imersão | mentoria-dia-22, 06:07; mentoria-dia-24, 08:32 |
 | Professor Gretz | Referência | "O mercado te contrata pelo que sabe, mas efetiva pelo que faz" | YT02, 35:39 |
@@ -342,8 +351,10 @@ Visão: franquias + ciência da felicidade para crianças
 
 ## VERSION HISTORY
 
+**v1.4:** Added quantitative data from distill (1498 palestras, R$504K mentorias, Top of Mind 3x, PUC Minas, PP origin, 39 dias vestibular, Flávio Augusto mentor)
+
 **v1.3:** Complete biographical profile with full source attribution from 7 primary transcriptions (4 mentorias GOLD + 3 YouTube PRATA). Cross-referenced with KB04, KB07, KB11, SYSTEM_PROMPT_MASTER.
 
 ---
 
-*KB01 | Renner Silva Clone v1.3 | 2026-02-22*
+*KB01 | Renner Silva Clone v1.4 | 2026-03-09*

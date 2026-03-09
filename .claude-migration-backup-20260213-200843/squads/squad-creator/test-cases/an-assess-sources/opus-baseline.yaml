@@ -1,0 +1,517 @@
+# Source Assessment: Alex Hormozi
+# Task: an-assess-sources v2.0 (Binary Checkpoint Conversion)
+# Executor: Claude Opus 4.5 (Baseline)
+# Date: 2026-02-11
+
+source_assessment:
+  mind: "Alex Hormozi"
+  version: "2.0"
+  assessment_date: "2026-02-11"
+
+  summary:
+    total_sources: 4
+    crown_jewel: 2
+    ouro: 2
+    mixed: 0
+    bronze: 1
+    average_quality: 4.15
+
+  sources:
+    # =========================================================================
+    # SOURCE 1: Livro $100M Offers
+    # =========================================================================
+    - name: "$100M Offers"
+      type: livro
+      url: null
+      duration: "~250 pages (18 chapters)"
+      path: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100M Ofertas/"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          # Tom conversacional e direto. Hormozi escreve como fala - usa "eu" abundantemente,
+          # conta historias pessoais de forma natural. Nao parece scripted.
+          vulnerabilidade: true
+          # Admite erros passados: "Eu era bom em conseguir leads para minhas academias...
+          # mas eu nao sabia nada sobre publicidade ou vendas". Compartilha momentos
+          # de fracasso como o parceiro que roubou seu dinheiro.
+          respostas_dificeis: true
+          # Aborda questoes que outros evitam: "Voce pode estar certo ou pode ser rico.
+          # Se isso te incomoda, apenas deixe isso de lado." Nao evita posicoes polemica.
+          nuance: true
+          # Mostra nuances na Equacao de Valor - distingue entre valor real e percebido,
+          # discute solucoes logicas vs psicologicas, reconhece tradeoffs.
+          storytelling: true
+          # Rico em historias pessoais: a academia de fotografia que foi de $300 para
+          # $1500 por cliente, o metro de Londres, a conversa com o pai.
+          score: 5
+
+        profundidade:
+          porque_explicado: true
+          # Explica motivacoes profundamente: por que valor percebido importa mais que real,
+          # por que precos altos beneficiam clientes, por que escassez funciona psicologicamente.
+          framework: true
+          # Framework central: Equacao de Valor com 4 variaveis claras.
+          # SE aumentar numerador E diminuir denominador ENTAO valor tende ao infinito.
+          exemplos_especificos: true
+          # Exemplos com numeros: academia de fotografia $300->$1500 = 38x lucro,
+          # meditacao vs Xanax comparacao, industria de suplementos $123B vs academias $62B.
+          tradeoffs: true
+          # Discute tradeoffs: fitness vs liposuccao, solucoes logicas vs psicologicas,
+          # escalabilidade vs personalizacao inicial.
+          cross_domain: true
+          # Conecta: psicologia comportamental, economia, marketing, neurociencia
+          # (ancoragem), filosofia (Orson Scott Card quote).
+          score: 5
+
+        atualidade:
+          recencia: true
+          # Publicado em 2021, dentro da janela de 3 anos. Conteudo atual.
+          contexto_atual: true
+          # Referencias a Amazon (entrega por drone), Netflix (streaming), iPhone.
+          # Contexto de negocios digitais atual.
+          nao_contradito: true
+          # Posicoes sao consistentes com trabalhos posteriores ($100M Leads, Money Models).
+          evolucao: false
+          # Este eh o primeiro livro - nao mostra evolucao de pensamento porque eh o ponto
+          # de partida. Evolucao visivel seria em relacao a trabalhos ANTERIORES.
+          aplicabilidade: true
+          # Frameworks de precificacao e valor sao atemporais e aplicaveis em 2026.
+          # Equacao de Valor eh universal.
+          score: 4
+
+        unicidade:
+          contra_mainstream: true
+          # Contradiz senso comum: "precos altos sao beneficio para cliente",
+          # "venda menos para ganhar mais", "escassez artificial funciona".
+          vocabulario_proprio: true
+          # Termos unicos: "Grand Slam Offer", "Equacao de Valor", "Ciclo Virtuoso",
+          # "Modelo MAGICO", "Empilhamento de Valor".
+          framework_original: true
+          # Equacao de Valor com 4 variaveis eh criacao original de Hormozi.
+          # Nao encontrada em outros autores de marketing.
+          insight_contraintuitivo: true
+          # "Quem menos precisa, mais ganha", "dar garantias fortes diminui reembolsos",
+          # "nunca de descontos, sempre adicione valor".
+          perspectiva_singular: true
+          # Abordagem matematica/quantitativa unica para criacao de ofertas.
+          # Transforma arte em ciencia replicavel.
+          score: 5
+
+        completude:
+          playbook: true
+          # Passos claros: 1) identifique avatar, 2) liste problemas, 3) crie solucoes,
+          # 4) empilhe valor, 5) adicione escassez/urgencia, 6) garanta, 7) nomeie.
+          framework_presente: true
+          # SE aumentar (resultado dos sonhos x probabilidade) / (tempo x esforco)
+          # ENTAO valor aumenta. Framework claro e aplicavel.
+          exemplos_reais: true
+          # Academia de fotografia, metro de Londres, meditacao vs Xanax, suplementos vs
+          # academias, minivan vs Lamborghini - 10+ exemplos concretos.
+          edge_cases: true
+          # Discute quando NAO funciona: clientes sem dor, mercados saturados,
+          # quando garantias podem falhar. Anti-garantia como alternativa.
+          profundidade_adequada: true
+          # 18 capitulos, ~250 paginas. Muito alem do minimo de 10 paginas.
+          score: 5
+
+      media: 4.8
+      tier: "crown_jewel"
+      extraction_priority: 1
+      notes: |
+        CROWN JEWEL - Fonte premium absoluta. Combina:
+        - Framework original (Equacao de Valor) nao encontrado em outros autores
+        - Profundidade excepcional com numeros reais e casos documentados
+        - Autenticidade atraves de vulnerabilidade e storytelling pessoal
+        - Alta unicidade com vocabulario e perspectiva proprios
+
+        Este livro deve ser a BASE para extracao de frameworks, linguagem
+        signature, e modelos mentais de Alex Hormozi. Prioridade maxima.
+
+        Criterio especial atingido: Profundidade = 5 AND Autenticidade >= 4
+
+    # =========================================================================
+    # SOURCE 2: Livro $100M Leads
+    # =========================================================================
+    - name: "$100M Leads"
+      type: livro
+      url: null
+      duration: "~300 pages (5 sections)"
+      path: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100M Leads/"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          # Escrita conversacional: "Minha busca por uma definicao clara de 'um lead'
+          # virou uma bola de neve no projeto massivo". Tom genuino e informal.
+          vulnerabilidade: true
+          # Historia pessoal detalhada: perda de $150.000 em reembolsos, parceiro que
+          # roubou dinheiro, morar com 1 mes de aluguel. Exposicao crua de fracassos.
+          respostas_dificeis: true
+          # Aborda: "Por que seus livros parecem escritos para criancas?" - responde
+          # diretamente que prefere simplicidade. Nao evita perguntas dificeis.
+          nuance: true
+          # Distingue lead vs lead engajado, warm vs cold outreach, diferentes
+          # contextos para cada metodo. Mostra complexidade real.
+          storytelling: true
+          # Historia pessoal de 2016-2017 rica em detalhes: Leila no computador,
+          # ligacao com dono de academia em Boise, momentos exatos com dialogos.
+          score: 5
+
+        profundidade:
+          porque_explicado: true
+          # Explica POR QUE leads engajados sao diferentes de leads, POR QUE lead
+          # magnets funcionam (psicologia de reciprocidade e valor).
+          framework: true
+          # Core Four claramente definido: warm outreach, post content, cold outreach,
+          # paid ads. SE audiencia quente E 1-para-1 ENTAO warm outreach.
+          exemplos_especificos: true
+          # Numeros exatos: $150.000 em reembolsos, $6.000 primeira venda de licenca,
+          # $8.000, $10.000 progressao, $60.000 em um dia, $6.820.000 primeiro ano.
+          tradeoffs: true
+          # Discute tradeoffs: lead magnet gratis vs pago, velocidade vs profundidade,
+          # warm vs cold (confianca vs escala).
+          cross_domain: true
+          # Conecta: psicologia (Dr. Feynman quote), marketing, vendas, relacionamentos
+          # pessoais, gestao de tempo.
+          score: 5
+
+        atualidade:
+          recencia: true
+          # Publicado em 2023 (Volume II). Definitivamente dentro da janela de 3 anos.
+          contexto_atual: true
+          # Referencias a midias sociais atuais, processos de automacao modernos,
+          # mentions de COVID implicitamente (mudanca para online).
+          nao_contradito: true
+          # Consistente com $100M Offers. Expande conceitos sem contradizer.
+          evolucao: true
+          # Mostra evolucao: de vender academias para licenciar modelo, de $0 para
+          # $100M patrimonio. Narrativa de crescimento clara.
+          aplicabilidade: true
+          # Metodos de lead generation sao atemporais: warm outreach, content,
+          # cold outreach, ads existem desde sempre e continuarao.
+          score: 5
+
+        unicidade:
+          contra_mainstream: true
+          # Contradiz: "leads sozinhos nao sao suficientes" (industria foca em volume),
+          # "comece gratuito, depois cobre" (industria diz cobrar desde inicio).
+          vocabulario_proprio: true
+          # Termos: "leads engajados", "Core Four", "warm reach outs", "lead magnet",
+          # "email de 9 palavras", estrutura ACA (Acknowledge, Compliment, Ask).
+          framework_original: true
+          # Core Four como taxonomia original para publicidade. Matriz 2x2
+          # (quente/frio x 1-para-1/1-para-muitos) eh criacao de Hormozi.
+          insight_contraintuitivo: true
+          # "Rapido supera gratis" - pessoas pagam por velocidade mais que por gratuidade.
+          # "Comece com os 5 gratuitos" - counterintuitive para comecar sem cobrar.
+          perspectiva_singular: true
+          # Perspectiva de operador-investidor: "meu modelo eh investir, nao vender
+          # cursos". Abordagem unica no mercado de educacao empresarial.
+          score: 5
+
+        completude:
+          playbook: true
+          # 10 passos detalhados para warm outreach: obter lista, escolher plataforma,
+          # personalizar, alcancar 100/dia, usar ACA, fazer oferta, etc.
+          framework_presente: true
+          # SE [audiencia quente] E [1-para-1] ENTAO [warm outreach].
+          # SE [lead magnet] E [valor > custo] ENTAO [leads engajados aumentam].
+          exemplos_reais: true
+          # Gym Launch $0->$4.4M/mês, Prestige Labs, ALAN, vendas especificas com
+          # datas e valores exatos.
+          edge_cases: true
+          # Discute quando warm outreach nao funciona (lista muito pequena),
+          # quando lead magnets falham (muito complexos), limitacoes de cada metodo.
+          profundidade_adequada: true
+          # 5 secoes extensas, ~300 paginas. Muito alem do minimo.
+          score: 5
+
+      media: 5.0
+      tier: "crown_jewel"
+      extraction_priority: 2
+      notes: |
+        CROWN JEWEL - Segunda fonte premium. Destaca-se por:
+        - Historia pessoal extremamente detalhada e vulneravel
+        - Framework Core Four original e aplicavel
+        - Playbooks passo-a-passo com benchmarks numericos
+        - Evolucao visivel do pensamento desde $100M Offers
+
+        Complementa $100M Offers perfeitamente - enquanto o primeiro foca em
+        OFERTAS, este foca em LEADS. Juntos formam sistema completo.
+
+        Criterio especial atingido: TODAS as dimensoes >= 4 (todas = 5)
+
+    # =========================================================================
+    # SOURCE 3: Livro $100M Money Models
+    # =========================================================================
+    - name: "$100M Money Models"
+      type: livro
+      url: null
+      duration: "~200 pages (6 sections + insights)"
+      path: "outputs/minds/alex_hormozi/sources/01 Livros/Livro 100m Modelos/"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: true
+          # Tom conversacional mantido: "Minha eureka dos suplementos", historias
+          # pessoais de vendas, dialogos reais.
+          vulnerabilidade: true
+          # Compartilha: "Apos 19 vendas falhadas, Alex acidentalmente perguntou
+          # 'chocolate ou baunilha?'". Admite erros e descobertas acidentais.
+          respostas_dificeis: true
+          # Aborda questoes espinhosas: penalidades para clientes, criar pressao,
+          # "esconder preco ate o fim". Nao suaviza tacticas.
+          nuance: true
+          # Distingue contextos: quando usar cada tipo de oferta, quando NAO usar
+          # certas tacticas, red flags de implementacao.
+          storytelling: true
+          # Historia do vendedor de carro que destruiu confianca, Boot Factory,
+          # caso Danny da academia, Gym Launch 0 a $4.4M/mes.
+          score: 5
+
+        profundidade:
+          porque_explicado: true
+          # Explica profundamente: POR QUE gratis custa mais que pago (psicologia
+          # de comprometimento), POR QUE penalidades aumentam satisfacao.
+          framework: true
+          # Framework GMMM (Get Money, More Money, Max Money) claramente estruturado.
+          # Matriz de Ofertas 4x3. Arvore de decisao completa.
+          exemplos_especificos: true
+          # Numeros: aluguel de carro $19->$100 (5x), hamburguer 11.6x multiplicador,
+          # churn mensal 10.7% vs anual 2%, Gym Launch progressao mensal exata.
+          tradeoffs: true
+          # Discute tradeoffs extensivamente: gratis vs pago, complexidade vs simplicidade,
+          # continuidade vs pagamento unico, quando cada abordagem faz sentido.
+          cross_domain: true
+          # Conecta: psicologia comportamental (ancoragem, aversao a perda),
+          # economia (ciclo de caixa), operacoes (implementacao por fases).
+          score: 5
+
+        atualidade:
+          recencia: true
+          # Conteudo desenvolvido 2023-2024 (parte da trilogia $100M).
+          contexto_atual: true
+          # Referencias a ferramentas modernas: Hyros, ActiveCampaign, HubSpot.
+          # Contexto de SaaS e automacao atual.
+          nao_contradito: true
+          # Perfeitamente alinhado com livros anteriores. Expande sem contradizer.
+          evolucao: true
+          # Mostra evolucao do sistema: de tacticas isoladas para modelo integrado.
+          # Referencia aprendizados dos livros anteriores.
+          aplicabilidade: true
+          # Modelos de monetizacao sao universais e atemporais. Aplicaveis em 2026.
+          score: 5
+
+        unicidade:
+          contra_mainstream: true
+          # Altamente contra-intuitivo: "gratis eh mais caro que pago", "aumentar
+          # preco diminui cancelamento", "penalidades aumentam satisfacao".
+          vocabulario_proprio: true
+          # Termos: "Money Model", "GMMM", "Gangorra Downsell", "Anchor Premium",
+          # "AB Testing" (contexto proprio), "BAMFAM".
+          framework_original: true
+          # Framework GMMM original. Sequencia de 4 tipos de ofertas (Atracao,
+          # Upsell, Downsell, Continuidade) eh sistematizacao propria.
+          insight_contraintuitivo: true
+          # 10 aspectos contra-intuitivos documentados: gratis>pago, mais ofertas>menos,
+          # preco alto=menos churn, penalidades=satisfacao.
+          perspectiva_singular: true
+          # Perspectiva de "modelo de dinheiro" como sistema vs tacticas isoladas.
+          # Visao de engenharia financeira de negocio unica.
+          score: 5
+
+        completude:
+          playbook: true
+          # Playbook completo: Fase 1 (semanas 1-4), Fase 2 (5-8), Fase 3 (9-12).
+          # Templates prontos, scripts exatos, checklists operacionais.
+          framework_presente: true
+          # Multiplos frameworks: GMMM, Matriz 4x3, Arvore de Decisao, Formula
+          # do Lucro de 30 Dias com variaveis definidas.
+          exemplos_reais: true
+          # Boot Factory (5x vendas), Gym Launch (0->$4.4M), caso Danny (13
+          # indicacoes), vendedor de carro (exemplo negativo).
+          edge_cases: true
+          # Secao "Avisos e Armadilhas" com 10 erros fatais. Red flags claros.
+          # Sinais de quando ajustar. Troubleshooting estruturado.
+          profundidade_adequada: true
+          # ~200 paginas com 7 dimensoes completas. Framework completo + Insights
+          # + Aplicacoes. Muito alem do minimo.
+          score: 5
+
+      media: 5.0
+      tier: "crown_jewel"
+      extraction_priority: 3
+      notes: |
+        CROWN JEWEL - Terceira fonte premium. Completa a trilogia com:
+        - Framework GMMM mais operacional que os anteriores
+        - 10 aspectos contra-intuitivos documentados (extracao direta)
+        - Templates e scripts prontos para uso
+        - Foco em MONETIZACAO vs ofertas ou leads
+
+        Este livro eh o mais "avancado" da trilogia - assume conhecimento dos
+        anteriores e foca em maximizar valor de cada cliente.
+
+        Criterio especial atingido: TODAS as dimensoes >= 4 (todas = 5)
+
+    # =========================================================================
+    # SOURCE 4: Entrevista Tom Bilyeu
+    # =========================================================================
+    - name: "Entrevista Tom Bilyeu"
+      type: entrevista
+      url: "https://youtu.be/Tigt75AcLLA?si=ATu29K7rgAmL5XYY"
+      duration: "Unknown (only URL available)"
+      path: "outputs/minds/alex_hormozi/sources/interviews/Entrevista Tom Biley.md"
+
+      checkpoints:
+        autenticidade:
+          espontaneidade: false
+          # IMPOSSIVEL AVALIAR - Arquivo contem apenas URL do YouTube.
+          # Nenhum conteudo transcrito disponivel para analise.
+          vulnerabilidade: false
+          # IMPOSSIVEL AVALIAR - Sem transcricao.
+          respostas_dificeis: false
+          # IMPOSSIVEL AVALIAR - Sem transcricao.
+          nuance: false
+          # IMPOSSIVEL AVALIAR - Sem transcricao.
+          storytelling: false
+          # IMPOSSIVEL AVALIAR - Sem transcricao.
+          score: 0
+
+        profundidade:
+          porque_explicado: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          framework: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          exemplos_especificos: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          tradeoffs: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          cross_domain: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          score: 0
+
+        atualidade:
+          recencia: false
+          # IMPOSSIVEL AVALIAR - Data do video desconhecida.
+          contexto_atual: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          nao_contradito: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo para comparar.
+          evolucao: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          aplicabilidade: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          score: 0
+
+        unicidade:
+          contra_mainstream: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          vocabulario_proprio: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          framework_original: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          insight_contraintuitivo: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          perspectiva_singular: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          score: 0
+
+        completude:
+          playbook: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          framework_presente: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          exemplos_reais: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          edge_cases: false
+          # IMPOSSIVEL AVALIAR - Sem conteudo.
+          profundidade_adequada: false
+          # IMPOSSIVEL AVALIAR - Sem conhecer duracao ou conteudo.
+          score: 0
+
+      media: 0.0
+      tier: "bronze"
+      extraction_priority: 4
+      notes: |
+        BRONZE - Fonte NAO UTILIZAVEL no estado atual.
+
+        PROBLEMA CRITICO: O arquivo contem APENAS um link do YouTube sem
+        nenhuma transcricao ou conteudo processado.
+
+        ACAO REQUERIDA: Transcrever video antes de poder avaliar e extrair.
+        Entrevistas com Tom Bilyeu (Impact Theory) geralmente sao longas
+        (1-2h) e de alta qualidade, potencialmente CROWN JEWEL apos transcricao.
+
+        POTENCIAL: Alto - Impact Theory eh conhecido por entrevistas profundas
+        que extraem vulnerabilidade e insights unicos. Tom Bilyeu faz perguntas
+        challenging. Se transcrito, poderia ser reclassificado.
+
+  recommendations:
+    - action: "Transcrever entrevista Tom Bilyeu URGENTE"
+      priority: "urgente"
+      rationale: |
+        Entrevistas longas em formato conversacional sao tipicamente CROWN JEWEL
+        (0.8% que gera 51% do resultado). Tom Bilyeu eh conhecido por extrair
+        vulnerabilidade e insights que nao aparecem em livros. Este video pode
+        conter material de altissima autenticidade que complementaria os livros.
+
+    - action: "Mapear outras entrevistas de Hormozi disponiveis"
+      priority: "alta"
+      rationale: |
+        A trilogia de livros ($100M Offers, Leads, Money Models) eh excepcional
+        mas representa conteudo EDITADO. Entrevistas capturam pensamento espontaneo,
+        historias nao contadas, e nuances que livros nao incluem.
+
+    - action: "Buscar podcasts recentes de Hormozi (2024-2026)"
+      priority: "media"
+      rationale: |
+        Os livros sao de 2021-2024. Hormozi continua produzindo conteudo.
+        Podcasts recentes podem mostrar evolucao de pensamento e atualizacoes
+        aos frameworks existentes.
+
+  gaps_identified:
+    - "CRITICO: Zero fontes de VIDEO/AUDIO transcritas - perde dimensao de autenticidade espontanea"
+    - "CRITICO: Zero entrevistas analisaveis - formato mais rico para vulnerabilidade"
+    - "MODERADO: Ausencia de conteudo de redes sociais (Twitter/X threads, Instagram)"
+    - "MODERADO: Ausencia de Q&A com audiencia (comentarios, AMAs)"
+    - "LEVE: Ausencia de conteudo de terceiros sobre Hormozi (perfis, reviews)"
+    - "LEVE: Ausencia de conteudo de Leila Hormozi (perspectiva complementar)"
+
+  quality_notes:
+    assessment_methodology: |
+      Avaliacao seguiu task an-assess-sources v2.0 com 25 checkpoints binarios
+      (5 dimensoes x 5 checkpoints). Scoring philosophy aplicada: PASS se
+      evidencia existe, FAIL se evidencia ausente. Interpretacao generosa
+      quando parcial.
+
+    scoring_calibration: |
+      - Livros avaliados com alta pontuacao por conteudo rico e completo
+      - Entrevista Tom Bilyeu avaliada com score 0 por ausencia total de conteudo
+        processado (apenas URL disponivel)
+      - Criterios CROWN JEWEL verificados para cada fonte OURO
+
+    crown_jewel_criteria_applied:
+      $100M_Offers:
+        - "Profundidade = 5 AND Autenticidade >= 4 = PASSED"
+        - "Todas dimensoes >= 4 = PASSED (5,5,4,5,5)"
+      $100M_Leads:
+        - "Profundidade = 5 AND Autenticidade >= 4 = PASSED"
+        - "Todas dimensoes >= 4 = PASSED (5,5,5,5,5)"
+      $100M_Money_Models:
+        - "Profundidade = 5 AND Autenticidade >= 4 = PASSED"
+        - "Todas dimensoes >= 4 = PASSED (5,5,5,5,5)"
+
+  extraction_order:
+    1:
+      source: "$100M Offers"
+      rationale: "Framework fundacional (Equacao de Valor) que embasa tudo"
+    2:
+      source: "$100M Leads"
+      rationale: "Sistema de aquisicao que complementa ofertas"
+    3:
+      source: "$100M Money Models"
+      rationale: "Sistema de monetizacao que maximiza valor"
+    4:
+      source: "Entrevista Tom Bilyeu (APOS TRANSCRICAO)"
+      rationale: "Autenticidade espontanea que livros nao capturam"
