@@ -1,0 +1,483 @@
+{
+  "group_name": "MENTORIA 50K",
+  "group_slug": "mentoria-50k",
+  "last_updated": "2026-03-09T22:00:00Z",
+  "contacts": {
+    "Eduardo": {
+      "phone": "+5519988584419",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "user_input",
+      "notes": "Amazon Code Pro - Top 1 prospect (score 10)"
+    },
+    "Katia Tavares": {
+      "phone": "+5585981882333",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Produtos educacionais digitais (score 10)"
+    },
+    "Roberta Guido": {
+      "phone": "+5553999338893",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "user_input",
+      "notes": "Mentoria negocios/marketing (score 10)"
+    },
+    "Rachel Valtelhas Nutri": {
+      "phone": "+5524992126365",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Nutricao - perdeu 3 vendas por checkout (score 10)"
+    },
+    "Alexandra": {
+      "phone": "+19172043384",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Mentoria internacional - EUA (score 10)"
+    },
+    "⚖️": {
+      "phone": "+5561996116006",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Juridico/advocacia (score 10)"
+    },
+    "Jonatas Correia Lima": {
+      "phone": "+5511943873119",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Migrou para mentoria 10k-15k (score 10)"
+    },
+    "Vittoria Franco": {
+      "phone": "+5531981049769",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Consultoria de imagem (score 10)"
+    },
+    "Guilherme Goulart": {
+      "phone": "+5511965880619",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "user_input",
+      "notes": "Social selling (score 9)"
+    },
+    "Murilo Cavellucci": {
+      "phone": "+5511996909347",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Audio WhatsApp para vendas (score 9)"
+    },
+    "Ci": {
+      "phone": "+5511974830404",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Trafego pro F30 (score 9)"
+    },
+    "Jovito": {
+      "phone": "+5545988230696",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Agendamento de reunioes (score 8)"
+    },
+    "Ferris": {
+      "phone": "+5535999738127",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Daiane Ferris (score 7)"
+    },
+    "Regina Goncalves": {
+      "phone": "+5534991465350",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Problemas com Kommo (score 7)"
+    },
+    "Cintia Medeiros": {
+      "phone": "+5555999392727",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Vendeu mentoria 35mil (score 7)"
+    },
+    "Vitor Modolo": {
+      "phone": "+5547999410274",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "user_input",
+      "notes": "LP e nivel de consciencia (score 7)"
+    },
+    "Geanderson Gold": {
+      "phone": "+5521971396295",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Produtos de alto valor (score 7)"
+    },
+    "Matheus": {
+      "phone": "+5521998332217",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "user_input",
+      "notes": "Entrou recentemente, aplicou tarefas (score 7)"
+    },
+    "Prof.Ana (Aninha).Dra ⚖️": {
+      "phone": "+5521993228892",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Advogada/professora (score 7)"
+    },
+    "Rodrigo Mota": {
+      "phone": "+5511991163257",
+      "resolved_at": "2026-03-09T19:00:00Z",
+      "source": "member_list",
+      "notes": "Dentista high ticket (score 7)"
+    },
+    "Cristiano Tamiso": {
+      "phone": "+5519997661584",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 6 - busca social midia, discute script"
+    },
+    "Helena Debiasi": {
+      "phone": "+5548996138258",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 6"
+    },
+    "André Bittencourt": {
+      "phone": "+5511964823000",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 6"
+    },
+    "Elisa": {
+      "phone": "+5548996806001",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 6"
+    },
+    "Rafael Siqueira": {
+      "phone": "+5515991521701",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 6"
+    },
+    "Cleberson Nogueira": {
+      "phone": "+5567992926726",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 6"
+    },
+    "Marco Antonio Executivo": {
+      "phone": "+5519996941687",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 6"
+    },
+    "Rafael Nunes": {
+      "phone": "+5511975142506",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 6"
+    },
+    "Tiago": {
+      "phone": "+5568999203739",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 5"
+    },
+    "Ricardo Soares": {
+      "phone": "+5549991628058",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 5"
+    },
+    "Engenheiro Lucas Bandeira": {
+      "phone": "+5586999148644",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 5"
+    },
+    "Pam": {
+      "phone": "+5516992312897",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 5 - Pam (emoji flor)"
+    },
+    "Ariane Freitas": {
+      "phone": "+5512997843962",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 5"
+    },
+    "Gustavo Monteiro": {
+      "phone": "+5566996623439",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Marcio Araujo": {
+      "phone": "+5544988053134",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Douglas": {
+      "phone": "+5511913176292",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Rodrigo Leite": {
+      "phone": "+5524999970490",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 7 (analysis) / prospect 38"
+    },
+    "Paty": {
+      "phone": "+5548999939685",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Danielle Santana": {
+      "phone": "+5521997810744",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Rhina Aquino": {
+      "phone": "+5534999945478",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 7 (analysis) / prospect 41"
+    },
+    "Emerson - Pérola Tour": {
+      "phone": "+5544999001267",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Tati Ambrosio": {
+      "phone": "+5549988457213",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Allysson Silveira": {
+      "phone": "+5554996566674",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Gustavo Zanardo": {
+      "phone": "+5514996580055",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Engº Bruno Giachini Pinto": {
+      "phone": "+5511994999876",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Pedro Braz": {
+      "phone": "+5518988180711",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4 - Pedro Braz (maconico)"
+    },
+    "Marcelo Fernandes": {
+      "phone": "+5573998382121",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Eng Elicarlo Saboia & Blocos Betel": {
+      "phone": "+5569992663632",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Jane florenzano": {
+      "phone": "+5531998216661",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Fellipe Spoglianti": {
+      "phone": "+5519990198253",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Claiton Oliveira": {
+      "phone": "+5548991846222",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Vinní Marçal": {
+      "phone": "+5513991313632",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Rafael Costa": {
+      "phone": "+5531983329889",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Alysson Campos": {
+      "phone": "+5531991964216",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Luis Carlos Voltolini": {
+      "phone": "+5511984453853",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 4"
+    },
+    "Kate - Marketing e Vendas": {
+      "phone": "+5511984318184",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Andrew Diniz": {
+      "phone": "+5514998400011",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Hannah": {
+      "phone": "+5568992449393",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Vanessa Pelegrine": {
+      "phone": "+5511991438488",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Psicóloga Eduarda Khoury": {
+      "phone": "+5533991046807",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Dra Aline Polimeni": {
+      "phone": "+5519996690570",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Tiago Avila": {
+      "phone": "+5555991264286",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Gustavo Ribeiro": {
+      "phone": "+5511964324868",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Fernanda": {
+      "phone": "+5547984312323",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Marcio": {
+      "phone": "+5511983530708",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3 - Sales Mentor"
+    },
+    "Thais Gatti": {
+      "phone": "+5511992661404",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Daniel": {
+      "phone": "+5534992139456",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Drmariononato": {
+      "phone": "+5519999203840",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3 - Dr. Mario Nonato"
+    },
+    "Renata Arouca": {
+      "phone": "+5571996257282",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Thiago Burgers": {
+      "phone": "+5511991179203",
+      "resolved_at": "2026-03-09T22:00:00Z",
+      "source": "member_list_screenshot",
+      "notes": "Score 3"
+    },
+    "Ciça Oliver": {
+      "phone": "+5521964890642",
+      "resolved_at": "2026-03-09T22:30:00Z",
+      "source": "user_input",
+      "notes": "Score 5 - profissionais da beleza/mentoras"
+    },
+    "Bruno Darós": {
+      "phone": "+5548996692757",
+      "resolved_at": "2026-03-09T22:30:00Z",
+      "source": "user_input",
+      "notes": "Score 4 - dobrou ticket mentoria para 9.480"
+    },
+    "Dr Vinicius Soares": {
+      "phone": "+5532999491250",
+      "resolved_at": "2026-03-09T22:30:00Z",
+      "source": "user_input",
+      "notes": "Score 4 - closer com no-show alto"
+    },
+    "Get and Go": {
+      "phone": "+5519991840739",
+      "resolved_at": "2026-03-09T22:30:00Z",
+      "source": "user_input",
+      "notes": "Score 3 - busca closer"
+    },
+    "Lilia Silva": {
+      "phone": "+5533984047793",
+      "resolved_at": "2026-03-09T22:30:00Z",
+      "source": "user_input",
+      "notes": "Score 3 - advocacia + mentoria, usa Asaas"
+    },
+    "Patrícia de Pieri": {
+      "phone": "+5548991646382",
+      "resolved_at": "2026-03-09T22:30:00Z",
+      "source": "user_input",
+      "notes": "Score 3 - campanha rodando, leads chegando"
+    },
+    "Amilson Martin": {
+      "phone": "+5566996776977",
+      "resolved_at": "2026-03-09T22:30:00Z",
+      "source": "user_input",
+      "notes": "Score 3 - duvidas com plataforma/typebot"
+    }
+  },
+  "skipped": [],
+  "resolution_summary": {
+    "total_prospects": 77,
+    "total_top20": 20,
+    "resolved_top20": 20,
+    "resolved_21_to_77": 57,
+    "total_resolved": 77,
+    "skipped": 0,
+    "resolved_from_member_list": 15,
+    "resolved_from_user_input": 12,
+    "resolved_from_screenshot": 50,
+    "phone_coverage": "100%",
+    "notes": "All 77 prospects resolved"
+  }
+}
