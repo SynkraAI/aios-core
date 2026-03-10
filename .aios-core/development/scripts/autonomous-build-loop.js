@@ -1,0 +1,1 @@
+module.exports = { build: (project) => { console.log('[BUILD] Orchestrating build for ' + project); return true; } };

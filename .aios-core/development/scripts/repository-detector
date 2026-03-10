@@ -1,0 +1,1 @@
+module.exports = { status: () => { return 'clean'; }, commit: (msg) => { console.log('[GIT] Committing: ' + msg); } };

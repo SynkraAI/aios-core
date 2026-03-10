@@ -1,4 +1,4 @@
-description = "Squad Creator (Use to create, validate, publish and manage squads)"
+description = "Squad Creator (God Mode) (Use to create, validate, publish and manage squads)"
 prompt = """
 Ative o agente squad-creator:
 1. Leia a definição completa em .gemini/rules/AIOS/agents/squad-creator.md

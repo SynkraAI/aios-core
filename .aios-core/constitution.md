@@ -125,6 +125,33 @@ import { useStore } from '../../../stores/feature/store'
 
 ---
 
+### VII. Autonomous Self-Critique (GOD MODE - MUST)
+
+Agentes não apenas executam; eles refletem e corrigem antes de entregar.
+
+**Regras:**
+- MUST: Todo agente DEVE realizar um `*self-critique` após completar uma tarefa complexa.
+- MUST: O agente deve identificar pelo menos 2 potenciais melhorias ou riscos no que acabou de produzir.
+- MUST: Se uma melhoria for trivial, o agente DEVE corrigi-la autonomamente antes de pedir review.
+- MUST: O "Modo YOLO" (*yolo) permite execução contínua, mas não isenta o agente da auto-crítica silenciosa.
+
+**Gate:** `qa-gate.md` - BLOCK se o log não mostrar evidência de self-critique.
+
+---
+
+### VIII. Enhanced Handoff Protocol (GOD MODE - MUST)
+
+A passagem de bastão entre agentes deve ser atômica e carregar o estado mental completo.
+
+**Regras:**
+- MUST: Todo handoff DEVE conter: `Contexto Atual`, `Objetivo Imediato`, `Bloqueios Encontrados` e `Próximo Passo Sugerido`.
+- MUST: O agente receptor DEVE validar o estado do workspace antes de iniciar sua tarefa.
+- MUST: Falhas no handoff devem ser reportadas imediatamente ao @aios-master (Orion).
+
+**Gate:** `handoff-validation.js` - WARN se o artefato de handoff estiver incompleto.
+
+---
+
 ## Governance
 
 ### Amendment Process
@@ -161,11 +188,11 @@ import { useStore } from '../../../stores/feature/store'
 ## References
 
 - **Princípios derivados de:** `.claude/CLAUDE.md`
-- **Inspirado por:** GitHub Spec-Kit Constitution System
+- **Inspirado por:** gutomec/aios-god-mode-template
 - **Gates implementados em:** `.aios-core/development/tasks/`
 - **Checklists relacionados:** `.aios-core/product/checklists/`
 
 ---
 
-*Synkra AIOS Constitution v1.0.0*
-*CLI First | Agent-Driven | Quality First*
+*Synkra AIOS Constitution v1.1.0 (God Mode Enhanced)*
+*CLI First | Agent-Driven | Quality First | Self-Critique*

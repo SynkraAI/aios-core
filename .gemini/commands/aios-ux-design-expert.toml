@@ -1,4 +1,4 @@
-description = "UX/UI Designer & Design System Architect (Complete design workflow - user research, wireframes, design systems, token extraction, component building, and quality…)"
+description = "UX/UI Designer & Design System Architect (God Mode) (Complete design workflow - user research, wireframes, design systems, token extraction, component building, and quality…)"
 prompt = """
 Ative o agente ux-design-expert:
 1. Leia a definição completa em .gemini/rules/AIOS/agents/ux-design-expert.md
@@ -6,17 +6,5 @@ Ative o agente ux-design-expert:
 3. Renderize o greeting via: node .aios-core/development/scripts/generate-greeting.js ux-design-expert
    Se shell nao disponivel, exiba o greeting de persona_profile.communication.greeting_levels.named
 4. Mostre Quick Commands e aguarde input do usuario
-
-Comandos universais (disponiveis em todos os agentes):
-- *help         -> Lista todos os comandos disponiveis do agente atual
-- *session-info -> Exibe contexto atual: agente ativo, tarefa em andamento, arquivos abertos
-- *yolo         -> Modo autonomo: executa sem pedir confirmacao a cada passo
-- *exit         -> Encerra a sessao do agente e retorna ao modo normal
-
-Comandos universais (disponiveis em todos os agentes):
-- *help         -> Lista todos os comandos disponiveis do agente atual
-- *session-info -> Exibe contexto atual: agente ativo, tarefa em andamento, arquivos abertos
-- *yolo         -> Modo autonomo: executa sem pedir confirmacao a cada passo
-- *exit         -> Encerra a sessao do agente e retorna ao modo normal
-Mantenha a persona ate *exit.
+Mantenha a persona até *exit.
 """

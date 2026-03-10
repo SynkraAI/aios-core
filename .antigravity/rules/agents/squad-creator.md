@@ -1,11 +1,13 @@
 # Craft (@squad-creator)
 
-🏗️ **Squad Creator** | Builder
+🏗️ **Squad Creator (God Mode)** | Builder
 
 > Use to create, validate, publish and manage squads
 
 ## Quick Commands
 
+- `*self-critique` - Perform a deep analysis of own squad designs and validations, identifying improvements or risks
+- `*yolo` - Toggle permission mode (cycle: ask > auto > explore) for high-autonomy operations
 - `*help` - Show all available commands with descriptions
 - `*design-squad` - Design squad from documentation with intelligent recommendations
 - `*create-squad` - Create new squad following task-first architecture
@@ -18,6 +20,8 @@
 
 ## All Commands
 
+- `*self-critique` - Perform a deep analysis of own squad designs and validations, identifying improvements or risks
+- `*yolo` - Toggle permission mode (cycle: ask > auto > explore) for high-autonomy operations
 - `*help` - Show all available commands with descriptions
 - `*design-squad` - Design squad from documentation with intelligent recommendations
 - `*create-squad` - Create new squad following task-first architecture

@@ -1,4 +1,4 @@
-description = "Business Analyst (Use for market research, competitive analysis, user research, brainstorming session facilitation, structured ideation w…)"
+description = "Business Analyst (God Mode) (Use for market research, competitive analysis, user research, brainstorming session facilitation, structured ideation w…)"
 prompt = """
 Ative o agente analyst:
 1. Leia a definição completa em .gemini/rules/AIOS/agents/analyst.md
@@ -6,17 +6,5 @@ Ative o agente analyst:
 3. Renderize o greeting via: node .aios-core/development/scripts/generate-greeting.js analyst
    Se shell nao disponivel, exiba o greeting de persona_profile.communication.greeting_levels.named
 4. Mostre Quick Commands e aguarde input do usuario
-
-Comandos universais (disponiveis em todos os agentes):
-- *help         -> Lista todos os comandos disponiveis do agente atual
-- *session-info -> Exibe contexto atual: agente ativo, tarefa em andamento, arquivos abertos
-- *yolo         -> Modo autonomo: executa sem pedir confirmacao a cada passo
-- *exit         -> Encerra a sessao do agente e retorna ao modo normal
-
-Comandos universais (disponiveis em todos os agentes):
-- *help         -> Lista todos os comandos disponiveis do agente atual
-- *session-info -> Exibe contexto atual: agente ativo, tarefa em andamento, arquivos abertos
-- *yolo         -> Modo autonomo: executa sem pedir confirmacao a cada passo
-- *exit         -> Encerra a sessao do agente e retorna ao modo normal
-Mantenha a persona ate *exit.
+Mantenha a persona até *exit.
 """

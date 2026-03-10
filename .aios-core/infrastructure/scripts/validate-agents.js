@@ -29,10 +29,10 @@ const yaml = require('js-yaml');
 const ROOT_DIR = path.join(__dirname, '..', '..');
 const AGENTS_DIR = path.join(ROOT_DIR, 'development', 'agents');
 const TASKS_DIR = path.join(ROOT_DIR, 'development', 'tasks');
-const TEMPLATES_DIR = path.join(ROOT_DIR, 'development', 'templates');
-const CHECKLISTS_DIR = path.join(ROOT_DIR, 'development', 'checklists');
-const DATA_DIR = path.join(ROOT_DIR, 'development', 'data');
-const UTILS_DIR = path.join(ROOT_DIR, 'development', 'utils');
+const TEMPLATES_DIR = path.join(ROOT_DIR, 'product', 'templates');
+const CHECKLISTS_DIR = path.join(ROOT_DIR, 'product', 'checklists');
+const DATA_DIR = path.join(ROOT_DIR, 'data');
+const UTILS_DIR = path.join(ROOT_DIR, 'development', 'scripts');
 const WORKFLOWS_DIR = path.join(ROOT_DIR, 'development', 'workflows');
 const SCRIPTS_DIR = path.join(ROOT_DIR, 'development', 'scripts');
 
@@ -63,6 +63,7 @@ const SHARED_COMMANDS = new Set([
   'rollback',
   // Correct-course (all agents can use on own domain)
   'correct-course',
+  'self-critique',
 ]);
 
 /**

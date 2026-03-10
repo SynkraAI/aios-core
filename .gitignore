@@ -367,3 +367,19 @@ docs/guides/glue-script-guide.md
 
 # Local Gemini project rules generated/managed per workspace
 .gemini/rules.md
+
+# Dependencies (AIOS)
+node_modules
+
+# Build & Logs (AIOS)
+dist/
+build/
+
+# IDE & OS (AIOS)
+.idea/
+*.swp
+
+# AIOS Local (AIOS)
+.aios-core/local/
+.claude/settings.local.json
+.aios/install-log.txt

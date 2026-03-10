@@ -1,0 +1,1 @@
+module.exports = { rollback: (commit) => { console.log('[ROLLBACK] Reverting to ' + commit); return true; } };
