@@ -2,7 +2,7 @@
 
 | # | Projeto | Status | Agente/Squad | Ultima Sessao | Proximo Passo |
 |---|---------|--------|-------------|---------------|---------------|
-| 1 | **ensinio** | **77/77 outreach completo, 20 com WhatsApp links** | **ensinio-whatsapp-prospector** | **2026-03-10** | **Resolver telefones 21-77 + Phase 5 Google Sheets** |
+| 1 | **ensinio** | **77/77 phones + outreach + Sheets pipeline pronto** | **ensinio-whatsapp-prospector** | **2026-03-10** | **Testar MCP Google Sheets + popular planilha** |
 | 2 | gui-avila-mind | Transcricao limpa disponivel | squad-creator-pro | 2026-03-07 | Extrair DNA/frameworks |
 | 3 | luiz-fosc-mentoria | Research completa | tech-search | 2026-03-06 | Definir modelo de implementacao |
 | 4 | luiz-fosc-mind-clone | Research INPI concluida | tech-search | 2026-03-05 | Registrar marca ou alternativas |
