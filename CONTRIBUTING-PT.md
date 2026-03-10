@@ -19,6 +19,7 @@ Bem-vindo ao AIOS! Obrigado pelo seu interesse em contribuir. Este guia vai ajud
 - [Perguntas Frequentes](#perguntas-frequentes)
 - [Obtendo Ajuda](#obtendo-ajuda)
 - [Trabalhando com o Pro](#trabalhando-com-o-pro)
+- [Recursos Adicionais](#recursos-adicionais)
 
 ---
 
@@ -61,6 +62,7 @@ git checkout -b feature/nome-da-sua-feature
 ```
 
 **Convenções de Nomenclatura de Branches:**
+
 | Prefixo | Uso |
 |---------|-----|
 | `feature/` | Novas funcionalidades, agents, tasks |
@@ -111,7 +113,7 @@ Em seguida, crie um Pull Request no GitHub apontando para a branch `main`.
 
 Utilizamos [Conventional Commits](https://www.conventionalcommits.org/):
 
-```
+```text
 <tipo>: <descrição>
 
 <corpo opcional>
@@ -143,7 +145,7 @@ Agents são personas de IA com expertise e comandos específicos.
 
 ### Localização dos Arquivos de Agent
 
-```
+```text
 .aios-core/development/agents/seu-agent.md
 ```
 
@@ -217,7 +219,7 @@ Tasks são workflows executáveis que os agents podem rodar.
 
 ### Localização dos Arquivos de Task
 
-```
+```text
 .aios-core/development/tasks/sua-task.md
 ```
 
@@ -290,7 +292,7 @@ Squads são pacotes de agents, tasks e workflows relacionados.
 
 ### Estrutura do Squad
 
-```
+```text
 seu-squad/
 ├── manifest.yaml       # Metadados do squad
 ├── agents/
@@ -319,7 +321,6 @@ tasks:
 ### Recursos sobre Squads
 
 - [Guia de Squads](docs/guides/squads-guide.md) - Documentação completa
-- [Template de Squad](templates/squad/) - Comece a partir de um template funcional
 - [Discussões sobre Squads](https://github.com/SynkraAI/aios-core/discussions/categories/ideas) - Compartilhe ideias
 
 ---
@@ -526,13 +527,13 @@ Correções comuns:
 
 - **GitHub Issues:** [Abra uma issue](https://github.com/SynkraAI/aios-core/issues)
 - **Discussões:** [Inicie uma discussão](https://github.com/SynkraAI/aios-core/discussions)
-- **Comunidade:** [COMMUNITY.md](COMMUNITY.md)
+- **Comunidade:** [Discussões](https://github.com/SynkraAI/aios-core/discussions)
 
 ---
 
 ## Trabalhando com o Pro
 
-O AIOS usa um modelo Open Core com um git submodule privado `pro/` (veja [ADR-PRO-001](docs/architecture/adr/adr-pro-001-repository-strategy.md)).
+O AIOS usa um modelo Open Core com um git submodule privado `pro/`.
 
 ### Para Contribuidores Open-Source
 
