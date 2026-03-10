@@ -1,5 +1,7 @@
 # High-Ticket Sales Squad
 
+> **Status:** Completo (v2.0.0) — 4 tasks, 2 checklists, 4 templates, 6 data files.
+
 Full-stack sales system for high-ticket digital products ($500-$50,000+).
 
 ## Agents
@@ -25,7 +27,15 @@ Pesquisa original: `docs/projects/high-ticket-sales/research/2026-03-03-melhores
 
 25 livros sintetizados de: Hormozi, Brunson, Walker, Voss, Ziglar, Klaff, Holmes, Rackham, Dixon, Cardone, Belfort, Tracy, Kennedy, Pink, Jones, Burchard, Porterfield.
 
-## Dependencies (Pending)
+## Commands
 
-Tasks, templates, checklists e data files serao criados conforme necessidade.
-O agente funciona em *chat-mode e comandos inline sem dependencias externas.
+| Command | Task | Output |
+|---------|------|--------|
+| `*build-offer` | Build irresistible offer (Value Equation + Grand Slam) | Offer architecture with pricing, bonuses, guarantees |
+| `*pitch` | Create pitch script (Perfect Webinar + Frame Control) | Complete pitch with slides/sections |
+| `*script` | Create sales call script (SPIN + Challenger + Voss) | Call script with objection handling |
+| `*funnel` | Design value ladder funnel (DotCom + PLF + Leads) | Funnel blueprint with email sequences |
+| `*review` | Review sales assets against quality checklist | Score + improvements per framework |
+| `*diagnose` | Diagnose sales problems (multi-framework) | Root cause analysis with fixes |
+| `*close` | Handle closing scenarios | Closing strategy with objection responses |
+| `*discovery` | Run SPIN + Challenger discovery | Discovery questions customized to context |

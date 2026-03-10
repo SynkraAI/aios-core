@@ -1,3 +1,9 @@
+---
+paths:
+  - .aiox/handoffs/**
+  - .aiox-core/development/agents/**
+---
+
 # Agent Handoff Protocol — Context Compaction
 
 ## Purpose

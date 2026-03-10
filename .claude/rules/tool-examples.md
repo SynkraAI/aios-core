@@ -1,3 +1,9 @@
+---
+paths:
+  - .aiox-core/data/tool-registry.yaml
+  - .aiox-core/data/mcp-tool-examples.yaml
+---
+
 # Tool Input Examples — Selection Guidance
 
 ## Purpose

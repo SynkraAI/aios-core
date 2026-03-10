@@ -1,3 +1,10 @@
+---
+paths:
+  - docs/stories/**
+  - .aiox-core/development/tasks/**
+  - .aiox-core/development/workflows/**
+---
+
 # Workflow Execution — Detailed Rules
 
 ## Task-First Principle

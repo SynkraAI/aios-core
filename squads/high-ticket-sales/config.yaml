@@ -1,9 +1,9 @@
 squad:
   name: high-ticket-sales
-  version: "1.1.0"
+  version: "2.0.0"
   description: "Full-stack sales system for high-ticket digital products ($500-$50,000+)"
   created: "2026-03-03"
-  updated: "2026-03-04"
+  updated: "2026-03-09"
 
 agents:
   - id: high-ticket-closer
@@ -12,14 +12,21 @@ agents:
     file: agents/high-ticket-closer.md
     activation: "@high-ticket-sales:high-ticket-closer"
 
-tasks: []
-  # Pending: build-offer, create-pitch, create-sales-script, design-funnel
+tasks:
+  - build-offer.md
+  - create-pitch.md
+  - create-sales-script.md
+  - design-funnel.md
 
-templates: []
-  # Pending: offer-stack-tmpl, pitch-script-tmpl, sales-call-tmpl, funnel-architecture-tmpl
+templates:
+  - offer-stack-tmpl.md
+  - pitch-script-tmpl.md
+  - sales-call-tmpl.md
+  - funnel-architecture-tmpl.md
 
-checklists: []
-  # Pending: sales-quality-checklist, offer-quality-checklist
+checklists:
+  - offer-quality-checklist.md
+  - sales-quality-checklist.md
 
 data:
   # Source extractions (v1.1) — Voice DNA + Thinking DNA from 10 primary books
@@ -29,6 +36,5 @@ data:
   - dixon-voss-voice-thinking-dna-extraction.md
   - ziglar-burchard-voice-thinking-dna-extraction.md
   - hormozi-quick-reference.md
-  # Pending: frameworks-reference.yaml
 
 workflows: []

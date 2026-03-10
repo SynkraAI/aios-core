@@ -12,7 +12,12 @@
       "Grep",
       "NotebookEdit",
       "Skill",
-      "WebFetch(domain:www.moonb.io)"
+      "WebFetch(domain:www.moonb.io)",
+      "mcp__google-workspace__calendar_listEvents",
+      "mcp__google-workspace__calendar_list",
+      "mcp__google-workspace__calendar_createEvent",
+      "mcp__google-workspace__sheets_getMetadata",
+      "mcp__google-workspace__sheets_getRange"
     ],
     "deny": []
   }

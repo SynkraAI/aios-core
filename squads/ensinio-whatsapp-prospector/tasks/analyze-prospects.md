@@ -82,11 +82,17 @@ For EACH non-disqualified contact with meaningful messages (not just "oi" or gre
    - Score 5-6: Soft/curiosity approach
    - Score 3-4: Educational/minimal approach
 
-### Step 4: Generate Project Description
+### Step 4: Generate Project Description & Unique Quote
 For each qualified prospect:
 1. Write a concise name for their project/niche
 2. Write a detailed description of what they do (2-3 sentences)
 3. Note the temporal context (when they posted, how recent)
+4. **Select a unique_quote fingerprint** — a distinctive phrase this person said that can be searched in WhatsApp to locate exactly their message. Criteria:
+   - Must be unique within the group (no other person said the same)
+   - Prefer phrases with proper nouns, specific numbers, or niche terms
+   - Avoid generic phrases ("bom dia", "obrigado", "alguém sabe...")
+   - Prefer 8+ words for search accuracy
+   - Must be copy-pasteable into WhatsApp search bar
 
 ### Step 5: Filter and Sort
 1. Filter out contacts with score < 3 (not worth outreach)
@@ -136,6 +142,7 @@ Generate prospect analysis for each qualified contact in JSON format.
   },
   "red_flags": [],
   "recommended_argument": "All-in-One (Economia Real)",
+  "unique_quote": "Meu curso de fotografia já tem 200 alunos no presencial e quero migrar pro digital",
   "analysis_notes": "Forte candidato - ja tem conteudo pronto e publico engajado. ICP match forte em 3/4 criterios comportamentais."
 }
 ```
