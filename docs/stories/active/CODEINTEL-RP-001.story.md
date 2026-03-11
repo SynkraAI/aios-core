@@ -12,7 +12,7 @@
 
 ## Status
 
-**Current:** Ready for Review
+**Current:** Done
 **Sprint:** TBD (standalone, next available)
 
 ---
