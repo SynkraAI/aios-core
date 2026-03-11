@@ -67,6 +67,16 @@
 | Index strategy execution | Frontend/UI |
 | Migration planning & execution | — |
 
+### @qa (Quinn) — Quality Assurance
+
+| Operation | Exclusive? | Details |
+|-----------|-----------|---------|
+| `*qa-gate` | YES | PASS/CONCERNS/FAIL/WAIVED gate decisions |
+| `*qa-loop` / `*qa-loop-review` | YES | Iterative review-fix cycle (max 5 iterations) |
+| Test validation & coverage review | YES | Acceptance criteria traceability |
+| Spec critique (spec pipeline Phase 5) | YES | `critique.json` output |
+| Story QA Results section updates | YES | Only authorized to edit QA Results section |
+
 ### @aiox-master — Framework Governance
 
 **Default behavior: DELEGATE to the exclusive agent when one exists.**
@@ -100,6 +110,8 @@ Delegating: → @{agent} | task: {task-file}
    reverted: [list of artifacts removed/undone]
    delegated_to: @{agent}
    ```
+
+> **Note:** Runtime enforcement via `agent-invoker.js` consulting the Delegation Matrix is tracked as a follow-up improvement. This protocol is currently policy-level; automated enforcement is planned separately.
 
 ## Cross-Agent Delegation Patterns
 
