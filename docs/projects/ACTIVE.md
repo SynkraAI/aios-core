@@ -12,6 +12,7 @@
 | 8 | **designcode-ui** | **20 componentes + Storybook + demo Nebula** | **design-chief** | **2026-03-10** | **Refinar visual + testes + deploy** |
 | 9 | **meta-ads-prospector** | 🔄 **Pivô: dark posts → IG Posts** | **@pm** | **2026-03-11** | **Pivotar para Instagram Posts** (`~/CODE/Projects/meta-ads-prospector/`) |
 | 10 | **ensinio-prospector-app** | 🔄 **Projeto criado — definindo arquitetura** | **—** | **2026-03-11** | **Definir stack + PRD** |
+| 11 | **naval-ravikant-mind** | **Mind Clone Elite 95% — falta smoke test** | **mind-cloning** | **2026-03-11** | **Rodar smoke test (3 testes)** |
 
 ## Backlog (Futuros Projetos)
 
