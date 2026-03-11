@@ -13,8 +13,9 @@ const { execSync } = require('child_process');
 // Import dependencies with fallbacks
 let GotchasMemory;
 try {
-  GotchasMemory = require('../memory/gotchas-memory');
-} catch {
+  ({ GotchasMemory } = require('../memory/gotchas-memory'));
+} catch (error) {
+  console.warn('[IdeationEngine] Failed to load GotchasMemory:', error.message);
   GotchasMemory = null;
 }
 

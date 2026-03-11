@@ -21,8 +21,9 @@ try {
   MemoryQuery = null;
 }
 try {
-  GotchasMemory = require('../memory/gotchas-memory');
-} catch {
+  ({ GotchasMemory } = require('../memory/gotchas-memory'));
+} catch (error) {
+  console.warn('[ContextInjector] Failed to load GotchasMemory:', error.message);
   GotchasMemory = null;
 }
 try {
