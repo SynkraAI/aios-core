@@ -1,10 +1,10 @@
 # Business Rules Extraction — Project Index
 
 ## Estado Atual
-- **Squad:** `business-rules-extraction` v2.0 — 17 componentes, DNA from source books
-- **Status:** 4/7 experts com DNA extraído de livros/papers (Tier 0)
-- **Scores:** Fidelidade estimada ~92%+ (Feathers 9.2, von Halle 9.0-9.5, Taylor 9.0, Vanthienen 8.5)
-- **Fontes:** 51K linhas processadas (3 livros + 1 paper acadêmico)
+- **Squad:** `business-rules-extraction` v2.1 — 20 componentes (8 agentes, 3 workflows, 6 templates, 2 checklists + enforcement)
+- **Status:** Auditoria v2.0 completa | Quick wins aplicados | Fontes gratuitas mapeadas para 3 Bronze experts
+- **Scores:** Fidelidade 8.35/10 | Workflows 87+86 (APROVADOS) | Kaizen 84/100
+- **Fontes:** 51K linhas processadas + 30+ recursos gratuitos identificados para Sneed/Ross/Seacord
 
 ## Dados do Projeto
 - **Squad:** `squads/business-rules-extraction/`
@@ -26,10 +26,10 @@
   7. Adicionou edge cases BRE-specific nos veto_conditions dos 2 workflows
 
 ## Proximo Passo
-- Rodar auditoria v2.0 (oalanicolas + pedro-valerio + kaizen) para medir impacto do DNA extraction
-- Baixar materiais adicionais gratuitos (Ross Manifesto PDF, Sneed papers, SEI reports)
-- Usar o squad pela primeira vez em um sistema legado real
-- Itens MEDIA prioridade pendentes: integrar rule-completeness-checklist no workflow, paralelizar phases independentes
+- Baixar e processar fontes gratuitas: Sneed papers (ResearchGate), Ross Manifesto + BRCommunity, SEI reports PDFs
+- Rodar @oalanicolas para DNA extraction dos 3 Bronze experts com materiais baixados
+- Usar o squad pela primeira vez em um sistema legado real (projeto piloto)
+- Itens MEDIA pendentes: paralelizar phases independentes, deputy-bre-chief
 
 ## Historico
 | Data | Resumo |
@@ -41,3 +41,5 @@
 | 2026-03-11 | v1.2: personality + episodic memories + metrics em 7/8 agentes + edge cases nos workflows |
 | 2026-03-11 | v2.0: DNA extraction de 4 livros/papers (Feathers 20K, von Halle 22K, Taylor 7.6K, Vanthienen 884) |
 | 2026-03-11 | 30+ materiais gratuitos identificados (blogs, papers, podcasts, SEI reports) |
+| 2026-03-11 | Auditoria v2.0: oalanicolas 8.35/10, pedro-valerio 87+86+94+78, kaizen 84/100 |
+| 2026-03-11 | v2.1: checklist enforcement, wf-quick-extract, DMN template, metrics logging, max_duration |
