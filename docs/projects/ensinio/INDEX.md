@@ -27,25 +27,28 @@
   - `generate-apps-script.js` — Gera Apps Script com dados embutidos
 
 ## Última Sessão
-- **Data:** 2026-03-10 ~01:30
-- **Agente/Squad:** ensinio-whatsapp-prospector + Kaizen
+- **Data:** 2026-03-12 ~14:00
+- **Agente/Squad:** ensinio-whatsapp-prospector (evolução v4.0)
 - **O que foi feito:**
-  1. Extraiu 230 contatos de 12 screenshots da lista de membros do WhatsApp
-  2. Resolveu telefones de 50 prospects via match automático (nome→telefone)
-  3. Resolveu 7 prospects restantes via busca manual (quotes no WhatsApp)
-  4. Total: 77/77 prospects com telefone (100% coverage)
-  5. Gerou scripts para Google Sheets (TSV, Apps Script, CSV)
-  6. Configurou Google Workspace MCP OAuth (Client ID + Secret + Refresh Token)
-  7. Análise Kaizen: infraestrutura MCP já existia, só faltava ativar credenciais
+  1. Pesquisou e validou API GoHighLevel v2 (opportunities, contacts, conversations)
+  2. Testou API key (PIT) — configurou scopes + descobriu locationId
+  3. Mapeou 10 pipelines existentes no GHL (Qualificação como target)
+  4. Criou `.env` com credenciais GHL (token, locationId, pipelineId, stageId)
+  5. Adicionou fase GHL Sync no pipeline (phase-5): contact → deal → message
+  6. Tag prompt interativo: SEMPRE pergunta tags antes de sincronizar (default: "Leads Fosc")
+  7. Criou task `sync-to-ghl.md` + checklist `ghl-sync-checklist.md` (QG-005)
+  8. Atualizou phone resolution: imagens PRIMEIRO → manual só residuais
+  9. Squad atualizado para v4.0.0 (10 fases, 7 quality gates)
 
 ## Próximo Passo
-- Revisar ADR de decisões técnicas (`docs/stories/epics/epic-ensinio-prospector-app/ADR-001-tech-stack.md`)
-- Validar stories M0 com @po e iniciar M0.1 (extrair parser como módulo)
+- Rodar o pipeline completo com um grupo de WhatsApp real (`*full-pipeline`)
+- Testar envio de mensagem via GHL API (pode precisar de template WhatsApp aprovado na Meta)
 - Popular Google Sheets via MCP (campanha mentoria-50k pendente)
 
 ## Histórico
 | Data | Sessão | Resumo |
 |------|--------|--------|
+| 2026-03-12 | GHL Integration v4.0 | API GHL validada, pipeline v4.0 com sync (contact+deal+msg), tag prompt, image-first phone resolution |
 | 2026-03-10 (2) | Phone Resolution + Sheets | 77/77 telefones resolvidos, scripts Google Sheets, MCP OAuth configurado |
 | 2026-03-10 (1) | Outreach completo | 57 novas mensagens (score 3-6), total 77/77 prospects cobertos |
 | 2026-03-09 (3) | Phone Resolution + Outreach | 20/20 telefones resolvidos, 20 mensagens personalizadas escritas |
