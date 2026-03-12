@@ -114,6 +114,7 @@ function runWarningChecks(data: ParsedExport): ValidationCheck[] {
   // Simple heuristic: names should mostly contain ASCII or common accented characters
   const garbbledContactCount = data.contacts.filter(c => {
     // Check for excessive non-ASCII characters
+    // eslint-disable-next-line no-control-regex
     const nonAscii = (c.name.match(/[^\x00-\x7F]/g) || []).length;
     return nonAscii > c.name.length * 0.5; // More than 50% non-ASCII is suspicious
   }).length;
