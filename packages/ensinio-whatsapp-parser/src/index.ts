@@ -18,6 +18,6 @@ export {
   WhatsAppFormat,
 } from './types';
 
-export { parseWhatsAppExport, detectChatFormat, extractName } from './parser';
+export { parseWhatsAppExport, detectChatFormat, extractName, isEmojiOnly, resolveNameFromContext } from './parser';
 export { normalizePhoneNumber, validatePhoneFormat, normalizePhoneNumbers } from './phone-normalizer';
 export { validateParsedData } from './validator';

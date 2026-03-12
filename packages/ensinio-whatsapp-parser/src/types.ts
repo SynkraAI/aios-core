@@ -28,6 +28,14 @@ export interface Contact {
   last_message_date: string;
   /** Array of messages from this contact */
   messages: Message[];
+  /** Original WhatsApp display name before resolution (set when name was emoji-only) */
+  original_name?: string;
+  /** Whether the original name contained only emojis/symbols (no alphabetic chars) */
+  is_emoji_only?: boolean;
+  /** How the current name was determined */
+  name_source?: 'whatsapp' | 'chat_context' | 'user_input';
+  /** Confidence of chat-context name resolution */
+  name_confidence?: 'high' | 'medium' | 'low';
 }
 
 /**

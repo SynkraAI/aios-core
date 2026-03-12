@@ -36,6 +36,24 @@ const SYSTEM_MESSAGE_FILTERS = [
 // Title prefixes that should be separated from names
 const TITLE_PREFIXES = ['dr', 'dra', 'prof', 'profa', 'sr', 'sra', 'mrs', 'mr', 'ms', 'eng'];
 
+// Self-identification patterns in Portuguese (captures the name)
+const NAME_SELF_ID_PATTERNS = [
+  // "meu nome é João" / "me chamo Maria"
+  /(?:meu nome [eé]|me chamo)\s+([A-ZÀ-Úa-zà-ú][a-zà-ú]+(?:\s+[A-ZÀ-Úa-zà-ú][a-zà-ú]+){0,2})/i,
+  // "aqui é o João" / "aqui é a Maria" / "aqui quem fala é João"
+  /aqui (?:[eé] (?:o |a )?|quem fala [eé] (?:o |a )?)([A-ZÀ-Úa-zà-ú][a-zà-ú]+(?:\s+[A-ZÀ-Úa-zà-ú][a-zà-ú]+)?)/i,
+  // "sou o João" / "eu sou a Maria"
+  /(?:eu )?sou (?:o |a )([A-ZÀ-Úa-zà-ú][a-zà-ú]+(?:\s+[A-ZÀ-Úa-zà-ú][a-zà-ú]+)?)/i,
+  // "pode me chamar de João"
+  /pode me chamar de\s+([A-ZÀ-Úa-zà-ú][a-zà-ú]+)/i,
+  // "Oi, João aqui" / "Olá, Maria aqui"
+  /^(?:oi|ol[aá]),?\s+([A-ZÀ-Úa-zà-ú][a-zà-ú]+)\s+aqui/im,
+  // "Oi pessoal, João aqui"
+  /^(?:oi|ol[aá])[\s,]+(?:pessoal|galera|gente|grupo)[\s,]+([A-ZÀ-Úa-zà-ú][a-zà-ú]+)\s+aqui/im,
+  // "Boa noite, sou João" / "Bom dia, aqui é o João"
+  /^(?:bom dia|boa (?:tarde|noite))[\s,]+(?:(?:eu )?sou (?:o |a )?|aqui [eé] (?:o |a )?)([A-ZÀ-Úa-zà-ú][a-zà-ú]+)/im,
+];
+
 /**
  * Detects WhatsApp chat format (Android BR or iOS BR)
  * @param content - First 500 chars of the chat file
@@ -58,6 +76,53 @@ function detectFormat(content: string): WhatsAppFormat {
  */
 function isSystemMessage(content: string): boolean {
   return SYSTEM_MESSAGE_FILTERS.some(filter => filter.test(content));
+}
+
+/**
+ * Checks if a name contains only emojis, symbols, and/or numbers (no alphabetic chars)
+ * Used to detect contacts that need name resolution from chat context
+ * @param name - Name to check
+ * @returns True if name has no alphabetic characters
+ */
+function isEmojiOnlyName(name: string): boolean {
+  if (!name || !name.trim()) return true;
+  // Check if name contains at least one letter (any script)
+  return !/\p{Letter}/u.test(name);
+}
+
+/**
+ * Attempts to resolve a real name from a contact's messages
+ * Scans messages for self-identification patterns like "meu nome é X", "sou o X", etc.
+ * @param messages - Array of messages from the contact
+ * @returns Resolved name with confidence, or null if no name found
+ */
+function resolveNameFromMessages(
+  messages: Array<{ content: string }>
+): { name: string; confidence: 'high' | 'medium' | 'low' } | null {
+  const candidates = new Map<string, number>();
+
+  for (const msg of messages) {
+    for (const pattern of NAME_SELF_ID_PATTERNS) {
+      const match = msg.content.match(pattern);
+      if (match?.[1]) {
+        const candidate = match[1].trim();
+        // Skip very short names (1-2 chars) or suspiciously long ones (4+ words)
+        if (candidate.length < 3 || candidate.split(/\s+/).length > 3) continue;
+        candidates.set(candidate, (candidates.get(candidate) || 0) + 1);
+      }
+    }
+  }
+
+  if (candidates.size === 0) return null;
+
+  // Sort by frequency (most mentioned name wins)
+  const sorted = Array.from(candidates.entries()).sort((a, b) => b[1] - a[1]);
+  const [bestName, count] = sorted[0];
+
+  // Confidence based on how many times the name appeared
+  const confidence = count >= 3 ? 'high' : count >= 2 ? 'medium' : 'low';
+
+  return { name: extractIntelligentName(bestName), confidence };
 }
 
 /**
@@ -265,14 +330,33 @@ function groupByContact(messages: Array<RawMessage & { isSystem: boolean }>): Co
 
   // Convert map to Contact array and sort by message count
   const contacts: Contact[] = Array.from(contactMap.values())
-    .map(c => ({
-      name: c.name,
-      phone: '', // Phone will be filled by phone-normalizer later
-      message_count: c.messageCount,
-      first_message_date: c.firstDate.toISOString().split('T')[0],
-      last_message_date: c.lastDate.toISOString().split('T')[0],
-      messages: c.messages,
-    }))
+    .map(c => {
+      const emojiOnly = isEmojiOnlyName(c.name);
+      const contact: Contact = {
+        name: c.name,
+        phone: '', // Phone will be filled by phone-normalizer later
+        message_count: c.messageCount,
+        first_message_date: c.firstDate.toISOString().split('T')[0],
+        last_message_date: c.lastDate.toISOString().split('T')[0],
+        messages: c.messages,
+        name_source: 'whatsapp',
+      };
+
+      // If name is emoji-only, attempt to resolve real name from messages
+      if (emojiOnly) {
+        contact.is_emoji_only = true;
+        contact.original_name = c.name;
+
+        const resolved = resolveNameFromMessages(c.messages);
+        if (resolved) {
+          contact.name = resolved.name;
+          contact.name_source = 'chat_context';
+          contact.name_confidence = resolved.confidence;
+        }
+      }
+
+      return contact;
+    })
     .sort((a, b) => b.message_count - a.message_count);
 
   return contacts;
@@ -450,4 +534,24 @@ export function detectChatFormat(content: string): WhatsAppFormat {
  */
 export function extractName(rawName: string): string {
   return extractIntelligentName(rawName);
+}
+
+/**
+ * Checks if a name is emoji-only (for testing/external use)
+ * @param name - Name to check
+ * @returns True if name has no alphabetic characters
+ */
+export function isEmojiOnly(name: string): boolean {
+  return isEmojiOnlyName(name);
+}
+
+/**
+ * Attempts to resolve a name from message context (for testing/external use)
+ * @param messages - Messages to scan for self-identification
+ * @returns Resolved name with confidence, or null
+ */
+export function resolveNameFromContext(
+  messages: Array<{ content: string }>
+): { name: string; confidence: 'high' | 'medium' | 'low' } | null {
+  return resolveNameFromMessages(messages);
 }

@@ -5,7 +5,7 @@
  * This module replaces the inline parsing logic previously in parse-chat-export.md
  */
 
-const { parseWhatsAppExport, validateParsedData } = require('@ensinio/whatsapp-parser');
+const { parseWhatsAppExport, validateParsedData, isEmojiOnly, resolveNameFromContext } = require('@ensinio/whatsapp-parser');
 const path = require('path');
 const fs = require('fs-extra');
 
@@ -104,4 +104,6 @@ async function parseWithRecovery(zipPath, options = {}) {
 module.exports = {
   parseWhatsAppExportFile,
   parseWithRecovery,
+  isEmojiOnly,
+  resolveNameFromContext,
 };
