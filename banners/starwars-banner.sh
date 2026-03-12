@@ -1,6 +1,6 @@
 #!/bin/bash
-# Star Wars ASCII Art Banner for Claude Code
-# 10-frame animation: Starfield → Death Star → X-Wing trench run → EXPLOSION!
+# Star Wars — LUIZ FOSC version
+# 10-frame animation: Starfield -> Death Star -> X-Wing trench run -> EXPLOSION!
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -12,17 +12,17 @@ BRIGHT_WHITE='\033[1;97m'
 DIM='\033[2m'
 NC='\033[0m'
 
-fosc_logo() {
+luizfosc_logo() {
 echo ""
-echo -e "${YELLOW}    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
-echo -e "${YELLOW}    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
-echo -e "${YELLOW}    █████╗  ██║   ██║███████╗██║     ${NC}"
-echo -e "${YELLOW}    ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
-echo -e "${YELLOW}    ██║     ╚██████╔╝███████║╚██████╗${NC}"
-echo -e "${YELLOW}    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
+echo -e "\033[38;5;27m ██╗     ██╗   ██╗██╗███████╗    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
+echo -e "\033[38;5;33m ██║     ██║   ██║██║╚══███╔╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
+echo -e "\033[38;5;39m ██║     ██║   ██║██║  ███╔╝     █████╗  ██║   ██║███████╗██║     ${NC}"
+echo -e "\033[38;5;45m ██║     ██║   ██║██║ ███╔╝      ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
+echo -e "\033[38;5;220m ███████╗╚██████╔╝██║███████╗    ██║     ╚██████╔╝███████║╚██████╗${NC}"
+echo -e "\033[38;5;226m ╚══════╝ ╚═════╝ ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
 echo ""
-echo -e "${CYAN}    ☆ May the Code be with you ☆${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
-echo -e "${YELLOW}    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "\033[38;5;45m ☆ May the Code be with you ☆${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
+echo -e "\033[38;5;220m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 }
 
@@ -236,6 +236,6 @@ printf "\033[H\033[2J"; frame10; sleep 0.35
 
 # Final
 printf "\033[H\033[2J"
-fosc_logo
+luizfosc_logo
 printf "\033[?25h"
 sleep 0.8

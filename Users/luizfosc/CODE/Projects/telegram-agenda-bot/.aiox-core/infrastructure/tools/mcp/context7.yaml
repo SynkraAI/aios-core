@@ -1,0 +1,78 @@
+tool:
+  schema_version: 1.0
+  id: context7
+  type: mcp
+  name: Context7 Library Documentation
+  version: 1.0.0
+  description: Retrieve up-to-date documentation and code examples for any software library via Context7 AI
+  knowledge_strategy: declarative
+
+  capabilities:
+    - Resolve library names to Context7-compatible IDs
+    - Fetch documentation for specific libraries
+    - Filter documentation by topic
+    - Control token usage for documentation retrieval
+    - Support version-specific documentation
+
+  use_cases:
+    - library_documentation: "Get current documentation for any library"
+    - api_reference: "Look up API methods and usage examples"
+    - version_specific_docs: "Access documentation for specific library versions"
+    - focused_topics: "Retrieve docs filtered by specific topics (e.g., hooks, routing)"
+
+  mcp_specific:
+    server_command: "sse"
+    transport: sse
+    connection:
+      type: sse
+      url: "https://mcp.context7.com/sse"
+    health_check:
+      method: tool_call
+      command: resolve-library-id
+      expected_response: "Library ID resolution"
+      timeout_ms: 5000
+
+  tools:
+    - id: resolve-library-id
+      description: "Resolves a package/product name to a Context7-compatible library ID"
+      parameters:
+        - libraryName: "Library name to search for (e.g., 'react', 'next.js')"
+      notes:
+        - "MUST call this before get-library-docs unless user provides explicit library ID"
+        - "Returns library ID in format '/org/project' or '/org/project/version'"
+        - "Selection based on name similarity, description relevance, and trust score"
+
+    - id: get-library-docs
+      description: "Fetches up-to-date documentation for a library"
+      parameters:
+        - context7CompatibleLibraryID: "Exact library ID from resolve-library-id or user (e.g., '/mongodb/docs', '/vercel/next.js')"
+        - topic: "Optional topic to focus documentation on (e.g., 'hooks', 'routing')"
+        - tokens: "Maximum tokens of documentation to retrieve (default: 5000)"
+      notes:
+        - "Must use library ID from resolve-library-id first"
+        - "Higher token values provide more context but consume more tokens"
+
+  workflow:
+    typical_usage:
+      - step: 1
+        action: "Call resolve-library-id with library name"
+        example: "resolve-library-id({ libraryName: 'next.js' })"
+      - step: 2
+        action: "Extract library ID from response"
+        example: "libraryID = '/vercel/next.js'"
+      - step: 3
+        action: "Call get-library-docs with library ID"
+        example: "get-library-docs({ context7CompatibleLibraryID: '/vercel/next.js', topic: 'routing' })"
+
+  best_practices:
+    - "Always call resolve-library-id first unless user provides explicit ID"
+    - "Use topic parameter to focus on specific areas of documentation"
+    - "Adjust tokens parameter based on how much context you need"
+    - "Check trust score when multiple libraries match (prefer 7-10)"
+    - "For ambiguous queries, request clarification before proceeding"
+
+  limitations:
+    - "Requires active internet connection to Context7 service"
+    - "Documentation availability depends on Context7 coverage"
+    - "Token usage counts against retrieval limits"
+    - "SSE connection may timeout on slow networks"

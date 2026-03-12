@@ -1,0 +1,351 @@
+# Configuration Template for Architect-First Projects
+#
+# This template demonstrates the principle: Config > Hardcoding
+# All mutable values should be externalized to configuration files like this.
+#
+# Usage:
+#   1. Copy this template to your project's config directory
+#   2. Rename to config.yaml or config.{environment}.yaml
+#   3. Fill in values appropriate for your project
+#   4. NEVER hardcode these values in source code
+#   5. Load configuration at runtime from this file
+
+# =============================================================================
+# System Configuration
+# =============================================================================
+system:
+  name: "my-project"                    # Project/system name
+  version: "1.0.0"                      # Current version
+  environment: "development"            # development|staging|production
+  debug: true                           # Enable debug mode
+
+# =============================================================================
+# Application Settings
+# =============================================================================
+application:
+  host: "localhost"                     # Application host
+  port: 8000                            # Application port
+  workers: 4                            # Number of worker processes
+  timeout: 30                           # Request timeout (seconds)
+  max_connections: 100                  # Maximum concurrent connections
+
+# =============================================================================
+# Logging Configuration
+# =============================================================================
+logging:
+  level: "INFO"                         # DEBUG|INFO|WARNING|ERROR|CRITICAL
+  format: "json"                        # json|text
+  output: "stdout"                      # stdout|file
+  file_path: "logs/app.log"            # Log file path (if output=file)
+  rotation:
+    enabled: true                       # Enable log rotation
+    max_size: "100MB"                  # Max size before rotation
+    max_files: 10                      # Number of files to keep
+
+# =============================================================================
+# Database Configuration
+# =============================================================================
+database:
+  primary:
+    engine: "postgresql"                # postgresql|mysql|sqlite
+    host: "localhost"
+    port: 5432
+    name: "myapp_dev"
+    username: "developer"
+    password: "${DB_PASSWORD}"          # From environment variable
+    pool_size: 10                       # Connection pool size
+    pool_timeout: 30                    # Pool timeout (seconds)
+    ssl_mode: "prefer"                  # disable|allow|prefer|require
+
+  replica:                              # Optional read replica
+    enabled: false
+    host: "replica.localhost"
+    port: 5432
+    # ... same structure as primary
+
+# =============================================================================
+# Cache Configuration
+# =============================================================================
+cache:
+  enabled: true
+  backend: "redis"                      # redis|memcached|memory
+  host: "localhost"
+  port: 6379
+  db: 0
+  password: "${REDIS_PASSWORD}"         # From environment variable
+  ttl: 3600                             # Default TTL in seconds
+  key_prefix: "myapp:"                  # Key prefix for namespace
+
+# =============================================================================
+# External Services / Integrations
+# =============================================================================
+integrations:
+  # Example: External API integration
+  external_api:
+    enabled: true
+    base_url: "https://api.example.com"
+    api_key: "${EXTERNAL_API_KEY}"      # From environment variable
+    timeout: 10                         # Request timeout (seconds)
+    retry:
+      enabled: true
+      max_attempts: 3
+      backoff_factor: 2                 # Exponential backoff multiplier
+
+  # Example: Email service
+  email:
+    enabled: true
+    provider: "smtp"                    # smtp|sendgrid|ses
+    smtp_host: "smtp.example.com"
+    smtp_port: 587
+    smtp_user: "${EMAIL_USER}"
+    smtp_password: "${EMAIL_PASSWORD}"
+    from_address: "noreply@example.com"
+    from_name: "My Application"
+
+  # Example: Cloud storage
+  storage:
+    enabled: true
+    provider: "s3"                      # s3|gcs|azure
+    bucket: "my-app-uploads"
+    region: "us-east-1"
+    access_key: "${AWS_ACCESS_KEY}"
+    secret_key: "${AWS_SECRET_KEY}"
+    public_url_base: "https://cdn.example.com"
+
+# =============================================================================
+# Feature Flags
+# =============================================================================
+features:
+  new_feature_x:
+    enabled: false                      # Enable/disable feature
+    rollout_percentage: 0               # Gradual rollout (0-100)
+    allowed_users: []                   # Whitelist of user IDs
+
+  experimental_feature_y:
+    enabled: true
+    config:                             # Feature-specific configuration
+      threshold: 0.8
+      max_items: 100
+
+# =============================================================================
+# Security Settings
+# =============================================================================
+security:
+  # Authentication
+  auth:
+    jwt:
+      secret: "${JWT_SECRET}"           # From environment variable
+      algorithm: "HS256"
+      expiration: 3600                  # Token expiration (seconds)
+      refresh_expiration: 604800        # Refresh token expiration (7 days)
+
+    session:
+      secret: "${SESSION_SECRET}"
+      cookie_name: "session_id"
+      secure: true                      # HTTPS only
+      http_only: true                   # Not accessible via JavaScript
+      same_site: "lax"                  # lax|strict|none
+
+  # Rate limiting
+  rate_limit:
+    enabled: true
+    requests_per_minute: 60
+    burst: 10                           # Burst allowance
+
+  # CORS
+  cors:
+    enabled: true
+    allowed_origins:
+      - "https://example.com"
+      - "https://app.example.com"
+    allowed_methods:
+      - "GET"
+      - "POST"
+      - "PUT"
+      - "DELETE"
+    allowed_headers:
+      - "Content-Type"
+      - "Authorization"
+    max_age: 3600
+
+# =============================================================================
+# Monitoring & Observability
+# =============================================================================
+monitoring:
+  # Metrics
+  metrics:
+    enabled: true
+    provider: "prometheus"              # prometheus|datadog|custom
+    port: 9090
+    path: "/metrics"
+
+  # Distributed tracing
+  tracing:
+    enabled: true
+    provider: "jaeger"                  # jaeger|zipkin|datadog
+    endpoint: "http://localhost:14268/api/traces"
+    sample_rate: 0.1                    # Sample 10% of requests
+
+  # Health checks
+  health:
+    enabled: true
+    path: "/health"
+    checks:
+      - name: "database"
+        critical: true
+      - name: "cache"
+        critical: false
+      - name: "external_api"
+        critical: false
+
+# =============================================================================
+# Module/Expansion Pack Paths
+# =============================================================================
+# CRITICAL: Never hardcode module paths in source code
+# Always reference modules through configuration
+modules:
+  expansion_packs_dir: "expansion-packs"
+
+  # Individual expansion pack paths (relative to project root)
+  creator_os: "expansion-packs/creator-os"
+  mmos_mind_mapper: "expansion-packs/mmos"
+  innerlens: "expansion-packs/innerlens"
+  etl_data_collector: "expansion-packs/etl-data-collector"
+
+  # Module discovery (alternative to explicit paths)
+  auto_discover:
+    enabled: true                       # Automatically discover modules
+    search_paths:
+      - "expansion-packs"
+      - "plugins"
+    pattern: "*/module.yaml"           # Module metadata file pattern
+
+# =============================================================================
+# File Paths & Directories
+# =============================================================================
+# CRITICAL: All file paths should be configurable, never hardcoded
+paths:
+  # Input/output directories
+  data_dir: "data"
+  output_dir: "outputs"
+  temp_dir: "/tmp/myapp"
+  upload_dir: "uploads"
+
+  # Application directories
+  templates_dir: "templates"
+  static_dir: "static"
+
+  # Specific output paths
+  courses_output: "outputs/courses"
+  minds_output: "outputs/minds"
+  database_output: "outputs/database"
+
+# =============================================================================
+# Performance & Optimization
+# =============================================================================
+performance:
+  # Caching
+  cache_templates: true
+  cache_static_files: true
+
+  # Compression
+  enable_compression: true
+  compression_level: 6                  # 1-9 (higher = more compression)
+  compression_min_size: 1024            # Minimum size to compress (bytes)
+
+  # Connection pooling
+  http_pool_size: 10
+  http_pool_timeout: 30
+
+  # Async processing
+  async_enabled: true
+  async_workers: 4
+  queue_backend: "redis"
+
+# =============================================================================
+# Development & Testing
+# =============================================================================
+development:
+  # Auto-reload on code changes
+  auto_reload: true
+
+  # Debug toolbar
+  debug_toolbar: true
+
+  # Mock external services
+  mock_external_services: true
+
+  # Test data
+  use_test_data: true
+  test_data_path: "tests/fixtures"
+
+# =============================================================================
+# Environment-Specific Overrides
+# =============================================================================
+# This section demonstrates how to handle environment-specific configs
+# In practice, use separate files: config.dev.yaml, config.prod.yaml
+
+environments:
+  development:
+    debug: true
+    logging:
+      level: "DEBUG"
+    database:
+      name: "myapp_dev"
+
+  staging:
+    debug: false
+    logging:
+      level: "INFO"
+    database:
+      name: "myapp_staging"
+
+  production:
+    debug: false
+    logging:
+      level: "WARNING"
+    database:
+      name: "myapp_prod"
+    security:
+      rate_limit:
+        requests_per_minute: 100
+
+# =============================================================================
+# Custom Application Settings
+# =============================================================================
+# Add your application-specific configuration here
+custom:
+  # Example: Business logic thresholds
+  thresholds:
+    max_upload_size: 10485760           # 10MB in bytes
+    min_password_length: 8
+    session_timeout: 1800               # 30 minutes
+
+  # Example: Feature-specific settings
+  notification:
+    channels:
+      email: true
+      sms: false
+      push: true
+    batch_size: 100
+    retry_failed: true
+
+# =============================================================================
+# Configuration Metadata
+# =============================================================================
+_metadata:
+  version: "1.0"
+  last_updated: "2024-01-01"
+  schema_version: "2.0"
+
+  # Validation rules (optional - for config validation tools)
+  validation:
+    required_env_vars:
+      - "DB_PASSWORD"
+      - "JWT_SECRET"
+      - "SESSION_SECRET"
+
+    deprecated_keys:
+      - key: "old_setting"
+        replacement: "new_setting"
+        since: "0.9.0"

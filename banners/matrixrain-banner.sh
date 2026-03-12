@@ -1,9 +1,7 @@
 #!/bin/bash
-
-# Matrix Rain Banner for AIOS Core
+# Matrix Rain — LUIZ FOSC version
 # Animated falling katakana rain effect
 
-# ANSI color codes
 GREEN='\033[0;32m'
 BOLD_GREEN='\033[1;32m'
 DIM_GREEN='\033[2;32m'
@@ -59,19 +57,19 @@ echo -e "${WHITE}$(get_char)${NC}    ${DIM_GREEN}$(get_char)${NC}      ${BOLD_GR
 echo -e "  ${GREEN}$(get_char)${NC}    ${BOLD_GREEN}$(get_char)${NC}      ${DIM_GREEN}$(get_char)${NC}   ${WHITE}$(get_char)${NC}     ${GREEN}$(get_char)${NC}    ${DIM_GREEN}$(get_char)${NC}      ${BOLD_GREEN}$(get_char)${NC}   ${GREEN}$(get_char)${NC}     ${DIM_GREEN}$(get_char)${NC}    ${WHITE}$(get_char)${NC}      ${BOLD_GREEN}$(get_char)${NC}   ${GREEN}$(get_char)${NC}     ${DIM_GREEN}$(get_char)${NC}"
 sleep 0.2
 
-# Frame 5 - Rain fades, reveal FOSC
+# Frame 5 - Rain fades, reveal LUIZ FOSC with gradient
 printf "\033[H\033[2J"
 echo -e "  ${DIM_GREEN}$(get_char)${NC}    ${DIM_GREEN}$(get_char)${NC}      ${DIM_GREEN}$(get_char)${NC}   ${DIM_GREEN}$(get_char)${NC}     ${DIM_GREEN}$(get_char)${NC}    ${DIM_GREEN}$(get_char)${NC}      ${DIM_GREEN}$(get_char)${NC}   ${DIM_GREEN}$(get_char)${NC}     ${DIM_GREEN}$(get_char)${NC}    ${DIM_GREEN}$(get_char)${NC}      ${DIM_GREEN}$(get_char)${NC}   ${DIM_GREEN}$(get_char)${NC}     ${DIM_GREEN}$(get_char)${NC}"
 echo ""
-echo -e "${BOLD_GREEN}  ███████╗  ██████╗  ███████╗  ██████╗${NC}"
-echo -e "${BOLD_GREEN}  ██╔════╝ ██╔═══██╗ ██╔════╝ ██╔════╝${NC}"
-echo -e "${BOLD_GREEN}  █████╗   ██║   ██║ ███████╗ ██║     ${NC}"
-echo -e "${BOLD_GREEN}  ██╔══╝   ██║   ██║ ╚════██║ ██║     ${NC}"
-echo -e "${BOLD_GREEN}  ██║      ╚██████╔╝ ███████║ ╚██████╗${NC}"
-echo -e "${BOLD_GREEN}  ╚═╝       ╚═════╝  ╚══════╝  ╚═════╝${NC}"
+echo -e "\033[38;5;22m ██╗     ██╗   ██╗██╗███████╗    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
+echo -e "\033[38;5;28m ██║     ██║   ██║██║╚══███╔╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
+echo -e "\033[38;5;34m ██║     ██║   ██║██║  ███╔╝     █████╗  ██║   ██║███████╗██║     ${NC}"
+echo -e "\033[38;5;40m ██║     ██║   ██║██║ ███╔╝      ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
+echo -e "\033[38;5;46m ███████╗╚██████╔╝██║███████╗    ██║     ╚██████╔╝███████║╚██████╗${NC}"
+echo -e "\033[38;5;48m ╚══════╝ ╚═════╝ ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
 echo ""
-echo -e "${WHITE}          ★ Wake up, Neo... ★${NC}"
-echo -e "${GREEN}            AIOS Core v2.1${NC}"
+echo -e "${WHITE}        ★ Wake up, Neo... ★${NC}"
+echo -e "${GREEN}          AIOS Core v2.1${NC}"
 echo ""
 echo -e "  ${DIM_GREEN}$(get_char)${NC}    ${DIM_GREEN}$(get_char)${NC}      ${DIM_GREEN}$(get_char)${NC}   ${DIM_GREEN}$(get_char)${NC}     ${DIM_GREEN}$(get_char)${NC}    ${DIM_GREEN}$(get_char)${NC}      ${DIM_GREEN}$(get_char)${NC}   ${DIM_GREEN}$(get_char)${NC}     ${DIM_GREEN}$(get_char)${NC}    ${DIM_GREEN}$(get_char)${NC}      ${DIM_GREEN}$(get_char)${NC}   ${DIM_GREEN}$(get_char)${NC}     ${DIM_GREEN}$(get_char)${NC}"
 sleep 0.5

@@ -4,6 +4,7 @@
 
 - **Clone:** v1.2 (fidelidade: @oalanicolas 9.5/10, @pedro-valerio 9.0/10)
 - **Squad:** `squads/renner-silva/` (4 tasks, 1 workflow, 19 KBs)
+- **Local:** `docs/projects/renner-silva/`
 - **Pipeline:** Transcribe 9/9 | Sculpt 7/9 | Distill 9/9 | KB Update 9/9
 - **Distill consolidado:** `data/distill-consolidado-2026-03-09.md`
 - **Proximo passo:** Expandir ME-01 a ME-07 (historias finas), incorporar 15 FPs novos em KB07, adicionar Formula Magica e Teste 48h em KB03

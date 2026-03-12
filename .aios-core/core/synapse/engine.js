@@ -33,6 +33,7 @@ const { MemoryBridge } = require('./memory/memory-bridge');
 const LAYER_MODULES = [
   { path: './layers/l0-constitution', layer: 0, name: 'constitution' },
   { path: './layers/l1-global', layer: 1, name: 'global' },
+  { path: './layers/l1h-guardrails', layer: 1, name: 'guardrails' },
   { path: './layers/l2-agent', layer: 2, name: 'agent' },
   { path: './layers/l3-workflow', layer: 3, name: 'workflow' },
   { path: './layers/l4-task', layer: 4, name: 'task' },

@@ -1,29 +1,27 @@
 #!/bin/bash
-# Pokémon ASCII Art Banner for Claude Code
-# 10-frame animation: Pokéball throw → open → Pikachu appears
+# Pokemon — LUIZ FOSC version
+# 10-frame animation: Pokeball throw -> open -> Pikachu appears
 
-RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 WHITE='\033[1;37m'
 NC='\033[0m'
 
-fosc_logo() {
+luizfosc_logo() {
 echo ""
-echo -e "${RED}    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
-echo -e "${RED}    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
-echo -e "${RED}    █████╗  ██║   ██║███████╗██║     ${NC}"
-echo -e "${RED}    ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
-echo -e "${RED}    ██║     ╚██████╔╝███████║╚██████╗${NC}"
-echo -e "${RED}    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
+echo -e "\033[38;5;196m ██╗     ██╗   ██╗██╗███████╗    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
+echo -e "\033[38;5;197m ██║     ██║   ██║██║╚══███╔╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
+echo -e "\033[38;5;203m ██║     ██║   ██║██║  ███╔╝     █████╗  ██║   ██║███████╗██║     ${NC}"
+echo -e "\033[38;5;209m ██║     ██║   ██║██║ ███╔╝      ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
+echo -e "\033[38;5;220m ███████╗╚██████╔╝██║███████╗    ██║     ╚██████╔╝███████║╚██████╗${NC}"
+echo -e "\033[38;5;226m ╚══════╝ ╚═════╝ ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
 echo ""
-echo -e "${YELLOW}    ⚡ Gotta code 'em all! ⚡${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
-echo -e "${BLUE}    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "\033[38;5;226m ⚡ Gotta code 'em all! ⚡${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
+echo -e "\033[38;5;196m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 }
 
-# Frame 1 - Pokéball flying (high, left)
+# Frame 1 - Pokeball flying (high, left)
 frame1() {
 cat << 'EOF'
 
@@ -36,11 +34,10 @@ cat << 'EOF'
 
 
 
-
 EOF
 }
 
-# Frame 2 - Pokéball flying (mid)
+# Frame 2 - Pokeball flying (mid)
 frame2() {
 cat << 'EOF'
 
@@ -57,7 +54,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 3 - Pokéball flying (center, lower)
+# Frame 3 - Pokeball flying (center, lower)
 frame3() {
 cat << 'EOF'
 
@@ -74,7 +71,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 4 - Pokéball landing (center)
+# Frame 4 - Pokeball landing (center)
 frame4() {
 cat << 'EOF'
 
@@ -92,7 +89,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 5 - Pokéball shaking left
+# Frame 5 - Pokeball shaking left
 frame5() {
 cat << 'EOF'
 
@@ -110,7 +107,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 6 - Pokéball shaking right
+# Frame 6 - Pokeball shaking right
 frame6() {
 cat << 'EOF'
 
@@ -128,7 +125,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 7 - Pokéball OPENING! Flash!
+# Frame 7 - Pokeball OPENING! Flash!
 frame7() {
 cat << 'EOF'
 
@@ -146,7 +143,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 8 - White flash (full bright)
+# Frame 8 - White flash
 frame8() {
 cat << 'EOF'
 
@@ -217,6 +214,6 @@ printf "\033[H\033[2J"; frame10; sleep 0.35
 
 # Final
 printf "\033[H\033[2J"
-fosc_logo
+luizfosc_logo
 printf "\033[?25h"
 sleep 0.8

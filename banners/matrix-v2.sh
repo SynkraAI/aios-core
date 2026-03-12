@@ -1,5 +1,5 @@
 #!/bin/bash
-# Matrix Dynamic Glitch Upgrade
+# Matrix Dynamic Glitch — LUIZ FOSC version
 # Real character rain logic and flickering logo FX
 
 GREEN='\033[38;5;82m'
@@ -28,16 +28,26 @@ draw_rain() {
     done
 }
 
-# Glitch Effect for Logo
+# Glitch Effect for Logo — gradient version
 glitch_logo() {
-    local color=$1
+    local mode=$1
     clear_screen
-    echo -e "${color}    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
-    echo -e "${color}    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
-    echo -e "${color}    █████╗  ██║   ██║███████╗██║     ${NC}"
-    echo -e "${color}    ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
-    echo -e "${color}    ██║     ╚██████╔╝███████║╚██████╗${NC}"
-    echo -e "${color}    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
+    if [ "$mode" = "gradient" ]; then
+        echo -e "\033[38;5;22m ██╗     ██╗   ██╗██╗███████╗    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
+        echo -e "\033[38;5;34m ██║     ██║   ██║██║╚══███╔╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
+        echo -e "\033[38;5;46m ██║     ██║   ██║██║  ███╔╝     █████╗  ██║   ██║███████╗██║     ${NC}"
+        echo -e "\033[38;5;82m ██║     ██║   ██║██║ ███╔╝      ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
+        echo -e "\033[38;5;118m ███████╗╚██████╔╝██║███████╗    ██║     ╚██████╔╝███████║╚██████╗${NC}"
+        echo -e "\033[38;5;155m ╚══════╝ ╚═════╝ ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
+    else
+        local color=$1
+        echo -e "${color} ██╗     ██╗   ██╗██╗███████╗    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
+        echo -e "${color} ██║     ██║   ██║██║╚══███╔╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
+        echo -e "${color} ██║     ██║   ██║██║  ███╔╝     █████╗  ██║   ██║███████╗██║     ${NC}"
+        echo -e "${color} ██║     ██║   ██║██║ ███╔╝      ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
+        echo -e "${color} ███████╗╚██████╔╝██║███████╗    ██║     ╚██████╔╝███████║╚██████╗${NC}"
+        echo -e "${color} ╚══════╝ ╚═════╝ ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
+    fi
 }
 
 hide_cursor
@@ -50,9 +60,9 @@ done
 glitch_logo "${WHITE}"; sleep 0.05
 glitch_logo "${GREEN}"; sleep 0.1
 glitch_logo "${WHITE}"; sleep 0.05
-glitch_logo "${BRIGHT_GREEN}"
+glitch_logo "gradient"
 
-echo -e "\n    ${BRIGHT_GREEN}⌐ Wake up, coder... the AIOS is here ¬${NC}"
-echo -e "    ${WHITE}System Version: 2.2.0-STABLE${NC}"
+echo -e "\n \033[38;5;82m⌐ Wake up, coder... the AIOS is here ¬${NC}"
+echo -e " ${WHITE}System Version: 2.2.0-STABLE${NC}"
 
 printf "\033[?25h"

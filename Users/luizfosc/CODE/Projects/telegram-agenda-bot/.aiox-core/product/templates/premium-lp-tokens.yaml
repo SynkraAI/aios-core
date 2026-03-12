@@ -1,0 +1,321 @@
+# ============================================================
+# PREMIUM LP — DESIGN TOKENS (Source of Truth)
+# Brad Frost Atomic Design Token System
+# Cascade: Global → Semantic → Atom → Effect
+# ============================================================
+# Usage: The *generate command reads this file to inject CSS
+# variables into the template. Override any value per-template.
+# ============================================================
+
+version: "1.0"
+template_id: "nocturne-cian"  # default, overridden by config.template
+
+# ============================================================
+# TIER 1: GLOBAL TOKENS
+# Foundation — apply to every element
+# ============================================================
+global:
+  colors:
+    bg:
+      deep: "#040B0B"
+      base: "#071212"
+      surface: "#0A1919"
+      elevated: "#0D2020"
+    accent:
+      primary: "#7DE8EB"
+      soft: "#5CC8CB"
+      glow: "rgba(125, 232, 235, 0.08)"
+      glow_md: "rgba(125, 232, 235, 0.12)"
+      glow_hi: "rgba(125, 232, 235, 0.25)"
+    text:
+      primary: "#EDF8F8"     # --text-0
+      secondary: "#B8D4D4"  # --text-1
+      muted: "#7A9E9E"      # --text-2
+      faint: "#4A6E6E"      # --text-3
+    border:
+      default: "rgba(125, 232, 235, 0.06)"
+      hover: "rgba(125, 232, 235, 0.14)"
+
+  typography:
+    heading:
+      font: "'Space Grotesk', 'Inter', system-ui"
+      weight: 700
+      tracking: "-0.045em"
+      line_height: 0.92
+    body:
+      font: "'Inter', system-ui, sans-serif"
+      weight: 400
+      tracking: "-0.01em"
+      line_height: 1.7
+    label:
+      font: "'JetBrains Mono', monospace"
+      weight: 500
+      tracking: "0.12em"
+      transform: "uppercase"
+
+  spacing:
+    section_gap: "160px"       # between organisms
+    card_padding: "40px"       # inside molecules
+    element_gap: "20px"        # between atoms
+    container_max: "1100px"    # max content width
+    radius: "16px"
+    radius_sm: "8px"
+
+  motion:
+    ease: "cubic-bezier(0.16, 1, 0.3, 1)"
+    ease_out: "cubic-bezier(0.33, 1, 0.68, 1)"
+    duration_fast: "0.2s"
+    duration_base: "0.3s"
+    duration_slow: "0.7s"
+
+# ============================================================
+# TIER 2: SEMANTIC TOKENS
+# Section-specific — sizes, layouts, masks per organism
+# ============================================================
+semantic:
+  nav:
+    height: "64px"
+    blur: "12px"
+    brand_size: "1.1rem"
+    link_size: "0.85rem"
+
+  hero:
+    name_size: "4.5rem"
+    name_mobile_size: "2.5rem"
+    label_size: "0.75rem"
+    desc_size: "1.05rem"
+    desc_max_width: "560px"
+    photo_size: "380px"
+    photo_mobile_size: "260px"
+    photo_mask: "radial-gradient(ellipse 75% 68% at 50% 38%, black 40%, transparent 78%)"
+    photo_aura: "radial-gradient(ellipse 50% 55% at 50% 42%, var(--accent-glow-md) 0%, transparent 70%)"
+    ring_outer_inset: "-20px"
+    ring_inner_inset: "10px"
+
+  proof:
+    number_size: "3rem"
+    number_mobile_size: "2rem"
+    label_size: "0.75rem"
+    suffix_size: "1.2rem"
+    columns: 4
+    columns_mobile: 2
+    item_padding: "24px 32px"
+
+  expertise:
+    grid_columns: "1.15fr 1fr"
+    grid_mobile_columns: "1fr"
+    featured_row_span: 2
+    card_padding: "40px"
+    title_size: "1.4rem"
+    desc_size: "0.92rem"
+    desc_line_height: 1.65
+    accent_bar_width: "32px"
+    accent_bar_height: "3px"
+
+  quote:
+    text_size: "1.5rem"
+    text_mobile_size: "1.15rem"
+    mark_size: "8rem"
+    mark_opacity: 0.15
+    max_width: "640px"
+    attr_size: "0.8rem"
+    backdrop: "radial-gradient(ellipse 50% 40% at 50% 50%, var(--accent-glow) 0%, transparent 70%)"
+
+  stack:
+    name_size: "1.05rem"
+    detail_size: "0.88rem"
+    dot_size: "8px"
+    dot_glow: "0 0 12px var(--accent-glow-hi)"
+    item_padding: "28px 0"
+
+  cta:
+    title_size: "3rem"
+    title_mobile_size: "2rem"
+    desc_size: "1.05rem"
+    desc_max_width: "480px"
+    backdrop: "radial-gradient(ellipse 50% 50% at 50% 50%, var(--accent-glow) 0%, transparent 70%)"
+
+  footer:
+    padding: "40px 0"
+    text_size: "0.8rem"
+    link_size: "0.85rem"
+
+# ============================================================
+# TIER 3: ATOM TOKENS
+# Component-level — individual UI elements
+# ============================================================
+atoms:
+  btn_primary:
+    bg: "var(--accent)"
+    color: "var(--bg-deep)"
+    padding: "16px 32px"
+    radius: "12px"
+    font_weight: 600
+    font_size: "0.95rem"
+    hover_shadow: "0 0 32px var(--accent-glow-hi)"
+    hover_scale: 1.02
+
+  btn_ghost:
+    bg: "transparent"
+    border: "1px solid var(--border-hover)"
+    color: "var(--text-1)"
+    padding: "16px 32px"
+    radius: "12px"
+    font_size: "0.95rem"
+    hover_bg: "var(--accent-glow)"
+
+  tag:
+    bg: "var(--accent-glow)"
+    border: "1px solid var(--border)"
+    color: "var(--text-2)"
+    padding: "6px 14px"
+    radius: "20px"
+    font_size: "0.7rem"
+    font_family: "var(--label-font)"
+    tracking: "0.06em"
+
+  nav_link:
+    color: "var(--text-2)"
+    hover_color: "var(--text-0)"
+    font_size: "0.85rem"
+    underline_height: "1px"
+    underline_offset: "4px"
+
+  section_eyebrow:
+    font_size: "0.75rem"
+    number_color: "var(--accent)"
+    label_color: "var(--text-3)"
+    gap: "12px"
+
+  gradient_text:
+    from: "var(--accent)"
+    to: "var(--accent-soft)"
+    direction: "135deg"
+
+# ============================================================
+# TIER 4: EFFECT TOKENS
+# Tier-dependent — only applied at Enhanced/Maximum
+# ============================================================
+effects:
+  # Always applied (Base tier)
+  base:
+    glassmorphism:
+      bg: "rgba(125, 232, 235, 0.04)"
+      border: "rgba(125, 232, 235, 0.1)"
+      blur: "16px"
+    glow:
+      color: "rgba(125, 232, 235, 0.3)"
+      spread: "0 0 40px"
+    gradient_hero: "radial-gradient(ellipse at 50% 0%, rgba(125, 232, 235, 0.12) 0%, transparent 70%)"
+
+  # Enhanced tier additions
+  enhanced:
+    grain:
+      opacity: 0.03
+      animation_duration: "0.5s"
+      animation_steps: 4
+    scroll_progress:
+      height: "2px"
+      gradient: "linear-gradient(90deg, var(--accent), var(--accent-soft))"
+    scroll_reveals:
+      translate_y: "24px"
+      scale: 0.98
+      blur: "4px"
+      duration: "0.7s"
+      threshold: 0.12
+      stagger_delay: "0.1s"
+    gradient_text: true
+
+  # Maximum tier additions
+  maximum:
+    cursor:
+      ring_size: "40px"
+      ring_hover_size: "56px"
+      ring_border: "1.5px"
+      dot_size: "6px"
+      lerp_factor: 0.12
+      blend_mode: "difference"
+    text_split:
+      translate_y: "40px"
+      rotate_x: "40deg"
+      char_delay: "0.035s"
+      base_delay: "0.4s"
+    counter:
+      steps: 40
+      trigger_threshold: 0.5
+    parallax:
+      translate_x: "12px"
+      translate_y: "8px"
+      min_width: "768px"
+    magnetic:
+      multiplier: 0.15
+    conic_border:
+      opacity_default: 0
+      opacity_hover: 1
+      transition: "0.5s"
+    mesh:
+      size: "600px 400px"
+      opacity: 0.04
+
+# ============================================================
+# TEMPLATE OVERRIDES
+# Each template overrides global.colors + effects
+# Only Nocturne Cian shown; others follow same structure
+# ============================================================
+template_overrides:
+  nocturne_cian:
+    # Default — no overrides needed, values above ARE nocturne cian
+
+  obsidian_gold:
+    global_colors:
+      bg: { deep: "#050505", base: "#0A0A0A", surface: "#111111", elevated: "#1A1A1A" }
+      accent: { primary: "#D4A853", soft: "#C49B45", glow: "rgba(212, 168, 83, 0.08)", glow_md: "rgba(212, 168, 83, 0.12)", glow_hi: "rgba(212, 168, 83, 0.25)" }
+      text: { primary: "#FAF5EB", secondary: "#C4B99A", muted: "#7A7260", faint: "#5A5440" }
+      border: { default: "rgba(212, 168, 83, 0.06)", hover: "rgba(212, 168, 83, 0.14)" }
+    typography_heading_font: "'Playfair Display', 'Georgia', serif"
+
+  carbon_blue:
+    global_colors:
+      bg: { deep: "#060B18", base: "#0B1120", surface: "#0F172A", elevated: "#1E293B" }
+      accent: { primary: "#3B82F6", soft: "#2563EB", glow: "rgba(59, 130, 246, 0.08)", glow_md: "rgba(59, 130, 246, 0.12)", glow_hi: "rgba(59, 130, 246, 0.25)" }
+      text: { primary: "#F1F5F9", secondary: "#94A3B8", muted: "#64748B", faint: "#475569" }
+      border: { default: "rgba(59, 130, 246, 0.06)", hover: "rgba(59, 130, 246, 0.14)" }
+
+  midnight_violet:
+    global_colors:
+      bg: { deep: "#08061A", base: "#0D0B1A", surface: "#13102B", elevated: "#1A1535" }
+      accent: { primary: "#A855F7", soft: "#9333EA", glow: "rgba(168, 85, 247, 0.08)", glow_md: "rgba(168, 85, 247, 0.12)", glow_hi: "rgba(168, 85, 247, 0.25)" }
+      text: { primary: "#F5F0FF", secondary: "#B8A8D4", muted: "#7A6B99", faint: "#5A4B79" }
+      border: { default: "rgba(168, 85, 247, 0.06)", hover: "rgba(168, 85, 247, 0.14)" }
+    typography_heading_font: "'Space Grotesk', 'Inter', system-ui"
+
+  eclipse_rose:
+    global_colors:
+      bg: { deep: "#0A0608", base: "#120B0D", surface: "#1A1012", elevated: "#25181C" }
+      accent: { primary: "#F43F5E", soft: "#E11D48", glow: "rgba(244, 63, 94, 0.08)", glow_md: "rgba(244, 63, 94, 0.12)", glow_hi: "rgba(244, 63, 94, 0.25)" }
+      text: { primary: "#FFF1F2", secondary: "#D4A8B0", muted: "#9A6B75", faint: "#7A4B55" }
+      border: { default: "rgba(244, 63, 94, 0.06)", hover: "rgba(244, 63, 94, 0.14)" }
+    typography_heading_font: "'DM Sans', 'Inter', system-ui"
+
+  stealth_emerald:
+    global_colors:
+      bg: { deep: "#040A08", base: "#071210", surface: "#0A1A16", elevated: "#0D221D" }
+      accent: { primary: "#10B981", soft: "#059669", glow: "rgba(16, 185, 129, 0.08)", glow_md: "rgba(16, 185, 129, 0.12)", glow_hi: "rgba(16, 185, 129, 0.25)" }
+      text: { primary: "#F0FDF9", secondary: "#A8D4C4", muted: "#6A9A88", faint: "#4A7A68" }
+      border: { default: "rgba(16, 185, 129, 0.06)", hover: "rgba(16, 185, 129, 0.14)" }
+
+  crimson_noir:
+    global_colors:
+      bg: { deep: "#080505", base: "#120A0A", surface: "#1A0F0F", elevated: "#251515" }
+      accent: { primary: "#EF4444", soft: "#DC2626", glow: "rgba(239, 68, 68, 0.08)", glow_md: "rgba(239, 68, 68, 0.12)", glow_hi: "rgba(239, 68, 68, 0.25)" }
+      text: { primary: "#FFF5F5", secondary: "#D4A8A8", muted: "#9A6B6B", faint: "#7A4B4B" }
+      border: { default: "rgba(239, 68, 68, 0.06)", hover: "rgba(239, 68, 68, 0.14)" }
+    typography_heading_font: "'Bebas Neue', 'Impact', system-ui"
+
+  arctic_frost:
+    global_colors:
+      bg: { deep: "#060A14", base: "#0A1018", surface: "#0F1726", elevated: "#162033" }
+      accent: { primary: "#38BDF8", soft: "#0EA5E9", glow: "rgba(56, 189, 248, 0.08)", glow_md: "rgba(56, 189, 248, 0.12)", glow_hi: "rgba(56, 189, 248, 0.25)" }
+      text: { primary: "#F0F9FF", secondary: "#A8C8E0", muted: "#6A8EA8", faint: "#4A6E88" }
+      border: { default: "rgba(56, 189, 248, 0.06)", hover: "rgba(56, 189, 248, 0.14)" }
+    typography_heading_font: "'Geist', 'Inter', system-ui"

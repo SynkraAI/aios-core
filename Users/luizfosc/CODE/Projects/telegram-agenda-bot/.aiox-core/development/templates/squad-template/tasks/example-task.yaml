@@ -1,0 +1,46 @@
+# Example Task Definition
+# Replace placeholders with your task's details
+
+name: example-task
+version: 1.0.0
+description: Brief description of what this task accomplishes
+
+inputs:
+  - name: input1
+    type: string
+    required: true
+    description: Primary input for the task
+
+  - name: options
+    type: object
+    required: false
+    description: Optional configuration object
+
+outputs:
+  - name: result
+    type: object
+    description: The processed result
+
+  - name: metadata
+    type: object
+    description: Additional information about the execution
+
+steps:
+  - id: validate
+    action: validate-inputs
+    description: Validate all required inputs are present and valid
+
+  - id: process
+    action: process-data
+    description: Main processing logic
+    depends_on: [validate]
+
+  - id: finalize
+    action: prepare-output
+    description: Format and return the result
+    depends_on: [process]
+
+error_handling:
+  on_validation_error: "Invalid input: {{error.message}}"
+  on_process_error: "Processing failed: {{error.message}}"
+  retry_count: 1

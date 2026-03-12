@@ -1,26 +1,23 @@
 #!/bin/bash
-# Pac-Man ASCII Art Banner for Claude Code
+# Pac-Man — LUIZ FOSC version
 # 10-frame animation: Pac-Man eats dots, encounters ghost, power pellet victory
 
-RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
-CYAN='\033[0;36m'
 WHITE='\033[1;37m'
 NC='\033[0m'
 
-fosc_logo() {
+luizfosc_logo() {
 echo ""
-echo -e "${YELLOW}    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
-echo -e "${YELLOW}    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
-echo -e "${YELLOW}    █████╗  ██║   ██║███████╗██║     ${NC}"
-echo -e "${YELLOW}    ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
-echo -e "${YELLOW}    ██║     ╚██████╔╝███████║╚██████╗${NC}"
-echo -e "${YELLOW}    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
+echo -e "\033[38;5;220m ██╗     ██╗   ██╗██╗███████╗    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
+echo -e "\033[38;5;221m ██║     ██║   ██║██║╚══███╔╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
+echo -e "\033[38;5;222m ██║     ██║   ██║██║  ███╔╝     █████╗  ██║   ██║███████╗██║     ${NC}"
+echo -e "\033[38;5;223m ██║     ██║   ██║██║ ███╔╝      ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
+echo -e "\033[38;5;229m ███████╗╚██████╔╝██║███████╗    ██║     ╚██████╔╝███████║╚██████╗${NC}"
+echo -e "\033[38;5;230m ╚══════╝ ╚═════╝ ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
 echo ""
-echo -e "${YELLOW}    ★ WAKA WAKA! ★${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
-echo -e "${BLUE}    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "\033[38;5;220m ★ WAKA WAKA! ★${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
+echo -e "\033[38;5;21m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 }
 
@@ -54,7 +51,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 3 - Pac-Man open, ate 1 dot, moved right
+# Frame 3 - Pac-Man open, ate 1 dot
 frame3() {
 cat << 'EOF'
 
@@ -69,7 +66,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 4 - Pac-Man closed, ghost appears far right
+# Frame 4 - Ghost appears
 frame4() {
 cat << 'EOF'
 
@@ -84,7 +81,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 5 - Pac-Man open, ghost closer
+# Frame 5 - Ghost closer + power pellet
 frame5() {
 cat << 'EOF'
 
@@ -99,7 +96,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 6 - Pac-Man eats power pellet! FLASH
+# Frame 6 - Power pellet eaten! FLASH
 frame6() {
 cat << 'EOF'
 
@@ -114,7 +111,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 7 - Ghost turns BLUE (scared!)
+# Frame 7 - Ghost turns BLUE
 frame7() {
 cat << 'EOF'
 
@@ -129,7 +126,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 8 - Pac-Man chases ghost (reversed!)
+# Frame 8 - Pac-Man chases ghost
 frame8() {
 cat << 'EOF'
 
@@ -191,6 +188,6 @@ printf "\033[H\033[2J"; frame10; sleep 0.3
 
 # Final
 printf "\033[H\033[2J"
-fosc_logo
+luizfosc_logo
 printf "\033[?25h"
 sleep 0.8

@@ -1,9 +1,7 @@
 #!/bin/bash
-
-# Back to the Future AIOS Core Banner
+# Back to the Future — LUIZ FOSC version
 # Animated ASCII art with DeLorean time machine
 
-# ANSI color codes
 CYAN='\033[0;36m'
 CYAN_BOLD='\033[1;36m'
 YELLOW='\033[0;33m'
@@ -15,7 +13,8 @@ WHITE_BOLD='\033[1;37m'
 BLUE='\033[0;34m'
 BLUE_BOLD='\033[1;34m'
 GRAY='\033[0;90m'
-NC='\033[0m' # No Color
+GREEN='\033[0;32m'
+NC='\033[0m'
 
 # Hide cursor
 printf "\033[?25l"
@@ -25,9 +24,7 @@ trap 'printf "\033[?25h"' EXIT
 
 # Frame 1: DeLorean approaching
 printf "\033[H\033[2J"
-cat << "EOF"
-
-EOF
+echo ""
 echo -e "${CYAN_BOLD}╔════════════════════════════════════════════════════════════════════╗${NC}"
 echo -e "${CYAN_BOLD}║${NC}                    ${YELLOW_BOLD}⚡ TEMPORAL DISPLACEMENT IN PROGRESS ⚡${NC}              ${CYAN_BOLD}║${NC}"
 echo -e "${CYAN_BOLD}╚════════════════════════════════════════════════════════════════════╝${NC}"
@@ -54,9 +51,7 @@ sleep 0.35
 
 # Frame 2: DeLorean with fire trails
 printf "\033[H\033[2J"
-cat << "EOF"
-
-EOF
+echo ""
 echo -e "${CYAN_BOLD}╔════════════════════════════════════════════════════════════════════╗${NC}"
 echo -e "${CYAN_BOLD}║${NC}                      ${RED_BOLD}🔥 88 MILES PER HOUR! 🔥${NC}                      ${CYAN_BOLD}║${NC}"
 echo -e "${CYAN_BOLD}╚════════════════════════════════════════════════════════════════════╝${NC}"
@@ -83,9 +78,7 @@ sleep 0.35
 
 # Frame 3: Time travel effect
 printf "\033[H\033[2J"
-cat << "EOF"
-
-EOF
+echo ""
 echo -e "${CYAN_BOLD}╔════════════════════════════════════════════════════════════════════╗${NC}"
 echo -e "${CYAN_BOLD}║${NC}                    ${WHITE_BOLD}⚡ ARRIVAL: ${YELLOW_BOLD}PRESENT TIME${NC} ${WHITE_BOLD}⚡${NC}                  ${CYAN_BOLD}║${NC}"
 echo -e "${CYAN_BOLD}╚════════════════════════════════════════════════════════════════════╝${NC}"
@@ -110,29 +103,27 @@ echo ""
 
 sleep 0.35
 
-# Final frame: FOSC branding
+# Final frame: LUIZ FOSC branding (cyan -> yellow gradient)
 printf "\033[H\033[2J"
-cat << "EOF"
-
-EOF
 echo ""
-echo -e "${CYAN_BOLD}     ███████╗ ██████╗ ███████╗ ██████╗${NC}"
-echo -e "${CYAN_BOLD}     ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
-echo -e "${CYAN_BOLD}     █████╗  ██║   ██║███████╗██║     ${NC}"
-echo -e "${CYAN_BOLD}     ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
-echo -e "${CYAN_BOLD}     ██║     ╚██████╔╝███████║╚██████╗${NC}"
-echo -e "${CYAN_BOLD}     ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
 echo ""
-echo -e "        ${YELLOW_BOLD}★${NC} ${WHITE_BOLD}88 mph to production!${NC} ${YELLOW_BOLD}★${NC}"
+echo -e "\033[38;5;44m ██╗     ██╗   ██╗██╗███████╗    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
+echo -e "\033[38;5;45m ██║     ██║   ██║██║╚══███╔╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
+echo -e "\033[38;5;51m ██║     ██║   ██║██║  ███╔╝     █████╗  ██║   ██║███████╗██║     ${NC}"
+echo -e "\033[38;5;87m ██║     ██║   ██║██║ ███╔╝      ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
+echo -e "\033[38;5;220m ███████╗╚██████╔╝██║███████╗    ██║     ╚██████╔╝███████║╚██████╗${NC}"
+echo -e "\033[38;5;226m ╚══════╝ ╚═════╝ ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
 echo ""
-echo -e "            ${BLUE_BOLD}AIOS Core ${WHITE}v2.1${NC}"
-echo -e "      ${GRAY}AI-Orchestrated Intelligence System${NC}"
+echo -e "      ${YELLOW_BOLD}★${NC} ${WHITE_BOLD}88 mph to production!${NC} ${YELLOW_BOLD}★${NC}"
 echo ""
-echo -e "${CYAN_BOLD}════════════════════════════════════════════${NC}"
+echo -e "          ${BLUE_BOLD}AIOS Core ${WHITE}v2.1${NC}"
+echo -e "    ${GRAY}AI-Orchestrated Intelligence System${NC}"
+echo ""
+echo -e "${CYAN_BOLD}════════════════════════════════════════════════════════════════════════${NC}"
 echo -e "  ${WHITE}⚡ Flux Capacitor:${NC} ${GREEN}Online${NC}"
 echo -e "  ${WHITE}🔥 Time Circuits:${NC} ${GREEN}Synchronized${NC}"
 echo -e "  ${WHITE}⚙️  Core Systems:${NC}  ${GREEN}Ready${NC}"
-echo -e "${CYAN_BOLD}════════════════════════════════════════════${NC}"
+echo -e "${CYAN_BOLD}════════════════════════════════════════════════════════════════════════${NC}"
 echo ""
 echo -e "  ${GRAY}\"Where we're going, we don't need roads.\"${NC}"
 echo -e "              ${GRAY}- Doc Brown${NC}"

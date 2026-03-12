@@ -15,7 +15,9 @@ Guarde as variáveis coletadas:
 - `{tipo}` — tipo escolhido
 - `{descricao}` — descrição breve
 - `{squad}` — squad informado
-- `{path}` — project path
+- `{path}` — project path (Local)
+- `{modo}` — CENTRALIZED ou HYBRID (determinado pelo `/new-project`)
+- `{index_path}` — path do INDEX.md criado
 
 ---
 
@@ -66,7 +68,7 @@ Pergunte ao usuário:
 2. Quais fontes estão disponíveis? (vídeos, podcasts, livros, textos, entrevistas)
 3. Qual o objetivo do clone? (assistente, gerador de conteúdo, consultor)
 
-Registre as respostas no INDEX.md do projeto (seção "Estado Atual").
+Registre as respostas no INDEX.md do projeto em `{index_path}` (seção "Estado Atual").
 
 **Passo 2.2: Sugerir squad**
 
@@ -86,7 +88,7 @@ Pergunte ao usuário:
 2. Qual é a metodologia? (deep research, análise competitiva, estudo de mercado)
 3. Quais fontes devem ser consultadas?
 
-Registre as respostas no INDEX.md do projeto.
+Registre as respostas no INDEX.md do projeto em `{index_path}`.
 
 **Passo 2.2: Sugerir ferramentas**
 
@@ -101,13 +103,14 @@ Sugira conforme necessidade:
 
 Após completar a Fase 2:
 
-1. Atualize o INDEX.md com o estado atual (epic criado, stories validadas, etc.)
+1. Atualize o INDEX.md em `{index_path}` com o estado atual (epic criado, stories validadas, etc.)
 2. Mostre resumo final:
 
 ```
 ## Projeto: {nome} — Pipeline Completo ✅
 
-**Estrutura:** docs/projects/{nome}/ criada
+**Modo:** {CENTRALIZED ou HYBRID}
+**INDEX.md:** {index_path}
 **ACTIVE.md:** Row #{número} adicionada
 ```
 

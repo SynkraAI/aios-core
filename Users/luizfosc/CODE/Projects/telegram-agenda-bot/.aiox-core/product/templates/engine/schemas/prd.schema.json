@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PRD Template Variables",
+  "description": "Schema for Product Requirements Document template variables",
+  "type": "object",
+  "required": ["title", "version", "status", "owner", "problem_statement", "goals"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 150,
+      "description": "Product or feature title"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+      "description": "Document version (e.g., 1.0, 2.1.0)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Draft", "In Review", "Approved", "Deprecated"],
+      "description": "Document status"
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Product owner or author name"
+    },
+    "stakeholders": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of stakeholders"
+    },
+    "problem_statement": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Description of the problem being solved"
+    },
+    "goals": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "Product/feature goals"
+    },
+    "non_goals": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Explicit non-goals"
+    },
+    "user_stories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["persona", "want", "so_that"],
+        "properties": {
+          "persona": { "type": "string" },
+          "want": { "type": "string" },
+          "so_that": { "type": "string" },
+          "priority": {
+            "type": "string",
+            "enum": ["P0", "P1", "P2", "P3"]
+          }
+        }
+      },
+      "description": "User stories in As a/I want/So that format"
+    },
+    "functional_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "description"],
+        "properties": {
+          "id": { "type": "string" },
+          "description": { "type": "string" },
+          "priority": { "type": "string" },
+          "acceptance_criteria": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "description": "Functional requirements"
+    },
+    "non_functional_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["category", "requirement"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": ["Performance", "Security", "Scalability", "Reliability", "Usability", "Accessibility", "Compliance"]
+          },
+          "requirement": { "type": "string" },
+          "metric": { "type": "string" }
+        }
+      },
+      "description": "Non-functional requirements"
+    },
+    "success_metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["metric", "target"],
+        "properties": {
+          "metric": { "type": "string" },
+          "current": { "type": "string" },
+          "target": { "type": "string" },
+          "timeline": { "type": "string" }
+        }
+      },
+      "description": "Success metrics with targets"
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "deliverables": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "description": "Project milestones"
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["risk"],
+        "properties": {
+          "risk": { "type": "string" },
+          "impact": {
+            "type": "string",
+            "enum": ["Low", "Medium", "High", "Critical"]
+          },
+          "mitigation": { "type": "string" }
+        }
+      },
+      "description": "Identified risks and mitigations"
+    },
+    "open_questions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Open questions to be resolved"
+    }
+  }
+}

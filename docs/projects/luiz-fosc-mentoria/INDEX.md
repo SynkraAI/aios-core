@@ -2,6 +2,7 @@
 
 ## Estado Atual
 - **Squad:** `luiz-fosc` (mind clone principal)
+- **Local:** `docs/projects/luiz-fosc-mentoria/`
 - **Status:** Research completa sobre esteira de produtos digitais para mentoria
 - **Bloqueadores:** Nenhum — aguardando decisao de implementacao
 

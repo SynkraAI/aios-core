@@ -1,26 +1,21 @@
 #!/bin/bash
-# Mega Man ASCII Art Banner for Claude Code
-# 9-frame animation: Teleport beam → materialize → landing → arm cannon ready!
+# Mega Man — LUIZ FOSC version
+# 9-frame animation: Teleport beam -> materialize -> landing -> arm cannon ready!
 
-RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-WHITE='\033[1;37m'
 NC='\033[0m'
 
-fosc_logo() {
+luizfosc_logo() {
 echo ""
-echo -e "${CYAN}    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
-echo -e "${CYAN}    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
-echo -e "${BLUE}    █████╗  ██║   ██║███████╗██║     ${NC}"
-echo -e "${BLUE}    ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
-echo -e "${CYAN}    ██║     ╚██████╔╝███████║╚██████╗${NC}"
-echo -e "${CYAN}    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
+echo -e "\033[38;5;25m ██╗     ██╗   ██╗██╗███████╗    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
+echo -e "\033[38;5;31m ██║     ██║   ██║██║╚══███╔╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
+echo -e "\033[38;5;37m ██║     ██║   ██║██║  ███╔╝     █████╗  ██║   ██║███████╗██║     ${NC}"
+echo -e "\033[38;5;43m ██║     ██║   ██║██║ ███╔╝      ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
+echo -e "\033[38;5;49m ███████╗╚██████╔╝██║███████╗    ██║     ╚██████╔╝███████║╚██████╗${NC}"
+echo -e "\033[38;5;51m ╚══════╝ ╚═════╝ ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
 echo ""
-echo -e "${CYAN}    ◆ READY! ◆${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
-echo -e "${BLUE}    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "\033[38;5;45m ◆ READY! ◆${NC}  \033[1;37mAIOS Core \033[0;32mv2.1${NC}"
+echo -e "\033[38;5;33m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 }
 
@@ -201,6 +196,6 @@ printf "\033[H\033[2J"; frame9; sleep 0.4
 
 # Final
 printf "\033[H\033[2J"
-fosc_logo
+luizfosc_logo
 printf "\033[?25h"
 sleep 0.8

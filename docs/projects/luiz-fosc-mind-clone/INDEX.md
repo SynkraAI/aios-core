@@ -2,6 +2,7 @@
 
 ## Estado Atual
 - **Squad:** `luiz-fosc` + `mind-cloning`
+- **Local:** `docs/projects/luiz-fosc-mind-clone/`
 - **Status:** Research INPI concluida, aguardando busca formal de marca
 - **Bloqueadores:** Nenhum — aguardando acao manual (busca INPI)
 

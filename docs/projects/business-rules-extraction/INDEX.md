@@ -2,6 +2,7 @@
 
 ## Estado Atual
 - **Squad:** `business-rules-extraction` v2.1 — 20 componentes (8 agentes, 3 workflows, 6 templates, 2 checklists + enforcement)
+- **Local:** `squads/business-rules-extraction/`
 - **Status:** Auditoria v2.0 completa | Quick wins aplicados | Fontes gratuitas mapeadas para 3 Bronze experts
 - **Scores:** Fidelidade 8.35/10 | Workflows 87+86 (APROVADOS) | Kaizen 84/100
 - **Fontes:** 51K linhas processadas + 30+ recursos gratuitos identificados para Sneed/Ross/Seacord

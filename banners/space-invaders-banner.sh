@@ -1,31 +1,26 @@
 #!/bin/bash
-# Space Invaders ASCII Art Banner for Claude Code
-# 10-frame animation: Aliens march → ship fires → aliens explode
+# Space Invaders — LUIZ FOSC version
+# 10-frame animation: Aliens march -> ship fires -> aliens explode
 
-RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
 WHITE='\033[1;37m'
-MAGENTA='\033[0;35m'
 NC='\033[0m'
 
-fosc_logo() {
+luizfosc_logo() {
 echo ""
-echo -e "${GREEN}    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
-echo -e "${GREEN}    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
-echo -e "${GREEN}    █████╗  ██║   ██║███████╗██║     ${NC}"
-echo -e "${GREEN}    ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
-echo -e "${GREEN}    ██║     ╚██████╔╝███████║╚██████╗${NC}"
-echo -e "${GREEN}    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
+echo -e "\033[38;5;22m ██╗     ██╗   ██╗██╗███████╗    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
+echo -e "\033[38;5;28m ██║     ██║   ██║██║╚══███╔╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
+echo -e "\033[38;5;34m ██║     ██║   ██║██║  ███╔╝     █████╗  ██║   ██║███████╗██║     ${NC}"
+echo -e "\033[38;5;40m ██║     ██║   ██║██║ ███╔╝      ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
+echo -e "\033[38;5;46m ███████╗╚██████╔╝██║███████╗    ██║     ╚██████╔╝███████║╚██████╗${NC}"
+echo -e "\033[38;5;48m ╚══════╝ ╚═════╝ ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
 echo ""
-echo -e "${CYAN}    ◄► INSERT COIN ◄►${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
-echo -e "${GREEN}    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "\033[38;5;45m ◄► INSERT COIN ◄►${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
+echo -e "\033[38;5;34m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 }
 
-# Frame 1 - Aliens formation (position 1)
+# Frame 1 - Aliens formation
 frame1() {
 cat << 'EOF'
 
@@ -117,7 +112,7 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 6 - More shooting! Two aliens down
+# Frame 6 - More shooting
 frame6() {
 cat << 'EOF'
 
@@ -178,7 +173,6 @@ cat << 'EOF'
 
 
 
-
                        👾
 
 
@@ -192,10 +186,9 @@ cat << 'EOF'
 EOF
 }
 
-# Frame 10 - Victory! All clear!
+# Frame 10 - Victory!
 frame10() {
 cat << 'EOF'
-
 
 
 
@@ -227,6 +220,6 @@ printf "\033[H\033[2J"; frame10; sleep 0.3
 
 # Final
 printf "\033[H\033[2J"
-fosc_logo
+luizfosc_logo
 printf "\033[?25h"
 sleep 0.8

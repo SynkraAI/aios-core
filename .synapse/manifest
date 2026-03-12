@@ -18,6 +18,10 @@ GLOBAL_ALWAYS_ON=true
 CONTEXT_STATE=active
 CONTEXT_ALWAYS_ON=true
 
+# Layer 1.5: Guardrails Tips (ALWAYS_ON)
+GUARDRAILS_STATE=active
+GUARDRAILS_ALWAYS_ON=true
+
 # Layer 7: Star-commands
 COMMANDS_STATE=active
 

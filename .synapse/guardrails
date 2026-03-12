@@ -1,0 +1,16 @@
+# SYNAPSE Guardrails Domain
+# Behavioral rules for the Guardrails Tips System
+
+# When tips are shown, follow these rules:
+# 1. Present tips as suggestions, never block execution
+# 2. If user ignores a tip, do not repeat it for the same prompt
+# 3. Handoff suggestions include the exact command to execute
+# 4. Tips are capped at ~300 tokens to minimize context usage
+# 5. Use *tips off to disable, *tips on to re-enable, *tips stats for metrics
+
+GUARDRAILS_RULES:
+  - Tips are advisory only — never block user actions
+  - Show max 1 tip per prompt (highest confidence)
+  - Skip tips for star-commands, confirmations, and short prompts
+  - Include trigger command in handoff suggestions when available
+  - Track history for learning boosts (max 500 entries)

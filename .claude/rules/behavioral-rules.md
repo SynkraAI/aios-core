@@ -28,13 +28,22 @@
 
 ## PROJECT STRUCTURE (MANDATORY)
 
-Every project in `docs/projects/{name}/` MUST have:
-1. `INDEX.md` — project state, last session, next step, history, squads, key files
-2. `sessions/` — checkpoint/resume session files (with `.gitkeep`)
-3. A row in `docs/projects/ACTIVE.md`
+Every project MUST have INDEX.md — em `docs/projects/{name}/` (interno) OU `.aios/` (externo):
+
+**CENTRALIZED** (dentro de aios-core):
+1. `docs/projects/{name}/INDEX.md` — project state
+2. `docs/projects/{name}/sessions/` — session files
+3. Row em `docs/projects/ACTIVE.md` com `[INDEX]({name}/INDEX.md)`
+
+**HYBRID** (projetos externos — ~/CODE/Projects/ ou caminho customizado):
+1. `{project-path}/.aios/INDEX.md` — project state (governança local)
+2. `{project-path}/.aios/sessions/` — session files
+3. `{project-path}/.claude/CLAUDE.md` — ponte de contexto
+4. Row em `docs/projects/ACTIVE.md` com `[INDEX]({path}/.aios/INDEX.md)`
+
+**Detecção:** `.aios/INDEX.md` no cwd → HYBRID | cwd em `aios-core` → CENTRALIZED | ambos → ERRO
 
 When creating a new project:
 - Use `/new-project` slash command (preferred)
-- OR manually create the 3 items above following existing INDEX.md as template
-- NEVER create a project directory without INDEX.md and sessions/
+- NEVER create INDEX.md avulso sem a estrutura completa do `/new-project`
 - ALWAYS update ACTIVE.md when adding or changing project status

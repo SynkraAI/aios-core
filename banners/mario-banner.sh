@@ -1,17 +1,12 @@
 #!/bin/bash
-# Super Mario Bros ASCII Art Banner for Claude Code
-# Displayed before Claude Code starts
+# Super Mario Bros — LUIZ FOSC version
 
-# Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 WHITE='\033[1;37m'
-BROWN='\033[0;33m'
-NC='\033[0m' # No Color
-
-clear_line() { printf "\033[2K"; }
+NC='\033[0m'
 
 # Frame 1 - Mario standing
 frame1() {
@@ -62,37 +57,34 @@ EOF
 }
 
 # Animation: Mario jumps
-printf "\033[?25l"  # Hide cursor
+printf "\033[?25l"
 
-# Show frame 1 (standing)
 printf "\033[H\033[2J"
 frame1
 sleep 0.4
 
-# Show frame 2 (jumping)
 printf "\033[H\033[2J"
 frame2
 sleep 0.3
 
-# Show frame 1 again (landing)
 printf "\033[H\033[2J"
 frame1
 sleep 0.3
 
-# Final banner with text
+# Final banner with gradient text
 printf "\033[H\033[2J"
 echo ""
-echo -e "${RED}    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
-echo -e "${RED}    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
-echo -e "${RED}    █████╗  ██║   ██║███████╗██║     ${NC}"
-echo -e "${RED}    ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
-echo -e "${RED}    ██║     ╚██████╔╝███████║╚██████╗${NC}"
-echo -e "${RED}    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
+echo -e "\033[38;5;160m ██╗     ██╗   ██╗██╗███████╗    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
+echo -e "\033[38;5;196m ██║     ██║   ██║██║╚══███╔╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
+echo -e "\033[38;5;202m ██║     ██║   ██║██║  ███╔╝     █████╗  ██║   ██║███████╗██║     ${NC}"
+echo -e "\033[38;5;208m ██║     ██║   ██║██║ ███╔╝      ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
+echo -e "\033[38;5;214m ███████╗╚██████╔╝██║███████╗    ██║     ╚██████╔╝███████║╚██████╗${NC}"
+echo -e "\033[38;5;220m ╚══════╝ ╚═════╝ ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
 echo ""
-echo -e "${YELLOW}    ★ Let's-a go! ★${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
-echo -e "${BLUE}    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${YELLOW} ★ Let's-a go! ★${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
+echo -e "\033[38;5;196m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 
-printf "\033[?25h"  # Show cursor
+printf "\033[?25h"
 
 sleep 0.8

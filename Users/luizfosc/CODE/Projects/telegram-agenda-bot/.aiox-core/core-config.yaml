@@ -1,0 +1,115 @@
+markdownExploder: true
+project:
+  type: brownfield
+  installedAt: '2026-03-11T21:58:52.614Z'
+  version: 2.1.0
+user_profile: advanced
+ide:
+  selected:
+    - claude-code
+    - codex
+    - gemini
+    - antigravity
+  configs:
+    vscode: false
+    codex: true
+    gemini: true
+    cursor: false
+    github-copilot: false
+    antigravity: true
+    zed: false
+    claude-desktop: false
+    claude-code: true
+mcp:
+  enabled: false
+  configLocation: .claude/mcp.json
+  servers: []
+qa:
+  qaLocation: docs/qa
+prd:
+  prdFile: docs/prd.md
+  prdVersion: v4
+  prdSharded: true
+  prdShardedLocation: docs/prd
+  epicFilePattern: epic-{n}*.md
+architecture:
+  architectureFile: docs/architecture.md
+  architectureVersion: v4
+  architectureSharded: true
+  architectureShardedLocation: docs/architecture
+customTechnicalDocuments: null
+devLoadAlwaysFiles:
+  - docs/framework/coding-standards.md
+  - docs/framework/tech-stack.md
+  - docs/framework/source-tree.md
+devLoadAlwaysFilesFallback:
+  - docs/architecture/padroes-de-codigo.md
+  - docs/architecture/pilha-tecnologica.md
+  - docs/architecture/arvore-de-origem.md
+devDebugLog: .ai/debug-log.md
+devStoryLocation: docs/stories
+slashPrefix: AIOX
+frameworkDocsLocation: docs/framework
+projectDocsLocation: docs/architecture/project-decisions
+lazyLoading:
+  enabled: true
+  heavySections:
+    - pvMindContext
+    - squads
+    - registry
+git:
+  showConfigWarning: true
+  cacheTimeSeconds: 300
+decisionLogging:
+  enabled: true
+  async: true
+  location: .ai/
+  indexFile: decision-logs-index.md
+  format: adr
+  performance:
+    maxOverhead: 50
+toolsLocation: .aiox-core/tools
+scriptsLocation: .aiox-core/scripts
+dataLocation: .aiox-core/data
+elicitationLocation: .aiox-core/elicitation
+squadsLocation: squads
+mindsLocation: outputs/minds
+projectStatus:
+  enabled: true
+  autoLoadOnAgentActivation: true
+  showInGreeting: true
+  cacheTimeSeconds: 60
+  components:
+    gitBranch: true
+    gitStatus: true
+    recentWork: true
+    currentEpic: true
+    currentStory: true
+  statusFile: .aiox/project-status.yaml
+  maxModifiedFiles: 5
+  maxRecentCommits: 2
+boundary:
+  frameworkProtection: true
+  protected:
+    - .aiox-core/core/**
+    - .aiox-core/development/tasks/**
+    - .aiox-core/development/templates/**
+    - .aiox-core/development/checklists/**
+    - .aiox-core/development/workflows/**
+    - .aiox-core/infrastructure/**
+    - .aiox-core/constitution.md
+    - bin/aiox.js
+    - bin/aiox-init.js
+  exceptions:
+    - .aiox-core/data/**
+    - .aiox-core/development/agents/*/MEMORY.md
+    - .aiox-core/core/config/schemas/**
+    - .aiox-core/core/config/template-overrides.js
+agentIdentity:
+  greeting:
+    contextDetection: true
+    sessionDetection: hybrid
+    workflowDetection: hardcoded
+    performance:
+      gitCheckCache: true
+      gitCheckTTL: 300

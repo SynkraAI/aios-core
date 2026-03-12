@@ -1,0 +1,26 @@
+{
+    "version": "1.0",
+    "project": "telegram-agenda-bot",
+    "workspace": "/Users/luizfosc/aios-core/Users/luizfosc/CODE/Projects/telegram-agenda-bot",
+    "agents": {
+        "enabled": true,
+        "directory": ".antigravity/agents",
+        "default": "aiox-master"
+    },
+    "rules": {
+        "enabled": true,
+        "file": ".antigravity/rules.md"
+    },
+    "features": {
+        "storyDrivenDevelopment": true,
+        "agentActivation": true,
+        "workflowAutomation": true
+    },
+    "paths": {
+        "stories": "docs/stories",
+        "prd": "docs/prd",
+        "architecture": "docs/architecture",
+        "tasks": ".aiox-core/tasks",
+        "workflows": ".aiox-core/workflows"
+    }
+}

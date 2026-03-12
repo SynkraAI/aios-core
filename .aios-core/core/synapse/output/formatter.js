@@ -26,6 +26,7 @@ const { estimateTokens } = require('../utils/tokens');
 const SECTION_ORDER = [
   'CONTEXT_BRACKET',
   'CONSTITUTION',
+  'GUARDRAILS',
   'AGENT',
   'WORKFLOW',
   'TASK',
@@ -43,6 +44,8 @@ const SECTION_ORDER = [
 const LAYER_TO_SECTION = {
   constitution: 'CONSTITUTION',
   global: 'CONTEXT_BRACKET',   // global rules go into bracket section
+  guardrails: 'GUARDRAILS',
+  'tips-index': 'GUARDRAILS',
   agent: 'AGENT',
   workflow: 'WORKFLOW',
   task: 'TASK',
@@ -216,6 +219,18 @@ function formatKeyword(result) {
   }
 
   return lines.join('\n');
+}
+
+/**
+ * Format the GUARDRAILS section (tips from L1h).
+ *
+ * @param {object} result - Layer result { rules, metadata }
+ * @returns {string}
+ */
+function formatGuardrails(result) {
+  // Guardrails rules already contain formatted aios-tips XML
+  // or plain text for commands (stats, on/off)
+  return result.rules.join('\n');
 }
 
 /**
@@ -444,6 +459,7 @@ function enforceTokenBudget(sections, sectionIds, tokenBudget) {
  */
 const SECTION_FORMATTERS = {
   CONSTITUTION: formatConstitution,
+  GUARDRAILS: formatGuardrails,
   AGENT: formatAgent,
   WORKFLOW: formatWorkflow,
   TASK: formatTask,

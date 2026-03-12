@@ -2,6 +2,7 @@
 
 ## Estado Atual
 - **Squad:** `storytelling-masters-fosc`
+- **Local:** `docs/projects/storytelling-masters-fosc/`
 - **Status:** 3 researches completas, decisao de naming pendente
 - **Bloqueadores:** Nome "Fala Magnetica" ocupado no mercado — precisa decisao
 

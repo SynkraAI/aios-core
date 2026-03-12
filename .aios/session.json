@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "pid": 10868,
+  "pid": 85726,
   "sessionId": "session-1771550831494-rwn54yvi2",
   "project": {
     "type": "project",
@@ -11,12 +11,12 @@
   },
   "status": {
     "phase": "testing",
-    "progress": null,
+    "progress": "2/60",
     "currentTask": "",
     "emoji": "🧪"
   },
   "context": {
-    "story": "",
+    "story": "M0.3-extract-outreach-writer-module",
     "epic": ""
   },
   "activeAgent": {
@@ -24,6 +24,6 @@
   },
   "metadata": {
     "startedAt": "2026-02-20T01:27:11.494Z",
-    "lastUpdatedAt": "2026-03-11T19:55:07.524Z"
+    "lastUpdatedAt": "2026-03-12T14:33:48.489Z"
   }
 }

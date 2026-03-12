@@ -2,6 +2,8 @@
 
 ## Estado Atual
 
+- **Local:** `docs/projects/naval-ravikant-mind/`
+
 **Mind Clone Elite (95%)** — Voice DNA (10/10) + Thinking DNA (9/9) + Synthesis completa.
 8/8 camadas DNA Mental cobertas. 280K palavras analisadas (2 livros + 7 podcasts).
 Squad atualizado para v1.2.0 com todas as correções da avaliação tripla.

@@ -1,13 +1,14 @@
 # AIOX Catalog
 
-> Gerado automaticamente em 10/03/2026
+> Gerado automaticamente em 11/03/2026
 
 ---
 
-## Squads (50)
+## Squads (59)
 
 | Squad | Descrição | Ativação |
 |-------|-----------|----------|
+| affiliates | Affiliates Squad — MultiPlatform Affiliate Business System | `/affiliates` |
 | agent-autonomy | >- | `/agent-autonomy` |
 | ai-reels | AI Reels Squad | `/ai-reels` |
 | audio-reels | Audio Reels — AI Cinema Pipeline | `/audio-reels` |
@@ -16,6 +17,7 @@
 | claude-code-mastery | Claude Code Mastery Squad | `/claude-code-mastery` |
 | content-creator | Content Creator Squad | `/content-creator` |
 | content-engine | Content Engine v2 — START HERE | `/content-engine` |
+| conteudo | Squad Conteudo v2.2 | `/conteudo` |
 | conversao-extrema | Conversão Extrema Squad | `/conversao-extrema` |
 | copywriting-squad | Copywriting Masters Squad | `/copywriting-squad` |
 | curator | 🎬 Curator Squad | `/curator` |
@@ -31,6 +33,7 @@
 | high-ticket-sales | HighTicket Sales Squad | `/high-ticket-sales` |
 | hormozi | Hormozi Squad — The $100M Mind System | `/hormozi` |
 | icp-cloning | 🧬 ICP Cognitive Cloning Squad | `/icp-cloning` |
+| insight | 🔍 Insight Squad — Research, Diagnosis & Reporting | `/insight` |
 | italo-marsili | Squad: Italo Marsili | `/italo-marsili` |
 | jose-amorim | Squad José Amorim — O Tradutor Nexialista | `/jose-amorim` |
 | kaizen | >- | `/kaizen` |
@@ -44,11 +47,16 @@
 | mind-cloning | 🧬 Mind Cloning Squad | `/mind-cloning` |
 | mind-content-updater | | | `/mind-content-updater` |
 | mmos-squad | MMOS Squad | `/mmos-squad` |
+| money-makers-vtd | Vendas Todos os Dias | `/money-makers-vtd` |
 | navigator | Autonomous project navigator and orchestration specialist. Maps roadmaps, detects current phase, prevents context loss, and orchestrates multi-agent workflows for complex AIOS projects. | `/navigator` |
+| negotiation | Negotiation Squad | `/negotiation` |
 | palestras-master | Palestras Master Federator | `/palestras-master` |
 | paulo-vieira | Squad Paulo Vieira | `/paulo-vieira` |
+| presenca-digital | 📱 Presença Digital Squad | `/presenca-digital` |
+| relationship-therapy-squad | Squad de 11 terapeutas especializados em relacionamentos. Cada agente é um clone fiel de um especialista real - com Voice DNA, Thinking DNA e frameworks terapêuticos completos. Inclui orquestrador com | `/relationship-therapy-squad` |
 | renner-silva | Renner Silva — Squad Deployável | `/renner-silva` |
 | seo | SEO Expert Squad | `/seo` |
+| site-performance-audit | siteperformanceaudit — External Web Performance Audit Squad | `/site-performance-audit` |
 | sop-factory | Sem descrição | `/sop-factory` |
 | squad-creator | Squad Creator | `/squad-creator` |
 | squad-creator-pro | Squad Creator | `/squad-creator-pro` |
@@ -57,6 +65,7 @@
 | tathi-deandhela | Tathi Deandhela Method Squad | `/tathi-deandhela` |
 | transcript-sculptor | Transcript Sculptor | `/transcript-sculptor` |
 | video-content-distillery | Content Distillery Squad | `/video-content-distillery` |
+| viral-squad | | | `/viral-squad` |
 | zona-genialidade | Zona Genialidade Squad | `/zona-genialidade` |
 
 ---
@@ -166,7 +175,7 @@
 
 | Categoria | Total | Coverage |
 |-----------|-------|----------|
-| Squads | 50 | 100% |
+| Squads | 59 | 100% |
 | Skills | 35 | 100% |
 | Tools | 7 | 100% |
 | Agents | 12 | 100% |

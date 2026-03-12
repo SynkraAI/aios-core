@@ -1,9 +1,6 @@
 #!/bin/bash
+# Donkey Kong — LUIZ FOSC version
 
-# AIOS Core - Donkey Kong Animated Banner
-# It's on like Donkey Kong!
-
-# ANSI Colors
 RED='\033[0;31m'
 BROWN='\033[0;33m'
 YELLOW='\033[1;33m'
@@ -11,12 +8,11 @@ BLUE='\033[0;34m'
 WHITE='\033[1;37m'
 CYAN='\033[0;36m'
 GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
 # Hide cursor
 printf "\033[?25l"
 
-# Clear screen function
 clear_screen() {
     printf "\033[H\033[2J"
 }
@@ -108,29 +104,28 @@ frame3() {
 EOF
 }
 
-# Final Frame: FOSC ASCII Art
+# Final Frame: LUIZ FOSC ASCII Art with gradient (brown -> yellow -> gold)
 final_frame() {
     clear_screen
-    echo -e "${YELLOW}"
     cat << "EOF"
 
-    ╔══════════════════════════════════════════════════════════════╗
-    ║                                                              ║
-    ║   ███████╗ ██████╗ ███████╗ ██████╗                         ║
-    ║   ██╔════╝██╔═══██╗██╔════╝██╔════╝                         ║
-    ║   █████╗  ██║   ██║███████╗██║                              ║
-    ║   ██╔══╝  ██║   ██║╚════██║██║                              ║
-    ║   ██║     ╚██████╔╝███████║╚██████╗                         ║
-    ║   ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝                         ║
-    ║                                                              ║
+    ╔══════════════════════════════════════════════════════════════════════════╗
+    ║                                                                          ║
 EOF
-    echo -e "${CYAN}    ║          ★ It's on like Donkey Kong! ★                  ║${NC}"
-    echo -e "${GREEN}    ║                  AIOS Core v2.1                          ║${NC}"
-    echo -e "${WHITE}    ║                                                              ║"
-    echo -e "    ║        ${BROWN}AI-Orchestrated System for Full Stack Dev${WHITE}        ║${NC}"
+    echo -e "    ║ \033[38;5;94m ██╗     ██╗   ██╗██╗███████╗    ███████╗ ██████╗ ███████╗ ██████╗${NC} ║"
+    echo -e "    ║ \033[38;5;130m ██║     ██║   ██║██║╚══███╔╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC} ║"
+    echo -e "    ║ \033[38;5;172m ██║     ██║   ██║██║  ███╔╝     █████╗  ██║   ██║███████╗██║     ${NC} ║"
+    echo -e "    ║ \033[38;5;178m ██║     ██║   ██║██║ ███╔╝      ██╔══╝  ██║   ██║╚════██║██║     ${NC} ║"
+    echo -e "    ║ \033[38;5;214m ███████╗╚██████╔╝██║███████╗    ██║     ╚██████╔╝███████║╚██████╗${NC} ║"
+    echo -e "    ║ \033[38;5;220m ╚══════╝ ╚═════╝ ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC} ║"
+    echo -e "    ║                                                                          ║"
+    echo -e "${CYAN}    ║            ★ It's on like Donkey Kong! ★                                ║${NC}"
+    echo -e "${GREEN}    ║                    AIOS Core v2.1                                        ║${NC}"
+    echo -e "${WHITE}    ║                                                                          ║"
+    echo -e "    ║          ${BROWN}AI-Orchestrated System for Full Stack Dev${WHITE}              ║${NC}"
     cat << "EOF"
-    ║                                                              ║
-    ╚══════════════════════════════════════════════════════════════╝
+    ║                                                                          ║
+    ╚══════════════════════════════════════════════════════════════════════════╝
 
 EOF
     echo -e "${NC}"

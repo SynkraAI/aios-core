@@ -1,6 +1,6 @@
 #!/bin/bash
-# Street Fighter ASCII Art Banner for Claude Code
-# 10-frame animation: Ryu stance → wind up → HADOUKEN! → fireball travels
+# Street Fighter — LUIZ FOSC version
+# 10-frame animation: Ryu stance -> wind up -> HADOUKEN! -> fireball travels
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -10,17 +10,17 @@ CYAN='\033[0;36m'
 WHITE='\033[1;37m'
 NC='\033[0m'
 
-fosc_logo() {
+luizfosc_logo() {
 echo ""
-echo -e "${RED}    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
-echo -e "${RED}    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
-echo -e "${YELLOW}    █████╗  ██║   ██║███████╗██║     ${NC}"
-echo -e "${YELLOW}    ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
-echo -e "${RED}    ██║     ╚██████╔╝███████║╚██████╗${NC}"
-echo -e "${RED}    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
+echo -e "\033[38;5;196m ██╗     ██╗   ██╗██╗███████╗    ███████╗ ██████╗ ███████╗ ██████╗${NC}"
+echo -e "\033[38;5;202m ██║     ██║   ██║██║╚══███╔╝    ██╔════╝██╔═══██╗██╔════╝██╔════╝${NC}"
+echo -e "\033[38;5;208m ██║     ██║   ██║██║  ███╔╝     █████╗  ██║   ██║███████╗██║     ${NC}"
+echo -e "\033[38;5;214m ██║     ██║   ██║██║ ███╔╝      ██╔══╝  ██║   ██║╚════██║██║     ${NC}"
+echo -e "\033[38;5;220m ███████╗╚██████╔╝██║███████╗    ██║     ╚██████╔╝███████║╚██████╗${NC}"
+echo -e "\033[38;5;226m ╚══════╝ ╚═════╝ ╚═╝╚══════╝    ╚═╝      ╚═════╝ ╚══════╝ ╚═════╝${NC}"
 echo ""
-echo -e "${RED}    ★ PERFECT! ★${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
-echo -e "${YELLOW}    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "\033[38;5;196m ★ PERFECT! ★${NC}  ${WHITE}AIOS Core ${GREEN}v2.1${NC}"
+echo -e "\033[38;5;208m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 }
 
@@ -231,6 +231,6 @@ printf "\033[H\033[2J"; frame10; sleep 0.4
 
 # Final
 printf "\033[H\033[2J"
-fosc_logo
+luizfosc_logo
 printf "\033[?25h"
 sleep 0.8

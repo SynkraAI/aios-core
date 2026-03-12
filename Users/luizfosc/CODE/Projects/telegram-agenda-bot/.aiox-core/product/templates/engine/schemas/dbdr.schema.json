@@ -1,0 +1,205 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DBDR Template Variables",
+  "description": "Schema for Database Decision Record template variables",
+  "type": "object",
+  "required": ["number", "title", "status", "dbType", "owner", "context", "decision", "migrationStrategy", "rollbackPlan"],
+  "properties": {
+    "number": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "DBDR number for ordering and reference"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 150,
+      "description": "Title of the database decision"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Proposed", "Approved", "Implemented", "Rolled Back"],
+      "description": "Current status of the decision"
+    },
+    "dbType": {
+      "type": "string",
+      "enum": ["PostgreSQL", "MySQL", "MongoDB", "SQLite", "Supabase", "Other"],
+      "description": "Database type"
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Decision owner"
+    },
+    "context": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Context and problem statement"
+    },
+    "currentState": {
+      "type": "string",
+      "description": "Current database state"
+    },
+    "dataVolume": {
+      "type": "object",
+      "properties": {
+        "current": { "type": "string" },
+        "projected": { "type": "string" },
+        "retention": { "type": "string" }
+      },
+      "description": "Data volume considerations"
+    },
+    "decision": {
+      "type": "string",
+      "minLength": 20,
+      "description": "The database decision being made"
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Reasoning behind the decision"
+    },
+    "schemaChanges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["table", "changeType"],
+        "properties": {
+          "table": {
+            "type": "string",
+            "description": "Table name"
+          },
+          "changeType": {
+            "type": "string",
+            "enum": ["CREATE", "ALTER", "DROP", "INDEX", "CONSTRAINT"],
+            "description": "Type of schema change"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the change"
+          },
+          "sql": {
+            "type": "string",
+            "description": "SQL statement for the change"
+          }
+        }
+      },
+      "description": "Schema changes to be made"
+    },
+    "migrationStrategy": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Strategy for migrating data"
+    },
+    "migrationPhases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["phase"],
+        "properties": {
+          "phase": { "type": "string" },
+          "duration": { "type": "string" },
+          "description": { "type": "string" },
+          "validation": { "type": "string" }
+        }
+      },
+      "description": "Migration phases"
+    },
+    "dataMigrationScripts": {
+      "type": "string",
+      "description": "SQL scripts for data migration"
+    },
+    "performanceMetrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["metric"],
+        "properties": {
+          "metric": { "type": "string" },
+          "before": { "type": "string" },
+          "after": { "type": "string" },
+          "acceptable": { "type": "string" }
+        }
+      },
+      "description": "Expected performance impact"
+    },
+    "indexes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "table", "columns"],
+        "properties": {
+          "name": { "type": "string" },
+          "table": { "type": "string" },
+          "columns": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      },
+      "description": "Index strategy"
+    },
+    "rollbackPlan": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Plan for rolling back changes"
+    },
+    "rollbackScripts": {
+      "type": "string",
+      "description": "SQL scripts for rollback"
+    },
+    "rollbackTriggers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["condition", "action"],
+        "properties": {
+          "condition": { "type": "string" },
+          "action": { "type": "string" }
+        }
+      },
+      "description": "Conditions that trigger rollback"
+    },
+    "preMigrationTests": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tests to run before migration"
+    },
+    "postMigrationValidation": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Validation steps after migration"
+    },
+    "positiveConsequences": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Positive outcomes"
+    },
+    "negativeConsequences": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Negative outcomes or trade-offs"
+    },
+    "relatedDBDRs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["number", "title"],
+        "properties": {
+          "number": { "type": "integer" },
+          "title": { "type": "string" }
+        }
+      },
+      "description": "Related DBDR references"
+    },
+    "relatedADRs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["number", "title"],
+        "properties": {
+          "number": { "type": "integer" },
+          "title": { "type": "string" }
+        }
+      },
+      "description": "Related ADR references"
+    }
+  }
+}

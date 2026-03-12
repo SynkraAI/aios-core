@@ -1,0 +1,103 @@
+tool:
+  schema_version: 1.0
+  id: exa
+  type: mcp
+  name: Exa Web Search
+  version: 1.0.0
+  description: Advanced web search and research using Exa AI - performs real-time web searches, academic paper searches, company research, and content crawling
+  knowledge_strategy: declarative
+
+  capabilities:
+    - Web search with configurable result counts
+    - Research paper search across 100M+ papers
+    - Company research and competitor analysis
+    - URL content crawling
+    - LinkedIn and GitHub searches
+    - Wikipedia searches
+
+  use_cases:
+    - finding_current_information: "Search for up-to-date web content and news"
+    - academic_research: "Search academic papers with full text access"
+    - competitive_analysis: "Research companies and find competitors"
+    - content_extraction: "Crawl and extract content from specific URLs"
+    - social_professional_search: "Search LinkedIn for company information"
+    - code_discovery: "Search GitHub repositories and code"
+
+  mcp_specific:
+    server_command: "npx -y exa-mcp-server"
+    server_args:
+      - "--tools=web_search_exa,research_paper_search,company_research,crawling,competitor_finder,linkedin_search,wikipedia_search_exa,github_search"
+    transport: stdio
+    environment_variables:
+      - name: EXA_API_KEY
+        required: true
+        description: "Exa AI API key for authentication"
+    health_check:
+      method: tool_call
+      command: web_search_exa
+      expected_response: "Search results with content"
+      timeout_ms: 10000
+
+  tools:
+    - id: web_search_exa
+      description: "Search the web and return the most relevant content"
+      parameters:
+        - query: "Search query string"
+        - numResults: "Number of results to return (default: 5)"
+
+    - id: research_paper_search
+      description: "Search across 100M+ research papers with full text access"
+      parameters:
+        - query: "Research topic or keywords"
+        - numResults: "Number of papers to return (default: 5)"
+        - maxCharacters: "Max characters per result (default: 3000)"
+
+    - id: company_research
+      description: "Research companies by crawling their websites"
+      parameters:
+        - query: "Company website URL"
+        - subpages: "Number of subpages to crawl (default: 10)"
+        - subpageTarget: "Specific sections to target (e.g., about, pricing)"
+
+    - id: crawling
+      description: "Extract content from specific URLs"
+      parameters:
+        - url: "The URL to crawl and extract content from"
+
+    - id: competitor_finder
+      description: "Find competitors of a company"
+      parameters:
+        - query: "Description of what the company does (without company name)"
+        - excludeDomain: "Company website to exclude from results"
+        - numResults: "Number of competitors to return (default: 10)"
+
+    - id: linkedin_search
+      description: "Search LinkedIn for companies"
+      parameters:
+        - query: "Company URL or name with 'company page' appended"
+        - numResults: "Number of results (default: 5)"
+
+    - id: wikipedia_search_exa
+      description: "Search Wikipedia and return relevant content"
+      parameters:
+        - query: "Search query for Wikipedia"
+        - numResults: "Number of results (default: 5)"
+
+    - id: github_search
+      description: "Search GitHub repositories, accounts, and code"
+      parameters:
+        - query: "Search query for GitHub"
+        - numResults: "Number of results (default: 5)"
+
+  best_practices:
+    - "Use specific, focused queries for better search results"
+    - "Adjust numResults based on how much information you need"
+    - "For company research, specify subpageTarget to focus on relevant sections"
+    - "Use competitor_finder with clear descriptions (exclude the company name)"
+    - "LinkedIn searches work best with 'company page' appended to query"
+
+  limitations:
+    - "Requires valid Exa API key"
+    - "Rate limits apply based on API plan"
+    - "Search quality depends on query specificity"
+    - "Some websites may block crawling"

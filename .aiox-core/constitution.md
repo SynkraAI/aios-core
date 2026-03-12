@@ -1,6 +1,6 @@
 # Synkra AIOX Constitution
 
-> **Version:** 1.0.0 | **Ratified:** 2025-01-30 | **Last Amended:** 2025-01-30
+> **Version:** 1.1.0 | **Ratified:** 2025-01-30 | **Last Amended:** 2026-03-11
 
 Este documento define os princípios fundamentais e inegociáveis do Synkra AIOX. Todos os agentes, tasks, e workflows DEVEM respeitar estes princípios. Violações são bloqueadas automaticamente via gates.
 
@@ -98,6 +98,9 @@ Qualidade não é negociável. Todo código passa por múltiplos gates antes de 
 - MUST: CodeRabbit não reporta issues CRITICAL
 - MUST: Story status é "Done" ou "Ready for Review"
 - SHOULD: Cobertura de testes não diminui
+- SHOULD: Traçar caminho de execução end-to-end antes de marcar task como done
+- SHOULD: Validar payload/response em boundaries de APIs externas
+- SHOULD: Tratar rate limits, timeouts e falhas parciais explicitamente em integrações
 
 **Gate:** `pre-push.md` - BLOCK se qualquer check falhar
 
@@ -122,6 +125,38 @@ import { useStore } from '../../../stores/feature/store'
 ```
 
 **Gate:** ESLint rule (já implementado)
+
+---
+
+### VII. Comunicação Clara (SHOULD)
+
+Explicações devem ser acessíveis sem sacrificar precisão técnica.
+
+**Regras:**
+- SHOULD: Explicar o "porquê" em linguagem direta antes do "como" técnico
+- SHOULD: Usar termos técnicos corretos, mas sem jargão gratuito
+- SHOULD NOT: Ser excessivamente técnico quando o contexto não exige
+- SHOULD NOT: Simplificar ao ponto de perder informação útil
+
+**Fórmula:** Contexto claro + termos técnicos quando necessários + zero jargão desnecessário
+
+**Exemplo:**
+```
+# Técnico demais:
+"O mock do fs-extra não intercepta o readJson porque o require
+dinâmico com cache invalidation executa antes do jest.mock."
+
+# Simplificado demais:
+"O teste tenta fingir que um arquivo existe mas a fingição
+estava no lugar errado."
+
+# Correto (meio-termo):
+"O teste falhou porque o mock foi criado depois que o módulo já
+tinha carregado o arquivo real. Movi o jest.mock para antes do
+require — assim o teste usa o arquivo falso desde o início."
+```
+
+**Gate:** Nenhum (guideline de comunicação)
 
 ---
 
@@ -167,5 +202,5 @@ import { useStore } from '../../../stores/feature/store'
 
 ---
 
-*Synkra AIOX Constitution v1.0.0*
+*Synkra AIOX Constitution v1.1.0*
 *CLI First | Agent-Driven | Quality First*

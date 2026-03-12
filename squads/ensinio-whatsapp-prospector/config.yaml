@@ -81,8 +81,8 @@ layers:
 workflows:
   full_pipeline:
     file: workflows/full-pipeline.yaml
-    description: "Pipeline completo: Parse -> Validate -> Resolve Phones -> Analyze -> Score Validate -> Write -> Validate Batch -> Output"
-    phases: 9
+    description: "Pipeline completo: Parse -> Validate -> Resolve Phones -> Analyze -> Score Validate -> Write -> Validate Batch -> GHL Sync -> Output"
+    phases: 10
   batch_pipeline:
     file: workflows/batch-pipeline.yaml
     description: "Pipeline batch: Processa multiplos grupos de WhatsApp e consolida numa unica planilha"
@@ -130,11 +130,33 @@ quality_gates:
     type: blocking
     criteria: "Dados inseridos na planilha com links WhatsApp funcionais"
 
+  - id: QG-005
+    name: "GHL Sync Validation"
+    transition: "Approved Messages -> GHL (Contact + Deal + Message)"
+    type: blocking
+    criteria: "Contatos criados, deals no pipeline, mensagens enviadas"
+    checklist: checklists/ghl-sync-checklist.md
+
 settings:
   show_greeting: true
   language: pt-BR
   google_sheets_id: "124EQQAkmt9D7-49LbR-Jx64DhxdtCwceUQgqolk5ZFI"
   ensinio_kb_source: "ensinio-mind/data/ensinio-solutions-kb.md"
+
+  # GoHighLevel Integration
+  ghl:
+    env_file: ".env"
+    base_url: "https://services.leadconnectorhq.com"
+    api_version: "2021-07-28"
+    pipeline_id: "xRqrV2LoT6E8iwLW4Syi"
+    default_stage_id: "d3c25373-2b78-43d4-af3a-b4781f15874e"
+    default_tags:
+      - "Leads Fosc"
+    tag_prompt: true  # ALWAYS ask user for tags before syncing
+    rate_limit_delay_ms: 600
+    batch_size: 50
+    send_messages: true  # Enable WhatsApp message sending via GHL
+    message_channel: "whatsapp"
   ensinio_mind_sources:
     icps: "ensinio-mind/data/ensinio-icps.md"
     red_flags: "ensinio-mind/data/ensinio-red-flags.md"

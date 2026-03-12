@@ -1,9 +1,9 @@
 # @pedro-valerio Memory - Process Absolutist
 
 ## Quick Stats
-- Workflows auditados: 7 (deep-research v1.0→v1.1; BRE extract v1.0→v1.1, formalize v1.0→v1.1; Mind Cloning v1.1)
+- Workflows auditados: 8 (deep-research v1.0→v1.1; BRE extract v1.0→v1.1, formalize v1.0→v1.1; Mind Cloning v1.1; Project Lifecycle v1.0)
 - Clones auditados: 2 (renner-silva v1.1=8.5, v1.2=9.0)
-- Veto conditions criadas: 18 (deep-research) + 24 (BRE v1.1)
+- Veto conditions criadas: 18 (deep-research) + 24 (BRE v1.1) + 8 (Project Lifecycle)
 - Detalhes completos: `audit-history.md`
 
 ---
@@ -24,6 +24,7 @@
 | BRE wf-formalize v1.0 | 54 | VETO |
 | BRE wf-formalize v1.1 | 83 | APROVAR |
 | Mind Cloning v1.1 | 78 | APROVAR c/ ressalvas |
+| Project Lifecycle v1.0 | 40 | VETO |
 
 ---
 
@@ -54,6 +55,9 @@
 - Handoff sem input_validation (todos workflows)
 - Dois arquivos descrevendo mesmo fluxo (Mind Cloning: clone-mind.md + workflow YAML)
 - Sem timeout protection (Mind Cloning v1.1)
+- Sobrescrita silenciosa por naming collision (Project Lifecycle: session YYYY-MM-DD.md)
+- Skill B cria artefato de Skill A como fallback (checkpoint cria INDEX.md = viola single responsibility)
+- Data contract com campo renomeado entre template e dados reais (Project Path vs Local)
 
 ## Patterns Efetivos
 - Enforcement global: `enforcement: { checkpoint_policy, veto_behavior, max_retries }`
@@ -74,6 +78,7 @@
 ---
 
 ## Notas Recentes
+- [2026-03-11] Project Lifecycle v1.0 VETO (40/100) — 3C, 4H, 4M, 2L. Skills /new-project+/checkpoint+/resume sem veto conditions
 - [2026-03-11] Mind Cloning v1.1 APROVADO c/ RESSALVAS (78/100) — 3C, 5M, 7m. Gap: workflow YAML sem gates em 3/5 fases
 - [2026-03-11] BRE v1.1 APROVADO — extract 85, formalize 83
 - [2026-03-09] renner-silva v1.2 APROVADO (9.0/10)

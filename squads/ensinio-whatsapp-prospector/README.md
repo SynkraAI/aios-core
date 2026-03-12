@@ -2,7 +2,30 @@
 
 Squad especializado em prospectar leads qualificados a partir de exports de grupos de WhatsApp, cruzando com as 67 soluções da Ensinio (5 pilares), ICPs, red flags e gerando mensagens personalizadas de outreach para Google Sheets.
 
-**Version:** 3.0.0 | **Entry Agent:** Atlas (prospector-chief) | **Model Tier:** haiku/sonnet/opus
+**Version:** 4.0.0 | **Entry Agent:** Atlas (prospector-chief) | **Model Tier:** haiku/sonnet/opus
+
+---
+
+## What's New in v4.0.0
+
+### GoHighLevel Integration (Phase 7)
+Antes de popular o Google Sheets, o pipeline agora sincroniza com o GHL:
+- **Criar contatos** no GHL com tags customizaveis (default: "Leads Fosc")
+- **Criar deals** no pipeline Qualificacao (stage "Para prospectar")
+- **Enviar mensagens** de outreach via WhatsApp API do GHL
+- **Tag prompt interativo**: SEMPRE pergunta ao usuario qual tag aplicar antes de sincronizar
+- **Rate limiting**: batch com delay de 600ms entre requests
+- **Deduplicacao**: busca por telefone antes de criar contato
+- **Quality Gate QG-005**: valida sync completo
+
+### Configuracao
+```env
+# squads/ensinio-whatsapp-prospector/.env
+GHL_API_TOKEN=pit-xxx
+GHL_LOCATION_ID=xxx
+GHL_PIPELINE_ID=xRqrV2LoT6E8iwLW4Syi
+GHL_DEFAULT_STAGE_ID=d3c25373-2b78-43d4-af3a-b4781f15874e
+```
 
 ---
 
@@ -36,7 +59,7 @@ WhatsApp exports mostram nomes de contatos salvos, não números. Nova fase inte
 
 ---
 
-## Pipeline (v3.0)
+## Pipeline (v4.0)
 
 ```
                                     ┌─────────────────┐
@@ -55,14 +78,35 @@ WhatsApp exports mostram nomes de contatos salvos, não números. Nova fase inte
                               │    + ICP match + Red flags   │
                               └──────────────┬───────────────┘
                                              │
-┌──────────────┐    ┌───────────┐    ┌───────┴──────┐    ┌──────────────┐
-│ Sheets (P5)  │<───│Valid.Batch│<───│Write Outreach│<───│Valid.Score   │
-│ Atlas/sonnet │    │(P4b)Atlas │    │(P4)Velvet/   │    │(P3b) Atlas   │
-└──────────────┘    └───────────┘    │    opus      │    └──────────────┘
-                                     └──────────────┘
+                              ┌──────────────┴──────────────┐
+                              │    Valid. Score (P3b)         │
+                              │    Atlas/sonnet              │
+                              └──────────────┬───────────────┘
+                                             │
+                              ┌──────────────┴──────────────┐
+                              │    Write Outreach (P4)       │
+                              │    Velvet/opus               │
+                              └──────────────┬───────────────┘
+                                             │
+                              ┌──────────────┴──────────────┐
+                              │    Valid. Batch (P4b)        │
+                              │    Atlas/sonnet              │
+                              └──────────────┬───────────────┘
+                                             │
+                              ┌──────────────┴──────────────┐
+                              │    GHL Sync (P5) [NEW v4.0]  │
+                              │    Atlas/sonnet              │
+                              │    Contact + Deal + Message  │
+                              │    + Tag prompt interativo   │
+                              └──────────────┬───────────────┘
+                                             │
+                              ┌──────────────┴──────────────┐
+                              │    Sheets (P6)               │
+                              │    Atlas/sonnet              │
+                              └─────────────────────────────┘
 ```
 
-**9 fases** | **6 quality gates** | **Retry policy** com exponential backoff
+**10 fases** | **7 quality gates** | **Retry policy** com exponential backoff
 
 ---
 
@@ -100,7 +144,8 @@ Inputs: Array de `{zip_path, group_name}` + `{sheet_mode}` (single_tab | new_tab
 /ensinio-whatsapp-prospector:tasks:analyze-prospects         # P3: Analisar, ICP match, red flags, scorer
 /ensinio-whatsapp-prospector:tasks:write-outreach            # P4: Gerar mensagens personalizadas
 /ensinio-whatsapp-prospector:tasks:validate-outreach-batch   # P4b: Validar batch de mensagens
-/ensinio-whatsapp-prospector:tasks:populate-sheet            # P5: Popular Google Sheets
+/ensinio-whatsapp-prospector:tasks:sync-to-ghl               # P5: Sync GHL (Contact+Deal+Msg) [NEW v4.0]
+/ensinio-whatsapp-prospector:tasks:populate-sheet            # P6: Popular Google Sheets
 /ensinio-whatsapp-prospector:tasks:handle-parse-errors       # Recovery: Tratar erros de parse
 ```
 
@@ -154,6 +199,7 @@ Phone-books: `data/phone-books/{group-slug}.json` (per group, never global)
 | QG-002 | Analysis Complete | Contacts -> Scored Prospects | Blocking |
 | QG-002.5 | Scoring Validation | Scored -> Validated Scores | Blocking |
 | QG-003 | Message Quality | Draft -> Approved Message | Blocking |
+| QG-005 | GHL Sync | Approved -> GHL (Contact+Deal+Msg) | Blocking |
 | QG-004 | Sheet Population | Approved -> Google Sheets | Blocking |
 
 ---
@@ -207,7 +253,8 @@ ensinio-whatsapp-prospector/
 │   ├── analyze-prospects.md             # P3: Analisar + ICP + Red Flags (UPDATED v3.0)
 │   ├── write-outreach.md                # P4: Escrever mensagens
 │   ├── validate-outreach-batch.md       # P4b: Validar batch
-│   └── populate-sheet.md               # P5: Popular Sheets
+│   ├── sync-to-ghl.md                  # P5: Sync GHL (NEW v4.0)
+│   └── populate-sheet.md               # P6: Popular Sheets
 ├── workflows/
 │   ├── full-pipeline.yaml               # Pipeline completo (9 fases) (UPDATED v3.0)
 │   └── batch-pipeline.yaml             # Pipeline batch multi-grupo (NEW v3.0)
@@ -215,7 +262,8 @@ ensinio-whatsapp-prospector/
 │   ├── parse-validation-checklist.md    # QG-001
 │   ├── phone-validation-checklist.md    # QG-000.5 (NEW v3.0)
 │   ├── scoring-validation-checklist.md  # QG-002.5
-│   └── message-quality-checklist.md     # QG-003
+│   ├── message-quality-checklist.md     # QG-003
+│   └── ghl-sync-checklist.md           # QG-005 (NEW v4.0)
 └── data/
     ├── ensinio-solutions-kb.md          # KB v2.0 (symlink to ensinio-mind)
     ├── message-rules.md                 # Regras de mensagem
@@ -240,7 +288,13 @@ ensinio-whatsapp-prospector/
 | `max_rework_iterations` | 2 |
 | `batch_size` | 50 |
 | `language` | pt-BR |
+| `ghl.pipeline_id` | `xRqrV2LoT6E8iwLW4Syi` (Qualificacao) |
+| `ghl.default_stage_id` | `d3c25373-...` (Para prospectar) |
+| `ghl.default_tags` | `["Leads Fosc"]` |
+| `ghl.tag_prompt` | `true` (SEMPRE perguntar antes) |
+| `ghl.send_messages` | `true` |
+| `ghl.rate_limit_delay_ms` | 600 |
 
 ---
 
-*WhatsApp Prospector Ensinio v3.0.0 - AIOS Squad*
+*WhatsApp Prospector Ensinio v4.0.0 - AIOS Squad*

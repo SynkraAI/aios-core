@@ -2,6 +2,7 @@
 
 ## Estado Atual
 - **Squad:** `gui-avila` (squad-creator-pro pipeline)
+- **Local:** `docs/projects/gui-avila-mind/`
 - **Status:** Transcricao limpa disponivel, aguardando extracao de DNA
 - **Bloqueadores:** Nenhum
 

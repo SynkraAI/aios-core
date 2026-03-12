@@ -52,18 +52,29 @@ Antes de criar, busque no codebase por arquivos que já existam relacionados ao 
 Se encontrar algo, mostre ao usuário: "Encontrados {N} arquivos existentes relacionados a este projeto" e liste-os.
 Eles serão incluídos na seção "Arquivos Chave" do INDEX.md.
 
-## Passo 2: Criar estrutura
+## Passo 2: Criar estrutura (bifurcação por modo)
 
-Após respostas:
+### Se destino INTERNO (aios-core/) — modo CENTRALIZED
 
 1. Crie `docs/projects/{nome}/` com subpastas:
    - `research/` — pesquisas e deep research
    - `data/` — dados do projeto
    - `sessions/` — session files de checkpoint/resume
 2. Adicione `.gitkeep` em cada subpasta vazia
-3. Se o destino do código for externo (`~/CODE/Projects/{nome}/` ou customizado):
-   - Crie o diretório base com `mkdir -p`
-   - Crie um `.claude/CLAUDE.md` de ponte dentro do projeto externo (ver Passo 2.5)
+3. `index_path` = `docs/projects/{nome}/INDEX.md`
+
+### Se destino EXTERNO (fora de aios-core/) — modo HYBRID
+
+1. Crie o diretório do projeto com `mkdir -p {project-path}`
+2. Crie `.aios/` dentro do projeto com subpastas:
+   - `.aios/sessions/` — session files de checkpoint/resume
+   - `.aios/stories/active/` — stories ativas
+   - `.aios/stories/completed/` — stories concluídas
+   - `.aios/epics/` — epics do projeto
+3. Adicione `.gitkeep` em cada subpasta vazia
+4. `index_path` = `{project-path}/.aios/INDEX.md`
+5. **NÃO** criar `docs/projects/{nome}/` em aios-core (elimina duplicação)
+6. Criar `.claude/CLAUDE.md` de ponte (ver Passo 2.5)
 
 ## Passo 2.5: Criar ponte CLAUDE.md para projetos externos
 
@@ -75,32 +86,31 @@ Crie `{project-path}/.claude/CLAUDE.md` com este conteúdo:
 # CLAUDE.md — {Nome Legível}
 
 ## Projeto AIOX
-Este projeto é gerenciado pelo framework AIOX. A governança (INDEX, stories, sessions) vive centralizada em aios-core.
+Este projeto usa governança híbrida AIOX. INDEX, stories e sessions vivem localmente em `.aios/`.
 
-- **Governança:** ~/aios-core/docs/projects/{nome}/INDEX.md
-- **Stories ativas:** ~/aios-core/docs/stories/active/
-- **Sessions:** ~/aios-core/docs/projects/{nome}/sessions/
-- **ACTIVE.md:** ~/aios-core/docs/projects/ACTIVE.md
-- **Framework:** ~/aios-core/
+## Governança
+- **INDEX.md:** `.aios/INDEX.md` (governança local)
+- **Stories ativas:** `.aios/stories/active/`
+- **Sessions:** `.aios/sessions/`
+- **ACTIVE.md:** `~/aios-core/docs/projects/ACTIVE.md` (registry central)
+- **Framework:** `~/aios-core/`
 
 ## Ao iniciar sessão neste diretório
-1. Leia `~/aios-core/docs/projects/{nome}/INDEX.md` para contexto completo
-2. Verifique se há session file recente em `~/aios-core/docs/projects/{nome}/sessions/`
-3. Ou use: `cd ~/aios-core && /resume {nome}`
+1. Leia `.aios/INDEX.md` para contexto completo
+2. Verifique se há session file recente em `.aios/sessions/`
+3. Ou use: `/resume {nome}`
 
 ## Ao finalizar sessão
-1. Use: `cd ~/aios-core && /checkpoint`
-2. Ou salve estado manualmente em `~/aios-core/docs/projects/{nome}/sessions/`
+1. Use: `/checkpoint` (detecta automaticamente modo HYBRID)
+2. INDEX.md e session são salvos em `.aios/` local
 
 ## Convenções deste projeto
 {A definir — preencha com stack, lint rules, etc. conforme o projeto evolui}
 ```
 
-Isso permite que o Claude Code tenha contexto quando o working directory está no projeto externo.
-
 ## Passo 3: Gerar INDEX.md
 
-Crie `docs/projects/{nome}/INDEX.md` seguindo este formato:
+Crie o INDEX.md em `{index_path}` seguindo este formato:
 
 ```markdown
 # {Nome Legível} — Project Index
@@ -109,12 +119,12 @@ Crie `docs/projects/{nome}/INDEX.md` seguindo este formato:
 - **Tipo:** {tipo}
 - **Descrição:** {descrição breve coletada no Passo 1}
 - **Squad:** `{squad}` (ou "A definir")
-- **Project Path:** {ver regras abaixo}
+- **Local:** {ver regras abaixo}
 - **Status:** {status descritivo}
 - **Bloqueadores:** Nenhum
 ```
 
-Regras para o campo **Project Path** (SEMPRE incluir, nunca omitir):
+Regras para o campo **Local** (SEMPRE incluir, nunca omitir):
 - Se o projeto vive FORA de `aios-core/` → path absoluto (ex: `~/CODE/Projects/meu-app/`)
 - Se o projeto vive DENTRO de `aios-core/` → path relativo à raiz (ex: `squads/meu-squad/`, `packages/meu-pkg/`)
 - Se o projeto não tem código (tipo: mind-clone, research, knowledge) → `docs/projects/{nome}/`
@@ -182,31 +192,55 @@ Se squad não existe ou é "nenhum ainda":
    ```
    # Projetos Ativos
 
-   | # | Projeto | Status | Agente/Squad | Última Sessão | Próximo Passo |
-   |---|---------|--------|-------------|---------------|---------------|
+   | # | Projeto | Status | Agente/Squad | Última Sessão | INDEX |
+   |---|---------|--------|-------------|---------------|-------|
    ```
 3. Ler arquivo (agora garantido que existe)
 4. Verificar se projeto já está na tabela (NÃO deveria, pois Passo 0 bloqueou)
 5. Calcular próximo número sequencial: `max(números existentes) + 1`
-6. Adicionar nova row com emoji de status (🔄 ou ⏸️)
+6. Adicionar nova row com emoji de status (🔄 ou ⏸️) e link INDEX:
+   - **CENTRALIZED:** `[INDEX]({nome}/INDEX.md)`
+   - **HYBRID:** `[INDEX]({path-absoluto}/.aios/INDEX.md)`
 7. Formatar igual às rows existentes
 
 ## Passo 5: Confirmar e sugerir próximo passo
 
-Mostre ao usuário:
-- Estrutura criada:
-  ```
-  docs/projects/{nome}/
-  ├── INDEX.md
-  ├── research/
-  │   └── .gitkeep
-  ├── data/
-  │   └── .gitkeep
-  └── sessions/
-      └── .gitkeep
-  ```
+Mostre ao usuário a estrutura criada:
+
+### Para projetos CENTRALIZED:
+```
+docs/projects/{nome}/
+├── INDEX.md
+├── research/
+│   └── .gitkeep
+├── data/
+│   └── .gitkeep
+└── sessions/
+    └── .gitkeep
+```
+
+### Para projetos HYBRID:
+```
+{project-path}/
+├── .aios/
+│   ├── INDEX.md
+│   ├── sessions/
+│   │   └── .gitkeep
+│   ├── stories/
+│   │   ├── active/
+│   │   │   └── .gitkeep
+│   │   └── completed/
+│   │       └── .gitkeep
+│   └── epics/
+│       └── .gitkeep
+└── .claude/
+    └── CLAUDE.md
+```
+
+Mostre também:
 - Path do INDEX.md
 - Row adicionada no ACTIVE.md (#{número})
+- Modo: CENTRALIZED ou HYBRID
 
 ### Sugestão inteligente por tipo
 

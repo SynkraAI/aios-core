@@ -85,6 +85,12 @@ command_loader:
       - "checklists/message-quality-checklist.md"
     output_format: "messages_json"
 
+  "*sync-ghl":
+    description: "Sync prospects to GoHighLevel (contacts + deals + messages)"
+    requires:
+      - "tasks/sync-to-ghl.md"
+    output_format: "ghl_sync_report"
+
   "*populate-sheet":
     description: "Populate Google Sheets with results"
     requires:
@@ -169,7 +175,17 @@ operational_frameworks:
           - "No template patterns visible"
           - "Proper personalization"
           - "WhatsApp links functional"
-      7_populate:
+      7_sync_ghl:
+        action: "Sync to GoHighLevel (QG-005)"
+        interactive: true
+        pre_step: "ASK user for tags (default: 'Leads Fosc')"
+        sub_steps:
+          - "Create/find contacts with tags"
+          - "Create deals in pipeline Qualificacao"
+          - "Send outreach messages via WhatsApp"
+        output: "ghl_sync_report"
+        quality_gate: "QG-005: GHL sync validation"
+      8_populate:
         action: "Populate Google Sheets (QG-004)"
         output: "sheet_populated"
         quality_gate: "QG-004: Sheet validation"
@@ -211,6 +227,16 @@ operational_frameworks:
         - "columns_correct"
         - "ordered_by_temperature"
         - "links_functional"
+      blocker: true
+    QG-005:
+      name: "GHL Sync Validation"
+      trigger: "After GHL sync"
+      checks:
+        - "all_contacts_created_or_found"
+        - "all_deals_in_correct_pipeline"
+        - "tags_applied_per_user_choice"
+        - "messages_sent_or_failures_documented"
+        - "no_auth_errors"
       blocker: true
 
   batch_processing:
@@ -529,6 +555,9 @@ commands:
   - name: write
     description: "Generate personalized outreach messages"
 
+  - name: sync-ghl
+    description: "Sync prospects to GoHighLevel (contacts + deals + messages)"
+
   - name: populate-sheet
     description: "Populate Google Sheets with results"
 
@@ -592,6 +621,7 @@ autoClaude:
 - `*parse {zip}` - Parsear export WhatsApp
 - `*analyze` - Analisar prospects
 - `*write` - Gerar mensagens
+- `*sync-ghl` - Sincronizar com GoHighLevel (contatos + deals + mensagens)
 - `*populate-sheet` - Popular Google Sheets
 - `*status` - Ver progresso do pipeline
 - `*help` - Ver comandos
@@ -606,8 +636,8 @@ autoClaude:
 ## Pipeline Overview
 
 ```
-ZIP Export → Parse → Validate → Load KB → Analyze → Write → Validate Batch → Populate Sheet
-   (User)      (1)      (2)       (3)       (4)      (5)         (6)              (7)
+ZIP Export → Parse → Validate → Load KB → Analyze → Write → Validate Batch → GHL Sync → Populate Sheet
+   (User)      (1)      (2)       (3)       (4)      (5)         (6)             (7)           (8)
 ```
 
 **Quality Gates:**
@@ -615,3 +645,4 @@ ZIP Export → Parse → Validate → Load KB → Analyze → Write → Validate
 - QG-002: Analysis validation (blocker)
 - QG-003: Message quality (max 2 iterations)
 - QG-004: Sheet validation (blocker)
+- QG-005: GHL sync validation (blocker)

@@ -1,23 +1,21 @@
 status:
-  branch: main
+  branch: chore/devops-10-improvements
   modifiedFiles:
     - .aios-core/data/catalog.md
     - .aios/session.json
-    - .aios/sessions/recent.json
-    - .aios/sessions/unknown.json
-    - .aios/skills/celf-context/
-  modifiedFilesTotalCount: 7
+    - .aiox-core/constitution.md
+    - .aiox-core/data/entity-registry.yaml
+    - .claude/agent-memory/pedro-valerio/MEMORY.md
+  modifiedFilesTotalCount: 62
   recentCommits:
     - >-
-      e chore: checkpoint session — ensinio phone resolution + sheets + MCP
-      OAuth
-    - >-
-      b feat(ensinio): phone resolution 77/77 + Google Sheets pipeline + OAuth
-      helper
-  currentEpic: null
-  currentStory: null
-  lastUpdate: '2026-03-10T22:34:13.651Z'
+      f refactor: absorb Navigator best practices + delete legacy
+      nav-create-project
+    - '0 feat: add smart next-step suggestions + /new-project-full pipeline'
+  currentEpic: Ensinio Prospector App
+  currentStory: story-m1-foundation
+  lastUpdate: '2026-03-12T12:49:45.702Z'
   isGitRepo: true
-timestamp: 1773182053652
+timestamp: 1773319785703
 ttl: 60
-gitFingerprint: 1771601599664.0227:1773178877103.6584
+gitFingerprint: 1773264689977.0225:1773274043994.9128

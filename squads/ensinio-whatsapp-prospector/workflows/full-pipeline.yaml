@@ -1,8 +1,8 @@
 # Full Pipeline Workflow
-# Parse WhatsApp export -> Validate -> Analyze -> Write -> Validate -> Populate Sheets
+# Parse WhatsApp export -> Validate -> Analyze -> Write -> Validate -> GHL Sync -> Populate Sheets
 name: full-pipeline
-version: "2.0.0"
-description: "Pipeline completo de prospeccao: ZIP WhatsApp -> Google Sheets com mensagens personalizadas"
+version: "3.0.0"
+description: "Pipeline completo de prospeccao: ZIP WhatsApp -> GHL (Contact + Deal + Message) -> Google Sheets"
 
 trigger:
   command: "*full-pipeline {zip_path} {group_name}"
@@ -273,14 +273,50 @@ phases:
         input: rejected_messages
     rollback: "Return to phase-4-write with rejection feedback"
 
-  - id: phase-5-sheet
+  - id: phase-5-ghl-sync
+    name: "Sync to GoHighLevel (Contact + Deal + Message)"
+    agent: prospector-chief
+    model: sonnet
+    task: tasks/sync-to-ghl.md
+    timeout_minutes: 30
+    depends_on:
+      - phase-4b-validate-outreach
+    inputs:
+      - approved_messages
+    outputs:
+      - ghl_contacts_created
+      - ghl_deals_created
+      - ghl_messages_sent
+      - ghl_sync_report
+    quality_gate: QG-005
+    veto_conditions:
+      - condition: "GHL API token not configured"
+        severity: BLOCKING
+        action: HALT
+      - condition: "GHL pipeline not found"
+        severity: BLOCKING
+        action: HALT
+      - condition: "Rate limit exceeded"
+        severity: WARNING
+        action: "WAIT_AND_RETRY"
+    description: |
+      Para cada prospect aprovado:
+      1. Perguntar tags ao usuario (default: "Leads Fosc")
+      2. POST /contacts/ → criar/buscar contato no GHL (com tags)
+      3. POST /opportunities/ → criar deal no pipeline Qualificacao
+      4. POST /conversations/messages → enviar mensagem de outreach
+      Batch com delay de 600ms entre requests (rate limit ~100/min).
+      Idempotency keys para evitar duplicatas.
+    rollback: "Deals can be manually deleted in GHL if needed"
+
+  - id: phase-6-sheet
     name: "Populate Google Sheets"
     agent: prospector-chief
     model: sonnet
     task: tasks/populate-sheet.md
     timeout_minutes: 10
     depends_on:
-      - phase-4b-validate-outreach
+      - phase-5-ghl-sync
     inputs:
       - approved_messages
     outputs:
@@ -305,8 +341,9 @@ phases:
 
 completion:
   summary: |
-    Pipeline completo! Resultados na planilha:
-    https://docs.google.com/spreadsheets/d/124EQQAkmt9D7-49LbR-Jx64DhxdtCwceUQgqolk5ZFI
+    Pipeline completo! Resultados:
+    - GHL: Contatos, deals e mensagens sincronizados
+    - Planilha: https://docs.google.com/spreadsheets/d/124EQQAkmt9D7-49LbR-Jx64DhxdtCwceUQgqolk5ZFI
   report:
     - total_contacts_parsed
     - total_qualified_prospects
@@ -316,3 +353,7 @@ completion:
     - messages_approved_vs_rejected
     - batch_quality_score
     - quality_gates_summary
+    - ghl_contacts_created
+    - ghl_deals_created
+    - ghl_messages_sent
+    - ghl_tags_applied

@@ -15,7 +15,7 @@
 | Status | 32/32 componentes + 7 MDX docs + 4 compositions + 33 stories — 100% completo |
 | Sessao mais recente | 2026-03-11 — MDX foundations docs + story reorganization + composition examples |
 | Proximo passo | Status badges (stable/beta/experimental) + A11y audit + npm publish |
-| Projeto local | `~/CODE/design-systems/designcode-ui/` |
+| Local | `~/CODE/design-systems/designcode-ui/` |
 | Build | OK (91 modules, 276 kB JS + 65 kB CSS, 903ms) |
 | Figma fileKey (completo) | `WwLP5kREIRKWu8tRncvInv` (versão dev mode) |
 | Figma fileKey (community) | `zQDO3tbtArViznGtpZDubA` (versão preview) |

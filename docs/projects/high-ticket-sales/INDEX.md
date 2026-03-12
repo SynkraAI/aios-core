@@ -2,6 +2,7 @@
 
 ## Estado Atual
 - **Squad:** `high-ticket-sales`
+- **Local:** `docs/projects/high-ticket-sales/`
 - **Status:** Research completa, 25 livros mapeados com ordem de leitura
 - **Bloqueadores:** Nenhum — aguardando decisao do usuario
 

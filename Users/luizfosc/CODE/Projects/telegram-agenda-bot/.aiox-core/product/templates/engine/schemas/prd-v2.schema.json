@@ -1,0 +1,300 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PRD Template Variables v2.0",
+  "description": "Schema for Product Requirements Document template variables with conditional validation",
+  "type": "object",
+  "required": [
+    "projectName",
+    "productName",
+    "author",
+    "problemStatement",
+    "goals",
+    "userStories",
+    "functionalRequirements",
+    "nonFunctionalRequirements",
+    "successMetrics",
+    "milestones",
+    "risks"
+  ],
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Name of the project"
+    },
+    "productName": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Name of the product"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "default": "1.0.0",
+      "description": "Document version in semver format"
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Document author"
+    },
+    "problemStatement": {
+      "type": "string",
+      "minLength": 50,
+      "description": "Description of the problem being solved (minimum 50 characters)"
+    },
+    "goals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Product/feature goals"
+    },
+    "userStories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["title", "actor", "action", "benefit"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "description": "User story title"
+          },
+          "actor": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The user persona"
+          },
+          "action": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What the user wants to do"
+          },
+          "benefit": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The benefit to the user"
+          },
+          "criteria": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Acceptance criteria"
+          }
+        }
+      },
+      "description": "User stories in As a/I want/So that format"
+    },
+    "functionalRequirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["title", "description", "priority"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Requirement title"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Detailed requirement description"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["P0", "P1", "P2", "P3"],
+            "description": "Priority level (P0=Critical, P3=Low)"
+          }
+        }
+      },
+      "description": "Functional requirements with priorities"
+    },
+    "nonFunctionalRequirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["category", "requirement"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "minLength": 1,
+            "description": "NFR category (Performance, Security, etc.)"
+          },
+          "requirement": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The requirement specification"
+          }
+        }
+      },
+      "description": "Non-functional requirements"
+    },
+    "successMetrics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["metric", "target", "method"],
+        "properties": {
+          "metric": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Metric name"
+          },
+          "target": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Target value"
+          },
+          "method": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Measurement method"
+          }
+        }
+      },
+      "description": "Success metrics with targets"
+    },
+    "milestones": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "date"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Milestone name"
+          },
+          "date": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Target date"
+          }
+        }
+      },
+      "description": "Project milestones"
+    },
+    "risks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["risk", "impact", "probability", "mitigation"],
+        "properties": {
+          "risk": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Risk description"
+          },
+          "impact": {
+            "type": "string",
+            "enum": ["Low", "Medium", "High", "Critical"],
+            "description": "Impact level"
+          },
+          "probability": {
+            "type": "string",
+            "enum": ["Low", "Medium", "High"],
+            "description": "Probability level"
+          },
+          "mitigation": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Mitigation strategy"
+          }
+        }
+      },
+      "description": "Identified risks and mitigations"
+    },
+    "includeUIUX": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to include UI/UX section"
+    },
+    "isBrownfield": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is a brownfield (existing system) project"
+    },
+    "userFlows": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "User flows (required when includeUIUX is true)"
+    },
+    "designConsiderations": {
+      "type": "string",
+      "description": "Design considerations (required when includeUIUX is true)"
+    },
+    "existingSystemAnalysis": {
+      "type": "string",
+      "description": "Analysis of existing system (required when isBrownfield is true)"
+    },
+    "integrationPoints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Integration points (required when isBrownfield is true)"
+    },
+    "migrationStrategy": {
+      "type": "string",
+      "description": "Migration strategy (required when isBrownfield is true)"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "includeUIUX": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "required": ["userFlows", "designConsiderations"],
+        "properties": {
+          "userFlows": {
+            "minItems": 1
+          },
+          "designConsiderations": {
+            "minLength": 20
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "isBrownfield": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "required": ["existingSystemAnalysis", "integrationPoints", "migrationStrategy"],
+        "properties": {
+          "existingSystemAnalysis": {
+            "minLength": 50
+          },
+          "integrationPoints": {
+            "minItems": 1
+          },
+          "migrationStrategy": {
+            "minLength": 50
+          }
+        }
+      }
+    }
+  ]
+}
