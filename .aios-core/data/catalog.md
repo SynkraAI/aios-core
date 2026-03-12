@@ -1,10 +1,10 @@
 # AIOX Catalog
 
-> Gerado automaticamente em 11/03/2026
+> Gerado automaticamente em 12/03/2026
 
 ---
 
-## Squads (59)
+## Squads (60)
 
 | Squad | Descrição | Ativação |
 |-------|-----------|----------|
@@ -24,6 +24,7 @@
 | dan-koe | Koe Squad — The OnePerson Business System | `/dan-koe` |
 | design | | | `/design` |
 | dopamine-learning | Dopamine Learning Squad: Complete Documentation | `/dopamine-learning` |
+| email-management-squad | Email Management Squad | `/email-management-squad` |
 | ensinio-mind | Ensinio Mind — Knowledge Hub | `/ensinio-mind` |
 | ensinio-prospector | Ensinio Prospector | `/ensinio-prospector` |
 | ensinio-whatsapp-prospector | Ensinio WhatsApp Prospector | `/ensinio-whatsapp-prospector` |
@@ -175,7 +176,7 @@
 
 | Categoria | Total | Coverage |
 |-----------|-------|----------|
-| Squads | 59 | 100% |
+| Squads | 60 | 100% |
 | Skills | 35 | 100% |
 | Tools | 7 | 100% |
 | Agents | 12 | 100% |
