@@ -5,7 +5,7 @@
 
 import { createReadStream } from 'fs';
 import { extname, parse as parsePath } from 'path';
-import { Extract } from 'unzipper';
+import { Parse } from 'unzipper';
 import {
   Contact,
   DateRange,
@@ -16,8 +16,8 @@ import {
 } from './types';
 
 // Regex patterns for detecting and parsing messages
-const ANDROID_BR_PATTERN = /^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})\s+-\s+(.+?):\s+(.*)$/;
-const IOS_BR_PATTERN = /^\[(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2}):(\d{2})\]\s+(.+?):\s+(.*)$/;
+const ANDROID_BR_PATTERN = /^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})\s+-\s+(.+?):\s+(.*)$/m;
+const IOS_BR_PATTERN = /^\[(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2}):(\d{2})\]\s+(.+?):\s+(.*)$/m;
 
 // System message filters
 const SYSTEM_MESSAGE_FILTERS = [
@@ -345,11 +345,12 @@ export async function parseWhatsAppExport(zipPath: string): Promise<ParsedExport
     // Extract _chat.txt from ZIP
     await new Promise<void>((resolve, reject) => {
       stream
-        .pipe(Extract({ path: '/tmp' }))
+        .pipe(Parse())
         .on('entry', (entry: unknown) => {
           const typedEntry = entry as { path: string; autodrain: () => void; on: (event: string, cb: (chunk?: unknown) => void) => void };
           if (typedEntry.path === '_chat.txt') {
             typedEntry.on('data', (chunk: unknown) => {
+              // eslint-disable-next-line no-undef
               const buffer = chunk as Buffer;
               chatContent += buffer.toString('utf-8');
             });
