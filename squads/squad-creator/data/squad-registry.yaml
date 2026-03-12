@@ -6,12 +6,12 @@
 
 metadata:
   version: "1.1.0"
-  last_updated: "2026-03-02T20:00:00"
+  last_updated: "2026-03-12T00:00:00"
   maintainer: "squad-creator"
-  total_squads: 18
-  total_agents: 98
+  total_squads: 19
+  total_agents: 105
   total_tasks: 302
-  total_workflows: 53
+  total_workflows: 54
   total_templates: 56
   total_checklists: 75
   total_data_files: 77
@@ -473,6 +473,35 @@ squads:
       - "Dados consumidos via symlink do ensinio-mind"
     example_use: "Importar export WhatsApp de grupo, analisar 50 prospects, gerar mensagens personalizadas em batch"
 
+  email-management-squad:
+    path: "squads/email-management-squad/"
+    version: "1.0.0"
+    domain: "email_management"
+    purpose: "Systematic email cleanup and organization pipeline using behavioral DNA from productivity experts (Merlin Mann, Tiago Forte, Charlie Munger). 7 agents covering triage, PARA framework, veto enforcement, multi-account orchestration, batch processing, and safety gates."
+    slashPrefix: ""
+    keywords:
+      - email
+      - email-management
+      - inbox-zero
+      - gmail
+      - para-framework
+      - tiago-forte
+      - merlin-mann
+      - productivity
+      - information-architecture
+      - batch-processing
+    agents: 7
+    tasks: 0
+    workflows: 1
+    templates: 0
+    checklists: 0
+    highlights:
+      - "7 specialized agents (email-chief, inbox-zero-validator, para-architect, veto-enforcer, multi-account-orchestrator, batch-processor, safety-checkpoint)"
+      - "Mind DNA from Merlin Mann (Inbox Zero), Tiago Forte (PARA), Charlie Munger (mental models)"
+      - "Multi-account Gmail support with safety gates and veto enforcement"
+      - "Batch processing pipeline with configurable limits (500 max per session)"
+    example_use: "Clean up 3 Gmail accounts systematically — triage, categorize via PARA, validate deletions, execute in batch with safety gates"
+
   conversao-extrema:
     path: "squads/conversao-extrema/"
     version: "1.0.0"
@@ -509,6 +538,7 @@ squads:
 # Domain Index - Map keywords and domains to squads
 domain_index:
   # By primary domain
+  email_management: [email-management-squad]
   content_marketing: [content-engine]
   paid_traffic_conversion: [conversao-extrema]
   mentoring_philosophy: [italo-marsili]
@@ -527,6 +557,12 @@ domain_index:
   meta_frameworks: [mind-cloning, squad-creator]
 
   # By keywords (top keywords only)
+  email: [email-management-squad]
+  inbox-zero: [email-management-squad]
+  gmail: [email-management-squad]
+  para-framework: [email-management-squad]
+  tiago-forte: [email-management-squad]
+  merlin-mann: [email-management-squad]
   ensinio: [ensinio-mind, ensinio-prospector, ensinio-whatsapp-prospector]
   ensinio-mind: [ensinio-mind]
   lead-enrichment: [ensinio-prospector]

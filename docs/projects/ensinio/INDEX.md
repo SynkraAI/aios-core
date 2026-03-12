@@ -27,23 +27,25 @@
   - `generate-apps-script.js` — Gera Apps Script com dados embutidos
 
 ## Última Sessão
-- **Data:** 2026-03-12 ~14:00
-- **Agente/Squad:** ensinio-whatsapp-prospector (evolução v4.0)
+- **Data:** 2026-03-12 ~18:30 (Noite)
+- **Agente/Squad:** Epic EPIC-ENSINIO-APP + GHL Sync Investigation
 - **O que foi feito:**
-  1. Pesquisou e validou API GoHighLevel v2 (opportunities, contacts, conversations)
-  2. Testou API key (PIT) — configurou scopes + descobriu locationId
-  3. Mapeou 10 pipelines existentes no GHL (Qualificação como target)
-  4. Criou `.env` com credenciais GHL (token, locationId, pipelineId, stageId)
-  5. Adicionou fase GHL Sync no pipeline (phase-5): contact → deal → message
-  6. Tag prompt interativo: SEMPRE pergunta tags antes de sincronizar (default: "Leads Fosc")
-  7. Criou task `sync-to-ghl.md` + checklist `ghl-sync-checklist.md` (QG-005)
-  8. Atualizou phone resolution: imagens PRIMEIRO → manual só residuais
-  9. Squad atualizado para v4.0.0 (10 fases, 7 quality gates)
+  1. ✅ Criado Epic EPIC-ENSINIO-APP com 4 milestones (M0→M4)
+  2. ✅ 5 stories M0 criadas e validadas com @po (READY FOR IMPLEMENTATION)
+  3. ✅ Investigado endpoint `/opportunities/` 404 → encontrado problema: faltava trailing slash
+  4. ✅ Testado fluxo de deduplicação: extrair contactId de erro 400 "duplicated contacts"
+  5. ✅ test-ghl-single.js criado e validado com Eduardo → **SUCCESS HTTP 201**
+  6. ✅ Descoberto: lookup endpoint `/contacts/lookup/phone/` NÃO funciona (404)
+  7. ✅ Solução: tentar criar → se 400, extrair contactId do erro meta
+  8. ✅ Fonte correta: `outreach-messages.md` (não TSV corrompido)
+  9. ✅ Blocker GHL documentado em MEMORY.md + ADR-001-tech-stack.md + M0.4 story
 
 ## Próximo Passo
-- Rodar o pipeline completo com um grupo de WhatsApp real (`*full-pipeline`)
-- Testar envio de mensagem via GHL API (pode precisar de template WhatsApp aprovado na Meta)
-- Popular Google Sheets via MCP (campanha mentoria-50k pendente)
+- **READY TO EXECUTE** — tudo pronto para sync dos 77:
+  1. Reescrever sync-mentoria-ghl-v2.js com lógica de deduplicação (usar test-ghl-single.js como referência)
+  2. Executar: `node scripts/sync-mentoria-ghl-v2.js` (esperado: 77 opportunities, 0 duplicatas)
+  3. Popular Google Sheets com resultado
+  4. Paralelo: Iniciar M0.1 (Smart Name Parser) para resolver problema de nomes concatenados
 
 ## Histórico
 | Data | Sessão | Resumo |

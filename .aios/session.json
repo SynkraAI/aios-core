@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "pid": 85726,
+  "pid": 8778,
   "sessionId": "session-1771550831494-rwn54yvi2",
   "project": {
     "type": "project",
@@ -11,12 +11,12 @@
   },
   "status": {
     "phase": "testing",
-    "progress": "2/60",
+    "progress": "2/83",
     "currentTask": "",
     "emoji": "🧪"
   },
   "context": {
-    "story": "M0.3-extract-outreach-writer-module",
+    "story": "M0.4-create-ghl-sdk",
     "epic": ""
   },
   "activeAgent": {
@@ -24,6 +24,6 @@
   },
   "metadata": {
     "startedAt": "2026-02-20T01:27:11.494Z",
-    "lastUpdatedAt": "2026-03-12T14:33:48.489Z"
+    "lastUpdatedAt": "2026-03-12T16:12:27.305Z"
   }
 }
