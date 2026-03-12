@@ -18,14 +18,8 @@ export {
   WhatsAppFormat,
 } from './types';
 
-// Export functions (to be implemented)
-// import { parseWhatsAppExport } from './parser';
-// import { normalizePhoneNumber, validatePhoneFormat } from './phone-normalizer';
-// import { validateParsedData } from './validator';
+export { parseWhatsAppExport, detectChatFormat, extractName } from './parser';
 
-// export {
-//   parseWhatsAppExport,
-//   normalizePhoneNumber,
-//   validatePhoneFormat,
-//   validateParsedData,
-// };
+// Export functions (to be implemented)
+// export { normalizePhoneNumber, validatePhoneFormat } from './phone-normalizer';
+// export { validateParsedData } from './validator';
