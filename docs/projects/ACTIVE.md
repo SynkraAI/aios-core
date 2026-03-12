@@ -14,6 +14,7 @@
 | 10 | **🏆 EPIC: Squad Ecosystem Quality** | **🟡 Ready for Commitment — 7 stories, 17-24.5h, 3 P0 + 4 P1** | **@squad-chief → @dev** | **2026-03-12** | [INDEX](.aios-core/development/epics/2026-03-squad-ecosystem-quality/) |
 | 11 | **naval-ravikant-mind** | **Mind Clone Elite 95% — falta smoke test** | **mind-cloning** | **2026-03-11** | [INDEX](naval-ravikant-mind/INDEX.md) |
 | 12 | **tabgroup-vault** | 🔄 **Extensão Brave/Chrome — backup de tab groups** | **—** | **2026-03-12** | [INDEX](~/CODE/Projects/tabgroup-vault/.aios/INDEX.md) |
+| 13 | **garimpoai** | 🔄 **Assistente IA para licitações públicas brasileiras (PNCP)** | **—** | **2026-03-12** | [INDEX](~/CODE/Projects/garimpoai/.aios/INDEX.md) |
 
 ## Backlog (Futuros Projetos)
 
