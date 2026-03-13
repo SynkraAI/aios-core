@@ -5,8 +5,10 @@ YouTube Captions Extractor — Extract subtitles/captions from YouTube videos.
 Usage:
   python youtube_captions.py <url> [-o output_dir] [-l lang] [--format md|txt|json]
   python youtube_captions.py --playlist <playlist_url> [-o output_dir]
+  python youtube_captions.py --search "Person Name" --max 100 -o output_dir/
 
 Extracts existing captions (manual or auto-generated) without downloading audio.
+Search mode uses YouTube Data API v3 to find top videos by view count.
 Outputs clean .md files ready for /etl-universal-converter.
 """
 
@@ -15,6 +17,8 @@ import json
 import os
 import re
 import sys
+import urllib.parse
+import urllib.request
 from datetime import datetime
 from pathlib import Path
 
@@ -123,7 +127,6 @@ def pick_best_subtitle(info, lang_priority=None):
 
 def download_subtitle_content(url):
     """Download subtitle JSON3 content from URL."""
-    import urllib.request
     with urllib.request.urlopen(url, timeout=30) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
@@ -286,6 +289,184 @@ def extract_playlist(playlist_url, output_dir, lang_priority=None, output_format
     return results
 
 
+def parse_iso8601_duration(duration_str):
+    """Parse ISO 8601 duration (PT1H2M3S) into seconds."""
+    match = re.match(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", duration_str or "")
+    if not match:
+        return 0
+    hours = int(match.group(1) or 0)
+    minutes = int(match.group(2) or 0)
+    seconds = int(match.group(3) or 0)
+    return hours * 3600 + minutes * 60 + seconds
+
+
+def youtube_api_get(endpoint, params, api_key):
+    """Make a GET request to YouTube Data API v3."""
+    params["key"] = api_key
+    url = f"https://www.googleapis.com/youtube/v3/{endpoint}?{urllib.parse.urlencode(params)}"
+    with urllib.request.urlopen(url, timeout=30) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def get_video_durations(video_ids, api_key):
+    """Fetch durations for a batch of video IDs. Returns {id: seconds}."""
+    durations = {}
+    # API accepts max 50 IDs per request
+    for i in range(0, len(video_ids), 50):
+        batch = video_ids[i : i + 50]
+        data = youtube_api_get(
+            "videos",
+            {"part": "contentDetails", "id": ",".join(batch)},
+            api_key,
+        )
+        for item in data.get("items", []):
+            dur_str = item.get("contentDetails", {}).get("duration", "")
+            durations[item["id"]] = parse_iso8601_duration(dur_str)
+    return durations
+
+
+def search_youtube(query, output_dir, max_results=100, api_key=None,
+                   min_duration=600, lang_priority=None, output_format="md"):
+    """Search YouTube for videos and extract captions from results."""
+    if not api_key:
+        api_key = os.environ.get("YOUTUBE_API_KEY")
+    if not api_key:
+        print("ERROR: YouTube Data API key required.")
+        print("  Set YOUTUBE_API_KEY env var or use --api-key flag.")
+        print("  Get a key at: https://console.cloud.google.com/apis/credentials")
+        sys.exit(1)
+
+    if lang_priority is None:
+        lang_priority = DEFAULT_LANG_PRIORITY
+
+    print(f'Searching YouTube for: "{query}" (max {max_results} videos, min {min_duration}s)')
+
+    # Phase 1: Collect video IDs via search
+    video_entries = []
+    page_token = None
+    while len(video_entries) < max_results:
+        per_page = min(50, max_results - len(video_entries))
+        params = {
+            "part": "snippet",
+            "q": query,
+            "type": "video",
+            "order": "viewCount",
+            "maxResults": per_page,
+        }
+        if page_token:
+            params["pageToken"] = page_token
+
+        try:
+            data = youtube_api_get("search", params, api_key)
+        except urllib.error.HTTPError as e:
+            print(f"ERROR: YouTube API returned {e.code}: {e.reason}")
+            if e.code == 403:
+                print("  Check your API key and quota at https://console.cloud.google.com/")
+            sys.exit(1)
+
+        for item in data.get("items", []):
+            video_id = item.get("id", {}).get("videoId")
+            title = item.get("snippet", {}).get("title", "")
+            if video_id:
+                video_entries.append({"id": video_id, "title": title})
+
+        page_token = data.get("nextPageToken")
+        if not page_token:
+            break
+
+    print(f"Found {len(video_entries)} videos from search.")
+
+    # Phase 2: Filter by duration
+    all_ids = [v["id"] for v in video_entries]
+    durations = get_video_durations(all_ids, api_key)
+
+    filtered = []
+    skipped_short = 0
+    for entry in video_entries:
+        dur = durations.get(entry["id"], 0)
+        if dur >= min_duration:
+            filtered.append(entry)
+        else:
+            skipped_short += 1
+
+    print(f"After duration filter (>= {min_duration}s): {len(filtered)} videos ({skipped_short} skipped)")
+
+    if not filtered:
+        print("No videos matched the duration filter.")
+        return []
+
+    # Phase 3: Extract captions
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    results = []
+    skipped_no_captions = 0
+    total = len(filtered)
+
+    for i, entry in enumerate(filtered, 1):
+        video_url = f"https://www.youtube.com/watch?v={entry['id']}"
+        print(f"\n[{i}/{total}] {entry['title'][:60]}")
+
+        try:
+            result = extract_captions(video_url, str(output_path), lang_priority, output_format)
+            if result:
+                results.append(result)
+            else:
+                skipped_no_captions += 1
+        except Exception as e:
+            print(f"  ERROR: {e}")
+            skipped_no_captions += 1
+
+    # Phase 4: Generate index and manifest
+    if results:
+        # INDEX.md (same format as playlist)
+        index_path = output_path / "_INDEX.md"
+        index_lines = [f"# YouTube Search: {query}\n"]
+        index_lines.append(f"Total: {len(results)}/{total} videos extracted\n")
+        index_lines.append("| # | Title | Duration | Words | Language |")
+        index_lines.append("|---|-------|----------|-------|----------|")
+        for idx, r in enumerate(results, 1):
+            fname = Path(r.get("filepath", "")).name
+            index_lines.append(
+                f"| {idx} | [{r['title']}]({fname}) | {r['duration']} | {r['word_count']} | {r['language']} |"
+            )
+        index_path.write_text("\n".join(index_lines) + "\n", encoding="utf-8")
+        print(f"\nIndex saved: {index_path}")
+
+    # _search_manifest.yaml
+    total_words = sum(r.get("word_count", 0) for r in results)
+    total_seconds = sum(
+        sum(int(x) * m for x, m in zip(r.get("duration", "0:0:0").split(":"), [3600, 60, 1]))
+        for r in results
+    )
+    manifest = {
+        "search": {
+            "query": query,
+            "date": datetime.now().strftime("%Y-%m-%d"),
+            "total_found": len(video_entries),
+            "total_extracted": len(results),
+            "skipped_short": skipped_short,
+            "skipped_no_captions": skipped_no_captions,
+            "total_words": total_words,
+            "duration_total": format_duration(total_seconds),
+        }
+    }
+    manifest_path = output_path / "_search_manifest.yaml"
+    # Write YAML manually to avoid pyyaml dependency
+    lines = ["search:"]
+    for k, v in manifest["search"].items():
+        if isinstance(v, str):
+            lines.append(f'  {k}: "{v}"')
+        else:
+            lines.append(f"  {k}: {v}")
+    manifest_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"Manifest saved: {manifest_path}")
+
+    print(f"\nDone: {len(results)}/{total} videos extracted to {output_path}")
+    print(f"  Words: {total_words} | Duration: {format_duration(total_seconds)}")
+    return results
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Extract YouTube captions/subtitles (no audio download)",
@@ -295,11 +476,16 @@ Examples:
   %(prog)s https://youtube.com/watch?v=xxx
   %(prog)s https://youtube.com/watch?v=xxx -o ~/transcripts/
   %(prog)s --playlist https://youtube.com/playlist?list=xxx -o ~/transcripts/
+  %(prog)s --search "Naval Ravikant" --max 100 --min-duration 600 -o ~/transcripts/
   %(prog)s https://youtube.com/watch?v=xxx -l en -l pt-BR
         """,
     )
     parser.add_argument("url", nargs="?", help="YouTube video URL")
     parser.add_argument("--playlist", metavar="URL", help="YouTube playlist URL")
+    parser.add_argument("--search", metavar="QUERY", help="Search YouTube for videos (requires API key)")
+    parser.add_argument("--max", type=int, default=100, help="Max videos to fetch in search mode (default: 100)")
+    parser.add_argument("--api-key", help="YouTube Data API v3 key (or set YOUTUBE_API_KEY env var)")
+    parser.add_argument("--min-duration", type=int, default=600, help="Min video duration in seconds for search mode (default: 600 = 10min)")
     parser.add_argument("-o", "--output", default=".", help="Output directory (default: current)")
     parser.add_argument(
         "-l", "--lang", action="append", dest="langs",
@@ -312,13 +498,18 @@ Examples:
 
     args = parser.parse_args()
 
-    if not args.url and not args.playlist:
+    if not args.url and not args.playlist and not args.search:
         parser.print_help()
         sys.exit(1)
 
     lang_priority = args.langs if args.langs else DEFAULT_LANG_PRIORITY
 
-    if args.playlist:
+    if args.search:
+        search_youtube(
+            args.search, args.output, max_results=args.max, api_key=args.api_key,
+            min_duration=args.min_duration, lang_priority=lang_priority, output_format=args.format,
+        )
+    elif args.playlist:
         extract_playlist(args.playlist, args.output, lang_priority, args.format)
     elif args.url:
         result = extract_captions(args.url, args.output, lang_priority, args.format)

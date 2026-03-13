@@ -18,6 +18,53 @@ python tools/youtube-captions/youtube_captions.py "URL" -l en -o ~/transcripts/
 python tools/youtube-captions/youtube_captions.py "URL" --format json -o ~/transcripts/
 ```
 
+## Search Mode
+
+Busca automaticamente os top vídeos de uma pessoa no YouTube (canal próprio + participações em podcasts, entrevistas, palestras) e extrai legendas.
+
+**Requisito:** YouTube Data API v3 key ([obter aqui](https://console.cloud.google.com/apis/credentials)).
+
+```bash
+# Buscar top 100 vídeos com +10min de duração
+python tools/youtube-captions/youtube_captions.py \
+  --search "Naval Ravikant" \
+  --max 100 \
+  --min-duration 600 \
+  -o squads/mind-cloning/minds/naval-ravikant/sources/transcripts/
+
+# Buscar top 50 vídeos com +5min
+python tools/youtube-captions/youtube_captions.py \
+  --search "Leandro Ladeira" --max 50 --min-duration 300 -o ~/transcripts/
+
+# Usando API key via flag (alternativa ao env var)
+python tools/youtube-captions/youtube_captions.py \
+  --search "Tim Ferriss" --api-key YOUR_KEY -o ~/transcripts/
+```
+
+**API Key:** via env `YOUTUBE_API_KEY` (recomendado) ou flag `--api-key`.
+
+**Argumentos do search mode:**
+
+| Flag | Default | Descrição |
+|------|---------|-----------|
+| `--search QUERY` | — | Termo de busca (nome da pessoa) |
+| `--max N` | 100 | Máximo de vídeos a buscar |
+| `--min-duration S` | 600 | Duração mínima em segundos (600 = 10min) |
+| `--api-key KEY` | env var | YouTube Data API v3 key |
+
+**Output do search mode:**
+
+```
+output_dir/
+├── _INDEX.md                    # Tabela com todos os vídeos extraídos
+├── _search_manifest.yaml        # Metadados da busca (totais, skips)
+├── naval-ravikant-joe-rogan.md
+├── naval-ravikant-tim-ferriss.md
+└── ...
+```
+
+**Quota:** API grátis permite 10.000 units/dia (~50 buscas de 100 vídeos/dia).
+
 ## Prioridade de Legendas
 
 1. Legendas manuais > auto-geradas
@@ -53,3 +100,4 @@ youtube_captions.py <url> -o ~/transcripts/     # Segundos
 
 - Python 3.10+
 - yt-dlp (`pip install yt-dlp`)
+- YouTube Data API v3 key (apenas para search mode)
