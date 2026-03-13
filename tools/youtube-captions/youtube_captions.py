@@ -29,6 +29,12 @@ except ImportError:
     print("Error: yt-dlp is required. Install with: pip install yt-dlp")
     sys.exit(1)
 
+try:
+    from youtube_transcript_api import YouTubeTranscriptApi
+    HAS_TRANSCRIPT_API = True
+except ImportError:
+    HAS_TRANSCRIPT_API = False
+
 
 # Language priority: try these in order
 DEFAULT_LANG_PRIORITY = ["pt-BR", "pt", "en", "en-US", "es"]
@@ -146,8 +152,90 @@ def format_duration(seconds):
     return f"{h:02d}:{m:02d}:{s:02d}"
 
 
-def extract_captions(video_url, output_dir=None, lang_priority=None, output_format="md"):
+def fetch_captions_transcript_api(video_id, lang_priority=None, cookies_path=None):
+    """Fallback: fetch captions using youtube-transcript-api."""
+    if not HAS_TRANSCRIPT_API:
+        return None, None
+
+    if lang_priority is None:
+        lang_priority = DEFAULT_LANG_PRIORITY
+
+    try:
+        # Build API instance with optional cookies
+        kwargs = {}
+        if cookies_path:
+            import http.cookiejar
+            import requests
+            cj = http.cookiejar.MozillaCookieJar(cookies_path)
+            cj.load(ignore_discard=True, ignore_expires=True)
+            session = requests.Session()
+            session.cookies = cj
+            kwargs["http_client"] = session
+
+        ytt_api = YouTubeTranscriptApi(**kwargs)
+
+        # List available transcripts
+        transcript_list = ytt_api.list(video_id)
+
+        # Pick best transcript: manual first, then auto
+        best = None
+        is_auto = False
+        lang = None
+
+        for t in transcript_list:
+            if not t.is_generated:
+                if t.language_code in lang_priority:
+                    best = t
+                    lang = t.language_code
+                    is_auto = False
+                    break
+                elif best is None:
+                    best = t
+                    lang = t.language_code
+                    is_auto = False
+
+        if not best:
+            for t in transcript_list:
+                if t.language_code in lang_priority:
+                    best = t
+                    lang = t.language_code
+                    is_auto = t.is_generated
+                    break
+                elif best is None:
+                    best = t
+                    lang = t.language_code
+                    is_auto = t.is_generated
+
+        if not best:
+            return None, None
+
+        # Fetch the transcript
+        result = ytt_api.fetch(video_id, languages=[lang])
+        lines = []
+        for snippet in result:
+            start = snippet.start if hasattr(snippet, "start") else snippet.get("start", 0)
+            text_val = snippet.text if hasattr(snippet, "text") else snippet.get("text", "")
+            minutes = int(start) // 60
+            seconds = int(start) % 60
+            text_clean = re.sub(r"\n", " ", text_val).strip()
+            if text_clean:
+                lines.append(f"[{minutes:02d}:{seconds:02d}] {text_clean}")
+
+        text = "\n".join(lines)
+        sub_type = "auto-generated" if is_auto else "manual"
+        return text, {"language": lang, "subtitle_type": sub_type}
+
+    except Exception as e:
+        print(f"  Transcript API fallback failed: {e}")
+        return None, None
+
+
+def extract_captions(video_url, output_dir=None, lang_priority=None, output_format="md",
+                     cookies_path=None):
     """Extract captions from a single YouTube video.
+
+    Uses yt-dlp for metadata + subtitle download. Falls back to
+    youtube-transcript-api if subtitle download gets rate limited (429).
 
     Returns dict with: title, channel, text, language, filepath (if saved).
     """
@@ -167,14 +255,34 @@ def extract_captions(video_url, output_dir=None, lang_priority=None, output_form
     lang, sub_url, is_auto = pick_best_subtitle(info, lang_priority)
 
     if not sub_url:
-        print(f"  WARNING: No captions found for: {title}")
-        return None
+        # Try transcript API fallback even if yt-dlp found nothing
+        text, meta = fetch_captions_transcript_api(video_id, lang_priority, cookies_path)
+        if text and text.strip():
+            print(f"  Found captions via transcript API: {meta['language']} ({meta['subtitle_type']})")
+            lang = meta["language"]
+            sub_type = meta["subtitle_type"]
+        else:
+            print(f"  WARNING: No captions found for: {title}")
+            return None
+    else:
+        sub_type = "auto-generated" if is_auto else "manual"
+        print(f"  Found captions: {lang} ({sub_type})")
 
-    sub_type = "auto-generated" if is_auto else "manual"
-    print(f"  Found captions: {lang} ({sub_type})")
-
-    sub_data = download_subtitle_content(sub_url)
-    text = parse_subtitle_content(sub_data)
+        try:
+            sub_data = download_subtitle_content(sub_url)
+            text = parse_subtitle_content(sub_data)
+        except Exception as e:
+            if "429" in str(e) and HAS_TRANSCRIPT_API:
+                print(f"  Rate limited, trying transcript API fallback...")
+                text, meta = fetch_captions_transcript_api(video_id, lang_priority, cookies_path)
+                if text and text.strip():
+                    lang = meta["language"]
+                    sub_type = meta["subtitle_type"]
+                    print(f"  Fallback OK: {lang} ({sub_type})")
+                else:
+                    raise
+            else:
+                raise
 
     if not text.strip():
         print(f"  WARNING: Empty captions for: {title}")
@@ -238,7 +346,8 @@ extracted_at: "{datetime.now().strftime('%Y-%m-%d %H:%M')}"
     return f"{frontmatter}\n\n# {data['title']}\n\n{data['text']}\n"
 
 
-def extract_playlist(playlist_url, output_dir, lang_priority=None, output_format="md"):
+def extract_playlist(playlist_url, output_dir, lang_priority=None, output_format="md",
+                     cookies_path=None):
     """Extract captions from all videos in a YouTube playlist."""
     if lang_priority is None:
         lang_priority = DEFAULT_LANG_PRIORITY
@@ -269,7 +378,7 @@ def extract_playlist(playlist_url, output_dir, lang_priority=None, output_format
         print(f"[{i}/{len(entries)}] Processing...")
 
         try:
-            result = extract_captions(video_url, str(playlist_dir), lang_priority, output_format)
+            result = extract_captions(video_url, str(playlist_dir), lang_priority, output_format, cookies_path)
             if result:
                 results.append(result)
         except Exception as e:
@@ -332,7 +441,7 @@ def get_video_durations(video_ids, api_key):
 
 def search_youtube(query, output_dir, max_results=100, api_key=None,
                    min_duration=600, lang_priority=None, output_format="md",
-                   list_only=False, delay=5):
+                   list_only=False, delay=5, cookies_path=None):
     """Search YouTube for videos and extract captions from results."""
     if not api_key:
         api_key = os.environ.get("YOUTUBE_API_KEY")
@@ -446,7 +555,7 @@ def search_youtube(query, output_dir, max_results=100, api_key=None,
         retries = 0
         while retries < 3:
             try:
-                result = extract_captions(video_url, str(output_path), lang_priority, output_format)
+                result = extract_captions(video_url, str(output_path), lang_priority, output_format, cookies_path)
                 if result:
                     results.append(result)
                 else:
@@ -538,6 +647,7 @@ Examples:
     parser.add_argument("--min-duration", type=int, default=600, help="Min video duration in seconds for search mode (default: 600 = 10min)")
     parser.add_argument("--list-only", action="store_true", help="Search mode: only list video URLs, don't extract captions")
     parser.add_argument("--delay", type=int, default=5, help="Seconds between caption extractions to avoid rate limiting (default: 5)")
+    parser.add_argument("--cookies", metavar="FILE", help="Path to cookies.txt file (Netscape format) to bypass rate limiting")
     parser.add_argument("-o", "--output", default=".", help="Output directory (default: current)")
     parser.add_argument(
         "-l", "--lang", action="append", dest="langs",
@@ -556,16 +666,19 @@ Examples:
 
     lang_priority = args.langs if args.langs else DEFAULT_LANG_PRIORITY
 
+    cookies = args.cookies
+
     if args.search:
         search_youtube(
             args.search, args.output, max_results=args.max, api_key=args.api_key,
             min_duration=args.min_duration, lang_priority=lang_priority,
             output_format=args.format, list_only=args.list_only, delay=args.delay,
+            cookies_path=cookies,
         )
     elif args.playlist:
-        extract_playlist(args.playlist, args.output, lang_priority, args.format)
+        extract_playlist(args.playlist, args.output, lang_priority, args.format, cookies)
     elif args.url:
-        result = extract_captions(args.url, args.output, lang_priority, args.format)
+        result = extract_captions(args.url, args.output, lang_priority, args.format, cookies)
         if not result:
             print("No captions found.")
             sys.exit(1)
