@@ -138,4 +138,22 @@
 
 ---
 
-**Versão:** 2.0 | **Data:** 2026-03-13 | **Fonte:** Google Forms - Gui Ávila (06/03), Antonio (12/03), Ricardo (13/03)
+## Novos Nichos Validados em Campo (tl;dv, 2026-03)
+
+| Nicho | Porte | Plataforma anterior | Plano vendido | Status | Fonte |
+|-------|-------|---------------------|---------------|--------|-------|
+| Educação católica/religiosa | ~66K/mês, 600 aulas, 15 funcionários | Hotmart | Business Anual (R$832/mês) | FECHADO | tl;dv call "69b45eb" |
+| Blog monetization (AdSense) | 35K alunos, 3 produtos | Academia | Enterprise (R$1.665/mês) | Em negociação | tl;dv call "Como Elevar" |
+| Advocacia online (salário-maternidade) | 18-30 leads/dia, ticket R$700 | WhatsApp manual | AI Agent (R$200/mês) | FECHADO | tl;dv call "Como implementar agentes" |
+| Rede franquias educacionais | 35 escolas, 60-70 leads/dia | CRM próprio + Boteconversa | AI Agent (trial) | Trial | tl;dv call "Como automatizar vendas" |
+| Costura/modelagem (moldes PDF) | 2K alunos, R$20-30K/mês | Carne Academia | Business (trial estendido) | Trial | tl;dv call "Continuação Luiz e Flávia" |
+
+### Padrões observados nos novos nichos:
+- **Religião e costura** valorizam UX acima de tudo ("papel crepom" = rejeição)
+- **Advocacia e franquias** buscam AI Agents, não plataforma EAD (produto diferente!)
+- **Blog monetization (grandes criadores)** precisam de autonomia e app nativo
+- **Franquias** têm volume alto (60-70 leads/dia) e dor de padronização
+
+---
+
+**Versão:** 3.0 | **Data:** 2026-03-14 | **Fonte:** Google Forms (06-13/03) + tl;dv calls batch 1 (5 calls, 2026-03)

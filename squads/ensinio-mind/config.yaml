@@ -1,6 +1,6 @@
 name: ensinio-mind
-version: 2.1.0
-description: "Ensinio Knowledge Hub — Source of truth centralizada sobre a plataforma Ensinio. Alimenta todos os squads ensinio-*. Inclui sales playbook (8 objeções), ICP, red flags (21 sinais), ciclo de venda, técnicas de fechamento."
+version: 3.0.0
+description: "Ensinio Knowledge Hub — Source of truth centralizada sobre a plataforma Ensinio. Alimenta todos os squads ensinio-*. Inclui sales playbook (8 objeções + 7 técnicas campo), ICP (5 novos nichos), red flags (26 sinais), 6 novos concorrentes, ciclo de venda (4 padrões), pricing AI Agents, padrões de migração reais."
 type: knowledge-hub
 
 entry_agent: ensinio-expert
@@ -66,6 +66,7 @@ metadata:
     - "Google Forms — Antonio (12/03/2026)"
     - "Google Forms — Ricardo (13/03/2026)"
     - "tl;dv calls — Ricardo (vendas) + Bhrenda (suporte)"
+    - "tl;dv batch 1 (5 calls processadas 2026-03-14): 69b45eb, Como Elevar, Como implementar agentes, Como automatizar vendas, Continuação Luiz e Flávia"
   consumers:
     - ensinio-prospector
     - ensinio-whatsapp-prospector

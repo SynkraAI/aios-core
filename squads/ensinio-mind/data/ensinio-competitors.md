@@ -101,9 +101,75 @@ A Ensinio possui um ecossistema que atende de ponta a ponta tudo o que um infopr
 
 ---
 
-## Perguntas Pendentes (para enriquecer v2.0)
+## Novos Concorrentes Identificados em Campo (tl;dv, 2026-03)
 
-- [ ] Top 5 objeções reais de vendas e como a Ensinio responde cada uma
-- [ ] Ciclo de venda médio (dias do primeiro contato ao fechamento)
-- [ ] Canais de venda que funcionam melhor (inbound? outbound? indicação?)
-- [ ] Script/playbook de sales formal
+### Academia
+- **O que é:** Plataforma de área de membros (PWA)
+- **Pontos fortes:** PWA funcional, suporte responsivo
+- **Pontos fracos vs Ensinio:** SEM app nativo (só PWA), SEM push notifications, 48h delay para alterações de banner/CTA (precisa acionar suporte), SEM autonomia de edição
+- **Quote do prospect:** "A gente não tem autonomia. Tudo precisa de suporte, 48 horas úteis."
+- **Argumento principal:** "Academia te trava no suporte. Ensinio te dá controle total."
+(Fonte: tl;dv call "Como Elevar a Experiência", 2026-03)
+
+### Carne Academia
+- **O que é:** Área de membros simples
+- **Pontos fortes:** Interface simples, fácil de usar
+- **Pontos fracos vs Ensinio:** Layout pobre ("porcaria de layout"), SEM gamificação, SEM comunidade, SEM checkout internacional robusto
+- **Quote do prospect:** "Muito fácil mas feio."
+- **Argumento principal:** "Carne é fácil de usar, mas feio e limitante quando cresce."
+(Fonte: tl;dv call "Continuação Luiz e Flávia", 2026-03)
+
+### Educa/EdukaPay
+- **O que é:** Plataforma de cursos online (usada por Fernando Brasão)
+- **Pontos fracos vs Ensinio:** Experiência inferior
+- **Quote do prospect:** "É uma bosta, não entendi porque ele não voltou para Ensinio."
+- **Nota:** Fernando Brasão (ex-cliente Ensinio) está nesta plataforma atualmente
+(Fonte: tl;dv call "Continuação Luiz e Flávia", 2026-03)
+
+### Boteconversa (Chatbot)
+- **O que é:** Ferramenta de automação WhatsApp (chatbot rule-based)
+- **Pontos fortes:** Automação de fluxos, disparos em massa
+- **Pontos fracos vs Ensinio AI:** Banimentos frequentes, chatbot rule-based (não conversacional), 100+ aulas para aprender
+- **Quote do prospect:** "Ficamos com ele 2 anos. Mas aí começou a banir, banir, banir."
+- **Não é concorrente direto** de plataforma EAD, mas compete com Ensinio AI Agents
+(Fonte: tl;dv call "Como automatizar suas vendas", 2026-03)
+
+### Panda (Video Hosting)
+- **O que é:** Plataforma de hospedagem de vídeos
+- **Custo típico:** R$764/mês (Gold + bandwidth extra)
+- **Pontos fracos vs Ensinio:** Só faz vídeo, não tem LMS/comunidade/checkout
+- **Argumento principal:** "Ensinio Enterprise com vídeo equivalente sai mais barato que Panda sozinho (R$669 vs R$764)."
+(Fonte: tl;dv call "Como Elevar a Experiência", 2026-03)
+
+### Cerco (Comunidade)
+- **O que é:** Ferramenta de comunidade paga
+- **Pontos fracos vs Ensinio:** Ferramenta separada, gera fragmentação
+- **Padrão:** Usado junto com Telegram + plataforma de LMS = 3 ferramentas para comunidade
+- **Argumento principal:** "Ensinio consolida tudo (comunidade nativa na plataforma)."
+(Fonte: tl;dv call "Como Elevar a Experiência", 2026-03)
+
+---
+
+## Segmentos que Migram para Ensinio
+
+| Plataforma anterior | Motivo da migração |
+|---------------------|-------------------|
+| Hotmart (Sparkle) | Área de membros genérica, sem personalização |
+| Memberkit | Dependência de checkout externo, integrações quebram |
+| Cademi | Features limitadas, sem crescimento |
+| YouTube (conteúdo aberto) | Monetização, comunidade, controle |
+| Google Classroom | Falta de features comerciais |
+| Sistemas legados | Interface ultrapassada, sem engajamento |
+| **Academia** | Falta de autonomia (48h suporte), sem app nativo, sem push |
+| **Carne Academia** | Layout pobre, sem gamificação, sem comunidade |
+| **Panda (video only)** | Custo alto para só vídeo, sem LMS/comunidade/checkout |
+
+---
+
+## Perguntas Pendentes (para enriquecer v3.0)
+
+- [x] ~~Top 5 objeções reais de vendas~~ → Playbook atualizado (v3.0)
+- [x] ~~Ciclo de venda médio~~ → Sales Cycle atualizado (v3.0)
+- [x] ~~Canais de venda que funcionam melhor~~ → Sales Cycle (Indicação #1)
+- [x] ~~Script/playbook de sales formal~~ → Playbook (v3.0)
+- [ ] Recuperar ex-clientes como cases (Fernando Brasão está na Educa atualmente)

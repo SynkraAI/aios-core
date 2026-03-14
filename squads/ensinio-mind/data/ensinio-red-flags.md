@@ -193,4 +193,48 @@ Use este checklist para identificar VETO em primeiros 5 minutos:
 
 ---
 
-**Versão:** 2.0 | **Data:** 2026-03-13 | **Fonte:** Google Forms - Gui Ávila (06/03), Antonio (12/03), Ricardo (13/03)
+## Novos Red Flags Observados em Campo (tl;dv, 2026-03)
+
+### 22. Negócio Muito Novo (< 1 mês de operação)
+**Nível:** ALERTA ALTO
+- **Sinal:** Lead ainda não validou processo manual, quer automatizar cedo demais
+- **Risco:** Automatizar processo que ainda não funciona = amplificar ineficiências
+- **Exemplo real:** Advocacia online, < 2 semanas, 18-30 leads/dia mas 1 conversão/dia
+- **Ação:** Aceitar com acompanhamento intensivo, mas alertar que IA potencializa processo existente, não cria processo
+(Fonte: tl;dv call "Como implementar agentes de IA", 2026-03)
+
+### 23. Decision-Maker Ausente na Call
+**Nível:** ALERTA MÉDIO
+- **Sinal:** Dono/presidente entra atrasado, sai no meio, ou não participa
+- **Risco:** Executor vê valor mas decisor questiona ROI depois
+- **Exemplo real:** Presidente de rede de franquias saiu da call após 50 min, não viu demo completa
+- **Ação:** Enviar gravação + transcript + materiais para revisão assíncrona. Agendar follow-up com decisor presente.
+(Fonte: tl;dv call "Como automatizar suas vendas", 2026-03)
+
+### 24. Ceticismo por Experiências Ruins com Chatbots
+**Nível:** ALERTA ALTO
+- **Sinal:** "A gente já testou chatbot, não funcionou" / "Promessas grandes, execução não acontece"
+- **Risco:** Trial precisa ser perfeito ou deal morre
+- **Exemplo real:** Franquia usou Boteconversa 2 anos, abandonou por banimentos. Também testou outro chatbot que não funcionou.
+- **Ação:** Trial hands-on com suporte intensivo. NÃO prometer resultados, deixar eles verem por si.
+(Fonte: tl;dv call "Como automatizar suas vendas", 2026-03)
+
+### 25. Feature Request Durante a Venda
+**Nível:** ALERTA MÉDIO
+- **Sinal:** Lead pede feature que não existe (áudio pré-gravado, banner customizado nativo, etc.)
+- **Risco:** Expectativa não atendida = frustração pós-venda
+- **Exemplo real:** "Tem como mandar áudio pré-gravado?" (não tem nativo)
+- **Ação:** Ser honesto ("não tem nativo"), anotar para roadmap, oferecer workaround se existir
+(Fonte: tl;dv call "Como implementar agentes de IA", 2026-03)
+
+### 26. Ex-Clientes Grandes que Saíram (Referência Negativa)
+**Nível:** ALERTA MÉDIO
+- **Sinal:** Prospect menciona grandes players que já foram Ensinio e saíram (Fernando Brasão, Rafa Marx)
+- **Risco:** Gera desconfiança ("por que saíram?")
+- **Resposta Ricardo:** "Ensinio focou em qualidade, não em marketing. Programa de parcerias começou esse ano."
+- **Ação:** Ser transparente, não inventar razões. Focar em evolução da plataforma.
+(Fonte: tl;dv call "Continuação Luiz e Flávia", 2026-03)
+
+---
+
+**Versão:** 3.0 | **Data:** 2026-03-14 | **Fonte:** Google Forms (06-13/03) + tl;dv calls batch 1 (5 calls, 2026-03)

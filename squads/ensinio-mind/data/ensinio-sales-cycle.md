@@ -340,4 +340,50 @@ Qualquer dúvida? Responda este email!"
 
 ---
 
-**Versão:** 2.0 | **Data:** 2026-03-13 | **Fonte:** Google Forms - Gui Ávila (06/03), Antonio (12/03), Ricardo (13/03)
+## Padrões de Ciclo Observados em Campo (tl;dv, 2026-03)
+
+### Padrão 1: Same-Day Close (Ciclo Relâmpago)
+- **Duração:** 1 call = fechamento
+- **Perfil:** Prospect já testou plataforma sozinho, chegou convicto
+- **Exemplo:** Nicho católico, testou Starter, ligou Carla suporte, Antônio agendou, Ricardo fechou na call. Cartão processado durante a call.
+- **Acelerador:** UX transparente (prospect testou sozinho), urgência real (lançamento em 30 dias), case de alguém que conhece (Elton Luiz)
+(Fonte: tl;dv call "69b45eb", 2026-03)
+
+### Padrão 2: Two-Call Close (Trial + Follow-up)
+- **Duração:** 1-2 semanas
+- **Perfil:** Prospect cético ou com experiências ruins anteriores
+- **Exemplo:** Rede de franquias (35 escolas), já usou Boteconversa 2 anos
+- **Fluxo:** Call 1 (discovery + demo + setup trial 300 créditos) → 1 semana de teste → Call 2 (review + proposta customizada)
+- **Acelerador:** Suporte hands-on durante trial, materiais assíncronos (vídeos do Gui)
+(Fonte: tl;dv call "Como automatizar suas vendas", 2026-03)
+
+### Padrão 3: Async Decision (Precisam Passar para Decisor)
+- **Duração:** 2-4 semanas
+- **Perfil:** Prospect é executor mas não decide sozinho (head de ops, gerente)
+- **Exemplo:** Blog monetization (35K alunos), Bruna (ops) precisa passar para Cris (fundadora)
+- **Fluxo:** Call com executor → envia gravação + transcript → follow-up segunda → call 2 com decisor (se necessário)
+- **Tática Ricardo:** NÃO empurrou. "Entendo que a Cris tem que estar envolvida." Enviou materials assíncronos.
+(Fonte: tl;dv call "Como Elevar a Experiência", 2026-03)
+
+### Padrão 4: Migração Gradual (Trial Estendido)
+- **Duração:** 1-3 meses (dupla plataforma)
+- **Perfil:** Prospect com grande base (2K+ alunos), quer migrar sem risco
+- **Exemplo:** Costura/modelagem, manter Carne 3-6 meses enquanto migra "formiguinha"
+- **Risco:** Duplo custo, fragmentação de esforço, churn por esquecimento
+- **Tática Ricardo:** Trial estendido gratuito até dia 1, pricing customizado
+(Fonte: tl;dv call "Continuação Luiz e Flávia", 2026-03)
+
+### Insight: Venda de AI Agent vs Plataforma EAD
+O ciclo de vendas de **AI Agents** é diferente do ciclo de **plataforma EAD**:
+
+| Aspecto | Plataforma EAD | AI Agent |
+|---------|---------------|----------|
+| Ticket | R$399-1.999/mês | R$200-6.000/mês (créditos) |
+| Ciclo | 1-4 semanas | 1-2 semanas (trial-first) |
+| Objeção principal | Migração | Preço dos créditos |
+| Demo | Visual (mostrar plataforma) | Co-criação (construir agente ao vivo) |
+| Decision trigger | UX + cases | Speed-to-Lead + ROI |
+
+---
+
+**Versão:** 3.0 | **Data:** 2026-03-14 | **Fonte:** Google Forms (06-13/03) + tl;dv calls batch 1 (5 calls, 2026-03)

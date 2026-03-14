@@ -145,9 +145,31 @@ O pitch deck inclui múltiplas capturas de tela de conversas WhatsApp mostrando:
 
 ---
 
+## Cases Usados por Ricardo em Calls (tl;dv, 2026-03)
+
+| Case | Nicho | Como Ricardo usou | Fonte |
+|------|-------|-------------------|-------|
+| **Elton Luiz** | YouTuber 150K+ inscritos | Prospect era aluno dele. Embaixador Ensinio. Validação social direta. | tl;dv call "69b45eb" |
+| **Bruno (Dentista de Sucesso)** | Odontologia | Enviou vídeo de depoimento via WhatsApp durante call | tl;dv call "69b45eb" |
+| **William Brandão** | (não especificado) | "Chuva de elogios dos clientes sobre a plataforma" (lançamento recente) | tl;dv call "69b45eb" |
+| **Auto e Habili** | (não especificado) | Prospect comentou: "Que plataforma bonita do caramba" | tl;dv call "69b45eb" |
+| **Deise Parou (MasterChef)** | Gastronomia | Mostrou plataforma dela como referência visual | tl;dv call "Como Elevar" |
+| **Lara Brenner Queiroz** | Língua portuguesa + dev pessoal | Exemplo de multi-organização na Ensinio | tl;dv call "Como Elevar" |
+| **Clube de Aforismos** | Educação filosófica | Mostrou comunidade ativa, top 10 aulas, gamificação | tl;dv call "Continuação Luiz e Flávia" |
+| **Case Cadência 13 Toques** | Interno (Ensinio) | "Precisa de 13 contatos para converter. Desistimos muito cedo." | tl;dv call "Como implementar agentes" |
+
+### Padrão de uso de cases pelo Ricardo:
+1. **Ancora em case conhecido do prospect** (ex: Elton Luiz, que o prospect já conhecia)
+2. **Mostra plataformas reais** (não mockups) durante compartilhamento de tela
+3. **Envia materiais via WhatsApp** durante a call (vídeos de depoimento)
+4. **Usa cases de nichos variados** (não só do mesmo nicho do prospect)
+
+---
+
 ## Perguntas Pendentes (para enriquecer v3.0)
 
 - [ ] Resultados quantitativos detalhados (antes vs depois com %)
 - [x] ~~Quantos clientes ativos exatamente~~ → 115
 - [x] ~~GMV processado total pelo Ensinio Pay~~ → ~R$ 700K/mês
 - [ ] Depoimentos em vídeo (links YouTube) — Gui tem vídeo salvo, Antonio envia áudio
+- [ ] Recuperar depoimento de Deise Parou (MasterChef) — Ricardo já usa em demos

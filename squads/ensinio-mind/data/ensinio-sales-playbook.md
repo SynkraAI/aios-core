@@ -606,4 +606,58 @@ a pensar como adaptar esse modelo pro seu negócio."
 
 ---
 
-**Versão:** 2.0 | **Data:** 2026-03-13 | **Fonte:** Google Forms - Gui Ávila (06/03), Antonio (12/03), Ricardo (13/03)
+## Técnicas Avançadas Observadas em Campo (tl;dv)
+
+### Speed-to-Lead
+> "Tem um conceito que é o Speed to Lead: quando um cliente cai no funil e recebe resposta em 10 minutos, a chance de fechar é 40% maior." — Ricardo
+
+**Case interno:** Antônio (SDR) atendeu lead 1h da manhã assistindo série. Agendaram na hora. Cliente fechou de manhã.
+**Uso:** Justificar resposta imediata via IA/agentes ou atendimento fora de horário.
+(Fonte: tl;dv call "Como automatizar suas vendas", 2026-03)
+
+### Co-criação Demo ao Vivo
+Ricardo constrói o agente/plataforma AO VIVO durante a call com dados do prospect:
+> "Vou criar um agente aqui com vocês. Quais os critérios de qualificação? Grávida, desempregada... vou colocar aqui."
+
+**Por que funciona:** Prospect visualiza a solução como DELE, não genérica. Gera ownership emocional.
+(Fonte: tl;dv call "Como implementar agentes de IA", 2026-03)
+
+### Discovery Antes do Pitch (~20min)
+Ricardo gasta os primeiros 20 minutos fazendo perguntas SEM mostrar tela:
+- "Qual ferramenta que vocês estão usando?"
+- "Como é que vocês estão fazendo hoje?"
+- "O que motivou essa mudança?"
+
+**Efeito:** Entende dor emocional + técnica, personaliza demo inteira baseado nas respostas.
+(Fonte: tl;dv calls batch 1, 2026-03)
+
+### Remoção de Atrito na Migração (Metáfora da Mudança)
+> "Vocês tiram os pertences da gaveta e colocam numa caixa. A gente pega essa caixa e leva pra nova casa."
+
+**Componentes:** Planilha de migração assistida, manter alunos antigos na plataforma anterior (integração), timeline realista (20-30 dias).
+(Fonte: tl;dv call "69b45eb", 2026-03)
+
+### Concessão Imediata em Objeções de Acesso
+Quando prospect pede acesso antecipado para configurar, Ricardo libera na hora:
+> "Eu libero o plano business para você hoje, você vai usando até o dia 1. Sem problema."
+
+**Efeito:** Prospect se sente valorizado, reduz barreira de entrada.
+(Fonte: tl;dv call "Continuação Luiz e Flávia", 2026-03)
+
+### Ownership Transfer ("Você Vai Treinar Ela")
+Para venda de AI Agents, Ricardo enquadra a IA como amplificador do vendedor:
+> "Você que vai treinar ela. Ela não faz nada sozinha, sempre potencializa o que vocês já fazem. Você vai replicar você."
+
+**Por que funciona:** Empoderou a vendedora top (orgulhosa do processo). IA como extensão, não substituição.
+(Fonte: tl;dv call "Como automatizar suas vendas", 2026-03)
+
+### Expectation Setting Realista (Anti-overpromise)
+> "Prefiro falar dois meses e surpreender vocês do que falar 15 dias e faltar com vocês." (sobre aprovação Apple)
+> "Prazo máximo de 30 dias, mas geralmente a gente faz antes." (sobre migração)
+
+**Efeito:** Confiança aumenta. Prospect sabe que não estão sendo iludidos.
+(Fonte: tl;dv call "69b45eb", 2026-03)
+
+---
+
+**Versão:** 3.0 | **Data:** 2026-03-14 | **Fonte:** Google Forms (06-13/03) + tl;dv calls batch 1 (5 calls, 2026-03)
