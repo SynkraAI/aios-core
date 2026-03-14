@@ -674,7 +674,6 @@ dependencies:
 
   data:
     - ensinio-solutions-kb.md
-    - message-rules.md
     - scoring-criteria.md
 
   checklists:

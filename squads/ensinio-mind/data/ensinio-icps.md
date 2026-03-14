@@ -9,15 +9,17 @@
 - **Tipo:** Empreendedor maduro ou profissional experiente
 
 ### Gênero
-- **Predominante:** Masculino (em base atual)
-- **Nota:** Equipe comercial identifica tendência crescente em nichos femininos (educação, saúde)
+- **Predominante:** Equilibrado (3 fontes comerciais confirmam: 1 masculino, 2 equilibrado)
+- **Nota:** Nichos femininos crescentes (educação, saúde, gastronomia)
 
 ### Localização
-- **Regiões principais:** São Paulo, Rio de Janeiro, Brasília
-- **Padrão:** Grandes centros urbanos com maior concentração de infoprodutores
+- **Regiões principais:** São Paulo, Belo Horizonte, Rio de Janeiro, Brasília
+- **Padrão:** Todo o Brasil, com concentração em grandes centros urbanos
+- **Fonte:** Consolidado de 3 vendedores (Gui, Antonio, Ricardo)
 
 ### Escolaridade
-- **Típica:** Ensino médio completo + Graduação
+- **Típica:** Ensino médio a Pós-graduação/MBA (espectro amplo)
+- **Pós/Mestrado/Doutorado:** Frequente em nichos como preparatórios, saúde, educação
 - **Nota:** Educação formal não é bloqueador; experiência prática em digital é mais importante
 
 ## Perfil Comportamental
@@ -28,35 +30,42 @@
 - **Nota:** Clientes com zero faturamento tendem a não fechar (RED FLAG)
 
 ### Audiência/Base de Clientes
-- **Típica:** 10.000 a 50.000 pessoas
+- **Faixa 1 (mais frequente):** 10.000 a 50.000 pessoas
+- **Faixa 2 (ticket mais alto):** 50.000 a 200.000 pessoas
 - **Origem:** YouTube/Instagram (canais estabelecidos)
 - **Padrão:** Influenciadores e criadores de conteúdo estabelecidos
 
 ## Canal de Origem
 
 ### Onde vêm os clientes que mais fecham
-1. **YouTube** (primário)
-2. **Inbound** (blog/conteúdo)
-3. **Indicação** (referral)
-4. **Eventos presenciais**
-5. **Parcerias**
+1. **Indicação de clientes** (referral, o canal mais forte segundo closer)
+2. **YouTube** (canal do Gui Ávila + orgânico)
+3. **Instagram** (perfil Ensinio + ads)
+4. **Google** (busca orgânica)
+5. **Inbound** (blog/conteúdo)
+6. **Eventos presenciais**
+7. **Outbound** (prospecção ativa)
+8. **Parcerias**
 
 ## Nichos Que Mais Compram (Top 5)
 
 | Nicho | Relevância | Nota |
 |-------|-----------|------|
-| **Negócios** | Altíssima | Empreendedores que querem monetizar expertise |
+| **Preparatório para concursos** | Altíssima | Professores e experts com método próprio |
+| **Marketing digital** | Altíssima | Infoprodutores, mentores de funil/tráfego |
 | **Educação** | Altíssima | Professores, educadores, mentores |
-| **Saúde** | Alta | Profissionais (dentistas, coaches, nutricionistas) |
-| **Finanças** | Alta | Educadores financeiros, investidores |
-| **Tecnologia** | Média | Desenvolvedores criando cursos |
+| **Desenvolvimento pessoal** | Alta | Coaches, mentores, líderes |
+| **Religião** | Alta | Comunidades e escolas religiosas |
+| **Saúde** | Alta | Dentistas, nutricionistas, coaches de emagrecimento |
+| **Finanças/Negócios** | Alta | Educadores financeiros, consultores de negócios |
 
 ## Situação Típica do Cliente
 
 ### Quando procura a Ensinio
-- **Primária:** "Tenho conteúdo no YouTube/Instagram e quero monetizar"
-- **Secundária:** "Quero adicionar área de membros ao negócio existente"
-- **Terciária:** "Preciso de app para meus alunos"
+- **Primária:** "Já vendo em outra plataforma e quero migrar" (mais frequente)
+- **Secundária:** "Tenho conteúdo no YouTube/Instagram e quero monetizar"
+- **Terciária:** "Quero adicionar área de membros ao negócio existente"
+- **Quaternária:** "Está começando do zero" (menor conversão, mais suporte)
 
 ### Contexto Comum
 - Já tem audiência estabelecida
@@ -68,9 +77,11 @@
 ## Histórico de Plataformas Anteriores
 
 ### Plataformas que os clientes que migram mais usavam
-1. **Hotmart** (sparkle + vendas)
-2. **Memberkit** (LMS simples)
-3. **Cademi** (concorrente direto)
+1. **Hotmart (Sparkle)** — mais comum, checkout + LMS básico
+2. **Cademi** — concorrente direto, migração frequente
+3. **Kiwify** — checkout focado, sem LMS robusto
+4. **Memberkit** — LMS simples, sem experiência integrada
+5. **Eduzz** — checkout + afiliados
 
 **Padrão:** Clientes saem de plataformas que oferecem APENAS venda + LMS, sem experiência integrada
 
@@ -78,19 +89,23 @@
 
 | Motivador | Peso | Descrição |
 |-----------|------|-----------|
-| **Experiência do aluno** | Alto | Gamificação, lives, comunidade, app próprio |
-| **All-in-one** | Alto | Não quer pagar 3+ plataformas, quer tudo integrado |
-| **Escalabilidade** | Médio | Quer crescer sem pelas múltiplas integrações |
+| **Experiência do aluno** | Alto | Gamificação, visual, comunidade, app próprio |
+| **Suporte e atendimento** | Alto | Diferencial mencionado por 2 de 3 vendedores |
+| **Praticidade / All-in-one** | Alto | Não quer pagar 3+ plataformas, quer tudo integrado |
+| **Meios de pagamento** | Médio-Alto | Checkout integrado com Pix, cartão, boleto |
+| **Atualização recorrente** | Médio | Plataforma evolui constantemente com novos recursos |
 
 ## Tomador de Decisão
 
 ### Quem decide a compra
-- **Principal:** O próprio infoprodutor/dono do negócio
-- **Influência:** Às vezes a equipe técnica ou agência que gerencia a operação
+- **Principal:** O próprio infoprodutor/expert/dono do negócio
+- **Cargos comuns:** Expert, sócio, infoprodutor
+- **Influência:** Estrategista, equipe técnica, head de entrega, agência, sócios
 
 ### Processo Decisório
 - **Decisão:** Geralmente rápida para Professional anual (R$ 399/mês x 12)
 - **Bloqueador comum:** "Preciso consultar meu sócio" OU "Preciso esperar o próximo lançamento pra gerar caixa"
+- **Padrão empresas grandes:** Precisa de várias propostas antes de decidir (processo burocrático)
 
 ## Trial/Teste
 
@@ -123,4 +138,4 @@
 
 ---
 
-**Versão:** 1.0 | **Data:** 2026-03-07 | **Fonte:** Google Forms - Gui Ávila
+**Versão:** 2.0 | **Data:** 2026-03-13 | **Fonte:** Google Forms - Gui Ávila (06/03), Antonio (12/03), Ricardo (13/03)

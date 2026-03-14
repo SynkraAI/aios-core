@@ -11,9 +11,10 @@
 | Métrica | Valor | Fonte |
 |---------|-------|-------|
 | Áreas de membros ativas | 2.240+ | Website |
+| **Clientes ativos** | **115** | Gui Ávila (03/2026) |
 | Usuários consumindo conteúdo | 340.000+ | Website |
 | Alunos cadastrados (empresas) | 500.000+ | Pitch Deck |
-| Empresas clientes | 100+ | Pitch Deck |
+| **GMV mensal (Ensinio Pay)** | **~R$ 700K/mês** | Gui Ávila (estimativa) |
 | NPS (recomendação) | 94% | Website |
 
 ---
@@ -74,6 +75,27 @@
 
 ---
 
+## Cases com Resultados Quantitativos
+
+| Case | Resultado | Métrica |
+|------|-----------|---------|
+| **Mente Matemática** | 23% de upgrade com cupons inteligentes | Taxa de upsell |
+| **Aforismos** | Redução significativa de tickets de suporte | Redução de suporte |
+| **Modhu** | Escala de treinamento para empresas (Havan, Cooper, Max Mohr) | Escala operacional |
+
+### Cases demonstráveis (links para mostrar ao lead)
+| Plataforma | Link | Nicho |
+|-----------|------|-------|
+| Gui Ávila | https://app.guiavila.com/browse | Marketing digital |
+| Dentista de Sucesso | app de dentistas | Saúde/Odontologia |
+| Mente Matemática | https://app.mentematematica.online | Educação |
+| Prof. Noslen | plataforma do Noslen | Educação |
+| AMCHAM | plataforma AMCHAM | Corporativo |
+| Aforismos | https://clubedeestudosaforismos.ensinio.com/browse | Educação |
+| Designio | https://plataforma.designio.com.br/browse | Design |
+
+---
+
 ## Cases Detalhados (Como resolvemos as dores)
 
 ### Aforismos (Clube de estudo)
@@ -113,9 +135,19 @@ O pitch deck inclui múltiplas capturas de tela de conversas WhatsApp mostrando:
 
 ---
 
-## Perguntas Pendentes (para enriquecer v2.0)
+## Cases mais usados pelo time comercial
 
-- [ ] Resultados quantitativos dos cases (aumento de vendas, retenção, etc.)
-- [ ] Quantos clientes ativos exatamente (não "100+")
-- [ ] GMV processado total pelo Ensinio Pay
-- [ ] Depoimentos em vídeo (links YouTube)
+| Vendedor | Cases que mais usa | Notas |
+|----------|-------------------|-------|
+| **Gui** | Fernando Brasão, Rafa Marks + Gui Ávila próprio | Mostra app.guiavila.com como demo |
+| **Antonio** | Noslen, prints de prova social + áudio | Envia áudio gravado ao lead |
+| **Ricardo** | Noslen, Dentista de Sucesso, William Brandão | Foco em cases similares ao lead |
+
+---
+
+## Perguntas Pendentes (para enriquecer v3.0)
+
+- [ ] Resultados quantitativos detalhados (antes vs depois com %)
+- [x] ~~Quantos clientes ativos exatamente~~ → 115
+- [x] ~~GMV processado total pelo Ensinio Pay~~ → ~R$ 700K/mês
+- [ ] Depoimentos em vídeo (links YouTube) — Gui tem vídeo salvo, Antonio envia áudio

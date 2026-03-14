@@ -9,6 +9,9 @@ Usage:
   node cli.js send-media <number> <url> [caption]
   node cli.js connection-state
   node cli.js create-instance <name>
+  node cli.js list-groups
+  node cli.js group-participants <groupJid>
+  node cli.js group-messages <groupJid> [limit]
 
 Environment variables (or .env):
   EVOLUTION_API_URL     - API base URL
@@ -18,6 +21,9 @@ Environment variables (or .env):
 Examples:
   node cli.js send-text 5511999999999 "Olá, tudo bem?"
   node cli.js connection-state
+  node cli.js list-groups
+  node cli.js group-participants "120363001@g.us"
+  node cli.js group-messages "120363001@g.us" 100
 `.trim();
 
 async function main() {
@@ -78,6 +84,43 @@ async function main() {
       }
       const result = await client.createInstance({ instanceName: name });
       console.log(JSON.stringify(result, null, 2));
+      break;
+    }
+
+    case 'list-groups': {
+      const groups = await client.fetchAllGroups({ getParticipants: true });
+      if (!Array.isArray(groups) || groups.length === 0) {
+        console.log('No groups found.');
+        break;
+      }
+      for (const g of groups) {
+        const count = g.participants?.length || g.size || '?';
+        console.log(`${g.id || g.jid}  ${g.subject || g.name || 'Unknown'}  (${count} participants)`);
+      }
+      break;
+    }
+
+    case 'group-participants': {
+      const [groupJid] = args;
+      if (!groupJid) {
+        console.error('Usage: group-participants <groupJid>');
+        process.exit(1);
+      }
+      const participants = await client.getParticipantsWithPhones(groupJid);
+      console.log(JSON.stringify(participants, null, 2));
+      break;
+    }
+
+    case 'group-messages': {
+      const [groupJid, limitStr] = args;
+      if (!groupJid) {
+        console.error('Usage: group-messages <groupJid> [limit]');
+        process.exit(1);
+      }
+      const opts = {};
+      if (limitStr) opts.limit = parseInt(limitStr, 10);
+      const messages = await client.findMessages(groupJid, opts);
+      console.log(JSON.stringify(messages, null, 2));
       break;
     }
 

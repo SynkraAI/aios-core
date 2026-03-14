@@ -17,7 +17,7 @@
 | 13 | **garimpoai** | 🔄 **Assistente IA para licitações públicas brasileiras (PNCP)** | **—** | **2026-03-12** | [INDEX](~/CODE/Projects/garimpoai/.aios/INDEX.md) |
 | 14 | **evolution-api** | **WhatsApp conectado via pairing code (Hetzner VPS v2.3.7)** | **—** | **2026-03-13** | [INDEX](evolution-api/INDEX.md) |
 | 15 | **advisory-board** | **11/11 minds clonados (2.6M words) — montar squad pendente** | **squad-chief** | **2026-03-13** | [INDEX](advisor-board/INDEX.md) |
-| 16 | **zeroaudio** | 🔄 **Assistente inteligente de grupos WhatsApp com transcrição e digest diário** | **—** | **2026-03-13** | [INDEX](~/CODE/Projects/zeroaudio/.aios/INDEX.md) |
+| 16 | **zeroaudio** | **Wave 1 done (2/9 stories), Wave 4 Dashboard aprovada — próximo: Story 2.1 transcrição** | **@dev** | **2026-03-13** | [INDEX](~/CODE/Projects/zeroaudio/.aios/INDEX.md) |
 
 ## Backlog (Futuros Projetos)
 

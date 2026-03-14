@@ -78,10 +78,27 @@
 
 ---
 
-## Perguntas Pendentes (para enriquecer v2.0)
+## Dados Comerciais (atualizado 2026-03-13)
+
+| Métrica | Valor | Fonte |
+|---------|-------|-------|
+| **Clientes ativos** | 115 | Gui Ávila (06/03) |
+| **GMV mensal (Ensinio Pay)** | ~R$ 700K/mês (estimativa) | Gui Ávila (06/03) |
+| **Meta mensal** | ~30 novos clientes | Equipe comercial |
+| **Vendedores** | 2 | Equipe comercial |
+| **Ticket médio** | R$ 399/mês (Professional anual) | Equipe comercial |
+| **Plano mais vendido (volume)** | Starter (gratuito) | Gui Ávila |
+| **Plano mais vendido (receita)** | Business (R$ 999/mês) | Ricardo (13/03) |
+
+**Nota:** GMV é estimativa do Gui ("No mês aprox 700k eu acho. Não tenho certeza.")
+
+---
+
+## Perguntas Pendentes (para enriquecer v3.0)
 
 - [ ] Receita detalhada por fonte (SaaS vs transaction fee vs add-ons)
 - [ ] Churn rate mensal/anual
 - [ ] MRR / ARR atual
 - [ ] CAC e LTV por segmento
-- [ ] GMV total processado pelo Ensinio Pay
+- [x] ~~GMV total processado pelo Ensinio Pay~~ → ~R$ 700K/mês (estimativa)
+- [x] ~~Quantos clientes ativos~~ → 115

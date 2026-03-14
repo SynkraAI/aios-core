@@ -65,3 +65,42 @@
 - Mensagem de < 30 dias: Nao precisa mencionar
 - Mensagem de 1-6 meses: "O Fosc viu la no grupo ha um tempo atras..."
 - Mensagem de > 6 meses: "O Fosc viu sua mensagem la no grupo faz um tempo ja, e agora que a gente lancou [feature], achou que faria muito sentido pra voce"
+
+## Abordagens do Time Comercial (Referencia)
+
+### SDR (Antonio) — Primeira abordagem
+```
+"Vi que se interessou na nossa plataforma. O que voce esta
+buscando atualmente que te chamou a atencao e fez voce
+separar um tempo para conhecer mais?"
+```
+
+### Closer (Ricardo) — Abertura da call
+```
+"[Nome], eu te chamei porque aqui na Ensinio a gente conversa
+bastante com experts que tem metodo proprio e comecam a escalar
+e ai surgem alguns gargalos, como por exemplo:
+- Alunos que nao concluem aulas
+- Falta de metricas
+- Dificuldade de fazer novas vendas para a base
+- Custo alto com ferramentas separadas
+
+Hoje, olhando pra sua operacao, algum desses pontos
+tem sido uma dificuldade?"
+```
+
+### Follow-up (Ricardo) — Custo da inacao
+```
+"[Nome], aqui e o Ricardo. Ha X tempo voce nos procurou
+buscando entender como atingir [objetivo] e resolver [problemas].
+De curiosidade, voce esta buscando isso ainda ou desistiu da ideia?"
+```
+
+## Variacao de Follow-up por Formato
+
+| Formato | Quando usar | Exemplo |
+|---------|-------------|---------|
+| **Links de exemplo** | Apos demo, lead indeciso | Aforismos, Designio, Gui Avila |
+| **Audio** | SDR aquecendo lead frio | Antonio grava e envia |
+| **Video** | Pre-call, nutrição | Videos do Gui no YouTube |
+| **Case similar** | Pos-call, reforco | Case parecido com projeto do lead |

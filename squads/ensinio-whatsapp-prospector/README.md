@@ -243,7 +243,6 @@ ensinio-whatsapp-prospector/
 │   └── ghl-sync-checklist.md            # QG-005
 ├── data/
 │   ├── scoring-criteria.md              # v3.0 (dual scoring)
-│   ├── message-rules.md                 # Regras de mensagem
 │   └── phone-books/                     # Phone books per group
 │       └── {group-slug}.json
 ├── lib/

@@ -1,0 +1,251 @@
+# Batch Pipeline Workflow v5.0
+# Process multiple WhatsApp group exports, each independently, consolidated into sheets
+name: batch-pipeline
+version: "5.0.0"
+description: |
+  Pipeline batch para processar multiplos grupos de WhatsApp.
+  Cada grupo e processado individualmente (phone-books separados, analises independentes).
+  Resultados consolidados numa unica planilha com aba por grupo.
+
+  IMPORTANTE: Cada grupo e completamente independente. Um "Joao" no Grupo A
+  NAO e necessariamente o mesmo "Joao" no Grupo B. Phone-books sao PER GROUP.
+
+  FILTRO POR GRUPO: O nome do grupo WhatsApp e o identificador unico.
+  O usuario pode pedir: "Envie todas as mensagens do grupo XYZ"
+  e o sistema filtra pela aba correspondente.
+
+trigger:
+  command: "*batch-pipeline {zip_paths}"
+  inputs:
+    - name: zip_paths
+      type: array
+      required: true
+      description: |
+        Array of objects with zip_path and group_name:
+        [
+          { "zip_path": "/path/to/grupo1.zip", "group_name": "Grupo Marketing Digital" },
+          { "zip_path": "/path/to/grupo2.zip", "group_name": "Grupo Infoprodutores" }
+        ]
+    - name: sheet_mode
+      type: string
+      required: false
+      default: "new_tab_per_group"
+      description: |
+        How to organize in Google Sheets:
+        - "single_tab": All prospects in one tab, sorted by temperature
+        - "new_tab_per_group": One tab per group + summary tab (RECOMMENDED)
+        - "append": Append to existing data in sheet
+
+# Global pipeline configuration
+pipeline_config:
+  max_contacts_per_group: 500
+  max_groups: 20
+  min_score_threshold: 3
+  max_rework_iterations: 2
+  progress_reporting: true
+  progress_interval: "per_group"
+
+phases:
+  # =========================================================================
+  # BATCH PHASE 0: Validate Inputs
+  # =========================================================================
+  - id: batch-phase-0-validate
+    name: "Batch Phase 0: Validate Inputs"
+    agent: prospector-chief
+    model: haiku
+    timeout_minutes: 2
+    description: |
+      Validar que todos os ZIPs existem e sao acessiveis.
+      Gerar slugs unicos para cada grupo.
+      Verificar se ha phone-books existentes.
+    inputs:
+      - zip_paths
+    outputs:
+      - validated_groups
+      - existing_phone_books
+    veto_conditions:
+      - condition: "No valid ZIP files found"
+        severity: BLOCKING
+        action: HALT
+      - condition: "Duplicate group names"
+        severity: WARNING
+        action: "Auto-suffix with -2, -3, etc."
+
+  # =========================================================================
+  # BATCH PHASE 1: Process Each Group (Full Pipeline Phases 1-8)
+  # =========================================================================
+  - id: batch-phase-1-process
+    name: "Batch Phase 1: Process Each Group (Sequential)"
+    agent: prospector-chief
+    model: sonnet
+    timeout_minutes: 120
+    depends_on:
+      - batch-phase-0-validate
+    description: |
+      Para CADA grupo na lista, executar o full-pipeline (Phases 1-8):
+
+      For group in validated_groups:
+        Phase 1: Parse (chat-parser/haiku)
+        Phase 2: Validate Parse (chat-parser/haiku)
+        Phase 3: Load KB (prospector-chief/sonnet) — cached after first group
+        Phase 4: Resolve Phones (prospector-chief/interactive)
+        Phase 5: Analyze & Score (prospect-analyst/sonnet)
+        Phase 6: Validate Scoring (prospector-chief/sonnet)
+        Phase 7: Write Outreach (outreach-writer/opus)
+        Phase 8: Validate Outreach (prospector-chief/sonnet)
+
+      NOTA: A KB Ensinio e carregada APENAS uma vez (Phase 3) e reutilizada.
+      NOTA: Phone resolution e individual por grupo (phone-books separados).
+      NOTA: Se um grupo falha, registrar erro e continuar com proximo grupo.
+    inputs:
+      - validated_groups
+    outputs:
+      - group_results
+    error_handling:
+      on_group_failure: "log_and_continue"
+      max_group_failures: 3
+      on_max_failures: "HALT_AND_REPORT"
+
+  # =========================================================================
+  # BATCH PHASE 2: Consolidate Results
+  # =========================================================================
+  - id: batch-phase-2-consolidate
+    name: "Batch Phase 2: Consolidate Results"
+    agent: prospector-chief
+    model: sonnet
+    timeout_minutes: 15
+    depends_on:
+      - batch-phase-1-process
+    description: |
+      Consolidar resultados de todos os grupos:
+      1. Merge all approved messages
+      2. Tag each prospect with group of origin
+      3. Generate consolidated summary
+
+      IMPORTANTE: NAO deduplicar contatos entre grupos.
+      Um "Joao" no Grupo A e diferente do "Joao" no Grupo B.
+      A coluna "Grupo WhatsApp" (C) identifica a origem.
+    inputs:
+      - group_results
+      - sheet_mode
+    outputs:
+      - consolidated_prospects
+      - batch_summary
+
+  # =========================================================================
+  # BATCH PHASE 3: Populate Sheets (Phase 9 do full-pipeline)
+  # =========================================================================
+  - id: batch-phase-3-populate
+    name: "Batch Phase 3: Populate Google Sheets"
+    agent: prospector-chief
+    model: sonnet
+    task: tasks/populate-sheet-v5.md
+    timeout_minutes: 15
+    depends_on:
+      - batch-phase-2-consolidate
+    description: |
+      Popular Google Sheets conforme sheet_mode:
+
+      new_tab_per_group (RECOMMENDED):
+        - Uma aba por grupo (nome do grupo como tab name)
+        - Uma aba "Summary" com estatisticas consolidadas
+        - Cada aba ordenada por temperature
+        - FILTRO: usuario pode pedir envio por grupo especifico
+
+      single_tab:
+        - Uma aba "All Prospects" com todos os dados
+        - Coluna C identifica grupo de origem
+        - Ordenado por temperature (mais quente primeiro, cross-group)
+
+      append:
+        - Adicionar novas linhas apos dados existentes
+        - Nao sobrescrever dados anteriores
+    inputs:
+      - consolidated_prospects
+      - sheet_mode
+    outputs:
+      - sheet_url
+      - batch_summary_stats
+    quality_gate: QG-008
+
+  # =========================================================================
+  # BATCH PHASE 4: Send via Evolution API (PER GROUP, Interactive)
+  # =========================================================================
+  - id: batch-phase-4-send
+    name: "Batch Phase 4: Send via Evolution API (Per Group)"
+    agent: prospector-chief
+    model: sonnet
+    task: tasks/send-via-evolution-api.md
+    timeout_minutes: 120
+    depends_on:
+      - batch-phase-3-populate
+    optional: true
+    interactive: true
+    description: |
+      Envio via Evolution API, GRUPO POR GRUPO:
+
+      Para cada grupo processado:
+        1. "Deseja enviar X mensagens do grupo {nome}? [S/N]"
+        2. Se sim → batch send apenas daquele grupo
+        3. Se nao → pula para proximo grupo
+
+      O usuario tambem pode pedir envio seletivo:
+        "Envie todas as mensagens do grupo Mentoria 50K"
+        → Filtra aba "Mentoria 50K" no Sheets
+        → Executa Phase 10 so para esse grupo
+
+      REGRA: Cada grupo e perguntado individualmente.
+      NUNCA enviar todos os grupos sem confirmacao por grupo.
+    inputs:
+      - consolidated_prospects
+      - sheet_mode
+    outputs:
+      - send_report_per_group
+      - total_send_summary
+
+  # =========================================================================
+  # BATCH PHASE 5: GHL Sync (Optional)
+  # =========================================================================
+  - id: batch-phase-5-ghl
+    name: "Batch Phase 5: Sync to GHL (Optional)"
+    agent: prospector-chief
+    model: sonnet
+    task: tasks/sync-to-ghl-v5.md
+    timeout_minutes: 30
+    depends_on:
+      - batch-phase-3-populate
+    optional: true
+    description: |
+      Sincronizar todos os prospects com GHL (opcional).
+      Tags podem ser per-group ou globais.
+      NAO envia mensagens.
+    inputs:
+      - consolidated_prospects
+    outputs:
+      - ghl_sync_report
+
+completion:
+  summary: |
+    Batch pipeline v5.0 completo!
+
+    Resultados na planilha:
+    https://docs.google.com/spreadsheets/d/124EQQAkmt9D7-49LbR-Jx64DhxdtCwceUQgqolk5ZFI
+
+    Para enviar mensagens de um grupo especifico:
+    "Envie todas as mensagens do grupo {nome}"
+
+  report:
+    - groups_processed
+    - groups_failed
+    - total_contacts_parsed
+    - total_phones_resolved
+    - total_qualified_prospects
+    - total_disqualified_red_flags
+    - prospects_by_group
+    - prospects_by_classification
+    - prospects_by_pillar
+    - temperature_distribution
+    - messages_approved_vs_rejected
+    - batch_quality_score
+    - evolution_sent_per_group
+    - evolution_errors_per_group

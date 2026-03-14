@@ -1,28 +1,39 @@
-# Full Pipeline Workflow v5.0
-# Parse -> Validate -> Load KB -> Resolve Phones -> Analyze -> Validate Scoring ->
-# Write Outreach -> Validate Batch -> Populate Sheets -> Send Evolution API -> GHL Sync
+# Full Pipeline Workflow v5.1
+# Phase 1a (API) or 1b (ZIP) -> Validate -> Load KB -> Resolve Phones (conditional) ->
+# Analyze -> Validate Scoring -> Write Outreach -> Validate Batch ->
+# Populate Sheets -> Send Evolution API -> GHL Sync
 name: full-pipeline
-version: "5.0.0"
+version: "5.1.0"
 description: |
-  Pipeline completo de prospeccao: ZIP WhatsApp -> Google Sheets (source of truth) ->
-  Envio via Evolution API (interativo) -> GHL Sync (opcional).
+  Pipeline completo de prospeccao com dual-source:
+  - Phase 1a: Evolution API (instancia reader) — telefones 100% resolvidos
+  - Phase 1b: ZIP WhatsApp (fallback com historico completo)
 
-  ARQUITETURA v5.0 (Sheets-First):
+  ARQUITETURA v5.1 (Dual-Instance + Sheets-First):
+  - Instancia reader (fosc-personal): leitura de grupos e participantes
+  - Instancia sender (ensinio3): envio de outreach
   - Google Sheets e a fonte de verdade (Phase 9)
-  - Envio via Evolution API com confirmacao (Phase 10)
+  - Phase 4 (resolve phones) e pulada no modo API
   - GHL Sync e opcional, NAO envia mensagens (Phase 11)
 
 trigger:
-  command: "*full-pipeline {zip_path} {group_name}"
+  command: "*full-pipeline {source} {group_name}"
   inputs:
-    - name: zip_path
+    - name: source
       type: string
       required: true
-      description: "Path to WhatsApp ZIP export file"
+      description: |
+        Data source. Either:
+        - Path to WhatsApp ZIP export file (Phase 1b)
+        - "api" to fetch via Evolution API (Phase 1a)
     - name: group_name
       type: string
-      required: true
-      description: "Name of the WhatsApp group"
+      required: false
+      description: "Name of the WhatsApp group (required for ZIP, auto-detected for API)"
+    - name: group_jid
+      type: string
+      required: false
+      description: "Group JID for API mode (e.g. 120363001@g.us). If omitted, lists available groups."
 
 # Global pipeline configuration
 pipeline_config:
@@ -44,16 +55,46 @@ retry_policy:
 
 phases:
   # =========================================================================
-  # PHASE 1: Parse WhatsApp Export
+  # PHASE 1a: Fetch via Evolution API (conditional — when source == "api")
   # =========================================================================
-  - id: phase-1-parse
-    name: "Phase 1: Parse WhatsApp Export"
+  - id: phase-1a-api-fetch
+    name: "Phase 1a: Fetch Group via Evolution API"
+    agent: chat-parser
+    model: haiku
+    task: tasks/fetch-group-via-api.md
+    timeout_minutes: 10
+    condition: "source == 'api'"
+    inputs:
+      - group_jid
+    outputs:
+      - parsed_contacts
+      - group_metadata
+    veto_conditions:
+      - condition: "Reader instance not connected"
+        severity: BLOCKING
+        action: HALT
+      - condition: "Group JID not found"
+        severity: BLOCKING
+        action: HALT
+    description: |
+      Buscar grupo via Evolution API (instancia reader: fosc-personal).
+      Participantes vem com telefone 100% resolvido (do JID).
+      Output identico ao Phase 1b (ParsedExport format).
+      SKIP Phase 4 quando usado (telefones ja resolvidos).
+    rollback: "No rollback needed - read-only operation"
+
+  # =========================================================================
+  # PHASE 1b: Parse WhatsApp ZIP Export (conditional — when source != "api")
+  # =========================================================================
+  - id: phase-1b-parse-zip
+    name: "Phase 1b: Parse WhatsApp ZIP Export"
     agent: chat-parser
     model: haiku
     task: tasks/parse-chat-export.md
     timeout_minutes: 10
+    condition: "source != 'api'"
     inputs:
-      - zip_path
+      - source
       - group_name
     outputs:
       - parsed_contacts
@@ -84,7 +125,8 @@ phases:
     task: tasks/validate-parsed-data.md
     timeout_minutes: 5
     depends_on:
-      - phase-1-parse
+      - phase-1a-api-fetch
+      - phase-1b-parse-zip
     inputs:
       - parsed_contacts
       - group_metadata
@@ -149,6 +191,8 @@ phases:
     model: sonnet
     task: tasks/resolve-phone-numbers.md
     timeout_minutes: 60
+    skip_when: "source == 'api'"
+    skip_reason: "API mode resolves phones from JIDs automatically (100% coverage)"
     depends_on:
       - phase-2-validate-parse
     inputs:

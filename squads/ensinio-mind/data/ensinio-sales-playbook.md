@@ -254,6 +254,136 @@ Seu dev consegue fazer em 2h."
 
 ---
 
+## Objeção #6 — "Gostei muito, mas preciso analisar melhor"
+
+### Contexto
+- **Frequência:** Alta (~35% dos leads após demo)
+- **Gravidade:** Média (geralmente esconde a objeção real)
+- **Tipo de lead:** Indeciso, precisa de mais segurança
+
+### Objeção Completa
+> "Gostei muito, mas preciso analisar melhor e te retorno."
+
+### Resposta Recomendada (Oficial — Ricardo, Closer)
+```
+"Tranquilo [nome], isso definitivamente não é um problema.
+Até pra saber se eu posso te ajudar com a sua análise,
+me trás um ponto aqui.
+
+Sabendo que você me disse que isso é o que você precisava
+para alcançar [objetivo do lead] e parar de sofrer com
+[problema que o lead mencionou], o que são uma ou duas
+coisas que vão passar pela sua cabeça antes de avançar?"
+```
+
+### Estratégia
+1. **Não confronta** — aceita com naturalidade ("não é um problema")
+2. **Extrai objeção real** — pergunta O QUE vai pesar na análise
+3. **Usa as palavras do lead** — referencia o objetivo e a dor que ele mesmo trouxe
+4. **Resolve na hora** — quando a objeção real aparece (geralmente é dinheiro, prazo ou medo)
+
+### Por que funciona
+O lead quase nunca precisa "analisar melhor". A objeção real é logística (dinheiro, prazo, implementação) ou emocional (medo de errar). Essa pergunta força o lead a revelar o verdadeiro bloqueio.
+
+---
+
+## Objeção #7 — "O financeiro é um problema"
+
+### Contexto
+- **Frequência:** Média (~20% dos leads)
+- **Gravidade:** Alta (pode matar a venda)
+- **Tipo de lead:** Vê valor mas tem restrição de caixa
+
+### Objeção Completa
+> "O financeiro é um problema, não consigo fazer agora."
+
+### Resposta Recomendada (Oficial — Ricardo, Closer)
+```
+"[Nome], fica tranquilo. Isso não é um problema.
+Agora... dinheiro de lado.
+
+Você acredita que o que eu mostrei é o que você precisava
+para se colocar em uma posição de alcançar [objetivo]
+e além disso, o porquê você precisa disso agora?"
+```
+
+**Lead responde:** "Sim, acredito que é o que eu precisava, por causa de xyz"
+
+```
+"Entendi [nome], isso realmente faz sentido pra mim.
+Agora... o porquê é importante fazer algo agora
+e não empurrar com a barriga e deixar isso pra depois?"
+```
+
+**Lead responde:** "Preciso resolver isso por causa de xyz"
+
+```
+"[Nome], então como você acredita que poderia encontrar
+formas de financiar esse investimento, pra que você possa
+ter as ferramentas necessárias e alcançar xyz?"
+```
+
+### Estratégia
+1. **Separa valor de preço** — "dinheiro de lado, isso é o que você precisa?"
+2. **Reforça urgência** — "por que agora e não depois?"
+3. **Transfere a solução** — lead encontra a própria saída financeira
+4. **Não oferece desconto** — o lead se convence sozinho
+
+---
+
+## Objeção #8 — "Preciso falar com meu sócio"
+
+### Contexto
+- **Frequência:** Alta (~30% dos leads)
+- **Gravidade:** Média-Alta (pode atrasar semanas)
+- **Tipo de lead:** Tem valor percebido mas divide decisão
+
+### Objeção Completa
+> "Preciso falar com meu sócio antes de fechar."
+
+### Resposta Recomendada (Oficial — Ricardo, Closer)
+```
+"Entendo completamente [nome], e isso não é um problema,
+eu sei como funciona.
+
+Agora, seu sócio de lado, você sente que o que eu
+te mostrei é capaz de levar a entrega do seu produto
+a um nível mais avançado, aumentando seu LTV, satisfação
+dos alunos e retenção assim como te mostrei?"
+```
+
+**Lead:** "Claro, acredito sim"
+
+```
+"E porquê especificamente você acredita que a gente
+consegue te ajudar com isso?"
+```
+
+**Lead:** "Porque a plataforma, suporte de vocês é isso, isso e aquilo"
+
+```
+"Digamos que você fale com teu sócio, e talvez por não ter
+o contexto da reunião ou ele achar caro, ele fale pra não
+fazer, o que você faria?"
+```
+
+**Lead:** "Eu faria mesmo assim"
+
+```
+"Posso te dar uma sugestão? Você entende que quando
+você for até o seu sócio, no final do dia você está
+buscando apoio e não permissão?"
+```
+
+### Estratégia
+1. **Valida convicção** — lead admite que é o que precisa
+2. **Extrai razões** — lead verbaliza os motivos (se vende sozinho)
+3. **Testa comprometimento** — "e se ele disser não?"
+4. **Reframe poderoso** — "apoio, não permissão"
+5. **Gera compromisso** — lead faz sinal (depósito, assinatura) antes de falar com sócio
+
+---
+
 ## Objeção NÃO LISTADA (Mas Importante) — "Checkout em USD/EUR"
 
 ### Status Atual (2026-03)
@@ -328,15 +458,152 @@ Economia real de R$ 500-1000/mês."
 
 ---
 
-## Perguntas de Qualificação (use no primeiro contato)
+## Perguntas de Qualificação
 
-**Must-ask:**
-1. "Qual a sua receita mensal esperada?" (desqualifica zero faturamento)
+### Must-ask (SDR — primeiro contato)
+1. "Já fatura mais de 20 mil mensais?" (desqualifica zero faturamento)
 2. "Você já tem conteúdo pronto ou quer criar do zero?" (desqualifica ebook-only)
-3. "Qual é a prioridade: vender mais ou melhorar experiência?" (entender motivação)
-4. "Já usa outra plataforma?" (identificar objeção #2 e #3)
-5. "Qual o seu timeline?" (entender urgência e bloqueadores)
+3. "Qual plataforma usa hoje?" (identificar objeção de migração)
+4. "Qual o seu timeline?" (entender urgência e bloqueadores)
+5. "Você tem intenção de contratar uma plataforma ainda esse mês caso a solução resolva o que você precisa?" (testa comprometimento)
+
+### Must-ask (SDR — para produto novo vs migração)
+
+**Se produto NOVO:**
+1. "O conteúdo do infoproduto já está pronto para ser hospedado na plataforma?"
+2. "Qual a data do lançamento?"
+3. "Além do preço, o que é mais importante pra você na escolha de uma plataforma?"
+4. "Tem mais alguém que divide a decisão contigo ou você toma essa decisão sozinho?"
+
+**Se MIGRAÇÃO:**
+1. "Em qual plataforma o produto está hospedado atualmente?"
+2. "Quantos alunos você possui atualmente?"
+3. "Qual o ticket médio do produto?"
+4. "Além do preço, o que é mais importante pra você na escolha de uma plataforma?"
+5. "Tem mais alguém que divide a decisão contigo ou você toma essa decisão sozinho?"
+6. "Você pretende contratar uma plataforma ainda esse mês caso a solução faça sentido?"
 
 ---
 
-**Versão:** 1.0 | **Data:** 2026-03-07 | **Fonte:** Google Forms - Gui Ávila + experiência comercial
+## Scripts de Abertura
+
+### Script SDR — Abordagem Inicial
+```
+"Vi que se interessou na nossa plataforma. O que você está
+buscando atualmente que te chamou a atenção e fez você
+separar um tempo para conhecer mais?"
+```
+
+### Script Closer — Abertura da Call (Ricardo)
+```
+"[Nome], eu te chamei porque aqui na Ensinio a gente conversa
+bastante com experts que têm método próprio e começam a escalar
+e aí surgem alguns gargalos, como por exemplo:
+
+- Alunos que não concluem aulas
+- Falta de métricas para mensurar a performance deles
+- Dificuldade de fazer novas vendas para a base de alunos
+- Custo alto com ferramentas separadas em vez de ter tudo em um único lugar
+
+Hoje, olhando pra sua operação, algum desses pontos
+tem sido uma dificuldade ou você vê margem pra melhoria nisso?"
+```
+
+### Script Closer — Pitch de Diferenciação (Antonio)
+```
+"A gente tem vários diferenciais aqui na plataforma, por exemplo,
+funil com gamificação que ajuda a aumentar vendas para a própria
+base de alunos, agentes de inteligência artificial que fazem
+follow-up automático com quem chegou, tirou dúvida e acabou
+não comprando, quebrando objeções e ajudando na conversão.
+
+Mas, sendo bem sincero contigo, eu poderia ficar aqui te falando
+um monte de funcionalidades... e talvez algumas delas nem fariam
+tanto sentido para a tua operação hoje.
+
+[PAUSA — mostra que quer entender antes de vender]"
+```
+
+---
+
+## Técnicas Avançadas de Fechamento (Ricardo)
+
+### Linguagem Socrática (perguntas > afirmações)
+**Errado:** "Eu tenho certeza que a Ensinio vai atender você, você vai adorar"
+**Certo:** "Você sente que o que eu te mostrei é o caminho para aumentar a retenção e atingir os 100K/mês que você me falou?"
+**Lead:** "Sim"
+**Closer:** "Por que especificamente você acredita que podemos te ajudar com isso?"
+**Lead:** "Porque é exatamente o que eu procuro..."
+
+### Downplay (deslegitimar veículo atual)
+```
+"[Nome], qual é o racional por trás de você cogitar trocar
+de área de membros para melhorar sua comunidade, sendo que
+sua comunidade já está bem ativa como você disse?"
+```
+**Lead:** "É que minha comunidade está toda espalhada, Telegram, Discord..."
+**Closer:** "Trabalho, o que você quer dizer com isso dá muito trabalho?"
+**Lead:** "Tem dias que fico horas respondendo manualmente, desviando tempo de receita..."
+**Closer:** "Como assim geradoras de receita? Você tá me dizendo que deixa de gerar receita por isso?"
+
+### Custo da Inação (follow-up)
+```
+"[Nome], aqui é o Ricardo. Há X tempo você nos procurou buscando
+entender como atingir [objetivo] e resolver [problemas].
+De curiosidade, você está buscando isso ainda ou desistiu da ideia?"
+```
+**Se responde que sim:**
+```
+"Maravilha, e depois da nossa conversa, o que você fez de forma
+pragmática para garantir que consiga atingir [objetivo]?"
+```
+**Na maioria das vezes ele não fez nada.**
+```
+"Posso te dar uma sugestão? Se estiver aberto, a gente pode
+bater um papo breve, de 10 a 15 minutos e ver o que a gente
+pode melhorar para garantir que você saia dessa situação."
+```
+
+### Regra de Ouro do Closer
+> "Quando a call é bem feita, a objeção fica bem mais fácil de contornar (ou ela nem acontece). Sempre que uma objeção fica difícil de contornar é por ter pulado alguma etapa do framework e não conseguir usar a congruência do lead e mantê-lo comprometido." — Ricardo
+
+---
+
+## Material de Apoio Enviado ao Lead
+
+### Pré-call (nutrição)
+- Cases de sucesso
+- Exemplos de plataformas com links
+- Conteúdos do YouTube
+
+### Pós-call
+- Proposta comercial personalizada
+- Gravação da chamada (em alguns casos)
+- Case parecido com o projeto do lead
+- Links de exemplos de plataformas:
+  - Clube de Estudos Aforismos: https://clubedeestudosaforismos.ensinio.com/browse
+  - Designio: https://plataforma.designio.com.br/browse
+  - Gui Ávila: https://app.guiavila.com/browse
+
+### Follow-up com exemplos
+```
+"Eu separei alguns exemplos de clientes nossos que ficaram
+bem legais, pode te ajudar a visualizar como o seu projeto
+pode ficar na prática.
+
+👉 Clube de Estudos Aforismos
+https://clubedeestudosaforismos.ensinio.com/browse
+
+👉 Designio
+https://plataforma.designio.com.br/browse
+
+👉 Gui Ávila
+https://app.guiavila.com/browse
+
+Dá uma olhada com calma e, se quiser, posso te ajudar
+a pensar como adaptar esse modelo pro seu negócio."
+```
+
+---
+
+**Versão:** 2.0 | **Data:** 2026-03-13 | **Fonte:** Google Forms - Gui Ávila (06/03), Antonio (12/03), Ricardo (13/03)

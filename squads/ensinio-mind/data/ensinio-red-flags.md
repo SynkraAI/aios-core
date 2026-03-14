@@ -31,24 +31,27 @@
 
 ## Sinais Vermelhos (Perguntas Problemáticas)
 
-### 5. "Tem taxa zero?"
+### 5. "Tem taxa zero?" / "Só quer saber de preço"
 **Nível:** ALERTA MÉDIO
 - **Implicação:** Lead não entende valor, está caçando "deal"
 - **Verdadeiro Intent:** Quer plataforma gratuita, não investimento
+- **Variantes:** "Qual o valor?", "Tem plano free?", lead que quer tudo mas não quer pagar o plano que precisa
 - **Resposta da equipe:** "Podemos negociar" (testar interesse real)
 - **Próximo passo:** Se insistir em zero, desqualificar
 
-### 6. "Vocês gerenciam tudo pra mim?"
+### 6. "Vocês gerenciam tudo pra mim?" / "Vocês fazem tudo por mim?"
 **Nível:** ALERTA ALTO
 - **Implicação:** Lead quer terceirizar 100%, não quer trabalhar
 - **Verdadeiro Intent:** Quer automação mágica sem esforço
+- **Variantes:** "Vocês já personalizam tudo?", "Tem pacote de artes ou modelos?", "Vocês produzem o material?", "Vocês ajudam a vender e fazem marketing pra mim?"
 - **Risco:** Alto churn (depois reclama "não vendi nada, a culpa é do software")
-- **Ação:** Desqualificar ou educacionar que Ensinio é ferramenta, não agência
+- **Ação:** Desqualificar ou educar que Ensinio é ferramenta, não agência
 
-### 7. "Precisa de taxa zero? Vocês gerenciam tudo pra mim?"
-**Nível:** BLOQUEADOR DUPLO
-- **Implicação:** Combinação dos anteriores
-- **Padrão:** Lead totalmente desalinhado com realidade de produto
+### 7. Mentalidade de Atalho (Combinação)
+**Nível:** BLOQUEADOR
+- **Sinais:** "Da pra ganhar dinheiro?", "Como funciona se eu quiser cancelar?", mentalidade de garantia e reembolso
+- **Padrão:** Lead que já vem pensando no reembolso caso "não seja o que espero"
+- **Implicação:** Baixa responsabilidade pelo próprio negócio, quer atalho
 - **Ação:** PASSE (não gasta tempo com esse)
 
 ### 8. "Quantos grandes players estão usando?"
@@ -123,9 +126,29 @@
 - **Padrão:** Compra, descobre que Ensinio não é pra produto físico, cancela insatisfeito
 - **Ação:** VETO direto, evitar conflito
 
+### 18. Lead que compra o plano mais barato sendo exigente
+**Nível:** ALTO CHURN + ALTO SUPORTE
+- **Padrão:** Compra Starter ou Professional, exige features de Enterprise
+- **Variante:** Lead que compra sem passar pelo comercial e depois reclama
+- **Variante:** Lead que fecha sem entender o que é a Ensinio de fato
+- **Ação:** Garantir que passem pelo comercial antes de fechar
+
+### 19. Lead traumatizado com plataforma anterior
+**Nível:** ALTO CHURN
+- **Padrão:** Já vem com trauma, mentalidade de garantia e reembolso
+- **Sinal:** "Se eu quiser cancelar, como funciona?"
+- **Razão:** O problema geralmente é descomprometimento do lead, não a plataforma
+- **Ação:** Avaliar comprometimento real antes de fechar
+
+### 20. Lead que quer desconto demais e é exigente
+**Nível:** MÉDIO CHURN + ALTO SUPORTE
+- **Padrão:** Negocia agressivamente, depois exige muito
+- **Sinal:** Quer garantia pra tudo, não quer fazer nada, só quer a plataforma pronta
+- **Ação:** Avaliar se o esforço de fechar vale o ticket
+
 ## Perfis de Clientes com Alto Suporte
 
-### 18. "Quem não tem facilidade com ferramentas do digital"
+### 21. "Quem não tem facilidade com ferramentas do digital"
 **Nível:** ALTO SUPORTE + CHURN
 - **Padrão:** Consome muito atendimento, aprende lento, pode desistir de frustração
 - **Ação:** Filtro rigoroso OU oferecer Ensinio Care (solução premium)
@@ -136,13 +159,20 @@ Use este checklist para identificar VETO em primeiros 5 minutos:
 
 ```
 [ ] Quer vender produto físico? → VETO
-[ ] Zero faturamento E sem case de uso claro? → VETO (oferça Starter)
-[ ] Quer apenas ebook/vitrine simples? → VETO (recomend. outro software)
-[ ] Quer taxa zero? → ALERTA (testar intent)
-[ ] Quer terceirizar 100%? → VETO
-[ ] Quer checkout em USD/EUR hoje? → VETO (oferça roadmap)
-[ ] Não tem facilidade com digital? → VETO (oferça Ensinio Care)
+[ ] Zero faturamento E sem case de uso claro? → VETO (ofereça Starter)
+[ ] Quer apenas ebook/vitrine simples? → VETO (recomende outro software)
+[ ] Quer taxa zero / só quer saber de preço? → ALERTA (testar intent)
+[ ] Quer terceirizar 100% / "vocês fazem tudo pra mim"? → VETO
+[ ] Quer checkout em USD/EUR hoje? → VETO (ofereça roadmap)
+[ ] Não tem facilidade com digital? → VETO (ofereça Ensinio Care)
 [ ] Não tá nem aí pra experiência do aluno? → VETO (não é fit)
+[ ] Menor de 18 anos? → VETO
+[ ] Não tem conteúdo pronto e nem produto? → ALERTA FORTE
+[ ] Não tem planejamento / sem previsão de lançamento? → ALERTA
+[ ] Quer só ganhar dinheiro de forma rápida? → VETO
+[ ] Já vem pensando em reembolso / mentalidade de garantia? → VETO
+[ ] Entra na call dentro do carro / no celular? → ALERTA (não está comprometido)
+[ ] Não quer trazer sócio pra call? → ALERTA (decisão pode travar)
 ```
 
 ---
@@ -163,4 +193,4 @@ Use este checklist para identificar VETO em primeiros 5 minutos:
 
 ---
 
-**Versão:** 1.0 | **Data:** 2026-03-07 | **Fonte:** Google Forms - Gui Ávila + experiência de vendas
+**Versão:** 2.0 | **Data:** 2026-03-13 | **Fonte:** Google Forms - Gui Ávila (06/03), Antonio (12/03), Ricardo (13/03)

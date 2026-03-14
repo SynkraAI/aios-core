@@ -8,7 +8,7 @@
 - **input:**
   - Batch of outreach messages from write-outreach
   - message-quality-checklist
-  - message-rules.md (anti-patterns reference)
+  - Copy quality: delegated to copywriting-squad (@claude-hopkins audit)
 - **output:**
   - Validation report with approved/rejected messages
   - Batch quality score
@@ -19,7 +19,7 @@
 ### Step 1: Load Quality Standards
 Load:
 - `checklists/message-quality-checklist.md`
-- `data/message-rules.md` (anti-patterns reference)
+- Copy anti-patterns: delegated to `copywriting-squad/checklists/audit-copy-hopkins.md`
 
 ### Step 2: Sample Validation (if batch > 10)
 If more than 10 messages in batch:

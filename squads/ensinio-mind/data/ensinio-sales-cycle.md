@@ -6,11 +6,13 @@
 
 | Métrica | Valor |
 |---------|-------|
-| **Ciclo médio** | 2-4 semanas |
-| **Touchpoints necessários** | 2-3 |
+| **Ciclo médio (SDR)** | 1-2 semanas (Antonio) a 2-4 semanas (Gui) |
+| **Ciclo médio (Closer)** | 4-7 dias (Ricardo) a 2-4 semanas (casos complexos) |
+| **Touchpoints necessários** | 2-3 (SDR) / 6-10 (Closer com follow-ups) |
 | **Taxa de conversão etapa crítica** | Lead qualificado → Demo |
-| **Bloqueador mais comum** | "Precisa consultar sócio" ou "esperar lançamento" |
-| **Acelerador mais forte** | Ofereça bônus + migração gratuita |
+| **Maior taxa de perda** | SDR qualificar (Gui) / Follow-up (Antonio) / Em conversa e contactando (Ricardo) |
+| **Bloqueador mais comum** | "Precisa consultar sócio" ou "analisando a plataforma e some" |
+| **Acelerador mais forte** | Case + migração gratuita + custo da inação |
 
 ---
 
@@ -63,7 +65,7 @@
 ### Etapa 3: Reunião com Closer (Demo)
 **Tempo:** 5-7 dias após qualificação
 
-**Duração:** ~1 hora (mais ou menos)
+**Duração:** 30-60 minutos (Ricardo: 40min, Gui: ~1hr)
 
 **Ações (Closer faz):**
 - [ ] Apresenta Ensinio visualmente (demo ao vivo)
@@ -273,16 +275,61 @@ Qualquer dúvida? Responda este email!"
 
 ---
 
+## Equipe Comercial
+
+| Métrica | Valor |
+|---------|-------|
+| **Vendedores/SDRs** | 2 (time enxuto) |
+| **Meta mensal** | ~30 novos clientes |
+| **Ticket médio primeiro contrato** | R$ 399/mês x 12 (Professional anual = R$ 4.788) |
+| **Plano mais vendido (volume)** | Starter (gratuito) |
+| **Plano mais vendido (receita)** | Business (R$ 999/mês) |
+| **Contratos** | Ambos (mensal e anual, sem preferência) |
+| **Follow-ups antes de desistir** | 6-10 (Ricardo) / máx 3 (Gui) |
+| **Intervalo entre follow-ups** | 1 dia (Ricardo) / 2 dias (Gui) |
+
 ## Canais Principais de Fechamento
 
-| Canal | % de Vendas | Notas |
-|-------|-----------|-------|
-| **Ligação/Call** | 70% | Mais eficaz |
-| **Email** | 15% | Suporta, não fecha |
-| **WhatsApp** | 10% | Inicial, qualificação |
-| **Demo gravada** | 5% | Casos especiais |
+| Canal | Eficácia | Notas |
+|-------|----------|-------|
+| **Indicação de clientes** | Altíssima | Canal mais forte (Ricardo) |
+| **Ligação/Call (Zoom/Meet)** | Alta | Principal canal de fechamento |
+| **Vídeos do Gui no YouTube** | Alta | Geração de leads orgânica |
+| **Eventos presenciais** | Média-Alta | Networking e demos |
+| **Parcerias** | Média | Revenda e afiliados |
+| **Marketing (Meta/Google)** | Média | Leads do marketing (Antonio) |
 
 ---
+
+## Onboarding de Cliente Novo
+
+### Processo
+1. **Vídeo do Gui Ávila** mostrando passo a passo no YouTube
+2. **Passo a passo gravado** pela Bhrenda (CS) enviado ao cliente
+3. **Call de onboarding** por chamada de vídeo (para Professional anual)
+4. **Trilha gravada** + chamada de tira-dúvidas
+
+### Timeline
+- **Tempo para estar "rodando":** 1-2 semanas
+- **Migração assistida:** Sim, oferecida para todos os planos pagos
+
+## Informação Enterprise
+
+> "Se for uma empresa, temos uma solução enterprise separada da solução dos infoprodutores. O ticket é bem mais alto." — Gui Ávila
+
+- Solução enterprise é separada da solução de infoprodutores
+- Ticket maior, negociação diferente
+- Processo de vendas pode ser mais longo (várias propostas)
+- Nesse caso, o compromisso na primeira reunião nunca é o fechamento e sim a próxima reunião
+
+## Contatos Internos para Dúvidas
+
+| Nome | Área | Contato |
+|------|------|---------|
+| **Carlos** | Comercial/Produto | Referência do Gui |
+| **Cleisson** | Comercial/Produto | Referência do Gui |
+| **Ricardo** | Closer | +55 18 99188-5184 |
+| **Bhrenda** | CS/Onboarding | Via time interno |
 
 ## Próximas Oportunidades (v2.0)
 
@@ -293,4 +340,4 @@ Qualquer dúvida? Responda este email!"
 
 ---
 
-**Versão:** 1.0 | **Data:** 2026-03-07 | **Fonte:** Google Forms - Gui Ávila + experiência de vendas Ensinio
+**Versão:** 2.0 | **Data:** 2026-03-13 | **Fonte:** Google Forms - Gui Ávila (06/03), Antonio (12/03), Ricardo (13/03)

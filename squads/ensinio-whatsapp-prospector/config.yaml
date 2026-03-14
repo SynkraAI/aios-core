@@ -164,7 +164,7 @@ settings:
   google_sheets_id: "124EQQAkmt9D7-49LbR-Jx64DhxdtCwceUQgqolk5ZFI"
   ensinio_kb_source: "ensinio-mind/data/ensinio-solutions-kb.md"
 
-  # Evolution API (Phase 10)
+  # Evolution API (Phase 1a: read groups, Phase 10: send)
   evolution:
     tool_path: "tools/evolution-whatsapp-api"
     env_file: ".env"
@@ -173,6 +173,15 @@ settings:
     max_retries: 3
     confirm_before_send: true  # ALWAYS — NON-NEGOTIABLE
     preview_count: 3
+    instances:
+      reader:
+        name: "fosc-personal"
+        role: "read"
+        description: "Numero pessoal nos grupos. Leitura de participantes e mensagens."
+      sender:
+        name: "ensinio3"
+        role: "send"
+        description: "Numero comercial Ensinio. Envio de outreach."
 
   # GoHighLevel Integration (Phase 11 — optional)
   ghl:
