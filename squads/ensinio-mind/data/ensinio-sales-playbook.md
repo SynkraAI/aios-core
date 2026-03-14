@@ -384,6 +384,58 @@ buscando apoio e não permissão?"
 
 ---
 
+## Objeção #9 — "Já tive experiência ruim com plataforma anterior"
+
+### Contexto
+- **Frequência:** Média (~20% dos leads em migração)
+- **Gravidade:** Alta (trauma real, precisa quebrar barreira psicológica)
+- **Tipo de lead:** Migrou de WordPress/plugins ou plataforma bugada
+
+### Objeção Completa
+> "Eu comprei uma plataforma achando que fosse resolver problema e atrapalhou minha vida.
+> Literalmente desistiram porque ninguém conseguia encontrar o maldito menu.
+> Era uma mistura de plugin... uma mistura. Ninguém conseguia localizar qualquer página.
+> Eu já paguei e nem consegui reembolso."
+
+### Resposta Recomendada (Ricardo)
+```
+"É bom que você conseguiu [reembolso]. Pelo menos tem gente
+que paga e nem consegue. Entendo perfeitamente a frustração.
+
+O que aconteceu com você é exatamente o oposto do que
+a gente faz aqui. Deixa eu te mostrar:
+
+1. SUPORTE EM VÍDEO: A gente não responde só email.
+   Se você travar, a gente faz chamada de vídeo
+   e resolve junto com você.
+
+2. CHECK-INS PROATIVOS: A gente não te abandona depois
+   da venda. Fazemos check-in pra garantir que tá tudo ok.
+
+3. MIGRAÇÃO GRATUITA: Eu mesmo vou ajudar a trazer
+   suas capas, aulas, tudo. Você não precisa quebrar
+   a cabeça com coisa técnica.
+
+4. PLATAFORMA ESTÁVEL: Não é WordPress com 10 plugins.
+   É plataforma única, tudo nativo, sem gambiarra.
+
+Posso te mostrar como funciona ao vivo? [compartilha tela]"
+```
+
+### Estratégia
+1. **Validar dor** — "Entendo perfeitamente, acontece mesmo"
+2. **Posicionar como OPOSTO** — contraste direto com experiência ruim
+3. **Mostrar diferenciais tangíveis** — suporte em vídeo, check-ins, estabilidade
+4. **Oferecer migração gratuita** — remove fricção de setup inicial
+5. **Demonstração ao vivo** — quebra barreira mostrando funcionando
+
+### Por que funciona
+Cliente traumatizado precisa de PROVAS, não promessas. Demonstração ao vivo + suporte diferenciado quebra resistência.
+
+**Fonte:** tl;dv call 11032026-Meeting (Alex Hurley - inglês executivo), 2026-03-11
+
+---
+
 ## Objeção NÃO LISTADA (Mas Importante) — "Checkout em USD/EUR"
 
 ### Status Atual (2026-03)
@@ -885,4 +937,62 @@ Para venda de AI Agents, Ricardo enquadra a IA como amplificador do vendedor:
 
 ---
 
-**Versão:** 3.1 | **Data:** 2026-03-14 | **Fonte:** Google Forms (06-13/03) + tl;dv calls batch 1+2 (10 calls, 2026-03)
+## Técnicas de Fechamento (Batch 3, tl;dv 2026-03-14)
+
+### T17: Demonstração ao vivo (compartilhamento de tela)
+**Quando usar:** Cliente com objeção técnica ou dúvida sobre features
+**Evidência:** Call 11032026-Meeting (Alex Hurley - inglês executivo)
+
+**Como aplicar:**
+1. Compartilhar tela mostrando plataforma funcionando (não só falar)
+2. Demonstrar features específicas que resolvem dor do cliente:
+   - Tarefas (se cliente quer avaliar entregas de alunos)
+   - Gamificação (se cliente quer engajamento)
+   - Materiais complementares (se cliente tem PDFs, áudios, exercícios)
+3. Deixar cliente explorar visualmente — não só apresentar
+4. Perguntar ao longo: "Isso aqui resolve o que você precisa?"
+
+**Resultado esperado:**
+- Cliente relaxa e abre sobre dores reais ("legal", "gostei bastante")
+- Engajamento aumenta (cliente começa a fazer perguntas)
+- Remove objeções de "não sei se funciona" ou "será que atende?"
+
+**Case de sucesso:**
+Alex Hurley (escola inglês executivo) estava traumatizada com plataforma anterior (WordPress bugado). Demonstração ao vivo quebrou resistência mostrando estabilidade + suporte em vídeo.
+
+**Fonte:** tl;dv call 11032026-Meeting, 2026-03-11
+
+### T18: Analogia de custo-benefício (tempo vs dinheiro)
+**Quando usar:** Cliente com objeção de custo ou complexidade técnica
+**Evidência:** Call 11032026-Meeting (Alex Hurley)
+
+**Como aplicar:**
+```
+"Uma ajuda para você não ficar quebrando a cabeça com coisa técnica.
+Você economiza tempo (não precisa de 3 ferramentas separadas)
+e foca em vender."
+```
+
+**Por que funciona:**
+Reframe de "custo" para "economia de tempo" — prospect percebe que pagar plataforma integrada libera tempo para vender mais.
+
+**Fonte:** tl;dv call 11032026-Meeting, 2026-03-11
+
+### T19: Oferta de migração gratuita
+**Quando usar:** Cliente com muitas aulas/capas em plataforma anterior
+**Evidência:** Call 11032026-Meeting (Alex Hurley), Call Flavia Affonso (700 aulas)
+
+**Como aplicar:**
+```
+"Vou ver para trazer essas capas para você... a gente faz migração.
+Você não precisa quebrar a cabeça com isso."
+```
+
+**Resultado esperado:**
+Remove fricção de setup inicial — cliente vê que não vai perder tempo migrando manualmente.
+
+**Fonte:** tl;dv calls batch 3 (11032026-Meeting, Flavia Affonso), 2026-03-11 a 2026-03-14
+
+---
+
+**Versão:** 3.2 | **Data:** 2026-03-14 | **Fonte:** Google Forms (06-13/03) + tl;dv calls batch 1+2+3 (26 calls, 2026-03)

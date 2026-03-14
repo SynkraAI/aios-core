@@ -208,4 +208,53 @@
 
 ---
 
-**Versão:** 3.1 | **Data:** 2026-03-14 | **Fonte:** Google Forms (06-13/03) + tl;dv calls batch 1+2 (10 calls, 2026-03)
+## ICPs Específicos (Batch 3, tl;dv 2026-03-14)
+
+### ICP-11: Preparatórios para Concursos (ticket R$ 200-800/mês)
+**Exemplo:** Gil Junior (PF - Polícia Federal), batch 3
+**Características demográficas:**
+- **Porte:** Infoprodutor médio-grande (2.000+ alunos)
+- **Faturamento:** R$ 50K-200K/mês
+- **Audiência:** Concurseiros (PF, OAB, tribunais, militares, etc.)
+- **Plataforma anterior:** Hotmart ou Tutoria (maioria)
+
+**Características comportamentais:**
+- Usa social proof (aprovações) como argumento principal
+- Precisa de flashcards (.apkg para Anki) — **CRÍTICO**
+- Público tech-savvy, usa ferramentas de memorização
+- Alta taxa de aprovação = alta conversão de vendas
+- Múltiplos produtos (porta de entrada barata → mentoria cara)
+
+**Dor principal:**
+- Feature de flashcards (.apkg) não funciona em plataformas genéricas
+- Precisa de PDF + flashcards integrados
+- Quer rastreamento de progresso por disciplina
+
+**Red Flags:**
+- ⚠️ **Se .apkg não funcionar → churn imediato** (bug crítico para nicho)
+- Compara custos com Hotmart/Tutoria constantemente
+- Saque rápido é essencial (fluxo de caixa semanal)
+
+**Motivadores de compra:**
+1. Social proof de aprovações (quanto mais aprovados, melhor)
+2. Flashcards nativos (.apkg para Anki)
+3. Custo total vs Hotmart (não só taxa, mas custo fixo também)
+
+**Objeções típicas:**
+- "Hotmart não tem custo fixo" → responder com economia total
+- "Saque da Hotmart é D+2" → responder com antecipação sem taxa
+- "Taxa de parcelamento gera objeção" → mostrar transparência legal
+
+**Como fechar:**
+1. Mostrar case de outro preparatório (aprovações)
+2. Demo ao vivo da feature de flashcards (se funcionar)
+3. Comparativo de custos (planilha Hotmart vs Ensinio)
+4. Trial para validar antes de migrar 2.000+ alunos
+
+**⚠️ ATENÇÃO:** Bug .apkg (Anki flashcards) NÃO funciona atualmente — Gil Junior em 85% churn risk por isso. Resolver URGENTE se quiser entrar forte nesse nicho.
+
+**Fonte:** tl;dv call Gil Junior & Ensinio, 2026-03-14
+
+---
+
+**Versão:** 3.2 | **Data:** 2026-03-14 | **Fonte:** Google Forms (06-13/03) + tl;dv calls batch 1+2+3 (26 calls, 2026-03)

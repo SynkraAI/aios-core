@@ -291,4 +291,56 @@ Use este checklist para identificar VETO em primeiros 5 minutos:
 
 ---
 
-**Versão:** 3.1 | **Data:** 2026-03-14 | **Fonte:** Google Forms (06-13/03) + tl;dv calls batch 1+2 (10 calls, 2026-03)
+## Red Flags (Batch 3, tl;dv 2026-03-14)
+
+### RF-37: Ticket muito alto sem validação de mercado
+**Contexto:** Call 11032026-Meeting (Alex Hurley - inglês executivo)
+**Sinal:** Prospect tentando cobrar R$ 15K sem ter vendido nada antes ("ninguém quer pagar")
+**Por quê é red flag:**
+- Produto não validado = alto risco de desistência
+- Expectativa irreal de mercado
+- Pode abandonar Ensinio se não vender rápido
+
+**Severidade:** 🔴 ALTO
+**Como lidar:**
+- Sugerir validar com preço menor primeiro (R$ 2-5K)
+- Posicionar Ensinio como ferramenta DE validação
+- Oferecer trial para testar mercado antes de investir
+
+**Fonte:** tl;dv call 11032026-Meeting, 2026-03-11
+
+### RF-38: Endividamento pré-receita
+**Contexto:** Call 11032026-Meeting (Alex Hurley)
+**Sinal:** "Já tô endividada antes de abrir as portas, já tô quase falida antes de abrir as portas"
+**Por quê é red flag:**
+- Cliente sem caixa para investir
+- Pressão financeira pode levar a desistência rápida
+- Alto risco de churn nos primeiros 90 dias
+
+**Severidade:** 🔴 ALTO
+**Como lidar:**
+- Oferecer Starter (grátis) para validar sem custo fixo
+- **NÃO** vender Professional/Business sem receita comprovada
+- Acompanhar de perto se fechar — CS proativo
+
+**Fonte:** tl;dv call 11032026-Meeting, 2026-03-11
+
+### RF-39: Mudança de ICP no meio da call
+**Contexto:** Call 11032026-Meeting (Alex Hurley)
+**Sinal:** Começa falando de B2C (indivíduos brasileiros), termina falando de B2B (empresas americanas que treinam funcionários)
+**Por quê é red flag:**
+- Confusão de posicionamento = produto imaturo
+- Cliente não sabe quem é o público-alvo real
+- Risco de mudar estratégia várias vezes (instável)
+
+**Severidade:** 🟡 MÉDIO
+**Como lidar:**
+- Perguntar: "Qual é o público principal AGORA?"
+- Ajudar a definir ICP claro antes de fechar
+- Se insistir em "vou testar os dois", oferecer trial longo
+
+**Fonte:** tl;dv call 11032026-Meeting, 2026-03-11
+
+---
+
+**Versão:** 3.2 | **Data:** 2026-03-14 | **Fonte:** Google Forms (06-13/03) + tl;dv calls batch 1+2+3 (26 calls, 2026-03)
