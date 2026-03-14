@@ -5,103 +5,118 @@
 
 ## O que é
 
-O `ensinio-mind` é o squad de conhecimento centralizado da Ensinio. Ele contém toda a informação factual sobre a empresa, produtos, pricing, concorrentes e cases — servindo como base para qualquer outro squad que precise saber sobre a Ensinio.
+O `ensinio-mind` é o squad de conhecimento centralizado da Ensinio. Ele contém toda a informação factual sobre a empresa, produtos, pricing, concorrentes, cases, processo comercial e técnicas de vendas — servindo como base para qualquer outro squad que precise saber sobre a Ensinio.
 
-## Por que existe
+**Version:** 2.1.0 | **Entry Agent:** ensinio-expert | **Model Tier:** haiku/sonnet
 
-Antes, o conhecimento Ensinio estava preso dentro do `ensinio-whatsapp-prospector`, com symlinks para o `ensinio-prospector`. Isso não escalava — cada novo squad teria que fazer symlink para dentro de um squad de prospecção.
-
-Agora, o `ensinio-mind` é o **source of truth**. Todos os squads Ensinio consomem daqui.
+---
 
 ## Arquitetura
 
 ```
-squads/ensinio-mind/                    <- SOURCE OF TRUTH
+squads/ensinio-mind/
+  ├── agents/
+  │   └── ensinio-expert.md          # Agent principal (thinking_dna + voice_dna)
+  ├── tasks/
+  │   ├── update-kb.md               # Processo de atualização do KB
+  │   ├── validate-data.md           # Validação de consistência
+  │   └── extract-from-calls.md     # Extração de insights de calls tl;dv
+  ├── checklists/
+  │   ├── data-quality.md            # Qualidade dos dados
+  │   └── seller-onboarding.md       # Onboarding de novo vendedor
   └── data/
-      ├── ensinio-identity.md           # Fundadores, história, posicionamento, métricas
-      ├── ensinio-product-ecosystem.md  # Club, Pay, Stream, AI, Engage, Chat
-      ├── ensinio-solutions-kb.md       # 5 pilares, 67+ features com keywords
-      ├── ensinio-pricing.md            # Planos, taxas, add-ons
-      ├── ensinio-competitors.md        # Matriz competitiva vs 7 concorrentes
-      ├── ensinio-cases.md              # Cases, depoimentos, prova social
-      ├── ensinio-market.md             # TAM/SAM/SOM, receita histórica, milestones
-      ├── scoring-criteria.md           # Qualificação de leads (temperatura 1-10)
-      └── message-rules.md             # Regras de comunicação
-
-squads/ensinio-whatsapp-prospector/     <- CONSOME do mind
-squads/ensinio-prospector/              <- CONSOME do mind
-(futuros squads ensinio-*)              <- CONSOME do mind
+      ├── ensinio-identity.md        # Fundadores, história, posicionamento
+      ├── ensinio-product-ecosystem.md # 6 produtos (Club, Pay, Stream, AI, Engage, Chat)
+      ├── ensinio-solutions-kb.md    # 5 pilares, 67+ features com keywords
+      ├── ensinio-pricing.md         # 4 planos + taxas + 7 add-ons
+      ├── ensinio-competitors.md     # Matriz competitiva vs 7 concorrentes
+      ├── ensinio-cases.md           # Cases + prova social + links demonstráveis
+      ├── ensinio-market.md          # TAM/SAM/SOM, receita, dados comerciais
+      ├── scoring-criteria.md        # Dual scoring (client + partner)
+      ├── message-rules.md           # Regras de comunicação + scripts comerciais
+      ├── ensinio-icps.md            # ICP detalhado (demográfico + comportamental)
+      ├── ensinio-red-flags.md       # 21 sinais de alerta + perfis a evitar
+      ├── ensinio-sales-playbook.md  # 8 objeções + técnicas avançadas de fechamento
+      ├── ensinio-sales-cycle.md     # Funil, equipe, onboarding, enterprise
+      ├── ensinio-arguments.md       # 3 argumentos + matriz de uso por fase
+      └── ensinio-onboarding-patterns.md # Fricções, FAQs, padrões de setup
 ```
+
+---
 
 ## Dados Disponíveis
 
 ### Conhecimento Produto (v1.0)
-| Arquivo | Conteúdo | Linhas |
-|---------|----------|--------|
-| `ensinio-identity.md` | Fundadores, história, posicionamento, milestones, faturamento, mercado | ~140 |
-| `ensinio-product-ecosystem.md` | 6 produtos (Club, Pay, Stream, AI, Engage, Chat) + features detalhadas | ~200 |
-| `ensinio-solutions-kb.md` | KB completo — 5 pilares, 67+ features com keywords para matching | ~400 |
-| `ensinio-pricing.md` | 4 planos + taxas + 7 add-ons + argumentos de preço | ~100 |
-| `ensinio-competitors.md` | Matriz 8x8 + análise individual de 7 concorrentes | ~130 |
-| `ensinio-cases.md` | 13+ infoprodutores, 9 empresas corporativas, 4 cases detalhados | ~130 |
-| `ensinio-market.md` | TAM/SAM/SOM, receita histórica (2021-2026), milestones, oportunidades | ~80 |
-| `scoring-criteria.md` | Critérios de temperatura 1-10 para qualificação | ~50 |
-| `message-rules.md` | Regras de comunicação (tom Antonio/Fosc) | ~50 |
+| Arquivo | Conteúdo |
+|---------|----------|
+| `ensinio-identity.md` | Fundadores, história, posicionamento, milestones, faturamento |
+| `ensinio-product-ecosystem.md` | 6 produtos (Club, Pay, Stream, AI, Engage, Chat) |
+| `ensinio-solutions-kb.md` | KB completo — 5 pilares, 67+ features |
+| `ensinio-pricing.md` | 4 planos + taxas + 7 add-ons |
+| `ensinio-competitors.md` | Matriz competitiva vs 7 concorrentes |
+| `ensinio-cases.md` | 13+ infoprodutores, 9 empresas corporativas, links demonstráveis |
+| `ensinio-market.md` | TAM/SAM/SOM, receita histórica, 115 clientes ativos, ~700K GMV/mês |
 
-### Sales & Qualification (v1.1 NOVO ✨)
-| Arquivo | Conteúdo | Linhas |
-|---------|----------|--------|
-| `ensinio-icps.md` | ICP detalhado (perfil demográfico + comportamental de clientes que fecham) | ~250 |
-| `ensinio-red-flags.md` | Red flags (sinais de alerta + 18 perfis a evitar) | ~350 |
-| `ensinio-sales-playbook.md` | 5 objeções + respostas + perguntas de qualificação | ~450 |
-| `ensinio-sales-cycle.md` | Timeline (2-4 sem), funil (6 etapas), aceleradores e atrasos | ~400 |
-| `ensinio-arguments.md` | 3 argumentos principais + como usar em cada fase + matriz | ~400 |
+### Sales & Qualification (v1.1 → v2.0)
+| Arquivo | Conteúdo |
+|---------|----------|
+| `ensinio-icps.md` | ICP detalhado (3 fontes: Gui, Antonio, Ricardo) |
+| `ensinio-red-flags.md` | 21 sinais de alerta + checklist de 15 itens |
+| `ensinio-sales-playbook.md` | 8 objeções + técnicas avançadas (linguagem socrática, downplay, custo da inação) |
+| `ensinio-sales-cycle.md` | Timeline, funil SDR+Closer, equipe, onboarding, enterprise |
+| `ensinio-arguments.md` | 3 argumentos principais + matriz de uso por fase |
+| `scoring-criteria.md` | Dual scoring (client_score + partner_score) |
+| `message-rules.md` | Regras de comunicação + scripts reais do time |
+
+### Onboarding & Suporte (v2.1 NOVO)
+| Arquivo | Conteúdo |
+|---------|----------|
+| `ensinio-onboarding-patterns.md` | Fricções, FAQs, padrões de setup por nicho, métricas |
+
+### Operacional (v2.0)
+| Arquivo | Conteúdo |
+|---------|----------|
+| `tasks/update-kb.md` | Processo de atualização do KB — fontes estruturadas (5 fases) |
+| `tasks/validate-data.md` | Validação de consistência entre 15 arquivos |
+| `tasks/extract-from-calls.md` | Extração de insights de calls tl;dv (7 fases) |
+| `checklists/data-quality.md` | Checklist de qualidade com score |
+| `checklists/seller-onboarding.md` | Onboarding de novo vendedor (5 dias) |
+
+---
 
 ## Quick Start
 
-### Ativar o expert
+Para ativar o expert:
 ```
 /ensinio-mind:ensinio-expert
 ```
 
-### Usar dados em outro squad
-Aponte symlinks para `squads/ensinio-mind/data/` ao invés de duplicar arquivos.
+Para usar dados em outro squad, aponte symlinks para `squads/ensinio-mind/data/`.
 
-## Status: v2.1.0 (Mind DNA Enriquecido)
+---
 
-### ✅ Incluído (v1.0):
-- Identidade completa (fundadores, história, métricas)
-- Ecossistema de 6 produtos detalhado
-- KB de 67+ features com keywords
-- Pricing completo (planos + taxas + add-ons)
-- Matriz competitiva vs 7 concorrentes
-- Cases de 13+ infoprodutores e 9 empresas
-- Mercado: TAM/SAM/SOM, receita histórica, milestones
+## Changelog
 
-### ✨ NOVO em v1.1:
-- **ICP detalhado:** Perfis demográfico + comportamental de clientes que fecham
-- **Red flags:** 18 sinais de alerta + perfis a evitar
-- **Sales playbook:** 5 objeções + respostas + perguntas de qualificação
-- **Sales cycle:** Timeline 2-4 sem, funil 6 etapas, aceleradores/atrasos
-- **Argumentos:** 3 argumentos principais + matriz de uso por fase
+### v2.1.0 (2026-03-14)
+- **Nova task:** `extract-from-calls.md` — extrai insights de calls tl;dv (Google Drive)
+- **Novo data file:** `ensinio-onboarding-patterns.md` — fricções, FAQs, padrões de setup
+- **Nova source:** tl;dv calls (Ricardo/vendas + Bhrenda/suporte)
+- **15 data files** (antes 14)
 
-### 🎓 NOVO em v2.1 — Mind DNA Enrichment (2026-03-12):
-- **Source adicional:** [Estrutura de Educação Transformadora](https://www.youtube.com/watch?v=JF0rWYPm1zc) — YouTube
-- **Voice DNA:** +3 signature phrases autênticas
-  - "O que você quer construir?" [SOURCE: YouTube | JF0rWYPm1zc]
-  - "Ensino é sobre transformação" [SOURCE: YouTube | JF0rWYPm1zc]
-  - "Estrutura antes de conteúdo" [SOURCE: YouTube | JF0rWYPm1zc]
-- **Thinking DNA:** +2 heuristics com QUANDO usar
-  - Heuristic 9: "Validate structure before scaling" [WHEN: Pre-launch]
-  - Heuristic 10: "Content flows from architecture" [WHEN: Design phase]
-- **Métricas:**
-  - Fidelity Score: 88/100 → **91/100** (+3 points)
-  - Coverage: 92% → **98%** (+6%)
-  - Total Sources: 15 → **16**
-- **Quality Dashboard:** `squads/mind-cloning/minds/ensinio/quality-dashboard-ensinio.md`
+### v2.0.0 (2026-03-13)
+- **3 novas fontes:** Google Forms de Gui Ávila (06/03), Antonio (12/03), Ricardo (13/03)
+- **ICP enriquecido:** gênero equilibrado, BH adicionado, nichos expandidos (preparatórios, religião)
+- **Red flags:** 18 → 21 sinais, checklist expandido (8 → 15 itens)
+- **Sales playbook:** 5 → 8 objeções (incluindo técnicas avançadas do closer Ricardo)
+- **Técnicas novas:** linguagem socrática, downplay, custo da inação, apoio vs permissão
+- **Sales cycle:** dados de equipe (2 vendedores, meta 30/mês), onboarding, enterprise
+- **Cases:** links demonstráveis, GMV ~700K/mês, 115 clientes ativos
+- **Agent upgrade:** thinking_dna com 8 heurísticas, handoffs corrigidos
+- **Novo:** 2 tasks operacionais (update-kb, validate-data)
+- **Novo:** 2 checklists (data-quality, seller-onboarding)
 
-### ⏳ Pendente (v3.0):
-- [ ] Processo de onboarding (passo a passo)
-- [ ] Programa de parceiros/revendedores
-- [ ] Estratégia de conteúdo (blog, YouTube, redes)
-- [ ] Mais fontes de vídeo/podcast Ensinio (target: 20+ sources)
+### v1.1.0 (2026-03-07)
+- ICP, red flags, sales playbook, sales cycle, argumentos
+
+### v1.0.0 (2026-03-02)
+- Criação inicial com 9 data files (identidade, produto, pricing, etc.)

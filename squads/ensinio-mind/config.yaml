@@ -1,12 +1,21 @@
 name: ensinio-mind
-version: 1.1.0
-description: "Ensinio Knowledge Hub — Source of truth centralizada sobre a plataforma Ensinio. Alimenta todos os squads ensinio-*. Incluí sales, ICP, red flags, ciclo de venda."
+version: 2.1.0
+description: "Ensinio Knowledge Hub — Source of truth centralizada sobre a plataforma Ensinio. Alimenta todos os squads ensinio-*. Inclui sales playbook (8 objeções), ICP, red flags (21 sinais), ciclo de venda, técnicas de fechamento."
 type: knowledge-hub
 
 entry_agent: ensinio-expert
 
 agents:
   - ensinio-expert
+
+tasks:
+  - update-kb.md              # Processo de atualização do KB (fontes estruturadas)
+  - validate-data.md          # Validação de consistência entre arquivos
+  - extract-from-calls.md     # Extração de insights de calls tl;dv (fontes não-estruturadas)
+
+checklists:
+  - data-quality.md        # Qualidade dos dados
+  - seller-onboarding.md   # Onboarding de novo vendedor
 
 data:
   # Identidade & Posicionamento
@@ -19,24 +28,26 @@ data:
   - ensinio-pricing.md
   # Matriz competitiva detalhada
   - ensinio-competitors.md
-  # Cases, depoimentos, prova social
+  # Cases, depoimentos, prova social, links demonstráveis
   - ensinio-cases.md
-  # Mercado: TAM/SAM/SOM, receita histórica, milestones
+  # Mercado: TAM/SAM/SOM, receita histórica, dados comerciais
   - ensinio-market.md
-  # Critérios de qualificação de leads
+  # Critérios de qualificação de leads (dual scoring)
   - scoring-criteria.md
-  # Regras de comunicação (tom Antonio/Fosc)
+  # Regras de comunicação + scripts do time comercial
   - message-rules.md
-  # ICP detalhado — Perfis demográfico + comportamental de clientes que fecham
+  # ICP detalhado — Perfis demográfico + comportamental
   - ensinio-icps.md
-  # Red flags — Sinais de alerta e perfis a evitar
+  # Red flags — 21 sinais de alerta e perfis a evitar
   - ensinio-red-flags.md
-  # Sales playbook — 5 objeções principais + respostas
+  # Sales playbook — 8 objeções + técnicas avançadas de fechamento
   - ensinio-sales-playbook.md
-  # Sales cycle — Timeline, etapas do funil, aceleradores e atrasos
+  # Sales cycle — Timeline, funil, equipe, onboarding
   - ensinio-sales-cycle.md
-  # Argumentos de venda — 3 principais argumentos + como usar em cada fase
+  # Argumentos de venda — 3 principais + como usar em cada fase
   - ensinio-arguments.md
+  # Padrões de onboarding/suporte — fricções, FAQs, setup por nicho
+  - ensinio-onboarding-patterns.md
 
 settings:
   language: pt-BR
@@ -45,16 +56,20 @@ settings:
 
 metadata:
   created: "2026-03-02"
+  updated: "2026-03-14"
   created_by: squad-chief
   sources:
     - "ensinio.com (site oficial)"
     - "Pitch Deck Ensinio 2026 (52 slides)"
     - "ensinio-whatsapp-prospector/data/ (KB v2.0.0)"
+    - "Google Forms — Gui Ávila (06/03/2026)"
+    - "Google Forms — Antonio (12/03/2026)"
+    - "Google Forms — Ricardo (13/03/2026)"
+    - "tl;dv calls — Ricardo (vendas) + Bhrenda (suporte)"
   consumers:
     - ensinio-prospector
     - ensinio-whatsapp-prospector
     - "(futuros squads ensinio-*)"
   pending_data:
-    - "ensinio-onboarding.md — Processo de onboarding de clientes (v2.0)"
-    - "ensinio-partnership-program.md — Programa de parceiros/revendedores (v2.0)"
-    - "ensinio-content-strategy.md — Estratégia de conteúdo (v2.0)"
+    - "ensinio-partnership-program.md — Programa de parceiros/revendedores (v3.0)"
+    - "ensinio-content-strategy.md — Estratégia de conteúdo (v3.0)"
