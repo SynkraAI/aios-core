@@ -1,0 +1,1 @@
+../../../../../../.aios/skills/decision-tree-generator/references/output-template.md

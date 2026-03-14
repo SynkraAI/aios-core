@@ -1,0 +1,1 @@
+../../../../.aios/skills/pt-br-accentuation/SKILL.md

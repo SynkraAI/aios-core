@@ -1,0 +1,1 @@
+../../../../.aios/skills/quality-dashboard/SKILL.md

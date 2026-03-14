@@ -1,0 +1,1 @@
+../../../../../../.aios/skills/prd-generator/templates/app-prd-template.md

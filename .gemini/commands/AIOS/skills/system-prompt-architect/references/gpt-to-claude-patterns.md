@@ -1,0 +1,1 @@
+../../../../../../.aios/skills/system-prompt-architect/references/gpt-to-claude-patterns.md

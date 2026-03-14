@@ -1,0 +1,1 @@
+../../../../.aios/skills/book-to-markdown/SKILL.md

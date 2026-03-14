@@ -1,0 +1,1 @@
+../../../../../../.aios/skills/deep-research/prompts/decompose.md

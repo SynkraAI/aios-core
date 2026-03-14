@@ -1,0 +1,1 @@
+../../../../.aios/skills/avalonia-viewmodels-zafiro/SKILL.md

@@ -446,6 +446,134 @@ function syncCommands(squads) {
 }
 
 /**
+ * Sync skill slash commands — symlinks from .claude/commands/AIOS/skills/ to .aios/skills/
+ * Also syncs to .gemini/ and .codex/
+ */
+function syncSkillCommands(skills) {
+  log('🔗 Syncing skill commands...', 'cyan');
+
+  const models = ['claude', 'gemini', 'codex'];
+  let totalCreated = 0;
+
+  // Determine main doc file for a skill (README.md preferred, SKILL.md fallback)
+  function getMainDoc(skillName) {
+    const readmePath = path.join(SKILLS_DIR, skillName, 'README.md');
+    const skillMdPath = path.join(SKILLS_DIR, skillName, 'SKILL.md');
+    if (fs.existsSync(readmePath)) return 'README.md';
+    if (fs.existsSync(skillMdPath)) return 'SKILL.md';
+    return null;
+  }
+
+  // Get subdirectories of a skill (only dirs with .md files)
+  function getSubdirs(skillName) {
+    const skillPath = path.join(SKILLS_DIR, skillName);
+    try {
+      return fs.readdirSync(skillPath)
+        .filter(item => {
+          const fullPath = path.join(skillPath, item);
+          return fs.statSync(fullPath).isDirectory() &&
+                 !item.startsWith('.') &&
+                 !item.startsWith('__') &&
+                 item !== 'node_modules';
+        });
+    } catch (e) {
+      return [];
+    }
+  }
+
+  // Get .md files inside a subdirectory
+  function getMdFiles(skillName, subdir) {
+    const dirPath = path.join(SKILLS_DIR, skillName, subdir);
+    try {
+      return fs.readdirSync(dirPath)
+        .filter(f => f.endsWith('.md'));
+    } catch (e) {
+      return [];
+    }
+  }
+
+  models.forEach(model => {
+    const skillsCmdDir = path.join(ROOT, `.${model}`, 'commands', 'AIOS', 'skills');
+    let modelCreated = 0;
+
+    // Ensure AIOS/skills/ directory exists
+    if (!fs.existsSync(skillsCmdDir)) {
+      fs.mkdirSync(skillsCmdDir, { recursive: true });
+    }
+
+    skills.forEach(skill => {
+      const mainDoc = getMainDoc(skill.name);
+      if (!mainDoc) {
+        log(`⚠️  ${skill.name}: no README.md or SKILL.md, skipping`, 'yellow');
+        return;
+      }
+
+      const subdirs = getSubdirs(skill.name);
+      const isComplex = subdirs.length > 0;
+
+      if (isComplex) {
+        // Complex skill: create folder with README symlink + subdir symlinks
+        const cmdDir = path.join(skillsCmdDir, skill.name);
+        if (!fs.existsSync(cmdDir)) {
+          fs.mkdirSync(cmdDir, { recursive: true });
+        }
+
+        // Main doc symlink
+        const cmdReadme = path.join(cmdDir, 'README.md');
+        if (!fs.existsSync(cmdReadme)) {
+          // ../../../../../.aios/skills/{name}/README.md
+          const relTarget = path.join('..', '..', '..', '..', '..', '.aios', 'skills', skill.name, mainDoc);
+          fs.symlinkSync(relTarget, cmdReadme);
+          modelCreated++;
+        }
+
+        // Subdir symlinks (individual .md files)
+        subdirs.forEach(subdir => {
+          const mdFiles = getMdFiles(skill.name, subdir);
+          if (mdFiles.length === 0) return;
+
+          const cmdSubdir = path.join(cmdDir, subdir);
+          if (!fs.existsSync(cmdSubdir)) {
+            fs.mkdirSync(cmdSubdir, { recursive: true });
+          }
+
+          mdFiles.forEach(mdFile => {
+            const cmdFile = path.join(cmdSubdir, mdFile);
+            if (!fs.existsSync(cmdFile)) {
+              // ../../../../../../.aios/skills/{name}/{subdir}/{file}.md
+              const relTarget = path.join('..', '..', '..', '..', '..', '..', '.aios', 'skills', skill.name, subdir, mdFile);
+              fs.symlinkSync(relTarget, cmdFile);
+              modelCreated++;
+            }
+          });
+        });
+      } else {
+        // Simple skill: single symlink {name}.md
+        const cmdFile = path.join(skillsCmdDir, `${skill.name}.md`);
+        if (!fs.existsSync(cmdFile)) {
+          // ../../../../.aios/skills/{name}/README.md
+          const relTarget = path.join('..', '..', '..', '..', '.aios', 'skills', skill.name, mainDoc);
+          fs.symlinkSync(relTarget, cmdFile);
+          modelCreated++;
+        }
+      }
+    });
+
+    if (modelCreated > 0) {
+      log(`✓ ${model}: Created ${modelCreated} skill command(s)`, 'green');
+    } else {
+      log(`✓ ${model}: All skill commands in sync`, 'green');
+    }
+
+    totalCreated += modelCreated;
+  });
+
+  if (totalCreated === 0) {
+    log('✓ All skill commands synchronized', 'green');
+  }
+}
+
+/**
  * Main execution
  */
 function main() {
@@ -461,6 +589,7 @@ function main() {
 
     // Sync slash commands
     syncCommands(squads);
+    syncSkillCommands(skills);
 
     // Generate markdown
     log('\n📝 Generating markdown...', 'cyan');

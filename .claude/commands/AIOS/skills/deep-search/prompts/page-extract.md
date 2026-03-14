@@ -1,0 +1,1 @@
+../../../../../../.aios/skills/deep-search/prompts/page-extract.md

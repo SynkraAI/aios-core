@@ -1,0 +1,1 @@
+../../../../../../.aios/skills/deep-research/templates/research-prompt-template.md

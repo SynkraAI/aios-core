@@ -1,0 +1,1 @@
+../../../../../.aios/skills/prd-generator/README.md

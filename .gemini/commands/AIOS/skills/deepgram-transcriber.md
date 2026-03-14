@@ -1,0 +1,1 @@
+../../../../.aios/skills/deepgram-transcriber/SKILL.md

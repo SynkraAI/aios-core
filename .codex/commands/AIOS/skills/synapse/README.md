@@ -1,0 +1,1 @@
+../../../../../.aios/skills/synapse/SKILL.md

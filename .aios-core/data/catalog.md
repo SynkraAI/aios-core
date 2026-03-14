@@ -1,13 +1,14 @@
 # AIOX Catalog
 
-> Gerado automaticamente em 12/03/2026
+> Gerado automaticamente em 13/03/2026
 
 ---
 
-## Squads (60)
+## Squads (61)
 
 | Squad | Descrição | Ativação |
 |-------|-----------|----------|
+| advisor-board | Advisory Board Squad | `/advisor-board` |
 | affiliates | Affiliates Squad — MultiPlatform Affiliate Business System | `/affiliates` |
 | agent-autonomy | >- | `/agent-autonomy` |
 | ai-reels | AI Reels Squad | `/ai-reels` |
@@ -55,6 +56,7 @@
 | presenca-digital | 📱 Presença Digital Squad | `/presenca-digital` |
 | relationship-therapy-squad | Squad de 11 terapeutas especializados em relacionamentos. Cada agente é um clone fiel de um especialista real - com Voice DNA, Thinking DNA e frameworks terapêuticos completos. Inclui orquestrador com | `/relationship-therapy-squad` |
 | renner-silva | Renner Silva — Squad Deployável | `/renner-silva` |
+| repertoire-mapper | Repertoire Mapper | `/repertoire-mapper` |
 | seo | SEO Expert Squad | `/seo` |
 | site-performance-audit | siteperformanceaudit — External Web Performance Audit Squad | `/site-performance-audit` |
 | sop-factory | Sem descrição | `/sop-factory` |
@@ -70,7 +72,7 @@
 
 ---
 
-## Skills (35)
+## Skills (36)
 
 | Skill | Descrição | Ativação |
 |-------|-----------|----------|
@@ -101,6 +103,7 @@
 | obsidian-tag-manager | Obsidian Tag Manager | `/AIOS:skills:obsidian-tag-manager` |
 | prd-generator | 📄 PRD Generator | `/AIOS:skills:prd-generator` |
 | pt-br-accentuation | Skill: Acentuação e Pontuação em Português Brasileiro | `/AIOS:skills:pt-br-accentuation` |
+| quality-dashboard | Quality Dashboard Skill | `/AIOS:skills:quality-dashboard` |
 | skill-creator | Skill Creator | `/AIOS:skills:skill-creator` |
 | superpowers | Sem descrição | `/AIOS:skills:superpowers` |
 | synapse | SYNAPSE Context Engine | `/AIOS:skills:synapse` |
@@ -112,16 +115,20 @@
 
 ---
 
-## Tools (7)
+## Tools (11)
 
 | Tool | Descrição |
 |------|-----------|
+| _deprecated | Sem descrição |
+| aios-transcriber | AIOS Transcriber |
 | cademi-downloader | Cademi Downloader |
 | document-processing | Sem descrição |
+| evolution-whatsapp-api | Evolution WhatsApp API Tool |
 | hotmart-downloader | Sem descrição |
+| quality-dashboard | Quality Dashboard |
 | transcription-dashboard | Sem descrição |
-| video-transcriber | Sem descrição |
 | xtts-voice-cloner | Sem descrição |
+| youtube-captions | YouTube Captions |
 | zlib-downloader | Sem descrição |
 
 ---
@@ -175,9 +182,9 @@
 
 | Categoria | Total | Coverage |
 |-----------|-------|----------|
-| Squads | 60 | 100% |
-| Skills | 35 | 100% |
-| Tools | 7 | 100% |
+| Squads | 61 | 100% |
+| Skills | 36 | 100% |
+| Tools | 11 | 100% |
 | Agents | 12 | 100% |
 
 ---
