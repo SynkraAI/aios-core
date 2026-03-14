@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
   lastUpdated: '2026-03-11T00:48:55.982Z'
-  entityCount: 745
+  entityCount: 746
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -14085,6 +14085,29 @@ entities:
         extensionPoints: []
       checksum: sha256:58422e884e46660216d5389878ae2f0ab619da7d34f34ed1dff917dfd8fed7db
       lastVerified: '2026-03-11T00:48:55.924Z'
+    angular-nestjs:
+      path: .aiox-core/data/tech-presets/angular-nestjs.md
+      layer: L3
+      type: data
+      purpose: >-
+        'Arquitetura otimizada para aplicações fullstack com Angular 21 (Signals, Standalone Components) no frontend e
+        NestJS (Modular, DI, Guards) no backend'
+      keywords:
+        - angular
+        - nestjs
+        - tech
+        - preset
+      usedBy: []
+      dependencies:
+        - auth
+        - user
+        - jwt
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:225db28dd5970a708e26dd02a88890f406d1780a013f986a0670b7c7731a1ebf
+      lastVerified: '2026-03-08T03:53:26.108Z'
   workflows:
     auto-worktree:
       path: .aiox-core/development/workflows/auto-worktree.yaml
