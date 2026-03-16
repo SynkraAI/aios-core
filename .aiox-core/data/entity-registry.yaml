@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-03-11T00:48:55.982Z'
-  entityCount: 745
+  lastUpdated: '2026-03-15T02:57:08.649Z'
+  entityCount: 747
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -1080,7 +1080,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:76f47a9fa54b9690a10ddf4544c96f8d732c658550fd8487f9defd2339b8e222
-      lastVerified: '2026-03-11T00:48:55.821Z'
+      lastVerified: '2026-03-15T02:57:08.638Z'
     create-worktree:
       path: .aiox-core/development/tasks/create-worktree.md
       layer: L2
@@ -5327,7 +5327,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:e01147feb106d803a298447e5a4988d5310e65cd5b5e291f771923d457056008
-      lastVerified: '2026-03-11T00:48:55.848Z'
+      lastVerified: '2026-03-15T02:57:08.640Z'
     verify-subtask:
       path: .aiox-core/development/tasks/verify-subtask.md
       layer: L2
@@ -5513,6 +5513,27 @@ entities:
         extensionPoints: []
       checksum: sha256:8414839ac579a6e25c8ad8cc3218bb5f216288ef30a0a995dde59d3d7dc9130e
       lastVerified: '2026-03-11T00:48:55.849Z'
+    project-status:
+      path: .aiox-core/development/tasks/project-status.md
+      layer: L2
+      type: task
+      purpose: >-
+        Display a comprehensive, **100% accurate** panorama of all epics and stories in the project. The status of each
+        story is read directly from its **source of truth** — the `## Status` field in each stor
+      keywords:
+        - project
+        - status
+        - 'task:'
+        - full
+        - panorama
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.8
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:3cb76eeb42b7e0b46a06ce0827bc68d2f507a7f4021174b1bd9e68d82463e5e6
+      lastVerified: '2026-03-15T02:57:08.639Z'
   templates:
     activation-instructions-inline-greeting:
       path: .aiox-core/product/templates/activation-instructions-inline-greeting.yaml
@@ -6689,6 +6710,21 @@ entities:
         extensionPoints: []
       checksum: sha256:20f687384c4deb909e9171f8e83f40b962a9cc717755b62d88db285316b2188a
       lastVerified: '2026-03-11T00:48:55.858Z'
+    elicitation:
+      path: .aiox-core/product/templates/engine/elicitation.js
+      layer: L2
+      type: template
+      purpose: Entity at .aiox-core\product\templates\engine\elicitation.js
+      keywords:
+        - elicitation
+      usedBy: []
+      dependencies: []
+      adaptability:
+        score: 0.5
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:1994cc9ecca5c9073f399b369b3a5611bb225c836da5d6cfe6d38ea1b85fefac
+      lastVerified: '2026-03-15T02:57:08.644Z'
   scripts:
     activation-runtime:
       path: .aiox-core/development/scripts/activation-runtime.js
@@ -7924,7 +7960,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:abb16e5cd34ec06bbca0a31af3fc500c3a5c98f66d0a72546e4a2827653abcd3
-      lastVerified: '2026-03-11T00:48:55.865Z'
+      lastVerified: '2026-03-15T02:57:08.637Z'
     yaml-validator:
       path: .aiox-core/development/scripts/yaml-validator.js
       layer: L2
@@ -8286,13 +8322,12 @@ entities:
       path: .aiox-core/core/code-intel/hook-runtime.js
       layer: L1
       type: module
-      purpose: Entity at .aiox-core/core/code-intel/hook-runtime.js
+      purpose: Entity at .aiox-core\core\synapse\runtime\hook-runtime.js
       keywords:
         - hook
         - runtime
       usedBy: []
-      dependencies:
-        - registry-provider
+      dependencies: []
       externalDeps: []
       plannedDeps: []
       lifecycle: experimental
@@ -8300,8 +8335,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:4d812dc503650ef90249ad2993b3f713aea806138a27455a6a9757329d829c8e
-      lastVerified: '2026-03-11T00:48:55.874Z'
+      checksum: sha256:c8a31f8cfcc760de06c65abd3c5d23d9ffd8490f7f0ae4a674efaba73e10dd44
+      lastVerified: '2026-03-15T02:57:08.635Z'
     registry-syncer:
       path: .aiox-core/core/code-intel/registry-syncer.js
       layer: L1
@@ -8342,12 +8377,12 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:b659dfae25865c732555d71abcb1939db908684586d0a06b699d3176077e486e
-      lastVerified: '2026-03-11T00:48:55.875Z'
+      lastVerified: '2026-03-15T02:57:08.626Z'
     config-loader:
       path: .aiox-core/core/config/config-loader.js
       layer: L1
       type: module
-      purpose: Entity at .aiox-core/core/config/config-loader.js
+      purpose: Entity at .aiox-core\core\config\config-loader.js
       keywords:
         - config
         - loader
@@ -8362,8 +8397,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:e19fee885b060c85ee75df71a016259b8e4c21e6c7045a58514afded3a2386a8
-      lastVerified: '2026-03-11T00:48:55.875Z'
+      checksum: sha256:bbc6a9e57e9db7a74ae63c901b199f8b8a79eb093f23a280b6420d1aa5f7f813
+      lastVerified: '2026-03-15T02:57:08.630Z'
     config-resolver:
       path: .aiox-core/core/config/config-resolver.js
       layer: L1
@@ -8698,7 +8733,7 @@ entities:
       path: .aiox-core/core/execution/build-state-manager.js
       layer: L1
       type: module
-      purpose: Entity at .aiox-core/core/execution/build-state-manager.js
+      purpose: Entity at .aiox-core\core\execution\build-state-manager.js
       keywords:
         - build
         - state
@@ -8717,8 +8752,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:595523caf6db26624e7a483489345b9498ae15d99c2568073a2c0c45d5b46a54
-      lastVerified: '2026-03-11T00:48:55.878Z'
+      checksum: sha256:415fca3ad3d750db1f41f14f33971cf661ee9d6073a570175d695bb3c1be655c
+      lastVerified: '2026-03-15T02:57:08.632Z'
     context-injector:
       path: .aiox-core/core/execution/context-injector.js
       layer: L1
@@ -10405,7 +10440,7 @@ entities:
       path: .aiox-core/core/utils/yaml-validator.js
       layer: L1
       type: module
-      purpose: Entity at .aiox-core/core/utils/yaml-validator.js
+      purpose: Entity at .aiox-core\core\utils\yaml-validator.js
       keywords:
         - yaml
         - validator
@@ -10418,8 +10453,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:41e3715845262c2e49f58745a773e81f4feaaa2325e54bcb0226e4bf08f709dd
-      lastVerified: '2026-03-11T00:48:55.890Z'
+      checksum: sha256:05084596198634dd2a670a752d5c451edfe268e16e3bae511db52184f895366f
+      lastVerified: '2026-03-15T02:57:08.636Z'
     creation-helper:
       path: .aiox-core/core/code-intel/helpers/creation-helper.js
       layer: L1
@@ -10601,7 +10636,6 @@ entities:
         - provider
       usedBy:
         - code-intel-client
-        - hook-runtime
       dependencies:
         - provider-interface
       externalDeps: []
@@ -14257,7 +14291,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:c22f2700d6c3dcd227efec711ab206b4fa9e268768a15be86eea0405e2c82c4d
-      lastVerified: '2026-03-11T00:48:55.930Z'
+      lastVerified: '2026-03-15T02:57:08.641Z'
     epic-orchestration:
       path: .aiox-core/development/workflows/epic-orchestration.yaml
       layer: L2
@@ -14930,7 +14964,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:6264ae77eef1e98de62d9f6478becadf6a6692ca88027666dbf5a1e2399c844a
-      lastVerified: '2026-03-11T00:48:55.944Z'
+      lastVerified: '2026-03-15T02:57:08.642Z'
     config-loader:
       path: .aiox-core/infrastructure/scripts/config-loader.js
       layer: L2
@@ -16026,7 +16060,7 @@ entities:
         constraints: []
         extensionPoints: []
       checksum: sha256:2fa44e4a940d4c33570fd9b4495b5c39792c52ca91b98c4be2fb55cb974ad095
-      lastVerified: '2026-03-11T00:48:55.953Z'
+      lastVerified: '2026-03-15T02:57:08.643Z'
     transaction-manager:
       path: .aiox-core/infrastructure/scripts/transaction-manager.js
       layer: L2
