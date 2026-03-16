@@ -1,0 +1,14 @@
+{
+  "port": null,
+  "type": "app",
+  "range": {
+    "start": 3000,
+    "end": 3099
+  },
+  "autoAllocate": true,
+  "description": "Frontend/Fullstack app ports (3000-3099)",
+  "scripts": {
+    "checkPort": "node ~/aios-core/tools/port-manager.js check {{PORT}}",
+    "dev": "npm run checkPort && {{DEV_COMMAND}}"
+  }
+}

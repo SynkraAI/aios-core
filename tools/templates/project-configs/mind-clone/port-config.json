@@ -1,0 +1,10 @@
+{
+  "port": null,
+  "type": "mind-clone",
+  "range": {
+    "start": 6000,
+    "end": 6099
+  },
+  "autoAllocate": false,
+  "description": "Mind clone projects (6000-6099) — usually don't need ports"
+}

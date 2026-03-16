@@ -1,0 +1,10 @@
+{
+  "port": null,
+  "type": "squad",
+  "range": {
+    "start": 8000,
+    "end": 8099
+  },
+  "autoAllocate": true,
+  "description": "Squad dev tools ports (8000-8099)"
+}

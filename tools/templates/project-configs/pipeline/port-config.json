@@ -1,0 +1,10 @@
+{
+  "port": null,
+  "type": "pipeline",
+  "range": {
+    "start": 5000,
+    "end": 5099
+  },
+  "autoAllocate": true,
+  "description": "Pipeline workers/jobs ports (5000-5099)"
+}

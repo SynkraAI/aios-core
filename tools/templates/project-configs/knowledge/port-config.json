@@ -1,0 +1,10 @@
+{
+  "port": null,
+  "type": "knowledge",
+  "range": {
+    "start": 7000,
+    "end": 7099
+  },
+  "autoAllocate": false,
+  "description": "Knowledge base projects (7000-7099) — usually don't need ports"
+}

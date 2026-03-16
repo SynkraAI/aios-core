@@ -13,14 +13,27 @@ project-configs/
 │   │   └── rules/
 │   │       ├── behavioral-rules.md  # NEVER/ALWAYS
 │   │       └── project-rules.md     # Placeholder customizável
+│   ├── port-config.json     # Configuração de portas
 │   └── docs/
 │       └── README.md
 ├── app/                     # Override para apps
+│   ├── .claude/settings.json
+│   └── port-config.json     # 3000-3099, auto-allocation ON
 ├── squad/                   # Override para squads
+│   ├── .claude/settings.json
+│   └── port-config.json     # 8000-8099, auto-allocation ON
 ├── mind-clone/              # Override para mind clones
+│   ├── .claude/settings.json
+│   └── port-config.json     # 6000-6099, auto-allocation OFF
 ├── pipeline/                # Override para pipelines
+│   ├── .claude/settings.json
+│   └── port-config.json     # 5000-5099, auto-allocation ON
 ├── knowledge/               # Override para knowledge bases
+│   ├── .claude/settings.json
+│   └── port-config.json     # 7000-7099, auto-allocation OFF
 └── research/                # Override para research projects
+    ├── .claude/settings.json
+    └── port-config.json     # 7100-7199, auto-allocation OFF
 ```
 
 ## Como Funciona
@@ -65,6 +78,51 @@ project-configs/
 - Base +
 - WebFetch/WebSearch unrestricted
 - Task tool para deep-research/tech-search agents
+
+## Port Management
+
+Todos os templates incluem `port-config.json` que define:
+- **Range de portas** — cada tipo tem seu range dedicado
+- **Auto-allocation** — se a porta deve ser alocada automaticamente
+- **Scripts npm** — helpers para check-port (apenas tipos app/squad/pipeline)
+
+### Port Ranges
+
+| Tipo | Range | Auto-Allocate |
+|------|-------|---------------|
+| app | 3000-3099 | ✅ |
+| api | 4000-4099 | ✅ |
+| pipeline | 5000-5099 | ✅ |
+| squad | 8000-8099 | ✅ |
+| mind-clone | 6000-6099 | ❌ |
+| knowledge | 7000-7099 | ❌ |
+| research | 7100-7199 | ❌ |
+
+### Fluxo Automático
+
+Ao rodar `/new-project` com tipo `app`:
+1. ✅ Porta é alocada automaticamente (ex: 3001)
+2. ✅ `.aios/port-config.json` é atualizado com porta alocada
+3. ✅ `.env` é criado com `PORT=3001`
+4. ✅ Registry global é atualizado (`.aios-core/data/port-registry.json`)
+
+### Port Manager CLI
+
+Gerenciar portas manualmente:
+
+```bash
+# Verificar se porta está livre
+node tools/port-manager.js check 3000
+
+# Alocar porta para projeto
+node tools/port-manager.js allocate meu-app app
+
+# Listar portas alocadas
+node tools/port-manager.js list
+
+# Liberar porta de projeto
+node tools/port-manager.js release meu-app
+```
 
 ## Uso
 

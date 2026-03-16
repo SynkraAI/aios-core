@@ -1,0 +1,6 @@
+{
+  "port": null,
+  "type": "base",
+  "autoAllocate": true,
+  "description": "Port configuration for AIOX project. Port will be allocated automatically during project creation."
+}

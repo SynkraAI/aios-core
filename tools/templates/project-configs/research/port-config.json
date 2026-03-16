@@ -1,0 +1,10 @@
+{
+  "port": null,
+  "type": "research",
+  "range": {
+    "start": 7100,
+    "end": 7199
+  },
+  "autoAllocate": false,
+  "description": "Research projects (7100-7199) — usually don't need ports"
+}
