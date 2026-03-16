@@ -55,6 +55,7 @@
     "release:test": "semantic-release --dry-run --no-ci || echo 'Config test complete - authentication errors are expected locally'",
     "generate:catalog": "node scripts/generate-catalog.js",
     "generate:manifest": "node scripts/generate-install-manifest.js",
+    "projects:reindex": "node scripts/reindex-projects.js",
     "validate:manifest": "node scripts/validate-manifest.js",
     "validate:structure": "node .aiox-core/infrastructure/scripts/source-tree-guardian/index.js",
     "validate:agents": "node .aiox-core/infrastructure/scripts/validate-agents.js",

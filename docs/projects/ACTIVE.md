@@ -19,7 +19,7 @@
 | 15 | **advisory-board** | 📦 | **11/11 minds clonados (2.6M words) — montar squad pendente** | **squad-chief** | **2026-03-13** | [INDEX](advisor-board/INDEX.md) |
 | 16 | **zeroaudio** | 🏠 | **Wave 1 done (2/9 stories), Wave 4 Dashboard aprovada — próximo: Story 2.1 transcrição** | **@dev** | **2026-03-13** | [INDEX](~/CODE/Projects/zeroaudio/.aios/INDEX.md) |
 | 17 | **god-mode** | 📦 | **v2.0 funcional, 6 refs de criação pendentes (44/60)** | **—** | **2026-03-14** | [INDEX](god-mode/INDEX.md) |
-| 18 | **video-privacy-filter** | 🏠 | 🔄 **Censura automática de dados sensíveis em vídeos (OCR + FFmpeg)** | **—** | **2026-03-15** | [INDEX](~/CODE/Projects/video-privacy-filter/.aios/INDEX.md) |
+| 18 | **video-privacy-filter** | 🏠 | 🔄 **Stories 1.1-1.2 done (environment + BR patterns) — próximo: Story 1.3 backend** | **@dev** | **2026-03-16** | [INDEX](~/CODE/Projects/video-privacy-filter/.aios/INDEX.md) |
 
 ## Backlog (Futuros Projetos)
 

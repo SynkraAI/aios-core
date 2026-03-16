@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "pid": 81771,
+  "sessionId": "session-1773669324882",
+  "project": {
+    "type": "unknown",
+    "name": "ensinio-whatsapp-prospector",
+    "emoji": "📦",
+    "displayTitle": "",
+    "titleEmoji": ""
+  },
+  "status": {
+    "phase": "",
+    "progress": null,
+    "currentTask": "",
+    "emoji": ""
+  },
+  "context": {
+    "story": "",
+    "epic": ""
+  },
+  "activeAgent": {
+    "id": ""
+  },
+  "metadata": {
+    "startedAt": "2026-03-16T13:55:24.882Z",
+    "lastUpdatedAt": "2026-03-16T13:58:45.192Z"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "pid": 13945,
+  "pid": 85724,
   "sessionId": "session-1771550831494-rwn54yvi2",
   "project": {
     "type": "project",
@@ -11,12 +11,12 @@
   },
   "status": {
     "phase": "testing",
-    "progress": "5/7",
+    "progress": "32/35",
     "currentTask": "",
     "emoji": "🧪"
   },
   "context": {
-    "story": "TRANS-5-consolidate-transcription-tool-refs",
+    "story": "STORY-devops-hybrid-global-resources",
     "epic": ""
   },
   "activeAgent": {
@@ -24,6 +24,6 @@
   },
   "metadata": {
     "startedAt": "2026-02-20T01:27:11.494Z",
-    "lastUpdatedAt": "2026-03-16T01:53:21.055Z"
+    "lastUpdatedAt": "2026-03-16T14:01:34.698Z"
   }
 }
