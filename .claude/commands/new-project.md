@@ -135,9 +135,14 @@ Eles serão incluídos na seção "Arquivos Chave" do INDEX.md.
    - `.aios/stories/completed/` — stories concluídas
    - `.aios/epics/` — epics do projeto
 3. Adicione `.gitkeep` em cada subpasta vazia
-4. `index_path` = `{project-path}/.aios/INDEX.md`
-5. **NÃO** criar `docs/projects/{nome}/` em aios-core (elimina duplicação)
-6. Criar `.claude/CLAUDE.md` de ponte (ver Passo 2.5)
+4. **Criar symlink de skills globais:**
+   ```bash
+   cd {project-path}/.aios && ln -s ~/aios-core/.aios/skills skills
+   ```
+   Isso permite que o projeto acesse todas as skills do framework AIOS automaticamente.
+5. `index_path` = `{project-path}/.aios/INDEX.md`
+6. **NÃO** criar `docs/projects/{nome}/` em aios-core (elimina duplicação)
+7. Criar `.claude/CLAUDE.md` de ponte (ver Passo 2.5)
 
 ## Passo 2.5: Criar ponte CLAUDE.md para projetos externos
 
@@ -155,6 +160,7 @@ Este projeto usa governança híbrida AIOX. INDEX, stories e sessions vivem loca
 - **INDEX.md:** `.aios/INDEX.md` (governança local)
 - **Stories ativas:** `.aios/stories/active/`
 - **Sessions:** `.aios/sessions/`
+- **Skills:** `.aios/skills` (symlink → `~/aios-core/.aios/skills` — acesso a todas as skills do framework)
 - **ACTIVE.md:** `~/aios-core/docs/projects/ACTIVE.md` (registry central)
 - **Framework:** `~/aios-core/`
 
@@ -441,6 +447,7 @@ docs/projects/{nome}/
 {project-path}/
 ├── .aios/
 │   ├── INDEX.md
+│   ├── skills -> ~/aios-core/.aios/skills  # Symlink para skills globais
 │   ├── sessions/
 │   │   └── .gitkeep
 │   ├── stories/
