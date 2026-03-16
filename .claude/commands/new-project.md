@@ -26,10 +26,19 @@ node ~/aios-core/tools/validate-structure.js --dry-run {project-path}
 3. Permissões de escrita OK
 4. Path é absoluto (se HYBRID)
 
-**Se FALHAR (exit code 1):** BLOQUEAR criação. Mostrar output e pedir correção.
+**Se FALHAR (exit code 1):**
+- Mostrar output do dry-run
+- Se falha for "Projeto já existe" (INDEX.md encontrado):
+  - Perguntar: "Projeto já existe. Quer sobrescrever? (Y/N)"
+  - Se **Y**: Executar `node ~/aios-core/tools/rollback-project.js {project-path}` para limpar, depois continuar
+  - Se **N**: PARAR e sugerir usar outro nome ou rodar `/resume` para continuar projeto existente
+- Se falha for outro erro (permissões, path, etc.): BLOQUEAR e pedir correção
+
 **Se PASSAR (exit code 0):** Continuar para Passo 2.
 
 **Nota:** Este passo é executado DEPOIS do Passo 1 (precisa saber o destino), mas ANTES de criar qualquer arquivo.
+
+**Idempotência:** Rodar /new-project 2x no mesmo path é SEGURO. O dry-run detecta e pergunta se quer sobrescrever.
 
 ## Passo 1: Coletar informações
 
