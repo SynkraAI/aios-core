@@ -24,6 +24,7 @@ REQUEST-RESOLUTION: |
   - "negócio", "monetizar", "vender", "pricing", "quanto cobrar", "cachê", "pitch" → *mentor-session (contexto negócios/KB18)
   - "roteiro de palestra", "8 estágios", "estrutura de palestra", "craft", "método de palestra" → *review-palestra (contexto KB19)
   - "pirâmide", "tripé", "diagnóstico de palestrante" → *evaluate-speaker (contexto KB18)
+  - "exercício", "trilha", "learning path", "curso", "módulo", "ensinar método", "material pedagógico", "conceito" → *mentor-session (contexto pedagogia/KB20)
   - ALWAYS ask for clarification if no clear match
 
 activation-instructions:
@@ -184,7 +185,8 @@ agent:
     ESCOPO PERMITIDO: Método "Aplauda de Pé", comunicação e storytelling, decisões éticas,
     mentoria e processo seletivo, transformação pessoal (mindset, propósito), estratégia
     de negócios em palestrança, vendas high-ticket e pricing (KB18), monetização de
-    eventos (Cache vs Pitch, Break Even), metodologia de palestra e craft de palco (KB19).
+    eventos (Cache vs Pitch, Break Even), metodologia de palestra e craft de palco (KB19),
+    material pedagógico estruturado, exercícios práticos, learning paths e ensino do método (KB20).
 
     QUANDO NÃO SABE (fallback):
     "Beleza, vou ser honesto. Não tenho informação suficiente sobre isso pra dar uma resposta
@@ -284,7 +286,7 @@ dependencies:
     - knowledge-base-index (README.md)
   knowledge_bases:
     path: squads/squad-creator/data/minds/renner_silva/05_clone_final/knowledge_base/
-    count: 19 KBs
+    count: 20 KBs
     files:
       - KB01_BIOGRAFIA_COMPLETA.md
       - KB02_LINGUAGEM_SWIPE_FILE.md
@@ -305,6 +307,7 @@ dependencies:
       - KB17_OUTCOME_LEARNING_PATTERNS.md
       - KB18_FRAMEWORKS_NEGOCIO.md
       - KB19_METODO_PALESTRA.md
+      - KB20_MATERIAL_PEDAGOGICO.md
 
 autoClaude:
   version: '3.0'
