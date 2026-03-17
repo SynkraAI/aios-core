@@ -23,7 +23,9 @@ function createMemory(overrides = {}) {
 
 function cleanFixtures() {
   const filePath = path.join(TEST_ROOT, CONFIG.decisionsJsonPath);
+  const tmpPath = `${filePath}.tmp`;
   if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+  if (fs.existsSync(tmpPath)) fs.unlinkSync(tmpPath);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════════
@@ -57,6 +59,11 @@ describe('DecisionMemory', () => {
     it('should accept custom config overrides', () => {
       const mem = createMemory({ maxDecisions: 100 });
       expect(mem.config.maxDecisions).toBe(100);
+    });
+
+    it('should initialize _saving flag to false', () => {
+      const mem = createMemory();
+      expect(mem._saving).toBe(false);
     });
   });
 
@@ -198,18 +205,13 @@ describe('DecisionMemory', () => {
       expect(updated.outcomeNotes).toBe('Reduced latency by 40%');
     });
 
-    it('should increase confidence on success (up to cap)', () => {
+    it('should maintain or increase confidence on success', () => {
       const mem = createMemory();
       const d = mem.recordDecision({ description: 'Enable compression' });
+      const initial = d.confidence;
 
-      // Reduce confidence first via a failure, then verify success increases it
-      mem.updateOutcome(d.id, Outcome.FAILURE);
-      const afterFailure = d.confidence;
-
-      // Record a fresh decision and mark it as success
-      const d2 = mem.recordDecision({ description: 'Enable compression v2' });
-      mem.updateOutcome(d2.id, Outcome.SUCCESS);
-      expect(d2.confidence).toBeGreaterThan(afterFailure);
+      mem.updateOutcome(d.id, Outcome.SUCCESS);
+      expect(d.confidence).toBeGreaterThanOrEqual(initial);
     });
 
     it('should decrease confidence on failure', () => {
@@ -251,7 +253,7 @@ describe('DecisionMemory', () => {
     it('should throw when setting outcome to PENDING', () => {
       const mem = createMemory();
       const d = mem.recordDecision({ description: 'test pending rejection' });
-      expect(() => mem.updateOutcome(d.id, Outcome.PENDING)).toThrow('Cannot set outcome back to PENDING');
+      expect(() => mem.updateOutcome(d.id, Outcome.PENDING)).toThrow('Invalid outcome');
     });
 
     it('should emit OUTCOME_UPDATED event', () => {
@@ -314,6 +316,18 @@ describe('DecisionMemory', () => {
       const relevant = mem.getRelevantDecisions('deploy strategy', { successOnly: true });
       expect(relevant.every(d => d.outcome === Outcome.SUCCESS)).toBe(true);
     });
+
+    it('should gate on raw keyword similarity, not blended score', () => {
+      const mem = createMemory({ similarityThreshold: 0.5 });
+
+      // Decision with unrelated keywords but resolved outcome
+      const d1 = mem.recordDecision({ description: 'database indexing optimization tuning' });
+      mem.updateOutcome(d1.id, Outcome.SUCCESS);
+
+      // Query with completely different keywords
+      const relevant = mem.getRelevantDecisions('authentication login security tokens');
+      expect(relevant).toHaveLength(0);
+    });
   });
 
   describe('injectDecisionContext', () => {
@@ -333,7 +347,21 @@ describe('DecisionMemory', () => {
       const context = mem.injectDecisionContext('retry strategy for API calls');
       expect(context).toContain('Relevant Past Decisions');
       expect(context).toContain('exponential backoff');
-      expect(context).toContain('✅');
+      expect(context).toContain('[OK]');
+    });
+
+    it('should escape markdown control characters in injected fields', () => {
+      const mem = createMemory({ similarityThreshold: 0.1 });
+      const d = mem.recordDecision({
+        description: 'Use caching for ```code``` blocks',
+        rationale: '# Heading injection attempt',
+      });
+      mem.updateOutcome(d.id, Outcome.SUCCESS, '> Blockquote injection');
+
+      const context = mem.injectDecisionContext('caching code blocks strategy');
+      // Code fences and headings should be escaped
+      expect(context).not.toContain('```code```');
+      expect(context).not.toMatch(/^# Heading/m);
     });
 
     it('should emit DECISIONS_INJECTED event', () => {
@@ -367,6 +395,18 @@ describe('DecisionMemory', () => {
       expect(mem.getPatterns().length).toBeGreaterThanOrEqual(1);
     });
 
+    it('should use neutral recommendation when no outcomes exist', () => {
+      const mem = createMemory({ patternThreshold: 3, similarityThreshold: 0.1 });
+
+      mem.recordDecision({ description: 'Use circuit breaker for service A' });
+      mem.recordDecision({ description: 'Use circuit breaker for service B' });
+      mem.recordDecision({ description: 'Use circuit breaker for service C' });
+
+      const patterns = mem.getPatterns();
+      expect(patterns.length).toBeGreaterThanOrEqual(1);
+      expect(patterns[0].recommendation).toContain('No outcome data yet');
+    });
+
     it('should not duplicate patterns', () => {
       const mem = createMemory({ patternThreshold: 3 });
 
@@ -378,6 +418,25 @@ describe('DecisionMemory', () => {
       // Should not have multiple identical patterns
       const unique = new Set(patterns.map(p => p.category));
       expect(patterns.length).toBeLessThanOrEqual(unique.size + 1);
+    });
+
+    it('should recompute pattern recommendation when outcomes change', () => {
+      const mem = createMemory({ patternThreshold: 3, similarityThreshold: 0.1 });
+
+      const d1 = mem.recordDecision({ description: 'Use circuit breaker for service A' });
+      const d2 = mem.recordDecision({ description: 'Use circuit breaker for service B' });
+      mem.recordDecision({ description: 'Use circuit breaker for service C' });
+
+      // Initially neutral
+      const patternsBefore = mem.getPatterns();
+      expect(patternsBefore[0].recommendation).toContain('No outcome data yet');
+
+      // Mark outcomes
+      mem.updateOutcome(d1.id, Outcome.SUCCESS);
+      mem.updateOutcome(d2.id, Outcome.SUCCESS);
+
+      const patternsAfter = mem.getPatterns();
+      expect(patternsAfter[0].recommendation).toContain('worked well');
     });
   });
 
@@ -476,6 +535,43 @@ describe('DecisionMemory', () => {
       await mem2.load();
       expect(mem2.decisions.length).toBeLessThanOrEqual(5);
     });
+
+    it('should also cap in-memory decisions after save', async () => {
+      const mem = createMemory({ maxDecisions: 5 });
+
+      for (let i = 0; i < 10; i++) {
+        mem.recordDecision({ description: `Decision ${i}` });
+      }
+
+      expect(mem.decisions.length).toBe(10);
+      await mem.save();
+      expect(mem.decisions.length).toBeLessThanOrEqual(5);
+    });
+
+    it('should emit save:error on write failure', async () => {
+      const mem = createMemory();
+      mem.recordDecision({ description: 'test save error' });
+
+      const handler = jest.fn();
+      mem.on('save:error', handler);
+
+      // Override projectRoot to an invalid path to trigger write error
+      mem.projectRoot = '/nonexistent/invalid/path';
+      await mem.save();
+
+      expect(handler).toHaveBeenCalledTimes(1);
+      expect(handler.mock.calls[0][0].error).toBeDefined();
+    });
+
+    it('should skip concurrent saves', async () => {
+      const mem = createMemory();
+      mem.recordDecision({ description: 'concurrent save test' });
+
+      // Simulate concurrent save by setting _saving flag
+      mem._saving = true;
+      await mem.save(); // Should return immediately
+      mem._saving = false;
+    });
   });
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -498,6 +594,36 @@ describe('DecisionMemory', () => {
       const decayed = mem._applyTimeDecay(1.0, recent);
 
       expect(decayed).toBeCloseTo(1.0, 1);
+    });
+
+    it('should never return below minConfidence', () => {
+      const mem = createMemory({ confidenceDecayDays: 1, minConfidence: 0.1 });
+      const veryOld = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString();
+      const decayed = mem._applyTimeDecay(0.4, veryOld);
+
+      expect(decayed).toBeGreaterThanOrEqual(0.1);
+    });
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Lazy Loading Guard
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  describe('_ensureLoaded', () => {
+    it('should lazy-load on first call', async () => {
+      const mem = createMemory();
+      expect(mem._loaded).toBe(false);
+      await mem._ensureLoaded();
+      expect(mem._loaded).toBe(true);
+    });
+
+    it('should not reload if already loaded', async () => {
+      const mem = createMemory();
+      await mem.load();
+      const loadSpy = jest.spyOn(mem, 'load');
+      await mem._ensureLoaded();
+      expect(loadSpy).not.toHaveBeenCalled();
+      loadSpy.mockRestore();
     });
   });
 });

@@ -93,6 +93,7 @@ const STOP_WORDS = new Set([
   'than', 'too', 'very', 'just', 'because', 'que', 'para',
   'com', 'por', 'uma', 'como', 'mais', 'dos', 'das', 'nos',
 ]);
+
 const CATEGORY_KEYWORDS = {
   [DecisionCategory.ARCHITECTURE]: [
     'architecture', 'design', 'pattern', 'module', 'refactor',
@@ -111,7 +112,7 @@ const CATEGORY_KEYWORDS = {
     'restart', 'rollback', 'backup', 'restore',
   ],
   [DecisionCategory.WORKFLOW]: [
-    'workflow', 'pipeline', 'ci',
+    'workflow', 'pipeline', 'ci', 'automate', 'process',
     'merge', 'branch', 'review', 'approve',
   ],
   [DecisionCategory.TESTING]: [
@@ -136,11 +137,12 @@ class DecisionMemory extends EventEmitter {
    */
   constructor(options = {}) {
     super();
-    this.projectRoot = options.projectRoot || process.cwd();
+    this.projectRoot = options.projectRoot ?? process.cwd();
     this.config = { ...CONFIG, ...options.config };
     this.decisions = [];
     this.patterns = [];
     this._loaded = false;
+    this._saving = false;
   }
 
   /**
@@ -156,8 +158,8 @@ class DecisionMemory extends EventEmitter {
         const data = JSON.parse(raw);
 
         if (data.schemaVersion === this.config.schemaVersion) {
-          this.decisions = data.decisions || [];
-          this.patterns = data.patterns || [];
+          this.decisions = data.decisions ?? [];
+          this.patterns = data.patterns ?? [];
         }
       }
     } catch {
@@ -170,32 +172,53 @@ class DecisionMemory extends EventEmitter {
   }
 
   /**
-   * Save decisions to disk
+   * Ensure persisted state has been hydrated before operating.
+   * Lazy-loads on first access to prevent empty-buffer overwrites.
+   * @returns {Promise<void>}
+   * @private
+   */
+  async _ensureLoaded() {
+    if (!this._loaded) {
+      await this.load();
+    }
+  }
+
+  /**
+   * Save decisions to disk.
+   * Caps in-memory decisions at maxDecisions, guards against concurrent writes,
+   * and uses atomic write (tmp + rename) to prevent corruption.
    * @returns {Promise<void>}
    */
   async save() {
+    if (this._saving) return;
+    this._saving = true;
+
     const filePath = path.resolve(this.projectRoot, this.config.decisionsJsonPath);
     const dir = path.dirname(filePath);
 
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-
-    this.decisions = this.decisions.slice(-this.config.maxDecisions);
-
-    const data = {
-      schemaVersion: this.config.schemaVersion,
-      version: this.config.version,
-      updatedAt: new Date().toISOString(),
-      stats: this.getStats(),
-      decisions: this.decisions,
-      patterns: this.patterns,
-    };
-
     try {
-      fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
-    } catch {
-      return;
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+
+      this.decisions = this.decisions.slice(-this.config.maxDecisions);
+
+      const data = {
+        schemaVersion: this.config.schemaVersion,
+        version: this.config.version,
+        updatedAt: new Date().toISOString(),
+        stats: this.getStats(),
+        decisions: this.decisions,
+        patterns: this.patterns,
+      };
+
+      const tmpPath = `${filePath}.tmp`;
+      fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2), 'utf-8');
+      fs.renameSync(tmpPath, filePath);
+    } catch (err) {
+      this.emit('save:error', { error: err.message, path: filePath });
+    } finally {
+      this._saving = false;
     }
   }
 
@@ -227,7 +250,7 @@ class DecisionMemory extends EventEmitter {
       description,
       rationale,
       alternatives,
-      category: category || this._detectCategory(description),
+      category: category ?? this._detectCategory(description),
       taskContext,
       agentId,
       outcome: Outcome.PENDING,
@@ -256,12 +279,9 @@ class DecisionMemory extends EventEmitter {
     const decision = this.decisions.find(d => d.id === decisionId);
     if (!decision) return null;
 
-    if (!Object.values(Outcome).includes(outcome)) {
-      throw new Error(`Invalid outcome: ${outcome}. Use: ${Object.values(Outcome).join(', ')}`);
-    }
-
-    if (outcome === Outcome.PENDING) {
-      throw new Error('Cannot set outcome back to PENDING');
+    const allowedOutcomes = [Outcome.SUCCESS, Outcome.PARTIAL, Outcome.FAILURE];
+    if (!allowedOutcomes.includes(outcome)) {
+      throw new Error(`Invalid outcome: ${outcome}. Use: ${allowedOutcomes.join(', ')}`);
     }
 
     decision.outcome = outcome;
@@ -274,6 +294,9 @@ class DecisionMemory extends EventEmitter {
     } else if (outcome === Outcome.FAILURE) {
       decision.confidence = Math.max(this.config.minConfidence, decision.confidence - 0.3);
     }
+
+    // Recompute patterns related to this decision when outcomes change
+    this._recomputeRelatedPatterns(decision);
 
     this.emit(Events.OUTCOME_UPDATED, decision);
     return decision;
@@ -289,7 +312,7 @@ class DecisionMemory extends EventEmitter {
    * @returns {Object[]} Relevant decisions sorted by relevance
    */
   getRelevantDecisions(taskDescription, options = {}) {
-    const limit = options.limit || this.config.maxInjectedDecisions;
+    const limit = options.limit ?? this.config.maxInjectedDecisions;
     const taskKeywords = this._extractKeywords(taskDescription);
 
     let candidates = this.decisions.filter(d => d.outcome !== Outcome.PENDING);
@@ -302,7 +325,8 @@ class DecisionMemory extends EventEmitter {
       candidates = candidates.filter(d => d.outcome === Outcome.SUCCESS);
     }
 
-    // Score by keyword similarity + confidence with time decay
+    // Score by keyword similarity + confidence with time decay.
+    // Gate on raw similarity first (config threshold), then rank by composite score.
     const scored = candidates.map(d => {
       const similarity = this._keywordSimilarity(taskKeywords, d.keywords);
       const decayed = this._applyTimeDecay(d.confidence, d.createdAt);
@@ -311,12 +335,13 @@ class DecisionMemory extends EventEmitter {
 
       return {
         decision: d,
+        similarity,
         score: (similarity * 0.6) + (decayed * 0.25) + (outcomeBonus * 0.15),
       };
     });
 
     return scored
-      .filter(s => s.score >= this.config.similarityThreshold)
+      .filter(s => s.similarity >= this.config.similarityThreshold)
       .sort((a, b) => b.score - a.score)
       .slice(0, limit)
       .map(s => ({
@@ -326,7 +351,8 @@ class DecisionMemory extends EventEmitter {
   }
 
   /**
-   * Inject relevant decisions as context for a task (AC7)
+   * Inject relevant decisions as context for a task (AC7).
+   * Escapes persisted fields to prevent markdown/prompt injection.
    * @param {string} taskDescription - Task description
    * @returns {string} Formatted context block
    */
@@ -336,17 +362,21 @@ class DecisionMemory extends EventEmitter {
     if (relevant.length === 0) return '';
 
     const lines = [
-      '## 📋 Relevant Past Decisions',
+      '## Relevant Past Decisions',
       '',
     ];
 
     for (const d of relevant) {
-      const outcomeIcon = d.outcome === Outcome.SUCCESS ? '✅' :
-        d.outcome === Outcome.FAILURE ? '❌' : '⚠️';
+      const outcomeIcon = d.outcome === Outcome.SUCCESS ? '[OK]' :
+        d.outcome === Outcome.FAILURE ? '[FAIL]' : '[WARN]';
 
-      lines.push(`### ${outcomeIcon} ${d.description}`);
-      if (d.rationale) lines.push(`**Rationale:** ${d.rationale}`);
-      if (d.outcomeNotes) lines.push(`**Outcome:** ${d.outcomeNotes}`);
+      const safeDesc = this._escapeMarkdown(d.description);
+      const safeRationale = d.rationale ? this._escapeMarkdown(d.rationale) : '';
+      const safeNotes = d.outcomeNotes ? this._escapeMarkdown(d.outcomeNotes) : '';
+
+      lines.push(`### ${outcomeIcon} ${safeDesc}`);
+      if (safeRationale) lines.push(`**Rationale:** ${safeRationale}`);
+      if (safeNotes) lines.push(`**Outcome:** ${safeNotes}`);
       lines.push(`**Category:** ${d.category} | **Confidence:** ${Math.round(this._applyTimeDecay(d.confidence, d.createdAt) * 100)}%`);
       lines.push('');
     }
@@ -373,12 +403,12 @@ class DecisionMemory extends EventEmitter {
     const byCategory = {};
 
     for (const d of this.decisions) {
-      byOutcome[d.outcome] = (byOutcome[d.outcome] || 0) + 1;
-      byCategory[d.category] = (byCategory[d.category] || 0) + 1;
+      byOutcome[d.outcome] = (byOutcome[d.outcome] ?? 0) + 1;
+      byCategory[d.category] = (byCategory[d.category] ?? 0) + 1;
     }
 
     const successRate = total > 0
-      ? (byOutcome[Outcome.SUCCESS] || 0) / Math.max(1, total - (byOutcome[Outcome.PENDING] || 0))
+      ? (byOutcome[Outcome.SUCCESS] ?? 0) / Math.max(1, total - (byOutcome[Outcome.PENDING] ?? 0))
       : 0;
 
     return {
@@ -398,7 +428,7 @@ class DecisionMemory extends EventEmitter {
    * @returns {Object[]} Recent decisions
    */
   listDecisions(options = {}) {
-    const limit = options.limit || 20;
+    const limit = options.limit ?? 20;
     let results = [...this.decisions];
 
     if (options.category) {
@@ -452,7 +482,7 @@ class DecisionMemory extends EventEmitter {
   }
 
   /**
-   * Calculate keyword similarity between two keyword sets
+   * Calculate keyword similarity between two keyword sets (Jaccard index)
    * @param {string[]} keywords1
    * @param {string[]} keywords2
    * @returns {number} Similarity score 0-1
@@ -470,7 +500,9 @@ class DecisionMemory extends EventEmitter {
   }
 
   /**
-   * Apply time-based confidence decay
+   * Apply time-based confidence decay.
+   * Returns Math.max(minConfidence, confidence * decayFactor) so the
+   * final decayed value never drops below the configured floor.
    * @param {number} confidence - Original confidence
    * @param {string} createdAt - ISO date string
    * @returns {number} Decayed confidence
@@ -479,16 +511,30 @@ class DecisionMemory extends EventEmitter {
   _applyTimeDecay(confidence, createdAt) {
     const ageMs = Date.now() - new Date(createdAt).getTime();
     const ageDays = ageMs / (1000 * 60 * 60 * 24);
-    const decayFactor = Math.max(
-      this.config.minConfidence,
-      1 - (ageDays / this.config.confidenceDecayDays) * 0.5,
-    );
+    const decayFactor = 1 - (ageDays / this.config.confidenceDecayDays) * 0.5;
+    const decayedConfidence = confidence * decayFactor;
 
-    return Math.max(this.config.minConfidence, confidence * decayFactor);
+    return Math.max(this.config.minConfidence, decayedConfidence);
   }
 
   /**
-   * Detect recurring patterns in decisions (AC9)
+   * Escape markdown control sequences from persisted fields to prevent
+   * injected headings, code fences, or instruction text in context blocks.
+   * @param {string} text - Raw text to sanitize
+   * @returns {string} Sanitized text safe for markdown embedding
+   * @private
+   */
+  _escapeMarkdown(text) {
+    return text
+      .replace(/```/g, '\\`\\`\\`')
+      .replace(/^(#{1,6})\s/gm, '\\$1 ')
+      .replace(/^>/gm, '\\>')
+      .replace(/\n/g, ' ');
+  }
+
+  /**
+   * Detect recurring patterns in decisions (AC9).
+   * Uses a neutral recommendation when no resolved outcomes exist yet.
    * @param {Object} newDecision - The new decision to check against
    * @private
    */
@@ -504,15 +550,22 @@ class DecisionMemory extends EventEmitter {
       const successCount = outcomes.filter(o => o === Outcome.SUCCESS).length;
       const failureCount = outcomes.filter(o => o === Outcome.FAILURE).length;
 
+      let recommendation;
+      if (outcomes.length === 0) {
+        recommendation = 'Recurring pattern detected. No outcome data yet to evaluate.';
+      } else if (successCount > failureCount) {
+        recommendation = 'This approach has historically worked well. Consider reusing.';
+      } else {
+        recommendation = 'This approach has historically underperformed. Consider alternatives.';
+      }
+
       const pattern = {
         id: `pattern-${this.patterns.length + 1}`,
         category: newDecision.category,
         description: `Recurring ${newDecision.category} decision: "${newDecision.description}"`,
         occurrences: similar.length + 1,
         successRate: outcomes.length > 0 ? successCount / outcomes.length : 0,
-        recommendation: successCount > failureCount
-          ? 'This approach has historically worked well. Consider reusing.'
-          : 'This approach has historically underperformed. Consider alternatives.',
+        recommendation,
         detectedAt: new Date().toISOString(),
         relatedDecisionIds: [...similar.map(d => d.id), newDecision.id],
       };
@@ -530,6 +583,33 @@ class DecisionMemory extends EventEmitter {
         this.patterns.push(pattern);
         this.emit(Events.PATTERN_DETECTED, pattern);
       }
+    }
+  }
+
+  /**
+   * Recompute recommendation for patterns related to a decision whose outcome changed.
+   * Prevents stale neutral/negative recommendations from persisting after outcomes resolve.
+   * @param {Object} decision - The decision that was updated
+   * @private
+   */
+  _recomputeRelatedPatterns(decision) {
+    for (const pattern of this.patterns) {
+      if (!pattern.relatedDecisionIds.includes(decision.id)) continue;
+
+      const related = this.decisions.filter(d => pattern.relatedDecisionIds.includes(d.id));
+      const outcomes = related.map(d => d.outcome).filter(o => o !== Outcome.PENDING);
+      const successCount = outcomes.filter(o => o === Outcome.SUCCESS).length;
+      const failureCount = outcomes.filter(o => o === Outcome.FAILURE).length;
+
+      if (outcomes.length === 0) {
+        pattern.recommendation = 'Recurring pattern detected. No outcome data yet to evaluate.';
+      } else if (successCount > failureCount) {
+        pattern.recommendation = 'This approach has historically worked well. Consider reusing.';
+      } else {
+        pattern.recommendation = 'This approach has historically underperformed. Consider alternatives.';
+      }
+
+      pattern.successRate = outcomes.length > 0 ? successCount / outcomes.length : 0;
     }
   }
 
