@@ -4,12 +4,12 @@ status:
     - .aios/session.json
   modifiedFilesTotalCount: 1
   recentCommits:
-    - '5 chore: update ensinio-whatsapp-prospector status (workflow + copy)'
-    - '7 feat: add automatic settings.json format validation'
+    - '6 chore: add luiz-fosc-palestras-negocio to ACTIVE projects'
+    - 'c chore: update ACTIVE.md - ensinio-whatsapp-prospector Wave 3 complete'
   currentEpic: Ensinio Prospector App
   currentStory: story-m1-foundation
-  lastUpdate: '2026-03-17T15:49:26.366Z'
+  lastUpdate: '2026-03-17T18:52:06.291Z'
   isGitRepo: true
-timestamp: 1773762566367
+timestamp: 1773773526292
 ttl: 60
-gitFingerprint: 1773442718658.3108:1773755241746.6008
+gitFingerprint: 1773442718658.3108:1773772427893.1558
