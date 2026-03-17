@@ -29,5 +29,5 @@
 | B4 | app-artes-ensinio | cmux workspace | Em andamento (42% contexto, $8.21) | Continuar sessão Lovable |
 | B5 | ~~app-extrair-dados-whatsapp-ensinio~~ | cmux workspace | Cancelado — deletado | — |
 | B6 | casa-fundamental | cmux workspace | Backlog | Definir escopo e objetivos |
-| 19 | **ensinio-whatsapp-prospector** | 🏠 | 🚀 **Epic AGNOSTIC-001: 61% (11/18 stories) — Waves 0-3 done → Wave 4 next** | **@dev (YOLO mode)** | **2026-03-17 14:45** | [INDEX](~/CODE/Projects/ensinio-whatsapp-prospector/.aios/INDEX.md) |
+| 19 | **ensinio-whatsapp-prospector** | 🏠 | 🚀 **Epic AGNOSTIC-001: 72% (13/18 stories) — Waves 0-4 done ✅ → Wave 5 next (final wave!)** | **@dev (YOLO mode)** | **2026-03-17 (Wave 4 complete)** | [INDEX](~/CODE/Projects/ensinio-whatsapp-prospector/.aios/INDEX.md) |
 | 20 | luiz-fosc-palestras-negocio | 🏠 | 🔄 Em andamento | — | 2026-03-17 | [INDEX](/Users/luizfosc/CODE/Projects/luiz-fosc-palestras-negocio/.aios/INDEX.md) |
