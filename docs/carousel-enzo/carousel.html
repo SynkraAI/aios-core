@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrossel IA — Enzo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 20px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .slide-label {
+    color: #444;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Space Grotesk', sans-serif;
+    margin-bottom: -30px;
+    align-self: flex-start;
+    margin-left: calc(50% - 540px);
+  }
+
+  /* SLIDE BASE */
+  .slide {
+    width: 1080px;
+    height: 1350px;
+    position: relative;
+    overflow: hidden;
+    background: #050505;
+    flex-shrink: 0;
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 1 — GANCHO */
+  /* ─────────────────────────────────────── */
+  .s1 {
+    background: #050505;
+  }
+
+  .s1 .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .s1 .bg-glow {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .s1 .tag-row {
+    position: absolute;
+    top: 70px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .s1 .tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .s1 .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+  }
+
+  .s1 .center-content {
+    position: absolute;
+    top: 50%;
+    left: 72px;
+    right: 72px;
+    transform: translateY(-55%);
+  }
+
+  .s1 .eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 28px;
+  }
+
+  .s1 .headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 106px;
+    font-weight: 900;
+    line-height: 0.92;
+    color: #fff;
+    letter-spacing: -3px;
+  }
+
+  .s1 .headline em {
+    font-style: italic;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .s1 .divider {
+    width: 60px;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+    margin: 48px 0;
+  }
+
+  .s1 .sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 19px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.55);
+    max-width: 580px;
+  }
+
+  .s1 .sub strong {
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+  }
+
+  .s1 .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  }
+
+  .s1 .slide-num {
+    position: absolute;
+    bottom: 64px;
+    right: 72px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.2);
+  }
+
+  .s1 .corner-bracket {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-color: rgba(255,255,255,0.12);
+    border-style: solid;
+  }
+  .s1 .cb-tl { top: 48px; left: 48px; border-width: 1px 0 0 1px; }
+  .s1 .cb-tr { top: 48px; right: 48px; border-width: 1px 1px 0 0; }
+  .s1 .cb-bl { bottom: 48px; left: 48px; border-width: 0 0 1px 1px; }
+  .s1 .cb-br { bottom: 48px; right: 48px; border-width: 0 1px 1px 0; }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 2 — URGÊNCIA */
+  /* ─────────────────────────────────────── */
+  .s2 {
+    background: #050505;
+  }
+
+  .s2 .bg-lines {
+    position: absolute;
+    inset: 0;
+  }
+  .s2 .bg-lines::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 119px,
+      rgba(255,255,255,0.025) 120px
+    );
+  }
+
+  .s2 .accent-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 10%, rgba(255,255,255,0.15) 50%, transparent 90%);
+  }
+
+  .s2 .tag-row {
+    position: absolute;
+    top: 70px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .s2 .tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .s2 .main-content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-52%);
+    left: 72px;
+    right: 72px;
+  }
+
+  .s2 .number {
+    font-family: 'Playfair Display', serif;
+    font-size: 200px;
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(255,255,255,0.04);
+    position: absolute;
+    right: -20px;
+    top: -120px;
+    letter-spacing: -10px;
+  }
+
+  .s2 .headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1.0;
+    color: #fff;
+    letter-spacing: -2px;
+    margin-bottom: 40px;
+  }
+
+  .s2 .headline em {
+    font-style: italic;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .s2 .line {
+    width: 50px;
+    height: 1px;
+    background: rgba(255,255,255,0.25);
+    margin-bottom: 36px;
+  }
+
+  .s2 .body-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.5);
+    max-width: 640px;
+  }
+
+  .s2 .body-text strong {
+    color: rgba(255,255,255,0.88);
+    font-weight: 500;
+  }
+
+  .s2 .slide-num {
+    position: absolute;
+    bottom: 64px;
+    right: 72px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 3 — OBJEÇÃO */
+  /* ─────────────────────────────────────── */
+  .s3 {
+    background: #050505;
+  }
+
+  .s3 .bg-dot {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+  }
+
+  .s3 .tag-row {
+    position: absolute;
+    top: 70px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .s3 .tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .s3 .objection-box {
+    position: absolute;
+    top: 180px;
+    left: 72px;
+    right: 72px;
+    padding: 36px 40px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .s3 .objection-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 16px;
+  }
+
+  .s3 .objection-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 38px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.3;
+  }
+
+  .s3 .answer-content {
+    position: absolute;
+    top: 490px;
+    left: 72px;
+    right: 72px;
+  }
+
+  .s3 .answer-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 58px;
+    font-weight: 900;
+    line-height: 1.05;
+    color: #fff;
+    letter-spacing: -1.5px;
+    margin-bottom: 40px;
+  }
+
+  .s3 .tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .s3 .tool-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .s3 .tool-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    flex-shrink: 0;
+  }
+
+  .s3 .tool-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1px;
+  }
+
+  .s3 .tool-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+    margin-top: 3px;
+  }
+
+  .s3 .footer-line {
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .s3 .footer-line strong {
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+
+  .s3 .slide-num {
+    position: absolute;
+    bottom: 64px;
+    right: 72px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 4 — IMPACTO REAL */
+  /* ─────────────────────────────────────── */
+  .s4 {
+    background: #050505;
+  }
+
+  .s4 .bg-gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,255,255,0.04) 0%, transparent 60%);
+  }
+
+  .s4 .tag-row {
+    position: absolute;
+    top: 70px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .s4 .tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .s4 .headline {
+    position: absolute;
+    top: 180px;
+    left: 72px;
+    right: 72px;
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1.0;
+    color: #fff;
+    letter-spacing: -2px;
+  }
+
+  .s4 .headline em {
+    font-style: italic;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .s4 .items-list {
+    position: absolute;
+    top: 400px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .s4 .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    padding: 36px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.055);
+  }
+
+  .s4 .item:first-child {
+    border-top: 1px solid rgba(255,255,255,0.055);
+  }
+
+  .s4 .item-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 2px;
+    padding-top: 4px;
+    min-width: 28px;
+  }
+
+  .s4 .item-content {}
+
+  .s4 .item-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+
+  .s4 .item-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.38);
+    line-height: 1.5;
+  }
+
+  .s4 .bottom-statement {
+    position: absolute;
+    bottom: 90px;
+    left: 72px;
+    right: 72px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.5;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .s4 .slide-num {
+    position: absolute;
+    bottom: 64px;
+    right: 72px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 5 — CONSEQUÊNCIA */
+  /* ─────────────────────────────────────── */
+  .s5 {
+    background: #050505;
+  }
+
+  .s5 .split {
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%;
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .s5 .bg-vline {
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .s5 .tag-row {
+    position: absolute;
+    top: 70px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .s5 .tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .s5 .headline {
+    position: absolute;
+    top: 180px;
+    left: 72px;
+    right: 72px;
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    font-weight: 900;
+    line-height: 0.95;
+    color: #fff;
+    letter-spacing: -2.5px;
+  }
+
+  .s5 .headline em {
+    font-style: italic;
+    color: rgba(255,255,255,0.4);
+    display: block;
+  }
+
+  .s5 .divider-line {
+    position: absolute;
+    top: 470px;
+    left: 72px;
+    width: 50px;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  .s5 .comparison {
+    position: absolute;
+    top: 540px;
+    left: 72px;
+    right: 72px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .s5 .col {
+    padding: 36px 32px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .s5 .col.win {
+    background: rgba(255,255,255,0.03);
+  }
+
+  .s5 .col.lose {
+    background: rgba(0,0,0,0.3);
+    opacity: 0.7;
+  }
+
+  .s5 .col-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .s5 .col.win .col-label { color: rgba(255,255,255,0.5); }
+  .s5 .col.lose .col-label { color: rgba(255,255,255,0.2); }
+
+  .s5 .col-items {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .s5 .col-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .s5 .col.win .col-item { color: rgba(255,255,255,0.75); }
+  .s5 .col.lose .col-item { color: rgba(255,255,255,0.25); }
+
+  .s5 .col-item::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .s5 .col.win .col-item::before { background: rgba(255,255,255,0.4); }
+  .s5 .col.lose .col-item::before { background: rgba(255,255,255,0.12); }
+
+  .s5 .bottom-cta {
+    position: absolute;
+    bottom: 90px;
+    left: 72px;
+    right: 72px;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+  }
+
+  .s5 .bottom-cta strong {
+    color: rgba(255,255,255,0.8);
+    font-weight: 600;
+  }
+
+  .s5 .slide-num {
+    position: absolute;
+    bottom: 64px;
+    right: 72px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 6 — BARREIRA */
+  /* ─────────────────────────────────────── */
+  .s6 {
+    background: #050505;
+  }
+
+  .s6 .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 120px 120px;
+  }
+
+  .s6 .tag-row {
+    position: absolute;
+    top: 70px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .s6 .tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .s6 .myth-box {
+    position: absolute;
+    top: 200px;
+    left: 72px;
+    right: 72px;
+    padding: 44px 48px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.015);
+    position: absolute;
+  }
+
+  .s6 .myth-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 18px;
+  }
+
+  .s6 .myth-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 40px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.42);
+    line-height: 1.25;
+  }
+
+  .s6 .answer-area {
+    position: absolute;
+    top: 570px;
+    left: 72px;
+    right: 72px;
+  }
+
+  .s6 .answer-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 66px;
+    font-weight: 900;
+    line-height: 1.0;
+    color: #fff;
+    letter-spacing: -2px;
+    margin-bottom: 40px;
+  }
+
+  .s6 .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .s6 .step {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 26px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .s6 .step-n {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.18);
+    letter-spacing: 2px;
+    min-width: 28px;
+  }
+
+  .s6 .step-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .s6 .step-text strong {
+    color: rgba(255,255,255,0.88);
+    font-weight: 600;
+  }
+
+  .s6 .bottom-note {
+    position: absolute;
+    bottom: 90px;
+    left: 72px;
+    right: 72px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: rgba(255,255,255,0.3);
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .s6 .slide-num {
+    position: absolute;
+    bottom: 64px;
+    right: 72px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* ─────────────────────────────────────── */
+  /* SLIDE 7 — CTA */
+  /* ─────────────────────────────────────── */
+  .s7 {
+    background: #050505;
+  }
+
+  .s7 .bg-radial {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,255,255,0.04) 0%, transparent 65%);
+  }
+
+  .s7 .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .s7 .ring-1 {
+    width: 500px; height: 500px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .s7 .ring-2 {
+    width: 750px; height: 750px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .s7 .ring-3 {
+    width: 1000px; height: 1000px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .s7 .center-content {
+    position: absolute;
+    top: 50%;
+    left: 72px;
+    right: 72px;
+    transform: translateY(-50%);
+    text-align: center;
+  }
+
+  .s7 .eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 32px;
+  }
+
+  .s7 .headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 98px;
+    font-weight: 900;
+    line-height: 0.9;
+    color: #fff;
+    letter-spacing: -4px;
+    margin-bottom: 16px;
+  }
+
+  .s7 .headline-2 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 98px;
+    font-weight: 400;
+    line-height: 0.9;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: -4px;
+    margin-bottom: 52px;
+  }
+
+  .s7 .divider {
+    width: 1px;
+    height: 50px;
+    background: rgba(255,255,255,0.15);
+    margin: 0 auto 48px;
+  }
+
+  .s7 .body-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.45);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .s7 .body-text strong {
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+
+  .s7 .cta-box {
+    margin-top: 52px;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 36px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+  }
+
+  .s7 .cta-arrow {
+    font-size: 18px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .s7 .cta-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .s7 .bottom-row {
+    position: absolute;
+    bottom: 70px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .s7 .handle {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.2);
+  }
+
+  .s7 .slide-counter {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.15);
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ SLIDE 1 ══════════ -->
+<div class="slide-label">SLIDE 01 — GANCHO</div>
+<div class="slide s1">
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="cb-tl corner-bracket"></div>
+  <div class="cb-tr corner-bracket"></div>
+  <div class="cb-bl corner-bracket"></div>
+  <div class="cb-br corner-bracket"></div>
+
+  <div class="tag-row">
+    <span class="tag">IA</span>
+    <div class="dot"></div>
+    <span class="tag">2026</span>
+  </div>
+
+  <div class="center-content">
+    <div class="eyebrow">A pergunta que ninguém quer responder</div>
+    <div class="headline">
+      Você ainda<br>
+      faz tudo<br>
+      <em>na mão?</em>
+    </div>
+    <div class="divider"></div>
+    <div class="sub">
+      Enquanto você gasta <strong>4 horas</strong> num briefing,<br>
+      tem gente entregando o dobro<br>
+      na metade do tempo.
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-num">01 / 07</div>
+</div>
+
+<!-- ══════════ SLIDE 2 ══════════ -->
+<div class="slide-label">SLIDE 02 — URGÊNCIA</div>
+<div class="slide s2">
+  <div class="bg-lines"></div>
+  <div class="accent-bar"></div>
+
+  <div class="tag-row">
+    <span class="tag">Mercado</span>
+    <span class="tag">Realidade</span>
+  </div>
+
+  <div class="main-content">
+    <div class="number">02</div>
+    <div class="headline">
+      O mercado<br>
+      já mudou.<br>
+      <em>Você não.</em>
+    </div>
+    <div class="line"></div>
+    <div class="body-text">
+      Freelancers estão usando IA pra criar roteiros,<br>
+      montar propostas, gerar variantes de design<br>
+      e responder clientes.<br><br>
+      Não é sobre substituir ninguém.<br>
+      É sobre quem <strong>entrega mais rápido,<br>
+      cobra mais caro</strong> e ainda tem tempo sobrando.
+    </div>
+  </div>
+
+  <div class="slide-num">02 / 07</div>
+</div>
+
+<!-- ══════════ SLIDE 3 ══════════ -->
+<div class="slide-label">SLIDE 03 — OBJEÇÃO</div>
+<div class="slide s3">
+  <div class="bg-dot"></div>
+
+  <div class="tag-row">
+    <span class="tag">Objeção</span>
+    <span class="tag">Resposta</span>
+  </div>
+
+  <div class="objection-box" style="position:absolute;top:180px;left:72px;right:72px;">
+    <div class="objection-label">O que você pensa</div>
+    <div class="objection-text">"Mas IA não entende<br>o meu trabalho."</div>
+  </div>
+
+  <div class="answer-content">
+    <div class="answer-headline">
+      Entende sim.<br>Melhor do que<br>você imagina.
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-item">
+        <div class="tool-dot"></div>
+        <div>
+          <div class="tool-name">ChatGPT</div>
+          <div class="tool-desc">Roteiros e textos</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot"></div>
+        <div>
+          <div class="tool-name">Claude</div>
+          <div class="tool-desc">Estratégias e análise</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot"></div>
+        <div>
+          <div class="tool-name">Gemini</div>
+          <div class="tool-desc">Dados e insights</div>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-dot"></div>
+        <div>
+          <div class="tool-name">Midjourney</div>
+          <div class="tool-desc">Referências visuais</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-line">
+      O problema nunca foi a ferramenta.<br>
+      Foi você <strong>não saber fazer a pergunta certa.</strong>
+    </div>
+  </div>
+
+  <div class="slide-num">03 / 07</div>
+</div>
+
+<!-- ══════════ SLIDE 4 ══════════ -->
+<div class="slide-label">SLIDE 04 — IMPACTO REAL</div>
+<div class="slide s4">
+  <div class="bg-gradient"></div>
+
+  <div class="tag-row">
+    <span class="tag">Impacto</span>
+    <span class="tag">Na prática</span>
+  </div>
+
+  <div class="headline" style="position:absolute;top:180px;left:72px;right:72px;">
+    O que muda quando<br>você <em>começa</em> a usar IA:
+  </div>
+
+  <div class="items-list">
+    <div class="item">
+      <span class="item-number">01</span>
+      <div class="item-content">
+        <div class="item-title">Briefing em 40 minutos</div>
+        <div class="item-sub">O que levava 3 horas sai em menos de uma</div>
+      </div>
+    </div>
+    <div class="item">
+      <span class="item-number">02</span>
+      <div class="item-content">
+        <div class="item-title">Propostas prontas, não rascunhadas</div>
+        <div class="item-sub">Estrutura, argumentação e fechamento em minutos</div>
+      </div>
+    </div>
+    <div class="item">
+      <span class="item-number">03</span>
+      <div class="item-content">
+        <div class="item-title">Pesquisa que virou conversa</div>
+        <div class="item-sub">Uma manhã de referências resolvida em 5 minutos</div>
+      </div>
+    </div>
+    <div class="item">
+      <span class="item-number">04</span>
+      <div class="item-content">
+        <div class="item-title">De operacional a estratégico</div>
+        <div class="item-sub">Você para de executar e começa a pensar</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-statement">
+    Quem usa IA direito não volta atrás.<br>Percebe que estava gastando energia demais.
+  </div>
+  <div class="slide-num">04 / 07</div>
+</div>
+
+<!-- ══════════ SLIDE 5 ══════════ -->
+<div class="slide-label">SLIDE 05 — CONSEQUÊNCIA</div>
+<div class="slide s5">
+  <div class="bg-vline"></div>
+
+  <div class="tag-row">
+    <span class="tag">Gap</span>
+    <span class="tag">Consequência</span>
+  </div>
+
+  <div class="headline">
+    Quem ignora IA<br>
+    <em>vai sentir</em><br>
+    o preço.
+  </div>
+
+  <div class="divider-line"></div>
+
+  <div class="comparison">
+    <div class="col win">
+      <div class="col-label">Quem usa</div>
+      <div class="col-items">
+        <div class="col-item">Entrega mais rápido</div>
+        <div class="col-item">Cobra mais caro</div>
+        <div class="col-item">Pega melhores projetos</div>
+        <div class="col-item">Sobra tempo pra pensar</div>
+      </div>
+    </div>
+    <div class="col lose">
+      <div class="col-label">Quem não usa</div>
+      <div class="col-items">
+        <div class="col-item">Briga por prazo</div>
+        <div class="col-item">Compete por preço</div>
+        <div class="col-item">500 concorrentes iguais</div>
+        <div class="col-item">Tempo sempre curto</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-cta">
+    Qual lado você quer estar<br>
+    <strong>daqui a 6 meses?</strong>
+  </div>
+
+  <div class="slide-num">05 / 07</div>
+</div>
+
+<!-- ══════════ SLIDE 6 ══════════ -->
+<div class="slide-label">SLIDE 06 — BARREIRA</div>
+<div class="slide s6">
+  <div class="bg-grid"></div>
+
+  <div class="tag-row">
+    <span class="tag">Barreira</span>
+    <span class="tag">Solução</span>
+  </div>
+
+  <div class="myth-box" style="position:absolute;top:190px;left:72px;right:72px;">
+    <div class="myth-label">A desculpa mais comum</div>
+    <div class="myth-text">"Não sei por<br>onde começar."</div>
+  </div>
+
+  <div class="answer-area" style="position:absolute;top:530px;left:72px;right:72px;">
+    <div class="answer-headline">
+      Ninguém<br>sabia.
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step-n">01</span>
+        <span class="step-text">Todo mundo que usa IA hoje <strong>começou perdido</strong></span>
+      </div>
+      <div class="step">
+        <span class="step-n">02</span>
+        <span class="step-text">A diferença é que eles <strong>começaram</strong></span>
+      </div>
+      <div class="step">
+        <span class="step-n">03</span>
+        <span class="step-text">Você não precisa de 15 ferramentas. <strong>Precisa de uma.</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-note" style="position:absolute;bottom:90px;left:72px;right:72px;">
+    O resto vem com o tempo.
+  </div>
+
+  <div class="slide-num">06 / 07</div>
+</div>
+
+<!-- ══════════ SLIDE 7 ══════════ -->
+<div class="slide-label">SLIDE 07 — CTA (sem logo)</div>
+<div class="slide s7">
+  <div class="bg-radial"></div>
+  <div class="ring ring-1"></div>
+  <div class="ring ring-2"></div>
+  <div class="ring ring-3"></div>
+
+  <div class="center-content">
+    <div class="eyebrow">A decisão é agora</div>
+    <div class="headline">Para de</div>
+    <div class="headline-2">assistir.</div>
+    <div class="divider"></div>
+    <div class="body-text">
+      Abre o ChatGPT, o Claude, o Gemini — qualquer um.<br>
+      Digita o que você precisa resolver <strong>agora</strong>.<br><br>
+      O pior cenário é você aprender alguma coisa.<br>
+      O melhor é <strong>nunca mais trabalhar do mesmo jeito.</strong>
+    </div>
+    <div style="text-align:center">
+      <div class="cta-box">
+        <span class="cta-arrow">→</span>
+        <span class="cta-text">Começa hoje</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <span class="handle">@enzodsgn</span>
+    <span class="slide-counter">07 / 07</span>
+  </div>
+</div>
+
+</body>
+</html>
