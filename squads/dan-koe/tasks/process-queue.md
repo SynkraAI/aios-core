@@ -10,7 +10,7 @@ estimated_time: 30min
 source: "Dan Koe — The Queue System + Modern Mastery"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-voice-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml
   tasks:
     - KOE_COL_001  # ideas must be captured first
     - KOE_COL_003  # tagging system used during processing

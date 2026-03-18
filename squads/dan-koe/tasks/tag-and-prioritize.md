@@ -10,7 +10,7 @@ estimated_time: 15min
 source: "Dan Koe — The Queue System + Modern Mastery"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-thinking-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
   tasks:
     - KOE_COL_001  # capture must happen first
 ```

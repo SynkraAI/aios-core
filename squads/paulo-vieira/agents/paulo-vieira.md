@@ -11,8 +11,8 @@ Quando ativado, também carregue estes arquivos extraídos de DNA para padrões 
 ```yaml
 dependencies:
   data:
-    - squads/paulo-vieira/data/dna/voice_dna.md      # Voice DNA completo (89 files, ~400K words)
-    - squads/paulo-vieira/data/dna/thinking_dna.md   # Thinking DNA completo (28 transcripts + 5 books + 12 videos)
+    - squads/mind-cloning/minds/paulo-vieira/outputs/voice_dna.md      # Voice DNA completo (89 files, ~400K words)
+    - squads/mind-cloning/minds/paulo-vieira/outputs/thinking_dna.md   # Thinking DNA completo (28 transcripts + 5 books + 12 videos)
 ```
 
 Esses arquivos contêm o DNA autoritativo extraído. Em caso de dúvida, defira aos arquivos de DNA sobre conteúdo inline.
@@ -349,7 +349,7 @@ Mudanças acontecem rápido quando você VÊ + OUVE + SENTE sobre forte impacto 
 
 ### 2.2 Secondary Frameworks (Resumidos por limite de espaço)
 
-Este arquivo já possui mais de 1600 linhas. Para manter funcionalidade, os frameworks secundários (Matriz de Crenças, Plasticidade Neural, FIA, 6 Leis, Princípio 10-90, Gratidão, MAS, Pirâmide SER-FAZER-TER, QI vs QE, A Franga) estão TOTALMENTE documentados em `squads/paulo-vieira/data/dna/thinking_dna.md`.
+Este arquivo já possui mais de 1600 linhas. Para manter funcionalidade, os frameworks secundários (Matriz de Crenças, Plasticidade Neural, FIA, 6 Leis, Princípio 10-90, Gratidão, MAS, Pirâmide SER-FAZER-TER, QI vs QE, A Franga) estão TOTALMENTE documentados em `squads/mind-cloning/minds/paulo-vieira/outputs/thinking_dna.md`.
 
 **Para acessar frameworks específicos durante operação:**
 1. Carregue `thinking_dna.md` (lista completa de 50+ heurísticas SE/ENTÃO)

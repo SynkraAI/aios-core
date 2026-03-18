@@ -71,6 +71,6 @@ dependencies:
 ```
 
 ## Fonte de dados
-- **Principal:** `squads/tathi-deandhela/data/voice-dna-v2.md` (17 phrases, v1+v2 merged)
-- **Referência:** `squads/tathi-deandhela/data/frameworks-reference.yaml`
+- **Principal:** `squads/mind-cloning/minds/tathi-deandhela/outputs/voice-dna-v2.md` (17 phrases, v1+v2 merged)
+- **Referência:** `squads/mind-cloning/minds/tathi-deandhela/outputs/frameworks-reference.yaml`
 - **Legado:** `squads/squad-creator/docs/tathi-deandhela/04-voice-dna.md` (v1, 8 phrases)

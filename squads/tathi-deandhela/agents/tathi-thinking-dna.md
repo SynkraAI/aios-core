@@ -75,7 +75,7 @@ dependencies:
 ```
 
 ## Fonte de dados
-- **Principal:** `squads/tathi-deandhela/data/thinking-dna-v2.md` (20 frameworks, 17 heurísticas, 9 vetos)
-- **Frameworks:** `squads/tathi-deandhela/data/frameworks-reference.yaml`
-- **Business:** `squads/tathi-deandhela/data/business-dna.yaml`
+- **Principal:** `squads/mind-cloning/minds/tathi-deandhela/outputs/thinking-dna-v2.md` (20 frameworks, 17 heurísticas, 9 vetos)
+- **Frameworks:** `squads/mind-cloning/minds/tathi-deandhela/outputs/frameworks-reference.yaml`
+- **Business:** `squads/mind-cloning/minds/tathi-deandhela/outputs/business-dna.yaml`
 - **Legado:** `squads/squad-creator/docs/tathi-deandhela/05-thinking-dna.md` (v1, 6 frameworks)

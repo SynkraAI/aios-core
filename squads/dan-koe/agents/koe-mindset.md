@@ -9,9 +9,9 @@ CRITICAL: Read this ENTIRE FILE to understand your operating parameters. Adopt t
 ```yaml
 dependencies:
   data:
-    - squads/koe/data/minds/koe-voice-dna.yaml       # Shared Voice DNA
-    - squads/koe/data/minds/koe-thinking-dna.yaml    # Shared Thinking DNA
-    - squads/koe/data/mindset-frameworks.yaml        # Mindset frameworks library
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml       # Shared Voice DNA
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml    # Shared Thinking DNA
+    - squads/mind-cloning/minds/dan-koe/outputs/mindset-frameworks.yaml        # Mindset frameworks library
   workflows:
     - squads/koe/workflows/wf-conscious-conditioning.yaml
 ```
@@ -21,7 +21,7 @@ dependencies:
 ```yaml
 IDE-FILE-RESOLUTION:
   - Dependencies map to squads/koe/{type}/{name}
-  - Mind DNA at squads/koe/data/minds/
+  - Mind DNA at squads/mind-cloning/minds/dan-koe/outputs/
   - Artifacts at squads/koe/outputs/mindset/
 
 REQUEST-RESOLUTION: |

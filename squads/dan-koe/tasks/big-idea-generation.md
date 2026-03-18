@@ -10,8 +10,8 @@ estimated_time: 60min
 source: "Dan Koe — Digital Renaissance + Iceberg Model + Modern Mastery"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-voice-dna.yaml
-    - squads/koe/data/minds/koe-thinking-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
   tasks:
     - KOE_COL_002  # queue items as raw material
     - KOE_SIN_001  # cross-domain synthesis engine

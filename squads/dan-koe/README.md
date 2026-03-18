@@ -133,8 +133,8 @@ All agents share Dan Koe's extracted Voice DNA and Thinking DNA:
 
 | Data File | Location | Purpose |
 |-----------|----------|---------|
-| Voice DNA | `squads/koe/data/minds/koe-voice-dna.yaml` | Communication style, signature phrases, em-dash rhythm |
-| Thinking DNA | `squads/koe/data/minds/koe-thinking-dna.yaml` | Frameworks, heuristics, decision architecture |
+| Voice DNA | `squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml` | Communication style, signature phrases, em-dash rhythm |
+| Thinking DNA | `squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml` | Frameworks, heuristics, decision architecture |
 | MMOS Artifacts | `squads/mmos/minds/dan_koe/` | 14 source files, 50MB+ |
 
 ## Component Inventory

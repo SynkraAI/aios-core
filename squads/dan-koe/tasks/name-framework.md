@@ -10,7 +10,7 @@ estimated_time: 20min
 source: "Dan Koe — Modern Mastery + 2 Hour Writer"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-voice-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml
   tasks:
     - KOE_SIN_001  # synthesis produces the idea to name
 ```

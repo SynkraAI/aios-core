@@ -10,7 +10,7 @@ estimated_time: 10min
 source: "Dan Koe — The Art of Focus + One-Person Business Philosophy"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-thinking-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
 ```
 
 ## Purpose

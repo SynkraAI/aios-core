@@ -73,8 +73,8 @@ clone_combinations:
       pattern: "Advisor identifica gaps de leverage, Offers redesenha ofertas para fechar gaps"
 
   integration:
-    thinking_dna: "squads/koe/data/minds/koe-thinking-dna.yaml"
-    voice_dna: "squads/koe/data/minds/koe-voice-dna.yaml"
+    thinking_dna: "squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml"
+    voice_dna: "squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml"
     checklists_required:
       - "checklists/sovereignty-assessment.md"
     data_required:

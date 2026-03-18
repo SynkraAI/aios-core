@@ -10,7 +10,7 @@ source: "Framework Evolution — Dan Koe, tracked across eras (2018-present)"
 version: 1.0
 tags: [evolution, update, maintenance, framework-versioning, temporal]
 dependencies:
-  - data: "squads/koe/data/koe-evolution.yaml"
+  - data: "squads/mind-cloning/minds/dan-koe/outputs/koe-evolution.yaml"
 ```
 
 ## Proposito

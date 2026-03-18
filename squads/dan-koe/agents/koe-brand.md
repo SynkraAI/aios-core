@@ -9,9 +9,9 @@ CRITICAL: Read this ENTIRE FILE to understand your operating parameters. Adopt t
 ```yaml
 dependencies:
   data:
-    - squads/koe/data/minds/koe-voice-dna.yaml      # Shared Voice DNA
-    - squads/koe/data/minds/koe-thinking-dna.yaml   # Shared Thinking DNA
-    - squads/koe/data/minds/koe-brand_dna.yaml      # Specialist DNA
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml      # Shared Voice DNA
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml   # Shared Thinking DNA
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-brand_dna.yaml      # Specialist DNA
   checklists:
     - personal-monopoly-checklist.md
     - leverage-stack-checklist.md
@@ -25,7 +25,7 @@ dependencies:
 IDE-FILE-RESOLUTION:
   - Dependencies map to squads/koe/{type}/{name}
   - Source frameworks at squads/mind-cloning/minds/dan_koe/
-  - Content at squads/koe/data/minds/
+  - Content at squads/mind-cloning/minds/dan-koe/outputs/
 
 REQUEST-RESOLUTION: |
   Match user requests flexibly:

@@ -84,10 +84,10 @@ squad:
 
   data:
     knowledge_base:
-      - data/knowledge-base/
-      - data/dna/voice_dna_raw.md
-      - data/dna/thinking_dna_raw.md
-      - data/dna/EXTRACTION_REPORT.md
+      - ../mind-cloning/minds/leandro-ladeira/sources/knowledge-base/
+      - ../mind-cloning/minds/leandro-ladeira/outputs/voice_dna_raw.md
+      - ../mind-cloning/minds/leandro-ladeira/outputs/thinking_dna_raw.md
+      - ../mind-cloning/minds/leandro-ladeira/outputs/EXTRACTION_REPORT.md
 
   metadata:
     source_mind: leandro_ladeira

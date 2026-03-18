@@ -10,7 +10,7 @@ estimated_time: 20min
 source: "Dan Koe — Fill/Empty/Use Brain Cycle + Modern Mastery"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-thinking-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
   tasks:
     - KOE_COL_003  # tag analytics informs what to consume
 ```

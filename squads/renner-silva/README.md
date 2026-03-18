@@ -102,7 +102,7 @@ squads/renner-silva/
 ## Knowledge Base
 
 O agente tem acesso a 19 Knowledge Bases em:
-`squads/squad-creator/data/minds/renner_silva/05_clone_final/knowledge_base/`
+`squads/mind-cloning/minds/renner-silva/sources/`
 
 | Grupo | KBs |
 |-------|-----|
@@ -196,7 +196,7 @@ Ver `data/README.md` para índice completo com descrições.
 
 O clone foi criado através do pipeline completo do squad `icp-cloning`:
 
-1. **Briefing** — `squads/squad-creator/data/minds/renner_silva/01_briefing/`
+1. **Briefing** — `squads/mind-cloning/minds/renner-silva/sources/`
 2. **Extração** (15 prompts P0-P14) — `02_extracao/`
 3. **SYNAPSE** (consolidação + framework) — `03_synapse/`
 4. **Humanização** (blind spots, paradoxos, memórias) — `04_humanizacao/`

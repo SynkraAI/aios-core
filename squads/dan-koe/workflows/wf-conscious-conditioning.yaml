@@ -76,8 +76,8 @@ clone_combinations:
       pattern: "Mindset faz o trabalho interno, Advisor conecta com resultados externos tangíveis"
 
   integration:
-    thinking_dna: "squads/koe/data/minds/koe-thinking-dna.yaml"
-    voice_dna: "squads/koe/data/minds/koe-voice-dna.yaml"
+    thinking_dna: "squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml"
+    voice_dna: "squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml"
     frameworks_required:
       - "Conscious Conditioning Process"
       - "Habit Loop Mastery (DF-002)"

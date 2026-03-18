@@ -260,8 +260,8 @@ quality_gates:
 
 # Shared Data Files
 shared_data:
-  voice_dna: data/minds/koe-voice-dna.yaml
-  thinking_dna: data/minds/koe-thinking-dna.yaml
+  voice_dna: ../mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml
+  thinking_dna: ../mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
 
 # Mental Models (10 confirmed)
 mental_models:

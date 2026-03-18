@@ -38,17 +38,17 @@ squad:
 
   data:
     knowledge_base:
-      - data/knowledge-base/
+      - ../mind-cloning/minds/paulo-vieira/sources/knowledge-base/
     dna:
-      - data/dna/voice_dna.md
-      - data/dna/thinking_dna.md
-      - data/dna/sources-map.yaml
-      - data/dna/voice-dna-cis.yaml
-      - data/dna/voice-dna-foco.yaml
-      - data/dna/voice-dna-livros.yaml
-      - data/dna/thinking-dna-books.yaml
-      - data/dna/thinking-dna-courses.yaml
-      - data/dna/thinking-dna-youtube.yaml
+      - ../mind-cloning/minds/paulo-vieira/outputs/voice_dna.md
+      - ../mind-cloning/minds/paulo-vieira/outputs/thinking_dna.md
+      - ../mind-cloning/minds/paulo-vieira/outputs/sources-map.yaml
+      - ../mind-cloning/minds/paulo-vieira/outputs/voice-dna-cis.yaml
+      - ../mind-cloning/minds/paulo-vieira/outputs/voice-dna-foco.yaml
+      - ../mind-cloning/minds/paulo-vieira/outputs/voice-dna-livros.yaml
+      - ../mind-cloning/minds/paulo-vieira/outputs/thinking-dna-books.yaml
+      - ../mind-cloning/minds/paulo-vieira/outputs/thinking-dna-courses.yaml
+      - ../mind-cloning/minds/paulo-vieira/outputs/thinking-dna-youtube.yaml
 
   metadata:
     source_mind: paulo_vieira

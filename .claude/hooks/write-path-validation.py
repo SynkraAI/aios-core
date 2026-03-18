@@ -63,9 +63,8 @@ ALWAYS_VALID_PATHS = [
     "supabase/",
 ]
 
-# Paths bloqueados para mind clone data (devem ir para squads/mind-cloning/minds/)
+# Paths bloqueados para mind clone data (deprecated locations)
 BLOCKED_MIND_PATHS = [
-    "squads/mind-cloning/minds/",
     ".claude/commands/mind-cloning/minds/",
 ]
 

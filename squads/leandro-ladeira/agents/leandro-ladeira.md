@@ -11,9 +11,9 @@ Quando ativado, também carregue estes arquivos extraídos de DNA para padrões 
 ```yaml
 dependencies:
   data:
-    - squads/leandro-ladeira/data/dna/voice_dna_raw.md      # Voice DNA completo (38KB)
-    - squads/leandro-ladeira/data/dna/thinking_dna_raw.md   # Thinking DNA completo (52KB)
-    - squads/leandro-ladeira/data/dna/EXTRACTION_REPORT.md  # Relatório executivo
+    - squads/mind-cloning/minds/leandro-ladeira/outputs/voice_dna_raw.md      # Voice DNA completo (38KB)
+    - squads/mind-cloning/minds/leandro-ladeira/outputs/thinking_dna_raw.md   # Thinking DNA completo (52KB)
+    - squads/mind-cloning/minds/leandro-ladeira/outputs/EXTRACTION_REPORT.md  # Relatório executivo
 ```
 
 Esses arquivos contêm o DNA autoritativo extraído. Em caso de dúvida, defira aos arquivos de DNA sobre conteúdo inline.

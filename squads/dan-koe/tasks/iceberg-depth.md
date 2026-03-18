@@ -10,7 +10,7 @@ estimated_time: 30min
 source: "Dan Koe — Iceberg Model + The Art of Focus + 2 Hour Writer"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-thinking-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
   tasks:
     - KOE_SIN_001  # synthesis produces the Big Idea
     - KOE_SIN_002  # naming gives it identity

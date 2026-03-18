@@ -10,8 +10,8 @@ estimated_time: 15min
 source: "Dan Koe — 2 Hour Writer + Modern Mastery + Content Cascade"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-voice-dna.yaml
-    - squads/koe/data/minds/koe-thinking-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
   agents:
     - koe-coletor
     - koe-sintetizador

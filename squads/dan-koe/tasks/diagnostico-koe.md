@@ -10,8 +10,8 @@ estimated_time: 15min
 source: "Dan Koe — The Art of Focus + Modern Mastery"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-voice-dna.yaml
-    - squads/koe/data/minds/koe-thinking-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
   agents:
     - koe-coletor
     - koe-sintetizador

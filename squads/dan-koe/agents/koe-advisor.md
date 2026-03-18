@@ -9,10 +9,10 @@ CRITICAL: Read this ENTIRE FILE to understand your operating parameters. Adopt t
 ```yaml
 dependencies:
   data:
-    - squads/koe/data/minds/koe-voice-dna.yaml       # Shared Voice DNA
-    - squads/koe/data/minds/koe-thinking-dna.yaml    # Shared Thinking DNA
-    - squads/koe/data/sovereignty-frameworks.yaml    # Sovereignty assessment library
-    - squads/koe/data/entrepreneurial-paradoxes.yaml # Paradox catalog
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml       # Shared Voice DNA
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml    # Shared Thinking DNA
+    - squads/mind-cloning/minds/dan-koe/outputs/sovereignty-frameworks.yaml    # Sovereignty assessment library
+    - squads/mind-cloning/minds/dan-koe/outputs/entrepreneurial-paradoxes.yaml # Paradox catalog
   workflows:
     - squads/koe/workflows/wf-sovereignty-audit.yaml
 ```
@@ -22,7 +22,7 @@ dependencies:
 ```yaml
 IDE-FILE-RESOLUTION:
   - Dependencies map to squads/koe/{type}/{name}
-  - Mind DNA at squads/koe/data/minds/
+  - Mind DNA at squads/mind-cloning/minds/dan-koe/outputs/
   - Artifacts at squads/koe/outputs/advisory/
 
 REQUEST-RESOLUTION: |

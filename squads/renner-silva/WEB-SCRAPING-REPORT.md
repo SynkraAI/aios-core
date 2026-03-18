@@ -241,7 +241,7 @@ Meta Final:    ████████████████████ 100%
 
 **Script pronto:**
 ```bash
-bash <PROJECT_ROOT>/squads/renner-silva/source-material/NEXT-STEPS-COMMANDS.sh
+bash <PROJECT_ROOT>/squads/mind-cloning/minds/renner-silva/sources/NEXT-STEPS-COMMANDS.sh
 ```
 
 ### Fase 2: Web Archive (ALTA)
@@ -524,7 +524,7 @@ cat EXECUTIVE-SUMMARY.md | grep "Status atual"
 
 **Listar arquivos criados:**
 ```bash
-ls -lh <PROJECT_ROOT>/squads/renner-silva/source-material/
+ls -lh <PROJECT_ROOT>/squads/mind-cloning/minds/renner-silva/sources/
 ```
 
 **Iniciar próxima fase:**

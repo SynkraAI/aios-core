@@ -10,8 +10,8 @@ estimated_time: 5min
 source: "Dan Koe — The Queue System + 2 Hour Writer"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-voice-dna.yaml
-    - squads/koe/data/minds/koe-thinking-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
 ```
 
 ## Purpose

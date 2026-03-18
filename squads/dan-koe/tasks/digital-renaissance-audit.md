@@ -10,8 +10,8 @@ estimated_time: 30min
 source: "Dan Koe — Digital Renaissance Framework + The Art of Focus + Modern Mastery"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-voice-dna.yaml
-    - squads/koe/data/minds/koe-thinking-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
   tasks:
     - KOE_COL_003  # tag analytics for domain distribution
     - KOE_SIN_005  # pattern recognition for cross-pollination data

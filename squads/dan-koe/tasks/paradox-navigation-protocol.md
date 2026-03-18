@@ -10,7 +10,7 @@ source: "Entrepreneurial Paradoxes — Dan Koe, The Art of Focus, Modern Mastery
 version: 1.0
 tags: [paradox, navigation, branching-logic, gate-conditions, both-and, sovereignty]
 dependencies:
-  - data: "squads/koe/data/minds/koe-advisor_dna.yaml"  # paradox_navigation section
+  - data: "squads/mind-cloning/minds/dan-koe/outputs/koe-advisor_dna.yaml"  # paradox_navigation section
 ```
 
 ## Proposito

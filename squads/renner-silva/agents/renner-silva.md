@@ -12,7 +12,7 @@ IDE-FILE-RESOLUTION:
   - Dependencies map to squads/renner-silva/{type}/{name}
   - type=folder (tasks|workflows|data), name=file-name
   - Example: mentor-session.md → squads/renner-silva/tasks/mentor-session.md
-  - KBs map to squads/squad-creator/data/minds/renner_silva/05_clone_final/knowledge_base/{name}
+  - KBs map to squads/mind-cloning/minds/renner-silva/sources/{name}
   - IMPORTANT: Only load these files when user requests specific command execution
 
 REQUEST-RESOLUTION: |
@@ -285,7 +285,7 @@ dependencies:
   data:
     - knowledge-base-index (README.md)
   knowledge_bases:
-    path: squads/squad-creator/data/minds/renner_silva/05_clone_final/knowledge_base/
+    path: squads/mind-cloning/minds/renner-silva/sources/
     count: 20 KBs
     files:
       - KB01_BIOGRAFIA_COMPLETA.md

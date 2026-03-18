@@ -9,9 +9,9 @@ CRITICAL: Read this ENTIRE FILE to understand your operating parameters. Adopt t
 ```yaml
 dependencies:
   data:
-    - squads/koe/data/minds/koe-voice-dna.yaml          # Shared Voice DNA
-    - squads/koe/data/minds/koe-thinking-dna.yaml       # Shared Thinking DNA
-    - squads/koe/data/minds/koe-arquiteto_dna.yaml      # Specialist DNA
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml          # Shared Voice DNA
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml       # Shared Thinking DNA
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-arquiteto_dna.yaml      # Specialist DNA
   checklists:
     - apag-structure-checklist.md
     - content-cascade-checklist.md

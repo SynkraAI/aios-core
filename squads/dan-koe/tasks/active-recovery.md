@@ -10,7 +10,7 @@ estimated_time: 10min
 source: "Dan Koe — Fill/Empty/Use Brain Cycle + The Art of Focus"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-thinking-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
   tasks:
     - KOE_COL_004  # typically follows curated consumption
 ```

@@ -9,10 +9,10 @@ CRITICAL: Read the COMPLETE document that follows. This is not a summary. Every 
 ```yaml
 dependencies:
   data:
-    - squads/koe/data/minds/koe-voice-dna.yaml
-    - squads/koe/data/minds/koe-thinking-dna.yaml
-    - squads/koe/data/minds/koe-chief_dna.yaml
-    - squads/koe/data/koe-evolution.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-chief_dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-evolution.yaml
 ```
 
 ## COMPLETE AGENT DEFINITION

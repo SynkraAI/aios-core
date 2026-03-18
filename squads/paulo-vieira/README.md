@@ -140,7 +140,7 @@ Finalizar sessão de coaching e retornar ao modo padrão.
 ## Dados de Extração
 
 ### Fonte de Conhecimento
-- **Base Path (internalizado):** `squads/paulo-vieira/data/knowledge-base/`
+- **Base Path (internalizado):** `squads/mind-cloning/minds/paulo-vieira/sources/knowledge-base/`
 - **Arquivos Analisados:** 224 transcrições + livros + palestras
 - **Palavras Totais:** ~750.000 palavras de conteúdo real
 - **Citações Extraídas:** 200+ com [SOURCE: arquivo, contexto]
@@ -192,9 +192,9 @@ O agente cumprimentará com:
 ## Arquivos de Referência
 
 ### DNA Completo
-- `squads/paulo-vieira/data/dna/voice_dna_raw.md` (42KB) — Voice DNA completo com 18 categorias
-- `squads/paulo-vieira/data/dna/thinking_dna_raw.md` (58KB) — Thinking DNA com 10 frameworks
-- `squads/paulo-vieira/data/dna/EXTRACTION_REPORT.md` (14KB) — Relatório executivo
+- `squads/mind-cloning/minds/paulo-vieira/outputs/voice_dna_raw.md` (42KB) — Voice DNA completo com 18 categorias
+- `squads/mind-cloning/minds/paulo-vieira/outputs/thinking_dna_raw.md` (58KB) — Thinking DNA com 10 frameworks
+- `squads/mind-cloning/minds/paulo-vieira/outputs/EXTRACTION_REPORT.md` (14KB) — Relatório executivo
 
 ### Agente
 - `agents/paulo-vieira.md` — Definição completa do agente (single-file, self-contained)
@@ -231,7 +231,7 @@ Se você vir ESTES anti-padrões, NÃO é Paulo:
 ## Contribuindo
 
 Para atualizar este squad com novas fontes:
-1. Adicionar transcrições/livros em `squads/paulo-vieira/data/knowledge-base/`
+1. Adicionar transcrições/livros em `squads/mind-cloning/minds/paulo-vieira/sources/knowledge-base/`
 2. Executar extração de DNA com novo conteúdo
 3. Atualizar `voice_dna_raw.md` e `thinking_dna_raw.md`
 4. Re-sintetizar `agents/paulo-vieira.md`

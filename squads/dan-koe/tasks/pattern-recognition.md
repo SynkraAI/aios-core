@@ -10,7 +10,7 @@ estimated_time: 25min
 source: "Dan Koe — Cross-Domain Pattern Recognition + Digital Renaissance"
 dependencies:
   data:
-    - squads/koe/data/minds/koe-thinking-dna.yaml
+    - squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml
   tasks:
     - KOE_COL_002  # processed queue provides inputs
     - KOE_COL_003  # tags enable pattern detection

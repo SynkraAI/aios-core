@@ -75,8 +75,8 @@ clone_combinations:
       pattern: "Arquiteto cria a peça-mãe, Distribuidor fragmenta e adapta para cada plataforma"
 
   integration:
-    thinking_dna: "squads/koe/data/minds/koe-thinking-dna.yaml"
-    voice_dna: "squads/koe/data/minds/koe-voice-dna.yaml"
+    thinking_dna: "squads/mind-cloning/minds/dan-koe/outputs/koe-thinking-dna.yaml"
+    voice_dna: "squads/mind-cloning/minds/dan-koe/outputs/koe-voice-dna.yaml"
     frameworks_required:
       - "Content Cascade"
       - "APAG Structure (Attention-Perspective-Advantage-Gamify)"
