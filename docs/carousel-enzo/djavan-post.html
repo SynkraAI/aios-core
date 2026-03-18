@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post — Porque eu amo o Djavan?</title>
+<!--
+  INSTRUÇÃO: salve sua foto como "enzo-portrait.jpg"
+  na mesma pasta deste arquivo (docs/carousel-enzo/)
+-->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #00E8A8;
+    --accent-glow: rgba(0, 232, 168, 0.22);
+    --bg: #050505;
+    --font: 'Space Grotesk', sans-serif;
+    --hand: 'Caveat', cursive;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    font-family: var(--font);
+  }
+
+  /* ─── SLIDE BASE 1080×1350 ─── */
+  .slide {
+    width: 1080px;
+    height: 1350px;
+    position: relative;
+    overflow: hidden;
+    background: #1a1a1a;
+    flex-shrink: 0;
+  }
+
+  /* ─── FOTO DE FUNDO ─── */
+  .photo-bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .photo-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  /* ─── GRADIENTES SOBRE A FOTO ─── */
+  .overlay-top {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(5,5,5,0.15) 0%,
+      rgba(5,5,5,0.05) 25%,
+      transparent 45%,
+      transparent 50%,
+      rgba(5,5,5,0.65) 68%,
+      rgba(5,5,5,0.94) 82%,
+      rgba(5,5,5,1) 100%
+    );
+  }
+
+  .overlay-sides {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(5,5,5,0.25) 0%, transparent 18%),
+      linear-gradient(270deg, rgba(5,5,5,0.25) 0%, transparent 18%);
+  }
+
+  /* ─── ANOTAÇÕES (estilo à mão) ─── */
+  .annotations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 750px;
+    pointer-events: none;
+  }
+
+  .annot {
+    position: absolute;
+    font-family: var(--hand);
+    font-size: 34px;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    letter-spacing: 0.5px;
+  }
+
+  /* SVG squiggle arrows embutidos junto a cada anotação */
+  .annot svg {
+    position: absolute;
+    overflow: visible;
+  }
+
+  /* Posicionamento individual das anotações */
+  .annot-1 {
+    top: 155px;
+    left: 96px;
+    transform: rotate(-6deg);
+  }
+  .annot-1 svg {
+    top: 32px;
+    left: 40px;
+    width: 90px;
+    height: 50px;
+  }
+
+  .annot-2 {
+    top: 120px;
+    right: 108px;
+    transform: rotate(5deg);
+  }
+  .annot-2 svg {
+    top: 28px;
+    right: 0;
+    left: auto;
+    width: 80px;
+    height: 55px;
+    transform: scaleX(-1);
+  }
+
+  .annot-3 {
+    top: 340px;
+    left: 72px;
+    transform: rotate(-4deg);
+  }
+  .annot-3 svg {
+    top: 30px;
+    left: 55px;
+    width: 85px;
+    height: 55px;
+  }
+
+  .annot-4 {
+    top: 420px;
+    right: 100px;
+    transform: rotate(7deg);
+  }
+  .annot-4 svg {
+    top: 26px;
+    right: 10px;
+    width: 80px;
+    height: 50px;
+    transform: scaleX(-1);
+  }
+
+  /* ─── NOME ─── */
+  .name-badge {
+    position: absolute;
+    top: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  /* ─── CONTEÚDO INFERIOR ─── */
+  .bottom-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 72px 50px;
+  }
+
+  .headline {
+    font-family: var(--font);
+    font-size: 88px;
+    line-height: 1.0;
+    letter-spacing: -2.5px;
+    margin-bottom: 20px;
+  }
+
+  .headline .regular {
+    font-weight: 400;
+    color: #ffffff;
+  }
+
+  .headline .bold {
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .headline .accent {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .subtitle {
+    font-family: var(--font);
+    font-size: 26px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: -0.3px;
+    margin-bottom: 48px;
+    line-height: 1.4;
+  }
+
+  /* ─── BOTÃO CTA ─── */
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--accent);
+    color: #000;
+    font-family: var(--font);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 18px 36px;
+    border-radius: 100px;
+    box-shadow: 0 0 28px rgba(0,232,168,0.35);
+  }
+
+  .cta-icon {
+    width: 34px;
+    height: 34px;
+    background: rgba(0,0,0,0.18);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  /* ─── HANDLE ─── */
+  .handle {
+    position: absolute;
+    bottom: 54px;
+    right: 72px;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ─── BORDA SUTIL NEON ─── */
+  .accent-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--accent) 40%, var(--accent) 60%, transparent 100%);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="slide">
+
+  <!-- ── FOTO ── -->
+  <div class="photo-bg">
+    <!--
+      Coloque sua foto em: docs/carousel-enzo/enzo-portrait.jpg
+      e ela aparecerá automaticamente aqui.
+    -->
+    <img
+      src="enzo-portrait.jpg"
+      alt="Enzo Gabriel"
+      onerror="this.style.display='none'; this.parentElement.style.background='radial-gradient(ellipse 80% 90% at 50% 20%, #2a2a2a 0%, #0d0d0d 60%, #050505 100%)'"
+    >
+  </div>
+
+  <!-- ── GRADIENTES ── -->
+  <div class="overlay-top"></div>
+  <div class="overlay-sides"></div>
+
+  <!-- ── ANOTAÇÕES À MÃO ── -->
+  <div class="annotations">
+
+    <!-- sério? (esquerda superior) -->
+    <div class="annot annot-1">
+      sério?
+      <svg viewBox="0 0 90 50">
+        <path
+          d="M 5,8 C 20,5 35,18 50,12 S 70,20 80,40"
+          fill="none" stroke="white" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"
+          opacity="0.85"
+        />
+        <!-- arrowhead -->
+        <path d="M 74,44 L 80,40 L 76,34" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+      </svg>
+    </div>
+
+    <!-- é clássico? (direita superior) -->
+    <div class="annot annot-2">
+      é clássico?
+      <svg viewBox="0 0 80 55">
+        <path
+          d="M 75,8 C 60,5 42,20 55,32 S 30,42 10,48"
+          fill="none" stroke="white" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"
+          opacity="0.85"
+        />
+        <path d="M 14,44 L 10,48 L 16,52" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+      </svg>
+    </div>
+
+    <!-- música? (esquerda meio) -->
+    <div class="annot annot-3">
+      música?
+      <svg viewBox="0 0 85 55">
+        <path
+          d="M 5,6 C 18,2 30,22 48,18 S 68,30 78,48"
+          fill="none" stroke="white" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"
+          opacity="0.85"
+        />
+        <path d="M 73,50 L 78,48 L 74,42" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+      </svg>
+    </div>
+
+    <!-- mpb? (direita meio) -->
+    <div class="annot annot-4">
+      mpb?
+      <svg viewBox="0 0 80 50">
+        <path
+          d="M 75,6 C 58,4 44,18 55,28 S 26,38 8,44"
+          fill="none" stroke="white" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"
+          opacity="0.85"
+        />
+        <path d="M 12,40 L 8,44 L 14,48" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+      </svg>
+    </div>
+
+  </div>
+
+  <!-- ── NOME ── -->
+  <div class="name-badge">Enzo Gabriel</div>
+
+  <!-- ── HEADLINE + CTA ── -->
+  <div class="bottom-content">
+    <div class="headline">
+      <span class="regular">Porque eu amo o</span><br>
+      <span class="bold">Dja</span><span class="accent">van?</span>
+    </div>
+    <div class="subtitle">
+      a resposta que você<br>não esperava
+    </div>
+    <div class="cta-btn">
+      Arraste pro lado
+      <div class="cta-icon">←</div>
+    </div>
+  </div>
+
+  <!-- ── HANDLE ── -->
+  <div class="handle">@enzogabrielzr</div>
+
+  <!-- ── BORDA NEON ── -->
+  <div class="accent-bottom"></div>
+
+</div>
+
+</body>
+</html>
