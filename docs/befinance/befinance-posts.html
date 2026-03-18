@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeFinance — 5 Posts Instagram</title>
+<!--
+  FONTE: Plus Jakarta Sans (moderna, geométrica, fintech) + Inter (body)
+  DIMENSÃO: 1080×1080px por post (Instagram square)
+  TEMA: Oceano digital — azul profundo, cyan neon, wireframe tech
+-->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════
+   TOKENS E RESET
+═══════════════════════════════════════ */
+:root {
+  --cyan:        #00D4FF;
+  --cyan-bright: #00EEFF;
+  --cyan-dim:    rgba(0,212,255,0.18);
+  --cyan-line:   rgba(0,212,255,0.08);
+  --teal:        #00C4B4;
+  --bg:          #020810;
+  --bg-card:     #040e1c;
+  --white:       #FFFFFF;
+  --gray:        rgba(255,255,255,0.52);
+  --gray-dim:    rgba(255,255,255,0.18);
+  --font-h:      'Plus Jakarta Sans', sans-serif;
+  --font-b:      'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #000d1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  padding: 80px 40px;
+  font-family: var(--font-h);
+}
+
+/* ═══════════════════════════════════════
+   BASE DO POST — 1080×1080
+═══════════════════════════════════════ */
+.post {
+  width: 1080px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
+/* Grid de fundo (linha fina azul) */
+.post::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--cyan-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cyan-line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  z-index: 0;
+}
+
+/* ─── Glow spots ─── */
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Área de conteúdo ─── */
+.content {
+  position: absolute;
+  z-index: 20;
+  left: 72px;
+  top: 110px;
+  width: 520px;
+}
+
+/* ─── Tag / Badge ─── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.28);
+  border-radius: 100px;
+  padding: 8px 18px 8px 14px;
+  margin-bottom: 34px;
+  font-family: var(--font-b);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+.tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+/* ─── Headline ─── */
+.headline {
+  font-family: var(--font-h);
+  font-weight: 800;
+  font-size: 68px;
+  line-height: 1.04;
+  letter-spacing: -2.5px;
+  color: var(--white);
+  margin-bottom: 26px;
+}
+.headline .hl-cyan  { color: var(--cyan); }
+.headline .hl-light { font-weight: 300; color: rgba(255,255,255,0.85); }
+.headline .hl-mid   { font-weight: 500; }
+
+/* ─── Subtítulo ─── */
+.sub {
+  font-family: var(--font-b);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--gray);
+  line-height: 1.65;
+  margin-bottom: 54px;
+  max-width: 420px;
+}
+
+/* ─── CTA ─── */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--cyan);
+  color: #000;
+  font-family: var(--font-h);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  padding: 18px 34px;
+  border-radius: 100px;
+  box-shadow: 0 0 40px rgba(0,212,255,0.38), 0 8px 24px rgba(0,0,0,0.4);
+}
+.cta-arr {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+/* ─── Visual SVG lado direito ─── */
+.visual {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 520px;
+  height: 100%;
+  z-index: 10;
+}
+
+/* ─── Waves + floor at bottom ─── */
+.waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 8;
+}
+
+/* ─── Rodapé ─── */
+.footer-brand {
+  position: absolute;
+  bottom: 36px;
+  right: 68px;
+  font-family: var(--font-b);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  z-index: 25;
+}
+.footer-tag {
+  position: absolute;
+  bottom: 36px;
+  left: 72px;
+  font-family: var(--font-b);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: rgba(0,212,255,0.3);
+  z-index: 25;
+}
+
+/* Divisor horizontal sutil */
+.divider {
+  position: absolute;
+  bottom: 60px;
+  left: 72px;
+  right: 72px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0,212,255,0.2) 30%, rgba(0,212,255,0.2) 70%, transparent 100%);
+  z-index: 20;
+}
+
+/* ─── Stat boxes (posts 2 e 4) ─── */
+.stat-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.stat-box {
+  background: rgba(0,212,255,0.06);
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 14px;
+  padding: 14px 22px;
+  min-width: 130px;
+}
+.stat-val {
+  font-family: var(--font-h);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: -1px;
+  margin-bottom: 4px;
+}
+.stat-lbl {
+  font-family: var(--font-b);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--gray);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+/* ─── Post number badge ─── */
+.post-num {
+  position: absolute;
+  top: 36px;
+  right: 68px;
+  font-family: var(--font-b);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(0,212,255,0.35);
+  z-index: 25;
+}
+
+/* ─── Separador de post na página ─── */
+.post-label {
+  font-family: var(--font-b);
+  font-size: 13px;
+  color: rgba(0,212,255,0.5);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  align-self: flex-start;
+  margin-bottom: -60px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  POST 1 — OPERAÇÕES BINÁRIAS: O conceito em 2 linhas       ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<p class="post-label">POST 01 / Operações Binárias — Conceito</p>
+<div class="post" id="post1">
+
+  <!-- Glows -->
+  <div class="glow" style="width:600px;height:600px;top:-200px;right:-150px;
+    background:radial-gradient(ellipse,rgba(0,180,255,0.12) 0%,transparent 65%);"></div>
+  <div class="glow" style="width:400px;height:400px;bottom:50px;left:-80px;
+    background:radial-gradient(ellipse,rgba(0,100,180,0.14) 0%,transparent 65%);"></div>
+
+  <!-- Conteúdo -->
+  <div class="content">
+    <div class="tag"><span class="tag-dot"></span>Operações Binárias</div>
+    <div class="headline">
+      Simples assim:<br>
+      <span class="hl-cyan">Sobe</span> ou <span class="hl-cyan">Desce.</span>
+    </div>
+    <div class="sub">
+      Opere em ativos globais com uma decisão.
+      Sem complicação — só análise, timing e resultado.
+    </div>
+    <div class="cta">
+      Começar a operar <span class="cta-arr">→</span>
+    </div>
+  </div>
+
+  <!-- Visual: duas setas UP/DOWN em estilo wireframe polygon -->
+  <div class="visual">
+    <svg viewBox="0 0 520 1080" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <defs>
+        <filter id="glow1" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="8" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="softglow" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="18" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <linearGradient id="arrowUpGrad" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#00EEFF" stop-opacity="0.95"/>
+        </linearGradient>
+        <linearGradient id="arrowDownGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#006688" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#00B4CC" stop-opacity="0.7"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Seta UP — wireframe triangulado -->
+      <!-- Corpo da seta UP -->
+      <g filter="url(#softglow)" opacity="0.9">
+        <!-- Triângulo principal -->
+        <polygon points="260,110 140,340 200,340 200,510 320,510 320,340 380,340"
+          fill="url(#arrowUpGrad)" opacity="0.15"/>
+        <!-- Arestas do triângulo -->
+        <polygon points="260,110 140,340 200,340 200,510 320,510 320,340 380,340"
+          fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.7"/>
+        <!-- Triangulação interna UP -->
+        <line x1="260" y1="110" x2="200" y2="340" stroke="#00D4FF" stroke-width="0.8" opacity="0.4"/>
+        <line x1="260" y1="110" x2="320" y2="340" stroke="#00D4FF" stroke-width="0.8" opacity="0.4"/>
+        <line x1="200" y1="340" x2="260" y2="280" stroke="#00D4FF" stroke-width="0.8" opacity="0.35"/>
+        <line x1="320" y1="340" x2="260" y2="280" stroke="#00D4FF" stroke-width="0.8" opacity="0.35"/>
+        <line x1="200" y1="400" x2="320" y2="400" stroke="#00D4FF" stroke-width="0.8" opacity="0.3"/>
+        <line x1="200" y1="460" x2="320" y2="460" stroke="#00D4FF" stroke-width="0.8" opacity="0.25"/>
+        <!-- Nós -->
+        <circle cx="260" cy="110" r="5" fill="#00EEFF" opacity="0.9"/>
+        <circle cx="140" cy="340" r="3.5" fill="#00D4FF" opacity="0.7"/>
+        <circle cx="380" cy="340" r="3.5" fill="#00D4FF" opacity="0.7"/>
+        <circle cx="200" cy="340" r="3" fill="#00D4FF" opacity="0.6"/>
+        <circle cx="320" cy="340" r="3" fill="#00D4FF" opacity="0.6"/>
+        <circle cx="200" cy="510" r="3.5" fill="#00D4FF" opacity="0.7"/>
+        <circle cx="320" cy="510" r="3.5" fill="#00D4FF" opacity="0.7"/>
+        <circle cx="260" cy="280" r="3" fill="#00D4FF" opacity="0.5"/>
+        <!-- Label UP -->
+        <text x="390" y="230" font-family="Plus Jakarta Sans" font-size="14" font-weight="700"
+          fill="#00D4FF" opacity="0.7" letter-spacing="2">UP</text>
+        <text x="390" y="252" font-family="Inter" font-size="11" fill="#00D4FF" opacity="0.45">+LUCRO</text>
+      </g>
+
+      <!-- Seta DOWN — wireframe triangulado (espelhada) -->
+      <g filter="url(#softglow)" opacity="0.7">
+        <polygon points="260,970 140,740 200,740 200,570 320,570 320,740 380,740"
+          fill="url(#arrowDownGrad)" opacity="0.12"/>
+        <polygon points="260,970 140,740 200,740 200,570 320,570 320,740 380,740"
+          fill="none" stroke="#0099BB" stroke-width="1.2" opacity="0.5"/>
+        <line x1="260" y1="970" x2="200" y2="740" stroke="#0099BB" stroke-width="0.8" opacity="0.3"/>
+        <line x1="260" y1="970" x2="320" y2="740" stroke="#0099BB" stroke-width="0.8" opacity="0.3"/>
+        <line x1="200" y1="700" x2="320" y2="700" stroke="#0099BB" stroke-width="0.8" opacity="0.25"/>
+        <line x1="200" y1="640" x2="320" y2="640" stroke="#0099BB" stroke-width="0.8" opacity="0.2"/>
+        <circle cx="260" cy="970" r="4" fill="#0099BB" opacity="0.6"/>
+        <circle cx="140" cy="740" r="3" fill="#0099BB" opacity="0.5"/>
+        <circle cx="380" cy="740" r="3" fill="#0099BB" opacity="0.5"/>
+        <text x="390" y="860" font-family="Plus Jakarta Sans" font-size="14" font-weight="700"
+          fill="#0099BB" opacity="0.5" letter-spacing="2">DOWN</text>
+      </g>
+
+      <!-- Linha central divisória -->
+      <line x1="100" y1="540" x2="440" y2="540" stroke="#00D4FF" stroke-width="0.8" opacity="0.25" stroke-dasharray="6,5"/>
+
+    </svg>
+  </div>
+
+  <!-- Waves ocean bottom -->
+  <div class="waves">
+    <svg viewBox="0 0 1080 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+      <defs>
+        <linearGradient id="waveGrad1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.0"/>
+          <stop offset="100%" stop-color="#00D4FF" stop-opacity="0.08"/>
+        </linearGradient>
+        <filter id="wg" x="-5%" y="-50%" width="110%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- Camadas de ondas oceânicas -->
+      <path d="M0,100 C135,70 270,120 405,95 S675,75 810,95 S990,80 1080,95 L1080,200 L0,200 Z"
+        fill="url(#waveGrad1)"/>
+      <path d="M0,100 C135,70 270,120 405,95 S675,75 810,95 S990,80 1080,95"
+        fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.55" filter="url(#wg)"/>
+      <path d="M0,118 C180,90 360,130 540,108 S810,88 1080,110"
+        fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.3"/>
+      <path d="M0,132 C200,108 400,145 600,122 S900,102 1080,122"
+        fill="none" stroke="#00AACC" stroke-width="0.8" opacity="0.2"/>
+      <path d="M0,148 C160,128 380,160 580,140 S860,120 1080,140"
+        fill="none" stroke="#008899" stroke-width="0.6" opacity="0.15"/>
+    </svg>
+  </div>
+
+  <div class="divider"></div>
+  <div class="footer-tag">befinance.com.br</div>
+  <div class="footer-brand">BeFinance</div>
+  <div class="post-num">01 / 05</div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  POST 2 — CONTA DEMO: R$10.000 pra praticar                ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<p class="post-label">POST 02 / Conta Demo — R$10.000 gratuitos</p>
+<div class="post" id="post2">
+
+  <div class="glow" style="width:700px;height:700px;top:-200px;left:-200px;
+    background:radial-gradient(ellipse,rgba(0,150,220,0.13) 0%,transparent 60%);"></div>
+  <div class="glow" style="width:500px;height:500px;bottom:0px;right:-100px;
+    background:radial-gradient(ellipse,rgba(0,196,180,0.1) 0%,transparent 60%);"></div>
+
+  <div class="content" style="top:100px;">
+    <div class="tag"><span class="tag-dot"></span>Conta de Treinamento</div>
+    <div class="headline" style="font-size:66px;">
+      Pratique<br>
+      sem arriscar<br>
+      <span class="hl-cyan">nada.</span>
+    </div>
+    <div class="sub">
+      Registre-se e receba <strong style="color:var(--cyan)">R$10.000</strong> na sua conta
+      de treinamento. Aprenda na prática antes de operar de verdade.
+    </div>
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-val">R$10K</div>
+        <div class="stat-lbl">Demo grátis</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">100%</div>
+        <div class="stat-lbl">Sem risco</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">∞</div>
+        <div class="stat-lbl">Tempo livre</div>
+      </div>
+    </div>
+    <div class="cta">
+      Abrir conta gratuita <span class="cta-arr">→</span>
+    </div>
+  </div>
+
+  <!-- Visual: Diamante/Gem polygon com valor dentro -->
+  <div class="visual">
+    <svg viewBox="0 0 520 1080" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <defs>
+        <filter id="gemGlow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="20" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="softG2" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="6" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <linearGradient id="gemFill" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.25"/>
+          <stop offset="50%" stop-color="#00EEFF" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#003355" stop-opacity="0.3"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Halo externo do diamante -->
+      <polygon points="260,180 160,330 200,500 320,500 360,330"
+        fill="none" stroke="#00D4FF" stroke-width="0.8" opacity="0.12"
+        transform="scale(1.3) translate(-78,-60)" filter="url(#gemGlow)"/>
+
+      <!-- Diamante principal (gem shape) -->
+      <g filter="url(#softG2)">
+        <!-- Topo do gem -->
+        <polygon points="260,200 180,310 340,310" fill="url(#gemFill)" opacity="0.6"/>
+        <polygon points="260,200 180,310 340,310" fill="none" stroke="#00EEFF" stroke-width="1.5" opacity="0.8"/>
+
+        <!-- Facetas laterais -->
+        <line x1="260" y1="200" x2="180" y2="310" stroke="#00D4FF" stroke-width="1.2" opacity="0.7"/>
+        <line x1="260" y1="200" x2="340" y2="310" stroke="#00D4FF" stroke-width="1.2" opacity="0.7"/>
+
+        <!-- Corpo principal do gem -->
+        <polygon points="180,310 160,480 260,560 360,480 340,310"
+          fill="url(#gemFill)" opacity="0.5"/>
+        <polygon points="180,310 160,480 260,560 360,480 340,310"
+          fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.75"/>
+
+        <!-- Triangulação interna -->
+        <line x1="180" y1="310" x2="260" y2="400" stroke="#00D4FF" stroke-width="0.8" opacity="0.45"/>
+        <line x1="340" y1="310" x2="260" y2="400" stroke="#00D4FF" stroke-width="0.8" opacity="0.45"/>
+        <line x1="160" y1="480" x2="260" y2="400" stroke="#00D4FF" stroke-width="0.8" opacity="0.35"/>
+        <line x1="360" y1="480" x2="260" y2="400" stroke="#00D4FF" stroke-width="0.8" opacity="0.35"/>
+        <line x1="260" y1="400" x2="260" y2="560" stroke="#00D4FF" stroke-width="0.8" opacity="0.3"/>
+
+        <!-- Nós -->
+        <circle cx="260" cy="200" r="5" fill="#00EEFF" opacity="0.95"/>
+        <circle cx="180" cy="310" r="3.5" fill="#00D4FF" opacity="0.8"/>
+        <circle cx="340" cy="310" r="3.5" fill="#00D4FF" opacity="0.8"/>
+        <circle cx="160" cy="480" r="3" fill="#00D4FF" opacity="0.7"/>
+        <circle cx="360" cy="480" r="3" fill="#00D4FF" opacity="0.7"/>
+        <circle cx="260" cy="560" r="4.5" fill="#00EEFF" opacity="0.85"/>
+        <circle cx="260" cy="400" r="3" fill="#00D4FF" opacity="0.5"/>
+      </g>
+
+      <!-- Texto R$10.000 dentro do gem -->
+      <text x="260" y="390" text-anchor="middle"
+        font-family="Plus Jakarta Sans" font-size="36" font-weight="800"
+        fill="#00EEFF" opacity="0.9" letter-spacing="-1">R$10K</text>
+      <text x="260" y="418" text-anchor="middle"
+        font-family="Inter" font-size="13" font-weight="500"
+        fill="rgba(255,255,255,0.45)" letter-spacing="3">DEMO GRÁTIS</text>
+
+      <!-- Partículas flutuantes ao redor -->
+      <circle cx="120" cy="260" r="2.5" fill="#00D4FF" opacity="0.6"/>
+      <circle cx="420" cy="290" r="2" fill="#00D4FF" opacity="0.5"/>
+      <circle cx="95" cy="460" r="2" fill="#00D4FF" opacity="0.4"/>
+      <circle cx="430" cy="500" r="2.5" fill="#00D4FF" opacity="0.5"/>
+      <circle cx="170" cy="600" r="2" fill="#00D4FF" opacity="0.35"/>
+      <circle cx="360" cy="610" r="2" fill="#00D4FF" opacity="0.35"/>
+
+      <!-- Linhas de partículas (constelação ao redor) -->
+      <line x1="120" y1="260" x2="180" y2="310" stroke="#00D4FF" stroke-width="0.7" opacity="0.25"/>
+      <line x1="420" y1="290" x2="340" y2="310" stroke="#00D4FF" stroke-width="0.7" opacity="0.25"/>
+      <line x1="95" y1="460" x2="160" y2="480" stroke="#00D4FF" stroke-width="0.7" opacity="0.2"/>
+      <line x1="430" y1="500" x2="360" y2="480" stroke="#00D4FF" stroke-width="0.7" opacity="0.2"/>
+    </svg>
+  </div>
+
+  <!-- Waves -->
+  <div class="waves">
+    <svg viewBox="0 0 1080 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+      <defs>
+        <linearGradient id="wg2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00C4B4" stop-opacity="0.0"/>
+          <stop offset="100%" stop-color="#00C4B4" stop-opacity="0.07"/>
+        </linearGradient>
+        <filter id="wf2" x="-5%" y="-50%" width="110%" height="200%">
+          <feGaussianBlur stdDeviation="2.5"/>
+        </filter>
+      </defs>
+      <path d="M0,110 C120,80 280,130 430,100 S700,78 860,100 S1020,88 1080,100 L1080,200 L0,200 Z"
+        fill="url(#wg2)"/>
+      <path d="M0,110 C120,80 280,130 430,100 S700,78 860,100 S1020,88 1080,100"
+        fill="none" stroke="#00C4B4" stroke-width="1.5" opacity="0.5"/>
+      <path d="M0,127 C160,100 340,140 520,118 S820,96 1080,118"
+        fill="none" stroke="#00C4B4" stroke-width="0.9" opacity="0.28"/>
+      <path d="M0,142 C200,116 400,150 600,130 S900,110 1080,132"
+        fill="none" stroke="#008899" stroke-width="0.6" opacity="0.18"/>
+    </svg>
+  </div>
+
+  <div class="divider"></div>
+  <div class="footer-tag">befinance.com.br</div>
+  <div class="footer-brand">BeFinance</div>
+  <div class="post-num">02 / 05</div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  POST 3 — COMMODITIES: Invista de forma simplificada       ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<p class="post-label">POST 03 / Commodities — Headline do site</p>
+<div class="post" id="post3">
+
+  <div class="glow" style="width:750px;height:750px;top:-250px;right:-250px;
+    background:radial-gradient(ellipse,rgba(0,180,255,0.14) 0%,transparent 60%);"></div>
+  <div class="glow" style="width:350px;height:350px;bottom:100px;left:50px;
+    background:radial-gradient(ellipse,rgba(0,100,200,0.1) 0%,transparent 65%);"></div>
+
+  <!-- Badge "A melhor corretora do mundo" como no site -->
+  <div style="position:absolute;top:56px;left:72px;z-index:25;
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);
+    border-radius:100px;padding:8px 18px 8px 14px;">
+    <span style="background:#00D4FF;color:#000;font-family:'Plus Jakarta Sans';
+      font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:0.5px;">
+      A melhor
+    </span>
+    <span style="font-family:'Inter';font-size:12px;font-weight:500;
+      color:rgba(255,255,255,0.7);letter-spacing:0.5px;">corretora do mundo</span>
+  </div>
+
+  <div class="content" style="top:128px;">
+    <div class="headline" style="font-size:72px;margin-top:10px;">
+      Invista de forma<br>
+      <span class="hl-light">simplificada</span> em<br>
+      <span class="hl-cyan" style="font-size:82px;">commodities</span>
+    </div>
+    <div class="sub" style="margin-top:16px;">
+      Ouro, petróleo, café, índices e muito mais.
+      Tudo na palma da mão, com simplicidade e agilidade.
+    </div>
+    <div class="cta">
+      Explorar ativos <span class="cta-arr">→</span>
+    </div>
+  </div>
+
+  <!-- Visual: Globe wireframe (esfera com meridianos/paralelos) -->
+  <div class="visual">
+    <svg viewBox="0 0 520 1080" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <defs>
+        <filter id="globeGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="14" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <clipPath id="globeClip">
+          <circle cx="260" cy="420" r="195"/>
+        </clipPath>
+        <linearGradient id="globeGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#001833" stop-opacity="0.35"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Halo do globo -->
+      <circle cx="260" cy="420" r="210" fill="rgba(0,212,255,0.04)" filter="url(#globeGlow)"/>
+
+      <!-- Globo base -->
+      <circle cx="260" cy="420" r="195" fill="url(#globeGrad)"/>
+      <circle cx="260" cy="420" r="195" fill="none" stroke="#00D4FF" stroke-width="1.2" opacity="0.6"/>
+
+      <!-- Meridianos (linhas verticais elípticas) -->
+      <g clip-path="url(#globeClip)" opacity="0.45">
+        <ellipse cx="260" cy="420" rx="20" ry="195" fill="none" stroke="#00D4FF" stroke-width="0.8"/>
+        <ellipse cx="260" cy="420" rx="60" ry="195" fill="none" stroke="#00D4FF" stroke-width="0.8"/>
+        <ellipse cx="260" cy="420" rx="110" ry="195" fill="none" stroke="#00D4FF" stroke-width="0.8"/>
+        <ellipse cx="260" cy="420" rx="155" ry="195" fill="none" stroke="#00D4FF" stroke-width="0.8"/>
+        <ellipse cx="260" cy="420" rx="188" ry="195" fill="none" stroke="#00D4FF" stroke-width="0.7"/>
+      </g>
+
+      <!-- Paralelos (linhas horizontais) -->
+      <g clip-path="url(#globeClip)" opacity="0.45">
+        <ellipse cx="260" cy="322" rx="195" ry="20" fill="none" stroke="#00D4FF" stroke-width="0.8"/>
+        <ellipse cx="260" cy="370" rx="195" ry="12" fill="none" stroke="#00D4FF" stroke-width="0.8"/>
+        <line x1="65" y1="420" x2="455" y2="420" stroke="#00D4FF" stroke-width="1" opacity="0.8"/>
+        <ellipse cx="260" cy="470" rx="195" ry="12" fill="none" stroke="#00D4FF" stroke-width="0.8"/>
+        <ellipse cx="260" cy="518" rx="195" ry="20" fill="none" stroke="#00D4FF" stroke-width="0.8"/>
+      </g>
+
+      <!-- Pontos "hotspot" representando commodities no globo -->
+      <circle cx="200" cy="390" r="5" fill="#00EEFF" opacity="0.9" filter="url(#globeGlow)"/>
+      <circle cx="310" cy="360" r="4" fill="#00EEFF" opacity="0.8" filter="url(#globeGlow)"/>
+      <circle cx="340" cy="440" r="5" fill="#00EEFF" opacity="0.9" filter="url(#globeGlow)"/>
+      <circle cx="185" cy="460" r="3.5" fill="#00EEFF" opacity="0.75"/>
+      <circle cx="270" cy="395" r="3" fill="#00EEFF" opacity="0.7"/>
+      <!-- Linhas conectando pontos -->
+      <line x1="200" y1="390" x2="310" y2="360" stroke="#00D4FF" stroke-width="0.8" opacity="0.4"/>
+      <line x1="310" y1="360" x2="340" y2="440" stroke="#00D4FF" stroke-width="0.8" opacity="0.4"/>
+      <line x1="200" y1="390" x2="185" y2="460" stroke="#00D4FF" stroke-width="0.8" opacity="0.35"/>
+
+      <!-- Labels de commodities -->
+      <text x="310" y="345" font-family="Inter" font-size="10" font-weight="600"
+        fill="#00D4FF" opacity="0.7" letter-spacing="1">OURO</text>
+      <text x="348" y="442" font-family="Inter" font-size="10" font-weight="600"
+        fill="#00D4FF" opacity="0.7" letter-spacing="1">PETRÓLEO</text>
+      <text x="140" y="388" font-family="Inter" font-size="10" font-weight="600"
+        fill="#00D4FF" opacity="0.7" letter-spacing="1">CAFÉ</text>
+      <text x="152" y="472" font-family="Inter" font-size="10" font-weight="600"
+        fill="#00D4FF" opacity="0.6" letter-spacing="1">TRIGO</text>
+
+      <!-- Anel exterior de órbita -->
+      <ellipse cx="260" cy="420" rx="230" ry="50" fill="none"
+        stroke="#00D4FF" stroke-width="0.8" opacity="0.2" stroke-dasharray="8,6"/>
+      <!-- Ponto na órbita -->
+      <circle cx="490" cy="420" r="4" fill="#00D4FF" opacity="0.5"/>
+
+    </svg>
+  </div>
+
+  <!-- Waves -->
+  <div class="waves">
+    <svg viewBox="0 0 1080 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+      <defs>
+        <linearGradient id="wg3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.0"/>
+          <stop offset="100%" stop-color="#00D4FF" stop-opacity="0.09"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,95 C150,65 310,115 480,88 S760,65 940,88 S1040,78 1080,88 L1080,200 L0,200 Z"
+        fill="url(#wg3)"/>
+      <path d="M0,95 C150,65 310,115 480,88 S760,65 940,88 S1040,78 1080,88"
+        fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.6"/>
+      <path d="M0,114 C170,88 360,128 550,106 S840,84 1080,108"
+        fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.32"/>
+      <path d="M0,130 C210,106 420,142 630,120 S900,100 1080,122"
+        fill="none" stroke="#005577" stroke-width="0.7" opacity="0.2"/>
+      <!-- Horizon glow line (efeito BeFinance hero) -->
+      <line x1="0" y1="92" x2="1080" y2="85"
+        stroke="#00EEFF" stroke-width="2.5" opacity="0.12"/>
+    </svg>
+  </div>
+
+  <div class="divider"></div>
+  <div class="footer-tag">befinance.com.br</div>
+  <div class="footer-brand">BeFinance</div>
+  <div class="post-num">03 / 05</div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  POST 4 — PLATAFORMA: 30+ ativos, uma plataforma           ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<p class="post-label">POST 04 / Plataforma — Ativos globais</p>
+<div class="post" id="post4">
+
+  <div class="glow" style="width:600px;height:600px;top:-100px;right:-100px;
+    background:radial-gradient(ellipse,rgba(0,160,220,0.12) 0%,transparent 60%);"></div>
+  <div class="glow" style="width:500px;height:500px;bottom:-50px;left:-80px;
+    background:radial-gradient(ellipse,rgba(0,196,180,0.09) 0%,transparent 60%);"></div>
+
+  <div class="content" style="top:105px;">
+    <div class="tag"><span class="tag-dot"></span>Plataforma</div>
+    <div class="headline">
+      <span class="hl-cyan">30+</span> ativos.<br>
+      Uma plataforma.<br>
+      <span class="hl-light">Resultado real.</span>
+    </div>
+    <div class="sub">
+      Negocie BTC, ETH, Forex, commodities e índices
+      em tempo real. Tudo num só lugar.
+    </div>
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-val">24/7</div>
+        <div class="stat-lbl">Disponível</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">ms</div>
+        <div class="stat-lbl">Execução</div>
+      </div>
+    </div>
+    <div class="cta">
+      Negocie agora <span class="cta-arr">→</span>
+    </div>
+  </div>
+
+  <!-- Visual: Rede de nós (constelação de ativos) -->
+  <div class="visual">
+    <svg viewBox="0 0 520 1080" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <defs>
+        <filter id="nodeGlow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="10" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="textGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Linhas de conexão entre nós -->
+      <g opacity="0.3" stroke="#00D4FF" stroke-width="0.8" fill="none">
+        <line x1="260" y1="270" x2="160" y2="380"/>
+        <line x1="260" y1="270" x2="360" y2="380"/>
+        <line x1="260" y1="270" x2="260" y2="430"/>
+        <line x1="260" y1="270" x2="140" y2="220"/>
+        <line x1="260" y1="270" x2="380" y2="210"/>
+        <line x1="160" y1="380" x2="100" y2="480"/>
+        <line x1="160" y1="380" x2="260" y2="430"/>
+        <line x1="360" y1="380" x2="430" y2="480"/>
+        <line x1="360" y1="380" x2="260" y2="430"/>
+        <line x1="100" y1="480" x2="180" y2="560"/>
+        <line x1="430" y1="480" x2="350" y2="560"/>
+        <line x1="260" y1="430" x2="180" y2="560"/>
+        <line x1="260" y1="430" x2="350" y2="560"/>
+        <line x1="140" y1="220" x2="100" y2="320"/>
+        <line x1="380" y1="210" x2="430" y2="310"/>
+        <line x1="100" y1="320" x2="160" y2="380"/>
+        <line x1="430" y1="310" x2="360" y2="380"/>
+      </g>
+
+      <!-- Nó central — BTC (maior) -->
+      <g filter="url(#nodeGlow)">
+        <circle cx="260" cy="270" r="42" fill="rgba(0,212,255,0.1)" stroke="#00D4FF" stroke-width="1.5"/>
+        <circle cx="260" cy="270" r="28" fill="rgba(0,212,255,0.18)" stroke="#00EEFF" stroke-width="1"/>
+        <text x="260" y="265" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="14"
+          font-weight="800" fill="#00EEFF" opacity="0.95">BTC</text>
+        <text x="260" y="282" text-anchor="middle" font-family="Inter" font-size="9"
+          fill="rgba(255,255,255,0.5)" letter-spacing="1">BITCOIN</text>
+      </g>
+
+      <!-- Nós secundários -->
+      <!-- ETH -->
+      <g filter="url(#nodeGlow)">
+        <circle cx="160" cy="380" r="30" fill="rgba(0,180,220,0.1)" stroke="#00BBDD" stroke-width="1.2"/>
+        <circle cx="160" cy="380" r="19" fill="rgba(0,180,220,0.15)"/>
+        <text x="160" y="376" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="12"
+          font-weight="700" fill="#00CCEE">ETH</text>
+        <text x="160" y="392" text-anchor="middle" font-family="Inter" font-size="8"
+          fill="rgba(255,255,255,0.4)" letter-spacing="1">ETHER</text>
+      </g>
+
+      <!-- XRP -->
+      <g filter="url(#nodeGlow)">
+        <circle cx="360" cy="380" r="30" fill="rgba(0,160,200,0.1)" stroke="#00AACC" stroke-width="1.2"/>
+        <circle cx="360" cy="380" r="19" fill="rgba(0,160,200,0.14)"/>
+        <text x="360" y="376" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="12"
+          font-weight="700" fill="#00BBDD">XRP</text>
+        <text x="360" y="392" text-anchor="middle" font-family="Inter" font-size="8"
+          fill="rgba(255,255,255,0.4)" letter-spacing="1">RIPPLE</text>
+      </g>
+
+      <!-- SOL -->
+      <g filter="url(#nodeGlow)">
+        <circle cx="140" cy="220" r="22" fill="rgba(0,200,230,0.1)" stroke="#00CCEE" stroke-width="1"/>
+        <text x="140" y="218" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="11"
+          font-weight="700" fill="#00DDEE">SOL</text>
+        <text x="140" y="232" text-anchor="middle" font-family="Inter" font-size="8"
+          fill="rgba(255,255,255,0.35)" letter-spacing="1">SOLANA</text>
+      </g>
+
+      <!-- LTC -->
+      <g filter="url(#nodeGlow)">
+        <circle cx="380" cy="210" r="22" fill="rgba(0,196,180,0.1)" stroke="#00C4B4" stroke-width="1"/>
+        <text x="380" y="208" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="11"
+          font-weight="700" fill="#00C4B4">LTC</text>
+        <text x="380" y="222" text-anchor="middle" font-family="Inter" font-size="8"
+          fill="rgba(255,255,255,0.35)" letter-spacing="1">LITECOIN</text>
+      </g>
+
+      <!-- Nós menores -->
+      <g opacity="0.65">
+        <circle cx="100" cy="480" r="16" fill="rgba(0,150,200,0.1)" stroke="#00AACC" stroke-width="1"/>
+        <text x="100" y="484" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9"
+          font-weight="700" fill="#00AACC">OURO</text>
+
+        <circle cx="430" cy="480" r="16" fill="rgba(0,150,200,0.1)" stroke="#00AACC" stroke-width="1"/>
+        <text x="430" y="484" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9"
+          font-weight="700" fill="#00AACC">EUR</text>
+
+        <circle cx="260" cy="430" r="18" fill="rgba(0,180,255,0.08)" stroke="#00AACC" stroke-width="0.9"/>
+        <text x="260" y="434" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="9"
+          font-weight="700" fill="#00AACC">FOREX</text>
+
+        <circle cx="180" cy="560" r="13" fill="rgba(0,120,180,0.1)" stroke="#008899" stroke-width="0.8"/>
+        <text x="180" y="564" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="8"
+          font-weight="700" fill="#008899">DASH</text>
+
+        <circle cx="350" cy="560" r="13" fill="rgba(0,120,180,0.1)" stroke="#008899" stroke-width="0.8"/>
+        <text x="350" y="564" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="8"
+          font-weight="700" fill="#008899">OIL</text>
+      </g>
+
+      <!-- Badge "30+" -->
+      <g filter="url(#nodeGlow)">
+        <rect x="200" y="620" width="120" height="46" rx="23"
+          fill="rgba(0,212,255,0.1)" stroke="#00D4FF" stroke-width="1.2"/>
+        <text x="260" y="648" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="16"
+          font-weight="800" fill="#00EEFF">+ 30 ativos</text>
+      </g>
+
+    </svg>
+  </div>
+
+  <!-- Waves -->
+  <div class="waves">
+    <svg viewBox="0 0 1080 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+      <defs>
+        <linearGradient id="wg4" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.0"/>
+          <stop offset="100%" stop-color="#00D4FF" stop-opacity="0.08"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,105 C180,78 360,125 540,100 S810,78 1080,100 L1080,200 L0,200 Z"
+        fill="url(#wg4)"/>
+      <path d="M0,105 C180,78 360,125 540,100 S810,78 1080,100"
+        fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.55"/>
+      <path d="M0,122 C200,96 400,135 600,112 S880,90 1080,114"
+        fill="none" stroke="#00D4FF" stroke-width="0.9" opacity="0.28"/>
+      <path d="M0,138 C220,114 440,148 660,126 S940,106 1080,128"
+        fill="none" stroke="#004466" stroke-width="0.6" opacity="0.2"/>
+    </svg>
+  </div>
+
+  <div class="divider"></div>
+  <div class="footer-tag">befinance.com.br</div>
+  <div class="footer-brand">BeFinance</div>
+  <div class="post-num">04 / 05</div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  POST 5 — ESTRATÉGIA: Consistência é o que separa traders  ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<p class="post-label">POST 05 / Estratégia — Mindset do trader</p>
+<div class="post" id="post5">
+
+  <div class="glow" style="width:650px;height:650px;top:-200px;right:-180px;
+    background:radial-gradient(ellipse,rgba(0,196,180,0.12) 0%,transparent 60%);"></div>
+  <div class="glow" style="width:500px;height:500px;bottom:0px;left:-60px;
+    background:radial-gradient(ellipse,rgba(0,150,220,0.1) 0%,transparent 60%);"></div>
+
+  <div class="content" style="top:110px;">
+    <div class="tag"><span class="tag-dot" style="background:var(--teal);box-shadow:0 0 8px var(--teal);"></span>
+      <span style="color:var(--teal);">Mindset do Trader</span>
+    </div>
+    <div class="headline">
+      Consistência<br>
+      é o que<br>
+      separa <span class="hl-cyan">traders.</span>
+    </div>
+    <div class="sub">
+      Lucro não vem de sorte.
+      Vem de método, disciplina e uma plataforma
+      que executa por você com precisão.
+    </div>
+    <div class="cta" style="background:var(--teal);box-shadow:0 0 35px rgba(0,196,180,0.4);">
+      Começar a aprender <span class="cta-arr">→</span>
+    </div>
+  </div>
+
+  <!-- Visual: Gráfico de linha ascendente estilo trading -->
+  <div class="visual">
+    <svg viewBox="0 0 520 1080" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <defs>
+        <filter id="chartGlow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="8" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <linearGradient id="chartAreaGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00C4B4" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#00C4B4" stop-opacity="0.02"/>
+        </linearGradient>
+        <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#004455" stop-opacity="0.5"/>
+          <stop offset="60%" stop-color="#00C4B4" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#00EEFF" stop-opacity="1"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Grid de fundo do chart -->
+      <g opacity="0.15" stroke="#00C4B4" stroke-width="0.6">
+        <line x1="80" y1="200" x2="480" y2="200"/>
+        <line x1="80" y1="280" x2="480" y2="280"/>
+        <line x1="80" y1="360" x2="480" y2="360"/>
+        <line x1="80" y1="440" x2="480" y2="440"/>
+        <line x1="80" y1="520" x2="480" y2="520"/>
+        <line x1="80" y1="600" x2="480" y2="600"/>
+        <!-- Verticals -->
+        <line x1="155" y1="200" x2="155" y2="610"/>
+        <line x1="230" y1="200" x2="230" y2="610"/>
+        <line x1="305" y1="200" x2="305" y2="610"/>
+        <line x1="380" y1="200" x2="380" y2="610"/>
+        <line x1="455" y1="200" x2="455" y2="610"/>
+      </g>
+
+      <!-- Área sob a curva -->
+      <path d="M80,590 C130,570 155,540 190,510 S220,480 250,450 S280,390 310,350
+               S350,290 390,250 S430,220 470,195 L470,610 L80,610 Z"
+        fill="url(#chartAreaGrad)" opacity="0.8"/>
+
+      <!-- Linha principal do gráfico -->
+      <path d="M80,590 C130,570 155,540 190,510 S220,480 250,450 S280,390 310,350
+               S350,290 390,250 S430,220 470,195"
+        fill="none" stroke="url(#lineGrad)" stroke-width="2.5"
+        filter="url(#chartGlow)" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- Vela de candlestick (estilo) — decorativas -->
+      <g opacity="0.45">
+        <!-- Bear candles (baixo) -->
+        <rect x="95" y="565" width="12" height="22" rx="2" fill="#004466" stroke="#00667788" stroke-width="0.5"/>
+        <rect x="115" y="558" width="12" height="30" rx="2" fill="#004466" stroke="#00667788" stroke-width="0.5"/>
+        <!-- Bull candles (alto) -->
+        <rect x="135" y="545" width="12" height="20" rx="2" fill="#00C4B4" stroke="#00C4B4" stroke-width="0.5" opacity="0.7"/>
+        <rect x="157" y="530" width="12" height="24" rx="2" fill="#00C4B4" stroke="#00C4B4" stroke-width="0.5" opacity="0.7"/>
+        <rect x="179" y="510" width="12" height="28" rx="2" fill="#00C4B4" stroke="#00C4B4" stroke-width="0.5" opacity="0.7"/>
+
+        <rect x="201" y="495" width="12" height="20" rx="2" fill="#003344" stroke="#004455" stroke-width="0.5"/>
+        <rect x="223" y="480" width="12" height="22" rx="2" fill="#00C4B4" stroke="#00C4B4" stroke-width="0.5" opacity="0.65"/>
+        <rect x="245" y="460" width="12" height="25" rx="2" fill="#00C4B4" stroke="#00C4B4" stroke-width="0.5" opacity="0.65"/>
+        <rect x="267" y="440" width="12" height="22" rx="2" fill="#003344" stroke="#004455" stroke-width="0.5"/>
+        <rect x="289" y="415" width="12" height="28" rx="2" fill="#00C4B4" stroke="#00C4B4" stroke-width="0.5" opacity="0.65"/>
+
+        <rect x="311" y="385" width="12" height="30" rx="2" fill="#00C4B4" stroke="#00C4B4" stroke-width="0.5" opacity="0.7"/>
+        <rect x="333" y="355" width="12" height="32" rx="2" fill="#003344" stroke="#004455" stroke-width="0.5"/>
+        <rect x="355" y="325" width="12" height="28" rx="2" fill="#00C4B4" stroke="#00C4B4" stroke-width="0.5" opacity="0.7"/>
+        <rect x="377" y="295" width="12" height="30" rx="2" fill="#00C4B4" stroke="#00C4B4" stroke-width="0.5" opacity="0.75"/>
+        <rect x="399" y="265" width="12" height="26" rx="2" fill="#00C4B4" stroke="#00C4B4" stroke-width="0.5" opacity="0.75"/>
+        <rect x="421" y="240" width="12" height="24" rx="2" fill="#003344" stroke="#004455" stroke-width="0.5"/>
+        <rect x="443" y="215" width="12" height="28" rx="2" fill="#00C4B4" stroke="#00C4B4" stroke-width="0.5" opacity="0.8"/>
+      </g>
+
+      <!-- Ponto atual (topo) com glow -->
+      <circle cx="470" cy="195" r="7" fill="#00EEFF" filter="url(#chartGlow)" opacity="0.95"/>
+      <circle cx="470" cy="195" r="3.5" fill="white"/>
+
+      <!-- Label de preço atual -->
+      <rect x="390" y="178" width="88" height="24" rx="5"
+        fill="rgba(0,196,180,0.15)" stroke="#00C4B4" stroke-width="0.8"/>
+      <text x="434" y="194" text-anchor="middle" font-family="Inter" font-size="11"
+        font-weight="600" fill="#00EEFF">▲ +12.4%</text>
+
+      <!-- Linha de referência horizontal -->
+      <line x1="80" y1="195" x2="470" y2="195"
+        stroke="#00C4B4" stroke-width="0.6" opacity="0.25" stroke-dasharray="4,4"/>
+
+      <!-- Labels eixo Y -->
+      <text x="72" y="204" text-anchor="end" font-family="Inter" font-size="9"
+        fill="rgba(255,255,255,0.28)">MAX</text>
+      <text x="72" y="604" text-anchor="end" font-family="Inter" font-size="9"
+        fill="rgba(255,255,255,0.28)">MIN</text>
+
+      <!-- Mensagem motivacional no chart -->
+      <text x="280" y="680" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="13"
+        font-weight="600" fill="rgba(0,196,180,0.5)" letter-spacing="2">DISCIPLINA GERA RESULTADO</text>
+
+    </svg>
+  </div>
+
+  <!-- Waves -->
+  <div class="waves">
+    <svg viewBox="0 0 1080 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+      <defs>
+        <linearGradient id="wg5" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00C4B4" stop-opacity="0.0"/>
+          <stop offset="100%" stop-color="#00C4B4" stop-opacity="0.08"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,102 C140,74 300,118 460,94 S740,72 900,94 S1020,84 1080,94 L1080,200 L0,200 Z"
+        fill="url(#wg5)"/>
+      <path d="M0,102 C140,74 300,118 460,94 S740,72 900,94 S1020,84 1080,94"
+        fill="none" stroke="#00C4B4" stroke-width="1.5" opacity="0.52"/>
+      <path d="M0,118 C180,92 370,132 560,108 S850,86 1080,110"
+        fill="none" stroke="#00C4B4" stroke-width="0.9" opacity="0.26"/>
+      <path d="M0,136 C220,112 440,148 660,126 S940,106 1080,128"
+        fill="none" stroke="#006655" stroke-width="0.6" opacity="0.18"/>
+    </svg>
+  </div>
+
+  <div class="divider" style="background:linear-gradient(90deg,transparent 0%,rgba(0,196,180,0.2) 30%,rgba(0,196,180,0.2) 70%,transparent 100%);"></div>
+  <div class="footer-tag">befinance.com.br</div>
+  <div class="footer-brand">BeFinance</div>
+  <div class="post-num">05 / 05</div>
+</div>
+
+</body>
+</html>
