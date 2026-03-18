@@ -1,0 +1,352 @@
+workflow_name: end-to-end-launch
+version: 1.0.0
+type: multi-phase
+squad: high-ticket-mastery
+
+description: |
+  Pipeline completo de lançamento high-ticket end-to-end.
+  Orquestra 8 fases sequenciais do posicionamento ao fechamento.
+
+duration: 6-8h
+phases: 8
+mode: sequential  # Each phase must complete before next
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: phase_1
+    name: Posicionamento High-Ticket
+    specialist: Renan Vieira
+    activation: "Read squads/mind-cloning/minds/renan-vieira/agents/renan-vieira.md and adopt persona"
+    duration: 45-60min
+
+    objective: |
+      Definir posicionamento de autoridade percebida no Instagram/redes.
+      Framework: "Não importa se você É bom, importa se MOSTRA"
+
+    inputs:
+      - Nicho atual
+      - Presença atual em redes (Instagram, etc)
+      - Público-alvo
+
+    outputs:
+      - Estratégia de posicionamento visual
+      - Plano de conteúdo de autoridade
+      - Frameworks de autoridade percebida
+
+    checkpoint:
+      condition: "Posicionamento definido e validado"
+      veto:
+        - "Posicionamento genérico (não diferenciado)"
+        - "Sem estratégia visual clara"
+
+    handoff_to: phase_2
+
+  - id: phase_2
+    name: Big Idea
+    specialist: Leandro Ladeira
+    activation: "/leandro-ladeira:leandro-ladeira"
+    command: "*big-idea"
+    duration: 30-45min
+
+    objective: |
+      Definir hipótese central de vendas (Big Idea).
+      Framework: M.O.E.R (Mensagem-Oferta-Engate-Retórica)
+
+    inputs:
+      - Posicionamento definido (phase_1)
+      - Nicho e avatar
+      - Dor principal do público
+
+    outputs:
+      - Big Idea (hipótese central)
+      - Mensagem core
+      - Ângulo de engate
+
+    checkpoint:
+      condition: "Big Idea validada e específica"
+      veto:
+        - "Big Idea genérica ou abstrata"
+        - "Não conecta com dor real"
+
+    handoff_to: phase_3
+
+  - id: phase_3
+    name: Grand Slam Offer
+    specialist: Alex Hormozi
+    activation: "/hormozi:README"
+    workflow: "wf-grand-slam-offer"
+    duration: 1-1.5h
+
+    objective: |
+      Criar oferta irresistível que faz pessoas sentirem-se estúpidas ao dizer não.
+      Framework: Value Equation + Offer Stacking
+
+    inputs:
+      - Big Idea (phase_2)
+      - Avatar definido
+      - Pricing ceiling
+
+    outputs:
+      - Core offer estruturada
+      - Bonus stack
+      - Guarantee stack
+      - Pricing strategy
+
+    checkpoint:
+      condition: "Oferta passa Value Equation test"
+      veto:
+        - "Dream Outcome não claro"
+        - "Perceived Likelihood < 8/10"
+        - "Time Delay > 90 dias"
+
+    handoff_to: phase_4
+
+  - id: phase_4
+    name: Copy Estratégica
+    specialist: Copywriting Squad
+    activation: "/copywriting-squad:README"
+    recommended_agents:
+      - "Dan Kennedy (High-Ticket copy)"
+      - "Eugene Schwartz (Awareness level)"
+      - "Gary Halbert (Sales letter)"
+    duration: 1.5-2h
+
+    objective: |
+      Criar copy de vendas high-ticket (sales page, emails, ads).
+      Framework: Awareness Level (Schwartz) + Avatar (Kennedy)
+
+    inputs:
+      - Oferta estruturada (phase_3)
+      - Big Idea (phase_2)
+      - Avatar detalhado
+
+    outputs:
+      - Sales page copy
+      - Email sequence (5-7 emails)
+      - Ad copy variations (3-5)
+
+    checkpoint:
+      condition: "Copy passa audit Claude Hopkins"
+      veto:
+        - "Claims não verificáveis"
+        - "Awareness level errado"
+        - "Sem storytelling"
+
+    handoff_to: phase_5
+
+  - id: phase_5
+    name: VSL / Storytelling
+    specialist: Renner Silva
+    activation: "/renner-silva:README"
+    duration: 1-1.5h
+
+    objective: |
+      Criar roteiro de VSL ou narrativa de vendas com storytelling estratégico.
+
+    inputs:
+      - Copy de vendas (phase_4)
+      - Oferta (phase_3)
+      - Histórias pessoais disponíveis
+
+    outputs:
+      - Roteiro de VSL completo
+      - Estrutura de storytelling
+      - Hooks e transitions
+
+    checkpoint:
+      condition: "VSL segue estrutura Hero's Journey"
+      veto:
+        - "Sem arco emocional claro"
+        - "Pitch antes de rapport"
+
+    handoff_to: phase_6
+
+  - id: phase_6
+    name: Tráfego Pago
+    specialist: Thiago Tessman / Leandro Ladeira
+    activation: "/conversao-extrema:agents:traffic-masters-chief"
+    alternative: "/leandro-ladeira:leandro-ladeira *estrategia-perpetuo"
+    duration: 1.5-2h
+
+    objective: |
+      Criar campanha de tráfego pago (Google Ads, Meta Ads, Stories 10x).
+      Framework: Círculo 6V (Tessman) + Sistema Perpétuo (Ladeira)
+
+    inputs:
+      - Copy de ads (phase_4)
+      - Oferta (phase_3)
+      - Budget disponível
+
+    outputs:
+      - Campanha Google/Meta Ads
+      - Estratégia de remarketing
+      - Stories 10x roteiro
+      - Plano de escala
+
+    checkpoint:
+      condition: "Campanha validada com Círculo 6V"
+      veto:
+        - "Targeting muito amplo"
+        - "Sem remarketing definido"
+
+    handoff_to: phase_7
+
+  - id: phase_7
+    name: Negociação / Fechamento
+    specialist: Negotiation Squad
+    activation: "/negotiation:README"
+    recommended_agents:
+      - "Chris Voss (Tactical Empathy)"
+      - "Robert Cialdini (7 Principles)"
+      - "Oren Klaff (Frame Control)"
+    duration: 1-1.5h
+
+    objective: |
+      Criar estratégia de fechamento e handling de objeções.
+      Framework: Tactical Empathy (Voss) + 7 Principles (Cialdini)
+
+    inputs:
+      - Oferta (phase_3)
+      - Avatar (phase_2)
+      - Principais objeções conhecidas
+
+    outputs:
+      - Script de fechamento
+      - Objeções mapeadas + respostas
+      - Frame control techniques
+      - Discovery questions (SPIN)
+
+    checkpoint:
+      condition: "Script cobre top 5 objeções"
+      veto:
+        - "Respostas genéricas"
+        - "Sem tactical empathy"
+
+    handoff_to: phase_8
+
+  - id: phase_8
+    name: Comunicação / Influência
+    specialist: Tathi Deandhela
+    activation: "Read squads/mind-cloning/minds/tathi-deandhela/outputs/mind_dna_complete.yaml"
+    alternative: "/tathi-deandhela:README"
+    duration: 30-45min
+
+    objective: |
+      Refinar comunicação e influência para rapport máximo.
+
+    inputs:
+      - Script de fechamento (phase_7)
+      - VSL (phase_5)
+      - Copy (phase_4)
+
+    outputs:
+      - Refinamentos de comunicação
+      - Técnicas de rapport
+      - Ajustes de linguagem
+
+    checkpoint:
+      condition: "Comunicação autêntica e influente"
+      veto:
+        - "Tom incongruente com posicionamento"
+
+    handoff_to: completion
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW EXECUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+execution:
+  mode: sequential_with_checkpoints
+  allow_skip: false  # All phases mandatory
+  allow_loop: false  # No backward flow
+
+  # POKA-YOKE: Enforcement rules to prevent errors
+  enforcement:
+    veto_behavior: blocking  # Vetos BLOCK, not just warn
+    require_sequential: true  # Phase N requires Phase N-1 complete
+    max_duration_per_phase: 90min  # Timeout per phase
+    on_veto_triggered:
+      action: block_and_log
+      message: "Veto condition triggered. Resolve before proceeding."
+    on_skip_attempt:
+      action: block
+      message: "Cannot skip phases. Complete {phase_name} first."
+
+  progress_tracking:
+    enabled: true
+    format: |
+      PROGRESSO PIPELINE:
+      ✅ Fase 1: Posicionamento (Renan Vieira)
+      ✅ Fase 2: Big Idea (Leandro Ladeira)
+      ⏳ Fase 3: Oferta (Alex Hormozi) ← ATUAL
+      ⬜ Fase 4: Copy (Copywriting Squad)
+      ⬜ Fase 5: VSL (Renner Silva)
+      ⬜ Fase 6: Tráfego (Tessman)
+      ⬜ Fase 7: Negociação (Chris Voss)
+      ⬜ Fase 8: Comunicação (Tathi)
+
+  on_checkpoint_fail:
+    action: block_next_phase
+    message: "Checkpoint falhou. Resolva antes de continuar."
+
+  on_completion:
+    action: show_summary
+    summary_format: |
+      🎉 PIPELINE COMPLETO!
+
+      ✅ 8/8 Fases Concluídas
+
+      DELIVERABLES:
+      - Posicionamento High-Ticket
+      - Big Idea validada
+      - Grand Slam Offer
+      - Copy de vendas (sales page + emails + ads)
+      - VSL completo
+      - Campanha de tráfego
+      - Script de fechamento
+      - Comunicação refinada
+
+      Próximo passo: Executar lançamento! 🚀
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY GATES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_gates:
+  - id: QG_HTM_001
+    name: "Phase Completion Gate"
+    applies_to: all_phases
+    checks:
+      - "Checkpoint condition met"
+      - "Veto conditions NOT triggered"
+      - "Outputs delivered"
+
+  - id: QG_HTM_002
+    name: "Handoff Validation"
+    applies_to: all_phases
+    checks:
+      - "Next phase inputs available"
+      - "Specialist activated successfully"
+
+  - id: QG_HTM_003
+    name: "Pipeline Integrity"
+    applies_to: workflow
+    checks:
+      - "No phases skipped"
+      - "Sequential flow maintained"
+      - "All specialists responded"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  created: 2026-03-17
+  squad: high-ticket-mastery
+  type: orchestration_workflow
+  specialists_count: 8
+  total_duration: 6-8h
+  success_rate: TBD

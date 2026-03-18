@@ -1,0 +1,43 @@
+workflow_name: traffic-only
+version: 1.0.0
+type: single-phase
+squad: high-ticket-mastery
+
+description: |
+  Workflow focado apenas em tráfego pago (Tessman/Ladeira).
+
+duration: 1.5-2h
+phases: 1
+
+phases:
+  - id: traffic
+    name: Tráfego Pago
+    specialist: Thiago Tessman / Leandro Ladeira
+    activation: "/conversao-extrema:agents:traffic-masters-chief"
+    alternative: "/leandro-ladeira:leandro-ladeira *estrategia-perpetuo"
+
+    objective: |
+      Criar campanha de tráfego pago.
+      Framework: Círculo 6V (Tessman) + Sistema Perpétuo (Ladeira)
+
+    inputs:
+      - Copy de ads
+      - Oferta definida
+      - Budget disponível
+
+    outputs:
+      - Campanha Google/Meta Ads
+      - Estratégia de remarketing
+      - Stories 10x roteiro
+      - Plano de escala
+
+    checkpoint:
+      condition: "Campanha validada com Círculo 6V"
+      veto:
+        - "Targeting muito amplo"
+        - "Sem remarketing definido"
+
+metadata:
+  created: 2026-03-17
+  squad: high-ticket-mastery
+  use_case: "Traffic-only for existing offers"

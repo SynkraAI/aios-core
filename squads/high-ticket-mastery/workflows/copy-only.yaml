@@ -1,0 +1,45 @@
+workflow_name: copy-only
+version: 1.0.0
+type: single-phase
+squad: high-ticket-mastery
+
+description: |
+  Workflow focado apenas em copy estratégica (Copywriting Squad).
+
+duration: 1-2h
+phases: 1
+
+phases:
+  - id: copy
+    name: Copy Estratégica
+    specialist: Copywriting Squad
+    activation: "/copywriting-squad:README"
+    recommended_agents:
+      - "Dan Kennedy (High-Ticket)"
+      - "Eugene Schwartz (Awareness)"
+      - "Gary Halbert (Sales Letter)"
+
+    objective: |
+      Criar copy de vendas high-ticket.
+      Framework: Awareness Level + Avatar + Storytelling
+
+    inputs:
+      - Oferta definida
+      - Avatar detalhado
+      - Big Idea (se disponível)
+
+    outputs:
+      - Sales page copy
+      - Email sequence (5-7)
+      - Ad copy variations (3-5)
+
+    checkpoint:
+      condition: "Copy passa audit Claude Hopkins"
+      veto:
+        - "Claims não verificáveis"
+        - "Awareness level errado"
+
+metadata:
+  created: 2026-03-17
+  squad: high-ticket-mastery
+  use_case: "Copy-only without full pipeline"

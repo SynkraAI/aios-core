@@ -1,0 +1,41 @@
+workflow_name: positioning-only
+version: 1.0.0
+type: single-phase
+squad: high-ticket-mastery
+
+description: |
+  Workflow focado apenas em posicionamento high-ticket com Renan Vieira.
+
+duration: 45-60min
+phases: 1
+
+phases:
+  - id: positioning
+    name: Posicionamento High-Ticket
+    specialist: Renan Vieira
+    activation: "Direct call to Renan Vieira agent"
+
+    objective: |
+      Definir posicionamento de autoridade percebida.
+      Framework: "Não importa se você É bom, importa se MOSTRA"
+
+    inputs:
+      - Nicho atual
+      - Presença em redes (Instagram, etc)
+      - Público-alvo
+
+    outputs:
+      - Estratégia de posicionamento visual
+      - Plano de conteúdo de autoridade
+      - Frameworks de autoridade percebida
+
+    checkpoint:
+      condition: "Posicionamento definido e diferenciado"
+      veto:
+        - "Posicionamento genérico"
+        - "Sem estratégia visual clara"
+
+metadata:
+  created: 2026-03-17
+  squad: high-ticket-mastery
+  use_case: "Quick positioning audit"

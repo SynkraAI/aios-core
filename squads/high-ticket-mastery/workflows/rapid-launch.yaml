@@ -1,0 +1,205 @@
+workflow_name: rapid-launch
+version: 1.0.0
+type: multi-phase
+squad: high-ticket-mastery
+
+description: |
+  Lançamento rápido (4 fases essenciais) quando você JÁ tem posicionamento definido.
+  Pula fases 1, 5, 7, 8 e foca no core: Big Idea → Oferta → Copy → Tráfego.
+
+duration: 4-5h
+phases: 4
+mode: sequential
+
+# QUANDO USAR:
+# - Você já tem posicionamento claro (fase 1 done)
+# - Quer validar mercado rápido
+# - Orçamento limitado de tempo
+# - Lançamento de teste (não final)
+
+# QUANDO NÃO USAR:
+# - Primeiro lançamento no nicho (precisa fase 1)
+# - High-ticket acima de R$5k (precisa fase 7 - negociação)
+# - Produto complexo (precisa fase 5 - storytelling/VSL)
+
+phases:
+  - id: phase_2
+    name: Big Idea
+    specialist: Leandro Ladeira
+    activation: "/leandro-ladeira:leandro-ladeira"
+    command: "*big-idea"
+    duration: 30-45min
+
+    objective: |
+      Definir hipótese central de vendas (Big Idea).
+      Framework: M.O.E.R (Mensagem-Oferta-Engate-Retórica)
+
+    inputs:
+      - Posicionamento já definido (assumido)
+      - Nicho e avatar
+      - Dor principal do público
+
+    outputs:
+      - Big Idea (hipótese central)
+      - Mensagem core
+      - Ângulo de engate
+
+    checkpoint:
+      condition: "Big Idea validada e específica"
+      veto:
+        - "Big Idea genérica ou abstrata"
+        - "Não conecta com dor real"
+
+    handoff_to: phase_3
+
+  - id: phase_3
+    name: Grand Slam Offer
+    specialist: Alex Hormozi
+    activation: "/hormozi:README"
+    workflow: "wf-grand-slam-offer"
+    duration: 1-1.5h
+
+    objective: |
+      Criar oferta irresistível (core do lançamento rápido).
+      Framework: Value Equation + Offer Stacking
+
+    inputs:
+      - Big Idea (phase_2)
+      - Avatar definido
+      - Pricing ceiling
+
+    outputs:
+      - Core offer estruturada
+      - Bonus stack (mínimo 3)
+      - Guarantee stack
+      - Pricing strategy
+
+    checkpoint:
+      condition: "Oferta passa Value Equation test"
+      veto:
+        - "Dream Outcome não claro"
+        - "Perceived Likelihood < 8/10"
+
+    handoff_to: phase_4
+
+  - id: phase_4
+    name: Copy Estratégica
+    specialist: Copywriting Squad
+    activation: "/copywriting-squad:README"
+    recommended_agents:
+      - "Dan Kennedy (High-Ticket copy)"
+      - "Eugene Schwartz (Awareness level)"
+    duration: 1-1.5h
+
+    objective: |
+      Criar copy de vendas RÁPIDA (sales page + emails básicos).
+      Framework: Awareness Level (Schwartz) + Avatar (Kennedy)
+
+    inputs:
+      - Oferta estruturada (phase_3)
+      - Big Idea (phase_2)
+      - Avatar detalhado
+
+    outputs:
+      - Sales page copy (versão curta)
+      - Email sequence (3 emails mínimo)
+      - Ad copy variations (2-3)
+
+    checkpoint:
+      condition: "Copy passa audit básico"
+      veto:
+        - "Claims não verificáveis"
+        - "Awareness level errado"
+
+    handoff_to: phase_6
+
+  - id: phase_6
+    name: Tráfego Pago
+    specialist: Thiago Tessman / Leandro Ladeira
+    activation: "/conversao-extrema:agents:traffic-masters-chief"
+    alternative: "/leandro-ladeira:leandro-ladeira *estrategia-perpetuo"
+    duration: 1-1.5h
+
+    objective: |
+      Criar campanha de tráfego RÁPIDA (foco em validação, não escala).
+      Framework: Círculo 6V (Tessman)
+
+    inputs:
+      - Copy de ads (phase_4)
+      - Oferta (phase_3)
+      - Budget disponível (mínimo R$1k)
+
+    outputs:
+      - Campanha Meta Ads (simples)
+      - Targeting básico
+      - Budget allocation
+
+    checkpoint:
+      condition: "Campanha validada com Círculo 6V"
+      veto:
+        - "Budget < R$1k"
+        - "Targeting muito amplo"
+
+    handoff_to: completion
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW EXECUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+execution:
+  mode: sequential_with_checkpoints
+  allow_skip: false
+  allow_loop: false
+
+  enforcement:
+    veto_behavior: blocking
+    require_sequential: true
+    max_duration_per_phase: 90min
+
+  progress_tracking:
+    enabled: true
+    format: |
+      RAPID LAUNCH (4/8 fases):
+      ✅ Fase 2: Big Idea (Leandro Ladeira)
+      ⏳ Fase 3: Oferta (Alex Hormozi) ← ATUAL
+      ⬜ Fase 4: Copy (Copywriting Squad)
+      ⬜ Fase 6: Tráfego (Tessman)
+
+  on_completion:
+    action: show_summary
+    summary_format: |
+      🚀 RAPID LAUNCH COMPLETO!
+
+      ✅ 4/4 Fases Essenciais Concluídas
+
+      DELIVERABLES:
+      - Big Idea validada
+      - Grand Slam Offer
+      - Copy de vendas básica
+      - Campanha de tráfego
+
+      ⚠️ FALTAM (para lançamento completo):
+      - Fase 5: VSL/Storytelling (Renner Silva)
+      - Fase 7: Negociação (Chris Voss)
+      - Fase 8: Comunicação (Tathi)
+
+      Próximo passo: Validar com tráfego e depois completar pipeline! 🎯
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  created: 2026-03-17
+  squad: high-ticket-mastery
+  type: rapid_validation
+  use_case: "Quick market validation without full pipeline"
+  prerequisites:
+    - "Posicionamento já definido (Fase 1)"
+    - "Avatar claro"
+    - "Budget mínimo R$1k para tráfego"
+  skip_rationale:
+    phase_1: "Assumed: Positioning already clear"
+    phase_5: "Can add later: VSL for conversion boost"
+    phase_7: "Can add later: Negotiation for high-ticket (R$5k+)"
+    phase_8: "Optional: Communication refinement"

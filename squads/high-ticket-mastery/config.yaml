@@ -1,0 +1,121 @@
+squad_name: high-ticket-mastery
+version: 1.2.0  # P0 + P1 fixes applied (quality score 8.0/10)
+type: fusion  # Orchestration layer, NOT standalone
+orchestration: true
+created: 2026-03-17
+updated: 2026-03-17
+
+description: |
+  Pipeline completo de vendas high-ticket end-to-end.
+  Orquestra 8 componentes especializados do posicionamento ao fechamento.
+
+purpose: |
+  Coordenar especialistas em cada fase do pipeline high-ticket:
+  1. Posicionamento (Renan Vieira)
+  2. Big Idea (Leandro Ladeira)
+  3. Oferta (Alex Hormozi)
+  4. Copy (Copywriting Squad)
+  5. Storytelling (Renner Silva)
+  6. Tráfego (Tessman/Ladeira)
+  7. Negociação (Negotiation Squad)
+  8. Comunicação (Tathi Deandhela)
+
+# CRITICAL: This squad REFERENCES existing squads, does NOT duplicate agents
+dependencies:
+  squads:
+    - path: squads/copywriting-squad
+      role: Copy estratégica (15 copywriters)
+      activation: /copywriting-squad:README
+
+    - path: squads/negotiation
+      role: Negociação e fechamento (8 experts)
+      activation: /negotiation:README
+
+    - path: squads/leandro-ladeira
+      role: Tráfego pago + Big Idea + Vendas Perpétuas
+      activation: /leandro-ladeira:leandro-ladeira
+
+    - path: squads/conversao-extrema
+      role: Google/Meta Ads + Remarketing 2.0
+      activation: /conversao-extrema:agents:traffic-masters-chief
+
+    - path: squads/hormozi
+      role: Grand Slam Offers + Lead Gen + Escala
+      activation: /hormozi:README
+
+    - path: squads/renner-silva
+      role: Storytelling + Marketing
+      activation: /renner-silva:README
+
+  minds:
+    - path: squads/mind-cloning/minds/renan-vieira
+      role: Posicionamento High-Ticket
+      agent: agents/renan-vieira.md
+      dna: outputs/mind_dna_complete.yaml
+      fidelity: 91.5%
+      activation: "Read agents/renan-vieira.md and adopt persona"
+
+    - path: squads/mind-cloning/minds/tathi-deandhela
+      role: Comunicação & Influência
+      dna: outputs/mind_dna_complete.yaml
+      status: Complete (Premium)
+      activation: "Read outputs/mind_dna_complete.yaml and apply communication principles"
+      alternative: "/tathi-deandhela:README"
+
+agents:
+  - name: high-ticket-chief
+    type: orchestrator
+    role: Roteia requisições do usuário para o squad/agente apropriado
+    location: agents/high-ticket-chief.md
+
+workflows:
+  - name: end-to-end-launch
+    file: workflows/end-to-end-launch.yaml
+    description: Pipeline completo (8 fases)
+    duration: 6-8h
+
+  - name: rapid-launch
+    file: workflows/rapid-launch.yaml
+    description: Lançamento rápido (4 fases core: 2+3+4+6)
+    duration: 4-5h
+    use_case: Quick market validation
+
+  - name: positioning-only
+    file: workflows/positioning-only.yaml
+    description: Apenas posicionamento (Renan Vieira)
+    duration: 45-60min
+
+  - name: copy-only
+    file: workflows/copy-only.yaml
+    description: Apenas copy (Copywriting Squad)
+    duration: 1-2h
+
+  - name: traffic-only
+    file: workflows/traffic-only.yaml
+    description: Apenas tráfego (Ladeira/Tessman)
+    duration: 1.5-2h
+
+tasks:
+  - name: diagnose-high-ticket
+    file: tasks/diagnose-high-ticket.md
+    description: Diagnóstico M.O.E.R (Ladeira)
+
+  - name: orchestrate-launch
+    file: tasks/orchestrate-launch.md
+    description: Orquestração de lançamento completo
+
+activation:
+  primary: /high-ticket-mastery:high-ticket-chief
+  workflows:
+    - /high-ticket-mastery:workflows:end-to-end-launch
+    - /high-ticket-mastery:workflows:positioning-only
+    - /high-ticket-mastery:workflows:copy-only
+    - /high-ticket-mastery:workflows:traffic-only
+
+quality_standards:
+  type: orchestrator_squad
+  requirements:
+    - All referenced squads must exist
+    - Orchestrator must route correctly
+    - Workflows must call squads (not duplicate)
+    - Documentation must explain FUSION architecture

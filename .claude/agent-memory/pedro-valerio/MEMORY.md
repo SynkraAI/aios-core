@@ -1,9 +1,9 @@
 # @pedro-valerio Memory - Process Absolutist
 
 ## Quick Stats
-- Workflows auditados: 11 (deep-research v1.0→v1.1; BRE extract v1.0→v1.1, formalize v1.0→v1.1; Mind Cloning v1.1; Project Lifecycle v1.0; YouTube Transcription v1.0; /new-project v1.0; Ensinio WhatsApp Prospector v5.0)
+- Workflows auditados: 12 (deep-research v1.0→v1.1; BRE extract v1.0→v1.1, formalize v1.0→v1.1; Mind Cloning v1.1; Project Lifecycle v1.0; YouTube Transcription v1.0; /new-project v1.0; Ensinio WhatsApp Prospector v5.0; High-Ticket Mastery v1.0)
 - Clones auditados: 2 (renner-silva v1.1=8.5, v1.2=9.0)
-- Veto conditions propostas: 18 (deep-research) + 24 (BRE v1.1) + 8 (Project Lifecycle) + 8 (/new-project v1.0) + 12 (Ensinio v5.0)
+- Veto conditions propostas: 18 (deep-research) + 24 (BRE v1.1) + 8 (Project Lifecycle) + 8 (/new-project v1.0) + 12 (Ensinio v5.0) + 10 (HTM v1.0)
 - Detalhes completos: `audit-history.md`
 
 ---
@@ -28,6 +28,7 @@
 | YouTube Transcription v1.0 | 47 | VETO |
 | /new-project v1.0 | 67 | VETO |
 | **Ensinio Prospector v5.0** | **73** | **APROVAR c/ ressalvas** |
+| **High-Ticket Mastery v1.0** | **58** | **VETO** |
 
 ---
 
@@ -72,6 +73,9 @@
 - **Veto conditions documentadas mas SEM enforcement** (Ensinio: QG diz "halt" mas nada força throw)
 - **Optional phase com falha silenciosa** (Ensinio Phase 9 GHL: erro → log → continue = dessincronizado)
 - **Threshold sem veto** (Ensinio phone_coverage < 70% continua, deveria haltar)
+- **WARN em vez de BLOCK** (HTM: V2 Skip Foundation = WARN, contradiz allow_skip:false do workflow)
+- **Menu oferece opcao sem implementacao** (HTM: "Lancamento Rapido" sem rapid-launch.yaml)
+- **Activation ambigua** (HTM: "Direct call" e "Direct reference" nao sao slash commands executaveis)
 
 ## Patterns Efetivos
 - Enforcement global: `enforcement: { checkpoint_policy, veto_behavior, max_retries }`
@@ -97,6 +101,7 @@
 ---
 
 ## Notas Recentes
+- [2026-03-17] High-Ticket Mastery v1.0 VETO (58/100) — 10C, 8H, 8M. **Enforcement zero:** veto conditions documentadas mas nao bloqueiam. CRITICAL: V2=WARN contradiz allow_skip:false, menu oferece workflow inexistente, zero fallback/timeout, handoffs sem input_validation. Arquitetura FUSION solida mas sem travas. Audit: `squads/high-ticket-mastery/AUDIT-2026-03-17.md`
 - [2026-03-16] Ensinio Prospector v5.0 APROVAR c/ RESSALVAS (73/100) — 3C, 4H, 3M. **Veto sem enforcement:** QG documentado mas não força throw. CRITICAL: Phase 9 (GHL) falha silenciosa, phone_coverage sem threshold, schema validation ausente. Pipeline sólido mas precisa hardening. Audit: `.aios/audits/process-workflow-audit-2026-03-16.md`
 - [2026-03-15] /new-project v1.0 VETO (67/100) — 3C, 4H, 4M, 2L. **Fail Late** violação: validation no fim. CRITICAL: rollback ausente, table corruption, scan não bloqueia
 - [2026-03-13] YouTube Transcription v1.0 VETO (47/100) — 3C, 2H, 6M, 1L. Fallback chain sem veto, subprocess sem raise, extension-only validation
