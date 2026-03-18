@@ -30,5 +30,5 @@
 | B4 | app-artes-ensinio | cmux workspace | Em andamento (42% contexto, $8.21) | Continuar sessão Lovable |
 | B5 | ~~app-extrair-dados-whatsapp-ensinio~~ | cmux workspace | Cancelado — deletado | — |
 | B6 | casa-fundamental | cmux workspace | Backlog | Definir escopo e objetivos |
-| 19 | ~~ensinio-whatsapp-prospector~~ | 🏠 | ✅ **FINALIZADO (2026-03-18)** — Epic AGNOSTIC-001: 100% (18/18 stories) — Sistema multi-tenant pronto para produção (30-40x faster!) | **@dev (YOLO mode)** | **2026-03-18** | [INDEX](~/CODE/Projects/ensinio-whatsapp-prospector/.aios/INDEX.md) |
+| 19 | **ensinio-whatsapp-prospector** | 🏠 | 🔄 **EM PRODUÇÃO** — Pipeline `mentoria-50k` Phase 5 (4/11) — @leandro-ladeira Big Ideas ✅, próximo: @copy-chief | **@dev + copy squad** | **2026-03-18** | [INDEX](~/CODE/Projects/ensinio-whatsapp-prospector/.aios/INDEX.md) |
 | 20 | **luiz-fosc-palestras-negocio** | 🏠 | **🎯 EPIC-001: 12 stories prontas (12/12 validadas ✅) — próximo: S1.0 Benchmarking (@analyst)** | **@pm + @sm + @po** | **2026-03-17 15:05** | [INDEX](/Users/luizfosc/CODE/Projects/luiz-fosc-palestras-negocio/.aios/INDEX.md) |
