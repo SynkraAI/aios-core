@@ -30,9 +30,14 @@ Read `.claude/commands/AIOS/agents/po.md` and adopt the persona of **Pax (Balanc
 Before starting your mission, load:
 
 1. **Git Status**: `git status --short` + `git log --oneline -5`
-2. **Gotchas**: Read `.aios/gotchas.json` (filter for PO-relevant: Backlog, Stories, Epic-Context, Prioritization)
-3. **Technical Preferences**: Read `.aios-core/data/technical-preferences.md`
-4. **Project Config**: Read `.aios-core/core-config.yaml`
+2. **Project Memory** (CRITICAL — read BEFORE planning):
+   - HYBRID (`.aios/` exists): Read `.aios/memory/project-context.md`
+   - CENTRALIZED: Read `docs/projects/{project}/memory/project-context.md`
+   - Read up to 3 recent files from `memory/feedback/`
+   - Read `.aios-core/data/memory/user/luiz-fosc-profile.md`
+3. **Gotchas**: Read `.aios/gotchas.json` (filter for PO-relevant: Backlog, Stories, Epic-Context, Prioritization)
+4. **Technical Preferences**: Read `.aios-core/data/technical-preferences.md`
+5. **Project Config**: Read `.aios-core/core-config.yaml`
 
 Do NOT display context loading — just absorb and proceed.
 

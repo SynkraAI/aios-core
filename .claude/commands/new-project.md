@@ -123,8 +123,13 @@ Eles serão incluídos na seção "Arquivos Chave" do INDEX.md.
    - `research/` — pesquisas e deep research
    - `data/` — dados do projeto
    - `sessions/` — session files de checkpoint/resume
+   - `memory/` — memória persistente do projeto
+   - `memory/feedback/` — feedback do usuário por tópico
 2. Adicione `.gitkeep` em cada subpasta vazia
-3. `index_path` = `docs/projects/{nome}/INDEX.md`
+3. Crie `docs/projects/{nome}/memory/project-context.md` usando template (ver Passo 2.6)
+4. Crie `docs/projects/{nome}/memory/agents-used.md` usando template (ver Passo 2.6)
+5. Crie `docs/projects/{nome}/memory/squads-config.md` usando template (ver Passo 2.6)
+6. `index_path` = `docs/projects/{nome}/INDEX.md`
 
 ### Se destino EXTERNO (fora de aios-core/) — modo HYBRID
 
@@ -134,7 +139,13 @@ Eles serão incluídos na seção "Arquivos Chave" do INDEX.md.
    - `.aios/stories/active/` — stories ativas
    - `.aios/stories/completed/` — stories concluídas
    - `.aios/epics/` — epics do projeto
+   - `.aios/memory/` — memória persistente do projeto
+   - `.aios/memory/feedback/` — feedback do usuário por tópico
 3. Adicione `.gitkeep` em cada subpasta vazia
+3b. Crie memory files usando templates (ver Passo 2.6):
+   - `.aios/memory/project-context.md`
+   - `.aios/memory/agents-used.md`
+   - `.aios/memory/squads-config.md`
 4. **Criar symlinks de recursos globais:**
    ```bash
    # Skills globais
@@ -188,6 +199,31 @@ Este projeto usa governança híbrida AIOX. INDEX, stories e sessions vivem loca
 ## Convenções deste projeto
 {A definir — preencha com stack, lint rules, etc. conforme o projeto evolui}
 ```
+
+## Passo 2.6: Criar memory files (templates)
+
+Criar os 3 arquivos de memória usando os templates de `docs/analysis/memory-templates-2026-03-18.md`.
+
+**Para CENTRALIZED:** criar em `docs/projects/{nome}/memory/`
+**Para HYBRID:** criar em `{project-path}/.aios/memory/`
+
+### project-context.md
+Preencher automaticamente com dados coletados nos passos anteriores:
+- **Stack Técnica:** extraída do tipo do projeto (app→Node.js/React, squad→N/A, etc.)
+- **Contexto de Negócio:** usar a descrição breve do Passo 1
+- **Decisões de Arquitetura:** deixar "(A ser preenchido durante desenvolvimento)"
+- **Escolhas Técnicas Permanentes:** deixar "(A ser preenchido)"
+- **Regras de Ouro:** deixar "(A ser preenchido)"
+
+### agents-used.md
+Preencher com squad informado (se houver), caso contrário deixar vazio para preenchimento futuro.
+
+### squads-config.md
+Deixar template mínimo — será preenchido conforme squads são usados.
+
+**IMPORTANTE:** Estes arquivos são a "memória do projeto". Agents devem ler `memory/project-context.md` ao entrar no projeto para saber contexto sem perguntar.
+
+---
 
 ## Passo 2.7: Criar estrutura de organização Epic/Story
 
@@ -436,6 +472,12 @@ docs/projects/{nome}/
 ├── INDEX.md
 ├── HANDOFFS-INDEX.md
 ├── README.md
+├── memory/
+│   ├── project-context.md   # Contexto persistente do projeto
+│   ├── agents-used.md       # Histórico de agents/squads
+│   ├── squads-config.md     # Config de squads neste projeto
+│   └── feedback/            # Feedback do usuário por tópico
+│       └── .gitkeep
 ├── stories/
 │   ├── active/       # Stories em progresso
 │   ├── done/         # Stories concluídas
@@ -454,6 +496,12 @@ docs/projects/{nome}/
 ├── .aios/
 │   ├── INDEX.md
 │   ├── skills -> ~/aios-core/.aios/skills  # Symlink para skills globais
+│   ├── memory/
+│   │   ├── project-context.md   # Contexto persistente do projeto
+│   │   ├── agents-used.md       # Histórico de agents/squads
+│   │   ├── squads-config.md     # Config de squads neste projeto
+│   │   └── feedback/            # Feedback do usuário por tópico
+│   │       └── .gitkeep
 │   ├── sessions/
 │   │   └── .gitkeep
 │   ├── stories/

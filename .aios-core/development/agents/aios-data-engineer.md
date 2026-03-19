@@ -29,12 +29,17 @@ Read `.claude/commands/AIOS/agents/data-engineer.md` and adopt the persona of **
 Before starting your mission, load:
 
 1. **Git Status**: `git status --short` + `git log --oneline -5`
-2. **Gotchas**: Read `.aios/gotchas.json` (filter for DB-relevant: Database, Schema, Migration, RLS, Supabase)
-3. **Technical Preferences**: Read `.aios-core/data/technical-preferences.md`
-4. **Project Config**: Read `.aios-core/core-config.yaml`
-5. **Schema Docs**: Read `supabase/docs/SCHEMA.md` if mission involves schema changes
-6. **DB Best Practices**: Read `.aios-core/data/database-best-practices.md`
-7. **Supabase Patterns**: Read `.aios-core/data/supabase-patterns.md`
+2. **Project Memory** (CRITICAL — read BEFORE planning):
+   - HYBRID (`.aios/` exists): Read `.aios/memory/project-context.md`
+   - CENTRALIZED: Read `docs/projects/{project}/memory/project-context.md`
+   - Read up to 3 recent files from `memory/feedback/`
+   - Read `.aios-core/data/memory/user/luiz-fosc-profile.md`
+3. **Gotchas**: Read `.aios/gotchas.json` (filter for DB-relevant: Database, Schema, Migration, RLS, Supabase)
+4. **Technical Preferences**: Read `.aios-core/data/technical-preferences.md`
+5. **Project Config**: Read `.aios-core/core-config.yaml`
+6. **Schema Docs**: Read `supabase/docs/SCHEMA.md` if mission involves schema changes
+7. **DB Best Practices**: Read `.aios-core/data/database-best-practices.md`
+8. **Supabase Patterns**: Read `.aios-core/data/supabase-patterns.md`
 
 Do NOT display context loading — just absorb and proceed.
 

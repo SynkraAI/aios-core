@@ -29,11 +29,16 @@ Read `.claude/commands/AIOS/agents/ux-design-expert.md` and adopt the persona of
 Before starting your mission, load:
 
 1. **Git Status**: `git status --short` + `git log --oneline -5`
-2. **Gotchas**: Read `.aios/gotchas.json` (filter for UX-relevant: Frontend, UI, Components, Accessibility, Design)
-3. **Technical Preferences**: Read `.aios-core/data/technical-preferences.md`
-4. **Project Config**: Read `.aios-core/core-config.yaml`
-5. **Icon Map**: Read `app/components/ui/icons/icon-map.ts` if mission involves UI components
-6. **Design Data**: Read `.aios-core/product/data/design-opinions.md` if design decisions needed
+2. **Project Memory** (CRITICAL — read BEFORE planning):
+   - HYBRID (`.aios/` exists): Read `.aios/memory/project-context.md`
+   - CENTRALIZED: Read `docs/projects/{project}/memory/project-context.md`
+   - Read up to 3 recent files from `memory/feedback/`
+   - Read `.aios-core/data/memory/user/luiz-fosc-profile.md`
+3. **Gotchas**: Read `.aios/gotchas.json` (filter for UX-relevant: Frontend, UI, Components, Accessibility, Design)
+4. **Technical Preferences**: Read `.aios-core/data/technical-preferences.md`
+5. **Project Config**: Read `.aios-core/core-config.yaml`
+6. **Icon Map**: Read `app/components/ui/icons/icon-map.ts` if mission involves UI components
+7. **Design Data**: Read `.aios-core/product/data/design-opinions.md` if design decisions needed
 
 Do NOT display context loading — just absorb and proceed.
 

@@ -18,6 +18,9 @@
 | 13 | **advisory-board** | 📦 | **11/11 minds clonados (2.6M words) — montar squad pendente** | **squad-chief** | **2026-03-13** | [INDEX](advisor-board/INDEX.md) |
 | 14 | **zeroaudio** | 🏠 | **Wave 1 done (2/9 stories), Wave 4 Dashboard aprovada — próximo: Story 2.1 transcrição** | **@dev** | **2026-03-13** | [INDEX](~/CODE/Projects/zeroaudio/.aios/INDEX.md) |
 | 15 | **god-mode** | 📦 | **v2.0 funcional, 6 refs de criação pendentes (44/60)** | **—** | **2026-03-14** | [INDEX](god-mode/INDEX.md) |
+| 16 | **aios-core (framework)** | 📦 | **🧠 Memory System v2.0 — análise completa, templates criados, audit script planejado** | **Claude Code** | **2026-03-18** | [Docs](docs/analysis/) |
+| 19 | **whatsapp-prospector** | 🏠 | 🔄 **EM PRODUÇÃO** — Pipeline `mentoria-50k` Phase 5 (4/11) — @leandro-ladeira Big Ideas ✅, próximo: @copy-chief | **@dev + copy squad** | **2026-03-18** | [INDEX](~/CODE/Projects/whatsapp-prospector/.aios/INDEX.md) |
+| 20 | **luiz-fosc-palestras-negocio** | 🏠 | **🎯 EPIC-001: 12 stories prontas (12/12 validadas ✅) — próximo: S1.0 Benchmarking (@analyst)** | **@pm + @sm + @po** | **2026-03-17 15:05** | [INDEX](/Users/luizfosc/CODE/Projects/luiz-fosc-palestras-negocio/.aios/INDEX.md) |
 
 ## Backlog (Futuros Projetos)
 
@@ -29,5 +32,3 @@
 | B4 | app-artes-ensinio | cmux workspace | Em andamento (42% contexto, $8.21) | Continuar sessão Lovable |
 | B5 | ~~app-extrair-dados-whatsapp-ensinio~~ | cmux workspace | Cancelado — deletado | — |
 | B6 | casa-fundamental | cmux workspace | Backlog | Definir escopo e objetivos |
-| 19 | **whatsapp-prospector** | 🏠 | 🔄 **EM PRODUÇÃO** — Pipeline `mentoria-50k` Phase 5 (4/11) — @leandro-ladeira Big Ideas ✅, próximo: @copy-chief | **@dev + copy squad** | **2026-03-18** | [INDEX](~/CODE/Projects/whatsapp-prospector/.aios/INDEX.md) |
-| 20 | **luiz-fosc-palestras-negocio** | 🏠 | **🎯 EPIC-001: 12 stories prontas (12/12 validadas ✅) — próximo: S1.0 Benchmarking (@analyst)** | **@pm + @sm + @po** | **2026-03-17 15:05** | [INDEX](/Users/luizfosc/CODE/Projects/luiz-fosc-palestras-negocio/.aios/INDEX.md) |

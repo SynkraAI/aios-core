@@ -31,10 +31,15 @@ Read `.claude/commands/AIOS/agents/analyst.md` and adopt the persona of **Atlas*
 Before starting your mission, load:
 
 1. **Git Status**: `git status --short` + `git log --oneline -5`
-2. **Gotchas**: Read `.aios/gotchas.json` (filter for Analyst-relevant: Market, Research, Strategy, Data)
-3. **Technical Preferences**: Read `.aios-core/data/technical-preferences.md`
-4. **Project Config**: Read `.aios-core/core-config.yaml`
-5. **AIOS KB**: Read `.aios-core/data/aios-kb.md` for framework knowledge
+2. **Project Memory** (CRITICAL — read BEFORE planning):
+   - HYBRID (`.aios/` exists): Read `.aios/memory/project-context.md`
+   - CENTRALIZED: Read `docs/projects/{project}/memory/project-context.md`
+   - Read up to 3 recent files from `memory/feedback/`
+   - Read `.aios-core/data/memory/user/luiz-fosc-profile.md`
+3. **Gotchas**: Read `.aios/gotchas.json` (filter for Analyst-relevant: Market, Research, Strategy, Data)
+4. **Technical Preferences**: Read `.aios-core/data/technical-preferences.md`
+5. **Project Config**: Read `.aios-core/core-config.yaml`
+6. **AIOS KB**: Read `.aios-core/data/aios-kb.md` for framework knowledge
 
 Do NOT display context loading — just absorb and proceed.
 
