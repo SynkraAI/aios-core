@@ -9,6 +9,11 @@
             "command": "node \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/validate-settings-format.cjs\"",
             "timeout": 5,
             "statusMessage": "Validating settings format..."
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/memory-autoload.cjs\"",
+            "timeout": 5
           }
         ]
       }

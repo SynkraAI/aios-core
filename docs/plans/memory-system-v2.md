@@ -59,26 +59,30 @@ Auto-save de feedback durante conversas. Quando o usuário corrige, o sistema gr
 
 ---
 
-## Phase 4: Checkpoints em Workflows
+## Phase 4: Checkpoints em Workflows ✅ DONE (2026-03-18)
 
 "Pause and listen" entre steps do Story Development Cycle.
 
-- [ ] Após @sm criar story draft → pausar e mostrar ao usuário antes de @po validar
-- [ ] Após @dev completar AC → pausar para review antes de marcar done
-- [ ] Checkpoints não bloqueiam (timeout → continua), mas dão chance de corrigir rumo
+- [x] Regras de checkpoint adicionadas em `.claude/rules/memory-protocol.md`
+- [x] 4 pontos de pausa definidos: pós-story-draft, pós-AC, pós-QA, pré-irreversível
+- [x] Comportamento: resumo conciso + pergunta explícita + Write Protocol se corrigir
+- [x] Escape: modo YOLO explícito desativa checkpoints
+- [ ] Testar com epic real (validação prática)
 
 **Critério de sucesso:** Num epic com 5 stories, eu consigo corrigir rumo no meio sem esperar o fim.
 
 ---
 
-## Phase 5: Cross-Session Auto-Load
+## Phase 5: Cross-Session Auto-Load ✅ DONE (2026-03-18)
 
 Memórias carregam automaticamente ao abrir projeto, sem precisar de `/resume`.
 
-- [ ] Hook SessionStart: detectar cwd → identificar projeto → carregar memórias relevantes
-- [ ] Carregar: `project-context.md` (sempre) + `feedback/` recentes (últimos 7 dias) + `user-profile.md` (global)
-- [ ] Validar que `/resume` continua funcionando (não conflitar)
-- [ ] Testar: abrir projeto direto (`cd ~/CODE/Projects/zeroaudio && claude`) → contexto já carregado
+- [x] Hook `.claude/hooks/memory-autoload.cjs` criado
+- [x] Registrado em `.claude/settings.json` → SessionStart
+- [x] Detecta HYBRID (`.aios/memory/`) e CENTRALIZED (via `session.json`)
+- [x] Carrega: stack, decisões, regras, feedback recente, user profile
+- [x] Testado: whatsapp-prospector → output correto com stack + regras + user
+- [x] `/resume` continua funcionando (auto-load é complementar, não substituto)
 
 **Critério de sucesso:** Abrir qualquer projeto e o Claude já saber quem eu sou, o que é o projeto, e o que evitar.
 

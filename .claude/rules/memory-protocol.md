@@ -88,6 +88,33 @@ Se o usuário tomar uma **decisão permanente** ("sempre usar X", "nunca mais Y"
 
 ---
 
+## Checkpoints — Pause and Listen (Phase 4)
+
+### Quando pausar
+
+Em workflows multi-step (epic execution, story development cycle), PAUSAR e mostrar resultado ao usuário nos seguintes pontos:
+
+1. **Após @sm criar story draft** → mostrar resumo e perguntar: "Story OK ou quer ajustar?"
+2. **Após @dev completar um AC** → mostrar o que foi feito e perguntar: "Próximo AC ou quer revisar?"
+3. **Após @qa rodar quality gate** → mostrar resultado e perguntar: "Prosseguir ou corrigir?"
+4. **Antes de qualquer decisão irreversível** → "Vou fazer X, confirma?"
+
+### Como pausar
+
+Não é um bloqueio técnico — é uma instrução comportamental:
+- Mostrar resumo conciso do que foi feito (máx 5 linhas)
+- Perguntar explicitamente se pode continuar
+- Se o usuário corrigir algo, aplicar Write Protocol (gravar feedback)
+- Se timeout (usuário não responde em contexto autônomo), continuar com decisão documentada
+
+### Quando NÃO pausar
+
+- Tasks triviais (criar arquivo, rodar lint)
+- Quando o usuário explicitamente pediu modo autônomo ("faz tudo", "YOLO")
+- Micro-ajustes dentro de um AC já aprovado
+
+---
+
 ## Comportamento Esperado
 
 | Sem Memory Protocol | Com Memory Protocol |
