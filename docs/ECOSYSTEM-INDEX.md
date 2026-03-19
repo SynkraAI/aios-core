@@ -1,11 +1,11 @@
 # AIOS Ecosystem Index
 
-*Atualizado: 2026-03-18 04:05:01*  
+*Atualizado: 2026-03-19 00:56:13*  
 *Regenerar: `node scripts/generate-ecosystem-index.js`*
 
 ---
 
-## 🧠 Minds (36)
+## 🧠 Minds (40)
 
 | # | Mind | Slug | Status | Fidelidade | Especialidade |
 |---|------|------|--------|------------|---------------|
@@ -45,6 +45,10 @@
 | 34 | **Steve Jobs** | `steve-jobs` | Sources Only | - | Design, Produto |
 | 35 | **Verne Harnish** | `verne-harnish` | Sources Only | - | Scaling Up |
 | 36 | **Walt Disney** | `walt-disney` | Sources Only | - | Criatividade, Storytelling |
+| 37 | **Leandro Ladeira** | `leandro-ladeira` | Complete | Premium | Copy, Marketing Digital, Infoprodutos |
+| 38 | **Dan Koe** | `dan-koe` | Complete | Premium | One-Person Business, Conteúdo |
+| 39 | **Alex Hormozi (Full)** | `hormozi` | Complete | Premium | Ofertas, Escala, Ads, Copy |
+| 40 | **José Amorim** | `jose-amorim` | Partial | Intermediate | Nexialismo, IA, Conteúdo |
 
 ---
 
@@ -304,14 +308,6 @@
 ### Squad: ensinio-mind (1)
 
 - **ensinio-expert** — N/A
-
-### Squad: whatsapp-prospector (5)
-
-- **prospector-chief** — N/A
-- **prospect-analyst** — N/A
-- **outreach-writer** — N/A
-- **instagram-researcher** — N/A
-- **crm-syncer** — N/A
 
 ### Squad: etl-universal-converter (1)
 
@@ -629,6 +625,14 @@
 - **distillery-chief** — N/A
 - **Content Atomizer** — N/A
 
+### Squad: whatsapp-prospector (5)
+
+- **prospector-chief** — N/A
+- **prospect-analyst** — N/A
+- **outreach-writer** — N/A
+- **instagram-researcher** — N/A
+- **crm-syncer** — N/A
+
 ### Squad: zona-genialidade (8)
 
 - **zona-genialidade-chief** — N/A
@@ -646,12 +650,12 @@
 
 | Categoria | Quantidade |
 |-----------|------------|
-| **Minds** | 36 |
+| **Minds** | 40 |
 | **Agentes Core** | 24 |
 | **Squads** | 58 |
 | **Agentes de Squads** | 385 |
-| **TOTAL** | 445 |
+| **TOTAL** | 449 |
 
 ---
 
-*Gerado automaticamente em 2026-03-18 04:05:01*
+*Gerado automaticamente em 2026-03-19 00:56:13*

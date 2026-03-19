@@ -1,0 +1,15 @@
+{
+  "name": "smart-browser",
+  "version": "1.0.0",
+  "description": "AI-powered browser automation with Stagehand + OpenRouter",
+  "main": "run.js",
+  "type": "module",
+  "scripts": {
+    "start": "node run.js",
+    "test": "node run.js --task 'go to https://example.com and extract the page title' --dry-run"
+  },
+  "dependencies": {
+    "@browserbasehq/stagehand": "^3.1.0",
+    "zod": "^3.25.0"
+  }
+}

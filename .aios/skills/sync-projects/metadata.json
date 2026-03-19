@@ -1,0 +1,10 @@
+{
+  "name": "sync-projects",
+  "version": "1.0.0",
+  "description": "Sincroniza projetos locais e contexto pessoal com o Bridge Doc no Google Docs",
+  "category": "productivity",
+  "tags": ["braindump", "bridge-doc", "telegram-bot", "google-docs"],
+  "risk": "safe",
+  "source": "self",
+  "dependencies": ["google-workspace"]
+}

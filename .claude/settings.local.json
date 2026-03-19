@@ -30,7 +30,9 @@
       "mcp__google-workspace__sheets_getText",
       "mcp__google-workspace__gmail_search",
       "mcp__google-workspace__gmail_get",
-      "mcp__claude_ai_Google_Calendar__gcal_create_event"
+      "mcp__claude_ai_Google_Calendar__gcal_create_event",
+      "mcp__alexa__alexa_announce",
+      "mcp__alexa__get_bedroom_state"
     ],
     "deny": []
   },

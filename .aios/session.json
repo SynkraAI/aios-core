@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "pid": 42536,
+  "pid": 73462,
   "sessionId": "session-1771550831494-rwn54yvi2",
   "project": {
     "type": "project",
@@ -11,12 +11,12 @@
   },
   "status": {
     "phase": "testing",
-    "progress": "0/28",
+    "progress": "2/83",
     "currentTask": "",
     "emoji": "🧪"
   },
   "context": {
-    "story": "MINDS-1-normalize-mind-clone-locations",
+    "story": "M0.4-create-ghl-sdk",
     "epic": ""
   },
   "activeAgent": {
@@ -24,6 +24,6 @@
   },
   "metadata": {
     "startedAt": "2026-02-20T01:27:11.494Z",
-    "lastUpdatedAt": "2026-03-18T23:06:55.930Z"
+    "lastUpdatedAt": "2026-03-19T16:35:37.093Z"
   }
 }
