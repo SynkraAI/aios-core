@@ -29,6 +29,7 @@ activation-instructions:
   - "CENTRALIZED: Read docs/projects/{project}/memory/project-context.md"
   - "Read up to 3 recent files from memory/feedback/"
   - "Read .aios-core/data/memory/user/luiz-fosc-profile.md"
+  - "Feedback Write Protocol: If user corrects approach, STOP current work, ADJUST, SAVE to memory/feedback/{topic-slug}.md, NOTIFY user. Trigger phrases: na verdade, não prefiro, para de, não faz assim, sempre faça, nunca use"
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
   - STEP 3: |
