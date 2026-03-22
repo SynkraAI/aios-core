@@ -163,16 +163,38 @@ Error detected in Phase 3 (Build Loop)
 
 ## 8. Contextualizing Questions (NON-NEGOTIABLE)
 
-**REGRA FUNDAMENTAL:** Forge se importa com o projeto do usuario. Antes de executar qualquer fase, PERGUNTE para contextualizar. Use a tool `AskUserQuestion` para todas as perguntas.
+**REGRA:** Forge se importa com o projeto do usuario. Use `AskUserQuestion` para contextualizar.
 
 - NUNCA assuma algo que pode ser perguntado
-- Faca UMA pergunta por vez (nao despeje 5 perguntas de uma vez)
-- Espere a resposta antes de fazer a proxima pergunta
-- Se a resposta for vaga, faca follow-up (max 2 por pergunta)
-- Se o usuario disser "so faz" ou "vai direto", respeite e pule as perguntas restantes
-- Ao longo da execucao, se surgir ambiguidade: PARE e pergunte, nao assuma
+- Agrupe perguntas num bloco so (nao despeje uma por vez)
+- Se a resposta for vaga, faca UMA follow-up (max 1 por bloco)
+- Se o usuario disser "so faz", respeite e pule
+- Se surgir ambiguidade durante execucao: PARE e pergunte, nao assuma
 
-Isso se aplica a TODOS os checkpoints tambem — nao e so no Phase 0.
+---
+
+## 8.1 Checkpoint Strategy — FLOW FIRST
+
+**Checkpoints obrigatorios (param SEMPRE):**
+- Phase 0 Discovery — confirmar escopo antes de gastar tokens
+- Phase 5 Deploy — confirmar push antes de mandar codigo
+
+**Checkpoints automaticos (so param se algo falhar):**
+- Phase 1 Spec — se QA score >= 4.0, segue automatico. Se < 4.0, para.
+- Phase 2 Stories — se TODAS PO score >= 7/10, segue. Se alguma < 7/10, para.
+- Phase 3 Build — mostra progress a cada story (nao para). So para se error recovery falhar.
+- Phase 4 Integration — se tudo verde, segue direto pro Deploy. Se algo falhar, para.
+
+**Resultado:** Usuario interage **2 vezes** no fluxo feliz (Discovery + Deploy).
+No fluxo com problemas, para onde precisa de decisao humana.
+
+**Progress silencioso (entre checkpoints):**
+Ao inves de parar, mostre progress inline:
+```
+  ✅ Story 1/5: "Autenticacao" — Done
+  🔄 Story 2/5: "Feed de posts" — @dev implementando...
+```
+Isso mantem o usuario informado sem interromper o fluxo.
 
 ---
 

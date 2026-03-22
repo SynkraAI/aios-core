@@ -2,7 +2,7 @@
 date: 2026-03-22
 capture_time: "2026-03-22T01:29:31.055Z"
 session_id: e828e076
-session_count: 20
+session_count: 22
 providers_active:
   - "claude-sonnet-4-6"
 activity_summary: Session completed (no commits)
@@ -337,3 +337,33 @@ agents_involved:
   - "@architect"
   - "@analyst"
   - "@qa"
+
+# --- Session 0bc26bae (2026-03-22T02:57:27.464Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T02:57:27.463Z"
+session_id: 0bc26bae
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 95e3237e (2026-03-22T02:59:26.460Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T02:59:26.459Z"
+session_id: 95e3237e
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
