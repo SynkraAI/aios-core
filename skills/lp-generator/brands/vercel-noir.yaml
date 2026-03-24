@@ -1,0 +1,23 @@
+# Vercel Noir — Monochrome with surgical precision
+# Ideal for: SaaS, dev tools, premium products, anything that wants to feel "expensive"
+# Inspired by: vercel.com, stripe.com, linear.app dark mode
+# Theme: dark | Pure monochrome with white accent — no color saturation
+
+name: Vercel Noir
+theme: dark
+colors:
+  primary: "#FAFAFA"
+  primary_light: "#E4E4E7"
+  accent: "#A1A1AA"
+  background: "#09090B"
+  card: "#18181B"
+  border: "#27272A"
+  text: "#FAFAFA"
+  text_muted: "#71717A"
+  white: "#FFFFFF"
+  highlight: "#FAFAFA"
+font: "Inter"
+display_font: "Inter"
+cover:
+  gradient_primary: "rgba(250,250,250,0.04)"
+  gradient_secondary: "rgba(161,161,170,0.02)"

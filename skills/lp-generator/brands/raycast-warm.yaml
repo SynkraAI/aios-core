@@ -1,0 +1,23 @@
+# Raycast Warm — Warm dark with subtle orange glow
+# Ideal for: Tools, utilities, developer products, launch pages
+# Inspired by: raycast.com, superhuman.com, fig.io
+# Theme: dark | Warm undertone blacks with orange as the only color — restrained energy
+
+name: Raycast Warm
+theme: dark
+colors:
+  primary: "#FF6B2C"
+  primary_light: "#FF8F5E"
+  accent: "#8A7058"
+  background: "#0D0B09"
+  card: "#1A1714"
+  border: "#2A2520"
+  text: "#F0ECE8"
+  text_muted: "#8A8078"
+  white: "#FAF7F4"
+  highlight: "#FF8F5E"
+font: "Inter"
+display_font: "Inter"
+cover:
+  gradient_primary: "rgba(255,107,44,0.05)"
+  gradient_secondary: "rgba(138,112,88,0.03)"

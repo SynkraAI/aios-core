@@ -1,0 +1,23 @@
+# Linear Soft — Muted purple on warm dark
+# Ideal for: SaaS, productivity tools, B2B platforms, project management
+# Inspired by: linear.app, notion.so, arc.net
+# Theme: dark | Warm grays with a whisper of purple — sophisticated, not flashy
+
+name: Linear Soft
+theme: dark
+colors:
+  primary: "#8B8BF5"
+  primary_light: "#A5A5F7"
+  accent: "#6E6E96"
+  background: "#0C0C10"
+  card: "#16161C"
+  border: "#232330"
+  text: "#EDEDF0"
+  text_muted: "#7C7C8A"
+  white: "#F8F8FC"
+  highlight: "#A5A5F7"
+font: "Inter"
+display_font: "Inter"
+cover:
+  gradient_primary: "rgba(139,139,245,0.06)"
+  gradient_secondary: "rgba(110,110,150,0.03)"

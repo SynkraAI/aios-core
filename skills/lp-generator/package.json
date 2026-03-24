@@ -1,0 +1,15 @@
+{
+  "name": "lp-generator",
+  "version": "3.0.0",
+  "description": "Unified landing page generator — discovery to deploy",
+  "type": "module",
+  "main": "convert.mjs",
+  "scripts": {
+    "generate": "node convert.mjs",
+    "list-brands": "node convert.mjs --list-brands"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "marked": "^15.0.0"
+  }
+}
