@@ -1,0 +1,80 @@
+{
+  "button": {
+    "primary": {
+      "background": {
+        "$value": "{interactive.default}",
+        "$type": "color",
+        "$description": "Primary button background color"
+      },
+      "backgroundHover": {
+        "$value": "{interactive.hover}",
+        "$type": "color",
+        "$description": "Primary button hover background"
+      },
+      "backgroundActive": {
+        "$value": "{interactive.active}",
+        "$type": "color",
+        "$description": "Primary button active/pressed background"
+      },
+      "text": {
+        "$value": "{text.inverse}",
+        "$type": "color",
+        "$description": "Primary button text color"
+      },
+      "borderRadius": {
+        "$value": "{borderRadius.sm}",
+        "$type": "dimension",
+        "$description": "Primary button border radius"
+      },
+      "paddingX": {
+        "$value": "{spacing.4}",
+        "$type": "dimension",
+        "$description": "Primary button horizontal padding"
+      },
+      "paddingY": {
+        "$value": "{spacing.2}",
+        "$type": "dimension",
+        "$description": "Primary button vertical padding"
+      },
+      "fontSize": {
+        "$value": "{body.fontSize}",
+        "$type": "dimension",
+        "$description": "Primary button font size"
+      },
+      "fontWeight": {
+        "$value": "{label.fontWeight}",
+        "$type": "number",
+        "$description": "Primary button font weight"
+      }
+    },
+    "secondary": {
+      "background": {
+        "$value": "{surface.default}",
+        "$type": "color",
+        "$description": "Secondary button background"
+      },
+      "border": {
+        "$value": "{border.default}",
+        "$type": "color",
+        "$description": "Secondary button border color"
+      },
+      "text": {
+        "$value": "{text.default}",
+        "$type": "color",
+        "$description": "Secondary button text color"
+      }
+    },
+    "disabled": {
+      "background": {
+        "$value": "{interactive.disabled}",
+        "$type": "color",
+        "$description": "Disabled button background"
+      },
+      "text": {
+        "$value": "{text.muted}",
+        "$type": "color",
+        "$description": "Disabled button text color"
+      }
+    }
+  }
+}

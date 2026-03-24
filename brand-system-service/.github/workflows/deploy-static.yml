@@ -1,0 +1,130 @@
+# Brand System Service - Static Deployment Pipeline
+# Deploys static brand sites to Vercel or Netlify based on available secrets
+#
+# Required GitHub Secrets:
+#   For Vercel: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
+#   For Netlify: NETLIFY_AUTH_TOKEN, NETLIFY_SITE_ID
+#   Optional: BSS_CLIENT_ID (defaults to "demo")
+
+name: Deploy Static Site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'brand-system-service/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'brand-system-service/**'
+  workflow_dispatch:
+    inputs:
+      client_id:
+        description: 'Client ID for per-client build'
+        required: false
+        default: 'demo'
+
+defaults:
+  run:
+    working-directory: brand-system-service
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: brand-system-service/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm type-check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build
+        run: pnpm build
+        env:
+          BSS_CLIENT_ID: ${{ github.event.inputs.client_id || 'demo' }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-output
+          path: brand-system-service/output/
+          retention-days: 7
+
+  deploy-vercel:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: static-output
+          path: brand-system-service/output/
+
+      - name: Deploy to Vercel
+        if: env.VERCEL_TOKEN != ''
+        run: npx vercel deploy --prod --token=$VERCEL_TOKEN
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+  deploy-netlify:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: static-output
+          path: brand-system-service/output/
+
+      - name: Deploy to Netlify
+        if: env.NETLIFY_AUTH_TOKEN != ''
+        run: npx netlify-cli deploy --prod --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID --dir=output
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+  validate:
+    needs: [deploy-vercel, deploy-netlify]
+    if: always() && (needs.deploy-vercel.result == 'success' || needs.deploy-netlify.result == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: brand-system-service
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate deployment
+        working-directory: brand-system-service
+        run: pnpm validate-deployment --url=${{ vars.DEPLOYED_SITE_URL || 'https://brand.example.com' }}

@@ -1,0 +1,48 @@
+{
+  "card": {
+    "background": {
+      "$value": "{surface.default}",
+      "$type": "color",
+      "$description": "Card background color"
+    },
+    "border": {
+      "$value": "{border.default}",
+      "$type": "color",
+      "$description": "Card border color"
+    },
+    "borderRadius": {
+      "$value": "{borderRadius.md}",
+      "$type": "dimension",
+      "$description": "Card border radius"
+    },
+    "shadow": {
+      "$value": "{shadow.sm}",
+      "$type": "shadow",
+      "$description": "Card shadow for subtle elevation"
+    },
+    "padding": {
+      "$value": "{spacing.6}",
+      "$type": "dimension",
+      "$description": "Card inner padding"
+    },
+    "title": {
+      "fontSize": {
+        "$value": "{heading.fontWeight}",
+        "$type": "number",
+        "$description": "Card title font weight"
+      },
+      "color": {
+        "$value": "{text.default}",
+        "$type": "color",
+        "$description": "Card title text color"
+      }
+    },
+    "description": {
+      "color": {
+        "$value": "{text.secondary}",
+        "$type": "color",
+        "$description": "Card description text color"
+      }
+    }
+  }
+}

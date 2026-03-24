@@ -1,0 +1,19 @@
+{
+  "id": "quality-evaluator",
+  "deliverableType": "quality-evaluator",
+  "version": "1.0.0",
+  "status": "active",
+  "variant": "A",
+  "changelog": [
+    { "version": "1.0.0", "description": "Initial quality evaluator prompt for 5-dimension scoring", "date": "2026-03-17" }
+  ],
+  "variables": {
+    "content": { "type": "string", "required": true, "description": "The AI-generated content to evaluate" },
+    "brandName": { "type": "string", "required": true },
+    "brandPersonality": { "type": "string[]", "required": true },
+    "toneSpectrum": { "type": "string", "required": true },
+    "platform": { "type": "string", "required": false, "default": "general", "description": "Target platform for tone assessment" }
+  },
+  "systemPrompt": "You are an expert content quality assessor specializing in brand marketing. You evaluate AI-generated content with rigorous objectivity across 5 quality dimensions. You ALWAYS respond with valid JSON only — no markdown, no explanation, no extra text. Your response must be a single JSON object.",
+  "userPromptTemplate": "Evaluate the following content for brand **{{brandName}}**.\n\nBrand personality: {{#each brandPersonality}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.\nTone spectrum: {{toneSpectrum}}.\nTarget platform: {{platform}}.\n\n---\nCONTENT TO EVALUATE:\n{{content}}\n---\n\nScore each dimension on a 1-5 integer scale:\n\n1. **brandVoiceAdherence** (1-5): Does the content match the brand personality and tone spectrum? 1 = completely off-brand, 5 = perfectly aligned.\n2. **factualAccuracy** (1-5): Are all statements verifiable or appropriately hedged? 1 = contains false claims, 5 = fully accurate.\n3. **toneAppropriateness** (1-5): Is the register correct for the platform and audience? 1 = completely wrong tone, 5 = perfectly calibrated.\n4. **ctaEffectiveness** (1-5): Is the call-to-action clear, compelling, and actionable? 1 = no CTA or confusing, 5 = highly compelling.\n5. **creativity** (1-5): Is the content original, engaging, and non-generic? 1 = generic filler, 5 = highly creative and engaging.\n\nRespond with ONLY this JSON structure (no other text):\n{\n  \"brandVoiceAdherence\": <int>,\n  \"factualAccuracy\": <int>,\n  \"toneAppropriateness\": <int>,\n  \"ctaEffectiveness\": <int>,\n  \"creativity\": <int>,\n  \"feedback\": \"<one paragraph explaining any scores below 4 and how to improve>\"\n}"
+}

@@ -1,0 +1,24 @@
+{
+  "id": "video-script",
+  "deliverableType": "video-script",
+  "version": "1.0.0",
+  "status": "active",
+  "variant": "A",
+  "changelog": [
+    { "version": "1.0.0", "description": "Initial video script template with hook-narrative-CTA structure", "date": "2026-03-16" }
+  ],
+  "variables": {
+    "brandName": { "type": "string", "required": true },
+    "brandPersonality": { "type": "string[]", "required": true },
+    "industryVertical": { "type": "string", "required": true },
+    "toneSpectrum": { "type": "string", "required": true },
+    "vocabularyBank": { "type": "string[]", "required": false, "default": [] },
+    "forbiddenWords": { "type": "string[]", "required": false, "default": [] },
+    "competitorNames": { "type": "string[]", "required": false, "default": [] },
+    "videoTopic": { "type": "string", "required": true },
+    "videoDuration": { "type": "string", "required": true, "description": "15s|30s|60s|90s" },
+    "videoPlatform": { "type": "string", "required": true, "description": "reels|tiktok|youtube-shorts|youtube" }
+  },
+  "systemPrompt": "You are an expert video scriptwriter who creates short-form and long-form video scripts optimized for social media engagement. You understand platform-specific viewer behavior: hook within 3 seconds, maintain tension, and deliver value before the CTA. Every second of the script is purposeful.",
+  "userPromptTemplate": "Write a {{videoDuration}} video script for **{{brandName}}** ({{industryVertical}}) about: **{{videoTopic}}** for **{{videoPlatform}}**.\n\nBrand personality: {{#each brandPersonality}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.\nTone: {{toneSpectrum}}.\n{{#if vocabularyBank.length}}Approved vocabulary: {{#each vocabularyBank}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n{{#if forbiddenWords.length}}Forbidden words: {{#each forbiddenWords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n\n## Script Structure:\n\n### 1. HOOK (first 3 seconds)\n- Pattern interrupt that stops the scroll\n- Bold statement, question, or visual cue\n- Must work without sound (text overlay direction included)\n\n### 2. NARRATIVE (middle section)\n- Deliver the core content/story\n- Keep energy high with pacing changes\n- Include visual direction: [on screen], [b-roll], [text overlay]\n\n### 3. CTA (final 3-5 seconds)\n- Clear call to action\n- Follow, like, comment, link in bio, or next video tease\n\n## Output Format:\n\n| Timestamp | Audio (what the speaker says) | Visual (what appears on screen) |\n|-----------|------------------------------|--------------------------------|\n| 0:00-0:03 | ... | ... |\n| ... | ... | ... |\n\nInclude:\n- Estimated word count (aim for ~150 words/minute for natural speech)\n- 3 alternative hook options\n- Suggested background music mood"
+}

@@ -1,0 +1,97 @@
+{% extends "_base.njk" %}
+
+{% block title %}{{ about.title | default("About Us") }} - {{ clientId }}{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ about.metaDescription | default('') }}">
+{% endblock %}
+
+{% block content %}
+{# Hero #}
+<section class="hero" aria-label="About hero">
+  <div class="container">
+    <h1 class="hero__h1">{{ about.headline | default("About Us") }}</h1>
+    {% if about.subtitle %}
+      <p class="hero__subtitle">{{ about.subtitle }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{# Brand Story #}
+{% if about.story %}
+<section class="section" aria-label="Our story">
+  <div class="container">
+    <h2 class="section__headline">{{ about.story.headline | default("Our Story") }}</h2>
+    <div class="legal-content">
+      {{ about.story.content | safe }}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# Team #}
+{% if about.team %}
+<section class="section" aria-label="Our team">
+  <div class="container">
+    <h2 class="section__headline">{{ about.team.headline | default("Our Team") }}</h2>
+    {% if about.team.subheadline %}
+      <p class="section__subheadline">{{ about.team.subheadline }}</p>
+    {% endif %}
+    <div class="team-grid">
+      {% for member in about.team.members %}
+        <div class="team-card">
+          {% if member.photo %}
+            <img src="{{ member.photo }}" alt="{{ member.name }}" class="team-card__photo" loading="lazy">
+          {% else %}
+            <div class="team-card__photo"></div>
+          {% endif %}
+          <h3 class="team-card__name">{{ member.name }}</h3>
+          <p class="team-card__role">{{ member.role }}</p>
+          {% if member.bio %}
+            <p class="team-card__bio">{{ member.bio }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# Values #}
+{% if about.values %}
+<section class="section" aria-label="Our values">
+  <div class="container">
+    <h2 class="section__headline">{{ about.values.headline | default("Our Values") }}</h2>
+    <div class="values-grid">
+      {% for value in about.values.items %}
+        <div class="value-card">
+          {% if value.icon %}
+            <div class="value-card__icon">{{ value.icon }}</div>
+          {% endif %}
+          <h3 class="value-card__title">{{ value.title }}</h3>
+          <p class="value-card__description">{{ value.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# Timeline / Milestones #}
+{% if about.timeline %}
+<section class="section" aria-label="Our milestones">
+  <div class="container">
+    <h2 class="section__headline">{{ about.timeline.headline | default("Our Journey") }}</h2>
+    <div class="timeline">
+      {% for milestone in about.timeline.items %}
+        <div class="timeline__item">
+          <p class="timeline__year">{{ milestone.year }}</p>
+          <h3 class="timeline__title">{{ milestone.title }}</h3>
+          <p class="timeline__description">{{ milestone.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

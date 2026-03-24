@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ thankYou.headline | default('Thank You') }} — {{ clientId }}</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* Thank You Page — Self-contained */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family-body, system-ui, -apple-system, sans-serif);
+      background: var(--color-surface-bg, #f9fafb);
+      color: var(--color-text-primary, #1a1a1a);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .ty-container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 1.5rem;
+    }
+
+    .ty-icon {
+      width: 64px;
+      height: 64px;
+      color: var(--color-success, #22c55e);
+    }
+
+    .ty-headline {
+      font-family: var(--font-family-heading, var(--font-family-body, system-ui));
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-text-primary, #1a1a1a);
+    }
+
+    .ty-message {
+      font-size: 1.125rem;
+      color: var(--color-text-secondary, #6b7280);
+      max-width: 480px;
+    }
+
+    .ty-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.875rem 2rem;
+      min-height: 44px;
+      background: var(--color-primary, #3b82f6);
+      color: var(--color-on-primary, #fff);
+      text-decoration: none;
+      border-radius: var(--border-radius-md, 8px);
+      font-size: 1rem;
+      font-weight: 500;
+      transition: opacity 0.15s ease;
+      margin-top: 0.5rem;
+    }
+
+    .ty-cta:hover { opacity: 0.9; }
+
+    .ty-secondary-text {
+      font-size: 0.875rem;
+      color: var(--color-text-tertiary, #9ca3af);
+    }
+  </style>
+</head>
+<body>
+  <div class="ty-container">
+    <svg class="ty-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1.25 17.292l-4.5-4.364 1.857-1.858 2.643 2.506 5.643-5.784 1.857 1.858-7.5 7.642z"/>
+    </svg>
+
+    <h1 class="ty-headline">{{ thankYou.headline | default('Thank You!') }}</h1>
+
+    {% if thankYou.message %}
+    <p class="ty-message">{{ thankYou.message }}</p>
+    {% endif %}
+
+    {% if thankYou.cta %}
+    <a class="ty-cta" href="{{ thankYou.cta.url }}">
+      {{ thankYou.cta.label | default('Continue') }}
+    </a>
+    {% endif %}
+
+    {% if thankYou.secondaryText %}
+    <p class="ty-secondary-text">{{ thankYou.secondaryText }}</p>
+    {% endif %}
+  </div>
+
+  {% if analytics and analytics.pixelHtml %}
+  <!-- Client-provided tracking pixel — validate before deployment -->
+  {{ analytics.pixelHtml | safe }}
+  {% endif %}
+</body>
+</html>

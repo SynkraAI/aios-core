@@ -1,0 +1,93 @@
+{% extends "_base.njk" %}
+
+{% block title %}{{ blogPost.title | default("Blog Post") }} - {{ clientId }}{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ blogPost.excerpt | default('') }}">
+<meta property="og:title" content="{{ blogPost.title | default('') }}">
+<meta property="og:type" content="article">
+{% if blogPost.publishDate %}
+<meta property="article:published_time" content="{{ blogPost.publishDate }}">
+{% endif %}
+{% if blogPost.author %}
+<meta property="article:author" content="{{ blogPost.author }}">
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="section" aria-label="Blog article">
+  <div class="container">
+    <article class="article">
+      <header class="article__header">
+        <h1>{{ blogPost.title | default("Untitled Post") }}</h1>
+        <div class="article__meta">
+          {% if blogPost.publishDate %}
+            <time datetime="{{ blogPost.publishDate }}">{{ blogPost.publishDate }}</time>
+          {% endif %}
+          {% if blogPost.author %}
+            <span>By {{ blogPost.author }}</span>
+          {% endif %}
+        </div>
+      </header>
+
+      {# Table of Contents — generated at build time from H2/H3 headings #}
+      {% if blogPost.toc and blogPost.toc.length %}
+        <nav class="toc" aria-label="Table of Contents">
+          <p class="toc__title">Table of Contents</p>
+          <ul class="toc__list">
+            {% for item in blogPost.toc %}
+              <li>
+                <a href="#{{ item.id }}">{{ item.text }}</a>
+                {% if item.children and item.children.length %}
+                  <ul class="toc__list toc__list--nested">
+                    {% for child in item.children %}
+                      <li><a href="#{{ child.id }}">{{ child.text }}</a></li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      {% endif %}
+
+      {# Article content (HTML) #}
+      <div class="article__content">
+        {{ blogPost.content | safe }}
+      </div>
+
+      {# Tags #}
+      {% if blogPost.tags and blogPost.tags.length %}
+        <div class="tag-list" aria-label="Post tags">
+          {% for tag in blogPost.tags %}
+            <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </article>
+
+    {# Related Posts #}
+    {% if blogPost.relatedPosts and blogPost.relatedPosts.length %}
+      <aside class="related-posts" aria-label="Related posts">
+        <h2 class="related-posts__title">Related Posts</h2>
+        <div class="related-posts__grid">
+          {% for post in blogPost.relatedPosts %}
+            <article class="blog-card">
+              {% if post.thumbnail %}
+                <img src="{{ post.thumbnail }}" alt="{{ post.title }}" class="blog-card__thumb" loading="lazy">
+              {% else %}
+                <div class="blog-card__thumb"></div>
+              {% endif %}
+              <div class="blog-card__body">
+                <h3 class="blog-card__title">{{ post.title }}</h3>
+                <p class="blog-card__excerpt">{{ post.excerpt }}</p>
+                <a href="{{ site.baseUrl }}blog-post.html?slug={{ post.slug }}" class="blog-card__link">Read More &rarr;</a>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </aside>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

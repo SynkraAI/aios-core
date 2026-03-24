@@ -1,0 +1,149 @@
+{
+  "display": {
+    "fontFamily": {
+      "$value": "{fontFamily.display}",
+      "$type": "fontFamily",
+      "$description": "Display text font family"
+    },
+    "xl": {
+      "fontSize": {
+        "$value": "{fontSize.7xl}",
+        "$type": "dimension",
+        "$description": "Display text size — hero sections"
+      },
+      "lineHeight": {
+        "$value": "{lineHeight.tight}",
+        "$type": "number",
+        "$description": "Display text line height"
+      },
+      "letterSpacing": {
+        "$value": "{letterSpacing.tight}",
+        "$type": "dimension",
+        "$description": "Display text letter spacing"
+      }
+    }
+  },
+  "heading": {
+    "fontFamily": {
+      "$value": "{fontFamily.display}",
+      "$type": "fontFamily",
+      "$description": "Heading font family"
+    },
+    "fontWeight": {
+      "$value": 700,
+      "$type": "number",
+      "$description": "Default heading font weight"
+    },
+    "lg": {
+      "fontSize": {
+        "$value": "{fontSize.4xl}",
+        "$type": "dimension",
+        "$description": "Large heading size"
+      },
+      "lineHeight": {
+        "$value": "{lineHeight.tight}",
+        "$type": "number",
+        "$description": "Large heading line height"
+      },
+      "letterSpacing": {
+        "$value": "{letterSpacing.tight}",
+        "$type": "dimension",
+        "$description": "Large heading letter spacing"
+      }
+    },
+    "md": {
+      "fontSize": {
+        "$value": "{fontSize.2xl}",
+        "$type": "dimension",
+        "$description": "Medium heading size"
+      },
+      "lineHeight": {
+        "$value": "{lineHeight.snug}",
+        "$type": "number",
+        "$description": "Medium heading line height"
+      }
+    }
+  },
+  "body": {
+    "fontFamily": {
+      "$value": "{fontFamily.body}",
+      "$type": "fontFamily",
+      "$description": "Body text font family"
+    },
+    "fontSize": {
+      "$value": "{fontSize.base}",
+      "$type": "dimension",
+      "$description": "Default body font size alias"
+    },
+    "base": {
+      "fontSize": {
+        "$value": "{fontSize.base}",
+        "$type": "dimension",
+        "$description": "Body text size"
+      },
+      "lineHeight": {
+        "$value": "{lineHeight.normal}",
+        "$type": "number",
+        "$description": "Body text line height"
+      },
+      "letterSpacing": {
+        "$value": "{letterSpacing.normal}",
+        "$type": "dimension",
+        "$description": "Body text letter spacing"
+      }
+    }
+  },
+  "label": {
+    "fontFamily": {
+      "$value": "{fontFamily.body}",
+      "$type": "fontFamily",
+      "$description": "Label font family"
+    },
+    "fontSize": {
+      "$value": "{fontSize.sm}",
+      "$type": "dimension",
+      "$description": "Default label font size alias"
+    },
+    "fontWeight": {
+      "$value": 500,
+      "$type": "number",
+      "$description": "Default label font weight"
+    },
+    "sm": {
+      "fontSize": {
+        "$value": "{fontSize.sm}",
+        "$type": "dimension",
+        "$description": "Label text size"
+      },
+      "lineHeight": {
+        "$value": "{lineHeight.normal}",
+        "$type": "number",
+        "$description": "Label line height"
+      },
+      "letterSpacing": {
+        "$value": "{letterSpacing.wide}",
+        "$type": "dimension",
+        "$description": "Label letter spacing"
+      }
+    }
+  },
+  "mono": {
+    "fontFamily": {
+      "$value": "{fontFamily.mono}",
+      "$type": "fontFamily",
+      "$description": "Monospace font family for code"
+    },
+    "base": {
+      "fontSize": {
+        "$value": "{fontSize.sm}",
+        "$type": "dimension",
+        "$description": "Code text size"
+      },
+      "lineHeight": {
+        "$value": "{lineHeight.relaxed}",
+        "$type": "number",
+        "$description": "Code text line height"
+      }
+    }
+  }
+}

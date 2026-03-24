@@ -1,0 +1,155 @@
+{
+  "fontFamily": {
+    "display": {
+      "$value": "Inter, system-ui, sans-serif",
+      "$type": "fontFamily",
+      "$description": "Display/Heading font family — titles and large text"
+    },
+    "body": {
+      "$value": "Inter, system-ui, sans-serif",
+      "$type": "fontFamily",
+      "$description": "Body/Interface font family — body copy and UI labels"
+    },
+    "mono": {
+      "$value": "JetBrains Mono, Fira Code, monospace",
+      "$type": "fontFamily",
+      "$description": "Mono/Code font family — technical content"
+    }
+  },
+  "fontSize": {
+    "xs": {
+      "$value": "12px",
+      "$type": "dimension",
+      "$description": "Type scale xs — 12px"
+    },
+    "sm": {
+      "$value": "14px",
+      "$type": "dimension",
+      "$description": "Type scale sm — 14px"
+    },
+    "base": {
+      "$value": "16px",
+      "$type": "dimension",
+      "$description": "Type scale base — 16px"
+    },
+    "lg": {
+      "$value": "18px",
+      "$type": "dimension",
+      "$description": "Type scale lg — 18px"
+    },
+    "xl": {
+      "$value": "20px",
+      "$type": "dimension",
+      "$description": "Type scale xl — 20px"
+    },
+    "2xl": {
+      "$value": "24px",
+      "$type": "dimension",
+      "$description": "Type scale 2xl — 24px"
+    },
+    "3xl": {
+      "$value": "30px",
+      "$type": "dimension",
+      "$description": "Type scale 3xl — 30px",
+      "$extensions": {
+        "clamp": "clamp(24px, 0.5634vw + 1.3873rem, 30px)"
+      }
+    },
+    "4xl": {
+      "$value": "36px",
+      "$type": "dimension",
+      "$description": "Type scale 4xl — 36px",
+      "$extensions": {
+        "clamp": "clamp(30px, 0.5634vw + 1.0373rem, 36px)"
+      }
+    },
+    "5xl": {
+      "$value": "48px",
+      "$type": "dimension",
+      "$description": "Type scale 5xl — 48px",
+      "$extensions": {
+        "clamp": "clamp(36px, 1.1268vw + 1.2746rem, 48px)"
+      }
+    },
+    "6xl": {
+      "$value": "60px",
+      "$type": "dimension",
+      "$description": "Type scale 6xl — 60px",
+      "$extensions": {
+        "clamp": "clamp(48px, 1.1268vw + 0.5246rem, 60px)"
+      }
+    },
+    "7xl": {
+      "$value": "72px",
+      "$type": "dimension",
+      "$description": "Type scale 7xl — 72px",
+      "$extensions": {
+        "clamp": "clamp(60px, 1.1268vw + -0.2254rem, 72px)"
+      }
+    }
+  },
+  "lineHeight": {
+    "none": {
+      "$value": 1.0,
+      "$type": "number",
+      "$description": "Line height none — 1.0"
+    },
+    "tight": {
+      "$value": 1.25,
+      "$type": "number",
+      "$description": "Line height tight — 1.25"
+    },
+    "snug": {
+      "$value": 1.375,
+      "$type": "number",
+      "$description": "Line height snug — 1.375"
+    },
+    "normal": {
+      "$value": 1.5,
+      "$type": "number",
+      "$description": "Line height normal — 1.5"
+    },
+    "relaxed": {
+      "$value": 1.625,
+      "$type": "number",
+      "$description": "Line height relaxed — 1.625"
+    },
+    "loose": {
+      "$value": 2.0,
+      "$type": "number",
+      "$description": "Line height loose — 2.0"
+    }
+  },
+  "letterSpacing": {
+    "tighter": {
+      "$value": "-0.05em",
+      "$type": "dimension",
+      "$description": "Letter spacing tighter — -0.05em"
+    },
+    "tight": {
+      "$value": "-0.025em",
+      "$type": "dimension",
+      "$description": "Letter spacing tight — -0.025em"
+    },
+    "normal": {
+      "$value": "0em",
+      "$type": "dimension",
+      "$description": "Letter spacing normal — 0em"
+    },
+    "wide": {
+      "$value": "0.025em",
+      "$type": "dimension",
+      "$description": "Letter spacing wide — 0.025em"
+    },
+    "wider": {
+      "$value": "0.05em",
+      "$type": "dimension",
+      "$description": "Letter spacing wider — 0.05em"
+    },
+    "widest": {
+      "$value": "0.1em",
+      "$type": "dimension",
+      "$description": "Letter spacing widest — 0.1em"
+    }
+  }
+}

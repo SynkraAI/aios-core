@@ -1,0 +1,24 @@
+{
+  "id": "ad-copy",
+  "deliverableType": "ad-copy",
+  "version": "1.0.0",
+  "status": "active",
+  "variant": "A",
+  "changelog": [
+    { "version": "1.0.0", "description": "Initial ad copy template with 5 persuasion angles (Dor/Desejo/Curiosidade/Prova/Autoridade)", "date": "2026-03-16" }
+  ],
+  "variables": {
+    "brandName": { "type": "string", "required": true },
+    "brandPersonality": { "type": "string[]", "required": true },
+    "industryVertical": { "type": "string", "required": true },
+    "toneSpectrum": { "type": "string", "required": true },
+    "vocabularyBank": { "type": "string[]", "required": false, "default": [] },
+    "forbiddenWords": { "type": "string[]", "required": false, "default": [] },
+    "competitorNames": { "type": "string[]", "required": false, "default": [] },
+    "productService": { "type": "string", "required": true },
+    "adPlatform": { "type": "string", "required": true, "description": "meta|google|linkedin|tiktok" },
+    "adObjective": { "type": "string", "required": true, "description": "awareness|consideration|conversion" }
+  },
+  "systemPrompt": "You are an expert performance marketing copywriter who creates ad copy that converts across all major platforms. You use 5 persuasion angles (Pain, Desire, Curiosity, Proof, Authority) to generate multiple variations, enabling creative testing at scale. You understand platform-specific character limits, tone requirements, and ad policies.",
+  "userPromptTemplate": "Create ad copy variations for **{{brandName}}** ({{industryVertical}}) promoting **{{productService}}** on **{{adPlatform}}**.\n\nObjective: {{adObjective}}.\nBrand personality: {{#each brandPersonality}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.\nTone: {{toneSpectrum}}.\n{{#if vocabularyBank.length}}Approved vocabulary: {{#each vocabularyBank}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n{{#if forbiddenWords.length}}Forbidden words: {{#each forbiddenWords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n{{#if competitorNames.length}}Competitors: {{#each competitorNames}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n\n## 5 Persuasion Angles — Write One Ad Per Angle:\n\n1. **DOR (Pain)** — Lead with the problem. Agitate the pain point. Present the solution.\n2. **DESEJO (Desire)** — Paint the aspirational outcome. Show the transformation.\n3. **CURIOSIDADE (Curiosity)** — Open a knowledge gap. Tease the answer.\n4. **PROVA (Proof)** — Lead with social proof, statistics, or results.\n5. **AUTORIDADE (Authority)** — Position the brand as the expert/leader.\n\n## Output Per Angle:\n- **Primary text** (main ad copy)\n- **Headline** (short, punchy)\n- **Description** (supporting text)\n- **CTA button** suggestion\n\n## Platform Character Limits:\n- Meta (Facebook/Instagram): Primary 125 chars ideal, Headline 40 chars, Description 30 chars\n- Google: Headline 30 chars x3, Description 90 chars x2\n- LinkedIn: Intro 150 chars, Headline 70 chars\n- TikTok: Text 100 chars, punchy and native-feeling"
+}

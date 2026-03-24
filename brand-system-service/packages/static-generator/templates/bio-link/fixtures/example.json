@@ -1,0 +1,22 @@
+{
+  "bio": {
+    "avatar": "assets/images/avatar.jpg",
+    "name": "Jane Smith",
+    "tagline": "Brand strategist helping businesses grow with purpose",
+    "links": [
+      { "label": "Visit My Website", "url": "https://example.com", "style": "primary" },
+      { "label": "Book a Consultation", "url": "https://example.com/book", "style": "primary" },
+      { "label": "Free Brand Guide", "url": "https://example.com/guide", "style": "secondary" },
+      { "label": "Latest Blog Post", "url": "https://example.com/blog", "style": "outline" },
+      { "label": "Shop Merch", "url": "https://example.com/shop", "style": "outline" }
+    ],
+    "socials": [
+      { "platform": "instagram", "url": "https://instagram.com/janesmith" },
+      { "platform": "linkedin", "url": "https://linkedin.com/in/janesmith" },
+      { "platform": "youtube", "url": "https://youtube.com/@janesmith" },
+      { "platform": "tiktok", "url": "https://tiktok.com/@janesmith" },
+      { "platform": "x", "url": "https://x.com/janesmith" }
+    ],
+    "footer": "Powered by BrandForge"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "input": {
+    "background": {
+      "$value": "{surface.default}",
+      "$type": "color",
+      "$description": "Input field background"
+    },
+    "border": {
+      "$value": "{border.default}",
+      "$type": "color",
+      "$description": "Input field border color"
+    },
+    "borderFocus": {
+      "$value": "{border.focus}",
+      "$type": "color",
+      "$description": "Input field border color when focused"
+    },
+    "borderRadius": {
+      "$value": "{borderRadius.sm}",
+      "$type": "dimension",
+      "$description": "Input field border radius"
+    },
+    "text": {
+      "$value": "{text.default}",
+      "$type": "color",
+      "$description": "Input field text color"
+    },
+    "placeholder": {
+      "$value": "{text.muted}",
+      "$type": "color",
+      "$description": "Input field placeholder text color"
+    },
+    "paddingX": {
+      "$value": "{spacing.3}",
+      "$type": "dimension",
+      "$description": "Input horizontal padding"
+    },
+    "paddingY": {
+      "$value": "{spacing.2}",
+      "$type": "dimension",
+      "$description": "Input vertical padding"
+    },
+    "fontSize": {
+      "$value": "{body.fontSize}",
+      "$type": "dimension",
+      "$description": "Input font size"
+    },
+    "label": {
+      "fontSize": {
+        "$value": "{label.fontSize}",
+        "$type": "dimension",
+        "$description": "Input label font size"
+      },
+      "fontWeight": {
+        "$value": "{label.fontWeight}",
+        "$type": "number",
+        "$description": "Input label font weight"
+      },
+      "color": {
+        "$value": "{text.default}",
+        "$type": "color",
+        "$description": "Input label text color"
+      }
+    },
+    "error": {
+      "border": {
+        "$value": "{status.error}",
+        "$type": "color",
+        "$description": "Input error state border color"
+      },
+      "text": {
+        "$value": "{status.error}",
+        "$type": "color",
+        "$description": "Input error message text color"
+      }
+    }
+  }
+}

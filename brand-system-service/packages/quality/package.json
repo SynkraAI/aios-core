@@ -1,0 +1,19 @@
+{
+  "name": "@brand-system/quality",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prompt quality scoring pipeline with 5-dimension evaluation, iteration loop, and A/B testing",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf dist *.tsbuildinfo",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "rimraf": "^5.0.0",
+    "typescript": "^5.4.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@bss/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Design token engine - W3C DTCG validation, Style Dictionary transforms, CSS Custom Properties",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf dist *.tsbuildinfo",
+    "dev": "tsc --watch",
+    "palette:generate": "tsx bin/palette.ts"
+  },
+  "dependencies": {
+    "@bss/core": "workspace:*",
+    "culori": "^4.0.1",
+    "style-dictionary": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/culori": "^4.0.1",
+    "rimraf": "^5.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0"
+  }
+}

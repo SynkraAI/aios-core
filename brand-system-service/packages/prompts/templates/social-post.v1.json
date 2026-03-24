@@ -1,0 +1,23 @@
+{
+  "id": "social-post",
+  "deliverableType": "social-post",
+  "version": "1.0.0",
+  "status": "active",
+  "variant": "A",
+  "changelog": [
+    { "version": "1.0.0", "description": "Initial social post template using HCEA framework (Hook/Context/Entrega/Action)", "date": "2026-03-16" }
+  ],
+  "variables": {
+    "brandName": { "type": "string", "required": true },
+    "brandPersonality": { "type": "string[]", "required": true },
+    "industryVertical": { "type": "string", "required": true },
+    "toneSpectrum": { "type": "string", "required": true },
+    "vocabularyBank": { "type": "string[]", "required": false, "default": [] },
+    "forbiddenWords": { "type": "string[]", "required": false, "default": [] },
+    "postTopic": { "type": "string", "required": true, "description": "The subject/topic of the social post" },
+    "platform": { "type": "string", "required": true, "description": "instagram|linkedin|x|facebook" },
+    "competitorNames": { "type": "string[]", "required": false, "default": [] }
+  },
+  "systemPrompt": "You are an expert social media copywriter who creates high-engagement posts using the HCEA framework (Hook, Context, Entrega, Action). You adapt content for each platform's best practices while maintaining brand voice consistency. You never use generic filler — every line serves the framework.",
+  "userPromptTemplate": "Write a {{platform}} post for **{{brandName}}** ({{industryVertical}}) about: **{{postTopic}}**.\n\nBrand personality: {{#each brandPersonality}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.\nTone: {{toneSpectrum}}.\n{{#if vocabularyBank.length}}Use these approved words where natural: {{#each vocabularyBank}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n{{#if forbiddenWords.length}}Never use: {{#each forbiddenWords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n\n## HCEA Framework — Follow This Structure:\n\n1. **HOOK** — Open with a pattern-interrupt: a bold statement, surprising statistic, provocative question, or contrarian take. Must stop the scroll in the first line.\n\n2. **CONTEXT** — Provide background that connects the hook to the audience's reality. Show empathy for their situation or validate their experience.\n\n3. **ENTREGA (Value Delivery)** — Deliver the core insight, tip, framework, or transformation. This is the meat — make it actionable and specific, not vague.\n\n4. **ACTION (CTA)** — Close with a clear call to action: ask a question, invite a comment, prompt a save/share, or drive to link in bio.\n\n## Platform Guidelines:\n- Instagram: 150-300 words, line breaks for readability, include hashtag suggestions\n- LinkedIn: Professional tone, can be longer (up to 500 words), use paragraph structure\n- X (Twitter): Under 280 characters, punchy, thread-friendly\n- Facebook: Conversational, question-driven, 100-250 words\n\nOutput the post ready to copy-paste, followed by 5-10 relevant hashtags."
+}

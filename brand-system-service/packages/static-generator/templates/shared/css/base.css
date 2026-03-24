@@ -1,0 +1,84 @@
+/* Shared Base — Reset, Typography, Custom Property Defaults */
+/* Used by both landing-page and site template types */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-family-body, system-ui, -apple-system, sans-serif);
+  color: var(--color-neutral-900, #1a1a2e);
+  background: var(--color-neutral-50, #ffffff);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display, var(--font-family-body, system-ui, sans-serif));
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--color-neutral-900, #1a1a2e);
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2.5rem); font-weight: 700; }
+h3 { font-size: clamp(1.125rem, 2vw, 1.5rem); font-weight: 600; }
+
+p {
+  max-width: 68ch;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--color-primary-500, #2563eb);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+  padding: 0;
+}
+
+/* Focus styles (WCAG AA) */
+:focus-visible {
+  outline: 3px solid var(--color-primary-500, #2563eb);
+  outline-offset: 2px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--color-primary-500, #2563eb);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 4px 4px;
+  z-index: 9999;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 0;
+}

@@ -1,0 +1,41 @@
+<section aria-labelledby="components-title">
+  <h1 id="components-title">Components</h1>
+  <p class="section-intro">
+    Auto-generated component specifications from the design token engine.
+    Each component defines its token-based properties for consistent implementation.
+  </p>
+
+  <% if (it.components && it.components.length > 0) { %>
+  <% let currentComponent = ''; %>
+  <% for (const group of it.components) { %>
+  <% if (group.name !== currentComponent) { %>
+  <% currentComponent = group.name; %>
+  <h2 style="text-transform: capitalize;"><%= group.name %></h2>
+  <% } %>
+
+  <h3 style="text-transform: capitalize;"><%= group.variant %></h3>
+  <table class="component-table">
+    <thead>
+      <tr>
+        <th scope="col">Property</th>
+        <th scope="col">Value</th>
+        <th scope="col">Type</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (const prop of group.properties) { %>
+      <tr>
+        <td><%= prop.property %></td>
+        <td><%= prop.value %></td>
+        <td><%= prop.type %></td>
+        <td style="font-family: var(--font-body); font-size: 13px;"><%= prop.description %></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <% } %>
+  <% } else { %>
+  <p>No component tokens defined yet. Add component token files to <code>tokens/component/</code>.</p>
+  <% } %>
+</section>

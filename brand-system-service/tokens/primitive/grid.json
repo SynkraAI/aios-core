@@ -1,0 +1,138 @@
+{
+  "grid": {
+    "$description": "Grid system based on 8px base unit. All spacing aligns to a 4px sub-grid and 8px primary grid for vertical rhythm. Touch targets satisfy 44x44px minimum via padding (e.g., button height = 5×8px = 40px + padding).",
+    "breakpoint": {
+      "xs": {
+        "$value": "0px",
+        "$type": "dimension",
+        "$description": "Breakpoint xs — 0px"
+      },
+      "sm": {
+        "$value": "640px",
+        "$type": "dimension",
+        "$description": "Breakpoint sm — 640px"
+      },
+      "md": {
+        "$value": "768px",
+        "$type": "dimension",
+        "$description": "Breakpoint md — 768px"
+      },
+      "lg": {
+        "$value": "1024px",
+        "$type": "dimension",
+        "$description": "Breakpoint lg — 1024px"
+      },
+      "xl": {
+        "$value": "1280px",
+        "$type": "dimension",
+        "$description": "Breakpoint xl — 1280px"
+      },
+      "2xl": {
+        "$value": "1536px",
+        "$type": "dimension",
+        "$description": "Breakpoint 2xl — 1536px"
+      }
+    },
+    "columns": {
+      "xs": {
+        "$value": 4,
+        "$type": "number",
+        "$description": "4 columns at xs breakpoint"
+      },
+      "sm": {
+        "$value": 8,
+        "$type": "number",
+        "$description": "8 columns at sm breakpoint"
+      },
+      "md": {
+        "$value": 8,
+        "$type": "number",
+        "$description": "8 columns at md breakpoint"
+      },
+      "lg": {
+        "$value": 12,
+        "$type": "number",
+        "$description": "12 columns at lg breakpoint"
+      },
+      "xl": {
+        "$value": 12,
+        "$type": "number",
+        "$description": "12 columns at xl breakpoint"
+      },
+      "2xl": {
+        "$value": 12,
+        "$type": "number",
+        "$description": "12 columns at 2xl breakpoint"
+      }
+    },
+    "gutter": {
+      "xs": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "16px gutter at xs breakpoint"
+      },
+      "sm": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "16px gutter at sm breakpoint"
+      },
+      "md": {
+        "$value": "24px",
+        "$type": "dimension",
+        "$description": "24px gutter at md breakpoint"
+      },
+      "lg": {
+        "$value": "24px",
+        "$type": "dimension",
+        "$description": "24px gutter at lg breakpoint"
+      },
+      "xl": {
+        "$value": "32px",
+        "$type": "dimension",
+        "$description": "32px gutter at xl breakpoint"
+      },
+      "2xl": {
+        "$value": "32px",
+        "$type": "dimension",
+        "$description": "32px gutter at 2xl breakpoint"
+      }
+    },
+    "margin": {
+      "xs": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "16px margin at xs breakpoint"
+      },
+      "sm": {
+        "$value": "24px",
+        "$type": "dimension",
+        "$description": "24px margin at sm breakpoint"
+      },
+      "md": {
+        "$value": "32px",
+        "$type": "dimension",
+        "$description": "32px margin at md breakpoint"
+      },
+      "lg": {
+        "$value": "40px",
+        "$type": "dimension",
+        "$description": "40px margin at lg breakpoint"
+      },
+      "xl": {
+        "$value": "auto",
+        "$type": "dimension",
+        "$description": "Auto margin at xl breakpoint (max-width: 1280px)"
+      },
+      "2xl": {
+        "$value": "auto",
+        "$type": "dimension",
+        "$description": "Auto margin at 2xl breakpoint (max-width: 1280px)"
+      }
+    },
+    "maxWidth": {
+      "$value": "1280px",
+      "$type": "dimension",
+      "$description": "Maximum content width for centered layouts"
+    }
+  }
+}

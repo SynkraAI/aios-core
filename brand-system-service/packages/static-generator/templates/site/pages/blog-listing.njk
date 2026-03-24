@@ -1,0 +1,96 @@
+{% extends "_base.njk" %}
+
+{% block title %}{{ blog.title | default("Blog") }} - {{ clientId }}{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ blog.metaDescription | default('') }}">
+{% endblock %}
+
+{% block content %}
+{# Hero #}
+<section class="hero" aria-label="Blog hero">
+  <div class="container">
+    <h1 class="hero__h1">{{ blog.headline | default("Blog") }}</h1>
+    {% if blog.subtitle %}
+      <p class="hero__subtitle">{{ blog.subtitle }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{# Blog layout with sidebar #}
+<section class="section" aria-label="Blog posts">
+  <div class="container">
+    <div class="blog-layout">
+      {# Post grid #}
+      <div>
+        {% if blog.posts %}
+          <div class="blog-posts">
+            {% for post in blog.posts %}
+              <article class="blog-card">
+                {% if post.thumbnail %}
+                  <img src="{{ post.thumbnail }}" alt="{{ post.title }}" class="blog-card__thumb" loading="lazy">
+                {% else %}
+                  <div class="blog-card__thumb"></div>
+                {% endif %}
+                <div class="blog-card__body">
+                  <div class="blog-card__meta">
+                    <time datetime="{{ post.date }}">{{ post.date }}</time>
+                    {% if post.categories %}
+                      {% for cat in post.categories %}
+                        <span>{{ cat }}</span>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                  <h2 class="blog-card__title">{{ post.title }}</h2>
+                  <p class="blog-card__excerpt">{{ post.excerpt }}</p>
+                  <a href="{{ site.baseUrl }}blog-post.html?slug={{ post.slug }}" class="blog-card__link">Read More &rarr;</a>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {# Pagination #}
+        {% if blog.pagination %}
+          <nav class="pagination" aria-label="Blog pagination">
+            {% if blog.pagination.prevUrl %}
+              <a href="{{ blog.pagination.prevUrl }}" class="pagination__link" aria-label="Previous page">&laquo; Previous</a>
+            {% endif %}
+            {% for page in blog.pagination.pages %}
+              <a href="{{ page.url }}" class="pagination__link{% if page.active %} pagination__link--active{% endif %}" {% if page.active %}aria-current="page"{% endif %}>{{ page.number }}</a>
+            {% endfor %}
+            {% if blog.pagination.nextUrl %}
+              <a href="{{ blog.pagination.nextUrl }}" class="pagination__link" aria-label="Next page">Next &raquo;</a>
+            {% endif %}
+          </nav>
+        {% endif %}
+      </div>
+
+      {# Sidebar #}
+      <aside class="blog-sidebar" aria-label="Blog sidebar">
+        {% if blog.sidebarCategories %}
+          <div class="blog-sidebar__widget">
+            <h3 class="blog-sidebar__title">Categories</h3>
+            <ul class="blog-sidebar__list" role="list">
+              {% for cat in blog.sidebarCategories %}
+                <li><a href="{{ site.baseUrl }}blog-listing.html?category={{ cat.slug }}">{{ cat.label }} ({{ cat.count }})</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        {% if blog.sidebarRecent %}
+          <div class="blog-sidebar__widget">
+            <h3 class="blog-sidebar__title">Recent Posts</h3>
+            <ul class="blog-sidebar__list" role="list">
+              {% for post in blog.sidebarRecent %}
+                <li><a href="{{ site.baseUrl }}blog-post.html?slug={{ post.slug }}">{{ post.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      </aside>
+    </div>
+  </div>
+</section>
+{% endblock %}

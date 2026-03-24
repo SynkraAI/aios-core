@@ -1,0 +1,44 @@
+{
+  "name": "@bss/static-generator",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static site generator - Brand Book, Landing Page, and Institutional Site HTML/CSS/JS generation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "build:brand-book": "tsx bin/build-brand-book.ts",
+    "build:brand-book-pdf": "tsx bin/build-brand-book.ts --pdf",
+    "build:brand-book-package": "tsx bin/build-brand-book.ts --package",
+    "build:landing-page": "node dist/cli.js build --type landing-page",
+    "build:site": "node dist/cli.js build --type site",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf dist *.tsbuildinfo",
+    "dev": "tsc --watch"
+  },
+  "bin": {
+    "bss-static-generator": "dist/cli.js"
+  },
+  "dependencies": {
+    "@bss/core": "workspace:*",
+    "@bss/tokens": "workspace:*",
+    "archiver": "^7.0.0",
+    "esbuild": "^0.24.0",
+    "eta": "^3.0.0",
+    "fuse.js": "^7.0.0",
+    "lightningcss": "^1.28.0",
+    "node-html-parser": "^6.1.13",
+    "nunjucks": "^3.2.4",
+    "puppeteer": "^22.0.0",
+    "unzipper": "^0.12.0"
+  },
+  "devDependencies": {
+    "@types/archiver": "^6.0.0",
+    "@types/unzipper": "^0.10.0",
+    "@types/nunjucks": "^3.2.6",
+    "@types/pdf-parse": "^1.1.4",
+    "pdf-parse": "^1.1.1",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.4.0"
+  }
+}

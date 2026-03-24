@@ -1,0 +1,109 @@
+<section aria-labelledby="guidelines-title">
+  <h1 id="guidelines-title">Brand Guidelines</h1>
+  <p class="section-intro">
+    These guidelines ensure consistent use of the <%= it.brand.clientName %> brand across all touchpoints
+    and communications.
+  </p>
+
+  <% if (it.brandVoice) { %>
+  <h2>Brand Personality</h2>
+  <p>
+    Our brand personality is defined by these core attributes:
+    <strong><%= it.brandVoice.personality.join(', ') %></strong>.
+  </p>
+
+  <h2>Voice Pillars</h2>
+  <% for (const pillar of it.brandVoice.pillars) { %>
+  <article>
+    <h3><%= pillar.name %></h3>
+    <p><%= pillar.description %></p>
+    <blockquote><%= pillar.example %></blockquote>
+  </article>
+  <% } %>
+
+  <h2>Tone Spectrum</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Channel</th>
+        <th>Tone (1-10)</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (const ch of it.brandVoice.toneSpectrum) { %>
+      <tr>
+        <td><%= ch.channel %></td>
+        <td><%= ch.toneScore %></td>
+        <td><%= ch.description %></td>
+        <td><em><%= ch.example %></em></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+  <h2>Voice Do's</h2>
+  <ul>
+    <% for (const entry of it.brandVoice.doList.slice(0, 10)) { %>
+    <li>
+      <strong><%= entry.do %></strong> (<%= entry.context %>)
+      <br/><em>Example: <%= entry.example %></em>
+    </li>
+    <% } %>
+  </ul>
+
+  <h2>Voice Don'ts</h2>
+  <ul>
+    <% for (const entry of it.brandVoice.dontList.slice(0, 10)) { %>
+    <li>
+      <strong><%= entry.dont %></strong> (<%= entry.context %>)
+      <br/><em>Instead: <%= entry.instead %></em>
+    </li>
+    <% } %>
+  </ul>
+
+  <h2>Taglines</h2>
+  <ul>
+    <% for (const tag of it.brandVoice.taglines) { %>
+    <li>
+      <strong>"<%= tag.text %>"</strong> — <em><%= tag.formula %></em>
+      <br/><%= tag.rationale %>
+    </li>
+    <% } %>
+  </ul>
+  <% } else { %>
+  <h2>Brand Voice</h2>
+  <p>
+    The <%= it.brand.clientName %> brand communicates with clarity, consistency, and confidence.
+    All materials should reflect our core values and visual identity.
+  </p>
+  <% } %>
+
+  <h2>Usage Rules</h2>
+  <article>
+    <h3>Do</h3>
+    <ul>
+      <li>Use the official logo files provided in this brand book</li>
+      <li>Maintain minimum clear space around the logo</li>
+      <li>Use approved color combinations from the palette</li>
+      <li>Follow the typography scale for all text</li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>Do Not</h3>
+    <ul>
+      <li>Alter the logo proportions, colors, or orientation</li>
+      <li>Place the logo on busy backgrounds without sufficient contrast</li>
+      <li>Use unapproved fonts or color combinations</li>
+      <li>Recreate or approximate the logo manually</li>
+    </ul>
+  </article>
+
+  <h2>Minimum Sizes</h2>
+  <p>
+    The logo should never appear smaller than 32px in height on digital media
+    or 10mm in print to ensure legibility.
+  </p>
+</section>

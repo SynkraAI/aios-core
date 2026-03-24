@@ -1,0 +1,17 @@
+{
+  "embedTag": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap\" rel=\"stylesheet\">",
+  "fonts": [
+    {
+      "family": "Playfair Display",
+      "license": "OFL (SIL Open Font License)",
+      "sourceUrl": "https://fonts.google.com/specimen/Playfair+Display",
+      "webEmbeddingPermitted": true
+    },
+    {
+      "family": "Inter",
+      "license": "OFL (SIL Open Font License)",
+      "sourceUrl": "https://fonts.google.com/specimen/Inter",
+      "webEmbeddingPermitted": true
+    }
+  ]
+}

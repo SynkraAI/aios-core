@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "partials/head.njk" %}
+</head>
+<body>
+  <header>
+    <nav role="navigation">
+      <a href="index.html" class="brand-logo">{{ clientId }}</a>
+      {% if pages %}
+      <ul>
+        {% for page in pages %}
+        <li><a href="{{ page.slug }}.html">{{ page.title }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </nav>
+  </header>
+  <main role="main">
+    <section class="content">
+      <h1>{{ heading | default("Welcome") }}</h1>
+      {{ content | default("") | safe }}
+    </section>
+  </main>
+  <footer>
+    <p>&copy; {{ year }} {{ clientId }}. All rights reserved.</p>
+  </footer>
+  <script src="scripts.min.js" defer></script>
+</body>
+</html>

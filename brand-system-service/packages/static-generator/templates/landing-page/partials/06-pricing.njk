@@ -1,0 +1,25 @@
+<section class="pricing section" id="pricing" aria-label="Pricing">
+  <div class="container">
+    <h2 class="section__headline">{{ pricing.headline | default("Pricing") }}</h2>
+    {% if pricing.tiers and pricing.tiers.length %}
+      <div class="pricing__grid">
+        {% for tier in pricing.tiers %}
+          <div class="pricing-card{% if tier.featured %} pricing-card--featured{% endif %}">
+            <h3 class="pricing-card__name">{{ tier.name }}</h3>
+            <div class="pricing-card__price">{{ tier.price }}</div>
+            {% if tier.features and tier.features.length %}
+              <ul class="pricing-card__features" role="list">
+                {% for feat in tier.features %}
+                  <li>{{ feat }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            <a href="{{ tier.ctaUrl | default('#') }}" class="btn btn--primary pricing-card__cta">
+              {{ tier.ctaLabel | default("Choose Plan") }}
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>

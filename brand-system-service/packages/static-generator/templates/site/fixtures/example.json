@@ -1,0 +1,441 @@
+{
+  "clientId": "summit-consulting",
+  "type": "site",
+  "title": "Summit Consulting - Strategic Business Advisory",
+  "site": { "baseUrl": "" },
+  "nav": {
+    "logo": "Summit Consulting",
+    "links": [
+      { "label": "Home", "href": "home.html" },
+      { "label": "About", "href": "about.html" },
+      { "label": "Services", "href": "services.html" },
+      { "label": "Portfolio", "href": "portfolio.html" },
+      { "label": "Blog", "href": "blog-listing.html" },
+      { "label": "Pricing", "href": "pricing.html" }
+    ],
+    "cta": { "label": "Contact Us", "href": "contact.html" }
+  },
+  "footer": {
+    "logo": "Summit Consulting",
+    "tagline": "Empowering businesses to reach their peak potential.",
+    "companyName": "Summit Consulting Group",
+    "navGroups": [
+      {
+        "title": "Company",
+        "links": [
+          { "label": "About", "href": "about.html" },
+          { "label": "Services", "href": "services.html" },
+          { "label": "Portfolio", "href": "portfolio.html" },
+          { "label": "Pricing", "href": "pricing.html" }
+        ]
+      },
+      {
+        "title": "Resources",
+        "links": [
+          { "label": "Blog", "href": "blog-listing.html" },
+          { "label": "Contact", "href": "contact.html" }
+        ]
+      }
+    ],
+    "social": [
+      { "label": "LinkedIn", "url": "https://linkedin.com/company/summit-consulting", "icon": "linkedin" },
+      { "label": "Twitter", "url": "https://twitter.com/summitconsult", "icon": "twitter" },
+      { "label": "GitHub", "url": "https://github.com/summit-consulting", "icon": "github" }
+    ],
+    "legalLinks": [
+      { "label": "Terms of Service", "href": "terms-privacy.html#terms" },
+      { "label": "Privacy Policy", "href": "terms-privacy.html#privacy" }
+    ]
+  },
+  "home": {
+    "title": "Summit Consulting - Strategic Business Advisory",
+    "metaDescription": "Summit Consulting helps businesses grow through strategic advisory, digital transformation, and operational excellence.",
+    "hero": {
+      "headline": "Elevate Your Business to New Heights",
+      "subtitle": "Strategic advisory and digital transformation for companies that want to lead, not follow.",
+      "cta": { "label": "Get a Free Consultation", "href": "contact.html" },
+      "secondaryCta": { "label": "View Our Work", "href": "portfolio.html" }
+    },
+    "services": {
+      "headline": "How We Help",
+      "subheadline": "We bring clarity, strategy, and execution to your most complex business challenges.",
+      "items": [
+        {
+          "title": "Strategy Consulting",
+          "description": "Data-driven strategic planning that aligns your team and accelerates growth.",
+          "icon": "&#x1F3AF;",
+          "cta": { "label": "Learn More", "href": "services.html" }
+        },
+        {
+          "title": "Digital Transformation",
+          "description": "Modernize operations with technology that scales and delivers measurable ROI.",
+          "icon": "&#x1F4BB;",
+          "cta": { "label": "Learn More", "href": "services.html" }
+        },
+        {
+          "title": "Operational Excellence",
+          "description": "Streamline processes, reduce waste, and build a culture of continuous improvement.",
+          "icon": "&#x2699;&#xFE0F;",
+          "cta": { "label": "Learn More", "href": "services.html" }
+        }
+      ]
+    },
+    "portfolio": {
+      "headline": "Selected Work",
+      "subheadline": "A few examples of how we have helped our clients achieve outstanding results.",
+      "items": [
+        {
+          "title": "FinTech Scale-Up",
+          "category": "Strategy",
+          "description": "Helped a fintech startup scale from 10 to 200 employees in 18 months."
+        },
+        {
+          "title": "Retail Digital Overhaul",
+          "category": "Digital",
+          "description": "End-to-end digital transformation for a national retail chain."
+        },
+        {
+          "title": "Manufacturing Optimization",
+          "category": "Operations",
+          "description": "Reduced manufacturing costs by 23% through process optimization."
+        }
+      ]
+    },
+    "trustSignals": [
+      { "stat": "150+", "label": "clients served" },
+      { "stat": "98%", "label": "satisfaction rate" },
+      { "stat": "$2.1B", "label": "client revenue impacted" },
+      { "stat": "12", "label": "years of experience" }
+    ],
+    "cta": {
+      "headline": "Ready to Transform Your Business?",
+      "copy": "Schedule a free consultation with our senior advisors. No commitment, just clarity.",
+      "label": "Book Your Consultation",
+      "href": "contact.html"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "headline": "About Summit Consulting",
+    "subtitle": "We are a team of senior advisors, technologists, and operators dedicated to helping businesses reach their peak potential.",
+    "story": {
+      "headline": "Our Story",
+      "content": "<p>Founded in 2014, Summit Consulting was born from a simple observation: too many businesses invest in strategy without the operational muscle to execute it. Our founders, each with 20+ years in Fortune 500 leadership, set out to build a firm that bridges the gap between vision and execution.</p><p>Today, we serve over 150 clients across technology, finance, retail, and manufacturing — delivering measurable results that compound year over year.</p>"
+    },
+    "team": {
+      "headline": "Meet the Team",
+      "subheadline": "Senior advisors with decades of real-world leadership experience.",
+      "members": [
+        { "name": "Alexandra Chen", "role": "Managing Director", "bio": "Former VP Strategy at Deloitte. 20+ years in management consulting." },
+        { "name": "Marcus Rivera", "role": "Head of Digital", "bio": "Led digital transformation at three Fortune 100 companies." },
+        { "name": "Sarah Nakamura", "role": "Operations Lead", "bio": "Six Sigma Black Belt. Saved clients over $500M in operational costs." },
+        { "name": "David Okafor", "role": "Technology Advisor", "bio": "Former CTO at two unicorn startups. Expert in scalable architectures." }
+      ]
+    },
+    "values": {
+      "headline": "Our Values",
+      "items": [
+        { "title": "Results First", "description": "We measure our success by the results we deliver to our clients, not the hours we bill.", "icon": "&#x1F4C8;" },
+        { "title": "Radical Transparency", "description": "No black boxes. We share our methodology, data, and reasoning at every step.", "icon": "&#x1F50D;" },
+        { "title": "Long-Term Thinking", "description": "We build strategies that compound, not quick fixes that create dependency.", "icon": "&#x1F331;" }
+      ]
+    },
+    "timeline": {
+      "headline": "Our Journey",
+      "items": [
+        { "year": "2014", "title": "Founded", "description": "Summit Consulting established in San Francisco." },
+        { "year": "2016", "title": "50 Clients", "description": "Reached 50 active clients across 3 industries." },
+        { "year": "2019", "title": "Digital Practice", "description": "Launched dedicated digital transformation practice." },
+        { "year": "2022", "title": "International", "description": "Expanded to Europe and Asia-Pacific markets." },
+        { "year": "2024", "title": "150+ Clients", "description": "Surpassed 150 clients with 98% satisfaction rating." }
+      ]
+    }
+  },
+  "services": {
+    "title": "Services",
+    "headline": "Our Services",
+    "subtitle": "Comprehensive advisory services designed to drive measurable business outcomes.",
+    "items": [
+      {
+        "title": "Strategy Consulting",
+        "description": "Market analysis, competitive positioning, growth strategy, and M&A advisory. We help you define where to play and how to win.",
+        "icon": "&#x1F3AF;",
+        "cta": { "label": "Get Started", "href": "contact.html" }
+      },
+      {
+        "title": "Digital Transformation",
+        "description": "Technology roadmaps, system modernization, data strategy, and change management. Modernize without disrupting operations.",
+        "icon": "&#x1F4BB;",
+        "cta": { "label": "Get Started", "href": "contact.html" }
+      },
+      {
+        "title": "Operational Excellence",
+        "description": "Process optimization, lean methodology, supply chain improvement, and quality management. Do more with less.",
+        "icon": "&#x2699;&#xFE0F;",
+        "cta": { "label": "Get Started", "href": "contact.html" }
+      },
+      {
+        "title": "Leadership Development",
+        "description": "Executive coaching, team alignment, culture building, and succession planning. Build leaders who build companies.",
+        "icon": "&#x1F465;",
+        "cta": { "label": "Get Started", "href": "contact.html" }
+      },
+      {
+        "title": "Financial Advisory",
+        "description": "Financial modeling, fundraising strategy, investor relations, and due diligence. Make confident financial decisions.",
+        "icon": "&#x1F4B0;",
+        "cta": { "label": "Get Started", "href": "contact.html" }
+      },
+      {
+        "title": "Innovation Programs",
+        "description": "Innovation workshops, rapid prototyping, market testing, and corporate venture building. Turn ideas into revenue.",
+        "icon": "&#x1F4A1;",
+        "cta": { "label": "Get Started", "href": "contact.html" }
+      }
+    ],
+    "comparisonTable": {
+      "headline": "Compare Our Engagement Models",
+      "headers": ["Feature", "Advisory", "Project-Based", "Retainer"],
+      "rows": [
+        ["Duration", "1-3 months", "3-6 months", "Ongoing"],
+        ["Team Size", "1-2 advisors", "3-5 specialists", "Dedicated team"],
+        ["Deliverables", "Strategy report", "Full implementation", "Continuous optimization"],
+        ["Best For", "Quick assessment", "Specific initiative", "Long-term partnership"],
+        ["Starting Price", "$25,000", "$75,000", "$15,000/mo"]
+      ]
+    },
+    "cta": {
+      "headline": "Not Sure Which Service You Need?",
+      "copy": "Book a free discovery call and we will recommend the right approach for your situation.",
+      "label": "Schedule a Call",
+      "href": "contact.html"
+    }
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "headline": "Our Work",
+    "subtitle": "Real results for real businesses. Here are some of the projects we are most proud of.",
+    "categories": ["Strategy", "Digital", "Operations", "Innovation"],
+    "projects": [
+      {
+        "title": "FinTech Scale-Up Strategy",
+        "category": "Strategy",
+        "description": "Developed go-to-market strategy that helped a fintech startup scale from Series A to Series C in 18 months.",
+        "link": "#"
+      },
+      {
+        "title": "National Retail Digital Overhaul",
+        "category": "Digital",
+        "description": "End-to-end digital transformation including e-commerce platform, inventory management, and customer analytics.",
+        "link": "#"
+      },
+      {
+        "title": "Manufacturing Cost Optimization",
+        "category": "Operations",
+        "description": "Lean methodology implementation that reduced manufacturing costs by 23% and improved delivery times by 40%.",
+        "link": "#"
+      },
+      {
+        "title": "Healthcare AI Innovation Lab",
+        "category": "Innovation",
+        "description": "Established corporate venture lab that launched 3 AI-powered healthcare products within 12 months.",
+        "link": "#"
+      },
+      {
+        "title": "SaaS Market Entry Strategy",
+        "category": "Strategy",
+        "description": "Guided a B2B SaaS company through international expansion into 5 European markets.",
+        "link": "#"
+      },
+      {
+        "title": "Supply Chain Digitization",
+        "category": "Digital",
+        "description": "Implemented IoT-based supply chain monitoring, reducing waste by 35% and improving traceability.",
+        "link": "#"
+      }
+    ]
+  },
+  "blog": {
+    "title": "Blog",
+    "headline": "Insights & Articles",
+    "subtitle": "Practical insights from our team of senior advisors.",
+    "posts": [
+      {
+        "title": "5 Signs Your Business Needs a Digital Transformation",
+        "slug": "5-signs-digital-transformation",
+        "date": "2026-03-15",
+        "excerpt": "Many companies know they need to modernize, but struggle to identify the right moment. Here are the five telltale signs.",
+        "categories": ["Digital Transformation"]
+      },
+      {
+        "title": "The Strategic Planning Framework We Use With Every Client",
+        "slug": "strategic-planning-framework",
+        "date": "2026-03-01",
+        "excerpt": "After working with 150+ clients, we have refined our strategic planning process to three essential phases.",
+        "categories": ["Strategy"]
+      },
+      {
+        "title": "Why Operational Excellence Is Your Best Competitive Advantage",
+        "slug": "operational-excellence-advantage",
+        "date": "2026-02-15",
+        "excerpt": "In a world obsessed with innovation, the companies that execute consistently are the ones that win long-term.",
+        "categories": ["Operations"]
+      },
+      {
+        "title": "Building a Culture of Continuous Improvement",
+        "slug": "culture-continuous-improvement",
+        "date": "2026-02-01",
+        "excerpt": "Culture eats strategy for breakfast. Here is how we help organizations build improvement into their DNA.",
+        "categories": ["Leadership"]
+      }
+    ],
+    "sidebarCategories": [
+      { "label": "Strategy", "slug": "strategy", "count": 8 },
+      { "label": "Digital Transformation", "slug": "digital-transformation", "count": 5 },
+      { "label": "Operations", "slug": "operations", "count": 4 },
+      { "label": "Leadership", "slug": "leadership", "count": 3 }
+    ],
+    "sidebarRecent": [
+      { "title": "5 Signs Your Business Needs a Digital Transformation", "slug": "5-signs-digital-transformation" },
+      { "title": "The Strategic Planning Framework We Use With Every Client", "slug": "strategic-planning-framework" },
+      { "title": "Why Operational Excellence Is Your Best Competitive Advantage", "slug": "operational-excellence-advantage" }
+    ],
+    "pagination": {
+      "pages": [
+        { "number": 1, "url": "blog-listing.html", "active": true },
+        { "number": 2, "url": "blog-listing.html?page=2", "active": false }
+      ],
+      "nextUrl": "blog-listing.html?page=2"
+    }
+  },
+  "blogPost": {
+    "title": "5 Signs Your Business Needs a Digital Transformation",
+    "publishDate": "2026-03-15",
+    "author": "Marcus Rivera",
+    "content": "<h2>Introduction</h2><p>Digital transformation is more than a buzzword. It is the process of fundamentally rethinking how your business uses technology, people, and processes to drive better outcomes. After working with dozens of companies on their transformation journeys, we have identified five unmistakable signs that it is time to act.</p><h2>Sign 1: Manual Processes Are Slowing You Down</h2><p>If your team spends more time on spreadsheets than on strategy, something is wrong. Manual data entry, paper-based approvals, and disconnected systems are not just inefficient — they are a competitive liability.</p><h3>What to Look For</h3><p>Count the number of times data is manually transferred between systems. If the answer is more than twice per day, you have a clear opportunity for automation.</p><h2>Sign 2: Customer Expectations Are Outpacing Your Capabilities</h2><p>Today's customers expect real-time updates, self-service portals, and seamless cross-channel experiences. If your competitors offer these and you do not, you are losing deals you never even knew about.</p><h3>The Customer Experience Gap</h3><p>Survey your customers quarterly. If satisfaction scores are declining while competitor reviews improve, the gap is widening and technology is almost always the root cause.</p><h2>Sign 3: Your Data Lives in Silos</h2><p>When sales cannot see what marketing is doing, and operations cannot access customer feedback, your data is working against you instead of for you.</p><h2>Sign 4: Innovation Has Stalled</h2><p>If your last major product or service improvement was more than two years ago, it is a sign that your technology stack and processes are holding back innovation rather than enabling it.</p><h2>Sign 5: Scaling Requires Proportional Headcount Growth</h2><p>A truly digital business can scale revenue without proportional increases in headcount. If doubling your revenue requires doubling your team, your systems are not doing their job.</p><h3>The Scalability Test</h3><p>Calculate your revenue per employee over the last three years. If it is flat or declining, technology investment is overdue.</p><h2>What to Do Next</h2><p>Recognizing the signs is the first step. The next step is building a roadmap that addresses your specific situation without disrupting the operations that keep your business running today. That is where we come in.</p>",
+    "tags": ["Digital Transformation", "Strategy", "Technology"],
+    "relatedPosts": [
+      {
+        "title": "The Strategic Planning Framework We Use With Every Client",
+        "slug": "strategic-planning-framework",
+        "excerpt": "After working with 150+ clients, we have refined our strategic planning process."
+      },
+      {
+        "title": "Why Operational Excellence Is Your Best Competitive Advantage",
+        "slug": "operational-excellence-advantage",
+        "excerpt": "The companies that execute consistently are the ones that win long-term."
+      },
+      {
+        "title": "Building a Culture of Continuous Improvement",
+        "slug": "culture-continuous-improvement",
+        "excerpt": "Here is how we help organizations build improvement into their DNA."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "headline": "Get in Touch",
+    "subtitle": "Ready to discuss how we can help your business? Reach out and we will get back to you within 24 hours.",
+    "form": {
+      "headline": "Send us a message",
+      "action": "https://formspree.io/f/example",
+      "showPhone": true,
+      "showSubject": true,
+      "submitLabel": "Send Message"
+    },
+    "info": {
+      "email": "hello@summit-consulting.com",
+      "phone": "+1 (555) 123-4567",
+      "address": "100 Market Street, Suite 400, San Francisco, CA 94105",
+      "hours": "Monday - Friday, 9:00 AM - 6:00 PM PT"
+    }
+  },
+  "pricing": {
+    "title": "Pricing",
+    "headline": "Transparent Pricing",
+    "subtitle": "Choose the engagement model that fits your needs. All plans include a complimentary discovery session.",
+    "tiers": [
+      {
+        "name": "Advisory",
+        "price": "$25,000",
+        "featured": false,
+        "description": "Perfect for focused assessments and strategic recommendations.",
+        "features": [
+          "1-3 month engagement",
+          "1-2 senior advisors",
+          "Comprehensive strategy report",
+          "Executive presentation",
+          "30-day follow-up call"
+        ],
+        "ctaLabel": "Get Started",
+        "ctaUrl": "contact.html"
+      },
+      {
+        "name": "Project-Based",
+        "price": "$75,000",
+        "featured": true,
+        "description": "End-to-end delivery of a specific strategic initiative.",
+        "features": [
+          "3-6 month engagement",
+          "3-5 specialist team",
+          "Full project delivery",
+          "Change management support",
+          "90-day post-delivery support",
+          "Monthly executive briefings"
+        ],
+        "ctaLabel": "Choose Project",
+        "ctaUrl": "contact.html"
+      },
+      {
+        "name": "Retainer",
+        "price": "$15,000",
+        "period": "month",
+        "featured": false,
+        "description": "Ongoing strategic partnership for continuous improvement.",
+        "features": [
+          "Ongoing engagement",
+          "Dedicated advisory team",
+          "Monthly strategy sessions",
+          "Unlimited email/phone access",
+          "Quarterly business reviews",
+          "Priority scheduling"
+        ],
+        "ctaLabel": "Contact Sales",
+        "ctaUrl": "contact.html"
+      }
+    ],
+    "faq": {
+      "headline": "Pricing FAQ",
+      "items": [
+        {
+          "question": "Is the discovery session really free?",
+          "answer": "Yes. We offer a complimentary 60-minute discovery session to understand your challenges and recommend the right approach. No commitment required."
+        },
+        {
+          "question": "Can I switch plans mid-engagement?",
+          "answer": "Absolutely. We can upgrade or adjust your engagement model at any time based on evolving needs."
+        },
+        {
+          "question": "Do you offer non-profit or startup discounts?",
+          "answer": "Yes. We offer reduced rates for qualified non-profits and early-stage startups. Contact us to discuss your situation."
+        }
+      ]
+    }
+  },
+  "legal": {
+    "title": "Terms & Privacy",
+    "headline": "Terms of Service & Privacy Policy",
+    "lastUpdated": "March 1, 2026",
+    "terms": "<h3>1. Acceptance of Terms</h3><p>By accessing and using the Summit Consulting website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p><h3>2. Services</h3><p>Summit Consulting provides business advisory, consulting, and related professional services. The specific scope of services will be defined in individual engagement agreements.</p><h3>3. Intellectual Property</h3><p>All materials, methodologies, frameworks, and deliverables created by Summit Consulting remain our intellectual property unless explicitly transferred in writing as part of an engagement agreement.</p><h3>4. Confidentiality</h3><p>We treat all client information as confidential and will not disclose it to third parties without your written consent, except as required by law.</p><h3>5. Limitation of Liability</h3><p>Summit Consulting's liability is limited to the fees paid for the specific engagement giving rise to the claim. We are not liable for indirect, consequential, or punitive damages.</p>",
+    "privacy": "<h3>1. Information We Collect</h3><p>We collect information you provide directly, including your name, email address, phone number, and company information when you contact us or engage our services.</p><h3>2. How We Use Your Information</h3><p>We use your information to provide and improve our services, communicate with you about engagements, and send relevant industry insights (with your consent).</p><h3>3. Data Protection</h3><p>We implement industry-standard security measures to protect your personal information. We do not sell your data to third parties.</p><h3>4. Cookies</h3><p>Our website uses essential cookies for functionality and analytics cookies to improve user experience. You can opt out of analytics cookies through your browser settings.</p><h3>5. Your Rights</h3><p>You have the right to access, correct, or delete your personal information at any time. Contact us at privacy@summit-consulting.com to exercise these rights.</p>"
+  },
+  "errorPage": {
+    "heading": "Page Not Found",
+    "copy": "The page you are looking for does not exist or may have been moved. Try navigating back to our homepage.",
+    "homeLabel": "Back to Home",
+    "links": [
+      { "label": "View Services", "href": "services.html" },
+      { "label": "Contact Us", "href": "contact.html" }
+    ]
+  }
+}

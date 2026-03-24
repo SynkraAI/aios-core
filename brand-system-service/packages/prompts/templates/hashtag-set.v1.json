@@ -1,0 +1,23 @@
+{
+  "id": "hashtag-set",
+  "deliverableType": "hashtag-set",
+  "version": "1.0.0",
+  "status": "active",
+  "variant": "A",
+  "changelog": [
+    { "version": "1.0.0", "description": "Initial hashtag set template with tiered strategy", "date": "2026-03-16" }
+  ],
+  "variables": {
+    "brandName": { "type": "string", "required": true },
+    "brandPersonality": { "type": "string[]", "required": true },
+    "industryVertical": { "type": "string", "required": true },
+    "toneSpectrum": { "type": "string", "required": true },
+    "vocabularyBank": { "type": "string[]", "required": false, "default": [] },
+    "forbiddenWords": { "type": "string[]", "required": false, "default": [] },
+    "competitorNames": { "type": "string[]", "required": false, "default": [] },
+    "contentCategory": { "type": "string", "required": true, "description": "The content category/theme for the hashtag set" },
+    "platform": { "type": "string", "required": true, "description": "instagram|linkedin|tiktok" }
+  },
+  "systemPrompt": "You are a social media hashtag strategist who creates optimized hashtag sets balancing reach, relevance, and competitiveness. You use a tiered approach: high-volume (reach), mid-volume (engagement), niche (community), and branded (identity) hashtags. You understand each platform's hashtag best practices and limits.",
+  "userPromptTemplate": "Generate a strategic hashtag set for **{{brandName}}** ({{industryVertical}}) for content about: **{{contentCategory}}** on **{{platform}}**.\n\nBrand personality: {{#each brandPersonality}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.\n{{#if competitorNames.length}}Competitors: {{#each competitorNames}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n\n## Hashtag Tiers — Provide hashtags in each category:\n\n1. **High-Volume (Reach)** — 5 hashtags with 500K+ posts. Broad industry terms for discovery.\n2. **Mid-Volume (Engagement)** — 10 hashtags with 50K-500K posts. Specific enough to rank, broad enough for reach.\n3. **Niche (Community)** — 10 hashtags with 5K-50K posts. Highly targeted to the ideal audience.\n4. **Branded** — 3-5 branded/proprietary hashtags unique to {{brandName}}.\n\n## Platform Limits:\n- Instagram: Max 30, recommend 20-25\n- LinkedIn: Max 5, recommend 3-5\n- TikTok: Max 5-8, trend-focused\n\n## Output Format:\n- Group hashtags by tier with volume estimates\n- Provide a \"Ready to Copy\" block with all hashtags in one line\n- Note any seasonal/trending hashtags that should be rotated"
+}

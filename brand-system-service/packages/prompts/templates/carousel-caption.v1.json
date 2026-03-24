@@ -1,0 +1,23 @@
+{
+  "id": "carousel-caption",
+  "deliverableType": "carousel-caption",
+  "version": "1.0.0",
+  "status": "active",
+  "variant": "A",
+  "changelog": [
+    { "version": "1.0.0", "description": "Initial carousel caption template using HCEA framework with multi-slide structure", "date": "2026-03-16" }
+  ],
+  "variables": {
+    "brandName": { "type": "string", "required": true },
+    "brandPersonality": { "type": "string[]", "required": true },
+    "industryVertical": { "type": "string", "required": true },
+    "toneSpectrum": { "type": "string", "required": true },
+    "vocabularyBank": { "type": "string[]", "required": false, "default": [] },
+    "forbiddenWords": { "type": "string[]", "required": false, "default": [] },
+    "carouselTopic": { "type": "string", "required": true, "description": "The subject/topic of the carousel" },
+    "slideCount": { "type": "number", "required": false, "default": 7, "description": "Number of slides (5-10)" },
+    "competitorNames": { "type": "string[]", "required": false, "default": [] }
+  },
+  "systemPrompt": "You are an expert carousel content creator specializing in educational and engaging multi-slide Instagram carousels. You use the HCEA framework (Hook, Context, Entrega, Action) to structure content that drives saves and shares. Each slide must stand alone visually while building a cohesive narrative.",
+  "userPromptTemplate": "Create a carousel caption and slide-by-slide content plan for **{{brandName}}** ({{industryVertical}}) about: **{{carouselTopic}}**.\n\nBrand personality: {{#each brandPersonality}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.\nTone: {{toneSpectrum}}.\nSlides: {{slideCount}} slides.\n{{#if vocabularyBank.length}}Use these approved words: {{#each vocabularyBank}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n{{#if forbiddenWords.length}}Never use: {{#each forbiddenWords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n\n## HCEA Carousel Structure:\n\n**Slide 1 — HOOK:** Bold cover slide text. Pattern-interrupt headline that makes users swipe. Max 8 words.\n\n**Slides 2-3 — CONTEXT:** Set up the problem or situation. Why should the audience care? Use relatable scenarios.\n\n**Slides 4-{{slideCount}} minus 1 — ENTREGA (Value):** Deliver actionable content points. One key insight per slide. Use numbered tips, frameworks, or step-by-step instructions.\n\n**Final Slide — ACTION:** Summary + CTA. Encourage save, share, follow, or link in bio.\n\n## Output Format:\n\nFor each slide provide:\n- **Slide N:** [Visual direction — what should be on the slide]\n- **Text:** [The actual text to appear on the slide — short, punchy, 15-25 words max]\n\nThen provide the **caption** (150-300 words) that accompanies the carousel in the feed, followed by 10-15 relevant hashtags."
+}

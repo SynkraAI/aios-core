@@ -1,0 +1,543 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Institutional Site Template Variables",
+  "description": "Schema for all template variables used by the institutional site page templates (BSS-5.3).",
+  "type": "object",
+  "required": ["clientId", "nav", "footer"],
+  "properties": {
+    "clientId": {
+      "type": "string",
+      "description": "Client identifier for token resolution",
+      "example": "summit-consulting"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["site"],
+      "description": "Build type"
+    },
+    "title": {
+      "type": "string",
+      "description": "Default page title",
+      "example": "Summit Consulting"
+    },
+    "site": {
+      "type": "object",
+      "properties": {
+        "baseUrl": {
+          "type": "string",
+          "description": "Base URL prefix for relative links (empty string for static builds)",
+          "default": ""
+        }
+      }
+    },
+    "nav": {
+      "type": "object",
+      "required": ["links"],
+      "description": "Global navigation configuration",
+      "properties": {
+        "logo": { "type": "string", "description": "Logo text fallback" },
+        "logoSrc": { "type": "string", "description": "Path to logo image" },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "href"],
+            "properties": {
+              "label": { "type": "string" },
+              "href": { "type": "string", "description": "Relative path e.g. about.html" }
+            }
+          }
+        },
+        "cta": {
+          "type": "object",
+          "properties": {
+            "label": { "type": "string" },
+            "href": { "type": "string" }
+          }
+        }
+      }
+    },
+    "footer": {
+      "type": "object",
+      "description": "Global footer configuration",
+      "properties": {
+        "logo": { "type": "string" },
+        "logoSrc": { "type": "string" },
+        "tagline": { "type": "string" },
+        "companyName": { "type": "string" },
+        "navGroups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "links"],
+            "properties": {
+              "title": { "type": "string" },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["label", "href"],
+                  "properties": {
+                    "label": { "type": "string" },
+                    "href": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "social": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "url"],
+            "properties": {
+              "label": { "type": "string" },
+              "url": { "type": "string" },
+              "icon": { "type": "string" }
+            }
+          }
+        },
+        "legalLinks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "href"],
+            "properties": {
+              "label": { "type": "string" },
+              "href": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "home": {
+      "type": "object",
+      "description": "Home page (home.njk) variables",
+      "properties": {
+        "title": { "type": "string" },
+        "metaDescription": { "type": "string" },
+        "hero": {
+          "type": "object",
+          "required": ["headline"],
+          "properties": {
+            "headline": { "type": "string" },
+            "subtitle": { "type": "string" },
+            "cta": {
+              "type": "object",
+              "properties": {
+                "label": { "type": "string" },
+                "href": { "type": "string" }
+              }
+            },
+            "secondaryCta": {
+              "type": "object",
+              "properties": {
+                "label": { "type": "string" },
+                "href": { "type": "string" }
+              }
+            }
+          }
+        },
+        "services": {
+          "type": "object",
+          "properties": {
+            "headline": { "type": "string" },
+            "subheadline": { "type": "string" },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["title", "description"],
+                "properties": {
+                  "title": { "type": "string" },
+                  "description": { "type": "string" },
+                  "icon": { "type": "string" },
+                  "cta": {
+                    "type": "object",
+                    "properties": {
+                      "label": { "type": "string" },
+                      "href": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "portfolio": {
+          "type": "object",
+          "properties": {
+            "headline": { "type": "string" },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["title", "category"],
+                "properties": {
+                  "title": { "type": "string" },
+                  "category": { "type": "string" },
+                  "thumbnail": { "type": "string" },
+                  "description": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "trustSignals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["stat", "label"],
+            "properties": {
+              "stat": { "type": "string" },
+              "label": { "type": "string" }
+            }
+          }
+        },
+        "cta": {
+          "type": "object",
+          "properties": {
+            "headline": { "type": "string" },
+            "copy": { "type": "string" },
+            "label": { "type": "string" },
+            "href": { "type": "string" }
+          }
+        }
+      }
+    },
+    "about": {
+      "type": "object",
+      "description": "About page (about.njk) variables",
+      "properties": {
+        "title": { "type": "string" },
+        "headline": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "story": {
+          "type": "object",
+          "properties": {
+            "headline": { "type": "string" },
+            "content": { "type": "string", "description": "HTML content" }
+          }
+        },
+        "team": {
+          "type": "object",
+          "properties": {
+            "headline": { "type": "string" },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["name", "role"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "role": { "type": "string" },
+                  "photo": { "type": "string" },
+                  "bio": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "values": {
+          "type": "object",
+          "properties": {
+            "headline": { "type": "string" },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["title", "description"],
+                "properties": {
+                  "title": { "type": "string" },
+                  "description": { "type": "string" },
+                  "icon": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "timeline": {
+          "type": "object",
+          "properties": {
+            "headline": { "type": "string" },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["year", "title"],
+                "properties": {
+                  "year": { "type": "string" },
+                  "title": { "type": "string" },
+                  "description": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "services": {
+      "type": "object",
+      "description": "Services page (services.njk) variables",
+      "properties": {
+        "title": { "type": "string" },
+        "headline": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "description"],
+            "properties": {
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "icon": { "type": "string" },
+              "cta": {
+                "type": "object",
+                "properties": {
+                  "label": { "type": "string" },
+                  "href": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "comparisonTable": {
+          "type": "object",
+          "properties": {
+            "headline": { "type": "string" },
+            "headers": { "type": "array", "items": { "type": "string" } },
+            "rows": {
+              "type": "array",
+              "items": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "portfolio": {
+      "type": "object",
+      "description": "Portfolio page (portfolio.njk) variables",
+      "properties": {
+        "title": { "type": "string" },
+        "headline": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "categories": { "type": "array", "items": { "type": "string" } },
+        "projects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "category"],
+            "properties": {
+              "title": { "type": "string" },
+              "category": { "type": "string" },
+              "thumbnail": { "type": "string" },
+              "description": { "type": "string" },
+              "link": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "blog": {
+      "type": "object",
+      "description": "Blog listing page (blog-listing.njk) variables",
+      "properties": {
+        "title": { "type": "string" },
+        "headline": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "posts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "slug", "date"],
+            "properties": {
+              "title": { "type": "string" },
+              "slug": { "type": "string" },
+              "date": { "type": "string" },
+              "excerpt": { "type": "string" },
+              "thumbnail": { "type": "string" },
+              "categories": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "sidebarCategories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "slug", "count"],
+            "properties": {
+              "label": { "type": "string" },
+              "slug": { "type": "string" },
+              "count": { "type": "number" }
+            }
+          }
+        },
+        "sidebarRecent": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "slug"],
+            "properties": {
+              "title": { "type": "string" },
+              "slug": { "type": "string" }
+            }
+          }
+        },
+        "pagination": {
+          "type": "object",
+          "properties": {
+            "prevUrl": { "type": "string" },
+            "nextUrl": { "type": "string" },
+            "pages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "number": { "type": "number" },
+                  "url": { "type": "string" },
+                  "active": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "blogPost": {
+      "type": "object",
+      "description": "Blog post page (blog-post.njk) variables",
+      "properties": {
+        "title": { "type": "string" },
+        "publishDate": { "type": "string" },
+        "author": { "type": "string" },
+        "content": { "type": "string", "description": "HTML content for the article body" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "toc": {
+          "type": "array",
+          "description": "Auto-generated from content H2/H3 headings at build time",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "text": { "type": "string" },
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "text": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "relatedPosts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "slug"],
+            "properties": {
+              "title": { "type": "string" },
+              "slug": { "type": "string" },
+              "excerpt": { "type": "string" },
+              "thumbnail": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "description": "Contact page (contact.njk) variables",
+      "properties": {
+        "title": { "type": "string" },
+        "headline": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "form": {
+          "type": "object",
+          "required": ["action"],
+          "properties": {
+            "headline": { "type": "string" },
+            "action": { "type": "string", "description": "Form action URL (Formspree, Netlify, etc.)" },
+            "netlify": { "type": "boolean", "description": "Add data-netlify attribute" },
+            "formName": { "type": "string" },
+            "showPhone": { "type": "boolean" },
+            "showSubject": { "type": "boolean" },
+            "submitLabel": { "type": "string" }
+          }
+        },
+        "info": {
+          "type": "object",
+          "properties": {
+            "email": { "type": "string" },
+            "phone": { "type": "string" },
+            "address": { "type": "string" },
+            "hours": { "type": "string" }
+          }
+        }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "description": "Pricing page (pricing.njk) variables",
+      "properties": {
+        "title": { "type": "string" },
+        "headline": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "tiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "price", "features"],
+            "properties": {
+              "name": { "type": "string" },
+              "price": { "type": "string" },
+              "period": { "type": "string" },
+              "featured": { "type": "boolean" },
+              "description": { "type": "string" },
+              "features": { "type": "array", "items": { "type": "string" } },
+              "ctaLabel": { "type": "string" },
+              "ctaUrl": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "legal": {
+      "type": "object",
+      "description": "Terms & Privacy page (terms-privacy.njk) variables",
+      "properties": {
+        "title": { "type": "string" },
+        "headline": { "type": "string" },
+        "lastUpdated": { "type": "string" },
+        "terms": { "type": "string", "description": "HTML content" },
+        "privacy": { "type": "string", "description": "HTML content" }
+      }
+    },
+    "errorPage": {
+      "type": "object",
+      "description": "404 page (404.njk) variables",
+      "properties": {
+        "illustrationSrc": { "type": "string" },
+        "heading": { "type": "string" },
+        "copy": { "type": "string" },
+        "homeLabel": { "type": "string" },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "href"],
+            "properties": {
+              "label": { "type": "string" },
+              "href": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

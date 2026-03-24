@@ -1,0 +1,90 @@
+{
+  "spacing": {
+    "0": {
+      "$value": "0",
+      "$type": "dimension",
+      "$description": "No spacing"
+    },
+    "1": {
+      "$value": "8px",
+      "$type": "dimension",
+      "$description": "8px — base grid unit, tight spacing"
+    },
+    "2": {
+      "$value": "16px",
+      "$type": "dimension",
+      "$description": "16px — default element spacing"
+    },
+    "3": {
+      "$value": "24px",
+      "$type": "dimension",
+      "$description": "24px — section inner padding"
+    },
+    "4": {
+      "$value": "32px",
+      "$type": "dimension",
+      "$description": "32px — section spacing"
+    },
+    "5": {
+      "$value": "40px",
+      "$type": "dimension",
+      "$description": "40px — touch target height (40px + padding = 44px)"
+    },
+    "6": {
+      "$value": "48px",
+      "$type": "dimension",
+      "$description": "48px — large gaps"
+    },
+    "7": {
+      "$value": "56px",
+      "$type": "dimension",
+      "$description": "56px — section dividers"
+    },
+    "8": {
+      "$value": "64px",
+      "$type": "dimension",
+      "$description": "64px — major layout gaps"
+    },
+    "10": {
+      "$value": "80px",
+      "$type": "dimension",
+      "$description": "80px — large section spacing"
+    },
+    "12": {
+      "$value": "96px",
+      "$type": "dimension",
+      "$description": "96px — page sections"
+    },
+    "14": {
+      "$value": "112px",
+      "$type": "dimension",
+      "$description": "112px — major page dividers"
+    },
+    "16": {
+      "$value": "128px",
+      "$type": "dimension",
+      "$description": "1024px — largest spacing unit"
+    },
+    "$description": "Spacing scale based on 8px base grid. All values (except 'px') are multiples of 4px for sub-grid alignment and 8px for primary vertical rhythm.",
+    "px": {
+      "$value": "1px",
+      "$type": "dimension",
+      "$description": "1px — hairline borders"
+    },
+    "0.5": {
+      "$value": "4px",
+      "$type": "dimension",
+      "$description": "4px — smallest spacing unit (sub-grid)"
+    },
+    "1.5": {
+      "$value": "12px",
+      "$type": "dimension",
+      "$description": "12px — compact spacing"
+    },
+    "2.5": {
+      "$value": "20px",
+      "$type": "dimension",
+      "$description": "20px — comfortable spacing"
+    }
+  }
+}

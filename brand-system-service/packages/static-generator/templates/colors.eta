@@ -1,0 +1,52 @@
+<section aria-labelledby="colors-title">
+  <h1 id="colors-title">Colors</h1>
+  <p class="section-intro">
+    The complete color palette for <%= it.brand.clientName %>, generated from the design token engine.
+    Every color includes WCAG contrast data for accessibility compliance.
+  </p>
+
+  <% if (it.colors && it.colors.primitive && it.colors.primitive.length > 0) { %>
+  <h2>Brand Palette</h2>
+  <% for (const group of it.colors.primitive) { %>
+  <div class="color-group">
+    <h3 class="color-group__title"><%= group.name %></h3>
+    <div class="color-swatches">
+      <% for (const swatch of group.swatches) { %>
+      <div class="color-swatch">
+        <div class="color-swatch__preview" style="background-color: <%= swatch.hex %>;" role="img" aria-label="Color swatch for <%= swatch.name %> <%= swatch.step %>: <%= swatch.hex %>"></div>
+        <div class="color-swatch__info">
+          <div class="color-swatch__name"><%= swatch.name %>-<%= swatch.step %></div>
+          <div class="color-swatch__hex"><%= swatch.hex %></div>
+          <% if (swatch.wcag) { %>
+          <span class="wcag-badge <%= swatch.wcag.aa ? 'wcag-badge--pass' : 'wcag-badge--fail' %>">
+            AA <%= swatch.wcag.aa ? 'Pass' : 'Fail' %>
+          </span>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+  <% } %>
+  <% } %>
+
+  <% if (it.colors && it.colors.semantic && it.colors.semantic.length > 0) { %>
+  <h2>Semantic Colors</h2>
+  <% for (const group of it.colors.semantic) { %>
+  <div class="color-group">
+    <h3 class="color-group__title"><%= group.name %></h3>
+    <div class="color-swatches">
+      <% for (const swatch of group.swatches) { %>
+      <div class="color-swatch">
+        <div class="color-swatch__preview" style="background-color: <%= swatch.hex %>;" role="img" aria-label="Color swatch for <%= swatch.name %> <%= swatch.step %>: <%= swatch.hex %>"></div>
+        <div class="color-swatch__info">
+          <div class="color-swatch__name"><%= swatch.name %>-<%= swatch.step %></div>
+          <div class="color-swatch__hex"><%= swatch.hex %></div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+  <% } %>
+  <% } %>
+</section>

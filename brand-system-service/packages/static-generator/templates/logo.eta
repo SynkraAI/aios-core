@@ -1,0 +1,33 @@
+<section aria-labelledby="logo-title">
+  <h1 id="logo-title">Logo</h1>
+  <p class="section-intro">
+    The <%= it.brand.clientName %> logo is the primary visual identifier of the brand.
+    Always use the official logo files and follow the usage guidelines.
+  </p>
+
+  <h2>Primary Logo</h2>
+  <div class="logo-display">
+    <img src="./assets/logo.svg" alt="<%= it.brand.clientName %> primary logo" width="240" height="150">
+  </div>
+
+  <h2>Logo on Light Background</h2>
+  <div class="logo-display" style="background: #ffffff;">
+    <img src="./assets/logo.svg" alt="<%= it.brand.clientName %> logo on light background" width="200" height="120">
+  </div>
+
+  <h2>Logo on Dark Background</h2>
+  <div class="logo-display" style="background: #1a1a2e;">
+    <img src="./assets/logo.svg" alt="<%= it.brand.clientName %> logo on dark background" width="200" height="120">
+  </div>
+
+  <h2>Clear Space</h2>
+  <p>
+    Maintain a minimum clear space equal to the height of the logo mark around all sides.
+    No other visual elements should intrude into this space.
+  </p>
+
+  <h2>Minimum Size</h2>
+  <p>
+    Digital: 32px height minimum. Print: 10mm height minimum.
+  </p>
+</section>

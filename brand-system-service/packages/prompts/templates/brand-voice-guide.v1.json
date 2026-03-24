@@ -1,0 +1,22 @@
+{
+  "id": "brand-voice-guide",
+  "deliverableType": "brand-voice-guide",
+  "version": "1.0.0",
+  "status": "active",
+  "variant": "A",
+  "changelog": [
+    { "version": "1.0.0", "description": "Initial brand voice guide template with personality pillars and tone spectrum", "date": "2026-03-16" }
+  ],
+  "variables": {
+    "brandName": { "type": "string", "required": true },
+    "brandPersonality": { "type": "string[]", "required": true, "description": "3-5 personality adjectives from Brand Discovery Workshop" },
+    "industryVertical": { "type": "string", "required": true },
+    "toneSpectrum": { "type": "string", "required": true, "description": "e.g., professional-conversational" },
+    "vocabularyBank": { "type": "string[]", "required": false, "default": [] },
+    "forbiddenWords": { "type": "string[]", "required": false, "default": [] },
+    "competitorNames": { "type": "string[]", "required": false, "default": [] },
+    "deliverablePurpose": { "type": "string", "required": false, "default": "comprehensive brand voice guide" }
+  },
+  "systemPrompt": "You are an expert brand strategist and voice architect with 15+ years of experience creating brand voice guidelines for top-tier brands. You specialize in translating abstract brand personality traits into concrete, actionable writing guidelines that any copywriter can follow consistently.",
+  "userPromptTemplate": "Create a comprehensive Brand Voice Guide for **{{brandName}}** in the **{{industryVertical}}** industry.\n\n## Brand Personality\nThe brand personality is defined by these core traits: {{#each brandPersonality}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.\n\n## Tone Spectrum\nThe brand's tone spectrum ranges across: {{toneSpectrum}}.\n\n## Deliverable Requirements\n\nProduce a Brand Voice Guide covering:\n\n1. **Voice Pillars** — Define 3-5 voice pillars derived from the personality traits above. Each pillar should have a name, a one-line definition, and 2-3 example sentences.\n\n2. **Tone Spectrum Guide** — Map the tone spectrum to specific contexts (social media, customer support, crisis communication, formal announcements). Show how tone shifts while voice remains constant.\n\n3. **Do/Don't Examples** — For each voice pillar, provide 3 \"Do\" examples and 3 \"Don't\" examples showing correct vs incorrect usage.\n\n4. **Vocabulary Bank** — Organize approved vocabulary into categories.\n{{#if vocabularyBank.length}}Pre-approved words to incorporate: {{#each vocabularyBank}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n{{#if forbiddenWords.length}}\n5. **Forbidden Words/Phrases** — These must never appear in brand communications: {{#each forbiddenWords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n\n6. **Competitive Differentiation** — How this voice stands apart from competitors.\n{{#if competitorNames.length}}Key competitors: {{#each competitorNames}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n\n7. **Quick-Reference Card** — A one-page cheat sheet a copywriter can pin above their desk.\n\nFormat the output in clear sections with headers. Use concrete examples, not abstract descriptions."
+}

@@ -1,0 +1,51 @@
+<header class="site-header" role="banner">
+  <nav class="site-nav container" aria-label="Main navigation">
+    <a href="{{ site.baseUrl }}index.html" class="site-nav__logo" aria-label="{{ nav.logo | default(clientId) }} - Home">
+      {% if nav.logoSrc %}
+        <img src="{{ nav.logoSrc }}" alt="{{ nav.logo | default(clientId) }}" class="site-nav__logo-img">
+      {% else %}
+        <span class="site-nav__logo-text">{{ nav.logo | default(clientId) }}</span>
+      {% endif %}
+    </a>
+
+    <ul class="site-nav__links" id="nav-links" role="menubar">
+      {% if nav.links %}
+        {% for link in nav.links %}
+          <li role="none"><a href="{{ site.baseUrl }}{{ link.href }}" class="site-nav__link" role="menuitem">{{ link.label }}</a></li>
+        {% endfor %}
+      {% endif %}
+    </ul>
+
+    {% if nav.cta %}
+      <a href="{{ site.baseUrl }}{{ nav.cta.href }}" class="btn btn--primary site-nav__cta">{{ nav.cta.label }}</a>
+    {% endif %}
+
+    <button
+      class="site-nav__hamburger"
+      type="button"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="nav-overlay"
+      data-hamburger-toggle
+    >
+      <span class="site-nav__hamburger-bar"></span>
+      <span class="site-nav__hamburger-bar"></span>
+      <span class="site-nav__hamburger-bar"></span>
+    </button>
+  </nav>
+
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true" role="dialog" aria-label="Navigation menu">
+    <nav class="nav-overlay__inner" aria-label="Mobile navigation">
+      <ul class="nav-overlay__links">
+        {% if nav.links %}
+          {% for link in nav.links %}
+            <li><a href="{{ site.baseUrl }}{{ link.href }}" class="nav-overlay__link">{{ link.label }}</a></li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+      {% if nav.cta %}
+        <a href="{{ site.baseUrl }}{{ nav.cta.href }}" class="btn btn--primary nav-overlay__cta">{{ nav.cta.label }}</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>

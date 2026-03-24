@@ -1,0 +1,56 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      {% if footer.logoSrc %}
+        <img src="{{ footer.logoSrc }}" alt="{{ footer.logo | default(clientId) }}" class="site-footer__logo-img">
+      {% else %}
+        <span class="site-footer__logo-text">{{ footer.logo | default(clientId) }}</span>
+      {% endif %}
+      {% if footer.tagline %}
+        <p class="site-footer__tagline">{{ footer.tagline }}</p>
+      {% endif %}
+    </div>
+
+    {% if footer.navGroups %}
+      <div class="site-footer__nav-groups">
+        {% for group in footer.navGroups %}
+          <div class="site-footer__nav-group">
+            <h4 class="site-footer__nav-title">{{ group.title }}</h4>
+            <ul class="site-footer__nav-list">
+              {% for link in group.links %}
+                <li><a href="{{ site.baseUrl }}{{ link.href }}" class="site-footer__nav-link">{{ link.label }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if footer.social %}
+      <div class="site-footer__social">
+        {% for item in footer.social %}
+          <a href="{{ item.url }}" class="site-footer__social-link" aria-label="{{ item.label }}" target="_blank" rel="noopener noreferrer">
+            {% if item.icon %}
+              <svg class="site-footer__social-icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+                <use href="#icon-{{ item.icon }}"></use>
+              </svg>
+            {% else %}
+              <span>{{ item.label }}</span>
+            {% endif %}
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="site-footer__bottom">
+      <p class="site-footer__copyright">&copy; {{ currentYear }} {{ footer.companyName | default(clientId) }}. All rights reserved.</p>
+      {% if footer.legalLinks %}
+        <ul class="site-footer__legal">
+          {% for link in footer.legalLinks %}
+            <li><a href="{{ site.baseUrl }}{{ link.href }}" class="site-footer__legal-link">{{ link.label }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</footer>

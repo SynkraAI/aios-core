@@ -1,0 +1,81 @@
+{
+  "microcopy": {
+    "clientId": "acme-corp",
+    "brandName": "Acme Corp",
+    "totalItems": 18,
+    "sections": [
+      {
+        "title": "Button Labels",
+        "slug": "button-labels",
+        "items": [
+          { "context": "Primary CTA", "copy": "Get Started", "notes": "Use on hero sections" },
+          { "context": "Form submit", "copy": "Submit", "notes": "Generic form submission" }
+        ]
+      },
+      {
+        "title": "Form Labels",
+        "slug": "form-labels",
+        "items": [
+          { "context": "Name field", "copy": "Full Name" },
+          { "context": "Email field", "copy": "Email Address" }
+        ]
+      },
+      {
+        "title": "Placeholders",
+        "slug": "placeholders",
+        "items": [
+          { "context": "Email input", "copy": "you@example.com" },
+          { "context": "Search input", "copy": "Search..." }
+        ]
+      },
+      {
+        "title": "Error Messages",
+        "slug": "error-messages",
+        "items": [
+          { "context": "Required field", "copy": "This field is required", "notes": "Friendly tone" },
+          { "context": "Invalid email", "copy": "Please enter a valid email address" }
+        ]
+      },
+      {
+        "title": "Empty States",
+        "slug": "empty-states",
+        "items": [
+          { "context": "No results", "copy": "No results found. Try a different search." },
+          { "context": "Empty cart", "copy": "Your cart is empty. Start shopping!" }
+        ]
+      },
+      {
+        "title": "Loading States",
+        "slug": "loading-states",
+        "items": [
+          { "context": "Page load", "copy": "Loading..." },
+          { "context": "Form submit", "copy": "Sending your request..." }
+        ]
+      },
+      {
+        "title": "Success Confirmations",
+        "slug": "success-confirmations",
+        "items": [
+          { "context": "Form submitted", "copy": "Thanks! We'll be in touch shortly." },
+          { "context": "Newsletter signup", "copy": "Welcome aboard! Check your inbox." }
+        ]
+      },
+      {
+        "title": "404 Copy",
+        "slug": "not-found-copy",
+        "items": [
+          { "context": "Page not found", "copy": "Oops! This page doesn't exist." },
+          { "context": "Suggested action", "copy": "Head back home or try searching." }
+        ]
+      },
+      {
+        "title": "Cookie Banner Copy",
+        "slug": "cookie-banner",
+        "items": [
+          { "context": "Banner text", "copy": "We use cookies to improve your experience." },
+          { "context": "Accept button", "copy": "Accept All" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+<section class="final-cta section" id="final-cta" aria-label="Call to Action">
+  <div class="container">
+    <h2 class="final-cta__headline">{{ finalCta.headline | default("Ready to get started?") }}</h2>
+    {% if finalCta.riskRemoval %}
+      <p class="final-cta__guarantee">{{ finalCta.riskRemoval }}</p>
+    {% endif %}
+    <div class="final-cta__cta-group">
+      <a href="{{ finalCta.ctaUrl | default('#') }}" class="btn btn--primary btn--lg">
+        {{ finalCta.ctaLabel | default("Get Started Now") }}
+      </a>
+    </div>
+  </div>
+</section>

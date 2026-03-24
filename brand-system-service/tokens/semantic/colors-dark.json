@@ -1,0 +1,136 @@
+{
+  "dark": {
+    "background": {
+      "default": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Default background (dark mode)"
+      },
+      "subtle": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Subtle background (dark mode)"
+      }
+    },
+    "text": {
+      "default": {
+        "$value": "#b0bbd0",
+        "$type": "color",
+        "$description": "Primary text (dark mode)"
+      },
+      "secondary": {
+        "$value": "#4e5562",
+        "$type": "color",
+        "$description": "Secondary text (dark mode)"
+      }
+    },
+    "success": {
+      "100": {
+        "$value": "#000800",
+        "$type": "color",
+        "$description": "success 100 — L=93% (dark mode)"
+      },
+      "300": {
+        "$value": "#002a00",
+        "$type": "color",
+        "$description": "success 300 — L=78% (dark mode)"
+      },
+      "500": {
+        "$value": "#007115",
+        "$type": "color",
+        "$description": "success 500 — L=52% (dark mode)"
+      },
+      "700": {
+        "$value": "#61a15c",
+        "$type": "color",
+        "$description": "success 700 — L=33% (dark mode)"
+      },
+      "900": {
+        "$value": "#a5c9a1",
+        "$type": "color",
+        "$description": "success 900 — L=17% (dark mode)"
+      }
+    },
+    "warning": {
+      "100": {
+        "$value": "#1c0000",
+        "$type": "color",
+        "$description": "warning 100 — L=93% (dark mode)"
+      },
+      "300": {
+        "$value": "#470000",
+        "$type": "color",
+        "$description": "warning 300 — L=78% (dark mode)"
+      },
+      "500": {
+        "$value": "#993c00",
+        "$type": "color",
+        "$description": "warning 500 — L=52% (dark mode)"
+      },
+      "700": {
+        "$value": "#d87361",
+        "$type": "color",
+        "$description": "warning 700 — L=33% (dark mode)"
+      },
+      "900": {
+        "$value": "#eca499",
+        "$type": "color",
+        "$description": "warning 900 — L=17% (dark mode)"
+      }
+    },
+    "error": {
+      "100": {
+        "$value": "#360000",
+        "$type": "color",
+        "$description": "error 100 — L=93% (dark mode)"
+      },
+      "300": {
+        "$value": "#640000",
+        "$type": "color",
+        "$description": "error 300 — L=78% (dark mode)"
+      },
+      "500": {
+        "$value": "#b70000",
+        "$type": "color",
+        "$description": "error 500 — L=52% (dark mode)"
+      },
+      "700": {
+        "$value": "#d3594a",
+        "$type": "color",
+        "$description": "error 700 — L=33% (dark mode)"
+      },
+      "900": {
+        "$value": "#e79285",
+        "$type": "color",
+        "$description": "error 900 — L=17% (dark mode)"
+      }
+    },
+    "info": {
+      "100": {
+        "$value": "#000c25",
+        "$type": "color",
+        "$description": "info 100 — L=93% (dark mode)"
+      },
+      "300": {
+        "$value": "#00216b",
+        "$type": "color",
+        "$description": "info 300 — L=78% (dark mode)"
+      },
+      "500": {
+        "$value": "#0041ea",
+        "$type": "color",
+        "$description": "info 500 — L=52% (dark mode)"
+      },
+      "700": {
+        "$value": "#3e7fff",
+        "$type": "color",
+        "$description": "info 700 — L=33% (dark mode)"
+      },
+      "900": {
+        "$value": "#8397ff",
+        "$type": "color",
+        "$description": "info 900 — L=17% (dark mode)"
+      }
+    }
+  }
+}

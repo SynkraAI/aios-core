@@ -1,0 +1,88 @@
+{% extends "_base.njk" %}
+
+{% block title %}{{ pricing.title | default("Pricing") }} - {{ clientId }}{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ pricing.metaDescription | default('') }}">
+{% endblock %}
+
+{% block content %}
+{# Hero #}
+<section class="hero" aria-label="Pricing hero">
+  <div class="container">
+    <h1 class="hero__h1">{{ pricing.headline | default("Pricing") }}</h1>
+    {% if pricing.subtitle %}
+      <p class="hero__subtitle">{{ pricing.subtitle }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{# Pricing tiers #}
+{% if pricing.tiers %}
+<section class="section" id="pricing" aria-label="Pricing plans">
+  <div class="container">
+    <div class="card-grid">
+      {% for tier in pricing.tiers %}
+        <div class="pricing-card{% if tier.featured %} pricing-card--featured{% endif %}">
+          <h3 class="pricing-card__name">{{ tier.name }}</h3>
+          <div class="pricing-card__price">
+            {{ tier.price }}
+            {% if tier.period %}
+              <span class="pricing-card__period">/ {{ tier.period }}</span>
+            {% endif %}
+          </div>
+          {% if tier.description %}
+            <p>{{ tier.description }}</p>
+          {% endif %}
+          {% if tier.features and tier.features.length %}
+            <ul class="pricing-card__features" role="list">
+              {% for feat in tier.features %}
+                <li>{{ feat }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          <a href="{{ site.baseUrl }}{{ tier.ctaUrl | default('contact.html') }}" class="btn btn--primary pricing-card__cta">
+            {{ tier.ctaLabel | default("Choose Plan") }}
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# FAQ section (optional) #}
+{% if pricing.faq %}
+<section class="section" aria-label="Pricing FAQ">
+  <div class="container">
+    <h2 class="section__headline">{{ pricing.faq.headline | default("Frequently Asked Questions") }}</h2>
+    <div style="max-width: 800px; margin: 0 auto;">
+      {% for item in pricing.faq.items %}
+        <div class="accordion__item">
+          <button
+            class="accordion__trigger"
+            data-accordion-trigger
+            data-target="pricing-faq-{{ loop.index }}"
+            aria-expanded="false"
+            aria-controls="pricing-faq-{{ loop.index }}"
+            id="pricing-faq-heading-{{ loop.index }}"
+          >
+            <span>{{ item.question }}</span>
+            <span class="accordion__icon" aria-hidden="true">+</span>
+          </button>
+          <div
+            class="accordion__panel"
+            id="pricing-faq-{{ loop.index }}"
+            role="region"
+            aria-labelledby="pricing-faq-heading-{{ loop.index }}"
+            hidden
+          >
+            <p class="accordion__answer">{{ item.answer }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{
+  "thankYou": {
+    "headline": "Thank You!",
+    "message": "Your submission has been received. We'll get back to you within 24 hours.",
+    "cta": {
+      "label": "Back to Home",
+      "url": "/"
+    },
+    "secondaryText": "Check your email for a confirmation."
+  },
+  "analytics": {
+    "pixelHtml": "<!-- Facebook Pixel --><img height=\"1\" width=\"1\" style=\"display:none\" src=\"https://www.facebook.com/tr?id=EXAMPLE&ev=Lead&noscript=1\">"
+  }
+}

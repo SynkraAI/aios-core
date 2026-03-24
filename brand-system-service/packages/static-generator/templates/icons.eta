@@ -1,0 +1,40 @@
+<section aria-labelledby="icons-title">
+  <h1 id="icons-title">Icons</h1>
+  <p class="section-intro">
+    Icon guidelines for the <%= it.brand.clientName %> brand system.
+    Icons should be consistent in style, weight, and optical size.
+  </p>
+
+  <h2>Icon Style</h2>
+  <p>
+    All icons follow a consistent visual style: outlined strokes at 1.5px weight,
+    24x24px optical size with 2px padding (20px visible area).
+  </p>
+
+  <h2>Usage Guidelines</h2>
+  <article>
+    <h3>Sizing</h3>
+    <ul>
+      <li><strong>Small (16px):</strong> Inline with text, compact UI elements</li>
+      <li><strong>Medium (24px):</strong> Default size, navigation and actions</li>
+      <li><strong>Large (32px):</strong> Feature highlights, empty states</li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>Color</h3>
+    <p>
+      Icons inherit the current text color by default. Use <code>currentColor</code>
+      for SVG fill/stroke to ensure they adapt to their context automatically.
+    </p>
+  </article>
+
+  <article>
+    <h3>Accessibility</h3>
+    <p>
+      Decorative icons should use <code>aria-hidden="true"</code>.
+      Informational icons must have descriptive <code>aria-label</code> or
+      accompanying visible text.
+    </p>
+  </article>
+</section>

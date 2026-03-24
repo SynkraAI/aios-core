@@ -1,0 +1,50 @@
+<section aria-labelledby="templates-title">
+  <h1 id="templates-title">Templates</h1>
+  <p class="section-intro">
+    Ready-to-use layout templates and patterns for the <%= it.brand.clientName %> brand system.
+    These templates combine the design tokens into practical, reusable compositions.
+  </p>
+
+  <h2>Page Layouts</h2>
+  <article>
+    <h3>Hero Section</h3>
+    <p>
+      Full-width hero with brand primary color background, display typography,
+      and centered call-to-action. Uses spacing scale 16 (128px) for vertical padding.
+    </p>
+  </article>
+
+  <article>
+    <h3>Content Section</h3>
+    <p>
+      Standard content area with max-width constraint, body typography,
+      and spacing scale 8 (64px) vertical rhythm between sections.
+    </p>
+  </article>
+
+  <article>
+    <h3>Card Grid</h3>
+    <p>
+      Responsive card grid using CSS Grid with auto-fill columns.
+      Cards use the component tokens defined in the Components section.
+    </p>
+  </article>
+
+  <h2>Email Templates</h2>
+  <article>
+    <h3>Transactional Email</h3>
+    <p>
+      600px max-width, inline styles for email client compatibility.
+      Uses brand primary color for header bar and button backgrounds.
+    </p>
+  </article>
+
+  <h2>Social Media</h2>
+  <article>
+    <h3>Post Template</h3>
+    <p>
+      1080x1080px square format, brand primary background with white display typography.
+      Logo positioned in bottom-right corner.
+    </p>
+  </article>
+</section>

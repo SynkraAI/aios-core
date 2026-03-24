@@ -1,0 +1,15 @@
+<section class="solution section" id="solution" aria-label="Solution">
+  <div class="container">
+    <h2 class="section__headline">{{ solution.headline | default("The Solution") }}</h2>
+    {% if solution.features and solution.features.length %}
+      <div class="solution__grid">
+        {% for item in solution.features %}
+          <div class="solution__card">
+            <h3 class="solution__feature">{{ item.feature }}</h3>
+            <p class="solution__benefit">{{ item.benefit }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>

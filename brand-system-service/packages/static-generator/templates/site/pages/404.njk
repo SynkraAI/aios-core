@@ -1,0 +1,32 @@
+{% extends "_base.njk" %}
+
+{% block title %}Page Not Found - {{ clientId }}{% endblock %}
+
+{% block meta %}
+<meta name="robots" content="noindex">
+{% endblock %}
+
+{% block content %}
+<section class="error-page" aria-label="Page not found">
+  {% if errorPage.illustrationSrc %}
+    <img src="{{ errorPage.illustrationSrc }}" alt="" class="error-page__illustration" aria-hidden="true">
+  {% else %}
+    <div class="error-page__illustration" aria-hidden="true">
+      <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="80" fill="var(--color-neutral-100, #f3f4f6)"/>
+        <text x="100" y="115" text-anchor="middle" font-size="64" font-weight="800" fill="var(--color-neutral-300, #d1d5db)">404</text>
+      </svg>
+    </div>
+  {% endif %}
+  <h1 class="error-page__heading">{{ errorPage.heading | default("Page Not Found") }}</h1>
+  <p class="error-page__copy">{{ errorPage.copy | default("Sorry, the page you are looking for does not exist or has been moved.") }}</p>
+  <div class="error-page__links">
+    <a href="{{ site.baseUrl }}index.html" class="btn btn--primary">{{ errorPage.homeLabel | default("Back to Home") }}</a>
+    {% if errorPage.links %}
+      {% for link in errorPage.links %}
+        <a href="{{ site.baseUrl }}{{ link.href }}" class="btn btn--secondary">{{ link.label }}</a>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,240 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Landing Page Template Variables",
+  "description": "Schema for all template variables used by the Conversion Architecture landing page templates.",
+  "type": "object",
+  "required": ["clientId", "hero", "problem", "solution", "howItWorks", "socialProof", "faq", "finalCta"],
+  "properties": {
+    "clientId": {
+      "type": "string",
+      "description": "Client identifier for token resolution",
+      "example": "acme-corp"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["landing-page"],
+      "description": "Build type"
+    },
+    "title": {
+      "type": "string",
+      "description": "Page <title> tag content",
+      "example": "Acme Corp - Build Your Brand"
+    },
+    "year": {
+      "type": "number",
+      "description": "Copyright year (auto-generated)",
+      "example": 2026
+    },
+    "hero": {
+      "type": "object",
+      "required": ["h1"],
+      "properties": {
+        "preHeadline": {
+          "type": "string",
+          "description": "Small text above the main headline",
+          "example": "For growing B2B companies"
+        },
+        "h1": {
+          "type": "string",
+          "description": "Main headline (H1)",
+          "example": "Build your brand in weeks, not months"
+        },
+        "subHeadline": {
+          "type": "string",
+          "description": "Paragraph below the headline",
+          "example": "Our proven system helps B2B companies establish a professional brand identity."
+        },
+        "ctaLabel": {
+          "type": "string",
+          "description": "Primary CTA button text",
+          "example": "Start your project"
+        },
+        "ctaUrl": {
+          "type": "string",
+          "description": "Primary CTA button URL",
+          "example": "#pricing"
+        },
+        "socialProof": {
+          "type": "object",
+          "properties": {
+            "stat": { "type": "string", "example": "200+ clients" },
+            "label": { "type": "string", "example": "served worldwide" }
+          }
+        }
+      }
+    },
+    "problem": {
+      "type": "object",
+      "required": ["headline", "bullets"],
+      "properties": {
+        "headline": {
+          "type": "string",
+          "description": "Pain agitation headline",
+          "example": "Sound familiar?"
+        },
+        "bullets": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 3,
+          "maxItems": 4,
+          "description": "3-4 pain point bullet items",
+          "example": ["Your brand feels inconsistent across channels"]
+        }
+      }
+    },
+    "solution": {
+      "type": "object",
+      "required": ["headline", "features"],
+      "properties": {
+        "headline": {
+          "type": "string",
+          "example": "A complete brand system, delivered"
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["feature", "benefit"],
+            "properties": {
+              "feature": { "type": "string", "example": "Design Tokens" },
+              "benefit": { "type": "string", "example": "Consistent colors, typography, and spacing across all touchpoints." }
+            }
+          }
+        }
+      }
+    },
+    "howItWorks": {
+      "type": "object",
+      "required": ["headline", "steps"],
+      "properties": {
+        "headline": {
+          "type": "string",
+          "example": "How it works"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "description"],
+            "properties": {
+              "title": { "type": "string", "example": "Discovery" },
+              "description": { "type": "string", "example": "We learn about your brand, audience, and goals." }
+            }
+          },
+          "minItems": 3,
+          "maxItems": 4
+        }
+      }
+    },
+    "socialProof": {
+      "type": "object",
+      "required": ["headline"],
+      "properties": {
+        "headline": {
+          "type": "string",
+          "example": "What our clients say"
+        },
+        "testimonials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "quote"],
+            "properties": {
+              "name": { "type": "string", "example": "Jane Smith" },
+              "role": { "type": "string", "example": "CEO at TechCo" },
+              "quote": { "type": "string", "example": "The brand system transformed how we present ourselves." }
+            }
+          }
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["stat", "label"],
+            "properties": {
+              "stat": { "type": "string", "example": "98%" },
+              "label": { "type": "string", "example": "client satisfaction" }
+            }
+          }
+        }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "description": "Optional. Omit entirely to hide the pricing section.",
+      "properties": {
+        "headline": {
+          "type": "string",
+          "example": "Simple, transparent pricing"
+        },
+        "tiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "price", "features"],
+            "properties": {
+              "name": { "type": "string", "example": "Starter" },
+              "price": { "type": "string", "example": "$2,499" },
+              "featured": { "type": "boolean", "example": false },
+              "features": {
+                "type": "array",
+                "items": { "type": "string" },
+                "example": ["Brand identity design", "5 social media templates"]
+              },
+              "ctaLabel": { "type": "string", "example": "Get Started" },
+              "ctaUrl": { "type": "string", "example": "#contact" }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 3
+        }
+      }
+    },
+    "faq": {
+      "type": "object",
+      "required": ["items"],
+      "properties": {
+        "headline": {
+          "type": "string",
+          "example": "Frequently Asked Questions"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["question", "answer"],
+            "properties": {
+              "question": { "type": "string", "example": "How long does the process take?" },
+              "answer": { "type": "string", "example": "Typically 4-6 weeks from kickoff to delivery." }
+            }
+          },
+          "minItems": 5,
+          "maxItems": 8
+        }
+      }
+    },
+    "finalCta": {
+      "type": "object",
+      "required": ["headline", "ctaLabel"],
+      "properties": {
+        "headline": {
+          "type": "string",
+          "example": "Ready to transform your brand?"
+        },
+        "riskRemoval": {
+          "type": "string",
+          "description": "Guarantee or risk-reversal copy",
+          "example": "100% satisfaction guarantee. If you're not happy, we'll revise until you are."
+        },
+        "ctaLabel": {
+          "type": "string",
+          "example": "Start Your Project Today"
+        },
+        "ctaUrl": {
+          "type": "string",
+          "example": "#contact"
+        }
+      }
+    }
+  }
+}

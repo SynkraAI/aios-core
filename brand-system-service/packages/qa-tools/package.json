@@ -1,0 +1,23 @@
+{
+  "name": "@brand-system/qa-tools",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Automated QA check utilities for Brand System Service deliverables",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "check-contrast": "dist/check-contrast.js",
+    "check-dimensions": "dist/check-dimensions.js"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf dist *.tsbuildinfo",
+    "dev": "tsc --watch",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.0",
+    "typescript": "^5.4.0"
+  }
+}

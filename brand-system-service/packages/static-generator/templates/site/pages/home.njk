@@ -1,0 +1,112 @@
+{% extends "_base.njk" %}
+
+{% block title %}{{ home.title | default(title) }}{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ home.metaDescription | default('') }}">
+{% endblock %}
+
+{% block content %}
+{# Hero #}
+<section class="hero" aria-label="Hero">
+  <div class="container">
+    <h1 class="hero__h1">{{ home.hero.headline | default("Welcome to " + clientId) }}</h1>
+    {% if home.hero.subtitle %}
+      <p class="hero__subtitle">{{ home.hero.subtitle }}</p>
+    {% endif %}
+    {% if home.hero.cta %}
+      <div class="hero__cta-group">
+        <a href="{{ site.baseUrl }}{{ home.hero.cta.href }}" class="btn btn--primary btn--lg">{{ home.hero.cta.label }}</a>
+        {% if home.hero.secondaryCta %}
+          <a href="{{ site.baseUrl }}{{ home.hero.secondaryCta.href }}" class="btn btn--secondary btn--lg">{{ home.hero.secondaryCta.label }}</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{# Services / Pillars Summary #}
+{% if home.services %}
+<section class="section" aria-label="Services overview">
+  <div class="container">
+    <h2 class="section__headline">{{ home.services.headline | default("Our Services") }}</h2>
+    {% if home.services.subheadline %}
+      <p class="section__subheadline">{{ home.services.subheadline }}</p>
+    {% endif %}
+    <div class="card-grid">
+      {% for service in home.services.items %}
+        <div class="service-card">
+          {% if service.icon %}
+            <div class="service-card__icon">{{ service.icon }}</div>
+          {% endif %}
+          <h3 class="service-card__title">{{ service.title }}</h3>
+          <p class="service-card__description">{{ service.description }}</p>
+          {% if service.cta %}
+            <a href="{{ site.baseUrl }}{{ service.cta.href }}" class="service-card__cta">{{ service.cta.label }} &rarr;</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# Selected Portfolio Items #}
+{% if home.portfolio %}
+<section class="section" aria-label="Selected work">
+  <div class="container">
+    <h2 class="section__headline">{{ home.portfolio.headline | default("Our Work") }}</h2>
+    {% if home.portfolio.subheadline %}
+      <p class="section__subheadline">{{ home.portfolio.subheadline }}</p>
+    {% endif %}
+    <div class="portfolio-grid">
+      {% for project in home.portfolio.items %}
+        <div class="portfolio-card">
+          {% if project.thumbnail %}
+            <img src="{{ project.thumbnail }}" alt="{{ project.title }}" class="portfolio-card__thumb" loading="lazy">
+          {% else %}
+            <div class="portfolio-card__thumb"></div>
+          {% endif %}
+          <div class="portfolio-card__body">
+            <p class="portfolio-card__category">{{ project.category }}</p>
+            <h3 class="portfolio-card__title">{{ project.title }}</h3>
+            <p class="portfolio-card__description">{{ project.description }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# Trust Signals #}
+{% if home.trustSignals %}
+<section class="section" aria-label="Trust signals">
+  <div class="container">
+    <div class="trust-signals">
+      {% for signal in home.trustSignals %}
+        <div class="trust-signal">
+          <span class="trust-signal__stat">{{ signal.stat }}</span>
+          <span class="trust-signal__label">{{ signal.label }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# CTA Section #}
+{% if home.cta %}
+<section class="cta-section" aria-label="Call to action">
+  <div class="container">
+    <h2>{{ home.cta.headline }}</h2>
+    {% if home.cta.copy %}
+      <p>{{ home.cta.copy }}</p>
+    {% endif %}
+    <div class="hero__cta-group">
+      <a href="{{ site.baseUrl }}{{ home.cta.href }}" class="btn btn--primary btn--lg">{{ home.cta.label }}</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

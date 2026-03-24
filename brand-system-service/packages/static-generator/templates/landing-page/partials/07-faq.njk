@@ -1,0 +1,33 @@
+<section class="faq section" id="faq" aria-label="FAQ">
+  <div class="container">
+    <h2 class="section__headline">{{ faq.headline | default("Frequently Asked Questions") }}</h2>
+    {% if faq.items and faq.items.length %}
+      <div class="accordion" role="list">
+        {% for item in faq.items %}
+          <div class="accordion__item" role="listitem">
+            <button
+              class="accordion__trigger"
+              type="button"
+              aria-expanded="false"
+              aria-controls="faq-panel-{{ loop.index }}"
+              data-accordion-trigger
+              data-target="faq-panel-{{ loop.index }}"
+            >
+              <span class="accordion__title">{{ item.question }}</span>
+              <span class="accordion__icon" aria-hidden="true">+</span>
+            </button>
+            <div
+              class="accordion__panel"
+              id="faq-panel-{{ loop.index }}"
+              role="region"
+              aria-labelledby="faq-trigger-{{ loop.index }}"
+              hidden
+            >
+              <p class="accordion__answer">{{ item.answer }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>

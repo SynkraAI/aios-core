@@ -1,0 +1,112 @@
+{% extends "_base.njk" %}
+
+{% block title %}{{ contact.title | default("Contact") }} - {{ clientId }}{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ contact.metaDescription | default('') }}">
+{% endblock %}
+
+{% block content %}
+{# Hero #}
+<section class="hero" aria-label="Contact hero">
+  <div class="container">
+    <h1 class="hero__h1">{{ contact.headline | default("Contact Us") }}</h1>
+    {% if contact.subtitle %}
+      <p class="hero__subtitle">{{ contact.subtitle }}</p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section" aria-label="Contact details">
+  <div class="container">
+    <div class="contact-layout">
+      {# Contact Form #}
+      <div>
+        <h2>{{ contact.form.headline | default("Send us a message") }}</h2>
+        <form
+          class="contact-form"
+          action="{{ contact.form.action | default('#') }}"
+          method="POST"
+          {% if contact.form.netlify %}data-netlify="true"{% endif %}
+          {% if contact.form.formName %}name="{{ contact.form.formName }}"{% endif %}
+        >
+          <div class="form-group">
+            <label for="contact-name">Name</label>
+            <input type="text" id="contact-name" name="name" required autocomplete="name" placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Email</label>
+            <input type="email" id="contact-email" name="email" required autocomplete="email" placeholder="your@email.com">
+          </div>
+          {% if contact.form.showPhone %}
+            <div class="form-group">
+              <label for="contact-phone">Phone</label>
+              <input type="tel" id="contact-phone" name="phone" autocomplete="tel" placeholder="+1 (555) 000-0000">
+            </div>
+          {% endif %}
+          {% if contact.form.showSubject %}
+            <div class="form-group">
+              <label for="contact-subject">Subject</label>
+              <input type="text" id="contact-subject" name="subject" placeholder="How can we help?">
+            </div>
+          {% endif %}
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" name="message" required rows="5" placeholder="Tell us about your project..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary">{{ contact.form.submitLabel | default("Send Message") }}</button>
+        </form>
+      </div>
+
+      {# Contact Info + Map #}
+      <div>
+        {% if contact.info %}
+          <div class="contact-info">
+            {% if contact.info.email %}
+              <div class="contact-info__item">
+                <div>
+                  <p class="contact-info__label">Email</p>
+                  <p class="contact-info__value"><a href="mailto:{{ contact.info.email }}">{{ contact.info.email }}</a></p>
+                </div>
+              </div>
+            {% endif %}
+            {% if contact.info.phone %}
+              <div class="contact-info__item">
+                <div>
+                  <p class="contact-info__label">Phone</p>
+                  <p class="contact-info__value"><a href="tel:{{ contact.info.phone }}">{{ contact.info.phone }}</a></p>
+                </div>
+              </div>
+            {% endif %}
+            {% if contact.info.address %}
+              <div class="contact-info__item">
+                <div>
+                  <p class="contact-info__label">Address</p>
+                  <p class="contact-info__value">{{ contact.info.address }}</p>
+                </div>
+              </div>
+            {% endif %}
+            {% if contact.info.hours %}
+              <div class="contact-info__item">
+                <div>
+                  <p class="contact-info__label">Business Hours</p>
+                  <p class="contact-info__value">{{ contact.info.hours }}</p>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {# Map placeholder #}
+        <div class="map-placeholder" aria-label="Map placeholder">
+          {% if contact.mapEmbed %}
+            {{ contact.mapEmbed | safe }}
+          {% else %}
+            <p>Map location</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

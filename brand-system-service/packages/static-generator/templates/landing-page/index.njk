@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "partials/head.njk" %}
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  {% include "partials/01-hero.njk" %}
+
+  <main id="main-content" role="main">
+    {% include "partials/02-problem.njk" %}
+    {% include "partials/03-solution.njk" %}
+    {% include "partials/04-how-it-works.njk" %}
+    {% include "partials/05-social-proof.njk" %}
+    {% if pricing %}
+      {% include "partials/06-pricing.njk" %}
+    {% endif %}
+    {% include "partials/07-faq.njk" %}
+    {% include "partials/08-final-cta.njk" %}
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>&copy; {{ year }} {{ clientId }}. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="scripts.min.js" defer></script>
+</body>
+</html>

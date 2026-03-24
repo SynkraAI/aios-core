@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}} - Table of Contents</title>
+  {{embedTag}}
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: #1a1a2e;
+    }
+
+    .toc {
+      padding: 80px 64px;
+      min-height: 100vh;
+    }
+
+    .toc__title {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 48px;
+      color: #1a1a2e;
+    }
+
+    .toc__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .toc__item {
+      display: flex;
+      align-items: baseline;
+      padding: 16px 0;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 17px;
+    }
+
+    .toc__item:last-child {
+      border-bottom: none;
+    }
+
+    .toc__number {
+      font-weight: 600;
+      min-width: 48px;
+      color: {{primaryColor}};
+      font-size: 15px;
+    }
+
+    .toc__label {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .toc__dots {
+      flex: 1;
+      border-bottom: 1px dotted #d1d5db;
+      margin: 0 12px;
+      min-width: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="toc">
+    <h1 class="toc__title">Table of Contents</h1>
+    <ol class="toc__list">
+      {{sections}}
+    </ol>
+  </div>
+</body>
+</html>

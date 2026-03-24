@@ -1,0 +1,13 @@
+{
+  "$schema": "./grid.config.schema.json",
+  "baseUnit": 8,
+  "maxWidth": 1280,
+  "breakpoints": {
+    "xs": 0,
+    "sm": 640,
+    "md": 768,
+    "lg": 1024,
+    "xl": 1280,
+    "2xl": 1536
+  }
+}

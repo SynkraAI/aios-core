@@ -1,0 +1,57 @@
+{% extends "_base.njk" %}
+
+{% block title %}{{ portfolio.title | default("Portfolio") }} - {{ clientId }}{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ portfolio.metaDescription | default('') }}">
+{% endblock %}
+
+{% block content %}
+{# Hero #}
+<section class="hero" aria-label="Portfolio hero">
+  <div class="container">
+    <h1 class="hero__h1">{{ portfolio.headline | default("Our Work") }}</h1>
+    {% if portfolio.subtitle %}
+      <p class="hero__subtitle">{{ portfolio.subtitle }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{# Filterable Portfolio Grid #}
+{% if portfolio.projects %}
+<section class="section" aria-label="Portfolio projects">
+  <div class="container">
+    {# Filter buttons #}
+    <div class="portfolio-filters" role="toolbar" aria-label="Filter projects by category">
+      <button class="portfolio-filters__btn portfolio-filters__btn--active" data-filter="all" type="button">All</button>
+      {% if portfolio.categories %}
+        {% for cat in portfolio.categories %}
+          <button class="portfolio-filters__btn" data-filter="{{ cat }}" type="button">{{ cat }}</button>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {# Project grid #}
+    <div class="portfolio-grid" id="portfolio-grid">
+      {% for project in portfolio.projects %}
+        <div class="portfolio-card" data-category="{{ project.category }}">
+          {% if project.thumbnail %}
+            <img src="{{ project.thumbnail }}" alt="{{ project.title }}" class="portfolio-card__thumb" loading="lazy">
+          {% else %}
+            <div class="portfolio-card__thumb"></div>
+          {% endif %}
+          <div class="portfolio-card__body">
+            <p class="portfolio-card__category">{{ project.category }}</p>
+            <h3 class="portfolio-card__title">{{ project.title }}</h3>
+            <p class="portfolio-card__description">{{ project.description }}</p>
+            {% if project.link %}
+              <a href="{{ project.link }}" class="service-card__cta">View Project &rarr;</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

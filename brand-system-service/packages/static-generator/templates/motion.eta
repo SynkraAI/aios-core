@@ -1,0 +1,47 @@
+<section aria-labelledby="motion-title">
+  <h1 id="motion-title">Motion</h1>
+  <p class="section-intro">
+    Motion guidelines for the <%= it.brand.clientName %> brand system.
+    Consistent timing and easing create a cohesive interactive experience.
+  </p>
+
+  <% if (it.effects && it.effects.motion) { %>
+  <h2>Duration Scale</h2>
+  <% if (it.effects.motion.duration) { %>
+  <% for (const [name, token] of Object.entries(it.effects.motion.duration)) { %>
+  <div class="motion-card">
+    <div class="motion-card__label"><%= name %></div>
+    <div class="motion-card__value"><%= token.$value %></div>
+    <p style="font-size:13px; color:var(--color-text-secondary); margin-top:8px;"><%= token.$description %></p>
+  </div>
+  <% } %>
+  <% } %>
+
+  <h2>Easing Curves</h2>
+  <% if (it.effects.motion.easing) { %>
+  <% for (const [name, token] of Object.entries(it.effects.motion.easing)) { %>
+  <div class="motion-card">
+    <div class="motion-card__label"><%= name %></div>
+    <div class="motion-card__value"><%= token.$value %></div>
+    <p style="font-size:13px; color:var(--color-text-secondary); margin-top:8px;"><%= token.$description %></p>
+  </div>
+  <% } %>
+  <% } %>
+  <% } else { %>
+  <p>No motion tokens defined yet.</p>
+  <% } %>
+
+  <h2>Principles</h2>
+  <article>
+    <h3>Purposeful</h3>
+    <p>Every animation should serve a functional purpose: guiding attention, providing feedback, or showing spatial relationships.</p>
+  </article>
+  <article>
+    <h3>Quick</h3>
+    <p>Prefer shorter durations (100-200ms) for micro-interactions. Longer durations (300-500ms) for page transitions and reveals.</p>
+  </article>
+  <article>
+    <h3>Natural</h3>
+    <p>Use ease-out for elements entering, ease-in for elements leaving, and ease-in-out for state changes.</p>
+  </article>
+</section>

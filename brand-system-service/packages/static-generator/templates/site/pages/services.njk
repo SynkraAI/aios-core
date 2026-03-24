@@ -1,0 +1,83 @@
+{% extends "_base.njk" %}
+
+{% block title %}{{ services.title | default("Services") }} - {{ clientId }}{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ services.metaDescription | default('') }}">
+{% endblock %}
+
+{% block content %}
+{# Hero #}
+<section class="hero" aria-label="Services hero">
+  <div class="container">
+    <h1 class="hero__h1">{{ services.headline | default("Our Services") }}</h1>
+    {% if services.subtitle %}
+      <p class="hero__subtitle">{{ services.subtitle }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{# Service Cards Grid #}
+{% if services.items %}
+<section class="section" aria-label="Service listing">
+  <div class="container">
+    <div class="card-grid">
+      {% for service in services.items %}
+        <div class="service-card">
+          {% if service.icon %}
+            <div class="service-card__icon">{{ service.icon }}</div>
+          {% endif %}
+          <h3 class="service-card__title">{{ service.title }}</h3>
+          <p class="service-card__description">{{ service.description }}</p>
+          {% if service.cta %}
+            <a href="{{ site.baseUrl }}{{ service.cta.href | default('contact.html') }}" class="service-card__cta">{{ service.cta.label | default("Learn More") }} &rarr;</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# Optional Comparison Table #}
+{% if services.comparisonTable %}
+<section class="section" aria-label="Service comparison">
+  <div class="container">
+    <h2 class="section__headline">{{ services.comparisonTable.headline | default("Compare Options") }}</h2>
+    <table class="comparison-table" role="table">
+      <thead>
+        <tr>
+          {% for header in services.comparisonTable.headers %}
+            <th scope="col">{{ header }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in services.comparisonTable.rows %}
+          <tr>
+            {% for cell in row %}
+              <td>{{ cell }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+
+{# CTA #}
+{% if services.cta %}
+<section class="cta-section" aria-label="Call to action">
+  <div class="container">
+    <h2>{{ services.cta.headline }}</h2>
+    {% if services.cta.copy %}
+      <p>{{ services.cta.copy }}</p>
+    {% endif %}
+    <div class="hero__cta-group">
+      <a href="{{ site.baseUrl }}{{ services.cta.href | default('contact.html') }}" class="btn btn--primary btn--lg">{{ services.cta.label | default("Get Started") }}</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

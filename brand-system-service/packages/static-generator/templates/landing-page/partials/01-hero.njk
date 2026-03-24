@@ -1,0 +1,22 @@
+<section class="hero" aria-label="Hero">
+  <div class="container">
+    {% if hero.preHeadline %}
+      <p class="hero__pre-headline">{{ hero.preHeadline }}</p>
+    {% endif %}
+    <h1 class="hero__h1">{{ hero.h1 | default("Welcome to " + clientId) }}</h1>
+    {% if hero.subHeadline %}
+      <p class="hero__sub-headline">{{ hero.subHeadline }}</p>
+    {% endif %}
+    <div class="hero__cta-group">
+      <a href="{{ hero.ctaUrl | default('#pricing') }}" class="btn btn--primary btn--lg">
+        {{ hero.ctaLabel | default("Get Started") }}
+      </a>
+    </div>
+    {% if hero.socialProof %}
+      <div class="hero__social-proof">
+        <span class="hero__social-proof-stat">{{ hero.socialProof.stat }}</span>
+        <span class="hero__social-proof-label">{{ hero.socialProof.label }}</span>
+      </div>
+    {% endif %}
+  </div>
+</section>

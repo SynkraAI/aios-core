@@ -1,0 +1,48 @@
+{
+  "component": {
+    "$description": "Component-level spacing scale for UI elements",
+    "xs": {
+      "$value": "4px",
+      "$type": "dimension",
+      "$description": "Extra small — 4px — minimum spacing for inline elements"
+    },
+    "sm": {
+      "$value": "{spacing.1}",
+      "$type": "dimension",
+      "$description": "Small — 8px — tight spacing for compact UIs"
+    },
+    "md": {
+      "$value": "{spacing.2}",
+      "$type": "dimension",
+      "$description": "Medium — 16px — default spacing between elements"
+    },
+    "lg": {
+      "$value": "{spacing.3}",
+      "$type": "dimension",
+      "$description": "Large — 24px — section padding"
+    },
+    "xl": {
+      "$value": "{spacing.4}",
+      "$type": "dimension",
+      "$description": "Extra large — 32px — major component spacing"
+    }
+  },
+  "layout": {
+    "$description": "Layout-level spacing for page structure",
+    "section": {
+      "$value": "{spacing.10}",
+      "$type": "dimension",
+      "$description": "Section spacing — 80px — vertical distance between major sections"
+    },
+    "container": {
+      "$value": "{spacing.16}",
+      "$type": "dimension",
+      "$description": "Container spacing — 128px — maximum layout gaps"
+    },
+    "gap": {
+      "$value": "{spacing.3}",
+      "$type": "dimension",
+      "$description": "Gap spacing — 24px — default grid gap"
+    }
+  }
+}

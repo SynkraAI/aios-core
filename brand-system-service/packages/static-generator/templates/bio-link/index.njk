@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ bio.name | default(clientId) }} — Links</title>
+  <meta name="description" content="{{ bio.tagline | default('') }}">
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* Bio Link Page — Mobile-first, self-contained */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family-body, system-ui, -apple-system, sans-serif);
+      background: var(--color-surface-bg, #f9fafb);
+      color: var(--color-text-primary, #1a1a1a);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .bio-container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .bio-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--color-primary, #3b82f6);
+    }
+
+    .bio-name {
+      font-family: var(--font-family-heading, var(--font-family-body, system-ui));
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      color: var(--color-text-primary, #1a1a1a);
+    }
+
+    .bio-tagline {
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary, #6b7280);
+      text-align: center;
+      max-width: 320px;
+    }
+
+    .bio-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bio-link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.875rem 1.5rem;
+      min-height: 44px;
+      border-radius: var(--border-radius-md, 8px);
+      text-align: center;
+      text-decoration: none;
+      font-family: var(--font-family-body, system-ui);
+      font-size: 1rem;
+      font-weight: 500;
+      transition: opacity 0.15s ease, transform 0.1s ease;
+    }
+
+    .bio-link-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .bio-link-btn:active { transform: translateY(0); }
+
+    .bio-link-btn--primary {
+      background: var(--color-primary, #3b82f6);
+      color: var(--color-on-primary, #fff);
+      border: none;
+    }
+
+    .bio-link-btn--secondary {
+      background: var(--color-primary-light, #dbeafe);
+      color: var(--color-primary, #3b82f6);
+      border: none;
+    }
+
+    .bio-link-btn--outline {
+      background: transparent;
+      color: var(--color-primary, #3b82f6);
+      border: 2px solid var(--color-primary, #3b82f6);
+    }
+
+    .bio-link-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .bio-socials {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 1.5rem;
+    }
+
+    .bio-social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: var(--color-text-secondary, #6b7280);
+      transition: color 0.15s ease;
+    }
+
+    .bio-social-link:hover {
+      color: var(--color-primary, #3b82f6);
+    }
+
+    .bio-social-link svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    .bio-footer {
+      font-size: 0.75rem;
+      color: var(--color-text-secondary, #6b7280);
+      text-align: center;
+      padding-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="bio-container">
+    {% if bio.avatar %}
+    <img
+      class="bio-avatar"
+      src="{{ bio.avatar }}"
+      alt="{{ bio.name | default('Profile') }} avatar"
+      width="96"
+      height="96"
+    >
+    {% endif %}
+
+    <h1 class="bio-name">{{ bio.name | default(clientId) }}</h1>
+
+    {% if bio.tagline %}
+    <p class="bio-tagline">{{ bio.tagline }}</p>
+    {% endif %}
+
+    {% if bio.links and bio.links.length %}
+    <ul class="bio-links">
+      {% for link in bio.links %}
+      <li>
+        <a
+          class="bio-link-btn bio-link-btn--{{ link.style | default('primary') }}"
+          href="{{ link.url }}"
+          {% if link.url.startsWith('http') %}target="_blank" rel="noopener noreferrer"{% endif %}
+        >
+          {% if link.icon %}
+          <span class="bio-link-icon">{% include "assets/icons/social/" + link.icon + ".svg" ignore missing %}</span>
+          {% endif %}
+          {{ link.label }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if bio.socials and bio.socials.length %}
+    <nav class="bio-socials" aria-label="Social media links">
+      {% for social in bio.socials %}
+      <a
+        class="bio-social-link"
+        href="{{ social.url }}"
+        aria-label="{{ social.platform }}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {% include "assets/icons/social/" + social.platform + ".svg" ignore missing %}
+      </a>
+      {% endfor %}
+    </nav>
+    {% endif %}
+
+    {% if bio.footer %}
+    <footer class="bio-footer">
+      {{ bio.footer }}
+    </footer>
+    {% endif %}
+  </div>
+</body>
+</html>

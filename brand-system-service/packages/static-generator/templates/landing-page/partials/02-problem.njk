@@ -1,0 +1,12 @@
+<section class="problem section" id="problem" aria-label="Problem">
+  <div class="container">
+    <h2 class="section__headline">{{ problem.headline | default("The Problem") }}</h2>
+    {% if problem.bullets and problem.bullets.length %}
+      <ul class="problem__bullets" role="list">
+        {% for bullet in problem.bullets %}
+          <li class="problem__bullet">{{ bullet }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</section>

@@ -1,0 +1,30 @@
+<section class="social-proof section" id="social-proof" aria-label="Social Proof">
+  <div class="container">
+    <h2 class="section__headline">{{ socialProof.headline | default("What Our Clients Say") }}</h2>
+    {% if socialProof.testimonials and socialProof.testimonials.length %}
+      <div class="testimonials">
+        {% for t in socialProof.testimonials %}
+          <blockquote class="testimonial-card">
+            <p class="testimonial-card__quote">"{{ t.quote }}"</p>
+            <footer class="testimonial-card__footer">
+              <cite class="testimonial-card__name">{{ t.name }}</cite>
+              {% if t.role %}
+                <span class="testimonial-card__role">{{ t.role }}</span>
+              {% endif %}
+            </footer>
+          </blockquote>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% if socialProof.metrics and socialProof.metrics.length %}
+      <div class="metrics-strip">
+        {% for m in socialProof.metrics %}
+          <div class="metrics-strip__item">
+            <span class="metrics-strip__stat">{{ m.stat }}</span>
+            <span class="metrics-strip__label">{{ m.label }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>

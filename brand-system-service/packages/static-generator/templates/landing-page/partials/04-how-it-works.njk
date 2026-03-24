@@ -1,0 +1,18 @@
+<section class="how-it-works section" id="how-it-works" aria-label="How It Works">
+  <div class="container">
+    <h2 class="section__headline">{{ howItWorks.headline | default("How It Works") }}</h2>
+    {% if howItWorks.steps and howItWorks.steps.length %}
+      <ol class="steps" role="list">
+        {% for step in howItWorks.steps %}
+          <li class="steps__item">
+            <span class="steps__number" aria-hidden="true">{{ loop.index }}</span>
+            <div class="steps__content">
+              <h3 class="steps__title">{{ step.title }}</h3>
+              <p class="steps__description">{{ step.description }}</p>
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+  </div>
+</section>

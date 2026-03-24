@@ -1,0 +1,76 @@
+<section aria-labelledby="foundations-title">
+  <h1 id="foundations-title">Foundations</h1>
+  <p class="section-intro">
+    The foundational design tokens that define the <%= it.brand.clientName %> visual system.
+    All values are derived from the design token engine and serve as the source of truth.
+  </p>
+
+  <h2>Color Overview</h2>
+  <p>See the <a href="./colors.html">Colors</a> page for the full palette with WCAG badges.</p>
+  <% if (it.colors && it.colors.primitive && it.colors.primitive.length > 0) { %>
+  <% const primaryGroup = it.colors.primitive.find(function(g) { return g.name === 'primary'; }); %>
+  <% if (primaryGroup) { %>
+  <div class="color-swatches" style="margin-bottom: 32px;">
+    <% for (const swatch of primaryGroup.swatches.slice(0, 5)) { %>
+    <div class="color-swatch">
+      <div class="color-swatch__preview" style="background-color: <%= swatch.hex %>;"></div>
+      <div class="color-swatch__info">
+        <div class="color-swatch__name"><%= swatch.name %>-<%= swatch.step %></div>
+        <div class="color-swatch__hex"><%= swatch.hex %></div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <% } %>
+  <% } %>
+
+  <h2>Typography Overview</h2>
+  <p>See the <a href="./typography.html">Typography</a> page for the full type scale.</p>
+  <% if (it.typography && it.typography.fontFamilies) { %>
+  <% for (const [role, token] of Object.entries(it.typography.fontFamilies)) { %>
+  <div class="font-family-card">
+    <div class="font-family-card__name"><%= role %></div>
+    <div class="font-family-card__sample" style="font-family: <%= token.$value %>;">
+      The quick brown fox jumps over the lazy dog
+    </div>
+    <div style="font-size:13px; color:var(--color-text-secondary); font-family:var(--font-mono);"><%= token.$value %></div>
+  </div>
+  <% } %>
+  <% } %>
+
+  <h2>Spacing System</h2>
+  <p>See the full <a href="./foundations.html#spacing">spacing scale</a> below.</p>
+  <% if (it.spacing && it.spacing.length > 0) { %>
+  <div class="spacing-blocks" id="spacing">
+    <% for (const block of it.spacing) { %>
+    <div class="spacing-block">
+      <div class="spacing-block__label"><%= block.name %></div>
+      <div class="spacing-block__visual" style="width: <%= block.value === '0' ? '2px' : block.value %>;"></div>
+      <div class="spacing-block__value"><%= block.value %></div>
+      <div class="spacing-block__desc"><%= block.description %></div>
+    </div>
+    <% } %>
+  </div>
+  <% } %>
+
+  <% if (it.grid && it.grid.breakpoints) { %>
+  <h2>Grid System</h2>
+  <p>Base unit: <%= it.grid.baseUnit || 8 %>px. Max width: <%= it.grid.maxWidth || 1280 %>px.</p>
+  <table class="component-table">
+    <thead>
+      <tr>
+        <th scope="col">Breakpoint</th>
+        <th scope="col">Width</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (const [name, value] of Object.entries(it.grid.breakpoints)) { %>
+      <tr>
+        <td><%= name %></td>
+        <td><%= value %>px</td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <% } %>
+</section>

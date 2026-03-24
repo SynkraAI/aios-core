@@ -1,0 +1,23 @@
+{
+  "name": "@brand-system/prompts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Versioned prompt template library with client context injection and A/B testing",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf dist *.tsbuildinfo",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.8",
+    "semver": "^7.6.0"
+  },
+  "devDependencies": {
+    "@types/semver": "^7.5.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.4.0"
+  }
+}

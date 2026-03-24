@@ -1,0 +1,33 @@
+/* Shared Layout — Container, Section, Grid Utilities */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section {
+  padding: 3rem 0;
+}
+
+/* Responsive breakpoints — mobile first */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
+
+  .section {
+    padding: 4rem 0;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    padding: 0 2rem;
+  }
+
+  .section {
+    padding: 6rem 0;
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "brand-system-service",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static-first brand identity system with design tokens, creative pipeline, and multi-format delivery",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "dev": "pnpm build:tokens && pnpm --filter @bss/static-generator dev",
+    "build": "pnpm run -r build",
+    "build:brand-book": "pnpm --filter @bss/static-generator build:brand-book",
+    "build:brand-book-pdf": "pnpm --filter @bss/static-generator build:brand-book-pdf",
+    "build:brand-book-package": "pnpm --filter @bss/static-generator build:brand-book-package",
+    "build:landing-page": "pnpm --filter @bss/static-generator build:landing-page",
+    "build:brand-voice": "tsx packages/creative/bin/build-brand-voice.ts",
+    "build:site": "pnpm --filter @bss/static-generator build:site",
+    "type-check": "tsc --build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md,yaml,yml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,json,md,yaml,yml}\"",
+    "test": "jest --config jest.config.js",
+    "test:coverage": "jest --config jest.config.js --coverage",
+    "health": "ts-node packages/core/src/scripts/health-check.ts",
+    "audit": "pnpm audit --audit-level=high",
+    "backup": "ts-node packages/core/src/scripts/backup.ts",
+    "retention": "ts-node packages/core/src/scripts/retention.ts",
+    "build:client": "ts-node packages/core/src/scripts/build-client.ts",
+    "validate-deployment": "ts-node packages/core/src/scripts/validate-deployment.ts",
+    "tokens:validate": "tsx packages/tokens/bin/validate.ts",
+    "build:tokens": "tsx packages/tokens/bin/build.ts",
+    "tokens:watch": "nodemon --watch tokens --ext json --exec \"pnpm build:tokens\"",
+    "typography:generate": "tsx packages/tokens/bin/typography.ts",
+    "clean": "pnpm run -r clean && rimraf node_modules",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^5.1.0",
+    "husky": "^9.1.0",
+    "jest": "^30.3.0",
+    "lint-staged": "^15.2.0",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.2.0",
+    "rimraf": "^5.0.0",
+    "ts-jest": "^29.4.6",
+    "ts-node": "^10.9.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.4.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yaml,yml}": [
+      "prettier --write"
+    ]
+  }
+}

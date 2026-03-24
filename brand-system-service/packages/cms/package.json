@@ -1,0 +1,30 @@
+{
+  "name": "@brand-system/cms",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Optional Payload CMS 3.x integration layer for Brand System Service — opt-in per client",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf dist *.tsbuildinfo",
+    "dev": "tsc --watch"
+  },
+  "peerDependencies": {
+    "payload": "^3.0.0",
+    "next": "^15.0.0"
+  },
+  "peerDependenciesMeta": {
+    "payload": {
+      "optional": true
+    },
+    "next": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.0",
+    "typescript": "^5.4.0"
+  }
+}

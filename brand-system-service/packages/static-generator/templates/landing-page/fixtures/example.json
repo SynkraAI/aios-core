@@ -1,0 +1,193 @@
+{
+  "clientId": "acme-saas",
+  "type": "landing-page",
+  "title": "Acme SaaS - Build Your Brand System",
+  "hero": {
+    "preHeadline": "For growing B2B companies",
+    "h1": "Build your brand in weeks, not months",
+    "subHeadline": "Our proven system helps B2B companies establish a professional brand identity that converts visitors into customers.",
+    "ctaLabel": "Start Your Project",
+    "ctaUrl": "#pricing",
+    "socialProof": {
+      "stat": "200+ clients",
+      "label": "served worldwide"
+    }
+  },
+  "problem": {
+    "headline": "Sound familiar?",
+    "bullets": [
+      "Your brand feels inconsistent across channels and touchpoints",
+      "Designers spend hours recreating the same components from scratch",
+      "Your marketing team can't produce on-brand content without bottlenecks",
+      "Competitors with polished brands are winning deals you should be closing"
+    ]
+  },
+  "solution": {
+    "headline": "A complete brand system, delivered",
+    "features": [
+      {
+        "feature": "Design Tokens",
+        "benefit": "Consistent colors, typography, and spacing across all touchpoints — from website to social media."
+      },
+      {
+        "feature": "Template Library",
+        "benefit": "Pre-built templates for landing pages, social posts, and presentations your team can use immediately."
+      },
+      {
+        "feature": "Brand Book",
+        "benefit": "A comprehensive digital brand guide that keeps everyone aligned on your visual identity."
+      },
+      {
+        "feature": "Content Pipeline",
+        "benefit": "AI-powered copy generation that matches your brand voice for consistent messaging at scale."
+      },
+      {
+        "feature": "Static Delivery",
+        "benefit": "Lightning-fast static sites deployed anywhere — Vercel, Netlify, or your own servers."
+      },
+      {
+        "feature": "Self-Contained Package",
+        "benefit": "Download your entire brand system as a ZIP file that works offline, no dependencies."
+      }
+    ]
+  },
+  "howItWorks": {
+    "headline": "How it works",
+    "steps": [
+      {
+        "title": "Discovery",
+        "description": "We learn about your brand, audience, and goals through a structured intake process."
+      },
+      {
+        "title": "Design",
+        "description": "Our system generates a complete brand identity with tokens, templates, and guidelines."
+      },
+      {
+        "title": "Review",
+        "description": "You review and refine the output. We iterate until everything is perfect."
+      },
+      {
+        "title": "Deliver",
+        "description": "Receive your brand system as a static site, PDF brand book, and downloadable package."
+      }
+    ]
+  },
+  "socialProof": {
+    "headline": "What our clients say",
+    "testimonials": [
+      {
+        "name": "Sarah Chen",
+        "role": "VP Marketing at CloudStack",
+        "quote": "The brand system transformed how we present ourselves. Our conversion rate increased 34% within the first month."
+      },
+      {
+        "name": "Marcus Rivera",
+        "role": "CEO at DataFlow",
+        "quote": "We went from zero brand consistency to a professional identity in just three weeks. Game changer."
+      },
+      {
+        "name": "Emily Zhang",
+        "role": "Head of Design at ScaleUp",
+        "quote": "The design tokens alone saved our team 15 hours per week. Everything is consistent and beautiful."
+      }
+    ],
+    "metrics": [
+      { "stat": "98%", "label": "client satisfaction" },
+      { "stat": "3 weeks", "label": "average delivery" },
+      { "stat": "200+", "label": "brands built" },
+      { "stat": "34%", "label": "avg. conversion lift" }
+    ]
+  },
+  "pricing": {
+    "headline": "Simple, transparent pricing",
+    "tiers": [
+      {
+        "name": "Starter",
+        "price": "$2,499",
+        "featured": false,
+        "features": [
+          "Brand identity design",
+          "Design token system",
+          "5 social media templates",
+          "Digital brand book",
+          "1 landing page"
+        ],
+        "ctaLabel": "Get Started",
+        "ctaUrl": "#contact"
+      },
+      {
+        "name": "Professional",
+        "price": "$4,999",
+        "featured": true,
+        "features": [
+          "Everything in Starter",
+          "AI copy pipeline",
+          "15 social media templates",
+          "Content calendar (30 days)",
+          "3 landing pages",
+          "SEO metadata engine"
+        ],
+        "ctaLabel": "Choose Professional",
+        "ctaUrl": "#contact"
+      },
+      {
+        "name": "Enterprise",
+        "price": "$9,999",
+        "featured": false,
+        "features": [
+          "Everything in Professional",
+          "Full institutional site",
+          "Unlimited templates",
+          "Quarterly brand refresh",
+          "Dedicated brand manager",
+          "Priority support"
+        ],
+        "ctaLabel": "Contact Sales",
+        "ctaUrl": "#contact"
+      }
+    ]
+  },
+  "faq": {
+    "headline": "Frequently Asked Questions",
+    "items": [
+      {
+        "question": "How long does the process take?",
+        "answer": "Typically 3-4 weeks from kickoff to delivery for the Starter plan, and 4-6 weeks for Professional and Enterprise."
+      },
+      {
+        "question": "Do I need a designer on my team?",
+        "answer": "No. Our system generates everything automatically from your brand inputs. Your team just needs to provide content and feedback."
+      },
+      {
+        "question": "Can I customize the templates after delivery?",
+        "answer": "Absolutely. All templates use standard HTML/CSS with design tokens, so any developer can modify them."
+      },
+      {
+        "question": "What if I'm not satisfied with the results?",
+        "answer": "We offer unlimited revisions during the review phase. If you're still not happy, we provide a full refund within 30 days."
+      },
+      {
+        "question": "Do you support multiple languages?",
+        "answer": "Yes. The template system supports any language. Copy can be generated in English, Portuguese, Spanish, and more."
+      },
+      {
+        "question": "Where are the sites hosted?",
+        "answer": "Sites are static and can be deployed anywhere — Vercel, Netlify, GitHub Pages, AWS S3, or your own servers."
+      },
+      {
+        "question": "How does the AI copy pipeline work?",
+        "answer": "Our pipeline uses your brand voice profile to generate on-brand copy for social media, landing pages, and marketing materials."
+      },
+      {
+        "question": "Can I upgrade my plan later?",
+        "answer": "Yes. You can upgrade at any time and only pay the difference. All your existing assets carry over."
+      }
+    ]
+  },
+  "finalCta": {
+    "headline": "Ready to transform your brand?",
+    "riskRemoval": "100% satisfaction guarantee. If you're not happy with the results, we'll revise until you are — or your money back.",
+    "ctaLabel": "Start Your Project Today",
+    "ctaUrl": "#contact"
+  }
+}

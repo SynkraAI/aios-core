@@ -1,0 +1,24 @@
+{
+  "id": "landing-page-copy",
+  "deliverableType": "landing-page-copy",
+  "version": "1.0.0",
+  "status": "active",
+  "variant": "A",
+  "changelog": [
+    { "version": "1.0.0", "description": "Initial landing page copy template with 8-section Conversion Architecture", "date": "2026-03-16" }
+  ],
+  "variables": {
+    "brandName": { "type": "string", "required": true },
+    "brandPersonality": { "type": "string[]", "required": true },
+    "industryVertical": { "type": "string", "required": true },
+    "toneSpectrum": { "type": "string", "required": true },
+    "vocabularyBank": { "type": "string[]", "required": false, "default": [] },
+    "forbiddenWords": { "type": "string[]", "required": false, "default": [] },
+    "competitorNames": { "type": "string[]", "required": false, "default": [] },
+    "productService": { "type": "string", "required": true, "description": "What is being offered on the landing page" },
+    "targetAudience": { "type": "string", "required": true, "description": "Primary audience for the landing page" },
+    "primaryCTA": { "type": "string", "required": true, "description": "Main call to action (e.g., Sign Up, Buy Now, Book a Demo)" }
+  },
+  "systemPrompt": "You are an expert conversion copywriter specializing in landing pages that achieve above-average conversion rates. You use proven Conversion Architecture principles with 8 strategic sections. Every word serves the conversion goal — you eliminate fluff ruthlessly.",
+  "userPromptTemplate": "Write landing page copy for **{{brandName}}** ({{industryVertical}}) promoting: **{{productService}}**.\n\nTarget audience: {{targetAudience}}.\nPrimary CTA: {{primaryCTA}}.\nBrand personality: {{#each brandPersonality}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.\nTone: {{toneSpectrum}}.\n{{#if vocabularyBank.length}}Approved vocabulary: {{#each vocabularyBank}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n{{#if forbiddenWords.length}}Forbidden words: {{#each forbiddenWords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n{{#if competitorNames.length}}Competitors to differentiate from: {{#each competitorNames}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n\n## 8-Section Conversion Architecture:\n\n1. **Hero Section** — Headline (max 10 words), subheadline (1-2 sentences), primary CTA button text.\n\n2. **Problem Agitation** — Describe the pain points the target audience faces. Use specific, relatable scenarios.\n\n3. **Solution Introduction** — Present {{productService}} as the answer. Bridge from problem to solution.\n\n4. **Benefits (not features)** — 3-5 benefit blocks. Each: icon suggestion, benefit headline, 1-2 sentence description.\n\n5. **Social Proof** — Testimonial placeholders (write realistic sample testimonials), stats/numbers section.\n\n6. **How It Works** — 3-step process that makes the offering feel simple and achievable.\n\n7. **FAQ Section** — 5 frequently asked questions with concise answers that handle objections.\n\n8. **Final CTA** — Urgency-driven closing section with secondary headline and CTA button.\n\nFor each section, output the actual copy ready for design implementation."
+}

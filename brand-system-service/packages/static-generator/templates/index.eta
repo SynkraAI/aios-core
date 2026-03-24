@@ -1,0 +1,30 @@
+<section aria-labelledby="overview-title">
+  <h1 id="overview-title"><%= it.title %></h1>
+  <p class="section-intro">
+    Welcome to the <%= it.brand.clientName %> Brand Book. This guide defines the visual identity,
+    design tokens, and component specifications for the brand system.
+  </p>
+
+  <h2>Brand Identity</h2>
+  <div class="logo-display">
+    <img src="./assets/logo.svg" alt="<%= it.brand.clientName %> logo" width="200" height="120">
+  </div>
+
+  <% if (it.brand.tagline) { %>
+  <p><strong>Tagline:</strong> <%= it.brand.tagline %></p>
+  <% } %>
+
+  <h2>Quick Navigation</h2>
+  <ul>
+    <% for (const page of it.pages) { %>
+    <% if (page.slug !== 'index') { %>
+    <li><a href="./<%= page.slug %>.html"><%= page.title %></a></li>
+    <% } %>
+    <% } %>
+  </ul>
+
+  <h2>Primary Color</h2>
+  <div style="display:inline-block; padding:16px 24px; border-radius:8px; background:<%= it.brand.primaryColor %>; color:white; font-weight:600; font-family:var(--font-mono);">
+    <%= it.brand.primaryColor %>
+  </div>
+</section>

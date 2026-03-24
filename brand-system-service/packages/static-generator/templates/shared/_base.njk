@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ title | default(clientId + " - " + type) }}{% endblock %}</title>
+  {% block meta %}
+  <meta name="description" content="{{ metaDescription | default('') }}">
+  {% endblock %}
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="styles.min.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  {% include "_nav.njk" %}
+
+  <main id="main-content" role="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "_footer.njk" %}
+
+  <script src="scripts.min.js" defer></script>
+</body>
+</html>

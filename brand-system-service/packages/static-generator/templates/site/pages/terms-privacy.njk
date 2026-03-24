@@ -1,0 +1,31 @@
+{% extends "_base.njk" %}
+
+{% block title %}{{ legal.title | default("Terms & Privacy") }} - {{ clientId }}{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ legal.metaDescription | default('Terms of service and privacy policy.') }}">
+{% endblock %}
+
+{% block content %}
+<section class="section" aria-label="Legal content">
+  <div class="container">
+    <h1>{{ legal.headline | default("Terms of Service & Privacy Policy") }}</h1>
+
+    {% if legal.lastUpdated %}
+      <p><em>Last updated: {{ legal.lastUpdated }}</em></p>
+    {% endif %}
+
+    <div class="legal-content">
+      {% if legal.terms %}
+        <h2 id="terms">Terms of Service</h2>
+        {{ legal.terms | safe }}
+      {% endif %}
+
+      {% if legal.privacy %}
+        <h2 id="privacy">Privacy Policy</h2>
+        {{ legal.privacy | safe }}
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

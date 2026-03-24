@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}} - Cover</title>
+  {{embedTag}}
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .cover {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: {{primaryColor}};
+      color: #ffffff;
+      text-align: center;
+      padding: 64px;
+    }
+
+    .cover__logo {
+      max-width: 180px;
+      max-height: 180px;
+      margin-bottom: 56px;
+      filter: brightness(0) invert(1);
+    }
+
+    .cover__title {
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      max-width: 600px;
+    }
+
+    .cover__client {
+      font-size: 22px;
+      font-weight: 400;
+      opacity: 0.9;
+      margin-bottom: 64px;
+    }
+
+    .cover__date {
+      font-size: 14px;
+      opacity: 0.7;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .cover__divider {
+      width: 60px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.4);
+      margin: 0 auto 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="cover">
+    <img src="{{logoPath}}" alt="{{clientName}} logo" class="cover__logo">
+    <h1 class="cover__title">{{title}}</h1>
+    <div class="cover__divider"></div>
+    <p class="cover__client">{{clientName}}</p>
+    <p class="cover__date">{{date}}</p>
+  </div>
+</body>
+</html>

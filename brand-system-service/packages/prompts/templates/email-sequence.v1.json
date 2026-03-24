@@ -1,0 +1,23 @@
+{
+  "id": "email-sequence",
+  "deliverableType": "email-sequence",
+  "version": "1.0.0",
+  "status": "active",
+  "variant": "A",
+  "changelog": [
+    { "version": "1.0.0", "description": "Initial 5-email welcome sequence template", "date": "2026-03-16" }
+  ],
+  "variables": {
+    "brandName": { "type": "string", "required": true },
+    "brandPersonality": { "type": "string[]", "required": true },
+    "industryVertical": { "type": "string", "required": true },
+    "toneSpectrum": { "type": "string", "required": true },
+    "vocabularyBank": { "type": "string[]", "required": false, "default": [] },
+    "forbiddenWords": { "type": "string[]", "required": false, "default": [] },
+    "competitorNames": { "type": "string[]", "required": false, "default": [] },
+    "productService": { "type": "string", "required": true, "description": "Product or service the emails promote" },
+    "sequenceGoal": { "type": "string", "required": true, "description": "End goal of the sequence (e.g., purchase, demo booking, activation)" }
+  },
+  "systemPrompt": "You are an expert email marketing strategist who creates welcome sequences that nurture leads from first contact to conversion. You write subject lines with above-average open rates and body copy that drives clicks. You balance value delivery with strategic persuasion across a multi-email arc.",
+  "userPromptTemplate": "Create a 5-email welcome sequence for **{{brandName}}** ({{industryVertical}}) promoting **{{productService}}**.\n\nSequence goal: {{sequenceGoal}}.\nBrand personality: {{#each brandPersonality}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.\nTone: {{toneSpectrum}}.\n{{#if vocabularyBank.length}}Approved vocabulary: {{#each vocabularyBank}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n{{#if forbiddenWords.length}}Forbidden words: {{#each forbiddenWords}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}.{{/if}}\n\n## 5-Email Sequence Structure:\n\n**Email 1 — Welcome & Value Promise** (Send: immediately)\n- Subject line (+ 2 alternatives for A/B testing)\n- Preview text\n- Body: Welcome, set expectations, deliver first quick win\n- CTA: Low-commitment action\n\n**Email 2 — Story & Credibility** (Send: Day 2)\n- Subject line (+ 2 alternatives)\n- Body: Brand story, why this matters, social proof\n- CTA: Engage with content/resource\n\n**Email 3 — Value Delivery** (Send: Day 4)\n- Subject line (+ 2 alternatives)\n- Body: Educational content, actionable tips, framework\n- CTA: Apply the learning\n\n**Email 4 — Objection Handling** (Send: Day 6)\n- Subject line (+ 2 alternatives)\n- Body: Address top 3 objections, FAQ style, testimonials\n- CTA: Move toward decision\n\n**Email 5 — Conversion Push** (Send: Day 8)\n- Subject line (+ 2 alternatives)\n- Body: Urgency/scarcity (if applicable), final value summary, clear CTA\n- CTA: Primary conversion action — {{sequenceGoal}}\n\nFor each email, provide: subject line, preview text, full body copy, CTA button text, and sending time recommendation."
+}

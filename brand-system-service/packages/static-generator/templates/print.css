@@ -1,0 +1,182 @@
+/**
+ * Print CSS for Brand Book PDF Export (Story BSS-2.7)
+ *
+ * Applied when generating PDF via Puppeteer. Hides interactive
+ * elements, forces background colors, and adds page breaks
+ * between sections for professional print output.
+ */
+
+/* Force background colors in print */
+*,
+*::before,
+*::after {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  color-adjust: exact !important;
+}
+
+/* Hide interactive/navigation elements */
+.sidebar,
+.search-container,
+.search-input,
+.search-results,
+.mobile-header,
+.hamburger-toggle,
+.hamburger-label,
+nav[role="navigation"] {
+  display: none !important;
+}
+
+/* Reset layout for print (no sidebar offset) */
+.page-wrapper {
+  display: block;
+}
+
+.main-content {
+  margin-left: 0 !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+footer[role="contentinfo"] {
+  display: none !important;
+}
+
+/* Section page breaks */
+.brand-book-section {
+  break-before: page;
+  page-break-before: always;
+}
+
+/* First section should not break before (cover/toc handle that) */
+.brand-book-section:first-child {
+  break-before: auto;
+  page-break-before: auto;
+}
+
+/* Prevent orphaned headings */
+h1, h2, h3, h4, h5, h6 {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+/* Keep figures, tables, and code blocks together */
+figure, table, pre, .color-swatch, .type-specimen, .component-table {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Color swatch grid: print-friendly sizing */
+.color-swatches {
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.color-swatch__preview {
+  height: 60px;
+}
+
+/* Typography rendering for print */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Ensure links are readable in print */
+a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+/* Logo display: constrain for print */
+.logo-display {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.logo-display img {
+  max-width: 240px;
+  max-height: 160px;
+}
+
+/* Spacing blocks: keep together */
+.spacing-blocks {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Cover page styles */
+.pdf-cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  break-after: page;
+  page-break-after: always;
+}
+
+.pdf-cover__logo {
+  max-width: 200px;
+  max-height: 200px;
+  margin-bottom: 48px;
+}
+
+.pdf-cover__title {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.pdf-cover__client {
+  font-size: 24px;
+  font-weight: 400;
+  opacity: 0.85;
+  margin-bottom: 48px;
+}
+
+.pdf-cover__date {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* Table of Contents styles */
+.pdf-toc {
+  break-after: page;
+  page-break-after: always;
+  padding: 48px 0;
+}
+
+.pdf-toc__title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  letter-spacing: -0.025em;
+}
+
+.pdf-toc__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pdf-toc__item {
+  display: flex;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 16px;
+}
+
+.pdf-toc__item-number {
+  font-weight: 600;
+  min-width: 40px;
+  color: var(--brand-primary, #7631e5);
+}
+
+.pdf-toc__item-title {
+  flex: 1;
+}
