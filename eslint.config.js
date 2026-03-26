@@ -1,3 +1,23 @@
+// Observer — standalone Node.js runtime; not part of the TS project graph
+// but still linted with CommonJS env for full coverage.
+const observerOverride = {
+  files: ['observer/**'],
+  languageOptions: {
+    ecmaVersion: 2022,
+    sourceType: 'commonjs',
+    globals: {
+      require: 'readonly',
+      module: 'readonly',
+      __dirname: 'readonly',
+      process: 'readonly',
+      Buffer: 'readonly',
+      setTimeout: 'readonly',
+      clearTimeout: 'readonly',
+      console: 'readonly',
+    },
+  },
+};
+
 // @ts-check
 const js = require('@eslint/js');
 const tsPlugin = require('@typescript-eslint/eslint-plugin');
@@ -9,6 +29,7 @@ const tsParser = require('@typescript-eslint/parser');
  * @type {import('eslint').Linter.Config[]}
  */
 module.exports = [
+  observerOverride,
   // Recommended JavaScript rules
   js.configs.recommended,
 
@@ -61,8 +82,7 @@ module.exports = [
       'pro/**',
       // Glue scripts
       'scripts/glue/**',
-      // Observer server — standalone runtime tool, not part of TS project
-      'observer/**',
+
     ],
   },
 
