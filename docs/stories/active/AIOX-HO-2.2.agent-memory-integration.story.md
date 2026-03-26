@@ -396,7 +396,7 @@ No debug issues encountered. All 121 handoff tests pass (26 new + 5 schema exten
 
 **Verdict: PASS**
 **Reviewed by:** Quinn (QA Agent) -- Claude Opus 4.6
-**Date:** 2026-03-26
+**Date:** 2026-03-26 (re-validated 2026-03-26)
 **Tests:** 26 new + 5 schema extension tests passing (217 total across 11 handoff suites, zero regressions)
 **Quality Score:** 100/100
 
@@ -414,14 +414,19 @@ No debug issues encountered. All 121 handoff tests pass (26 new + 5 schema exten
 
 ### L1/L2 Boundary Check
 
-No modifications to `.aiox-core/` directories. No writes to `.claude/agent-memory/*/MEMORY.md` files (verified by source scan test).
+No modifications to `.aiox-core/` directories (verified via `git show --name-only 90013b31` -- zero L1/L2 paths). No writes to `.claude/agent-memory/*/MEMORY.md` files (verified by automated source scan test and manual grep).
 
 ### Test Coverage
 
-- 26 tests in `tests/handoff/memory-hints.test.js`: resolveMemoryPath (3), parseMemoryFile (5), extractKeywords (5), scoreMemorySection (5), extractMemoryHints (6), read-only enforcement (1), edge cases (1)
+- 26 tests in `tests/handoff/memory-hints.test.js`: resolveMemoryPath (2), parseMemoryFile (5), extractKeywords (5), scoreMemorySection (5), extractMemoryHints (8), read-only enforcement (1)
 - 5 additional schema extension tests in `tests/handoff/micro-handoff.test.js` for backward compatibility
-- All tests pass with zero warnings
+- Full regression: 217 tests, 11 suites, all passing with zero warnings
 
 ### Notes
 
 - Manual tests 4.4 and 4.5 (live agent switch with real MEMORY.md files) are deferred per dev notes -- acceptable as hook integration is covered by automated tests and the try/catch error isolation pattern ensures no breakage in production.
+- File List verified against commit `90013b31` -- all claimed files present, no undocumented changes.
+
+### Gate Status
+
+Gate: PASS -> docs/qa/gates/aiox-ho-2.2-agent-memory-integration.yml

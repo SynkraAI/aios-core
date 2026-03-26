@@ -485,42 +485,67 @@ No debug log needed -- all 42 tests passed on first run. 217 total tests across 
 
 **Verdict: PASS**
 **Reviewed by:** Quinn (QA Agent) -- Claude Opus 4.6
-**Date:** 2026-03-26
+**Date:** 2026-03-26 (Independent re-verification)
 **Tests:** 42 new tests passing (217 total across 11 handoff suites, zero regressions)
 **Quality Score:** 100/100
+
+### Gate Decision
+
+Gate: PASS --> docs/qa/gates/aiox-ho-2.4-productivity-metrics.yml
 
 ### AC Traceability
 
 | AC | Description | Verdict | Evidence |
 |----|-------------|---------|----------|
-| AC-1 | Per-session metrics computed on-demand: prompts/agent, stories started/completed, QA pass rate, commits, avg agent duration | PASS | `metrics.js` L40-168: `computeSessionMetrics()` computes all listed metrics. L101-104: periodic events counted per agent. L107-113: story_start/story_complete tracked. L115-121: qa_gate events with verdict. L124-126: commit events. L154-165: agent duration from timestamps. |
-| AC-2 | Metrics stored at `.aiox/current-session/metrics.json` (gitignored) | PASS | `metrics.js` L29-32: `getMetricsPath()` resolves to `.aiox/current-session/metrics.json`. L384-394: `saveMetrics()` writes with `JSON.stringify(metrics, null, 2)`. `.aiox/` directory is covered by existing `.gitignore`. `session-report.js` L121: calls `saveMetrics()` after computation. |
-| AC-3 | `*metrics-trend {project} [--last N]` aggregates from N archived sessions | PASS | `metrics-trend.js` L63-104: `generateMetricsTrend()` entry point. L69: parses `--last N` option. L97: calls `scanAndParseArchives()` to read archived states. L100: calls `aggregateHistoricalMetrics()`. L103: formats trend report comparing current vs historical. |
-| AC-4 | Metrics computation adds zero latency to normal operations (on-demand) | PASS | `metrics.js` has no hooks, no watchers, no continuous processes. Computation only triggered by `*session-report` (L113-130 in session-report.js) or `*metrics-trend` command. No import in `handoff-auto.cjs` or periodic hooks. |
-| AC-5 | Historical metrics aggregated from archived state.yaml files | PASS | `metrics.js` L176-273: `aggregateHistoricalMetrics()` takes array of parsed state objects. `metrics-trend.js` L116-155: `scanAndParseArchives()` reads `state-*.yaml` files from `.aiox/session-history/{project}/`, parses via `sessionState.parseState()`. |
-| AC-6 | Default `--last N` to 20 sessions | PASS | `metrics-trend.js` L26: `DEFAULT_SESSIONS = 20`. L69: `const lastN = (typeof options.last === 'number' && options.last > 0) ? options.last : DEFAULT_SESSIONS`. |
-| AC-7 | Zero external dependencies (Node.js stdlib only) | PASS | `metrics.js` L21-22: only `require('fs')` and `require('path')`. `metrics-trend.js` L23: only `require('path')`. No `package.json` additions. |
-| AC-8 | Module at `.claude/lib/handoff/` canonical location | PASS | Files at `.claude/lib/handoff/metrics.js` and `.claude/lib/handoff/commands/metrics-trend.js`. `session-report.js` L71: resolves metrics via canonical path. `metrics-trend.js` L72: resolves metrics via canonical path. |
+| AC-1 | Per-session metrics computed on-demand: prompts/agent, stories started/completed, QA pass rate, commits, avg agent duration | PASS | `metrics.js` L40-168: `computeSessionMetrics()` computes all 5 metric types. L100-105: periodic events per agent * 5. L107-113: story_start/story_complete via Set. L115-122: qa_gate PASS/FAIL. L124-126: commit count. L154-165: agent duration from timestamp deltas. 14 unit tests cover all branches. |
+| AC-2 | Metrics stored at `.aiox/current-session/metrics.json` (gitignored) | PASS | `metrics.js` L29-32: `getMetricsPath()` -> `.aiox/current-session/metrics.json`. L384-394: `saveMetrics()` with `JSON.stringify(metrics, null, 2)`. L388-390: `mkdirSync({recursive:true})`. `session-report.js` L120-126: calls `saveMetrics()` with try/catch (best-effort). `.aiox/` already in `.gitignore`. |
+| AC-3 | `*metrics-trend {project} [--last N]` aggregates from N archived sessions | PASS | `metrics-trend.js` L63-104: `generateMetricsTrend()` entry point. L69: parses `--last N`. L97: `scanAndParseArchives()`. L100: `aggregateHistoricalMetrics()`. L103: `formatTrendReport()` comparing current vs historical. Test at metrics.test.js L597-675 validates full pipeline. |
+| AC-4 | Metrics computation adds zero latency to normal operations (on-demand) | PASS | No imports of `metrics.js` in `handoff-auto.cjs` or any hook file. `session-report.js` L71: uses `safeRequire()` -- loaded only when report command is invoked. `metrics-trend.js` L72: same pattern. No watchers, no continuous processes. |
+| AC-5 | Historical metrics aggregated from archived state.yaml files | PASS | `metrics.js` L176-273: `aggregateHistoricalMetrics(archivedStates)`. `metrics-trend.js` L116-155: `scanAndParseArchives()` reads `state-*.yaml` from `.aiox/session-history/{project}/`, parses via `sessionState.parseState()`, filters by size >10 bytes. |
+| AC-6 | Default `--last N` to 20 sessions | PASS | `metrics-trend.js` L26: `const DEFAULT_SESSIONS = 20`. L69: ternary defaults to `DEFAULT_SESSIONS`. Test at metrics.test.js L677-682 asserts constant value. |
+| AC-7 | Zero external dependencies (Node.js stdlib only) | PASS | `metrics.js` L21-22: `require('fs')`, `require('path')` only. `metrics-trend.js` L23: `require('path')` only. Dynamic `require()` loads sibling handoff modules only. No `package.json` changes. |
+| AC-8 | Module at `.claude/lib/handoff/` canonical location | PASS | Files at `.claude/lib/handoff/metrics.js` and `.claude/lib/handoff/commands/metrics-trend.js`. Both `session-report.js` L71 and `metrics-trend.js` L72 resolve via `path.join(root, '.claude', 'lib', 'handoff', ...)`. |
 
 ### L1/L2 Boundary Check
 
-No modifications to `.aiox-core/` directories. All new files in `.claude/lib/handoff/` (L4) and `tests/handoff/` (L4).
+Verified via `git show --name-only 90013b31 | grep .aiox-core/` -- no matches. All new files in `.claude/lib/handoff/` (L4) and `tests/handoff/` (L4). No constitutional violations detected.
 
-### Test Coverage
+### Test Execution (Independent)
+
+```
+npx jest --testPathPatterns="tests/handoff/metrics" --no-coverage
+PASS tests/handoff/metrics.test.js (13.936s)
+Tests: 42 passed, 42 total
+
+npx jest --testPathPatterns="tests/handoff" --no-coverage
+Test Suites: 11 passed, 11 total
+Tests:       217 passed, 217 total
+```
 
 - 42 tests in `tests/handoff/metrics.test.js`:
-  - computeSessionMetrics (10): empty state, prompts per agent, stories, QA pass rate, commits, agent duration, date extraction
-  - aggregateHistoricalMetrics (6): empty, single session, multiple sessions, date range, agent averages
-  - calculateTrend (7): improving, declining, stable, zero historical, inverted logic
-  - formatMetricsForCLI (4): full metrics, empty metrics, no QA gates, no agents
-  - formatDurationMinutes (3): hours, minutes, edge cases
-  - saveMetrics/readMetrics (4): save, read, missing file, directory creation
-  - metrics-trend command integration (5): full trend, no archives, empty state
-  - session-report metrics integration (2): report includes metrics section, metrics cached
-  - Performance (1): 20 sessions in ~196ms (target: <1s) -- PASS
-- All tests pass with zero warnings
+  - computeSessionMetrics (14): empty state, prompts per agent, stories started/completed, QA pass rate (all-pass, all-fail, mixed, zero), commits (zero, multiple), agent duration (single, multiple, no agents), date extraction
+  - aggregateHistoricalMetrics (4): empty, single session, multiple sessions, QA averages
+  - calculateTrend (6): stable, improving, declining, inverted, both-zero, historical-zero
+  - formatMetricsForCLI (3): full metrics, null input, no QA gates
+  - formatDurationMinutes (3): zero/negative, minutes-only, hours+minutes
+  - saveMetrics/readMetrics (3): round-trip, missing file, JSON formatting
+  - getMetricsPath (1): path correctness
+  - Metrics Trend Command (5): missing project, no archives, full trend, --last N, DEFAULT_SESSIONS constant
+  - Session Report Integration (2): metrics section present, graceful fallback without metrics module
+  - Performance (1): 20 sessions in <1s -- PASS
+- Full handoff regression: 217 tests, 11 suites, zero failures, zero warnings
+
+### Code Quality Assessment
+
+- **Error Handling:** Consistent `safeRequire()` pattern with null fallback. `saveMetrics()` wrapped in try/catch in session-report.js (best-effort). `readMetrics()` returns null on file error. All archive scanning functions handle missing dirs gracefully.
+- **CommonJS:** All files use `'use strict'` and `module.exports`. No ES module syntax.
+- **ES2022:** Modern features used appropriately (Set for deduplication, Object.entries, optional chaining patterns).
+- **No `any` types:** Not applicable (plain JS), but all JSDoc types are correctly annotated.
+- **Performance:** 20 archived sessions with 15 events each processed in ~352ms (well under 1s target).
 
 ### Notes
 
 - Manual tests 6.4, 6.5, 6.6 (real session with archived data) are deferred per dev notes -- acceptable as all computation logic is thoroughly unit-tested and integration tests cover the full command pipeline with mock data.
-- Trend arrows use unicode characters (U+2191 up, U+2193 down, U+2192 right) -- verified in formatTrendReport at metrics-trend.js L272.
+- Trend arrows use unicode characters (U+2191 up, U+2193 down, U+2192 right) -- verified in `formatTrendReport` at `metrics-trend.js` L272.
+- `calculateTrend()` third parameter (inverted boolean) correctly swaps arrow direction for negative-is-better metrics like fail rate -- tested at metrics.test.js L375-389.
+- `session-report.js` gracefully handles missing metrics module (L113: conditional on `metricsModule` being non-null) -- tested at metrics.test.js L788-822.

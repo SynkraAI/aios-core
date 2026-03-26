@@ -341,9 +341,11 @@ No debug issues encountered. All 19 new tests passed on first run after a single
 
 **Verdict: PASS**
 **Reviewed by:** Quinn (QA Agent) -- Claude Opus 4.6
-**Date:** 2026-03-26
+**Date:** 2026-03-26 (independent re-verification)
 **Tests:** 19 new tests passing (217 total across 11 handoff suites, zero regressions)
 **Quality Score:** 100/100
+
+Gate: PASS --> docs/qa/gates/aiox-ho-2.1-agent-activity-summaries.yml
 
 ### AC Traceability
 
@@ -351,19 +353,27 @@ No debug issues encountered. All 19 new tests passed on first run after a single
 |----|-------------|---------|----------|
 | AC-1 | `*session-report` generates per-agent summary from Tier 2 events | PASS | `agent-activity.js` L62-145: `generateAgentSummary(sessionState)` groups events by agent field, computes all metrics. `session-report.js` L84 calls `generateAgentSummary()`, L95-98 calls `formatSummaryForCLI()`. |
 | AC-2 | Summary includes: agent name, stories worked, files modified, decisions, approximate active span | PASS | `agent-activity.js` L131-138: output object contains `agent`, `stories` (Set), `filesModified`, `decisions` (max 5), `activeSpan` via `formatSpan()`. CLI table headers at L204: `['Agent', 'Stories', 'Files', 'Decisions', 'Approx. Active Span']`. |
-| AC-3 | Summary integrated into Tier 3 handoff under "## Agent Activity", respecting 200-line limit | PASS | `cross-session-handoff.js` L102-104: `if (data.agentActivitySection)` inserts section. `handoff-saver.cjs` L83-95: generates summaries from Tier 2 and L98-126 injects "## Agent Activity" section into handoff files. |
-| AC-4 | Summary computation is on-demand, derived from existing state.yaml | PASS | `agent-activity.js` has no continuous hooks or file watchers. `session-report.js` L71-84: loads modules on-demand via `safeRequire()`, computes only when called. Input is `sessionState` from `session-state.js`. |
-| AC-5 | Time metrics labeled "approximate active span" | PASS | `agent-activity.js` L10-13 doc comment: "labeled approximate active span". L204: CLI header is `'Approx. Active Span'`. L136: `activeSpan: formatSpan(spanMs)`. `formatSpan()` L30-45 returns `~Xh Ym` prefix. |
-| AC-6 | `trimHandoff()` recognizes "Agent Activity" as preserved section with max 30 lines | PASS | `cross-session-handoff.js` L184: `ACTIVITY_PATTERNS = ['Agent Activity', 'Atividade dos Agentes']`. L246-247: finds activity section. `agent-activity.js` L21: `MAX_HANDOFF_LINES = 30`. L281-288: enforces 30-line trim. Integration test in `agent-activity.test.js` confirms preservation. |
-| AC-7 | Zero external dependencies (Node.js stdlib only) | PASS | `agent-activity.js` has no `require()` calls (pure computation). `session-report.js` imports only `path` (stdlib). No `package.json` dependency additions. |
-| AC-8 | Module at `.claude/lib/handoff/` canonical location | PASS | Files at `.claude/lib/handoff/agent-activity.js` and `.claude/lib/handoff/commands/session-report.js`. All imports use this canonical path. |
+| AC-3 | Summary integrated into Tier 3 handoff under "## Agent Activity", respecting 200-line limit | PASS | `cross-session-handoff.js` L102-106: `if (data.agentActivitySection)` inserts section. `handoff-saver.cjs` L83-95: generates summaries from Tier 2, L98-126 injects "## Agent Activity" into existing handoff files before Key Docs. |
+| AC-4 | Summary computation is on-demand, derived from existing state.yaml | PASS | `agent-activity.js` has no continuous hooks or file watchers. `session-report.js` L44-98: loads modules on-demand via `safeRequire()`, computes only when called. Input is `sessionState` from `session-state.js`. |
+| AC-5 | Time metrics labeled "approximate active span" | PASS | `agent-activity.js` L10-13 doc comment: "labeled approximate active span". L204: CLI header is `'Approx. Active Span'`. `formatSpan()` L30-45 returns `~Xh Ym` prefix consistently. |
+| AC-6 | `trimHandoff()` recognizes "Agent Activity" as preserved section with max 30 lines | PASS | `cross-session-handoff.js` L184: `ACTIVITY_PATTERNS = ['Agent Activity', 'Atividade dos Agentes']`. L246-254: finds and preserves activity section capped at 30 lines. `agent-activity.js` L21: `MAX_HANDOFF_LINES = 30`. Integration test confirms preservation after trim. |
+| AC-7 | Zero external dependencies (Node.js stdlib only) | PASS | `agent-activity.js` has zero `require()` calls (pure computation). `session-report.js` imports only `path` (stdlib). No `package.json` dependency additions. |
+| AC-8 | Module at `.claude/lib/handoff/` canonical location | PASS | Files confirmed at `.claude/lib/handoff/agent-activity.js` and `.claude/lib/handoff/commands/session-report.js`. All imports reference this canonical path. |
 
 ### L1/L2 Boundary Check
 
-No modifications to `.aiox-core/` directories. `git diff --stat HEAD -- .aiox-core/` shows only `entity-registry.yaml` (L3 data, permitted).
+No modifications to `.aiox-core/` directories. `git diff --stat HEAD -- .aiox-core/` shows only `entity-registry.yaml` (L3 data, permitted). Command uses `*task` pattern (L4) per Architect Recommendation #2.
+
+### Code Quality
+
+- CommonJS strict mode throughout; no ESM; JSDoc annotations on all public functions
+- Error isolation: `safeRequire()` pattern in session-report.js, try/catch in handoff-saver.cjs (non-blocking)
+- No timer leaks: `timer.unref()` + `clearTimeout()` in both resolve/reject paths
+- Decision filtering correctly excludes "Switched from @X" boilerplate (L118)
+- Summaries sorted by event count descending (most active agent first)
 
 ### Test Coverage
 
-- 19 tests in `tests/handoff/agent-activity.test.js`: formatSpan (4), generateAgentSummary (4), formatSummaryForCLI (4), formatSummaryForHandoff (3), integration (4)
-- All tests pass with zero warnings
+- 19 tests in `tests/handoff/agent-activity.test.js`: formatSpan (4), generateAgentSummary (6), formatSummaryForCLI (3), formatSummaryForHandoff (4), integration (2)
+- 217 total tests across 11 handoff suites -- all passing, zero regressions
 - Integration tests verify trimHandoff preservation and saveHandoff injection

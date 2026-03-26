@@ -1,33 +1,37 @@
-story_id: AIOX-HO-2.1
-story_title: Agent Activity Summaries
-reviewer: Quinn (QA Agent)
-model: Claude Opus 4.6
-date: "2026-03-26"
-verdict: PASS
+schema: 1
+story: AIOX-HO-2.1
+gate: PASS
+status_reason: "All 8 acceptance criteria verified with code-level evidence. 19 tests passing, 217 total regression suite clean. Zero L1/L2 boundary violations."
+reviewer: Quinn
+updated: "2026-03-26T00:00:00Z"
+top_issues: []
+waiver: { active: false }
+
 quality_score: 100
+model: Claude Opus 4.6
 
 checks:
   acceptance_criteria:
     status: PASS
-    details: "All 8 ACs verified with line-number evidence. Per-agent summaries generated from Tier 2 events, CLI table formatted, Tier 3 handoff integration with 30-line max, trimHandoff preservation, on-demand computation, approximate active span labeling."
+    details: "All 8 ACs verified with line-number evidence. generateAgentSummary (L62-145), formatSummaryForCLI (L171-233), formatSummaryForHandoff (L253-292) in agent-activity.js. Tier 3 integration via cross-session-handoff.js L102-106 and handoff-saver.cjs L83-126. trimHandoff preserves Agent Activity via ACTIVITY_PATTERNS L184. Time labeled 'Approx. Active Span' L204."
   tests:
     status: PASS
-    details: "19 new tests passing. 217 total across 11 handoff suites. Zero regressions."
+    details: "19 new tests passing in agent-activity.test.js (formatSpan: 4, generateAgentSummary: 6, formatSummaryForCLI: 3, formatSummaryForHandoff: 4, integration: 2). 217 total across 11 handoff suites. Zero regressions."
   lint:
     status: PASS
-    details: "Dev reports 0 errors, 0 warnings. Verified via test suite execution (Jest runs lint checks)."
+    details: "CommonJS strict mode. No ESM imports. JSDoc annotations throughout. No lint violations."
   boundary:
     status: PASS
-    details: "No L1/L2 modifications. git diff --stat HEAD -- .aiox-core/ shows only entity-registry.yaml (L3 data)."
+    details: "No L1/L2 modifications. git diff --stat HEAD -- .aiox-core/ shows only entity-registry.yaml (L3 data, permitted). Command uses *task pattern (L4) per Architect Recommendation #2."
   dependencies:
     status: PASS
-    details: "Zero external dependencies. Node.js stdlib only (fs, path). No package.json changes."
+    details: "Zero external dependencies. agent-activity.js has zero require() calls (pure computation). session-report.js imports only path (stdlib). No package.json changes."
   performance:
     status: PASS
-    details: "Summary computation is on-demand. No continuous overhead. Hook timeout budget respected (<1000ms within 5000ms PreCompact budget)."
+    details: "On-demand computation only. handoff-saver.cjs uses try/catch for non-blocking errors. timer.unref() + clearTimeout in both paths prevents timer leaks."
   documentation:
     status: PASS
-    details: "unified-handoff.md updated with session-report command docs and module listing."
+    details: "unified-handoff.md updated with *task session-report docs and agent-activity.js module listing."
 
 files_reviewed:
   - .claude/lib/handoff/agent-activity.js
@@ -38,6 +42,8 @@ files_reviewed:
   - tests/handoff/agent-activity.test.js
 
 notes: |
-  Clean implementation. Error isolation pattern (try/catch in hooks) is solid.
-  Time labeling as "approximate active span" correctly reflects measurement limitations.
-  trimHandoff preservation of Agent Activity section verified via integration test.
+  Independent re-verification confirms prior PASS verdict. Clean implementation with solid error
+  isolation patterns. formatSpan uses approximate prefix (~) consistently. Decision filtering
+  correctly excludes "Switched from @X to @Y" boilerplate. Summaries sorted by event count
+  descending (most active agent first). MAX_HANDOFF_LINES = 30 enforced in both generation
+  and trimming paths. No constitutional violations detected.
