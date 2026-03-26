@@ -47,6 +47,7 @@ const { createEventStore } = require('./event-store');
 // ---------------------------------------------------------------------------
 
 const PORT = parseInt(process.env.PORT || process.env.AIOX_OBSERVER_PORT || '4001', 10);
+const MAX_BODY_BYTES = 512 * 1024; // 512 KB
 const PROJECT_ROOT = process.env.AIOX_PROJECT_ROOT || process.cwd();
 const BOB_STATUS_PATH = path.join(PROJECT_ROOT, '.aiox', 'dashboard', 'bob-status.json');
 const DASHBOARD_HTML = path.join(__dirname, 'dashboard.html');
@@ -226,6 +227,11 @@ function handleClientFrame(socket, buf) {
  * @param {import('net').Socket} socket
  */
 function handleUpgrade(req, socket) {
+  if (req.url !== '/ws') {
+    socket.destroy();
+    return;
+  }
+
   const key = req.headers['sec-websocket-key'];
   if (!key) {
     socket.destroy();
@@ -308,7 +314,18 @@ function handleUpgrade(req, socket) {
 function readBody(req) {
   return new Promise((resolve, reject) => {
     const chunks = [];
-    req.on('data', (chunk) => chunks.push(chunk));
+    let totalBytes = 0;
+    req.on('data', (chunk) => {
+      totalBytes += chunk.length;
+      if (totalBytes > MAX_BODY_BYTES) {
+        const err = new Error('Payload Too Large');
+        err.code = 'PayloadTooLarge';
+        req.destroy();
+        reject(err);
+        return;
+      }
+      chunks.push(chunk);
+    });
     req.on('end', () => {
       try {
         resolve(JSON.parse(Buffer.concat(chunks).toString('utf8')));
@@ -331,7 +348,7 @@ function sendJson(res, status, body) {
   res.writeHead(status, {
     'Content-Type': 'application/json',
     'Content-Length': Buffer.byteLength(json),
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': `http://localhost:${PORT}`,
   });
   res.end(json);
 }
@@ -366,7 +383,7 @@ async function handleRequest(req, res) {
   // CORS preflight
   if (method === 'OPTIONS') {
     res.writeHead(204, {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': `http://localhost:${PORT}`,
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     });
@@ -376,7 +393,17 @@ async function handleRequest(req, res) {
 
   try {
     if (method === 'POST' && url === '/events') {
-      const body = await readBody(req);
+      let body;
+      try {
+        body = await readBody(req);
+      } catch (e) {
+        if (e.code === 'PayloadTooLarge') {
+          res.writeHead(413, { 'Content-Type': 'text/plain' });
+          res.end('Payload Too Large');
+          return;
+        }
+        throw e;
+      }
       // DashboardEmitter._postEvent does not include an `id` field — generate one
       const event = body.id ? body : Object.assign({ id: randomUUID() }, body);
       store.addEvent(event);
