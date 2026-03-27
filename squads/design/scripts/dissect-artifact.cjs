@@ -653,12 +653,12 @@ async function main() {
     // Navigate
     console.error('2/7 Loading page...');
     await page.goto(target, {
-      waitUntil: 'networkidle',
+      waitUntil: 'domcontentloaded',
       timeout: args.timeout * 1000,
     });
 
-    // Wait extra for JS rendering
-    await page.waitForTimeout(2000);
+    // Wait for JS rendering (SPAs, lazy-loaded content)
+    await page.waitForTimeout(5000);
 
     // Save raw HTML
     console.error('3/7 Saving HTML source...');

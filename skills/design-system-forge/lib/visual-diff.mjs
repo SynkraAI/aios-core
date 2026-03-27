@@ -14,9 +14,9 @@
  *   node visual-diff.mjs --original ./original.png --redesign ./redesign.png
  */
 
-const { chromium } = require('playwright');
-const fs = require('fs');
-const path = require('path');
+import { chromium } from 'playwright';
+import fs from 'fs';
+import path from 'path';
 
 // ---------------------------------------------------------------------------
 // Parse args

@@ -11,8 +11,8 @@
  *   node generate-tailwind.mjs --input ./consolidated.yaml --animations
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // ---------------------------------------------------------------------------
 // Parse args

@@ -9,15 +9,16 @@
  *   node dissect.mjs <url> --name <name> [--mobile] [--split-animations] [--screenshots-only] [--viewports WxH,WxH]
  */
 
-const { execFileSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execFileSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 
 // ---------------------------------------------------------------------------
 // Resolve paths
 // ---------------------------------------------------------------------------
 
-const AIOS_CORE = process.env.AIOS_CORE || path.resolve(require('os').homedir(), 'aios-core');
+const AIOS_CORE = process.env.AIOS_CORE || path.resolve(os.homedir(), 'aios-core');
 const DISSECT_SCRIPT = path.join(AIOS_CORE, 'squads', 'design', 'scripts', 'dissect-artifact.cjs');
 
 if (!fs.existsSync(DISSECT_SCRIPT)) {
@@ -37,6 +38,7 @@ let mobile = false;
 let splitAnimations = false;
 let screenshotsOnly = false;
 let viewports = [];
+let timeout = 60;
 
 for (let i = 0; i < args.length; i++) {
   const arg = args[i];
@@ -50,6 +52,8 @@ for (let i = 0; i < args.length; i++) {
     screenshotsOnly = true;
   } else if (arg === '--viewports') {
     viewports = (args[++i] || '').split(',');
+  } else if (arg === '--timeout' || arg === '-t') {
+    timeout = parseInt(args[++i]) || 60;
   } else if (arg === '--help' || arg === '-h') {
     console.log(`
 Design System Forge — Dissect Wrapper
@@ -99,7 +103,7 @@ fs.mkdirSync(outputDir, { recursive: true });
 // ---------------------------------------------------------------------------
 
 function runDissect(vpFlag) {
-  const dissectArgs = [DISSECT_SCRIPT, target, '--name', name, '--output', outputDir];
+  const dissectArgs = [DISSECT_SCRIPT, target, '--name', name, '--output', outputDir, '--timeout', String(timeout)];
 
   if (vpFlag) {
     dissectArgs.push('--viewport', vpFlag);
@@ -115,7 +119,7 @@ function runDissect(vpFlag) {
   try {
     execFileSync('node', dissectArgs, {
       stdio: 'inherit',
-      timeout: 120000,
+      timeout: (timeout + 30) * 1000,
     });
   } catch (err) {
     console.error(`Error running dissect-artifact.cjs: ${err.message}`);

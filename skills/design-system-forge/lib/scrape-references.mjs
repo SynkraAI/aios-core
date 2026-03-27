@@ -11,15 +11,16 @@
  *   node scrape-references.mjs --source <name> --url <url>
  */
 
-const { execFileSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execFileSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 
 // ---------------------------------------------------------------------------
 // Resolve paths
 // ---------------------------------------------------------------------------
 
-const AIOS_CORE = process.env.AIOS_CORE || path.resolve(require('os').homedir(), 'aios-core');
+const AIOS_CORE = process.env.AIOS_CORE || path.resolve(os.homedir(), 'aios-core');
 const BROWSER_TOOL = path.join(AIOS_CORE, 'tools', 'smart-browser-playwright', 'run.js');
 
 // ---------------------------------------------------------------------------

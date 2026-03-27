@@ -14,8 +14,8 @@
  *   node consolidate-tokens.mjs --dembrandt ./dembrandt.json --dissect ./tokens.yaml [--dark ./dark-tokens.yaml]
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // ---------------------------------------------------------------------------
 // Parse args
