@@ -150,6 +150,14 @@ Para cada componente adaptado:
 - Componentes modificados em `components/ui/`
 - Changelog por componente em `squads/design/data/`
 
+## Veto Conditions
+
+- **BLOCKER:** Estrutura JSX, props API ou Radix primitives alterados — NUNCA modificar lógica, apenas classes Tailwind
+- **BLOCKER:** Cores hardcoded (hex, rgb direto) introduzidas na adaptação — todas as cores devem vir de tokens semânticos
+- **BLOCKER:** Estilos `focus-visible` removidos sem substituto — indicadores de foco são obrigatórios para acessibilidade
+- **WARNING:** Adaptação sem changelog documentado por componente (antes/depois das classes Tailwind)
+- **WARNING:** Componente adaptado sem validação em dark mode
+
 ## Related Checklists
 
 - `squads/design/checklists/component-adaptation-checklist.md`

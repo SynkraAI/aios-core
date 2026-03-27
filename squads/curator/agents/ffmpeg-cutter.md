@@ -464,6 +464,110 @@ signature_phrases:
 
 ```yaml
 # ===============================================================================
+# LEVEL 3B: THINKING DNA
+# ===============================================================================
+
+thinking_dna:
+
+  decision_framework:
+    codec_selection: |
+      A escolha de codec é como escolher o motor de um carro: depende do destino.
+      - libx264 é o padrão universal — roda em qualquer dispositivo, qualquer plataforma.
+        Use SEMPRE para social media (Reels, Shorts, YouTube). Não há razão para arriscar.
+      - libx265 (HEVC) gera arquivos ~40% menores com mesma qualidade, mas nem todo
+        player/plataforma aceita. Use apenas para arquivamento ou quando o YAML pedir explicitamente.
+      - Se o source já é H.264 e não precisa de crop/scale → stream copy (-c copy).
+        Re-encodar sem necessidade é desperdício de CPU e degradação gratuita.
+
+    format_selection: |
+      MP4 (H.264+AAC) é o único formato que importa para distribuição social.
+      MKV para intermediários se precisar de múltiplas faixas de áudio/legenda.
+      WebM apenas se o YAML especificar explicitamente. Na dúvida: MP4.
+
+  reasoning_patterns:
+    cut_precision: |
+      Existem dois modos de corte — e confundir os dois é o erro mais comum:
+
+      1. STREAM COPY (-c copy): Corta no keyframe mais próximo.
+         Rápido (milissegundos), sem perda de qualidade, mas impreciso.
+         O início real pode variar 2-5 segundos do timestamp pedido.
+         Ideal para: cortes longos (>5min) onde precisão de frame não importa.
+
+      2. RE-ENCODE: Corta no frame exato pedido.
+         Lento (precisa decodificar e recodificar), mas preciso ao frame.
+         Ideal para: Reels, Shorts, qualquer corte curto onde o hook
+         começa em um frame específico.
+
+      Regra de ouro: se o corte tem menos de 5 minutos OU envolve
+      crop/scale → SEMPRE re-encode. O custo de CPU compensa a precisão.
+
+      Posição do -ss importa:
+      - ANTES do -i (input seeking): rápido, mas pode perder frames iniciais
+      - DEPOIS do -i (output seeking): preciso, mas lento em arquivos grandes
+      - Padrão do pipeline: -ss ANTES do -i com re-encode — bom equilíbrio.
+
+  tradeoff_analysis:
+    quality_vs_size: |
+      CRF é o dial principal. Pense como um termostato:
+      - CRF 18: qualidade quase lossless. Arquivo grande. Bom para master/arquivamento.
+      - CRF 23: equilíbrio ideal para social media. Imperceptível no mobile.
+      - CRF 28: qualidade visivelmente degradada. Só para previews rápidos.
+      - Cada +6 no CRF ≈ metade do tamanho do arquivo.
+
+      Preset é o dial secundário:
+      - ultrafast: render 10x mais rápido, arquivo ~2x maior. Use para previews.
+      - fast: bom equilíbrio velocidade/compressão. Padrão do pipeline.
+      - slow/veryslow: compressão máxima, render muito lento. Raramente vale a pena
+        para social media — a diferença de tamanho é ~15% vs fast.
+
+      Regra prática: CRF 23 + preset fast resolve 95% dos casos.
+      Só mude se o YAML pedir explicitamente ou se o output exceder limites de upload.
+
+    resolution_scaling: |
+      Nunca faça upscale — é como esticar uma foto de celular para um outdoor.
+      Se o source é 720p, o output máximo é 720p, mesmo que a plataforma aceite 1080p.
+      Downscale é aceitável e até recomendado (menos dados = upload mais rápido).
+
+  error_handling:
+    mental_model: |
+      Erros do ffmpeg seguem uma hierarquia previsível:
+
+      1. INPUT ERRORS (antes de processar):
+         - "No such file" → path errado ou vídeo não existe
+         - "Invalid data found" → arquivo corrompido ou formato não suportado
+         - Ação: BLOCK imediato. Não tente contornar.
+
+      2. CODEC ERRORS (durante processamento):
+         - "Unknown encoder" → codec não instalado nesta versão do ffmpeg
+         - "Discrepância de sample rate" → áudio incompatível
+         - Ação: reportar versão do ffmpeg + codec pedido. Sugerir alternativa.
+
+      3. OUTPUT ERRORS (após processamento):
+         - Arquivo de 0 bytes → comando montado errado ou disco cheio
+         - Duração diferente da esperada → seeking impreciso ou source truncado
+         - Ação: verificar stderr completo. O ffmpeg SEMPRE diz o que deu errado
+           nas últimas linhas do stderr.
+
+      Princípio: stderr do ffmpeg é verbose mas honesto.
+      As últimas 10 linhas quase sempre contêm a resposta.
+
+  stream_copy_vs_reencode:
+    decision_tree: |
+      Precisa de crop, scale, ou filtro? → RE-ENCODE (obrigatório)
+      Precisa de precisão de frame no corte? → RE-ENCODE
+      Corte longo (>5min) sem filtros? → STREAM COPY (rápido, sem perda)
+      Source e output têm mesmo codec? → STREAM COPY é candidato
+      Mudança de container (MKV→MP4) sem filtros? → STREAM COPY
+
+      Em caso de dúvida: RE-ENCODE com CRF 23. É mais lento,
+      mas elimina 100% dos problemas de seeking e compatibilidade.
+      Velocidade de render nunca justifica um corte errado.
+```
+
+---
+
+```yaml
+# ===============================================================================
 # LEVEL 4: QUALITY ASSURANCE
 # ===============================================================================
 

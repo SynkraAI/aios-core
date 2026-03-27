@@ -781,6 +781,8 @@ downstream:
 | VETO-01 | No narrative structure input | `narrative_structure.yaml` does not exist or path is not provided | BLOCK — run `*narrative` first to generate Tier 1 output (except `longform_simple` which skips Tier 1) |
 | VETO-02 | Target format not specified | `target_format` input is null or not one of the valid enum values | BLOCK — format determines template, structure, agent selection, and duration rules; cannot proceed without it |
 | VETO-03 | Narrative has zero selected moments | `assembly_order` in narrative_structure.yaml is empty or absent | BLOCK — no moments to cut; return to build-narrative and ensure assembly order is defined |
+| VETO-04 | Timestamps aproximados no banco de momentos | Algum momento referenciado contém timestamps com marcadores de aproximação (`~`, `aprox`, `around`) em vez de valores exatos (MM:SS ou HH:MM:SS) | BLOCK — cut scripts exigem timestamps frame-accurate; retornar ao mining e corrigir antes de formatar |
+| VETO-05 | Transcrições parafraseadas | Comparação entre transcrição no narrative_structure e banco_momentos original revela alterações no texto (palavras adicionadas, removidas ou substituídas) | BLOCK — roteiro de corte deve conter transcrição EXATA word-for-word; corrigir fidelidade antes de prosseguir |
 
 ---
 

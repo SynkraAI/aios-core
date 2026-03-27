@@ -93,5 +93,13 @@ Produce W3C Design Tokens (DTCG v1.0.0 stable) exports from the canonical YAML t
 - `squads/design/checklists/ds-component-quality-checklist.md`
 - `squads/design/checklists/ds-pattern-audit-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** tokens.dtcg.json não passa no validador W3C (schema errors presentes) — NUNCA exportar tokens inválidos
+- **BLOCKER:** Tokens sem `$value`, `$type` ou `$description` — os três campos são obrigatórios no DTCG v1.0
+- **BLOCKER:** Referências de alias (`$value`) não resolvidas — token apontando para caminho inexistente
+- **WARNING:** Cores em formato hex sem equivalente OKLCH documentado como fallback
+- **WARNING:** Exportação sem smoke-test em pelo menos uma plataforma target (web CSS)
+
 ## Process Guards
 - **On Fail:** Stop execution, capture evidence, and return remediation steps before proceeding.

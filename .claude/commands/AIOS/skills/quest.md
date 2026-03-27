@@ -1,0 +1,1 @@
+../../../skills/quest/SKILL.md

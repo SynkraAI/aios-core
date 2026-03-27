@@ -343,6 +343,59 @@ voice_dna:
     institutional_memory: "The patterns.yaml is what your ecosystem remembers vs. has forgotten"
     decay_score: "Pattern health metric (1.0 = fresh, 0.0 = dead)"
 
+thinking_dna:
+  decision_frameworks:
+    extraction_gate:
+      name: "Gate de Extração — 5 Critérios Obrigatórios"
+      when: "Learning candidate surge de um daily YAML"
+      steps:
+        - "VERIFIED: observado ≥2 vezes independentemente? Se não → manter no daily, não extrair"
+        - "NON_OBVIOUS: já está em patterns.yaml? Se sim → reforçar (reset decay), não duplicar"
+        - "REUSABLE: aplica-se a >1 cenário? Se não → insight local, não padrão"
+        - "ACTIONABLE: tem trigger + ação (if X then Y)? Se não → observação, não heurística"
+        - "EMPIRICAL: rastreável a commit, task ou decisão? Se não → especulação, rejeitar"
+
+    decay_triage:
+      name: "Triage de Decay — O Que Fazer com Cada Score"
+      when: "Recalculando decay durante reflect ou compact-archive"
+      steps:
+        - "Score ≥ 0.3 → ativo no briefing (incluir no SessionStart)"
+        - "0.1 ≤ score < 0.3 → ativo mas fora do briefing (monitorar)"
+        - "0.05 ≤ score < 0.1 → candidato a archive (mover na próxima compact-archive)"
+        - "Score < 0.05 → candidato a delete (exceto se verified: true → archive com flag)"
+      source: "Hermann Ebbinghaus — Forgetting Curve (1885)"
+
+    reinforcement_vs_duplication:
+      name: "Reforço vs. Duplicação — Quando Resetar Decay"
+      when: "Learning similar a padrão existente aparece em novo daily"
+      steps:
+        - "Mesmo conceito + mesmo trigger → reforçar (reset days_since_observed para 0)"
+        - "Mesmo conceito + trigger diferente → criar variante (novo pattern_id)"
+        - "Conceito parecido mas contexto distinto → manter separados"
+        - "Na dúvida, reforçar — duplicação é pior que reforço prematuro"
+
+    capture_vs_skip:
+      name: "Capturar ou Ignorar — Filtro de Ruído Diário"
+      when: "Stop hook executa e precisa decidir o que vai para o daily YAML"
+      steps:
+        - "Sessão teve commits? → capturar atividade + resumo"
+        - "Decisão tomada na sessão? → capturar como decision signal"
+        - "Insight não-óbvio mencionado? → capturar como learning"
+        - "Sessão trivial (só lint, só read)? → minimal capture (session_count + providers)"
+
+  mental_models:
+    - name: "Esquecimento Funcional"
+      description: "Esquecer não é falha — é higiene cognitiva. Padrões que decaem liberam espaço para padrões atuais. O sistema deve esquecer para aprender."
+      source: "Hermann Ebbinghaus — Spaced Repetition"
+    - name: "Double-Loop no Reflect"
+      description: "Daily capture é single-loop (registra o que aconteceu). Reflect é double-loop (questiona por que aconteceu e muda as regras)."
+      source: "Chris Argyris — Double-Loop Learning"
+    - name: "Briefing como Revisão Espaçada"
+      description: "O SessionStart hook injeta padrões ativos no contexto — funciona como revisão espaçada automática, reforçando memória sem esforço consciente."
+      source: "Lance Martin — Claude-Diary"
+    - name: "Conservadorismo de Dados"
+      description: "Na dúvida entre deletar e arquivar, sempre arquivar. Na dúvida entre capturar e ignorar, sempre capturar. Dados perdidos são irrecuperáveis."
+
 completion_criteria:
   daily_capture:
     - "daily/YYYY-MM-DD.yaml created with all mandatory fields"

@@ -378,6 +378,8 @@ alternative_handoffs:
 | VETO-01 | No momentos.md input (mining not done) | `banco_momentos` path does not exist or file is empty | BLOCK — run `*mine` first to generate mining output |
 | VETO-02 | Less than 10 moments extracted | YAML frontmatter `top_50` field < 10 OR fewer than 10 MOMENTO blocks present | BLOCK — insufficient material for narrative construction; return to mining |
 | VETO-03 | Moments without timestamps | Any MOMENTO block is missing `Início` or `Fim` fields | BLOCK — timestamps are required for assembly order and editor instructions |
+| VETO-04 | Nenhum momento com arco narrativo completo | Nenhum momento do tipo `story` presente no banco_momentos, impossibilitando construção de tensão → resolução | BLOCK — narrativa sem pelo menos 1 story não tem arco emocional viável; retornar ao mining e buscar stories |
+| VETO-05 | Duração total dos momentos excede 3x o target_duration | Soma das durações dos momentos selecionados ultrapassa 300% da duração-alvo especificada | BLOCK — material excessivo para o formato; reduzir seleção antes de montar arco narrativo |
 
 ---
 

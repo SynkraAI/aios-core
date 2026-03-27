@@ -1,0 +1,307 @@
+# ============================================================================
+# Pack: Squad Upgrade
+# Transforme um squad existente em um squad lendário.
+# ============================================================================
+
+pack:
+  id: squad-upgrade
+  version: "1.0.0"
+  name: "Squad Upgrade"
+  icon: "⚔️"
+  class_name: "Ferreiro de Squads"
+  tagline: "Transforme um squad bom em um squad lendário."
+
+# ----------------------------------------------------------------------------
+# Detection — como o scanner identifica que este pack se aplica
+# ----------------------------------------------------------------------------
+
+detection:
+  rules:
+    - condition: "inside_path('aios-core/squads') AND has_file('config.yaml')"
+      confidence: high
+    - condition: "has_file('config.yaml') AND has_dir('agents')"
+      confidence: medium
+  fallback_question: "Que tipo de quest você quer rodar aqui?"
+
+# ----------------------------------------------------------------------------
+# Levels — progressão temática do Ferreiro de Squads
+# ----------------------------------------------------------------------------
+
+levels:
+  1: { name: "Aprendiz Ferreiro", xp: 0, message: "A forja está fria. Vamos acender." }
+  2: { name: "Ferreiro", xp: 100, message: "O aço começa a ceder." }
+  3: { name: "Mestre Ferreiro", xp: 300, message: "Suas lâminas cortam o vento." }
+  4: { name: "Lendário", xp: 500, message: "O squad é uma obra-prima." }
+
+# ----------------------------------------------------------------------------
+# Achievements — conquistas específicas de squad upgrade
+# ----------------------------------------------------------------------------
+
+achievements:
+  - id: "diagnostician"
+    name: "Diagnosticador"
+    icon: "magnifier"
+    condition: "all_items_done_in_phase:0"
+    xp_bonus: 10
+    message: "Diagnóstico completo do squad"
+
+  - id: "dna_master"
+    name: "Mestre do DNA"
+    icon: "brain"
+    condition: "all_items_done_in_phase:1"
+    xp_bonus: 25
+    message: "DNA de todos os agents enriquecido"
+
+  - id: "quality_gate_builder"
+    name: "Guardião da Qualidade"
+    icon: "shield"
+    condition: "all_items_done_in_phase:2"
+    xp_bonus: 25
+    message: "Quality gates implementados no squad"
+
+  - id: "workflow_architect"
+    name: "Arquiteto de Workflows"
+    icon: "blueprint"
+    condition: "all_items_done_in_phase:3"
+    xp_bonus: 10
+    message: "Workflows do squad redesenhados"
+
+  - id: "squad_legend"
+    name: "Lenda dos Squads"
+    icon: "crown"
+    condition: "all_items_done"
+    xp_bonus: 50
+    message: "Squad transformado em lenda"
+
+# ----------------------------------------------------------------------------
+# Phase 0 — Diagnóstico / Torre de Observação
+# ----------------------------------------------------------------------------
+
+phases:
+  0:
+    name: "Torre de Observação"
+    description: "Diagnosticar o estado atual do squad."
+    items:
+      - id: "0.1"
+        label: "Ler README.md do squad"
+        command: "Read README.md — entender propósito, agents, limitações"
+        who: "user"
+        required: true
+        xp: 10
+        scan_rule: "has_file('README.md')"
+
+      - id: "0.2"
+        label: "Ler config.yaml do squad"
+        command: "Read config.yaml — mapear agents, roles, workflows"
+        who: "user"
+        required: true
+        xp: 10
+        scan_rule: "has_file('config.yaml')"
+
+      - id: "0.3"
+        label: "Contar agents e medir profundidade"
+        command: "Listar agents/ — contar arquivos .md, verificar tamanho e seções de cada agent"
+        who: "user"
+        required: true
+        xp: 15
+        scan_rule: "has_dir('agents')"
+
+      - id: "0.4"
+        label: "Verificar estrutura de diretórios (data, templates, checklists)"
+        command: "Verificar se existem data/, templates/, checklists/, workflows/"
+        who: "user"
+        required: false
+        xp: 10
+        scan_rule: "has_dir('data') OR has_dir('templates') OR has_dir('checklists')"
+
+      - id: "0.5"
+        label: "Rodar ecosystem-audit no squad"
+        command: "/ecosystem-audit — gerar relatório de gaps e oportunidades"
+        who: "skill"
+        required: true
+        xp: 25
+
+  # --------------------------------------------------------------------------
+  # Phase 1 — DNA Enrichment / Laboratório de DNA
+  # --------------------------------------------------------------------------
+
+  1:
+    name: "Laboratório de DNA"
+    description: "Enriquecer o DNA de cada agent com voice, expertise e personality."
+    items:
+      - id: "1.1"
+        label: "Adicionar voice_dna a cada agent"
+        command: "Para cada agent em agents/, adicionar seção voice_dna com tom, estilo, vocabulário"
+        who: "user"
+        required: true
+        xp: 30
+        per_agent: true  # P1 — no MVP executa uma vez
+        scan_rule: "has_content('agents/*.md', 'voice_dna')"
+
+      - id: "1.2"
+        label: "Adicionar expertise a cada agent"
+        command: "Para cada agent em agents/, definir expertise com domínios, referências, depth"
+        who: "user"
+        required: true
+        xp: 25
+        per_agent: true  # P1 — no MVP executa uma vez
+        scan_rule: "has_content('agents/*.md', 'expertise')"
+
+      - id: "1.3"
+        label: "Adicionar personality a cada agent"
+        command: "Para cada agent em agents/, adicionar personality com traits, quirks, decision style"
+        who: "user"
+        required: true
+        xp: 25
+        per_agent: true  # P1 — no MVP executa uma vez
+        scan_rule: "has_content('agents/*.md', 'personality')"
+
+      - id: "1.4"
+        label: "Revisar consistência entre agents"
+        command: "Comparar voice/expertise/personality entre agents — garantir que não há conflitos"
+        who: "user"
+        required: false
+        xp: 15
+        checkpoint: true  # P1 — pausa para aprovação
+
+  # --------------------------------------------------------------------------
+  # Phase 2 — Quality Gates / Sala do Tribunal
+  # --------------------------------------------------------------------------
+
+  2:
+    name: "Sala do Tribunal"
+    description: "Adicionar checklists, templates, data files e regras de qualidade."
+    items:
+      - id: "2.1"
+        label: "Criar/atualizar checklists de qualidade"
+        command: "Adicionar checklists/ com critérios de qualidade para outputs do squad"
+        who: "user"
+        required: true
+        xp: 20
+        scan_rule: "has_dir('checklists') AND file_count('checklists/*.md') > 0"
+
+      - id: "2.2"
+        label: "Criar/atualizar templates de output"
+        command: "Adicionar templates/ com modelos de output para cada agent"
+        who: "user"
+        required: true
+        xp: 20
+        scan_rule: "has_dir('templates') AND file_count('templates/*.md') > 0"
+
+      - id: "2.3"
+        label: "Adicionar data files de referência"
+        command: "Adicionar data/ com dados de referência (exemplos, benchmarks, lookup tables)"
+        who: "user"
+        required: false
+        xp: 15
+        scan_rule: "has_dir('data') AND file_count('data/*') > 0"
+
+      - id: "2.4"
+        label: "Definir regras de validação no config"
+        command: "Adicionar seção rules ou validation em config.yaml"
+        who: "user"
+        required: false
+        xp: 15
+        scan_rule: "has_content('config.yaml', 'rules|validation')"
+
+  # --------------------------------------------------------------------------
+  # Phase 3 — Workflows / Sala de Estratégia
+  # --------------------------------------------------------------------------
+
+  3:
+    name: "Sala de Estratégia"
+    description: "Criar ou melhorar workflows e encadeamentos do squad."
+    items:
+      - id: "3.1"
+        label: "Mapear workflows existentes"
+        command: "Ler config.yaml e documentar workflows atuais (sequência de agents, triggers)"
+        who: "user"
+        required: true
+        xp: 15
+        scan_rule: "has_content('config.yaml', 'workflows')"
+
+      - id: "3.2"
+        label: "Criar/melhorar workflow principal"
+        command: "Definir workflow principal com steps, agents, inputs/outputs claros"
+        who: "user"
+        required: true
+        xp: 25
+        scan_rule: "has_content('config.yaml', 'steps')"
+
+      - id: "3.3"
+        label: "Adicionar workflow-chains entre squads"
+        command: "Configurar integrações com outros squads (triggers, handoffs)"
+        who: "user"
+        required: false
+        xp: 20
+        condition: "squad interage com outros squads"
+        scan_rule: "has_content('config.yaml', 'chains|integrations')"
+
+      - id: "3.4"
+        label: "Documentar decision points nos workflows"
+        command: "Marcar pontos de decisão (approval gates, branches, fallbacks) em cada workflow"
+        who: "user"
+        required: false
+        xp: 15
+        scan_rule: "has_content('config.yaml', 'decision|gate|branch')"
+
+  # --------------------------------------------------------------------------
+  # Phase 4 — Validação / Arena de Testes
+  # --------------------------------------------------------------------------
+
+  4:
+    name: "Arena de Testes"
+    description: "Testar o squad upgradado e validar melhorias."
+    items:
+      - id: "4.1"
+        label: "Testar squad com caso de uso real"
+        command: "Executar o squad em um caso de uso real e avaliar output"
+        who: "user"
+        required: true
+        xp: 30
+
+      - id: "4.2"
+        label: "Rodar ecosystem-audit final"
+        command: "/ecosystem-audit — comparar com diagnóstico inicial, validar melhorias"
+        who: "skill"
+        required: true
+        xp: 25
+
+      - id: "4.3"
+        label: "Atualizar README.md com mudanças"
+        command: "Atualizar README do squad com novos agents, workflows, capabilities"
+        who: "user"
+        required: true
+        xp: 20
+        scan_rule: "has_content('README.md', '## Workflows|## Agents|## Capabilities')"
+
+      - id: "4.4"
+        label: "Process audit"
+        command: "@pedro-valerio — auditar workflows do squad: zero wrong paths, veto conditions"
+        who: "agente"
+        required: true
+        xp: 25
+
+      - id: "4.5"
+        label: "Ecosystem health check"
+        command: "kaizen squad → health-check — capturar patterns e learnings do upgrade"
+        who: "squad"
+        required: true
+        xp: 20
+
+      - id: "4.6"
+        label: "Atualizar CHANGELOG ou notas de versão"
+        command: "Documentar o que mudou neste upgrade cycle"
+        who: "user"
+        required: false
+        xp: 15
+        scan_rule: "has_file('CHANGELOG.md')"
+
+# ----------------------------------------------------------------------------
+# Sub-quests (P1)
+# ----------------------------------------------------------------------------
+
+sub_quests:  # P1
+  - pack: mind-cloning
+    trigger: "agent precisa de mind clone"
+    optional: true

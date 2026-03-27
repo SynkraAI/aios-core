@@ -2,7 +2,7 @@
 date: 2026-03-26
 capture_time: "2026-03-26T00:08:42.505Z"
 session_id: 67b46e81
-session_count: 63
+session_count: 79
 providers_active:
   - "claude-sonnet-4-6"
 activity_summary: Session completed (no commits)
@@ -943,6 +943,246 @@ agents_involved: []
 date: 2026-03-26
 capture_time: "2026-03-26T18:32:39.319Z"
 session_id: fe205d0c
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session fe205d0c (2026-03-26T18:34:40.891Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T18:34:40.884Z"
+session_id: fe205d0c
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session d07792bf (2026-03-26T18:37:33.271Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T18:37:33.271Z"
+session_id: d07792bf
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 06961a62 (2026-03-26T18:39:26.788Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T18:39:26.787Z"
+session_id: 06961a62
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session d07792bf (2026-03-26T18:40:54.642Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T18:40:54.641Z"
+session_id: d07792bf
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session d07792bf (2026-03-26T18:42:12.948Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T18:42:12.947Z"
+session_id: d07792bf
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session d07792bf (2026-03-26T18:44:06.420Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T18:44:06.419Z"
+session_id: d07792bf
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session d07792bf (2026-03-26T18:44:44.211Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T18:44:44.210Z"
+session_id: d07792bf
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session d07792bf (2026-03-26T18:50:15.020Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T18:50:15.018Z"
+session_id: d07792bf
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session d07792bf (2026-03-26T18:52:02.461Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T18:52:02.459Z"
+session_id: d07792bf
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session e11c0d72 (2026-03-26T18:55:13.546Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T18:55:13.545Z"
+session_id: e11c0d72
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session d07792bf (2026-03-26T19:35:35.582Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T19:35:35.581Z"
+session_id: d07792bf
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session d07792bf (2026-03-26T21:06:33.018Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T21:06:33.017Z"
+session_id: d07792bf
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session d07792bf (2026-03-26T21:19:27.059Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T21:19:27.058Z"
+session_id: d07792bf
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session d07792bf (2026-03-26T22:17:24.737Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T22:17:24.736Z"
+session_id: d07792bf
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session d07792bf (2026-03-26T22:17:35.694Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T22:17:35.693Z"
+session_id: d07792bf
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session a0520a9b (2026-03-26T22:20:42.510Z) ---
+# Kaizen v2 Daily Digest — 2026-03-26
+date: 2026-03-26
+capture_time: "2026-03-26T22:20:42.509Z"
+session_id: a0520a9b
 session_count: 1
 providers_active:
   - "claude-sonnet-4-6"

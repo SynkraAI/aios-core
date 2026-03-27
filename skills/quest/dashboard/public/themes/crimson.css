@@ -1,0 +1,49 @@
+/* ============================================================
+   CRIMSON THEME — Quest Master Dashboard
+   Blood red with golden flash. Intense and dramatic.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary:      #070707;
+  --bg-secondary:    #100810;
+  --bg-card:         #1a0810;
+  --bg-card-hover:   #28101a;
+
+  --text-primary:    #e0d0d8;
+  --text-secondary:  #9f6e75;
+  --text-accent:     #e63946;
+
+  --accent-primary:   #e63946;
+  --accent-secondary: #ffd60a;
+  --accent-tertiary:  #760921;
+
+  --border-color: #3a1020;
+  --border-glow:  0 0 0 1px rgba(230, 57, 70, 0.3),
+                  0 0 12px rgba(230, 57, 70, 0.15);
+
+  --progress-gradient: linear-gradient(90deg, #760921 0%, #e63946 50%, #ffd60a 100%);
+  --progress-shine:    linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px rgba(230, 57, 70, 0.2);
+
+  --radius-card: 6px;
+  --radius-pill: 9999px;
+
+  --font-display: 'Alegreya', serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #3a1020; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #5a2030; }
+* { scrollbar-width: thin; scrollbar-color: #3a1020 var(--bg-primary); }

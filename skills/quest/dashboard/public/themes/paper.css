@@ -1,0 +1,49 @@
+/* ============================================================
+   PAPER THEME — Quest Master Dashboard (LIGHT)
+   Warm white with indigo accents. Clean, Notion-like.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary:      #f7f6f3;
+  --bg-secondary:    #efeee8;
+  --bg-card:         #ffffff;
+  --bg-card-hover:   #f0eeeb;
+
+  --text-primary:    #1a1a2e;
+  --text-secondary:  #6b7280;
+  --text-accent:     #4f46e5;
+
+  --accent-primary:   #4f46e5;
+  --accent-secondary: #7c3aed;
+  --accent-tertiary:  #a78bfa;
+
+  --border-color: #e5e3d9;
+  --border-glow:  0 0 0 1px rgba(79, 70, 229, 0.15);
+
+  --progress-gradient: linear-gradient(90deg, #4f46e5 0%, #7c3aed 50%, #a78bfa 100%);
+  --progress-shine:    none;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08),
+                 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 0 1px rgba(79, 70, 229, 0.12);
+
+  --radius-card: 12px;
+  --radius-pill: 9999px;
+
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #d4d2cc; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #b4b2ac; }
+* { scrollbar-width: thin; scrollbar-color: #d4d2cc var(--bg-primary); }

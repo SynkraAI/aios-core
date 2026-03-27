@@ -124,3 +124,10 @@ task:
     - "Baseline atualizado com dados correntes"
     - "Max 3 melhorias propostas"
     - "Melhorias triviais autoaplicadas com registro no CHANGELOG"
+
+  veto_conditions:
+    - "Melhoria destrutiva (deleta arquivo, remove agente, altera heurística) autoaplicada sem aprovação humana → REVERTER imediatamente"
+    - "Baseline atualizado sem preservar estrutura YAML existente (campos sobrescritos com vazios) → RESTAURAR do snapshot"
+    - "Mais de 3 melhorias propostas num único ciclo → CORTAR para as 3 de maior impacto"
+    - "Autoaplicação sem criar snapshot diff prévio → BLOQUEAR (sem snapshot não há rollback)"
+    - "CHANGELOG não atualizado após autoaplicação → REDO registro antes de finalizar"

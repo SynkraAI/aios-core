@@ -83,6 +83,8 @@ acceptance_criteria:
 | VETO-01 | No roteiro_corte.yaml input | `cut_yaml` path does not exist or glob returns zero `.yaml` files | BLOCK — no cut script to generate guide from; run `*create-cut` first to produce a YAML cut file |
 | VETO-02 | YAML without QG-004 validation | YAML file exists but `metadata.formato` field is absent or not one of `shorts`, `longform`, `longform_simple` | BLOCK — format field is required for generator routing; cut file may be incomplete or from an older template version |
 | VETO-03 | Zero segments in cut script | YAML `momentos` list is empty or absent | BLOCK — cannot generate an editor guide with no takes; return to format-cut and ensure moments are assembled |
+| VETO-04 | Script generate_editor_guide.py ausente | Arquivo `squads/curator/scripts/generate_editor_guide.py` não existe no path esperado | BLOCK — script é o motor de geração; sem ele, guia não pode ser produzido; verificar instalação do squad |
+| VETO-05 | Momentos sem transcrição | Algum momento no YAML tem campo `transcricao` vazio ou ausente | BLOCK — guia do editor sem transcrição é inútil; editor precisa do texto exato para cada take; corrigir YAML antes |
 
 ---
 

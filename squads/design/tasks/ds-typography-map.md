@@ -151,6 +151,14 @@ Composer: Caption: text-sm text-muted-foreground leading-normal
 
 - `squads/design/checklists/page-composition-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** Página com mais de um elemento H1 — viola hierarquia de acessibilidade e SEO
+- **BLOCKER:** Sequência de headings com saltos (H1 direto para H3 sem H2) — quebra a árvore de acessibilidade
+- **BLOCKER:** Texto body sem restrição de comprimento de linha (ausência de `max-w-prose` ou equivalente, permitindo >75 caracteres por linha)
+- **WARNING:** Margens de headings fora do ritmo vertical de 24px (baseline grid quebrado)
+- **WARNING:** Escala tipográfica sem variantes responsivas (ausência de classes `lg:` para breakpoints maiores)
+
 ## Process Guards
 
 - **On Fail:** Stop execution, capture evidence, and return remediation steps before proceeding.

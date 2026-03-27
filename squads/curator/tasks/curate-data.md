@@ -311,6 +311,9 @@ alternative_handoffs:
 |----|-----------|-----------|--------|
 | VETO-01 | No source data files found | `topics` input is empty/null AND no `banco_momentos` file is accessible to extract topics from | BLOCK — cannot curate without knowing what to search for; ask user to provide topics or run `*mine` first |
 | VETO-02 | Data schema mismatch with expected format | Output `curadoria.yaml` cannot be validated against `templates/curadoria-tmpl.yaml` structure (missing `items[].source.url`, `items[].confidence`, or `items[].type` fields) | BLOCK — schema integrity required for downstream integration with narrative and format phases |
+| VETO-03 | Nenhum item verificável encontrado | Todas as fontes pesquisadas retornam dados sem URL acessível ou sem data de publicação | BLOCK — curadoria sem fontes verificáveis viola a regra fundamental de "no invented data"; expandir busca ou reportar impossibilidade |
+| VETO-04 | 100% dos itens com confiança "low" | Todos os itens curados receberam classificação de confiança "low" (nenhuma fonte reputable) | BLOCK — curadoria de baixa confiança compromete credibilidade do conteúdo; buscar fontes primárias ou acadêmicas |
+| VETO-05 | Dados fabricados ou não rastreáveis | Qualquer item no output não possui trail verificável até a fonte original (URL inexistente, estatística sem estudo citado) | BLOCK — dado fabricado é violação constitucional; remover item ou substituir por fonte verificável |
 
 ---
 

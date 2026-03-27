@@ -1,0 +1,49 @@
+/* ============================================================
+   COZY THEME — Quest Master Dashboard
+   Warm amber and soft mauve. Coffee, rain and vinyl.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;500;700&display=swap');
+
+:root {
+  --bg-primary:      #151520;
+  --bg-secondary:    #1c1c2a;
+  --bg-card:         #222234;
+  --bg-card-hover:   #2a2a40;
+
+  --text-primary:    #d4cfc4;
+  --text-secondary:  #9490a0;
+  --text-accent:     #e8a87c;
+
+  --accent-primary:   #e8a87c;
+  --accent-secondary: #85677b;
+  --accent-tertiary:  #c49070;
+
+  --border-color: #32324a;
+  --border-glow:  0 0 0 1px rgba(232, 168, 124, 0.2),
+                  0 0 8px rgba(232, 168, 124, 0.08);
+
+  --progress-gradient: linear-gradient(90deg, #85677b 0%, #c49070 50%, #e8a87c 100%);
+  --progress-shine:    none;
+
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 12px rgba(232, 168, 124, 0.1);
+
+  --radius-card: 14px;
+  --radius-pill: 9999px;
+
+  --font-display: 'Karla', system-ui, sans-serif;
+  --font-mono:    'Karla', system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #32324a; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #42425a; }
+* { scrollbar-width: thin; scrollbar-color: #32324a var(--bg-primary); }

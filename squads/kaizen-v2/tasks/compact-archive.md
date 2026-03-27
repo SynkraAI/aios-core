@@ -92,6 +92,13 @@ Generate `data/intelligence/archive/cleanup-YYYY-MM-DD.log`:
 - Mutex: Do not execute compact-archive while reflect is in progress
 - Fallback: If deletion fails, leave in active (won't harm, just cluttered)
 
+## Veto Conditions
+- "Patterns deletados sem backup prévio (patterns.yaml.bak) → ABORTAR IMEDIATAMENTE"
+- "Pattern com verified: true deletado em vez de arquivado → REVERTER (patterns verificados NUNCA são deletados)"
+- "Daily arquivado com base em mtime do filesystem em vez de data do filename → REDO (mtime é não-confiável após git clone)"
+- "Compact-archive executado enquanto reflect está em progresso → BLOQUEAR (mutex violation)"
+- "Cleanup log não gerado após operação de archive/delete → REDO fase 3"
+
 ## Success Criteria
 - PASS: All old dailies archived, patterns archived/deleted correctly, backup created, log generated
 - FAIL: Backup creation failed, patterns.yaml corrupted, unable to create archive dirs

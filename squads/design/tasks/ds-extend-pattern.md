@@ -87,5 +87,13 @@ Warning variant uses:
 - `squads/design/checklists/ds-component-quality-checklist.md`
 - `squads/design/checklists/ds-pattern-audit-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** Nova variante quebra backward compatibility — testes existentes devem continuar passando sem alteração
+- **BLOCKER:** Token necessário para nova variante não existe no arquivo de tokens — NUNCA usar valores hardcoded como workaround
+- **BLOCKER:** Extensão sem atualização de testes cobrindo a nova variante (cobertura da variante = 0%)
+- **WARNING:** Documentação do componente não atualizada com a nova variante/size
+- **WARNING:** Storybook story não criada para a nova variante (se Storybook está habilitado)
+
 ## Process Guards
 - **On Fail:** Stop execution, capture evidence, and return remediation steps before proceeding.

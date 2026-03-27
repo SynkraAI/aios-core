@@ -453,6 +453,8 @@ alternative_handoffs:
 | VETO-01 | No transcript file provided | `transcript` input is null or file path does not exist on disk | BLOCK — cannot catalog without a transcript; ask user to provide a valid file path |
 | VETO-02 | Transcript format unrecognizable | File does not match CSV-quoted pattern (`"Timestamp","Segment"`) nor WebVTT pattern (`WEBVTT` header or `HH:MM:SS.mmm --> HH:MM:SS.mmm` lines) | BLOCK — only `.vtt` WebVTT and CSV-quoted `.csv`/`.txt` are supported; ask user to convert the file |
 | VETO-03 | File encoding not UTF-8 | Python `open(file, encoding='utf-8')` raises `UnicodeDecodeError` | BLOCK — re-encode file to UTF-8 before processing (`iconv` or text editor Save As UTF-8) |
+| VETO-04 | Transcrição com menos de 10 utterances | Após parsing, total de utterances segmentadas é inferior a 10 | BLOCK — conteúdo insuficiente para gerar índice navegável; verificar se o arquivo está completo |
+| VETO-05 | Timeline com gaps superiores a 60 segundos | Validação de timeline detecta lacuna entre utterances consecutivas maior que 60s sem explicação | BLOCK — gaps grandes indicam transcrição incompleta ou corrompida; verificar integridade do arquivo fonte |
 
 ---
 

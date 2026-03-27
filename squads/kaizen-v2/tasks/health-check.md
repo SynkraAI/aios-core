@@ -223,6 +223,12 @@ None — all systems operational.
 - Active patterns: 2 (both fresh, decay > 0.8)
 ```
 
+## Veto Conditions
+- "Relatório de saúde marcado como PASS com ≥1 check FAIL → BLOQUEAR (PASS exige 12/12 checks verdes)"
+- "Check de hook marcado PASS sem verificar que o command path existe no filesystem → REDO check"
+- "Status WARN emitido sem remediation steps correspondentes → BLOQUEAR publicação"
+- "patterns.yaml reportado como válido sem verificar que decay_scores estão no range 0.0-1.0 → REDO check 8"
+
 ## Success Criteria
 - PASS: All 12 checks pass, overall status = PASS
 - WARN: 1-2 checks warn (non-critical), overall status = WARN, remediation provided

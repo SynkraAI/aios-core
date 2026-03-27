@@ -140,6 +140,14 @@ Formato: `oklch(L C H)` onde L=[0,1], C=[0,0.4], H=[0,360]
 
 Para alfa: `oklch(L C H / alpha%)`
 
+## Veto Conditions
+
+- **BLOCKER:** Mapeamento sem cobertura dos 18 core tokens shadcn — todos devem ter correspondência antes de prosseguir
+- **BLOCKER:** Valores de cor não convertidos para formato OKLch — formatos hex/rgb/hsl sem conversão invalidam o pipeline
+- **BLOCKER:** Mapeamento sem dark mode correspondente para cada token (ausência de pares light/dark)
+- **WARNING:** Extensões (warning, info, success) sem seguir o padrão shadcn `--{role}` + `--{role}-foreground`
+- **WARNING:** Tabela de mapeamento sem coluna de Tailwind utility correspondente
+
 ## Related Checklists
 
 - `squads/design/checklists/token-mapping-checklist.md`

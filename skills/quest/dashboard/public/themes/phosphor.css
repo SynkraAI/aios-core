@@ -1,0 +1,49 @@
+/* ============================================================
+   PHOSPHOR THEME — Quest Master Dashboard
+   Terminal green on absolute black. Pure hacker.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary:      #000000;
+  --bg-secondary:    #050805;
+  --bg-card:         #0a120a;
+  --bg-card-hover:   #121a12;
+
+  --text-primary:    #33ff33;
+  --text-secondary:  #22aa22;
+  --text-accent:     #66ff66;
+
+  --accent-primary:   #33ff33;
+  --accent-secondary: #00cc00;
+  --accent-tertiary:  #22b455;
+
+  --border-color: #1a2a1a;
+  --border-glow:  0 0 0 1px rgba(51, 255, 51, 0.2),
+                  0 0 8px rgba(51, 255, 51, 0.1);
+
+  --progress-gradient: linear-gradient(90deg, #005500 0%, #33ff33 60%, #66ff66 100%);
+  --progress-shine:    none;
+
+  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 12px rgba(51, 255, 51, 0.15);
+
+  --radius-card: 0px;
+  --radius-pill: 0px;
+
+  --font-display: 'Fira Code', monospace;
+  --font-mono:    'Fira Code', monospace;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #000000; }
+::-webkit-scrollbar-thumb { background: #1a2a1a; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #2a3a2a; }
+* { scrollbar-width: thin; scrollbar-color: #1a2a1a #000000; }

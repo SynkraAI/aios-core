@@ -101,6 +101,12 @@ Archive if < 0.1
 Delete if < 0.05
 ```
 
+## Veto Conditions
+- "Reflection executada com <1 daily file disponível → ABORTAR (sem dados para refletir)"
+- "Decay recalculado sem aplicar fórmula de forgetting-curve.md → BLOQUEAR (decay arbitrário invalida todo o sistema)"
+- "Pattern novo adicionado sem passar pelos 5 critérios de extraction-criteria.md → REMOVER do patterns.yaml"
+- "Reflection sem seção 'Patterns Archived' quando existem patterns com decay < 0.1 → REDO (omissão de limpeza)"
+
 ## Success Criteria
 - PASS: New patterns extracted, decay recalculated, reflection written
 - FAIL: No daily files found, invalid YAML in dailies, decay calculation error

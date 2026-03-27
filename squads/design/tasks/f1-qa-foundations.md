@@ -90,6 +90,14 @@ Verificar contraste minimo (4.5:1 para texto normal, 3:1 para texto grande):
 
 Report de QA com resultado por check e verdict final.
 
+## Veto Conditions
+
+- **BLOCKER:** Qualquer um dos 18 core tokens shadcn ausente em `:root` — fundações incompletas bloqueiam toda a Phase 2
+- **BLOCKER:** Valores OKLch com L fora do range [0,1] ou C negativo — valores inválidos causam rendering incorreto
+- **BLOCKER:** Contraste `--foreground` sobre `--background` < 4.5:1 em qualquer modo (light ou dark) — acessibilidade é gate obrigatório
+- **WARNING:** Tokens dark mode sem inversão lógica verificada (background que não escurece ou foreground que não clareia)
+- **WARNING:** Imports de CSS (`@import "tailwindcss"`, `@import "shadcn/tailwind.css"`) alterados durante o processo
+
 ## Related Checklists
 
 - `squads/design/checklists/token-mapping-checklist.md`

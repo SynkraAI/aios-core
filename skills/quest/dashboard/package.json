@@ -1,0 +1,14 @@
+{
+  "name": "quest-dashboard",
+  "version": "2.0.0",
+  "description": "Quest Master Dashboard Hub — centralized multi-project gamified progress tracker",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js --dev"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "ws": "^8.18.0"
+  }
+}

@@ -1,10 +1,10 @@
 # AIOX Catalog
 
-> Gerado automaticamente em 24/03/2026
+> Gerado automaticamente em 26/03/2026
 
 ---
 
-## Squads (67)
+## Squads (66)
 
 | Squad | Descrição | Ativação |
 |-------|-----------|----------|
@@ -33,6 +33,7 @@
 | high-ticket-mastery | HighTicket Mastery Squad | `/high-ticket-mastery` |
 | high-ticket-sales | HighTicket Sales Squad | `/high-ticket-sales` |
 | hormozi | Hormozi Squad — The $100M Mind System | `/hormozi` |
+| icaro-de-carvalho | 🎯 Ícaro de Carvalho — Marketing Digital Elite (MultiMind Squad) | `/icaro-de-carvalho` |
 | icp-cloning | 🧬 ICP Cognitive Cloning Squad | `/icp-cloning` |
 | insight | 🔍 Insight Squad — Research, Diagnosis & Reporting | `/insight` |
 | italo-marsili | Squad: Italo Marsili | `/italo-marsili` |
@@ -65,8 +66,6 @@
 | site-performance-audit | siteperformanceaudit — External Web Performance Audit Squad | `/site-performance-audit` |
 | sop-factory | SOP Factory | `/sop-factory` |
 | squad-creator | Squad Creator | `/squad-creator` |
-| squad-creator | Squad Creator | `/squad-creator` |
-| storytelling | Sem descrição | `/storytelling` |
 | storytelling-masters-fosc | Storytelling Masters Fosc | `/storytelling-masters-fosc` |
 | synapse | Synapse Squad | `/synapse` |
 | tathi-deandhela | Tathi Deandhela Method Squad | `/tathi-deandhela` |
@@ -78,7 +77,7 @@
 
 ---
 
-## Skills (56)
+## Skills (61)
 
 | Skill | Descrição | Ativação |
 |-------|-----------|----------|
@@ -86,15 +85,16 @@
 | angular-state-management | Angular State Management | `/AIOS:skills:angular-state-management` |
 | apify | Apify Web Scraper | `/AIOS:skills:apify` |
 | app-builder | App Builder - Application Building Orchestrator | `/AIOS:skills:app-builder` |
-| audit-project-config | Audit Project Config Skill | `/AIOS:skills:audit-project-config` |
-| avalonia-viewmodels-zafiro | Avalonia ViewModels with Zafiro | `/AIOS:skills:avalonia-viewmodels-zafiro` |
+| audit-project-config | Audit Project Config | `/AIOS:skills:audit-project-config` |
+| auto-deploy | Auto-Deploy — Seu concierge de deploy. | `/AIOS:skills:auto-deploy` |
+| avalonia-viewmodels-zafiro | Avalonia ViewModels com Zafiro & ReactiveUI | `/AIOS:skills:avalonia-viewmodels-zafiro` |
 | blotato | Blotato Publisher | `/AIOS:skills:blotato` |
 | book-to-markdown | Book to Markdown | `/AIOS:skills:book-to-markdown` |
 | bulletproof-test | Bulletproof Test v2.1 | `/AIOS:skills:bulletproof-test` |
 | canva | Canva Connect | `/AIOS:skills:canva` |
 | celf-context | CELF — Context Engineering Layered Framework | `/AIOS:skills:celf-context` |
 | cloud-penetration-testing | Cloud Penetration Testing | `/AIOS:skills:cloud-penetration-testing` |
-| code-refactoring-refactor-clean | Refactor and Clean Code | `/AIOS:skills:code-refactoring-refactor-clean` |
+| code-refactoring-refactor-clean | Refactor & Clean Code v2.0 | `/AIOS:skills:code-refactoring-refactor-clean` |
 | context-surgeon | Context Surgeon v1.1.0 | `/AIOS:skills:context-surgeon` |
 | dashboard-generator | Dashboard Generator - Interactive Web Dashboards | `/AIOS:skills:dashboard-generator` |
 | decision-tree-generator | Decision Tree Documentation Generator | `/AIOS:skills:decision-tree-generator` |
@@ -109,22 +109,25 @@
 | godot-gdscript-patterns | Godot GDScript Patterns | `/AIOS:skills:godot-gdscript-patterns` |
 | groq-transcriber | Groq Transcriber | `/AIOS:skills:groq-transcriber` |
 | image-creator | Image Creator | `/AIOS:skills:image-creator` |
-| image-fetcher | Asset Fetcher | `/AIOS:skills:image-fetcher` |
-| imagemagick | Image Splitter | `/AIOS:skills:imagemagick` |
+| image-fetcher | Image Fetcher | `/AIOS:skills:image-fetcher` |
+| imagemagick | ImageMagick — Processamento de Imagens via CLI | `/AIOS:skills:imagemagick` |
 | instagram-publisher | Instagram Publisher | `/AIOS:skills:instagram-publisher` |
 | lp-generator | LP Generator v3 — Landing pages de agencia, em minutos. | `/AIOS:skills:lp-generator` |
 | mcp-builder | MCP Server Development Guide | `/AIOS:skills:mcp-builder` |
 | memory-audit | Memory Audit Skill | `/AIOS:skills:memory-audit` |
 | nextjs-react-expert | Next.js & React Performance Expert | `/AIOS:skills:nextjs-react-expert` |
-| obsidian-app-filler | Obsidian App Filler | `/AIOS:skills:obsidian-app-filler` |
+| obsidian-app-filler | Obsidian App Filler — Preenchimento Automático de Notas de Apps | `/AIOS:skills:obsidian-app-filler` |
 | obsidian-tag-manager | Obsidian Tag Manager | `/AIOS:skills:obsidian-tag-manager` |
+| pipeline-checklist | Pipeline Quest — Sua Jornada do Zero ao Deploy | `/AIOS:skills:pipeline-checklist` |
 | politica-simulation-mirofish | politica-simulation-mirofish -- Motor de Predicao por Inteligencia de Enxame | `/AIOS:skills:politica-simulation-mirofish` |
 | pptx-generator | PPTX Generator | `/AIOS:skills:pptx-generator` |
-| prd-generator | PRD Generator | `/AIOS:skills:prd-generator` |
+| prd-generator | PRD Generator — Da ideia ao documento profissional. | `/AIOS:skills:prd-generator` |
 | pre-deploy-telegram-bot | Pre-Deploy — Telegram Agenda Bot | `/AIOS:skills:pre-deploy-telegram-bot` |
 | pt-br-accentuation | Skill: Acentuação e Pontuação em Português Brasileiro | `/AIOS:skills:pt-br-accentuation` |
-| quality-dashboard | Quality Dashboard Skill | `/AIOS:skills:quality-dashboard` |
-| ram-doctor | RAM Doctor — Diagnóstico e limpeza de memória no macOS | `/AIOS:skills:ram-doctor` |
+| quality-dashboard | Quality Dashboard | `/AIOS:skills:quality-dashboard` |
+| quest | Quest — Um comando. Tudo comeca. | `/AIOS:skills:quest` |
+| quest-master | Quest Engine | `/AIOS:skills:quest-master` |
+| ram-doctor | RAM Doctor — Diagnóstico e Limpeza de Memória no macOS | `/AIOS:skills:ram-doctor` |
 | sherlock-investigator | Sherlock Investigator | `/AIOS:skills:sherlock-investigator` |
 | skill-creator | Skill Creator | `/AIOS:skills:skill-creator` |
 | smart-browser-playwright | Smart Browser Playwright | `/AIOS:skills:smart-browser-playwright` |
@@ -133,6 +136,7 @@
 | sync-projects | Sync Projects — Project Pulse | `/AIOS:skills:sync-projects` |
 | system-prompt-architect | System Prompt Architect | `/AIOS:skills:system-prompt-architect` |
 | tech-search | Tech Research | `/AIOS:skills:tech-search` |
+| tier-s-checklist | Tier-S Checklist | `/AIOS:skills:tier-s-checklist` |
 | tokenizacao | Tokenização - Frontend Quality Audit 2025 | `/AIOS:skills:tokenizacao` |
 | tutorial-generator | Tutorial Generator | `/AIOS:skills:tutorial-generator` |
 | unreal-engine-cpp-pro | Unreal Engine C++ Pro | `/AIOS:skills:unreal-engine-cpp-pro` |
@@ -141,7 +145,7 @@
 
 ---
 
-## Tools (16)
+## Tools (17)
 
 | Tool | Descrição |
 |------|-----------|
@@ -153,6 +157,7 @@
 | evolution-whatsapp-api | Evolution WhatsApp API Tool |
 | hotmart-downloader | Sem descrição |
 | instagram-publisher | Instagram Publisher |
+| pipeline-dashboard | Pipeline Quest Dashboard |
 | quality-dashboard | Quality Dashboard |
 | smart-browser-playwright | Sem descrição |
 | templates | Sem descrição |
@@ -213,9 +218,9 @@
 
 | Categoria | Total | Coverage |
 |-----------|-------|----------|
-| Squads | 67 | 100% |
-| Skills | 55 | 100% |
-| Tools | 16 | 100% |
+| Squads | 66 | 100% |
+| Skills | 61 | 100% |
+| Tools | 17 | 100% |
 | Agents | 12 | 100% |
 
 ---

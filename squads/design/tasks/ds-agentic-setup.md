@@ -99,5 +99,13 @@ Configure your design system infrastructure for AI agent consumption. Ensures to
 - `squads/design/checklists/ds-component-quality-checklist.md`
 - `squads/design/checklists/ds-pattern-audit-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** Tokens sem formato W3C DTCG (`$value`, `$type`, `$description`) — agentes AI não conseguem consumir tokens proprietários sem schema
+- **BLOCKER:** Componentes sem TypeScript interfaces tipadas — agentes precisam de APIs tipadas para gerar código correto
+- **BLOCKER:** `.agentic-ds-config.yaml` com contagem de componentes divergente do total real — config incompleta gera componentes não autorizados
+- **WARNING:** MCP endpoint não testado com pelo menos um agente AI consumidor
+- **WARNING:** Regras de composição (o que pode aninhar dentro do quê) não documentadas no config
+
 ## Process Guards
 - **On Fail:** Stop execution, capture evidence, and return remediation steps before proceeding.

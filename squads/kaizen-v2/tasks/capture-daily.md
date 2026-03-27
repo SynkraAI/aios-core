@@ -95,6 +95,12 @@ agents_involved:
 - Executes before `workflows/wf-overnight-reflect.yaml`
 - Data persists to `data/intelligence/daily/`
 
+## Veto Conditions
+- "Learning registrado sem evidência rastreável (commit, decisão ou observação direta) → REMOVER do daily"
+- "Daily com >3KB indica over-capture → PODAR highlights e manter apenas learnings verificados"
+- "Campo learnings vazio quando sessão teve decisões ou insights → BLOQUEAR (captura incompleta)"
+- "Providers_active listando modelos não utilizados na sessão → CORRIGIR antes de salvar"
+
 ## Success Criteria
 - PASS: Daily YAML created with valid schema, all learnings captured
 - FAIL: File missing, invalid YAML, mandatory fields empty

@@ -247,6 +247,13 @@ Generate and display report:
 
 ---
 
+## Veto Conditions
+- "Hook registrado com path relativo em vez de absoluto → BLOQUEAR (hooks com path relativo falham silenciosamente)"
+- "settings.json sobrescrito em vez de merge com hooks existentes → ABORTAR e restaurar backup"
+- "patterns.yaml inicializado com 0 seed patterns → BLOQUEAR (mínimo 5 verified para seed válido)"
+- "Instalação concluída sem rodar health check final → BLOQUEAR (não marcar SUCCESS sem validação)"
+- "Scripts .cjs referenciados no hook mas inexistentes em squads/kaizen-v2/scripts/ → ABORTAR instalação"
+
 ## Idempotency
 
 This task is SAFE to re-run:

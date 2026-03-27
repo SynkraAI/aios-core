@@ -1,0 +1,1177 @@
+/*
+ * ============================================================
+ *  FANTASY THEME — Pipeline Dashboard
+ *  "The Quest Log of the Eternal Developer"
+ *  Medieval RPG aesthetic. Aged parchment, gold, heraldic seals.
+ * ============================================================
+ */
+
+/* ─── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+/* ─── CSS Variables ─────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg-primary:        #1a1208;
+  --bg-secondary:      #221809;
+  --bg-card:           #2a1f0e;
+  --bg-card-hover:     #332612;
+
+  /* Text */
+  --text-primary:      #d4c5a0;
+  --text-secondary:    #8b7355;
+  --text-accent:       #d4a017;
+
+  /* Accents */
+  --accent-primary:    #d4a017;   /* gold */
+  --accent-secondary:  #8b4513;   /* saddle brown */
+  --accent-tertiary:   #228b22;   /* forest green — HP / progress */
+
+  /* Borders */
+  --border-color:      #5c3d1a;
+  --border-glow:       rgba(212, 160, 23, 0.6);
+
+  /* Progress */
+  --progress-gradient: linear-gradient(90deg, #16a34a 0%, #22c55e 60%, #4ade80 100%);
+  --progress-shine:    linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%);
+
+  /* Shadows */
+  --shadow-card:       0 4px 24px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(212, 160, 23, 0.08);
+  --shadow-glow:       0 0 20px rgba(212, 160, 23, 0.45), 0 0 60px rgba(212, 160, 23, 0.15);
+
+  /* Radius */
+  --radius-card:       6px;
+  --radius-pill:       999px;
+
+  /* Typography */
+  --font-display:      'Cinzel', 'Times New Roman', serif;
+  --font-mono:         'Crimson Text', Georgia, serif;
+
+  /* Internal helpers */
+  --gold-dim:          rgba(212, 160, 23, 0.25);
+  --gold-mid:          rgba(212, 160, 23, 0.55);
+  --parchment-light:   #3d2b0f;
+  --wax-red:           #8b1a1a;
+  --chain-gray:        #4a4035;
+}
+
+/* ─── Background Texture ────────────────────────────────────── */
+/*
+ *  Layered CSS gradients simulate aged parchment grain.
+ *  No external image needed — pure CSS noise pattern.
+ */
+body,
+.theme-fantasy {
+  background-color: var(--bg-primary);
+  background-image:
+    /* Fine cross-hatch grain */
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(212, 160, 23, 0.018) 2px,
+      rgba(212, 160, 23, 0.018) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(212, 160, 23, 0.012) 2px,
+      rgba(212, 160, 23, 0.012) 4px
+    ),
+    /* Diagonal coarse grain — aged paper feel */
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 12px,
+      rgba(0, 0, 0, 0.06) 12px,
+      rgba(0, 0, 0, 0.06) 13px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 12px,
+      rgba(0, 0, 0, 0.04) 12px,
+      rgba(0, 0, 0, 0.04) 13px
+    ),
+    /* Radial vignette — torch-lit room */
+    radial-gradient(
+      ellipse 120% 100% at 50% 0%,
+      rgba(42, 31, 14, 0.5) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 80% 80% at 50% 50%,
+      transparent 40%,
+      rgba(10, 6, 2, 0.55) 100%
+    );
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* ─── Base Typography ───────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6,
+.heading,
+.title,
+.dashboard-title,
+.world-name,
+.skill-name,
+.level-label,
+.phase-title,
+.quest-title {
+  font-family: var(--font-display);
+  color: var(--text-accent);
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8), 0 0 18px rgba(212, 160, 23, 0.3);
+}
+
+p, span, li, td, th {
+  font-family: var(--font-mono);
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #110d05;
+  border-left: 1px solid #3a2710;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8b4513 0%, #5c2a08 60%, #d4a017 100%);
+  border-radius: 2px;
+  border: 1px solid #3a2710;
+  box-shadow: inset 0 1px 0 rgba(212, 160, 23, 0.4);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #d4a017 0%, #8b4513 100%);
+}
+
+::-webkit-scrollbar-corner {
+  background: #110d05;
+}
+
+/* ─── Cards — Aged Wood Texture ─────────────────────────────── */
+.card,
+.world-card,
+.achievement-card,
+.skill-card,
+.stat-card,
+.phase-card,
+.dashboard-card {
+  background: var(--bg-card);
+  background-image:
+    /* Wood grain simulation */
+    repeating-linear-gradient(
+      92deg,
+      transparent 0px,
+      transparent 6px,
+      rgba(0, 0, 0, 0.07) 6px,
+      rgba(0, 0, 0, 0.07) 7px
+    ),
+    repeating-linear-gradient(
+      178deg,
+      transparent 0px,
+      transparent 14px,
+      rgba(212, 160, 23, 0.04) 14px,
+      rgba(212, 160, 23, 0.04) 15px
+    );
+  border: 1px solid var(--border-color);
+  border-image: linear-gradient(
+    180deg,
+    #8b6914 0%,
+    #5c3d1a 30%,
+    #3a2410 60%,
+    #8b6914 100%
+  ) 1;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Notched corner feel — top-left chamfer using ::before */
+.card::before,
+.world-card::before,
+.achievement-card::before,
+.skill-card::before,
+.stat-card::before,
+.phase-card::before,
+.dashboard-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-card);
+  background: linear-gradient(
+    135deg,
+    rgba(212, 160, 23, 0.12) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(212, 160, 23, 0.05) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card:hover,
+.world-card:hover,
+.skill-card:hover,
+.stat-card:hover,
+.dashboard-card:hover {
+  background: var(--bg-card-hover);
+  box-shadow:
+    0 6px 32px rgba(0, 0, 0, 0.75),
+    0 0 12px rgba(212, 160, 23, 0.2),
+    inset 0 1px 0 rgba(212, 160, 23, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ─── XP Bar — RPG HP Bar Style ─────────────────────────────── */
+.xp-bar,
+.xp-bar-container,
+.progress-track,
+.hp-bar {
+  background: #0e0a04;
+  border: 1px solid #4a3210;
+  border-radius: 2px;
+  height: 16px;
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.8),
+    inset 0 -1px 0 rgba(212, 160, 23, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.xp-bar-fill,
+.progress-fill,
+.hp-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--progress-gradient);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 0 8px rgba(34, 197, 94, 0.5);
+  position: relative;
+  transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Animated shine pass over the HP bar */
+.xp-bar-fill::after,
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--progress-shine);
+  animation: progress-shine-pass 2.4s ease-in-out 1; /* runs once, not forever */
+}
+
+@keyframes progress-shine-pass {
+  0%   { transform: translateX(-100%); }
+  60%  { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Segmented tick marks — classic RPG chunky look */
+.xp-bar::after,
+.progress-track::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 19px,
+    rgba(0, 0, 0, 0.5) 19px,
+    rgba(0, 0, 0, 0.5) 21px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ─── Level Badge — Scroll / Banner Shape ────────────────────── */
+.level-badge,
+.level-pill,
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  padding: 4px 14px;
+  background: linear-gradient(180deg, #5c3d1a 0%, #2a1f0e 50%, #5c3d1a 100%);
+  border: 1px solid #d4a017;
+  box-shadow:
+    0 0 10px rgba(212, 160, 23, 0.35),
+    inset 0 1px 0 rgba(212, 160, 23, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  color: var(--text-accent);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  position: relative;
+  clip-path: polygon(
+    8px 0%, calc(100% - 8px) 0%,
+    100% 50%,
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0% 50%
+  );
+}
+
+/* ─── World Cards — Parchment Style ─────────────────────────── */
+.world-card {
+  background-color: var(--parchment-light);
+  background-image:
+    repeating-linear-gradient(
+      92deg,
+      transparent 0px,
+      transparent 6px,
+      rgba(0, 0, 0, 0.06) 6px,
+      rgba(0, 0, 0, 0.06) 7px
+    );
+  border-left: 4px solid var(--accent-primary);
+  border-radius: var(--radius-card);
+}
+
+/* Completed world: wax seal overlay */
+.world-complete {
+  position: relative;
+}
+
+.world-complete::after {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    #c0392b 0%,
+    #8b1a1a 45%,
+    #5a0e0e 100%
+  );
+  border: 2px solid rgba(212, 160, 23, 0.6);
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 120, 100, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  animation: seal-stamp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  z-index: 2;
+}
+
+/* Active world: pulsing gold border */
+.world-active {
+  border-left-color: var(--accent-primary) !important;
+  animation: golden-glow-border 2.4s ease-in-out infinite;
+  box-shadow:
+    var(--shadow-card),
+    0 0 0 1px rgba(212, 160, 23, 0.4),
+    0 0 20px rgba(212, 160, 23, 0.25);
+}
+
+/* Locked world: grayed out with chain overlay */
+.world-locked {
+  opacity: 0.3;
+  filter: grayscale(0.6);
+  pointer-events: none;
+  position: relative;
+}
+
+.world-locked::after {
+  content: '⛓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: var(--chain-gray);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: var(--radius-card);
+  pointer-events: none;
+  z-index: 5;
+  opacity: 1;
+}
+
+/* ─── Achievement Cards — Heraldic Shield ────────────────────── */
+.achievement-card {
+  border: 2px solid var(--accent-primary);
+  box-shadow:
+    var(--shadow-card),
+    0 0 16px rgba(212, 160, 23, 0.3),
+    inset 0 0 20px rgba(212, 160, 23, 0.05);
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 70%,
+    50% 100%,
+    0% 70%
+  );
+  padding-bottom: 2.5rem;
+}
+
+/* Unlocked achievement: seal stamp entrance */
+.achievement-unlocked {
+  animation: seal-stamp 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+/* ─── Phase Progress — Shield Badges ─────────────────────────── */
+.phase-badge,
+.phase-indicator {
+  width: 40px;
+  height: 48px;
+  background: linear-gradient(180deg, #3d2b0f 0%, #2a1f0e 100%);
+  border: 1.5px solid var(--border-color);
+  clip-path: polygon(
+    10% 0%,
+    90% 0%,
+    100% 30%,
+    100% 70%,
+    50% 100%,
+    0% 70%,
+    0% 30%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.phase-badge.active,
+.phase-indicator.active {
+  border-color: var(--accent-primary);
+  color: var(--text-accent);
+  background: linear-gradient(180deg, #5c3d1a 0%, #3d2b0f 100%);
+  box-shadow: 0 0 12px rgba(212, 160, 23, 0.45);
+}
+
+.phase-badge.complete,
+.phase-indicator.complete {
+  background: linear-gradient(180deg, #1a4520 0%, #0e2812 100%);
+  border-color: var(--accent-tertiary);
+  color: #4ade80;
+}
+
+/* Phase fill level as inset overlay */
+.phase-badge .phase-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(0deg, rgba(34, 197, 94, 0.3), transparent);
+  clip-path: inherit;
+  transition: height 0.6s ease;
+}
+
+/* ─── Theme Selector — Shield Button ────────────────────────── */
+.theme-selector-btn,
+.btn-theme,
+button[data-theme] {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: linear-gradient(180deg, #5c3d1a 0%, #2a1f0e 100%);
+  border: 1.5px solid var(--accent-primary);
+  border-radius: 2px;
+  color: var(--text-accent);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  position: relative;
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 75%,
+    50% 100%,
+    0% 75%
+  );
+  padding-bottom: 16px;
+  transition: all 0.2s ease;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 10px rgba(212, 160, 23, 0.2);
+}
+
+.theme-selector-btn:hover,
+.btn-theme:hover {
+  background: linear-gradient(180deg, #8b6914 0%, #5c3d1a 100%);
+  box-shadow: 0 0 20px rgba(212, 160, 23, 0.5);
+  transform: translateY(-1px);
+}
+
+.theme-selector-btn.active,
+button[data-theme].active {
+  background: linear-gradient(180deg, #d4a017 0%, #8b6914 50%, #5c3d1a 100%);
+  color: #1a1208;
+  text-shadow: none;
+}
+
+/* ─── Celebration / Golden Particles ────────────────────────── */
+.celebration {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* Particle elements generated via JS — each .particle floats up */
+.celebration .particle {
+  position: absolute;
+  bottom: -20px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffe066 0%, #d4a017 60%, transparent 100%);
+  box-shadow: 0 0 6px rgba(212, 160, 23, 0.8);
+  animation: float-up 2.8s ease-out forwards;
+}
+
+/* Stagger particles with nth-child offsets */
+.celebration .particle:nth-child(2n)   { width: 5px; height: 5px; animation-duration: 2.2s; }
+.celebration .particle:nth-child(3n)   { background: radial-gradient(circle, #fff 0%, #d4a017 50%, transparent 100%); }
+.celebration .particle:nth-child(4n)   { width: 12px; height: 4px; border-radius: 2px; animation-duration: 3.2s; }
+.celebration .particle:nth-child(5n)   { background: radial-gradient(circle, #ffd700 0%, #8b4513 100%); }
+.celebration .particle:nth-child(6n)   { animation-duration: 2s; }
+
+/* ─── Level-Up Overlay — Scroll Unfurling ───────────────────── */
+.level-up-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 6, 2, 0.82);
+  z-index: 10000;
+  animation: fade-in-up 0.4s ease both;
+}
+
+.level-up-overlay .scroll-banner {
+  background: linear-gradient(
+    180deg,
+    #5c3d1a 0%,
+    #3d2b0f 15%,
+    #2a1f0e 50%,
+    #3d2b0f 85%,
+    #5c3d1a 100%
+  );
+  border: 2px solid var(--accent-primary);
+  border-radius: 4px;
+  padding: 40px 64px;
+  text-align: center;
+  min-width: 380px;
+  box-shadow:
+    0 0 60px rgba(212, 160, 23, 0.5),
+    inset 0 0 30px rgba(0, 0, 0, 0.6);
+  animation: level-up-scroll 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Rolled-edge lines top and bottom of scroll */
+.level-up-overlay .scroll-banner::before,
+.level-up-overlay .scroll-banner::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: linear-gradient(180deg, #8b6914 0%, #5c3d1a 100%);
+  border-radius: 4px;
+}
+
+.level-up-overlay .scroll-banner::before { top: 0; }
+.level-up-overlay .scroll-banner::after  { bottom: 0; }
+
+.level-up-overlay h2 {
+  font-family: 'Cinzel Decorative', var(--font-display);
+  font-size: 2rem;
+  color: var(--text-accent);
+  text-shadow:
+    0 0 20px rgba(212, 160, 23, 0.8),
+    0 2px 4px rgba(0, 0, 0, 0.9);
+  margin: 0 0 8px;
+}
+
+.level-up-overlay .level-number {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow:
+    0 0 30px rgba(212, 160, 23, 1),
+    0 0 60px rgba(212, 160, 23, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.9);
+  animation: scale-pop 0.5s 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  display: block;
+  margin: 8px 0;
+}
+
+/* ─── Buttons — General ─────────────────────────────────────── */
+.btn,
+button:not(.theme-selector-btn):not([data-theme]) {
+  background: linear-gradient(180deg, #5c3d1a 0%, #2a1f0e 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.btn:hover,
+button:not(.theme-selector-btn):not([data-theme]):hover {
+  border-color: var(--accent-primary);
+  color: var(--text-accent);
+  box-shadow: 0 0 10px rgba(212, 160, 23, 0.3);
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #8b6914 0%, #5c3d1a 100%);
+  border-color: var(--accent-primary);
+  color: var(--text-accent);
+  box-shadow: 0 0 12px rgba(212, 160, 23, 0.2);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(180deg, #d4a017 0%, #8b6914 100%);
+  box-shadow: var(--shadow-glow);
+}
+
+/* ─── Links ─────────────────────────────────────────────────── */
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+a:hover {
+  color: #ffe066;
+  border-bottom-color: rgba(212, 160, 23, 0.5);
+  text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+}
+
+/* ─── Table ─────────────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: linear-gradient(180deg, #3d2b0f 0%, #2a1f0e 100%);
+  color: var(--text-accent);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--accent-primary);
+  text-align: left;
+}
+
+td {
+  padding: 9px 14px;
+  border-bottom: 1px solid rgba(92, 61, 26, 0.4);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+tr:hover td {
+  background: rgba(212, 160, 23, 0.04);
+}
+
+/* ─── Input / Select ─────────────────────────────────────────── */
+input,
+select,
+textarea {
+  background: #110d05;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 10px rgba(212, 160, 23, 0.25);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+/* ─── Tooltip — Parchment Popup ─────────────────────────────── */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--parchment-light);
+  border: 1px solid var(--accent-primary);
+  border-radius: 3px;
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+}
+
+/* ─── Divider — Ornamental Rule ─────────────────────────────── */
+hr,
+.divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border-color) 20%,
+    var(--accent-primary) 50%,
+    var(--border-color) 80%,
+    transparent 100%
+  );
+  margin: 24px 0;
+  position: relative;
+}
+
+hr::after,
+.divider::after {
+  content: '✦';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-primary);
+  color: var(--accent-primary);
+  padding: 0 8px;
+  font-size: 0.75rem;
+}
+
+/* ─── Tags / Pills ───────────────────────────────────────────── */
+.tag,
+.badge,
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 2px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  border: 1px solid;
+}
+
+.tag-gold   { background: rgba(212, 160, 23, 0.15); border-color: var(--accent-primary); color: var(--accent-primary); }
+.tag-green  { background: rgba(34, 139, 34, 0.15);  border-color: var(--accent-tertiary); color: #4ade80; }
+.tag-brown  { background: rgba(139, 69, 19, 0.2);   border-color: var(--accent-secondary); color: #c87941; }
+
+/* ─── Stat Numbers ───────────────────────────────────────────── */
+.stat-value,
+.big-number {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--text-accent);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(212, 160, 23, 0.4), 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.stat-label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* ─── Notification / Alert ───────────────────────────────────── */
+.alert,
+.notification {
+  background: linear-gradient(90deg, rgba(139, 69, 19, 0.2), rgba(42, 31, 14, 0.6));
+  border-left: 3px solid var(--accent-secondary);
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  padding: 10px 16px;
+  font-family: var(--font-mono);
+  font-style: italic;
+  color: var(--text-primary);
+}
+
+.alert-success { border-left-color: var(--accent-tertiary); background: linear-gradient(90deg, rgba(34, 139, 34, 0.15), rgba(14, 10, 4, 0.6)); }
+.alert-gold    { border-left-color: var(--accent-primary);  background: linear-gradient(90deg, rgba(212, 160, 23, 0.12), rgba(14, 10, 4, 0.6)); }
+
+/* ─── Loading Spinner — Arcane Circle ───────────────────────── */
+.spinner,
+.loading {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(92, 61, 26, 0.4);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: arcane-spin 1s linear infinite;
+}
+
+@keyframes arcane-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Modal — Tome / Book Popup ─────────────────────────────── */
+.modal-overlay,
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 6, 2, 0.85);
+  backdrop-filter: blur(3px);
+  z-index: 9000;
+  animation: fade-in-up 0.3s ease both;
+}
+
+.modal,
+.dialog {
+  background: var(--bg-card);
+  background-image: repeating-linear-gradient(
+    92deg, transparent 0px, transparent 6px,
+    rgba(0,0,0,0.05) 6px, rgba(0,0,0,0.05) 7px
+  );
+  border: 1.5px solid var(--accent-primary);
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(212, 160, 23, 0.15),
+    inset 0 0 40px rgba(0, 0, 0, 0.4);
+  padding: 32px;
+  animation: scale-pop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.modal-header,
+.dialog-header {
+  font-family: var(--font-display);
+  color: var(--text-accent);
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 20px;
+  text-shadow: 0 0 12px rgba(212, 160, 23, 0.3);
+}
+
+/* ─── Navigation ─────────────────────────────────────────────── */
+nav,
+.nav,
+.sidebar {
+  background: #150f06;
+  border-right: 1px solid var(--border-color);
+}
+
+.nav-item,
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.nav-item:hover,
+.sidebar-link:hover {
+  color: var(--text-accent);
+  border-left-color: var(--accent-primary);
+  background: rgba(212, 160, 23, 0.06);
+}
+
+.nav-item.active,
+.sidebar-link.active {
+  color: var(--text-accent);
+  border-left-color: var(--accent-primary);
+  background: rgba(212, 160, 23, 0.1);
+  box-shadow: inset -4px 0 12px rgba(212, 160, 23, 0.05);
+}
+
+/* ─── Keyframe Animations ────────────────────────────────────── */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes golden-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 8px rgba(212, 160, 23, 0.3),
+      0 0 20px rgba(212, 160, 23, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(212, 160, 23, 0.7),
+      0 0 50px rgba(212, 160, 23, 0.35),
+      0 0 80px rgba(212, 160, 23, 0.15);
+  }
+}
+
+@keyframes golden-glow-border {
+  0%, 100% {
+    box-shadow:
+      var(--shadow-card),
+      0 0 0 1px rgba(212, 160, 23, 0.3),
+      0 0 16px rgba(212, 160, 23, 0.2);
+  }
+  50% {
+    box-shadow:
+      var(--shadow-card),
+      0 0 0 2px rgba(212, 160, 23, 0.7),
+      0 0 30px rgba(212, 160, 23, 0.45),
+      0 0 60px rgba(212, 160, 23, 0.15);
+  }
+}
+
+/* Wax seal stamp — scales from 0, spins slightly into place */
+@keyframes seal-stamp {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-25deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.2) rotate(5deg);
+  }
+  80% {
+    transform: scale(0.92) rotate(-2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Particles floating upward for celebration */
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0) scale(0.5);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(-80px) translateX(var(--drift, 0px)) scale(1);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translateY(-55vh) translateX(calc(var(--drift, 0px) * 2.5)) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-90vh) translateX(calc(var(--drift, 0px) * 3)) scale(0.3);
+  }
+}
+
+/* Scroll unfurling for level-up overlay */
+@keyframes level-up-scroll {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.05);
+    filter: brightness(3);
+  }
+  40% {
+    opacity: 1;
+    transform: scaleY(1.06);
+  }
+  70% {
+    transform: scaleY(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+    filter: brightness(1);
+  }
+}
+
+/* Subtle text shimmer for gold headings */
+@keyframes gold-shimmer {
+  0%, 100% { color: #d4a017; }
+  40%       { color: #ffe066; text-shadow: 0 0 14px rgba(255, 224, 102, 0.7); }
+}
+
+/* ─── Utility: entrance animation for new cards ──────────────── */
+.animate-in {
+  animation: fade-in-up 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.animate-pop {
+  animation: scale-pop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.glow-gold {
+  animation: golden-glow 2.8s ease-in-out infinite;
+}
+
+.shimmer-title {
+  animation: gold-shimmer 3.5s ease-in-out infinite;
+}
+
+/* Stagger delay helpers */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* ─── Responsive — 2560x1440 ─────────────────────────────────── */
+@media (min-width: 2200px) {
+  :root {
+    --radius-card: 8px;
+  }
+
+  body, .theme-fantasy {
+    font-size: 18px;
+  }
+
+  .stat-value,
+  .big-number {
+    font-size: 3rem;
+  }
+
+  .level-badge,
+  .level-pill {
+    font-size: 1rem;
+    min-width: 70px;
+    padding: 6px 18px;
+  }
+
+  .xp-bar,
+  .progress-track,
+  .hp-bar {
+    height: 20px;
+  }
+
+  .level-up-overlay .scroll-banner {
+    min-width: 500px;
+    padding: 56px 88px;
+  }
+
+  .level-up-overlay h2 {
+    font-size: 2.6rem;
+  }
+
+  .level-up-overlay .level-number {
+    font-size: 5.5rem;
+  }
+}
+
+/* ─── Responsive — 1920x1080 (baseline) ─────────────────────── */
+@media (min-width: 1700px) and (max-width: 2199px) {
+  :root {
+    --radius-card: 6px;
+  }
+
+  body, .theme-fantasy {
+    font-size: 16px;
+  }
+
+  .stat-value,
+  .big-number {
+    font-size: 2.6rem;
+  }
+}
+
+/* ─── Responsive — mobile / narrow ──────────────────────────── */
+@media (max-width: 768px) {
+  .card,
+  .world-card,
+  .achievement-card,
+  .dashboard-card {
+    border-radius: 4px;
+  }
+
+  .achievement-card {
+    clip-path: none;
+    padding-bottom: 1rem;
+  }
+
+  .theme-selector-btn,
+  .btn-theme,
+  button[data-theme] {
+    clip-path: none;
+    padding-bottom: 8px;
+    border-radius: 3px;
+  }
+
+  .level-up-overlay .scroll-banner {
+    min-width: unset;
+    width: 90vw;
+    padding: 32px 24px;
+  }
+}
+
+/*
+ * ────────────────────────────────────────────────────────────
+ *  END OF FANTASY THEME
+ *  "Courage is the magic that turns dreams into reality."
+ * ────────────────────────────────────────────────────────────
+ */

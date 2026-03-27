@@ -92,5 +92,13 @@ Install and curate a Shadcn UI component library leveraging Tailwind v4, Radix p
 - `squads/design/checklists/ds-component-quality-checklist.md`
 - `squads/design/checklists/ds-pattern-audit-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** Componentes shadcn instalados sem mapeamento para design tokens do projeto — cores e espaçamentos hardcoded do template padrão não são aceitos
+- **BLOCKER:** Instalação sem validação de acessibilidade dos componentes Radix (ARIA attributes e focus management devem permanecer intactos)
+- **BLOCKER:** Helper `cn` não configurado com `clsx` + `tailwind-merge` — conflitos de classes Tailwind sem merge causam bugs visuais
+- **WARNING:** Componentes sem dark mode variants configurados (`dark:` classes ausentes)
+- **WARNING:** Storybook não configurado para importar componentes shadcn (alias `@/` não resolvido)
+
 ## Process Guards
 - **On Fail:** Stop execution, capture evidence, and return remediation steps before proceeding.

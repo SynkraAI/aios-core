@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quest Master — Theme Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=Cinzel:wght@400;600;700&family=Alegreya:wght@400;500;700&family=Orbitron:wght@400;500;700&family=Share+Tech+Mono&family=Audiowide&family=Exo+2:wght@400;500;600;700&family=Michroma&family=Monoton&family=VT323&family=Karla:wght@400;500;700&family=Fira+Code:wght@400;500;600&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #080810;
+      color: #e2e8f0;
+      font-family: 'Inter', system-ui, sans-serif;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .page-header {
+      text-align: center;
+      padding: 2rem 0 2.5rem;
+    }
+    .page-header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+    .page-header .count {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(99,102,241,0.15);
+      color: #818cf8;
+      border: 1px solid rgba(99,102,241,0.3);
+    }
+
+    /* Grid */
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 1.5rem;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+
+    /* Theme card */
+    .theme-card {
+      border-radius: var(--tc-radius, 12px);
+      background: var(--tc-bg-primary);
+      border: 1px solid var(--tc-border);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    .theme-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+    }
+
+    /* Card header */
+    .tc-header {
+      padding: 1rem 1.25rem;
+      background: var(--tc-bg-card);
+      border-bottom: 1px solid var(--tc-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tc-name {
+      font-family: var(--tc-font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--tc-text-accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .tc-id {
+      font-family: var(--tc-font-mono);
+      font-size: 0.6rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--tc-border);
+      color: var(--tc-text-secondary);
+      letter-spacing: 1px;
+    }
+
+    /* Card body */
+    .tc-body {
+      padding: 1.25rem;
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    /* Description */
+    .tc-desc {
+      font-size: 0.75rem;
+      color: var(--tc-text-secondary);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Stats row */
+    .tc-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+    .tc-stat {
+      text-align: center;
+      padding: 0.6rem 0.4rem;
+      background: var(--tc-bg-card);
+      border-radius: calc(var(--tc-radius, 12px) * 0.6);
+      border: 1px solid var(--tc-border);
+    }
+    .tc-stat-value {
+      font-family: var(--tc-font-mono);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--tc-text-accent);
+      line-height: 1.2;
+    }
+    .tc-stat-label {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--tc-text-secondary);
+      margin-top: 0.15rem;
+    }
+
+    /* Level section */
+    .tc-level {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .tc-level-badge {
+      font-family: var(--tc-font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: var(--tc-accent-primary);
+      color: var(--tc-bg-primary);
+      white-space: nowrap;
+    }
+    .tc-xp-bar {
+      flex: 1;
+      height: 8px;
+      background: var(--tc-bg-card);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--tc-border);
+    }
+    .tc-xp-fill {
+      height: 100%;
+      width: 68%;
+      border-radius: 999px;
+      background: var(--tc-progress);
+    }
+
+    /* Worlds */
+    .tc-worlds {
+      display: grid;
+      gap: 0.35rem;
+    }
+    .tc-world {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 0.7rem;
+      border-radius: calc(var(--tc-radius, 12px) * 0.5);
+      background: var(--tc-bg-card);
+      border-left: 3px solid var(--tc-border);
+      font-size: 0.75rem;
+      color: var(--tc-text-primary);
+    }
+    .tc-world.complete { border-left-color: #22c55e; opacity: 0.7; }
+    .tc-world.active { border-left-color: var(--tc-accent-primary); }
+    .tc-world.locked { border-left-color: var(--tc-border); opacity: 0.3; }
+
+    /* Light theme card adjustments */
+    .theme-card[data-light="true"] .tc-ach {
+      background: var(--tc-bg-primary);
+    }
+    .theme-card[data-light="true"] .tc-xp-bar {
+      background: var(--tc-bg-primary);
+    }
+    .theme-card[data-light="true"] .tc-world-bar {
+      background: var(--tc-border);
+    }
+
+    /* Section divider */
+    .section-divider {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      position: relative;
+    }
+    .section-divider::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: #1e293b;
+    }
+    .section-divider span {
+      position: relative;
+      background: #080810;
+      padding: 0 1.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+    .tc-world-name {
+      flex: 1;
+      font-family: var(--tc-font-display);
+      font-size: 0.7rem;
+    }
+    .tc-world-progress {
+      font-family: var(--tc-font-mono);
+      font-size: 0.6rem;
+      color: var(--tc-text-secondary);
+    }
+    .tc-world-bar {
+      width: 60px;
+      height: 4px;
+      background: var(--tc-bg-primary);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .tc-world-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: var(--tc-progress);
+    }
+
+    /* Achievements */
+    .tc-achievements {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .tc-ach {
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      background: var(--tc-bg-card);
+      border: 1px solid var(--tc-accent-primary);
+    }
+    .tc-ach.locked {
+      opacity: 0.15;
+      border-color: var(--tc-border);
+      filter: grayscale(1);
+    }
+
+    /* Color swatches */
+    .tc-swatches {
+      display: flex;
+      gap: 4px;
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--tc-border);
+    }
+    .tc-swatch {
+      flex: 1;
+      height: 8px;
+      border-radius: 4px;
+      position: relative;
+      cursor: default;
+    }
+    .tc-swatch::after {
+      content: attr(data-hex);
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5rem;
+      color: var(--tc-text-secondary);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .theme-card:hover .tc-swatch::after { opacity: 1; }
+
+    /* Footer */
+    .tc-footer {
+      padding: 0.5rem 1.25rem;
+      background: var(--tc-bg-card);
+      border-top: 1px solid var(--tc-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.6rem;
+      color: var(--tc-text-secondary);
+    }
+    .tc-footer-font {
+      font-family: var(--tc-font-display);
+      color: var(--tc-text-accent);
+      font-size: 0.65rem;
+    }
+    .tc-footer-id {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      opacity: 0.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .themes-grid { grid-template-columns: 1fr; }
+      body { padding: 1rem; }
+    }
+    @media (min-width: 1800px) {
+      .themes-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>Quest Master — Themes</h1>
+    <p>Escolha o visual do seu projeto. Cada tema tem identidade de cor unica.</p>
+    <div class="count" id="count"></div>
+  </div>
+
+  <div class="themes-grid" id="app"></div>
+
+  <script>
+  'use strict';
+
+  var THEMES = [
+    {
+      id: 'cyberpunk',
+      name: 'Cyberpunk',
+      desc: 'Neon cyan e magenta sobre preto profundo. O original.',
+      bgPrimary: '#0a0a1a', bgCard: 'rgba(15,15,40,0.85)', textPrimary: '#e2e8f0',
+      textSecondary: '#64748b', textAccent: '#00fff2',
+      accentPrimary: '#00fff2', accentSecondary: '#ff00ff',
+      border: 'rgba(0,255,242,0.18)',
+      progress: 'linear-gradient(90deg, #00fff2, #8b5cf6, #ff00ff)',
+      swatches: ['#00fff2', '#8b5cf6', '#ff00ff', '#0a0a1a', '#e2e8f0'],
+      fontDisplay: "'Space Grotesk', sans-serif", fontMono: "'JetBrains Mono', monospace",
+      radius: '16px',
+    },
+    {
+      id: 'fantasy',
+      name: 'Fantasy',
+      desc: 'Ouro medieval sobre pergaminho escuro. Espadas e escudos.',
+      bgPrimary: '#1a1208', bgCard: '#2a1f0e', textPrimary: '#d4c5a0',
+      textSecondary: '#8b7355', textAccent: '#d4a017',
+      accentPrimary: '#d4a017', accentSecondary: '#8b4513',
+      border: '#5c3d1a',
+      progress: 'linear-gradient(90deg, #16a34a, #22c55e, #4ade80)',
+      swatches: ['#d4a017', '#8b4513', '#22c55e', '#1a1208', '#d4c5a0'],
+      fontDisplay: "'Cinzel', serif", fontMono: "'Crimson Text', serif",
+      radius: '6px',
+    },
+    {
+      id: 'ember',
+      name: 'Ember',
+      desc: 'Fogo e brasa. Laranja incandescente sobre cinzas escuras.',
+      bgPrimary: '#0d0a08', bgCard: '#1e1610', textPrimary: '#f4efde',
+      textSecondary: '#a78a6d', textAccent: '#ff7100',
+      accentPrimary: '#ff7100', accentSecondary: '#edb500',
+      border: '#3a2a1e',
+      progress: 'linear-gradient(90deg, #b32424, #ff7100, #edb500)',
+      swatches: ['#b32424', '#ff7100', '#edb500', '#0d0a08', '#f4efde'],
+      fontDisplay: "'Rajdhani', sans-serif", fontMono: "'JetBrains Mono', monospace",
+      radius: '8px',
+    },
+    {
+      id: 'gold',
+      name: 'Gold',
+      desc: 'Dourado reluzente sobre noite profunda. Poder e conquista.',
+      bgPrimary: '#01080a', bgCard: '#141820', textPrimary: '#e7e5e8',
+      textSecondary: '#b8a960', textAccent: '#fbbc42',
+      accentPrimary: '#fbbc42', accentSecondary: '#e76a24',
+      border: '#2a2820',
+      progress: 'linear-gradient(90deg, #e76a24, #fbbc42, #fffacd)',
+      swatches: ['#e76a24', '#fbbc42', '#fffacd', '#01080a', '#e7e5e8'],
+      fontDisplay: "'Exo 2', sans-serif", fontMono: "'JetBrains Mono', monospace",
+      radius: '10px',
+    },
+    {
+      id: 'violet',
+      name: 'Violet',
+      desc: 'Roxo profundo com toques de cyan. Misterio e energia.',
+      bgPrimary: '#05050a', bgCard: '#15152b', textPrimary: '#d4d4f0',
+      textSecondary: '#8080aa', textAccent: '#bf5af2',
+      accentPrimary: '#7c3aed', accentSecondary: '#06b6d4',
+      border: '#25254a',
+      progress: 'linear-gradient(90deg, #4c1d95, #7c3aed, #bf5af2)',
+      swatches: ['#4c1d95', '#7c3aed', '#bf5af2', '#06b6d4', '#d4d4f0'],
+      fontDisplay: "'Inter', sans-serif", fontMono: "'JetBrains Mono', monospace",
+      radius: '12px',
+    },
+    {
+      id: 'crimson',
+      name: 'Crimson',
+      desc: 'Vermelho sangue com lampejo de ouro. Intenso e dramatico.',
+      bgPrimary: '#070707', bgCard: '#1a0810', textPrimary: '#e0d0d8',
+      textSecondary: '#9f6e75', textAccent: '#e63946',
+      accentPrimary: '#e63946', accentSecondary: '#ffd60a',
+      border: '#3a1020',
+      progress: 'linear-gradient(90deg, #760921, #e63946, #ffd60a)',
+      swatches: ['#760921', '#e63946', '#ff5252', '#ffd60a', '#070707'],
+      fontDisplay: "'Alegreya', serif", fontMono: "'JetBrains Mono', monospace",
+      radius: '6px',
+    },
+    {
+      id: 'phosphor',
+      name: 'Phosphor',
+      desc: 'Verde terminal sobre preto absoluto. Puro hacker.',
+      bgPrimary: '#000000', bgCard: '#0a120a', textPrimary: '#33ff33',
+      textSecondary: '#22aa22', textAccent: '#66ff66',
+      accentPrimary: '#33ff33', accentSecondary: '#00cc00',
+      border: '#1a2a1a',
+      progress: 'linear-gradient(90deg, #005500, #33ff33, #66ff66)',
+      swatches: ['#005500', '#22b455', '#33ff33', '#66ff66', '#000000'],
+      fontDisplay: "'Fira Code', monospace", fontMono: "'Fira Code', monospace",
+      radius: '0px',
+    },
+    {
+      id: 'neon',
+      name: 'Neon',
+      desc: 'Magenta, laranja e amarelo vibrantes. Sunset retro infinito.',
+      bgPrimary: '#0d0221', bgCard: '#1a0a3e', textPrimary: '#f0e0ff',
+      textSecondary: '#a080cc', textAccent: '#ff2975',
+      accentPrimary: '#ff2975', accentSecondary: '#ffd319',
+      border: '#2a1050',
+      progress: 'linear-gradient(90deg, #8c1eff, #ff2975, #ff901f, #ffd319)',
+      swatches: ['#8c1eff', '#ff2975', '#ff901f', '#ffd319', '#00f3ff'],
+      fontDisplay: "'Audiowide', sans-serif", fontMono: "'Rajdhani', sans-serif",
+      radius: '12px',
+    },
+    {
+      id: 'vapor',
+      name: 'Vapor',
+      desc: 'Rosa, teal e mint pastel. Nostalgia digital dos anos 90.',
+      bgPrimary: '#1a0a2e', bgCard: '#281545', textPrimary: '#e0f0ff',
+      textSecondary: '#80c0e0', textAccent: '#ff71ce',
+      accentPrimary: '#ff71ce', accentSecondary: '#01cdfe',
+      border: '#3a1860',
+      progress: 'linear-gradient(90deg, #ff71ce, #b967ff, #01cdfe, #05ffa1)',
+      swatches: ['#ff71ce', '#b967ff', '#01cdfe', '#05ffa1', '#fffb96'],
+      fontDisplay: "'VT323', monospace", fontMono: "'VT323', monospace",
+      radius: '0px',
+    },
+    {
+      id: 'cozy',
+      name: 'Cozy',
+      desc: 'Amber quente e mauve suave. Cafe, chuva e vinil.',
+      bgPrimary: '#151520', bgCard: '#222234', textPrimary: '#d4cfc4',
+      textSecondary: '#9490a0', textAccent: '#e8a87c',
+      accentPrimary: '#e8a87c', accentSecondary: '#85677b',
+      border: '#32324a',
+      progress: 'linear-gradient(90deg, #85677b, #c49070, #e8a87c)',
+      swatches: ['#85677b', '#c49070', '#e8a87c', '#d4cfc4', '#151520'],
+      fontDisplay: "'Karla', sans-serif", fontMono: "'Karla', sans-serif",
+      radius: '14px',
+      light: false,
+    },
+    // ── LIGHT THEMES ──
+    {
+      id: 'paper',
+      name: 'Paper',
+      desc: 'Branco quente com toque de indigo. Limpo, tipo Notion.',
+      bgPrimary: '#f7f6f3', bgCard: '#ffffff', textPrimary: '#1a1a2e',
+      textSecondary: '#6b7280', textAccent: '#4f46e5',
+      accentPrimary: '#4f46e5', accentSecondary: '#7c3aed',
+      border: '#e5e3d9',
+      progress: 'linear-gradient(90deg, #4f46e5, #7c3aed, #a78bfa)',
+      swatches: ['#4f46e5', '#7c3aed', '#a78bfa', '#f7f6f3', '#1a1a2e'],
+      fontDisplay: "'Inter', sans-serif", fontMono: "'JetBrains Mono', monospace",
+      radius: '12px',
+      light: true,
+    },
+    {
+      id: 'sakura',
+      name: 'Sakura',
+      desc: 'Rosa pastel sobre off-white. Delicado e acolhedor.',
+      bgPrimary: '#fdf2f4', bgCard: '#ffffff', textPrimary: '#3d1f2e',
+      textSecondary: '#9e7a8a', textAccent: '#e11d73',
+      accentPrimary: '#e11d73', accentSecondary: '#f472b6',
+      border: '#f5d5dc',
+      progress: 'linear-gradient(90deg, #e11d73, #f472b6, #fbcfe8)',
+      swatches: ['#e11d73', '#f472b6', '#fbcfe8', '#fdf2f4', '#3d1f2e'],
+      fontDisplay: "'Inter', sans-serif", fontMono: "'JetBrains Mono', monospace",
+      radius: '16px',
+      light: true,
+    },
+    {
+      id: 'mint',
+      name: 'Mint',
+      desc: 'Verde menta fresco sobre branco. Calmo e produtivo.',
+      bgPrimary: '#f0faf4', bgCard: '#ffffff', textPrimary: '#1a2e28',
+      textSecondary: '#6b8a7e', textAccent: '#059669',
+      accentPrimary: '#059669', accentSecondary: '#34d399',
+      border: '#d1e8dc',
+      progress: 'linear-gradient(90deg, #059669, #34d399, #a7f3d0)',
+      swatches: ['#059669', '#34d399', '#a7f3d0', '#f0faf4', '#1a2e28'],
+      fontDisplay: "'Inter', sans-serif", fontMono: "'JetBrains Mono', monospace",
+      radius: '12px',
+      light: true,
+    },
+    {
+      id: 'sand',
+      name: 'Sand',
+      desc: 'Bege areia com terracota. Quente, natural, terroso.',
+      bgPrimary: '#faf5ef', bgCard: '#ffffff', textPrimary: '#2e1f14',
+      textSecondary: '#9a8370', textAccent: '#c2540a',
+      accentPrimary: '#c2540a', accentSecondary: '#ea8c3c',
+      border: '#e8ddd0',
+      progress: 'linear-gradient(90deg, #c2540a, #ea8c3c, #fbbf68)',
+      swatches: ['#c2540a', '#ea8c3c', '#fbbf68', '#faf5ef', '#2e1f14'],
+      fontDisplay: "'Karla', sans-serif", fontMono: "'JetBrains Mono', monospace",
+      radius: '10px',
+      light: true,
+    },
+  ];
+
+  function renderCard(t) {
+    var style = [
+      '--tc-bg-primary:' + t.bgPrimary,
+      '--tc-bg-card:' + t.bgCard,
+      '--tc-text-primary:' + t.textPrimary,
+      '--tc-text-secondary:' + t.textSecondary,
+      '--tc-text-accent:' + t.textAccent,
+      '--tc-accent-primary:' + t.accentPrimary,
+      '--tc-accent-secondary:' + t.accentSecondary,
+      '--tc-border:' + t.border,
+      '--tc-progress:' + t.progress,
+      '--tc-font-display:' + t.fontDisplay,
+      '--tc-font-mono:' + t.fontMono,
+      '--tc-radius:' + t.radius,
+    ].join(';');
+
+    var swatchesHtml = t.swatches.map(function(c) {
+      return '<div class="tc-swatch" style="background:' + c + '" data-hex="' + c + '"></div>';
+    }).join('');
+
+    var fontName = t.fontDisplay.split("'")[1] || 'Inter';
+
+    return '<div class="theme-card" style="' + style + '" data-light="' + (t.light ? 'true' : 'false') + '">' +
+      '<div class="tc-header">' +
+        '<span class="tc-name">' + t.name + '</span>' +
+        '<span class="tc-id">' + t.id + '</span>' +
+      '</div>' +
+      '<div class="tc-body">' +
+        '<div class="tc-desc">' + t.desc + '</div>' +
+        '<div class="tc-stats">' +
+          '<div class="tc-stat"><div class="tc-stat-value">840</div><div class="tc-stat-label">XP Total</div></div>' +
+          '<div class="tc-stat"><div class="tc-stat-value">33/44</div><div class="tc-stat-label">Missoes</div></div>' +
+          '<div class="tc-stat"><div class="tc-stat-value">75%</div><div class="tc-stat-label">Progresso</div></div>' +
+        '</div>' +
+        '<div class="tc-level">' +
+          '<span class="tc-level-badge">Lv.5 Commander</span>' +
+          '<div class="tc-xp-bar"><div class="tc-xp-fill"></div></div>' +
+        '</div>' +
+        '<div class="tc-worlds">' +
+          '<div class="tc-world complete">' +
+            '<span class="tc-world-name">\u2705 A Oficina</span>' +
+            '<span class="tc-world-progress">7/7</span>' +
+            '<div class="tc-world-bar"><div class="tc-world-bar-fill" style="width:100%"></div></div>' +
+          '</div>' +
+          '<div class="tc-world active">' +
+            '<span class="tc-world-name">\uD83D\uDD04 A Forja</span>' +
+            '<span class="tc-world-progress">3/8</span>' +
+            '<div class="tc-world-bar"><div class="tc-world-bar-fill" style="width:37%"></div></div>' +
+          '</div>' +
+          '<div class="tc-world locked">' +
+            '<span class="tc-world-name">\uD83D\uDD12 O Deploy</span>' +
+            '<span class="tc-world-progress">0/6</span>' +
+            '<div class="tc-world-bar"><div class="tc-world-bar-fill" style="width:0%"></div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="tc-achievements">' +
+          '<div class="tc-ach">\u2694\uFE0F</div>' +
+          '<div class="tc-ach">\uD83C\uDFE0</div>' +
+          '<div class="tc-ach">\uD83E\uDDE0</div>' +
+          '<div class="tc-ach">\uD83D\uDD28</div>' +
+          '<div class="tc-ach locked">\uD83D\uDC8E</div>' +
+          '<div class="tc-ach locked">\uD83D\uDE80</div>' +
+        '</div>' +
+        '<div class="tc-swatches">' + swatchesHtml + '</div>' +
+      '</div>' +
+      '<div class="tc-footer">' +
+        '<span class="tc-footer-font">' + fontName + '</span>' +
+        '<span class="tc-footer-id">theme: ' + t.id + '</span>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function render() {
+    var app = document.getElementById('app');
+    var darkThemes = THEMES.filter(function(t) { return !t.light; });
+    var lightThemes = THEMES.filter(function(t) { return t.light; });
+
+    var html = '<div class="section-divider"><span>Dark Mode \u2014 ' + darkThemes.length + ' temas</span></div>';
+    html += '<div class="themes-grid">';
+    for (var i = 0; i < darkThemes.length; i++) {
+      html += renderCard(darkThemes[i]);
+    }
+    html += '</div>';
+
+    html += '<div class="section-divider"><span>Light Mode \u2014 ' + lightThemes.length + ' temas</span></div>';
+    html += '<div class="themes-grid">';
+    for (var j = 0; j < lightThemes.length; j++) {
+      html += renderCard(lightThemes[j]);
+    }
+    html += '</div>';
+
+    app.innerHTML = html;
+    document.getElementById('count').textContent = THEMES.length + ' temas disponíveis (' + darkThemes.length + ' dark + ' + lightThemes.length + ' light)';
+  }
+
+  render();
+  </script>
+</body>
+</html>

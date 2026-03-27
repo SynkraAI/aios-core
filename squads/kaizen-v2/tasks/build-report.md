@@ -90,6 +90,12 @@ task:
 - No duplicate patterns in report
 - Recommendations actionable (traceable to patterns or v1 findings)
 
+## Veto Conditions
+- "Relatório sem seção Learnings quando patterns.yaml tem patterns ativos (decay ≥ 0.3) → REDO (omissão de inteligência)"
+- "Padrão referenciado no relatório sem decay_score e verification status → BLOQUEAR publicação"
+- "Mais de 5 recomendações no relatório → CORTAR pelo composite score mais baixo (padrão v1)"
+- "Relatório mensal/anual gerado com <3 dailies no período → MARCAR como 'dados esparsos' no header"
+
 ## Success Criteria
 - PASS: Report generated with all sections, patterns + decay_scores included
 - FAIL: Missing daily files, invalid patterns.yaml, template not found

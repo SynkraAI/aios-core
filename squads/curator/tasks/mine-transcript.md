@@ -943,6 +943,8 @@ alternative_handoffs:
 | VETO-01 | No transcript provided or file not found | Input is empty, null, or path does not exist on disk | BLOCK — ask user to provide transcript before proceeding |
 | VETO-02 | Transcript shorter than 5 minutes of content | Word count < 750 words OR last timestamp < 05:00 | BLOCK — insufficient content for meaningful moment extraction |
 | VETO-03 | Source language not identifiable | First 200 words contain no recognizable language patterns | BLOCK — cannot guarantee word-for-word transcription fidelity without language detection |
+| VETO-04 | Transcrição sem timestamps | Transcript não contém nenhum marcador temporal (nenhum padrão MM:SS ou HH:MM:SS encontrado) | BLOCK — sem timestamps no input, é impossível criar momentos com referência temporal exata; pedir transcrição com timestamps |
+| VETO-05 | Transcript corrompido ou truncado | Arquivo termina abruptamente (último bloco incompleto) ou contém >20% de linhas ilegíveis/corrompidas | BLOCK — qualidade do input compromete fidelidade da extração; solicitar re-transcrição ou arquivo limpo |
 
 ---
 

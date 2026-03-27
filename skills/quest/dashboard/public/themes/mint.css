@@ -1,0 +1,49 @@
+/* ============================================================
+   MINT THEME — Quest Master Dashboard (LIGHT)
+   Fresh mint green on white. Calm and productive.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary:      #f0faf4;
+  --bg-secondary:    #e0f0e8;
+  --bg-card:         #ffffff;
+  --bg-card-hover:   #eef8f2;
+
+  --text-primary:    #1a2e28;
+  --text-secondary:  #6b8a7e;
+  --text-accent:     #059669;
+
+  --accent-primary:   #059669;
+  --accent-secondary: #34d399;
+  --accent-tertiary:  #a7f3d0;
+
+  --border-color: #d1e8dc;
+  --border-glow:  0 0 0 1px rgba(5, 150, 105, 0.12);
+
+  --progress-gradient: linear-gradient(90deg, #059669 0%, #34d399 50%, #a7f3d0 100%);
+  --progress-shine:    none;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06),
+                 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-glow: 0 0 0 1px rgba(5, 150, 105, 0.1);
+
+  --radius-card: 12px;
+  --radius-pill: 9999px;
+
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #b0d8c0; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #90c0a8; }
+* { scrollbar-width: thin; scrollbar-color: #b0d8c0 var(--bg-primary); }

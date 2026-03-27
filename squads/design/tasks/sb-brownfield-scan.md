@@ -310,10 +310,11 @@ Priority: HIGH — compose atoms into reusable patterns
 
 ## Veto Conditions
 
-- Classifying ALL components as "organism" without heuristic analysis
-- Ignoring dependency order in migration plan (atoms MUST come first)
-- Skipping components because they "look complex"
-- Generating migration plan without dependency graph
+- **BLOCKER:** Todos os componentes classificados como "organism" sem análise heurística — classificação atômica requer avaliação de dependências, LOC e responsabilidade
+- **BLOCKER:** Plano de migração sem respeitar ordem de dependências — átomos DEVEM vir primeiro, depois moléculas, depois organismos
+- **BLOCKER:** Plano de migração gerado sem dependency graph completo — migrar sem mapa de dependências causa quebras em cascata
+- **WARNING:** Componentes ignorados por parecerem "complexos" — complexidade não é motivo para exclusão do inventário
+- **WARNING:** Inventário sem detecção de stories existentes (campo `has_story` ausente)
 
 ---
 

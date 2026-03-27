@@ -125,6 +125,14 @@ Gerar JSON intermediario:
 
 - IO contract de `@ds-token-architect`: `squads/design/agents/ds-token-architect.md` → `io_contract.inputs.accepted_formats`
 
+## Veto Conditions
+
+- **BLOCKER:** Nenhuma categoria de token com valores válidos após parsing — input vazio ou corrompido não pode prosseguir
+- **BLOCKER:** Valores de cor em formato inválido (não hex, rgb, hsl ou oklch) aceitos sem validação
+- **BLOCKER:** Tokens extraídos de screenshot sem confirmação humana obrigatória — valores visuais estimados podem estar errados
+- **WARNING:** Apenas um modo detectado (sem dark mode) sem confirmação explícita do usuário
+- **WARNING:** Categoria motion (duration, easing) ausente sem registro de que o Figma não forneceu
+
 ## Related Checklists
 
 - `squads/design/checklists/token-mapping-checklist.md`

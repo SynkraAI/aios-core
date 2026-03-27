@@ -1,0 +1,1 @@
+../../../../../skills/quest-master/engine/scanner.md

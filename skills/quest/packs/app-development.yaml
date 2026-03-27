@@ -1,0 +1,654 @@
+# =============================================================================
+# Pack: App Development
+# Quest original refatorado — backward-compatible com pipeline-checklist
+# Version: 1.0.0
+# =============================================================================
+
+pack:
+  id: app-development
+  version: "1.0.0"
+  name: "App Development"
+  icon: "⚒️"
+  class_name: "Forja do Código"
+  tagline: "Da ideia ao deploy. Sem atalho. Sem medo."
+
+# =============================================================================
+# Detection — como o scanner identifica que este pack se aplica
+# =============================================================================
+
+detection:
+  rules:
+    - condition: "has_file('package.json')"
+      confidence: high
+    - condition: "has_file('requirements.txt') OR has_file('Cargo.toml')"
+      confidence: high
+    - condition: "has_file('README.md') AND has_dir('src')"
+      confidence: medium
+    - condition: "inside_path('~/CODE/Projects')"
+      confidence: low
+  fallback_question: "Este projeto é um app/software? Quer seguir a jornada do zero ao deploy?"
+
+# =============================================================================
+# Levels — 5 níveis de 0 a 1000 XP (baseado no original)
+# =============================================================================
+
+levels:
+  1:
+    name: "Apprentice Builder"
+    xp: 0
+    message: "Todo mestre já foi aprendiz."
+  2:
+    name: "Code Warrior"
+    xp: 200
+    message: "Você já sabe empunhar o teclado."
+  3:
+    name: "Quality Guardian"
+    xp: 450
+    message: "Nada passa sem sua aprovação."
+  4:
+    name: "Deploy Commander"
+    xp: 700
+    message: "O campo de batalha é seu."
+  5:
+    name: "Master Builder"
+    xp: 1000
+    message: "Do zero ao deploy. Sem atalho. Sem medo."
+
+# =============================================================================
+# Achievements — conquistas desbloqueáveis (15 do original)
+# =============================================================================
+
+achievements:
+  - id: "first_blood"
+    name: "First Blood"
+    icon: "sword"
+    condition: "first_item_done"
+    xp_bonus: 10
+    message: "Completou a primeira missão"
+
+  - id: "setup_complete"
+    name: "Base Montada"
+    icon: "house"
+    condition: "all_required_done_in_phase:0"
+    xp_bonus: 10
+    message: "Fase 0 completa — ambiente pronto"
+
+  - id: "thinker"
+    name: "Pensador"
+    icon: "brain"
+    condition: "item_done:1.1"
+    xp_bonus: 10
+    message: "Fez brainstorming antes de codar"
+
+  - id: "architect"
+    name: "O Arquiteto"
+    icon: "blueprint"
+    condition: "item_done:2.1 AND item_done:2.2"
+    xp_bonus: 25
+    message: "PRD + Arquitetura definidos"
+
+  - id: "storyteller"
+    name: "Contador de Stories"
+    icon: "book"
+    condition: "item_done:3.1 AND item_done:3.2"
+    xp_bonus: 25
+    message: "Stories criadas e validadas"
+
+  - id: "builder"
+    name: "O Construtor"
+    icon: "hammer"
+    condition: "item_done:4.2 AND item_done:4.6"
+    xp_bonus: 25
+    message: "Primeira story implementada e aprovada pelo QA"
+
+  - id: "quality_freak"
+    name: "Obcecado por Qualidade"
+    icon: "diamond"
+    condition: "item_done:5.3 AND item_done:5.6"
+    xp_bonus: 25
+    message: "Rodou vulnerability scanner + tier-s checklist"
+
+  - id: "test_warrior"
+    name: "Guerreiro dos Testes"
+    icon: "shield"
+    condition: "item_done:4.4"
+    xp_bonus: 10
+    message: "Bulletproof test executado"
+
+  - id: "shipper"
+    name: "Shipper"
+    icon: "rocket"
+    condition: "item_done:6.3 AND item_done:6.4"
+    xp_bonus: 25
+    message: "Fez deploy com sucesso"
+
+  - id: "speed_runner"
+    name: "Speed Runner"
+    icon: "lightning"
+    condition: "phase_done_same_day:0"
+    xp_bonus: 10
+    message: "Completou fase em menos de 1 hora"
+
+  - id: "completionist"
+    name: "Completionist"
+    icon: "crown"
+    condition: "all_items_done"
+    xp_bonus: 50
+    message: "Completou TODOS os itens (inclusive opcionais)"
+
+  - id: "legend"
+    name: "Lenda"
+    icon: "star"
+    condition: "total_xp >= 1000"
+    xp_bonus: 50
+    message: "1000 XP — Do zero ao deploy"
+
+  - id: "scanner"
+    name: "Detetive"
+    icon: "magnifier"
+    condition: "scan_found >= 3"
+    xp_bonus: 10
+    message: "Usou scan e descobriu progresso escondido"
+
+  - id: "consistent"
+    name: "Consistente"
+    icon: "chain"
+    condition: "consecutive_completions >= 5"
+    xp_bonus: 10
+    message: "Completou 5 missões em sequência sem pular"
+
+  - id: "no_skip"
+    name: "Sem Atalho"
+    icon: "path"
+    condition: "all_required_done AND zero_required_skipped"
+    xp_bonus: 25
+    message: "Não pulou nenhuma missão obrigatória"
+
+# =============================================================================
+# Phases — 8 worlds com TODOS os items do pipeline-checklist original
+# Total: 44 items | 1000 XP
+# =============================================================================
+
+phases:
+  # ---------------------------------------------------------------------------
+  # WORLD 0: A Oficina (100 XP)
+  # ---------------------------------------------------------------------------
+  0:
+    name: "A Oficina"
+    description: "Prepare suas ferramentas antes de construir."
+    unlock_message: "Toda grande obra começa com uma oficina bem montada."
+    complete_message: "Ferramentas afiadas. Hora de traçar o plano."
+    items:
+      - id: "0.1"
+        label: "Instalar AIOS no projeto"
+        command: "npx ~/aios-core init ."
+        who: "user"
+        required: true
+        xp: 20
+        scan_rule: "has_dir('.aios-core') OR has_dir('.aios')"
+
+      - id: "0.2"
+        label: "Setup de ambiente"
+        command: "/devops → *environment-bootstrap"
+        who: "@devops"
+        required: true
+        xp: 20
+        scan_rule: "has_file('.editorconfig') OR has_file('.prettierrc') OR has_file('.eslintrc.json')"
+
+      - id: "0.3"
+        label: "Configurar GitHub"
+        command: "/devops → *setup-github"
+        who: "@devops"
+        required: true
+        xp: 15
+        scan_rule: "has_remote('origin')"
+
+      - id: "0.4"
+        label: "Instalar projeto localmente"
+        command: "pedir ao Claude"
+        who: "@dev"
+        required: true
+        xp: 15
+        scan_rule: "has_dir('node_modules') OR has_file('package-lock.json') OR has_file('yarn.lock') OR has_file('pnpm-lock.yaml')"
+
+      - id: "0.5"
+        label: "Criar README.md + CLAUDE.md"
+        command: "pedir ao Claude"
+        who: "@dev"
+        required: true
+        xp: 15
+        scan_rule: "has_file('README.md') AND has_file('CLAUDE.md')"
+
+      - id: "0.6"
+        label: "Auditar configs do projeto"
+        command: "/audit-project-config"
+        who: "skill"
+        required: false
+        xp: 10
+        scan_rule: "has_file('tsconfig.json') OR has_file('vite.config.ts') OR has_file('next.config.js')"
+
+      - id: "0.7"
+        label: "Configurar MCP servers"
+        command: "/devops → *search-mcp / *add-mcp"
+        who: "@devops"
+        required: false
+        xp: 5
+        scan_rule: "has_file('.mcp.json') OR has_file('.claude/mcp.json')"
+
+  # ---------------------------------------------------------------------------
+  # WORLD 1: O Mapa do Tesouro (80 XP)
+  # ---------------------------------------------------------------------------
+  1:
+    name: "O Mapa do Tesouro"
+    description: "Descubra o que existe antes de inventar."
+    unlock_message: "Nenhum explorador parte sem um mapa."
+    complete_message: "O terreno foi mapeado. Você sabe onde está pisando."
+    items:
+      - id: "1.1"
+        label: "Brainstorming estruturado"
+        command: "/superpowers:brainstorming"
+        who: "skill"
+        required: true
+        xp: 30
+        scan_rule: "has_file_matching('docs/*brainstorm*') OR has_file_matching('docs/*ideation*')"
+
+      - id: "1.2"
+        label: "Pesquisa de mercado"
+        command: "/deep-research ou /tech-search"
+        who: "skill"
+        required: false
+        xp: 25
+        condition: "produto novo ou domínio desconhecido"
+        scan_rule: "has_file_matching('docs/*research*') OR has_file_matching('docs/*pesquisa*')"
+
+      - id: "1.3"
+        label: "Investigar perfis de referência"
+        command: "/sherlock-investigator"
+        who: "skill"
+        required: false
+        xp: 10
+        condition: "se precisa analisar concorrentes"
+
+      - id: "1.4"
+        label: "Scraping de dados"
+        command: "/apify ou /smart-browser-playwright"
+        who: "skill"
+        required: false
+        xp: 10
+        condition: "se precisa extrair dados"
+
+      - id: "1.5"
+        label: "Consultar advisors"
+        command: "/advisor-board:README"
+        who: "squad"
+        required: false
+        xp: 5
+        condition: "decisão de alto impacto"
+
+  # ---------------------------------------------------------------------------
+  # WORLD 2: A Planta da Fortaleza (150 XP)
+  # ---------------------------------------------------------------------------
+  2:
+    name: "A Planta da Fortaleza"
+    description: "Sem planta, você constrói um barraco bonito."
+    unlock_message: "Hora de desenhar os muros e portões da sua fortaleza."
+    complete_message: "A planta está aprovada. Os alicerces estão definidos."
+    items:
+      - id: "2.1"
+        label: "Criar PRD"
+        command: "@pm → *create-prd ou /prd-generator"
+        who: "@pm"
+        required: true
+        xp: 35
+        scan_rule: "has_file_matching('docs/*prd*') OR has_file_matching('docs/*PRD*')"
+
+      - id: "2.2"
+        label: "Definir arquitetura"
+        command: "@architect → *create-fullstack-arch"
+        who: "@architect"
+        required: true
+        xp: 30
+        scan_rule: "has_file('docs/ARCHITECTURE.md') OR has_file_matching('docs/*architecture*')"
+
+      - id: "2.3"
+        label: "Modelar banco de dados"
+        command: "@data-engineer → *schema-design"
+        who: "@data-engineer"
+        required: false
+        xp: 20
+        condition: "se usar banco de dados"
+        scan_rule: "has_file_matching('docs/*schema*') OR has_file_matching('**/migrations/*')"
+
+      - id: "2.4"
+        label: "Wireframes de UI"
+        command: "@ux → *wireframe"
+        who: "@ux"
+        required: false
+        xp: 15
+        condition: "se tiver frontend"
+        scan_rule: "has_file_matching('docs/*wireframe*') OR has_file_matching('docs/*mockup*')"
+
+      - id: "2.5"
+        label: "Extrair design system"
+        command: "/design-system-extractor"
+        who: "skill"
+        required: false
+        xp: 10
+        condition: "se tem benchmark visual"
+        scan_rule: "has_file_matching('docs/*design-system*') OR has_dir('design-system')"
+
+      - id: "2.6"
+        label: "Árvore de decisões"
+        command: "/decision-tree-generator"
+        who: "skill"
+        required: false
+        xp: 10
+        condition: "se muitas opções"
+        scan_rule: "has_file_matching('docs/*decision*')"
+
+      - id: "2.7"
+        label: "Criar Epic"
+        command: "@pm → *create-epic"
+        who: "@pm"
+        required: true
+        xp: 20
+        scan_rule: "has_file_matching('docs/stories/*') OR has_file_matching('docs/epics/*')"
+
+      - id: "2.8"
+        label: "QA review da spec"
+        command: "@qa critica (>= 4/5)"
+        who: "@qa"
+        required: true
+        xp: 10
+        scan_rule: "has_file_matching('docs/plans/*-design.md')"
+
+  # ---------------------------------------------------------------------------
+  # WORLD 3: O Pergaminho das Stories (100 XP)
+  # ---------------------------------------------------------------------------
+  3:
+    name: "O Pergaminho das Stories"
+    description: "Quebre o elefante em pedaços mastigáveis."
+    unlock_message: "Cada story é uma missão. Cada missão, um passo mais perto."
+    complete_message: "As stories estão prontas. A forja espera."
+    items:
+      - id: "3.1"
+        label: "Criar stories"
+        command: "@sm → *create-story"
+        who: "@sm"
+        required: true
+        xp: 30
+        scan_rule: "file_count('docs/stories/*.md') > 0"
+
+      - id: "3.2"
+        label: "Validar stories"
+        command: "@po → *validate-story (>= 7/10)"
+        who: "@po"
+        required: true
+        xp: 30
+        scan_rule: "has_content('docs/stories/*.md', 'Status: Ready')"
+
+      - id: "3.3"
+        label: "Ordenar backlog"
+        command: "@po → *backlog-review"
+        who: "@po"
+        required: true
+        xp: 20
+
+      - id: "3.4"
+        label: "Plano de implementação"
+        command: "/superpowers:writing-plans"
+        who: "skill"
+        required: false
+        xp: 20
+        condition: "se story complexa"
+        scan_rule: "has_file_matching('docs/plans/*-plan.md') OR has_file_matching('docs/plans/*-implementation*')"
+
+  # ---------------------------------------------------------------------------
+  # WORLD 4: A Forja (200 XP) — Repetir para CADA story
+  # ---------------------------------------------------------------------------
+  4:
+    name: "A Forja"
+    description: "A linha de montagem. Aqui o código ganha vida."
+    unlock_message: "Hora de transformar pergaminhos em realidade. Fogo na forja!"
+    complete_message: "O código está forjado. Hora de testar o aço."
+    note: "Repetir para CADA story"
+    items:
+      - id: "4.1"
+        label: "Worktree isolado"
+        command: "/superpowers:using-git-worktrees"
+        who: "@dev"
+        required: false
+        xp: 10
+        scan_rule: "has_file_matching('.git/worktrees/*')"
+
+      - id: "4.2"
+        label: "Implementar story"
+        command: "@dev → *develop-story"
+        who: "@dev"
+        required: true
+        xp: 50
+        scan_rule: "has_content('docs/stories/*.md', 'Status: InProgress|Status: InReview|Status: Done')"
+
+      - id: "4.3"
+        label: "Lint + typecheck + tests"
+        command: "npm run lint && npm run typecheck && npm test"
+        who: "@dev"
+        required: true
+        xp: 30
+        scan_rule: "has_file_matching('**/*.test.ts') OR has_file_matching('**/*.spec.ts') OR has_file_matching('**/*.test.js')"
+
+      - id: "4.4"
+        label: "Testes exaustivos"
+        command: "/bulletproof-test"
+        who: "skill"
+        required: false
+        xp: 30
+        condition: "se feature crítica"
+
+      - id: "4.5"
+        label: "TDD"
+        command: "/superpowers:test-driven-development"
+        who: "@dev"
+        required: false
+        xp: 10
+        condition: "alternativa a 4.2"
+
+      - id: "4.6"
+        label: "QA Gate"
+        command: "@qa → *gate"
+        who: "@qa"
+        required: true
+        xp: 30
+        scan_rule: "has_file_matching('qa/*gate*') OR has_content('docs/stories/*.md', 'Status: Done')"
+
+      - id: "4.7"
+        label: "Fixes de QA"
+        command: "@dev → *apply-qa-fixes"
+        who: "@dev"
+        required: false
+        xp: 15
+        condition: "se QA falhou"
+
+      - id: "4.8"
+        label: "Verificação final"
+        command: "/superpowers:verification-before-completion"
+        who: "skill"
+        required: true
+        xp: 25
+
+  # ---------------------------------------------------------------------------
+  # WORLD 5: O Tribunal da Qualidade (170 XP)
+  # ---------------------------------------------------------------------------
+  5:
+    name: "O Tribunal da Qualidade"
+    description: "Três inspetores. Nada passa sem julgamento."
+    unlock_message: "Seu código será julgado. Segurança. Qualidade. Processo."
+    complete_message: "O tribunal aprovou. Seu código é digno."
+    items:
+      - id: "5.1"
+        label: "Code review"
+        command: "/superpowers:requesting-code-review"
+        who: "@qa"
+        required: true
+        xp: 25
+
+      - id: "5.2"
+        label: "Aplicar feedback"
+        command: "/superpowers:receiving-code-review"
+        who: "@dev"
+        required: false
+        xp: 15
+        condition: "se recebeu review"
+
+      - id: "5.3"
+        label: "Auditoria de segurança"
+        command: "/vulnerability-scanner"
+        who: "skill"
+        required: false
+        xp: 25
+        condition: "recomendado para produção"
+
+      - id: "5.4"
+        label: "Refactoring"
+        command: "/code-refactoring-refactor-clean"
+        who: "skill"
+        required: false
+        xp: 15
+        condition: "se tech debt"
+
+      - id: "5.5"
+        label: "Auditoria frontend"
+        command: "/tokenizacao"
+        who: "skill"
+        required: false
+        xp: 15
+        condition: "se tem frontend"
+
+      - id: "5.6"
+        label: "Tier-S checklist"
+        command: "/tier-s-checklist"
+        who: "skill"
+        required: false
+        xp: 25
+        condition: "recomendado para produção"
+
+      - id: "5.7"
+        label: "Process audit"
+        command: "@pedro-valerio"
+        who: "agente"
+        required: true
+        xp: 20
+        condition: "valida workflows e veto conditions do produto"
+
+      - id: "5.8"
+        label: "Ecosystem health check"
+        command: "kaizen squad → health-check"
+        who: "squad"
+        required: true
+        xp: 15
+        condition: "captura patterns e learnings do projeto"
+
+      - id: "5.9"
+        label: "Build final"
+        command: "npm run build"
+        who: "@devops"
+        required: true
+        xp: 15
+        scan_rule: "has_dir('dist') OR has_dir('build') OR has_dir('.next')"
+
+  # ---------------------------------------------------------------------------
+  # WORLD 6: O Portal do Deploy (150 XP)
+  # ---------------------------------------------------------------------------
+  6:
+    name: "O Portal do Deploy"
+    description: "Só o @devops tem a chave do portal."
+    unlock_message: "O momento final. Tudo converge aqui."
+    complete_message: "O código cruzou o portal. Está no ar."
+    items:
+      - id: "6.1"
+        label: "Quality gate pre-push"
+        command: "@devops → *pre-push"
+        who: "@devops"
+        required: true
+        xp: 25
+
+      - id: "6.2"
+        label: "Commit estruturado"
+        command: "@devops → *commit"
+        who: "@devops"
+        required: true
+        xp: 25
+        scan_rule: "has_remote('origin')"
+
+      - id: "6.3"
+        label: "Push para remote"
+        command: "@devops → *push"
+        who: "@devops"
+        required: true
+        xp: 40
+
+      - id: "6.4"
+        label: "Criar Pull Request"
+        command: "@devops → *create-pr"
+        who: "@devops"
+        required: true
+        xp: 35
+
+      - id: "6.5"
+        label: "Finalizar branch"
+        command: "/superpowers:finishing-a-development-branch"
+        who: "skill"
+        required: true
+        xp: 25
+
+  # ---------------------------------------------------------------------------
+  # WORLD 7: A Torre de Vigia (50 XP)
+  # ---------------------------------------------------------------------------
+  7:
+    name: "A Torre de Vigia"
+    description: "A casa foi entregue. Agora é manter limpa."
+    unlock_message: "Builders de verdade cuidam do que construíram."
+    complete_message: "O ciclo se completa. Você é um Master Builder."
+    items:
+      - id: "7.1"
+        label: "Sync projetos"
+        command: "/sync-pulse"
+        who: "skill"
+        required: false
+        xp: 10
+
+      - id: "7.2"
+        label: "Auditoria ecossistema"
+        command: "/ecosystem-audit"
+        who: "skill"
+        required: false
+        xp: 10
+
+      - id: "7.3"
+        label: "Quality dashboard"
+        command: "/quality-dashboard"
+        who: "skill"
+        required: false
+        xp: 10
+
+      - id: "7.4"
+        label: "Memory audit"
+        command: "/memory-audit"
+        who: "skill"
+        required: false
+        xp: 5
+
+      - id: "7.5"
+        label: "Context surgeon"
+        command: "/context-surgeon"
+        who: "skill"
+        required: false
+        xp: 10
+
+      - id: "7.6"
+        label: "Config audit"
+        command: "/audit-project-config"
+        who: "skill"
+        required: false
+        xp: 5
+        scan_rule: "has_file('.editorconfig')"

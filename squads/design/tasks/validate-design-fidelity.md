@@ -218,5 +218,13 @@ When delegating to subagents, include:
 
 - `squads/design/checklists/design-fidelity-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** Cores hardcoded (#hex) encontradas em componentes sem flag de correção — zero valores hardcoded é inegociável
+- **BLOCKER:** Pares foreground/background com contraste < 4.5:1 (WCAG AA) sem remediação proposta
+- **BLOCKER:** Relatório de fidelidade marcado como "aprovado" com visual match < 85% — requer retorno para refatoração
+- **WARNING:** Espaçamento hardcoded (px direto) em vez de tokens do spacing scale
+- **WARNING:** Auto-fix aplicado sem revisão manual confirmada (risco de mapeamento incorreto)
+
 ## Process Guards
 - **On Fail:** Stop execution, capture evidence, and return remediation steps before proceeding.

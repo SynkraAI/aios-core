@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="cyberpunk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quest Master — Dashboard Hub</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:wght@400;600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- YAML parser -->
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+
+  <!-- Confetti effects -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Theme CSS (loaded dynamically) -->
+  <link id="theme-stylesheet" rel="stylesheet" href="/themes/cyberpunk.css">
+
+  <style>
+    /* === BASE RESET (theme-agnostic) === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background-color 0.5s ease;
+    }
+
+    /* === LAYOUT === */
+    .dashboard {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: grid;
+      gap: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* --- Header --- */
+    .header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 1rem;
+    }
+    .header-back {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color, #334155);
+      background: var(--bg-card, #1e293b);
+      color: var(--text-primary, #e2e8f0);
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .header-back:hover { background: var(--bg-card-hover, #334155); transform: scale(1.05); }
+    .header-back.hidden { display: none; }
+    .header-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .header-subtitle {
+      font-size: 0.875rem;
+      opacity: 0.6;
+      margin-top: 0.25rem;
+    }
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .theme-switcher {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .theme-select {
+      appearance: none;
+      background: var(--bg-card, #1e293b);
+      color: var(--text-accent, #00fff2);
+      border: 1px solid var(--border-color, #334155);
+      border-radius: 8px;
+      padding: 0.35rem 2rem 0.35rem 0.6rem;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2364748b'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.6rem center;
+      transition: all 0.2s ease;
+    }
+    .theme-select:hover {
+      border-color: var(--accent-primary, #00fff2);
+    }
+    .theme-select:focus {
+      outline: none;
+      border-color: var(--accent-primary, #00fff2);
+      box-shadow: 0 0 0 2px rgba(0,255,242,0.15);
+    }
+    .theme-select optgroup {
+      font-weight: 700;
+      font-size: 0.65rem;
+    }
+    .theme-select option {
+      background: #1a1a2e;
+      color: #e2e8f0;
+      padding: 0.3rem;
+    }
+    .zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .zoom-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color, #334155);
+      background: var(--bg-card, #1e293b);
+      color: var(--text-primary, #e2e8f0);
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .zoom-btn:hover { background: var(--bg-card-hover, #334155); }
+    .zoom-label {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.65rem;
+      color: var(--text-secondary, #64748b);
+      min-width: 32px;
+      text-align: center;
+    }
+    /* theme-btn styles removed — using dropdown select now */
+
+    /* === HOME VIEW — Projects Table === */
+    .home-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .home-stat {
+      padding: 1.25rem;
+      border-radius: var(--radius-card, 12px);
+      background: var(--bg-card, #1e293b);
+      border: 1px solid var(--border-color, #334155);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .home-stat:hover { background: var(--bg-card-hover, #334155); transform: translateY(-2px); }
+    .home-stat-value {
+      font-family: var(--font-mono, 'JetBrains Mono', monospace);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-accent, #00fff2);
+      line-height: 1.2;
+    }
+    .home-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary, #64748b);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.25rem;
+    }
+
+    .projects-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 0.5rem;
+    }
+    .projects-table th {
+      text-align: left;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-secondary, #64748b);
+      padding: 0 1rem 0.5rem;
+      font-weight: 600;
+    }
+    .projects-table td {
+      padding: 1rem;
+      background: var(--bg-card, #1e293b);
+      border-top: 1px solid var(--border-color, #334155);
+      border-bottom: 1px solid var(--border-color, #334155);
+      transition: all 0.3s ease;
+    }
+    .projects-table tr td:first-child {
+      border-left: 1px solid var(--border-color, #334155);
+      border-radius: var(--radius-card, 12px) 0 0 var(--radius-card, 12px);
+    }
+    .projects-table tr td:last-child {
+      border-right: 1px solid var(--border-color, #334155);
+      border-radius: 0 var(--radius-card, 12px) var(--radius-card, 12px) 0;
+    }
+    .projects-table tr {
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .projects-table tr:hover td {
+      background: var(--bg-card-hover, #334155);
+    }
+    .projects-table tr:hover {
+      transform: translateX(4px);
+    }
+    .project-name {
+      font-weight: 600;
+      color: var(--text-primary, #e2e8f0);
+      font-size: 0.95rem;
+    }
+    .project-pack {
+      font-size: 0.7rem;
+      color: var(--text-secondary, #64748b);
+      margin-top: 0.15rem;
+    }
+    .progress-bar-mini {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-secondary, #0d0d24);
+      border-radius: 999px;
+      overflow: hidden;
+      min-width: 120px;
+    }
+    .progress-bar-mini-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: var(--progress-gradient, linear-gradient(90deg, #00fff2, #8b5cf6));
+      transition: width 0.8s ease;
+    }
+    .td-percent {
+      font-family: var(--font-mono, monospace);
+      font-weight: 700;
+      color: var(--text-accent, #00fff2);
+      font-size: 0.9rem;
+    }
+    .td-xp {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.8rem;
+      color: var(--accent-primary, #00fff2);
+    }
+    .td-next {
+      font-size: 0.8rem;
+      color: var(--text-secondary, #64748b);
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* === PROJECT VIEW === */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .stat-card {
+      padding: 1.25rem;
+      border-radius: var(--radius-card, 12px);
+      background: var(--bg-card, #1e293b);
+      border: 1px solid var(--border-color, #334155);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      background: var(--bg-card-hover, #334155);
+      transform: translateY(-2px);
+    }
+    .stat-value {
+      font-family: var(--font-mono, 'JetBrains Mono', monospace);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-accent, #00fff2);
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary, #64748b);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.25rem;
+    }
+
+    /* --- Level & XP Bar --- */
+    .level-section {
+      padding: 1.5rem;
+      border-radius: var(--radius-card, 12px);
+      background: var(--bg-card, #1e293b);
+      border: 1px solid var(--border-color, #334155);
+    }
+    .level-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .level-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-pill, 20px);
+      background: var(--accent-primary, #00fff2);
+      color: var(--bg-primary, #0a0a1a);
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+    .level-quote {
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--text-secondary, #64748b);
+    }
+    .xp-bar-container {
+      width: 100%;
+      height: var(--xp-bar-height, 12px);
+      background: var(--bg-secondary, #0d0d24);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .xp-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: var(--progress-gradient, linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)));
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    .xp-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-secondary, #64748b);
+      margin-top: 0.5rem;
+      font-family: var(--font-mono, monospace);
+    }
+
+    /* --- Worlds (Quest Log) --- */
+    .worlds-section {
+      display: grid;
+      gap: 1rem;
+    }
+    .worlds-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary, #e2e8f0);
+    }
+    .world-card {
+      padding: 1.25rem;
+      border-radius: var(--radius-card, 12px);
+      background: var(--bg-card, #1e293b);
+      border: 1px solid var(--border-color, #334155);
+      border-left: 4px solid var(--border-color, #334155);
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+    .world-card.world-complete { border-left-color: #22c55e; opacity: 0.85; }
+    .world-card.world-active { border-left-color: var(--accent-primary, #00fff2); }
+    .world-card.world-locked { opacity: 0.35; filter: grayscale(0.5); pointer-events: none; }
+    .world-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .world-name { font-weight: 600; font-size: 1rem; color: var(--text-primary, #e2e8f0); }
+    .world-status {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.75rem;
+      color: var(--text-secondary, #64748b);
+    }
+    .world-tagline {
+      font-size: 0.8rem;
+      color: var(--text-secondary, #64748b);
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+    .world-progress {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-secondary, #0d0d24);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .world-progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: var(--progress-gradient, linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)));
+      transition: width 0.8s ease;
+    }
+
+    /* --- Missions (expanded world) --- */
+    .missions-list {
+      margin-top: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+    .world-card.expanded .missions-list { max-height: 2000px; }
+    .mission {
+      display: grid;
+      grid-template-columns: 24px 1fr auto;
+      grid-template-rows: auto auto;
+      gap: 0.2rem 0.75rem;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      transition: background 0.2s ease;
+    }
+    .mission:hover { background: var(--bg-secondary, #0d0d24); }
+    .mission-icon {
+      width: 20px; height: 20px; border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; grid-row: 1;
+    }
+    .mission-icon.done { background: #22c55e; color: white; }
+    .mission-icon.pending { background: var(--bg-secondary, #0d0d24); border: 2px solid var(--border-color, #334155); }
+    .mission-icon.skipped { background: #64748b; color: white; }
+    .mission-label { color: var(--text-primary, #e2e8f0); grid-row: 1; }
+    .mission.done .mission-label { opacity: 0.6; text-decoration: line-through; }
+    .mission.skipped .mission-label { opacity: 0.5; }
+    .mission-xp {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.7rem;
+      color: var(--accent-primary, #00fff2);
+      font-weight: 600;
+      grid-row: 1;
+    }
+    .mission-note {
+      grid-column: 2 / 4; grid-row: 2;
+      font-size: 0.65rem;
+      color: var(--text-secondary, #64748b);
+      font-style: italic;
+      line-height: 1.3;
+      padding-top: 0.1rem;
+    }
+
+    /* --- Achievements --- */
+    .achievements-section {
+      padding: 1.5rem;
+      border-radius: var(--radius-card, 12px);
+      background: var(--bg-card, #1e293b);
+      border: 1px solid var(--border-color, #334155);
+    }
+    .achievements-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-primary, #e2e8f0);
+    }
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+    }
+    .achievement {
+      padding: 0.75rem;
+      border-radius: 8px;
+      background: var(--bg-secondary, #0d0d24);
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+    .achievement.unlocked { border-color: var(--accent-primary, #00fff2); }
+    .achievement.locked { opacity: 0.3; filter: grayscale(1); }
+    .achievement-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+    .achievement-name {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-primary, #e2e8f0);
+    }
+
+    /* --- Connection Status --- */
+    .connection-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      display: inline-block; margin-right: 0.5rem;
+    }
+    .connection-dot.connected { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
+    .connection-dot.disconnected { background: #ef4444; }
+    .connection-status {
+      position: fixed; bottom: 1rem; right: 1rem;
+      font-size: 0.7rem; color: var(--text-secondary, #64748b);
+      display: flex; align-items: center;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      background: var(--bg-card, #1e293b);
+      border: 1px solid var(--border-color, #334155);
+      z-index: 50;
+    }
+
+    /* --- No Data / Empty States --- */
+    .no-data {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-secondary, #64748b);
+    }
+    .no-data h2 {
+      font-size: 1.5rem;
+      color: var(--text-primary, #e2e8f0);
+      margin-bottom: 1rem;
+    }
+    .no-data code {
+      background: var(--bg-secondary, #0d0d24);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.85rem;
+    }
+    .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    /* --- Celebration Overlay --- */
+    .celebration-overlay {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000; pointer-events: none; opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .celebration-overlay.active { opacity: 1; pointer-events: auto; }
+    .celebration-card {
+      padding: 2.5rem 3rem;
+      border-radius: var(--radius-card, 12px);
+      background: var(--bg-card, #1e293b);
+      border: 2px solid var(--accent-primary, #00fff2);
+      text-align: center;
+      transform: scale(0.8);
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .celebration-overlay.active .celebration-card { transform: scale(1); }
+    .celebration-title {
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--accent-primary, #00fff2);
+      margin-bottom: 0.5rem;
+    }
+    .celebration-desc { color: var(--text-secondary, #64748b); font-size: 0.9rem; }
+    .celebration-xp {
+      font-family: var(--font-mono, monospace);
+      font-size: 2rem; font-weight: 700;
+      color: var(--accent-primary, #00fff2);
+      margin: 1rem 0;
+    }
+
+    /* --- Error card --- */
+    .error-card {
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      font-size: 0.85rem;
+    }
+
+    /* --- View transitions --- */
+    .view-enter { animation: fadeSlideIn 0.3s ease both; }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .home-stats { grid-template-columns: 1fr; }
+      .achievements-grid { grid-template-columns: repeat(3, 1fr); }
+      .dashboard { padding: 1rem; }
+      .projects-table { font-size: 0.85rem; }
+      .header { grid-template-columns: auto 1fr auto; }
+      .td-next { display: none; }
+    }
+    @media (min-width: 2000px) {
+      .dashboard { max-width: 1600px; }
+      .stat-value { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard" id="app">
+    <div class="no-data" id="loading">
+      <div class="empty-icon">&#9876;</div>
+      <h2>Quest Master Hub</h2>
+      <p>Carregando projetos...</p>
+    </div>
+  </div>
+
+  <!-- Celebration Overlay -->
+  <div class="celebration-overlay" id="celebration">
+    <div class="celebration-card">
+      <div class="celebration-title" id="celeb-title"></div>
+      <div class="celebration-xp" id="celeb-xp"></div>
+      <div class="celebration-desc" id="celeb-desc"></div>
+    </div>
+  </div>
+
+  <!-- Connection Status -->
+  <div class="connection-status">
+    <span class="connection-dot disconnected" id="conn-dot"></span>
+    <span id="conn-text">Conectando...</span>
+  </div>
+
+  <script>
+  'use strict';
+
+  // ============================================================
+  // GAME DATA
+  // ============================================================
+
+  const WORLDS = {
+    0: { name: 'A Oficina', tagline: 'Prepare suas ferramentas antes de construir.' },
+    1: { name: 'O Mapa do Tesouro', tagline: 'Descubra o que existe antes de inventar.' },
+    2: { name: 'A Planta da Fortaleza', tagline: 'Sem planta, voc\u00EA constr\u00F3i um barraco.' },
+    3: { name: 'O Pergaminho das Stories', tagline: 'Quebre o elefante em peda\u00E7os mastig\u00E1veis.' },
+    4: { name: 'A Forja', tagline: 'A linha de montagem. Aqui o c\u00F3digo ganha vida.' },
+    5: { name: 'O Tribunal da Qualidade', tagline: 'Tr\u00EAs inspetores. Nada passa sem julgamento.' },
+    6: { name: 'O Portal do Deploy', tagline: 'S\u00F3 o @devops tem a chave do portal.' },
+    7: { name: 'A Torre de Vigia', tagline: 'A casa foi entregue. Agora \u00E9 manter limpa.' },
+  };
+
+  const LEVELS = [
+    { min: 0,    name: 'Apprentice Builder', quote: 'Todo mestre j\u00E1 foi aprendiz.' },
+    { min: 100,  name: 'Junior Architect',   quote: 'As funda\u00E7\u00F5es est\u00E3o tomando forma.' },
+    { min: 250,  name: 'Code Warrior',       quote: 'Voc\u00EA j\u00E1 sabe empunhar o teclado.' },
+    { min: 450,  name: 'Quality Guardian',   quote: 'Nada passa sem sua aprova\u00E7\u00E3o.' },
+    { min: 650,  name: 'Deploy Commander',   quote: 'O campo de batalha \u00E9 seu.' },
+    { min: 850,  name: 'Master Builder',     quote: 'Poucos chegam aqui.' },
+    { min: 1000, name: 'Legend',             quote: 'Do zero ao deploy. Sem atalho. Sem medo.' },
+  ];
+
+  const ACHIEVEMENTS = {
+    first_blood:    { icon: '\u2694\uFE0F', name: 'First Blood',             desc: 'Primeira miss\u00E3o completa' },
+    setup_complete: { icon: '\uD83C\uDFE0', name: 'Base Montada',            desc: 'Fase 0 completa' },
+    thinker:        { icon: '\uD83E\uDDE0', name: 'Pensador',                desc: 'Brainstorming antes de codar' },
+    architect:      { icon: '\uD83D\uDDC2\uFE0F', name: 'O Arquiteto',      desc: 'PRD + Arquitetura prontos' },
+    storyteller:    { icon: '\uD83D\uDCD6', name: 'Contador de Stories',     desc: 'Stories criadas e validadas' },
+    builder:        { icon: '\uD83D\uDD28', name: 'O Construtor',            desc: 'Story implementada + QA ok' },
+    quality_freak:  { icon: '\uD83D\uDC8E', name: 'Obcecado por Qualidade',  desc: 'Vuln scan + Tier-S check' },
+    test_warrior:   { icon: '\uD83D\uDEE1\uFE0F', name: 'Guerreiro dos Testes', desc: 'Bulletproof test executado' },
+    shipper:        { icon: '\uD83D\uDE80', name: 'Shipper',                 desc: 'Deploy com sucesso' },
+    completionist:  { icon: '\uD83D\uDC51', name: 'Completionist',           desc: 'Tudo feito (inclusive opcionais)' },
+    legend:         { icon: '\u2B50',       name: 'Lenda',                   desc: '1000 XP \u2014 Do zero ao deploy' },
+    scanner:        { icon: '\uD83D\uDD0D', name: 'Detetive',               desc: 'Scan descobriu 3+ itens' },
+    consistent:     { icon: '\uD83D\uDD17', name: 'Consistente',             desc: '5 miss\u00F5es em sequ\u00EAncia' },
+    no_skip:        { icon: '\uD83D\uDEE4\uFE0F', name: 'Sem Atalho',       desc: '0 miss\u00F5es obrigat\u00F3rias puladas' },
+  };
+
+  // ============================================================
+  // STATE
+  // ============================================================
+
+  let currentView = 'home'; // 'home' | 'project'
+  let currentProjectName = null;
+  const projectsData = {}; // name -> { raw, parsed, format }
+  let registryProjects = []; // from server
+
+  // ============================================================
+  // PER-PROJECT THEME VARIABLES
+  // ============================================================
+
+  var ALL_THEMES = ['cyberpunk','fantasy','ember','gold','violet','crimson','phosphor','neon','vapor','cozy','paper','sakura','mint','sand'];
+
+  const THEME_VARS = {
+    cyberpunk: {
+      '--bg-card':'rgba(15,15,40,0.70)', '--bg-card-hover':'rgba(20,20,55,0.85)',
+      '--text-primary':'#e2e8f0', '--text-secondary':'#64748b', '--text-accent':'#00fff2',
+      '--accent-primary':'#00fff2', '--accent-secondary':'#ff00ff',
+      '--border-color':'rgba(0,255,242,0.18)',
+      '--progress-gradient':'linear-gradient(90deg,#00fff2,#8b5cf6,#ff00ff)',
+      '--font-display':"'Space Grotesk',sans-serif", '--font-mono':"'JetBrains Mono',monospace",
+      '--radius-card':'16px', '--shadow-card':'0 8px 32px rgba(0,0,0,0.55)',
+    },
+    fantasy: {
+      '--bg-card':'#2a1f0e', '--bg-card-hover':'#332612',
+      '--text-primary':'#d4c5a0', '--text-secondary':'#8b7355', '--text-accent':'#d4a017',
+      '--accent-primary':'#d4a017', '--accent-secondary':'#8b4513',
+      '--border-color':'#5c3d1a',
+      '--progress-gradient':'linear-gradient(90deg,#16a34a,#22c55e,#4ade80)',
+      '--font-display':"'Cinzel',serif", '--font-mono':"'Crimson Text',serif",
+      '--radius-card':'6px', '--shadow-card':'0 4px 24px rgba(0,0,0,0.7)',
+    },
+    ember: {
+      '--bg-card':'#1e1610', '--bg-card-hover':'#2a2018',
+      '--text-primary':'#f4efde', '--text-secondary':'#a78a6d', '--text-accent':'#ff7100',
+      '--accent-primary':'#ff7100', '--accent-secondary':'#edb500',
+      '--border-color':'#3a2a1e',
+      '--progress-gradient':'linear-gradient(90deg,#b32424,#ff7100,#edb500)',
+      '--font-display':"'Rajdhani',sans-serif", '--font-mono':"'JetBrains Mono',monospace",
+      '--radius-card':'8px', '--shadow-card':'0 4px 20px rgba(0,0,0,0.5)',
+    },
+    gold: {
+      '--bg-card':'#141820', '--bg-card-hover':'#1e2430',
+      '--text-primary':'#e7e5e8', '--text-secondary':'#b8a960', '--text-accent':'#fbbc42',
+      '--accent-primary':'#fbbc42', '--accent-secondary':'#e76a24',
+      '--border-color':'#2a2820',
+      '--progress-gradient':'linear-gradient(90deg,#e76a24,#fbbc42,#fffacd)',
+      '--font-display':"'Exo 2',sans-serif", '--font-mono':"'JetBrains Mono',monospace",
+      '--radius-card':'10px', '--shadow-card':'0 4px 20px rgba(0,0,0,0.5)',
+    },
+    violet: {
+      '--bg-card':'#15152b', '--bg-card-hover':'#1e1e3a',
+      '--text-primary':'#d4d4f0', '--text-secondary':'#8080aa', '--text-accent':'#bf5af2',
+      '--accent-primary':'#7c3aed', '--accent-secondary':'#06b6d4',
+      '--border-color':'#25254a',
+      '--progress-gradient':'linear-gradient(90deg,#4c1d95,#7c3aed,#bf5af2)',
+      '--font-display':"'Inter',sans-serif", '--font-mono':"'JetBrains Mono',monospace",
+      '--radius-card':'12px', '--shadow-card':'0 4px 20px rgba(0,0,0,0.5)',
+    },
+    crimson: {
+      '--bg-card':'#1a0810', '--bg-card-hover':'#28101a',
+      '--text-primary':'#e0d0d8', '--text-secondary':'#9f6e75', '--text-accent':'#e63946',
+      '--accent-primary':'#e63946', '--accent-secondary':'#ffd60a',
+      '--border-color':'#3a1020',
+      '--progress-gradient':'linear-gradient(90deg,#760921,#e63946,#ffd60a)',
+      '--font-display':"'Alegreya',serif", '--font-mono':"'JetBrains Mono',monospace",
+      '--radius-card':'6px', '--shadow-card':'0 4px 20px rgba(0,0,0,0.6)',
+    },
+    phosphor: {
+      '--bg-card':'#0a120a', '--bg-card-hover':'#121a12',
+      '--text-primary':'#33ff33', '--text-secondary':'#22aa22', '--text-accent':'#66ff66',
+      '--accent-primary':'#33ff33', '--accent-secondary':'#00cc00',
+      '--border-color':'#1a2a1a',
+      '--progress-gradient':'linear-gradient(90deg,#005500,#33ff33,#66ff66)',
+      '--font-display':"'Fira Code',monospace", '--font-mono':"'Fira Code',monospace",
+      '--radius-card':'0px', '--shadow-card':'0 2px 10px rgba(0,0,0,0.8)',
+    },
+    neon: {
+      '--bg-card':'#1a0a3e', '--bg-card-hover':'#24104e',
+      '--text-primary':'#f0e0ff', '--text-secondary':'#a080cc', '--text-accent':'#ff2975',
+      '--accent-primary':'#ff2975', '--accent-secondary':'#ffd319',
+      '--border-color':'#2a1050',
+      '--progress-gradient':'linear-gradient(90deg,#8c1eff,#ff2975,#ff901f,#ffd319)',
+      '--font-display':"'Audiowide',sans-serif", '--font-mono':"'Rajdhani',sans-serif",
+      '--radius-card':'12px', '--shadow-card':'0 4px 24px rgba(0,0,0,0.6)',
+    },
+    vapor: {
+      '--bg-card':'#281545', '--bg-card-hover':'#321a55',
+      '--text-primary':'#e0f0ff', '--text-secondary':'#80c0e0', '--text-accent':'#ff71ce',
+      '--accent-primary':'#ff71ce', '--accent-secondary':'#01cdfe',
+      '--border-color':'#3a1860',
+      '--progress-gradient':'linear-gradient(90deg,#ff71ce,#b967ff,#01cdfe,#05ffa1)',
+      '--font-display':"'VT323',monospace", '--font-mono':"'VT323',monospace",
+      '--radius-card':'0px', '--shadow-card':'0 4px 20px rgba(0,0,0,0.5)',
+    },
+    cozy: {
+      '--bg-card':'#222234', '--bg-card-hover':'#2a2a40',
+      '--text-primary':'#d4cfc4', '--text-secondary':'#9490a0', '--text-accent':'#e8a87c',
+      '--accent-primary':'#e8a87c', '--accent-secondary':'#85677b',
+      '--border-color':'#32324a',
+      '--progress-gradient':'linear-gradient(90deg,#85677b,#c49070,#e8a87c)',
+      '--font-display':"'Karla',sans-serif", '--font-mono':"'Karla',sans-serif",
+      '--radius-card':'14px', '--shadow-card':'0 2px 12px rgba(0,0,0,0.4)',
+    },
+    paper: {
+      '--bg-card':'#ffffff', '--bg-card-hover':'#f0eeeb',
+      '--text-primary':'#1a1a2e', '--text-secondary':'#6b7280', '--text-accent':'#4f46e5',
+      '--accent-primary':'#4f46e5', '--accent-secondary':'#7c3aed',
+      '--border-color':'#e5e3d9',
+      '--progress-gradient':'linear-gradient(90deg,#4f46e5,#7c3aed,#a78bfa)',
+      '--font-display':"'Inter',sans-serif", '--font-mono':"'JetBrains Mono',monospace",
+      '--radius-card':'12px', '--shadow-card':'0 1px 3px rgba(0,0,0,0.08)',
+    },
+    sakura: {
+      '--bg-card':'#ffffff', '--bg-card-hover':'#fef0f3',
+      '--text-primary':'#3d1f2e', '--text-secondary':'#9e7a8a', '--text-accent':'#e11d73',
+      '--accent-primary':'#e11d73', '--accent-secondary':'#f472b6',
+      '--border-color':'#f5d5dc',
+      '--progress-gradient':'linear-gradient(90deg,#e11d73,#f472b6,#fbcfe8)',
+      '--font-display':"'Inter',sans-serif", '--font-mono':"'JetBrains Mono',monospace",
+      '--radius-card':'16px', '--shadow-card':'0 1px 3px rgba(0,0,0,0.06)',
+    },
+    mint: {
+      '--bg-card':'#ffffff', '--bg-card-hover':'#eef8f2',
+      '--text-primary':'#1a2e28', '--text-secondary':'#6b8a7e', '--text-accent':'#059669',
+      '--accent-primary':'#059669', '--accent-secondary':'#34d399',
+      '--border-color':'#d1e8dc',
+      '--progress-gradient':'linear-gradient(90deg,#059669,#34d399,#a7f3d0)',
+      '--font-display':"'Inter',sans-serif", '--font-mono':"'JetBrains Mono',monospace",
+      '--radius-card':'12px', '--shadow-card':'0 1px 3px rgba(0,0,0,0.06)',
+    },
+    sand: {
+      '--bg-card':'#ffffff', '--bg-card-hover':'#f8f2ea',
+      '--text-primary':'#2e1f14', '--text-secondary':'#9a8370', '--text-accent':'#c2540a',
+      '--accent-primary':'#c2540a', '--accent-secondary':'#ea8c3c',
+      '--border-color':'#e8ddd0',
+      '--progress-gradient':'linear-gradient(90deg,#c2540a,#ea8c3c,#fbbf68)',
+      '--font-display':"'Karla',sans-serif", '--font-mono':"'JetBrains Mono',monospace",
+      '--radius-card':'10px', '--shadow-card':'0 1px 3px rgba(0,0,0,0.06)',
+    },
+  };
+
+  function getProjectTheme(projectName) {
+    var reg = registryProjects.find(function(p) { return p.project_name === projectName; });
+    return (reg && reg.theme) || 'cyberpunk';
+  }
+
+  function themeStyleString(themeName) {
+    var vars = THEME_VARS[themeName] || THEME_VARS.cyberpunk;
+    var parts = [];
+    for (var key in vars) { parts.push(key + ':' + vars[key]); }
+    return parts.join(';');
+  }
+
+  // Per-project celebration state
+  const projectCelebState = {};
+
+  let ws = null;
+
+  // ============================================================
+  // ZOOM CONTROL
+  // ============================================================
+
+  let currentZoom = parseInt(localStorage.getItem('quest-hub-zoom') || '100', 10);
+
+  function applyZoom() {
+    document.documentElement.style.fontSize = (currentZoom / 100 * 20) + 'px';
+    const label = document.getElementById('zoom-label');
+    if (label) label.textContent = currentZoom + '%';
+    localStorage.setItem('quest-hub-zoom', String(currentZoom));
+  }
+
+  function changeZoom(delta) {
+    currentZoom = Math.max(60, Math.min(200, currentZoom + delta));
+    applyZoom();
+  }
+
+  applyZoom();
+
+  // ============================================================
+  // THEME SWITCHING
+  // ============================================================
+
+  function setTheme(theme, persist) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.getElementById('theme-stylesheet').href = '/themes/' + theme + '.css';
+    var dd = document.getElementById('theme-dropdown');
+    if (dd) dd.value = theme;
+    if (persist !== false) {
+      localStorage.setItem('quest-hub-theme', theme);
+    }
+  }
+
+  function onThemeClick(theme) {
+    if (currentView === 'project' && currentProjectName) {
+      // Save theme for this project
+      setTheme(theme, false);
+      // Update local state
+      var reg = registryProjects.find(function(p) { return p.project_name === currentProjectName; });
+      if (reg) reg.theme = theme;
+      // Persist to server/registry
+      fetch('/api/project/' + encodeURIComponent(currentProjectName) + '/theme', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ theme: theme }),
+      });
+    } else {
+      // Home view: change global hub theme
+      setTheme(theme, true);
+    }
+  }
+
+  // ============================================================
+  // YAML PARSING
+  // ============================================================
+
+  function parseChecklist(yamlStr) {
+    try {
+      return jsyaml.load(yamlStr);
+    } catch (e) {
+      console.error('YAML parse error:', e);
+      return null;
+    }
+  }
+
+  // ============================================================
+  // GAME LOGIC
+  // ============================================================
+
+  function getLevel(xp) {
+    let level = LEVELS[0];
+    for (let i = LEVELS.length - 1; i >= 0; i--) {
+      if (xp >= LEVELS[i].min) { level = LEVELS[i]; break; }
+    }
+    var idx = LEVELS.indexOf(level);
+    var next = LEVELS[idx + 1] || level;
+    return { name: level.name, quote: level.quote, min: level.min, index: idx + 1, nextMin: next.min, nextName: next.name };
+  }
+
+  function calculateStats(data) {
+    if (!data) return { total: 0, done: 0, skipped: 0, xp: 0, phases: {} };
+
+    // New format: quest-log.yaml
+    if (data.stats && data.items) {
+      return calculateStatsNewFormat(data);
+    }
+
+    // Old format: pipeline-checklist.yaml with phases
+    if (data.phases) {
+      return calculateStatsOldFormat(data);
+    }
+
+    return { total: 0, done: 0, skipped: 0, xp: 0, phases: {} };
+  }
+
+  function calculateStatsNewFormat(data) {
+    var xp = data.stats.total_xp || 0;
+    var done = data.stats.items_done || 0;
+    var total = data.stats.items_total || 0;
+    var skipped = data.stats.items_skipped || 0;
+
+    // We don't have phases breakdown in new format directly,
+    // but items are keyed like "0.1", "1.3" etc
+    var phases = {};
+    if (data.items) {
+      for (var itemId in data.items) {
+        var parts = itemId.split('.');
+        var phaseId = parts[0];
+        if (!phases[phaseId]) {
+          phases[phaseId] = { done: 0, total: 0, skipped: 0, requiredDone: 0, requiredTotal: 0, items: {} };
+        }
+        phases[phaseId].total++;
+        phases[phaseId].items[itemId] = data.items[itemId];
+        if (data.items[itemId].status === 'done') { phases[phaseId].done++; phases[phaseId].requiredDone++; }
+        if (data.items[itemId].status === 'skipped') { phases[phaseId].skipped++; phases[phaseId].requiredDone++; }
+      }
+    }
+
+    return { total: total, done: done, skipped: skipped, xp: xp, phases: phases };
+  }
+
+  function calculateStatsOldFormat(data) {
+    var total = 0, done = 0, skipped = 0, xp = 0;
+    var phases = {};
+
+    for (var phaseId in data.phases) {
+      var phase = data.phases[phaseId];
+      var items = phase.items || {};
+      var pDone = 0, pTotal = 0, pSkipped = 0;
+
+      var pRequiredDone = 0, pRequiredTotal = 0;
+      for (var itemId in items) {
+        var item = items[itemId];
+        pTotal++;
+        if (item.required) pRequiredTotal++;
+        if (item.status === 'done') { pDone++; xp += (item.xp || 0); if (item.required) pRequiredDone++; }
+        else if (item.status === 'skipped') { pSkipped++; if (item.required) pRequiredDone++; }
+      }
+
+      phases[phaseId] = { done: pDone, total: pTotal, skipped: pSkipped, requiredDone: pRequiredDone, requiredTotal: pRequiredTotal, name: phase.name, items: items };
+      total += pTotal;
+      done += pDone;
+      skipped += pSkipped;
+    }
+
+    // Use stored XP if available
+    if (data.total_xp) xp = data.total_xp;
+
+    return { total: total, done: done, skipped: skipped, xp: xp, phases: phases };
+  }
+
+  function getNextMission(data, stats) {
+    // Find first pending item
+    var sortedPhases = Object.keys(stats.phases).sort(function(a, b) { return parseInt(a) - parseInt(b); });
+    for (var i = 0; i < sortedPhases.length; i++) {
+      var ph = stats.phases[sortedPhases[i]];
+      var itemKeys = Object.keys(ph.items).sort();
+      for (var j = 0; j < itemKeys.length; j++) {
+        var item = ph.items[itemKeys[j]];
+        if (item.status === 'pending' || (!item.status && item.status !== 'done' && item.status !== 'skipped')) {
+          return item.label || itemKeys[j];
+        }
+      }
+    }
+    return 'Quest completa!';
+  }
+
+  function checkAchievements(data, stats) {
+    // New format stores achievements differently
+    if (data.achievements && Array.isArray(data.achievements)) {
+      return data.achievements.map(function(a) { return a.id || a; });
+    }
+    if (data.achievements_unlocked) {
+      return data.achievements_unlocked;
+    }
+
+    // Auto-detect from old format
+    var unlocked = [];
+    if (stats.done > 0) unlocked.push('first_blood');
+    if (stats.xp >= 1000) unlocked.push('legend');
+    if (stats.done === stats.total && stats.total > 0) unlocked.push('completionist');
+    return unlocked;
+  }
+
+  // ============================================================
+  // CONFETTI EFFECTS
+  // ============================================================
+
+  function confettiSmall() {
+    confetti({ particleCount: 30, spread: 50, origin: { y: 0.7 }, ticks: 80, gravity: 1.2 });
+  }
+
+  function confettiMedium() {
+    confetti({ particleCount: 80, spread: 80, origin: { y: 0.6 } });
+  }
+
+  function confettiBig() {
+    var count = 150;
+    var defaults = { origin: { y: 0.6 }, ticks: 200 };
+    confetti({ ...defaults, particleCount: count * 0.25, spread: 26, startVelocity: 55 });
+    confetti({ ...defaults, particleCount: count * 0.20, spread: 60 });
+    confetti({ ...defaults, particleCount: count * 0.35, spread: 100, decay: 0.91, scalar: 0.8 });
+    confetti({ ...defaults, particleCount: count * 0.10, spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+    confetti({ ...defaults, particleCount: count * 0.10, spread: 120, startVelocity: 45 });
+  }
+
+  function confettiWorldComplete() {
+    var end = Date.now() + 2500;
+    var colors = ['#00fff2', '#8b5cf6', '#ff00ff', '#22c55e', '#f59e0b'];
+    (function frame() {
+      confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+      confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    }());
+  }
+
+  function confettiLevelUp() {
+    var duration = 3000;
+    var end = Date.now() + duration;
+    var interval = setInterval(function() {
+      if (end - Date.now() <= 0) return clearInterval(interval);
+      confetti({
+        particleCount: 50, startVelocity: 30, spread: 360, ticks: 60,
+        origin: { x: Math.random(), y: Math.random() * 0.4 },
+        colors: ['#ff0', '#0ff', '#f0f', '#0f0', '#ff6600'], gravity: 0.8,
+      });
+    }, 250);
+  }
+
+  function confettiAchievement() {
+    var defaults = { spread: 360, ticks: 100, gravity: 0, decay: 0.94, startVelocity: 20 };
+    function shoot() {
+      confetti({ ...defaults, particleCount: 30, scalar: 1.2, shapes: ['star'], colors: ['#ffd700', '#ffec8b', '#fff8dc'] });
+      confetti({ ...defaults, particleCount: 15, scalar: 0.75, shapes: ['circle'], colors: ['#ffd700', '#f59e0b'] });
+    }
+    setTimeout(shoot, 0);
+    setTimeout(shoot, 200);
+    setTimeout(shoot, 400);
+  }
+
+  function confettiLegendary() {
+    confettiBig();
+    setTimeout(confettiWorldComplete, 500);
+    setTimeout(confettiLevelUp, 1500);
+    setTimeout(confettiAchievement, 3000);
+    setTimeout(confettiBig, 4000);
+  }
+
+  // ============================================================
+  // CELEBRATION OVERLAY
+  // ============================================================
+
+  function showCelebration(title, xpText, desc, confettiFn) {
+    var overlay = document.getElementById('celebration');
+    document.getElementById('celeb-title').textContent = title;
+    document.getElementById('celeb-xp').textContent = xpText;
+    document.getElementById('celeb-desc').textContent = desc;
+    overlay.classList.add('active');
+    if (confettiFn) confettiFn();
+    setTimeout(function() { overlay.classList.remove('active'); }, 4000);
+  }
+
+  // ============================================================
+  // NAVIGATION
+  // ============================================================
+
+  function navigateTo(view, projectName) {
+    currentView = view;
+    currentProjectName = projectName || null;
+
+    if (view === 'home') {
+      // Restore saved global theme
+      var savedTheme = localStorage.getItem('quest-hub-theme') || 'cyberpunk';
+      setTheme(savedTheme);
+      renderHome();
+    } else if (view === 'project' && projectName) {
+      // Switch to project-specific theme (don't persist — temporary)
+      var projTheme = getProjectTheme(projectName);
+      setTheme(projTheme, false);
+      renderProject(projectName);
+    }
+  }
+
+  // ============================================================
+  // RENDERING — HOME VIEW
+  // ============================================================
+
+  function renderHome() {
+    var app = document.getElementById('app');
+    var names = Object.keys(projectsData);
+
+    // Sort by last_active from registry
+    names.sort(function(a, b) {
+      var regA = registryProjects.find(function(p) { return p.project_name === a; });
+      var regB = registryProjects.find(function(p) { return p.project_name === b; });
+      var dateA = regA && regA.last_active ? new Date(regA.last_active).getTime() : 0;
+      var dateB = regB && regB.last_active ? new Date(regB.last_active).getTime() : 0;
+      return dateB - dateA;
+    });
+
+    // Aggregate stats
+    var totalXP = 0;
+    var totalProjects = names.length;
+    var activeProjects = 0;
+
+    var projectRows = [];
+    for (var i = 0; i < names.length; i++) {
+      var name = names[i];
+      var pd = projectsData[name];
+      if (!pd || !pd.parsed) continue;
+
+      var stats = calculateStats(pd.parsed);
+      var percent = stats.total > 0 ? Math.round((stats.done / stats.total) * 100) : 0;
+      var reg = registryProjects.find(function(p) { return p.project_name === name; });
+      var pack = (reg && reg.pack) || (pd.parsed.meta && pd.parsed.meta.pack) || 'unknown';
+      var nextMission = getNextMission(pd.parsed, stats);
+
+      totalXP += stats.xp;
+      if (percent < 100) activeProjects++;
+
+      projectRows.push({
+        name: name,
+        pack: pack,
+        percent: percent,
+        xp: stats.xp,
+        done: stats.done,
+        total: stats.total,
+        nextMission: nextMission,
+      });
+    }
+
+    if (names.length === 0) {
+      app.innerHTML = renderHeader('Quest Master Hub', 'Dashboard Hub', false) +
+        '<div class="no-data view-enter">' +
+          '<div class="empty-icon">&#128270;</div>' +
+          '<h2>Nenhuma quest ativa</h2>' +
+          '<p>Rode <code>/quest</code> em um projeto para come\u00E7ar.</p>' +
+          '<p style="margin-top:1rem;font-size:0.8rem;opacity:0.5">O dashboard atualiza automaticamente quando um projeto for registrado.</p>' +
+        '</div>';
+      updateThemeButtons();
+      return;
+    }
+
+    var tableRows = '';
+    for (var j = 0; j < projectRows.length; j++) {
+      var row = projectRows[j];
+      var rowTheme = getProjectTheme(row.name);
+      var rowStyle = themeStyleString(rowTheme);
+      tableRows += '<tr onclick="navigateTo(\'project\', \'' + escapeHtml(row.name) + '\')" style="' + rowStyle + '">' +
+        '<td><div class="project-name" style="color:var(--text-primary)">' + escapeHtml(row.name) + '</div><div class="project-pack" style="color:var(--text-secondary)">' + escapeHtml(row.pack) + '</div></td>' +
+        '<td><div class="progress-bar-mini" style="background:var(--bg-card)"><div class="progress-bar-mini-fill" style="width:' + row.percent + '%;background:var(--progress-gradient)"></div></div></td>' +
+        '<td class="td-percent" style="color:var(--text-accent);font-family:var(--font-mono)">' + row.percent + '%</td>' +
+        '<td class="td-xp" style="color:var(--accent-primary);font-family:var(--font-mono)">' + row.xp + ' XP</td>' +
+        '<td class="td-next" style="color:var(--text-secondary)">' + escapeHtml(row.nextMission) + '</td>' +
+      '</tr>';
+    }
+
+    app.innerHTML = renderHeader('Quest Master Hub', 'Dashboard Hub', false) +
+      '<div class="home-stats view-enter">' +
+        '<div class="home-stat"><div class="home-stat-value">' + totalProjects + '</div><div class="home-stat-label">Projetos</div></div>' +
+        '<div class="home-stat"><div class="home-stat-value">' + activeProjects + '</div><div class="home-stat-label">Ativos</div></div>' +
+        '<div class="home-stat"><div class="home-stat-value">' + totalXP + '</div><div class="home-stat-label">XP Total</div></div>' +
+      '</div>' +
+      '<div class="view-enter">' +
+        '<table class="projects-table">' +
+          '<thead><tr><th>Projeto</th><th>Progresso</th><th>%</th><th>XP</th><th>Pr\u00F3xima Miss\u00E3o</th></tr></thead>' +
+          '<tbody>' + tableRows + '</tbody>' +
+        '</table>' +
+      '</div>';
+
+    updateThemeButtons();
+  }
+
+  // ============================================================
+  // RENDERING — PROJECT VIEW
+  // ============================================================
+
+  function renderProject(name) {
+    var app = document.getElementById('app');
+    var pd = projectsData[name];
+
+    if (!pd || !pd.parsed) {
+      app.innerHTML = renderHeader(name, 'Projeto', true) +
+        '<div class="error-card view-enter">Dados do projeto n\u00E3o dispon\u00EDveis ou corrompidos.</div>';
+      updateThemeButtons();
+      return;
+    }
+
+    var data = pd.parsed;
+    var stats = calculateStats(data);
+    var level = getLevel(stats.xp);
+    var achievements = checkAchievements(data, stats);
+    var percent = stats.total > 0 ? Math.round((stats.done / stats.total) * 100) : 0;
+    var xpPercent = level.nextMin > level.min
+      ? Math.round(((stats.xp - level.min) / (level.nextMin - level.min)) * 100)
+      : 100;
+
+    // Detect celebrations for this project
+    detectCelebrations(name, stats, level, achievements);
+
+    // Find current world — a world is "complete for unlock" when all REQUIRED items are done
+    var currentWorld = '7';
+    var sortedPhaseKeys = Object.keys(stats.phases).sort(function(a, b) { return parseInt(a) - parseInt(b); });
+    for (var i = 0; i < sortedPhaseKeys.length; i++) {
+      var ph = stats.phases[sortedPhaseKeys[i]];
+      var reqDone = ph.requiredDone || 0;
+      var reqTotal = ph.requiredTotal || ph.total;
+      if (ph && reqDone < reqTotal) {
+        currentWorld = sortedPhaseKeys[i];
+        break;
+      }
+    }
+
+    // Render worlds
+    var worldsHtml = '';
+    for (var wi = 0; wi < sortedPhaseKeys.length; wi++) {
+      var id = sortedPhaseKeys[wi];
+      var phase = stats.phases[id];
+      var world = WORLDS[id] || { name: 'World ' + id, tagline: '' };
+      var reqDone = phase.requiredDone || 0;
+      var reqTotal = phase.requiredTotal || phase.total;
+      var isRequiredComplete = reqDone >= reqTotal;
+      var isComplete = phase.done >= phase.total - phase.skipped;
+      var isActive = id === currentWorld;
+      var isLocked = parseInt(id) > parseInt(currentWorld) && !isRequiredComplete && phase.done === 0;
+      var phPercent = phase.total > 0 ? Math.round((phase.done / phase.total) * 100) : 0;
+      var statusClass = isComplete ? 'world-complete' : isActive ? 'world-active' : isLocked ? 'world-locked' : '';
+      var statusIcon = isComplete ? '\u2705' : isActive ? '\uD83D\uDD04' : isLocked ? '\uD83D\uDD12' : '\u2B1C';
+
+      // Missions
+      var missionsHtml = '';
+      var itemKeys = Object.keys(phase.items).sort();
+      for (var mi = 0; mi < itemKeys.length; mi++) {
+        var itemId = itemKeys[mi];
+        var item = phase.items[itemId];
+        var isDone = item.status === 'done';
+        var isSkipped = item.status === 'skipped';
+        var statusCls = isDone ? 'done' : isSkipped ? 'skipped' : 'pending';
+        var iconCls = isDone ? 'done' : isSkipped ? 'skipped' : 'pending';
+        var iconText = isDone ? '\u2713' : isSkipped ? '\u2013' : '';
+        var missionLabel = item.label || itemId;
+
+        missionsHtml += '<div class="mission ' + statusCls + '">' +
+          '<div class="mission-icon ' + iconCls + '">' + iconText + '</div>' +
+          '<div class="mission-label">' + escapeHtml(itemId) + ' ' + escapeHtml(missionLabel) + '</div>' +
+          '<div class="mission-xp">+' + (item.xp || 0) + '</div>' +
+          (item.note ? '<div class="mission-note">' + escapeHtml(item.note) + '</div>' : '') +
+        '</div>';
+      }
+
+      worldsHtml += '<div class="world-card ' + statusClass + (isActive ? ' expanded' : '') + '" onclick="this.classList.toggle(\'expanded\')">' +
+        '<div class="world-header">' +
+          '<span class="world-name">' + statusIcon + ' World ' + id + ': ' + escapeHtml(world.name) + '</span>' +
+          '<span class="world-status">' + phase.done + '/' + phase.total + '</span>' +
+        '</div>' +
+        '<div class="world-tagline">' + escapeHtml(world.tagline) + '</div>' +
+        '<div class="world-progress"><div class="world-progress-fill" style="width:' + phPercent + '%"></div></div>' +
+        '<div class="missions-list">' + missionsHtml + '</div>' +
+      '</div>';
+    }
+
+    // Achievements
+    var achievementsHtml = '';
+    var achKeys = Object.keys(ACHIEVEMENTS);
+    for (var ai = 0; ai < achKeys.length; ai++) {
+      var key = achKeys[ai];
+      var ach = ACHIEVEMENTS[key];
+      var isUnlocked = achievements.indexOf(key) >= 0;
+      achievementsHtml += '<div class="achievement ' + (isUnlocked ? 'unlocked' : 'locked') + '" title="' + escapeHtml(ach.desc) + '">' +
+        '<div class="achievement-icon">' + ach.icon + '</div>' +
+        '<div class="achievement-name">' + (isUnlocked ? escapeHtml(ach.name) : '???') + '</div>' +
+      '</div>';
+    }
+
+    // Project name from meta or param
+    var displayName = name;
+    if (data.meta && data.meta.project) displayName = data.meta.project;
+    if (data.project && typeof data.project === 'string') displayName = data.project;
+    if (data.project && typeof data.project === 'object' && data.project.name) displayName = data.project.name;
+
+    var reg = registryProjects.find(function(p) { return p.project_name === name; });
+    var packName = (reg && reg.pack) || (data.meta && data.meta.pack) || '';
+
+    app.innerHTML = renderHeader(displayName, packName ? 'Pack: ' + packName : 'Quest', true) +
+      '<div class="stats-row view-enter">' +
+        '<div class="stat-card"><div class="stat-value">' + stats.xp + '</div><div class="stat-label">XP Total</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + stats.done + '/' + stats.total + '</div><div class="stat-label">Miss\u00F5es</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + percent + '%</div><div class="stat-label">Progresso</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + achievements.length + '/' + achKeys.length + '</div><div class="stat-label">Achievements</div></div>' +
+      '</div>' +
+      '<div class="level-section view-enter">' +
+        '<div class="level-header">' +
+          '<span class="level-badge">Lv.' + level.index + ' ' + escapeHtml(level.name) + '</span>' +
+          '<span class="level-quote">"' + escapeHtml(level.quote) + '"</span>' +
+        '</div>' +
+        '<div class="xp-bar-container"><div class="xp-bar-fill" style="width:' + xpPercent + '%"></div></div>' +
+        '<div class="xp-text"><span>' + stats.xp + ' XP</span><span>' + level.nextMin + ' XP</span></div>' +
+      '</div>' +
+      '<div class="worlds-section view-enter">' +
+        '<div class="worlds-title">Quest Log</div>' +
+        worldsHtml +
+      '</div>' +
+      '<div class="achievements-section view-enter">' +
+        '<div class="achievements-title">Achievements (' + achievements.length + '/' + achKeys.length + ')</div>' +
+        '<div class="achievements-grid">' + achievementsHtml + '</div>' +
+      '</div>';
+
+    updateThemeButtons();
+  }
+
+  // ============================================================
+  // CELEBRATION DETECTION (per project)
+  // ============================================================
+
+  function detectCelebrations(name, stats, level, achievements) {
+    if (!projectCelebState[name]) {
+      projectCelebState[name] = { xp: stats.xp, level: level.index, achievements: achievements.slice(), worldsDone: new Set() };
+      // Track completed worlds
+      for (var id in stats.phases) {
+        var ph = stats.phases[id];
+        if (ph.done >= ph.total - ph.skipped) projectCelebState[name].worldsDone.add(id);
+      }
+      return; // First load, no celebrations
+    }
+
+    var prev = projectCelebState[name];
+    var diff = stats.xp - prev.xp;
+
+    if (diff > 0) {
+      if (stats.xp >= 1000 && prev.xp < 1000) {
+        setTimeout(function() { showCelebration('L E N D A !', '1000 XP', 'Do zero ao deploy. Sem atalho. Sem medo.', confettiLegendary); }, 300);
+      } else if (level.index > prev.level && prev.level > 0) {
+        setTimeout(function() { showCelebration('LEVEL UP!', 'Level ' + level.index, level.name, confettiLevelUp); }, 300);
+      } else if (diff >= 40) {
+        setTimeout(function() { showCelebration('MISS\u00C3O \u00C9PICA!', '+' + diff + ' XP', 'Total: ' + stats.xp + ' XP', confettiBig); }, 300);
+      } else if (diff >= 20) {
+        setTimeout(function() { showCelebration('MISS\u00C3O COMPLETA!', '+' + diff + ' XP', 'Total: ' + stats.xp + ' XP', confettiMedium); }, 300);
+      } else if (diff >= 5) {
+        confettiSmall();
+      }
+    }
+
+    // New achievements
+    if (achievements.length > prev.achievements.length) {
+      var newOnes = achievements.filter(function(a) { return prev.achievements.indexOf(a) < 0; });
+      if (newOnes.length > 0 && ACHIEVEMENTS[newOnes[0]]) {
+        var ach = ACHIEVEMENTS[newOnes[0]];
+        setTimeout(function() { showCelebration('ACHIEVEMENT!', ach.icon, ach.name, confettiAchievement); }, 1500);
+      }
+    }
+
+    // Update state
+    prev.xp = stats.xp;
+    prev.level = level.index;
+    prev.achievements = achievements.slice();
+    prev.worldsDone = new Set();
+    for (var pid in stats.phases) {
+      var pph = stats.phases[pid];
+      if (pph.done >= pph.total - pph.skipped) prev.worldsDone.add(pid);
+    }
+  }
+
+  // ============================================================
+  // SHARED RENDER HELPERS
+  // ============================================================
+
+  function renderHeader(title, subtitle, showBack) {
+    return '<div class="header">' +
+      '<button class="header-back' + (showBack ? '' : ' hidden') + '" onclick="navigateTo(\'home\')" title="Voltar">\u2190</button>' +
+      '<div>' +
+        '<div class="header-subtitle">' + escapeHtml(subtitle) + '</div>' +
+        '<div class="header-title">' + escapeHtml(title) + '</div>' +
+      '</div>' +
+      '<div class="header-controls">' +
+        '<div class="zoom-controls">' +
+          '<button class="zoom-btn" onclick="changeZoom(-10)" title="Diminuir fonte">-</button>' +
+          '<span class="zoom-label" id="zoom-label">' + currentZoom + '%</span>' +
+          '<button class="zoom-btn" onclick="changeZoom(10)" title="Aumentar fonte">+</button>' +
+        '</div>' +
+        '<div class="theme-switcher">' +
+          '<select class="theme-select" id="theme-dropdown" onchange="onThemeClick(this.value)">' +
+            '<optgroup label="Dark">' +
+              '<option value="cyberpunk">Cyberpunk</option>' +
+              '<option value="fantasy">Fantasy</option>' +
+              '<option value="ember">Ember</option>' +
+              '<option value="gold">Gold</option>' +
+              '<option value="violet">Violet</option>' +
+              '<option value="crimson">Crimson</option>' +
+              '<option value="phosphor">Phosphor</option>' +
+              '<option value="neon">Neon</option>' +
+              '<option value="vapor">Vapor</option>' +
+              '<option value="cozy">Cozy</option>' +
+            '</optgroup>' +
+            '<optgroup label="Light">' +
+              '<option value="paper">Paper</option>' +
+              '<option value="sakura">Sakura</option>' +
+              '<option value="mint">Mint</option>' +
+              '<option value="sand">Sand</option>' +
+            '</optgroup>' +
+          '</select>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function updateThemeButtons() {
+    var dd = document.getElementById('theme-dropdown');
+    if (!dd) return;
+    // Determine which theme is active
+    var activeTheme;
+    if (currentView === 'project' && currentProjectName) {
+      activeTheme = getProjectTheme(currentProjectName);
+    } else {
+      activeTheme = localStorage.getItem('quest-hub-theme') || 'cyberpunk';
+    }
+    dd.value = activeTheme;
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // ============================================================
+  // WEBSOCKET
+  // ============================================================
+
+  function connectWS() {
+    var protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    ws = new WebSocket(protocol + '//' + location.host);
+
+    ws.onopen = function() {
+      document.getElementById('conn-dot').className = 'connection-dot connected';
+      document.getElementById('conn-text').textContent = 'Conectado';
+    };
+
+    ws.onmessage = function(event) {
+      try {
+        var msg = JSON.parse(event.data);
+
+        if (msg.type === 'project_update') {
+          var parsed = parseChecklist(msg.data);
+          projectsData[msg.project] = {
+            raw: msg.data,
+            parsed: parsed,
+            format: msg.format,
+          };
+
+          // Re-render current view
+          if (currentView === 'home') {
+            renderHome();
+          } else if (currentView === 'project' && currentProjectName === msg.project) {
+            renderProject(msg.project);
+          }
+        }
+
+        if (msg.type === 'registry_info') {
+          registryProjects = msg.projects || [];
+          // Also register project names we haven't seen yet
+          for (var i = 0; i < registryProjects.length; i++) {
+            var rp = registryProjects[i];
+            var rpName = rp.project_name;
+            if (!projectsData[rpName]) {
+              projectsData[rpName] = { raw: null, parsed: null, format: null };
+            }
+          }
+          if (currentView === 'home') renderHome();
+        }
+
+        if (msg.type === 'registry_update') {
+          // Reload projects via API
+          loadProjectsViaAPI();
+        }
+      } catch (e) {
+        console.error('WS message error:', e);
+      }
+    };
+
+    ws.onclose = function() {
+      document.getElementById('conn-dot').className = 'connection-dot disconnected';
+      document.getElementById('conn-text').textContent = 'Desconectado \u2014 reconectando...';
+      setTimeout(connectWS, 3000);
+    };
+
+    ws.onerror = function() { ws.close(); };
+  }
+
+  // ============================================================
+  // API FALLBACK
+  // ============================================================
+
+  function loadProjectsViaAPI() {
+    fetch('/api/projects')
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(result) {
+        if (!result || !result.projects) return;
+
+        for (var i = 0; i < result.projects.length; i++) {
+          var p = result.projects[i];
+          if (p.data) {
+            var parsed = parseChecklist(p.data);
+            projectsData[p.name] = { raw: p.data, parsed: parsed, format: p.format };
+          }
+        }
+
+        registryProjects = result.projects.map(function(p) {
+          return { project_name: p.name, path: p.path, pack: p.pack, theme: p.theme, last_active: p.last_active };
+        });
+
+        if (currentView === 'home') renderHome();
+      })
+      .catch(function() {});
+  }
+
+  // ============================================================
+  // INIT
+  // ============================================================
+
+  (function init() {
+    // Load saved theme
+    var savedTheme = localStorage.getItem('quest-hub-theme') || 'cyberpunk';
+    setTheme(savedTheme);
+
+    // Connect WebSocket
+    connectWS();
+
+    // Also load via API (fallback and initial data)
+    loadProjectsViaAPI();
+  })();
+  </script>
+</body>
+</html>

@@ -97,5 +97,13 @@ Merovingian says: "Documentation is code. Keep it fresh."
 - `squads/design/checklists/ds-component-quality-checklist.md`
 - `squads/design/checklists/ds-pattern-audit-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** Documentação gerada sem tabela de props tipadas para cada componente — docs sem API reference são inúteis
+- **BLOCKER:** Seção de acessibilidade ausente na documentação do componente — WCAG compliance notes são obrigatórias
+- **BLOCKER:** Exemplos de uso com valores hardcoded em vez de tokens do design system
+- **WARNING:** Documentação sem exemplos de código copiáveis (copy-paste ready)
+- **WARNING:** Pattern library sem índice navegável com busca por nome de componente
+
 ## Process Guards
 - **On Fail:** Stop execution, capture evidence, and return remediation steps before proceeding.

@@ -1,0 +1,49 @@
+/* ============================================================
+   GOLD THEME — Quest Master Dashboard
+   Gleaming gold over deep night. Power and conquest.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary:      #01080a;
+  --bg-secondary:    #0a1014;
+  --bg-card:         #141820;
+  --bg-card-hover:   #1e2430;
+
+  --text-primary:    #e7e5e8;
+  --text-secondary:  #b8a960;
+  --text-accent:     #fbbc42;
+
+  --accent-primary:   #fbbc42;
+  --accent-secondary: #e76a24;
+  --accent-tertiary:  #1c4595;
+
+  --border-color: #2a2820;
+  --border-glow:  0 0 0 1px rgba(251, 188, 66, 0.3),
+                  0 0 12px rgba(251, 188, 66, 0.15);
+
+  --progress-gradient: linear-gradient(90deg, #e76a24 0%, #fbbc42 50%, #fffacd 100%);
+  --progress-shine:    linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(251, 188, 66, 0.2);
+
+  --radius-card: 10px;
+  --radius-pill: 9999px;
+
+  --font-display: 'Exo 2', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #2a2820; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #4a4830; }
+* { scrollbar-width: thin; scrollbar-color: #2a2820 var(--bg-primary); }

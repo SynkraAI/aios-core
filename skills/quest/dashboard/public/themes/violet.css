@@ -1,0 +1,49 @@
+/* ============================================================
+   VIOLET THEME — Quest Master Dashboard
+   Deep purple with cyan sparks. Mystery and energy.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary:      #05050a;
+  --bg-secondary:    #0d0d1a;
+  --bg-card:         #15152b;
+  --bg-card-hover:   #1e1e3a;
+
+  --text-primary:    #d4d4f0;
+  --text-secondary:  #8080aa;
+  --text-accent:     #bf5af2;
+
+  --accent-primary:   #7c3aed;
+  --accent-secondary: #06b6d4;
+  --accent-tertiary:  #bf5af2;
+
+  --border-color: #25254a;
+  --border-glow:  0 0 0 1px rgba(124, 58, 237, 0.35),
+                  0 0 12px rgba(124, 58, 237, 0.18);
+
+  --progress-gradient: linear-gradient(90deg, #4c1d95 0%, #7c3aed 50%, #bf5af2 100%);
+  --progress-shine:    linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(124, 58, 237, 0.25);
+
+  --radius-card: 12px;
+  --radius-pill: 9999px;
+
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #25254a; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #35355a; }
+* { scrollbar-width: thin; scrollbar-color: #25254a var(--bg-primary); }

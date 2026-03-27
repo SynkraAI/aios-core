@@ -147,6 +147,13 @@ task:
     - "Executive summary generated"
     - "Quality Gate QG-KZ-003 passed"
 
+  veto_conditions:
+    - "Recomendação sem evidência de pelo menos 1 agente especialista → REMOVER (opinião não é insight)"
+    - "Mais de 5 recomendações no output final → CORTAR as de menor composite score"
+    - "Recomendação de adoção de ferramenta externa sem validação do Step 4 → BLOQUEAR publicação"
+    - "Executive summary ausente ou >3 frases → REDO step 6"
+    - "Findings não deduplicados (mesmo issue reportado por 2+ agentes contado separadamente) → REDO step 1"
+
   action_items:
     - "kaizen-chief synthesizes all reports"
     - "Apply weekly-report-tmpl.md template"

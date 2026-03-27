@@ -1,0 +1,49 @@
+/* ============================================================
+   SAKURA THEME — Quest Master Dashboard (LIGHT)
+   Pastel pink on off-white. Delicate and welcoming.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary:      #fdf2f4;
+  --bg-secondary:    #f8e8ec;
+  --bg-card:         #ffffff;
+  --bg-card-hover:   #fef0f3;
+
+  --text-primary:    #3d1f2e;
+  --text-secondary:  #9e7a8a;
+  --text-accent:     #e11d73;
+
+  --accent-primary:   #e11d73;
+  --accent-secondary: #f472b6;
+  --accent-tertiary:  #fbcfe8;
+
+  --border-color: #f5d5dc;
+  --border-glow:  0 0 0 1px rgba(225, 29, 115, 0.12);
+
+  --progress-gradient: linear-gradient(90deg, #e11d73 0%, #f472b6 50%, #fbcfe8 100%);
+  --progress-shine:    none;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06),
+                 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-glow: 0 0 0 1px rgba(225, 29, 115, 0.1);
+
+  --radius-card: 16px;
+  --radius-pill: 9999px;
+
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #e8c0ca; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #d8a0b0; }
+* { scrollbar-width: thin; scrollbar-color: #e8c0ca var(--bg-primary); }

@@ -99,6 +99,13 @@ archive_date: null
 deleted_date: null
 ```
 
+## Veto Conditions
+- "Pattern extraído com verification_count < 2 e sem fonte documentada → REJEITAR (critério VERIFIED falhou)"
+- "Pattern sem suggested_trigger (if X then Y) → REJEITAR (critério ACTIONABLE falhou)"
+- "Pattern duplicado de entrada existente em patterns.yaml → REDIRECIONAR para reforço, não extrair novo"
+- "Pattern baseado em especulação ('talvez', 'parece que') sem commit/task rastreável → REJEITAR (critério EMPIRICAL falhou)"
+- "Mais de 5 patterns extraídos numa única reflexão → REVISAR priorização (extração em massa indica filtro frouxo)"
+
 ## Success Criteria
 - PASS: ≥1 pattern extracted with all 5 criteria met
 - PASS: 0 patterns extracted (valid if no learnings meet criteria)

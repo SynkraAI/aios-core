@@ -274,5 +274,13 @@ outputs/design-system/{project}/
 - `squads/design/checklists/ds-component-quality-checklist.md`
 - `squads/design/checklists/ds-pattern-audit-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** Health score calculado sem incluir token coverage (peso 30%) — métrica mais importante não pode estar ausente
+- **BLOCKER:** Relatório marcando health score > 80 com cores hardcoded (#hex) > 0 — violações de tokens invalidam score alto
+- **BLOCKER:** Métricas coletadas sem path de scan validado (zero arquivos .tsx encontrados)
+- **WARNING:** Componentes acima de 200 linhas não listados individualmente como candidatos a refatoração
+- **WARNING:** Relatório sem comparação histórica quando relatório anterior existe
+
 ## Process Guards
 - **On Fail:** Stop execution, capture evidence, and return remediation steps before proceeding.

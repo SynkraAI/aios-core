@@ -369,5 +369,13 @@ contrast_matrix:
 - `squads/design/checklists/ds-accessibility-wcag-checklist.md`
 - `squads/design/checklists/ds-a11y-release-gate-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** Matriz gerada sem incluir pares foreground/background de todos os temas ativos (light e dark no mínimo)
+- **BLOCKER:** Pares com ratio WCAG AA < 4.5:1 para texto normal sem sugestão de remediação específica
+- **BLOCKER:** Relatório sem cálculo APCA Lc quando a biblioteca está disponível — APCA é obrigatório para precisão moderna
+- **WARNING:** Mais de 20% dos pares de cores marcados como "falha" sem priorização por frequência de uso
+- **WARNING:** Cores de foco (focus ring) não incluídas na validação de contraste
+
 ## Process Guards
 - **On Fail:** Stop execution, capture evidence, and return remediation steps before proceeding.

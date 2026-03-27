@@ -104,5 +104,13 @@ Configure mode architecture for your design token system. Defines mode structure
 - `squads/design/checklists/ds-component-quality-checklist.md`
 - `squads/design/checklists/ds-pattern-audit-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** Tokens mode-sensitive sem valores para todos os modos declarados (lacunas causam erros em runtime)
+- **BLOCKER:** Qualquer modo com pares foreground/background abaixo de WCAG AA (4.5:1 texto normal, 3:1 texto grande)
+- **BLOCKER:** Modo high-contrast definido sem ratios de contraste superiores ao modo padrão — se não melhora a legibilidade, não é high-contrast
+- **WARNING:** Mecanismo de troca de modo sem suporte a `prefers-color-scheme` do sistema
+- **WARNING:** Camada semântica sem tokens mínimos: surface, on-surface, primary, secondary
+
 ## Process Guards
 - **On Fail:** Stop execution, capture evidence, and return remediation steps before proceeding.

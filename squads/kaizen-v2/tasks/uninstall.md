@@ -102,6 +102,12 @@ SUCCESS — Kaizen-v2 hooks removed, intelligence data preserved
 Reinstall: Run `/kaizen-v2:*install` if you change your mind
 ```
 
+## Veto Conditions
+- "Remoção de hooks executada sem criar backup prévio de settings.json → ABORTAR"
+- "Hooks não-kaizen-v2 alterados ou removidos durante uninstall → REVERTER imediatamente do backup"
+- "Diretório data/intelligence/ deletado durante uninstall → BLOQUEAR (dados de inteligência são preservados SEMPRE)"
+- "Uninstall reportado como SUCCESS sem verificar que hooks restantes continuam funcionais → REDO verificação"
+
 ## Success Criteria
 - PASS: Both kaizen-v2 hooks removed, other hooks preserved, intelligence data safe
 - FAIL: Hook removal failed, .claude/settings.json corrupted, backup creation failed

@@ -91,5 +91,13 @@ Configure the Figma MCP Server to connect design files with AI coding tools. Est
 
 - `squads/design/checklists/ds-component-quality-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** MCP Server configurado sem token de API do Figma válido — pipeline sem autenticação não funciona
+- **BLOCKER:** Mapeamento de componentes Figma → código abaixo de 50% — pipeline com maioria de componentes sem correspondência gera código incorreto
+- **BLOCKER:** Drift de tokens > 20% entre Figma e código sem resolução de fonte canônica — sincronização ambígua corrompe o design system
+- **WARNING:** Direção de sync (Figma → code vs code → Figma) não documentada explicitamente
+- **WARNING:** Código AI-generated usando componentes fora do design system mapeado
+
 ## Process Guards
 - **On Fail:** Stop execution, capture evidence, and return remediation steps before proceeding.

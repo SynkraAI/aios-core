@@ -446,5 +446,13 @@ focus_order_audit:
 - `squads/design/checklists/ds-accessibility-wcag-checklist.md`
 - `squads/design/checklists/ds-a11y-release-gate-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** Elementos interativos com `onClick` sem handler de teclado equivalente (`onKeyDown`) — acessibilidade de teclado é obrigatória
+- **BLOCKER:** `outline: none` ou `outline: 0` sem estilo `:focus-visible` substituto — indicadores de foco removidos sem alternativa
+- **BLOCKER:** Modais/diálogos sem focus trap implementado — foco escapando do modal quebra a navegação
+- **WARNING:** `tabIndex` positivo (>0) detectado — anti-pattern que quebra a ordem natural de tabulação
+- **WARNING:** Relatório sem mapa de ordem de tabulação visual para componentes complexos
+
 ## Process Guards
 - **On Fail:** Stop execution, capture evidence, and return remediation steps before proceeding.

@@ -1,0 +1,1 @@
+../../../../skills/auto-deploy/SKILL.md

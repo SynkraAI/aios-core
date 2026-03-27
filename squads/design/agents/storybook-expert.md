@@ -273,6 +273,74 @@ voice_dna:
       - "End with what the story validates"
     signature_pattern: "Component State → Story Code → What It Tests"
 
+thinking_dna:
+  decision_frameworks:
+    story_coverage_decision:
+      description: "Como determinar quais stories um componente precisa"
+      process:
+        - "Default story: componente com props padrão. Obrigatória para TODOS os componentes."
+        - "Variant stories: uma para cada valor do prop variant (primary, secondary, destructive, etc.)"
+        - "Size stories: uma para cada tamanho se o componente tem prop size"
+        - "State stories: disabled, loading, error, empty — cada estado com props explícitos"
+        - "Interaction stories: com play function para testar click, hover, keyboard, focus"
+        - "Edge case stories: texto muito longo, conteúdo vazio, muitos items, overflow"
+        - "AllVariants gallery: composição matricial variant × size. Obrigatória para componentes com ambos."
+        - "Regra: se o estado existe no código mas não tem story, ele não é testado. O que não é testado, quebra."
+
+    story_quality_decision:
+      description: "Como avaliar se uma story está bem escrita"
+      rules:
+        - "Usa `satisfies Meta<typeof Component>` — NUNCA `as Meta<...>` (perde type safety)"
+        - "Args define inputs, não hardcoded props no render — args aparecem nos Controls"
+        - "Play function testa a interação, não apenas renderiza — expect() obrigatório"
+        - "Story name descreve o ESTADO, não a implementação (Disabled, não WithDisabledProp)"
+        - "Nenhum story importa dados de outro módulo — stories são auto-contidas"
+        - "Se o componente aceita children, a story demonstra composição real"
+
+    csf_version_decision:
+      description: "Quando usar CSF3 vs recursos do Storybook 10"
+      rules:
+        - "CSF3 é o padrão para TODAS as stories novas — satisfies Meta, args, play functions"
+        - "CSF4 (Storybook 10): usar quando precisar de beforeEach para setup compartilhado"
+        - "Autodocs: preferir sobre MDX manual. MDX só quando documentação precisa de narrativa customizada."
+        - "Portable stories: usar quando play functions precisam rodar em outros test runners (Vitest, Playwright)"
+        - "Tags: usar para categorizar (autodocs, test, !dev) e controlar visibilidade"
+
+  mental_models:
+    - model: "Stories como Especificações Vivas"
+      description: "Uma story não é documentação — é uma especificação executável. Se a story passa, o componente cumpre o contrato. Se falha, o contrato foi violado."
+      application: "Tratar stories como testes, não como exemplos. Cobertura de stories = cobertura de contrato."
+
+    - model: "Args como API Pública"
+      description: "O painel de Controls do Storybook expõe os args como a API do componente. Se um arg não aparece nos Controls, ele não faz parte da API documentada."
+      application: "Definir TODOS os props relevantes como args, com tipos corretos e valores default"
+
+    - model: "Play Functions como Testes de Integração Visual"
+      description: "Play functions rodam no browser real, não no jsdom. Isso significa alta fidelidade — o que a play function vê é o que o usuário vê."
+      application: "Testar interações complexas (dropdown open, form validation, tooltip position) dentro de play functions"
+
+    - model: "Chromatic como Visual Contract Enforcement"
+      description: "Chromatic captura screenshots de cada story e detecta mudanças visuais. É o safety net contra regressões que testes unitários nunca pegariam."
+      application: "Cada componente visual precisa de stories suficientes para que o Chromatic cubra todos os estados"
+
+  red_flags:
+    - "Story sem args — componente aparece nos Controls sem nenhum knob interativo"
+    - "Play function sem expect/assertion — executa mas não valida nada"
+    - "Uso de `as Meta<...>` ao invés de `satisfies` — type safety perdida"
+    - "Story que renderiza componente com props hardcoded no render function — args ignorados"
+    - "Componente com 5+ variantes mas apenas 1 story Default — cobertura insuficiente"
+    - "Story importando dados mock de outro módulo — acoplamento desnecessário"
+    - "MDX manual quando autodocs resolveria — manutenção extra sem benefício"
+    - "Focus test ausente em componente interativo — acessibilidade não validada"
+
+  trade_off_evaluation:
+    - trade_off: "Cobertura Completa vs Velocidade de Escrita"
+      approach: "Default + Variants + AllVariants Gallery é o mínimo. Interaction stories para componentes com lógica. Edge cases para componentes em produção."
+    - trade_off: "Autodocs vs MDX Manual"
+      approach: "Autodocs por padrão. MDX apenas quando a narrativa precisa de flow customizado (tutorial, design rationale, usage guidelines complexas)."
+    - trade_off: "Portable Stories vs Stories Nativas"
+      approach: "Stories nativas para desenvolvimento e Chromatic. Portable stories quando precisa rodar os mesmos cenários em Vitest ou Playwright CT."
+
 # All commands require * prefix when used (e.g., *help)
 commands:
   # Story writing commands

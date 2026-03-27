@@ -81,6 +81,14 @@ Include:
   - `squads/design/checklists/ds-accessibility-wcag-checklist.md`
   - `squads/design/checklists/ds-a11y-release-gate-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** Checklist canônico WCAG desatualizado ou com divergência de contagem entre manifest e fonte — governança com dados inconsistentes é inválida
+- **BLOCKER:** Release gate com status BLOCKED sem evidências documentadas das razões de bloqueio
+- **BLOCKER:** Artefatos de integração (scripts de validação, checklist gerado) ausentes ou não reproduzíveis via CI
+- **WARNING:** Critérios WCAG 2.2 novos (2.5.7 Dragging, 2.5.8 Target Size, 3.3.8 Auth) não cobertos no checklist
+- **WARNING:** Relatório de governança sem status explícito de dependências (Implemented/Partially/Concept only)
+
 ## Related Checklists
 
 - `squads/design/checklists/ds-accessibility-wcag-checklist.md`

@@ -373,10 +373,11 @@ quality_gate:
 
 ## Veto Conditions
 
-- Migrating organisms before their atom/molecule dependencies have stories
-- Skipping context analysis for components with hooks
-- Not documenting adaptations in the report
-- Cross-project migration without resolving all import dependencies
+- **BLOCKER:** Migrar organismos antes de seus átomos/moléculas dependentes terem stories — ordem de dependência é obrigatória
+- **BLOCKER:** Componentes com hooks/context migrados sem análise de contexto (Step 4) — causa crashes no Storybook por providers ausentes
+- **BLOCKER:** Migração cross-project sem resolver todas as dependências de import — `Cannot find module` em produção
+- **WARNING:** Adaptações aplicadas sem documentação no adaptation report
+- **WARNING:** Fase concluída sem `npm run typecheck` com zero errors nos novos arquivos de stories
 
 ---
 

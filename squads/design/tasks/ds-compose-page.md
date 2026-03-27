@@ -225,6 +225,14 @@ Composer: Phase 9: Validation — Layout: 9/10 | Typography: 0 | Spacing: 0
 
 - `squads/design/checklists/page-composition-checklist.md`
 
+## Veto Conditions
+
+- **BLOCKER:** Composição iniciada sem pelo menos Product Surface e Constraints definidos (brief vago sem os 3 inputs)
+- **BLOCKER:** Componentes selecionados fora do `component-index.json` — NUNCA usar componentes freestyle não catalogados
+- **BLOCKER:** Valores de espaçamento fora do grid de 4px — espaçamento arbitrário quebra o ritmo visual
+- **WARNING:** Página sem hierarquia tipográfica validada (H1 ausente ou múltiplos H1)
+- **WARNING:** Validação final (Phase 9) com score de layout < 8/10 sem plano de correção documentado
+
 ## Process Guards
 
 - **On Fail:** Stop execution, capture evidence at the failing phase, and return remediation steps before proceeding.
