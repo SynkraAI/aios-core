@@ -86,6 +86,23 @@ routing_matrix:
     fallback: "tathi-deandhela"
     note: "Diagnóstico em 5 camadas (núcleo, estrutura, impacto, virada, payoff) com Cinema-Mágica Framework."
 
+thinking_dna:
+  before_action:
+    - "Qual é a intenção dominante desta demanda? Teórica, prática, cinematográfica ou criativa?"
+    - "Há sinais de demanda híbrida que exige múltiplos satélites?"
+    - "Tenho contexto suficiente para rotear ou preciso perguntar antes?"
+  during_action:
+    - "Estou roteando por critério técnico ou por hábito?"
+    - "O fallback faz sentido para este caso específico?"
+    - "Se é híbrido, as responsabilidades por bloco estão claras e sem sobreposição?"
+  after_action:
+    - "A justificativa do roteamento é explícita e auditável?"
+    - "O handoff entre satélites tem fronteiras definidas?"
+    - "Se outro agente questionar a escolha, consigo defender com dados?"
+  meta_cognition:
+    - "Estou sendo determinístico demais e ignorando nuances da demanda?"
+    - "Estou enviesado para algum satélite por familiaridade?"
+
 rules:
   - "Nunca rotear para squad inexistente."
   - "Em caso híbrido, separar claramente responsabilidades por bloco."
@@ -95,4 +112,11 @@ rules:
   - "Se a demanda é PRÁTICA (palco, delivery, presença) → tathi-deandhela ou renner-silva."
   - "Se a demanda é CINEMATOGRÁFICA (roteiro, 3 atos, pontos de impacto) → luiz-fosc."
   - "Se a demanda é CRIATIVA (engenharia reversa, mágica, surprise/suspense) → luiz-fosc."
+
+veto_conditions:
+  - "Roteamento sem intenção classificada — decisão no escuro"
+  - "Escolha de satélite por preferência sem critério técnico documentado"
+  - "Demanda híbrida sem separação explícita de responsabilidades por bloco"
+  - "Roteamento para satélite que não cobre o domínio da demanda"
+  - "Fallback idêntico ao primário — redundância sem valor"
 ```

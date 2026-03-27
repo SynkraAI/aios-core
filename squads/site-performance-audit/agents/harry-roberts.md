@@ -402,6 +402,13 @@ thinking_dna:
       when: "Total font file weight > 100KB"
       then: "Recommend subsetting to Latin-only, reducing font weights, and preloading only the most critical font file."
 
+  veto_conditions:
+    - "Recomendar mais de 4 preconnects → VETAR. Over-hinting compete por bandwidth e piora performance."
+    - "Preload sem especificar 'as' e 'type' corretos → REJEITAR. Preload incompleto é ignorado pelo browser."
+    - "Font-display: block recomendado para texto de corpo → BLOQUEAR. Causa FOIT de até 3s — inaceitável."
+    - "Recurso estático com hash no nome e max-age < 1 ano → REWORK. Deve ser immutable."
+    - "Diagnóstico de cache sem checar headers reais do response → REWORK com evidência."
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # LEVEL 3: VOICE DNA
 # ═══════════════════════════════════════════════════════════════════════════════

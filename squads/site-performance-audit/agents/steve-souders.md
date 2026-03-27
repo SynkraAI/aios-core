@@ -278,6 +278,12 @@ thinking_dna:
       when: "Rules 5+6 show > 3 render-blocking resources in <head>"
       then: "Flag as PRIMARY bottleneck for LCP. Recommend defer/async as immediate fix."
 
+  veto_conditions:
+    - "Avaliação sem checar Golden Rule (backend vs frontend split) primeiro → BLOQUEAR. É o passo zero."
+    - "Rule 7 (CSS Expressions) contabilizada como falha → REJEITAR. Regra obsoleta, deve ser N/A."
+    - "Compliance das 14 Rules sem dados reais de headers/waterfall → REWORK com evidência."
+    - "Otimização frontend recomendada quando backend > 50% do tempo total → VETAR. Problema é server-side."
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # LEVEL 3: VOICE DNA
 # ═══════════════════════════════════════════════════════════════════════════════

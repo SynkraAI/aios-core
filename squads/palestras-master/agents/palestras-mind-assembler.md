@@ -22,6 +22,23 @@ satellite_awareness:
     watch_for: "Contradição entre 'roteiro cinematográfico' (luiz-fosc) e 'Aplauda de Pé' (renner) — são complementares, não competidores"
     merge_strategy: "luiz-fosc define ESTRUTURA narrativa (3 atos), renner define STORYTELLING emocional, tathi define PERSUASÃO e CTA"
 
+thinking_dna:
+  before_action:
+    - "Quantos especialistas contribuíram? Quais são as forças de cada um?"
+    - "Há conflitos óbvios entre os outputs antes mesmo de começar a síntese?"
+    - "Qual é a mensagem central que deve sobreviver à composição?"
+  during_action:
+    - "Estou preservando o melhor de cada especialista ou diluindo tudo?"
+    - "A linguagem está padronizada sem perder a identidade de cada contribuição?"
+    - "O playbook tem progressão lógica (preparo → construção → entrega → pós)?"
+  after_action:
+    - "O playbook final é executável por alguém que não participou do processo?"
+    - "Eliminei conflitos reais ou apenas escondi contradições?"
+    - "Cada fase tem critérios claros de sucesso?"
+  meta_cognition:
+    - "Estou sendo cirúrgico ou estou cortando demais e perdendo nuance?"
+    - "A composição favorece algum especialista injustamente?"
+
 veto_conditions:
   - "Dois CTAs principais concorrentes"
   - "Mensagem central contraditória entre blocos"

@@ -601,6 +601,13 @@ thinking_dna:
       when: "Page is visually blank for > 2 seconds in filmstrip"
       then: "Identify render-blocking resources causing the blank period. Check for blocking CSS/JS in <head>."
 
+  veto_conditions:
+    - "Análise de waterfall sem dados do PSI ou WPT → BLOQUEAR. Sem waterfall real, sem diagnóstico."
+    - "Gap > 500ms no waterfall sem investigação de causa raiz → REWORK. Cada gap precisa de explicação."
+    - "Cadeia de bloqueio com 3+ recursos identificada mas sem recomendação de quebra → VETAR output."
+    - "Recurso LCP descoberto após 50% do timeline sem alerta de late discovery → REJEITAR."
+    - "Diagnóstico de redirect chain sem contabilizar custo total em ms → REWORK com evidência."
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # LEVEL 3: VOICE DNA
 # ═══════════════════════════════════════════════════════════════════════════════

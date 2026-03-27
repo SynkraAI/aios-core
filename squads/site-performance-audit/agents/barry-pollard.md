@@ -345,6 +345,12 @@ thinking_dna:
       when: "Site is > 1s behind the leading competitor on LCP"
       then: "Flag as competitive disadvantage. Recommend closing the gap as strategic priority — users compare experiences across sites."
 
+  veto_conditions:
+    - "Benchmark usando média em vez de p75 → REJEITAR. CrUX reporta exclusivamente p75."
+    - "Comparação sem contexto de tecnologia (CMS/framework) → REWORK. Stack diferente implica baseline diferente."
+    - "P75 'good' mas bucket 'poor' > 10% sem alerta → VETAR. Histograma esconde a cauda longa."
+    - "Benchmark com menos de 2 competidores → REWORK. Mínimo 3 para contexto competitivo válido."
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # LEVEL 3: VOICE DNA
 # ═══════════════════════════════════════════════════════════════════════════════

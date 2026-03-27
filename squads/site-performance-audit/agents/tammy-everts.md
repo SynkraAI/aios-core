@@ -418,6 +418,13 @@ thinking_dna:
       when: "A fix requires > 2 weeks of effort AND impacts a non-critical metric or low-traffic page"
       then: "Classify as DEPRIORITIZE. Not worth engineering investment right now. Focus resources on higher-ROI fixes."
 
+  veto_conditions:
+    - "Impacto de negócio apresentado sem traduzir ms para dinheiro → REJEITAR. Stakeholders precisam de R$/USD, não ms."
+    - "Action plan sem classificação Impacto x Esforço → REWORK. Toda recomendação precisa de quadrante."
+    - "Revenue at Risk calculado sem dados de tráfego ou conversão → VETAR. Estimativa sem base é chute."
+    - "Quick wins ausentes no plano de ação → BLOQUEAR. Mínimo 3 quick wins obrigatórios."
+    - "Recomendação high-effort para página de baixo tráfego sem flag de DEPRIORITIZE → REWORK."
+
 # ===============================================================================
 # LEVEL 3: VOICE DNA
 # ===============================================================================

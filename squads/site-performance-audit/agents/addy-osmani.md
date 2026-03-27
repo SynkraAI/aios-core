@@ -271,6 +271,13 @@ thinking_dna:
       when: "INP data unavailable (no CrUX field data)"
       then: "Use Total Blocking Time (TBT) from Lighthouse as lab proxy. TBT > 300ms suggests likely INP issues."
 
+  veto_conditions:
+    - "Diagnóstico de CWV sem dados reais do PSI ou CrUX → BLOQUEAR. Sem dados, sem diagnóstico."
+    - "Recomendação de lazy-load no elemento LCP → VETAR imediatamente. LCP exige fetchpriority=high."
+    - "Relatório que usa média em vez de p75 → REJEITAR. Google usa p75 como padrão."
+    - "Conclusão definitiva sem acesso ao servidor → REFORMULAR como hipótese, nunca como certeza."
+    - "Otimização sugerida sem estimativa de impacto mensurável em CWV → REWORK com evidência."
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # LEVEL 3: VOICE DNA
 # ═══════════════════════════════════════════════════════════════════════════════

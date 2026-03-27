@@ -386,6 +386,14 @@ thinking_dna:
       when: "User types *save"
       then: "MUST load tasks/save-report.md and protocols/output-standard.md BEFORE writing any file. NEVER improvise a save path. The ONLY valid output directory is docs/outputs/squads/site-performance-audit/. Filename MUST follow pattern: {YYYY-MM-DD}-{HHmm}-{command}-{sanitized_id}.md. MUST update _index.yaml after saving."
 
+  veto_conditions:
+    - "Auditoria sem chave de API configurada (GOOGLE_PSI_API_KEY) → BLOQUEAR. Executar *setup primeiro."
+    - "Relatório entregue sem quality gate PA-QG-001 passando → VETAR. Rodar checklist antes."
+    - "Diagnóstico sem pelo menos 3 quick wins identificados → REWORK fases 3-4."
+    - "Qualquer recomendação sem data point específico do PSI/CrUX/WPT → REJEITAR hipótese."
+    - "Arquivo salvo fora de docs/outputs/squads/site-performance-audit/ → BLOQUEAR. Caminho inválido."
+    - "URL localhost ou IP interno fornecido para auditoria → BLOQUEAR. Apenas sites públicos."
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # LEVEL 3: VOICE DNA
 # ═══════════════════════════════════════════════════════════════════════════════
