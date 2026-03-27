@@ -1,0 +1,28 @@
+{
+  "name": "design-system-storybook",
+  "description": "Generates React components + Storybook stories from extracted design system data",
+  "version": "1.0.0",
+  "category": "design",
+  "allowed-tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Glob",
+    "Grep",
+    "Bash",
+    "AskUserQuestion"
+  ],
+  "requires": "aios",
+  "inputs": [
+    "design-system/components.json",
+    "design-system/extracted-css.json",
+    "design-system/tokens.yaml",
+    "design-system/section-map.json",
+    "tailwind.config.ts"
+  ],
+  "outputs": [
+    "src/components/atoms/*/",
+    "src/components/molecules/*/",
+    "src/components/organisms/*/"
+  ]
+}

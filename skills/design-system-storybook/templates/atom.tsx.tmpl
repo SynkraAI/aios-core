@@ -1,0 +1,67 @@
+// =============================================================================
+// Template: Atom Component
+// Usage: Replace {{placeholders}} with actual values from components.json
+// =============================================================================
+
+import { forwardRef } from 'react';
+import { cn } from '@/lib/utils';
+
+// --- Props Interface ---
+
+export interface {{ComponentName}}Props
+  extends React.{{HTMLElement}}HTMLAttributes<HTML{{HTMLElement}}Element> {
+  /** Visual variant extracted from design tokens */
+  variant?: {{#variants}}'{{name}}'{{^last}} | {{/last}}{{/variants}};
+  /** Size variant based on detected samples */
+  size?: 'sm' | 'md' | 'lg';
+  /** Disabled state */
+  disabled?: boolean;
+  /** Additional class names */
+  className?: string;
+  {{#extraProps}}
+  /** {{description}} */
+  {{name}}?: {{type}};
+  {{/extraProps}}
+}
+
+// --- Styles from tokens ---
+
+const variants = {
+  {{#variants}}
+  {{name}}: '{{tailwindClasses}}',
+  {{/variants}}
+} as const;
+
+const sizes = {
+  sm: '{{sizeSmClasses}}',
+  md: '{{sizeMdClasses}}',
+  lg: '{{sizeLgClasses}}',
+} as const;
+
+// --- Component ---
+
+export const {{ComponentName}} = forwardRef<HTML{{HTMLElement}}Element, {{ComponentName}}Props>(
+  ({ variant = '{{defaultVariant}}', size = 'md', disabled, className, {{#extraProps}}{{name}}, {{/extraProps}}...props }, ref) => {
+    return (
+      <{{htmlTag}}
+        ref={ref}
+        className={cn(
+          // Base styles from extracted CSS
+          '{{baseClasses}}',
+          // Variant
+          variants[variant],
+          // Size
+          sizes[size],
+          // States
+          disabled && 'opacity-50 cursor-not-allowed',
+          // Custom
+          className,
+        )}
+        disabled={disabled}
+        {...props}
+      />
+    );
+  }
+);
+
+{{ComponentName}}.displayName = '{{ComponentName}}';

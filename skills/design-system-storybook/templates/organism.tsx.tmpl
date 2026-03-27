@@ -1,0 +1,47 @@
+// =============================================================================
+// Template: Organism Component
+// Usage: Replace {{placeholders}} with actual values from section-map.json
+// Organisms are full page sections composed of atoms + molecules
+// =============================================================================
+
+import { cn } from '@/lib/utils';
+{{#atomImports}}
+import { {{AtomName}} } from '@/components/atoms/{{atom-slug}}';
+{{/atomImports}}
+{{#moleculeImports}}
+import { {{MoleculeName}} } from '@/components/molecules/{{molecule-slug}}';
+{{/moleculeImports}}
+
+// --- Props Interface ---
+
+export interface {{ComponentName}}Props {
+  {{#props}}
+  /** {{description}} */
+  {{name}}{{#optional}}?{{/optional}}: {{type}};
+  {{/props}}
+  /** Additional class names */
+  className?: string;
+}
+
+// --- Component ---
+
+export function {{ComponentName}}({ {{#props}}{{name}}, {{/props}}className }: {{ComponentName}}Props) {
+  return (
+    <section className={cn(
+      // Section layout from section-map
+      '{{sectionClasses}}',
+      // Background from tokens
+      '{{backgroundClasses}}',
+      className,
+    )}>
+      <div className="{{containerClasses}}">
+        {{#zones}}
+        {/* {{zoneName}} */}
+        <div className="{{zoneClasses}}">
+          {{zoneContent}}
+        </div>
+        {{/zones}}
+      </div>
+    </section>
+  );
+}

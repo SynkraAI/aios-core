@@ -1,0 +1,62 @@
+{/* =============================================================================
+   Template: Component Documentation (MDX)
+   Usage: Replace {{placeholders}} — one docs file per component
+   ============================================================================= */}
+
+import { Meta, Story, Canvas, Controls, Source } from '@storybook/blocks';
+import * as Stories from './{{ComponentName}}.stories';
+
+<Meta of={Stories} />
+
+# {{ComponentName}}
+
+{{componentDescription}}
+
+**Atomic level:** {{Level}}
+**Source:** Extracted from {{sourceUrl}}
+
+---
+
+## Usage
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Default} />
+
+## Import
+
+<Source code={`import { {{ComponentName}} } from '@/components/{{level}}/{{slug}}';`} />
+
+## Variants
+
+{{#variants}}
+### {{VariantName}}
+
+{{variantDescription}}
+
+<Canvas of={Stories.{{VariantName}}} />
+{{/variants}}
+
+## Design Tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+{{#tokens}}
+| `{{tokenName}}` | `{{tokenValue}}` | {{tokenUsage}} |
+{{/tokens}}
+
+## Responsive
+
+<Canvas of={Stories.Mobile} />
+
+{{#animations}}
+## Animations
+
+This component uses the following animations:
+
+| Animation | Type | Source |
+|-----------|------|--------|
+{{#animationList}}
+| `{{name}}` | {{type}} | {{source}} |
+{{/animationList}}
+{{/animations}}

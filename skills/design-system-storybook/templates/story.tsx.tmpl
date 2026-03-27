@@ -1,0 +1,74 @@
+// =============================================================================
+// Template: Storybook Story
+// Usage: Replace {{placeholders}} — one story file per component
+// =============================================================================
+
+import type { Meta, StoryObj } from '@storybook/react';
+import { {{ComponentName}} } from './{{ComponentName}}';
+
+const meta: Meta<typeof {{ComponentName}}> = {
+  title: '{{Level}}/{{ComponentName}}',
+  component: {{ComponentName}},
+  tags: ['autodocs'],
+  parameters: {
+    layout: '{{layout}}', // 'centered' for atoms/molecules, 'fullscreen' for organisms
+    docs: {
+      description: {
+        component: '{{componentDescription}}',
+      },
+    },
+  },
+  argTypes: {
+    {{#argTypes}}
+    {{name}}: {
+      control: { type: '{{controlType}}' },
+      description: '{{description}}',
+      {{#options}}
+      options: [{{options}}],
+      {{/options}}
+      {{#defaultValue}}
+      defaultValue: {{defaultValue}},
+      {{/defaultValue}}
+    },
+    {{/argTypes}}
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof {{ComponentName}}>;
+
+// --- Default (from first sample) ---
+
+export const Default: Story = {
+  args: {
+    {{#defaultArgs}}
+    {{name}}: {{value}},
+    {{/defaultArgs}}
+  },
+};
+
+{{#variants}}
+// --- {{VariantName}} ---
+
+export const {{VariantName}}: Story = {
+  args: {
+    {{#args}}
+    {{name}}: {{value}},
+    {{/args}}
+  },
+  {{#parameters}}
+  parameters: {
+    {{parameters}}
+  },
+  {{/parameters}}
+};
+{{/variants}}
+
+// --- Responsive ---
+
+export const Mobile: Story = {
+  args: { ...Default.args },
+  parameters: {
+    viewport: { defaultViewport: 'mobile' },
+  },
+};

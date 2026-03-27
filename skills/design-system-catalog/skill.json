@@ -1,0 +1,15 @@
+{
+  "name": "design-system-catalog",
+  "description": "Manages a global catalog of all design systems created by the forge pipeline",
+  "version": "1.0.0",
+  "category": "design",
+  "allowed-tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Glob",
+    "Grep",
+    "Bash"
+  ],
+  "requires": "aios"
+}

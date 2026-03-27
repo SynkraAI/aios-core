@@ -1,0 +1,42 @@
+// =============================================================================
+// Template: Molecule Component
+// Usage: Replace {{placeholders}} with actual values from components.json
+// Molecules combine 2-3 atoms into a functional unit
+// =============================================================================
+
+import { cn } from '@/lib/utils';
+{{#atomImports}}
+import { {{AtomName}} } from '@/components/atoms/{{atom-slug}}';
+{{/atomImports}}
+
+// --- Props Interface ---
+
+export interface {{ComponentName}}Props {
+  {{#props}}
+  /** {{description}} */
+  {{name}}{{#optional}}?{{/optional}}: {{type}};
+  {{/props}}
+  /** Additional class names */
+  className?: string;
+}
+
+// --- Component ---
+
+export function {{ComponentName}}({ {{#props}}{{name}}, {{/props}}className }: {{ComponentName}}Props) {
+  return (
+    <{{containerTag}} className={cn(
+      // Layout from extracted CSS
+      '{{layoutClasses}}',
+      // Visual styles from tokens
+      '{{visualClasses}}',
+      className,
+    )}>
+      {{#slots}}
+      {/* {{slotName}} */}
+      <{{slotTag}} className="{{slotClasses}}">
+        {{slotContent}}
+      </{{slotTag}}>
+      {{/slots}}
+    </{{containerTag}}>
+  );
+}

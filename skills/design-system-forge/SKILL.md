@@ -1,18 +1,27 @@
 ---
 name: design-system-forge
-description: Interactive pipeline — clone any website into a premium design system with Storybook
+description: Orchestrator pipeline — clone any website into a premium design system via AIOS ecosystem
 allowed-tools: [Read, Write, Edit, Glob, Grep, Bash, Agent, AskUserQuestion]
-version: "2.0.0"
+version: "3.0.0"
 category: design
 requires: aios
 quest-pack: design-system-forge
+delegates-to:
+  - squads/design (Brad Frost, Storybook Expert, Atlas)
+  - skills/design-system-scaffold
+  - skills/design-system-storybook (fallback bootstrap)
+  - skills/design-system-catalog
 ---
 
-# 🎨 Design System Forge
+# Design System Forge
 
-Pipeline interativo que transforma qualquer site em um design system premium com Storybook completo.
+Pipeline orquestrador que transforma qualquer site em um design system premium.
+Delega para o ecossistema AIOS em vez de fazer tudo sozinha.
 
-**Filosofia:** Extraia o DNA. Eleve o design. Entregue arte.
+**Filosofia:** Extraia o DNA. Delegue para especialistas. Entregue arte.
+
+**Modelo:** Como o `/quest` usa o `/forge`, esta skill usa o `/design` squad.
+Ela nao gera componentes — ela orquestra quem gera.
 
 ---
 
@@ -134,17 +143,52 @@ Para replicar com qualidade premium, consulte estas referências:
 Quer que eu abra alguma dessas? Ou prosseguir para o scaffold?
 ```
 
-### Passo 8: Handoff para scaffold
+### Passo 8: Handoff para Design Squad
 
 ```
-Próximo passo: criar o projeto Next.js + Tailwind + Storybook.
+Extracao completa! Agora vou delegar para os especialistas.
 
-Quer prosseguir? Vou chamar /design-system-scaffold com os dados extraídos.
-1. Sim, prosseguir (Recomendado)
-2. Parar aqui — só queria a extração
+Qual modo quer usar?
+1. Premium (Recomendado) — @brad-frost tokeniza + builda componentes production-ready
+   → Token system em camadas, 6 variantes, hover/loading/focus, testes, a11y
+   → Equivalente ao circle-ds (qualidade profissional)
+
+2. Rapido (Bootstrap) — generate-components.mjs gera esqueleto basico
+   → 3 variantes genericas, sem testes, sem a11y
+   → Bom pra prototipo rapido, refina depois com @brad-frost
+
+3. Parar aqui — so queria a extracao
 ```
 
-Se sim: orientar o usuário a executar `/design-system-scaffold` passando o caminho dos dados extraídos.
+**Se Premium (1):**
+
+```
+Delegando para o Design Squad...
+
+Passo 8a: @brad-frost *setup
+  → Cria estrutura do DS em {pasta}/
+
+Passo 8b: @brad-frost *tokenize
+  → Converte tokens.yaml raw → sistema --ds-* em camadas
+
+Passo 8c: @brad-frost *build (para cada componente)
+  → Componentes production-ready com hover, loading, a11y
+
+Passo 8d: @storybook-expert
+  → Stories CSF3 type-safe com interaction testing
+
+Passo 8e: /design-system-catalog add {pasta}
+  → Registra no catalogo global
+```
+
+Cada passo pausa para aprovacao do usuario antes de continuar.
+
+**Se Rapido (2):**
+
+Rodar em sequencia:
+1. `/design-system-scaffold` — scaffold Next.js + Storybook
+2. `/design-system-storybook` — bootstrap rapido com generate-components.mjs
+3. `/design-system-catalog add {pasta}` — registra no catalogo
 
 ---
 
@@ -232,29 +276,65 @@ node ~/aios-core/skills/design-system-forge/lib/visual-diff.mjs \
 
 ---
 
-## Pipeline Completo (3 skills)
+## Pipeline Completo (Orquestrado)
 
 ```
-/design-system-forge          ← VOCÊ ESTÁ AQUI
-  → Pergunta URL, nome, pasta
-  → Extrai DNA (dissect --clone)
-  → Preview + aprovação
-  → Análise de animações
+FASE 1: EXTRACAO (esta skill)
+  /design-system-forge
+    → Pergunta URL, nome, pasta
+    → Extrai DNA (dissect --clone)
+    → Preview + aprovacao
+    → Analise de animacoes
 
-/design-system-scaffold        ← Próximo passo
-  → Cria Next.js + Tailwind + Shadcn
-  → Instala Storybook 8
-  → Copia assets, gera tokens
+FASE 2: SETUP (design squad + scaffold skill)
+  @brad-frost *setup
+    → Cria estrutura do DS (token system --ds-*, diretórios)
+    → Configura CSS Modules + Storybook
+  /design-system-scaffold (complementa)
+    → Scaffold Next.js + Tailwind se necessario
+    → Copia assets, gera tailwind.config.ts
 
-/design-system-storybook       ← Passo final
-  → Gera componentes (atoms → molecules → organisms)
-  → Cria stories completas
-  → Guia melhorias
-  → Score de completude
+FASE 3: TOKENIZACAO (design squad)
+  @brad-frost *tokenize
+    → Converte tokens.yaml raw → sistema em camadas (Base → Semantic → Component)
+    → Gera exports: DTCG JSON, CSS custom properties (--ds-*), Tailwind config
+    → Zero hardcoded values — tudo via var(--ds-*)
+    → Cobertura target: >95%
 
-/design-system-catalog         ← Catálogo
-  → Registra no CATALOG.md
-  → Screenshot + métricas
+FASE 4: COMPONENTES (design squad)
+  @brad-frost *build (para cada componente detectado)
+    → Gera componente production-ready com:
+      - 4-6 variantes reais (primary, secondary, ghost, dark, danger, outline)
+      - States: hover, disabled, loading (com spinner), focus-visible
+      - Props avancadas: leftIcon, rightIcon, loading, iconOnly
+      - CSS Module com var(--ds-*) — zero hardcoded
+      - ARIA labels, contrast ratio ≥ 4.5:1
+      - Unit tests (>80% coverage)
+    → Modo YOLO: paralleliza via Agent tool
+
+FASE 5: STORIES (design squad)
+  @storybook-expert
+    → CSF3 type-safe com `satisfies Meta<typeof Component>`
+    → Interaction testing via play functions
+    → Visual regression ready (Chromatic)
+    → Autodocs para documentacao zero-effort
+
+FASE 6: CATALOGO
+  /design-system-catalog add {path}
+    → Registra no CATALOG.md global
+    → Calcula score de completude
+```
+
+### Fallback Mode
+
+Se o usuario preferir velocidade sobre qualidade, ou se o design squad nao estiver disponivel:
+
+```
+/design-system-storybook (bootstrap rapido)
+  → generate-components.mjs gera esqueleto basico
+  → 3 variantes genericas por componente
+  → Sem testes, sem a11y, sem interaction testing
+  → Util como ponto de partida para refinar com @brad-frost depois
 ```
 
 ---
