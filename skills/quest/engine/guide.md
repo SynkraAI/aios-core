@@ -197,14 +197,14 @@ When showing the next mission, display this card. ALL fields come from the pack 
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  MISSAO {item.id} — {item.label}                +{item.xp} XP
+  MISSÃO {item.id} — {item.label}                +{item.xp} XP
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   O QUE FAZER:
   {item.command}
 
   QUEM FAZ: {item.who}
-  OBRIGATORIO: {item.required ? "Sim" : "Nao"}
+  OBRIGATÓRIO: {item.required ? "Sim" : "Não"}
   MUNDO: {phase_index} — {phase.name}
 
   DICA: {item.tip || phase.tagline}
@@ -265,7 +265,7 @@ Triggered when an item is marked `done`. Scale the celebration by the item's XP 
 
 Triggered when ALL items in a phase have status `done` or `skipped` (no `pending` items remain). Uses the `complete_message` from the pack phase metadata.
 
-**CRITICAL GUARD:** Only show World Complete when the ENTIRE phase is finished — every single item must be `done` or `skipped`. Completing one item in a phase does NOT trigger this. Check the count: if `pending_count_in_phase > 0`, do NOT show World Complete. The "PROXIMO WORLD DESBLOQUEADO" block below is part of the World Complete celebration — it must NEVER appear independently or before the current world is fully complete.
+**CRITICAL GUARD:** Only show World Complete when the ENTIRE phase is finished — every single item must be `done` or `skipped`. Completing one item in a phase does NOT trigger this. Check the count: if `pending_count_in_phase > 0`, do NOT show World Complete. The "PRÓXIMO WORLD DESBLOQUEADO" block below is part of the World Complete celebration — it must NEVER appear independently or before the current world is fully complete.
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -276,20 +276,20 @@ Triggered when ALL items in a phase have status `done` or `skipped` (no `pending
 
   "{phase.complete_message}"
 
-  Missoes: {done_in_phase}/{total_in_phase}
+  Missões: {done_in_phase}/{total_in_phase}
   XP ganho neste world: +{phase_xp}
   XP total: {total_xp}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  PROXIMO WORLD DESBLOQUEADO:
+  PRÓXIMO WORLD DESBLOQUEADO:
   {next_phase.name}
   "{next_phase.unlock_message}"
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-If this was the LAST phase, replace the "PROXIMO WORLD" block with the Final Victory celebration (see 4.5).
+If this was the LAST phase, replace the "PRÓXIMO WORLD" block with the Final Victory celebration (see 4.5).
 
 ### 4.3 Level Up
 
@@ -457,8 +457,8 @@ When a single check triggers multiple celebrations, show them in this order:
 1. Mission complete (always first)
 2. Achievement unlock(s) (if any)
 3. Level up (if triggered)
-4. World complete (if triggered)
-5. **MVP Launch Guide** (if triggered — after world complete for MVP phase)
+4. **MVP Launch Guide** (if triggered — BEFORE world complete. Hard gate: blocks world complete if user reports failure. Only for phases with `milestone: "mvp"`)
+5. World complete (if triggered — only shows AFTER MVP Launch Guide passes, if applicable)
 6. Final victory (if triggered — replaces world complete for last phase)
 
 Then show the next mission card (if quest is not complete).
@@ -479,7 +479,7 @@ Shows all phases as "worlds" with thematic names from the pack. The current worl
   ─────────────────────────────────────────────────────
   [x] {id}  {label} .......................... +{xp} XP
   [x] {id}  {label} .......................... +{xp} XP
-  [ ] {id}  {label} .......................... +{xp} XP  ← PROXIMA MISSAO
+  [ ] {id}  {label} .......................... +{xp} XP  ← PRÓXIMA MISSÃO
             {who} → {command}
   [ ] {id}  {label} .......................... +{xp} XP
             {who} → {command}
@@ -536,9 +536,9 @@ Compact one-line-per-phase view with overall stats.
   W{N}  {phase.name}        {progress_bar}  {done}/{total}  {state}
   ...
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  XP: {total_xp}  |  Missoes: {items_done}/{items_total} ({percent}%)
+  XP: {total_xp}  |  Missões: {items_done}/{items_total} ({percent}%)
 
-  Proxima missao: {next_item.id} {next_item.label} (+{next_item.xp} XP)
+  Próxima missão: {next_item.id} {next_item.label} (+{next_item.xp} XP)
   Proximo achievement: {next_achievement.name}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -578,7 +578,7 @@ After showing a mission card, the engine waits for the player to act. This secti
 2. Engine waits — {hero_name} goes to execute the mission
 3. When {hero_name} returns, ask:
 
-   "Completou a missao {item.id}? (s/n)"
+   "Completou a missão {item.id}? (s/n)"
 
 4a. If "s" (yes):
    - Delegate to checklist: check {item.id}
@@ -592,7 +592,7 @@ After showing a mission card, the engine waits for the player to act. This secti
    - Keep current mission active
    - If item has `tip` field in pack: show the tip
    - If item is NOT required: suggest "/quest skip {item.id}"
-   - If item IS required: encourage ("Sem pressa, {hero_name}. Essa missao e importante.")
+   - If item IS required: encourage ("Sem pressa, {hero_name}. Essa missão é importante.")
    - Return to step 2
 ```
 
@@ -601,8 +601,8 @@ After showing a mission card, the engine waits for the player to act. This secti
 When {hero_name} says no and the item is optional:
 
 ```
-  Essa missao e opcional.
-  Se nao se aplica, pule com: /quest skip {item.id}
+  Essa missão é opcional.
+  Se não se aplica, pule com: /quest skip {item.id}
   Se precisa de mais tempo, sem pressa.
 ```
 
@@ -611,7 +611,7 @@ When {hero_name} says no and the item is optional:
 If the same mission is shown 3+ times without progress ({hero_name} keeps saying "n"):
 
 ```
-  {hero_name}, essa missao esta resistindo.
+  {hero_name}, essa missão está resistindo.
   Quer pular? /quest skip {item.id}
   Ou quer uma dica? Posso detalhar o que fazer.
 ```
@@ -620,9 +620,9 @@ If the same mission is shown 3+ times without progress ({hero_name} keeps saying
 
 ## 8. Edge Cases
 
-- **No pending items in any unlocked phase but locked phases remain:** Show: "Todas as missoes do world atual estao completas, mas o proximo world ainda esta trancado. Verifique se ha missoes obrigatorias pendentes."
+- **No pending items in any unlocked phase but locked phases remain:** Show: "Todas as missões do world atual estão completas, mas o próximo world ainda está trancado. Verifique se há missões obrigatórias pendentes."
 - **All items done:** Trigger Final Victory (section 4.5).
-- **Pack has no phases:** Show: "Este pack nao tem missoes definidas."
+- **Pack has no phases:** Show: "Este pack não tem missões definidas."
 - **Phase has no items:** Skip the phase, treat as complete for unlock purposes.
 - **Item exists in pack but not in quest-log:** Treat as `pending` (checklist module adds it on next save).
 - **Quest-log item not in pack:** Ignore it — do not display.
