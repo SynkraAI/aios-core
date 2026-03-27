@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quest Map — World Overview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0a0a1a; color: #eaeaea;
+      font-family: 'Press Start 2P', monospace;
+      overflow: hidden; height: 100vh;
+      display: flex; flex-direction: column;
+    }
+
+    /* HUD */
+    .hud {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 16px; background: #16213e;
+      border-bottom: 3px solid #e94560; z-index: 20; font-size: 9px;
+      flex-shrink: 0;
+    }
+    .hud-l { display: flex; align-items: center; gap: 12px; }
+    .hud-r { display: flex; align-items: center; gap: 12px; }
+    .h-title { font-size: 11px; color: #f5c542; }
+    .h-lv { color: #4ecca3; }
+    .h-xp { color: #8892b0; }
+    .xp-w { width: 160px; height: 10px; background: #0a0a1a; border: 2px solid #8892b0; border-radius: 2px; overflow: hidden; }
+    .xp-f { height: 100%; background: linear-gradient(90deg, #4ecca3, #f5c542); transition: width 0.8s; }
+    .h-back { color: #e94560; text-decoration: none; font-size: 9px; }
+    .h-back:hover { color: #f5c542; }
+    select { background: #16213e; color: #eaeaea; border: 1px solid #8892b0; font-family: inherit; font-size: 7px; padding: 2px 4px; border-radius: 2px; }
+
+    /* Map viewport */
+    .viewport {
+      flex: 1; position: relative; overflow-x: auto; overflow-y: hidden;
+      cursor: grab;
+      scrollbar-width: none;
+    }
+    .viewport::-webkit-scrollbar { display: none; }
+    .viewport:active { cursor: grabbing; }
+
+    /* Map container (scrollable) */
+    .map-inner {
+      position: relative;
+      display: inline-block;
+    }
+    .map-inner img {
+      display: block;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      filter: brightness(0.55) saturate(0.8);
+    }
+
+    /* Canvas overlay for dots + hero — must exactly cover the image */
+    .overlay {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* Tooltip */
+    .tip {
+      display: none; position: fixed;
+      background: #16213e; border: 2px solid #f5c542;
+      padding: 8px 12px; font-size: 7px; line-height: 1.8;
+      max-width: 240px; z-index: 30; pointer-events: none;
+      border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+    }
+    .tip.on { display: block; }
+    .tip-t { color: #f5c542; font-size: 9px; margin-bottom: 3px; }
+    .tip-c { color: #8892b0; font-size: 7px; }
+    .tip-s { margin-top: 3px; }
+    .tip-s.done { color: #4ecca3; }
+    .tip-s.pending { color: #8892b0; }
+    .tip-s.skipped { color: #e94560; }
+
+    /* Legend */
+    .legend {
+      position: fixed; bottom: 12px; right: 12px;
+      background: rgba(22,33,62,0.92); border: 2px solid #8892b0;
+      padding: 8px 12px; font-size: 7px; line-height: 2.2;
+      border-radius: 4px; z-index: 20;
+    }
+    .ld { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+    .ld.d { background: #4ecca3; }
+    .ld.c { background: #f5c542; animation: gl 1s infinite; }
+    .ld.p { background: rgba(255,255,255,0.4); }
+    .ld.s { background: #e94560; opacity: 0.6; }
+    @keyframes gl { 0%,100%{box-shadow:0 0 4px #f5c542}50%{box-shadow:0 0 12px #f5c542} }
+
+    .loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #f5c542; z-index: 100; background: #0a0a1a; }
+    .loading.off { display: none; }
+  </style>
+</head>
+<body>
+
+<div class="hud">
+  <div class="hud-l">
+    <span class="h-title" id="h-title">QUEST MAP</span>
+    <span class="h-lv" id="h-lv">Lv.1</span>
+    <div class="xp-w"><div class="xp-f" id="h-xp-bar" style="width:0%"></div></div>
+    <span class="h-xp" id="h-xp">0 XP</span>
+  </div>
+  <div class="hud-r">
+    <select id="h-sel"></select>
+    <span id="h-prog">0/0</span>
+    <a href="/" class="h-back">[DASHBOARD]</a>
+  </div>
+</div>
+
+<div class="viewport" id="vp">
+  <div class="map-inner" id="inner">
+    <img id="mapimg" src="/assets/sprites/pixel-overworld-map.png" alt="Quest Map">
+    <canvas id="overlay" class="overlay"></canvas>
+  </div>
+</div>
+
+<div class="tip" id="tip">
+  <div class="tip-t" id="tip-t"></div>
+  <div class="tip-c" id="tip-c"></div>
+  <div class="tip-s" id="tip-s"></div>
+</div>
+
+<div class="legend">
+  <div><span class="ld d"></span>Completo</div>
+  <div><span class="ld c"></span>Atual</div>
+  <div><span class="ld p"></span>Pendente</div>
+  <div><span class="ld s"></span>Pulado</div>
+</div>
+
+<div class="loading" id="ld">Carregando mapa...</div>
+
+<script>
+'use strict';
+
+// ==========================================================================
+// QUEST MAP v3 — Static map image + overlay dots
+// ==========================================================================
+
+const mapImg = document.getElementById('mapimg');
+const canvas = document.getElementById('overlay');
+const ctx = canvas.getContext('2d');
+const vp = document.getElementById('vp');
+const inner = document.getElementById('inner');
+const tipEl = document.getElementById('tip');
+const ldEl = document.getElementById('ld');
+
+// Map image natural dimensions
+const MAP_W = 8256;
+const MAP_H = 2048;
+
+// --------------------------------------------------------------------------
+// NODE POSITIONS — mapped to the dots visible in the map image
+// Coordinates are in % of the image (0-100), so they scale to any render size
+// Each phase maps to a "world" zone in the image
+// --------------------------------------------------------------------------
+// The map path goes: Green Plains (bottom-left) → Forest (top) → Coast (bottom)
+// → Mountains (top) → Desert (top-right) → Fortress (bottom-right) → Portal → Tower
+
+const NODE_POSITIONS = [
+  // Phase 0 — Green Plains
+  { phase: 0, idx: 0, x: 6.8, y: 43.4 },
+  { phase: 0, idx: 1, x: 8.6, y: 53 },
+  { phase: 0, idx: 2, x: 7, y: 62.4 },
+  { phase: 0, idx: 3, x: 6.5, y: 73.9 },
+  { phase: 0, idx: 4, x: 9.4, y: 80.7 },
+  { phase: 0, idx: 5, x: 12.7, y: 81 },
+  { phase: 0, idx: 6, x: 15.9, y: 81.4 },
+
+  // Phase 1 — Enchanted Forest
+  { phase: 1, idx: 0, x: 19.9, y: 77.7 },
+  { phase: 1, idx: 1, x: 23.5, y: 65.8 },
+  { phase: 1, idx: 2, x: 25.1, y: 50.1 },
+  { phase: 1, idx: 3, x: 20.1, y: 34.8 },
+  { phase: 1, idx: 4, x: 24.2, y: 27.9 },
+
+  // Phase 2 — Coastal Shores
+  { phase: 2, idx: 0, x: 27.5, y: 27.5 },
+  { phase: 2, idx: 1, x: 33.6, y: 29.3 },
+  { phase: 2, idx: 2, x: 34.6, y: 46.2 },
+  { phase: 2, idx: 3, x: 36.7, y: 53.7 },
+  { phase: 2, idx: 4, x: 36.1, y: 65.7 },
+  { phase: 2, idx: 5, x: 40.1, y: 63.2 },
+  { phase: 2, idx: 6, x: 40.7, y: 46.5 },
+  { phase: 2, idx: 7, x: 41.3, y: 29.6 },
+
+  // Phase 3 — Snow Mountains
+  { phase: 3, idx: 0, x: 46.2, y: 27.5 },
+  { phase: 3, idx: 1, x: 43.8, y: 39.5 },
+  { phase: 3, idx: 2, x: 45.9, y: 50.1 },
+  { phase: 3, idx: 3, x: 47.1, y: 66 },
+
+  // Phase 4 — Golden Desert
+  { phase: 4, idx: 0, x: 48.8, y: 68.8 },
+  { phase: 4, idx: 1, x: 50.2, y: 74.6 },
+  { phase: 4, idx: 2, x: 52.1, y: 78.9 },
+  { phase: 4, idx: 3, x: 55, y: 80.7 },
+  { phase: 4, idx: 4, x: 58.1, y: 81.1 },
+  { phase: 4, idx: 5, x: 61.1, y: 81.1 },
+  { phase: 4, idx: 6, x: 63.3, y: 81 },
+  { phase: 4, idx: 7, x: 65.6, y: 80 },
+
+  // Phase 5 — Dark Fortress
+  { phase: 5, idx: 0, x: 68.5, y: 69 },
+  { phase: 5, idx: 1, x: 68.3, y: 46.6 },
+  { phase: 5, idx: 2, x: 64.9, y: 31.8 },
+  { phase: 5, idx: 3, x: 65.6, y: 15.1 },
+  { phase: 5, idx: 4, x: 68.5, y: 7.5 },
+  { phase: 5, idx: 5, x: 71.1, y: 13.6 },
+  { phase: 5, idx: 6, x: 73.2, y: 22.3 },
+  { phase: 5, idx: 7, x: 73.2, y: 45.2 },
+  { phase: 5, idx: 8, x: 76.5, y: 57.9 },
+
+  // Phase 6 — Mystic Portal
+  { phase: 6, idx: 0, x: 78.8, y: 59.3 },
+  { phase: 6, idx: 1, x: 78.6, y: 42.9 },
+  { phase: 6, idx: 2, x: 81.2, y: 34.5 },
+  { phase: 6, idx: 3, x: 84.7, y: 40.7 },
+  { phase: 6, idx: 4, x: 85.2, y: 58.7 },
+
+  // Phase 7 — Watchtower
+  { phase: 7, idx: 0, x: 81.8, y: 75.5 },
+  { phase: 7, idx: 1, x: 85.2, y: 84.1 },
+  { phase: 7, idx: 2, x: 90.6, y: 79.3 },
+  { phase: 7, idx: 3, x: 95.7, y: 69.9 },
+  { phase: 7, idx: 4, x: 90.7, y: 52.3 },
+  { phase: 7, idx: 5, x: 93.1, y: 41.2 },
+];
+
+// --------------------------------------------------------------------------
+// HERO SPRITE
+// --------------------------------------------------------------------------
+const heroImg = new Image();
+heroImg.src = '/assets/sprites/pixel-hero-spritesheet.png';
+let heroClean = null;
+
+function removeWhite(img) {
+  const c = document.createElement('canvas');
+  c.width = img.naturalWidth; c.height = img.naturalHeight;
+  const x = c.getContext('2d');
+  x.drawImage(img, 0, 0);
+  const d = x.getImageData(0, 0, c.width, c.height);
+  for (let i = 0; i < d.data.length; i += 4) {
+    if (d.data[i] > 235 && d.data[i+1] > 235 && d.data[i+2] > 235) d.data[i+3] = 0;
+  }
+  x.putImageData(d, 0, 0);
+  const r = new Image();
+  r.src = c.toDataURL();
+  return r;
+}
+
+// --------------------------------------------------------------------------
+// STATE
+// --------------------------------------------------------------------------
+let questItems = {};   // { "0.1": { status, label, ... } }
+let questStats = {};
+let questName = '';
+let renderNodes = [];  // merged: position + quest data
+let cam = { x: 0, y: 0 };
+let scale = 1;
+let dragging = false, dragS = {x:0,y:0}, camS = {x:0,y:0};
+let hovered = null;
+let frame = 0;
+
+// --------------------------------------------------------------------------
+// DATA
+// --------------------------------------------------------------------------
+async function loadData() {
+  const res = await fetch('/api/projects');
+  const json = await res.json();
+  const projects = json.projects || [];
+  if (!projects.length) throw new Error('No projects');
+
+  const params = new URLSearchParams(location.search);
+  const pn = params.get('project');
+  const proj = pn ? (projects.find(p => p.name === pn) || projects[0]) : projects[0];
+  const parsed = jsyaml.load(proj.data) || {};
+
+  let items = {};
+  if (parsed.items && !parsed.phases) {
+    for (const [id, v] of Object.entries(parsed.items))
+      items[id] = { status: v.status || 'pending', label: `Item ${id}`, ...v };
+  } else if (parsed.phases) {
+    for (const [, phase] of Object.entries(parsed.phases))
+      for (const [id, v] of Object.entries(phase.items || {}))
+        items[id] = { status: v.status || 'pending', label: v.label || id, ...v };
+  }
+
+  questItems = items;
+  questStats = parsed.stats || {};
+  questName = proj.name;
+
+  const sel = document.getElementById('h-sel');
+  sel.innerHTML = projects.map(p =>
+    `<option value="${p.name}" ${p.name === proj.name ? 'selected' : ''}>${p.name}</option>`
+  ).join('');
+  sel.onchange = () => { location.search = `?project=${encodeURIComponent(sel.value)}`; };
+}
+
+// --------------------------------------------------------------------------
+// MERGE positions with quest data
+// --------------------------------------------------------------------------
+function mergeNodes() {
+  renderNodes = [];
+
+  // Get sorted item IDs grouped by phase
+  const byPhase = {};
+  for (const [id, item] of Object.entries(questItems)) {
+    const pn = parseInt(id.split('.')[0], 10);
+    if (!byPhase[pn]) byPhase[pn] = [];
+    byPhase[pn].push({ id, ...item });
+  }
+
+  // Sort each phase's items by sub-id
+  for (const items of Object.values(byPhase)) {
+    items.sort((a, b) => {
+      const ai = parseFloat(a.id), bi = parseFloat(b.id);
+      return ai - bi;
+    });
+  }
+
+  // Map each item to a position
+  for (const pos of NODE_POSITIONS) {
+    const phaseItems = byPhase[pos.phase];
+    if (!phaseItems || pos.idx >= phaseItems.length) {
+      // Extra position with no item — show as empty/locked
+      renderNodes.push({ ...pos, id: null, status: 'locked', label: '', command: '' });
+      continue;
+    }
+    const item = phaseItems[pos.idx];
+    renderNodes.push({
+      ...pos,
+      id: item.id,
+      status: item.status,
+      label: item.label,
+      command: item.command || '',
+      required: item.required !== false,
+    });
+  }
+}
+
+// --------------------------------------------------------------------------
+// RENDER
+// --------------------------------------------------------------------------
+function fitMap() {
+  const vpH = vp.clientHeight;
+  scale = vpH / MAP_H;
+  const renderW = Math.round(MAP_W * scale);
+  const renderH = vpH;
+
+  mapImg.style.width = renderW + 'px';
+  mapImg.style.height = renderH + 'px';
+
+  canvas.width = renderW;
+  canvas.height = renderH;
+}
+
+function renderOverlay() {
+  fitMap();
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  const dotR = Math.max(12, 22 * scale);
+  let currentNode = null;
+
+  // Find first pending = current
+  const firstPending = renderNodes.find(n => n.status === 'pending');
+  const firstPendingIdx = firstPending ? renderNodes.indexOf(firstPending) : renderNodes.length;
+
+  // ---------- PATH LINES between consecutive nodes ----------
+  for (let i = 0; i < renderNodes.length - 1; i++) {
+    const a = renderNodes[i];
+    const b = renderNodes[i + 1];
+
+    // Skip connections across phases (last node of phase → first of next)
+    // We still draw them, but could skip if desired
+
+    const ax = (a.x / 100) * w, ay = (a.y / 100) * h;
+    const bx = (b.x / 100) * w, by = (b.y / 100) * h;
+
+    ctx.save();
+
+    if (i < firstPendingIdx - 1) {
+      // Both done — completed path
+      ctx.strokeStyle = '#4ecca3';
+      ctx.globalAlpha = 0.7;
+      ctx.lineWidth = Math.max(2, 3 * scale);
+      ctx.setLineDash([Math.max(6, 10 * scale), Math.max(4, 6 * scale)]);
+    } else if (i === firstPendingIdx - 1) {
+      // Transition edge (last done → current) — animated dash
+      ctx.strokeStyle = '#f5c542';
+      ctx.globalAlpha = 0.8;
+      ctx.lineWidth = Math.max(2, 3.5 * scale);
+      ctx.setLineDash([Math.max(6, 10 * scale), Math.max(4, 6 * scale)]);
+      ctx.lineDashOffset = -frame * 0.8; // animation
+    } else {
+      // Future path — dim
+      ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = Math.max(1.5, 2 * scale);
+      ctx.setLineDash([Math.max(4, 6 * scale), Math.max(6, 10 * scale)]);
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(ax, ay);
+    ctx.lineTo(bx, by);
+    ctx.stroke();
+    ctx.restore();
+  }
+  // ---------- END PATH LINES ----------
+
+  for (const node of renderNodes) {
+    const px = (node.x / 100) * w;
+    const py = (node.y / 100) * h;
+    const isCur = node === firstPending;
+    if (isCur) currentNode = { ...node, px, py };
+
+    const r = (hovered === node) ? dotR + 3 : dotR;
+
+    // Only draw overlay dots — the white dots in the image serve as "empty" slots
+    if (node.status === 'locked' && !node.id) continue; // leave original white dot
+
+    // Glow for current
+    if (isCur) {
+      const gs = r + 6 + Math.sin(frame * 0.08) * 4;
+      ctx.beginPath();
+      ctx.arc(px, py, gs, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(245,197,66,${0.15 + Math.sin(frame * 0.08) * 0.08})`;
+      ctx.fill();
+    }
+
+    // Shadow
+    ctx.beginPath();
+    ctx.arc(px + 1, py + 1, r, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,0,0,0.4)';
+    ctx.fill();
+
+    // Main dot
+    ctx.beginPath();
+    ctx.arc(px, py, r, 0, Math.PI * 2);
+    let col;
+    switch (node.status) {
+      case 'done': col = '#4ecca3'; break;
+      case 'skipped': col = '#e94560'; break;
+      case 'pending': col = isCur ? '#f5c542' : 'rgba(255,255,255,0.5)'; break;
+      default: col = 'rgba(255,255,255,0.3)';
+    }
+    ctx.fillStyle = col;
+    ctx.fill();
+
+    // Border — thick white for visibility on the map
+    ctx.strokeStyle = hovered === node ? '#fff' : 'rgba(255,255,255,0.7)';
+    ctx.lineWidth = hovered === node ? 3 : 2.5;
+    ctx.stroke();
+
+    // Icon
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `bold ${Math.max(10, r * 0.8)}px "Press Start 2P"`;
+    if (node.status === 'done') ctx.fillText('✓', px, py);
+    else if (node.status === 'skipped') ctx.fillText('—', px, py);
+    else if (isCur) ctx.fillText('!', px + 0.5, py);
+  }
+
+  // Hero at current node — draw ABOVE it with an arrow indicator too
+  if (currentNode) {
+    const hx = currentNode.px;
+    const hy = currentNode.py - dotR * 6;
+
+    drawHeroAt(hx, hy);
+
+    // Arrow pointing down to current node
+    ctx.fillStyle = '#f5c542';
+    ctx.beginPath();
+    ctx.moveTo(hx - 6, currentNode.py - dotR * 1.8);
+    ctx.lineTo(hx + 6, currentNode.py - dotR * 1.8);
+    ctx.lineTo(hx, currentNode.py - dotR * 1.2);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  frame++;
+  requestAnimationFrame(renderOverlay);
+}
+
+function drawHeroAt(x, y) {
+  const heroH = Math.max(180, 240 * scale);
+  const heroFrame = Math.floor(frame / 25) % 2;
+  const bob = Math.sin(frame * 0.1) * 2 * scale;
+  const slotW = 1344 / 4;
+
+  // Shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.25)';
+  ctx.beginPath();
+  ctx.ellipse(x, y + heroH / 2 + 4 * scale, 10 * scale, 3 * scale, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  const src = heroClean || heroImg;
+  if (src && src.complete && src.naturalWidth > 0) {
+    const drawH = heroH;
+    const drawW = drawH * (slotW / 768);
+    ctx.drawImage(src, heroFrame * slotW, 0, slotW, 768, x - drawW / 2, y - drawH / 2 + bob, drawW, drawH);
+  }
+}
+
+// --------------------------------------------------------------------------
+// HUD
+// --------------------------------------------------------------------------
+function updateHUD() {
+  document.getElementById('h-title').textContent = `QUEST MAP — ${questName}`;
+  let done = 0, total = 0, xp = 0;
+  if (questStats.total_xp !== undefined) {
+    xp = questStats.total_xp; done = questStats.items_done || 0; total = questStats.items_total || 0;
+  } else {
+    for (const v of Object.values(questItems)) {
+      total++;
+      if (v.status === 'done') { done++; xp += (v.xp || 10); }
+    }
+  }
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('h-prog').textContent = `${done}/${total} (${pct}%)`;
+  document.getElementById('h-xp').textContent = `${xp} XP`;
+  document.getElementById('h-xp-bar').style.width = `${Math.min(100, pct)}%`;
+  const lv = questStats.level || (xp < 200 ? 1 : xp < 450 ? 2 : xp < 700 ? 3 : xp < 1000 ? 4 : 5);
+  document.getElementById('h-lv').textContent = `Lv.${lv}${questStats.level_name ? ' ' + questStats.level_name : ''}`;
+}
+
+// --------------------------------------------------------------------------
+// INPUT — pan the map horizontally
+// --------------------------------------------------------------------------
+function setupInput() {
+  // Drag to scroll
+  vp.addEventListener('mousedown', e => {
+    dragging = true;
+    dragS = { x: e.clientX, scrollX: vp.scrollLeft };
+  });
+
+  window.addEventListener('mousemove', e => {
+    if (dragging) {
+      vp.scrollLeft = dragS.scrollX - (e.clientX - dragS.x);
+    }
+
+    // Hover detection
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const w = canvas.width, h = canvas.height;
+
+    hovered = null;
+    for (const node of renderNodes) {
+      if (!node.id) continue;
+      const px = (node.x / 100) * w;
+      const py = (node.y / 100) * h;
+      if (Math.hypot(mx - px, my - py) < 18 * scale) {
+        hovered = node;
+        break;
+      }
+    }
+
+    if (hovered && !dragging) {
+      document.getElementById('tip-t').textContent = `${hovered.id} — ${hovered.label}`;
+      document.getElementById('tip-c').textContent = hovered.command || '';
+      const se = document.getElementById('tip-s');
+      const m = { done: ['COMPLETO ✓','done'], pending: ['PENDENTE','pending'], skipped: ['PULADO','skipped'] };
+      const [t, c] = m[hovered.status] || ['—','pending'];
+      se.textContent = t; se.className = `tip-s ${c}`;
+      tipEl.style.left = (e.clientX + 16) + 'px';
+      tipEl.style.top = (e.clientY - 10) + 'px';
+      tipEl.classList.add('on');
+    } else {
+      tipEl.classList.remove('on');
+    }
+  });
+
+  window.addEventListener('mouseup', () => { dragging = false; });
+
+  // Center on current node
+  const curNode = renderNodes.find(n => n.status === 'pending');
+  if (curNode) {
+    const px = (curNode.x / 100) * MAP_W * scale;
+    vp.scrollLeft = Math.max(0, px - vp.clientWidth / 2);
+  }
+
+  window.addEventListener('resize', fitMap);
+}
+
+// --------------------------------------------------------------------------
+// WEBSOCKET
+// --------------------------------------------------------------------------
+function setupWS() {
+  const ws = new WebSocket(`${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}`);
+  ws.onmessage = async () => {
+    try { await loadData(); mergeNodes(); updateHUD(); } catch(e) { console.error(e); }
+  };
+  ws.onclose = () => setTimeout(setupWS, 3000);
+}
+
+// --------------------------------------------------------------------------
+// INIT
+// --------------------------------------------------------------------------
+async function init() {
+  try {
+    // Wait for map image
+    await new Promise(resolve => {
+      if (mapImg.complete) resolve();
+      else mapImg.onload = resolve;
+    });
+
+    // Process hero sprite
+    if (heroImg.complete) {
+      heroClean = removeWhite(heroImg);
+    } else {
+      heroImg.onload = () => { heroClean = removeWhite(heroImg); };
+    }
+
+    await loadData();
+    mergeNodes();
+    updateHUD();
+    fitMap();
+    setupInput();
+    setupWS();
+
+    ldEl.classList.add('off');
+    renderOverlay();
+  } catch (err) {
+    console.error(err);
+    ldEl.textContent = 'Erro: ' + err.message;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
