@@ -188,13 +188,48 @@ If user says "n":
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
+### Logging integration results (MANDATORY)
+
+After running the Integration Gate (whether automated checks or user confirmation), **always** persist the result in `quest_log.integration_results`:
+
+```
+function log_integration_result(phase_index, checks_ran, quest_log):
+  result = {
+    passed: all checks passed (boolean),
+    checked_at: current datetime (ISO 8601 UTC),
+    checks: []
+  }
+
+  // If automated checks ran:
+  for check in checks_ran:
+    result.checks.append({
+      name: check.name,
+      passed: check.result.success,
+      output: check.result.error_output || null  // only on failure
+    })
+
+  // If fallback (user confirmation, no automated checks):
+  if checks_ran is empty:
+    result.checks.append({
+      name: "User confirmation",
+      passed: user_said_yes,
+      output: null
+    })
+
+  quest_log.integration_results[str(phase_index)] = result
+  // Save quest-log (triggers Save Rules in checklist.md §8)
+```
+
+**When to call:** Inside `verify_phase_integration()`, after ALL checks complete (pass or fail) and BEFORE returning the boolean result.
+
+**Initialization:** `integration_results` starts as `{}` in a new quest-log (see checklist.md §1). No pre-population needed — entries are added on first gate attempt per phase.
+
 ### Rules
 
 - **NEVER skip** integration gate — it's mandatory
 - If user says "tudo funciona" but the command check fails, **trust the command**, not the user
-- Integration checks run EVERY TIME a phase unlock is attempted (not cached)
+- Integration checks run EVERY TIME a phase unlock is attempted (not cached), but results ARE logged for auditability
 - If a check fails, the user can fix and try again (`/quest scan` re-triggers)
-- Log integration results in quest-log under `integration_results`
 
 ---
 

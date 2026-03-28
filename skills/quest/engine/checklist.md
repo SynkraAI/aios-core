@@ -31,6 +31,15 @@ stats:
 
 achievements: []             # list of { id: string, unlocked_at: datetime }
 
+integration_results: {}      # optional — keyed by phase index
+  # "1":
+  #   passed: true|false
+  #   checked_at: datetime (ISO 8601 UTC)
+  #   checks:
+  #     - name: string
+  #       passed: true|false
+  #       output: string (optional — error output if failed)
+
 items:
   "0.1": { status: pending }
   "0.2": { status: pending }
@@ -159,13 +168,12 @@ items:
      - If item's phase is UNLOCKED → mark as `done` (add to discoveries list)
      - If item's phase is LOCKED → mark as `detected` (add to detections list)
    - **Why `detected` instead of `done` for locked phases:** The Integration Gate (guide.md §2.5) must verify that prior phases work together before unlocking the next. Marking items as `done` in locked phases would bypass this critical check. `detected` items are automatically promoted to `done` when the phase is unlocked.
-3. If discoveries list is empty, show: `"Scan completo. Nenhuma nova descoberta."` and stop.
-4. Show the discoveries list:
+3. If discoveries list AND detections list are both empty, show: `"Scan completo. Nenhuma nova descoberta."` and stop.
+4. Show discoveries (unlocked phases) and detections (locked phases) separately:
 
 ```
-Scan detectou {count} itens:
+Scan detectou {discovery_count} itens prontos:
 
-  +{xp} XP  {id} — {label}
   +{xp} XP  {id} — {label}
   ...
 
@@ -174,8 +182,22 @@ Scan detectou {count} itens:
 Confirmar? (s/n)
 ```
 
+If detections list is non-empty, also show (after discoveries):
+
+```
+Pré-detectados em fases trancadas ({detection_count} itens):
+
+  🔒 {id} — {label}  (World {N}: {phase.name})
+  ...
+
+  Estes itens serão promovidos automaticamente quando o world for desbloqueado.
+```
+
 5. Wait for user confirmation.
-   - If `s` (yes): for each discovered item, set `status: done` and `completed_at: <now>`. Then recalculate stats via xp-system. Detect achievements. Save quest-log.
+   - If `s` (yes):
+     - For each **discovered** item (unlocked phases): set `status: done` and `completed_at: <now>`.
+     - For each **detected** item (locked phases): set `status: detected` and `detected_at: <now>`.
+     - Recalculate stats via xp-system. Detect achievements. Save quest-log.
    - If `n` (no): abort without changes.
 
 ### Scanner Functions
@@ -254,7 +276,7 @@ Every time the quest-log is written to disk:
 1. **Backup first:** Copy current `.aios/quest-log.yaml` to `.aios/quest-log.yaml.bak` BEFORE writing. This ensures recovery if the write is interrupted or corrupts the file.
 2. Update `meta.last_updated` to current datetime.
 3. Stats MUST be recalculated via xp-system before saving. Never write stale stats.
-4. Write the full YAML structure (meta, stats, achievements, items) to `.aios/quest-log.yaml`.
+4. Write the full YAML structure (meta, stats, achievements, integration_results, items) to `.aios/quest-log.yaml`.
 5. Preserve YAML formatting: use 2-space indentation, quote item ids that look like numbers (e.g. `"0.1"`).
 
 ---

@@ -32,8 +32,8 @@ The user has been here before. Show a quick status and the next mission. This sh
 **Steps:**
 1. Read `.aios/quest-log.yaml`
 2. Read the pack YAML at `packs/{meta.pack}.yaml` (relative to this skill's directory)
-3. Count items: how many done, pending, skipped. Sum XP from done items using pack's xp values. Find level from pack's levels table.
-4. Find next mission: first pending item in the first phase where not all required items are done.
+3. Recalculate stats via `engine/xp-system.md` (pass pack + quest-log items). NEVER count manually — the xp-system is the single source of truth for XP, level, streak, and counters.
+4. Find next mission via `engine/guide.md` §2 (Next Mission Selection). NEVER implement mission selection inline — guide.md owns phase unlock checks, conditions, Integration Gate, and skip logic.
 5. Output this banner:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

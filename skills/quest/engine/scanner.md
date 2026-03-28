@@ -169,10 +169,12 @@ Glob("{glob}")  →  result.length > N
 Check if the cwd contains the given substring.
 
 ```
-cwd.includes("{substring}")
+// Expand ~ to the user's home directory before comparing
+resolved = substring.replace(/^~/, process.env.HOME || os.homedir())
+cwd.includes(resolved)
 ```
 
-Pure string check, no tool call needed.
+Pure string check, no tool call needed. **IMPORTANT:** Always expand `~` to the absolute home path before comparison, otherwise rules like `inside_path('~/CODE/Projects')` will never match.
 
 #### Compound conditions: `AND` / `OR`
 
@@ -304,10 +306,11 @@ Before running detection rules, check if the user's text matches a pack by keywo
 
 | Text pattern (case-insensitive) | Pack suggestion |
 |--------------------------------|-----------------|
-| Contains "squad" + ("criar"/"create"/"novo"/"new") | `squad-creation` |
-| Contains "skill" + ("criar"/"create"/"novo"/"new") | `skill-creation` |
-| Contains "mind" or "clonar"/"clone" | `mind-cloning` |
-| Contains "pesquisar"/"research"/"investigar" | `research` |
+| Contains "app"/"aplicação"/"software"/"build"/"deploy" | `app-development` |
+| Contains "squad" + ("upgrade"/"melhorar"/"evoluir"/"refatorar") | `squad-upgrade` |
+| Contains "design system"/"design-system"/"DS"/"tokens" | `design-system-forge` |
+
+**IMPORTANT:** This table MUST reference only packs that exist in `packs/*.yaml`. If a text pattern has no matching pack, do NOT suggest it — fall through to detection rules or manual selection instead.
 
 If text matches → treat as `high` confidence for that pack (same as `--pack` override but with confirmation).
 
