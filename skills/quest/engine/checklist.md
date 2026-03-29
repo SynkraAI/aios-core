@@ -108,6 +108,7 @@ items:
 4. **Promote detected items (BEFORE stats):** For each phase that is currently UNLOCKED (using `is_phase_unlocked` from guide.md §2), find all items with `status: detected` in the quest-log. Promote each to `done` (set `status: done`, `completed_at: <now>`, remove `detected_at`). This ensures scan pre-detections are persisted as completed once the phase is legitimately unlocked via the Integration Gate. Promotions happen here — inside the Read flow — so they are saved to disk before any ceremony or guide rendering.
 5. **Always recalculate stats** via xp-system. Never trust saved `stats` values. Pass the current pack and the quest-log items to xp-system, write the returned stats to `quest_log.stats`. This runs AFTER promotion (step 4) so promoted items are counted.
 6. Update `meta.last_updated` to current datetime.
+7. **Save if changed:** If ANY of the above steps modified the quest-log (promotion in step 4, migration in step 3, pack switch in step 2, or stats differ from saved values), save the quest-log to disk via Save Rules (§8) BEFORE returning. This guarantees that ceremony.md and guide.md always render from persisted state, not volatile in-memory mutations.
 
 ---
 
@@ -262,21 +263,12 @@ Pré-detectados em fases trancadas ({detection_count} itens):
    - If `s` (yes):
      - For each **discovered** item (unlocked phases): set `status: done` and `completed_at: <now>`.
      - For each **detected** item (locked phases): set `status: detected` and `detected_at: <now>`.
-     - Recalculate stats via xp-system, passing `scan_detected_count: discovery_count + detection_count` as scan context. This enables achievements with conditions like `scan_found >= N` (see xp-system.md §5 for input contract). Detect achievements. Save quest-log.
+     - Recalculate stats via xp-system, passing `scan_detected_count: discovery_count` as scan context (only unlocked-phase items marked `done` — NOT locked-phase `detected` items, which haven't become completed work yet). This enables achievements with conditions like `scan_found >= N` (see xp-system.md §5 for input contract). Detect achievements. Save quest-log.
    - If `n` (no): abort without changes.
 
 ### Scanner Functions
 
-These functions evaluate `scan_rule` expressions. They run against the project's cwd.
-
-| Function | Evaluation |
-|----------|------------|
-| `has_file('path')` | Check if file exists at the given path relative to cwd |
-| `has_dir('path')` | Check if directory exists at the given path relative to cwd |
-| `has_file_matching('glob')` | Check if any file matches the glob pattern relative to cwd |
-| `has_remote('name')` | Run `git remote` and check if the named remote exists |
-| `has_content('file', 'regex')` | Read the file and check if content matches the regex |
-| `file_count('glob') > N` | Count files matching glob, compare with N |
+Scan rules are evaluated using the scanner function catalog defined in `scanner.md` §4.1. That module is the **authoritative source** for the full function list, signatures, and behavior. Do NOT maintain a separate function table here — refer to scanner.md to avoid drift between the spec and shipped packs.
 
 Compound expressions use `AND` / `OR`:
 - `has_file('README.md') AND has_file('package.json')` — both must be true
