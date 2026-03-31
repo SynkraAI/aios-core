@@ -226,7 +226,7 @@ items:
 
 ### skip {id}
 
-**Trigger:** User runs `/quest skip {id}` or says item does not apply.
+**Trigger:** User runs `/quest skip {id}` to consciously bypass an applicable item. For items that don't apply to the project, use `unused {id}` instead.
 
 **Steps:**
 

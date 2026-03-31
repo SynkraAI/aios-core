@@ -186,30 +186,36 @@ Multiple specific items must all have status `done`. Uses the standard `AND` com
 
 #### `all_required_done_in_phase:<N>`
 
-All items marked `required: true` in phase N of the pack have status `done` in the quest-log.
+All items marked `required: true` in phase N of the pack have status `done` in the quest-log. Items with status `unused` are excluded — they don't exist in this project.
 
 ```
 for item in pack.phases[N].items where item.required == true:
-  quest_log.items[item.id].status must be "done"
+  status = quest_log.items[item.id].status
+  if status == "unused": continue
+  status must be "done"
 ```
 
 #### `all_items_done_in_phase:<N>`
 
-ALL items in phase N (required and optional) have status `done` or `skipped`. No item is `pending`.
+ALL items in phase N (required and optional) have status `done`, `skipped`, or `unused`. No item is `pending`. Items with status `unused` are excluded — they don't block this condition.
 
 ```
 for item in pack.phases[N].items:
-  quest_log.items[item.id].status must be "done" or "skipped"
+  status = quest_log.items[item.id].status
+  if status == "unused": continue
+  status must be "done" or "skipped"
 ```
 
 #### `phase_done_same_day:<N>`
 
-All required items in phase N have status `done` AND all their `completed_at` dates fall on the same calendar day (YYYY-MM-DD).
+All required items in phase N have status `done` AND all their `completed_at` dates fall on the same calendar day (YYYY-MM-DD). Items with status `unused` are excluded.
 
 ```
 dates = []
 for item in pack.phases[N].items where item.required == true:
-  if quest_log.items[item.id].status != "done": FAIL
+  status = quest_log.items[item.id].status
+  if status == "unused": continue
+  if status != "done": FAIL
   dates.append(quest_log.items[item.id].completed_at.date())
 all dates must be the same day
 ```
@@ -238,32 +244,38 @@ Parse N from the condition string (e.g., `"item_xp >= 500"` → N = 500).
 
 #### `all_items_done`
 
-ALL items across ALL phases have status `done` or `skipped`. No item is `pending` in any phase.
+ALL items across ALL phases have status `done`, `skipped`, or `unused`. No item is `pending` in any phase. Items with status `unused` are excluded — they don't block this condition.
 
 ```
 for each phase in pack.phases:
   for each item in phase.items:
-    quest_log.items[item.id].status must be "done" or "skipped"
+    status = quest_log.items[item.id].status
+    if status == "unused": continue
+    status must be "done" or "skipped"
 ```
 
 #### `all_required_done`
 
-ALL items marked `required: true` across ALL phases have status `done`.
+ALL items marked `required: true` across ALL phases have status `done`. Items with status `unused` are excluded — they don't exist in this project.
 
 ```
 for each phase in pack.phases:
   for each item in phase.items where item.required == true:
-    quest_log.items[item.id].status must be "done"
+    status = quest_log.items[item.id].status
+    if status == "unused": continue
+    status must be "done"
 ```
 
 #### `zero_required_skipped`
 
-No required item was skipped. All items marked `required: true` across all phases have a status that is NOT `skipped`.
+No required item was skipped. All items marked `required: true` across all phases have a status that is NOT `skipped`. Items with status `unused` are excluded — they don't violate this condition.
 
 ```
 for each phase in pack.phases:
   for each item in phase.items where item.required == true:
-    quest_log.items[item.id].status must NOT be "skipped"
+    status = quest_log.items[item.id].status
+    if status == "unused": continue
+    status must NOT be "skipped"
 ```
 
 Note: items still `pending` do NOT violate this condition — only `skipped` does.

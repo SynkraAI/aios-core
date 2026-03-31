@@ -263,12 +263,15 @@ When showing the next mission, display this card. ALL fields come from the pack 
   OBRIGATÓRIO: {item.required ? "Sim" : "Não"}
   MUNDO: {phase_index} — {phase.name}
 
-  DICA: {item.tip || phase.description}
+  DICA: {item.tip || phase.description || "Sem dica adicional."}
 
   QUANDO TERMINAR:
   /quest check {item.id}
 
   SE NÃO SE APLICA:
+  /quest unused {item.id}
+
+  SE QUER PULAR MESMO ASSIM:
   /quest skip {item.id}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -319,9 +322,9 @@ Triggered when an item is marked `done`. Scale the celebration by the item's XP 
 
 ### 4.2 World Complete
 
-Triggered when ALL items in a phase have status `done` or `skipped` (no `pending` items remain). Uses the `complete_message` from the pack phase metadata.
+Triggered when ALL items in a phase have status `done`, `skipped`, or `unused` (no `pending` items remain). Uses the `complete_message` from the pack phase metadata. Items with status `unused` don't count as pending — they're excluded from the project.
 
-**CRITICAL GUARD:** Only show World Complete when the ENTIRE phase is finished — every single item must be `done` or `skipped`. Completing one item in a phase does NOT trigger this. Check the count: if `pending_count_in_phase > 0`, do NOT show World Complete. The "PRÓXIMO WORLD DESBLOQUEADO" block below is part of the World Complete celebration — it must NEVER appear independently or before the current world is fully complete.
+**CRITICAL GUARD:** Only show World Complete when the ENTIRE phase is finished — every single item must be `done`, `skipped`, or `unused`. Completing one item in a phase does NOT trigger this. Check the count: if `pending_count_in_phase > 0`, do NOT show World Complete. Items with status `unused` are excluded from pending count — they don't exist in this project. The "PRÓXIMO WORLD DESBLOQUEADO" block below is part of the World Complete celebration — it must NEVER appear independently or before the current world is fully complete.
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -330,7 +333,7 @@ Triggered when ALL items in a phase have status `done` or `skipped` (no `pending
 
   {phase.name}
 
-  "{phase.complete_message}"
+  "{phase.complete_message || "World concluído."}"
 
   Missões: {done_in_phase}/{total_in_phase}
   XP ganho neste world: +{phase_xp}
@@ -340,7 +343,7 @@ Triggered when ALL items in a phase have status `done` or `skipped` (no `pending
 
   PRÓXIMO WORLD DESBLOQUEADO:
   {next_phase.name}
-  "{next_phase.unlock_message}"
+  "{next_phase.unlock_message || "Novo world desbloqueado."}"
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -648,7 +651,7 @@ After showing a mission card, the engine waits for the player to act. This secti
 4b. If "n" (no):
    - Keep current mission active
    - If item has `tip` field in pack: show the tip
-   - If item is NOT required: suggest "/quest skip {item.id}"
+   - If item is NOT required: suggest "/quest unused {item.id}" if it doesn't apply, or "/quest skip {item.id}" to bypass
    - If item IS required: encourage ("Sem pressa, {hero_name}. Essa missão é importante.")
    - Return to step 2
 ```
@@ -659,7 +662,8 @@ When {hero_name} says no and the item is optional:
 
 ```
   Essa missão é opcional.
-  Se não se aplica, pule com: /quest skip {item.id}
+  Se não se aplica ao projeto: /quest unused {item.id}
+  Se quer pular mesmo assim: /quest skip {item.id}
   Se precisa de mais tempo, sem pressa.
 ```
 
@@ -669,6 +673,7 @@ If the same mission is shown 3+ times without progress ({hero_name} keeps saying
 
 ```
   {hero_name}, essa missão está resistindo.
+  Não se aplica? /quest unused {item.id}
   Quer pular? /quest skip {item.id}
   Ou quer uma dica? Posso detalhar o que fazer.
 ```
