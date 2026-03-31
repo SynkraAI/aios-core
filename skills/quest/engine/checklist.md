@@ -27,6 +27,7 @@ stats:
   items_done: number
   items_total: number
   items_skipped: number
+  items_unused: 0
   percent: number
 
 achievements: []             # list of { id: string, unlocked_at: datetime }
@@ -51,7 +52,7 @@ items:
 | Status | Fields |
 |--------|--------|
 | `pending` | `{ status: pending }` |
-| `done` | `{ status: done, completed_at: <ISO 8601 UTC> }` |
+| `done` | `{ status: done, completed_at: <ISO 8601 UTC>, checked_by: <"user"\|"forge"\|"scan"> }` |
 | `skipped` | `{ status: skipped, note: <string> }` |
 | `detected` | `{ status: detected, detected_at: <ISO 8601 UTC> }` |
 | `unused` | `{ status: unused }` |
@@ -203,9 +204,14 @@ items:
 
 ## 4. Check / Skip
 
-### check {id}
+### check {id} [source=user|forge|scan]
 
-**Trigger:** User runs `/quest check {id}` or confirms completion interactively.
+**Trigger:** User runs `/quest check {id}`, confirms completion interactively, or Forge/scan auto-checks after successful execution.
+
+**Source parameter (optional):**
+- `source=user` — manual check by user (default when omitted)
+- `source=forge` — auto-checked by Forge after successful pipeline execution
+- `source=scan` — detected by scan
 
 **Steps:**
 
@@ -223,11 +229,12 @@ items:
    **Exception:** Items marked by `/quest scan` bypass this guard (scan uses its own flow in section 5).
 3. Set `items[{id}].status` to `done`.
 4. Set `items[{id}].completed_at` to current datetime (ISO 8601 UTC).
-5. Update `meta.last_updated`.
-6. Recalculate stats via xp-system (see `engine/xp-system.md`, section 9 — Execution Order).
-7. Detect newly unlocked achievements (returned by xp-system).
-8. Return celebration data (achievements, level changes, stats) to guide.md §4 for rendering.
-9. Save quest-log.
+5. Set `items[{id}].checked_by` to the `source` value (`"user"`, `"forge"`, or `"scan"`). If source is omitted, default to `"user"`. This field is optional and backward-compatible — absence means `"user"`.
+6. Update `meta.last_updated`.
+7. Recalculate stats via xp-system (see `engine/xp-system.md`, section 9 — Execution Order).
+8. Detect newly unlocked achievements (returned by xp-system).
+9. Return celebration data (achievements, level changes, stats) to guide.md §4 for rendering.
+10. Save quest-log.
 
 ### skip {id}
 
@@ -309,7 +316,7 @@ Pré-detectados em fases trancadas ({detection_count} itens):
    - If `s` (yes):
      - For each **discovered** item (unlocked phases): set `status: done` and `completed_at: <now>`.
      - For each **detected** item (locked phases): set `status: detected` and `detected_at: <now>`.
-     - Recalculate stats via xp-system, passing `scan_detected_count: discovery_count` as scan context (only unlocked-phase items marked `done` — NOT locked-phase `detected` items, which haven't become completed work yet). This enables achievements with conditions like `scan_found >= N` (see xp-system.md §5 for input contract). Detect achievements. Save quest-log.
+     - Recalculate stats via xp-system, passing `scan_detected_count: discovery_count` as scan context (only unlocked-phase items marked `done` — NOT locked-phase `detected` items, which haven't become completed work yet). This enables achievements with conditions like `scan_found >= N` (see xp-system.md §7, `auto_detected >= N` / `scan_found >= N` conditions). Detect achievements. Save quest-log.
    - If `n` (no): abort without changes.
 
 ### Scanner Functions
