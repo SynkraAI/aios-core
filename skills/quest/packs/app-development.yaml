@@ -11,6 +11,7 @@ pack:
   icon: "⚒️"
   class_name: "Forja do Código"
   tagline: "Da ideia ao deploy. Sem atalho. Sem medo."
+  keywords: ["app", "application", "build", "deploy", "desenvolvimento", "software", "projeto"]
 
 # =============================================================================
 # Detection — como o scanner identifica que este pack se aplica

@@ -243,7 +243,7 @@ Pad with dots to align the status column. Use the item's `label` field as the di
 Generate a horizontal path from the pack's phases. Each phase is a node on the path.
 
 **Determine phase status from scan results:**
-- A phase is `DONE` if ALL its required items with `scan_rule` evaluate to true
+- A phase is `DONE` if ALL its required items can be evaluated AND all evaluate to true. Specifically: every required item in the phase MUST have a `scan_rule` defined, and every such `scan_rule` must evaluate to true. If ANY required item lacks a `scan_rule`, the phase CANNOT be `DONE` (treat as `CURRENT` or `FUTURE` instead) — absence of evidence is not evidence of completion
 - A phase is `CURRENT` if it's the first phase that is NOT done
 - A phase is `FUTURE` if it comes after the current phase
 

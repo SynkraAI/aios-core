@@ -11,6 +11,7 @@ pack:
   icon: "🎨"
   class_name: "Alquimia Visual"
   tagline: "Extraia o DNA. Eleve o design. Entregue arte."
+  keywords: ["design", "design system", "tokens", "componentes", "ui", "visual"]
   type: expansion
   parent_pack: app-development
   parent_item: "2.5"

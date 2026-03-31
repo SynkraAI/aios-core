@@ -63,6 +63,7 @@ pack:
   id: string         # REQUIRED
   version: string    # REQUIRED
   name: string       # REQUIRED
+  keywords: [string] # OPTIONAL — array of strings for text-match selection (§6, args.text flow)
   type: string       # OPTIONAL — "expansion" for expansion packs (see §6.5.2)
   parent_pack: string  # OPTIONAL — required if type is "expansion"
   parent_item: string  # OPTIONAL — required if type is "expansion"

@@ -10,6 +10,7 @@ pack:
   icon: "⚔️"
   class_name: "Ferreiro de Squads"
   tagline: "Transforme um squad bom em um squad lendário."
+  keywords: ["squad", "upgrade", "agente", "agentes", "orquestração"]
 
 # ----------------------------------------------------------------------------
 # Detection — como o scanner identifica que este pack se aplica
