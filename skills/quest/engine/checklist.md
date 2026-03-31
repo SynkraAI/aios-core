@@ -117,7 +117,7 @@ items:
      - If user chooses `log`: use the pack from `meta.pack`.
      - If user chooses `scanner`: update `meta.pack` and `meta.pack_version` to the scanner's pack, **clear `integration_results` to `{}`** (prior pack's gate results are invalid for the new pack's phase structure), then rebuild items (add new items as pending, keep existing items with their status).
 3. **Pack version check:** If `meta.pack_version != pack.version`, run Pack Version Migration (§3.5) before proceeding. This is part of the Read flow — not a separate step the orchestrator must remember to call.
-4. **Promote detected items (BEFORE stats):** For each phase that is currently UNLOCKED, find all items with `status: detected` in the quest-log. Promote each to `done` (set `status: done`, `completed_at: <now>`, remove `detected_at`). This ensures scan pre-detections are persisted as completed once the phase is legitimately unlocked via the Integration Gate. Promotions happen here — inside the Read flow — so they are saved to disk before any ceremony or guide rendering.
+4. **Promote detected items (BEFORE stats):** For each phase that is currently UNLOCKED, find all items with `status: detected` in the quest-log. Promote each to `done` (set `status: done`, `completed_at: <now>`, `checked_by: "scan"`, remove `detected_at`). This ensures scan pre-detections are persisted as completed once the phase is legitimately unlocked via the Integration Gate. Promotions happen here — inside the Read flow — so they are saved to disk before any ceremony or guide rendering.
    **IMPORTANT — Read-safe unlock check:** Do NOT call `is_phase_unlocked` from guide.md §2 here. That function includes the interactive Integration Gate (`verify_phase_integration`), which can prompt the user or run shell commands — unacceptable during a read/rehydration flow. Instead, use the pure predicate `is_phase_unlocked_persisted`:
    ```
    function is_phase_unlocked_persisted(phase_index, pack, quest_log):
@@ -160,6 +160,11 @@ items:
        new_items.append(item)
 
    for each id in quest_log.items:
+     // Skip valid sub-items — they live only in quest-log by design (§7.5)
+     if quest_log.items[id].sub_of is defined:
+       continue
+     if id has 3+ dot-separated parts AND parent_id(id) exists in pack:
+       continue
      if id NOT found in any pack phase:
        orphaned_items.append({ id, status: quest_log.items[id].status })
    ```
@@ -314,7 +319,7 @@ Pré-detectados em fases trancadas ({detection_count} itens):
 
 5. Wait for user confirmation.
    - If `s` (yes):
-     - For each **discovered** item (unlocked phases): set `status: done` and `completed_at: <now>`.
+     - For each **discovered** item (unlocked phases): set `status: done`, `completed_at: <now>`, and `checked_by: "scan"`.
      - For each **detected** item (locked phases): set `status: detected` and `detected_at: <now>`.
      - Recalculate stats via xp-system, passing `scan_detected_count: discovery_count` as scan context (only unlocked-phase items marked `done` — NOT locked-phase `detected` items, which haven't become completed work yet). This enables achievements with conditions like `scan_found >= N` (see xp-system.md §7, `auto_detected >= N` / `scan_found >= N` conditions). Detect achievements. Save quest-log.
    - If `n` (no): abort without changes.
@@ -469,6 +474,6 @@ Every time the quest-log is written to disk:
 - **Empty pack (no phases/items):** create quest-log with empty `items: {}` and zero stats.
 - **Scan rule references missing file:** rule evaluates to `false` (not an error).
 - **Multiple scans:** only affect items that are still `pending`. Already `done`, `skipped`, or `detected` items are never changed by scan.
-- **Phase unlock with `detected` items:** When a phase passes the Integration Gate and is unlocked, promote all `detected` items in that phase to `done` (set `completed_at` to current datetime). Recalculate stats after promotion.
+- **Phase unlock with `detected` items:** When a phase passes the Integration Gate and is unlocked, promote all `detected` items in that phase to `done` (set `completed_at` to current datetime, `checked_by: "scan"`). Recalculate stats after promotion.
 - **Re-check already done item:** no-op. Show: `"Item '{id}' já está completo."`.
 - **Re-skip already skipped item:** no-op. Show: `"Item '{id}' já foi pulado."`.

@@ -24,7 +24,10 @@ Sub-items live only in the quest-log (see checklist.md §7.5). Before any XP, co
 ```
 resolved_items = []
 
-// 1. Add all pack items (they define xp, required, phase, etc.)
+// 1. Collect pack items AND their sub-items in deterministic pack order.
+//    For each pack item, immediately append its sub-items after it.
+//    This guarantees sub-items are adjacent to their parent, which is
+//    required for correct streak calculation (§4) and phase conditions (§7).
 for each phase in pack.phases:
   for each item in phase.items:
     resolved_items.append({
@@ -34,24 +37,27 @@ for each phase in pack.phases:
       phase:    phase_index,
       source:   "pack"
     })
-
-// 2. Add sub-items from quest-log (detected by sub_of field or 3-part id)
-for each id, entry in quest_log.items:
-  parent_id = entry.sub_of
-  if parent_id is undefined AND id has 3+ dot-separated parts:
-    parent_id = first_two_parts(id)   // e.g. "4.2.M8" → "4.2"
-
-  if parent_id is defined:
-    parent = find item in pack where id == parent_id
-    if parent:
+    // 2. Insert sub-items for this parent immediately after it
+    sub_items = []
+    for each id, entry in quest_log.items:
+      parent_id = entry.sub_of
+      if parent_id is undefined AND id has 3+ dot-separated parts:
+        parent_id = first_two_parts(id)   // e.g. "4.2.M8" → "4.2"
+      if parent_id == item.id:
+        sub_items.append({ id, entry })
+    // Sort sub-items by id lexicographically for determinism
+    sort sub_items by id ascending
+    for each sub in sub_items:
       resolved_items.append({
-        id:       id,
-        xp:       round(parent.xp * 0.5),   // checklist.md §7.5 rule
+        id:       sub.id,
+        xp:       round(item.xp * 0.5),     // checklist.md §7.5 rule
         required: false,                      // sub-items never block phase unlock
-        phase:    parent.phase_index,
+        phase:    phase_index,
         source:   "sub-item"
       })
 ```
+
+**IMPORTANT — ordering guarantee:** The resulting `resolved_items` list is in strict pack order: phase 0 items first, then phase 1, etc. Within each phase, items appear in the order defined by the pack YAML. Each parent's sub-items appear immediately after it, sorted lexicographically by ID. This ordering is **not coincidental** — streak calculation (§4) and `consecutive_completions >= N` achievements depend on it. Do NOT sort or reorder `resolved_items` after construction.
 
 **All sections below (§2, §4, §5) MUST iterate `resolved_items` instead of `pack.phases[*].items`.** Phase-scoped conditions (§7): `all_required_done_in_phase` and `phase_done_same_day` use pack items only for the `required` gate (sub-items are never `required`). `all_items_done_in_phase` uses `resolved_items` filtered by phase, since it checks ALL work — including sub-items — is resolved before declaring a phase fully complete.
 
