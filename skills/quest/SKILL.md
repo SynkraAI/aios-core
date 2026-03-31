@@ -32,11 +32,13 @@ The user has been here before. Show a quick status and the next mission. This sh
 **Steps:**
 1. Read `.aios/quest-log.yaml`
 2. Determine the active pack:
-   - If the user passed `--pack <id>` (i.e., `args.pack` is set), use that pack ID.
-     Load `packs/{args.pack}.yaml`. If it differs from `meta.pack`, checklist.md §3
-     step 2 (pack mismatch flow) will handle the transition with user confirmation.
-     This is how expansion packs and pack switching work — the entrypoint must
-     forward the requested pack, not silently ignore it.
+   - If the user passed `--pack <id>` (i.e., `args.pack` is set), route through
+     `engine/scanner.md` §5 (Pack Override) and §6.5 (Post-selection Gates) to
+     validate schema, check `detection.prerequisites`, and enforce expansion pack
+     blocking rules. Only after the scanner validates the pack, hand control to
+     `engine/checklist.md` §3 which handles pack mismatch transitions with user
+     confirmation. This ensures resumption with `--pack` follows the same
+     validation path as first invocation.
    - Otherwise, use `meta.pack` from the quest-log as the active pack.
      Load `packs/{meta.pack}.yaml`.
 3. Read `engine/checklist.md` §3 (Read Quest-log) — this recalculates stats via xp-system AND handles pack version migration automatically. The checklist module is self-contained. If a pack mismatch was detected in step 2, checklist handles the transition flow.
@@ -112,7 +114,7 @@ If the user provides arguments after the skill name:
 | `unused <id>` | Read `.aios/quest-log.yaml` + pack YAML + `engine/checklist.md` → mark as unused |
 | `sub <parent_id> <label>` | Read `.aios/quest-log.yaml` + pack YAML + `engine/checklist.md` → create sub-item |
 | `scan` | Read `.aios/quest-log.yaml` + pack YAML + `engine/checklist.md` → execute scan |
-| `status` | Read `.aios/quest-log.yaml` + pack YAML + `engine/guide.md` → show status |
+| `status` | Read `.aios/quest-log.yaml` + pack YAML + `engine/checklist.md` §3 → normalize state, then `engine/guide.md` → show status |
 
 ---
 
