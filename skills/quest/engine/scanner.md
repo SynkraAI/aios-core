@@ -107,6 +107,7 @@ sub_quests: []       # OPTIONAL — P1, not yet consumed by engine. Array of { p
 
 1. Check `pack` exists and is a map
 2. Check `pack.id`, `pack.version`, `pack.name` exist and are non-empty strings
+2.5. If `pack.type == "expansion"`: require non-empty `pack.parent_pack` (string) and non-empty `pack.parent_item` (string). If either is missing, add them to the missing-fields list and fail validation for this pack — do NOT evaluate detection rules or post-selection gates.
 3. Check `detection` exists and has `rules` (array)
 4. Check `levels` exists and is a map
 5. Check `phases` exists and is a map (keyed by phase index: 0, 1, 2, ...)

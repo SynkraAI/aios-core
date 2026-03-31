@@ -98,14 +98,20 @@ function verify_phase_integration(phase_index, pack, quest_log):
     // Fallback: ask the user explicitly
     return ask_integration_question(previous_phase, pack, quest_log)
 
-  // 2. Run each integration check
+  // 2. Run each integration check, collecting results
+  checks_ran = []
+  all_passed = true
   for check in checks:
     result = run_integration_check(check)
+    checks_ran.append({ name: check.name, result })
     if NOT result.success:
       show_integration_failure(check, result)
-      return false
+      all_passed = false
+      break
 
-  return true
+  // 3. ALWAYS persist results before returning (even on failure)
+  log_integration_result(phase_index, checks_ran, quest_log)
+  return all_passed
 ```
 
 ### Integration check types (from pack YAML)
