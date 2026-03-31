@@ -250,11 +250,12 @@ items:
 **Steps:**
 
 1. Resolve `{id}` using the same resolution order as `check` (step 1): pack items first, then quest-log sub-items, else abort with `"Item '{id}' não existe neste pack ou quest-log."`.
-2. If `items[{id}].status` is `done`, show: `"Item '{id}' já está completo — não pode ser marcado como unused."` and abort.
-3. Set `items[{id}].status` to `unused`.
-4. Update `meta.last_updated`.
-5. Recalculate stats via xp-system.
-6. Save quest-log.
+2. **Phase lock guard:** Same rule as `check` and `skip` — use `is_phase_unlocked(phase_index, pack, quest_log)` from `guide.md` §2 (checks both required items AND Integration Gate) against the resolved item's phase (or parent's phase for sub-items). If LOCKED, BLOCK and show the same message. Abort. **Why:** Marking a future-phase item as `unused` would bypass progression since `unused` items are excluded from unlock calculations.
+3. If `items[{id}].status` is `done`, show: `"Item '{id}' já está completo — não pode ser marcado como unused."` and abort.
+4. Set `items[{id}].status` to `unused`.
+5. Update `meta.last_updated`.
+6. Recalculate stats via xp-system.
+7. Save quest-log.
 
 **Note:** Unlike `skip`, `unused` does not ask for a reason — the item simply does not exist in this project's context. Unlike `skipped` items, `unused` items are excluded from `items_total` and `percent` calculations entirely.
 
@@ -268,7 +269,7 @@ items:
 
 **Steps:**
 
-1. Collect ALL pack items that have a `scan_rule` field — from ALL phases, including LOCKED ones. Scan detects pre-existing work regardless of phase progression. The phase lock guard (section 4) applies only to manual `check` and `skip` commands.
+1. Collect ALL pack items that have a `scan_rule` field — from ALL phases, including LOCKED ones. Scan detects pre-existing work regardless of phase progression. The phase lock guard (section 4) applies only to manual `check`, `skip`, and `unused` commands.
 2. Determine which phases are currently UNLOCKED (using `is_phase_unlocked` from guide.md §2).
 3. For each item with `scan_rule`:
    - If `quest_log.items[item.id].status` is NOT `pending`, skip (already resolved).

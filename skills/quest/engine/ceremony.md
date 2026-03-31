@@ -128,7 +128,7 @@ From this point forward, NEVER use "Builder" again. Always use `{hero_name}` to 
 - Ask ONCE during first ceremony, never again
 - If user gives a single word, accept it (e.g., "Lu")
 - If user gives name + title together (e.g., "Thorin, Escudo de Carvalho"), parse it: name = "Thorin", title = "Escudo de Carvalho" — skip Step B
-- Use `AskUserQuestion` tool to collect the responses
+- Collect the responses via normal conversational turn (ask in the chat, wait for user reply — no special tool needed)
 - This step happens BEFORE the Loading Sequence — the loading bars should already use the hero name
 - Same validation rules apply to custom hero_title (Step B, option 5)
 

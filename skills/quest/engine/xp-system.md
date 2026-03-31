@@ -53,7 +53,7 @@ for each id, entry in quest_log.items:
       })
 ```
 
-**All sections below (§2, §4, §5) MUST iterate `resolved_items` instead of `pack.phases[*].items`.** Phase-scoped conditions (§7: `all_required_done_in_phase`, `all_items_done_in_phase`, `phase_done_same_day`) continue to use pack items only for the `required` gate but include sub-items for progress and XP within that phase.
+**All sections below (§2, §4, §5) MUST iterate `resolved_items` instead of `pack.phases[*].items`.** Phase-scoped conditions (§7): `all_required_done_in_phase` and `phase_done_same_day` use pack items only for the `required` gate (sub-items are never `required`). `all_items_done_in_phase` uses `resolved_items` filtered by phase, since it checks ALL work — including sub-items — is resolved before declaring a phase fully complete.
 
 ### 2.0.1 XP calculation
 
@@ -240,10 +240,11 @@ for item in pack.phases[N].items where item.required == true:
 
 #### `all_items_done_in_phase:<N>`
 
-ALL items in phase N (required and optional) have status `done`, `skipped`, or `unused`. No item is `pending`. Items with status `unused` are excluded — they don't block this condition.
+ALL items in phase N — including sub-items — have status `done`, `skipped`, or `unused`. No item is `pending`. Items with status `unused` are excluded — they don't block this condition. Uses `resolved_items` (§2.0) to include sub-items, consistent with the contract that sub-items participate in progress within their phase.
 
 ```
-for item in pack.phases[N].items:
+phase_items = [item for item in resolved_items where item.phase == N]
+for item in phase_items:
   status = quest_log.items[item.id].status
   if status == "unused": continue
   status must be "done" or "skipped"
