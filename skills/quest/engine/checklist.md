@@ -133,7 +133,7 @@ items:
        return false
      return true
    ```
-   This predicate checks required-item status AND the persisted `integration_results` entry — no side effects, no user interaction. The full interactive `is_phase_unlocked` (with `verify_phase_integration`) is used only in the progression flow (§4 check/skip and §5 scan).
+   This predicate checks required-item status AND the persisted `integration_results` entry — no side effects, no user interaction. The full interactive `is_phase_unlocked` (with `verify_phase_integration`) is used only in the progression flow (§4 check/skip/unused). Scan (§5) uses this pure predicate to classify phases without side effects.
 5. **Always recalculate stats** via xp-system. Never trust saved `stats` values. Pass the current pack and the quest-log items to xp-system, write the returned stats to `quest_log.stats`. This runs AFTER promotion (step 4) so promoted items are counted.
 6. **Save if changed:** If ANY of the above steps modified the quest-log (promotion in step 4, migration in step 3, pack switch in step 2, or stats differ from saved values), save the quest-log to disk via Save Rules (§8) BEFORE returning. This guarantees that ceremony.md and guide.md always render from persisted state, not volatile in-memory mutations. Note: `meta.last_updated` is set by Save Rules (§8) during the write — do NOT update it here in the read flow, as that would turn every read into a write.
 
@@ -272,7 +272,7 @@ items:
 **Steps:**
 
 1. Collect ALL pack items that have a `scan_rule` field — from ALL phases, including LOCKED ones. Scan detects pre-existing work regardless of phase progression. The phase lock guard (section 4) applies only to manual `check`, `skip`, and `unused` commands.
-2. Determine which phases are currently UNLOCKED (using `is_phase_unlocked` from guide.md §2).
+2. Determine which phases are currently UNLOCKED (using `is_phase_unlocked_persisted` from §3 — the pure predicate with no side effects). Do NOT use `is_phase_unlocked` from guide.md §2 here: that function calls `verify_phase_integration()`, which persists integration results and may prompt the user. Scan is observational until the user confirms at step 5.
 3. For each item with `scan_rule`:
    - If `quest_log.items[item.id].status` is NOT `pending`, skip (already resolved).
    - Evaluate the `scan_rule` using scanner functions (see table below).

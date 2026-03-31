@@ -112,7 +112,7 @@ function verify_phase_integration(phase_index, pack, quest_log):
       break
 
   // 3. ALWAYS persist results before returning (even on failure)
-  log_integration_result(phase_index, checks_ran, quest_log)
+  log_integration_result(phase_index, checks_ran, quest_log, all_passed)
   return all_passed
 ```
 
@@ -217,9 +217,9 @@ If user says "n":
 After running the Integration Gate (whether automated checks or user confirmation), **always** persist the result in `quest_log.integration_results`:
 
 ```
-function log_integration_result(phase_index, checks_ran, quest_log):
+function log_integration_result(phase_index, checks_ran, quest_log, passed):
   result = {
-    passed: all checks passed (boolean),
+    passed: passed,
     checked_at: current datetime (ISO 8601 UTC),
     checks: []
   }
@@ -236,7 +236,7 @@ function log_integration_result(phase_index, checks_ran, quest_log):
   if checks_ran is empty:
     result.checks.append({
       name: "User confirmation",
-      passed: user_said_yes,
+      passed: passed,
       output: null
     })
 
@@ -568,7 +568,7 @@ Shows all phases as "worlds" with thematic names from the pack. The current worl
 | Has pending items AND `is_phase_unlocked()` returns true (§2) | `← VOCE ESTA AQUI` — expanded with all items |
 | `is_phase_unlocked()` returns false (required items pending OR Integration Gate not passed) | `LOCKED` — collapsed, one line |
 
-**CRITICAL:** Phase state MUST be derived from the same `is_phase_unlocked()` predicate used in §2 for next-mission selection. This includes BOTH conditions: (a) all required items in the previous phase are `done`/`unused`, AND (b) `verify_phase_integration()` passes for the prior phase. If either condition fails, the phase is `LOCKED`. For pure rendering (no interactive gate), check `quest_log.integration_results[phase_index]` — if the entry exists and `passed == true`, the gate is satisfied; otherwise, the phase remains locked.
+**CRITICAL:** Phase state MUST be derived from the same `is_phase_unlocked()` predicate used in §2 for next-mission selection. This includes BOTH conditions: (a) all required items in the previous phase are `done`/`unused`, AND (b) `verify_phase_integration()` passes for the prior phase. If either condition fails, the phase is `LOCKED`. For pure rendering (no interactive gate), check `quest_log.integration_results[str(phase_index)]` — if the entry exists and `passed == true`, the gate is satisfied; otherwise, the phase remains locked.
 
 ### Item Status Icons
 
