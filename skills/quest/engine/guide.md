@@ -53,7 +53,10 @@ Find the next mission for the player. All data comes from the **pack YAML** (pha
      d. If user says "pular" → skip for this session, move to next pending
      e. If user says "s" → this is the next mission
    - Return this item as the next mission
-4. If no pending items exist in any unlocked phase → quest is complete
+4. If no pending items exist in any unlocked phase:
+   a. Check ALL phases (including locked ones) for any `pending` items in `resolved_items`
+   b. If pending items exist in locked phases → show: "Todas as missões dos worlds desbloqueados estão completas, mas ainda há missões pendentes em worlds trancados. Verifique se o Integration Gate (§2.5) foi aprovado para desbloquear o próximo world."
+   c. If NO pending items exist in ANY phase (unlocked or locked) → quest is complete
 ```
 
 ### Phase Unlock Check

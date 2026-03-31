@@ -114,7 +114,7 @@ items:
    - **Match:** proceed normally.
    - **Mismatch:** ask the user: `"Quest log usa pack '{meta.pack}', mas scanner detectou '{scanner_pack}'. Qual usar? (log/scanner)"`.
      - If user chooses `log`: use the pack from `meta.pack`.
-     - If user chooses `scanner`: update `meta.pack` and `meta.pack_version` to the scanner's pack, then rebuild items (add new items as pending, keep existing items with their status).
+     - If user chooses `scanner`: update `meta.pack` and `meta.pack_version` to the scanner's pack, **clear `integration_results` to `{}`** (prior pack's gate results are invalid for the new pack's phase structure), then rebuild items (add new items as pending, keep existing items with their status).
 3. **Pack version check:** If `meta.pack_version != pack.version`, run Pack Version Migration (§3.5) before proceeding. This is part of the Read flow — not a separate step the orchestrator must remember to call.
 4. **Promote detected items (BEFORE stats):** For each phase that is currently UNLOCKED, find all items with `status: detected` in the quest-log. Promote each to `done` (set `status: done`, `completed_at: <now>`, remove `detected_at`). This ensures scan pre-detections are persisted as completed once the phase is legitimately unlocked via the Integration Gate. Promotions happen here — inside the Read flow — so they are saved to disk before any ceremony or guide rendering.
    **IMPORTANT — Read-safe unlock check:** Do NOT call `is_phase_unlocked` from guide.md §2 here. That function includes the interactive Integration Gate (`verify_phase_integration`), which can prompt the user or run shell commands — unacceptable during a read/rehydration flow. Instead, use the pure predicate `is_phase_unlocked_persisted`:
