@@ -444,7 +444,7 @@ When a quest-log already exists (Fortaleza Ativa), do NOT show the full ceremony
 
   Nível {level_number}: {level_name}    XP: {total_xp}/{next_level_xp}
   Progresso: {items_done}/{items_total} ({percent}%)
-  ▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░  {percent}%
+  ████████████░░░░░░░░  {percent}%
 
   Bem-vindo de volta, {hero_name}!
 
@@ -475,7 +475,7 @@ Generate a 20-character progress bar based on percent:
 
 ```
 filled = floor(20 * percent / 100)
-bar = "▓" * filled + "░" * (20 - filled)
+bar = "█" * filled + "░" * (20 - filled)
 ```
 
 ### Rules

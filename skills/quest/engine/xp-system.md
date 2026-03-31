@@ -224,17 +224,17 @@ streak >= N
 
 Parse N from the condition string (e.g., `"consecutive_completions >= 5"` → N = 5).
 
-#### `total_xp >= N`
+#### `item_xp >= N`
 
-The player's XP from completed items, before achievement bonuses (`base_item_xp` from section 2), meets or exceeds N.
-
-**Note:** Despite the condition name `total_xp`, this evaluates `base_item_xp` (items only, no achievement bonuses). This prevents circular dependencies where an achievement's own XP bonus could trigger another achievement. Pack authors should be aware that the threshold refers to item XP earned, not the final displayed total.
+The player's XP from completed items only, before achievement bonuses (`base_item_xp` from section 2), meets or exceeds N. This prevents circular dependencies where an achievement's own XP bonus could trigger another achievement.
 
 ```
 base_item_xp >= N
 ```
 
-Parse N from the condition string (e.g., `"total_xp >= 500"` → N = 500).
+Parse N from the condition string (e.g., `"item_xp >= 500"` → N = 500).
+
+**Legacy alias:** `total_xp >= N` is accepted as an alias for `item_xp >= N` for backward compatibility with existing packs. Both evaluate `base_item_xp`, NOT the final `total_xp` displayed to the user. New packs SHOULD use `item_xp >= N` to avoid confusion. The alias may be removed in a future version.
 
 #### `all_items_done`
 

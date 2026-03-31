@@ -347,17 +347,25 @@ Based on the match results from Section 4.4:
 
 ### User provided free text (`args.text`)
 
-Before running detection rules, check if the user's text matches a pack by keyword:
+Before running detection rules, check if the user's text matches a pack by keyword. Build the keyword table **dynamically** from loaded packs:
 
-| Text pattern (case-insensitive) | Pack suggestion |
-|--------------------------------|-----------------|
-| Contains "app"/"aplicação"/"software"/"build"/"deploy" | `app-development` |
-| Contains "squad" + ("upgrade"/"melhorar"/"evoluir"/"refatorar") | `squad-upgrade` |
-| Contains "design system"/"design-system"/"DS"/"tokens" | `design-system-forge` |
+1. Load all valid packs from `packs/*.yaml` (already loaded in §3.1)
+2. For each pack, extract `pack.id` and `pack.keywords` (array of strings, optional field)
+3. Match the user's text (case-insensitive) against each pack's keywords
+4. If a match is found → treat as `high` confidence for that pack
 
-**IMPORTANT:** This table MUST reference only packs that exist in `packs/*.yaml`. If a text pattern has no matching pack, do NOT suggest it — fall through to detection rules or manual selection instead.
+If a pack does not define `keywords`, it is not matchable by free text — fall through to detection rules.
 
-If text matches → treat as `high` confidence for that pack (same as `--pack` override but with confirmation).
+> **Example** (non-normative — actual values come from loaded packs):
+>
+> | Text pattern | Pack |
+> |---|---|
+> | "app", "build", "deploy" | `app-development` (if it exists and defines these keywords) |
+> | "squad", "upgrade" | `squad-upgrade` (if it exists and defines these keywords) |
+>
+> These are illustrative only. Do NOT hardcode pack IDs — always resolve from `packs/*.yaml`.
+
+If text matches → treat as `high` confidence for that pack (same as `--pack` override but with confirmation). If no pack keywords match the user's text, fall through to detection rules or manual selection.
 
 ---
 

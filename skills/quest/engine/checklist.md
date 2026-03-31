@@ -114,7 +114,24 @@ items:
      - If user chooses `log`: use the pack from `meta.pack`.
      - If user chooses `scanner`: update `meta.pack` and `meta.pack_version` to the scanner's pack, then rebuild items (add new items as pending, keep existing items with their status).
 3. **Pack version check:** If `meta.pack_version != pack.version`, run Pack Version Migration (§3.5) before proceeding. This is part of the Read flow — not a separate step the orchestrator must remember to call.
-4. **Promote detected items (BEFORE stats):** For each phase that is currently UNLOCKED (using `is_phase_unlocked` from guide.md §2), find all items with `status: detected` in the quest-log. Promote each to `done` (set `status: done`, `completed_at: <now>`, remove `detected_at`). This ensures scan pre-detections are persisted as completed once the phase is legitimately unlocked via the Integration Gate. Promotions happen here — inside the Read flow — so they are saved to disk before any ceremony or guide rendering.
+4. **Promote detected items (BEFORE stats):** For each phase that is currently UNLOCKED, find all items with `status: detected` in the quest-log. Promote each to `done` (set `status: done`, `completed_at: <now>`, remove `detected_at`). This ensures scan pre-detections are persisted as completed once the phase is legitimately unlocked via the Integration Gate. Promotions happen here — inside the Read flow — so they are saved to disk before any ceremony or guide rendering.
+   **IMPORTANT — Read-safe unlock check:** Do NOT call `is_phase_unlocked` from guide.md §2 here. That function includes the interactive Integration Gate (`verify_phase_integration`), which can prompt the user or run shell commands — unacceptable during a read/rehydration flow. Instead, use the pure predicate `is_phase_unlocked_persisted`:
+   ```
+   function is_phase_unlocked_persisted(phase_index, pack, quest_log):
+     if phase_index == 0: return true
+     previous_phase = pack.phases[phase_index - 1]
+     for item in previous_phase.items:
+       if item.required == true:
+         item_status = quest_log.items[item.id].status
+         if item_status != "done" AND item_status != "unused":
+           return false
+     // Check persisted integration result instead of running the gate
+     prev_result = quest_log.integration_results[str(phase_index)]
+     if prev_result is undefined OR prev_result.passed != true:
+       return false
+     return true
+   ```
+   This predicate checks required-item status AND the persisted `integration_results` entry — no side effects, no user interaction. The full interactive `is_phase_unlocked` (with `verify_phase_integration`) is used only in the progression flow (§4 check/skip and §5 scan).
 5. **Always recalculate stats** via xp-system. Never trust saved `stats` values. Pass the current pack and the quest-log items to xp-system, write the returned stats to `quest_log.stats`. This runs AFTER promotion (step 4) so promoted items are counted.
 6. **Save if changed:** If ANY of the above steps modified the quest-log (promotion in step 4, migration in step 3, pack switch in step 2, or stats differ from saved values), save the quest-log to disk via Save Rules (§8) BEFORE returning. This guarantees that ceremony.md and guide.md always render from persisted state, not volatile in-memory mutations. Note: `meta.last_updated` is set by Save Rules (§8) during the write — do NOT update it here in the read flow, as that would turn every read into a write.
 
@@ -312,7 +329,7 @@ Items with a `condition` field require special handling.
    - If `scan_rule` is `false` → proceed to step 2.
 2. Ask the user: `"Este item se aplica? {condition} (s/n/pular)"`
    - `s` (yes): item stays `pending` — it applies but is not yet done. The user must complete it normally.
-   - `n` (no): mark as `skipped` with `note: "Não se aplica: {condition}"`.
+   - `n` (no): mark as `unused` (delegate to unused flow §4). The condition does not apply to this project, so the item is excluded from `items_total` and `percent`. Do NOT use `skipped` here — `skipped` is for applicable items the user chose to bypass.
    - `pular` (skip for now): leave as `pending`, do not ask again in this session.
 3. Conditions are evaluated during scan and during first-time quest-log creation.
 
