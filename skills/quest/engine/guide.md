@@ -688,8 +688,8 @@ If the same mission is shown 3+ times without progress ({hero_name} keeps saying
 
 ## 8. Edge Cases
 
-- **No pending items in any unlocked phase but locked phases remain:** Show: "Todas as missões do world atual estão completas, mas o próximo world ainda está trancado. Verifique se há missões obrigatórias pendentes."
-- **All items done:** Trigger Final Victory (section 4.5).
+- **No pending items in any unlocked phase but locked phases remain:** Show: "Todas as missões do world atual estão completas, mas o próximo world ainda está trancado. Verifique se há itens obrigatórios pendentes ou se o Integration Gate (§2.5) ainda não foi aprovado."
+- **No pending items in `resolved_items` across all phases (including valid sub-items):** Trigger Final Victory (section 4.5). Items with status `skipped` or `unused` do NOT block victory — only `pending` does.
 - **Pack has no phases:** Show: "Este pack não tem missões definidas."
 - **Phase has no items:** Skip the phase, treat as complete for unlock purposes.
 - **Phase with all items `unused` (total = 0):** Render progress bar as `░░░░░░░░░░░░░░░░` (empty), show `0/0` and `0%`. Never divide by zero — the `progress_bar()` guard in §5 handles this.

@@ -221,16 +221,17 @@ cwd.includes(resolved)
 
 Pure string check, no tool call needed. **IMPORTANT:** Always expand `~` to the absolute home path before comparison, otherwise rules like `inside_path('~/CODE/Projects')` will never match.
 
-#### Compound conditions: `AND` / `OR`
+#### Compound conditions: `AND` / `OR` / `NOT`
 
-Conditions can use `AND` and `OR` to combine functions:
+Conditions can use `AND`, `OR`, and unary `NOT` to combine functions:
 
 ```
 "has_file('package.json') AND has_dir('src')"
 "has_file('config.yaml') OR has_file('squad.yaml')"
+"has_file('package.json') AND NOT has_file('.aios/quest-log.yaml')"
 ```
 
-**Evaluation:** split by `AND`/`OR`, evaluate each sub-expression, apply boolean logic. `AND` binds tighter than `OR`.
+**Evaluation:** split by `AND`/`OR`, evaluate each sub-expression, apply boolean logic. Precedence (highest to lowest): `NOT` > `AND` > `OR`. `NOT` applies to the immediately following sub-expression only.
 
 ### 4.2 Parallel evaluation strategy
 
