@@ -379,8 +379,8 @@ Items with a `condition` field require special handling.
 4. For any items in the pack that do NOT exist in the old checklist, add them as `{ status: pending }`.
 5. Recalculate stats via xp-system (never trust migrated `total_xp`, `level`, `streak` values).
 6. **Do NOT write `.aios/quest-log.yaml` yet.** The migrated data is missing `meta.hero_name` and `meta.hero_title`, which are only collected during the ceremony (ceremony.md §A-B). Return the migration payload to SKILL.md so it can merge hero identity from the ceremony before persisting. SKILL.md Step 7 is responsible for the final write (see SKILL.md §Step 7).
-7. Rename `.aios/pipeline-checklist.yaml` to `.aios/pipeline-checklist.yaml.bak`.
-8. Show message: `"Dados migrados com sucesso! Formato antigo salvo em pipeline-checklist.yaml.bak. Aguardando cerimônia para finalizar quest-log."`
+7. **Do NOT rename `.aios/pipeline-checklist.yaml` yet.** Keep the source file in place so the migration can be re-run if the user interrupts before SKILL.md Step 7 writes the quest-log. SKILL.md Step 7 is responsible for renaming to `.bak` AFTER the quest-log is successfully persisted (see SKILL.md §Step 7).
+8. Show message: `"Dados migrados com sucesso! Aguardando cerimônia para finalizar quest-log."`
 
 ---
 

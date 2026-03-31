@@ -110,7 +110,7 @@ Public URL: https://quest.fosc.me (requires local server + tunnel active)
 
 ### Step 7 — Create quest-log
 
-Read `engine/checklist.md` → create `quest-log.yaml` + run initial scan. If Step 3 produced migration data, merge `hero_name`/`hero_title` from the ceremony (Step 4) into the migrated payload and write `.aios/quest-log.yaml` now (see checklist.md §7, step 6). If no migration, create a fresh quest-log as normal (checklist.md §2).
+Read `engine/checklist.md` → create `quest-log.yaml` + run initial scan. If Step 3 produced migration data, merge `hero_name`/`hero_title` from the ceremony (Step 4) into the migrated payload and write `.aios/quest-log.yaml` now (see checklist.md §7, step 6). After the quest-log is successfully written, rename `.aios/pipeline-checklist.yaml` to `.aios/pipeline-checklist.yaml.bak` (see checklist.md §7, step 7). If no migration, create a fresh quest-log as normal (checklist.md §2).
 
 ### Step 8 — First mission
 

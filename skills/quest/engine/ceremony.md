@@ -24,8 +24,11 @@ Before generating anything, check if the pack has a custom ceremony:
 if pack.ceremony_override exists:
   Read the file at pack.ceremony_override (relative to pack directory)
   Output its contents AS-IS (plain text, no code blocks)
-  STOP — do not generate any ceremony below
+  THEN run Hero Identity (Section 1.5) — hero_name is REQUIRED for quest-log persistence
+  STOP — do not generate any other ceremony sections below
 ```
+
+**Why Hero Identity is mandatory:** `SKILL.md` Step 7 requires `hero_name` and `hero_title` to persist the quest-log (checklist.md §2 and §7). Skipping Hero Identity would leave the engine without the data it needs to write a valid quest-log. The override replaces the visual ceremony (title screen, loading, project card), NOT the data collection step.
 
 If no override, proceed with the generated ceremony.
 
@@ -457,7 +460,7 @@ When a quest-log already exists (Fortaleza Ativa), do NOT show the full ceremony
 
 | Field | Source |
 |-------|--------|
-| `pack.icon` | Pack YAML `pack.icon` |
+| `pack.icon` | Pack YAML `pack.icon` (fallback: empty string `""` if not present) |
 | `pack.name` | Pack YAML `pack.name` |
 | `project_name` | Directory name from `cwd` |
 | `hero_name` | `quest_log.meta.hero_name` (fallback: "Aventureiro") |
