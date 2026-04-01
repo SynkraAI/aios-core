@@ -115,6 +115,8 @@ Store the responses in the quest-log `meta` block:
 
 **Contract — hero_name fallback:** If after all retries the user provides no valid name, the fallback is **"Aventureiro"**. This is the same fallback defined in SKILL.md (Contract — hero_name fallback), guide.md §1 (Voice Rule 1), and ceremony.md §7 (Resumption Banner). All four locations MUST use the same fallback string. If the fallback changes, update ALL locations in the same commit.
 
+**Contract — hero_title fallback:** The fallback for `hero_title` is **empty string `""`** (no title). This is the same fallback defined in SKILL.md (quest-log meta), guide.md §1 (Voice Rule 1), and ceremony.md §7 (Resumption Banner). All four locations MUST treat empty/missing/whitespace-only `hero_title` as "no title" and omit it from output. If the fallback behavior changes, update ALL locations in the same commit.
+
 ### Usage
 
 From this point forward, NEVER use "Builder" again. Always use `{hero_name}` to address the user. If they provided a `hero_title`, use it in special moments (celebrations, level ups, final victory) with the format: `{hero_name}, {hero_title}`.
