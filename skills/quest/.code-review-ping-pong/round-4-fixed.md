@@ -2,16 +2,16 @@
 protocol: code-review-ping-pong
 type: fix
 round: 4
-date: "2026-03-31"
+date: "2026-04-01"
 fixer: "Claude Opus 4.6"
 review_file: round-4.md
-commit_sha_before: "ff6f21f33d2b3d2a93c4045e44aa88fc2daab4a8"
-commit_sha_after: "caf24e69e2b2af648217132e8168e1d60306a090"
+commit_sha_before: "798a8c890ab0f575d59f16c22d987d6590c14faa"
+commit_sha_after: "d8a005cb53a3f667bcf8c432609dbbd5c63e37cb"
 branch: chore/devops-10-improvements
-issues_fixed: 3
+issues_fixed: 4
 issues_skipped: 0
-issues_total: 3
-git_diff_stat: "3 files changed, 8 insertions(+), 4 deletions(-)"
+issues_total: 4
+git_diff_stat: "4 files changed, 33 insertions(+), 4 deletions(-)"
 quality_checks:
   lint: skipped
   typecheck: skipped
@@ -19,56 +19,126 @@ quality_checks:
 fixes:
   - id: "4.1"
     status: FIXED
-    file: "SKILL.md"
-    description: "Changed status entrypoint from 'show summary' to 'show status' so guide.md decides the view"
+    file: "engine/ceremony.md"
+    description: "Expanded contract notes in both §2 and §7 to explicitly cross-reference all 4 progress bar locations: ceremony §2 (loading), ceremony §7 (resumption banner), guide.md §5 (Quest Log View per-phase bars), and guide.md §6 (summary view). Added back-reference from §7 to §2 as the originating contract. Propagation: grepped for 'progress_bar' and 'bar width' across all engine files — confirmed guide.md §5 and §6 already reference the contract correctly. No additional files needed changes."
     deviation: "none"
   - id: "4.2"
     status: FIXED
-    file: "engine/xp-system.md"
-    description: "Added 3-part ID fallback for sub-item detection when sub_of is absent"
+    file: "engine/guide.md"
+    description: "Added [·] unused icon line to the Quest Log View template (§5) between [-] skipped and the separator, showing '(não se aplica)' label. Added contract note after Item Status Icons table cross-referencing checklist.md §1 and ceremony.md §3 for visual consistency. Propagation: searched for 'unused' icon usage across all engine modules — checklist.md §1 already documents [·] in the unused lifecycle, ceremony.md §3 inventory uses [+]/[-] for found/absent (different context, no [·] needed there). xp-system.md §5 excludes unused from counters (no icon rendering). No other files needed the icon added."
     deviation: "none"
   - id: "4.3"
     status: FIXED
-    file: "engine/guide.md"
-    description: "Included 'unused' in COMPLETE phase state rule alongside done/skipped"
+    file: "engine/scanner.md"
+    description: "Added comprehensive fallback behavior table in §3.2 documenting defaults for all 14 optional fields: pack-level (keywords, type, parent_pack, parent_item, fallback_question), top-level (achievements, sub_quests), and item-level (tip, condition, scan_rule, note, per_agent), plus detection.prerequisites. Added contract statement that absence of optional fields must never cause errors. Propagation: verified each default against consuming modules — guide.md §3 (tip fallback), checklist.md §1 (condition absence), checklist.md §5 (scan_rule absence), xp-system.md §7 (achievements absence). All consistent with documented defaults."
+    deviation: "none"
+  - id: "4.4"
+    status: FIXED
+    file: "engine/checklist.md"
+    description: "Added cross-reference comment in §1 (quest-log template, achievements field) to xp-system.md §7, explicitly noting that total_xp >= N is deprecated and item_xp >= N must be used for new packs. Propagation: searched for 'total_xp >=' and 'achievement' across all engine modules — xp-system.md §7 already has the deprecation notice and legacy alias docs. guide.md does not evaluate achievement conditions (only renders). scanner.md does not touch achievements. No additional files needed the cross-reference."
     deviation: "none"
 preserved:
-  - "engine/ceremony.md — no issues found in this round"
-  - "engine/checklist.md — no issues found in this round"
-  - "engine/scanner.md — no issues found in this round"
+  - "engine/xp-system.md — already has deprecation notice in §7, no changes needed"
+  - "engine/forge-bridge.md — not in scope for any of the 4 issues"
+  - "SKILL.md — not affected by any of the 4 documentation fixes"
 ---
 
 # Code Ping-Pong — Round 4 Fix Report
 
-## Fixed Issues
+## Summary
+
+All 4 issues from round-4 review were addressed. Changes are purely documentation/contract improvements — no behavioral logic changed. Each fix includes propagation analysis (anti-whack-a-mole + semantic propagation) to ensure consistency across all engine modules.
+
+---
+
+## Fixes Applied
 
 ### Fix for Issue 4.1
 
-**Entrypoint de `status` ainda fixa a view de summary e contradiz o contrato do guide**
+**Problem:** Resumption Banner (ceremony.md §7) progress bar lacked explicit cross-reference to the shared contract established in §2 and guide.md §5.
 
-- **File:** `SKILL.md:115`
-- **Change:** Replaced `→ show summary` with `→ show status` in the routing table.
-- **Why:** The entrypoint was forcing a specific output ("summary") when `guide.md` already defines two views — the expanded Quest Log View (§5) and the compact Summary View (§6). Using the generic term "show status" lets guide.md pick the appropriate view based on context.
-- **Anti-whack-a-mole:** Grepped for `show summary` across all quest files — only one occurrence in SKILL.md.
+**What was done:**
+- Expanded the contract note in **ceremony.md §7** (lines 489-496) to explicitly list all 4 locations that share the progress bar visual contract: ceremony §2 (loading sequence), ceremony §7 (resumption banner), guide.md §5 (Quest Log View per-phase bars), and guide.md §6 (summary view compact bars).
+- Added a back-reference line: "See also ceremony.md §2 (loading sequence) which established this contract originally."
+- Updated the contract note in **ceremony.md §2** (line 165) to also reference guide.md §6 (summary view), which was previously missing from its cross-reference list.
+
+**Propagation analysis:** Grepped for `progress_bar`, `bar width`, `█.*░`, and `round.*20` across all engine files. Confirmed:
+- guide.md §5 `progress_bar()` function: already correctly documented with matching contract.
+- guide.md §6 summary view: already states "MUST use the `progress_bar()` function from section 5". Now also referenced from ceremony.md.
+- xp-system.md: does not render progress bars (calculation only). No changes needed.
+- checklist.md, scanner.md: do not render progress bars. No changes needed.
+
+---
 
 ### Fix for Issue 4.2
 
-**XP system ignora o fallback por ID de 3 partes prometido para sub-itens**
+**Problem:** Quest Log View in guide.md §5 did not include the `[·]` icon for `unused` items in the template example, breaking visual contract with checklist.md and ceremony.md.
 
-- **File:** `engine/xp-system.md:38-49`
-- **Change:** Added a fallback path that derives `parent_id` from the first two dot-separated parts of a 3+ part ID (e.g. `"4.2.M8"` → `"4.2"`) when `sub_of` is absent.
-- **Why:** The comment and `checklist.md` §7.5 promised two detection mechanisms for sub-items (`sub_of` field OR 3-part ID), but only `sub_of` was implemented. Legacy or manually-created sub-items with valid 3-part IDs but no `sub_of` field would silently disappear from XP, counters, streak, and achievements.
-- **Anti-whack-a-mole:** Grepped for `sub_of is defined` across all quest files — only one occurrence in xp-system.md.
+**What was done:**
+- Added `[·] {id}  {label} .......................... (não se aplica)` line to the Quest Log View template in guide.md §5, between the `[-]` (skipped) and separator lines.
+- Added a **contract note** after the Item Status Icons table, cross-referencing checklist.md §1 (unused lifecycle) and ceremony.md §3 (inventory), plus xp-system.md §5 (counter exclusion).
+
+**Propagation analysis:** Searched for `unused` icon rendering and the `[·]` symbol across all modules:
+- checklist.md §1: documents `unused` status with `[·]` icon in the "Are shown with a distinct visual indicator" note. Consistent. ✓
+- checklist.md §5 scan output: uses `[·]` in the unused_decisions display. Consistent. ✓
+- ceremony.md §3 inventory: uses `[+]`/`[-]` for found/absent, not item statuses. Different context — no `[·]` needed. ✓
+- xp-system.md §5: excludes unused from counters, no icon rendering. ✓
+- guide.md §5 Item Status Icons table (line 626): already had `[·]` for `unused`. The template just lacked the example line. ✓
+
+---
 
 ### Fix for Issue 4.3
 
-**Regra de COMPLETE no status view não inclui fases resolvidas só com `unused`**
+**Problem:** scanner.md §3.2 described optional pack fields but did not document fallback behavior when they are absent.
 
-- **File:** `engine/guide.md:557`
-- **Change:** Updated the phase state rule from `done/skipped` to `done/skipped/unused`.
-- **Why:** The same file defines in §4.2 and §8 that `unused` doesn't block a world and that all-unused worlds render as `0/0` / `0%`. The COMPLETE rule needed to include `unused` to stay consistent — otherwise a phase with only non-applicable items would never show as COMPLETE despite being semantically finished.
-- **Anti-whack-a-mole:** Grepped for `done/skipped` (without `unused`) across all quest files — only one occurrence in guide.md (the one fixed).
+**What was done:**
+- Added a comprehensive **fallback behavior table** in scanner.md §3.2 (after the schema listing, before validation failure handling), covering all 14 optional fields:
+  - Pack-level: `keywords`, `type`, `parent_pack`, `parent_item`
+  - Detection-level: `prerequisites`, `fallback_question`
+  - Top-level: `achievements`, `sub_quests`
+  - Item-level: `tip`, `condition`, `scan_rule`, `note`, `per_agent`
+- Each entry documents the default value and references the consuming module.
+- Added a **contract statement**: absence of optional fields MUST NOT cause errors.
+
+**Propagation analysis (semantic):** The contract here is "optional field absence = safe default". Verified each consuming module:
+- guide.md §3 (mission card): `item.tip` falls back to `phase.description`, then "Sem dica adicional." Consistent. ✓
+- guide.md §2 (next mission): items without `condition` field are unconditionally eligible. Consistent. ✓
+- checklist.md §1: items without `condition` get no `condition_state` field. Consistent. ✓
+- checklist.md §5 (scan): items without `scan_rule` are not auto-detectable. Consistent. ✓
+- xp-system.md §7: packs with no `achievements` skip evaluation. Consistent. ✓
+- scanner.md §6.5.1: empty/absent `prerequisites` passes gate by default. Consistent. ✓
+- scanner.md §6.5.2: absent `type` skips expansion gate. Consistent. ✓
+
+---
+
+### Fix for Issue 4.4
+
+**Problem:** checklist.md did not cross-reference the deprecation warning for `total_xp >= N` in xp-system.md §7, weakening the contract for pack authors.
+
+**What was done:**
+- Added a cross-reference comment in **checklist.md §1** (quest-log template, `achievements` field) pointing to xp-system.md §7 and explicitly stating:
+  - `item_xp >= N` is the canonical condition for XP thresholds.
+  - `total_xp >= N` is DEPRECATED (alias for `item_xp >= N`).
+  - Pack authors MUST use `item_xp >= N` for all new packs.
+
+**Propagation analysis (semantic):** The contract is "achievement condition naming convention". Modules that participate:
+- xp-system.md §7: authoritative source with full deprecation notice and migration guidance. Already complete. ✓
+- checklist.md §1: now cross-references the deprecation. ✓ (this fix)
+- checklist.md §5 (scan): passes `scan_detected_count` to xp-system for `auto_detected >= N` / `scan_found >= N` conditions. Does not evaluate XP conditions directly. No cross-ref needed. ✓
+- guide.md: does not evaluate achievement conditions (only renders celebrations). No cross-ref needed. ✓
+- scanner.md: does not touch achievements. No cross-ref needed. ✓
+- ceremony.md: does not touch achievements. No cross-ref needed. ✓
+
+---
 
 ## Skipped Issues
 
-None.
+(none)
+
+---
+
+## Quality Checks
+
+- **lint:** skipped (markdown-only changes, no lintable code)
+- **typecheck:** skipped (markdown-only changes, no TypeScript)
+- **tests:** skipped (markdown-only changes, no test suite for engine docs)
