@@ -13,7 +13,7 @@ You receive two data sources:
 
 ---
 
-## 2. Calculate `base_item_xp`
+## 2. Calculate `total_base_xp`
 
 First calculate the XP earned from completed items only. This value is used by achievement conditions that explicitly say "before achievement bonuses".
 
@@ -64,21 +64,21 @@ for each phase in pack.phases:
 ### 2.0.1 XP calculation
 
 ```
-base_item_xp = 0
+total_base_xp = 0
 
 for each item in resolved_items:
   if quest_log.items[item.id].status == "done":
-    base_item_xp += item.xp
+    total_base_xp += item.xp
 ```
 
 Items with status `pending` or `skipped` contribute 0 XP.
 
 ### 2.1 Calculate final `total_xp`
 
-After achievement evaluation is complete, calculate the final `total_xp` by adding the bonuses from ALL unlocked achievements to `base_item_xp`.
+After achievement evaluation is complete, calculate the final `total_xp` by adding the bonuses from ALL unlocked achievements to `total_base_xp`.
 
 ```
-total_xp = base_item_xp
+total_xp = total_base_xp
 
 for each achievement in quest_log.achievements:
   pack_achievement = find achievement in pack.achievements where id == achievement.id
@@ -283,15 +283,15 @@ Parse N from the condition string (e.g., `"consecutive_completions >= 5"` → N 
 
 #### `item_xp >= N`
 
-The player's XP from completed items only, before achievement bonuses (`base_item_xp` from section 2), meets or exceeds N. This prevents circular dependencies where an achievement's own XP bonus could trigger another achievement.
+The player's XP from completed items only, before achievement bonuses (`total_base_xp` from section 2), meets or exceeds N. This prevents circular dependencies where an achievement's own XP bonus could trigger another achievement.
 
 ```
-base_item_xp >= N
+total_base_xp >= N
 ```
 
 Parse N from the condition string (e.g., `"item_xp >= 500"` → N = 500).
 
-**Legacy alias:** `total_xp >= N` is accepted as an alias for `item_xp >= N` for backward compatibility with existing packs. Both evaluate `base_item_xp`, NOT the final `total_xp` displayed to the user. New packs SHOULD use `item_xp >= N` to avoid confusion. The alias may be removed in a future version.
+**Legacy alias:** `total_xp >= N` is accepted as an alias for `item_xp >= N` for backward compatibility with existing packs. Both evaluate `total_base_xp`, NOT the final `total_xp` displayed to the user. New packs SHOULD use `item_xp >= N` to avoid confusion. The alias may be removed in a future version.
 
 #### `all_items_done`
 
@@ -356,10 +356,10 @@ When stats change, return the calculated data (stats, newly_unlocked, level chan
 
 When the engine calls the XP system (after any status change), execute in this exact order:
 
-1. Calculate `base_item_xp` from completed items only (section 2)
+1. Calculate `total_base_xp` from completed items only (section 2)
 2. Calculate `streak` (section 4)
 3. Calculate counters: `items_done`, `items_total`, `items_skipped`, `percent` (section 5)
-4. Evaluate achievements using item status + `streak` + `base_item_xp` + scan context, then add newly unlocked to `quest_log.achievements[]` (section 7)
+4. Evaluate achievements using item status + `streak` + `total_base_xp` + scan context, then add newly unlocked to `quest_log.achievements[]` (section 7)
 5. Calculate final `total_xp` including all unlocked achievement bonuses (section 2.1)
 6. Determine `level` and `level_name` from final `total_xp` (section 3)
 7. Assemble stats object (section 6)

@@ -10,7 +10,7 @@ You are the **Quest Master** — an RPG narrator who is also a senior dev mentor
 
 ### Voice Rules
 
-1. Address the user by their **`hero_name`** from `quest-log.yaml meta.hero_name`. If `hero_title` exists, use it in celebrations: e.g. "Luiz, O Forjador". NEVER output the literal placeholder `{hero_name}` — always resolve it to the actual personalized name before rendering.
+1. Address the user by their **`hero_name`** from `quest-log.yaml meta.hero_name` (fallback: "Aventureiro" if no quest-log yet or field is empty). If `hero_title` exists, use it in celebrations: e.g. "Luiz, O Forjador". NEVER output the literal placeholder `{hero_name}` — always resolve it to the actual personalized name before rendering.
 2. Short, punchy sentences. No essays. Quest Masters speak with purpose.
 3. Use RPG metaphors — the project is a quest, phases are worlds, items are missions, completions are victories
 4. Celebratory on wins, encouraging on challenges. Never robotic or clinical.
@@ -628,7 +628,7 @@ Shows all phases as "worlds" with thematic names from the pack. The current worl
 
 ### Progress Bar
 
-16-character bar: filled = done+skipped, empty = pending/detected.
+20-character bar: filled = done+skipped, empty = pending/detected.
 
 **IMPORTANT — per-phase totals:** When rendering a progress bar for a specific world/phase, compute the counters from that phase's `resolved_items` only — NOT from the global `items_total` in xp-system §5 (which covers the entire quest). For each phase:
 - `phase_done` = count of items in that phase with status `done`
@@ -641,9 +641,9 @@ Pass `phase_done`, `phase_skipped`, and `phase_total` to `progress_bar()`. The g
 ```
 function progress_bar(done, skipped, total):
   if total <= 0:
-    return "░" * 16          // world with all items unused → empty bar, 0%
-  filled = round((done + skipped) / total * 16)
-  return "█" * filled + "░" * (16 - filled)
+    return "░" * 20          // world with all items unused → empty bar, 0%
+  filled = round((done + skipped) / total * 20)
+  return "█" * filled + "░" * (20 - filled)
 ```
 
 ---
@@ -652,7 +652,7 @@ function progress_bar(done, skipped, total):
 
 Compact one-line-per-phase view with overall stats. This is NOT a separate command — it is rendered as part of `/quest status` when the engine determines that a compact overview is more useful (e.g., many phases). The entrypoint routes `status` to guide.md; the guide decides whether to show the expanded view (§5) or this summary.
 
-**IMPORTANT:** This view MUST use the `progress_bar()` function from section 5 (16-char bar with `█` and `░`). Do NOT substitute with `[done/total]` or any other format — the progress bar is mandatory here. Each per-phase row uses **phase-scoped counters** (`phase_done`, `phase_skipped`, `phase_total` — see §5 progress bar rules), NOT global `items_total`. The global counters appear only in the bottom summary line (`Missões: {items_done + items_skipped}/{items_total}`).
+**IMPORTANT:** This view MUST use the `progress_bar()` function from section 5 (20-char bar with `█` and `░`). Do NOT substitute with `[done/total]` or any other format — the progress bar is mandatory here. Each per-phase row uses **phase-scoped counters** (`phase_done`, `phase_skipped`, `phase_total` — see §5 progress bar rules), NOT global `items_total`. The global counters appear only in the bottom summary line (`Missões: {items_done + items_skipped}/{items_total}`).
 
 ### Template
 
@@ -675,9 +675,9 @@ Compact one-line-per-phase view with overall stats. This is NOT a separate comma
 ### Example Output
 
 ```
-  W0  A Oficina            ██░░░░░░░░░░░░░░  1/7   ← AQUI
-  W1  O Mapa do Tesouro    ░░░░░░░░░░░░░░░░  0/5   LOCKED
-  W2  A Planta             ░░░░░░░░░░░░░░░░  0/8   LOCKED
+  W0  A Oficina            ███░░░░░░░░░░░░░░░░░  1/7   ← AQUI
+  W1  O Mapa do Tesouro    ░░░░░░░░░░░░░░░░░░░░  0/5   LOCKED
+  W2  A Planta             ░░░░░░░░░░░░░░░░░░░░  0/8   LOCKED
 ```
 
 ### State Labels
@@ -792,7 +792,7 @@ If the same mission is shown 3+ times without progress ({hero_name} keeps saying
 - **No unresolved items in `resolved_items` across all phases (including valid sub-items):** Trigger Final Victory (section 4.5). Items with status `skipped` or `unused` do NOT block victory — only `pending` and `detected` do. `detected` items represent pre-scanned work in locked phases that hasn't been promoted through the Integration Gate.
 - **Pack has no phases:** Show: "Este pack não tem missões definidas."
 - **Phase has no items:** Skip the phase, treat as complete for unlock purposes.
-- **Phase with all items `unused` (total = 0):** Render progress bar as `░░░░░░░░░░░░░░░░` (empty), show `0/0` and `0%`. Never divide by zero — the `progress_bar()` guard in §5 handles this.
+- **Phase with all items `unused` (total = 0):** Render progress bar as `░░░░░░░░░░░░░░░░░░░░` (empty), show `0/0` and `0%`. Never divide by zero — the `progress_bar()` guard in §5 handles this.
 - **Item exists in pack but not in quest-log:** Treat as `pending` (checklist module adds it on next save).
 - **Quest-log item not in pack:** Ignore orphaned legacy items, but DO display valid sub-items (detected via `sub_of` field or 3+ dot-separated ID parts). Render each valid sub-item indented under its parent in the status view:
   ```

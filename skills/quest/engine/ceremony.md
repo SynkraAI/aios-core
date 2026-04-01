@@ -469,6 +469,7 @@ When a quest-log already exists (Fortaleza Ativa), do NOT show the full ceremony
 | `total_xp` | `quest_log.stats.total_xp` |
 | `next_level_xp` | `pack.levels[level_number + 1].xp` (or `MAX` if at max level) |
 | `items_done` | `quest_log.stats.items_done` |
+| `items_skipped` | `quest_log.stats.items_skipped` |
 | `items_total` | `quest_log.stats.items_total` |
 | `percent` | `quest_log.stats.percent` |
 

@@ -358,4 +358,3 @@ Valid values: `"user"` (default/absent), `"forge"`, `"scan"`
 6. **Auto-check on success** — when Forge completes, immediately check the item. Don't ask "Completou?" — Forge already confirmed completion.
 7. **Failure is recoverable** — always offer retry or skip
 8. **Pack workflow overrides item inference** — if `pack.forge_workflow` is set, use it for ALL forge-routed items in that pack
-8. **Pack workflow overrides item inference** — if `pack.forge_workflow` is set, use it for ALL forge-routed items in that pack
