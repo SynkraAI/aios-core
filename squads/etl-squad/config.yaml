@@ -1,0 +1,102 @@
+name: etl-squad
+display_name: ETL Squad
+version: "1.0.0"
+domain: Data Extraction, Transformation & Loading
+description: >
+  Squad autonoma e especializada em ingerir qualquer fonte de dado
+  e transforma-la em estruturas limpas, semanticas e prontas para
+  consumo por outros agentes do AIOX.
+
+keywords:
+  - etl
+  - extraction
+  - parsing
+  - transformation
+  - markdown
+  - data-pipeline
+  - web-scraping
+  - transcription
+  - ocr
+  - chunking
+
+chief: etl-chief
+
+agents:
+  - id: etl-chief
+    tier: 0
+    role: Orchestrator & pipeline router
+  - id: extractor
+    tier: 1
+    role: Source extraction (web, file, API)
+  - id: parser
+    tier: 1
+    role: Content parsing & structure detection
+  - id: enricher
+    tier: 2
+    role: Semantic enrichment & chunking
+  - id: validator
+    tier: 2
+    role: Quality gate & output validation
+  - id: loader
+    tier: 2
+    role: Output formatting & destination routing
+
+pipelines:
+  - url-to-markdown
+  - youtube-to-brief
+  - pdf-to-knowledge
+  - spreadsheet-to-json
+  - deck-to-text
+  - audio-to-transcript
+  - image-to-text
+  - feed-to-items
+  - repo-to-context
+  - batch-urls
+
+workflows:
+  - wf-etl-pipeline.yaml
+  - wf-batch-processing.yaml
+
+phases:
+  phase_1:
+    name: Core
+    pipelines: [url-to-markdown, youtube-to-brief, pdf-to-knowledge]
+    status: planned
+  phase_2:
+    name: Media Expansion
+    pipelines: [deck-to-text, spreadsheet-to-json, audio-to-transcript, image-to-text]
+    status: planned
+  phase_3:
+    name: Integration & Scale
+    pipelines: [feed-to-items, repo-to-context, batch-urls]
+    status: planned
+
+defaults:
+  timeout_ms: 30000
+  retry_attempts: 3
+  retry_delay_ms: 1000
+  chunk_size: 500
+  chunk_overlap: 50
+  output_format: markdown
+  cache_enabled: true
+  cache_ttl_hours: 24
+
+quality:
+  min_quality_score: 0.6
+  min_content_length: 100
+  max_noise_ratio: 0.3
+
+transcription:
+  provider: whisper
+  model: base
+  diarization: false
+
+ocr:
+  provider: tesseract
+  fallback: claude-vision
+  languages: [pt, en]
+
+storage:
+  default_destination: local
+  local_path: ./data/etl-output/
+  organize_by: source_type

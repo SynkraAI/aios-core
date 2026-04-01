@@ -1,0 +1,1 @@
+{"id": "{job_id}_chunk_000", "text": "{chunk_text}", "metadata": {"source_url": "{source_url}", "source_title": "{title}", "section": "{section_path}", "position": 0, "total_chunks": "{chunk_count}", "language": "{language}", "extracted_at": "{extracted_at}"}, "token_count": "{token_count}"}

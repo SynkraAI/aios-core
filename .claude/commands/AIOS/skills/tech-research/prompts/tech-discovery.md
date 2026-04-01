@@ -1,0 +1,1 @@
+../../../../../skills/tech-research/prompts/tech-discovery.md

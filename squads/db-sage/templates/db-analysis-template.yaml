@@ -1,0 +1,291 @@
+# Database Analysis Template (KISS-Enforced)
+# Use this template for squad database analysis
+# Forces validation of reality BEFORE proposing schema changes
+
+analysis_metadata:
+  analysis_type: squad_database_analysis
+  squad_name: null  # e.g., "my-squad", "etl", "analytics"
+  squad_version: null
+  analyst: "DB Sage"
+  analysis_date: null  # ISO8601
+  template_version: "1.0.0"
+
+# ===========================================================================
+# PHASE 1: REALITY CHECK (MANDATORY - Must complete before proceeding)
+# ===========================================================================
+current_state:
+  # Does the system work today?
+  system_works: null  # true / false
+  evidence:
+    command_executed: null  # e.g., "@course-architect *new test-course"
+    output_proof: null  # e.g., "✅ Course generated: outputs/courses/test-course/"
+    files_created: []  # List actual files that prove it works
+
+  # Where is state stored?
+  state_location: null  # "filesystem" / "memory" / "database" / "api" / "hybrid"
+  state_details:
+    filesystem_paths: []  # e.g., ["outputs/courses/{slug}/", "outputs/minds/{slug}/"]
+    database_tables: []  # e.g., ["content_pieces", "minds"]
+    memory_scope: null  # e.g., "process-local", "session", "persistent cache"
+    api_endpoints: []  # e.g., ["POST /api/courses", "GET /api/minds"]
+
+  # Code analysis
+  code_analysis:
+    total_loc: null  # Lines of code
+    key_modules: []  # e.g., ["lib/course_validator.py", "lib/state_manager.py"]
+    data_flow_summary: null  # Where does data originate, transform, and persist?
+    persistence_layer: null  # "files", "database", "both", "none"
+
+  # Critical question: What breaks without database?
+  what_breaks_without_db: null  # "nothing" / "X feature" / "Y query"
+
+  # GATE: If system works + state is filesystem + nothing breaks → STOP HERE
+  recommendation_if_no_pain: null  # "Keep filesystem approach (KISS)"
+
+# ===========================================================================
+# PHASE 2: PAIN VALIDATION (MUST ASK USER - No assumptions allowed)
+# ===========================================================================
+user_pain_points:
+  # Did you ask the user?
+  user_interviewed: null  # true / false
+  interview_date: null  # ISO8601
+
+  # Core questions
+  has_problem: null  # true / false
+  problem_description: null  # Specific, not generic
+  problem_frequency: null  # "daily" / "weekly" / "monthly" / "rarely" / "once"
+  problem_impact: null  # "high" / "medium" / "low"
+
+  # Context
+  affects_who: null  # "all users" / "some users" / "edge case"
+  workarounds_exist: null  # true / false
+  workaround_description: null  # How do they handle it today?
+
+  # Evidence (exact words)
+  user_quote: null  # "I can't find courses by keyword" or "No problem, works fine"
+
+  # GATE: If has_problem = false → STOP HERE
+  recommendation_if_no_problem: null  # "Keep current approach"
+
+# ===========================================================================
+# PHASE 3: EXISTING SCHEMA (CHECK BEFORE CREATING NEW)
+# ===========================================================================
+existing_schema:
+  # Schema inspection
+  schema_inspected: null  # true / false
+  database_url: null  # Supabase URL or local path
+  schema_version: null  # e.g., "v0.7.0"
+
+  # Tables found
+  tables_found: []
+    # Example:
+    # - name: "content_pieces"
+    #   fields: ["id", "project_id", "type", "title", "content", "voice_fidelity_score"]
+    #   relevant_to_pain: true
+    #   reason: "Could store course metadata here"
+
+  # Relevance analysis
+  relevant_tables: []  # Subset of tables_found that could help
+  relevant_fields: []  # Existing fields that are useful
+
+  # Hypothesis: Can existing tables solve the pain?
+  can_solve_with_existing: null  # true / false / partially
+  reasoning: null  # Why existing schema works or doesn't work
+
+  # Minimal changes to existing schema
+  minimal_changes_to_existing: []
+    # Example:
+    # - table: "content_pieces"
+    #   operation: "ALTER TABLE"
+    #   changes:
+    #     - "ADD COLUMN file_path TEXT"
+    #     - "ADD COLUMN persona_mind_id UUID REFERENCES minds(id)"
+    #   solves_pain_how: "Enables finding courses by persona/keyword"
+
+  # GATE: If can_solve_with_existing = true → Propose minimal changes, don't create new tables
+
+# ===========================================================================
+# PHASE 4: MINIMAL PROPOSAL (Only if justified by Phase 1-3)
+# ===========================================================================
+minimal_proposal:
+  # Approach selection
+  approach: null  # "no_change" / "add_fields" / "new_table" / "multiple_tables"
+
+  # Option 0: No database change needed
+  option_0_no_change:
+    applicable: null  # true / false
+    solution: null  # e.g., "Bash script: ls outputs/courses/ | wc -l"
+    effort_hours: null  # 0 hours
+
+  # Option 1: Add fields to existing table
+  option_1_add_fields:
+    applicable: null  # true / false
+    table: null  # e.g., "content_pieces"
+    fields_to_add: []
+      # Example:
+      # - name: "file_path"
+      #   type: "TEXT"
+      #   purpose: "Link to filesystem location"
+      #   nullable: true
+    migration_sql: null  # ALTER TABLE statement
+    solves_pain_how: null  # Specific explanation
+    effort_hours: null  # 1-2 hours
+
+  # Option 2: Create 1 new table (requires justification)
+  option_2_new_table:
+    applicable: null  # true / false
+    justification: null  # Why existing tables can't work (must be technical)
+    table_name: null  # e.g., "course_lessons"
+    essential_fields_only: []  # MAX 7 fields for MVP
+      # Example:
+      # - name: "id"
+      #   type: "UUID"
+      #   purpose: "Primary key"
+      # - name: "course_piece_id"
+      #   type: "UUID"
+      #   purpose: "Foreign key to content_pieces"
+    foreign_keys: []  # List FK relationships
+    indexes: []  # Only essential indexes
+    migration_sql: null  # CREATE TABLE statement
+    solves_pain_how: null
+    effort_hours: null  # 3-5 hours
+
+  # Option 3: Multiple tables (requires extraordinary justification)
+  option_3_multiple_tables:
+    applicable: null  # true / false
+    extraordinary_justification: null  # Must be compelling, technical reason
+    tables: []  # List of tables with fields
+    total_effort_hours: null  # 1+ days
+
+  # Selected approach (after user input)
+  selected_approach: null  # User chooses after seeing trade-offs
+
+# ===========================================================================
+# PHASE 5: TRADE-OFFS (MANDATORY - Let user decide)
+# ===========================================================================
+trade_offs:
+  # Filesystem approach
+  option_filesystem:
+    name: "Keep Filesystem (No Database Changes)"
+    pros: []
+      # Example:
+      # - "Zero migration effort"
+      # - "Git-friendly (text files)"
+      # - "Simple, no SQL knowledge needed"
+      # - "No RLS complexity"
+    cons: []
+      # Example:
+      # - "No SQL queries"
+      # - "Manual search with grep/find"
+      # - "No cross-machine centralization"
+    effort_hours: 0
+    complexity_added: "none"
+
+  # Minimal database approach
+  option_minimal_db:
+    name: "Minimal Database Integration"
+    pros: []
+      # Example:
+      # - "SQL queries enabled"
+      # - "Centralized state"
+      # - "Analytics possible"
+    cons: []
+      # Example:
+      # - "Migration required (DDL + Python code)"
+      # - "RLS policies needed for security"
+      # - "Code changes in 5-8 modules"
+      # - "Testing overhead"
+    effort_hours: null  # Estimate based on approach
+    complexity_added: "low" / "medium" / "high"
+
+  # Comparison table
+  comparison:
+    simplicity_winner: null  # "filesystem" / "database" / "tie"
+    queryability_winner: null  # "filesystem" / "database"
+    effort_winner: null  # "filesystem" / "database"
+
+  # Recommendation
+  recommendation: null  # Your technical recommendation WITH reasoning
+  user_preference_priority: null  # "simplicity" / "queryability" / "undecided"
+
+  # Final decision
+  let_user_decide: true  # Always true - never assume database is better
+
+# ===========================================================================
+# VALIDATION & SAFETY CHECKS
+# ===========================================================================
+validation_checklist:
+  - step: "checked_system_works_today"
+    completed: false
+    evidence: null
+
+  - step: "asked_user_about_pain"
+    completed: false
+    evidence: null
+
+  - step: "reviewed_existing_schema"
+    completed: false
+    evidence: null
+
+  - step: "proposed_minimum_change"
+    completed: false
+    evidence: null
+
+  - step: "showed_trade_offs"
+    completed: false
+    evidence: null
+
+  - step: "let_user_decide"
+    completed: false
+    evidence: null
+
+# Red flags check
+red_flags:
+  proposing_3plus_tables_without_request: false
+  proposing_10plus_fields_without_pain: false
+  assuming_analytics_without_evidence: false
+  designing_for_future_not_current: false
+  did_not_check_existing_schema: false
+  over_engineering_beyond_problem: false
+
+  # If ANY red flag = true → FAIL, do not proceed
+  any_red_flags: false  # Auto-calculated
+
+# Final gate
+final_gate:
+  all_validations_passed: false  # Must be true to proceed
+  recommendation: null  # "proceed_with_minimal" / "keep_filesystem" / "blocked_by_red_flags"
+
+# ===========================================================================
+# EXECUTION PLAN (Only if validated and approved by user)
+# ===========================================================================
+execution_plan:
+  approved_by_user: false
+  approach_chosen: null  # From minimal_proposal.selected_approach
+
+  # If database changes approved
+  migration_script_path: null  # e.g., "supabase/migrations/20251027_creator_os.sql"
+  python_modules_to_modify: []  # e.g., ["lib/lesson_generator.py", "lib/course_validator.py"]
+  estimated_total_effort: null  # hours
+
+  # Rollback plan
+  rollback_script_path: null
+  rollback_tested: false
+
+  # Testing checklist
+  testing_plan:
+    - test: "Generate course and verify DB entry"
+      completed: false
+    - test: "Query by persona/keyword"
+      completed: false
+    - test: "Verify RLS policies work"
+      completed: false
+
+# ===========================================================================
+# METADATA
+# ===========================================================================
+metadata:
+  created_at: null
+  updated_at: null
+  status: "draft"  # "draft" / "validated" / "approved" / "implemented"
+  notes: null

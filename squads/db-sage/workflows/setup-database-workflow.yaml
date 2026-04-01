@@ -1,0 +1,428 @@
+workflow:
+  id: setup-database
+  name: Setup Database Connection
+  description: Interactive workflow to configure and validate database connections (local, remote, or Supabase)
+  version: 1.0.0
+  type: sequential
+  sequence:
+    - phase: select_connection_type
+      agent: db-sage
+      action: select_connection_type
+      description: Choose whether the user is configuring a local, remote, or Supabase PostgreSQL connection.
+      outputs:
+        - connection_type
+    - phase: capture_connection_details
+      agent: db-sage
+      action: capture_connection_details
+      description: Collect the connection fields required for the selected PostgreSQL/Supabase runtime.
+      condition: connection_type_selected
+      outputs:
+        - connection_string
+        - connection_alias
+    - phase: validate_environment
+      agent: db-sage
+      task: db-env-check
+      description: Validate client tooling and environment readiness before connection tests.
+    - phase: test_connection
+      agent: db-sage
+      action: test_database_connection
+      description: Execute a live connectivity check using the resolved connection string.
+      outputs:
+        - connection_valid
+    - phase: persist_connection_metadata
+      agent: db-sage
+      action: persist_connection_metadata
+      description: Store non-secret connection metadata and alias guidance for later reuse.
+    - phase: summarize_setup
+      agent: db-sage
+      action: summarize_setup
+      description: Present the validated setup summary and next actions.
+    - workflow_end:
+        id: complete
+        action: workflow_complete
+metadata:
+  author: DB Sage
+  created_date: "2025-10-27"
+  last_modified: "2025-10-27"
+  tags:
+    - database
+    - setup
+    - connection
+    - db-sage
+  story: squads/db-sage/docs/stories/1.1.setup-database-workflow.md
+inputs:
+  connection_type:
+    type: string
+    description: "Connection type: local, remote, or supabase"
+    required: false
+    validation: "Must be: local, remote, or supabase"
+  connection_alias:
+    type: string
+    description: Friendly name for this connection
+    required: false
+    default: default
+steps:
+  - id: step_1_select_type
+    name: Select Connection Type
+    type: elicit
+    elicit:
+      question: "Select database connection type:"
+      options:
+        - label: Local PostgreSQL (localhost:5432)
+          value: local
+          description: PostgreSQL running on your local machine
+        - label: Remote PostgreSQL (any host)
+          value: remote
+          description: PostgreSQL on remote server or cloud
+        - label: Supabase Project
+          value: supabase
+          description: Supabase managed PostgreSQL (recommended)
+      default: supabase
+      output_var: connection_type
+    error_handling:
+      strategy: fail
+      message: Connection type selection is required
+  - id: step_2a_local_details
+    name: Get Local Connection Details
+    type: elicit
+    condition: "{{connection_type}} == 'local'"
+    elicit:
+      fields:
+        - name: host
+          label: Host
+          type: string
+          default: localhost
+          required: true
+        - name: port
+          label: Port
+          type: number
+          default: "5432"
+          required: true
+        - name: database
+          label: Database name
+          type: string
+          required: true
+          placeholder: myapp_dev
+        - name: user
+          label: Username
+          type: string
+          default: postgres
+          required: true
+        - name: password
+          label: Password
+          type: password
+          required: true
+          secret: true
+      output_vars:
+        - host
+        - port
+        - database
+        - user
+        - password
+    outputs:
+      connection_string: postgresql://{{user}}:{{password}}@{{host}}:{{port}}/{{database}}
+    error_handling:
+      strategy: fail
+  - id: step_2b_remote_details
+    name: Get Remote Connection Details
+    type: elicit
+    condition: "{{connection_type}} == 'remote'"
+    elicit:
+      fields:
+        - name: host
+          label: Host (hostname or IP)
+          type: string
+          required: true
+          placeholder: db.example.com
+        - name: port
+          label: Port
+          type: number
+          default: "5432"
+          required: true
+        - name: database
+          label: Database name
+          type: string
+          required: true
+        - name: user
+          label: Username
+          type: string
+          required: true
+        - name: password
+          label: Password
+          type: password
+          required: true
+          secret: true
+        - name: ssl_mode
+          label: SSL Mode
+          type: choice
+          options:
+            - require
+            - verify-full
+            - prefer
+            - disable
+          default: require
+          required: true
+      output_vars:
+        - host
+        - port
+        - database
+        - user
+        - password
+        - ssl_mode
+    outputs:
+      connection_string: postgresql://{{user}}:{{password}}@{{host}}:{{port}}/{{database}}?sslmode={{ssl_mode}}
+    error_handling:
+      strategy: fail
+  - id: step_2c_supabase_details
+    name: Get Supabase Connection Details
+    type: elicit
+    condition: "{{connection_type}} == 'supabase'"
+    elicit:
+      help_text: |
+        Get these values from your Supabase Dashboard:
+        Settings → Database → Connection string
+        Settings → API → Project API keys
+      fields:
+        - name: project_ref
+          label: Project Reference (e.g., abcdefghijklmnop)
+          type: string
+          required: true
+          placeholder: abcdefghijklmnop
+          validation: Must be 16 characters
+        - name: db_password
+          label: Database Password
+          type: password
+          required: true
+          secret: true
+          help: Database password from project setup
+        - name: pooler_mode
+          label: Use Connection Pooler?
+          type: boolean
+          default: true
+          help: Recommended for serverless (port 6543)
+        - name: anon_key
+          label: Anon Key (public)
+          type: string
+          required: false
+          secret: false
+          help: "Optional: For client-side access"
+        - name: service_role_key
+          label: Service Role Key (DANGEROUS - admin access)
+          type: string
+          required: false
+          secret: true
+          help: "⚠️ CAUTION: Bypasses RLS policies"
+      output_vars:
+        - project_ref
+        - db_password
+        - pooler_mode
+        - anon_key
+        - service_role_key
+    outputs:
+      pooler_port: "{% if pooler_mode %}6543{% else %}5432{% endif %}"
+      pooler_suffix: "{% if pooler_mode %}-pooler{% else %}{% endif %}"
+      connection_string: postgresql://postgres:{{db_password}}@{{project_ref}}{{pooler_suffix}}.supabase.co:{{pooler_port}}/postgres?sslmode=require
+      supabase_url: https://{{project_ref}}.supabase.co
+    error_handling:
+      strategy: fail
+  - id: step_3_validate_env
+    name: Validate Database Environment
+    type: task
+    task: db-env-check
+    description: Check PostgreSQL client tools and environment
+    environment:
+      DATABASE_URL: "{{connection_string}}"
+    error_handling:
+      strategy: fail
+      message: |
+        ❌ Environment validation failed
+
+        Please ensure:
+        1. PostgreSQL client tools installed (psql, pg_dump)
+        2. Database is accessible
+        3. Credentials are correct
+    outputs:
+      env_valid: true
+  - id: step_4_test_connection
+    name: Test Database Connection
+    type: execute
+    description: Run test query to validate connection
+    environment:
+      DB_SAGE_CONNECTION_URL: "{{connection_string}}"
+    command: |
+      echo "Testing database connection..."
+
+      # Test with SELECT 1
+      psql "$DB_SAGE_CONNECTION_URL" \
+        -v ON_ERROR_STOP=1 \
+        -t \
+        -c "SELECT 1 AS connection_test;" > /dev/null 2>&1
+
+      if [ $? -eq 0 ]; then
+        echo "✅ Connection successful"
+
+        # Get database version
+        VERSION=$(psql "$DB_SAGE_CONNECTION_URL" -t -c "SELECT version();")
+        echo "📊 Database: $VERSION"
+
+        exit 0
+      else
+        echo "❌ Connection failed"
+        echo ""
+        echo "Common issues:"
+        echo "  1. Check database is running"
+        echo "  2. Verify credentials (username/password)"
+        echo "  3. Check network/firewall allows connection"
+        echo "  4. Verify database exists"
+
+        exit 1
+      fi
+    timeout: 10000
+    error_handling:
+      strategy: fail
+      retry_count: 2
+      message: |
+        ❌ Connection test failed after 2 retries
+
+        Troubleshooting:
+        - Network: ping {{host}}
+        - Firewall: Check port {{port}} is open
+        - Credentials: Verify username/password
+        - Database: Verify database name exists
+    outputs:
+      connection_valid: true
+  - id: step_5_store_connection
+    name: Store Connection Configuration
+    type: execute
+    description: Save non-sensitive connection profile metadata for reuse
+    command: |
+      mkdir -p .db-sage
+
+      ALIAS="{{connection_alias}}"
+      [ -z "$ALIAS" ] && ALIAS="default"
+      TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+      ENV_VAR="DATABASE_URL"
+
+      if [ "{{connection_type}}" = "supabase" ]; then
+        ENV_VAR="SUPABASE_DB_URL"
+      fi
+
+      CONNECTIONS_FILE=".db-sage/connection-profiles.yaml"
+
+      if [ ! -f "$CONNECTIONS_FILE" ]; then
+        printf '%s\n' \
+          '# DB Sage Connection Profiles' \
+          '# Credentials stay in environment variables; this file stores metadata only.' \
+          'profiles:' \
+          > "$CONNECTIONS_FILE"
+      fi
+
+      SAFE_HOST="{{host}}"
+      [ -z "$SAFE_HOST" ] && SAFE_HOST="supabase"
+
+      SAFE_DB="{{database}}"
+      [ -z "$SAFE_DB" ] && SAFE_DB="postgres"
+
+      SAFE_PROJECT_REF="{{project_ref}}"
+      SAFE_POOLER="{{pooler_mode}}"
+      [ -z "$SAFE_POOLER" ] && SAFE_POOLER="false"
+
+      printf '%s\n' \
+        "  - alias: \"$ALIAS\"" \
+        "    type: \"{{connection_type}}\"" \
+        "    env_var: \"$ENV_VAR\"" \
+        "    created_at: \"$TIMESTAMP\"" \
+        "    metadata:" \
+        "      host: \"$SAFE_HOST\"" \
+        "      database: \"$SAFE_DB\"" \
+        "      project_ref: \"$SAFE_PROJECT_REF\"" \
+        "      pooler: \"$SAFE_POOLER\"" \
+        >> "$CONNECTIONS_FILE"
+
+      echo "✅ Connection profile saved as: $ALIAS"
+      echo "📁 File: $CONNECTIONS_FILE"
+      echo "🔐 Secret storage: environment variable only ($ENV_VAR)"
+      echo ""
+      echo "No plaintext connection string was written to disk."
+    error_handling:
+      strategy: warn
+      message: ⚠️ Failed to store connection, but you can still use it
+    outputs:
+      connection_alias: "{{connection_alias}}"
+      connections_file: .db-sage/connection-profiles.yaml
+  - id: step_6_success_summary
+    name: Display Success Summary
+    type: execute
+    description: Show connection summary and next steps
+    command: |
+      echo ""
+      echo "════════════════════════════════════════"
+      echo "✅ DATABASE CONNECTION SETUP COMPLETE"
+      echo "════════════════════════════════════════"
+      echo ""
+      echo "Connection Details:"
+      echo "  Type: {{connection_type}}"
+      echo "  Alias: {{connection_alias}}"
+
+      {% if connection_type == 'supabase' %}
+      echo "  Project: {{project_ref}}"
+      echo "  Pooler: {{pooler_mode}}"
+      echo "  URL: https://{{project_ref}}.supabase.co"
+      {% else %}
+      echo "  Host: {{host}}"
+      echo "  Port: {{port}}"
+      echo "  Database: {{database}}"
+      {% endif %}
+
+      echo ""
+      echo "Environment Variable:"
+      {% if connection_type == 'supabase' %}
+      echo "  export SUPABASE_DB_URL=\"<redacted>\""
+      {% else %}
+      echo "  export DATABASE_URL=\"<redacted>\""
+      {% endif %}
+      echo "  Stored profile contains metadata only"
+      echo ""
+      echo "Next Steps:"
+      echo "  1. *domain-modeling - Design database schema"
+      echo "  2. *create-schema   - Create schema documentation"
+      echo "  3. *bootstrap       - Initialize project structure"
+      echo "  4. *env-check       - Verify environment anytime"
+      echo ""
+      echo "Troubleshooting:"
+      echo "  *help               - Show all available commands"
+      echo "  *env-check          - Re-validate environment"
+      echo ""
+outputs:
+  connection_established:
+    type: boolean
+    description: Connection successfully established
+    source: step_4_test_connection.connection_valid
+  connection_string:
+    type: string
+    description: PostgreSQL connection string
+    source: connection_string
+    secret: true
+  connection_alias:
+    type: string
+    description: Connection alias for future reference
+    source: step_5_store_connection.connection_alias
+  connections_file:
+    type: string
+    description: Path to stored connections file
+    source: step_5_store_connection.connections_file
+global_error_handling:
+  on_error: abort
+  notification:
+    enabled: true
+    channels:
+      - console
+security:
+  authorization_required: false
+  audit_logging: true
+  redact_secrets: true
+  secrets:
+    - password
+    - db_password
+    - service_role_key
+    - connection_string

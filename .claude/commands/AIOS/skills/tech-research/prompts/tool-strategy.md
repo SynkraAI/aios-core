@@ -1,0 +1,1 @@
+../../../../../skills/tech-research/prompts/tool-strategy.md

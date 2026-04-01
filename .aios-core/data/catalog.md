@@ -1,10 +1,10 @@
 # AIOX Catalog
 
-> Gerado automaticamente em 26/03/2026
+> Gerado automaticamente em 31/03/2026
 
 ---
 
-## Squads (66)
+## Squads (68)
 
 | Squad | Descrição | Ativação |
 |-------|-----------|----------|
@@ -24,10 +24,11 @@
 | copywriting-squad | Copywriting Masters Squad | `/copywriting-squad` |
 | curator | 🎬 Curator Squad | `/curator` |
 | dan-koe | Koe Squad — The OnePerson Business System | `/dan-koe` |
+| db-sage | 🗄️ DB Sage  Database Architect & Operations Engineer | `/db-sage` |
 | design | | | `/design` |
 | dopamine-learning | Dopamine Learning Squad: Complete Documentation | `/dopamine-learning` |
 | ensinio-mind | Ensinio Mind — Knowledge Hub | `/ensinio-mind` |
-| etl-universal-converter | ETL Universal Converter | `/etl-universal-converter` |
+| etl-squad | Squad autônoma universal para ingerir qualquer fonte (URLs, arquivos, APIs) e transformar em estruturas limpas, semânticas e prontas para consumo. Inclui quality verification (0-10), human review e pu | `/etl-squad` |
 | file-research | File Research Squad | `/file-research` |
 | gui-avila | Squad Gui Ávila | `/gui-avila` |
 | high-ticket-mastery | HighTicket Mastery Squad | `/high-ticket-mastery` |
@@ -53,7 +54,7 @@
 | money-makers-vtd | Vendas Todos os Dias | `/money-makers-vtd` |
 | navigator | Autonomous project navigator and orchestration specialist. Maps roadmaps, detects current phase, prevents context loss, and orchestrates multi-agent workflows for complex AIOS projects. | `/navigator` |
 | negotiation | Negotiation Squad | `/negotiation` |
-| openclaw-manager | Sem descrição | `/openclaw-manager` |
+| openclaw-manager | OpenClaw Manager — Fleet Orchestrator | `/openclaw-manager` |
 | palestras-master | Palestras Master Federator | `/palestras-master` |
 | paulo-vieira | Squad Paulo Vieira | `/paulo-vieira` |
 | playwright-architect | Playwright Architect Squad | `/playwright-architect` |
@@ -65,7 +66,8 @@
 | seo | SEO Expert Squad | `/seo` |
 | site-performance-audit | siteperformanceaudit — External Web Performance Audit Squad | `/site-performance-audit` |
 | sop-factory | SOP Factory | `/sop-factory` |
-| squad-creator | Squad Creator | `/squad-creator` |
+| squad-creator-pro | Squad Creator | `/squad-creator-pro` |
+| squads | Sem descrição | `/squads` |
 | storytelling-masters-fosc | Storytelling Masters Fosc | `/storytelling-masters-fosc` |
 | synapse | Synapse Squad | `/synapse` |
 | tathi-deandhela | Tathi Deandhela Method Squad | `/tathi-deandhela` |
@@ -77,7 +79,7 @@
 
 ---
 
-## Skills (61)
+## Skills (68)
 
 | Skill | Descrição | Ativação |
 |-------|-----------|----------|
@@ -92,16 +94,22 @@
 | book-to-markdown | Book to Markdown | `/AIOS:skills:book-to-markdown` |
 | bulletproof-test | Bulletproof Test v2.1 | `/AIOS:skills:bulletproof-test` |
 | canva | Canva Connect | `/AIOS:skills:canva` |
+| carrossel-instagram | Carrossel Instagram | `/AIOS:skills:carrossel-instagram` |
 | celf-context | CELF — Context Engineering Layered Framework | `/AIOS:skills:celf-context` |
 | cloud-penetration-testing | Cloud Penetration Testing | `/AIOS:skills:cloud-penetration-testing` |
 | code-refactoring-refactor-clean | Refactor & Clean Code v2.0 | `/AIOS:skills:code-refactoring-refactor-clean` |
+| code-review-ping-pong | Code Review Ping-Pong v3.1 — Cross-AI Review Protocol | `/AIOS:skills:code-review-ping-pong` |
 | context-surgeon | Context Surgeon v1.1.0 | `/AIOS:skills:context-surgeon` |
 | dashboard-generator | Dashboard Generator - Interactive Web Dashboards | `/AIOS:skills:dashboard-generator` |
 | decision-tree-generator | Decision Tree Documentation Generator | `/AIOS:skills:decision-tree-generator` |
 | deep-research | Deep Research | `/AIOS:skills:deep-research` |
 | deep-search | Deep Search | `/AIOS:skills:deep-search` |
 | deepgram-transcriber | Deepgram Transcriber | `/AIOS:skills:deepgram-transcriber` |
+| design-system-catalog | Design System Catalog | `/AIOS:skills:design-system-catalog` |
 | design-system-extractor | Design System Extractor | `/AIOS:skills:design-system-extractor` |
+| design-system-forge | Design System Forge | `/AIOS:skills:design-system-forge` |
+| design-system-scaffold | 🏗️ Design System Scaffold | `/AIOS:skills:design-system-scaffold` |
+| design-system-storybook | Component Factory (Bootstrap Mode) | `/AIOS:skills:design-system-storybook` |
 | ecosystem-audit | Ecosystem Audit Skill | `/AIOS:skills:ecosystem-audit` |
 | forge | Forge — Da ideia ao deploy, sem atalho raso. | `/AIOS:skills:forge` |
 | game-development | Game Development | `/AIOS:skills:game-development` |
@@ -125,8 +133,9 @@
 | pre-deploy-telegram-bot | Pre-Deploy — Telegram Agenda Bot | `/AIOS:skills:pre-deploy-telegram-bot` |
 | pt-br-accentuation | Skill: Acentuação e Pontuação em Português Brasileiro | `/AIOS:skills:pt-br-accentuation` |
 | quality-dashboard | Quality Dashboard | `/AIOS:skills:quality-dashboard` |
-| quest | Quest — Um comando. Tudo comeca. | `/AIOS:skills:quest` |
-| quest-master | Quest Engine | `/AIOS:skills:quest-master` |
+| quest | Quest Engine | `/AIOS:skills:quest` |
+| quest-original-backup | Quest — Um comando. Tudo comeca. | `/AIOS:skills:quest-original-backup` |
+| quest.bak | Quest Engine | `/AIOS:skills:quest.bak` |
 | ram-doctor | RAM Doctor — Diagnóstico e Limpeza de Memória no macOS | `/AIOS:skills:ram-doctor` |
 | sherlock-investigator | Sherlock Investigator | `/AIOS:skills:sherlock-investigator` |
 | skill-creator | Skill Creator | `/AIOS:skills:skill-creator` |
@@ -135,7 +144,7 @@
 | synapse | SYNAPSE Context Engine | `/AIOS:skills:synapse` |
 | sync-projects | Sync Projects — Project Pulse | `/AIOS:skills:sync-projects` |
 | system-prompt-architect | System Prompt Architect | `/AIOS:skills:system-prompt-architect` |
-| tech-search | Tech Research | `/AIOS:skills:tech-search` |
+| tech-research | Tech Research | `/AIOS:skills:tech-research` |
 | tier-s-checklist | Tier-S Checklist | `/AIOS:skills:tier-s-checklist` |
 | tokenizacao | Tokenização - Frontend Quality Audit 2025 | `/AIOS:skills:tokenizacao` |
 | tutorial-generator | Tutorial Generator | `/AIOS:skills:tutorial-generator` |
@@ -184,7 +193,7 @@
 | @ux-design-expert | Uma | UX/UI design, design systems, user research |
 | @devops | Gage | CI/CD, git push (EXCLUSIVO), MCP management, infrastructure |
 | @aios-master | Master | Framework governance, constitutional enforcement |
-| @squad-creator | Scout | Squad creation, workspace setup, onboarding |
+| @squad-creator-pro | Scout | Squad creation, workspace setup, onboarding |
 
 ---
 
@@ -218,8 +227,8 @@
 
 | Categoria | Total | Coverage |
 |-----------|-------|----------|
-| Squads | 66 | 100% |
-| Skills | 61 | 100% |
+| Squads | 68 | 100% |
+| Skills | 68 | 100% |
 | Tools | 17 | 100% |
 | Agents | 12 | 100% |
 

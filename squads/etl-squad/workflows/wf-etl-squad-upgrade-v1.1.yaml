@@ -1,0 +1,548 @@
+# wf-etl-squad-upgrade-v1.1.yaml — Upgrade ETL Squad v1.0 → v1.1
+# Adicionar 6 novos comandos com tasks, heuristics e smoke tests
+# Data: 2026-03-11
+
+name: etl-squad-upgrade-v1.1
+display_name: "ETL Squad Upgrade: New Commands (v1.1)"
+description: >
+  Workflow deterministico para adicionar 6 novos comandos ao etl-chief
+  (*compile, *enrich, *extract-keyframes, *workspace-preflight,
+  *workspace-context, *validate-contracts) com tasks correspondentes,
+  atualizacao de workflows e validacao de qualidade.
+version: "1.0.0"
+squad: etl-squad
+created_at: "2026-03-11"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CONTEXTO
+# ═══════════════════════════════════════════════════════════════════════════
+
+context:
+  current_state: "etl-chief.md atualizado com 14 comandos (merge feito). Tasks para 6 novos comandos NAO existem."
+  source_of_truth: "Screenshot do ETL Chief com comandos disponiveis em versao mais recente"
+  gap: "6 comandos sem task file = agent nao sabe COMO executar"
+  new_commands:
+    - id: compile
+      description: "Compila multiplas fontes em unico documento com TOC"
+      agents_involved: [etl-chief, parser, enricher, loader]
+      complexity: MEDIUM
+    - id: enrich
+      description: "Enriquece transcricao bruta em markdown estruturado com frontmatter"
+      agents_involved: [enricher, validator, loader]
+      complexity: LOW
+    - id: extract-keyframes
+      description: "Extrai keyframes representativos de video (scene detection / interval)"
+      agents_involved: [extractor]
+      complexity: HIGH
+    - id: workspace-preflight
+      description: "Bootstrap + validacao de essenciais do workspace ETL"
+      agents_involved: [etl-chief]
+      complexity: LOW
+    - id: workspace-context
+      description: "Carrega contexto do workspace e politica de roteamento de output"
+      agents_involved: [etl-chief]
+      complexity: LOW
+    - id: validate-contracts
+      description: "Verifica consistencia dos contratos ETL locais"
+      agents_involved: [validator]
+      complexity: MEDIUM
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════
+
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 0: ANALYSIS & PLANNING
+  # ─────────────────────────────────────────────────────────────────────────
+  - phase: 0
+    name: "Analysis & Impact Assessment"
+    agent: "@architect (squad-chief)"
+    duration: "15-30 min"
+    action: |
+      Analisar os 6 novos comandos e determinar:
+      1. Quais agents existentes sao afetados
+      2. Quais tasks novas precisam ser criadas
+      3. Se workflows existentes precisam de atualizacao
+      4. Dependencias entre os novos comandos
+      5. Ordem de implementacao (DAG de dependencias)
+
+    steps:
+      - step: 0.1
+        name: "Dependency Mapping"
+        action: |
+          Para cada novo comando, mapear:
+          - Quais agents executa
+          - Quais data files consulta
+          - Quais templates usa
+          - Se precisa de novo workflow ou cabe no existente
+
+      - step: 0.2
+        name: "Implementation Order (DAG)"
+        action: |
+          Determinar ordem baseada em dependencias:
+          1. workspace-preflight (sem dependencias, base para outros)
+          2. workspace-context (depende de preflight ter rodado)
+          3. validate-contracts (depende de workspace-context)
+          4. enrich (standalone, usa @enricher existente)
+          5. compile (usa @parser + @enricher + @loader existentes)
+          6. extract-keyframes (nova capacidade, pode precisar de novo agent ou extensao do @extractor)
+
+      - step: 0.3
+        name: "Agent Impact Assessment"
+        action: |
+          Agents que PRECISAM de atualizacao:
+          - etl-chief.md: JA ATUALIZADO (comandos adicionados)
+          - extractor.md: PRECISA adicionar metodo extract-keyframes
+          - enricher.md: VERIFICAR se *enrich standalone esta coberto
+          - validator.md: PRECISA adicionar logica de validate-contracts
+          - parser.md: VERIFICAR se *compile reusa parser existente
+          - loader.md: SEM MUDANCA (ja suporta formatos necessarios)
+
+    output:
+      - "dependency-map.md com DAG de implementacao"
+      - "agent-impact-list com mudancas necessarias por agent"
+      - "implementation-order definida"
+
+    checkpoint:
+      condition: "DAG definido, agents impactados identificados"
+      veto: "Dependencia circular detectada → PARAR e redesenhar"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 1: TASK CREATION (6 tasks)
+  # ─────────────────────────────────────────────────────────────────────────
+  - phase: 1
+    name: "Create Task Files"
+    agent: "@sm (squad-chief)"
+    duration: "1-2 horas"
+    action: |
+      Criar 6 task files seguindo o padrao das tasks existentes
+      (url-to-markdown.md como referencia de qualidade).
+      Cada task DEVE ter os 8 campos obrigatorios do Task Anatomy.
+
+    task_anatomy_required:
+      - name: "Nome kebab-case"
+      - description: "O que faz em 1 frase"
+      - input: "required + optional params"
+      - execution: "steps com agents e actions"
+      - veto_conditions: "Min 2 por task"
+      - output_example: "Concreto, nao placeholder"
+      - completion_criteria: "Verificaveis"
+      - output_format: "Formato do output"
+
+    steps:
+      - step: 1.1
+        name: "Create workspace-preflight.md"
+        agent: "@sm"
+        task_spec:
+          input: "Nenhum (auto-detecta workspace)"
+          execution:
+            - "Verificar que output dir existe e eh gravavel"
+            - "Verificar dependencias (pdfjs-dist, sheetjs, tesseract, whisper)"
+            - "Verificar source-type-registry.yaml eh valido"
+            - "Verificar output-format-spec.md eh acessivel"
+            - "Verificar contratos ETL sao consistentes"
+            - "Reportar status por componente"
+          output: "Relatorio de preflight com status por componente"
+          veto: "Output dir nao existe ou nao gravavel → FAIL"
+
+      - step: 1.2
+        name: "Create workspace-context.md"
+        agent: "@sm"
+        task_spec:
+          input: "workspace path (default: cwd)"
+          execution:
+            - "Ler source-type-registry.yaml"
+            - "Ler output-format-spec.md"
+            - "Ler config do workspace (etl-config.yaml se existir)"
+            - "Montar routing policy (source_type → pipeline → output_format → destination)"
+            - "Cachear contexto na sessao"
+          output: "Contexto carregado com routing policy ativa"
+          veto: "source-type-registry.yaml nao encontrado → FAIL"
+
+      - step: 1.3
+        name: "Create validate-contracts.md"
+        agent: "@sm"
+        task_spec:
+          input: "workspace path (default: cwd)"
+          execution:
+            - "Para cada pipeline em source-type-registry.yaml:"
+            - "  Verificar que task file existe em tasks/"
+            - "  Verificar que output_format no registry bate com output_format na task"
+            - "  Verificar que agents referenciados existem em agents/"
+            - "  Verificar que templates referenciados existem em templates/"
+            - "Reportar inconsistencias encontradas"
+          output: "Lista de contratos validos e invalidos"
+          veto: "Mais de 50% dos contratos invalidos → FAIL"
+
+      - step: 1.4
+        name: "Create enrich.md"
+        agent: "@sm"
+        task_spec:
+          input:
+            required: "raw text ou transcript (string ou file path)"
+            optional: "chunk_size, language, tags, title"
+          execution:
+            - "Receber texto bruto (sem passar por extract/parse)"
+            - "Delegar para @enricher diretamente"
+            - "  Gerar frontmatter YAML"
+            - "  Gerar summary"
+            - "  Chunkar semanticamente"
+            - "  Extrair entidades e tags"
+            - "Delegar para @validator"
+            - "Delegar para @loader"
+          output: "Markdown com frontmatter completo"
+          veto: "Input vazio ou <10 palavras → FAIL"
+
+      - step: 1.5
+        name: "Create compile.md"
+        agent: "@sm"
+        task_spec:
+          input:
+            required: "2+ fontes (files ou URLs ja processados)"
+            optional: "title, toc_depth, dedup, output_format"
+          execution:
+            - "Ler cada fonte (ja deve ser .md ou .yaml processado pelo ETL)"
+            - "Extrair frontmatter de cada fonte"
+            - "Gerar TOC com links internos"
+            - "Concatenar conteudo na ordem fornecida"
+            - "Deduplicar headers/secoes repetidas"
+            - "Gerar frontmatter consolidado (merge de tags, entities)"
+            - "Delegar para @validator"
+            - "Delegar para @loader"
+          output: "Documento unico .md com TOC e frontmatter consolidado"
+          veto: "Menos de 2 fontes → FAIL (nao faz sentido compilar 1 arquivo)"
+          veto2: "Fonte nao processada pelo ETL (sem frontmatter) → WARN"
+
+      - step: 1.6
+        name: "Create extract-keyframes.md"
+        agent: "@sm"
+        task_spec:
+          input:
+            required: "video file (.mp4, .avi, .mov, .mkv) ou YouTube URL"
+            optional: "mode (scene|interval), interval_seconds (60), max_frames (20), output_dir"
+          execution:
+            - "Se YouTube URL → download via yt-dlp"
+            - "Detectar modo:"
+            - "  scene: usar ffprobe scene detection (threshold 0.3)"
+            - "  interval: extrair 1 frame a cada N segundos"
+            - "Extrair frames como .jpg"
+            - "Para cada frame: gerar timestamp, posicao no video"
+            - "Opcional: rodar OCR/describe em cada frame via image-to-text"
+            - "Gerar indice com thumbnails e timestamps"
+          output: "Diretorio com frames .jpg + index.yaml com timestamps"
+          veto: "Video corrompido ou nao suportado → FAIL"
+          veto2: "Video >4h sem --large flag → WARN"
+
+    output:
+      - "tasks/workspace-preflight.md"
+      - "tasks/workspace-context.md"
+      - "tasks/validate-contracts.md"
+      - "tasks/enrich.md"
+      - "tasks/compile.md"
+      - "tasks/extract-keyframes.md"
+
+    checkpoint:
+      condition: "6 tasks criadas, cada uma com 8 campos obrigatorios"
+      veto: "Task sem veto_conditions → BLOQUEAR"
+      veto2: "Task sem output_example concreto → BLOQUEAR"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 2: AGENT UPDATES
+  # ─────────────────────────────────────────────────────────────────────────
+  - phase: 2
+    name: "Update Affected Agents"
+    agent: "@dev (squad-chief)"
+    duration: "30-60 min"
+    action: |
+      Atualizar agents que ganharam novas responsabilidades
+      com os novos comandos. Manter tudo que ja existe, apenas ADICIONAR.
+
+    steps:
+      - step: 2.1
+        name: "Update extractor.md"
+        action: |
+          Adicionar ao extractor:
+          - extraction_methods.video_keyframes (novo)
+          - Heuristic EXT_007: Keyframe Extraction
+          - Smoke test para video keyframe extraction
+          - Veto: video corrompido
+        agent: "@dev"
+
+      - step: 2.2
+        name: "Update enricher.md"
+        action: |
+          Adicionar ao enricher:
+          - Heuristic ENR_007: Standalone Enrichment
+            (receber texto bruto sem pipeline completo)
+          - Heuristic ENR_008: Compile Merge
+            (merge frontmatter de multiplas fontes)
+          - Smoke test para enrich standalone
+        agent: "@dev"
+
+      - step: 2.3
+        name: "Update validator.md"
+        action: |
+          Adicionar ao validator:
+          - Heuristic VAL_007: Contract Validation
+            (verificar consistencia entre registry, tasks e agents)
+          - Smoke test para contract validation
+        agent: "@dev"
+
+      - step: 2.4
+        name: "Update squad.yaml"
+        action: |
+          Atualizar:
+          - version: "1.1.0"
+          - pipelines: adicionar compile, enrich, extract-keyframes
+          - keywords: adicionar keyframe, compile, workspace, contract
+        agent: "@dev"
+
+    output:
+      - "agents/extractor.md (atualizado)"
+      - "agents/enricher.md (atualizado)"
+      - "agents/validator.md (atualizado)"
+      - "squad.yaml (v1.1.0)"
+
+    checkpoint:
+      condition: "Agents atualizados sem perder conteudo existente"
+      veto: "Conteudo existente removido → ROLLBACK"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 3: WORKFLOW UPDATES
+  # ─────────────────────────────────────────────────────────────────────────
+  - phase: 3
+    name: "Create/Update Workflows"
+    agent: "@dev (squad-chief)"
+    duration: "30 min"
+    action: |
+      Avaliar se os novos comandos precisam de workflows novos
+      ou se cabem nos existentes.
+
+    steps:
+      - step: 3.1
+        name: "Evaluate workflow needs"
+        action: |
+          DECISAO por comando:
+          - workspace-preflight: NAO precisa workflow (task atomica, single agent)
+          - workspace-context: NAO precisa workflow (task atomica, single agent)
+          - validate-contracts: NAO precisa workflow (task atomica, single agent)
+          - enrich: REUTILIZA wf-etl-pipeline.yaml (skip phases 0-2, comeca na phase 3)
+          - compile: PRECISA novo workflow wf-compile.yaml (multi-source merge)
+          - extract-keyframes: NAO precisa workflow (task atomica no @extractor)
+
+      - step: 3.2
+        name: "Create wf-compile.yaml"
+        action: |
+          Novo workflow para compilacao multi-source:
+          Phase 0: Validate Inputs (etl-chief) — verificar que todas as fontes existem
+          Phase 1: Read & Extract Frontmatter (parser) — ler cada fonte
+          Phase 2: Merge & Deduplicate (parser) — concatenar, gerar TOC
+          Phase 3: Enrich Consolidated (enricher) — frontmatter consolidado
+          Phase 4: Validate (validator) — quality gate
+          Phase 5: Load (loader) — escrever documento unico
+        agent: "@dev"
+
+      - step: 3.3
+        name: "Update wf-etl-pipeline.yaml"
+        action: |
+          Adicionar nota de que *enrich pode entrar diretamente na Phase 3
+          (skip phases 0-2) quando recebe texto bruto ja extraido.
+        agent: "@dev"
+
+    output:
+      - "workflows/wf-compile.yaml (novo)"
+      - "workflows/wf-etl-pipeline.yaml (nota adicionada)"
+
+    checkpoint:
+      condition: "Workflows criados/atualizados"
+      veto: "Workflow sem checkpoints por fase → BLOQUEAR"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 4: UPDATE CHECKLISTS & DATA
+  # ─────────────────────────────────────────────────────────────────────────
+  - phase: 4
+    name: "Update Checklists & Registry"
+    agent: "@dev (squad-chief)"
+    duration: "15 min"
+
+    steps:
+      - step: 4.1
+        name: "Update squad-checklist.md"
+        action: |
+          Adicionar items para os 6 novos comandos:
+          - [ ] 6 novas tasks em tasks/
+          - [ ] wf-compile.yaml em workflows/
+          - [ ] Agents atualizados (extractor, enricher, validator)
+          - [ ] squad.yaml v1.1.0
+        agent: "@dev"
+
+      - step: 4.2
+        name: "Update source-type-registry.yaml"
+        action: |
+          Verificar se precisa adicionar:
+          - video_keyframes como novo source_type? → SIM, adicionar
+        agent: "@dev"
+
+    output:
+      - "checklists/squad-checklist.md (atualizado)"
+      - "data/source-type-registry.yaml (atualizado se necessario)"
+
+    checkpoint:
+      condition: "Checklists e registry atualizados"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 5: QA GATE
+  # ─────────────────────────────────────────────────────────────────────────
+  - phase: 5
+    name: "Quality Assurance"
+    agent: "@qa (squad-chief)"
+    duration: "30 min"
+    action: |
+      Validar TODOS os artefatos criados/atualizados contra
+      os quality standards da ETL Squad.
+
+    steps:
+      - step: 5.1
+        name: "Validate new tasks (6)"
+        action: |
+          Para cada nova task, verificar:
+          - [ ] 8 campos obrigatorios presentes (Task Anatomy)
+          - [ ] Veto conditions existem (min 2)
+          - [ ] Output example eh concreto (nao placeholder)
+          - [ ] Completion criteria sao verificaveis
+          - [ ] Agents referenciados existem
+
+      - step: 5.2
+        name: "Validate updated agents (3)"
+        action: |
+          Para cada agent atualizado, verificar:
+          - [ ] Conteudo existente preservado
+          - [ ] Novas heuristics tem WHEN context
+          - [ ] Novos smoke tests sao realistas
+          - [ ] Scope atualizado com novas capacidades
+
+      - step: 5.3
+        name: "Validate new workflow (1)"
+        action: |
+          Para wf-compile.yaml:
+          - [ ] Checkpoints em cada fase
+          - [ ] Veto conditions por fase
+          - [ ] Fluxo unidirecional
+          - [ ] Agents assigned por fase
+
+      - step: 5.4
+        name: "Cross-reference validation"
+        action: |
+          - [ ] Todos os comandos no etl-chief.md tem task correspondente
+          - [ ] Todas as tasks referenciam agents que existem
+          - [ ] Todos os workflows referenciam agents que existem
+          - [ ] source-type-registry.yaml cobre todos os pipelines
+          - [ ] squad.yaml lista todos os pipelines
+
+      - step: 5.5
+        name: "Run *validate-contracts"
+        action: |
+          Usar o proprio novo comando para validar consistencia!
+          (Self-validation — meta-teste)
+
+    verdicts:
+      pass: "Todos os checks passam → Phase 6"
+      concerns: "1-3 issues menores → Fix e re-validate"
+      fail: "Issues criticas → Retornar a phase apropriada"
+
+    checkpoint:
+      condition: "Todos os 5 sub-steps passam"
+      veto: "Task sem output_example → BLOQUEAR ate corrigir"
+      veto2: "Agent perdeu conteudo existente → ROLLBACK"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 6: FINALIZATION
+  # ─────────────────────────────────────────────────────────────────────────
+  - phase: 6
+    name: "Finalization & Documentation"
+    agent: "@dev (squad-chief)"
+    duration: "15 min"
+
+    steps:
+      - step: 6.1
+        name: "Update README.md"
+        action: "Adicionar novos comandos e pipelines ao README"
+        agent: "@dev"
+
+      - step: 6.2
+        name: "Version bump"
+        action: "Confirmar squad.yaml version: 1.1.0"
+        agent: "@dev"
+
+      - step: 6.3
+        name: "Commit"
+        action: "feat(etl-squad): add 6 new commands with tasks (v1.1.0)"
+        agent: "@dev"
+        note: "git push delegado para @devops quando solicitado"
+
+    output:
+      - "Squad ETL v1.1.0 completa com 14 comandos, 16 tasks, 3 workflows"
+
+    checkpoint:
+      condition: "Todos os arquivos criados/atualizados"
+      final: true
+
+# ═══════════════════════════════════════════════════════════════════════════
+# SUMMARY
+# ═══════════════════════════════════════════════════════════════════════════
+
+summary:
+  total_phases: 7
+  estimated_duration: "3-5 horas"
+
+  files_to_create:
+    - "tasks/workspace-preflight.md"
+    - "tasks/workspace-context.md"
+    - "tasks/validate-contracts.md"
+    - "tasks/enrich.md"
+    - "tasks/compile.md"
+    - "tasks/extract-keyframes.md"
+    - "workflows/wf-compile.yaml"
+
+  files_to_update:
+    - "agents/extractor.md (add keyframe extraction)"
+    - "agents/enricher.md (add standalone enrich + compile merge)"
+    - "agents/validator.md (add contract validation)"
+    - "squad.yaml (version bump + new pipelines)"
+    - "checklists/squad-checklist.md (new items)"
+    - "data/source-type-registry.yaml (video_keyframes)"
+    - "workflows/wf-etl-pipeline.yaml (enrich shortcut note)"
+
+  agents_per_phase:
+    phase_0: "@architect (squad-chief) — analysis"
+    phase_1: "@sm (squad-chief) — task creation"
+    phase_2: "@dev (squad-chief) — agent updates"
+    phase_3: "@dev (squad-chief) — workflow creation"
+    phase_4: "@dev (squad-chief) — checklists & registry"
+    phase_5: "@qa (squad-chief) — quality gate"
+    phase_6: "@dev (squad-chief) — finalization"
+
+  agent_delegation:
+    squad_chief: "Orchestrates all phases, delegates to specialists"
+    architect: "Phase 0 — impact analysis, dependency DAG"
+    sm: "Phase 1 — task file creation from specs"
+    dev: "Phases 2-4, 6 — implementation, updates, commit"
+    qa: "Phase 5 — quality gate, cross-reference validation"
+    devops: "Post-Phase 6 — git push (when requested)"
+
+flow_diagram: |
+  [Phase 0: Analysis]     @architect
+         |
+  [Phase 1: Tasks x6]     @sm
+         |
+  [Phase 2: Agents x3]    @dev
+         |
+  [Phase 3: Workflows]    @dev
+         |
+  [Phase 4: Checklists]   @dev
+         |
+  [Phase 5: QA Gate]      @qa ──→ FAIL? → return to phase N
+         |
+  [Phase 6: Finalize]     @dev → @devops (push)

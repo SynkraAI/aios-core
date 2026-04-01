@@ -1,0 +1,121 @@
+workflow:
+  id: backup-restore
+  name: Backup & Restore Database
+  description: Create or restore database snapshots with explicit user confirmation
+  version: 1.0.0
+  type: sequential
+  sequence:
+    - phase: choose_operation
+      agent: db-sage
+      action: choose_operation
+      description: Decide whether to create, list, or restore database snapshots.
+      outputs:
+        - operation
+    - phase: collect_snapshot_details
+      agent: db-sage
+      action: collect_snapshot_details
+      description: Capture snapshot label and type before backup creation.
+      condition: snapshot_selected
+      outputs:
+        - label
+        - snapshot_type
+    - phase: create_snapshot
+      agent: db-sage
+      task: db-snapshot
+      description: Create a database snapshot using the canonical snapshot task.
+      condition: snapshot_selected
+    - phase: list_snapshots
+      agent: db-sage
+      action: list_snapshots
+      description: Show the most recent available snapshot files.
+      condition: list_selected
+    - phase: select_snapshot
+      agent: db-sage
+      action: select_snapshot
+      description: Collect the snapshot path to restore.
+      condition: restore_selected
+      outputs:
+        - snapshot_file
+    - phase: confirm_restore
+      agent: db-sage
+      action: confirm_restore
+      description: Require explicit confirmation before restore.
+      condition: restore_selected
+    - phase: restore_snapshot
+      agent: db-sage
+      task: db-rollback
+      description: Restore the selected snapshot through the rollback task.
+      condition: restore_confirmed
+    - workflow_end:
+        id: complete
+        action: workflow_complete
+metadata:
+  story: squads/db-sage/docs/stories/1.5.backup-restore-workflow.md
+steps:
+  - id: operation
+    type: elicit
+    elicit:
+      question: "Backup/Restore operation:"
+      options:
+        - label: Create snapshot
+          value: snapshot
+        - label: Restore from snapshot
+          value: restore
+        - label: List snapshots
+          value: list
+      output_var: operation
+  - id: snapshot_label
+    condition: "{{operation}} == 'snapshot'"
+    type: elicit
+    elicit:
+      fields:
+        - name: label
+          label: Snapshot label
+          type: string
+          default: manual
+        - name: snapshot_type
+          label: Type (schema/full)
+          type: string
+          default: schema
+      output_vars:
+        - label
+        - snapshot_type
+  - id: create_snapshot
+    condition: "{{operation}} == 'snapshot'"
+    type: task
+    task: db-snapshot
+    inputs:
+      label: "{{label}}"
+      type: "{{snapshot_type}}"
+  - id: list_snapshots
+    condition: "{{operation}} == 'list'"
+    type: execute
+    command: ls -lht supabase/snapshots/*.sql | head -20
+  - id: select_snapshot
+    condition: "{{operation}} == 'restore'"
+    type: elicit
+    elicit:
+      fields:
+        - name: snapshot_file
+          label: Snapshot file
+          type: string
+          required: true
+      output_vars:
+        - snapshot_file
+  - id: confirm_restore
+    condition: "{{operation}} == 'restore'"
+    type: elicit
+    elicit:
+      question: "⚠️ WARNING: This will replace current database! Continue?"
+      options:
+        - label: Yes (I have backup)
+          value: "yes"
+        - label: No (cancel)
+          value: "no"
+      output_var: confirm_restore
+  - id: restore_snapshot
+    condition: "{{confirm_restore}} == 'yes'"
+    type: task
+    task: db-rollback
+    inputs:
+      snapshot: "{{snapshot_file}}"

@@ -1,0 +1,100 @@
+# wf-compile.yaml — Compile Multiple Sources
+# Multiple ETL outputs → single document with TOC
+# Data: 2026-03-11
+
+name: compile
+display_name: "Compile (Multi-Source Merge)"
+description: >
+  Compila multiplas fontes ETL-processadas em um unico documento
+  com TOC, frontmatter consolidado e deduplicacao.
+version: "1.0.0"
+squad: etl-squad
+
+trigger:
+  command: "aiox etl compile --sources {files...}"
+  api: "squads.etl.compile({sources[], title?, options?})"
+
+input:
+  required:
+    - sources: "2+ file paths to ETL-processed outputs"
+  optional:
+    - title: "Override compiled document title"
+    - toc_depth: "TOC heading depth (default: 2)"
+    - dedup: "true (default) — remove duplicate sections"
+    - sort: "order | date | alpha | source_type (default: order)"
+    - output_format: "md | yaml | json (default: md)"
+
+phases:
+  - phase: 0
+    name: Validate Inputs
+    agent: etl-chief
+    action: "Verify all source files exist, are readable, minimum 2 sources"
+    input: "sources[], title, options"
+    output: "validated_sources[] with file stats"
+    checkpoint:
+      condition: "At least 2 valid source files"
+      veto: "Less than 2 sources → FAIL"
+      veto2: "All sources unreadable → FAIL"
+
+  - phase: 1
+    name: Read & Extract
+    agent: parser
+    action: "Read each source, extract frontmatter and body content"
+    input: "validated_sources[]"
+    output: "parsed_sources[] with {frontmatter, body, stats} per source"
+    checkpoint:
+      condition: "At least 2 sources successfully parsed"
+      veto: "All sources fail to parse → FAIL"
+
+  - phase: 2
+    name: Merge & Deduplicate
+    agent: parser
+    action: "Sort, concatenate, generate TOC, remove duplicates"
+    input: "parsed_sources[], sort order, dedup flag, toc_depth"
+    output: "merged_content with TOC and source separators"
+    checkpoint:
+      condition: "Merged document is non-empty"
+      veto: "Merged content is empty → FAIL"
+
+  - phase: 3
+    name: Enrich Consolidated
+    agent: enricher
+    action: "Generate consolidated frontmatter, summary covering all sources"
+    input: "merged_content, all source frontmatters"
+    output: "enriched_content with consolidated frontmatter + summary"
+    checkpoint:
+      condition: "Consolidated frontmatter has source_count, merged tags, word_count"
+
+  - phase: 4
+    name: Validate
+    agent: validator
+    action: "Quality gate with extra checks for compiled documents"
+    input: "enriched_content"
+    output: "quality_report {score, verdict, issues[]}"
+    checkpoint:
+      condition: "verdict is pass or warn"
+      veto: "verdict is fail → return to phase 2"
+    extra_checks:
+      - "TOC links resolve to actual headings"
+      - "No orphan sections (content without heading)"
+      - "Source count in frontmatter matches actual sources"
+    max_retries: 1
+
+  - phase: 5
+    name: Load
+    agent: loader
+    action: "Write compiled document to destination"
+    input: "enriched_content, quality_report, output_format"
+    output: "output_path, job_envelope"
+    checkpoint:
+      condition: "File written successfully"
+      veto: "Write failed → FAIL"
+
+output:
+  content_file: "compile_{slug}_{date}.md"
+  job_envelope: "compile_{slug}_{date}.json"
+
+flow_diagram: |
+  sources[] → [Validate] → [Read & Extract] → [Merge & Dedup] → [Enrich] → [Validate] → [Load] → compiled.md
+                                                                                  ↑           |
+                                                                                  +--- fail --+

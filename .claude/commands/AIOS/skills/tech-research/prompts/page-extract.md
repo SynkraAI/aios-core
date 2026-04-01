@@ -1,0 +1,1 @@
+../../../../../skills/tech-research/prompts/page-extract.md

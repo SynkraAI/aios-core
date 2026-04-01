@@ -1,0 +1,1 @@
+../../../../../skills/tech-research/prompts/playwright-deep-research.md

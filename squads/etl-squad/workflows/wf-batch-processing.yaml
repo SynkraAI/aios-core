@@ -1,0 +1,105 @@
+# wf-batch-processing.yaml — Batch ETL Pipeline
+# Multiple sources → organized output directory
+
+name: batch-processing
+display_name: Batch ETL Processing
+description: >
+  Processa multiplas fontes em paralelo, cada uma pelo wf-etl-pipeline,
+  com controle de paralelismo, rate limiting e index consolidado.
+version: "1.0.0"
+squad: etl-squad
+
+trigger:
+  command: "aiox etl batch --sources {file_or_list} --parallel {n}"
+  api: "squads.etl.batch({sources[], pipeline?, parallel?, options?})"
+
+input:
+  required:
+    - sources: "File path (txt, json, yaml) or array of source strings"
+  optional:
+    - pipeline: "Force same pipeline for all (default: auto-detect per source)"
+    - parallel: "Max concurrent workers (default: 3, max: 10)"
+    - output_format: "Force format for all outputs"
+    - destination: "Destination for all outputs"
+    - fail_strategy: "continue | stop (default: continue)"
+    - rate_limit_ms: "Min delay between same-domain requests (default: 1000)"
+
+phases:
+  - phase: 0
+    name: Parse Sources
+    agent: etl-chief
+    action: "Read sources input, validate, classify each source"
+    input: "sources file or array"
+    output: "classified_sources[] with source_type and pipeline per item"
+    checkpoint:
+      condition: "At least 1 valid source"
+      veto: "Zero valid sources → FAIL"
+
+  - phase: 1
+    name: Plan Execution
+    agent: etl-chief
+    action: "Group by domain for rate limiting, plan parallel execution order"
+    input: "classified_sources[], parallel config, rate_limit_ms"
+    output: "execution_plan {groups[], order[], estimated_time}"
+    checkpoint:
+      condition: "Plan generated"
+
+  - phase: 2
+    name: Execute Parallel
+    agent: etl-chief
+    action: "Spawn parallel workers, each running wf-etl-pipeline per source"
+    input: "execution_plan, pipeline options"
+    output: "results[] per source {status, output_path, quality_score, duration_ms}"
+    monitoring:
+      progress: "Report progress as [=====>    ] N/total"
+      on_fail:
+        continue: "Log failure, continue with next source"
+        stop: "Halt all workers, report partial results"
+    checkpoint:
+      condition: "All sources processed (success or fail)"
+
+  - phase: 3
+    name: Consolidate
+    agent: loader
+    action: "Write all outputs + generate index.yaml"
+    input: "results[], destination config"
+    output: "batch directory with index.yaml + individual files"
+    checkpoint:
+      condition: "index.yaml written with all items"
+
+output:
+  directory_structure: |
+    data/etl-output/batch/{batch-slug}_{date}/
+      index.yaml          # summary of all items
+      items/
+        {pipeline}_{slug}_{date}.md   # individual outputs
+        {pipeline}_{slug}_{date}.json # individual envelopes
+
+  index_yaml_format: |
+    batch_id: "etl_batch_abc123"
+    started_at: "2025-03-05T14:30:00Z"
+    completed_at: "2025-03-05T14:32:15Z"
+    total: 12
+    success: 10
+    warn: 1
+    fail: 1
+    parallel_workers: 3
+    total_duration_ms: 135000
+    items:
+      - source: "https://..."
+        status: success
+        pipeline: url-to-markdown
+        output_file: "items/url-to-markdown_artigo-1_2025-03-05.md"
+        quality_score: 0.92
+        duration_ms: 2340
+      - source: "https://..."
+        status: fail
+        pipeline: url-to-markdown
+        error: "HTTP 404 after 3 retries"
+        duration_ms: 9500
+
+flow_diagram: |
+  sources[] → [Parse] → [Plan] → [Execute Parallel] → [Consolidate] → batch_output/
+                                   ├── worker 1 → wf-etl-pipeline
+                                   ├── worker 2 → wf-etl-pipeline
+                                   └── worker 3 → wf-etl-pipeline

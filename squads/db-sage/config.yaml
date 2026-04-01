@@ -1,0 +1,125 @@
+name: db-sage
+version: "1.2.0"
+entry_agent: db-sage
+slashPrefix: db-sage
+title: "Database Architect & Operations Engineer"
+description: "Expert database agent for PostgreSQL and Supabase - schema design, migrations, RLS policies, performance tuning"
+author: "AIOX Team"
+icon: "🗄️"
+type: specialist
+
+# Canonical manifest for db-sage runtime inventory.
+
+# IMPORTANT: External Dependencies
+dependencies:
+  required:
+    - name: PostgreSQL
+      version: ">=13.0"
+      description: "Database server"
+      install: "https://www.postgresql.org/download/"
+    - name: Supabase CLI
+      version: ">=1.0"
+      description: "For Supabase projects (optional if using raw PostgreSQL)"
+      install: "npm install -g supabase"
+  optional:
+    - name: psql
+      description: "PostgreSQL command-line client"
+    - name: pg_dump
+      description: "Database backup utility"
+
+metadata:
+  version: "1.2.0"
+  score: 8.5
+
+workspace_integration:
+  level: none
+  rationale: >-
+    Db Sage depende de código, banco e infraestrutura, não de artefatos
+    canônicos de negócio/produto em `workspace/`.
+
+# Environment variables
+environment:
+  connection_requirement: >-
+    Set at least one connection string before activation: SUPABASE_DB_URL or
+    DATABASE_URL. DB Sage accepts either and resolves them in priority order at
+    runtime.
+  required:
+    - name: SUPABASE_DB_URL
+      description: "Primary Supabase/PostgreSQL connection string when using the hosted runtime"
+      example: "postgresql://postgres:pass@db.xxx.supabase.co:5432/postgres"
+  optional:
+    - name: DATABASE_URL
+      description: "Alternative PostgreSQL connection string for local or remote deployments"
+      example: "postgresql://user:pass@host:5432/dbname"
+    - name: SUPABASE_PROJECT_REF
+      description: "Supabase project reference ID"
+
+agents:
+  - db-sage
+
+tasks:
+  - db-analyze-hotpaths
+  - db-apply-migration
+  - db-best-practices-audit
+  - db-bootstrap
+  - db-dry-run
+  - db-env-check
+  - db-squad-integration
+  - db-explain
+  - db-impersonate
+  - db-load-csv
+  - db-policy-apply
+  - db-rls-audit
+  - db-rollback
+  - db-run-sql
+  - db-seed
+  - db-smoke-test
+  - db-snapshot
+  - db-verify-order
+  - domain-modeling
+  - create-doc
+  - execute-checklist
+  - kiss
+  - query-optimization
+  - schema-audit
+  - supabase-setup
+
+templates:
+  - db-analysis-template
+  - index-strategy-tmpl
+  - migration-plan-tmpl
+  - rls-policies-tmpl
+  - schema-design-tmpl
+  - migration.sql.tmpl
+  - rollback.sql.tmpl
+  - backup-metadata.json.tmpl
+
+checklists:
+  - database-design-checklist
+  - database-migration-documentation-checklist
+  - db-kiss-validation-checklist
+  - dba-predeploy-checklist
+  - dba-rollback-checklist
+  - migration-validation-checklist
+  - supabase-best-practices-audit
+
+workflows:
+  - analyze-data-workflow
+  - backup-restore-workflow
+  - kiss-gate-workflow
+  - modify-schema-workflow
+  - performance-tuning-workflow
+  - query-database-workflow
+  - setup-database-workflow
+
+tags:
+  - database
+  - postgresql
+  - supabase
+  - migrations
+  - rls
+  - security
+  - dba
+
+independence: false
+independence_reason: "Requires PostgreSQL database and optionally Supabase"

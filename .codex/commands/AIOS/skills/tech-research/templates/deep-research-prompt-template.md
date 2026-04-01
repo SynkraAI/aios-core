@@ -1,0 +1,1 @@
+../../../../../skills/tech-research/templates/deep-research-prompt-template.md

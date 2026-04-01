@@ -1,0 +1,127 @@
+# wf-etl-pipeline.yaml — Main ETL Pipeline
+# Single source → clean output
+
+name: etl-pipeline
+display_name: ETL Pipeline (Single Source)
+description: >
+  Pipeline principal: recebe uma fonte, classifica, extrai, parseia,
+  enriquece, valida e entrega output limpo.
+version: "1.0.0"
+squad: etl-squad
+
+trigger:
+  command: "aiox etl run --source {source}"
+  api: "squads.etl.run({source, pipeline?, options?})"
+
+input:
+  required:
+    - source: "URL, file path, or text"
+  optional:
+    - pipeline: "Force specific pipeline (skip auto-detection)"
+    - output_format: "md | yaml | json | jsonl | csv | txt"
+    - destination: "local | aiox_context | supabase | notion | vector_store"
+    - chunk_size: "Token count per chunk (default: 500)"
+    - chunk_overlap: "Overlap tokens (default: 50)"
+    - language: "Force language (default: auto-detect)"
+    - cache: "true | false (default: config value)"
+
+phases:
+  - phase: 0
+    name: Route
+    agent: etl-chief
+    action: "Classify source type, select pipeline, check cache"
+    input: "source, pipeline?, cache config"
+    output: "source_type, pipeline_name, extraction_method, fallback_method"
+    checkpoint:
+      condition: "Source classified successfully"
+      veto: "Unrecognized source without --pipeline flag → ask user"
+    cache_check:
+      if_cached: "Return cached result, skip phases 1-4"
+      if_not_cached: "Continue to phase 1"
+
+  - phase: 1
+    name: Extract
+    agent: extractor
+    action: "Extract raw content using selected method"
+    input: "source, source_type, extraction_method, fallback_method"
+    output: "raw_content, extraction_metadata"
+    checkpoint:
+      condition: "raw_content is not empty"
+      veto: "Empty content after primary + fallback → FAIL"
+    timeout: "config.timeout_ms"
+    retry: "config.retry_attempts with config.retry_delay_ms"
+
+  - phase: 2
+    name: Parse
+    agent: parser
+    action: "Transform raw content into structured format"
+    input: "raw_content, source_type, extraction_metadata"
+    output: "structured_content (markdown or yaml), content_stats"
+    checkpoint:
+      condition: "structured_content has >0 useful content"
+      veto: "100% noise → FAIL"
+
+  - phase: 3
+    name: Enrich
+    agent: enricher
+    action: "Add metadata, summary, chunks, entities, tags"
+    input: "structured_content, content_stats, options (chunk_size, language)"
+    output: "enriched_content (with frontmatter), chunks[], summary, metadata"
+    checkpoint:
+      condition: "frontmatter complete, chunks generated"
+      veto: "None (enrichment always succeeds, may have warnings)"
+
+  - phase: 4
+    name: Validate
+    agent: validator
+    action: "Quality gate — score and decide pass/warn/fail"
+    input: "enriched_content, chunks, metadata"
+    output: "quality_report {score, verdict, issues[]}"
+    checkpoint:
+      condition: "verdict is pass or warn"
+      veto: "verdict is fail → return to phase 2 or 3 depending on issue type"
+    retry_routing:
+      noise_issues: "Return to phase 2 (parser)"
+      metadata_issues: "Return to phase 3 (enricher)"
+      encoding_issues: "Return to phase 1 (extractor)"
+    max_retries: 1
+
+  - phase: 5
+    name: Load
+    agent: loader
+    action: "Write output to destination in correct format"
+    input: "enriched_content, quality_report, output_format, destination"
+    output: "output_path, job_envelope"
+    checkpoint:
+      condition: "File written successfully"
+      veto: "Write failed → FAIL"
+
+output:
+  job_envelope: "JSON per output-format-spec.md section 3"
+  content_file: "md | yaml | json | jsonl per pipeline default or --output flag"
+  cache_entry: "source_hash → output_path (if cache_enabled)"
+
+shortcut:
+  enrich_standalone:
+    description: "*enrich command enters directly at Phase 3 (skip Route, Extract, Parse)"
+    entry_phase: 3
+    input: "raw text → treated as structured_content"
+    agents: [enricher, validator, loader]
+
+flow_diagram: |
+  source → [Route] → [Extract] → [Parse] → [Enrich] → [Validate] → [Load] → output
+                                     ↑          ↑                |
+                                     |          |                |
+                                     +----------+--- fail retry -+
+
+  *enrich shortcut:
+  raw text ─────────────────────────→ [Enrich] → [Validate] → [Load] → output
+
+performance:
+  target_p95:
+    webpage: "3s"
+    pdf_small: "5s"
+    pdf_large: "30s"
+    youtube: "10s"
+    audio_1h: "120s"
+    image: "5s"

@@ -1,0 +1,407 @@
+workflow:
+  id: analyze-data
+  name: Analyze and Import Data
+  description: Import CSV files, apply seed data, and analyze database contents with validation
+  version: 1.0.0
+  type: sequential
+  sequence:
+    - phase: select_operation_type
+      agent: db-sage
+      action: select_operation_type
+      description: Choose whether to import CSV data, apply seed data, or analyze existing tables.
+      outputs:
+        - operation_type
+    - phase: collect_csv_details
+      agent: db-sage
+      action: collect_csv_details
+      description: Collect CSV path and target table before import.
+      condition: import_csv_selected
+      outputs:
+        - csv_path
+        - target_table
+    - phase: import_csv
+      agent: db-sage
+      task: db-load-csv
+      description: Load CSV data through the canonical data-loader worker.
+      condition: import_csv_selected
+    - phase: collect_seed_details
+      agent: db-sage
+      action: collect_seed_details
+      description: Collect the seed file path before applying seed data.
+      condition: seed_selected
+      outputs:
+        - seed_path
+    - phase: apply_seed
+      agent: db-sage
+      task: db-seed
+      description: Apply seed SQL through the canonical data-loader worker.
+      condition: seed_selected
+    - phase: select_analysis_type
+      agent: db-sage
+      action: select_analysis_type
+      description: Select the analysis branch for existing data inspection.
+      condition: analyze_selected
+      outputs:
+        - analysis_type
+    - phase: run_table_statistics
+      agent: db-sage
+      action: run_table_statistics
+      description: Inspect table sizes, live rows, and storage footprint.
+      condition: table_statistics_selected
+    - phase: collect_distribution_params
+      agent: db-sage
+      action: collect_distribution_params
+      description: Collect table and column parameters for distribution analysis.
+      condition: distribution_selected
+      outputs:
+        - dist_table
+        - dist_column
+    - phase: run_distribution_analysis
+      agent: db-sage
+      action: run_distribution_analysis
+      description: Analyze column value distribution for the selected table and column.
+      condition: distribution_selected
+    - phase: run_integrity_checks
+      agent: db-sage
+      action: run_integrity_checks
+      description: Execute integrity and quality checks across the database.
+      condition: integrity_selected
+    - phase: collect_recent_activity_params
+      agent: db-sage
+      action: collect_recent_activity_params
+      description: Collect parameters for recent-activity inspection.
+      condition: recent_selected
+      outputs:
+        - recent_table
+        - recent_column
+        - recent_days
+    - phase: run_recent_activity_analysis
+      agent: db-sage
+      action: run_recent_activity_analysis
+      description: Analyze recent activity for the selected table and timestamp column.
+      condition: recent_selected
+    - workflow_end:
+        id: complete
+        action: workflow_complete
+metadata:
+  author: DB Sage
+  created_date: "2025-10-27"
+  story: squads/db-sage/docs/stories/1.4.analyze-data-workflow.md
+steps:
+  - id: operation_type
+    name: Select Data Operation
+    type: elicit
+    elicit:
+      question: "Data operation:"
+      options:
+        - label: Import CSV file
+          value: import_csv
+        - label: Apply seed data
+          value: seed
+        - label: Analyze existing data
+          value: analyze
+      output_var: operation_type
+  - id: csv_details
+    condition: "{{operation_type}} == 'import_csv'"
+    type: elicit
+    elicit:
+      fields:
+        - name: csv_path
+          label: CSV file path
+          type: string
+          required: true
+        - name: target_table
+          label: Target table
+          type: string
+          required: true
+      output_vars:
+        - csv_path
+        - target_table
+  - id: csv_import
+    condition: "{{operation_type}} == 'import_csv'"
+    type: task
+    task: db-load-csv
+    inputs:
+      table: "{{target_table}}"
+      csv_file: "{{csv_path}}"
+  - id: seed_details
+    condition: "{{operation_type}} == 'seed'"
+    type: elicit
+    elicit:
+      fields:
+        - name: seed_path
+          label: Seed file path
+          type: string
+          required: true
+      output_vars:
+        - seed_path
+  - id: seed_apply
+    condition: "{{operation_type}} == 'seed'"
+    type: task
+    task: db-seed
+    inputs:
+      path: "{{seed_path}}"
+  - id: analysis_type
+    condition: "{{operation_type}} == 'analyze'"
+    type: elicit
+    elicit:
+      question: "Analysis type:"
+      options:
+        - label: Table statistics
+          value: stats
+        - label: Data distribution
+          value: distribution
+        - label: Integrity checks
+          value: integrity
+        - label: Recent activity
+          value: recent
+      output_var: analysis_type
+  - id: run_stats
+    condition: "{{operation_type}} == 'analyze' AND {{analysis_type}} == 'stats'"
+    type: execute
+    description: Analyze table sizes and row counts
+    command: |
+      DB_URL="${SUPABASE_DB_URL:-${DATABASE_URL:-}}"
+      test -n "$DB_URL" || { echo "❌ Missing SUPABASE_DB_URL or DATABASE_URL"; exit 1; }
+
+      echo "=== TABLE STATISTICS ==="
+      echo ""
+      psql "$DB_URL" -c "
+        SELECT
+          schemaname,
+          tablename,
+          pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) AS total_size,
+          pg_size_pretty(pg_relation_size(schemaname||'.'||tablename)) AS table_size,
+          pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename) -
+                         pg_relation_size(schemaname||'.'||tablename)) AS index_size,
+          n_live_tup AS live_rows,
+          n_dead_tup AS dead_rows
+        FROM pg_stat_user_tables
+        WHERE schemaname = 'public'
+        ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC
+        LIMIT 20;"
+      echo ""
+      echo "✅ Statistics complete"
+  - id: distribution_params
+    condition: "{{operation_type}} == 'analyze' AND {{analysis_type}} == 'distribution'"
+    type: elicit
+    elicit:
+      fields:
+        - name: dist_table
+          label: Table name
+          type: string
+          required: true
+        - name: dist_column
+          label: Column to analyze
+          type: string
+          required: true
+      output_vars:
+        - dist_table
+        - dist_column
+  - id: run_distribution
+    condition: "{{operation_type}} == 'analyze' AND {{analysis_type}} == 'distribution'"
+    type: execute
+    description: Analyze data distribution for column
+    command: |
+      DB_URL="${SUPABASE_DB_URL:-${DATABASE_URL:-}}"
+      test -n "$DB_URL" || { echo "❌ Missing SUPABASE_DB_URL or DATABASE_URL"; exit 1; }
+
+      for ident in "{{dist_table}}" "{{dist_column}}"; do
+        case "$ident" in
+          ''|*[!A-Za-z0-9_]*)
+            echo "❌ Invalid identifier: $ident"
+            exit 1
+            ;;
+        esac
+      done
+
+      COLUMN_EXISTS=$(psql "$DB_URL" -t -A -c "
+        SELECT COUNT(*)
+        FROM information_schema.columns
+        WHERE table_schema = 'public'
+          AND table_name = '{{dist_table}}'
+          AND column_name = '{{dist_column}}';")
+
+      if [ "$COLUMN_EXISTS" = "0" ]; then
+        echo "❌ Column '{{dist_column}}' not found in table '{{dist_table}}'"
+        exit 1
+      fi
+
+      echo "=== DATA DISTRIBUTION: {{dist_table}}.{{dist_column}} ==="
+      echo ""
+
+      psql "$DB_URL" -c "
+        SELECT
+          {{dist_column}} AS value,
+          COUNT(*) AS count,
+          ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 2) AS percentage
+        FROM {{dist_table}}
+        WHERE {{dist_column}} IS NOT NULL
+        GROUP BY {{dist_column}}
+        ORDER BY count DESC
+        LIMIT 20;"
+
+      echo ""
+      echo "--- NULL Analysis ---"
+      psql "$DB_URL" -c "
+        SELECT
+          COUNT(*) FILTER (WHERE {{dist_column}} IS NULL) AS null_count,
+          COUNT(*) FILTER (WHERE {{dist_column}} IS NOT NULL) AS non_null_count,
+          ROUND(100.0 * COUNT(*) FILTER (WHERE {{dist_column}} IS NULL) / COUNT(*), 2) AS null_percentage
+        FROM {{dist_table}};"
+
+      echo ""
+      echo "✅ Distribution analysis complete"
+  - id: run_integrity
+    condition: "{{operation_type}} == 'analyze' AND {{analysis_type}} == 'integrity'"
+    type: execute
+    description: Check for orphaned records and referential integrity
+    command: |
+      DB_URL="${SUPABASE_DB_URL:-${DATABASE_URL:-}}"
+      test -n "$DB_URL" || { echo "❌ Missing SUPABASE_DB_URL or DATABASE_URL"; exit 1; }
+
+      echo "=== INTEGRITY CHECKS ==="
+      echo ""
+
+      echo "--- Foreign Key Violations ---"
+      psql "$DB_URL" -c "
+        SELECT
+          tc.table_name,
+          kcu.column_name,
+          ccu.table_name AS foreign_table_name,
+          ccu.column_name AS foreign_column_name
+        FROM information_schema.table_constraints AS tc
+        JOIN information_schema.key_column_usage AS kcu
+          ON tc.constraint_name = kcu.constraint_name
+          AND tc.table_schema = kcu.table_schema
+        JOIN information_schema.constraint_column_usage AS ccu
+          ON ccu.constraint_name = tc.constraint_name
+          AND ccu.table_schema = tc.table_schema
+        WHERE tc.constraint_type = 'FOREIGN KEY'
+          AND tc.table_schema = 'public'
+        ORDER BY tc.table_name, kcu.column_name;"
+
+      echo ""
+      echo "--- Tables Without Primary Keys ---"
+      psql "$DB_URL" -c "
+        SELECT
+          t.table_name
+        FROM information_schema.tables t
+        LEFT JOIN information_schema.table_constraints tc
+          ON t.table_name = tc.table_name
+          AND tc.constraint_type = 'PRIMARY KEY'
+        WHERE t.table_schema = 'public'
+          AND t.table_type = 'BASE TABLE'
+          AND tc.constraint_name IS NULL
+        ORDER BY t.table_name;"
+
+      echo ""
+      echo "--- Duplicate Check (tables with potential duplicates) ---"
+      psql "$DB_URL" -c "
+        SELECT
+          schemaname,
+          tablename,
+          n_live_tup AS total_rows,
+          n_dead_tup AS dead_rows,
+          CASE
+            WHEN n_live_tup > 0 THEN ROUND(100.0 * n_dead_tup / n_live_tup, 2)
+            ELSE 0
+          END AS dead_row_percentage
+        FROM pg_stat_user_tables
+        WHERE schemaname = 'public'
+          AND n_dead_tup > 0
+        ORDER BY n_dead_tup DESC
+        LIMIT 10;"
+
+      echo ""
+      echo "✅ Integrity checks complete"
+  - id: recent_params
+    condition: "{{operation_type}} == 'analyze' AND {{analysis_type}} == 'recent'"
+    type: elicit
+    elicit:
+      fields:
+        - name: recent_table
+          label: Table name
+          type: string
+          required: true
+        - name: recent_limit
+          label: Number of records to show
+          type: number
+          default: 10
+        - name: time_column
+          label: Timestamp column (e.g., created_at)
+          type: string
+          default: created_at
+      output_vars:
+        - recent_table
+        - recent_limit
+        - time_column
+  - id: run_recent
+    condition: "{{operation_type}} == 'analyze' AND {{analysis_type}} == 'recent'"
+    type: execute
+    description: Show recent activity in table
+    command: |
+      DB_URL="${SUPABASE_DB_URL:-${DATABASE_URL:-}}"
+      test -n "$DB_URL" || { echo "❌ Missing SUPABASE_DB_URL or DATABASE_URL"; exit 1; }
+
+      for ident in "{{recent_table}}" "{{time_column}}"; do
+        case "$ident" in
+          ''|*[!A-Za-z0-9_]*)
+            echo "❌ Invalid identifier: $ident"
+            exit 1
+            ;;
+        esac
+      done
+
+      echo "=== RECENT ACTIVITY: {{recent_table}} ==="
+      echo ""
+
+      COLUMN_EXISTS=$(psql "$DB_URL" -t -A -c "
+        SELECT COUNT(*)
+        FROM information_schema.columns
+        WHERE table_name = '{{recent_table}}'
+          AND column_name = '{{time_column}}'
+          AND table_schema = 'public';")
+
+      if [ "$COLUMN_EXISTS" = "0" ]; then
+        echo "❌ Error: Column '{{time_column}}' not found in table '{{recent_table}}'"
+        echo ""
+        echo "Available timestamp columns:"
+        psql "$DB_URL" -c "
+          SELECT column_name, data_type
+          FROM information_schema.columns
+          WHERE table_name = '{{recent_table}}'
+            AND table_schema = 'public'
+            AND data_type IN ('timestamp', 'timestamp with time zone', 'timestamp without time zone')
+          ORDER BY ordinal_position;"
+        exit 1
+      fi
+
+      echo "--- Most Recent Records ---"
+      psql "$DB_URL" -c "
+        SELECT *
+        FROM {{recent_table}}
+        ORDER BY {{time_column}} DESC
+        LIMIT {{recent_limit}};"
+
+      echo ""
+      echo "--- Activity by Time Period ---"
+      psql "$DB_URL" -c "
+        SELECT
+          DATE_TRUNC('day', {{time_column}}) AS day,
+          COUNT(*) AS records
+        FROM {{recent_table}}
+        WHERE {{time_column}} > NOW() - INTERVAL '30 days'
+        GROUP BY day
+        ORDER BY day DESC
+        LIMIT 30;"
+
+      echo ""
+      echo "✅ Recent activity analysis complete"
+outputs:
+  operation_complete:
+    type: boolean
+    description: Operation completed successfully
+    value: true
+global_error_handling:
+  on_error: abort

@@ -1,0 +1,1 @@
+../../../../skills/code-review-ping-pong/SKILL.md

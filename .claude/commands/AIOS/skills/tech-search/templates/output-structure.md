@@ -1,1 +1,0 @@
-../../../../../../skills/tech-search/templates/output-structure.md

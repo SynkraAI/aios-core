@@ -1,1 +1,0 @@
-../../../../../skills/tech-search/README.md

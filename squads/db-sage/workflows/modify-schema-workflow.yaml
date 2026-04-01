@@ -1,0 +1,440 @@
+workflow:
+  id: modify-schema
+  name: Modify Database Schema Safely
+  description: Apply database migrations with DDL validation, dry-run testing, snapshots, and smoke tests
+  version: 1.0.0
+  type: sequential
+  sequence:
+    - phase: select_migration_source
+      agent: db-sage
+      action: select_migration_source
+      description: Decide whether to apply an existing migration or generate a new migration file.
+      outputs:
+        - migration_source
+        - migration_file
+    - phase: generate_new_migration
+      agent: db-sage
+      action: generate_new_migration
+      description: Generate a timestamped migration template when the workflow starts from a new change request.
+      condition: migration_source_new
+      outputs:
+        - migration_file
+    - phase: select_existing_migration
+      agent: db-sage
+      action: select_existing_migration
+      description: Capture the existing migration path when the workflow starts from a prepared SQL file.
+      condition: migration_source_existing
+      outputs:
+        - migration_file
+    - phase: verify_ddl_order
+      agent: db-sage
+      task: db-verify-order
+      description: Validate DDL ordering before any migration test or execution.
+    - phase: offer_dry_run
+      agent: db-sage
+      action: offer_dry_run
+      description: Ask whether the migration should be tested inside BEGIN/ROLLBACK.
+    - phase: execute_dry_run
+      agent: db-sage
+      task: db-dry-run
+      description: Execute the migration in dry-run mode when selected.
+      condition: dry_run_requested
+    - phase: confirm_apply
+      agent: db-sage
+      action: confirm_apply
+      description: Require explicit confirmation before applying the migration.
+      condition: migration_ready_to_apply
+    - phase: create_pre_snapshot
+      agent: db-sage
+      task: db-snapshot
+      description: Create a pre-migration snapshot for rollback safety.
+      condition: apply_confirmed_or_dry_run_skipped
+    - phase: apply_migration
+      agent: db-sage
+      task: db-apply-migration
+      description: Apply the migration through the canonical migration worker.
+      condition: apply_confirmed_or_dry_run_skipped
+    - phase: run_smoke_test
+      agent: db-sage
+      task: db-smoke-test
+      description: Execute post-migration smoke tests after successful application.
+      condition: migration_applied
+    - phase: update_documentation
+      agent: db-sage
+      action: update_documentation
+      description: Update database documentation and migration records after the schema change.
+      condition: migration_applied
+    - phase: summarize_migration
+      agent: db-sage
+      action: summarize_migration
+      description: Present the migration result, snapshot, and follow-up guidance.
+    - workflow_end:
+        id: complete
+        action: workflow_complete
+metadata:
+  author: DB Sage
+  created_date: "2025-10-27"
+  last_modified: "2025-10-28"
+  tags:
+    - database
+    - migration
+    - schema
+    - ddl
+    - db-sage
+    - documentation
+  story: squads/db-sage/docs/stories/1.3.modify-schema-workflow.md
+  changelog:
+    - version: 1.1.0
+      date: "2025-10-28"
+      changes: Added STEP 10 - Mandatory documentation update after migration
+      rationale: Prevent documentation drift (v0.7.0 docs with v0.8.2 database)
+inputs:
+  migration_source:
+    type: string
+    description: "Migration source: new or existing"
+    required: false
+  migration_path:
+    type: string
+    description: Path to migration file
+    required: false
+steps:
+  - id: step_1_migration_source
+    name: Select Migration Source
+    type: elicit
+    elicit:
+      question: "Migration source:"
+      options:
+        - label: Apply existing migration file
+          value: existing
+          description: Execute a migration SQL file
+        - label: Create new migration
+          value: new
+          description: Generate migration template with proper DDL ordering
+      default: existing
+      output_var: migration_source
+    error_handling:
+      strategy: fail
+  - id: step_2a_new_migration
+    name: Create New Migration File
+    type: elicit
+    condition: "{{migration_source}} == 'new'"
+    elicit:
+      fields:
+        - name: migration_description
+          label: Migration Description (e.g., 'add users table')
+          type: string
+          required: true
+          placeholder: add_users_table
+        - name: migration_purpose
+          label: Purpose (why is this change needed?)
+          type: text
+          multiline: true
+          required: false
+      output_vars:
+        - migration_description
+        - migration_purpose
+  - id: step_2b_generate_file
+    name: Generate Migration Template
+    type: execute
+    condition: "{{migration_source}} == 'new'"
+    description: Create migration file with proper DDL ordering
+    command: |
+      # Create supabase/migrations directory if not exists
+      mkdir -p supabase/migrations
+
+      # Generate timestamp-based filename
+      TIMESTAMP=$(date +%Y%m%d%H%M%S)
+      DESC=$(echo "{{migration_description}}" | tr ' ' '_' | tr '[:upper:]' '[:lower:]')
+      FILENAME="supabase/migrations/${TIMESTAMP}_${DESC}.sql"
+
+      # Create migration template (YAML-safe shell block, no heredoc)
+      printf '%s\n' \
+        "-- Migration: {{migration_description}}" \
+        "-- Purpose: {{migration_purpose}}" \
+        "-- DDL execution order: Extensions -> Tables -> Functions -> Triggers -> RLS -> Views" \
+        "" \
+        "BEGIN;" \
+        "" \
+        "-- Add your migration SQL below" \
+        "" \
+        "COMMIT;" \
+        > "$FILENAME"
+
+      echo "$FILENAME"
+    outputs:
+      migration_file: "{{output}}"
+  - id: step_2c_select_existing
+    name: Select Existing Migration
+    type: elicit
+    condition: "{{migration_source}} == 'existing'"
+    elicit:
+      help_text: Available migrations in supabase/migrations/
+      fields:
+        - name: migration_path
+          label: Migration File Path
+          type: string
+          required: true
+          placeholder: supabase/migrations/20241027_add_users.sql
+      output_vars:
+        - migration_path
+    outputs:
+      migration_file: "{{migration_path}}"
+  - id: step_3_verify_order
+    name: Verify DDL Ordering
+    type: task
+    task: db-verify-order
+    description: Validate DDL execution order to prevent dependency errors
+    inputs:
+      path: "{{migration_file}}"
+    error_handling:
+      strategy: warn
+      message: |
+        ⚠️ DDL ordering issues detected
+
+        Review and fix before proceeding:
+        1. Extensions must come before tables that use them
+        2. Tables must exist before functions reference them
+        3. Functions must exist before triggers call them
+        4. RLS must be enabled before creating policies
+        5. Views must come last (they depend on tables/functions)
+    outputs:
+      order_valid: true
+  - id: step_4_dry_run_option
+    name: Offer Dry-Run Test
+    type: elicit
+    elicit:
+      question: Run dry-run test? (HIGHLY RECOMMENDED)
+      help_text: |
+        Dry-run executes migration in BEGIN...ROLLBACK:
+        - Tests SQL syntax
+        - Validates dependencies
+        - Checks execution order
+        - NO actual changes applied
+      options:
+        - label: Yes - Test migration safely (RECOMMENDED)
+          value: "yes"
+          description: Test without applying changes
+        - label: Skip - Apply immediately (RISKY)
+          value: "no"
+          description: Skip safety check
+      default: "yes"
+      output_var: run_dry_run
+    error_handling:
+      strategy: fail
+  - id: step_5_dry_run
+    name: Execute Dry-Run Test
+    type: task
+    task: db-dry-run
+    condition: "{{run_dry_run}} == 'yes'"
+    description: Test migration with BEGIN...ROLLBACK
+    inputs:
+      path: "{{migration_file}}"
+    error_handling:
+      strategy: fail
+      message: |
+        ❌ Dry-run failed
+
+        Fix the migration and try again.
+        Common issues:
+        - Syntax errors
+        - Missing dependencies
+        - Wrong execution order
+        - Constraint violations
+    outputs:
+      dry_run_passed: true
+  - id: step_6_confirm_apply
+    name: Confirm Migration Application
+    type: elicit
+    condition: "{{run_dry_run}} == 'yes'"
+    elicit:
+      question: |
+        ✅ Dry-run passed successfully
+
+        Apply migration to database?
+      options:
+        - label: Yes - Apply migration
+          value: "yes"
+          description: Proceed with migration
+        - label: No - Cancel
+          value: "no"
+          description: Review migration first
+      default: "yes"
+      output_var: confirm_apply
+    error_handling:
+      strategy: abort
+  - id: step_7_pre_snapshot
+    name: Create Pre-Migration Snapshot
+    type: task
+    task: db-snapshot
+    condition: "{{confirm_apply}} == 'yes' OR {{run_dry_run}} == 'no'"
+    description: Create schema-only backup before migration
+    inputs:
+      label: pre_migration_{{timestamp}}
+      type: schema
+      purpose: Safety snapshot before migration {{migration_file}}
+    error_handling:
+      strategy: warn
+      message: ⚠️ Snapshot failed, but continuing with migration
+    outputs:
+      snapshot_file: "{{output}}"
+  - id: step_8_apply_migration
+    name: Apply Migration to Database
+    type: task
+    task: db-apply-migration
+    condition: "{{confirm_apply}} == 'yes' OR {{run_dry_run}} == 'no'"
+    description: Execute migration with advisory lock and error handling
+    inputs:
+      path: "{{migration_file}}"
+    error_handling:
+      strategy: fail
+      message: |
+        ❌ MIGRATION FAILED
+
+        Your database is unchanged (transaction rolled back).
+
+        Rollback options:
+        1. Fix migration and try again
+        2. Restore pre-migration snapshot: *rollback {{snapshot_file}}
+
+        Emergency snapshot: {{snapshot_file}}
+    outputs:
+      migration_success: true
+      post_snapshot_file: "{{post_snapshot}}"
+  - id: step_9_smoke_test
+    name: Run Post-Migration Smoke Test
+    type: task
+    task: db-smoke-test
+    condition: "{{migration_success}} == true"
+    description: Validate schema integrity after migration
+    inputs:
+      version: "{{migration_file}}"
+    error_handling:
+      strategy: warn
+      message: |
+        ⚠️ Smoke test failed
+
+        Migration applied but validation failed.
+        Review schema integrity manually.
+    outputs:
+      smoke_test_passed: "{{output}}"
+  - id: step_10_update_documentation
+    name: Update Database Documentation
+    type: checklist
+    condition: "{{migration_success}} == true"
+    description: Execute documentation update checklist (MANDATORY)
+    checklist: squads/db-sage/checklists/database-migration-documentation-checklist.md
+    required_actions:
+      - Update docs/database/README.md metadata (version, migration, snapshot, date)
+      - Update version history table in README
+      - Update 'Current Schema' section with changes
+      - Create/update docs/database/evolution/X.Y_README.md (if minor/major version)
+      - Create post-migration snapshot with correct version
+      - Verify DB Sage can load new version
+    help_text: |
+      🚨 DOCUMENTATION UPDATE REQUIRED 🚨
+
+      This step is MANDATORY to prevent documentation drift.
+
+      Follow the checklist to update:
+      1. Version metadata in README
+      2. Version history table
+      3. Current schema section
+      4. Evolution documentation
+      5. Schema snapshot
+
+      **Why:** Without this, documentation becomes stale and DB Sage will load wrong version.
+
+      **Time:** 10-15 minutes
+
+      Use checklist: squads/db-sage/checklists/database-migration-documentation-checklist.md
+    error_handling:
+      strategy: warn
+      message: |
+        ⚠️ DOCUMENTATION NOT UPDATED
+
+        Migration applied successfully, but documentation is NOT updated.
+
+        **CRITICAL:** You MUST update documentation manually:
+        1. Open: squads/db-sage/checklists/database-migration-documentation-checklist.md
+        2. Follow ALL steps in checklist
+        3. Verify DB Sage loads correct version
+
+        **Consequence if skipped:** Documentation drift, confusion, DB Sage malfunction.
+    outputs:
+      documentation_updated: true
+  - id: step_11_success_summary
+    name: Display Success Summary
+    type: execute
+    condition: "{{migration_success}} == true"
+    description: Show migration summary and next steps
+    command: |
+      echo ""
+      echo "════════════════════════════════════════"
+      echo "✅ MIGRATION APPLIED SUCCESSFULLY"
+      echo "════════════════════════════════════════"
+      echo ""
+      echo "Migration Details:"
+      echo "  File: {{migration_file}}"
+      echo "  Pre-Snapshot: {{snapshot_file}}"
+      echo "  Post-Snapshot: {{post_snapshot_file}}"
+      echo ""
+
+      {% if smoke_test_passed %}
+      echo "Validation:"
+      echo "  ✅ Smoke test passed"
+      {% else %}
+      echo "Validation:"
+      echo "  ⚠️ Smoke test had warnings - review manually"
+      {% endif %}
+
+      echo ""
+      echo "Snapshots:"
+      echo "  Before: {{snapshot_file}}"
+      echo "  After: {{post_snapshot_file}}"
+      echo "  Diff: supabase/snapshots/diff.patch"
+      echo ""
+      echo "Next Steps:"
+      echo "  1. Verify changes in database"
+      echo "  2. Test application functionality"
+      echo "  3. Deploy to staging/production"
+      echo ""
+      echo "Rollback (if needed):"
+      echo "  *rollback {{snapshot_file}}"
+      echo ""
+outputs:
+  migration_applied:
+    type: boolean
+    description: Migration successfully applied
+    source: step_8_apply_migration.migration_success
+  documentation_updated:
+    type: boolean
+    description: Documentation updated after migration
+    source: step_10_update_documentation.documentation_updated
+  migration_file:
+    type: string
+    description: Path to migration file
+    source: migration_file
+  pre_snapshot:
+    type: string
+    description: Pre-migration snapshot file
+    source: step_7_pre_snapshot.snapshot_file
+  post_snapshot:
+    type: string
+    description: Post-migration snapshot file
+    source: step_8_apply_migration.post_snapshot_file
+  smoke_test_passed:
+    type: boolean
+    description: Post-migration smoke test result
+    source: step_9_smoke_test.smoke_test_passed
+global_error_handling:
+  on_error: abort
+  notification:
+    enabled: true
+    channels:
+      - console
+  rollback_on_error: true
+security:
+  authorization_required: false
+  audit_logging: true
+  advisory_lock_required: true
+  snapshot_before_migration: true

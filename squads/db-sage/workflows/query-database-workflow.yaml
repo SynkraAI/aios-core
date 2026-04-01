@@ -1,0 +1,394 @@
+workflow:
+  id: query-database
+  name: Query Database with Safety and Performance
+  description: Execute SQL queries with transaction safety, dangerous operation detection, and performance analysis
+  version: 1.0.0
+  type: sequential
+  sequence:
+    - phase: choose_query_input
+      agent: db-sage
+      action: choose_query_input
+      description: Select whether SQL will be provided inline or from a file.
+      outputs:
+        - query_source
+    - phase: capture_inline_sql
+      agent: db-sage
+      action: capture_inline_sql
+      description: Collect inline SQL text when the query source is direct input.
+      condition: query_source_inline
+      outputs:
+        - sql_content
+    - phase: capture_sql_file
+      agent: db-sage
+      action: capture_sql_file
+      description: Collect the SQL file path when the query source is a file.
+      condition: query_source_file
+      outputs:
+        - sql_file
+    - phase: choose_transaction_mode
+      agent: db-sage
+      action: choose_transaction_mode
+      description: Decide whether to run inside a transaction and whether dry-run semantics apply.
+    - phase: safety_check
+      agent: db-sage
+      action: safety_check
+      description: Detect destructive SQL patterns and gate execution accordingly.
+      outputs:
+        - safety_status
+    - phase: confirm_dangerous_execution
+      agent: db-sage
+      action: confirm_dangerous_execution
+      description: Require explicit confirmation before destructive SQL executes.
+      condition: dangerous_operation_detected
+    - phase: verify_dangerous_confirmation
+      agent: db-sage
+      action: verify_dangerous_confirmation
+      description: Ensure destructive execution is blocked unless confirmation was explicit.
+      condition: dangerous_operation_detected
+    - phase: execute_sql
+      agent: db-sage
+      task: db-run-sql
+      description: Execute the SQL statement or file through the canonical worker.
+    - phase: offer_performance_analysis
+      agent: db-sage
+      action: offer_performance_analysis
+      description: Ask whether EXPLAIN analysis should run after query execution.
+    - phase: run_explain
+      agent: db-sage
+      task: db-explain
+      description: Run EXPLAIN ANALYZE for the executed query when requested.
+      condition: performance_analysis_requested
+    - phase: suggest_optimization
+      agent: db-sage
+      action: suggest_optimization
+      description: Present optimization suggestions based on the execution plan.
+      condition: performance_analysis_requested
+    - phase: summarize_execution
+      agent: db-sage
+      action: summarize_execution
+      description: Summarize execution, safety outcome, and performance follow-up.
+    - workflow_end:
+        id: complete
+        action: workflow_complete
+metadata:
+  author: DB Sage
+  created_date: "2025-10-27"
+  last_modified: "2025-10-27"
+  tags:
+    - database
+    - query
+    - sql
+    - performance
+    - db-sage
+  story: squads/db-sage/docs/stories/1.2.query-database-workflow.md
+inputs:
+  query_source:
+    type: string
+    description: "Query source: inline or file"
+    required: false
+  sql_query:
+    type: string
+    description: SQL query or file path
+    required: false
+steps:
+  - id: step_1_query_input
+    name: Select Query Input Method
+    type: elicit
+    elicit:
+      question: How do you want to provide the SQL query?
+      options:
+        - label: Inline SQL (type or paste)
+          value: inline
+          description: Enter SQL directly
+        - label: SQL File (path)
+          value: file
+          description: Execute SQL from file
+      default: inline
+      output_var: query_source
+    error_handling:
+      strategy: fail
+  - id: step_2a_inline_sql
+    name: Enter Inline SQL
+    type: elicit
+    condition: "{{query_source}} == 'inline'"
+    elicit:
+      fields:
+        - name: sql
+          label: SQL Query (can be multi-line)
+          type: text
+          multiline: true
+          required: true
+          placeholder: SELECT * FROM users WHERE created_at > NOW() - INTERVAL '7 days';
+      output_vars:
+        - sql
+    outputs:
+      sql_content: "{{sql}}"
+    error_handling:
+      strategy: fail
+  - id: step_2b_file_input
+    name: Enter SQL File Path
+    type: elicit
+    condition: "{{query_source}} == 'file'"
+    elicit:
+      fields:
+        - name: file_path
+          label: SQL File Path
+          type: string
+          required: true
+          placeholder: queries/my_query.sql
+          validation: Must be a valid file path
+      output_vars:
+        - file_path
+    outputs:
+      sql_file: "{{file_path}}"
+    error_handling:
+      strategy: fail
+      message: File not found or not readable
+  - id: step_3_transaction_mode
+    name: Select Transaction Mode
+    type: elicit
+    elicit:
+      question: "Select transaction mode:"
+      help_text: |
+        Transaction modes:
+        - Auto: Wraps in BEGIN/COMMIT (safe, auto-rollback on error)
+        - Manual: File has own transaction control
+        - Read-only: Cannot modify data (safest for queries)
+      options:
+        - label: Auto (Recommended - wraps in BEGIN/COMMIT)
+          value: auto
+          description: Automatic rollback on error
+        - label: Manual (File has own transactions)
+          value: manual
+          description: Use when script controls transactions
+        - label: Read-only (Cannot modify data)
+          value: readonly
+          description: Safest for SELECT queries
+      default: readonly
+      output_var: transaction_mode
+    error_handling:
+      strategy: fail
+  - id: step_4_safety_check
+    name: Check for Dangerous Operations
+    type: execute
+    description: Detect potentially destructive SQL patterns
+    command: |
+      SQL_TO_CHECK=""
+
+      if [ "{{query_source}}" = "file" ]; then
+        if [ ! -f "{{sql_file}}" ]; then
+          echo "❌ SQL file not found: {{sql_file}}"
+          exit 1
+        fi
+        SQL_TO_CHECK=$(cat "{{sql_file}}")
+      else
+        SQL_TO_CHECK="{{sql_content}}"
+      fi
+
+      DANGEROUS="DROP TABLE|TRUNCATE|DELETE.*WHERE.*1.*=.*1|UPDATE.*WHERE.*1.*=.*1|DROP DATABASE|ALTER TABLE.*DROP"
+
+      if echo "$SQL_TO_CHECK" | grep -Eiq "$DANGEROUS"; then
+        echo "⚠️  WARNING: Potentially DESTRUCTIVE operation detected!"
+        echo ""
+        echo "Detected dangerous patterns in SQL:"
+        echo "$SQL_TO_CHECK" | grep -Ei "$DANGEROUS" | head -5
+        echo ""
+        echo "dangerous_operation_detected=true"
+        exit 0
+      else
+        echo "✅ No dangerous operations detected"
+        echo "dangerous_operation_detected=false"
+        exit 0
+      fi
+    outputs:
+      dangerous_detected: "{{output}}"
+    error_handling:
+      strategy: warn
+  - id: step_5_confirm_dangerous
+    name: Confirm Destructive Operation
+    type: elicit
+    condition: "{{dangerous_detected}} contains 'true'"
+    elicit:
+      question: |
+        ⚠️  DESTRUCTIVE OPERATION DETECTED ⚠️
+
+        This SQL may DELETE, DROP, or TRUNCATE data.
+
+        Are you absolutely sure you want to proceed?
+      options:
+        - label: YES - I UNDERSTAND THE RISKS
+          value: confirmed
+          description: Proceed with destructive operation
+        - label: NO - Cancel Operation
+          value: cancel
+          description: Abort and review SQL
+      default: cancel
+      output_var: dangerous_confirmed
+    error_handling:
+      strategy: fail
+      message: Operation cancelled for safety
+  - id: step_6_check_confirmation
+    name: Verify Dangerous Operation Confirmation
+    type: execute
+    condition: "{{dangerous_confirmed}} == 'cancel'"
+    command: |
+      echo "❌ Operation cancelled by user"
+      echo ""
+      echo "Review your SQL and try again if needed."
+      exit 1
+    error_handling:
+      strategy: abort
+  - id: step_7_execute_sql
+    name: Execute SQL Query
+    type: task
+    task: db-run-sql
+    description: Execute SQL with timing and error handling
+    inputs:
+      sql: "{% if query_source == 'file' %}{{sql_file}}{% else %}{{sql_content}}{% endif %}"
+      transaction_mode: "{{transaction_mode}}"
+    environment:
+      TRANSACTION_MODE: "{{transaction_mode}}"
+    error_handling:
+      strategy: fail
+      message: |
+        ❌ SQL execution failed
+
+        Check:
+        1. SQL syntax is correct
+        2. Tables/columns exist
+        3. User has required permissions
+        4. Database connection is active
+
+        Output saved to: /tmp/dbsage_sql_output.txt
+    outputs:
+      execution_success: true
+      execution_time: "{{execution_time}}"
+      rows_affected: "{{rows_affected}}"
+  - id: step_8_performance_option
+    name: Offer Performance Analysis
+    type: elicit
+    condition: "{{execution_time}} > 100 AND {{query_source}} == 'inline'"
+    elicit:
+      question: |
+        Query took {{execution_time}}ms
+
+        Run EXPLAIN ANALYZE for performance insights?
+      help_text: Shows execution plan, buffer usage, and identifies performance bottlenecks
+      options:
+        - label: Yes - Run EXPLAIN ANALYZE
+          value: "yes"
+          description: Analyze query performance
+        - label: No - Skip analysis
+          value: "no"
+          description: Continue without analysis
+      default: "no"
+      output_var: run_explain
+    error_handling:
+      strategy: warn
+  - id: step_9_explain_analyze
+    name: Run EXPLAIN ANALYZE
+    type: task
+    task: db-explain
+    condition: "{{run_explain}} == 'yes'"
+    description: Analyze query execution plan and performance
+    inputs:
+      sql: "{{sql_content}}"
+    error_handling:
+      strategy: warn
+      message: EXPLAIN ANALYZE failed, but query executed successfully
+    outputs:
+      explain_plan: "{{output}}"
+  - id: step_10_optimization_suggest
+    name: Suggest Query Optimization
+    type: execute
+    condition: "{{execution_time}} > 1000"
+    description: Suggest optimization for slow queries (>1s)
+    command: |
+      echo ""
+      echo "⚠️  SLOW QUERY DETECTED (>1000ms)"
+      echo ""
+      echo "Query took {{execution_time}}ms"
+      echo ""
+      echo "Recommendations:"
+      echo "  1. Run *explain \"<your query>\" to see execution plan"
+      echo "  2. Run *query-optimization for interactive optimization"
+      echo "  3. Check for missing indexes on WHERE/JOIN columns"
+      echo "  4. Consider EXPLAIN (ANALYZE, BUFFERS) for buffer analysis"
+      echo ""
+      echo "Common issues:"
+      echo "  - Sequential scans on large tables → Add indexes"
+      echo "  - Row estimate mismatches → Run ANALYZE table_name"
+      echo "  - High buffer reads → Add indexes or optimize query"
+      echo ""
+    error_handling:
+      strategy: warn
+  - id: step_11_success_summary
+    name: Display Success Summary
+    type: execute
+    description: Show execution summary and next steps
+    command: |
+      echo ""
+      echo "════════════════════════════════════════"
+      echo "✅ QUERY EXECUTED SUCCESSFULLY"
+      echo "════════════════════════════════════════"
+      echo ""
+      echo "Query Details:"
+      echo "  Source: {{query_source}}"
+      echo "  Transaction Mode: {{transaction_mode}}"
+
+      {% if rows_affected %}
+      echo "  Rows Affected: {{rows_affected}}"
+      {% endif %}
+
+      {% if execution_time %}
+      echo "  Execution Time: {{execution_time}}ms"
+      {% endif %}
+
+      echo ""
+      echo "Output: /tmp/dbsage_sql_output.txt"
+      echo ""
+
+      {% if execution_time > 1000 %}
+      echo "Performance Note:"
+      echo "  ⚠️ Query is slow (>1s) - consider optimization"
+      echo ""
+      {% endif %}
+
+      echo "Next Steps:"
+      echo "  *explain \"<query>\"    - Analyze query performance"
+      echo "  *query-optimization    - Interactive optimization session"
+      echo "  *query                 - Run another query"
+      echo ""
+outputs:
+  query_executed:
+    type: boolean
+    description: Query executed successfully
+    source: step_7_execute_sql.execution_success
+  execution_time:
+    type: number
+    description: Query execution time in milliseconds
+    source: step_7_execute_sql.execution_time
+  rows_affected:
+    type: number
+    description: Number of rows affected by query
+    source: step_7_execute_sql.rows_affected
+  output_file:
+    type: string
+    description: Path to query output file
+    value: /tmp/dbsage_sql_output.txt
+  performance_analyzed:
+    type: boolean
+    description: Whether EXPLAIN ANALYZE was run
+    source: step_9_explain_analyze.completed
+global_error_handling:
+  on_error: abort
+  notification:
+    enabled: true
+    channels:
+      - console
+  rollback_on_error: true
+security:
+  authorization_required: false
+  audit_logging: true
+  dangerous_operation_confirmation: true
+  redact_secrets: true

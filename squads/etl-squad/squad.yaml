@@ -1,0 +1,120 @@
+# etl-squad v2.0 — Universal Data Extraction, Transformation & Loading
+# 6 functional agents + quality verification + purpose-driven curation
+# Data: 2026-03-31
+
+name: etl-squad
+display_name: "ETL Squad"
+description: "Squad autônoma universal para ingerir qualquer fonte (URLs, arquivos, APIs) e transformar em estruturas limpas, semânticas e prontas para consumo. Inclui quality verification (0-10), human review e purpose-driven curation."
+domain: "Data Extraction, Transformation, Loading, Web Scraping, Transcription, OCR, Chunking, Quality Verification, Purpose-Driven Curation"
+version: "2.0.0"
+author: "AIOX Community + luiz-fosc"
+entry_agent: etl-chief
+tested: true
+
+methodology:
+  name: "ETL Pipeline v2.0"
+  description: |
+    Pipeline de 6 fases: Route > Extract > Parse > Enrich > Validate > Load.
+    Suporta 10+ tipos de fonte (webpage, YouTube, PDF, spreadsheet, deck, audio, image, feed, repo, batch).
+    Output em Markdown com YAML frontmatter, YAML estruturado, ou JSONL para RAG.
+    Quality scoring com 6 componentes ponderados, threshold 0.6.
+    v2.0: Quality verification com 5 dimensões (0-10), human review pipeline,
+    purpose-driven curation (squad-building, knowledge-base, mind-cloning, etc.),
+    e veto conditions registry (50 condições).
+
+agents:
+  - id: etl-chief
+    tier: 0
+    role: "Pipeline orchestrator — routing e decisao de pipeline"
+  - id: extractor
+    tier: 1
+    role: "Source extraction — fetch, download, fallback chains"
+  - id: parser
+    tier: 1
+    role: "Content transformation — HTML to MD, noise removal, table normalization"
+  - id: enricher
+    tier: 2
+    role: "Semantic enrichment — frontmatter, summary, chunks, entities, tags"
+  - id: validator
+    tier: 2
+    role: "Quality gate — scoring 6 componentes, verdicts pass/warn/fail"
+  - id: loader
+    tier: 2
+    role: "Output writing — file naming, directory org, job envelope"
+
+pipelines:
+  - url-to-markdown
+  - youtube-to-brief
+  - pdf-to-knowledge
+  - spreadsheet-to-json
+  - deck-to-text
+  - audio-to-transcript
+  - image-to-text
+  - feed-to-items
+  - repo-to-context
+  - batch-urls
+  - compile
+  - enrich
+  - extract-keyframes
+  # v2.0 — Quality & Purpose-Driven
+  - verify-extraction-quality
+  - human-review-extraction
+  - analyze-structure
+  - curate-by-purpose
+  - delegate-extraction
+
+workflows:
+  - wf-etl-pipeline
+  - wf-batch-processing
+  - wf-compile
+  # v2.0 — Quality & Purpose-Driven
+  - wf-quality-review
+  - wf-purpose-driven
+
+quality_verification:
+  enabled: true
+  threshold: 7.0
+  max_retries: 2
+  dimensions: [fidelity, completeness, structure, metadata, readability]
+  weights: { fidelity: 0.35, completeness: 0.30, structure: 0.20, metadata: 0.10, readability: 0.05 }
+  human_review:
+    enabled: true
+    queue_max_age_days: 7
+    feedback_loop_interval: 10
+
+purpose_driven:
+  purposes:
+    - squad-building
+    - knowledge-base
+    - mind-cloning
+    - icp-cloning
+    - content-creation
+    - storytelling
+    - custom
+  relevance_threshold: 0.4
+
+keywords:
+  - etl
+  - extraction
+  - parsing
+  - transformation
+  - markdown
+  - data-pipeline
+  - web-scraping
+  - transcription
+  - ocr
+  - chunking
+  - readability
+  - youtube
+  - pdf
+  - frontmatter
+  - compile
+  - keyframe
+  - workspace
+  - contract
+  - enrich
+  - quality-verification
+  - purpose-driven
+  - human-review
+  - veto-conditions
+  - curation

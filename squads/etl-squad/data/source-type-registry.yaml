@@ -1,0 +1,174 @@
+# Source Type Registry — ETL Squad
+# Catalogo de todas as fontes suportadas com metodo de extracao
+
+web_sources:
+  webpage:
+    extensions: []
+    detection: "http(s):// URL sem match especifico"
+    method: fetch + readability
+    fallback: playwright (SPA/JS-rendered)
+    output_format: markdown
+    pipeline: url-to-markdown
+
+  youtube:
+    extensions: []
+    detection: "youtube.com/watch, youtu.be/"
+    method: youtube transcript API
+    fallback: whisper (audio download)
+    output_format: markdown
+    pipeline: youtube-to-brief
+
+  vimeo:
+    extensions: []
+    detection: "vimeo.com/"
+    method: oembed API + transcript
+    fallback: whisper
+    output_format: markdown
+    pipeline: youtube-to-brief
+
+  twitter:
+    extensions: []
+    detection: "twitter.com/, x.com/"
+    method: thread unroll API
+    fallback: playwright scrape
+    output_format: markdown
+    pipeline: url-to-markdown
+
+  linkedin:
+    extensions: []
+    detection: "linkedin.com/posts/, linkedin.com/pulse/"
+    method: public page fetch
+    fallback: none (auth required)
+    output_format: markdown
+    pipeline: url-to-markdown
+
+  medium:
+    extensions: []
+    detection: "medium.com/, *.medium.com"
+    method: fetch + readability
+    fallback: archive.org
+    output_format: markdown
+    pipeline: url-to-markdown
+    notes: "paywall detection, fallback to preview"
+
+  substack:
+    extensions: []
+    detection: "*.substack.com"
+    method: fetch + readability
+    output_format: markdown
+    pipeline: url-to-markdown
+
+  github:
+    extensions: []
+    detection: "github.com/"
+    method: GitHub API (repos, issues, PRs, wikis)
+    fallback: raw fetch
+    output_format: markdown
+    pipeline: repo-to-context
+
+  rss_feed:
+    extensions: [.rss, .atom]
+    detection: "Content-Type application/rss+xml, atom+xml"
+    method: XML parser
+    output_format: yaml
+    pipeline: feed-to-items
+
+  sitemap:
+    extensions: [.xml]
+    detection: "sitemap.xml, urlset namespace"
+    method: XML parser
+    output_format: yaml
+    pipeline: feed-to-items
+
+file_sources:
+  pdf:
+    extensions: [.pdf]
+    method: pdfjs-dist (text), tabula (tables)
+    fallback: tesseract (scanned), claude-vision
+    output_format: markdown
+    pipeline: pdf-to-knowledge
+
+  docx:
+    extensions: [.docx, .doc]
+    method: mammoth (docx), libreoffice (doc)
+    output_format: markdown
+    pipeline: url-to-markdown
+
+  pptx:
+    extensions: [.pptx, .ppt]
+    method: python-pptx (pptx), libreoffice (ppt)
+    output_format: markdown
+    pipeline: deck-to-text
+
+  xlsx:
+    extensions: [.xlsx, .xls, .csv, .tsv]
+    method: sheetjs (xlsx), csv-parser
+    output_format: yaml
+    pipeline: spreadsheet-to-json
+
+  text:
+    extensions: [.txt, .md, .rst]
+    method: direct read
+    output_format: markdown
+    pipeline: url-to-markdown
+
+  html_local:
+    extensions: [.html, .htm]
+    method: readability
+    output_format: markdown
+    pipeline: url-to-markdown
+
+  structured_data:
+    extensions: [.json, .yaml, .yml, .toml, .xml]
+    method: native parser per format
+    output_format: yaml
+    pipeline: spreadsheet-to-json
+
+  audio:
+    extensions: [.mp3, .mp4, .wav, .m4a, .ogg, .flac]
+    method: whisper (local)
+    fallback: deepgram API
+    output_format: markdown
+    pipeline: audio-to-transcript
+
+  image:
+    extensions: [.jpg, .jpeg, .png, .gif, .webp, .svg, .tiff, .bmp]
+    method: tesseract (OCR)
+    fallback: claude-vision (semantic)
+    output_format: markdown
+    pipeline: image-to-text
+
+  epub:
+    extensions: [.epub]
+    method: epub parser (chapters + metadata)
+    output_format: markdown
+    pipeline: pdf-to-knowledge
+
+  zip:
+    extensions: [.zip, .tar.gz, .7z]
+    method: decompress + recursive processing
+    output_format: directory
+    pipeline: batch-urls
+    notes: "processes each file inside with appropriate pipeline"
+
+  video_keyframes:
+    extensions: [.mp4, .avi, .mov, .mkv, .webm]
+    method: ffprobe scene detection
+    fallback: fixed interval extraction (1 per 60s)
+    output_format: directory
+    pipeline: extract-keyframes
+    requires: [ffmpeg, ffprobe]
+    notes: "Outputs .jpg frames + index.yaml. Optional: describe frames via image-to-text"
+
+api_sources:
+  rest:
+    detection: "explicit config with method: GET/POST"
+    method: fetch with configurable headers
+    output_format: json
+    pipeline: url-to-markdown
+
+  graphql:
+    detection: "explicit config with query"
+    method: fetch with query body
+    output_format: json
+    pipeline: url-to-markdown

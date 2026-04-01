@@ -1,0 +1,24 @@
+# ETL Output: {source_description}
+# Pipeline: {pipeline}
+# Extracted: {extracted_at}
+
+_meta:
+  source_type: "{source_type}"
+  source_file: "{source_file}"
+  source_url: "{source_url}"
+  extracted_at: "{extracted_at}"
+  pipeline: "{pipeline}"
+  job_id: "{job_id}"
+  quality_score: {quality_score}
+  record_count: {record_count}
+
+schema:
+  columns:
+    # - name: "{column_name}"
+    #   type: string | number | date | boolean
+    #   format: "{optional_format}"
+    #   nullable: true | false
+
+records:
+  # - {column_1}: "value"
+  #   {column_2}: 123

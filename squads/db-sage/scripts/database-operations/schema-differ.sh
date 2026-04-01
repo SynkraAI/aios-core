@@ -1,0 +1,265 @@
+#!/bin/bash
+# Schema Differ - Compare database schemas between environments
+# Economia: ~90% dos tokens vs comparação manual
+# Uso: ./schema-differ.sh <source_db_url> <target_db_url> [options]
+
+set -euo pipefail
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+# Parse arguments
+SOURCE_DB="${1:-$SUPABASE_DB_URL}"
+TARGET_DB="${2:-}"
+FORMAT="${3:-text}"  # text|json|sql
+
+if [ -z "$SOURCE_DB" ] || [ -z "$TARGET_DB" ]; then
+    echo "Usage: $0 <source_db_url> <target_db_url> [format]"
+    echo ""
+    echo "Formats:"
+    echo "  text - Human-readable diff (default)"
+    echo "  json - Machine-readable JSON"
+    echo "  sql  - Generate migration SQL"
+    echo ""
+    echo "Examples:"
+    echo "  $0 \$DEV_DB_URL \$PROD_DB_URL"
+    echo "  $0 \$STAGING_DB_URL \$PROD_DB_URL json"
+    echo "  $0 \$SOURCE_DB \$TARGET_DB sql > migration.sql"
+    exit 1
+fi
+
+echo "🔍 Schema Differ v1.0"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "Source: [REDACTED]"
+echo "Target: [REDACTED]"
+echo "Format: $FORMAT"
+echo ""
+
+# Create temp files
+TEMP_DIR="/tmp/schema_diff_$$"
+mkdir -p "$TEMP_DIR"
+SOURCE_SCHEMA="$TEMP_DIR/source.sql"
+TARGET_SCHEMA="$TEMP_DIR/target.sql"
+DIFF_FILE="$TEMP_DIR/diff.txt"
+
+# Cleanup on exit
+trap "rm -rf $TEMP_DIR" EXIT
+
+# Export schemas
+echo -e "${BLUE}[1/4] Exporting source schema...${NC}"
+pg_dump "$SOURCE_DB" --schema-only --no-owner --no-privileges > "$SOURCE_SCHEMA" 2>/dev/null
+echo "  ✓ Exported $(wc -l < "$SOURCE_SCHEMA") lines"
+
+echo -e "${BLUE}[2/4] Exporting target schema...${NC}"
+pg_dump "$TARGET_DB" --schema-only --no-owner --no-privileges > "$TARGET_SCHEMA" 2>/dev/null
+echo "  ✓ Exported $(wc -l < "$TARGET_SCHEMA") lines"
+
+# Compare schemas
+echo -e "${BLUE}[3/4] Analyzing differences...${NC}"
+
+# Get table lists
+SOURCE_TABLES=$(psql "$SOURCE_DB" -t -A -c "SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename;" 2>/dev/null)
+TARGET_TABLES=$(psql "$TARGET_DB" -t -A -c "SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename;" 2>/dev/null)
+
+# Find differences
+ADDED_TABLES=$(comm -13 <(echo "$TARGET_TABLES" | sort) <(echo "$SOURCE_TABLES" | sort))
+REMOVED_TABLES=$(comm -23 <(echo "$TARGET_TABLES" | sort) <(echo "$SOURCE_TABLES" | sort))
+COMMON_TABLES=$(comm -12 <(echo "$TARGET_TABLES" | sort) <(echo "$SOURCE_TABLES" | sort))
+
+ADDED_COUNT=$(echo "$ADDED_TABLES" | grep -c . || echo "0")
+REMOVED_COUNT=$(echo "$REMOVED_TABLES" | grep -c . || echo "0")
+COMMON_COUNT=$(echo "$COMMON_TABLES" | grep -c . || echo "0")
+
+# Analyze column changes in common tables
+MODIFIED_TABLES=""
+MODIFIED_COUNT=0
+
+for table in $COMMON_TABLES; do
+    SOURCE_COLS=$(psql "$SOURCE_DB" -t -A -c "SELECT column_name, data_type FROM information_schema.columns WHERE table_schema='public' AND table_name='$table' ORDER BY ordinal_position;" 2>/dev/null)
+    TARGET_COLS=$(psql "$TARGET_DB" -t -A -c "SELECT column_name, data_type FROM information_schema.columns WHERE table_schema='public' AND table_name='$table' ORDER BY ordinal_position;" 2>/dev/null)
+
+    if [ "$SOURCE_COLS" != "$TARGET_COLS" ]; then
+        MODIFIED_TABLES="$MODIFIED_TABLES\n$table"
+        ((MODIFIED_COUNT++))
+    fi
+done
+
+# Get index counts
+SOURCE_IDX_COUNT=$(psql "$SOURCE_DB" -t -A -c "SELECT COUNT(*) FROM pg_indexes WHERE schemaname='public';" 2>/dev/null)
+TARGET_IDX_COUNT=$(psql "$TARGET_DB" -t -A -c "SELECT COUNT(*) FROM pg_indexes WHERE schemaname='public';" 2>/dev/null)
+INDEX_DIFF=$((SOURCE_IDX_COUNT - TARGET_IDX_COUNT))
+
+# Get constraint counts
+SOURCE_FK_COUNT=$(psql "$SOURCE_DB" -t -A -c "SELECT COUNT(*) FROM information_schema.table_constraints WHERE constraint_type='FOREIGN KEY' AND table_schema='public';" 2>/dev/null)
+TARGET_FK_COUNT=$(psql "$TARGET_DB" -t -A -c "SELECT COUNT(*) FROM information_schema.table_constraints WHERE constraint_type='FOREIGN KEY' AND table_schema='public';" 2>/dev/null)
+FK_DIFF=$((SOURCE_FK_COUNT - TARGET_FK_COUNT))
+
+echo -e "${BLUE}[4/4] Generating report...${NC}"
+
+# Output based on format
+case "$FORMAT" in
+    "json")
+        # JSON output
+        cat << JSON
+{
+  "timestamp": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+  "source": "REDACTED",
+  "target": "REDACTED",
+  "summary": {
+    "tables_added": $ADDED_COUNT,
+    "tables_removed": $REMOVED_COUNT,
+    "tables_modified": $MODIFIED_COUNT,
+    "tables_unchanged": $((COMMON_COUNT - MODIFIED_COUNT)),
+    "indexes_diff": $INDEX_DIFF,
+    "foreign_keys_diff": $FK_DIFF
+  },
+  "tables": {
+    "added": [$(echo "$ADDED_TABLES" | sed 's/^/"/;s/$/"/' | tr '\n' ',' | sed 's/,$//')],
+    "removed": [$(echo "$REMOVED_TABLES" | sed 's/^/"/;s/$/"/' | tr '\n' ',' | sed 's/,$//')],
+    "modified": [$(echo -e "$MODIFIED_TABLES" | grep -v '^$' | sed 's/^/"/;s/$/"/' | tr '\n' ',' | sed 's/,$//')]
+  }
+}
+JSON
+        ;;
+
+    "sql")
+        # Generate migration SQL
+        echo "-- Migration generated by schema-differ.sh"
+        echo "-- $(date)"
+        echo "-- Source → Target"
+        echo ""
+        echo "BEGIN;"
+        echo ""
+
+        if [ -n "$ADDED_TABLES" ]; then
+            echo "-- ============================================"
+            echo "-- New Tables"
+            echo "-- ============================================"
+            for table in $ADDED_TABLES; do
+                echo ""
+                psql "$SOURCE_DB" -t -A << SQL 2>/dev/null
+SELECT
+    'CREATE TABLE ' || table_name || ' (' ||
+    string_agg(
+        column_name || ' ' || data_type ||
+        CASE WHEN character_maximum_length IS NOT NULL
+            THEN '(' || character_maximum_length || ')'
+            ELSE ''
+        END ||
+        CASE WHEN is_nullable = 'NO' THEN ' NOT NULL' ELSE '' END,
+        ', '
+    ) ||
+    ');'
+FROM information_schema.columns
+WHERE table_schema = 'public' AND table_name = '$table'
+GROUP BY table_name;
+SQL
+            done
+        fi
+
+        if [ -n "$REMOVED_TABLES" ]; then
+            echo ""
+            echo "-- ============================================"
+            echo "-- Removed Tables (uncomment to drop)"
+            echo "-- ============================================"
+            for table in $REMOVED_TABLES; do
+                echo "-- DROP TABLE IF EXISTS $table CASCADE;"
+            done
+        fi
+
+        if [ "$MODIFIED_COUNT" -gt 0 ]; then
+            echo ""
+            echo "-- ============================================"
+            echo "-- Modified Tables (review manually)"
+            echo "-- ============================================"
+            echo -e "$MODIFIED_TABLES" | grep -v '^$' | while read table; do
+                echo "-- Table: $table has column differences"
+                echo "-- Run: SELECT * FROM information_schema.columns WHERE table_name='$table';"
+            done
+        fi
+
+        echo ""
+        echo "COMMIT;"
+        echo ""
+        echo "-- Review and test before applying!"
+        ;;
+
+    *)
+        # Text output (default)
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo -e "${CYAN}📊 Schema Comparison Summary${NC}"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo ""
+
+        # Tables
+        if [ "$ADDED_COUNT" -gt 0 ]; then
+            echo -e "${GREEN}✚ ADDED TABLES: $ADDED_COUNT${NC}"
+            echo "$ADDED_TABLES" | sed 's/^/  + /'
+            echo ""
+        fi
+
+        if [ "$REMOVED_COUNT" -gt 0 ]; then
+            echo -e "${RED}✖ REMOVED TABLES: $REMOVED_COUNT${NC}"
+            echo "$REMOVED_TABLES" | sed 's/^/  - /'
+            echo ""
+        fi
+
+        if [ "$MODIFIED_COUNT" -gt 0 ]; then
+            echo -e "${YELLOW}⚡ MODIFIED TABLES: $MODIFIED_COUNT${NC}"
+            echo -e "$MODIFIED_TABLES" | grep -v '^$' | sed 's/^/  ~ /'
+            echo ""
+        fi
+
+        # Indexes
+        if [ "$INDEX_DIFF" -ne 0 ]; then
+            if [ "$INDEX_DIFF" -gt 0 ]; then
+                echo -e "${GREEN}Indexes: +$INDEX_DIFF${NC} ($SOURCE_IDX_COUNT in source, $TARGET_IDX_COUNT in target)"
+            else
+                echo -e "${RED}Indexes: $INDEX_DIFF${NC} ($SOURCE_IDX_COUNT in source, $TARGET_IDX_COUNT in target)"
+            fi
+        else
+            echo -e "${GREEN}Indexes: No change${NC} ($SOURCE_IDX_COUNT in both)"
+        fi
+
+        # Foreign keys
+        if [ "$FK_DIFF" -ne 0 ]; then
+            if [ "$FK_DIFF" -gt 0 ]; then
+                echo -e "${GREEN}Foreign Keys: +$FK_DIFF${NC} ($SOURCE_FK_COUNT in source, $TARGET_FK_COUNT in target)"
+            else
+                echo -e "${RED}Foreign Keys: $FK_DIFF${NC} ($SOURCE_FK_COUNT in source, $TARGET_FK_COUNT in target)"
+            fi
+        else
+            echo -e "${GREEN}Foreign Keys: No change${NC} ($SOURCE_FK_COUNT in both)"
+        fi
+
+        echo ""
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+        # Assessment
+        TOTAL_CHANGES=$((ADDED_COUNT + REMOVED_COUNT + MODIFIED_COUNT))
+
+        if [ "$TOTAL_CHANGES" -eq 0 ]; then
+            echo -e "${GREEN}✅ Schemas are IDENTICAL${NC}"
+        elif [ "$TOTAL_CHANGES" -lt 5 ]; then
+            echo -e "${YELLOW}⚠ Minor differences detected${NC}"
+        elif [ "$TOTAL_CHANGES" -lt 20 ]; then
+            echo -e "${YELLOW}⚠ Moderate differences detected${NC}"
+        else
+            echo -e "${RED}❌ Major differences detected${NC}"
+        fi
+
+        echo ""
+        echo "💡 Next steps:"
+        if [ "$TOTAL_CHANGES" -gt 0 ]; then
+            echo "  1. Generate migration: $0 source target sql > migration.sql"
+            echo "  2. Review migration carefully"
+            echo "  3. Test in staging environment"
+            echo "  4. Apply with: ./migration-safe-runner.sh migration.sql"
+        fi
+        ;;
+esac
