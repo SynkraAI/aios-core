@@ -2,16 +2,16 @@
 protocol: code-review-ping-pong
 type: fix
 round: 9
-date: "2026-03-31"
+date: "2026-04-01"
 fixer: "Claude Opus 4.6"
 review_file: round-9.md
-commit_sha_before: "baf7b940c1f25158e776c79ab087dec663c860f3"
-commit_sha_after: "f3cbf5a89a8f76cef05a370c0aa2e11631170f39"
+commit_sha_before: "0fe5002da43f5fd4b1756b4a1f69448982ad66c5"
+commit_sha_after: "d6ebb5402b31089f14bf01748621c84ebffe8b25"
 branch: chore/devops-10-improvements
-issues_fixed: 2
+issues_fixed: 4
 issues_skipped: 0
-issues_total: 2
-git_diff_stat: "5 files changed, 5 insertions(+), 1 deletion(-)"
+issues_total: 4
+git_diff_stat: "5 files changed, 10 insertions(+), 2 deletions(-)"
 quality_checks:
   lint: skipped
   typecheck: skipped
@@ -19,76 +19,79 @@ quality_checks:
 fixes:
   - id: "9.1"
     status: FIXED
-    file: "engine/ceremony.md"
-    description: "Regra de DONE agora exige que TODOS os required items tenham scan_rule definido E todos avaliem true. Se qualquer required não tiver scan_rule, a fase não pode ser DONE."
+    file: "engine/guide.md"
+    description: "Added explicit Contract block in guide.md §1 Voice Rule 1. Updated SKILL.md to reference all 4 locations. Updated ceremony.md §1.5 to reference all 4 locations."
     deviation: "none"
   - id: "9.2"
     status: FIXED
+    file: "engine/ceremony.md"
+    description: "Added inline contract reference in Resumption Banner template pointing to §2, guide.md §5, guide.md §6. Full contract already existed at lines 495-502 from round 8."
+    deviation: "none"
+  - id: "9.3"
+    status: FIXED
+    file: "engine/checklist.md"
+    description: "Added consolidated Contract block in unused items lifecycle section referencing xp-system.md §4, §5, §7 and guide.md §2, §4.2/4.5."
+    deviation: "none"
+  - id: "9.4"
+    status: FIXED
     file: "engine/scanner.md"
-    description: "Adicionado pack.keywords ao schema §3.2 e keywords aos 3 packs existentes (app-development, squad-upgrade, design-system-forge)."
+    description: "Added drift warning in §6 free-text example table clarifying IDs must be derived from validated pack schemas at runtime, with reference to checklist.md §1."
     deviation: "none"
 preserved:
-  - "engine/guide.md — sem alterações necessárias, scan_rule ali é para avaliação item-a-item, não para status de fase"
-  - "engine/checklist.md — scan_rule usado para detecção de itens individuais, lógica diferente do DONE de fase"
-  - "engine/xp-system.md — referência a scan_rule é para contagem de auto-detected, não para status de fase"
+  - "engine/xp-system.md — no changes needed, contracts already reference it correctly"
+  - "SKILL.md — updated hero_name fallback contract count from 3 to 4 locations"
 ---
 
 # Code Ping-Pong — Round 9 Fix Report
 
-## Summary
+## Anti-Whack-a-Mole Analysis
 
-2 issues MEDIUM corrigidas. Ambas envolviam lacunas entre o contrato documentado e o comportamento real do engine.
+For each issue, grep/search was performed across ALL engine files to find the same pattern:
 
----
+- **9.1 hero_name fallback:** Grep for "Aventureiro" across all engine files. Found in SKILL.md (line 14), guide.md §1 (line 13), ceremony.md §1.5 (line 116), ceremony.md §7 (line 472-474). Guide.md §1 was the only location missing a standalone contract block. SKILL.md said "three locations" but should say "four" (missing ceremony.md §1.5). Ceremony.md §1.5 said "three locations" but should say "four" (missing ceremony.md §7). All three files updated.
+- **9.2 progress bar contract:** Grep for "progress.bar" and "bar visual consistency" across all engine files. Contract already exists at ceremony.md §2 (line 167), ceremony.md §7 (lines 495-502), guide.md §5 (line 659), guide.md §6 (line 674). The template block in §7 was the only location without an inline reference — added.
+- **9.3 unused items in streaks/progress:** Grep for "unused.*streak" across all engine files. Found in checklist.md §1 (line 96, 108), xp-system.md §4 (line 135), xp-system.md §10 (line 395). Checklist.md had inline references but lacked a consolidated contract block — added.
+- **9.4 hardcoded IDs:** Grep for pack IDs ("app-development", "squad-upgrade") across scanner.md. Only found in the non-normative example table (lines 388-395), already marked as illustrative. Added explicit drift warning.
 
-## Fixes Applied
+## Semantic Propagation Analysis
+
+- **9.1 contract:** "Which modules own the hero_name fallback?" — 4 locations: SKILL.md, guide.md §1, ceremony.md §1.5, ceremony.md §7. All four now explicitly reference each other with "All four locations MUST use the same fallback string."
+- **9.2 contract:** "Which modules own the progress bar visual contract?" — 4 locations: ceremony.md §2, ceremony.md §7, guide.md §5, guide.md §6. All four already had explicit contracts from previous rounds. Template inline reference added for discoverability.
+- **9.3 contract:** "Which modules must exclude unused items?" — 6 enforcement points: xp-system.md §4 (streaks), §5 (counters), §7 (achievements), guide.md §2 (phase unlock), §4.2/4.5 (completion triggers), ceremony.md §7 (stats display). New contract block in checklist.md §1 maps all participants.
+- **9.4 contract:** "Which modules must resolve IDs from pack schema?" — scanner.md §3.2 (validates schema), §6 (keyword matching). The example table was already non-normative; drift warning now makes the risk explicit.
+
+## Fixed Issues
 
 ### Fix for Issue 9.1
 
-**World Map pode marcar fase como DONE ignorando itens obrigatórios sem scan_rule**
+**Voice Rule 1 template error fallback contract is not fully explicit**
 
-**Problema:** A regra em `ceremony.md:246` dizia que uma fase é DONE se todos os required items **com** `scan_rule` avaliam true. Isso significa que itens obrigatórios sem `scan_rule` eram ignorados — a fase podia aparecer como concluída sem evidência de que todo o trabalho existia.
+Added explicit `**Contract — hero_name fallback (Voice Rule 1):**` block in guide.md §1, after Voice Rule 1. The block references all 4 co-owning locations: SKILL.md, ceremony.md §1.5, ceremony.md §7, and guide.md §1. States that all four MUST use the same fallback string and changes require propagation.
 
-**Correção:** Alterada a regra para exigir cobertura completa: TODOS os required items da fase DEVEM ter `scan_rule` definido, E todos devem avaliar true. Se qualquer required não tiver `scan_rule`, a fase não pode ser marcada como DONE (permanece CURRENT ou FUTURE).
+Also updated SKILL.md contract to say "four locations" (was "three") and include ceremony.md §1.5. Updated ceremony.md §1.5 contract to say "four locations" and include ceremony.md §7.
 
-**Anti-whack-a-mole:** Busquei o padrão `scan_rule.*DONE` e `DONE.*scan_rule` em todos os arquivos do escopo. A lógica de fase-DONE só existe em `ceremony.md:246`. Os outros usos de `scan_rule` em `checklist.md`, `guide.md` e `xp-system.md` são para detecção individual de itens (diferente semântico), portanto não afetados.
-
-**File:** `engine/ceremony.md:246`
-
----
+Files changed: `engine/guide.md`, `SKILL.md`, `engine/ceremony.md`
 
 ### Fix for Issue 9.2
 
-**Fluxo de args.text depende de pack.keywords mas o contrato e os packs não expõem esse campo**
+**Progress bar contract reference missing in ceremony.md §7 Resumption Banner**
 
-**Problema:** O scanner em §6 (line 351-354) descrevia seleção por texto livre via `pack.keywords`, mas o schema validado em §3.2 não documentava esse campo, e nenhum pack o definia. O caminho de text-match ficava órfão.
+Added inline reference `↑ Uses unified progress bar contract — see §2, guide.md §5, guide.md §6` directly in the Resumption Banner template block, below the progress bar line. This makes the contract discoverable when reading the template, complementing the full contract block that already existed at lines 495-502 (added in round 8).
 
-**Correção em 2 partes:**
+Files changed: `engine/ceremony.md`
 
-1. **Schema (scanner.md §3.2):** Adicionado `keywords: [string]` como campo OPTIONAL no bloco `pack:`, com comentário referenciando §6.
+### Fix for Issue 9.3
 
-2. **Packs existentes:** Adicionado `keywords` aos 3 packs:
-   - `app-development.yaml`: `["app", "application", "build", "deploy", "desenvolvimento", "software", "projeto"]`
-   - `squad-upgrade.yaml`: `["squad", "upgrade", "agente", "agentes", "orquestração"]`
-   - `design-system-forge.yaml`: `["design", "design system", "tokens", "componentes", "ui", "visual"]`
+**Edge case for unused items in streak calculation not cross-referenced in checklist.md**
 
-**Anti-whack-a-mole:** Busquei `pack.keywords` em todos os arquivos. O campo só é referenciado em `scanner.md:354` (uso) e agora em `scanner.md:64` (schema). Nenhum outro módulo consome keywords.
+Added consolidated `**Contract — unused items exclusion:**` block at the end of the unused items lifecycle section in checklist.md §1. The block explicitly states that unused items are invisible to streaks (xp-system.md §4), progress (xp-system.md §5), and phase transitions (guide.md §2). Lists all 6 enforcement points and states that any new module consuming item status MUST implement this exclusion.
 
-**Files:** `engine/scanner.md:64`, `packs/app-development.yaml`, `packs/squad-upgrade.yaml`, `packs/design-system-forge.yaml`
+Files changed: `engine/checklist.md`
 
----
+### Fix for Issue 9.4
 
-## Quality Checks
+**Free-text table in scanner.md §6 uses hardcoded IDs, not schema-driven**
 
-| Check | Result | Notes |
-|-------|--------|-------|
-| lint | skipped | Projeto é documentação Markdown, sem linter configurado |
-| typecheck | skipped | Sem TypeScript no escopo |
-| tests | skipped | Sem test suite para engine docs |
+Added `**⚠️ Drift warning:**` block after the non-normative example table in scanner.md §6. Clarifies that IDs and keywords shown are examples frozen in time, actual pack IDs MUST be derived from validated pack schemas at runtime (§3.1 + §3.2), and hardcoding risks silent drift. References checklist.md §1 for canonical item ID rules.
 
----
-
-## Regression Check
-
-- Round 8 fixes (NOT operator em scanner, edge cases de final victory em guide) permanecem intactos
-- Nenhum arquivo previamente corrigido foi modificado neste round (ceremony.md não tinha fix anterior)
+Files changed: `engine/scanner.md`
