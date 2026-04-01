@@ -192,7 +192,7 @@ stats:
 
 ## 7. Achievement Evaluation
 
-> **⚠️ DEPRECATION NOTICE for pack authors:** The condition `total_xp >= N` is **deprecated**. Use `item_xp >= N` for ALL new packs. Both evaluate `total_base_xp` (item-only XP, before bonuses), but `total_xp >= N` is misleading because it does NOT check the user-facing `total_xp`. The alias will be removed in a future version. Existing packs should migrate to `item_xp >= N` when next updated.
+> **⚠️ DEPRECATION NOTICE for pack authors:** The condition `total_xp >= N` is **deprecated**. Use `item_xp >= N` for ALL new packs. Both evaluate `total_base_xp` (item-only XP, before bonuses), but `total_xp >= N` is misleading because it does NOT check the user-facing `total_xp`. The alias will be removed in a future version. Existing packs should migrate to `item_xp >= N` when next updated. **Cross-reference:** This same deprecation warning is echoed in checklist.md §1 (achievements comment block and deprecation callout) and SKILL.md Critical Rule 5. All three locations MUST stay consistent — if the deprecation policy changes, update all three in the same commit.
 
 The pack defines achievements:
 

@@ -115,7 +115,7 @@ Store the responses in the quest-log `meta` block:
 
 **Contract — hero_name fallback:** If after all retries the user provides no valid name, the fallback is **"Aventureiro"**. This is the same fallback defined in SKILL.md (Contract — hero_name fallback), guide.md §1 (Voice Rule 1), and ceremony.md §7 (Resumption Banner). All four locations MUST use the same fallback string. If the fallback changes, update ALL locations in the same commit.
 
-**Contract — hero_title fallback:** The fallback for `hero_title` is **empty string `""`** (no title). This is the same fallback defined in SKILL.md (quest-log meta), guide.md §1 (Voice Rule 1), and ceremony.md §7 (Resumption Banner). All four locations MUST treat empty/missing/whitespace-only `hero_title` as "no title" and omit it from output. If the fallback behavior changes, update ALL locations in the same commit.
+**Contract — hero_title fallback:** The fallback for `hero_title` is **empty string `""`** (no title). This is the same fallback defined in SKILL.md (quest-log meta), guide.md §1 (Voice Rule 1), and ceremony.md §7 (Resumption Banner). All four locations MUST treat empty/missing/whitespace-only `hero_title` as "no title" and omit it from output entirely — do NOT render an empty comma, trailing space, or raw `{hero_title}` placeholder. If the fallback behavior changes, update ALL locations in the same commit.
 
 ### Usage
 
@@ -494,9 +494,11 @@ Generate a 20-character progress bar using the canonical `progress_bar()` functi
 ```
 filled = round(20 * percent / 100)
 bar = "█" * filled + "░" * (20 - filled)
+// Character restriction: ONLY "█" (U+2588) and "░" (U+2591) — NEVER "▓" (U+2593) or any other block char.
+// See unified visual contract below and ceremony.md §2, guide.md §5, guide.md §6.
 ```
 
-**Note:** Uses `round()` (not `floor()`) to match `progress_bar()` in guide.md §5. If `percent` is 0 or `items_total` is 0, render an empty bar (`░` × 20).
+**Note:** Uses `round()` (not `floor()`) to match `progress_bar()` in guide.md §5. If `percent` is 0 or `items_total` is 0, render an empty bar (`░` × 20). Only `█` (U+2588) for filled and `░` (U+2591) for empty are allowed — no other block characters.
 
 **Contract — progress bar visual consistency:** The Resumption Banner progress bar MUST use the exact same character set (`█` U+2588 for filled, `░` U+2591 for empty), bar width (20 characters), and rounding logic (`round()`) as:
 - The **loading sequence** in this file (Section 2)
