@@ -32,9 +32,11 @@ stats:
 
 achievements: []             # list of { id: string, unlocked_at: datetime }
   # Achievement conditions are evaluated by xp-system.md §7. Cross-reference:
-  # - `item_xp >= N` is the canonical condition for XP thresholds (checks total_base_xp).
+  # - `item_xp >= N` is the CANONICAL condition for XP thresholds (checks total_base_xp).
   # - `total_xp >= N` is DEPRECATED — alias for `item_xp >= N`. See xp-system.md §7 deprecation notice.
+  #   It will be REMOVED in a future version. Do NOT use in new packs.
   # - Pack authors MUST use `item_xp >= N` for all new packs.
+  # - See also: SKILL.md Critical Rule 5 for the same warning at orchestrator level.
 
 integration_results: {}      # optional — keyed by phase index
   # "1":
@@ -89,7 +91,7 @@ Items with a `condition` field in the pack gain an additional `condition_state` 
 - Do NOT count toward `percent` (see **xp-system.md §5**)
 - Do NOT block phase unlock (treated as if they don't exist — see **guide.md §2** `is_phase_unlocked`)
 - Do NOT award XP
-- Do NOT break or contribute to streaks (filtered out — see **xp-system.md §4**)
+- Do NOT break or contribute to streaks (filtered out before streak walk — see **xp-system.md §4** and **§10**). Example: items A(done), B(unused), C(done) → streak = 2, not 1. Unused items are invisible to streak calculation
 - Are excluded from ALL achievement conditions (see **xp-system.md §7** — every condition uses `if status == "unused": continue`)
 - Are shown with a distinct visual indicator on the dashboard (not ✓ or -) — see **guide.md §5** (`[·]` icon)
 - Can be set during first scan (when condition evaluates to "not applicable") or manually via `/quest unused {id}`

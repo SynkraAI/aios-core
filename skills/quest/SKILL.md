@@ -301,7 +301,7 @@ The system has TWO automatic sync mechanisms — the user never needs to think a
 2. **Scan silently** — all Glob/Grep/Bash BEFORE any text output
 3. **Output as TEXT** — never wrap ceremony in code blocks
 4. **Lazy loading** — only Read the module you need
-5. **Pack is source of truth** — labels, XP, commands come from pack
+5. **Pack is source of truth** — labels, XP, commands come from pack. **Pack authors note:** use `item_xp >= N` (not `total_xp >= N`) for XP-based achievement conditions. `total_xp >= N` is **deprecated** — see xp-system.md §7 for details
 6. **Never skip confirmation** — action plan requires "s" before executing
 7. **Forge is the default executor** — missions with AIOS agents (`@dev`, `@qa`, etc.) OR squads MUST be executed via Forge. Read `engine/forge-bridge.md` to determine routing. Quest guides WHAT to do, Forge executes HOW.
 8. **Forge bridge is lazy-loaded** — only Read `engine/forge-bridge.md` when guide.md needs to execute a mission (not on startup or resumption)

@@ -131,7 +131,9 @@ Rules:
 ```
 // NOTE: Only "done" and "skipped" are included. Items with status "unused"
 // or "pending" are excluded — unused items don't exist in this project's
-// context, so they cannot break or contribute to a streak.
+// context, so they cannot break or contribute to a streak (see §10 Edge Cases).
+// This means: if items A(done), B(unused), C(done) → streak = 2, not 1.
+// Unused items are invisible to streak calculation — as if they were never in the list.
 active_items = [item for item in resolved_items
                 where quest_log.items[item.id].status in ("done", "skipped")]
 streak = 0
