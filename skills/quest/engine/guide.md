@@ -50,11 +50,19 @@ Find the next mission for the player. All data comes from the **pack YAML** (pha
         or `unused` in the quest-log
      b. `verify_phase_integration()` passes for the prior phase (see §2.5)
 3. In the first unlocked phase that has pending items:
+   - Items with status `unused` are implicitly excluded — they are not `pending`,
+     so they are never candidates. This is consistent with checklist.md §1
+     (unused lifecycle: condition_state not_applicable → status unused) and
+     xp-system.md §5 (unused excluded from items_total/percent).
+     Unused items do not block progression — see also `is_phase_unlocked()` below.
    - Find the first item with status `pending` (in pack order)
    - If the item has a `condition` field in the pack, check its `condition_state`
      in the quest-log (see checklist.md §1, "Condition state").
      **Fallback:** If the `condition` field is missing, malformed, or empty,
      the item is treated as unconditional (always `applicable`) per checklist.md §1.
+     This rule is enforced in BOTH modules (guide.md §2 and checklist.md §1) for
+     forward compatibility — if either module encounters a missing/malformed condition,
+     it treats the item as unconditional/pending rather than erroring.
      Guide does NOT re-evaluate conditions — it trusts the persisted `condition_state`:
      - `condition_state: applicable` → item is a valid candidate (proceed normally)
      - `condition_state: unresolved` or `condition_state: deferred` → skip this
@@ -596,6 +604,8 @@ Then show the next mission card (if quest is not complete).
 ## 5. Quest Log View (`/quest status`)
 
 Shows all phases as "worlds" with thematic names from the pack. The current world is expanded with items and status. Future worlds show as LOCKED. All per-world counters (`{done}`, `{total}`, `{percent}`) are **phase-scoped** — computed from that phase's `resolved_items` only, excluding that phase's `unused` items. See Progress Bar section below for the formulas.
+
+**Contract — progress bar in this view:** This section uses the unified progress bar contract (same characters `█`/`░`, width 20, rounding `round()`). The canonical `progress_bar()` implementation is defined below in the Progress Bar subsection. All four locations sharing this contract — ceremony.md §2 (loading sequence), ceremony.md §7 (Resumption Banner), guide.md §5 (this section), and guide.md §6 (summary view) — MUST use identical characters and logic. If any changes, update ALL in the same commit.
 
 ### Template
 
