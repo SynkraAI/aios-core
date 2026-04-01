@@ -656,6 +656,13 @@ function progress_bar(done, skipped, total):
   return "█" * filled + "░" * (20 - filled)
 ```
 
+**Contract — progress bar visual consistency:** The `progress_bar()` function above is the canonical implementation. It MUST use the same character set (`█` U+2588 for filled, `░` U+2591 for empty), bar width (20 characters), and rounding logic (`round()`) as:
+- The **loading sequence** in ceremony.md §2
+- The **Resumption Banner** in ceremony.md §7
+- The **summary view** in this file (§6)
+
+All four locations share one visual contract. **NEVER** use `▓` (U+2593) or any other block character — only `█` and `░`. If any of these implementations change, ALL others MUST be updated in the same commit.
+
 ---
 
 ## 6. Summary View (variant of `/quest status`)
@@ -663,6 +670,8 @@ function progress_bar(done, skipped, total):
 Compact one-line-per-phase view with overall stats. This is NOT a separate command — it is rendered as part of `/quest status` when the engine determines that a compact overview is more useful (e.g., many phases). The entrypoint routes `status` to guide.md; the guide decides whether to show the expanded view (§5) or this summary.
 
 **IMPORTANT:** This view MUST use the `progress_bar()` function from section 5 (20-char bar with `█` U+2588 and `░` U+2591 — NEVER `▓` U+2593). Do NOT substitute with `[done/total]` or any other format — the progress bar is mandatory here. Each per-phase row uses **phase-scoped counters** (`phase_done`, `phase_skipped`, `phase_total` — see §5 progress bar rules), NOT global `items_total`. The global counters appear only in the bottom summary line (`Missões: {items_done + items_skipped}/{items_total}`).
+
+**Contract — progress bar visual consistency:** This view shares the unified progress bar contract with ceremony.md §2 (loading sequence), ceremony.md §7 (Resumption Banner), and guide.md §5 (`progress_bar()` function). Same characters (`█`/`░`), same width (20), same rounding (`round()`). See §5 for the canonical implementation. If any location changes, ALL must be updated in the same commit.
 
 ### Template
 

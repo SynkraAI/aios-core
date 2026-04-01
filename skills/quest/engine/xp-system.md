@@ -134,6 +134,13 @@ Rules:
 // context, so they cannot break or contribute to a streak (see §10 Edge Cases).
 // This means: if items A(done), B(unused), C(done) → streak = 2, not 1.
 // Unused items are invisible to streak calculation — as if they were never in the list.
+//
+// Cross-reference — unused items contract:
+// - checklist.md §1 defines the `unused` status and its lifecycle (condition_state: not_applicable → status: unused)
+// - guide.md §2 (Next Mission Selection) skips unused items when finding the next mission
+// - xp-system.md §5 (Counters) excludes unused from items_total and percent
+// - xp-system.md §7 (Achievements) excludes unused from phase/global conditions
+// All modules that iterate items or calculate stats MUST exclude unused items consistently.
 active_items = [item for item in resolved_items
                 where quest_log.items[item.id].status in ("done", "skipped")]
 streak = 0

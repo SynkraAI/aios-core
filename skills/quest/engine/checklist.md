@@ -38,6 +38,8 @@ achievements: []             # list of { id: string, unlocked_at: datetime }
   # - Pack authors MUST use `item_xp >= N` for all new packs.
   # - See also: SKILL.md Critical Rule 5 for the same warning at orchestrator level.
 
+> **⚠️ DEPRECATION WARNING:** The `total_xp >= N` achievement condition is **deprecated**. It is an alias for `item_xp >= N` — both evaluate `total_base_xp` (item-only XP, before achievement bonuses), NOT the user-facing `total_xp`. Use `item_xp >= N` in all new packs. The `total_xp >= N` form will be **removed in a future version**. See xp-system.md §7 for full details and migration guidance.
+
 integration_results: {}      # optional — keyed by phase index
   # "1":
   #   passed: true|false
