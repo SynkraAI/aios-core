@@ -66,7 +66,7 @@ Items with a `condition` field in the pack gain an additional `condition_state` 
 | `unresolved` | Condition not yet evaluated (default for new conditioned items) | `pending` |
 | `applicable` | User said "s" — item applies, needs to be completed | `pending` |
 | `not_applicable` | User said "n" — item does not apply to this project | `unused` |
-| `deferred` | User said "pular" — decision postponed, may be asked again | `pending` |
+| `deferred` | User said "pular" — decision postponed, re-asked after 7 days | `pending` (+ `deferred_at: datetime`) |
 
 **Persistence rules:**
 - When creating a new quest-log (§2), conditioned items start with `condition_state: unresolved`.
@@ -132,7 +132,7 @@ Items with a `condition` field in the pack gain an additional `condition_state` 
    - **Match:** proceed normally.
    - **Mismatch:** ask the user: `"Quest log usa pack '{meta.pack}', mas scanner detectou '{scanner_pack}'. Qual usar? (log/scanner)"`.
      - If user chooses `log`: use the pack from `meta.pack`.
-     - If user chooses `scanner`: update `meta.pack` and `meta.pack_version` to the scanner's pack, **clear `integration_results` to `{}`** (prior pack's gate results are invalid for the new pack's phase structure), then rebuild items (add new items as pending, keep existing items with their status).
+     - If user chooses `scanner`: update `meta.pack` and `meta.pack_version` to the scanner's pack, **clear `integration_results` to `{}`** (prior pack's gate results are invalid for the new pack's phase structure), then rebuild items (add new items as `{ status: pending }`; if the pack item has a `condition` field, also set `condition_state: unresolved`; keep existing items with their status).
 3. **Pack version check:** If `meta.pack_version != pack.version`, run Pack Version Migration (§3.5) before proceeding. This is part of the Read flow — not a separate step the orchestrator must remember to call.
 4. **Promote detected items (BEFORE stats):** For each phase that is currently UNLOCKED, find all items with `status: detected` in the quest-log. Promote each to `done` (set `status: done`, `completed_at: <now>`, `checked_by: "scan"`, remove `detected_at`). This ensures scan pre-detections are persisted as completed once the phase is legitimately unlocked via the Integration Gate. Promotions happen here — inside the Read flow — so they are saved to disk before any ceremony or guide rendering.
    **IMPORTANT — Read-safe unlock check:** Do NOT call `is_phase_unlocked` from guide.md §2 here. That function includes the interactive Integration Gate (`verify_phase_integration`), which can prompt the user or run shell commands — unacceptable during a read/rehydration flow. Instead, use the pure predicate `is_phase_unlocked_persisted`:
@@ -208,7 +208,7 @@ Items with a `condition` field in the pack gain an additional `condition_state` 
 
 4. Wait for user confirmation:
    - If `s` (yes):
-     - Add each `new_item` to `quest_log.items` as `{ status: pending }`
+     - Add each `new_item` to `quest_log.items` as `{ status: pending }`. If the pack item has a `condition` field, also set `condition_state: unresolved` so the condition is evaluated on the next scan.
      - Do NOT delete orphaned items — keep them with their current status (they may have historical value: completed items from an older pack version)
      - Update `meta.pack_version` to `pack.version`
      - Recalculate stats via xp-system
@@ -311,11 +311,12 @@ Items with a `condition` field in the pack gain an additional `condition_state` 
      - If the rule evaluates to `false` AND item also has `condition` → fall through to condition evaluation below.
      - If the rule evaluates to `false` and no `condition` → skip item.
    - **If item has `condition` (and no scan_rule, or scan_rule was false):** evaluate per §6:
-     - **First:** check `condition_state` — if already `applicable`, `not_applicable`, or `deferred`, skip (already evaluated per §6 step 1).
+     - **First:** check `condition_state` per §6 step 1 — if `applicable` or `not_applicable`, skip (permanently resolved). If `deferred` and less than 7 days old, skip (fresh deferral). If `deferred` and 7+ days old, reset to `unresolved` and re-ask. If `unresolved` or absent, proceed to ask.
      - Ask the user: `"Este item se aplica? {condition} (s/n/pular)"`
-     - `s` → set `condition_state: applicable`, leave as pending (applicable, not yet done). Do NOT add to any staged list.
-     - `n` → set `condition_state: not_applicable`, add to unused_decisions list (staged as `unused`). Do NOT mutate quest-log `status` yet.
-     - `pular` → set `condition_state: deferred`, leave as `pending`. Item will NOT be re-asked on subsequent scans (deferred is persisted).
+     - **IMPORTANT — Stage, do not persist:** All condition mutations below are staged (added to `staged_condition_updates` list) and only applied to the quest-log when the user confirms the scan summary at step 5. If the user answers `n` at step 5, ALL staged condition updates are discarded along with discoveries, detections, and unused decisions.
+     - `s` → stage `{ id, condition_state: applicable }`. Item stays pending (applicable, not yet done). Do NOT add to any other staged list.
+     - `n` → stage `{ id, condition_state: not_applicable }`, add to unused_decisions list (staged as `unused`). Do NOT mutate quest-log `status` or `condition_state` yet.
+     - `pular` → stage `{ id, condition_state: deferred, deferred_at: <ISO 8601 UTC> }`. Item stays `pending`. On subsequent scans, deferred items are re-asked only if `deferred_at` is older than 7 days (stale deferral). This prevents infinite re-prompting in the same session while ensuring deferred conditions are eventually resolved.
    - **Why `detected` instead of `done` for locked phases:** The Integration Gate (guide.md §2.5) must verify that prior phases work together before unlocking the next. Marking items as `done` in locked phases would bypass this critical check. `detected` items are automatically promoted to `done` when the phase is unlocked.
 3. If discoveries list AND detections list AND unused_decisions list are ALL empty, show: `"Scan completo. Nenhuma nova descoberta."` and stop.
 4. Show discoveries (unlocked phases) and detections (locked phases) separately:
@@ -355,11 +356,12 @@ Não se aplicam a este projeto ({unused_count} itens):
 
 5. Wait for user confirmation.
    - If `s` (yes):
+     - **Apply staged condition updates:** For each entry in `staged_condition_updates`, write `condition_state` (and `deferred_at` if present) to the corresponding quest-log item. This is the ONLY point where condition mutations from step 3 are persisted.
      - For each **discovered** item (unlocked phases): set `status: done`, `completed_at: <now>`, and `checked_by: "scan"`.
      - For each **detected** item (locked phases): set `status: detected` and `detected_at: <now>`.
      - For each **unused_decision** item: set `status: unused`. These are condition items the user said "n" to — they do not apply to this project.
      - Recalculate stats via xp-system, passing `scan_detected_count: discovery_count` as scan context (only unlocked-phase items marked `done` — NOT locked-phase `detected` items, which haven't become completed work yet). This enables achievements with conditions like `scan_found >= N` (see xp-system.md §7, `auto_detected >= N` / `scan_found >= N` conditions). Detect achievements. Save quest-log.
-   - If `n` (no): abort without changes (discoveries, detections, AND unused decisions are all discarded).
+   - If `n` (no): abort without changes (discoveries, detections, unused decisions, AND staged condition updates are ALL discarded — no quest-log mutations).
 
 ### Scanner Functions
 
@@ -379,14 +381,19 @@ Items with a `condition` field require special handling. Condition evaluation is
 
 **Evaluation rules (invoked by §5 step 3 and §2 step 3):**
 
-1. **Skip already-evaluated conditions:** If the item already has `condition_state` set to anything other than `unresolved` (i.e., `applicable`, `not_applicable`, or `deferred`), skip this item — its condition was already evaluated. This prevents duplicate prompts when §2 (create) evaluates conditions and scan runs immediately after during first invocation.
+1. **Skip already-evaluated conditions:** If the item has `condition_state` set to `applicable` or `not_applicable`, skip — its condition is permanently resolved. If `condition_state` is `deferred`, check `deferred_at`: if the deferral is less than 7 days old, skip (still fresh); if 7+ days old (stale deferral), reset `condition_state` to `unresolved` and proceed to re-ask. This ensures deferred conditions are eventually resolved without re-prompting in the same work session. Items with `condition_state: unresolved` (or absent) proceed to evaluation. This prevents duplicate prompts when §2 (create) evaluates conditions and scan runs immediately after during first invocation.
 2. If the item also has a `scan_rule`, evaluate the scan_rule first.
    - If `scan_rule` is `true` → treat as auto-detected (mark as `done`/`detected` in scan flow). Set `condition_state: applicable`.
    - If `scan_rule` is `false` → proceed to step 3.
 3. Ask the user: `"Este item se aplica? {condition} (s/n/pular)"`
+   **Persistence depends on the caller:**
+   - When invoked by **§2 (Create):** mutations are applied immediately (no confirmation step exists in the create flow).
+   - When invoked by **§5 (Scan):** mutations are **staged** (added to `staged_condition_updates`) and only persisted when the user confirms the scan summary (§5 step 5). See §5 step 3 for staging details.
+
+   Answers:
    - `s` (yes): set `condition_state: applicable`. Item stays `pending` — it applies but is not yet done. The user must complete it normally.
-   - `n` (no): set `condition_state: not_applicable`. Add to the scan's `unused_decisions` staging list. The actual mutation to `status: unused` happens ONLY when the user confirms the scan summary (§5 step 5, "s"). Do NOT mutate quest-log `status` here — this keeps condition decisions in the same transactional save path as scan discoveries and detections. The item does not apply to this project, so it will be excluded from `items_total` and `percent` once persisted. Do NOT use `skipped` here — `skipped` is for applicable items the user chose to bypass.
-   - `pular` (skip for now): set `condition_state: deferred`. Item stays `pending`. The item remains unresolved for next-mission selection purposes but will NOT be re-asked on subsequent scans unless the user explicitly runs `/quest scan --reset-conditions`. This prevents infinite re-prompting while still allowing the user to defer.
+   - `n` (no): set `condition_state: not_applicable`. Add to the caller's `unused_decisions` list. The actual mutation to `status: unused` happens only on confirmation/persist. Do NOT mutate quest-log `status` here — this keeps condition decisions in the same transactional save path as scan discoveries and detections. The item does not apply to this project, so it will be excluded from `items_total` and `percent` once persisted. Do NOT use `skipped` here — `skipped` is for applicable items the user chose to bypass.
+   - `pular` (skip for now): set `condition_state: deferred`, set `deferred_at: <ISO 8601 UTC>`. Item stays `pending`. The item remains unresolved for next-mission selection purposes. Deferred conditions are automatically re-asked on subsequent scans when `deferred_at` is older than 7 days (stale deferral). This prevents infinite re-prompting in the same session while ensuring deferred conditions are eventually resolved. Users can also force re-evaluation of ALL deferred conditions immediately via `/quest scan --reset-conditions`.
 4. Conditions are evaluated during scan and during first-time quest-log creation. Both contexts observe items from ALL phases (including locked ones), so the phase lock guard from §4 is intentionally bypassed — it applies only to explicit manual commands (`/quest check`, `/quest skip`, `/quest unused`).
 
 ---

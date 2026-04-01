@@ -72,6 +72,11 @@ Find the next mission for the player. All data comes from the **pack YAML** (pha
 ```
 function is_phase_unlocked(phase_index, pack, quest_log):
   if phase_index == 0: return true
+  // Short-circuit: if the phase was already unlocked (persisted result),
+  // skip the interactive Integration Gate to avoid side effects on resume.
+  if is_phase_unlocked_persisted(phase_index, pack, quest_log):
+    return true
+  // First-time unlock: check required items + run interactive gate
   previous_phase = pack.phases[phase_index - 1]
   for item in previous_phase.items:
     if item.required == true:
@@ -80,6 +85,7 @@ function is_phase_unlocked(phase_index, pack, quest_log):
       if item_status != "done" AND item_status != "unused":
         return false
   // Integration gate — verify prior phase outputs actually work
+  // Only runs on first unlock attempt; result is persisted for future calls.
   if NOT verify_phase_integration(phase_index, pack, quest_log):
     return false
   return true
