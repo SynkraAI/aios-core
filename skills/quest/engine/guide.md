@@ -46,12 +46,17 @@ Find the next mission for the player. All data comes from the **pack YAML** (pha
      b. `verify_phase_integration()` passes for the prior phase (see §2.5)
 3. In the first unlocked phase that has pending items:
    - Find the first item with status `pending` (in pack order)
-   - If the item has a `condition` field that has NOT yet been evaluated
-     (i.e., it was not resolved during scan/create — see checklist.md §6):
-     skip this item and move to the next pending item.
-     Condition applicability is decided exclusively by checklist.md §5 (scan)
-     and §2 (create). Guide does NOT prompt the user about conditions.
-     If ALL remaining pending items have unresolved conditions, show:
+   - If the item has a `condition` field in the pack, check its `condition_state`
+     in the quest-log (see checklist.md §1, "Condition state"):
+     - `condition_state: applicable` → item is a valid candidate (proceed normally)
+     - `condition_state: unresolved` or `condition_state: deferred` → skip this
+       item and move to the next pending item. These items need condition
+       evaluation via checklist.md §5 (scan) or §2 (create) before they can
+       be assigned as missions. Guide does NOT prompt the user about conditions.
+     - `condition_state: not_applicable` → should already be `unused`, but if
+       found as `pending`, skip (defensive guard).
+     If ALL remaining pending items have `condition_state` of `unresolved` or
+     `deferred`, show:
      "Há missões com condições não avaliadas. Execute `/quest scan` para resolvê-las."
    - Return this item as the next mission
 4. If no pending items exist in any unlocked phase:
@@ -711,15 +716,13 @@ After showing a mission card, the engine waits for the player to act. This secti
              - Show next mission card
          vi. If result.auto_check == false (Forge failed):
              - Show error: "{hero_name}, o Forge travou: {result.error}"
-             - Ask: "Tentar de novo? (s/n)"
+             - Ask: "Tentar de novo? (s/n/manual)"
                - s → retry from step 2a
                - n → keep mission pending, select next mission
-               - manual → fall through to step 2c
+               - manual → fall through to step 2c (manual flow)
          vii. If result.paused:
              - Forge handles interaction directly
              - After Forge resumes → return to step v
-       - If "n":
-         - Fall through to step 2c (manual flow)
 
    2b. If item.command starts with "/" (Skill execution):
        - Ask: "Executar {item.command}? (s/n)"
