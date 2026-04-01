@@ -2,16 +2,16 @@
 protocol: code-review-ping-pong
 type: fix
 round: 14
-date: "2026-03-31"
+date: "2026-04-01"
 fixer: "Claude Opus 4.6"
 review_file: round-14.md
-commit_sha_before: "f67fee880a218341489cb54f5ce7b48fa373fabc"
-commit_sha_after: "f33a38387"
+commit_sha_before: "e7ab5c473f0b80ad049583e8a214413979c9c558"
+commit_sha_after: "f4ccffc8adc80172e6cd44cec667db85d27169b9"
 branch: chore/devops-10-improvements
-issues_fixed: 3
+issues_fixed: 4
 issues_skipped: 0
-issues_total: 3
-git_diff_stat: "2 files changed, 7 insertions(+), 7 deletions(-)"
+issues_total: 4
+git_diff_stat: "3 files changed, 7 insertions(+), 5 deletions(-)"
 quality_checks:
   lint: skipped
   typecheck: skipped
@@ -19,74 +19,95 @@ quality_checks:
 fixes:
   - id: "14.1"
     status: FIXED
-    file: "engine/checklist.md"
-    description: "Scan step 2 now uses is_phase_unlocked_persisted (pure predicate, no side effects) instead of is_phase_unlocked. Updated cross-reference comment in §3 to clarify scan uses the persisted predicate, not the interactive one."
+    file: "engine/ceremony.md"
+    description: "Added inline character restriction comment in progress bar pseudocode at §7, explicitly prohibiting ▓ (U+2593) and limiting to █/░ only."
     deviation: "none"
   - id: "14.2"
     status: FIXED
     file: "engine/guide.md"
-    description: "log_integration_result signature changed to (phase_index, checks_ran, quest_log, passed). Automated call site now passes all_passed as 4th arg. Fallback body uses passed param instead of ambiguous user_said_yes. All 3 sites aligned."
+    description: "Made all four co-owner locations explicit in hero_name and hero_title fallback contracts at §1, using numbered list format. Added omission detail to hero_title contract."
     deviation: "none"
   - id: "14.3"
     status: FIXED
-    file: "engine/guide.md"
-    description: "Status view rendering note now uses str(phase_index) for integration_results lookup, matching the string-keyed convention used by log_integration_result and is_phase_unlocked_persisted."
+    file: "engine/xp-system.md"
+    description: "Added cross-reference to checklist.md §1 and SKILL.md Critical Rule 5 in the deprecation notice at §7."
+    deviation: "none"
+  - id: "14.4"
+    status: FIXED
+    file: "engine/ceremony.md"
+    description: "Added explicit omission behavior detail to hero_title fallback contract at §1.5: do NOT render empty comma, trailing space, or raw placeholder."
     deviation: "none"
 preserved:
-  - "engine/scanner.md — no issues found, not modified"
-  - "engine/xp-system.md — no issues found, not modified"
-  - "engine/ceremony.md — no issues found, not modified"
-  - "SKILL.md — no issues found, not modified"
+  - "SKILL.md — already has complete hero_name contract and deprecation cross-references"
+  - "engine/checklist.md — already has deprecation warning with cross-references to xp-system.md §7 and SKILL.md"
+  - "engine/guide.md §5-§6 — progress bar contracts already complete with ▓ prohibition"
 ---
 
 # Code Ping-Pong — Round 14 Fix Report
 
 ## Summary
 
-All 3 issues from round 14 were fixed. No skips.
+4 issues found in round 14, all fixed. No ▓ was found in source files (only in old round files). All fixes are contract-strengthening changes — making cross-references explicit and adding omission behavior details.
 
-**Anti-whack-a-mole analysis:**
-- **14.1 pattern** (`is_phase_unlocked` in non-progression contexts): checked all references across engine files. The Read flow (checklist.md §3) already uses `is_phase_unlocked_persisted` — only the scan (§5 step 2) was using the interactive version. Fixed. Also updated the cross-reference comment in §3 line 136 that incorrectly listed scan as a user of the interactive predicate.
-- **14.2 pattern** (inconsistent `log_integration_result` signatures): all 3 occurrences are in `engine/guide.md` (definition at line 220, fallback call at line 100, automated call at line 115). All now use the 4-param contract. No other files call this function.
-- **14.3 pattern** (numeric key for `integration_results`): checked all `integration_results[` references across the codebase. `checklist.md:131` uses `str(phase_index)`, `guide.md:243` uses `str(phase_index)`, only `guide.md:571` used the numeric form. Fixed.
+## Anti-Whack-a-Mole Analysis
 
----
+- **14.1 (progress bar):** Grep for ▓ across all quest files — 0 occurrences in source files. All 4 progress bar locations (ceremony.md §2, §7, guide.md §5, §6) already use correct characters. Fix adds inline restriction in §7 pseudocode.
+- **14.2 (hero_name/title contract):** Checked all 4 co-owner locations (SKILL.md, ceremony.md §1.5, §7, guide.md §1). All have contracts, but guide.md §1 didn't explicitly list itself as co-owner. Fixed.
+- **14.3 (deprecation cross-ref):** Checked 3 locations: SKILL.md (line 304) ✓ has cross-ref, checklist.md §1 (lines 34-39) ✓ has cross-ref, xp-system.md §7 ✗ missing cross-ref. Fixed.
+- **14.4 (hero_title omission):** Checked all 4 co-owner locations. ceremony.md §7 already says "do NOT render empty comma or trailing space". ceremony.md §1.5 only said "omit from output" without specifying what omission means. Fixed to match §7 precision.
+
+## Semantic Propagation Analysis
+
+- **Contract: progress bar visual consistency** — 4 participants: ceremony.md §2, ceremony.md §7, guide.md §5, guide.md §6. All verified consistent.
+- **Contract: hero_name fallback** — 4 participants: SKILL.md, ceremony.md §1.5, ceremony.md §7, guide.md §1. All verified consistent.
+- **Contract: hero_title fallback** — 4 participants: SKILL.md, ceremony.md §1.5, ceremony.md §7, guide.md §1. All verified consistent after fix.
+- **Contract: deprecation total_xp >= N** — 3 participants: xp-system.md §7, checklist.md §1, SKILL.md rule 5. All verified consistent after fix.
+
+## Fixes Applied
 
 ### Fix for Issue 14.1
 
-**HIGH — Scan persists Integration Gate before user confirmation**
+**File:** `engine/ceremony.md` (§7 Progress Bar Generation)
 
-**Problem:** Scan step 2 called `is_phase_unlocked` from guide.md §2, which internally calls `verify_phase_integration()`. After round 13 hardened the persist-before-return rule, this meant every `/quest scan` would write integration results to the quest-log even if the user cancelled at step 5.
+**Problem:** The pseudocode for generating the progress bar didn't have an inline character restriction, relying solely on the contract block below it.
 
-**Fix:** Two changes in `engine/checklist.md`:
-1. **Step 2 (line 275):** Replaced `is_phase_unlocked` with `is_phase_unlocked_persisted` — the pure predicate defined in §3 that checks required-item status and persisted `integration_results` without side effects.
-2. **§3 cross-reference (line 136):** Updated the comment that previously said "The full interactive `is_phase_unlocked` is used only in §4 check/skip and §5 scan" to correctly state "§4 check/skip/unused" and that scan uses the persisted predicate.
+**Fix:** Added a comment inside the pseudocode block explicitly stating that ONLY `█` (U+2588) and `░` (U+2591) are allowed, with a cross-reference to the unified contract locations. Also added the restriction to the note paragraph below the code block.
 
-**Result:** Scan is now purely observational until the user confirms. No state mutations during classification.
-
----
+**Propagation:** Verified all 4 progress bar locations — ceremony.md §2 (line 169), ceremony.md §7, guide.md §5 (lines 670-686), guide.md §6 (line 694). All already have the ▓ prohibition in their contract blocks. No additional changes needed.
 
 ### Fix for Issue 14.2
 
-**MEDIUM — log_integration_result contract ambiguity**
+**File:** `engine/guide.md` (§1 Voice Rule 1)
 
-**Problem:** The function definition had 3 parameters but the fallback call site passed 4 arguments. The body used `all checks passed` (undefined) and `user_said_yes` (not a parameter) to fill `result.passed`.
+**Problem:** The hero_name and hero_title fallback contracts listed 3 external co-owners but didn't explicitly name guide.md §1 itself as the 4th co-owner.
 
-**Fix:** Three changes in `engine/guide.md`:
-1. **Definition (line 220):** Signature changed to `log_integration_result(phase_index, checks_ran, quest_log, passed)`. Body now uses `passed` for `result.passed`.
-2. **Automated call (line 115):** Added `all_passed` as 4th argument.
-3. **Fallback body (line 239):** Changed `user_said_yes` to `passed` in the user confirmation check entry.
+**Fix:** Rewrote both contracts using a numbered list format that explicitly names all 4 co-owner locations: (1) SKILL.md, (2) ceremony.md §1.5, (3) ceremony.md §7, (4) guide.md §1. Also added explicit omission behavior to the hero_title contract ("do NOT render an empty comma, trailing space, or raw placeholder").
 
-**Result:** Both call sites pass an explicit boolean, and the function body uses only its own parameters. No ambiguity for implementors.
-
----
+**Propagation:** Checked all 4 co-owner locations. SKILL.md (line 14), ceremony.md §1.5 (lines 116-118), and ceremony.md §7 (lines 475-480) all already list their co-owners correctly. Only guide.md §1 was missing the self-reference.
 
 ### Fix for Issue 14.3
 
-**MEDIUM — Numeric key mismatch in status view**
+**File:** `engine/xp-system.md` (§7 Achievement Evaluation — deprecation notice)
 
-**Problem:** The status view rendering note at guide.md line 571 used `quest_log.integration_results[phase_index]` (numeric lookup), but the write path (`log_integration_result`) and the read-safe predicate (`is_phase_unlocked_persisted`) both use `str(phase_index)`. In YAML parsers this causes silent mismatch.
+**Problem:** The deprecation notice for `total_xp >= N` didn't cross-reference the other two locations where the same warning appears (checklist.md §1 and SKILL.md Critical Rule 5).
 
-**Fix:** Changed to `quest_log.integration_results[str(phase_index)]` in the CRITICAL note at guide.md line 571.
+**Fix:** Added a cross-reference sentence to the deprecation notice: "This same deprecation warning is echoed in checklist.md §1 (achievements comment block and deprecation callout) and SKILL.md Critical Rule 5. All three locations MUST stay consistent."
 
-**Result:** All integration_results access points now use string keys consistently: write (guide.md:243), read-safe predicate (checklist.md:131), and rendering (guide.md:571).
+**Propagation:** Verified all 3 deprecation locations:
+- checklist.md §1 (lines 34-39): ✓ Already cross-references xp-system.md §7 and SKILL.md rule 5
+- SKILL.md (line 304): ✓ Already cross-references xp-system.md §7 and checklist.md §1
+- xp-system.md §7: ✗ Was the only one missing cross-references — now fixed
+
+### Fix for Issue 14.4
+
+**File:** `engine/ceremony.md` (§1.5 Hero Identity — hero_title fallback contract)
+
+**Problem:** The hero_title fallback contract at §1.5 said "omit it from output" but didn't specify what that means concretely (unlike ceremony.md §7 which explicitly says "do NOT render an empty comma or trailing space").
+
+**Fix:** Added precise omission behavior: "do NOT render an empty comma, trailing space, or raw `{hero_title}` placeholder."
+
+**Propagation:** Checked all 4 co-owner locations for hero_title fallback:
+- SKILL.md: Uses quest-log meta schema — no output rendering (data only) ✓
+- ceremony.md §1.5: Now has explicit omission detail ✓ (this fix)
+- ceremony.md §7 (line 480): Already has "do NOT render an empty comma or trailing space" ✓
+- guide.md §1: Now also has omission detail (fixed in 14.2) ✓
