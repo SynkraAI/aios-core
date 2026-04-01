@@ -216,6 +216,8 @@ Show the "Ficha do Projeto" using scan results and pack metadata.
 | `inventory_lines` | Generated from pack items with `scan_rule` (see below) |
 | `world_map` | Generated from pack phases (see below) |
 
+**Note on sub-items and stats:** The `level_number` and all counters displayed in the Project Card (and Resumption Banner §7) include sub-items in their calculations. Sub-items (checklist.md §7.5) are counted in `items_total`, `items_done`, `percent`, and XP via xp-system.md §2 (resolved item list). They do NOT appear in the inventory or world map (which use pack items only), but they DO affect the stats shown in the `Nível` line and any progress indicators. See xp-system.md §2.0 for the full resolution algorithm.
+
 ### Inventory Generation
 
 Build the inventory from pack items that have a `scan_rule` defined in early phases (phase 0 and phase 1). These represent the project's foundational elements.
