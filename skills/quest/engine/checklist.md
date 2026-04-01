@@ -297,7 +297,7 @@ items:
      - Ask the user: `"Este item se aplica? {condition} (s/n/pular)"`
      - `s` → leave as pending (applicable, not yet done). Do NOT add to any staged list.
      - `n` → add to unused_decisions list (staged as `unused`). Do NOT mutate quest-log yet.
-     - `pular` → skip for this session.
+     - `pular` → leave as `pending`. Item may be asked again on subsequent scans.
    - **Why `detected` instead of `done` for locked phases:** The Integration Gate (guide.md §2.5) must verify that prior phases work together before unlocking the next. Marking items as `done` in locked phases would bypass this critical check. `detected` items are automatically promoted to `done` when the phase is unlocked.
 3. If discoveries list AND detections list AND unused_decisions list are ALL empty, show: `"Scan completo. Nenhuma nova descoberta."` and stop.
 4. Show discoveries (unlocked phases) and detections (locked phases) separately:
@@ -367,7 +367,7 @@ Items with a `condition` field require special handling. Condition evaluation is
 2. Ask the user: `"Este item se aplica? {condition} (s/n/pular)"`
    - `s` (yes): item stays `pending` — it applies but is not yet done. The user must complete it normally.
    - `n` (no): add to the scan's `unused_decisions` staging list. The actual mutation to `unused` happens ONLY when the user confirms the scan summary (§5 step 5, "s"). Do NOT mutate quest-log state here — this keeps condition decisions in the same transactional save path as scan discoveries and detections. The item does not apply to this project, so it will be excluded from `items_total` and `percent` once persisted. Do NOT use `skipped` here — `skipped` is for applicable items the user chose to bypass.
-   - `pular` (skip for now): leave as `pending`, do not ask again in this session.
+   - `pular` (skip for now): leave as `pending`. The item remains unresolved and may be asked again on subsequent scans.
 3. Conditions are evaluated during scan and during first-time quest-log creation. Both contexts observe items from ALL phases (including locked ones), so the phase lock guard from §4 is intentionally bypassed — it applies only to explicit manual commands (`/quest check`, `/quest skip`, `/quest unused`).
 
 ---

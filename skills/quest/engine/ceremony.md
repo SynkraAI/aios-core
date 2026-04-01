@@ -316,7 +316,7 @@ scan results = {
 if has_quest_log  → Fortaleza Ativa
 if has_aios AND (has_code OR has_docs)  → Fortaleza em Obras
 if has_git AND has_pkg_mgr  → Fundação
-if (has_docs AND NOT has_code) OR (file_count >= 3 AND NOT has_code)  → Pergaminho
+if has_docs AND NOT has_code  → Pergaminho
 else  → Terreno Virgem
 ```
 

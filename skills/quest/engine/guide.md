@@ -725,7 +725,7 @@ After showing a mission card, the engine waits for the player to act. This secti
        - Ask: "Executar {item.command}? (s/n)"
        - If "s":
          i.  Invoke: Skill(skill: extracted_skill_name)
-         ii. On success → auto-check: check {item.id} source=forge
+         ii. On success → auto-check: check {item.id} source=user
          iii. On failure → keep pending, show error
        - If "n":
          - Fall through to step 2c
