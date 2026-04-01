@@ -475,12 +475,14 @@ When a quest-log already exists (Fortaleza Ativa), do NOT show the full ceremony
 
 ### Progress Bar Generation
 
-Generate a 20-character progress bar based on percent:
+Generate a 20-character progress bar using the canonical `progress_bar()` function from guide.md §5:
 
 ```
-filled = floor(20 * percent / 100)
+filled = round(20 * percent / 100)
 bar = "█" * filled + "░" * (20 - filled)
 ```
+
+**Note:** Uses `round()` (not `floor()`) to match `progress_bar()` in guide.md §5. If `percent` is 0 or `items_total` is 0, render an empty bar (`░` × 20).
 
 ### Rules
 
