@@ -566,7 +566,7 @@ Then show the next mission card (if quest is not complete).
 
 ## 5. Quest Log View (`/quest status`)
 
-Shows all phases as "worlds" with thematic names from the pack. The current world is expanded with items and status. Future worlds show as LOCKED.
+Shows all phases as "worlds" with thematic names from the pack. The current world is expanded with items and status. Future worlds show as LOCKED. All per-world counters (`{done}`, `{total}`, `{percent}`) are **phase-scoped** — computed from that phase's `resolved_items` only, excluding that phase's `unused` items. See Progress Bar section below for the formulas.
 
 ### Template
 
@@ -617,10 +617,15 @@ Shows all phases as "worlds" with thematic names from the pack. The current worl
 
 16-character bar: filled = done+skipped, empty = pending/detected.
 
+**IMPORTANT — per-phase totals:** When rendering a progress bar for a specific world/phase, compute the counters from that phase's `resolved_items` only — NOT from the global `items_total` in xp-system §5 (which covers the entire quest). For each phase:
+- `phase_done` = count of items in that phase with status `done`
+- `phase_skipped` = count of items in that phase with status `skipped`
+- `phase_unused` = count of items in that phase with status `unused`
+- `phase_total` = count of resolved items in that phase MINUS `phase_unused`
+
+Pass `phase_done`, `phase_skipped`, and `phase_total` to `progress_bar()`. The global `items_total` from xp-system §5 is still used for the overall quest summary line (§6: `Missões: {items_done}/{items_total}`), but never for individual world bars.
+
 ```
-// NOTE: `total` MUST exclude items with status `unused` — they don't exist
-// in this project and must not inflate the bar denominator. Use `items_total`
-// from xp-system §5 (which already subtracts unused items).
 function progress_bar(done, skipped, total):
   if total <= 0:
     return "░" * 16          // world with all items unused → empty bar, 0%
@@ -634,7 +639,7 @@ function progress_bar(done, skipped, total):
 
 Compact one-line-per-phase view with overall stats. This is NOT a separate command — it is rendered as part of `/quest status` when the engine determines that a compact overview is more useful (e.g., many phases). The entrypoint routes `status` to guide.md; the guide decides whether to show the expanded view (§5) or this summary.
 
-**IMPORTANT:** This view MUST use the `progress_bar()` function from section 5 (16-char bar with `█` and `░`). Do NOT substitute with `[done/total]` or any other format — the progress bar is mandatory here.
+**IMPORTANT:** This view MUST use the `progress_bar()` function from section 5 (16-char bar with `█` and `░`). Do NOT substitute with `[done/total]` or any other format — the progress bar is mandatory here. Each per-phase row uses **phase-scoped counters** (`phase_done`, `phase_total` — see §5 progress bar rules), NOT global `items_total`. The global counters appear only in the bottom summary line (`Missões: {items_done}/{items_total}`).
 
 ### Template
 

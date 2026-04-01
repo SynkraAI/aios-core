@@ -347,9 +347,9 @@ Items with a `condition` field require special handling.
    - If `scan_rule` is `false` → proceed to step 2.
 2. Ask the user: `"Este item se aplica? {condition} (s/n/pular)"`
    - `s` (yes): item stays `pending` — it applies but is not yet done. The user must complete it normally.
-   - `n` (no): mark as `unused` (delegate to unused flow §4). The condition does not apply to this project, so the item is excluded from `items_total` and `percent`. Do NOT use `skipped` here — `skipped` is for applicable items the user chose to bypass.
+   - `n` (no): mark as `unused` **directly** — set `items[{id}].status` to `unused` and recalculate stats via xp-system. Do NOT delegate to the manual `unused` flow in §4, because that flow enforces the phase lock guard which would block future-phase items. Since conditions are evaluated during scan or first-time creation (step 3 below), all phases are observable and the phase lock guard does not apply. The condition does not apply to this project, so the item is excluded from `items_total` and `percent`. Do NOT use `skipped` here — `skipped` is for applicable items the user chose to bypass.
    - `pular` (skip for now): leave as `pending`, do not ask again in this session.
-3. Conditions are evaluated during scan and during first-time quest-log creation.
+3. Conditions are evaluated during scan and during first-time quest-log creation. Both contexts observe items from ALL phases (including locked ones), so the phase lock guard from §4 is intentionally bypassed — it applies only to explicit manual commands (`/quest check`, `/quest skip`, `/quest unused`).
 
 ---
 
