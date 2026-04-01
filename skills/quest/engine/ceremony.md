@@ -473,8 +473,11 @@ When a quest-log already exists (Fortaleza Ativa), do NOT show the full ceremony
 | `pack.name` | Pack YAML `pack.name` |
 | `project_name` | Directory name from `cwd` |
 | `hero_name` | `quest_log.meta.hero_name` (fallback: "Aventureiro" — see **Contract — hero_name fallback** below and in §1.5, SKILL.md, and guide.md §1; all four locations share this fallback) |
+| `hero_title` | `quest_log.meta.hero_title` (fallback: empty string `""` — see **Contract — hero_title fallback** below). If non-empty and non-whitespace, append to welcome line: `Bem-vindo de volta, {hero_name}, {hero_title}!`. If missing, empty, or whitespace-only, omit from output entirely — render only `Bem-vindo de volta, {hero_name}!` |
 
 **Contract — hero_name fallback (Resumption Banner):** The fallback for `hero_name` is **"Aventureiro"**. This is the same fallback string defined in ceremony.md §1.5 (Hero Identity), SKILL.md (Contract — hero_name fallback), and guide.md §1 (Voice Rule 1). All four locations MUST use the same fallback string. If the fallback changes, update ALL locations in the same commit. The propagation rule: `quest_log.meta.hero_name` → if missing/empty/whitespace → "Aventureiro".
+
+**Contract — hero_title fallback (Resumption Banner):** The fallback for `hero_title` is **empty string `""`** (no title). If `hero_title` is missing, empty, or whitespace-only, it MUST be omitted from the banner output entirely — do NOT render an empty comma or trailing space. This is the same fallback behavior defined in ceremony.md §1.5 (Hero Identity), SKILL.md (quest-log meta), and guide.md §1 (Voice Rule 1). All four locations MUST treat empty/missing/whitespace-only `hero_title` as "no title" and omit it from output. If the fallback behavior changes, update ALL locations in the same commit.
 | `level_number` | `quest_log.stats.level` |
 | `level_name` | `pack.levels[level_number].name` |
 | `total_xp` | `quest_log.stats.total_xp` |

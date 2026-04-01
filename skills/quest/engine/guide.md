@@ -448,6 +448,8 @@ Triggered for each newly unlocked achievement (returned by xp-system). Uses achi
 
 If `xp_bonus` is 0 or absent, omit the bonus line.
 
+**Contract — achievement condition deprecation (cross-reference):** Achievement conditions are defined and evaluated in xp-system.md §7. The `total_xp >= N` condition is **deprecated** — it is an alias for `item_xp >= N` and will be removed in a future version. Both evaluate `total_base_xp` (item-only XP, before achievement bonuses), NOT the user-facing `total_xp`. Pack authors MUST use `item_xp >= N` in all new packs. See xp-system.md §7 for the full deprecation notice and migration guidance, and checklist.md §1 (Pack YAML structure) for the list of valid conditions.
+
 ### 4.5 Final Victory
 
 Triggered when ALL phases are complete (no unresolved items — `pending` or `detected` — in `resolved_items` across any phase, including valid sub-items). `detected` items block victory because they represent work discovered in locked phases that hasn't passed the Integration Gate yet. Output this template EXACTLY (replacing placeholders):
@@ -657,6 +659,9 @@ Pass `phase_done`, `phase_skipped`, and `phase_total` to `progress_bar()`. The g
 
 ```
 function progress_bar(done, skipped, total):
+  // ↑ Canonical implementation — unified progress bar contract
+  //   Same chars (█/░), width (20), rounding (round()) as:
+  //   ceremony.md §2, ceremony.md §7, guide.md §5, guide.md §6
   if total <= 0:
     return "░" * 20          // world with all items unused → empty bar, 0%
   filled = round((done + skipped) / total * 20)
@@ -690,6 +695,8 @@ Compact one-line-per-phase view with overall stats. This is NOT a separate comma
   W{N}  {phase.name}        {progress_bar}  {done + skipped}/{total}  {state}
   W{N}  {phase.name}        {progress_bar}  {done + skipped}/{total}  {state}
   ...
+  ↑ progress_bar uses unified contract — see guide.md §5 canonical function
+  ↑ Same chars (█/░), width (20), rounding as ceremony.md §2, §7
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   XP: {total_xp}  |  Missões: {items_done + items_skipped}/{items_total} ({percent}%)
 
@@ -719,6 +726,8 @@ Compact one-line-per-phase view with overall stats. This is NOT a separate comma
 ### Next Achievement
 
 Find the first achievement in the pack that is NOT in `quest_log.achievements[]`. If all are unlocked, show "Todas desbloqueadas!".
+
+**Note:** Achievement conditions are evaluated by xp-system.md §7. The `total_xp >= N` condition is **deprecated** in favor of `item_xp >= N` — see §4.4 cross-reference and xp-system.md §7 for details.
 
 ---
 
