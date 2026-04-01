@@ -457,7 +457,7 @@ Triggered when ALL phases are complete (no unresolved items — `pending` or `de
     Jornada iniciada em:   {meta.created}
     Jornada completada em: {now}
 
-    ████████████████████ 100%
+    ████████████████████  100%
 
     Você não é mais um aventureiro qualquer, {hero_name}.
     Você é uma lenda.

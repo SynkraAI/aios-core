@@ -84,6 +84,21 @@ Items with a `condition` field in the pack gain an additional `condition_state` 
 - Are shown with a distinct visual indicator on the dashboard (not ✓ or -)
 - Can be set during first scan (when condition evaluates to "not applicable") or manually via `/quest unused {id}`
 
+**Lifecycle of an `unused` item:**
+
+1. **Creation:** Item starts as `pending` (§2 Create Quest-log). If it has a `condition` field, it also gets `condition_state: unresolved`.
+2. **Transition to `unused`:** Happens via one of two paths:
+   - **Manual:** User runs `/quest unused {id}` → checklist §4 sets `status: unused` directly.
+   - **Automatic:** During condition evaluation (§6 scan or §2 create), user answers "n" → `condition_state` is set to `not_applicable` and `status` is set to `unused`.
+3. **Impact across modules:**
+   - **xp-system §5:** Excluded from `items_total` and `percent`. Contributes 0 XP. Does NOT break streaks (filtered out of streak calculation in §4).
+   - **xp-system §7:** Excluded from achievement conditions (`all_required_done_in_phase`, `all_items_done_in_phase`, `phase_done_same_day`, `all_items_done`, `all_required_done`, `zero_required_skipped`) — all use `if status == "unused": continue`.
+   - **guide.md §2:** Excluded from phase unlock check (`is_phase_unlocked` treats unused as non-blocking).
+   - **guide.md §4.2/4.5:** Excluded from World Complete and Final Victory triggers (unused items don't count as pending).
+   - **guide.md §5:** Displayed with `[·]` icon in Quest Log View.
+   - **ceremony.md §7:** Resumption Banner shows `items_done/items_total` which already excludes unused via xp-system stats.
+4. **Irreversibility:** Once set to `unused`, the item cannot be reverted to `pending` through normal commands. It is effectively removed from the project's quest scope.
+
 ---
 
 ## 2. Create Quest-log
