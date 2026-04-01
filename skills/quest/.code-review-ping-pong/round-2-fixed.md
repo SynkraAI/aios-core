@@ -2,16 +2,16 @@
 protocol: code-review-ping-pong
 type: fix
 round: 2
-date: "2026-03-31"
-fixer: "Claude Opus 4.6"
+date: "2026-04-01"
+fixer: "Claude Code (Opus)"
 review_file: round-2.md
-commit_sha_before: "83b4a392fb0bcab2bdca458408269159db159bcf"
-commit_sha_after: "a75e5cd7c20e533b778cc0b793848bc7a04f3e5e"
+commit_sha_before: "192be9b3c3aef057b3026413d1791532e1124e35"
+commit_sha_after: "458c1edde6cd445410625f6065c444cc6df95040"
 branch: chore/devops-10-improvements
-issues_fixed: 3
+issues_fixed: 4
 issues_skipped: 0
-issues_total: 3
-git_diff_stat: "3 files changed, 37 insertions(+), 20 deletions(-)"
+issues_total: 4
+git_diff_stat: "4 files changed, 22 insertions(+), 1 deletion(-)"
 quality_checks:
   lint: skipped
   typecheck: skipped
@@ -19,77 +19,89 @@ quality_checks:
 fixes:
   - id: "2.1"
     status: FIXED
-    file: "engine/xp-system.md"
-    description: "Added unused-skip logic to all 6 achievement conditions: all_required_done_in_phase, all_items_done_in_phase, phase_done_same_day, all_items_done, all_required_done, zero_required_skipped. Each now checks status == unused and continues to next item."
+    file: "engine/ceremony.md"
+    description: "Added explicit contract note linking Resumption Banner progress bar to loading sequence and guide.md progress_bar()"
     deviation: "none"
   - id: "2.2"
     status: FIXED
-    file: "engine/guide.md"
-    description: "Replaced /quest skip with /quest unused for not-applicable items in 4 locations: Mission Card template, interaction flow 4b, skip flow, stuck detection. Also fixed checklist.md trigger description (anti-whack-a-mole). Skip is now only for conscious bypass of applicable items."
+    file: "engine/checklist.md"
+    description: "Documented fallback for missing and malformed condition fields: treat as unconditional/pending with warning log"
     deviation: "none"
   - id: "2.3"
     status: FIXED
-    file: "engine/guide.md"
-    description: "Added fallback defaults for 3 optional phase fields: phase.complete_message falls back to 'World concluido.', next_phase.unlock_message falls back to 'Novo world desbloqueado.', item.tip chain now ends with 'Sem dica adicional.' Also updated World Complete guard to include unused status."
+    file: "engine/xp-system.md"
+    description: "Strengthened deprecation warning for total_xp >= N alias with explicit pack author guidance and removal notice"
+    deviation: "none"
+  - id: "2.4"
+    status: FIXED
+    file: "engine/scanner.md"
+    description: "Documented fallback chain when no packs define keywords: skip matching → detection rules → manual selection"
     deviation: "none"
 preserved:
-  - "engine/ceremony.md — no issues in this round"
-  - "engine/scanner.md — no issues in this round"
-  - "SKILL.md — no issues in this round"
+  - "engine/guide.md — no issues in this file; progress_bar() contract already well-defined"
+  - "SKILL.md — no issues in this file"
 ---
 
 # Code Ping-Pong — Round 2 Fix Report
 
 ## Summary
 
-All 3 issues from round 2 were fixed in a single commit. Anti-whack-a-mole sweep found 1 extra file affected (checklist.md) beyond the files cited in the issues.
+All 4 issues from round-2.md were addressed in commit 458c1edde. Each fix adds documentation clarity and explicit contracts to prevent future drift between modules.
 
-## Fixes
+## Fixed Issues
 
 ### Fix for Issue 2.1
 
-**Semantics of `unused` in achievement conditions (xp-system.md)**
+**Problem:** The Resumption Banner progress bar referenced `progress_bar()` from guide.md §5 but lacked an explicit contract requiring strict alignment with the loading sequence and guide.md status bars.
 
-All 6 achievement condition families that iterate over items now explicitly skip `unused` items:
+**Fix applied:** Added a **Contract — progress bar visual consistency** note in ceremony.md §7 (Progress Bar Generation) that explicitly lists all four locations that must stay in sync: ceremony.md loading sequence (§2), ceremony.md Resumption Banner (§7), guide.md `progress_bar()` (§5), and guide.md summary view (§6). The note mandates same character set (`█`/`░`), width (20 chars), and rounding (`round()`) — and requires all to be updated in the same commit if any changes.
 
-1. `all_required_done_in_phase:<N>` — required items with status `unused` are skipped via `continue`
-2. `all_items_done_in_phase:<N>` — unused items no longer block the "no pending" check
-3. `phase_done_same_day:<N>` — unused required items excluded from date collection
-4. `all_items_done` — same pattern as phase-scoped version, applied globally
-5. `all_required_done` — unused required items excluded globally
-6. `zero_required_skipped` — unused items don't violate the "no skip" condition
+**Anti-whack-a-mole analysis:** Searched all engine files for `progress_bar` and `progress bar` references. Found occurrences only in:
+- `ceremony.md` — sections 2 (loading sequence) and 7 (Resumption Banner)
+- `guide.md` — sections 5 (function definition), 6 (summary view), and edge case notes
 
-Pattern applied consistently: extract `status`, check `== "unused"` → `continue`, then evaluate the original condition.
+All already use the same character set and rounding. The new contract note makes this implicit agreement explicit and prevents future drift.
+
+**Semantic propagation:** The contract is "all visual progress indicators across all modules MUST use identical rendering parameters." Participating modules: ceremony.md (2 consumers) and guide.md (1 definition + 2 consumers). No other modules render progress bars.
 
 ### Fix for Issue 2.2
 
-**Guide directing users to `/quest skip` for not-applicable items**
+**Problem:** The documentation didn't specify what happens when a pack item has a missing or malformed `condition` field.
 
-Fixed in 4 locations in guide.md + 1 in checklist.md (anti-whack-a-mole):
+**Fix applied:** Added a **Fallback for missing or malformed `condition` fields** section in checklist.md §1 (Condition state), immediately after the existing note about items without a `condition` field. Documents two cases:
+- **Missing `condition` field:** Treated as unconditional (existing behavior, now explicit).
+- **Malformed `condition` field:** Treated as unconditional/pending with a warning log. Ensures forward compatibility and no crashes.
 
-1. **Mission Card (line 271-274):** Changed "SE NAO SE APLICA: /quest skip" to `/quest unused`, added separate "SE QUER PULAR MESMO ASSIM: /quest skip"
-2. **Interaction flow 4b (line 651):** Now suggests `/quest unused` first, `/quest skip` second
-3. **Skip Flow (line 660-663):** Same separation — unused for not-applicable, skip for bypass
-4. **Stuck Detection (line 670-672):** Added `/quest unused` option before `/quest skip`
-5. **checklist.md (line 229):** Clarified trigger description — skip is for conscious bypass, unused for not-applicable items
+**Anti-whack-a-mole analysis:** Searched for `condition` field handling across engine files:
+- `checklist.md` — primary documentation of condition_state lifecycle (now with fallback)
+- `guide.md` — §2 selects items with `condition_state == applicable` or items without `condition` field. Already consistent with the fallback (items without conditions are eligible).
+
+**Semantic propagation:** The contract is "items without a valid condition are unconditionally actionable." Modules participating: checklist.md (defines lifecycle), guide.md §2 (consumes condition_state for selection). Both handle absence of `condition` field identically — the new documentation makes the malformed case explicit too.
 
 ### Fix for Issue 2.3
 
-**Missing fallbacks for optional phase fields in celebrations**
+**Problem:** The `total_xp >= N` legacy alias note was present but not explicit enough for pack authors who might still use the old name.
 
-Three fallback defaults added to guide.md World Complete template:
+**Fix applied:** Enhanced the legacy alias paragraph in xp-system.md §3 (Supported Conditions, under `item_xp >= N`) with:
+- Marked as **(DEPRECATED — use `item_xp >= N` instead)** in the heading
+- Added a prominent blockquote warning for pack authors explaining why `total_xp >= N` is misleading
+- Explicit statement that the alias **will be removed** in a future version
+- Recommendation to migrate existing packs during updates
 
-1. `phase.complete_message` → falls back to `"World concluido."`
-2. `next_phase.unlock_message` → falls back to `"Novo world desbloqueado."`
-3. `item.tip || phase.description` → chain extended with `|| "Sem dica adicional."`
+**Anti-whack-a-mole analysis:** Searched for `total_xp` references across all engine files. The only location where `total_xp >= N` is documented as an achievement condition is xp-system.md §3. Other `total_xp` references refer to the stats field (different context). No propagation needed.
 
-Also updated the World Complete trigger condition and critical guard to explicitly include `unused` as a valid terminal status (items with `unused` don't count as pending).
+**Semantic propagation:** The contract is "achievement conditions must not create circular dependencies with displayed XP." Only xp-system.md §3 defines achievement condition evaluation. The deprecation note reinforces the rationale (preventing confusion between `total_base_xp` internal calculation and `total_xp` displayed value).
 
-## Anti-Whack-a-Mole Report
+### Fix for Issue 2.4
 
-| Pattern searched | Files checked | Extra fixes |
-|-----------------|---------------|-------------|
-| `/quest skip` for not-applicable | All engine/*.md | checklist.md line 229 |
-| Achievement conditions without unused | xp-system.md (6 conditions) | All 6 fixed |
-| Optional fields without fallback | guide.md templates | 3 fields fixed |
-| World Complete unused handling | guide.md | Trigger + guard updated |
+**Problem:** Free-text detection logic described keyword matching but didn't specify what happens when no keywords are defined in any pack.
+
+**Fix applied:** Added a **Fallback when no packs define keywords** section in scanner.md §6 (under `args.text` flow) documenting the explicit fallback chain:
+1. Skip keyword matching entirely
+2. Fall through to detection rules (Section 4)
+3. If no detection matches, fall through to manual pack selection (Section 6.3)
+4. Present full pack list with generic prompt
+
+**Anti-whack-a-mole analysis:** Searched for `keywords` and `free-text` across engine files. Free-text handling exists only in scanner.md §6. No other module participates in keyword-based pack selection.
+
+**Semantic propagation:** The contract is "user input must always result in a pack selection or a clear prompt for manual choice." The fallback chain (keywords → detection rules → manual selection) was already implicit in the flow. The fix makes the edge case (empty keyword table) explicit so implementors don't leave the user in a dead-end.
