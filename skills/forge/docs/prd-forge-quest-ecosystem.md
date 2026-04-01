@@ -94,6 +94,7 @@ O ecossistema Forge + Quest é um sistema de orquestração em duas camadas que 
 | F1 | Forge NUNCA implementa | Não escreve código, não cria componentes, não faz design. SEMPRE delega |
 | F2 | Toda ação tem dono | Cada passo de cada workflow DEVE mapear pra um agente ou squad específico |
 | F3 | Forge só faz 3 coisas | (a) Classifica intent/seleciona workflow, (b) Despacha agentes na ordem certa, (c) Gerencia estado e error recovery |
+| F4 | Nenhuma fase avança sem quality gate | Cada transição de fase DEVE ter um gate definido no workflow (automático ou CHECKPOINT). Workflow sem gate entre fases é inválido |
 
 ### 2.3 Analogia
 
@@ -717,7 +718,7 @@ skills/forge/
 | Fase | Agente Principal | O que faz |
 |---|---|---|
 | 0 - Discovery | Forge core | URL alvo, goals, stack preference |
-| 1 - Extraction | @ux-design-expert, @dev | Screenshots, Dembrandt, deep CSS, animações, componentes |
+| 1 - Extraction | @ux-design-expert, @dev | Screenshots, deep CSS, animações, componentes. **Extraction hierarchy:** (1) dissect-artifact.cjs — Playwright nativo AIOS: deep CSS, components, screenshots; (2) Dembrandt — npm CLI: tokens W3C DTCG, brand guide PDF; (3) Ambos rodam em paralelo, output consolidado pelo @architect |
 | 2 - Tokens | @architect, /design squad | Consolidar tokens, hierarquia, Tailwind config |
 | 3 - Components | @dev | Atoms → Molecules → Organisms, animações, responsividade |
 | 4 - Pages + QA | @dev, @qa | Composição de páginas, visual diff, responsive test |
@@ -766,7 +767,7 @@ skills/forge/
 | Hero name, pack ativo | Quest | `quest-log.yaml` | Quest | Quest |
 | Progresso do run (fase) | Forge | `state.json` | Forge, Quest (read-only) | Forge |
 | Contexto do ecossistema | Forge | `context-pack.json` | Forge, agentes | Forge |
-| Decisões do projeto | Compartilhado | `project-context.md` | Todos (read) | Agentes (via Forge), usuário manual. Quest NUNCA escreve. Forge NUNCA escreve diretamente. |
+| Decisões do projeto | Agentes | `project-context.md` | Todos (read) | Agentes (@dev, @architect, etc.) escrevem via Memory Protocol. Forge e Quest NUNCA escrevem diretamente. Usuário pode editar manualmente. |
 
 ### 10.3 Regra de Ouro
 
@@ -892,11 +893,59 @@ Gera apenas o pack YAML com `forge_workflow: "{nome}"` apontando pro workflow ex
 
 | Workflow | Comando | Pipeline estimada |
 |---|---|---|
-| `landing-page` | `/forge lp {url}` | Extract DNA → Copy → Compose → Render → Deploy |
+| `landing-page` | `/forge lp {briefing}` | Brief → Design Intelligence → Copy Factory → Design Composition → Build → Conversion Audit → Deploy + Handoff |
 | `content-pipeline` | `/forge content {briefing}` | Research → Outline → Write → Review → Publish |
 | `mind-clone` | `/forge mind {nome}` | Sources → Voice DNA → Thinking DNA → Validate → Deploy |
 | `brand-kit` | `/forge brand {empresa}` | Research → Posicionamento → Identity → Assets |
 | `automation` | `/forge automation {processo}` | Map Process → Design → Build → Test → Deploy |
+
+### Detalhamento: landing-page (próximo workflow prioritário)
+
+```
+Phase 0: Brief Discovery
+  → Cliente, produto, ICP, dor principal, oferta, referências visuais
+  → @analyst: pesquisa de concorrentes, benchmarks do nicho
+  → CHECKPOINT: aprovar brief
+
+Phase 1: Design Intelligence
+  → dissect-artifact.cjs nos sites referência (paralelo)
+  → Dembrandt nos mesmos sites → tokens W3C DTCG (paralelo)
+  → scrape-references.mjs → awwwards + 21st.dev patterns relevantes
+  → @architect consolida tokens + pattern selection
+  → Agents: @ux-design-expert, @dev, @architect
+
+Phase 2: Copy Factory
+  → /copywriting-squad → copy por seção (Hero, Problem, Solution, Proof, CTA)
+  → 14-element conversion checklist (headline benefit, CTA above fold, social proof, etc.)
+  → @po valida qualidade da copy e alinhamento com ICP
+  → Agents: /copywriting-squad, @po
+
+Phase 3: Design Composition
+  → @architect: token selection + brand theme final
+  → /design squad (Brad Frost): component mapping (shadcn base + Aceternity/Magic UI premium)
+  → Animation layer: Lenis + GSAP ScrollTrigger + Framer Motion + SplitText
+  → Agents: @architect, /design squad
+
+Phase 4: Build
+  → @dev: Next.js + Tailwind + animation stack
+  → Premium effects obrigatórios: text reveal, grain overlay, gradient CTA, parallax
+  → @ux-design-expert: visual QA (fidelidade ao design spec)
+  → Agents: @dev, @ux-design-expert
+
+Phase 5: Conversion Audit
+  → @qa: Lighthouse > 95, CWV (LCP < 2.5s, INP < 200ms, CLS < 0.1)
+  → @qa: Mobile test (320px, 390px, 768px, 1440px)
+  → @qa: CTA above fold, social proof visível, Schema.org markup
+  → /copywriting-squad: revisão final de copy (readability score)
+  → /seo: OG tags, Twitter Cards, FAQPage Schema
+  → Agents: @qa, /copywriting-squad, /seo
+
+Phase 6: Deploy + Handoff
+  → @devops: Vercel deploy, DNS, analytics hooks
+  → @qa: live URL comparison + screenshot final
+  → Client handoff: preview link + copy deck
+  → Agents: @devops, @qa
+```
 
 ---
 
@@ -915,6 +964,7 @@ Gera apenas o pack YAML com `forge_workflow: "{nome}"` apontando pro workflow ex
 | Forge não conhece novos squads/skills | Deep scan oferecido no Phase 0 (Step 5b) — varredura completa do ecossistema |
 | Usuário não sabe os comandos | `/quest help` e `/forge help` com lista formatada |
 | Forge executa sem mostrar plano | Plano de execução obrigatório no Phase 0 (Step 7) com CHECKPOINT |
+| Contexto esgota mid-workflow | state.json persiste estado + `/quest resume` reconstrói. Agentes perdem contexto acumulado entre fases → Mitigação: context-pack.json carrega contexto essencial em cada dispatch de agente |
 
 ---
 
@@ -969,6 +1019,17 @@ Gera apenas o pack YAML com `forge_workflow: "{nome}"` apontando pro workflow ex
 Mesmo sem workflow dedicado, o Forge já utiliza squads e minds indiretamente via `ecosystem-scanner.md`. Quando o Forge detecta que o projeto envolve "copy" ou "landing page", ele injeta referências ao copywriting-squad e minds relevantes (hormozi, schwartz, etc.) no contexto dos agentes. Isso enriquece a qualidade do output sem precisar de um workflow específico.
 
 A diferença entre "usado via ecosystem scanner" e "usado via workflow" é:
+
+```
+PASSIVO (Ecosystem Scanner):
+  Scanner → "@dev, o copywriting-squad existe se precisar"
+  O agente SABE que o recurso existe, mas decide se usa ou não.
+
+ATIVO (Workflow dedicado):
+  Forge → "/copywriting-squad, execute 'write-hero-copy' AGORA"
+  O Forge CHAMA o squad diretamente como parte obrigatória do pipeline.
+```
+
 - **Ecosystem scanner:** injeta contexto (passivo) — o agente SABE que o squad existe
 - **Workflow dedicado:** orquestra diretamente (ativo) — o Forge CHAMA o squad pra fazer o trabalho
 

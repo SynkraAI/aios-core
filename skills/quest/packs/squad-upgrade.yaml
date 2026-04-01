@@ -5,12 +5,13 @@
 
 pack:
   id: squad-upgrade
-  version: "1.0.0"
+  version: "1.1.0"
   name: "Squad Upgrade"
   icon: "⚔️"
   class_name: "Ferreiro de Squads"
   tagline: "Transforme um squad bom em um squad lendário."
   keywords: ["squad", "upgrade", "agente", "agentes", "orquestração"]
+  forge_workflow: "squad-upgrade"
 
 # ----------------------------------------------------------------------------
 # Detection — como o scanner identifica que este pack se aplica
