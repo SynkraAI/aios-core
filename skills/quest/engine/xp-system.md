@@ -129,13 +129,16 @@ Rules:
 5. That count is the streak
 
 ```
+// NOTE: Only "done" and "skipped" are included. Items with status "unused"
+// or "pending" are excluded — unused items don't exist in this project's
+// context, so they cannot break or contribute to a streak.
 active_items = [item for item in resolved_items
                 where quest_log.items[item.id].status in ("done", "skipped")]
 streak = 0
 for item in reversed(active_items):
   if quest_log.items[item.id].status == "done":
     streak += 1
-  else:  # skipped
+  else:  # skipped — breaks the streak
     break
 ```
 
@@ -291,7 +294,7 @@ total_base_xp >= N
 
 Parse N from the condition string (e.g., `"item_xp >= 500"` → N = 500).
 
-**Legacy alias:** `total_xp >= N` is accepted as an alias for `item_xp >= N` for backward compatibility with existing packs. Both evaluate `total_base_xp`, NOT the final `total_xp` displayed to the user. New packs SHOULD use `item_xp >= N` to avoid confusion. The alias may be removed in a future version.
+**Legacy alias:** `total_xp >= N` is accepted as an alias for `item_xp >= N` for backward compatibility with existing packs. Both evaluate `total_base_xp` (item-only XP, before achievement bonuses — see §2), NOT the final `total_xp` displayed to the user. The name `total_base_xp` means "total XP from base items only" — it excludes achievement bonus XP to prevent circular triggers. New packs SHOULD use `item_xp >= N` to avoid confusion with the user-facing `total_xp`. The alias may be removed in a future version.
 
 #### `all_items_done`
 
