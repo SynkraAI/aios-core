@@ -294,7 +294,9 @@ total_base_xp >= N
 
 Parse N from the condition string (e.g., `"item_xp >= 500"` → N = 500).
 
-**Legacy alias:** `total_xp >= N` is accepted as an alias for `item_xp >= N` for backward compatibility with existing packs. Both evaluate `total_base_xp` (item-only XP, before achievement bonuses — see §2), NOT the final `total_xp` displayed to the user. The name `total_base_xp` means "total XP from base items only" — it excludes achievement bonus XP to prevent circular triggers. New packs SHOULD use `item_xp >= N` to avoid confusion with the user-facing `total_xp`. The alias may be removed in a future version.
+**Legacy alias (DEPRECATED — use `item_xp >= N` instead):** `total_xp >= N` is accepted as an alias for `item_xp >= N` for backward compatibility with existing packs. Both evaluate `total_base_xp` (item-only XP, before achievement bonuses — see §2), NOT the final `total_xp` displayed to the user. The name `total_base_xp` means "total XP from base items only" — it excludes achievement bonus XP to prevent circular triggers.
+
+> **⚠️ Pack authors:** Always use `item_xp >= N` in new packs. The `total_xp >= N` form is misleading because it does NOT check the user-facing `total_xp` value (which includes achievement bonuses). The `total_xp >= N` alias is **deprecated** and **will be removed in a future version**. Existing packs using `total_xp >= N` will continue to work until removal, but should be migrated to `item_xp >= N` when updated.
 
 #### `all_items_done`
 

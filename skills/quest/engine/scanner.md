@@ -376,6 +376,14 @@ If a pack does not define `keywords`, it is not matchable by free text — fall 
 
 If text matches → treat as `high` confidence for that pack (same as `--pack` override but with confirmation). If no pack keywords match the user's text, fall through to detection rules or manual selection.
 
+**Fallback when no packs define keywords:** If ALL loaded packs have no `keywords` field (or if no packs are loaded), the keyword table is empty and free-text matching is impossible. In this case:
+1. Skip keyword matching entirely
+2. Fall through to detection rules (Section 4) — these use filesystem signals, not text
+3. If detection rules also produce no matches, fall through to manual pack selection (Section 6.3)
+4. Present the user with the full list of available packs and the generic prompt: `"Que tipo de quest você quer rodar?"` (or the pack's custom `fallback_question` if defined — see Section 6.3)
+
+This ensures users providing free-text input always get a meaningful response, even if no pack authors defined keywords.
+
 ---
 
 ## 6.5 Post-selection Gates

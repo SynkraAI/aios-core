@@ -484,6 +484,13 @@ bar = "█" * filled + "░" * (20 - filled)
 
 **Note:** Uses `round()` (not `floor()`) to match `progress_bar()` in guide.md §5. If `percent` is 0 or `items_total` is 0, render an empty bar (`░` × 20).
 
+**Contract — progress bar visual consistency:** The Resumption Banner progress bar MUST use the exact same character set (`█` for filled, `░` for empty), bar width (20 characters), and rounding logic (`round()`) as:
+- The **loading sequence** in this file (Section 2)
+- The **`progress_bar()` function** in guide.md §5
+- The **summary view** in guide.md §6
+
+If any of these implementations change their character set, width, or rounding strategy, ALL others MUST be updated in the same commit. This contract prevents visual drift across modules.
+
 ### Rules
 
 - NO title screen ASCII art
