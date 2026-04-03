@@ -145,21 +145,110 @@ Quem vai usar esse app e qual o principal problema que resolve?
 > 4. Digitar outra coisa.
 ```
 
-**FULL_APP mode — Pergunta 3 (stack):**
+**FULL_APP mode — Pergunta 3 (stack — Smart Defaults):**
+
+**OBRIGATÓRIO:** Ler `{FORGE_HOME}/references/tech-decisions-guide.md` antes de apresentar.
+
+**Filosofia:** Forge DECIDE a stack ideal automaticamente e APRESENTA com explicações simples.
+O usuário NÃO precisa responder 6 perguntas técnicas — ele só valida ou muda.
+É como o Waze: a rota já está traçada. Só aperta "Ir".
+
+**Execução:**
+1. Analisar a descrição do projeto + respostas das Perguntas 1 e 2
+2. Usar a "Lógica de Decisão Automática" do `tech-decisions-guide.md` para montar a stack
+3. Apresentar no formato do Passo 2 do guia (tabela com analogias e motivos)
+4. Se o usuário quer entender mais: usar a seção "Alternativas por Decisão" do guia
+5. Se o usuário quer mudar: mostrar alternativas SÓ daquela decisão específica
+6. Registrar TODAS as decisões no `state.json` campo `tech_decisions`
+
+**Regras:**
+- Se o usuário JÁ mencionou stack no comando (ex: "quero Postgres"), respeitar e incorporar na recomendação
+- NUNCA perguntar 6 coisas separadas — sempre apresentar a stack completa de uma vez
+- Explicar cada escolha com analogia simples (1-2 linhas)
+- Incluir o MOTIVO específico do projeto (não genérico) para decisões não-óbvias
+- O guia tem a lógica completa de quando escolher cada opção
+
+**FULL_APP mode — Pergunta 4 (MVP Scope — OBRIGATÓRIA):**
+
+Essa pergunta é CRÍTICA. Ela garante que o usuário pense no mínimo viável ANTES de planejar tudo. É como aprender a andar antes de correr — sem MVP definido, o PRD vira uma lista de desejos infinita e o projeto nunca sai do papel.
 
 ```
-Stack preferida?
+Se esse app fosse um restaurante, qual seria o prato do dia 1? O mínimo que precisa funcionar pra alguém usar de verdade.
 
-> 1. **Next.js + React**
->    Full-stack moderno, SSR, API routes, deploy fácil
-> 2. **Angular**
->    Enterprise, tipagem forte, RxJS
-> 3. **Deixa comigo**
->    Eu escolho a melhor stack pro que você descreveu
+> 1. **Já tenho clareza do MVP**
+>    Me diz em uma frase o que o MVP faz (ex: "Usuário cria conta e agenda consulta")
+> 2. **Me ajuda a definir**
+>    Eu descrevo tudo que quero e você me diz o que é MVP vs futuro
+> 3. **Tudo é MVP**
+>    O app é pequeno, não faz sentido separar
 > 4. Digitar outra coisa.
 ```
 
+**Se opção 1:** Registrar a frase do usuário como `mvp_scope`.
+**Se opção 2:** Forge analisa a descrição e sugere divisão MVP vs post-MVP. Apresentar como lista e pedir confirmação.
+**Se opção 3:** Registrar `mvp_scope: "all"` — todas as stories serão MVP (funciona pra projetos pequenos).
+
+Salvar no state.json:
+```json
+{
+  "mvp": {
+    "scope": "Usuário cria conta e agenda consulta",
+    "mode": "defined|assisted|all",
+    "validated": false
+  }
+}
+```
+
+**Regra:** Se o projeto tem mais de ~5 stories estimadas E o usuário escolheu opção 3, Forge DEVE alertar:
+```
+Hm, esse projeto parece ter bastante coisa. Tem certeza que tudo é MVP?
+Projetos grandes sem MVP definido tendem a nunca terminar.
+Quer que eu sugira uma divisão?
+```
+
+---
+
+**FULL_APP mode — Pergunta 5 (Core Atom — OBRIGATÓRIA):**
+
+Essa pergunta é CRÍTICA. Ela define qual é a peça mais arriscada do sistema — a que precisa funcionar ANTES de qualquer outra coisa. Inspirado no Atomic Design do Brad Frost.
+
+```
+Qual é o "Core Atom" do seu app? A coisa mais básica e arriscada que, se não funcionar, invalida tudo.
+
+> 1. **Integração externa**
+>    Depende de uma API, serviço ou automação externa (ex: login no Instagram, pagamento, scraping)
+> 2. **Processamento de dados**
+>    Precisa processar/transformar dados de forma específica (ex: IA, parser, cálculo complexo)
+> 3. **Operação técnica arriscada**
+>    Algo que nunca fiz e não sei se funciona (ex: real-time, offline-first, P2P)
+> 4. **Não tem risco técnico**
+>    É um CRUD simples, já fiz antes, sem dependências críticas
+> 5. Digitar outra coisa.
+```
+
+**Se opção 1, 2 ou 3:** Faça uma follow-up pedindo detalhes específicos:
+```
+Me descreve esse Core Atom em uma frase:
+Ex: "Conseguir fazer login no Instagram via Playwright sem ser bloqueado"
+```
+
+**Se opção 4:** Registre `core_atom: "CRUD padrão"` e pule. Projetos sem risco técnico não precisam de Proof of Life.
+
+Salvar no state.json:
+```json
+{
+  "core_atom": {
+    "description": "Login no Instagram via automação",
+    "risk_level": "high",
+    "type": "external_integration",
+    "validated": false
+  }
+}
+```
+
 Se primeiro run, adicione antes de tudo: "Ah, e como posso te chamar?"
+
+**Nota:** Em BUG_FIX e SINGLE_FEATURE modes, MVP não se aplica (são tarefas pontuais).
 
 **SINGLE_FEATURE mode — Pergunta 1:**
 

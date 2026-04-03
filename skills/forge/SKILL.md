@@ -6,7 +6,7 @@ description: |
   em sequência inteligente com checkpoints, error recovery e ecosystem context.
   Use quando quiser criar um app, feature ou fix sem gerenciar agentes manualmente.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Agent
-argument-hint: help | ["app description"] | feature "feature desc" | fix "bug desc" | design-system {url} | squad-upgrade {name} | scan | resume
+argument-hint: help | ["app description"] | feature "feature desc" | fix "bug desc" | design-system {url} | lp "LP description" | clone {url} | squad-upgrade {name} | scan | resume
 version: 1.1.0
 category: orchestration
 tags: [pipeline, development, automation, forge]
@@ -69,8 +69,14 @@ Parse the user's command and classify:
 /forge {description}                  -> FULL_APP (novo projeto)
 /forge feature {description}          -> SINGLE_FEATURE (projeto existente)
 /forge fix {description}              -> BUG_FIX (projeto existente)
+/forge quick {description}            -> QUICK (fast-track, zero cerimônia)
+/forge q {description}                -> QUICK (alias)
 /forge scan                           -> BROWNFIELD (analisa projeto existente)
 /forge design-system {url}            -> DESIGN_SYSTEM (extrair DNA + criar DS)
+/forge lp {description}              -> LANDING_PAGE (LP premium com pattern library)
+/forge landing-page {description}    -> LANDING_PAGE (alias)
+/forge clone {url}                   -> CLONE_SITE (redesign premium de site existente)
+/forge redesign {url}                -> CLONE_SITE (alias)
 /forge squad-upgrade {squad-name}     -> SQUAD_UPGRADE (upgrade de squad existente)
 /forge new-workflow {name}            -> NEW_WORKFLOW (criar novo workflow no Forge)
 /forge resume                         -> RESUME (retoma run interrompido)
@@ -90,11 +96,16 @@ When the user runs `/forge help`, show this formatted output and STOP:
   /forge {descrição}              Criar app do zero (full pipeline)
   /forge feature {descrição}      Adicionar feature a projeto existente
   /forge fix {descrição}          Corrigir bug específico
+  /forge quick {descrição}        Fast-track: build + check + ship (sem cerimônia)
+  /forge q {descrição}            Alias para quick
 
   ━━━ ANALISAR / EXTRAIR ━━━
 
   /forge scan                     Analisar projeto existente (brownfield)
   /forge design-system {url}      Extrair DNA visual e criar design system
+  /forge lp {descrição}           Criar landing page premium (pattern library)
+  /forge clone {url}              Redesign premium de site existente (10/10)
+  /forge redesign {url}           Alias para clone
 
   ━━━ EVOLUIR / EXPANDIR ━━━
 
@@ -145,6 +156,8 @@ To build the help output:
 | **BUG_FIX** | Prefix `fix`, or words like "bug", "corrigir", "erro", "quebrou" | `{FORGE_HOME}/workflows/bug-fix.md` (Phase 0, 3-light, 5) |
 | **BROWNFIELD** | Prefix `scan`, or "analisar", "diagnosticar", "entender o projeto" | `{FORGE_HOME}/workflows/brownfield.md` (scan + diagnose + plan) |
 | **DESIGN_SYSTEM** | Prefix `design-system`, or words like "design system", "extrair DNA", "clonar visual", "tokens" | `{FORGE_HOME}/workflows/design-system.md` (Extract → Tokens → Components → Deploy) |
+| **LANDING_PAGE** | Prefix `lp` or `landing-page`, or words like "landing page", "LP", "página de vendas", "squeeze page" | `{FORGE_HOME}/workflows/landing-page.md` (Strategy → Copy → Build → QA → Deploy) |
+| **CLONE_SITE** | Prefix `clone` or `redesign`, or words like "refazer site", "redesenhar", "clonar", "melhorar esse site", "fazer igual" | `{FORGE_HOME}/workflows/clone-site.md` (Extract → Strategy → Build Premium → QA → Deploy) |
 | **SQUAD_UPGRADE** | Prefix `squad-upgrade`, or words like "upgrade squad", "melhorar squad", "evoluir squad" | `{FORGE_HOME}/workflows/squad-upgrade.md` (Diagnose → DNA → Quality → Workflows → Validate) |
 | **NEW_WORKFLOW** | Prefix `new-workflow`, or words like "criar workflow", "novo workflow", "adicionar workflow" | Read `{FORGE_HOME}/WORKFLOW-GUIDE.md` and execute workflow creation |
 | **RESUME** | Prefix `resume`, or "continuar", "retomar" | Check `.aios/forge-runs/` for interrupted runs |
@@ -294,6 +307,7 @@ These rules are INVIOLABLE. No exception, no override, no workaround.
 1. **Forge NEVER implements directly** — Forge is the orchestrator ONLY. It NEVER writes code, creates components, designs UI, or performs any implementation work itself. It ALWAYS delegates to the appropriate AIOS agent or squad.
 2. **Every action has an owner** — Every step in every workflow MUST map to a specific agent (`@dev`, `@qa`, `@architect`, etc.) or squad (`/design`, `/copywriting`, etc.). Forge dispatches to them via the Agent Dispatch Protocol (§5).
 3. **Forge only does 3 things** — (a) Classify intent and select workflow, (b) Dispatch agents/squads in the correct order with correct context, (c) Manage state and error recovery. Everything else is the agent's job.
+4. **MVP First (NON-NEGOTIABLE)** — Todo FULL_APP DEVE ter MVP definido antes de criar stories. MVP stories são construídas PRIMEIRO. Após MVP completo, o MVP Gate é OBRIGATÓRIO — o usuário decide se faz deploy, continua, ou para. Sem bicicleta funcionando, nada de foguete.
 
 **Analogy:** Forge is the coach. It draws the play, sends players to the field, and calls timeouts. But it never touches the ball.
 
@@ -305,6 +319,7 @@ These rules are INVIOLABLE. No exception, no override, no workaround.
 | III - Story-Driven | Story exists before code | Create story first |
 | IV - No Invention | Feature was requested | BLOCK, confirm with user |
 | V - Quality First | lint + typecheck + test pass | Run and fix before proceeding |
+| VIII - MVP First | MVP defined before stories, MVP Gate before post-MVP | BLOCK, define MVP scope first |
 
 ---
 
@@ -324,6 +339,7 @@ These rules are INVIOLABLE. No exception, no override, no workaround.
 
 **Checkpoints obrigatórios (param SEMPRE):**
 - Phase 0 Discovery — confirmar escopo antes de gastar tokens
+- Phase 3 MVP Gate — após MVP completo, usuário decide: deploy, continuar, revisar ou parar
 - Phase 5 Deploy — confirmar push antes de mandar código
 
 **Checkpoints automáticos (só param se algo falhar):**
@@ -332,7 +348,8 @@ These rules are INVIOLABLE. No exception, no override, no workaround.
 - Phase 3 Build — mostra progress a cada story (não para). Só para se error recovery falhar.
 - Phase 4 Integration — QA + @pedro-valerio (process audit) + @kaizen (output quality). Se tudo verde (PV >= 7.5, Kaizen >= GOOD), segue. Se algo falhar, para.
 
-**Resultado:** Usuário interage **2 vezes** no fluxo feliz (Discovery + Deploy).
+**Resultado:** Usuário interage **3 vezes** no fluxo feliz (Discovery + MVP Gate + Deploy).
+O MVP Gate é o ponto mais importante — garante que o básico funciona antes de investir em extras.
 No fluxo com problemas, para onde precisa de decisão humana.
 
 **Progress silencioso (entre checkpoints):**
@@ -358,10 +375,13 @@ Isso mantém o usuário informado sem interromper o fluxo.
 | `{FORGE_HOME}/workflows/bug-fix.md` | Mode = BUG_FIX |
 | `{FORGE_HOME}/workflows/full-app.md` | Mode = FULL_APP |
 | `{FORGE_HOME}/phases/phase-0-discovery.md` | ALL modes (first phase) |
+| `{FORGE_HOME}/references/tech-decisions-guide.md` | FULL_APP mode, Phase 0 Step 4 (tech decisions) |
 | `{FORGE_HOME}/phases/phase-3-build.md` | SINGLE_FEATURE, BUG_FIX, FULL_APP |
 | `{FORGE_HOME}/phases/phase-5-deploy.md` | ALL modes (last phase) |
 | `{FORGE_HOME}/workflows/brownfield.md` | Mode = BROWNFIELD |
 | `{FORGE_HOME}/workflows/design-system.md` | Mode = DESIGN_SYSTEM |
+| `{FORGE_HOME}/workflows/landing-page.md` | Mode = LANDING_PAGE |
+| `{FORGE_HOME}/workflows/clone-site.md` | Mode = CLONE_SITE |
 | `{FORGE_HOME}/workflows/squad-upgrade.md` | Mode = SQUAD_UPGRADE |
 | `{FORGE_HOME}/WORKFLOW-GUIDE.md` | Mode = NEW_WORKFLOW |
 | `{FORGE_HOME}/ecosystem-scanner.md` | Phase 0 (ecosystem scan) |
