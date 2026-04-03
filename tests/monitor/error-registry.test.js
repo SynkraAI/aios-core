@@ -31,10 +31,11 @@ describe('ErrorRegistry', () => {
     expect(fs.existsSync(logFile)).toBe(true);
   });
 
-  test('should log a string message as an OPERATIONAL error', () => {
+  test('should log a string message as an OPERATIONAL error', async () => {
     const message = 'Test simple message';
-    const logged = ErrorRegistry.log(message);
-
+    const logged = await ErrorRegistry.log(message);
+    
+    // Check results
     expect(logged).toBeInstanceOf(AIOXError);
     expect(logged.message).toBe(message);
     expect(logged.category).toBe('OPERATIONAL');
@@ -44,9 +45,9 @@ describe('ErrorRegistry', () => {
     expect(recent[0].category).toBe('OPERATIONAL');
   });
 
-  test('should log a native Error as a SYSTEM error', () => {
+  test('should log a native Error as a SYSTEM error', async () => {
     const error = new Error('Native failure');
-    const logged = ErrorRegistry.log(error);
+    const logged = await ErrorRegistry.log(error);
 
     expect(logged.category).toBe('SYSTEM');
     expect(logged.message).toBe(error.message);
@@ -55,25 +56,27 @@ describe('ErrorRegistry', () => {
     expect(recent[0].category).toBe('SYSTEM');
   });
 
-  test('should respect silent mode when logging', () => {
+  test('should respect silent mode when logging', async () => {
     const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
     
-    ErrorRegistry.log('Silent error', { silent: true });
+    await ErrorRegistry.log('Silent error', { silent: true });
     expect(spy).not.toHaveBeenCalled();
 
-    ErrorRegistry.log('Noisy error', { silent: false });
+    await ErrorRegistry.log('Noisy error', { silent: false });
     expect(spy).toHaveBeenCalled();
 
     spy.mockRestore();
   });
 
-  test('should limit log size to 500 entries', () => {
-    // Force many logs
+  test('should limit log size to 500 entries', async () => {
+    // Force many logs - now with lock-queueing we need more time
+    const promises = [];
     for (let i = 0; i < 510; i++) {
-      ErrorRegistry.log(`Error ${i}`, { silent: true });
+      promises.push(ErrorRegistry.log(`Error ${i}`, { silent: true }));
     }
+    await Promise.all(promises);
 
     const recent = ErrorRegistry.getRecentErrors(1000); // Try to get all
     expect(recent.length).toBeLessThanOrEqual(500);
-  });
+  }, 60000); // 60s timeout for 510 locked writes
 });

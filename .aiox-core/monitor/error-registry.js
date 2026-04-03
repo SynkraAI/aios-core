@@ -47,7 +47,7 @@ class ErrorRegistry {
    * @param {Object} [options={}] - Additional context and log options.
    * @returns {AIOXError} The normalized AIOXError that was logged.
    */
-  log(error, options = {}) {
+  async log(error, options = {}) {
     this._init();
 
     // Normalize error to AIOXError
@@ -75,7 +75,7 @@ class ErrorRegistry {
       console.error(`${icon} [${aioxError.category}] ${aioxError.message} (${aioxError.agentId})`);
     }
 
-    this._persist(aioxError);
+    await this._persist(aioxError);
     return aioxError;
   }
 
@@ -84,19 +84,47 @@ class ErrorRegistry {
    * @private
    * @param {AIOXError} aioxError 
    */
-  _persist(aioxError) {
+  async _persist(aioxError) {
+    const lockfile = require('proper-lockfile');
+    let release;
+
     try {
+      // 1. Acquire lock to prevent concurrent overwrites
+      release = await lockfile.lock(this.logFile, { retries: 5 });
+
       const data = fs.readFileSync(this.logFile, 'utf8');
-      const logs = JSON.parse(data);
+      let logs = [];
+      
+      try {
+        logs = JSON.parse(data);
+      } catch (parseErr) {
+        // 2. SELF-HEALING: If file is corrupted, backup and reset
+        const backupFile = `${this.logFile}.${Date.now()}.bak`;
+        fs.writeFileSync(backupFile, data, 'utf8');
+        console.error(`[ErrorRegistry] Log corruption detected! Recovery: Backup created at ${backupFile}`);
+        logs = []; 
+      }
       
       logs.push(aioxError.toJSON());
 
       // Limit log size to last 500 entries to prevent bloating
       const limitedLogs = logs.slice(-500);
 
-      fs.writeFileSync(this.logFile, JSON.stringify(limitedLogs, null, 2), 'utf8');
+      // 3. SAFE SERIALIZATION: Handle circular references in metadata
+      const cache = new WeakSet();
+      const safeJson = JSON.stringify(limitedLogs, (key, value) => {
+        if (typeof value === 'object' && value !== null) {
+          if (cache.has(value)) return '[Circular]';
+          cache.add(value);
+        }
+        return value;
+      }, 2);
+
+      fs.writeFileSync(this.logFile, safeJson, 'utf8');
     } catch (err) {
       console.error('[ErrorRegistry] Persistence failure:', err.message);
+    } finally {
+      if (release) await release();
     }
   }
 

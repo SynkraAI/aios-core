@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-04-03T18:05:45.152Z"
+generated_at: "2026-04-03T18:19:47.318Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1091
 files:
@@ -1221,7 +1221,7 @@ files:
     type: data
     size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:cc69d21cb14d414e462a68b96585ad938a32504aa42fa606dc26dcb338f106aa
+    hash: sha256:915965aab380a2e9e2411be01a1132ab452e82d0edf1f9daf45e9ededebe9d14
     type: data
     size: 522782
   - path: data/learned-patterns.yaml
@@ -3509,9 +3509,9 @@ files:
     type: manifest
     size: 5291
   - path: monitor/error-registry.js
-    hash: sha256:d8068afcb095cea8428d2ea92632dbae863baceb0f227bceb5f49d0783bae067
+    hash: sha256:173e81157cee2a4e980c1aec677356ced895e36b3051e328c17eb7694ef2f07f
     type: monitor
-    size: 3330
+    size: 4309
   - path: monitor/hooks/lib/__init__.py
     hash: sha256:bfab6ee249c52f412c02502479da649b69d044938acaa6ab0aa39dafe6dee9bf
     type: monitor
