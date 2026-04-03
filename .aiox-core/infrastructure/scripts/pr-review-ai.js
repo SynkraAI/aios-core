@@ -348,16 +348,26 @@ class PerformanceAnalyzer {
 class CodeQualityAnalyzer {
   constructor() {
     this.patterns = [
-      // Error handling
+      // Error handling (Principle VII: Error Governance)
       {
         regex: /catch\s*\(\s*\w*\s*\)\s*\{\s*\}/g,
-        message: 'Empty catch block',
-        severity: Severity.MEDIUM,
+        message: 'Empty catch block is strictly prohibited (Principle VII).',
+        severity: Severity.CRITICAL,
       },
       {
         regex: /catch\s*\(\s*\w+\s*\)\s*\{[^}]*console\.log/g,
-        message: 'Only logging error in catch',
-        severity: Severity.LOW,
+        message: 'Only logging error in catch. Use ErrorRegistry.log() for persistence (Principle VII).',
+        severity: Severity.HIGH,
+      },
+      {
+        regex: /console\.error\s*\(/g,
+        message: 'Direct console.error detected. Use ErrorRegistry.log() for persistence (Principle VII).',
+        severity: Severity.CRITICAL,
+      },
+      {
+        regex: /catch\s*\(\s*(\w+)\s*\)\s*\{\s*(?![^}]*ErrorRegistry\.log)/g,
+        message: 'Catch block without ErrorRegistry registration detected (Principle VII).',
+        severity: Severity.CRITICAL,
       },
 
       // Code smells

@@ -175,13 +175,14 @@ describe('cleanText', () => {
 });
 
 describe('ROMAN_TO_ARABIC', () => {
-  test('should map Roman numerals I-VI correctly', () => {
+  test('should map Roman numerals I-VII correctly', () => {
     expect(ROMAN_TO_ARABIC['I']).toBe(1);
     expect(ROMAN_TO_ARABIC['II']).toBe(2);
     expect(ROMAN_TO_ARABIC['III']).toBe(3);
     expect(ROMAN_TO_ARABIC['IV']).toBe(4);
     expect(ROMAN_TO_ARABIC['V']).toBe(5);
     expect(ROMAN_TO_ARABIC['VI']).toBe(6);
+    expect(ROMAN_TO_ARABIC['VII']).toBe(7);
   });
 });
 
@@ -472,7 +473,7 @@ describe('main', () => {
 describe('integration: real constitution.md', () => {
   const realConstitutionPath = path.join(__dirname, '..', '..', '.aiox-core', 'constitution.md');
 
-  test('should parse real constitution.md with 6 articles', () => {
+  test('should parse real constitution.md with 7 articles', () => {
     // Skip if constitution.md doesn't exist (CI environment)
     if (!fs.existsSync(realConstitutionPath)) {
       return;
@@ -481,9 +482,10 @@ describe('integration: real constitution.md', () => {
     const content = fs.readFileSync(realConstitutionPath, 'utf8');
     const articles = parseConstitution(content);
 
-    expect(articles).toHaveLength(6);
+    expect(articles).toHaveLength(7);
     expect(articles[0].title).toBe('CLI First');
     expect(articles[5].title).toBe('Absolute Imports');
+    expect(articles[6].title).toBe('Error Governance');
   });
 
   test('should generate valid constitution from real source', () => {
@@ -499,7 +501,7 @@ describe('integration: real constitution.md', () => {
       const result = main({ constitutionPath: realConstitutionPath, outputPath });
 
       expect(result.success).toBe(true);
-      expect(result.articles).toBe(6);
+      expect(result.articles).toBe(7);
 
       // Verify output is loadable by domain-loader
       const rules = loadDomainFile(outputPath);

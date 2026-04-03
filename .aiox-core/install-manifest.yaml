@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-11T15:04:09.395Z"
+generated_at: "2026-04-03T18:05:20.608Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1090
+file_count: 1091
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -1221,9 +1221,9 @@ files:
     type: data
     size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:cc1bf74d3ef4e90b7a396d5b77259e540b2f9bd4a5b4b1da4977fe49ae83525d
+    hash: sha256:6cc2e72f7dd2fe472cf732282d06af9ffd6b89d905f99ac676921fe7e6416b49
     type: data
-    size: 521869
+    size: 522782
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -3225,9 +3225,9 @@ files:
     type: script
     size: 4056
   - path: infrastructure/scripts/pr-review-ai.js
-    hash: sha256:8872f4ddc23184ea3305cae682741a6a02c1efc170afaa20793c3a9951b374fc
+    hash: sha256:4d6e8ce12f6119f7e02179e7a9a83ea258b4bb75ee0bd3985a4d6c36a50ba603
     type: script
-    size: 31277
+    size: 31838
   - path: infrastructure/scripts/project-status-loader.js
     hash: sha256:33d753efad0658a702b08f9422406423a9aceac4c88479622fc660c8e0c8eccb
     type: script
@@ -3508,6 +3508,10 @@ files:
     hash: sha256:46969a46b07013cc18579b9e14b7f5d3655d868d4fe2270673ed0d5b87b3414e
     type: manifest
     size: 5291
+  - path: monitor/error-registry.js
+    hash: sha256:d8068afcb095cea8428d2ea92632dbae863baceb0f227bceb5f49d0783bae067
+    type: monitor
+    size: 3330
   - path: monitor/hooks/lib/__init__.py
     hash: sha256:bfab6ee249c52f412c02502479da649b69d044938acaa6ab0aa39dafe6dee9bf
     type: monitor
