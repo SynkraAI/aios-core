@@ -6,7 +6,7 @@ description: |
   em sequência inteligente com checkpoints, error recovery e ecosystem context.
   Use quando quiser criar um app, feature ou fix sem gerenciar agentes manualmente.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Agent
-argument-hint: help | ["app description"] | feature "feature desc" | fix "bug desc" | design-system {url} | lp "LP description" | clone {url} | squad-upgrade {name} | scan | resume
+argument-hint: help | ["app description"] | feature "feature desc" | fix "bug desc" | quick "fast desc" | q "fast desc" | design-system {url} | lp "LP description" | clone {url} | squad-upgrade {name} | scan | resume
 version: 1.1.0
 category: orchestration
 tags: [pipeline, development, automation, forge]
@@ -174,11 +174,14 @@ If running inside an existing project (package.json exists) and user runs `/forg
 ## 3. Initialization (ALL modes)
 
 1. **Show banner** — Read `{FORGE_HOME}/personality.md`, display the Forge banner
-2. **Check for interrupted runs** — Glob `.aios/forge-runs/*/state.json`, look for `status != "completed"`:
+2. **Activate Synapse workflow** — Run: `node {AIOS_HOME}/tools/synapse-set-workflow.cjs forge_pipeline 0`
+   This tells the Synapse engine that Forge is running, so it injects Forge-specific rules in every prompt automatically.
+   Update the phase number at each phase transition: `node {AIOS_HOME}/tools/synapse-set-workflow.cjs forge_pipeline {N}`
+3. **Check for interrupted runs** — Glob `.aios/forge-runs/*/state.json`, look for `status != "completed"`:
    - If found: "Encontrei um run interrompido: `{slug}` (parado na Fase {N}). Continuar ou começar novo?"
    - If user wants to resume: load state.json + context-pack.json, jump to last phase
-3. **Read memory protocol** — Check for project-context.md (HYBRID or CENTRALIZED mode)
-4. **Dispatch to workflow** — Based on intent classification, read the matching workflow file and execute
+4. **Read memory protocol** — Check for project-context.md (HYBRID or CENTRALIZED mode)
+5. **Dispatch to workflow** — Based on intent classification, read the matching workflow file and execute
 
 ---
 
@@ -373,10 +376,11 @@ Isso mantém o usuário informado sem interromper o fluxo.
 | `{FORGE_HOME}/config.yaml` | ALWAYS (defaults and limits) |
 | `{FORGE_HOME}/workflows/single-feature.md` | Mode = SINGLE_FEATURE |
 | `{FORGE_HOME}/workflows/bug-fix.md` | Mode = BUG_FIX |
+| `{FORGE_HOME}/workflows/quick.md` | Mode = QUICK |
 | `{FORGE_HOME}/workflows/full-app.md` | Mode = FULL_APP |
-| `{FORGE_HOME}/phases/phase-0-discovery.md` | ALL modes (first phase) |
+| `{FORGE_HOME}/phases/phase-0-discovery.md` | ALL modes EXCEPT QUICK (first phase) |
 | `{FORGE_HOME}/references/tech-decisions-guide.md` | FULL_APP mode, Phase 0 Step 4 (tech decisions) |
-| `{FORGE_HOME}/phases/phase-3-build.md` | SINGLE_FEATURE, BUG_FIX, FULL_APP |
+| `{FORGE_HOME}/phases/phase-3-build.md` | SINGLE_FEATURE, BUG_FIX, FULL_APP (NOT QUICK) |
 | `{FORGE_HOME}/phases/phase-5-deploy.md` | ALL modes (last phase) |
 | `{FORGE_HOME}/workflows/brownfield.md` | Mode = BROWNFIELD |
 | `{FORGE_HOME}/workflows/design-system.md` | Mode = DESIGN_SYSTEM |

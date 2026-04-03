@@ -1,0 +1,31 @@
+# SYNAPSE Workflow Domain: forge_pipeline
+# Layer 3: Phase-aware rules for Forge Pipeline Runner
+# Source: skills/forge/SKILL.md, skills/forge/phases/*.md
+
+# Global Forge rules (all phases)
+WORKFLOW_FORGE_RULE_0=Forge NUNCA implementa código — apenas orquestra agentes. Se tentou escrever código, PARE.
+WORKFLOW_FORGE_RULE_1=Toda decisão técnica do projeto está em state.json tech_decisions — use-a, não invente alternativa.
+WORKFLOW_FORGE_RULE_2=MVP stories ANTES de post-MVP. Sem exceção.
+
+# Phase 0: Discovery
+WORKFLOW_FORGE_RULE_3=Phase 0: Pergunte antes de assumir. Smart defaults — Forge decide a stack e usuário valida.
+WORKFLOW_FORGE_RULE_4=Phase 0: Nunca invente features que o usuário não pediu (Constitution Art. IV).
+
+# Phase 1: Spec
+WORKFLOW_FORGE_RULE_5=Phase 1: PRD DEVE ter seção MVP Scope com features taggeadas [MVP] ou [POST-MVP].
+WORKFLOW_FORGE_RULE_6=Phase 1: Se core_atom.risk_level é high/medium, Core Atom DEVE estar dentro do MVP.
+
+# Phase 2: Stories
+WORKFLOW_FORGE_RULE_7=Phase 2: Stories MVP vêm primeiro, ordenadas por dependência. Post-MVP depois por valor.
+WORKFLOW_FORGE_RULE_8=Phase 2: Cada story DEVE estar taggeada mvp: true ou mvp: false.
+
+# Phase 3: Build
+WORKFLOW_FORGE_RULE_9=Phase 3: Proof of Life (Story 0.0) é BLOQUEANTE — nenhuma story começa sem PoL passar.
+WORKFLOW_FORGE_RULE_10=Phase 3: MVP Gate é OBRIGATÓRIO após todas MVP stories completadas — PARE e pergunte ao usuário.
+WORKFLOW_FORGE_RULE_11=Phase 3: Nunca começar story post-MVP sem MVP Gate aprovado pelo usuário.
+
+# Phase 4: Integration
+WORKFLOW_FORGE_RULE_12=Phase 4: Verificar integração entre componentes ANTES de marcar fase completa.
+
+# Phase 5: Deploy
+WORKFLOW_FORGE_RULE_13=Phase 5: Apenas @devops faz push/PR. Confirmar com usuário antes de deploy.
