@@ -22,7 +22,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const yaml = require('js-yaml');
-const ErrorRegistry = require('../monitor/error-registry');
+const ErrorRegistry = require('../../monitor/error-registry');
 
 /**
  * Config cache with TTL

@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const diffLib = require('diff');
 const inquirer = require('inquirer');
 const GitWrapper = require('./git-wrapper');
-const ErrorRegistry = require('../monitor/error-registry');
+const ErrorRegistry = require('../../monitor/error-registry');
 
 /**
  * Handles conflict detection and resolution for meta-agent modifications
