@@ -73,7 +73,7 @@ class SuggestionEngine {
       try {
         wis = require('../index');
       } catch (error) {
-        ErrorRegistry.log(`[SuggestionEngine] Failed to load WIS module: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true });
+        ErrorRegistry.log(`[SuggestionEngine] Failed to load WIS module: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true }).catch(() => {});
         wis = null;
       }
     }
@@ -82,7 +82,7 @@ class SuggestionEngine {
       try {
         SessionContextLoader = require('../../core/session/context-loader');
       } catch (error) {
-        ErrorRegistry.log(`[SuggestionEngine] Failed to load SessionContextLoader: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true });
+        ErrorRegistry.log(`[SuggestionEngine] Failed to load SessionContextLoader: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true }).catch(() => {});
         SessionContextLoader = null;
       }
     }
@@ -91,7 +91,7 @@ class SuggestionEngine {
       try {
         learning = require('../learning');
       } catch (error) {
-        ErrorRegistry.log(`[SuggestionEngine] Failed to load learning module: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true });
+        ErrorRegistry.log(`[SuggestionEngine] Failed to load learning module: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true }).catch(() => {});
         learning = null;
       }
     }
@@ -100,7 +100,7 @@ class SuggestionEngine {
       try {
         ({ WorkflowStateManager } = require('../../development/scripts/workflow-state-manager'));
       } catch (error) {
-        ErrorRegistry.log(`[SuggestionEngine] Failed to load WorkflowStateManager: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true });
+        ErrorRegistry.log(`[SuggestionEngine] Failed to load WorkflowStateManager: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true }).catch(() => {});
         WorkflowStateManager = null;
       }
     }
@@ -137,7 +137,7 @@ class SuggestionEngine {
         context.storyPath = sessionContext.currentStory || null;
         context.workflowActive = sessionContext.workflowActive || null;
       } catch (error) {
-        ErrorRegistry.log(`[SuggestionEngine] Failed to load session context: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true });
+        ErrorRegistry.log(`[SuggestionEngine] Failed to load session context: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true }).catch(() => {});
       }
     }
 
@@ -392,7 +392,7 @@ class SuggestionEngine {
       // File doesn't exist
     }
 
-    ErrorRegistry.log(`[SuggestionEngine] Story path not found: ${storyPath}`, { category: 'OPERATIONAL', display: true, raw: true });
+    ErrorRegistry.log(`[SuggestionEngine] Story path not found: ${storyPath}`, { category: 'OPERATIONAL', display: true, raw: true }).catch(() => {});
     return null;
   }
 
@@ -595,7 +595,7 @@ class SuggestionEngine {
         return suggestion;
       });
     } catch (error) {
-      ErrorRegistry.log(`[SuggestionEngine] Failed to apply learned pattern boost: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true });
+      ErrorRegistry.log(`[SuggestionEngine] Failed to apply learned pattern boost: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true }).catch(() => {});
       return suggestions;
     }
   }

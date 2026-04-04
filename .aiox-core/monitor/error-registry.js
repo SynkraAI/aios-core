@@ -152,8 +152,9 @@ class ErrorRegistry {
    */
   _normalizeError(error, options) {
     if (error instanceof AIOXError) {
-      Object.assign(error, options);
-      return error;
+      // Clone to avoid mutating original instance (Principle VII integrity)
+      const clone = Object.create(Object.getPrototypeOf(error));
+      return Object.assign(clone, error, options);
     }
 
     if (error instanceof Error) {
