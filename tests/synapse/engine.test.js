@@ -109,7 +109,8 @@ jest.mock('../../.aiox-core/core/synapse/memory/memory-bridge', () => ({
 // Imports (after mocks)
 // ---------------------------------------------------------------------------
 
-const { SynapseEngine, PipelineMetrics, PIPELINE_TIMEOUT_MS } = require('../../.aiox-core/core/synapse/engine');
+const { SynapseEngine, PIPELINE_TIMEOUT_MS } = require('../../.aiox-core/core/synapse/engine');
+const PipelineMetrics = require('../../.aiox-core/core/utils/pipeline-metrics');
 const contextTracker = require('../../.aiox-core/core/synapse/context/context-tracker');
 const formatter = require('../../.aiox-core/core/synapse/output/formatter');
 
@@ -247,7 +248,8 @@ describe('SynapseEngine', () => {
 
     test('should handle missing layer modules gracefully', () => {
       // L4-L7 are mocked to fail, engine should only have the 4 available layers
-      expect(engine.layers.length).toBeLessThanOrEqual(4);
+      expect(() => new SynapseEngine('/fake/.synapse', { manifest: {} })).not.toThrow();
+      expect(engine.layers.length).toBe(4);
     });
   });
 
