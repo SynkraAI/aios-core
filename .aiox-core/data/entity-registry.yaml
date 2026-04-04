@@ -1,7 +1,7 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-04-04T00:48:19.142Z'
-  entityCount: 746
+  lastUpdated: '2026-04-04T18:44:36.907Z'
+  entityCount: 748
   checksumAlgorithm: sha256
   resolutionRate: 100
 entities:
@@ -8949,7 +8949,6 @@ entities:
         - check
       usedBy:
         - check-registry
-        - engine
         - console
         - markdown
         - build-config
@@ -9024,12 +9023,18 @@ entities:
       path: .aiox-core/core/health-check/engine.js
       layer: L1
       type: module
-      purpose: Entity at .aiox-core/core/health-check/engine.js
+      purpose: Entity at .aiox-core/core/synapse/engine.js
       keywords:
         - engine
       usedBy: []
       dependencies:
-        - base-check
+        - context-tracker
+        - context-builder
+        - formatter
+        - memory-bridge
+        - pipeline-metrics
+        - session-normalizer
+        - error-registry
       externalDeps: []
       plannedDeps: []
       lifecycle: experimental
@@ -9037,8 +9042,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:7a53405621243960ce482e8d3052a40caf8704d670a9f3388eca294056971497
-      lastVerified: '2026-04-03T21:15:01.803Z'
+      checksum: sha256:c6ea4f969a05a4fd28f0c745957dfbfaec18624dcabe1085af641040cfe529ac
+      lastVerified: '2026-04-04T18:44:15.429Z'
     ideation-engine:
       path: .aiox-core/core/ideation/ideation-engine.js
       layer: L1
@@ -11481,7 +11486,8 @@ entities:
       keywords:
         - context
         - builder
-      usedBy: []
+      usedBy:
+        - engine
       dependencies: []
       externalDeps: []
       plannedDeps: []
@@ -11501,6 +11507,7 @@ entities:
         - context
         - tracker
       usedBy:
+        - engine
         - pipeline-collector
       dependencies: []
       externalDeps: []
@@ -11789,7 +11796,8 @@ entities:
       keywords:
         - memory
         - bridge
-      usedBy: []
+      usedBy:
+        - engine
       dependencies:
         - tokens
         - synapse-memory-provider
@@ -11832,7 +11840,8 @@ entities:
       purpose: Entity at .aiox-core/core/synapse/output/formatter.js
       keywords:
         - formatter
-      usedBy: []
+      usedBy:
+        - engine
       dependencies:
         - tokens
       externalDeps: []
@@ -12806,6 +12815,40 @@ entities:
         extensionPoints: []
       checksum: sha256:dd025894f8f0d3bd22a147dbc0debef8b83e96f3c59483653404b3cd5a01d5aa
       lastVerified: '2026-04-03T21:15:01.832Z'
+    pipeline-metrics:
+      path: .aiox-core/core/utils/pipeline-metrics.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core/core/utils/pipeline-metrics.js
+      keywords:
+        - pipeline
+        - metrics
+      usedBy:
+        - engine
+      dependencies: []
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:c45d92ce83c0532127e305811f1db246a9f105d34c9d1f1a4eb8fcc82eda81bf
+      lastVerified: '2026-04-04T18:44:15.430Z'
+    session-normalizer:
+      path: .aiox-core/core/utils/session-normalizer.js
+      layer: L1
+      type: module
+      purpose: Entity at .aiox-core/core/utils/session-normalizer.js
+      keywords:
+        - session
+        - normalizer
+      usedBy:
+        - engine
+      dependencies: []
+      adaptability:
+        score: 0.4
+        constraints: []
+        extensionPoints: []
+      checksum: sha256:e0ef72d8942b86fc8747710ad9eac7bc2eee46acec1d3ab42139cab5886155fc
+      lastVerified: '2026-04-04T18:44:36.904Z'
   agents:
     aiox-master:
       path: .aiox-core/development/agents/aiox-master.md
@@ -15598,8 +15641,8 @@ entities:
         score: 0.7
         constraints: []
         extensionPoints: []
-      checksum: sha256:f15ca50f27879efe5475df037d773904bd6f7ec7a03cf9ba6ff4afddb5149daf
-      lastVerified: '2026-04-04T00:48:19.140Z'
+      checksum: sha256:5aede50b63c791f3afe6136d5e899d88fbab507ba00b51d9b02c4836fc65c4bd
+      lastVerified: '2026-04-04T18:44:00.440Z'
     project-status-loader:
       path: .aiox-core/infrastructure/scripts/project-status-loader.js
       layer: L2

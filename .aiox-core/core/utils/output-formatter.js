@@ -54,7 +54,11 @@ class PersonalizedOutputFormatter {
       const agentPath = path.join(process.cwd(), '.aiox-core', 'agents', `${this.agent.id}.md`);
 
       if (!fs.existsSync(agentPath)) {
-        ErrorRegistry.log(`[OutputFormatter] Agent file not found: ${agentPath}`, { category: 'OPERATIONAL', display: true, raw: true });
+        void ErrorRegistry.log(`[OutputFormatter] Agent file not found: ${agentPath}`, {
+          category: 'OPERATIONAL',
+          display: true,
+          raw: true,
+        }).catch(() => {});
         this.personaProfile = this._getNeutralProfile();
         return;
       }
@@ -63,7 +67,11 @@ class PersonalizedOutputFormatter {
       const yamlMatch = content.match(/```ya?ml\r?\n([\s\S]*?)\r?\n```/);
 
       if (!yamlMatch) {
-        ErrorRegistry.log('[OutputFormatter] No YAML block found in agent file', { category: 'OPERATIONAL', display: true, raw: true });
+        void ErrorRegistry.log('[OutputFormatter] No YAML block found in agent file', {
+          category: 'OPERATIONAL',
+          display: true,
+          raw: true,
+        }).catch(() => {});
         this.personaProfile = this._getNeutralProfile();
         return;
       }
@@ -76,7 +84,11 @@ class PersonalizedOutputFormatter {
         this.vocabularyCache.set(this.agent.id, this.personaProfile.communication.vocabulary);
       }
     } catch (error) {
-      ErrorRegistry.log(`[OutputFormatter] Error loading persona_profile: ${error.message}`, { category: 'OPERATIONAL', display: true, raw: true });
+      void ErrorRegistry.log(`[OutputFormatter] Error loading persona_profile: ${error.message}`, {
+        category: 'OPERATIONAL',
+        display: true,
+        raw: true,
+      }).catch(() => {});
       this.personaProfile = this._getNeutralProfile();
     }
   }

@@ -144,8 +144,6 @@ System Errors (Critical/Red) → Operational Errors (Audit/Yellow) → Info (Blu
 
 ---
 
----
-
 ## Governance
 
 ### Amendment Process
