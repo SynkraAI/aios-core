@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-04-04T04:23:24.811Z"
+generated_at: "2026-04-04T18:44:00.274Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1091
+file_count: 1093
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -1109,9 +1109,9 @@ files:
     type: core
     size: 8122
   - path: core/synapse/engine.js
-    hash: sha256:47bab93a2144edce875ee68cc2717fee1bd824c9affdd5964454f5141310b8e0
+    hash: sha256:c6ea4f969a05a4fd28f0c745957dfbfaec18624dcabe1085af641040cfe529ac
     type: core
-    size: 13602
+    size: 11376
   - path: core/synapse/layers/l0-constitution.js
     hash: sha256:2123a6a44915aaac2a6bbd26c67c285c9d1e12b50fe42a8ada668306b07d1c4a
     type: core
@@ -1197,13 +1197,21 @@ files:
     type: core
     size: 9675
   - path: core/utils/output-formatter.js
-    hash: sha256:d2a07f73bff861a891c0732f08603b70634a51c1b7444bf73f76991a559d02f5
+    hash: sha256:e1c0a289f5f2ff0c5083d676d066bbc1dee34d38a021cc9a9c28701749485bbb
     type: core
-    size: 9300
+    size: 9472
+  - path: core/utils/pipeline-metrics.js
+    hash: sha256:c45d92ce83c0532127e305811f1db246a9f105d34c9d1f1a4eb8fcc82eda81bf
+    type: core
+    size: 2727
   - path: core/utils/security-utils.js
     hash: sha256:00c938eda0e142b8c204b50afdd662864b5209b60a32a0e6e847e4e4cbceee09
     type: core
     size: 9061
+  - path: core/utils/session-normalizer.js
+    hash: sha256:e0ef72d8942b86fc8747710ad9eac7bc2eee46acec1d3ab42139cab5886155fc
+    type: core
+    size: 1391
   - path: core/utils/yaml-validator.js
     hash: sha256:05084596198634dd2a670a752d5c451edfe268e16e3bae511db52184f895366f
     type: core
@@ -3225,9 +3233,9 @@ files:
     type: script
     size: 4056
   - path: infrastructure/scripts/pr-review-ai.js
-    hash: sha256:f15ca50f27879efe5475df037d773904bd6f7ec7a03cf9ba6ff4afddb5149daf
+    hash: sha256:5aede50b63c791f3afe6136d5e899d88fbab507ba00b51d9b02c4836fc65c4bd
     type: script
-    size: 32159
+    size: 32691
   - path: infrastructure/scripts/project-status-loader.js
     hash: sha256:33d753efad0658a702b08f9422406423a9aceac4c88479622fc660c8e0c8eccb
     type: script
@@ -4341,9 +4349,9 @@ files:
     type: workflow-intelligence
     size: 3266
   - path: workflow-intelligence/learning/gotcha-registry.js
-    hash: sha256:d7b721d4e0607944780e373cc1bcd33d0187a75dd0942e3b8a76955d666dec28
+    hash: sha256:d935a9b91cf85e5cbc09c963d873bbf90c57c965401fe8913462896ccc3694d7
     type: workflow-intelligence
-    size: 21236
+    size: 21505
   - path: workflow-intelligence/learning/index.js
     hash: sha256:fe37c68b0b718cb9fafbb80b32f2cdb31d43a76eef6d2d95c53c327215ead87d
     type: workflow-intelligence
@@ -4353,17 +4361,17 @@ files:
     type: workflow-intelligence
     size: 9359
   - path: workflow-intelligence/learning/pattern-store.js
-    hash: sha256:d3402565c9878ef48e4c40ec1fda55af21bd2af2586a18d2b317f436851c8102
+    hash: sha256:46869492ec11a3ca7ee21f3884368804bed87f2a9e944852bc2987307101af49
     type: workflow-intelligence
-    size: 13863
+    size: 14449
   - path: workflow-intelligence/learning/pattern-validator.js
     hash: sha256:9f1e2ad890e1ae2d473e2cbc0b9dfe29b588e2cd542609f25be50917d6c5d70d
     type: workflow-intelligence
     size: 8549
   - path: workflow-intelligence/learning/qa-feedback.js
-    hash: sha256:aa38df96cdd4e17d9a0da85ccb3a5ee29f397ccde12dff82c7cf33c42874d6cc
+    hash: sha256:2e4990a3d73491462147c190a2a850ee39a733154e6e64b09a15e875facf0619
     type: workflow-intelligence
-    size: 18709
+    size: 19216
   - path: workflow-intelligence/learning/semantic-search.js
     hash: sha256:f9ba491acf310e479d467f1a5990e4d3656b0c06a6fc50f52d26853325071976
     type: workflow-intelligence

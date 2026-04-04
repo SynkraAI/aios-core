@@ -44,6 +44,31 @@ const {
   isLLMRoutingInstalled,
 } = require('../../../../.aiox-core/infrastructure/scripts/llm-routing/install-llm-routing');
 
+const AIOXError = require('../../../../.aiox-core/utils/aiox-error');
+
+/**
+ * Safe helper to log installer errors to ErrorRegistry if available (Principle VII)
+ * @param {string} message - Error message
+ * @param {Error|AIOXError} error - Error object
+ * @param {Object} metadata - Optional metadata
+ */
+async function logInstallerError(message, error, metadata = {}) {
+  const fullMessage = `${message}: ${error.message}`;
+  
+  try {
+    // Attempt to load ErrorRegistry dynamically from the expected relative path
+    const ErrorRegistry = require('../../../../.aiox-core/monitor/error-registry');
+    await ErrorRegistry.log(fullMessage, {
+      category: 'SYSTEM',
+      action: 'installer-wizard',
+      metadata: { ...metadata, stack: error.stack }
+    });
+  } catch (e) {
+    // Fallback if ErrorRegistry is not yet installed or accessible
+    console.error(`\n[Installer Fallback] ${fullMessage}`);
+  }
+}
+
 // DISABLED: Legacy installation block superseded by squads flow (OSR-8)
 // /**
 //  * Generate AntiGravity workflow content for squad agents
@@ -356,7 +381,7 @@ async function runWizard(options = {}) {
       answers.aioxCoreInstalled = true;
       answers.aioxCoreResult = aioxCoreResult;
     } catch (error) {
-      console.error('\n⚠️  AIOX core installation failed:', error.message);
+      await logInstallerError('\n⚠️  AIOX core installation failed', error);
       answers.aioxCoreInstalled = false;
     }
 
@@ -455,7 +480,7 @@ async function runWizard(options = {}) {
           answers.techPresetInstalled = false;
         }
       } catch (error) {
-        console.error(`   ⚠️  Tech Preset error: ${error.message}`);
+        await logInstallerError('   ⚠️  Tech Preset error', error);
         answers.techPresetInstalled = false;
       }
     } else {

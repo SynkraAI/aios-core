@@ -364,11 +364,13 @@ class CodeQualityAnalyzer {
         regex: /console\.error\s*\(/g,
         message: 'Direct console.error detected. Use ErrorRegistry.log() for persistence (Principle VII).',
         severity: Severity.CRITICAL,
+        skipFiles: ['error-registry.js'],
       },
       {
         regex: /catch\s*\(\s*(\w+)\s*\)\s*\{\s*(?![^}]*ErrorRegistry\.log)/g,
         message: 'Catch block without ErrorRegistry registration detected (Principle VII).',
         severity: Severity.CRITICAL,
+        skipFiles: ['error-registry.js'],
       },
 
       // Code smells
@@ -405,6 +407,11 @@ class CodeQualityAnalyzer {
 
     for (const { file, line, content } of addedLines) {
       for (const pattern of this.patterns) {
+        // Skip check for excluded files
+        if (pattern.skipFiles && pattern.skipFiles.some((f) => file.endsWith(f))) {
+          continue;
+        }
+
         if (pattern.regex.test(content)) {
           findings.push({
             category: ReviewCategory.CODE_QUALITY,
@@ -974,10 +981,11 @@ class PRReviewAI extends EventEmitter {
 // ============================================================================
 
 if (require.main === module) {
-  const args = process.argv.slice(2);
+  (async () => {
+    const args = process.argv.slice(2);
 
-  if (args.length === 0 || args.includes('--help')) {
-    console.log(`
+    if (args.length === 0 || args.includes('--help')) {
+      console.log(`
 PR Review AI - AI-powered Pull Request review
 
 Usage:
@@ -996,63 +1004,67 @@ Examples:
   node pr-review-ai.js 123 --post --save
   node pr-review-ai.js --local main
 `);
-    process.exit(0);
-  }
-
-  const reviewer = new PRReviewAI({
-    enableAI: !args.includes('--no-ai'),
-  });
-
-  // Event listeners
-  reviewer.on('review_started', ({ prNumber }) => console.log(`\n🔍 Reviewing PR #${prNumber}...`));
-  reviewer.on('pr_fetched', ({ title }) => console.log(`📋 Title: ${title}`));
-  reviewer.on('analyzing', ({ phase }) => console.log(`⚙️  Running ${phase} analysis...`));
-  reviewer.on('review_completed', ({ verdict, findingsCount }) => {
-    console.log(`\n✅ Review complete: ${verdict} (${findingsCount} findings)`);
-  });
-
-  const options = {
-    postReview: args.includes('--post'),
-    saveReport: args.includes('--save'),
-  };
-
-  if (args.includes('--local')) {
-    const baseBranch = args.find((a) => !a.startsWith('--') && a !== '--local') || 'main';
-    reviewer
-      .reviewLocal(baseBranch)
-      .then((result) => {
-        console.log('\n📊 Local Review Results:');
-        console.log(`   Files changed: ${result.stats.filesChanged}`);
-        console.log(`   Findings: ${result.findings.length}`);
-        console.log(`   Verdict: ${result.verdict}`);
-        if (result.findings.length > 0) {
-          console.log('\n📝 Findings:');
-          for (const f of result.findings.slice(0, 10)) {
-            console.log(`   [${f.severity}] ${f.file}:${f.line || '?'} - ${f.message}`);
-          }
-        }
-      })
-      .catch(async (err) => {
-        await ErrorRegistry.log(`Error: ${err.message}`, { category: 'SYSTEM', display: true, raw: true });
-        process.exit(1);
-      });
-  } else {
-    const prNumber = args.find((a) => !a.startsWith('--'));
-    if (!prNumber) {
-      await ErrorRegistry.log('Error: PR number required', { category: 'SYSTEM', display: true, raw: true });
-      process.exit(1);
+      process.exit(0);
     }
 
-    reviewer
-      .reviewPR(prNumber, options)
-      .then((review) => {
-        console.log('\n' + review.summary);
-      })
-      .catch(async (err) => {
-        await ErrorRegistry.log(`Error: ${err.message}`, { category: 'SYSTEM', display: true, raw: true });
+    const reviewer = new PRReviewAI({
+      enableAI: !args.includes('--no-ai'),
+    });
+
+    // Event listeners
+    reviewer.on('review_started', ({ prNumber }) => console.log(`\n🔍 Reviewing PR #${prNumber}...`));
+    reviewer.on('pr_fetched', ({ title }) => console.log(`📋 Title: ${title}`));
+    reviewer.on('analyzing', ({ phase }) => console.log(`⚙️  Running ${phase} analysis...`));
+    reviewer.on('review_completed', ({ verdict, findingsCount }) => {
+      console.log(`\n✅ Review complete: ${verdict} (${findingsCount} findings)`);
+    });
+
+    const options = {
+      postReview: args.includes('--post'),
+      saveReport: args.includes('--save'),
+    };
+
+    if (args.includes('--local')) {
+      const baseBranch = args.find((a) => !a.startsWith('--') && a !== '--local') || 'main';
+      reviewer
+        .reviewLocal(baseBranch)
+        .then((result) => {
+          console.log('\n📊 Local Review Results:');
+          console.log(`   Files changed: ${result.stats.filesChanged}`);
+          console.log(`   Findings: ${result.findings.length}`);
+          console.log(`   Verdict: ${result.verdict}`);
+          if (result.findings.length > 0) {
+            console.log('\n📝 Findings:');
+            for (const f of result.findings.slice(0, 10)) {
+              console.log(`   [${f.severity}] ${f.file}:${f.line || '?'} - ${f.message}`);
+            }
+          }
+        })
+        .catch(async (err) => {
+          await ErrorRegistry.log(`Error: ${err.message}`, { category: 'SYSTEM', display: true, raw: true });
+          process.exit(1);
+        });
+    } else {
+      const prNumber = args.find((a) => !a.startsWith('--'));
+      if (!prNumber) {
+        await ErrorRegistry.log('Error: PR number required', { category: 'SYSTEM', display: true, raw: true });
         process.exit(1);
-      });
-  }
+      }
+
+      reviewer
+        .reviewPR(prNumber, options)
+        .then((review) => {
+          console.log('\n' + review.summary);
+        })
+        .catch(async (err) => {
+          await ErrorRegistry.log(`Error: ${err.message}`, { category: 'SYSTEM', display: true, raw: true });
+          process.exit(1);
+        });
+    }
+  })().catch(async (err) => {
+    await ErrorRegistry.log(`CLI Error: ${err.message}`, { category: 'SYSTEM', display: true, raw: true });
+    process.exit(1);
+  });
 }
 
 // ============================================================================
