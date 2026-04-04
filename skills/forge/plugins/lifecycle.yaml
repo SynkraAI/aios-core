@@ -1,0 +1,110 @@
+# Lifecycle Plugin — Core cross-cutting concerns
+# Priority 1: ALWAYS runs first on every hook
+
+plugin:
+  name: lifecycle
+  version: "1.0.0"
+  description: "Standardizes phase entry/exit, atomic state writes, error formatting, and checkpoint rendering"
+
+activation:
+  enabled: true
+  # No modes filter — active for ALL modes
+
+priority: 1
+
+hooks:
+  # --- Phase Entry ---
+  - event: "before:phase:*"
+    action: inject
+    description: |
+      PHASE ENTRY PROTOCOL (standardized for all phases):
+
+      1. Write to state.json using ATOMIC pattern (.tmp → rename):
+         - phases.{N}.status = "started"
+         - phases.{N}.started_at = ISO 8601 timestamp
+         - current_phase = N
+         - updated_at = ISO 8601 timestamp
+
+      2. Show phase header from personality.md:
+         - Read {FORGE_HOME}/personality.md
+         - Display the phase banner with phase number, name, and mode
+
+      3. Show progress indicator:
+         - List completed phases with ✅
+         - Current phase with ▶
+         - Remaining phases with ○
+
+  # --- Phase Exit ---
+  - event: "after:phase:*"
+    action: inject
+    description: |
+      PHASE EXIT PROTOCOL (standardized for all phases):
+
+      1. Verify phase outputs exist:
+         - Check that expected files/artifacts were created
+         - If outputs missing: log warning, do NOT block
+
+      2. Write to state.json using ATOMIC pattern (.tmp → rename):
+         - phases.{N}.status = "completed"
+         - phases.{N}.completed_at = ISO 8601 timestamp
+         - updated_at = ISO 8601 timestamp
+
+      3. Show handoff visual (personality.md) if next phase involves a different agent
+
+      ATOMIC WRITE PATTERN (mandatory for ALL state.json writes):
+        a. Write to .aios/forge-runs/{run_id}/state.json.tmp
+        b. Rename .tmp to .json (atomic on POSIX)
+        c. This prevents corruption from mid-write crashes
+
+  # --- Error Handling ---
+  - event: "on:error"
+    action: inject
+    description: |
+      ERROR HANDLING PROTOCOL (standardized):
+
+      1. Log error to state.json (atomic write):
+         errors.push({
+           phase: {current_phase},
+           story_id: {current_story_id or null},
+           type: {error_type},
+           message: {error_message},
+           retry_count: {count},
+           escalated_to: null,
+           resolved: false,
+           timestamp: {ISO 8601}
+         })
+
+      2. Show error banner from personality.md:
+         - Error type and message
+         - Current retry count / max retries
+         - Which agent was involved
+
+      3. Route to Error Recovery Tree (runner.md Section 4)
+         - The lifecycle plugin does NOT handle recovery logic
+         - It standardizes logging and display, then defers to runner
+
+  # --- Checkpoint Rendering ---
+  - event: "on:checkpoint"
+    action: inject
+    description: |
+      CHECKPOINT RENDERING PROTOCOL (standardized):
+
+      1. Read checkpoint visual format from personality.md
+
+      2. Render the checkpoint banner:
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           🔴 CHECKPOINT — {title}
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           {progress summary}
+           {errors count if any}
+           1. {option A — usually "proceed"}
+           2. {option B — usually "review/adjust"}
+           3. {option C — usually "stop and save progress"}
+         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+      3. Wait for user input via AskUserQuestion
+
+      4. Log checkpoint decision to state.json:
+         - plugins.lifecycle.last_checkpoint = { phase, title, choice, timestamp }
+
+state_key: "lifecycle"

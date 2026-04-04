@@ -1,0 +1,77 @@
+# Forge Watch Plugin
+# Post-deploy monitoring: health checks, CI status, error detection
+
+plugin:
+  name: forge-watch
+  version: "1.0.0"
+  description: "Post-deploy monitoring: health checks, CI status, error detection"
+
+activation:
+  enabled: true
+  modes:
+    - FULL_APP
+    - SINGLE_FEATURE
+    - BUG_FIX
+    # Only modes that deploy apps — NOT BROWNFIELD, DESIGN_SYSTEM, etc.
+
+priority: 85  # Optional band — runs late, after core completion
+
+hooks:
+  # Post-deploy health checks
+  - event: "after:deploy"
+    action: validate
+    source: "{FORGE_HOME}/forge-watch.md"
+    section: "1. Post-Deploy Checks"
+    severity: optional  # INFO only — never blocks completion
+    description: |
+      After successful deploy (push + PR created), perform verification:
+
+      1. CI Status Check:
+         - Run: gh pr checks {pr_number} (via Bash)
+         - Wait up to config.ci_check_wait_seconds (default: 30)
+         - Report: passing / failing / pending
+
+      2. Health Check (if deploy_url available):
+         - Read deploy URL from state.json or project config
+         - WebFetch the URL with timeout config.health_check_timeout_ms
+         - Report: HTTP status, response time, any errors
+
+      3. Build Verification:
+         - If Vercel: check deployment status via API
+         - If Netlify: check deploy status via API
+         - If custom: skip (no automated verification)
+
+      4. Error Monitoring (if configured):
+         - If Sentry DSN in project config: check for new errors
+         - Time window: config.error_monitor_window_minutes (default: 5)
+         - Report: error count, top error messages
+
+      All checks are INFO-level — they NEVER block run completion.
+      If any check fails: show warning but still complete the run.
+
+  # Post-deploy report
+  - event: "after:deploy"
+    action: log
+    description: |
+      Generate and display post-deploy report:
+
+      ```
+      ━━━ Post-Deploy Report ━━━
+
+        CI Status:     {passing/failing/pending}
+        Health Check:  {200 OK (450ms) / failed / skipped}
+        Build:         {deployed / pending / n/a}
+        Errors (5min): {0 / N detected}
+
+        {recommendation}
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      ```
+
+      Save report to state.json under plugins.forge_watch.report.
+
+state_key: "forge_watch"
+
+config:
+  health_check_timeout_ms: 10000
+  ci_check_wait_seconds: 30
+  error_monitor_window_minutes: 5

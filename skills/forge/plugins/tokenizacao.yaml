@@ -1,0 +1,31 @@
+# Tokenizacao Plugin
+# Frontend quality audit for Tailwind/React/Angular projects
+
+plugin:
+  name: tokenizacao
+  version: "1.0.0"
+  description: "Frontend quality audit for projects using Tailwind, React, Angular, or Next.js"
+
+activation:
+  enabled: true
+  modes:
+    - FULL_APP
+    - SINGLE_FEATURE
+
+priority: 33
+
+hooks:
+  - event: "after:phase:3"
+    action: validate
+    skill: "skills/tokenizacao/SKILL.md"
+    detect: "tailwind.config OR next.config OR angular.json OR React detected in package.json"
+    severity: optional
+    model: haiku
+    description: |
+      Frontend quality audit after Build Loop completes.
+      Detection: check for tailwind.config.*, next.config.*, angular.json,
+      or "react" in package.json dependencies.
+      If detection fails (no frontend framework), skip silently.
+      Informational only — never blocks, produces INFO.
+
+state_key: "tokenizacao"

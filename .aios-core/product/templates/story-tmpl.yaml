@@ -46,6 +46,18 @@ sections:
     owner: scrum-master
     editors: [scrum-master, dev-agent]
 
+  - id: depends-on
+    title: Dependencies
+    type: list
+    instruction: |
+      List story IDs that must be completed before this story can start.
+      Base stories with no dependencies should have an empty list: depends_on: []
+      Example: depends_on: ["1.1", "1.2"]
+      Used by Forge Phase 3 for topological ordering and parallel execution.
+    template: "depends_on: [{{dependency_ids}}]"
+    owner: scrum-master
+    editors: [scrum-master, po]
+
   # Story 11.1: Dynamic Executor Assignment (Projeto Bob)
   - id: executor-assignment
     title: Executor Assignment

@@ -1,0 +1,31 @@
+# Code Refactoring Plugin
+# Clean Code analysis when tech debt is detected
+
+plugin:
+  name: code-refactoring
+  version: "1.0.0"
+  description: "Clean Code refactoring analysis when QA reports tech debt or code smells"
+
+activation:
+  enabled: true
+  modes:
+    - FULL_APP
+
+priority: 34
+
+hooks:
+  - event: "after:phase:3"
+    action: validate
+    skill: "skills/code-refactoring-refactor-clean/SKILL.md"
+    detect: "qa_reported_tech_debt OR code_smells_detected in QA output"
+    severity: optional
+    model: sonnet
+    description: |
+      Code quality analysis after Build Loop completes.
+      Detection: only runs if @qa flagged tech debt or code smells
+      during the Build Loop. Check state.json for QA output containing
+      "tech debt", "code smell", "refactor", or similar signals.
+      If detection fails (no tech debt reported), skip silently.
+      Informational only — never blocks, produces INFO.
+
+state_key: "code_refactoring"

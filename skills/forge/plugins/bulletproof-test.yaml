@@ -1,0 +1,30 @@
+# Bulletproof Test Plugin
+# Generates exhaustive test scenarios after build completes
+
+plugin:
+  name: bulletproof-test
+  version: "1.0.0"
+  description: "Generate exhaustive real-world test scenarios using bulletproof-test skill"
+
+activation:
+  enabled: true
+  modes:
+    - FULL_APP
+
+priority: 30
+
+hooks:
+  - event: "after:phase:3"
+    action: validate
+    skill: "skills/bulletproof-test/SKILL.md"
+    detect: "package.json has 'test' script AND test framework in devDependencies"
+    severity: recommended
+    model: sonnet
+    description: |
+      After Build Loop completes, generate exhaustive test scenarios.
+      Detection: check if package.json has a "test" script and a test framework
+      (jest, vitest, mocha, playwright, cypress) in devDependencies.
+      If detection fails (no test framework), skip silently.
+      If tests generated but some fail: log as CONCERNS (soft veto).
+
+state_key: "bulletproof_test"

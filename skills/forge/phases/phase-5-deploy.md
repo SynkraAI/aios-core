@@ -51,6 +51,21 @@ After @devops completes:
 1. Parse the PR URL from output
 2. Update state.json: `phases.5.pr_url = "{url}"`
 
+### Step 3b: Post-Deploy Monitoring (Plugin-Driven)
+
+**Fire hook: `after:deploy`** — triggers post-deploy monitoring plugins.
+
+This hook ONLY fires if @devops successfully pushed and created a PR.
+It does NOT fire if:
+- User chose "don't deploy" at the checkpoint
+- @devops failed and the run was paused
+- The run is in DRY_RUN mode
+
+The `forge-watch` plugin (priority 85) subscribes to this hook and performs:
+health checks, CI status verification, build verification, and error monitoring.
+Results are saved to `state.json → plugins.forge_watch.report`.
+All checks are INFO-level — they never block completion.
+
 ### Step 4: Completion
 
 1. Update state.json: `status = "completed"`, `completed_at = now`

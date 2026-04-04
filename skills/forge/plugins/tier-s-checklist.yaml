@@ -1,0 +1,30 @@
+# Tier-S Checklist Plugin
+# Production readiness checklist
+
+plugin:
+  name: tier-s-checklist
+  version: "1.0.0"
+  description: "Production readiness checklist for high-quality delivery"
+
+activation:
+  enabled: true
+  modes:
+    - FULL_APP
+
+priority: 32
+
+hooks:
+  - event: "after:phase:3"
+    action: validate
+    skill: "skills/tier-s-checklist/SKILL.md"
+    detect: always
+    severity: recommended
+    model: sonnet
+    description: |
+      Production readiness checklist after Build Loop completes.
+      Detection: always for FULL_APP (production readiness is universal).
+      Validates: code quality, testing coverage, documentation,
+      error handling, security basics, performance considerations.
+      If issues found: log as CONCERNS (soft veto).
+
+state_key: "tier_s_checklist"

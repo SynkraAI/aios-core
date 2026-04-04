@@ -150,55 +150,26 @@ Show progress:
 
 ---
 
-### Step 4: Extended Quality Gates (Conditional Skills)
+### Step 4: Extended Quality Gates (Plugin-Driven)
 
 > Gates extras que só ativam se o projeto precisar. Como sensores especializados: só disparam se detectam algo relevante.
 
-**Resolution:** Read `{FORGE_HOME}/config.yaml` section `extended_quality`. For each gate where `enabled: true`:
+**Resolution:** The runner fires hook `after:phase:3`, which triggers all quality gate plugins subscribed to this hook (see `{FORGE_HOME}/plugins/*.yaml`).
 
-1. **Check mode** — is current workflow mode in the gate's `modes` list? If not, skip.
-2. **Check detection condition** — run the detect logic (see table below). If condition is false, skip.
-3. **If both pass** — dispatch the skill via Agent tool and collect results.
-4. **Log result** — save in state.json under `phases.4.extended_gates.{gate_name}`.
+Each plugin declares its own:
+- **Detection logic** (`detect` field) — skips silently if condition is false
+- **Skill to invoke** (`skill` field) — dispatched via Agent tool
+- **Severity** — `recommended` (CONCERNS if issues) or `optional` (INFO only)
+- **Model** — LLM model for cost control
 
-#### Detection Logic
-
-| Gate | How to detect | Files to check |
-|------|--------------|----------------|
-| `bulletproof_test` | `package.json` has `"test"` script AND test framework in devDependencies | `package.json` |
-| `vulnerability_scanner` | Always runs (security is universal) | — |
-| `tier_s_checklist` | Always runs for FULL_APP | — |
-| `tokenizacao` | Glob for `tailwind.config.*`, `next.config.*`, `angular.json`, or grep `from 'react'` in src/ | Project root + src/ |
-| `code_refactoring` | QA report from Step 1 mentions "tech debt", "code smell", or "refactor" | QA integration report |
-| `cloud_pentest` | Glob for `*.tf`, `pulumi.*`, `cdk.json`, `.aws/`, `gcloud` configs | Project root |
-
-#### Dispatch Format
-
-For each active gate, dispatch via Agent tool:
-
-```
-subagent_type: general-purpose
-model: {gate.model from config}
-prompt: |
-  Read the skill at {AIOS_HOME}/{gate.skill}.
-  Run it against the current project at {cwd}.
-  Focus on: {context from Phase 0 Discovery + Architecture from Phase 1}.
-  Return: summary of findings + score (if applicable) + critical issues list.
-```
-
-#### Result Handling
-
-| Severity | If issues found | If clean |
-|----------|----------------|----------|
-| `recommended` | Log as CONCERNS in summary, list top 3 issues | Log as PASS |
-| `optional` | Log as INFO in summary | Log as PASS |
+The runner executes plugins in priority order (30-35 for quality gates). Results are saved to `state.json` under `plugins.{state_key}` (where `state_key` is defined in each plugin's YAML, e.g., `bulletproof_test`, `vulnerability_scanner`).
 
 **IMPORTANT:** Extended gates are NEVER hard vetos. They produce CONCERNS or INFO that appear in the Integration Summary (Step 6). The user decides whether to fix before deploy.
 
 #### Progress Display
 
 ```
-  🔄 Extended Quality Gates...
+  🔄 Extended Quality Gates (plugin-driven)...
   ├── /bulletproof-test .......... ✅ PASS (42 scenarios, 0 failures)
   ├── /vulnerability-scanner ..... ⚠️ CONCERNS (2 medium issues)
   ├── /tier-s-checklist .......... ✅ 8.5/10 (3 items to improve)
@@ -206,6 +177,8 @@ prompt: |
   ├── /code-refactoring .......... ⏭️ SKIPPED (no tech debt flagged)
   └── /cloud-pentest ............. ⏭️ SKIPPED (disabled)
 ```
+
+> **Para adicionar um novo gate:** criar um plugin YAML em `{FORGE_HOME}/plugins/` com hook `after:phase:3`. Nenhum outro arquivo precisa ser editado. Ver `{FORGE_HOME}/plugins/SCHEMA.md`.
 
 ---
 

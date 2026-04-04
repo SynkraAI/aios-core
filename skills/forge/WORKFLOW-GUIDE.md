@@ -197,6 +197,7 @@ Não precisa reimplementar:
 | Ecosystem scan | `ecosystem-scanner.md` | ✅ |
 | Memory protocol | `runner.md` (lê project-context.md) | ✅ |
 | Deploy genérico | `phases/phase-5-deploy.md` | ✅ |
+| **Plugin System** | `plugins/*.yaml` → `runner.md` §2.5 | ✅ |
 
 ---
 
@@ -210,6 +211,29 @@ Não precisa reimplementar:
 | Brownfield | `brownfield.md` | BROWNFIELD | Scan→Diagnose→Plan |
 | Design System | `design-system.md` | DESIGN_SYSTEM | Discovery→Extract→Tokens→Components→Pages→Deploy |
 | Squad Upgrade | `squad-upgrade.md` | SQUAD_UPGRADE | Diagnose→DNA→Quality→Workflows→Validate |
+
+---
+
+## Plugin Integration
+
+Workflows herdam TODOS os plugins ativos automaticamente. Não é necessário configurar plugins por workflow.
+
+**Como funciona:**
+- Plugins são YAML files em `{FORGE_HOME}/plugins/` que se registram em lifecycle hooks
+- O runner carrega todos os plugins no boot e dispara em cada hook point (before/after phase, agent dispatch, error, etc.)
+- Cada plugin declara em quais `modes` é ativo — se o modo do workflow está na lista, o plugin roda
+- Plugins que não declaram `modes` rodam em TODOS os workflows
+
+**O que isso significa pra quem cria workflows:**
+- Não precisa reimplementar ecosystem scan — o plugin `ecosystem-scanner` já cuida disso
+- Não precisa reimplementar quality gates — plugins em `plugins/*.yaml` já declaram cada gate
+- Não precisa implementar quest sync — o plugin `quest-sync` sincroniza automaticamente
+- Lifecycle (entry/exit de fase, checkpoints, error logging) é padronizado pelo plugin `lifecycle`
+
+**Se o workflow precisar de um plugin exclusivo:**
+Criar um plugin YAML com `activation.modes: [SEU_MODO]` — ele só roda nesse workflow.
+
+**Referência completa:** `{FORGE_HOME}/plugins/SCHEMA.md`
 
 ---
 

@@ -1,0 +1,68 @@
+# Ecosystem Scanner Plugin
+# Scans AIOS ecosystem and injects relevant context into agent prompts
+
+plugin:
+  name: ecosystem-scanner
+  version: "1.0.0"
+  description: "Scans AIOS ecosystem for relevant minds, skills, and squads — injects context into agent prompts"
+
+activation:
+  enabled: true
+  modes:
+    - FULL_APP
+    - SINGLE_FEATURE
+    - BROWNFIELD
+    - DESIGN_SYSTEM
+    - LANDING_PAGE
+    - CLONE_SITE
+    - SQUAD_UPGRADE
+    - DRY_RUN       # Scan real for simulation report
+    - REPLAY         # Re-scan on replay
+    - TEMPLATE       # Scan for template context
+    # NOT in QUICK mode — speed over context
+
+priority: 10
+
+hooks:
+  # --- Full Scan (once, after Discovery) ---
+  - event: "after:phase:0"
+    action: inject
+    source: "{FORGE_HOME}/ecosystem-scanner.md"
+    section: "1. Scan Protocol"
+    description: |
+      Run full ecosystem scan after Phase 0 Discovery completes.
+      Reads minds INDEX, globs skills/*/SKILL.md, globs squads/*/config.yaml.
+      Matches project keywords against routing matrix + dynamic grep fallback.
+      Outputs: .aios/forge-runs/{run_id}/context-pack.json
+      Max items: config.ecosystem.max_context_items (default: 3)
+
+  # --- Context Injection (every agent dispatch) ---
+  - event: "on:agent-dispatch"
+    action: inject
+    source: "{FORGE_HOME}/ecosystem-scanner.md"
+    section: "2. Context Injection Protocol"
+    description: |
+      Before each agent dispatch, filter context-pack.json for items where
+      inject_in_phases includes the current phase number.
+      Inject: mind DNA (max 3), skill instructions (max 2), squad agent lists.
+      Rule: "synthesize, don't stack" — agent absorbs context, doesn't copy-paste.
+      Tag outputs: [Informed by: @expert]
+
+  # --- Micro-Scans (on error) ---
+  - event: "on:error"
+    action: inject
+    source: "{FORGE_HOME}/ecosystem-scanner.md"
+    section: "3. Micro-Scans"
+    description: |
+      When error recovery triggers, do a targeted micro-scan for
+      domain-specific resources that might help resolve the error.
+      Example: DB error → scan for @data-engineer minds/skills.
+      Adds to context-pack.json without replacing existing items.
+
+state_key: "ecosystem_scan"
+
+config:
+  max_context_items: 3
+  minds_index: "squads/mind-cloning/minds/INDEX.md"
+  skills_dir: "skills/"
+  squads_dir: "squads/"

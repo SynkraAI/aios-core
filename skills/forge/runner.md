@@ -31,23 +31,91 @@ INIT -> PHASE_0 -> PHASE_1 -> PHASE_2 -> PHASE_3 -> PHASE_4 -> PHASE_5 -> COMPLE
 2. Show phase header (from personality.md)
 3. Show progress indicator with updated status
 4. Update state.json: `phases.{N}.status = "running"`, `current_phase = N`
+5. **Fire hook: `before:phase:{N}`** — execute all subscribed plugins in priority order (see Section 2.5)
 
 ### Step 2: Execute Phase
 1. Follow the phase file instructions exactly
 2. For agent dispatch: use the Agent Dispatch Protocol (SKILL.md Section 5)
-3. For checkpoints: show checkpoint format (personality.md), wait for user input
+   - **Fire hook: `on:agent-dispatch`** before dispatching each agent
+   - **Fire hook: `on:agent-return`** after each agent returns
+3. For checkpoints: **fire hook: `on:checkpoint`**, then show checkpoint format and wait for user input
 
 ### Step 3: Exit Phase
 1. Verify phase outputs exist (files created, validations passed)
-2. Update state.json: `phases.{N}.status = "completed"`, `phases.{N}.completed_at = now`
-3. Show handoff visual if next phase involves a different agent
-4. Proceed to next phase
+2. **Fire hook: `after:phase:{N}`** — execute all subscribed plugins in priority order
+3. Update state.json: `phases.{N}.status = "completed"`, `phases.{N}.completed_at = now`
+4. Show handoff visual if next phase involves a different agent
+5. Proceed to next phase
+
+---
+
+## 2.5. Plugin System
+
+The Forge Plugin System loads and fires plugins automatically. Plugins are YAML files in `{FORGE_HOME}/plugins/` that subscribe to lifecycle hooks. The user never interacts with plugins directly.
+
+### Boot Sequence (runs once at start of every Forge run)
+
+1. **Discover:** Glob `{FORGE_HOME}/plugins/*.yaml`
+2. **Filter:** Remove plugins where `activation.enabled = false`
+3. **Filter by mode:** Remove plugins where current Forge mode is not in `activation.modes` (skip this filter if `modes` is omitted — plugin is active for all modes)
+4. **Sort:** Order remaining plugins by `priority` ascending (lower = first). Same priority → alphabetical by name.
+5. **Build registry:** Create a map from hook name → ordered list of subscribed plugins
+
+If `{FORGE_HOME}/plugins/` does not exist or is empty, skip the entire plugin system and use legacy behavior. This ensures backwards compatibility.
+
+### Firing Protocol (runs at each hook point)
+
+When a hook fires (e.g., `before:phase:3`):
+
+1. Look up the hook in the registry. Check both the specific hook (`before:phase:3`) and the wildcard (`before:phase:*`). Merge results, maintaining priority order.
+2. For each subscribed plugin, in priority order:
+   a. Check `filter` conditions if present (e.g., `filter.phases`). Skip if no match.
+   b. If `source` is defined: read the source file (or just the `section` heading if specified).
+   c. Execute the `action` described in the plugin's `description` or `source` file.
+   d. If action is `validate` and fails:
+      - `severity: recommended` → log as CONCERNS, continue (soft veto)
+      - `severity: optional` → log as INFO, continue (no veto)
+   e. Write any results to `state.json` under `plugins.{state_key}` namespace.
+
+### Plugin State in state.json
+
+Plugin data lives under a dedicated namespace to avoid conflicts:
+
+```json
+{
+  "plugins": {
+    "lifecycle": { "last_checkpoint": { "phase": 0, "choice": 1 } },
+    "ecosystem_scan": { "context_items": 3 },
+    "quest_sync": { "stories_completed": 4, "run_completed": false }
+  }
+}
+```
+
+### Reference
+
+Full schema, hook taxonomy, priority ranges, and creation guide: `{FORGE_HOME}/plugins/SCHEMA.md`
 
 ---
 
 ## 3. SDC Subloop (Story Development Cycle — Phase 3)
 
 For each story in priority order:
+
+### 3.0 Parallel Execution Mode (Optional)
+
+**Prerequisite:** `config.parallel.enabled = true` AND `phases.2.dependency_graph` exists in state.json.
+
+If both conditions are met:
+1. Read `dependency_graph.levels` from state.json
+2. For each dependency level with **2+ stories**: these stories are parallelizable
+3. Enter Parallel SDC mode: read `{FORGE_HOME}/forge-parallel.md` for the full protocol
+4. Parallel stories execute in git worktrees, merge results, run veto checks on merged code
+
+If conditions are NOT met: use standard sequential SDC below (no change from current behavior).
+
+**Reference:** `{FORGE_HOME}/forge-parallel.md` for complete worktree, merge, and conflict resolution protocol.
+
+---
 
 ### 3.1 Story Creation (@sm)
 
@@ -89,14 +157,18 @@ Dispatch @qa via Agent tool with:
 
 After each story completes:
 1. Update state.json: `phases.3.stories_completed += 1`
-2. Show mini progress: `"Story {N}/{total} done ✅"`
-3. Every `config.checkpoint_interval` stories (default: 3): show CHECKPOINT
+2. **Fire hook: `on:story-complete`** — plugins log metrics, trigger cross-story validations
+3. Show mini progress: `"Story {N}/{total} done ✅"`
+4. Every `config.checkpoint_interval` stories (default: 3): show CHECKPOINT
 
 ---
 
 ## 4. Error Recovery Tree
 
-When an error occurs in Phase 3 (Build Loop), analyze the error and route intelligently:
+When an error occurs in Phase 3 (Build Loop):
+
+1. **Fire hook: `on:error`** — plugins log the error, inject recovery context, and display error banners
+2. Then analyze the error and route intelligently:
 
 ### Detection
 
@@ -178,7 +250,8 @@ Every error is logged in state.json:
 
 ## 5. Veto Conditions (automatic quality gates)
 
-Before moving to the next story in Phase 3, automatically verify:
+Before moving to the next story in Phase 3, automatically verify.
+After each veto check result, **fire hook: `on:veto`** — plugins can add checks or log results.
 
 ### Hard Vetos (BLOCK — nunca prosseguir sem resolver)
 
@@ -237,8 +310,10 @@ ALL state.json writes MUST use atomic pattern:
 
 After all phases complete:
 
-1. Update state.json: `status = "completed"`, `completed_at = now` (atomic write)
-2. **Remove lock file:** Delete `.aios/forge-runs/.lock`
+1. **Fire hook: `after:deploy`** — ONLY if Phase 5 actually deployed (push + PR created). Does NOT fire if user chose "don't deploy" or run was paused. This hook triggers post-deploy monitoring (forge-watch plugin).
+2. **Fire hook: `after:run`** — plugins perform final validations, sync status, and cleanup
+3. Update state.json: `status = "completed"`, `completed_at = now` (atomic write)
+4. **Remove lock file:** Delete `.aios/forge-runs/.lock`
 3. **Move stories:** If stories exist in `docs/stories/active/`, move completed ones to `docs/stories/completed/`
 4. Show completion banner (personality.md) with:
    - Run ID

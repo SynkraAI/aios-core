@@ -1,0 +1,54 @@
+# Forge Feedback Loop Plugin
+# Captures user feedback on run quality and feeds into Forge Memory
+
+plugin:
+  name: forge-feedback
+  version: "1.0.0"
+  description: "Captures user feedback on run quality and feeds into Forge Memory"
+
+activation:
+  enabled: true
+  # Active for ALL modes — every run deserves feedback
+
+priority: 88  # Optional band — runs late, not critical path
+
+hooks:
+  # Ask about PREVIOUS run at the start of a new run
+  - event: "before:run"
+    action: inject
+    source: "{FORGE_HOME}/forge-feedback.md"
+    section: "1. Previous Run Feedback"
+    description: |
+      At the start of a new run in the SAME project:
+      1. Check .aios/forge-runs/ for completed runs in this project
+      2. Find the most recent completed run
+      3. Check .aios/memory/forge/feedback.yaml for existing feedback on that run
+      4. If completed run exists AND no feedback captured yet:
+         Show feedback prompt (see forge-feedback.md section 1)
+      5. If user gives feedback: save to .aios/memory/forge/feedback.yaml
+      6. If user skips: proceed silently
+
+      NEVER block run start on feedback. If user doesn't respond, skip.
+      This hook runs AFTER forge-memory (priority 5) loads learnings,
+      so previous run context is already available.
+
+  # Offer quick feedback at the END of current run
+  - event: "after:run"
+    action: inject
+    source: "{FORGE_HOME}/forge-feedback.md"
+    section: "2. Current Run Feedback"
+    description: |
+      After the completion banner, offer optional quick feedback.
+      This is NON-BLOCKING — if user doesn't respond, the run
+      completes normally.
+
+      Save feedback to state.json under plugins.forge_feedback.
+      The forge-memory plugin will pick this up and persist it
+      to .aios/memory/forge/feedback.yaml at the next run.
+
+state_key: "forge_feedback"
+
+config:
+  ask_previous_run_feedback: true
+  ask_current_run_feedback: true
+  feedback_file: ".aios/memory/forge/feedback.yaml"

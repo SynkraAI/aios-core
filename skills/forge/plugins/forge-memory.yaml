@@ -1,0 +1,101 @@
+# Forge Memory Plugin
+# Saves learnings after each run and loads them on next run in same project
+
+plugin:
+  name: forge-memory
+  version: "1.0.0"
+  description: "Saves learnings after each run and loads them on next run in same project"
+
+activation:
+  enabled: true
+  # Active for ALL modes — every run generates learnings
+
+priority: 5  # Core band — loads early to inject context into all phases
+
+hooks:
+  # Load learnings at run start
+  - event: "before:run"
+    action: inject
+    source: "{FORGE_HOME}/forge-memory.md"
+    section: "1. Load Protocol"
+    description: |
+      Check for existing learnings at .aios/memory/forge/learnings.yaml.
+      If file exists:
+        1. Parse YAML
+        2. Filter entries where project matches current cwd (or project.path in state.json)
+        3. Sort by timestamp descending (most recent first)
+        4. Select top N entries (config.inject_top_n, default: 5)
+        5. Group by category: tech_decision, error_pattern, agent_performance, quality_gate
+        6. Inject summary into runner context as "Forge Memory Briefing"
+      If file does not exist: skip silently (first run, no learnings yet).
+
+      NEVER block run start if learnings file is missing or corrupted.
+      If YAML parse fails: log warning, proceed without learnings.
+
+  # Save learnings after run completes
+  - event: "after:run"
+    action: log
+    source: "{FORGE_HOME}/forge-memory.md"
+    section: "2. Save Protocol"
+    description: |
+      Extract learnings from the completed run's state.json:
+
+      1. Tech decisions: read tech_decisions field
+         - What was chosen and why (decided_by: forge vs user)
+         - Any user overrides (user chose different from Forge's recommendation)
+         → category: "tech_decision"
+
+      2. Error patterns: read errors[] array
+         - Group by error type
+         - For each resolved error: what failed, how it was fixed, which agent fixed it
+         → category: "error_pattern"
+
+      3. Agent performance: calculate from phases
+         - @dev retry rate (retries / total stories)
+         - @qa pass/fail ratio
+         - Escalations count (to @architect, @data-engineer, @aios-master)
+         → category: "agent_performance"
+
+      4. Quality gate results: read plugins.* for quality gate results
+         - Which gates passed/failed/skipped
+         - Severity of issues found
+         → category: "quality_gate"
+
+      Append entries to .aios/memory/forge/learnings.yaml.
+      Create directory .aios/memory/forge/ if it does not exist.
+      Each entry gets: id (learn-{NNN}), run_id, project, timestamp, category, content, tags.
+
+      If file has more than max_entries (default: 50):
+        Remove oldest entries from the SAME project to stay under limit.
+        Keep entries from OTHER projects untouched.
+
+  # Learn from errors in real-time
+  - event: "on:error"
+    action: log
+    source: "{FORGE_HOME}/forge-memory.md"
+    section: "3. Error Learning"
+    description: |
+      When error recovery triggers and resolves an error:
+      Capture the pattern immediately in state.json buffer:
+
+      plugins.forge_memory.error_patterns.push({
+        error_type: {ARCHITECTURE_ERROR | DB_ERROR | REQUIREMENT_ERROR | STUCK | GENERIC_ERROR},
+        phase: {current phase number},
+        story_id: {story id or null},
+        root_cause: {brief description of what went wrong},
+        resolution: {what was done to fix it},
+        agent_that_fixed: {which agent resolved it},
+        timestamp: {ISO 8601}
+      })
+
+      These buffered patterns are flushed to learnings.yaml at after:run.
+      This way, even if the run is interrupted, the patterns survive in state.json
+      and can be recovered on resume.
+
+state_key: "forge_memory"
+
+config:
+  learnings_file: ".aios/memory/forge/learnings.yaml"
+  max_entries: 50
+  inject_top_n: 5
+  retention_days: 90

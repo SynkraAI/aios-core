@@ -1,0 +1,69 @@
+# Quest Sync Plugin
+# Synchronizes Forge lifecycle events with Quest Engine via state.json
+
+plugin:
+  name: quest-sync
+  version: "1.0.0"
+  description: "Syncs Forge lifecycle events with Quest Engine for XP and progress tracking"
+
+activation:
+  enabled: true
+  # Active for ALL modes — Quest can invoke any Forge workflow
+
+priority: 90  # Runs last — after all other plugins, since it reports status
+
+hooks:
+  # --- Phase completion sync ---
+  - event: "after:phase:*"
+    action: log
+    description: |
+      After each phase completes, check if this Forge run was invoked by Quest.
+      Detection: state.json has a 'quest_source' field (set by forge-bridge when
+      Quest invokes Forge).
+
+      If Quest-invoked:
+        Write to state.json (atomic):
+          plugins.quest_sync.last_event = {
+            phase: {N},
+            status: "completed",
+            timestamp: {ISO 8601}
+          }
+
+      If NOT Quest-invoked: skip silently (no overhead).
+
+      OWNERSHIP BOUNDARY: Forge NEVER writes to quest-log.yaml.
+      Quest's forge-bridge reads plugins.quest_sync from state.json.
+
+  # --- Story completion sync ---
+  - event: "on:story-complete"
+    action: log
+    description: |
+      When a story completes QA, increment the story counter for Quest XP.
+      Write to state.json (atomic):
+        plugins.quest_sync.stories_completed += 1
+
+      Quest's forge-bridge reads this on next status check and
+      awards XP accordingly.
+
+  # --- Run completion sync ---
+  - event: "after:run"
+    action: log
+    description: |
+      When the entire Forge run completes successfully:
+      Write to state.json (atomic):
+        plugins.quest_sync.run_completed = true
+        plugins.quest_sync.completed_at = {ISO 8601}
+        plugins.quest_sync.summary = {
+          stories_total: {N},
+          stories_completed: {N},
+          stories_skipped: {N},
+          errors_resolved: {N},
+          pr_url: {url or null}
+        }
+
+      Quest's forge-bridge reads this and:
+        - Auto-checks the mission item (checked_by: "forge")
+        - Triggers completion ceremony
+        - Awards final XP
+
+state_key: "quest_sync"

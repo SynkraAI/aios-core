@@ -80,6 +80,11 @@ Parse the user's command and classify:
 /forge squad-upgrade {squad-name}     -> SQUAD_UPGRADE (upgrade de squad existente)
 /forge new-workflow {name}            -> NEW_WORKFLOW (criar novo workflow no Forge)
 /forge resume                         -> RESUME (retoma run interrompido)
+/forge dry-run {description}          -> DRY_RUN (simular sem executar)
+/forge replay {run_id}                -> REPLAY (refazer run anterior com ajustes)
+/forge replay {run_id} --from phase:{N} -> REPLAY (refazer a partir da fase N)
+/forge template {name}                -> TEMPLATE (projeto pré-configurado)
+/forge template list                  -> TEMPLATE (listar templates disponíveis)
 ```
 
 ### `help` Command
@@ -111,6 +116,13 @@ When the user runs `/forge help`, show this formatted output and STOP:
 
   /forge squad-upgrade {nome}     Fazer upgrade de squad existente
   /forge new-workflow {nome}      Criar novo workflow no Forge (auto-expansão)
+
+  ━━━ PREVIEW / REPLAY ━━━
+
+  /forge dry-run {descrição}      Simular run sem executar (preview)
+  /forge replay {run_id}          Refazer run anterior com ajustes
+  /forge template {nome}          Projeto pré-configurado (pula Discovery+Spec)
+  /forge template list            Listar templates disponíveis
 
   ━━━ CONTROLE ━━━
 
@@ -161,6 +173,9 @@ To build the help output:
 | **SQUAD_UPGRADE** | Prefix `squad-upgrade`, or words like "upgrade squad", "melhorar squad", "evoluir squad" | `{FORGE_HOME}/workflows/squad-upgrade.md` (Diagnose → DNA → Quality → Workflows → Validate) |
 | **NEW_WORKFLOW** | Prefix `new-workflow`, or words like "criar workflow", "novo workflow", "adicionar workflow" | Read `{FORGE_HOME}/WORKFLOW-GUIDE.md` and execute workflow creation |
 | **RESUME** | Prefix `resume`, or "continuar", "retomar" | Check `.aios/forge-runs/` for interrupted runs |
+| **DRY_RUN** | Prefix `dry-run`, or words like "simular", "preview", "o que faria", "simulação" | `{FORGE_HOME}/workflows/dry-run.md` (simulate only, zero agent dispatch) |
+| **REPLAY** | Prefix `replay`, or words like "refazer", "replay", "de novo", "from phase" | `{FORGE_HOME}/workflows/replay.md` (load previous run, apply changes, re-execute) |
+| **TEMPLATE** | Prefix `template`, or words like "template", "scaffold", "boilerplate", "starter" | `{FORGE_HOME}/workflows/template.md` (pre-configured project, skip Phase 0+1) |
 
 ### Smart Detection (automatic)
 
@@ -177,11 +192,17 @@ If running inside an existing project (package.json exists) and user runs `/forg
 2. **Activate Synapse workflow** — Run: `node {AIOS_HOME}/tools/synapse-set-workflow.cjs forge_pipeline 0`
    This tells the Synapse engine that Forge is running, so it injects Forge-specific rules in every prompt automatically.
    Update the phase number at each phase transition: `node {AIOS_HOME}/tools/synapse-set-workflow.cjs forge_pipeline {N}`
-3. **Check for interrupted runs** — Glob `.aios/forge-runs/*/state.json`, look for `status != "completed"`:
+3. **Load plugins** — Boot the Plugin System (runner.md Section 2.5):
+   - Glob `{FORGE_HOME}/plugins/*.yaml`
+   - Filter by `enabled` and current mode
+   - Sort by priority, build hook registry
+   - Fire hook: `before:run`
+   - If no plugins found: proceed with legacy behavior (backwards compatible)
+4. **Check for interrupted runs** — Glob `.aios/forge-runs/*/state.json`, look for `status != "completed"`:
    - If found: "Encontrei um run interrompido: `{slug}` (parado na Fase {N}). Continuar ou começar novo?"
    - If user wants to resume: load state.json + context-pack.json, jump to last phase
-4. **Read memory protocol** — Check for project-context.md (HYBRID or CENTRALIZED mode)
-5. **Dispatch to workflow** — Based on intent classification, read the matching workflow file and execute
+5. **Read memory protocol** — Check for project-context.md (HYBRID or CENTRALIZED mode)
+6. **Dispatch to workflow** — Based on intent classification, read the matching workflow file and execute
 
 ---
 
@@ -237,10 +258,12 @@ For each phase that requires an agent:
    - Task definition and steps
    - Project context (from state.json)
    - Story file (if Phase 3+)
-   - Context pack items relevant to this phase (Sprint 2)
-4. **Dispatch via Agent tool** — Use `subagent_type` matching the agent role
-5. **Collect output** — Parse result, check for errors
-6. **Update state.json** — Mark phase progress
+   - Context pack items relevant to this phase
+4. **Fire hook: `on:agent-dispatch`** — Plugins inject additional context (e.g., ecosystem scanner adds relevant minds/skills)
+5. **Dispatch via Agent tool** — Use `subagent_type` matching the agent role
+6. **Collect output** — Parse result, check for errors
+7. **Fire hook: `on:agent-return`** — Plugins validate output, log metrics
+8. **Update state.json** — Mark phase progress
 
 ### Agent Role Mapping
 
@@ -390,6 +413,16 @@ Isso mantém o usuário informado sem interromper o fluxo.
 | `{FORGE_HOME}/WORKFLOW-GUIDE.md` | Mode = NEW_WORKFLOW |
 | `{FORGE_HOME}/ecosystem-scanner.md` | Phase 0 (ecosystem scan) |
 | `{FORGE_HOME}/ecosystem-scanner.md` Section 2 | When injecting ecosystem context into agents |
+| `{FORGE_HOME}/plugins/*.yaml` | ALWAYS — loaded at init (Section 3 Step 3), filtered by mode |
+| `{FORGE_HOME}/plugins/SCHEMA.md` | Only when creating new plugins or debugging |
+| `{FORGE_HOME}/workflows/dry-run.md` | Mode = DRY_RUN |
+| `{FORGE_HOME}/workflows/replay.md` | Mode = REPLAY |
+| `{FORGE_HOME}/workflows/template.md` | Mode = TEMPLATE |
+| `{FORGE_HOME}/forge-memory.md` | ALWAYS (loaded by forge-memory plugin at init) |
+| `{FORGE_HOME}/forge-watch.md` | Phase 5 (post-deploy monitoring, loaded by forge-watch plugin) |
+| `{FORGE_HOME}/forge-advisor.md` | Phase 0 (tech decision enhancement, loaded by forge-advisor plugin) |
+| `{FORGE_HOME}/forge-parallel.md` | Phase 3 (parallel execution, if enabled in config) |
+| `{FORGE_HOME}/forge-feedback.md` | ALWAYS (loaded by forge-feedback plugin) |
 
 ---
 

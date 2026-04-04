@@ -316,3 +316,20 @@ Essas decisões são injetadas no contexto de TODOS os agentes a partir da Phase
 - **@architect** usa para desenhar a arquitetura
 - **@dev** usa para implementar com as tecnologias certas
 - **@devops** usa para configurar CI/CD e deploy
+
+---
+
+## Advisor Integration
+
+Quando o plugin `forge-advisor` (priority 8) está ativo, os defaults estáticos acima servem como **fallback**. O Advisor injeta recomendações baseadas em evidências ANTES das decision trees rodarem.
+
+**Ordem de precedência:**
+1. **Escolha explícita do usuário** — sempre vence
+2. **Recomendação do Advisor** — baseada em learnings de runs anteriores (success rate, user overrides, error patterns)
+3. **Contexto do projeto** — decisões estabelecidas em `project-context.md`
+4. **Defaults deste guia** — decision trees estáticas (fallback final)
+
+**Quando o Advisor NÃO está ativo** (plugin desabilitado, ou primeiro run sem learnings):
+Os defaults deste guia são usados normalmente, sem mudança.
+
+**Referência:** `{FORGE_HOME}/forge-advisor.md` e `{FORGE_HOME}/plugins/forge-advisor.yaml`

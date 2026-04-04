@@ -149,17 +149,23 @@ Quem vai usar esse app e qual o principal problema que resolve?
 
 **OBRIGATÓRIO:** Ler `{FORGE_HOME}/references/tech-decisions-guide.md` antes de apresentar.
 
+> **Plugin-Enhanced:** Quando o plugin `forge-advisor` (priority 8) está ativo, ele injeta
+> recomendações baseadas em evidências (learnings de runs anteriores + WebSearch) ANTES
+> dos defaults do tech-decisions-guide.md. Recomendações do Advisor têm precedência sobre
+> defaults estáticos quando baseadas em dados. Ver `{FORGE_HOME}/forge-advisor.md`.
+
 **Filosofia:** Forge DECIDE a stack ideal automaticamente e APRESENTA com explicações simples.
 O usuário NÃO precisa responder 6 perguntas técnicas — ele só valida ou muda.
 É como o Waze: a rota já está traçada. Só aperta "Ir".
 
 **Execução:**
 1. Analisar a descrição do projeto + respostas das Perguntas 1 e 2
-2. Usar a "Lógica de Decisão Automática" do `tech-decisions-guide.md` para montar a stack
-3. Apresentar no formato do Passo 2 do guia (tabela com analogias e motivos)
-4. Se o usuário quer entender mais: usar a seção "Alternativas por Decisão" do guia
-5. Se o usuário quer mudar: mostrar alternativas SÓ daquela decisão específica
-6. Registrar TODAS as decisões no `state.json` campo `tech_decisions`
+2. **Se forge-advisor plugin ativo:** usar recomendações do advisor (baseadas em learnings + dados de mercado)
+3. **Se advisor NÃO ativo (fallback):** Usar a "Lógica de Decisão Automática" do `tech-decisions-guide.md`
+4. Apresentar no formato do Passo 2 do guia (tabela com analogias e motivos)
+5. Se o usuário quer entender mais: usar a seção "Alternativas por Decisão" do guia (se advisor ativo, WebSearch valida)
+6. Se o usuário quer mudar: mostrar alternativas SÓ daquela decisão específica
+7. Registrar TODAS as decisões no `state.json` campo `tech_decisions`
 
 **Regras:**
 - Se o usuário JÁ mencionou stack no comando (ex: "quero Postgres"), respeitar e incorporar na recomendação
@@ -289,9 +295,17 @@ Máximo 1 follow-up. Depois, prossiga com o melhor entendimento.
 Respeite. Pule perguntas, use o que tem, e prossiga.
 Registre no state.json: `discovery_mode: "minimal"`
 
-### Step 5: Ecosystem Scan (MANDATORY)
+### Step 5: Ecosystem Scan (MANDATORY — Plugin-Driven)
 
-Read `{FORGE_HOME}/ecosystem-scanner.md` and execute the full scan protocol:
+> **PLUGIN-DRIVEN:** This step is executed automatically by the `ecosystem-scanner` plugin (priority 10).
+> The plugin fires on `after:phase:0` and reads `{FORGE_HOME}/ecosystem-scanner.md`.
+> See `{FORGE_HOME}/plugins/ecosystem-scanner.yaml` for details.
+>
+> **When the plugin system is active, DO NOT re-execute the scan below.**
+> The instructions below are kept as reference documentation for the scan protocol.
+> If the plugin system is NOT active (fallback mode), execute these steps manually.
+
+Reference — Scan protocol (executed by plugin when active):
 
 1. Read minds INDEX, skills frontmatters, squads READMEs
 2. Match against project description + tech stack

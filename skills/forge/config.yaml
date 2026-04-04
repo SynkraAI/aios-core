@@ -37,8 +37,14 @@ quality:
   run_tests: true
   run_build: false           # Only in Phase 4 (Integration)
 
-# Extended Quality Gates (Phase 4 — conditional)
-# Each gate has a detection condition. If condition is false, gate is skipped.
+# Plugins
+plugins:
+  dir: "plugins/"                  # Relative to FORGE_HOME
+
+# Extended Quality Gates (DEPRECATED — migrated to plugins/)
+# These gates have been migrated to individual plugin files in plugins/.
+# This section is kept as fallback. If a plugin exists for a gate, the plugin takes precedence.
+# To add new gates, create a plugin YAML file in plugins/ instead of editing this section.
 extended_quality:
   bulletproof_test:
     enabled: true
@@ -93,6 +99,22 @@ extended_quality:
     modes: [FULL_APP]
     severity: optional
     model: sonnet
+
+# Forge Memory (Feature 1)
+memory:
+  dir: ".aios/memory/forge/"     # Relative to project root
+  learnings_file: "learnings.yaml"
+  feedback_file: "feedback.yaml"
+  max_entries: 50                # Max learnings per project
+  inject_top_n: 5                # Top N learnings injected at run start
+  retention_days: 90             # Remove entries older than this
+
+# Parallel Execution (Feature 7)
+parallel:
+  enabled: false                 # Opt-in — disabled by default
+  max_concurrent_agents: 3       # Max simultaneous @dev dispatches
+  use_worktrees: true            # Use git worktrees for isolation
+  conflict_strategy: "checkpoint"  # checkpoint | auto-merge | abort
 
 # Ecosystem scanner (MANDATORY)
 ecosystem:

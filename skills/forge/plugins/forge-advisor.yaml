@@ -1,0 +1,65 @@
+# Forge Advisor Plugin
+# Evidence-based tech decisions using learnings, web research, and project context
+
+plugin:
+  name: forge-advisor
+  version: "1.0.0"
+  description: "Enhances Phase 0 tech decisions with learnings, web research, and project context"
+
+activation:
+  enabled: true
+  modes:
+    - FULL_APP
+    - SINGLE_FEATURE
+    # Only modes that involve tech decisions
+
+priority: 8  # Core band — injects before ecosystem scanner (priority 10)
+
+hooks:
+  # Gather evidence before Discovery
+  - event: "before:phase:0"
+    action: inject
+    source: "{FORGE_HOME}/forge-advisor.md"
+    section: "1. Gather Evidence"
+    description: |
+      Before Discovery runs tech decision questions:
+      1. Load learnings from forge-memory plugin:
+         - Filter by category: "tech_decision"
+         - Extract: what worked, what caused problems, user overrides
+      2. Read project-context.md for existing tech stack decisions
+         - HYBRID: {cwd}/.aios/memory/project-context.md
+         - CENTRALIZED: docs/projects/{name}/memory/project-context.md
+      3. Prepare advisor context:
+         - Build "evidence briefing" with tech recommendations
+         - Mark each recommendation as: "based on learnings" or "based on project context"
+      4. Inject into Phase 0 Step 4 context
+         - Advisor recommendations take precedence over static defaults
+         - If no learnings exist: fall back to tech-decisions-guide.md (no change)
+
+  # Validate recommendations when user asks "why?"
+  - event: "on:checkpoint"
+    action: inject
+    source: "{FORGE_HOME}/forge-advisor.md"
+    section: "2. Validate Recommendations"
+    filter:
+      phases: [0]
+    description: |
+      When the Phase 0 checkpoint fires and user wants to understand a decision:
+      1. If user chose "Quero entender melhor" or asks about a specific technology:
+         a. Use WebSearch to find current benchmarks/comparisons
+            - Max 3 queries (budget-conscious)
+            - Focus on: stability, performance, community size, recent issues
+         b. Cross-reference with learnings:
+            - "No último run deste projeto, usamos {tech} e {result}"
+            - "Em {N} runs com {tech}, taxa de sucesso foi {rate}%"
+         c. Present evidence summary:
+            "Baseado em {N} runs anteriores + dados atuais de mercado: ..."
+      2. If this project has previous runs with tech decisions:
+         - Show comparison: "Último run usou {stack}. Quer manter ou mudar?"
+
+state_key: "forge_advisor"
+
+config:
+  use_web_search: true
+  max_web_queries: 3
+  learnings_weight: 0.7  # How much to weight past experience vs defaults
