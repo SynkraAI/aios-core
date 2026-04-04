@@ -57,7 +57,7 @@ describe('ErrorRegistry', () => {
   });
 
   test('should respect silent mode when logging', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const spy = jest.spyOn(process.stderr, 'write').mockImplementation(() => {});
     
     await ErrorRegistry.log('Silent error', { silent: true });
     expect(spy).not.toHaveBeenCalled();
@@ -69,7 +69,7 @@ describe('ErrorRegistry', () => {
   });
 
   test('should support explicit display option', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const spy = jest.spyOn(process.stderr, 'write').mockImplementation(() => {});
     
     await ErrorRegistry.log('Display false', { display: false });
     expect(spy).not.toHaveBeenCalled();
@@ -81,11 +81,12 @@ describe('ErrorRegistry', () => {
   });
 
   test('should support raw output when requested', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const spy = jest.spyOn(process.stderr, 'write').mockImplementation(() => {});
     const rawMessage = 'Raw error message';
     
     await ErrorRegistry.log(rawMessage, { raw: true });
-    expect(spy).toHaveBeenCalledWith(rawMessage);
+    // stderr.write expects exactly what was passed + optional newline added by us
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining(rawMessage));
 
     spy.mockRestore();
   });

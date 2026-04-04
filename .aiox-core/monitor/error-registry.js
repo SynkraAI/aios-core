@@ -12,7 +12,7 @@
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
-const lockfile = require('proper-lockfile');
+const LockManager = require('../core/orchestration/lock-manager');
 const AIOXError = require('../utils/aiox-error');
 
 /**
@@ -34,6 +34,7 @@ class ErrorRegistry {
   constructor() {
     this.logDir = path.join(process.cwd(), '.aiox', 'logs');
     this.logFile = path.join(this.logDir, 'errors.json');
+    this.lockManager = new LockManager(process.cwd(), { owner: 'error-registry' });
 
     /**
      * Stores the initialization promise to prevent duplicate async init calls.
@@ -102,7 +103,13 @@ class ErrorRegistry {
    * @returns {Promise<AIOXError>} The normalized AIOXError that was logged.
    */
   async log(error, options = {}) {
-    await this.init();
+    // Fast-path: avoid re-awaiting init if already fully initialized
+    if (!this._initPromise) {
+      await this.init();
+    } else {
+      // Still need to ensure it finished if it's in progress
+      await this._initPromise;
+    }
 
     // Normalize error to AIOXError
     const aioxError = this._normalizeError(error, options);
@@ -174,11 +181,11 @@ class ErrorRegistry {
     if (!shouldDisplay) return;
 
     if (options.raw) {
-      console.error(aioxError.message);
+      process.stderr.write(`${aioxError.message}\n`);
     } else {
       const icon = aioxError.category === 'SYSTEM' ? '🔴' : '🟡';
       const agentSuffix = aioxError.agentId ? ` (${aioxError.agentId})` : '';
-      console.error(`${icon} [${aioxError.category}] ${aioxError.message}${agentSuffix}`);
+      process.stderr.write(`${icon} [${aioxError.category}] ${aioxError.message}${agentSuffix}\n`);
     }
   }
 
@@ -236,14 +243,12 @@ class ErrorRegistry {
       return;
     }
 
-    let release;
-
     try {
-      // 1. Acquire lock
-      release = await lockfile.lock(this.logFile, {
-        stale: 10000,
-        retries: { retries: 5, minTimeout: 50, maxTimeout: 1000 },
-      });
+      // 1. Acquire lock (Formal LockManager from Story 12.3)
+      const lockAcquired = await this.lockManager.acquireLock('errors-json', { ttlSeconds: 60 });
+      if (!lockAcquired) {
+        throw new Error('Could not acquire lock on error registry after multiple retries');
+      }
 
       // 2. Read
       const logs = await this._readLogFile();
@@ -272,9 +277,7 @@ class ErrorRegistry {
       }
     } finally {
       // 7. Release lock
-      if (release) {
-        try { await release(); } catch (e) { /* ignore */ }
-      }
+      await this.lockManager.releaseLock('errors-json');
       
       // 8. Ready for next
       this._isDraining = false;
@@ -299,6 +302,7 @@ class ErrorRegistry {
   async _readLogFile() {
     let data;
     try {
+      if (!fs.existsSync(this.logFile)) return [];
       data = await fsp.readFile(this.logFile, 'utf8');
       return JSON.parse(data);
     } catch (err) {
@@ -307,8 +311,13 @@ class ErrorRegistry {
       // SELF-HEALING: If corruption detected, backup and start fresh
       const backupFile = `${this.logFile}.${Date.now()}.corrupt.bak`;
       try {
-        if (data) await fsp.writeFile(backupFile, data, 'utf8');
-        console.error(`[ErrorRegistry] Log corruption detected! Recovery: Backup created at ${backupFile}`);
+        if (data) {
+          await fsp.writeFile(backupFile, data, 'utf8');
+        } else {
+          // If reading failed, try a sync copy of whatever is left
+          fs.copyFileSync(this.logFile, backupFile);
+        }
+        process.stderr.write(`[ErrorRegistry] Log corruption detected! Recovery: Backup created at ${backupFile}\n`);
       } catch (backupErr) { /* ignore backup failure */ }
       
       return [];
