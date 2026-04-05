@@ -3,12 +3,33 @@
 /**
  * AIOX-FullStack CLI
  * Main entry point - Standalone (no external dependencies for npx compatibility)
- * Version: 4.0.0
+ * Version: 5.0.3
  */
 
 const path = require('path');
 const fs = require('fs');
 const { execSync } = require('child_process');
+
+/**
+ * Safe error logger for installer/bootstrap phase.
+ * Lazy-loads ErrorRegistry to maintain standalone compatibility.
+ */
+async function logInstallerError(error, context = {}) {
+  try {
+    const registryPath = path.join(__dirname, '..', '.aiox-core', 'monitor', 'error-registry.js');
+    if (fs.existsSync(registryPath)) {
+      const ErrorRegistry = require(registryPath);
+      await ErrorRegistry.log(error, {
+        category: 'SYSTEM',
+        display: false,
+        raw: true,
+        metadata: { ...context, phase: 'bootstrap' },
+      });
+    }
+  } catch {
+    // Ignore logging failures during bootstrap to avoid inception errors
+  }
+}
 
 // Read package.json for version
 const packageJsonPath = path.join(__dirname, '..', 'package.json');
@@ -47,6 +68,7 @@ async function runWizard(options = {}) {
     const { runWizard: executeWizard } = require(wizardPath);
     await executeWizard(options);
   } catch (error) {
+    await logInstallerError(error, { command: 'wizard', options });
     console.error('❌ Wizard error:', error.message);
     process.exit(1);
   }
@@ -343,6 +365,7 @@ async function runUpdate() {
       }
     }
   } catch (error) {
+    await logInstallerError(error, { command: 'update' });
     console.error(`❌ Update error: ${error.message}`);
     if (args.includes('--verbose') || args.includes('-v')) {
       console.error(error.stack);
@@ -807,6 +830,7 @@ async function main() {
         const { run } = require('../.aiox-core/cli/index.js');
         await run(process.argv);
       } catch (error) {
+        await logInstallerError(error, { command: 'workers' });
         console.error(`❌ Workers command error: ${error.message}`);
         process.exit(1);
       }
@@ -818,6 +842,7 @@ async function main() {
         const { run } = require('../.aiox-core/cli/index.js');
         await run(process.argv);
       } catch (error) {
+        await logInstallerError(error, { command: 'config' });
         console.error(`❌ Config command error: ${error.message}`);
         process.exit(1);
       }
@@ -829,6 +854,7 @@ async function main() {
         const { run } = require('../.aiox-core/cli/index.js');
         await run(process.argv);
       } catch (error) {
+        await logInstallerError(error, { command: 'pro' });
         console.error(`❌ Pro command error: ${error.message}`);
         process.exit(1);
       }
@@ -934,7 +960,8 @@ async function main() {
 }
 
 // Execute main function
-main().catch((error) => {
+main().catch(async (error) => {
+  await logInstallerError(error, { fatal: true });
   console.error('❌ Fatal error:', error.message);
   process.exit(1);
 });

@@ -16,13 +16,14 @@
  * - AC7: Integrates with TechStackDetector for pre-flight detection
  *
  * @module core/orchestration/master-orchestrator
- * @version 1.0.0
- * @author @dev (Dex)
+ * @version 1.1.0
  */
 
 const fs = require('fs-extra');
 const path = require('path');
 const { EventEmitter } = require('events');
+const AIOXError = require('aiox-core/utils/aiox-error');
+const ErrorRegistry = require('aiox-core/monitor/error-registry');
 
 // Core dependencies
 const TechStackDetector = require('./tech-stack-detector');
@@ -413,7 +414,10 @@ class MasterOrchestrator extends EventEmitter {
 
     // Validate ready state
     if (this._state !== OrchestratorState.READY && this._state !== OrchestratorState.IN_PROGRESS) {
-      throw new Error(`Cannot execute pipeline in state: ${this._state}`);
+      throw new AIOXError(`Cannot execute pipeline in state: ${this._state}`, {
+        category: 'OPERATIONAL',
+        metadata: { state: this._state, storyId: this.storyId },
+      });
     }
 
     // Transition to in progress
@@ -550,7 +554,10 @@ class MasterOrchestrator extends EventEmitter {
   async executeEpic(epicNum, options = {}) {
     const epicConfig = EPIC_CONFIG[epicNum];
     if (!epicConfig) {
-      throw new Error(`Unknown epic number: ${epicNum}`);
+      throw new AIOXError(`Unknown epic number: ${epicNum}`, {
+        category: 'SYSTEM',
+        metadata: { epicNum, available: Object.keys(EPIC_CONFIG) },
+      });
     }
 
     this._log(`Starting Epic ${epicNum}: ${epicConfig.name}`, { icon: epicConfig.icon });
@@ -1471,6 +1478,16 @@ class MasterOrchestrator extends EventEmitter {
       `${chalk.dim(`[${timestamp}]`)} ${chalk.cyan('[MasterOrchestrator]')} ${icon} ${coloredMessage}`,
     );
 
+    // Persist to ErrorRegistry if it's a warning or error (Principle VII)
+    if (level === 'error' || level === 'warn') {
+      ErrorRegistry.log(`[MasterOrchestrator] ${message}`, {
+        category: level === 'error' ? 'SYSTEM' : 'OPERATIONAL',
+        display: false, // Don't double log to console
+        raw: true,
+        metadata: { ...options, timestamp },
+      }).catch(() => {});
+    }
+
     // Emit log event for external listeners
     this.emit('log', { timestamp, level, message, ...options });
   }
@@ -1540,3 +1557,4 @@ module.exports = MasterOrchestrator;
 module.exports.OrchestratorState = OrchestratorState;
 module.exports.EpicStatus = EpicStatus;
 module.exports.EPIC_CONFIG = EPIC_CONFIG;
+;
