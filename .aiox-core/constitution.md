@@ -105,23 +105,42 @@ Qualidade não é negociável. Todo código passa por múltiplos gates antes de 
 
 ### VI. Absolute Imports (SHOULD)
 
-Imports relativos criam acoplamento e dificultam refatoração.
+Relative imports create coupling and make refactoring difficult.
 
-**Regras:**
-- SHOULD: Sempre usar imports absolutos com alias `@/`
-- SHOULD NOT: Usar imports relativos (`../../../`)
-- EXCEPTION: Imports dentro do mesmo módulo/feature podem ser relativos
+**Rules:**
+- SHOULD: Always use absolute imports with the `@/` alias.
+- SHOULD NOT: Use relative imports (`../../../`).
+- EXCEPTION: Imports within the same module/feature may be relative.
 
-**Exemplo:**
+**Example:**
 ```typescript
-// CORRETO
+// CORRECT
 import { useStore } from '@/stores/feature/store'
 
-// INCORRETO
+// INCORRECT
 import { useStore } from '../../../stores/feature/store'
 ```
 
-**Gate:** ESLint rule (já implementado)
+**Gate:** ESLint rule (already implemented)
+
+---
+
+### VII. Error Governance (MUST)
+
+All errors must be traceable, persistent, and categorized to ensure framework observability.
+
+**Rules:**
+- MUST: All errors must be registered and persisted via `ErrorRegistry`.
+- MUST NOT: Empty `catch` blocks are strictly prohibited; errors must be at least logged.
+- MUST: Categorize errors as `OPERATIONAL` (validation/user-info) or `SYSTEM` (framework bugs/agent failures).
+- MUST: Include contextual metadata (Agent ID, Action, and Timestamp) in every log.
+
+**Hierarchy:**
+```
+System Errors (Critical/Red) → Operational Errors (Audit/Yellow) → Info (Blue)
+```
+
+**Gate:** `scripts/quality/pr-review-ai.js` - BLOCK if raw `console.error` or empty `catch` detected.
 
 ---
 

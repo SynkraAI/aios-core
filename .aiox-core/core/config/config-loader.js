@@ -78,6 +78,9 @@ const performanceMetrics = {
 
 /**
  * Checks if cache is still valid
+ *
+ * @returns {boolean} True if cache is valid
+ * @private
  */
 function isCacheValid() {
   if (!configCache.lastLoad) return false;
@@ -90,6 +93,9 @@ function isCacheValid() {
 
 /**
  * Loads full config file (used for initial load or cache refresh)
+ *
+ * @returns {Promise<Object>} The full configuration object
+ * @private
  */
 async function loadFullConfig() {
   const configPath = path.join('.aiox-core', 'core-config.yaml');
@@ -123,6 +129,7 @@ async function loadFullConfig() {
  *
  * @param {string[]} sections - Array of section names to load
  * @returns {Promise<Object>} Config object with requested sections
+ * @public
  */
 async function loadConfigSections(sections) {
   const startTime = Date.now();
@@ -164,14 +171,13 @@ async function loadConfigSections(sections) {
  *
  * @param {string} agentId - Agent ID (e.g., 'dev', 'qa', 'po')
  * @returns {Promise<Object>} Config object with sections needed by agent
+ * @public
  */
 async function loadAgentConfig(agentId) {
   const startTime = Date.now();
 
   // Get required sections for this agent
   const requiredSections = agentRequirements[agentId] || ALWAYS_LOADED;
-
-  console.log(`📦 Loading config for @${agentId} (${requiredSections.length} sections)...`);
 
   const config = await loadConfigSections(requiredSections);
 
@@ -189,6 +195,7 @@ async function loadAgentConfig(agentId) {
  * Loads always-loaded sections (minimal config)
  *
  * @returns {Promise<Object>} Minimal config with always-loaded sections
+ * @public
  */
 async function loadMinimalConfig() {
   return await loadConfigSections(ALWAYS_LOADED);
@@ -196,6 +203,9 @@ async function loadMinimalConfig() {
 
 /**
  * Preloads config into cache (useful for startup optimization)
+ *
+ * @returns {Promise<void>}
+ * @public
  */
 async function preloadConfig() {
   console.log('🔄 Preloading config into cache...');
@@ -205,6 +215,9 @@ async function preloadConfig() {
 
 /**
  * Clears config cache (useful for testing or forcing reload)
+ *
+ * @returns {void}
+ * @public
  */
 function clearCache() {
   configCache.full = null;
@@ -217,6 +230,7 @@ function clearCache() {
  * Gets performance metrics
  *
  * @returns {Object} Performance statistics
+ * @public
  */
 function getPerformanceMetrics() {
   return {
@@ -233,6 +247,7 @@ function getPerformanceMetrics() {
  *
  * @param {string} agentId - Agent ID to validate
  * @returns {Promise<Object>} Validation result
+ * @public
  */
 async function validateAgentConfig(agentId) {
   const requiredSections = agentRequirements[agentId] || ALWAYS_LOADED;
@@ -257,6 +272,7 @@ async function validateAgentConfig(agentId) {
  *
  * @param {string} sectionName - Section to load
  * @returns {Promise<any>} Section content
+ * @public
  */
 async function getConfigSection(sectionName) {
   const config = await loadConfigSections([sectionName]);
@@ -268,6 +284,23 @@ module.exports = {
   loadAgentConfig,
   loadConfigSections,
   loadMinimalConfig,
+  loadFullConfig,
+  preloadConfig,
+  clearCache,
+  getPerformanceMetrics,
+  validateAgentConfig,
+  getConfigSection,
+  agentRequirements,
+  ALWAYS_LOADED,
+};
+ents,
+  ALWAYS_LOADED,
+};
+ getConfigSection,
+  agentRequirements,
+  ALWAYS_LOADED,
+};
+onfig,
   loadFullConfig,
   preloadConfig,
   clearCache,

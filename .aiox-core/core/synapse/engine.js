@@ -12,6 +12,8 @@
 
 const fs = require('fs');
 const path = require('path');
+const AIOXError = require('aiox-core/utils/aiox-error');
+const ErrorRegistry = require('aiox-core/monitor/error-registry');
 
 const {
   estimateContextPercent,
@@ -25,6 +27,8 @@ const { buildLayerContext } = require('./context/context-builder');
 
 const { formatSynapseRules } = require('./output/formatter');
 const { MemoryBridge } = require('./memory/memory-bridge');
+const PipelineMetrics = require('../utils/pipeline-metrics');
+const { normalizeSession } = require('../utils/session-normalizer');
 
 // ---------------------------------------------------------------------------
 // Layer Imports (graceful — layers from SYN-4/SYN-5 may not exist yet)
@@ -60,114 +64,6 @@ function loadLayerModule(modulePath) {
     return null;
   }
 }
-
-// ---------------------------------------------------------------------------
-// PipelineMetrics
-// ---------------------------------------------------------------------------
-
-/**
- * Collects timing and statistics for each layer in the pipeline.
- *
- * Used by DEVMODE output and returned in the process() result.
- */
-class PipelineMetrics {
-  constructor() {
-    /** @type {Object.<string, object>} Per-layer metrics keyed by name */
-    this.layers = {};
-    /** @type {bigint|null} Pipeline start hrtime (nanoseconds) */
-    this.totalStart = null;
-    /** @type {bigint|null} Pipeline end hrtime (nanoseconds) */
-    this.totalEnd = null;
-  }
-
-  /**
-   * Mark the start of a layer's execution.
-   *
-   * @param {string} name - Layer name
-   */
-  startLayer(name) {
-    this.layers[name] = { start: process.hrtime.bigint(), status: 'running' };
-  }
-
-  /**
-   * Mark the successful end of a layer's execution.
-   *
-   * @param {string} name - Layer name
-   * @param {number} rulesCount - Number of rules produced
-   */
-  endLayer(name, rulesCount) {
-    const layer = this.layers[name];
-    if (!layer) {
-      this.layers[name] = { status: 'ok', rules: rulesCount };
-      return;
-    }
-    const endTime = process.hrtime.bigint();
-    layer.end = endTime;
-    layer.duration = Number(endTime - layer.start) / 1e6;
-    layer.status = 'ok';
-    layer.rules = rulesCount;
-  }
-
-  /**
-   * Record that a layer was skipped.
-   *
-   * @param {string} name - Layer name
-   * @param {string} reason - Why it was skipped
-   */
-  skipLayer(name, reason) {
-    this.layers[name] = { status: 'skipped', reason };
-  }
-
-  /**
-   * Record that a layer encountered an error.
-   *
-   * @param {string} name - Layer name
-   * @param {Error} error - The error object
-   */
-  errorLayer(name, error) {
-    const existing = this.layers[name] || {};
-    if (existing.start) {
-      const endTime = process.hrtime.bigint();
-      existing.end = endTime;
-      existing.duration = Number(endTime - existing.start) / 1e6;
-    }
-    this.layers[name] = {
-      ...existing,
-      status: 'error',
-      error: error && error.message ? error.message : String(error),
-    };
-  }
-
-  /**
-   * Return a summary of the full pipeline execution.
-   *
-   * @returns {{
-   *   total_ms: number,
-   *   layers_loaded: number,
-   *   layers_skipped: number,
-   *   layers_errored: number,
-   *   total_rules: number,
-   *   per_layer: Object
-   * }}
-   */
-  getSummary() {
-    const values = Object.values(this.layers);
-    return {
-      total_ms: this.totalStart != null && this.totalEnd != null
-        ? Number(this.totalEnd - this.totalStart) / 1e6
-        : 0,
-      layers_loaded: values.filter(l => l.status === 'ok').length,
-      layers_skipped: values.filter(l => l.status === 'skipped').length,
-      layers_errored: values.filter(l => l.status === 'error').length,
-      total_rules: values.reduce((sum, l) => sum + (l.rules || 0), 0),
-      per_layer: this.layers,
-    };
-  }
-}
-
-// ---------------------------------------------------------------------------
-// SynapseEngine
-// ---------------------------------------------------------------------------
 
 /** Hard pipeline timeout in milliseconds. */
 const PIPELINE_TIMEOUT_MS = 100;
@@ -210,7 +106,11 @@ class SynapseEngine {
         try {
           this.layers.push(new LayerClass());
         } catch (err) {
-          console.warn(`[synapse:engine] Failed to instantiate layer ${mod.name}: ${err.message}`);
+          ErrorRegistry.log(`[synapse:engine] Failed to instantiate layer ${mod.name}: ${err.message}`, {
+            category: 'SYSTEM',
+            display: false,
+            metadata: { layerName: mod.name, stack: err.stack },
+          }).catch(() => {});
         }
       }
     }
@@ -237,8 +137,11 @@ class SynapseEngine {
     const metrics = new PipelineMetrics();
     metrics.totalStart = process.hrtime.bigint();
 
+    // 0. Normalize session (Gold Standard: consistent internal model)
+    const normalizedSession = normalizeSession(session);
+
     // 1. Calculate bracket (or use fixed layers in non-legacy mode)
-    const promptCount = (session && session.prompt_count) || 0;
+    const promptCount = normalizedSession.prompt_count;
     let contextPercent, bracket, activeLayers, tokenBudget;
 
     if (LEGACY_MODE) {
@@ -265,56 +168,20 @@ class SynapseEngine {
     }
 
     // 2. Execute layers sequentially
-    const results = [];
-    const previousLayers = [];
-
-    for (const layer of this.layers) {
-      // Check bracket filter
-      if (!activeLayers.includes(layer.layer)) {
-        metrics.skipLayer(layer.name, `Not active in ${bracket}`);
-        continue;
-      }
-
-      // Check hard pipeline timeout (convert hrtime to ms for comparison)
-      if (Number(process.hrtime.bigint() - metrics.totalStart) / 1e6 > PIPELINE_TIMEOUT_MS) {
-        // Log remaining layers as skipped
-        const remaining = this.layers.slice(this.layers.indexOf(layer));
-        for (const r of remaining) {
-          if (activeLayers.includes(r.layer) && !metrics.layers[r.name]) {
-            metrics.skipLayer(r.name, 'Pipeline timeout');
-          }
-        }
-        break;
-      }
-
-      // Execute layer via safe wrapper
-      metrics.startLayer(layer.name);
-      const context = buildLayerContext({
-        prompt,
-        session: session || {},
-        config: mergedConfig,
-        synapsePath: this.synapsePath,
-        manifest: mergedConfig.manifest || {},
-        previousLayers,
-      });
-
-      const result = layer._safeProcess(context);
-
-      if (result && Array.isArray(result.rules)) {
-        metrics.endLayer(layer.name, result.rules.length);
-        results.push(result);
-        previousLayers.push(result);
-      } else if (result === null || result === undefined) {
-        metrics.skipLayer(layer.name, 'Returned null');
-      } else {
-        metrics.skipLayer(layer.name, 'Invalid result format');
-      }
-    }
+    const { results, previousLayers } = await this._executeLayers(
+      prompt,
+      normalizedSession,
+      mergedConfig,
+      activeLayers,
+      bracket,
+      metrics,
+    );
 
     // 3. Memory bridge (SYN-10) — feature-gated MIS consumer
     if (needsMemoryHints(bracket)) {
+      const tokenBudget = getTokenBudget(bracket);
       const hints = await this.memoryBridge.getMemoryHints(
-        (session && session.activeAgent) || (session && session.active_agent) || '',
+        normalizedSession.activeAgent || '',
         bracket,
         tokenBudget,
       );
@@ -336,10 +203,10 @@ class SynapseEngine {
       results,
       bracket,
       contextPercent,
-      session || {},
+      normalizedSession,
       mergedConfig.devmode === true,
       summary,
-      tokenBudget,
+      getTokenBudget(bracket),
       needsHandoffWarning(bracket),
     );
 
@@ -347,11 +214,76 @@ class SynapseEngine {
   }
 
   /**
+   * Internal layer execution loop.
+   * Executes active layers sequentially, respecting pipeline timeout.
+   *
+   * @param {string} prompt - The user prompt text.
+   * @param {Object} session - Session state.
+   * @param {Object} config - Merged configuration.
+   * @param {number[]} activeLayers - Array of layer indices to execute.
+   * @param {string} bracket - Context bracket name.
+   * @param {PipelineMetrics} metrics - Metrics collector instance.
+   * @returns {Promise<{ results: Object[], previousLayers: Object[] }>}
+   * @private
+   */
+  async _executeLayers(prompt, session, config, activeLayers, bracket, metrics) {
+    const results = [];
+    const previousLayers = [];
+
+    for (const layer of this.layers) {
+      // Check bracket filter
+      if (!activeLayers.includes(layer.layer)) {
+        metrics.skipLayer(layer.name, `Not active in ${bracket}`);
+        continue;
+      }
+
+      // Check hard pipeline timeout
+      if (Number(process.hrtime.bigint() - metrics.totalStart) / 1e6 > PIPELINE_TIMEOUT_MS) {
+        const remaining = this.layers.slice(this.layers.indexOf(layer));
+        for (const r of remaining) {
+          if (activeLayers.includes(r.layer) && !metrics.layers[r.name]) {
+            metrics.skipLayer(r.name, 'Pipeline timeout');
+          }
+        }
+        break;
+      }
+
+      // Execute layer via safe wrapper
+      metrics.startLayer(layer.name);
+      const context = buildLayerContext({
+        prompt,
+        session: session || {},
+        config,
+        synapsePath: this.synapsePath,
+        manifest: config.manifest || {},
+        previousLayers,
+      });
+
+      const result = layer._safeProcess(context);
+
+      if (result && Array.isArray(result.rules)) {
+        metrics.endLayer(layer.name, result.rules.length);
+        results.push(result);
+        previousLayers.push(result);
+      } else if (result === null || result === undefined) {
+        metrics.skipLayer(layer.name, 'Returned null');
+      } else {
+        metrics.skipLayer(layer.name, 'Invalid result format');
+      }
+    }
+
+    return { results, previousLayers };
+  }
+
+  /**
    * Persist hook metrics to .synapse/metrics/hook-metrics.json (fire-and-forget).
    * SYN-14: Includes hookBootMs from _hookBootTime passed via processConfig.
-   * @param {object} summary - Pipeline metrics summary
-   * @param {string} bracket - Context bracket
-   * @param {object} [config] - Merged config (may contain _hookBootTime bigint)
+   *
+   * @param {Object} summary - Pipeline metrics summary.
+   * @param {string} bracket - Context bracket name.
+   * @param {Object} [config] - Merged config (may contain _hookBootTime bigint).
+   * @returns {void}
+   * @private
    */
   _persistHookMetrics(summary, bracket, config) {
     try {
@@ -387,8 +319,14 @@ class SynapseEngine {
         path.join(metricsDir, 'hook-metrics.json'),
         JSON.stringify(data, null, 2), 'utf8',
       );
-    } catch {
-      // Fire-and-forget: never block the hook pipeline
+    } catch (err) {
+      // Fire-and-forget: never block the hook pipeline, but log the failure
+      const ErrorRegistry = require('../../monitor/error-registry');
+      ErrorRegistry.log(`[SynapseEngine] Failed to persist hook metrics: ${err.message}`, {
+        category: 'SYSTEM',
+        display: false,
+        raw: true,
+      }).catch((e) => console.error(`Failed to log metric error to ErrorRegistry: ${e.message}`));
     }
   }
 }

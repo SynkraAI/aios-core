@@ -22,6 +22,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const yaml = require('js-yaml');
+const ErrorRegistry = require('../../monitor/error-registry');
 
 /**
  * Config cache with TTL
@@ -110,7 +111,10 @@ async function loadFullConfig() {
 
     return config;
   } catch (error) {
-    console.error('Failed to load core-config.yaml:', error.message);
+    ErrorRegistry.log(`Failed to load core-config.yaml: ${error.message}`, {
+      category: 'SYSTEM',
+      metadata: { stack: error.stack },
+    }).catch(() => {});
     throw new Error(`Config load failed: ${error.message}`);
   }
 }
@@ -342,7 +346,7 @@ Usage:
           `);
       }
     } catch (error) {
-      console.error('Error:', error.message);
+      await ErrorRegistry.log(`Error: ${error.message}`, { category: 'SYSTEM', display: true, raw: true, metadata: { stack: error.stack } });
       process.exit(1);
     }
   })();

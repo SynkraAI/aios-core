@@ -8,9 +8,12 @@
 'use strict';
 
 const fs = require('fs');
+const fsp = require('fs/promises');
 const path = require('path');
 const crypto = require('crypto');
 const yaml = require('js-yaml');
+const ErrorRegistry = require('../../monitor/error-registry');
+const AIOXError = require('../../utils/aiox-error');
 
 /**
  * Default storage path for learned patterns
@@ -65,10 +68,10 @@ class PatternStore {
   /**
    * Save a pattern to storage
    * @param {Object} pattern - Pattern to save
-   * @returns {Object} Save result
+   * @returns {Promise<Object>} Save result
    */
-  save(pattern) {
-    const data = this._load();
+  async save(pattern) {
+    const data = await this._load();
 
     // Ensure pattern has required fields
     const normalizedPattern = this._normalizePattern(pattern);
@@ -92,7 +95,7 @@ class PatternStore {
 
       data.patterns[existingIndex] = existing;
 
-      this._save(data);
+      await this._save(data);
       return { action: 'updated', pattern: existing };
     }
 
@@ -104,25 +107,25 @@ class PatternStore {
       this._autoPrune(data);
     }
 
-    this._save(data);
+    await this._save(data);
     return { action: 'created', pattern: normalizedPattern };
   }
 
   /**
    * Load all patterns from storage
-   * @returns {Object} Loaded data with patterns array
+   * @returns {Promise<Object>} Loaded data with patterns array
    */
-  load() {
-    return this._load();
+  async load() {
+    return await this._load();
   }
 
   /**
    * Find patterns similar to a given sequence
    * @param {string[]} sequence - Sequence to match
-   * @returns {Object[]} Matching patterns sorted by relevance
+   * @returns {Promise<Object[]>} Matching patterns sorted by relevance
    */
-  findSimilar(sequence) {
-    const data = this._load();
+  async findSimilar(sequence) {
+    const data = await this._load();
 
     if (!sequence || sequence.length === 0) {
       return [];
@@ -153,10 +156,10 @@ class PatternStore {
 
   /**
    * Get storage statistics
-   * @returns {Object} Statistics object
+   * @returns {Promise<Object>} Statistics object
    */
-  getStats() {
-    const data = this._load();
+  async getStats() {
+    const data = await this._load();
     const patterns = data.patterns;
 
     const statusCounts = {
@@ -194,10 +197,10 @@ class PatternStore {
    * @param {Object} options - Prune options
    * @param {number} options.keepCount - Number of patterns to keep
    * @param {string} options.strategy - Prune strategy override
-   * @returns {Object} Prune result
+   * @returns {Promise<Object>} Prune result
    */
-  prune(options = {}) {
-    const data = this._load();
+  async prune(options = {}) {
+    const data = await this._load();
     const originalCount = data.patterns.length;
 
     const keepCount = options.keepCount || Math.floor(this.maxPatterns * 0.7);
@@ -238,7 +241,7 @@ class PatternStore {
     // Keep top patterns
     data.patterns = sorted.slice(0, keepCount);
 
-    this._save(data);
+    await this._save(data);
 
     return {
       pruned: originalCount - data.patterns.length,
@@ -250,25 +253,33 @@ class PatternStore {
    * Update pattern status
    * @param {string} patternId - Pattern ID
    * @param {string} newStatus - New status value
-   * @returns {Object} Update result
+   * @returns {Promise<Object>} Update result
    */
-  updateStatus(patternId, newStatus) {
-    const data = this._load();
+  async updateStatus(patternId, newStatus) {
+    const data = await this._load();
     const pattern = data.patterns.find((p) => p.id === patternId);
 
     if (!pattern) {
-      return { success: false, error: 'Pattern not found' };
+      throw new AIOXError('Pattern not found', {
+        category: 'OPERATIONAL',
+        action: 'updateStatus',
+        metadata: { patternId },
+      });
     }
 
     const validStatuses = Object.values(PATTERN_STATUS);
     if (!validStatuses.includes(newStatus)) {
-      return { success: false, error: `Invalid status: ${newStatus}` };
+      throw new AIOXError(`Invalid status: ${newStatus}`, {
+        category: 'OPERATIONAL',
+        action: 'updateStatus',
+        metadata: { newStatus, validStatuses },
+      });
     }
 
     pattern.status = newStatus;
     pattern.lastUpdated = new Date().toISOString();
 
-    this._save(data);
+    await this._save(data);
 
     return { success: true, pattern: pattern };
   }
@@ -276,19 +287,19 @@ class PatternStore {
   /**
    * Get patterns by status
    * @param {string} status - Status to filter by
-   * @returns {Object[]} Patterns with given status
+   * @returns {Promise<Object[]>} Patterns with given status
    */
-  getByStatus(status) {
-    const data = this._load();
+  async getByStatus(status) {
+    const data = await this._load();
     return data.patterns.filter((p) => p.status === status);
   }
 
   /**
    * Get active and promoted patterns (for SuggestionEngine)
-   * @returns {Object[]} Active patterns
+   * @returns {Promise<Object[]>} Active patterns
    */
-  getActivePatterns() {
-    const data = this._load();
+  async getActivePatterns() {
+    const data = await this._load();
     return data.patterns.filter(
       (p) => p.status === PATTERN_STATUS.ACTIVE || p.status === PATTERN_STATUS.PROMOTED,
     );
@@ -297,28 +308,32 @@ class PatternStore {
   /**
    * Delete a pattern by ID
    * @param {string} patternId - Pattern ID
-   * @returns {Object} Delete result
+   * @returns {Promise<Object>} Delete result
    */
-  delete(patternId) {
-    const data = this._load();
+  async delete(patternId) {
+    const data = await this._load();
     const index = data.patterns.findIndex((p) => p.id === patternId);
 
     if (index < 0) {
-      return { success: false, error: 'Pattern not found' };
+      throw new AIOXError('Pattern not found', {
+        category: 'OPERATIONAL',
+        action: 'delete',
+        metadata: { patternId },
+      });
     }
 
     data.patterns.splice(index, 1);
-    this._save(data);
+    await this._save(data);
 
     return { success: true };
   }
 
   /**
    * Load data from storage file
-   * @returns {Object} Loaded data
+   * @returns {Promise<Object>} Loaded data
    * @private
    */
-  _load() {
+  async _load() {
     // Use cache if valid (within 5 seconds)
     if (this._cache && this._cacheTime && Date.now() - this._cacheTime < 5000) {
       return this._cache;
@@ -326,7 +341,7 @@ class PatternStore {
 
     try {
       if (fs.existsSync(this.storagePath)) {
-        const content = fs.readFileSync(this.storagePath, 'utf8');
+        const content = await fsp.readFile(this.storagePath, 'utf8');
         const data = yaml.load(content) || {};
         data.patterns = data.patterns || [];
         this._cache = data;
@@ -334,7 +349,11 @@ class PatternStore {
         return data;
       }
     } catch (error) {
-      console.warn('[PatternStore] Failed to load:', error.message);
+      await ErrorRegistry.log(`[PatternStore] Failed to load: ${error.message}`, {
+        category: 'OPERATIONAL',
+        display: true,
+        raw: true,
+      });
     }
 
     // Return empty structure
@@ -349,7 +368,7 @@ class PatternStore {
    * @param {Object} data - Data to save
    * @private
    */
-  _save(data) {
+  async _save(data) {
     try {
       data.lastUpdated = new Date().toISOString();
 
@@ -359,17 +378,21 @@ class PatternStore {
       // Ensure directory exists
       const dir = path.dirname(this.storagePath);
       if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
+        await fsp.mkdir(dir, { recursive: true });
       }
 
       const content = yaml.dump(data, { indent: 2, lineWidth: 120 });
-      fs.writeFileSync(this.storagePath, content, 'utf8');
+      await fsp.writeFile(this.storagePath, content, 'utf8');
 
       // Invalidate cache
       this._cache = data;
       this._cacheTime = Date.now();
     } catch (error) {
-      console.error('[PatternStore] Failed to save:', error.message);
+      await ErrorRegistry.log(`[PatternStore] Failed to save: ${error.message}`, {
+        category: 'SYSTEM',
+        display: true,
+        raw: true,
+      });
       throw error;
     }
   }

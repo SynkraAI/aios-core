@@ -68,13 +68,13 @@ describe('Publish Safety Gate (Story INS-4.10)', () => {
       expect(scriptSource.startsWith('#!/usr/bin/env node')).toBe(true);
     });
 
-    test('script uses only Node.js builtins (fs, path, child_process)', () => {
-      // Should not require any external packages
+    test('script uses only Node.js builtins or local framework registry', () => {
+      // Should not require any external npm packages
       const requires = scriptSource.match(/require\(['"]([^'"]+)['"]\)/g) || [];
       const modules = requires.map(r => r.match(/require\(['"]([^'"]+)['"]\)/)[1]);
-      const builtins = ['fs', 'path', 'child_process'];
+      const allowed = ['fs', 'path', 'child_process', '../../.aiox-core/monitor/error-registry'];
       modules.forEach(mod => {
-        expect(builtins).toContain(mod);
+        expect(allowed).toContain(mod);
       });
     });
 
