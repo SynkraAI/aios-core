@@ -12,8 +12,8 @@
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
-const LockManager = require('../core/orchestration/lock-manager');
-const AIOXError = require('../utils/aiox-error');
+const LockManager = require('aiox-core/core/orchestration/lock-manager');
+const AIOXError = require('aiox-core/utils/aiox-error');
 
 /**
  * Maximum number of entries to keep in the persistent log file.
@@ -58,6 +58,13 @@ class ErrorRegistry {
      */
     this._drainScheduled = false;
     this._isDraining = false;
+
+    /**
+     * Flag to disable file system persistence if initialization fails.
+     * @type {boolean}
+     * @private
+     */
+    this._persistenceAvailable = true;
   }
 
   // ──────────────────────────────────────────────
@@ -81,9 +88,11 @@ class ErrorRegistry {
         if (!fs.existsSync(this.logFile)) {
           await fsp.writeFile(this.logFile, JSON.stringify([], null, 2), 'utf8');
         }
+        this._persistenceAvailable = true;
       } catch (err) {
         // Inception error: Cannot log the failure of the logger to the logger
-        process.stderr.write(`[ErrorRegistry] CRITICAL: Failed to initialize logs: ${err.message}\n`);
+        process.stderr.write(`[ErrorRegistry] CRITICAL: Failed to initialize logs (Persistence disabled): ${err.message}\n`);
+        this._persistenceAvailable = false;
       }
     })();
 
@@ -155,6 +164,12 @@ class ErrorRegistry {
       // Clone to avoid mutating original instance (Principle VII integrity)
       const clone = Object.create(Object.getPrototypeOf(error));
       Object.assign(clone, error, options);
+
+      // Deep merge metadata if both exist
+      if (error.metadata && options.metadata) {
+        clone.metadata = { ...error.metadata, ...options.metadata };
+      }
+
       // Ensure non-enumerable Error properties are preserved
       clone.message = error.message;
       clone.stack = error.stack;
@@ -248,9 +263,19 @@ class ErrorRegistry {
       return;
     }
 
+    // Fast-fallback: if persistence is known to be unavailable, skip I/O
+    if (!this._persistenceAvailable) {
+      for (const item of batch) {
+        item.resolve(); // Resolving anyway to unblock caller, even if not persisted
+      }
+      this._isDraining = false;
+      return;
+    }
+
+    let lockAcquired = false;
     try {
       // 1. Acquire lock (Formal LockManager from Story 12.3)
-      const lockAcquired = await this.lockManager.acquireLock('errors-json', { ttlSeconds: 60 });
+      lockAcquired = await this.lockManager.acquireLock('errors-json', { ttlSeconds: 60 });
       if (!lockAcquired) {
         throw new Error('Could not acquire lock on error registry after multiple retries');
       }
@@ -281,8 +306,10 @@ class ErrorRegistry {
         item.reject(err);
       }
     } finally {
-      // 7. Release lock
-      await this.lockManager.releaseLock('errors-json');
+      // 7. Release lock ONLY if it was acquired
+      if (lockAcquired) {
+        await this.lockManager.releaseLock('errors-json');
+      }
       
       // 8. Ready for next
       this._isDraining = false;
@@ -342,11 +369,31 @@ class ErrorRegistry {
 
   /**
    * Safely stringifies the log data, handling potential circular references.
+   *
+   * Architecture Note: We reset the circular reference cache for each top-level entry
+   * to avoid marking shared references across different log entries as [Circular].
+   *
    * @private
    * @param {Array<Object>} data 
    * @returns {string}
    */
   _safeStringify(data) {
+    // If it's an array of entries, stringify each with its own cache to preserve fidelity
+    if (Array.isArray(data)) {
+      const parts = data.map(entry => {
+        const cache = new WeakSet();
+        return JSON.stringify(entry, (key, value) => {
+          if (typeof value === 'object' && value !== null) {
+            if (cache.has(value)) return '[Circular]';
+            cache.add(value);
+          }
+          return value;
+        });
+      });
+      return `[\n  ${parts.join(',\n  ')}\n]`;
+    }
+
+    // Fallback for non-array (single object)
     const cache = new WeakSet();
     return JSON.stringify(data, (key, value) => {
       if (typeof value === 'object' && value !== null) {

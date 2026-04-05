@@ -5,27 +5,25 @@
 
 const fs = require('fs');
 const path = require('path');
-const ErrorRegistry = require('../../.aiox-core/monitor/error-registry');
-const AIOXError = require('../../.aiox-core/utils/aiox-error');
+const ErrorRegistry = require('aiox-core/monitor/error-registry');
+const AIOXError = require('aiox-core/utils/aiox-error');
 
 describe('ErrorRegistry', () => {
   const logDir = path.join(process.cwd(), '.aiox', 'logs');
   const logFile = path.join(logDir, 'errors.json');
 
   beforeEach(() => {
-    // Clear logs before each test if they exist
-    if (fs.existsSync(logFile)) {
-      fs.writeFileSync(logFile, JSON.stringify([], null, 2), 'utf8');
+    // Ensure log directory exists before writing mock log file
+    if (!fs.existsSync(logDir)) {
+      fs.mkdirSync(logDir, { recursive: true });
     }
+    // Clear logs before each test
+    fs.writeFileSync(logFile, JSON.stringify([], null, 2), 'utf8');
   });
 
-  afterAll(() => {
-    // Cleanup is optional for local dev, but good practice
-  });
-
-  test('should initialize log directory and file', () => {
-    // Trigger initialization by calling a method
-    ErrorRegistry.getRecentErrors();
+  test('should initialize log directory and file', async () => {
+    // Trigger initialization and wait for it
+    await ErrorRegistry.init();
     
     expect(fs.existsSync(logDir)).toBe(true);
     expect(fs.existsSync(logFile)).toBe(true);
@@ -70,6 +68,7 @@ describe('ErrorRegistry', () => {
     // 1. Verify log result has combined info
     expect(logged.message).toBe('Original message');
     expect(logged.category).toBe('SYSTEM');
+    expect(logged.metadata.original).toBe(true); // Verify original metadata preserved
     expect(logged.metadata.updated).toBe(true);
     expect(logged.stack).toBe(originalStack);
 

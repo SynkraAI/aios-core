@@ -118,6 +118,11 @@ module.exports = {
     },
   },
 
+  // Module aliases (Story TD-3)
+  moduleNameMapper: {
+    '^aiox-core/(.*)$': '<rootDir>/.aiox-core/$1',
+  },
+
   // Coverage ignore patterns from REMOTE
   coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/.husky/', '/dist/'],
 
