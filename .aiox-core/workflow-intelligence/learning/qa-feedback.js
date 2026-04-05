@@ -134,9 +134,9 @@ class QAFeedbackProcessor {
    *
    * @param {Object} qaResult - QA result from qa-review-build
    * @param {Object} context - Context information
-   * @returns {Object} Feedback processing result
+   * @returns {Promise<Object>} Feedback processing result
    */
-  processQAResult(qaResult, context = {}) {
+  async processQAResult(qaResult, context = {}) {
     this.loadFeedback();
 
     const result = {
@@ -185,7 +185,7 @@ class QAFeedbackProcessor {
           patternId,
           reason: `${stats.consecutiveFailures} consecutive failures`,
         });
-        this._deprecatePattern(patternId);
+        await this._deprecatePattern(patternId);
       }
 
       // Create gotcha if critical
@@ -202,7 +202,7 @@ class QAFeedbackProcessor {
     }
 
     // Adjust confidence in pattern store
-    this._adjustPatternConfidence(patternId, outcome);
+    await this._adjustPatternConfidence(patternId, outcome);
 
     this.saveFeedback();
 
@@ -312,13 +312,13 @@ class QAFeedbackProcessor {
    * Adjust pattern confidence in pattern store
    * @private
    */
-  _adjustPatternConfidence(patternId, outcome) {
+  async _adjustPatternConfidence(patternId, outcome) {
     if (!this.patternStore) {
       return;
     }
 
     try {
-      const pattern = this.patternStore.getPattern(patternId);
+      const pattern = await this.patternStore.getPattern(patternId);
       if (!pattern) {
         return;
       }
@@ -338,7 +338,7 @@ class QAFeedbackProcessor {
 
       const newConfidence = Math.max(0, Math.min(1, pattern.confidence + adjustment));
 
-      this.patternStore.updatePattern(patternId, {
+      await this.patternStore.updatePattern(patternId, {
         confidence: newConfidence,
         status: newConfidence < this.config.minConfidenceThreshold ? 'deprecated' : pattern.status,
       });
@@ -355,13 +355,13 @@ class QAFeedbackProcessor {
    * Deprecate pattern
    * @private
    */
-  _deprecatePattern(patternId) {
+  async _deprecatePattern(patternId) {
     if (!this.patternStore) {
       return;
     }
 
     try {
-      this.patternStore.updatePattern(patternId, {
+      await this.patternStore.updatePattern(patternId, {
         status: 'deprecated',
         deprecatedAt: new Date().toISOString(),
         deprecatedReason: 'Consecutive QA failures',

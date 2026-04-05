@@ -220,7 +220,7 @@ class SuggestionEngine {
 
       // Apply learned pattern boost (WIS-5)
       if (this.useLearnedPatterns && learning) {
-        formattedSuggestions = this._applyLearnedPatternBoost(formattedSuggestions, context);
+        formattedSuggestions = await this._applyLearnedPatternBoost(formattedSuggestions, context);
       }
 
       // Re-sort after boost
@@ -529,10 +529,10 @@ class SuggestionEngine {
    * Apply learned pattern boost to suggestions
    * @param {Object[]} suggestions - Base suggestions
    * @param {Object} context - Session context
-   * @returns {Object[]} Boosted suggestions
+   * @returns {Promise<Object[]>} Boosted suggestions
    * @private
    */
-  _applyLearnedPatternBoost(suggestions, context) {
+  async _applyLearnedPatternBoost(suggestions, context) {
     if (!learning) {
       return suggestions;
     }
@@ -549,7 +549,7 @@ class SuggestionEngine {
       }
 
       // Find matching learned patterns
-      const matchingPatterns = learning.findMatchingPatterns(lastCommands);
+      const matchingPatterns = await learning.findMatchingPatterns(lastCommands);
 
       if (!matchingPatterns || matchingPatterns.length === 0) {
         return suggestions;

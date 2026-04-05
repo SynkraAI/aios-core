@@ -248,8 +248,11 @@ describe('SynapseEngine', () => {
 
     test('should handle missing layer modules gracefully', () => {
       // L4-L7 are mocked to fail, engine should only have the 4 available layers
-      expect(() => new SynapseEngine('/fake/.synapse', { manifest: {} })).not.toThrow();
-      expect(engine.layers.length).toBe(4);
+      let testEngine;
+      expect(() => {
+        testEngine = new SynapseEngine('/fake/.synapse', { manifest: {} });
+      }).not.toThrow();
+      expect(testEngine.layers.length).toBe(4);
     });
   });
 

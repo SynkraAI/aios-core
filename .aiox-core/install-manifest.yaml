@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-04-04T23:51:15.969Z"
+generated_at: "2026-04-05T00:09:30.880Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1093
 files:
@@ -1049,9 +1049,9 @@ files:
     type: core
     size: 1013
   - path: core/synapse/context/context-tracker.js
-    hash: sha256:48e94db7b1778dedecc8eae829139579ad7778ff47668597ebe766610696553f
+    hash: sha256:d7c55208b7597eb68612ea289d4ad1d8c2de95fbaa09322789d8b239e94e5266
     type: core
-    size: 5839
+    size: 6129
   - path: core/synapse/diagnostics/collectors/consistency-collector.js
     hash: sha256:65f4255f87c9900400649dc8b9aedaac4851b5939d93e127778bd93cee99db12
     type: core
@@ -1229,7 +1229,7 @@ files:
     type: data
     size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:48e006e60ffef47dec2622c773fd45fb4c7603a9c39dcd35e422693f0b9cd652
+    hash: sha256:8d83e0081f20d630c14fc316ac000910d059a7d07ddf1cfef811ad5e0568e6cb
     type: data
     size: 524143
   - path: data/learned-patterns.yaml
@@ -4333,9 +4333,9 @@ files:
     type: workflow-intelligence
     size: 8436
   - path: workflow-intelligence/engine/suggestion-engine.js
-    hash: sha256:f791e1f78c045ff19731203eb0a5471146bf5c4ceb5f702017161c0b607741a3
+    hash: sha256:3b7900f99227b8768ce7b596f228d3f39e8fa9469b748fd8019d6b26e7af9298
     type: workflow-intelligence
-    size: 24100
+    size: 24127
   - path: workflow-intelligence/engine/wave-analyzer.js
     hash: sha256:0d017b70213584a11cad354d54d442be977b183353e6a5e31cc1de4291d0afb9
     type: workflow-intelligence
@@ -4353,25 +4353,25 @@ files:
     type: workflow-intelligence
     size: 21505
   - path: workflow-intelligence/learning/index.js
-    hash: sha256:fe37c68b0b718cb9fafbb80b32f2cdb31d43a76eef6d2d95c53c327215ead87d
+    hash: sha256:60081748340417f093ced5f452ca2b7d9875513dacf6e421ad564ed0f18f57a7
     type: workflow-intelligence
-    size: 7321
+    size: 7475
   - path: workflow-intelligence/learning/pattern-capture.js
     hash: sha256:50c53dc7f3492b3290c87b18c934cb0bed66100a59b76a32d58f2a7cea6218f7
     type: workflow-intelligence
     size: 9359
   - path: workflow-intelligence/learning/pattern-store.js
-    hash: sha256:46869492ec11a3ca7ee21f3884368804bed87f2a9e944852bc2987307101af49
+    hash: sha256:6d3ca8c061614834673fb5576804ff78b3a2b40a6b0bb9e9de638db36355187c
     type: workflow-intelligence
-    size: 14449
+    size: 14572
   - path: workflow-intelligence/learning/pattern-validator.js
     hash: sha256:9f1e2ad890e1ae2d473e2cbc0b9dfe29b588e2cd542609f25be50917d6c5d70d
     type: workflow-intelligence
     size: 8549
   - path: workflow-intelligence/learning/qa-feedback.js
-    hash: sha256:2e4990a3d73491462147c190a2a850ee39a733154e6e64b09a15e875facf0619
+    hash: sha256:33eda085acc5b7af5c382b039e83e716252e2d45fb217c3a2a6268114dbd668d
     type: workflow-intelligence
-    size: 19216
+    size: 19273
   - path: workflow-intelligence/learning/semantic-search.js
     hash: sha256:f9ba491acf310e479d467f1a5990e4d3656b0c06a6fc50f52d26853325071976
     type: workflow-intelligence

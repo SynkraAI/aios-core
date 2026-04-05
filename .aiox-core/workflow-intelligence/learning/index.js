@@ -156,9 +156,9 @@ function getDefaultSemanticSearch(options = {}) {
 /**
  * Capture and store a pattern in one operation
  * @param {Object} sessionData - Session data
- * @returns {Object} Result with captured and stored status
+ * @returns {Promise<Object>} Result with captured and stored status
  */
-function captureAndStore(sessionData) {
+async function captureAndStore(sessionData) {
   const capture = getDefaultCapture();
   const validator = getDefaultValidator();
   const store = getDefaultStore();
@@ -187,14 +187,15 @@ function captureAndStore(sessionData) {
   }
 
   // Check for duplicates
-  const existingPatterns = store.load().patterns;
+  const storeData = await store.load();
+  const existingPatterns = storeData.patterns;
   const duplicateCheck = validator.isDuplicate(captureResult.pattern, existingPatterns);
 
   if (duplicateCheck.isDuplicate) {
     // Update existing pattern instead
     const existing = existingPatterns.find((p) => p.id === duplicateCheck.duplicateOf);
     if (existing) {
-      store.save(existing); // This will increment occurrences
+      await store.save(existing); // This will increment occurrences
       return {
         success: true,
         action: 'merged',
@@ -204,7 +205,7 @@ function captureAndStore(sessionData) {
   }
 
   // Store
-  const storeResult = store.save(captureResult.pattern);
+  const storeResult = await store.save(captureResult.pattern);
 
   return {
     success: true,
@@ -217,34 +218,35 @@ function captureAndStore(sessionData) {
  * Get learned patterns for suggestions
  * @param {Object} options - Options
  * @param {boolean} options.activeOnly - Only return active/promoted patterns
- * @returns {Object[]} Patterns
+ * @returns {Promise<Object[]>} Patterns
  */
-function getLearnedPatterns(options = {}) {
+async function getLearnedPatterns(options = {}) {
   const store = getDefaultStore();
 
   if (options.activeOnly) {
-    return store.getActivePatterns();
+    return await store.getActivePatterns();
   }
 
-  return store.load().patterns;
+  const data = await store.load();
+  return data.patterns;
 }
 
 /**
  * Find patterns matching a command sequence
  * @param {string[]} sequence - Command sequence to match
- * @returns {Object[]} Matching patterns
+ * @returns {Promise<Object[]>} Matching patterns
  */
-function findMatchingPatterns(sequence) {
+async function findMatchingPatterns(sequence) {
   const store = getDefaultStore();
-  return store.findSimilar(sequence);
+  return await store.findSimilar(sequence);
 }
 
 /**
  * Get pattern learning statistics
- * @returns {Object} Statistics
+ * @returns {Promise<Object>} Statistics
  */
-function getStats() {
-  return getDefaultStore().getStats();
+async function getStats() {
+  return await getDefaultStore().getStats();
 }
 
 /**
