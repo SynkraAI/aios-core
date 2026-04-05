@@ -12,6 +12,8 @@
 
 const fs = require('fs');
 const path = require('path');
+const AIOXError = require('aiox-core/utils/aiox-error');
+const ErrorRegistry = require('aiox-core/monitor/error-registry');
 
 const {
   estimateContextPercent,
@@ -104,7 +106,11 @@ class SynapseEngine {
         try {
           this.layers.push(new LayerClass());
         } catch (err) {
-          console.warn(`[synapse:engine] Failed to instantiate layer ${mod.name}: ${err.message}`);
+          ErrorRegistry.log(`[synapse:engine] Failed to instantiate layer ${mod.name}: ${err.message}`, {
+            category: 'SYSTEM',
+            display: false,
+            metadata: { layerName: mod.name, stack: err.stack },
+          }).catch(() => {});
         }
       }
     }
